@@ -42,7 +42,6 @@
     
     <sect3>
       <title>Robust error management</title>
-      
       <para>
 	This will probably rely on built-in error support in the chosen protocol.
       </para>
@@ -51,10 +50,8 @@
     <sect3>
       <title>Concurrent modification management</title>
       <para>
-	If two people are trying to change the same item, the second person to submit a modification should get an error.
-	Concurrent modification can be detected by generating hashes of the current state of a given object and refusing
-	to modify the object if the hash doesn't match, meaning another modification was performed between the time
-	when the old state was queried (and the hash created) and the time the object state was asked to be modified.
+	G2 has framework-level support for handling this, we just need to make sure we accurately report errors that
+	arise from concurrent modification, and that we pass serial numbers around.
       </para>
     </sect3>
     
