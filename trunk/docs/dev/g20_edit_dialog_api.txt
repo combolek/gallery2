@@ -47,7 +47,7 @@ if ($doit) {
   this command executes (for example in the case of deleting 
   the item).
 
-  (4) return;
+  (4) return. 
 
 } else {
 
@@ -76,8 +76,9 @@ execution this can be done as follows:
   not set.
 - Here, because $force_return is not set, edit.php will call the
   tab again (in the same page request), this time with $doit NOT set.
-- The non-doit section can then use the error flags set above to 
-  instruct the user as to the error of their ways.  
+- The error data will be assigned to a variable $tab_error. The non-doit 
+  section can then use the error flags set above to instruct the user 
+  as to the error of their ways.  
 
 JAVASCRIPT
 ----------
