@@ -109,7 +109,7 @@ class GalleryNucleus {
 	/*
 	 * Register the persistent variables for this class
 	 */
-	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_INTEGER | STORAGE_ID);
+	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_ID);
 	$this->registerPersistentMember("GalleryNucleus", "dataVersion", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryNucleus", "parentId", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryNucleus", "path", STORAGE_STRING);
@@ -331,10 +331,144 @@ class GalleryNucleus {
     /*
      * ============================================================
      * BEGIN: Accessor methods
+     *   Don't modify anything inside this block as it will get
+     *   overwritten by the code that generates these accessor
+     *   methods.
      * ============================================================
      */
-
-
+    
+    /**
+     * Set the value of dataVersion
+     * 
+     * @param int the new value for dataVersion
+     * @access public
+     */
+    function setDataVersion($value) {
+        assert('!empty($value)');
+        $this->_dataVersion = $value;
+        $this->modifyPersistentMember('dataVersion');
+    }
+    
+    /**
+     * Get the value of dataVersion
+     * 
+     * @access public
+     * @return int the current value of dataVersion
+     */
+    function getDataVersion() {
+        return $this->_dataVersion;
+    }
+    
+    /**
+     * Set the value of id
+     * 
+     * @param int the new value for id
+     * @access public
+     */
+    function setId($value) {
+        assert('!empty($value)');
+        $this->_id = $value;
+        $this->modifyPersistentMember('id');
+    }
+    
+    /**
+     * Get the value of id
+     * 
+     * @access public
+     * @return int the current value of id
+     */
+    function getId() {
+        return $this->_id;
+    }
+    
+    /**
+     * Set the value of objectType
+     * 
+     * @param string the new value for objectType
+     * @access public
+     */
+    function setObjectType($value) {
+        assert('!empty($value)');
+        $this->_objectType = $value;
+        $this->modifyPersistentMember('objectType');
+    }
+    
+    /**
+     * Get the value of objectType
+     * 
+     * @access public
+     * @return string the current value of objectType
+     */
+    function getObjectType() {
+        return $this->_objectType;
+    }
+    
+    /**
+     * Set the value of parentId
+     * 
+     * @param int the new value for parentId
+     * @access public
+     */
+    function setParentId($value) {
+        assert('!empty($value)');
+        $this->_parentId = $value;
+        $this->modifyPersistentMember('parentId');
+    }
+    
+    /**
+     * Get the value of parentId
+     * 
+     * @access public
+     * @return int the current value of parentId
+     */
+    function getParentId() {
+        return $this->_parentId;
+    }
+    
+    /**
+     * Set the value of path
+     * 
+     * @param string the new value for path
+     * @access public
+     */
+    function setPath($value) {
+        assert('!empty($value)');
+        $this->_path = $value;
+        $this->modifyPersistentMember('path');
+    }
+    
+    /**
+     * Get the value of path
+     * 
+     * @access public
+     * @return string the current value of path
+     */
+    function getPath() {
+        return $this->_path;
+    }
+    
+    /**
+     * Set the value of serialNumber
+     * 
+     * @param int the new value for serialNumber
+     * @access public
+     */
+    function setSerialNumber($value) {
+        assert('!empty($value)');
+        $this->_serialNumber = $value;
+        $this->modifyPersistentMember('serialNumber');
+    }
+    
+    /**
+     * Get the value of serialNumber
+     * 
+     * @access public
+     * @return int the current value of serialNumber
+     */
+    function getSerialNumber() {
+        return $this->_serialNumber;
+    }
+    
     /*
      * ============================================================
      * END: Accessor methods

@@ -130,12 +130,14 @@ class GalleryItem extends GalleryNucleus {
     function GalleryItem() {
 	$this->GalleryNucleus();
 
-	$this->registerPersistentMember("GalleryItem", "ownerId", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "commentIds", STORAGE_LIST);
-	$this->registerPersistentMember("GalleryItem", "properties", STORAGE_MAP);
-	$this->registerPersistentMember("GalleryItem", "extendedProperties", STORAGE_MAP);
-	$this->registerPersistentMember("GalleryItem", "thumbnailId", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryItem", "childIds", STORAGE_LIST);
+	$this->registerPersistentMember("GalleryItem", "commentIds", STORAGE_LIST);
+	$this->registerPersistentMember("GalleryItem", "extendedProperties", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "ownerId", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "properties", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "thumbnailId", STORAGE_INTEGER);
+
+	/* HINT: Do not auto-generate accessors for these members */
 	$this->registerPersistentMember("GalleryItem", "allowedPermission", STORAGE_MAP);
 	$this->registerPersistentMember("GalleryItem", "deniedPermission", STORAGE_MAP);
     }
@@ -168,160 +170,6 @@ class GalleryItem extends GalleryNucleus {
 	return false;
     }
 		
-    /**
-     * Add a comment to this GalleryItem
-     *
-     * Add a comment to this GalleryItem
-     *
-     * @access public
-     * @param object CommentContainer $comment
-     * @return int a status code
-     */
-    function addComment($comment) {
-	return $this->_commentIds->addUnique($commentId);
-    }
-
-    /**
-     * Remove a comment from this Item
-     *
-     * Remove a comment from this Item
-     *
-     * @access public
-     * @param string a comment id
-     * @return int a status code
-     */
-    function removeComment($id) {
-	return $this->_commentIds->removeValue($id);
-    }
-
-    /**
-     * Return the value of the property with the given key
-     *
-     * Return a copy of the value of the property with the 
-     * given key.
-     *
-     * @access public
-     * @param string a key name
-     * @return mixed a value
-     */
-    function getProperty($propertyName) {
-	return $this->_properties->getValue($propertyName);
-    }
-
-    /**
-     * Store the given key/value pair
-     *
-     * Store the given value in the properties map and associate
-     * it with the key provided.
-     *
-     * If the parent of this container is sorted, then this operation will
-     * require it to be locked and will trigger a resort of this item.  The
-     * only exception to this case is PROPERTY_VIEWCOUNT, which will not
-     * trigger a re-sort.
-     *
-     * @access public
-     * @param string a key name
-     * @param mixed a value.
-     */
-    function setProperty($propertyName, $value) {
-	return $this->_properties->setValue($propertyName, $value);
-	$this->modifyPersistentMember("properties");
-    }
-
-    /**
-     * Remove the given key
-     *
-     * Remove the given key from the properties map.
-     *
-     * @access public
-     * @param string a key name
-     */
-    function removeProperty($propertyName) {
-	return $this->_properties->removeValue($propertyName);
-	$this->modifyPersistentMember("properties");
-    }
-
-    /**
-     * Return the value of the extended property with the given key
-     *
-     * Return a copy of the value of the extended property with
-     * the given key.
-     *
-     * @access public
-     * @param string a key name
-     * @return mixed a value
-     */
-    function getExtendedProperty($propertyName) {
-	return $this->_extendedProperties->getValue($propertyName);
-    }
-
-    /**
-     * Store the given key/value pair as an extended property
-     *
-     * Store the given value in the extended properties map and
-     * associate it with the key provided.
-     *
-     * @access public
-     * @param string a key name
-     * @param mixed a value.
-     */
-    function setExtendedProperty($propertyName, $value) {
-	return $this->_extendedProperties->setValue($propertyName, $value);
-	$this->modifyPersistentMember("extendedProperties");
-    }
-
-    /**
-     * Remove the given key from the extended properties map
-     *
-     * Remove the given key from the extended properties map.
-     *
-     * @access public
-     * @param string a key name
-     */
-    function removeExtendedProperty($propertyName) {
-	return $this->_extendedProperties->removeValue($propertyName, $value);
-	$this->modifyPersistentMember("extendedProperties");
-    }
-
-    /**
-     * Return the type of this GalleryItem
-     *
-     * Return the type of this GalleryItem
-     *
-     * @access public
-     * @return string the type of this GalleryItem, eg. "Album" or "Photo".
-     */
-    function getType() {
-	return "GalleryItem";
-    }
-
-    /**
-     * Get the id of the ImageContainer containing the thumbnail for this item
-     *
-     * Get the id of the ImageContainer containing the thumbnail for this item
-     *
-     * @access public
-     * @return string the id of the thumbnail ImageContainer
-     */
-    function getThumbnailId() {
-	return $this->_thumbnailId;
-    }
-
-    /**
-     * Get the id of the ImageContainer containing the thumbnail for this item
-     *
-     * Replace any existing thumbnail with the new one (by id).  The new
-     * thumbnail must assume all derivative responsibilities that the old one
-     * had, and the old one should be relieved of its derivative responsibilities
-     *
-     * @access public
-     * @param string id of the ImageContainer containing the thumbnail image
-     */
-    function setThumbnailId($id) {
-	$this->_thumbnailId = $id;
-	$this->modifyPersistentMember("thumbnailId");
-    }
-
     /**
      * Can this item contain other items?
      *
@@ -440,16 +288,6 @@ class GalleryItem extends GalleryNucleus {
 	assert('$this->canContainChildren()');
 	$this->_childIds->removeValue($item->getId());
 	$this->modifyPersistentMember("childIds");
-    }
-
-    /**
-     * Return the id of the User object who owns this GalleryItem
-     *
-     * @access public
-     * @return string the id of the owning user
-     */
-    function getOwnerId() {
-	return $this->_ownerId;
     }
 
     /**
@@ -606,5 +444,112 @@ class GalleryItem extends GalleryNucleus {
 
 	return array($allowed, $denied);
     }
+    
+    /*
+     * ============================================================
+     * BEGIN: Accessor methods
+     *   Don't modify anything inside this block as it will get
+     *   overwritten by the code that generates these accessor
+     *   methods.
+     * ============================================================
+     */
+    
+    /**
+     * Get a reference to childIds
+     * 
+     * Return a reference to the actual instance of childIds
+     * 
+     * @access public
+     * @return object GalleryList the childIds
+     */
+    function getChildIds() {
+        return $this->_childIds;
+    }
+    
+    /**
+     * Get a reference to commentIds
+     * 
+     * Return a reference to the actual instance of commentIds
+     * 
+     * @access public
+     * @return object GalleryList the commentIds
+     */
+    function getCommentIds() {
+        return $this->_commentIds;
+    }
+    
+    /**
+     * Get a reference to extendedProperties
+     * 
+     * Return a reference to the actual instance of extendedProperties
+     * 
+     * @access public
+     * @return object GalleryMap the extendedProperties
+     */
+    function getExtendedProperties() {
+        return $this->_extendedProperties;
+    }
+    
+    /**
+     * Set the value of ownerId
+     * 
+     * @param int the new value for ownerId
+     * @access public
+     */
+    function setOwnerId($value) {
+        assert('!empty($value)');
+        $this->_ownerId = $value;
+        $this->modifyPersistentMember('ownerId');
+    }
+    
+    /**
+     * Get the value of ownerId
+     * 
+     * @access public
+     * @return int the current value of ownerId
+     */
+    function getOwnerId() {
+        return $this->_ownerId;
+    }
+    
+    /**
+     * Get a reference to properties
+     * 
+     * Return a reference to the actual instance of properties
+     * 
+     * @access public
+     * @return object GalleryMap the properties
+     */
+    function getProperties() {
+        return $this->_properties;
+    }
+    
+    /**
+     * Set the value of thumbnailId
+     * 
+     * @param int the new value for thumbnailId
+     * @access public
+     */
+    function setThumbnailId($value) {
+        assert('!empty($value)');
+        $this->_thumbnailId = $value;
+        $this->modifyPersistentMember('thumbnailId');
+    }
+    
+    /**
+     * Get the value of thumbnailId
+     * 
+     * @access public
+     * @return int the current value of thumbnailId
+     */
+    function getThumbnailId() {
+        return $this->_thumbnailId;
+    }
+    
+    /*
+     * ============================================================
+     * END: Accessor methods
+     * ============================================================
+     */
 }
 ?>
