@@ -222,7 +222,7 @@ class MatrixLayout extends GalleryLayout {
 	if ($lowerPage > 1) {
 	    array_unshift($jumprange, 1);
 	}
-	if ($upperRange < $totalPages) {
+	if ($upperPage < $totalPages) {
 	    $jumprange[] = $totalPages;
 	}
 
