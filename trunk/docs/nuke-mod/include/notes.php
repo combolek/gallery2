@@ -110,8 +110,9 @@ function addNote ($sect, $user, $note, $status = '') {
 	
 	$id = mysql_insert_id();
 	
-	$options = 'Edit Note	http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=edit&id='.$id."\n".
-		   'Delete Note http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=delete&id='.$id;
+	$options = 'Manual Page   http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&page='.$sect."\n".
+		   'Edit Note	  http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=edit&id='.$id."\n".
+		   'Delete Note   http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=delete&id='.$id;
 		   
 	mail ('gallery-docs-notes@lists.sf.net', 'Note '.$id.' added to '.$sect, $note."\n\n---------\n".$options, 'From: notes@gallery.menalto.com', '-fnotes@gallery.menalto.com');
 }
