@@ -38,6 +38,7 @@ class Album {
 
 		$this->fields["title"] = "Untitled";
 		$this->fields["description"] = "No description";
+		$this->fields["keywords"] = "";
 		$this->fields["nextname"] = "aaa";
 		$this->fields["bgcolor"] = "";
 		$this->fields["bgcolor2"] = "";
@@ -863,12 +864,21 @@ class Album {
 		$photo->deleteComment($comment_index);
 	}
 
-	function getKeywords($index) {
-		$photo = $this->getPhoto($index);
+	function getKeywords() {
+		return $this->fields["keywords"];
+	}
+
+	function setKeywords($keywords) {
+		$photo = &$this->getPhoto($index);
+		$this->fields["keywords"] = $keywords;
+        }
+
+	function getItemKeywords($index) {
+		$photo = &$this->getPhoto($index);
 		return $photo->getKeywords();
 	}
 
-	function setKeyWords($index, $keywords) {
+	function setItemKeywords($index, $keywords) {
 		$photo = &$this->getPhoto($index);
 		$photo->setKeywords($keywords);
         }

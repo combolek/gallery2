@@ -134,7 +134,7 @@ if ($searchstring) {
 			$numPhotos = $searchAlbum->numPhotos($gallery->user->canWriteToAlbum($searchAlbum));
 			for ($j = 1; $j <= $numPhotos; $j++) {
 				$searchCaption = $searchAlbum->getCaption($j);
-				$searchKeywords = $searchAlbum->getKeywords($j);
+				$searchKeywords = $searchAlbum->getItemKeywords($j);
 				$commentMatch = 0;
 				$commentText = "";
 				for ($k = 1; $k <= $searchAlbum->numComments($j); $k++) {
