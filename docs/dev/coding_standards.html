@@ -7,6 +7,7 @@
       h1   {font-family: "trebuchet ms, arial, verdana"; font-size: 20pt; font-weight: bold}
       h2   {font-family: "trebuchet ms, arial, verdana"; font-size: 16pt; font-weight: bold}
       h3   {font-family: "trebuchet ms, arial, verdana"; font-size: 12pt; font-weight: bold}
+      h4   {font-family: "trebuchet ms, arial, verdana"; font-size: 8pt; font-weight: bold}
       // -->
     </style>
   </head>
@@ -456,10 +457,9 @@
     without accidentally introducing bugs due to forgetting to add
     braces.  
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="returnStatements"><h3>return Statements</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="returnStatements"><h3>return Statements</h3></a>
 	    
     A return statement with a value should not use parentheses unless
     they make the return value more obvious in some way.  Example:
@@ -472,10 +472,9 @@
       return (size ? size : defaultSize);
     </pre>
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="ififelseifelseifelseStatements"><h3>if, if-else, if else-if else Statements</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="ififelseifelseifelseStatements"><h3>if, if-else, if else-if else Statements</h3></a>
 	    
     The if-else class of statements should have the following form: 
 
@@ -506,10 +505,9 @@
           statement;
     </pre>
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="forStatements"><h3>for Statements</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="forStatements"><h3>for Statements</h3></a>
 	    
     A for statement should have the following form: 
 
@@ -533,11 +531,10 @@
     loop (for the initialization clause) or at the end of the loop
     (for the update clause).
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="whileStatements"><h3>while Statements</h3></a>
-	        A while statement should have the following form: 
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="whileStatements"><h3>while Statements</h3></a>
+    A while statement should have the following form: 
 
     <pre>
       while (condition) {
@@ -552,10 +549,10 @@
     </pre>
 
 
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="dowhileStatements"><h3>do-while Statements</h3></a>
-	        A do-while statement should have the following form: 
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="dowhileStatements"><h3>do-while Statements</h3></a>
+    A do-while statement should have the following form: 
 
     <pre>
       do {
@@ -563,11 +560,11 @@
       } while (condition);
     </pre>
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="switchStatements"><h3>switch Statements</h3></a>
-	        A switch statement should have the following form: 
+    
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="switchStatements"><h3>switch Statements</h3></a>
+    A switch statement should have the following form: 
 
     <pre>
       switch (condition) {
@@ -709,18 +706,18 @@
     of time.
 
 
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="CodeDocumentation"><h3>Code Documentation</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="CodeDocumentation"><h3>Code Documentation</h3></a>
 	    
     Finally, each class and function should be preceded by a PHPDoc
     style comment block that describes the purpose of the function,
     its arguments and its return value.  
 
 
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="DocumentHeader"><h3>Document Header</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="DocumentHeader"><h3>Document Header</h3></a>
 	    
     All files should contain the following text in a form where it
     will not interfere with the purpose of the file (ie, commented
@@ -728,7 +725,8 @@
     inclusion into PHP files.
 
     <code>
-      <?
+    <pre>
+      &lt;?
        /*
         * Gallery - a web based photo album viewer and editor
         * Copyright (C) 2000-2001 Bharat Mediratta
@@ -747,15 +745,15 @@
         * along with this program; if not, write to the Free Software
         * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         * 
-        * $Id$
+        * &#36;Id&#36;
         */
-      ?>
+      ?&gt;
+    </pre>
     </code>
 
-
-	     <br>
-	     [<a href=#Contents>contents</a>]
-	     <a name="SpecialComments"><h3>Special Comments</h3></a>
+    <br>
+    [<a href=#Contents>contents</a>]
+    <a name="SpecialComments"><h3>Special Comments</h3></a>
 	    
     Use <b>XXX</b> in a comment to flag something that is bogus but
     works. Use <b>FIXME</b> to flag something that is bogus and
@@ -843,10 +841,9 @@
     [<a href=#Contents>contents</a>]
     <a name="PHPCodeTags"><h3>PHP Code Tags</h3></a>
 	    
-    <i>Always</i> use <?php ?> to delimit PHP code, not the <? ?>
-    shorthand. This is required for PEAR compliance and is also the
-    most portable way to include PHP code on differing operating
-    systems and setups.
+    <i>Always</i> use &lt;?php ?&gt; to delimit PHP code, not the
+    &lt;? ?&gt; shorthand. This is the most portable way to include
+    PHP code on differing operating systems and setups.
 
     <br>
     [<a href=#Contents>contents</a>]
@@ -951,17 +948,19 @@
     <font size=-1>
       <pre>
 $Log$
+Revision 1.2  2001/11/11 08:06:17  bharat
+Numerous cosmetic tweaks, no content changes.
+
 Revision 1.1  2001/11/10 03:26:06  bharat
 Draft #1 of the definitive Gallery code style document.
 
       </pre>
-
     </font>
     <hr>
     <address><a href="mailto:bharat@menalto.com">Bharat Mediratta</a></address>
 <!-- Created: Fri Nov  9 16:37:09 PST 2001 -->
 <!-- hhmts start -->
-Last modified: Fri Nov  9 19:25:25 PST 2001
+Last modified: Sun Nov 11 00:05:25 PST 2001
 <!-- hhmts end -->
   </body>
 </html>
