@@ -18,7 +18,7 @@
     </script>
     {/if}
 
-    {gallery->form controller="$controller" enctype="multipart/form-data" method="post"}
+    {gallery->form action_controller="$controller" enctype="multipart/form-data" method="post"}
     {gallery->input type="hidden" name="form.formName"}ItemAddChildren{/gallery->input}
     {gallery->input type="hidden" name="itemId"}{$item.id}{/gallery->input}
     <table border="0" cellspacing="0" cellpadding="0">
