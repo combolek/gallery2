@@ -104,17 +104,6 @@ class GalleryNucleus {
 	 */
 	$this->_persistentInfo = new stdClass();
 	$this->_persistentInfo->modified = array();
-	$this->_persistentInfo->members = array();
-
-	/*
-	 * Register the persistent variables for this class
-	 */
-	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryNucleus", "dataVersion", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryNucleus", "parentId", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryNucleus", "path", STORAGE_STRING);
-	$this->registerPersistentMember("GalleryNucleus", "serialNumber", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryNucleus", "objectType", STORAGE_STRING);
     }
 
     /**
@@ -322,19 +311,6 @@ class GalleryNucleus {
      */
     function delete() {
 	return $this->_storage->delete($this);
-    }
-
-    /**
-     * Register a class member that will be kept in the persistent store.
-     *
-     * @param string the name of the class the member lives in
-     * @param string the name of the member
-     * @param int a hint to the storage class for how to store this value
-     */
-    function registerPersistentMember($class, $name, $typeHint) {
-	assert('empty($this->_persistentInfo->members[$name])');
-	    
-	$this->_persistentInfo->members[$name] = array($typeHint, $class);
     }
 
     /**

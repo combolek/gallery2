@@ -1,0 +1,128 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+
+/**
+ * Meta description of other Gallery Classes
+ *
+ * This class can describe the members contained in any other Gallery class.
+ * This is necessary for the GalleryStorage class which needs to be able to
+ * look inside a Gallery class to understand how to make it persistent.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryClassMetaInfo {
+
+    /**
+     * Private container for holding class and member information
+     *
+     * @var array $_metaInfo
+     */
+    var $_metaInfo;
+
+    /**
+     * Constructor
+     *
+     * Create a map of classes, members and member types
+     */
+    function GalleryClassMetaInfo() {
+	/* GalleryNucleus */
+	$this->register("GalleryNucleus", "id", STORAGE_INTEGER);
+	$this->register("GalleryNucleus", "dataVersion", STORAGE_INTEGER);
+	$this->register("GalleryNucleus", "parentId", STORAGE_INTEGER);
+	$this->register("GalleryNucleus", "path", STORAGE_STRING);
+	$this->register("GalleryNucleus", "serialNumber", STORAGE_INTEGER);
+	$this->register("GalleryNucleus", "objectType", STORAGE_STRING);
+
+	/* GalleryItem */
+	$this->register("GalleryItem", "childIds", STORAGE_LIST);
+	$this->register("GalleryItem", "commentIds", STORAGE_LIST);
+	$this->register("GalleryItem", "creationTimestamp", STORAGE_INTEGER);
+	$this->register("GalleryItem", "description", STORAGE_TEXT);
+	$this->register("GalleryItem", "isHtmlAllowed", STORAGE_BOOLEAN);
+	$this->register("GalleryItem", "keywords", STORAGE_STRING);
+	$this->register("GalleryItem", "modificationTimestamp", STORAGE_INTEGER);
+	$this->register("GalleryItem", "ownerId", STORAGE_INTEGER);
+	$this->register("GalleryItem", "properties", STORAGE_MAP);
+	$this->register("GalleryItem", "thumbnailId", STORAGE_INTEGER);
+	$this->register("GalleryItem", "title", STORAGE_STRING);
+	$this->register("GalleryItem", "viewCount", STORAGE_INTEGER);
+	$this->register("GalleryItem", "viewedSinceTimestamp", STORAGE_INTEGER);
+
+	/* AlbumItem */
+	$this->register("AlbumItem", "backgroundColor", STORAGE_STRING);
+	$this->register("AlbumItem", "backgroundColor2", STORAGE_STRING);
+	$this->register("AlbumItem", "border", STORAGE_STRING);
+	$this->register("AlbumItem", "borderColor", STORAGE_STRING);
+	$this->register("AlbumItem", "columns", STORAGE_INTEGER);
+	$this->register("AlbumItem", "displayViewCount", STORAGE_BOOLEAN);
+	$this->register("AlbumItem", "font", STORAGE_STRING);
+	$this->register("AlbumItem", "htmlFooter", STORAGE_TEXT);
+	$this->register("AlbumItem", "htmlHeader", STORAGE_TEXT);
+	$this->register("AlbumItem", "layout", STORAGE_STRING);
+	$this->register("AlbumItem", "linkColor", STORAGE_STRING);
+	$this->register("AlbumItem", "allowPrinting", STORAGE_BOOLEAN);
+	$this->register("AlbumItem", "resizeSize", STORAGE_STRING);
+	$this->register("AlbumItem", "rows", STORAGE_INTEGER);
+	$this->register("AlbumItem", "showBreadCrumb", STORAGE_STRING);
+	$this->register("AlbumItem", "textColor", STORAGE_STRING);
+	$this->register("AlbumItem", "thumbSize", STORAGE_STRING);
+	$this->register("AlbumItem", "viewExtendedData", STORAGE_BOOLEAN);
+
+	/* HINT: Do not auto-generate accessors for these members */
+	$this->register("GalleryItem", "allowedPermission", STORAGE_MAP);
+	$this->register("GalleryItem", "deniedPermission", STORAGE_MAP);
+    }
+
+
+    /**
+     * Describe all the members of a class
+     * @return array type and member name
+     */
+    function describeClass($class) {
+	return $this->_metaInfo->classInfo[$class];
+    }
+
+    /**
+     * Describe a member
+     * @return array type and owner class name
+     */
+    function describeMember($member) {
+	return $this->_metaInfo->memberInfo[$member];
+    }
+    
+    /**
+     * Register a class member that will be kept in the persistent store.
+     *
+     * @param string the name of the class the member lives in
+     * @param string the name of the member
+     * @param int a hint to the storage class for how to store this value
+     */
+    function register($class, $name, $typeHint) {
+	assert('empty($this->_metaInfo->memberInfo[$name])');
+	assert('empty($this->_metaInfo->classInfo[$name])');
+
+	$this->_metaInfo->classInfo[$class] = array($typeHint, $name);
+	$this->_metaInfo->memberInfo[$name] = array($typeHint, $class);
+    }
+
+}

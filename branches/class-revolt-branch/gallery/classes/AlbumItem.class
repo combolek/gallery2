@@ -179,25 +179,6 @@ class AlbumItem extends GalleryItem {
      */
     function AlbumItem() {
 	$this->GalleryItem();
-
-	$this->registerPersistentMember("AlbumItem", "backgroundColor", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "backgroundColor2", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "border", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "borderColor", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "columns", STORAGE_INTEGER);
-	$this->registerPersistentMember("AlbumItem", "displayViewCount", STORAGE_BOOLEAN);
-	$this->registerPersistentMember("AlbumItem", "font", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "htmlFooter", STORAGE_TEXT);
-	$this->registerPersistentMember("AlbumItem", "htmlHeader", STORAGE_TEXT);
-	$this->registerPersistentMember("AlbumItem", "layout", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "linkColor", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "allowPrinting", STORAGE_BOOLEAN);
-	$this->registerPersistentMember("AlbumItem", "resizeSize", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "rows", STORAGE_INTEGER);
-	$this->registerPersistentMember("AlbumItem", "showBreadCrumb", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "textColor", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "thumbSize", STORAGE_STRING);
-	$this->registerPersistentMember("AlbumItem", "viewExtendedData", STORAGE_BOOLEAN);
     }
 
     /**

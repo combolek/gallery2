@@ -166,24 +166,6 @@ class GalleryItem extends GalleryNucleus {
      */
     function GalleryItem() {
 	$this->GalleryNucleus();
-
-	$this->registerPersistentMember("GalleryItem", "childIds", STORAGE_LIST);
-	$this->registerPersistentMember("GalleryItem", "commentIds", STORAGE_LIST);
-	$this->registerPersistentMember("GalleryItem", "creationTimestamp", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "description", STORAGE_TEXT);
-	$this->registerPersistentMember("GalleryItem", "isHtmlAllowed", STORAGE_BOOLEAN);
-	$this->registerPersistentMember("GalleryItem", "keywords", STORAGE_STRING);
-	$this->registerPersistentMember("GalleryItem", "modificationTimestamp", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "ownerId", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "properties", STORAGE_MAP);
-	$this->registerPersistentMember("GalleryItem", "thumbnailId", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "title", STORAGE_STRING);
-	$this->registerPersistentMember("GalleryItem", "viewCount", STORAGE_INTEGER);
-	$this->registerPersistentMember("GalleryItem", "viewedSinceTimestamp", STORAGE_INTEGER);
-
-	/* HINT: Do not auto-generate accessors for these members */
-	$this->registerPersistentMember("GalleryItem", "allowedPermission", STORAGE_MAP);
-	$this->registerPersistentMember("GalleryItem", "deniedPermission", STORAGE_MAP);
     }
 
     /**
