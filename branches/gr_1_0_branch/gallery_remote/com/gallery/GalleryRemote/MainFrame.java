@@ -31,7 +31,6 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -135,22 +134,22 @@ public class MainFrame extends javax.swing.JFrame
 			try {
 				String username = p.getProperty( "username." + i );
 				String password = p.getBase64Property( "password." + i );
-	
+
 				Log.log(Log.INFO, MODULE, "loaded saved URL: " + url + " (" + username + "/******)" );
-	
+
 				Gallery g = new Gallery( new URL( url ), username, password, /* TEMPORARY */this);
-	
+
 				galleries.addElement(g);
 			} catch (Exception e) {
 				Log.log(Log.ERROR, MODULE, "Error trying to load profile");
 				Log.logException(Log.ERROR, MODULE, e);
 			}
 		}
-		
+
 		if ( galleries.getSize() == 0 ) {
 			galleries.addElement( new Gallery() );
 		}
-		
+
 		setIconImage(GalleryRemote.iconImage);
 	}
 
@@ -182,7 +181,7 @@ public class MainFrame extends javax.swing.JFrame
 
 		gallery.setModel( galleries );
 		updateGalleryParams();
-		
+
 		resetUIState();
 
 		jCheckBoxMenuThumbnails.setSelected( GalleryRemote.getInstance().properties.getShowThumbnails() );
@@ -211,30 +210,30 @@ public class MainFrame extends javax.swing.JFrame
 			PropertiesFile p = GalleryRemote.getInstance().properties;
 			for (int i = 0; i < galleries.getSize(); i++) {
 				Gallery g = (Gallery) galleries.getElementAt(i);
-				
+
 				String url = g.getUrlString();
 				if ( url != null) {
 					p.setProperty( "url." + i, url );
-					
+
 					if (g.getUsername() != null) {
 						p.setProperty( "username." + i, g.getUsername() );
 					}
-					
+
 					if (p.getBooleanProperty("savePasswords") && g.getPassword() != null) {
 						p.setBase64Property( "password." + i, g.getPassword() );
 					}
 				}
 			}
-	
+
 			p.setMainBounds( getBounds() );
 			p.setPreviewBounds( previewFrame.getBounds() );
 			p.setIntProperty( "inspectorDividerLocation", inspectorDivider.getDividerLocation() );
-	
+
 			p.write();
 
 			setVisible( false );
 			dispose();
-	
+
 			ImageUtils.purgeTemp();
 		} catch (Throwable t) {
 			Log.log(Log.ERROR, MODULE, "Error while closing: " + t);
@@ -250,17 +249,17 @@ public class MainFrame extends javax.swing.JFrame
 			public void run() {
 				// if the list is empty or comm, disable upload
 				upload.setEnabled( mAlbum != null
-				&& mAlbum.sizePictures() > 0 
+				&& mAlbum.sizePictures() > 0
 				&& !mInProgress
 				&& album.getSelectedIndex() >= 0 );
-				
+
 				// during comm, don't change Gallery or do any other comm
 				fetch.setEnabled( !mInProgress );
 				gallery.setEnabled( !mInProgress );
 				newGallery.setEnabled( !mInProgress );
 				username.setEnabled( !mInProgress );
 				password.setEnabled( !mInProgress );
-				
+
 				if (currentGallery.getUsername() != null
 					&& currentGallery.hasComm()
 					&& currentGallery.getComm(MainFrame.this).isLoggedIn()) {
@@ -268,7 +267,7 @@ public class MainFrame extends javax.swing.JFrame
 				} else {
 					fetch.setText("Log in");
 				}
-				
+
 				// if the selected album is uploading, disable everything
 				boolean enabled = ! mInProgress && mAlbum != null && album.getModel().getSize() >= 1;
 				browse.setEnabled( enabled );
@@ -277,7 +276,7 @@ public class MainFrame extends javax.swing.JFrame
 				album.setEnabled( enabled );
 				newAlbum.setEnabled( enabled && currentGallery.hasComm()
 					&& currentGallery.getComm(MainFrame.this).hasCapability(GalleryCommCapabilities.CAPA_NEW_ALBUM));
-				
+
 				// change image displayed
 				int sel = picturesList.getSelectedIndex();
 				/*if (mAlbum != null && mAlbum.getSize() < 1) {
@@ -286,7 +285,7 @@ public class MainFrame extends javax.swing.JFrame
 					// this is fixed by using invokeLater
 					sel = -1;
 				}*/
-				
+
 				if ( GalleryRemote.getInstance().properties.getShowPreview() ) {
 					if ( sel != -1 ) {
 						String filename = ( mAlbum.getPicture( sel ).getSource() ).getPath();
@@ -294,22 +293,22 @@ public class MainFrame extends javax.swing.JFrame
 					} else {
 						previewFrame.displayFile( null );
 					}
-					
+
 					if ( !previewFrame.isVisible() ) {
 						previewFrame.setVisible( true );
 					}
 				}
-				
+
 				// status
 				if ( mAlbum == null) {
 					pictureInspector.setPictures( null );
-					
+
 					setStatus( "Select a Gallery URL and click Log in..." );
 				} else if ( mAlbum.sizePictures() > 0 ) {
 					pictureInspector.setPictures( picturesList.getSelectedValues() );
-					
+
 					int selN = picturesList.getSelectedIndices().length;
-					
+
 					if ( sel == -1 ) {
 						setStatus( mAlbum.sizePictures() + " pictures / "
 						+ NumberFormat.getInstance().format(
@@ -323,7 +322,7 @@ public class MainFrame extends javax.swing.JFrame
 					}
 				} else {
 					pictureInspector.setPictures( null );
-					
+
 					setStatus( "No selection" );
 				}
 		}});
@@ -332,7 +331,7 @@ public class MainFrame extends javax.swing.JFrame
 
 	private void updateGalleryParams() {
 		currentGallery = (Gallery) gallery.getSelectedItem();
-		
+
 		Log.log(Log.TRACE, MODULE, "current gallery: " + currentGallery);
 		if ( currentGallery.getUsername() != null ) {
 			username.setText( currentGallery.getUsername() );
@@ -345,7 +344,7 @@ public class MainFrame extends javax.swing.JFrame
 		} else {
 			password.setText("");
 		}
-		
+
 		updateAlbumCombo();
 		resetUIState();
 	}
@@ -353,24 +352,24 @@ public class MainFrame extends javax.swing.JFrame
 
 	private void updateAlbumCombo() {
 		album.setModel( currentGallery );
-		
+
 		if (album.getModel().getSize() < 1) {
 			album.setEnabled( false );
 			picturesList.setEnabled( false );
-			
+
 			updatePicturesList( null );
 		} else {
 			// album.setSelectedIndex(0);
 			album.setEnabled( ! mInProgress );
-		
+
 			updatePicturesList( (Album) album.getSelectedItem() );
 		}
 	}
 
-	
+
 	private void updatePicturesList( Album album ) {
 		mAlbum = album;
-		
+
 		if (mAlbum == null) {
 			// fake empty album to clear the list
 			picturesList.setModel( new Album() );
@@ -381,8 +380,8 @@ public class MainFrame extends javax.swing.JFrame
 			pictureInspector.setPictures( null );
 		}
 	}
-	
-	
+
+
 	public void setStatus( String message ) {
 		if (! progressOn) {
 			// prevent progress message from being overriden
@@ -411,7 +410,7 @@ public class MainFrame extends javax.swing.JFrame
 		progress.setValue(min);
 		progress.setMaximum(max);
 		//progress.setStringPainted( true );
-		
+
 		if (undetermined && undeterminedThread == null) {
 			undeterminedThread = new Thread() {
 				public void run() {
@@ -422,9 +421,9 @@ public class MainFrame extends javax.swing.JFrame
 						} else if (progress.getValue() <= progress.getMinimum()) {
 							forward = true;
 						}
-						
+
 						updateProgressValue(progressId, progress.getValue() + (forward?1:-1));
-						
+
 						try {
 							sleep(500);
 						} catch (InterruptedException e) {}
@@ -477,7 +476,7 @@ public class MainFrame extends javax.swing.JFrame
 
 		if ( progressId == this.progressId ) {
 			progressOn = false;
-			
+
 			if (undeterminedThread != null) {
 				undeterminedThread.interrupt();
 				undeterminedThread = null;
@@ -491,19 +490,19 @@ public class MainFrame extends javax.swing.JFrame
 			Log.log(Log.TRACE, MODULE, "Wrong progressId when stopping progress");
 		}
 	}
-	
+
 	public void setInProgress(boolean inProgress) {
 		mInProgress = inProgress;
-		
+
 		resetUIState();
 	}
-	
-	
+
+
 	public void error (String message ) {
 		JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
-	
+
+
 
 	/**
 	 *  Open a file selection dialog and load the corresponding files
@@ -585,12 +584,12 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	public void fetchAlbums() {
 		Log.log(Log.INFO, MODULE, "fetchAlbums starting");
-		
+
 		currentGallery.fetchAlbums( this );
-		
+
 		updateAlbumCombo();
 	}
-	
+
 	public void newAlbum() {
 		new NewAlbumDialog(this, currentGallery, mAlbum);
 	}
@@ -601,7 +600,7 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	public void deleteSelectedPictures() {
 		int[] indices = picturesList.getSelectedIndices();
-		
+
 		mAlbum.removePictures( indices );
 	}
 
@@ -648,7 +647,7 @@ public class MainFrame extends javax.swing.JFrame
 			if ( mAlbum != null ) {
 				thumbnailCache.preloadThumbnailFiles( mAlbum.getPictures() );
 			}
-			
+
 			picturesList.setFixedCellHeight( GalleryRemote.getInstance().properties.getThumbnailSize().height + 4 );
 		} else {
 			thumbnailCache.cancelLoad();
@@ -895,7 +894,7 @@ public class MainFrame extends javax.swing.JFrame
 		String command = e.getActionCommand();
 		Log.log(Log.INFO, MODULE, "Command selected " + command);
 		//Log.log(Log.TRACE, MODULE, "        event " + e );
-		
+
 		if ( command.equals( "File.Quit" ) ) {
 			thisWindowClosing( null );
 		} else if ( command.equals( "File.Save" ) ) {
@@ -913,7 +912,7 @@ public class MainFrame extends javax.swing.JFrame
 					mAlbum.clearPictures();
 				}
 				mAlbum = null;
-				
+
 				resetUIState();
 			} else {
 				// the first part of this "if" may have tried to reconnect and failed
@@ -936,15 +935,15 @@ public class MainFrame extends javax.swing.JFrame
 			command.equals( "comboBoxEdited" ) ) {
 			//Log.log(Log.TRACE, MODULE, "modifiers: " + e.getModifiers());
 			//Log.log(Log.TRACE, MODULE, "paramString: " + e.paramString());
-			Log.log(Log.TRACE, MODULE, "selected: " + gallery.getSelectedItem().toString() 
+			Log.log(Log.TRACE, MODULE, "selected: " + gallery.getSelectedItem().toString()
 				+ " (" + gallery.getSelectedIndex() + ")");
-			
+
 			if (gallery.getSelectedItem() instanceof String) {
 				// text of a url edited
 				try {
 					currentGallery.setUrlString((String) gallery.getSelectedItem());
 				} catch ( MalformedURLException mue ) {
-					
+
 					JOptionPane.showMessageDialog(this, "Malformed URL", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
@@ -1090,7 +1089,7 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	public void contentsChanged( ListDataEvent e ) {
 		Object source = e.getSource();
-		
+
 		if (source == picturesList) {
 			// Also tell MainFrame (ugly, but works around bug in Swing where when
 			// the list data changes (and nothing remains to be selected), no
@@ -1105,7 +1104,7 @@ public class MainFrame extends javax.swing.JFrame
 	public void caretUpdate(CaretEvent e) {
 		Object c = e.getSource();
 		//Log.log(Log.TRACE, MODULE, "caretUpdate: " + e + " (" + c + ")");
-		
+
 		if (c == username) {
 			currentGallery.setUsername(username.getText());
 			resetUIState();
@@ -1165,17 +1164,17 @@ public class MainFrame extends javax.swing.JFrame
 				JList list, Object value, int index,
 				boolean selected, boolean hasFocus ) {
 			super.getListCellRendererComponent( list, value, index, selected, hasFocus );
-			
+
 			if (value != null && index != -1) {
 				Picture p = mAlbum.getPicture( index );
 				File f = p.getSource();
-	
+
 				if ( GalleryRemote.getInstance().properties.getShowThumbnails() ) {
 					ImageIcon icon = getThumbnail( p );
 					setIcon( icon );
 					setIconTextGap( 4 + GalleryRemote.getInstance().properties.getThumbnailSize().width - icon.getIconWidth() );
 				}
-	
+
 				StringBuffer text = new StringBuffer();
 				text.append("<html><p>");
 
@@ -1194,7 +1193,7 @@ public class MainFrame extends javax.swing.JFrame
 			} else {
 				setText("dummy");
 			}
-			
+
 			return this;
 		}
 	}
