@@ -8,7 +8,7 @@
   {gallery->detailedbox}
     {gallery->body}
       {gallery->status}
-	{if isset($status.settingsSaved)}
+	{if isset($status.saved)}
 	  {gallery->text text="Changes saved successfully."}
 	{/if}
       {/gallery->status}

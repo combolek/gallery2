@@ -48,6 +48,8 @@ class AdminGroupsController extends GalleryController {
 	}
 
 	$results = array();
+	$status = array();
+	$error = array();
 
 	$group = null;
 	if (!empty($form['text']['groupName'])) {
@@ -89,24 +91,24 @@ class AdminGroupsController extends GalleryController {
 	} else if (isset($form['action']['create'])) {
 
 	    /* Show the "create group" view */
-	    $results['view'] = 'core:SiteAdmin';
-	    GalleryUtilities::putRequestVariable('subView', 'core:AdminCreateGroup');
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminCreateGroup';
 	    
 	} else if (isset($form['action']['editFromList'])) {
 
 	    if (empty($form['list']['groupId'])) {
-		GalleryUtilities::putRequestVariable('form.error.list.noGroupSelected', 1);
+		$error[] = 'form.error.list.noGroupSelected';
 	    } else {
 		/* Show the "edit group" view */
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminEditGroup');
-		GalleryUtilities::putRequestVariable('groupId', $form['list']['groupId']);
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminEditGroup';
+		$redirect['groupId'] = $form['list']['groupId'];
 	    }
 	    
 	} else if (isset($form['action']['addRemoveUsersFromList'])) {
 
 	    if (empty($form['list']['groupId'])) {
-		GalleryUtilities::putRequestVariable('form.error.list.noGroupSelected', 1);
+		$error[] = 'form.error.list.noGroupSelected';
 	    } else {
 		/* Make sure we're not trying to add users to the All Users group */
 		list ($ret, $group) = $gallery->loadEntitiesById($form['list']['groupId']);
@@ -115,19 +117,19 @@ class AdminGroupsController extends GalleryController {
 		}
 
 		if ($group->getGroupType() == GROUP_ALL_USERS) {
-		    GalleryUtilities::putRequestVariable('form.error.list.cantEditUsers', 1);
+		    $error[] = 'form.error.list.cantEditUsers';
 		} else {
 		    /* Show the "edit group" view */
-		    $results['view'] = 'core:SiteAdmin';
-		    GalleryUtilities::putRequestVariable('subView', 'core:AdminEditGroupUsers');
-		    GalleryUtilities::putRequestVariable('groupId', $form['list']['groupId']);
+		    $redirect['view'] = 'core:SiteAdmin';
+		    $redirect['subView'] = 'core:AdminEditGroupUsers';
+		    $redirect['groupId'] = $form['list']['groupId'];
 		}
 	    }
 	    
 	} else if (isset($form['action']['deleteFromList'])) {
 
 	    if (empty($form['list']['groupId'])) {
-		GalleryUtilities::putRequestVariable('form.error.list.noGroupSelected', 1);
+		$error[] = 'form.error.list.noGroupSelected';
 	    } else {
 		list ($ret, $allUserGroupId) = $gallery->getModuleParameter('core', 'id.allUserGroup');
 		if ($ret->isError()) {
@@ -140,62 +142,67 @@ class AdminGroupsController extends GalleryController {
 		}
 
 		if ($form['list']['groupId'] == $allUserGroupId) {
-		    GalleryUtilities::putRequestVariable('form.error.list.cantDeleteAllUsersGroup', 1);
+		    $error[] = 'form.error.list.cantDeleteAllUsersGroup';
 		} else if ($form['list']['groupId'] == $adminGroupId) {
-		    GalleryUtilities::putRequestVariable('form.error.list.cantDeleteAdminGroup', 1);
+		    $error[] = 'form.error.list.cantDeleteAdminGroup';
 		} else {
 		    /* Show the "delete group" view */
-		    $results['view'] = 'core:SiteAdmin';
-		    GalleryUtilities::putRequestVariable('subView', 'core:AdminDeleteGroup');
-		    GalleryUtilities::putRequestVariable('groupId', $form['list']['groupId']);
+		    $redirect['view'] = 'core:SiteAdmin';
+		    $redirect['subView'] = 'core:AdminDeleteGroup';
+		    $redirect['groupId'] = $form['list']['groupId'];
 		}
 	    }
 	    
 	} else if (isset($form['action']['editFromText'])) {
 
 	    if (empty($form['text']['groupName'])) {
-		GalleryUtilities::putRequestVariable('form.error.text.noGroupSpecified', 1);
+		$error[] = 'form.error.text.noGroupSpecified';
 	    } else if ($group == null) {
-		GalleryUtilities::putRequestVariable('form.error.text.noSuchGroup', 1);
+		$error[] = 'form.error.text.noSuchGroup';
 	    } else {
 		/* Show the "edit group" view */
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('groupId', $group->getId());
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminEditGroup');
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminEditGroup';
+		$redirect['groupId'] = $group->getId();
 	    }
 	    
 	} else if (isset($form['action']['deleteFromText'])) {
 
 	    if (empty($form['text']['groupName'])) {
-		GalleryUtilities::putRequestVariable('form.error.text.noGroupSpecified', 1);
+		$error[] = 'form.error.text.noGroupSpecified';
 	    } else if ($group == null) {
-		GalleryUtilities::putRequestVariable('form.error.text.noSuchGroup', 1);
+		$error[] = 'form.error.text.noSuchGroup';
 	    } else {
 		/* Show the "delete group" view */
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminDeleteGroup');
-		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminDeleteGroup';
+		$redirect['groupId'] = $group->getId();
 	    }
 		
 	} else if (isset($form['action']['addRemoveUsersFromText'])) {
 
 	    if (empty($form['text']['groupName'])) {
-		GalleryUtilities::putRequestVariable('form.error.text.noGroupSpecified', 1);
+		$error[] = 'form.error.text.noGroupSpecified';
 	    } else if ($group == null) {
-		GalleryUtilities::putRequestVariable('form.error.text.noSuchGroup', 1);
+		$error[] = 'form.error.text.noSuchGroup';
 	    } else {
 		/* Show the "edit group's users" view */
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminEditGroupUsers');
-		GalleryUtilities::putRequestVariable('groupId', $group->getId());
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminEditGroupUsers';
+		$redirect['groupId'] = $group->getId();
 	    }
 		
 	}
 
-	if (empty($results['view'])) {
-	    $results['view'] = 'core:SiteAdmin';
-	    GalleryUtilities::putRequestVariable('subView', 'core:AdminGroups');
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
+	} else {
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminGroups';
 	}
+
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

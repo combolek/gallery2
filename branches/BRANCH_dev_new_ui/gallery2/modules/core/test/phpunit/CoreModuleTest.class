@@ -129,18 +129,19 @@ class CoreModuleTest extends GalleryTestCase {
     }
 
     function testLoadSystemContent() {
-	list ($ret, $content) = $this->_module->loadSystemContent($template);
+	$template = new CoreModuleMockTemplate();
+	list ($ret, $file) = $this->_module->loadSystemContent($template);
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(array(), $content);
+	$this->assertEquals('modules/core/templates/CoreSystemContent.tpl', $file);
     }
 
     function testGetItemLinks() {
 	global $gallery;
 
-	list ($ret, $content) = $this->_module->getItemLinks($this->_parentAlbum);
+	list ($ret, $content) = $this->_module->getItemLinks(array($this->_parentAlbum));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -203,8 +204,8 @@ class CoreModuleTest extends GalleryTestCase {
     
     function testGetItemSummaries() {
 	global $gallery;
-	
-	list ($ret, $content) = $this->_module->getItemSummaries($this->_parentAlbum);
+
+	list ($ret, $content) = $this->_module->getItemSummaries(array($this->_parentAlbum));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -215,12 +216,13 @@ class CoreModuleTest extends GalleryTestCase {
     function testGetItemDetails() {
 	global $gallery;
 	
-	list ($ret, $content) = $this->_module->getItemSummaries($this->_parentAlbum);
+	$template = new CoreModuleMockTemplate();
+	list ($ret, $content) = $this->_module->loadItemDetails($template, $this->_parentAlbum);
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(array(), $content);
+	$this->assertEquals(null, $content);
     }
 
     function testSetModuleParameter() {
@@ -238,6 +240,11 @@ class CoreModuleTest extends GalleryTestCase {
 	}
 
 	$this->assertEquals($value, $newValue);
+    }
+}
+
+class CoreModuleMockTemplate {
+    function setVariable() {
     }
 }
 ?>

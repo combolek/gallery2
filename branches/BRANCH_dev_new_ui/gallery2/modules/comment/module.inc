@@ -186,6 +186,7 @@ class CommentModule extends GalleryModule {
 	    }
 
 	    if (isset($permissions['comment.add'])) {
+		$params['return'] = 'true';
 		$params['view'] = 'core:ItemAdmin';
 		$params['subView'] = 'comment:AddComment';
 		$params['itemId'] = $item->getId();
@@ -201,7 +202,7 @@ class CommentModule extends GalleryModule {
     /**
      * @see GalleryModule::loadItemSummaries()
      */
-    function getItemSummaries(&$template, $items) {
+    function getItemSummaries($items) {
 	global $gallery;
 
 	$ids = array();

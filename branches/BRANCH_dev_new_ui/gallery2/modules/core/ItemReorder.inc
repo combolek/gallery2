@@ -52,18 +52,17 @@ class ItemReorderController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$error = false;
+	$status = array();
+	$error = array();
 	if (isset($form['action']['reorder'])) {
 
 	    /* Verify that we've got what we need */
 	    if (empty($form['selectedId'])) {
-		GalleryUtilities::putRequestVariable('form.error.selectedId.missing', 1);
-		$error = true;
+		$error[] = 'form.error.selectedId.missing';
 	    }
 
 	    if (empty($form['targetId'])) {
-		GalleryUtilities::putRequestVariable('form.error.targetId.missing', 1);
-		$error = true;
+		$error[] = 'form.error.targetId.missing';
 	    }
 
 	    $before = 0;
@@ -74,7 +73,7 @@ class ItemReorderController extends GalleryController {
 	    /*
 	     * Make sure that the selectedId and targetId are children of the album
 	     */
-	    if (!$error) {
+	    if (empty($error)) {
 		$selectedId = $form['selectedId'];
 		$targetId = $form['targetId'];
 		list ($ret, $entities) = $gallery->loadEntitiesById(array($selectedId, $targetId));
@@ -88,7 +87,7 @@ class ItemReorderController extends GalleryController {
 		}
 	    }
 
-	    if (!$error) {
+	    if (empty($error)) {
 		$loopCount = 0;
 		while (true) {
 		    /*
@@ -143,20 +142,21 @@ class ItemReorderController extends GalleryController {
 		}
 		
 		// Redirect back to the same page so that we can do more reordering
-		$redirectParams['view'] = 'core:ItemAdmin';
-		$redirectParams['subView'] = 'core:ItemReorder';
-		$redirectParams['itemId'] = $itemId;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['subView'] = 'core:ItemReorder';
+		$redirect['itemId'] = $itemId;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemReorder');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemReorder';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -55,7 +55,6 @@ class ShowTreeView extends GalleryView {
     function renderBody($form) {
 	global $gallery;
 
-	$return = GalleryUtilities::getFormVariables('return.');
 	list ($entityId, $itemId) = GalleryUtilities::getRequestVariables('entityId', 'itemId');
 
 	/* Make sure we have permission */
@@ -107,7 +106,6 @@ class ShowTreeView extends GalleryView {
 	$template->setVariable('entityId', $entityId);
 	$template->setVariable('entityTable', $entityTable);
 	$template->setVariable('form', $form);
-	$template->setVariable('return', $return);
 	list($ret, $html) = $template->render('ShowTree.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);

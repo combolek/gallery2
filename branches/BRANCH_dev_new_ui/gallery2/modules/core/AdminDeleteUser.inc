@@ -49,14 +49,14 @@ class AdminDeleteUserController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
+	$error = array();
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	
 	if (isset($form['action']['cancel'])) {
 
 	    /* Go back to the AdminUsers view */
-	    $results['view'] = 'core:SiteAdmin';
-	    GalleryUtilities::putRequestVariable('subView', 'core:AdminUsers');
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminUsers';
 	    
 	} else if (isset($form['action']['delete'])) {
 
@@ -88,21 +88,20 @@ class AdminDeleteUserController extends GalleryController {
 		}
 
 		/* Request a redirect to the confirmation screen */
-		$redirectParams['view'] = 'core:SiteAdmin';
-		$redirectParams['subView'] = 'core:AdminUsers';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminUsers';
 		$status['deletedUser'] = $user->getUsername();
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminDeleteUser');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminDeleteUser';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -53,21 +53,27 @@ class ItemCreateResizesController extends GalleryController {
 
 	$redirectParams = array();
 	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 
 	    /* Validate the input data. */
-	    $error = false;
 	    if (!is_numeric($form['thumbnail']['size'])) {
-		$error = true;
-	    }
-	    foreach ($form['resizes'] as $resize) {
-		if (!empty($resize['active']) && !is_numeric($resize['size'])) {
-		    $error = true;
-		    break;
-		}
+		$error[] = 'form.error.thumbnail.size.missing';
 	    }
 
-	    if (!$error) {
+	    for ($i = 0; $i < sizeof($form['resizes']); $i++) {
+		if (empty($form['resizes'][$i]['active'])) {
+		    continue;
+		}
+
+		if (empty($form['resizes'][$i]['size'])) {
+		    $error[] = sprintf('form.error.resizes.%d.size.missing', $i);
+		} else if (!is_numeric($form['resizes'][$i]['size']) || $form['resizes'][$i]['size'] <= 0) {
+		    $error[] = sprintf('form.error.resizes.%d.size.invalid', $i);
+		}
+	    }
+	    
+	    if (empty($error)) {
 		/* Load the thumbnail */
 		list ($ret, $thumbTable) =
 			GalleryDerivativeHelper::fetchThumbnailsByItemIds($item->getId());
@@ -191,22 +197,21 @@ class ItemCreateResizesController extends GalleryController {
 		}
 
 		/* Figure out where to redirect upon success */
-		$redirectParams['view'] = 'core:ItemAdmin';
-		$redirectParams['subView'] = 'core:ItemCreateResizes';
-		$redirectParams['itemId'] = $item->getId();
-		$status['settingsSaved'] = 1;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['subView'] = 'core:ItemCreateResizes';
+		$redirect['itemId'] = $item->getId();
+		$status['saved'] = 1;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemCreateResizes');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemCreateResizes';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }
@@ -241,26 +246,11 @@ class ItemCreateResizesView extends GalleryView {
 
 	if ($form['formName'] == 'ItemCreateResizes') {
 
-	    /* Complain if we have any invalid data */
-	    if (empty($form['thumbnail']['size'])) {
-		$form['error']['thumbnail']['size']['missing'] = 1;
-	    } else if (!is_numeric($form['thumbnail']['size']) ||
-		       $form['thumbnail']['size'] <= 0) {
-		$form['error']['thumbnail']['size']['invalid'] = 1;
-	    }
-
 	    for ($i = 0; $i < sizeof($form['resizes']); $i++) {
 		if (empty($form['resizes'][$i]['active'])) {
-		    /* Force it to a value, but don't check the data */
+		    /* Force it to a value */
 		    $form['resizes'][$i]['active'] = 0;
 		    continue;
-		}
-
-		if (empty($form['resizes'][$i]['size'])) {
-		    $form['error']['resizes'][$i]['size']['missing'] = 1;
-		} else if (!is_numeric($form['resizes'][$i]['size']) ||
-			   $form['resizes'][$i]['size'] <= 0) {
-		    $form['error']['resizes'][$i]['size']['invalid'] = 1;
 		}
 	    }
 	    

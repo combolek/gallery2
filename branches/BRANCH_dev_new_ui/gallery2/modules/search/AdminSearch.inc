@@ -46,8 +46,11 @@ class AdminSearchController extends GalleryController {
 	/* ... take some action here ... */
 
 	/* Figure out where to redirect upon success */
+	$results['return'] = 1;
 	$results['redirect']['view'] = 'core:SiteAdmin';
 	$results['redirect']['subView'] = 'search:AdminSearch';
+	$results['status'] = array();
+	$results['error'] = array();
 
 	return array(GalleryStatus::success(), $results);
     }

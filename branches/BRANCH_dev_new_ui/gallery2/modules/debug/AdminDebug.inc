@@ -48,8 +48,11 @@ class AdminDebugController extends GalleryController {
 	/* ... take some action here ... */
 
 	/* Figure out where to redirect upon success */
+	$results['return'] = 1;
 	$results['redirect']['view'] = 'core:SiteAdmin';
 	$results['redirect']['subView'] = 'comment:AdminDebug';
+	$results['status'] = array();
+	$results['error'] = array();
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -890,5 +890,15 @@ class GalleryUtilities {
 	global $HTTP_SERVER_VARS;
 	return $HTTP_SERVER_VARS['REMOTE_ADDR'];
     }
+
+    /**
+     * Return the current URL
+     *
+     * @return string the current URL
+     */
+    function getCurrentUrl() {
+	global $HTTP_SERVER_VARS;
+	return $HTTP_SERVER_VARS['REQUEST_URI'];
+    }
 }
 ?>

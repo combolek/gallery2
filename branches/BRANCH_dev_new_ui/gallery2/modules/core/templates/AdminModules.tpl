@@ -32,7 +32,7 @@
 	  {gallery->column}
 	    {if (!empty($module.action))}
 	      {if (empty($module.action.controller)) }
-		{gallery->link url_view='core:SiteAdmin' url_subView=$module.action.view url_return_view='core:SiteAdmin' url_return_subView='core:AdminModules'}
+		{gallery->link url_return="true" url_view='core:SiteAdmin' url_subView=$module.action.view}
 		  {$module.action.text}
 		{/gallery->link}
 	      {else}

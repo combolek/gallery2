@@ -281,7 +281,7 @@ class CoreModule extends GalleryModule {
 			       'exec.expectedStatus' => '0',
 			       'default.orderBy' => 'id',
 			       'default.orderDirection' => '1',
-			       'default.layout' => 'classic',
+			       'default.layout' => 'matrix',
 			       'default.theme' => 'matrix',
 			       'default.language' => GalleryTranslator::getLanguageCodeFromRequest(),
 			       'session.idParameter' => 'GALLERYSID',

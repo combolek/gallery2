@@ -46,10 +46,11 @@ class ItemMoveController extends GalleryController {
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 
+	$status = array();
+	$error = array();
 	if (isset($form['action']['move'])) {
 
 	    /* First check if everything would be okay with the change */
-	    $problem = false;
 	    $canAddItem = false;
 	    $canAddAlbum = false;
 	    if (!empty($form['destination'])) {
@@ -64,8 +65,7 @@ class ItemMoveController extends GalleryController {
 		$canAddItem = isset($permissions['core.addDataItem']);
 		$canAddAlbum = isset($permissions['core.addAlbumItem']);
 		if (!$canAddAlbum && !$canAddItem) {
-		    $problem = true;
-		    GalleryUtilities::putRequestVariable('form.error.destination.permission', 1);
+		    $error[] = 'form.error.destination.permission';
 		}
 
 		/* Load the destination item */
@@ -85,11 +85,10 @@ class ItemMoveController extends GalleryController {
 		}
 		$newParentAncestorIds[] = $newParentId;
 	    } else {
-		$problem = true;
-		GalleryUtilities::putRequestVariable('form.error.destination.empty', 1);
+		$error[] = 'form.error.destination.empty';
 	    }
 	    
-	    if (!$problem && !empty($form['selectedIds'])) {
+	    if (empty($error) && !empty($form['selectedIds'])) {
 		$selectedIds = array_keys($form['selectedIds']);
 		GalleryUtilities::putRequestVariable('form.selectedIds', $selectedIds);
 		
@@ -111,9 +110,7 @@ class ItemMoveController extends GalleryController {
 
 		    foreach ($newParentAncestorIds as $newParentAncestorId) {
 			if ($selectedId == $newParentAncestorId) {
-			    $problem = true;
-			    GalleryUtilities::putRequestVariable('form.error.source.' . $selectedId .
-								 '.selfMove', 1);
+			    $error[] = 'form.error.source.' . $selectedId . '.selfMove';
 			    continue 2; // Skip out of the foreach($selectedItem) also
 			}
 		    }
@@ -126,26 +123,20 @@ class ItemMoveController extends GalleryController {
 
 		    /* Can we delete this item from here? */
 		    if (! isset($permissions['core.delete'])) {
-			$problem = true;
-			GalleryUtilities::putRequestVariable('form.error.source.' . $selectedId .
-							     '.permission.delete', 1);
+			$error[] = 'form.error.source.' . $selectedId . '.permission.delete';
 		    }
 		    
 		    /* Check if the destination allows this source to be added */
 		    if ($selectedItem->getCanContainChildren() && ! $canAddAlbum) {
-			$problem = true;
-			GalleryUtilities::putRequestVariable('form.error.source.' . $selectedId .
-							     '.permission.addAlbumItem', 1);
+			$error[] = 'form.error.source.' . $selectedId . '.permission.addAlbumItem';
 		    } elseif (! $selectedItem->getCanContainChildren() && ! $canAddItem) {
-			$problem = true;
-			GalleryUtilities::putRequestVariable('form.error.source.' . $selectedId .
-							     '.permission.addDataItem', 1);
+			$error[] = 'form.error.source.' . $selectedId . '.permission.addDataItem';
 		    }
 		}
 		$oldParentIds = array_values(array_unique($oldParentIds));
 	    }
 	    
-	    if (!$problem && !empty($selectedIds) && !empty($newParentId)) {
+	    if (empty($error) && !empty($selectedIds) && !empty($newParentId)) {
 
 		/* Read lock myself, my parent id and the new parent id */
 		$lockIds = array();
@@ -179,19 +170,19 @@ class ItemMoveController extends GalleryController {
 		}
 
 		/* Figure out where to redirect upon success */
-		$redirectParams['view'] = 'core:ItemAdmin';
-		$redirectParams['itemId'] = $itemId;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['itemId'] = $itemId;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemMove');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemMove';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

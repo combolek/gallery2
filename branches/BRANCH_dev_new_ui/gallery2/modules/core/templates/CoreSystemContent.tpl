@@ -13,7 +13,7 @@
       {/if}
       {if isset($CoreSystemContent.show.login)}
 	{gallery->item}
-	  {gallery->link url_view="core:UserAdmin" url_subView="core:UserLogin"}
+	  {gallery->link url_return="true" url_view="core:UserAdmin" url_subView="core:UserLogin"}
 	    {gallery->text text="Login"}
 	  {/gallery->link}
 	{/gallery->item}
@@ -27,7 +27,7 @@
       {/if}
       {if isset($CoreSystemContent.show.logout)}
 	{gallery->item}
-	  {gallery->link url_controller="core:Logout"}
+	  {gallery->link url_return="true" url_controller="core:Logout"}
 	    {gallery->text text="Logout"}
 	  {/gallery->link}
 	{/gallery->item}

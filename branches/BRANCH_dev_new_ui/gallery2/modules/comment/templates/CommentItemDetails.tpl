@@ -19,14 +19,14 @@
 	      {gallery->linksbox}
 		{if $CommentItemDetails.can.edit}
 		  {gallery->item}
-		    {gallery->link url_view="core:ItemAdmin" url_subView="comment:EditComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
+		    {gallery->link url_return="true" url_view="core:ItemAdmin" url_subView="comment:EditComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
 		      {gallery->text text="edit"}
 		    {/gallery->link}
 		  {/gallery->item}
 		{/if}
 		{if $CommentItemDetails.can.delete}
 		  {gallery->item}
-		    {gallery->link url_view="comment:DeleteComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
+		    {gallery->link url_return="true" url_view="core:ItemAdmin" url_subView="comment:DeleteComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
 		      {gallery->text text="delete"}
 		    {/gallery->link}
 		  {/gallery->item}
@@ -46,7 +46,7 @@
 	  {/gallery->description}
 
 	  {gallery->body}
-	    {$comment.comment}
+	    {$comment.comment|truncate:256}
 	  {/gallery->body}
 	{/gallery->detailedbox}
       {/foreach}

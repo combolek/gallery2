@@ -43,7 +43,8 @@ class UserLoginController extends GalleryController {
 	global $gallery;
 
 	$results = array();
-
+	$status = array();
+	$error = array();
 	if (isset($form['action']['login'])) {
 
 	    if (!empty($form['password']) && !empty($form['username'])) {
@@ -56,28 +57,28 @@ class UserLoginController extends GalleryController {
 		    $session =& $gallery->getSession();
 		    $session->put('core.id.activeUser', $user->getId());
 
-		    // XXX: where do we go?
-		    $redirectParams = array('view' => 'core:UserAdmin',
-					    'subView' => 'core:UserPreferences');
+		    $redirect['view'] = 'core:UserAdmin';
+		    $redirect['subView'] = 'core:UserPreferences';
+		    $status['loggedin'] = 1;
 		} else {
-		    GalleryUtilities::putRequestVariable('form.error.invalidPassword', 1);
+		    $error[] = 'form.error.invalidPassword';
 		}
 	    }
 
 	} else if (isset($form['action']['cancel'])) {
-	    // XXX: Haven't figured out how this should work yet
-	    $redirectParams = array('view' => 'core:UserAdmin',
-				    'subView' => 'core:UserLogin');
+	    $redirect['view'] = 'core:UserAdmin';
+	    $redirect['subView'] = 'core:UserLogin';
 	}
 	
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
+	if (!empty($redirect)) {
+	    $results['return'] = 1;
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:UserAdmin';
-		$results['subView'] = 'core:UserLogin';
-	    }
+	    $results['delegate']['view'] = 'core:UserAdmin';
+	    $results['delegate']['subView'] = 'core:UserLogin';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

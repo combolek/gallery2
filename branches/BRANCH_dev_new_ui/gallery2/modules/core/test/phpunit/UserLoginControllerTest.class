@@ -69,8 +69,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.password', 'password'); // from _createRandomUser
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
-						      'subView' => 'core:UserPreferences')),
+	$this->assertEquals(array('return' => 1,
+				  'redirect' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserPreferences'),
+				  'status' => array('loggedin' => 1),
+				  'error' => array()),
 			    $results);
     }
 
@@ -80,9 +83,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.password', 'password'); // from _createRandomUser
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:UserAdmin',
-				  'subView' => 'core:UserLogin'), $results);
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.invalidPassword'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserLogin'),
+				  'status' => array(),
+				  'error' => array('form.error.invalidPassword')),
+			    $results);
     }
 
     function testLoginValidUserInvalidPassword() {
@@ -91,17 +96,23 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.password', 'wrong password');
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:UserAdmin',
-				  'subView' => 'core:UserLogin'), $results);
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.invalidPassword'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserLogin'),
+				  'status' => array(),
+				  'error' => array('form.error.invalidPassword')),
+			    $results);
     }
 
     function testCancel() {
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
-						      'subView' => 'core:UserLogin')), $results);
+	$this->assertEquals(array('return' => 1,
+				  'redirect' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserLogin'),
+				  'status' => array(),
+				  'error' => array()),
+			    $results);
     }
 }
 ?>

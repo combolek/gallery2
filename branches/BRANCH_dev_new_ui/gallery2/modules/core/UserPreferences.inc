@@ -54,26 +54,24 @@ class UserPreferencesController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
-
+	$error = array();
 	if (isset($form['action']['cancel'])) {
 
-	    /* Redirect back to the return view */
-	    /* XXX: broken for now */
-	    $redirectParams = array();
+	    /* Redirect back to the current view */
+	    $redirect['view'] = 'core:UserAdmin';
+	    $redirect['subView'] = 'core:UserPreferences';
 	    
 	} else if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:UserAdmin';
-	    $redirectParams['subView'] = 'core:UserPreferences';
+	    $redirect['view'] = 'core:UserAdmin';
+	    $redirect['subView'] = 'core:UserPreferences';
 	    
 	} else if (isset($form['action']['save'])) {
 
 	    /*
 	     * Validate our data before we continue.
 	     */
-	    $error = false;
 
 	    /* full name is optional */
 	    
@@ -81,15 +79,14 @@ class UserPreferencesController extends GalleryController {
 
 	    /* email required for non-anonymous */
 	    if (empty($form['email'])) {
-		GalleryUtilities::putRequestVariable('form.error.email.missing', 1);
-		$error = true;
+		$error[] = 'form.error.email.missing';
 	    }
 
 	    /*
 	     * If all the right fields are in place then go ahead and modify
 	     * the user.
 	     */
-	    if (!$error) {
+	    if (empty($error)) {
 		list ($ret, $lockId) = $gallery->acquireWriteLock($userId);
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -117,21 +114,21 @@ class UserPreferencesController extends GalleryController {
 		}
 
 		/* Request a redirect to the confirmation screen */
-		$redirectParams['view'] = 'core:UserAdmin';
-		$redirectParams['subView'] = 'core:UserPreferences';
+		$redirect['view'] = 'core:UserAdmin';
+		$redirect['subView'] = 'core:UserPreferences';
 		$status['saved'] = 1;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:UserAdmin';
-		$results['subView'] = 'core:UserPreferences';
-	    }
+	    $results['delegate']['view'] = 'core:UserAdmin';
+	    $results['delegate']['subView'] = 'core:UserPreferences';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	
 
 	return array(GalleryStatus::success(), $results);
     }
