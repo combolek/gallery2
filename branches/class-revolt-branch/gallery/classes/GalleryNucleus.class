@@ -44,6 +44,7 @@ class GalleryNucleus {
 
     /**
      * The id of the parent of this GalleryNucleus
+     *
      * @var int $_parentId
      */
     var $_parentId;
@@ -53,8 +54,26 @@ class GalleryNucleus {
      * value, when combined with the paths of all the parent
      * objects (say, "rootAlbum", "album01") will form the
      * complete path to the item ("rootAlbum/album01/image1").
+     *
+     * @var string $_path
      */
     var $_path;
+
+    /**
+     * The serial number of this object in the persistent store.  This value
+     * will help us to avoid collisions.
+     *
+     * @var int $_serial;
+     */
+    var $_serialNumber;
+
+    /**
+     * The actual type of this object.  This will allow the storage class to
+     * correctly load this object from the database.
+     *
+     * @var string $_objectType
+     */
+    var $_objectType;
 
     /**
      * Keep track of which internal values are persistant and which ones aren't
@@ -78,17 +97,7 @@ class GalleryNucleus {
      *
      * @param string the id of the object to load
      */
-    function GalleryNucleus($id='') {
-	$this->constructor();
-	$this->loadOrCreate($id);
-    }
-
-    /**
-     * Initialize this instance
-     *
-     * @param string the id of the object to load
-     */
-    function constructor() {
+    function GalleryNucleus() {
 
 	/*
 	 * Initialize our persistent info tracker
@@ -100,27 +109,60 @@ class GalleryNucleus {
 	/*
 	 * Register the persistent variables for this class
 	 */
-	$this->registerPersistentMember("id", STORAGE_INTEGER | STORAGE_ID);
-	$this->registerPersistentMember("dataVersion", STORAGE_INTEGER);
-	$this->registerPersistentMember("parentId", STORAGE_INTEGER);
-	$this->registerPersistentMember("path", STORAGE_STRING);
+	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_INTEGER | STORAGE_ID);
+	$this->registerPersistentMember("GalleryNucleus", "dataVersion", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryNucleus", "parentId", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryNucleus", "path", STORAGE_STRING);
+	$this->registerPersistentMember("GalleryNucleus", "serialNumber", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryNucleus", "objectType", STORAGE_STRING);
     }
 
     /**
      * Hook this object up to the persistent store
      *
-     * If an id is provided, load from the persistent store.  Else, create a
-     * new object in the store. 
+     * Overlay this object with the data in the persistent store with the given
+     * id.
+     *
+     * @param int the id of this object, or null to create a new one
+     * @return int a status code
      */
-    function loadOrCreate($id='') {
+    function load($id='') {
+	assert('!empty($id)');
 	global $gallery;
-	$storage =& $gallery->getStorage();
 
-	if (empty($id)) {
-	    $storage->newNucleus($this);
-	} else {
-	    $storage->loadNucleus($id, $this);
+	/* See if we already have a cached instance, use it if so */
+	$instance =& $gallery->getCachedNucleus($id);
+	if (!empty($instance)) {
+	    $this =& $instance;
+	    return SUCCESS;
 	}
+
+	/* Load the nucleus from our persistent store */
+	global $storage;
+	$ret = $storage->loadNucleus($id, $this);
+	if ($ret == SUCCESS) {
+	    $gallery->addToCache($this);
+	}
+	return $ret;
+    }
+
+    /**
+     * Create a new instance of this GalleryNucleus in the persistent store
+     *
+     * @return int a status code
+     */
+    function create() {
+	assert('empty($id)');
+	
+	global $gallery;
+
+	/* Create a new instance of this nucleus in the persistent store */
+	$storage =& $gallery->getStorage();
+	$ret = $storage->newNucleus($this);
+	if ($ret == SUCCESS) {
+	    $gallery->addToCache($this);
+	}
+	return $ret;
     }
 
     /**
@@ -169,7 +211,7 @@ class GalleryNucleus {
      * @access public
      */
     function setParentId($id) {
-	assert($id);
+	assert('!empty($id)');
 	$this->_parentId = $id;
 	$this->modifyPersistentMember("parentId");
     }
@@ -235,6 +277,15 @@ class GalleryNucleus {
      * @return int a status code
      */
     function save() {
+	global $gallery;
+
+	/* Make sure we're locked */
+	assert('$gallery->isLocked($this->_id)');
+
+	/* Make sure we're working with the unique instance of this object */
+	$unique =& $gallery->getNucleusById($this->_id, get_class($this));
+	assert('$unique == $this');
+	
 	if ($this->_needToBeSaved) {
 	    return $this->_storage->save($this);
 	}
@@ -248,8 +299,7 @@ class GalleryNucleus {
      * @return int a status code
      */
     function refresh() {
-	$this = $this->_storage->refresh($this);
-	return SUCCESS;
+	return $this->_storage->refresh($this);
     }
 
     /**
@@ -271,11 +321,24 @@ class GalleryNucleus {
      * @param string the name of the member
      * @param int a hint to the storage class for how to store this value
      */
-    function registerPersistentMember($name, $typeHint) {
+    function registerPersistentMember($class, $name, $typeHint) {
 	// Sanity check
 	assert('empty($this->_persistentInfo->members[$name])');
 	    
-	$this->_persistentInfo->members[$name] = $typeHint;
+	$this->_persistentInfo->members[$name] = array($typeHint, $class);
     }
+
+    /*
+     * ============================================================
+     * BEGIN: Accessor methods
+     * ============================================================
+     */
+
+
+    /*
+     * ============================================================
+     * END: Accessor methods
+     * ============================================================
+     */
 }
 ?>
