@@ -67,6 +67,9 @@ class ItemEditImageController extends GalleryController {
 	    $preferred = $preferredTable[$item->getId()];
 	}
 
+	$redirectParams = array();
+	$status = array();
+
 	$remapSourceIds = array();
 	$operation = null;
 	/* Figure out which command we're taking */
@@ -101,6 +104,7 @@ class ItemEditImageController extends GalleryController {
 		$redirectParams['view'] = 'core:ItemAdmin';
 		$redirectParams['subView'] = 'core:ItemEditImage';
 		$redirectParams['itemId'] = $itemId;
+		$status['revertedImage'] = 1;
 	    }
 	}
 
@@ -260,6 +264,15 @@ class ItemEditImageController extends GalleryController {
 	    $redirectParams['view'] = 'core:ItemAdmin';
 	    $redirectParams['subView'] = 'core:ItemEditImage';
 	    $redirectParams['itemId'] = $itemId;
+	    switch ($operation) {
+	    case 'rotate':
+		$status['rotatedImage'] = 1;
+		break;
+
+	    case 'scale':
+		$status['scaledImage'] = 1;
+		break;
+	    }
 	}
 
 	/* Check to see if we need to remap any derivative source ids */
@@ -273,6 +286,7 @@ class ItemEditImageController extends GalleryController {
 
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
+	    $results['status'] = $status;
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:ItemAdmin';
@@ -295,7 +309,7 @@ class ItemEditImageView extends GalleryView {
     /**
      * @see GalleryView::renderBody
      */
-    function renderBody($form) {
+    function renderBody($form, $status) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -333,6 +347,7 @@ class ItemEditImageView extends GalleryView {
 	$template = $this->_getTemplate();
 	$template->setVariable('hasPreferredSource', $hasPreferredSource);
 	$template->setVariable('form', $form);
+	$template->setVariable('status', $status);
 	$template->setVariable('item', $item->getMemberData());
 	$template->setVariable('controller', 'core:ItemEditImage');
 	list($ret, $html) = $template->render('ItemEditImage.tpl');
