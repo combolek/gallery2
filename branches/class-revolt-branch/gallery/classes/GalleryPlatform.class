@@ -40,6 +40,7 @@ class GalleryPlatform {
      * @param string the source file
      * @param string the destination file
      * @return bool TRUE if the copy succeeded, FALSE otherwise.
+     * @public
      */
     function copy($source, $dest) {
 	$source = $this->importPath($source);
@@ -54,6 +55,7 @@ class GalleryPlatform {
      * Return the system-wide temporary directory
      *
      * @return string a directory path
+     * @public
      */
     function tempdir() {
 	return export_filename(getenv("TEMP"));
@@ -64,6 +66,7 @@ class GalleryPlatform {
      *
      * @param string full filesystem path to a file
      * @return bool TRUE if the file exists, FALSE otherwise
+     * @public
      */
     function file_exists($filename) {
 	$filename = $this->importPath($filename);
@@ -75,6 +78,7 @@ class GalleryPlatform {
      *
      * @param string a filesystem path
      * @return bool TRUE if the file is a link, FALSE otherwise
+     * @public
      */
     function is_link($filename) {
 	$filename = $this->importPath($filename);
@@ -86,6 +90,7 @@ class GalleryPlatform {
      *
      * @param string a filesystem path
      * @return bool TRUE if the path is a directory, FALSE otherwise
+     * @public
      */
     function is_dir($filename) {
 	$filename = $this->importPath($filename);
@@ -97,6 +102,7 @@ class GalleryPlatform {
      *
      * @param string a filesystem path 
      * @return bool TRUE if the path is a file, FALSE otherwise
+     * @public
      */
     function is_file($filename) {
 	$filename = $this->importPath($filename);
@@ -108,6 +114,7 @@ class GalleryPlatform {
      *
      * @param string a filesystem path 
      * @return bool TRUE if the path is an executable file, FALSE otherwise
+     * @public
      */
     function is_executable($filename) {
 	$filename = $this->importPath($filename);
@@ -119,6 +126,7 @@ class GalleryPlatform {
      *
      * @param string full filesystem path to a file
      * @return int the size in bytes
+     * @public
      */
     function filesize($filename) {
 	$filename = $this->importPath($filename);
@@ -132,6 +140,7 @@ class GalleryPlatform {
      * @param string a file mode
      * @param int if this is set to 1, search the include path also
      * @return resource a file descriptor
+     * @public
      */
     function fopen($filename, $mode, $use_include_path=0) {
 	$path = $this->importPath($filename);
@@ -143,6 +152,7 @@ class GalleryPlatform {
      *
      * @param string a file path
      * @return resource a directory descriptor
+     * @public
      */
     function opendir($path) {
 	$path = $this->importPath($path);
@@ -157,6 +167,7 @@ class GalleryPlatform {
      * @param string original file/dir name
      * @param string new file/dir name
      * @return bool true on success, false on failure
+     * @public
      */
     function rename($oldname, $newname) {
 	$oldname = $this->importPath($oldname);
@@ -182,6 +193,7 @@ class GalleryPlatform {
      *
      * @param string file/dir name
      * @return array the statistics of the file
+     * @public
      */
     function stat($filename) {
 	$filename = $this->importPath($filename);
@@ -193,6 +205,7 @@ class GalleryPlatform {
      *
      * @param string file/dir name
      * @return bool true on success, false on failure
+     * @public
      */
     function unlink($filename) {
 	$filename = $this->importPath($filename);
@@ -205,6 +218,7 @@ class GalleryPlatform {
      * @param string a filesystem path
      * @param int permissions of the newly created directory
      * @return bool true on success, false on failure
+     * @public
      */
     function mkdir($path, $perms) {
 	$path = $this->importPath($path);
@@ -219,6 +233,7 @@ class GalleryPlatform {
      *
      * @param string neutral path
      * @return string platform specific path
+     * @public
      */
     function importPath($path) {
 	/* This must be implemented in a platform specific way */
@@ -230,6 +245,7 @@ class GalleryPlatform {
      *
      * @param string platform specific path
      * @return string neutral path
+     * @public
      */
     function exportPath($path) {
 	/* This must be implemented in a platform specific way */
@@ -241,6 +257,7 @@ class GalleryPlatform {
      *
      * @param string neutral path
      * @return string platform specific path
+     * @public
      */
     function executablePath($path) {
 	/* This must be implemented in a platform specific way */
@@ -258,6 +275,7 @@ class GalleryPlatform {
      * @param int the location to put the status code from the command
      * @param string optional file to record STDERR output
      * @return bool TRUE if the copy succeeded, FALSE otherwise.
+     * @public
      */
     function exec($cmd, &$results, &$status, $debugfile="") {
 	/* This must be implemented in a platform specific way */
