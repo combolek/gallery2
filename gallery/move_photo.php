@@ -65,7 +65,7 @@ if ($gallery->session->albumName && isset($index)) {
 
         if (isset($newAlbum)) {	// we are moving from one album to another
 		if ($gallery->session->albumName == $newAlbum) {
-			echo gallery_error(_("You can't move photos into the album they already exist in."));
+			gallery_error(_("You can't move photos into the album they already exist in."));
 			exit;
 		}
             	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
@@ -73,7 +73,7 @@ if ($gallery->session->albumName && isset($index)) {
 			printf(_("You do not have the required permissions to write to %s!"), $newAlbum);
 			exit;
 		}
-	       	if (isset($postAlbum->fields['name']) && ($gallery->album->fields['name'] != $postAlbum->fields['name'])) {
+	       	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
 			$votes_transferable = $gallery->album->pollsCompatible($postAlbum);
 			$vote_id=$gallery->album->getVotingIdByIndex($index);
 
@@ -182,7 +182,7 @@ if ($gallery->session->albumName && isset($index)) {
 										$id,
 										$postAlbum->fields['name']));
 						} else {
-							echo gallery_error($err);
+							echo "<font color=red>". _("Error") . ": "."$err!</font>";
 							return;
                 				}
 			     		} else {
@@ -320,11 +320,11 @@ if (sizeof($gallery->album->fields["votes"])> 0) {
 }
 
 if (!$uptodate) {
-	echo '<span class="error">' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>';
-	echo '<a href="' . makeGalleryUrl("upgrade_album.php") . '"><br>' . _("Upgrade now") . '</a>';
+	print '<span class="error"> <br>' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>  ' .
+	'<a href="'. makeGalleryUrl("upgrade_album.php").'"><br>'. _("Upgrade now") . '</a>.<p>';
 }
 ?>
-<p>
+<br><br>
 <input type="submit" value="<?php echo _("Move to Album!") ?>">
 <input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
@@ -332,7 +332,7 @@ if (!$uptodate) {
 } // end reorder    
 }
 } else {
-	echo gallery_error(_("no album / index specified"));
+	gallery_error(_("no album / index specified"));
 }
 ?>
 </font>

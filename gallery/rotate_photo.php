@@ -54,7 +54,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isIt
 <span class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {
-	if (isset($rotate) && !empty($rotate)) {
+	if ($rotate) {
 ?>
 	 <?php echo _("Rotating/Flipping photo.") ?>
 	<br>
@@ -100,7 +100,7 @@ if ($gallery->session->albumName && isset($index)) {
 
 <?php
 } else {
-	echo gallery_error(_("no album / index specified"));
+	gallery_error(_("no album / index specified"));
 }
 ?>
 

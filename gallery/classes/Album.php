@@ -172,7 +172,7 @@ class Album {
 		return $mostRecent;
 	}
 
-	function &getNestedAlbum($index) {
+	function getNestedAlbum($index) {
 		
 		$albumName = $this->getAlbumName($index);
 		$album = new Album();
@@ -819,7 +819,7 @@ class Album {
 		if ($success && $msg) { // send email
 			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
-				echo gallery_error(_("msg should be an array!"));
+				gallery_error(_("msg should be an array!"));
 				vd($msg);
 				return $success;
 			}
@@ -1266,7 +1266,7 @@ class Album {
 		if ($index >= 1 && $index <= sizeof($this->photos)) { 
 			return $this->photos[$index-1];
 		} else {
-			echo gallery_error(sprintf(_("Requested index [%d] out of bounds [%d]"),$index,sizeof($this->photos)));
+			print "ERROR: requested index [$index] out of bounds [" . sizeof($this->photos) . "]";
 		}
 	}
 
@@ -1558,7 +1558,7 @@ class Album {
 		if ($status != 0) {
 		    // An error occurred.
 		    return array("junk1" => "",
-				 "Error" => sprintf(_("Error %s getting EXIF data"),$status),
+				 "Error" => "Error $status getting EXIF data",
 				 "junk2" => "");
 		}
 
@@ -2056,7 +2056,7 @@ class Album {
 		if ($this->fields["poll_type"] != "critique") {
 			return false;
 		}
-		if (isset($album->fields["poll_type"]) && ($album->fields["poll_type"] != "critique")) {
+		if ($album->fields["poll_type"] != "critique") {
 			return false;
 		}
 		if ($this->fields["poll_scale"] != $album->fields["poll_scale"]) {
@@ -2162,7 +2162,7 @@ class Album {
 		       	if (gallery_validate_email($user->getEmail())) {
 			       	$result[]=$user->getEmail();
 		       	} else if (isDebugging()) {
-				echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
+			       	gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
 							$user->getUsername(), $uid, $user->getEmail()));
 		       	}
 	       	}

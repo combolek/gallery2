@@ -1,4 +1,4 @@
-<!-- Begin adminAlbumCommands -->
+<!-- Beginn adminAlbumCommands -->
 <div class="admin"><?php
 
 /* User is allowed to delete the album */

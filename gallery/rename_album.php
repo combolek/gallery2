@@ -57,7 +57,7 @@ $albumDB = new AlbumDB(FALSE);
 if (!empty($newName)) {
 	$newName = str_replace("'", "", $newName);
 	$newName = str_replace("`", "", $newName);
-	$newName = strtr($newName, "\\/*?\"<>|& .+#()", "---------------");
+	$newName = strtr($newName, "\\/*?\"<>|& .+#", "-------------");
 	$newName = ereg_replace("\-+", "-", $newName);
 	$newName = ereg_replace("\-+$", "", $newName);
 	$newName = ereg_replace("^\-", "", $newName);
@@ -86,7 +86,7 @@ if (!empty($newName)) {
 		for ($i=1; $i <= $gallery->album->numPhotos(1); $i++) {
 			if ($gallery->album->getAlbumName($i)) {
 				$childAlbum = $gallery->album->getNestedAlbum($i);
-				$childAlbum->fields['parentAlbumName'] = $newName;
+				$childAlbum->fields[parentAlbumName] = $newName;
 				$childAlbum->save();
 			}
 		}
@@ -98,7 +98,7 @@ if (!empty($newName)) {
 		}
 		return;
 	} else {
-		echo gallery_error(_("There is already an album with that name!"));
+		gallery_error(_("There is already an album with that name!"));
 	}
 } else {
 	$newName = $gallery->session->albumName;
@@ -109,7 +109,7 @@ if (!empty($newName)) {
 <?php echo _("What do you want to name this album?") ?>
 <br>
 <?php echo _("The name cannot contain any of the following characters") ?>:
-<br><center><b>\ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # ( )</b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br></center>
+<br><center><b>\ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # </b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br></center>
 <?php echo _("Those characters will be ignored in your new album name.") ?>
 
 <br>

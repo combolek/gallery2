@@ -455,7 +455,7 @@ if (!empty($adminOptionHTML)) {
 }
 
 $userCommands = '';
-if ($gallery->album->fields["slideshow_type"] != "off" && $numPhotos !=0) {
+if ($gallery->album->fields["slideshow_type"] != "off") {
        	$userCommands .= "<a class=\"admin\" href=\"" . 
 	       	makeGalleryUrl("slideshow.php",
 			       	array("set_albumName" => $albumName)) .
@@ -546,11 +546,11 @@ if (($gallery->album->getPollType() == "rank") && canVote())
                                 ":</td>\n";
 			$index=$gallery->album->getIndexByVotingId($id);
 			$albumName=$gallery->album->getAlbumName($index);
-			if ($gallery->album->isAlbum($index)) {
+			if ($albumName) {
                         	print "<td><a href=\n".
 					makeAlbumUrl($albumName). ">\n";
 			       	$myAlbum = new Album();
-			       	$myAlbum->load($albumName);
+			       	$myAlbum->load($gallery->album->getAlbumName($index));
 			       	print sprintf(_("Album: %s"), $myAlbum->fields['title']);
 			       	print  "</a></td></tr>\n";
 			} else {
@@ -702,7 +702,7 @@ if ($numPhotos) {
 			$gallery->html_wrap['borderColor'] = $bordercolor;
 			$gallery->html_wrap['borderWidth'] = $borderwidth;
 			$gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
-			if ($gallery->album->isAlbum($i)) {
+			if ($gallery->album->getAlbumName($i)) {
 				$scaleTo = 0; //$gallery->album->fields["thumb_size"];
 				$album = $gallery->album->getNestedAlbum($i);
 				list($iWidth, $iHeight) = $album->getHighlightDimensions($scaleTo);
@@ -732,7 +732,7 @@ if ($numPhotos) {
 					$gallery->html_wrap['imageHref'];
 			       	/*end backwards compatibility*/
 				includeHtmlWrap('inline_moviethumb.frame');
-			} elseif ($gallery->album->isAlbum($i)) {
+			} elseif ($gallery->album->getAlbumName($i)) {
 				$myAlbumName = $gallery->album->getAlbumName($i);
 				$myAlbum = new Album();
 				$myAlbum->load($myAlbumName);
@@ -814,7 +814,7 @@ if ($numPhotos) {
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
 	                $myAlbumName = $gallery->album->getAlbumName($i);
-			if ($gallery->album->isAlbum($i)) {
+			if ($myAlbumName) {
 				$myAlbum = new Album;
 				$myAlbum->load($myAlbumName);
 			}       
@@ -822,7 +822,7 @@ if ($numPhotos) {
 				$myAlbum = NULL;
 			}
                         
-			if ($gallery->album->isAlbum($i)) {
+			if ($gallery->album->getAlbumName($i)) {
 			    $iWidth = $gallery->album->fields['thumb_size'];
 			} else {
 			    list($iWidth, $iHeight) = $gallery->album->getThumbDimensions($i);
@@ -857,25 +857,23 @@ if ($numPhotos) {
 					$myDescription != "") {
 					$buf = $buf."<br>".$myDescription."";
 				}
-				echo $buf;
-
-				echo '<br><br><span class="fineprint">';
-				echo _("Changed: ") ." ". $myAlbum->getLastModificationDate();
- 				echo "\n<br>";
-				echo _("Contains: ") ." ". pluralize_n(array_sum($myAlbum->numVisibleItems($gallery->user)), _("1 item"), _("items"), _("0 items")) . '.';
-				$lastCommentDate = $myAlbum->lastCommentDate();
-				if ($lastCommentDate > 0) {
-					print lastCommentString($lastCommentDate, $displayCommentLegend);
-				}
-				echo '</span><br>';
-				if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) &&  !$gallery->session->offline && ($myAlbum->getClicks() > 0)) {
-					echo '<span class="viewcounter">';
-					echo _("Viewed:") . " ". pluralize_n($myAlbum->getClicks(), _("1 time") , _("times"), _("0 times"));
-					echo ".<br></span>";
-				}
-				echo '</span>';
-			} 
-			else {
+				echo($buf."<br>");
+?>
+				<br>
+				<span class="fineprint">
+				   <?php echo _("Changed: ") ?><?php echo $myAlbum->getLastModificationDate() ?>.  <br>
+				   <?php echo _("Contains: ") ?><?php echo pluralize_n(array_sum($myAlbum->numVisibleItems($gallery->user)), _("1 item"), _("items"), _("0 items")) ?>.
+				   <?php 
+				   $lastCommentDate = $myAlbum->lastCommentDate();
+				   if ($lastCommentDate > 0) {
+					   print lastCommentString($lastCommentDate, $displayCommentLegend);
+				   } ?><br>
+				   <?php if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) &&  !$gallery->session->offline && ($myAlbum->getClicks() > 0)) { ?>
+				   	<?php echo _("Viewed:") ?> <?php echo pluralize_n($myAlbum->getClicks(), _("1 time") , _("times"), _("0 times")) ?>.<br>
+				   <?php } ?>
+				</span>
+<?php
+			} else {
 				echo(nl2br($gallery->album->getCaption($i)));
 				echo($gallery->album->getCaptionName($i));
 				// indicate with * if we have a comment for a given photo
@@ -886,10 +884,9 @@ if ($numPhotos) {
 				}
 				echo("<br>");
 				if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) && !$gallery->session->offline && ($gallery->album->getItemClicks($i) > 0)) {
-					echo '<span class="viewcounter">';
-					echo _("Viewed:") ." ". pluralize_n($gallery->album->getItemClicks($i), _("1 time"), _("times") ,_("0 times")) ;
-					echo ".<br></span>";
+					echo _("Viewed:") ." ".pluralize_n($gallery->album->getItemClicks($i), _("1 time"), _("times") ,_("0 times")).".<br>";
 				}
+
 			}
 		       	echo "</td></tr></table>";
 		       	if (canVote()) {
@@ -902,7 +899,7 @@ if ($numPhotos) {
 			if ($showAdminForm) {
 				if ($gallery->album->isMovie($id)) {
 					$label = _("Movie");
-				} elseif ($gallery->album->isAlbum($i)) {
+				} elseif ($gallery->album->getAlbumName($i)) {
 					$label = _("Album");
 				} else {
 					$label = _("Photo");
@@ -916,13 +913,13 @@ if ($numPhotos) {
 			}
 			if ($gallery->album->getItemOwnerModify() && 
 			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbum($i) &&
+			    !$gallery->album->getAlbumName($i) &&
 			    !$gallery->user->canChangeTextOfAlbum($gallery->album)) {
 				showChoice("Edit Text", "edit_caption.php", array("index" => $i));
 			}
 			if ($gallery->album->getItemOwnerModify() && 
 			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbum($i) &&
+			    !$gallery->album->getAlbumName($i) &&
 			    !$gallery->album->isMovie($id) &&
 			    !$gallery->user->canWriteToAlbum($gallery->album)) {
 				showChoice("Edit Thumbnail", "edit_thumb.php", array("index" => $i));
@@ -933,7 +930,7 @@ if ($numPhotos) {
 			}
 			if ($gallery->album->getItemOwnerDelete() && 
 			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbum($i) &&
+			    !$gallery->album->getAlbumName($i) &&
 			    !$gallery->user->canDeleteFromAlbum($gallery->album)) {
 				showChoice("Delete $label", "delete_photo.php", array("id" => $id));
 			}
@@ -962,7 +959,7 @@ if ($numPhotos) {
 				}
 			}
 			if ($gallery->user->canWriteToAlbum($gallery->album) && $showAdminForm) {
-				if (!$gallery->album->isMovie($id) && !$gallery->album->isAlbum($i)) {
+				if (!$gallery->album->isMovie($id) && !$gallery->album->getAlbumName($i)) {
 					showChoice(_("Edit Thumbnail"), "edit_thumb.php", array("index" => $i));
 					showChoice(_("Rotate/Flip") ." $label", "rotate_photo.php", array("index" => $i));
 					if (strlen($gallery->app->watermarkDir)) {
@@ -972,11 +969,11 @@ if ($numPhotos) {
 				if (!$gallery->album->isMovie($id)) {
 					 /* Show Highlight Album/Photo only when this i a photo, or Album has a highlight */
 					$nestedAlbum=$gallery->album->getNestedAlbum($i);
-					if (!$gallery->album->isAlbum($i) || $nestedAlbum->hasHighlight()) {
+					if (! $gallery->album->getAlbumName($i) || $nestedAlbum->hasHighlight()) {
 						showChoice(_('Highlight') . " $label", 'do_command.php', array('cmd' => 'highlight', 'index' => $i));
 					}
 				}
-				if ($gallery->album->isAlbum($i)) {
+				if ($gallery->album->getAlbumName($i)) {
 				        $myAlbumName = $gallery->album->getAlbumName($i);
 
 					showChoice(_("Reset Counter"), "do_command.php",
@@ -986,7 +983,7 @@ if ($numPhotos) {
 				}
 				showChoice(_("Move ") . $label, "move_photo.php", array("index" => $i, 'reorder' => 0));
 				showChoice(_("Reorder ") . $label, "move_photo.php", array("index" => $i, 'reorder' => 1));
-				if (!$gallery->album->isAlbum($i)) {
+				if (!$gallery->album->getAlbumName($i)) {
 					showChoice(_("Copy ") . $label, "copy_photo.php", array("index" => $i));
 				}
 			}
@@ -1000,7 +997,7 @@ if ($numPhotos) {
 				}
 			}
 			if ($gallery->user->canDeleteFromAlbum($gallery->album) && $showAdminForm) {
-				if($gallery->album->isAlbum($i)) {
+				if($gallery->album->getAlbumName($i)) {
 					if($gallery->user->canDeleteAlbum($myAlbum)) {
 						showChoice(_("Delete") . " $label", "delete_photo.php",
 							array("id" => $myAlbum->fields["name"],
@@ -1011,18 +1008,18 @@ if ($numPhotos) {
 						   array("id" => $id));
 				}
 			}
-			if($gallery->album->isAlbum($i)) {
+			if($gallery->album->getAlbumName($i)) {
 			    if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($myAlbum) && $showAdminForm) {
 				showChoice(_("Permissions"), "album_permissions.php",
 					   array("set_albumName" => $myAlbum->fields["name"]));
 
 				/* Watermarking support is enabled and user is allowed to watermark images/albums */
 				if (strlen($gallery->app->watermarkDir)) {
-					showChoice(_("Watermark Album"), "watermark_album.php", array("set_albumName" => $myAlbum->fields["name"]));
+					showChoice(_("watermark&nbsp;album"),"watermark_album.php",array("set_albumName" => $myAlbum->fields["name"]));
 				}
 			    }
 			}
-                       if ($gallery->user->isAdmin() && !$gallery->album->isAlbum($i)) {
+                       if ($gallery->user->isAdmin() && !$gallery->album->getAlbumName($i)) {
                                showChoice(_("Change Owner"), "photo_owner.php", array("id" => $id));
                        }
 

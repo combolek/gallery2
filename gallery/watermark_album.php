@@ -46,7 +46,7 @@ if (empty($index)) {
 $err = "";	
 if (isset($save)) {
 	if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12)) {
-		if (isset($wmName) && !empty($wmName)) {
+		if (isset($wmName) && strlen($wmName)) {
 			print "<html><body>\n";
 	                echo "<center> ". _("Watermarking album.")."<br>(". _("this may take a while"). ")</center>\n";
 
@@ -75,8 +75,9 @@ if (isset($save)) {
 
 <?php
 if (!empty($err)) {
-	echo "\n<p>". gallery_error($err) . "</p>";
+	echo '<p class="error">'. $err . "</p>\n";
 }
+
    echo makeFormIntro("watermark_album.php",
                       array("name" => "theform",
                             "method" => "POST"));

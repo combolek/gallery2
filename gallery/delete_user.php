@@ -65,9 +65,8 @@ if (isset($cancel)) {
 
 <?php
 if (!strcmp($gallery->user->getUsername(), $uname)) {
-	echo '<p align="center">';
-	echo gallery_error(_("You can't delete your own account!"));
-	echo '</p>';
+	print center(gallery_error(_("You can't delete your own account!")));
+	print "<p>";
 } else {
 ?>
 <?php echo _("Users can have special permissions in each album.") ?>

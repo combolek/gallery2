@@ -105,10 +105,17 @@ function viewComments($index, $addComments) {
        	}
 }
 
-function gallery_error($message) {
-	return '<span class="error">'. _("Error:") . $message .'</span>';
+function center($message) {
+	return "<center>$message</center>";
 }
 
+function gallery_error($message) {
+	echo error_format($message);
+}
+
+function error_format($message) {
+	return "<span class=\"error\">". _("Error:") . " $message</span>";
+}
 
 function build_popup_url($url, $url_is_complete=0) {
 
@@ -269,6 +276,20 @@ function getDimensions($file, $regs=false) {
 		echo "<br>Unable to determine image dimensions!<br>";
 
 	return array(0, 0);
+}
+
+/*
+   $opts is now a name/value array, where $key is the value returned, and $name 
+   is the value displayed (and translated).
+ */
+function selectOptions($album, $field, $opts) {
+	foreach ($opts as $key => $value) {
+		$sel = "";
+		if (!strcmp($key, $album->fields[$field])) {
+			$sel = "selected";
+		}
+		echo "\n<option value=\"$key\" $sel>" . _($value) ."</option>";
+	}
 }
 
 function acceptableFormat($tag) {
@@ -541,8 +562,8 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
          return 0;
       }
    } else {
-	echo gallery_error(_("No watermark name specified!"));
-	return 0;
+      echo "<br> ". _("Error: No watermark name specified!") ."<br>";
+      return 0;
    }
 
    // Set or Clip $wmAlignX and $wmAlignY
@@ -820,7 +841,7 @@ function cut_image($src, $dest, $x, $y, $width, $height) {
 	}
 
 	if (fs_file_exists("$out") && fs_filesize("$out") > 0) {
-		if (isset($useTemp)) {
+		if ($useTemp) {
 			fs_copy($out, $dest);
 			fs_unlink($out);
 		}
@@ -878,7 +899,7 @@ function toPnmCmd($file) {
 		 	" " .
 			fs_import_filename($file);
 	} else {
-		echo gallery_error(sprintf(_("Unknown file type: %s"), $file));
+		gallery_error(sprintf(_("Unknown file type: %s"), $file));
 		return "";
 	}
 }
@@ -901,7 +922,7 @@ function fromPnmCmd($file, $quality=NULL) {
 	if ($cmd) {
 		return "$cmd > " . fs_import_filename($file);
 	} else {
-		echo gallery_error(sprintf(_("Unknown file type: %s"), $file));
+		gallery_error(sprintf(_("Unknown file type: %s"), $file));
 		return "";
 	}
 }
@@ -934,7 +955,7 @@ function exec_wrapper($cmd) {
 		return 0;
 	} else {
 		if ($results) {
-			echo gallery_error(join("<br>", $results));
+			gallery_error(join("<br>", $results));
 		}
 		return 1;
 	}
@@ -1090,6 +1111,38 @@ function errorRow($key) {
 	}
 }
 
+function drawSelect($name, $array, $selected, $size, $attrList=array()) {
+	$attrs = "";
+	if (!empty($attrList)) {
+	    	foreach ($attrList as $key => $value) {
+			if ($value == NULL) {
+				$attrs .= " $key";
+			}
+			else {
+				$attrs .= " $key=\"$value\"";
+			}
+		}
+	}
+
+	$buf = "";
+	$buf .= "<select name=\"$name\" size=$size $attrs>\n";
+	foreach ($array as $uid => $username) {
+		$sel = "";
+		if (is_array($selected)) {
+			if (in_array($uid, $selected)) {
+				$sel = "selected";
+			}
+		} 
+		else if (!strcmp($uid, $selected)) {
+			$sel = "selected";
+		} 
+		$buf .= "<option value=$uid $sel>". $username ."</option>\n";
+	}
+	$buf .= "</select>\n";
+
+	return $buf;
+}
+
 function drawApplet($width, $height, $code, $archive, $album, $defaults, $overrides, $configFile, $errorMsg) {
 	global $gallery;
 	$cookieInfo = session_get_cookie_params();
@@ -1097,15 +1150,11 @@ function drawApplet($width, $height, $code, $archive, $album, $defaults, $overri
 	if (file_exists($configFile)) {
 		include($configFile);
 
-		if (isset($configDefaults)) {
-			$defaults = array_merge($defaults, $configDefaults);
-		}
-		if (isset($configOverrides)) {
-			$overrides = array_merge($overrides, $configOverrides);
-		}
+		$defaults = array_merge($defaults, $configDefaults);
+		$overrides = array_merge($overrides, $configOverrides);
 	}
 ?>
-	<object
+<object
 		classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 		codebase="http://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab#Version=1,4,0,0"
 		width="<?php echo $width ?>" height="<?php echo $height ?>">
@@ -1210,6 +1259,45 @@ function correctPseudoUsers(&$array, $ownerUid) {
 }
 
 /*
+ * makeFormIntro() is a wrapper around makeGalleryUrl() that will generate
+ * a <form> tag suitable for usage in either standalone or embedded mode.
+ * You can specify the additional attributes you want in the optional second
+ * argument.  Eg:
+ *
+ * makeFormIntro("add_photos.php",
+ *			array("name" => "count_form",
+ *				"enctype" => "multipart/form-data",
+ *				"method" => "POST"));
+ */
+function makeFormIntro($target, $attrList=array()) {
+	$url = makeGalleryUrl($target);
+	$result = split("\?", $url);
+	$target = $result[0];
+	if (sizeof($result) > 1) {
+		$tmp = $result[1];
+	} else {
+		$tmp = "";
+	}
+
+	$attrs = '';
+	foreach ($attrList as $key => $value) {
+		$attrs .= " $key=\"$value\"";
+	}
+
+	$form = "<form action=\"$target\" $attrs>\n";
+
+	$args = split("&", $tmp);
+	foreach ($args as $arg) {
+		if (strlen($arg) == 0) {
+			continue;
+		}
+		list($key, $val) = split("=", $arg);
+		$form .= "<input type=\"hidden\" name=\"$key\" value=\"$val\">\n";
+	}
+	return $form;
+}
+
+/*
  * Any URL that you want to use can either be accessed directly
  * in the case of a standalone Gallery, or indirectly if we're
  * mbedded in another app such as Nuke.  makeGalleryUrl() will 
@@ -1264,18 +1352,16 @@ function makeGalleryUrl($target, $args=array()) {
 
 			break;
 			case 'mambo':
-				$args['option'] = $GALLERY_MODULENAME;
-				$args['Itemid'] = $MOS_GALLERY_PARAMS['itemid'];
-				$args['include'] = $target;
-
-				if (isset($args['type']) && $args['type'] == 'popup') {
-					$target = $gallery->app->photoAlbumURL . "/" . $target;
-				} else {
-					$target = 'index.php';
-				}
+			    $args['option'] = $GALLERY_MODULENAME;
+			    $args['Itemid'] = $MOS_GALLERY_PARAMS['itemid'];
+			    $args['include'] = $target;
+			if (isset($args['type']) && $args['type'] == 'popup') {
+				$target = $gallery->app->photoAlbumURL . "/" . $target;
+			} else {
+				$target = 'index.php';
+			}
 
 			break;
-
 			// Maybe something went wrong, then we assume we are like standalone.		
 			default:
 				$target = $gallery->app->photoAlbumURL . "/" . $target;
@@ -1419,18 +1505,18 @@ function preprocessImage($dir, $file) {
 				fclose($newfd);
 				$success = fs_rename($tempfile, "$dir/$file");
 				if (!$success) {
-					echo gallery_error("Couldn't move $tempfile -> $dir/$file");
+					gallery_error("Couldn't move $tempfile -> $dir/$file");
 					fs_unlink($tempfile);
 				}
 			} else {
-				echo gallery_error(sprintf(_("Can't write to %s."),
+				gallery_error(sprintf(_("Can't write to %s."),
 							$tempfile));
 			}
 			chmod("$dir/$file", 0644);
 		}
 		fclose($fd);
 	} else {
-		echo gallery_error(sprintf(_("Can't read %s."), "$dir/$file"));
+		gallery_error(sprintf(_("Can't read %s."), "$dir/$file"));
 	}
 
 	return 1;
@@ -1468,11 +1554,16 @@ function getNextPhoto($idx, $album=NULL) {
 		return $idx;
 	}
 
+	$myAlbumName = $album->getAlbumName($idx);
+	if ($myAlbumName) {
+		$myAlbum = new Album();
+		$myAlbum->load($myAlbumName);
+	}
+
 	if ($gallery->user->canWriteToAlbum($album)) {
 		// even though a user can write to an album, they may
 		// not have read authority over a specific nested album.
-		if ($idx <= $numPhotos && $album->isAlbum($idx)) {
-			$myAlbum =& $album->getNestedAlbum($idx);
+		if ($idx <= $numPhotos && isset($myAlbum)) {
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx, $album);
 			}
@@ -1481,25 +1572,22 @@ function getNextPhoto($idx, $album=NULL) {
 	}
 
 	while ($idx <= $numPhotos && $album->isHidden($idx)) {
-		if ($album->isAlbum($idx)) {
-			$myAlbum =& $album->getNestedAlbum($idx);
-			if ($gallery->user->isOwnerOfAlbum($myAlbum)) {
-				return $idx;
-			}
-		}
-		if (isset($gallery->album) && $gallery->album->getItemOwnerModify() &&
-		    $gallery->album->isItemOwner($gallery->user->getUid(), $idx)) { 
+		if ((isset($myAlbum) && $gallery->user->isOwnerOfAlbum($myAlbum)) ||
+			(isset($gallery->album) && $gallery->album->getItemOwnerModify() &&
+			 $gallery->album->isItemOwner($gallery->user->getUid(), $idx)))
+		{ 
 			return $idx;
 		}
 		$idx++;
 	}
 
-	if ($idx <= $numPhotos && $album->isAlbum($idx)) {
-		// do not display a nested album if the user doesn't
+	if ($idx <= $numPhotos && $album->getAlbumName($idx)) {
+		// do not display a nexted album if the user doesn't
 		// have permission to view it.
-		$myAlbum =& $album->getNestedAlbum($idx);
-		if (!$gallery->user->canReadAlbum($myAlbum)) {
-			$idx = getNextPhoto($idx, $album);
+		if (isset($myAlbum)) {
+			if (!$gallery->user->canReadAlbum($myAlbum)) {
+				$idx = getNextPhoto($idx, $album);
+			}
 		}
 	}
 
@@ -1728,6 +1816,34 @@ function doCommand($command, $args=array(), $returnTarget="", $returnArgs=array(
 	return makeGalleryUrl("do_command.php", $args);
 }
 
+function formVar($name) {
+    global $HTTP_GET_VARS;
+    global $HTTP_POST_VARS;
+
+    if (!empty($HTTP_GET_VARS[$name])) {
+	if (!strncmp($HTTP_GET_VARS[$name], 'false', 5)) {
+	    return false;
+	} else {
+	    return($HTTP_GET_VARS[$name]);
+	}
+    }
+
+    if (!empty($HTTP_POST_VARS[$name])) {
+	if (!strncmp($HTTP_POST_VARS[$name], 'false', 5)) {
+	    return false;
+	} else {
+	    return($HTTP_POST_VARS[$name]);
+	}
+    }
+}
+
+function emptyFormVar($name) {
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+
+	return !isset($HTTP_GET_VARS[$name]) && !isset($HTTP_POST_VARS[$name]);
+}
+
 function breakString($buf, $desired_len=40, $space_char=' ', $overflow=5) {
 	$result = "";
 	$col = 0;
@@ -1758,12 +1874,12 @@ function safe_serialize($obj, $file) {
 		/* Acquire an advisory lock */
 		$lockfd = fs_fopen("$file.lock", "a+");
 		if (!$lockfd) {
-			echo gallery_error(sprintf(_("Could not open lock file (%s)!"),
+			gallery_error(sprintf(_("Could not open lock file (%s)!"),
 						"$file.lock"));
 			return 0;
 		}
 		if (!flock($lockfd, LOCK_EX)) {
-			echo gallery_error(sprintf(_("Could not acquire lock (%s)!"),
+			gallery_error(sprintf(_("Could not acquire lock (%s)!"),
 						"$file.lock"));
 			return 0;
 		}
@@ -1907,7 +2023,7 @@ function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5",
 	$string_to_return = "\n  <table $table_values>";
 	if ($col_1_head || $col_2_head)
 	{
-		$string_to_return .=	'<tr>' .
+		$string_to_return .=	"<tr>" .
 					"\n\t<td></td>".
 					"\n\t<td class=\"admin\">$col_1_head</td>".
 					"\n\t<td class=\"admin\">$col_2_head</td>".
@@ -2450,7 +2566,9 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 			}
 			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid);
 			if ($err) {
-				processingMsg(gallery_error($err));
+				processingMsg("<font color=red>" . 
+						sprintf(_("Error: %s!"), $err) .
+						"</font>");
 				processingMsg("<b>". sprintf(_("Need help?  Look in the  %s%s FAQ%s"),
 				    '<a href="http://gallery.sourceforge.net/faq.php" target=_new>', 
 				    Gallery(),
@@ -2599,8 +2717,9 @@ function galleryDocs($class='') {
 	if (fs_file_exists(dirname(__FILE__) .'/docs/index.html')) {
 		$url=$gallery->app->photoAlbumURL . '/docs/index.html';
 		return "<a class=\"$class\" href=\"$url\">[" .  _("documentation").']</a>';
+	} else {
+	        return NULL;
 	}
-	return NULL;
 }
 
 function compress_image($src, $out, $target, $quality, $keepProfiles=false) {
@@ -2785,16 +2904,16 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 		$hide_recipients = false, $from = NULL) {
 	global $gallery;
 	if ($gallery->app->emailOn == "no") {
-		echo gallery_error(_("Email not sent as it is disabled for this gallery"));
+	       	gallery_error(_("Email not sent as it is disabled for this gallery"));
 		return false;
 	}
        	if (!$to) {
-		echo gallery_error(sprintf(_("Email not sent as no address provided"),
+	       	gallery_error(sprintf(_("Email not sent as no address provided"),
 				       	"<i>" . $to . "</i>"));
 		return false;
 	}
        	if (!gallery_validate_email($to, true)) {
-		echo gallery_error(sprintf(_("Email not sent to %s as it is not a valid address"),
+	       	gallery_error(sprintf(_("Email not sent to %s as it is not a valid address"),
 				       	"<i>" . $to . "</i>"));
 		return false;
 	}
@@ -2809,7 +2928,7 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 	global $gallery, $HTTP_SERVER_VARS;
 	if (!gallery_validate_email($from)) {
 		if (isDebugging() && $from) {
-			echo gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
+			gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
 				       	$from, $gallery->app->senderEmail));
 	       	}
 		$from = $gallery->app->senderEmail;
@@ -2848,7 +2967,7 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 	       	if ($result) {
 			print _("Email sent")."<br>";
 		} else {
-			echo gallery_error(_("Email not sent"));
+		       	gallery_error(_("Email not sent"));
 	       	}
 	}
 	emailLogMessage($logmsg, $result);
@@ -2870,7 +2989,6 @@ function lastCommentString($lastCommentDate, &$displayCommentLegend) {
 	}
 	return $ret;
 }
-
 function emailLogMessage($logmsg, $result) {
 	global $gallery;
 	if (!$result) {
@@ -3013,13 +3131,13 @@ function available_frames($description_only=false) {
 			} else {
 				if (false && isDebugging()) 
 				{
-					echo gallery_error(sprintf(_("Skipping %s."),
+					gallery_error(sprintf(_("Skipping %s."),
 								$subdir));
 				}
 			}
 		}
 	} else {
-		echo gallery_error(sprintf(_("Can't open %s"), $dir));
+		gallery_error(sprintf(_("Can't open %s"), $dir));
 	}
 
 	$descriptions.="\n</dl>";
@@ -3280,28 +3398,6 @@ if ( __FILE__ == '/usr/share/gallery/util.php') {
 }	
 
 define ("GALLERY_BASE", dirname(__FILE__));
-}
-
-function showOwner($owner) {
-
-global $GALLERY_EMBEDDED_INSIDE_TYPE;
-global $_CONF;				/* Needed for GeekLog */
-
-	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
-		case 'GeekLog':
-			//print_r($_USER);
-			//print_r($owner);
-			return '<a href="'. $_CONF['site_url'] .'/users.php?mode=profile&uid='. $owner->uid .'">'. $owner->getFullName() .'</a>';
-		break;
-		
-		default:
-			if (!$owner->getEmail()) {
-				return $owner->getFullName();
-			} else {
-				return '<a href="mailto:' . $owner->getEmail() . '">' . $owner->getFullName() . '</a>';
-			}
-		break;
-	}
 }
 
 require (dirname(__FILE__) . '/lib/lang.php');

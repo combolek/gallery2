@@ -84,17 +84,17 @@ function getEnvLang() {
 
 	global $GALLERY_EMBEDDED_INSIDE_TYPE;
 
-	global $HTTP_SESSION_VARS;			/* Needed for PostNuke 	*/
-	global $HTTP_COOKIE_VARS;			/* Needed for phpNuke 	*/
-	global $board_config;				/* Needed for phpBB2 	*/
-	global $_CONF;					/* Needed for GeekLog	*/
-	global $mosConfig_locale;			/* Needed for Mambo	*/
+	global $HTTP_SESSION_VARS;		/* Needed for PostNuke 	*/
+	global $HTTP_COOKIE_VARS;		/* Needed for phpNuke 	*/
+	global $board_config;			/* Needed for phpBB2 	*/
+	global $_CONF;				/* Needed for GeekLog	*/
 
 	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 		case 'postnuke':
 			if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
 				return $HTTP_SESSION_VARS['PNSVlang'];
 			}
+
 		break;
 
 		case 'phpnuke':
@@ -116,11 +116,6 @@ function getEnvLang() {
 				return $_CONF['language'];
 			} else if (isset($_CONF['locale'])) {
 				return $_CONF['locale'];
-			}				
-		break;
-		case 'mambo':
-			if (isset($mosConfig_locale)){
-				return $mosConfig_locale;
 			}				
 		break;
 
@@ -446,8 +441,8 @@ function unhtmlentities ($string) {
 		}
 
 		$diashowProblemCharsets=array(
-			'UTF-8',
-			'ISO-8859-9',
+			'UTF-8', 
+			'ISO-8859-9', 
 			'ISO-8859-2',
 			'EUC-KR',
 			'windows-1257',

@@ -78,7 +78,7 @@ foreach ($gallery->userDB->getUidList() as $uid) {
 <br>
 <?php 
 	if (isset($error)) {
-		echo gallery_error($error);
+		echo "<span style=\"color:red\">". _("Error:") . $error ."</span>";
 	}
 ?>
 <span class="popup">	

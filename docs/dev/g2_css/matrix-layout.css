@@ -32,26 +32,17 @@
 
 #gsFooter {
 	clear: both;
-	padding: 8px;
-
 }
 
 #gsSidebar {
 	float: left;
 	width: 148px;
-	padding: 0 12px;
 }
 
-#gsComments { 
-	padding: 8px;
-}
+#gsCommentBox { }
 
 /* Status message display section */
-#gsStatus {
-	padding: 10px;
-	margin-top: 4px;
-	margin-bottom: 4px;
- }
+#gsStatus { }
 
 
 /* gsXxxxContents	elements are the main 'holder' for the page. */
@@ -69,23 +60,7 @@
 	width: 72%;
 }
 
-#gsAdminSidebar {
-	float: left;
-	width: 128px;
-	padding: 0 4px;
-}
 
-#gsItemImages {
-	display: block;
-
-	clear: all;
-}
-
-#gsAlbumImages {
-	display: block;
-
-	clear: all;
-}
 
 /* ***************** BOXES ******************************* */
 /*   Category 3: box definitions                           */
@@ -94,15 +69,8 @@
 
 /* ********** global    *************** */
 
-.gbDataEntry {
-	margin: 6 0px;
-}
-
 /* Menus don't need to be global, but currently are */
-.gbMenu { 
-	padding: 16px 0;
-	margin: 16px 0;
-}
+.gbMenu { }
 
 /* spacers neeed for expanding layouts */
 .guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer { clear: both; }
@@ -119,8 +87,6 @@
 
 .gbTabBar a { float: left; }
 
-
-
 /* Commented Backslash Hack
 	   hides rule from IE5-Mac \*/
 .gbTabBar a { float: none; }
@@ -133,33 +99,20 @@
 
 /* ********** #gsHeader *************** */
 
-#gsHeader .gbTitleBanner { 
-	padding-top: 6px;
-	padding-bottom: 6px;
-}
-
-#gsHeader .gbBreadCrumb { padding: 8px; }
+#gsHeader .gbTitleBanner { }
+#gsHeader .gbBreadCrumb { }
 
 /* ********** #gsAlbumContents ******** */
-
-#gsAlbumContents .gbTopFlag,
-#gsAdminContents .gbTopFlag  {
-	display: block;
-	padding: 6px;
-}
 
 #gsAlbumContents .gbTitleBanner {
 	float: left;
 	width: 256px;
-	padding: 8px 0;
 }
 
 #gsAlbumContents .gbItemAlbum {
 	clear: both;
 	float: left;
 	width: 97%;
-	margin: 8px 8px 0 0;
-	padding: 8px;
 }
 
 /* individual items */
@@ -172,16 +125,11 @@
 	height: expression(this.scrollHeight < 216? '216px' : 'auto' );
 	max-width: 172px;
 	width: expression(document.body.clientWidth > 172? '172px': 'auto' );
-	margin: 8px 8px 0 0;
-	padding: 8px;
 }
 
 #gsAlbumContents .gbExif { }
 
-#gsAlbumContents .gbBottomFlag { 
-			display: block; 
-			padding: 8px;
-}
+#gsAlbumContents .gbBottomFlag { display: block; }
 
 #gsAlbumContents div.giHorizontalLinks {
 	float: right;
@@ -189,16 +137,11 @@
 
 /* ************* #gsCommentBox ************ */
 
-#gsComments .gbComment { 
-			padding: 8px 0 16px 0;
-}
+#gsComments .gbComment { }
 
 /* ************* #gsFooter **************** */
 
-#gsFooter .gbMiniBanner { 
-			float: left; 
-			margin-right: 8px;
-}
+#gsFooter .gbMiniBanner { float: left; }
 
 /* ************* gsSidebar **************** */
 
@@ -223,16 +166,17 @@
 
 /* ************* #gsAdminSideBar *************** */
 
-
+#gsAdminSidebar {
+	float: left;
+	width: 128px;
+}
 
 /* ************* #gsAdminContents *************** */
 
 #gsAdminContents .gbAdmin {
-		clear: both;
-		float: left;
-		width: 97%;
-		margin: 0px 8px 0 0;
-		padding: 8px;
+	clear: both;
+	float: left;
+	width: 97%;
 }
 
 * even and odd rows have different backgrounds */
@@ -241,9 +185,8 @@
 #gsAdminContents .gbOdd { }
 
 /* for tabular data */
-#gsAdminContents .gbDataTable { 
-		margin: 4px;
-}
+#gsAdminContents .gbDataTable { }
 
 /* ************** Status classes ***************** */
+
 

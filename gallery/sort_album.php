@@ -65,7 +65,6 @@ if ($gallery->session->albumName) {
 ?>
 
 <center>
-<p class="popuphead"><?php echo _("Sort Album"); ?></p>
 <span class="popup">
 <?php echo _("Select your sorting criteria for this album below") ?>
 <br>
@@ -125,7 +124,7 @@ echo makeFormIntro("sort_album.php");
 <?php
 	}
 } else {
-	echo gallery_error(_("no album specified"));
+	gallery_error(_("no album specified"));
 }
 ?>
 
