@@ -52,7 +52,12 @@ if (!$album->isLoaded()) {
 }
 
 if (!$page) {
-    $page = 1;
+	$page = $gallery->session->albumPage[$gallery->album->fields["name"]];
+	if (!$page) {
+		$page = 1;
+	}
+} else {
+	$gallery->session->albumPage[$gallery->album->fields["name"]] = $page;
 }
 
 //-- increment album click counter ---
