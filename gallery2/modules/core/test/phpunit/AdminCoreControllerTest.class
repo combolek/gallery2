@@ -112,5 +112,22 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	}
 	
     }
+
+    function testAddUploadLocalServerDir() {
+	$this->assert(false);
+    }
+
+    function testAddUploadLocalServerDirMissing() {
+	$this->assert(false);
+    }
+    
+    function testRemoveUploadLocalServerDir() {
+	$this->assert(false);
+    }
+
+    function testRemoveUploadLocalServerDirMissing() {
+	$this->assert(false);
+    }
+    
 }
 ?>

@@ -139,9 +139,9 @@ class AdminEditGroupUsersController extends GalleryController {
 class AdminEditGroupUsersView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -159,6 +159,7 @@ class AdminEditGroupUsersView extends GalleryView {
 	/* First time on this page, initialize form fields */
 	if ($form['formName'] != 'AdminEditGroupUsers') {
 	    $form['text']['userName'] = '';
+	    $form['formName'] = 'AdminEditGroupUsers';
 	}
 
 	/* Initialize the user list */
@@ -169,18 +170,14 @@ class AdminEditGroupUsersView extends GalleryView {
 	$form['userCount'] = sizeof($users);
 	$form['list']['users'] = $users;
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('group', $group->getMemberData());
-	$template->setVariable('controller', 'core:AdminEditGroupUsers');
-	list($ret, $html) = $template->render('AdminEditGroupUsers.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$AdminEditGroupUsers = array();
+	$AdminEditGroupUsers['group'] = $group->getMemberData();
 
-	return array(GalleryStatus::success(), $html);
+	/* Render the HTML body */
+	$template->setVariable('AdminEditGroupUsers', $AdminEditGroupUsers);
+	$template->setVariable('controller', 'core:AdminEditGroupUsers');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminEditGroupUsers.tpl');
     }
 }
 ?>

@@ -114,11 +114,10 @@ function GalleryMain($startTime) {
     $gallery->setUrlGenerator($urlGenerator);
 
     /* Figure out the target module/controller */
-    list($viewName, $controllerName) =
-	GalleryUtilities::getRequestVariables('view', 'controller');
+    list($viewName, $controllerName) = GalleryUtilities::getRequestVariables('view', 'controller');
 
     /* Load and run the appropriate controller */
-    $master = array();
+    $main = array();
     if (!empty($controllerName)) {
 	list ($ret, $controller) = GalleryController::loadController($controllerName);
 	if ($ret->isError()) {
@@ -162,31 +161,7 @@ function GalleryMain($startTime) {
 		header("Location: $redirectUrl");
 		return GalleryStatus::success();
 	    } else {
-		/*
-		 * If we're in debug mode, we'd rather not redirect because
-		 * then we can't see all the nice debug output.  Instead, put
-		 * up a link to the new URL and continue on to show our global
-		 * output.  But don't try to display a view!
-		 */
-		$master['view']['head'] = '';
-		$master['view']['body'] =
-		    "You are in debug mode so we are not automatically redirecting. " .
-		    "Click <a href=\"$redirectUrl\">here</a> to continue.";
-		$master['view']['alreadyRendered'] = true;
-		$showGlobal = true;
-
-		/*
-		 * We need to set a theme here, since we're not expressly
-		 * displaying a view so nobody else will.
-		 */
-		list ($ret, $theme) = GalleryTheme::loadTheme();
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-
-		/* Pass the theme to the template adapter */
-		$templateAdapter =& $gallery->getTemplateAdapter();
-		$templateAdapter->setTheme($theme);
+		$main['redirectUrl'] = $redirectUrl;
 	    }
 	}
 	
@@ -196,7 +171,10 @@ function GalleryMain($startTime) {
 	}
     }
 
-    if (empty($master['view']['alreadyRendered'])) {
+    $template = new GalleryTemplate($gallery->getConfig('code.gallery.base') . 'templates/');
+    
+    $showGlobal = true;
+    if (empty($redirectUrl)) {
 	/* Load and run the appropriate view */
 	if (empty($viewName)) {
 	    $viewName = 'core:ShowItem';
@@ -217,23 +195,20 @@ function GalleryMain($startTime) {
 	/*
 	 * If this is an immediate view, it will send its own output directly.  This is
 	 * used in the situation where we want to send a binary file to the browser.
-	 * Otherwise, we're rendering in buffered mode and are expecting to receive 
-	 * HTML head and HTML body content.
 	 */
-	$showGlobal = true;
 	if ($view->isImmediate()) {
 	    $ret = $view->renderImmediate();
 	    if ($ret->isError()) {
-		$master['view']['head'] = '';
-		$master['view']['body'] = $ret->getAsHtml();
+		$main['error'] = $ret->getAsHtml();
 	    } else {
 		$showGlobal = false;
 	    }
 	} else {
-	    list ($ret, $master['view']) = $view->renderHeadAndBody();
+	    list($ret, $main['viewHeadFile'], $main['viewBodyFile']) = $view->doLoadTemplate($template);
 	    if ($ret->isError()) {
-		$master['error'] = $ret->getAsHtml();
+		$main['error'] = $ret->getAsHtml();
 	    }
+	    $main['viewL10Domain'] = $view->getL10Domain();
 	}
     }
 
@@ -241,25 +216,30 @@ function GalleryMain($startTime) {
 	/* If we're debugging, gather up our debug info also */
 	if ($gallery->getDebug()) {
 	    if ($gallery->getDebug() == 'buffered') {
-		$master['debug'] = $gallery->getDebugBuffer();
+		$main['debug'] = $gallery->getDebugBuffer();
 	    }
 	} 
 
-	$template = new GalleryTemplate($gallery->getConfig('code.gallery.base') . 'templates/');
-	$template->setTranslationBase('modules', 'core');
-
 	if ($gallery->isProfiling()) {
 	    GalleryProfiler::stop('main.GalleryMain');
-	    $master['profile'] = GalleryProfiler::getProfile();
+	    $main['profile'] = GalleryProfiler::getProfile();
 	}
 
-	$galleryData['version'] = '2';
-	$template->setVariable('master', $master);
-	$template->setVariable('gallery', $galleryData);
-	list($ret, $html) = $template->render('global.tpl');
+	$main['gallery']['version'] = '2';
+	$template->setVariable('main', $main);
+	$template->setVariable('l10Domain', 'modules_core');
+
+	if (isset($main['redirectUrl'])) {
+	    list($ret, $html) = $template->render('redirect.tpl');
+	} else if (isset($main['error'])) {
+	    list($ret, $html) = $template->render('error.tpl');
+	} else {
+	    list($ret, $html) = $template->render('global.tpl');
+	}
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	
 	print $html;
     }
 

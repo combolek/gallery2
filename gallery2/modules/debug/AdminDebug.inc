@@ -64,20 +64,16 @@ class AdminDebugController extends GalleryController {
 class AdminDebugView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody()
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
+	$form['formName'] = 'AdminDebug';
 	$template->setVariable('controller', 'comment:AdminDebug');
-	list($ret, $html) = $template->render('AdminDebug.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-	
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(),
+		     '',
+		     'modules/debug/templates/AdminDebug.tpl');
     }
 }
 ?>

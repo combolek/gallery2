@@ -110,9 +110,9 @@ class AdminDeleteGroupController extends GalleryController {
 class AdminDeleteGroupView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -129,19 +129,17 @@ class AdminDeleteGroupView extends GalleryView {
         if ($form['formName'] != 'AdminDeleteGroup') {
 	    /* First time around initialize our form */
 	    $form['groupName'] = $group->getGroupName();
+	    $form['formName'] = 'AdminDeleteGroup';
 	}
+
+	$AdminDeleteGroup = array();
+	$AdminDeleteGroup['group'] = $group->getMemberData();
 
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('group', $group->getMemberData());
+	$template->setVariable('AdminDeleteGroup', $AdminDeleteGroup);
 	$template->setVariable('controller', 'core:AdminDeleteGroup');
-	list($ret, $html) = $template->render('AdminDeleteGroup.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminDeleteGroup.tpl');
     }
 }
 ?>

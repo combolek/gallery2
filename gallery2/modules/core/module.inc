@@ -79,7 +79,6 @@ class CoreModule extends GalleryModule {
 	require_once($classDir . 'GallerySession.class');
 	require_once($classDir . 'GalleryStatus.class');
 	require_once($classDir . 'GalleryTemplate.class');
-	require_once($classDir . 'GalleryTemplateModule.class');
 	require_once($classDir . 'GalleryTemplateAdapter.class');
 	require_once($classDir . 'GalleryTheme.class');
 	require_once($classDir . 'GalleryToolkitHelper.class');

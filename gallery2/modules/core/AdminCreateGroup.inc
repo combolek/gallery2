@@ -121,9 +121,9 @@ class AdminCreateGroupController extends GalleryController {
 class AdminCreateGroupView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -135,18 +135,14 @@ class AdminCreateGroupView extends GalleryView {
 	if ($form['formName'] != 'AdminCreateGroup') {
 	    // Set the form defaults
 	    $form['groupName'] = '';
+	    $form['formName'] = 'AdminCreateGroup';
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
+	$AdminCreateGroup = array();
+	$template->setVariable('AdminCreateGroup', $AdminCreateGroup);
 	$template->setVariable('controller', 'core:AdminCreateGroup');
-	list($ret, $html) = $template->render('AdminCreateGroup.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminCreateGroup.tpl');
     }
 }
 ?>

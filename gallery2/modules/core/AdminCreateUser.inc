@@ -138,9 +138,9 @@ class AdminCreateUserController extends GalleryController {
 class AdminCreateUserView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -154,6 +154,7 @@ class AdminCreateUserView extends GalleryView {
 	    $form['email'] = '';
 	    $form['fullName'] = '';
 	    $form['language'] = '';
+	    $form['formName'] = 'AdminCreateUser';
 	}
 
 	/* Set up our language selection list */
@@ -173,17 +174,13 @@ class AdminCreateUserView extends GalleryView {
 	    }
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('languageList', $languageList);
-	$template->setVariable('controller', 'core:AdminCreateUser');
-	list($ret, $html) = $template->render('AdminCreateUser.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$AdminCreateUser = array();
+	$AdminCreateUser['languageList'] = $languageList;
 
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('AdminCreateUser', $AdminCreateUser);
+	$template->setVariable('controller', 'core:AdminCreateUser');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminCreateUser.tpl');
     }
 }
 ?>

@@ -170,29 +170,31 @@ class AdminUsersController extends GalleryController {
 class AdminUsersView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	    
-	/* Set some defaults, if necessary */
+
+	if ($form['formName'] != 'AdminUsers') {
+	    /* Set some defaults */
+	    $form['text']['userName'] = '';
+	    $form['formName'] = 'AdminUsers';
+	}
+
 	if (!isset($form['list']['filter'])) {
 	    $form['list']['filter'] = '';
 	}
 	
-	if (empty($form['list']['page'])) {
+	if (!isset($form['list']['page'])) {
 	    $form['list']['page'] = 1;
 	}
 
-	if (empty($form['text']['userName'])) {
-	    $form['text']['userName'] = '';
-	}
-
+	/* Fetch the user count every time we reload */
 	list ($ret, $totalUserCount) = GalleryUserHelper::fetchUserCount();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -223,18 +225,14 @@ class AdminUsersView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('totalUserCount', $totalUserCount);
-	$template->setVariable('controller', 'core:AdminUsers');
-	list($ret, $html) = $template->render('AdminUsers.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$AdminUsers = array();
+	$AdminUsers['totalUserCount'] = $totalUserCount;
 
-	return array(GalleryStatus::success(), $html);
+	/* Render the HTML body */
+	$template->setVariable('AdminUsers', $AdminUsers);
+	$template->setVariable('controller', 'core:AdminUsers');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminUsers.tpl');
     }
 }
 ?>

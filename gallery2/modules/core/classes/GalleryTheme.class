@@ -179,13 +179,14 @@ class GalleryTheme {
     /**
      * Return an HTML form 
      *
-     * @param array data in key/value pairs
+     * @param array template context data
      * @param string HTML content to go inside the form
      * @return string a complete HTML form
      */
-    function form($params, $content) {
+    function form($context, $content) {
 	global $gallery;
 
+	$params = $context['params'];
 	/* Embed the session key, if we're not using cookies */
 	$session =& $gallery->getSession();
 	if (!($session->isUsingCookies())) {
@@ -262,10 +263,12 @@ class GalleryTheme {
     /**
      * Return a themed <input> tag
      *
-     * @param array key => value attributes
+     * @param array template context data
      * @return HTML content
      */
-    function input($params, $content=null) {
+    function input($context, $content=null) {
+	$params = $context['params'];
+	
 	/* Do some preprocessing */
 	$params['value'] = trim($content);
 	if (isset($params['name'])) {
@@ -342,11 +345,13 @@ class GalleryTheme {
     /**
      * Return a themed <select> .. </select> block
      *
-     * @param array key => value attributes
+     * @param array template context data
      * @param string content to go inside the block
      * @return HTML content
      */
-    function select($params, $content) {
+    function select($context, $content) {
+	$params = $context['params'];
+	
 	/* Translate the form variable name */
 	if (isset($params['name'])) {
 	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
@@ -402,11 +407,13 @@ class GalleryTheme {
     /**
      * Return a themed <textarea> .. </textarea> block
      *
-     * @param array key => value attributes
+     * @param array template context data
      * @param string content to go inside the block
      * @return HTML content
      */
-    function textarea($params, $content) {
+    function textarea($context, $content) {
+	$params = $context['params'];
+	
 	/* Translate the form variable name */
 	if (isset($params['name'])) {
 	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
@@ -465,12 +472,13 @@ class GalleryTheme {
     /**
      * Return a themed <a> .. </a> block
      *
-     * @param array key => value attributes
+     * @param array template context data
      * @param string content to go inside the block
      * @return HTML content
      */
-    function link($params, $content) {
+    function link($context, $content) {
 	global $gallery;
+	$params = $context['params'];
 	
 	/* Translate the form variable name */
 	if (isset($params['name'])) {
@@ -547,62 +555,433 @@ class GalleryTheme {
 	return $results;
     }
 
-    /* New theme API methods */
-    function header($params, $content) { assert(false); }
-    function pathbar($params, $content) { assert(false); }
-    function pathbaritem($params, $content) { assert(false); }
-    function pathbarseparator($params) { assert(false); }
-    function main($params, $content) { assert(false); }
-    function maintitle1($params, $content) { assert(false); }
-    function mainbody1($params, $content) { assert(false); }
-    function sidebar1($params, $content) { assert(false); }
-    function sidebarbox($params, $content) { assert(false); }
-    function sidebarboxtitle($params, $content) { assert(false); }
-    function sidebarboxbody($params, $content) { assert(false); }
-    function listing($params, $content) { assert(false); }
-    function listingitem($params, $content) { assert(false); }
-    function listingselecteditem($params, $content) { assert(false); }
-    function detailedbox($params, $content) { assert(false); }
-    function detailedboxtitle($params, $content) { assert(false); }
-    function detailedboxdescription($params, $content) { assert(false); }
-    function detailedboxbody($params, $content) { assert(false); }
-    function widget1set($params, $content) { assert(false); }
-    function widget1($params, $content) { assert(false); }
-    function widget1title($params, $content) { assert(false); }
-    function widget1body($params, $content) { assert(false); }
-    function widget2set($params, $content) { assert(false); }
-    function widget2($params, $content) { assert(false); }
-    function widget2title($params, $content) { assert(false); }
-    function widget2body($params, $content) { assert(false); }
-    function footer($params, $content) { assert(false); }
-    function status($params, $content) { assert(false); }
-    function error($params, $content) { assert(false); }
-    function textmodifier1($params, $content) { assert(false); }
-    function table($params, $content) { assert(false); }
-    function row($params, $content) { assert(false); }
-    function column($params, $content) { assert(false); }
-    function columnheader($params, $content) { assert(false); }
-    function style($params) { assert(false); }
-
-    /*
-     * Old theme methods -- remove these when all template files have been
-     * migrated.
+    /*************************************************************
+     * Standard theme methods
+     *************************************************************/
+    /**
+     * style theme method
+     * @param array the template context
+     * @return string HTML content
      */
-    function smallestFontSize($params, $content) { return $content; }
-    function smallerFontSize($params, $content) { return $content; }
-    function smallFontSize($params, $content) { return $content; }
-    function bigFontSize($params, $content) { return $content; }
-    function biggerFontSize($params, $content) { return $content; }
-    function biggestFontSize($params, $content) { return $content; }
-    function successFontColor($params, $content) { return $content; }
-    function warningFontColor($params, $content) { return $content; }
-    function errorFontColor($params, $content) { return $content; }
-    function highlight1($params, $content) { return $content; }
-    function highlight2($params, $content) { return $content; }
-    function thinFrame($params, $content) { return $content; }
-    function lightFrame($params, $content) { return $content; }
-    function heavyFrame($params, $content) { return $content; }
-    function threeDFrame($params, $content) { return $content; }
+    function style($context) {
+        $smarty->trigger_error("Undefined theme function: style", E_USER_ERROR);
+    }
+
+    /**
+     * thumbnail theme method
+     * @param array the template context
+     * @return string HTML content
+     */
+    function thumbnail($context) {
+        $smarty->trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
+    }
+
+    /**
+     * error theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function error($context, $content) {
+        $smarty->trigger_error("Undefined theme function: error", E_USER_ERROR);
+    }
+
+    /**
+     * status theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function status($context, $content) {
+        $smarty->trigger_error("Undefined theme function: status", E_USER_ERROR);
+    }
+
+    /**
+     * textmodifier theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function textmodifier($context, $content) {
+        $smarty->trigger_error("Undefined theme function: textmodifier", E_USER_ERROR);
+    }
+
+    /**
+     * globalheader theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function globalheader($context, $content) {
+        $smarty->trigger_error("Undefined theme function: globalheader", E_USER_ERROR);
+    }
+
+    /**
+     * main theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => header content)
+     * @param array optional ("params" => array, "content" => footer content)
+     * @param array optional ("params" => array, "content" => pathbar content)
+     * @param array optional (array("params" => array, "content" => sidebar content), ...)
+     * @param array optional (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function main($context, $header, $footer, $pathbar, $sidebar_array, $component_array) {
+        $smarty->trigger_error("Undefined theme function: main", E_USER_ERROR);
+    }
+
+    /**
+     * globalfooter theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function globalfooter($context, $content) {
+        $smarty->trigger_error("Undefined theme function: globalfooter", E_USER_ERROR);
+    }
+
+    /**
+     * header theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function header($context, $content) {
+        $smarty->trigger_error("Undefined theme function: header", E_USER_ERROR);
+    }
+
+    /**
+     * footer theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function footer($context, $content) {
+        $smarty->trigger_error("Undefined theme function: footer", E_USER_ERROR);
+    }
+
+    /**
+     * pathbar theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function pathbar($context, $item_array) {
+        $smarty->trigger_error("Undefined theme function: pathbar", E_USER_ERROR);
+    }
+
+    /**
+     * sidebar theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function sidebar($context, $component_array) {
+        $smarty->trigger_error("Undefined theme function: sidebar", E_USER_ERROR);
+    }
+
+    /**
+     * bannerbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
+     * @param array optional (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function bannerbox($context, $title, $description, $component_array) {
+        $smarty->trigger_error("Undefined theme function: bannerbox", E_USER_ERROR);
+    }
+
+    /**
+     * linksbox theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function linksbox($context, $item_array) {
+        $smarty->trigger_error("Undefined theme function: linksbox", E_USER_ERROR);
+    }
+
+    /**
+     * infobox theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function infobox($context, $item_array) {
+        $smarty->trigger_error("Undefined theme function: infobox", E_USER_ERROR);
+    }
+
+    /**
+     * listingbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function listingbox($context, $title, $item_array) {
+        $smarty->trigger_error("Undefined theme function: listingbox", E_USER_ERROR);
+    }
+
+    /**
+     * detailedbox theme method
+     * @param array the template context
+     * @param array mandatory ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => description content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function detailedbox($context, $title, $description, $body) {
+        $smarty->trigger_error("Undefined theme function: detailedbox", E_USER_ERROR);
+    }
+
+    /**
+     * tabbedbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function tabbedbox($context, $title, $item_array, $body) {
+        $smarty->trigger_error("Undefined theme function: tabbedbox", E_USER_ERROR);
+    }
+
+    /**
+     * simplebox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function simplebox($context, $title, $body) {
+        $smarty->trigger_error("Undefined theme function: simplebox", E_USER_ERROR);
+    }
+
+    /**
+     * widget1box theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => widget1 content), ...)
+     * @return string HTML content
+     */
+    function widget1box($context, $title, $widget1_array) {
+        $smarty->trigger_error("Undefined theme function: widget1box", E_USER_ERROR);
+    }
+
+    /**
+     * widget2box theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => widget2 content), ...)
+     * @return string HTML content
+     */
+    function widget2box($context, $title, $widget2_array) {
+        $smarty->trigger_error("Undefined theme function: widget2box", E_USER_ERROR);
+    }
+
+    /**
+     * widget1 theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function widget1($context, $title, $body) {
+        $smarty->trigger_error("Undefined theme function: widget1", E_USER_ERROR);
+    }
+
+    /**
+     * widget2 theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function widget2($context, $title, $body) {
+        $smarty->trigger_error("Undefined theme function: widget2", E_USER_ERROR);
+    }
+
+    /**
+     * table theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => row content), ...)
+     * @return string HTML content
+     */
+    function table($context, $row_array) {
+        $smarty->trigger_error("Undefined theme function: table", E_USER_ERROR);
+    }
+
+    /**
+     * row theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => column content), ...)
+     * @return string HTML content
+     */
+    function row($context, $column_array) {
+        $smarty->trigger_error("Undefined theme function: row", E_USER_ERROR);
+    }
+
+    /**
+     * column theme method
+     * @param array the template context
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function column($context, $body) {
+        $smarty->trigger_error("Undefined theme function: column", E_USER_ERROR);
+    }
+
+    /**
+     * bigFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function bigFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: bigFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * biggerFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function biggerFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: biggerFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * biggestFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function biggestFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: biggestFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * errorFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function errorFontColor($context, $content) {
+        $smarty->trigger_error("Undefined theme function: errorFontColor", E_USER_ERROR);
+    }
+
+    /**
+     * heavyFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function heavyFrame($context, $content) {
+        $smarty->trigger_error("Undefined theme function: heavyFrame", E_USER_ERROR);
+    }
+
+    /**
+     * highlight1 theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function highlight1($context, $content) {
+        $smarty->trigger_error("Undefined theme function: highlight1", E_USER_ERROR);
+    }
+
+    /**
+     * highlight2 theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function highlight2($context, $content) {
+        $smarty->trigger_error("Undefined theme function: highlight2", E_USER_ERROR);
+    }
+
+    /**
+     * lightFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function lightFrame($context, $content) {
+        $smarty->trigger_error("Undefined theme function: lightFrame", E_USER_ERROR);
+    }
+
+    /**
+     * smallFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: smallFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * smallerFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallerFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: smallerFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * smallestFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallestFontSize($context, $content) {
+        $smarty->trigger_error("Undefined theme function: smallestFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * successFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function successFontColor($context, $content) {
+        $smarty->trigger_error("Undefined theme function: successFontColor", E_USER_ERROR);
+    }
+
+    /**
+     * thinFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function thinFrame($context, $content) {
+        $smarty->trigger_error("Undefined theme function: thinFrame", E_USER_ERROR);
+    }
+
+    /**
+     * threeDFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function threeDFrame($context, $content) {
+        $smarty->trigger_error("Undefined theme function: threeDFrame", E_USER_ERROR);
+    }
+
+    /**
+     * warningFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function warningFontColor($context, $content) {
+        $smarty->trigger_error("Undefined theme function: warningFontColor", E_USER_ERROR);
+    }
+
 }
 
 ?>

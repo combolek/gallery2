@@ -79,21 +79,21 @@
     {/gallery->maintitle1}
     
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Source"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="Choose the items you want to move"}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
       
-      {gallery->detailedboxbody}
-	{gallery->widget1set}
+      {gallery->body}
+	{gallery->widget1box}
 	  {foreach from=$peers item=item}
 	    {assign var="peerItemId" value=$item.id}
 	    
 	    {gallery->widget1}
-	      {gallery->widget1body}
+	      {gallery->body}
 		{gallery->input type="checkbox" name="form.selectedIds.$peerItemId"}{$item.selected}{/gallery->input}
 		{$item.title|default:$item.pathComponent}
 		<i>
@@ -128,23 +128,23 @@
 		    {gallery->text text="You cannot move an album into its own subtree."}<br>
 		  {/gallery->error}
 		{/if}
-	      {/gallery->widget1body}
+	      {/gallery->body}
 	    {/gallery->widget1}
 	  {/foreach}
-	{/gallery->widget1set}
-      {/gallery->detailedboxbody}
+	{/gallery->widget1box}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Destination"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="Choose a new album for them"}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->select name="form.destination" onChange="javascript:checkPermissions(this.form)"}
 	  {foreach from=$albumTree item=album}
 	    <option value="{$album.data.id}">
@@ -165,14 +165,14 @@
 	    {gallery->text text="No destination chosen"}
 	  {/gallery->error}
 	{/if}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type="submit" name="form.action.move"}{gallery->text text="Move"}{/gallery->input}
 	{gallery->input type="submit" name="form.action.cancel"}{gallery->text text="Cancel"}{/gallery->input}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     </table>

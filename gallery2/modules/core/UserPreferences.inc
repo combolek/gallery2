@@ -147,23 +147,23 @@ class UserPreferencesController extends GalleryController {
 class UserPreferencesView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$userId = $gallery->getActiveUserId();
 	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if ($userId == $anonymousUserId) {
-	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	
 	/* Load the form with user data the first time around. */
@@ -172,12 +172,13 @@ class UserPreferencesView extends GalleryView {
 	    $form['fullName'] = $user->getFullName();
 	    $form['email'] = $user->getEmail();
 	    $form['language'] = $user->getLanguage();
+	    $form['formName'] = 'UserPreferences';
 	}
 
 	/* Set up our language selection list */
 	list ($ret, $module) = $gallery->loadModule('core');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	
 	$languageList = array();
@@ -190,19 +191,13 @@ class UserPreferencesView extends GalleryView {
 	    }
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('user', $user->getMemberData());
-	$template->setVariable('languageList', $languageList);
-	$template->setVariable('controller', 'core:UserPreferences');
-	list($ret, $html) = $template->render('UserPreferences.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$UserPreferences = array();
+	$UserPreferences['languageList'] = $languageList;
 
-	return array(GalleryStatus::success(), $html);
+	/* Render the HTML body */
+	$template->setVariable('UserPreferences', $UserPreferences);
+	$template->setVariable('controller', 'core:UserPreferences');
+	return array(GalleryStatus::success(), '', 'modules/core/templates/UserPreferences.tpl');
     }
 }
 ?>

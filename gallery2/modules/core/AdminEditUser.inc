@@ -170,9 +170,9 @@ class AdminEditUserController extends GalleryController {
 class AdminEditUserView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -192,6 +192,7 @@ class AdminEditUserView extends GalleryView {
 	    $form['fullName'] = $user->getFullName();
 	    $form['email'] = $user->getEmail();
 	    $form['language'] = $user->getLanguage();
+	    $form['formName'] = 'AdminEditUser';
 	}
 
 	/* Email is not required for the anonymous user */
@@ -222,21 +223,14 @@ class AdminEditUserView extends GalleryView {
 	    }
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('user', $user->getMemberData());
-	$template->setVariable('show', $show);
-	if ($show['language']) {
-	    $template->setVariable('languageList', $languageList);
-	}
-	$template->setVariable('controller', 'core:AdminEditUser');
-	list($ret, $html) = $template->render('AdminEditUser.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$AdminEditUser = array();
+	$AdminEditUser['show'] = $show;
+	$AdminEditUser['user'] = $user->getMemberData();
+	$AdminEditUser['languageList'] = $languageList;
 
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('AdminEditUser', $AdminEditUser);
+	$template->setVariable('controller', 'core:AdminEditUser');
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminEditUser.tpl');
     }
 }
 ?>

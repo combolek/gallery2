@@ -8,11 +8,11 @@
     {/gallery->maintitle1}
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Are you sure?"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{if ($itemType == 'album')}
 	  {if ($childCount > 0)}
 	    {gallery->text one="This album has %d child." many="This album has %d children." count=$childCount arg1=$childCount}
@@ -23,11 +23,11 @@
 	{else}
 	  {gallery->text text="This will completely remove this item from Gallery. There is no undo!"}
 	{/if}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type="submit" name="form.action.delete"}{gallery->text text="Delete"}{/gallery->input}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
   {/gallery->form}
 {/gallery->mainbody1}

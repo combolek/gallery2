@@ -72,7 +72,13 @@ class AdminEditGroupController extends GalleryController {
 	    
 	} else if (isset($form['action']['save'])) {
 
-	    if (!empty($groupId)) {
+	    $error = false;
+	    if (empty($form['groupName'])) {
+		GalleryUtilities::putRequestVariable('form.error.groupName.missing', 1);
+		$error = true;
+	    }
+
+	    if (!$error && !empty($groupId)) {
 		/* Save our changes */
 		list ($ret, $lockId) = $gallery->acquireWriteLock($groupId);
 		if ($ret->isError()) {
@@ -127,9 +133,9 @@ class AdminEditGroupController extends GalleryController {
 class AdminEditGroupView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -146,19 +152,15 @@ class AdminEditGroupView extends GalleryView {
 	if ($form['formName'] != 'AdminEditGroup') {
 	    /* First time around initialize our form */
 	    $form['groupName'] = $group->getGroupName();
+	    $form['formName'] = 'AdminEditGroup';
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('group', $group->getMemberData());
+	$AdminEditGroup = array();
+	$AdminEditGroup['group'] = $group->getMemberData();
+	$template->setVariable('AdminEditGroup', $AdminEditGroup);
 	$template->setVariable('controller', 'core:AdminEditGroup');
-	list($ret, $html) = $template->render('AdminEditGroup.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminEditGroup.tpl');
     }
 }
 ?>

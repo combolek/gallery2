@@ -8,21 +8,21 @@
     {/gallery->maintitle1}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->text text="You can change the order of the items in this album."}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="Change the order of the items in this album."}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->widget2set}
 	  {gallery->widget2}
-	    {gallery->widget2title}
+	    {gallery->title}
 	      {gallery->text text="Move this item"}
-	    {/gallery->widget2title}
-	    {gallery->widget2body}
+	    {/gallery->title}
+	    {gallery->body}
 	      {gallery->select name="form.selectedId"}
 		{foreach from=$peers item=item}
 		  <option value="{$item.id}"> {$item.title|default:$item.pathComponent}
@@ -37,17 +37,17 @@
 		  <option value="{$item.id}"> {$item.title|default:$item.pathComponent}
 		{/foreach}
 	      {/gallery->select}
-	    {/gallery->widget2body}
+	    {/gallery->body}
 	  {/gallery->widget2}
 	{/gallery->widget2set}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type="submit" name="form.action.reorder"}{gallery->text text="Reorder"}{/gallery->input}
 	{gallery->input type="submit" name="form.action.cancel"}{gallery->text text="Cancel"}{/gallery->input}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
   {/gallery->form}
 {/gallery->mainbody1}

@@ -94,9 +94,9 @@ class UserLoginController extends GalleryController {
 class UserLoginView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	if ($form['formName'] == 'UserLogin') {
@@ -109,16 +109,11 @@ class UserLoginView extends GalleryView {
 	    }
 	} else {
 	    $form['username'] = '';
+	    $form['formName'] = 'UserLogin';
 	}
 
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
 	$template->setVariable('controller', 'core:UserLogin');
-	list($ret, $html) = $template->render('UserLogin.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);	    
-	}
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/UserLogin.tpl');
     }
 }
 ?>

@@ -32,7 +32,7 @@
  *
  * @package Search
  */
-class SearchModule extends GalleryTemplateModule {
+class SearchModule extends GalleryModule {
 
     function SearchModule() {
 	$this->setName('search');

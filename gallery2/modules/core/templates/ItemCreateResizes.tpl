@@ -9,26 +9,26 @@
 
     {if isset($status)}
       {gallery->detailedbox}
-	{gallery->detailedboxbody}
+	{gallery->body}
 	  {gallery->status}
 	    {if isset($status.settingsSaved)}
 	      {gallery->text text="Changes saved successfully."}
 	    {/if}
 	  {/gallery->status}
-	{/gallery->detailedboxbody}
+	{/gallery->body}
       {/gallery->detailedbox}
     {/if}
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Thumbnails"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="Specify the thumbnail size of this item here:"}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type=text size=6 name="form.thumbnail.size"}{$form.thumbnail.size}{/gallery->input}
 
 	{if !empty($form.error.thumbnail.size.missing)}
@@ -42,24 +42,24 @@
 	    {gallery->text text="You must enter a number (greater than zero)"}
 	  {/gallery->error}
         {/if}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Resized Images"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="These sizes are alternate resized versions of the original you would like to have available for viewing."}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
-	{gallery->widget1set}
+      {gallery->body}
+	{gallery->widget1box}
 	  {counter start=0 assign=index}
 	  {foreach from=$form.resizes item=resize}
 	    {gallery->widget1}
-	      {gallery->widget1body}
+	      {gallery->body}
 		{gallery->input type="checkbox" name="form.resizes.$index.active"}{$form.resizes.$index.active}{/gallery->input}
 		{gallery->input type="text" size="6" name="form.resizes.$index.size"}{$form.resizes.$index.size}{/gallery->input}
 
@@ -75,18 +75,18 @@
 	          {/gallery->error}
                 {/if}
                 {counter}
-	      {/gallery->widget1body}
+	      {/gallery->body}
 	    {/gallery->widget1}
 	  {/foreach}
-	{/gallery->widget1set}
-      {/gallery->detailedboxbody}
+	{/gallery->widget1box}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type="submit" name="form.action.save"}{gallery->text text="Save"}{/gallery->input}
 	{gallery->input type="submit" name="form.action.undo"}{gallery->text text="Undo"}{/gallery->input}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
   {/gallery->form}
 {/gallery->mainbody1}

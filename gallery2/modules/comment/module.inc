@@ -32,7 +32,7 @@
  *
  * @package Comment
  */
-class CommentModule extends GalleryTemplateModule {
+class CommentModule extends GalleryModule {
 
     function CommentModule() {
 	$this->setName('comment');
