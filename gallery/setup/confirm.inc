@@ -1,15 +1,15 @@
 <?php /* $Id$ */ ?>
-
-<input type="hidden" name="back_page" value="defaults">
-<input type="hidden" name="next_page" value="write">
-
-<div class="header"><?php echo sprintf (_("Gallery Setup: Step %d"),4); ?></div>
-
-<div class="sitedesc">
+<center>
+<font size=+2><?php echo _("Gallery Setup: Step 4") ?></font>
+<br>
+<table width=80%><tr><td>
 <?php 
-	echo _("Confirm that the settings you entered came through correctly.  If you find this page confusing, you can probably safely ignore it  (unless you see stuff in red which indicates an error)")
+echo _("Confirm that the settings you entered came through correctly.  If you find this page confusing, you can probably safely ignore it  (unless you see stuff in red which indicates an error)")
 ?>
-</div>
+</td></tr></table>
+
+<center>
+<table width=90% border=0>
 
 <?php
 require("../Version.php");
@@ -68,11 +68,10 @@ foreach ($outfile_list as $outfile) {
 		fclose($fd);
 	} else {
 		$docs=galleryDocs() ? galleryDocs() : _("documentation");
-		echo '<p class="errorlong">' .
-			_("Warning:") . 
-			sprintf(_("You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."), 
-					"<i><b>".$outfile."</b></i>", $docs) . 
-			"</p>\n";
+		print "<font color=red><b>" . 
+			_("Warning:"). "</b>  " . sprintf(_("You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."), 
+					"<i><b>".$outfile."</b></i>", 
+					$docs). "<p>";
 	}
 }
 
@@ -89,7 +88,6 @@ $graphtest = array();
 foreach ($constants as $key => $val) {
 
 	if (isset($val["enabled"]) && $val["enabled"] == "no") continue;
-	if (isset($val["type"]) && $val["type"] == "separator") continue;
 
 	if (isset($val["type"]) && ($val["type"] == "block_start" || $val["type"] == "block_end")) { 
 		continue;
@@ -360,30 +358,28 @@ foreach ($defaults as $key => $val) {
 $data .= "?" . ">\n";
 ?>
 
-<p align="center">
-	<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
+<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
 <?php if (!$error) { ?>
  <input type=submit name="go_next" value="<?php echo _("Save Config") ?> ->">
 <?php } ?>
-</p>
 
-<table width="90%" border="1">
 <pre>
 <?php echo $view; ?>
 
-<input type="hidden" name="data" value="<?php echo urlencode($data) ?>">
+<input type=hidden name=data value=<?php echo urlencode($data) ?>>
 </pre>
 </table>
 
-<div align="center">
-<input type="submit" name="go_back" value="<- <?php echo _("Edit Config") ?>">
-<?php if (!$error) {
-	echo '<input type=submit name="go_next" value="'. _("Save Config") . '->">';
-} else {
-	echo '<p class="error" id="bottom">';
-	echo _("There are errors in your configuration.");
-	echo '<br>' . _("Please go back and fix them!");
-	echo '</p>';
-} ?>
-</div>
+<input type=hidden name=back_page value="defaults">
+<input type=hidden name=next_page value="write">
+<p>
+<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
+<?php if (!$error) { ?>
+ <input type=submit name="go_next" value="<?php echo _("Save Config") ?> ->">
+<?php } else { ?>
+<br>
+<font color=red><?php echo _("There are errors in your configuration.") ?>
+<br>
+<?php echo _("Please go back and fix them!") ?></font>
+<?php } ?>
 

@@ -39,10 +39,9 @@ if (!$gallery->user->isAdmin()) {
 }
 
 if (isset($delete)) {
-		$gallery->userDB->deleteUserByUsername($uname);
-		header("Location: manage_users.php");
-}
-if (isset($cancel)) {
+	$gallery->userDB->deleteUserByUsername($uname);
+	header("Location: manage_users.php");
+} else if (isset($cancel)) {
 	header("Location: manage_users.php");
 }
 
@@ -52,14 +51,14 @@ if (isset($cancel)) {
   <title><?php echo _("Delete User") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Delete User") ?></span>
 <br>
 <br>
 <?php echo makeFormIntro("delete_user.php"); ?>
-<input type="hidden" name="uname" value="<?php echo $uname ?>">
+<input type=hidden name=uname value=<?php echo $uname ?>>
 
 <?php
 if (!strcmp($gallery->user->getUsername(), $uname)) {

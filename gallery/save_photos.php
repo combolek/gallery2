@@ -55,12 +55,13 @@ if ($userfile_name) {
   <?php echo getStyleSheetLink() ?>
 
 </head>
-<body dir="<?php echo $gallery->direction ?>" onLoad='opener.hideProgressAndReload();'>
+<body dir="<?php echo $gallery->direction ?>" onLoad='opener.hideProgressAndRe\
+load();'>
 
 <?php
 if ($urls) {
 ?>
-<span class="title"><?php echo _("Fetching Urls...") ?></span>
+<span class=title><?php echo _("Fetching Urls...") ?></span>
 <br>
 <?php
 	/* Process all urls first */
@@ -193,7 +194,7 @@ if ($urls) {
 					    $results)) {
 				set_time_limit($gallery->app->timeLimit);
 				$things[$results[2]]++;
-				$contents = str_replace($results[0], "", $contents);
+				$contents = str_replace($results[2], "", $contents);
 			}
 
 			/* Add each unique link to an array we scan later */
@@ -230,7 +231,7 @@ if ($urls) {
 
 
 <br>
-<span class="title"><?php echo _("Processing status...") ?></span>
+<span class=title><?php echo _("Processing status...") ?></span>
 <br>
 
 <?php
@@ -269,7 +270,7 @@ if (!$msgcount) {
 ?>
 <center>
 <form>
-<input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
+<input type="button" name="dismiss" value="<?php echo _("Dismiss") ?>" onclick="parent.close()">
 </form>
 <?php
 /* Prompt for additional files if we found links in the HTML slurpage */
@@ -335,8 +336,8 @@ function invertCheck() {
 </span></p>
 
 <p>
-<input type="hidden" name="setCaption" value="<?php echo $setCaption ?>">
-<input type="button" value="<?php echo _("Add Files") ?>" onClick="opener.showProgress(); document.uploadurl_form.submit()">
+<input type=hidden name="setCaption" value="<?php echo $setCaption ?>">
+<input type=button value=<?php echo '"' . _("Add Files") . '"' ?> onClick="opener.showProgress(); document.uploadurl_form.submit()">
 </p>
 
 </form>

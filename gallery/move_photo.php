@@ -47,7 +47,7 @@ $albumDB = new AlbumDB(FALSE); // read album database
   <title><?php echo _("Move Photo") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <?php
 if ($gallery->session->albumName && isset($index)) {
@@ -58,7 +58,7 @@ if ($gallery->session->albumName && isset($index)) {
 	// and resized images already exist in the original directory, but the current method is an easy
 	// way to make sure all thumbnails and resized images are the correct size.
 
-        if (isset($newAlbum)) {	// we are moving from one album to another
+        if ($newAlbum) {	// we are moving from one album to another
             	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
 	    	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
 			//$startPhoto=$index;
@@ -223,13 +223,13 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 ?>
 </select>
 <p>
-<input type="submit" value=<?php echo '"' . _("Move it!") . '"' ?>>
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=submit value=<?php echo '"' . _("Move it!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <p>
-<hr size="1">
+<hr size=1>
 <b><?php echo _("OR") ?></b>
-<hr size="1">
+<hr size=1>
 
 
 
@@ -259,12 +259,12 @@ if ($gallery->album->isAlbumName($index)) {
 ?>
 <table>
 <tr>
-<td align="center"><b><?php echo _("First") ?></b></td>
-<td align="center"><b><?php echo _("Last") ?></b></td>
-<td align="center"><b><?php echo _("New Album") ?></b></td>
+<td align=center><b><?php echo _("First") ?></b></td>
+<td align=center><b><?php echo _("Last") ?></b></td>
+<td align=center><b><?php echo _("New Album") ?></b></td>
 </tr>
 <tr>
-<td align="center">
+<td align=center>
 <select name="startPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -277,7 +277,7 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 ?>
 </select>
 </td>
-<td align="center">
+<td align=center>
 <select name="endPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -303,12 +303,12 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 } // end else
 if (!$uptodate) {
 	print '<span class="error"> <br>' . _("WARNING: Some of the albums need to be upgraded to the current version of gallery.") . '</span>  ' .
-	'<a href="'. makeGalleryUrl("upgrade_album.php").'"><br>'. _("Upgrade now") . '</a>.<p>';
+	'<a href='. makeGalleryUrl("upgrade_album.php").'><br>'. _("Upgrade now") . '</a>.<p>';
 }
 ?>
 <br>
-<input type="submit" value="<?php echo _("Move to Album!") ?>">
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=submit value=<?php echo '"' . _("Move to Album!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <?php
 }

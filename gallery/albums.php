@@ -46,7 +46,7 @@ $numAlbums = $albumDB->numAlbums($gallery->user);
 $numPhotos = $albumDB->getCachedNumPhotos($gallery->user);
 $numAccess = $albumDB->numAccessibleAlbums($gallery->user);
 
-if (empty($gallery->session->albumListPage)) {
+if (!$gallery->session->albumListPage) {
 	$gallery->session->albumListPage = 1;
 }
 $perPage = $gallery->app->default["albumsPerPage"];
@@ -57,7 +57,7 @@ if ($gallery->session->albumListPage > $maxPages) {
 }
 
 $imageDir = $gallery->app->photoAlbumURL . '/images';
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\" alt=\"pixel_trans\">";
+$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
 $borderColor = $gallery->app->default["bordercolor"];
 
 $navigator["page"] = $gallery->session->albumListPage;
@@ -71,7 +71,6 @@ $navigator["bordercolor"] = $borderColor;
 
 ?>
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?></title>
@@ -87,7 +86,7 @@ $navigator["bordercolor"] = $borderColor;
       <link rel="last" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $maxPages)) ?>" />
   <?php } ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <?php } ?>
 <?php
 includeHtmlWrap("gallery.header");
@@ -95,16 +94,15 @@ includeHtmlWrap("gallery.header");
 <?php
 if (!$gallery->session->offline && !strcmp($gallery->app->default["showSearchEngine"], "yes")) {
 ?>
-<table width="100%" border=0 cellspacing=0>
-<tr>
+<table width=100% border=0 cellspacing=0>
+<tr><?php echo makeFormIntro("search.php"); ?>
 <td valign="middle" align="right">
-<?php echo makeFormIntro("search.php"); ?>
 <span class="admin"> <?php echo _("Search") ?>: </span>
 <input style="font-size=10px;" type="text" name="searchstring" value="" size="25">
-</form>
 </td>
+</form>
 </tr>
-<tr><td height="2"><img src="<?php echo $gallery->app->photoAlbumURL ?>/images/pixel_trans.gif" alt="pixel_trans"></td></tr></table>
+<tr><td height=2><img src=<?php echo $gallery->app->photoAlbumURL ?>/images/pixel_trans.gif></td></tr></table>
 <?php
 }
 ?>
@@ -144,7 +142,7 @@ if ($gallery->user->isAdmin()) {
 	}
 }
 if ($gallery->user->canCreateAlbums() && !$gallery->session->offline) { 
-	$adminCommands .= "<a href=\"" . doCommand("new-album", array(), "view_album.php") . "\">[". _("new album") ."]</a>&nbsp;";
+	$adminCommands .= "<a href=" . doCommand("new-album", array(), "view_album.php") . ">[". _("new album") ."]</a>&nbsp;";
 }
 
 if ($gallery->user->isAdmin()) {
@@ -163,7 +161,7 @@ if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	}
 	
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-		$adminCommands .= "<a href=\"". doCommand("logout", array(), "albums.php"). "\">[". _("logout") ."]</a>";
+		$adminCommands .= "<a href=". doCommand("logout", array(), "albums.php"). ">[". _("logout") ."]</a>";
 	}
 } else {
 	if (!$GALLERY_EMBEDDED_INSIDE) {
@@ -188,14 +186,14 @@ include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
 
 
 <!-- album table begin -->
-<table width="100%" border=0 cellpadding=0 cellspacing=7>
+<table width=100% border=0 cellpadding=0 cellspacing=7>
 
 <?php
 /* Display warnings about broken albums */
 if (sizeof($albumDB->brokenAlbums) && $gallery->user->isAdmin()) {
     print "<tr>";
-    print "<td colspan=\"3\" align=\"center\">";
-    print "<table bordercolor=\"red\" border=\"2\" cellpadding=\"2\" cellspacing=\"2\"><tr><td>";
+    print "<td colspan=3 align=center>";
+    print "<table bordercolor=red border=2 cellpadding=2 cellspacing=2><tr><td>";
     print "<center><b><u>". _("Attention Gallery Administrator!") ."</u></b></center><br>";
     $broken_albums = '';
     foreach ($albumDB->brokenAlbums as $tmpAlbumName) {
@@ -258,16 +256,16 @@ for ($i = $start; $i <= $end; $i++) {
       }
       $gallery->html_wrap['thumbWidth'] = $iWidth;
       $gallery->html_wrap['thumbHeight'] = $iHeight;
-      $gallery->html_wrap['thumbTag'] = $gallery->album->getHighlightTag($scaleTo,'', _("Highlight for Album: "). $gallery->album->fields["title"]);
+      $gallery->html_wrap['thumbTag'] = $gallery->album->getHighlightTag($scaleTo);
       $gallery->html_wrap['thumbHref'] = $albumURL;
       includeHtmlWrap('inline_gallerythumb.frame');
 ?>
   </td>
   <!-- End Image Cell -->
   <!-- Begin Text Cell -->
-  <td align="<?php echo $gallery->alignment ?>" valign="top">
+  <td align=<?php echo $gallery->alignment ?> valign=top>
   <span class="title">
-  <a href="<?php echo $albumURL ?>">
+  <a href=<?php echo $albumURL ?>>
   <?php _("title") ?>
   <?php echo editField($gallery->album, "title") ?></a>
   </span>
@@ -309,7 +307,7 @@ for ($i = $start; $i <= $end; $i++) {
   <?php if ($gallery->user->canChangeTextOfAlbum($gallery->album) 
   	&& !$gallery->session->offline) { ?>
    <span class="admin">
-    <a href="<?php echo makeGalleryUrl("captionator.php", array("set_albumName" => $tmpAlbumName)) ?>">[<?php echo _("edit captions") ?>]</a>
+    <a href=<?php echo makeGalleryUrl("captionator.php", array("set_albumName" => $tmpAlbumName)) ?>>[<?php echo _("edit captions") ?>]</a>
    </span>
   <?php } ?>
 
@@ -317,11 +315,11 @@ for ($i = $start; $i <= $end; $i++) {
    <span class="admin">
     <?php echo popup_link("[" . _("permissions") ."]", "album_permissions.php?set_albumName={$tmpAlbumName}"); ?>
    <?php if (!strcmp($gallery->album->fields["public_comments"],"yes")) { ?>
-    <a href="<?php echo makeGalleryUrl("view_comments.php", array("set_albumName" => $tmpAlbumName)) ?>">[<?php echo _("view&nbsp;comments") ?>]</a>
+    <a href=<?php echo makeGalleryUrl("view_comments.php", array("set_albumName" => $tmpAlbumName)) ?>>[<?php echo _("view&nbsp;comments") ?>]</a>
    <?php } ?>
    </span>
   <br>
-  <?php echo _("url:") ?> <a href="<?php echo $albumURL ?>">
+  url: <a href=<?php echo $albumURL ?>>
   	<?php if (!$gallery->session->offline) {
 		echo breakString($albumURL, 60, '&', 5);
 	} else {
@@ -372,7 +370,7 @@ if ($gallery->user->canWriteToAlbum($gallery->album) &&
   </span>
   </td>
 <?php if (!strcmp($gallery->app->showAlbumTree, "yes")) { ?>
-  <td valign="top">
+  <td valign=top>
    <?php echo printChildren($albumName); ?>
   </td>
 <?php } ?>

@@ -39,16 +39,15 @@ if (!$gallery->user->isAdmin()) {
 }
 
 if (isset($create)) {
-	header("Location: create_user.php?uname=$uname");
+    header("Location: create_user.php?uname=$uname");
 }
-
-if ( (isset($modify) || isset($delete)) && ! isset($uname)) {
-	$error=_("Please select a user");
+if ((isset($modify) || isset($delete)) && ! isset($uname)) {
+    $error=_("Please select a user");
 } elseif (isset($modify)) {
-	header("Location: modify_user.php?uname=$uname");
+    header("Location: modify_user.php?uname=$uname");
 } elseif (isset($delete)) {
-	header("Location: delete_user.php?uname=$uname");
-}
+    header("Location: delete_user.php?uname=$uname");
+}	
 
 $displayUsers = array();
 foreach ($gallery->userDB->getUidList() as $uid) {
@@ -66,22 +65,14 @@ foreach ($gallery->userDB->getUidList() as $uid) {
   <title><?php echo _("Manage Users") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Manage Users") ?></span>
 <br>
 <br>
-<?php 
-	if (isset($error)) {
-		echo "<span style=\"color:red\">". _("Error:") . $error ."</span>";
-	}
-?>
-	
-<?php echo makeFormIntro("manage_users.php", array(
-			"name" => "manageusers_form", 
-			"method" => "POST"));
-?>
+
+<?php echo makeFormIntro("manage_users.php", array("name" => "manageusers_form")); ?>
 <?php echo _("You can create, modify and delete users here.") ?>
 <p>
 
@@ -108,7 +99,7 @@ if (!$displayUsers) {
 <input type="submit" name="modify" value="<?php echo _("Modify") ?>">
 <input type="submit" name="delete" value="<?php echo _("Delete") ?>">
 <?php } ?>
-<input type="button" value="<?php echo _("Done") ?>" onclick='parent.close()'>
+<input type=button value="<?php echo _("Done") ?>" onclick='parent.close()'>
 </form>
 
 </body>

@@ -104,7 +104,7 @@ class Image {
 		global $gallery;
 
 		/* getting rid of the resized image */
-		if ( (stristr($target, _("Get rid of resized"))) || (stristr($target, "orig")) ) {
+		if ( (stristr($target, "orig")) || (stristr($target, _("Original Size"))) ) {
 			list($w, $h) = getDimensions("$dir/$this->name.$this->type");
 			$this->width = $w;
 			$this->height = $h;
@@ -145,12 +145,12 @@ class Image {
 		fs_unlink("$dir/$this->name.$this->type");
 	}
 
-	function getTag($dir, $full=0, $size=0, $attrs="",$alttext="") {
+	function getTag($dir, $full=0, $size=0, $attrs="") {
 		global $gallery;
 
 		$name = $this->getName($dir);
 
-		$attrs .= " border=\"0\"";
+		$attrs .= " border=0";
 		if ($size) {
 			if ($this->width > $this->height) {
 				$width = $size;
@@ -159,24 +159,24 @@ class Image {
 				$width = $size * ($this->width / $this->height);
 				$height = $size;
 			}
-			$size_val = "width=\"$width\" height=\"$height\"";
+			$size_val = "width=$width height=$height";
 		} else if ($full || !$this->resizedName) {
-			$size_val = "width=\"$this->raw_width\" height=\"$this->raw_height\"";
+			$size_val = "width=$this->raw_width height=$this->raw_height";
 		} else {
-			$size_val = "width=\"$this->width\" height=\"$this->height\"";
+			$size_val = "width=$this->width height=$this->height";
 		}
 
 		if ($this->resizedName) {
 			if ($full) {
-				return "<img src=\"$dir/$this->name.$this->type\" " .
-					"width=\"$this->raw_width\" \"height=$this->raw_height $attrs\" alt=\"$alttext\" title=\"$alttext\">";
+				return "<img src=$dir/$this->name.$this->type " .
+					"width=$this->raw_width height=$this->raw_height $attrs>";
 			} else {
-				return "<img src=\"$dir/$this->resizedName.$this->type\" " .
-					"width=\"$this->width\" \"height=$this->height\" " .
-					"$attrs alt=\"$alttext\" title=\"$alttext\">";
+				return "<img src=$dir/$this->resizedName.$this->type " .
+					"width=$this->width height=$this->height " .
+					"$attrs>";
 			}
 		} else {
-			return "<img src=\"$dir/$this->name.$this->type\" $size_val $attrs alt=\"$alttext\" title=\"$alttext\">";
+			return "<img src=$dir/$this->name.$this->type $size_val $attrs>";
 		}
 	}
 

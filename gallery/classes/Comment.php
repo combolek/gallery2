@@ -42,9 +42,8 @@ class Comment {
 	}
 
 	function getDatePosted() {
-		global $gallery;
 		$time = $this->datePosted;
-		return strftime($gallery->app->dateTimeString, $time);
+		return strftime("%c", $time);
 	}
 
 	function getIPNumber() {

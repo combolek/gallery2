@@ -106,13 +106,7 @@ function error_format($message) {
 function build_popup_url($url, $url_is_complete=0) {
 
 	/* Separate the target from the arguments */
-	$result = explode('?', $url);
-	$target = $result[0];
-	if (isset($result[1])) {
-		$arglist = $result[1];
-	} else {
-		$arglist = "";
-	}
+	list($target, $arglist) = explode('?', $url);
 
 	/* Parse the query string arguments */
 	parse_str($arglist, $args);
@@ -159,7 +153,7 @@ function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height
 		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes").
 	"\">";
     
-    return "$a1<span style=\"white-space:nowrap;\">$title</span></a> ";
+    return "$a1<nobr>$title</nobr></a> ";
 }
 
 function exec_internal($cmd) {
@@ -800,7 +794,6 @@ function errorRow($key) {
 }
 
 function drawSelect($name, $array, $selected, $size, $attrList=array()) {
-	$attrs = "";
 	if (!empty($attrList)) {
 	    	foreach ($attrList as $key => $value) {
 			if ($value == NULL) {
@@ -886,13 +879,7 @@ function correctPseudoUsers(&$array, $ownerUid) {
  */
 function makeFormIntro($target, $attrList=array()) {
 	$url = makeGalleryUrl($target);
-	$result = split("\?", $url);
-	$target = $result[0];
-	if (sizeof($result) > 1) {
-		$tmp = $result[1];
-	} else {
-		$tmp = "";
-	}
+	list($target, $tmp) = split("\?", $url);
 
 	$attrs = '';
 	foreach ($attrList as $key => $value) {
@@ -903,9 +890,6 @@ function makeFormIntro($target, $attrList=array()) {
 
 	$args = split("&", $tmp);
 	foreach ($args as $arg) {
-		if (strlen($arg) == 0) {
-			continue;
-		}
 		list($key, $val) = split("=", $arg);
 		$form .= "<input type=hidden name=\"$key\" value=\"$val\">\n";
 	}
@@ -931,7 +915,8 @@ function makeGalleryUrl($target, $args=array()) {
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_MODULENAME;
 
-	if(stristr($GALLERY_EMBEDDED_INSIDE,"nuke")) {
+	switch ($GALLERY_EMBEDDED_INSIDE) {
+		case "nuke":
 			$args["op"] = "modload";
 			$args["name"] = "$GALLERY_MODULENAME";
 			$args["file"] = "index";
@@ -942,8 +927,11 @@ function makeGalleryUrl($target, $args=array()) {
 			 */
 			$args["include"] = $target;
 			$target = "modules.php";
-	} else {
+			break;
+
+		default:
 			$target = $gallery->app->photoAlbumURL . "/" . $target;
+			break;
 	}
 
 	$url = $target;
@@ -1284,7 +1272,7 @@ function getExif($file) {
 	        while (list($key,$value) = each ($return)) {
 		    if (trim($value)) {
 			$explodeReturn = explode(':', $value, 2);
-			if (isset($myExif[trim($explodeReturn[0])])) { 
+			if ($myExif[trim($explodeReturn[0])]) { 
 			    $myExif[trim($explodeReturn[0])] .= "<br>" . 
 				    trim($explodeReturn[1]);
 			} else {
@@ -1800,107 +1788,85 @@ function findInPath($program)
 }
 
 function initLanguage() {
-
-	global $gallery, $GALLERY_BASEDIR, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
-	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_SESSION_VARS;
+	global $gallery, $GALLERY_BASEDIR, $GALLERY_EMBEDDED_INSIDE;
+	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS;
 
 	// $locale is *NUKEs locale var
 	global $locale ;
 
 	// Detect Browser Language
+	$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
+	$lang_pieces=explode ("-",$lang[0]);
 
-	if (isset($HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"])) {
-		$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
-		$lang_pieces=explode ("-",$lang[0]);
-
-		if (strlen($lang[0]) ==2) {
-			$gallery->browser_language=$lang[0] ."_".strtoupper($lang[0]);
-		} else {
-			$gallery->browser_language=
-				strtolower($lang_pieces[0]).
-				"_".strtoupper($lang_pieces[1]) ;
-		}
+	if (strlen($lang[0]) ==2) {
+		$gallery->browser_language=$lang[0] ."_".strtoupper($lang[0]);
+	} else {
+		$gallery->browser_language=
+			strtolower($lang_pieces[0]).
+			"_".strtoupper($lang_pieces[1]) ;
 	}
 
+	// If we have no Mode, use Browserlanguage
+	if (!isset($gallery->app->ML_mode)) {
+		$gallery->app->ML_mode = 2;
+	}
 
 	$nls = getNLS();
 
-	// Does the user wants a new lanuage ?
+	/**
+	 ** We have 2 Ways. Nuke or not Nuke
+	 ** If we are in Nuke this override the Mode
+	 **/
 	if (isset($HTTP_GET_VARS['newlang'])) {
 		$newlang=$HTTP_GET_VARS['newlang'];
 	}
 
-	/**
-	 ** We have now 2+1 Ways. PostNuke, phpNuke or not Nuke
-	 ** Now we (try) to do the language settings
-	 ** 
-	 ** Note: ML_mode is only used when not in *Nuke
-	 **/
+	// Check if we are in Nuke or in which Mode and set language
 
 	if (isset($GALLERY_EMBEDDED_INSIDE)) {
 		//We're in NUKE";
 		if (!empty($newlang)) {
 			// if there was a new language given, use it
-			$gallery->nuke_language=$newlang;
-		} else {
-			//No new language. Lets see which Nuke we use and look for a language
-			if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
-				/* postnuke */
-				if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
-					$gallery->nuke_language=$HTTP_SESSION_VARS['PNSVlang'];
-				}
-			}
-			else {
-				/* phpnuke */
-				if (isset($HTTP_COOKIE_VARS['lang'])) {
-					$gallery->nuke_language=$HTTP_COOKIE_VARS['lang'];
-				}
-			}
+			$gallery->nuke_language=$newlang;	
+		} elseif (isset($HTTP_COOKIE_VARS['lang'])) {
+			// if not and a language is given by NUKE Cookie use it
+			$gallery->nuke_language=$HTTP_COOKIE_VARS['lang'];
 		}
-
-		if (isset ($gallery->session->language) && ! isset($gallery->nuke_language)) {
+                
+		if (isset ($gallery->session->language) && !isset($gallery->nuke_language)) {
 			$gallery->language = $gallery->session->language;
 		} else {
 			$gallery->language=$nls['alias'][$gallery->nuke_language];
 		}
 	} else {
-		// We're not in Nuke
-		// If we got a ML_mode from config.php we use it
-		// If not we use Mode 2 (Browserlanguage)
-
-		if (isset($gallery->app->ML_mode)) {
-			$ML_mode=$gallery->app->ML_mode;
-		} else {
-			$ML_mode=2;
-		}
-
-		switch ($ML_mode) {
+		//We're not in Nuke
+		switch ($gallery->app->ML_mode) {
 			case 1:
 				//Static Language
 				$gallery->language = $gallery->app->default_language;
+				break;
+			case 2:
+				// Use Browser Language
+				if (!empty($gallery->user) && 
+						$gallery->user->getDefaultLanguage() != "") {
+					$gallery->language = $gallery->user->getDefaultLanguage();
+				} else {
+					$gallery->language=$gallery->browser_language;
+				}
 				break;
 			case 3:
 				// Does the user want a new language ?
 				if (!empty($newlang)) {
 					// Use Alias if
-					if (isset($nls['alias'][$newlang])) $newlang=$nls['alias'][$newlang] ;
-					// Set Language to the User selected language (if this language is defined)
-					if (isset($nls['language'][$newlang])) {
+					if ($nls['alias'][$newlang]) $newlang=$nls['alias'][$newlang] ;
+					// use Language if its okay
+					// Set Language to the User selected language (if this language is defined
+					if ($nls['language'][$newlang]) {
 						$gallery->language=$newlang;
 					}
 				} elseif (isset($gallery->session->language)) {
 					//maybe we already have a language
 					$gallery->language=$gallery->session->language;
-				}
-				break;
-			default:
-				// Use Browser Language or Userlanguage 
-				// when mode 2 or any other (wrong) mode
-				if (!empty($gallery->user) && 
-						$gallery->user->getDefaultLanguage() != "") {
-					$gallery->language = $gallery->user->getDefaultLanguage();
-				} elseif (isset($gallery->browser_language)) {
-					$gallery->language=$gallery->browser_language;
 				}
 				break;
 		}
@@ -1934,11 +1900,10 @@ function initLanguage() {
 
 	// locale
 	if (isset($gallery->app->locale_alias[$gallery->language])) {
-		$gallery->locale=$gallery->app->locale_alias["$gallery->language"];
+		$gallery->locale=$gallery->app->locale_alias[$gallery->language];
 	} else {
 		$gallery->locale=$gallery->language;
 	}
-
 	// Override NUKEs locale :)))	
 	$locale=$gallery->locale;
 

@@ -10,7 +10,7 @@ initLanguage();
     <head>
       <title><?php echo _("Gallery Diagnostics Page") ?></title>
     </head>
-    <body dir="<?php echo $gallery->direction ?>">
+    <body dir=<?php echo $gallery->direction ?>>
       <center>
 	<H1><?php echo _("Gallery Diagnostics") ?></H1>
       </center>
@@ -22,14 +22,14 @@ initLanguage();
       <p></p>
 
       <center>
-	<table width="90%" border="1">
+	<table width=90% border=1>
 	  <tr>
-	    <th bgcolor="#99AACC"> <?php echo _("Tool") ?> </th>
-	    <th bgcolor="#99AACC"> <?php echo _("Description") ?> </th>
+	    <th bgcolor=#99AACC> <?php echo _("Tool") ?> </th>
+	    <th bgcolor=#99AACC> <?php echo _("Description") ?> </th>
 	  </tr>
 	  <tr>
-	    <td width="140" align=center valign="top">
-	      <a href="phpinfo.php"><?php echo _("PHP Info") ?></a>
+	    <td width=140 align=center valign=top>
+	      <a href=phpinfo.php><?php echo _("PHP Info") ?></a>
 	    </td>
 	    <td>
 		<?php echo _("This page provides information about your PHP installation.") ?>
@@ -38,8 +38,8 @@ initLanguage();
 	  </tr>
 
 	  <tr>
-	    <td width="140" align=center valign="top">
-	      <a href="check_netpbm.php"><?php echo _("Check") ?> NetPBM</a>
+	    <td width=140 align=center valign=top>
+	      <a href=check_netpbm.php><?php echo _("Check") ?> NetPBM</a>
 	    </td>
 	    <td>
 	      <?php echo _("This page provides information about your NetPBM binaries.") ?> 
@@ -48,8 +48,8 @@ initLanguage();
 	  </tr>
 
 	  <tr>
-	    <td width="140" align=center valign="top">
-	      <a href="check_imagemagick.php"><?php echo _("Check") ?> ImageMagick</a>
+	    <td width=140 align=center valign=top>
+	      <a href=check_imagemagick.php><?php echo _("Check") ?> ImageMagick</a>
 	    </td>
 	    <td>
 		<?php echo _("This page provides information about your ImageMagick binaries.") ?> 
@@ -58,8 +58,8 @@ initLanguage();
 	  </tr>
 
 	  <tr>
-	    <td width="140" align=center valign="top">
-	      <a href="session_test.php"><?php echo _("Check Sessions") ?></a>
+	    <td width=140 align=center valign=top>
+	      <a href=session_test.php><?php echo _("Check Sessions") ?></a>
 	    </td>
 	    <td>
 		<?php echo _("This page runs a very simple test on your PHP session configuration.") ?>

@@ -1,118 +1,65 @@
-2003-08-30  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-cvs-b42
+2003-08-30  Beckett Madden-Woods <beckett@beckettmw.com> 1.4-RC2
 
-	* Began Vallimar's process of code cleanup to adhere to Gallery
-	  and PEAR coding standards [1], not to mention *vastly* improving
-	  legibility!
-	  
-	  Files modified: view_album.php
+	* v1.4 Release Candidate 2
 
-	  [1] http://pear.php.net/manual/en/standards.php
+2003-08-30  Jens <jens@peino.de> 1.4-RC2-cvs-b14
 
-	* We now strip HTML tags from album titles, which were causing
-	  incorrect URLs or even breaking page generation. We don't change
-	  existing values, just to be safe. (Bug #540568)
+	* Language Updates: German (de_DE), Italian (it_IT)
 
-2003-08-30 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b41
+2003-08-29  Jens <jens@peino.de> 1.4-RC2-cvs-b13
 
-	* Fixed bug in check.inc (introduced in -b40) which says there are
-	  warnings even if everything is fine.
+	* Language Updates: German (de_DE), Traditional Chinese (zh_TW)
 
-2003-08-30 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b40
-
-	* Changed / Added Colorscheme in Configwizard
-
-	* Fixed missing echo, which cause an empty button in move_album.php.
-
-2003-08-29 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b39
-
-	* Undo more pretty printing in html_wrap, because IE still doesn't
-	  like tabs.
-
-2003-08-29  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-cvs-b38
+2003-08-29  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4-RC2-cvs-b12
 
 	* Replaced preg_grep() functions in favour of ereg() in
 	  setup/functions.inc to support PHP pre-4.2.0.
 
-	* Re-ordered include of util.php in setup. Previous change had broken
-	  check_netpbm.php and check_imagemagick.php.
+	* Re-ordered include of util.php in setup. Previous change had
+	  broken check_netpbm.php and check_imagemagick.php.
+		
+2003-08-28  Jens <jens@peino.de> 1.4-RC2-cvs-b11
 
-	* Fixed check_php4_1() to work with PHP versions 5 and newer.
-	
-2003-08-29 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b37
+	* Added upgrade_users.php to po/filelist
+
+	* Language update: German (de_DE), Italian (it_IT), Turkish (tr_TR)
+
+	* Added missing locales (zh_CN), added missing .po (fi_FI)
+
+	* Synced all languages against latest changes.
+
+	* Bumped Config Version
+
+2003-08-28  Jens <jens@peino.de> 1.4-RC2-cvs-b10
 
 	* Fixed bug which caused Gallery to use locale aliases which are
-          actually unavailable.
+	  actually unavailable.
 
-	* Language Updates: German (de_DE), Traditional Chinese (zh_TW)
-
-2003-08-28 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b36
-
-	* Fixed missing global $gallery in function getDatePosted() in
-	  classes/Comment.php This fixes a bug which caused Gallery not to show
-	  Datetime of Comment
-
-2003-08-28 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b35
-
-        * Added upgrade_users.php to po/filelist
-
-        * Language update: German (de_DE), Italian (it_IT), Turkish (tr_TR)
-
-        * Added missing locales (zh_CN), added missing .po (fi_FI)
-
-        * Synced all languages against latest changes.
-
-        * Bumped Config Version
-
-	* "Valid HTML" Image/Link only visible for admins
-
-	* Added a lot of quotes
-
-2003-08-28  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b34
-            Jens Tkotz  <jens@peino.de>
-	
-	* Modified locale code so it behaves correctly on Mac and Windows 
+2003-08-28  Joan <gallery@joanhenge.plus.com> 1.4-RC2-cvs-b9
+            Jens <jens@peino.de>
+	    	
+	* Modified locale code so it behaves correctly on Mac and Windows
 	  systems.
 
 	* Cosmetic change to upgrade_users.php.
 	
-2003-08-26  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-cvs-b33
+2003-08-26  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4-RC2-cvs-b8
 
 	* Fixed incorrect image URL in search.php.
 
 	* User upgrade code no longer prints progress of individual users with
 	  usernames, which was a small security risk.
 
-	* Fixed several errors introduced in -b31 with changes in the button
-	  value check code.
-	
-2003-08-26 Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b32
-
-        * Corrected typo where the login button text would never be printed.
-
-2003-08-26 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b31
-
 	* Rewrote all checks against button values, which previously failed
 	  when values contained special non-HTML entities.
+	  (Merged from 1.4.1-cvs-b31,-b32,-b33)
+	
+2003-08-26  Bharat Mediratta  <bharat@menalto.com> 1.4-RC2-cvs-b7
 
-	* Added a lot of quotes.
+	* Fixed typos caused by the last round of merges and changed the
+	  version numbers in the ChangeLog to have "-cvs-" in them.
 
-	* "Valid HTML" banner is now only displayed in standalone mode.
-	  (Thanks Darius)
-
-2003-08-26 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b30
-
-	* Fixed missing ">' which caused Gallery to ignore aliases for absent
-	  locales.
-
-	* Fixed bug in check_locale() which returned available languages array
-	  with wrong key.
-
-	* Fixed bug which makes it impossible to delete or create a user in
-	  some languages, because buttons contain non-HMTL entities.
-
-	* Added flag for Simplified Chinese (zh_CN).
-
-2003-08-26 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b29
+2003-08-26 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b6
 
 	* Nearly a complete rewrite of locale tests in setup/functions.inc.
           This fixes 2 bugs:
@@ -120,218 +67,70 @@
               Linux / PHP with gettext / NO system locales.
               In this case Gallery doesn't have ML capabilities, but in older
 	      versions this wasn't fetched.
-          2.) When Gallery runs in Windows there were unnecessary (confusing)
+	  2.) When Gallery runs in Windows there were unnecessary (confusing)
 	      warnings.
 
-	* Added new languages: Simplified Chinese (zh_CN), Finnish (fi_FI)
+        * Added new languages: Simplified Chinese (zh_CN), Finnish (fi_FI)
 
-	* Synced all languages.
+        * Synced all languages.
 
-	* Language Updates: Italian (it_IT), German (de_DE)
+        * Language Updates: Italian (it_IT), German (de_DE)
 
-	* Undo pretty printing in html_wrap, because IE doesn't like tabs.
+2003-08-24 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b5
 
-	* Colors in Config. Wizard are now defined via CSS <style> block in
-	  index.php.  Changed color theme. If we don't like it ... let's change
-	  back.
+	* Bugfix of resize_photo.php: Button "Original Size" (in English)
+	  doesn't work in languages where the button doesn't say "Orig".
 
-2003-08-25 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b28
+2003-08-24 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b4
 
-	* Startpage is now valid HTML.
-	  To do this:  
-	  - Added alt="...." to every image
-	  - Replaced <td background= ...> with <td style="background-image:
-	    ....> (css1)
-	  - Replaced <nobr>...</nobr> with <span
-	    style="white-space:nowrap;">... </span> (css2)
+	* Language Bugfix Update: French (fr_FR)
 
-	* Added additional parameter alttext="..." to:
-	  - getHighlightTag() in classes/Album.php
-	  - getHighlightTag() in classes/AlbumItem.php
-	  - getTag() in classes/Images.php		
+2003-08-23 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b3
 
-	* Fixed Bug in resize_photo.php which caused resize to original (get
-	  rid of resized) not to work.
+	* Language Update: Slovenian (sl_SI)
 
-2003-08-24 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b27
-
-	* Added separator for sectioning in Config. Wizard (Step 2 only).
-	  - separator structure in $constants in config_data.inc:
-	 	"separator_<NR>" => array ("type"  => "separator",
-        	                           "title" => _("<some text>"))
-
-	* Rearranged Step 2 of Config. Wizard.
-
-	* Synced all languages against changes.
-
-2003-08-23 Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b26
-
-        * Fixed bug where the clicks date would never get displayed because
-	  $gallery wasn't globalized.
-          
-        * Fixed a missing quote in the thumbnail tag generation code.
-
-2003-08-23  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b25
-
-	* Allow users to explicitly set date/time strings in Configuration 
-	  Wizard.  $gallery->config_version bumped.
-
-2003-08-23 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b24
-
-	* Tweaked resize.php.
-	  Now you can enter a manual value for image size.
-
-	* Tweaked function getTag() in classes/Image.php.
-	  Quoted values from border, width and height.
-
-	* Synced all languages against the resulting language addition.
-
-2003-08-23 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b23
-
-	* Added the flag pictures :|
-
-2003-08-23 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b22
-
-	* Fixed Bug which caused flags not to be shown.
-
-2003-08-23 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b21
-
-	* Added new option in Config-wizard "show_flags".
-	  - Now its possible to show the smart pulldown menu or
-	    a table with all flags.
-	  - This also created addtional text in config_data.inc.
-	    Synced all languages against these changes.
-	    *** From now on language files from 1.4 and 1.4.1 differ. ***
-
-	* Language Updates: German (de_DE), Slovenian (sl_SI)
-
-2003-08-23 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b20
-
-	 * Edited view_photo.php.
-	   We now don't show the full system path to the file.
-
-2003-08-22 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b19
+2003-08-22 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b2
 
 	* Language Update: Turkish (tr_TR)
 
-2003-08-22 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b18
-
-	* Fixed typo in html_wrap/wrapper.header.default.
-
-2003-08-22 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b17
+2003-08-22 Jens Tkotz  <jens@peino.de> 1.4-RC2-cvs-b1
 
 	* Language Update: Spanish (es_ES), German (de_DE)
 
-2003-08-22  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-cvs-b16
+2003-08-21  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4-RC1
 
 	* Edited README
 
-2003-08-22 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b15
+	* v1.4 Release Candidate 1
 
-	* Synced languages against changes.
+2003-08-21 Jens Tkotz  <jens@peino.de> 1.4-cvs-b139
+
+	* Another Italian (it_IT) update
+
+2003-08-20 Jens Tkotz  <jens@peino.de> 1.4-cvs-b138
 
 	* Language Update: Italian (it_IT)
 
-2003-08-21 Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b14
+2003-08-20 Jens Tkotz  <jens@peino.de> 1.4-cvs-b137
 
-        * Quote attributes that HTML requires to be quoted (i.e. non-numeric
-	  things like links and image sources).  Hopefully caught all of them!
+	* Language Update: Spanish (es_ES), French (fr_FR)
 
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b13
+2003-08-18  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4-cvs-b136
 
-	* !!! UNDO Change of Value from $GALLERY_EMBEDDED_INSIDE !!!
+        * Removed my code which caused Gallery not to use Nuke's language.
 
-	* Added new global $GALLERY_EMBEDDED_INSIDE_TYPE which contains the
-	  nuketype (or whatever we are going to support in future) This was
-	  done for avoiding problems customizations require value 'nuke'.
+2003-08-18  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4-cvs-b135
 
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b12
+	* Changed error level so notices and warnings are not displayed.  
+	  There may still be warnings we have overlooked, and users should
+	  not see them.
 
-	* !!! Changed Value from $GALLERY_EMBEDDED_INSIDE !!!
-	  Now it's not only 'nuke' its 'postnuke' or 'phpnuke' We dont have to
-	  do extra checks later.
+2003-08-17  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4-cvs-b134
 
-	* Fixed bug in html_wrap/wrapper.header.default which made it not
-	  possible to have Gallery as the start page in PostNuke.  To fix this
-	  I added a test for Nuketype (see above).
-
-	* Note: the change of $GALLERY_EMBEDDED_INSIDE may cause problems
-	  with customized sites/blocks which do a test if
-	  $GALLERY_EMBEDDED_INSIDE=='nuke'.
-
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b11
-	
-	* Changed back to error_reporting(E_ALL & ~E_NOTICE). (Left in b10)
-
-	* Set ML_mode to 2 if we got none from Config. Wizard.
-	
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b10
-
-	* Language update: Italian (it_IT)
-
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b9
-	
-	* Changed behaviour of initlanguage().
-	  We now don't set $gallery->app->ML_mode if we have none,
-	  because it would override the value from config_data.inc.
-
-	* Changed text in slideshow to make it easier for translation. With
-	  luck we can use the translation from slideshow_low so no translation
-	  file additions will be necessary. Just a sync.
-
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b8 
-
-	* Language Update: French (fr_FR), Spanish (es_ES)
-
-	* Fixed little bug in a script.
-
-2003-08-19 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b7
-
-	* Tweaked initLanguage:
-	  - Removed en_US as default when no browser langauge is available.
-	  - Cleaned code to fetch warning in this case.
-
-	* Updated localization report generator.
-
-	* REALLY fix what i tried to do in -b5 #2.
-
-	* Removed debug code from ml_pulldown.inc.
-
-	* Tweaked bash script (added -f paramter which means fast, no more
-	  affirmation).
-
-2003-08-18  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b6
-
-        * Fix bug in URL upload code where, if you had images like 1.gif
-          and 11.gif, only the former would be detected.
-
-2003-08-18 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b5
-
-	* Fixed two bugs when Gallery was embedded
-	  1.) Removed Andrew's code which caused Gallery not to use Nuke's
-	      language.
-	  2.) Tweaked nls.php to separate aliases for Post/PHPNuke. Added
-	      detection for Post/PHPnuke to make combobox according to it.
-	      Language in PostNuke now changes correctly.
-
-	* Language Update: French (fr_FR), Norwegian (no_NO), Dutch (nl_NL) and
-	  Italian (it_IT)
-
-2003-08-18  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b4
-
-	* Warning message reductions throughout.
-
-	* Added html_wrap files to po/filelist, as they _could_ contain
-	  language strings.
-
-2003-08-17  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b3
-
-        * Fixed bug in Nuke integration where the language was never saved.
+        * Fix bug in Nuke integration where the language was never saved.
           (Thanks Warren).
 
-2003-08-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b2
-
-	* Code freeze of 1.4. Merging 1.4-cvs-b133 into 1.4.1 branch.
+***** NOTE: Code Freeze for 1.4-RC1 *****
 
 2003-08-16 Jens Tkotz  <jens@peino.de> 1.4-cvs-b133
 
@@ -416,14 +215,6 @@
 
 	* Changed the release version number from 1.3.5 to 1.4.
 
-2003-08-13  Bharat Mediratta  <bharat@menalto.com> 1.4.1-cvs-b1
-
-        * This is the beginning of development on v1.4.1.
-
-===============================================================================
-    v1.4 release branch created (1.3.5 was renamed to 1.4 before release)
-===============================================================================
-	
 2003-08-13 Jens Tkotz  <jens@peino.de> 1.3.5-cvs-b123
 
         * Cleaned up all language files. No more obsolete entries, no "# "
@@ -3976,3 +3767,4 @@ v1.3 release
 2000-07-04  Bharat Mediratta  <bharat@menalto.com>
 
 	* Updated README to reflect v1.0 feature list
+

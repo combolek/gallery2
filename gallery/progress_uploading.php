@@ -45,7 +45,7 @@ function image($name) {
   <?php echo getStyleSheetLink() ?>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <center>
 <span class="title"><?php echo _("File upload in progress!") ?></span>
 <p>
@@ -53,9 +53,9 @@ function image($name) {
 <p>
 <table border=0 cellpadding=0 cellspacing=0>
  <tr>
-  <td> <img src="<?php echo image("computer.gif") ?>" width="31" height="32"> </td>
-  <td> <img src="<?php echo image("uploading.gif") ?>" width="160" height="11"> </td>
-  <td> <img src="<?php echo image("computer.gif") ?>" width="31" height="32"> </td>
+  <td> <img src=<?php echo image("computer.gif") ?> width=31 height=32> </td>
+  <td> <img src=<?php echo image("uploading.gif") ?> width=160 height=11> </td>
+  <td> <img src=<?php echo image("computer.gif") ?> width=31 height=32> </td>
  </tr>
 </table>
 

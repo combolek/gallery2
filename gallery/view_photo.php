@@ -44,14 +44,6 @@ if (isset($full) && !$gallery->user->canViewFullImages($gallery->album)) {
 				$id));
 	return;
 }
-if (!isset($full)) {
-	$full=NULL;
-}
-
-if (!isset($openAnchor)) {
-	$openAnchor=0;
-}
-
 
 if ($id) {
 	$index = $gallery->album->getPhotoIndex($id);
@@ -85,7 +77,7 @@ if (($gallery->album->isHidden($index))
 
 
 $albumName = $gallery->session->albumName;
-if (!isset($gallery->session->viewedItem[$gallery->session->albumName][$id]) 
+if (!$gallery->session->viewedItem[$gallery->session->albumName][$id] 
 	&& !$gallery->session->offline) {
 	$gallery->session->viewedItem[$albumName][$id] = 1;
 	$gallery->album->incrementItemClicks($index);
@@ -180,7 +172,7 @@ do {
     $pAlbum->load($pAlbumName);
     $breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($pAlbumName) .
       "\">" . $pAlbum->fields['title'] . "</a>";
-  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+  } elseif (!$gallery->session->offline || $gallery->session->offlineAlbums["albums.php"]) {
     //-- we're at the top! ---
     $breadtext[$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") .
       "\">" . $gallery->app->galleryTitle . "</a>";
@@ -236,7 +228,7 @@ if (!$title) {
   <link rel="up" href="<?php echo makeAlbumUrl($gallery->session->albumName) ?>">
 	  <?php if ($gallery->album->isRoot() &&
 			  (!$gallery->session->offline ||
-			   isset($gallery->session->offlineAlbums["albums.php"]))) { ?>
+			   $gallery->session->offlineAlbums["albums.php"])) { ?>
   <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>">	 
 	  <?php }?>
   <style type="text/css">
@@ -253,8 +245,8 @@ if ($gallery->album->fields["linkcolor"]) {
 if ($gallery->album->fields["bgcolor"]) {
         echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
 }       
-if (isset($gallery->album->fields["background"])) {
-        echo "BODY { background-image:url(".$gallery->album->fields['background']."); } ";
+if ($gallery->album->fields["background"]) {
+        echo "BODY { background-image:url(".$gallery->album->fields[background]."); } ";
 } 
 if ($gallery->album->fields["textcolor"]) {
         echo "BODY, TD {color:".$gallery->album->fields[textcolor]."; }";
@@ -344,9 +336,9 @@ if ($fitToWindow) {
 </head>
 
 <?php if ($fitToWindow) { ?>
-	<body dir="<?php echo $gallery->direction ?>" onResize='doResize()'>
+	<body dir=<?php echo $gallery->direction ?> onResize='doResize()'>
 <?php } else { ?>
-	<body dir="<?php echo $gallery->direction ?>">
+	<body dir=<?php echo $gallery->direction ?>>
 <?php } ?>
 <?php } # if not embedded ?>
 <?php
@@ -438,12 +430,12 @@ if (!$gallery->album->isMovie($id)) {
 		}
 		$printService = $gallery->album->fields["print_photos"];
 		if (!strncmp($printService, "shutterfly", 10)) {
-		    $adminCommands .= "<a href=\"#\" onClick=\"document.sflyc4p.returl.value=document.location; document.sflyc4p.submit();\">[". sprintf(_("print this photo on %s"), "Shutterfly") . "]</a>";
+		    $adminCommands .= "<a href=# onClick=\"document.sflyc4p.returl.value=document.location; document.sflyc4p.submit();\">[". sprintf(_("print this photo on %s"), "Shutterfly") . "]</a>";
 		    $printShutterflyForm = 1;
 		} else if (!strncmp($printService, "fotokasten", 10)) {
 		    $adminCommands .= popup_link("[". sprintf(_("print this photo on %s"), "Fotokasten") . "]", "'http://1071.partner.fotokasten.de/affiliateapi/standard.php?add=" . $rawImage . '&thumbnail=' . $thumbImage . '&height=' . $imageHeight . '&width=' . $imageWidth . "'", 1);
 		} else if (!strncmp($printService, 'photoaccess', 11)) {
-		    $adminCommands .= "<a href=\"#\" onClick=\"document.photoAccess.returnUrl.value=document.location; document.photoAccess.submit()\">[". sprintf(_("print this photo on %s"), "PhotoAccess") . "]</a>";
+		    $adminCommands .= "<a href=# onClick=\"document.photoAccess.returnUrl.value=document.location; document.photoAccess.submit()\">[". sprintf(_("print this photo on %s"), "PhotoAccess") . "]</a>";
 		    $printPhotoAccessForm = 1;
 		}
 	}
@@ -499,24 +491,24 @@ includeHtmlWrap("inline_photo.header");
 <table width=1% border=0 cellspacing=0 cellpadding=0>
 <?php
 echo("<tr $bordercolor>");
-echo("<td colspan=3 height=$borderwidth><img src=\"$top/images/pixel_trans.gif\"></td>");
+echo("<td colspan=3 height=$borderwidth><img src=$top/images/pixel_trans.gif></td>");
 echo("</tr><tr>");
 echo("<td $bordercolor width=$borderwidth>");
-echo("<img src=\"$top/images/pixel_trans.gif\" width=$borderwidth height=1>");
+echo("<img src=$top/images/pixel_trans.gif width=$borderwidth height=1>");
 echo("</td><td align='center'>");
 
 $photoTag = $gallery->album->getPhotoTag($index, $full);
 if (!$gallery->album->isMovie($id)) {
 	if ($gallery->album->isResized($index) && !$do_fullOnly) { 
 		if ($full) { 
-			echo "<a href=\"" . makeAlbumUrl($gallery->session->albumName, $id) . "\">";
+			echo "<a href=" . makeAlbumUrl($gallery->session->albumName, $id) . ">";
 	 	} else if ($gallery->user->canViewFullImages($gallery->album)) {
-			echo "<a href=\"" . makeAlbumUrl($gallery->session->albumName, $id, array("full" => 1)) . "\">";
+			echo "<a href=" . makeAlbumUrl($gallery->session->albumName, $id, array("full" => 1)) . ">";
 		}
 		$openAnchor = 1;
 	}
 } else {
-	echo "<a href=\"" . $gallery->album->getPhotoPath($index) . "\" target=\"other\">";
+	echo "<a href=" . $gallery->album->getPhotoPath($index) . " target=other>";
 	$openAnchor = 1;
 }
 
@@ -541,11 +533,11 @@ if ($openAnchor) {
 
 echo("</td>");
 echo("<td $bordercolor width=$borderwidth>");
-echo("<img src=\"$top/images/pixel_trans.gif\" width=$borderwidth height=1>");
+echo("<img src=$top/images/pixel_trans.gif width=$borderwidth height=1>");
 echo("</td>");
 echo("</tr>");
 echo("<tr $bordercolor>");
-echo("<td colspan=3 height=$borderwidth><img src=\"$top/images/pixel_trans.gif\"></td>");
+echo("<td colspan=3 height=$borderwidth><img src=$top/images/pixel_trans.gif></td>");
 ?>
 </tr>
 </table>
@@ -565,7 +557,7 @@ $key=array_search($field, $extra_fields);
 if (is_int($key))
 {
 	print "<tr><td valign=top align=right><b>".$automaticFields[$field].":<b></td><td>".
-		strftime($gallery->app->dateTimeString , $gallery->album->getUploadDate($index)).
+		strftime("%c" , $gallery->album->getUploadDate($index)).
 		"</td></tr>";
 	unSet($extra_fields[$key]);
 }
@@ -576,12 +568,12 @@ if (is_int($key))
 {
 	$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
 	print "<tr><td valign=top align=right><b>".$automaticFields[$field].":<b></td><td>".
-		strftime($gallery->app->dateTimeString , mktime ($itemCaptureDate['hours'],
-					$itemCaptureDate['minutes'],
-					$itemCaptureDate['seconds'],
-					$itemCaptureDate['mon'],
-					$itemCaptureDate['mday'],
-					$itemCaptureDate['year'])).  
+		strftime("%c" , mktime ($itemCaptureDate[hours],
+					$itemCaptureDate[minutes],
+					$itemCaptureDate[seconds],
+					$itemCaptureDate[mon],
+					$itemCaptureDate[mday],
+					$itemCaptureDate[year])).  
 		"</td></tr>";
 	unSet($extra_fields[$key]);
 }
@@ -629,9 +621,7 @@ foreach ($extra_fields as $field)
 	}
 }
 if ($do_exif) {
-	$myExif = $gallery->album->getExif($index, isset($forceRefresh));
-	// we dont want to show the full system path to the file
-	array_shift($myExif);
+	$myExif = $gallery->album->getExif($index, $forceRefresh);
 	foreach ($myExif as $field => $value) {
 		print "<tr><td valign=top align=right><b>$field:<b></td><td>".
 			str_replace("\n", "<p>", $value).

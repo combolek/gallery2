@@ -14,19 +14,17 @@ if (fs_file_exists($GALLERY_BASEDIR . "config.php")) {
 }
 
 initLanguage();
-
-$css_filename=$GALLERY_BASEDIR ."css/config.css";
-if (! file_exists($css_filename)) {
-	$css_filename .= ".default";
-}
 ?>
 <html>
 <head>
-	<title><?php echo _("Gallery Configuration") ?></title>
-	<link href="<?php echo $css_filename ?>" rel="stylesheet" type="text/css" />
+  <title><?php echo _("Gallery Configuration") ?></title>
+  <style type="text/css">
+   body { background: #CCCCCC; }
+   .error { color: #FF0000; }
+  </style>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <?php
 
 if (function_exists("posix_getpwuid")) {
@@ -74,7 +72,7 @@ foreach (array_keys($preserve) as $key) {
 
 ?>
 
-<form method="POST">
+<form method=POST>
 
 <?php
 $legit = array("check", "constants", "defaults", "confirm", "write");

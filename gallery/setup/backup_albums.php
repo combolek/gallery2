@@ -91,12 +91,12 @@ if (!empty($backup) || !empty($force))
 </head>
 <body dir="<?php echo $gallery->direction; ?>">
 
-<span class="popuphead"><?php echo _("Backup album data") ?></span>
+<span class="popuphead">Backup album data</span>
 <p>
 <?php
 if ($error_text) {
 ?>
-<span class="error"><?php echo $error_text ?></span>
+<span class=error><?php echo $error_text ?></span>
 <?php
 }
 ?>
@@ -110,65 +110,35 @@ if (!isset($xargs_path)) { $xargs_path=( ($path = findInPath ("xargs")) ? $path 
 if (!isset($gzip_path)) { $gzip_path=( ($path = findInPath ("gzip")) ? $path : "/usr/bin/gzip");}
 if (!isset($zip_path)) { $zip_path="C:\bin\zip.exe";}
 ?>
-<?php echo _("Choose archiving option and which files you wish to archive.") ?>
-<?php echo makeFormIntro("backup_albums.php", array(
-		"name" => "theform", 
-		"method" => "POST"));
-?>
+<center>
+Choose archiving option and which files you wish to archive.
+<?php echo makeFormIntro("backup_albums.php", array("name" => "theform", "method" => "POST")); ?>
 <table>
 
-<tr>
-	<td><?php echo _("Backup Method:") ?></td>
-	<td><input type="radio" name="backup_method" value="tgz" align="middle" <?php ($backup_method == "tgz") ? print 'checked' : '' ?> >tar/gzip</td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td><input type="radio" name="backup_method" value="zip" align="middle" <?php $backup_method =="zip" ? print 'checked' : '' ?> >zip</td>
-</tr>
-<tr>
-	<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-	<td><?php echo _("Files to backup:") ?></td>
-	<td><input type="radio" name="target_files" value="all" align="middle" <?php $target_files =="all" ? print 'checked' : '' ?> >All files</td>
-</tr>
-<tr>
-	<td>&nbsp;</td>
-	<td><input type="radio" name="target_files" value="dat" align="middle" <?php $target_files =="dat" ? print 'checked' : '' ?> >Data files only</td>
-</tr>
-<tr>
-	<td><?php echo _("zip path:") ?></td>
-	<td><input name="zip_path" value="<?php echo $zip_path ?>" size="30"></td>
-</tr>
-<tr>
-	<td><?php echo _("tar path:") ?></td>
-	<td><input name="tar_path" value="<?php echo $tar_path ?>" size="30"></td>
-</tr>
-<tr>
-	<td><?php echo _("gzip path:") ?></td>
-	<td><input name="gzip_path" value="<?php echo $gzip_path ?>" size="30"></td>
-</tr>
-<tr>
-	<td><?php echo _("find path:") ?></td>
-	<td><input name="find_path" value="<?php echo $find_path ?>" size="30"></td>
-</tr>
-<tr> 
-	<td><?php echo _("xargs path") ?></td>
-	<td><input name="xargs_path" value="<?php echo $xargs_path ?>" size="30"></td>
-</tr>
+<tr> <td>Backup Method:</td> <td><input type="radio" name="backup_method" value="tgz" align="middle" <?php ($backup_method == "tgz") ? print 'checked' : '' ?> >tar/gzip</td> </tr>
+<tr> <td></td> <td><input type="radio" name="backup_method" value="zip" align="middle" <?php $backup_method =="zip" ? print 'checked' : '' ?> >zip</td> </tr>
+<tr><td></td> </tr>
+<tr> <td>Files to backup:</td> <td><input type="radio" name="target_files" value="all" align="middle" <?php $target_files =="all" ? print 'checked' : '' ?> >All files</td> </tr>
+<tr> <td></td> <td><input type="radio" name="target_files" value="dat" align="middle" <?php $target_files =="dat" ? print 'checked' : '' ?> >Data files only</td> </tr>
+<tr> <td>zip path</td> <td><input name="zip_path" value="<?php echo $zip_path ?>" size=30></td> </tr>
+<tr> <td>tar path</td> <td><input name="tar_path" value="<?php echo $tar_path ?>" size=30></td> </tr>
+<tr> <td>gzip path</td> <td><input name="gzip_path" value="<?php echo $gzip_path ?>" size=30></td> </tr>
+<tr> <td>find path</td> <td><input name="find_path" value="<?php echo $find_path ?>" size=30></td> </tr>
+<tr> <td>xargs path</td> <td><input name="xargs_path" value="<?php echo $xargs_path ?>" size=30></td> </tr>
 </table>
-
+</table>
 <p>
 <input type="submit" name="backup" value=<?php echo  _("Backup") ?>>
 <?php if ($showForce) { ?>
-<input type="submit" name="force" value=<?php echo  _("Force Backup") ?>>
+<input type=submit name="force" value=<?php echo  _("Force Backup") ?>>
 <?php } ?>
-<input type="button" value=<?php echo  _("Cancel") ?> onclick='parent.close()'>
+<input type=button value=<?php echo  _("Cancel") ?> onclick='parent.close()'>
 
 </form>
 <p>
 <hr>
-<span class=title><?php echo _("Notes") ?></span>
+<span class=title>Notes</span>
+</center>
 <ol>
 <li> <?php echo _("On Linux/Unix systems, tar/gzip is recommended.") ?>
 <li> <?php echo _("On Windows system, choose zip backup, and ensure the path for the zip.exe is correct.") ?>

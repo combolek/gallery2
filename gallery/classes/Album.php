@@ -157,7 +157,7 @@ class Album {
 				"item_owner_delete", 
 				"add_to_beginning");
 		foreach ($check as $field) {
-			if (!isset($this->fields[$field])) {
+			if (!$this->fields[$field]) {
 				$this->fields[$field] = $gallery->app->default[$field];
 				$changed = 1;
 			}
@@ -769,10 +769,10 @@ class Album {
 		}
 	}
 
-	function getHighlightTag($size=0, $attrs="",$alttext) {
+	function getHighlightTag($size=0, $attrs="") {
 		list ($album, $photo) = $this->getHighlightedItem();
 		if ($photo) {
-			return $photo->getHighlightTag($album->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
+			return $photo->getHighlightTag($album->getAlbumDirURL("highlight"), $size, $attrs);
 		} else {
 			return "<span class=title>". _("No highlight") ."!</span>";
 		}
@@ -1057,8 +1057,6 @@ class Album {
 	}
 
 	function getClicksDate() {
-		global $gallery;
-
                 $time = $this->fields["clicks_date"];
 
                 // albums may not have this field.
@@ -1066,7 +1064,7 @@ class Album {
                         $this->resetClicks();
 			$time = $this->fields["clicks_date"];
                 }
-		return strftime($gallery->app->dateString,$time);
+		return strftime("%x",$time);
 
         }
 
@@ -1140,7 +1138,7 @@ class Album {
 			$time = $stat[9];
 		}
 
-		return strftime($gallery->app->dateString,$time);
+		return strftime("%x",$time);
 	}
 
 	function setNestedProperties() {
@@ -1189,12 +1187,8 @@ class Album {
 	}
 
 	function getPerm($permName, $uid) {
-		if (isset($this->fields["perms"][$permName])) {
-			$perm = $this->fields["perms"][$permName];
-		} else {
-			$perm=array();
-		}
-		if (isset($perm[$uid])) {
+		$perm = $this->fields["perms"][$permName];
+		if ($perm[$uid]) {
 			return true;
 		}
 
@@ -1202,7 +1196,7 @@ class Album {
 
 		/* If everybody has the perm, then we do too */
 		$everybody = $gallery->userDB->getEverybody();
-		if (isset($perm[$everybody->getUid()])) {
+		if ($perm[$everybody->getUid()]) {
 			return true;
 		}
 
@@ -1211,7 +1205,7 @@ class Album {
 		 * we're ok also.
 		 */
 		$loggedIn = $gallery->userDB->getLoggedIn();
-		if (isset($perm[$loggedIn->getUid()]) &&
+		if ($perm[$loggedIn->getUid()] &&
 		    strcmp($gallery->user->getUid(), $everybody->getUid())) {
 		        return true;
 		}

@@ -94,16 +94,15 @@ if ($save) {
 <?php echo _("Configure Custom Fields") ?>
 
 <p>
-<?php echo makeFormIntro("extra_fields.php", array(
-				"name" => "theform", 
-				"method" => "POST")); 
-?>
-<input type="hidden" name="save" value="1">
+<?php echo makeFormIntro("extra_fields.php", 
+			array("name" => "theform", 
+				"method" => "POST")); ?>
+<input type=hidden name="save" value=1>
 
 <?php echo _("Number of user defined custom fields") ?>
 <?php $num_user_fields=sizeof($gallery->album->getExtraFields()) - 
 	num_special_fields($gallery->album->getExtraFields()); ?>
-<input type="text" size="4" name="num_user_fields" value="<?php echo $num_user_fields ?>">
+<input type=text size=4 name="num_user_fields" value="<?php echo $num_user_fields ?>">
 <table>
 
 <?php
@@ -112,7 +111,7 @@ $extra_fields=$gallery->album->getExtraFields();
 // Translate the first "Title" in the line below only
 ?>
 <tr><td><?php echo _("Title") ?></td><td>
-<input type="checkbox" name="extra_fields[]" value="Title"
+<input type=checkbox name="extra_fields[]" value="Title"
 <?php print in_array("Title", $extra_fields) ?  "checked" : ""; 
 ?> > </td></tr>
 <?php
@@ -122,7 +121,9 @@ foreach (automaticFieldsList() as $automatic => $printable_automatic) {
 	}
 ?>
 	<tr><td><?php print $printable_automatic ?></td>
-	<td><input type="checkbox" name="extra_fields[]" value="<?php print $automatic ?>"
+	<td><input type=checkbox 
+	name="extra_fields[]" 
+	value="<?php print $automatic ?>"
 	<?php print in_array($automatic, $extra_fields) ?  "checked" : ""; 
 	?> > </td></tr>
 <?php
@@ -139,7 +140,7 @@ foreach ($extra_fields as $value)
 	if (!strcmp($value, "Title"))
 		continue;
 	print "<tr><td>". _("Field").($i+1).": </td><td>";
-	print "<input type=\"text\" name=\"extra_fields[]\"";
+	print "<input type=text name=\"extra_fields[]\"";
         print "value=\"".$value."\"><p></td></tr>";
 	$i++;
 }
@@ -160,11 +161,11 @@ function num_special_fields($extra_fields)
 }
 ?>
 </table>
-<input type="checkbox" name="setNested" value="1"><?php echo _("Apply to nested Albums") ?>.
+<input type=checkbox name=setNested value="1"><?php echo _("Apply to nested Albums") ?>.
 <p>
 <input type="submit" name="apply" value="<?php echo _("Apply") ?>">
-<input type="reset" value="<?php echo _("Undo") ?>">
-<input type="button" name="close" value="<?php echo _("Close") ?>" onclick='parent.close()'>
+<input type=reset value="<?php echo _("Undo") ?>">
+<input type="button" name="close" value="<?php echo _("Close") ?>" onclick="parent.close()">
 
 </form>
 </body>

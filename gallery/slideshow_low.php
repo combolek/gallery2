@@ -57,19 +57,19 @@ $defaultPause = 3;
 $defaultFull = 0;
 $defaultDir = 1;
 
-if (!isset($slide_index)) {
+if (!$slide_index) {
     $slide_index = 1;
 }
-if (!isset($slide_pause)) {
+if (!$slide_pause) {
     $slide_pause = $defaultPause;
 }
-if (!isset($slide_loop)) {
+if (!$slide_loop) {
     $slide_loop = $defaultLoop;
 }
-if (!isset($slide_full)) {
+if (!$slide_full) {
     $slide_full = $defaultFull;
 }
-if (!isset($slide_dir)) {
+if (!$slide_dir) {
     $slide_dir = $defaultDir;
 }
 
@@ -79,14 +79,13 @@ if ($slide_full && !$gallery->user->canViewFullImages($gallery->album)) {
 
 function makeSlideLowUrl($index, $loop, $pause, $full, $dir) {
 
-	global $gallery;
-	return makeGalleryUrl('slideshow_low.php',
-			array('set_albumName' => $gallery->session->albumName,
-				'slide_index' => $index,
-				'slide_loop' => $loop,
-				'slide_pause' => $pause,
-				'slide_full' => $full,
-				'slide_dir' => $dir));
+    return makeGalleryUrl('slideshow_low.php',
+	array('set_albumName' => $gallery->session->albumName,
+	      'slide_index' => $index,
+	      'slide_loop' => $loop,
+	      'slide_pause' => $pause,
+	      'slide_full' => $full,
+	      'slide_dir' => $dir));
 }
 
 $borderColor = $gallery->album->fields["bordercolor"];
@@ -97,10 +96,10 @@ if (!strcmp($borderwidth, "off")) {
 $bgcolor = $gallery->album->fields['bgcolor'];
 $title = $gallery->album->fields["title"];
 
-define('PHOTO_URL',         1 << 0);
-define('PHOTO_CAPTION',     1 << 1);
-define('PHOTO_URL_AS_HREF', 1 << 2);
-define('PHOTO_ALL',     (1<<16)-1);      // all bits set
+define(PHOTO_URL,         1 << 0);
+define(PHOTO_CAPTION,     1 << 1);
+define(PHOTO_URL_AS_HREF, 1 << 2);
+define(PHOTO_ALL    ,     (1<<16)-1);      // all bits set
 
 function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
     global $gallery;
@@ -155,6 +154,7 @@ function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
 
 	// Go to the next photo
 	$index = getNextPhoto($index);
+	$photosLeft--;
     }
 
     return $photo_count;
@@ -192,7 +192,7 @@ if ($gallery->album->fields["textcolor"]) {
   </style>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <?php } ?>
 <?php includeHtmlWrap("slideshow.header"); ?>
 
