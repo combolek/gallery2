@@ -740,7 +740,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 
 				// parse and store the data
 				int albumCount = Integer.parseInt(p.getProperty("album_count"));
-//	System.err.println( "### albumCount = " + albumCount );
+
 				HashMap ref2parKey = new HashMap();
 				HashMap ref2album = new HashMap();
 				for (int i = 1; i < albumCount + 1; i++) {
