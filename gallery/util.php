@@ -544,6 +544,15 @@ function makeGalleryUrl($albumName="", $photoId="", $extra="") {
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_MODULENAME;
 
+	//-- If the Id points to a nested album ---
+	if ($photoId) {
+		$index = $gallery->album->getPhotoIndex($photoId);
+		if ($gallery->album->isAlbumName($index)) {
+			$albumName = $gallery->album->isAlbumName($index);
+			$photoId = "";
+		}
+	} 
+
 	switch ($GALLERY_EMBEDDED_INSIDE) {
 		case "nuke":
 			$url = "modules.php?op=modload&name=$GALLERY_MODULENAME&file=index";
