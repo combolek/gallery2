@@ -7,6 +7,18 @@
       {gallery->text text="Album Settings"}
     {/gallery->maintitle1}
 
+    {if isset($status)}
+      {gallery->detailedbox}
+	{gallery->detailedboxbody}
+	  {gallery->status}
+	    {if isset($status.createdAlbum)}
+	      {gallery->text text="Album created successfully"}
+	    {/if}
+	  {/gallery->status}
+	{/gallery->detailedboxbody}
+      {/gallery->detailedbox}
+    {/if}
+
     {gallery->detailedbox}
       {gallery->detailedboxbody}
 	{gallery->widget2set}
