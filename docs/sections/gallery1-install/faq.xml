@@ -1104,6 +1104,22 @@ if (!function_exists('array_search')) {
      </answer>
     </qandaentry>
     
+    <qandaentry id="gallery1-install.faq.c.28">
+     <question>
+      <para>
+       Why do I get this error: <literal>Warning: write failed: No space left on device (28) in Unknown on line 0</literal>?
+      </para>
+     </question>
+     <answer>
+      <para>
+       Your host setup a quota for the web server user.  Though <emphasis>your account</emphasis> may still have
+       space left, the quota for the web server user has been overrun.  Basically, you'll need to contact
+       your host and ask them to cleanup the filesystem and/or adjust the quota.  If you are your host,
+       adjust the quota using <command>edquota</command>.
+      </para>
+     </answer>
+    </qandaentry>
+    
    </qandadiv>
   
   </qandaset>
