@@ -18,7 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 ?>
-
 <?
 if ($doit) {
 
@@ -28,20 +27,26 @@ if ($doit) {
 		. "(this may take a while)";
 	my_flush();
 
-	$gallery->album->rotatePhoto($index, $rotateby);
-	$gallery->album->save();
+	$index = $album->getPhotoIndex($id);
+	$album->rotatePhoto($index, $rotateby);
+	$album->save();
 	return;
+} else {
+
+	//-- build up some html for output ---
+	$content = "
+
+		<input type=\"hidden\" name=\"show_progress\" value=\"1\">
+		<span class=\"title\">How do you want to rotate this photo?</span>
+		<br>
+		<input type=\"radio\" name=\"rotateby\" value=\"90\">Counter-Clockwise 90&ordm;
+		<br>
+		<input type=\"radio\" name=\"rotateby\" value=\"-90\">Clockwise 90&ordm;
+		<br>
+		<input type=\"radio\" name=\"rotateby\" value=\"180\">180&ordm;
+		<br>
+	";
+
+	return $content;
 }
 ?>
-
-<input type="hidden" name="show_progress" value="1">
-
-<span class="title">How do you want to rotate this photo?</span>
-<br>
-<input type="radio" name="rotateby" value="90">Counter-Clockwise 90&ordm;
-<br>
-<input type="radio" name="rotateby" value="-90">Clockwise 90&ordm;
-<br>
-<input type="radio" name="rotateby" value="180">180&ordm;
-<br>
-
