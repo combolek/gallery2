@@ -74,10 +74,10 @@ public class ImageUtils {
 	static String[] filterName = new String[3];
 	static String[] format = new String[3];
 
-	public final static String DEFAULT_IMAGE = "img/default.gif";
-	public final static String UNRECOGNIZED_IMAGE = "img/default.gif";
-	public final static String DEFAULT_RESOURCE = "default.gif";
-	public final static String UNRECOGNIZED_RESOURCE = "default.gif";
+	//public final static String DEFAULT_IMAGE = "img/default.gif";
+	//public final static String UNRECOGNIZED_IMAGE = "img/default.gif";
+	public final static String DEFAULT_RESOURCE = "/default.gif";
+	public final static String UNRECOGNIZED_RESOURCE = "/default.gif";
 
 	public static ImageIcon defaultThumbnail = null;
 	public static ImageIcon unrecognizedThumbnail = null;
@@ -540,25 +540,11 @@ public class ImageUtils {
 			stopUsingIM();
 		}
 
-		defaultThumbnail = load(
-				DEFAULT_IMAGE,
-				GalleryRemote.getInstance().properties.getThumbnailSize(),
-				THUMB);
+		defaultThumbnail = javaLoad(ImageUtils.class.getResource(DEFAULT_RESOURCE),
+				GalleryRemote.getInstance().properties.getThumbnailSize());
 
-		if (defaultThumbnail == null) {
-			defaultThumbnail = javaLoad(ImageUtils.class.getResource(DEFAULT_RESOURCE),
-					GalleryRemote.getInstance().properties.getThumbnailSize());
-		}
-
-		unrecognizedThumbnail = load(
-				UNRECOGNIZED_IMAGE,
-				GalleryRemote.getInstance().properties.getThumbnailSize(),
-				THUMB);
-
-		if (unrecognizedThumbnail == null) {
-			unrecognizedThumbnail = javaLoad(ImageUtils.class.getResource(UNRECOGNIZED_RESOURCE),
-					GalleryRemote.getInstance().properties.getThumbnailSize());
-		}
+		unrecognizedThumbnail = javaLoad(ImageUtils.class.getResource(UNRECOGNIZED_RESOURCE),
+				GalleryRemote.getInstance().properties.getThumbnailSize());
 
 		// Making sure jpegtran works
 		try {
@@ -596,28 +582,23 @@ public class ImageUtils {
 	}
 
 
-	public static void purgeTemp()
-	{
+	public static void purgeTemp() {
 		Enumeration e = toDelete.elements();
 		while (e.hasMoreElements()) {
 			((File) e.nextElement()).delete();
 		}
 	}
 
-	public static Dimension getSizeKeepRatio(Dimension source, Dimension target)
-	{
+	public static Dimension getSizeKeepRatio(Dimension source, Dimension target) {
 		Dimension result = new Dimension();
 
 		float sourceRatio = (float) source.width / source.height;
 		float targetRatio = (float) target.width / target.height;
 
-		if (targetRatio > sourceRatio)
-		{
+		if (targetRatio > sourceRatio) {
 			result.height = target.height;
 			result.width = source.width * target.height / source.height;
-		}
-		else
-		{
+		} else {
 			result.width = target.width;
 			result.height = source.height * target.width / source.width;
 		}
@@ -625,17 +606,13 @@ public class ImageUtils {
 		return result;
 	}
 
-	public static float getRatio(Dimension source, Dimension target)
-	{
+	public static float getRatio(Dimension source, Dimension target) {
 		float widthRatio = (float) target.width / source.width;
 		float heightRatio = (float) target.height / source.height;
 
-		if (heightRatio > widthRatio)
-		{
+		if (heightRatio > widthRatio) {
 			return widthRatio;
-		}
-		else
-		{
+		} else {
 			return heightRatio;
 		}
 	}
