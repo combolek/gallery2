@@ -172,9 +172,9 @@ class ItemReorderController extends GalleryController {
 class ItemReorderView extends GalleryView {
 
     /**
-     * 
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	/* itemId is the album where we want to move items from */
@@ -184,7 +184,6 @@ class ItemReorderView extends GalleryView {
 	    /* No validation at the moment */
         } else {
             /* First time around, load the form with item data */
-            $form = array();
 	    $form['formName'] = 'ItemReorder';
         }
 
@@ -218,18 +217,13 @@ class ItemReorderView extends GalleryView {
         }
 
         /* Render the HTML body */
-        $template = $this->_getTemplate();
-        $template->setVariable('item', $item->getMemberData());
-        $template->setVariable('form', $form);
-        $template->setVariable('peers', $peers);
-        $template->setVariable('peerTypes', $peerTypes);
+	$ItemReorder = array(); 
+        $ItemReorder['peers'] = $peers;
+        $ItemReorder['peerTypes'] = $peerTypes;
+
+        $template->setVariable('ItemReorder', $ItemReorder);
         $template->setVariable('controller', 'core:ItemReorder');
-        list($ret, $html) = $template->render('ItemReorder.tpl');
-        if ($ret->isError()) {
-            return array($ret->wrap(__FILE__, __LINE__), $html);
-        }
-	
-        return array(GalleryStatus::success(), $html);
+        return array(GalleryStatus::success(), '', 'modules/core/templates/ItemReorder.tpl');
     }
 }
 ?>
