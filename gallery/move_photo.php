@@ -54,7 +54,7 @@ if ($gallery->session->albumName && isset($index)) {
 	// way to make sure all thumbnails and resized images are the correct size.
 
         if ($newAlbum) {	// we are moving from one album to another
-            	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
+            	$postAlbum = new Album($newAlbum);
 	    	if ($gallery->album != $postAlbum) {
 			//$startPhoto=$index;
 			//$endPhoto=$startPhoto+max($numPhotosToMove,1);

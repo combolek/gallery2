@@ -193,9 +193,6 @@ class AlbumItem {
 		 * if it is now the highlight make sure it has a highlight
                  * thumb otherwise get rid of it's thumb (ouch!).
 		 */
-		$name = $this->image->name;
-		$tag = $this->image->type;
-
 		if ($this->highlight) {
 			if ($this->isAlbumName) {
 				$nestedName = $this->isAlbumName;
@@ -212,24 +209,17 @@ class AlbumItem {
 				$tag  = $nestedHighlight->image->type;
 				$ret = 1;
 			} else {
+				$name = $this->image->name;
+				$tag = $this->image->type;
 
-				if (($this->image->thumb_width > 0) || ($nestedHighlight->image->thumb_width > 0)) {
+				if ($this->image->thumb_width > 0) {
 					// Crop it first
-					if ($this->isAlbumName) {
-						$ret = cut_image("$dir/$name.$tag",
-                	                                 	"$dir/$name.tmp.$tag",
-                        	                         	$nestedHighlight->image->thumb_x,
-                                	                 	$nestedHighlight->image->thumb_y,
-                                        	         	$nestedHighlight->image->thumb_width,
-                                                	 	$nestedHighlight->image->thumb_height);
-					} else {
-						$ret = cut_image("$dir/$name.$tag", 
-							 	"$dir/$name.tmp.$tag", 
-							 	$this->image->thumb_x, 
-							 	$this->image->thumb_y,
-							 	$this->image->thumb_width, 
-						 		$this->image->thumb_height);
-					}
+					$ret = cut_image("$dir/$name.$tag", 
+						 	"$dir/$name.tmp.$tag", 
+						 	$this->image->thumb_x, 
+						 	$this->image->thumb_y,
+						 	$this->image->thumb_width, 
+					 		$this->image->thumb_height);
 	
 					// Then resize it down
 					if ($ret) {
@@ -390,11 +380,27 @@ class AlbumItem {
 		}
 	}
 
+	function getThumbnailPath($dir) {
+		if ($this->thumbnail) {
+			return $this->thumbnail->getPath($dir);
+		} else {
+			return "about:blank";
+		}
+	}
+
 	function getHighlightTag($dir, $size=0, $attrs) {
 		if (is_object($this->highlightImage)) {
 			return $this->highlightImage->getTag($dir, 0, $size, $attrs);
 		} else {
 			return "<i>No highlight</i>";
+		}
+	}
+
+	function getHighlightPath($dir) {
+		if (is_object($this->highlightImage)) {
+			return $this->highlightImage->getPath($dir);
+		} else {
+			return "about:blank";
 		}
 	}
 
@@ -414,9 +420,11 @@ class AlbumItem {
 		}
 	}
 
-	function getPhotoId($dir) {
+	function getId() {
 		if ($this->image) {
-			return $this->image->getId($dir);
+			return $this->image->getId();
+		} else if ($this->isAlbumName) {
+			return $this->isAlbumName;
 		} else {
 			return "unknown";
 		}

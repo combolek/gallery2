@@ -174,14 +174,14 @@ class Image {
 	}
 
 	function getName($dir, $full=0) {
-		if ((!$full) && (fs_file_exists("$dir/$this->resizedName.$this->type"))) {
+		if ((!$full) && ($this->isResized())) {
 			return $this->resizedName;
 		} else {
 			return $this->name;
 		}
 	}
 
-	function getId($dir) {
+	function getId() {
 		return $this->name;
 	}
 	
@@ -206,6 +206,18 @@ class Image {
 	function setRawDimensions($w, $h) {
 		$this->raw_width = $w;
 		$this->raw_height = $h;
+	}
+
+	/* return the imges's dimensions is scaled to $size */
+	function getScaledDimensions($size) {
+		if ($this->width > $this->height) {
+			$width = $size;
+			$height = $size * ($this->height / $this->width);
+		} else {
+			$width = $size * ($this->width / $this->height);
+			$height = $size;
+		}
+		return array($width, $height);
 	}
 
 	function getDimensions() {

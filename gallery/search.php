@@ -65,7 +65,7 @@ if ($searchstring) {
 <!-- search.header ends -->
 <!-- Top Nav -->
 <?
-$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("albums.php") . ">".$gallery->app->galleryTitle."</a>";
+$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("view_album.php") . ">".$gallery->app->galleryTitle."</a>";
 $breadcrumb["text"] = $breadtext;
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
@@ -134,7 +134,7 @@ if ($searchstring) {
 			$numPhotos = $searchAlbum->numPhotos($gallery->user->canWriteToAlbum($searchAlbum));
 			for ($j = 1; $j <= $numPhotos; $j++) {
 				$searchCaption = $searchAlbum->getCaption($j);
-				$searchKeywords = $searchAlbum->getKeywords($j);
+				$searchKeywords = $searchAlbum->getItemKeywords($j);
 				$commentMatch = 0;
 				$commentText = "";
 				for ($k = 1; $k <= $searchAlbum->numComments($j); $k++) {
@@ -157,7 +157,7 @@ if ($searchstring) {
 				    	$searchAlbum->isOwner($uid) || 
 			    	    	$gallery->user->isAdmin()) {
 						$photoMatch = 1;
-						$id = $searchAlbum->getPhotoId($j);
+						$id = $searchAlbum->getItemIdByIndex($j);
 						// cause search word to be bolded
 						$searchCaption = eregi_replace($searchstring, "<b>$searchstring</b>",$searchCaption);
 						$searchKeywords = eregi_replace($searchstring, "<b>$searchstring</b>",$searchKeywords);
@@ -202,7 +202,7 @@ else {
 <?
 }
 echo "<br>";
-$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("albums.php") . ">".$gallery->app->galleryTitle."</a>";
+$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("view_album.php") . ">".$gallery->app->galleryTitle."</a>";
 $breadcrumb["text"] = $breadtext;
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;

@@ -94,6 +94,36 @@ class Abstract_User {
 		return false;
 	}
 
+	function canEditAlbum($album) {
+		if ($this->isAdmin() || $this->isOwnerOfAlbum($album)) {
+			return true;
+		}
+
+		if ($this->canWriteToAlbum($album) ||
+			$this->canDeleteAlbum($album) ||
+			$this->canDeleteFromAlbum($album) ||
+			$this->canAddToAlbum($album) ||
+			$this->canChangeTextOfAlbum($album)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function canEditItemsInAlbum($album) {
+		if ($this->isAdmin() || $this->isOwnerOfAlbum($album)) {
+			return true;
+		}
+
+		if ($this->canWriteToAlbum($album) ||
+			$this->canDeleteFromAlbum($album) ||
+			$this->canChangeTextOfAlbum($album)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	function canWriteToAlbum($album) {
 		if ($this->isAdmin()) {
 			return true;

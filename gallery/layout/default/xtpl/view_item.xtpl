@@ -1,0 +1,68 @@
+<!-- BEGIN: view_item -->
+{GLO.header}
+
+<table border="0" width="100%" cellpadding="0"  cellspacing="0">
+  <tr>
+	<td>
+    {blockDivider}
+    {blockBreadcrumb}
+    {blockDivider}
+    {blockNavigation}
+    {blockDivider}
+	</td>
+  </tr>
+
+  <tr>
+	<td align=center>
+    <br>
+    <table width="1%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr bgcolor="{GLO.album.borderColor}">
+        <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+      </tr>
+
+      <tr>
+        <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+        <td><a href="{GLO.image.href}"><img src="{GLO.image.url}" width="{GLO.image.width}" height="{GLO.image.height}" border="0"></a></td>
+        <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+      </tr>
+
+      <tr bgcolor="{GLO.album.borderColor}">
+        <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+      </tr>
+
+      <tr>
+        <td colspan="3" align="center">
+        <span class="caption">{GLO.item.caption}</span>
+        <br><br>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center">
+        {blockPublicComments}
+        </td>
+      </tr>
+
+
+    </table>
+    <br>
+	</td>
+  </tr>
+  <tr>
+    <td>
+    {blockDivider}
+    {blockTools}
+    {blockDivider}
+	{blockNavigation}
+    {blockDivider}
+	</td>
+  </tr>
+
+</table>
+{GLO.page.body.extra}
+
+
+{GLO.footer}
+
+<!-- END: view_item -->
+

@@ -1,0 +1,107 @@
+<!-- BEGIN: edit -->
+{GLO.header}
+
+{GLO.page.body.extra}
+<table border="0" width="100%" height="100%" cellpadding="0"  cellspacing="0">
+
+  <tr>
+    <td bgcolor="{GLO.album.fontColor}" width="180" height="100%" valign="top">
+
+    <table border="0" width="100%"  cellpadding="2"  cellspacing="2">
+      <tr>
+        <td align="left">
+        <font color="{GLO.album.bgColor}">
+        <span class="title">&nbsp;Editing This {GLO.type.label}</span>
+        <br>
+        <br>
+        </font>
+        </td>
+      </tr>
+ 
+      <tr>
+        <td align="center" valign="middle">
+        <img src="{GLO.item.thumbnail.url}" border="0" width="{GLO.item.thumbnail.width}" height="{GLO.item.thumbnail.height}">
+        <br>
+        <br>
+        </td>
+      </tr>
+
+      <tr>
+        <td align="left">
+        <font color="{GLO.album.bgColor}">
+        <span class="desc">&nbsp;Available Commands</span>
+        </font>
+        </td>
+      </tr>
+ 
+      <!-- BEGIN: tab -->
+
+      <!-- BEGIN: not_selected -->
+      <tr>
+        <td>
+          <img src="{GLO.layout.dir}images/nav_dot.gif">
+          <span class="admin">
+          <font color="{GLO.album.bgColor}">
+          <a href="{command.href}">{command.title}</a>
+          </span>
+        </td>
+      </tr>
+      <!-- END: not_selected -->
+
+      <!-- BEGIN: selected -->
+      <tr>
+        <td bgcolor="{GLO.album.bgColor}">
+          <table border="0" width="100%"  cellpadding="0"  cellspacing="0">
+            <tr>
+              <td align="left">
+              <img src="{GLO.layout.dir}images/nav_dot.gif">
+              <span class="admin">
+              <font color="{GLO.album.fontColor}">
+              <b>{command.title}</b>
+              </font>
+              </span>
+              </td>
+              <td align="right">
+              <img src="{GLO.layout.dir}images/nav_dot_left.gif">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <!-- END: selected -->
+
+      <!-- END: tab -->
+        
+	
+    </table>
+    </td>
+
+    <td valign="top" height="100%">
+    <table border="0" width="100%" height="100%" cellpadding="4"  cellspacing="2">
+      <tr>
+        <td align="left" valign="top">
+        {GLO.form.openTag}
+        {GLO.form.hidden}
+
+        {GLO.selected.content}
+        </td>
+      </tr>
+
+      <tr>
+        <td align="left" valign="bottom" height="1">
+        {GLO.form.buttons}
+        {GLO.form.closeTag}
+        </td>
+      </tr>
+    </table>
+    </td>
+
+  </tr>
+
+</table>
+<br>
+
+{GLO.footer}
+
+<!-- END: edit -->
+

@@ -22,7 +22,7 @@ switch($GALLERY_EMBEDDED_INSIDE) {
 		 * then pass their own code into our eval() below.
 		 */
 		$header = "";
-		if ($fd = fopen("header.php", "r")) {
+		if ($fd = fs_fopen("header.php", "r")) {
 			while (!feof($fd)) {
 				$line = fgets($fd, 1024);
 				$line = str_replace('<?php', '', $line);

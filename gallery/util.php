@@ -130,6 +130,11 @@ function popup_status($url) {
 	return "open('" . makeGalleryUrl($url) . "','Status','$attrs');";
 }
 
+function popup_help($entry, $group) {
+	$attrs = "height=500,width=400,location=no,scrollbars=no,menubars=no,toolbars=no,resizable=yes";
+	return "javascript: nw=window.open('http://www.menalto.com/projects/gallery/help?group=$group&entry=$entry','Help','$attrs'); nw.opener=self; return false;";
+}
+
 function exec_internal($cmd) {
 	global $gallery;
 
@@ -195,6 +200,17 @@ function selectOptions($album, $field, $opts) {
 		}
 		echo "<option $sel>$opt";
 	}
+}
+function getSelectOptions($album, $field, $opts) {
+	$content = "";
+	foreach ($opts as $opt) {
+		$sel = "";
+		if (!strcmp($opt, $album->fields[$field])) {
+			$sel = "selected";
+		}
+		$content .= "<option $sel>$opt</option>\n";
+	}
+	return $content;
 }
 
 function acceptableFormat($tag) {
@@ -411,7 +427,7 @@ function fromPnmCmd($file) {
 	if (eregi("\.png", $file)) {
 		$cmd = NetPBM("pnmtopng");
 	} else if (eregi("\.(jpg|jpeg)", $file)) {
-		$cmd = NetPBM($gallery->app->pnmtojpeg, "--quality=95");
+		$cmd = NetPBM("ppmtojpeg", "--quality=95");
 	} else if (eregi(".gif", $file)) {
 		$cmd = NetPBM("ppmquant", "256") . " | " . NetPBM("ppmtogif");
 	}
@@ -604,6 +620,20 @@ function makeGalleryUrl($target, $args=array()) {
 	global $gallery;
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_MODULENAME;
+	global $albumDB;
+
+	//-- If the Id points to a nested album ---
+	if ($photoId) {
+		if (!$gallery->album) {
+			// $gallery->album was not defined for during "search".
+			$gallery->album = new Album($albumName);
+		}
+		$index = $gallery->album->getPhotoIndex($photoId);
+		if ($gallery->album->isAlbumName($index)) {
+			$albumName = $gallery->album->isAlbumName($index);
+			$photoId = "";
+		}
+	} 
 
 	switch ($GALLERY_EMBEDDED_INSIDE) {
 		case "nuke":
@@ -657,7 +687,7 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 				$target .= "/$photoId";
 			} 
 		} else {
-			$target = "albums.php";
+			$target = $albumDB->rootAlbum;
 		}
 	} else {
 		if ($albumName) {
@@ -669,7 +699,9 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 				$target = "view_album.php";
 			}
 		} else {
-			$target = "albums.php";
+			$target = "view_album.php";
+			$albumDB = new AlbumDB;
+			$args["set_albumName"] = $albumDB->rootAlbum;
 		}
 
 	}
@@ -778,7 +810,7 @@ function addUrlArg($url, $arg) {
 }
 
 function getNextPhoto($idx) {
-	global $gallery;
+	global $gallery, $albumDB;
 
 	$idx++;
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
@@ -786,8 +818,7 @@ function getNextPhoto($idx) {
 		// not have read authority over a specific nested album.
 		if ($idx <= $numPhotos && $gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = new Album();
-			$myAlbum->load($myAlbumName);
+			$myAlbum = new Album($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -805,8 +836,7 @@ function getNextPhoto($idx) {
 		// have permission to view it.
 		if ($gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = new Album();
-			$myAlbum->load($myAlbumName);
+			$myAlbum = new Album($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -847,16 +877,14 @@ function printAlbumOptionList($rootDisplay=1, $moveRootAlbum=0, $movePhoto=0) {
 function printNestedVals($level, $albumName, $val, $movePhoto) {
 	global $gallery, $index;
 	
-	$myAlbum = new Album();
-	$myAlbum->load($albumName);
+	$myAlbum = new Album($albumName);
 	
 	$numPhotos = $myAlbum->numPhotos(1);
 
 	for ($i=1; $i <= $numPhotos; $i++) {
 		$myName = $myAlbum->isAlbumName($i);
 		if ($myName) {
-			$nestedAlbum = new Album();
-			$nestedAlbum->load($myName);
+			$nestedAlbum = new Album($myName);
 			if ($gallery->user->canWriteToAlbum($nestedAlbum)) {
 				$val2 = str_repeat("-- ", $level+1);
 				$val2 = $val2 . $nestedAlbum->fields[title];
@@ -1058,5 +1086,6 @@ function safe_serialize($obj, $file) {
 	}
 	return $success;
 }
+
 
 ?>

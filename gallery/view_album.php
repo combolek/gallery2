@@ -2,23 +2,24 @@
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2001 Bharat Mediratta
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 ?>
 <?
+
 // Hack prevention.
 if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
@@ -26,18 +27,28 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 	print "Security violation\n";
 	exit;
 }
-?>
-<? require($GALLERY_BASEDIR . "init.php"); ?>
-<? 
-// Hack check
-if (!$gallery->user->canReadAlbum($gallery->album)) {
-	header("Location: albums.php");
+
+require($GALLERY_BASEDIR . "init.php");
+
+//-------------------------------------------------------------------------
+//-- The Business section ---
+//
+
+$albumName = $gallery->session->albumName;
+$album = $gallery->album;
+$user = $gallery->user;
+
+//-- Hack check. You have to have permission to see the album ---
+if (!$user->canReadAlbum($album)) {
+	$gallery->sesson->albumName = "";
+	header("Location: view_album.php");
 	return;
 }
 
-if (!$gallery->album->isLoaded()) {
-	header("Location: albums.php");
-	return;
+if (!$album->isLoaded()) {
+    $gallery->sesson->albumName = "";
+    header("Location: view_album.php");
+    return;
 }
 
 if (!$page) {
@@ -49,505 +60,294 @@ if (!$page) {
 	$gallery->session->albumPage[$gallery->album->fields["name"]] = $page;
 }
 
-$albumName = $gallery->session->albumName;
-
+//-- increment album click counter ---
 if (!$gallery->session->viewedAlbum[$albumName]) {
 	$gallery->session->viewedAlbum[$albumName] = 1;
-	$gallery->album->incrementClicks();
-} 
+    $album->incrementClicks();
+}
 
-$rows = $gallery->album->fields["rows"];
-$cols = $gallery->album->fields["cols"];
-$numPhotos = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
+//-- some stuff for nav ---
+$rows = $album->fields["rows"];
+$cols = $album->fields["cols"];
+$numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
 $perPage = $rows * $cols;
 $maxPages = max(ceil($numPhotos / $perPage), 1);
 
 if ($page > $maxPages) {
-	$page = $maxPages;
+    $page = $maxPages;
 }
 
-$start = ($page - 1) * $perPage + 1;
-$end = $start + $perPage;
-
-$nextPage = $page + 1;
-if ($nextPage > $maxPages) {
-	$nextPage = 1;
-        $last = 1;
+for ($i_nav=1; $i_nav<=$maxPages; $i_nav++) {
+	$navPages[$i_nav]['name'] = "Page ".$i_nav;
+	$navPages[$i_nav]['href'] = makeAlbumUrl($albumName, "", array("page" => $i_nav));
 }
 
-$previousPage = $page - 1;
-if ($previousPage == 0) {
-	$previousPage = $maxPages;
-	$first = 1;
+//--
+$borderColor = $album->fields["bordercolor"];
+$borderWidth = $album->fields["border"];
+if (!strcmp($borderWidth, "off")) {
+    $borderWidth = 1;
 }
 
-$bordercolor = $gallery->album->fields["bordercolor"];
+$thisUrl = makeAlbumUrl($albumName, "", array('page' => $page));
 
-$imageCellWidth = floor(100 / $cols) . "%";
-$fullWidth="100%";
+//-- setup the album specific style sheet ---
+$albumStyle = "<style type=\"text/css\">\n";
+if ($album->fields["linkcolor"]) {
+    $albumStyle .=
+        "  A:link, A:visited, A:active\n" .
+        "    { color: ".$album->fields[linkcolor]."; }\n" .
+        "  A:hover\n" .
+        "    { color: #ff6600; }\n";
+}
+if ($album->fields["bgcolor"]) {
+    $albumStyle .=
+        "  BODY { background-color:".$album->fields[bgcolor]."; }\n";
+}
+if ($album->fields["background"]) {
+    $albumStyle .=
+        "  BODY { background-image:url(".$album->fields[background].") ; }\n";
+}
+if ($album->fields["textcolor"]) {
+    $albumStyle .=
+        "  BODY, TD {color:".$album->fields[textcolor]."; }\n" .
+        "  .head {color:".$album->fields[textcolor]."; }\n" .
+        "  .headbox {background-color:".$album->fields[bgcolor]."; }\n";
+}
+$albumStyle .= "</style>\n";
 
-$navigator["page"] = $page;
-$navigator["pageVar"] = "page";
-$navigator["maxPages"] = $maxPages;
-$navigator["fullWidth"] = $fullWidth;
-$navigator["url"] = makeAlbumUrl($gallery->session->albumName);
-$navigator["spread"] = 5;
-$navigator["bordercolor"] = $bordercolor;
-
+//-- the breadcrumb info ---
 $breadCount = 0;
-$breadtext = array();
-$pAlbum = $gallery->album;
+$breadLevels = Array();
+$pAlbum = $album;
 do {
-  if (!strcmp($pAlbum->fields["returnto"], "no")) {
-    break;
-  }
-  $pAlbumName = $pAlbum->fields['parentAlbumName'];
-  if ($pAlbumName) {
-    $pAlbum = new Album();
-    $pAlbum->load($pAlbumName);
-    $breadtext[$breadCount] = "Album: <a href=\"" . makeAlbumUrl($pAlbumName) .
-      "\">" . $pAlbum->fields['title'] . "</a>";
-  } else {
-    //-- we're at the top! ---
-    $breadtext[$breadCount] = "Gallery: <a href=\"" . makeGalleryUrl("albums.php") .
-      "\">" . $gallery->app->galleryTitle . "</a>"; 
-  }
-  $breadCount++;
-} while ($pAlbumName);
+	if (!strcmp($pAlbum->fields["returnto"], "no")) {
+		break;
+	}
+	if ($pAlbum->isRoot()) {
+		break;
+	} else {
+		$pAlbumName = $pAlbum->fields['parentAlbumName'];
+		$pAlbum = new Album($pAlbumName);
+		$breadLevels[$breadCount]['level'] = "Album";
+   		$breadLevels[$breadCount]['title'] = $pAlbum->fields['title'];
+   		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
+	}
+	$breadCount++;
+} while ($pAlbum);
 
 //-- we built the array backwards, so reverse it now ---
-for ($i = count($breadtext) - 1; $i >= 0; $i--) {
-	$breadcrumb["text"][] = $breadtext[$i];
+//-- XXX we have to zero-index this array to make it work ---
+for ($i = count($breadLevels) - 1; $i >= 0; $i--) {
+    $reversedLevels[] = $breadLevels[$i];
 }
-$breadcrumb["bordercolor"] = $bordercolor;
-?>
+$breadLevels = $reversedLevels;
 
-<? if (!$GALLERY_EMBEDDED_INSIDE) { ?>
-<head>
-  <title><?= $gallery->app->galleryTitle ?> :: <?= $gallery->album->fields["title"] ?></title>
-  <?= getStyleSheetLink() ?>
-  <style type="text/css">
-<?
-// the link colors have to be done here to override the style sheet 
-if ($gallery->album->fields["linkcolor"]) {
-?>
-    A:link, A:visited, A:active
-      { color: <?= $gallery->album->fields[linkcolor] ?>; }
-    A:hover
-      { color: #ff6600; }
-<?
-}
-if ($gallery->album->fields["bgcolor"]) {
-	echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
-}
-if ($gallery->album->fields["background"]) {
-	echo "BODY { background-image:url(".$gallery->album->fields[background]."); } ";
-}
-if ($gallery->album->fields["textcolor"]) {
-	echo "BODY, TD {color:".$gallery->album->fields[textcolor]."; }";
-	echo ".head {color:".$gallery->album->fields[textcolor]."; }";
-	echo ".headbox {background-color:".$gallery->album->fields[bgcolor]."; }";
-}
-?>
-  </style>
-</head>
+//-- XXX - I think we should add current page to breadcrumb ---
+//$breadCount++;
+//$breadLevels[$breadCount]['level'] = "Album";
+//$breadLevels[$breadCount]['title'] = $album->fields["title"];
+//$breadLevels[$breadCount]['href'] = $thisUrl;
 
-<body> 
-<? } ?>
+//-- set up the command structure ---
+$commands = Array();
+if ($user->canEditAlbum($album)) {
+	$name = "album_edit";
+	$commands[$name]['title'] = "Edit Album";
+	$commands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$albumName."&return=".urlencode($thisUrl));
 
-  <script language="javascript1.2">
-  // <!--
-  var statusWin;
-  function showProgress() {
-	statusWin = <?=popup_status("progress_uploading.php");?>
-  }
-
-  function hideProgress() {
-	if (typeof(statusWin) != "undefined") {
-		statusWin.close();
-		statusWin = void(0);
+	if ($user->canAddToAlbum($myAlbum)) {
+		$name = "add_items";
+		$commands[$name]['title'] = "Add Items";
+		$commands[$name]['href'] = makeGalleryUrl("album_add_items.php?return=".urlencode($thisUrl));
 	}
-  }
-
-  function hideProgressAndReload() {
-	hideProgress();
-	history.go(0);
-  }
-
-  function imageEditChoice(selected_select) {
-	  var sel_index = selected_select.selectedIndex;
-	  var sel_value = selected_select.options[sel_index].value;
-	  selected_select.options[0].selected = true;
-	  selected_select.blur();
-	  <?= popup(sel_value, 1) ?>
-  } 
-  // --> 
-  </script>
-
-<? 
-includeHtmlWrap("album.header");
-
-function showChoice($label, $target, $args) {
-	echo "<option value='" . makeGalleryUrl($target, $args) . "'>$label</option>";
-}
-
-$adminText = "<span class=\"admin\">";
-if ($numPhotos == 1) {  
-	$adminText .= "1 photo in this album";
-} else {
-	$adminText .= "$numPhotos items in this album";
-	if ($maxPages > 1) {
-		$adminText .= " on " . pluralize($maxPages, "page");
+	if ($user->canAddToAlbum($myAlbum)) {
+		$name = "add_album";
+		$commands[$name]['title'] = "Add Album";
+		$commands[$name]['href'] = makeGalleryUrl("album_add_album.php?return=".urlencode($thisUrl));
 	}
+
 }
-
-if ($gallery->user->canWriteToAlbum($gallery->album)) {
-	$hidden = $gallery->album->numHidden();
-	$verb = "are";
-	if ($hidden == 1) {
-		$verb = "is";
-	}
-	if ($hidden) {
-		$adminText .= " ($hidden $verb hidden)";
-	}
-} 
-$adminText .="</span>";
-$adminCommands = "<span class =\"admin\">";
-
-if ($gallery->user->canAddToAlbum($gallery->album)) {
-	$adminCommands .= '<a href="#" onClick="'.popup("add_photos.php?albumName=" .
-				$gallery->session->albumName).'">[add photos]</a>&nbsp;';
-}
-if ($gallery->user->canCreateAlbums()) {
-	$adminCommands .= '<a href="' . doCommand("new-album", 
-						array("parentName" => $gallery->session->albumName),
-						 "view_album.php") .
-						 '">[new nested album]</a>&nbsp;<br>';
-}
-
-if ($gallery->user->canWriteToAlbum($gallery->album)) {
-	if ($gallery->album->numPhotos(1)) {
-	        $adminCommands .= '<a href="#" onClick="'.popup("sort_album.php?albumName=" .
-				$gallery->session->albumName).
-				'">[sort]</a>&nbsp;';
-	        $adminCommands .= '<a href="#" onClick="'.popup("resize_photo.php?albumName=" .
-				$gallery->session->albumName . "&index=all").
-				'">[resize all]</a>&nbsp;';
-	        $adminCommands .= '<a href="#" onClick="'.popup("do_command.php?cmd=remake-thumbnail&albumName=" .
-				$gallery->session->albumName . "&index=all").
-				'">[rebuild thumbs]</a>&nbsp;&nbsp;<br>'; 
-	}
-        $adminCommands .= '<a href="#" onClick="'.popup("edit_appearance.php?albumName=" .
-			$gallery->session->albumName).
-			'">[properties]</a>&nbsp;';
-}
-
-if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($gallery->album)) {
-        $adminCommands .= '<a href="#" onClick="'.popup("album_permissions.php?set_albumName=" .
-			$gallery->session->albumName).
-			'">[permissions]</a>&nbsp;';
-}
-
-
-
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	if ($gallery->user->isLoggedIn()) {
-	        $adminCommands .= "<a href=" .
-					doCommand("logout", array(), "view_album.php", array("page" => $page)) .
-				  ">[logout]</a>";
+	if ($user->isLoggedIn()) {
+    	$name = "user_logout";
+    	$commands[$name]['title'] = "Logout";
+    	$commands[$name]['href'] = 
+			doCommand("logout", "", "view_album.php", array("page" => $page));
 	} else {
-		$adminCommands .= '<a href="#" onClick="'.popup("login.php").'">[login]</a>';
-	} 
+    	$name = "user_login";
+    	$commands[$name]['title'] = "Login";
+    	$commands[$name]['href'] = makeGalleryUrl("login.php", array('return' => urlencode($thisUrl)));
+	}
 }
-$adminCommands .= "</span>";
-$adminbox["text"] = $adminText;
-$adminbox["commands"] = $adminCommands;
-$adminbox["bordercolor"] = $bordercolor;
-$adminbox["top"] = true;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
-?>
 
-<!-- top nav -->
-<?
-$breadcrumb["top"] = true;
-if (strcmp($gallery->album->fields["returnto"], "no") 
-   || ($gallery->album->fields["parentAlbumName"])) {
-	include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
-}
-include($GALLERY_BASEDIR . "layout/navigator.inc");
 
-#-- if borders are off, just make them the bgcolor ----
-$borderwidth = $gallery->album->fields["border"];
-if (!strcmp($borderwidth, "off")) {
-	$bordercolor = $gallery->album->fields["bgcolor"];
-	$borderwidth = 1;
-}
-if ($bordercolor) {
-	$bordercolor = "bgcolor=$bordercolor";
-}
-?>
+//-- some javascript for the body required to interact with the add photo windows ---
+$pageBodyExtra = "\n"
+	. "<script language=\"javascript1.2\"> \n"
+    . "// <!-- \n"
+    . "  var statusWin; \n"
+    . "  function showProgress() { \n"
+    . "    statusWin = ". popup_status("progress_uploading.php"). " \n"
+    . "  } \n"
 
-<!-- image grid table -->
-<br>
-<table width=<?=$fullWidth?> border=0>
-<?
-$numPhotos = $gallery->album->numPhotos(1);
-$displayCommentLegend = 0;  // this determines if we display "* Item contains a comment" at end of page
-if ($numPhotos) {
+    . "  function hideProgress() { \n"
+    . "    if (typeof(statusWin) != \"undefined\") { \n"
+    . "        statusWin.close(); \n"
+    . "        statusWin = void(0); \n"
+    . "    } \n"
+    . "  } \n"
 
-	$rowCount = 0;
+    . "  function hideProgressAndReload() { \n"
+    . "    hideProgress(); \n"
+    . "    history.go(0); \n"
+    . "  } \n"
 
-	// Find the correct starting point, accounting for hidden photos
-	$rowStart = 0;
-	$cnt = 0;
-	while ($cnt < $start) {
-		$rowStart = getNextPhoto($rowStart);
-		$cnt++;
+    . "// --> \n"
+    . "</script> \n";
+
+//-- Load up the AlbumItem array ---
+$firstItem = $perPage * ($page - 1);
+$itemIds = $album->getIds($user, 0, $firstItem, $perPage);
+$i = 0;
+foreach ($itemIds as $itemId) {
+
+	$i++;
+	$iCommands = Array();
+
+	$items[$i]['id'] = $itemId;
+
+    $index = $album->getPhotoIndex($itemId);
+	$items[$i]['index'] = $index;
+	$items[$i]['hidden'] = $album->isHidden($index);
+
+	$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
+
+	$item = $album->getPhoto($index);
+	$thumbnailImage = $album->getThumbnailImage($index);
+
+	if ($thumbnailImage) {
+		list($w, $h) = $thumbnailImage->getScaledDimensions($album->fields["thumb_size"]);
+		$items[$i]['thumbnail']['width'] = $w;
+		$items[$i]['thumbnail']['height'] = $h;
 	}
 
-	while ($rowCount < $rows) {
-		/* Do the inline_albumthumb header row */
-		echo("<tr>");
-		$i = $rowStart;
-		$j = 1;
+    if ($album->isMovie($itemId)) { 
+		$items[$i]['type'] = 'movie';
+		$items[$i]['href'] = $album->getPhotoPath($index)."\" target=\"other"; 
+	} else if ($album->isAlbumName($index)) {
+		$items[$i]['type'] = 'album';
+		$myAlbum = new Album($album->isAlbumName($index));
+		$items[$i]['itemCount'] = $myAlbum->numPhotos($user->canWriteToAlbum($myAlbum));
+		$items[$i]['href'] = makeAlbumUrl($myAlbum->fields['name']);
+		$items[$i]['title'] = $myAlbum->fields[title];
+		$items[$i]['description'] = $myAlbum->fields[description];
+		$items[$i]['dateChanged'] = $myAlbum->getLastModificationDate();
+		$items[$i]['clickCount'] = $myAlbum->getClicks();
+		$items[$i]['clickCountText'] = "Viewed: " . pluralize($myAlbum->getClicks(), "time", "0");
+		$items[$i]['itemCountText'] = "Contains: " . pluralize($items[$i]['itemCount'], item, "no");
 
-		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td>");
-			includeHtmlWrap("inline_albumthumb.header");
-			echo("</td>");
-			$j++; 
-			$i = getNextPhoto($i);
+		//-- the album commands ---
+		if ($user->canEditAlbum($myAlbum)) {
+			$name = "album_edit";
+			$iCommands[$name]['title'] = "Edit Album";
+			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$myAlbum->fields['name']."&return=".urlencode($thisUrl));
 		}
-		echo("</tr>");
 
-		/* Do the picture row */
-		echo("<tr>");
-		$i = $rowStart;
-		$j = 1;
-		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td width=$imageCellWidth align=center valign=middle>");
-			echo("<table width=1% border=0 cellspacing=0 cellpadding=0>");
-			echo("<tr $bordercolor>"); 
-			echo("<td colspan=3 height=$borderwidth><img src=${GALLERY_BASEDIR}images/pixel_trans.gif></td>");
-			echo("</tr><tr>");
-			echo("<td $bordercolor width=$borderwidth>");
-			echo("<img src=${GALLERY_BASEDIR}images/pixel_trans.gif width=$borderwidth height=1>");
-			echo("</td><td>");
+	} else {
+		$items[$i]['type'] = 'photo';
+		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
+		$items[$i]['description'] = $album->getCaption($index);
+		$items[$i]['commentCount'] = 
+			((!strcmp($album->fields["public_comments"], "yes"))) ? 
+			$album->numComments($index) : 0;
+		$items[$i]['clickCount'] = $album->getItemClicks($index);
+		$items[$i]['clickCountText'] = "Viewed: " . pluralize($album->getItemClicks($index), "time", "0");
 
-			$id = $gallery->album->getPhotoId($i);
-			if ($gallery->album->isMovie($id)) {
-				echo("<a href=" . $gallery->album->getPhotoPath($i) . " target=other>" . 
-					$gallery->album->getThumbnailTag($i) .
-					"</a>");
-			} elseif ($gallery->album->isAlbumName($i)) {
-				$myAlbumName = $gallery->album->isAlbumName($i);
-				$myAlbum = new Album();
-				$myAlbum->load($myAlbumName);
-				$myHighlightTag = $myAlbum->getHighlightAsThumbnailTag();
-				echo("<a href=" . makeAlbumUrl($myAlbumName) . ">" . 
-					$myHighlightTag . "</a>");
-			} else {
-				echo("<a href=" . makeAlbumUrl($gallery->session->albumName, $id) . ">" .
-					$gallery->album->getThumbnailTag($i) .
-					"</a>");
-			}
-			echo("</td>");
-			echo("<td $bordercolor width=$borderwidth>");
-			echo("<img src=${GALLERY_BASEDIR}images/pixel_trans.gif width=$borderwidth height=1>");
-			echo("</td>");
-			echo("</tr>");	
-			echo("<tr $bordercolor>"); 
-			echo("<td colspan=3 height=$borderwidth><img src=${GALLERY_BASEDIR}images/pixel_trans.gif></td>");
-			echo("</tr>");
-			echo("</table>");
-
-
-			echo("</td>");
-			$j++; 
-			$i = getNextPhoto($i);
+		//-- the photo commands ---
+		if ($user->canEditItemsInAlbum($album)) {
+			$name = "item_edit";
+			$iCommands[$name]['title'] = "Edit Photo";
+			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=item&id=".$itemId."&return=".urlencode($thisUrl));
 		}
-		echo("</tr>");
-	
-		/* Now do the caption row */
-		echo("<tr>");
-		$i = $rowStart;
-		$j = 1;
-		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td width=$imageCellWidth valign=top align=center>");
-
-			// put form outside caption to compress lines
-			echo makeFormIntro("view_album.php", array("name" => "image_form_$i")); 
-
-			echo "<center><span class=\"caption\">";
-			$id = $gallery->album->getPhotoId($i);
-			if ($gallery->album->isHidden($i)) {
-				echo "(hidden)<br>";
-			}
-			if ($gallery->album->isAlbumName($i)) {
-				$myAlbum = new Album();
-				$myAlbum->load($gallery->album->isAlbumName($i));
-				$myDescription = $myAlbum->fields[description];
-				$buf = "";
-				$buf = $buf."<b>Album: ".$myAlbum->fields[title]."</b>";
-				if ($myDescription != "No description") {
-					$buf = $buf."<br>".$myDescription."";
-				}
-				echo($buf."<br>");
-?>
-				<br>
-				<span class="fineprint">
-				   Changed: <?=$myAlbum->getLastModificationDate()?>.  <br>
-				   Contains: <?=pluralize($myAlbum->numPhotos($gallery->user->canWriteToAlbum($myAlbum)), "item", "no")?>.<br>
-				   <? if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) && ($myAlbum->getClicks() > 0)) { ?>
-				   	Viewed: <?=pluralize($myAlbum->getClicks(), "time", "0")?>.<br>
-				   <? } ?>
-				</span>
-<?
-			} else {
-				echo($gallery->album->getCaption($i));
-				// indicate with * if we have a comment for a given photo
-				if ((!strcmp($gallery->album->fields["public_comments"], "yes")) && 
-				   ($gallery->album->numComments($i) > 0)) {
-					echo("<span class=error>*</span>");
-					$displayCommentLegend = 1;
-				}
-				echo("<br>");
-				if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) && ($gallery->album->getItemClicks($i) > 0)) {
-					echo("Viewed: ".pluralize($gallery->album->getItemClicks($i), "time", "0").".<br>");
-				}
-			}
-			echo "</span>";
-
-			if (($gallery->user->canDeleteFromAlbum($gallery->album)) || 
-				    ($gallery->user->canWriteToAlbum($gallery->album)) ||
-				    ($gallery->user->canChangeTextOfAlbum($gallery->album))) {
-				if ($gallery->album->isMovie($id)) {
-					$label = "Movie";
-				} elseif ($gallery->album->isAlbumName($i)) {
-					$label = "Album";
-				} else {
-					$label = "Photo";
-				}
-				echo("<select style='FONT-SIZE: 10px;' name='s' ".
-					"onChange='imageEditChoice(document.image_form_$i.s)'>");
-				echo("<option value=''><< Edit $label>></option>");
-			}
-			if ($gallery->user->canChangeTextOfAlbum($gallery->album)) {
-				if ($gallery->album->isAlbumName($i)) {
-					if ($gallery->user->canChangeTextOfAlbum($myAlbum)) {	
-						showChoice("Edit Title", 
-							"edit_field.php", 
-							array("set_albumName" => $myAlbum->fields[name],
-								"field" => "title")) . 
-						showChoice("Edit Description",
-							"edit_field.php",
-							array("set_albumName" => $myAlbum->fields[name],
-								"field" => "description"));
-					}
-					if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($myAlbum)) {
-						showChoice("Rename Album",
-							"rename_album.php",
-							array("set_albumName" => $myAlbum->fields[name],
-								"index" => $i));
-					}
-				} else {
-					showChoice("Edit Caption", "edit_caption.php", array("index" => $i));
-				}
-			}
-			if ($gallery->user->canWriteToAlbum($gallery->album)) {
-				if (!$gallery->album->isMovie($id) && !$gallery->album->isAlbumName($i)) {
-					showChoice("Edit Thumbnail", "edit_thumb.php", array("index" => $i));
-					showChoice("Rotate $label", "rotate_photo.php", array("index" => $i));
-				}
-				if (!$gallery->album->isMovie($id)) {
-					showChoice("Highlight $label", "highlight_photo.php", array("index" => $i));
-				}
-				if ($gallery->album->isAlbumName($i)) {
-					$albumName=$gallery->album->isAlbumName($i);
-					showChoice("Reset Counter", "do_command.php",
-						array("albumName" => $albumName,
-							"cmd" => "reset-album-clicks",
-							"return" => urlencode(makeGalleryUrl("view_album.php"))));
-				}
-				showChoice("Move $label", "move_photo.php", array("index" => $i));
-				if ($gallery->album->isHidden($i)) {
-					showChoice("Show $label", "do_command.php", array("cmd" => "show", "index" => $i));
-				} else {
-					showChoice("Hide $label", "do_command.php", array("cmd" => "hide", "index" => $i));
-				}
-			}
-			if ($gallery->user->canDeleteFromAlbum($gallery->album)) {
-				if($gallery->album->isAlbumName($i)) { 
-					if($gallery->user->canDeleteAlbum($myAlbum)) {
-						showChoice("Delete $label", "delete_photo.php",
-							array("index" => $i, "albumDelete" => 1));
-					}
-				} else {
-					showChoice("Delete $label", "delete_photo.php", array("index" => $i));
-				}
-			}
-			if (($gallery->user->canDeleteFromAlbum($gallery->album)) || 
-					($gallery->user->canWriteToAlbum($gallery->album)) ||
-					($gallery->user->canChangeTextOfAlbum($gallery->album))) {
-				echo('</select>');
-			}
-			echo('</form></td>');
-			$j++;
-			$i = getNextPhoto($i);
-		}
-		echo "</tr>";
-
-
-		/* Now do the inline_albumthumb footer row */
-		echo("<tr>");
-		$i = $rowStart;
-		$j = 1;
-		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td>");
-			includeHtmlWrap("inline_albumthumb.footer");
-			echo("</td>");
-			$j++;
-			$i = getNextPhoto($i);
-		}
-		echo("</tr>");
-		$rowCount++;
-		$rowStart = $i;
 	}
-} else {
-?>
 
-	<td colspan=$rows align=center class="headbox">
-<? if ($gallery->user->canAddToAlbum($gallery->album)) { ?>
-	<span class="head">Hey! Add some photos.</span> 
-<? } else { ?>
-	<span class="head">This album is empty.</span> 
-<? } ?>
-	</td>
-	</tr>
-<?
-}
-?>
-
-</table>
-
-<? if (!strcmp($gallery->album->fields["public_comments"], "yes") && $displayCommentLegend) { //display legend for comments ?>
-<span class=error>*</span><span class=fineprint> Comments available for this item.</span>
-<br><br>
-<? } ?>
-
-<!-- bottom nav -->
-<? 
-include($GALLERY_BASEDIR . "layout/navigator.inc");
-if (strcmp($gallery->album->fields["returnto"], "no")) {
-	$breadcrumb["top"] = false;
-	include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+	$items[$i]['commands'] = $iCommands;
 }
 
 
-includeHtmlWrap("album.footer");
+//-------------------------------------------------------------------------
+//-- The Gallery Layout Object ---
+//
+$GLO = array();
+
+//-- the 'gallery' ---
+$GLO['gallery']['title'] = $gallery->app->galleryTitle;
+$GLO['gallery']['url'] = $gallery->app->photoAlbumURL;
+
+//-- the 'album' ---
+$GLO['album']['title'] = $album->fields['title'];
+$GLO['album']['url'] = makeAlbumUrl($albumName);
+$GLO['album']['name'] = $albumName;
+$GLO['album']['borderSize'] = $borderWidth;
+$GLO['album']['thumbnailSize'] = $album->fields["thumb_size"];
+$GLO['album']['rows'] = $rows;
+$GLO['album']['cols'] = $cols;
+$GLO['album']['displayClicks'] = !(strcmp($album->fields["display_clicks"] , "yes"));
+
+$GLO['album']['items'] = $items;
+
+$GLO['album']['borderColor'] = $borderColor;
+
+$GLO['album']['html_header'] = "\n<!-- Album Custom HTML Header Begin -->\n"
+	. $album->fields['html_header'] .
+	"\n<!-- Album Custom HTML Header End -->\n";
+$GLO['album']['html_footer'] = "\n<!-- Album Custom HTML Footer Begin -->\n"
+	. $album->fields['html_footer'] .
+	"\n<!-- Album Custom HTML Footer End -->\n";
+
+
+//-- the 'boxTools' is the stuff that goes in the tool block ---
+$GLO['toolbox']['commands'] = $commands;
+
+//-- the 'boxBreadcrumb' is the stuff that goes in the breadcrums block ---
+$GLO['breadcrumb']['levels'] = $breadLevels;
+
+//-- the 'boxNavigation' is the stuff that goes in the navigation block ---
+$GLO['navigator']['pages'] = $navPages;
+$GLO['navigator']['pageNumber'] = $page;
+$GLO['navigator']['pageLabel'] = "Pages";
+
+//-- special stuff ---
+$GLO['page']['body']['extra'] = $pageBodyExtra;
+
+//-- some extra useful stuff ---
+$GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
+                     "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
+
+//-------------------------------------------------------------------------
+//-- The Layout of the Page ---
+//  
+
+//-- first get the html for the header and footer and stick it in the GLO
+//-- for use by the layout. The html_wrap template gets is own limited
+//-- layout object.
+$G['TITLE'] = $gallery->app->galleryTitle . "::" . $album->fields['title'];
+$G['HEAD']['EXTRA'] = $pageHeadExtra;
+$G['HEAD']['STYLESHEET_INCLUDE'] = getStyleSheetLink() . "\n" . $albumStyle;
+$G['BODYTAG']['EXTRA'] = $pageBodyTagExtra;
+$G['GALLERY_PROJECT']['HREF'] = $gallery->url;
+$G['GALLERY_PROJECT']['VERSION'] = $gallery->version;
+$G['PIXEL_IMAGE'] = $GLO['pixelImage'];
+
+list($GLO['header'], $GLO['footer']) = getLayoutWrapHeaderFooter($G);
+
+//-- now do the layout, wrapped by the embed logic ---
+includeHtmlWrap("wrapper.header");
+includeLayout("view_album");
+includeHtmlWrap("wrapper.footer");
+
 ?>
 
-<? if (!$GALLERY_EMBEDDED_INSIDE) { ?>
-</body>
-</html>
-<? } ?>
+
+

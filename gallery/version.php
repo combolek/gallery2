@@ -38,10 +38,10 @@ if (!$gallery) {
 	$gallery = new stdClass();
 }
 
-$gallery->version = "1.2.3";
+$gallery->version = "CVS:skin-job-branch";
 $gallery->config_version = 26;
-$gallery->album_version = 4;
-$gallery->remote_protocol_version = 1;
+$gallery->album_version = "22";
+$gallery->albumdb_version = 2;
 $gallery->url = "http://gallery.sourceforge.net";
 
 /*

@@ -50,6 +50,7 @@ if (fs_file_exists($GALLERY_BASEDIR . "config.php")) {
 }
 require($GALLERY_BASEDIR . "version.php");
 require($GALLERY_BASEDIR . "util.php");
+require($GALLERY_BASEDIR . "layout.php");
 
 /*
  * Detect if we're running under SSL and adjust the URL accordingly.
@@ -137,9 +138,15 @@ if (!$gallery->user) {
 	$gallery->session->username = "";
 }
 
+/* If we don't have an album name, point at the root */
+if (!$gallery->session->albumName) {
+	$albumDB = new AlbumDB;
+	$gallery->session->albumName = $albumDB->rootAlbum;
+}
+
 /* Load the correct album object */
 if ($gallery->session->albumName) {
-	$gallery->album = new Album;
+	$gallery->album = new Album();
 	$ret = $gallery->album->load($gallery->session->albumName);
 	if (!$ret) {
 		$gallery->session->albumName = "";

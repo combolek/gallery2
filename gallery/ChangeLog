@@ -17,9 +17,6 @@
 
 2001-11-15  Bharat Mediratta  <bharat@menalto.com> (1.2.3-cvs-b7)
 
-	* Fixed bug 481237: IE6 / JavaScript error on page refresh
-	  IE6 now works without javascript errors.
-
 	* The following characters can no longer be used in an album name:
  	  . (dot) # (pound) + (plus) 
 	  This fixes bugs 461799, 466789, and 469346.
@@ -28,25 +25,6 @@
 	  Win32.  We were accidentally trying to convert urls to win32 file
 	  format (leading to urls like "http;\\foo\bar" -- eek) and we were not
 	  opening binary files with the "b" flag (thanks trantori@users.sf.net)
-
-2001-11-12  Matthew McEachen  <mceachen@users.sourceforge.net> (1.2.3-cvs-b6)
-
-	* Added "check all - clear all - invert selection" functionality
-	  to the save_photos script. Also made the page a bit easier to
-	  render for the user agent (removed the tr-per-checkbox).
-
-2001-11-12  Chris Smith <chris@jacko.com> (1.2.3-cvs-b5)
-
-	* Fixed a bug in Gallery Remote album fetch routine where if
-	  the user did not have write permission on a top level album,
-	  the album fetch refused to delve within to find nested albums
-	  the user might be able to write to.
-
-2001-11-11  Chris Smith <chris@jacko.com> (1.2.3-cvs-b4)
-
-	* Added Gallery Remote communication script. Added link in 
-	  add_photos.php to direct the user to the Gallery Remote
-	  download page.
 
 2001-11-09  Bharat Mediratta  <bharat@menalto.com> (1.2.3-cvs-b3)
 
@@ -84,14 +62,9 @@
 
 2001-10-26  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b5)
 
-	* Adjusted capture_hours dropdown to include the 0 hour (12AM). Thanks
-	  to Dan Wood for the catch/patch.
-
 	* Fixed bug #475151: Album link always goes to page 1.  We now track
 	  the most recently viewed page of each album in the session and return
 	  to that page.  
-
-	* (chris) Changed the vertical alignment of the caption for clarity.
 
 2001-10-16  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b4)
 
@@ -113,6 +86,20 @@
 	  fixed the upgrade code and have bumped the album version.  This means
 	  that YOUR ALBUMS WILL BE AUTOMATICALLY UPGRADED next time you view
 	  them, after getting this code.
+
+	* Fixed a bug where we still count clicks, even when they are
+	  disabled in the album (we just don't show the results).  Now we don't
+	  count them, either.
+
+	* Fixed a bug in the serialization code to remove a race condition 
+	  that can cause heavily used albums to lose their .dat files.
+
+	* Fixed Album.load() so that it loads the backup .dat file if the main
+	  one is missing (to aid galleries stricken by the serialization bug)
+
+2001-10-13  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b2)
+
+	* Fixed bug [#466729] Bad aspect ratio in html 4 rotated imgs 
 
 	* Fixed a bug where we still count clicks, even when they are
 	  disabled in the album (we just don't show the results).  Now we don't

@@ -33,15 +33,22 @@ class Album {
 	 */
 	var $transient;
 
-	function Album() {
+	function Album($loadName="") {
 		global $gallery;
+
+		if ($loadName) {
+			$this->load($loadName);
+			return;
+		}
 
 		$this->fields["title"] = "Untitled";
 		$this->fields["description"] = "No description";
+		$this->fields["keywords"] = "";
 		$this->fields["nextname"] = "aaa";
-        	$this->fields["bgcolor"] = "";
-        	$this->fields["textcolor"] = "";
-        	$this->fields["linkcolor"] = "";
+		$this->fields["bgcolor"] = "";
+		$this->fields["bgcolor2"] = "";
+		$this->fields["textcolor"] = "";
+		$this->fields["linkcolor"] = "";
 		$this->fields["font"] = $gallery->app->default["font"];
 		$this->fields["border"] = $gallery->app->default["border"];
 		$this->fields["bordercolor"] = $gallery->app->default["bordercolor"];
@@ -66,6 +73,10 @@ class Album {
 		$this->fields["clicks_date"] = time();
 		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
 		$this->fields["public_comments"] = $gallery->app->default["public_comments"];
+
+		$this->fields["layout"] = $gallery->app->default["layout"];
+		$this->fields["html_header"] = "";
+		$this->fields["html_footer"] = "";
 		$this->fields["serial_number"] = 0;
 
 		// Seed new albums with the appropriate version.
@@ -129,7 +140,8 @@ class Album {
 				"use_fullOnly", 
 				"print_photos",
 				"display_clicks",
-				"public_comments");
+				"public_comments",
+				"layout");
 		foreach ($check as $field) {
 			if (!$this->fields[$field]) {
 				$this->fields[$field] = $gallery->app->default[$field];
@@ -296,8 +308,8 @@ class Album {
 
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-                        if ($photo->isHighlight()) {
-                                return 1;
+						if ($photo->isHighlight()) {
+								return 1;
 			}
 		}
 		return 0;
@@ -552,7 +564,7 @@ class Album {
 			$album->load($albumName);
 			$album->delete();
 		}
-                /* are we deleteing the highlight? pick a new one */
+				/* are we deleteing the highlight? pick a new one */
 		$needToRehighlight = 0;
 		if ( ($photo[0]->isHighlight()) && ($this->numPhotos(1) > 0) && (!$forceResetHighlight==-1)) {
 			$needToRehighlight = 1;
@@ -561,7 +573,7 @@ class Album {
 		if (($needToRehighlight) || ($forceResetHighlight==1)){
 			if ($this->numPhotos(1) > 0) {
 				$newHighlight = $this->getPhoto(1);
-                		if (!$newHighlight->isMovie()) {
+						if (!$newHighlight->isMovie()) {
 					$this->setHighlight(1);
 				}
 			}
@@ -579,6 +591,26 @@ class Album {
 			return $myAlbum->getHighlightAsThumbnailTag($size, $attrs);
 		} else {
 			return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"), $size, $attrs);
+		}
+	}
+
+	function getThumbnailPath($index) {
+		$photo = $this->getPhoto($index);
+		if ($photo->isAlbumName) {
+			$myAlbum = $this->getNestedAlbum($index);
+			return $myAlbum->getHighlightAsThumbnailPath();
+		} else {	
+			return $photo->getThumbnailPath($this->getAlbumDirURL("thumb"));
+		}
+	}
+
+	function getThumbnailImage($index) {
+		$photo = $this->getPhoto($index);
+		if ($photo->isAlbumName) {
+			$myAlbum = $this->getNestedAlbum($index);
+			return $myAlbum->getHighlightAsThumbnailImage();
+		} else {	
+			return $photo->thumbnail;
 		}
 	}
 
@@ -609,6 +641,23 @@ class Album {
 		}
 	}
 
+	function getHighlightAsThumbnailPath() {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->getThumbnailPath($album->getAlbumDirURL("highlight"));
+		} else {
+			return "";
+		}
+	}
+	function getHighlightAsThumbnailImage() {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->highlightImage;
+		} else {
+			return null;
+		}
+	}
+
 	function getHighlightTag($size=0, $attrs="") {
 		list ($album, $photo) = $this->getHighlightedItem();
 		if ($photo) {
@@ -632,9 +681,9 @@ class Album {
 		return $photo->getPhotoPath($this->getAlbumDirURL("full"), $full);
 	}
 
-	function getPhotoId($index) {
+	function getItemIdByIndex($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getPhotoId($this->getAlbumDirURL("full"));
+		return $photo->getId($this->getAlbumDirURL("full"));
 	}
 
 	function getAlbumDir() {
@@ -697,10 +746,47 @@ class Album {
 		}
 	}
 
-	function getIds($show_hidden=0) {
+	function getIds($user, $itemsOnly=0, $first=1, $howmany=-1) {
+		$ids = Array();
+
+		/* what? no photos? */
+		if (!count($this->photos)) {
+			return $ids;
+		}
+
+		/* don't show hidden items to non-admins */
+		$show_hidden = $user->canWriteToAlbum($this);
+
+		if (($howmany == -1) || ($howmany > count($this->photos))) {
+			$howmany = count($this->photos);
+		}
+
+		$skipped = 1;
+		$count = 0;
 		foreach ($this->photos as $photo) {
+			if ($skipped < $first) {
+				$skipped++;
+				continue;
+			}
+			if ($count == $howmany) {
+				break;
+			}
+
 			if (!$photo->isHidden() || $show_hidden) {
-				$ids[] = $photo->getPhotoId($this->getAlbumDir());
+				/* if the user has no perms on a nested album skip it */
+				if ($photo->isAlbumName) {
+					if (!$itemsOnly) {
+						$myAlbum = new Album();
+						$myAlbum->load($photo->isAlbumName);
+						if (!$user->canReadAlbum($myAlbum)) {
+							continue;
+						}
+						$ids[] = $photo->getId();
+					}
+				} else { 
+					$ids[] = $photo->getId();
+				}
+				$count++;
 			}
 		}
 		return $ids;
@@ -717,7 +803,7 @@ class Album {
 	function getPhotoIndex($id) {
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-			if (!strcmp($photo->getPhotoId($this->getAlbumDir()), $id)) {
+			if (!strcmp($photo->getId(), $id)) {
 				return $i;
 			}
 		}
@@ -791,12 +877,21 @@ class Album {
 		$photo->deleteComment($comment_index);
 	}
 
-	function getKeywords($index) {
-		$photo = $this->getPhoto($index);
+	function getKeywords() {
+		return $this->fields["keywords"];
+	}
+
+	function setKeywords($keywords) {
+		$photo = &$this->getPhoto($index);
+		$this->fields["keywords"] = $keywords;
+        }
+
+	function getItemKeywords($index) {
+		$photo = &$this->getPhoto($index);
 		return $photo->getKeywords();
 	}
 
-	function setKeyWords($index, $keywords) {
+	function setItemKeywords($index, $keywords) {
 		$photo = &$this->getPhoto($index);
 		$photo->setKeywords($keywords);
         }
@@ -869,16 +964,16 @@ class Album {
 	}
 
 	function getClicksDate() {
-                $time = $this->fields["clicks_date"];
+				$time = $this->fields["clicks_date"];
 
-                // albums may not have this field.
-                if (!$time) {
-                        $this->resetClicks();
+				// albums may not have this field.
+				if (!$time) {
+						$this->resetClicks();
 			$time = $this->fields["clicks_date"];
-                }
+				}
 
-                return date("M d, Y", $time);
-        }
+				return date("M d, Y", $time);
+		}
 
 	function incrementClicks() {
 		if (strcmp($this->fields["display_clicks"], "yes")) {
@@ -935,31 +1030,22 @@ class Album {
 		return date("M d, Y", $time);
 	}
 
-	function setNestedProperties() {
-		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbumName($i)) {
-				$nestedAlbum = new Album();
-				$nestedAlbum->load($this->isAlbumName($i));
-				$nestedAlbum->fields["bgcolor"] = $this->fields["bgcolor"];
-				$nestedAlbum->fields["textcolor"] = $this->fields["textcolor"];
-				$nestedAlbum->fields["linkcolor"] = $this->fields["linkcolor"];
-				$nestedAlbum->fields["font"] = $this->fields["font"];
-				$nestedAlbum->fields["bordercolor"] = $this->fields["bordercolor"];
-				$nestedAlbum->fields["border"] = $this->fields["border"];
-				$nestedAlbum->fields["background"] = $this->fields["background"];
-				$nestedAlbum->fields["thumb_size"] = $this->fields["thumb_size"];
-				$nestedAlbum->fields["resize_size"] = $this->fields["resize_size"];
-				$nestedAlbum->fields["returnto"] = $this->fields["returnto"];
-				$nestedAlbum->fields["rows"] = $this->fields["rows"];
-				$nestedAlbum->fields["cols"] = $this->fields["cols"];
-				$nestedAlbum->fields["fit_to_window"] = $this->fields["fit_to_window"];
-				$nestedAlbum->fields["use_fullOnly"] = $this->fields["use_fullOnly"];
-				$nestedAlbum->fields["print_photos"] = $this->fields["print_photos"];
-				$nestedAlbum->fields["use_exif"] = $this->fields["use_exif"];
-				$nestedAlbum->fields["display_clicks"] = $this->fields["display_clicks"];
-				$nestedAlbum->fields["public_comments"] = $this->fields["public_comments"];
-				$nestedAlbum->save();
-				$nestedAlbum->setNestedProperties();
+	function setFields($fieldList, $recursive=0)
+	{
+		// first apply new fields to itself 
+		foreach ($fieldList as $key => $value) {
+			$this->fields[$key] = $value;
+		}
+		$this->save();
+
+		// then all the kids
+		if ($recursive) {
+			for ($i=1; $i <= $this->numPhotos(1); $i++) {
+				if ($this->isAlbumName($i)) {
+					$nestedAlbum = new Album();
+					$nestedAlbum->load($this->isAlbumName($i));
+					$nestedAlbum->setFields($fieldList, $recursive);
+				}
 			}
 		}
 	}

@@ -1,0 +1,87 @@
+<?
+
+//-------------------------------------------------------------------
+//-- First assemble the pieces and dump them into the GLO structure
+
+//-- the blocks ---
+$pageCount = count($GLO['navigator']['pages']);
+$GLO['navigator']['pageCount'] = $pageCount;
+
+$xtpl_blocks = getLayoutXTemplate("xtpl/blocks.xtpl");
+$xtpl_blocks->assign('GLO', $GLO);
+
+//-- This divider goes between any of the blocks ---
+$xtpl_blocks->parse("divider");
+
+//-- The navigator block ---
+if ($GLO['navigator']['pageNumber'] > 1) {
+	$xtpl_blocks->assign('page', $GLO['navigator']['pages'][1]);
+	$xtpl_blocks->parse("navigator.first");
+	$xtpl_blocks->assign('page', $GLO['navigator']['pages'][$GLO['navigator']['pageNumber']-1]);
+	$xtpl_blocks->parse("navigator.previous");
+} else {
+	$xtpl_blocks->parse("navigator.no_first");
+	$xtpl_blocks->parse("navigator.no_previous");
+}
+$xtpl_blocks->parse("navigator.pages");
+if ($GLO['navigator']['pageNumber'] < $pageCount) {
+	$xtpl_blocks->assign('page', $GLO['navigator']['pages'][$GLO['navigator']['pageNumber']+1]);
+	$xtpl_blocks->parse("navigator.next");
+	$xtpl_blocks->assign('page', $GLO['navigator']['pages'][$pageCount]);
+	$xtpl_blocks->parse("navigator.last");
+} else {
+	$xtpl_blocks->parse("navigator.no_next");
+	$xtpl_blocks->parse("navigator.no_last");
+}
+$xtpl_blocks->parse("navigator");
+
+//-- the breadcrumb block ---
+for ($i=0; $i < count($GLO['breadcrumb']['levels']); $i++) {
+    $xtpl_blocks->assign('crumb', $GLO['breadcrumb']['levels'][$i]);
+	if ($i == count($GLO['breadcrumb']['levels'])) {
+		$xtpl_blocks->parse("breadcrumb.last_crumb");
+	} else {
+		$xtpl_blocks->parse("breadcrumb.crumb");
+	}
+}
+$xtpl_blocks->parse("breadcrumb");
+
+
+//$xtpl_blocks->parse("toolbox.left");
+foreach ($GLO['toolbox']['commands'] as $command) {
+	$xtpl_blocks->assign("command", $command);
+	$xtpl_blocks->parse("toolbox.commands.command");
+}
+$xtpl_blocks->parse("toolbox.commands");
+$xtpl_blocks->parse("toolbox");
+
+
+if ($GLO['publicComments']) {
+	foreach ($GLO['publicComments'] as $comment) {
+		$xtpl_blocks->assign("comment", $comment);
+		$xtpl_blocks->parse("comments.comment");
+	}
+	$xtpl_blocks->parse("comments");
+	$GLO['blockPublicComments'] = $xtpl_blocks->text("comments");
+}
+
+//-------------------------------------------------------------------
+//-- Finally do the main template ---
+//--   Note: only parse the header/footer if we are not embedded.
+
+$xtpl = getLayoutXTemplate("xtpl/view_item.xtpl");
+$xtpl->assign('GLO', $GLO);
+
+$xtpl->assign('blockDivider', $xtpl_blocks->text("divider"));
+$xtpl->assign('blockNavigation', $xtpl_blocks->text("navigator"));
+$xtpl->assign('blockTools', $xtpl_blocks->text("toolbox"));
+$xtpl->assign('blockBreadcrumb', $xtpl_blocks->text("breadcrumb"));
+if ($GLO['publicComments']) {
+	$xtpl->assign('blockPublicComments', $xtpl_blocks->text("comments"));
+}
+
+$xtpl->parse("view_item");
+$xtpl->out("view_item");
+
+?>
+

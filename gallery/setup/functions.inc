@@ -174,24 +174,24 @@ function check_mod_rewrite()
 	return array($success, $fail);
 }
 
-function check_exif($location="")
+function check_exif()
 {
 	global $gallery;
 
 	$fail = array();
 	$success = array();
 
-	$bin = "jhead";
+	$bin = fs_executable("jhead");
 
-	if ($location) {
-		$d = locateDir(bin, $location);
+	if ($gallery->app && fs_file_exists($gallery->app->use_exif)) {
+		$success[] = "jhead binary located";
 	} else {
 		$d = locateDir($bin, $gallery->app ? $gallery->app->pnmDir : "");
-	}
-	if (!$d) {
-		$fail["fail-exif"] = "Could not locate jhead";
-	} else {
-		$success[] = "jhead binary located";
+		if ($d) {
+			$success[] = "jhead binary located";
+		} else {
+			$fail["fail-exif"] = "Could not locate jhead";
+		}
 	}
 
 	return array($success, $fail);
@@ -330,5 +330,24 @@ function detect_exec_status()
 
 	return $status;
 }
-?>
 
+//-----------------------------------------------------------------------------
+function getLayouts() {
+
+	// define these globals to make them available to layouts
+	global $gallery;
+
+	// XXX not very intelligent way to differentiate layout dirs...
+
+	$dir_handle = fs_opendir('../layout');
+	while ($file = readdir($dir_handle)) {
+		if ( (!ereg("[.]", $file)) && (!ereg("CVS", $file)) ) {
+			$layout_list[] = $file;
+		}
+	}
+	closedir($dir_handle);
+	sort($layout_list);
+
+	return $layout_list;
+}
+?>

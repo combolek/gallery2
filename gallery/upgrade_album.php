@@ -108,7 +108,8 @@ function find_albums(&$results, $album="") {
 		for ($j = 1; $j <= $count; $j++) {
 			$name = $album->isAlbumName($j);
 			if ($name) {
-				find_albums($results, $albumDB->getAlbumByName($name));
+				$tmpAlbum = new Album($name);
+				find_albums($results, $tmpAlbum);
 			}
 		}
 	} else {
@@ -145,8 +146,7 @@ more efficiently in the future.
 
 <?
 if ($upgrade_albumname) {
-	$album = new Album();
-	$album->load($upgrade_albumname);
+	$album = new Album($upgrade_albumname);
 }
 
 if ($album && $album->versionOutOfDate()) {

@@ -67,6 +67,17 @@ $navigator["bordercolor"] = $borderColor;
 <head>
   <title><?= $gallery->app->galleryTitle ?></title>
   <?= getStyleSheetLink() ?>
+
+ <script language="javascript1.2">
+  // <!--
+  function do_this_command(command) {
+    eval (command);
+  }
+  // --> 
+  </script>
+
+
+
 </head>
 <body>
 <? } ?>
