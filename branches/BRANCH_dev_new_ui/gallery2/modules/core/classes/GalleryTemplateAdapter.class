@@ -895,6 +895,14 @@ function row($params, $content, &$smarty) {
         $smarty->trigger_error("row tag found inside {$context['stack'][0]}, but must be used inside one of: table", E_USER_ERROR);
     }
     $_column = array_pop($this->_content["column"]);
+    foreach (array_keys($params) as $key) {
+        if ($key != "rowspan") {
+            $smarty->trigger_error("invalid parameter $key for row tag, must be one of: rowspan", E_USER_ERROR);
+        }
+    }
+    if (!isset($params["rowspan"])) {
+        $params["rowspan"] = "1";
+    }
     $this->_content["row"][sizeof($this->_content["row"])-1][] = array("name" => "row", "params" => $params, "content" => $this->_theme->row($context, $_column));
     return;
 }
@@ -914,12 +922,15 @@ function column($params, $content, &$smarty) {
         $smarty->trigger_error("column tag found inside {$context['stack'][0]}, but must be used inside one of: row", E_USER_ERROR);
     }
     foreach (array_keys($params) as $key) {
-        if ($key != "header") {
-            $smarty->trigger_error("invalid parameter $key for column tag, must be one of: header", E_USER_ERROR);
+        if ($key != "header" && $key != "colspan") {
+            $smarty->trigger_error("invalid parameter $key for column tag, must be one of: header, colspan", E_USER_ERROR);
         }
     }
     if (!isset($params["header"])) {
         $params["header"] = "false";
+    }
+    if (!isset($params["colspan"])) {
+        $params["colspan"] = "1";
     }
     $this->_content["column"][sizeof($this->_content["column"])-1][] = array("name" => "column", "params" => $params, "content" => $content);
     return;
