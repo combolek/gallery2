@@ -639,6 +639,15 @@ echo ini_get("disable_functions");
          help.
         </para>
        </listitem>
+       <listitem>
+        <para>
+         Ensure that you are logging in using the same URL that you specified during
+         Gallery's configuration.  If your host responds to "www.myhost.com" and "myhost.com",
+         you need to use the one that is specified in your configuration.  If you use the one
+         that's not specified, you may be unable to login.  Another remedy for this issue is
+         to follow the instructions in <link linkend="gallery1-install.faq.c.22">FAQ C.22</link>
+        </para>
+       </listitem>
       </itemizedlist>
      </answer>
     </qandaentry>   
