@@ -1468,7 +1468,8 @@ d. Just Acronym, Emphasis, and Trademark; no other word elements.
 <!ATTLIST qandadiv
 		%common.attrib;
 		%qandadiv.role.attrib;
-		%local.qandadiv.attrib;>
+		%local.qandadiv.attrib;
+		label		CDATA	#IMPLIED>
 <!--end of qandadiv.attlist-->]]>
 <!--end of qandadiv.module-->]]>
 
