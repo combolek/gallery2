@@ -25,12 +25,94 @@ The following functionality is not (yet) implemented in v2.0.
 
 Things that need to be added to this API:
 -----------------------------------------
+- permission changes must be tracked as exceptions in the parent
+- add examples of permission changes
+- add examples of user maintenance
 - Sorting!
 - Support for some kind of LinkItem (ie, a shared item?)
 - Support for user groups
+- in debug mode we can register a checker to walk the tree and 
+  verify that everything got saved before closing down.  Theoretically
+  it won't be possible to change an item unless it's locked so this
+  should just be a sanity check.
 
 Things that need to be documented more thoroughly in general:
 -------------------------------------------------------------
+- Derived images.
+  - how they work
+  - how changes propagate
+  - short circuiting the source->source->source chain
+  - how to rebuild one
+  - how to expire one
+  - change notification
+  - real source vs. preferred source
+
+- Locking explained.  There are two different types of locks:
+  1. Local locks
+  2. World locks
+
+  All locks are write-locks.  Reading can always occur, even if an
+  object is locked or if there is a World lock.  It's possible
+  that you're reading data that's changing concurrently (in another
+  thread) in which case your results may be unpredictable, but this is
+  a transitory effect that we can suppress at a later date.
+
+  After you acquire a lock (either Local or World), all items affected
+  by the lock will be automatically refreshed from the persistent
+  store.  This guarantees that you're working on the latest version of
+  the data and prevents you from colliding with another change that
+  happened between the time that you got the item and the time that
+  you acquired the lock.
+
+  If you're making a change to a known set of items that will not cause 
+  changes to other items outside of the set, you can get a Local
+  lockset.  You can only have one Local lockset active at any given
+  time.  By forcing a single lockset, we can guarantee in the core
+  code that you cannot cause a thread deadlock.  
+  Rules:
+  * One process cannot have two active Local locksets.
+  * Two processes can't lock the same item at the same time.  
+  * Multiple processes can each have their own lock on distinct items.
+
+  NOTE: The act of releasing a Local lock saves all objects that were
+  covered by the lock.
+
+  If you're making many changes, or a change that will affect the
+  structure of the tree then you need to acquire a World lock.  If you
+  attempt such an operation without a world lock, the core code will
+  fail fast and loud.  A world lock cannot exist in the presence of
+  another world lock or a Local lock.  After the world lock is
+  acquired, every object in your tree will be refreshed from the
+  database to make sure that you have a current copy.
+
+  In order to acquire a world lock, you must signal that no new Local
+  locks should be acquired.  So, the core code will acquire a
+  RequestForWorld lock.  Once this lock has been acquired, no new
+  Local locks can be acquired.  Once all Local locks have been
+  released, the WorldLock is acquired and the RequestForWorld lock is
+  released.
+
+  NOTE: The act of releasing a World lock will automatically save the
+  entire tree.  to make sure that anything that needs saving is
+  flushed to the persistent store.  This call will only save objects
+  that have actually changed so it should be fairly efficient.
+
+  NOTE: World locks should be acquired on as tight a piece of code as
+  possible!  They only need to be acquired if you're changing
+  something that affects items in the *existing* tree.  If you create
+  a bunch of new items and mess with them/interconnect them, you don't
+  need a world lock (unless the core code specifically tells you that
+  you do) until you actually attach them to the tree.
+
+  NOTE: The core code is implemented to complain if the operation it's
+  being asked to perform requires a lock, but you don't have one.
+  This will aid the application developer in finding and locking
+  everything that needs locking.  The rule of thumb in the core code
+  is that if any logical branch can lead to a case where we requires a
+  World lock, then the whole function *always* requires a World lock.
+  This is more restrictive, but it will make it far easier to generate
+  robust code.
+
 - How permissions work.  Thumbnail sketch: you ask an item if a
   specific user has PERMISSION_CAN_BLAH or PERMISSION_CANNOT_BLAH.
   That item recursively asks it's ancestors for an answer.  We're
@@ -43,9 +125,10 @@ Things that need to be documented more thoroughly in general:
 
 - status codes.  This is mostly in place.  Any time you attempt an
   operation that will actually commit data to the persistent store, you
-  can either get a value of SUCCESS, or you can get ERROR.  We may
-  eventually want to return bitflags to specify what kind of error
-  occurred.
+  can either get a value of SUCCESS, or you can get an int that has
+  the ERROR bit set, as well as one or more error bitflags:
+
+	ERROR_NAME_COLLISION
 
 - Creating a new persistence backend (ie, "Filesystem", "MySQL")
   This is not finalized yet.  But I'm thinking that all you need to do is
@@ -60,39 +143,59 @@ Examples
 
 ALBUMS
 ------
-Create the root AlbumItem.  This is something that only the config
-wizard should do.  It should store the id of the root in config.php
-when it's ready.  The config wizard can try this every time, as only
-one album can become the root album.
-
-	$rootAlbum = new AlbumItem();
-	$status = $rootAlbum->becomeTheRootAlbum();
-	if ($status == SUCCESS) {
-		$rootAlbum->save();
-	} else {
-		$rootAlbum->delete();
-	}
 
 Get the root AlbumItem.  Note that we're assigning by reference
 
-	$rootAlbumId = $gallery->getRootAlbumItemId();
+	$rootAlbumId = $gallery->getItemByPath("/");
 	$rootAlbum =& $gallery->getItemById($rootAlbumId);
+
+Create the root AlbumItem.  If it turns out that we have no
+root album, then it's time to create one.  This will happen
+in the common init code for every request:
+
+	$rootAlbumId = $gallery->getItemByPath("/");
+	if (empty($rootAlbumId)) {
+		if ($gallery->lockWorld()) {
+			$rootAlbum = new AlbumItem();
+
+			// Arbitrary name that is never visible to the end user
+			$rootAlbum->setPath("root"); 
+
+			$status = $rootAlbum->becomeTheRootAlbum();
+			if ($status == SUCCESS) {
+				// Check status here, too.  If this fails,
+				// alert the user.
+			} else {
+				// this is only deleting the temporary
+				// that we just created.
+				$rootAlbum->delete();
+			}
+
+			$gallery->unlockWorld();
+		}
+	}
 
 Create a new album at the top level with a title and set the
 isHtmlAllowed property. 
 
+	// This does not need to be locked, as the object it's
+	// affecting is not in the tree yet.
 	$newAlbum = new AlbumItem();
 	$newAlbum->setProperty("title", "This is my new album");
 	$newAlbum->setProperty("isHtmlAllowed", true);
 
 	// Lock the root album
-	if ($gallery->lock(array(&$rootAlbum))) {
+	if ($gallery->lockLocal(array(&$rootAlbum))) {
 		// Add the item and save it
 		$rootAlbum->addItem($newAlbum);
-		$rootAlbum->save();
 
 		// Release the lock
-		$gallery->unlock();
+		$status = $gallery->unlockLocal();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Check the type of error and do the right thing
+		}
 	} else {
 		// FAIL!
 	}
@@ -122,6 +225,39 @@ Can the current user view an item?  Again, no need to lock.
 		// Bad
 	}
 
+Grab the thumbnail file for this item.  This may require a lock if the
+thumbnail needs to be rebuilt:
+
+	$item = // a GalleryItem
+	$thumbId = $item->getThumbnailId();
+	if (empty($thumbId)) {
+		// There's no thumbnail!
+	} else {
+		// Get the container.  No need to lock yet
+		$image =& $gallery->getContainerById($thumbId);
+
+		// Is the cache expired?  Note that there's a race
+		// condition here as the cache can be expired on
+		// disk but not in memory.  We're ok with that for now
+		// as it's transitory and not destructive
+		if (!$image->isCacheCurrent()) {
+
+			// It's expired.  Lock it down and rebuild it
+			if ($gallery->lockLocal(array(&$image))) {
+				// Rebuild the cache
+				$image->rebuildCache();
+				$status = $gallery->unlockLocal();
+				if ($status == SUCCESS) {
+					// Yay
+				} else {
+					// Boo
+				}
+			}
+		}
+
+		$image_file = $image->getDataFileName();
+	}
+
 
 GENERAL ITEMS (photos, movies, etc)
 -----------------------------------
@@ -136,11 +272,32 @@ in a GalleryItem).
 		// e.g., $type is now "Album" or "Photo", etc
 	}
 
-Get the thumbnail for an item and learn its dimensions:
+Get the thumbnail for an item and learn its dimensions.  This
+doesn't need locking because the dimensions are cached.
 
 	$item = // a GalleryItem
 	$id = $item->getThumbnailId();
 	$image =& $gallery->getContainerById($id);
+
+	// Is the cache expired?  Note that there's a race
+	// condition here as the cache can be expired on
+	// disk but not in memory.  We're ok with that for now
+	// as it's transitory and not destructive
+	if (!$image->isCacheCurrent()) {
+
+		// It's expired.  Lock it down and rebuild it
+		if ($gallery->lockLocal(array(&$image))) {
+			// Rebuild the cache
+			$image->rebuildCache();
+			$status = $gallery->unlockLocal();
+			if ($status == SUCCESS) {
+				// Yay
+			} else {
+				// Boo
+			}
+		}
+	}
+
 	list($width, $height) = $image->getDimensions();
 
 ITEM CREATION
@@ -161,17 +318,27 @@ feature:
 	// $item->getType() == "Photo"
 
 	$path = "/tmp/php712a3u";
-	$name = "foo.xxx";
+	$name = "foo.xyz";
 	$item2 = GalleryItemFactory::createItem($path, $name);
 	// $item2->getType() == "Unknown"
 
 At this point, $item is now in a temporary holding bin.  Let's add it
 to an existing album:
 
-	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$album))) {
+	// Acquire the appropriate lock(s).  We're causing a structural change 
+	// so we're required to get a World lock, even though it's not
+	// strictly necessary in all cases since it seems like only the
+	// target album is getting modified.
+	//
+	$album = // an AlbumItem attached to the tree
+	if ($gallery->lockWorld()) {
 		$album->addItem($item);
-		$gallery->unlock();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
+		}
+		$gallery->unlockWorld();
 	} else {
 		// FAIL!
 	}
@@ -180,30 +347,52 @@ Create a resized version of the image targetted to fit within a
 800x800 bounding box:
 
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$item))) {
+	if ($gallery->lockLocal(array(&$item))) {
 
-		// First get the id of the source image container
+		// First get the id of the source image container.
 		$sourceId = $item->getSourceId();
 
-		// Then create a new image container and set it's 
-		// source accordingly
+		// Then create a new image container and set its 
+		// source accordingly.
 		$destImageContainer = new ImageContainer();
 		$destImageContainer->setDerivativeSource($sourceId);
 
-		// Now specify a target size
+		// Now specify a target size and save the
+		// destination image.
 		$destImageContainer->setDerivativeCommands("scale:800");
-		$destImageContainer->save();
 
-		// Finally, add the image as a resized image to the
+		// We have to save this guy by hand because he's not 
+		// locked.
+		$status = $destImageContainer->save();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
+		}
+
+		// Add the image as a resized image to the
 		// original item.
 		$item->addResizeId($destImageContainer->getId());
 
 		// At this point the image hasn't been created, but it
 		// will be the next time it's accessed.  You can trigger
-		// a rebuild right now by doing:
-		$destImageContainer->rebuildCache();
+		// a rebuild without locking right now by calling
+		//
+		// $destImageContainer->rebuildCache();
+		//
+		// You don't need to lock the above because we haven't
+		// yet saved the item so nobody else can possibly know
+		// about the resized image yet.  However, rebuilding is
+		// slow and we don't want to do that inside a lock (even
+		// a local lock) so do that in its own lock.
 
-		$gallery->unlock();
+		$status = $gallery->unlockLocal();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
+		}
+		
 	} else {
 		// FAIL!
 	}
@@ -211,36 +400,51 @@ Create a resized version of the image targetted to fit within a
 Change the above resized image to be permanently sized to 200x400.
 
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$imageContainer))) {
-		$ids = $item->getResizeIds();
-		$id = $ids[0];  // arbitrary choice here
+	$ids = $item->getResizeIds();
+	$id = $ids[0];  // arbitrary choice here
+	$imageContainer =& $gallery->getContainer($id);
 
-		// We're unable to acquire the imageContainer's lock here
-		// since we can only have one lockset at any given time.
-		// however, since we have the parent item's lock we're OK
-		$imageContainer =& $gallery->getItemById($id);
+	if ($gallery->lockLocal(array(&$imageContainer))) {
 		$imageContainer->setDerivativeCommands("resize:200,400");
-		$imageContainer->save();
 		$imageContainer->expireCache();
 
-		$gallery->unlock();
+		$status = $gallery->unlockLocal();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
+		}
 	} else {
 		// FAIL!
 	}
 
 Delete the above resized image:
 
-	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$imageContainer, &$item))) {
+	// First remove the resize from the item
+	if ($gallery->lock(array(&$item))) {
 		$ids = $item->getResizeIds();
 		$id = $ids[0];  // arbitrary choice here
-		$imageContainer =& $gallery->getContainerById($id);
-
 		$item->removeResizeId($id);
-		$item->save();
-		$imageContainer->delete();
 
-		$gallery->unlock();
+		$status = $gallery->unlockLocal();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
+		}
+	} else {
+		// FAIL!
+	}
+
+	// Then delete the container.  Technically, if the container
+	// has no derivatives and/or is not derived from any other
+	// container we wouldn't need to do any locking.  But since we
+	// can't tell, we're forced to lock the world so that any
+	// notification can propagate as necessary
+	//
+	if ($gallery->lockWorld()) {
+		$imageContainer->delete();
+		$gallery->unlockWorld();
 	} else {
 		// FAIL!
 	}
@@ -257,22 +461,29 @@ PhotoItem's source:
 	$thumb = new ImageContainer();
 	$thumb->setDerivativeSource($sourceId);
 	$thumb->setDerivativeCommands("scale:200");
+
+	// Save this guy manually because he's not locked
 	$thumb->save();
 
-	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$albumItem))) {
+	// We have to lock the world here because the old thumbnail
+	// might have been part of a derivative chain, and if so, we'll
+	// need to make the new thumbnail assume the old thumbnail's
+	// responsibilities.
+	if ($gallery->lockWorld()) {
 		$oldThumbId = $albumItem->getThumbnailId();
 		$albumItem->setThumbnailId($thumb->getId();)
-		$albumItem->save();
-		$gallery->unlock();
 
 		// Delete the old thumbnail, if it exists
 		if (!empty($oldThumbId)) {
 			$oldThumb =& $gallery->getContainerById($oldThumbId);
-			if ($gallery->lock(array(&$oldThumbId))) {
-				$oldThumb->delete();
-				$gallery->unlock();
-			}
+			$oldThumb->delete();
+		}
+
+		$status = $gallery->unlockWorld();
+		if ($status == SUCCESS) {
+			// Yay
+		} else {
+			// Boo
 		}
 	} else {
 		// FAIL!
@@ -294,25 +505,29 @@ source so that the thumbnails/resizes come from rotated image.
 	$rotated = new ImageContainer();
 	$rotated->setDerivativeSource($sourceId);
 	$rotated->setDerivativeCommands("rotate:90");
+
+	// Save this guy manually because he's not locked
 	$rotated->save();
 
-	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$photoItem))) {
+	// We have to lock the world here because the old
+	// preferred-source or the original might have been part of a
+	// derivative chain, and if so, we'll need to make the new
+	// container assume the old container's responsibilities.
+	if ($gallery->lockWorld()) {
 		$oldId = $photoItem->getPreferredSource();
 		$photoItem->setPreferredSource($rotated->getId());
-		$gallery->unlock();
-	}
 
-	if (!empty($oldId)) {
-		$oldData =& $gallery->getContainer($oldId);
-
-		// Acquire the appropriate lock(s)
-		if ($gallery->lock(array(&$oldData))) {
+		if (!empty($oldId)) {
+			$oldData =& $gallery->getContainer($oldId);
 			$oldData->delete();
-			$gallery->unlock();
 		}
-	}
+		$gallery->unlockWorld();
+	} else {
+		// FAIL
 
+		// clean up our mess
+		$rotated->delete();
+	}
 
 COMMENTS
 --------
@@ -324,9 +539,9 @@ Create a new comment and add it to an item:
 	$comment->setComment("This is a comment");
 
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$albumItem))) {
+	if ($gallery->lockLocal(array(&$albumItem))) {
 		$item->addComment($comment);
-		$gallery->unlock();
+		$gallery->unlockLocal();
 	} else {
 		// FAIL!
 	}
@@ -335,6 +550,7 @@ View all comments:
 	$commentIds = $item->getCommentIds();
 	foreach ($commentIds as $id) {
 		$comment = $item->getComment($id);
+		print($comment->getName());
 		print($comment->getComment());
 	}
 
@@ -343,27 +559,21 @@ Remove a comment:
 	$comment = $item->getComment($id);
 
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$albumItem, &$comment))) {
+	if ($gallery->lockLocal(array(&$albumItem, &$comment))) {
 		$item->removeComment($id);
-		$item->save();
 		$comment->delete();
-		$gallery->unlock();
+		$gallery->unlockLocal();
 	} else {
 		// FAIL!
 	}
 
 Move a comment:
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$oldItem, &$newItem, &$comment))) {
+	if ($gallery->lockLocal(array(&$oldItem, &$newItem, &$comment))) {
 		$id = // id of comment to be moved
 		$oldItem->removeComment($id);
 		$newItem->addComment($id);
-	
-		$comment->save();
-		$oldItem->save();
-		$newItem->save();
-	
-		$gallery->unlock();
+		$gallery->unlockLocal();
 	} else {
 		// FAIL!
 	}
@@ -372,14 +582,50 @@ Edit a comment:
 	$id = // id of comment to be editted
 
 	// Acquire the appropriate lock(s)
-	if ($gallery->lock(array(&$comment))) {
+	if ($gallery->lockLocal(array(&$comment))) {
 		$comment->setName("GI Joan");
 		$comment->setComment("This is a nice example");
-		$comment->save();
-
-		$gallery->unlock();
+		$gallery->unlockLocal();
 	} else {
 		// FAIL!
+	}
+
+GENERAL ITEM METADATA
+---------------------
+
+Set the title:
+	$item = // a GalleryItem
+	if ($gallery->lockLocal(array(&$item))) {
+		$item->setProperty("title", "This is the title");
+		$gallery->unlockLocal();
+	}
+
+Update the view count:
+	$item = // a GalleryItem
+	if ($gallery->lockLocal(array(&$item))) {
+		$count = $item->getProperty(PROPERTY_VIEWCOUNT);
+		$item->setProperty(PROPERTY_VIEWCOUNT, $count+1);
+		$gallery->unlockLocal();
+	}
+
+Rename an item:
+	$item = // a GalleryItem
+	$parent =& $item->getParent();
+
+	// It's possible that two items will simultaneously attempt to
+	// rename themselves to the same name.  This is only an issue if
+	// they have the same parent so lock the item's parent also.
+	//
+	if ($gallery->lock(array(&$parent, &$item))) {
+		$status = $item->setPath("newname");
+		if ($status & ERROR) {
+			// Uh-oh
+
+			if ($status & ERROR_NAME_COLLISION) {
+				// Recoverable -- alert the user
+			}
+		}
+		$gallery->unlockLocal();
 	}
 
 ================================================================================
