@@ -35,7 +35,7 @@ goto :EOF
 call :make_jar
 rem zip -0 gallery_remote.zip GalleryRemote.jar default.gif (for info-zip)
 rem pkzip -e0 gallery_remote.zip GalleryRemote.jar default.gif (for pkzip)
-zip -0 gallery_remote.zip GalleryRemote.jar default.gif
+zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog
 goto :EOF
 
 :make_cvsbuild
