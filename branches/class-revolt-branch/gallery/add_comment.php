@@ -39,6 +39,8 @@ $error_text = "";
 
 if ($save) {
 	if ($commenter_name && $comment_text) {
+	        $comment_text = removeTags($comment_text);
+	        $commenter_name = removeTags($commenter_name);
 		$gallery->album->addComment($index, stripslashes($comment_text), $IPNumber, $commenter_name);
 		$gallery->album->save();
 		dismissAndReload();
@@ -85,7 +87,7 @@ if ($error_text) {
 </table>
 <br>
 <input type=submit name="submit" value="Save">
-<input type=submit name="submit" value="Cancel" onclick='parent.close()'>
+<input type=button value="Cancel" onclick='parent.close()'>
 
 </form>
 

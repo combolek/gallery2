@@ -1087,5 +1087,10 @@ function safe_serialize($obj, $file) {
 	return $success;
 }
 
+function removeTags($msg) {
+    $msg = eregi_replace("<([^>]*)>", "", $msg);
+    return $msg;
+}
+
 
 ?>
