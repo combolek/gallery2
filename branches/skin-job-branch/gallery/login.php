@@ -19,6 +19,30 @@
  */
 ?>
 <? require($GALLERY_BASEDIR . "init.php"); ?>
+<?
+if ($cancel) {
+	header("Location: $return");
+	return;
+}
+if ($submit) {
+	if ($uname && $password) {
+		$tmpUser = $gallery->userDB->getUserByUsername($uname);
+		if ($tmpUser && $tmpUser->isCorrectPassword($password)) {
+			$gallery->session->username = $uname;
+
+			header("Location: $return");
+			return;
+
+		} else {
+			$invalid = 1;
+			$password = null;
+		}
+	} else {
+		$error = 1;
+	}
+}
+?>
+
 
 <html>
 <head>
@@ -31,23 +55,6 @@
 <span class="popuphead">Login to <?=$gallery->app->galleryTitle?></span>
 <br>
 <br>
-<?
-if ($submit) {
-	if ($uname && $password) {
-		$tmpUser = $gallery->userDB->getUserByUsername($uname);
-		if ($tmpUser && $tmpUser->isCorrectPassword($password)) {
-			$gallery->session->username = $uname;
-			dismissAndReload();
-		} else {
-			$invalid = 1;
-			$password = null;
-		}
-	} else {
-		$error = 1;
-	}
-}
-?>
-
 <?= makeFormIntro("login.php", array("name" => "login_form", "method" => "POST")); ?>
 Logging in gives you greater permission to
 <br>
@@ -98,8 +105,9 @@ view, create, modify and delete albums.
 
 </table>
 <p>
+<input type="hidden" name="return" value="<?= $return ?>">
 <input type=submit name="submit" value="Login">
-<input type=submit name="submit" value="Cancel" onclick='parent.close()'>
+<input type=submit name="cancel" value="Cancel">
 </form>
 
 <script language="javascript1.2">
