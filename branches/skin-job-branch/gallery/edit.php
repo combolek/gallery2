@@ -57,7 +57,7 @@ $editDir = $GALLERY_BASEDIR . "edit/";
 //-- we're executing the command? ---
 if ($doit) {
 
-	$editTabInclude = $editDir. $type . "_" . $tab . ".inc";
+	$editTabInclude = $editDir. $type . "_" . $tab . ".inc.php";
 
 	//-- if we have a submit and the command wants to show progress ---
 	//-- go straight there (don't bother loading the layout)...     ---
@@ -214,7 +214,7 @@ if (!$tab) {
 	$tabs = array_keys($commands);
 	$tab = $tabs[0];
 }
-$editInclude = $editDir. $type . "_" . $tab . ".inc";
+$editInclude = $editDir. $type . "_" . $tab . ".inc.php";
 
 //-- which command is selected ---
 $commands[$tab]['selected'] = 1;
