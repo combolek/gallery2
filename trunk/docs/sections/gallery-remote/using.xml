@@ -85,7 +85,8 @@
    is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
    server certificate that is not certified by a trusted certificate authority, Gallery Remote will
    be unable to connect. If that happens, you will need to add the site's certificate to the Java
-   registry of trusted certificates. The process for doing this is detailed <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
+   registry of trusted certificates. The process for doing this is detailed
+   <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
   </para>
  </sect2>
  
