@@ -1571,7 +1571,7 @@ print getcwd ();
        <screen>
         php_value session.save_handler "files"
        </screen>
-       This should fix it if you host allows you to edit PHP directives in .htaccess.
+       This should fix it if you host allows you to edit PHP directives in &htaccess;.
        If not, you may need to contact them to get it changed globally.
       </para>
      </answer>
