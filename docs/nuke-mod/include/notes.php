@@ -52,11 +52,17 @@ function printNotesFooter () {
 }
 
 function printNotes () {
-	global $navigation, $noteadmin;
+	global $navigation;
 	
 	$notes = getNotes ($navigation['this']);
 	
 	foreach ($notes as $note) {
+        	displayNote ($note);
+	}
+}
+
+function displayNote (&$note) {
+	global $navigation, $noteadmin;
 ?>
 <tr>
  <td colspan="2" width="100%">
@@ -71,7 +77,7 @@ function printNotes () {
    </td>
    <td align="right" valign="top">
 <?php
-if ($noteadmin) {
+if ($noteadmin && $note['sect'] !== false) {
 ?>
    <small>
     <a href="modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=edit&id=<?php echo $note['id'];?>">[Edit]</a> |
@@ -94,7 +100,6 @@ if ($noteadmin) {
 </tr>
 <!-- TODO: Admin stuff -->
 <?php
-	}
 }
 
 function addNote ($sect, $user, $note, $status = '') {
@@ -195,7 +200,7 @@ if (is_array ($extraFields)) {
 
 <input type="hidden" name="id" value="<?php echo $id;?>">
 <input type="hidden" name="sect" value="<?php echo $sect;?>">
-<input type="hidden" name="action" value="<?php echo ($id ? 'edit' : 'add');?>-note">
+<input type="hidden" name="action" value="<?php echo ($id ? 'manage' : 'add');?>-note">
 
 <table bgcolor="#cfcfcf" width="100%">
  <tr>
@@ -217,6 +222,7 @@ if (is_array ($extraFields)) {
  </tr>
  <tr>
   <td colspan="2">
+   <input type="submit" name="submit" value="Preview">
    <input type="submit" name="submit" value="<?php echo ($id ? "Edit" : "Add");?> Note!">
   </td>
  </tr>
