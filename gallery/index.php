@@ -36,7 +36,10 @@ global $MOS_GALLERY_PARAMS;
 // Mambo calls index.php directly for popups - we need to make
 // sure that the option var has been extracted into the environment
 // otherwise it just won't work.
-$option = $_REQUEST['option'];
+if (empty($option) && !empty($HTTP_GET_VARS['option']))
+	$option = $HTTP_GET_VARS['option'];
+elseif (empty($option) && !empty($HTTP_POST_VARS['option']))
+	$option = $HTTP_POST_VARS['option'];
 
 /* Detect PHP-Nuke, Postnuke, phpBB2 or Mambo and react accordingly.
  * Gallery can run embedded in GeekLog too, but to catch this we need
@@ -79,11 +82,11 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option)) {
 	}
 
 	if (empty($include)) {
-		if (!empty($_GET['include'])) {
-			$include = $_GET['include'];
+		if (!empty($HTTP_GET_VARS['include'])) {
+			$include = $HTTP_GET_VARS['include'];
 		}
-		elseif (!empty($_POST['include'])) {
-			$include = $_POST['include'];
+		elseif (!empty($HTTP_POST_VARS['include'])) {
+			$include = $HTTP_POST_VARS['include'];
 		}
 		else {
 			$include = "albums.php";

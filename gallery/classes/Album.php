@@ -60,9 +60,7 @@ class Album {
 		$this->fields["cols"] = $gallery->app->default["cols"];
 		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
 		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
-		if (isset($gallery->app->default['print_photos'])) {
-			$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-		}
+		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
 		$this->fields["guid"] = 0;
 		if (isset($gallery->app->use_exif)) {
 			$this->fields["use_exif"] = "yes";
@@ -399,8 +397,7 @@ class Album {
 		}
 
 		if ($this->version < 29) {
-			mt_srand((double) microtime() * 1000000);
-			$this->fields['guid'] = md5(uniqid(mt_rand(), true));
+			$this->fields['guid'] = md5(uniqid(rand(), true));
 			$changed = 1;
 		}
 
@@ -855,6 +852,7 @@ class Album {
 		    }
 		}
 		if ($success && $msg) { // send email
+			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
 				echo gallery_error(_("msg should be an array!"));
 				vd($msg);
@@ -867,7 +865,7 @@ class Album {
 					       	makeAlbumUrl($this->fields['name']),
 						user_name_string($gallery->user->getUID(),
 							$gallery->app->comments_display_name),
-						$_SERVER['REMOTE_ADDR'],
+						$HTTP_SERVER_VARS['REMOTE_ADDR'],
 					       	$msg_str);
 			       	$text .= "\n\n". "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when other changes are made\" is unchecked (You'll need to login first).";
 			       	$subject=sprintf("Changes to %s", $this->fields['name']);
@@ -1081,8 +1079,7 @@ class Album {
 				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0); 
 		}
 
-		mt_srand((double) microtime() * 1000000);
-		$this->fields['guid'] = md5(uniqid(mt_rand(), true));
+		$this->fields['guid'] = md5(uniqid(rand(), true));
 
 		return 0;
 	}

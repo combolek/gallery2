@@ -96,16 +96,12 @@
 	chmod 644 config.php
 	chmod 400 setup
        </screen>
-        In Gallery 1.4.4, you do not need to chmod the setup directory.
       </para>
      </listitem>
      <listitem>
       <para>
        Windows - Run the <filename>secure.bat</filename> script, located in your
        main Gallery directory
-      </para>
-      <para>
-       This step can be skipped if using Gallery 1.4.4
       </para>
      </listitem>
     </itemizedlist>

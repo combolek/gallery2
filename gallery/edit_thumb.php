@@ -90,20 +90,20 @@ if (isset($action)) {
 		$bgcolor = "#FFFFFF";
 
 		/* Build up the submit URL */
-		if (isset($_SERVER['HTTPS']) && stristr($_SERVER['HTTPS'], "on")) {
+		if (isset($HTTP_SERVER_VARS['HTTPS']) && stristr($HTTP_SERVER_VARS['HTTPS'], "on")) {
 		    $submit = "https://";
 		} else {
 		    $submit = "http://";
 		}
 
-		if (empty($_SERVER['REQUEST_URI'])) {
-		    $submit .= $_SERVER['HTTP_HOST'];
-		    $submit .= $_SERVER['PATH_INFO'];
+		if (empty($HTTP_SERVER_VARS['REQUEST_URI'])) {
+		    $submit .= $HTTP_SERVER_VARS['HTTP_HOST'];
+		    $submit .= $HTTP_SERVER_VARS['PATH_INFO'];
 		    $submit .= '?';
-		    $submit .= $_SERVER['QUERY_STRING'];
+		    $submit .= $HTTP_SERVER_VARS['QUERY_STRING'];
 		} else {
-		    $submit .= $_SERVER['HTTP_HOST'];
-		    $submit .= $_SERVER['REQUEST_URI'];
+		    $submit .= $HTTP_SERVER_VARS['HTTP_HOST'];
+		    $submit .= $HTTP_SERVER_VARS['REQUEST_URI'];
 		}
 ?>
 

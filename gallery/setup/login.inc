@@ -26,20 +26,20 @@ if (isset($gallery->session->username) && !empty($gallery->session->username)) {
 }
 elseif (fs_file_exists(GALLERY_SETUPDIR . "/resetadmin")) {
 	if (!isset($gallery->session->resetAdminGuid)) {
-		mt_srand((double) microtime() * 1000000);
-		$gallery->session->resetAdminGuid = md5(uniqid(mt_rand(), true));
+		$gallery->session->resetAdminGuid = md5(uniqid(rand(), true));
 	}
 }
 elseif (isset($GLOBALS['login'])) {
 	if (empty($username) || empty($gallerypassword)) {
 		$error=_("Please enter username and password.");
 	} else {
+		global $HTTP_SERVER_VARS;
 		$tmpUser = $gallery->userDB->getUserByUsername($username);
 		if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword) && $tmpUser->isAdmin()) {
 			$tmpUser->log("login");
 			$tmpUser->save();
 			$gallery->session->username = $username;
-			gallery_syslog("Successful config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Successful config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			if ($tmpUser->getDefaultLanguage() != "") {
 				$gallery->session->language = 
 					$tmpUser->getDefaultLanguage();
@@ -48,12 +48,12 @@ elseif (isset($GLOBALS['login'])) {
 		elseif (!isset($tmpUser) || !$tmpUser->isCorrectPassword($gallerypassword)) {
 			$tmpUser = null;
 			$gallerypassword = null;
-			gallery_syslog("Failed config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Failed config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			$error= _("Invalid username or password");
 		}
 		elseif (!$tmpUser->isAdmin()) {
 			$gallerypassword = null;
-			gallery_syslog("Failed config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Failed config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			$error=_("User is not an admin - access denied");
 		}
 	}

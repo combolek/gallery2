@@ -53,9 +53,9 @@ if (session_id()) {
 
 /* emulate register_globals for sessions */
 if (!$gallery->register_globals) {
-	if (is_array($_SESSION) && !empty($_SESSION)) {
-		foreach($_SESSION as $key => $value) {
-			$$key =& $_SESSION[$key];
+	if (is_array($HTTP_SESSION_VARS) && !empty($HTTP_SESSION_VARS)) {
+		foreach($HTTP_SESSION_VARS as $key => $value) {
+			$$key =& $HTTP_SESSION_VARS[$key];
 		}
 	}
 	elseif (is_array($_SESSION) && !empty($_SESSION)) {

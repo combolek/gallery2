@@ -24,10 +24,10 @@
 // Hack prevention.
 $sensitiveList = array("gallery", "GALLERY_EMBEDDED_INSIDE", "GALLERY_EMBEDDED_INSIDE_TYPE");
 foreach ($sensitiveList as $sensitive) {
-	if (!empty($_GET[$sensitive]) ||
-			!empty($_POST[$sensitive]) ||
-			!empty($_COOKIE[$sensitive]) ||
-			!empty($_POST[$sensitive])) {
+	if (!empty($HTTP_GET_VARS[$sensitive]) ||
+			!empty($HTTP_POST_VARS[$sensitive]) ||
+			!empty($HTTP_COOKIE_VARS[$sensitive]) ||
+			!empty($HTTP_POST_FILES[$sensitive])) {
 		print _("Security violation") ."\n";
 		exit;
 	}
@@ -60,7 +60,8 @@ if (empty($register_globals) ||
 }
 
 /*
- * If register_globals is off, then extract all superglobals into the global namespace.  
+ * If register_globals is off, then extract all HTTP variables into the global
+ * namespace.  
  */
 if (!$gallery->register_globals) {
 
@@ -69,7 +70,10 @@ if (!$gallery->register_globals) {
      * appending "?HTTP_POST_VARS[gallery]=xxx" to the url would cause extract
      * to overwrite HTTP_POST_VARS when it extracts HTTP_GET_VARS
      */
-    $scrubList = array("_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST", "_SESSION");
+    $scrubList = array('HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_COOKIE_VARS', 'HTTP_POST_FILES');
+    if (function_exists("version_compare") && version_compare(phpversion(), "4.1.0", ">=")) {
+	array_push($scrubList, "_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+    }
 
     foreach ($scrubList as $outer) {
 	foreach ($scrubList as $inner) {
@@ -77,14 +81,40 @@ if (!$gallery->register_globals) {
 	}
     }
     
+    if (is_array($_REQUEST)) {
 	extract($_REQUEST);
+    }
+    else {
+        if (is_array($HTTP_GET_VARS)) {
+	    extract($HTTP_GET_VARS);
+	}
 
+	if (is_array($HTTP_POST_VARS)) {
+            extract($HTTP_POST_VARS);
+	}
+
+	if (is_array($HTTP_COOKIE_VARS)) {
+            extract($HTTP_COOKIE_VARS);
+	}
+    }
+
+
+    if (is_array($HTTP_POST_FILES)) {
+	foreach($HTTP_POST_FILES as $key => $value) {
+	    ${$key."_name"} = $value["name"];
+	    ${$key."_size"} = $value["size"];
+	    ${$key."_type"} = $value["type"];
+	    ${$key} = $value["tmp_name"];
+	}
+    }
+    elseif (is_array($_FILES)) {
 	foreach($_FILES as $key => $value) {
 	    ${$key."_name"} = $value["name"];
 	    ${$key."_size"} = $value["size"];
 	    ${$key."_type"} = $value["type"];
 	    ${$key} = $value["tmp_name"];
 	}
+    }
 }
 global $gallery;
 require(dirname(__FILE__) . "/Version.php");
@@ -115,16 +145,18 @@ if (fs_file_exists(dirname(__FILE__) . "/config.php")) {
 ** We also include the common lib file as we need it in initLanguage()
 */
 
-// Verify that the geeklog_dir isn't overwritten with a remote exploit
-if (!empty($gallery->app->geeklog_dir) && !realpath($gallery->app->geeklog_dir)) {
-	print _("Security violation") ."\n";
-	exit;
-} elseif (!empty($gallery->app->geeklog_dir)) {
+if (isset($gallery->app->embedded_inside_type) && $gallery->app->embedded_inside_type=='GeekLog') {
 	$GALLERY_EMBEDDED_INSIDE='GeekLog';
 	$GALLERY_EMBEDDED_INSIDE_TYPE = 'GeekLog';
 
-	if (! defined ("GEEKLOG_DIR")) {
-		define ("GEEKLOG_DIR",$gallery->app->geeklog_dir);
+	// Verify that the geeklog_dir isn't overwritten with a remote exploit
+	if (!realpath($gallery->app->geeklog_dir)) {
+		print _("Security violation") ."\n";
+		exit;
+	} else {
+		if (! defined ("GEEKLOG_DIR")) {
+			define ("GEEKLOG_DIR",$gallery->app->geeklog_dir);
+		}
 	}
 
 	require_once(GEEKLOG_DIR . '/lib-common.php');
@@ -142,7 +174,7 @@ if (isset($gallery->app->devMode) &&
  * Detect if we're running under SSL and adjust the URL accordingly.
  */
 if(isset($gallery->app)) {
-	if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
+	if (isset($HTTP_SERVER_VARS["HTTPS"] ) && stristr($HTTP_SERVER_VARS["HTTPS"], "on")) {
 		$gallery->app->photoAlbumURL = 
 			eregi_replace("^http:", "https:", $gallery->app->photoAlbumURL);
 		$gallery->app->albumDirURL = 
@@ -466,7 +498,8 @@ if (!isset($gallery->session->offline)) {
     $gallery->session->offline = FALSE;
 }
 
-if ($gallery->userDB->versionOutOfDate()) {
+if ($gallery->userDB->versionOutOfDate()) 
+{
 	include(dirname(__FILE__) . "/upgrade_users.php");
 	exit;
 }
