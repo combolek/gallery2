@@ -91,6 +91,7 @@ public class GRAppletMini extends GRApplet implements GalleryRemoteCore, ActionL
 
 	public void shutdown() {
 		if (hasStarted) {
+			GalleryRemote._().properties.write();
 			GalleryRemote.shutdownInstance();
 		}
 	}

@@ -49,6 +49,8 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 	HashMap extraFields;
 
+	boolean hidden;
+
 	int angle = 0;
 	boolean flipped = false;
 	boolean suppressServerAutoRotate = false;
@@ -91,6 +93,8 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		clone.album = album;
 
 		clone.extraFields = extraFields;
+
+		clone.hidden = hidden;
 
 		clone.angle = angle;
 		clone.flipped = flipped;
@@ -393,6 +397,20 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		return urlFull;
 	}
 
+	public URL safeGetUrlFull() {
+		if (!online) {
+			throw new RuntimeException("Can't get URL for a local file!");
+		}
+
+		if (urlFull != null) {
+			return urlFull;
+		} else if (urlResized != null) {
+			return urlResized;
+		} else {
+			throw new RuntimeException("Neither full nor resized URL!");
+		}
+	}
+
 	public void setUrlFull(URL urlFull) {
 		this.urlFull = urlFull;
 	}
@@ -403,6 +421,20 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		}
 
 		return sizeFull;
+	}
+
+	public Dimension safeGetSizeFull() {
+		if (!online) {
+			throw new RuntimeException("Can't get dimension for a local file!");
+		}
+
+		if (sizeFull != null) {
+			return sizeFull;
+		} else if (sizeResized != null) {
+			return sizeResized;
+		} else {
+			throw new RuntimeException("Neither full nor resized size!");
+		}
 	}
 
 	public void setSizeFull(Dimension sizeFull) {
@@ -458,7 +490,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	}
 
 	public String getName() {
-		String path = urlFull.getPath();
+		String path = safeGetUrlFull().getPath();
 
 		int i = path.lastIndexOf('/');
 
@@ -506,6 +538,14 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 	public void setIndexOnServer(int indexOnServer) {
 		this.indexOnServer = indexOnServer;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 }
 
