@@ -156,6 +156,12 @@ case $1 in
 		;;
 		
 	test-xmllint)
+		if [ ! -d $DIST ]; then
+			mkdir $DIST;
+		fi
+	
+		gendate
+
 		echo "Testing documentation (if you see no errors, everything is good)..."
 
 		gendate
