@@ -30,7 +30,10 @@ package com.gallery.GalleryRemote;
  */
 public interface GalleryComm2Consts {
 
-	/** Protocol version string. No longer used by the server, still being sent... */
+	/** Remote scriptname that provides version 2 of the protocol on the server. */
+	public static final String SCRIPT_NAME = "gallery_remote2.php";
+
+	/** Protocol version string. */
 	public static final String PROTOCOL_VERSION = "2.3";
 
 	/** Remote scriptname that provides version 2 of the protocol on the server. */

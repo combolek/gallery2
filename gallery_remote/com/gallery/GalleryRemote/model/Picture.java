@@ -40,12 +40,16 @@ import java.util.Iterator;
  * @author paour
  * @created 11 août 2002
  */
-public class Picture extends GalleryItem implements Serializable, PreferenceNames, Cloneable {
+public class Picture extends GalleryAbstractListModel implements Serializable, PreferenceNames, Cloneable {
 	public static final String MODULE = "Picture";
 
 	File source = null;
+	String caption = null;
+	Album album = null;
 
 	HashMap extraFields;
+
+	boolean hidden;
 
 	int angle = 0;
 	boolean flipped = false;
@@ -63,15 +67,13 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	int indexOnServer = -1;
 
 	transient double fileSize = 0;
+	transient String escapedCaption = null;
 	transient int indexCache = -1;
 
 	/**
 	 * Constructor for the Picture object
 	 */
-	public Picture(Gallery gallery) {
-		super(gallery);
-
-		setAllowsChildren(false);
+	public Picture() {
 	}
 
 
@@ -80,39 +82,40 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	 * 
 	 * @param source File the Picture is based on
 	 */
-	public Picture(Gallery gallery, File source) {
-		this(gallery);
-
+	public Picture(File source) {
 		setSource(source);
 	}
 
 	public Object clone() {
-		Picture newPicture = (Picture) super.clone();
+		Picture clone = new Picture();
+		clone.source = source;
+		clone.caption = caption;
+		clone.album = album;
 
-		newPicture.source = source;
+		clone.extraFields = extraFields;
 
-		newPicture.extraFields = extraFields;
+		clone.hidden = hidden;
 
-		newPicture.angle = angle;
-		newPicture.flipped = flipped;
-		newPicture.suppressServerAutoRotate = suppressServerAutoRotate;
+		clone.angle = angle;
+		clone.flipped = flipped;
+		clone.suppressServerAutoRotate = suppressServerAutoRotate;
 
-		newPicture.online = online;
-		newPicture.urlFull = urlFull;
-		newPicture.sizeFull = sizeFull;
-		newPicture.urlResized = urlResized;
-		newPicture.sizeResized = sizeResized;
-		newPicture.urlThumbnail = urlThumbnail;
-		newPicture.sizeThumbnail = sizeThumbnail;
+		clone.online = online;
+		clone.urlFull = urlFull;
+		clone.sizeFull = sizeFull;
+		clone.urlResized = urlResized;
+		clone.sizeResized = sizeResized;
+		clone.urlThumbnail = urlThumbnail;
+		clone.sizeThumbnail = sizeThumbnail;
 
-		newPicture.fileSize = fileSize;
-		newPicture.escapedCaption = escapedCaption;
-		newPicture.indexCache = indexCache;
+		clone.fileSize = fileSize;
+		clone.escapedCaption = escapedCaption;
+		clone.indexCache = indexCache;
 
-		newPicture.albumOnServer = albumOnServer;
-		newPicture.indexOnServer = indexOnServer;
+		clone.albumOnServer = albumOnServer;
+		clone.indexOnServer = indexOnServer;
 
-		return newPicture;
+		return clone;
 	}
 
 
@@ -136,8 +139,6 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 			}
 
 			setCaption(filename);
-		} else if (GalleryRemote._().properties.getBooleanProperty(SET_CAPTIONS_WITH_METADATA_COMMENT)) {
-			setCaption(ImageUtils.getMetadataCaptionString(source.getPath()));
 		}
 
 		fileSize = 0;
@@ -149,6 +150,10 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	 * 
 	 * @param caption The new caption value
 	 */
+	public void setCaption(String caption) {
+		this.caption = caption;
+		this.escapedCaption = null;
+	}
 
 
 	/**
@@ -156,9 +161,9 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	 * 
 	 * @param album The new album value
 	 */
-	/*public void setAlbum(Album album) {
+	public void setAlbum(Album album) {
 		this.album = album;
-	}*/
+	}
 
 
 	/**
@@ -182,7 +187,6 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	 */
 	public File getUploadSource() {
 		File picture = getSource();
-		Album album = getParentAlbum();
 
 		if (album.getResize()) {
 			Dimension d = album.getResizeDimension();
@@ -226,6 +230,30 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	}
 
 	/**
+	 * Gets the caption attribute of the Picture object
+	 * 
+	 * @return The caption value
+	 */
+	public String getCaption() {
+		return caption;
+	}
+
+	/**
+	 * Cache the escapedCaption because the escaping is lengthy and this is called by a frequent UI method
+	 * 
+	 * @return the HTML escaped version of the caption
+	 */
+	public String getEscapedCaption() {
+		if (escapedCaption == null) {
+			if (caption != null) {
+				escapedCaption = HTMLEscaper.escape(caption);
+			}
+		}
+
+		return escapedCaption;
+	}
+
+	/**
 	 * Gets the size of the file
 	 * 
 	 * @return The size value
@@ -252,9 +280,9 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	 * 
 	 * @return The album
 	 */
-	/*public Album getAlbum() {
+	public Album getAlbum() {
 		return album;
-	}*/
+	}
 
 	public String toString() {
 		if (online) {
@@ -317,7 +345,7 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 		StringBuffer sb = new StringBuffer();
 		String sep = System.getProperty("line.separator");
 
-		for (Iterator it = getParentAlbum().getExtraFields().iterator(); it.hasNext();) {
+		for (Iterator it = album.getExtraFields().iterator(); it.hasNext();) {
 			String name = (String) it.next();
 			String value = (String) extraFields.get(name);
 
@@ -369,6 +397,20 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 		return urlFull;
 	}
 
+	public URL safeGetUrlFull() {
+		if (!online) {
+			throw new RuntimeException("Can't get URL for a local file!");
+		}
+
+		if (urlFull != null) {
+			return urlFull;
+		} else if (urlResized != null) {
+			return urlResized;
+		} else {
+			throw new RuntimeException("Neither full nor resized URL!");
+		}
+	}
+
 	public void setUrlFull(URL urlFull) {
 		this.urlFull = urlFull;
 	}
@@ -379,6 +421,20 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 		}
 
 		return sizeFull;
+	}
+
+	public Dimension safeGetSizeFull() {
+		if (!online) {
+			throw new RuntimeException("Can't get dimension for a local file!");
+		}
+
+		if (sizeFull != null) {
+			return sizeFull;
+		} else if (sizeResized != null) {
+			return sizeResized;
+		} else {
+			throw new RuntimeException("Neither full nor resized size!");
+		}
 	}
 
 	public void setSizeFull(Dimension sizeFull) {
@@ -434,7 +490,7 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	}
 
 	public String getName() {
-		String path = urlFull.getPath();
+		String path = safeGetUrlFull().getPath();
 
 		int i = path.lastIndexOf('/');
 
@@ -471,7 +527,6 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 	}
 
 	public int getIndex() {
-		Album album = getParentAlbum();
 		if (indexCache == -1
 				|| indexCache >= album.pictures.size()
 				|| album.pictures.get(indexCache) != this) {
@@ -483,6 +538,14 @@ public class Picture extends GalleryItem implements Serializable, PreferenceName
 
 	public void setIndexOnServer(int indexOnServer) {
 		this.indexOnServer = indexOnServer;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
 	}
 }
 

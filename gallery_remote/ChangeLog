@@ -1,25 +1,43 @@
-2004-03-18  Pierre-Luc Paour <gallery@paour.com> (1.4-b2)
+2004-04-20  Pierre-Luc Paour <gallery@paour.com> (1.3.2)
 
-	* Integrated Marc Pawliger's patch that reads the default
-	  caption from IPTC or EXIF.
-	* Disabled saving state (the menus are still there) because
-	  state saving crashes.
-	* Initial implementation of G2 interoperability. On the GR side,
-	  the only change is that it changes some of the URL parameter names
-	  to fit the GR theme: g2_form[name]=value. Also, GR senses
-	  if a given install is a G1 or a G2 with the remote module and
-	  uses the right URL.
+	RELEASE
 
-2004-02-26  Pierre-Luc Paour <gallery@paour.com> (1.4-b1)
+2004-04-15  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b11)
 
-	* Attempt to make the tree render correctly by moving to
-	  DefaultTreeModel and DefaultMutableTreeNodes. This is still
-	  unsuccessful and I need help.
-	* Diabled Protocol 1, since it's incompatible with sophisticated
-	  tree handling.
-	* Much improved model classes, through a major refactoring.
+	* No longer resizing up (upsampling) images that are smaller than
+	  the album maximum size on upload.
 
-	Some functionality broken, DO NOT USE THIS VERSION, stay on BRANCH_GR_1_3
+2004-04-12  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b10)
+
+	* Parentheses are invalid in album names.
+	* GR now honors hidden images and read permissions for albums.
+
+2004-03-25  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b9)
+
+	* On Java 1.4.2 and later, reading proxy from Java plugin in
+	  applet mode.
+
+2004-03-15  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b8)
+
+	* Fixed a bug in the applet uploader, where added pictures were
+	  not shown.
+	* From this version on, the applets are signed with a certificate
+	  authneticated by Thawte.
+
+	This is considered a final candidate for GR 1.3.2.
+
+2004-02-27  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b7)
+
+	* Added support for Basic auth username and password embedded in
+	  URL, such as http://user:pass@server/path/. This is obviously
+	  an insecure way of storing passwords. Thanks to Mindstorm for
+	  letting me test on his server.
+	* Fixed a bunch of niggles with the Auth dialog.
+	* Added flushing of the JTree when adding a new
+	  album. It's better than fetching the albums again from the server
+	  but it loses album state. I spent two days trying to debug this
+	  but I can't crack this problem of the JTree not refreshing.
+	  Help needed!
 
 2004-02-25  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b6)
 

@@ -21,17 +21,11 @@
 package com.gallery.GalleryRemote.model;
 
 import com.gallery.GalleryRemote.*;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
 import com.gallery.GalleryRemote.util.GRI18n;
 import com.gallery.GalleryRemote.util.ImageUtils;
 import com.gallery.GalleryRemote.util.NaturalOrderComparator;
 
 import javax.swing.*;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.EventListenerList;
-import javax.swing.event.ListDataEvent;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeNode;
 import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
@@ -46,7 +40,7 @@ import java.util.List;
  * @created 11 août 2002
  */
 
-public class Album extends GalleryItem implements ListModel, Serializable, PreferenceNames {
+public class Album extends Picture implements ListModel, Serializable {
 	/* -------------------------------------------------------------------------
 	 * CONSTANTS
 	 */
@@ -62,10 +56,10 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	/* -------------------------------------------------------------------------
 	 * SERVER INFO
 	 */
-	//Gallery gallery = null;
-	//ArrayList subAlbums = new ArrayList();
+	Gallery gallery = null;
+	ArrayList subAlbums = new ArrayList();
 
-	//Album parent; // parent Album
+	Album parent; // parent Album
 	String title = GRI18n.getString(MODULE, "title");
 	String name;
 	ArrayList extraFields;
@@ -96,9 +90,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 
 
 	public Album(Gallery gallery) {
-		super(gallery);
-
-		setAllowsChildren(true);
+		this.gallery = gallery;
 	}
 
 	/**
@@ -141,7 +133,6 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	}
 
 	public void removeRemotePictures() {
-		int l = pictures.size();
 		for (Iterator it = pictures.iterator(); it.hasNext();) {
 			Picture picture = (Picture) it.next();
 			if (picture.isOnline()) {
@@ -149,7 +140,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 			}
 		}
 
-		fireContentsChanged(this, 0, l - 1);
+		notifyListeners();
 	}
 
 	public void moveAlbumTo(StatusUpdate su, Album newParent) {
@@ -160,12 +151,9 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 			}
 
 			try {
-				if (gallery.getComm(su).moveAlbum(su, this, newParent, false)) {
-					gallery.removeNodeFromParent(this);
-					gallery.insertNodeInto(this, newParent, newParent.getChildCount());
-				}
+				gallery.getComm(su).moveAlbum(su, this, newParent, false);
 
-				//gallery.fetchAlbums(su);
+				gallery.fetchAlbums(su);
 			} catch (RuntimeException e) {
 				Log.log(Log.LEVEL_INFO, MODULE, "Server probably doesn't support move-album");
 				Log.logException(Log.LEVEL_INFO, MODULE, e);
@@ -199,9 +187,9 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	 * 
 	 * @param gallery The new gallery
 	 */
-	/*public void setGallery(Gallery gallery) {
+	public void setGallery(Gallery gallery) {
 		this.gallery = gallery;
-	}*/
+	}
 
 	/**
 	 * Gets the gallery attribute of the Album object
@@ -227,11 +215,10 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	 * @param p the picture to add. This will change its parent album
 	 */
 	public void addPicture(Picture p) {
-		p.setParent(this);
+		p.setAlbum(this);
 		addPictureInternal(p);
 
-		int index = pictures.indexOf(p);
-		fireIntervalAdded(this, index, index);
+		notifyListeners();
 	}
 
 	/**
@@ -240,12 +227,11 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	 * @param file the file to create the picture from
 	 */
 	public Picture addPicture(File file) {
-		Picture p = new Picture(gallery, file);
-		p.setParent(this);
+		Picture p = new Picture(file);
+		p.setAlbum(this);
 		addPictureInternal(p);
 
-		int index = pictures.indexOf(p);
-		fireIntervalAdded(this, index, index);
+		notifyListeners();
 
 		return p;
 	}
@@ -283,8 +269,8 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		for (Iterator it = expandedFiles.iterator(); it.hasNext();) {
 			File f = (File) it.next();
 
-			Picture p = new Picture(gallery, f);
-			p.setParent(this);
+			Picture p = new Picture(f);
+			p.setAlbum(this);
 			if (index == -1) {
 				addPictureInternal(p);
 			} else {
@@ -294,7 +280,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 			pictures.add(p);
 		}
 
-		fireContentsChanged(this, 0, pictures.size() - 1);
+		notifyListeners();
 
 		return pictures;
 	}
@@ -311,7 +297,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	public void addPictures(List picturesL, int index) {
 		for (Iterator it = picturesL.iterator(); it.hasNext();) {
 			Picture p = (Picture) it.next();
-			p.setParent(this);
+			p.setAlbum(this);
 			if (index == -1) {
 				pictures.add(p);
 			} else {
@@ -319,7 +305,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 			}
 		}
 
-		fireContentsChanged(this, 0, pictures.size() - 1);
+		notifyListeners();
 	}
 
 	private void addPictureInternal(Picture p) {
@@ -347,15 +333,11 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 
 	public void sortPicturesAlphabetically() {
 		Collections.sort(pictures, new NaturalOrderComparator());
-		fireContentsChanged(this, 0, pictures.size() - 1);
+		notifyListeners();
 	}
 
 	public void sortSubAlbums() {
-		if (children != null) {
-			Collections.sort(children, new NaturalOrderComparator());
-		}
-
-		fireContentsChanged(this, 0, pictures.size() - 1);
+		Collections.sort(subAlbums, new NaturalOrderComparator());
 	}
 
 	/**
@@ -371,11 +353,9 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	 * Remove all the pictures
 	 */
 	public void clearPictures() {
-		int l = pictures.size() - 1;
-
 		pictures.clear();
 
-		fireIntervalRemoved(this, 0, l);
+		notifyListeners();
 	}
 
 	/**
@@ -431,7 +411,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	public void setPicture(int n, Picture p) {
 		pictures.set(n, p);
 
-		fireContentsChanged(this, n, n);
+		notifyListeners();
 	}
 
 	/**
@@ -459,7 +439,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		this.name = removeOffendingChars(name);
 	}
 
-	static final String offendingChars = "\\/*?\"\'&<>|.+# ";
+	static final String offendingChars = "\\/*?\"\'&<>|.+# ()";
 
 	static String removeOffendingChars(String in) {
 		StringBuffer out = new StringBuffer();
@@ -493,7 +473,7 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		this.title = title;
 
 		if (!suppressEvents) {
-			gallery.nodeChanged(this);
+			gallery.albumChanged(this);
 		}
 	}
 
@@ -603,18 +583,37 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 	 * 
 	 * @param ldl Description of Parameter
 	 */
-	/*public void setParent(Album a) {
+	public Album getParentAlbum() {
+		return parent;
+	}
+
+	/**
+	 * Description of the Method
+	 * 
+	 * @param ldl Description of Parameter
+	 */
+	public void setParentAlbum(Album a) {
 		// take care of a Gallery bug...
 		if (a == this) {
 			Log.log(Log.LEVEL_ERROR, MODULE, "Gallery error: the album " + name +
 					" is its own parent. You should delete it, the album database " +
 					"is corrupted because of it.");
 
-			a = (Album) getRoot();
+			a = null;
 		}
 
-		super.setParent(a);
-	}*/
+		parent = a;
+
+		if (a != null) {
+			if (!a.subAlbums.contains(this)) {
+				a.subAlbums.add(this);
+			}
+		} else {
+			if (!gallery.rootAlbums.contains(this)) {
+				gallery.rootAlbums.add(this);
+			}
+		}
+	}
 
 	public ArrayList getExtraFields() {
 		return extraFields;
@@ -717,10 +716,10 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		this.pictures = pictures;
 
 		for (Iterator e = pictures.iterator(); e.hasNext();) {
-			((Picture) e.next()).setParent(this);
+			((Picture) e.next()).setAlbum(this);
 		}
 
-		fireContentsChanged(this, 0, pictures.size() - 1);
+		notifyListeners();
 	}
 
 	public int getAlbumDepth() throws IllegalArgumentException {
@@ -753,44 +752,18 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		}
 	}
 
-	/*void notifyListeners() {
+	void notifyListeners() {
 		if (!suppressEvents) {
 			fireContentsChanged(this, 0, pictures.size());
 			if (gallery != null) {
 				gallery.albumChanged(this);
 			}
 		}
-	}*/
-
-	/*public ArrayList getSubAlbums() {
-		return subAlbums;
-	}*/
-
-	/*public void addSubAlbum(Album a) {
-		subAlbums.add(a);
-
-		if (!suppressEvents) {
-			//gallery.fireTreeNodesInserted(this, gallery.getObjectArrayForAlbum(this),
-			//		new int[] { subAlbums.indexOf(a) },
-			//		new Object[] { a });
-			gallery.fireTreeStructureChanged(gallery, gallery.getPathForAlbum(this));
-		}
 	}
 
-	public void removeSubAlbum(Album a) {
-		int index = subAlbums.indexOf(a);
-		if (index != -1) {
-			subAlbums.remove(a);
-
-			if (!suppressEvents) {
-				//gallery.fireTreeNodesRemoved(this, gallery.getObjectArrayForAlbum(this),
-				//		new int[] { index },
-				//		new Object[] { a });
-				gallery.fireTreeStructureChanged(gallery, gallery.getPathForAlbum(this));
-				//gallery.fireTreeStructureChanged(this, new TreePath(gallery.root));
-			}
-		}
-	}*/
+	public ArrayList getSubAlbums() {
+		return subAlbums;
+	}
 
 	public Boolean getOverrideResize() {
 		return overrideResize;
@@ -869,67 +842,8 @@ public class Album extends GalleryItem implements ListModel, Serializable, Prefe
 		this.suppressEvents = suppressEvents;
 	}
 
-	/*
-	 *******************  LIST HANDLING (FOR PICTURES)  ***************
-	 */
-
-	public void addListDataListener(ListDataListener l) {
-		if (listenerList == null) listenerList = new EventListenerList();
-		listenerList.add(ListDataListener.class, l);
-	}
-
-
-	public void removeListDataListener(ListDataListener l) {
-		if (listenerList == null) listenerList = new EventListenerList();
-		listenerList.remove(ListDataListener.class, l);
-	}
-
-	public void fireContentsChanged(Object source, int index0, int index1) {
-		if (listenerList == null) listenerList = new EventListenerList();
-		Object[] listeners = listenerList.getListenerList();
-		ListDataEvent e = null;
-
-		for (int i = listeners.length - 2; i >= 0; i -= 2) {
-			if (listeners[i] == ListDataListener.class) {
-				if (e == null) {
-					e = new ListDataEvent(source, ListDataEvent.CONTENTS_CHANGED, index0, index1);
-				}
-				((ListDataListener) listeners[i + 1]).contentsChanged(e);
-			}
-		}
-	}
-
-	public void fireIntervalAdded(Object source, int index0, int index1) {
-		if (listenerList == null) listenerList = new EventListenerList();
-		Object[] listeners = listenerList.getListenerList();
-		ListDataEvent e = null;
-
-		for (int i = listeners.length - 2; i >= 0; i -= 2) {
-			if (listeners[i] == ListDataListener.class) {
-				if (e == null) {
-					e = new ListDataEvent(source, ListDataEvent.INTERVAL_ADDED, index0, index1);
-				}
-				((ListDataListener) listeners[i + 1]).intervalAdded(e);
-			}
-		}
-	}
-
-
-	public void fireIntervalRemoved(Object source, int index0, int index1) {
-		if (listenerList == null) listenerList = new EventListenerList();
-		Object[] listeners = listenerList.getListenerList();
-		ListDataEvent e = null;
-
-		for (int i = listeners.length - 2; i >= 0; i -= 2) {
-			if (listeners[i] == ListDataListener.class) {
-				if (e == null) {
-					e = new ListDataEvent(source, ListDataEvent.INTERVAL_REMOVED, index0, index1);
-				}
-				((ListDataListener) listeners[i + 1]).intervalRemoved(e);
-			}
-		}
-	}
-
-	transient protected EventListenerList listenerList = new EventListenerList();
+	/*public void checkTransients() {
+		subAlbums = new ArrayList();
+	}*/
 }
 

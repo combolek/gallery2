@@ -330,7 +330,7 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 	public boolean getBooleanProperty(String key) {
 		String booleanS = getProperty(key);
 		try {
-			return Boolean.valueOf(booleanS).booleanValue();
+			return (booleanS != null && (booleanS.equalsIgnoreCase("true") || booleanS.equalsIgnoreCase("yes")));
 		} catch (Exception e) {
 			throw new NumberFormatException("Parameter " + key + " is missing or malformed (should be true or false)");
 		}

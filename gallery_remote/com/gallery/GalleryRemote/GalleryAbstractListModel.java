@@ -89,7 +89,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @see EventListenerList
 	 * @see DefaultListModel
 	 */
-	public void fireContentsChanged(Object source, int index0, int index1) {
+	protected void fireContentsChanged(Object source, int index0, int index1) {
 		if (listenerList == null) listenerList = new EventListenerList();
 		Object[] listeners = listenerList.getListenerList();
 		ListDataEvent e = null;
@@ -119,7 +119,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @see EventListenerList
 	 * @see DefaultListModel
 	 */
-	public void fireIntervalAdded(Object source, int index0, int index1) {
+	protected void fireIntervalAdded(Object source, int index0, int index1) {
 		if (listenerList == null) listenerList = new EventListenerList();
 		Object[] listeners = listenerList.getListenerList();
 		ListDataEvent e = null;
@@ -149,7 +149,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @see EventListenerList
 	 * @see DefaultListModel
 	 */
-	public void fireIntervalRemoved(Object source, int index0, int index1) {
+	protected void fireIntervalRemoved(Object source, int index0, int index1) {
 		if (listenerList == null) listenerList = new EventListenerList();
 		Object[] listeners = listenerList.getListenerList();
 		ListDataEvent e = null;
@@ -259,7 +259,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @param children     the changed elements
 	 * @see javax.swing.event.EventListenerList
 	 */
-	public void fireTreeNodesChanged(Object source, Object[] path,
+	protected void fireTreeNodesChanged(Object source, Object[] path,
 										int[] childIndices,
 										Object[] children) {
 		// Guaranteed to return a non-null array
@@ -290,7 +290,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @param children     the new elements
 	 * @see javax.swing.event.EventListenerList
 	 */
-	public void fireTreeNodesInserted(Object source, Object[] path,
+	protected void fireTreeNodesInserted(Object source, Object[] path,
 										 int[] childIndices,
 										 Object[] children) {
 		// Guaranteed to return a non-null array
@@ -321,7 +321,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @param children     the removed elements
 	 * @see javax.swing.event.EventListenerList
 	 */
-	public void fireTreeNodesRemoved(Object source, Object[] path,
+	protected void fireTreeNodesRemoved(Object source, Object[] path,
 										int[] childIndices,
 										Object[] children) {
 		// Guaranteed to return a non-null array
@@ -352,7 +352,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @param children     the affected elements
 	 * @see javax.swing.event.EventListenerList
 	 */
-	public void fireTreeStructureChanged(Object source, Object[] path,
+	protected void fireTreeStructureChanged(Object source, Object[] path,
 											int[] childIndices,
 											Object[] children) {
 		// Guaranteed to return a non-null array
@@ -381,7 +381,7 @@ public abstract class GalleryAbstractListModel implements ListModel, Serializabl
 	 * @param path the path to the root node
 	 * @see EventListenerList
 	 */
-	public void fireTreeStructureChanged(Object source, TreePath path) {
+	protected void fireTreeStructureChanged(Object source, TreePath path) {
 		// Guaranteed to return a non-null array
 		Object[] listeners = listenerList.getListenerList();
 		TreeModelEvent e = null;

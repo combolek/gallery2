@@ -104,8 +104,8 @@ public class ImageUtils {
 			cmd.add(imPath);
 
 			//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
-			cmd.add("-size");
-			cmd.add(d.width + "x" + d.height);
+			//cmd.add("-size");
+			//cmd.add(d.width + "x" + d.height);
 
 			if (filterName[usage] != null && filterName[usage].length() > 0) {
 				//cmdline.append(" -filter ").append(filterName[usage]);
@@ -200,8 +200,8 @@ public class ImageUtils {
 				cmd.add(imPath);
 
 				//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
-				cmd.add("-size");
-				cmd.add(d.width + "x" + d.height);
+				//cmd.add("-size");
+				//cmd.add(d.width + "x" + d.height);
 
 				if (filterName[UPLOAD] != null && filterName[UPLOAD].length() > 0) {
 					//cmdline.append(" -filter ").append(filterName[UPLOAD]);
@@ -214,7 +214,7 @@ public class ImageUtils {
 
 				//cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append(">\"");
 				cmd.add("-resize");
-				cmd.add(d.width + "x" + d.height);
+				cmd.add(d.width + "x" + d.height + ">");
 
 				//cmdline.append("-gravity SouthEast -draw \"image Over 200,200 0,0 G:\\Projects\\Dev\\gallery_remote10\\2ni.png\" ");
 
@@ -399,8 +399,8 @@ public class ImageUtils {
 		}
 
 		if (full) {
-			u = p.getUrlFull();
-			d = p.getSizeFull();
+			u = p.safeGetUrlFull();
+			d = p.safeGetSizeFull();
 		} else {
 			u = p.getUrlResized();
 			d = p.getSizeResized();
@@ -418,7 +418,7 @@ public class ImageUtils {
 		String filename = name + "." + ext;
 
 		return new LocalInfo(name, ext, filename,
-				deterministicTempFile("server", "." + ext, tmpDir, p.getAlbumOnServer().getName() + name + d));
+				deterministicTempFile("server", "." + ext, tmpDir, p.getAlbumOnServer().getName() + name + d), u, d);
 	}
 
 	static class LocalInfo {
@@ -426,12 +426,16 @@ public class ImageUtils {
 		String ext;
 		String filename;
 		File file;
+		URL url;
+		Dimension size;
 
-		public LocalInfo(String name, String ext, String filename, File file) {
+		public LocalInfo(String name, String ext, String filename, File file, URL url, Dimension size) {
 			this.name = name;
 			this.ext = ext;
 			this.filename = filename;
 			this.file = file;
+			this.url = url;
+			this.size = size;
 		}
 	}
 
@@ -448,18 +452,18 @@ public class ImageUtils {
 
 			if ((d.width > p.getSizeResized().width || d.height > p.getSizeResized().height
 					|| fullInfo.file.exists()) && ! GalleryRemote._().properties.getBooleanProperty(PreferenceNames.SLIDESHOW_LOWREZ)) {
-				pictureUrl = p.getUrlFull();
+				pictureUrl = fullInfo.url;
 				//pictureDimension = p.getSizeFull();
 				f = fullInfo.file;
 				filename = fullInfo.filename;
 			} else {
-				pictureUrl = p.getUrlResized();
+				pictureUrl = resizedInfo.url;
 				//pictureDimension = p.getSizeResized();
 				f = resizedInfo.file;
 				filename = resizedInfo.filename;
 			}
 		} else {
-			pictureUrl = p.getUrlFull();
+			pictureUrl = fullInfo.url;
 			//pictureDimension = p.getSizeFull();
 			f = fullInfo.file;
 			filename = fullInfo.filename;
@@ -698,17 +702,6 @@ public class ImageUtils {
 		return new File(directory, prefix + hash.hashCode() + suffix);
 	}
 
-
-	public static String getMetadataCaptionString(String filename) {
-		try {
-			Class c = Class.forName("com.gallery.GalleryRemote.util.ExifImageUtils");
-			Method m = c.getMethod("getMetadataCaptionString", new Class[]{String.class});
-			return (String) m.invoke(null, new Object[]{filename});
-		} catch (Throwable e) {
-			Log.logException(Log.LEVEL_ERROR, MODULE, e);
-			return null;
-		}
-	}
 
 	public static ImageUtils.AngleFlip getExifTargetOrientation(String filename) {
 		try {
