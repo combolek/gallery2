@@ -107,14 +107,9 @@ if ($doit) {
 		//-- a normal doit (which should not emit any text) ---
 		require($editTabInclude);
 
-		//-- reset the doit so the command won't execute again ---
-		$doit = 0;
-
-		//-- we either leave edit here, or let the page display below ---
-		if ($forceReturn) {
-			header("Location: $returnAfterDoit");
-			return;
-		}
+		//-- we either leave edit here, or refresh the edit page ---
+		header("Location: $returnAfterDoit");
+		return;
 
 	}
 }
