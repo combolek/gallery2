@@ -70,8 +70,7 @@ if ($do_fullOnly) {
 	$full = 1;
 }
 
-$photoTag = $album->getPhotoTag($index, $full);
-$photoUrl = $album->getPhotoPath($index, $full);
+$photoURL = $album->getPhotoPath($index, $full);
 
 if (!$album->isMovie($id)) {
 	if ($album->isResized($index) && !$do_fullOnly) { 
@@ -84,88 +83,6 @@ if (!$album->isMovie($id)) {
 } else {
 	//-- XXX - if a movie, slip in the target ---
 	$photoHref = $album->getPhotoPath($index)."\" target=\"other";
-}
-
-//-- in the fitToWindow case, wrap the photo with some JS ---
-$fitToWindow = !strcmp($album->fields["fit_to_window"], "yes") && 
-			!$album->isResized($index) && !$full;
-if ($fitToWindow && !$GALLERY_EMBEDDED_INSIDE) { 
-	$photoTag = "\n"
-		. "<script language=\"javascript1.2\"> \n"
-		. "  // <!-- \n"
-		. "  fitToWindow(); \n"
-		. "  // --> \n"
-		. "</script><noscript>$photoTag</noscript>";
-
-    $pageHeadExtra .= "\n" 
-		. "<script language=\"javascript1.2\"> \n"
-		. "// <!-- \n"
-		. "function fitToWindow(do_resize) { \n"
-		. "    var changed = 0; \n"
-    	. "    var heightMargin = 160; \n"
-		. "    var widthMargin = 40; \n"
-		. "    var imageHeight = $imageHeight; \n"
-		. "    var imageWidth = $imageWidth; \n"
-		. "    var aspect = imageHeight / imageWidth; \n"
-
-		. "    // Get the window dimensions height.  IE and Nav use different techniques. \n"
-		. "    var windowWidth, windowHeight; \n"
-		. "    if (typeof(window.innerWidth) == \"number\") { \n"
-		. "        windowWidth = window.innerWidth; \n"
-		. "        windowHeight = window.innerHeight; \n"
-        . "    } else { \n"
-        . "        windowWidth = document.body.clientWidth; \n"
-        . "        windowHeight = document.body.clientHeight; \n"
-        . "    } \n"
-
-        . "    // Leave a gutter around the edges \n"
-        . "    windowWidth = windowWidth - widthMargin; \n"
-        . "    windowHeight = windowHeight - heightMargin; \n"
-
-        . "    var diffx = windowWidth - imageWidth, \n"
-        . "        diffy = windowHeight - imageHeight; \n"
-
-        . "    if (diffx < 0 || diffy < 0) { \n"
-        . "        if (diffx < diffy) { \n"
-        . "        imageWidth = windowWidth; \n"
-        . "        imageHeight = aspect * imageWidth; \n"
-        . "        changed = 1; \n"
-        . "        } else { \n"
-        . "        imageHeight = windowHeight; \n"
-        . "        imageWidth = imageHeight / aspect; \n"
-        . "        changed = 1; \n"
-        . "        } \n"
-        . "    } \n"
-
-        . "    if (do_resize) { \n"
-        . "        var img = document.images.photo; \n"
-        . "        img.height = imageHeight; \n"
-        . "        img.width = imageWidth; \n"
-        . "    } else { \n"
-        . "        if (changed) { \n"
-        . "            document.write('<a href=\"".makeAlbumUrl($albumName, $id, array("full" => 1))."\">'); \n"
-        . "        } \n"
-        . "        document.write('<img name=photo src=\"$photoUrl\" border=0 width=' + \n"
-        . "                         imageWidth + ' height=' + imageHeight + '>'); \n"
-        . "        if (changed) { \n"
-        . "            document.write('</a>'); \n"
-        . "        } \n"
-        . "    } \n"
-        . "} \n"
-
-        . "function doResize() { \n"
-        . "    if (document.all) { \n"
-        . "        // We're in IE where we can just resize the image. \n"
-        . "        fitToWindow(true); \n"
-        . "    } else { \n"
-        . "        // In Netscape we've got to reload the page. \n"
-        . "        document.reload(); \n"
-        . "    } \n"
-        . "} \n"
-		. "// --> \n"
-		. "</script> \n";
-
-	$pageBodyTagExtra .= "onResize='doResize()'";
 }
 
 $numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
