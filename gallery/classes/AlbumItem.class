@@ -124,7 +124,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Target size of the intermediate image
      *
-     * @var string $_resizeSize
+     * @var integer $_resizeSize
      */
     var $_resizeSize;
 
@@ -138,7 +138,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Whether or not to show the breadcrumb links
      *
-     * @var string $_showBreadCrumb
+     * @var boolean $_showBreadCrumb
      */
     var $_showBreadCrumb;
 
@@ -152,7 +152,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Target size of thumbnails inside this album
      *
-     * @var string $_thumbSize
+     * @var integer $_thumbSize
      */
     var $_thumbSize;
 
@@ -206,19 +206,18 @@ class AlbumItem extends GalleryItem {
 	    return ERROR | ERROR_NAME_COLLISION;
 	}
 
-	/* Create a new instance of this nucleus in the persistent store */
-	$storage =& $gallery->getStorage();
-	$ret = $storage->newNucleus($this);
+	/* Let our parent take care of creation in the persistent store */
+	$ret = parent::create();
 	if ($ret == SUCCESS) {
-	    $gallery->addToCache($this);
 
 	    /* Set our path component */
 	    $this->setPath($albumName);
 	} else {
 
-	    /* Clean up the directory */
+	    /* We had an error .. clean up the directory */
 	    $platform->unlink($albumDir);
 	}
+	
 	return $ret;
     }
 
@@ -398,7 +397,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of borderColor
      * 
-     * @param string the new value for borderColor
+     * @param integer the new value for borderColor
      * @access public
      */
     function setBorderColor($value) {
@@ -411,7 +410,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of borderColor
      * 
      * @access public
-     * @return string the current value of borderColor
+     * @return integer the current value of borderColor
      */
     function getBorderColor() {
         return $this->_borderColor;
@@ -574,7 +573,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of resizeSize
      * 
-     * @param string the new value for resizeSize
+     * @param integer the new value for resizeSize
      * @access public
      */
     function setResizeSize($value) {
@@ -587,7 +586,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of resizeSize
      * 
      * @access public
-     * @return string the current value of resizeSize
+     * @return integer the current value of resizeSize
      */
     function getResizeSize() {
         return $this->_resizeSize;
@@ -618,7 +617,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of showBreadCrumb
      * 
-     * @param string the new value for showBreadCrumb
+     * @param boolean the new value for showBreadCrumb
      * @access public
      */
     function setShowBreadCrumb($value) {
@@ -631,7 +630,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of showBreadCrumb
      * 
      * @access public
-     * @return string the current value of showBreadCrumb
+     * @return boolean the current value of showBreadCrumb
      */
     function getShowBreadCrumb() {
         return $this->_showBreadCrumb;
@@ -662,7 +661,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of thumbSize
      * 
-     * @param string the new value for thumbSize
+     * @param integer the new value for thumbSize
      * @access public
      */
     function setThumbSize($value) {
@@ -675,7 +674,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of thumbSize
      * 
      * @access public
-     * @return string the current value of thumbSize
+     * @return integer the current value of thumbSize
      */
     function getThumbSize() {
         return $this->_thumbSize;

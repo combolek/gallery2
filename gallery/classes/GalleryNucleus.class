@@ -36,11 +36,25 @@ class GalleryNucleus {
     var $_id;
 
     /**
+     * Date and time this item was created, in seconds since the epoch.
+     *
+     * @var int $_creationTimestamp;
+     */
+    var $_creationTimestamp;
+
+    /**
      * Data version of this GalleryNucleus
      *
      * @var float $_dataVersion
      */
     var $_dataVersion;
+
+    /**
+     * Date and time this item was last modified, in seconds since the epoch.
+     *
+     * @var int $_modificationTimestamp;
+     */
+    var $_modificationTimestamp;
 
     /**
      * The id of the parent of this GalleryNucleus
@@ -104,6 +118,7 @@ class GalleryNucleus {
 	 */
 	$this->_persistentInfo = new stdClass();
 	$this->_persistentInfo->modified = array();
+	$this->_persistentInfo->flags = 0;
     }
 
     /**
@@ -152,6 +167,10 @@ class GalleryNucleus {
 	if ($ret == SUCCESS) {
 	    $gallery->addToCache($this);
 	}
+
+	/* Set the creation time on this nucleus */
+	$this->setCreationTimestamp(time());
+	
 	return $ret;
     }
 
@@ -284,6 +303,12 @@ class GalleryNucleus {
 	}
 
 	if (!empty($this->_persistentInfo->modified)) {
+	    /* Increment the serial number for this object */
+	    $this->setSerialNumber($this->getSerialNumber() + 1);
+
+	    /* Change the modification date */
+	    $this->setModificationTimestamp(time());
+
 	    $storage = $gallery->getStorage();
 	    return $storage->saveNucleus($this);
 	}
@@ -340,7 +365,44 @@ class GalleryNucleus {
     function clearModifyFlags() {
 	$this->_persistentInfo->modified = array();
     }
-    
+
+    /**
+     * Set a flag
+     *
+     * The GalleryStorage strategy uses this to flag objects for its own
+     * internal purposes.
+     *
+     * @param string a bit flag to set
+     */
+    function setPersistentFlag($flag) {
+	$this->_persistentInfo->flags |= $flag;
+    }
+
+    /**
+     * Clear a flag
+     *
+     * The GalleryStorage strategy uses this to flag objects for its own
+     * internal purposes.
+     *
+     * @param string a bit flag to clear
+     */								     
+    function clearPersistentFlag($flag) {
+	$this->_persistentInfo->flags &= ~$flag;
+    }
+
+    /**
+     * Test a flag
+     *
+     * The GalleryStorage strategy uses this to flag objects for its own
+     * internal purposes.
+     *
+     * @param string a bit flag to test
+     * @return bool true if the bit is on, false otherwise
+     */								     
+    function testPersistentFlag($flag) {
+	return $this->_persistentInfo->flags & $flag;
+    }
+
     /*
      * ============================================================
      * BEGIN: Accessor methods
@@ -480,6 +542,50 @@ class GalleryNucleus {
      */
     function getSerialNumber() {
         return $this->_serialNumber;
+    }
+    
+    /**
+     * Set the value of creationTimestamp
+     * 
+     * @param int the new value for creationTimestamp
+     * @access public
+     */
+    function setCreationTimestamp($value) {
+        assert('isset($value)');
+        $this->_creationTimestamp = $value;
+        $this->modifyPersistentMember('creationTimestamp');
+    }
+    
+    /**
+     * Get the value of creationTimestamp
+     * 
+     * @access public
+     * @return int the current value of creationTimestamp
+     */
+    function getCreationTimestamp() {
+        return $this->_creationTimestamp;
+    }
+    
+    /**
+     * Set the value of modificationTimestamp
+     * 
+     * @param int the new value for modificationTimestamp
+     * @access public
+     */
+    function setModificationTimestamp($value) {
+        assert('isset($value)');
+        $this->_modificationTimestamp = $value;
+        $this->modifyPersistentMember('modificationTimestamp');
+    }
+    
+    /**
+     * Get the value of modificationTimestamp
+     * 
+     * @access public
+     * @return int the current value of modificationTimestamp
+     */
+    function getModificationTimestamp() {
+        return $this->_modificationTimestamp;
     }
     
     /*
