@@ -41,12 +41,11 @@ class GalleryLayout {
      */
 
     /**
-     * The template instance
+     * The localization domain for this view
      *
-     * @var object GalleryTemplate $_template
      * @access private
      */
-    var $_template;
+    var $_l10Domain;
 
     /*
      * ****************************************
@@ -62,43 +61,29 @@ class GalleryLayout {
      */
     function init($layoutName) {
 	global $gallery;
-	
-	$templateDir = $gallery->getConfig('code.gallery.layouts') . $layoutName . '/templates/';
-	$platform = $gallery->getPlatform();
-	if (!$platform->file_exists($templateDir)) {
-	    if ($gallery->getDebug()) {
-		$gallery->debug("Missing theme template dir: $templateDir");
-	    }
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
-	}
-	
-	$this->_template = new GalleryTemplate($templateDir);
-	$this->_template->setTranslationBase('layouts', $layoutName);
-	return GalleryStatus::success();
+	$this->_l10Domain = 'layouts_' . $layoutName;
     }
 
     /**
-     * Get the configured GalleryTemplate instance
+     * Get the localization domain for this view
      *
-     * @return object GalleryTemplate a template instance
+     * @return string
      */
-    function &_getTemplate() {
-	return $this->_template;
+    function getL10Domain() {
+	return $this->_l10Domain;
     }
-
+    
     /**
-     * Render the item
+     * Load the template with data from this view.
      *
-     * @param object GalleryItem the item to render.  Can be any subclass of
-     *               GalleryItem
-     * @param array key => value url parameters provided by the
-     *              parent view -- the module can augment or override these.
+     * @param array object GalleryTemplate the template instance
+     * @param array array the form values
      * @return array object GalleryStatus a status code
-     *         string the html body
+     *               string path to the head template
+     *               string path to the body template
      */
-    function render($item, $urlParams) {
-	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
-		     null);
+    function loadTemplate(&$template, &$form) {
+	return array(GalleryStatus::success(), null, null);
     }
 
     /**
