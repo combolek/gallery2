@@ -6,7 +6,8 @@ if (!isset ($included)) {
 require_once ('db.php');
 
 function getNotes ($section) {
-        $result = dbQuery ('SELECT * FROM doc_notes WHERE sect="??"', array ($section));
+	$table = getTableName('doc_notes');
+        $result = dbQuery ('SELECT * FROM ' . $table . ' WHERE sect="??"', array ($section));
         
         $arr = array ();
         while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
@@ -99,13 +100,15 @@ if ($noteadmin) {
 function addNote ($sect, $user, $note, $status = '') {
 	$note = htmlentities ($note); //no html allowed
 
-	dbQuery ('INSERT into doc_notes SET sect="??", user="??", note="??", status="??", ts="??"', array ($sect, $user, $note, $status, time()));
+	$table = getTableName('doc_notes');
+	dbQuery ('INSERT into ' . $table . ' SET sect="??", user="??", note="??", status="??", ts="??"', array ($sect, $user, $note, $status, time()));
 	
 	//TODO: Send to mailing list
 }
 
 function removeNote ($id) {
-	dbQuery ('DELETE from doc_notes WHERE id="??"', array ($id));
+	$table = getTableName('doc_notes');
+	dbQuery ('DELETE from ' . $table . ' WHERE id="??"', array ($id));
 
 	//TODO: Send to mailing list
 	
@@ -115,7 +118,8 @@ function removeNote ($id) {
 function editNote ($id, $user, $note, $status = '') {
 	$note = htmlentities ($note); //no html again
 
-	dbQuery ('UPDATE doc_notes SET user="??", note="??", status="??" WHERE id="??"', array ($user, $note, $status, $id));
+	$table = getTableName('doc_notes');
+	dbQuery ('UPDATE ' . $table . ' SET user="??", note="??", status="??" WHERE id="??"', array ($user, $note, $status, $id));
 	
 	//TODO: Send to mailing list
 	
@@ -123,7 +127,8 @@ function editNote ($id, $user, $note, $status = '') {
 }
 
 function getNoteByID ($id) {
-	$result = dbQuery ('SELECT * from doc_notes WHERE id="??"', array ($id));
+	$table = getTableName('doc_notes');
+	$result = dbQuery ('SELECT * from ' . $table . ' WHERE id="??"', array ($id));
 	
 	return ( (mysql_num_rows ($result)) ? (mysql_fetch_array ($result, MYSQL_ASSOC)) : false);
 }	
