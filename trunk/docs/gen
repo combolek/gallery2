@@ -1,0 +1,50 @@
+#!/bin/sh
+
+case $1 in
+	html)
+		echo "Generating HTML Manual...";
+		
+		if [ ! -d html ]; then
+			mkdir html;
+		fi
+
+		cd html
+		xsltproc ../docbook-xsl/html/chunk.xsl ../manual.xml;;
+
+	bightml)
+		echo "Generating Big HTML Manual...";
+
+		if [ -e manual.html ]; then
+			rm -f manual.html;
+		fi
+
+		xsltproc docbook-xsl/html/docbook.xsl manual.xml > manual.html;;
+		
+	pdf)
+		echo "Generating PDF Manual...";
+
+		if [ -e manual.pdf ]; then
+			rm -f manual.pdf;
+		fi
+
+		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf manual.pdf
+
+		rm -f output.fo;;
+		
+	test-saxon) 
+		echo "Testing documentation (if you see no errors, everything is good)...";
+		
+		java sax.SAXCount manual.xml;;
+		
+	test-xmllint)
+		echo "Testing documentation (if you see no errors, everything is good)...";
+
+		xmllint --valid --noout manual.xml;;		
+	
+	clean)
+		echo "Deleting generated documentation...";
+		rm -rf html manual.pdf manual.html;;
+		
+	*)
+		echo "Invalid Action";;
+esac
