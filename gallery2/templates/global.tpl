@@ -50,9 +50,7 @@
       <table border="1">
 	  <tr>
 	    <td colspan="8">
-	      {gallery->bigFontSize}
 	      {gallery->text text="Profiling"}
-	      {/gallery->bigFontSize}
 	    </td>
 	  </tr>
 
