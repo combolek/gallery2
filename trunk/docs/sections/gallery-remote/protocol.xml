@@ -272,7 +272,7 @@ auto_resize=<replaceable>resize-dimension</replaceable></programlisting>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.new-album">
       <title>Creating a new album [since 2.1]</title>
-      <para>The <varname>new-album</varname> command asks the server to add a photo to a specified album.</para>
+      <para>The <varname>new-album</varname> command asks the server to add a new album to the gallery installation.</para>
       <sect4>
         <title>Context</title>
         <para>A request with the <varname>login</varname> command must be made before the <varname>new-album</varname> command is used.</para>
