@@ -24,6 +24,9 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($urls, $meta, $metafile, $userfile, $userfile_name, $userfile_caption) = getRequestVar(array('urls', 'meta', 'metafile', 'userfile', 'userfile_name', 'userfile_caption'));
+list($wmName, $wmAlign, $wmAlignX, $wmAlignY) = getRequestVar(array('wmName', 'wmAlign', 'wmAlignX', 'wmAlignY'));
+
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
 	echo _("You are not allowed to perform this action!");
