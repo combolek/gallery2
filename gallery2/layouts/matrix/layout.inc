@@ -71,9 +71,9 @@ class MatrixLayout extends GalleryLayout {
 	global $gallery;
 
 	/* Figure out what page we're on */
-	$pageNumber = GalleryUtilities::getRequestVariables('layoutPage');
-	if (empty($pageNumber)) {
-	    $pageNumber = 1;
+	$page = GalleryUtilities::getRequestVariables('page');
+	if (empty($page)) {
+	    $page = 1;
 	}
 
 	$rows = $properties['rows'];
@@ -87,7 +87,7 @@ class MatrixLayout extends GalleryLayout {
 	}
 
 	$perPage = $rows * $columns;
-	$start = $perPage * ($pageNumber - 1);
+	$start = $perPage * ($page - 1);
 	$children = array();
 
 	/* Count the total number of children */
@@ -186,30 +186,50 @@ class MatrixLayout extends GalleryLayout {
 		$gallery->debug("End: Rebuilding cache");
 	    }
 	}
-	
+
 	/* Set up the navigator */
 	$totalPages = ceil($totalChildCount / $perPage);
 	$navigator = array();
-	if ($pageNumber > 1) {
-	    $navigator['firstPage'] = 1;
-	    $navigator['previousPage'] = $pageNumber-1;
+	if ($page > 1) {
+	    $navigator['first'] = array('view' => 'core:ShowItem',
+					    'itemId' => $item->getId(),
+					    'page' => 1);
+	    $navigator['back'] = array('view' => 'core:ShowItem',
+					    'itemId' => $item->getId(),
+					    'page' => $page-1);
 	}
-	if ($pageNumber < $totalPages) {
-	    $navigator['lastPage'] = $totalPages;
-	    $navigator['nextPage'] = $pageNumber+1;
+	if ($page < $totalPages) {
+	    $navigator['next'] = array('view' => 'core:ShowItem',
+					    'itemId' => $item->getId(),
+					    'page' => $page+1);
+	    $navigator['last'] = array('view' => 'core:ShowItem',
+					    'itemId' => $item->getId(),
+					    'page' => $totalPages);
 	}
-
+	
 	/* Show a window of 11 pages in the page navigator */
-	$windowSize = 11;
-	$lowerPage = max($pageNumber - (int)($windowSize / 2), 1);
-	$upperPage = min($pageNumber + (int)($windowSize / 2), $totalPages);
+	$windowSize = 6;
+	$lowerPage = max($page - (int)($windowSize / 2), 1);
+	$upperPage = min($page + (int)($windowSize / 2), $totalPages);
 	if ($upperPage == $totalPages) {
 	    $lowerPage = max($upperPage - $windowSize, 1);
 	} else if ($lowerPage == 1) {
 	    $upperPage = min($lowerPage + ($windowSize-1), $totalPages);
 	}
 	for ($i = $lowerPage; $i <= $upperPage; $i++) {
-	    $navigator['jumprange'][] = $i;
+	    $jumprange[] = $i;
+	}
+	if ($lowerPage > 1) {
+	    array_unshift($jumprange, 1);
+	}
+	if ($upperRange < $totalPages) {
+	    $jumprange[] = $totalPages;
+	}
+
+	/* Get peer info */
+	list ($ret, $peers, $peerIds, $totalPeerCount, $itemIndex) = $this->_loadPeerInfo($item);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load the parents */
@@ -226,6 +246,12 @@ class MatrixLayout extends GalleryLayout {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	/* Get system links */
+	list ($ret, $moduleSystemLinks) = $this->_getModuleSystemLinks();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	/* Get item details */
 	list ($ret, $moduleItemDetailFiles) = $this->_loadModuleItemDetails($template, $item);
 	if ($ret->isError()) {
@@ -238,17 +264,39 @@ class MatrixLayout extends GalleryLayout {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Tell Smarty about everything we've learned */
+	/* Get the active user */
+	list ($ret, $user) = $gallery->getActiveUser();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Get the owner */
+	list ($ret, $owner) = $gallery->loadEntitiesById($item->getOwnerId());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$layout['user'] = $user->getMemberData();
+	$layout['owner'] = $owner->getMemberData();
 	$layout['moduleItemLinks'] = $moduleItemLinks;
 	$layout['moduleSystemContentFiles'] = $moduleSystemContentFiles;
+	$layout['moduleSystemLinks'] = $moduleSystemLinks;
 	$layout['moduleItemDetailFiles'] = $moduleItemDetailFiles;
-	$layout['navigator'] = $navigator;
 	$layout['children'] = $children;
-	$layout['pageNumber'] = $pageNumber;
+	$layout['currentPage'] = $page;
 	$layout['totalPageCount'] = $totalPages;
 	$layout['totalChildCount'] = $totalChildCount;
+	$layout['totalPeerCount'] = $totalPeerCount;
+	$layout['peers'] = $peers;
+	$layout['navigator'] = $navigator;
+	$layout['jumprange'] = $jumprange;
 	$layout['layoutUrl'] = GalleryUtilities::convertPathToRelativeUrl(dirname(__FILE__));
 	$layout['parents'] = $parents;
+	if (!empty($parents)) {
+	    $layout['parent'] = $parents[sizeof($parents)-1];
+	} else {
+	    $layout['parent'] = null;
+	}
 	$layout['item'] = $item->getMemberData();
 
 	$template->setVariable('layout', $layout);
@@ -366,54 +414,21 @@ class MatrixLayout extends GalleryLayout {
 	/* Don't let the index overflow the images array */
 	$imageViewsIndex = min($imageViewsIndex, sizeof($imageViews) - 1);
 
-	/*
-	 * In order to figure out where we are, we have to load the entire list
-	 * of children of my parent and then iterate through it to find our
-	 * current index.
-	 */
-	list ($ret, $parent) =
-	    $gallery->loadEntitiesById($item->getParentId());
+	/* Get peer info */
+	list ($ret, $peers, $peerIds, $totalPeerCount, $itemIndex) = $this->_loadPeerInfo($item);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Count the total number peers */
-	/* Get the child id => child types */
-	list ($ret, $peerIds) = $parent->fetchChildIds();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$totalPeerCount = sizeof($peerIds);
-
-	for ($i = 0; $i < $totalPeerCount; $i++) {
-	    if ($peerIds[$i] == $item->getId()) {
-		$itemIndex = $i;
-	    }
-	}
-
-	$navigator = array();
-	if ($itemIndex > 0) {
-	    $navigator['first'] = $peerIds[0];
-	    $navigator['back'] = $peerIds[$itemIndex-1];
+        $navigator = array();
+        if ($itemIndex > 0) {
+            $navigator['first'] = array('view' => 'core:ShowItem', 'itemId' => $peerIds[0]);
+            $navigator['back'] = array('view' => 'core:ShowItem', 'itemId' => $peerIds[$itemIndex-1]);
 	}
 	
-	if ($itemIndex < $totalPeerCount-1) {
-	    $navigator['next'] = $peerIds[$itemIndex+1];
-	    $navigator['last'] = $peerIds[sizeof($peerIds)-1];
-	}
-
-	/* Load a few peers around us */
-	$peers = array();
-	for ($i = max($itemIndex-3, 0); $i <= min($itemIndex+3, sizeof($peerIds)-1); $i++) {
-	    $peers[] = $peerIds[$i];
-	}
-	list ($ret, $peers) = $gallery->loadEntitiesById($peers);
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	for ($i = 0; $i < sizeof($peers); $i++) {
-	    $peers[$i] = $peers[$i]->getMemberData();
+        if ($itemIndex < $totalPeerCount-1) {
+            $navigator['next'] = array('view' => 'core:ShowItem', 'itemId' => $peerIds[$itemIndex+1]);
+            $navigator['last'] = array('view' => 'core:ShowItem', 'itemId' => $peerIds[sizeof($peerIds)-1]);
 	}
 
 	/* Load the parents */
@@ -452,13 +467,20 @@ class MatrixLayout extends GalleryLayout {
 	    $layout['sourceImageViewIndex'] = $sourceImageViewIndex;
 	}
 
+	/* Get the active user */
 	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	/* Get the owner */
+	list ($ret, $owner) = $gallery->loadEntitiesById($item->getOwnerId());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	$layout['user'] = $user->getMemberData();
-	$layout['navigator'] = $navigator;
+	$layout['owner'] = $owner->getMemberData();
 	$layout['moduleItemLinks'] = $moduleItemLinks;
 	$layout['moduleSystemLinks'] = $moduleSystemLinks;
 	$layout['moduleSystemContentFiles'] = $moduleSystemContentFiles;
@@ -472,15 +494,87 @@ class MatrixLayout extends GalleryLayout {
 	    $layout['parent'] = null;
 	}
 	$layout['item'] = $item->getMemberData();
-	$layout['itemIndex'] = $itemIndex+1;
 	$layout['imageViews'] = $imageViews;
 	$layout['sourceImage'] = $sourceImage;
 	$layout['imageViewsIndex'] = $imageViewsIndex;
 	$layout['totalPeerCount'] = $totalPeerCount;
 	$layout['item'] = $item->getMemberData();
+	$layout['navigator'] = $navigator;
 
 	$template->setVariable('layout', $layout);
 	return array(GalleryStatus::success(), 'layouts/matrix/templates/singleBody.tpl');
+    }
+
+    function _loadPeerInfo($item) {
+	global $gallery;
+
+	if ($item->getParentId() == null) {
+	    return array(GalleryStatus::success(), array(), 0, 0);
+	}
+
+	/*
+	 * In order to figure out where we are, we have to load the entire list
+	 * of children of my parent and then iterate through it to find our
+	 * current index.
+	 */
+	list ($ret, $parent) = $gallery->loadEntitiesById($item->getParentId());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $peerIds) = $parent->fetchChildIds();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$totalPeerCount = sizeof($peerIds);
+
+	for ($i = 0; $i < $totalPeerCount; $i++) {
+	    if ($peerIds[$i] == $item->getId()) {
+		$itemIndex = $i;
+	    }
+	}
+	
+	/* Get a window of peer ids around us */
+	$peerWindow = 6;
+	$peers = array();
+	$neighborStart = max($itemIndex-$peerWindow, 0);
+	$neighborEnd = min($itemIndex+$peerWindow, sizeof($peerIds)-1);
+
+	if ($neighborStart > 0) {
+	    $peers[] = $peerIds[0];
+	}
+	for ($i = $neighborStart; $i <= $neighborEnd; $i++) {
+	    $peers[] = $peerIds[$i];
+	}
+	if ($neighborEnd < sizeof($peerIds) - 1) {
+	    $peers[] = $peerIds[sizeof($peerIds)-1];
+	}
+
+	/* Load them all */
+	list ($ret, $peers) = $gallery->loadEntitiesById($peers);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Tag them with their index and convert to member data */
+	$j = 0;
+	if ($neighborStart > 0) {
+	    $peers[0] = array('index' => 1, 'peer' => $peers[0]->getMemberData());
+	    $j++;
+	}
+
+	for ($i = $neighborStart; $i <= $neighborEnd; $i++) {
+	    $peers[$j] = array('index' => $i + 1, 'peer' => $peers[$j]->getMemberData());
+	    $j++;
+	}
+
+	/* Load the last peer, if its not in the window */
+ 	if ($neighborEnd < sizeof($peerIds)-1) {
+	    $peers[$j] = array('index' => sizeof($peerIds), 'peer' => $peers[$j]->getMemberData());
+ 	}
+
+	return array(GalleryStatus::success(), $peers, $peerIds, $totalPeerCount, $itemIndex);
     }
 }
 ?>

@@ -140,7 +140,7 @@ table td {
 .detailedbox {
   width: 100%;
   margin: 0px 0px 0px 0px;
-  padding: 8px 0px 8px 0px;
+  padding: 0px 0px 0px 0px;
   background-color: transparent;
   clear: none;
 }
@@ -254,7 +254,7 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 4px 16px 4px 4px;
+  padding: 4px 4px 4px 4px;
   background-color: #fff;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -266,7 +266,7 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 4px 4px 4px 16px;
+  padding: 4px 4px 4px 4px;
   background-color: #fff;
   border-left: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -300,7 +300,7 @@ table td {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0px;
-  margin: 8px 0px 8px 8px;
+  margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
 }
 
