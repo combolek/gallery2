@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+                      "./dtds/docbookx.dtd" [
+
+<!-- Include files entities -->
+<!ENTITY % files	SYSTEM "./files.ent">
+%files;
+
+<!-- Include global entities -->
+<!ENTITY % global	SYSTEM "./global.ent">
+%global;
+
+]>
+
+<book id="manual" lang="en">
+ <title>Gallery Documentation</title>
+
+ &bookinfo;
+ &preface;
+ 
+ <part id="gallery1">
+  <title>Gallery 1.x</title>
+  &chapters.gallery1;
+ </part>
+ 
+ <part id="gallery2">
+  <title>Gallery 2.x</title>
+  &chapters.gallery2;
+ </part>
+ 
+</book>
