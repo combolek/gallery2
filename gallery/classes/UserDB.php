@@ -20,33 +20,74 @@
 ?>
 <?
 class UserDB {
+	var $userMap;
 	
 	function UserDB() {
 		global $app;
 
+		$userMap = array();
+		$uidMap = array();
+
 		if (!file_exists($app->userDir)) {
 			if (!mkdir($app->userDir, 0777)) {
 				error("Unable to create dir: $app->userDir");
+				return;
 			}
 		} else {
 			if (!is_dir($app->userDir)) {
 				error("$app->userDir exists, but is not a directory!");
+				return;
 			}
+		}
+
+		if (file_exists("$app->userDir/userdb.dat")) {
+			$tmp = getFile("$app->userDir/userdb.dat");
+			$this = unserialize($tmp);
 		}
 	}
 
-	function getUser($username) {
+	function getUserByUsername($username, $level=0) {
 		global $app;
 
-		if (file_exists("$app->userDir/$username")) {
+		if ($level > 1) {
+			// We've recursed too many times.  Abort;
+			return;
+		}
+
+		$uid = $this->userMap[$username];
+		if (!$uid) {
+			$this->rebuildUserMap();
+			$uid = $this->userMap[$username];
+			if (!$uid) {
+				return;
+			}
+		}
+
+		$user = $this->getUserByUid($uid);
+		if (!$user || strcmp($user->getUsername(), $username)) {
+			// We either got no uid for this name, or we got a uid
+			// but that uid has a different username.  Either way
+			// this means our map is out of date.
+			$this->rebuildUserMap();
+			return $this->getUserByUsername($username, ++$level);
+		} else {
+			return $user;
+		}
+		
+	}
+
+	function getUserByUid($uid) {
+		global $app;
+
+		if (file_exists("$app->userDir/$uid")) {
 			$user = new User();
-			$user->load($username);
+			$user->load($uid);
 			return $user;
 		}
 	}
 
 	function getOrCreateUser($username) {
-		$user = $this->getUser($username);
+		$user = $this->getUserByUsername($username);
 		if (!$user) {
 			$user = new User();
 			$user->setUsername($username);
@@ -54,32 +95,71 @@ class UserDB {
 		return $user;
 	}
 
-	function deleteUser($username) {
+	function getUsername($uid) {
+		return $this->userMap[$uid];
+	}
+
+	function getUid($username) {
+		return $this->userMap[$username];
+	}
+
+	function deleteUserByUsername($username) {
 		global $app;
 
-		if (file_exists("$app->userDir/$username")) {
-			return unlink("$app->userDir/$username");
+		$user = $this->getUserByUsername($username);
+		if ($user) {
+			$uid = $user->getUid();
+			if (file_exists("$app->userDir/$uid")) {
+				return unlink("$app->userDir/$uid");
+			}
 		}
+		$this->rebuildUserMap();
 
 		return 0;
 	}
 
-	function getUserList() {
+	function rebuildUserMap() {
+		global $app;
+
+		foreach ($this->getUidList() as $uid) {
+			$tmpUser = $this->getUserByUid($uid);
+			$username = $tmpUser->getUsername();
+			$this->userMap[$username] = $uid;
+			$this->userMap[$uid] = $username;
+		}
+
+		$success = 0;
+		$dir = $app->userDir;
+		$tmpfile = tempnam($dir, "userdb.dat");
+		if ($fd = fopen($tmpfile, "w")) {
+			fwrite($fd, serialize($this));
+			fclose($fd);
+			$success = rename($tmpfile, "$dir/userdb.dat");
+		}
+
+		return $success;
+	}
+
+	function getUidList() {
 		global $app;
 		
-		$userList = array();
+		$uidList = array();
 		if ($fd = opendir($app->userDir)) {
 			while ($file = readdir($fd)) {
+				if (!strcmp($file, "userdb.dat")) {
+					continue;
+				}
+
 				if (is_dir($file)) {
 					continue;
 				}
 
-				array_push($userList, $file);
+				array_push($uidList, $file);
 			}
 		}
 
-		sort($userList);
-		return $userList;
+		sort($uidList);
+		return $uidList;
 	}
 
 	function validNewUsername($username) {
@@ -96,7 +176,7 @@ class UserDB {
 			return "Username must contain only letters or digits";
 		}
 
-		$user = $this->getUser($username);
+		$user = $this->getUserByUsername($username);
 		if ($user) {
 			return "A user with the username of <i>$username</i> already exists";
 		}
