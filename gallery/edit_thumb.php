@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,8 @@ if (isset($action)) {
 ?>
 <body dir="<?php echo $gallery->direction ?>">
 
-<p align="center"><span class="popuphead"><?php echo _("Custom Thumbnail") ?></span></p>
+<span class="popuphead"><?php echo _("Custom Thumbnail") ?></span>
+<br>
 
 <?php
 	#-- are we a go? ---
@@ -141,6 +142,7 @@ if (isset($action)) {
 	} 
 } 
 ?>
+
 </body>
 </html>
 

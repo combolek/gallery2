@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -308,7 +308,13 @@ $adminOptions = array(
 		      'add_photos'      => array('name' => _('add photos'),
 						 'requirements' => array('canAddToAlbum'),
 						 'action' => 'popup',
-						 'value' => makeGalleryUrl('add_photos_frame.php',
+						 'value' => makeGalleryUrl('add_photos.php',
+									   array('set_albumName' => $gallery->session->albumName))),
+		      'add_photo'       => array('name' => _('add photo'),
+						 'requirements' => array('canAddToAlbum',
+									 'extraFieldsExist'),
+						 'action' => 'popup',
+						 'value' => makeGalleryUrl('add_photo.php',
 									   array('set_albumName' => $gallery->session->albumName))),
 		      'rename_album'    => array('name' => _('rename album'),
 						 'requirements' => array('isAlbumOwner'),

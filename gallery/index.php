@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,27 +38,21 @@ global $mop;
 global $include;
 global $name;
 
-/* Detect phpNuke, postnuke or phpBB2 and react accordingly */
+/* Detect PHP-Nuke and react accordingly */
 if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 
 	/* 
 	 * Change this variable if your Gallery module has a different
-	 * name in the Nuke or phpBB2 modules directory.
+	 * name in the Nuke modules directory.
 	 */
 	$GALLERY_MODULENAME = $name;
 	$GALLERY_BASEDIR = "modules/$GALLERY_MODULENAME/";
+	$GALLERY_EMBEDDED_INSIDE='nuke';
 
-	if (isset($GLOBALS['phpbb_root_path'])) {
-		$GALLERY_EMBEDDED_INSIDE='phpBB2';
-		$GALLERY_EMBEDDED_INSIDE_TYPE = 'phpBB2';
-	}
-	elseif (isset($GLOBALS['pnconfig']) && function_exists('authorised')) {
-		$GALLERY_EMBEDDED_INSIDE='nuke';
-		$GALLERY_EMBEDDED_INSIDE_TYPE = 'postnuke';
-	}
-	else {
-		$GALLERY_EMBEDDED_INSIDE='nuke';
-		$GALLERY_EMBEDDED_INSIDE_TYPE = 'phpnuke';
+	if (isset($GLOBALS['pnconfig']) && function_exists("authorised")) {
+		$GALLERY_EMBEDDED_INSIDE_TYPE = "postnuke"; 
+	} else {
+		$GALLERY_EMBEDDED_INSIDE_TYPE = "phpnuke"; 
 	}
 
 	if (!$include) {
@@ -73,9 +67,10 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 	 */
 	$safe_to_include =
 		 array(
+
 		       "add_comment.php",
+		       "add_photo.php",
 		       "add_photos.php",
-		       "add_photos_frame.php",
 		       "album_permissions.php",
 		       "albums.php",
 		       "block-random.php",
@@ -114,7 +109,6 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 		       "save_photos.php",
 		       "search.php",
 		       "slideshow.php",
-		       "slideshow_high.php",
 		       "slideshow_low.php",
 		       "sort_album.php",
 		       "upgrade_album.php",

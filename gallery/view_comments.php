@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,8 +84,9 @@ for ($i = count($breadtext) - 1; $i >= 0; $i--) {
 $breadcrumb["bordercolor"] = $bordercolor;
 $breadcrumb["top"] = true;
 $breadcrumb["bottom"] = true;
+?>
 
-if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?></title>
@@ -119,7 +120,6 @@ if ($gallery->album->fields["textcolor"]) {
 <body dir="<?php echo $gallery->direction ?>">
 <span class="popup">
 <?php } 
-
 includeHtmlWrap("album.header");
 $adminText = "<span class=\"admin\">". _("Comments for this Album") ."</span>";
 $adminCommands = "<span class=\"admin\">";

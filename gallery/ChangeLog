@@ -1,192 +1,56 @@
-2004-02-02  Christian Mohn <ch-moh@online.no> 1.4.3-cvs-b20
+2004-02-02  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-RC2
 
-        * Removed cmd.exe call in platform/fs_win32.php as PHP itself calls
-          this when executing binaries in Win32. 
-          This caused two cmd.exe processes running every time a binary 
-          was called on that platform.
-        
-        * Added VBS as a valid executable extension in platform/fs_win32.php
-          VBScript files are valid executables in Windows. :)
+	* Updated copyright to 2000-2004.
 
-2004-02-01  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b19
+	* v1.4.2 Release Candidate 2
 
-	* Fixed a bug in save_photos caused by the new tabbed interface.  We
-	  were not properly referencing the opener so the progress dialog was
-	  not going away after adding photos.
+2004-01-29 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b6
 
-2004-01-30  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b18
+	* "Bugfix": Added .adminform to css for no/standard skin.
 
-	* Fixed several issues in add_photos:
-	  - Removed ob_start/ob_end buffering code; if includes are leaking
-	    text we want to know about it and fix it.
-	  - Got rid of a warning when add_photos_mode cookie isn't set
-	  - Fixed warnings in save_photos.php when you submit an empty form
-	  - Added window.focus() to add_photos.php so that it doesn't pop under
-	  - Fixed Javascript to display progress dialog in upload forms so that
-	    they refer to the proper object
+2004-01-28 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b5
 
-2004-01-30 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b17
-	
-	* Change: Skin Update
-
-2004-01-30 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b16
-
-	* New: Added Jenskin. A Skin that looks likt the configwizard.
-
-	* Change: Some cosmetic changes.
-
-2004-01-30 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b15
-
-	* Bugfix: Added GALLERY_BASEDIR for inclusion of frame files.
-		  and add_photos_frame.php to safetoinclude array.
-	
-2004-01-29  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-cvs-b14
-
-	* Added pretty nasty hack to reload the album page in Mini applet
-	  mode after upload completes (this relies on add_photos_frame.php
-	  and add_photos_refresh.php; if anyone has a better way of
-	  executing JavaScript from Java, I'd like to know).
-
-	* Added cookie so that add_photos opens on same tab the user
-	  selected last time he used add_photos.
-
-2004-01-29 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b13
-
-	* Bugfix: Added GALLERY_BASEDIR for inclusion of includes files.
-
-	* Bugfix: Use function to create URLs.
-
-	* Bugfix: Added missing file.
-
-2004-01-29 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b12
-
-	* Change: Created lib/Form.php.
-
-	* New: Added "(un)check all" and "invert" selection in config wizard for languages.
-
-	* Change: Added possible for an addon below multiple choices in config wizard.
-
-	* Bugfix: In javascript in the 2nd parameter (name)
+	* Bugfix: In javascript in the 2nd parameter (name) 
 		  in window.open are no spaces allowed.
 		  NS doesnt care. IE does and result an error when trying to print via Fotokasten.
+
+2004-01-28 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b4
 
 	* Bugfix: The Radiobutton for Shutterflys Donation is set always.
 		  So its saved always as Service.
 		  Fix is a workaround.
 
-	* "Bugfix": - Added new css class .adminform.
+2004-01-28 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b3
+
+	* "Bugfix": - Added new css class .adminform. 
 		    - Set textcolor corresponding in ALL skins.
-		    This fixes the "bug" that text was not readable in admin options.	
+		   This fixes the "bug" that text was not readable in admin options.
 
-2004-01-29  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-cvs-b11
-
-	* Move add_photos.php includes into includes/add_photos, per Jens' request
-
-	* Added support in gallery_remote2.php for:
-		- getting sub-albums as well as images in fetch-album-images
-		- returning the list of root albums in fetch-album-images when
-		  invoked with a blank set_albumName
-		- getting all albums (including non-writeable) in fetch-albums
-	* Made the add_photos menu a CSS-based tab list.
-
-	* Fixed applet invocation in both upload applets.
-
-2004-01-27  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-cvs-b10
-
-	* Tweaked slideshow applet invocation.
-
-2004-01-27 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b9
-
-	* Bugfix: Missing closing body tag in view_photo.php caused wrong alignment in IE.
-
-	* Change: Removed table line as spacer under searchbox and used css instead.
-
-	* Change: Reworked the display of note when broken albums are found.
-
-	* Change: Renamed and moved fitToWindow in js folder. Added documentation.
+2004-01-27 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b2
 
 	* Bugfix: Fixed Bug introduced in 1.4.2-cvs-b11 (by me).
-                  Changed doctype back to be more undetailed.
-                  The detailed doctype caused the fitToWindow script not to work when
-                  using IE and Gallery was standalone.
+		  Changed doctype back to be more undetailed.
+		  The detailed doctype caused the fitToWindow script not to work when 
+		  using IE and Gallery was standalone.
 
-2004-01-26  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b8
-
-	* Overhauled the build_manifest script so that it reads the CVS Entries
-	  file to find appropriate files to check for version ids.  This way we
-	  don't have to maintain a file list (which is error prone).
-
-2004-01-26 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b7
+2004-01-26 Jens Tkotz <jens@peino.de> 1.4.2-RC2-cvs-b1
 
 	* Bugfix: Changing album permissions who can view comments were broken.
 
-	* Bugfix: When embedded in phpBB2, Permissions for "only logged in" users were broken.
-		  Because phpBB2's anonymous user is also logged in. So we have to ignore this.
+2004-01-25  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-RC1
 
-2004-01-26  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-cvs-b6
+	* v1.4.2 Release Candidate 1
 
-	* Removed Add Photos from the admin menu
-	* Changed Add Photo to a tab-based window
-	* If GR Applet JARs are present, added two upload tabs: GR Applet Mini and
-	  GR Applet
-	* Replaced slideshow.php with an Applet-based version. The old slideshow is
-	  in slideshow_high.php.
-	* The applets are self-signed, you have to trust me in order to run them.
-	  This doesn't work on Safari for some reason, so the applet fails on Mac.
+2004-01-24  Bharat Mediratta  <bharat@menalto.com> 1.4.2-cvs-b79
 
-	I expect these changes to break some stuff, and I'll be grateful for help
-	fixing. Also, plese pipe up with suggestions!
-
-2004-01-26 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b5
-
-	* New: Added Martin Smallridge to AUTHORS and give him credits for his phpBB Code.
-
-2004-01-24  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b4
-
-	* Fixed remote security exploit in init.php and setup/init.php where
-	  one extract() call can be used to overwrite the input for a
+        * Fixed remote security exploit in init.php and setup/init.php where 
+	  one extract() call can be used to overwrite the input for a 
 	  subsequent extract() call letting users overwrite GALLERY_BASEDIR
-
-2004-01-23 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b3
-
-	* New: added contrib folder with subfolder phpBB2 with documentation
-	       and files for phpBB2.
-
-	* New: Added g1-icon.gif
-
-	* Bugfix: When not embedded and mod_rewrite was on, makeGalleryUrl was broken.
-
-	* New: lib folder.
-
-	* Change: extracted all language related functions from util.php
-		  into lib/lang.php and include them in util.php.
-
-2004-01-23 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b2
-
-	* New: implemented Code for Gallery phpBB2 integration.
-
-	  - Gallery is now ready to be integrated in phpBB2 (2.0.6), but unfortunately
-	    you have to modify phpBB2 code and put a new file in your phpBB2 installation.
-	    See documentation in the contrib folder.
-
-	  - Detection if we are in phpBB2 ($GALLERY_EMBEDDED_INSIDE_TYPE = 'phpBB2';)
-
-	  - new classes for phpBB2 users.
-
-	  - rewrite of fitToWindow.
-
-2004-01-22  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.3-cvs-b1
-
-	* This is the beginning of development on v1.4.3.
-
-===============================================================================
-    v1.4.2 release branch created
-===============================================================================
-
+	
 2004-01-21 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b78
 	
-	* Change: Added possibility for LARGE borders, bigger images and MORE 
-	  pages in edit album properties.
+	* Change: Added possibility for LARGE bordes, bigger Images and MORE pages
+		  in edit album properties.
 
 2004-01-21 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b77
 	

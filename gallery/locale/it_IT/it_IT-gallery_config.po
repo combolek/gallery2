@@ -3,7 +3,7 @@
 # Version: 1_4_2-RC2
 #
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2003 Bharat Mediratta
+# Copyright (C) 2000-2004 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.4.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-01-08 16:06+0100\n"
+"POT-Creation-Date: 2004-01-28 14:45+0100\n"
 "PO-Revision-Date: 2004-01-27 17:03+0100\n"
 "Last-Translator: Ermanno Baschiera <ermannob@inwind.it>\n"
 "Language-Team: Ermanno Baschiera <ermannob@inwind.it>\n"
@@ -203,6 +203,7 @@ msgid "This script is designed to examine your %s installation to see if it is o
 msgstr "Questo script esaminerà l'installazione di %s per verificarne la compatibilità con Gallery."
 
 #: ../setup/check_imagemagick.php:22 ../setup/check_netpbm.php:21
+#, php-format
 msgid "You should run this script <b>after</b> you have run the config wizard, if you have had problems with your %s installation that the wizard did not detect."
 msgstr "Dovresti eseguire questo script <b>dopo</b> aver eseguito la configurazione guidata, nel caso ci fossero stati problemi con la installazione di %s che la configurazione guidata non abbia riscontrato."
 
@@ -260,6 +261,7 @@ msgid "If that is not right (or if it is blank), re-run the configuration wizard
 msgstr "Se non è corretto (o se vuoto), esegui di nuovo la configurazione guidata ed immetti una posizione per %s"
 
 #: ../setup/check_imagemagick.php:107 ../setup/check_netpbm.php:106
+#, php-format
 msgid "<b>Note:</b> Your %s directory (%s) is not in your open_basedir list %s"
 msgstr "<b>Nota:</b> La directory di %s (%s) non è compresa nella lista open_basedir %s"
 
@@ -310,6 +312,7 @@ msgid "can't detect version on Windows"
 msgstr "non riesco ad identificare la versione di Windows"
 
 #: ../setup/check_imagemagick.php:233 ../setup/check_netpbm.php:281
+#, php-format
 msgid "OK!  Version: %s"
 msgstr "OK! Versione: %s"
 
@@ -357,6 +360,7 @@ msgid "This enables you to confirm that email is working correctly on your syste
 msgstr "Questo ti permette di confermare che l'email funziona correttamente nel tuo sistema. Inserisci qui di seguito il tuo indirizzo email, e ti verrà inviato un messaggio. Se lo ricevi, allora vuol dire che l'email funziona."
 
 #: ../setup/check_mail.php:44 ../setup/check_mail.php:49
+#, php-format
 msgid "%s not set."
 msgstr "%s non impostato."
 
@@ -387,6 +391,7 @@ msgid "Check Versions"
 msgstr "Controllo Versioni"
 
 #: ../setup/check_versions.php:20
+#, php-format
 msgid "This page gives you information about the version of each necessary %s file"
 msgstr "Questa pagina fornisce informazioni rigurdanti le versioni di ogni file necessario a %s"
 
@@ -457,6 +462,7 @@ msgid "I've found part of NetPBM, but some critical components are missing (see 
 msgstr "Ho trovato parte dell'installazione di NetPBM, ma alcune parti critiche mancano (vedi sotto). Forse la versione installata non e' una versione recente."
 
 #: ../setup/config_data.inc:30
+#, php-format
 msgid "Gallery prefers ImageMagick version 5.4.8 and up.  You can compile and install the entire ImageMagick package from the %sImageMagick website%s."
 msgstr "Gallery preferisce ImageMagick dalla versione 5.4.8 in poi. Puoi compilare ed installare l'intero package ImageMagick da %sImageMagick website%s."
 
@@ -571,6 +577,7 @@ msgid "Check to see if PHP is compiled with <b>GNU gettext</b> support for fast 
 msgstr "Verifica se il PHP è stato compilato con il supporto a <b>GNU gettext</b> per delle traduzioni più veloci."
 
 #: ../setup/config_data.inc:136
+#, php-format
 msgid "Your PHP does not have <b>GNU gettext</b> support installed.  To include it, you'll need to recompile PHP (see the %sPHP docs%s for more information). Multi-language support is still available in Gallery without <b>gettext</b>, but the pages may take slightly longer to load."
 msgstr "Il PHP installato non sembra avere il supporto a <b>GNU gettext</b>. Per includerlo, devi ricompilare il PHP (vedi la %sdocumentazione PHP%s per ulteriori informazioni). Il supporto alla multi-lingua è ancora disponibile in Gallery anche senza <b>gettext</b>, ma se le pagine potranno essere un po' più lente nel caricamento."
 
@@ -607,6 +614,7 @@ msgid "Album directory"
 msgstr "Directory dell'Album"
 
 #: ../setup/config_data.inc:182
+#, php-format
 msgid "The full path on physical disk to the directory where your photos will be stored.  This directory should start off empty&#8212;Gallery will fill it.  Note that this directory needs to have write access by the user who is running the web server (in your case this user is %s)."
 msgstr "Il percorso completo sul disco della directory che conterrà le tue foto. Questa directory sarà inizialmente vuota -- Gallery la riempirà con le tue foto. Nota che l'utente che sta facendo eseguire il webserver dovrà avere permessi di scrittura in questa directory (nel tuo caso l'utente è %s)."
 
@@ -900,6 +908,7 @@ msgid "Format for date strings."
 msgstr "Formato per le stringhe contenenti date."
 
 #: ../setup/config_data.inc:457 ../setup/config_data.inc:467
+#, php-format
 msgid "This format string will be used to display %s in %s.  It is recommended to use %s which will change format depending on language choice.  However, if you wish to change this string, please look at the %sPHP documentation%s."
 msgstr "Questa stringa di formattazione verrà usata per mostrare %s in %s. Si raccomanda di usare %s dato che cambierà il formato in base alla lingua scelta.  Tuttavia, se vuoi cambiare la stringa, consulta la %sdocumentazione PHP%s."
 
@@ -1957,12 +1966,14 @@ msgid "%s is not executable!"
 msgstr "%s non è eseguibile!"
 
 #: ../setup/functions.inc:460
+#, php-format
 msgid "%d of %d NetPBM binaries located."
-msgstr "%s binari su %s di NetPBM individuati."
+msgstr "%d binari su %d di NetPBM individuati."
 
 #: ../setup/functions.inc:516
+#, php-format
 msgid "%d of %d ImageMagick binaries located."
-msgstr "%s binari su %s di ImageMagick individuati."
+msgstr "%d binari su %d di ImageMagick individuati."
 
 #: ../setup/functions.inc:539
 msgid "Can't find <i>jpegtran</i>!"
@@ -1991,7 +2002,7 @@ msgstr "Sembra che tu non abbia scaricato alcuna lingua aggiuntiva. Questo non è
 #: ../setup/functions.inc:577
 #, php-format
 msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
-msgstr "Sono disponibili %s lingue. Se cerchi una traduzione visita %sGallery download page%s."
+msgstr "Sono disponibili %d lingue. Se cerchi una traduzione visita %sGallery download page%s."
 
 #: ../setup/functions.inc:601
 #, php-format
@@ -2145,7 +2156,7 @@ msgstr "%d file sono più recenti del previsto. E' tutto ok se stai usando codice
 #: ../setup/functions.inc:1212
 #, php-format
 msgid "All %d tested files up-to-date."
-msgstr "Tutti i %s file verificati sono aggiornati."
+msgstr "Tutti i %d file verificati sono aggiornati."
 
 #: ../setup/functions.inc:1220
 #, php-format
@@ -2162,6 +2173,7 @@ msgid "Configuration Wizard"
 msgstr "Configurazione Guidata"
 
 #: ../setup/functions.inc:1277
+#, php-format
 msgid "You must enter a password for the %s account."
 msgstr "Devi inserire una password per l'account di %s."
 

@@ -17,6 +17,7 @@
 
 <body dir="<?php echo $gallery->direction ?>">
 <?php
+
 if (function_exists("posix_getpwuid")) {
 	$rec = @posix_getpwuid(posix_getuid());
 	$webserver_user = $rec["name"];
@@ -72,7 +73,7 @@ foreach (array_keys($preserve) as $key) {
 
 ?>
 
-<form method="post" action="index.php" name="config">
+<form method="post" action="index.php">
 
 <?php
 $legit = array("check", "constants", "defaults", "confirm", "write");

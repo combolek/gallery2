@@ -1,8 +1,5 @@
 <?php /* $Id$ */ ?>
 
-<?php
-	insertFormJS('config','available_lang[]');
-?>
 <input type="hidden" name="this_page" value="constants">
 <input type="hidden" name="next_page" value="defaults">
 <input type="hidden" name="back_page" value="check">
@@ -21,6 +18,8 @@
 	<input type="submit" name="go_defaults" value="<?php echo _("Use Defaults") ?>">
 
 </p>
+
+
 
 <?php
 $i = 0;

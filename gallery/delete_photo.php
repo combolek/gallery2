@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,14 +126,14 @@ $myAlbum->load($id);
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 <br>
 <?php echo $gallery->album->getCaption($index) ?>
-<p>
+<br>
 <?php echo makeFormIntro("delete_photo.php"); ?>
 <input type="hidden" name="id" value="<?php echo $id?>">
 <input type="hidden" name="id2" value="<?php echo $id2 ?>">    
 <input type="submit" name="confirm" value="<?php echo _("Delete") ?>">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
-</p>
+<br>
 
 <?php
 	}

@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,15 +82,14 @@ else {
 	$left="right";
 	$right="left";
 }
-if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
 ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php doctype() ?>
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?></title>
-  <?php 
-	echo getStyleSheetLink();
-	/* prefetching/navigation */
+  <?php echo getStyleSheetLink() ?>
+  <?php /* prefetching/navigation */
   if ($navigator['page'] > 1) { ?>
       <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
       <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
@@ -102,17 +101,15 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   <?php } ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<?php }
-	includeHtmlWrap("gallery.header");
-	if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
-?>
-<table width="100%" border="0" cellspacing="0" style="margin-bottom:2px">
-<tr>
+<?php } ?>
 <?php
-	if ($GALLERY_EMBEDDED_INSIDE =='phpBB2') {
-		echo '<td class="nav"><a href="index.php">'. sprintf($lang['Forum_Index'], $board_config['sitename']) . '</a></td>';
-}
+includeHtmlWrap("gallery.header");
 ?>
+<?php
+if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
+?>
+<table width="100%" border=0 cellspacing=0>
+<tr>
 <td valign="middle" align="right">
 <?php echo makeFormIntro("search.php"); ?>
 <span class="search"> <?php echo _("Search") ?>: </span>
@@ -120,8 +117,7 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 </form>
 </td>
 </tr>
-</table>
-
+<tr><td height="2"><img src="<?php echo getImagePath('pixel_trans.gif')?>" alt="pixel_trans"></td></tr></table>
 <?php
 }
 ?>
@@ -146,9 +142,7 @@ else if ($numAccess != $numAlbums) {
 $adminText .= "</span>";
 $adminCommands = "<span class=\"admin\">";
 
-if ($gallery->user->isLoggedIn() && !$gallery->session->offline && 
-	! ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2' && $gallery->user->uid == -1)) {
-
+if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	$displayName = $gallery->user->getFullname();
 	if (empty($displayName)) {
 		$displayName = $gallery->user->getUsername();
@@ -210,34 +204,41 @@ $adminbox["top"] = true;
 includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
 includeLayout('navtablemiddle.inc');
+?>
 
-echo "<!-- Begin top nav -->";
-
+<!-- top nav -->
+<?php
 includeLayout('navigator.inc');
 includeLayout('navtableend.inc');
 includeLayout('ml_pulldown.inc');
-
-echo "<!-- End top nav -->";
-
-/* Display warnings about broken albums */
-if (sizeof($albumDB->brokenAlbums) && $gallery->user->isAdmin()) {
-
-    echo "\n<center><div style=\"margin:3px; width:60%; border-style:outset; border-width:5px; border-color:red\">";
-    echo "\n<p class=\"head\"><u>". _("Attention Gallery Administrator!") ."</u></p>";
-
-    echo sprintf(_("%s has detected the following %d invalid album(s) in your albums directory<br>(%s):"),
-		    Gallery(), sizeof($albumDB->brokenAlbums), $gallery->app->albumDir);
-    echo "\n<p>";
-    foreach ($albumDB->brokenAlbums as $tmpAlbumName) {
-	echo "<br>$tmpAlbumName\n";
-    }
-    echo "\n</p>". _("Please move it/them out of the albums directory.") ;
-    echo "\n</p></div></center>\n";
-}
 ?>
+
 
 <!-- album table begin -->
 <table width="100%" border="0" cellpadding=0 cellspacing=7>
+
+<?php
+/* Display warnings about broken albums */
+if (sizeof($albumDB->brokenAlbums) && $gallery->user->isAdmin()) {
+    print "<tr>";
+    print "<td colspan=\"3\" align=\"center\">";
+    print "<table bordercolor=\"red\" border=\"2\" cellpadding=\"2\" cellspacing=\"2\"><tr><td>";
+    print "<center><b><u>". _("Attention Gallery Administrator!") ."</u></b></center><br>";
+    $broken_albums = '';
+    foreach ($albumDB->brokenAlbums as $tmpAlbumName) {
+	$broken_albums .= "$tmpAlbumName<br>";
+    }
+    print sprintf(_("%s has detected the following directories: %s in your albums directory (%s)."),
+		    Gallery(),
+		    "<br><br> <center>$broken_albums</center>",
+		    $gallery->app->albumDir);
+    print "<br>";
+    print _("These are not valid albums.  Please move them out of the albums directory.") ;
+    print "</td></tr></table>";
+    print "</td>";
+    print "</tr>";
+}
+?>
 
 <?php
 $start = ($gallery->session->albumListPage - 1) * $perPage + 1;
@@ -316,41 +317,50 @@ for ($i = $start; $i <= $end; $i++) {
       </tr>
     </table>
 
+  <br>
+  <span class="desc">
+  <?php _("description") ?>
   <?php 
-	$description=editField($gallery->album, "description") ;
-	if ($description != "") {
-		echo "\n<div class=\"desc\">";
-		echo "\n\t$description";
-		echo "\n</div>";
-  	}
-
-	if (strcmp($gallery->app->showOwners, "no")) {
-		echo "\n<div class=\"desc\">";
-		echo _("Owner:") . " ";
-		if (!$owner->getEmail()) {
-			echo $owner->getFullName();
-		} else {
-			echo "<a href=\"mailto:" . $owner->getEmail() . "\">" . $owner->getFullName() . "</a>";
-		}
-		echo '</div>';
-	}
-
-  if ($gallery->user->canDeleteAlbum($gallery->album)) {
-	echo "\n<span class=\"admin\">";
-	echo popup_link("[". _("delete album") ."]", "delete_album.php?set_albumName={$tmpAlbumName}");
-	echo "\n</span>";
+  $description=editField($gallery->album, "description") ;
+  if ($description != "") {
+	  echo "$description<br>";
   }
+  ?>
+  </span>
+  <?php if (strcmp($gallery->app->showOwners, "no")) { ?>
+	  <span class="desc">
+		  <?php 
+		  echo _("Owner:") . " ";
+		  if (!$owner->getEmail()) {
+			  echo $owner->getFullName();
+		  } else {
+			  echo "<a href=\"mailto:" . $owner->getEmail() . "\">" . $owner->getFullName() . "</a>";
+		  }
+		  ?> 
+		  </span>
+		  <br>
+  <?php } ?>
 
-  if ($gallery->user->canWriteToAlbum($gallery->album)) {
-	echo "\n<span class=\"admin\">";
-	echo popup_link("[". _("move album") ."]", "move_album.php?set_albumName={$tmpAlbumName}&index=$i&reorder=0");
-	echo popup_link("[". _("reorder album") ."]",  "move_album.php?set_albumName={$tmpAlbumName}&index=$i&reorder=1");
-	echo popup_link("[" . _("rename album") ."]", "rename_album.php?set_albumName={$tmpAlbumName}&index=$i");
-	echo "\n</span>";
-  }
+  <?php if ($gallery->user->canDeleteAlbum($gallery->album)) { ?>
+   <span class="admin">
+    <?php echo popup_link("[". _("delete album") ."]", 
+    	"delete_album.php?set_albumName={$tmpAlbumName}"); ?>
+   </span>
+  <?php } ?>
 
-  if ($gallery->user->canChangeTextOfAlbum($gallery->album) && !$gallery->session->offline) { ?>
-    <span class="admin">
+  <?php if ($gallery->user->canWriteToAlbum($gallery->album)) { ?>
+   <span class="admin">
+    <?php echo popup_link("[". _("move album") ."]", 
+    	"move_album.php?set_albumName={$tmpAlbumName}&index=$i&reorder=0"); ?>
+    <?php echo popup_link("[". _("reorder album") ."]", 
+    	"move_album.php?set_albumName={$tmpAlbumName}&index=$i&reorder=1"); ?>
+    <?php echo popup_link("[" . _("rename album") ."]", "rename_album.php?set_albumName={$tmpAlbumName}&index=$i"); ?>
+   </span>
+  <?php } ?>
+
+  <?php if ($gallery->user->canChangeTextOfAlbum($gallery->album) 
+  	&& !$gallery->session->offline) { ?>
+   <span class="admin">
     <a href="<?php echo makeGalleryUrl("captionator.php", array("set_albumName" => $tmpAlbumName)) ?>">[<?php echo _("edit captions") ?>]</a>
    </span>
   <?php } ?>

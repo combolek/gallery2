@@ -1,7 +1,7 @@
 <?php
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2003 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1523,16 +1523,12 @@ class Album {
 		}
 
 		/*
-		** If loggedIn has the perm and we're logged in, then
-		** we're ok also.
-		**
-		** phpBB2's anonymous user are also "logged in", but we have to ignore this.
-		*/
-		global $GALLERY_EMBEDDED_INSIDE_TYPE;
-
+		 * If loggedIn has the perm and we're logged in, then
+		 * we're ok also.
+		 */
 		$loggedIn = $gallery->userDB->getLoggedIn();
-		if (isset($perm[$loggedIn->getUid()]) && strcmp($gallery->user->getUid(), $everybody->getUid()) &&
-			! ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2' && $gallery->user->uid == -1)) {
+		if (isset($perm[$loggedIn->getUid()]) &&
+		    strcmp($gallery->user->getUid(), $everybody->getUid())) {
 		        return true;
 		}
 
