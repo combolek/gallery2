@@ -205,7 +205,7 @@ class Album {
 				$func .= "if (\$timeA < \$timeB) return -1; else return 1;";
 			} else {
 				$func .= "if (\$timeA > \$timeB) return -1; else return 1;";
-			}	
+			}    
 		} else if (!strcmp($sort, "filename")) {
 			$func = "\$objA = (object)\$a; \$objB = (object)\$b; ";
 			$func .= "if (\$objA->isAlbumName) { ";
