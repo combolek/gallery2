@@ -21,12 +21,15 @@
 <?
 class UserDB {
 	var $userMap;
+	var $nobody;
+	var $everybody;
 	
 	function UserDB() {
 		global $app;
 
-		$userMap = array();
-		$uidMap = array();
+		$this->userMap = array();
+		$this->nobody = new NobodyUser();
+		$this->everybody = new EverybodyUser();
 
 		if (!file_exists($app->userDir)) {
 			if (!mkdir($app->userDir, 0777)) {
@@ -54,6 +57,12 @@ class UserDB {
 			return;
 		}
 
+		if (!strcmp($username, $this->nobody->getUsername())) {
+			return $this->nobody;
+		} else if (!strcmp($username, $this->everybody->getUsername())) {
+			return $this->everybody;
+		}
+
 		$uid = $this->userMap[$username];
 		if (!$uid) {
 			$this->rebuildUserMap();
@@ -78,6 +87,12 @@ class UserDB {
 
 	function getUserByUid($uid) {
 		global $app;
+
+		if (!strcmp($uid, $this->nobody->getUid())) {
+			return $this->nobody;
+		} else if (!strcmp($uid, $this->everybody->getUid())) {
+			return $this->everybody;
+		}
 
 		if (file_exists("$app->userDir/$uid")) {
 			$user = new User();
@@ -158,6 +173,9 @@ class UserDB {
 			}
 		}
 
+		array_push($uidList, $this->nobody->getUid());
+		array_push($uidList, $this->everybody->getUid());
+
 		sort($uidList);
 		return $uidList;
 	}
@@ -176,6 +194,11 @@ class UserDB {
 			return "Username must contain only letters or digits";
 		}
 
+		if (!strcmp($username, $nobody->getUsername()) ||
+		    !strcmp($username, $everybody->getUsername())) {
+			return "<i>$username</i> is reserved and cannot be used.";
+		}
+
 		$user = $this->getUserByUsername($username);
 		if ($user) {
 			return "A user with the username of <i>$username</i> already exists";
@@ -190,6 +213,14 @@ class UserDB {
 		}
 
 		return null;
+	}
+
+	function getNobody() {
+		return $this->nobody;
+	}
+
+	function getEverybody() {
+		return $this->everybody;
 	}
 }
 
