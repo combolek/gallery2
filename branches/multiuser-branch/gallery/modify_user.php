@@ -32,28 +32,31 @@ if ($submit) {
 			}
 		}
 
-		if (strcmp($new_password1, $new_password2)) {
-			$gErrors["new_password2"] = "Passwords do not match!";
-			$errorCount++;
-		} else {
-			$gErrors["new_password1"] = $userDB->validPassword($new_password1);
-			if ($gErrors["new_password1"]) {
+		if ($new_password1 || $new_password2) {
+			if (strcmp($new_password1, $new_password2)) {
+				$gErrors["new_password2"] = "Passwords do not match!";
 				$errorCount++;
+			} else {
+				$gErrors["new_password1"] = $userDB->validPassword($new_password1);
+				if ($gErrors["new_password1"]) {
+					$errorCount++;
+				}
 			}
 		}
 
 		if (!$errorCount) {
-			$tmpUser = $userDB->getUser($old_uname);
+			$tmpUser = $userDB->getUserByUsername($old_uname);
 			$tmpUser->setUsername($uname);
 			$tmpUser->setFullname($fullname);
 			$tmpUser->setEmail($email);
 
 			// If a new password was entered, use it.  Otherwise leave
 			// it the same.
-			if ($password) {
-				$tmpUser->setPassword($password);
+			if ($new_password1) {
+				$tmpUser->setPassword($new_password1);
 			}
 			$tmpUser->save();
+
 			header("Location: manage_users.php");
 		}
 	} else if (!strcmp($submit, "Cancel")) {
@@ -61,7 +64,7 @@ if ($submit) {
 	}
 }
 
-$tmpUser = $userDB->getUser($uname);
+$tmpUser = $userDB->getUserByUsername($uname);
 if (!$tmpUser) {
 	error("Invalid user <i>$uname</i>");
 	exit;
