@@ -31,19 +31,10 @@
   <listitem>
    <para>
     Create two blank files, &htaccess; and
-    &config.php;.  The easiest way is to use the <command>touch
-    </command> command.
+    &config.php;.  The easiest way is to use the <filename>configure.sh</filename>
+    script.
     <screen>
-     cd gallery (cd to where you are installing Gallery)
-     touch config.php .htaccess
-    </screen>
-    Now, you need to chmod both of these files 0777.
-    <screen>
-     chmod 0777 config.php .htaccess
-    </screen>
-    You also need to chmod the <filename>setup/</filename> directory 0755.
-    <screen>
-     chmod 0755 setup
+     sh configure.sh
     </screen>
    </para>
   </listitem>
