@@ -65,7 +65,17 @@ class AlbumDB {
 			 */
 			foreach ($albumOrder as $name) {
 				if (fs_is_dir("$dir/$name")) {
-					$rootAlbum->addNestedAlbum($name);
+					/* 
+					 * All the kids of the new root need to be updated 
+					 */ 
+					$childAlbum = new Album(); 
+					$childAlbum->load($name); 
+	
+					if ($childAlbum->isRoot()) {
+						$rootAlbum->addNestedAlbum($name);
+						$childAlbum->fields["parentAlbumName"] = $rootName; 
+						$childAlbum->save(); 
+					}
 				}
 			}
 			$rootAlbum->save();
@@ -76,7 +86,7 @@ class AlbumDB {
 			 * The AlbumDB now only contains a pointer to the
 			 * root album.
 			 */
-			$this->rootAlbum = array($rootAlbum->fields["name"]);
+			$this->rootAlbum = $rootAlbum->fields["name"];
 			$this->save();
 		}
 	}
