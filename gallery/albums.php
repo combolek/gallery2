@@ -31,13 +31,13 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 
 <?php
 /* Read the album list */
-$albumDB = new AlbumDB();
+$albumDB = new AlbumDB(FALSE);
 $gallery->session->albumName = "";
 $page = 1;
 
 /* If there are albums in our list, display them in the table */
 $numAlbums = $albumDB->numAlbums($gallery->user);
-$numPhotos = $albumDB->numPhotos($gallery->user);
+$numPhotos = $albumDB->getCachedNumPhotos($gallery->user);
 
 if (!$gallery->session->albumListPage) {
 	$gallery->session->albumListPage = 1;
