@@ -268,6 +268,10 @@ function correctNobody($array) {
 	if (count($array) > 1) {
 		unset($array[$nobody->getUid()]);
 	}
+
+	if (count($array) == 0) {
+		$array[$nobody->getUid()] = $nobody->getUsername();
+	}
 }
 
 function correctEverybody($array) {
