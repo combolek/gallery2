@@ -231,6 +231,7 @@ class GalleryTemplateAdapter {
     function header($params, $content) { if (isset($content)) { return $this->_theme->header($params, $content); } }
     function pathbar($params, $content) { if (isset($content)) { return $this->_theme->pathbar($params, $content); } }
     function pathbaritem($params, $content) { if (isset($content)) { return $this->_theme->pathbaritem($params, $content); } }
+    function pathbarseparator($params) { return $this->_theme->pathbarseparator($params); }
     function main($params, $content) { if (isset($content)) { return $this->_theme->main($params, $content); } }
     function maintitle1($params, $content) { if (isset($content)) { return $this->_theme->maintitle1($params, $content); } }
     function mainbody1($params, $content) { if (isset($content)) { return $this->_theme->mainbody1($params, $content); } }

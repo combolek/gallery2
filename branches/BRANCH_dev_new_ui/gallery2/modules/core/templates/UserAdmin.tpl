@@ -2,10 +2,12 @@
   {gallery->pathbaritem}
     {gallery->text text="Your Account"}
   {/gallery->pathbaritem}
-  &raquo;
-  {gallery->pathbaritem}
-    {gallery->text text=$user.fullName|default:$user.userName}
-  {/gallery->pathbaritem}
+  {if ($show.userInPathbar)}
+    {gallery->pathbarseparator}
+    {gallery->pathbaritem}
+      {gallery->text text=$user.fullName|default:$user.userName}
+    {/gallery->pathbaritem}
+  {/if}
 {/gallery->pathbar}
 
 {gallery->main}

@@ -5,7 +5,7 @@
 	{$parent.title|default:$parent.pathComponent}
       {/gallery->link}
     {/gallery->pathbaritem}
-    &raquo;
+    {gallery->pathbarseparator}
   {/foreach}
   {gallery->pathbaritem}
     {gallery->link url_view='core:ShowItem' url_itemId=$item.id}
