@@ -20,7 +20,7 @@
  
       <tr>
         <td align="center" valign="middle">
-        {GLO.item.thumbnail.tag}
+        <img src="{GLO.item.thumbnail.url}" border="0" width="{GLO.item.thumbnail.width}" height="{GLO.item.thumbnail.height}">
         <br>
         <br>
         </td>
