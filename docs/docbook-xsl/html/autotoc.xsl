@@ -12,8 +12,6 @@
 
      ******************************************************************** -->
 
-<xsl:param name="toc-offset" select="0"/>
-
 <xsl:variable name="toc.listitem.type">
   <xsl:choose>
     <xsl:when test="$toc.list.type = 'dl'">dt</xsl:when>
@@ -236,7 +234,7 @@
       <xsl:otherwise>0</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  
+
   <xsl:variable name="depth.from.context" select="count(ancestor::*)-count($toc-context/ancestor::*)"/>
 
   <xsl:variable name="subtoc.list">
@@ -256,7 +254,6 @@
     <xsl:variable name="label">
       <xsl:apply-templates select="." mode="label.markup"/>
     </xsl:variable>
-    
     <xsl:copy-of select="$label"/>
     <xsl:if test="$label != ''">
       <xsl:value-of select="$autotoc.label.separator"/>

@@ -47,7 +47,7 @@ $albumDB = new AlbumDB(FALSE); // read album database
   <title><?php echo _("Move Photo") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <?php
 if ($gallery->session->albumName && isset($index)) {
@@ -58,9 +58,17 @@ if ($gallery->session->albumName && isset($index)) {
 	// and resized images already exist in the original directory, but the current method is an easy
 	// way to make sure all thumbnails and resized images are the correct size.
 
-        if (isset($newAlbum)) {	// we are moving from one album to another
+        if ($newAlbum) {	// we are moving from one album to another
             	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
 	    	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
+			//$startPhoto=$index;
+			//$endPhoto=$startPhoto+max($numPhotosToMove,1);
+
+			//if ($startPhoto > $endPhoto) { // the end photo value needs to be greater than the start value
+			//	dismissAndReload();
+			//	return;
+			//}
+			
 			if ($gallery->album->isAlbumName($index)) { // moving "album" to another location
 				if ($newAlbum == "ROOT") { // moving "album" to ROOT location
 					$myAlbum = $gallery->album->getNestedAlbum($index);
@@ -83,9 +91,6 @@ if ($gallery->session->albumName && isset($index)) {
 				}
 			} else { // moving "picture" to another album
 				$index = $startPhoto; // set the index to the first photo that we are moving.	
-				$votes_transferable=
-					$gallery->album->pollsCompatible($postAlbum);
-
 				while ($startPhoto <= $endPhoto) {
 					if (!$gallery->album->isAlbumName($index)) {
 					        set_time_limit($gallery->app->timeLimit);
@@ -98,6 +103,11 @@ if ($gallery->session->albumName && isset($index)) {
 						$mytype=$myphoto->image->type;
 						$myfile="$mydir/$myname.$mytype";
 						$myhidden=$myphoto->isHidden();
+						//print "mydir=".$mydir."<br>";
+						//print "myphoto=".$myphoto."<br>";
+						//print "myname=".$myname."<br>";
+						//print "mytype=".$mytype."<br>";
+						//print "myfile=".$myfile."<br>";
 						if (($postAlbum->fields["thumb_size"] == $gallery->album->fields["thumb_size"]) &&
 						    (!$myphoto->isMovie())) {
 							$pathToThumb="$mydir/$myname.thumb.$mytype";
@@ -108,20 +118,7 @@ if ($gallery->session->albumName && isset($index)) {
 						}
 						$photo=$gallery->album->getPhoto($index);
 
-						$id=$gallery->album->getPhotoId($index);
-
-						if (isset($gallery->album->fields["votes"][$id]) && 
-								$votes_transferable) {
-							$votes=$gallery->album->fields["votes"][$id];
-						} else {
-							$votes=NULL;
-						}
-
-						$err = $postAlbum->addPhoto($myfile, $mytype, $myname, 
-								$gallery->album->getCaption($index), 
-								$pathToThumb, $photo->extraFields, 
-								$gallery->album->getItemOwner($index),
-								$votes);
+						$err = $postAlbum->addPhoto($myfile, $mytype, $myname, $gallery->album->getCaption($index), $pathToThumb, $photo->extraFields, $gallery->album->getItemOwner($index));
 						if (!$err) {
 							$newPhotoIndex = $postAlbum->numPhotos(1);
 
@@ -146,11 +143,11 @@ if ($gallery->session->albumName && isset($index)) {
 									list($w, $h) = $photo->image->getRawDimensions();
 									$size = ($photo->image->rawFilesize($postAlbum->getAlbumDir()) / 1000);
 									if ($w > $postAlbum->fields["resize_size"] ||
-									    $h > $postAlbum->fields["resize_size"] ||
-									    $size > $postAlbum->fields["resize_file_size"]) {
+										$h > $postAlbum->fields["resize_size"] ||
+										$size > $postAlbum->fields["resize_file_size"]) {
 										if (($postAlbum->fields["resize_size"] == $gallery->album->fields["resize_size"]) &&
-										    ($postAlbum->fields["resize_file_size"] == $gallery->album->fields["resize_file_size"]) &&
-										   ($myresized)) {
+											($postAlbum->fields["resize_file_size"] == $gallery->album->fields["resize_file_size"]) &&
+											($myresized)) {
 											$pathToResized="$mydir/$myresized.$mytype";
 										} else {
 											$pathToResized="";
@@ -228,13 +225,13 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 ?>
 </select>
 <p>
-<input type="submit" value=<?php echo '"' . _("Move it!") . '"' ?>>
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=submit value=<?php echo '"' . _("Move it!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <p>
-<hr size="1">
+<hr size=1>
 <b><?php echo _("OR") ?></b>
-<hr size="1">
+<hr size=1>
 
 
 
@@ -264,12 +261,12 @@ if ($gallery->album->isAlbumName($index)) {
 ?>
 <table>
 <tr>
-<td align="center"><b><?php echo _("First") ?></b></td>
-<td align="center"><b><?php echo _("Last") ?></b></td>
-<td align="center"><b><?php echo _("New Album") ?></b></td>
+<td align=center><b><?php echo _("First") ?></b></td>
+<td align=center><b><?php echo _("Last") ?></b></td>
+<td align=center><b><?php echo _("New Album") ?></b></td>
 </tr>
 <tr>
-<td align="center">
+<td align=center>
 <select name="startPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -282,7 +279,7 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 ?>
 </select>
 </td>
-<td align="center">
+<td align=center>
 <select name="endPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -305,23 +302,15 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 </tr>
 </table>
 <?php
-	if (sizeof($gallery->album->fields["votes"]> 0)) {
-		if ($gallery->album->fields["poll_type"] == "rank") {
-			echo "<font color=red>". _("Note: items that have votes will lose these votes when moved to another album") . "</font>"; // can't move rank votes, doesn't  make sense.
-		} else {
-			echo "<font color=red>". _("Note: items that have votes will lose these votes if moved to an album with in compatible polling implemented.") . "</font>";
-		}
-	}
-
 } // end else
 if (!$uptodate) {
-	print '<span class="error"> <br>' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>  ' .
-	'<a href="'. makeGalleryUrl("upgrade_album.php").'"><br>'. _("Upgrade now") . '</a>.<p>';
+	print '<span class="error"> <br>' . _("WARNING: Some of the albums need to be upgraded to the current version of gallery.") . '</span>  ' .
+	'<a href='. makeGalleryUrl("upgrade_album.php").'><br>'. _("Upgrade now") . '</a>.<p>';
 }
 ?>
 <br>
-<input type="submit" value="<?php echo _("Move to Album!") ?>">
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=submit value=<?php echo '"' . _("Move to Album!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <?php
 }

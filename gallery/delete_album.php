@@ -53,7 +53,7 @@ if ($gallery->album) {
   <title><?php echo _("Delete Album") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Delete Album") ?></span>
@@ -64,7 +64,7 @@ if ($gallery->album) {
 <p>
 <?php echo makeFormIntro("delete_album.php"); ?>
 <input type="submit" name="delete" value="<?php echo _("Delete") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 <p>
 <?php

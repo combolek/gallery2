@@ -1,15 +1,15 @@
 <?php /* $Id$ */ ?>
-
-<input type="hidden" name="back_page" value="defaults">
-<input type="hidden" name="next_page" value="write">
-
-<div class="header"><?php echo sprintf (_("Gallery Setup: Step %d"),4); ?></div>
-
-<div class="sitedesc">
+<center>
+<font size=+2><?php echo _("Gallery Setup: Step 4") ?></font>
+<br>
+<table width=80%><tr><td>
 <?php 
-	echo _("Confirm that the settings you entered came through correctly.  If you find this page confusing, you can probably safely ignore it  (unless you see stuff in red which indicates an error)")
+echo _("Confirm that the settings you entered came through correctly.  If you find this page confusing, you can probably safely ignore it  (unless you see stuff in red which indicates an error)")
 ?>
-</div>
+</td></tr></table>
+
+<center>
+<table width=90% border=0>
 
 <?php
 require("../Version.php");
@@ -68,11 +68,10 @@ foreach ($outfile_list as $outfile) {
 		fclose($fd);
 	} else {
 		$docs=galleryDocs() ? galleryDocs() : _("documentation");
-		echo '<p class="errorlong">' .
-			_("Warning:") . "  " .
-			sprintf(_("You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."), 
-					"<i><b>".$outfile."</b></i>", $docs) . 
-			"</p>\n";
+		print "<font color=red><b>" . 
+			_("Warning:"). "</b>  " . sprintf(_("You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."), 
+					"<i><b>".$outfile."</b></i>", 
+					$docs). "<p>";
 	}
 }
 
@@ -90,10 +89,7 @@ foreach ($constants as $key => $val) {
 
 	if (isset($val["enabled"]) && $val["enabled"] == "no") continue;
 
-	if (isset($val["type"]) && 
-			($val["type"] == "block_start" || 
-			 $val["type"] == "block_end" || 
-			 $val["type"] == "separator")) { 
+	if (isset($val["type"]) && ($val["type"] == "block_start" || $val["type"] == "block_end")) { 
 		continue;
 	}
 	$bracketStart = strpos($key, '[');
@@ -101,16 +97,31 @@ foreach ($constants as $key => $val) {
 	if ($bracketStart > 0 && $bracketEnd > 0) {
 	        $line='$real = $'. substr($key, 0, $bracketStart) . '["' .
 		    substr($key, $bracketStart+1, $bracketEnd - $bracketStart - 1) . '"];';
-		eval($line);
+                eval($line);
 	} else {
 		$real = $$key;
 	}
 
         if (get_magic_quotes_gpc()) {
-		$real = array_stripslashes($real);
+		if (is_array($real)) {
+			if (function_exists('array_map')) {
+				$real = array_map('stripslashes', $real);
+			}
+		} else {
+			$real = stripslashes($real);
+		}
 	}
 
-	$real = array_str_replace('"', '&quot;', $real);
+	// Protect quote characters to avoid screwing up HTML forms
+	$real = str_replace('"', '&quot;', $real);
+
+	if (is_array($real)) {
+		foreach ($real as $value) {
+			echo "<input type=hidden name=${key}[] value=\"{$value}\">";
+		}
+	} else {
+		echo "<input type=hidden name=$key value=\"{$real}\">";
+	}
 
 	if (isset($constants[$key]["eval"])) {
 		$tmp = $constants[$key]["eval"];
@@ -132,7 +143,7 @@ foreach ($constants as $key => $val) {
 			$data .= "// ". _("optional") . " <i>$key</i> ". _("missing") ."\n";
 			$view .= row_wrap("// ". _("optional") ." <i>$key</i> ". _("missing"));
 		} else {
-			$view .= error_missing($constants[$key]["prompt"], $key)."<br>";
+			$view .= row_wrap(error_missing($constants[$key]["prompt"]));
 			$error = 1;
 		}
 	} else {
@@ -149,7 +160,7 @@ foreach ($constants as $key => $val) {
 
 		if (isset($constants[$key]["must-be-url"])) {
 			if (!ereg("^http", $real)) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be an absolute URL!"), $key, $real)));
+				$view .= row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be an absolute URL!"), $key, $real)));
 				$error = 1;
 				continue;
 			}
@@ -161,7 +172,7 @@ foreach ($constants as $key => $val) {
 				$warn_about_open_basedir = 1;
 			} else {
 				if (!@is_file($real)) {
-					$view .= error_row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be a valid file (not a directory)!"), $key, $real)));
+					$view .= row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be a valid file (not a directory)!"), $key, $real)));
 					$error = 1;
 					continue;
 				}
@@ -170,7 +181,7 @@ foreach ($constants as $key => $val) {
 
 		if (isset($constants[$key]["must-be-number"])) {
 			if (ereg("[^0-9]",$real)) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s: <b>&quot;%s&quot;</b> must be a positive number"), $key, $real)));
+				$view .= row_wrap(error_format(sprintf(_("%s: <b>&quot;%s&quot;</b> must be a positive number"), $key, $real)));
 				$error = 1;
 				continue;
 			}
@@ -178,7 +189,7 @@ foreach ($constants as $key => $val) {
 
 		if (isset($constants[$key]["must-not-be-zero"])) {
 			if ($real == 0) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s: <b>%s</b> must not be zero"), $key, $real)));
+				$view .= row_wrap(error_format(sprintf(_("%s: <b>%s</b> must not be zero"), $key, $real)));
 				$error = 1;
 				continue;
 			}
@@ -188,7 +199,7 @@ foreach ($constants as $key => $val) {
 			if (!inOpenBasedir($dir)) {
 				$warn_about_open_basedir = 1;
 			} else if (!fs_is_executable($real)) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be an executable file!"), $key, $real)));
+				$view .= row_wrap(error_format(sprintf(_("%s: <b>%s</b> must be an executable file!"), $key, $real)));
 				$error = 1;
 				continue;
 			}
@@ -197,20 +208,20 @@ foreach ($constants as $key => $val) {
 		if (isset($constants[$key]["require-write-dir"])) {
 			$dir = $real;
 			if (!file_exists($dir)) {
-				$view .= error_row_wrap(error_format(sprintf(_("Directory %s does not exist.  Please create it."), "<b>$dir</b>")));
+				$view .= row_wrap(error_format(sprintf(_("Directory %s does not exist.  Please create it."), "<b>$dir</b>")));
 				$error = 1;
 				continue;
 			}
 
 			if (!is_dir($dir)) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s exists but is not a directory.  Please fix this."), "<b>$dir</b>")));
+				$view .= row_wrap(error_format(sprintf(_("%s exists but is not a directory.  Please fix this."), "<b>$dir</b>")));
 				$error = 1;
 				continue;
 			}
 
 			if (!is_writeable($dir) ||
 			    !test_write_to_dir($dir)) {
-				$view .= error_row_wrap(error_format(sprintf(_("%s: %s exists, but is not writeable by the webserver user.  Try: %s or if that doesn't work: %s.  Also make sure that if you have an %s restriction then this tmp directory should be under the %s path"),
+				$view .= row_wrap(error_format(sprintf(_("%s: %s exists, but is not writeable by the webserver user.  Try: %s or if that doesn't work: %s.  Also make sure that if you have an %s restriction then this tmp directory should be under the %s path"),
 						$key, $dir,
 						"<br><b><code>" .
 						"chown -R " . $webserver_user . " $dir" .
@@ -244,11 +255,11 @@ foreach ($constants as $key => $val) {
 			}
 			
 			foreach ($fail as $fkey => $fval) {
-				$view .= error_row_wrap(error_format($constants[$key][$fkey]));
+				$view .= row_wrap(error_format($constants[$key][$fkey]));
 				if (is_array($fval)) {
 					foreach ($fval as $msg) {
 						if ($val) {
-							$view .= error_row_wrap(error_format($msg));
+							$view .= row_wrap(error_format($msg));
 						}
 					}
 				}
@@ -276,7 +287,7 @@ if (!strcmp($graphtool, "NetPBM") && empty($graphtest['pnmDir'])) {
 	if (inOpenBasedir($graphpath)) {
 		if (!fs_file_exists(fs_executable($graphpath . "/" . $pnmtojpeg))) {
 			$error = 1;
-			$view .= error_row_wrap(error_format(
+			$view .= row_wrap(error_format(
 				sprintf(_("Could not find %s.  Check your NetPBM directory to see which PNG->JPEG converter you have (or just try using %s instead).  Please check your configuration (or use ImageMagick)."),
 					"<i>$graphpath/$pnmtojpeg</i>",
 					($pnmtojpeg == "pnmtojpeg" ? "ppmtojpeg" : "pnmtojpeg"))));
@@ -289,13 +300,13 @@ if (!strcmp($graphtool, "NetPBM") && empty($graphtest['pnmDir'])) {
  * chose is configured properly.
  */
 if (!empty($graphtest['pnmDir']) && !empty($graphtest['ImPath'])) {
-    $view .= error_row_wrap(error_format(_("You must specify one of <i>pnmDir</i> or <i>ImPath</i> for Gallery to function!!")));
+    $view .= row_wrap(error_format(_("You must specify one of <i>pnmDir</i> or <i>ImPath</i> for Gallery to function!!")));
     $error = 1;
 } else if (!strcmp($graphtool, "ImageMagick") && !empty($graphtest['ImPath'])) {
-    $view .= error_row_wrap(error_format(sprintf(_("%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."),"ImageMagick","ImageMagick")));
+    $view .= row_wrap(error_format(sprintf(_("%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."),"ImageMagick","ImageMagick")));
     $error = 1;
 } else if (!strcmp($graphtool, "NetPBM") && !empty($graphtest['pnmDir'])) {
-    $view .= error_row_wrap(error_format(sprintf(_("%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."),"NetPBM","NetPBM")));
+    $view .= row_wrap(error_format(sprintf(_("%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."),"NetPBM","NetPBM"))); 
     $error = 1;
 }
 
@@ -313,48 +324,32 @@ $view .= row_wrap("&nbsp;");
 $data .= "/* Defaults */\n";
 $view .= row_wrap("/* Defaults */\n");
 foreach ($defaults as $key => $val) {
-	if (isset($val["type"]) && 
-			($val["type"] == "block_start" || 
-			 $val["type"] == "block_end" || 
-			 $val["type"] == "separator")) { 
-		continue;
-	}
-	if (isset($val["type"]) && $val["type"] == "separator") continue;
-
 	if (!$$key && !isset($defaults[$key]["optional"])) {
-		$view .= error_missing($defaults[$key]["prompt"], $key);
+		$view .= error_missing($defaults[$key]["prompt"]);
 		$error = 1;
 	} else {
 	        if (get_magic_quotes_gpc()) {
-			$$key = array_stripslashes($$key);
+			if (is_array($$key)) {
+				if (function_exists('array_map')) {
+					$$key = array_map(stripslashes, $$key);
+				}
+			} else {
+				$$key = stripslashes($$key);
+			}
 		}
 		// Protect quote characters to avoid screwing up HTML forms
-		$$key = array_str_replace('"', '&quot;', $$key);
+		$$key = str_replace('"', '&quot;', $$key);
 		
-		if (is_array($$key)) {
-			foreach ($$key as $sub_key => $sub_value) {
-				if (is_array ($sub_value)) {
-					foreach ($sub_value as $sub_sub_key
-							=> $sub_sub_value) {
-			$string="\$gallery->app->default[\"$key\"][$sub_key][\"$sub_sub_key\"] = \"$sub_sub_value\";\n";
-			$data .= $string;
-			$view .= row_wrap($string);
-					}
-				}
-			}
-		} else {
-			$data .= defaults($key, $$key);
-			$view .= row_wrap(defaults($key, $$key));
-		}
+		$data .= defaults($key, $$key);
+		$view .= row_wrap(defaults($key, $$key));
 		if (isset($defaults[$key]["verify-func"])) {
 			$func = $defaults[$key]["verify-func"];
 			list($success, $fail) = $func($$key);
 			foreach ($fail as $fkey => $fval) {
-				$view .= error_row_wrap(error_format($fval));
 				if (is_array($fval)) {
 					foreach ($fval as $msg) {
 						if ($val) {
-							$view .= error_row_wrap(error_format($msg));
+							$view .= row_wrap(error_format($msg));
 						}
 					}
 				}
@@ -362,33 +357,34 @@ foreach ($defaults as $key => $val) {
 			}
 		}
 	}
+	echo "<input type=hidden name=$key value=\"{$$key}\">";
 
 }
 $data .= "?" . ">\n";
 ?>
 
-<p align="center">
-	<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
+<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
 <?php if (!$error) { ?>
  <input type=submit name="go_next" value="<?php echo _("Save Config") ?> ->">
 <?php } ?>
-</p>
 
 <pre>
 <?php echo $view; ?>
 
-<input type="hidden" name="data" value="<?php echo urlencode($data) ?>">
+<input type=hidden name=data value=<?php echo urlencode($data) ?>>
 </pre>
+</table>
 
-<div align="center">
-<input type="submit" name="go_back" value="<- <?php echo _("Edit Config") ?>">
-<?php if (!$error) {
-	echo '<input type=submit name="go_next" value="'. _("Save Config") . '->">';
-} else {
-	echo '<p class="error" id="bottom">';
-	echo _("There are errors in your configuration.");
-	echo '<br>' . _("Please go back and fix them!");
-	echo '</p>';
-} ?>
-</div>
+<input type=hidden name=back_page value="defaults">
+<input type=hidden name=next_page value="write">
+<p>
+<input type=submit name="go_back" value="<- <?php echo _("Edit Config") ?>">
+<?php if (!$error) { ?>
+ <input type=submit name="go_next" value="<?php echo _("Save Config") ?> ->">
+<?php } else { ?>
+<br>
+<font color=red><?php echo _("There are errors in your configuration.") ?>
+<br>
+<?php echo _("Please go back and fix them!") ?></font>
+<?php } ?>
 

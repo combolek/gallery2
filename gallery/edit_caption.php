@@ -55,7 +55,7 @@ if (isset($save)) {
 			if (get_magic_quotes_gpc()) {
 				$value=stripslashes($value);    
 			}
-			$gallery->album->setExtraField($index, $field, trim($value));
+			$gallery->album->setExtraField($index, $field, trim(strip_tags($value)));
 		}
 		$gallery->album->save();
 		dismissAndReload();
@@ -72,7 +72,7 @@ if (isset($save)) {
   <title><?php echo _("Edit Text") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
@@ -171,7 +171,7 @@ echo "</td>";
 </table>
 <br><br>
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 
 
 </form>

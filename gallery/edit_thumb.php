@@ -30,9 +30,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 }
 ?>
 <?php
-if (!isset($GALLERY_BASEDIR)) {
-    $GALLERY_BASEDIR = './';
-}
 require($GALLERY_BASEDIR . "init.php");
 
 // Hack check
@@ -71,7 +68,7 @@ if ($action == "doit") {
 } else {
 	#-- show the applet ---
 ?>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <span class="popuphead"><?php echo _("Custom Thumbnail") ?></span>
 <br>

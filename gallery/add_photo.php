@@ -75,8 +75,9 @@ if ($userfile_name) {
 	}
 	?>
 	<p><center><form>
-	<input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
+	<input type="button" value="<?php echo _("Dismiss") ?>" onclick="parent.close()">
 	</form></center>
+
 <script language="Javascript">
 <!--
 opener.hideProgressAndReload();
@@ -84,7 +85,7 @@ opener.hideProgressAndReload();
 </script>
 
 <?php
-	reload();
+reload();
 }
 
 else
@@ -139,7 +140,7 @@ foreach ($gallery->album->getExtraFields() as $field) {
 <br>
 <center>
 <input type="button" value="<?php echo _("Upload Now") ?>" onClick='opener.showProgress(); document.upload_form.submit()'>
-<input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </center>
 </form>
 <?php } ?>
