@@ -108,7 +108,26 @@ class ItemAddChildrenControllerTest extends GalleryControllerTestCase {
 	}
 
 	/* Verify item attributes (like order weight) */
-	$this->assert(false);
+	list ($ret, $ids) = $this->_rootAlbum->fetchChildIds();
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$seenWeights = array();
+	foreach ($ids as $id) {
+	    list ($ret, $viewCount) = GalleryItemAttributesMap::fetchViewCount($id);
+	    if ($ret->isError()) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $this->assertEquals(0, $viewCount);
+	    
+	    list ($ret, $orderWeight) = GalleryItemAttributesMap::fetchOrderWeight($id);
+	    if ($ret->isError()) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $this->assert(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
+	    $seenWeights[$orderWeight] = 1;
+	}	    
     }
 
     function testAddChildrenFromLocalServer() {
@@ -139,6 +158,28 @@ class ItemAddChildrenControllerTest extends GalleryControllerTestCase {
 	foreach ($files as $file) {
 	    $this->assertEquals($results['status']['addFromLocalServer'][$i]['fileName'], $file);
 	    $i++;
+	}
+
+	/* Verify item attributes (like order weight) */
+	list ($ret, $ids) = $this->_rootAlbum->fetchChildIds();
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$seenWeights = array();
+	foreach ($ids as $id) {
+	    list ($ret, $viewCount) = GalleryItemAttributesMap::fetchViewCount($id);
+	    if ($ret->isError()) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $this->assertEquals(0, $viewCount);
+	    
+	    list ($ret, $orderWeight) = GalleryItemAttributesMap::fetchOrderWeight($id);
+	    if ($ret->isError()) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $this->assert(!isset($seenWeights[$orderWeight]), 'Seen this weight before');
+	    $seenWeights[$orderWeight] = 1;
 	}
     }
 }
