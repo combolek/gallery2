@@ -28,13 +28,13 @@
  */
 
 /**
- * This view will present the available options to administrate an item/album
+ * This view will present the available options to administrate a user
  *
  * @package GalleryCore
  * @subpackage UserInterface
  *
  */
-class ItemAdminView extends GalleryView {
+class UserAdminView extends GalleryView {
 
     /**
      * @see GalleryView::renderHead
@@ -44,7 +44,7 @@ class ItemAdminView extends GalleryView {
 	
 	/* Render the HTML head */
 	$template = $this->_getTemplate();
-	list($ret, $html) = $template->render('ItemAdminHead.tpl');
+	list($ret, $html) = $template->render('UserAdminHead.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);
 	}
@@ -58,44 +58,21 @@ class ItemAdminView extends GalleryView {
     function renderBody($form, $status) {
 	global $gallery;
 
-	/* Figure out the item we're referring to */
-	$itemId = GalleryUtilities::getRequestVariables('itemId');
-	list ($ret, $item) = $gallery->loadEntitiesById($itemId);
+	$userId = $gallery->getActiveUserId();
+
+	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
-	/* Find its thumbnail */
-	list ($ret, $thumbnailTable) =
-		GalleryDerivativeHelper::fetchThumbnailsByItemIds(array($itemId));
+	if ($userId == $anonymousUserId) {
+	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	}
+	
+	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if (empty($thumbnailTable)) {
-	    $thumbnailData = null;
-	} else {
-	    $thumbnail = $thumbnailTable[$itemId];
-
-	    /*
-	     * Rebuild the cache if it's not current, so that we can make sure
-	     * that we've got the appropriate thumbnail dimensions
-	     */
-	    list ($ret, $rebuilt) =
-		GalleryDerivativeHelper::rebuildCacheIfNotCurrent($thumbnail->getId());
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
 	    
-	    $thumbnailData = $thumbnail->getMemberData();
-	    
-	    /* Generate scaled dimensions for our thumbnail to fit our page */
-	    list ($thumbnailData['width'],
-		  $thumbnailData['height']) =
-		GalleryUtilities::shrinkDimensionsToFit(200,	
-							$thumbnailData['width'],
-							$thumbnailData['height']);
-	}
-
 	/* Load the module list */
 	list ($ret, $moduleStatus) = $gallery->getModuleStatus();
 	if ($ret->isError()) {
@@ -115,7 +92,7 @@ class ItemAdminView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    list ($ret, $moduleViews) = $module->getItemAdminViews($item);
+	    list ($ret, $moduleViews) = $module->getUserAdminViews($user);
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -143,28 +120,12 @@ class ItemAdminView extends GalleryView {
 	    $subViewHtml = '';
 	}
 
-	/* Get the type of the item */
-	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-	    $itemType = 'album';
-	} else {
-	    $itemType = 'item';
-	}
-
-	/* Load the item's parents */
-	list ($ret, $parents) = $item->fetchParents();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	/* Render our HTML body */
 	$template = $this->_getTemplate();
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('parents', $parents);
-	$template->setVariable('itemType', $itemType);
-	$template->setVariable('thumbnail', $thumbnailData);
+	$template->setVariable('user', $user->getMemberData());
 	$template->setVariable('subViewChoices', $subViewChoices);
 	$template->setVariable('subViewHtml', $subViewHtml);
-	list($ret, $html) = $template->render('ItemAdmin.tpl');
+	list($ret, $html) = $template->render('UserAdmin.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);
 	}

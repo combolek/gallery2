@@ -645,8 +645,9 @@ class CoreModule extends GalleryModule {
 			     'params' => array_merge(array('view' => 'core:Login'),
 						     $params));
 	} else {
-	    $links[] = array('text' => $this->translate('preferences'),
-			     'params' => array_merge(array('view' => 'core:UserPreferences'),
+	    $links[] = array('text' => $this->translate('your account'),
+			     'params' => array_merge(array('view' => 'core:UserAdmin',
+							   'subView' => 'core:UserPreferences'),
 						     $params));
 	    $links[] = array('text' => $this->translate('logout'),
 			     'params' => array_merge(array('controller' => 'core:Logout'),
@@ -671,6 +672,34 @@ class CoreModule extends GalleryModule {
 				 'view' => 'core:AdminModules')));
     }
 
+    /**
+     * @see GalleryModule::getItemAdminViews();
+     */
+    function getUserAdminViews($user) {
+	global $gallery;
+	
+	$views = array();
+
+	list ($ret, $isAdmin) = GalleryUserGroupMap::isUserInSiteAdminGroup();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if ($isAdmin || $user->getId() != $anonymousUserId) {
+	    $views[] = array('name' => $this->translate('Account Settings'),
+			     'view' => 'core:UserPreferences');
+	    $views[] = array('name' => $this->translate('Change Password'),
+			     'view' => 'core:UserChangePassword');
+	}
+
+	return array(GalleryStatus::success(), $views);
+    }
+	
     /**
      * @see GalleryModule::getItemAdminViews();
      */
@@ -703,6 +732,10 @@ class CoreModule extends GalleryModule {
 	    if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	        $views[] = array('name' => $this->translate('Album Settings'),
 				 'view' => 'core:ItemEditAlbum');
+
+	        $views[] = array('name' => $this->translate('Reorder Items'),
+				 'view' => 'core:ItemReorder');
+		
 	    }
 
 	    if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
