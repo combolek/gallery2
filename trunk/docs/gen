@@ -5,8 +5,6 @@ case $1 in
 	html)
 		echo "Generating HTML Manual...";
 		
-		gen_date
-
 		if [ ! -d $DIST/html ]; then
 			mkdir -p $DIST/html;
 		fi
