@@ -110,7 +110,7 @@ class AdminCreateUserController extends GalleryController {
 		if (!empty($form['password1']) &&
 		        !empty($form['password2']) &&
 		        $form['password1'] != $form['password2']) {
-		    GalleryUtilities::putRequestVariable('form.error.password.mismatch', 1);
+		    GalleryUtilities::putRequestVariable('form.error.password2.mismatch', 1);
 		}
 	    }
 	}
