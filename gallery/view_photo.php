@@ -19,6 +19,12 @@
  */
 ?>
 <?
+// Hack check
+if (!$user->canReadAlbum($album)) {
+	header("Location: albums.php");
+	return;
+}
+
 if ($id) {
 	$index = $album->getPhotoIndex($id);
 	if ($index == -1) {
@@ -32,7 +38,7 @@ if ($full) {
 	$fullTag = "?full=1";
 }
 
-$numPhotos = $album->numPhotos($user->canWriteAlbum($album));
+$numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
 $next = $index+1;
 if ($next > $numPhotos) {
 	//$next = 1;
@@ -137,7 +143,7 @@ includeHtmlWrap("photo.header");
 <td>
 <?
 if (!$album->isMovie($index)) {
-	if ($user->canWriteAlbum($album)) {
+	if ($user->canWriteToAlbum($album)) {
 		$adminCommands .= "<a href=".popup("../resize_photo.php?index=$index").">[resize photo]</a>";
 	}
 
