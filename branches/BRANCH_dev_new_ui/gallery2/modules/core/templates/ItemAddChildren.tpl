@@ -1,22 +1,7 @@
-{if !empty($form.localServerFiles)}
-<script type="text/javascript" language="javascript">
-  function toggleSelections() {ldelim}
-      form = document.forms[0];
-      state = form.elements['{gallery->elementName name="selectionToggle"}'].checked;
-      {foreach from=$form.localServerFiles item=file}
-      form.elements['{gallery->elementName name="form.localServerFiles.`$file.fileKey`"}'].checked = state;
-      {/foreach}
-  {rdelim}
-</script>
-{/if}
+... doesn't work because we're inside a component block from itemadmin
+... perhaps use some kind of meta-global tag that gets picked up by the global
+    file?
 
-{if $ItemAddChildren.mode == 'fromLocalServer'}
-<script type="text/javascript" language="javascript">
-  function selectPath(path) {ldelim}
-      document.forms[0].elements['{gallery->elementName name="form.localServerPath"}'].value = path;
-  {rdelim}
-</script>
-{/if}
 
 {gallery->bannerbox}
   {gallery->title}
@@ -68,6 +53,26 @@
   {/if}
   
   {gallery->body}
+    {if !empty($form.localServerFiles)}
+      <script type="text/javascript" language="javascript">
+        function toggleSelections() {ldelim}
+          form = document.forms[0];
+          state = form.elements['{gallery->elementName name="selectionToggle"}'].checked;
+      {foreach from=$form.localServerFiles item=file}
+          form.elements['{gallery->elementName name="form.localServerFiles.`$file.fileKey`"}'].checked = state;
+      {/foreach}
+        {rdelim}
+      </script>
+    {/if}
+  
+    {if ($ItemAddChildren.mode == 'fromLocalServer')}
+      <script type="text/javascript" language="javascript">
+        function selectPath(path) {ldelim}
+          document.forms[0].elements['{gallery->elementName name="form.localServerPath"}'].value = path;
+        {rdelim}
+      </script>
+    {/if}
+
     {if $ItemAddChildren.mode == 'fromBrowser'}
       {gallery->detailedbox}
 	{gallery->description}
@@ -160,15 +165,15 @@
 			{gallery->text text="modify"}
 		      {/gallery->link}
 		    {/if}
-		    {gallery->listing}
+		    {gallery->listingbox}
 		      {foreach from=$ItemAddChildren.localServerDirList item=dir}
-			{gallery->listingitem}
+			{gallery->item}
 			  {gallery->link javascript="selectPath('$dir')"}
 			    {$dir}
 			  {/gallery->link}
-			{/gallery->listingitem}
+			{/gallery->item}
 		      {/foreach}
-		    {/gallery->listing}
+		    {/gallery->listingbox}
 		    {gallery->input type="submit" name="form.action.findFilesFromLocalServer"}{gallery->text text="Find Files"}{/gallery->input}
 		  {/gallery->body}
 		{/gallery->widget2}
@@ -183,21 +188,24 @@
 		    {/gallery->link}
 		    {gallery->input type="hidden" name="form.localServerPath"}{$form.localServerPath}{/gallery->input}
 		  {/gallery->title}
+		  {gallery->description}
+		    {gallery->text one="%d file found" many="%d files found" count=$ItemAddChildren.localServerFileCount arg1=$ItemAddChildren.localServerFileCount}
+		  {/gallery->description}
 		  {gallery->body}
 		    {gallery->table}
 		      {gallery->row}
-			{gallery->columnheader}
+			{gallery->column header="true"}
 			  {gallery->input name="selectionToggle" type="checkbox" onChange="javascript:toggleSelections()"}{/gallery->input}
-			{/gallery->columnheader}
-			{gallery->columnheader}
+			{/gallery->column}
+			{gallery->column header="true"}
 			  {gallery->text text="File name"}
-			{/gallery->columnheader}
-			{gallery->columnheader}
+			{/gallery->column}
+			{gallery->column header="true"}
 			  {gallery->text text="Type"}
-			{/gallery->columnheader}
-			{gallery->columnheader}
+			{/gallery->column}
+			{gallery->column header="true"}
 			  {gallery->text text="Size"}
-			{/gallery->columnheader}
+			{/gallery->column}
 		      {/gallery->row}
 
 		      {foreach from=$form.localServerFiles item=file}

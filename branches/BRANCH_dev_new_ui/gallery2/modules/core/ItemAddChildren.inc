@@ -320,6 +320,7 @@ class ItemAddChildrenView extends GalleryView {
 			      'itemType' => $mimeTypeItemMap[$mimeType]->itemTypeName(),
 			      'fileKey' => htmlentities($fileName));
 		}
+		$localServerFileCount = sizeof($form['localServerFiles']);
 	    }
 	}
 
@@ -328,6 +329,10 @@ class ItemAddChildrenView extends GalleryView {
 	$ItemAddChildren['mode'] = $mode;
 	$ItemAddChildren['isAdmin'] = $isAdmin;
 	$ItemAddChildren['localServerDirList'] = $localServerDirList;
+	if (isset($localServerFileCount)) {
+	    $ItemAddChildren['localServerFileCount'] = $localServerFileCount;
+	}
+	
 	$template->setVariable('ItemAddChildren', $ItemAddChildren);
 
 	if ($mode == 'fromBrowser') {
