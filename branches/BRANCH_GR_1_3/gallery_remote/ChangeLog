@@ -1,3 +1,16 @@
+2004-02-27  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b7)
+
+	* Added support for Basic auth username and password embedded in
+	  URL, such as http://user:pass@server/path/. This is obviously
+	  an insecure way of storing passwords. Thanks to Mindstorm for
+	  letting me test on his server.
+	* Fixed a bunch of niggles with the Auth dialog.
+	* Added flushing of the JTree when adding a new
+	  album. It's better than fetching the albums again from the server
+	  but it loses album state. I spent two days trying to debug this
+	  but I can't crack this problem of the JTree not refreshing.
+	  Help needed!
+
 2004-02-25  Pierre-Luc Paour <gallery@paour.com> (1.3.2-b6)
 
 	* Solved a very long-standing problem where I didn't know how

@@ -130,6 +130,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 				triedLogin = true;
 
 				HTTPConnection mConnection = new HTTPConnection(url);
+				addUserInfo(mConnection, url);
 				HTTPResponse rsp = mConnection.Post(urlPath, form_data);
 
 				if (rsp.getStatusCode() >= 300 && rsp.getStatusCode() < 400) {
@@ -235,6 +236,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 				NVPair[] hdrs = new NVPair[1];
 				byte[] data = Codecs.mpFormDataEncode(opts, afile, hdrs);
 				HTTPConnection mConnection = new HTTPConnection(url);
+				addUserInfo(mConnection, url);
 				HTTPResponse rsp = mConnection.Post(urlPath, data, hdrs);
 
 				if (rsp.getStatusCode() >= 300 && rsp.getStatusCode() < 400) {

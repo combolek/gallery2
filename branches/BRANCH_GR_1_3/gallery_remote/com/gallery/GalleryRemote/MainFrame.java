@@ -760,6 +760,7 @@ public class MainFrame extends JFrame
 
 				//SwingUtilities.invokeLater(new Runnable() {
 				//	public void run() {
+
 				Log.log(Log.LEVEL_TRACE, MODULE, "Selecting " + newAlbumName);
 
 				TreePath path = getCurrentGallery().getPathForAlbum(getCurrentGallery().getAlbumByName(newAlbumName));
