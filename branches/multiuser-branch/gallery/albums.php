@@ -146,16 +146,22 @@ for ($i = $start; $i <= $end; $i++) {
   <br>
 
   <? if ($user->canDeleteAlbum($album)) { ?>
-  <span class="admin">
-   <a href=<?= popup("delete_album.php?set_albumName={$tmpAlbumName}")?>>[delete album]</a>
-  </span>
+   <span class="admin">
+    <a href=<?= popup("delete_album.php?set_albumName={$tmpAlbumName}")?>>[delete album]</a>
+   </span>
   <? } ?>
 
   <? if ($user->canWriteAlbum($album)) { ?>
-  <span class="admin">
-   <a href=<?= popup("move_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[move album]</a>
-   <a href=<?= popup("rename_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[rename album]</a>
-  </span>
+   <span class="admin">
+    <a href=<?= popup("move_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[move album]</a>
+    <a href=<?= popup("rename_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[rename album]</a>
+   </span>
+  <? } ?>
+
+  <? if ($user->isAdmin() || $user->isOwnerOfAlbum($album)) { ?>
+   <span class="admin">
+    <a href=<?= popup("album_permissions.php?set_albumName={$tmpAlbumName}")?>>[permissions]</a>
+   </span>
 
   <br>
   url: <a href=<?=$albumURL?>><?=$albumURL?></a>
