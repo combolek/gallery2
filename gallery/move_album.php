@@ -21,25 +21,34 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 if (!isset($reorder)) {
 	$reorder = 0;
 }
-
-doctype();
 ?>
+
 <html>
 <head>
   <title><?php echo _("Move Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -53,25 +62,14 @@ if ($gallery->session->albumName && isset($index)) {
 		if ($gallery->album->fields['name'] != $newAlbum) {
 			$old_parent=$gallery->album->fields['parentAlbumName'];
 			$gallery->album->fields['parentAlbumName'] = $newAlbum;
-			// Regenerate highlight if needed..
-			if ($gallery->app->highlight_size != $newAlbum->fields["thumb_size"]) {
-				$hIndex = $gallery->album->getHighlight();
-				if (isset($hIndex)) {
-					$hPhoto =& $gallery->album->getPhoto($hIndex);
-					$hPhoto->setHighlight($gallery->album->getAlbumDir(), true, $gallery->album);
-				}
-			}
 			if ($old_parent== 0) {
-				$old_parent=".root";
+				$old_parent="ROOT";
 			}
 			$gallery->album->save(array(i18n("Album moved from %s to %s"),
 						$old_parent,
 						$newAlbum));
-			$newAlbum = $albumDB->getAlbumByName($newAlbum);
+			$newAlbum = $albumDB->getAlbumbyName($newAlbum);
 			$newAlbum->addNestedAlbum($gallery->album->fields['name']);
-			if ($newAlbum->numPhotos(1) == 1) {
-				$newAlbum->setHighlight(1);
-			}
 			$newAlbum->save(array(i18n("New subalbum %s, moved from %s"),
 						$gallery->album->fields['name'], 
 						$old_parent));
@@ -89,18 +87,14 @@ if ($gallery->session->albumName && isset($index)) {
 ?>
 
 <center>
-<p class="popuphead"><?php echo _("Move Album") ?></p>
-
-<div class="popup">
+<span class="popup">
 <?php echo _("Select the new location of album") ?> <?php echo $gallery->album->fields["title"] ?>:
 
 <?php
-   
-echo '<p>' .  $gallery->album->getHighlightTag() . '</p>';
-
-if ($reorder) { // Reorder, intra-album move
-	echo makeFormIntro("move_album.php", array("name" => "theform")); 
+    echo '<br><br>' .  $gallery->album->getHighlightTag() . '<br><br>';
 ?>
+<?php if ($reorder) { // Reorder, intra-album move ?>
+<?php echo makeFormIntro("move_album.php", array("name" => "theform")); ?>
 <input type="hidden" name="index" value="<?php echo $index ?>">
 <select name="newIndex">
 <?php
@@ -121,9 +115,9 @@ for ($i = 1; $i <= $numAlbums; $i++) {
 <?php
 }
 if (!$reorder) { // Reorder, trans-album move
-	echo _("Nest within another Album:") 
 ?>
-
+<?php echo _("Nest within another Album:") ?>
+<p>
 <?php echo makeFormIntro("move_album.php", array("name" => "move_to_album_form")); ?>
 <input type="hidden" name="index" value="<?php echo $index ?>">
 <select name="newAlbum">
@@ -131,18 +125,16 @@ if (!$reorder) { // Reorder, trans-album move
 printAlbumOptionList(0,1)  
 ?>
 </select>
-<br><br>
-
+<br>
+<br>
 <input type="submit" name="move" value="<?php echo _("Move to Album!") ?>">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <?php
 } // End Reorder
-echo "</div>";
-echo "</center>";
 	}
 } else {
-	echo gallery_error(_("no album / index specified"));
+	gallery_error(_("no album / index specified"));
 }
 ?>
 
@@ -153,7 +145,6 @@ document.theform.newIndex.focus();
 //-->
 </script>
 
-
-<?php print gallery_validation_link("move_album.php", true, array('index' => $index)); ?>
+</span>
 </body>
 </html>

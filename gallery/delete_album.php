@@ -21,17 +21,24 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canDeleteAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
-
-doctype();
-echo "\n<html>";
 
 if (!empty($delete)) {
 	$gallery->album->delete();
@@ -41,16 +48,18 @@ if (!empty($delete)) {
 
 if ($gallery->album) {
 ?>
+
+<html>
 <head>
   <title><?php echo _("Delete Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo _("Delete Album") ?></p>
-
-<div class="popup">
+<span class="popuphead"><?php echo _("Delete Album") ?></span>
+<br><br>
+<span class="popup">
 <?php echo _("Do you really want to delete this album?") ?>
 <br>
 <b><?php echo $gallery->album->fields["title"] ?></b>
@@ -65,12 +74,10 @@ if ($gallery->album) {
 		echo $gallery->album->getHighlightTag();
 	}
 } else {
-	echo gallery_error(_("no album specified"));
+	gallery_error(_("no album specified"));
 }
 ?>
 
-</div>
-</center>
-<?php print gallery_validation_link("delete_album.php"); ?>
+</span>
 </body>
 </html>

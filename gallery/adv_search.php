@@ -21,23 +21,19 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation")."\n";
+	exit;
+}
+?>
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
-
-/*
-!!
-!!
-!!
-!!  2004-05-23:   adv_search.php has been broken
-!!  for an unknown amount of time.  Since it has
-!!  no references from outside files, it will 
-!!  automatically redirect to albums.php until
-!!  it can be fixed
-!!
-!!
-!!
-*/
-header("Location: " . makeAlbumHeaderUrl());
 
 function getOwnerString($owners) {
 	global $gallery;
@@ -72,13 +68,11 @@ function getAlbumString($albums) {
 $borderColor = $gallery->app->default["bordercolor"];
 $thumbSize = $gallery->app->default["thumb_size"];
 ?>
-<?php if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
-?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: Advanced Search</title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction; ?>">
 <?php } ?>
@@ -182,7 +176,7 @@ if (isset($go)) {
 		print _("search albums here") . "<p>";
 	    }
 	    echo "<tr><td valign=top><span class=desc>".
-		    pluralize_n2(ngettext("One album matches", "%d albums match", $albumMatch), $albumMatch, _("No album matches")) .".</span></td></tr>";
+		    pluralize_n($albumMatch, _("1 Album Match"), _("Album Matches"), _("No Album Matches")).".</span></td></tr>";
 	    echo "</table><br>";
     }
     if ($searchstring || $item_owners) {
@@ -245,9 +239,10 @@ if (isset($go)) {
 	else {
 		print _("search photos here") . "<p>";
 	}
-	    echo "<tr><td valign=top><span class=desc>".
-			pluralize_n2(ngettext("One photo matches", "%d photos match", $photoMatch), $photoMatch, _("No photo matches")).".
-		    "</span></td></tr>";
+	    echo "<tr><td valign=top><span class=desc>".pluralize_n($photoMatch,
+			    _("1 Photo Match"), _("Photo Matches"), 
+			    _("No Photo Matches")).".
+		    </span></td></tr>";
 	    echo "</table><br>";
 	}
     if ($searchstring || $commenters) {
@@ -321,9 +316,7 @@ if (isset($go)) {
 	else {
 		print _("search comments here") . "<p>";
 	}
-	    echo "<tr><td valign=top><span class=desc>".
-			pluralize_n2(ngettext("One comment Matches", "%d comment match", $commentMatch), 
-				$commentMatch, _("No comment matches")) .
+	    echo "<tr><td valign=top><span class=desc>".pluralize_n($commentMatch, _("1 Comment Match"), _("Comment Matches"), _("No Comment Matches")) .
 		    "</span></td></tr>";
 	    echo "</table><br>";
 	}

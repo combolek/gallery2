@@ -160,7 +160,7 @@ class AlbumDB {
                         } else if ($user->canReadAlbum($album)) {
                                 $numPhotos += $album->numPhotos(0);
                         }
-		}
+                }
 
 		return $numPhotos;
 	}
@@ -178,19 +178,19 @@ class AlbumDB {
 	function getAlbum($user, $index) {
 		global $gallery;
 		$list = $this->getVisibleAlbums($user);
-		if (!isset($list[$index-1]->transient) || !$list[$index-1]->transient->photosloaded) {
+		if (!$list[$index-1]->transient->photosloaded) {
 			$list[$index-1]->loadPhotos($gallery->app->albumDir . "/" . $list[$index-1]->fields["name"]);
 		}
 		return $list[$index-1];
 	}
 
-	function getAlbumByName($name, $load=TRUE) {
+	function getAlbumbyName($name, $load=TRUE) {
 		global $gallery;
 		/* Look for an exact match */
 		foreach ($this->albumList as $album) {
 		        set_time_limit($gallery->app->timeLimit);
 			if ($album->fields["name"] == $name) {
-				if ((!isset($album->transient) || !$album->transient->photosloaded) && $load) {
+				if (!$album->transient->photosloaded && $load) {
 					$album->loadPhotos($gallery->app->albumDir . "/$name");
 				}
 				return $album;
@@ -297,9 +297,7 @@ class AlbumDB {
 				if ($album->isRoot()) {
 					$numTopAlbums++;
 				}
-				// $numPhotos += $album->fields["cached_photo_count"];
-				$album->load($album->fields['name']);
-				$numPhotos += $album->numPhotos(1,1);
+				$numPhotos += $album->fields["cached_photo_count"];
 			}
 		}
 		return array($numPhotos, $numAlbums, $numTopAlbums);

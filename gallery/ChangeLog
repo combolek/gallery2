@@ -1,1101 +1,208 @@
-2004-06-01  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b164
+2004-06-01  Chris Kelly <ckdake@users.sf.net> 1.4.3-pl2
 
-	* Change: Clear up some PHP_NOTICEs in the config wizard
+	* 1.4.3-pl2 release
 
-	* Change: view_album.php - Change a dynamic sort function into 
-	  a static one to save time and make debugging easier.
-
-2004-05-31  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b163
-
-	* Change: Move guid generation explicitly to album creation, and
-	  photo add/delete to save processing time.
-
-	* Change: Correct photo count on albums.php to not include albums
-
-2004-06-01  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b162
-
-	* Fix: Bug #959948.
-	  Thanks to "darkunderdog".
-
-2004-05-31  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b161
-
-	* Change: Text spacing change in albums.php
-
-	* Change: Extra check in canReadRecursive() to deal with a weird
-	  issue that h0bbel found with an orphan.
-
-2004-05-30  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b160
-
-	* Change: GUID needs to be added to new albums on creation, otherwise
-	  the RSS is generated with a blank guid field (if no photos have been
-	  added to the new album)
-
-2004-05-30  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b159
-
-	* Bug 921262:  Add -trim to jpegtran rotation options to prevent
-	  artifacting when images don't match the "normal" dimensions
-
-	* Bug 852395:  If the user navigates to a new album while editing 
-	  captions, throw an error and abort changes.  This *could* be adapted
-	  to just load the correct album, however if they've navigated, we
-	  don't know if they have modified that album or not.
-
-2004-05-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b158
-
-	* Change: Better detection of which pubDate to use for RSS feeds
-
-	* Change: Implement canReadRecurse() in search.php - you now
-	  cannot search for any album which you can not directly link to
-	  from an albums page.
-
-	* Change: Flag 'autoRotated' after manual rotation to prevent this:
-	  Use has autorotate disabled.  Uploads a photo.  Manually rotates
-	  it to proper orientation.  Later enables autorotate.  Moves photo.
-	  ... if autoRotate isn't flagged, the move will cause autorotate to
-	  rotate it, even though it was done manually.
-
-2004-05-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b157
-
-	* Change: Text fix for RSS option in config_data
-
-2004-05-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b156
-
-	* Change: Add "canReadRecurse" to Album - use canReadRecurse in RSS feed
-	  to optimize the "albumFindable" call that was in the original RSS.php
-
-	* Change: Fix casing on getAlbumByName.  More occurances were using the 
-	  upper-cased "by" than not, so this is an official correction
-
-2004-05-28  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b155
-
-	* Fix: Removed warning in Config Wizard, when no config.php is there.
-
-2004-05-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b154
-
-	* Change: Add field "guid" to Album which is used by RSS to
-	  determine if an item is new.  The guid is updated with each
-	  photo upload.
-
-	* Change: Add extraField "autoRotated" to AlbumItem
-	  This field is checked to determine if we have already rotated
-	  an item before so that we don't do it again on an item move.
-
-	* Change: album_version was revved to 29 for both of these changes
-
-2004-05-27  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.4-cvs-b153
-
-	* Fixed upload (and slideshow) applets when Gallery is embedded in Geeklog.
-
-2004-05-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b152
-
-	* Fix:  Correct URL to rss.php when in embedded mode.  We can't
-	  use makeGalleryUrl() since that links to an embedded rss.php
-	  which really isn't usable.
-
-	* Change:  Remove an unnecessary if block from rss.php
-
-2004-05-27  Don Willingham <donwillingham@users.sf.net>  1.4.4-cvs-b151
-
-	* Change: Add watermark on upload support, form and URL upload only.
-
-	* Fix: Do not set recursive, unless displaying form.  Attempts to
-	  fix bug #958542, watermarking: exclude subalbums not working.
-	  (Thanks to primedomain) 
-
-2004-05-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b150
-
-	* Fix: rss.php now correctly retrieves highlights which are set
-	  in a sub-album, rather than the target album itself.
-
-2004-05-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b149
-
-	* Fix: Remove border=1 from gallery.footer, added in last checkin
-
-	* Fix: Correct linebreaks in config_data.inc
-
-2004-05-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b148
-
-	* Change: Complete Config Wizard-ization of rss.php
-
-	* Change: Addition of RSS link to the bottom of the gallery.footer
-	  if rss is enabled.
-
-2004-05-26  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b147
-
-	* Fix: Remove warnings in rss.php when in dev mode an not reconfigured.
-
-	* Change: Little text change.
-
-2004-05-25  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.4-cvs-b146
-
-	* Fixed upload (and slideshow) applets when Gallery is embedded in PHPNuke.
-	  Other CMSs may need more work. The applets are confirmed to work
-	  with PHPNuke and PostNuke.
-
-2004-05-25  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b145
-
-	* Change: rss.php config options mostly migrated to config wizard.
-
-2004-05-25  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b144
-
-	* Change:  Add "php_value session.save_handler files" to 
-	  the php_values.template to proactively prevent some of the 
-	  cases where it's set to "user" system-wide.
-
-	* Change: Add a developer-file hook to init.php.  If the file
-	  "lib/devel.php" is present on your local system, it will be 
-	  included near the top of init.php.  It's a logical location for
-	  code profiling modules and such that shouldn't be checked into
-	  CVS, but you don't want getting overwritten with each cvs up.
-
-2004-05-25  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b143
-
-	* Change: Only display visible (non-hidden) albums
-
-	* Change: Fix PHP shorttags
-
-	* Change: Text changes
-
-	* Note: Lots of whitespace changes - use "diff -w -r1.1 -r1.2"
-	  to see the real changes
-
-2004-05-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b142
-
-	* Add:  Initial version of Cody Smith's RSS Generator
-	  Based on rss.php 0.4 - Migration to config.php variables next
-
-2004-05-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b141
-
-	* Change:  Accidentally committed debug code in init.php - removing
-
-2004-05-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b140
-
-	* Change: Use makeGalleryHeaderUrl() instead of makeGalleryUrl() in
-	  makeFormIntro due to the fact that we, later in the function, split
-	  parameters based on "&"
-
-2004-05-23  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b139
-
-	* Change:
-	  !!  2004-05-23:   adv_search.php has been broken
-	  !!  for an unknown amount of time.  Since it has
-	  !!  no references from outside files, it will 
-	  !!  automatically redirect to albums.php until
-	  !!  it can be fixed
-
-2004-05-23  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b138
-
-	* Change: Items which are children of hidden parents can not be located
-	  using search.php.  I extensively debugged and profiled this to ensure that
-	  it is being called as few times as possible.  Recursion is only called on 
-	  matching objects.
-
-2004-05-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b137
-
-	* Change: Create watermark preview files with an incrementing number.
-	  This prevent an issue where the preview doesn't reload after modification
-	  due to smart browser caching.
-
-	  This change required addition of a generic glob() function for PHP < 4.3.0
-	  so that the old preview files can be removed when creating a new one, or
-	  when finalizing the watermark. (PHP >= 4.3 uses the native glob())
-
-2004-05-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b136
-
-	* Change: Watermarking code was missing some quotes around "checked"
-	  in several locations
-
-2004-05-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b135
-
-	* Change: A couple "&nbsp" => "&nbsp;" text fixes
-
-	* 957300: Prevent two different-format images from being uploaded
-	  with the same basename.  (i.e.  hello.jpg and hello.gif don't both
-	  end up being tagged as "hello")
-
-2004-05-21  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b134
-
-	* Change: Revert part of b129. Only Album title is now a link.
-
-	* Fix: Removed warning in view_photo
-
-	* Change: show "no Caption" in view_photo, if photo has no caption
-
-	* Fix: removed default class in function showChoice in view_album, 
-	       due to unreadable pulldown menu in some skins.
-
-2004-05-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b133
-
-	* Change: Add a check to available_skins() to fix URLs when 
-	  photoAlbumURL isn't set yet
-
-	* Change: Un-hide devMode in the Technical section of the
-	  config wizard, with a warning for non-PHP-savvy users
-
-	* Change: Fix typo in config wizard text
-
-2004-05-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b132
-
-	* Change: Revert xhtml
-
-2004-05-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b131
-
-	* Change: docType() now returns XHTML 1.0 Transitional
-
-	* Change: Beginning of translation to XHTML 1.0 Transitional
-	  albums.php validates, when albumTree is turned off
-
-2004-05-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b130
-
-	* Change: Add missing text to phpBB2 manual-howto
-
-	* Change: Descriptive text for find_orphans
-
-2004-05-19  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b129
-
-	* New: Album title, photo and movie captions are now links in view_album.
-
-2004-05-18  Christian Mohn <h0bbel@p0ggel.org>  1.4.4-cvs-b128
+2004-06-01  Andrew Lindeman <joyoflinux@yahoo.com> 1.4.3-pl2-cvs-b2
 	
-	* Fix: Changed view_photo.php to show the photoname, and not the index if there
-	  is no custom field called Title 
-
-	* Vanity: Added myself to AUTHORS. :)
-
-2004-05-18  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b127
-
-	* Fix: Use of htmlentities(unhtmlentities()) for Alttext of photos
-
-2004-05-18  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b126
-
-	* Fix: Added missing global $gallery in function itemLastCommentDate($i)
-
-	* New: Applied idea of Patch #869056
-
-	* New: Added possibility to have additional Attributes for the link on photos.
-
-	* Change: removed unused(?) code in view_photo ($openAnchor)
-
-	* Fix: Use of unhtmlentities() for Alttext of photos
-
-	* Change: Only put metatag with keyword(s) if there we have keyword(s)
-
-2004-05-17  Don Willingham <donwillingham@users.sf.net>  1.4.4-cvs-b125
-
-	* Fix: [View comments] links were disabled even when comments
-	  existed in a (sub)album if "Indicate if there are comments
-	  available" config option was set to photos and probably off.
-
-	* Change: Pass $gallery->app->comments_indication_verbose as a
-	  parameter so some calls to lastCommentDate() can use "no" to see
-	  if comments exist.
-
-2004-05-17  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b124
-
-	* Change: Rewrite of getNextPhoto() by Adventure
-	  This should be a decent speed optimization, as well as
-	  fixing one edge case.  (Though I'm not sure where it was 
-	  being missed in the original.) Formatting tweaks and commenting 
-	  by me.
-
-2004-05-17  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b123
-
-	* Change: Adjust Layout of upgrade_albums
-
-	* Fix: Removed unneeded htmlentity stuff in edit_appearance.php 
-	  which caused troubled in unsupported charsets.
-
-	* Change: Some translation related changes.
-
-2004-05-16  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.4-cvs-b122
-
-	* Fixed a typo since -b112 in captionator.php that was preventing the
-	  page from rendering.
-
-2004-05-16  Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b121
-
-	* Change: Add watermark preview.  Disable links to watermark
-	  album when album is empty. Alignment using X and Y coordinates
-	  can use percents.
-	* Fix:  Watermark alignment defaults to lower right instead of
-	  nothing.  Watermarks incorrectly clipped to the bottom.
-
-2004-05-16  Chris Kelly <ckdake@users.sf.net> 1.4.4-cvs-b120
-
-	* Change: Users in manage_users.php are now sorted.
-
-2004-05-15  Don Willingham <donwillingham@users.sf.net>  1.4.4-cvs-b119
-
-	* Change: Add recursive watermark of albums.
-
-2004-05-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b118
-
-	* Change: Better missing parent detection, minor text changes
-
-2004-05-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b117
-
-	* Fix: Actually enable attachOrphans(), since I'd forgotten to pass its
-	  variable
-
-2004-05-14  Jens Tkotz <jens@peino.de> 1.4.4-cvs-b116
-
-	* Fix: Double echo in setup/confirm.inc.
-	  Thanks to Terje.
-
-2004-05-14  Jens Tkotz <jens@peino.de> 1.4.4-cvs-b115
-
-	*  Change: Beautification and translateable tools/find_orphans.php
-
-2004-05-13  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b114
-
-	* Change:  tools/find_orphans.php now uses a form to gather confirmation
-	  from the user before performing any changes.  It does not yet support 
-	  customized-reattachment.
-
-2004-05-13  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b113
-
-	* Add:  Initial web-accessible version of find_orphans.php
-	  - Does not yet prompt for verification
-	  - Orphans are returned to their original parent
-	    If the parent is missing they are turned into root albums
-	  - Secured so that only admins can access it
-
-2004-05-13 Jens Tkotz <jens@peino.de>  1.4.4-cvs-b112
-
-	* Fix: Some counter didnt work, due to wrong use of pluralize_n2
-
-	* Change: Complete replace of pluralize_n with n2
-
-	* Fix: Typo in function galleryDocs
-
-2004-05-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b111
-
-	* Fix: Don't use strict numPhotos where it was being used!
-	  Damaging to albums that contain no images (only sub-albums)
-
-2004-05-13 Jens Tkotz <jens@peino.de>  1.4.4-cvs-b110
-
-	* Fix: - Check for ngettext installed
-	  - Translation was not correct caught.
-
-2004-05-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b109
-
-	* Fix: Forgot the "empty" case for the strict photo counting.
-
-2004-05-13 Jens Tkotz <jens@peino.de>  1.4.4-cvs-b108
-
-	* New: Introduced first steps of ngettext
-
-	* Fix: reused name="photo_j"
-
-	* Change: return of browserLanguage()
-
-	* New: Additional Paramter for initLanguage()
-
-2004-05-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b107
-
-	* Change: Add an optional flag to Album::numPhotos() to do strict
-	  counting of photos - this prevents albums from being counted as
-	  images for the "total" on albums.php
-
-	* Change: Another _SERVER -> HTTP_SERVER_VARS
-
-	* Change: ChangeLog beautification by the compulsive developer
-
-2004-05-12 Jens Tkotz <jens@peino.de>  1.4.4-cvs-b106
-
-	* Fix: Use of $HTTP_SERVER_VARS instead $_SERVER
-
-	* Fix: Parse Error in do_command
-
-2004-05-11  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.4-cvs-b105
-
-	* Fixed upload (and slideshow) applets when Gallery is embedded in a CMS.
-	* Applets now attempt to use the same language as the Gallery (GR language
-	  support is sorely lacking at the moment).
-	* Integrated applets version 1.4-b10, which also contain many improvements to
-	  slideshow and upload. Please see GR ChangeLog for more details.
-
-2004-05-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b104
-
-	* Change: Enable optional syslog reporting for login/out
-
-2004-05-10  Alan Harder <alan.harder@sun.com>  1.4.4-cvs-b103
-
-	* Regenerate highlights as needed when moving albums around.
-
-2004-05-10  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.4-cvs-b102
-
-	* Fixed alt="..." attribute in <img> tags to strip out HTML and then
-	  convert double quotes to HTML entities. Previously, displaying image
-	  captions with HTML or double quotes would output malformed HTML.
-	  (Introduced in 1.4.4-cvs-b72 when we added the caption text to the
-	  alt attribute.)
-
-2004-05-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b101
-
-	* Change:  Use unhtmlentities() instead of strtr() - this allows
-	  us to use html_entity_decode() if it's present
-
-2004-05-07  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b100
-
-	* Change:  Add missing piece of JS for the localGetElementsByTagName()
-	  code
-
-2004-05-06  Jens Tkotz <jens@peino.de>  1.4.4-cvs-b99
+	* Fix: Major security issue with init.php, which allowed anybody
+	  to login as any user (including admin) with no password, by 
+	  emulating that Gallery was embedded.
+
+2004-05-06  Jens Tkotz <jens@peino.de>  1.4.3-pl2-cvs-b1
 
 	* Fix: Links to docs and diagnostics(!) didnt work with empty config.php
-	  ($gallery->app->photoAlbumURL is not set)
+	       ($gallery->app->photoAlbumURL is not set)
 
-2004-05-05  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b98
+2004-05-05  Chris Kelly <ckdake@users.sf.net> 1.4.3-pl1
 
-	* Change: JS shim to make getElementsByTagName() less browser
-	  version dependant
+	* 1.4.3-pl1 release
 
-2004-05-05  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b97
+2004-05-03  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-pl1-cvs-b9
 
-	* Change: Config wizard now starts with submit buttons disabled.  They
-	  are enabled during document.onload using JavaScript.  This will
-	  prevent errors from occuring due to people pressing Next before the page has
-	  completed loading, thereby not sending all of the config data to the next page.
+	* Fix: Correct $GALLERY_PATH to GALLERY_BASE in two places.  This
+	  fixes the blank <Directory> and the bad movie.thumb path issues
 
-2004-05-04 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b96
+2004-05-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-pl1-cvs-b8
 
-	* Fix: Warning in when recovering password with adding isset to userData.inc.
-		Thanks to floridave.
+        * Fix: We now make the assumption, when loading the userdb, that 
+          the file is user_version 4.  This will ensure that if for some reason
+          (most notably, the userfile format revision from 1.3->1.4)
+          the correct version number is not unserialized from the file, that we
+          will perform the necessary file-format upgrade
 
-2004-05-04  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b95
-
-	* Change: Allow doCommand("delete-comment") to use the $return
-	  var
-
-	* Change: Extra debug output when using dismissAndLoad() to
-	  display $url for troubleshooting.
-
-	* Change: Correct "view_album" to "view_photo" in commentdraw.inc
-
-2004-05-04 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b94
-
-	* Fix: Adjust util.php due to renamed config option.
-	
-	* Change: removed unused/debug code.
-
-2004-05-04 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b93
-
-	* New: Added config option for maximum length of comments.
-
-	* Change: Rewrite of navigator.inc and navphoto.inc
-
-	* Fix: Images for Voting Result Graph were not found when embedded.
-
-	* Fix: Removed Bigger border around breadcrumb when not on search page. (Introduced in b81)
-
-	* Changes in setup/frame_test.php:
-	  - Corrected use of doctype();
-	  - Use of init.php
-	  - Use of constant GALLERY_BASE
-	  - Use of $HTTP_GET_VARS, because $_GET is only available for PHP >=4.1.0
-	  - Use of common_header()
-
-	* Change: Created function drawCommentAddForm which is used inside and in popup 
-		  for unified Layout.
-
-	* Change: Moved substitution for array_search when PHP <4.0.5 from
-		  view_photo.php into util.php so we can use it everywhere.
-
-2004-05-04  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b92
-
-	* Change: Don't use makeGalleryHeaderUrl in do_command "logout"
-	  if it's a full url.  (Checking for "^http")
-
-	* Change: Remove extraneous htmlspecialchars() from inline_imagewrap
-
-	* Change: Use doCommand() and add "full" param to popup() in 
-	  commentbox.inc and commentdraw.inc to prevent a refresh from
-	  occuring, which can cause an issue using the new inline comments.
-	  (Post a comment, immediately delete it,  it would attempt to re-post
-	  the comment - fixed)
-
-2004-05-04  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b91
-
-	* Change: Add an isset() to inline_imagewrap.inc
-
-2004-05-04  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b90
-
-	* Change: "width" is not a valid property for <p>
-
-2004-05-03  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b89
-
-	* Change:  Remove one more htmlspecialchars() from a location
-	  where it might be called twice on one URL
-
-2004-05-03  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b88
-
-	* Change: Remove independant htmlspecialchars() calls and move
-	  it to a central location in makeGalleryUrl().  The only reason
-	  htmlspecialchars() should be called is if make*Url() is not
-	  appropriate.
-
-	* Change: Add makeGalleryHeaderUrl() and makeAlbumHeaderUrl()
-	  These functions decode the htmlspecialchars() which makeGalleryUrl()
-	  calls, since html entities aren't valid in HTTP headers.  It's a
-	  somewhat redundant operation, but necessary for code usability.
-
-	* Change: Update all Location: headers to use the make*HeaderUrl()
-	  functions.
-
-2004-05-03  Don Willingham <donwillingham@users.sf.net>  1.4.4-cvs-b87
-
-	* Change: Add frame test page that allows the user to preview
-	frames before selecting them.
-
-	* Change: inline_imagewrap.inc can now be passed a base directory
-	for relative links of the frame images.
-
-	* Fix: Added style="height:<?php echo $hRR ?>px" to frames,
-	 height="..." was removed for compliant HTML.
-
-2004-05-03  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b86
-
-	* Change: Use " " instead of "<wbr>" to break comment lines.
-	  (Jens pointed out that wbr isn't valid html.)
-
-	* Fix: Remove extra " from navphoto.inc
-
-2004-05-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b85
-
-	* Fix: We now make the assumption, when loading the userdb, that
-	  the file is user_version 4.  This will ensure that if for some reason
-	  (most notably, the userfile format revision from 1.3->1.4)
-	  the correct version number is not unserialized from the file, that we
-	  will perform the necessary file-format upgrade
-
-2004-05-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b84
-
-	* Change:  Prevent long comments from creating horizontal scroll
-	  by using wordwrap() to add <wbr> tags.
-
-	* Change:  Make 'Popup' be the default comment method.  Changing
-	  our default behavior isn't the best option unless the user wants it.
-
-2004-05-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b83
-
-	* Change: Extra check to determine whether quoting popups is
-	  appropriate, since embedded URLs don't use absolute pathing.
-
-2004-05-02 Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b82
-
-	* Change: Disable view_comments when album does not contain any comments.
-
-2004-05-02 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b81
-
-	* Fix: Border was not correct around breadcrumb table.
-
-	* Change: HTML and UI beautification and valid HTML in search.php
-
-2004-05-02 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b80
-
-	* New: Add possibility to add comments without popup, but inside view_photo
-
-	* Change: Beatified appereance of comments.
-
-2004-05-02 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b79
-
-	* Change: Moved all voting functions from util.php to lib/voting.php
-
-	* Change: Tweaked view_photo.php
-
-	* Change: Added function displayPhotoFields() so we a unified display.
-
-	* Fix: Wrong filename for validation in extra_fields.php
-
-2004-05-01 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b78
-
-	* Fix: Corrected Typo that causes Poll result not be displayed.
-	       (Introduced in 1.4.4-cvs-b66/67)
-
-2004-05-01 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b77
-
-	* New: Added isLoggedIn to phpBB2 Users.
-
-	* New: When a user is logged in, his/her Username is displayed in
-	       view_album and view_photo.
-
-	* New: Added function displayName() to classes/User.php
-
-	* Change: Tweaked getCaptionName in classes/Album.php
-
-	* Change: Translation related changes in captionator.
-
-2004-05-01  Bharat Mediratta  <bharat@menalto.com> 1.4.4-cvs-b76
-
-	* Fix: poll_properties was not properly formatting the poll key values
-	  in the <input> tags.  Thanks to Asher Choen for finding this.
-
-2004-04-30  Andrew Lindeman <joyoflinux@yahoo.com> 1.4.4-cvs-75
-	
-	* Change: Use strnatcasecmp instead of strnatcmp in sorting by filename
-	  and caption (Tracker #945228)
-
-2004-04-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b74
-
-	* Fix: Missing )
-
-2004-04-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b73
-
-	* Change: Remove unused function parameter from AlbumItem::getPhotoId()
-	  and Image::getId() - Thanks to Adventure for finding this
-
-	  http://gallery.menalto.com/index.php?name=PNphpBB2&file=viewtopic&t=16143
-
-2004-04-29 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b72
-
-	* New: Added extra field for Alttext/title/onMouseover.
-
-	* Change: Added optional paramter to getExtraFields in Album.php.
-		  If set to false not all extra Fields are returned.
-
-	* New: Added getAlttext to AlbumItem.php. 
-	       This method return the value of the new extra field, the caption or "No Caption".
-
-	* Change: Tweaked getThumbnailTag, getHighlightTag and getPhotoTag to work with alttext.
-
-2004-04-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b71
-
-	* Change: Renamed get_GalleryPathes() to getGalleryPaths() 
-	  to fix spelling and uniformity of naming
-
-2004-04-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b70
-
-	* Change: Correct the identification of the movie.thumb path
-	  (get_GalleryPathes() is called in init.php)
-
-2004-04-28  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.4-cvs-b69
+2004-04-28  Pierre-Luc paour  <paour@users.sourceforge.net> 
 
 	* gallery_remote2.php: when an album is set to not allow the user
 	  to view full-sized pictures, but there is no resized picture,
 	  do allow to view full-sized, because it's the same as resized.
 	  This appears to be what the web UI does.
 
-2004-04-28 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b68
+2004-04-26 Don Willingham <donwillingham@users.sf.net> 1.4.3-pl1-cvs-b6
 
-	* Change: More beatification in resize_photo.php
+	* Bugfix: Take the floor() of $wmAlignX and $wmAlignY in case they
+		are not whole numbers. (from version 1.4.4-cvs-b42)
 
-2004-04-28 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b67
+2004-04-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-pl1-cvs-b5
 
-	* Change: Forgot some $GALLERY_BASEDIR. Now its complete free.
+        * Fix: Adapted move_album issue from b1
+          Until a ".root" album object can be created, move_album needs to
+          not try and check getNestedAlbum against a rooted album.
+          Added isRoot() check prior to getNestedAlbum to bypass.
 
-2004-04-28 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b66
-
-	* Change: BIG Change. Gallery is now ~90% valid HTML 4.01.
-		  This includes HTML Code tidying.
-
-	* Change: Complete Remove of global $GALLERY_BASEDIR
-
-	* Change: Replace of <?php echo getStyleSheetLink() ?>
-		  into <?php common_header(); ?>
-
-	* New: Added possibility add parameter to gallery_validation_link()
-
-	* Fix: Correct Title in move_photo.php
-
-	* Change: Beautified some pages. E.g. Photo Properties
-
-2004-04-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b65
-
-	* Change: popup_js, redux. Only quote the string if it contains
-	  (^http|^ftp).  JS functions don't like to be quoted.
-
-2004-04-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b64
-
-	* Change: Properly quote popup_js's return URL and escape quotes
-	  which would otherwise break the string early.
-
-2004-04-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b63
-
-	* Change: Move htmlspecialchars() to prevent JS url break
-	  ---- REVERTED
-
-2004-04-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b62
-
-	* Change: Rename "ROOT" option in move scripts to ".root" to 
-	  prevent interaction with a user album, which could be named
-	  "ROOT"
-	  - All user-viewable (translatable) text is unchanged; "ROOT"
-	    still makes sense, visually.
-
-2004-04-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b61
-
-	* Fix: Adapted move_album issue from b49
-	  Until a ".root" album object can be created, move_album needs to
-	  not try and check getNestedAlbum against a rooted album.
-	  Added isRoot() check prior to getNestedAlbum to bypass.
-
-2004-04-25  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b60
-
-	* Change: view_album and view_photo are valid, again.
-	  (I hadn't tested with rewrite disabled)
-
-2004-04-25 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b59
-
-	* Change: view_album and view_photo are not valid 4.01
-
-	* Change: More use of doctype() and common_header()
-
-	* Fix: Removed warnings in register.php
-
-	* Fix: manage_users, register, user_preferences, delete_user, create_user 
-	are now valid HTML 4.01
-
-	* Bugfix: Typo in manage_users.php
-
-
-2004-04-25 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b58
+2004-04-25 Jens Tkotz <jens@peino.de> 1.4.3-pl1-cvs-b4
 
 	* Bugfix: Compatibility in edit_appearance with PHP <4.1.0, but >4.0.4 was broken.
 
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b57
+2004-04-23 Jens Tkotz <jens@peino.de> 1.4.3-pl1-cvs-b3
 
-	* Change: Final HTML 4.01 change (for now, at least)
-	  Gallery, Album, and Photo all validate as 4.01 Transitional
-
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b56
-
-	* Change: More HTML 4.01-ification
-	  - Run htmlspecialchars() on popup_link() and doCommand() output.
-	  - Move hidden print photos forms to the end of the page where
-	    they're in a valid location.
-
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b55
-
-	* Change: Apply Opera/Safari frames fix to all browsers so that
-	  albums.php becomes HTML 4.01 valid.  Updated validation links
-	  for Gallery and Slideshow.
-
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b54
-
-	* Change: Change & to &amp; in ml_pulldown.inc
-	  This makes album pages validate HTML 4.01, so I updated
-	  the validation link.
-
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b53
-
-	* Change: Modify Location: headers to be standards compliant
-	  (absoluteURI).  [RFE 939002]
-
-2004-04-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b52
-
-	* Change: Correct if(getAlbumName) checks to if(isAlbum)
-
-	* Change: Remove accidental debug code from b49
-
-2004-04-23 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b51
-
-	* Fix: changed \" to &quot; in a translateable text.
-	       This confuses the substitute function for gettext.
-
-	* Change: HTML fixes.
-		-  <img> should not be closed in HTML 4.01
-		-  changed all <br /> to <br>
-
-	* Fix: Removed warning in devmode when no watermark dir is set.
-
-	* Fix: Removed empty lines between ?> and <?php in applet.inc.   .
+	* Fix: Removed empty lines between ?> and <?php in applet.inc.
 	       This caused warnings when Gallery is embedded and the Applet is installled.
 
-2004-04-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b50
+2004-04-23 Jens Tkotz <jens@peino.de> 1.4.3-pl1-cvs-b2
 
-	* Change: Make 'high' the default slideshow mode intead of 'applet'
+	* Fix: Changed \" to &quot; in translateable text.
+	       This conflicts with the substitute function for gettext on non gettext systems.
 
-2004-04-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b49
+2004-04-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-pl1-cvs-b1
 
-	* Bugfix: Commented code - This code is not functioning the
-	  way it's intended. $gallery->album is referring to the album
-	  being moved, not the parent album.  getNestedAlbum returns
-	  the number of photos inside the album being moved - 
-	  if the index of the album being moved (inside its parent)
-	  is larger than the number of photos inside the album being
-	  moved, then getAlbumName will return an out of bounds error
+	* Fix: 'Move Album' bug detailed at
+	  http://gallery.menalto.com/index.php?name=PNphpBB2&file=viewtopic&p=71680#71680
 
-2004-04-21  Chris Kelly <ckdake@users.sf.net> 1.4.4-cvs-b48
+	* Change: Allow slideshow mode to be selected from config wizard.
+	  (Defaults to 'high')
 
-	* Bugfix: #938293 - Config wizard now says "All tested files up-to-date."
-	  when the number of tested files is 0. 
+	* Change: Prevent an attempt to re-highlight an album with no highlight
 
-2004-04-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b47
+2004-04-19  Chris Kelly <ckdake@users.sf.net> 1.4.3
 
-	* Fix: If an album's highlight flag is mistakenly set, but there is no
-	  highlight, the album upgrade process fails with PHP errors about deref'ing a
-	  non-object. This validates that getHighlightedItem returns with valid
-	  data.
+	* v1.4.3 Release
 
-2004-04-21  Chris Kelly <ckdake@users.sf.net> 1.4.4-cvs-b46
-
-	* Bugfix: #938387 - Added missing class attributes
-
-2004-04-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b45
-
-	* Fix: Moving to ROOT was broken in -b34 - added fix.
-	  Unrelated to 
-	  http://gallery.menalto.com/index.php?name=PNphpBB2&file=viewtopic&p=71387
-
-2004-04-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b44
-
-	* Change: Add Config Wiz. option to allow default slideshow mode
-	  (Free free to revise text, if you so desire)
-
-2004-04-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b43
-
-	* Change: Increase the size of the <textarea> in edit_field.php
-	  This mitigates patch 934454, but it does not apply the conditional
-	  formatting.  This change will apply no matter what field name is
-	  being edited.
-
-2004-04-18 Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b42
-
-	* Bugfix: Take the floor() of $wmAlignX and $wmAlignY in case they
-		are not whole numbers.
-
-2004-04-18 Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b41
-
-	* Bugfix: Fix showOwner to return user name if full name isn't available.
-
-2004-04-17 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b40
-
-	* New: Possibility to show Owner in different ways. RFE #936003 .
-
-2004-04-16 Chris Kelly <ckdake@users.sf.net> 1.4.4-cvs-b39
+2004-04-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC4-cvs-b1
 
 	* Bugfix: added dirname(__FILE__) and $gallery->app->photoAlbumURL
-		in the appropriate places so that the java applets work
-		properly in embedded environments.  Thanks to Jay Rossiter
-		for the photoAlbumURL part.
+	  in the appropriate places so that the java applets work
+	  properly in embedded environments.
 
-2004-04-14 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b38
+2004-04-13  Chris Kelly  <ckdake@users.sf.net> 1.4.3-RC3
 
-	* Change: Show Slideshow link and Search only when there is at least one photo.
+	* v1.4.3 Release Candidate 3
 
-2004-04-12 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b37
+2004-04-12  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-RC3-cvs-b9
 
-	* Bugfix: Added missing echo in move_photo as the usage of 
-		  gallery_error changed from 1.4.3 to 1.4.4.
+        * Fix: Updated gallery_remote2.php protocol to send hidden state of AlbumItems
+          and only include an a sub-album in a list of items if the sub-album
+          is readable. Also only sending full-size URL if the user is allowed to
+          see it, although that can easily be faked by clients.
+        * Bugfix: #932389
 
-2004-04-12  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.4-cvs-b36
+2004-04-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC3-cvs-b8
 
-	* Updated gallery_remote2.php protocol to send hidden state of AlbumItems
-	  and only include an a sub-album in a list of items if the sub-album
-	  is readable. Also only sending full-size URL if the user is allowed to
-	  see it, although that can easily be faked by clients.
-	* Bugfix: #932389
+        * Change: Extra checks to prevent people from Moving photos into the 
+          album they're already in.
 
-2004-04-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b35
+2004-04-11 Jens Tkotz <jens@peino.de> 1.4.3-RC3-cvs-b7
 
-	* Change: PHP5 error messages - these errors could have influenced
-	  applet behavior due to their nature and location.
-
-2004-04-12  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b34
-
-	* Change: Extra checks to prevent people from Moving photos into the
-	  album they're already in.
-
-2004-04-11 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b33
-	
 	* Bugfix: #930007
 
-2004-04-11 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b32
+2004-04-11 Jens Tkotz <jens@peino.de> 1.4.3-RC3-cvs-b6
 
-	* Bugfix: Added type to makeGalleryURL.
-		  This gives the possibility not to load Environment in Popups.
-		  This fixes broken Upload Frame Popup in Mambo.
+        * Bugfix: #916453
 
-	* Bugfix: Docs Link were broken.
-
-	* Change: Layout Adjustments.
-
-	* New: Gallery will use the Language corresponding to the Country Locale specified by Mambo.
-
-	* New: Added little Gallery <-> Mambo integration HowTo.
-
-2004-04-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b31
-
-	* Fix: Fix unquoted array ref in rename_album.php
-
-	* Bump: Version number from last change
-
-2004-04-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b30
-
-	* Bug 932911: Prevent ( and ) in album names
-	  While these can be valid chars, they can cause processing
-	  errors.
-
-2004-04-10 Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b29
-
-	* Bugfix: Prevent empty warning in locale section of step 1.
-
-2004-04-10 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b28
+2004-04-11 Jens Tkotz <jens@peino.de> &
+	   Don Willingham <donwillingham@users.sf.net> 1.4.3-RC3-cvs-b5
 
 	* Change: Improved improved warning.
-	
-	* New: Tweaked return of check_graphics(),
-	       so we can disable watermark dir when composite and pnmcomp is missing.
 
-	* Change: Beautified (HTML)Output of Configwizard Step1 warnings.
+        * New: Tweaked return of check_graphics(),
+               so we can disable watermark dir when composite and pnmcomp is missing.
 
-2004-04-10 Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b27
+        * Change: Improve missing binary warning messages.
 
-	* Change: Improve missing binary warning messages.
+2004-04-11 Jens Tkotz <jens@peino.de> 1.4.3-RC3-cvs-b4
 
-2004-04-09 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b26
+        * Bugfix: Added type to makeGalleryURL.
+                  This gives the possibility not to load Environment in Popups.
+                  This fixes broken Upload Frame Popup in Mambo.
 
-	* Bugfix: Commit of changed util.php and lib/Form.php. (Forgotten in b21)
+        * Bugfix: Docs Link were broken.
 
-2004-04-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b25
+        * New: Added little Gallery <-> Mambo integration HowTo.
+
+2004-04-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC3-cvs-b3
 
 	* Fix: JavaScript error on edit_watermark.php
 	  "data" was not a valid form member.  We are now defaulting to
 	  the cancel button for focus to prevent accidental application
 	  of watermarks.
 
-2004-04-08  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b24
+2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.3-RC3-cvs-b2
 
-	* Fix: Prevent two PHP5 warnings (Master bug: 930744)
+	* Same fix as -b1 for Opera.
 
-2004-04-08  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b23
+2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.3-RC3-cvs-b1
 
-	* Fix: Change incorrect matching quote in move_photo.php
+	* Refix: Image frames on Safari (previous fix broke things with fit-to-window).
 
-2004-04-08  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b22
+2004-04-06  Chris Kelly  <ckdake@users.sf.net> 1.4.3-RC2
 
-	* Change: Add <label> tags to "caption" options on add photos form
+	* v1.4.3 Release Candidate 2
 
-2004-04-08 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b21
+2004-04-06 Jens Tkotz <jens@peino.de> 1.4.3-RC2-cvs-b10
 
-	* Change: Little wording changes in configwizard.
-
-	* Change: Moved drawSelect(), makeFormIntro(), formVar() and emptyFormVar() 
-		  from util.php to lib/Form.php
-
-2004-04-08 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b20
-
-	* Bugfix: #916453 and #920740 
-
-	* Change: Beautified HTML Output in edit_appearance.php.
-
-	* Change: moved selectOptions() from util.php into lib/Form.php
-	
-	* Fix: values in selectOptions() are not again translated.
-	       This should be only be done in the call.
-
-	* Little Wording Changes in configdata
-
-2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.4-cvs-b19
-
-	* Fixed size image frames for offline mode in case it is later viewed
-	  with Safari/Opera.
-
-2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.4-cvs-b18
-
-	* Bugfix: Don't show no-permission subalbum that is preceded by a hidden photo.
-
-2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.4-cvs-b17
-
-	* Same fix as -b16 for Opera.
-
-2004-04-06  Alan Harder  <alan.harder@sun.com> 1.4.4-cvs-b16
-
-	* Bugfix: Image frames on Safari.
-
-2004-04-06 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b15
-
-	* Bugfix: When Gallery runs on PHP >=4.3.0 slideshow for modern Browser were broken
+	* Bugfix: When Gallery runs on PHP >=4.3.0 slideshow for modern Browser were broken 
 		  in several languages, due to unsupported Charset in html_entity_decode().
 
-2004-04-06  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b14
-
-	* Change: Merge the Safari/Opera fix forward from RC1
-
-2004-04-06 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b13
-
-	* New: Added css class 'viewcounter' for those who want the
-	       "viewed XXX times in a special format.
-
-2004-04-06 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b12
-
-	* Bugfix: Added missing ; in watermark_album
-
-	* Change: UI Change from Sections to Tabs in Config Wizard.
-		  Details in setup/functions.inc.
-
-	* Change: Fixed wrong use of gallery_error().
+2004-04-04 Jens Tkotz <jens@peino.de> 1.4.3-RC2-cvs-b9
 
 	* Bugfix: $GLOBALS['user_prefix'] was not used when embedded in phpnuke or nsnnuke.
 
-2004-04-05  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b11
+2004-04-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC2-cvs-b8
 
-	* Change: Variable checks to remove PHP5 warning messages in devMode.
-	  No functional changes.
-
-2004-04-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.4-cvs-b10
-
-	* Change: Add edit_watermark.php and watermark_album.php to 
+	* Change: Add edit_watermark.php and watermark_album.php to
 	  $safe_to_include in index.php
 
-2004-04-01  Jay Rossiter <cryptographite@users.sf.net> 1.4.4-cvs-b9
+2004-04-01  Alan Harder  <alan.harder@sun.com> 1.4.3-RC2-cvs-b7
 
-	* Change: Updated if(getAlbumName) to if(isAlbum) in view_album.php
+	* Bugfix: Image frames on Safari.
 
-	* Change: if(strlen()) -> if(!empty()) in watermark code
+2004-04-01  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC2-cvs-b6
 
-	* Typo: "Beginn" -> "Begin" in adminAlbumLayout.inc
+	* Change:  Replace = with : in embedded_style.css for *all* skins
 
-	* Typo: Case fix in view_album.php for "Watermark Album"
+2004-03-31  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC2-cvs-b5
 
-2004-04-01  Jay Rossiter <cryptographite@users.sf.net> 1.4.4-cvs-b8
+	* Change:  Merging donw's optional pnmcomp/composite fix for
+	  watermarking
 
-	* Change: Replace = with : in embedded_style.css for *all* skins
-
-2004-03-31 Jens Tkotz <jens@peino.de> 1.4.4-cvs-b7
-
-	* Bugfix: Added missing quotes around a defined check.
-
-	* Change: Replaced all error_format() with gallery_error().
-		  Added echo to all former gallery_error();
-
-	* Change: Little Changes for phpBB2. No major changes.
+2004-03-31 Jens Tkotz <jens@peino.de> 1.4.3-RC2-cvs-b4
 
 	* Change: Trivial add of Mambo to list of Environments in Config Wizard.
 
-	* Change: removed unused center() function.
+2004-03-30 Jens Tkotz <jens@peino.de> 1.4.3-RC2-cvs-b3
 
-2004-03-31  Jay Rossiter <cryptographite@users.sf.net> 1.4.4-cvs-b6
+	* Change: Little Changes for phpBB2. No major changes.
 
-	* Change:  Merge jenst's Mambo text fix forward from RC1.
+2004-03-30 Jens Tkotz <jens@peino.de> 1.4.3-RC2-cvs-b2
 
-2004-03-30  Jay Rossiter <cryptographite@users.sf.net> 1.4.4-cvs-b5
+	* Bugfix: Added missing quotes around a defined check.
 
-	* Fix: Check for validity of $rotate before referencing
+2004-03-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.3-RC2-cvs-b1
 
-2004-03-30  Christian Mohn <ch-moh@online.no> 1.4.4-cvs-b4
+	* Change:  Re-add missing <?php to setup/backup_albums.php
 
-	* Fix: Removed max_file_size limit for form data in add_form.inc
+2004-03-28  Chris Kelly  <ckdake@users.sf.net> 1.4.3-RC1
 
-2004-03-30  Don Willingham <donwillingham@users.sf.net> 1.4.4-cvs-b3
+	* v1.4.3 Release Candidate 1
 
-	* Change: Warn user if watermarking binaries are missing.
-	  pnmcomp for NetPBM, composite for ImageMagick
-
-2004-03-29  Jay Rossiter <cryptographite@users.sf.net> 1.4.4-cvs-b2
-
-	* Change:  Fix setup/backup_albums.php - a <?php was removed
-	  from the top of the file.
-
-	* Fix build revision from Beckett's last checkin.  This is now 1.4.4.
-
-2004-03-28  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.4-cvs-b1
+2004-03-28  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.3-RC1-cvs-b2
 
 	* Parse error typo fix in util.php from 1.4.3-cvs-b150
 
 	* Fix in tools/build_manifest.php for broken GALLERY_BASEDIR change
+
+2004-03-28  Chris Kelly  <ckdake@users.sf.net> 1.4.3-RC1-cvs-b1
+
+	* Initial 1.4.3 branch
 
 2004-03-28 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b150
 
@@ -1214,7 +321,7 @@
 
 2004-03-21 Christian Mohn <ch-moh@online.no> 1.4.3-cvs-b131
 
-	* Change: Added LimitRequestBody setting for Apache2 in
+        * Change: Added LimitRequestBody setting for Apache2 in
 		  setup/php_value.template (sapi_apache2.c module)
 		  This is patch #920442 - Thanks to Niels Basjes
 		  for submitting
@@ -1379,8 +486,8 @@
 2004-03-04  Jay Rossiter <cryptographite@users.sf.net> 1.4.3-cvs-b105
 
 	* Change: Stage 1 of a fix for bug 903936 -
-	  1. Changing all calls to isAlbumName() into getAlbumName()
-	  2. Addition of the isAlbum() function to the Album class
+          1. Changing all calls to isAlbumName() into getAlbumName()
+          2. Addition of the isAlbum() function to the Album class
 
 2004-03-04  Alan Harder  <alan.harder@sun.com> 1.4.3-cvs-b104
 
@@ -1407,9 +514,9 @@
 	  feature is off (-b94).. moved the closing } up a few lines.
 
 2004-03-04  Michael Schultheiss <schultmc@debian.org> 1.4.3-cvs-b100
-
-	* util.php: escape the + in the validate_email regexp update 
-	  from b99 
+                                                                                
+        * util.php: escape the + in the validate_email regexp update 
+          from b99 
 
 2004-03-04  Michael Schultheiss <schultmc@debian.org> 1.4.3-cvs-b99
 
@@ -1719,7 +826,7 @@
 	* Fix: _() was not used correct in delete_photo
 
 	* Change: Switched back to former .sh scripts as the 
-		  Debian Package Maintainer uses his own version.
+	          Debian Package Maintainer uses his own version.
 
 2004-02-24  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.3-cvs-b55
 
@@ -1736,7 +843,7 @@
 	* Bugfix: Added missing echo for GeekLog Header.
 
 	* Bugfix: Configwizard now runs fine when embedded and Gallery has debian structure.
-	  - Introduced function get_GalleryPathes which defines 3 constants:
+	  - Introduced function get_GalleryPathes wich defines 3 constants:
 	  --- GALLERY_CONFDIR
 	  --- GALLERY_SETUPDIR
 	  --- GALLERY_BASE
@@ -1809,7 +916,7 @@
 
 2004-02-21  Christian Mohn  <ch-moh@online.no> 1.4.3-cvs-b45
 
-	* Fixed bug #818376: Bad-rewrite rule in setup/write.inc when
+    * Fixed bug #818376: Bad-rewrite rule in setup/write.inc when
 	  Gallery installed in webroot folder. 
 	  Thanks to sgartner for the fixed code.
 
@@ -1817,8 +924,8 @@
 
 2004-02-21  Christian Mohn  <ch-moh@online.no> 1.4.3-cvs-b44
 
-	* Changed wrong image height in navphoto.inc
-	  The table cell height was set to 28, and not 18. This only
+    * Changed wrong image height in navphoto.inc
+      The table cell height was set to 28, and not 18. This only
 	  affected the first photo page in an album.
 	  Reported by autobulb in the forums.
 
@@ -1831,7 +938,7 @@
 
 2004-02-18  Christian Mohn  <ch-moh@online.no> 1.4.3-cvs-b42
 
-	* Added missing GALLERY_CONFDIR="." in configure.sh
+    * Added missing GALLERY_CONFDIR="." in configure.sh
 	  Thanks to Luka Kladric for reporting
 
 2004-02-18  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.3-cvs-b41
@@ -1973,18 +1080,18 @@
 
 2004-02-02  Christian Mohn <ch-moh@online.no> 1.4.3-cvs-b20
 
-	* Removed cmd.exe call in platform/fs_win32.php as PHP itself calls
-	  this when executing binaries in Win32. 
-	  This caused two cmd.exe processes running every time a binary 
-	  was called on that platform.
+        * Removed cmd.exe call in platform/fs_win32.php as PHP itself calls
+          this when executing binaries in Win32. 
+          This caused two cmd.exe processes running every time a binary 
+          was called on that platform.
+        
+        * Added VBS as a valid executable extension in platform/fs_win32.php
+          VBScript files are valid executables in Windows. :)
 
-	* Added VBS as a valid executable extension in platform/fs_win32.php
-	  VBScript files are valid executables in Windows. :)
-
-	* Changed the temp dir from using the system %temp% variable in
-	  fs_win32, to use the Gallery temp dir instead. You may not have
-	  allowed PHP access to %TEMP%. This could cause permissions related
-	  problems.
+        * Changed the temp dir from using the system %temp% variable in
+          fs_win32, to use the Gallery temp dir instead. You may not have
+          allowed PHP access to %TEMP%. This could cause permissions related
+          problems.
 
 
 2004-02-01  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b19
@@ -2085,9 +1192,9 @@
 	* Change: Renamed and moved fitToWindow in js folder. Added documentation.
 
 	* Bugfix: Fixed Bug introduced in 1.4.2-cvs-b11 (by me).
-		  Changed doctype back to be more undetailed.
-		  The detailed doctype caused the fitToWindow script not to work when
-		  using IE and Gallery was standalone.
+                  Changed doctype back to be more undetailed.
+                  The detailed doctype caused the fitToWindow script not to work when
+                  using IE and Gallery was standalone.
 
 2004-01-26  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b8
 

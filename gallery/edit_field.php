@@ -21,18 +21,25 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation"). "\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
-
-doctype();
-echo "\n<html>";
-
+	
 if (isset($save)) {
 	if (!strcmp($field, 'title')) {
 		$data = removeTags($data);
@@ -42,16 +49,19 @@ if (isset($save)) {
 	dismissAndReload();
 	return;
 }
+
 ?>
+
+<html>
 <head>
   <title><?php echo sprintf(_("Edit %s"), _($field)) ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
 <p class="popuphead"><?php echo sprintf(_("Edit %s"), _($field)) ?></p>
-<div class="popup">
+<span class="popup">
 <?php 
 	echo sprintf(_("Edit the %s and click %s when you're done"), _($field), '<b>' . _("Save") . '</b>');
 
@@ -60,7 +70,7 @@ if (isset($save)) {
 		"method" => "POST")); 
 ?>
 <input type="hidden" name="field" value="<?php echo $field ?>">
-<textarea name="data" rows="8" cols="55">
+<textarea name="data" rows="5" cols="40">
 <?php echo $gallery->album->fields[$field] ?>
 </textarea>
 <p>
@@ -75,8 +85,6 @@ document.theform.data.focus();
 //-->
 </script>
 
-</div>
-</center>
-<?php print gallery_validation_link("edit_field.php",true,array('field' => $field)); ?>
+</span>
 </body>
 </html>

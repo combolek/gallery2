@@ -23,6 +23,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") . "\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -32,12 +43,9 @@ if (isset($id)) {
 
 // Hack check
 if (!$gallery->user->canDeleteFromAlbum($gallery->album) && !$gallery->album->isItemOwner($gallery->user, $index)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
-doctype();
-echo "\n<html>";
 if (isset($confirm) && $confirm) {
 	$gallery->album->fields["votes"]=array();
 	$gallery->album->save(array(i18n("All votes removed")));
@@ -46,26 +54,22 @@ if (isset($confirm) && $confirm) {
 }
 ?>
 
+<html>
 <head>
   <title><?php echo _("Reset Voting") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body>
 
 <center>
-<p class="popuphead"><?php echo _("Reset Voting") ?></p>
-
-<p>
 <?php echo sprintf(_("Do you really want to remove all votes in %s?"), "<b>{$gallery->album->fields['title']}</b>") ?>
-</p>
-
+<br>
+<br>
 <?php echo makeFormIntro("reset_votes.php"); ?>
 <input type=submit name=confirm value="<?php echo _("Remove Votes") ?>">
 <input type=submit value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <br>
-</center>
 
-<?php print gallery_validation_link("reset_votes.php"); ?>
 </body>
 </html>

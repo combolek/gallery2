@@ -21,7 +21,13 @@
  */
 ?>
 <?php
-
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
 require(dirname(__FILE__) . '/nls.php');
 
 function editField($album, $field, $link=null) {
@@ -50,14 +56,14 @@ function editCaption($album, $index) {
 	global $gallery;
 
 	$buf = nl2br($album->getCaption($index));
-	if (empty($buf)) {
-		$buf = "<i>&lt;". _("No Caption") ."&gt;</i>";
-	}
 	$buf .= $album->getCaptionName($index);
 	if (($gallery->user->canChangeTextOfAlbum($album) ||
                ($gallery->album->getItemOwnerModify() && 
 	         $gallery->album->isItemOwner($gallery->user->getUid(), $index))) 
 		&& !$gallery->session->offline) {
+		if (!strcmp($buf, "")) {
+			$buf = "<i>&lt;". _("No Caption") ."&gt;</i>";
+		}
 		$url = "edit_caption.php?set_albumName={$album->fields['name']}&index=$index";
 		$buf .= "<span class=\"editlink\">";
 		$buf .= popup_link("[". _("edit") ."]", $url);
@@ -66,11 +72,11 @@ function editCaption($album, $index) {
 	return $buf;
 }
 
-function viewComments($index, $addComments, $page_url) {
+function viewComments($index, $addComments) {
         global $gallery;
+	global $GALLERY_BASEDIR;
 	global $commentdraw;
 	global $i;
-	global $commenter_name;
 
 	// get number of comments to use as counter for display loop
 	$numComments = $gallery->album->numComments($index);
@@ -86,76 +92,29 @@ function viewComments($index, $addComments, $page_url) {
 		$commentdraw["bordercolor"] = $borderColor;
 		includeLayout('commentdraw.inc');
 	}
-	
-	if ($addComments) {
-		if (isset($gallery->app->comments_addType) && $gallery->app->comments_addType == "inside") {
-			echo '<form name="theform" method="post" action="'. $page_url .'">';
-			drawCommentAddForm($commenter_name);
-			echo "</form>";
-		}
-		else {
-			$id = $gallery->album->getPhotoId($index);
-		       	$url = "add_comment.php?set_albumName={$gallery->album->fields['name']}&id=$id";
-	       		echo "\n" .'<div align="center" class="editlink">' .
-				popup_link('[' . _("add comment") . ']', $url, 0) .
-				'</div><br>';
-		}
-       	}
 
+	if ($addComments)
+       	{
+		$id = $gallery->album->getPhotoId($index);
+	       	$url = "add_comment.php?set_albumName={$gallery->album->fields['name']}&id=$id";
+	       	$buf  = "\n<tr>".
+			"\n". '<td colspan="3" align="center"><span class="editlink">' .
+			popup_link('[' . _("add comment") . ']', $url, 0) .
+			"</span><br><br></td>\n</tr>";
+	       	echo $buf;
+       	}
 }
 
-function drawCommentAddForm($commenter_name='', $cols=50) {
-	global $gallery;
-	if ($gallery->user->isLoggedIn() ) {
-		if (empty($commenter_name) || $gallery->app->comments_anonymous == 'no') {
-			$commenter_name=user_name_string($gallery->user->getUID(), $gallery->app->comments_display_name);
-		}
-	}
-?>
-<table class="commentbox" cellpadding="0" cellspacing="0">
-<tr>
-	<td colspan="2" class="commentboxhead"><?php echo _("Add your comment") ?></td>
-</tr>
-<tr>
-	<td class="commentboxhead"><?php echo _("Commenter:") ?></td>
-	<td class="commentboxhead">
-<?php
-			if (!$gallery->user->isLoggedIn() ) {
-				echo "<input name=\"commenter_name\" value=\"". $commenter_name ."\" size=\"30\">";
-			} else {
-				if ($gallery->app->comments_anonymous == 'yes') {
-					echo '<input name="commenter_name" value="'.$commenter_name.'" size="30">';
-				} else {
-					echo $commenter_name;
-					echo '<input type="hidden" name="commenter_name" value="'. $commenter_name .'" size="30">';
-				}
-			}
-?>
-</td>
-</tr>
-<tr>
-	<td class="commentlabel" valign="top"><?php echo _("Message:") ?></td>
-	<td><textarea name="comment_text" cols="<?php echo $cols ?>" rows="5"></textarea></td>
-</tr>
-<tr>
-	<td colspan="2" class="commentboxfooter" align="right"><input name="save" type="submit" value="<?php echo _("Post") ?>"></td>
-</tr>
-</table>
-<?php 
+function center($message) {
+	return "<center>$message</center>";
 }
 
 function gallery_error($message) {
-	return '<span class="error">'. _("Error:") . $message .'</span>';
+	echo error_format($message);
 }
 
-function gallery_syslog($message) {
-	global $gallery;
-	if (isset($gallery->app->useSyslog) && $gallery->app->useSyslog == "yes") {
-		define_syslog_variables();
-		openlog("gallery", LOG_NDELAY | LOG_PID, LOG_USER);
-		syslog(LOG_NOTICE, "(" . $gallery->app->photoAlbumURL . " [" . $gallery->version . "]) " . $message);
-		closelog();
-	}
+function error_format($message) {
+	return "<span class=\"error\">". _("Error:") . " $message</span>";
 }
 
 function build_popup_url($url, $url_is_complete=0) {
@@ -175,6 +134,7 @@ function build_popup_url($url, $url_is_complete=0) {
 	
 	if (!$url_is_complete) {
 		$url = makeGalleryUrl($target, $args);
+		$url = "'$url'";
 	}
 
 	return $url;
@@ -187,9 +147,6 @@ function popup($url, $url_is_complete=0, $height=500,$width=500) {
 }
 
 function popup_js($url, $window, $attrs) {
-	if (ereg("^http|^ftp|&amp;", $url)) {
-		$url = "'$url'";
-	}
 	return "nw=window.open($url,'$window','$attrs');nw.opener=self;return false;";
 }
 
@@ -212,7 +169,7 @@ function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height
     $link_name = "popuplink_".$popup_counter;
     $url = build_popup_url($url, $url_is_complete);
     
-	$a1 = "<a $cssclass id=\"$link_name\" target=\"Edit\" href=\"$url\" onClick=\"javascript:".
+	$a1 = "<a $cssclass id=\"$link_name\" target=\"Edit\" href=$url onClick=\"javascript:".
 	popup_js("document.getElementById('$link_name').href", "Edit",
 		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes").
 	"\">";
@@ -321,6 +278,20 @@ function getDimensions($file, $regs=false) {
 	return array(0, 0);
 }
 
+/*
+   $opts is now a name/value array, where $key is the value returned, and $name 
+   is the value displayed (and translated).
+ */
+function selectOptions($album, $field, $opts) {
+	foreach ($opts as $key => $value) {
+		$sel = "";
+		if (!strcmp($key, $album->fields[$field])) {
+			$sel = "selected";
+		}
+		echo "\n<option value=\"$key\" $sel>" . _($value) ."</option>";
+	}
+}
+
 function acceptableFormat($tag) {
 	return (isImage($tag) || isMovie($tag));
 }
@@ -373,15 +344,12 @@ function getFile($fname, $legacy=false) {
 
 function dismissAndReload() {
 	if (isDebugging()) {
-		echo "\n<body onLoad='opener.location.reload();'>\n";
-		echo '<p align="center" class="emphasis">';
-		echo _("Not closing this window because debug mode is on") ;
-		echo "\n<hr>\n</p>";
-		echo "\n</body>";
+		echo "<BODY onLoad='opener.location.reload();'>";
+		echo("<center><b>" ._("Not closing this window because debug mode is on") ."</b></center>");
+		echo("<hr>");
 	} else {
-		echo "<body onLoad='opener.location.reload(); parent.close()'></body>";
+		echo "<BODY onLoad='opener.location.reload(); parent.close()'>";
 	}
-	echo "\n</html>";
 }
 
 function reload() {
@@ -393,7 +361,6 @@ function reload() {
 function dismissAndLoad($url) {
 	if (isDebugging()) {
 		echo("<BODY onLoad='opener.location = \"$url\"; '>");
-		echo("Loading URL: $url");
 		echo("<center><b>" . _("Not closing this window because debug mode is on") ."</b></center>");
 		echo("<hr>");
 	} else {
@@ -549,7 +516,6 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
       $useTemp = true;
       $out = "$dest.tmp";
    } else {
-      $useTemp = false;
       $out = $dest;
    }
    if (isDebugging())
@@ -596,8 +562,8 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
          return 0;
       }
    } else {
-	echo gallery_error(_("No watermark name specified!"));
-	return 0;
+      echo "<br> ". _("Error: No watermark name specified!") ."<br>";
+      return 0;
    }
 
    // Set or Clip $wmAlignX and $wmAlignY
@@ -640,27 +606,6 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
       $wmAlignY = ($srcSize[1] - $overlaySize[1]);
       break;
    case 10: // Other
-      // Check for percents
-      if (ereg('([0-9]+)(\%?)', $wmAlignX, $regs)) {
-         if ($regs[2] == '%') {
-            $wmAlignX = round($regs[1] / 100 * ($srcSize[0] - $overlaySize[0]));
-         } else {
-            $wmAlignX = $regs[1];
-         }
-      } else {
-         $wmAlignX = 0;
-      }
-                                                                                                                    
-      if (ereg('([0-9]+)(\%?)', $wmAlignY, $regs)) {
-         if ($regs[2] == '%') {
-            $wmAlignY = round($regs[1] / 100 * ($srcSize[1] - $overlaySize[1]));
-         } else {
-            $wmAlignY = $regs[1];
-         }
-      } else {
-         $wmAlignY = 0;
-      }
-
       if ($wmAlignX < 1)
       { // clip left side
          $wmAlignX = 0;
@@ -675,7 +620,7 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
       }
       else if ($wmAlignY > ($srcSize[1] - $overlaySize[1]))
       { // clip bottom
-        $wmAlignY = ($srcSize[1] - $overlaySize[1]);
+        $wmAlignX = ($srcSize[1] - $overlaySize[1]);
       }
       break;
    } // end switch ($wmAlign)
@@ -777,7 +722,7 @@ function rotate_image($src, $dest, $target, $type) {
 
 		$path = $gallery->app->use_jpegtran;
 		// -copy all ensures all headers (i.e. EXIF) are copied to the rotated image
-		exec_internal(fs_import_filename($path, 1) . " $args -trim -copy all -outfile $outFile $srcFile");
+		exec_internal(fs_import_filename($path, 1) . " $args -copy all -outfile $outFile $srcFile");
 	} else {
 		switch($gallery->app->graphics)
 		{
@@ -899,7 +844,7 @@ function cut_image($src, $dest, $x, $y, $width, $height) {
 	}
 
 	if (fs_file_exists("$out") && fs_filesize("$out") > 0) {
-		if (isset($useTemp)) {
+		if ($useTemp) {
 			fs_copy($out, $dest);
 			fs_unlink($out);
 		}
@@ -957,7 +902,7 @@ function toPnmCmd($file) {
 		 	" " .
 			fs_import_filename($file);
 	} else {
-		echo gallery_error(sprintf(_("Unknown file type: %s"), $file));
+		gallery_error(sprintf(_("Unknown file type: %s"), $file));
 		return "";
 	}
 }
@@ -980,7 +925,7 @@ function fromPnmCmd($file, $quality=NULL) {
 	if ($cmd) {
 		return "$cmd > " . fs_import_filename($file);
 	} else {
-		echo gallery_error(sprintf(_("Unknown file type: %s"), $file));
+		gallery_error(sprintf(_("Unknown file type: %s"), $file));
 		return "";
 	}
 }
@@ -1013,7 +958,7 @@ function exec_wrapper($cmd) {
 		return 0;
 	} else {
 		if ($results) {
-			echo gallery_error(join("<br>", $results));
+			gallery_error(join("<br>", $results));
 		}
 		return 1;
 	}
@@ -1169,42 +1114,50 @@ function errorRow($key) {
 	}
 }
 
+function drawSelect($name, $array, $selected, $size, $attrList=array()) {
+	$attrs = "";
+	if (!empty($attrList)) {
+	    	foreach ($attrList as $key => $value) {
+			if ($value == NULL) {
+				$attrs .= " $key";
+			}
+			else {
+				$attrs .= " $key=\"$value\"";
+			}
+		}
+	}
+
+	$buf = "";
+	$buf .= "<select name=\"$name\" size=$size $attrs>\n";
+	foreach ($array as $uid => $username) {
+		$sel = "";
+		if (is_array($selected)) {
+			if (in_array($uid, $selected)) {
+				$sel = "selected";
+			}
+		} 
+		else if (!strcmp($uid, $selected)) {
+			$sel = "selected";
+		} 
+		$buf .= "<option value=$uid $sel>". $username ."</option>\n";
+	}
+	$buf .= "</select>\n";
+
+	return $buf;
+}
+
 function drawApplet($width, $height, $code, $archive, $album, $defaults, $overrides, $configFile, $errorMsg) {
-	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE, $HTTP_COOKIE_VARS;
-	global $_CONF; // for geeklog
+	global $gallery;
+	$cookieInfo = session_get_cookie_params();
 
 	if (file_exists($configFile)) {
 		include($configFile);
 
-		if (isset($configDefaults)) {
-			$defaults = array_merge($defaults, $configDefaults);
-		}
-		if (isset($configOverrides)) {
-			$overrides = array_merge($overrides, $configOverrides);
-		}
+		$defaults = array_merge($defaults, $configDefaults);
+		$overrides = array_merge($overrides, $configOverrides);
 	}
-
-	$cookieInfo = session_get_cookie_params();
-
-	$cookie_name = session_name();
-	$cookie_value = session_id();
-	$cookie_domain = $cookieInfo['domain'];
-	$cookie_path = $cookieInfo['path'];
-
-	// handle CMS-specific overrides
-	if (isset($GALLERY_EMBEDDED_INSIDE)) {
-		if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpnuke') {
-			$cookie_name = 'user';
-			$cookie_value = $HTTP_COOKIE_VARS[$cookie_name];
-		} else if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'geeklog') {
-			$cookie_name = $_CONF['cookie_session'];
-			$cookie_value = $HTTP_COOKIE_VARS[$cookie_name];
-		}
-	}
-
-	$defaults['uiLocale'] = $gallery->language;
 ?>
-	<object
+<object
 		classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
 		codebase="http://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab#Version=1,4,0,0"
 		width="<?php echo $width ?>" height="<?php echo $height ?>">
@@ -1215,13 +1168,10 @@ function drawApplet($width, $height, $code, $archive, $album, $defaults, $overri
 	<param name="progressbar" value="true">
 	<param name="boxmessage" value="Downloading the Gallery Remote Applet">
 	<param name="gr_url" value="<?php echo $gallery->app->photoAlbumURL ?>">
-<?php if (isset($GALLERY_EMBEDDED_INSIDE)) { ?>
-	<param name="gr_url_full" value="<?php echo makeGalleryUrl('gallery_remote2.php') ?>">
-<?php } ?>
-	<param name="gr_cookie_name" value="<?php echo $cookie_name ?>">
-	<param name="gr_cookie_value" value="<?php echo $cookie_value ?>">
-	<param name="gr_cookie_domain" value="<?php echo $cookie_domain ?>">
-	<param name="gr_cookie_path" value="<?php echo $cookie_path ?>">
+	<param name="gr_cookie_name" value="<?php echo session_name() ?>">
+	<param name="gr_cookie_value" value="<?php echo session_id() ?>">
+	<param name="gr_cookie_domain" value="<?php echo $cookieInfo['domain'] ?>">
+	<param name="gr_cookie_path" value="<?php echo $cookieInfo['path'] ?>">
 	<param name="gr_album" value="<?php echo $album ?>">
 <?php
 	foreach($defaults as $key => $value) {
@@ -1245,13 +1195,10 @@ function drawApplet($width, $height, $code, $archive, $album, $defaults, $overri
 				boxmessage="Downloading the Gallery Remote Applet"
 				pluginspage="http://java.sun.com/j2se/1.4.2/download.html"
 				gr_url="<?php echo $gallery->app->photoAlbumURL ?>"
-<?php if (isset($GALLERY_EMBEDDED_INSIDE)) { ?>
-				gr_url_full="<?php echo makeGalleryUrl('gallery_remote2.php') ?>"
-<?php } ?>
-				gr_cookie_name="<?php echo $cookie_name ?>"
-				gr_cookie_value="<?php echo $cookie_value ?>"
-				gr_cookie_domain="<?php echo $cookie_domain ?>"
-				gr_cookie_path="<?php echo $cookie_path ?>"
+				gr_cookie_name="<?php echo session_name() ?>"
+				gr_cookie_value="<?php echo session_id() ?>"
+				gr_cookie_domain"<?php echo $cookieInfo['domain'] ?>"
+				gr_cookie_path="<?php echo $cookieInfo['path'] ?>"
 				gr_album="<?php echo $album ?>"
 <?php
 	foreach($defaults as $key => $value) {
@@ -1315,6 +1262,45 @@ function correctPseudoUsers(&$array, $ownerUid) {
 }
 
 /*
+ * makeFormIntro() is a wrapper around makeGalleryUrl() that will generate
+ * a <form> tag suitable for usage in either standalone or embedded mode.
+ * You can specify the additional attributes you want in the optional second
+ * argument.  Eg:
+ *
+ * makeFormIntro("add_photos.php",
+ *			array("name" => "count_form",
+ *				"enctype" => "multipart/form-data",
+ *				"method" => "POST"));
+ */
+function makeFormIntro($target, $attrList=array()) {
+	$url = makeGalleryUrl($target);
+	$result = split("\?", $url);
+	$target = $result[0];
+	if (sizeof($result) > 1) {
+		$tmp = $result[1];
+	} else {
+		$tmp = "";
+	}
+
+	$attrs = '';
+	foreach ($attrList as $key => $value) {
+		$attrs .= " $key=\"$value\"";
+	}
+
+	$form = "<form action=\"$target\" $attrs>\n";
+
+	$args = split("&", $tmp);
+	foreach ($args as $arg) {
+		if (strlen($arg) == 0) {
+			continue;
+		}
+		list($key, $val) = split("=", $arg);
+		$form .= "<input type=\"hidden\" name=\"$key\" value=\"$val\">\n";
+	}
+	return $form;
+}
+
+/*
  * Any URL that you want to use can either be accessed directly
  * in the case of a standalone Gallery, or indirectly if we're
  * mbedded in another app such as Nuke.  makeGalleryUrl() will 
@@ -1369,18 +1355,16 @@ function makeGalleryUrl($target, $args=array()) {
 
 			break;
 			case 'mambo':
-				$args['option'] = $GALLERY_MODULENAME;
-				$args['Itemid'] = $MOS_GALLERY_PARAMS['itemid'];
-				$args['include'] = $target;
-
-				if (isset($args['type']) && $args['type'] == 'popup') {
-					$target = $gallery->app->photoAlbumURL . "/" . $target;
-				} else {
-					$target = 'index.php';
-				}
+			    $args['option'] = $GALLERY_MODULENAME;
+			    $args['Itemid'] = $MOS_GALLERY_PARAMS['itemid'];
+			    $args['include'] = $target;
+			if (isset($args['type']) && $args['type'] == 'popup') {
+				$target = $gallery->app->photoAlbumURL . "/" . $target;
+			} else {
+				$target = 'index.php';
+			}
 
 			break;
-
 			// Maybe something went wrong, then we assume we are like standalone.		
 			default:
 				$target = $gallery->app->photoAlbumURL . "/" . $target;
@@ -1402,12 +1386,7 @@ function makeGalleryUrl($target, $args=array()) {
 			$url .= "$key=$value";
 		}
 	}
-	return htmlspecialchars($url);
-}
-
-function makeGalleryHeaderUrl($target, $args=array()) {
-	$url = makeGalleryUrl($target, $args);
-	return unhtmlentities($url);
+	return $url;
 }
 
 /*
@@ -1447,11 +1426,6 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 	return makeGalleryUrl($target, $args);
 }
 
-function makeAlbumHeaderUrl($albumName="", $photoId="", $args=array()) {
-	$url = makeAlbumUrl($albumName, $photoId, $args);
-	return unhtmlentities($url);
-}
-
 function gallerySanityCheck() {
 	global $gallery;
 	global $GALLERY_OK;
@@ -1459,7 +1433,7 @@ function gallerySanityCheck() {
 	       	return NULL;
        	}
 
-	getGalleryPaths();
+	get_GalleryPathes();
 
 	if (!fs_file_exists(GALLERY_CONFDIR . "/config.php") ||
                 broken_link(GALLERY_CONFDIR . "config.php") ||
@@ -1534,18 +1508,18 @@ function preprocessImage($dir, $file) {
 				fclose($newfd);
 				$success = fs_rename($tempfile, "$dir/$file");
 				if (!$success) {
-					echo gallery_error("Couldn't move $tempfile -> $dir/$file");
+					gallery_error("Couldn't move $tempfile -> $dir/$file");
 					fs_unlink($tempfile);
 				}
 			} else {
-				echo gallery_error(sprintf(_("Can't write to %s."),
+				gallery_error(sprintf(_("Can't write to %s."),
 							$tempfile));
 			}
 			chmod("$dir/$file", 0644);
 		}
 		fclose($fd);
 	} else {
-		echo gallery_error(sprintf(_("Can't read %s."), "$dir/$file"));
+		gallery_error(sprintf(_("Can't read %s."), "$dir/$file"));
 	}
 
 	return 1;
@@ -1572,56 +1546,55 @@ function addUrlArg($url, $arg) {
 
 function getNextPhoto($idx, $album=NULL) {
 	global $gallery;
-
 	if (!$album) {
-		$album = $gallery->album;
+		$album=$gallery->album;
 	}
 
-	$numPhotos = $album->numPhotos(1);
+	$numPhotos = $album->numPhotos(1);	
 	$idx++;
 
 	if ($idx > $numPhotos) {
 		return $idx;
 	}
 
-	// If it's not an album or hidden, or the user is an admin, show it to them.
-	if ((!$album->isAlbum($idx) && !$album->isHidden($idx)) || $gallery->user->isAdmin()) {
+	$myAlbumName = $album->getAlbumName($idx);
+	if ($myAlbumName) {
+		$myAlbum = new Album();
+		$myAlbum->load($myAlbumName);
+	}
+
+	if ($gallery->user->canWriteToAlbum($album)) {
+		// even though a user can write to an album, they may
+		// not have read authority over a specific nested album.
+		if ($idx <= $numPhotos && isset($myAlbum)) {
+			if (!$gallery->user->canReadAlbum($myAlbum)) {
+				$idx = getNextPhoto($idx, $album);
+			}
+		}
 		return $idx;
 	}
 
-	// Check rights to album
-	if ($album->isAlbum($idx)) {
-		$myAlbum =& $album->getNestedAlbum($idx);
-
-		// Owners can always see their own content
-		if ($gallery->user->isOwnerOfAlbum($myAlbum)) {
+	while ($idx <= $numPhotos && $album->isHidden($idx)) {
+		if ((isset($myAlbum) && $gallery->user->isOwnerOfAlbum($myAlbum)) ||
+			(isset($gallery->album) && $gallery->album->getItemOwnerModify() &&
+			 $gallery->album->isItemOwner($gallery->user->getUid(), $idx)))
+		{ 
 			return $idx;
 		}
+		$idx++;
+	}
 
-		// No rights?  getNextPhoto
-		if (!$gallery->user->canReadAlbum($myAlbum)) {
-			return getNextPhoto($idx, $album);
+	if ($idx <= $numPhotos && $album->getAlbumName($idx)) {
+		// do not display a nexted album if the user doesn't
+		// have permission to view it.
+		if (isset($myAlbum)) {
+			if (!$gallery->user->canReadAlbum($myAlbum)) {
+				$idx = getNextPhoto($idx, $album);
+			}
 		}
 	}
 
-	// Visible Album or Hidden Photo/Album
-	if (!$album->isHidden($idx)) {
-		// Visible album - allow all
-		return $idx;
-	} else {
-		if ($gallery->user->isOwnerOfAlbum($album)) {
-			// Does the user own the current album?
-			// Owners can always see at least the first level of sub-content
-			return $idx;
-		} elseif ($album->getItemOwnerModify() && $album->isItemOwner($gallery->user->getUid(), $idx)) {
-			// Hidden photo - allow the owner to see it (hidden sub-albums are covered 
-			// in the album rights block by isOwnerOfAlbum)
-			return $idx;
-		} else {
-			// Hidden photo or album - disallow all others
-			return getNextPhoto($idx, $album);
-		}
-	}
+	return $idx;
 }
 
 // The following 2 functions, printAlbumOptionList and printNestedVals provide
@@ -1664,7 +1637,7 @@ function printAlbumOptionList($rootDisplay=1, $moveRootAlbum=0, $movePhoto=0, $r
 	// create a ROOT option for the user to move the 
 	// album to the main display
 	if ($gallery->user->canCreateAlbums() && $rootDisplay && !$readOnly) {
-		echo "<option value=\".root\">". _("Top Level") ."</option>";
+		echo "<option value=ROOT>". _("Top Level") ."</option>";
 	}
 
 	// display all albums that the user can move album to
@@ -1723,8 +1696,8 @@ function printNestedVals($level, $albumName, $movePhoto, $readOnly) {
 	$numPhotos = $myAlbum->numPhotos(1);
 
 	for ($i=1; $i <= $numPhotos; $i++) {
-		if ($myAlbum->isAlbum($i)) {
-			$myName = $myAlbum->getAlbumName($i);
+		$myName = $myAlbum->getAlbumName($i);
+		if ($myName) {
 			$nestedAlbum = new Album();
 			$nestedAlbum->load($myName);
 			if ($gallery->user->canWriteToAlbum($nestedAlbum) ||
@@ -1849,6 +1822,34 @@ function doCommand($command, $args=array(), $returnTarget="", $returnArgs=array(
 	return makeGalleryUrl("do_command.php", $args);
 }
 
+function formVar($name) {
+    global $HTTP_GET_VARS;
+    global $HTTP_POST_VARS;
+
+    if (!empty($HTTP_GET_VARS[$name])) {
+	if (!strncmp($HTTP_GET_VARS[$name], 'false', 5)) {
+	    return false;
+	} else {
+	    return($HTTP_GET_VARS[$name]);
+	}
+    }
+
+    if (!empty($HTTP_POST_VARS[$name])) {
+	if (!strncmp($HTTP_POST_VARS[$name], 'false', 5)) {
+	    return false;
+	} else {
+	    return($HTTP_POST_VARS[$name]);
+	}
+    }
+}
+
+function emptyFormVar($name) {
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+
+	return !isset($HTTP_GET_VARS[$name]) && !isset($HTTP_POST_VARS[$name]);
+}
+
 function breakString($buf, $desired_len=40, $space_char=' ', $overflow=5) {
 	$result = "";
 	$col = 0;
@@ -1879,12 +1880,12 @@ function safe_serialize($obj, $file) {
 		/* Acquire an advisory lock */
 		$lockfd = fs_fopen("$file.lock", "a+");
 		if (!$lockfd) {
-			echo gallery_error(sprintf(_("Could not open lock file (%s)!"),
+			gallery_error(sprintf(_("Could not open lock file (%s)!"),
 						"$file.lock"));
 			return 0;
 		}
 		if (!flock($lockfd, LOCK_EX)) {
-			echo gallery_error(sprintf(_("Could not acquire lock (%s)!"),
+			gallery_error(sprintf(_("Could not acquire lock (%s)!"),
 						"$file.lock"));
 			return 0;
 		}
@@ -1960,15 +1961,15 @@ function printChildren($albumName,$depth=0) {
 	$numPhotos = $myAlbum->numPhotos(1);
 	for ($i=1; $i <= $numPhotos; $i++) {
 		set_time_limit($gallery->app->timeLimit);
-		if ($myAlbum->isAlbum($i) && !$myAlbum->isHidden($i)) {
-			$myName = $myAlbum->getAlbumName($i);
+		$myName = $myAlbum->getAlbumName($i);
+		if ($myName && !$myAlbum->isHidden($i)) {
 		        $nestedAlbum = new Album();
 			$nestedAlbum->load($myName);
 			if ($gallery->user->canReadAlbum($nestedAlbum)) {
 				$val2 = $nestedAlbum->fields['title'];
 				if (!strcmp($nestedAlbum->fields['display_clicks'], 'yes')
 					&& !$gallery->session->offline) {
-				    $val3 = "(" . pluralize_n2(ngettext("1 hit", "%d hits", $nestedAlbum->getClicks()), $nestedAlbum->getClicks()) . ")";
+				    $val3 = "(" . pluralize_n($nestedAlbum->getClicks(), _("1 hit"), _("hits"), _("0 hits")) . ")";
 				} else {
 				    $val3 = "";
 				}
@@ -1999,6 +2000,65 @@ function mostRecentComment($album, $i)
         return $recentcomment->getDatePosted();
 }
 
+
+/*
+ * expects as input an array where the keys
+ * are string labels and the values are
+ * numbers.  Values must be non-negative
+ * returns an HTML bar graph as a string
+ * assumes bar.gif, located in images/
+ * modified from example in PHP Bible
+ */
+function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5", 
+	$col_1_head=null, $col_2_head=null) 
+{
+	global $GALLERY_BASEDIR;
+	foreach ($array as $value) 
+	{
+		if ((IsSet($max_value) && ($value > $max_value)) ||
+				(!IsSet($max_value))) 
+		{
+			$max_value = $value;
+		}
+	}
+	if (!isSet($max_value))
+	{
+		// no results!
+		return null;
+	}
+	$string_to_return = "\n  <table $table_values>";
+	if ($col_1_head || $col_2_head)
+	{
+		$string_to_return .=	"<tr>" .
+					"\n\t<td></td>".
+					"\n\t<td class=\"admin\">$col_1_head</td>".
+					"\n\t<td class=\"admin\">$col_2_head</td>".
+					"</tr>";
+	}
+	if ($max_value > 0)
+	{
+		$pixels_per_value = ((double) $max_width)
+			/ $max_value;
+	}
+	else 
+	{
+		$pixels_per_value = 0;
+	}
+	$counter = 0;
+	foreach ($array as $name => $value) {
+		$bar_width = $value * $pixels_per_value;
+		$string_to_return .= "\n\t<tr>"
+			. "\n\t<td>(". ++$counter .")</td>"
+			. "\n\t<td>$name ($value)</td>"
+			. "\n\t<td><img src=\"". $GALLERY_BASEDIR . "images/bar.gif\" border=\"1\""
+			. " width=\"$bar_width\" height=\"10\" alt=\"BAR\"></td>"
+			. "\n\t</tr>";
+	}
+	$string_to_return .= "\n  </table>";
+	return($string_to_return);
+}
+
+/*not used*/
 function ordinal($num=1)
 {
 	$ords = array("th","st","nd","rd");
@@ -2007,9 +2067,347 @@ function ordinal($num=1)
 	return "$val" . $ords[$num];
 }
 
-function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fields=array(), $wmName="", $wmAlign=0, $wmAlignX=0, $wmAlignY=0) {
+function saveResults($votes)
+{
+	global $gallery;
+	if (!$votes)
+	{
+		return;
+	}
+	if ($gallery->album->getPollType() == "critique")
+	{
+		foreach ($votes as $vote_key => $vote_value)
+		{
+			if ($vote_value === null || $vote_value == "NULL")  {
+			       	if (isset($gallery->album->fields["votes"] 
+					   [$vote_key][getVotingID()])) {
+				       	unset($gallery->album->fields["votes"]
+						       	[$vote_key]
+						       	[getVotingID()]);
+			       	}
+		       	} else {
+				$gallery->album->fields["votes"]
+					[$vote_key]
+					[getVotingID()]=intval($vote_value);
+			}
+		}
+       	} else {
+	       	krsort($votes, SORT_NUMERIC);
+		foreach ($votes as $vote_value => $vote_key) {
+		       	if (isset($gallery->album->fields["votes"] [$vote_key] [getVotingID()]) &&
+				  $gallery->album->fields["votes"] [$vote_key] [getVotingID()] ===intval($vote_value)) {
+				//vote hasn't changed, so skip to next one
+				continue;
+			}
+			foreach ($gallery->album->fields["votes"] as $previous_key => $previous_vote) {
+				if (isset($previous_vote[getVotingID()]) &&
+						$previous_vote[getVotingID()] 
+							=== intval($vote_value)) {
+					unset($gallery->album->fields["votes"]
+						[$previous_key]
+						[getVotingID()]);
+				}
+			}
+			$gallery->album->fields["votes"][$vote_key][getVotingID()]
+				=intval($vote_value);
+		}
+	}
+	$gallery->album->save(array(i18n("New vote recorded")));
+}
+
+function getVotingID()
+{
+	global $gallery;
+	if ($gallery->album->getVoterClass() ==  "Logged in")
+	{
+		return $gallery->user->getUid();
+	}
+	else if ($gallery->album->getVoterClass() ==  "Everybody")
+	{
+		return session_id();
+	}
+	else 
+	{
+		return NULL;
+	}
+
+}
+function canVote()
+{
+	global $gallery;
+	if ($gallery->album->numPhotos($gallery->user->canWriteToAlbum(
+					$gallery->album)) == 0) {
+	       return false; 
+	}	       
+	if ($gallery->album->getVoterClass() == "Everybody")
+	{
+		return true;
+	}
+	if ($gallery->album->getVoterClass() == "Logged in" 
+		&& $gallery->user->isLoggedIn())
+	{
+		return true;
+	}
+	return false;
+}
+function addPolling ($id, $form_pos=-1, $immediate=true)
+{
+	global $gallery;
+	if ( !canVote())
+	{
+		return;
+	}
+	if (isset($gallery->album->fields["votes"][$id][getVotingID()])) {
+	       	$current_vote =
+			$gallery->album->fields["votes"][$id][getVotingID()];
+	} else {
+		$current_vote = -1;
+	}
+	$nv_pairs=$gallery->album->getVoteNVPairs();
+	print $gallery->album->getPollHint();
+	if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() == "critique")
+	{
+		print "\n<input type=checkbox name=\"votes[$id]\" value=\"1\"";
+		if ($current_vote > 0)
+		{
+			print "checked";
+		}
+		print ">".$nv_pairs[0]["name"];
+	}
+	else if ($gallery->album->getPollType() == "rank")
+	{
+	    if ($gallery->album->getPollHorizontal())
+	    {
+		print "<table><tr>";
+		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
+		{
+			print "\n<td align=center><input type=radio name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
+			$gallery->album->getPollScale().")\" ";
+			if ($current_vote === $i)
+			{
+				print "checked";
+			}
+			print "></td>";
+		}
+		print "</tr><tr>";
+		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
+		{
+			print "<td align=center>".$nv_pairs[$i]["name"]."</td>";
+		}
+		print "</tr></table>";
+	    }
+	    else
+	    {
+		print "<table>";
+		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
+		{
+			print "<tr>";
+			print "\n<td align=center><input type=radio name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
+			$gallery->album->getPollScale().")\" ";
+			if ($current_vote === $i)
+			{
+				print "checked";
+			}
+			print "></td>";
+			print "<td >".$nv_pairs[$i]["name"]."</td>";
+			print "</tr><tr>";
+		}
+		print "</table>";
+	    }
+	}
+	else // "critique"
+	{
+		if ($immediate)
+		{
+			print "\n<br><select style='FONT-SIZE: 10px;' name=\"votes[$id]\" ";
+			print "onChange='this.form.submit();'>";
+		}
+		else
+		{
+			print "\n<br><select name=\"votes[$id]\">";
+		}
+		if ($current_vote == -1)
+		{
+			print "<option value=NULL><< ". _("Vote") . " >></option>\n";
+		}
+		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
+		{
+			$sel="";
+			if ($current_vote === $i) {
+				$sel="selected";
+			}
+			print "<option value=$i $sel>".$nv_pairs[$i]["name"]."</option>\n";
+		}
+		print "</select>";
+	}
+}
+
+function showResultsGraph($num_rows)
+{
+	global $gallery;
+	$results=array();
+	$results_count=array();
+	$nv_pairs=$gallery->album->getVoteNVPairs();
+	$buf='';
+
+	$voters=array();
+	foreach ($gallery->album->fields["votes"] as $element => $image_votes)
+	{
+	    $accum_votes=0;
+	    $count=0;
+	    foreach ($image_votes as $voter => $vote_value )
+	    {
+		$voters[$voter]=true;
+		if ($vote_value> $gallery->album->getPollScale()) // scale has changed
+		{
+			$vote_value=$gallery->album->getPollScale();
+		}
+		$accum_votes+=$nv_pairs[$vote_value]["value"];
+		$count++;
+	    }
+	    if ($accum_votes > 0) 
+	    {
+	        $results_count[$element]=$count;
+		if ($gallery->album->getPollType() == "rank" || $gallery->album->getPollScale() == 1)
+		{
+	    		$results[$element]=$accum_votes;
+			$summary="("._("Total points in brackets") . ")";
+		}
+	    	else
+		{
+			$results[$element]=number_format(((double)$accum_votes)/$count, 2);
+			$summary="("._("Average points in brackets") . ")";
+		}
+	    }
+	}
+	array_multisort($results, SORT_NUMERIC, SORT_DESC, $results_count, SORT_NUMERIC, SORT_DESC);
+	$rank=0;
+	$graph=array();
+	$needs_saving=false;
+	foreach ($results as $element => $count)
+	{
+		$index=$gallery->album->getIndexByVotingId($element);
+		if ($index < 0) 
+		{
+			// image has been deleted!
+			continue;
+		} 
+		if ($gallery->album->isAlbum($index)) {
+			$url = makeAlbumUrl($gallery->album->getAlbumName($index));
+			$album=$gallery->album->getSubAlbum($index);
+			$desc=sprintf(_("Album: %s"), 
+					$album->fields['title']);
+
+		} else {
+			$id = $gallery->album->getPhotoId($index);
+			$url=makeAlbumUrl($gallery->session->albumName, $id);
+			$desc=$gallery->album->getCaption($index);
+			if (trim($desc)== "") {
+				$desc=$id;
+			}	
+		}
+		$current_rank = $gallery->album->getRank($index);
+		$rank++;
+		if ($rank != $current_rank) {
+			$needs_saving = true;
+			$gallery->album->setRank($index, $rank);
+		}
+		if ($rank > $num_rows)
+		{
+			continue;
+		}
+		
+	    	$name_string='<a href="';
+		$name_string.= $url;
+		$name_string.= '">';
+		$name_string.= $desc;
+		$name_string.= "</a>";
+		$name_string.= " - ".
+		      	pluralize_n($results_count[$element], _("1 voter"), 
+					_("voters"), 
+					_("0 voters"));
+	       	$graph[$name_string]=$count;
+	}
+	if ($needs_saving)
+	{
+		$gallery->album->save();
+	}
+	$graph=arrayToBarGraph($graph, 300, "border=0");
+	if ($graph)
+        {
+                $buf .= "<span class=\"title\">".
+			sprintf(_("Results from %s."),
+					pluralize_n(sizeof($voters), 
+						_("1 voter"), _("voters"), 
+						_("0 voters"))).
+                        "</span>";
+                if ($gallery->album->getPollType() == "critique")
+                {
+                        $key_string="";
+                        foreach ($nv_pairs as $nv_pair)
+                        {
+				if (empty($nv_pair["name"])) {
+					continue;
+				}
+				$key_string .= sprintf(_("%s: %s points; "), 
+						$nv_pair["name"],
+						$nv_pair["value"]);
+			}
+                        if (strlen($key_string) > 0)
+                        {       
+                                $buf .= "<br>". sprintf(_("Key - %s"), 
+						$key_string)." $summary<br>";
+                        }
+                }
+                $buf .= $graph;
+        } else if ($num_rows > 0 && 
+			$gallery->user->canWriteToAlbum($gallery->album)) {
+		$buf .= "<span class=\"title\">"._("No votes so far.")."<br></span>";
+	}
+	return array($buf, $results);
+}
+function showResults($id)
+{
+	global $gallery;
+	$vote_tally=array();
+	$nv_pairs=$gallery->album->getVoteNVPairs();
+	$buf='';
+	if (isSet ($gallery->album->fields["votes"][$id]))
+	{
+	    foreach ($gallery->album->fields["votes"][$id] as $vote)
+	    {
+		if (!isSet($vote_tally[$vote]))
+		{
+			$vote_tally[$vote]=1;
+		}
+		else
+		{
+			$vote_tally[$vote]++;
+		}
+	    }
+	}
+	$buf .= "<span class=\"admin\">"._("Poll results:")."</span><br>";
+	if (sizeof($vote_tally) === 0)
+	{
+		$buf .= _("No votes")."<br>";
+		return;
+	}
+	$index=$gallery->album->getIndexByVotingId($id);
+	$buf .= sprintf(_("Number %d overall."), 
+			$gallery->album->getRank($index)) ."<br>";
+	ksort($vote_tally);
+	foreach ($vote_tally as $key => $value)
+	{
+		$buf .= sprintf(_("%s: %s"), $nv_pairs[$key]["name"],
+			pluralize_n($value, _("1 vote"), _("votes"), _("0 votes"))). "<br>";
+	}
+	return $buf;
+}
+
+function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fields=array()) {
 	global $gallery;
 	global $temp_files;
+
 	if (!strcmp($tag, "zip")) {
 		if (!$gallery->app->feature["zip"]) {
 			processingMsg(sprintf(_("Skipping %s (ZIP support not enabled)"), $name));
@@ -2112,7 +2510,7 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 					      already quoted.
 					     */
 
-				processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY);
+				processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption, $extra_fields);
 				fs_unlink($gallery->app->tmpDir . "/$pic");
 			}
 		}
@@ -2172,9 +2570,11 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 			if (!$extra_fields) {
 			    $extra_fields=array();
 			}
-			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid, NULL, $wmName, $wmAlign, $wmAlignX, $wmAlignY);
+			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid);
 			if ($err) {
-				processingMsg(gallery_error($err));
+				processingMsg("<font color=red>" . 
+						sprintf(_("Error: %s!"), $err) .
+						"</font>");
 				processingMsg("<b>". sprintf(_("Need help?  Look in the  %s%s FAQ%s"),
 				    '<a href="http://gallery.sourceforge.net/faq.php" target=_new>', 
 				    Gallery(),
@@ -2208,11 +2608,7 @@ function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newA
 	$gallery->session->albumName = $albumDB->newAlbumName($newAlbumName);
 
         $gallery->album = new Album();
-	$gallery->album->fields["name"] = $gallery->session->albumName;
-
-	// guid is not created during new Album() as a performance optimization
-	// it only needs to be created when an album is created or modified by adding or deleting photos
-	$gallery->album->fields['guid'] = md5(uniqid(rand(), true));    
+        $gallery->album->fields["name"] = $gallery->session->albumName;
 
         // set title and description
         if ($newAlbumTitle) {
@@ -2228,7 +2624,7 @@ function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newA
         /* if this is a nested album, set nested parameters */
         if ($parentName) {
                 $gallery->album->fields['parentAlbumName'] = $parentName;
-                $parentAlbum = $albumDB->getAlbumByName($parentName);
+                $parentAlbum = $albumDB->getAlbumbyName($parentName);
                 $parentAlbum->addNestedAlbum($gallery->session->albumName);
                 $parentAlbum->save();
                 // Set default values in nested album to match settings of parent.
@@ -2328,12 +2724,13 @@ function galleryDocs($class='') {
 		if (isset($gallery->app->photoAlbumURL)) {
 			$url=$gallery->app->photoAlbumURL . '/docs/index.html';
 		}
-		else {  // When first time config without $gallery set.
+		else { // When first config and $gallery is not filled
 			$url='../docs/index.html';
 		}
 		return "<a class=\"$class\" href=\"$url\">[" .  _("documentation").']</a>';
+	} else {
+	        return NULL;
 	}
-	return NULL;
 }
 
 function compress_image($src, $out, $target, $quality, $keepProfiles=false) {
@@ -2518,16 +2915,16 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 		$hide_recipients = false, $from = NULL) {
 	global $gallery;
 	if ($gallery->app->emailOn == "no") {
-		echo gallery_error(_("Email not sent as it is disabled for this gallery"));
+	       	gallery_error(_("Email not sent as it is disabled for this gallery"));
 		return false;
 	}
        	if (!$to) {
-		echo gallery_error(sprintf(_("Email not sent as no address provided"),
+	       	gallery_error(sprintf(_("Email not sent as no address provided"),
 				       	"<i>" . $to . "</i>"));
 		return false;
 	}
        	if (!gallery_validate_email($to, true)) {
-		echo gallery_error(sprintf(_("Email not sent to %s as it is not a valid address"),
+	       	gallery_error(sprintf(_("Email not sent to %s as it is not a valid address"),
 				       	"<i>" . $to . "</i>"));
 		return false;
 	}
@@ -2542,7 +2939,7 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 	global $gallery, $HTTP_SERVER_VARS;
 	if (!gallery_validate_email($from)) {
 		if (isDebugging() && $from) {
-			echo gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
+			gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
 				       	$from, $gallery->app->senderEmail));
 	       	}
 		$from = $gallery->app->senderEmail;
@@ -2581,7 +2978,7 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 	       	if ($result) {
 			print _("Email sent")."<br>";
 		} else {
-			echo gallery_error(_("Email not sent"));
+		       	gallery_error(_("Email not sent"));
 	       	}
 	}
 	emailLogMessage($logmsg, $result);
@@ -2603,7 +3000,6 @@ function lastCommentString($lastCommentDate, &$displayCommentLegend) {
 	}
 	return $ret;
 }
-
 function emailLogMessage($logmsg, $result) {
 	global $gallery;
 	if (!$result) {
@@ -2666,14 +3062,8 @@ Gallery @ %s Administrator.");
 
 function available_skins($description_only=false) {
 
-	global $gallery;
-
-	if (isset($gallery->app->photoAlbumURL)) {
-		$base_url = $gallery->app->photoAlbumURL;
-	}
-	else {
-		$base_url = "..";
-	}
+	global $GALLERY_BASEDIR;
+	if ($GALLERY_BASEDIR == "") $GALLERY_BASEDIR = '..';
 
 	$dir = dirname(__FILE__) . '/skins';
 	$opts['none'] = 'None';
@@ -2695,9 +3085,9 @@ function available_skins($description_only=false) {
 			       	}
 				$opts[$file]=$name;
 				if (fs_file_exists("$dir/$file/images/screenshot.jpg")) {
-					$screenshot=$base_url . "/skins/$file/images/screenshot.jpg";
+					$screenshot="$GALLERY_BASEDIR/skins/$file/images/screenshot.jpg";
 				} else if (fs_file_exists("$dir/$file/images/screenshot.gif")) {
-					$screenshot=$base_url . "/skins/$file/images/screenshot.gif";
+					$screenshot="$GALLERY_BASEDIR/skins/$file/images/screenshot.gif";
 				} else {
 					$screenshot="";
 				}
@@ -2729,9 +3119,9 @@ function available_frames($description_only=false) {
 			'solid' => _("Solid"), 
 			);
 	$descriptions="<dl>" .
-		"<dt>" . popup_link(_("None"), "frame_test.php?frame=none", 1)  . "</dt><dd>". _("No frames")."</dd>" .
-		"<dt>" . popup_link(_("Dots"), "frame_test.php?frame=dots", 1)  . "</dt><dd>". _("Just a simple dashed border around the thumb.")."</dd>" .
-		"<dt>" . popup_link(_("Solid"), "frame_test.php?frame=solid", 1) . "</dt><dd>". _("Just a simple solid border around the thumb.")."</dd>" ;
+		"<dt>". _("None")  . "</dt><dd>". _("No frames")."</dd>" .
+		"<dt>". _("Dots")  . "</dt><dd>". _("Just a simple dashed border around the thumb.")."</dd>" .
+		"<dt>". _("Solid") . "</dt><dd>". _("Just a simple solid border around the thumb.")."</dd>" ;
 	$dir = $GALLERY_BASE . '/html_wrap/frames';
        	if (fs_is_dir($dir) && is_readable($dir) && $fd = fs_opendir($dir)) {
 	       	while ($file = readdir($fd)) {
@@ -2748,17 +3138,17 @@ function available_frames($description_only=false) {
 					$description=$file;
 				}
 				$opts[$file]=$name;
-				$descriptions.="\n<dt>" . popup_link($name, "frame_test.php?frame=$file", 1) . "</a></dt><dd>$description</dd>";
+				$descriptions.="\n<dt>$name</dt><dd>$description</dd>";
 			} else {
 				if (false && isDebugging()) 
 				{
-					echo gallery_error(sprintf(_("Skipping %s."),
+					gallery_error(sprintf(_("Skipping %s."),
 								$subdir));
 				}
 			}
 		}
 	} else {
-		echo gallery_error(sprintf(_("Can't open %s"), $dir));
+		gallery_error(sprintf(_("Can't open %s"), $dir));
 	}
 
 	$descriptions.="\n</dl>";
@@ -2782,9 +3172,6 @@ function testRequirement($test) {
     case 'allowComments':
 	return $gallery->album->fields["perms"]['canAddComments'];
        	break;
-    case 'hasComments':
-        return ($gallery->album->lastCommentDate("no") != -1);
-        break;
     case 'canAddToAlbum':
 	return $gallery->user->canAddToAlbum($gallery->album);
 	break;
@@ -2836,20 +3223,16 @@ function metatags() {
 	echo '<meta http-equiv="content-style-type" content="text/css">';
 	echo "\n  ". '<meta http-equiv="content-type" content="Mime-Type; charset='. $gallery->charset .'">';
 	echo "\n  ". '<meta name="content-language" content="' . str_replace ("_","-",$gallery->language) . '">';
-	echo "\n\n";
+	echo "\n";
 }
 
 // uses makeGalleryURL
-function gallery_validation_link($file, $valid=true, $args='') {
+function gallery_validation_link($file, $valid=true) {
 	global $gallery;
 	if ($gallery->app->devMode == "no") {
 		return "";
 	}
-
-	if (!isset($args)) {
-		$args=array();
-	}
-
+	$args=array();
 	$args['PHPSESSID']=session_id();
 	$link='<a href="http://validator.w3.org/check?uri='.
 		urlencode(eregi_replace("&amp;", "&",
@@ -3012,7 +3395,7 @@ function key_strip_slashes (&$arr) {
 ** Define Constants for Gallery pathes.
 */ 
 
-function getGalleryPaths() {
+function get_GalleryPathes() {
 
 if (defined('GALLERY_BASE')) return;
 
@@ -3028,186 +3411,6 @@ if ( __FILE__ == '/usr/share/gallery/util.php') {
 define ("GALLERY_BASE", dirname(__FILE__));
 }
 
-function showOwner($owner) {
-
-global $GALLERY_EMBEDDED_INSIDE_TYPE;
-global $_CONF;				/* Needed for GeekLog */
-
-	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
-		case 'GeekLog':
-			return '<a href="'. $_CONF['site_url'] .'/users.php?mode=profile&uid='. $owner->uid .'">'. $owner->displayName() .'</a>';
-		break;
-		
-		default:
-			$name = $owner->displayName();
-
-			if (!$owner->getEmail()) {
-				return $name;
-			} else {
-				return '<a href="mailto:' . $owner->getEmail() . '">' . $name . '</a>';
-			}
-		break;
-	}
-}
-
-function getExtraFieldsValues($index, $extra_fields, $full) {
-	global $gallery;
-	$photo = $gallery->album->getPhoto($index);
-	$automaticFields=automaticFieldsList();
-
-	$table=array();
-
-	foreach($extra_fields as $key) {
-        	if (isset($automaticFields[$key]) && $key != 'EXIF') {
-                	if ($key == 'Upload Date') {
-                        	$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , $gallery->album->getUploadDate($index));
-			}
-
-			if ($key == 'Capture Date') {
-				$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
-				$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , mktime ($itemCaptureDate['hours'],
-						$itemCaptureDate['minutes'],
-						$itemCaptureDate['seconds'],
-						$itemCaptureDate['mon'],
-						$itemCaptureDate['mday'],
-						$itemCaptureDate['year']));
-			}
-
-			if ($key == 'Dimensions') {
-				$dimensions=$photo->getDimensions($full);
-				$table[$automaticFields[$key]] = $dimensions[0]." x ".$dimensions[1]." (". ((int) $photo->getFileSize($full) >> 10) ."k)";
-			}
-		}
-		else {
-        	        $value=$gallery->album->getExtraField($index, $key);
-                	if ($value) {
-                        	$table[$key] = str_replace("\n", "<br>", $value);
-	                }
-        	}
-	}
-	return $table;
-}
-
-/*
-** This function displays tables with the Fields of an Photo
-** $index		=> Fields of this photo are displayed.
-** $extra_fields	=> You need to give the extrafields ; hint: use getExtraFields()
-** $withExtraFields	=> if true, then the extra fields are displayed
-** $withExif		=> if true, then the EXIF Data are displayed
-** $full		=> Needed for getting dimensions of the photo
-** $forceRefresh	=> Needed for getting EXIF Data
-*/
-function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withExif=true, $full=NULL, $forceRefresh=0) {
-	global $gallery;
-
-	$photo = $gallery->album->getPhoto($index);
-
-	// if we have extra fiels and we want to show them, then get the values
-	if (isset($extra_fields) && $withExtraFields) {
-		$CF=getExtraFieldsValues($index, $extra_fields, $full);
-		if ($CF) {
-			$tables = array( _("Custom Fields") => $CF);
-		}
-	}
-
-	
-	if ( $withExif && ($gallery->app->use_exif && (eregi("jpe?g\$", $photo->image->type)))) {
-		$myExif = $gallery->album->getExif($index, isset($forceRefresh));
-		if ($myExif) {
-			// following line commented out because we were losing
-			// comments from the Exif array.  This is probably due
-			// to differences in versions of jhead.
-			// array_pop($myExif); // get rid of empty element at end
-			array_shift($myExif); // get rid of file name at beginning
-			$tables[_("Additional EXIF Data")]  = $myExif;
-		}
-	}
-
-	if (! isset($tables)) {
-		return;
-	}
-
-	foreach ($tables as $caption => $fields) {
-		echo "\n". '<table border="0" align="center" class="popup">';
-		echo "\n". '<tr><th colspan="7" align="center">'. $caption .'</th></tr>';
-
-	        $i=0;
-		echo "\n<tr>";
-	        foreach ($fields as $key => $value) {
-        	        $i++;
-                	echo "\n\t<td><b>$key<b></td>";
-	                echo "\n\t<td>:</td>";
-        	        echo "\n\t<td>$value</td>";
-                	        if ($i != sizeof($fields)) {
-                        	        if ($i%2 == 0) {
-                                	        echo "\n</tr>\n<tr>";
-	                                }
-        	                else {
-                	                echo '<td width="5">&nbsp;</td>';
-                        	}
-	                }
-        	}
-	        echo "\n</tr>";
-		echo "\n</table>";
-	}
-}
-
-function emailComments($id, $comment_text, $commenter_name) {
-	global $gallery;
-
-	$to = implode(", ", $gallery->album->getEmailMeList('comments', $id));
-	if (strlen($to) > 0) {
-		$text="";
-		$text.= sprintf("A comment has been added to %s by %s in album %s.",
-			makeAlbumUrl($gallery->session->albumName, $id),
-			$commenter_name,
-			makeAlbumUrl($gallery->session->albumName));
-		$text.= "\n\n"."****BEGIN COMMENT****"."\n";
-		$text.= str_replace("\r", "\n", str_replace("\r\n", "\n", $comment_text));
-		$text.= "\n"."****END COMMENT****"."\n\n";
-		$text .= "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when comments are added\" is unchecked in both the photo and album page (You'll need to login first).";
-		$subject=sprintf("New comment for %s", $id);
-		$logmsg=sprintf("New comment for %s.", makeAlbumUrl($gallery->session->albumName, $id));
-		gallery_mail($to, $subject, $text, $logmsg, true);
-	} else if (isDebugging()) {
-		print _("No email sent as no valid email addresses were found");
-	}
-}
-
-// Function array_search is only available in PHP >=4.0.5
-// So we emulate it.
-if (!function_exists('array_search')) {
-        function array_search($needle, $haystack) {
-                for ($x=0; $x < sizeof($haystack); $x++) {
-                        if ($haystack[$x] == $needle) {
-                                return $x;
-                        }
-                }
-                return NULL;
-	}
-}
-
-if (!function_exists('glob')) {
-	function glob($pattern) {
-		$path_parts = pathinfo($pattern);
-		$pattern = '^' . str_replace(array('*',  '?'), array('(.+)', '(.)'), $path_parts['basename'] . '$');
-		$dir = opendir($path_parts['dirname']);
-		while ($file = readdir($dir)) {
-			if (ereg($pattern, $file)) {
-				$result[] = "{$path_parts['dirname']}/$file";
-			}
-		}
-		closedir($dir);
-
-		// my changes here
-		if (isset($result))
-			return $result;
-
-		return (array)null;
-	} 
-}
-
 require (dirname(__FILE__) . '/lib/lang.php');
 require (dirname(__FILE__) . '/lib/Form.php');
-require (dirname(__FILE__) . '/lib/voting.php');
 ?>

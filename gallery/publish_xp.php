@@ -21,6 +21,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -51,7 +62,7 @@ if(empty($cmd)){
 <html>
   <head>
   <title><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?> </title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
   </head>
 <body dir="<?php echo $gallery->direction ?>">
 <?php
@@ -170,8 +181,8 @@ function appendNestedAlbums($level, $permission, $albumName, $albumString, $albu
     $numPhotos = $myAlbum->numPhotos(1);
 
     for ($i=1; $i <= $numPhotos; $i++) {
-        if ($myAlbum->isAlbum($i)) {
-            $myName = $myAlbum->getAlbumName($i);
+        $myName = $myAlbum->getAlbumName($i);
+        if ($myName) {
             $nestedAlbum = new Album();
             $nestedAlbum->load($myName);
             if ($gallery->user->$permission($nestedAlbum)) {

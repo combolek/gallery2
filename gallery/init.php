@@ -22,7 +22,7 @@
 ?>
 <?php
 // Hack prevention.
-$sensitiveList = array("gallery");
+$sensitiveList = array("gallery", "GALLERY_BASEDIR", "GALLERY_EMBEDDED_INSIDE", "GALLERY_EMBEDDED_INSIDE_TYPE");
 foreach ($sensitiveList as $sensitive) {
 	if (!empty($HTTP_GET_VARS[$sensitive]) ||
 			!empty($HTTP_POST_VARS[$sensitive]) ||
@@ -32,13 +32,8 @@ foreach ($sensitiveList as $sensitive) {
 		exit;
 	}
 }
-
-// Optional developer hook - location to add useful
-// functions such as code profiling modules
-if (file_exists(dirname(__FILE__) . "/lib/devel.php")) {
-	require_once(dirname(__FILE__) . "/lib/devel.php");
-}
-
+?>
+<?php
 /*
  * Turn down the error reporting to just critical errors for now.
  * In v1.2, we know that we'll have lots and lots of warnings if
@@ -237,7 +232,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 				$GLOBALS['dbname']);
 	    
 			if (isset($GLOBALS['user_prefix'])) {
-                                $gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
+				$gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
 			}
 			else {
 				$gallery->database{"user_prefix"} = 'nuke_';
@@ -293,7 +288,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 				$GLOBALS['dbname']);
 	    
 			if (isset($GLOBALS['user_prefix'])) {
-                                $gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
+				$gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
 			}
 			else {
 				$gallery->database{"user_prefix"} = 'nukea_';

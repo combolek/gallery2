@@ -5,12 +5,11 @@
 
 	require(dirname(__FILE__) . "/configure_instructions.php") ;
 	if (! defined("GALLERY_URL")) define ("GALLERY_URL","");
-	doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Gallery needs Reconfiguration") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -28,7 +27,7 @@
 <p>
 <?php 
 	echo sprintf(_("Then launch the %sConfiguration Wizard%s."),
-		'<a href="'. GALLERY_URL . 'setup/index.php">', '</a>') . ' ';
+		'<a href="'. $GALLERY_BASEDIR . 'setup/index.php">', '</a>') . ' ';
 	
 	include(dirname(__FILE__) . "/configure_help.php"); ?>
 </p>

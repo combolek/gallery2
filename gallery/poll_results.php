@@ -23,17 +23,28 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") . "\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+	$GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canReadAlbum($gallery->album)) {
-	header("Location: " . makeAlbumHeaderUrl());
+	header("Location: " . makeAlbumUrl());
 	return;
 }
 
 if (!$gallery->album->isLoaded()) {
-	header("Location: " . makeAlbumHeaderUrl());
+	header("Location: " . makeAlbumUrl());
 	return;
 }
 
@@ -52,14 +63,11 @@ $fullWidth="100%";
 
 $pAlbum = $gallery->album;
 
-if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
-?>
-
+if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] . "::" . _("Poll Results") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
   <style type="text/css">
 <?php
 // the link colors have to be done here to override the style sheet 
@@ -137,15 +145,15 @@ includeLayout('navigator.inc');
 				while ($j <= $cols && $i < $numPhotos) {
 					echo("<td>");
 
-					$index = $gallery->album->getIndexByVotingId($ranks[$i]);
+					$index=$gallery->album->getIndexByVotingId($ranks[$i]);
 					if ($index < 0) {
 						$i++;
 						continue;
 					}
 					$result=true;
-					if ($gallery->album->isAlbum($index)) {
-						$albumName = $gallery->album->getAlbumName($index);
-						$album = $gallery->album->getSubAlbum($index);
+					$albumName=$gallery->album->getAlbumName($index);
+					if ($albumName) {
+						$album=$gallery->album->getSubAlbum($index);
 						print sprintf(_("Album: %s"),$album->fields['title'])."<Br>";
 					} else {
 						print $gallery->album->getCaption($index)."<br>";

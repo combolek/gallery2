@@ -21,6 +21,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -35,7 +46,7 @@ doctype();
 <html>
 <head>
 	<title><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -52,7 +63,6 @@ if (isset($username) && isset($gallerypassword)) {
 		$tmpUser->log("login");
 		$tmpUser->save();
 	       	$gallery->session->username = $username;
-		gallery_syslog("Successful login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 	       	if ($tmpUser->getDefaultLanguage() != "") {
 		       	$gallery->session->language = 
 				$tmpUser->getDefaultLanguage();
@@ -66,7 +76,6 @@ if (isset($username) && isset($gallerypassword)) {
        	} else {
 	       	$invalid = 1;
 	       	$gallerypassword = null;
-		gallery_syslog("Failed login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
        	}
 }
 ?>

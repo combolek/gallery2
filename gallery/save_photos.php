@@ -21,12 +21,22 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -39,14 +49,11 @@ if (isset($userfile_name)) {
 	}
 }
 
-if (!isset($wmName)) $wmName = "";
-
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Processing and Saving Photos") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 
 </head>
 <body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();'>
@@ -331,7 +338,7 @@ while (isset($userfile) && sizeof($userfile)) {
                         }
                 }
 		// Add new image
-		processNewImage($file, $tag, $name, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY);
+		processNewImage($file, $tag, $name, $caption, $setCaption, $extra_fields);
 		$image_count++;
 	}
 }
@@ -382,7 +389,7 @@ if (count($image_tags)) {
 	/* Allow user to select which files to grab - only show url right now ( no image previews ) */
 	sort($image_tags);
 	foreach ( $image_tags as $image_src) {
-		print "\t<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src</input><br>\n";
+		print "\t<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src</input><br />\n";
 	}
 ?>
 	</td>
@@ -413,7 +420,7 @@ if (count($image_tags)) {
 	<td>
 <?php
 	foreach ($info_tags as $info_tag) {
-		print "\t<input type=\"checkbox\" name=\"meta[]\" value=\"$info_tag\" checked/>$info_tag</input><br>\n";
+		print "\t<input type=\"checkbox\" name=\"meta[]\" value=\"$info_tag\" checked/>$info_tag</input><br />\n";
 	}
 
 ?>
@@ -427,10 +434,6 @@ if (count($image_tags)) {
 <?php } /* end if (count($info_tags)) */ ?>
 <p>
 <input type="hidden" name="setCaption" value="<?php echo $setCaption ?>">
-<input type="hidden" name="wmName" value="<?php echo $wmName ?>">
-<input type="hidden" name="wmAlign" value="<?php echo $wmAlign ?>">
-<input type="hidden" name="wmAlignX" value="<?php echo $wmAlignX ?>">
-<input type="hidden" name="wmAlignY" value="<?php echo $wmAlignY ?>">
 <input type="button" value="<?php echo _("Add Files") ?>" onClick="parent.opener.showProgress(); document.uploadurl_form.submit()">
 </p>
 

@@ -1,7 +1,7 @@
 <?php /* $Id$ */ ?>
 <?php 
 
-	global $commentdraw, $i, $index, $id;
+	global $commentdraw, $i, $index;
 
 // If the border color is not passed in, we do a black/white combo
 if ($commentdraw["bordercolor"]) {
@@ -14,32 +14,28 @@ $pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" 
 
 ?>
 <!-- Begin Comment -->
-<table width="50%" align="center" border="0" class="commentbox" cellpadding="0" cellspacing="0">
 <tr>
-	<td class="commentboxhead"><?php echo _("From:") ?></td> 
-	<td class="commentboxhead"><b><?php echo $commentdraw["name"] ?></b>
+	<td width="15%"></td>
+	<td width="70%" class="modcaption">
+	<br><?php echo _("From:") ?> <b><?php echo $commentdraw["name"] ?></b> &nbsp;
 <?php
-if ($gallery->user->isAdmin()) {
-	echo "@ &nbsp;";
-	echo $commentdraw["IPNumber"];
-}
-?>	</td>
-	<td class="commentboxhead">(<?php echo $commentdraw["datePosted"] ?>)</td>
-</tr>
-<tr>
-	<td colspan="3"><?php echo $commentdraw["comment"] ?></td>
-</tr>
-
+  if ($gallery->user->isAdmin()) {
+      echo "@ &nbsp;";
+      echo $commentdraw["IPNumber"];
+      echo "&nbsp;";
+  }
+?>
+        (<?php echo $commentdraw["datePosted"] ?>)
+	<br><?php echo $commentdraw["comment"] ?>
 <?php
 if ($gallery->user->canWriteToAlbum($gallery->album)) {
-	echo "\n<tr>";
-	echo "\n\t". '<td colspan="3" align="center" class="commentboxfooter">';
-        $url = doCommand("delete-comment", array("index" => $index, "comment_index" => $i), "view_photo.php", array("set_albumName" => $gallery->session->albumName, "id" => $id));
-	echo '<a href="#" onclick="javascript:' . popup($url,1) . '">['. _("delete comment") . ']</a>';
-	echo "\n\t</td>";
-	echo "\n</tr>";
+	$url = "do_command.php?cmd=delete-comment&index=$index&comment_index=$i";
+	$buf = '<a href="#" onClick="javascript:' . popup($url) . '">['. _("delete comment") . ']</a>';
+	echo "$buf";
 }
 ?>
-</table>
-<br>
+	<br><br>
+	</td>
+	<td width="15%"></td>
+</tr>
 <!-- End Comment -->

@@ -38,7 +38,7 @@ if (isset($mode)) {
 // Hack check
 if (empty($gallery->session->albumName) &&
 	   $gallery->app->gallery_slideshow_type == "off") {
-	header("Location: " . makeAlbumHeaderUrl());
+	header("Location: albums.php");
 	return;
 }
 
@@ -46,19 +46,19 @@ $albumName = $gallery->session->albumName;
 
 if (!empty($albumName)) {
 	if (!$gallery->user->canReadAlbum($gallery->album)) {
-		header("Location: " . makeAlbumHeaderUrl());
+		header("Location: " . makeAlbumUrl());
 		return;
 	}
 
 	$album = $gallery->album;
 
 	if (!$album->isLoaded()) {
-		header("Location: " . makeAlbumHeaderUrl());
+		header("Location: " . makeAlbumUrl());
 		return;
 	}
 
 	if ($album->fields["slideshow_type"] == "off") {
-		header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
+		header("Location: " . makeAlbumUrl($gallery->session->albumName));
 		return;
 	}
 }
@@ -108,19 +108,16 @@ include(dirname(__FILE__) . "/includes/slideshow/$mode.inc");
 
 slideshow_initialize();
 
-if (!$GALLERY_EMBEDDED_INSIDE) {
-doctype();
-?>
+if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html>
 <head>
   <title><?php echo $title; ?></title>
-<?php 
-	common_header();
-
+  <?php echo getStyleSheetLink() ?>
+  <style type="text/css">
+<?php
 // the link colors have to be done here to override the style sheet
 if ($albumName) {
-	echo "\n". '<style type="text/css">';
-	if ($gallery->album->fields["linkcolor"]) {
+       	if ($gallery->album->fields["linkcolor"]) {
 ?>
     A:link, A:visited, A:active
       { color: <?php echo $gallery->album->fields[linkcolor] ?>; }
@@ -139,9 +136,10 @@ if ($albumName) {
 	       	echo ".head {color:".$gallery->album->fields[textcolor]."; }";
 	       	echo ".headbox {background-color:".$gallery->album->fields[bgcolor]."; }";
        	}
-	echo "\n</style>\n";
 }
 ?>
+  </style>
+
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">

@@ -37,12 +37,11 @@ if ($locale_check == NULL) {
 $netpbm_check=check_graphics();
 $IM_check=check_graphics_im();
 
-if ( isset($netpbm_check[2]['pnmcomp']) && isset($IM_check[2]['composite']) ) {
+if ( isset($netpbm_check[2]['pnmcomp']) && isset($IM_check[2]['composite'])) {
 	$enablewatermark = "no";
 } else {
 	$enablewatermark = "yes";
 }
-
 
 if (function_exists("posix_getpwuid")) {
 	$rec = @posix_getpwuid(posix_getuid());
@@ -222,12 +221,6 @@ $features = array(
 
 $constants =  array_merge(
   array(
-	"group0"	=> array (
-		"type"		=> "group_start",
-		"name"		=> "group_mandatory",
-		"default"	=> "inline",
-		"title" => _("General settings")
-	),
 	"galleryTitle" => array(
 		"prompt" => _("Gallery Title"),
 		"desc" => _("The name of your Gallery.  E.g. <i>My Cool Photos</i>"),
@@ -236,19 +229,9 @@ $constants =  array_merge(
 		"attrs" => array("size" => 50)
 	),
 	"editPassword" => check_admins(),
-	"skinname" => array(
-		"prompt" => _("Skin Name"),
-		"desc" => _("Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your Gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4.") . available_skins(true),
-		"choices" => available_skins(),
-		"value" => "none"
-	),
-	"group0_end"	=> array (
-		"type"		=> "group_end",
-	),
-	"group1"	=> array (
-		"type"		=> "group_start",
-		"name"		=> "group_URLS",
-		"default"	=> "none",
+
+	"separator1" => array (
+		"type" => "separator",
 		"title" => _("Locations and URLs")
 	),
 	"albumDir" => array(
@@ -324,17 +307,11 @@ $constants =  array_merge(
 		"value" => NULL,
 		"attrs" => array("cols" => 50, "rows" => 5)
 	),
-	"group1_end"	=> array (
-		"type"		=> "group_end",
-	),
-	"group_embedded" => array (
-		"type"		=> "group_start",
-		"name"		=> "group_embedded",
-		"default"	=> "none",
+	"separator_embeded" => array (
+	       	"type" => "separator",
 	       	"title" => _("Embedded Gallery"),
 	       	"desc" => _("Use this section to set options to configure gallery to be embedded in another web application."),
 	),
-
 	"embedded_inside_type" => array(
 		"prompt" => _("Embed Gallery"),
 		"desc"   => sprintf(_("If you would like to run %s in another web application (such as *Nuke, phpBB2 or GeekLog) you have to choose the environment here."),gallery()),
@@ -356,13 +333,8 @@ $constants =  array_merge(
 		"type" => "text",
 		"value" => "/path/to/geeklog/public_html"
 	),
-	"group_embedded_end"	=> array (
-			"type"	=> "group_end"
-	),
-	"group2"	=> array (
-		"type"		=> "group_start",
-		"name"		=> "group_toolkits",
-		"default"	=> "none",
+	"separator2" => array (
+		"type" => "separator",
 		"title" => _("Toolkits / image processing")
 	),
 	"graphics" => array(
@@ -425,13 +397,8 @@ $constants =  array_merge(
 				   90 => 90, 95 => 95, 100 => 100),
 		"value" => 90
 	),
-	"group2_end"	=> array (
-		"type"		=> "group_end",
-	),
-	"group3"	=> array (
-		"type"		=> "group_start",
-		"name"		=> "group_mainpage",
-		"default"	=> "none",
+	"separator3" => array (
+		"type" => "separator",
 		"title" => _("Main Gallery page"),
 	),
 	"showAlbumTree" => array(
@@ -466,7 +433,12 @@ $constants =  array_merge(
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "yes"
 	),
-
+	"skinname" => array(
+		"prompt" => _("Skin Name"),
+		"desc" => _("Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your Gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4.") . available_skins(true),
+		"choices" => available_skins(),
+		"value" => "none"
+	),
 	"gallery_thumb_frame_style" => array(
 		"prompt" => "Frame around albums",
 		"desc" => _("On the main page, the image representing each album has a frame around it.  The following styles are available:") .
@@ -474,13 +446,9 @@ $constants =  array_merge(
 		"choices" => available_frames(),
 		"value" => "simple_book"
 	),
-	"group3_end"	=> array (
-		"type"		=> "group_end",
-	),
-	"group5" => array (
-		"type"		=> "group_start",
-		"name"		=> "group_optionals",
-		"default"	=> "none",
+	
+	"separator5" => array (
+		"type" => "separator",
 		"title" => _("Optional tools")
 	),
 	"zipinfo" => array(
@@ -542,13 +510,8 @@ $constants =  array_merge(
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "yes"
 	),*/
-	"group5_end" => array (
-		"type"		=> "group_end",
-	),
-	"group6" => array (
-		"type"		=> "group_start",
-		"name"		=> "group_languages",
-		"default"	=> "none",
+	"separator6" => array (
+		"type" => "separator",
 		"title" => _("Languages and locales"),
 	),
 	"default_language" => array(
@@ -614,16 +577,11 @@ $constants =  array_merge(
 // Continue constants ...
 $constants = array_merge($constants,
   array(
-	"group6_end" => array (
-		"type"		=> "group_end",
-	),
-	"group_email" => array (
-		"type"		=> "group_start",
-		"name"		=> "group_email",
-		"default"	=> "none",
+	"separator_email" => array (
+		"type" => "separator",
 	       	"title" => _("Email and Registration"),
 	       	"desc" => sprintf(_("If you are having problems with email, please run the %s diagnostic."),
-		       	'<a href="check_mail.php">' . _("Check Email") . '</a>'),
+		       	'<a href="check_mail.php">' . _("Check Email") . '</a>')
 	),
 	"emailOn" => array(
 		"prompt" => _("Enable email"),
@@ -696,7 +654,7 @@ $constants = array_merge($constants,
 		"value" => "no"),
 	"multiple_create" => array(
 		"prompt" => _("Enable bulk account creation"),
-		"desc" => _("This option allows you to create many new user accounts at one time by creating a file of new users.") .
+		"desc" => _("This option allows your to create many new user accounts at one time by creating a file of new users.") .
 		"<br>",
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "no"
@@ -711,17 +669,13 @@ $constants = array_merge($constants,
 		"optional" => 1,
 		"value" => array()
 	),
-	"group_email_end" => array (
-		"type"          => "group_end",
-        ),
-	"group7" => array (
-		"type"		=> "group_start",
-		"name"		=> "group_slideshow",
-		"default"	=> "none",
-		"title" => _("Gallery wide slideshow"),
-		"desc" => _("Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources.") . "  " .
-			  _("These settings do not apply to the low tech slideshow."),
-	),
+       	"separator7" => array (
+		       	"type" => "separator",
+		       	"title" => _("Gallery wide slideshow"),
+			"desc" => "<br>" .
+				_("Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources.") . "  " .
+				_("These settings do not apply to the low tech slideshow.")
+			),
 	"gallery_slideshow_type" => array(
 		       	"prompt" => _("Slideshow preferences"),
 		       	"desc" => "<dl>"
@@ -752,22 +706,17 @@ $constants = array_merge($constants,
 		"desc" => sprintf(_("This option will allow visitors to have your slideshows repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."), "<b>"._("no")."</b>"),
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 	       	"value" => "yes"
-	),
+		),
 	"slideshowMode" => array(
 		"prompt" => _("Slideshow Mode"),
 		"desc" => _("This allows you to set the default mode for the slideshow.  &quot;Java Applet&quot; requires that the user has the Java Runtime Environment installed in their browser, but allows for fullscreen viewing. &quot;JavaScript&quot; is supported by all modern browsers without extra plugins, but is more limited than the Java Applet."),
 		"choices" => array("applet" => _("Java Applet"), "high" => _("JavaScript")),
 		"value" => "high"
 	),
-	"group7_end" => array (
-		"type"          => "group_end",
-        ),
-	"group_comments" => array (
-		"type"          => "group_start",
-		"name"          => "group_comments",
-		"default"       => "none",
-		"title" => _("Comments"),
-	),
+       	"separator_comments" => array (
+		       	"type" => "separator",
+		       	"title" => _("Comments")
+			),
 	"comments_enabled" => array(
 			"prompt"	=> _("Enable commenting"),
 			"desc"		=> _("This option will enable or disbale the possibility for your users to make comment.  If you set this to &quot;no&quot; all comment functionality is disabled."),
@@ -812,33 +761,17 @@ $constants = array_merge($constants,
 			),
 	"comments_display_name" => array(
 			"prompt" => _("Format for commenter names"),
-			"desc" => _("Commenter names of logged in users can be displayed in a variety of different ways"),
+			"desc" => _("Commenter names of logged in users can be displayed in a variety of different ways") .
+				newIn("1.4.2"),
 			"choices" => displayNameOptions(), 
 			"value" => "!!FULLNAME!! (!!USERNAME!!)",
 			),
-	"comments_addType" => array(
-			"prompt"	=> _("Add Comments inside the photo page"),
-			"desc"		=> _("Do you want to have the possibility to add comments inside the view photo page, or do you prefer a link to a popup"),
-			"choices"	=> array ("popup" => _("Popup"), "inside" => _("Inside")),
-			"value"		=> "popup"
-			),
-	"comments_length" => array(
-			"prompt"	=> _("Maximum length of Comments"),
-			"desc"		=> _("Enter a suitable value for the maximum length of comments to prevent abuse."),
-			"type" 		=> "text",
-			"must-be-number" => 1,
-			"value"		=> 300
-	),
-	"group_comments_end" => array (
-		"type"          => "group_end",
-        ),
-	"group_technical" => array (
-		"type"          => "group_start",
-		"name"          => "group_technical",
-		"default"       => "none",
+	"separator8" => array (
+		"type" => "separator",
 		"title" => _("Technical"),
-		"desc" => _("You usually don't need to change anything in this section."),
+		"desc" => _("You usually don't need to change anything in this section.")
 	),
+
         "timeLimit" => array(
 		"prompt" => _("Time Limit"),
 		"desc" => _("The maximum amount of time in seconds any single operation should take.  If you find that you are getting the <b>Maximum execution time exceeded</b> error message, you can try making this a larger number.  Be warned that if you make this too large you <i>might</i> have a process that is stuck for a very long time without doing anything.  The default value is 30 which is pretty reasonable."),
@@ -851,18 +784,6 @@ $constants = array_merge($constants,
 	"debug" => array(
 		"prompt" => _("Debug mode"),
 		"desc" => _("Turn debug mode on so that you can diagnose problems?"),
-		"choices" => array("yes" => _("yes"), "no" => _("no")),
-		"value" => "no",
-	),
-	"devMode" => array(
-		"prompt" => _("Developer Mode"),
-		"desc" => _("Turn on developer mode to see all PHP warnings and notices.  Enabling this is not recommended for users that aren't familiar with PHP."),
-		"choices" => array("yes" => _("yes"), "no" => _("no")),
-		"value" => "no",
-	), 
-	"useSyslog" => array(
-		"prompt" => _("Use Syslog"),
-		"desc" => _("Report user login, logout, and serious errors via syslog (UNIX) or System Event Manager (Windows)"),
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "no",
 	),
@@ -885,76 +806,6 @@ $constants = array_merge($constants,
 		"type" => "text",
 		"attrs" => array("size" => 20),
 	),
-	"group_technical_end"	=> array (
-		"type"          => "group_end",
-        ),
-	"group_rss" => array(
-		"type" => 'group_start',
-		"name" => 'group_rss',
-		"default" => 'none',
-		"title" => _("RSS Publisher"),
-		"desc" => _("Options for the Gallery RSS Publisher"),
-	),
-	"rssEnabled" => array(
-		"prompt" => _("Enable RSS Generator"),
-		"desc" => _("Enable or Disable the Gallery RSS Generator"),
-		"choices" => array(
-			"yes" => _("Yes"),
-			"no" => _("No")),
-		"value" => "yes",
-	),
-	"rssMode" => array(
-		"prompt" => _("RSS Content"),
-		"desc" => _("Specifies which information is to be included in your RSS feed."),
-		"choices" => array(
-			"basic" => _("Basic information only"),
-			"highlight" => _("Album highlight"),
-			"thumbs" => _("All image thumbnails"),
-			"captions" => _("All image thumbnails and captions")),
-		"value" => "basic",
-	),
-	"rssHighlight" => array(
-		"prompt" => _("RSS Highlight"),
-		"desc" => _("Specify which album will be displayed as the icon for all feed entries: An empty field means that there will be no default highlight.  '*' uses the most recently update album's highlight.  Specifying an album name will use that album's highlight image."),
-		"type" => "text",
-		"attrs" => array("size" => 30),
-		"optional" => 1,
-	),
-	"rssVisibleOnly" => array(
-		"prompt" => _("Visible Albums Only"),
-		"desc" => _("Specifies whether hidden albums should be included in the RSS feed.  This is not advised unless you are the only Gallery user.  Other users could become very upset if their hidden images become displayed to the public."),
-		"choices" => array(
-			"yes" => _("Display Visible Albums Only"),
-			"no" => _("Display Hidden Albums")),
-		"value" => "yes",
-	),
-	"rssDCDate" => array(
-		"prompt" => _("Use dc:date"),
-		"desc" => _("(Advanced) If users complain about their RSS readers being unable to process the RSS Feed, try enabling this option.  Including dc:date is not RSS 2.0 compliant, but some feed readers require it anyway. Turning this on will cause your feed to not validate as RSS 2.0."),
-		"choices" => array(
-			"yes" => _("Yes"),
-			"no" => _("No")),
-		"value" => "no",
-	),
-	"rssBigPhoto" => array(
-		"prompt" => _("Use Big Photo"),
-		"desc" => _("(Advanced) If users complain about their RSS readers corrupting the channel thumbnail, you can turn this feature on.  Turning this on will cause your feed to not validate as valid RSS 2.0."),
-		"choices" => array(
-			"yes" => _("Yes"),
-			"no" => _("No")),
-		"value" => "no",
-	),
-	"rssPhotoTag" => array(
-		"prompt" => _("Use Photo Tag"),
-		"desc" => _("(Advanced) Turning this off will cause two RSS extensions which allow for images representing items to be removed from the feed.  Leaving this enabled should cause no problems - disabling it is a personal preference."),
-		"choices" => array(
-			"yes" => _("Yes"),
-			"no" => _("No")),
-		"value" => "yes",
-	),
-	"group_rss_end" => array(
-		"type" => "group_end"
-	),
 	/* Keep these two at the end of the list because they're hidden */
 	"userDir" => array(
 		"desc" => "Filesystem location of user information",
@@ -965,8 +816,15 @@ $constants = array_merge($constants,
 		"persistent" => 1,
 		"filename" => 1
 		),
+	"devMode" => array(
+		"desc" => "Developers should switch this to yes, to see all warnings and notices",
+		"prompt" => "Developer Mode",
+		"type" => "hidden",
+		"persistent" => 1,
+		"value" => "no"
+		),
 	"adminCommentsEmail" => array(
-		"desc" => "This is allows the \"admin\" account to get email whenever a comment is added to any album",
+		"desc" => "This is allows the &quot;admin&quot; account to get email whenever a comment is added to any album",
 		"prompt" => "Admin comment email",
 		"type" => "hidden",
 		"persistent" => 1,
@@ -990,10 +848,8 @@ $constants = array_merge($constants,
 );
 
 $defaults = array(
-	"group1" => array (
-		"type" => 'group_start',
-		"name" => 'group_appearance',
-		"default" => 'none',
+	"separator1" => array (
+               	"type" => "separator",
 		"title" => _("Appearance")
         ),
 	"bordercolor" => array(
@@ -1021,15 +877,10 @@ $defaults = array(
 		"attrs" => array("size" => 10),
 		"type" => "text"
 	),
-	"group1_end" => array (
-		"type" => 'group_end',
-	),
-	"group2" => array (
-		"type" => 'group_start',
-		"name" => 'group_layout',
-		"default" => 'inline',
+	"separator2" => array (
+               	"type" => "separator",
 		"title" => _("Layout")
-	),
+        ),
 	"cols" => array(
 		"prompt" => _("Default Columns"),
 		"desc" => _("The default number of columns in an album."),
@@ -1042,15 +893,10 @@ $defaults = array(
 		"value" => 3,
 		"choices" => array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9),
 	),
-	"group2_end" => array (
-               	"type" => 'group_end',
-	),
-	"group3" => array (
-		"type" => 'group_start',
-		"name" => 'group_display',
-		"default" => 'none',
+	"separator3" => array (
+               	"type" => "separator",
 		"title" => _("Image Processing and Display")
-	),
+        ),
 	"thumb_size" => array(
 		"prompt" => _("Thumbnail size"),
 		"desc" => _("The default target size (in pixels) of album thumbnails."),
@@ -1109,15 +955,10 @@ $defaults = array(
 		"value" => "no",
 		"choices" => array("yes" => _("yes"), "no" => _("no"))
 	),
-	"group3_end" => array (
-		"type" => 'group_end',
-	),
-	"group4" => array (
-		"type" => 'group_start',
-		"name" => 'group_options',
-		"default" => 'none',
+	"separator4" => array (
+               	"type" => "separator",
 		"title" => _("Options")
-	),
+        ),
 	"print_photos" => array(
 		"prompt" => _("Printing Services"),
  		"desc" => _("Allow visitors to print photos directly from the album.  Fotokasten is a print service based in Germany so is good for the European market. EZ Prints, PhotoAccess and Shutterfly are based in the United States. All services will give a small donation to the Gallery project for every print you make. If you choose Shutterfly's &quot;with donation&quot; option, Gallery will charge an extra 2 cents (US) for every photo printed, and 1.8 cents of that will get donated back to the Gallery project. EZ Prints, PhotoAccess and Fotokasten do not charge extra for the Gallery donation. Using these services is a great way for you to help support this free software."),
@@ -1160,15 +1001,10 @@ $defaults = array(
 		"value" => "yes",
 		"choices" => array("yes" => _("yes"), "no" => _("no"))
 	),
-	"group4_end" => array (
-		"type" => 'group_end',
-	),
-	"group5" => array (
-		"type" => 'group_start',
-		"name" => 'group_displayed_data',
-		"default" => 'none',
+	"separator5" => array (
+               	"type" => "separator",
 		"title" => _("Data displayed")
-	),
+        ),
 	"display_clicks" => array(
 		"prompt" => _("Click counts"),
 		"desc" => _("Display click counts within Albums?"),
@@ -1189,15 +1025,10 @@ $defaults = array(
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "no"
 	),
-	"group5_end" => array (
-		"type" => 'group_end',
-	),
-	"group6" => array (
-		"type" => 'group_start',
-		"name" => 'group_itemOwner',
-		"default" => 'none',
+	"separator6" => array (
+               	"type" => "separator",
 		"title" => _("Item Owner")
-	),
+        ),
 	"item_owner_modify" => array(
 		"prompt" => _("Photo owner modification"),
 		"desc" => _("Allow photo owners to edit and rotate/flip their own photos?"),
@@ -1216,13 +1047,8 @@ $defaults = array(
 		"choices" => array("yes" => _("yes"), "no" => _("no")),
 		"value" => "no",
 	),
-	"group6_end" => array (
-		"type" => 'group_end'
-	),
-	"group7" => array (
-		"type" => 'group_start',
-		"name" => 'group_polling',
-		"default" => 'none',
+	"separator7" => array (
+		"type" => "separator",
 		"title" => _("Polling configuration"),
 		"desc"  => 
 			sprintf(_("It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."),
@@ -1312,16 +1138,11 @@ $defaults = array(
 			"type" => "nv_pairs",
 			"verify-func" => "check_poll_nv_pairs",
 			"size" => 9),
-	"group7_end" => array (
-		"type" => 'group_end',
-	),
-	"group8" => array (
-		"type" => 'group_start',
-		"name" => 'group_albumSlidshow',
-		"default" => 'none',
-		"title" => _("Album Slideshow"),
-		"desc" => _("These settings do not apply to the low tech slideshow.")
-	),
+       	"separator8" => array (
+		       	"type" => "separator",
+		       	"title" => _("Album Slideshow"),
+			"desc" => _("These settings do not apply to the low tech slideshow.")
+			),
 	"slideshow_type" => array(
 		       	"prompt" => _("Slideshow Type"),
 		       	"desc" => "<dl>"
@@ -1359,17 +1180,12 @@ $defaults = array(
 		"optional" => 1,
 		"attrs" => array("size" => 5)
 	),
-	"group8_end" => array (
-		"type" => 'group_end',
-	),
-	"group_frames" => array (
-		"type" => 'group_start',
-		"name" => 'group_frames',
-		"default" => 'none',
-		"title" => _("Frames"),
-		"desc" => sprintf(_("Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"),Gallery()) .
+       	"separator_frames" => array (
+		       	"type" => "separator",
+		       	"title" => _("Frames"),
+		       	"desc" => sprintf(_("Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"),Gallery()) .
 		available_frames(true),
-	),
+			),
 	"album_frame" => array(
 		"prompt" => _("Subalbum frames"),
 		"desc" => _("This frame will appear around the thumbnail image representing a subalbum."),
@@ -1389,9 +1205,8 @@ $defaults = array(
 		"choices" => available_frames(),
 		"value" => "solid"
 	),
-	"group_frames_end" => array (
-		"type" => 'group_end',
-	),
+	
+	
 );
 
 ?>

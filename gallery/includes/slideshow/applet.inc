@@ -21,6 +21,7 @@
  */
 ?>
 <?php
+
 function slideshow_initialize() {
 	global $albumName, $gallery, $title;
 	
@@ -68,7 +69,7 @@ function slideshow_image() {
                 $gallery->app->photoAlbumURL . "/java/GalleryRemoteAppletMini.jar," . 
                         $gallery->app->photoAlbumURL . "/java/GalleryRemoteHTTPClient.jar," . 
                         $gallery->app->photoAlbumURL . "/java/applet_img.jar",
-		isset($gallery->album) ? $gallery->album->fields["name"] : "",
+		$gallery->album->fields["name"],
 		array(
 			"slideshowLowRez" => "true",
 			"slideshowRecursive" => $recursive?"true":"false",

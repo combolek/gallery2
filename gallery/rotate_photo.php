@@ -21,38 +21,45 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
-
-doctype();
 ?>
 
 <html>
 <head>
   <title><?php echo _("Rotate/Flip Photo") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
   <META HTTP-EQUIV="expires" CONTENT="0"> 
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-
 <center>
 <p class="popuphead"><?php echo _("Rotate/Flip Photo") ?></p>
-
 <span class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {
-	if (isset($rotate) && !empty($rotate)) {
-		echo _("Rotating/Flipping photo.");
-		echo "\n<br>";
-		echo _("(this may take a while)");
-
+	if ($rotate) {
+?>
+	 <?php echo _("Rotating/Flipping photo.") ?>
+	<br>
+	 <?php echo _("(this may take a while)") ?>
+<?php
 		my_flush();
                 set_time_limit($gallery->app->timeLimit);
 		$gallery->album->rotatePhoto($index, $rotate);
@@ -62,10 +69,12 @@ if ($gallery->session->albumName && isset($index)) {
 		reload();
 		print "<p>" . _("Manipulate again?");
 	} else {
-		echo _("How do you want to manipulate this photo?");
-	} 
 ?>
-<br><br>
+
+<center>
+	<?php echo _("How do you want to manipulate this photo?") ?>
+<?php } ?>
+<br /><br />
 <?php $args = array("albumName" => $gallery->album->fields["name"], "index" => $index); ?>
 <?php echo _("Rotate") ?>: [ 
 <?php $args["rotate"] = "90"; ?>
@@ -76,27 +85,25 @@ if ($gallery->session->albumName && isset($index)) {
  | 
 	<?php $args["rotate"] = "-90"; ?>
 <a href="<?php echo makeGalleryUrl("rotate_photo.php", $args)?>"><?php echo _("Clockwise") ?> 90&deg;</a>
-]<br><br><?php echo _("Flip") ?>: [ 
+]<br /><br /><?php echo _("Flip") ?>: [ 
 	<?php $args["rotate"] = "fh"; ?>
 <a href="<?php echo makeGalleryUrl("rotate_photo.php", $args)?>"><?php echo _("Horizontal") ?></a>
  | 
 	<?php $args["rotate"] = "fv"; ?>
 <a href="<?php echo makeGalleryUrl("rotate_photo.php", $args)?>"><?php echo _("Vertical") ?></a>
- ]<br><br>
+ ]<br /><br />
 <a href="javascript:void(parent.close())"><?php echo _("Close") ?></a>
-<br>
+<br />
 
 <p>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 
 <?php
 } else {
-	echo gallery_error(_("no album / index specified"));
+	gallery_error(_("no album / index specified"));
 }
 ?>
 
 </span>
-</center>
-<?php print gallery_validation_link("rotate_photo.php"); ?>
 </body>
 </html>

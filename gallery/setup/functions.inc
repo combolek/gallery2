@@ -52,14 +52,9 @@ function evenOdd_row($fields, $evenOdd) {
 function make_attrs($attrList) {
 	$attrs = '';
 	if ($attrList) {
-		/*
-		** I commented this out, because it produces non valid html for textareas.
-		** 06.04.2004, Jens Tkotz
 		if (!isset($attrList["size"])) {
 			$attrList["size"] = 40;
 		}
-		*/
-
 		foreach ($attrList as $attrKey => $attrVal) {
 			$attrs .= "$attrKey=$attrVal ";
 		}
@@ -319,7 +314,7 @@ function error_missing($desc, $key) {
 	if (empty($desc)) {
 		$desc=$key;
 	}
-	return gallery_error(_("Missing value").": <b>$desc</b>!<br>");
+	return error_format(_("Missing value").": <b>$desc</b>!<br>");
 }
 function row_wrap($buf) {
 	return "<code>$buf</code><br>";
@@ -421,12 +416,12 @@ function check_graphics($location="", $graphtool = "")
 	$warn = array();
 	if (!strcmp($graphtool, "ImageMagick")) {
 		$success[] = _("NetPBM not being used in this installation.");
-		return array($success, $fail, $warn);
+	    	return array($success, $fail);
 	}
 
 	if (!empty($location) && !inOpenBasedir($location)) {
 	    $success[] = _("Cannot verify this path (it's not in your open_basedir list).");
-	    return array($success, $fail, $warn);
+	    return array($success, $fail);
 	}
 
 	$dirs = array();
@@ -452,8 +447,8 @@ function check_graphics($location="", $graphtool = "")
 	);
 
 	$optional = array(
-		fs_executable("pnmcomp") => 
-			_("Without pnmcomp gallery will not be able to watermark images, except you use ImageMagick and have the composite binary installed."),
+		fs_executable("pnmcomp") => _("Without pnmcomp gallery will not be able to watermark images, except you use ImageMagick and have the composite binary installed.")
+
 	);
 	$missing_optional = 0;
 
@@ -540,8 +535,7 @@ function check_graphics_im($location="", $graphtool="")
 	);
 
 	$optional = array(
-		fs_executable("composite") => 
-			_("Without composite gallery will not be able to watermark images, except you use NetPBM and have the pnmcomp binary installed."),
+		fs_executable("composite") => _("Without composite gallery will not be able to watermark images, except you use NetPBM and have the pnmcomp binary installed.")
 	);
 	$missing_optional = 0;
 
@@ -717,9 +711,11 @@ function check_absent_locales()
 			}
 		}
 	}
+
 	if (sizeof($warn)) {
 		$warn['nocolor'] = true;
 	}
+
 	return array($success, $fail, $warn);
 }
 
@@ -1132,12 +1128,11 @@ function inOpenBasedir($dir) {
 }
 
 function make_separator($key, $arr)  {
-		$buf ="\n<div class=\"inner\">";
-		$buf .= "\n\t<div class=\"separator\">". $arr["title"] ."</></div>";
+		$buf = "\n<tr><td>&nbsp;</td></tr>";
+		$buf .="\n<tr><td class=\"separator\" colspan=\"2\"><b>". $arr["title"] ."</b></td></tr>";
 		if( isset($arr["desc"])) {
-			$buf .= "\n<div class=\"desc\">". $arr["desc"] ."</div>";
+			$buf .= "\n<tr><td class=\"desc\" colspan=\"2\">". $arr["desc"] ."</td></tr>";
 		}
-		$buf .="\n</div>";
 		return $buf;
 }
 
@@ -1289,11 +1284,7 @@ function check_gallery_versions()  {
 					"<a href=check_versions.php>", "</a>");
 		$warn['nocolor'] = true;
 	} else {
-		if (count($oks) == 0) {
-			$success[] = sprintf(_("All tested files up-to-date."));
-		} else {
-			$success[]=sprintf(_("All %d tested files up-to-date."), count($oks));
-		}
+		$success[]=sprintf(_("All %d tested files up-to-date."), count($oks));
 	}
 	return array($success, $fail, $warn);
 }
@@ -1422,7 +1413,7 @@ function check_filedirective() {
 		strstr(__FILE__, 'setup\\functions.inc')) {
 		$success[]=_("Your version of PHP handles this issue properly.");
 	} else {
-		$fail['buggy__FILE__'] = 1;
+		$fail['buggy__FILE__']=1;
 	}
 
 return array($success, $fail, $warn);
@@ -1488,67 +1479,6 @@ function checkVersions($verbose=false) {
 			
 	}
        	return array($success, $fail, $warn);
-}
-
-/*
-** This function creates a table with tabs for navigating through Config Sections (Groups).
-**
-** It analyses a given Array which is in config_data Style:
-**
-** "<group_key>" => array (
-**			"type"          =>
-**			"name"          =>
-**			"default"       =>
-**			"title"		=>
-**			"desc"		=>
-**        )
-**
-** "type"	: Indicates that a group starts or ends. Possible values: 'group_start' , 'group_end'.
-** "name"	: To identify the group you have to set a name.
-** "default"	: Indicates wether the group is visible or not. Possible values: 'inlineÄ', 'none'.
-** "title"	: When the group is visible, this title is displayed in the header line.
-** "desc"	: This optional Description is displayed under the title.
-**
-** Note: - The first group which default is 'inline' will the group that is selected when opening the Page.
-**	 - You always need a group_end for a group. Otherwise everything below will belong to the group.	
-*/ 
-
-function makeSectionTabs($array) {
-	$tabs=array();
-	$initialtab='';
-	foreach ($array as $key => $var) {
-        	if(isset($var['type']) && $var['type'] == 'group_start') {
-			$tab[]=$var;
-		}
-	}
-
-	echo "\n<table width=\"100%\" cellspacing=\"0\">";
-	echo "\n<tr>";
-	$tabcount=0;
-	foreach ($tab as $cell) {
-        	$tabcount++;
-		if ($cell['default'] == 'inline') {
-		        $class = 'class="tab-hi"';
-			if ($initialtab == '') {
-				$initialtab=$cell['name'];
-			}
-		}
-		else { 
-			$class = 'class="tab"';
-		}
-		echo "\n\t<td $class id=\"tab_". $cell['name'] ."\" onClick=\"section_tabs.toggle('" . $cell['name'] ."')\">". $cell['title'] ."</td>";
-		echo "\n\t<td class=\"tabspacer\">&nbsp;</td>";
-		if ($tabcount %6 ==0) {
-			echo "\n</tr>\n</table>";
-			echo "\n<table width=\"100%\"cellspacing=\"0\" style=\"margin-top:5px;\">\n<tr>";
-		}
-	}
-	echo "\n</tr>";
-	echo "\n</table>\n";	
-
-	echo "\n". '<script language="JavaScript" type="text/javascript">';
-	echo "\n\t section_tabs = new configSection('$initialtab')";
-	echo "\n</script>\n";
 }
 
 ?>

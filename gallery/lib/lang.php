@@ -22,52 +22,45 @@
 ?>
 <?php
 
-/*
-** This function is a wrapper around ngettext for two reasons
-** 1.) We can use %s and %d in translation
-** 2.) We can use a special "none" without modifying the plural definition.
-** Note: The redundant $count is always needed, when you use %d
-*/
-function pluralize_n2($singPlu, $count, $none='') {
-	if ($count == 0 && $none != '') {
-		return $none;
-	} else {
-//		echo "\n<br>----";
-//		echo "\nNG $singPlu, C: $count";
-		return sprintf($singPlu, $count);
-	}
+function pluralize_n($amt, $one, $more, $none) {
+        switch ($amt) {
+                case 0 :
+                        return $none;
+                        break;
+                case 1 :
+			return $one;
+                        break;
+
+                default :
+                        return "$amt $more";
+                        break;
+        }
 }
 
 function getBrowserLanguage() {
 	/* Detect the first Language of users Browser
 	** Some Browser only send 2 digits like he or de.
-	** This is caught later with the aliases
+	** The we generate he_HE, de_DE and so on. if this is wrong, 
+	** like he_HE, this is catched later with the aliases
 	*/
 
 	global $HTTP_SERVER_VARS;
 
 	if (isset($HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"])) {
 		$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
-
-		/* Maybe there are some extra infos we dont need, so we strip them. */
 		$spos=strpos($lang[0],";");
 		if ($spos >0) {
 			$lang[0]=substr($lang[0],0,$spos);
 		}
 		
-		/* browser may send aa-bb, then we convert to aa_BB */
 		$lang_pieces=explode ("-",$lang[0]);
-		if (strlen($lang[0]) >2) {
-			$browserLang=strtolower($lang_pieces[0]). "_".strtoupper($lang_pieces[1]) ;
+
+		if (strlen($lang[0]) ==2) {
+			return $lang[0] ."_".strtoupper($lang[0]);
 		} else {
-			$browserLang=$lang[0];
+			return strtolower($lang_pieces[0]). "_".strtoupper($lang_pieces[1]) ;
 		}
 	}
-	else {
-		$browserLang=false;
-	}
-	
-	return $browserLang;
 }
 
 function setLangDefaults($nls) {
@@ -91,17 +84,17 @@ function getEnvLang() {
 
 	global $GALLERY_EMBEDDED_INSIDE_TYPE;
 
-	global $HTTP_SESSION_VARS;			/* Needed for PostNuke 	*/
-	global $HTTP_COOKIE_VARS;			/* Needed for phpNuke 	*/
-	global $board_config;				/* Needed for phpBB2 	*/
-	global $_CONF;					/* Needed for GeekLog	*/
-	global $mosConfig_locale;			/* Needed for Mambo	*/
+	global $HTTP_SESSION_VARS;		/* Needed for PostNuke 	*/
+	global $HTTP_COOKIE_VARS;		/* Needed for phpNuke 	*/
+	global $board_config;			/* Needed for phpBB2 	*/
+	global $_CONF;				/* Needed for GeekLog	*/
 
 	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 		case 'postnuke':
 			if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
 				return $HTTP_SESSION_VARS['PNSVlang'];
 			}
+
 		break;
 
 		case 'phpnuke':
@@ -123,11 +116,6 @@ function getEnvLang() {
 				return $_CONF['language'];
 			} else if (isset($_CONF['locale'])) {
 				return $_CONF['locale'];
-			}				
-		break;
-		case 'mambo':
-			if (isset($mosConfig_locale)){
-				return $mosConfig_locale;
 			}				
 		break;
 
@@ -155,7 +143,7 @@ function forceStaticLang() {
 	}
 }	
 
-function initLanguage($noHeader=false) {
+function initLanguage() {
 
 	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
 	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_SESSION_VARS;
@@ -295,6 +283,7 @@ function initLanguage($noHeader=false) {
 	// Override NUKEs locale :)))	
 	$locale=$gallery->locale;
 
+
 	// Check defaults :
 	$checklist=array('direction', 'charset', 'alignment') ;
 
@@ -324,17 +313,17 @@ function initLanguage($noHeader=false) {
 
 	/* 
 	** Set Charset header
-	** We do this only if we are not embedded and the "user" wants it.
-	** Because headers might be sent already.
+	** Only when we're not embedded, because headers might be sent already.
 	*/
-	if (! isset($GALLERY_EMBEDDED_INSIDE) || $noHeader == false) {
+	if (! isset($GALLERY_EMBEDDED_INSIDE)) {
 		header('Content-Type: text/html; charset=' . $gallery->charset);
 	}
+
 
 	/*
 	** Test if we're using gettext.
 	** if yes, do some gettext settings.
-	** if not emulate _() function or ngettext()
+	** if not emulate _() function
 	**/
 
 	if (gettext_installed()) {
@@ -343,88 +332,6 @@ function initLanguage($noHeader=false) {
 
 	}  else {
 		emulate_gettext();
-	}
-
-	// We test this separate because ngettext() is only available in PHP >=4.2.0 but _() in all PHP4
-	if (! ngettext_installed()) {
-		emulate_ngettext();
-	}
-}
-
-
-function getTranslationFile() {
-
-	global $gallery;
-	static $translationfile;
-
-	if (empty($translationfile)) {
-		$filename=dirname(dirname(__FILE__)) . '/locale/' . $gallery->language . '/'. $gallery->language . '-gallery_' .  where_i_am()  . '.po';
-		$translationfile=file($filename);
-	}
-
-return $translationfile;
-}
-
-function emulate_ngettext() {
-	// Substitute ngettext function
-	/* NOTE: this is the first primitive Step !!
-	   It fully ignores the plural definition !!
-	*/
-
-	global $translation;
-	global $gallery;
-
-	if (in_array($gallery->language,array_keys(gallery_languages())) &&
-		$gallery->language != 'en_US') {
-		$lines=getTranslationFile();
-		foreach ($lines as $key => $value) {
-		//We trim the String to get rid of cr/lf
-			$value=trim($value);
-			if (stristr($value, "msgid") && ! stristr($lines[$key-1],"fuzzy") && !stristr($value,"msgid_plural")) {
-//				echo "\n<br>---SID". $value;
-//					echo "\n<br>---PID". $lines[$key+1];
-				if (stristr($lines[$key+1],"msgid_plural")) {
-					$singular_key=substr($value, 7,-1);
-					$translation[$singular_key]=substr(trim($lines[$key+2]),11,-1);
-					$plural_key=substr(trim($lines[$key+1]), 14,-1);
-					$translation[$plural_key]=substr(trim($lines[$key+3]),11,-1);
-//	echo "\n<br>SK". $singular_key;
-//	echo "\n<br>ST". $translation[$singular_key];
-//	echo "\n<br>PK". $plural_key;
-//	echo "\n<br>PT". $translation[$plural_key];
-				}
-			}
-		}
-		// Substitute ngettext() function
-		function ngettext($singular, $quasi_plural,$num=0) {
-//			echo "\n<br>----";
-//			echo "\nSL: $singular, PL: $quasi_plural, N: $num";
-			if ($num == 1) {
-				if (! empty($GLOBALS['translation'][$singular])) {
-					return $GLOBALS['translation'][$singular] ;
-				} else {
-					return $singular;
-				}
-			}
-			else {
-				if (! empty($GLOBALS['translation'][$quasi_plural])) {
-					return $GLOBALS['translation'][$quasi_plural] ;
-				}
-				else {
-					return $quasi_plural;
-				}
-			}
-		}
-	}
-	else {
-		// There is no translation file or we are using original (en_US), so just return what we got
-		function ngettext($singular, $quasi_plural,$num=0) {
-			if ($num == 1) {
-				return $singular;
-			} else {
-				return $quasi_plural;
-			}
-		}
 	}
 }
 
@@ -440,14 +347,9 @@ function emulate_gettext() {
 		foreach ($lines as $key => $value) {
 			/* We trim the String to get rid of cr/lf */
 			$value=trim($value);
-			if (stristr($value, "msgid") 
-				&& ! stristr($lines[$key-1],"fuzzy") 
-				&& ! stristr($lines[$key],"msgid_plural")
-				&& ! stristr($value,"msgid_plural")) {
+			if (stristr($value, "msgid") && ! stristr($lines[$key-1],"fuzzy")) {
 				$new_key=substr($value, 7,-1);
 				$translation[$new_key]=substr(trim($lines[$key+1]),8,-1);
-//		echo "\n<br>NK". $new_key;
-//		echo "\n<br>NT". $translation[$new_key];
 			}
 		}
 		// Substitute _() gettext function
@@ -477,23 +379,12 @@ function gettext_installed() {
 	}
 }
 
-function ngettext_installed() {
-	if (in_array("ngettext", get_loaded_extensions()) || function_exists('ngettext')) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-
-/* returns all languages in this gallery installation */
+//returns all languages in this gallery installation
 function gallery_languages() {
 	$nls=getNLS();
 	return $nls['language'];
 }
 
-/* returns all language relative that gallery could collect. */
 function getNLS() {
 	static $nls;
 
@@ -535,7 +426,9 @@ function i18n($buf) {
 
 /*
 ** Convert all HTML entities to their applicable characters
+** This is used primary in Slideshow for the Statusbar
 */
+
 function unhtmlentities ($string) {
 	global $gallery;
 
@@ -548,8 +441,8 @@ function unhtmlentities ($string) {
 		}
 
 		$diashowProblemCharsets=array(
-			'UTF-8',
-			'ISO-8859-9',
+			'UTF-8', 
+			'ISO-8859-9', 
 			'ISO-8859-2',
 			'EUC-KR',
 			'windows-1257',
@@ -577,6 +470,7 @@ return $return;
  * user typing values.  The $value of each pair should be translated
  * as appropriate in the ML version.
  */
+
 function automaticFieldsList() {
         return array(
 		'Upload Date' 	=> _("Upload Date"),
@@ -588,12 +482,11 @@ function automaticFieldsList() {
 /* These are custom fields which can be entered manual by the User
 ** Since they are used often, we translated them.
 */
+
 function translateableFields() {
 	return array(
 		'Title'		=> _("Title"),
-		'Description'	=> _("Description"),
-		'AltText'	=> _("Alt Text / onMouseOver")
-	);
+		'Description'	=> _("Description"));
 }
 
 ?>

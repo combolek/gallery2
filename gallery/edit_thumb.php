@@ -21,21 +21,30 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
-doctype();
 ?>
+
 
 <html>
 <head>
   <title><?php echo _("Custom Thumbnail") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 
 <?php
@@ -66,8 +75,7 @@ if (isset($action)) {
 ?>
 <body dir="<?php echo $gallery->direction ?>">
 
-<center>
-<p class="popuphead"><?php echo _("Custom Thumbnail") ?></p>
+<p align="center"><span class="popuphead"><?php echo _("Custom Thumbnail") ?></span></p>
 
 <?php
 	#-- are we a go? ---
@@ -111,7 +119,7 @@ if (isset($action)) {
 <?php echo _("Choose which part of the image will compose your thumbnail:") ?>
 </span>
 
-<APPLET CODE="ImageCrop" WIDTH=460 HEIGHT=430 CODEBASE="<?php echo $gallery->app->photoAlbumURL .'/java' ?>" ARCHIVE="ImageTools.jar">
+<APPLET CODE="ImageCrop" WIDTH=460 HEIGHT=430 CODEBASE="<?php echo $GALLERY_BASEDIR ?>java" ARCHIVE="ImageTools.jar">
   <PARAM NAME="type"   VALUE="application/x-java-applet;version=1.1.2">
   <PARAM NAME=bgcolor  VALUE="<?php echo $bgcolor ?>">
   <PARAM NAME=image    VALUE="<?php echo $photoURL ?>">
@@ -128,12 +136,10 @@ if (isset($action)) {
 <?php 
 //    	-- we're not a go. abort! abort! ---
 	} else { 
-		echo gallery_error(_("no album / index specified"));
+		gallery_error(_("no album / index specified"));
 	} 
 } 
 ?>
-</center>
-<?php print gallery_validation_link("edit_thumb.php"); ?>
 </body>
 </html>
 

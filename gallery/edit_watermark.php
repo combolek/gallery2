@@ -30,30 +30,20 @@ if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
 }
 
 $err = "";	
-if (isset($save) || isset($preview)) {
+if (isset($save)) {
         if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12))
         {
-		if (isset($wmName) && !empty($wmName)) {
+		if (isset($wmName) && strlen($wmName)) {
 		
-			if (isset($save)) {
-	                	echo "<center> ". _("Watermarking photo.")."<br/>(". _("this may take a while"). ")</center>\n";
-	                	my_flush();
-	                	set_time_limit($gallery->app->timeLimit);
-	        	        $gallery->album->watermarkPhoto($index, $wmName, "", $wmAlign,
+	                echo "<center> ". _("Watermarking photo.")."<br/>(". _("this may take a while"). ")</center>\n";
+	                my_flush();
+	                set_time_limit($gallery->app->timeLimit);
+	                $gallery->album->watermarkPhoto($index, $wmName, "", $wmAlign,
 	                                               isset($wmAlignX) ? $wmAlignX : 0, 
 	                                               isset($wmAlignY) ? $wmAlignY : 0);
-	            		$gallery->album->save();
-	               		dismissAndReload();
-	                	return;
-			}
-			else
-			{
-	        	        $gallery->album->watermarkPhoto($index, $wmName, "", $wmAlign,
-	                                               isset($wmAlignX) ? $wmAlignX : 0, 
-	                                               isset($wmAlignY) ? $wmAlignY : 0,
-	                                               1, // set as preview
-	                                               isset($previewFull) ? $previewFull : 0);
-			}
+	                $gallery->album->save();
+	                dismissAndReload();
+	                return;
 		} else {
 			$err = _("Please select a watermark.");
 		}
@@ -61,27 +51,19 @@ if (isset($save) || isset($preview)) {
             $err = _("Please select an alignment.");
         }
 }
-
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Edit Watermark") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
+<center>
 <p class="popuphead"><?php echo _("Edit Watermark") ?></p>
-<p>
-<?php
-if (isset($preview)) {
-        echo $gallery->album->getPreviewTag($index);
-} else {
-        echo $gallery->album->getThumbnailTag($index);
-}
-?>
-</p>
+<p><?php echo $gallery->album->getThumbnailTag($index) ?></p>
+</center>
+
 <?php 
 
 if (!empty($err)) {
@@ -91,28 +73,22 @@ if (!empty($err)) {
 echo makeFormIntro("edit_watermark.php", 
 			array("name" => "theform", 
 				"method" => "POST"));
-global $watermarkForm;
-$watermarkForm["askRecursive"] = 0;
-$watermarkForm["askPreview"] = 1;
-$watermarkForm["allowNone"] = 0;
-includeLayout ('watermarkform.inc');
+
+include (dirname(__FILE__) .'/layout/watermarkform.inc');
 ?>
-<p>
+<div align="center">
 	<input type="hidden" name="index" value="<?php echo $index ?>">
 	<input type="submit" name="save" value="<?php echo _("Save") ?>">
-	<input type="submit" name="preview" value="<?php echo _("Preview") ?>">
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</p>
-</form>
 </div>
+</form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.cancel.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("edit_watermark.php"); ?>
 </body>
 </html>

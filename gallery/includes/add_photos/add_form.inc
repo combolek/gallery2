@@ -80,7 +80,7 @@ if (!isset($metaboxes)) {
 			array("name" => "upload_form",
 				"enctype" => "multipart/form-data",
 				"method" => "POST")); ?>
-
+<input type="hidden" name="max_file_size" value="10000000">
 <table class="popup">
 <tr>
 	<td colspan="2"><?php echo _("2. Use the Browse button to find the photos on your computer") ?></td>
@@ -109,20 +109,12 @@ if (!isset($metaboxes)) {
 
 </table>
 
-<input type="radio" name="setCaption" value="0" id="setCaption0"><label for="setCaption0"><?php echo _("Leave blank if no caption is specified.") ?></label>
+<input type="radio" name="setCaption" value="0"><?php echo _("Leave blank if no caption is specified.") ?>
 <br>
-<input type="radio" name="setCaption" value="1" id="setCaption1" checked><label for="setCaption1"><?php echo _("Use filename as caption if no caption is specified.") ?></label>
+<input type="radio" name="setCaption" value="1" checked><?php echo _("Use filename as caption if no caption is specified.") ?>
 <br>
-<input type="radio" name="setCaption" value="2" id="setCaption2"><label for="setCaption2"><?php echo _("Use file creation date stamp as caption if no caption is specified.") ?></label>
-<?php
-if (isset($gallery->app->watermarkDir)) {
-   global $watermarkForm;
-   $watermarkForm["askRecursive"] = 0;
-   $watermarkForm["askPreview"] = 0;
-   $watermarkForm["allowNone"] = 1;
-   includeLayout('watermarkform.inc');
-}
-?>
+<input type="radio" name="setCaption" value="2"><?php echo _("Use file creation date stamp as caption if no caption is specified.") ?>
+
 <p align="center">
 <input type="button" value="<?php echo _("Upload Now") ?>" onClick='parent.opener.showProgress(); document.upload_form.submit()'>
 <input type="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>

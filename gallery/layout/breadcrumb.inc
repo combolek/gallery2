@@ -1,43 +1,39 @@
 <?php
 // $Id$
-global $breadcrumb, $navigator, $gallery;
+global $breadcrumb, $navigator;
 // If the border color is not passed in, we do a black/white combo
-
 if ($breadcrumb["bordercolor"]) {
 	$borderIn = $breadcrumb["bordercolor"];
 } else {
 	$borderIn = "#FFFFFF";
 }
-$pixelImage = '<img src="' . getImagePath('pixel_trans.gif') .'" width="1" height="1" alt="transpixel">';
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"\">";
 
+?>
 
-
+<?php 
 if (!isset($navigator)) {
 	$navigator["fullWidth"] = 100;
 	$navigator["widthUnits"] = "%";
-	$style="border-color: $borderIn; border-width:1px; border-style: solid;";
-} else {
-	$style='';
 }
 ?>
-<table style="<?php echo $style; ?>" width="<?php echo $navigator["fullWidth"] . $navigator["widthUnits"] ?>" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
-<tr> 
+<table width="<?php echo $navigator["fullWidth"] . $navigator["widthUnits"] ?>" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
 <?php
-	if ($gallery->user->isLoggedIn()) {
-		$name = $gallery->user->getFullName();
-		if (!$name) {
-			$name = $gallery->user->getUsername();
-		}
-		echo "\t". '<td style="padding-left:5px;" class="bread" height="18">'. _("Logged in as:") .' '. $name .'</td>';
-	}
+if ($breadcrumb["top"]) {
+}
 ?>
-	
-	<td class="bread" height="18" align="right">
+  <tr> 
+    <td align="right" width="3000" height="18" class="bread">
 <?php
+
 for ($i = 0; isset($breadcrumb["text"][$i]); $i++) {
-	echo "\t\t&nbsp;".$breadcrumb["text"][$i]."&nbsp;\n";
+	echo "&nbsp;".$breadcrumb["text"][$i]."&nbsp;";
 }
 ?>
-	</td> 
-</tr>
+    </td> 
+  </tr>
+<?php
+if (!$breadcrumb["top"] || !empty($breadcrumb["bottom"])) {
+}
+?>
 </table>    

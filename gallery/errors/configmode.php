@@ -4,12 +4,11 @@
 <?php 
 	require(dirname(__FILE__) . '/configure_instructions.php');
 	if (! defined("GALLERY_URL")) define ("GALLERY_URL","");
-	doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Gallery in Configuration Mode") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 

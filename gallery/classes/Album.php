@@ -61,7 +61,6 @@ class Album {
 		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
 		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
 		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-		$this->fields["guid"] = 0;
 		if (isset($gallery->app->use_exif)) {
 			$this->fields["use_exif"] = "yes";
 		} else {
@@ -141,18 +140,21 @@ class Album {
 	}
 
 	function itemLastCommentDate($i) {
-		global $gallery;
 	       	$photo = $this->getPhoto($i);
 			if ($photo->isAlbum()) {
 		       	$album = $this->getNestedAlbum($i);
-		       	return $album->lastCommentDate($gallery->app->comments_indication_verbose);
+		       	return $album->lastCommentDate();
 	       	} else {
 		       	return $photo->lastCommentDate();
 	       	}
 	}
-	function lastCommentDate($verbose = "yes") {
+	function lastCommentDate() {
 		global $gallery;
 		if (!$gallery->user->canViewComments($this)) {
+			return -1;
+		}
+		if ($gallery->app->comments_indication != "albums" && 
+				$gallery->app->comments_indication != "both") {
 			return -1;
 		}
 	       	$count = $this->numPhotos(1);
@@ -161,7 +163,7 @@ class Album {
 			$subMostRecent=$this->itemLastCommentDate($i);
 		       	if ($subMostRecent > $mostRecent) {
 			       	$mostRecent = $subMostRecent;
-			       	if ($verbose == "no") {
+			       	if ($gallery->app->comments_indication_verbose == "no") {
 				       	break;
 			       	}
 
@@ -170,7 +172,7 @@ class Album {
 		return $mostRecent;
 	}
 
-	function &getNestedAlbum($index) {
+	function getNestedAlbum($index) {
 		
 		$albumName = $this->getAlbumName($index);
 		$album = new Album();
@@ -378,11 +380,6 @@ class Album {
 			}
 		}
 
-		if ($this->version < 29) {
-			$this->fields['guid'] = md5(uniqid(rand(), true));
-			$changed = 1;
-		}
-
 		/* Special case for EXIF :-( */
 		if (!$this->fields["use_exif"]) {
 			if ($gallery->app->use_exif) {
@@ -525,7 +522,7 @@ class Album {
 		}
 	
 		//print $filenameA $filenameB;
-		return (strnatcasecmp($filenameA, $filenameB));
+		return (strnatcmp($filenameA, $filenameB));
 	}
 	
 	function sortByClick($a, $b) {
@@ -550,7 +547,7 @@ class Album {
 		$objB = (object)$b;
 		$captionA = $objA->getCaption();	
 		$captionB = $objB->getCaption();
-		return (strnatcasecmp($captionA, $captionB));
+		return (strnatcmp($captionA, $captionB));
 	}
 	
 	function sortByComment($a, $b) {
@@ -822,7 +819,7 @@ class Album {
 		if ($success && $msg) { // send email
 			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
-				echo gallery_error(_("msg should be an array!"));
+				gallery_error(_("msg should be an array!"));
 				vd($msg);
 				return $success;
 			}
@@ -899,7 +896,7 @@ class Album {
 		}
 	}
 
-	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="", $votes=NULL, $wmName="", $wmAlign=0, $wmAlignX=0, $wmAlignY=0) {
+	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="", $votes=NULL) {
 	       	global $gallery;
 
 		$this->updateSerial = 1;
@@ -909,18 +906,16 @@ class Album {
 			$name = $originalFilename;
 			// check to see if a file by that name already exists
 			// or thumbnail conflict between movie and jpeg
-			foreach (acceptableFormatList() as $ext) {
-				if (file_exists("$dir/$name.$ext") ||
-				    ((isMovie($tag) || $tag=="jpg") && file_exists("$dir/$name.thumb.jpg"))) {
-					// append a 3 digit number to the end of the filename if it exists already
-					if (!ereg("_[[:digit:]]{3}$", $name)) {
-						$name = $name . "_001";
-					}
-					// increment the 3 digits until we get a unique filename
-					while ((file_exists("$dir/$name.$ext") || file_exists("$dir/$name.$tag")) ||
-					       ((isMovie($tag) || $tag=="jpg") && file_exists("$dir/$name.thumb.jpg"))) {
-						$name++;
-					}
+			if (file_exists("$dir/$name.$tag") ||
+			    ((isMovie($tag) || $tag=="jpg") && file_exists("$dir/$name.thumb.jpg"))) {
+				// append a 3 digit number to the end of the filename if it exists already
+				if (!ereg("_[[:digit:]]{3}$", $name)) {
+					$name = $name . "_001";
+				}
+				// increment the 3 digits until we get a unique filename
+				while (file_exists("$dir/$name.$tag") ||
+				       ((isMovie($tag) || $tag=="jpg") && file_exists("$dir/$name.thumb.jpg"))) {
+					$name++;
 				}
 			}
 		} else {
@@ -1000,7 +995,7 @@ class Album {
 	       	}
 
 		/* auto-rotate the photo if needed */
-	       	if ($gallery->app->autorotate == 'yes' && $gallery->app->use_exif && empty($item->extraFields['autoRotated'])) {
+	       	if (!strcmp($gallery->app->autorotate, 'yes') && $gallery->app->use_exif) {
 		       	$index = $this->numPhotos(1);
 		       	$exifData = $this->getExif($index);
 		       	if (isset($exifData['Orientation']) && $orientation = trim($exifData['Orientation'])) {
@@ -1032,7 +1027,6 @@ class Album {
 			       	}
 			       	if ($rotate) {
 				       	$this->rotatePhoto($index, $rotate);
-					$item->extraFields['autoRotated'] = true;
 				       	processingMsg("- ". _("Photo auto-rotated/transformed"));
 			       	}
 		       	}
@@ -1041,13 +1035,6 @@ class Album {
 	       	if ($this->getAddToBeginning() ) {
 		       	$this->movePhoto($this->numPhotos(1), 0);
 	       	}
-		if (isImage($tag) && strlen($wmName)) {
-			processingMsg("- ". _("Watermarking Image"));
-			$photo->watermark($this->getAlbumDir(),
-				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0); 
-		}
-
-		$this->fields['guid'] = md5(uniqid(rand(), true));
 
 		return 0;
 	}
@@ -1075,33 +1062,6 @@ class Album {
 	function isHidden($index) {
 		$photo = $this->getPhoto($index);
 		return $photo->isHidden();
-	}
-
-	function isHiddenRecurse($index=0) {
-		if ($index && $this->isHidden($index)) {
-			return true;
-		}
-		elseif ($this->isRoot()) {
-			// Root albums can't be hidden
-			return false;
-		}
-
-		$parent = $this->getParentAlbum();
-		$numphotos = $parent->numPhotos(1);	
-		for ($i = 1; $i <= $numphotos; $i++) {
-			if ($parent->isAlbum($i) && ($parent->getAlbumName($i) == $this->fields['name'])) {
-				if ($parent->isHidden($i)) {
-					// This item is hidden
-					return true;
-				}
-				else {
-					// This item is not hidden - check the parent
-					return $parent->isHiddenRecurse();
-				}
-			}
-		}
-		// This should never happen
-		return false;
 	}
 
 	function deletePhoto($index, $forceResetHighlight="0", $recursive=1) {
@@ -1133,20 +1093,6 @@ class Album {
 
 	function newPhotoName() {
 		return $this->fields["nextname"]++;
-	}
-
-	function getPreviewTag($index, $size=0, $attrs="") {
-		if ($index === null) {
-			return "";
-		}
-		$photo = $this->getPhoto($index);
-		if ($photo->isAlbum()) {
-			return "";
-			//$myAlbum = $this->getNestedAlbum($index);
-			//return $myAlbum->getHighlightAsThumbnailTag($size, $attrs);
-		} else {
-			return $photo->getPreviewTag($this->getAlbumDirURL("preview"), $size, $attrs);
-		}
 	}
 
 	function getThumbnailTag($index, $size=0, $attrs="") {
@@ -1218,7 +1164,7 @@ class Album {
 
 	function getPhotoId($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getPhotoId();
+		return $photo->getPhotoId($this->getAlbumDirURL("full"));
 	}
 
 	function getAlbumDir() {
@@ -1278,28 +1224,11 @@ class Album {
 		return $cnt;
 	}
 
-	function numPhotos($show_hidden=0, $strict_count=0) {
-		if (!$strict_count) {
-			if ($show_hidden) {
-				return sizeof($this->photos);
-			} else {
-				return sizeof($this->photos) - $this->numHidden();
-			}
-		}
-		else {
-			$count = 0;
-			if (!sizeof($this->photos)) {
-				return $count;
-			}
-			foreach ($this->photos as $photo) {
-				if ($photo->isAlbum() || ($photo->isHidden() && !$show_hidden)) {
-					continue;
-				}
-				else {
-					$count++;
-				}
-			}
-			return $count;
+	function numPhotos($show_hidden=0) {
+		if ($show_hidden) {
+			return sizeof($this->photos);
+		} else {
+			return sizeof($this->photos) - $this->numHidden();
 		}
 	}
 
@@ -1327,7 +1256,7 @@ class Album {
 	function getIds($show_hidden=0) {
 		foreach ($this->photos as $photo) {
 			if ((!$photo->isHidden() || $show_hidden) && !$photo->getAlbumName()) {
-				$ids[] = $photo->getPhotoId();
+				$ids[] = $photo->getPhotoId($this->getAlbumDir());
 			}
 		}
 		return $ids;
@@ -1337,14 +1266,14 @@ class Album {
 		if ($index >= 1 && $index <= sizeof($this->photos)) { 
 			return $this->photos[$index-1];
 		} else {
-			echo gallery_error(sprintf(_("Requested index [%d] out of bounds [%d]"),$index,sizeof($this->photos)));
+			print "ERROR: requested index [$index] out of bounds [" . sizeof($this->photos) . "]";
 		}
 	}
 
 	function getPhotoIndex($id) {
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-			if (!strcmp($photo->getPhotoId(), $id)) {
+			if (!strcmp($photo->getPhotoId($this->getAlbumDir()), $id)) {
 				return $i;
 			}
 		}
@@ -1461,17 +1390,16 @@ class Album {
 		$this->updateSerial = 1;
 		$photo = &$this->getPhoto($index);
 		$retval = $photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"], $this);
-		$photo->extraFields['autoRotated'] = true;
 		if (!$retval) {
 			return $retval;
 		}
 	}
 
-        function watermarkPhoto($index, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0) {
+        function watermarkPhoto($index, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY) {
                 $this->updateSerial = 1;
                 $photo = &$this->getPhoto($index);
                 $retval = $photo->watermark($this->getAlbumDir(),
-                                            $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview,$previewSize);
+                                            $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY);
                 if (!$retval) {
                         return $retval;
                 }
@@ -1479,27 +1407,15 @@ class Album {
 		$this->save(array(), $resetModDate);
         }
 
-	function watermarkAlbum($wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $recursive=0) {
+	function watermarkAlbum($wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY) {
 		$this->updateSerial = 1;
 	       	$count = $this->numPhotos(1);
 		for ($index = 1; $index <= $count; $index++) {
 			$photo = &$this->getPhoto($index);
-			if ($photo->isAlbum() && $recursive) {
-				if ($recursive) {
-					$subAlbumName = $this->getAlbumName($index);
-					$subAlbum = new Album();
-					$subAlbum->load($subAlbumName);
-					$subAlbum->watermarkAlbum($wmName, $wmAlphaName,
-						$wmAlign, $wmAlignX, $wmAlignY, $recursive);
-				}
-			} else if ($photo->isMovie()) {
-				// Watermarking of movies not supported
-			} else {
-				$photo->watermark($this->getAlbumDir(),
+			$retval = $photo->watermark($this->getAlbumDir(),
 						$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY);
-			}
-		} // next $index
-	} // end of function
+		}
+	}
 
 	function makeThumbnail($index) {
 		$this->updateSerial = 1;
@@ -1642,7 +1558,7 @@ class Album {
 		if ($status != 0) {
 		    // An error occurred.
 		    return array("junk1" => "",
-				 "Error" => sprintf(_("Error %s getting EXIF data"),$status),
+				 "Error" => "Error $status getting EXIF data",
 				 "junk2" => "");
 		}
 
@@ -1834,24 +1750,6 @@ class Album {
 		return $this->getPerm("canRead", $uid);
 	}
 
-	function canReadRecurse($uid) {
-		global $albumDB;
-
-		if ($this->isOwner($uid)) {
-			return true;
-		}
-		elseif ($this->canRead($uid)) {
-			if ($this->isRoot() || empty($this->fields['parentAlbumName'])) {
-				return true;
-			}
-			$parent = $albumDB->getAlbumByName($this->fields['parentAlbumName'], false);
-			return $parent->canReadRecurse($uid);
-		}
-		else {
-			return false;
-		}
-	}
-
 	function setRead($uid, $bool) {
 		$this->setPerm("canRead", $uid, $bool);
 	}
@@ -1977,20 +1875,9 @@ class Album {
 		global $gallery;
 		return $gallery->userDB->getUserByUid($this->fields["owner"]);
 	}
-	function getExtraFields($all=true) {
-		if ($all) {
-			return $this->fields["extra_fields"];
-		} else {
-			$return=array();
-			foreach($this->fields["extra_fields"] as $value) {
-				if ($value != 'AltText') {
-					$return[]=$value;
-				}
-			}
-			return $return;
-		}
+	function getExtraFields() {
+		return $this->fields["extra_fields"];
 	}
-
 	function setExtraFields($extra_fields) {
 		$this->fields["extra_fields"]=$extra_fields;
 	}
@@ -2060,20 +1947,13 @@ class Album {
 		$everybodyUid = $everybody->getUid();
 
                 $user=$gallery->userDB->getUserByUid($this->getItemOwner($index));
-
-		if ( !$user) {
+		if (!$user) {
 			return "";
 		}
-		if ( !strcmp($user->getUid(), $nobodyUid) || !strcmp($user->getUid(), $everybodyUid) ) {
+		if (!strcmp($user->getUid(), $nobodyUid) || !strcmp($user->getUid(), $everybodyUid)) {
 			return "";
 		}
-
-		$fullName=$user->getFullname();	
-		if (empty($fullName)) {
-			return ' - '. $user->getUsername();
-		} else {
-			return ' - '. $user->getFullname() .' ('. $user->getUsername() .')';
-		}
+		return " - ".$user->getFullname()." (". $user->getUsername().")";
         }
 
 
@@ -2176,7 +2056,7 @@ class Album {
 		if ($this->fields["poll_type"] != "critique") {
 			return false;
 		}
-		if (isset($album->fields["poll_type"]) && ($album->fields["poll_type"] != "critique")) {
+		if ($album->fields["poll_type"] != "critique") {
 			return false;
 		}
 		if ($this->fields["poll_scale"] != $album->fields["poll_scale"]) {
@@ -2282,7 +2162,7 @@ class Album {
 		       	if (gallery_validate_email($user->getEmail())) {
 			       	$result[]=$user->getEmail();
 		       	} else if (isDebugging()) {
-				echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
+			       	gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
 							$user->getUsername(), $uid, $user->getEmail()));
 		       	}
 	       	}

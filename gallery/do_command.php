@@ -21,6 +21,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -30,7 +41,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 <html>
 <head>
   <title><?php echo _("Rebuilding Thumbnails") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <span class="popup">
@@ -58,20 +69,16 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		}
 	}
 } else if (!strcmp($cmd, "logout")) {
-	gallery_syslog("Logout by ". $gallery->session->username ." from ". $HTTP_SERVER_VARS['REMOTE_ADDR']);
 	$gallery->session->username = "";
 	$gallery->session->language = "";
-	if (!ereg("^http", $return)) {
-		$return = makeGalleryHeaderUrl($return);
-	}
 	header("Location: $return");
 } else if (!strcmp($cmd, "hide")) {
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
 		$gallery->album->hidePhoto($index);
 		$gallery->album->save();
 	} else {
-		if ($gallery->album->isAlbum($index)) {
-			$myAlbumName = $gallery->album->getAlbumName($index);
+		$myAlbumName = $gallery->album->getAlbumName($index);
+		if ($myAlbumName) {
 			$myAlbum = new Album;
 			$myAlbum->load($myAlbumName);
 		}
@@ -89,8 +96,8 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		$gallery->album->unhidePhoto($index);
 		$gallery->album->save();
 	} else {
-                if ($gallery->album->isAlbum($index)) {
-                	$myAlbumName = $gallery->album->getAlbumName($index);
+                $myAlbumName = $gallery->album->getAlbumName($index);
+                if ($myAlbumName) {
                         $myAlbum = new Album;
                         $myAlbum->load($myAlbumName);
                 }       
@@ -118,9 +125,11 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		}
 		createNewAlbum($parentName);
 
-		header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
+		$url = addUrlArg($return, "set_albumName=" .
+				 $gallery->session->albumName);
+		header("Location: $url");
 	} else {
-	        header("Location: " . makeAlbumHeaderUrl());
+	        header("Location: " . makeAlbumUrl());
 	}
 } else if (!strcmp($cmd, "reset-album-clicks")) {
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
@@ -128,7 +137,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		// this is a popup do dismiss and reload!
 		dismissAndReload();
 	} else {
-	        header("Location: " . makeAlbumHeaderUrl());
+	        header("Location: " . makeAlbumUrl());
 	}
 
 } else if (!strcmp($cmd, "delete-comment")) {
@@ -140,14 +149,9 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 				       	$comment->getName(),
 				       	makeAlbumURL($gallery->album->fields["name"], 
 						$gallery->album->getPhotoId($index))));
-		if (!empty($return)) {
-			dismissAndLoad($return);
-		}
-		else {
-			dismissAndReload();
-		}
+		dismissAndReload();
 	} else {
-	        header("Location: " . makeAlbumHeaderUrl());
+	        header("Location: " . makeAlbumUrl());
 	}
 
 } else if (!empty($return)) {

@@ -24,7 +24,6 @@
 class AlbumItem {
 	var $image;
 	var $thumbnail;
-	var $preview;
 	var $caption;
 	var $hidden;
 	var $highlight;
@@ -190,12 +189,6 @@ class AlbumItem {
 			    $gallery->userDB->convertUidToNewFormat($this->comments[$i]->UID);
 		    }
 		}
-
-		if ($this->version < 29) {
-			if ($gallery->app->autorotate == 'yes' && $gallery->app->use_exif) {
-				$this->extraFields['autoRotated'] = true;
-			}
-		}
 		
 		if ($this->image) {
 			if ($this->image->integrityCheck($dir)) {
@@ -204,12 +197,6 @@ class AlbumItem {
 
 			if ($this->thumbnail) {
 				if ($this->thumbnail->integrityCheck($dir)) {
-					$changed = 1;
-				}
-			}
-
-			if ($this->preview) {
-				if ($this->preview->integrityCheck($dir)) {
 					$changed = 1;
 				}
 			}
@@ -461,7 +448,7 @@ class AlbumItem {
 		return 1;
 	}
 
-        function watermark($dir, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0) {
+        function watermark($dir, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY) {
                 global $gallery;
                 $type = $this->image->type;
 		if (isMovie($type))
@@ -470,42 +457,18 @@ class AlbumItem {
 			return (0);
 		}
                 $name = $this->image->name;
-		foreach (glob($dir . "/$name.preview*.$type") as $oldpreview) {
-			unlink($oldpreview);
-		}
-		if ($preview) {
-			$previewtag = "preview" . time();
-			if (($previewSize == 0) && $this->isResized()) {
-				$src_image = "$dir/" . $this->image->resizedName . ".$type";
-			} else {
-				$src_image = "$dir/$name.$type";
-			}
-			$retval = watermark_image($src_image, "$dir/$name.$previewtag.$type",
+                $retval = watermark_image("$dir/$name.$type", "$dir/$name.$type",
                                           $gallery->app->watermarkDir."/$wmName",
                                           $gallery->app->watermarkDir."/$wmAlphaName",
                                           $wmAlign, $wmAlignX, $wmAlignY);
-			if ($retval) {
-				list($w, $h) = getDimensions("$dir/$name.$previewtag.$type");
-                                                                                                                           
-                                $high = new Image;
-				$high->setFile($dir, "$name.$previewtag", "$type");
-                                $high->setDimensions($w, $h);
-                                $this->preview = $high;
-			}
-		} else {
-                	$retval = watermark_image("$dir/$name.$type", "$dir/$name.$type",
-                                          $gallery->app->watermarkDir."/$wmName",
-                                          $gallery->app->watermarkDir."/$wmAlphaName",
-                                          $wmAlign, $wmAlignX, $wmAlignY);
-                	if ($retval) {
+                if ($retval) {
 
-                	    if ($this->isResized()) {
-                        	$retval = watermark_image("$dir/$name.sized.$type", "$dir/$name.sized.$type",
+                    if ($this->isResized()) {
+                        $retval = watermark_image("$dir/$name.sized.$type", "$dir/$name.sized.$type",
                                                   $gallery->app->watermarkDir."/$wmName",
                                                   $gallery->app->watermarkDir."/$wmAlphaName",
-						  $wmAlign, $wmAlignX, $wmAlignY);
-                    	    }
-                        }
+                                                  $wmAlign, $wmAlignX, $wmAlignY);
+                    }
                 }
 		return ($retval);
         }
@@ -583,41 +546,18 @@ class AlbumItem {
 		return 0;
 	}
 
-	function getPreviewTag($dir, $size=0, $attrs="") {
-		if ($this->preview) {
-			return $this->preview->getTag($dir, 0, $size, $attrs);
-		} else {
-			return "<i>". _("No preview") ."</i>";
-		}
-	}
-
-	function getAlttext() {
-		if (!empty($this->extraFields['AltText'])) {
-			return $this->extraFields['AltText'];
-		} elseif (!empty($this->caption)) {
-			return $this->caption;
-		} else {
-			return _("No Caption");
-		}
-	}
 
 	function getThumbnailTag($dir, $size=0, $attrs="") {
-
 		if ($this->thumbnail) {
-			return $this->thumbnail->getTag($dir, 0, $size, $attrs, $this->getAlttext());
+			return $this->thumbnail->getTag($dir, 0, $size, $attrs);
 		} else {
 			return "<i>". _("No thumbnail") ."</i>";
 		}
 	}
 
-	function getHighlightTag($dir, $size=0, $attrs='', $alttext='') {
-
+	function getHighlightTag($dir, $size=0, $attrs="",$alttext="") {
 		if (is_object($this->highlightImage)) {
-			if (!isset($alttext)) {
-				$alltext=$this->getAlttext();
-			}
-			
-			return $this->highlightImage->getTag($dir, 0, $size, $attrs, $alttext);
+			return $this->highlightImage->getTag($dir, 0, $size, $attrs,$alttext);
 		} else {
 			return "<i>". _("No highlight") ."</i>";
 		}
@@ -625,7 +565,7 @@ class AlbumItem {
 
 	function getPhotoTag($dir, $full=0) {
 		if ($this->image) {
-			return $this->image->getTag($dir, $full, '', '', $this->getAlttext());
+			return $this->image->getTag($dir, $full);
 		} else {
 			return "about:blank";
 		}
@@ -639,9 +579,9 @@ class AlbumItem {
 		}
 	}
 
-	function getPhotoId() {
+	function getPhotoId($dir) {
 		if ($this->image) {
-			return $this->image->getId();
+			return $this->image->getId($dir);
 		} else {
 			return "unknown";
 		}
@@ -658,9 +598,6 @@ class AlbumItem {
 
 		if ($this->thumbnail) {
 			$this->thumbnail->delete($dir);
-		}
-		if ($this->preview) {
-			$this->preview->delete($dir);
 		}
 	}
 
@@ -709,6 +646,10 @@ class AlbumItem {
 	function lastCommentDate() 
 	{
 		global $gallery;
+		if ($gallery->app->comments_indication != "photos" && 
+				$gallery->app->comments_indication != "both") {
+			return -1;
+		}
 		if ($this->numComments() == 0) {
 			return -1;
 		}

@@ -84,7 +84,6 @@ if($gallery->app->show_flags !='yes') {
 		else {
 			$url=$request_url ."?newlang=". $new_lang;
 		}
-		$url = htmlspecialchars($url);
 	
 		/* Show pulldown or flags */
 		if($gallery->app->show_flags !='yes') {

@@ -21,112 +21,81 @@
  */
 ?>
 <?php
-
-require(dirname(__FILE__) . '/init.php');
-
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+?>
+<?php if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = '';
+}
+require(dirname(__FILE__) . '/init.php'); ?>
+<?php
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 if (empty($index)) {
 	$index='';
 }
-$highlightIndex = $gallery->album->getHighlight();
 
 $err = "";	
-if (isset($save) || isset($preview)) {
+if (isset($save)) {
 	if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12)) {
-		if (isset($wmName) && !empty($wmName)) {
-			if (isset($save)) {
-				print "<html><body>\n";
-	        	        echo "<center> ". _("Watermarking album.")."<br>(". _("this may take a while"). ")</center>\n";
-        	        	my_flush();
-               			set_time_limit($gallery->app->timeLimit);
-	                	$gallery->album->watermarkAlbum($wmName, "",
-					$wmAlign, $wmAlignX, $wmAlignY, $recursive);
-        	        	$gallery->album->save();
-                		dismissAndReload();
-	                	return;
-			} else {
-				// create a preview of the highlight image
-				$gallery->album->watermarkPhoto($highlightIndex, $wmName, "", $wmAlign,
-                                                       isset($wmAlignX) ? $wmAlignX : 0,
-                                                       isset($wmAlignY) ? $wmAlignY : 0,
-                                                       1, // set as preview
-                                                       isset($previewFull) ? $previewFull : 0);
+		if (isset($wmName) && strlen($wmName)) {
+			print "<html><body>\n";
+	                echo "<center> ". _("Watermarking album.")."<br>(". _("this may take a while"). ")</center>\n";
 
-			}
+        	        my_flush();
+                	set_time_limit($gallery->app->timeLimit);
+	                $gallery->album->watermarkAlbum($wmName, "", $wmAlign, $wmAlignX, $wmAlignY);
+        	        $gallery->album->save();
+                	dismissAndReload();
+	                return;
 		} else {
 			$err = _("Please select a watermark.");
 		}
 	} else {
 		$err = _("Please select an alignment.");
 	}
-} else {
-	if (!isset($recursive)) {
-	        $recursive = 1;
-	}
-
 }
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Watermark Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
 <p align="center" class="popuphead"><?php echo _("Watermark Album") ?></p>
 
 <?php
-if (!$gallery->album->numPhotos(1)) {
-	echo "\n<p>". gallery_error(_("No items to watermark.")) . "</p>";
-} else {
-   $highlightIndex = $gallery->album->getHighlight();
-   if (isset($highlightIndex)) {
-      if (isset($preview)) {
-         echo $gallery->album->getPreviewTag($highlightIndex);
-      } else {
-         echo $gallery->album->getThumbnailTag($highlightIndex);
-      }
-   }
+if (!empty($err)) {
+	echo '<p class="error">'. $err . "</p>\n";
+}
 
-   if (!empty($err)) {
-      echo "\n<p>". gallery_error($err) . "</p>";
-   }
    echo makeFormIntro("watermark_album.php",
                       array("name" => "theform",
                             "method" => "POST"));
-   global $watermarkForm;
-   $watermarkForm["askRecursive"] = 1;
-   $watermarkForm["askPreview"] = 1;
-   $watermarkForm["allowNone"] = 0;
-   includeLayout ('watermarkform.inc');
+   include (dirname(__FILE__). '/layout/watermarkform.inc') ;
 ?>
-
-<p>
+<div align="center">
 	<input type="hidden" name="index" value="<?php echo $index ?>">
 	<input type="submit" name="save" value="<?php echo _("Save") ?>">
-<?php // only allow preview if there is a highlight
- if (isset($highlightIndex)) { ?>
-	<input type="submit" name="preview" value="<?php echo _("Preview") ?>">
-<?php } ?>
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</p>
-</form>
 </div>
+</form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.data.focus();
 //-->
 </script>
-<?php } // end if numPhotos() ?>
-<?php print gallery_validation_link("watermark_album.php"); ?>
+
 </body>
 </html>

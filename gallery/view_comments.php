@@ -24,17 +24,28 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->isAdmin() && !$gallery->user->isOwnerOfAlbum($gallery->album)) {
-	header("Location: " . makeAlbumHeaderUrl());
+	header("Location: albums.php");
 	return;
 }
 
 if (!$gallery->album->isLoaded()) {
-	header("Location: " . makeAlbumHeaderUrl());
+	header("Location: albums.php");
 	return;
 }
 
@@ -137,7 +148,7 @@ if (!$gallery->album->fields["perms"]['canAddComments']) {
 	set_time_limit($gallery->app->timeLimit);
         $id = $gallery->album->getPhotoId($i);
         $index = $gallery->album->getPhotoIndex($id);
-        if($gallery->album->isAlbum($i))
+        if($gallery->album->getAlbumName($i))
         {
             $embeddedAlbum = 1;
             $myAlbumName = $gallery->album->getAlbumName($i);

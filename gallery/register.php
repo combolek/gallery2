@@ -23,14 +23,24 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
 
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 require(dirname(__FILE__) . '/init.php'); 
-doctype();
 ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
   <title><?php echo sprintf(_("Create User for %s."), $gallery->app->galleryTitle) ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -39,13 +49,13 @@ doctype();
 <br>
 <br>
 <?php if ($gallery->app->selfReg != 'yes' || $gallery->app->emailOn == 'no') { ?>
-	<p>
-	<?php echo _("This Gallery does not support self-registration by visitors.") ?>
-	<br><br>
-	<form> <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'> </form>
-	</center>
-	</body>
-	</html>
+<p>
+<?php echo _("This Gallery does not support self-registration by visitors.") ?>
+<br><br>
+<form> <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'> </form>
+</center>
+</body>
+</html>
 <?php
     exit();
 }
@@ -111,7 +121,7 @@ if (isset($create)) {
 			echo '<br>';
 			echo _("Your account information is contained within the email.");
 		} else {
-			echo gallery_error(_("Email could not be sent.  Please contact gallery administrator to register on this site"));
+			gallery_error(_("Email could not be sent.  Please contact gallery administrator to register on this site"));
 		}
 ?>
 		<br><br>
@@ -143,6 +153,5 @@ document.usercreate_form.uname.focus();
 //--> 
 </script>
 </center>
-<?php print gallery_validation_link("register.php"); ?>
 </body>
 </html>
