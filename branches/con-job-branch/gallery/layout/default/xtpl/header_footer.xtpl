@@ -1,0 +1,37 @@
+<!-- --------------------------------------------------------------------
+     -------------------------------------------------------------------- -->
+
+<!-- BEGIN: header -->
+<!-- BEGIN: not_embedded_inside -->
+<html>
+<head>
+  <title>{GLO.pagetitle}</title>
+  {GLO.gallery.styleSheetInclude}
+  {GLO.album.styleSheetInclude}
+  {GLO.page.head.extra}
+</head>
+<body {GLO.page.bodyTag.extra}>
+<!-- END: not_embedded_inside -->
+
+{GLO.javascript.body}
+THIS HEAD TEXT SHOWS UP ON EVERY GALLERY PAGE
+<br>
+<br>
+
+<!-- END: header -->
+
+<!----------------------------------------------------------------------->
+<!-- BEGIN: footer -->
+
+THIS FOOT TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
+
+<!-- The Gallery code version number, linked to the Gallery home page -->
+<span align="right" class="fineprint">
+Powered by {GLO.galleryProject.anchor}
+</span>
+
+<!-- BEGIN: not_embedded_inside -->
+</body>
+</html>
+<!-- END: not_embedded_inside -->
+<!-- END: footer -->

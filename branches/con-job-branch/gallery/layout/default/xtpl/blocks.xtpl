@@ -1,0 +1,160 @@
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: divider -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: divider -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: breadcrumb -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td align="left" valign="middle" width="3000" height="18">
+    <span class="bread">
+    &nbsp;&nbsp;<img src="{GLO.layout.dir}images/nav_home.gif" width="13" height="11">
+
+    <!-- BEGIN: crumb -->
+    {crumb.level}: <a href="{crumb.href}">{crumb.title}</a> ::
+    <!-- END: crumb -->
+
+    <!-- BEGIN: last_crumb -->
+    {crumb.level}: <a href="{crumb.href}">{crumb.title}</a>
+    <!-- END: last_crumb -->
+
+    </span>
+    </td>         
+    
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr> 
+</table>
+<!-- END: breadcrumb -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: navigator -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    
+    <!-- BEGIN: first -->
+    <td align="center" width="27" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_first.gif" border="0" width="27" height="11" alt="First ({page.name})"></a>
+    </td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: first -->
+
+    <!-- BEGIN: no_first -->
+    <td align="center" width="27" height="18">&nbsp;</td>
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: no_first -->
+ 
+    <!-- BEGIN: previous -->
+    <td align="center" width="72" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_prev.gif" border="0" width="72" height="11" alt="Previous ({page.name})"></a>
+    </td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: previous -->
+ 
+    <!-- BEGIN: no_previous -->
+    <td align="center" width="72" height="18">&nbsp;</td>
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: no_previous -->
+ 
+    <!-- BEGIN: pages -->
+    <td width="3000" height="18" align="center">
+      <span class="nav">
+      {GLO.navigator.pageNumber} (of {GLO.navigator.pageCount} {GLO.navigator.pageLabel})
+      </span>
+    </td> 
+    <!-- END: pages -->
+ 
+    <!-- BEGIN: next -->
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="72" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_next.gif" border="0" width="72" height="11" alt="Next ({page.name})"></a>
+    </td>
+    <!-- END: next -->
+ 
+    <!-- BEGIN: no_next -->
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="72" height="18">&nbsp;</td>
+    <!-- END: no_next -->
+ 
+    <!-- BEGIN: last -->
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="27" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_last.gif" border="0" width="27" height="11" alt="Last ({page.name})"></a>
+    </td>
+    <!-- END: last -->
+
+    <!-- BEGIN: no_last -->
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="27" height="18">&nbsp;</td>
+    <!-- END: no_last -->
+
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: navigator -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: toolbox -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+
+    <!-- BEGIN: commands -->
+    <td align="left" valign="middle" width="3000" height="18">
+    <span class="admin">&nbsp;
+    <!-- BEGIN: command -->
+    <a href="{command.href}">[{command.title}]</a>
+    <!-- END: command -->
+    </span>
+    </td>
+    <!-- END: commands -->
+
+    <!-- BEGIN: right -->
+    <td align="right" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
+    <!-- END: right -->
+
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: toolbox -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: comments -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+  <!-- BEGIN: comment -->
+  <tr>
+    <td width=15%>{GLO.pixelImage}</td>
+    <td width=70% bgcolor="{GLO.album.borderColor}">{GLO.pixelImage}</td>
+    <td width=15%>{GLO.pixelImage}</td>
+  </tr>
+  <tr>
+    <td>{GLO.pixelImage}</td>
+    <td>
+      <span class=caption>
+      <br>
+      From: <b>{comment.name}</b> @ {comment.IPNumber} ({comment.datePosted})
+      <br>
+      {comment.text}
+      <br><br>
+      </span>
+    </td>
+    <td>{GLO.pixelImage}</td>
+  </tr>
+
+  <!-- END: comment -->
+
+</table>
+<!-- END: comments -->
+
