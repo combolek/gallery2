@@ -23,7 +23,8 @@ if ($doit) {
 
 	$album->setFields(
 		array("title" => $f_title,
-			"description" => $f_description
+			"description" => $f_description,
+			"keywords" => $f_keywords
 		)
 	);
 
@@ -119,7 +120,7 @@ $content .= "
 		</tr>
 		<tr>
 		  <td colspan=\"2\">
-		  <input type=\"text\" name=\"f_name\" value=\"". $album->fields["name"] ."\" size=\"50\">
+		  <input type=\"text\" name=\"f_name\" value=\"". $album->fields["name"] ."\" size=\"25\">
 		  </td>
 		</tr>
 		
@@ -132,7 +133,20 @@ $content .= "
 		</tr>
 		<tr>
 		  <td colspan=\"2\">
-		  <textarea name=\"f_description\" rows=\"4\" cols=\"50\">". $album->fields["description"] ."</textarea>
+		  <textarea name=\"f_description\" rows=\"5\" cols=\"50\">". $album->fields["description"] ."</textarea>
+		  </td>
+		</tr>
+		
+		<tr>
+		  <td colspan=\"2\">
+		  <span class=\"admin\">Album Keywords</span>
+		  <br>
+		  <span class=\"fineprint\">Keywords will not be visible to the end user, but will be used search. This can be any character string. It should not contain HTML.</span>
+		  </td>
+		</tr>
+		<tr>
+		  <td colspan=\"2\">
+		  <textarea name=\"f_keywords\" rows=\"3\" cols=\"50\">". $album->fields["keywords"] ."</textarea>
 		  </td>
 		</tr>
 		
