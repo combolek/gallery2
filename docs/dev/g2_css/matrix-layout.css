@@ -1,0 +1,243 @@
+/*
+	matrix.css - core Gallery 2 css
+	by Ross A. Reyman and Jon Huang
+
+*/
+
+/* try uncommenting this when working on the layout CSS alone to see the boxes*/
+/* div, table {border-width: 1;
+            border-style: inset;
+            border-color: #EEEEEE; 
+            padding: 1;
+            marging: 1; }
+*/
+
+/*	basic html defs	*/
+body {
+}
+
+/*	spacers neeed for expanding layouts	*/
+.guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer { clear: both; }
+
+/*
+    Page Definitions category 2
+    declare page layout of gallery data
+*/
+
+/*  main page container */
+#gallery { }
+
+/*
+    Section Definitons category 3
+    declare sections of gallery data
+*/
+
+#gsHeader {  }
+
+#gsFooter {
+	clear: both;
+}
+
+#gsSidebar {
+	float: left;
+	width: 148px;
+}
+
+.gsSection1 { }
+.gsSection2 { }
+.gsSection3 { }
+
+#gsAlbumContents {
+	float: left;
+	width: 72%;
+	min-width: 596px;
+}
+
+#gsCommentBox {
+}
+
+/*
+    itemBoxes c4
+    declare inner boxes inside of sections
+*/
+
+/*  #gsHeader    */
+.gbTitleBanner { }
+.gbBreadCrumb, .gbAdminHead { }
+
+/*  #gsAlbumContents */
+#gbTopFlag {
+	display: block;
+}
+
+.gbTitle {
+	float: left;
+	width: 256px;
+}
+
+.gbItemAlbum {
+	clear: both;
+	float: left;
+	width: 97%;
+}
+
+.gbItemImage {
+	float: left;
+	/*	IE max-width >> http://www.svendtofte.com/code/max_width_in_ie/ */
+	min-height: 216px;
+	height: expression(this.scrollHeight < 216? '216px' : 'auto' );
+	max-width: 172px;
+	width: expression(document.body.clientWidth > 172? '172px': 'auto' );
+}
+
+.gbItemMovie { }
+.gbItemOther1 { }
+.gbItemImage .giTitle { clear: both; }
+
+/*  --> #gsCommentBox    */
+.gbComment {
+}
+
+/*  #gsAlbumContents (continued) */
+.gbExif { }
+
+.gbBottomFlag {
+	display: block;
+}
+
+/*  gsFooter */
+.gbMiniBanner {
+	float: left;
+}
+
+/*  gsSidebar */
+#gsSidebar div {
+}
+
+/*	Tabs	*/
+.gbTabBar {
+	float: left;
+	width: 100%;
+}
+
+.gbTabBar ul {
+}
+
+.gbTabBar li {
+	float: left;
+	background: url('images/tab_left.jpg') no-repeat left top;
+}
+
+.gbTabBar a {
+	float: left;
+	display: block;
+}
+
+/* Commented Backslash Hack
+	   hides rule from IE5-Mac \*/
+
+.gbTabBar a { float: none; }
+
+/* End IE5-Mac hack */
+.gbTabBar a:hover { }
+.gbTabBar .giSelectedTab { }
+
+.gbTabBar .giSelectedTab a {
+}
+
+/*	Miscellaneous	*/
+.gbAdminMenu { }
+
+/*	icons for admin menu	*/
+.gbAdminMenu ul.icons li {
+}
+
+.gbAdminMenu li.comments:before {  }
+.gbAdminMenu li.general:before {  }
+.gbAdminMenu li.users:before {  }
+.gbAdminMenu li.groups:before {  }
+.gbAdminMenu li.modules:before { }
+.gbAdminMenu li.layouts:before { }
+.gbAdminMenu li.debug:before { }
+.gbListMenu { }
+.gbSearchMenu { }
+.gbBasicMenu { }
+.gbUserMenu { }
+.gbNavigationMenu { }
+.gbOtherMenu { }
+
+
+
+#gsAlbumContents div.giHorizontalLinks {
+	float: right;
+}
+
+
+/*  gbComment */
+
+#gsCommentBox .gbComment div.giHorizontalLinks {
+	float: none;
+}
+
+
+
+/* ******** jon's search additions *********** */
+/* form elements that I used */
+
+/* The title banner is the light grey 'search' at the very top */
+.gbTitleBanner {
+}
+
+/* Search contents is along the same lines as the other gsXxxxContests
+	elements as a main 'holder' for the main stuff in the page. */
+
+#gsSearchContents { }
+
+/* This makes the images not wrap. But there's a weird bug on IE
+   that this seems to cause--see the html file for the workaround I found */
+
+#gsSearchContents .gbItemImage { clear: left; }
+
+
+.gbForm { }
+
+/* ********* admin additions ******** */
+#gsAdminContents {
+	float: left;
+	width: 72%;
+}
+
+#gsAdminSidebar {
+	float: left;
+	width: 128px;
+}
+
+#gsAdminSidebar div {
+	margin: 0px 0;
+}
+
+.gbItemAdmin {
+	clear: both;
+	float: left;
+	width: 97%;
+}
+
+* even and odd rows have different backgrounds */
+/* I count from 0, so the first row is even! */
+.gbEven { }
+
+.gbOdd { }
+
+/* for tabular data */
+.gbDataTable { }
+
+/* cell padding */
+.gbDataTable td { }
+
+/* Status classes */
+/* local error */
+.giError { clear: both; }
+
+/* Status section */
+#gsStatus { }
+
