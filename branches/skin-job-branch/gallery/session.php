@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+?>
+<?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print "Security violation\n";
+	exit;
+}
 ?>
 <?
 /*
@@ -46,9 +55,10 @@ session_start();
  * to see if a pre-existing session variable is already associated
  * (before we register it, below).  
  */
-if (session_is_registered($gallery->app->sessionVar)) {
+$sessionVar = $gallery->app->sessionVar . "_" . md5($gallery->app->userDir);
+if (session_is_registered($sessionVar)) {
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& ${$gallery->app->sessionVar};
+	$gallery->session =& $$sessionVar;
 
 	/* Make sure our session is current.  If not, nuke it and restart. */
 	if (strcmp($gallery->session->version, $gallery->version)) {
@@ -58,17 +68,17 @@ if (session_is_registered($gallery->app->sessionVar)) {
 	}	
 } else {
 	/* Register the session variable */
-	session_register($gallery->app->sessionVar);
+	session_register($sessionVar);
 
 	/* Create a new session container */
 	if ($useStdClass) {
-		${$gallery->app->sessionVar} = new stdClass();
+		$$sessionVar = new stdClass();
 	} else {
-		${$gallery->app->sessionVar} = new GallerySession();
+		$$sessionVar = new GallerySession();
 	}
 
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& ${$gallery->app->sessionVar};
+	$gallery->session =& $$sessionVar;
 
 	/* Tag this session with the gallery version */
 	$gallery->session->version = $gallery->version;

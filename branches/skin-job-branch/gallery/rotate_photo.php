@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+?>
+<?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print "Security violation\n";
+	exit;
+}
 ?>
 <? require($GALLERY_BASEDIR . "init.php"); ?>
 <?
@@ -54,11 +63,15 @@ if ($gallery->session->albumName && isset($index)) {
 <center>
 How do you want to rotate this photo?
 <br>
-<a href=rotate_photo.php?rotate=90&albumName=<?= $gallery->album->fields["name"] ?>&index=<?= $index ?>>Counter-Clockwise 90&ordm;</a>
+<? $args = array("albumName" => $gallery->album->fields["name"], "index" => $index); ?>
+<? $args["rotate"] = "90"; ?>
+<a href=<?=makeGalleryUrl("rotate_photo.php", $args)?>>Counter-Clockwise 90&ordm;</a>
 /
-<a href=rotate_photo.php?rotate=180&albumName=<?= $gallery->album->fields["name"] ?>&index=<?= $index ?>>Flip 180&ordm;</a>
+<? $args["rotate"] = "180"; ?>
+<a href=<?=makeGalleryUrl("rotate_photo.php", $args)?>>Flip 180&ordm;</a>
 /
-<a href=rotate_photo.php?rotate=-90&albumName=<?= $gallery->album->fields["name"] ?>&index=<?= $index ?>>Clockwise 90&ordm;</a>
+<? $args["rotate"] = "-90"; ?>
+<a href=<?=makeGalleryUrl("rotate_photo.php", $args)?>>Clockwise 90&ordm;</a>
 /
 <a href="javascript:void(parent.close())">Cancel</a>
 <br>

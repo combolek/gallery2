@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+?>
+<?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print "Security violation\n";
+	exit;
+}
 ?>
 <? require($GALLERY_BASEDIR . "init.php"); ?>
 <?
@@ -93,6 +102,13 @@ if ($urls) {
 		/* Get rid of any preceding whitespace (fix for odd browsers like konqueror) */
 		$url = eregi_replace("^[[:space:]]+", "", $url);
 
+		/* If the URI doesn't start with a scheme, prepend 'http://' */
+		if (!fs_is_file($url)) {
+			if (!ereg("^(http|ftp)", $url)) {
+				$url = "http://$url";
+			}
+		}
+
 		/* Parse URL for name and file type */
 		$url_stuff = parse_url($url);
 		$name = basename($url_stuff["path"]);
@@ -168,12 +184,22 @@ if ($urls) {
 			while ($cnt = eregi('(src|href)="?([^" >]+\.' . acceptableFormatRegexp() . ')[" >]',
 					    $contents, 
 					    $results)) {
+				set_time_limit(30);
 				$things[$results[2]]++;
 				$contents = str_replace($results[2], "", $contents);
 			}
 
 			/* Add each unique link to an array we scan later */
 			foreach (array_keys($things) as $thing) {
+
+				/* 
+				 * Some sites (slashdot) have images that start with // and this
+				 * confuses Gallery.  Prepend 'http:'
+				 */
+				if (!strcmp(substr($thing, 0, 2), "//")) {
+					$thing = "http:$thing";
+				}
+
 				/* Absolute Link ( http://www.foo.com/bar ) */
 				if (substr($thing, 0, 4) == 'http') {
 					$image_tags[] = $thing;
@@ -224,9 +250,9 @@ function process($file, $tag, $name, $setCaption="") {
 		}
 		/* Figure out what files we can handle */
 		list($files, $status) = exec_internal(
-			fs_import_filename($gallery->app->zipinfo) . 
+			fs_import_filename($gallery->app->zipinfo, 1) . 
 			" -1 " .
-			fs_import_filename($file));
+			fs_import_filename($file, 1));
 		sort($files);
 		foreach ($files as $pic_path) {
 			$pic = basename($pic_path);
@@ -236,13 +262,13 @@ function process($file, $tag, $name, $setCaption="") {
 			if (acceptableFormat($tag) || !strcmp($tag, "zip")) {
 				$cmd_pic_path = str_replace("[", "\[", $pic_path); 
 				$cmd_pic_path = str_replace("]", "\]", $cmd_pic_path); 
-				exec_wrapper(fs_import_filename($gallery->app->unzip) . 
+				exec_wrapper(fs_import_filename($gallery->app->unzip, 1) . 
 					     " -j -o " .
-					     fs_import_filename($file) .
+					     fs_import_filename($file, 1) .
 					     " '" .
-					     fs_import_filename($cmd_pic_path) .
+					     fs_import_filename($cmd_pic_path, 1) .
 					     "' -d " .
-					     fs_import_filename($gallery->app->tmpDir));
+					     fs_import_filename($gallery->app->tmpDir, 1));
 				process($gallery->app->tmpDir . "/$pic", $tag, $pic, $setCaption);
 				fs_unlink($gallery->app->tmpDir . "/$pic");
 			}
@@ -294,6 +320,8 @@ function process($file, $tag, $name, $setCaption="") {
 				}
 			} else {
 				msg("<font color=red>Error: $err!</font>");
+				msg("<b>Need help?  Look in the " .
+				    "<a href=http://gallery.sourceforge.net/faq.php target=_new>Gallery FAQ</a></b>");
 			}
 		} else {
 			msg("Skipping $name (can't handle '$tag' format)");

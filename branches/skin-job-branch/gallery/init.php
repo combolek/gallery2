@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,34 @@
  */
 ?>
 <?
+// Hack prevention.
+$sensitiveList = array("gallery", "GALLERY_BASEDIR");
+foreach ($sensitiveList as $sensitive) {
+	if (!empty($HTTP_GET_VARS[$sensitive]) ||
+			!empty($HTTP_POST_VARS[$sensitive]) ||
+			!empty($HTTP_COOKIE_VARS[$sensitive]) ||
+			!empty($HTTP_POST_FILES[$sensitive])) {
+		print "Security violation\n";
+		exit;
+	}
+}
+?>
+<?
+/*
+ * Turn down the error reporting to just critical errors for now.
+ * In v1.2, we know that we'll have lots and lots of warnings if
+ * error reporting is turned all the way up.  We'll fix this in v2.0
+ */
+error_reporting(E_ALL & ~E_NOTICE);
+
 /* Load bootstrap code */
 if (substr(PHP_OS, 0, 3) == 'WIN') {
-	require($GALLERY_BASEDIR . "platform/fs_win32.php");
+	include($GALLERY_BASEDIR . "platform/fs_win32.php");
 } else {
-	require($GALLERY_BASEDIR . "platform/fs_unix.php");
+	include($GALLERY_BASEDIR . "platform/fs_unix.php");
 }
 if (fs_file_exists($GALLERY_BASEDIR . "config.php")) {
-	require($GALLERY_BASEDIR . "config.php");
+	include($GALLERY_BASEDIR . "config.php");
 }
 require($GALLERY_BASEDIR . "version.php");
 require($GALLERY_BASEDIR . "util.php");
@@ -35,7 +55,7 @@ require($GALLERY_BASEDIR . "layout.php");
 /*
  * Detect if we're running under SSL and adjust the URL accordingly.
  */
-if ($HTTP_SERVER_VARS["HTTPS"]) {
+if (stristr($HTTP_SERVER_VARS["HTTPS"], "on")) {
 	$gallery->app->photoAlbumURL = 
 		eregi_replace("^http:", "https:", $gallery->app->photoAlbumURL);
 	$gallery->app->albumDirURL = 
@@ -69,10 +89,10 @@ require($GALLERY_BASEDIR . "classes/Comment.php");
 require($GALLERY_BASEDIR . "session.php");
 
 if (!strcmp($GALLERY_EMBEDDED_INSIDE, "nuke")) {
-	require($GALLERY_BASEDIR . "classes/Database.php");
-	require($GALLERY_BASEDIR . "classes/database/mysql/Database.php");
-	require($GALLERY_BASEDIR . "classes/nuke5/UserDB.php");
-	require($GALLERY_BASEDIR . "classes/nuke5/User.php");
+	include($GALLERY_BASEDIR . "classes/Database.php");
+	include($GALLERY_BASEDIR . "classes/database/mysql/Database.php");
+	include($GALLERY_BASEDIR . "classes/nuke5/UserDB.php");
+	include($GALLERY_BASEDIR . "classes/nuke5/User.php");
 
 	$gallery->database{"nuke"} = new MySQL_Database(
 			$GLOBALS['dbhost'],
@@ -88,7 +108,7 @@ if (!strcmp($GALLERY_EMBEDDED_INSIDE, "nuke")) {
 	} 
 
 	if (is_admin($GLOBALS['admin'])) {
-		require($GALLERY_BASEDIR . "classes/nuke5/AdminUser.php");
+		include($GALLERY_BASEDIR . "classes/nuke5/AdminUser.php");
 
 		$gallery->user = new Nuke5_AdminUser($GLOBALS['admin']);
 		$gallery->session->username = $gallery->user->getUsername();
@@ -99,8 +119,8 @@ if (!strcmp($GALLERY_EMBEDDED_INSIDE, "nuke")) {
 			$gallery->userDB->getUserByUsername($gallery->session->username);
 	}
 } else {
-	require($GALLERY_BASEDIR . "classes/gallery/UserDB.php");
-	require($GALLERY_BASEDIR . "classes/gallery/User.php");
+	include($GALLERY_BASEDIR . "classes/gallery/UserDB.php");
+	include($GALLERY_BASEDIR . "classes/gallery/User.php");
 
 	/* Load our user database (and user object) */
 	$gallery->userDB = new Gallery_UserDB;

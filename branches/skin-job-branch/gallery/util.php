@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+?>
+<?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print "Security violation\n";
+	exit;
+}
 ?>
 <?
 
@@ -70,7 +79,7 @@ function viewComments($index) {
 		$commentdraw["bordercolor"] = $borderColor;
 		include($GALLERY_BASEDIR . "layout/commentdraw.inc");
 	}
-        $url = "add_comment.php?set_albumName={$album->fields[name]}&index=$index";
+        $url = "add_comment.php?set_albumName={$gallery->album->fields[name]}&index=$index";
         $buf = "<span class=editlink>";
         $buf .= '<a href="#" onClick="' . popup($url) . '">[add comment]</a>';
         $buf .= "</span>";
@@ -128,11 +137,14 @@ function popup_help($entry, $group) {
 
 function exec_internal($cmd) {
 	global $gallery;
+
+	$debugfile = "";
 	if (isDebugging()) {
 		print "<p><b>Executing:<ul>$cmd</ul></b>";
+		$debugfile = tempnam($gallery->app->tmpDir, "dbg");
 	}
 
-	fs_exec($cmd, $results, $status);
+	fs_exec($cmd, $results, $status, $debugfile);
 
 	if (isDebugging()) {
 		print "<br> Results: <pre>";
@@ -142,6 +154,19 @@ function exec_internal($cmd) {
 			print "<b>none</b>";
 		}
 		print "</pre>";
+
+		if (file_exists($debugfile)) {
+			print "<br> Error messages: <pre>";
+			if ($fd = fs_fopen($debugfile, "r")) {
+				while (!feof($fd)) {
+					$buf = fgets($fd, 4096);
+					print $buf;
+				}
+				fclose($fd);
+			}
+			unlink($debugfile);
+			print "</pre>";
+		}
 		print "<br> Status: $status (expected " . $gallery->app->expectedExecStatus . ")";
 	}
 
@@ -391,7 +416,7 @@ function fromPnmCmd($file) {
 	if (eregi("\.png", $file)) {
 		$cmd = NetPBM("pnmtopng");
 	} else if (eregi("\.(jpg|jpeg)", $file)) {
-		$cmd = NetPBM("ppmtojpeg");
+		$cmd = NetPBM("ppmtojpeg", "--quality=95");
 	} else if (eregi(".gif", $file)) {
 		$cmd = NetPBM("ppmquant", "256") . " | " . NetPBM("ppmtogif");
 	}
@@ -459,7 +484,7 @@ function _getStyleSheetLink($filename) {
 
         $sheetname = "css/$filename.css";
 
-	if ($gallery->app) {
+	if ($gallery->app && $gallery->app->photoAlbumURL) {
 		$base = $gallery->app->photoAlbumURL;
 	} else {
 		$base = ".";
@@ -515,7 +540,7 @@ function drawSelect($name, $array, $selected, $size) {
 	return $buf;
 }
 
-function correctNobody($array) {
+function correctNobody(&$array) {
 	global $gallery;
 	$nobody = $gallery->userDB->getNobody();
 
@@ -528,7 +553,7 @@ function correctNobody($array) {
 	}
 }
 
-function correctEverybody($array) {
+function correctEverybody(&$array) {
 	global $gallery;
 	$everybody = $gallery->userDB->getEverybody();
 
@@ -731,7 +756,7 @@ function preprocessImage($dir, $file) {
 
 			// Dump the rest to a file
 			$tempfile = tempnam($dir, $file);
-			if ($newfd = fs_fopen($tempfile, "w", 0777)) {
+			if ($newfd = fs_fopen($tempfile, "w", 0755)) {
 				while (!feof($fd)) {
 					/*
 					 * Copy the rest of the file.  Specify a length
@@ -872,7 +897,10 @@ function getExif($file) {
 
         $return = array();
         $path = $gallery->app->use_exif;
-        exec("$path $file",$return);
+        list($return, $status) = exec_internal(fs_import_filename($path, 1) .
+						" " .
+						fs_import_filename($file, 1));
+
         while (list($key,$value) = each ($return)) {
             $explodeReturn = explode(':', $value, 2);
             $myExif[trim($explodeReturn[0])] = trim($explodeReturn[1]);
