@@ -60,6 +60,8 @@ class GalleryMap {
      * @access public
      */
     function getValue($key) {
+	assert('!empty($key)');
+	return $this->_data[$key];
     }
 
     /**
@@ -74,6 +76,9 @@ class GalleryMap {
      * @access public
      */
     function setValue($key, $value) {
+	assert('!empty($key)');
+	assert('!empty($value)');
+	$this->_data[$key] = $value;
     }
 }
 ?>

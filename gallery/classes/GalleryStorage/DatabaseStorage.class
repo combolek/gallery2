@@ -1,0 +1,143 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * Database implementation of the GalleryStorage interface.
+ *
+ * This object implements the hooks for saving and restoring objects in a
+ * relational database.
+ *
+ * @version $Id$
+ * @package GalleryStorage
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class DatabaseStorage {
+
+    /**
+     * Return the id of the GalleryItem associated with the path provided
+     *
+     * Return the id associated with the given path. Example path: 
+     * "/birthdays/fred" .. this is the "fred" item in the "birthdays" 
+     * item.  It doesn't really matter what types of items these are, as 
+     * long as the path is legitimate.
+     *
+     * This method must be implemented by subclasses of Gallery.
+     *
+     * @access public
+     * @abstract
+     * @param string the path to a GalleryItem
+     * @return string the id of the GalleryItem
+     */
+    function getIdByPath($path) {
+    }
+
+    /**
+     * Get the GalleryItem for the id provided
+     *
+     * Return the GalleryItem associated with this id.  Note  
+     * that this returns the unique object itself, not a copy.
+     * This means that you can change/save it.
+     *
+     * This method must be implemented by subclasses of Gallery
+     *
+     * @access public
+     * @abstract
+     * @param string the id of the item
+     * @return object GalleryItem the item	
+     */
+    function &loadNucleusById($id, $type) {
+    }
+
+    /**
+     * Load a new GalleryNucleus from storage
+     *
+     * @access public
+     * @param string the id of the stored GalleryNucleus
+     * @param object GalleryNucleus the object we're loading into
+     * @return int a status code
+     */
+    function loadNucleus($id, &$nucleus) {
+	// XXX: make sure that the type from the database matches the type from
+	// $nucleus
+
+	// XXX: implement this
+	$nucleus->_id = $id;
+	$nucleus->_dataVersion = -1;
+	$nucleus->_parent = -1;
+	$nucleus->_path = -1;
+	return SUCCESS;
+    }
+
+    /**
+     * Save the changes to the GalleryNucleus.  
+     *
+     * @access public
+     * @param object GalleryNucleus the GalleryNucleus to save
+     * @return int a status code
+     */
+    function saveNucleus(&$nucleus) {
+	// XXX: implement this
+	// XXX: check & increment serial number
+	return SUCCESS;
+    }
+
+    /**
+     * Delete the GalleryNucleus.
+     *
+     * @access public
+     * @param object GalleryNucleus the GalleryNucleus to delete
+     * @return int a status code
+     */
+    function deleteNucleus(&$nucleus) {
+	// XXX: implement this
+	return SUCCESS;
+    }
+
+    /**
+     * Create a new GalleryNucleus 
+     *
+     * @access public
+     * @param object GalleryNucleus the GalleryNucleus to put the data in
+     * @return int a status code
+     */
+    function newNucleus(&$nucleus) {
+
+	/*
+	 * Create a row in the right table, pull back the id and then load that
+	 * instance.
+	 */
+	$classtype = get_class($nucleus);
+
+	// XXX: for now, just make up an id!
+	$id = -1;
+	$this->loadNucleus($id, $nucleus);
+    }
+
+    /**
+     * Create and return a new GalleryLock object
+     *
+     * @access public
+     * @param int timeout before giving up on the lock
+     * @param array ids to lock (empty array means lock the world) 
+     */
+    function newLock($timeout, $ids=array()) {
+    }
+}
+?>

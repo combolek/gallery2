@@ -109,6 +109,14 @@ class Gallery {
      */
     var $_nucleusCache;
 
+    /**
+     * An instance of the GalleryPlatform class
+     *
+     * @access private
+     * @var object GalleryPlatform $_platform;
+     */
+    var $_platform;
+
     /*
      * ****************************************
      *                 Methods
@@ -158,9 +166,11 @@ class Gallery {
      */
     function addToCache(&$nucleus) {
 	assert('!empty($nucleus)');
-	assert('!empty($nucleus->getId())');
+
+	$id = $nucleus->getId();
+	assert('!empty($id)');
 	
-	$this->_nucleusCache[$nucleus->getId()] =& $nucleus;
+	$this->_nucleusCache[$id] =& $nucleus;
     }
 
     /**
@@ -202,7 +212,10 @@ class Gallery {
      * @param int the id of the GalleryItem
      */
     function setRootAlbumItemId($id) {
-	assert('!empty($id)');
+	if (empty($id)) {
+	    return ERROR | ERROR_BAD_PARAMETER;
+	}
+
 	$this->_rootAlbumItemId = $id;
     }
 
@@ -315,6 +328,20 @@ class Gallery {
     }
 
     /**
+     * Get a value from the Gallery configuration settings
+     *
+     * This is a convenience method to get a Gallery configuration value.
+     * It's equivalent to $gallery->getConfig()->getValue($key)
+     * 
+     * @access public
+     * @return object GalleryMap the Gallery config map
+     */
+    function getConfigValue($key) {
+	assert('!empty($key)');
+	return $this->_config->getValue($key);
+    }
+
+    /**
      * Get the Gallery session object.
      *
      * Return a reference to the unique Gallery session object
@@ -343,6 +370,32 @@ class Gallery {
     }
 
     /**
+     * Get the Gallery platform object.
+     *
+     * Return a copy of the unique Gallery platform object.
+     * 
+     * @access public
+     * @return object GalleryMap the Gallery platform map
+     */
+    function getPlatform() {
+	return $this->_platform;
+    }
+
+    /**
+     * Get the Gallery platform object.
+     *
+     * Assign a reference to the unique Gallery platform object
+     * (implemented as an instance of the GalleryMap class).
+     * 
+     * @param object GalleryMap the Gallery platform map
+     * @access public
+     */
+    function &setPlatform($platform) {
+	assert('isset($platform)');
+	$this->_platform =& $platform;
+    }
+
+    /**
      * Lock the given GalleryNucleus instances.
      *
      * Use the active locking mechanism to lock the given GalleryNucleus instances.
@@ -360,7 +413,9 @@ class Gallery {
 	/*
 	 * If we already have a lock, fail.
 	 */
-	assert('empty($this->_lock)');
+	if (!empty($this->_lock)) {
+	    return ERROR | ERROR_ILLEGAL_LOCK;
+	}
 
 	/*
 	 * If we don't have a lock, get one and register it with the
@@ -402,7 +457,9 @@ class Gallery {
 	/*
 	 * If we already have a lock, fail.
 	 */
-	assert('empty($this->_lock)');
+	if (!empty($this->_lock)) {
+	    return ERROR | ERROR_ILLEGAL_LOCK;
+	}
 	
 	/*
 	 * If we don't have a lock, get one and register it with the
