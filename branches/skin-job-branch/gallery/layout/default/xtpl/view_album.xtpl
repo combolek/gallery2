@@ -18,9 +18,10 @@
 	</td>
   </tr>
 
+  <tr><td height="10">{GLO.pixelImage}</td></tr>
+
   <tr>
 	<td align=center>
-    <br>
     <!-- BEGIN: items -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
           
@@ -30,28 +31,34 @@
         <!-- BEGIN: photo_cell -->
         <td align="center">
         
+          <table width="100%" border="0" cellspacing="0" cellpadding="2">
+          <tr>
+          <td align="center">
+
           <table width="1%" border="0" cellspacing="0" cellpadding="0">
-
             <tr bgcolor="{GLO.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
-  
             <tr>
               <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
-              <td><a href="{item.href}">{item.thumbnailTag}</a></td>
+              <td><a href="{item.href}">{item.thumbnail.tag}</a></td>
               <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
-
             <tr bgcolor="{GLO.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
+          </table>
 
-            <tr>
-              <td colspan="3" align="center">
-              <span class="caption">{GLO.item.caption}</span>
-              <br><br>
-              </td>
-            </tr>
+          </td>
+          </tr>
+
+          <tr>
+          <td align="center" valign="top">
+            <span class="caption">{item.caption}</span>
+            <br><br>
+          </td>
+          </tr>
+
           </table>
 
         </td>
@@ -65,9 +72,52 @@
 
         <!-- BEGIN: album_cell -->
         <td align="center">
-        ALBUM
+
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+          <td align="center">
+
+          <table width="1%" border="0" cellspacing="0" cellpadding="0">
+
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+ 
+            <tr>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td><a href="{item.href}">{item.thumbnail.tag}</a></td>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+
+          </table>
+
+          </td>
+          </tr>
+
+          <tr>
+          <td align="center" valign="top">
+            <span class="caption"><b>Album: {item.title}</b></span>
+            <br>
+            <span class="caption">{item.description}</span>
+            <br>
+          </td>
+          </tr>
+
+
+          </table>
+
         </td>
         <!-- END: album_cell -->
+
+        <!-- BEGIN: blank_cell -->
+        <td align="center">
+        &nbsp;
+        </td>
+        <!-- END: blank_cell -->
 
       </tr>
       <!-- END: row -->
@@ -77,6 +127,9 @@
 
 	</td>
   </tr>
+
+  <tr><td height="10">{GLO.pixelImage}</td></tr>
+
   <tr>
     <td>
     {GLO.divider}

@@ -36,7 +36,7 @@ if ($GLO['navigator']['pageNumber'] < $pageCount) {
 $xtpl_blocks->parse("navigator");
 
 //-- the breadcrumb block ---
-for ($i=1; $i <= count($GLO['breadcrumb']['levels']); $i++) {
+for ($i=0; $i < count($GLO['breadcrumb']['levels']); $i++) {
     $xtpl_blocks->assign('crumb', $GLO['breadcrumb']['levels'][$i]);
 	if ($i == count($GLO['breadcrumb']['levels'])) {
 		$xtpl_blocks->parse("breadcrumb.last_crumb");
