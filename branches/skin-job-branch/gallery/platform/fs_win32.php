@@ -102,9 +102,8 @@ function fs_import_filename($filename, $for_exec=1) {
 	debug("Import before: $filename");
 	# Change / and : to \ and ;
 	#
-	$filename = str_replace(array("/",  ":"), 
-			        array("\\", ";"), 
-				$filename);
+ 	$filename = str_replace("/", "\\", $filename);
+ 	$filename = str_replace(":", ";", $filename);
 
 	# Change D;\apps to D:\apps (the : got mangled by the above
 	# transform).
@@ -135,7 +134,9 @@ function fs_export_filename($filename) {
 	
 	# Convert "d:\winnt\temp" to "d:/winnt/temp"
 	#
-	$filename = str_replace("\\\\", "\\", $filename);
+	while (strstr($filename, "\\\\")) {
+		$filename = str_replace("\\\\", "\\", $filename);
+	}
 	$filename = str_replace("\\", "/", $filename);
 
 	return $filename;

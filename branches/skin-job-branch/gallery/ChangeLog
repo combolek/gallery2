@@ -1,3 +1,15 @@
+2001-10-16  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b4)
+
+	* platform/fs_win32: fixed a bug where we were using a form of of 
+	  str_replace that only works on PHP 4.0.5+
+
+	* Made the serialization code more robust by checking to see if any
+	  bytes were written into the new file before replacing the existing
+	  file with it, and adding advisory locks around the whole thing.
+
+	* platform/fs_win32: fixed a bug where it wasn't fully collapsing any
+	  number of \'s in a filename into a single \ properly.
+	
 2001-10-13  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b3)
 
 	* Fixed bug [#466729] Bad aspect ratio in html 4 rotated imgs.  In
@@ -10,6 +22,30 @@
 	* Fixed a bug where we still count clicks, even when they are
 	  disabled in the album (we just don't show the results).  Now we don't
 	  count them, either.
+
+	* Fixed a bug in the serialization code to remove a race condition 
+	  that can cause heavily used albums to lose their .dat files.
+
+	* Fixed Album.load() so that it loads the backup .dat file if the main
+	  one is missing (to aid galleries stricken by the serialization bug)
+
+2001-10-13  Bharat Mediratta  <bharat@menalto.com> (1.2.2-cvs-b2)
+
+	* Fixed bug [#466729] Bad aspect ratio in html 4 rotated imgs 
+
+	* Fixed a bug where we still count clicks, even when they are
+	  disabled in the album (we just don't show the results).  Now we don't
+	  count them, either.
+
+	* Added the binary flag to fs_fopen() so that batch uploads 
+	  from a directory work on Win32 (thanks to Steve White) 
+
+2001-10-11  Chris Smith  <chris@jacko.com> (1.2.2-cvs-b1)
+
+	* Breadcrumb trail now behaves properly for multiply nested
+	  albums.
+
+2001-09-30  Bharat Mediratta  <bharat@menalto.com> (1.2.1-p1)
 
 	* Fixed a bug in the serialization code to remove a race condition 
 	  that can cause heavily used albums to lose their .dat files.
