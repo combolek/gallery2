@@ -49,28 +49,10 @@
                                         |ancestor::sect4
                                         |ancestor::sect5)[last()]"/>
 
-  <xsl:variable name="renderas">
-    <xsl:choose>
-      <xsl:when test="$section/@renderas = 'sect1'">1</xsl:when>
-      <xsl:when test="$section/@renderas = 'sect2'">2</xsl:when>
-      <xsl:when test="$section/@renderas = 'sect3'">3</xsl:when>
-      <xsl:when test="$section/@renderas = 'sect4'">4</xsl:when>
-      <xsl:when test="$section/@renderas = 'sect5'">5</xsl:when>
-      <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <xsl:variable name="level">
-    <xsl:choose>
-      <xsl:when test="$renderas != ''">
-        <xsl:value-of select="$renderas"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="section.level">
-          <xsl:with-param name="node" select="$section"/>
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="section.level">
+      <xsl:with-param name="node" select="$section"/>
+    </xsl:call-template>
   </xsl:variable>
 
   <xsl:call-template name="section.heading">
@@ -91,24 +73,7 @@
 <xsl:template match="sect1">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect2'">
-        <xsl:call-template name="sect2.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect3'">
-        <xsl:call-template name="sect3.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect4'">
-        <xsl:call-template name="sect4.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect5'">
-        <xsl:call-template name="sect5.titlepage"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="sect1.titlepage"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="sect1.titlepage"/>
 
     <xsl:variable name="toc.params">
       <xsl:call-template name="find.path.params">
@@ -135,24 +100,7 @@
 <xsl:template match="sect2">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect1'">
-        <xsl:call-template name="sect1.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect3'">
-        <xsl:call-template name="sect3.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect4'">
-        <xsl:call-template name="sect4.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect5'">
-        <xsl:call-template name="sect5.titlepage"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="sect2.titlepage"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="sect2.titlepage"/>
 
     <xsl:variable name="toc.params">
       <xsl:call-template name="find.path.params">
@@ -179,24 +127,7 @@
 <xsl:template match="sect3">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect1'">
-        <xsl:call-template name="sect1.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect2'">
-        <xsl:call-template name="sect2.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect4'">
-        <xsl:call-template name="sect4.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect5'">
-        <xsl:call-template name="sect5.titlepage"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="sect3.titlepage"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="sect3.titlepage"/>
 
     <xsl:variable name="toc.params">
       <xsl:call-template name="find.path.params">
@@ -223,24 +154,7 @@
 <xsl:template match="sect4">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect1'">
-        <xsl:call-template name="sect1.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect2'">
-        <xsl:call-template name="sect2.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect3'">
-        <xsl:call-template name="sect3.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect5'">
-        <xsl:call-template name="sect5.titlepage"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="sect4.titlepage"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="sect4.titlepage"/>
 
     <xsl:variable name="toc.params">
       <xsl:call-template name="find.path.params">
@@ -267,24 +181,7 @@
 <xsl:template match="sect5">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect1'">
-        <xsl:call-template name="sect1.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect2'">
-        <xsl:call-template name="sect2.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect3'">
-        <xsl:call-template name="sect3.titlepage"/>
-      </xsl:when>
-      <xsl:when test="@renderas = 'sect4'">
-        <xsl:call-template name="sect4.titlepage"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="sect5.titlepage"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="sect5.titlepage"/>
 
     <xsl:variable name="toc.params">
       <xsl:call-template name="find.path.params">

@@ -158,7 +158,7 @@
     <xsl:with-param name="toc.title.p" select="$toc.title.p"/>
     <xsl:with-param name="nodes" select="section|sect1|refentry
                                          |article|bibliography|glossary
-                                         |appendix|index
+                                         |appendix
                                          |bridgehead[not(@renderas)
                                                      and $bridgehead.in.toc != 0]
                                          |.//bridgehead[@renderas='sect1'
@@ -292,7 +292,7 @@
       <xsl:value-of select="$autotoc.label.separator"/>
     </xsl:if>
 
-    <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+    <xsl:apply-templates select="." mode="title.markup"/>
   </a>
   </span>
 </xsl:template>
@@ -339,8 +339,7 @@
 
   <xsl:call-template name="subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="nodes" select="section|sect1|simplesect|refentry
-                                         |glossary|bibliography|index
+    <xsl:with-param name="nodes" select="section|sect1|glossary|bibliography|index
                                          |bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
@@ -441,10 +440,10 @@
   <xsl:variable name="title">
     <xsl:choose>
       <xsl:when test="$refentrytitle">
-        <xsl:apply-templates select="$refentrytitle[1]" mode="titleabbrev.markup"/>
+        <xsl:apply-templates select="$refentrytitle[1]" mode="title.markup"/>
       </xsl:when>
       <xsl:when test="$refname">
-        <xsl:apply-templates select="$refname[1]" mode="titleabbrev.markup"/>
+        <xsl:apply-templates select="$refname[1]" mode="title.markup"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -500,7 +499,7 @@
             <xsl:with-param name="object" select="$node"/>
           </xsl:call-template>
         </xsl:attribute>
-        <xsl:apply-templates select="$node" mode="titleabbrev.markup"/>
+        <xsl:apply-templates select="$node" mode="title.markup"/>
       </a>
     </xsl:element>
 
@@ -571,7 +570,7 @@
       <xsl:attribute name="href">
         <xsl:call-template name="href.target"/>
       </xsl:attribute>
-      <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+      <xsl:apply-templates select="." mode="title.markup"/>
     </a>
   </xsl:element>
 -->  

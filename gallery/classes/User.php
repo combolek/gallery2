@@ -45,6 +45,7 @@ class Abstract_User {
 
 	function salt($len = 4)
 	{
+	       	srand ((float) microtime() * 10000000); // for php v < 4.2
 		$salt = '';
 		for($i = 0; $i < $len; $i++)
 		{
@@ -270,13 +271,6 @@ class Abstract_User {
                 if ($this->isAdmin()) {
                         return true;
                 }
-
-		/* Note Jens Tkotz, 23.09.2004
-		** Allow album owner to see comments, as they are a kind of local admin
-		*/
-		if ($this->isOwnerOfAlbum($album)) {
-			return true;
-		}
 
                 if ($album->canViewComments($this->uid)) {
                         return true;

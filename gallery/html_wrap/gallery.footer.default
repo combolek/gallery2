@@ -2,9 +2,10 @@
 // This is the default gallery footer (for the main gallery
 // page: albums.php). It's companion is gallery.header.default.
 //
-// To override this footer, create a file called gallery.footer
+// To override this header, create a file called gallery.footer
 // in this directory.
 //
+// NOTE: This header gets inserted above the </body> tag.
 //
 // Some tips:
 // * Some application variables:
@@ -15,9 +16,7 @@
 //
 // $Id$
 ?>
-<?php
-includeTemplate('gallery.footer.tpl');
-?>
+
       <table width="100%" cellspacing="0" cellpadding="0" class="modfooter">
         <tr>
           <td valign=top>
@@ -31,7 +30,7 @@ global $GALLERY_EMBEDDED_INSIDE;
 	       	print gallery_validation_link("albums.php");
        	} ?>
           </td>
-<?php if (!$gallery->session->offline && (!isset($gallery->app->rssEnabled) || $gallery->app->rssEnabled == "yes")) { ?>
+<?php if (!isset($gallery->app->rssEnabled) || $gallery->app->rssEnabled == "yes") { ?>
           <td style="text-align:right"><a href="<?php echo $gallery->app->photoAlbumURL . "/rss.php"; ?>" style="background-color:#f60; border:2px outset #ffc8a4; color:white; text-decoration:none; font:bold 10px sans-serif; padding:0px 3px 0px 5px; letter-spacing:1;">RSS</a></td> 
 <?php 
 } // if rssEnabled

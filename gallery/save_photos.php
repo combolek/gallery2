@@ -22,26 +22,27 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($urls, $meta, $usercaption, $setCaption) = getRequestVar(array('urls', 'meta', 'usercaption','setCaption'));
-list($wmName, $wmAlign, $wmAlignX, $wmAlignY) = getRequestVar(array('wmName', 'wmAlign', 'wmAlignX', 'wmAlignY'));
-list($wmSelect) = getRequestVar(array('wmSelect'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
-if (!empty($_FILES['userfile']['name'])) {
+if (isset($userfile_name)) {
 	$file_count = 0;
-	foreach ($_FILES['userfile']['name'] as $file) {
+	foreach ($userfile_name as $file) {
 		if ($file) {
 			$file_count++;
 		}
 	}
 }
+
+if (!isset($wmName)) $wmName = "";
+if (!isset($wmAlign)) $wmAlign = "";
+if (!isset($wmAlignX)) $wmAlignX = "";
+if (!isset($wmAlignY)) $wmAlignY = "";
 
 doctype();
 ?>
@@ -51,46 +52,45 @@ doctype();
   <?php common_header(); ?>
 
 </head>
-<body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();' class="popupbody">
-<?php
+<body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();'>
 
+<?php
 $image_tags = array();
 $info_tags = array();
 if (!empty($urls)) {
 ?>
-<div class="popuphead"><?php echo _("Fetching Urls...") ?></div>
-<div class="popup" align="center">
+<span class="popuphead"><?php echo _("Fetching Urls...") ?></span>
+<span class="popup">
+<br>
 <?php
-	/* Process all urls first.
-	** $urls contains all URLs given by the "URL Upload".
-	** $urls should be empty when using the "Form Upload".
-	*/
+	/* Process all urls first */
 	$temp_files = array();
 	
 	foreach ($urls as $url) {
 
-	/* Get rid of any extra white space */
-	$url = trim($url);
+	        /* Get rid of any extra white space */
+	        $url = trim($url);
 		
-	/*
-	** Check to see if the URL is a local directory (inspired by
-	** code from Jared (hogalot))
-	*/
-	if (fs_is_dir($url)) {
-		processingMsg(sprintf(_("Processing %s as a local directory."), "<i>$url</i>"));
-		$handle = fs_opendir($url);
-		while (($file = readdir($handle)) != false) {
-			if ($file != "." && $file != "..") {
-				$tag = pathinfo($file);
-				$tag = strtolower(isset($tag['extension']) ? $tag['extension'] : '');
-				if (acceptableFormat($tag)) {
-					/* Add to userfile */
-					if (substr($url,-1) == "/") {
-						$image_tags[] = fs_export_filename($url . $file);
+		/*
+		 * Check to see if the URL is a local directory (inspired by
+		 * code from Jared (hogalot))
+		 */
+		if (fs_is_dir($url)) {
+			processingMsg(sprintf(_("Processing %s as a local directory."),
+						"<i>$url</i>"));
+			$handle = fs_opendir($url);
+			while (($file = readdir($handle)) != false) {
+				if ($file != "." && $file != "..") {
+					$tag = pathinfo($file);
+					$tag = strtolower(isset($tag['extension']) ? $tag['extension'] : '');
+					if (acceptableFormat($tag)) {
+						/* Tack it onto userfile */
+						if (substr($url,-1) == "/") {
+							$image_tags[] = fs_export_filename($url . $file);
 						} else {
-						$image_tags[] = fs_export_filename($url . "/" . $file);
+							$image_tags[] = fs_export_filename($url . "/" . $file);
+						}
 					}
-				}
 					if ($tag == "csv") {
 						if (substr($url,-1) == "/") {
 							$info_tags[] = fs_export_filename($url . $file);
@@ -105,12 +105,12 @@ if (!empty($urls)) {
 		}
 
 		/* Get rid of any preceding whitespace (fix for odd browsers like konqueror) */
-		$url = ltrim($url);
-		
-		$urlParts = parse_url($url);
-		$urlPathInfo = pathinfo($urlParts['path']);
-		$urlExt = isset($urlPathInfo['extension']) ? strtolower($urlPathInfo['extension']) : '';
-		
+		$url = eregi_replace("^[[:space:]]+", "", $url);
+
+		$tag = parse_url($url);
+		$tag = pathinfo($tag['path']);
+		$tag = isset($tag['extension']) ? strtolower($tag['extension']) : '';
+
 		/* If the URI doesn't start with a scheme, prepend 'http://' */
 		if (!empty($url) && !fs_is_file($url)) {
 			if (!ereg("^(http|ftp)", $url)) {
@@ -145,15 +145,16 @@ if (!empty($urls)) {
 		if ($id) {
 			processingMsg(urldecode($url));
 		} else {
-			processingMsg(sprintf(_("Could not open url: %s"), $url));
+			processingMsg(sprintf(_("Could not open url: %s"), 
+							$url));
 			continue;
 		} 
-
-		/* copy file locally 
-		   use fopen instead of fs_fopen to prevent directory and filename
-		   disclosure */
-		$file = $gallery->app->tmpDir . "/upload." . genGUID();
-		$od = @fopen($file, "wb");
+                
+                /* copy file locally 
+                   use fopen instead of fs_fopen to prevent directory and filename
+                   disclosure */
+                $file = $gallery->app->tmpDir . "/upload." . md5(uniqid(mt_rand() . $name, true));
+                $od = @fopen($file, "wb");
 		if ($id && $od) {
 			while (!feof($id)) {
 				fwrite($od, fread($id, 65536));
@@ -167,13 +168,14 @@ if (!empty($urls)) {
 		$temp_files[$file]=1;
 	
 		/* If this is an image or movie - add it to the processor array */
-		if (acceptableFormat($urlExt) || acceptableArchive($urlExt)) {
-			/* Add it to userfile */
-			$_FILES['userfile']['name'][] = $name;
-			$_FILES['userfile']['tmp_name'][] = $file;
+		if (acceptableFormat($tag) || !strcmp($tag, "zip")) {
+			/* Tack it onto userfile */
+			$userfile_name[] = $name;
+			$userfile[] = $file;
 		} else {
 			/* Slurp the file */
-			processingMsg(sprintf(_("Parsing %s for images..."), $url));
+			processingMsg(sprintf(_("Parsing %s for images..."),
+						$url));
 			$fd = fs_fopen ($file, "r");
 			$contents = fread ($fd, fs_filesize ($file));
 			fclose ($fd);
@@ -182,7 +184,7 @@ if (!empty($urls)) {
 			$base_url = $url_stuff["scheme"] . '://' . $url_stuff["host"];
 			$base_dir = '';
 			if (isset($url_stuff["port"])) {
-				$base_url .= ':' . $url_stuff["port"];
+			  $base_url .= ':' . $url_stuff["port"];
 			}
 	
 			/* Hack to account for broken dirname 
@@ -203,8 +205,6 @@ if (!empty($urls)) {
 			}
 
 			$things = array();
-			$results =array();
-			
 			while ($cnt = eregi('(src|href)="?([^" >]+\.' . acceptableFormatRegexp() . ')[" >]',
 					    $contents, 
 					    $results)) {
@@ -242,26 +242,26 @@ if (!empty($urls)) {
 			processingMsg(sprintf(_("Found %d images"), count($image_tags)));
 		}
 	}
-	echo "</div>\n";
 } /* if ($urls) */
 ?>
 
-<div class="popuphead"><?php echo _("Processing status...") ?></div>
-<div class="popup" align="center">
+</span>
+<br>
+<span class="popuphead"><?php echo _("Processing status...") ?></span>
+<br>
 
 <?php
 $image_count=0;
 $image_info = array();
 // Get meta data
 if (isset($meta)) {
-	processingMsg("Metainfo found");
 	foreach ($meta as $data) {
 		$image_info = array_merge($image_info, parse_csv(fs_export_filename($data),";"));
 	}
 }
-while (isset($_FILES['metafile']['tmp_name']) && sizeof($_FILES['metafile']['tmp_name'])) {
-	$name = array_shift($_FILES['metafile']['name']);
-	$file = array_shift($_FILES['metafile']['tmp_name']);
+while (isset($metafile) && sizeof($metafile)) {
+	$name = array_shift($metafile_name);
+	$file = array_shift($metafile);
 	$image_info = array_merge($image_info, parse_csv(fs_export_filename($file),";"));
 }
 if ($gallery->app->debug == "yes") {
@@ -288,10 +288,9 @@ if ($gallery->app->debug == "yes") {
 // $captionMetaFields will store the names (in order of priority to set caption to)
 $captionMetaFields = array("Caption", "Title", "Description", "Persons");
 
-/* Now we start processing the given Files */
-while (isset($_FILES['userfile']['tmp_name']) && sizeof($_FILES['userfile']['tmp_name'])) {
-	$name = array_shift($_FILES['userfile']['name']);
-	$file = array_shift($_FILES['userfile']['tmp_name']);
+while (isset($userfile) && sizeof($userfile)) {
+	$name = array_shift($userfile_name);
+	$file = array_shift($userfile);
 	if (!empty($usercaption) && is_array($usercaption)) {
 	    $caption = removeTags(array_shift($usercaption));
 	} else {
@@ -304,6 +303,9 @@ while (isset($_FILES['userfile']['tmp_name']) && sizeof($_FILES['userfile']['tmp
 		$caption=stripslashes($caption);    
 	}
 
+	$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $name);
+	$tag = strtolower($tag);
+
 	if ($name) {
 		$extra_fields = array();
 		if (!isset($setCaption)) {
@@ -312,7 +314,7 @@ while (isset($_FILES['userfile']['tmp_name']) && sizeof($_FILES['userfile']['tmp
 		// Find in meta data array
 		$firstRow = 1;
 		$fileNameKey = "File Name";
-		foreach ($image_info as $info) {
+                foreach ( $image_info as $info ) {
 			if ($firstRow) {
 				// Find the name of the file name field
 				foreach (array_keys($info) as $currKey) {
@@ -322,8 +324,7 @@ while (isset($_FILES['userfile']['tmp_name']) && sizeof($_FILES['userfile']['tmp
 				}
 				$firstRow = 0;
 			}
-
-			if ($info[$fileNameKey] == $name) {
+                        if ($info[$fileNameKey] == $name) {
 				// Loop through fields
 				foreach ($captionMetaFields as $field) {
 					// If caption isn't populated and current field is
@@ -332,21 +333,15 @@ while (isset($_FILES['userfile']['tmp_name']) && sizeof($_FILES['userfile']['tmp
 					}
 				}
 				$extra_fields = $info;
-			}
-		}
-
-		$path_parts = pathinfo($name);
-		$ext = strtolower($path_parts["extension"]);
-
+                        }
+                }
 		// Add new image
-		processNewImage($file, $ext, $name, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY, $wmSelect);
+		processNewImage($file, $tag, $name, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY);
 		$image_count++;
 	}
 }
 
-if ($image_count) {
-	$gallery->album->save(array(i18n("%d files uploaded"), $image_count));
-}
+$gallery->album->save(array(i18n("%d files uploaded"), $image_count));
 
 if (!empty($temp_files)) {
 	/* Clean up the temporary url file */
@@ -356,12 +351,13 @@ if (!empty($temp_files)) {
 }
 ?>
 
-<div align="center">
+<span class="popup">
 <?php
 if (empty($msgcount)) {
 	print _("No images uploaded!");
 }
 ?>
+<center>
 <form>
 <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
 </form>
@@ -374,8 +370,8 @@ if (count($image_tags)) {
 	*/
 	insertFormJS('uploadurl_form');
 ?>
-</div>
-<p class="popuptd">
+</span>
+<p class="popup">
 <?php 
 	echo insertFormJSLinks('urls[]'); 
 ?>
@@ -383,10 +379,10 @@ if (count($image_tags)) {
 
 <table>
 <tr>
-	<td>
+	<td class="popup">
 <?php echo makeFormIntro("save_photos.php", 
 		array("name" => 'uploadurl_form',
-			"method" => "POST"), array('type' => 'popup')); 
+			"method" => "POST")); 
 
 	/* Allow user to select which files to grab - only show url right now ( no image previews ) */
 	sort($image_tags);
@@ -401,18 +397,18 @@ if (count($image_tags)) {
 <?php /* REVISIT - it'd be nice to have these functions get shoved
   into util.php at some time - maybe added functionality to the makeFormIntro? */ ?>
 
-<p>
+<p class="popup">
 <?php 
 	echo insertFormJSLinks('urls[]'); 
 ?>
 </p>
 <?php if (count($info_tags)) { ?>
-<span>
+<span class="popup">
 <?php
 	processingMsg(sprintf(_("%d meta file(s) found.  These files contain information about the images, such as titles and descriptions."), count($info_tags)));
 ?>
 </span>
-<p>
+<p class="popup">
 <?php
         echo insertFormJSLinks('meta[]');
 ?>
@@ -429,25 +425,22 @@ if (count($image_tags)) {
 	</td>
 </tr>
 </table>
-<p>
+<p class="popup">
 <?php
 	echo insertFormJSLinks('meta[]');
 ?>
 <?php } /* end if (count($info_tags)) */ ?>
 <p>
-<input type="hidden" name="setCaption" value="<?php echo isset($setCaption) ? $setCaption : '' ?>">
+<input type="hidden" name="setCaption" value="<?php echo $setCaption ?>">
 <input type="hidden" name="wmName" value="<?php echo $wmName ?>">
 <input type="hidden" name="wmAlign" value="<?php echo $wmAlign ?>">
 <input type="hidden" name="wmAlignX" value="<?php echo $wmAlignX ?>">
 <input type="hidden" name="wmAlignY" value="<?php echo $wmAlignY ?>">
-<input type="hidden" name="wmSelect" value="<?php echo $wmSelect ?>">
 <input type="button" value="<?php echo _("Add Files") ?>" onClick="parent.opener.showProgress(); document.uploadurl_form.submit()">
 </p>
 
 </form>
-</div>
-</div>
+</center>
 <?php } /* End if links slurped */ ?>
-</div>
 </body>
 </html>

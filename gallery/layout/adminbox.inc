@@ -4,20 +4,15 @@
 // Note that this box is assumed to be attached to a navigator and uses the navigator's
 // width parameters .
 
-global $gallery, $adminbox, $navigator;
-
+global $adminbox, $navigator;
 // If the border color is not passed in, we do a black/white combo
-if (isset ($adminbox["bordercolor"])) {
+if ($adminbox["bordercolor"]) {
 	$borderIn = $adminbox["bordercolor"];
 } else {
 	$borderIn = "#FFFFFF";
 }
-
-$checklist = array('commands', 'text');
-foreach ($checklist as $check) {
-	if (!isset($adminbox[$check])) {
-		$adminbox[$check] = '';
-	}
+if (!isset($adminbox["commands"])) {
+	$adminbox["commands"] = "";
 }
 
 $pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"pixel_trans\">";
@@ -27,23 +22,18 @@ if (isset($navigator["fullWidth"]) && isset($navigator["widthUnits"])) {
         $width=' width="'. $navigator["fullWidth"] . $navigator["widthUnits"] .'" ';
 }
 
-// For rtl/ltr stuff
-if ($gallery->direction == 'ltr') {
-    $left ='left';
-    $right = 'right';
-} else {
-    $left ='right';
-    $right = 'left';
-}
-
 ?>
-<table<?php echo $width; ?> cellspacing="0" cellpadding="0" id="adminbox">
+<table<?php echo $width; ?> border="0" cellspacing="0" cellpadding="0" class="modnavboxtop">
+<?php
+if ($adminbox["top"]) {
+}
+?>
   <tr> 
-    <td align="<?php echo $left; ?>"><?php echo $adminbox["text"] ?></td>
-    <td align="<?php echo $right; ?>">
-	<form name="admin_options_form" action="view_album.php">
-	<?php echo $adminbox["commands"] ?>
-	</form>
-    </td>
+    <td class="admin" align="left" valign="middle" width="4000" height="18">&nbsp;<?php echo $adminbox["text"] ?></td>
+    <td class="admin" align="right" valign="middle" width="3000" height="18">&nbsp;<?php echo $adminbox["commands"] ?>&nbsp;</td>
   </tr>
+<?php
+if (!$adminbox["top"]) {
+}
+?>
 </table>    

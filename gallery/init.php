@@ -22,17 +22,14 @@
 ?>
 <?php
 // Hack prevention.
-
-$register_globals = @ini_get('register_globals');
-if (!empty($register_globals) && !eregi("no|off|false", $register_globals)) {
-	foreach (array_keys($_REQUEST) as $key) {
-		unset($$key);
-	}
-}
-
-$sensitiveList = array('gallery', 'GALLERY_EMBEDDED_INSIDE', 'GALLERY_EMBEDDED_INSIDE_TYPE', 'GLOBALS');
+$sensitiveList = array('gallery', 'GALLERY_EMBEDDED_INSIDE', 'GALLERY_EMBEDDED_INSIDE_TYPE', 'mosConfig_host', 'dbhost', 'GLOBALS');
 foreach ($sensitiveList as $sensitive) {
-	if (!empty($_REQUEST[$sensitive])) {
+	if (!empty($HTTP_GET_VARS[$sensitive]) ||
+			!empty($HTTP_POST_VARS[$sensitive]) ||
+			!empty($HTTP_COOKIE_VARS[$sensitive]) ||
+			!empty($HTTP_POST_FILES[$sensitive]) ||
+			!empty($_REQUEST[$sensitive]) || 
+			!empty($_FILES[$sensitive])) {
 		print _("Security violation") ."\n";
 		exit;
 	}
@@ -52,24 +49,88 @@ if (file_exists(dirname(__FILE__) . "/lib/devel.php")) {
 error_reporting(E_ALL & ~E_NOTICE);
 
 /*
- *  Seed the randomization pool once, instead of doing it every place 
- *  that we use rand() or mt_rand()
+ * Figure out if register_globals is on or off and save that info
+ * for later
  */
-mt_srand((double) microtime() * 1000000);
+$register_globals = ini_get("register_globals");
+if (empty($register_globals) ||
+        !strcasecmp($register_globals, "off") ||
+        !strcasecmp($register_globals, "false")) {
+    $gallery->register_globals = 0;
+} else {
+    $gallery->register_globals = 1;
+}
 
+/*
+ * If register_globals is off, then extract all HTTP variables into the global
+ * namespace.  
+ */
+if (!$gallery->register_globals) {
+
+    /*
+     * Prevent hackers from overwriting one HTTP_ global using another one.  For example,
+     * appending "?HTTP_POST_VARS[gallery]=xxx" to the url would cause extract
+     * to overwrite HTTP_POST_VARS when it extracts HTTP_GET_VARS
+     */
+    $scrubList = array('HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_COOKIE_VARS', 'HTTP_POST_FILES');
+    if (function_exists("version_compare") && version_compare(phpversion(), "4.1.0", ">=")) {
+	array_push($scrubList, "_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+    }
+
+    foreach ($scrubList as $outer) {
+	foreach ($scrubList as $inner) {
+	    unset(${$outer}[$inner]);
+	}
+    }
+    
+    if (is_array($_REQUEST)) {
+	extract($_REQUEST, EXTR_SKIP);
+    }
+    else {
+        if (is_array($HTTP_GET_VARS)) {
+	    extract($HTTP_GET_VARS, EXTR_SKIP);
+	}
+
+	if (is_array($HTTP_POST_VARS)) {
+            extract($HTTP_POST_VARS, EXTR_SKIP);
+	}
+
+	if (is_array($HTTP_COOKIE_VARS)) {
+            extract($HTTP_COOKIE_VARS, EXTR_SKIP);
+	}
+    }
+
+
+    if (is_array($HTTP_POST_FILES)) {
+	foreach($HTTP_POST_FILES as $key => $value) {
+	    ${$key."_name"} = $value["name"];
+	    ${$key."_size"} = $value["size"];
+	    ${$key."_type"} = $value["type"];
+	    ${$key} = $value["tmp_name"];
+	}
+    }
+    elseif (is_array($_FILES)) {
+	foreach($_FILES as $key => $value) {
+	    ${$key."_name"} = $value["name"];
+	    ${$key."_size"} = $value["size"];
+	    ${$key."_type"} = $value["type"];
+	    ${$key} = $value["tmp_name"];
+	}
+    }
+}
 global $gallery;
 require(dirname(__FILE__) . "/Version.php");
 require(dirname(__FILE__) . "/util.php");
 
 /* Load bootstrap code */
 if (getOS() == OS_WINDOWS) {
-	include_once(dirname(__FILE__) . "/platform/fs_win32.php");
+	include(dirname(__FILE__) . "/platform/fs_win32.php");
 } else {
-	include_once(dirname(__FILE__) . "/platform/fs_unix.php");
+	include(dirname(__FILE__) . "/platform/fs_unix.php");
 }
 
 if (fs_file_exists(dirname(__FILE__) . "/config.php")) {
-	include_once(dirname(__FILE__) . "/config.php");
+	include(dirname(__FILE__) . "/config.php");
 
 	/* Here we set a default execution time limit for the entire Gallery script
 	 * the value is defined by the user during setup, so we want it inside the
@@ -86,21 +147,18 @@ if (fs_file_exists(dirname(__FILE__) . "/config.php")) {
 ** We also include the common lib file as we need it in initLanguage()
 */
 
-// If the old example path is still set, remove it.
-if (!empty($gallery->app->geeklog_dir) && $gallery->app->geeklog_dir == "/path/to/geeklog/public_html") {
-	$gallery->app->geeklog_dir = "";
-}
-
-// Verify that the geeklog_dir isn't overwritten with a remote exploit
-if (!empty($gallery->app->geeklog_dir) && !realpath($gallery->app->geeklog_dir)) {
-	print _("Security violation") ."\n";
-	exit;
-} elseif (!empty($gallery->app->geeklog_dir)) {
+if (isset($gallery->app->embedded_inside_type) && $gallery->app->embedded_inside_type=='GeekLog') {
 	$GALLERY_EMBEDDED_INSIDE='GeekLog';
 	$GALLERY_EMBEDDED_INSIDE_TYPE = 'GeekLog';
 
-	if (! defined ("GEEKLOG_DIR")) {
-		define ("GEEKLOG_DIR",$gallery->app->geeklog_dir);
+	// Verify that the geeklog_dir isn't overwritten with a remote exploit
+	if (!realpath($gallery->app->geeklog_dir)) {
+		print _("Security violation") ."\n";
+		exit;
+	} else {
+		if (! defined ("GEEKLOG_DIR")) {
+			define ("GEEKLOG_DIR",$gallery->app->geeklog_dir);
+		}
 	}
 
 	require_once(GEEKLOG_DIR . '/lib-common.php');
@@ -118,7 +176,7 @@ if (isset($gallery->app->devMode) &&
  * Detect if we're running under SSL and adjust the URL accordingly.
  */
 if(isset($gallery->app)) {
-	if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
+	if (isset($HTTP_SERVER_VARS["HTTPS"] ) && stristr($HTTP_SERVER_VARS["HTTPS"], "on")) {
 		$gallery->app->photoAlbumURL = 
 			eregi_replace("^http:", "https:", $gallery->app->photoAlbumURL);
 		$gallery->app->albumDirURL = 
@@ -129,21 +187,6 @@ if(isset($gallery->app)) {
 		$gallery->app->albumDirURL = 
 			eregi_replace("^https:", "http:", $gallery->app->albumDirURL);
 	}
-
-	/*
-	 * We have a Coral (http://www.scs.cs.nyu.edu/coral/) request coming in, adjust outbound links
-	 */
-	if(isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'CoralWebPrx')) {
-		if (ereg("^(http://[^:]+):(\d+)(.*)$", $gallery->app->photoAlbumURL)) {
-			$gallery->app->photoAlbumURL = ereg_replace("^(http://[^:]+):(\d+)(.*)$", "\1.\2\3", $galllery->app->photoAlbumURL);
-		}
-			
-		$gallery->app->photoAlbumURL = ereg_replace("^(http://[^/]+)(.*)$", '\1.nyud.net:8090\2',$gallery->app->photoAlbumURL);
-		if (ereg("^(http://[^:]+):(\d+)(.*)$", $gallery->app->albumDirURL)) {
-			$gallery->app->albumDirURL = ereg_replace("^(http://[^:]+):(\d+)(.*)$", "\1.\2\3", $galllery->app->albumDirURL);
-		}
-		$gallery->app->albumDirURL = ereg_replace("^(http://[^/]+)(.*)$", '\1.nyud.net:8090\2',$gallery->app->albumDirURL);
-	} 
 }
 
 /* 
@@ -167,16 +210,12 @@ require(dirname(__FILE__) . "/classes/Comment.php");
 if (!isset($GALLERY_NO_SESSIONS)) {
     require(dirname(__FILE__) . "/session.php");
 }
-
 $gallerySanity = gallerySanityCheck();
-
-// Languages need to be initialized early or installations without gettext will break.
-// initLanguage is called again later in init.php to pick up user settings.
 initLanguage();
 
 /* Make sure that Gallery is set up properly */
 if ($gallerySanity != NULL) {
-	include_once(dirname(__FILE__) . "/errors/$gallerySanity");
+	include (dirname(__FILE__) . "/errors/$gallerySanity");
 	exit;
 }
 
@@ -185,19 +224,19 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 	switch($GALLERY_EMBEDDED_INSIDE_TYPE) {
 		case 'postnuke':
 			/* We're in embedded in Postnuke */
-			include_once(dirname(__FILE__) . "/classes/Database.php");
+			include(dirname(__FILE__) . "/classes/Database.php");
 			if (!function_exists("pnUserGetVar")) {
 				/* pre 0.7.1 */
-				include_once(dirname(__FILE__) . "/classes/postnuke/UserDB.php");
-				include_once(dirname(__FILE__) . "/classes/postnuke/User.php");
+				include(dirname(__FILE__) . "/classes/postnuke/UserDB.php");
+				include(dirname(__FILE__) . "/classes/postnuke/User.php");
 		
 				$gallery->database{"db"} = $GLOBALS['dbconn'];
 				$gallery->database{"prefix"} = $GLOBALS['pnconfig']['prefix'] . "_";
 			} 
 			else {
 				/* 0.7.1 and beyond */
-				include_once(dirname(__FILE__) . "/classes/postnuke0.7.1/UserDB.php");
-				include_once(dirname(__FILE__) . "/classes/postnuke0.7.1/User.php");
+				include(dirname(__FILE__) . "/classes/postnuke0.7.1/UserDB.php");
+				include(dirname(__FILE__) . "/classes/postnuke0.7.1/User.php");
 	    		}
 
 			/* Load our user database (and user object) */
@@ -215,10 +254,10 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 		break;
 		case 'phpnuke':
 			/* we're in phpnuke */
-			include_once(dirname(__FILE__) . "/classes/Database.php");
-			include_once(dirname(__FILE__) . "/classes/database/mysql/Database.php");
-			include_once(dirname(__FILE__) . "/classes/nuke5/UserDB.php");
-			include_once(dirname(__FILE__) . "/classes/nuke5/User.php");
+			include(dirname(__FILE__) . "/classes/Database.php");
+			include(dirname(__FILE__) . "/classes/database/mysql/Database.php");
+			include(dirname(__FILE__) . "/classes/nuke5/UserDB.php");
+			include(dirname(__FILE__) . "/classes/nuke5/User.php");
 
 	   		 $gallery->database{"nuke"} = new MySQL_Database(
 				$GLOBALS['dbhost'],
@@ -258,7 +297,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			}
 	    
 			if (isset($GLOBALS['admin']) && is_admin($GLOBALS['admin'])) {
-				include_once(dirname(__FILE__) . "/classes/nuke5/AdminUser.php");
+				include(dirname(__FILE__) . "/classes/nuke5/AdminUser.php");
 				
 				$gallery->user = new Nuke5_AdminUser($GLOBALS['admin']);
 				$gallery->session->username = $gallery->user->getUsername();
@@ -271,10 +310,10 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 		break;
 		case 'nsnnuke':
 			/* we're in nsnnuke */
-			include_once(dirname(__FILE__) . "/classes/Database.php");
-			include_once(dirname(__FILE__) . "/classes/database/mysql/Database.php");
-			include_once(dirname(__FILE__) . "/classes/nsnnuke/UserDB.php");
-			include_once(dirname(__FILE__) . "/classes/nsnnuke/User.php");
+			include(dirname(__FILE__) . "/classes/Database.php");
+			include(dirname(__FILE__) . "/classes/database/mysql/Database.php");
+			include(dirname(__FILE__) . "/classes/nsnnuke/UserDB.php");
+			include(dirname(__FILE__) . "/classes/nsnnuke/User.php");
 
 	   		 $gallery->database{"nsnnuke"} = new MySQL_Database(
 				$GLOBALS['dbhost'],
@@ -305,7 +344,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			}
 	    
 			if (isset($GLOBALS['admin']) && is_admin($GLOBALS['admin'])) {
-				include_once(dirname(__FILE__) . "/classes/nsnnuke/AdminUser.php");
+				include(dirname(__FILE__) . "/classes/nsnnuke/AdminUser.php");
 				
 				$gallery->user = new NsnNuke_AdminUser($GLOBALS['admin']);
 				$gallery->session->username = $gallery->user->getUsername();
@@ -317,10 +356,10 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			}
 		break;
 		case 'phpBB2':
-			include_once(dirname(__FILE__) . "/classes/Database.php");
-			include_once(dirname(__FILE__) . "/classes/database/mysql/Database.php");
-			include_once(dirname(__FILE__) . "/classes/phpbb/UserDB.php");
-			include_once(dirname(__FILE__) . "/classes/phpbb/User.php");
+			include(dirname(__FILE__) . "/classes/Database.php");
+			include(dirname(__FILE__) . "/classes/database/mysql/Database.php");
+			include(dirname(__FILE__) . "/classes/phpbb/UserDB.php");
+			include(dirname(__FILE__) . "/classes/phpbb/User.php");
  			$gallery->database{"phpbb"} = new MySQL_Database(			
 							$GLOBALS['dbhost'],			
 							$GLOBALS['dbuser'],			
@@ -339,10 +378,10 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			}
 		break;
 		case 'mambo':
-			include_once(dirname(__FILE__) . '/classes/Database.php');
-			include_once(dirname(__FILE__) . '/classes/database/mysql/Database.php');
-			include_once(dirname(__FILE__) . '/classes/mambo/UserDB.php');
-			include_once(dirname(__FILE__) . '/classes/mambo/User.php');
+			include(dirname(__FILE__) . '/classes/Database.php');
+			include(dirname(__FILE__) . '/classes/database/mysql/Database.php');
+			include(dirname(__FILE__) . '/classes/mambo/UserDB.php');
+			include(dirname(__FILE__) . '/classes/mambo/User.php');
 
 			global $mosConfig_host;
 			global $mosConfig_user;
@@ -354,26 +393,17 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			/* Session info about Mambo are available when we open a Popup from Mambo, 
 			** but content isnt parsed through Mambo
 			*/
-			if (!empty($gallery->session->mambo)) {
+			if (isset($gallery->session->mambo)) {
 				$mosConfig_host		= $gallery->session->mambo->mosConfig_host;
 				$mosConfig_user		= $gallery->session->mambo->mosConfig_user;
 				$mosConfig_password	= $gallery->session->mambo->mosConfig_password;
 				$mosConfig_db		= $gallery->session->mambo->mosConfig_db;
 				$mosConfig_dbprefix	= $gallery->session->mambo->mosConfig_dbprefix;
 				$MOS_GALLERY_PARAMS	= $gallery->session->mambo->MOS_GALLERY_PARAMS;
-			} elseif (!empty($mosConfig_db)) {
-				$gallery->session->mambo->mosRoot = dirname($_SERVER['PHP_SELF']);
-				if (substr($gallery->session->mambo->mosRoot, -1) != '/') {
-					$gallery->session->mambo->mosRoot .= '/';
-				}
-				$gallery->session->mambo->mosConfig_host     = $mosConfig_host;
-				$gallery->session->mambo->mosConfig_user     = $mosConfig_user;
-				$gallery->session->mambo->mosConfig_password = $mosConfig_password;
-				$gallery->session->mambo->mosConfig_db       = $mosConfig_db;
-				$gallery->session->mambo->mosConfig_dbprefix = $mosConfig_dbprefix;
-				$gallery->session->mambo->MOS_GALLERY_PARAMS = $MOS_GALLERY_PARAMS;
-			} else {
-				echo 'init.php: ' . _("Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
+			}
+
+			if(empty($mosConfig_db)) {
+				echo _("Gallery seems to be inside Mambo, but we couldn't get the necessary info.");
 				exit;
 			}
 
@@ -389,12 +419,15 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 			$gallery->userDB = new Mambo_UserDB;
 
 			/* Check if user is logged in, else explicit log him/her out */
-			if (!empty($my->username)) {
+			if (isset($my->username) && !empty($my->username)) {
 				$gallery->session->username = $my->username;
 				$gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
 				
 				/* We were loaded correctly through Mambo, so we dont need/want "old" session infos */
-			} elseif (!empty($gallery->session->username) && empty($my)) {
+				if (isset($gallery->session->mambo)) {
+					unset ($gallery->session->mambo);
+				}
+			} elseif (isset($gallery->session->username) && !isset($my)) {
 				/* This happens, when we are in a Popup */
 				$gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
 			} else {
@@ -441,57 +474,12 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 				$gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username);
 			}
 		break;
-
-		case 'cpgnuke':
-			/* we're in CPG-Nuke */
-			include_once(dirname(__FILE__) . "/classes/Database.php");
-			include_once(dirname(__FILE__) . "/classes/database/mysql/Database.php");
-			include_once(dirname(__FILE__) . "/classes/cpgnuke/UserDB.php");
-			include_once(dirname(__FILE__) . "/classes/cpgnuke/User.php");
-
-	   		 $gallery->database{"cpgnuke"} = new MySQL_Database(
-				$GLOBALS['dbhost'],
-				$GLOBALS['dbuname'],
-				$GLOBALS['dbpass'],
-				$GLOBALS['dbname']);
-	    
-			if (isset($GLOBALS['user_prefix'])) {
-                                $gallery->database{"user_prefix"} = $GLOBALS['prefix'] . '_';
-			}
-			else {
-				$gallery->database{"user_prefix"} = 'cms';
-			}
-			$gallery->database{"prefix"} = $GLOBALS['prefix'] . '_';
-			$gallery->database{"admin_prefix"} = $GLOBALS['prefix'] . 'b_';
-
-			/* Select the appropriate field names */
-				$gallery->database{'fields'} =
-					array ('name'  => 'name',
-			       			'uname' => 'username',
-						'email' => 'user_email',
-			       			'uid'   => 'user_id');
-	    
-	   		/* Load our user database (and user object) */
-			$gallery->userDB = new CPGNuke_UserDB;
-	    		if (is_user()) {
-				$gallery->session->username = $userinfo['username'];
-				$gallery->user = $gallery->userDB->getUserByUsername($gallery->session->username); 
-			}
-	    
-			if (is_admin()) {
-				include_once(dirname(__FILE__) . "/classes/cpgnuke/AdminUser.php");
-				
-				$gallery->user = new CPGNuke_AdminUser();
-				$gallery->session->username = $gallery->user->getUsername();
-			}	    		
-
-		break;
 	}
 } 
 else {
 	/* Standalone */
-	include_once(dirname(__FILE__) . "/classes/gallery/UserDB.php");
-	include_once(dirname(__FILE__) . "/classes/gallery/User.php");
+	include(dirname(__FILE__) . "/classes/gallery/UserDB.php");
+	include(dirname(__FILE__) . "/classes/gallery/User.php");
 
 	/* Load our user database (and user object) */
 	$gallery->userDB = new Gallery_UserDB;
@@ -511,17 +499,13 @@ if (!isset($gallery->user) || empty($gallery->user)) {
 	$gallery->session->username = "";
 }
 
-/* Now we init the language
-** Its done after initializing the user.
-*/
-initLanguage();
-
 if (!isset($gallery->session->offline)) {
     $gallery->session->offline = FALSE;
 }
 
-if ($gallery->userDB->versionOutOfDate()) {
-	include_once(dirname(__FILE__) . "/upgrade_users.php");
+if ($gallery->userDB->versionOutOfDate()) 
+{
+	include(dirname(__FILE__) . "/upgrade_users.php");
 	exit;
 }
 
@@ -533,7 +517,7 @@ if (!empty($gallery->session->albumName)) {
 		$gallery->session->albumName = "";
 	} else {
 		if ($gallery->album->versionOutOfDate()) {
-			include_once(dirname(__FILE__) . "/upgrade_album.php");
+			include(dirname(__FILE__) . "/upgrade_album.php");
 			exit;
 		}
 	}

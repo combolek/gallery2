@@ -22,12 +22,12 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 require(dirname(__FILE__) . '/classes/remote/GalleryRemoteProperties.php');
 
 //---------------------------------------------------------
 //-- check that we are not being called from the browser --
-if (!getRequestVar('cmd')) {
+if (empty ($cmd)) {
 	echo 'This page is not meant to be accessed from your browser.  ';
 	echo 'If you would like to use Gallery Remote, please refer to ';
 	echo 'Gallery\'s website located at ';
@@ -44,15 +44,15 @@ header("Content-type: text/plain");
 /*
  * Start buffering output
  */
-//if($gallery->app->debug == "no") {
-//	@ob_start();
-//}
+if($gallery->app->debug == "no") {
+	@ob_start();
+}
 
 /*
  * Gallery remote protocol version 2.10
  */
 $GR_VER['MAJ'] = 2;
-$GR_VER['MIN'] = 15;
+$GR_VER['MIN'] = 14;
 
 
 /*
@@ -85,12 +85,11 @@ $GR_STAT['ROTATE_IMAGE_FAILED'] = 504;
 
 
 $response = new Properties();
-$protocol_version = getRequestVar('protocol_version');
 check_proto_version( $response );
 
 // some debug output
 //$response->setProperty( "debug_session_albumName", $gallery->session->albumName);
-$response->setProperty( "debug_album", empty($gallery->album->fields["name"]) ? '' : $gallery->album->fields["name"]);
+$response->setProperty( "debug_album", $gallery->album->fields["name"]);
 $response->setProperty( "debug_gallery_version", $gallery->version);
 
 if ($gallery->user) {
@@ -103,40 +102,38 @@ if ($gallery->user) {
 
 // -- Handle request --
 
-switch(getRequestVar('cmd') === 0 ? '' : getRequestVar('cmd')) {
+switch($cmd === 0 ? '' : $cmd) {
 	case 'login':
-		gr_login( $gallery, $response, getRequestVar('uname'), getRequestVar('password') );
+		gr_login( $gallery, $response, $uname, $password );
 		break;
 	case 'fetch-albums':
 		gr_fetch_albums( $gallery, $response );
 		break;
 	case 'fetch-albums-prune':
-		gr_fetch_albums_prune( $gallery, $response, getRequestVar('check_writeable') );
+		gr_fetch_albums_prune( $gallery, $response, $check_writeable );
 		break;
 	case 'add-item':
-		gr_add_item( $gallery, $response, $_FILES['userfile']['tmp_name'], $_FILES['userfile']['name'],
-getRequestVar('caption'), getRequestVar('force_filename'), getRequestVar('auto_rotate') );
+		gr_add_item( $gallery, $response, $userfile, $userfile_name, $caption, $force_filename, $auto_rotate );
 		break;
 	case 'album-properties':
 		gr_album_properties( $gallery, $response );
 		break;
 	case 'new-album':
-		gr_new_album( $gallery, $response, getRequestVar('newAlbumName'), getRequestVar('newAlbumTitle'),
-getRequestVar('newAlbumDesc') );
+		gr_new_album( $gallery, $response, $newAlbumName, $newAlbumTitle, $newAlbumDesc );
 		break;
 	case 'fetch-album-images':
-		gr_fetch_album_images( $gallery, $response, getRequestVar('albums_too') );
+		gr_fetch_album_images( $gallery, $response, $albums_too );
 		break;
 	case 'move-album':
-		gr_move_album( $gallery, $response, getRequestVar('set_destalbumName') );
+		gr_move_album( $gallery, $response, $set_destalbumName );
 		break;
 	default:
 		$response->setProperty( 'status', $GR_STAT['UNKNOWN_COMMAND'] );
-		$response->setProperty( 'status_text', "Command '" . getRequestVar('cmd') . "' unknown." );
+		$response->setProperty( 'status_text', "Command '$cmd' unknown." );
 		break;
 }
 
-//@ob_end_clean();
+@ob_end_clean();
 echo $response->listprops();
 //end of processing
 
@@ -225,7 +222,7 @@ function gr_fetch_albums_prune( &$gallery, &$response, $check_writeable ) {
 
 	foreach ($albumDB->albumList as $album) {
 		if ($myMark[$album->fields["name"]]) {
-			add_album( $album, $album_count, $album->fields['parentAlbumName'], $response );
+			add_album( $album, $album_count, $album->fields[parentAlbumName], $response );
 		}
 	}
 
@@ -335,20 +332,12 @@ function gr_album_properties( &$gallery, &$response ) {
 
 	global $GR_STAT;
 
-	$resize_dimension = $gallery->album->fields['resize_size'];
-	if ($resize_dimension == 'off') {
-		$resize_dimension = 0;
-	}
-
-	$response->setProperty( 'auto_resize', $resize_dimension );
-
-	$max_dimension = $gallery->album->fields['max_size'];
+	$max_dimension = $gallery->album->fields['resize_size'];
 	if ($max_dimension == 'off') {
 		$max_dimension = 0;
 	}
 
-	$response->setProperty( 'max_size', $max_dimension );
-
+	$response->setProperty( 'auto_resize', $max_dimension );
 	$extrafields = $gallery->album->getExtraFields();
 	if ($extrafields) {
 		$response->setProperty( 'extra_fields', implode(",", $extrafields) );
@@ -759,16 +748,15 @@ function add_album( &$myAlbum, &$album_index, $parent_index, &$response ){
 	$album_index++;
 
 	// fetch name & title
-	$albumName = $myAlbum->fields['name'];
-	$albumTitle = $myAlbum->fields['title'];
+	$albumName = $myAlbum->fields[name];
+	$albumTitle = $myAlbum->fields[title];
 	
 	// write name, title and parent
 	$response->setProperty( "album.name.$album_index", $albumName );
 	$response->setProperty( "album.title.$album_index", $albumTitle );
 	$response->setProperty( "album.summary.$album_index", $myAlbum->fields['summary'] );
 	$response->setProperty( "album.parent.$album_index", $parent_index );
-	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] == 'off' ? 0 : $myAlbum->fields['resize_size'] );
-	$response->setProperty( "album.max_size.$album_index", $myAlbum->fields['max_size'] == 'off' ? 0 : $myAlbum->fields['max_size'] );
+	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] );
 	$response->setProperty( "album.thumb_size.$album_index", $myAlbum->fields['thumb_size'] );
 
 	// write permissions
@@ -875,7 +863,7 @@ function processFile($file, $tag, $name, $setCaption="") {
 				    $file = $newFile;
 		
 				    /* Make sure we remove this file when we're done */
-				    $temp_files[$file] = 1;
+				    $temp_files[$file]++;
 				}
 		    }
 
@@ -891,11 +879,12 @@ function processFile($file, $tag, $name, $setCaption="") {
 			// add the extra fields
 			$myExtraFields = array();
 			foreach ($gallery->album->getExtraFields() as $field) {
+				global $HTTP_POST_VARS;
 				//$fieldname = "extrafield_$field";
 				//echo "Looking for extra field $fieldname\n";
 
 				// The way it should be done now
-				$value = isset($_POST[("extrafield.".$field)]) ? $_POST[("extrafield.".$field)] : '';
+				$value = $HTTP_POST_VARS[("extrafield.".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {
@@ -906,7 +895,7 @@ function processFile($file, $tag, $name, $setCaption="") {
 				}
 
 				// Deprecated
-				$value = isset($_POST[("extrafield_".$field)]) ? $_POST[("extrafield_".$field)] : '';
+				$value = $HTTP_POST_VARS[("extrafield_".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {
@@ -927,7 +916,7 @@ function processFile($file, $tag, $name, $setCaption="") {
 	    }
     }
     
-    return empty($error) ? '' : $error;
+    return $error;
 }
 
 function mark_and_sweep(&$albumDB, $checkWriteable = TRUE) {
@@ -945,7 +934,7 @@ function mark_and_sweep(&$albumDB, $checkWriteable = TRUE) {
 function sweep(&$albumDB, &$myAlbum) {
 	global $myMark;
 	// echo "sweep: ".$myMark[$myAlbum->fields["name"]]."\n";
-	if (empty($myMark[$myAlbum->fields["name"]])) {
+	if (! $myMark[$myAlbum->fields["name"]]) {
 		// echo "sweep: ".$myAlbum->fields["name"]." is not marked: marking\n";
 		$myMark[$myAlbum->fields["name"]] = TRUE;
 		// echo "sweep: ".$myMark[$myAlbum->fields["name"]]."\n";

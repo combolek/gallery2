@@ -21,15 +21,16 @@
  */
 ?>
 <?php
-function slideshow_initialize() {
-    global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
+function slideshow_initialize()
+{
+	global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
 			$url, $full_urls, $urls, $caption, $captions, $photo_count, $title;
 
     // default settings ---
     $defaultLoop = 0;
     $defaultTransition = 0;
-    $defaultPause = 3; 
+    $defaultPause = 3;
 
     $full_option = false;
     
@@ -49,6 +50,7 @@ function slideshow_initialize() {
         if ($random) {
             $random_full_urls = array();
             $random_photos = array();
+            srand ((float) microtime() * 10000000);
             $rand_keys = array_rand ($urls, $number);
             if ($number == 1) {
                 $rand_keys = array($rand_keys);
@@ -83,7 +85,8 @@ function slideshow_initialize() {
     } 
 } 
 
-function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $recursive = true) {
+function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $recursive = true)
+{
     global $gallery, $full_option;
     $photo_count = 0;
 
@@ -128,7 +131,6 @@ function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $r
         if ($photo->isAlbum()) {
             if ($recursive) {
                 $subAlbumName = $album->getAlbumName($index);
-
                 $subAlbum = new Album();
                 $subAlbum->load($subAlbumName);
                 if ($gallery->user->canReadAlbum($subAlbum)) {
@@ -165,7 +167,8 @@ function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $r
     return $photo_count;
 } 
 
-function printSlideshowPhotos($full_urls, $urls, $captions, $what, $photo_count) {
+function printSlideshowPhotos($full_urls, $urls, $captions, $what, $photo_count)
+{
     $count = 0;
     for ($index = 0; $index < $photo_count; $index++) {
         $count++;
@@ -184,29 +187,28 @@ function printSlideshowPhotos($full_urls, $urls, $captions, $what, $photo_count)
     } 
 } 
 
-function slideshow_body() {
-    global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
+function slideshow_body()
+{
+	global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
 			$url, $full_urls, $urls, $caption, $captions, $photo_count, $title, $transitionNames,
 			$transitionCount, $pixelImage;
+	
+	$photo_count = $number;
 
-    global $playIconText, $stopIconText, $normalSizeIconText, $fullSizeIconText, $forwardIconText, $backwardIconText;
-    $photo_count = $number;
-
-/* Here are the URLs of the images written down as links.
-** This is to make wget able to convert these links.
-** It will not convert them, if they are written inside JavaScript.
-** JavaScript will then take the images out of these links with "document.getElementById()".
-*/
+    /* Here are the URLs of the images written down as links. This is to make
+ wget able to convert these links. It will not convert them, if they
+ are written inside JavaScript.
+ JavaScript will then take the images out of these links
+ with "document.getElementById()". */
 
     printSlideshowPhotos($full_urls, $urls, $captions, PHOTO_URL_AS_HREF,
         $photo_count);
 
     ?>
 
-<?php // </script> ?>
-
-<script type="text/javascript">
+</script>
+<script language="JavaScript">
 var timer;
 var current_location = 1;
 var next_location = 1;
@@ -276,261 +278,284 @@ var photo_count = <?php echo $photo_count ?>;
 var browserCanBlend = (is_ie5_5up);
 
 function stopOrStart() {
-	if (onoff) {
-		stop();
-	} else {
-		play();
-	}
+if (onoff) {
+stop();
+} else {
+play();
+}
 }
 
 function fullOrNormal() {
-	images = new Array;
-	pics_loaded=0;
-	if (fullsized) {
-		normal();
-	} else {
-		full();
-	}
-	next_location = current_location;
-	preload_photo(next_location);
-	go_to_next_photo();
+images = new Array;
+pics_loaded=0;
+if (fullsized) {
+normal();
+} else {
+full();
+}
+next_location = current_location;
+preload_photo(next_location);
+go_to_next_photo();
 }
 
 function toggleLoop() {
-	if (loop) {
-		loop = 0;
-	} else {
-		loop = 1;
-	}
+if (loop) {
+loop = 0;
+} else {
+loop = 1;
+}
 }
 
 function changeElementText(id, newText) {
-	element = document.getElementById(id);
-	element.innerHTML = newText;
+element = document.getElementById(id);
+element.innerHTML = newText;
 }
 
 function stop() {
-	changeElementText("stopOrStartText", '<?php echo $playIconText; ?>');
+changeElementText("stopOrStartText", "<?php echo _("play") ?>");
 
-	onoff = 0;
-	status = "<?php echo unhtmlentities(_("The slide show is stopped, Click [play] to resume.")) ?>";
-	clearTimeout(timer);
+onoff = 0;
+status = "<?php echo unhtmlentities(_("The slide show is stopped, Click [play] to resume.")) ?>";
+clearTimeout(timer);
 
 }
 
 function play() {
-	changeElementText("stopOrStartText", '<?php echo $stopIconText; ?>');
-	onoff = 1;
-	status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>";
-	go_to_next_photo();
+changeElementText("stopOrStartText", "<?php echo _("stop") ?>");
+
+onoff = 1;
+status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>";
+go_to_next_photo();
 }
 
 function full() {
-	changeElementText("fullOrNormalText", '<?php echo $normalSizeIconText; ?>');
-	fullsized = 1;
-	status = "<?php echo unhtmlentities(_("The slide is showing full sized images, Click [normal size] to view resized images.")) ?>";
+changeElementText("fullOrNormalText", "<?php echo _("normal size") ?>");
+fullsized = 1;
+status = "<?php echo unhtmlentities(_("The slide is showing full sized images, Click [normal size] to view resized images.")) ?>";
 }
 
 function normal() {
-	changeElementText("fullOrNormalText", '<?php echo $fullSizeIconText; ?>');
+changeElementText("fullOrNormalText", "<?php echo _("full size") ?>");
 
-	fullsized = 0;
-	status = "<?php echo unhtmlentities(_("The slide is showing normal sized images, Click [full size] to view full sized images.")) ?>";
+fullsized = 0;
+status = "<?php echo unhtmlentities(_("The slide is showing normal sized images, Click [full size] to view full sized images.")) ?>";
 }
 
 function changeDirection() {
-	if (direction == 1) {
-		direction = -1;
-		changeElementText("changeDirText", '<?php echo $forwardIconText; ?>');
-	} else {
-		direction = 1;
-		changeElementText("changeDirText", '<?php echo $backwardIconText; ?>');
-	}
-	preload_next_photo();
+if (direction == 1) {
+direction = -1;
+changeElementText("changeDirText", "<?php echo _("forward direction") ?>");
+} else {
+direction = 1;
+changeElementText("changeDirText", "<?php echo _("reverse direction") ?>");
+}
+preload_next_photo();
+
 }
 
 function change_transition() {
-	current_transition = document.TopForm.transitionType.selectedIndex;
+current_transition = document.TopForm.transitionType.selectedIndex;
 }
 
 function preload_complete() {
 }
 
 function reset_timer() {
-	clearTimeout(timer);
-	if (onoff) {
-		timeout_value = document.TopForm.time.options[document.TopForm.time.selectedIndex].value * 1000;
-		timer = setTimeout('go_to_next_photo()', timeout_value);
-	}
+clearTimeout(timer);
+if (onoff) {
+timeout_value = document.TopForm.time.options[document.TopForm.time.selectedIndex].value * 1000;
+timer = setTimeout('go_to_next_photo()', timeout_value);
+}
 }
 
 function wait_for_current_photo() {
 
 /* Show the current photo */
-	if (!show_current_photo()) {
+if (!show_current_photo()) {
 
-		/*
-		** The current photo isn't loaded yet.  Set a short timer just to wait
-		** until the current photo is loaded.
-		*/
-		status = "<?php echo unhtmlentities(_("Picture is loading...")) ?>(" + current_location + " <?php echo unhtmlentities(_("of")) ?>" + photo_count + ").  " + "<?php echo unhtmlentities(_("Please Wait...")) ?>" ;
-		clearTimeout(timer);
-		timer = setTimeout('wait_for_current_photo()', 500);
-		return 0;
-	} else {
-		status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>" ;
-		preload_next_photo();
-		reset_timer();
-	}
+/*
+* The current photo isn't loaded yet.  Set a short timer just to wait
+* until the current photo is loaded.
+*/
+status = "<?php echo unhtmlentities(_("Picture is loading...")) ?>(" + current_location + " <?php echo unhtmlentities(_("of")) ?>" + photo_count +
+").  " + "<?php echo unhtmlentities(_("Please Wait...")) ?>" ;
+clearTimeout(timer);
+timer = setTimeout('wait_for_current_photo()', 500);
+return 0;
+} else {
+status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>" ;
+preload_next_photo();
+reset_timer();
+}
 }
 
 function go_to_next_photo() {
-	/* Go to the next location */
-	current_location = next_location;
+/* Go to the next location */
+current_location = next_location;
 
-	/* Show the current photo */
-	if (!show_current_photo()) {
-		wait_for_current_photo();
-		return 0;
-	}
-	
-	preload_next_photo();
-	reset_timer();
+/* Show the current photo */
+if (!show_current_photo()) {
+wait_for_current_photo();
+return 0;
+}
+
+preload_next_photo();
+reset_timer();
 }
 
 function preload_next_photo() {
-	/* Calculate the new next location */
-	next_location = (parseInt(current_location) + parseInt(direction));
-	if (next_location > photo_count) {
-		next_location = 1;
-		if (!loop) {
-			stop();
-		}
-	}
-	if (next_location == 0) {
-		next_location = photo_count;
-		if (!loop) {
-			stop();
-		}
-	}
 
-	/* Preload the next photo */
-	preload_photo(next_location);
+/* Calculate the new next location */
+next_location = (parseInt(current_location) + parseInt(direction));
+if (next_location > photo_count) {
+next_location = 1;
+if (!loop) {
+ stop();
+}
+}
+if (next_location == 0) {
+    next_location = photo_count;
+if (!loop) {
+ stop();
+}
+}
+
+/* Preload the next photo */
+preload_photo(next_location);
 }
 
 function show_current_photo() {
-	/*
-	 * If the current photo is not completely loaded don't display it.
-	 */
-	if (!images[current_location] || !images[current_location].complete) {
-		preload_photo(current_location);
-		return 0;
-	}
 
-	/* transistion effects */
-	if (browserCanBlend){
-		var do_transition;
-		if (current_transition == (transition_count)) {
-			do_transition = Math.floor(Math.random() * transition_count);
-		} else {
-			do_transition = current_transition;
-		}
-		document.images.slide.style.filter=transitions[do_transition];
-		document.images.slide.filters[0].Apply();
-	}
+/*
+ * If the current photo is not completely loaded don't display it.
+ */
+if (!images[current_location] || !images[current_location].complete) {
+preload_photo(current_location);
+return 0;
+}
 
-	document.slide.src = images[current_location].src;
-	setCaption(photo_captions[current_location]);
+/* transistion effects */
+if (browserCanBlend){
+var do_transition;
+if (current_transition == (transition_count)) {
+ do_transition = Math.floor(Math.random() * transition_count);
+} else {
+ do_transition = current_transition;
+}
+document.images.slide.style.filter=transitions[do_transition];
+document.images.slide.filters[0].Apply();
+}
+document.slide.src = images[current_location].src;
+setCaption(photo_captions[current_location]);
 
-	if (browserCanBlend) {
-		document.images.slide.filters[0].Play();
-	}
+if (browserCanBlend) {
+document.images.slide.filters[0].Play();
+}
 
-	return 1;
+return 1;
 }
 
 function preload_photo(index) {
-	/* Load the next picture */
-	if (pics_loaded < photo_count) {
 
-		/* not all the pics are loaded.  Is the next one loaded? */
-		if (!images[index]) {
-			images[index] = new Image;
-			images[index].onLoad = preload_complete();
-			if (fullsized) {
-				images[index].src = document.getElementById("full_photo_urls_" + index).href;
-			} else {
-				images[index].src = document.getElementById("photo_urls_" + index).href;
-			}
-			pics_loaded++;
-		}
-	}
+/* Load the next picture */
+if (pics_loaded < photo_count) {
+
+/* not all the pics are loaded.  Is the next one loaded? */
+if (!images[index]) {
+ images[index] = new Image;
+ images[index].onLoad = preload_complete();
+ if (fullsized) {
+ 	images[index].src = document.getElementById("full_photo_urls_" + index).href;
+ } else {
+ 	images[index].src = document.getElementById("photo_urls_" + index).href;
+ }
+ pics_loaded++;
+}
+}
 }
 
 function setCaption(text) {
-	changeElementText("caption", "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + text);
+changeElementText("caption", "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + text);
 }
 
-</script>
+</Script>
 <?php
 }
 
-function slideshow_controlPanel() {
+function slideshow_controlPanel()
+{
 	global $gallery, $albumName, $defaultLoop, $defaultPause, $defaultTransition, $full_option,
 			$album, $recursive, $number, $random, $loop, $borderColor, $borderwidth, $bgcolor,
 			$url, $full_urls, $urls, $caption, $captions, $photo_count, $title, $transitionNames,
 			$transitionCount, $pixelImage;
-
-	global $delayIconText, $loopIconText;
         ?>
-<form name="TopForm" action="#">
-<?php
-	/* First this is set to "stop" */
-	$startStopIconText = $stopIconText;
-        $iconElements[] = '<a href="#" onClick="stopOrStart(); return false;" style="display: block"><span id="stopOrStartText">'. $startStopIconText . '</span></a>';
+<form name="TopForm">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
+<tr>
+	<td colspan="3"><?php echo $pixelImage ?></td>
+</tr>
+<tr>
+	<td height="25" width="1"><?php echo $pixelImage ?></td>
+	<td align="left" valign="middle">
+	<span class=admin>
 
-	$directionIconText =  getIconText('1leftarrow.gif', _("reverse direction"));
-        $iconElements[] = '<a href="#" onClick="changeDirection(); return false;" style="display: block"><span id="changeDirText">'. $directionIconText .'</span></a>';
+<?php
+        echo "&nbsp;<a class=\"admin\" href='#' onClick='stopOrStart(); return false;'>[<span id='stopOrStartText'>" . _("stop") . "</span>]</a>";
+        echo "&nbsp;<a class=\"admin\" href='#' onClick='changeDirection(); return false;'>[<span id='changeDirText'>" . _("reverse direction") . "</span>]</a>";
 
         if ($full_option) {
-		$fullIconText = getIcontext('window_fullscreen.gif',_("full size"));
-		$iconElements[] = '<a href="#" onClick="fullOrNormal(); return false;" style="display: block"><span id="fullOrNormalText">'. $fullIconText .'</span></a>';
-        }
+            echo "&nbsp;<a class=\"admin\" href='#' onClick='fullOrNormal(); return false;'>[<span id='fullOrNormalText'>" . _("full size") . "</span>]</a>";
+        } 
+        echo "&nbsp;&nbsp;||";
 
-        $iconElements[] = $delayIconText .':';
-	$iconElements[] = drawSelect("time", array(1 => _("1 second"),
-				2 => _("2 seconds"),
-				3 => _("3 seconds"),
-				5 => _("5 seconds"),
-				10 => _("10 seconds"),
-				15 => _("15 seconds"),
-				30 => _("30 seconds"),
-				45 => _("45 seconds"),
-				60 => _("1 Minute")),
-				$defaultPause, // default value
-				1, // select size
-				array('onchange' => 'reset_timer()', 'class' => 'adminform')
-			);
+        ?>
 
-	if ($loop) {
-		$checked = ($defaultLoop) ? "checked" : "";
-		$iconElements[] = $loopIconText .':';
-		$iconElements[] = '<input type="checkbox" name="loopCheck"'. $checked .'onclick="toggleLoop();">';
-	} 
+    &nbsp;<?php echo _('Delay:') . '&nbsp;' ?>
+<?php echo
+        drawSelect("time", array(1 => "1 " . _("second"),
+                2 => "2 " . _("seconds"),
+                3 => "3 " . _("seconds"),
+                4 => "4 " . _("seconds"),
+                5 => "5 " . _("seconds"),
+                10 => "10 " . _("seconds"),
+                15 => "15 " . _("seconds"),
+                30 => "30 " . _("seconds"),
+                45 => "45 " . _("seconds"),
+                60 => "60 " . _("seconds")),
+            $defaultPause, // default value
+            1, // select size
+            array('onchange' => 'reset_timer()', 'style' => 'font-size:10px;'));
 
-	echo makeIconMenu($iconElements, false);
-?>
-    <td class="noLink"><script type="text/javascript">
+        ?>
+    <script language="Javascript">
     /* show the blend select if appropriate */
     if (browserCanBlend) {
-	document.write('<?php echo _("Transition:"); ?></td>');
-	document.write('<td><?php echo str_replace("\n", "", drawSelect("transitionType",
-                  $transitionNames,
-                  $defaultTransition,
-                  1,
-                 array('onchange' => 'change_transition()', 'class' => 'adminform'))); ?>');
+	document.write('&nbsp;<?php echo _("Transition:") ?><?php
+        print ereg_replace("\n", ' ', drawSelect("transitionType",
+                $transitionNames,
+                $defaultTransition,
+                1,
+                array('onchange' => 'change_transition()', 'style' => 'font-size:10px;')));
+
+        ?>');
     }
-    </script></td></tr></table>
+
+    </script>
+    <?php if ($loop) {
+
+            ?>
+    &nbsp;<?php echo _('Loop') ?>:&nbsp;<input type="checkbox" name="loopCheck" <?php echo ($defaultLoop) ? "checked" : "" ?> onclick='toggleLoop();'>
+    <?php } 
+
+        ?>
+	</span>
+	</td>
+	<td width="1"><?php echo $pixelImage ?></td>
+</tr>
+<tr>
+	<td colspan="3"><?php echo $pixelImage ?></td>
+</tr>
+</table>
 </form>
 <?php
     } 
@@ -548,7 +573,7 @@ function slideshow_controlPanel() {
 
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-	<td><script type="text/javascript">
+	<td><script language="JavaScript">
 		firstPhotoURL = document.getElementById("photo_urls_" + 1).href;
 		document.write("<img border=<?php echo $borderwidth ?> bgcolor=<?php echo $borderColor ?> src=\"");
 		document.write(firstPhotoURL);
@@ -558,9 +583,9 @@ function slideshow_controlPanel() {
 </table>
 <br>
 
-<script type="text/javascript">
+<script language="Javascript">
 /* show the caption */
-document.write("<div class='pcaption' id='caption'></div>");
+document.write("<div class='modcaption' id='caption'></div>");
 
 /* Load the first picture */
 setCaption(photo_captions[1]);
@@ -585,5 +610,13 @@ play();
 
 <?php
         } 
+
+        ?>
+
+</div>
+
+
+<?php
     } 
+
     ?>

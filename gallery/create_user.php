@@ -22,18 +22,16 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($formaction, $uname, $new_password1, $new_password2, $fullname, $canCreate, $email, $defaultLanguage) = 
-	getRequestVar(array('formaction', 'uname', 'new_password1', 'new_password2', 'fullname', 'canCreate', 'email', 'defaultLanguage'));
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
-
+?>
+<?php
 $errorCount=0;
-if (!empty($formaction) && $formaction == 'create') {
+if (!empty($action) && $action == 'create') {
 	$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 	if ($gErrors["uname"]) {
 		$errorCount++;
@@ -53,15 +51,14 @@ if (!empty($formaction) && $formaction == 'create') {
 	if (!$errorCount) {
 		doctype();
 		?>
-<html>
-<head>
-  <title><?php echo _("Create User") ?></title>
-  <?php common_header(); ?>
-</head>
-<body dir="<?php echo $gallery->direction ?>">
-	<div class="popup" align="center">
-		<div class="popuphead"><?php echo _("Create User") ?></div>
-	<?php
+	       	<html>
+		<head>
+		<title><?php echo _("Create User") ?></title>
+		<?php common_header(); ?>
+		</head>
+		<body dir="<?php echo $gallery->direction ?>">
+		<center>
+		<?php
 		$tmpUser = new Gallery_User();
 		$tmpUser->setUsername($uname);
 		$tmpUser->setPassword($new_password1);
@@ -96,18 +93,12 @@ if (!empty($formaction) && $formaction == 'create') {
 			       	print "<br><br>";
 		       	}
 	       	} 
-	?>
-	<br>
-	<form>
-		<input type="submit" name="dismiss" value="<?php echo _("Dismiss") ?>">
-	</form>
-	</div>
-</body>
-</html>
+		?>
+		<br><form><input type="submit" name="dismiss" value="<?php echo _("Dismiss") ?>"></form>
 		<?php
 		exit;
        	}
-} else if (!empty($formaction) || isset($dismiss)) {
+} else if (!empty($action) || isset($dismiss)) {
 	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
 }
 doctype();
@@ -117,9 +108,11 @@ doctype();
   <title><?php echo _("Create User") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Create User") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Create User") ?></p>
+
 <?php
 $canCreate = 1;
 $canCreateChoices = array(1 => _("yes"), 0 => _("no"));
@@ -135,6 +128,7 @@ $allowChange["default_language"] = true;
 $allowChange["member_file"] = false;
 
 ?>
+<div class="popup">
 <?php echo _("Create a new user here.") ?>
 <br>
 
@@ -149,11 +143,12 @@ $allowChange["member_file"] = false;
 
 <br>
 
-<input type="hidden" name="formaction" value="">
-<input type="submit" name="create" value="<?php echo _("Create") ?>" onclick="usercreate_form.formaction.value='create'">
-<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="usercreate_form.formaction.value='cancel'">
+<input type="hidden" name="action" value="">
+<input type="submit" name="create" value="<?php echo _("Create") ?>" onclick="usercreate_form.action.value='create'">
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="usercreate_form.action.value='cancel'">
 </form>
 </div>
+</center>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--
@@ -163,6 +158,5 @@ document.usercreate_form.uname.focus();
 </script>
 
 <?php print gallery_validation_link("create_user.php"); ?>
-
 </body>
 </html>

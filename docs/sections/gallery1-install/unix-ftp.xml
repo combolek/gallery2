@@ -7,38 +7,32 @@
  &gallery1.upgrade;
  
  &gallery1.requirements;
+ 
+ <para>
+  Once unpacked (unzipped), you should have a directory called
+  <filename>gallery</filename> that contains most of the files and
+  directories required. Now you're ready to install your Gallery:
+ </para>
 
  <orderedlist>
   <listitem>
    <para>
-    Decompress Gallery by using WinZip (on Windows) or <literal>tar</literal>
-    (command line *nix).  When it's finished, you should have one main
-    gallery/ directory under which all Gallery files are contained.
-   </para>
-  </listitem>
-  <listitem>
-   <para>
-    <emphasis>
-     Create two blank files in your favorite editor (e.g. Notepad, vi, emacs,
-     nano, etc...)
-    </emphasis>
+    Create two blank files in your favorite editor,(i.e.
+    Notepad, Note Tab, Editplus, Crimson Editor, pico, vi, emacs, joe, etc..).
    </para>
    <para>
-    Call one &htaccess; and the other &config.php;. Place these inside the
-    base Gallery directory.
-    <note>
-     <para>
-      In Notepad, be sure to select "All Files (*.*)" when saving the file, so
-      the file does not have a .txt suffix.  &htaccess; and &config.php; will not
-      work if they have a .txt extension
-     </para>
-    </note>
+    Call one &htaccess; and the other
+    &config.php;. Place these inside the Gallery
+    directory.
    </para>
    <para>
-    Upload the Gallery directory  (which should now include &config.php; and &htaccess;)
-    to your server using an FTP program (like WS_FTP, CuteFTP or Fetch). Upload
-    all files in <emphasis>BINARY</emphasis> mode.  Also be sure to keep the
-    directory tree and the case of filenames intact.
+    Upload the Gallery directory to your server using an FTP program
+    (like WS_FTP, CuteFTP or Fetch). Upload all files except for image
+    files in <emphasis>ASCII</emphasis> mode. Upload image files in
+    <emphasis>binary</emphasis> mode. <emphasis>Keep the directory
+    tree intact</emphasis>&#8212;you should see various folders INSIDE the
+    Gallery folder, as well as the php pages that go together to run your
+    Gallery site.
    </para>
   </listitem>
   <listitem>
@@ -48,14 +42,19 @@
    </para>
    <para>
     Gallery will use this directory to store the albums you create and
-    the images you upload to those albums.  For ease, put the directory inside
-    your Gallery directory.
+    the images you upload to those albums. This directory can reside
+    inside the Gallery directory or outside the Gallery directory -
+    your choice. <emphasis>Make note of where you create this
+    directory.</emphasis>
    </para>
   </listitem>
   <listitem>
    <para>
-    Gallery requires some files and directories to be set writable by the web
-    server.  If you are unsure of how to chmod files, see information listed at <ulink
+    You need to set permissions to make some of the files and
+    directories writable. This involves using the
+    <function>CHMOD</function> command. If you do not understand
+    <function>CHMOD</function>, there are some resources and
+    information listed at <ulink
     url="http://www.eclecticpixels.com/tutorials/chmod/">http://www.eclecticpixels.com/tutorials/chmod/</ulink>. Chmod
     as follows:
     <programlisting>

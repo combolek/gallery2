@@ -24,20 +24,18 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($apply, $nv_pairs, $voter_class, $poll_scale, $poll_show_results, $poll_num_results, $poll_orientation, $poll_hint, $poll_type) = 
-  getRequestVar(array('apply', 'nv_pairs', 'voter_class', 'poll_scale', 'poll_show_results', 'poll_num_results', 'poll_orientation', 'poll_hint', 'poll_type'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 	
 $error="";
 if (!empty($apply)) {
-	for ($i=0; $i<$gallery->album->getPollScale() ; $i++) {
+	for ($i=0; $i<$gallery->album->getPollScale() ; $i++)
+	{
 		//convert values to numbers
 		$nv_pairs[$i]["value"]=0+$nv_pairs[$i]["value"];
 	}
@@ -46,7 +44,8 @@ if (!empty($apply)) {
 	$gallery->album->fields["poll_type"] = $poll_type;
 	if ($voter_class == "Logged in" &&
 	    $gallery->album->fields["voter_class"] == "Everybody" &&
-	    sizeof($gallery->album->fields["votes"]) > 0) {
+	    sizeof($gallery->album->fields["votes"]) > 0)
+	{
 		$error="<br>" .
 			sprintf(_("Warning: you have changed voters from %s to %s.  It is advisable to reset the poll to remove all previous votes."),
 					"<i>". _("Everybody") ."</i>",
@@ -59,7 +58,7 @@ if (!empty($apply)) {
 	$gallery->album->fields["poll_orientation"] = $poll_orientation;
 	$gallery->album->save(array(i18n("Poll properties change")));
 
-	if (getRequestVar('setNested')) {
+	if (isset($setNested)) {
 		$gallery->album->setNestedPollProperties();
        	}
 	reload();
@@ -72,16 +71,17 @@ doctype();
   <title><?php echo _("Poll Properties") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Poll Properties"); ?></div>
-<div class="popup" align="center">
+<body>
+
+<center>
+<p class="popuphead"><?php echo _("Poll Properties"); ?></p>
 <?php
 if (! empty($error)) {
-	echo "<p>". gallery_error($error) . "</p>";
+	echo "<\p>". gallery_error($error) . "</p>";
 }
 	echo makeFormIntro("poll_properties.php", 
-			array("name" => "theform", "method" => "POST"),
-			array("type" => "popup")); ?>
+			array("name" => "theform", 
+				"method" => "POST")); ?>
 <table border="0">
 <tr>
 	<td><?php echo _("Type of poll for this album") ?></td>
@@ -117,8 +117,8 @@ if (! empty($error)) {
 
 <table border="0">
 <tr>
-	<td><?php echo _("Displayed Value"); ?></td>
-	<td><?php echo _("Points"); ?></td>
+	<td><?php echo _("Displayed Value") ?></td>
+	<td>Points</td>
 </tr>
 <?php
 $nv_pairs=$gallery->album->getVoteNVPairs();
@@ -134,7 +134,7 @@ for ($i=0; $i<$gallery->album->getPollScale() ; $i++) {
 </table>
 
 <p>
-<input type="checkbox" name="setNested" value="1" class="popup"><?php echo _("Apply values to nested albums.") ?>
+<input type="checkbox" name="setNested" value="1" class="popup"><?php echo _("Apply values to nested Albums.") ?>
 </p>
 
 <input type="submit" name="apply" value="<?php echo _("Apply") ?>">
@@ -142,7 +142,7 @@ for ($i=0; $i<$gallery->album->getPollScale() ; $i++) {
 <input type="submit" value="<?php echo _("Close") ?>" onclick='parent.close()'>
 
 </form>
-</div>
+</center>
 <?php print gallery_validation_link("poll_properties.php"); ?>
 </body>
 </html>

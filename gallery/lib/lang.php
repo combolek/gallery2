@@ -27,26 +27,27 @@
 ** 1.) We can use %s and %d in translation
 ** 2.) We can use a special "none" without modifying the plural definition.
 ** Note: The redundant $count is always needed, when you use %d
-**
-** Example of normal use:
-** pluralize_n2(ngettext("1 car", "5 cars", $numCars), $numCars, _("No cars"));
 */
 function pluralize_n2($singPlu, $count, $none='') {
 	if ($count == 0 && $none != '') {
 		return $none;
 	} else {
+//		echo "\n<br>----";
+//		echo "\nNG $singPlu, C: $count";
 		return sprintf($singPlu, $count);
 	}
 }
 
-
-/* Detect the first Language of users Browser
-** Some Browser only send 2 digits like he or de.
-** This is caught later with the aliases
-*/
 function getBrowserLanguage() {
-	if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
-		$lang = explode (",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+	/* Detect the first Language of users Browser
+	** Some Browser only send 2 digits like he or de.
+	** This is caught later with the aliases
+	*/
+
+	global $HTTP_SERVER_VARS;
+
+	if (isset($HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"])) {
+		$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
 
 		/* Maybe there are some extra infos we dont need, so we strip them. */
 		$spos=strpos($lang[0],";");
@@ -69,15 +70,15 @@ function getBrowserLanguage() {
 	return $browserLang;
 }
 
-
-/*
-** Set Gallery Default:
-** - language
-** - charset
-** - direction
-** - alignment
-*/
 function setLangDefaults($nls) {
+	/*
+	** Set Gallery Default:
+	** - language
+	** - charset
+	** - direction
+	** - alignment
+	*/
+
 	global $gallery;
 
 	$gallery->language 	= 'en_US';
@@ -86,60 +87,47 @@ function setLangDefaults($nls) {
 	$gallery->align		= $nls['default']['alignment'];
 }
 
-/*
-** This function tries to get the languge given by the Environment.
-** if no language is found, or Gallery was not able to get it, NULL is returned.
-*/
 function getEnvLang() {
 
 	global $GALLERY_EMBEDDED_INSIDE_TYPE;
 
+	global $HTTP_SESSION_VARS;			/* Needed for PostNuke 	*/
+	global $HTTP_COOKIE_VARS;			/* Needed for phpNuke 	*/
 	global $board_config;				/* Needed for phpBB2 	*/
 	global $_CONF;					/* Needed for GeekLog	*/
 	global $mosConfig_locale;			/* Needed for Mambo	*/
-	global $currentlang;				/* Needed for CPGNuke	*/
-
-	$envLang = NULL;
 
 	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 		case 'postnuke':
-			if (isset($_SESSION['PNSVlang'])) {
-				$envLang = $_SESSION['PNSVlang'];
+			if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
+				return $HTTP_SESSION_VARS['PNSVlang'];
 			}
 		break;
 
 		case 'phpnuke':
 		case 'nsnnuke':
-			if (isset($_COOKIE['lang'])) {
-				$envLang = $_COOKIE['lang'];
+			if (isset($HTTP_COOKIE_VARS['lang'])) {
+				return $HTTP_COOKIE_VARS['lang'];
 			}
 
 		break;
 
 		case 'phpBB2':
 			if (isset($board_config['default_lang'])) {
-				$envLang = $board_config['default_lang'];
+				return $board_config['default_lang'];
 			}				
 		break;
 
 		case 'GeekLog':
-			/* Note: $_CONF is not a Superglobal ;) */
 			if (isset($_CONF['language'])) {
-				$envLang = $_CONF['language'];
+				return $_CONF['language'];
 			} else if (isset($_CONF['locale'])) {
-				$envLang = $_CONF['locale'];
+				return $_CONF['locale'];
 			}				
 		break;
-
 		case 'mambo':
 			if (isset($mosConfig_locale)){
-				$envLang = $mosConfig_locale;
-			}				
-		break;
-
-		case 'cpgnuke':
-			if (isset($currentlang)){
-				$envLang = $currentlang;
+				return $mosConfig_locale;
 			}				
 		break;
 
@@ -147,9 +135,8 @@ function getEnvLang() {
 			return NULL;
 		break;
 	}
-
-	return $envLang;
 }
+
 
 /*
 ** In some Environments we dont want to allow the user
@@ -169,9 +156,9 @@ function forceStaticLang() {
 }	
 
 function initLanguage($sendHeader=true) {
-	static $languages_initialized = false;
 
 	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
+	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_SESSION_VARS;
 
 	// $locale is *NUKEs locale var
 	global $locale ;
@@ -184,35 +171,36 @@ function initLanguage($sendHeader=true) {
 	// before we do any tests or settings test if we are in mode 0
 	// If so, we skip language settings at all
 
-	// Mode 0 means no Multilanguage at all.
-	if (isset($gallery->app->ML_mode) && $gallery->app->ML_mode == 0 && !$languages_initialized) {
-		// Maybe PHP has no (n)gettext, then we have to substitute _() and ngettext
-		if (!gettext_installed()) {
-			function _($string) {
-				return $string ;
+	if (isset($gallery->app->ML_mode)) {
+		// Mode 0 means no Multilanguage at all.
+		if($gallery->app->ML_mode == 0) {
+			// Maybe PHP has no (n)gettext, then we have to substitute _() and ngettext
+			if (! gettext_installed()) {
+				function _($string) {
+					return $string ;
+				}
 			}
-		}
-		if (!ngettext_installed()) {
-			function ngettext($singular, $quasi_plural,$num=0) {
-                       		if ($num == 1) {
-                               		return $singular;
-	                        } else {
-       		                        return $quasi_plural;
-               		        }
+			if (! ngettext_installed()) {
+				function ngettext($singular, $quasi_plural,$num=0) {
+                        		if ($num == 1) {
+                                		return $singular;
+		                        } else {
+        		                        return $quasi_plural;
+                		        }
+				}
 			}
-		}
 
-		/* Skip rest*/
-		return;
+			/* Skip rest*/
+			return;
+		}
 	}
-
 
 	/* 
 	** Does the user wants a new lanuage ?
 	** This is used in Standalone and *Nuke
 	*/
-	if (isset($_GET['newlang'])) {
-		$newlang=$_GET['newlang'];
+	if (isset($HTTP_GET_VARS['newlang'])) {
+		$newlang=$HTTP_GET_VARS['newlang'];
 	}
 
 	/**
@@ -223,7 +211,7 @@ function initLanguage($sendHeader=true) {
 		/* Gallery is embedded
 
 		/* Gallery can set nukes language.
-		** For phpBB2, GeekLog and Mambo this is not possible, Gallery will always use their language.
+		** For phpBB2 and GeekLog this is not possible, Gallery will always use their language.
 		*/
 		forceStaticLang();
 
@@ -238,7 +226,7 @@ function initLanguage($sendHeader=true) {
 			$gallery->language = getEnvLang();
 		}
 	} else {
-		// We're not embedded.
+		// We're not in Nuke
 		// If we got a ML_mode from config.php we use it
 		// If not we use Mode 2 (Browserlanguage)
 
@@ -273,7 +261,7 @@ function initLanguage($sendHeader=true) {
 				$gallery->browser_language=getBrowserLanguage();
 
 				if (!empty($gallery->user) && $gallery->user->getDefaultLanguage() != "") {
-					$gallery->language = $gallery->user->getDefaultLanguage();
+						$gallery->language = $gallery->user->getDefaultLanguage();
 				} elseif (isset($gallery->browser_language)) {
 					$gallery->language=$gallery->browser_language;
 				}
@@ -335,13 +323,12 @@ function initLanguage($sendHeader=true) {
 	}
 
 	// When all is done do the settings
+	//
 	
 	// There was previously a != SUNOS check around the LANG= line.  We've determined that it was
 	// probably a bogus bug report, since all documentation says this is fine.
 	putenv("LANG=". $gallery->language);
 	putenv("LANGUAGE=". $gallery->language);
-	// This line was added in 1.5-cvs-b190 to fix problems on FreeBSD 4.10
-	putenv("LC_ALL=". $gallery->language);
 
 	// Set Locale
 	setlocale(LC_ALL,$gallery->locale);
@@ -365,16 +352,14 @@ function initLanguage($sendHeader=true) {
 		$bindtextdomain=bindtextdomain($gallery->language. "-gallery_". where_i_am(), dirname(dirname(__FILE__)) . '/locale');
 		textdomain($gallery->language. "-gallery_". where_i_am());
 
-	} elseif (!$languages_initialized) {
+	}  else {
 		emulate_gettext();
 	}
 
 	// We test this separate because ngettext() is only available in PHP >=4.2.0 but _() in all PHP4
-	if (!ngettext_installed() && !$languages_initialized) {
+	if (! ngettext_installed()) {
 		emulate_ngettext();
 	}
-
-	$languages_initialized = true;
 }
 
 
@@ -391,12 +376,11 @@ function getTranslationFile() {
 return $translationfile;
 }
 
-/* Substitute ngettext function
-** NOTE: this is the first primitive Step !!
-** It fully ignores the plural definition !!
-*/
 function emulate_ngettext() {
-
+	// Substitute ngettext function
+	/* NOTE: this is the first primitive Step !!
+	   It fully ignores the plural definition !!
+	*/
 
 	global $translation;
 	global $gallery;
@@ -620,10 +604,6 @@ function gallery_htmlentities($string) {
 function unhtmlentities ($string) {
 	global $gallery;
 
-	if (empty($string)) {
-		return "";
-	}
-
 	if (function_exists('html_entity_decode')) {
 		$nls=getNLS();
 		if (isset ($nls['charset'][$gallery->language])) {
@@ -671,9 +651,10 @@ function translateableFields() {
 	return array(
 		'Title'		=> _("Title"),
 		'Description'	=> _("Description"),
-		'description'	=> _("description"),
 		'AltText'	=> _("Alt Text / onMouseOver")
 	);
 }
+
+
 
 ?>

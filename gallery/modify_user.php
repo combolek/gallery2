@@ -22,16 +22,10 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($save, $old_uname, $uname, $new_password1, $new_password2, $fullname, $cancel) = 
-	getRequestVar(array('save', 'old_uname', 'uname', 'new_password1', 'new_password2', 'fullname', 'cancel'));
-
-list($email, $defaultLanguage, $canCreate, $isAdmin) = 
-	getRequestVar(array('email', 'defaultLanguage', 'canCreate', 'isAdmin'));
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 $errorCount=0;
@@ -130,9 +124,12 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
   <title><?php echo _("Modify User") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Modify User") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Modify User") ?></p>
+
+<div class="popup">
 <?php echo _("You can change any information about the user using this form.") ?>
 
 <br>
@@ -152,6 +149,7 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
 </div>
+</center>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--
@@ -161,6 +159,5 @@ document.usermodify_form.uname.focus();
 </script>
 
 <?php print gallery_validation_link("modify_user.php"); ?>
-
 </body>
 </html>

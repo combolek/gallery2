@@ -59,7 +59,6 @@ A:hover	{ color: #C0C0C0; }
 	}
 .mod_title_bg	/* album title hightlight Text is controled by .title */ 
 	{ 
-	  direction: ltr;
 	  background-image: url(../images/mod_toplight_bg.jpg);
 	  height: 28px;
 	}
@@ -146,7 +145,6 @@ A:hover	{ color: #C0C0C0; }
 	}
 .mod_toplight_bg  /* Gallery & Album titles. Text is controled by .head */ 
 	{ 
-	  direction: ltr;
 	  background-image: url(../images/mod_toplight_bg.jpg);
 	  height: 28px;
 	}
@@ -327,47 +325,3 @@ A:hover	{ color: #C0C0C0; }
 	  color: #C0C0C0;
 	  text-decoration: none;
 	}
-
-.pview /* brackets both the image and all text in one frame */
-{
-	margin:7px;
-	padding: 7px;
- }
-
-.pcaption /* brackets all text below photo */
-{ 
-	padding:2px;
-	margin-top:2px;
- }
-
-.presults /* text for poll results under photo  */
- {
- }
-
-.vatable /* width of the div set for all photo sets - view albums  */
- { 
- 	width: 100%;
- }
-
-.vathumbs /* full background bracket for images and text - veiw albums  */
- { 
-	margin:17px;
- }
-
-.vafloat /* float for view album - text */
- {
-	float: none; 
- }
-
-.vafloat2 /* float for view album - images */
- {
- 	float: none; 
- }
-
-.vasummary /* controls the view of Album summary */
-{
-        font-weight:bold;
-        padding:2px;
-        margin-top:10px;
-        width:80%;
-}

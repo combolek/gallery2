@@ -86,7 +86,7 @@ foreach ($constants as $key => $val) {
 				isset($gallery->app->$key)) {
 			$val["value"] = $gallery->app->$key;
 		}
-		elseif (is_array($val["value"])) {
+		else if (is_array($val["value"])) {
 			$key=$key."[]";
 			$val["value"]=$val["value"][0];
 		}
@@ -112,8 +112,8 @@ foreach ($constants as $key => $val) {
 
 		if (!isset($go_defaults)) {
 			if (ereg("^(..*)\[.*\]$", $key, $matches)) {
-				if (isset ($gallery->session->configForm->$key)) {
-					$val['value'] = $gallery->session->configForm->$key;
+				if (isset ($$key)) {
+					$val['value'] = $$key;
 				}
 
 				unset($preserve[$key]);
@@ -121,8 +121,8 @@ foreach ($constants as $key => $val) {
 				unset($onThisPage[$key]);
 				$onThisPage[$matches[1]] = 1;
 			}
-			else if(isset($gallery->session->configForm->$key)) {
-				$val["value"] = $gallery->session->configForm->$key;
+			else if( isset($$key)) {
+				$val["value"] = $$key;
 	
 			}
 			if (get_magic_quotes_gpc()) {
@@ -137,17 +137,12 @@ foreach ($constants as $key => $val) {
 		}
 
 		// Protect quote characters to avoid screwing up HTML forms
-		if (isset($val['value'])) {
-			$val['value'] = str_replace('"', '&quot;', $val['value']);
-		}
-		else {
-			$val['value'] = '';
-                }
+		$val["value"] = str_replace('"', "&quot;", $val["value"]);
 	
 		echo evenOdd_row(make_fields($key, $val), $i++ % 2);
 	}
 
-	if (isset($val['type']) && ($val['type'] === 'hidden')) {
+	if (isset($val["type"]) && ($val["type"] === "hidden")) {
 	} else {
 		echo "\n</table>";
 	}

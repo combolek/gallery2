@@ -22,13 +22,11 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($save, $field, $data) = getRequestVar(array('save', 'field', 'data'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -49,31 +47,36 @@ if (isset($save)) {
   <title><?php echo sprintf(_("Edit %s"), _($field)) ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo sprintf(_("Edit %s"), _($field)) ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo sprintf(_("Edit %s"), _($field)) ?></p>
+<div class="popup">
 <?php 
 	echo sprintf(_("Edit the %s and click %s when you're done"), _($field), '<b>' . _("Save") . '</b>');
 
-	echo makeFormIntro("edit_field.php", 
-		array("name" => "theform", "method" => "POST"),
-		array("type" => "popup")); 
+	echo makeFormIntro("edit_field.php", array(
+		"name" => "theform",
+		"method" => "POST")); 
 ?>
-	<input type="hidden" name="field" value="<?php echo $field ?>">
-	<textarea name="data" rows="8" cols="50"><?php echo $gallery->album->fields[$field] ?></textarea>
-	<p>
-		<input type="submit" name="save" value="<?php echo _("Save") ?>">
-		<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-	</p>
-	</form>
+<input type="hidden" name="field" value="<?php echo $field ?>">
+<textarea name="data" rows="8" cols="55">
+<?php echo $gallery->album->fields[$field] ?>
+</textarea>
+<p>
+<input type="submit" name="save" value="<?php echo _("Save") ?>">
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+</form>
 
-	<script language="javascript1.2" type="text/JavaScript">
-	<!--   
-	// position cursor in top form field
-	document.theform.data.focus();
-	//-->
-	</script>
+<script language="javascript1.2" type="text/JavaScript">
+<!--   
+// position cursor in top form field
+document.theform.data.focus();
+//-->
+</script>
+
 </div>
+</center>
 <?php print gallery_validation_link("edit_field.php",true,array('field' => $field)); ?>
 </body>
 </html>

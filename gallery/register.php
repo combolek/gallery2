@@ -24,12 +24,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php'); 
-
-list($formaction, $create, $cancel) = getRequestVar(array('formaction', 'create', 'cancel'));
-list($uname, $old_password, $new_password1, $new_password2) = getRequestVar(array('uname', 'old_password', 'new_password1', 'new_password2'));
-list($fullname, $email, $send_email, $defaultLanguage) = getRequestVar(array('fullname', 'email', 'send_email', 'defaultLanguage'));
-
+require(dirname(__FILE__) . '/init.php'); 
 doctype();
 ?>
 <html>
@@ -37,16 +32,18 @@ doctype();
   <title><?php echo sprintf(_("Create User for %s."), $gallery->app->galleryTitle) ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo sprintf(_("Create User for %s."), $gallery->app->galleryTitle) ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<span class="popuphead"><?php echo sprintf(_("Create User for %s."), $gallery->app->galleryTitle) ?></span>
+<br>
+<br>
 <?php if ($gallery->app->selfReg != 'yes' || $gallery->app->emailOn == 'no') { ?>
 	<p>
 	<?php echo _("This Gallery does not support self-registration by visitors.") ?>
 	<br><br>
 	<form> <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'> </form>
-	</div>
-	</div>
+	</center>
 	</body>
 	</html>
 <?php
@@ -64,7 +61,7 @@ $allowChange["send_email"] = false;
 $allowChange["member_file"] = false;
 
 $errorCount=0;
-if (!empty($formaction) && $formaction =='create') {
+if (!empty($action) && $action =='create') {
 	// Security check.
 	$uname = removeTags($uname);
 
@@ -137,8 +134,8 @@ include(dirname(__FILE__) . '/html/userData.inc');
 <p>
 <?php echo _("Your account information will be sent to the email address you provide.") ?>
 <br><br>
-<input type="hidden" name="formaction" value ="">
-<input type="submit" name="create" value="<?php echo _("Create") ?>" onclick="usercreate_form.formaction.value ='create'">
+<input type="hidden" name="action" value ="">
+<input type="submit" name="create" value="<?php echo _("Create") ?>" onclick="usercreate_form.action.value ='create'">
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <script language="javascript1.2" type="text/JavaScript">
@@ -147,9 +144,7 @@ include(dirname(__FILE__) . '/html/userData.inc');
 document.usercreate_form.uname.focus();
 //--> 
 </script>
-</div>
-
+</center>
 <?php print gallery_validation_link("register.php"); ?>
-
 </body>
 </html>

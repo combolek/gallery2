@@ -22,13 +22,22 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
-list($page,$votes, $Vote) = getRequestVar(array('page','votes','Vote'));
+//Prevent error
+if (!$gallery->session->albumName) {
+	header("Location: " . makeAlbumHeaderUrl());
+	return;
+}
 
-// Hack check and prevent errors
-if (empty($gallery->session->albumName) || !$gallery->user->canReadAlbum($gallery->album) || !$gallery->album->isLoaded()) {
-	header("Location: " . makeAlbumHeaderUrl('', '', array('gRedir' => 1)));
+// Hack check
+if (!$gallery->user->canReadAlbum($gallery->album)) {
+	header("Location: " . makeAlbumHeaderUrl());
+	return;
+}
+
+if (!$gallery->album->isLoaded()) {
+	header("Location: " . makeAlbumHeaderUrl());
 	return;
 }
 
@@ -78,16 +87,21 @@ if ($previousPage == 0) {
 	$first = 1;
 }
 
+
 if (!empty($Vote)) {
-	if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() != "rank") {
-		for ($index=$start; $index < $start+$perPage; $index ++) {
-			$id=$gallery->album->getPhotoId($index);
-			if (!$votes[$id]) {
-				$votes[$id]=null;
-			}
-		}
-	}
-	saveResults($votes);
+       if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() != "rank")
+       {
+               for ($index=$start; $index < $start+$perPage; $index ++)
+               {
+		       $id=$gallery->album->getPhotoId($index);
+		       if (!$votes[$id])
+                       {
+			       $votes[$id]=null;
+                       }
+
+               }
+       }
+       saveResults($votes);
 }
 
 $bordercolor = $gallery->album->fields["bordercolor"];
@@ -104,54 +118,72 @@ $navigator["spread"] = 5;
 $navigator["bordercolor"] = $bordercolor;
 
 $fullWidth = $navigator["fullWidth"] . $navigator["widthUnits"];
-$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" ' .
-		'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+$breadCount = 0;
+$breadtext = array();
+$pAlbum = $gallery->album;
+$depth=0;
+$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+do {
+  if (!strcmp($pAlbum->fields["returnto"], "no")) {
+    break;
+  }
+  $depth++;
+  $pAlbumName = $pAlbum->fields['parentAlbumName'];
+  if ($pAlbumName && (!$gallery->session->offline 
+     || isset($gallery->session->offlineAlbums[$pAlbumName]))) {
+	$pAlbum = new Album();
+	$pAlbum->load($pAlbumName);
+	$breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($pAlbumName) . 
+	"\">" . $pAlbum->fields['title'] . "&nbsp;" . $upArrowURL . "</a>";
+  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+	//-- we're at the top! --- 
+	$breadtext[$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . 
+	"\">" . $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
+	$pAlbumName = '';
+  } 
+  elseif ($gallery->session->offline) {	// test is redundant.  offline must be 
+  					// true if you reach this line.
+	break; 
+  }
 
-if ($gallery->album->fields['returnto'] != 'no') {
-	$breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" . 
-		$gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
-	foreach ($gallery->album->getParentAlbums() as $name => $title) {
-		$breadcrumb["text"][] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($name) . "\">" . 
-			$title. "&nbsp;" . $upArrowURL . "</a>";
-	}
+  $breadCount++;
+} while ($pAlbumName && $depth < $gallery->app->maximumAlbumDepth);
+
+//-- we built the array backwards, so reverse it now ---
+for ($i = count($breadtext) - 1; $i >= 0; $i--) {
+	$breadcrumb["text"][] = $breadtext[$i];
 }
-
 $breadcrumb["bordercolor"] = $bordercolor;
 
-global $GALLERY_EMBEDDED_INSIDE;
 if (!$GALLERY_EMBEDDED_INSIDE) {
 	doctype();
 ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?></title>
-  <?php common_header();
-  /* RSS */
-  if ($gallery->app->rssEnabled == "yes" && !$gallery->session->offline) { ?>
-  <link rel="alternate" title="<?php echo sprintf(_("%s RSS"), $gallery->app->galleryTitle . " :: " . $gallery->album->fields["title"]) ?>" href="<?php echo $gallery->app->photoAlbumURL . "/rss.php?set_albumName=" . $gallery->album->fields["name"] ?>" type="application/rss+xml">
-  <?php
-  }
-  /* prefetching/navigation */
+  <?php common_header(); ?>
+
+  <?php /* prefetching/navigation */
   if (!isset($first)) { ?>
-  <link rel="first" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => 1)) ?>" >
-  <link rel="prev" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $previousPage)) ?>" >
-<?php }
+      <link rel="first" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => 1)) ?>" >
+      <link rel="prev" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $previousPage)) ?>" >
+  <?php }
   if (!isset($last)) { ?>
-  <link rel="next" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $nextPage)) ?>" >
-  <link rel="last" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $maxPages)) ?>" >
-<?php } if ($gallery->album->isRoot() && 
+      <link rel="next" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $nextPage)) ?>" >
+      <link rel="last" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $maxPages)) ?>" >
+  <?php } if ($gallery->album->isRoot() && 
   	(!$gallery->session->offline || 
 	 isset($gallery->session->offlineAlbums["albums.php"]))) { ?>
   <link rel="up" href="<?php echo makeAlbumUrl(); ?>" >
-<?php
+      <?php
       } else if (!$gallery->session->offline || 
 	 isset($gallery->session->offlineAlbums[$pAlbum->fields['parentAlbumName']])) { ?>
   <link rel="up" href="<?php echo makeAlbumUrl($gallery->album->fields['parentAlbumName']); ?>" >
-<?php } 
+  <?php } 
   	if (!$gallery->session->offline || 
 	 isset($gallery->session->offlineAlbums["albums.php"])) { ?>
   <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" >
-<?php } ?>
+  <?php } ?>
   <style type="text/css">
 <?php
 // the link colors have to be done here to override the style sheet 
@@ -228,7 +260,6 @@ function showChoice($label, $target, $args, $class="") {
     if (empty($args['set_albumName'])) {
 	$args['set_albumName'] = $gallery->session->albumName;
     }
-    $args['type'] = 'popup';
     echo "\t<option class=\"$class\" value='" . makeGalleryUrl($target, $args) . "'>$label</option>\n";
 }
 
@@ -273,12 +304,12 @@ $adminOptions = array(
 									array('set_albumName' => $gallery->session->albumName, 
 										'type' => 'popup'))),
 		      'rename_album'    => array('name' => _('rename album'),
-						 'requirements' => array('isAdminOrAlbumOwner'),
+						 'requirements' => array('isAlbumOwner'),
 						 'action' => 'popup',
 						 'value' => makeGalleryUrl('rename_album.php',
 								array('set_albumName' => $gallery->session->albumName,
 									'type' => 'popup',
-									'useLoad' => 1))),
+									'index' => $i, 'useLoad' => 1))),
 		      'nested_album'    => array('name' => _('new nested album'),
 						 'requirements' => array('canCreateSubAlbum',
 									 'notOffline'),
@@ -319,9 +350,8 @@ $adminOptions = array(
 									 'photosExist'),
 						 'action' => 'popup',
 						 'value' => doCommand('remake-thumbnail',
-								      array('set_albumName' => $gallery->session->albumName,
-									'index' => 'all', 'type' => 'popup'),
-									'view_album.php')),
+								      array('set_albumName' => $gallery->session->albumName, 'index' => 'all'),
+								      'view_album.php')),
 		      'properties'      => array('name' => _('properties'),
 						 'requirements' => array('canWriteToAlbum'),
 						 'action' => 'popup',
@@ -345,7 +375,7 @@ $adminOptions = array(
 						 'action' => 'url',
 						 'value' => makeGalleryUrl('poll_results.php',
 								array('set_albumName' => $gallery->session->albumName,
-									))),
+									'type' => 'popup'))),
 		      'poll_reset'      => array('name' => _('poll reset'),
 						 'requirements' => array('isAdminOrAlbumOwner'),
 						 'action' => 'popup',
@@ -405,67 +435,69 @@ $adminCommands = '';
 $adminJSFrame = '';
 /* build up drop-down menu and related javascript */
 if (!empty($adminOptionHTML)) {
-	$adminJSFrame .= "<script language=\"javascript1.2\" type=\"text/JavaScript\">\n"
-	  . "adminOptions = new Object;\n"
-	  . $adminJavaScript
-	  . "\nfunction execAdminOption() {\n"
-	  . "\tkey = document.forms.admin_options_form.admin_select.value;\n"
-	  . "\tdocument.forms.admin_options_form.admin_select.selectedIndex = 0;\n"
-	  . "\tdocument.forms.admin_options_form.admin_select.blur();\n"
-	  . "\tswitch (adminOptions[key].action) {\n"
-	  . "\tcase 'popup':\n"
-	  . "\t\tnw = window.open(adminOptions[key].value, 'Edit', 'height=500,width=600,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes');\n"
-	  . "\t\tnw.opener=self;\n"
-	  . "\t\tbreak;\n"
-	  . "\tcase 'url':\n"
-	  . "\t\tdocument.location = adminOptions[key].value;\n"
-	  . "\t\tbreak;\n"
-	  . "\t}\n"
-	  . "}\n"
-	  . "</script>\n\n";
+    $adminJSFrame .= "<script language=\"javascript1.2\" type=\"text/JavaScript\">\n"
+	    . "adminOptions = new Object;\n"
+	    . $adminJavaScript
+	    . "\nfunction execAdminOption() {\n"
+	    . "\tkey = document.forms.admin_options_form.admin_select.value;\n"
+	    . "\tswitch (adminOptions[key].action) {\n"
+	    . "\tcase 'popup':\n"
+	    . "\t\tnw = window.open(adminOptions[key].value, 'Edit', 'height=500,width=600,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes');\n"
+	    . "\t\tnw.opener=self;\n"
+	    . "\t\tbreak;\n"
+	    . "\tcase 'url':\n"
+	    . "\t\tdocument.location = adminOptions[key].value;\n"
+	    . "\t\tbreak;\n"
+	    . "\t}\n"
+	    . "\tdocument.forms.admin_options_form.admin_select.selectedIndex = 0;\n"
+	    . "\tdocument.forms.admin_options_form.admin_select.blur();\n"
+	    . "}\n"
+	    . "</script>\n\n";
     
-	$iconElements[] = "\n\t<select class=\"adminform\" name=\"admin_select\" onChange=\"execAdminOption()\">\n"
-	  . "\t\t<option value=\"\">&laquo; " . _('admin options') . " &raquo;</option>\n"
-	  . $adminOptionHTML
-	  . "\t</select>\n";
+    $adminCommands .= "\n\t<select class=\"adminform\" name=\"admin_select\" onChange=\"execAdminOption()\">\n";
+    $adminCommands .= "\t\t<option value=\"\">&laquo; " . _('admin options') . " &raquo;</option>\n";
+    $adminCommands .= $adminOptionHTML;
+    $adminCommands .= "\t</select>\n";
 }
 
-if ($gallery->album->fields["slideshow_type"] != "off" && 
-      ($numPhotos != 0 || ($numVisibleItems != 0 && $gallery->album->fields['slideshow_recursive'] == "yes"))) {
-	$iconText = getIconText('display.gif', _("slideshow"));
-	$iconElements[] = '<a href="'
-	  . makeGalleryUrl("slideshow.php",
-	    array("set_albumName" => $albumName)) .'">'. $iconText .'</a>';
+$userCommands = '';
+if ($gallery->album->fields["slideshow_type"] != "off" && ($numPhotos != 0 || ($numVisibleItems != 0 && $gallery->album->fields['slideshow_recursive'] == "yes"))) {
+       	$userCommands .= "<a class=\"admin\" href=\"" . 
+	       	makeGalleryUrl("slideshow.php",
+			       	array("set_albumName" => $albumName)) .
+	      	'">['. _("slideshow") ."]</a>&nbsp;";
 }
 
 /* User is allowed to view ALL comments */
-if ( ($gallery->app->comments_enabled == 'yes' && $gallery->album->lastCommentDate("no") != -1) &&
-	((isset($gallery->app->comments_overview_for_all) && $gallery->app->comments_overview_for_all == "yes") ||
-	$gallery->user->canViewComments($gallery->album))) {
-		$iconText = getIconText('showcomment.gif', _("view&nbsp;comments"));
-                $iconElements[] = '<a href="'. 
-			makeGalleryUrl("view_comments.php",
-			  array("set_albumName" => $gallery->session->albumName)) . '">'. $iconText .'</a>';
+if (isset($gallery->app->comments_overview_for_all) && $gallery->app->comments_overview_for_all == "yes"
+	&& $gallery->user->canViewComments($gallery->album)
+	&& ! $gallery->user->isAdmin()
+	&& ! $gallery->user->isOwnerOfAlbum($gallery->album)
+        && ($gallery->app->comments_enabled == 'yes')
+        && ($gallery->album->lastCommentDate("no") != -1)) {
+                $userCommands .= "\n\t". '<a href="'. makeGalleryUrl("view_comments.php", array("set_albumName" => $gallery->session->albumName)) . '">' .
+                        '[' . _("view&nbsp;comments") . ']</a>';
 }
 
 if (!$GALLERY_EMBEDDED_INSIDE && !$gallery->session->offline) {
 	if ($gallery->user->isLoggedIn()) {
-		$iconText = getIconText('exit.gif', _("logout"));
-		$iconElements[] = '<a href="'. 
-		  doCommand("logout", array(), "view_album.php", 
-		    array("page" => $page)) .'">'. $iconText .'</a>';
+	        $userCommands .= "<a class=\"admin\" href=\"" .
+					doCommand("logout", array(), "view_album.php", array("page" => $page)) .
+				  "\">[" . _("logout") . "]</a>\n";
 	} else {
-		$iconText = getIconText('identity.gif', _("login"));
-		$iconElements[] = popup_link($iconText, "login.php", false, true, 500, 500);
+		$userCommands .= popup_link("[". _("login") ."]", "login.php", false, true, 500, 500, 'admin') . "\n";
 	} 
 }
 
 $adminbox["text"] = $adminText;
-$adminbox["commands"] =	$adminCommands . makeIconMenu($iconElements);
+$adminbox["commands"] =	"<span class =\"admin\">" .  $adminCommands . 
+			$userCommands .  "</span>";
 $adminbox["bordercolor"] = $bordercolor;
+$adminbox["top"] = true;
 
 if (!empty($adminOptionHTML)) {
     print $adminJSFrame;
+    print "<form name=\"admin_options_form\" action=\"view_album.php\">\n";
 }
 includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
@@ -475,7 +507,7 @@ includeLayout('adminbox.inc');
 <?php
 $breadcrumb["top"] = true;
 $breadcrumb['bottom'] = false;
-if (!empty($breadcrumb["text"])) {
+if ($breadCount) {
 	includeLayout('navtablemiddle.inc');
 	includeLayout('breadcrumb.inc');
 }
@@ -483,6 +515,9 @@ includeLayout('navtablemiddle.inc');
 includeLayout('navigator.inc');
 includeLayout('navtableend.inc');
 
+if (!empty($adminOptionHTML)) {
+    print "</form>\n";
+}
 
 #-- if borders are off, just make them the bgcolor ----
 $borderwidth = $gallery->album->fields["border"];
@@ -490,40 +525,44 @@ if ($borderwidth == 0) {
 	$bordercolor = $gallery->album->fields["bgcolor"];
 	$borderwidth = 1;
 }
-
-if ($page == 1 && !empty($gallery->album->fields["summary"])) {
-	echo '<div align="center"><p class="vasummary">'. $gallery->album->fields["summary"] . '</p></div>';
-}
-
-if (($gallery->album->getPollType() == "rank") && canVote()) {
-	echo '<div align="left" class="vapoll">';
-	$my_choices=array();
-	if ( $gallery->album->fields["votes"]) {
-		foreach ($gallery->album->fields["votes"] as $id => $image_votes) {
-			$index=$gallery->album->getIndexByVotingId($id);
-			if ($index < 0) {
-				// image has been deleted!
-				unset($gallery->album->fields["votes"][$id]);
-				continue;
-			}
-			if (isset($image_votes[getVotingID()])) {
-				$my_choices[$image_votes[getVotingID()]] = $id;
-			}
+if (($gallery->album->getPollType() == "rank") && canVote())
+{
+        $my_choices=array();
+        if ( $gallery->album->fields["votes"])
+	{
+	    foreach ($gallery->album->fields["votes"] as $id => $image_votes)
+            {
+		$index=$gallery->album->getIndexByVotingId($id);
+		if ($index < 0)
+		{
+			// image has been deleted!
+			unset($gallery->album->fields["votes"][$id]);
+			continue;
 		}
+
+                if (isset($image_votes[getVotingID()]))
+                {
+			$my_choices[$image_votes[getVotingID()]] = $id;
+                }
+            }
 	}
-	if (sizeof($my_choices) == 0
-		&& $gallery->album->getVoterClass() ==  "Logged in") {
+        if (sizeof($my_choices) == 0
+		&& $gallery->album->getVoterClass() ==  "Logged in")
+        {
 		print _("You have no votes recorded for this poll."). '<br>';
-	}
-	else if (sizeof($my_choices) > 0) {
-		ksort($my_choices);
-		print _("Your current choices are");
-		print "<table>\n";
-		$nv_pairs=$gallery->album->getVoteNVPairs();
-		foreach ($my_choices as $key => $id) {
-			print "<tr><td>". 
-				$nv_pairs[$key]["name"].
-				":</td>\n";
+
+        }
+        else if (sizeof($my_choices) > 0)
+        {
+                ksort($my_choices);
+                print _("Your current choices are");
+                print "<table>\n";
+                $nv_pairs=$gallery->album->getVoteNVPairs();
+		foreach ($my_choices as $key => $id)
+                {
+                        print "<tr><td>".
+                                $nv_pairs[$key]["name"].
+                                ":</td>\n";
 			$index=$gallery->album->getIndexByVotingId($id);
 			if ($gallery->album->isAlbum($index)) {
 				$albumName = $gallery->album->getAlbumName($index);
@@ -544,59 +583,66 @@ if (($gallery->album->getPollType() == "rank") && canVote()) {
                         	print  $desc;
 			       	print  "</a></td></tr>\n";
 			}
-		}
-		print "</table>\n";
-	}
-	echo '</div>';
+                }
+                print "</table>\n";
+        }
+
 }
 $results=1;
-if ($gallery->album->getPollShowResults()) {
-	echo '<div align="left" class="vapoll">';
-	list($buf, $results)=showResultsGraph( $gallery->album->getPollNumResults());
+if ($gallery->album->getPollShowResults())
+{
+        list($buf, $results)=showResultsGraph( $gallery->album->getPollNumResults());
 	print $buf;
-	if ($results) {
-		print "\n". '<a href="' . makeGalleryUrl("poll_results.php",
-		array("set_albumName" => $gallery->session->albumName)).
+       	if ($results)
+       	{
+	       	print "\n". '<a href="' . makeGalleryUrl("poll_results.php",
+	       	array("set_albumName" => $gallery->session->albumName)).
 		      	'">' ._("See full poll results") . '</a><br>';
-	}
-	echo '</div>';
+       	}
 }
 
 echo makeFormIntro("view_album.php",
-	       	array("name" => "vote_form", "method" => "POST", "style" => "margin-bottom: 0px;"));
-if (canVote()) { 
-	echo '<div align="left" class="vapoll">';
- 	$nv_pairs=$gallery->album->getVoteNVPairs();
- 	if ($gallery->album->getPollScale()==1) {
-		$options = $nv_pairs[0]["name"];
-	}
- 	else {
-		/* note to translators:
-		** This produces (in English) a list of the form: "a, b, c or d".  Correct translation
-		** of ", " and " or  " should produce a version that makes sense in your language.
-		*/
-		$options = "";
-		for ($count=0; $count < $gallery->album->getPollScale()-2 ; $count++) {
-			$options .= $nv_pairs[$count]["name"]._(", ");
-		}
-		$options .= $nv_pairs[$count++]["name"]._(" or ");  
-		$options .= $nv_pairs[$count]["name"];
-	}
-	print '<span class="attention">';
-	print sprintf(_("To vote for an image, click on %s."), $options);
-	print "  ".sprintf(_("You MUST click on %s for your vote to be recorded."), 
-		"<b>"._("Vote")."</b>");
-	if ($gallery->album->getPollType() == "rank") {
-		$voteCount=$gallery->album->getPollScale();
-		print "  ".
-		sprintf(_("You have a total of %s and can change them if you wish."), 
-			pluralize_n2(ngettext("1 vote", "%d votes", $voteCount), $voteCount));
-	}
- 	else {
-		print "  "._("You can change your choices if you wish.");
- 	}
-	echo "</span></p>";
-?>
+	       	array("name" => "vote_form", "method" => "POST"));
+if (canVote())
+{ 
+ 		$nv_pairs=$gallery->album->getVoteNVPairs();
+ 		if ($gallery->album->getPollScale()==1)
+ 		{
+ 			$options = $nv_pairs[0]["name"];
+ 		}
+ 		else
+ 		{
+			/* note to translators:
+			   This produces (in English) a list of the form: "a, b, c or d".  Correct translation
+			   of ", " and " or  " should produce a version that makes sense in your language.
+			   */
+			$options = "";
+ 			for ($count=0; $count < $gallery->album->getPollScale()-2 ; $count++)
+ 			{
+ 				$options .= $nv_pairs[$count]["name"]._(", ");
+ 			}
+ 			$options .= $nv_pairs[$count++]["name"]._(" or ");  
+ 			$options .= $nv_pairs[$count]["name"];
+ 			
+ 		}
+		print '<span class="attention">';
+		print sprintf(_("To vote for an image, click on %s."), $options);
+ 		print "  ".sprintf(_("You MUST click on %s for your vote to be recorded."), 
+				"<b>"._("Vote")."</b>");
+ 		if ($gallery->album->getPollType() == "rank") {
+			$voteCount=$gallery->album->getPollScale();
+			print "  ".
+				sprintf(_("You have a total of %s and can change them if you wish."), 
+					pluralize_n2(ngettext("1 vote", "%d votes", $voteCount), $voteCount)) .
+				'</span><p>';
+ 		}
+ 		else
+ 		{
+ 		    print "  "._("You can change your choices if you wish."). "</span><p>";
+ 			
+ 		}
+
+ ?>
    <script language="javascript1.2" type="text/JavaScript">
  function chooseOnlyOne(i, form_pos, scale)
  {
@@ -609,9 +655,6 @@ if (canVote()) {
      }
  }
    </script>
-
-   </div>
-
 <?php if (canVote()) { ?>
 	<div align="center">
  		<input type=submit name="Vote" value="<?php print _("Vote") ?>">
@@ -619,12 +662,17 @@ if (canVote()) {
 <?php }
 }
 ?>
+<?php
+if ($page == 1)
+{
+        print $gallery->album->fields["summary"];
+} ?>
+
 <!-- image grid table -->
-<table border="0" cellspacing="5" cellpadding="0" width="100%" class="vatable" align="center">
+<table width="<?php echo $fullWidth ?>" border="0" cellspacing="0" cellpadding="7">
 <?php
 $numPhotos = $gallery->album->numPhotos(1);
 $displayCommentLegend = 0;  // this determines if we display "* Item contains a comment" at end of page
-
 if ($numPhotos) {
 	$rowCount = 0;
 
@@ -642,13 +690,18 @@ if ($numPhotos) {
 		$printTableRow = false;
 		if ($j <= $cols && $i <= $numPhotos) {
 			$printTableRow = true;
+			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
+			echo("<td>");
+			includeHtmlWrap("inline_albumthumb.header");
+			echo("</td>");
 			$j++; 
 			$visibleItemIndex++;
 			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
+			echo('</tr>');
 		}
 
 		/* Do the picture row */
@@ -659,15 +712,12 @@ if ($numPhotos) {
 			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td align=\"center\" valign=\"top\" class=\"vathumbs\">\n");
+			echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 
 			//-- put some parameters for the wrap files in the global object ---
 			$gallery->html_wrap['borderColor'] = $bordercolor;
-			$borderwidth= $gallery->html_wrap['borderWidth'] = $borderwidth;
+			$gallery->html_wrap['borderWidth'] = $borderwidth;
 			$gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
-
-
-
 			if ($gallery->album->isAlbum($i)) {
 				$scaleTo = 0; //$gallery->album->fields["thumb_size"];
 				$myAlbum = $gallery->album->getNestedAlbum($i);
@@ -684,66 +734,73 @@ if ($numPhotos) {
 			if ($iHeight == 0) {
 			    $iHeight = 100;
 			}
-			
 			$gallery->html_wrap['imageWidth'] = $iWidth;
 			$gallery->html_wrap['imageHeight'] = $iHeight;
 
 			$id = $gallery->album->getPhotoId($i);
 			if ($gallery->album->isMovieByIndex($i)) {
 				$gallery->html_wrap['imageTag'] = $gallery->album->getThumbnailTag($i);
-				$gallery->html_wrap['imageHref'] = makeAlbumUrl($gallery->session->albumName, $id);
-				$frame= $gallery->html_wrap['frame'] = $gallery->album->fields['thumb_frame'];
+				$gallery->html_wrap['imageHref'] = $gallery->album->getPhotoPath($i);
+				$gallery->html_wrap['frame'] = $gallery->album->fields['thumb_frame'];
 			       	/*begin backwards compatibility */
-				       	$gallery->html_wrap['thumbTag']	= $gallery->html_wrap['imageTag'];
-				       	$gallery->html_wrap['thumbHref'] = $gallery->html_wrap['imageHref'];
+			       	$gallery->html_wrap['thumbTag'] = 
+					$gallery->html_wrap['imageTag'];
+			       	$gallery->html_wrap['thumbHref'] = 
+					$gallery->html_wrap['imageHref'];
 				/*end backwards compatibility*/
-				list($divCellWidth,$divCellHeight, $padding) = calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth);
-				echo "<div style=\"padding-top: {$padding}px; padding-bottom:{$padding}px; width: {$divCellWidth}px; height: {$divCellHeight}px;\" align=\"center\" class=\"vafloat2\">\n";
-
 				includeHtmlWrap('inline_moviethumb.frame');
 			} elseif (isset($myAlbum)) {
 				// We already loaded this album - don't do it again, for performance reasons.
 				
 				$gallery->html_wrap['imageTag'] = $myAlbum->getHighlightTag($scaleTo,'',_("Highlight for Album:"). " ". gallery_htmlentities(removeTags($myAlbum->fields['title'])));
 				$gallery->html_wrap['imageHref'] = makeAlbumUrl($gallery->album->getAlbumName($i));
-				$frame= $gallery->html_wrap['frame'] = $gallery->album->fields['album_frame'];
+				$gallery->html_wrap['frame'] = $gallery->album->fields['album_frame'];
 			       	/*begin backwards compatibility */
-					$gallery->html_wrap['thumbWidth'] =  $gallery->html_wrap['imageWidth'];
-				       	$gallery->html_wrap['thumbHeight'] = $gallery->html_wrap['imageHeight'];
-				       	$gallery->html_wrap['thumbTag'] = $gallery->html_wrap['imageTag'];
-				       	$gallery->html_wrap['thumbHref'] = $gallery->html_wrap['imageHref'];
+				$gallery->html_wrap['thumbWidth'] = 
+					$gallery->html_wrap['imageWidth'];
+			       	$gallery->html_wrap['thumbHeight'] = 
+					$gallery->html_wrap['imageHeight'];
+			       	$gallery->html_wrap['thumbTag'] = 
+					$gallery->html_wrap['imageTag'];
+			       	$gallery->html_wrap['thumbHref'] = 
+					$gallery->html_wrap['imageHref'];
 			       	/*end backwards compatibility*/
-
-				list($divCellWidth,$divCellHeight, $padding) = calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth);
-				echo "<div style=\"padding-top: {$padding}px; padding-bottom:{$padding}px; width: {$divCellWidth}px; height: {$divCellHeight}px;\" align=\"center\" class=\"vafloat2\">\n";      
+      
 				includeHtmlWrap('inline_albumthumb.frame');
+
 			} else {
 				$gallery->html_wrap['imageTag'] = $gallery->album->getThumbnailTag($i);
 				$gallery->html_wrap['imageHref'] = makeAlbumUrl($gallery->session->albumName, $id);
-				$frame= $gallery->html_wrap['frame'] = $gallery->album->fields['thumb_frame'];
+				$gallery->html_wrap['frame'] = $gallery->album->fields['thumb_frame'];
 			       	/*begin backwards compatibility */
-				       	$gallery->html_wrap['thumbTag'] = $gallery->html_wrap['imageTag'];
-					$gallery->html_wrap['thumbHref'] = $gallery->html_wrap['imageHref'];
+			       	$gallery->html_wrap['thumbTag'] =
+				       	$gallery->html_wrap['imageTag'];
+			       	$gallery->html_wrap['thumbHref'] =
+				       	$gallery->html_wrap['imageHref'];
 			       	/*end backwards compatibility*/
-
-				list($divCellWidth,$divCellHeight, $padding) = calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth);
-				echo "<div style=\"padding-top: {$padding}px; padding-bottom:{$padding}px; width: {$divCellWidth}px; height: {$divCellHeight}px;\" align=\"center\" class=\"vafloat2\">\n";
+      
 				includeHtmlWrap('inline_photothumb.frame');
 			}
 
-		echo "\n";
-		echo "</div>\n";
-
-		if (canVote()){
-		    if ($gallery->album->fields["poll_type"] == 'rank' && $divCellWidth < 200) {
-		        $divCellWidth=200;
-		    }
+			echo("</td>");
+			$j++; 
+			$visibleItemIndex++;
+			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
-
-		echo "<div style=\"width: {$divCellWidth}px;\"  align=\"center\" class=\"vafloat\">\n";
+		if ($printTableRow) {
+			echo('</tr>');
+		}
+		
 		/* Do the clickable-dimensions row */
 		if (!strcmp($gallery->album->fields['showDimensions'], 'yes')) {
-			echo '<span class="dim">';
+			$visibleItemIndex = $rowStart;
+			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			$j = 1;
+			if ($printTableRow) {
+				echo('<tr>');
+			}
+			while ($j <= $cols && $i <= $numPhotos) {
+				echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 				$photo    = $gallery->album->getPhoto($i);
 				$image    = $photo->image;
 				if (!empty($image) && !$photo->isMovie()) {
@@ -775,11 +832,24 @@ if ($numPhotos) {
 				} else {
 					echo "&nbsp;";
 				}
-				echo '</span>';
-				
+				echo("</td>");
+				$j++; 
+				$visibleItemIndex++;
+				$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			}
+			if ($printTableRow) {
+				echo('</tr>');
+			}
 		}
 				
 		/* Now do the caption row */
+		$visibleItemIndex = $rowStart;
+		$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+		$j = 1;
+		if ($printTableRow) {
+		    echo('<tr>');
+		}
+		while ($j <= $cols && $i <= $numPhotos) {
 			if ($gallery->album->isAlbum($i)) {
 				$myAlbum = new Album;
 				$myAlbum->load($gallery->album->getAlbumName($i));
@@ -793,6 +863,7 @@ if ($numPhotos) {
 			} else {
 			    list($iWidth, $iHeight) = $gallery->album->getThumbDimensions($i);
 			}
+			echo("<td width=\"$imageCellWidth\" valign=\"top\" align=\"center\">");
 
 			// put form outside caption to compress lines
 			if (!$gallery->session->offline &&
@@ -809,15 +880,10 @@ if ($numPhotos) {
 			}
 
 			// Caption itself
-			echo "\n<div align=\"center\" class=\"modcaption\">\n";
+			echo "\n". '<div class="modcaption" style="width:60%">';
 			$id = $gallery->album->getPhotoId($i);
 			if ($gallery->album->isHidden($i) && !$gallery->session->offline) {
 				echo "(" . _("hidden") .")<br>";
-			}
-			$photo    = $gallery->album->getPhoto($i);
-			if ($gallery->user->canWriteToAlbum($gallery->album) && 
-					$photo->isHighlight() && !$gallery->session->offline) {
-				echo "(" . _("highlight") .")<br>";
 			}
 			if (isset($myAlbum)) {
 				$myDescription = $myAlbum->fields['description'];
@@ -837,7 +903,6 @@ if ($numPhotos) {
 				echo _("Contains: ") ." ". pluralize_n2(ngettext("1 item", "%d items", $visItems), $visItems) . '. ';
 				// If comments indication for either albums or both
 				switch ($gallery->app->comments_indication) {
-
 				case "albums":
 				case "both":
 					$lastCommentDate = $myAlbum->lastCommentDate(
@@ -853,9 +918,10 @@ if ($numPhotos) {
 					echo _("Viewed:") . " ". pluralize_n2(ngettext("1 time", "%d times", $myAlbum->getClicks()), $myAlbum->getClicks());
 					echo ".</div>";
 				}
+				echo '</span>';
 			} 
 			else {
-				echo "<div align=\"center\">\n";
+				echo '<center>';
 				echo nl2br($gallery->album->getCaption($i));
 				echo $gallery->album->getCaptionName($i) . ' ';
 				// indicate with * if we have a comment for a given photo
@@ -868,21 +934,19 @@ if ($numPhotos) {
 						$lastCommentDate = $gallery->album->itemLastCommentDate($i);
 						print lastCommentString($lastCommentDate, $displayCommentLegend);
 					}
-
 				}
-				echo "</div>\n";
-
+				echo "</center>";
 				if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) && !$gallery->session->offline && ($gallery->album->getItemClicks($i) > 0)) {
 					echo '<div class="viewcounter" style="margin-top:3px">';
 					echo _("Viewed:") ." ". pluralize_n2(ngettext("1 time", "%d times", $gallery->album->getItemClicks($i)), $gallery->album->getItemClicks($i));
 					echo ".</div>\n";
 				}
 			}
-		       	echo "<br>\n";
+		       	echo "</div>\n";
 			// End Caption
 
 		       	if (canVote()) {
-					echo("<div align=\"center\">\n");
+				print '<table><tr><td align="center">';
 			       	addPolling($gallery->album->getVotingIdByIndex($i),
 					       	$form_pos, false);
 			       	$form_pos++;
@@ -898,9 +962,9 @@ if ($numPhotos) {
 				}
 
 			       	if (canVote()) {
-				       	print '</div>';
+				       	echo '</td></tr>';
+					echo "\n" . '<tr><td align="center">';
 				}
-				echo("</div>\n");
 				echo("\n\t<select style=\"font-size:10px\" class=\"adminform\" name=\"s$i\" ".
 					"onChange='imageEditChoice(document.vote_form.s$i)'>");
 				echo("\n\t\t<option value=''>&laquo; ". sprintf(_("Edit %s"), $label) . " &raquo;</option>");
@@ -1004,7 +1068,7 @@ if ($numPhotos) {
 					   array("set_albumName" => $myAlbum->fields["name"]));
 
 				/* Watermarking support is enabled and user is allowed to watermark images/albums */
-				if (!empty($gallery->app->watermarkDir) && $myAlbum->numPhotos(1)) {
+				if (strlen($gallery->app->watermarkDir) && $myAlbum->numPhotos(1)) {
 					showChoice(_("Watermark Album"), "watermark_album.php", array("set_albumName" => $myAlbum->fields["name"]));
 				}
                                 if ($gallery->user->canViewComments($myAlbum) &&
@@ -1021,12 +1085,10 @@ if ($numPhotos) {
 			       echo "</select>\n";
 		       }
 		       if (canVote()) {
-			       print '</div>';
+			       print '</td></tr></table>';
 		       }
-			echo("</div></div>");
-			echo "\n";
-			echo("</td>");
-			echo "\n";
+
+			echo('</td>');
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
@@ -1040,13 +1102,18 @@ if ($numPhotos) {
 		$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		$j = 1;
 		if ($printTableRow) {
+			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
+			echo("<td>");
+			includeHtmlWrap("inline_albumthumb.footer");
+			echo("</td>");
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
+			echo('</tr>');
 		}
 		$rowCount++;
 		$rowStart = $visibleItemIndex;
@@ -1056,9 +1123,9 @@ if ($numPhotos) {
 
 	<td colspan="<?php echo $rows ?>" align="center" class="headbox">
 <?php if ($gallery->user->canAddToAlbum($gallery->album) && !$gallery->session->offline) { ?>
-	<?php echo _("Hey! Add some photos.") ?>
+	<span class="head"><?php echo _("Hey! Add some photos.") ?></span>
 <?php } else { ?>
-	<?php echo _("This album is empty.") ?>
+	<span class="head"><?php echo _("This album is empty.") ?></span>
 <?php } ?>
 	</td>
 	</tr>
@@ -1069,8 +1136,7 @@ if ($numPhotos) {
 </table>
 
 <?php if ($displayCommentLegend) { //display legend for comments ?>
-<span class="commentIndication">*</span>
-<span class="fineprint"> <?php echo _("Comments available for this item.") ?></span>
+<span class="error">*</span><span class="fineprint"> <?php echo _("Comments available for this item.") ?></span>
 <br>
 <?php }
 
@@ -1087,40 +1153,36 @@ if (canVote()) { ?>
 		$gallery->user->getEmail() &&
 		!$gallery->session->offline &&
 		$gallery->app->emailOn == "yes") {
-	if (getRequestVar('submitEmailMe')) {
-		if (getRequestVar('comments')) {
+	if (isset($submitEmailMe)) {
+		if (isset($comments)) {
 			$gallery->album->setEmailMe('comments', $gallery->user);
 		} else {
 			$gallery->album->unsetEmailMe('comments', $gallery->user);
 		}
-		if (getRequestVar('other')) {
+		if (isset($other)) {
 			$gallery->album->setEmailMe('other', $gallery->user);
 		} else {
 			$gallery->album->unsetEmailMe('other', $gallery->user);
 		}
 	}
 	echo makeFormIntro("view_album.php",
-	       	array("name" => "email_me", "method" => "POST", "style" => "margin-bottom: 0px;"));
-	echo _("Email me when one of the following actions are done to this album:")."  ";
-	$checked_com = ($gallery->album->getEmailMe('comments', $gallery->user)) ? "checked" : "" ;
-	$checked_other = ($gallery->album->getEmailMe('other', $gallery->user)) ? "checked" : "";
-	?>
-	<ul>
-	<li><?php echo _("Comments are added"); ?>
-		<input type="checkbox" name="comments" <?php echo $checked_com; ?> onclick="document.email_me.submit()">
-	</li>
-	<li><?php print _("Other changes are made") ?>
-		<input type="checkbox" name="other" <?php echo $checked_other; ?> onclick="document.email_me.submit()">
-	</li>
-	</ul>
-	<input type="hidden" name="submitEmailMe" value="true">
-	</form>
+	       	array("name" => "email_me", "method" => "POST"));
+       	print _("Email me when:")."  ";
+       	print _("Comments are added"); ?>
+	<input type="checkbox" name="comments" <?php echo ($gallery->album->getEmailMe('comments', $gallery->user)) ? "checked" : "" ?>
+	       	onclick="document.email_me.submit()" >
+		<?php print _("Other changes are made") ?>
+		<input type="checkbox" name="other" <?php echo ($gallery->album->getEmailMe('other', $gallery->user)) ? "checked" : "" ?>
+		        onclick="document.email_me.submit()" >
+	       	<input type="hidden" name="submitEmailMe">
+		</form>
 <?php } ?>
 <!-- bottom nav -->
 <?php 
 includeLayout('navtablebegin.inc');
 includeLayout('navigator.inc');
-if (!empty($breadcrumb["text"])) {
+if (strcmp($gallery->album->fields["returnto"], "no")) {
+	$breadcrumb["top"] = false;
 	includeLayout('navtablemiddle.inc');
 	includeLayout('breadcrumb.inc');
 }

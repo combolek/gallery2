@@ -60,9 +60,7 @@ class Album {
 		$this->fields["cols"] = $gallery->app->default["cols"];
 		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
 		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
-		if (isset($gallery->app->default['print_photos'])) {
-			$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-		}
+		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
 		$this->fields["guid"] = 0;
 		if (isset($gallery->app->use_exif)) {
 			$this->fields["use_exif"] = "yes";
@@ -200,33 +198,6 @@ class Album {
 			return $parentAlbum;
 		}
 		return null;
-	}
-
-	/*
-	** Returns an array of the parent album names for a given album.
-	** Key is albumname, value is albumtitle
-	** Array is reverted, so the first Element is the topalbum.
-	** If you set $addChild true, then the child album itself is added as last Element.
-	** Based on code by: Dariush Molavi
-	** Note: the 30 is a limit to prevent unlimited recursing.
-	*/
-	function getParentAlbums($addChild=false) {
-		global $gallery;
-
-		$parentAlbum = $this;
-		$parentNameArray = array();
-		$depth=0;
-
-		if ($addChild == true) {
-			$parentNameArray[$this->fields['name']] = $this->fields['title'];
-		}
-
-		while (($parentAlbum = $parentAlbum->getParentAlbum(FALSE)) && $depth < 30) {
-			$parentNameArray = array($parentAlbum->fields['name'] => $parentAlbum->fields['title']) + $parentNameArray;
-			$depth++;
-		}
-
-		return $parentNameArray;
 	}
 
 	function getRootAlbumName() {
@@ -426,7 +397,7 @@ class Album {
 		}
 
 		if ($this->version < 29) {
-			$this->fields['guid'] = genGUID();
+			$this->fields['guid'] = md5(uniqid(rand(), true));
 			$changed = 1;
 		}
 
@@ -508,7 +479,7 @@ class Album {
 		// if we are going to use sort, we need to set the historic dates.
 		// the get Date functions set any null dates for us, so that's what
 		// this for loop does for us...
-		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
+		for ($i=1; $i<=$this->numPhotos(1); $i++) {
 			$this->getItemCaptureDate($i);
 			$this->getUploadDate($i);
 		}
@@ -516,15 +487,15 @@ class Album {
 
 		if (!strcmp($sort,"upload")) {
 			$func = "sortByUpload";
-		} elseif (!strcmp($sort,"itemCapture")) {
+		} else if (!strcmp($sort,"itemCapture")) {
 			$func = "sortByItemCapture";
-		} elseif (!strcmp($sort, "filename")) {
+		} else if (!strcmp($sort, "filename")) {
 			$func = "sortByFilename";
-		} elseif (!strcmp($sort, "click")) {
+		} else if (!strcmp($sort, "click")) {
 			$func = "sortByClick";
-		} elseif (!strcmp($sort, "caption")) {
+		} else if (!strcmp($sort, "caption")) {
 			$func = "sortByCaption";
-		} elseif (!strcmp($sort, "comment")) {
+		}  else if (!strcmp($sort, "comment")) {
 			$func = "sortByComment";
 		}
 		usort($this->photos, array('Album', $func));
@@ -544,7 +515,9 @@ class Album {
 		$timeB = $objB->getUploadDate();
 		if ($timeA == $timeB) {
 			return 0;
-		} elseif ($timeA < $timeB) {
+		}
+		
+		if ($timeA < $timeB) {
 			return -1;
 		} else {
 			return 1;
@@ -554,13 +527,17 @@ class Album {
 	function sortByItemCapture($a, $b) {
 		$objA = (object)$a;
 		$objB = (object)$b;
-		$timeA = $objA->getItemCaptureDate();
-		$timeB = $objB->getItemCaptureDate();
+		$arrayTimeA = $objA->getItemCaptureDate();
+		$arrayTimeB = $objB->getItemCaptureDate();
+		$timeA = "${arrayTimeA['year']}${arrayTimeA['mon']}${arrayTimeA['mday']}${arrayTimeA['hours']}${arrayTimeA['minutes']}${arrayTimeA['seconds']}";
+		$timeB = "${arrayTimeB['year']}${arrayTimeB['mon']}${arrayTimeB['mday']}${arrayTimeB['hours']}${arrayTimeB['minutes']}${arrayTimeB['seconds']}";
 		//print "$timeA $timeB<br>";
 	
 		if ($timeA == $timeB) {
 			return 0;
-		} elseif ($timeA < $timeB) {
+		}
+		
+		if ($timeA < $timeB) {
 			return -1; 
 		} else {
 			return 1;
@@ -593,7 +570,9 @@ class Album {
 		$bClick = $objB->getItemClicks();
 		if ($aClick == $bClick) {
 			return 0;
-		} elseif ($aClick < $bClick) {
+		}
+		
+		if ($aClick < $bClick) {
 			return -1; 
 		} else {
 			return 1;
@@ -601,27 +580,11 @@ class Album {
 	}
 	
 	function sortByCaption($a, $b) {
-                global $albumDB;
-                if (empty($albumDB)) {
-                        $albumDB = new AlbumDB(false);
-                }       
 		// sort album alphabetically by caption
 		$objA = (object)$a;
 		$objB = (object)$b;
-		if ($objA->isAlbum()) {
-			$albumA = $albumDB->getAlbumByName($objA->getAlbumName(), false);
-			$captionA = $albumA->fields['title'];
-		} else {
-			$captionA = $objA->getCaption();
-		}
-
-		if ($objB->isAlbum()) {
-                        $albumB = $albumDB->getAlbumByName($objB->getAlbumName(), false);
-                        $captionB = $albumB->fields['title'];
-		} else {
-			$captionB = $objB->getCaption();
-		}
-
+		$captionA = $objA->getCaption();	
+		$captionB = $objB->getCaption();
 		return (strnatcasecmp($captionA, $captionB));
 	}
 	
@@ -631,9 +594,8 @@ class Album {
 		$objB = (object)$b;
 		$numCommentsA = $objA->numComments();
 		$numCommentsB = $objB->numComments();
-		if ($numCommentsA == $numCommentsB) {
-			return 0;
-		} elseif ($numCommentsA < $numCommentsB) {
+		if ($numCommentsA == $numCommentsB) return 0;
+		if ($numCommentsA < $numCommentsB) {
 			return -1; 
 		} else {
 			return 1;
@@ -739,9 +701,7 @@ class Album {
 			}
 		}
 
-		// if $this->photos is not empty, assume that the photos were already incorrectly stored in album.dat
-		// so pretend that we loaded them already to make sure that they get saved to the correct location
-		if ($this->fields["photos_separate"] && ($this->fields["cached_photo_count"] > 0) && empty($this->photos)) {
+		if ($this->fields["photos_separate"] && ($this->fields["cached_photo_count"] > 0)) {
 			if ($loadphotos) {
 				$this->loadPhotos($dir);
 			}
@@ -895,7 +855,8 @@ class Album {
 			$this->updateSerial = 0;
 		    }
 		}
-		if ($gallery->app->emailOn == 'yes' && $success && $msg) { // send email
+		if ($success && $msg) { // send email
+			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
 				echo gallery_error(_("msg should be an array!"));
 				vd($msg);
@@ -908,7 +869,7 @@ class Album {
 					       	makeAlbumUrl($this->fields['name']),
 						user_name_string($gallery->user->getUID(),
 							$gallery->app->comments_display_name),
-						$_SERVER['REMOTE_ADDR'],
+						$HTTP_SERVER_VARS['REMOTE_ADDR'],
 					       	$msg_str);
 			       	$text .= "\n\n". "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when other changes are made\" is unchecked (You'll need to login first).";
 			       	$subject=sprintf("Changes to %s", $this->fields['name']);
@@ -928,12 +889,9 @@ class Album {
 		$safe_to_scrub = 0;
 		$dir = $this->getAlbumDir();
 
-		/* Delete all pictures in reverse order to prevent automatic 
-		   re-highlighting of the album after every delete.
-		   Using this method, re-highlighting will occur, at most, one time.
-		*/
-		for ($numPhotos = $this->numPhotos(1); $numPhotos > 0; $numPhotos--) {
-			$this->deletePhoto($numPhotos);
+		/* Delete all pictures */
+		while ($this->numPhotos(1)) {
+			$this->deletePhoto(0);
 		}
 
 		/* Delete data file */
@@ -974,30 +932,10 @@ class Album {
 		$photo = &$this->getPhoto($index);
 		if (!$photo->isMovie()) {
 			$photo->resize($this->getAlbumDir(), $target, $filesize, $pathToResized);
-		} else {
-			echo ("Skipping Movie");
 		}
 	}
 
-	function resizeAllPhotos($target,$filesize=0,$pathToResized="", $recursive=false) {
-		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbum($i) && $recursive == true) {
-				$nestedAlbum = new Album();
-				$nestedAlbum->load($this->getAlbumName($i));
-				$np = $nestedAlbum->numPhotos(1);
-				echo "\n<br>". sprintf (_("Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
-				$nestedAlbum->resizeAllPhotos($target,$filesize=0,$pathToResized="", $recursive);
-				$nestedAlbum->save();
-			}
-			else {
-				echo "<br>". sprintf(_("Processing element %d..."), $i);
-				my_flush();
-				$this->resizePhoto($i, $target, $filesize=0, $pathToResized="");
-			}
-		}
-	}
-
-	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="", $votes=NULL, $wmName="", $wmAlign=0, $wmAlignX=0, $wmAlignY=0, $wmSelect=0) {
+	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="", $votes=NULL, $wmName="", $wmAlign=0, $wmAlignX=0, $wmAlignY=0) {
 	       	global $gallery;
 
 		$this->updateSerial = 1;
@@ -1098,8 +1036,7 @@ class Album {
 	       	}
 
 		/* auto-rotate the photo if needed */
-	       	if (!empty($gallery->app->autorotate) && $gallery->app->autorotate == 'yes' 
-			    && !empty($gallery->app->use_exif) && $gallery->app->use_exif) {
+	       	if ($gallery->app->autorotate == 'yes' && $gallery->app->use_exif && empty($item->extraFields['autoRotated'])) {
 		       	$index = $this->numPhotos(1);
 		       	$exifData = $this->getExif($index);
 		       	if (isset($exifData['Orientation']) && $orientation = trim($exifData['Orientation'])) {
@@ -1130,7 +1067,8 @@ class Album {
 				       	$rotate = 0;
 			       	}
 			       	if ($rotate) {
-				       	$this->rotatePhoto($index, $rotate, true);
+				       	$this->rotatePhoto($index, $rotate);
+					$item->extraFields['autoRotated'] = true;
 				       	processingMsg("- ". _("Photo auto-rotated/transformed"));
 			       	}
 		       	}
@@ -1142,10 +1080,10 @@ class Album {
 		if (isImage($tag) && strlen($wmName)) {
 			processingMsg("- ". _("Watermarking Image"));
 			$photo->watermark($this->getAlbumDir(),
-				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0, $wmSelect); 
+				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0); 
 		}
 
-		$this->fields['guid'] = genGUID();
+		$this->fields['guid'] = md5(uniqid(rand(), true));
 
 		return 0;
 	}
@@ -1203,15 +1141,6 @@ class Album {
 	}
 
 	function deletePhoto($index, $forceResetHighlight="0", $recursive=1) {
-		global $gallery;
-
-		// Get rid of the block-random cache file, to prevent out-of-bounds
-		// errors from getPhoto()
-		$randomBlockCache = $gallery->app->albumDir . "/block-random.dat";
-		if (fs_file_exists($randomBlockCache)) {
-			fs_unlink($randomBlockCache);
-		}
-
 		$this->updateSerial = 1;
 		$photo = array_splice($this->photos, $index-1, 1);
 		// need to check for nested albums and delete them ...
@@ -1228,15 +1157,13 @@ class Album {
 		}
 		$photo[0]->delete($this->getAlbumDir());
 		if (($needToRehighlight) || ($forceResetHighlight==1)){
-		    // Prevent hidden items, albums, and movies from
-		    // automatically becoming the new highlight.
-		    for ($i = 1; $i <= $this->numPhotos(1); $i++) {
-			    $newHighlight = $this->getPhoto($i);
-			    if (!$newHighlight->isMovie() && !$newHighlight->isAlbum() && !$newHighlight->isHidden()) {
-				$this->setHighlight($i);
-				break;
-			    }
-		    }
+			if ($this->numPhotos(1) > 0) {
+				$newHighlight = $this->getPhoto(1);
+				// make sure not to try on a movie or subalbum
+				if (!$newHighlight->isMovie() && !$newHighlight->isAlbum()) {
+					$this->setHighlight(1);
+				}
+			}
 		}
 	}
 
@@ -1297,7 +1224,7 @@ class Album {
 		if ($photo) {
 			return $photo->getThumbnailTag($album->getAlbumDirURL("highlight"), $size, $attrs);
 		} else {
-			return '<span class="title">'. _("No highlight") .'!</span>';
+			return "<span class=title>". _("No highlight") ."!</span>";
 		}
 	}
 
@@ -1305,10 +1232,11 @@ class Album {
 		$index = $this->getHighlight();
 		if (isset($index)) {
 			$photo = $this->getPhoto($index);
-			return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
-		} else {
-			return '<span class="title">'. _("No highlight") .'!</span>';
+			if (!empty($photo))
+				return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
 		}
+
+		return "<span class=title>". _("No highlight") ."!</span>";
 	}
 
 	function getPhotoTag($index, $full) {
@@ -1351,7 +1279,7 @@ class Album {
 		 * image.  Highlights are also typically pretty small.  So,
 		 * if this is for a highlight, don't mirror it.
 		 */
-		if (isset($gallery->app->feature["mirror"]) && isset($gallery->app->mirrorSites) && 
+		if ($gallery->app->feature["mirror"] &&
 		    strcmp($type, "highlight")) {
 			foreach(split("[[:space:]]+", $gallery->app->mirrorSites) as $base_url) {
 				$base_url .= $albumPath;
@@ -1581,20 +1509,21 @@ class Album {
 		$photo->setKeywords($keywords);
         }
 
-	function rotatePhoto($index, $direction, $clearexifrotate=false) {
+	function rotatePhoto($index, $direction) {
 		$this->updateSerial = 1;
 		$photo = &$this->getPhoto($index);
-		$retval = $photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"], $this, $clearexifrotate);
+		$retval = $photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"], $this);
+		$photo->extraFields['autoRotated'] = true;
 		if (!$retval) {
 			return $retval;
 		}
 	}
 
-        function watermarkPhoto($index, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0, $wmSelect=0) {
+        function watermarkPhoto($index, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0) {
                 $this->updateSerial = 1;
                 $photo = &$this->getPhoto($index);
                 $retval = $photo->watermark($this->getAlbumDir(),
-                                            $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview,$previewSize, $wmSelect);
+                                            $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview,$previewSize);
                 if (!$retval) {
                         return $retval;
                 }
@@ -1602,7 +1531,7 @@ class Album {
 		$this->save(array(), $resetModDate);
         }
 
-	function watermarkAlbum($wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $recursive=0, $wmSelect=0) {
+	function watermarkAlbum($wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $recursive=0) {
 		$this->updateSerial = 1;
 	       	$count = $this->numPhotos(1);
 		for ($index = 1; $index <= $count; $index++) {
@@ -1613,15 +1542,13 @@ class Album {
 					$subAlbum = new Album();
 					$subAlbum->load($subAlbumName);
 					$subAlbum->watermarkAlbum($wmName, $wmAlphaName,
-						$wmAlign, $wmAlignX, $wmAlignY, $recursive, $wmSelect);
+						$wmAlign, $wmAlignX, $wmAlignY, $recursive);
 				}
 			} else if ($photo->isMovie()) {
 				// Watermarking of movies not supported
 			} else {
 				$photo->watermark($this->getAlbumDir(),
-						$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY,
-						0, 0, // Not a preview
-					 	$wmSelect);
+						$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY);
 			}
 		} // next $index
 	} // end of function
@@ -1641,38 +1568,6 @@ class Album {
 			}
 		}
 	}
-
-	function makeThumbnailRecursive($index)
-		{
-		for ($i=1; $i <= $this->numPhotos(1); $i++)
-			{
-			if ($this->isAlbum($i))
-				{
-				$nestedAlbum = new Album();
-				$index="all";
-				$nestedAlbum->load($this->getAlbumName($i));
-				
-				$np = $nestedAlbum->numPhotos(1);
-				echo "<br>". sprintf(_("Entering album %s, processing %d photos"), $this->getAlbumName($i), $np);
-				$nestedAlbum->makeThumbnailRecursive($index);
-				$nestedAlbum->save();
-					
-				$album = $this->getNestedAlbum($i);
-				$l = $album->getHighlight();
-				if (isset($l))
-					{
-					$album->setHighlight($l);
-					$album->save();
-					}
-				}
-			else
-				{
-				echo("<br> ". sprintf(_("Processing image %d..."), $i));
-				my_flush();
-				$this->makeThumbnail($i);
-				}
-			}
-		}
 
 	function movePhoto($index, $newIndex) {
 		/* Pull photo out */
@@ -1834,7 +1729,7 @@ class Album {
 
 	function setNestedProperties() {
 		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbum($i)) {
+			if ($this->getAlbumName($i)) {
 				$nestedAlbum = new Album();
 				$nestedAlbum->load($this->getAlbumName($i));
 				$nestedAlbum->fields["bgcolor"] = $this->fields["bgcolor"];
@@ -1878,7 +1773,7 @@ class Album {
 
 	function setNestedExtraFields() {
 		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbum($i)) {
+			if ($this->getAlbumName($i)) {
 				$nestedAlbum = new Album();
 				$nestedAlbum->load($this->getAlbumName($i));
 				$nestedAlbum->fields["extra_fields"] = $this->fields["extra_fields"];
@@ -1889,7 +1784,7 @@ class Album {
 	}
 	function setNestedPollProperties() {
 		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbum($i)) {
+			if ($this->getAlbumName($i)) {
 				$nestedAlbum = new Album();
 			       	$nestedAlbum->load($this->getAlbumName($i));
 			       	$nestedAlbum->fields["poll_type"]=$this->fields["poll_type"];
@@ -1902,22 +1797,6 @@ class Album {
 
 				$nestedAlbum->save();
 				$nestedAlbum->setNestedPollProperties();
-			}
-		}
-	}
-
-	function setNestedPermissions() {
-		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbum($i)) {
-				$nestedAlbum = new Album();
-			       	$nestedAlbum->load($this->getAlbumName($i));
-
-				$nestedAlbum->fields['owner'] = $this->fields['owner'];
-				$nestedAlbum->fields['perms'] = $this->fields['perms'];
-
-				$nestedAlbum->save();
-				$nestedAlbum->setNestedPermissions();
-
 			}
 		}
 	}
@@ -2416,30 +2295,15 @@ class Album {
 		return $myAlbum;
 	}
 
-	function getSubAlbums() {
-		$subAlbums = array();
-		$index = 0;
-		foreach ($this->photos as $photo) {
-			$index++;
-			if ($photo->isAlbum()) {
-				$subAlbum = new Album();
-				$subAlbum->load($this->getAlbumName($index));
-				array_push($subAlbums, $subAlbum);
-			}
-		}
-		return ($subAlbums);
-	}
-
 	//values for type "comment" and "other"
 	function getEmailMe($type, $user, $id=null) {
-		$uid = $user->getUid();
+		$uid=$user->getUid();
 	       	if ($id) {
 		       	$index = $this->getPhotoIndex($id);
 		       	$photo = $this->getPhoto($index);
-		}
-		if ( (isset($this->fields['email_me'][$type]) && 
-			isset($this->fields['email_me'][$type][$uid])) ||
-		     (isset ($photo) && $photo->getEmailMe($type, $user))) {
+			return $photo->getEmailMe($type, $user);
+	       	} else if (isset($this->fields['email_me'][$type]) && 
+				isset($this->fields['email_me'][$type][$uid])) {
 		       	return true;
 	       	} else {
 			return false;

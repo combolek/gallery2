@@ -23,32 +23,26 @@
 ?>
 
 <?php 
-global $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
-
-/* This "block" inserts either a combobox with available languages or show flags for them.
-** Both are only displayed if at least 2 languages are available.
-*/
+global $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE, $HTTP_SERVER_VARS;
 
 if ($gallery->app->ML_mode == 3 && !$gallery->session->offline && sizeof($gallery->app->available_lang) > 1) {
     
-	if($gallery->app->show_flags !='yes') {?>
+if($gallery->app->show_flags !='yes') {?>
 <script language="JavaScript" type="text/javascript">
 function ML_reload() {
 	var newlang=document.MLForm.newlang[document.MLForm.newlang.selectedIndex].value ;
 	window.location.href=newlang;
 }
 </script>
-<?php 
-	}
-?>
-	<form name="MLForm" action="#" style="margin-bottom: 0px;">
+<?php } ?>
+	<form name="MLForm" action="#">
 	<table width="100%" cellpadding="0" cellspacing="0">
-	<tr>
-		<td valign="top" align="right">
+	<tr><td valign="top" align="right">
 <?php
-	if($gallery->app->show_flags !='yes') {
-		echo "\t\t". '<select style="font-size:8pt;" name="newlang" onChange="ML_reload()" size="1">';
-	}
+
+if($gallery->app->show_flags !='yes') {
+	echo '<select style="font-size:8pt;" name="newlang" onChange="ML_reload()" size="1">';
+}
 	$nls = getNLS();
 
 	$count=0;
@@ -62,7 +56,7 @@ function ML_reload() {
 		if (! isset($nls['language'][$value])) continue;
 
 		$count++;
-		$args = isset($_GET) ? $_GET : array();
+		$args = isset($HTTP_GET_VARS) ? $HTTP_GET_VARS : array();
 		if (isset($GALLERY_EMBEDDED_INSIDE) && $GALLERY_EMBEDDED_INSIDE=='nuke') {
 			if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
 				/* postnuke */
@@ -70,7 +64,7 @@ function ML_reload() {
 				$new_lang=$nls['postnuke'][$value];
 			}
 			else {
-				/* phpNuke, nsnNuke or cpgNuke */ 
+				/* phpnuke */ 
 				if (! isset($nls['phpnuke'][$value])) continue;
 				$new_lang=$nls['phpnuke'][$value];
 			} 
@@ -79,7 +73,7 @@ function ML_reload() {
 		}
 
 		/* now we buil the URL according to the new language */
-		$request_url=$_SERVER['REQUEST_URI'];
+		$request_url=$HTTP_SERVER_VARS['REQUEST_URI'];
 		$pos=strpos($request_url, "newlang");
 		if ($pos >0) {
 			$request_url=substr($request_url,0,$pos-1);
@@ -118,12 +112,9 @@ function ML_reload() {
 	}
 
 if($gallery->app->show_flags !='yes') {
-	echo "\n\t\t</select>";
+	echo "</select>";
 }
 ?>
-
-		</td>
-	</tr>
-	</table>
+	</td></tr></table>
 	</form>
 <?php } ?>

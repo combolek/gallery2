@@ -36,15 +36,15 @@
 <?php 
 	echo makeFormIntro("save_photos.php",
 			array("name" => "uploadurl_form",
-				"method" => "POST"), array('type' => 'popup'));
+				"method" => "POST"));
 ?>
 <input type="text" name="urls[]" size="40">
 <p>
-<?php
-	echo _("What would you like the captions to default to?");
-	 echo "\n<br><br>";
-	include(dirname(__FILE__) .'/captionOptions.inc.php');
-?>
+<input type="radio" name="setCaption" value="0"><?php echo _("Leave blank if no caption is specified.") ?>
+<br>
+<input type="radio" name="setCaption" value="1" checked><?php echo _("Set photo captions with original filenames.") ?>
+<br>
+<input type="radio" name="setCaption" value="2"><?php echo _("Set photo captions with file creation times.") ?>
 </p>
 <?php
 if (isset($gallery->app->watermarkDir)) {

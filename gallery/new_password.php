@@ -22,10 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($hash, $uname, $save, $new_password1, $new_password2) = getRequestVar(array('hash', 'uname', 'save', 'new_password1', 'new_password2'));
-list($fullname, $email, $defaultLanguage) = getRequestVar(array('fullname', 'email', 'defaultLanguage'));
+require(dirname(__FILE__) . '/init.php');
 
 $error_string="";
 if (!isset($hash)) {
@@ -35,15 +32,16 @@ if (empty($uname) ) {
        	$error_string .= _("Not a valid username") . "<br>";
 } else {
        	$tmpUser = $gallery->userDB->getUserByUsername($uname);
-       	if (empty($tmpUser)) {
+       	if (!$tmpUser) {
 	       	$error_string .= _("Not a valid username") . "<br>";
-       	} else if (!$tmpUser->checkRecoverPasswordHash($hash)) {
+       	}
+       	if (!$tmpUser->checkRecoverPasswordHash($hash)) {
 	       	$error_string .= _("The recovery password is not the expected value, please try again") . "<br>";
 	}
 }
 
 $errorCount=0;
-if (!empty($save)) {
+if ( isset($save)) {
 	if (empty($new_password1) ) {
 	       	$gErrors["new_password1"] = _("You must provide your new password.");
 	       	$errorCount++;
@@ -92,9 +90,12 @@ doctype();
   <title><?php echo _("Make New Password") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Make New Password") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<span class="popuphead"><?php echo _("Make New Password") ?></span>
+<br>
+<br>
 <?php 
 if ($error_string) {
        	echo gallery_error($error_string);
@@ -131,6 +132,6 @@ $defaultLanguage = $tmpUser->getDefaultLanguage();
 document.usermodify_form.new_password1.focus();
 //--> 
 </script>
-</div>
+
 </body>
 </html>

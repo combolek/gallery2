@@ -23,10 +23,8 @@
 <?php
 	require(dirname(__FILE__)  . '/init.php');
 
-list($mode) = getRequestVar(array('mode'));
-
 $cookieName = $gallery->app->sessionVar . "_slideshow_mode";
-$modeCookie = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : null;
+$modeCookie = isset($HTTP_COOKIE_VARS[$cookieName]) ? $HTTP_COOKIE_VARS[$cookieName] : null;
 if (isset($mode)) {
 	if ($modeCookie != $mode) {
 	    setcookie($cookieName, $mode, time()+60*60*24*365, "/" );
@@ -84,14 +82,6 @@ if (empty($albumName)) {
 	$bgcolor	= $gallery->album->fields['bgcolor'];
 }
 
-$playIconText = getIconText('1rightarrow.gif', _("play"));
-$stopIconText = getIconText('2downarrow.gif', _("stop"));
-$normalSizeIconText = getIconText('window_nofullscreen.gif', _("normal size"));
-$fullSizeIconText = getIconText('window_fullscreen.gif', _("full size"));
-$forwardIconText = getIconText('1rightarrow.gif', _("forward direction"));
-$backwardIconText = getIconText('1leftarrow.gif', _("reverse direction"));
-$delayIconText = getIcontext('history.gif', _("Delay"));
-$loopIconText =  getIcontext('reload.gif', _("Loop"));
 
 // in offline mode, only high is available, because it's the only
 // one where the photos can be spidered...
@@ -113,11 +103,10 @@ if (!isset($mode) || !isset($modes[$mode])) {
 
 include(dirname(__FILE__) . "/includes/slideshow/$mode.inc");
 
-
 slideshow_initialize();
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
+doctype();
 ?>
 <html>
 <head>
@@ -158,8 +147,8 @@ if ($albumName) {
 
 includeHtmlWrap("slideshow.header"); ?>
 
-<script src="<?php echo $gallery->app->photoAlbumURL ?>/js/client_sniff.js" type="text/javascript"></script>
-<script type="text/javascript">
+<script language="JavaScript" SRC="<?php echo $gallery->app->photoAlbumURL ?>/js/client_sniff.js"></script>
+<script language="JavaScript">
 <?php
 if ($mode != 'low') {
 ?>
@@ -175,34 +164,61 @@ if ( (is_ie && !is_ie4up) || (is_opera && !is_opera5up) || (is_nav && !is_nav6up
 
 <?php
 	slideshow_body();
+?>
 
+<?php
 $imageDir = $gallery->app->photoAlbumURL."/images";
-$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" '.
-		'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"\">";
 
 #-- breadcrumb text ---
 $breadCount = 0;
 $breadtext=array();
+if ($albumName) {
+if (!$gallery->session->offline
+	|| isset($gallery->session->offlineAlbums[$gallery->session->albumName])) {
+	$breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($gallery->session->albumName) .
+      	"\">" . $gallery->album->fields['title'] . "</a>";
+	$breadCount++;
+}
+$pAlbum = $gallery->album;
+do {
+  if (!strcmp($pAlbum->fields["returnto"], "no")) {
+    break;
+  }
+  $pAlbumName = $pAlbum->fields['parentAlbumName'];
+  if ($pAlbumName && (!$gallery->session->offline
+  	|| isset($gallery->session->offlineAlbums[$pAlbumName]))) {
+    $pAlbum = new Album();
+    $pAlbum->load($pAlbumName);
+    $breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($pAlbumName) .
+      "\">" . $pAlbum->fields['title'] . "</a>";
+  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+    //-- we're at the top! ---
+    $breadtext[$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") .
+      "\">" . $gallery->app->galleryTitle . "</a>";
+  } else {
+	  break;
+  }
+  $breadCount++;
+} while ($pAlbumName);
 
-if (isset($gallery->album)) {
-	/* We are inside an album */
-	if ($gallery->album->fields['returnto'] != 'no') {
-		$breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
-		  $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
-		foreach ($gallery->album->getParentAlbums(true) as $name => $title) {
-			$breadcrumb["text"][] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($name) . "\">" .
-			  $title. "&nbsp;" . $upArrowURL . "</a>";
-		}
-	}
+//-- we built the array backwards, so reverse it now ---
+for ($i = count($breadtext) - 1; $i >= 0; $i--) {
+    $breadcrumb["text"][] = $breadtext[$i];
+}
 } else {
-	/* We're on mainpage */
-	$breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
-	  $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
+	if (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+		//-- we're at the top! ---
+		$breadcrumb["text"][$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") .
+			"\">" . $gallery->app->galleryTitle . "</a>";
+		$breadCount++;
+	}
 }
 
 $breadcrumb["bordercolor"] = $borderColor;
+$breadcrumb["top"] = true;
 
-$adminbox["commands"] = "";
+$adminbox["commands"] = "<span class=\"admin\">";
 
 // todo: on the client, prevent old browsers from using High, and remove High from the bar
 if ( !$gallery->session->offline) {
@@ -216,30 +232,37 @@ if ( !$gallery->session->offline) {
 	}
 }
 
+$adminbox["commands"] .= "</span>";
 $adminbox["text"] = _("Slide Show");
 $adminbox["bordercolor"] = $borderColor;
-
-$navigator["fullWidth"] = '100';
-$navigator["widthUnits"] = '%';
-
+$adminbox["top"] = true;
 includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
 includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
 includeLayout('navtablemiddle.inc');
 
-slideshow_controlPanel();
+?>
 
-includeLayout('navtableend.inc');
+<?php
+	slideshow_controlPanel();
+?>
 
-echo "\n<br>";
+<?php
+    includeLayout('navtableend.inc');
+?>
 
+<br>
+
+<?php
 slideshow_image();
+?>
 
+<?php
 includeLayout('ml_pulldown.inc');
-includeHtmlWrap("slideshow.footer");
+includeHtmlWrap("slideshow.footer"); ?>
 
-if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>
 </html>
 <?php } ?>

@@ -1,11 +1,12 @@
 <?php
 // $Id$
-// This is the default search footer
-// It's companion is search.header.default.
+// This is the default gallery footer (for the main gallery
+// page: albums.php). It's companion is gallery.header.default.
 //
-// To override this footer, create a file called search.footer
+// To override this header, create a file called gallery.footer
 // in this directory.
 //
+// NOTE: This header gets inserted above the </body> tag.
 //
 // Some tips:
 // * Some application variables:
@@ -15,12 +16,10 @@
 //   Gallery version linked to the Gallery home page.
 //
 ?>  
-<?php
-includeTemplate('search.footer.tpl');
-?>
+
       <table width="100%" cellspacing="0" cellpadding="0" class="modfooter">
         <tr>
-          <td valign="top">
+          <td valign=top>
             <!-- The Gallery code version number, linked to the Gallery home page -->
             <span class="fineprint">
 	    <?php print poweredBy() ?>

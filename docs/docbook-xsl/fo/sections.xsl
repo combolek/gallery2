@@ -21,26 +21,10 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <xsl:variable name="renderas">
-    <xsl:choose>
-      <xsl:when test="@renderas = 'sect1'">1</xsl:when>
-      <xsl:when test="@renderas = 'sect2'">2</xsl:when>
-      <xsl:when test="@renderas = 'sect3'">3</xsl:when>
-      <xsl:when test="@renderas = 'sect4'">4</xsl:when>
-      <xsl:when test="@renderas = 'sect5'">5</xsl:when>
-      <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <xsl:variable name="level">
-    <xsl:choose>
-      <xsl:when test="$renderas != ''">
-        <xsl:value-of select="$renderas"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="section.level"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:call-template name="section.level">
+      <xsl:with-param name="node" select="."/>
+    </xsl:call-template>
   </xsl:variable>
 
   <!-- xsl:use-attribute-sets takes only a Qname, not a variable -->
@@ -120,22 +104,11 @@
       <xsl:call-template name="l10n.language"/>
     </xsl:attribute>
     <xsl:attribute name="format">
-      <xsl:call-template name="page.number.format">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
+      <xsl:call-template name="page.number.format"/>
     </xsl:attribute>
-
-    <xsl:attribute name="initial-page-number">
-      <xsl:call-template name="initial.page.number">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
-    </xsl:attribute>
-
-    <xsl:attribute name="force-page-count">
-      <xsl:call-template name="force.page.count">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
-    </xsl:attribute>
+    <xsl:if test="$double.sided != 0">
+      <xsl:attribute name="initial-page-number">auto-odd</xsl:attribute>
+    </xsl:if>
 
     <xsl:attribute name="hyphenation-character">
       <xsl:call-template name="gentext">
@@ -200,28 +173,10 @@
       </xsl:call-template>
     </xsl:variable>
 
-    <xsl:variable name="renderas">
-      <xsl:choose>
-        <xsl:when test="$section/@renderas = 'sect1'">1</xsl:when>
-        <xsl:when test="$section/@renderas = 'sect2'">2</xsl:when>
-        <xsl:when test="$section/@renderas = 'sect3'">3</xsl:when>
-        <xsl:when test="$section/@renderas = 'sect4'">4</xsl:when>
-        <xsl:when test="$section/@renderas = 'sect5'">5</xsl:when>
-        <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-  
     <xsl:variable name="level">
-      <xsl:choose>
-        <xsl:when test="$renderas != ''">
-          <xsl:value-of select="$renderas"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:call-template name="section.level">
-            <xsl:with-param name="node" select="$section"/>
-          </xsl:call-template>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:call-template name="section.level">
+        <xsl:with-param name="node" select="$section"/>
+      </xsl:call-template>
     </xsl:variable>
 
     <xsl:variable name="marker">
@@ -316,22 +271,11 @@
       <xsl:call-template name="l10n.language"/>
     </xsl:attribute>
     <xsl:attribute name="format">
-      <xsl:call-template name="page.number.format">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
+      <xsl:call-template name="page.number.format"/>
     </xsl:attribute>
-
-    <xsl:attribute name="initial-page-number">
-      <xsl:call-template name="initial.page.number">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
-    </xsl:attribute>
-
-    <xsl:attribute name="force-page-count">
-      <xsl:call-template name="force.page.count">
-        <xsl:with-param name="master-reference" select="$master-reference"/>
-      </xsl:call-template>
-    </xsl:attribute>
+    <xsl:if test="$double.sided != 0">
+      <xsl:attribute name="initial-page-number">auto-odd</xsl:attribute>
+    </xsl:if>
 
     <xsl:attribute name="hyphenation-character">
       <xsl:call-template name="gentext">

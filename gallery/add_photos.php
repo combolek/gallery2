@@ -22,19 +22,16 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-$mode = getRequestVar('mode');
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 $cookieName = $gallery->app->sessionVar . "_add_photos_mode";
-$modeCookie = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : null;
-
+$modeCookie = isset($HTTP_COOKIE_VARS[$cookieName]) ? $HTTP_COOKIE_VARS[$cookieName] : null;
 if (isset($mode)) {
 	if ($modeCookie != $mode) {
 	    setcookie($cookieName, $mode, time()+60*60*24*365, "/" );
@@ -51,25 +48,80 @@ doctype();
 <head>
   <title><?php echo _("Add Photos") ?></title>
   <?php common_header(); ?>
-  <script type="text/javascript" language="Javascript">
-  <!--
+
+<style type="text/css">
+<!--
+#container
+	{
+		padding: 2px;
+	}
+
+#tabnav
+	{
+		height: 20px;
+		margin: 0;
+		padding-left: 5px;
+		background: url(images/tab_bottom.gif) repeat-x bottom;
+	}
+
+#tabnav li
+	{
+		margin: 0; 
+		padding: 0;
+  		display: inline;
+  		list-style-type: none;
+  	}
+	
+#tabnav a:link, #tabnav a:visited
+	{
+		float: left;
+		font-size: 11px;
+		line-height: 14px;
+		font-weight: bold;
+		padding: 2px 5px 2px 5px;
+		margin-right: 4px;
+		text-decoration: none;
+		color: #666;
+	        border-width:1px;
+	        border-style: solid; border-color: #000000;
+		-Moz-Border-Radius-TopLeft: 20px;
+		-Moz-Border-Radius-TopRight: 20px;
+	}
+
+#tabnav a:link.active, #tabnav a:visited.active
+	{
+	  background-color: #FCFCF3 ; padding:2px 5px 2px 5px; font-size:12px;
+	  margin-right: 4px;
+	  border-style: solid; border-color: #000000;
+	  -Moz-Border-Radius-TopLeft: 20px;
+	  -Moz-Border-Radius-TopRight: 20px;
+	  color:#000000;
+	}
+
+#tabnav a:hover
+	{
+		color: #444
+	}
+-->
+</style>
+<script type="text/javascript" language="Javascript">
+<!--
 	function reloadPage() {
 		document.count_form.submit();
 		return false;
 	}
-  // -->
-  </script>
+// -->
+</script>
 </head>
-<body dir="<?php echo $gallery->direction ?>" onload="window.focus()" class="popupbody">
-<div class="popuphead"><?php echo _("Add Photos") ?></div>
-<div class="popup">
+<body dir="<?php echo $gallery->direction ?>" onload="window.focus()" class="popup">
+
 <?php
 
 if (file_exists(dirname(__FILE__) . "/java/GalleryRemoteAppletMini.jar") &&
 	file_exists(dirname(__FILE__) . "/java/GalleryRemoteHTTPClient.jar")) {
     $modes["applet_mini"] = _("Applet");
 	
-	if (file_exists(dirname(__FILE__) . "/java/GalleryRemoteApplet.jar")) {
+	if (file_exists("java/GalleryRemoteApplet.jar")) {
 	    $modes["applet"] = _("Applet (big)");
 	}
 }
@@ -85,28 +137,32 @@ if ($gallery->user->isAdmin()) {
     $modes["admin"] = _("Admin");
 }
 
+
 if (!isset($mode) || !isset($modes[$mode])) {
 	$mode = isset($modes[$gallery->app->uploadMode]) ? $gallery->app->uploadMode : "form";
 }
 ?>
 
-	<div id="container">
-	<ul id="tabnav">
+<div id="container">
+<ul id="tabnav">
 <?php
 foreach ($modes as $m => $mt) {
-	$url = makeGalleryUrl('add_photos.php', array('mode' => $m, 'type' => 'popup'));
+	$url=makeGalleryUrl('add_photos.php',array('mode' => $m));
 	if ($m == $mode) {
-		echo "\t\t<li><a href=\"$url\" class=\"active\">$mt</a></li>\n";
+		echo "\n\t<li><a href=\"$url\" class=\"active\">$mt</a></li>";
 	} else {
-		echo "\t\t<li><a href=\"$url\">$mt</a></li>\n";
+		echo "\n\t<li><a href=\"$url\">$mt</a></li>";
 	}
 }
 ?>
-	</ul>
+
+</ul>
+
 <?php
 include (dirname(__FILE__) . "/includes/add_photos/add_$mode.inc");
 ?>
-	</div>
+
 </div>
+
 </body>
 </html>
