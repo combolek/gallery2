@@ -51,6 +51,11 @@ class GalleryLock {
     var $_isWorldLock;
 
     /**
+     * The internal id of this lock
+     */
+    var $_lockId;
+
+    /**
      * Constructor
      */
     function GalleryLock() {
@@ -71,20 +76,21 @@ class GalleryLock {
      * @param integer how long we should wait to acquire locks
      * @return object GalleryLock an instance of GalleryLock that holds the locks
      */
-    function lock($objects, $timeout=0) {
+    function lock($ids, $timeout) {
 	global $gallery;
 	$storage = $gallery->getStorage();
-	$ret = $storage->acquireLock($objects, $timeout);
+
+	list($ret, $this->_lockId) = $storage->acquireLock($ids, $timeout);
 	if ($ret & ERROR) {
 	    return $ret;
 	}
 
 	$this->_isLockAcquired = true;
 
-	if (sizeof($objects) == 0) {
+	if (sizeof($ids) == 0) {
 	    $this->_isWorldLock = true;
 	}
-	
+
 	register_shutdown_function(array($this, 'unlock'));
 
 	return SUCCESS;
@@ -121,8 +127,10 @@ class GalleryLock {
 	if (!$this->_isLockAcquired) {
 	    return;
 	}
+
+	global $gallery;
 	$storage = $gallery->getStorage();
-	return $storage->releaseLock();
+	return $storage->releaseLock($this->_lockId, $this->_isWorldLock);
     }
 }
 ?>
