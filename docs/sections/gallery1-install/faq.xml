@@ -1489,8 +1489,30 @@ print getcwd ();
      </question>
      <answer>
       <para>
-       Resetting your admin password is easy; just rerun the <link linkend="gallery1-install.config-wizard">
+       Version 1.4.3 or below: Resetting your admin password is easy; 
+       just set your Gallery into config mode, rerun the <link linkend="gallery1-install.config-wizard">
        configuration wizard</link> and specify a new password on step 2.
+      </para>
+      <para>
+       Version 1.4.4 and above:
+       <orderedlist>
+        <listitem>
+	 <para>Create a file named <screen>resetadmin</screen> in your /gallery/setup directory.</para>
+        </listitem>
+        <listitem>
+         <para>Visit the <link linkend="gallery1-install.config-wizard">configuration wizard</link> in your browser</para>
+        </listitem>
+        <listitem>
+         <para>Follow the instructions on the page</para>
+        </listitem>
+        <listitem>
+         <para>Specify a new password in step 2 of the configuration wizard</para>
+        </listitem>
+       </orderedlist>
+       The config wizard will give you a special piece of information,
+       and you will be required to edit the <emphasis>resetadmin</emphasis> file,
+       add the string, save, and refresh your browser.  This is a security measure to prove that you
+       are an administrator.
       </para>
      </answer>
     </qandaentry>
