@@ -97,16 +97,7 @@ if ($app->config_version != $gallery->config_version) {
 	exit;
 }
 
-/* Load the correct album object */
-$album = new Album;
-if ($albumName) {
-	$album->load($albumName);
-	if ($album->integrityCheck()) {
-		$album->save();
-	}
-}
-
-/* And load our user object */
+/* Load our user database (and user object) */
 $userDB = new UserDB;
 if ($username) {
 	$user = $userDB->getUserByUsername($username);
@@ -115,6 +106,15 @@ if ($username) {
 if (!$user) {
 	$user = $userDB->getEverybody();
 	$username = "";
+}
+
+/* Load the correct album object */
+$album = new Album;
+if ($albumName) {
+	$album->load($albumName);
+	if ($album->integrityCheck()) {
+		$album->save();
+	}
 }
 
 ?>
