@@ -61,8 +61,8 @@ if (!$page) {
 }
 
 //-- increment album click counter ---
-if (!$viewedAlbum[$albumName]) {
-    setcookie("viewedAlbum[$albumName]","1");
+if (!$gallery->session->viewedAlbum[$albumName]) {
+	$gallery->session->viewedAlbum[$albumName] = 1;
     $album->incrementClicks();
 }
 

@@ -58,8 +58,8 @@ if ($id) {
 }
 
 //-- Increment the clickCount for this AlbumItem --- 
-if (!$viewedItem[$albumName][$id]) {
-	setcookie("viewedItem[$albumName][$id]", "1");
+if (!$gallery->session->viewedAlbum[$albumName][$id]) {
+	$gallery->session->viewedAlbum[$albumName][$id] = 1;
 	$album->incrementItemClicks($index);
 }
 
