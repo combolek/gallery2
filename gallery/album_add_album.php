@@ -37,12 +37,13 @@ $user = $gallery->user;
 if ($user->canCreateAlbums()) {
 	$albumDB = new AlbumDB();
 	$newAlbum = new Album();
-	$newAlbum->fields["name"] = $albumDB->newAlbumName();
+	$newAlbumName = $albumDB->newAlbumName();
+	$newAlbum->fields["name"] = $newAlbumName;
 	$newAlbum->setOwner($user->getUid());
 	$newAlbum->save();
 
 	$newAlbum->fields[parentAlbumName] = $albumName;
-	$album->addNestedAlbum($newAlbum->fields["name"]);
+	$album->addNestedAlbum($newAlbumName);
 	$album->save();
 
 	// Set default values in nested album to match settings of parent.
@@ -73,8 +74,13 @@ if ($user->canCreateAlbums()) {
 		$newAlbum->fields[$iField] = $album->fields[$iField];
 	}
 	$newAlbum->save();
-}
 	
-header("Location: view_album.php");
+	// go straight to the edit page for the new album ---
+	$nextUrl = "edit.php?type=album&id=" . $newAlbumName . "&return=" . urlencode("view_album.php");
+} else {
+	$nextUrl = "view_album.php";
+}
 
+header("Location: $nextUrl");
+	
 ?>
