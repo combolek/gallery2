@@ -166,7 +166,7 @@ class GalleryItem extends GalleryNucleus {
     /**
      * A GalleryMap of usernames mapped to allowed permissions
      *
-     * @gallery persistent (no accessors)
+     * @gallery persistent
      * @gallery flag STORAGE_TYPE_MAP
      * @gallery flag STORAGE_TYPE_STRING
      * @gallery flag STORAGE_MODIFIER_MEDIUM
@@ -179,7 +179,7 @@ class GalleryItem extends GalleryNucleus {
     /**
      * A GalleryMap of usernames mapped to denied permissions
      *
-     * @gallery persistent (no accessors)
+     * @gallery persistent
      * @gallery flag STORAGE_TYPE_MAP
      * @gallery flag STORAGE_TYPE_STRING
      * @gallery flag STORAGE_MODIFIER_MEDIUM
@@ -355,8 +355,7 @@ class GalleryItem extends GalleryNucleus {
     function allowPermission($id, $perm) {
 
 	/*
-	 * Clear the permission for this id.  This has the nice side benefit of
-	 * calling modifyPersistentMember()
+	 * Clear the permissions for this id.
 	 */
 	$this->removePermission($id, $perm);
 
@@ -381,8 +380,7 @@ class GalleryItem extends GalleryNucleus {
     function denyPermission($id, $perm) {
 
 	/*
-	 * Clear the permission for this id.  This has the nice side benefit of
-	 * calling modifyPersistentMember()
+	 * Clear the permission for this id.
 	 */
 	$this->removePermission($id, $perm);
 
@@ -421,9 +419,6 @@ class GalleryItem extends GalleryNucleus {
 	    $denied = ($denied ^ $perm);
 	    $this->_deniedPermissions->setValue($id, $denied);
 	}
-
-	$this->modifyPersistentMember("deniedPermissions");
-	$this->modifyPersistentMember("allowedPermissions");
     }
 
     /**
@@ -556,6 +551,74 @@ class GalleryItem extends GalleryNucleus {
     }
     
     /**
+     * Get a reference to the allowedPermissions object
+     * 
+     * @access public
+     * @return object GalleryMap the allowedPermissions instance
+     */
+    function &getAllowedPermissions() {
+        if (!($this->getLoadedFlag('allowedPermissions'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_allowedPermissions = new GalleryMap();
+            $this->_allowedPermissions->setParentInfo($this, 'allowedPermissions');
+            $storage->loadMember($this, 'allowedPermissions', $this->_allowedPermissions);
+        }
+        return $this->_allowedPermissions;
+    }
+    
+    /**
+     * Get a reference to the childIds object
+     * 
+     * @access public
+     * @return object GalleryList the childIds instance
+     */
+    function &getChildIds() {
+        if (!($this->getLoadedFlag('childIds'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_childIds = new GalleryList();
+            $this->_childIds->setParentInfo($this, 'childIds');
+            $storage->loadMember($this, 'childIds', $this->_childIds);
+        }
+        return $this->_childIds;
+    }
+    
+    /**
+     * Get a reference to the commentIds object
+     * 
+     * @access public
+     * @return object GalleryList the commentIds instance
+     */
+    function &getCommentIds() {
+        if (!($this->getLoadedFlag('commentIds'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_commentIds = new GalleryList();
+            $this->_commentIds->setParentInfo($this, 'commentIds');
+            $storage->loadMember($this, 'commentIds', $this->_commentIds);
+        }
+        return $this->_commentIds;
+    }
+    
+    /**
+     * Get a reference to the deniedPermissions object
+     * 
+     * @access public
+     * @return object GalleryMap the deniedPermissions instance
+     */
+    function &getDeniedPermissions() {
+        if (!($this->getLoadedFlag('deniedPermissions'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_deniedPermissions = new GalleryMap();
+            $this->_deniedPermissions->setParentInfo($this, 'deniedPermissions');
+            $storage->loadMember($this, 'deniedPermissions', $this->_deniedPermissions);
+        }
+        return $this->_deniedPermissions;
+    }
+    
+    /**
      * Set the value of description
      * 
      * @param string the new value for description
@@ -564,7 +627,7 @@ class GalleryItem extends GalleryNucleus {
     function setDescription($value) {
         assert('isset($value)');
         $this->_description = $value;
-        $this->modifyPersistentMember('description');
+        $this->setModifiedFlag('description', MEMBER_MODIFIED);
     }
     
     /**
@@ -586,7 +649,7 @@ class GalleryItem extends GalleryNucleus {
     function setIsHtmlAllowed($value) {
         assert('isset($value)');
         $this->_isHtmlAllowed = $value;
-        $this->modifyPersistentMember('isHtmlAllowed');
+        $this->setModifiedFlag('isHtmlAllowed', MEMBER_MODIFIED);
     }
     
     /**
@@ -608,7 +671,7 @@ class GalleryItem extends GalleryNucleus {
     function setKeywords($value) {
         assert('isset($value)');
         $this->_keywords = $value;
-        $this->modifyPersistentMember('keywords');
+        $this->setModifiedFlag('keywords', MEMBER_MODIFIED);
     }
     
     /**
@@ -630,7 +693,7 @@ class GalleryItem extends GalleryNucleus {
     function setOwnerId($value) {
         assert('isset($value)');
         $this->_ownerId = $value;
-        $this->modifyPersistentMember('ownerId');
+        $this->setModifiedFlag('ownerId', MEMBER_MODIFIED);
     }
     
     /**
@@ -644,6 +707,23 @@ class GalleryItem extends GalleryNucleus {
     }
     
     /**
+     * Get a reference to the properties object
+     * 
+     * @access public
+     * @return object GalleryMap the properties instance
+     */
+    function &getProperties() {
+        if (!($this->getLoadedFlag('properties'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_properties = new GalleryMap();
+            $this->_properties->setParentInfo($this, 'properties');
+            $storage->loadMember($this, 'properties', $this->_properties);
+        }
+        return $this->_properties;
+    }
+    
+    /**
      * Set the value of thumbnailId
      * 
      * @param int the new value for thumbnailId
@@ -652,7 +732,7 @@ class GalleryItem extends GalleryNucleus {
     function setThumbnailId($value) {
         assert('isset($value)');
         $this->_thumbnailId = $value;
-        $this->modifyPersistentMember('thumbnailId');
+        $this->setModifiedFlag('thumbnailId', MEMBER_MODIFIED);
     }
     
     /**
@@ -674,7 +754,7 @@ class GalleryItem extends GalleryNucleus {
     function setTitle($value) {
         assert('isset($value)');
         $this->_title = $value;
-        $this->modifyPersistentMember('title');
+        $this->setModifiedFlag('title', MEMBER_MODIFIED);
     }
     
     /**
@@ -696,7 +776,7 @@ class GalleryItem extends GalleryNucleus {
     function setViewCount($value) {
         assert('isset($value)');
         $this->_viewCount = $value;
-        $this->modifyPersistentMember('viewCount');
+        $this->setModifiedFlag('viewCount', MEMBER_MODIFIED);
     }
     
     /**
@@ -718,7 +798,7 @@ class GalleryItem extends GalleryNucleus {
     function setViewedSinceTimestamp($value) {
         assert('isset($value)');
         $this->_viewedSinceTimestamp = $value;
-        $this->modifyPersistentMember('viewedSinceTimestamp');
+        $this->setModifiedFlag('viewedSinceTimestamp', MEMBER_MODIFIED);
     }
     
     /**
