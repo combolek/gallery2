@@ -249,7 +249,68 @@ class DatabaseStorage extends GalleryStorage {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
-	return ERROR;
+	/*
+	 * Figure out what kind of nucleus this is
+	 */
+	list($ret, $targetType) = $this->_identifyNucleus($id);
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+
+	/*
+	 * Get our persistent and meta info for this class
+	 */
+	$metaInfo = $this->_metaInfo->describeClass($targetType);
+
+	$tables = array();
+	$data = array();
+	foreach ($metaInfo as $columnName => $columnInfo) {
+
+	    $type = $columnInfo['type'];
+	    if ($type & STORAGE_TYPE_LIST || $type & STORAGE_TYPE_MAP) {
+		/*
+		 * Don't load subtypes.  They are their own objects and are
+		 * loaded separately.
+		 */
+		continue;
+	    }
+	    
+	    $class = strtolower($columnInfo['class']);
+	    $tableName = DATABASE_TABLE_PREFIX . $class;
+
+	    /* Keep track of the entire set of tables we're selecting from */
+	    if (empty($tables[$tableName])) {
+		$tables[$tableName] = 1;
+		$where[] = "$tableName.id=?";
+		$data[] = $id;
+	    }
+	    $columns[$tableName . '.' . $columnName] = 1;
+	}
+
+	$query = 'SELECT ';
+	$query .= join(', ', array_keys($columns));
+	$query .= ' FROM ';
+	$query .= join(', ', array_keys($tables));
+	$query .= ' WHERE ';
+	$query .= join(' AND ', $where);
+
+	$recordSet = $this->_db->Execute($query, $data);
+	if ($recordSet) {
+	    $prototype = new $targetType;
+	    foreach ($recordSet->fields as $memberName => $value) {
+		if (isset($value)) {
+		    $func = 'set' . ucfirst($memberName);
+		    $prototype->$func($value);
+		}
+	    }
+	    $recordSet->Close();
+
+	    $prototype->clearModifyFlags();
+	    $nucleus = $prototype;
+	    return SUCCESS;
+	} else {
+	    return array(ERROR | ERROR_DATABASE_FAILURE, null);
+	}
     }
 
     /**
@@ -264,6 +325,14 @@ class DatabaseStorage extends GalleryStorage {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
+	$this->_traceStart();
+	
+	/*
+	 * Update the serial number, but remember the original one
+	 */
+	$originalSerialNumber = $nucleus->getSerialNumber();
+	$nucleus->setSerialNumber($originalSerialNumber + 1);
+
 	/*
 	 * Get our persistent and meta info for this class
 	 */
@@ -276,7 +345,7 @@ class DatabaseStorage extends GalleryStorage {
 	 */
 	foreach ($metaInfo as $name => $info) {
 	    /* Locate the id column */
-	    if ($metaInfo[$name]['type'] & STORAGE_TYPE_ID) {
+	    if ($metaInfo[$name]['type'] & STORAGE_MODIFIER_ID) {
 		$func = 'get' . ucfirst($name);
 		$value = $nucleus->$func();
 		$idColumn = array('name' => $name, 'value' => $value);
@@ -328,6 +397,7 @@ class DatabaseStorage extends GalleryStorage {
 
 		$recordSet = $this->_db->Execute($query, $data);
 		if (!$recordSet) {
+		    $this->_traceStop();
 		    return ERROR | ERROR_DATABASE_FAILURE;
 		}
 	    }
@@ -335,8 +405,12 @@ class DatabaseStorage extends GalleryStorage {
 
 	    /*
 	     * Iterate through the data table and make an UPDATE statement
-	     * for each table that requires one. 
+	     * for each table that requires one.  Make sure that we do the
+	     * GalleryNucleus table first, as that's the one that has the
+	     * serial number in it and we use the serial number to make sure
+	     * that we're not hitting a concurrency issue.
 	     */
+	    $queryList = array();
 	    foreach ($dataTable as $table => $changes) {
 		$changeList = array();
 		$data = array();
@@ -347,14 +421,43 @@ class DatabaseStorage extends GalleryStorage {
 		}
 
 		if (sizeof($changeList)) {
-		    $table = DATABASE_TABLE_PREFIX . strtolower($table);
-		    $query = "UPDATE $table SET";
+		    $tableName = DATABASE_TABLE_PREFIX . strtolower($table);
+		    $query = "UPDATE $tableName SET";
 		    $query .= join(',', $changeList);
 		    $query .= " WHERE `$idColumn[name]`=?";
 		    $data[] = $idColumn['value'];
-		    
-		    $recordSet = $this->_db->Execute($query, $data);
-		    if (!$recordSet) {
+
+		    if (!strcasecmp($table, "GalleryNucleus")) {
+			$query .= " AND `serialNumber`=?";
+			$data[] = $originalSerialNumber;
+		    }
+
+		    if (!strcasecmp($table, "GalleryNucleus")) {
+			array_unshift($queryList, array($query, $data));
+		    } else {
+			array_push($queryList, array($query, $data));
+		    }
+		}
+	    }
+
+	    foreach ($queryList as $queryAndData) {
+		list ($query, $data) = $queryAndData;
+		$recordSet = $this->_db->Execute($query, $data);
+
+		if (!$recordSet) {
+		    $this->_traceStop();
+		    return ERROR | ERROR_DATABASE_FAILURE;
+		} else {
+		    $affectedRows = $this->_db->Affected_Rows();
+		    if ($affectedRows == 0) {
+			$this->_traceStop();
+			return ERROR | ERROR_OBSOLETE_DATA;
+		    } else if ($affectedRows > 1) {
+			/*
+			 * Holy shit, we just updated more than one row!  What do
+			 * we do now?
+			 */
+			$this->_traceStop();
 			return ERROR | ERROR_DATABASE_FAILURE;
 		    }
 		}
@@ -363,6 +466,8 @@ class DatabaseStorage extends GalleryStorage {
 	
 	$nucleus->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 	$nucleus->clearModifyFlags();
+	$this->_traceStop();
+	
 	return SUCCESS;
     }
 
@@ -409,17 +514,56 @@ class DatabaseStorage extends GalleryStorage {
     }
 
     /**
-     * Create and return a new GalleryLock object
+     * Lock a set of GalleryNucleus' (or the world)
+     *
+     * For right now, let's treat every lock as a world lock.  At some point in
+     * the future we can optimize this to actually hold row locks for efficiency.
      *
      * @access public
      * @param int timeout before giving up on the lock
-     * @param array ids to lock (empty array means lock the world) 
+     * @param array ids to lock (empty array means lock the world)
+     * @return int a status code
      */
-    function newLock($timeout, $ids=array()) {
+    function acquireLock($timeout, $ids=array()) {
 	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
+	$this->_traceStart();
+	$lockTable = DATABASE_TABLE_PREFIX . 'gallerylock';
+	$query = 'LOCK TABLE ' . $lockTable . ' WRITE';
+	$this->_db->Execute($query);
+	$this->_traceStop();
+	
+	if (!$recordSet) {
+	    return ERROR | ERROR_LOCK_IN_USE;
+	}
+
+	return SUCCESS;
+    }
+
+    /**
+     * Release all locks.
+     *
+     * @access public
+     * @return int a status code
+     */
+    function releaseLock() {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	$this->_traceStart();
+	$lockTable = DATABASE_TABLE_PREFIX . 'gallerylock';
+	$query = 'UNLOCK TABLES';
+	$this->_db->Execute($query);
+	$this->_traceStop();
+	
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	return SUCCESS;
     }
 
     /**
@@ -440,14 +584,14 @@ class DatabaseStorage extends GalleryStorage {
      * @param string the name of the database to create
      * @return int a status code
      */
-    function createSchema($databaseName) {
-	if ($this->_connectionStatus != DATABASE_STATUS_PARTIALLY_CONNECTED) {
+    function createSchema() {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
 	$this->_initDatabaseSchema();
 	$this->_traceStart();
-	$ret = $this->_databaseSchema->createSchema($databaseName);
+	$ret = $this->_databaseSchema->createSchema();
 	$this->_traceStop();
 
 	return $ret;
@@ -469,6 +613,75 @@ class DatabaseStorage extends GalleryStorage {
 	$this->_traceStop();
 
 	return $ret;
+    }
+
+    /**
+     * Create the database.
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function createDatabase($databaseName) {
+	if ($this->_connectionStatus != DATABASE_STATUS_PARTIALLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	$this->_initDatabaseSchema();
+	$this->_traceStart();
+	$ret = $this->_databaseSchema->createDatabase($databaseName);
+	$this->_traceStop();
+
+	return $ret;
+    }
+
+    /**
+     * Drop a database.
+     *
+     * Use this very carefully!
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function dropDatabase($databaseName) {
+	if ($this->_connectionStatus != DATABASE_STATUS_PARTIALLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	$this->_initDatabaseSchema();
+	$this->_traceStart();
+	$ret = $this->_databaseSchema->dropDatabase($databaseName);
+	$this->_traceStop();
+
+	return $ret;
+    }
+	
+    /**
+     * Identify the type of nucleus associated with the id provided
+     *
+     * @param int a nucleus id
+     * @return array a status code and a string class name
+     */
+    function _identifyNucleus($id) {
+	assert('!empty($id)');
+
+	$table = DATABASE_TABLE_PREFIX  . 'gallerynucleus';
+	$query = "SELECT $table.objectType FROM $table where id=?";
+	$data = array($id);
+	$recordSet = $this->_db->Execute($query, $data);
+
+	if ($recordSet) {
+	    $type = $recordSet->fields['objectType'];
+	    $recordSet->Close();
+	    return array(SUCCESS, $type);
+	} else {
+	    return array(ERROR | ERROR_DATABASE_FAILURE, null);
+	}
     }
 }
 ?>
