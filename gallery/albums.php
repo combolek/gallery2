@@ -104,7 +104,11 @@ $adminText .= "</span>";
 $adminCommands = "<span class=\"admin\">";
 
 if ($gallery->user->isLoggedIn()) {
-	$adminCommands .= "Welcome, " . $gallery->user->getFullname() . "&nbsp;&nbsp;<br>";
+	$displayName = $gallery->user->getFullname();
+	if (empty($displayName)) {
+		$displayName = $gallery->user->getUsername();
+	}
+	$adminCommands .= "Welcome, $displayName &nbsp;&nbsp;<br>";
 }
 
 if ($gallery->user->canCreateAlbums()) { 
