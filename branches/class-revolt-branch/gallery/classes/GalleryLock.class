@@ -26,9 +26,37 @@
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
- * @abstract
  */
 class GalleryLock {
+
+    /**
+     * List of currently acquired locks
+     *
+     * @var array $_lockList 
+     */
+    var $_lockList;
+
+    /**
+     * Do we have a lock or not?
+     *
+     * @var boolean _isLockAcquired
+     */
+    var $_isLockAcquired;
+
+    /**
+     * Do we have a world lock or not?
+     *
+     * @var boolean _isWorldLock
+     */
+    var $_isWorldLock;
+
+    /**
+     * Constructor
+     */
+    function GalleryLock() {
+	$this->_isLockAcquired = false;
+	$this->_isWorldLock = false;
+    }
 
     /**
      * Lock a set of objects
@@ -44,11 +72,42 @@ class GalleryLock {
      * @return object GalleryLock an instance of GalleryLock that holds the locks
      */
     function lock($objects, $timeout=0) {
-	// Be sure to register the unlock() method for when the script ends
+	global $gallery;
+	$storage = $gallery->getStorage();
+	$ret = $storage->acquireLock($objects, $timeout);
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+
+	$this->_isLockAcquired = true;
+
+	if (sizeof($objects) == 0) {
+	    $this->_isWorldLock = true;
+	}
+	
+	register_shutdown_function(array($this, 'unlock'));
+
+	return SUCCESS;
     }
 
+    /**
+     * Is this GalleryNucleus locked?
+     *
+     * @param int the id of a gallery nucleus
+     * @return boolean true if locked
+     */
     function isLocked($id) {
 	assert('!empty($id)');
+
+	if (!$this->_isLockAcquired) {
+	    return false;
+	}
+
+	if ($this->_isWorldLock) {
+	    return true;
+	}
+
+	return in_array($id, $this->_lockList);
     }
 
     /**
@@ -57,9 +116,13 @@ class GalleryLock {
      * Release whatever locks this instance is holding
      *
      * @access public
-     * @abstract
      */
     function unlock() {
+	if (!$this->_isLockAcquired) {
+	    return;
+	}
+	$storage = $gallery->getStorage();
+	return $storage->releaseLock();
     }
 }
 ?>
