@@ -24,7 +24,7 @@
  * This object performs all of the basic functions required in all
  * Gallery objects.
  *
- * @gallery metainfo
+ * @gallery metainfo 1.0
  *
  * @version $Id$
  * @package GalleryCore
@@ -161,7 +161,8 @@ class GalleryNucleus {
     /**
      * Hook this object up to the persistent store
      *
-     * Overlay this object with the data in the persistent store with the given
+     * Try to get this value from the cache.  If it's not in the cache, then
+     * overlay this object with the data in the persistent store with the given
      * id.
      *
      * @param int the id of this object, or null to create a new one
@@ -172,22 +173,38 @@ class GalleryNucleus {
 	    return ERROR | ERROR_BAD_PARAMETER;
 	}
 
-	global $gallery;
-
 	/* See if we already have a cached instance, use it if so */
+	global $gallery;
 	$instance =& $gallery->getCachedNucleus($id);
 	if (!empty($instance)) {
 	    $this =& $instance;
 	    return SUCCESS;
 	}
 
+	return $this->loadNoCache($id);
+    }
+
+    /**
+     * Hook this object up to the persistent store
+     *
+     * Overlay this object with the data in the persistent store with the given
+     * id.
+     *
+     * @param int the id of this object, or null to create a new one
+     * @return int a status code
+     */
+    function loadNoCache($id) {
 	/* Load the nucleus from our persistent store */
-	global $storage;
+	global $gallery;
+	$storage = $gallery->getStorage();
 	$ret = $storage->loadNucleus($id, $this);
+
+	/* Update the cache */
 	if ($ret == SUCCESS) {
 	    $gallery->addToCache($this);
+	} else {
+	    return $ret;
 	}
-	return $ret;
     }
 
     /**
@@ -201,12 +218,19 @@ class GalleryNucleus {
 	/* Create a new instance of this nucleus in the persistent store */
 	$storage =& $gallery->getStorage();
 	$ret = $storage->newNucleus($this);
+
+	/* Update the cache */
 	if ($ret == SUCCESS) {
 	    $gallery->addToCache($this);
+	} else {
+	    return $ret;
 	}
 
 	/* Set the creation time on this nucleus */
 	$this->setCreationTimestamp(time());
+
+	/* Set the object type */
+	$this->setObjectType(get_class($this));
 	
 	return $ret;
     }
@@ -214,15 +238,23 @@ class GalleryNucleus {
     /**
      * Return the full path of this item
      *
-     * Return the full path of this item
-     *
      * @access public
-     * @return array an array of string path components
+     * @return array int a status code, string a path
      */
     function getFullPath() {
-	$path = $this->_parent->getFullPath();
-	$path[] = $this->_path;
-	return $path;
+
+	$parent = new GalleryNucleus();
+	$ret = $parent->loadNoCache($this->_parentId);
+	if ($ret & ERROR) {
+	    return array($ret, null);
+	}
+
+	list ($ret, $path) = $parent->getFullPath();
+	if ($ret & ERROR) {
+	    return array($ret, null);
+	}
+
+	return array(SUCCESS, $path . '/' . $this->_path);
     }
 
     /**
@@ -236,26 +268,21 @@ class GalleryNucleus {
     function save() {
 	global $gallery;
 
-	if ($gallery->isLocked($this->_id)) {
+	if (!$gallery->isLocked($this->_id)) {
 	    return ERROR | ERROR_LOCK_REQUIRED;
 	}
 
-	/* Make sure we're working with the unique instance of this object */
-	$unique =& $gallery->getCachedNucleus($this->_id, get_class($this));
-
-	if ($unique->getSerialNumber() != $this->getSerialNumber()) {
-	    return ERROR | ERROR_OBSOLETE_DATA;
-	}
-
 	if (!empty($this->_persistentInfo->modified)) {
-	    /* Increment the serial number for this object */
-	    $this->setSerialNumber($this->getSerialNumber() + 1);
-
 	    /* Change the modification date */
 	    $this->setModificationTimestamp(time());
 
 	    $storage = $gallery->getStorage();
-	    return $storage->saveNucleus($this);
+	    $ret = $storage->saveNucleus($this);
+	    if ($ret == SUCCESS) {
+		$gallery->addToCache($nucleus);
+	    } else {
+		return $ret;
+	    }
 	}
 	return SUCCESS;
     }
@@ -269,7 +296,12 @@ class GalleryNucleus {
     function refresh() {
 	global $gallery;
 	$storage = $gallery->getStorage();
-	return $storage->refreshNucleus($this);
+	$ret = $storage->refreshNucleus($this);
+	if ($ret == SUCCESS) {
+	    $gallery->addToCache($nucleus);
+	} else {
+	    return $ret;
+	}
     }
 
     /**
@@ -283,6 +315,11 @@ class GalleryNucleus {
      */
     function delete() {
 	global $gallery;
+	
+	if (!$gallery->isLocked($this->_id)) {
+	    return ERROR | ERROR_LOCK_REQUIRED;
+	}
+
 	$storage = $gallery->getStorage();
 	return $storage->deleteNucleus($this);
     }
