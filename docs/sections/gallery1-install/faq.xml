@@ -1057,6 +1057,27 @@ if (!function_exists('array_search')) {
      </answer>
     </qandaentry>
     
+    <qandaentry id="gallery1-install.faq.c.26">
+     <question>
+      <para>
+       Why do I get an <literal>EOF / read error reading magic number</literal>
+       error when uploading pictures with NetPBM?
+      </para>
+     </question>
+     <answer>
+      <para>
+       [Answered by forum user Allistah] Replace your NetPBM binaries with binaries from
+       <ulink url="http://prdownloads.sourceforge.net/gnuwin32/netpbm-10.6-bin.zip?download">
+       this page</ulink>.  Then add <filename>libjpeg.dll</filename> which can be downloaded
+       from <ulink url="http://prdownloads.sourceforge.net/gnuwin32/libjpeg-6b-bin.zip?download">  
+       this page</ulink>.  Unzip the NetPBM binaries and libjpeg into the same directory.  Finally,
+       re-run the <link linkend="gallery1-install.config-wizard">configuration wizard</link>
+       and provide the path of these new binaries.  (original forum post:
+       <ulink url="http://gallery.menalto.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=7238">here</ulink>).
+      </para>
+     </answer>
+    </qandaentry>
+    
    </qandadiv>
   
   </qandaset>
