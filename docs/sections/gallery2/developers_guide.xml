@@ -31,10 +31,10 @@
       Scalable
      </para>
      <para>
-      G2 will scale to managing hundreds of thousands of images
-      with little or no degradation in its processing speed.
-      Viewing an album will be just as fast if it contains 10
-      items or 10000 items.
+      G2 will scale to manage hundreds of thousands of images with
+      little or no degradation in its processing speed.  Viewing an
+      album will be just as fast if it contains 10 items or 10000
+      items.
      </para>
     </listitem>
     <listitem>
@@ -382,6 +382,78 @@
    introduce new item types into the gallery.  In short, they are
    where all functionality lives.
   </para>
+  <sect3 id="gallery.dev-guide.modules.layout">
+   <title>
+    Module Layout
+   </title>
+   <para>
+    Modules only have one hard requirement, which is that you must
+    have a module.inc file in the top level of the module directory.
+    However, we do suggest a layout for your module files to make it
+    consistent with the rest of the Gallery modules.
+    <screen>
+      module/
+       <lineannotation>Views and Controllers</lineannotation>
+       module.inc    <lineannotation>this is the only mandatory file</lineannotation>
+       classes/
+         GNUmakefile
+         interfaces/
+           GNUmakefile
+           <lineannotation>generated entity and map interfaces</lineannotation>
+         GalleryStorage/
+           DatabaseStorage/
+             schema/
+               xml-src/
+                 GNUmakefile
+               platform/
+                 GNUmakefile
+                 mysql/
+                   GNUmakefile
+                   <lineannotation>MySQL specific SQL scripts</lineannotation>
+                 postgres/
+                   GNUmakefile
+                   <lineannotation>PostgresQL specific SQL scripts</lineannotation>
+       locale/
+         GNUmakefile
+         <lineannotation>a tree of generated gettext .mo files</lineannotation>
+       po/
+         GNUmakefile
+         <lineannotation>hand written gettext .po translation files</lineannotation>
+       templates/
+         <lineannotation>Smarty template files </lineannotation>
+       tests/
+         data/
+         <lineannotation>Data used by PHPUnit tests</lineannotation>
+         phpunit/
+         <lineannotation>PHPUnit tests</lineannotation>
+    </screen>
+    Several notes about this layout:
+    <itemizedlist>
+     <listitem>
+      <para>
+       The GNUmakefile files are used to create all generated files
+       (like class interfaces, SQL scripts, translations, etc.).
+       Typically you just need to copy the GNUmakefile from the same
+       spot in an existing module (say the comment module, since it
+       has all of them).  You shouldn't have to tweak the file at all
+       if you put it into the same spot in your module.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       You only need to include the GalleryStorage/ tree if you're
+       going to create database tables.  Gallery provides a way to
+       create tables that work on any of our supported databases
+       without you having to write the SQL yourself.  This is also a
+       good idea because it will version these tables, install them
+       for you and help the user through the upgrade process.  You're
+       not <emphasis>required</emphasis> to do it this way but we
+       strongly suggest it.
+      </para>
+     </listitem>
+    </itemizedlist>
+   </para>
+  </sect3>
   <sect3 id="gallery.dev-guide.modules.lifecycle">
    <title>
     Module Life Cycle
