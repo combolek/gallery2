@@ -20,15 +20,25 @@
 ?>
 <?
 if ($doit) {
+    $index = $album->getPhotoIndex($id);
+	$album->deletePhoto($index);
+    $album->save();
+
+	//-- when this command executes we want to leave the edit page ---
+	$forceReturn = 1;
 
 	return;
 } else {
 
 	//-- build up some html for output ---
 	$content = "
-
-		<span class=\"title\">Item Delete</span>
+		<span class=\"title\">Delete $typeLabel</span>
 		<br>
+		<br>
+		Do you really want to delete this $typeLabel?
+		<br>
+		<br>
+		<i>This action cannot be undone!</i>
 	";
 
 	return $content;

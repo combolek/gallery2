@@ -23,7 +23,7 @@ if ($doit) {
 
 	//-- this command puts up a little status message ---
 	echo "<span class=\"title\">Rotating photo</span>"
-		. "<br>"
+		. "<br><br>"
 		. "(this may take a while)";
 	my_flush();
 
@@ -37,7 +37,10 @@ if ($doit) {
 	$content = "
 
 		<input type=\"hidden\" name=\"show_progress\" value=\"1\">
-		<span class=\"title\">How do you want to rotate this photo?</span>
+		<span class=\"title\">Rotate $typeLabel</span>
+		<br>
+		<br>
+		How do you want to rotate this $typeLabel?
 		<br>
 		<input type=\"radio\" name=\"rotateby\" value=\"90\">Counter-Clockwise 90&ordm;
 		<br>
