@@ -65,8 +65,6 @@ $do_fullOnly = !strcmp($gallery->session->fullOnly,"on") &&
 if ($do_fullOnly) {
 	$full = 1;
 }
-$fitToWindow = !strcmp($gallery->album->fields["fit_to_window"], "yes") && 
-			!$gallery->album->isResized($index) && !$full;
 
 $photoTag = $gallery->album->getPhotoTag($index, $full);
 $photoUrl = $gallery->album->getPhotoPath($index, $full);
@@ -85,23 +83,94 @@ if (!$gallery->album->isMovie($id)) {
 }
 
 //-- in the fitToWindow case, wrap the photo with some JS ---
+$fitToWindow = !strcmp($gallery->album->fields["fit_to_window"], "yes") && 
+			!$gallery->album->isResized($index) && !$full;
 if ($fitToWindow && !$GALLERY_EMBEDDED_INSIDE) { 
-	$photoTag = "<script language=\"javascript1.2\">"
-			."  // <!--"
-			."  fitToWindow();"
-			."  // -->"
-			."</script><noscript>$photoTag</noscript>";
+	$photoTag = "\n"
+		. "<script language=\"javascript1.2\"> \n"
+		. "  // <!-- \n"
+		. "  fitToWindow(); \n"
+		. "  // --> \n"
+		. "</script><noscript>$photoTag</noscript>";
+
+    $pageHeadExtra .= "\n" 
+		. "<script language=\"javascript1.2\"> \n"
+		. "// <!-- \n"
+		. "function fitToWindow(do_resize) { \n"
+		. "    var changed = 0; \n"
+    	. "    var heightMargin = 160; \n"
+		. "    var widthMargin = 40; \n"
+		. "    var imageHeight = $imageHeight; \n"
+		. "    var imageWidth = $imageWidth; \n"
+		. "    var aspect = imageHeight / imageWidth; \n"
+
+		. "    // Get the window dimensions height.  IE and Nav use different techniques. \n"
+		. "    var windowWidth, windowHeight; \n"
+		. "    if (typeof(window.innerWidth) == \"number\") { \n"
+		. "        windowWidth = window.innerWidth; \n"
+		. "        windowHeight = window.innerHeight; \n"
+        . "    } else { \n"
+        . "        windowWidth = document.body.clientWidth; \n"
+        . "        windowHeight = document.body.clientHeight; \n"
+        . "    } \n"
+
+        . "    // Leave a gutter around the edges \n"
+        . "    windowWidth = windowWidth - widthMargin; \n"
+        . "    windowHeight = windowHeight - heightMargin; \n"
+
+        . "    var diffx = windowWidth - imageWidth, \n"
+        . "        diffy = windowHeight - imageHeight; \n"
+
+        . "    if (diffx < 0 || diffy < 0) { \n"
+        . "        if (diffx < diffy) { \n"
+        . "        imageWidth = windowWidth; \n"
+        . "        imageHeight = aspect * imageWidth; \n"
+        . "        changed = 1; \n"
+        . "        } else { \n"
+        . "        imageHeight = windowHeight; \n"
+        . "        imageWidth = imageHeight / aspect; \n"
+        . "        changed = 1; \n"
+        . "        } \n"
+        . "    } \n"
+
+        . "    if (do_resize) { \n"
+        . "        var img = document.images.photo; \n"
+        . "        img.height = imageHeight; \n"
+        . "        img.width = imageWidth; \n"
+        . "    } else { \n"
+        . "        if (changed) { \n"
+        . "            document.write('<a href=\"".makeGalleryUrl($gallery->session->albumName, $id, "&full=1")."\">'); \n"
+        . "        } \n"
+        . "        document.write('<img name=photo src=\"$photoUrl\" border=0 width=' + \n"
+        . "                         imageWidth + ' height=' + imageHeight + '>'); \n"
+        . "        if (changed) { \n"
+        . "            document.write('</a>'); \n"
+        . "        } \n"
+        . "    } \n"
+        . "} \n"
+
+        . "function doResize() { \n"
+        . "    if (document.all) { \n"
+        . "        // We're in IE where we can just resize the image. \n"
+        . "        fitToWindow(true); \n"
+        . "    } else { \n"
+        . "        // In Netscape we've got to reload the page. \n"
+        . "        document.reload(); \n"
+        . "    } \n"
+        . "} \n"
+		. "// --> \n"
+		. "</script> \n";
+
+	$pageBodyTagExtra .= "onResize='doResize()'";
 }
 
 $numPhotos = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
 $next = $index+1;
 if ($next > $numPhotos) {
-	//$next = 1;
 	$last = 1;
 }
 $prev = $index-1;
 if ($prev <= 0) {
-	//$prev = $numPhotos;
 	$first = 1;
 }
 
@@ -176,20 +245,15 @@ if (!$gallery->album->isMovie($id)) {
 		$commands[$commandCount]['action'] = popup("delete_photo.php?index=$index");
     }
 
-#    if (!strcmp($gallery->album->fields["use_fullOnly"], "yes")) {
-#        $link = doCommand("", "set_fullOnly=" .
-#                (strcmp($gallery->session->fullOnly,"on") ? "on" : "off"),
-#            "view_photo.php", "id=$id");
-#        $adminCommands .= "<nobr>View Images: [ ";
-#        if (strcmp($gallery->session->fullOnly,"on"))
-#        {
-#            $adminCommands .= "normal | <a href=\"$link\">full</a> ]";
-#        } else {
-#            $adminCommands .= "<a href=\"$link\">normal</a> | full ]";
-#        }
-#        $adminCommands .= "</nobr>";
-#    }
+    if (!strcmp($gallery->album->fields["use_fullOnly"], "yes")) {
+		$commandCount++;
+		$commands[$commandCount]['name'] = "View Images " .
+			(strcmp($gallery->session->fullOnly,"on") ? "Full" : "Normal");
+		$commands[$commandCount]['action'] = doCommand("", "set_fullOnly=" .
+			(strcmp($gallery->session->fullOnly,"on") ? "on" : "off"), 
+			"view_photo.php", "id=$id");
 
+	}
    
     if (!strcmp($gallery->album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
         ($gallery->app->use_exif)) {
@@ -218,7 +282,7 @@ if (!$gallery->album->isMovie($id)) {
 		}
 		list($rawWidth, $rawHeight) = $image->getRawDimensions();
 
-        $hiddenText .= "<form name=\"sflyc4p\" action=\"http://www.shutterfly.com/c4p/UpdateCart.jsp\" method=\"post\">\n"
+        $pageBodyExtra .= "<form name=\"sflyc4p\" action=\"http://www.shutterfly.com/c4p/UpdateCart.jsp\" method=\"post\">\n"
 			. "  <input type=hidden name=addim value=\"1\">\n"
             . "  <input type=hidden name=protocol value=\"SFP,100\">\n"
             . "  <input type=hidden name=pid value=\"C4P\">\n"
@@ -331,7 +395,9 @@ $GLO['publicComments'] = $publicComments;
 $GLO['info'] = "no info";
 
 //-- special stuff ---
-$GLO['page']['body']['hiddenText'] = $hiddenText;
+$GLO['page']['body']['extra'] = $pageBodyExtra;
+$GLO['page']['bodyTag']['extra'] = $pageBodyTagExtra;
+$GLO['page']['head']['extra'] = $pageHeadExtra;
 
 //-- the 'layout' relevant info ---
 $GLO['layout']['dir'] = $GLO['gallery']['url'] . "/" . getLayoutFile(""); 
