@@ -25,7 +25,7 @@ if (!$user->isAdmin()) {
 
 if ($submit) {
 	if (!strcmp($submit, "Delete")) {
-		$userDB->deleteUser($uname);
+		$userDB->deleteUserByUsername($uname);
 		header("Location: manage_users.php");
 	} else if (!strcmp($submit, "Cancel")) {
 		header("Location: manage_users.php");

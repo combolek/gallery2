@@ -108,9 +108,12 @@ if ($albumName) {
 /* And load our user object */
 $userDB = new UserDB;
 if ($username) {
-	$user = $userDB->getUser($username);
-} else {
+	$user = $userDB->getUserByUsername($username);
+}
+
+if (!$user) {
 	$user = new PublicUser();
+	$username = "";
 }
 
 ?>
