@@ -46,7 +46,7 @@ function getLayouts() {
 }
 
 //-----------------------------------------------------------------------------
-function includeLayout($name, $GLO) {
+function includeLayout($name) {
 		
 	// define these globals to make them available to layouts
 	global $gallery;
@@ -98,7 +98,7 @@ function getLayoutWrapTemplate($name) {
 //-----------------------------------------------------------------------------
 //-- returns the header and footer html parsed through an XTPL ---
 //-----------------------------------------------------------------------------
-function getLayoutWrapHeaderFooter($G) {
+function getLayoutWrapHeaderFooter(&$G) {
 	global $GALLERY_EMBEDDED_INSIDE;
 
 	$xtpl_hf = getLayoutWrapTemplate("header_footer.xtpl");
