@@ -59,23 +59,52 @@ class DatabaseSchema {
     }
 
     /**
+     * Create the database.
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function createDatabase($databaseName) {
+	$query = $this->_generator->createDatabase($databaseName);
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+    }
+
+    /**
+     * Drop a database.
+     *
+     * Use this very carefully!
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function dropDatabase($databaseName) {
+	$query = $this->_generator->dropDatabase($databaseName);
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+    }
+
+    /**
      * Create a new schema.
      *
      * @param string the name of the database to create
      * @return int a status code
      */
-    function createSchema($databaseName) {
-
-	/**
-	 * Create the database
-	 */
-	$query = $this->_generator->createDatabase($databaseName);
-	$recordSet = $this->_db->Execute($query);
-
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
+    function createSchema() {
 
 	/*
 	 * Make a new GalleryClassMetaInfo instance.  We could try to use the
@@ -90,7 +119,7 @@ class DatabaseSchema {
 	 * Generate the schema for each class
 	 */
 	foreach ($metaInfo->listClasses() as $tableName) {
-	    $query = $this->_generator->createTable($databaseName, $tableName,
+	    $query = $this->_generator->createTable($tableName,
 	        $metaInfo->describeClass($tableName));
 
 	    $recordSet = $this->_db->Execute($query);
@@ -102,13 +131,29 @@ class DatabaseSchema {
 	}
 
 	/*
+	 * Generate the lock table
+	 */
+	$lockTableInfo = array('id' => array('type' => STORAGE_TYPE_INTEGER,
+					     'class' => 'lock'),
+			       'lock' => array('type' => STORAGE_TYPE_INTEGER,
+					       'class' => 'lock'));
+
+	$query = $this->_generator->createTable('lock', $lockTableInfo);
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	/*
 	 * Generate the schema table
 	 */
-	$schemaTableInfo = array("major" => array('type' => STORAGE_TYPE_INTEGER,
+	$schemaTableInfo = array('major' => array('type' => STORAGE_TYPE_INTEGER,
 						  'class' => 'schema'),
-				 "minor" => array('type' => STORAGE_TYPE_INTEGER,
+				 'minor' => array('type' => STORAGE_TYPE_INTEGER,
 						  'class' => 'schema'));
-	$query = $this->_generator->createTable($databaseName, "schema", $schemaTableInfo);
+	$query = $this->_generator->createTable('schema', $schemaTableInfo);
 	$recordSet = $this->_db->Execute($query);
 	
 	/* Check the results */
@@ -119,7 +164,7 @@ class DatabaseSchema {
 	/*
 	 * Populate the schema table with exactly one row.
 	 */
-	$schemaTable = $databaseName . '.' . DATABASE_TABLE_PREFIX . 'schema';
+	$schemaTable = DATABASE_TABLE_PREFIX . 'schema';
 	$query = 'DELETE FROM ' . $schemaTable;
 	$recordSet = $this->_db->Execute($query);
 	
