@@ -21,9 +21,9 @@
      Unpack your downloaded Gallery files and place them under your webroot.
     </para>
     <para>
-     (Standard installation directory is "C:\Program Files\Apache Group\Apache\
-     htdocs").  This may vary depending on the location of your Apache
-     installation.  Don't worry if the file extension unknown to you,
+     (Standard installation directory is "C:\Program Files\Apache Group\Apache\htdocs").
+     This may vary depending on the location of your Apache
+     installation. Don't worry if the file extension unknown to you,
      since WinZip and WinRAR both support .tar.gz archives.
     </para>
    </listitem>
@@ -47,7 +47,7 @@
      Gallery requires an image manipulation program (as mentioned in the
      Installation Requirements).  You may use NetPBM or ImageMagick, we support
      both.  NetPBM is easy to install. You can grab the files from the Gallery
-     Download Page.  <emphasis>Make sure you get the binaries for Windows</emphasis>
+     Download Page.  <emphasis>Make sure you get the binaries for Windows.</emphasis>
      Place them somewhere on your machine, preferably in a path without spaces. 
      <filename>C:\apps\netpbm</filename> or something similar is a good location.
      If you want to use Imagemagick, download it from
@@ -66,7 +66,7 @@
      Download the executable and place it somewhere on your machine. 
      You will have to fill in the path to the Jhead file when you run the
      configuration wizard, so please take note of the directory you installed it
-     too.  An example would be <filename>C:\apps\jhead\jhead.exe</filename>.
+     to.  An example would be <filename>C:\apps\jhead\jhead.exe</filename>.
      You can download Jhead and find out more information here:
      <ulink url="http://www.sentex.net/~mwandel/jhead/">
      http://www.sentex.net/~mwandel/jhead/</ulink>
@@ -84,19 +84,15 @@
      If that points  to <filename>/tmp</filename>, you will have trouble when
      uploading pictures later on. Change that line to a valid directory, such as
      <filename>C:\winnt\temp</filename>.  <emphasis>Make sure that this
-     directory actually exists.</emphasis>
+     directory actually exists.</emphasis> Restart Apache to make sure the changes are enforced
+     (Start Menu-&gt;Programs-&gt;Apache HTTP
+      Server-&gt;Configure Apache Server-&gt;Edit the Apache httpd.conf Configuration
+      File).
     </para>
    </listitem>
    <listitem>
     <para>
      Run the configuration wizard
-    </para>
-    <para>
-     To put Gallery into configuration mode, which is need to configure it,
-     run <filename>configure.bat</filename> from the command line.  The easiest
-     way to do this is to open up <literal>Windows Explorer</literal>, find
-     the directory Gallery is located in (see the above sections), and double
-     click on <filename>configure.bat</filename>.
     </para>
     <para>
      Once you have done that, open up your favorite browser and visit 
@@ -148,10 +144,26 @@
       it will find reads: <literal>#AddModule mod_rewrite.c</literal>. Remove the
       '#' from that line too.
      </para>
+     </note>
+     <note>
+     <para>
+      If you get this: Warning! Apache is not obeying your .htaccess file. 
+      Correct this by, following these steps:
+      Edit <filename>httpd.conf</filename> (Start Menu-&gt;Programs-&gt;Apache HTTP
+      Server-&gt;Configure Apache Server-&gt;Edit the Apache httpd.conf Configuration
+      File)
+      Add the text the config wizard provides to the end of the <filename>http.conf</filename> file.
+     </para>
      <para>
       Save the file, and restart Apache (Start Menu-&gt;Programs-&gt;Apache HTTP
       Server-&gt;Control Apache Server-&gt;Restart).
      </para>
+     <para>
+     There might be other errors aswell, but the config wizard wil show you examples as to how to fix them.
+     Just remember that everytime httpd.conf is referenced, in Windows/Apache this is the same as 
+     Start Menu-&gt;Programs-&gt;Apache HTTP Server-&gt;Configure Apache Server-&gt;Edit the Apache httpd.conf Configuration
+      File
+    </para>
     </note>
     <para>
      If the errors are minor (unable to locate paths automatically), you will
