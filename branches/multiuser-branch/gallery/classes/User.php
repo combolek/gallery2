@@ -172,7 +172,7 @@ class User {
 	}
 
 	function isOwnerOfAlbum($album) {
-		if ($album->isOwner($this)) {
+		if ($album->isOwner($this->uid)) {
 			return true;
 		}
 
