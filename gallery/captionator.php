@@ -237,19 +237,9 @@ if ($numPhotos) {
 	<td bgcolor="<?php echo $bordercolor ?>" height="1"><?php echo $pixelImage ?></td>
 </tr>
 <tr>
-	<td width="<?php echo $thumbSize ?>" align="center" valign="top" class="modcaption"><br>
-<?php
-		$photo = $gallery->album->getPhoto($i);
-		list($width, $height) = $photo->getDimensions();
-		if (!($photo->isMovie())) {
-			echo popup_link($gallery->album->getThumbnailTag($i, $thumbSize).
-						"<br />"._("(click to enlarge)"),
-					$gallery->album->getPhotoPath($i),1,false,
-					$height+20,$width+20);
-		} else {
-			echo $gallery->album->getThumbnailTag($i,$thumbSize);
-		}
-?>	
+	<td width="<?php echo $thumbSize ?>" align="center" valign="top"><br>
+		<?php echo $gallery->album->getThumbnailTag($i, $thumbSize); ?>
+	
 	</td>
 	<td height="1"><?php echo $pixelImage ?></td>
 	<td valign="top"><?php
@@ -292,8 +282,14 @@ if ($numPhotos) {
 			echo "\n\t\t". '<input type="text" name="new_keywords_'. $i .'" size="65" value="'. $oldKeywords .'"></p>';
 
 			$itemCaptureDate = $gallery->album->getItemCaptureDate($i);
-			$capturedate=strftime($gallery->app->dateTimeString , $itemCaptureDate);
+			$hours = $itemCaptureDate["hours"];
+			$minutes = $itemCaptureDate["minutes"];
+			$seconds = $itemCaptureDate["seconds"];
+			$mon = $itemCaptureDate["mon"];
+			$mday = $itemCaptureDate["mday"];
+			$year = $itemCaptureDate["year"];
 
+			$capturedate=strftime($gallery->app->dateTimeString , mktime ($hours,$minutes,$seconds,$mon,$mday,$year));
 			echo "\n\t\t". '<p class="admin">'. _("Capture Date") . ': '. $capturedate. '</p><br>';
 		}
 	echo "\n\t</td>";

@@ -28,7 +28,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -78,9 +78,10 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Configure Custom Fields") ?></div>
-<div class="popupcontent" align="center">
+
+<center>
+<p class="popuphead"><?php echo _("Configure Custom Fields") ?></p>
+
 <p>
 <?php echo makeFormIntro("extra_fields.php", array(
 				"name" => "theform", 
@@ -176,8 +177,8 @@ function num_special_fields($extra_fields) {
 	<input type="button" name="close" value="<?php echo _("Close") ?>" onclick='parent.close()'>
 </p>
 </form>
+</center>
+
 <?php print gallery_validation_link("extra_fields.php"); ?>
-</div>
-</div>
 </body>
 </html>

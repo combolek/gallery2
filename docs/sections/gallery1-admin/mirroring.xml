@@ -18,18 +18,6 @@
  
  <sect2 id="gallery1-admin.mirroring.quickstart">
   <title>Quick Start</title>
-
-  <note>
-   <para>
-    Mirroring requires that you have <literal>allow_url_fopen</literal> set to <literal>on</literal> 
-    in <filename>php.ini</filename> or &htaccess;  If your server does not have that directive on in
-    <filename>php.ini</filename>, try adding this line to the bottom of your &htaccess; file
-    <screen>
-     php_flag allow_url_fopen on
-    </screen>
-    If that doesn't work, you'll need to contact your host for further help setting it on globally
-   </para>
-  </note>
   
   <orderedlist>
    <listitem>

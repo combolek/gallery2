@@ -45,6 +45,9 @@
 
 require(dirname(__FILE__) . "/init.php");
 
+/* Initializing the seed */
+srand ((double) microtime() * 1000000);
+
 define('CACHE_FILE', $gallery->app->albumDir . "/block-random.dat");
 define('CACHE_EXPIRED', $gallery->app->blockRandomCache);
 
@@ -65,34 +68,30 @@ if ($rebuild) {
 	readCache();
 }
 
-doPhoto();
+$album = chooseAlbum();
 
-function doPhoto() {
-	$album = chooseAlbum();
+if (!empty($album)) {
+	$index = choosePhoto($album);
+}
 
-	if (!empty($album)) {
-		$index = choosePhoto($album);
+if (!empty($index)) {
+	$id = $album->getPhotoId($index);
+	echo ""
+		. "<center><a href=" . makeAlbumUrl($album->fields["name"], $id) . ">"
+		. $album->getThumbnailTag($index)
+		. "</a></center>";
+
+	$caption = $album->getCaption($index);
+	if ($caption) {
+		echo "<br><center>$caption</center>";
 	}
 
-	if (!empty($index)) {
-		$id = $album->getPhotoId($index);
-		echo ""
-			. "<center><a href=\"" . makeAlbumUrl($album->fields["name"], $id) . "\">"
-			. $album->getThumbnailTag($index)
-			. "</a></center>";
-
-		$caption = $album->getCaption($index);
-		if ($caption) {
-			echo "<br><center>$caption</center>";
-		}
-
-		echo "<br><center>From: "
-			."<a href=\"" .makeAlbumUrl($album->fields["name"]) ."\">"
-			.$album->fields["title"]
-			."</a></center>";
-	} else {
-		print "<center>No photo chosen.</center>";
-	}
+	echo "<br><center>From: "
+		."<a href=" .makeAlbumUrl($album->fields["name"]) .">"
+		.$album->fields["title"]
+		."</a></center>";
+} else {
+	print "<center>No photo chosen.</center>";
 }
 
 /*
@@ -126,7 +125,7 @@ function choosePhoto($album) {
 			return null;
 		}
 	} else {
-		$choose = mt_rand(1, $count);
+		$choose = rand(1, $count);
 		$wrap = 0;
 		while ($album->isHiddenRecurse($choose) || $album->isAlbum($choose)) {
 			$choose++;
@@ -157,7 +156,7 @@ function chooseAlbum() {
 		}
 
 		$total += $count;
-		if ($total != 0 && ($total == 1 || mt_rand(1, $total) <= $count)) {
+		if ($total != 0 && ($total == 1 || rand(1, $total) <= $count)) {
 			$choose = $name;
 		}
 	}

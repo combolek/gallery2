@@ -25,7 +25,7 @@
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
-if (empty($gallery->album) || !$gallery->user->canReadAlbum($gallery->album)) {
+if (!$gallery->user->canReadAlbum($gallery->album)) {
         header("Location: " . makeAlbumHeaderUrl());
 	return;
 }
@@ -205,7 +205,7 @@ if (isset($save)) {
 	} else {
 		$comment_text = removeTags($comment_text);
 		$commenter_name = removeTags($commenter_name);
-		$IPNumber = $_SERVER['REMOTE_ADDR'];
+		$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 		$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
 		$gallery->album->save();
 		emailComments($id, $comment_text, $commenter_name);
@@ -374,10 +374,10 @@ if (!$gallery->album->isMovie($id)) {
 		$prependURL = '';
 		if (!ereg('^https?://', $photoPath)) {
 		    $prependURL = 'http';
-		    if  (isset($_SERVER['HTTPS']) && stristr($_SERVER['HTTPS'], "on")) {
+		    if  (isset($HTTP_SERVER_VARS['HTTPS']) && stristr($HTTP_SERVER_VARS['HTTPS'], "on")) {
 			$prependURL .= 's';
 		    }
-		    $prependURL .= '://'. $_SERVER['HTTP_HOST'];
+		    $prependURL .= '://'. $HTTP_SERVER_VARS['HTTP_HOST'];
 		}
 		$rawImage = $prependURL . $photoPath . "/" . $photo->image->name . "." . $photo->image->type;
 
@@ -539,7 +539,7 @@ if (!$gallery->album->isMovie($id)) {
 
 $photoTag="";
 $frame= $gallery->album->fields['image_frame'];
-if ($fitToWindow && (preg_match('/safari|opera/i', $_SERVER['HTTP_USER_AGENT']) || $gallery->session->offline)) {
+if ($fitToWindow && (preg_match('/safari|opera/i', $HTTP_SERVER_VARS['HTTP_USER_AGENT']) || $gallery->session->offline)) {
 	//Safari/Opera can't render dynamically sized image frame
 	$frame = 'none';
 }
@@ -562,15 +562,8 @@ includeHtmlWrap("inline_photo.frame");
 ?>
 
 <!-- caption -->
-<p align="center" class="modcaption"><?php echo editCaption($gallery->album, $index) ?>
+<p align="center" class="modcaption"><?php echo editCaption($gallery->album, $index) ?></p>
 
-<!-- Custom Fields -->
-<?php
-	displayPhotoFields($index, $extra_fields, true, in_array('EXIF', $extra_fields), $full);
-?>
-</p>
-
-<!-- voting -->
 <?php
 
 /*
@@ -611,12 +604,13 @@ echo "\n<!-- Comments -->";
 if (isset($error_text)) {
 	echo gallery_error($error_text) ."<br><br>";
 }
-
+ 
 if ($gallery->user->canViewComments($gallery->album) && $gallery->app->comments_enabled == 'yes') {
 		echo viewComments($index, $gallery->user->canAddComments($gallery->album), $page_url);
 }
 
-
+echo "\n\n<!-- Custom Fields -->";
+displayPhotoFields($index, $extra_fields, true, in_array('EXIF', $extra_fields), $full);
 
 echo "<br>";
 

@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -40,9 +40,10 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead" align="center"><?php echo _("Copy Photo") ?></div>
-<div class="popupcontent" align="center">
+
+<p class="popuphead" align="center"><?php echo _("Copy Photo") ?></p>
+
+<center>
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -197,7 +198,8 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 	echo gallery_error(_("no album / index specified"));
 }
 ?>
+</center>
+
 <?php print gallery_validation_link("copy_photo.php", true, array('index' => $index)); ?>
-</div>
 </body>
 </html>

@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -42,9 +42,7 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Move Album") ?></div>
-<div class="popupcontent" align="center">
+
 <?php
 /* Read the album list */
 $albumDB = new AlbumDB(FALSE);
@@ -89,6 +87,11 @@ if ($gallery->session->albumName && isset($index)) {
 	} else {
 		$numAlbums = $albumDB->numAlbums($gallery->user);
 ?>
+
+<center>
+<p class="popuphead"><?php echo _("Move Album") ?></p>
+
+<div class="popup">
 <?php echo _("Select the new location of album") ?> <?php echo $gallery->album->fields["title"] ?>:
 
 <?php
@@ -135,6 +138,8 @@ printAlbumOptionList(0,1)
 </form>
 <?php
 } // End Reorder
+echo "</div>";
+echo "</center>";
 	}
 } else {
 	echo gallery_error(_("no album / index specified"));
@@ -150,7 +155,5 @@ document.theform.newIndex.focus();
 
 
 <?php print gallery_validation_link("move_album.php", true, array('index' => $index)); ?>
-</div>
-</div>
 </body>
 </html>

@@ -25,7 +25,7 @@
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are not allowed to perform this action.");
 	exit;
 }
 
@@ -70,9 +70,9 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Edit Watermark") ?></div>
-<div class="popupcontent" align="center">
+
+<div align="center">
+<p class="popuphead"><?php echo _("Edit Watermark") ?></p>
 <p>
 <?php
 if (isset($preview)) {
@@ -112,8 +112,7 @@ includeLayout ('watermarkform.inc');
 document.theform.cancel.focus();
 //-->
 </script>
+
 <?php print gallery_validation_link("edit_watermark.php"); ?>
-</div>
-</div>
 </body>
 </html>

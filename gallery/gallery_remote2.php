@@ -44,15 +44,15 @@ header("Content-type: text/plain");
 /*
  * Start buffering output
  */
-//if($gallery->app->debug == "no") {
-//	@ob_start();
-//}
+if($gallery->app->debug == "no") {
+	@ob_start();
+}
 
 /*
  * Gallery remote protocol version 2.10
  */
 $GR_VER['MAJ'] = 2;
-$GR_VER['MIN'] = 15;
+$GR_VER['MIN'] = 14;
 
 
 /*
@@ -133,7 +133,7 @@ switch($cmd === 0 ? '' : $cmd) {
 		break;
 }
 
-//@ob_end_clean();
+@ob_end_clean();
 echo $response->listprops();
 //end of processing
 
@@ -332,20 +332,12 @@ function gr_album_properties( &$gallery, &$response ) {
 
 	global $GR_STAT;
 
-	$resize_dimension = $gallery->album->fields['resize_size'];
-	if ($resize_dimension == 'off') {
-		$resize_dimension = 0;
-	}
-
-	$response->setProperty( 'auto_resize', $resize_dimension );
-
-	$max_dimension = $gallery->album->fields['max_size'];
+	$max_dimension = $gallery->album->fields['resize_size'];
 	if ($max_dimension == 'off') {
 		$max_dimension = 0;
 	}
 
-	$response->setProperty( 'max_size', $max_dimension );
-
+	$response->setProperty( 'auto_resize', $max_dimension );
 	$extrafields = $gallery->album->getExtraFields();
 	if ($extrafields) {
 		$response->setProperty( 'extra_fields', implode(",", $extrafields) );
@@ -764,8 +756,7 @@ function add_album( &$myAlbum, &$album_index, $parent_index, &$response ){
 	$response->setProperty( "album.title.$album_index", $albumTitle );
 	$response->setProperty( "album.summary.$album_index", $myAlbum->fields['summary'] );
 	$response->setProperty( "album.parent.$album_index", $parent_index );
-	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size']=='off'?0:$myAlbum->fields['resize_size'] );
-	$response->setProperty( "album.max_size.$album_index", $myAlbum->fields['max_size']=='off'?0:$myAlbum->fields['max_size'] );
+	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] );
 	$response->setProperty( "album.thumb_size.$album_index", $myAlbum->fields['thumb_size'] );
 
 	// write permissions
@@ -888,11 +879,12 @@ function processFile($file, $tag, $name, $setCaption="") {
 			// add the extra fields
 			$myExtraFields = array();
 			foreach ($gallery->album->getExtraFields() as $field) {
+				global $HTTP_POST_VARS;
 				//$fieldname = "extrafield_$field";
 				//echo "Looking for extra field $fieldname\n";
 
 				// The way it should be done now
-				$value = $_POST[("extrafield.".$field)];
+				$value = $HTTP_POST_VARS[("extrafield.".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {
@@ -903,7 +895,7 @@ function processFile($file, $tag, $name, $setCaption="") {
 				}
 
 				// Deprecated
-				$value = $_POST[("extrafield_".$field)];
+				$value = $HTTP_POST_VARS[("extrafield_".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {

@@ -29,11 +29,9 @@ require(dirname(__FILE__) . '/init.php');
 // Hack check
 if (!$gallery->user->isAdmin() && 
     !$gallery->user->isOwnerOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
-
-list($save, $owner, $id) = getRequestVar(array('save', 'owner', 'id'));
 
 doctype();
 echo "\n<html>";
@@ -79,9 +77,9 @@ asort($uAll);
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Change Owner") ?></div>
-<div class="popupcontent" align="center">
+
+<center>
+<p class="popuphead"><?php echo _("Change Owner") ?></p>
 <?php 
 	$index=$gallery->album->getPhotoIndex($id);
 	echo $gallery->album->getThumbnailTag($index);
@@ -106,7 +104,5 @@ asort($uAll);
 </center>
 
 <?php print gallery_validation_link("photo_owner.php", true, array('id' => $id)); ?>
-</div>
-</div>
 </body>
 </html>

@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 $err = "";
@@ -46,8 +46,6 @@ if (isset($save)) {
 		$dateArray["hours"] = $capture_hours;
 		$dateArray["minutes"] = $capture_minutes;
 		$dateArray["seconds"] = $capture_seconds;
-
-		$timestamp=mktime($capture_hours, $capture_minutes, $capture_seconds, $capture_mon, $capture_mday, $capture_year);
 		$gallery->album->setItemCaptureDate($index, $dateArray );
 		if (isset($extra_fields)) {
 			foreach ($extra_fields as $field => $value)
@@ -74,9 +72,9 @@ if (isset($save)) {
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Edit Caption"); ?></div>
-<div class="popupcontent" align="center">
+
+<div align="center">
+	<p class="popuphead"><?php echo _("Edit Caption"); ?></p>
 	<?php echo $gallery->album->getThumbnailTag($index) ?>
 
 <?php echo makeFormIntro("edit_caption.php", 
@@ -128,27 +126,27 @@ if (isset($error)) {
 }
 $itemCaptureDate = $gallery->album->getItemCaptureDate($index);
 
-$hours 	 = strftime('%H', $itemCaptureDate);
-$minutes = strftime('%M', $itemCaptureDate);
-$seconds = strftime('%S', $itemCaptureDate);
-$mon 	 = strftime('%m', $itemCaptureDate);
-$mday 	 = strftime('%d', $itemCaptureDate);
-$year 	 = strftime('%Y', $itemCaptureDate);
+$hours = $itemCaptureDate["hours"];
+$minutes = $itemCaptureDate["minutes"];
+$seconds = $itemCaptureDate["seconds"];
+$mon = $itemCaptureDate["mon"];
+$mday = $itemCaptureDate["mday"];
+$year = $itemCaptureDate["year"];
 // start capture date table
 ?>
 
 <br>
 <table border="0">
   <tr>
-	<td colspan="6" align="center" class="popuptd"><?php echo _("Photo Capture Date") ?></td>
+	<td colspan="6" align="center" class="popup"><?php echo _("Photo Capture Date") ?></td>
   </tr>
   <tr>
-    <td class="popuptd"><?php echo _("Month") ?></td>
-    <td class="popuptd"><?php echo _("Day") ?></td>
-    <td class="popuptd"><?php echo _("Year") ?></td>
-    <td class="popuptd"><?php echo _("Hours") ?></td>
-    <td class="popuptd"><?php echo _("Minutes") ?></td>
-    <td class="popuptd"><?php echo _("Seconds") ?></td>
+    <td class="popup"><?php echo _("Month") ?></td>
+    <td class="popup"><?php echo _("Day") ?></td>
+    <td class="popup"><?php echo _("Year") ?></td>
+    <td class="popup"><?php echo _("Hours") ?></td>
+    <td class="popup"><?php echo _("Minutes") ?></td>
+    <td class="popup"><?php echo _("Seconds") ?></td>
   </tr>
   <tr>
 <?php
@@ -186,6 +184,7 @@ echo "</td>";
 </p>
 
 </form>
+</div>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--   
@@ -195,7 +194,5 @@ document.theform.data.focus();
 </script>
 
 <?php print gallery_validation_link("edit_caption.php", true, array('index' => $index)); ?>
-</div>
-</div>
 </body>
 </html>

@@ -2,9 +2,10 @@
 // This is the default gallery footer (for the main gallery
 // page: albums.php). It's companion is gallery.header.default.
 //
-// To override this footer, create a file called gallery.footer
+// To override this header, create a file called gallery.footer
 // in this directory.
 //
+// NOTE: This header gets inserted above the </body> tag.
 //
 // Some tips:
 // * Some application variables:
@@ -15,9 +16,7 @@
 //
 // $Id$
 ?>
-<?php
-includeTemplate('gallery.footer.tpl');
-?>
+
       <table width="100%" cellspacing="0" cellpadding="0" class="modfooter">
         <tr>
           <td valign=top>

@@ -60,9 +60,7 @@ class Album {
 		$this->fields["cols"] = $gallery->app->default["cols"];
 		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
 		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
-		if (isset($gallery->app->default['print_photos'])) {
-			$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-		}
+		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
 		$this->fields["guid"] = 0;
 		if (isset($gallery->app->use_exif)) {
 			$this->fields["use_exif"] = "yes";
@@ -399,7 +397,7 @@ class Album {
 		}
 
 		if ($this->version < 29) {
-			$this->fields['guid'] = genGUID();
+			$this->fields['guid'] = md5(uniqid(rand(), true));
 			$changed = 1;
 		}
 
@@ -529,8 +527,10 @@ class Album {
 	function sortByItemCapture($a, $b) {
 		$objA = (object)$a;
 		$objB = (object)$b;
-		$timeA = $objA->getItemCaptureDate();
-		$timeB = $objB->getItemCaptureDate();
+		$arrayTimeA = $objA->getItemCaptureDate();
+		$arrayTimeB = $objB->getItemCaptureDate();
+		$timeA = "${arrayTimeA['year']}${arrayTimeA['mon']}${arrayTimeA['mday']}${arrayTimeA['hours']}${arrayTimeA['minutes']}${arrayTimeA['seconds']}";
+		$timeB = "${arrayTimeB['year']}${arrayTimeB['mon']}${arrayTimeB['mday']}${arrayTimeB['hours']}${arrayTimeB['minutes']}${arrayTimeB['seconds']}";
 		//print "$timeA $timeB<br>";
 	
 		if ($timeA == $timeB) {
@@ -580,27 +580,11 @@ class Album {
 	}
 	
 	function sortByCaption($a, $b) {
-                global $albumDB;
-                if (empty($albumDB)) {
-                        $albumDB = new AlbumDB(false);
-                }       
 		// sort album alphabetically by caption
 		$objA = (object)$a;
 		$objB = (object)$b;
-		if ($objA->isAlbum()) {
-			$albumA = $albumDB->getAlbumByName($objA->getAlbumName(), false);
-			$captionA = $albumA->fields['title'];
-		} else {
-			$captionA = $objA->getCaption();
-		}
-
-		if ($objB->isAlbum()) {
-                        $albumB = $albumDB->getAlbumByName($objB->getAlbumName(), false);
-                        $captionB = $albumB->fields['title'];
-		} else {
-			$captionB = $objB->getCaption();
-		}
-
+		$captionA = $objA->getCaption();	
+		$captionB = $objB->getCaption();
 		return (strnatcasecmp($captionA, $captionB));
 	}
 	
@@ -872,6 +856,7 @@ class Album {
 		    }
 		}
 		if ($success && $msg) { // send email
+			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
 				echo gallery_error(_("msg should be an array!"));
 				vd($msg);
@@ -884,7 +869,7 @@ class Album {
 					       	makeAlbumUrl($this->fields['name']),
 						user_name_string($gallery->user->getUID(),
 							$gallery->app->comments_display_name),
-						$_SERVER['REMOTE_ADDR'],
+						$HTTP_SERVER_VARS['REMOTE_ADDR'],
 					       	$msg_str);
 			       	$text .= "\n\n". "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when other changes are made\" is unchecked (You'll need to login first).";
 			       	$subject=sprintf("Changes to %s", $this->fields['name']);
@@ -1098,7 +1083,7 @@ class Album {
 				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0); 
 		}
 
-		$this->fields['guid'] = genGUID();
+		$this->fields['guid'] = md5(uniqid(rand(), true));
 
 		return 0;
 	}
@@ -1247,10 +1232,11 @@ class Album {
 		$index = $this->getHighlight();
 		if (isset($index)) {
 			$photo = $this->getPhoto($index);
-			return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
-		} else {
-			return "<span class=title>". _("No highlight") ."!</span>";
+			if (!empty($photo))
+				return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
 		}
+
+		return "<span class=title>". _("No highlight") ."!</span>";
 	}
 
 	function getPhotoTag($index, $full) {

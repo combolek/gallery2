@@ -52,7 +52,7 @@ if ($gallery->session->albumName) {
 
 // Hack check
 if (!$gallery->user->isAdmin() && empty($upgrade_albumname)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -75,8 +75,6 @@ function reload_button() {
 }
 
 function end_file() {
-	print "</div>";
-	print "</div>";
 	print "</body>";
 	print "</html>";
 }
@@ -121,9 +119,8 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Upgrade Albums") ?></div>
-<div class="popupcontent">
+
+<p align="center" class="popuphead"><?php echo _("Upgrade Albums") ?></p>
 <p>
 <?php 
 	echo _("The following albums in your gallery were created with an older version of the software and are out of date.");

@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -41,9 +41,11 @@ doctype();
   <META HTTP-EQUIV="expires" CONTENT="0"> 
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Rotate/Flip Photo") ?></div>
-<div class="popupcontent" align="center">
+
+<center>
+<p class="popuphead"><?php echo _("Rotate/Flip Photo") ?></p>
+
+<span class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	if (isset($rotate) && !empty($rotate)) {
@@ -93,8 +95,8 @@ if ($gallery->session->albumName && isset($index)) {
 }
 ?>
 
+</span>
+</center>
 <?php print gallery_validation_link("rotate_photo.php"); ?>
-</div>
-</div>
 </body>
 </html>

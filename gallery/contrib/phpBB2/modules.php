@@ -31,7 +31,8 @@
 define('MODULES_PATH', './modules/');
 
 
-$op = ( isset($_POST['op']) ) ? $_POST['op'] : (isset($_GET['op']) ? $_GET['op'] : '');
+$op = ( isset($HTTP_POST_VARS['op']) ) ? $HTTP_POST_VARS['op'] : (isset($HTTP_GET_VARS['op']) ? $HTTP_GET_VARS['op'] : '');
+
 switch ($op) {
     case 'modload':
 	// Added with changes in Security for PhpBB2.
@@ -62,9 +63,11 @@ switch ($op) {
 	** appending "?HTTP_POST_VARS[gallery]=xxx" to the url would cause extract
 	** to overwrite HTTP_POST_VARS when it extracts HTTP_GET_VARS
 	*/
-
+    
 	$scrubList = array('HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_COOKIE_VARS', 'HTTP_POST_FILES');
-	array_push($scrubList, "_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+	if (function_exists("version_compare") && version_compare(phpversion(), "4.1.0", ">=")) {
+		array_push($scrubList, "_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+	}
 
 	foreach ($scrubList as $outer) {
 		foreach ($scrubList as $inner) {
@@ -72,13 +75,29 @@ switch ($op) {
 		}
 	}
 
-	extract($_REQUEST);
-        foreach($_FILES as $key => $value) {
+	if (is_array($_REQUEST)) {
+		extract($_REQUEST);
+	}
+	else {
+		if (is_array($HTTP_GET_VARS)) {
+			extract($HTTP_GET_VARS);
+		}
+
+		if (is_array($HTTP_POST_VARS)) {
+			extract($HTTP_POST_VARS);
+		}
+
+		if (is_array($HTTP_COOKIE_VARS)) {
+			extract($HTTP_COOKIE_VARS);
+		}
+	}
+
+        foreach($HTTP_POST_FILES as $key => $value) {
             ${$key."_name"} = $value["name"];
             ${$key."_size"} = $value["size"];
             ${$key."_type"} = $value["type"];
             ${$key} = $value["tmp_name"];
-	}
+        }
 
         // Security fix
         if (ereg("\.\.",$name) || ereg("\.\.",$file)) {

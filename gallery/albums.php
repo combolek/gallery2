@@ -25,7 +25,7 @@ require(dirname(__FILE__) . '/init.php');
 
 if (empty($gallery->session->username)) {
     /* Get the cached version if possible */
-    if (!getRequestVar('gallery_nocache')) {
+    if (!empty($HTTP_GET_VAR['gallery_nocache'])) {
 	$cache_file = "cache.html";
 	$cache_now = time();
 	$cache_stat = @stat("cache.html");
@@ -108,10 +108,6 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   if ($navigator['page'] < $maxPages) { ?>
       <link rel="next" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']+1)) ?>" />
       <link rel="last" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $maxPages)) ?>" />
-  <?php	}
-	if ($gallery->app->rssEnabled == "yes") {
-  ?>
-      <link rel="alternate" title="<?php echo sprintf(_("%s RSS"), $gallery->app->galleryTitle) ?>" href="<?php echo $gallery->app->photoAlbumURL . "/rss.php" ?>" type="application/rss+xml" />
   <?php } ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
@@ -185,7 +181,6 @@ if ($gallery->user->isAdmin()) {
 	}
 	$adminCommands .= '<a style="white-space:nowrap;" href="' . $gallery->app->photoAlbumURL . '/setup/index.php">[' . _("configuration wizard") .']</a> ';
 	$adminCommands .= '<a style="white-space:nowrap;" href="' . makeGalleryUrl('tools/find_orphans.php') . '">[' . _("find orphans") .']</a> ';
-	$adminCommands .= '<a style="white-space:nowrap;" href="' . makeGalleryUrl('tools/despam-comments.php') . '">[' . _("find comment spam") .']</a> ';
 }
 
 if ($gallery->user->canCreateAlbums() && !$gallery->session->offline) { 

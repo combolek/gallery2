@@ -27,7 +27,7 @@ require(dirname(__FILE__) . '/init.php');
 // Hack check
 
 if (!$gallery->user->canAddComments($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
         exit;
 }
 
@@ -59,7 +59,7 @@ if (isset($save)) {
 	} else {
 		$comment_text = removeTags($comment_text);
 		$commenter_name = removeTags($commenter_name);
-		$IPNumber = $_SERVER['REMOTE_ADDR'];
+		$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 		$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
 		$gallery->album->save();
 		emailComments($id, $comment_text, $commenter_name);
@@ -75,9 +75,9 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup" align="center">
-<div class="popuphead"><?php echo _("Add Comment") ?></div>
-<div class="popupcontent">
+
+<div align="center">
+<p class="popuphead"><?php echo _("Add Comment") ?></p>
 <p><?php echo _("Enter your comment for this picture in the text box below.") ?></p>
 
 <?php 
@@ -99,7 +99,6 @@ drawCommentAddForm($commenter_name, 35);
 <br><input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 
 </form>
-</div>
 </div>
 
 <script language="javascript1.2" type="text/JavaScript">

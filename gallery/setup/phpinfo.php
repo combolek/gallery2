@@ -25,5 +25,10 @@
 	require (dirname(__FILE__) . '/init.php');	
 	require (GALLERY_SETUPDIR . '/functions.inc');
 	configLogin(basename(__FILE__));
+	if (isset($_POST)) unset($_POST);
+	if (isset($_REQUEST)) unset($_REQUEST);
+	if (isset($_GET)) unset($_GET);
+	if (isset($_COOKIE)) unset($_COOKIE);
+	if (isset($_SERVER["HTTP_COOKIE"])) unset($_SERVER["HTTP_COOKIE"]);
 	phpinfo(); 
 ?>

@@ -106,7 +106,7 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <head>
 <title><?php echo $gallery->app->galleryTitle ?></title>
 <?php 
-	common_header();
+	common_header() ;
 ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">

@@ -525,11 +525,6 @@ if ($borderwidth == 0) {
 	$bordercolor = $gallery->album->fields["bgcolor"];
 	$borderwidth = 1;
 }
-
-if ($page == 1 && !empty($gallery->album->fields["summary"])) {
-	echo '<div align="center"><p class="vasummary">'. $gallery->album->fields["summary"] . '</p></div>';
-}
-
 if (($gallery->album->getPollType() == "rank") && canVote())
 {
         $my_choices=array();
@@ -667,45 +662,14 @@ if (canVote())
 <?php }
 }
 ?>
-</td>
-</tr>
-<tr>
-<td valign="top">
+<?php
+if ($page == 1)
+{
+        print $gallery->album->fields["summary"];
+} ?>
+
 <!-- image grid table -->
-<?php 
-/* Set DivCell cases */
-$frame = $gallery->html_wrap['frame'] = $gallery->album->fields['thumb_frame'];
-$frameThumb = $gallery->album->fields['thumb_frame'];
-$borderWidth = $gallery->html_wrap['borderWidth'];
-$divImage = $gallery->album->fields["thumb_size"];
-
-switch ($frame) {
-
-// special cases
-case "none":
-  $divCellWidth = ($divImage + 3);
-  $divCellHeight = ($divImage + 3);
-  break;
-case "dots":
-  $divCellWidth = ($divImage + 7);
-  $divCellHeight = ($divImage + 7);
-  break;
-case "solid":
-  $divCellWidth = ($divImage + $borderWidth +3);
-  $divCellHeight = ($divImage + $borderWidth +3);
-  break;
-default: // use frames directory
-
-  require(dirname(__FILE__) . "/html_wrap/frames/$frameThumb/frame.def");
-
-  $divCellWidth = $widthTL + $divImage + $widthTR;
-  $divCellHeight = $heightTT + $divImage + $heightBB;
-  break;
-  } // end of switch 
-
-/* End DivCell cases */
-?>
-<table border="0" cellspacing="7" cellpadding="0" width="100%" class="vatable" align="center">
+<table width="<?php echo $fullWidth ?>" border="0" cellspacing="0" cellpadding="7">
 <?php
 $numPhotos = $gallery->album->numPhotos(1);
 $displayCommentLegend = 0;  // this determines if we display "* Item contains a comment" at end of page
@@ -726,13 +690,18 @@ if ($numPhotos) {
 		$printTableRow = false;
 		if ($j <= $cols && $i <= $numPhotos) {
 			$printTableRow = true;
+			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
+			echo("<td>");
+			includeHtmlWrap("inline_albumthumb.header");
+			echo("</td>");
 			$j++; 
 			$visibleItemIndex++;
 			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
+			echo('</tr>');
 		}
 
 		/* Do the picture row */
@@ -743,8 +712,7 @@ if ($numPhotos) {
 			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td align=\"center\" valign=\"top\" class=\"vathumbs\">\n");
- 			echo("<div style=\"width: {$divCellWidth}px; height: {$divCellHeight}px;\" align=\"center\" class=\"vafloat2\">\n");
+			echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 
 			//-- put some parameters for the wrap files in the global object ---
 			$gallery->html_wrap['borderColor'] = $bordercolor;
@@ -812,14 +780,27 @@ if ($numPhotos) {
 			       	/*end backwards compatibility*/
       
 				includeHtmlWrap('inline_photothumb.frame');
-						}
+			}
 
-
-		echo "\n";
-		echo("</div>\n");
-		echo("<div style=\"width: {$divCellWidth}px;\"  align=\"center\" class=\"vafloat\">\n");
+			echo("</td>");
+			$j++; 
+			$visibleItemIndex++;
+			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+		}
+		if ($printTableRow) {
+			echo('</tr>');
+		}
+		
 		/* Do the clickable-dimensions row */
 		if (!strcmp($gallery->album->fields['showDimensions'], 'yes')) {
+			$visibleItemIndex = $rowStart;
+			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			$j = 1;
+			if ($printTableRow) {
+				echo('<tr>');
+			}
+			while ($j <= $cols && $i <= $numPhotos) {
+				echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 				$photo    = $gallery->album->getPhoto($i);
 				$image    = $photo->image;
 				if (!empty($image) && !$photo->isMovie()) {
@@ -851,10 +832,24 @@ if ($numPhotos) {
 				} else {
 					echo "&nbsp;";
 				}
-				
+				echo("</td>");
+				$j++; 
+				$visibleItemIndex++;
+				$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			}
+			if ($printTableRow) {
+				echo('</tr>');
+			}
 		}
 				
 		/* Now do the caption row */
+		$visibleItemIndex = $rowStart;
+		$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+		$j = 1;
+		if ($printTableRow) {
+		    echo('<tr>');
+		}
+		while ($j <= $cols && $i <= $numPhotos) {
 			if ($gallery->album->isAlbum($i)) {
 				$myAlbum = new Album;
 				$myAlbum->load($gallery->album->getAlbumName($i));
@@ -868,6 +863,7 @@ if ($numPhotos) {
 			} else {
 			    list($iWidth, $iHeight) = $gallery->album->getThumbDimensions($i);
 			}
+			echo("<td width=\"$imageCellWidth\" valign=\"top\" align=\"center\">");
 
 			// put form outside caption to compress lines
 			if (!$gallery->session->offline &&
@@ -884,17 +880,10 @@ if ($numPhotos) {
 			}
 
 			// Caption itself
-			echo "\n";		
-			echo '<div align="center" class="modcaption">';
-			echo "\n";
+			echo "\n". '<div class="modcaption" style="width:60%">';
 			$id = $gallery->album->getPhotoId($i);
 			if ($gallery->album->isHidden($i) && !$gallery->session->offline) {
 				echo "(" . _("hidden") .")<br>";
-			}
-			$photo    = $gallery->album->getPhoto($i);
-			if ($gallery->user->canWriteToAlbum($gallery->album) && 
-					$photo->isHighlight() && !$gallery->session->offline) {
-				echo "(" . _("highlight") .")<br>";
 			}
 			if (isset($myAlbum)) {
 				$myDescription = $myAlbum->fields['description'];
@@ -929,9 +918,10 @@ if ($numPhotos) {
 					echo _("Viewed:") . " ". pluralize_n2(ngettext("1 time", "%d times", $myAlbum->getClicks()), $myAlbum->getClicks());
 					echo ".</div>";
 				}
+				echo '</span>';
 			} 
 			else {
-				echo("<div align=\"center\">\n");
+				echo '<center>';
 				echo nl2br($gallery->album->getCaption($i));
 				echo $gallery->album->getCaptionName($i) . ' ';
 				// indicate with * if we have a comment for a given photo
@@ -945,18 +935,18 @@ if ($numPhotos) {
 						print lastCommentString($lastCommentDate, $displayCommentLegend);
 					}
 				}
-				echo ".</div>\n";
+				echo "</center>";
 				if (!(strcmp($gallery->album->fields["display_clicks"] , "yes")) && !$gallery->session->offline && ($gallery->album->getItemClicks($i) > 0)) {
 					echo '<div class="viewcounter" style="margin-top:3px">';
 					echo _("Viewed:") ." ". pluralize_n2(ngettext("1 time", "%d times", $gallery->album->getItemClicks($i)), $gallery->album->getItemClicks($i));
 					echo ".</div>\n";
 				}
 			}
-		       	echo "<br>\n";
+		       	echo "</div>\n";
 			// End Caption
 
 		       	if (canVote()) {
-					echo("<div align=\"center\">\n");
+				print '<table><tr><td align="center">';
 			       	addPolling($gallery->album->getVotingIdByIndex($i),
 					       	$form_pos, false);
 			       	$form_pos++;
@@ -972,9 +962,9 @@ if ($numPhotos) {
 				}
 
 			       	if (canVote()) {
-				       	print '</div>';
+				       	echo '</td></tr>';
+					echo "\n" . '<tr><td align="center">';
 				}
-				echo("</div>\n");
 				echo("\n\t<select style=\"font-size:10px\" class=\"adminform\" name=\"s$i\" ".
 					"onChange='imageEditChoice(document.vote_form.s$i)'>");
 				echo("\n\t\t<option value=''>&laquo; ". sprintf(_("Edit %s"), $label) . " &raquo;</option>");
@@ -1095,12 +1085,10 @@ if ($numPhotos) {
 			       echo "</select>\n";
 		       }
 		       if (canVote()) {
-			       print '</div>';
+			       print '</td></tr></table>';
 		       }
-			echo("</div></div>");
-			echo "\n";
-			echo("</td>");
-			echo "\n";
+
+			echo('</td>');
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
@@ -1114,13 +1102,18 @@ if ($numPhotos) {
 		$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		$j = 1;
 		if ($printTableRow) {
+			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
+			echo("<td>");
+			includeHtmlWrap("inline_albumthumb.footer");
+			echo("</td>");
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
+			echo('</tr>');
 		}
 		$rowCount++;
 		$rowStart = $visibleItemIndex;
