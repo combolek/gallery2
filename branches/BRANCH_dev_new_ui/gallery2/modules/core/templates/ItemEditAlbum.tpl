@@ -1,240 +1,161 @@
-    {gallery->form controller="$controller"}
+{gallery->mainbody1}
+  {gallery->form action_controller="$controller"}
     {gallery->input type="hidden" name="form.formName"}ItemEditAlbum{/gallery->input}
     {gallery->input type="hidden" name="itemId"}{$item.id}{/gallery->input}
-    <table border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	  <td>
-	    <center>
-	      {gallery->biggerFontSize}
-	      {gallery->text text="Album Settings"}
-	      {/gallery->biggerFontSize}
-	    </center>
-	  </td>
-	</tr>
 
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
+    {gallery->maintitle1}
+      {gallery->text text="Album Settings"}
+    {/gallery->maintitle1}
 
-	<tr>
-	  <td>
-	  {gallery->bigFontSize}
-	  {gallery->text text="Sort order"}
-	  {/gallery->bigFontSize}
-	  <br>
-	  {gallery->text text="How the items in this album are sorted.  New items that are added will be placed in the album according to the order you specify here."}
-	  <br>
-	  {gallery->select name="form.orderBy"}
-	  {html_options options=$orderByList selected=$form.orderBy}
-	  {/gallery->select}
-	  {gallery->select name="form.orderDirection"}
-	  {html_options options=$orderDirectionList selected=$form.orderDirection}
-	  {/gallery->select}
-	  </td>
-	</tr>
+    {gallery->detailedbox}
+      {gallery->detailedboxbody}
+	{gallery->widget2set}
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Sort order"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text=" This sets the default sort order for the album.  This applies to all new items."}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->select name="form.orderBy"}
+		{html_options options=$orderByList selected=$form.orderBy}
+	      {/gallery->select}
+	      {gallery->select name="form.orderDirection"}
+		{html_options options=$orderDirectionList selected=$form.orderDirection}
+	      {/gallery->select}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
 
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Layout"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text="Choose a layout for this album. (The way the gallery is arranged on the page.)"}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->select name="form.layout"}
+		{html_options values=$layoutList selected=$form.layout output=$layoutList}
+	      {/gallery->select}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
 
-	<tr>	
-	  <td>
-	    {gallery->bigFontSize}
-	    {gallery->text text="Layout"}
-	    {/gallery->bigFontSize}
-	    <br>
-	    {gallery->text text="The way that items will be arranged on the page when viewing this album."}
-	    <br>
-	    {gallery->select name="form.layout"}
-	    {html_options values=$layoutList selected=$form.layout output=$layoutList}
-	    {/gallery->select}
-	  </td>
-	</tr>
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Theme"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text="Choose a theme for this album.  (The look and feel of this album)"}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->select name="form.theme"}
+		{html_options values=$themeList selected=$form.theme output=$themeList}
+	      {/gallery->select}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
 
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Thumbnails"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text=" Every item requires a thumbnail. Set the default value in pixels here."}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->input type=text size=6 name="form.thumbnail.size"}{$form.thumbnail.size}{/gallery->input}
 
-	<tr>	
-	  <td>
-	    {gallery->bigFontSize}
-	    {gallery->text text="Theme"}
-	    {/gallery->bigFontSize}
-	    <br>
-	    {gallery->text text="The colors and images that will be used when viewing this album."}
-	    <br>
-	    {gallery->select name="form.theme"}
-	    {html_options values=$themeList selected=$form.theme output=$themeList}
-	    {/gallery->select}
-	  </td>
-	</tr>
+	      {if !empty($form.error.thumbnail.size.missing)}
+		{gallery->error}
+		  {gallery->text text="You must enter a thumbnail size"}
+		{/gallery->error}
+              {/if}
 
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
+	      {if !empty($form.error.thumbnail.size.invalid)}
+		{gallery->error}
+		  {gallery->text text="You must enter a number (greater than zero)"}
+		{/gallery->error}
+              {/if}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
 
-	<tr>
-	  <td>
-	    {gallery->bigFontSize}
-	    {gallery->text text="Thumbnails"}
-	    {/gallery->bigFontSize}
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->text text="Every item will have a thumbnail.  The default thumbnail size you specify here will create a uniform look for your album.  Gallery will create a thumbnail that is no larger than the size you specify."}
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->text text="Size (in pixels): "}
-	    {gallery->input type=text size=6 name="form.thumbnail.size"}{$form.thumbnail.size}{/gallery->input}
-	  </td>
-	</tr>
-
-	{if !empty($form.error.thumbnail.size.missing)}
-        <tr>
-          <td>
-	    {gallery->errorFontColor}
-	    {gallery->text text="You must enter a thumbnail size"}
-	    {/gallery->errorFontColor}
-          </td>
-        </tr>
-        {/if}
-
-	{if !empty($form.error.thumbnail.size.invalid)}
-        <tr>
-          <td>
-	    {gallery->errorFontColor}
-	    {gallery->text text="You must enter a number (greater than zero)"}
-	    {/gallery->errorFontColor}
-          </td>
-        </tr>
-        {/if}
-
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->bigFontSize}
-	    {gallery->text text="Resized Images"}
-	    {/gallery->bigFontSize}
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->text text="Gallery can automatically create intermediate resized versions of images added to this album.  This is useful when you want to present larger versions of an image without showing the full size image."}
-	  </td>
-	</tr>
-	
-	<tr>
-	  <td>
-	    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-		<tr>
-		  <td align="center">
-		    <b>{gallery->text text="Active"}</b>
-		  </td>
-		  <td align="left">
-		    <b>{gallery->text text="Target Size (in pixels)"}</b>
-		  </td>
-		</tr>
-
-	        {counter start=0 assign=index}
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Resized Images"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text="Each item in your album can have multiple sizes. Define the default sizes here."}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->table}
+		{gallery->row}
+		  {gallery->columnheader}
+		    {gallery->text text="Active"}
+		  {/gallery->columnheader}
+		  {gallery->columnheader}
+		    {gallery->text text="Target Size (pixels)"}
+		  {/gallery->columnheader}
+		{/gallery->row}
+		{counter start=0 assign=index}
 		{foreach from=$form.resizes item=resize}
-		<tr>
-		  <td align="center">
-		    {gallery->input type="checkbox" name="form.resizes.$index.active"}{$form.resizes.$index.active}{/gallery->input}
-		  </td>
-		  <td align="left">
-		    {gallery->input type="text" size="6" name="form.resizes.$index.size"}{$form.resizes.$index.size}{/gallery->input}
-		  </td>
-		</tr>
+		  {gallery->row}
+		    {gallery->column}
+		      {gallery->input type="checkbox" name="form.resizes.$index.active"}{$form.resizes.$index.active}{/gallery->input}
+		    {/gallery->column}
+		    {gallery->column}
+		      {gallery->input type="text" size="6" name="form.resizes.$index.size"}{$form.resizes.$index.size}{/gallery->input}
+		    {/gallery->column}
+		  {/gallery->row}
 
-	        {if !empty($form.error.resizes.$index.size.missing)}
-                <tr>
-	          <td>
-	            &nbsp;
-	          </td>
-                  <td>
-	            {gallery->errorFontColor}
-	            {gallery->text text="You must enter a valid size"}
-	            {/gallery->errorFontColor}
-                  </td>
-                </tr>
-                {/if}
-	        
-	        {if !empty($form.error.resizes.$index.size.invalid)}
-                <tr>
-	          <td>
-	            &nbsp;
-	          </td>
-                  <td>
-	            {gallery->errorFontColor}
-	            {gallery->text text="You must enter a number (greater than zero)"}
-	            {/gallery->errorFontColor}
-                  </td>
-                </tr>
-                {/if}
-
-                {counter}
+	          {if !empty($form.error.resizes.$index.size.missing)}
+		    {gallery->row}
+		      {gallery->column colspan="2"}
+			{gallery->error}
+			  {gallery->text text="You must enter a valid size"}
+			{/gallery->error}
+		      {/gallery->column}
+		    {/gallery->row}
+                  {/if}
+	          
+	          {if !empty($form.error.resizes.$index.size.invalid)}
+		    {gallery->row}
+		      {gallery->column colspan="2"}
+			{gallery->error}
+			  {gallery->text text="You must enter a number (greater than zero)"}
+			{/gallery->error}
+		      {/gallery->column}
+		    {/gallery->row}
+                  {/if}
+                  {counter}
 	        {/foreach}
-	    </table>
-	  </td>
-	</tr>
+	      {/gallery->table}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
 
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
+	  {gallery->widget2}
+	    {gallery->widget2title}
+	      {gallery->text text="Recreate thumbnails and resizes"}
+	    {/gallery->widget2title}
+	    {gallery->widget2description}
+	      {gallery->text text="The thumbnail and resized image settings are for all new items. To apply these settings to all the items in your album, check the appropriate box."}
+	    {/gallery->widget2description}
+	    {gallery->widget2body}
+	      {gallery->input type="checkbox" name="form.recreateThumbnails"}{$form.recreateThumbnails}{/gallery->input}
+	      {gallery->text text="Recreate thumbnails"}
+	      <br />
+	      {gallery->input type="checkbox" name="form.recreateResizes"}{$form.recreateResizes}{/gallery->input}
+	      {gallery->text text="Recreate resized images"}
+	    {/gallery->widget2body}
+	  {/gallery->widget2}
+	{/gallery->widget2set}
+      {/gallery->detailedboxbody}
+    {/gallery->detailedbox}
 
-	<tr>
-	  <td>
-	    {gallery->bigFontSize}
-	    {gallery->text text="Recreate thumbnails and resizes"}
-	    {/gallery->bigFontSize}
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->text text="When you make changes to the values of the thumbnail size and/or the size of the resized images, this will only apply to newly uploaded images. Other images remain with their currently (possibly customized) thumbnails and resizes. Click here to recreate the thumbnails and/or resizes based on the new information."}
-	    <br>
-	    {gallery->input type="checkbox" name="form.recreateThumbnails"}{$form.recreateThumbnails}{/gallery->input}
-	    {gallery->text text="Recreate thumbnails"}
-	    <br>
-	    {gallery->input type="checkbox" name="form.recreateResizes"}{$form.recreateResizes}{/gallery->input}
-	    {gallery->text text="Recreate resized images"}
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    &nbsp;
-	  </td>
-	</tr>
-
-	<tr>
-	  <td>
-	    {gallery->input type="submit" name="form.action.save"}{gallery->text text="Save"}{/gallery->input}
-	    {gallery->input type="submit" name="form.action.undo"}{gallery->text text="Undo"}{/gallery->input}
-	  </td>
-	</tr>
-
-    </table>
-    {/gallery->form}
+    {gallery->detailedbox}
+      {gallery->detailedboxbody}
+	{gallery->input type="submit" name="form.action.save"}{gallery->text text="Save"}{/gallery->input}
+	{gallery->input type="submit" name="form.action.undo"}{gallery->text text="Undo"}{/gallery->input}
+      {/gallery->detailedboxbody}
+    {/gallery->detailedbox}
+  {/gallery->form}
+{/gallery->mainbody1}
