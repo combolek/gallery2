@@ -297,6 +297,8 @@ $GLO['album']['items'] = $items;
 
 $GLO['borderColor'] = $borderColor;
 
+$GLO['album']['html_header'] = $album->fields['html_header'];
+$GLO['album']['html_footer'] = $album->fields['html_footer'];
 
 
 //-- the 'boxTools' is the stuff that goes in the tool block ---
@@ -336,7 +338,7 @@ list($GLO['header'], $GLO['footer']) = getLayoutWrapHeaderFooter($G);
 
 //-- now do the layout, wrapped by the embed logic ---
 includeHtmlWrap("wrapper.header");
-includeLayout("view_album", $GLO);
+includeLayout("view_album");
 includeHtmlWrap("wrapper.footer");
 
 
