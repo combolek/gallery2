@@ -28,6 +28,8 @@ import java.io.File;
 
 public class AddFileDialog
 {
+	public static File currentDirectory =  null;
+	
 	static File[] addFiles(Component parent)
 	{
 		JFileChooser fc = new JFileChooser();
@@ -36,7 +38,6 @@ public class AddFileDialog
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fc.setMultiSelectionEnabled(true);
 		
-		File currentDirectory = GalleryRemote.getInstance().properties.getCurrentDirectory();
 		if (currentDirectory != null)
 		{
 			fc.setCurrentDirectory(currentDirectory);
@@ -45,7 +46,7 @@ public class AddFileDialog
 		int retval = fc.showDialog(parent, "Add");
 		if (retval != JFileChooser.CANCEL_OPTION)
 		{
-			GalleryRemote.getInstance().properties.setCurrentDirectory(fc.getCurrentDirectory());
+			currentDirectory = fc.getCurrentDirectory();
 			
 			File[] files = fc.getSelectedFiles();
 			
