@@ -156,6 +156,7 @@ correctPseudoUsers($uAdd, $ownerUid);
 <center>
 <span class="popuphead"><?php echo _("Album Permissions") ?></span>
 <br>
+<span class="popup">
 <?php echo sprintf(_("Changing permissions for %s"), '<b>'.$gallery->album->fields["title"] . '</b>');
 
 echo makeFormIntro("album_permissions.php", 
@@ -289,5 +290,6 @@ echo makeFormIntro("album_permissions.php",
 <input type="button" name="done" value="<?php echo _("Done") ?>" onclick='parent.close()'>
 </form>
 
+</span>
 </body>
 </html>

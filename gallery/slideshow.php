@@ -242,7 +242,7 @@ if ($albumName) {
 <?php } ?>
 <?php includeHtmlWrap("slideshow.header"); ?>
 
-<?php
+<?
 $url=array();
 $full_urls=array();
 $caption=array();
@@ -575,7 +575,7 @@ function setCaption(text) {
 
 <?php
 $imageDir = $gallery->app->photoAlbumURL."/images"; 
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\">";
 
 ?>
 <form name="TopForm">
@@ -627,7 +627,7 @@ else {
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
 
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('breadcrumb.inc');
 
 $adminbox["commands"] = "<span class=\"admin\">";
 
@@ -643,16 +643,16 @@ $adminbox["commands"] .= "</span>";
 $adminbox["text"] = _("Slide Show");
 $adminbox["bordercolor"] = $borderColor;
 $adminbox["top"] = true;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+includeLayout('adminbox.inc');
 
 ?>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
   <tr>
-    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+    <td colspan="3"><?php echo $pixelImage ?></td>
   </tr>
   <tr>
-    <td height="25" width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+    <td height="25" width="1"><?php echo $pixelImage ?></td>
     <td align="left" valign="middle">
     <span class=admin>
 
@@ -698,10 +698,10 @@ drawSelect("time", array(1 => "1 ". _("second"),
     &nbsp;<?php echo _("Loop") ?>:<input type="checkbox" name="loopCheck" <?php echo ($defaultLoop) ? "checked" : "" ?> onclick='toggleLoop();'>
     </span>
     </td>
-    <td width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+    <td width="1"><?php echo $pixelImage ?></td>
   </tr>
   <tr>
-    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+    <td colspan="3"><?php echo $pixelImage ?></td>
   </tr>
 </table>
 
@@ -734,7 +734,7 @@ if ($photo_count > 0) {
 
 <script language="Javascript">
 /* show the caption */
-document.write("<div class='desc' id='caption'></div>");
+document.write("<div class='modcaption' id='caption'></div>");
 
 /* Load the first picture */
 setCaption(photo_captions[1]);
@@ -765,7 +765,7 @@ array("set_albumName" => $gallery->session->albumName)) ?>">[<?php echo _("back 
 
 
 <?php 
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("slideshow.footer"); ?>
 
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>

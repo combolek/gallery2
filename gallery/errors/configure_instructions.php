@@ -31,7 +31,7 @@ function configure($cmd="configure") {
 
 function configure_filemode($cmd = "configure") {
 	if (!strcmp($cmd, "configure")) {
-		return 666;
+		return 777;
 	} else {
 		return 644;
 	}

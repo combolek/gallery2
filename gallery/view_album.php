@@ -469,7 +469,7 @@ if (!empty($adminOptionHTML)) {
     print "<form name=\"admin_options_form\">\n";
 }
 
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+includeLayout('adminbox.inc');
 ?>
 
 <!-- top nav -->
@@ -478,9 +478,9 @@ $breadcrumb["top"] = true;
 $breadcrumb['bottom'] = false;
 if (strcmp($gallery->album->fields["returnto"], "no") 
    || ($gallery->album->fields["parentAlbumName"])) {
-	include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+	includeLayout('breadcrumb.inc');
 }
-include($GALLERY_BASEDIR . "layout/navigator.inc");
+includeLayout('navigator.inc');
 
 if (!empty($adminOptionHTML)) {
     print "</form>\n";
@@ -681,7 +681,7 @@ if ($numPhotos) {
 			//-- put some parameters for the wrap files in the global object ---
 			$gallery->html_wrap['borderColor'] = $bordercolor;
 			$gallery->html_wrap['borderWidth'] = $borderwidth;
-			$gallery->html_wrap['pixelImage'] = $imageDir . "/pixel_trans.gif";
+			$gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
 			if ($gallery->album->isAlbumName($i)) {
 				$scaleTo = $gallery->album->fields["thumb_size"];
 			} else {
@@ -786,7 +786,7 @@ if ($numPhotos) {
 			} else { 
 				$showAdminForm = 0;
 			}
-			echo "<table width=$iWidth border=0 cellpadding=0 cellspacing=4><tr><td><span class=\"caption\">";
+			echo "<table width=$iWidth border=0 cellpadding=0 cellspacing=4><tr><td><span class=\"modcaption\">";
 			$id = $gallery->album->getPhotoId($i);
 			if ($gallery->album->isHidden($i) && !$gallery->session->offline) {
 				echo "(" . _("hidden") .")<br>";
@@ -1009,13 +1009,13 @@ if (canVote())
 	</form>
 <!-- bottom nav -->
 <?php 
-include($GALLERY_BASEDIR . "layout/navigator.inc");
+includeLayout('navigator.inc');
 if (strcmp($gallery->album->fields["returnto"], "no")) {
 	$breadcrumb["top"] = false;
-	include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+	includeLayout('breadcrumb.inc');
 }
 
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("album.footer");
 ?>
 
