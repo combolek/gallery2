@@ -59,6 +59,7 @@ function includeLayout($name) {
 //-----------------------------------------------------------------------------
 function getLayoutFile($name) {
 	global $gallery;
+	global $GALLERY_BASEDIR;
 
 	$LAYOUT_DIR_NAME = "layout/";
 	$layout = $gallery->album->fields["layout"];
