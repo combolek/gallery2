@@ -78,23 +78,6 @@ $tags['description'] = array('type' => 'attribute');
 $tags['body'] = array('type' => 'attribute');
 $tags['item'] = array('type' => 'attribute', 'params' => array('selected' => 'false'));
 
-// old theme API
-$tags['bigFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['biggerFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['biggestFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['errorFontColor'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['heavyFrame'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['highlight1'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['highlight2'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['lightFrame'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['smallFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['smallerFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['smallestFontSize'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['successFontColor'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['thinFrame'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['threeDFrame'] = array('type' => 'content', 'flag' => 'obsolete');
-$tags['warningFontColor'] = array('type' => 'content', 'flag' => 'obsolete');
-
 /*
  * Assign flags wherever they're not set.
  */

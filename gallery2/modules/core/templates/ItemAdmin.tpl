@@ -62,7 +62,7 @@
 		  {/gallery->link}
 		{/gallery->item}
 		{gallery->item}
-		  {gallery->link url_view='core:ShowItem' url_itemId=$ItemAdmin.parents[0].id}
+		  {gallery->link url_view='core:ShowItem' url_itemId=$ItemAdmin.parent.id}
 		    {gallery->text text="Back to Album View"}
 		  {/gallery->link}
 		{/gallery->item}

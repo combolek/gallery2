@@ -52,6 +52,7 @@ class ItemAddChildrenConfirmationView extends GalleryView {
 	 * We know what kind of operation happened, but for now let's compress
 	 * it down so that the template doesn't have to know.
 	 */
+	$status = $template->getVariable('status');
 	if (!empty($status)) {
 	    if (isset($status['addFromLocalServer'])) {
 		$status = $status['addFromLocalServer'];
@@ -61,10 +62,12 @@ class ItemAddChildrenConfirmationView extends GalleryView {
 	    $count = sizeof($status);
 	} else {
 	    $count = 0;
+	    $status = array();
 	}
 
 	$ItemAddChildrenConfirmation = array();
 	$ItemAddChildrenConfirmation['count'] = $count;
+	$ItemAddChildrenConfirmation['status'] = $status;
 
 	$template->setVariable('ItemAddChildrenConfirmation', $ItemAddChildrenConfirmation);
 	$template->setVariable('controller', '');

@@ -65,22 +65,30 @@ class EditCommentController extends GalleryController {
 
 	    /* Verify the input parameters */
 	    if (empty($form['commenterName'])) {
-		$error[] = 'form.error.missingCommenterName';
+		$error[] = 'form.error.commenterName.missing';
 	    } else {
 		list ($ret, $commenter) = GalleryUserHelper::fetchUserByUsername($form['commenterName']);
 		if ($ret->isError()) {
-		    $error[] = 'form.error.invalidCommenterName';
+		    $error[] = 'form.error.commenterName.invalid';
 		}
 	    }
 
 	    $longDate = null;
 	    if (empty($form['date'])) {
-		$error[] = 'form.error.missingDate';
+		$error[] = 'form.error.date.missing';
 	    } else {
 		$longDate = strtotime($form['date']);
 		if ($longDate == -1) {
 		    $error[] = 'form.error.invalidDate';
 		}
+	    }
+
+	    if (empty($form['subject'])) {
+		$error[] = 'form.error.subject.missing';
+	    }
+
+	    if (empty($form['comment'])) {
+		$error[] = 'form.error.comment.missing';
 	    }
 
 	    if (empty($error)) {
@@ -96,6 +104,7 @@ class EditCommentController extends GalleryController {
 
 		$comment->setCommenterId($commenter->getId());
 		$comment->setHost($form['host']);
+		$comment->setSubject($form['subject']);
 		$comment->setComment($form['comment']);
 		$comment->setDate($longDate);
 		$ret = $comment->save();
@@ -108,7 +117,7 @@ class EditCommentController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
-		$status['saved'] = 1;
+		$status['changed'] = 1;
 		$redirect['view'] = 'core:ItemAdmin';
 		$redirect['subView'] = 'comment:CommentChangeConfirmation';
 		$redirect['itemId'] = (int)$itemId;
@@ -185,9 +194,12 @@ class EditCommentView extends GalleryView {
 	if ($form['formName'] != 'EditComment') {
 	    $form['commenterName'] = $commenter->getUserName();
 	    $form['host'] = $comment->getHost();
-	    $form['date'] = $comment->getDate();
 	    $form['comment'] = $comment->getComment();
+	    $form['subject'] = $comment->getSubject();
 	    $form['formName'] = 'EditComment';
+
+	    // XXX: this needs internationalization
+	    $form['date'] = strftime('%D %T', $comment->getDate());
 	}
 
 	$EditComment['comment'] = $comment->getMemberData();

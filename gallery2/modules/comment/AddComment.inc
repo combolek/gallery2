@@ -55,8 +55,12 @@ class AddCommentController extends GalleryController {
 	$error = array();
 	if (isset($form['action']['add'])) {
 	    
-	    if (empty($form['comment'])) {
+	    if (empty($form['subject'])) {
 		$error[] = 'form.error.comment.missing';
+	    }
+	    
+	    if (empty($form['comment'])) {
+		$error[] = 'form.error.subject.missing';
 	    }
 
 	    if (empty($error)) {
@@ -81,6 +85,7 @@ class AddCommentController extends GalleryController {
 		
 		$comment->setCommenterId($gallery->getActiveUserId());
 		$comment->setHost(GalleryUtilities::getRemoteHostAddress());
+		$comment->setSubject($form['subject']);
 		$comment->setComment($form['comment']);
 		$comment->setDate(time());
 		
@@ -156,6 +161,7 @@ class AddCommentView extends GalleryView {
 
 	if ($form['formName'] != 'AddComment') {
 	    $form['formName'] = 'AddComment';
+	    $form['subject'] = '';
 	    $form['comment'] = '';
 	}
 	

@@ -11,6 +11,9 @@
 	{if isset($status.saved)}
 	  {gallery->text text="Settings saved successfully."}
 	{/if}
+	{if isset($status.createdAlbum)}
+	  {gallery->text text="Album created successfully."}
+	{/if}
       {/gallery->status}
     {/gallery->body}
   {/gallery->detailedbox}

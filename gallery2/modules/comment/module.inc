@@ -133,21 +133,13 @@ class CommentModule extends GalleryModule {
 	    }
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-							       'comment.viewIp',
-							       $gallery->i18n('[comment] View IP addresses'));
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    
-	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.all',
 							       $gallery->i18n('[comment] All access'), 
 							       GALLERY_PERMISSION_COMPOSITE,
 							       array('comment.add',
 								     'comment.edit',
 								     'comment.delete',
-								     'comment.view',
-								     'comment.viewIp'));
+								     'comment.view'));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -268,51 +260,51 @@ class CommentModule extends GalleryModule {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$html = null;
-	if (!empty($counts[$item->getId()])) {
+	$commenters = array();
+	if (isset($counts[$item->getId()])) {
 	    $totalComments = $counts[$item->getId()];
-
-	    /* Render the comments */
-	    $users = array();
-	    $commentData = array();
-	    foreach ($comments as $comment) {
+	    
+	    for ($i = 0; $i < sizeof($comments); $i++) {
+		/* Get the commenter ids */
+		$commenters[$comments[$i]->getCommenterId()] = 1;
+			
 		/* Extract the member data */
-		$memberData = $comment->getMemberData();
+		$comments[$i] = $comments[$i]->getMemberData();
+	    }
 
-		/* Associate the commenter's info */
-		$commenterId = $memberData['commenterId'];
-		if (empty($users[$commenterId])) {
-		    list ($ret, $user) = $gallery->loadEntitiesById($commenterId);
-		    if ($ret->isError()) {
-			return array($ret->wrap(__FILE__, __LINE__), null);
-		    }
-
-		    $users[$commenterId] = $user->getMemberData();
+	    /* Load all the commenters */
+	    if (sizeof($commenters) > 0) {
+		list ($ret, $commentersList) = $gallery->loadEntitiesById(array_keys($commenters));
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-		$memberData['commenter'] = $users[$commenterId];
-		$commentData[] = $memberData;
 	    }
 
-	    list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+	    foreach ($commentersList as $commenter) {
+		$commenters[$commenter->getId()] = $commenter->getMemberData();
 	    }
-
-	    foreach (array('add' => 'comment.add',
-			   'delete' => 'comment.delete',
-			   'edit' => 'comment.edit',
-			   'viewIp' => 'comment.viewIp')
-		 as $canFlag => $permission) {
-		$can[$canFlag] = isset($permissions[$permission]);
-	    }
-
-	    $CommentItemDetails = array();
-	    $CommentItemDetails['comments'] = $commentData;
-	    $CommentItemDetails['can'] = $can;
-	    $CommentItemDetails['item'] = $item->getMemberData();
-	    $CommentItemDetails['totalComments'] = $totalComments;
-	    $template->setVariable('CommentItemDetails', $CommentItemDetails);
+	} else {
+	    $totalComments = 0;
 	}
+
+	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	foreach (array('delete' => 'comment.delete',
+		       'edit' => 'comment.edit')
+		 as $canFlag => $permission) {
+	    $can[$canFlag] = isset($permissions[$permission]);
+	}
+
+	$CommentItemDetails = array();
+	$CommentItemDetails['comments'] = $comments;
+	$CommentItemDetails['commenters'] = $commenters;
+	$CommentItemDetails['can'] = $can;
+	$CommentItemDetails['item'] = $item->getMemberData();
+	$CommentItemDetails['totalComments'] = $totalComments;
+	$template->setVariable('CommentItemDetails', $CommentItemDetails);
 
 	return array(GalleryStatus::success(), 'modules/comment/templates/CommentItemDetails.tpl');
     }
@@ -345,8 +337,8 @@ class CommentModule extends GalleryModule {
 
 	if (isset($permissions['comment.edit']) ||
 	    isset($permissions['comment.delete'])) {
-	        $views[] = array('name' => $this->translate('Manage Comments'),
-				 'view' => 'comment:ManageComments');
+	        $views[] = array('name' => $this->translate('View Comments'),
+				 'view' => 'comment:ShowComments');
 	}
 	
 	return array(GalleryStatus::success(), $views);

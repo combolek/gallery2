@@ -13,10 +13,10 @@
     {/if}
   {/gallery->title}
   
-  {if ($ItemAddChildrenConfirmation.count)}
+  {if sizeof($status) > 0}
     {gallery->body}
       {gallery->table}
-	{foreach from=$status item=entry}
+	{foreach from=$status.addFromLocalServer item=entry}
 	  {gallery->row}
 	    {gallery->column}
 	      {gallery->text text="Added %s" arg1=$entry.fileName}

@@ -102,6 +102,17 @@ class GalleryTemplate {
     }
 
     /**
+     * Retrieve a template value
+     *
+     * @param string the key
+     * @param mixed the value
+     */
+    function getVariable($key) {
+	$templateVars = $this->_smarty->get_template_vars();
+	return $templateVars[$key];
+    }
+
+    /**
      * Return true if the given variable is set
      *
      * @param string the key

@@ -135,6 +135,11 @@ class ItemAdminView extends GalleryView {
 	/* Render our HTML body */
 	$ItemAdmin['item'] = $item->getMemberData();
 	$ItemAdmin['parents'] = $parents;
+	if (empty($parents)) {
+	    $ItemAdmin['parent'] = null;
+	} else {
+	    $ItemAdmin['parent'] = $parents[sizeof($parents)-1];
+	}
 	$ItemAdmin['itemType'] = $itemType;
 	$ItemAdmin['thumbnail'] = $thumbnailData;
 	$ItemAdmin['subViewChoices'] = $subViewChoices;

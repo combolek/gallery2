@@ -247,6 +247,16 @@ function GalleryMain($startTime) {
 	    }
 	    $main['viewL10Domain'] = $view->getL10Domain();
 	}
+    } else {
+	/* Set the default theme for the redirect page */
+	list ($ret, $theme) = GalleryTheme::loadTheme();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	/* Pass the theme to the template adapter */
+	$templateAdapter =& $gallery->getTemplateAdapter();
+	$templateAdapter->setTheme($theme);
     }
 
     if ($showGlobal) {
