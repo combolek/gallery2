@@ -30,13 +30,13 @@ make_clean_jar()
 make_zip()
 {
 	make_clean_jar;
-	zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog;
+	zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog run.bat run.sh;
 }
 
 make_source_zip()
 {
 	make_jar;
-	zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog;
+	zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog run.bat run.sh;
 }
 
 make_cvsbuild()
