@@ -5,7 +5,7 @@
 <!ENTITY bookinfo					SYSTEM 'sections/bookinfo.xml'>
 <!ENTITY preface					SYSTEM 'sections/preface.xml'>
 
-<!-- Gallery 1 -->
+<!-- Gallery 1 Install -->
 <!ENTITY chapters.gallery1-install                      SYSTEM 'sections/gallery1-install/index.xml'>
 <!ENTITY chapters.gallery1-install.overview		SYSTEM 'sections/gallery1-install/overview.xml'>
 <!ENTITY chapters.gallery1-install.features		SYSTEM 'sections/gallery1-install/features.xml'>
@@ -19,6 +19,15 @@
 <!ENTITY chapters.gallery1-install.required-programs	SYSTEM 'sections/gallery1-install/required-programs.xml'>
 <!ENTITY chapters.gallery1-install.config-wizard	SYSTEM 'sections/gallery1-install/config-wizard.xml'>
 <!ENTITY chapters.gallery1-install.faq			SYSTEM 'sections/gallery1-install/faq.xml'>
+
+<!-- Gallery 1 Admin -->
+<!ENTITY chapters.gallery1-admin			SYSTEM 'sections/gallery1-admin/index.xml'>
+<!ENTITY chapters.gallery1-admin.basics			SYSTEM 'sections/gallery1-admin/basics.xml'>
+<!ENTITY chapters.gallery1-admin.users			SYSTEM 'sections/gallery1-admin/users.xml'>
+<!ENTITY chapters.gallery1-admin.embedding		SYSTEM 'sections/gallery1-admin/embedding.xml'>
+<!ENTITY chapters.gallery1-admin.securing		SYSTEM 'sections/gallery1-admin/securing.xml'>
+<!ENTITY chapters.gallery1-admin.backup			SYSTEM 'sections/gallery1-admin/backup.xml'>
+<!ENTITY chapters.gallery1-admin.offline		SYSTEM 'sections/gallery1-admin/offline.xml'>
 
 <!-- Gallery Remote -->
 <!ENTITY chapters.gallery-remote			SYSTEM 'sections/gallery-remote/index.xml'>
