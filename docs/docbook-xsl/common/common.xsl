@@ -17,6 +17,7 @@
      ******************************************************************** -->
 
 <xsl:param name="galleryweb" select="0"/>
+<xsl:param name="chunk.section.depth" select="2"/>
 
 <doc:reference xmlns="">
 <referenceinfo>

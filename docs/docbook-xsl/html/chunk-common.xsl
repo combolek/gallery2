@@ -61,7 +61,8 @@
       <xsl:text>1</xsl:text>
     </xsl:when>
     <xsl:when test="local-name($node) = 'sect2'
-                    and $chunk.section.depth &gt;= 2
+                    and ($chunk.section.depth &gt;= 2
+                    	or @ischunk = 'yes')
                     and ($chunk.first.sections != 0
                          or count($node/preceding-sibling::sect2) &gt; 0)">
       <xsl:call-template name="chunk">
