@@ -14,7 +14,9 @@
 <!-- END: not_embedded_inside -->
 
 {GLO.javascript.body}
-THIS HEAD TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
+THIS HEAD TEXT SHOWS UP ON EVERY GALLERY PAGE
+<br>
+<br>
 
 <!-- END: header -->
 
@@ -22,6 +24,11 @@ THIS HEAD TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
 <!-- BEGIN: footer -->
 
 THIS FOOT TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
+
+<!-- The Gallery code version number, linked to the Gallery home page -->
+<span align="right" class="fineprint">
+Powered by {GLO.galleryProject.anchor}
+</span>
 
 <!-- BEGIN: not_embedded_inside -->
 </body>
