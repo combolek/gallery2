@@ -976,6 +976,10 @@ class Album {
 		}
 
 	function incrementClicks() {
+		if (strcmp($this->fields["display_clicks"], "yes")) {
+			return;
+		}
+
 		$this->fields["clicks"]++;
 		$resetModDate=0; // don't reset last_mod_date
 	        $this->save($resetModDate);
@@ -987,6 +991,10 @@ class Album {
 	}
 
 	function incrementItemClicks($index) {
+		if (strcmp($this->fields["display_clicks"], "yes")) {
+			return;
+		}
+
 		$photo = &$this->getPhoto($index);
 		$photo->incrementItemClicks();
 
