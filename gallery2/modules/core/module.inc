@@ -642,7 +642,8 @@ class CoreModule extends GalleryModule {
 
 	if ($gallery->getActiveUserId() == $anonymousUserId) {
 	    $links[] = array('text' => $this->translate('login'),
-			     'params' => array_merge(array('view' => 'core:Login'),
+			     'params' => array_merge(array('view' => 'core:UserAdmin',
+							   'subView' => 'core:UserLogin'),
 						     $params));
 	} else {
 	    $links[] = array('text' => $this->translate('your account'),
@@ -680,21 +681,19 @@ class CoreModule extends GalleryModule {
 	
 	$views = array();
 
-	list ($ret, $isAdmin) = GalleryUserGroupMap::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
 	list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	if ($isAdmin || $user->getId() != $anonymousUserId) {
+	if ($user->getId() != $anonymousUserId) {
 	    $views[] = array('name' => $this->translate('Account Settings'),
 			     'view' => 'core:UserPreferences');
 	    $views[] = array('name' => $this->translate('Change Password'),
 			     'view' => 'core:UserChangePassword');
+	} else {
+	    $views[] = array('name' => $this->translate('Log in'),
+			     'view' => 'core:UserLogin');
 	}
 
 	return array(GalleryStatus::success(), $views);
