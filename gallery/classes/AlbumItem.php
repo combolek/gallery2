@@ -384,7 +384,7 @@ class AlbumItem {
 
 	function getThumbnailPath($dir) {
 		if ($this->thumbnail) {
-			return $this->thumbnail->getTag($dir);
+			return $this->thumbnail->getPath($dir);
 		} else {
 			return "about:blank";
 		}
