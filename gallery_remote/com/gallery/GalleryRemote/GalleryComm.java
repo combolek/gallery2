@@ -25,12 +25,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
-import HTTPClient.*;
+import HTTPClient.Cookie;
+import HTTPClient.CookieModule;
+import HTTPClient.CookiePolicyHandler;
+import HTTPClient.HTTPConnection;
+import HTTPClient.HTTPResponse;
+import HTTPClient.ModuleException;
+import HTTPClient.RoRequest;
+import HTTPClient.RoResponse;
 
 import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
-import com.gallery.GalleryRemote.prefs.GalleryProperties;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
 
 /**
  *	This interface is a temporary mechanism to let us use version
@@ -41,7 +46,7 @@ import com.gallery.GalleryRemote.prefs.PreferenceNames;
  *	
  *  @author <a href="mailto:tim_miller@users.sourceforge.net">Tim Miller</a>
  */
-public abstract class GalleryComm implements PreferenceNames {
+public abstract class GalleryComm {
 	private static final String MODULE = "GalComm";
 	int[] capabilities = null;
 	private static int lastRespCode = 0;
@@ -137,52 +142,27 @@ public abstract class GalleryComm implements PreferenceNames {
 	
 	public static GalleryComm getCommInstance(StatusUpdate su, URL url, Gallery g) {
 		try {
-			GalleryProperties p = GalleryRemote.getInstance().properties;
-			// set proxy info
-			if (p.getBooleanProperty(USE_PROXY)) {
-				String hostname = p.getProperty(PROXY_HOST);
-				int port = 80;
-				try { port = p.getIntProperty(PROXY_PORT); } catch (NumberFormatException e) {}
-				String username = p.getProperty(PROXY_USERNAME);
-
-				Log.log(Log.TRACE, MODULE, "Setting proxy to " + hostname + ":" + port);
-
-				HTTPConnection.setProxyServer(hostname, port);
-				
-				if (username != null && username.length() > 0) {
-					AuthorizationInfo.addBasicAuthorization(hostname, port, "",
-							username, p.getBase64Property(PROXY_PASSWORD));
-				}
-			} else {
-				HTTPConnection.setProxyServer(null, 0);
-			}
-
-			// create a connection
+			// create a connection	
 			HTTPConnection mConnection = new HTTPConnection( url );
-
-			if (g.getType() == Gallery.TYPE_STANDALONE) {
-				// assemble the URL
-				String urlPath = url.getFile();
-
-				Log.log(Log.TRACE, MODULE, "Trying protocol 2 for " + url);
-				// Test GalleryComm2
-				String urlPath2 = urlPath + ( (urlPath.endsWith( "/" )) ? GalleryComm2.SCRIPT_NAME : "/" + GalleryComm2.SCRIPT_NAME );
-				if (tryComm(su, mConnection, urlPath2)) {
-					Log.log(Log.TRACE, MODULE, "Server has protocol 2");
-					return new GalleryComm2(g);
-				}
-
-				Log.log(Log.TRACE, MODULE, "Trying protocol 1 for " + url);
-				// Test GalleryComm1
-				// BUT: only if first try was not status code 401 = authorization failure
-				String urlPath1 = urlPath + ( (urlPath.endsWith( "/" )) ? GalleryComm1.SCRIPT_NAME : "/" + GalleryComm1.SCRIPT_NAME );
-				if (lastRespCode != 401 && tryComm(su, mConnection, urlPath1)) {
-					Log.log(Log.TRACE, MODULE, "Server has protocol 1");
-					return new GalleryComm1(g);
-				}
-			} else {
-				// if Gallery is embedded, only support protocol 2
+			
+			// assemble the URL
+			String urlPath = url.getFile();
+			
+			Log.log(Log.TRACE, MODULE, "Trying protocol 2 for " + url);
+			// Test GalleryComm2
+			String urlPath2 = urlPath + ( (urlPath.endsWith( "/" )) ? GalleryComm2.SCRIPT_NAME : "/" + GalleryComm2.SCRIPT_NAME );
+			if (tryComm(su, mConnection, urlPath2)) {
+				Log.log(Log.TRACE, MODULE, "Server has protocol 2");
 				return new GalleryComm2(g);
+			}
+			
+			Log.log(Log.TRACE, MODULE, "Trying protocol 1 for " + url);
+			// Test GalleryComm1
+			// BUT: only if first try was not status code 401 = authorization failure
+			String urlPath1 = urlPath + ( (urlPath.endsWith( "/" )) ? GalleryComm1.SCRIPT_NAME : "/" + GalleryComm1.SCRIPT_NAME );
+			if (lastRespCode != 401 && tryComm(su, mConnection, urlPath1)) {
+				Log.log(Log.TRACE, MODULE, "Server has protocol 1");
+				return new GalleryComm1(g);
 			}
 		} catch (HTTPClient.ProtocolNotSuppException e) {
 			e.printStackTrace();

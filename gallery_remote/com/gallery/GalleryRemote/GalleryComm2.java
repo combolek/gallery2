@@ -42,7 +42,6 @@ import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.model.Picture;
 import com.gallery.GalleryRemote.util.HTMLEscaper;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
 
 /**
  *	The GalleryComm2 class implements the client side of the Gallery remote
@@ -54,7 +53,7 @@ import com.gallery.GalleryRemote.prefs.PreferenceNames;
  *  @author <a href="mailto:tim_miller@users.sourceforge.net">Tim Miller</a>
  */
 public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
-	GalleryCommCapabilities, PreferenceNames {
+	GalleryCommCapabilities {
 	/* Implementation notes:  One GalleryComm2 instance is needed per Gallery
 	 * server (since the protocol only logs into each server once).  So the 
 	 * constructor requires a Gallery instance and is immutable with respect
@@ -236,7 +235,6 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 			su.setInProgress(true);
 			if ( ! isLoggedIn ) {
 				if ( !login() ) {
-					Log.log(Log.TRACE, MODULE, "Failed to log in" + g.toString());
 					su.setInProgress(false);
 					return;
 				}
@@ -260,21 +258,19 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		 *	POSTSs a request to the Gallery server with the given form data.
 		 */	
 		Properties requestResponse( NVPair form_data[] ) throws GR2Exception, ModuleException, IOException {
-			return requestResponse( form_data, null, g.getGalleryUrl(SCRIPT_NAME), true);
+			return requestResponse( form_data, null );
 		}
-
-		Properties requestResponse( NVPair form_data[], URL galUrl ) throws GR2Exception, ModuleException, IOException {
-			return requestResponse( form_data, null, galUrl, true);
-		}
-
+		
 		/**
 		 *	POSTSs a request to the Gallery server with the given form data.  If data is
 		 *	not null, a multipart MIME post is performed.
 		 */	
-		Properties requestResponse( NVPair form_data[], byte[] data, URL galUrl, boolean checkResult) throws GR2Exception, ModuleException, IOException {
+		Properties requestResponse( NVPair form_data[], byte[] data) throws GR2Exception, ModuleException, IOException {
+
 			// assemble the URL
+			URL galUrl =  g.getUrl();
 			String urlPath = galUrl.getFile();
-			//urlPath = urlPath + ( (urlPath.endsWith( "/" )) ? SCRIPT_NAME : "/" + SCRIPT_NAME );
+			urlPath = urlPath + ( (urlPath.endsWith( "/" )) ? SCRIPT_NAME : "/" + SCRIPT_NAME );	
 			Log.log(Log.TRACE, MODULE, "Url: " + urlPath );
 			
 			// create a connection	
@@ -283,12 +279,8 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 			
 			// post multipart if there is data
 			if ( data == null ) {
-				if (form_data == null) {
-					rsp = mConnection.Get(urlPath);
-				} else {
-					rsp = mConnection.Post(urlPath, form_data);
-				}
-			} else {
+				rsp = mConnection.Post(urlPath, form_data);
+			} else { 
 				rsp = mConnection.Post(urlPath, data, form_data);
 			}
 			
@@ -297,12 +289,8 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				// retry, the library will have fixed the URL
 				status(su, "Received redirect, following...");
 				if ( data == null ) {
-					if (form_data == null) {
-						rsp = mConnection.Get(urlPath);
-					} else {
-						rsp = mConnection.Post(urlPath, form_data);
-					}
-				} else {
+					rsp = mConnection.Post(urlPath, form_data);
+				} else { 
 					rsp = mConnection.Post(urlPath, data, form_data);
 				}
 			}
@@ -314,42 +302,26 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				// load response 
 				String response = new String(rsp.getData()).trim();
 				Log.log(Log.TRACE, MODULE, response);
+				
+				// validate response
+				int i = response.indexOf(PROTOCOL_MAGIC);
 
-				if (checkResult) {
-					// validate response
-					int i = response.indexOf(PROTOCOL_MAGIC);
-
-					if ( i == -1 ) {
-						throw new GR2Exception("Server contacted, but Gallery not found at this URL (" + galUrl.toString() + ")");
-					} else if ( i > 0 ) {
-						response = response.substring(i);
-						Log.log(Log.TRACE, MODULE, "Short response: " + response);
-					}
-
-					Properties p = new Properties();
-					p.load( new StringBufferInputStream( response ) );
-					return p;
-				} else {
-					return null;
+				if ( i == -1 ) {
+					throw new GR2Exception("Server contacted, but Gallery not found at this URL (" + galUrl.toString() + ")");
+				} else if ( i > 0 ) {
+					response = response.substring(i);
+					Log.log(Log.TRACE, MODULE, "Short response: " + response);
 				}
+
+				Properties p = new Properties();
+				p.load( new StringBufferInputStream( response ) );
+				return p;
 			}
 		}
 		
 		private boolean login() {
 			status(su, "Logging in to " + g.toString());
-
-			if (g.getType() != Gallery.TYPE_STANDALONE) {
-				try {
-					requestResponse( null, null, g.getLoginUrl(SCRIPT_NAME), false );
-				} catch (IOException ioe) {
-					Log.logException(Log.ERROR, MODULE, ioe);
-					error(su, "Error: " + ioe.toString());
-				} catch (ModuleException me) {
-					Log.logException(Log.ERROR, MODULE, me);
-					error(su, "Error handling request: " + me.getMessage());
-				}
-			}
-
+			
 			// setup protocol parameters
 			NVPair form_data[] = {
 				new NVPair("cmd", "login"),
@@ -358,20 +330,20 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				new NVPair("password", g.getPassword())
 			};
 			Log.log(Log.TRACE, MODULE, "login parameters: " + Arrays.asList(form_data));
-
+			
 			// make the request
 			try	{
 				// load and validate the response
-				Properties p = requestResponse( form_data, g.getGalleryUrl(SCRIPT_NAME) );
-				if ( GR_STAT_SUCCESS.equals( p.getProperty( "status" ) ) ) {
+				Properties p = requestResponse( form_data );
+				if ( p.getProperty( "status" ).equals( GR_STAT_SUCCESS ) ) {
 					status(su, "Logged in");
 					try {
 						String serverVersion = p.getProperty( "server_version" );
 						int i = serverVersion.indexOf( "." );
 						serverMinorVersion = Integer.parseInt( serverVersion.substring( i+1 ) );
-
+						
 						Log.log(Log.TRACE, MODULE, "Server minor version: " + serverMinorVersion);
-
+						
 						if (serverMinorVersion >= 1) {
 							// we have more than the 2.0 capabilities, we have 2.1 capabilities.
 							capabilities = capabilities1;
@@ -381,7 +353,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 						Log.logException(Log.ERROR, MODULE, e);
 					}
 					return true;
-				} else if (GR_STAT_PASSWD_WRONG.equals(p.getProperty("status"))) {
+				} else if (p.getProperty("status").equals(GR_STAT_PASSWD_WRONG)) {
 					error(su, "Invalid username/password.\n\n" +
 							"If your Gallery is embedded inside a CMS like PostNuke,\n" +
 							"you need to use the \"native\" (non-embedded) Gallery URL to log in,\n" +
@@ -392,6 +364,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 					error(su, "Login Error: " + p.getProperty( "status_text" ));
 					return false;
 				}
+			
 			} catch ( GR2Exception gr2e ) {
 				Log.logException(Log.ERROR, MODULE, gr2e );
 				error(su, "Error: " + gr2e.getMessage());
@@ -402,7 +375,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				Log.logException(Log.ERROR, MODULE, me);
 				error(su, "Error handling request: " + me.getMessage());
 			}
-
+			
 			return false;
 		}
 	}
@@ -452,7 +425,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				String caption = p.getCaption();
 				caption = (caption == null) ? "" : caption;
 
-				if (GalleryRemote.getInstance().properties.getBooleanProperty(HTML_ESCAPE_CAPTIONS)) {
+				if (GalleryRemote.getInstance().properties.getBooleanProperty("htmlEscapeCaptions")) {
 					caption = HTMLEscaper.escape(caption);
 				}
 
@@ -471,7 +444,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				byte[]   data = Codecs.mpFormDataEncode(opts, afile, hdrs);
 				
 				// load and validate the response
-				Properties props = requestResponse( hdrs, data, g.getGalleryUrl(SCRIPT_NAME), true );
+				Properties props = requestResponse( hdrs, data );
 				if ( props.getProperty( "status" ).equals(GR_STAT_SUCCESS) ) {
 					status(su, "Upload successful.");
 					return true;
@@ -488,7 +461,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 				error(su, "You may need to set LimitRequestBody 16777216 and memory_limit = 64M " +
 						"in /etc/php.ini and /etc/httpd/conf.d/php.conf on your Gallery server\n\n" +
 						swe.toString());
-			} catch (IOException ioe)	{
+			} catch (IOException ioe) {
 				Log.logException(Log.ERROR, MODULE, ioe);
 				error(su, "Error: " + ioe.toString());
 			} catch (ModuleException me) {
@@ -668,13 +641,10 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		
 		void runTask() {
 			status(su, "Getting album information from " + g.toString());
+			
+			String parentAlbumName = (parentAlbum == null) ? "" : parentAlbum.getName();
 
-			// if the parent is null (top-level album), set the album name to an illegal name so it's set to null
-			// by Gallery. Using an empty string doesn't work, because then the HTTP parameter is not
-			// parsed, and the session album is kept the same as before (from the cookie).
-			String parentAlbumName = (parentAlbum == null) ? "hack_null_albumName" : parentAlbum.getName();
-
-			if (GalleryRemote.getInstance().properties.getBooleanProperty(HTML_ESCAPE_CAPTIONS)) {
+			if (GalleryRemote.getInstance().properties.getBooleanProperty("htmlEscapeCaptions")) {
 				albumTitle = HTMLEscaper.escape(albumTitle);
 				albumDesc = HTMLEscaper.escape(albumDesc);
 			}
@@ -719,15 +689,11 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 	/* -------------------------------------------------------------------------
 	 * MAIN METHOD (test only)
 	 */ 
-	/*public static void main( String [] args ) {
+	public static void main( String [] args ) {
 		
 		try {
 			StatusUpdate su = new StatusUpdateAdapter(){};
-			Gallery g = new Gallery();
-			g.setStUrlString( "http://www.deathcult.com/gallery/" );
-			g.setUsername( "ted" );
-			g.setPassword( "1qwe2asd" );
-			g.setStatusUpdate( su );
+			Gallery g = new Gallery( new URL( "http://www.deathcult.com/gallery/" ), "ted", "1qwe2asd", /*TEMPORARY*/ su );
 			GalleryComm2 gc = new GalleryComm2( g );
 			gc.fetchAlbums( su, false );
 			
@@ -753,5 +719,5 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		} catch ( MalformedURLException mue ) {
 				
 		}
-	}*/
+	}
 }

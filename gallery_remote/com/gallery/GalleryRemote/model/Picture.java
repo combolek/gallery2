@@ -28,11 +28,6 @@ import com.gallery.GalleryRemote.GalleryRemote;
 import com.gallery.GalleryRemote.util.ImageUtils;
 import com.gallery.GalleryRemote.util.HTMLEscaper;
 import com.gallery.GalleryRemote.Log;
-import com.gallery.GalleryRemote.GalleryAbstractListModel;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
-
-import javax.swing.*;
-import javax.swing.event.EventListenerList;
 
 /**
  *  Picture model
@@ -40,17 +35,15 @@ import javax.swing.event.EventListenerList;
  *@author     paour
  *@created    11 août 2002
  */
-public class Picture extends GalleryAbstractListModel implements Serializable, PreferenceNames {
+public class Picture implements Serializable {
 	public static final String MODULE="Picture";
 
     File source = null;
     String caption = null;
     Album album = null;
+    private int listIndex;
 
-	int angle = 0;
-	boolean flipped = false;
-
-	transient double fileSize = 0;
+	transient double fileSize = -1;
 	transient String escapedCaption = null;
 
     /**
@@ -77,21 +70,11 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
     public void setSource( File source ) {
         this.source = source;
         
-		if (GalleryRemote.getInstance().properties.getBooleanProperty(SET_CAPTIONS_WITH_FILENAMES)) {
-			String filename = source.getName();
-
-			if (GalleryRemote.getInstance().properties.getBooleanProperty(CAPTION_STRIP_EXTENSION)) {
-				int i = filename.lastIndexOf(".");
-
-				if (i != -1) {
-					filename = filename.substring(0, i);
-				}
-			}
-
-			setCaption(filename);
+		if (GalleryRemote.getInstance().properties.getBooleanProperty("setCaptionsWithFilenames")) {
+			setCaption(source.getName());
 		}
 		
-        fileSize = 0;
+        fileSize = -1;
     }
     
     
@@ -132,10 +115,8 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	 *@return    The source value
 	 */
     public File getUploadSource() {
-		File picture = getSource();
-
-		if ( GalleryRemote.getInstance().properties.getBooleanProperty(RESIZE_BEFORE_UPLOAD) ) {
-			Dimension d = GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO);
+		if ( GalleryRemote.getInstance().properties.getBooleanProperty("resizeBeforeUpload") ) {
+			Dimension d = GalleryRemote.getInstance().properties.getDimensionProperty("resizeTo");
 			
 			if ( d == null || d.equals( new Dimension( 0, 0 ) ) ) {
 				d = null;
@@ -145,7 +126,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 					d = new Dimension( l, l );
 				} else {
 					// server can't tell us how to resize, try default
-					d = GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO_DEFAULT);
+					d = GalleryRemote.getInstance().properties.getDimensionProperty("resizeToDefault");
 					
 					if ( d.equals( new Dimension( 0, 0 ) ) ) {
 						d = null;
@@ -153,27 +134,25 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 				}
 			}
 
+			File picture = null;
 
 			if ( d != null ) {
 				try {
-					picture = ImageUtils.resize( picture.getPath(), d );
+					picture = ImageUtils.resize( getSource().getPath(), d );
 				} catch (UnsupportedOperationException e) {
 					Log.log(Log.ERROR, MODULE, "Couldn't use ImageUtils to resize the image, it will be uploaded at the original size");
 					Log.logException(Log.ERROR, MODULE, e);
 				}
 			}
-		}
 
-		if (angle != 0 || flipped) {
-			try {
-				picture = ImageUtils.rotate( picture.getPath(), angle, flipped );
-			} catch (UnsupportedOperationException e) {
-				Log.log(Log.ERROR, MODULE, "Couldn't use jpegtran to resize the image, it will be uploaded unrotated");
-				Log.logException(Log.ERROR, MODULE, e);
+			if (picture == null) {
+				picture = getSource();
 			}
-		}
 
-		return picture;
+			return picture;
+		} else {
+			return getSource();
+		}
 	}
 	
     /**
@@ -205,7 +184,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
      *@return    The size value
      */
     public double getFileSize() {
-        if ( fileSize == 0 && source != null && source.exists() ) {
+        if ( fileSize == -1 && source != null && source.exists() ) {
             fileSize = source.length();
         }
         
@@ -222,37 +201,23 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
         return album;
     }
 
+    /** Getter for property listIndex.
+     * @return Value of property listIndex.
+     *
+     */
+    public int getListIndex() {
+		return this.listIndex;
+    }
+    
+    /** Setter for property listIndex.
+     * @param listIndex New value of property listIndex.
+     *
+     */
+    public void setListIndex(int listIndex) {
+    }
+	
 	public String toString() {
 		return source.getName();
-	}
-
-	// Hacks to allow Album to inherit from Picture and AbstractListModel
-	public int getSize() {
-		return 0;
-	}
-
-	public Object getElementAt(int index) {
-		return null;
-	}
-
-	public void rotateRight() {
-		angle = (angle + 1) % 4;
-	}
-
-	public void rotateLeft() {
-		angle = (angle + 3) % 4;
-	}
-
-	public void flip() {
-		flipped = ! flipped;
-	}
-
-	public int getAngle() {
-		return angle;
-	}
-
-	public boolean isFlipped() {
-		return flipped;
 	}
 }
 

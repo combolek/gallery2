@@ -25,7 +25,6 @@
 		<copy file="${src}/rar_about_gr1.png" todir="${build}" />
 		<copy file="${src}/rar_icon_32.gif" todir="${build}" />
 		<copy file="${src}/rar_icon_16.gif" todir="${build}" />
-		<copy file="${src}/com/gallery/GalleryRemote/prefs/panes.properties" todir="${build}/com/gallery/GalleryRemote/prefs" />
 	</target>
 
 	<target name="run" depends="compile"
@@ -35,7 +34,6 @@
 			<classpath>
 				<pathelement location="lib/JSX1.0.7.4.jar"/>
 				<pathelement path="${build}"/>
-				<pathelement path="img"/>
 			</classpath>
 		</java>
 	</target>
@@ -56,7 +54,6 @@
 			<fileset dir="." includes="GalleryRemote.jar" />
 			<fileset dir="." includes="ReadMe.html" />
 			<zipfileset dir="./lib" includes="JSX1.0.7.4.jar" prefix="lib"/>
-			<zipfileset dir="./img" includes="*" prefix="img"/>
 		</zip>
 	</target>
 

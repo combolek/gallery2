@@ -21,9 +21,6 @@
 package com.gallery.GalleryRemote;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.VolatileImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -31,13 +28,16 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.NumberFormat;
-import java.util.Collections;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
@@ -47,9 +47,6 @@ import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.model.Picture;
 import com.gallery.GalleryRemote.util.ImageUtils;
-import com.gallery.GalleryRemote.prefs.PreferencesDialog;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
-import com.gallery.GalleryRemote.prefs.URLPanel;
 import JSX.ObjOut;
 import JSX.ObjIn;
 
@@ -62,16 +59,20 @@ import JSX.ObjIn;
  */
 public class MainFrame extends javax.swing.JFrame
 		 implements ActionListener, ItemListener, ListSelectionListener,
-		 ListDataListener, StatusUpdate {
+		 ListDataListener, CaretListener, StatusUpdate
+{
 	public static final String MODULE = "MainFrame";
-	public static final String FILE_TYPE = ".grg";
+
+	public static final int ONE_SECOND = 1000;
 
 	PreviewFrame previewFrame = new PreviewFrame();
 
-	public DefaultComboBoxModel galleries = null;
-	//private Gallery currentGallery = null;
-	//private Album currentAlbum = null;
-	private boolean inProgress = false;
+	boolean dontReselect = false;
+
+	private DefaultComboBoxModel galleries = null;
+	private Gallery currentGallery = null;
+	private Album mAlbum = null;
+	private boolean mInProgress = false;
 	private Thread undeterminedThread = null;
 	private boolean progressOn = false;
 
@@ -84,79 +85,69 @@ public class MainFrame extends javax.swing.JFrame
 	GridBagLayout gridBagLayout2 = new GridBagLayout();
 	JMenuBar jMenuBar1 = new JMenuBar();
 	JLabel jLabel1 = new JLabel();
+	JTextField username = new JTextField();
+	JLabel jLabel2 = new JLabel();
+	JLabel jLabel3 = new JLabel();
+	JPasswordField password = new JPasswordField();
 	JLabel jLabel7 = new JLabel();
+	JComboBox album = new JComboBox();
+	JButton fetch = new JButton();
+	JButton newAlbum = new JButton();
+	JSplitPane inspectorDivider = new JSplitPane();
+	PictureInspector pictureInspector = new PictureInspector();
 	JPanel jPanel3 = new JPanel();
 	GridLayout gridLayout1 = new GridLayout();
+	JButton upload = new JButton();
+	JButton browse = new JButton();
+	JComboBox gallery = new JComboBox();
 	JPanel jPanel4 = new JPanel();
+	JProgressBar progress = new JProgressBar();
+	JLabel status = new JLabel();
 	GridBagLayout gridBagLayout3 = new GridBagLayout();
-	JScrollPane jScrollPane1 = new JScrollPane();
-
-	JList jPicturesList = new DroppableList();
-	JComboBox jAlbumCombo = new JComboBox();
-	JComboBox jGalleryCombo = new JComboBox();
-	JButton jNewGalleryButton = new JButton();
-	JButton jLoginButton = new JButton();
-	JButton jNewAlbumButton = new JButton();
-	JSplitPane jInspectorDivider = new JSplitPane();
-	PictureInspector jPictureInspector = new PictureInspector();
-	JButton jUploadButton = new JButton();
-	JButton jBrowseButton = new JButton();
-	JProgressBar jProgress = new JProgressBar();
-	JLabel jStatus = new JLabel();
 	JMenu jMenuFile = new JMenu();
 	JMenuItem jMenuItemQuit = new JMenuItem();
 	JMenuItem jMenuItemSave = new JMenuItem();
 	JMenuItem jMenuItemOpen = new JMenuItem();
-	JMenuItem jMenuItemPrefs = new JMenuItem();
 	JMenu jMenuHelp = new JMenu();
 	JMenuItem jMenuItemAbout = new JMenuItem();
 	JMenu jMenuOptions = new JMenu();
 	JCheckBoxMenuItem jCheckBoxMenuThumbnails = new JCheckBoxMenuItem();
 	JCheckBoxMenuItem jCheckBoxMenuPreview = new JCheckBoxMenuItem();
 	JCheckBoxMenuItem jCheckBoxMenuPath = new JCheckBoxMenuItem();
+	JScrollPane jScrollPane1 = new JScrollPane();
+	JList picturesList = new DroppableList();
+	JButton newGallery = new JButton();
+	public static final String FILE_TYPE = ".grg";
 
-	public static ImageIcon iLogin;
-	public static ImageIcon iNewGallery;
-	public static ImageIcon iAbout;
-	public static ImageIcon iSave;
-	public static ImageIcon iOpen;
-	public static ImageIcon iPreferences;
-	public static ImageIcon iNewAlbum;
-	public static ImageIcon iQuit;
-	public static ImageIcon iUp;
-	public static ImageIcon iDown;
-	public static ImageIcon iDelete;
-	public static ImageIcon iRight;
-	public static ImageIcon iLeft;
-	public static ImageIcon iFlip;
 
 	/**
 	 *  Constructor for the MainFrame object
 	 */
 	public MainFrame() {
+
 		PropertiesFile p = GalleryRemote.getInstance().properties;
 
-		// load galleries
 		galleries = new DefaultComboBoxModel();
-		int i = 0;
-		while ( true ) {
+		int i = -1;
+		String url;
+		while ( ( url = p.getProperty( "url." + (++i) ) ) != null ) {
 			try {
-				Gallery g = Gallery.readFromProperties(p, i++, this);
-				if (g == null) {
-					break;
-				}
-				g.addListDataListener(this);
+				String username = p.getProperty( "username." + i );
+				String password = p.getBase64Property( "password." + i );
+
+				Log.log(Log.INFO, MODULE, "loaded saved URL: " + url + " (" + username + "/******)" );
+
+				Gallery g = new Gallery( new URL( url ), username, password, /* TEMPORARY */this);
+
 				galleries.addElement(g);
 			} catch (Exception e) {
-				Log.log(Log.ERROR, MODULE, "Error trying to load Gallery profile " + i);
+				Log.log(Log.ERROR, MODULE, "Error trying to load profile");
 				Log.logException(Log.ERROR, MODULE, e);
 			}
 		}
 
-		// if no galleries available, create a blank one
 		if ( galleries.getSize() == 0 ) {
-			Gallery g = new Gallery(this);
-			galleries.addElement( g );
+			galleries.addElement( new Gallery() );
 		}
 
 		setIconImage(GalleryRemote.iconImage);
@@ -181,16 +172,23 @@ public class MainFrame extends javax.swing.JFrame
 		setJMenuBar( jMenuBar1 );
 		setTitle( "Gallery Remote" );
 
-		jPicturesList.setCellRenderer( new FileCellRenderer() );
-		( (DroppableList) jPicturesList ).setMainFrame( this );
+		picturesList.setCellRenderer( new FileCellRenderer() );
+		( (DroppableList) picturesList ).setMainFrame( this );
 
-		jPictureInspector.setMainFrame( this );
+		pictureInspector.setMainFrame( this );
 
 		previewFrame.initComponents();
 
-		setGalleries(galleries);
+		gallery.setModel( galleries );
+		updateGalleryParams();
 
-		jInspectorDivider.setDividerLocation( GalleryRemote.getInstance().properties.getIntProperty( "inspectorDividerLocation" ) );
+		resetUIState();
+
+		jCheckBoxMenuThumbnails.setSelected( GalleryRemote.getInstance().properties.getShowThumbnails() );
+		jCheckBoxMenuPreview.setSelected( GalleryRemote.getInstance().properties.getShowPreview() );
+		jCheckBoxMenuPath.setSelected( GalleryRemote.getInstance().properties.getShowPath() );
+		setShowThumbnails( GalleryRemote.getInstance().properties.getShowThumbnails() );
+		inspectorDivider.setDividerLocation( GalleryRemote.getInstance().properties.getIntProperty( "inspectorDividerLocation" ) );
 
 		setVisible( true );
 
@@ -199,18 +197,6 @@ public class MainFrame extends javax.swing.JFrame
 		}
 
 		toFront();
-
-		readPreferences(GalleryRemote.getInstance().properties);
-	}
-
-	private void setGalleries(DefaultComboBoxModel galleries) {
-		this.galleries = galleries;
-
-		jGalleryCombo.setModel( galleries );
-		galleries.addListDataListener(this);
-		updateGalleryParams();
-
-		//resetUIState();
 	}
 
 
@@ -222,10 +208,26 @@ public class MainFrame extends javax.swing.JFrame
 	void thisWindowClosing( java.awt.event.WindowEvent e ) {
 		try {
 			PropertiesFile p = GalleryRemote.getInstance().properties;
+			for (int i = 0; i < galleries.getSize(); i++) {
+				Gallery g = (Gallery) galleries.getElementAt(i);
+
+				String url = g.getUrlString();
+				if ( url != null) {
+					p.setProperty( "url." + i, url );
+
+					if (g.getUsername() != null) {
+						p.setProperty( "username." + i, g.getUsername() );
+					}
+
+					if (p.getBooleanProperty("savePasswords") && g.getPassword() != null) {
+						p.setBase64Property( "password." + i, g.getPassword() );
+					}
+				}
+			}
 
 			p.setMainBounds( getBounds() );
 			p.setPreviewBounds( previewFrame.getBounds() );
-			p.setIntProperty( "inspectorDividerLocation", jInspectorDivider.getDividerLocation() );
+			p.setIntProperty( "inspectorDividerLocation", inspectorDivider.getDividerLocation() );
 
 			p.write();
 
@@ -246,35 +248,37 @@ public class MainFrame extends javax.swing.JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				// if the list is empty or comm, disable upload
-				jUploadButton.setEnabled( getCurrentAlbum() != null
-				&& getCurrentAlbum().sizePictures() > 0
-				&& !inProgress
-				&& jAlbumCombo.getSelectedIndex() >= 0 );
+				upload.setEnabled( mAlbum != null
+				&& mAlbum.sizePictures() > 0
+				&& !mInProgress
+				&& album.getSelectedIndex() >= 0 );
 
 				// during comm, don't change Gallery or do any other comm
-				jLoginButton.setEnabled( !inProgress );
-				jGalleryCombo.setEnabled( !inProgress );
-				jNewGalleryButton.setEnabled( !inProgress );
+				fetch.setEnabled( !mInProgress );
+				gallery.setEnabled( !mInProgress );
+				newGallery.setEnabled( !mInProgress );
+				username.setEnabled( !mInProgress );
+				password.setEnabled( !mInProgress );
 
-				if (getCurrentGallery().getUsername() != null
-					&& getCurrentGallery().hasComm()
-					&& getCurrentGallery().getComm(MainFrame.this).isLoggedIn()) {
-					jLoginButton.setText("Log out");
+				if (currentGallery.getUsername() != null
+					&& currentGallery.hasComm()
+					&& currentGallery.getComm(MainFrame.this).isLoggedIn()) {
+					fetch.setText("Log out");
 				} else {
-					jLoginButton.setText("Log in");
+					fetch.setText("Log in");
 				}
 
 				// if the selected album is uploading, disable everything
-				boolean enabled = ! inProgress && getCurrentAlbum() != null && jAlbumCombo.getModel().getSize() >= 1;
-				jBrowseButton.setEnabled( enabled );
-				jPictureInspector.setEnabled( enabled );
-				jPicturesList.setEnabled( enabled );
-				jAlbumCombo.setEnabled( enabled );
-				jNewAlbumButton.setEnabled( !inProgress && getCurrentGallery().hasComm()
-					&& getCurrentGallery().getComm(MainFrame.this).hasCapability(GalleryCommCapabilities.CAPA_NEW_ALBUM));
+				boolean enabled = ! mInProgress && mAlbum != null && album.getModel().getSize() >= 1;
+				browse.setEnabled( enabled );
+				pictureInspector.setEnabled( enabled );
+				picturesList.setEnabled( enabled );
+				album.setEnabled( enabled );
+				newAlbum.setEnabled( enabled && currentGallery.hasComm()
+					&& currentGallery.getComm(MainFrame.this).hasCapability(GalleryCommCapabilities.CAPA_NEW_ALBUM));
 
 				// change image displayed
-				int sel = jPicturesList.getSelectedIndex();
+				int sel = picturesList.getSelectedIndex();
 				/*if (mAlbum != null && mAlbum.getSize() < 1) {
 					// if album was just emptied, it takes a while for the pictureList
 					// to notice...
@@ -284,7 +288,8 @@ public class MainFrame extends javax.swing.JFrame
 
 				if ( GalleryRemote.getInstance().properties.getShowPreview() ) {
 					if ( sel != -1 ) {
-						previewFrame.displayFile( getCurrentAlbum().getPicture( sel ) );
+						String filename = ( mAlbum.getPicture( sel ).getSource() ).getPath();
+						previewFrame.displayFile( filename );
 					} else {
 						previewFrame.displayFile( null );
 					}
@@ -295,28 +300,28 @@ public class MainFrame extends javax.swing.JFrame
 				}
 
 				// status
-				if ( getCurrentAlbum() == null) {
-					jPictureInspector.setPictures( null );
+				if ( mAlbum == null) {
+					pictureInspector.setPictures( null );
 
 					setStatus( "Select a Gallery URL and click Log in..." );
-				} else if ( getCurrentAlbum().sizePictures() > 0 ) {
-					jPictureInspector.setPictures( jPicturesList.getSelectedValues() );
+				} else if ( mAlbum.sizePictures() > 0 ) {
+					pictureInspector.setPictures( picturesList.getSelectedValues() );
 
-					int selN = jPicturesList.getSelectedIndices().length;
+					int selN = picturesList.getSelectedIndices().length;
 
 					if ( sel == -1 ) {
-						setStatus( getCurrentAlbum().sizePictures() + " pictures / "
+						setStatus( mAlbum.sizePictures() + " pictures / "
 						+ NumberFormat.getInstance().format(
-						( (int) getCurrentAlbum().getPictureFileSize() / 1024 ) )
+						( (int) mAlbum.getPictureFileSize() / 1024 ) )
 						+ " K" );
 					} else {
 						setStatus( "Selected " + selN + ((selN == 1)?" picture / ":" pictures / ")
 						+ NumberFormat.getInstance().format(
-						( (int) getCurrentAlbum().getObjectFileSize( jPicturesList.getSelectedValues() ) / 1024 ) )
+						( (int) mAlbum.getObjectFileSize( picturesList.getSelectedValues() ) / 1024 ) )
 						+ " K" );
 					}
 				} else {
-					jPictureInspector.setPictures( null );
+					pictureInspector.setPictures( null );
 
 					setStatus( "No selection" );
 				}
@@ -325,58 +330,62 @@ public class MainFrame extends javax.swing.JFrame
 
 
 	private void updateGalleryParams() {
-		Log.log(Log.TRACE, MODULE, "updateGalleryParams: current gallery: " + getCurrentGallery());
+		currentGallery = (Gallery) gallery.getSelectedItem();
+
+		Log.log(Log.TRACE, MODULE, "current gallery: " + currentGallery);
+		if ( currentGallery.getUsername() != null ) {
+			username.setText( currentGallery.getUsername() );
+		} else {
+			username.setText("");
+		}
+
+		if ( currentGallery.getPassword() != null ) {
+			password.setText( currentGallery.getPassword() );
+		} else {
+			password.setText("");
+		}
 
 		updateAlbumCombo();
+		resetUIState();
 	}
 
 
 	private void updateAlbumCombo() {
-		Gallery currentGallery = getCurrentGallery();
-		Log.log(Log.TRACE, MODULE, "updateAlbumCombo: current gallery: " + currentGallery);
+		album.setModel( currentGallery );
 
-		if (jAlbumCombo.getModel() != currentGallery) {
-			jAlbumCombo.setModel( currentGallery );
-			currentGallery.addListDataListener(this);
-		}
+		if (album.getModel().getSize() < 1) {
+			album.setEnabled( false );
+			picturesList.setEnabled( false );
 
-		if (currentGallery.getSize() < 1) {
-			jAlbumCombo.setEnabled( false );
-			jPicturesList.setEnabled( false );
-
-			updatePicturesList();
+			updatePicturesList( null );
 		} else {
-			jAlbumCombo.setEnabled( ! inProgress );
+			// album.setSelectedIndex(0);
+			album.setEnabled( ! mInProgress );
 
-			updatePicturesList();
+			updatePicturesList( (Album) album.getSelectedItem() );
 		}
 	}
 
 
-	private void updatePicturesList() {
-		Album currentAlbum = getCurrentAlbum();
-		Log.log(Log.TRACE, MODULE, "updatePicturesList: current album: " + currentAlbum);
+	private void updatePicturesList( Album album ) {
+		mAlbum = album;
 
-		if (currentAlbum == null) {
+		if (mAlbum == null) {
 			// fake empty album to clear the list
-			jPicturesList.setModel( new Album() );
+			picturesList.setModel( new Album() );
 		} else {
-			if (jPicturesList.getModel() != currentAlbum) {
-				jPicturesList.setModel( currentAlbum );
-				currentAlbum.addListDataListener( this );
-			}
-
-			jPictureInspector.setPictures( null );
+			picturesList.setModel( mAlbum );
+			mAlbum.setListSelectionModel(picturesList.getSelectionModel());
+			picturesList.getModel().addListDataListener( this );
+			pictureInspector.setPictures( null );
 		}
-
-		resetUIState();
 	}
 
 
 	public void setStatus( String message ) {
 		if (! progressOn) {
 			// prevent progress message from being overriden
-			jStatus.setText( message );
+			status.setText( message );
 		} else {
 			//Log.log(Log.ERROR, MODULE, "Trying to override progress with status");
 			//Log.logStack(Log.ERROR, MODULE);
@@ -397,9 +406,9 @@ public class MainFrame extends javax.swing.JFrame
 
 		progressOn = true;
 
-		jProgress.setMinimum(min);
-		jProgress.setValue(min);
-		jProgress.setMaximum(max);
+		progress.setMinimum(min);
+		progress.setValue(min);
+		progress.setMaximum(max);
 		//progress.setStringPainted( true );
 
 		if (undetermined && undeterminedThread == null) {
@@ -407,13 +416,13 @@ public class MainFrame extends javax.swing.JFrame
 				public void run() {
 					boolean forward = true;
 					while (! interrupted() ) {
-						if (jProgress.getValue() >= jProgress.getMaximum()) {
+						if (progress.getValue() >= progress.getMaximum()) {
 							forward = false;
-						} else if (jProgress.getValue() <= jProgress.getMinimum()) {
+						} else if (progress.getValue() <= progress.getMinimum()) {
 							forward = true;
 						}
 
-						updateProgressValue(progressId, jProgress.getValue() + (forward?1:-1));
+						updateProgressValue(progressId, progress.getValue() + (forward?1:-1));
 
 						try {
 							sleep(500);
@@ -424,14 +433,14 @@ public class MainFrame extends javax.swing.JFrame
 			undeterminedThread.start();
 		}
 
-		jStatus.setText(message + "...");
+		status.setText(message + "...");
 
 		return ++progressId;
 	}
 
 	public void updateProgressValue( int progressId, int value ) {
 		if (progressOn && progressId == this.progressId) {
-			jProgress.setValue( value );
+			progress.setValue( value );
 		} else {
 			//Log.log(Log.TRACE, MODULE, "Trying to use updateProgressValue when not progressOn or with wrong progressId");
 			//Log.logStack(Log.TRACE, MODULE);
@@ -440,8 +449,8 @@ public class MainFrame extends javax.swing.JFrame
 
 	public void updateProgressValue( int progressId, int value, int maxValue ) {
 		if (progressOn && progressId == this.progressId) {
-			jProgress.setValue( value );
-			jProgress.setMaximum( maxValue );
+			progress.setValue( value );
+			progress.setMaximum( maxValue );
 		} else {
 			//Log.log(Log.TRACE, MODULE, "Trying to use updateProgressValue when not progressOn or with wrong progressId");
 			//Log.logStack(Log.TRACE, MODULE);
@@ -450,7 +459,7 @@ public class MainFrame extends javax.swing.JFrame
 
 	public void updateProgressStatus( int progressId, String message ) {
 		if (progressOn && progressId == this.progressId) {
-			jStatus.setText( message );
+			status.setText( message );
 		} else {
 			//Log.log(Log.TRACE, MODULE, "Trying to use updateProgressStatus when not progressOn or with wrong progressId");
 			//Log.logStack(Log.TRACE, MODULE);
@@ -474,16 +483,16 @@ public class MainFrame extends javax.swing.JFrame
 			}
 
 			//progress.setStringPainted( false );
-			jProgress.setValue(jProgress.getMinimum());
+			progress.setValue(progress.getMinimum());
 
-			jStatus.setText(message);
+			status.setText(message);
 		} else {
 			Log.log(Log.TRACE, MODULE, "Wrong progressId when stopping progress");
 		}
 	}
 
 	public void setInProgress(boolean inProgress) {
-		this.inProgress = inProgress;
+		mInProgress = inProgress;
 
 		resetUIState();
 	}
@@ -506,7 +515,7 @@ public class MainFrame extends javax.swing.JFrame
 			addPictures( files );
 		}
 
-		//resetUIState();
+		resetUIState();
 	}
 
 	/**
@@ -528,9 +537,9 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	public void addPictures( File[] files, int index ) {
 		if (index == -1) {
-			getCurrentAlbum().addPictures( files );
+			mAlbum.addPictures( files );
 		} else {
-			getCurrentAlbum().addPictures( files, index );
+			mAlbum.addPictures( files, index );
 		}
 		/*Arrays.sort( items,
 				new Comparator()
@@ -548,7 +557,7 @@ public class MainFrame extends javax.swing.JFrame
 						return ( f1.equals( f2 ) );
 					}
 				} );*/
-		thumbnailCache.preloadThumbnailFiles( files );
+		thumbnailCache.preloadThumbnails( files );
 
 		//resetUIState();
 	}
@@ -566,7 +575,7 @@ public class MainFrame extends javax.swing.JFrame
 
 		saveState(f);
 
-		getCurrentGallery().uploadFiles( this );
+		currentGallery.uploadFiles( this );
 	}
 
 
@@ -576,17 +585,13 @@ public class MainFrame extends javax.swing.JFrame
 	public void fetchAlbums() {
 		Log.log(Log.INFO, MODULE, "fetchAlbums starting");
 
-		getCurrentGallery().fetchAlbums( this );
+		currentGallery.fetchAlbums( this );
 
-		//updateAlbumCombo();
-
-		if (jAlbumCombo.getModel().getSize() > 0) {
-			jAlbumCombo.setSelectedIndex(0);
-		}
+		updateAlbumCombo();
 	}
 
 	public void newAlbum() {
-		new NewAlbumDialog(this, getCurrentGallery(), getCurrentAlbum());
+		new NewAlbumDialog(this, currentGallery, mAlbum);
 	}
 
 
@@ -594,9 +599,9 @@ public class MainFrame extends javax.swing.JFrame
 	 *  Delete Pictures that are selected in the list
 	 */
 	public void deleteSelectedPictures() {
-		int[] indices = jPicturesList.getSelectedIndices();
+		int[] indices = picturesList.getSelectedIndices();
 
-		getCurrentAlbum().removePictures( indices );
+		mAlbum.removePictures( indices );
 	}
 
 
@@ -604,13 +609,13 @@ public class MainFrame extends javax.swing.JFrame
 	 *  Move selected Pictures up
 	 */
 	public void movePictureUp() {
-		int sel = jPicturesList.getSelectedIndex();
+		int sel = picturesList.getSelectedIndex();
 
 		if ( sel > 0 ) {
-			Picture buf = getCurrentAlbum().getPicture( sel );
-			getCurrentAlbum().setPicture( sel, getCurrentAlbum().getPicture( sel - 1 ) );
-			getCurrentAlbum().setPicture( sel - 1, buf );
-			jPicturesList.setSelectedIndex( sel - 1 );
+			Picture buf = mAlbum.getPicture( sel );
+			mAlbum.setPicture( sel, mAlbum.getPicture( sel - 1 ) );
+			mAlbum.setPicture( sel - 1, buf );
+			picturesList.setSelectedIndex( sel - 1 );
 		}
 	}
 
@@ -619,13 +624,13 @@ public class MainFrame extends javax.swing.JFrame
 	 *  Move selected Pictures down
 	 */
 	public void movePictureDown() {
-		int sel = jPicturesList.getSelectedIndex();
+		int sel = picturesList.getSelectedIndex();
 
-		if ( sel < getCurrentAlbum().sizePictures() - 1 ) {
-			Picture buf = getCurrentAlbum().getPicture( sel );
-			getCurrentAlbum().setPicture( sel, getCurrentAlbum().getPicture( sel + 1 ) );
-			getCurrentAlbum().setPicture( sel + 1, buf );
-			jPicturesList.setSelectedIndex( sel + 1 );
+		if ( sel < mAlbum.sizePictures() - 1 ) {
+			Picture buf = mAlbum.getPicture( sel );
+			mAlbum.setPicture( sel, mAlbum.getPicture( sel + 1 ) );
+			mAlbum.setPicture( sel + 1, buf );
+			picturesList.setSelectedIndex( sel + 1 );
 		}
 	}
 
@@ -639,14 +644,14 @@ public class MainFrame extends javax.swing.JFrame
 		GalleryRemote.getInstance().properties.setShowThumbnails( show );
 
 		if ( show ) {
-			if ( getCurrentAlbum() != null ) {
-				thumbnailCache.preloadThumbnailPictures( getCurrentAlbum().getPictures() );
+			if ( mAlbum != null ) {
+				thumbnailCache.preloadThumbnailFiles( mAlbum.getPictures() );
 			}
 
-			jPicturesList.setFixedCellHeight( GalleryRemote.getInstance().properties.getThumbnailSize().height + 4 );
+			picturesList.setFixedCellHeight( GalleryRemote.getInstance().properties.getThumbnailSize().height + 4 );
 		} else {
 			thumbnailCache.cancelLoad();
-			jPicturesList.setFixedCellHeight( -1 );
+			picturesList.setFixedCellHeight( -1 );
 		}
 	}
 
@@ -694,11 +699,7 @@ public class MainFrame extends javax.swing.JFrame
 	 *@return    The thumbnail value
 	 */
 	public ImageIcon getThumbnail( Picture p ) {
-		ImageIcon thumb = getThumbnail( p.getSource().getPath() );
-
-		thumb = ImageUtils.rotateImageIcon(thumb, p.getAngle(), p.isFlipped(), getGlassPane());
-
-		return thumb;
+		return getThumbnail( p.getSource().getPath() );
 	}
 
 
@@ -706,7 +707,7 @@ public class MainFrame extends javax.swing.JFrame
 	 *  Callback from thumbnail cache to notify that a new one has been loaded
 	 */
 	public void thumbnailLoadedNotify() {
-		jPicturesList.repaint();
+		picturesList.repaint();
 	}
 
 
@@ -725,54 +726,49 @@ public class MainFrame extends javax.swing.JFrame
 
 	private void jbInit()
 		throws Exception {//{{{
-		this.setDefaultCloseOperation( WindowConstants.DO_NOTHING_ON_CLOSE );
 		this.getContentPane().setLayout( gridBagLayout1 );
 		jPanel1.setLayout( gridBagLayout2 );
 		jLabel1.setText( "Gallery URL" );
+		jLabel2.setText( "Username" );
+		jLabel3.setText( "Password" );
 		jLabel7.setText( "Select Album" );
-		jLoginButton.setText( "Log in" );
-		jLoginButton.setNextFocusableComponent( jNewAlbumButton );
-		jLoginButton.setActionCommand( "Fetch" );
-		jLoginButton.setIcon(iLogin);
-		jNewAlbumButton.setText("New Album..." );
-		jNewAlbumButton.setNextFocusableComponent( jAlbumCombo );
-		jNewAlbumButton.setActionCommand( "NewAlbum" );
-		jNewAlbumButton.setIcon(iNewAlbum);
+		fetch.setText( "Log in" );
+		fetch.setNextFocusableComponent( newAlbum );
+		fetch.setActionCommand( "Fetch" );
+		newAlbum.setText( "New Album" );
+		newAlbum.setNextFocusableComponent( album );
+		newAlbum.setActionCommand( "NewAlbum" );
+		this.setDefaultCloseOperation( WindowConstants.DO_NOTHING_ON_CLOSE );
 		jPanel3.setLayout( gridLayout1 );
-		jUploadButton.setAlignmentX( (float) 2.0 );
-		jUploadButton.setText( "Upload Pictures" );
-		jUploadButton.setActionCommand( "Upload" );
-		jInspectorDivider.setBorder( new TitledBorder( BorderFactory.createEtchedBorder( Color.white, new Color( 148, 145, 140 ) ), "Pictures to Upload (Drag and Drop files into this panel)" ) );
+		upload.setAlignmentX( (float) 2.0 );
+		upload.setText( "Upload Pictures" );
+		upload.setActionCommand( "Upload" );
+		inspectorDivider.setBorder( new TitledBorder( BorderFactory.createEtchedBorder( Color.white, new Color( 148, 145, 140 ) ), "Pictures to Upload (Drag and Drop files into this panel)" ) );
 		jPanel1.setBorder( new TitledBorder( BorderFactory.createEtchedBorder( Color.white, new Color( 148, 145, 140 ) ), "Destination Gallery" ) );
-		jBrowseButton.setAlignmentX( (float) 1.0 );
-		jBrowseButton.setText( "Add pictures..." );
-		jBrowseButton.setActionCommand( "Browse" );
-		jGalleryCombo.setActionCommand("Url");
-		jProgress.setMinimumSize( new Dimension( 10, 18 ) );
-		jProgress.setPreferredSize( new Dimension( 150, 18 ) );
-		jProgress.setStringPainted( false );
+		browse.setAlignmentX( (float) 1.0 );
+		browse.setText( "Add pictures..." );
+		browse.setActionCommand( "Browse" );
+		gallery.setNextFocusableComponent( username );
+		gallery.setEditable( true );
+		gallery.setActionCommand("Url");
+		progress.setMinimumSize( new Dimension( 10, 18 ) );
+		progress.setPreferredSize( new Dimension( 150, 18 ) );
+		progress.setStringPainted( false );
 		gridLayout1.setHgap( 5 );
-		jStatus.setBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED, Color.white, SystemColor.control, SystemColor.control, Color.gray ) );
-		jStatus.setMinimumSize( new Dimension( 100, 18 ) );
-		jStatus.setPreferredSize( new Dimension( 38, 18 ) );
+		status.setBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED, Color.white, SystemColor.control, SystemColor.control, Color.gray ) );
+		status.setMinimumSize( new Dimension( 100, 18 ) );
+		status.setPreferredSize( new Dimension( 38, 18 ) );
 		jPanel4.setLayout( gridBagLayout3 );
 		jMenuFile.setText( "File" );
 		jMenuItemQuit.setText( "Quit" );
 		jMenuItemQuit.setActionCommand( "File.Quit" );
-		jMenuItemQuit.setIcon(iQuit);
-		jMenuItemSave.setText( "Save..." );
+		jMenuItemSave.setText( "Save" );
 		jMenuItemSave.setActionCommand( "File.Save" );
-		jMenuItemSave.setIcon(iSave);
-		jMenuItemPrefs.setText( "Preferences..." );
-		jMenuItemPrefs.setActionCommand( "Options.Prefs" );
-		jMenuItemPrefs.setIcon(iPreferences);
-		jMenuItemOpen.setText( "Open..." );
+		jMenuItemOpen.setText( "Open" );
 		jMenuItemOpen.setActionCommand( "File.Open" );
-		jMenuItemOpen.setIcon(iOpen);
 		jMenuHelp.setText( "Help" );
 		jMenuItemAbout.setActionCommand( "Help.About" );
 		jMenuItemAbout.setText( "About Gallery Remote..." );
-		jMenuItemAbout.setIcon(iAbout);
 		jMenuOptions.setText( "Options" );
 		jCheckBoxMenuThumbnails.setActionCommand( "Options.Thumbnails" );
 		jCheckBoxMenuThumbnails.setText( "Show Thumbnails" );
@@ -780,79 +776,75 @@ public class MainFrame extends javax.swing.JFrame
 		jCheckBoxMenuPreview.setText( "Show Preview" );
 		jCheckBoxMenuPath.setActionCommand( "Options.Path" );
 		jCheckBoxMenuPath.setText( "Show Path" );
+		username.setNextFocusableComponent( password );
+		username.setActionCommand("Username");
+		password.setActionCommand("Password");
+		password.setNextFocusableComponent( fetch );
 		jScrollPane1.setHorizontalScrollBarPolicy( JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-		jNewGalleryButton.setText("Add Gallery URL...");
-		jNewGalleryButton.setActionCommand("NewGallery");
-		jNewGalleryButton.setIcon(iNewGallery);
-		jAlbumCombo.setActionCommand("Album");
+		newGallery.setText("Add Gallery URL");
+		newGallery.setActionCommand("NewGallery");
+		album.setActionCommand("Album");
 		this.getContentPane().add( jPanel1, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0
 				, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets( 2, 2, 2, 2 ), 0, 0 ) );
 		jPanel1.add( jLabel1, new GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0
 				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
-		this.getContentPane().add( jInspectorDivider, new GridBagConstraints( 0, 1, 1, 1, 1.0, 1.0
+		jPanel1.add( username, new GridBagConstraints( 1, 1, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+		jPanel1.add( jLabel2, new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
+		jPanel1.add( jLabel3, new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
+		jPanel1.add( password, new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+		jPanel1.add( jLabel7, new GridBagConstraints( 0, 3, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
+		jPanel1.add( album, new GridBagConstraints( 1, 3, 2, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+		jPanel1.add( fetch,   new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0) );
+		jPanel1.add( newAlbum,   new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0) );
+		this.getContentPane().add( inspectorDivider, new GridBagConstraints( 0, 1, 1, 1, 1.0, 1.0
 				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 2, 2, 2 ), 0, 0 ) );
-		jInspectorDivider.add( jPictureInspector, JSplitPane.BOTTOM );
-		jInspectorDivider.add( jScrollPane1, JSplitPane.TOP );
-		jScrollPane1.getViewport().add( jPicturesList, null );
+		inspectorDivider.add( pictureInspector, JSplitPane.BOTTOM );
+		inspectorDivider.add( jScrollPane1, JSplitPane.TOP );
+		jScrollPane1.getViewport().add( picturesList, null );
 		this.getContentPane().add( jPanel3, new GridBagConstraints( 0, 2, 1, 1, 1.0, 0.0
 				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 5, 5, 5, 5 ), 0, 0 ) );
-		jPanel3.add( jBrowseButton, null );
-		jPanel3.add( jUploadButton, null );
+		jPanel3.add( browse, null );
+		jPanel3.add( upload, null );
 		this.getContentPane().add( jPanel4, new GridBagConstraints( 0, 3, 1, 1, 1.0, 0.0
 				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-		jPanel4.add( jProgress, new GridBagConstraints( 1, 0, 1, 1, 0.25, 0.0
+		jPanel4.add( progress, new GridBagConstraints( 1, 0, 1, 1, 0.25, 0.0
 				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-		jPanel4.add( jStatus, new GridBagConstraints( 0, 0, 1, 1, 0.75, 0.0
+		jPanel4.add( status, new GridBagConstraints( 0, 0, 1, 1, 0.75, 0.0
 				, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-		jPanel1.add( jGalleryCombo,  new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
+		jPanel1.add( gallery,  new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
-		jPanel1.add(jNewGalleryButton,     new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
+		jPanel1.add(newGallery,    new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0));
-        jPanel1.add(jLabel7,  new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
-        jPanel1.add(jAlbumCombo,   new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-        jPanel1.add(jLoginButton,  new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
-        jPanel1.add(jNewAlbumButton,    new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
-
 		jMenuBar1.add( jMenuFile );
 		jMenuBar1.add( jMenuOptions );
 		jMenuBar1.add( jMenuHelp );
-
-		jMenuFile.add( jMenuItemOpen );
 		jMenuFile.add( jMenuItemSave );
-
-		// in the event the library we use to save is missing, dim the menus
-		try {
-			new JSX.ObjOut();
-		} catch (Throwable t) {
-			jMenuItemOpen.setEnabled(false);
-			jMenuItemSave.setEnabled(false);
-		}
-
-		jMenuFile.addSeparator();
+		jMenuFile.add( jMenuItemOpen );
 		jMenuFile.add( jMenuItemQuit );
-
 		jMenuHelp.add( jMenuItemAbout );
-
 		jMenuOptions.add( jCheckBoxMenuThumbnails );
 		jMenuOptions.add( jCheckBoxMenuPreview );
 		jMenuOptions.add( jCheckBoxMenuPath );
-		jMenuOptions.addSeparator();
-		jMenuOptions.add( jMenuItemPrefs );
 	}//}}}
 
 
 	private void jbInitEvents() {
-		jLoginButton.addActionListener( this );
-		jNewAlbumButton.addActionListener( this );
-		jUploadButton.addActionListener( this );
-		jBrowseButton.addActionListener( this );
-		jNewGalleryButton.addActionListener( this );
-		//jGalleryCombo.addActionListener( this );
-		jMenuItemPrefs.addActionListener( this );
+		fetch.addActionListener( this );
+		newAlbum.addActionListener( this );
+		upload.addActionListener( this );
+		browse.addActionListener( this );
+		newGallery.addActionListener( this );
+		gallery.addActionListener( this );
+		username.addCaretListener( this );
+		password.addCaretListener( this );
 		jMenuItemSave.addActionListener( this );
 		jMenuItemOpen.addActionListener( this );
 		jMenuItemQuit.addActionListener( this );
@@ -864,9 +856,9 @@ public class MainFrame extends javax.swing.JFrame
 		// in Swing 1.3, using an ItemListener for a JComboBox doesn't work,
 		// using ActionListener instead
 		//album.addItemListener( this );
-		//jAlbumCombo.addActionListener( this );
+		album.addActionListener( this );
 
-		jPicturesList.addListSelectionListener( this );
+		picturesList.addListSelectionListener( this );
 
 		addWindowListener(
 			new java.awt.event.WindowAdapter()
@@ -882,7 +874,7 @@ public class MainFrame extends javax.swing.JFrame
 					jCheckBoxMenuPreview.setState( false );
 				}
 			} );
-		jPicturesList.addKeyListener(
+		picturesList.addKeyListener(
 			new KeyAdapter()
 			{
 				public void keyPressed( KeyEvent e ) {
@@ -909,27 +901,22 @@ public class MainFrame extends javax.swing.JFrame
 			saveState();
 		} else if ( command.equals( "File.Open" ) ) {
 			openState();
-		} else if ( command.equals( "Options.Prefs" ) ) {
-			showPreferencesDialog();
 		} else if ( command.equals( "Help.About" ) ) {
 			showAboutBox();
 		} else if ( command.equals( "Fetch" ) ) {
-			if (getCurrentGallery().hasComm() && getCurrentGallery().getComm(this).isLoggedIn()) {
-				// we're currently logged in: log out
-				getCurrentGallery().logOut();
-				//if (getCurrentAlbum() != null) {
-				//	getCurrentAlbum().clearPictures();
-				//}
-				//setCurrentAlbum(null);
+		    // login may have failed and caused getComm to be null.
+			if ((currentGallery.getComm(this)) != null &&
+			    currentGallery.getComm(this).isLoggedIn()) {
+				currentGallery.getComm(this).logOut();
+				if (mAlbum != null) {
+					mAlbum.clearPictures();
+				}
+				mAlbum = null;
 
-				//jAlbumCombo.setModel(new Gallery(this));
-				//resetUIState();
+				resetUIState();
 			} else {
-		    	// login may have failed and caused getComm to be null.
-				GalleryComm comm = getCurrentGallery().getComm(this);
-
-				// may have tried to connect and failed
-				if (comm != null && !GalleryComm.wasAuthFailure()) {
+				// the first part of this "if" may have tried to reconnect and failed
+				if (!GalleryComm.wasAuthFailure()) {
 					fetchAlbums();
 				}
 			}
@@ -940,78 +927,45 @@ public class MainFrame extends javax.swing.JFrame
 		} else if ( command.equals( "Upload" ) ) {
 			uploadPictures();
 		} else if ( command.equals( "NewGallery" ) ) {
-			showPreferencesDialog(URLPanel.class.getName());
-		//} else if ( command.equals( "Url" ) ) {
-			//Object selectedGallery = jGalleryCombo.getSelectedItem();
-			//if (selectedGallery != null) {
-				//Log.log(Log.TRACE, MODULE, "selected: " + selectedGallery.toString()
-				//	+ " (" + jGalleryCombo.getSelectedIndex() + ")");
+			Gallery g = new Gallery(null, null, null, this);
+			galleries.addElement( g );
+			gallery.setSelectedItem( g );
+			updateGalleryParams();
+		} else if ( command.equals( "Url" ) ||
+			command.equals( "comboBoxEdited" ) ) {
+			//Log.log(Log.TRACE, MODULE, "modifiers: " + e.getModifiers());
+			//Log.log(Log.TRACE, MODULE, "paramString: " + e.paramString());
+			Log.log(Log.TRACE, MODULE, "selected: " + gallery.getSelectedItem().toString()
+				+ " (" + gallery.getSelectedIndex() + ")");
 
+			if (gallery.getSelectedItem() instanceof String) {
+				// text of a url edited
+				try {
+					currentGallery.setUrlString((String) gallery.getSelectedItem());
+				} catch ( MalformedURLException mue ) {
+
+					JOptionPane.showMessageDialog(this, "Malformed URL", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
 				// new url chosen in the popup
-				// updateGalleryParams();
-//			} else {
-//				Log.log(Log.TRACE, MODULE, "Deselected gallery");
-//			}
-		//} else if ( command.equals( "Album" ) ) {
-			//Object selectedAlbum = jAlbumCombo.getSelectedItem();
-			//	Log.log(Log.TRACE, MODULE, "selected: " + selectedAlbum.toString()
-			//		+ " (" + jAlbumCombo.getSelectedIndex() + ")");
-
-			//updatePicturesList( /*(Album) ( (JComboBox) e.getSource() ).getSelectedItem()*/);
+				updateGalleryParams();
+			}
+		} else if ( command.equals( "Album" ) ) {
+			updatePicturesList( (Album) ( (JComboBox) e.getSource() ).getSelectedItem());
 		} else {
 			Log.log(Log.ERROR, MODULE, "Unhandled command " + command );
 		}
 	}
 
-	private void showPreferencesDialog() {
-		showPreferencesDialog(null);
-	}
-
-	private void showPreferencesDialog(String panel) {
-		PropertiesFile oldProperties = (PropertiesFile) GalleryRemote.getInstance().properties.clone();
-		PreferencesDialog pd = new PreferencesDialog(this);
-
-		if (panel != null) {
-			pd.setPanel(panel);
-		}
-
-		// modal dialog
-		pd.setVisible(true);
-
-		// user clicked OK
-		if (pd.isOK()) {
-			readPreferences(oldProperties);
-		}
-	}
-
-	public void readPreferences(PropertiesFile op) {
-		PropertiesFile p = GalleryRemote.getInstance().properties;
-		p.write();
-
-		jCheckBoxMenuThumbnails.setSelected( p.getShowThumbnails() );
-		jCheckBoxMenuPreview.setSelected( p.getShowPreview() );
-		jCheckBoxMenuPath.setSelected( p.getShowPath() );
-
-		previewFrame.setVisible( p.getShowPreview() );
-
-		setShowThumbnails( p.getShowThumbnails() );
-
-		if (!op.getThumbnailSize().equals(p.getThumbnailSize())) {
-			thumbnailCache.reload();
-		}
-
-		Log.setMaxLevel();
-	}
-
 	static FileFilter galleryFileFilter = new FileFilter() {
-		public boolean accept(File f) {
-			return f.isDirectory() || f.getName().endsWith(FILE_TYPE);
-		}
+				public boolean accept(File f) {
+					return f.isDirectory() || f.getName().endsWith(FILE_TYPE);
+				}
 
-		public String getDescription() {
-			return "GalleryRemote galleries";
-		}
-	};
+				public String getDescription() {
+					return "GalleryRemote galleries";
+				}
+			};
 
 	private void saveState() {
 		JFileChooser fc = new JFileChooser();
@@ -1064,14 +1018,14 @@ public class MainFrame extends javax.swing.JFrame
 
 				ObjIn in = new ObjIn(new BufferedReader(new FileReader(fc.getSelectedFile())));
 				Gallery[] galleryArray = (Gallery[]) in.readObject();
-				DefaultComboBoxModel newGalleries = new DefaultComboBoxModel();
+				galleries = new DefaultComboBoxModel();
 				for (int i = 0; i < galleryArray.length; i++) {
-					newGalleries.addElement(galleryArray[i]);
-					galleryArray[i].addListDataListener(this);
-					thumbnailCache.preloadThumbnailPictures(Collections.enumeration(galleryArray[i].getAllPictures()));
+					galleries.addElement(galleryArray[i]);
 				}
+				gallery.setModel( galleries );
+				updateGalleryParams();
 
-				setGalleries( newGalleries );
+				resetUIState();
 			}
 		} catch (IOException e) {
 			Log.log(Log.ERROR, MODULE, "Exception while trying to read state");
@@ -1082,22 +1036,6 @@ public class MainFrame extends javax.swing.JFrame
 		} catch (NoClassDefFoundError e) {
 			Log.log(Log.ERROR, MODULE, "JSX not installed, can't read state...");
 		}
-	}
-
-	public void removeGallery(Gallery g) {
-		Log.log(Log.INFO, MODULE, "Deleting Gallery " + g);
-		galleries.removeElement(g);
-
-		//g.removeFromProperties(GalleryRemote.getInstance().properties);
-
-		// tell all the galleries they've been moved...
-		for (int i = 0; i < galleries.getSize(); i++) {
-			Gallery gg = (Gallery) galleries.getElementAt(i);
-			gg.setPrefsIndex(i);
-			gg.writeToProperties(GalleryRemote.getInstance().properties);
-		}
-
-		Gallery.removeFromProperties(GalleryRemote.getInstance().properties, galleries.getSize());
 	}
 
 
@@ -1116,7 +1054,7 @@ public class MainFrame extends javax.swing.JFrame
 			setShowPreview( e.getStateChange() == ItemEvent.SELECTED );
 		} else if ( item == jCheckBoxMenuPath ) {
 			GalleryRemote.getInstance().properties.setShowPath( ( e.getStateChange() == ItemEvent.SELECTED ) ? true : false );
-			jPicturesList.repaint();
+			picturesList.repaint();
 		} /*else if ( item == album ) {
 			updatePicturesList( (Album) ( (JComboBox) item ).getSelectedItem());
 		}*/ else {
@@ -1133,11 +1071,11 @@ public class MainFrame extends javax.swing.JFrame
 	public void valueChanged( ListSelectionEvent e ) {
 		//Log.log(Log.TRACE, MODULE, "List selection changed: " + e);
 
-		int sel = jPicturesList.getSelectedIndex();
+		int sel = picturesList.getSelectedIndex();
 
 		if ( sel != -1 ) {
-			String filename = ( getCurrentAlbum().getPicture( sel ).getSource() ).getPath();
-			thumbnailCache.preloadThumbnailFilenameFirst( filename );
+			String filename = ( mAlbum.getPicture( sel ).getSource() ).getPath();
+			thumbnailCache.preloadThumbnailFirst( filename );
 		}
 
 		resetUIState();
@@ -1151,35 +1089,39 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	public void contentsChanged( ListDataEvent e ) {
 		Object source = e.getSource();
-		Log.log(Log.TRACE, MODULE, "Contents changed: " + e);
 
-		if (source instanceof Album) {
+		if (source == picturesList) {
 			// Also tell MainFrame (ugly, but works around bug in Swing where when
 			// the list data changes (and nothing remains to be selected), no
 			// selection change events are fired.
-			updatePicturesList();
-		} else if (source instanceof Gallery) {
-			updateAlbumCombo();
-		} else if (source instanceof DefaultComboBoxModel) {
-			updateGalleryParams();
-		} else {
-			Log.log(Log.ERROR, MODULE, "Unknown source " + source);
+			resetUIState();
 		}
 	}
-	public void intervalAdded(ListDataEvent e) {
-		contentsChanged(e);
-	}
-	public void intervalRemoved(ListDataEvent e) {
-		contentsChanged(e);
-	}
+	public void intervalAdded(ListDataEvent e) {}
+	public void intervalRemoved(ListDataEvent e) {}
 
+	// CaretListener implementation
+	public void caretUpdate(CaretEvent e) {
+		Object c = e.getSource();
+		//Log.log(Log.TRACE, MODULE, "caretUpdate: " + e + " (" + c + ")");
+
+		if (c == username) {
+			currentGallery.setUsername(username.getText());
+			resetUIState();
+		} else if ( c == password ) {
+			currentGallery.setPassword(password.getText());
+			resetUIState();
+		} else {
+			Log.log(Log.ERROR, MODULE, "Unhandled caret update " + c );
+		}
+	}
 	/**
 	 *  Listen for key events
 	 *
 	 *@param  e  Key event
 	 */
 	public void jListKeyPressed( KeyEvent e ) {
-		if ( ! inProgress) {
+		if ( ! mInProgress) {
 			int vKey = e.getKeyCode();
 
 			switch ( vKey ) {
@@ -1196,24 +1138,6 @@ public class MainFrame extends javax.swing.JFrame
 			}
 		}
 	}
-
-	public Gallery getCurrentGallery() {
-		Gallery gallery = (Gallery) jGalleryCombo.getSelectedItem();
-		return gallery;
-	}
-
-//	public void setCurrentGallery(Gallery currentGallery) {
-//		this.currentGallery = currentGallery;
-//	}
-
-	public Album getCurrentAlbum() {
-		Album album = (Album) jAlbumCombo.getSelectedItem();
-		return album;
-	}
-
-//	public void setCurrentAlbum(Album currentAlbum) {
-//		this.currentAlbum = currentAlbum;
-//	}
 
 
 	/**
@@ -1242,7 +1166,7 @@ public class MainFrame extends javax.swing.JFrame
 			super.getListCellRendererComponent( list, value, index, selected, hasFocus );
 
 			if (value != null && index != -1) {
-				Picture p = getCurrentAlbum().getPicture( index );
+				Picture p = mAlbum.getPicture( index );
 				File f = p.getSource();
 
 				if ( GalleryRemote.getInstance().properties.getShowThumbnails() ) {
@@ -1271,29 +1195,6 @@ public class MainFrame extends javax.swing.JFrame
 			}
 
 			return this;
-		}
-	}
-
-	static {
-		try {
-			iAbout = new ImageIcon(MainFrame.class.getResource("/Information16.gif"));
-			iSave = new ImageIcon(MainFrame.class.getResource("/Save16.gif"));
-			iOpen = new ImageIcon(MainFrame.class.getResource("/Open16.gif"));
-			iPreferences = new ImageIcon(MainFrame.class.getResource("/Preferences16.gif"));
-			iQuit = new ImageIcon(MainFrame.class.getResource("/Stop16.gif"));
-
-			iNewGallery = new ImageIcon(MainFrame.class.getResource("/WebComponentAdd16.gif"));
-			iLogin = new ImageIcon(MainFrame.class.getResource("/WebComponent16.gif"));
-			iNewAlbum = new ImageIcon(MainFrame.class.getResource("/New16.gif"));
-
-			iUp = new ImageIcon(MainFrame.class.getResource("/Up16.gif"));
-			iDown = new ImageIcon(MainFrame.class.getResource("/Down16.gif"));
-			iDelete = new ImageIcon(MainFrame.class.getResource("/Delete16.gif"));
-			iRight = new ImageIcon(MainFrame.class.getResource("/RotateRight24.gif"));
-			iLeft = new ImageIcon(MainFrame.class.getResource("/RotateLeft24.gif"));
-			iFlip = new ImageIcon(MainFrame.class.getResource("/FlipHoriz24.gif"));
-		} catch (Exception e) {
-			Log.logException(Log.ERROR, MODULE, e);
 		}
 	}
 }

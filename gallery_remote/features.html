@@ -42,7 +42,7 @@ th {
 
 <body>
 
-<h1 align="center">Gallery Remote 1.x features</h1>
+<h1 align="center">Gallery Remote 1.0 features</h1>
 <h2>Document goal</h2>
 <p>Serve as a basis for team and community discussions about GR 1.0 features, 
   how they will be implemented, and by whom. </p>
@@ -55,7 +55,6 @@ th {
     <th>Name</th>
     <th>Priority</th>
     <th>Status</th>
-    <th>Version</th>
     <th>Who</th>
     <th>Description</th>
     <th>Comments</th>
@@ -64,7 +63,6 @@ th {
     <td>Main UI</td>
     <td>P1</td>
     <td>90%</td>
-    <td>1.0</td>
     <td>paour</td>
     <td>The main UI needs to be rewritten using Layouts, in order to allow more 
       flexibility.</td>
@@ -73,8 +71,7 @@ th {
   <tr valign="top"> 
     <td>Preferences</td>
     <td>P2</td>
-    <td>90%</td>
-    <td>1.1</td>
+    <td>10%</td>
     <td>paour</td>
     <td>A preferences dialog, that allows users to set most or all the preferences 
       that are exposed in the properties files, and create/edit Gallery connection 
@@ -87,7 +84,6 @@ th {
     <td>Inspector</td>
     <td>P2</td>
     <td>60%</td>
-    <td>1.0</td>
     <td><p>paour</p></td>
     <td>In the UI, have an inspector pane for each Picture, that can display full 
       filename, file size, thumbnail, caption, order ID, resize/rotate buttons, 
@@ -99,8 +95,7 @@ th {
     <td>Create album</td>
     <td>P2</td>
     <td>100%</td>
-    <td>1.0</td>
-    <td>paour</td>
+    <td>&nbsp;</td>
     <td><p>Provide UI to create albums on server.</p>
       <p>Option to create albums before existing albums, or after.</p></td>
     <td><p>Would be more elegant in Explorer UI.</p>
@@ -110,7 +105,6 @@ th {
     <td>Upload Picture captions</td>
     <td>P2</td>
     <td>100%</td>
-    <td>1.0</td>
     <td>tim</td>
     <td>When a picture is uploaded, also upload a caption.</td>
     <td>Needs protocol upgrade</td>
@@ -119,7 +113,6 @@ th {
     <td>Pre-upload resize</td>
     <td>P2</td>
     <td>100%</td>
-    <td>1.0</td>
     <td>paour</td>
     <td>Pictures can be resized on the client, thus minimizing the bandwidth necessary 
       for the upload.</td>
@@ -127,22 +120,10 @@ th {
       may need to use an external app. It may be worth investigating the plug-in 
       mechanism in G2 for resizing.</td>
   </tr>
-  <tr valign="top">
-    <td>Fetch only writeable albums</td>
-    <td>P3</td>
-    <td>0%</td>
-    <td>1.1</td>
-    <td>paour</td>
-    <td>Display only writeable albums (and albums that contain albums that are 
-      writeable) in the combo-box.</td>
-    <td>Needs protocol upgrade to optimize network traffic. Could be a client-side 
-      only solution too...</td>
-  </tr>
   <tr valign="top"> 
     <td>Reorder album</td>
     <td>P3</td>
     <td>50%</td>
-    <td>1.2</td>
     <td>dolan</td>
     <td><p>Drag-and-drop (intra-list) reordering of album, whether before uploading, 
         or an existing album.</p>
@@ -156,7 +137,6 @@ th {
     <td>Download Album</td>
     <td>P3</td>
     <td>0%</td>
-    <td>1.2</td>
     <td>&nbsp;</td>
     <td>In order to support reordering existing albums, we need to be able to 
       download albums from the server, including order, thumbnails and captions.</td>
@@ -166,7 +146,6 @@ th {
     <td>Upload Album order</td>
     <td>P3</td>
     <td>0%</td>
-    <td>1.2</td>
     <td>&nbsp;</td>
     <td>Upload updated order for album. Would be nice to do it in such a way that 
       we don't need to lock the album while the user is editing the album order.</td>
@@ -176,7 +155,6 @@ th {
     <td>Multi-album upload</td>
     <td>P3</td>
     <td>100%</td>
-    <td>1.0</td>
     <td>paour</td>
     <td>Allow pictures to be uploaded to different albums within one session. 
       This can be done without a protocol upgrade, and is slightly different than 
@@ -186,9 +164,8 @@ th {
   <tr valign="top"> 
     <td>Pre-upload rotate</td>
     <td>P3</td>
-    <td>100%</td>
-    <td>1.1</td>
-    <td>paour</td>
+    <td>0%</td>
+    <td>&nbsp;</td>
     <td>Pictures can be rotated on the client.</td>
     <td>This can probably be done in Java, since it's not resource-intensive (only 
       for JPEG, though).</td>
@@ -196,35 +173,23 @@ th {
   <tr valign="top"> 
     <td>Proxy support</td>
     <td>P3</td>
-    <td>100%</td>
-    <td>1.1</td>
-    <td>paour</td>
+    <td>0%</td>
+    <td>&nbsp;</td>
     <td>Allow setting up and using a proxy to access to Gallery.</td>
     <td>&nbsp;</td>
   </tr>
   <tr valign="top"> 
     <td>SSL support</td>
     <td>P3</td>
-    <td>100%</td>
-    <td>1.1</td>
-    <td>paour</td>
-    <td>Allow using SSL/https to access Gallery.</td>
+    <td>0%</td>
     <td>&nbsp;</td>
-  </tr>
-  <tr valign="top"> 
-    <td>Watermarking</td>
-    <td>P3</td>
-    <td>10%</td>
-    <td>1.2</td>
-    <td>paour</td>
-    <td>Allow watermarking operations using ImageMagick. Also arbitrary IM operations.</td>
+    <td>Allow using SSL/https to access Gallery.</td>
     <td>&nbsp;</td>
   </tr>
   <tr valign="top"> 
     <td>Explorer UI</td>
     <td>P4</td>
     <td>0%</td>
-    <td>1.2</td>
     <td>&nbsp;</td>
     <td>In the long run, I want to use a Windows Explorer-like UI, with albums 
       on the right, and their contents on the left.</td>
@@ -233,20 +198,18 @@ th {
   <tr valign="top"> 
     <td>XML serialization</td>
     <td>P4</td>
-    <td>100%</td>
-    <td>1.1</td>
+    <td>10%</td>
     <td>paour</td>
     <td>Album objects need to be able to serialize themselves, so batch uploads 
       can be considered</td>
     <td>Data is now stored in Bean classes that could be serialized automatically 
-      (Castor) or by hand (lighter). Final choice: </td>
+      (Castor) or by hand (lighter).</td>
   </tr>
   <tr valign="top"> 
     <td>Batch uploading</td>
     <td>P4</td>
-    <td>30%</td>
+    <td>0%</td>
     <td>&nbsp;</td>
-    <td>paour</td>
     <td>Allow pictures to be uploaded using command-line tools, all in one go, 
       using saved files (XML) containing the upload parameters.</td>
     <td><p>Alternately, it could be interesting to allow more than one album to 
@@ -258,7 +221,6 @@ th {
     <td>Shutdown after upload</td>
     <td>P4</td>
     <td>0%</td>
-    <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>Optionally shutdown the machine after upload is complete.</td>
     <td>Architecture-dependant.</td>
@@ -281,8 +243,7 @@ th {
     <td>tim</td>
     <td>One person needs to be in charge of auditing the security of any protocol 
       change. Maybe we can ask help from Bharrat for this.</td>
-    <td><a href="http://gallery.menalto.com/index.php?name=PNphpBB2&file=viewtopic&t=5027#27545">Security 
-      problem</a></td>
+    <td>&nbsp;</td>
   </tr>
   <tr valign="top"> 
     <td>Modularity</td>
@@ -335,15 +296,6 @@ th {
     <td>Does this mean we also need to handle album security setting, or just 
       that we only use the default settings?</td>
   </tr>
-  <tr valign="top">
-    <td>Fetch only writeable albums</td>
-    <td>P3</td>
-    <td>0%</td>
-    <td>paour</td>
-    <td>Only send to the client albums that are writeable by the user, and albums 
-      where at least one decendent is writeable.</td>
-    <td>&nbsp;</td>
-  </tr>
   <tr valign="top"> 
     <td>Album download</td>
     <td>P3</td>
@@ -356,7 +308,7 @@ th {
   <tr valign="top"> 
     <td>Album order upload</td>
     <td>P3</td>
-    <td>0%</td>
+    <td>30%</td>
     <td>tim</td>
     <td>Expose an interface to allow remotely changing the order of pictures/sub-albums 
       in an album.</td>
@@ -404,12 +356,10 @@ th {
     <td><p>Every user task and network task should be logged (using the Log class) 
         so we can figure out what happened when something doesn't work.</p>
       <p>Shipping versions of GR should write nothing to System.out and System.err</p></td>
-    <td><p>Log.log(level, message)<br>
-        Log.log(level, module, message)<br>
-        Log.log(level, class, message)<br>
-        Log.logStack(level, module)<br>
-        Log.logException(level, module, throwable)</p>
-      </td>
+    <td>Log.log(level, message)<br>
+      Log.log(level, module, message)<br>
+      Log.log(level, class, message)<br>
+      Log.logStack(level, module)</td>
   </tr>
   <tr valign="top"> 
     <td>Status and progress</td>

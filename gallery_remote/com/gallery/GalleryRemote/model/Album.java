@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import com.gallery.GalleryRemote.GalleryCommCapabilities;
 import com.gallery.GalleryRemote.Log;
@@ -52,8 +55,12 @@ public class Album extends Picture implements ListModel, Serializable
 	 * LOCAL STORAGE
 	 */
 	Vector pictures = new Vector();
-
-
+	
+	/* -------------------------------------------------------------------------
+	 * WORKAROUND FOR LIST SELECTION BUG
+	 */
+	transient ListSelectionModel listSelectionModel;
+	
 	/* -------------------------------------------------------------------------
 	 * SERVER INFO
 	 */
@@ -79,6 +86,9 @@ public class Album extends Picture implements ListModel, Serializable
 	 */ 
 	transient long pictureFileSize = -1;
 	
+	// ListModel
+	transient Vector listeners = null;
+
 
 	/* -------------------------------------------------------------------------
 	 * PUBLIC CLASS METHODS
@@ -185,7 +195,7 @@ public class Album extends Picture implements ListModel, Serializable
 	 *@param  files  the files to create the pictures from
 	 */
 	public void addPictures( File[] files ) {
-		addPictures(files, -1);
+		this.addPictures(files, 0);
 	}
         
     /**
@@ -198,11 +208,7 @@ public class Album extends Picture implements ListModel, Serializable
 		for ( int i = 0; i < files.length; i++ ) {
 			Picture p = new Picture( files[i] );
 			p.setAlbum( this );
-			if (index == -1) {
-				pictures.add( p );
-			} else {
-				pictures.add( index++, p );
-			}
+			pictures.add( index++, p );
 		}
 
 		notifyListeners();
@@ -232,9 +238,15 @@ public class Album extends Picture implements ListModel, Serializable
 	 *@param  n  item number of the picture to remove
 	 */
 	public void removePicture( int n ) {
+		// deselect pictures pictures at the end of the list so they will
+		// not cause selection problems (the JList doesn't synch properly
+		// the selection to the model)
+		listSelectionModel.removeSelectionInterval(sizePictures() - 1, sizePictures() - 1);
+
 		pictures.remove( n );
 
-		fireIntervalRemoved(this, n, n);
+		ListDataEvent lde = new ListDataEvent( com.gallery.GalleryRemote.GalleryRemote.getInstance().mainFrame, ListDataEvent.INTERVAL_REMOVED, n, n );
+		notifyListeners(lde);
 	}
 
 	public void removePicture( Picture p ) {
@@ -250,13 +262,19 @@ public class Album extends Picture implements ListModel, Serializable
 		int min, max;
 		min = max = indices[0];
 		
+		// deselect pictures pictures at the end of the list so they will
+		// not cause selection problems (the JList doesn't synch properly
+		// the selection to the model)
+		listSelectionModel.removeSelectionInterval(sizePictures() - 1 - indices.length, sizePictures() - 1);
+
 		for ( int i = indices.length - 1; i >= 0; i-- ) {
 			pictures.remove( indices[i] );
 			if (indices[i] > max) max = indices[i];
 			if (indices[i] < min) min = indices[i];
 		}
 
-		fireIntervalRemoved(this, min, max);
+		ListDataEvent lde = new ListDataEvent( com.gallery.GalleryRemote.GalleryRemote.getInstance().mainFrame, ListDataEvent.INTERVAL_REMOVED, min, max );
+		notifyListeners(lde);
 	}
 
 	/**
@@ -390,6 +408,7 @@ public class Album extends Picture implements ListModel, Serializable
 	}
 	
 	public String toString() {
+		
 		StringBuffer ret = new StringBuffer();
 		ret.append( indentHelper("") );
 		ret.append( title );
@@ -418,9 +437,9 @@ public class Album extends Picture implements ListModel, Serializable
 	}
 		
 	
-	//public void setListSelectionModel(ListSelectionModel listSelectionModel) {
-	//	this.listSelectionModel = listSelectionModel;
-	//}
+	public void setListSelectionModel(ListSelectionModel listSelectionModel) {
+		this.listSelectionModel = listSelectionModel;
+	}
 	
 	
 	/* -------------------------------------------------------------------------
@@ -444,6 +463,28 @@ public class Album extends Picture implements ListModel, Serializable
 	 */
 	public Object getElementAt( int index ) {
 		return pictures.elementAt( index );
+	}
+
+	/**
+	 *  Adds a feature to the ListDataListener attribute of the Album object
+	 *
+	 *@param  ldl  The feature to be added to the ListDataListener attribute
+	 */
+	public void addListDataListener( ListDataListener ldl ) {
+		if (listeners == null) listeners = new Vector(1);
+
+		listeners.addElement( ldl );
+	}
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  ldl  Description of Parameter
+	 */
+	public void removeListDataListener( ListDataListener ldl ) {
+		if (listeners != null) {
+			listeners.removeElement( ldl );
+		}
 	}
 
 	/**
@@ -509,6 +550,8 @@ public class Album extends Picture implements ListModel, Serializable
 	public boolean getCanCreateSubAlbum(){
 		return canCreateSubAlbum;
 	}
+	
+
 
 	
 	/* -------------------------------------------------------------------------
@@ -542,7 +585,22 @@ public class Album extends Picture implements ListModel, Serializable
 	}
 	
 	void notifyListeners() {
-		fireContentsChanged( this, 0, pictures.size() );
+		ListDataEvent lde = new ListDataEvent( com.gallery.GalleryRemote.GalleryRemote.getInstance().mainFrame, ListDataEvent.CONTENTS_CHANGED, 0, pictures.size() );
+		
+		notifyListeners(lde);
+	}
+	
+	void notifyListeners(ListDataEvent lde) {
+		if (listeners != null) {
+			pictureFileSize = -1;
+
+			Log.log(Log.TRACE, MODULE, "Firing ListDataEvent=" + lde.toString());
+			Enumeration e = listeners.elements();
+			while ( e.hasMoreElements() ) {
+				ListDataListener ldl = (ListDataListener) e.nextElement();
+				ldl.contentsChanged( lde );
+			}
+		}
 	}
 }
 

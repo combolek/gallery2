@@ -22,11 +22,11 @@ package com.gallery.GalleryRemote.util;
 
 import com.gallery.GalleryRemote.GalleryFileFilter;
 import com.gallery.GalleryRemote.Log;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.PropertiesFile;
 import com.gallery.GalleryRemote.GalleryRemote;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.Dimension;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -49,8 +49,6 @@ public class ImageUtils {
 	static int totalIter = 0;
 	static boolean useIM = false;
 	static String imPath = null;
-	static boolean useJpegtran = false;
-	static String jpegtranPath = null;
 	static File tmpDir = null;
 	
 	public static final int THUMB = 0;
@@ -151,39 +149,48 @@ public class ImageUtils {
 	public static File resize( String filename, Dimension d ) {
 		File r = null;
 		long start = System.currentTimeMillis();
-
-		if ( ! GalleryFileFilter.canManipulateJpeg(filename) ) {
+		
+		if ( ! GalleryFileFilter.canManipulate(filename) ) {
 			return new File(filename);
 		}
-
+		
 		if (useIM) {
 			try {
 				StringBuffer cmdline = new StringBuffer(imPath);
-
-				cmdline.append(" -size ").append(d.width).append("x").append(d.height);
-
+				cmdline.append(" -size ");
+				
+				cmdline.append(d.width);
+				cmdline.append("x");
+				cmdline.append(d.height);
+				
 				if (filterName[UPLOAD] != null && filterName[UPLOAD].length() > 0) {
-					cmdline.append(" -filter ").append(filterName[UPLOAD]);
+					cmdline.append(" -filter ");
+					cmdline.append(filterName[UPLOAD]);
 				}
-
-				cmdline.append(" \"").append(filename).append("\"");
-
-				cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append(">\" ");
-
+				
+				cmdline.append(" \"");
+				cmdline.append(filename);
+				
+				cmdline.append("\" -resize \"");
+				cmdline.append(d.width);
+				cmdline.append("x");
+				cmdline.append(d.height);
+				cmdline.append(">\" ");
+				
 				//cmdline.append("-gravity SouthEast -draw \"image Over 200,200 0,0 G:\\Projects\\Dev\\gallery_remote10\\2ni.png\" ");
-
+				
 				r = File.createTempFile("res"
 					, "." + GalleryFileFilter.getExtension(filename), tmpDir);
 				toDelete.add(r);
-
-				cmdline.append(" \"").append(r.getPath()).append("\"");
-
+				
+				cmdline.append(r.getPath());
+				
 				Log.log(Log.TRACE, MODULE, "Executing " + cmdline.toString());
-
+			
 				Process p = Runtime.getRuntime().exec(cmdline.toString());
 				p.waitFor();
 				Log.log(Log.TRACE, MODULE, "Returned with value " + p.exitValue());
-
+				
 				if (p.exitValue() != 0) {
 					Log.log(Log.CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
 					useIM = false;
@@ -207,109 +214,7 @@ public class ImageUtils {
 
 		return r;
 	}
-
-	public static File rotate( String filename, int angle, boolean flip ) {
-		File r = null;
-
-		if ( ! GalleryFileFilter.canManipulate(filename) ) {
-			return new File(filename);
-		}
-
-		if (useJpegtran) {
-			try {
-				if (flip) {
-					r = jpegtranExec(filename, " -flip horizontal");
-					filename = r.getPath();
-				}
-
-				if (angle != 0) {
-					r = jpegtranExec(filename, " -rotate " + angle * 90);
-				}
-			} catch (IOException e1) {
-				Log.logException(Log.ERROR, MODULE, e1);
-			} catch (InterruptedException e2) {
-				Log.logException(Log.ERROR, MODULE, e2);
-			}
-		}
-
-		if ( ! useJpegtran && r == null ) {
-			throw new UnsupportedOperationException("jpegtran must be installed for this operation");
-		}
-
-		return r;
-	}
-
-	private static File jpegtranExec(String filename, String command) throws IOException, InterruptedException {
-		File r;
-		StringBuffer cmdline = new StringBuffer(jpegtranPath);
-
-		cmdline.append(" -copy all");
-
-		cmdline.append(command);
-
-		cmdline.append(" \"").append(filename).append("\"");
-
-		r = File.createTempFile("res"
-			, "." + GalleryFileFilter.getExtension(filename), tmpDir);
-		toDelete.add(r);
-
-		cmdline.append(" \"").append(r.getPath()).append("\"");
-
-		Log.log(Log.TRACE, MODULE, "Executing " + cmdline.toString());
-
-		Process p = Runtime.getRuntime().exec(cmdline.toString());
-		p.waitFor();
-		Log.log(Log.TRACE, MODULE, "Returned with value " + p.exitValue());
-
-		if (p.exitValue() != 0) {
-			Log.log(Log.CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
-			useJpegtran = false;
-			r = null;
-		}
-
-		return r;
-	}
-
-	public static ImageIcon rotateImageIcon(ImageIcon thumb, int angle, boolean flipped, Component c) {
-		if (angle != 0 || flipped) {
-			int width;
-			int height;
-			int width1;
-			int height1;
-
-			width = thumb.getImage().getWidth(c);
-			height = thumb.getImage().getHeight(c);
-
-			if (angle % 2 == 0) {
-				width1 = width;
-				height1 = height;
-			} else {
-				width1 = height;
-				height1 = width;
-			}
-
-			Image vImg = c.createImage(width1, height1);
-
-			Graphics2D g = (Graphics2D) vImg.getGraphics();
-
-			AffineTransform transform = AffineTransform.getTranslateInstance(width / 2, height / 2);
-			if (angle != 0) {
-				transform.rotate(angle * Math.PI / 2);
-			}
-			if (flipped) {
-				transform.scale(-1, 1);
-			}
-			transform.translate(-width1 / 2 - (angle == 3?width - width1:0) + (flipped?width - width1:0) * (angle == 1?-1:1),
-					-height1 / 2 - (angle == 1?height - height1:0));
-
-			g.drawImage(thumb.getImage(), transform, c);
-
-			thumb = new ImageIcon(vImg);
-		}
-
-		return thumb;
-	}
-
+	
 	static {
 		tmpDir = new File(System.getProperty("java.io.tmpdir"), "thumbs");
 		
@@ -318,8 +223,7 @@ public class ImageUtils {
 		}
 		
 		Log.log(Log.INFO, MODULE, "tmpDir: " + tmpDir.getPath());
-
-		// Making sure ImageMagick works
+		
 		try {
 			PropertiesFile p = new PropertiesFile("imagemagick/im");
 			
@@ -361,26 +265,6 @@ public class ImageUtils {
 			UNRECOGNIZED_IMAGE,
 			GalleryRemote.getInstance().properties.getThumbnailSize(),
 			THUMB );
-
-		// Making sure jpegtran works
-		try {
-			PropertiesFile p = new PropertiesFile("jpegtran/jpegtran");
-
-			useJpegtran = p.getBooleanProperty("enabled");
-			Log.log(Log.INFO, MODULE, "useJpegtran: " + useJpegtran);
-			if (useJpegtran) {
-				jpegtranPath = p.getProperty("jpegtranPath");
-				Log.log(Log.INFO, MODULE, "jpegtranPath: " + jpegtranPath);
-
-				if (! new File(jpegtranPath).exists()) {
-					Log.log(Log.CRITICAL, MODULE, "Can't find jpegtran at the above path");
-					useJpegtran = false;
-				}
-			}
-		} catch (Exception e) {
-			Log.logException(Log.CRITICAL, MODULE, e);
-			useJpegtran = false;
-		}
 	}
 
 	

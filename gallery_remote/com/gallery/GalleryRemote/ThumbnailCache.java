@@ -61,7 +61,6 @@ public class ThumbnailCache implements Runnable
 	 *  Main processing method for the ThumbnailLoader object
 	 */
 	public void run() {
-		Thread.yield();
 		int loaded = 0;
 		int pId = mf.startProgress(0, toLoad.size(), "Loading thumbnails", false);
 		//Log.log(Log.TRACE, MODULE, "Starting " + iFilename);
@@ -95,8 +94,8 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filename  path to the file
 	 */
-	public void preloadThumbnailFilename( String filename ) {
-		Log.log(Log.TRACE, MODULE, "preloadThumbnailFilename " + filename);
+	public void preloadThumbnail( String filename ) {
+		Log.log(Log.TRACE, MODULE, "preloadThumbnail " + filename);
 		
 		if (!thumbnails.containsKey(filename)) {
 			toLoad.add( 0, filename );
@@ -111,8 +110,8 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filename  path to the file
 	 */
-	public void preloadThumbnailFilenameFirst( String filename ) {
-		Log.log(Log.TRACE, MODULE, "preloadThumbnailFilenameFirst " + filename);
+	public void preloadThumbnailFirst( String filename ) {
+		Log.log(Log.TRACE, MODULE, "preloadThumbnail " + filename);
 
 		if (!thumbnails.containsKey(filename)) {
 			toLoad.push( filename );
@@ -125,10 +124,10 @@ public class ThumbnailCache implements Runnable
 	/**
 	 *  Ask for several thumnails to be loaded
 	 *
-	 *@param  files  enumeration of Picture objects that should be loaded
+	 *@param  files  enumeration of File objects that should be loaded
 	 */
-	public void preloadThumbnailPictures( Enumeration files ) {
-		Log.log(Log.TRACE, MODULE, "preloadThumbnailFilename " + files);
+	public void preloadThumbnailFiles( Enumeration files ) {
+		Log.log(Log.TRACE, MODULE, "preloadThumbnail " + files);
 
 		while ( files.hasMoreElements() ) {
 			String filename = ( (Picture) files.nextElement() ).getSource().getPath();
@@ -147,42 +146,16 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filenames  an array of File objects
 	 */
-	public void preloadThumbnailFiles( File[] files ) {
-		Log.log(Log.TRACE, MODULE, "preloadThumbnailPictures " + files);
+	public void preloadThumbnails( File[] filenames ) {
+		Log.log(Log.TRACE, MODULE, "preloadThumbnail " + filenames);
 
-		for ( int i = 0; i < files.length; i++ ) {
-			String filename = files[i].getPath();
-
-			if (!thumbnails.containsKey(filename)) {
-				toLoad.add( 0, filename );
+		for ( int i = 0; i < filenames.length; i++ ) {
+			if (!thumbnails.containsKey(filenames[i])) {
+				toLoad.add( 0, ( (File) filenames[i] ).getPath() );
 			}
 		}
 
 		rerun();
-	}
-
-	/**
-	 * Ask for an enumeration fo file names to be loaded
-	 *
-	 * @param filenames an enumeration of String file names
-	 */
-	public void preloadThumbnailFilenames( Enumeration filenames ) {
-		Log.log(Log.TRACE, MODULE, "preloadThumbnailFilenames " + filenames);
-
-		while ( filenames.hasMoreElements() ) {
-			String filename = (String) filenames.nextElement();
-			if (!thumbnails.containsKey(filename)) {
-				toLoad.add( 0, filename );
-			}
-		}
-
-		rerun();
-	}
-
-	public void reload() {
-		Enumeration e = ((Hashtable) thumbnails.clone()).keys();
-		thumbnails.clear();
-		preloadThumbnailFilenames(e);
 	}
 
 
