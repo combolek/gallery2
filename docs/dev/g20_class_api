@@ -17,8 +17,8 @@ The following functionality is not (yet) implemented in v2.0.
 - mirroring
 	I've left this out for now because it's heavily dependant on
 	the way that we implement the image firewalling code.  I
-	believe that this will be easy to add later, once we settle on
-	how we do the image firewall.
+	believe that this will be possible to add later, once we
+	settle on how we do the image firewall.
 
 - the canDeleteFrom permission -- anybody you trust to delete from an
   album you might as well give full write permission
@@ -84,16 +84,18 @@ Things that need to be documented more thoroughly in general:
 	} else if ($status & (F_IN_USE | F_COLLISION)) {
 		// Prompt the user to retry
 	} else if ($status & F_DELETED) {
-		// Uh-oh
+		// The item was deleted out from under us.
 	}
 
 - Creating a new persistence backend (ie, "Filesystem", "MySQL")
   This is not finalized yet.  But I'm thinking that all you need to do is
-  to implement a GalleryStorage for your backend.  The config wizard
-  will instruct the init code to create the appropriate GalleryStorage
-  object and store it in the Gallery instance.
+  to implement a GalleryStorage and GalleryUserDatabase for your
+  backend.  The config wizard will instruct the init code to create
+  the appropriate GalleryStorage object and store it in the Gallery
+  instance.
 
 ================================================================================
+Classes
 ================================================================================
 
 /**
@@ -1125,6 +1127,10 @@ class GalleryItem extends GalleryNucleus {
 	 * @return int the number of children
 	 */
 	function getChildCount() {
+
+		// Must track which children have their own permission
+		// set so that we can optimize this count process.  Otherwise
+		// we'll have to check each child individually
 	}
 
 	/**
@@ -1531,6 +1537,7 @@ class PhotoItem extends CapturableItem {
 
 		if (empty($id)) {
 			// Set values to defaults
+			// Pull in EXIF data, if applicable
 		}
 	}
 
@@ -1568,22 +1575,6 @@ class PhotoItem extends CapturableItem {
 	 */
 	function removeResizeId($id) {
 	}
-}
-
-/**
- * A PhotoItem that contains EXIF data.
- *
- * A PhotoItem whose source is required to be a JPEG.  It has the
- * exact same API as PhotoItem, but it also fills the extended
- * properties with EXIF data.
- *
- * @version $Id$
- * @module ExifPhotoItem
- * @modulegroup core
- * @package Gallery
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-class ExifPhotoItem extends PhotoItem {
 }
 
 /**
