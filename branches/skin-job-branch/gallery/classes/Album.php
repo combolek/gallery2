@@ -733,8 +733,6 @@ class Album {
 	}
 
 	function getIds($user, $itemsOnly=0, $first=1, $howmany=-1) {
-		global $albumDB;
-		if (!$albumDB) $albumDB = new AlbumDB();
 		$ids = Array();
 
 		/* what? no photos? */
@@ -764,7 +762,8 @@ class Album {
 				/* if the user has no perms on a nested album skip it */
 				if ($photo->isAlbumName) {
 					if (!$itemsOnly) {
-						$myAlbum = $albumDB->getAlbumbyName($photo->isAlbumName);
+						$myAlbum = new Album();
+						$myAlbum->load($photo->isAlbumName);
 						if (!$user->canReadAlbum($myAlbum)) {
 							continue;
 						}
