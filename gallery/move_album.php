@@ -52,7 +52,8 @@ if ($gallery->session->albumName && isset($index)) {
 		if ($gallery->album->fields[name] != $newAlbum) {
 			$gallery->album->fields[parentAlbumName] = $newAlbum;
 			$gallery->album->save();
-			$newAlbum = $albumDB->getAlbumbyName($newAlbum);
+			$newAlbum = new Album();
+			$newAlbum->load($newAlbum);
 			$newAlbum->addNestedAlbum($gallery->album->fields[name]);
 			$newAlbum->save();
 		}

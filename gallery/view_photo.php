@@ -244,7 +244,8 @@ do {
     }   
     $pAlbumName = $pAlbum->fields['parentAlbumName'];
     if ($pAlbumName) {
-        $pAlbum = $albumDB->getAlbumByName($pAlbumName);
+	$pAlbum = new Album();
+	$pAlbum->load($pAlbumName);
         $breadLevels[$breadCount]['level'] = "Album";
         $breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
         $breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
@@ -252,7 +253,7 @@ do {
         //-- we're at the top! ---
         $breadLevels[$breadCount]['level'] = "Gallery";
         $breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-        $breadLevels[$breadCount]['href'] = makeGalleryUrl("view_album.php");
+        $breadLevels[$breadCount]['href'] = makeAlbumUrl();
     }
     $breadCount++;
     if ($pAlbum) {
