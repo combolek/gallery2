@@ -11,6 +11,8 @@ case $1 in
 
 		cd $DIST/html
 		xsltproc ../../docbook-xsl/html/chunk.xsl ../../manual.xml
+		cp -R ../../images .
+		rm -rf images/CVS
 		;;
 
 	bightml)
@@ -25,6 +27,8 @@ case $1 in
 		fi
 
 		xsltproc docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/manual.html
+		cp -R ../../images .
+		rm -rf images/CVS
 		;;
 		
 	pdf)
@@ -39,6 +43,8 @@ case $1 in
 		fi
 
 		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
+		cp -R ../../images .
+		rm -rf images/CVS
 
 		rm -f manual.fo
 		;;
