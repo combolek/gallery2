@@ -158,8 +158,14 @@ class GalleryTheme {
 
 	/* Prepare the tag */
 	$results = '<form';
-	$hiddenFields = '';
+	$actionParams = array();
 	foreach ($params as $caseSensitiveKey => $value) {
+
+	    if (!strncmp($caseSensitiveKey, 'action_', 7)) {
+		$actionParams[substr($caseSensitiveKey, 7)] = $value;
+		continue;
+	    }
+	    
 	    /* Force the key to lower case */
 	    $key = strtolower($caseSensitiveKey);
 	    switch($key) {
@@ -193,15 +199,15 @@ class GalleryTheme {
 	    case 'onkeyup':
 		$results .= " $key=\"$value\"";
 		break;
-
-	    default:
-		$hiddenFields .= '<input type="hidden" name="' .
-		    GALLERY_FORM_VARIABLE_PREFIX . $caseSensitiveKey .
-		    '" value="' . $value . "\">\n";
 	    }
 	}
 	$results .= ">\n";
-	$results .= $hiddenFields;
+
+	foreach ($actionParams as $key => $value) {
+	    $results .= sprintf('<input type="hidden" name="%s" value="%s">',
+				GALLERY_FORM_VARIABLE_PREFIX . $key, $value);
+	}
+	
 	$results .= $content;
 	$results .= "\n</form>\n";
 
@@ -410,14 +416,132 @@ class GalleryTheme {
     }
 
     /**
+     * Return a themed <a> .. </a> block
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function link($params, $content) {
+	global $gallery;
+	
+	/* Translate the form variable name */
+	if (isset($params['name'])) {
+	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	}
+
+	/* Prepare the tag */
+	$results = '<a';
+	$hrefParams = array();
+	foreach ($params as $origKey => $value) {
+
+	    if (!strncmp($origKey, 'url_', 4)) {
+		$hrefParams[substr($origKey, 4)] = $value;
+		continue;
+	    }
+	    
+	    /* Force the key to lower case */
+	    $key = strtolower($key);
+	    
+	    switch($key) {
+	    case 'charset':
+	    case 'type':
+	    case 'name':
+	    case 'hreflang':
+	    case 'rel':
+	    case 'rev':
+	    case 'accesskey':
+	    case 'shape':
+	    case 'coords':
+	    case 'tabindex':
+	    case 'onfocus':
+	    case 'onblur':
+		$results .= " $key=\"$value\"";
+		break;
+
+	    /* Generic attributes */
+	    case 'id':
+	    case 'class':
+	    case 'style':
+	    case 'title':
+	    case 'lang':
+	    case 'dir':
+	    case 'onclick':
+	    case 'ondblclick':
+	    case 'onmousedown':
+	    case 'onmouseup':
+	    case 'onmouseover':
+	    case 'onmouseout':
+	    case 'onkeypress':
+	    case 'onkeydown':
+	    case 'onkeyup':
+		$results .= " $key=\"$value\"";
+		break;
+	    }
+	}
+
+	$urlGenerator = $gallery->getUrlGenerator();
+	$href = $urlGenerator->generateUrl($hrefParams);
+	$results .= " href=\"$href\"";
+	
+	$results .= '>';
+	$results .= $content;
+	$results .= '</a>';
+
+	return $results;
+    }
+
+    /* New theme API methods */
+    function header($params, $content) { return $this->_renderTemplate('header', $params, $content); }
+    function pathbar($params, $content) { return $this->_renderTemplate('pathbar', $params, $content); }
+    function pathbaritem($params, $content) { return $this->_renderTemplate('pathbaritem', $params, $content); }
+    function main($params, $content) { return $this->_renderTemplate('main', $params, $content); }
+    function maintitle1($params, $content) { return $this->_renderTemplate('maintitle1', $params, $content); }
+    function mainbody1($params, $content) { return $this->_renderTemplate('mainbody1', $params, $content); }
+    function sidebar1($params, $content) { return $this->_renderTemplate('sidebar1', $params, $content); }
+    function sidebarbox($params, $content) { return $this->_renderTemplate('sidebarbox', $params, $content); }
+    function sidebarboxtitle($params, $content) { return $this->_renderTemplate('sidebarboxtitle', $params, $content); }
+    function sidebarboxbody($params, $content) { return $this->_renderTemplate('sidebarboxbody', $params, $content); }
+    function listing($params, $content) { return $this->_renderTemplate('listing', $params, $content); }
+    function listingtitle($params, $content) { return $this->_renderTemplate('listingtitle', $params, $content); }
+    function listingbody($params, $content) { return $this->_renderTemplate('listingbody', $params, $content); }
+    function listingitem($params, $content) { return $this->_renderTemplate('listingitem', $params, $content); }
+    function listingitemselected($params, $content) { return $this->_renderTemplate('listingitemselected', $params, $content); }
+    function detailedbox($params, $content) { return $this->_renderTemplate('detailedbox', $params, $content); }
+    function detailedboxtitle($params, $content) { return $this->_renderTemplate('detailedboxtitle', $params, $content); }
+    function detailedboxdescription($params, $content) { return $this->_renderTemplate('detailedboxdescription', $params, $content); }
+    function detailedboxbody($params, $content) { return $this->_renderTemplate('detailedboxbody', $params, $content); }
+    function widget1($params, $content) { return $this->_renderTemplate('widget1', $params, $content); }
+    function widget1set($params, $content) { return $this->_renderTemplate('widget1set', $params, $content); }
+    function widget1title($params, $content) { return $this->_renderTemplate('widget1title', $params, $content); }
+    function widget1description($params, $content) { return $this->_renderTemplate('widget1description', $params, $content); }
+    function widget1body($params, $content) { return $this->_renderTemplate('widget1body', $params, $content); }
+    function widget2($params, $content) { return $this->_renderTemplate('widget2', $params, $content); }
+    function widget2set($params, $content) { return $this->_renderTemplate('widget2set', $params, $content); }
+    function widget2title($params, $content) { return $this->_renderTemplate('widget2title', $params, $content); }
+    function widget2description($params, $content) { return $this->_renderTemplate('widget2description', $params, $content); }
+    function widget2body($params, $content) { return $this->_renderTemplate('widget2body', $params, $content); }
+    function footer($params, $content) { return $this->_renderTemplate('footer', $params, $content); }
+    function status($params, $content) { return $this->_renderTemplate('status', $params, $content); }
+    function error($params, $content) { return $this->_renderTemplate('error', $params, $content); }
+    function textmodifier1($params, $content) { return $this->_renderTemplate('textmodifier1', $params, $content); }
+    
+    /* Non-block style themeables */
+    function style($params) { return $this->_renderTemplate('style', $params); }
+    
+    /*****************************************
+     * OLD THEME METHODS
+     */
+
+    /**
      * Return 1 or more <style> blocks
      *
      * @param array key => value attributes
      * @return HTML content
      */
-    function style($params) {
-	return $this->_renderTemplate('style', $params);
-    }
+    //    function style($params) {
+    //	return $this->_renderTemplate('style', $params);
+    //    }
 
     /**
      * Return the given content as in a very small font
@@ -584,6 +708,10 @@ class GalleryTheme {
 	return $this->_renderTemplate('threeDFrame', $params, $content);
     }
 
+    /*
+     * OLD THEME METHODS
+     ****************************************/
+
     /**
      * Render the given template
      *
@@ -593,6 +721,7 @@ class GalleryTheme {
      * @access protected
      */
     function _renderTemplate($templateName, $params, $content=null) {
+	$content = trim($content);
 	$template = $this->_getTemplate();
 	$template->setVariable('params', $params);
 	$template->setVariable('content', $content);
