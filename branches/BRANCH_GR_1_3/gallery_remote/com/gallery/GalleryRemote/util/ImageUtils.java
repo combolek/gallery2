@@ -104,8 +104,8 @@ public class ImageUtils {
 			cmd.add(imPath);
 
 			//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
-			cmd.add("-size");
-			cmd.add(d.width + "x" + d.height);
+			//cmd.add("-size");
+			//cmd.add(d.width + "x" + d.height);
 
 			if (filterName[usage] != null && filterName[usage].length() > 0) {
 				//cmdline.append(" -filter ").append(filterName[usage]);
@@ -200,8 +200,8 @@ public class ImageUtils {
 				cmd.add(imPath);
 
 				//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
-				cmd.add("-size");
-				cmd.add(d.width + "x" + d.height);
+				//cmd.add("-size");
+				//cmd.add(d.width + "x" + d.height);
 
 				if (filterName[UPLOAD] != null && filterName[UPLOAD].length() > 0) {
 					//cmdline.append(" -filter ").append(filterName[UPLOAD]);
@@ -214,7 +214,7 @@ public class ImageUtils {
 
 				//cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append(">\"");
 				cmd.add("-resize");
-				cmd.add(d.width + "x" + d.height);
+				cmd.add(d.width + "x" + d.height + ">");
 
 				//cmdline.append("-gravity SouthEast -draw \"image Over 200,200 0,0 G:\\Projects\\Dev\\gallery_remote10\\2ni.png\" ");
 
