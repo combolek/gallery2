@@ -37,6 +37,23 @@
     </sect3>
     
     <sect3>
+      <title>Granularity</title>
+      <para>
+	In order to minimize protocol latency and bandwidth, most frequently-used tasks should be implemented as single
+	large requests, rather than a collection of small requests. For example, setting properties on an item
+	should be done in one request rather than as many requests as properties to be set.
+      </para>
+    </sect3>
+    
+    <sect3>
+      <title>Typing</title>
+      <para>
+	For maximum flexibility, the protocol should probably not use a highly typed object model (ala SOAP/XML Schema),
+	but rather a loosely-typed model.
+      </para>
+    </sect3>
+    
+    <sect3>
       <title>Consistency</title>
       <para>Token names should be consistent both with G2 naming, and between the different requests.</para>
     </sect3>
@@ -97,18 +114,33 @@
 	<title>Input</title>
         <itemizedlist spacing="compact">
 	  <listitem>
-	    <para>Selection: one of the below</para>
+	    <para><varname>selectionType</varname>: one of the following:</para>
 	      <itemizedlist spacing="compact">
-		<listitem><para><varname>childrenOf</varname>: a list of ids of parents, will return all children of these parents, as long as the children pass the other filters.</para></listitem>
-		<listitem><para><varname>childrenOfRecursive</varname>: a list of ids of parents, will return all descendants of these parents, as long as the descendants pass the other filters.</para></listitem>
-		<listitem><para><varname>items</varname>: a list of ids, will return all these items, as long as they pass the other filters.</para></listitem>
+		<listitem><para><varname>childrenOf</varname>: <varname>selectionData</varname> is a list of ids of parents, will return all children of these parents, as long as the children pass the other filters.</para></listitem>
+		<listitem><para><varname>childrenOfRecursive</varname>: <varname>selectionData</varname> is a list of ids of parents, will return all descendants of these parents, as long as the descendants pass the other filters.</para></listitem>
+		<listitem><para><varname>items</varname>: <varname>selectionData</varname> is a list of ids, will return all these items, as long as they pass the other filters.</para></listitem>
 	      </itemizedlist>
 	  </listitem>
 	  
 	  <listitem>
 	    <para>
-	      <varname>permissionMap</varname> (optional): a definition of which permissions must be available to the current
-	      user for a given item to be included in the reply. By default, all readable items are returned.
+	      <varname>selectionData</varname>: see above.
+	    </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para>
+	      <varname>permissionList</varname> (optional): a definition of which permissions must be available to the current
+	      user for a given item to be included in the reply. The definition is a list of comma-separated permission
+	      names (like <varname>core.addAlbumItem</varname>). By default, all readable items are returned.
+	    </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para>
+	      <varname>permissionType</varname> (optional): either <varname>and</varname> or <varname>or</varname>. 
+	      Depending on this, items will be returned if they match all the permissions or any permission. By default,
+	      <varname>or</varname>.
 	    </para>
 	  </listitem>
 	  
@@ -129,8 +161,8 @@
 	  <listitem>
 	    <para>
 	      <varname>memberNames</varname> (optional): a list of the names of members/proprties that will be returned. 
-	      For each selected item, only members the names of which appear on this list will be returned. The item id
-	      is always returned. If this parameter is not present, all members are returned.
+	      For each selected item, only members the names of which appear on this list will be returned. The item <varname>id</varname>
+	      and <varname>serialNumber</varname> are always returned. If this parameter is not present, all members are returned.
 	    </para>
 	    <para>
 	      This parameter serves to restrict the size of the returned data stream.
@@ -150,6 +182,14 @@
 	    </para>
 	  </listitem>
 	  
+	  <listitem>
+	    <para>
+	      <varname>maxItemNumber</varname> (optional): if set, will only return the first n items. This is 
+	      to prevent the protocol from returning huge lists of results. This would be mostly useful when 
+	      getting the list of pictures in an albu, recursively.
+	    </para>
+	  </listitem>
+	  
 	</itemizedlist>
       </sect4>
       
@@ -161,6 +201,77 @@
 	  (ie: value-pairs) or strongly typed (ie: defining classes for each of the possible return types in WSDL
 	  or a similar system). This is not yet defined.
 	</para>
+      </sect4>
+      
+      <sect4>
+	<title>Examples</title>
+	
+	<sect5>
+	  <title>Java preferences (like G1 protocol)</title>
+	  
+	  <para>This request fetches the list of all albums in which the user can add media.</para>
+	  
+	  <simplesect>
+	    <title>Input</title>
+	    
+	    <para>
+	      HTTP POST request, with the following parameters:
+	    </para>
+	    
+	    <programlisting>
+username=paour
+password=toto
+selectionType=childrenOfRecursive
+selectionData=root
+permissionList=core.addDataItem,core.addAlbumItem
+includeTypes=GalleryAlbumItem
+memberNames=id,serialNumber,parentId,pathComponentdescription,summary,title,orderWeight
+wellFormedTree=TRUE
+	    </programlisting>
+	  </simplesect>
+	  
+	  <simplesect>
+	    <title>Output</title>
+	    
+	    <programlisting>
+itemCount=3
+item.1.id=6
+item.1.serialNumber=6
+item.1.parentId=0
+item.1.pathComponent=
+item.1.description=This is the top of your Gallery
+item.1.summary=
+item.1.title=Gallery
+item.1.orderWeight=0
+item.2.id=9
+item.2.serialNumber=1
+item.2.parentId=6
+item.2.pathComponent=album1
+item.2.description=My first album
+item.2.summary=
+item.2.title=Album1
+item.2.orderWeight=0
+item.3.id=12
+item.3.serialNumber=2
+item.3.parentId=6
+item.3.pathComponent=album2
+item.3.description=I changed this
+item.3.summary=
+item.3.title=My second album
+item.3.orderWeight=1000
+status_code=0
+	    </programlisting>
+	  </simplesect>
+	</sect5>
+	
+	<sect5>
+	  <title>SOAP</title>
+	  
+	  <para>
+	    This request fetches the list of pictures inside an album for a slideshow.
+	  </para>
+	</sect5>
+	
       </sect4>
     </sect3>
     
@@ -365,7 +476,19 @@
       <title>reorderChildren</title>
       
       <para>
-	This method reorders the items with an album (probably no other uses).
+	This method reorders the items within an album (probably no other uses).
+      </para>
+      
+      <para>
+	Internally, G2 stores orderWeights to determine the order in which items within an album are stored; this allows 
+	an album to be sorted by orderWeight or other parameters dynamically, while retaining the "natural order" (G2 UI calls this "no sort order")
+	of the orderWeights. This method only applies to the orderWeights. Should we expose the orderWeights in the
+	protocol or just expose "natural order" sequence numbers?
+      </para>
+      
+      <para>
+	Caveat: for G2, the orderWeight is a property of the item, whereas order is a property of the container.
+	This is likely to cause ambiguities with permissions.
       </para>
       
       <sect4>
@@ -381,6 +504,33 @@
 	      <varname>newOrder</varname>: the ordered list of children. The pre-existing order will have been
 	      obtained with a getItem request.
 	    </para>
+	  </listitem>
+	</itemizedlist>
+      </sect4>
+
+      <sect4>
+	<title>Output</title>
+	
+	<para>
+	  No data output.
+	</para>
+      </sect4>
+
+    </sect3>
+
+    <sect3 id="gallery-remote.protocol3.methods.incrementviewcount">
+      <title>incrementViewCount</title>
+      
+      <para>
+	This method increments the viewCount and updates the viewedSinceTimestamp of a item.
+      </para>
+ 
+      <sect4>
+	<title>Input</title>
+	
+        <itemizedlist spacing="compact">
+	  <listitem>
+	    <para><varname>item</varname>: the id of the item to increment.</para>
 	  </listitem>
 	</itemizedlist>
       </sect4>
