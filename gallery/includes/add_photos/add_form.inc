@@ -29,7 +29,7 @@ if (!isset($metaboxes)) {
 	$metaboxes = 0 ;
 }
 
-	echo '<p>';
+	echo "\n\t<p>";
 	echo _("Click the <b>Browse</b> button to locate a photo to upload.");
 	echo '<br>';
 	echo _("Supported file types") ?>: <?php echo join(", ", acceptableFormatList());
@@ -38,11 +38,10 @@ if (!isset($metaboxes)) {
 	if ($gallery->app->feature["zip"]) {
 		echo '<p><b>'. _("Tip:") . '</b> ';
 		echo _("Upload a ZIP file full of photos and movies!");
-		echo '</p>';
+		echo "</p>\n\t";
 	}
-?>
 
-<?php echo makeFormIntro("add_photos.php", array("name" => "count_form", "method" => "POST")); ?>
+echo makeFormIntro("add_photos.php", array("name" => "count_form", "method" => "POST")); ?>
 <input type="hidden" name="mode" value="<?php echo $mode ?>"/>
 
 <table>
@@ -52,26 +51,26 @@ if (!isset($metaboxes)) {
 <?php 
 	for ($i = 1; $i <= 10;  $i++) {
 		$selected=($i == $boxes) ? 'selected' : '';
-		echo "<option $selected value=\"$i\">$i</option>\n";
+		echo "\t\t\t<option $selected value=\"$i\">$i</option>\n";
   	}
 ?>
-</select></td>
+		</select>
+		</td>
 </tr>
 <tr>
 	<td><?php 
 	echo '<b>'. _("Optional:") .'</b> ';
-	echo _("Select the number of meta data files you want to upload:");
-	echo '</td>';
-	echo '<td>';
-?>
-<select name="metaboxes" onChange="javascript:document.count_form.submit(); return false;">
+		echo _("Select the number of meta data files you want to upload:"); ?>
+		</td>
+		<td><select name="metaboxes" onChange="javascript:document.count_form.submit(); return false;">
 <?php 
 	for ($i = 0  ; $i <= 10;  $i++) {
 		$selected=($i == $metaboxes) ? 'selected' : '';
-                echo "<option $selected value=\"$i\">$i</option>\n";
+                echo "\t\t\t<option $selected value=\"$i\">$i</option>\n";
 	}
 ?>
-</select></td>
+		</select>
+		</td>
 </tr>
 </table>
 </form>
@@ -81,7 +80,7 @@ if (!isset($metaboxes)) {
 				"enctype" => "multipart/form-data",
 				"method" => "POST")); ?>
 
-<table class="popuptd">
+	<table>
 <tr>
 	<td colspan="2"><?php echo _("2. Use the Browse button to find the photos on your computer") ?></td>
 </tr>
