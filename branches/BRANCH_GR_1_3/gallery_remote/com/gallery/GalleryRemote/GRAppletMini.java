@@ -72,14 +72,10 @@ public class GRAppletMini extends GRApplet implements GalleryRemoteCore, ActionL
 
 		galleries.addElement(gallery);
 
-		//gallery.fetchAlbums(getMainStatusUpdate(), false);
-
-		//album = gallery.getAlbumByName(info.albumName);
-
 		ImageUtils.deferredTasks();
 
 		album = new Album(gallery);
-		album.setSuppressEvents(true);
+		//album.setSuppressEvents(true);
 		album.setName(info.albumName);
 		gallery.addAlbum(album);
 

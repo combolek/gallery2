@@ -38,6 +38,7 @@ public class PropertiesFile extends GalleryProperties {
 	protected boolean written = false;
 	protected String mFilename;
 	protected boolean readOnly = false;
+	protected boolean alreadyWarned = false;
 
 	/**
 	 * Constructor for the PropertiesFile object
@@ -143,7 +144,10 @@ public class PropertiesFile extends GalleryProperties {
 			try {
 				read();
 			} catch (FileNotFoundException e) {
-				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				if (!alreadyWarned) {
+					Log.logException(Log.LEVEL_ERROR, MODULE, e);
+					alreadyWarned = true;
+				}
 			}
 		}
 	}
