@@ -134,6 +134,56 @@ class GalleryLayout {
     }
 
     /**
+     * Call getSystemLinks on every active module
+     *
+     * @param object GalleryTemplate a template instance
+     * @return array object GalleryStatus a status code
+     *               array(array('moduleName' => array('text' => ...,
+     *                                                 'params' => ...,
+     *                                                 'url' => ...)),
+     * @access private
+     */
+    function _getModuleSystemLinks() {
+	global $gallery;
+
+        GalleryProfiler::start('modules.core.classes.GalleryLayout::_getModuleSystemLinks');
+	
+        /* Load the module list */
+        list ($ret, $moduleStatus) = $gallery->getModuleStatus();
+        if ($ret->isError()) {
+            return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+        $urlGenerator = $gallery->getUrlGenerator();
+	
+        $links = array();
+        foreach ($moduleStatus as $moduleName => $status) {
+            if (empty($status['active'])) {
+                continue;
+	    }
+	    
+            list ($ret, $module) = $gallery->loadModule($moduleName);
+            if ($ret->isError()) {
+                return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    
+            /* Get all module-related links for these items */
+            list ($ret, $links[$moduleName]) = $module->getSystemLinks();
+            if ($ret->isError()) {
+                return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    
+            if (empty($links[$moduleName])) {
+                unset($links[$moduleName]);
+	    }
+	}
+	
+        GalleryProfiler::stop('modules.core.classes.GalleryLayout::_getModuleSystemLinks');
+	
+        return array(GalleryStatus::success(), $links);
+    }
+
+    /**
      * Call getItemLinks on every active module
      *
      * @param mixed object GalleryItem a target item, or array of object GalleryItem
