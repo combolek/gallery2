@@ -204,11 +204,8 @@
 </xsl:template>
 
 <xsl:template match="authorgroup" mode="titlepage.mode">
-  <h3><xsl:value-of select="@id"/></h3>
   <div class="{name(.)}">
-    <ul>
-     <xsl:apply-templates mode="titlepage.mode"/>
-    </ul>  
+    <xsl:apply-templates mode="titlepage.mode"/>
   </div>
 </xsl:template>
 
