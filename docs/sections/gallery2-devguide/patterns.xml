@@ -645,7 +645,78 @@
    offer them a Gallery that speaks to them in their own language wherever possible.
   </para>
   <para>
-   UTF-8
+   What is UTF-8?
+  </para>
+  <para>
+   Okay, let's start with the most bsic character set, ASCII, which has values
+   0-255, representing control characters and the letters of the American
+   English alphabet (and some other stuff). Obviously, in all the world's
+   languages together there are more than 256 possible characters.
+  </para>
+  <para>
+   But let's take Greek for example - it has characters like Alpha and Omega
+   which can't be displayed using a single ASCII character So, someone came up
+   with a 16 bit character set for greek. However, every operating system (that
+   I know of) processes text using only eight-bit characters. If you want to
+   represent a 16-bit character in an eight-bit world, you would use two
+   eight-bit characters. Software is written for a particular character set,
+   and knows how to process those character pairs into 16 bit characters and
+   display the correct letter, whether it is alpha, omega, or aleph.
+  </para>
+  <para>
+   There are three at least three different greek character encodings - three
+   different ways to pair up special characters.  Software that supports Greek
+   should know all three, right? This is a nightmare.
+  </para>
+  <para>
+   Enter unicode. An international community got together and decided to define
+   a huge character set that encompasses every possible character, including
+   Greek, Chinese, and everything else.
+  </para>
+  <para>
+   <ulink url="http://www.unicode.org/standard/WhatIsUnicode.html">
+    <citetitle>
+     http://www.unicode.org/standard/WhatIsUnicode.html
+    </citetitle>
+   </ulink>
+  </para>
+  <para>
+   Unicode has a character set including thousands of characters, which is
+   terrific, but faces the same problem as Greek did - existing software
+   doesn't know how to deal with characters with more than 8 bits.
+   several ways of encoding these big characters into 8 bits were devised,
+   including UTF-2 and UTF-4 (for how many bytes were used to encode a
+   character), but the one that seems to have the strongest support is UTF-8.
+  </para>
+  <para>
+   <ulink url="http://www.cl.cam.ac.uk/~mgk25/unicode.html">
+    <citetitle>
+     http://www.cl.cam.ac.uk/~mgk25/unicode.html
+    </citetitle>
+   </ulink>
+  </para>
+  <para>
+   UTF-8 uses various tricks to be friendly to existing software so that
+   software won't know (or care) what character set it is processing
+   as long as the end-user's display understands UTF-8, life is good
+   Why is gallery 2 using UTF-8? It solves the essential problem of a
+   multi-language site - multiple languages on one page. If you leave a comment
+   in Spanish on a Japanese site - will that site know how to display the
+   diacritical marks in your words - or your name?
+  </para>
+  <para>
+   What's the practical difference between iso-whatever and UTF-8?
+  </para>
+  <para>
+   ISO-8859-* is a set of slightly different, language specific character sets.
+   Most browsers should understand them, but you end up having trouble when you
+   try to convert from one to another, or display more than one language on a
+   page.
+  </para>
+  <para>
+   That's why I suggested that we ask translators to do UTF-8. It's very
+   standard and usually well supported. Other character sets may require
+   specific options to be compiled into php, which isn't fun.
   </para>
  </sect2>
  <sect2>
