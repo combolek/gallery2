@@ -24,6 +24,8 @@
  * DataItems are ones that have an actual data source, such as 
  * PhotoItem or MovieItem.
  *
+ * @gallery metainfo
+ *
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -40,7 +42,10 @@ class DataItem extends GalleryItem {
      * The DataContainer containing the actual source object for this item,
      * if applicable.
      *
-     * @var object DataContainer
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
+     * @var object DataContainer $_source
      */
     var $_source;
 
@@ -48,7 +53,10 @@ class DataItem extends GalleryItem {
      * The DataContainer containing the preferred source object for this
      * item, if applicable.
      *
-     * @var object DataContainer
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
+     * @var object DataContainer $_preferredSource
      */
     var $_preferredSource;
 
@@ -149,5 +157,70 @@ class DataItem extends GalleryItem {
     function removePreferredSourceId() {
     }
 
+    /* BEGIN: Accessor Block.  DO NOT MODIFY! */
+    
+    /**
+     * Return the meta class information about this class
+     *
+     * @return array member => array(type, class)
+     */
+    function getMetaInfo() {
+        $meta = parent::getMetaInfo();
+        $meta['preferredSource'] = array(
+            'class' => 'DataItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['source'] = array(
+            'class' => 'DataItem',
+            'type' => STORAGE_TYPE_INTEGER);
+    
+        return $meta;
+    }
+    
+    /**
+     * Set the value of preferredSource
+     * 
+     * @param int the new value for preferredSource
+     * @access public
+     */
+    function setPreferredSource($value) {
+        assert('isset($value)');
+        $this->_preferredSource = $value;
+        $this->modifyPersistentMember('preferredSource');
+    }
+    
+    /**
+     * Get the value of preferredSource
+     * 
+     * @access public
+     * @return int the current value of preferredSource
+     */
+    function getPreferredSource() {
+        return $this->_preferredSource;
+    }
+    
+    /**
+     * Set the value of source
+     * 
+     * @param int the new value for source
+     * @access public
+     */
+    function setSource($value) {
+        assert('isset($value)');
+        $this->_source = $value;
+        $this->modifyPersistentMember('source');
+    }
+    
+    /**
+     * Get the value of source
+     * 
+     * @access public
+     * @return int the current value of source
+     */
+    function getSource() {
+        return $this->_source;
+    }
+    
+    
+    /* END: Accessor Block.  DO NOT MODIFY! */
 }
 ?>
