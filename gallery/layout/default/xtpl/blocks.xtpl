@@ -77,7 +77,7 @@
     <!-- BEGIN: next -->
     <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
     <td align="center" width="72" height="18">
-    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_next.gif" border="0" width="72" height="11" alt="Last ({page.name})"></a>
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_next.gif" border="0" width="72" height="11" alt="Next ({page.name})"></a>
     </td>
     <!-- END: next -->
  

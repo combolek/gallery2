@@ -1,0 +1,102 @@
+<!-- BEGIN: view_album -->
+{GLO.header}
+
+<table border="0" width="{GLO.image.tableWidth}" cellpadding="0"  cellspacing="0">
+  <tr>
+	<td>
+    Album is [{GLO.album.title}]
+    </td>
+  <tr>
+
+  <tr>
+	<td>
+    {GLO.divider}
+    {GLO.blockBreadcrumb}
+    {GLO.divider}
+    {GLO.blockNavigation}
+    {GLO.divider}
+	</td>
+  </tr>
+
+  <tr>
+	<td align=center>
+    <br>
+    <!-- BEGIN: items -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          
+      <!-- BEGIN: row -->
+      <tr>
+        
+        <!-- BEGIN: photo_cell -->
+        <td align="center">
+        
+          <table width="1%" border="0" cellspacing="0" cellpadding="0">
+
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+  
+            <tr>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td><a href="{item.href}">{item.thumbnailTag}</a></td>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+
+            <tr>
+              <td colspan="3" align="center">
+              <span class="caption">{GLO.item.caption}</span>
+              <br><br>
+              </td>
+            </tr>
+          </table>
+
+        </td>
+        <!-- END: photo_cell -->
+
+        <!-- BEGIN: movie_cell -->
+        <td align="center">
+        MOVIE
+        </td>
+        <!-- END: movie_cell -->
+
+        <!-- BEGIN: album_cell -->
+        <td align="center">
+        ALBUM
+        </td>
+        <!-- END: album_cell -->
+
+      </tr>
+      <!-- END: row -->
+
+    </table>
+    <!-- END: items -->
+
+	</td>
+  </tr>
+  <tr>
+    <td>
+    {GLO.divider}
+    {GLO.blockTools}
+    {GLO.divider}
+	{GLO.blockNavigation}
+    {GLO.divider}
+	</td>
+  </tr>
+
+</table>
+{GLO.page.body.extra}
+<br>
+SKIN JOB TODO:
+<ul>
+<li>the commands.
+<li>the thumbs and their baggage.
+</ul>
+
+{GLO.footer}
+
+<!-- END: view_album -->
+
