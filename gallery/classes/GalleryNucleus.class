@@ -139,12 +139,12 @@ class GalleryNucleus {
     /**
      * Return the GalleryNucleus that owns this one.
      *
-     * Return the GalleryNucleus that owns this one.
+     * Return a reference to the GalleryNucleus that owns this one.
      *
      * @access public
      * @return object GalleryNucleus the parent
      */
-    function getParent() {
+    function &getParent() {
     }
 
     /**
@@ -197,6 +197,19 @@ class GalleryNucleus {
     }
 
     /**
+     * Save the changes to this GalleryNucleus and any children
+     *
+     * Recursively walk the tree and save anything that needs saving.
+     *
+     * @access public
+     * @return int a status code
+     */
+    function saveRecursive() {
+	$this->save();
+	// foreach cached child, child->saveRecursive()
+    }
+
+    /**
      * Refresh this item from the persistent store
      *
      * @access public
@@ -205,6 +218,19 @@ class GalleryNucleus {
     function refresh() {
 	$this = $this->_storage->refresh($this);
 	return SUCCESS;
+    }
+
+    /**
+     * Refresh this item and any children
+     *
+     * Recursively walk the tree and refresh anything we've instantiated
+     *
+     * @access public
+     * @return int a status code
+     */
+    function refreshRecursive() {
+	$this->refresh();
+	// foreach cached child, child->refreshRecursive()
     }
 
     /**
