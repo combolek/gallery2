@@ -3,11 +3,30 @@
 <sect1 id="gallery-remote.using">
  <title>Using Gallery Remote</title>
  
- <!-- h0bbel: include "Can I run Gallery Remote on
-              platforms for which there is no installer?" section here -->
-              
- <para>
-  Using Gallery Remote
- </para>
-              
+ <sect2 id="gallery-remote.platforms">
+  <title>Can I run Gallery Remote on platforms for which there is no installer?</title>
+  <para>
+   Yes, maybe. Gallery Remote was written in Java. 
+   If you have Java 1.3 or later installed on your machine, you may be able to run the app with the command:
+   java -cp GalleryRemote.jar com.gallery.GalleryRemote.GalleryRemote
+   assuming you are in the same directory as the GalleryRemote.jar file.
+  </para>
+ </sect2>
+ 
+ <sect2 id="galler-remote.preferences">
+  <title>Preferences</title>
+   <para>
+   Even though there is now a Preferences dialog, the preference files can still be edited. You should not 
+   modify the defaults.properties file, but you should read it to understand what each preference does. 
+   Then, you can edit the GalleryRemote.properties (it is created the first time GR is run) and add or replace the preferences you want to change.
+
+   The preferences files used to be stored in the same directory as the GalleryRemote executable, 
+   and has been moved (and renamed) to the current user's home directory.
+    
+   On recent versions of Windows, this is the Documents and Settings/username directory in the boot partition. 
+   When you upgrade from versions older than 1.0b6, you will lose your current preferences unless you copy the previously used remote.properties to 
+   home directory/.GalleryRemote/GalleryRemote.properties.
+   </para>
+ </sect2>             
+
 </sect1>
