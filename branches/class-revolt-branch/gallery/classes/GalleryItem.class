@@ -141,16 +141,6 @@ class GalleryItem extends GalleryNucleus {
     }
 		
     /**
-     * Update the viewed counter.
-     *
-     * Record the fact that this item has just been viewed.
-     *
-     * @access public
-     */
-    function incrementViewed() {
-    }
-
-    /**
      * Add a comment to this GalleryItem
      *
      * Add a comment to this GalleryItem
@@ -282,8 +272,9 @@ class GalleryItem extends GalleryNucleus {
     /**
      * Get the id of the ImageContainer containing the thumbnail for this item
      *
-     * Get the id of the ImageContainer containing the thumbnail
-     * for this item.
+     * Replace any existing thumbnail with the new one (by id).  The new
+     * thumbnail must assume all derivative responsibilities that the old one
+     * had, and the old one should be relieved of its derivative responsibilities
      *
      * @access public
      * @param string id of the ImageContainer containing the thumbnail image
@@ -347,6 +338,7 @@ class GalleryItem extends GalleryNucleus {
      *
      * @access public
      * @param object GalleryItem the child item
+     * @return int a status code
      */
     function addItem($item) {
     }
