@@ -25,7 +25,7 @@
  * displaying item groups and is allowed to contain other
  * GalleryItems.
  *
- * @gallery metainfo
+ * @gallery metainfo 1.0
  *
  * @version $Id$
  * @package GalleryCore
@@ -276,15 +276,26 @@ class AlbumItem extends GalleryItem {
 	    return ERROR | ERROR_BAD_PARAMETER;
 	}
 
-	// XXX: modify the code to create new album in the right location
-	assert(false);
-
 	global $gallery;
 	$platform = $gallery->getPlatform();
 
-	/* Create a new directory for this album in the temporary area */
-	$tempDir = $gallery->getConfigValue('core.directory.temp');
-	$albumDir = $tempDir . '/' . $albumName;
+	if (empty($parentId)) {
+	    $parentPath = $gallery->getConfigValue('core.directory.albums');
+	} else {
+	    $parent = new GalleryNucleus();
+	    $ret = $parent->load($parentId);
+	    if ($ret & ERROR) {
+		return $ret;
+	    }
+	    
+	    list($ret, $parentPath) = $parent->getFullPath();
+	    if ($ret & ERROR) {
+		return $ret;
+	    }
+	}
+	
+	/* Create a new directory for this album */
+	$albumDir = $parentPath . '/' . $albumName;
 
 	if (!@$platform->mkdir($albumDir,
 	        $gallery->getConfigValue('core.permissions.directory'))) {
@@ -308,6 +319,17 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
+     * Create a new root level album 
+     *
+     * Also create the album directory on the filesystem
+     *
+     * @return int a status code
+     */
+    function createRoot($albumName) {
+	return $this->create(null, $albumName);
+    }
+
+    /**
      * Delete this AlbumItem
      *
      * Delete all children and then remove the directory
@@ -316,7 +338,25 @@ class AlbumItem extends GalleryItem {
      * @return int a status code
      */
     function delete() {
-	return parent::delete();
+
+	/* Lots of stuff needs to be written for this to work */
+
+	/* Iterate through all children and delete them */
+	$this->getChildIds();
+
+	/* Get my path */
+	list($ret, $path) = $this->getFullPath();
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+
+	/* Delete my record */
+	$ret = parent::delete();
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+
+	/* Remove my directory */ 
     }
 
     /**
