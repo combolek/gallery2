@@ -135,12 +135,6 @@ case $1 in
 		xsltproc ../../misc-xsl/autofaq.xsl ../../manual.xml > autofaq_data.txt || exit 1
 		;;
 		
-	test-saxon) 
-		echo "Testing documentation (if you see no errors, everything is good)..."
-
-		java -classpath ./docbook-xsl/extensions/saxon651.jar sax.SAXCount manual.xml
-		;;
-		
 	test-xmllint)
 		echo "Testing documentation (if you see no errors, everything is good)..."
 
@@ -160,7 +154,6 @@ case $1 in
 		echo "g1package     Generate only G1 docs";
 		echo "prettyhtml    Generate nice looking docs";
 		echo "dist          Generate all types";
-		echo "test-saxon    Test for XML errors using saxon";
 		echo "test-xmllint  Test for XML errors using xmllint";
 		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
 		echo "help          Display this help page"
