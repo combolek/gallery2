@@ -90,10 +90,13 @@ if ($urls) {
 			continue;
 		}
 
-	
 		/* Get rid of any preceding whitespace (fix for odd browsers like konqueror) */
 		$url = eregi_replace("^[[:space:]]+", "", $url);
-	
+
+		if (!ereg("http", $url)) {
+			$url = "http://$url";
+		}
+
 		/* Parse URL for name and file type */
 		$url_stuff = parse_url($url);
 		$name = basename($url_stuff["path"]);
@@ -105,8 +108,11 @@ if ($urls) {
 	
 		/* Manual check - was the url accessible? */
 		if (!$id) {
-			msg("Could not open url: '$url'");
-			continue;
+			$id = @fs_fopen("$url/", "r");
+			if (!$id) {
+				msg("Could not open url: '$url'");
+				continue;
+			}
 		} else {
 			msg(urldecode($url));
 		}
@@ -122,11 +128,12 @@ if ($urls) {
 			fclose($id);
 			fclose($od);
 		}
+
 		/* Make sure we delete this file when we're through... */
 		$temp_files[$file]++;
 	
 		/* If this is an image or movie - add it to the processor array */
-		if (acceptableFormat($tag)) {
+		if (acceptableFormat($tag) || !strcmp($tag, "zip")) {
 			/* Tack it onto userfile */
 			$userfile_name[] = $name;
 			$userfile[] = $file;
@@ -134,7 +141,7 @@ if ($urls) {
 			/* Slurp the file */
 			msg("Parsing $url for images...");
 			$fd = fs_fopen ($file, "r");
-			$contents = fread ($fd, filesize ($file));
+			$contents = fread ($fd, fs_filesize ($file));
 			fclose ($fd);
 	
 			/* We'll need to add some stuff to relative links */
@@ -155,27 +162,27 @@ if ($urls) {
 			if (!ereg("/$", $base_dir)) {
 				$base_dir .= '/';
 			}
-	
-			/* Perl Regex: Find all src= and href= links to valid file types */
-			if(preg_match_all ('/(src|href)="?([^" >]+\.' .
-					acceptableFormatRegexp() .
-					')[" >]/is', $contents, $things, PREG_PATTERN_ORDER)) {
-	
-				/* Add each unique link to an array we scan later */
-				foreach (array_unique($things[2]) as $thing) {
-	
-					/* Absolute Link ( http://www.foo.com/bar ) */
-					if (substr($thing, 0, 4) == 'http') {
-						$image_tags[] = $thing;
-	
-					/* Relative link to the host ( /foo.bar )*/
-					} elseif (substr($thing, 0, 1) == '/') {
-						$image_tags[] = $base_url . $thing;
-	
-					/* Relative link to the dir ( foo.bar ) */
-					} else {
-						$image_tags[] = $base_url . $base_dir . $thing;
-					}
+
+			$things = array();
+			foreach (split("[[:space:]\=\"\'\<\>\?]", $contents) as $value) {
+				if (eregi("\." . acceptableFormatRegexp(), $value, $regs)) {
+					$things[$value]++;
+				}
+			}
+
+			/* Add each unique link to an array we scan later */
+			foreach (array_keys($things) as $thing) {
+				/* Absolute Link ( http://www.foo.com/bar ) */
+				if (substr($thing, 0, 4) == 'http') {
+					$image_tags[] = $thing;
+
+				/* Relative link to the host ( /foo.bar )*/
+				} elseif (substr($thing, 0, 1) == '/') {
+					$image_tags[] = $base_url . $thing;
+
+				/* Relative link to the dir ( foo.bar ) */
+				} else {
+					$image_tags[] = $base_url . $base_dir . $thing;
 				}
 			}
 	
@@ -185,6 +192,7 @@ if ($urls) {
 	}
 } /* if ($urls) */
 ?>
+
 
 <br>
 <span class=title>Processing status...</span>
@@ -197,6 +205,15 @@ while (sizeof($userfile)) {
 
 	$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $name);
 	$tag = strtolower($tag);
+
+	if ($name) {
+		process($file, $tag, $name, $setCaption);
+	}
+}
+
+
+function process($file, $tag, $name, $setCaption="") {
+	global $gallery;
 
 	if (!strcmp($tag, "zip")) {
 		if (!$gallery->app->feature["zip"]) {
@@ -214,7 +231,7 @@ while (sizeof($userfile)) {
 			$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $pic);
 			$tag = strtolower($tag);
 
-			if (acceptableFormat($tag)) {
+			if (acceptableFormat($tag) || !strcmp($tag, "zip")) {
 				$cmd_pic_path = str_replace("[", "\[", $pic_path); 
 				$cmd_pic_path = str_replace("]", "\]", $cmd_pic_path); 
 				exec_wrapper(fs_import_filename($gallery->app->unzip) . 
@@ -229,61 +246,56 @@ while (sizeof($userfile)) {
 			}
 		}
 	} else {
-		if ($name) {
-			process($file, $tag, $name, $setCaption);
+		// remove %20 and the like from name
+		$name = urldecode($name);
+		// parse out original filename without extension
+		$originalFilename = eregi_replace(".$tag$", "", $name);
+		// replace multiple non-word characters with a single "_"
+		$mangledFilename = ereg_replace("[^[:alnum:]]", "_", $originalFilename);
+
+		/* Get rid of extra underscores */
+		$mangledFilename = ereg_replace("_+", "_", $mangledFilename);
+		$mangledFilename = ereg_replace("(^_|_$)", "", $mangledFilename);
+	
+		/* 
+		need to prevent users from using original filenames that are purely numeric.
+		Purely numeric filenames mess up the rewriterules that we use for mod_rewrite
+		specifically:
+		RewriteRule ^([^\.\?/]+)/([0-9]+)$	/~jpk/gallery/view_photo.php?set_albumName=$1&index=$2	[QSA]
+		*/
+	
+		if (ereg("^([0-9]+)$", $mangledFilename)) {
+			$mangledFilename .= "_G";
 		}
-	}
-}
-
-
-function process($file, $tag, $name, $setCaption="") {
-	global $gallery;
-
-	// remove %20 and the like from name
-	$name = urldecode($name);
-	// parse out original filename without extension
-	$originalFilenameArray = preg_split ( "/.$tag\$/i" , $name);
-	// replace multiple non-word characters with a single "_"
-	$originalFilename = preg_replace("/\W+/", "_", $originalFilenameArray[0]);
-
-	/* 
-	need to prevent users from using original filenames that are purely numeric.
-	Purely numeric filenames mess up the rewriterules that we use for mod_rewrite
-	specifically:
-	RewriteRule ^([^\.\?/]+)/([0-9]+)$	/~jpk/gallery/view_photo.php?set_albumName=$1&index=$2	[QSA]
-	*/
-
-	if (ereg("^([0-9]+)$", $originalFilename)) {
-		$originalFilename = $originalFilename . "_G";
-	}
-
-	set_time_limit(30);
-	if (acceptableFormat($tag)) {
-		msg("- Adding $name");
-		if ($setCaption) {
-			$caption = $originalFilenameArray[0];
-		} else {
-			$caption = "";
-		}	
-
-		$err = $gallery->album->addPhoto($file, $tag, $originalFilename, $caption);
-		if (!$err) {
-			/* resize the photo if needed */
-			if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
-				$index = $gallery->album->numPhotos(1);
-				$photo = $gallery->album->getPhoto($index);
-				list($w, $h) = $photo->getDimensions();
-				if ($w > $gallery->album->fields["resize_size"] ||
-				    $h > $gallery->album->fields["resize_size"]) {
-					msg("- Resizing $name"); 
-					$gallery->album->resizePhoto($index, $gallery->album->fields["resize_size"]);
+	
+		set_time_limit(30);
+		if (acceptableFormat($tag)) {
+			msg("- Adding $name");
+			if ($setCaption) {
+				$caption = $originalFilename;
+			} else {
+				$caption = "";
+			}	
+	
+			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption);
+			if (!$err) {
+				/* resize the photo if needed */
+				if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
+					$index = $gallery->album->numPhotos(1);
+					$photo = $gallery->album->getPhoto($index);
+					list($w, $h) = $photo->getDimensions();
+					if ($w > $gallery->album->fields["resize_size"] ||
+					    $h > $gallery->album->fields["resize_size"]) {
+						msg("- Resizing $name"); 
+						$gallery->album->resizePhoto($index, $gallery->album->fields["resize_size"]);
+					}
 				}
+			} else {
+				msg("<font color=red>Error: $err!</font>");
 			}
 		} else {
-			msg("<font color=red>Error: $err!</font>");
+			msg("Skipping $name (can't handle '$tag' format)");
 		}
-	} else {
-		msg("Skipping $name (can't handle '$tag' format)");
 	}
 }
 
@@ -310,7 +322,10 @@ if (!$msgcount) {
 /* Prompt for additional files if we found links in the HTML slurpage */
 if (count($image_tags)) {
 ?>
-<form enctype="multipart/form-data" action="save_photos.php" method=post name="uploadurl_form">
+<?= makeFormIntro("save_photos.php", 
+		array("name" => "uploadurl_form", 
+			"enctype" => "multipart/form-data", 
+			"method" => "POST")); ?>
 <table border=0>
 <?
 	/* Allow user to select which files to grab - only show url right now ( no image previews ) */

@@ -77,6 +77,9 @@ function viewComments($index) {
         echo "<tr align=center><td colspan=3>$buf<br><br></td></tr>";
 }
 
+function center($message) {
+	return "<center>$message</center>";
+}
 
 function error($message) {
 	echo error_format($message);
@@ -354,15 +357,15 @@ function valid_image($file) {
 function toPnmCmd($file) {
 	global $gallery;
 
-	if (preg_match("/.png/i", $file)) {
+	if (eregi("\.png", $file)) {
 		$cmd = "pngtopnm";
-	} else if (preg_match("/.(jpg|jpeg)/i", $file)) {
+	} else if (eregi("\.(jpg|jpeg)", $file)) {
 		if (isDebugging()) {
 			$cmd = "jpegtopnm";
 		} else {
 			$cmd = "jpegtopnm";
 		}
-	} else if (preg_match("/.gif/i", $file)) {
+	} else if (eregi("\.gif", $file)) {
 		$cmd = "giftopnm";
 	}
 
@@ -383,11 +386,11 @@ function toPnmCmd($file) {
 function fromPnmCmd($file) {
 	global $gallery;
 
-	if (preg_match("/.png/i", $file)) {
+	if (eregi("\.png", $file)) {
 		$cmd = NetPBM("pnmtopng");
-	} else if (preg_match("/.(jpg|jpeg)/i", $file)) {
+	} else if (eregi("\.(jpg|jpeg)", $file)) {
 		$cmd = NetPBM("ppmtojpeg");
-	} else if (preg_match("/.gif/i", $file)) {
+	} else if (eregi(".gif", $file)) {
 		$cmd = NetPBM("ppmquant", "256") . " | " . NetPBM("ppmtogif");
 	}
 
@@ -775,7 +778,8 @@ function getNextPhoto($idx) {
 		// not have read authority over a specific nested album.
 		if ($gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = $albumDB->getAlbumbyName($myAlbumName);
+			$myAlbum = new Album();
+			$myAlbum->load($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -793,7 +797,8 @@ function getNextPhoto($idx) {
 		// have permission to view it.
 		if ($gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = $albumDB->getAlbumbyName($myAlbumName);
+			$myAlbum = new Album();
+			$myAlbum->load($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -832,16 +837,18 @@ function printAlbumOptionList($rootDisplay=1, $moveRootAlbum=0, $movePhoto=0) {
 
 
 function printNestedVals($level, $albumName, $val, $movePhoto) {
-	global $gallery, $albumDB, $index;
+	global $gallery, $index;
 	
-	$myAlbum = $albumDB->getAlbumbyName($albumName);
+	$myAlbum = new Album();
+	$myAlbum->load($albumName);
 	
 	$numPhotos = $myAlbum->numPhotos(1);
 
 	for ($i=1; $i <= $numPhotos; $i++) {
 		$myName = $myAlbum->isAlbumName($i);
 		if ($myName) {
-			$nestedAlbum = $albumDB->getAlbumbyName($myName);
+			$nestedAlbum = new Album();
+			$nestedAlbum->load($myName);
 			if ($gallery->user->canWriteToAlbum($nestedAlbum)) {
 				#$val2 = $val . " -> " . $nestedAlbum->fields[title];
 				$val2 = "";
