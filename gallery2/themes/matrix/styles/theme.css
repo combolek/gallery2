@@ -47,7 +47,7 @@ table td {
 
 .bannerbox_inner {  
   width: 100%;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 24px 0px 0px;
   padding: 0px 0px 0px 0px;
   vertical-align: top;
   border-collapse: collapse;
@@ -58,6 +58,7 @@ table td {
   color: #333;
   width: 100%;
   margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   vertical-align: top;
   text-align: left;
   background-color: #eee;
@@ -72,6 +73,7 @@ table td {
 .bannerbox_component {  
   vertical-align: top;
   text-align: right;
+  white-space: nowrap;
 }
 
 .widget1box { 
@@ -131,11 +133,8 @@ table td {
 
 .infobox_item {  
   color: #666;
+  white-space: nowrap;
   font-size: 63%;
-}
-
-.infobox_item select { 
-  font-size: 100%;
 }
 
 .detailedbox {
@@ -238,7 +237,7 @@ table td {
 .sidebar {
   text-align: left;
   vertical-align: top;
-  width: auto;
+  width: 130px;
   height: auto;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
@@ -255,7 +254,7 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 4px 4px 4px 4px;
+  padding: 4px 16px 4px 4px;
   background-color: #fff;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -267,7 +266,7 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 4px 4px 4px 4px;
+  padding: 4px 4px 4px 16px;
   background-color: #fff;
   border-left: 1px solid #ddd;
   border-bottom: 1px solid #ddd;

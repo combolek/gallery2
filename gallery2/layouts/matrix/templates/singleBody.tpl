@@ -76,7 +76,7 @@
 
 	  {if !empty($layout.sourceImage)}
 	    {gallery->item}
-	      {gallery->text text="Original size: "}
+	      {gallery->text text="Full size: "}
 	      {gallery->link url_view="core:ShowItem" url_itemId=$layout.item.id url_imageViewsIndex=$layout.sourceImageViewIndex}
 		{gallery->text text="%dx%d" arg1=$layout.sourceImage.width arg2=$layout.sourceImage.height}
 	      {/gallery->link}
