@@ -85,7 +85,7 @@ if (!$displayUsers) {
 <input type=button value="Modify" onClick='my_submit("Modify")'>
 <input type=button value="Delete" onClick='my_submit("Delete")'>
 <? } ?>
-<input type=button value="Cancel" onclick='parent.close()'>
+<input type=button value="Done" onclick='parent.close()'>
 <input type=hidden name=action value="">
 </form>
 
