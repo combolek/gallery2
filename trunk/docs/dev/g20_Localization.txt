@@ -17,13 +17,15 @@ file:
 global.inc contains a a constant definition for every block of text
 that appears in a Gallery page. An example of such a definition:
 
-  define("_LOGIN", "Login");
+  define("_EDIT_OPTIONS_SAVE_CONFIRM", "Are you sure?");
 
 All language constants have an underscore prefix and are all-caps. 
-Multiple word constants are glommed together like this:
+Multiple word constants have words seperated by underscores.
 
-  define("_AREYOUSURE", "Are you sure");
-
+Language constant keywords should use a very specific, declarative
+form. It should be clear from the keyword exactly where this text
+is used. For example, the admin login label on the view_album page
+might be _VIEW_ALBUM_COMMAND_LOGIN.
 
 Layout specific localization
 =====================================================================
