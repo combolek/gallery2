@@ -181,7 +181,7 @@ class ClassicLayout extends GalleryLayout {
 		$children[$i] = $childTable[$id];
 		if (isset($thumbTable[$id])) {
 		    /* Rebuild cache, to be prepared to the getMemberData() call */
-		    list ($ret, $rebuilt) =
+		    list ($ret, $thumbTable[$id]) =
 			GalleryDerivativeHelper::rebuildCacheIfNotCurrent($thumbTable[$id]->getId());
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
@@ -326,7 +326,7 @@ class ClassicLayout extends GalleryLayout {
 	    if (!empty($resizes)) {
 		foreach ($resizes[$item->getId()] as $resize) {
 		    /* Rebuild cache, to be prepared to the getMemberData() call */
-		    list ($ret, $rebuilt) = GalleryDerivativeHelper::rebuildCacheIfNotCurrent($resize->getId());
+		    list ($ret, $resize) = GalleryDerivativeHelper::rebuildCacheIfNotCurrent($resize->getId());
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }

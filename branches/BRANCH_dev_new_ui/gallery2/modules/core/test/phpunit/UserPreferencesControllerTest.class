@@ -59,7 +59,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+	$this->assertEquals(array('return' => 'true',
+				  'redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
 				  'status' => array(),
 				  'error' => array()),
@@ -71,7 +72,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.undo', 1);
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+	$this->assertEquals(array('return' => 'true',
+				  'redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
 				  'status' => array(),
 				  'error' => array()),
@@ -85,7 +87,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.language', 'language');
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+	$this->assertEquals(array('return' => 'true',
+				  'redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
 				  'status' => array('saved' => 1),
 				  'error' => array()),
@@ -108,7 +111,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.email', 'email');
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+	$this->assertEquals(array('return' => 'true',
+				  'redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
 				  'status' => array('saved' => 1),
 				  'error' => array()),

@@ -64,12 +64,12 @@ class ItemAdminView extends GalleryView {
 	     * Rebuild the cache if it's not current, so that we can make sure
 	     * that we've got the appropriate thumbnail dimensions
 	     */
-	    list ($ret, $rebuilt) =
+	    list ($ret, $thumbnail) =
 		GalleryDerivativeHelper::rebuildCacheIfNotCurrent($thumbnail->getId());
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
-	    
+
 	    $thumbnailData = $thumbnail->getMemberData();
 	}
 
