@@ -50,15 +50,15 @@
           <td align="center" valign="bottom" width="{thumbCellSize}" height="{thumbCellSize}">
 
           <table width="1%" border="0" cellspacing="0" cellpadding="0">
-            <tr bgcolor="{GLO.borderColor}">
+            <tr bgcolor="{GLO.album.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
             <tr>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
               <td><a href="{item.href}"><img src="{item.thumbnail.url}" width="{item.thumbnail.width}" height="{item.thumbnail.height}" border="0"></a></td>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
-            <tr bgcolor="{GLO.borderColor}">
+            <tr bgcolor="{GLO.album.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
           </table>
@@ -87,15 +87,15 @@
           <td align="center" valign="bottom" width="{thumbCellSize}" height="{thumbCellSize}">
 
           <table width="1%" border="0" cellspacing="0" cellpadding="0">
-            <tr bgcolor="{GLO.borderColor}">
+            <tr bgcolor="{GLO.album.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
             <tr>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
               <td><a href="{item.href}"><img src="{item.thumbnail.url}" width="{item.thumbnail.width}" height="{item.thumbnail.height}" border="0"></a></td>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
-            <tr bgcolor="{GLO.borderColor}">
+            <tr bgcolor="{GLO.album.borderColor}">
               <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
             </tr>
           </table>
@@ -105,7 +105,7 @@
 
           <tr>
           <td align="center" valign="top" width="{thumbCellSize}">
-            <span class="caption"><b>{item.hiddenText}</b> {item.caption} {item.commentCountText}
+            <span class="caption"><b>{item.hiddenText}</b> {item.description} {item.commentCountText}
             <br>
             <i>{item.clickCountText}</i>
             <br>

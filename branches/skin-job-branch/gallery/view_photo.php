@@ -234,7 +234,7 @@ foreach ($navIds as $navId) {
 //-- the breadcrumb info ---
 $breadCount = 0;
 $breadLevels[$breadCount]['level'] = "Album";
-$breadLevels[$breadCount]['name'] = $album->fields["title"];
+$breadLevels[$breadCount]['title'] = $album->fields["title"];
 $breadLevels[$breadCount]['href'] = makeAlbumUrl($albumName, "", array("page" => $page));
 $breadCount++;
 $pAlbum = $album;
@@ -248,7 +248,7 @@ do {
 		$pAlbumName = $pAlbum->fields['parentAlbumName'];
 		$pAlbum = new Album($pAlbumName);
 		$breadLevels[$breadCount]['level'] = "Album";
-		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
+		$breadLevels[$breadCount]['title'] = $pAlbum->fields['title'];
 		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
 	}
 	$breadCount++;
@@ -261,7 +261,7 @@ $breadLevels = array_reverse($breadLevels, false);
 //-- XXX - I think we should add current page to breadcrumb??? ---
 //$breadCount++;
 //$breadLevels[$breadCount]['level'] = "";
-//$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
+//$breadLevels[$breadCount]['title'] = $gallery->app->galleryTitle;
 //$breadLevels[$breadCount]['href'] = makeGalleryUrl();
 
 //-- Public comments for this photo ---
@@ -293,7 +293,7 @@ $GLO['album']['url'] = makeAlbumUrl($albumName);
 $GLO['album']['name'] = $albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
-$GLO['borderColor'] = $borderColor;
+$GLO['album']['borderColor'] = $borderColor;
 
 //-- the 'item' is the focus of this page ---
 $GLO['item']['id'] = $id;
