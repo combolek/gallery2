@@ -39,7 +39,7 @@ if (!$gallery->user->canDeleteAlbum($gallery->album)) {
 	exit;
 }
 
-if (!empty($delete)) {
+if ($delete) {
 	$gallery->album->delete();
 	dismissAndReload();
 	return;
@@ -53,19 +53,18 @@ if ($gallery->album) {
   <title><?php echo _("Delete Album") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Delete Album") ?></span>
 <br><br>
-<span class="popup">
 <?php echo _("Do you really want to delete this album?") ?>
 <br>
 <b><?php echo $gallery->album->fields["title"] ?></b>
 <p>
 <?php echo makeFormIntro("delete_album.php"); ?>
 <input type="submit" name="delete" value="<?php echo _("Delete") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 <p>
 <?php
@@ -77,6 +76,5 @@ if ($gallery->album) {
 }
 ?>
 
-</span>
 </body>
 </html>

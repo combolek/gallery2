@@ -247,19 +247,15 @@ class Gallery_UserDB extends Abstract_UserDB {
 	function validNewUsername($username) {
 
 		if (strlen($username) < 2) {
-			return sprintf(_("Illegal username %s: must at least 2 characters"),
-					"<i>" . $username . "</i>");
+			return _("Username must be at least 2 characters") ;
 		}
 
 		if (strlen($username) > 15) {
-			return sprintf(_("Illegal username %s: must at most 15 characters"),
-					"<i>" . $username . "</i>");
+			return _("Username must be at most 15 characters") ;
 		}
 
 		if (ereg("[^[:alnum:]]", $username)) {
-
-			return sprintf(_("Illegal username %s: must contain only letters or digits"),
-					"<i>" . $username . "</i>");
+			return _("Username must contain only letters or digits") ;
 		}
 
 		if (!strcmp($username, $this->nobody->getUsername()) ||
@@ -308,15 +304,11 @@ class Gallery_UserDB extends Abstract_UserDB {
 		$everybody = $this->everybody->getUsername();
 		$loggedin = $this->loggedIn->getUsername();
 		processingMsg("");
-		$count=1;
-		$total=sizeof($this->getUidList());
 		foreach ($this->getUidList() as $uid) {
-			processingMsg (sprintf(_("Checking user %d of %d . . . . "), $count++, $total));
 			$user=$this->getUserByUid($uid);
 			if ($user->username == $nobody ||
 			    $user->username == $everybody ||
 			    $user->username == $loggedin) {
-				print _("skipped");
 				continue;
 			}
 			if (!$user->integrityCheck()) {
@@ -332,44 +324,6 @@ class Gallery_UserDB extends Abstract_UserDB {
 
 		return $success;
 	}
-
-	function CreateUser($uname, $email, $new_password, 
-			$fullname, $canCreate, $language, $log) {
-		global $gErrors;
-	       	$errorCount=0;
-	       	$gErrors=array();
-	       	$gErrors["uname"] = $this->validNewUserName($uname);
-	       	if ($gErrors["uname"]) {
-		       	$errorCount++;
-	       	} else {
-		       	$gErrors["new_password"] = $this->validPassword($new_password);
-		       	if ($gErrors["new_password"]) {
-			       	$errorCount++;
-		       	}
-	       	}
-
-		if (!$errorCount) {
-		       	$tmpUser = new Gallery_User();
-		       	$tmpUser->setUsername($uname);
-		       	$tmpUser->setPassword($new_password);
-		       	$tmpUser->setFullname($fullname);
-		       	$tmpUser->setCanCreateAlbums($canCreate);
-		       	$tmpUser->setEmail($email);
-		       	$tmpUser->setDefaultLanguage($language);
-			$tmpUser->origEmail=$email;
-		       	$tmpUser->log($log);
-		       	$tmpUser->save();
-		       	return true;
-	       	} else { 
-			processingMsg( "<b>" . sprintf(_("Problem adding %s:"), $uname)."</b>");
-		       	foreach ($gErrors as $key_var => $value_var)
-		       	{
-			       	print "<br>";
-			       	errorRow($key_var);
-		       	}
-		       	return false;
-	       	}
-       	}
 }
 
 ?>

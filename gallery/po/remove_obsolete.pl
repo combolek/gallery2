@@ -7,7 +7,7 @@ my @files = glob("*");
 my $curr_file;
 foreach $curr_file (@files)
 {
-  if ($curr_file =~ /^(.{2}_.{2})(\..+)?\-gallery_.+\.po$/)
+  if ($curr_file =~ /^(.{2}_.{2})(\..+)?\-gallery\.po$/)
   {
     print "processing : $curr_file \n";
     my @lines;

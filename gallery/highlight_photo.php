@@ -45,7 +45,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
   <title><?php echo _("Highlight Photo") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <?php
 if ($gallery->session->albumName && isset($index)) {
@@ -58,7 +58,6 @@ if ($gallery->session->albumName && isset($index)) {
 ?>
 
 <center>
-<span class="popup">
 <?php echo _("Do you want this photo to be the one that shows up on the gallery page, representing this album?") ?>
 <br>
 <br>
@@ -68,9 +67,9 @@ if ($gallery->session->albumName && isset($index)) {
 <?php echo $gallery->album->getCaption($index) ?>
 <br>
 <?php echo makeFormIntro("highlight_photo.php"); ?>
-<input type="hidden" name="index" value="<?php echo $index ?>">
-<input type="submit" name="confirm" value="<?php echo _("Yes") ?>">
-<input type="button" name ="no" value="<?php echo _("No") ?>" onclick='parent.close()'>
+<input type=hidden name=index value=<?php echo $index ?>>
+<input type=submit name=confirm value="<?php echo _("Yes") ?>">
+<input type="button" name="no" value="<?php echo _("No") ?>" onclick="parent.close()">
 </form>
 
 <?php
@@ -80,7 +79,6 @@ if ($gallery->session->albumName && isset($index)) {
 }
 ?>
 
-</span>
 </body>
 </html>
 

@@ -37,13 +37,12 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
 if (!$gallery->user->isAdmin()) {
 	exit;	
 }
-$errorCount=0;
+
 if (isset($save)) {
 	if (strcmp($old_uname, $uname)) {
 		$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 		if ($gErrors["uname"]) {
 			$errorCount++;
-			$uname=$old_uname;
 		}
 	}
 
@@ -79,6 +78,7 @@ if (isset($save)) {
 			$tmpUser->setPassword($new_password1);
 		}
 		$tmpUser->save();
+
 		if (!strcmp($old_uname, $gallery->session->username)) {
 			$gallery->session->username = $uname;
 		}
@@ -96,29 +96,16 @@ if (!$tmpUser) {
 }
 
 if ($tmpUser->isAdmin()) {
-	$allowChange["create_albums"] = false;
-} else {
-	$allowChange["create_albums"] = true;
+	$dontChange["create-albums"] = 1;
 }
 
 if (!strcmp($tmpUser->getUsername(), $gallery->user->getUsername())) {
-	$allowChange["admin"] = true;
+	$dontChange["admin"] = 1;
 }
 
 $fullname = $tmpUser->getFullname();
 $email = $tmpUser->getEmail();
 $defaultLanguage = $tmpUser->getDefaultLanguage();
-
-$allowChange["uname"] = true;
-$allowChange["email"] = true;
-$allowChange["password"] = true;
-$allowChange["fullname"] = true;
-$allowChange["admin"] = true;
-$allowChange["default_language"] = true;
-$allowChange["send_email"] = false;
-$allowChange["old_password"] = false;
-$allowChange["old_password"] = false;
-$allowChange["member_file"] = false;
 
 $canCreateChoices = array(1 => _("yes"), 0 => _("no"));
 $canCreate = $tmpUser->canCreateAlbums() ? 1 : 0;
@@ -132,13 +119,12 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
   <title><?php echo _("Modify User") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Modify User") ?></span>
 <br>
 <br>
-<span class="popup">
 <?php echo _("You can change any information about the user using this form.") ?>
 <p>
 
@@ -146,7 +132,7 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 				array("name" => "usermodify_form", 
 					"method" => "POST")); ?>
 
-<input type="hidden" name="old_uname" value="<?php echo $uname ?>">
+<input type=hidden name=old_uname value=<?php echo $uname ?>>
 
 <p>
 
@@ -158,13 +144,12 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--
 // position cursor in top form field
 document.usermodify_form.uname.focus();
 //--> 
 </script>
 
-</span>
 </body>
 </html>

@@ -41,19 +41,17 @@ if (!$gallery->version) { exit; }
   <title><?php echo _("Upgrading Users") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <center>
 <span class="title">
 <?php echo _("Upgrading Users") ?>
 </span>
 </center>
-<?php echo _("The user database in your gallery was created with an older version of the software and is out of date.") ?>  
+<?php echo _("The user database in your Gallery was created with an older version of the software and is out of date.") ?>  
 <?php echo _("This is not a problem!") ?>  
 <?php echo _("We will upgrade it.  This may take some time.") ?>  
 <?php echo _("Your data will not be harmed in any way by this process.") ?>  
-<?php echo _("Rest assured, that if this process takes a long time now, it's going to make your gallery run more efficiently in the future.") ?>  
-<p>
-<?php echo _("If you get an error, and only some users are upgraded, try refreshing the page to upgrade remaining users.") ?>  
+<?php echo _("Rest assured, that if this process takes a long time now, it's going to make your Gallery run more efficiently in the future.") ?>  
 <p>
 <?php processingMsg(_("Please Wait...")); ?>
 
@@ -73,8 +71,8 @@ else {
 
 	<center>
 	<form>
-	<input type="submit" value="<?php echo $button ?>" onclick='location.reload()'>
+	<input type=submit value="<?php echo $button ?>" onclick='location.reload()'>
 	</form>
 	</center>
-</body>
-</html>
+	</body>
+	</html>

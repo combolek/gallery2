@@ -55,7 +55,7 @@ if (isset($save)) {
 			if (get_magic_quotes_gpc()) {
 				$value=stripslashes($value);    
 			}
-			$gallery->album->setExtraField($index, $field, trim($value));
+			$gallery->album->setExtraField($index, $field, trim(strip_tags($value)));
 		}
 		$gallery->album->save();
 		dismissAndReload();
@@ -72,14 +72,14 @@ if (isset($save)) {
   <title><?php echo _("Edit Text") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 </center>
-<span class="popup">
+
 <table>
-<tr><td valign="top"><b><?php echo _("Caption") ?>:</b></td>
+<tr><td valign=top><b><?php echo _("Caption") ?>:</b></td>
 <?php echo makeFormIntro("edit_caption.php", 
 			array("name" => "theform", 
 				"method" => "POST")); ?>
@@ -113,7 +113,7 @@ foreach ($gallery->album->getExtraFields() as $field)
 <td><textarea name="keywords" rows=1 cols=40>
 <?php echo $gallery->album->getKeywords($index) ?>
 </textarea></td></tr>
-</span>
+
 </table>
 <?php
 // get the itemCaptureDate
@@ -130,15 +130,15 @@ $year = $itemCaptureDate["year"];
 ?>
 <table border=0>
   <tr>
-	<td colspan="6" align="center" class="popup"><?php echo _("Photo Capture Date") ?></td>
+	<td colspan="6" align="center"><?php echo _("Photo Capture Date") ?></td>
   </tr>
   <tr>
-    <td class="popup"><?php echo _("Month") ?></td>
-    <td class="popup"><?php echo _("Day") ?></td>
-    <td class="popup"><?php echo _("Year") ?></td>
-    <td class="popup"><?php echo _("Hours") ?></td>
-    <td class="popup"><?php echo _("Minutes") ?></td>
-    <td class="popup"><?php echo _("Seconds") ?></td>
+    <td><?php echo _("Month") ?></td>
+    <td><?php echo _("Day") ?></td>
+    <td><?php echo _("Year") ?></td>
+    <td><?php echo _("Hours") ?></td>
+    <td><?php echo _("Minutes") ?></td>
+    <td><?php echo _("Seconds") ?></td>
   </tr>
   <tr>
 <?php
@@ -171,12 +171,12 @@ echo "</td>";
 </table>
 <br><br>
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 
 
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.data.focus();

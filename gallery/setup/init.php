@@ -5,6 +5,7 @@
  * In v1.2, we know that we'll have lots and lots of warnings if
  * error reporting is turned all the way up.  We'll fix this in v2.0
  */
+//error_reporting(E_ALL);
 error_reporting(E_ALL & ~E_NOTICE);
 
 /* emulate part of register_globals = on */
@@ -15,7 +16,11 @@ extract($HTTP_COOKIE_VARS);
 if (getOS() == OS_WINDOWS) {
 	include("../platform/fs_win32.php");
 	if (fs_file_exists("SECURE")) {
-		echo _("Gallery is in secure mode and cannot be configured. If you want to configure it, you must run the <b>configure.bat</b> script in the gallery directory then reload this page.");
+?>
+Gallery is in secure mode and cannot be configured.
+If you want to configure it, you must run the <b>configure.bat</b>
+script in the gallery directory then reload this page.
+<?php
 		exit;
 	}
 } else {

@@ -46,7 +46,7 @@ if (!$gallery->user->canDeleteFromAlbum($gallery->album)
 	exit;
 }
 
-if (isset($confirm) && isset($id)) {
+if ($confirm && isset($id)) {
 	if ($albumDelete) {
 		/* Track down the corresponding photo index and remove it */
 		$index = 0;
@@ -76,7 +76,7 @@ if (isset($confirm) && isset($id)) {
   <title><?php echo _("Delete Photo") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 
 <?php
@@ -88,7 +88,6 @@ if ($gallery->album && isset($id)) {
 <span class="popuphead"><?php echo _("Delete Album") ?></span>
 <br>
 <br>
-<span class="popup">
 <?php echo _("Do you really want to delete this Album?") ?>
 <br>
 <br>
@@ -100,17 +99,17 @@ $myAlbum->load($id);
 <br>
 <br>
 <b>
-<?php echo $myAlbum->fields['title'] ?>
+<?php echo $myAlbum->fields[title] ?>
 </b>
 <br>
 <br>
-<?php echo $myAlbum->fields['description'] ?>
+<?php echo $myAlbum->fields[description] ?>
 <br>
 <?php echo makeFormIntro("delete_photo.php"); ?>
-<input type="hidden" name="id" value="<?php echo $id ?>">
-<input type="hidden" name="albumDelete" value=<?php echo $albumDelete ?>>
-<input type="submit" name="confirm" value="<?php echo _("Delete") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=hidden name=id value=<?php echo $id ?>>
+<input type=hidden name=albumDelete value=<?php echo $albumDelete ?>>
+<input type=submit name=confirm value="<?php echo _("Delete") ?>">
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 <br>
 
@@ -127,10 +126,10 @@ $myAlbum->load($id);
 <?php echo $gallery->album->getCaption($index) ?>
 <br>
 <?php echo makeFormIntro("delete_photo.php"); ?>
-<input type="hidden" name="id" value="<?php echo $id?>">
-<input type="hidden" name="id2" value="<?php echo $id2 ?>">    
-<input type="submit" name="confirm" value="<?php echo _("Delete") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=hidden name=id value=<?php echo $id?>>
+<input type=hidden name=id2 value=<?php echo $id2 ?>>    
+<input type=submit name=confirm value="<?php echo _("Delete") ?>">
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 <br>
 
@@ -141,6 +140,5 @@ $myAlbum->load($id);
 }
 ?>
 
-</span>
 </body>
 </html>

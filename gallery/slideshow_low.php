@@ -19,22 +19,6 @@
  *
  * $Id$
  */
-
-/*
- * DEVELOPERS.  PLEASE READ!!!
- *
- *    If you are changing any Javascript in this file please be very
- *    careful.  This is designed to work with the oldest, bodgiest
- *    browsers, so try not to introduce any new functions.  It's better
- *    to have reduced functionality here than have it broken on some
- *    browsers.  If you MUST add new JS, research it thoroughly to make
- *    sure it should work with ancient browsers, but better to only 
- *    change the JS to fix bugs.
- *
- *       Thanks
- */
-
-
 ?>
 <?php
 // Hack prevention.
@@ -44,11 +28,12 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 	print _("Security violation") ."\n";
         exit;
 }
-
-if (!isset($GALLERY_BASEDIR)) {
-       	$GALLERY_BASEDIR = './';
+?>
+<?php if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
 }
-require($GALLERY_BASEDIR . 'init.php'); 
+require($GALLERY_BASEDIR . 'init.php'); ?>
+<?php
 // Hack check
  
 if ($gallery->session->albumName == "") {
@@ -72,19 +57,19 @@ $defaultPause = 3;
 $defaultFull = 0;
 $defaultDir = 1;
 
-if (!isset($slide_index)) {
+if (!$slide_index) {
     $slide_index = 1;
 }
-if (!isset($slide_pause)) {
+if (!$slide_pause) {
     $slide_pause = $defaultPause;
 }
-if (!isset($slide_loop)) {
+if (!$slide_loop) {
     $slide_loop = $defaultLoop;
 }
-if (!isset($slide_full)) {
+if (!$slide_full) {
     $slide_full = $defaultFull;
 }
-if (!isset($slide_dir)) {
+if (!$slide_dir) {
     $slide_dir = $defaultDir;
 }
 
@@ -93,7 +78,6 @@ if ($slide_full && !$gallery->user->canViewFullImages($gallery->album)) {
 }
 
 function makeSlideLowUrl($index, $loop, $pause, $full, $dir) {
-	global $gallery;
 
     return makeGalleryUrl('slideshow_low.php',
 	array('set_albumName' => $gallery->session->albumName,
@@ -111,6 +95,71 @@ if (!strcmp($borderwidth, "off")) {
 }
 $bgcolor = $gallery->album->fields['bgcolor'];
 $title = $gallery->album->fields["title"];
+
+define(PHOTO_URL,         1 << 0);
+define(PHOTO_CAPTION,     1 << 1);
+define(PHOTO_URL_AS_HREF, 1 << 2);
+define(PHOTO_ALL    ,     (1<<16)-1);      // all bits set
+
+function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
+    global $gallery;
+    
+    $numPhotos = $gallery->album->numPhotos(1);
+    $numDisplayed = 0; 
+
+    // Find the correct starting point, accounting for hidden photos
+    $index = getNextPhoto(0);
+    $photo_count = 0;
+    while ($numDisplayed < $numPhotos) {
+	if ($index > $numPhotos) {
+	    /*
+	     * We went past the end -- this can happen if the last element is
+	     * an album that we can't read.
+	     */
+	    break;
+	}
+    
+	$photo = $gallery->album->getPhoto($index);
+	$numDisplayed++;
+
+	// Skip movies and nested albums
+	if ($photo->isMovie() || $photo->isAlbumName) {
+	    $index = getNextPhoto($index);
+	    continue;
+	}
+	
+	$photo_count++;
+
+	if ( ($what & PHOTO_URL) != 0 ) {
+	    $photoURL = $gallery->album->getPhotoPath($index, $slide_full);
+	    print "photo_urls[$photo_count] = \"$photoURL\";\n";
+	}
+
+	if ( ($what & PHOTO_URL_AS_HREF) != 0 ) {
+	    $photoURL = $gallery->album->getPhotoPath($index, $slide_full);
+	    print "<a id=\"photo_urls_$photo_count\" href=\"$photoURL\"></a>\n";
+	}
+
+	if ( ($what & PHOTO_CAPTION) != 0 ) {
+	    // Now lets get the captions
+	    $caption = $gallery->album->getCaption($index);
+	    $caption .= $gallery->album->getCaptionName($index);
+	    $caption = str_replace("\"", " ", $caption);
+	    $caption = str_replace("\n", " ", $caption);
+	    $caption = str_replace("\r", " ", $caption);
+	    
+	    // Print out the entry for this image as Javascript
+	    print "photo_captions[$photo_count] = \"$caption\";\n";
+	}
+
+	// Go to the next photo
+	$index = getNextPhoto($index);
+	$photosLeft--;
+    }
+
+    return $photo_count;
+}
+
 ?>
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
@@ -131,7 +180,7 @@ if ($gallery->album->fields["linkcolor"]) {
 if ($gallery->album->fields["bgcolor"]) {
         echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
 }
-if (!empty($gallery->album->fields["background"])) {
+if ($gallery->album->fields["background"]) {
         echo "BODY { background-image:url(".$gallery->album->fields[background]."); } ";
 }
 if ($gallery->album->fields["textcolor"]) {
@@ -143,9 +192,20 @@ if ($gallery->album->fields["textcolor"]) {
   </style>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <?php } ?>
 <?php includeHtmlWrap("slideshow.header"); ?>
+
+<!-- Here are the URL of the images written down as links. This is to make
+     wget able to convert these links. It will not convert them, if they
+     are written inside JavaScript. JavaScript will then take the images
+     out of these links with "document.getElementById()". -->
+
+<?php 
+    echo "<a id=\"slideShowUrl\" href=\"".makeGalleryUrl('slideshow_low.php',
+							 array('set_albumName' => $gallery->session->albumName))."\"></a>\n\n";
+
+     printSlideshowPhotos($slide_full, PHOTO_URL_AS_HREF); ?>
 
 <script language="JavaScript">
 var timer; 
@@ -160,57 +220,7 @@ var photo_captions = new Array;
 var loop = <?php echo $slide_loop ?>;
 var full = <?php echo $slide_full ?>;
 var direction = <?php echo $slide_dir ?>;
-<?php
-
-$numPhotos = $gallery->album->numPhotos(1);
-$numDisplayed = 0; 
-
-// Find the correct starting point, accounting for hidden photos
-$index = getNextPhoto(0);
-$photo_count = 0;
-while ($numDisplayed < $numPhotos) { 
-    if ($index > $numPhotos) {
-	/*
-	 * We went past the end -- this can happen if the last element is an
-	 * album that we can't read.
-	 */
-	break;
-    }
-    $photo = $gallery->album->getPhoto($index);
-    $numDisplayed++;
-
-    // Skip movies and nested albums
-    if ($photo->isMovie() || $photo->isAlbumName) {
-	$index = getNextPhoto($index);
-	continue;
-    }
-
-    $photo_count++;
-
-    $image = $photo->image;
-    if ($photo->image->resizedName) {
-        $thumbImage = $photo->image->resizedName;
-    } else {
-        $thumbImage = $photo->image->name;
-    }
-    $photoURL = $gallery->album->getPhotoPath($index, $slide_full);
-
-    // Now lets get the captions
-    $caption = $gallery->album->getCaption($index);
-    $caption .= $gallery->album->getCaptionName($index);
-
-    $caption = str_replace("\"", " ", $caption);
-    $caption = str_replace("\n", " ", $caption);
-    $caption = str_replace("\r", " ", $caption);
-
-    // Print out the entry for this image as Javascript
-    print "photo_urls[$photo_count] = \"$photoURL\";\n";
-    print "photo_captions[$photo_count] = \"$caption\";\n";
-
-    // Go to the next photo
-    $index = getNextPhoto($index);
-}
-?>
+<?php $photo_count = printSlideshowPhotos($slide_full, PHOTO_CAPTION); ?>
 var photo_count = <?php echo $photo_count ?>; 
 
 function stop() {
@@ -253,9 +263,8 @@ function wait_for_current_photo() {
 	 * The current photo isn't loaded yet.  Set a short timer just to wait
 	 * until the current photo is loaded.
 	 */
-	 status = "<?php echo _("Picture is loading...") ?>(" + current_location + " <?php echo _("of") ?> " + photo_count +
-		 ").  <?php echo _("Please Wait...") ?>" ;
-
+	status = "<?php echo _("Picture is loading...") ?>(" + current_location + " <?php echo _("of") ?> " + photo_count + 
+		").  <?php echo _("Please Wait...") ?>" ;
 	clearTimeout(timer);
 	timer = setTimeout('wait_for_current_photo()', 500);
 	return 0;
@@ -267,8 +276,7 @@ function wait_for_current_photo() {
 
 function go_to_next_page() {
 
-    var slideShowUrl = "<?php echo makeGalleryUrl('slideshow_low.php',
-				array('set_albumName' => $gallery->session->albumName)); ?>";
+    var slideShowUrl = document.getElementById('slideShowUrl').href;
 
     document.location = slideShowUrl + "&slide_index=" + next_location + "&slide_full=" + full
 	+ "&slide_loop=" + loop + "&slide_pause=" + (timeout_value / 1000) 
@@ -301,13 +309,6 @@ function preload_next_photo() {
 	    stop();
 	}
     }
-    if (next_location < 1) {
-	next_location = photo_count;
-	if (!loop) {
-	    stop();
-	}
-    }
-    
     
     /* Preload the next photo */
     preload_photo(next_location);
@@ -335,7 +336,7 @@ function preload_photo(index) {
 	if (!images[index]) {
 	    images[index] = new Image;
 	    images[index].onLoad = preload_complete();
-	    images[index].src = photo_urls[index];
+	    images[index].src = document.getElementById("photo_urls_" + index).href;
 	    pics_loaded++;
 	}
     } 
@@ -345,7 +346,7 @@ function preload_photo(index) {
 
 <?php
 $imageDir = $gallery->app->photoAlbumURL."/images"; 
-$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"\">";
+$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
 ?>
 
 <form name="TopForm">
@@ -383,32 +384,35 @@ for ($i = count($breadtext) - 1; $i >= 0; $i--) {
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
 
-includeLayout('breadcrumb.inc');
+include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
 
 
 $adminbox["commands"] = "";
 $adminbox["text"] = _("Slide Show");
 $adminbox["bordercolor"] = $borderColor;
 $adminbox["top"] = true;
-includeLayout('adminbox.inc');
+include ($GALLERY_BASEDIR . "layout/adminbox.inc");
 
 ?>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
+    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+  </tr>
+  <tr>
+    <td height="25" width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
     <td width="5000" align="left" valign="middle">
     <span class=admin>
     &nbsp;<a href="#" onClick='stop(); return false;'>[<?php echo _("stop") ?>]</a>
     <a href="#" onClick='play(); return false;'>[<?php echo _("play") ?>]</a>
-
 <?php
 if ($gallery->user->canViewFullImages($gallery->album)) {
     if ($slide_full) {
-	    echo "<a href=\"" . makeSlideLowUrl($slide_index, $slide_loop, $slide_pause, 0, $slide_dir) 
-	   . "\">[". _("normal size") ."]</a>";
+	echo "<a href=\"" . makeSlideLowUrl($slide_index, $slide_loop, $slide_pause, 0, $slide_dir) 
+	    . "\">[". _("normal size") ."]</a>";
     } else {
 	echo "<a href=\"" . makeSlideLowUrl($slide_index, $slide_loop, $slide_pause, 1, $slide_dir)
-            . "\">[". _("full size") ."]</a>";
+	    . "\">[". _("full size") ."]</a>";
     }
 }
 ?>
@@ -418,29 +422,33 @@ if ($slide_dir == 1) {
 	. "\">[". _("reverse direction") ."]</a>";
 } else {
     echo "&nbsp;<a href=\"" . makeSlideLowUrl($slide_index, $slide_loop, $slide_pause, $slide_full, 1)
-        . "\">[". _("forward direction") ."]</a>";
+	. "\">[". _("forward direction") ."]</a>";
 }
 ?>
     &nbsp;&nbsp;||
     &nbsp;<?php echo _("Delay:") ?>
 <?php echo 
 drawSelect("time", array(1 => "1 ". _("second"),
-		       	2 => "2 ". _("seconds"),
-		       	3 => "3 ". _("seconds"),
-		       	4 => "4 ". _("seconds"),
-		       	5 => "5 ". _("seconds"),
-		       	10 => "10 ". _("seconds"),
-		       	15 => "15 ". _("seconds"),
-		       	30 => "30 ". _("seconds"),
-		       	45 => "45 ". _("seconds"),
-		       	60 => "60 ". _("seconds")),
-	       	$slide_pause, // default value
-	       	1, // select size
-	       	array('onchange' => 'reset_timer()', 'style' => 'font-size=10px;' ));
+                         2 => "2 ". _("seconds"),
+                         3 => "3 ". _("seconds"),
+                         4 => "4 ". _("seconds"),
+                         5 => "5 ". _("seconds"),
+                         10 => "10 ". _("seconds"),
+                         15 => "15 ". _("seconds"),
+                         30 => "30 ". _("seconds"),
+                         45 => "45 ". _("seconds"),
+                         60 => "60 ". _("seconds")),
+           $slide_pause, // default value
+           1, // select size
+           array('onchange' => 'reset_timer()', 'style' => 'font-size=10px;' ));
 ?>
     &nbsp;<?php echo _("Loop") ?>:<input type="checkbox" name="loopCheck" <?php echo ($slide_loop) ? "checked" : "" ?> onclick='toggleLoop();'>
     </span>
     </td>
+    <td width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
   </tr>
 </table>
 
@@ -458,7 +466,7 @@ if ($photo_count > 0) {
   <tr>
     <td bgcolor="<?php echo $borderColor ?>" width=<?php echo $borderwidth ?>><?php echo $pixelImage ?></td>
     <script language="JavaScript">
-    document.write("<td><img border=0 src="+photo_urls[<?php echo $slide_index ?>]+" name=slide></td>");
+    document.write("<td><img border=0 src="+document.getElementById("photo_urls_<?php echo $slide_index ?>").href+" name=slide></td>");
     </script>
     <td bgcolor="<?php echo $borderColor ?>" width=<?php echo $borderwidth ?>><?php echo $pixelImage ?></td>
   </tr>
@@ -470,7 +478,7 @@ if ($photo_count > 0) {
 
 <script language="Javascript">
 /* show the caption either in a nice div or an ugly form textarea */
-document.write("<div class='modcaption'>" + "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + photo_captions[<?php echo $slide_index ?>] + "</div>");
+document.write("<div class='desc'>" + "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + photo_captions[<?php echo $slide_index ?>] + "</div>");
 
 /* Load the first picture */
 preload_photo(<?php echo $slide_index ?>);
@@ -499,10 +507,9 @@ array("set_albumName" => $gallery->session->albumName)) ?>">[<?php echo _("back 
 </form>
 
 
-<?php
-includeLayout('ml_pulldown.inc');
+<?php 
+include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
 includeHtmlWrap("slideshow.footer"); ?>
-
 
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>

@@ -38,8 +38,7 @@ if (!$gallery->user->isLoggedIn()) {
 	exit;	
 }
 
-$errorCount=0;
-if ( isset($save)) {
+if (isset($save)) {
 	if (strcmp($gallery->user->getUsername(), $uname)) {
 		$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 		if ($gErrors["uname"]) {
@@ -47,13 +46,13 @@ if ( isset($save)) {
 		}
 	}
 
-	if (!empty($old_password) && !$gallery->user->isCorrectPassword($old_password)) {
+	if ($old_password && !$gallery->user->isCorrectPassword($old_password)) {
 		$gErrors["old_password"] = _("Incorrect password") ;
 		$errorCount++;
 	}
 
-	if (!empty($new_password1) || !empty($new_password2)) {
-		if (empty($old_password)) {
+	if ($new_password1 || $new_password2) {
+		if (!$old_password) {
 			$gErrors["old_password"] = _("You must provide your old password to change it.");
 			$errorCount++;
 		}
@@ -89,20 +88,11 @@ if ( isset($save)) {
 	}
 }
 
+$askForOldPassword = 1;
 $uname = $gallery->user->getUsername();
 $fullname = $gallery->user->getFullname();
 $email = $gallery->user->getEmail();
 $defaultLanguage = $gallery->user->getDefaultLanguage();
-
-$allowChange["uname"] = true;
-$allowChange["email"] = true;
-$allowChange["fullname"] = true;
-$allowChange["password"] = true;
-$allowChange["old_password"] = true;
-$allowChange["default_language"] = true;
-$allowChange["send_email"] = false;
-$allowChange["member_file"] = false;
-$allowChange["create_albums"] = false;
 
 ?>
 <html>
@@ -110,7 +100,7 @@ $allowChange["create_albums"] = false;
   <title><?php echo _("Change User Preferences") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Change User Preferences") ?></span>
@@ -123,10 +113,9 @@ $allowChange["create_albums"] = false;
 
 <p>
 
-<?php echo makeFormIntro("user_preferences.php", array(
-			"name" => "usermodify_form", 
-			"method" => "POST"));
-?>
+<?php echo makeFormIntro("user_preferences.php", 
+			array("name" => "usermodify_form", 
+				"method" => "POST")); ?>
 <p>
 
 <?php include($GALLERY_BASEDIR . "html/userData.inc"); ?>
@@ -136,7 +125,7 @@ $allowChange["create_albums"] = false;
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--
 // position cursor in top form field
 document.usermodify_form.uname.focus();

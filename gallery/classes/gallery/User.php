@@ -25,11 +25,6 @@ class Gallery_User extends Abstract_User {
 
 	var $defaultLanguage;
 	var $version;
-	var $recoverPassHash;
-	var $lastAction;
-	var $lastActionDate;
-	var $origEmail; 
-		// the email from original account creation.  Just incase user goes feral
 
 	function Gallery_User() {
 		global $gallery;
@@ -77,7 +72,6 @@ class Gallery_User extends Abstract_User {
 			$this->version == "0";
 		}
 		if (!strcmp($this->version, $gallery->user_version)) {
-			print _("up to date");
 			return true;
 		}
 
@@ -85,23 +79,11 @@ class Gallery_User extends Abstract_User {
 		{
 			$this->setDefaultLanguage("");
 		}
-		if ($this->version < 2) 
-		{
-			$this->genRecoverPasswordHash(true);
-		}
-		if ($this->version < 3) 
-		{
-			$this->lastAction=NULL;
-			$this->lastActionDate=time(0);
-			$this->origEmail=$this->email;
-		}
 		$this->version = $gallery->user_version;
 		if ($this->save()) {
-			$success=true;
-			print _("upgraded");
+			$success = true;
 		} else {
 			$success = false;
-			print _("failed");
 		}
 
 		return $success;
@@ -112,37 +94,6 @@ class Gallery_User extends Abstract_User {
 
 	function getDefaultLanguage() {
 		return $this->defaultLanguage;
-	}
-
-	function genRecoverPasswordHash($reset=false) {
-		if ($reset) {
-		       	$this->recoverPassHash = NULL;
-			return "";
-		}
-	       	$rec_pass_hash=substr(md5($this->password.
-					$this->uid.microtime()), 0, 5);
-		$this->recoverPassHash = md5($rec_pass_hash);
-	       	return str_replace("&amp;", "&", makeGalleryUrl('new_password.php', array('hash' => $rec_pass_hash, 'uname' => $this->getUsername())));
-	}
-
-	function checkRecoverPasswordHash($hash) {
-		if (md5($hash) == $this->recoverPassHash) {
-			return true;
-		}
-		return false;
-	}
-
-	function log($action) {
-		$valid_actions = array("register", "self_register", 
-				"bulk_register", "login", 
-				"new_password_request", "new_password_set");
-		if (!in_array($action, $valid_actions)) {
-			gallery_error(sprintf(_("Not a valid action: %s"), 
-						$action));
-			return;
-	       	}
-		$this->lastAction=$action;
-		$this->lastActionDate=time();
 	}
 }
 

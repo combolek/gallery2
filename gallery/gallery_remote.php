@@ -43,8 +43,8 @@ if (empty ($cmd)) {
 
 //---------------------------------------------------------
 //-- check version --
-if (strcmp($protocal_version, "1")) {
-	echo "Protocol out of Date. $protocal_version < 1.";
+if (strcmp($protocal_version, $gallery->remote_protocol_version)) {
+	echo "Protocol out of Date. $protocal_version < $gallery->remote_protocol_version."; 
 	exit;
 }
 
@@ -244,7 +244,18 @@ function process($file, $tag, $name, $setCaption="") {
 	    }
 
             $err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, array(), $gallery->user->getUid());
-            if ($err) {
+            if (!$err) {
+                /* resize the photo if needed */
+                if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
+                    $index = $gallery->album->numPhotos(1);
+                    $photo = $gallery->album->getPhoto($index);
+                    list($w, $h) = $photo->image->getRawDimensions();
+                    if ($w > $gallery->album->fields["resize_size"] ||
+                        $h > $gallery->album->fields["resize_size"]) {
+                        $gallery->album->resizePhoto($index, $gallery->album->fields["resize_size"]);
+                    }
+                }
+            } else {
                 $error = "$err";
             }
         } else {

@@ -45,7 +45,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
   <title><?php echo _("Move Album") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <?php
 /* Read the album list */
@@ -53,7 +53,7 @@ $albumDB = new AlbumDB(FALSE);
 
 if ($gallery->session->albumName && isset($index)) {
 
-	if (isset($newAlbum)) { // moving album to a nested location
+	if ($newAlbum) { // moving album to a nested location
 		if ($gallery->album->fields[name] != $newAlbum) {
 			$gallery->album->fields[parentAlbumName] = $newAlbum;
 			$gallery->album->save();
@@ -74,17 +74,10 @@ if ($gallery->session->albumName && isset($index)) {
 ?>
 
 <center>
-<span class="popup">
 <?php echo _("Select the new location of album") ?> <?php echo $gallery->album->fields["title"] ?>:
 
-<?php
-    echo '<br><br>'.
-         $gallery->album->getThumbnailTag($gallery->album->getHighlight()) .
-         '<br><br>';
-?>
-<?php if ($reorder) { // Reorder, intra-album move ?>
 <?php echo makeFormIntro("move_album.php", array("name" => "theform")); ?>
-<input type="hidden" name="index" value="<?php echo $index ?>">
+<input type=hidden name="index" value="<?php echo $index ?>">
 <select name="newIndex">
 <?php
 for ($i = 1; $i <= $numAlbums; $i++) {
@@ -92,23 +85,29 @@ for ($i = 1; $i <= $numAlbums; $i++) {
 	if ($i == $index) {
 		$sel = "selected";
 	} 
-	echo "<option value=\"$i\" $sel> $i</option>";
+	echo "<option value=$i $sel> $i</option>";
 }
 ?>
 </select>
 <input type="submit" name="move" value="<?php echo _("Move it!") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 
 <p>
 <?php
+if ($gallery->album->numPhotos(1)) {
+	echo $gallery->album->getThumbnailTag($gallery->album->getHighlight());
 }
-if (!$reorder) { // Reorder, trans-album move
 ?>
+<p>
+<br>
+<b><?php echo _("OR") ?></b>
+<br>
+<br>
 <?php echo _("Nest within another Album:") ?>
 <p>
 <?php echo makeFormIntro("move_album.php", array("name" => "move_to_album_form")); ?>
-<input type="hidden" name="index" value="<?php echo $index ?>">
+<input type=hidden name="index" value="<?php echo $index ?>">
 <select name="newAlbum">
 <?php
 printAlbumOptionList(0,1)  
@@ -117,23 +116,22 @@ printAlbumOptionList(0,1)
 <br>
 <br>
 <input type="submit" name="move" value="<?php echo _("Move to Album!") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 <?php
-} // End Reorder
 	}
 } else {
 	gallery_error(_("no album / index specified"));
 }
 ?>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.newIndex.focus();
 //-->
 </script>
 
-</span>
 </body>
 </html>
+

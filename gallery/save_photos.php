@@ -39,7 +39,7 @@ if (!$gallery->user->canAddToAlbum($gallery->album)) {
 	exit;
 }
 
-if (isset($userfile_name)) {
+if ($userfile_name) {
 	$file_count = 0;
 	foreach ($userfile_name as $file) {
 		if ($file) {
@@ -58,11 +58,9 @@ if (isset($userfile_name)) {
 <body dir="<?php echo $gallery->direction ?>" onLoad='opener.hideProgressAndReload();'>
 
 <?php
-$image_tags = array();
-if (!empty($urls)) {
+if ($urls) {
 ?>
-<span class="popuphead"><?php echo _("Fetching Urls...") ?></span>
-<span class="popup">
+<span class=title><?php echo _("Fetching Urls...") ?></span>
 <br>
 <?php
 	/* Process all urls first */
@@ -113,9 +111,6 @@ if (!empty($urls)) {
 
 			/* Parse URL for name and file type */
 			$url_stuff = parse_url($url);
-			if (!isset($url_stuff["path"])) { 
-				$url_stuff["path"]="";
-			}
 			$name = basename($url_stuff["path"]);
 
 		} else {
@@ -158,7 +153,7 @@ if (!empty($urls)) {
 		}
 
 		/* Make sure we delete this file when we're through... */
-		$temp_files[$file]=1;
+		$temp_files[$file]++;
 	
 		/* If this is an image or movie - add it to the processor array */
 		if (acceptableFormat($tag) || !strcmp($tag, "zip")) {
@@ -176,7 +171,7 @@ if (!empty($urls)) {
 			/* We'll need to add some stuff to relative links */
 			$base_url = $url_stuff["scheme"] . '://' . $url_stuff["host"];
 			$base_dir = '';
-			if (isset($url_stuff["port"])) {
+			if ($url_stuff["port"]) {
 			  $base_url .= ':' . $url_stuff["port"];
 			}
 	
@@ -197,8 +192,8 @@ if (!empty($urls)) {
 					    $contents, 
 					    $results)) {
 				set_time_limit($gallery->app->timeLimit);
-				$things[$results[2]]=1;
-				$contents = str_replace($results[0], "", $contents);
+				$things[$results[2]]++;
+				$contents = str_replace($results[2], "", $contents);
 			}
 
 			/* Add each unique link to an array we scan later */
@@ -233,21 +228,18 @@ if (!empty($urls)) {
 } /* if ($urls) */
 ?>
 
-</span>
+
 <br>
-<span class="popuphead"><?php echo _("Processing status...") ?></span>
+<span class=title><?php echo _("Processing status...") ?></span>
 <br>
 
 <?php
-while (isset($userfile) && sizeof($userfile)) {
+while (sizeof($userfile)) {
 	$name = array_shift($userfile_name);
 	$file = array_shift($userfile);
 	if (!empty($usercaption) && is_array($usercaption)) {
 	    $caption = removeTags(array_shift($usercaption));
 	}
-	if (!isset($caption)) {
-	       	$caption="";
-       	}
 	if (get_magic_quotes_gpc()) {
 		$caption=stripslashes($caption);    
 	}
@@ -270,7 +262,6 @@ if ($temp_files) {
 }
 ?>
 
-<span class="popup">
 <?php
 if (!$msgcount) {
 	print _("No images uploaded!");
@@ -278,7 +269,7 @@ if (!$msgcount) {
 ?>
 <center>
 <form>
-<input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
+<input type="button" name="dismiss" value="<?php echo _("Dismiss") ?>" onclick="parent.close()">
 </form>
 <?php
 /* Prompt for additional files if we found links in the HTML slurpage */
@@ -310,8 +301,8 @@ function invertCheck() {
 }
 // -->
 </script>
-</span>
-<p><span class="popup">
+
+<p><span class="fineprint">
 <a href="javascript:setCheck(1)"><?php echo _("Check All") ?></a>
 -
 <a href="javascript:setCheck(0)"><?php echo _("Clear All") ?></a>
@@ -319,7 +310,7 @@ function invertCheck() {
 <a href="javascript:invertCheck()"><?php echo _("Invert Selection") ?></a>
 </span></p>
 
-<table><tr><td class="popup">
+<table><tr><td>
 <?php echo makeFormIntro("save_photos.php", 
 		array("name" => $uploadUrlFormName, 
 			"method" => "POST")); ?>
@@ -335,7 +326,7 @@ function invertCheck() {
 <?php /* REVISIT - it'd be nice to have these functions get shoved
   into util.php at some time - maybe added functionality to the makeFormIntro? */ ?>
 
-<p><span class="popup">
+<p><span class="fineprint">
 <a href="javascript:setCheck(1)"><?php echo _("Check All") ?></a>
 -
 <a href="javascript:setCheck(0)"><?php echo _("Clear All") ?></a>
@@ -344,8 +335,8 @@ function invertCheck() {
 </span></p>
 
 <p>
-<input type="hidden" name="setCaption" value="<?php echo $setCaption ?>">
-<input type="button" value="<?php echo _("Add Files") ?>" onClick="opener.showProgress(); document.uploadurl_form.submit()">
+<input type=hidden name="setCaption" value="<?php echo $setCaption ?>">
+<input type=button value=<?php echo '"' . _("Add Files") . '"' ?> onClick="opener.showProgress(); document.uploadurl_form.submit()">
 </p>
 
 </form>

@@ -1,16 +1,11 @@
 <?php /* $Id$ */ ?>
-
 <?php
-
-require_once("../classes/User.php");
-require_once("../classes/gallery/User.php");
-require_once("../classes/NobodyUser.php");
-require_once("../classes/LoggedInUser.php");
-require_once("../classes/EverybodyUser.php");
-
+require("../classes/User.php");
+require("../classes/gallery/User.php");
+require("../classes/NobodyUser.php");
+require("../classes/LoggedInUser.php");
+require("../classes/EverybodyUser.php");
 require("../errors/configure_instructions.php");
-$start_string = "# BEGIN Gallery section";
-$end_string = "# END Gallery section.  Add User changes below this line";
 
 $outfile = "$GALLERY_DIR/config.php";
 @copy("gpl.txt", $outfile);
@@ -25,42 +20,12 @@ if ($fd = @fs_fopen($outfile, "a")) {
 	return;
 }
 
-
 /*
- * Read the .htaccess file
- */
-$htaccess = file("$GALLERY_DIR/.htaccess");
-$htaccess_save = array();
-$old_htaccess = true;
-$skipping = false;
-foreach ($htaccess as $line) {
-	if ($skipping && trim($line) == $end_string) {
-		$skipping = false;
-	} else if ($skipping) {
-		continue;
-	} else if (trim($line) == $start_string) {
-		$skipping = true;
-		$old_htaccess = false;
-	} else {
-		$htaccess_save[]=$line;
-	}
-}
-if ($old_htaccess) {
-	$htaccess_save=array();
-}
-/*
- * Begin the .htaccess file
+ * Empty out the .htaccess file
  */
 $outfile = "$GALLERY_DIR/.htaccess";
 if ($fd = @fs_fopen($outfile, "w")) {
-       	fwrite($fd, "$start_string\n");
-       	fwrite($fd, "# (Automatically generated.  Do no edit this section)\n");
-       	fwrite($fd, "# Note: still under development, so format may change.\n");
-       	fwrite($fd, "# If you edit this file, make a backup before runnng the Config. Wizard.\n\n");
-       	fclose($fd);
-} else {
-       	fail($outfile);	
-	return;
+	fclose($fd);
 }
 
 /*
@@ -71,10 +36,8 @@ if (isset($GALLERY_PHP_VALUE_OK)) {
 	$htaccess = file("php_value.template");
 	if ($fd = @fs_fopen($outfile, "a")) {
 		foreach ($htaccess as $line) {
-			if (!ereg('^#', $line)) {
-				eval("\$line = \"$line\";");
-				fwrite($fd, $line);
-			}
+			eval("\$line = \"$line\";");
+			fwrite($fd, $line);
 		}
 		fclose($fd);
 	} else {
@@ -90,10 +53,8 @@ if ($GALLERY_REWRITE_OK) {
 	$htaccess = file("mod_rewrite.template");
 	if ($fd = @fs_fopen($outfile, "a")) {
 		foreach ($htaccess as $line) {
-			if (!ereg('^#', $line)) {
-				eval("\$line = \"$line\";");
-				fwrite($fd, $line);
-			}
+			eval("\$line = \"$line\";");
+			fwrite($fd, $line);
 		}
 		fclose($fd);
 	} else {
@@ -102,81 +63,40 @@ if ($GALLERY_REWRITE_OK) {
 	}
 }
 
-/*
- * End the .htaccess file gallery section
- */
-$outfile = "$GALLERY_DIR/.htaccess";
-if ($fd = @fs_fopen($outfile, "a")) {
-       	fwrite($fd, "$end_string\n");
-       	fclose($fd);
-} else {
-       	fail($outfile);	
-	return;
-}
 
-/*
- * Write the preserved data back to the .htaccess file 
- */
-$outfile = "$GALLERY_DIR/.htaccess";
-if ($fd = @fs_fopen($outfile, "a")) {
-       	foreach ($htaccess_save as $line) {
-	       	fwrite($fd, $line);
-       	}
-       	fclose($fd);
-} else {
-       	fail($outfile);	
-	return;
-}
 /*
  * Don't require UserDB before we've written and included config.php or it will
  * have a cow when it tries to verify that the $gallery->app->userDir exists.
  */
 include("../config.php");
-include_once("../classes/UserDB.php");
-include_once("../classes/gallery/UserDB.php");
+include("../classes/UserDB.php");
+include("../classes/gallery/UserDB.php");
 
 $userDB = new Gallery_UserDB();
 $admin = $userDB->getOrCreateUser("admin");
+$admin->setPassword($editPassword);
+$admin->setIsAdmin(true);
+$admin->setFullName("Administrator");
+$admin->setCanCreateAlbums(true);
+$admin->save();
 
-if (strlen($editPassword[2]) > 0) {
-	$message=sprintf(_("The password for user %s was changed."), '<b>admin</b>');
-	$admin->setPassword($editPassword[2]);
-	
-	if (! $admin->isAdmin()) {
-		$message=sprintf(_("An account called %s has been created for you with the password you specified."),"<b>admin</b>");
-		$admin->setIsAdmin(true);
-		if (!$admin->getFullName()) {
-			$admin->setFullName("Administrator");
-		}
-		if (!$admin->getEmail() && isset($adminEmail)) {
-       			$admin->setEmail($adminEmail);
-		}
-		$admin->setCanCreateAlbums(true);
-	}
-	$admin->save();
-}
 ?>
 
 <title><?php echo _("Success!") ?></title>
 <center>
-<div style="width:600px;text-align:center">
-
-<div class="header"><?php echo _("Your configuration has been successfully saved!") ?></div>
-<?php
-if (isset($message)) {
-	echo '<div class="sitedesc">';
-	echo "\n\t$message";
-	echo "\n</div>";
-}
-?>
-<div class="sitedesc"><br><span style="font-size: 1.2em; color:red"><?php echo _("Note") ?>!</span>
-
+<table width=600><tr><td>
+<center>
+<font size=+2><?php echo _("Your configuration has been successfully saved!") ?></font>
+<p>
+<table cellspacing="1" cellpadding="4" border="1"><tr><td>
+<?php echo sprintf(_("An account called %s has been created for you with the password you specified."), '<i>admin</i>') ?>
+</td></tr></table>
+<p>
+<font size=+2 color=red><?php echo _("Note") ?>!</font>
 <br>
-<?php 
-	echo _("Don't forget to run this to make your Gallery secure!");
-	configure("secure");
-?>
-</div>
+<?php echo sprintf(_("Don't forget to run %s to make your Gallery secure!"),
+		configure("secure"))?>:
+</center>
 <br>
 <font size=+1>
 <?php echo _("Gallery won't run if it is not in secure mode") ?></font>.
@@ -186,14 +106,15 @@ if (isset($message)) {
 <p>
 <center>
 <font size=+2>
-<a href="../albums.php"><?php echo _("Enter the Gallery") ?></a>
+<a href=../albums.php><?php echo _("Enter the Gallery") ?></a>
 </font>
 
 <br><br><br><br>
 
-<img src="../skins/default/images/gallery-tag.png">
+<img src="../images/gallery-tag.png">
+</center>
 
-</div>
+</td></tr></table>
 
 <?php
 function fail($file) {

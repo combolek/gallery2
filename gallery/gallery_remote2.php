@@ -53,10 +53,10 @@ header("Content-type: text/plain");
 
 
 /*
- * Gallery remote protocol version 2.5
+ * Gallery remote protocol version 2.3
  */
 $GR_VER['MAJ'] = 2;
-$GR_VER['MIN'] = 6;
+$GR_VER['MIN'] = 3;
 
 
 /*
@@ -78,11 +78,10 @@ $GR_STAT['UNKNOWN_COMMAND']		= 301;
 $GR_STAT['NO_ADD_PERMISSION']	= 401;
 $GR_STAT['NO_FILENAME']			= 402;
 $GR_STAT['UPLOAD_PHOTO_FAIL']	= 403;
-$GR_STAT['NO_WRITE_PERMISSION']	= 404;
 
 $GR_STAT['NO_CREATE_ALBUM_PERMISSION']	= 501;
 $GR_STAT['CREATE_ALBUM_FAILED']			= 502;
-$GR_STAT['MOVE_ALBUM_FAILED']	= 503;
+
 
 /*
  * Check protocol version
@@ -136,13 +135,6 @@ check_proto_version( $response );
 //$response->setProperty( "debug_session_albumName", $gallery->session->albumName);
 $response->setProperty( "debug_album", $gallery->album->fields["name"]);
 
-if ($gallery->user) {
-	$response->setProperty( "debug_user", $gallery->user->getUsername());
-	$response->setProperty( "debug_user_type", get_class($gallery->user));
-} else {
-	$response->setProperty( "debug_user", "NO_USER");
-}
-
 // -- Handle request --
 
 if (!strcmp($cmd, "login")) {
@@ -155,6 +147,9 @@ if (!strcmp($cmd, "login")) {
 
 		if ($gallery->user->isLoggedIn()) {
 			// we're embedded and the user is authenticated
+
+			$response->setProperty( "debug_user", $gallery->user->getUsername());
+			$response->setProperty( "debug_user_type", get_class($gallery->user));
 
 			$response->setProperty( "server_version", $GR_VER['MAJ'].".".$GR_VER['MIN'] );
 			$response->setProperty( "status", $GR_STAT['SUCCESS'] );
@@ -194,7 +189,16 @@ if (!strcmp($cmd, "login")) {
 	//-- fetch-albums --
 
 	$albumDB = new AlbumDB(FALSE);
+
+		//$list = array();
+		foreach ($albumDB->albumList as $album) {
+			echo $album->fields[name];
+		}
+
+		//return $list;
+
     $mynumalbums = $albumDB->numAlbums($gallery->user);
+
 	$album_index = 0;
 
     // display all albums that the user can move album to
@@ -250,23 +254,13 @@ if (!strcmp($cmd, "login")) {
 		$response->setProperty( "status", $GR_STAT['NO_FILENAME'] );
 		$response->setProperty( "status_text", "Filename not specified." );
 	} else {
-		if(isset($auto_rotate)) {
-			if($auto_rotate == 'yes') {
-				$gallery->app->autorotate = 'yes';
-			} else {
-				$gallery->app->autorotate = 'no';
-			}
-		}
-		if(!empty($force_filename)) {
-			$name = $force_filename;
-		} else {
-			$name = $userfile_name;
-		}
-		$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $userfile_name);
+		$name = $userfile_name;
+		$file = $userfile;
+		$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $name);
 		$tag = strtolower($tag);
-	
+		
 		if ($name) {
-    		$error = processFile($userfile, $tag, $name, $caption);
+    		$error = processFile($userfile, $tag, $userfile_name, $caption);
 		}
 		
 		$gallery->album->save();
@@ -303,7 +297,6 @@ if (!strcmp($cmd, "login")) {
 
 	$response->setProperty( "status", $GR_STAT['SUCCESS'] );
 	$response->setProperty( "status_text", "Album properties retrieved successfully." );
-
 } else if (!strcmp($cmd, "new-album")) {
 	//---------------------------------------------------------
 	//-- new-album --
@@ -314,19 +307,14 @@ if (!strcmp($cmd, "login")) {
 	//}
 
 	// Hack check
-	if(isset($gallery->album)) {
-		$canAddAlbum = $gallery->user->canCreateSubAlbum($gallery->album);
-	} else {
-		$canAddAlbum = $gallery->user->canCreateAlbums();
-	}
-	if($canAddAlbum) {
+	if ( $gallery->user->canCreateAlbums()
+			&& $gallery->user->canCreateSubAlbum($gallery->album) ) {
 		// add the album
-		if ($returnVal = createNewAlbum( $gallery->session->albumName,
+		if (createNewAlbum( $gallery->session->albumName,
 				$newAlbumName, $newAlbumTitle, $newAlbumDesc )) {
 			// set status and message
 			$response->setProperty( "status", $GR_STAT['SUCCESS'] );
 			$response->setProperty( "status_text", "New album created successfully." );
-			$response->setProperty( "album_name", $returnVal );
 		} else {
 			// set status and message
 			$response->setProperty( "status", $GR_STAT['CREATE_ALBUM_FAILED'] );
@@ -335,81 +323,6 @@ if (!strcmp($cmd, "login")) {
 	} else {
 		$response->setProperty( "status", $GR_STAT['NO_CREATE_ALBUM_PERMISSION'] );
 		$response->setProperty( "status_text", "A new album could not be created because the user does not have permission to do so." );
-	}
-
-} else if (!strcmp($cmd, 'fetch-album-images')) {
-	//---------------------------------------------------------
-	//-- fetch-album-images --
-
-	$tmpURL = $gallery->app->albumDirURL;
-	$tmpImageNum = 0;
-	foreach($gallery->album->photos as $albumItemObj) {
-		if(empty($albumItemObj->isAlbumName)) { //Make sure this object is a picture, not an album
-			$tmpImageNum++;
-			$response->setProperty( 'image.name.'.$tmpImageNum, $albumItemObj->image->name.'.'.$albumItemObj->image->type );
-			$response->setProperty( 'image.raw_width.'.$tmpImageNum, $albumItemObj->image->raw_width );
-			$response->setProperty( 'image.raw_height.'.$tmpImageNum, $albumItemObj->image->raw_height );
-			$response->setProperty( 'image.resizedName.'.$tmpImageNum, $albumItemObj->image->resizedName.'.'.$albumItemObj->image->type );
-			$response->setProperty( 'image.raw_filesize.'.$tmpImageNum, $albumItemObj->getFileSize(1) );
-			$response->setProperty( 'image.caption.'.$tmpImageNum, $albumItemObj->caption );
-			if(count($albumItemObj->extraFields)) { //if there are extra fields for this image
-				foreach($albumItemObj->extraFields as $extraFieldKey => $extraFieldName) {
-					if(strlen($extraFieldName)) {
-						$response->setProperty( 'image.extrafield.'.$extraFieldKey.'.'.$tmpImageNum, $extraFieldName );
-					}
-				}
-			}
-			$response->setProperty( 'image.clicks.'.$tmpImageNum, $albumItemObj->clicks );
-			$response->setProperty( 'image.capturedate.year.'.$tmpImageNum, $albumItemObj->itemCaptureDate['year'] );
-			$response->setProperty( 'image.capturedate.mon.'.$tmpImageNum, $albumItemObj->itemCaptureDate['mon'] );
-			$response->setProperty( 'image.capturedate.mday.'.$tmpImageNum, $albumItemObj->itemCaptureDate['mday'] );
-			$response->setProperty( 'image.capturedate.hours.'.$tmpImageNum, $albumItemObj->itemCaptureDate['hours'] );
-			$response->setProperty( 'image.capturedate.minutes.'.$tmpImageNum, $albumItemObj->itemCaptureDate['minutes'] );
-			$response->setProperty( 'image.capturedate.seconds.'.$tmpImageNum, $albumItemObj->itemCaptureDate['seconds'] );
-		}
-	}
-	$response->setProperty( 'image_count', $tmpImageNum );
-	$response->setProperty( 'baseurl', $tmpURL.'/'.$gallery->session->albumName.'/' );
-
-	$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-	$response->setProperty( 'status_text', 'Fetch images successful.' );
-
-} else if (!strcmp($cmd, 'move-item')) {
-	//---------------------------------------------------------
-	//-- move-item --
-
-	// This is NOT complete, has not been tested and should NOT be used
-	if($gallery->user->canWriteToAlbum($gallery->album)) {
-		if(isset($set_destalbumName)) {
-			if($set_destalbumName == $gallery->session->albumName) {
-
-				$gallery->album->movePhoto($index,$newIndex-1);
-				$gallery->album->save();
-				$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-				$response->setProperty( 'status_text', 'Change image index successful.' );
-			}
-			$albumDB = new AlbumDB(FALSE);
-			$postAlbum = $albumDB->getAlbumbyName($set_destalbumName);
-			if ($gallery->album->fields['name'] != $postAlbum->fields['name']) { //if not moving to same album
-				
-			}
-			print_r($postAlbum);
-			echo "\n\n";
-			print_r($gallery);
-		} else {
-			if(!$gallery->album->isAlbumName($index)) { //make sure not moving an album
-		                $gallery->album->movePhoto($index, $newIndex-1);
-		                $gallery->album->save();
-				$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-				$response->setProperty( 'status_text', 'Change image index successful.' );
-			} else {
-				$response->setProperty( 'status', $GR_STAT['MOVE_ALBUM_FAILED'] );
-				$response->setProperty( 'status_text', 'Cannot move album index yet.' );
-			}
-		}
-	} else {
-		$response->setProperty( 'status', $GR_STAT['NO_WRITE_PERMISSION'] );
-		$response->setProperty( 'status_text', 'User does not have permission to write to album.' );
 	}
 } else {
 	// if the command hasn't been handled yet, we don't recognize it
@@ -576,16 +489,6 @@ function processFile($file, $tag, $name, $setCaption="") {
 				global $HTTP_POST_VARS;
 				//$fieldname = "extrafield_$field";
 				//echo "Looking for extra field $fieldname\n";
-
-				// The way it should be done now
-				$value = $HTTP_POST_VARS[("extrafield.".$field)];
-				//echo "Got extra field $field = $value\n";
-				if ($value) {
-					//echo "Setting field $field\n";
-					$myExtraFields[$field] = $value;
-				}
-
-				// Deprecated
 				$value = $HTTP_POST_VARS[("extrafield_".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
@@ -596,7 +499,18 @@ function processFile($file, $tag, $name, $setCaption="") {
 			//echo "Extra fields ". implode("/", array_keys($myExtraFields)) ." -- ". implode("/", array_values($myExtraFields)) ."\n";
 
 	        $err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $myExtraFields, $gallery->user->getUid());
-	        if ($err)  {
+	        if (!$err) {
+	            /* resize the photo if needed */
+	            if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
+	                $index = $gallery->album->numPhotos(1);
+	                $photo = $gallery->album->getPhoto($index);
+	                list($w, $h) = $photo->image->getRawDimensions();
+	                if ($w > $gallery->album->fields["resize_size"] ||
+	                    $h > $gallery->album->fields["resize_size"]) {
+	                    $gallery->album->resizePhoto($index, $gallery->album->fields["resize_size"]);
+	                }
+	            }
+	        } else {
 	        	$error = "$err";
 	        }
 	    } else {
@@ -620,7 +534,7 @@ function mark_and_sweep(&$albumDB) {
 }
 
 function sweep(&$albumDB, &$myAlbum) {
-	global $myMark;
+global $myMark;
 	// echo "sweep: ".$myMark[$myAlbum->fields["name"]]."\n";
 	if (! $myMark[$myAlbum->fields["name"]]) {
 		// echo "sweep: ".$myAlbum->fields["name"]." is not marked: marking\n";

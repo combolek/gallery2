@@ -45,15 +45,15 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
   <title><?php echo _("Rename Album") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
-<span class="popup">
+
 <?php
 /* Read the album list */
 $albumDB = new AlbumDB(FALSE);
 
-if (!empty($newName)) {
+if ($newName) {
 	$newName = str_replace("'", "", $newName);
 	$newName = str_replace("`", "", $newName);
 	$newName = strtr($newName, "\\/*?\"<>|& .+#", "-------------");
@@ -90,7 +90,7 @@ if (!empty($newName)) {
 			}
 		}
 		if ($useLoad == 1) {
-			dismissAndLoad(makeAlbumUrl($newName));
+			dismissAndLoad($newName);
 		}
 		else {
 			dismissAndReload();
@@ -113,21 +113,19 @@ if (!empty($newName)) {
 
 <br>
 <?php echo makeFormIntro("rename_album.php", array("name" => "theform")); ?>
-<input type="text" name="newName" value="<?php echo $newName?>">
-<input type="hidden" name="oldName" value="<?php echo $gallery->session->albumName?>">
-<input type="hidden" name="useLoad" value="<?php echo $useLoad?>">    
+<input type=text name="newName" value=<?php echo $newName?>>
+<input type=hidden name="oldName" value=<?php echo $gallery->session->albumName?>>
+<input type=hidden name="useLoad" value=<?php echo $useLoad?>>    
 <p>
 <input type="submit" name="rename" value="<?php echo _("Rename") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.newName.focus();
 //-->
 </script>
-
-</span>
 </body>
 </html>

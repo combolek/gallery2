@@ -47,13 +47,7 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 	 */
 	$GALLERY_MODULENAME = $name;
 	$GALLERY_BASEDIR = "modules/$GALLERY_MODULENAME/";
-	$GALLERY_EMBEDDED_INSIDE='nuke';
-
-	if (isset($GLOBALS['pnconfig']) && function_exists("authorised")) {
-		$GALLERY_EMBEDDED_INSIDE_TYPE = "postnuke"; 
-	} else {
-		$GALLERY_EMBEDDED_INSIDE_TYPE = "phpnuke"; 
-	}
+	$GALLERY_EMBEDDED_INSIDE = "nuke";
 
 	if (!$include) {
 		$include = "albums.php";
@@ -75,7 +69,6 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 		       "albums.php",
 		       "block-random.php",
 		       "captionator.php",
-		       "copy_photo.php",
 		       "create_user.php",
 		       "delete_album.php",
 		       "delete_photo.php",
@@ -94,16 +87,11 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 		       "modify_user.php",
 		       "move_album.php",
 		       "move_photo.php",
-		       "multi_create_user.php",
 		       "photo_owner.php",
-		       "poll_properties.php",
-		       "poll_results.php",
 		       "progress_uploading.php",
 		       "publish_xp.php",
 		       "publish_xp_docs.php",
-		       "register.php",
 		       "rename_album.php",
-		       "reset_votes.php",
 		       "resize_photo.php",
 		       "rotate_photo.php",
 		       "save_photos.php",

@@ -54,9 +54,6 @@ if (isset($save)) {
 	} else {
 		$error_text = _("Name and comment are both required to save a new comment!");
 	}
-} else {
-	$comment_text='';
-	$commenter_name='';
 }
 ?>
 <html>
@@ -64,45 +61,40 @@ if (isset($save)) {
   <title><?php echo _("Add Comment") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
-<span class="popuphead">
 <?php echo _("Enter your comment for this picture in the text box below.") ?>
 <br><br>
-</span>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 <?php
-if (isset($error_text)) {
+if ($error_text) {
 ?>
 <br><br>
-<span class="error"><?php echo $error_text ?></span>
+<span class=error><?php echo $error_text ?></span>
 <br><br>
 <?php
 }
 ?>
 
-<?php echo makeFormIntro("add_comment.php", array(
-	"name" => "theform", 
-	"method" => "POST")); 
-?>
-<input type="hidden" name="index" value="<?php echo $index ?>">
+<?php echo makeFormIntro("add_comment.php", array("name" => "theform", "method" => "POST")); ?>
+<input type=hidden name="index" value="<?php echo $index ?>">
 <table border=0 cellpadding=5>
 <tr>
-  <td class="popup"><?php echo _("Name or email:") ?></td>
-  <td><input name="commenter_name" value="<?php echo $commenter_name ?>" size="30"></td>
+  <td><?php echo _("Name or email:") ?></td>
+  <td><input name="commenter_name" value="<?php echo $commenter_name ?>" size=30></td>
 </tr>
 <tr>
-  <td colspan=2><textarea name="comment_text" rows="5" cols="40"><?php echo $comment_text ?></textarea></td>
+  <td colspan=2><textarea name="comment_text" rows=5 cols=40><?php echo $comment_text ?></textarea></td>
 </tr>
 </table>
 <br>
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
-<input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=button value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.commenter_name.focus();

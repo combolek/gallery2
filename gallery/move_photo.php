@@ -47,8 +47,8 @@ $albumDB = new AlbumDB(FALSE); // read album database
   <title><?php echo _("Move Photo") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
-<span class="popup">
+<body dir=<?php echo $gallery->direction ?>>
+
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -58,19 +58,17 @@ if ($gallery->session->albumName && isset($index)) {
 	// and resized images already exist in the original directory, but the current method is an easy
 	// way to make sure all thumbnails and resized images are the correct size.
 
-        if (isset($newAlbum)) {	// we are moving from one album to another
+        if ($newAlbum) {	// we are moving from one album to another
             	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
-	       	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
-		       	$votes_transferable=
-			       	$gallery->album->pollsCompatible($postAlbum);
-			$vote_id=$gallery->album->getVotingIdByIndex($index);
+	    	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
+			//$startPhoto=$index;
+			//$endPhoto=$startPhoto+max($numPhotosToMove,1);
 
-		       	if (isset($gallery->album->fields["votes"][$vote_id]) && 
-					$votes_transferable) {
-			       	$votes=$gallery->album->fields["votes"][$vote_id];
-		       	} else {
-			       	$votes=NULL;
-		       	}
+			//if ($startPhoto > $endPhoto) { // the end photo value needs to be greater than the start value
+			//	dismissAndReload();
+			//	return;
+			//}
+			
 			if ($gallery->album->isAlbumName($index)) { // moving "album" to another location
 				if ($newAlbum == "ROOT") { // moving "album" to ROOT location
 					$myAlbum = $gallery->album->getNestedAlbum($index);
@@ -82,9 +80,6 @@ if ($gallery->session->albumName && isset($index)) {
 					$myAlbum = $gallery->album->getNestedAlbum($index);
 					if ($postAlbum != $myAlbum) { // we don't ever want to point an album back at itself!!!
 						$postAlbum->addNestedAlbum($gallery->album->isAlbumName($index)); // copy "album" to new album
-						if ($votes) {
-							$postAlbum->fields["votes"]["album.".$myAlbum->fields["name"]]=$votes;
-						}
 						$myAlbum->fields[parentAlbumName] = $postAlbum->fields[name];
 
 						// delete "album" from original album
@@ -96,7 +91,6 @@ if ($gallery->session->albumName && isset($index)) {
 				}
 			} else { // moving "picture" to another album
 				$index = $startPhoto; // set the index to the first photo that we are moving.	
-
 				while ($startPhoto <= $endPhoto) {
 					if (!$gallery->album->isAlbumName($index)) {
 					        set_time_limit($gallery->app->timeLimit);
@@ -109,6 +103,11 @@ if ($gallery->session->albumName && isset($index)) {
 						$mytype=$myphoto->image->type;
 						$myfile="$mydir/$myname.$mytype";
 						$myhidden=$myphoto->isHidden();
+						//print "mydir=".$mydir."<br>";
+						//print "myphoto=".$myphoto."<br>";
+						//print "myname=".$myname."<br>";
+						//print "mytype=".$mytype."<br>";
+						//print "myfile=".$myfile."<br>";
 						if (($postAlbum->fields["thumb_size"] == $gallery->album->fields["thumb_size"]) &&
 						    (!$myphoto->isMovie())) {
 							$pathToThumb="$mydir/$myname.thumb.$mytype";
@@ -119,14 +118,7 @@ if ($gallery->session->albumName && isset($index)) {
 						}
 						$photo=$gallery->album->getPhoto($index);
 
-						$id=$gallery->album->getPhotoId($index);
-
-
-						$err = $postAlbum->addPhoto($myfile, $mytype, $myname, 
-								$gallery->album->getCaption($index), 
-								$pathToThumb, $photo->extraFields, 
-								$gallery->album->getItemOwner($index),
-								$votes);
+						$err = $postAlbum->addPhoto($myfile, $mytype, $myname, $gallery->album->getCaption($index), $pathToThumb, $photo->extraFields, $gallery->album->getItemOwner($index));
 						if (!$err) {
 							$newPhotoIndex = $postAlbum->numPhotos(1);
 
@@ -144,6 +136,29 @@ if ($gallery->session->albumName && isset($index)) {
 							}
 							$postAlbum->setPhoto($newphoto,$newPhotoIndex);
 
+							/* resize the photo if needed */
+							if ($postAlbum->fields["resize_size"] != 'off') {
+								if ($postAlbum->fields["resize_size"] > 0  || $postAlbum->fields["resize_file_size"] > 0) {
+									$photo = $postAlbum->getPhoto($newPhotoIndex);
+									list($w, $h) = $photo->image->getRawDimensions();
+									$size = ($photo->image->rawFilesize($postAlbum->getAlbumDir()) / 1000);
+									if ($w > $postAlbum->fields["resize_size"] ||
+										$h > $postAlbum->fields["resize_size"] ||
+										$size > $postAlbum->fields["resize_file_size"]) {
+										if (($postAlbum->fields["resize_size"] == $gallery->album->fields["resize_size"]) &&
+											($postAlbum->fields["resize_file_size"] == $gallery->album->fields["resize_file_size"]) &&
+											($myresized)) {
+											$pathToResized="$mydir/$myresized.$mytype";
+										} else {
+											$pathToResized="";
+											echo "- " . _("Resizing photo") ."<br>";
+											my_flush();
+										}
+										$postAlbum->resizePhoto($newPhotoIndex, $postAlbum->fields["resize_size"], $postAlbum->fields["resize_file_size"], $pathToResized);
+									}
+								}
+							}
+							
 							$postAlbum->save();
 							if ($startPhoto == $endPhoto) {
 								if (!$gallery->album->hasHighlight()) {
@@ -169,10 +184,6 @@ if ($gallery->session->albumName && isset($index)) {
 					$startPhoto++;
 	    			} //end while
 			} //end else
-		       	if ($votes) {
-			       	unset($gallery->album->fields["votes"][$vote_id]);
-				$gallery->album->save();
-		       	}
 		} //end if ($gallery->album != $postAlbum)
 		dismissAndReload();
 		return;
@@ -188,8 +199,6 @@ if ($gallery->session->albumName && isset($index)) {
 
 <center>
 <?php
-echo '<br>'. $gallery->album->getThumbnailTag($index) .'<br><br>';
-if ($reorder ) { // Reorder, intra-album move
 if ($gallery->album->isAlbumName($index)) {
 ?>
 <?php echo _("Move this album within the album:") ?><br>
@@ -198,6 +207,7 @@ if ($gallery->album->isAlbumName($index)) {
 <?php } ?>
 <i>(<?php echo sprintf(_("Current Location is %s"), $index) ?>)</i>
 <p>
+<?php echo $gallery->album->getThumbnailTag($index) ?>
 <p>
 <?php echo makeFormIntro("move_photo.php", array("name" => "theform")); ?>
 <?php echo _("Select the new location:") ?> 
@@ -215,15 +225,21 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 ?>
 </select>
 <p>
-<input type="submit" value=<?php echo '"' . _("Move it!") . '"' ?>>
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type=submit value=<?php echo '"' . _("Move it!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
+<p>
+<hr size=1>
+<b><?php echo _("OR") ?></b>
+<hr size=1>
+
+
+
 
 <?php
-} else if (!$reorder) { // Don't reorder, trans-album move
 if ($gallery->album->isAlbumName($index)) {
 ?>
-<?php echo _("Move the album to a new album:") ?>
+<?php echo _("Move the album to a new album:") ?><br>
 <?php echo makeFormIntro("move_photo.php", array("name" => "move_to_album_form")); ?>
 <input type=hidden name="index" value="<?php echo $index ?>">
 <select name="newAlbum">
@@ -245,12 +261,12 @@ if ($gallery->album->isAlbumName($index)) {
 ?>
 <table>
 <tr>
-<td align="center"><b><?php echo _("First") ?></b></td>
-<td align="center"><b><?php echo _("Last") ?></b></td>
-<td align="center"><b><?php echo _("New Album") ?></b></td>
+<td align=center><b><?php echo _("First") ?></b></td>
+<td align=center><b><?php echo _("Last") ?></b></td>
+<td align=center><b><?php echo _("New Album") ?></b></td>
 </tr>
 <tr>
-<td align="center">
+<td align=center>
 <select name="startPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -258,12 +274,12 @@ for ($i = 1; $i <= $numPhotos; $i++) {
         if ($i == $index) {
                 $sel = "selected";
         }
-        echo "<option value=\"$i\" $sel> $i</option>";
+        echo "<option value=$i $sel> $i</option>";
 }
 ?>
 </select>
 </td>
-<td align="center">
+<td align=center>
 <select name="endPhoto">
 <?php
 for ($i = 1; $i <= $numPhotos; $i++) {
@@ -271,7 +287,7 @@ for ($i = 1; $i <= $numPhotos; $i++) {
         if ($i == $index) {
                 $sel = "selected";
         }
-        echo "<option value=\"$i\" $sel> $i</option>";
+        echo "<option value=$i $sel> $i</option>";
 }
 ?>
 </select>
@@ -287,26 +303,16 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 </table>
 <?php
 } // end else
-if (sizeof($gallery->album->fields["votes"])> 0) {
-	print "<br>";
-       	if ($gallery->album->fields["poll_type"] == "rank") {
-	       	echo "<font color=red>". _("Note: items that have votes will lose these votes when moved to another album") . "</font>"; // can't move rank votes, doesn't  make sense.
-      	} else {
-	       	echo "<font color=red>". sprintf(_("Note: items that have votes will lose these votes if moved to an album without compatible polling.  Compatible albums are marked with an &quot;%s&quot;."), "*") . "</font>";
-       	}
-}
-
 if (!$uptodate) {
-	print '<span class="error"> <br>' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>  ' .
-	'<a href="'. makeGalleryUrl("upgrade_album.php").'"><br>'. _("Upgrade now") . '</a>.<p>';
+	print '<span class="error"> <br>' . _("WARNING: Some of the albums need to be upgraded to the current version of gallery.") . '</span>  ' .
+	'<a href='. makeGalleryUrl("upgrade_album.php").'><br>'. _("Upgrade now") . '</a>.<p>';
 }
 ?>
-<br><br>
-<input type="submit" value="<?php echo _("Move to Album!") ?>">
-<input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<br>
+<input type=submit value=<?php echo '"' . _("Move to Album!") . '"' ?>>
+<input type=submit name="submit" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <?php
-} // end reorder    
 }
 } else {
 	gallery_error(_("no album / index specified"));
@@ -314,14 +320,12 @@ if (!$uptodate) {
 ?>
 </font>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.newIndex.focus();
 //-->
 </script>
-
-</span>
 </body>
 </html>
 

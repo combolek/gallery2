@@ -1,14 +1,12 @@
 <?php /* $Id$ */ ?>
 <?php 
-	$GALLERY_BASEDIR="../";
-	require($GALLERY_BASEDIR . 'util.php');
-	require($GALLERY_BASEDIR . 'setup/init.php'); 
-	require($GALLERY_BASEDIR . 'setup/functions.inc'); 
-	initLanguage();
+$GALLERY_BASEDIR="../";
+require($GALLERY_BASEDIR . "util.php");
+initLanguage();
 ?>
 
 <html>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <?php $app_name='ImageMagick' ?>
 
 <h1> <?php echo sprintf(_("Check %s"), $app_name) ?> </h1>
@@ -20,11 +18,12 @@ echo sprintf(_("You should run this script <b>after</b> you have run the config 
 <ol>
 
 <li> <?php echo _("Loading configuration files.  If you see an error here, it is probably because you have not successfully run the config wizard.") ?>
-<?php
 
+<?php
+require('./init.php'); 
 if (! file_exists("../config.php")) {
 	echo "<p style=\"color:red\">". _("It seems that you did not configure your GALLERY. Please run and finish the configuration wizard.") . "</p>";
-	echo returnToConfig();
+	echo sprintf(_("Return to the %sconfig wizard%s."), '<a href="../index.php">', '</a>');
 	echo "</body></html>";
 	exit;
 }
@@ -177,6 +176,16 @@ function checkImageMagick($cmd) {
         }
 	print "\n\n";
 }
+    
+function inOpenBasedir($dir) {
+    $openBasedir = ini_get('open_basedir');
+    if (empty($openBasedir)) {
+	return true;
+    }
+
+    return in_array($dir, explode(':', $openBasedir));
+}
+    
 ?>
 </pre>
 
@@ -190,7 +199,7 @@ echo sprintf(_("If you see an error above complaining about reading or writing t
 
 echo "  ";
 echo sprintf(_("You should talk to your system administrator about this, or see the %sGallery Help Page%s."),
-                '<a href="http://gallery.sourceforge.net/help.php">',
+                '<a href=http://gallery.sourceforge.net/help.php>',
                 '</a>');
 ?>
 <p>
@@ -200,7 +209,9 @@ echo sprintf(_("You should talk to your system administrator about this, or see 
 ?>
 </ol>
 
-<?php echo returnToConfig(); ?>
+<?php echo sprintf(_("Return to the %sconfig wizard%s."),
+		'<a href="index.php">', '</a>');
+?>
 
 </body>
 </html>

@@ -55,12 +55,8 @@ if (!$gallery->user->canAddToAlbum($gallery->album)) {
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <?php
-if (isset($userfile_name) && fs_file_exists($userfile)) { ?>
-<script language="Javascript">
-	opener.showProgress();
-</script>
-<?php
-	$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $userfile_name);
+if ($userfile_name) {
+        $tag = ereg_replace(".*\.([^\.]*)$", "\\1", $userfile_name);
         $tag = strtolower($tag); 
 	if (get_magic_quotes_gpc()) {
 		$caption=stripslashes($caption);    
@@ -77,36 +73,30 @@ if (isset($userfile_name) && fs_file_exists($userfile)) { ?>
 		    fs_unlink($tf);
 		}
 	}
-?>
-<p align="center">
-<form>
-	<input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
-</form>
-</p>
+	?>
+	<p><center><form>
+	<input type="button" value="<?php echo _("Dismiss") ?>" onclick="parent.close()">
+	</form></center>
+
 <script language="Javascript">
-	opener.hideProgressAndReload();
+<!--
+opener.hideProgressAndReload();
+-->
 </script>
 
 <?php
-	reload();
-
+reload();
 }
+
 else
 {
 ?>
 
-<p class="popuphead"><?php echo _("Add Photo") ?></p>
-<?php
-if (isset($userfile_name) && ! fs_file_exists($userfile)) {
-	echo "<p>" . gallery_error(sprintf(_("The file %s does not exist"),
-				"&quot;" . $userfile . "&quot;")) . "</p>";
-}
-// Note: file button is not labelled "Browse" in all browsers.  Eg Safari "Choose File"
 
-?>
+<span class="popuphead"><?php echo _("Add Photo") ?></span>
+<br>
 <span class="popup">
 <?php echo _("Click the <b>Browse</b> button to locate a photo to upload.") ?>
-</span>
 <span class="admin">
 <br>
 &nbsp;&nbsp;(<?php echo _("Supported file types") ?>: <?php echo join(", ", acceptableFormatList()) ?>)
@@ -146,11 +136,11 @@ foreach ($gallery->album->getExtraFields() as $field) {
 ?>
 
 </table>
-<input type="checkbox" name="setCaption" checked value="1"><?php echo _("Use filename as caption if no caption is specified.") ?>
+<input type=checkbox name=setCaption checked value="1"><?php echo _("Use filename as caption if no caption is specified.") ?>
 <br>
 <center>
-<input type="submit" value="<?php echo _("Upload Now") ?>">
-<input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" value="<?php echo _("Upload Now") ?>" onClick='opener.showProgress(); document.upload_form.submit()'>
+<input type="button" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </center>
 </form>
 <?php } ?>

@@ -1,10 +1,17 @@
 <?php /* $Id$ */ ?>
 <?php
-	$GALLERY_BASEDIR="../";
-	require($GALLERY_BASEDIR . 'util.php');
-	require($GALLERY_BASEDIR . 'setup/init.php');
-	require($GALLERY_BASEDIR . 'setup/functions.inc');
-	initLanguage();
+
+$GALLERY_BASEDIR="../";
+require($GALLERY_BASEDIR . "util.php");
+
+if (getOS() == OS_WINDOWS) {
+    include($GALLERY_BASEDIR . "platform/fs_win32.php");
+    if (fs_file_exists("SECURE")) {
+       print "You cannot access this file while gallery is in secure mode.";
+       exit;
+    }
+}
+initLanguage();
 
 // Pull the $destroy variable into the global namespace
 extract($HTTP_GET_VARS);
@@ -30,7 +37,7 @@ $count++;
     <head>
       <title><?php echo _("Gallery Session Test") ?></title>
     </head>
-    <body dir="<?php echo $gallery->direction ?>">
+    <body dir=<?php echo $gallery->direction ?>>
       <H1><?php echo _("Session Test") ?></H1>
 
 	<?php echo _("If sessions are configured properly in your PHP installation, then you should see a session id below.") ?>  
@@ -73,6 +80,7 @@ $count++;
 
       <a href="session_test.php?destroy=1"><?php echo _("Start over") ?></a>
       <p>
-      <?php echo returnToConfig(); ?>
+      <?php echo sprintf(_("Return to the %sDiagnostics Page%s"), 
+		      '<a href="diagnostics.php">', '</a>') ?>
     </body>
   </html>

@@ -97,7 +97,7 @@ if (isset($allUid) && strchr($submit_viewFullImages, ">")) {
 	$changed++;
 }
 
-if ( isset($save) && $ownerUid) {
+if (isset($save) && $ownerUid) {
 	$gallery->album->setOwner($ownerUid);
 	$changed++;
 }
@@ -151,12 +151,11 @@ correctPseudoUsers($uAdd, $ownerUid);
   <title><?php echo _("Album Permissions") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Album Permissions") ?></span>
 <br>
-<span class="popup">
 <?php echo sprintf(_("Changing permissions for %s"), '<b>'.$gallery->album->fields["title"] . '</b>');
 
 echo makeFormIntro("album_permissions.php", 
@@ -166,40 +165,40 @@ echo makeFormIntro("album_permissions.php",
 <?php echo _("Owner:") ?> <?php echo drawSelect("ownerUid", $uAll, $ownerUid, 1); ?>
 <?php } ?>
 
-<table border="0" cellspacing="0" cellpadding="0">
+<table border=0 cellspacing=0 cellpadding=0>
  <tr>
-  <td align="center">
+  <td align=center>
    <?php echo drawSelect("allUid", $uAll, $allUid, 28); ?>
   </td>
 
   <td> &nbsp; </td>
 
   <td valign=top>
-   <table border="0" cellspacing="3" cellpadding="0">
+   <table border=0 cellspacing=3 cellpadding=0>
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can see the album") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_read" value="-->">
-      <br> <input type="submit" name="submit_read" value="<--">
+           <input type=submit name="submit_read" value="-->">
+      <br> <input type=submit name="submit_read" value="<--">
      </td>
-     <td align="left">
+     <td align=left>
       <?php echo drawSelect("readUid", $uRead, $readUid, 3); ?>
      </td>
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can change album text.") ?>
      </td>
     </tr>
     <tr>
      <td>
-           <input type="submit" name="submit_text" value="-->">
-      <br> <input type="submit" name="submit_text" value="<--">
+           <input type=submit name="submit_text" value="-->">
+      <br> <input type=submit name="submit_text" value="<--">
      </td>
      <td>
       <?php echo drawSelect("textUid", $uText, $textUid, 3); ?>
@@ -207,14 +206,14 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can add photos.") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_add" value="-->">
-      <br> <input type="submit" name="submit_add" value="<--">
+           <input type=submit name="submit_add" value="-->">
+      <br> <input type=submit name="submit_add" value="<--">
      </td>
      <td>
       <?php echo drawSelect("addUid", $uAdd, $addUid, 3); ?>
@@ -222,14 +221,14 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
 	<?php echo _("Users who can modify photos.") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_write" value="-->">
-      <br> <input type="submit" name="submit_write" value="<--">
+           <input type=submit name="submit_write" value="-->">
+      <br> <input type=submit name="submit_write" value="<--">
      </td>
      <td>
       <?php echo drawSelect("writeUid", $uWrite, $writeUid, 3); ?>
@@ -237,14 +236,14 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
 	<?php echo _("Users who can delete photos.") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_delete" value="-->">
-      <br> <input type="submit" name="submit_delete" value="<--">
+           <input type=submit name="submit_delete" value="-->">
+      <br> <input type=submit name="submit_delete" value="<--">
      </td>
      <td>
       <?php echo drawSelect("deleteUid", $uDelete, $deleteUid, 3); ?>
@@ -252,14 +251,14 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
 	<?php echo _("Users who can create sub albums.") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_createSub" value="-->">
-      <br> <input type="submit" name="submit_createSub" value="<--">
+           <input type=submit name="submit_createSub" value="-->">
+      <br> <input type=submit name="submit_createSub" value="<--">
      </td>
      <td>
       <?php echo drawSelect("createSubUid", $uCreateSub, $createSubUid, 3); ?>
@@ -267,14 +266,14 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can view full (original) images.") ?>
      </td>
     </tr>
     <tr>
      <td>   
-           <input type="submit" name="submit_viewFullImages" value="-->">
-      <br> <input type="submit" name="submit_viewFullImages" value="<--">
+           <input type=submit name="submit_viewFullImages" value="-->">
+      <br> <input type=submit name="submit_viewFullImages" value="<--">
      </td>
      <td>
       <?php echo drawSelect("viewFullImagesUid", $uViewFullImages, $viewFullImagesUid, 3); ?>
@@ -287,9 +286,8 @@ echo makeFormIntro("album_permissions.php",
 </table>
 
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
-<input type="button" name="done" value="<?php echo _("Done") ?>" onclick='parent.close()'>
+<input type="button" name="done" value="<?php echo _("Done") ?>" onclick="parent.close()">
 </form>
 
-</span>
 </body>
 </html>

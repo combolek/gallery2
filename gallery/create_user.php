@@ -37,9 +37,7 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
 if (!$gallery->user->isAdmin()) {
 	exit;	
 }
-?>
-<?php
-$errorCount=0;
+
 if (isset($create)) {
 	$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 	if ($gErrors["uname"]) {
@@ -58,53 +56,22 @@ if (isset($create)) {
 	}
 
 	if (!$errorCount) {
-		?>
-	       	<html>
-		<head>
-		<title><?php echo _("Create User") ?></title>
-		<?php echo getStyleSheetLink() ?>
-		</head>
-		<body dir="<?php echo $gallery->direction ?>">
-		<center>
-		<?php
 		$tmpUser = new Gallery_User();
 		$tmpUser->setUsername($uname);
 		$tmpUser->setPassword($new_password1);
 		$tmpUser->setFullname($fullname);
 		$tmpUser->setCanCreateAlbums($canCreate);
 		$tmpUser->setEmail($email);
-		$tmpUser->origEmail=$email;
 		$tmpUser->setDefaultLanguage($defaultLanguage);
-		$tmpUser->log("register");
 		$tmpUser->save();
-		print sprintf(_("User %s created"), $uname) . "<br><br>";
-		if (isset($send_email)) {
-		       	$msg = ereg_replace("!!PASSWORD!!", $new_password1,
-				       	ereg_replace("!!USERNAME!!", $uname,
-					       	ereg_replace("!!FULLNAME!!", $fullname,
-						       	welcome_email())));
-		       	$msg .= "\r\n\r\n" . pretty_password($new_password1, false);
-		       	$logmsg = sprintf(_("%s has registered by %s.  Email has been sent to %s."),
-				       	$uname, $gallery->user->getUsername(), $email);
-		       	$logmsg2  = sprintf("%s has registered by %s.  Email has been sent to %s.",
-				       	$uname, $gallery->user->getUsername(), $email);
-		       	if ($logmsg != $logmsg2) {
-			       	$logmsg .= " <<<<>>>>> $logmsg2";
-		       	}
-
-			if (gallery_mail($email, _("Gallery Registration"),$msg, $logmsg)) {
-			       	print sprintf(_("Email sent to %s."), $email);
-			       	print "<br><br>";
-		       	}
-	       	} 
-		?>
-		<br><form><input type="submit" name="dismiss" value="<?php echo _("Dismiss") ?>"></form>
-		<?php
-		exit;
-       	}
-} else if (isset($cancel) || isset($dismiss)) {
+		header("Location: manage_users.php");
+	}
+} else if (!strcmp($submit, _("Cancel"))) {
 	header("Location: manage_users.php");
 }
+
+$canCreateChoices = array(1 => _("yes"), 0 => _("no"));
+$canCreate = 1;
 
 ?>
 <html>
@@ -112,37 +79,19 @@ if (isset($create)) {
   <title><?php echo _("Create User") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Create User") ?></span>
 <br>
 <br>
-
-<?php
-$canCreate = 1;
-$canCreateChoices = array(1 => _("yes"), 0 => _("no"));
-
-$allowChange["uname"] = true;
-$allowChange["email"] = true;
-$allowChange["password"] = true;
-$allowChange["old_password"] = false;
-$allowChange["fullname"] = true;
-$allowChange["send_email"] = true;
-$allowChange["create_albums"] = true;
-$allowChange["default_language"] = true;
-$allowChange["member_file"] = false;
-
-?>
-<span class="popup">
 <?php echo _("Create a new user here.") ?>
 <p>
 
 
-<?php echo makeFormIntro("create_user.php", array(
-				"name" => "usercreate_form", 
-				"method" => "POST"));
-?>
+<?php echo makeFormIntro("create_user.php", 
+			array("name" => "usercreate_form", 
+				"method" => "POST")); ?>
 <p>
 
 <?php include($GALLERY_BASEDIR . "html/userData.inc"); ?>
@@ -152,13 +101,12 @@ $allowChange["member_file"] = false;
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--
 // position cursor in top form field
 document.usercreate_form.uname.focus();
 //--> 
 </script>
 
-</span>
 </body>
 </html>
