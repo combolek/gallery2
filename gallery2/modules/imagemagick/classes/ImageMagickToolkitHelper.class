@@ -61,6 +61,9 @@ class ImageMagickToolkitHelper {
 	$operations['scale']['description'] = $gallery->i18n('Scale the image to the target size'); 
 	$operations['scale']['mimeTypes'] = $mimeTypes;
 
+	/* Thumbnail is an alias for scale */
+	$operations['thumbnail'] = $operations['scale'];
+
 	/* Resize */
 	$operations['resize']['params'][] = array('type' => 'int',
 						  'description' => $gallery->i18n('target width'), 

@@ -75,7 +75,7 @@ class ItemCreateResizesController extends GalleryController {
 		$thumbnail = $thumbTable[$item->getId()];
 
 		/* Change the thumbnail */
-		$thumbnail->setDerivativeOperations('scale|' . $form['thumbnail']['size']);
+		$thumbnail->setDerivativeOperations('thumbnail|' . $form['thumbnail']['size']);
 
 		if ($thumbnail->isModified()) {
 		    list ($ret, $lockId) = $gallery->acquireWriteLock($thumbnail->getId());
@@ -108,30 +108,42 @@ class ItemCreateResizesController extends GalleryController {
 		    }
 		}
 
-		/* Add the new resizes */
-		for ($i = 0; $i < sizeof($form['resizes']); $i++) {
-		    if (empty($form['resizes'][$i]['active'])) {
-			continue;
-		    }
+		/*
+		 * Make sure that we have a toolkit before adding back
+		 * the resizes
+		 */
+		list ($ret, $toolkit, $outputMimeType) =
+		    GalleryToolkitHelper::getToolkitByOperation($item->getMimeType(), 'scale');
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 
-		    list ($ret, $derivative) = 
+		if (isset($toolkit)) {
+		    /* Add the new resizes */
+		    for ($i = 0; $i < sizeof($form['resizes']); $i++) {
+			if (empty($form['resizes'][$i]['active'])) {
+			    continue;
+			}
+
+			list ($ret, $derivative) = 
 			    GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
-		    if ($ret->isError()) {
-			return array($ret->wrap(__FILE__, __LINE__), null);
-		    }
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
 
-		    $ret = $derivative->create($item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-		    if ($ret->isError()) {
-			return array($ret->wrap(__FILE__, __LINE__), null);
-		    }
+			$ret = $derivative->create($item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
 
-		    $derivative->setDerivativeMimeType($item->getMimeType());
-		    $derivative->setDerivativeSourceId($item->getId());
-		    $derivative->setDerivativeOperations('scale|' . $form['resizes'][$i]['size']);
+			$derivative->setDerivativeMimeType($outputMimeType);
+			$derivative->setDerivativeSourceId($item->getId());
+			$derivative->setDerivativeOperations('scale|' . $form['resizes'][$i]['size']);
 
-		    $ret = $derivative->save();
-		    if ($ret->isError()) {
-			return array($ret->wrap(__FILE__, __LINE__), null);
+			$ret = $derivative->save();
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
 		    }
 		}
 
@@ -242,7 +254,7 @@ class ItemCreateResizesView extends GalleryView {
 	    }
 	    if (!empty($thumbnails)) {
 		$thumbnail = $thumbnails[$item->getId()];
-		if (preg_match('/scale\|(\d+)/',
+		if (preg_match('/thumbnail\|(\d+)/',
 			       $thumbnail->getDerivativeOperations(),
 			       $matches)) {
 		    $size = $matches[1];

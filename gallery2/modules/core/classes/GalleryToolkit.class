@@ -27,11 +27,6 @@
  */
 
 /**
- * "Thumbnail" special operation
- */
-define('TOOLKIT_OPERATION_THUMBNAIL', 1);
-
-/**
  * A toolkit for manipulating files
  *
  * This class defines the API for file manipulation toolkits.  It's designed
@@ -107,22 +102,6 @@ class GalleryToolkit {
      */
     function mergeOperations($mimeType, $operation1, $args1, $operation2, $args2) {
 	return array(false, null, null);
-    }
-
-    /**
-     * Return a set of operations that are supported as "special-derivative"
-     * generating (thumbnails and resizes).
-     *
-     * This would list the operations that are possible to apply to a
-     * file of this mime type to get a thumbnail or a resize.
-     *
-     * @access public
-     * @param string a mime type
-     * @param string the desired operation type (currently only 'thumbnail')
-     * @return array of $operationArray
-     */
-    function getSpecialOperations($mimeType, $operationType) {
-	return array();
     }
 }
 ?>
