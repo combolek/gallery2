@@ -1,3 +1,22 @@
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2001 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 import java.io.*;
 import java.applet.*;
 import java.awt.*;
@@ -12,8 +31,6 @@ public class ImageCrop extends Applet
 {
     private static final int LANDSCAPE = 0;
     private static final int PORTRAIT = 1;
-
-    
 
     Image offscreen;
     Image image;
@@ -50,14 +67,12 @@ public class ImageCrop extends Applet
     //----------------------------------------------------------------------
     public ImageCrop()
     {
-        System.out.println("I'm in the constructor");
     }
 
     //----------------------------------------------------------------------
     //----------------------------------------------------------------------
     public void destroy()
     {
-        System.out.println("I'm in the destroy");
         if (image != null) image.flush();
         if (offscreen != null) offscreen.flush();
     }
@@ -191,11 +206,13 @@ public class ImageCrop extends Applet
         super.invalidate();
         offscreen = null;
     }
+
+    //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
     public void update(Graphics g)
     {
         paint(g);
     }
-    
     //----------------------------------------------------------------------
     //----------------------------------------------------------------------
     public void paint(Graphics g)
@@ -226,7 +243,6 @@ public class ImageCrop extends Applet
             //-- crop box color ---
 			Color cropColor = (cropTooSmall) ? Color.red : Color.cyan;
 
-
             //-- draw the resize handle ---
             x = resizeHandleRect.x + imageRect.x;
             y = resizeHandleRect.y + imageRect.y;
@@ -252,9 +268,6 @@ public class ImageCrop extends Applet
             og.drawRect(x - 1, y - 1, width, height);
             og.setColor(cropColor);
             og.drawRect(x, y, width, height);
-
-
-
         } 
         
         //-- we either got an image or there was an error ---
@@ -281,7 +294,6 @@ public class ImageCrop extends Applet
     //----------------------------------------------------------------------
     private void finishInitWithImage()
     {
-        System.out.println("Finishing Init");
         imageLoaded = true;
 
         //-- figure out how to scale the image within the canvas ---
@@ -386,6 +398,7 @@ public class ImageCrop extends Applet
         choice_Layout.select(cropLayout);
     }
 
+    //----------------------------------------------------------------------
     class WidgetItemListener implements ItemListener
     {
         public void itemStateChanged(ItemEvent e) 
@@ -397,6 +410,7 @@ public class ImageCrop extends Applet
         }
     }
     
+    //----------------------------------------------------------------------
     class MyButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e) 
@@ -417,10 +431,6 @@ public class ImageCrop extends Applet
             submitTo += "&crop_w=" + (int)((float)cropRect.width * imageScale);
             submitTo += "&crop_h=" + (int)((float)cropRect.height * imageScale);
 
-            System.out.println("image scale [" + imageScale + "]");
-            System.out.println("submit url [" + submitTo + "]");
-            
-
             //-- do it ---
             try {
                 getAppletContext().showDocument(new URL(submitTo));            
@@ -434,14 +444,8 @@ public class ImageCrop extends Applet
     //----------------------------------------------------------------------
     class MyMouseListener extends MouseAdapter implements MouseMotionListener
     {
-
-        //public void mouseClicked(MouseEvent e)
-        //{
-        //    System.out.println("mouseClicked");
-        //}
         public void mousePressed(MouseEvent e)
         {
-            System.out.println("mousePressed");
             mouseDownPoint = e.getPoint();
             mouseDownPoint.x -= imageRect.x;
             mouseDownPoint.y -= imageRect.y;
@@ -456,12 +460,9 @@ public class ImageCrop extends Applet
             {
                 mouseDown_onMoveHandle = true;
             }
-			System.out.println("MouseDown ->"+mouseDownPoint.toString()+"<--"+
-								"["+mouseDown_onResizeHandle+","+mouseDown_onMoveHandle+"]"); 
         }
         public void mouseReleased(MouseEvent e)
         {
-            System.out.println("mouseReleased");
             mouseDown_onMoveHandle = false;
             mouseDown_onResizeHandle = false;
         }
@@ -519,10 +520,6 @@ public class ImageCrop extends Applet
                repaint();
             }
         }
-        public void mouseMoved(MouseEvent e)
-        {
-        }
-
     }
 
 	//-----------------------------------------------------------------------------
@@ -558,7 +555,6 @@ public class ImageCrop extends Applet
         }
     }
 
-    int updateCallCount = 0;
     //----------------------------------------------------------------------
     // imageUpdate - override this to make sure the image is loaded
     //               before we get down to business.
@@ -566,14 +562,11 @@ public class ImageCrop extends Applet
     public boolean imageUpdate(Image img, int infoflags, int x, int y, 
                                int w, int h) 
     {
-        updateCallCount ++;
 		//-- as soon as the image is loaded, do the do ---
         if (infoflags == ALLBITS) 
         { 
-            System.out.println("Image FINALLY ready, called ["+updateCallCount+"]");
 			if (!imageLoaded) 
 			{
-				System.out.println("Need to 'finish'");
 				finishInitWithImage(); 
             	updateWidgets(true);
 			}
@@ -632,13 +625,10 @@ public class ImageCrop extends Applet
 		public boolean isMatch(int x, int y)
 		{
 			float slop = 0.05f;
-			System.out.println("isMatch ["+x+"/"+y+"] ["+this.getX()+"/"+this.getY()+"]");
 			if (Math.abs(((float)x/(float)y) - ((float)(this.getX())/(float)(this.getY()))) <= slop)
 			{
-				System.out.println("==> yes");
 				return true;
 			}
-			System.out.println("==> no");
 			return false;
 		}
     }
