@@ -8,19 +8,11 @@ metadata.  In writing this API, I've tried to maintain all the
 existing functionality that's available in v1.0 while leaving plenty
 of room to expand and cover the features that are yet to come in v2.0.
 
-Columns that say "xxx -> yyy" mean that in the v1.0 API the "yyy"
-field was refered to as "xxx" and that the semantics are roughly the
-same, although the name has changed.
-
 The following functionality is not (yet) implemented in v2.0.
 
 - fitToWindow
 	This is gone entirely.  We should be able to implement this
 	using the new layout code.
-
-- User.canCreateUsers()
-	- this permission will now be stored in the album's permissions
-	  field.
 
 - mirroring
 	I've left this out for now because it's heavily dependant on
@@ -28,87 +20,360 @@ The following functionality is not (yet) implemented in v2.0.
 	believe that this will be easy to add later, once we settle on
 	how we do the image firewall.
 
+- the canDeleteFrom permission -- anybody you trust to delete from an
+  album you might as well give full write permission
+
 Things that need to be added to this API:
-- Examples for how the API should be used.
-- better description of permissions
-- search API
-- Make the get/set() methods consistent.  Separate the calls that return
-  an id from the ones that return a class so that it's clearer.
+-----------------------------------------
+- GalleryNucleus needs to have a peer, which will be the actual
+  persistent implementation.  The peer needs to implement the save, 
+  delete, etc. methods.  Peer needs to know a bit more info, too
+  such as the path.
+- How do we create new objects?
+- How do we map path->object?  (look at end of this doc)
+- How do we map id->object?  in FS vs. SQL?
+- Support for some kind of LinkItem (ie, a shared item?)
+- Support for user groups
+- More examples for how the API should be used.
+
+Things that need to be documented more thoroughly in general:
+-------------------------------------------------------------
+- How permissions work.  Thumbnail sketch: you ask an item if a
+  specific user has canXXX or cannotXXX permission.  That item 
+  recursively asks it's ancestors for an answer.  We're looking
+  for the first parent that has an answer that matches (ie, if
+  you're checking the "view" permission you're looking for the
+  user to be on the canView or cannotView list, and failing that
+  you're looking for Everybody, Nobody or RegisteredUser to be on the
+  canView list).  If no determination can be made, the default is
+  cannotXXX.
+
+- status codes.  This is mostly in place.  Any time you attempt an
+  operation that will actually commit data to the persistent store, you
+  can either get a value of SUCCESS, or you can get FAILURE and a
+  failure code.  So, if you try to modify a deleted object, you'd get
+  a return code of FAILURE & F_DELETED.
+
+  SUCCESS = 0x00000000
+  FAILURE = 0x00000001
+
+  If you get a FAILURE, one of the following bit fields can be set:
+
+  F_IN_USE    = 0x00000010	
+	- Couldn't acquire a lock to change the object
+
+  F_DELETED   = 0x00000100
+	- The object no longer exists
+
+  F_COLLISION = 0x00001000
+	- Another change was made at the same time, causing this
+	  one to be invalid.
+
+  A typical operation would look like this:
+
+	$status = $item->save();
+	if ($status == SUCCESS) {
+		// Yay
+	} else if ($status & (F_IN_USE | F_COLLISION)) {
+		// Prompt the user to retry
+	} else if ($status & F_DELETED) {
+		// Uh-oh
+	}
 
 ================================================================================
 ================================================================================
 
-Class Gallery
--------------
-	This is a container for global information required for gallery operation,
-	such as configuration, session, user, etc.  
+/**
+ * Global storage container and utility class for Gallery
+ *
+ * This is a container for global information required for gallery
+ * operation, such as configuration, session, user, etc.  It also
+ * serves as the GalleryItem manager.  All requests for GalleryItems
+ * should go through this class so that they can be cached and shared.
+ *
+ * @version $Id$
+ * @module Gallery
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class Gallery {
 
-	Members
-	-------
-	- /* AlbumItem */ id rootAlbumItem
-		The id of the root album item in the Gallery
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-	- GalleryConfig config
-		Storage for all configuration variables, set in config.php.
-		The values contained here can't be modified.  Well, they
-		can be modified but they can't be saved so it's not a good
-		idea.
+	/**
+	 * The id of the root AlbumItem in the Gallery
+	 *
+	 * @var	string
+	 */
+	var $_rootAlbumItemId;
 
-	- UserDB userDB
-		An instance of the user database class
+	/**
+	 * Storage for all configuration variables, set in config.php.
+	 * The values contained here can't be modified.  Well, they
+	 * can be modified but they can't be saved so it's not a good
+	 * idea.  
+	 *
+	 * @var	object	GalleryMap	$_config;
+	 */
+	var $_config;
 
-	- GallerySession session
-		Storage for all session variables
+	/**
+	 * An instance of the user database class
+	 *
+	 * @var	object	UserDatabase	$_userDatabase;
+	 */
+	var $_userDatabase;
 
-	Methods
-	-------
-	- /* AlbumItem */ id getRootAlbumId()
-		* return the id of the root AlbumItem
+	/**
+	 * Storage for all session variables.  Contains an instance
+	 * of the GalleryMap class.
+	 *
+	 * @var	object	GalleryMap	 $_session;
+	 */
+	var $_session;
 
-	- void setRootAlbumId(string id)
-		* Set the id of the root AlbumItem
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 
-	- GalleryMap getConfig() 
-		* Return a copy of the GalleryConfig object generated in 
-		  config.php
+	/**
+	 * Return the id of the GalleryItem associated with the path provided
+	 *
+	 * Return the id associated with the given path. Example path: 
+	 * "/birthdays/fred" .. this is the "fred" item in the "birthdays" 
+	 * item.  It doesn't really matter what types of items these are, as 
+	 * long as the path is legitimate.
+	 *
+	 * This method must be implemented by subclasses of Gallery
+	 *
+	 * @access public
+	 * @abstract
+	 * @param string the path to a GalleryItem
+	 * @return Id
+	 */
+	function getIdByPath($path) {
+	}
 
-	- User &getCurrentUser()
-		* Return a reference to the current User object.  This
-		  value is determined by the currentUser value in the
-		  session and is cached for performance.
+	/**
+	 * Get the GalleryItem for the id provided
+	 *
+	 * Return the GalleryItem associated with this id.  Note  
+	 * that this returns the unique object itself, not a copy.
+	 * This means that you can change/save it.
+	 *
+	 * This method must be implemented by subclasses of Gallery
+	 *
+	 * @access public
+	 * @abstract
+	 * @param string the id of the item
+	 * @return GalleryItem the item	
+	 */
+	function &getItemById($id) {
+	}
 
-	- UserDB getUserDB()
-		* Return the current UserDB object.  Cached for performance.
+	/**
+	 * Search this item to see if it contains the search string.
+	 *
+	 * If this item has sub-items, search them also.
+	 *
+	 * @access public
+	 * @param string the search criteria
+	 * @return array an array of GalleryItem(s)
+	 */
+	function search($criteria) {
+	}
 
-	- GalleryMap &getSession()
-		* Return a reference to the current GallerySession object.
+	/**
+	 * Return the id of the root GalleryItem
+	 *
+	 * The root GalleryItem should be an AlbumItem
+	 *
+	 * @return string the id of the root album
+	 * @access public
+	 */
+	function getRootAlbumItemId() {
+	}
 
-Class GalleryMap
---------------------
-	This class is a map implementation.  It is a utility
-	class that we'll use for the various data containers that 
-	we need in the system.
+	/**
+	 * Set the id of the root GalleryItem
+	 *
+	 * The root GalleryItem should be an AlbumItem.
+	 *
+	 * @param string the id of the GalleryItem
+	 * @access public
+	 */
+	function setRootAlbumItemId($id) {
+	}
 
-	Methods
-	-------
-	- mixed &getValue(string key) 
-		* Return a reference to the value associated with the
-		  given key for the feature specified.  eg:
-		  getValue("core", "userId").  It's important that we
-		  return a reference so that if the value contained is
-		  a complex object we can modify it in place.  For
-		  example, if we're modifying the viewed stats we'd
-		  say: 
-			$arr = getValue("stats.viewedAlbum");
-			$arr["album01"]++;
+	/**
+	 * Get the Id of the active user
+	 *
+	 * The active user is the user who is logged on in this 
+	 * session or the EverybodyUser, if nobody is logged on.
+	 * 
+	 * @return string the id of the current User.
+	 * @access public
+	 */
+	function getActiveUserId() {
+	}
 
-	- setValue(string key, string value)
-		* Replace the value associated with the given key for
-		  the feature specified.  eg: 
-			setValue("core.galleryVersion", "2.0-cvs")
+	/**
+	 * Get the user associated with the Id provided
+	 *
+	 * Return a reference to an implementation of the AbstractUser
+	 * class and also caches the value for performance.
+	 * 
+	 * @param string the id of the User
+	 * @return AbstractUser a user
+	 * @access public
+	 */
+	function &getUserById($id) {
+	}
 
-Class GallerySession (instance of GalleryMap)
--------------------------------------------------
+	/**
+	 * Get a copy of the Gallery configuration settings
+	 *
+	 * Return a copy of the GalleryMap config instance.  Do not
+	 * change the copy, as the changes will be lost.  The value of
+	 * this config object is generated in config.php
+	 * 
+	 * @return GalleryMap the Gallery config map
+	 * @access public
+	 */
+	function getConfig() {
+	}
+
+	/**
+	 * Get the Gallery session object.
+	 *
+	 * Return a reference to the unique Gallery session object
+	 * (implemented as an instance of the GalleryMap class).  Any
+	 * changes made to this object will be saved in the session.
+	 * 
+	 * @return GalleryMap the Gallery session map
+	 * @access public
+	 */
+	function &getSession() {
+	}
+}
+
+/**
+ * A factory for creating GalleryItems
+ *
+ * This class is used to create new GalleryItems from scratch.  New
+ * items are created in a temporary storage location and can then be
+ * moved under an existing GalleryItem.
+ *
+ * @version $Id$
+ * @module GalleryMap
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryItemFactory {
+	
+	/**
+	 * Create a new AlbumItem
+	 *
+	 * Subclasses must implement this function.
+	 * 
+	 * @access public
+	 * @abstract
+	 * @return AlbumItem the new AlbumItem
+	 */
+	function newAlbumItem() {
+	}
+
+	/**
+	 * Create the appropriate GalleryItem for the file tag provided.
+	 *
+	 * Subclasses must implement this function.
+	 * 
+	 * @access public
+	 * @abstract
+	 * @param string the file tag (eg, "jpg", "Jpg", "JPG", "JPEG")
+	 * @return GalleryItem the new GalleryItem
+	 */
+	function newItemForTag($tag) {
+	}
+}
+
+/**
+ * Utility storage container
+ *
+ * This class is a map implementation.  It is a utility class that
+ * we'll use for the various data containers that we need in the
+ * system.
+ *
+ * @version $Id$
+ * @module GalleryMap
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryMap {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/**
+	 * Private storage for internal map data.
+	 */
+	var $_data;
+	
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Retrieve data from the map
+	 *
+	 * Return a reference to the value associated with the given
+	 * key for the feature specified.  eg: getValue("core.userId").  
+	 * It's important that we return a reference so that if the
+	 * value contained is a complex object we can modify it in
+	 * place.  For example, if we're modifying the viewed stats
+	 * we'd say:
+	 *
+	 *       $arr = getValue("stats.viewedItem");
+	 *       $arr["album01"]++;                             
+	 *
+	 * @param mixed the map key
+	 * @return mixed the map value
+	 * @access public
+	 */
+	function &getValue($key) {
+	}
+
+	/**
+	 * Store data in the map
+	 * 
+	 * Replace the value associated with the given key for
+	 * the feature specified.  eg:                        
+	 *       setValue("core.galleryVersion", "2.0-cvs")   
+	 *
+	 * @param mixed the map key
+	 * @param mixed the new map value
+	 * @access public
+	 */
+	function setValue($key, $value) {
+	}
+}
+
+GallerySession (instance of GalleryMap)
+---------------------------------------------
 	This class is a container for session specific data.
 	The naming convention for data that is stored in this
 	container is as follows:
@@ -123,12 +388,11 @@ Class GallerySession (instance of GalleryMap)
 		- core.galleryVersion
 
 	Feature keys:
-		- stats.viewedAlbum
-		- stats.viewedPhoto
+		- stats.viewedItem
 
 
-Class GalleryConfig (instance of GalleryMap)
-------------------------------------------------
+GalleryConfig (instance of GalleryMap)
+--------------------------------------------
 	This is a container for all configuration information
 	necessary for Gallery to function.  The config wizard will
 	create a file which builds an instance of a GalleryMap,
@@ -156,7 +420,6 @@ Class GalleryConfig (instance of GalleryMap)
 			This one specifies which persistent storage system
 			we're using.
 
-		- core.defaults.highlightSize
 		- core.defaults.movieThumbnailPath
 		- core.defaults.bordercolor
 		- core.defaults.border
@@ -216,482 +479,1838 @@ Class GalleryConfig (instance of GalleryMap)
 			Only relevant if "core.config.persistence.users" 
 			is set to "filesystem"
 
+/**
+ * The central seed that all Gallery objects are formed around
+ *
+ * This object performs all of the basic functions required in all
+ * Gallery objects.
+ *
+ * @version $Id$
+ * @module GalleryNucleus
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryNucleus {
 
-Class GalleryItem
------------------
-        Container for all functionality and data common objects that 
-	Gallery can deal with.  Cannot contain sub-items.
+	/**
+	 * The id of this item
+	 */
+	var $_id;
 
-        Members 
-	-------
-	- id				* (id) this item
-	- parentId 			* (id) this item's parent
-	- highlight 			* (id) an ImageContainer
-	- comment Ids			* (id[]) ids of 0+ comments
-	- version			* (float) data version of this item
-	- properties:
-		- creationDate		* (int) unix timestamp
-		- modificationDate	* (int) unix timestamp
-clicks_date->	- viewedSinceDate	* (int) unix timestamp click count start date 
-clicks->	- viewCount		* (int) number of times this item has been accessed
-		- keywords 		* (string) key words about this item
-		- title			* (string) title of this item (short)
-		- description		* (string) details of this item (long)
-		- isHtmlAllowed		* (bool) allow html in the title & description
-hidden->	- isHidden		* (bool) is this item hidden?
+	/**
+	 * Data version of this GalleryNucleus
+	 *
+	 * @var float $dataVersion
+	 */
+	var $_dataVersion;
 
-	- /* ImageContainer */ id thumbnail
-		id of the thumbnail image
+	/**
+	 * The parent of this GalleryNucleus
+	 * @var GalleryNucleus
+	 */
+	var $_parent;
 
+	/**
+	 * The path component of this item (eg. "image1").  This
+	 * value, when combined with the paths of all the parent
+	 * objects (say, "rootAlbum", "album01") will form the
+	 * complete path to the item ("rootAlbum/album01/image1").
+	 */
+	var $_path;
 
-	Methods
-	-------
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 
-integrityCheck->
-	- bool checkVersion(void)
-		Check the item and do any necessary upgrading to its data 
-		structure.  
-		* returns true if the item changed as a result of
-		  the integrity check.
+	/**
+	 * Get the id of this GalleryNucleus
+	 *
+	 * Get the id of this GalleryNucleus
+	 * 
+	 * @return string the id of this GalleryNucleus
+	 * @access public
+	 */
+	function getId() {
+	}
 
-	- void accessItem(id)
-		Update viewed counts.
+	/**
+	 * Get the version of this GalleryNucleus
+	 *
+	 * Return the version of this GalleryNucleus' data.
+	 * 
+	 * @return float the data version of this GalleryNucleus
+	 * @access public
+	 */
+	function getDataVersion() {
+	}
 
-	- bool addComment(CommentContainer comment)
-		Add a comment for this item
-		* return true on success or false on failure
+	/**
+	 * Check the data version and upgrade if necessary
+	 *
+	 * Check the data version of this GalleryNucleus and instruct it
+	 * to upgrade itself, if necessary.
+	 * 
+	 * @param mixed the new map value
+	 * @return bool true if the item was upgraded
+	 * @access public
+	 */
+	function checkDataVersionAndUpgrade() {
+	}
 
-	- /* CommentContainer */ id[] getCommentList(void)
-		Return an ordered array of comment ids
+	/**
+	 * Return the GalleryNucleus that owns this one.
+	 *
+	 * Return the GalleryNucleus that owns this one.
+	 *
+	 * @access public
+	 * @return GalleryNucleus the parent
+	 */
+	function getParent() {
+	}
 
-	- CommentContainer getComment(/* CommentContainer */ id)
-		Return the comment with the given id
+	/**
+	 * Return the path component of this item
+	 *
+	 * Return the path component of this item
+	 *
+	 * @access public
+	 * @return string the path component
+	 */
+	function getPath() {
+	}
 
-	- mixed getProperty(string propertyName)
-		Return the property associated with propertyName
+	/**
+	 * Return the full path of this item
+	 *
+	 * Return the full path of this item
+	 *
+	 * @access public
+	 * @return string the full path
+	 */
+	function getFullPath() {
+	}
 
-	- void setProperty(string propertyName, mixed)
-		Set the property associated with propertyName to the
-		string provided
+	/**
+	 * Set the path component of this item
+	 *
+	 * Set the path component of this item
+	 *
+	 * @access public
+	 * @param string the path component
+	 * @return boolean false if the path already exists, true otherwise
+	 */
+	function setPath($path) {
+	}
 
-	- string getType()
-		Returns the type of this item, eg:
-			GalleryItem::AlbumItem,
-			GalleryItem::PhotoItem,
-			GalleryItem::PhotoItem::JpegPhotoItem
-			GalleryItem::MovieItem
+	/**
+	 * Save the changes to this GalleryNucleus
+	 *
+	 * Save the changes to this GalleryNucleus.  
+	 *
+	 * @access public
+	 * @return int a status code
+	 */
+	function save() {
+	}
 
-	- bool save()
-		Save this GalleryItem
+	/**
+	 * Delete this GalleryNucleus
+	 *
+	 * Delete this GalleryNucleus and notify its parent GalleryNucleus of
+	 * the change.
+	 *
+	 * @access public
+	 * @return int a status code
+	 */
+	function delete() {
+	}
+}
 
-	- bool delete()
-		Delete this GalleryItem and notify the owner accordingly
+/**
+ * Base class for all objects in the Gallery composite tree
+ *
+ * Container for all functionality and data common objects that 
+ * Gallery can deal with.  Each GalleryItem has the capacity
+ * to own other GalleryItems in a parent-child relationship.
+ * That capacity can be enabled or disabled by subclasses of
+ * GalleryItem.
+ *
+ * @version $Id$
+ * @module GalleryItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryItem extends GalleryNucleus {
 
-	- ImageContainer getHighlightImage()
-		Get the ImageContainer that we're using as the highlight 
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-	- void setHighlightImage(ImageContainer)
-		Set the ImageContainer that we're using as the highlight 
+	/**
+	 * The id of the User who owns this item
+	 */
+	var $_ownerId;
 
-Class AlbumItem [extends GalleryItem]
--------------------------------------
-	A GalleryItem that has certain extra properties relating to displaying
-	albums and can contain other GalleryItems.
+	/**
+	 * An ordered list of 0+ Comment ids.
+	 */
+	var $_commentIds;
+
+	/**
+	 * Properties of this GalleryItem
+	 *
+	 * Valid properties are:
+	 * - creationDate	 (int)    unix timestamp
+	 * - modificationDate	 (int)    unix timestamp
+	 * - viewedSinceDate	 (int)    unix timestamp click count start date 
+	 * - viewCount		 (int)    number of times this item has been accessed
+	 * - keywords 		 (string) key words about this item
+	 * - title		 (string) title of this item (short)
+	 * - description	 (string) details of this item (long)
+	 * - isHtmlAllowed	 (bool)   allow html in the title & description
+	 * - isHidden		 (bool)   is this item hidden?
+	 * - inheritsPermissions (bool)   does this item inherit permissions from its parents?
+	 *
+	 * @var array $_properties
+	 */
+	var $_properties;
+
+	/**
+	 * An associative array of item specific properties about this
+	 * item.  Each subclass can have an interface to read and
+	 * write values into this store (or they can use GalleryItem's
+	 * get/set methods).  Either way, this data is item specific.
+	 */
+	var $_extendedProperties;
+
+	/**
+	 * The id of the ImageContainer containing this GalleryItem's thumbnail
+	 */
+	var $_thumbnailId;
+
+	/**
+	 * An ordered list of 0+ GalleryItem children contained by this item
+	 *
+	 * @var array $_childIds;
+	 */
+	var $_childIds;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Get the list of supported file types
+	 *
+	 * Get the list of supported file types that this GalleryItem can
+	 * support.
+	 *
+	 * @access public
+	 * @return array lowercase file tags tags (eg "jpg", "gif")
+	 */
+	function getSupportedFiletypes() {
+	}
+		
+	/**
+	 * Is this file type supported?
+	 *
+	 * Is this file type supported?
+	 * 
+	 * @access public
+	 * @param string a file tag (eg "jpg", "Jpg", "JPG", "JPEG")
+	 * @return bool true if the tag given is supported 
+	 */
+	function isSupportedFiletype($tag) {
+	}
+		
+	/**
+	 * Update the viewed counter.
+	 *
+	 * Record the fact that this item has just been viewed.
+	 *
+	 * @access public
+	 */
+	function incrementViewed() {
+	}
+
+	/**
+	 * Add a comment to this GalleryItem
+	 *
+	 * Add a comment to this GalleryItem (triggers a save)
+	 *
+	 * @access public
+	 * @param CommentContainer $comment
+	 * @return int a status code
+	 */
+	function addComment($comment) {
+	}
+
+	/**
+	 * Retrieve the list of Comment ids for this GalleryItem
+	 *
+	 * Retrieve the list of Comment ids for this GalleryItem
+	 *
+	 * @access public
+	 * @return array an ordered list of ids
+	 */
+	function getCommentIdList() {
+	}
+
+	/**
+	 * Return a reference to the comment with the given id
+	 *
+	 * Return a reference to the comment with the given id
+	 *
+	 * @access public
+	 * @param string a comment id
+	 * @return CommentContainer the appropriate comment or null
+	 */
+	function &getComment($id) {
+	}
+
+	/**
+	 * Remove a comment from this Item
+	 *
+	 * Remove a comment from this Item (triggers a save)
+	 *
+	 * @access public
+	 * @param string a comment id
+	 * @return int a status code
+	 */
+	function removeComment($id) {
+	}
+
+	/**
+	 * Return the value of the property with the given key
+	 *
+	 * Return a copy of the value of the property with the 
+	 * given key.
+	 *
+	 * @access public
+	 * @param string a key name
+	 * @return mixed a value
+	 */
+	function getProperty($propertyName) {
+	}
+
+	/**
+	 * Store the given key/value pair
+	 *
+	 * Store the given value in the properties map and associate
+	 * it with the key provided.
+	 *
+	 * @access public
+	 * @param string a key name
+	 * @param mixed a value.
+	 */
+	function setProperty($propertyName, $value) {
+	}
+
+	/**
+	 * Remove the given key
+	 *
+	 * Remove the given key from the properties map.
+	 *
+	 * @access public
+	 * @param string a key name
+	 */
+	function removeProperty($propertyName) {
+	}
+
+	/**
+	 * Return the value of the extended property with the given key
+	 *
+	 * Return a copy of the value of the extended property with
+	 * the given key.
+	 *
+	 * @access public
+	 * @param string a key name
+	 * @return mixed a value
+	 */
+	function getExtendedProperty($propertyName) {
+	}
+
+	/**
+	 * Store the given key/value pair as an extended property
+	 *
+	 * Store the given value in the extended properties map and
+	 * associate it with the key provided.
+	 *
+	 * @access public
+	 * @param string a key name
+	 * @param mixed a value.
+	 */
+	function setExtendedProperty($propertyName, $value) {
+	}
+
+	/**
+	 * Remove the given key from the extended properties map
+	 *
+	 * Remove the given key from the extended properties map.
+	 *
+	 * @access public
+	 * @param string a key name
+	 */
+	function removeExtendedProperty($propertyName) {
+	}
+
+	/**
+	 * Return the type of this GalleryItem
+	 *
+	 * Return the type of this GalleryItem
+	 *
+	 * @access public
+	 * @return string the type of this GalleryItem, eg. "Album" or "Photo".
+	 */
+	function getType() {
+	}
+
+	/**
+	 * Get the ImageContainer containing the thumbnail for this item
+	 *
+	 * Get the ImageContainer containing the thumbnail for this item
+	 *
+	 * @access public
+	 * @return ImageContainer the thumbnail
+	 */
+	function getThumbnailImage() {
+	}
+
+	/**
+	 * Set the thumbnail to the ImageContainer provided.
+	 *
+	 * Set the thumbnail to the ImageContainer provided.  If there was
+	 * a thumbnail before, delete it.
+	 *
+	 * @access public
+	 * @param ImageContainer the thumbnail image
+	 */
+	function setThumbnailImage($image) {
+	}
+
+	/**
+	 * Can this item contain other items?
+	 *
+	 * By default, GalleryItems cannot contain other items.  However
+	 * Subclasses may wish to override this method to allow
+	 * containment.
+	 *
+	 * @access public
+	 * @return bool true if the item can contain children
+	 */
+	function canContainChildren() {
+	}
+
+	/**
+	 * How many children does this item and all of its sub-items
+	 * contain, including itself?
+	 *
+	 * If this item can't contain children, the answer is 1, else
+	 * it's 1 + the number of immediate children and all their
+	 * children, etc, etc.
+	 *
+	 * @access public
+	 * @return int the number of children
+	 */
+	function getChildCount() {
+	}
+
+	/**
+	 * Get the list of children ids
+	 *
+	 * If this item is allowed to have children, return the list
+	 * of child ids it contains.  Else, return an empty array.
+	 *
+	 * @access public
+	 * @return array a list of 0+ GalleryItem ids
+	 */
+	function getItemIdList() {
+	}
+
+	/**
+	 * Get a specific GalleryItem child by the id provided
+	 *
+	 *
+	 * @access public
+	 * @param string a GalleryItem id
+	 * @return object a reference to the corresponding GalleryItem
+	 */
+	function &getItemById($id) {
+	}
+
+	/**
+	 * Add a specific item as a child of this item.  
+	 *
+	 * This is only legal if this item is allowed to have
+	 * children.  If the child item already has a parent, it is
+	 * removed from that other parent if it's successfully added
+	 * to this one.  This triggers a save.  
+	 *
+	 * Move all DataContainers of the child item from their old
+	 * location to the new one as part of this process.
+	 *
+	 * @access public
+	 * @param GalleryItem the child item
+	 * @return int a status code
+	 */
+	function addItem($item) {
+	}
+
+	/**
+	 * Remove the specified child item
+	 *
+	 * This is only legal if this item is allowed to have children.
+	 * This triggers a save.
+	 *
+	 * @access public
+	 * @param string the child item's id
+	 * @return int a status code
+	 */
+	function removeItem($id) {
+	}
+
+	/**
+	 * Return the id of the User object who owns this GalleryItem
+	 *
+	 * @access public
+	 * @return string the id of the owning user
+	 */
+	function getOwnerId() {
+	}
+
+	/**
+	 * Does the user have the given permission?
+	 *
+	 * This calculation is made taking into account the appropriate
+	 * attributes for this user from all of its parents, provided that
+	 * they have the inheritsPermissions property set.
+	 *
+	 * Acceptable permissions are:
+	 * PERMISSION_CAN_VIEW     
+	 * PERMISSION_CAN_CHANGE   
+	 * PERMISSION_CAN_ADD_TO   
+	 *
+	 * @access public
+	 * @param string user id
+	 * @param string permission name
+	 * @return bool true if the given user id has the given permission for this item
+	 */
+	function hasPermission($id, $perm) {
+	}
+
+	/**
+	 * Adjust the user's permissions for this item.
+	 *
+	 * Adjust the user's permissions for this item to set the permission
+	 * provided.  If the permission being set directly contradicts
+	 * another one, the old (contradictory) permission is removed.
+	 * For example, if the user's permission for this item has
+	 * PERMISSION_CANNOT_VIEW set, and you set
+	 * PERMISSION_CAN_VIEW, then the result is that the
+	 * PERMISSION_CANNOT_VIEW is removed.
+	 *
+	 * Acceptable permissions are:
+	 * PERMISSION_CAN_VIEW     
+	 * PERMISSION_CANNOT_VIEW  
+	 * PERMISSION_CAN_CHANGE   
+	 * PERMISSION_CANNOT_CHANGE
+	 * PERMISSION_CAN_ADD_TO   
+	 * PERMISSION_CANNOT_ADD_TO
+	 *
+	 * @access public
+	 * @return bool true if the given user id has the given permission for this item
+	 */
+	function setPermission($id, $perm, $bool) {
+	}
+}
+
+/**
+ * A subclass of GalleryItem for containing groups of GalleryItems
+ *
+ * A GalleryItem that has certain extra properties relating to
+ * displaying item groups and is allowed to contain other
+ * GalleryItems.
+ *
+ * @version $Id$
+ * @module AlbumItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class AlbumItem extends GalleryItem {
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
         Members
 	-------
-	- child Ids		* (id[]) ids of 0+ items
-	- ownerId		* id of the User who owns this item
-	- properties
-		- bgcolor		* (string) primary background color
-		- bgcolor2		* (string) secondary background color
-		- textcolor		* (string) text color
-		- linkcolor		* (string) link color
-		- font			* (string) font name
-		- border		* (string) amount of table border
-		- bordercolor		* (string) color of border
-		- returnto		* (string) whether or not to show the breadcrum links
-		- thumbSize		* (string) target size of the thumbnail
-		- resizeSize		* (string) target size of the intermediate image
-		- rows			* (int) number of rows to show
-		- cols			* (int) number of columns to show
-		- useFullOnly		* (bool) allow the user to choose to show unresized only?
-print_photos ->	- printService		* (bool) allow printing?
-		- useExif		* allow user to view exif data?
-		- layout		* the layout to use for this album
-		- htmlHeader		* the html_header to use for this album
-		- htmlFooter		* the html_footer to use for this album
-display_clicks->- displayViewCount	* show view counts for my items?
+	/**
+	 * Properties of this GalleryItem
+	 *
+	 * Valid properties are:
+	 * - bgcolor		(string) primary background color
+	 * - bgcolor2		(string) secondary background color
+	 * - textcolor		(string) text color
+	 * - linkcolor		(string) link color
+	 * - font		(string) font name
+	 * - border		(string) amount of table border
+	 * - bordercolor	(string) color of border
+	 * - showBreadcrumb	(string) whether or not to show the breadcrumb links
+	 * - thumbSize		(string) target size of the thumbnail
+	 * - resizeSize		(string) target size of the intermediate image
+	 * - rows		(int)    number of rows to show
+	 * - cols		(int)    number of columns to show
+	 * - useFullOnly	(bool)   allow the user to choose to show unresized only?
+	 * - printService	(bool)   allow printing?
+	 * - viewExtendedData	(bool)   allow user to view extended data?
+	 * - layout		(string) the layout to use for this album
+	 * - htmlHeader		(string) the html_header to use for this album
+	 * - htmlFooter		(string) the html_footer to use for this album
+	 * - displayViewCount	(bool)   show view counts for my items?
+	 */
 	
-	Methods
-	-------
-	- constructor(string title, [/* AlbumItem */ id parentAlbum]) 
-		Create a new album with the default values.
-		Optionally put this new album inside the parent album,
-		provided.
-
-	- Album load(id)
-		Return the Album instance whose id matches the id
-		provided, or null if there's no album by that id.
-
-	- bool addItem(GalleryItem item)
-		Add this item to the end of album.
-		* return true on success or false on failure
-
-	- /* GalleryItem */ id[] getItemList(void)
-		Return an ordered array of comment ids
-
-	- /* GalleryItem */ getItem(/* GalleryItem */ id)
-		Return the GalleryItem associated with the given id
-
-	- bool canRead(/* User */ id)
-		Return true if the given user id can read this album
-
-	- bool canWrite(/* User */ id)
-		Return true if the given user id can write to this album
-
-	- bool canAddTo(/* User */ id)
-		Return true if the given user id can add to this album
-
-	- bool canChangeText(/* User */ id)
-		Return true if the given user id can change the text
-		of this album
-
-	- bool canDeleteFrom(/* User */ id)
-		Return true if the given user id can delete items from
-		this album
-
-	- /* User */ id getOwner() 
-		Return the id of the User who owns this album
-
-Class PhotoItem [extends GalleryItem] 
------------------------------------
-	A GalleryItem whose source is an image.  It contains no image
-	information itself, but has references to several ImageContainer
-	versions of the original.
-
-        Members 
-	-------
-        - /* ImageContainer */ id raw
-		id of the raw image
-
-        - /* ImageContainer */ id[] resizes
-		array of ids of resized versions of this photo
-
-	- int[] captureDate
-		associative array of info describing the date the item
-		was captured not in EPOCH so we can support dates <
-		1970
-
-	Methods
-	-------
-	- ImageContainer getRawImage()
-		Return the ImageContainer associated with the original version of
-		this item
-
-	- void setRawImage(ImageContainer)
-		Set the ImageContainer associated with the original version of
-		this item
-
-	- int getNumberOfResizes()
-		Return the number of resized images available.
-
-	- ImageContainer getResizedImage(int)
-		Get the nth resized ImageContainer
-
-	- void setResizedImage(int, ImageContainer)
-		Set the nth resized ImageContainer (replacing whatever's already there).
-
-	- void deleteResizedImage(int) 
-		Remove the nth resized image (shifting all others down one to
-		fill the empty slot).
-
-	- ImageContainer getThumbnailImage()
-		Get the ImageContainer that we're using as the thumbnail 
-
-	- void setThumbnailImage(ImageContainer)
-		Set the ImageContainer that we're using as the thumbnail 
-
-	- int[] getCaptureDate()
-		Return the associative array of info describing the
-		date the item was captured not in EPOCH so we can
-		support dates < 1970
-
-	- int[] setCaptureDate()
-		Set the associative array of info describing the
-		date the item was captured not in EPOCH so we can
-		support dates < 1970
-
-Class JpegPhotoItem [extends PhotoItem]
----------------------------------------
-	A PhotoItem whose source is a JPEG.
-
-	Members
-	-------
-	- string[] exifProperties
-		associative array of EXIF properties
-
-	Methods
-	-------
-	- string[] getExifProperties()
-		Return the associative array of EXIF properties
-
-	- void setExifProperties(string[])
-		Set the associative array of EXIF properties
-
-================================================================================
-================================================================================
-
-Class DataContainer
--------------------
-	A container for any data that Gallery can manage, such as an
-	ImageContainer, MovieContainer or OpaqueContainer.  
-
-	Members
-	-------
-	- id
-		The unique id for this container object
-
-	- /* GalleryItem */ id ownerId
-		The id of the GalleryItem that owns this container
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 	
-	- float version
-		data version of this container
+	/**
+	 * Construct a new AlbumItem object with the parent as a template
+	 *
+	 * This new album item will have all the same properties as its 
+	 * parent.
+	 *
+	 * @access public
+	 * @param AlbumItem the parent AlbumItem
+	 */
+	function AlbumItem($parent) {
+	}
 
-	Methods
-	-------
-integrityCheck->
-	- bool checkVersion(void)
-		Check the item and do any necessary upgrading to its data 
-		structure.  
-		* returns true if the item changed as a result of
-		  the integrity check.
+	/**
+	 * Can this item contain other items?
+	 *
+	 * AlbumItems are allowed to contain other GalleryItems
+	 *
+	 * @access public
+	 * @return bool true if the item can contain children
+	 */
+	function canHaveChildren() {
+		return true;
+	}
+}
 
-	- bool delete()
-		Remove any filesystem and metadata about this
-		DataContainer and notify the ownerId that it has been
-		deleted.
+/**
+ * A subclass of GalleryItem for items containing actual data
+ *
+ * DataItems are ones that have an actual data source, such as 
+ * PhotoItem or MovieItem.
+ *
+ * @version $Id$
+ * @module DataItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class DataItem extends GalleryItem {
 
-	- bool save()
-		Save any metadata about this DataContainer.
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-Class ImageContainer [extends DataContainer]
---------------------------------------------
-	A container for a single image.
+	/**
+	 * The DataContainer containing the actual source object for this item,
+	 * if applicable.
+	 *
+	 * @var DataContainer
+	 */
+	var $_source;
 
-	Members
-	-------
-	- string name
-		name of the image
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 
-	- int width
-		width of the image
+	/**
+	 * Set the source of this item to the file provided
+	 *
+	 * If this item already had a source, delete the old source
+	 * and replace it with the one provided.  Subclasses should
+	 * override this method to do the appropriate thing when 
+	 * their data source changes.
+	 *
+	 * @access public
+	 * @param string the path to a file
+	 */
+	function setSource(string $filePath) {
+	}
 
-	- int height
-		height of the image
+	/**
+	 * Get the source of this item.
+	 *
+	 * Return a DataContainer with the source of this item.
+	 *
+	 * @access public
+	 * @return DataContainer the source object for this item
+	 */
+	function &getSource() {
+	}
+}
 
-	Methods
-	-------
-	- int[] getDimensions() 
-		Return the image dimensions as width, height
+/**
+ * A subclass of DataItem for containing "captured" items.
+ *
+ * Captured items are ones that have an associated "capture" date.
+ * This is a specific piece of item metadata that allows you to
+ * record a date in non-epoch form.
+ *
+ * @version $Id$
+ * @module CapturableItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class CapturableItem extends DataItem {
 
-	- void resize(int, int) 
-		Resize the image to the width, height dimensions provided
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-Class MovieContainer [extends DataContainer]
---------------------------------------------
-	A container for a movie.
+	/**
+	 * An associative array of info describing the date the item  
+	 * was captured not in epoch form so we can support dates <
+	 * 1970.  The following keys need to be set:
+	 * - hours
+	 * - minutes
+	 * - seconds
+	 * - mon
+	 * - mday
+	 * - year
+	 *
+	 * @var	array
+	 */
+	var $_captureDate;
 
-	Members
-	-------
-	- string name
-		name of this image
+	/**
+	 * Get the attributes representing the date this item was captured.
+	 *
+	 * Get the attributes representing the date this item was captured.
+	 *
+	 * @access public
+	 * @return array the hours, minutes, seconds, mon, mday, year of capture
+	 */
+	function getCaptureDate() {
+	}
 
-	- int width
-		width of this image
+	/**
+	 * Set the attributes representing the date this item was captured.
+	 *
+	 * Set the attributes representing the date this item was captured.
+	 *
+	 * @access public
+	 * @param array the hours, minutes, seconds, mon, mday, year of capture
+	 */
+	function setCaptureDate($date) {
+	}
+}
 
-	- int height
-		height of this image
 
-	Methods
-	-------
-	- int[] getDimensions() 
-		Return the image dimensions as width, height
+/**
+ * A subclass of CapturableItem for containing Photos
+ *
+ * A GalleryItem whose source is an image.  It contains no image   
+ * information itself, but contains several ImageContainer
+ * versions of the original.
+ *
+ * @version $Id$
+ * @module PhotoItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class PhotoItem extends CapturableItem {
 
-Class OpaqueContainer [extends DataContainer]
----------------------------------------------
-	A container for a single object that we know nothing about and
-	can't manipulate in any way
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-	Members
-	-------
-	- string name
-		name of this object
+	/**
+	 * An ordered list of ids of ImageContainers containing
+	 * resized versions of the raw image, sorted by
+	 * in ascending order by size.
+	 *
+	 * @var	array
+	 */
+	var $_resizeIds;
 
-	Methods
-	-------
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 
-Class CommentContainer [extends DataContainer]
-----------------------------------------------
-	Members
-	-------
-	- string name
-	- string email
-	- string comment
+	/**
+	 * Return an ordered list of resized images
+	 *
+	 * The list is sorted by image size in ascending order.
+	 *
+	 * @access public
+	 * @return array ids of the resized images.
+	 */
+	function getResizedImageIds() {
+	}
 
-	Methods
-	-------
-	- string getName()
-	- string getEmail()
-	- string getComment()
-	- string setName(string)
-	- string setEmail(string)
-	- string setComment(string)
+	/**
+	 * Get the ImageContainer for the resize image specified
+	 *
+	 * Get the ImageContainer for the resize image specified
+	 *
+	 * @access public
+	 * @param string the id of the desired resized image
+	 * @return ImageContainer the image
+	 */
+	function getResizedImage($id) {
+	}
 
-================================================================================
-GRAPHICS
-================================================================================
+	/**
+	 * Set the specified resize image to the ImageContainer provided.
+	 *
+	 * If an ImageContainer exists at that index, delete it.
+	 *
+	 * @access public
+	 * @param int the id of the desired resized image
+	 * @param ImageContainer the image
+	 */
+	function setResizedImage($id, var $image) {
+	}
 
-Class AbstractImageToolKit
---------------------------
+	/**
+	 * Delete the specified resized image
+	 *
+	 * Delete the specified resized image
+	 * 
+	 * @access public
+	 * @param int the id of the desired resized image
+	 */
+	function deleteResizedImage($id) {
+	}
+}
 
-	This is an abstract class that defines an interface for image
-	manipulation.  It is implemented by classes that do the actual
-	image manipulation using specific toolsets (such as
-	NetPBM or ImageMagick)
+/**
+ * A PhotoItem that contains EXIF data.
+ *
+ * A PhotoItem whose source is required to be a JPEG.  It has the
+ * exact same API as PhotoItem, but it also fills the extended
+ * properties with EXIF data.
+ *
+ * @version $Id$
+ * @module ExifPhotoItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class ExifPhotoItem extends PhotoItem {
+}
 
-	Methods
-	-------
+/**
+ * A subclass of CapturableItem for containing Movies
+ *
+ * A GalleryItem whose source is a movie.  It contains no image/movie
+ * information itself, but its source is a MovieContainer.
+ *
+ * @version $Id$
+ * @module MovieItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class MovieItem extends CapturableItem {
+}
 
-	- string[] getSupportedFiletypes()
-		Return an array of lowercase file tags tags (eg "jpg", "gif")
-		that are supported by this graphics package.
+/**
+ * A subclass of DataItem for containing unknown objects.
+ *
+ * These are objects that we know nothing about.  Currently this
+ * is exactly the same as a DataItem, although that may change.
+ *
+ * @version $Id$
+ * @module UnknownItem
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class UnknownItem extends DataItem {
+}
+
+/**
+ * A container for a data source that Gallery manages.
+ *
+ * A container for any data that Gallery can manage.  Known
+ * implementations include ImageContainer, MovieContainer or
+ * UnknownContainer.
+ *
+ * @version $Id$
+ * @module DataContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class DataContainer extends GalleryNucleus {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/**
+	 * The name of the file that contains the actual media data.
+	 * This, when combined with the parent's path forms the
+	 * complete path to the file.
+	 *
+	 * @var string
+	 */
+	var $_dataFileName;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Get the size of the source object.  If it's a cacheable
+	 * object and the cache is cleared, this will return the size
+	 * that it *will* be once the cache is recreated.
+	 * 
+	 * @access public
+	 * @return int the size of the object
+	 */
+	function getSize() {
+	}
+
+	/**
+	 * Is this item expireable?
+	 *
+	 * If an item is a cacheable object, it can be expired using
+	 * the expireCache() method.  You must call rebuildCache() to
+	 * recreate the item.
+	 * 
+	 * @access public
+	 * @return bool whether the item is expireable or not
+	 */
+	function canBeExpired() {
+	}
+
+	/**
+	 * Has this item expired?
+	 *
+	 * If the item is expired, it can be rebuilt with rebuildCache()
+	 * 
+	 * @access public
+	 * @return bool true if the item is expired (ie, the cache is empty)
+	 */
+	function isExpired() {
+	}
+
+	/**
+	 * Expire the cache.
+	 * 
+	 * @access public
+	 * @return int a status code
+	 */
+	function expireCache() {
+	}
+
+	/**
+	 * Rebuild the cache.
+	 * 
+	 * @access public
+	 * @return int a status code
+	 */
+	function rebuildCache() {
+	}
+
+	/**
+	 * Get the size of the cached data.
+	 *
+	 * Get the size of the data that we're currently keeping in 
+	 * the cache for this source object.  It'll be 0 if the cache
+	 * has been cleared.
+	 * 
+	 * @access public
+	 * @return int the size of the cache
+	 */
+	function getCacheSize() {
+	}
+
+	/**
+	 * Get name of the data file.
+	 *
+	 * Get the name of the data file.
+	 * 
+	 * @access public
+	 * @return string the file name
+	 */
+	function getDataFileName() {
+	}
+
+	/**
+	 * Get the full path to the data file.
+	 *
+	 * Get the full path to the data file.
+	 * 
+	 * @access public
+	 * @return string the file path
+	 */
+	function getDataFilePath() {
+	}
+}
+
+/**
+ * A DataContainer for images
+ *
+ * A container for a single image.  This image may or may not be
+ * cacheable (depending on whether or not it's a derivative image).
+ *
+ * @version $Id$
+ * @module ImageContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class ImageContainer extends DataContainer {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/**
+	 * The x-axis origin of this image, useful if this is a
+	 * derivative image such as a thumbnail from a specific
+	 * section of an original image.
+	 *
+	 * @var	int
+	 */
+	var $_originX;
+
+	/**
+	 * The y-axis origin of this image, useful if this is a
+	 * derivative image such as a thumbnail from a specific
+	 * section of an original image.
+	 *
+	 * @var	int
+	 */
+	var $_originY;
+
+	/**
+	 * The width this image.
+	 *
+	 * @var	int
+	 */
+	var $_width;
+
+	/**
+	 * The height this image.
+	 *
+	 * @var	int
+	 */
+	var $_height;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Return the width of the image
+	 *
+	 * Return the width of the image
+	 *
+	 * @return int the width of the image
+	 * @access public
+	 */
+	function getWidth() {
+	}
+
+	/**
+	 * Return the height of the image
+	 *
+	 * Return the height of the image
+	 *
+	 * @return int the height of the image
+	 * @access public
+	 */
+	function getHeight() {
+	}
+
+	/**
+	 * Rotate the image
+	 *
+	 * Rotate the image according to the degrees specified, which must
+	 * be one of -90, 180, 90.
+	 *
+	 * @param int degrees, one of (-90, 180, 90)
+	 * @access public
+	 */
+	function rotate($degrees) {
+	}
+
+	/**
+	 * Scale the image
+	 *
+	 * Scale the image until it fits the bounding box described
+	 * by the width, height provided.
+	 *
+	 * @param int width of bounding box
+	 * @param int height of bounding box
+	 * @access public
+	 */
+	function scale($width, $height) {
+	}
+
+	/**
+	 * Crop the image
+	 *
+	 * Crop the image 
+	 *
+	 * @param int x-axis origin
+	 * @param int y-axis origin
+	 * @param int width of crop rectangle
+	 * @param int height of crop rectangle
+	 * @access public
+	 */
+	function crop($x, $y, $width, $height) {
+	}
+}
+
+/**
+ * A DataContainer for movies
+ *
+ * A container for a single movie.
+ *
+ * @version $Id$
+ * @module MovieContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class MovieContainer extends DataContainer {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/**
+	 * The width this movie.
+	 *
+	 * @var	int
+	 */
+	var $_width;
+
+	/**
+	 * The height this movie.
+	 *
+	 * @var	int
+	 */
+	var $_height;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Return the width of the movie
+	 *
+	 * Return the width of the movie
+	 *
+	 * @return int the width of the movie
+	 * @access public
+	 */
+	function getWidth() {
+	}
+
+	/**
+	 * Return the height of the movie
+	 *
+	 * Return the height of the movie
+	 *
+	 * @return int the height of the movie
+	 * @access public
+	 */
+	function getHeight() {
+	}
+}
+
+/**
+ * A DataContainer for objects that Gallery doesn't understand
+ *
+ * We can't manipulate these objects in any way.
+ *
+ * @version $Id$
+ * @module UnknownContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class UnknownContainer extends DataContainer {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+}
+
+/**
+ * A DataContainer for comments.
+ *
+ * We can't manipulate these objects in any way.
+ *
+ * @version $Id$
+ * @module UnknownContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class UnknownContainer extends DataContainer {
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+}
+
+/**
+ * A DataContainer for comments.
+ *
+ * Comments are just structured text objects.
+ *
+ * @version $Id$
+ * @module CommentContainer
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class CommentContainer extends DataContainer {
+
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
+	var $_name;
+	var $_emailAddress;
+	var $_hostname;
+	var $_comment;
+	var $_date;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Get the name
+	 *
+	 * Get the name
+	 *
+	 * @access public
+	 * @return string the name from the comment
+	 */
+	function getName() {
+	}
+
+	/**
+	 * Set the name
+	 *
+	 * Set the name
+	 *
+	 * @access public
+	 * @param string the name for the comment
+	 */
+	function setName($name) {
+	}
+
+	/**
+	 * Get the email address
+	 *
+	 * Get the email address
+	 *
+	 * @access public
+	 * @return string the email address from the comment
+	 */
+	function getEmailAddress() {
+	}
+
+	/**
+	 * Set the email address
+	 *
+	 * Set the email address
+	 *
+	 * @access public
+	 * @param string the email address for the comment
+	 */
+	function setEmailAddress($email) {
+	}
+
+	/**
+	 * Get the hostname
+	 *
+	 * Get the hostname
+	 *
+	 * @access public
+	 * @return string the hostname from the comment
+	 */
+	function getHostname() {
+	}
+
+	/**
+	 * Set the hostname
+	 *
+	 * Set the hostname
+	 *
+	 * @access public
+	 * @param string the hostname for the comment
+	 */
+	function setHostname($hostname) {
+	}
+
+	/**
+	 * Get the comment
+	 *
+	 * Get the comment
+	 *
+	 * @access public
+	 * @return string the comment from the comment
+	 */
+	function getComment() {
+	}
+
+	/**
+	 * Set the comment
+	 *
+	 * Set the comment
+	 *
+	 * @access public
+	 * @param string the comment for the comment
+	 */
+	function setComment($comment) {
+	}
+
+	/**
+	 * Get the date
+	 *
+	 * Get the date
+	 *
+	 * @access public
+	 * @return string the date from the comment
+	 */
+	function getDate() {
+	}
+
+	/**
+	 * Set the date
+	 *
+	 * Set the date
+	 *
+	 * @access public
+	 * @param string the date for the comment
+	 */
+	function setDate($date) {
+	}
+}
+
+/**
+ * A toolkit for manipulating images
+ *
+ * This class defines the API for image toolkits.  Subclasses should
+ * implement this for a specific image toolkit, such as NetPBM or
+ * ImageMagick.
+ *
+ * @version $Id$
+ * @module GalleryImageToolkit
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryImageToolKit {
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Get the list of supported file types
+	 *
+	 * Get the list of supported file types that this toolkit can
+	 * support.
+	 *
+	 * @access public
+	 * @return array lowercase file tags tags (eg "jpg", "gif")
+	 */
+	function getSupportedFiletypes() {
+	}
 		
-	- bool isSupportedFiletype(string tag)
-		Return true if the tag given is supported 
+	/**
+	 * Is this file type supported?
+	 *
+	 * Is this file type supported?
+	 * 
+	 * @access public
+	 * @param string a file tag (eg "jpg", "Jpg", "JPG", "JPEG")
+	 * @return bool true if the tag given is supported 
+	 */
+	function isSupportedFiletype($tag) {
+	}
 		
-	- int[] getImageDimensions(string filename)
-		Return the dimensions of the file
+	/**
+	 * Calculate the dimensions of the image file
+	 *
+	 * Calculate the dimensions of the image file
+	 * 
+	 * @access public
+	 * @param string a file name
+	 * @return array the width, height of the image
+	 */
+	function getImageDimensions($filename) {
+	}
 
-	- bool resizeImage(string sourceFilename, string destFilename, int targetSize)
-		Resize the image located at sourceFilename and write the results in
-		destFilename.  Resize the image such that the largest side is targetSize
-		while maintaining the aspect ratio. 
-		* return true on success or false on failure
+	/**
+	 * Resize the file to the target size specified
+	 *
+	 * Resize the image located at sourceFilename and write the results in      
+	 * destFilename.  Resize the image such that the largest side is targetSize 
+	 * while maintaining the aspect ratio.
+	 *	
+	 * @access public
+	 * @param string the source file name
+	 * @param string the destination file name (it will be overwritten if it exists)
+	 * @param string int the target size
+	 * @return int a status code
+	 */
+	function resizeImage($sourceFilename, $destFilename, $targetSize) {
+	}
 		
-	- bool rotateImage(string sourceFilename, string destFilename, int degrees)
-		Rotate the image located at sourceFilename and write the results in
-		destFilename.  Rotate the image according to the degrees specified
-		which must be one of -90, 180, 90
-		* return true on success or false on failure
+	/**
+	 * Rotate the file by the degrees specified
+	 *
+	 * Rotate the image located at sourceFilename and write the results in      
+	 * destFilename.
+	 *	
+	 * @access public
+	 * @param string the source file name
+	 * @param string the destination file name (it will be overwritten if it exists)
+	 * @param string int the degrees to be rotated (one of -90, 180, 90)
+	 * @return int a status code
+	 */
+	function rotateImage($sourceFilename, $destFilename, $degrees) {
+	}
 		
-	- bool cutImage(string sourceFilename, string destFilename, 
-			   int x, int y, int width, int height)
-		Extract a subsection of the image located at
-		sourceFilename and write the results in
-		destFilename.  The upper left corner of the
-		subsection is at the x, y coordinate provided and the
-		lower right is x+width, y+height.
-		* return true on success or false on failure
+	/**
+	 * Crop the file by the position and dimensions specified
+	 *
+	 * Crop the image located at sourceFilename and write the results in 
+	 * destFilename.  The upper left corner of the subsection is
+	 * at the x, y coordinate provided and the lower right is
+	 * x+width, y+height.
+	 *	
+	 * @access public
+	 * @param string the source file name
+	 * @param string the destination file name (it will be overwritten if it exists)
+	 * @param int x-axis origin
+	 * @param int y-axis origin
+	 * @param int width of crop rectangle
+	 * @param int height of crop rectangle
+	 * @return int a status code
+	 */
+	function cropImage($sourceFilename, $destFilename, $x, $y, $width, $height) {
+	}
 
-	- bool validImage(string filename)
-		Return true if the filename represents an image file that can
-		be processed by this graphics package.
+	/**
+	 * Is this image valid?
+	 *
+	 * Is this image valid?  Can it be handled by this toolkit?
+	 * 
+	 * @access public
+	 * @param string the image file name
+	 * @return boolean true if the filename represents an image file
+	 */
+	function isValidImage($filename) {
+	}
 
-	- string[] getExifProperties(string filename)
-		Extract the EXIF properties from the filename provided and
-		return it, or NULL if the file has no such properties.
+	/**
+	 * Get any extended image properties associated with this image
+	 *
+	 * Some file types have embedded data.  Eg, JPEG can have EXIF
+	 * data.
+	 * 
+	 * @access public
+	 * @param string the image file name
+	 * @return array a set of key value pairs
+	 */
+	function getExtendedProperties($filename) {
+	}
+}
 
-	Implementations
-	---------------
-		ImageToolKit/NetPbm.php
-		ImageToolKit/ImageMagick.php
+Implementations
+---------------
+	ImageToolKit/NetPbm.php
+	ImageToolKit/ImageMagick.php
 
-================================================================================
-User Management
-================================================================================
+/**
+ * Access to a repository of GalleryUser objects
+ *
+ * This is an abstract class that provides access to the database of
+ * User objects.  It must be implemented by a class that can save and
+ * restore User objects from a persistent store.  The features of the
+ * UserDatabase implementation vary depending on where Gallery is
+ * used, so the UserDatabase needs to be able to specify it's
+ * available feature set. For example, if you're using Gallery inside
+ * an embedded app like Nuke, then the NukeUserDatabase should not
+ * allow you to add and delete users from the database (let the Nuke
+ * application take care of that, instead).
+ *
+ * @version $Id$
+ * @module GalleryUserDatabase
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryUserDatabase {
 
-Class AbstractUserDB
---------------------
-	This is an abstract class that provides access to the database
-	of User objects.  It must be implemented by a class that can
-	save and restore User objects from a persistent store.  The
-	features of the UserDB implementation vary depending on where
-	Gallery is used, so the UserDB needs to be able to specify
-	it's available feature set.  For example, if you're using
-	Gallery inside an embedded app like Nuke, then the NukeUserDB
-	should not allow you to add and delete users from the database
-	(let the Nuke application take care of that, instead).
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
 
-	Members
-	-------
-	(none)
+	/**
+	 * Can you create a user using this implementation?
+	 *
+	 * Can you create a user using this implementation?
+	 * 
+	 * @access public
+	 * @return bool true or false
+	 */
+	function canCreateUser() {
+	}
 
-	Methods
-	-------
-	- bool canCreateUser()
-	- bool canModifyUser()
-	- bool canDeleteUser()
-	- User getNobodyUser()
-	- User getEverybodyUser()
-	- User getAuthenticatedUser()
-	- string[] getUidList
-	- User getUserByUsername(string username)
-	- User getUserByUid(string uid)
+	/**
+	 * Can you modify a user using this implementation?
+	 *
+	 * Can you modify a user using this implementation?
+	 * 
+	 * @access public
+	 * @return bool true or false
+	 */
+	function canModifyUser() {
+	}
 
-	Implementations
-	---------------
+	/**
+	 * Can you delete a user using this implementation?
+	 *
+	 * Can you delete a user using this implementation?
+	 * 
+	 * @access public
+	 * @return bool true or false
+	 */
+	function canDeleteUser() {
+	}
+
+	/**
+	 * Get the "nobody" pseudo-user
+	 *
+	 * Get the "nobody" pseudo-user
+	 * 
+	 * @access public
+	 * @return GalleryUser
+	 */
+	function getNobodyUser() {
+	}
+
+	/**
+	 * Get the "everybody" pseudo-user
+	 *
+	 * Get the "everybody" pseudo-user
+	 * 
+	 * @access public
+	 * @return GalleryUser
+	 */
+	function getEverybodyUser() {
+	}
+
+	/**
+	 * Get the "authenticated" pseudo-user
+	 *
+	 * Get the "authenticated" pseudo-user
+	 * 
+	 * @access public
+	 * @return GalleryUser
+	 */
+	function getAuthenticatedUser() {
+	}
+
+	/**
+	 * Get the number of users in the database
+	 *
+	 * Get the number of users in the database
+	 * 
+	 * @access public
+	 * @return int the number of users
+	 */
+	function getNumberOfUsers() {
+	}
+
+	/**
+	 * Get the ids of users in the given range
+	 *
+	 * Get the ids of users in the given range
+	 * 
+	 * @access public
+	 * @param int start of the range (inclusive)
+	 * @param int end of the range (inclusive)
+	 * @return array user ids
+	 */
+	function getUserIds($start, $end) {
+	}
+
+	/**
+	 * Get the GalleryUser for the id specified
+	 *
+	 * Get the GalleryUser for the id specified
+	 * 
+	 * @access public
+	 * @param string id of the user desired
+	 * @return GalleryUser the user
+	 */
+	function &getUserById($id) {
+	}
+
+	/**
+	 * Get the GalleryUser for the username specified
+	 *
+	 * Get the GalleryUser for the username specified
+	 * 
+	 * @access public
+	 * @param string username of the user desired
+	 * @return GalleryUser the user
+	 */
+	function &getUserByUsername($username) {
+	}
+}
+
+Implementations
+---------------
 	UserDB/GalleryFileSystem.php
 	UserDB/GalleryMySQL.php
 
-Class AbstractUser
-------------------
-	This class is the container for information about Gallery
-	users.  Each instance of User contains a unique user id. It
-	must be implemented by a class that has a persistent store for
-	the relevant user data.
+/**
+ * Representation of a single user
+ * 
+ * This class is the container for information about Gallery     
+ * users.  Each instance of User contains a unique user id. It   
+ * must be implemented by a class that has a persistent store for
+ * the relevant user data.
+ * 
+ * @version $Id$
+ * @module GalleryUser
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
 
-	Members
-	-------
-	- string username
-	- string fullname
-	- string password
-	- string email
-	- bool isAdmin
-	- string uid
+class GalleryUser extends GalleryNucleus {
+	
+	/*
+	 * ****************************************
+	 *                 Members
+	 * ****************************************
+	 */
 
-	Methods
-	-------
-	- void setPassword(string password)
-	- bool isCorrectPassword(string password)
-	- string getUid()
-	- void setUsername(string username)
-	- string getUsername()
-	- void setEmail(string email)
-	- string getEmail()
-	- void setFullName(string fullname)
-	- string getFullName()
-	- bool isAdmin()
-	- bool isPseudo()
-	- void setIsAdmin(bool yesOrNo)
-	- bool isLoggedIn()
+	/**
+	 * The User's username
+	 *
+	 * @var	string
+	 */
+	var $_username;
 
-Class PseudoUser [implements AbstractUser]
-------------------------------------------
-	Pseudo users are user records for users that don't actually
-	exist.  They are used as placeholders in situations where an
-	actual user record can't be used (such as in a permissions
-	dialog).  It overrides the following methods in User:
+	/**
+	 * The User's full name
+	 *
+	 * @var	string
+	 */
+	var $_fullname;
 
-	- bool isPseudo()
-		* return true
+	/**
+	 * The User's password in a hashed form.
+	 *
+	 * @var	string
+	 */
+	var $_password;
 
-	- bool isAdmin()
-		* return false
+	/**
+	 * The User's email address.
+	 *
+	 * @var	string
+	 */
+	var $_email;
 
-Class RegisteredUser [extends PseudoUser]
------------------------------------------
+	/**
+	 * Is the user a Gallery admininstrator?
+	 *
+	 * @var	boolean
+	 */
+	var $_isAdmin;
 
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Set the user's password
+	 *
+	 * Set the user's password
+	 *
+	 * @param string the new password (in plain text)
+	 */
+	function setPassword($password) {
+	}
+
+	/**
+	 * Is the password provided correct?
+	 *
+	 * @param string a password
+	 * @return bool true or false
+	 */
+	function isCorrectPassword($password) {
+	}
+
+	/**
+	 * Get the User's id
+	 *
+	 * @return string the id
+	 */
+	function getId() {
+	}
+
+	/**
+	 * Set the User's username
+	 *
+	 * @param string the new username
+	 */
+	function setUsername($username) {
+	}
+
+	/**
+	 * Get the User's username
+	 *
+	 * @return string the username
+	 */
+	function getUsername() {
+	}
+
+	/**
+	 * Set the User's email address
+	 *
+	 * @param string the new email address
+	 */
+	function setEmailAddress($email) {
+	}
+
+	/**
+	 * Get the User's email address
+	 *
+	 * @param
+	 * @return
+	 */
+	function getEmailAddress()
+
+	/**
+	 * Set the User's full name
+	 *
+	 * @param string the new full name
+	 */
+	function setFullName($fullname) {
+	}
+
+	/**
+	 * Get the User's full name
+	 *
+	 * @return string the user's full name
+	 */
+	function getFullName() {
+	}
+
+	/**
+	 * Is this User a Gallery administrator?
+	 *
+	 * @return bool true or false
+	 */
+	function isAdmin() {
+	}
+
+	/**
+	 * Specify that this user is (is not) a Gallery administrator
+	 *
+	 * @param bool true for adminstrator, false if not
+	 */
+	function setIsAdmin($yesOrNo) {
+	}
+
+	/**
+	 * Is this User a pseudo user?
+	 *
+	 * @return bool true or false
+	 */
+	function isPseudo() {
+	}
+
+}
+
+Implementations
+---------------
+RegisteredUser
 	This is a PseudoUser that represents a user that is logged in.
 	It overrides the following methods in PseudoUser:
 
@@ -704,9 +2323,7 @@ Class RegisteredUser [extends PseudoUser]
 	- string getUid() 
 		* return "registered"	
 
-Class EverybodyUser [extends PseudoUser]
-----------------------------------------
-	
+EverybodyUser
 	This is a PseudoUser that represents any user. It overrides
 	the following methods in PseudoUser:
 
@@ -720,9 +2337,7 @@ Class EverybodyUser [extends PseudoUser]
 		* return "everybody"	
 
 
-Class NobodyUser
-----------------
-
+NobodyUser
 	This is a PseudoUser that represents no user.  It overrides
 	the following methods in PseudoUser:
 
@@ -740,19 +2355,103 @@ Class NobodyUser
 Examples
 ================================================================================
 
-1. Create a new album with a title and set the isHtmlAllowed property.
-   By default, it starts off in the root album.
+ALBUMS
+------
 
-	$newAlbum = new Album();
+Get the root AlbumItem:
+
+	$rootAlbumId = $gallery->getRootAlbumItemId();
+	$rootAlbum = $gallery->getItemById($rootAlbumId);
+
+Create a new album at the top level with a title and set the
+isHtmlAllowed property. 
+
+	$newAlbum = GalleryItemFactory::newAlbumItem();
 	$newAlbum->setProperty("title", "This is my new album");
 	$newAlbum->setProperty("isHtmlAllowed", true);
+	$rootAlbum->addItem($newAlbum);
+
+Translate a path into an item, load the item and identify its
+type.
+	$id = $gallery->getIdByPath("/birthdays/mike/picture3");
+	$item = $gallery->getItemById($id);
+
+	if (!empty($item)) {
+		// This is the item requested
+	} else {
+		// The path provided was bad
+	}
+
+	$type = $item->getType();
+	// e.g., $type is now "AlbumItem" or "PhotoItem", etc
+
+Can the current user view an item?
+
+	$id = $gallery->getActiveUserId();
+	$user = $gallery->getUserById($id);
+	if ($item->hasPermission($id, PERMISSION_CAN_VIEW)) {
+		// Good
+	} else {
+		// Bad
+	}
 
 
-XXX 2. Create a new album and add it to an existing one
-XXX 
-XXX 	$existingAlbum = Album.load($existingAlbumId);
-XXX 
-XXX 	/*
-XXX 	 * Add it to the root album
-XXX 	 */
-XXX 	$album = new Album($gallery->rootAlbumItem);	
+GENERAL ITEMS (photos, movies, etc)
+-----------------------------------
+Traverse the list of photos (or whatever else is contained
+in a GalleryItem).
+
+	$album = // an AlbumItem
+	$itemIdList = $album->getItemIdList();
+	foreach ($itemIdList as $id) {
+		$item = $album->getItemById($id);
+		$type = $item->getClassName();
+		// e.g., $type is now "AlbumItem" or "PhotoItem", etc
+	}
+
+Get the thumbnail for an item and learn its dimensions:
+
+	$item = // a GalleryItem
+	$image = $item->getThumbnailImage();
+	list($width, $height) = $image->getDimensions();
+
+Rotate and scale an image:
+
+	$image->rotate(90);
+	$image->scale(200,200);
+
+
+COMMENTS
+--------
+Create a new comment and add it to an item:
+	
+	$comment = new CommentContainer();
+	$comment->setName("John Doe");
+	$comment->setEmail("john@doe.com");
+	$comment->setComment("This is a comment");
+	$item->addComment($comment);
+
+View all comments:
+	$commentIdList = $item->getCommentIdList();
+	foreach ($commentIdList as $id) {
+		$comment = $item->getComment($id);
+		print($comment->getComment());
+	}
+
+Remove a comment:
+	$id = // id of the comment to be removed
+	$comment = $item->getComment($id);
+	$item->removeComment($id);
+	$comment->delete();
+
+Move a comment:
+	$id = // id of comment to be moved
+	$comment = $old_item->getComment($id);
+	$old_item->removeComment($id);
+	$new_item->addComment($id);
+
+Edit a comment:
+	$id = // id of comment to be editted
+	$comment = $item->getComment($id);
+	$comment->setName("Jane Doe");
+	$comment->save();
