@@ -37,6 +37,8 @@ public class AboutBox extends javax.swing.JFrame {
 	javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
 	javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
 	javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
+	javax.swing.JLabel jLabelMaintained = new javax.swing.JLabel();
+	javax.swing.JLabel jLabelContrib = new javax.swing.JLabel();
 // END GENERATED CODE
 
 	public AboutBox() {
@@ -91,6 +93,18 @@ public class AboutBox extends javax.swing.JFrame {
 		jLabel5.setText("http://gallery.sourceforge.net");
 		jLabel5.setHorizontalAlignment(javax.swing.JLabel.RIGHT);
 
+		jLabelMaintained.setSize(new java.awt.Dimension(200, 20));
+		jLabelMaintained.setLocation(new java.awt.Point(120, 100));
+		jLabelMaintained.setVisible(true);
+		jLabelMaintained.setVerticalAlignment(javax.swing.JLabel.TOP);
+		jLabelMaintained.setText("Maintained by Pierre-Luc Paour");
+
+		jLabelContrib.setSize(new java.awt.Dimension(200, 20));
+		jLabelContrib.setLocation(new java.awt.Point(120, 120));
+		jLabelContrib.setVisible(true);
+		jLabelContrib.setVerticalAlignment(javax.swing.JLabel.TOP);
+		jLabelContrib.setText("with contributions by Dolan Halbrook");
+
 		setLocation(new java.awt.Point(0, 0));
 		setSize(new java.awt.Dimension(428, 263));
 		setBackground(java.awt.Color.white);
@@ -102,6 +116,8 @@ public class AboutBox extends javax.swing.JFrame {
 		getContentPane().add(jLabel3);
 		getContentPane().add(jLabel4);
 		getContentPane().add(jLabel5);
+		getContentPane().add(jLabelMaintained);
+		getContentPane().add(jLabelContrib);
 
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -115,24 +131,6 @@ public class AboutBox extends javax.swing.JFrame {
   
   	private boolean mShown = false;
   	
-	public void addNotify() {
-		super.addNotify();
-		
-		if (mShown)
-			return;
-			
-		// resize frame to account for menubar
-		JMenuBar jMenuBar = getJMenuBar();
-		if (jMenuBar != null) {
-			int jMenuBarHeight = jMenuBar.getPreferredSize().height;
-			Dimension dimension = getSize();
-			dimension.height += jMenuBarHeight;
-			setSize(dimension);
-		}
-
-		mShown = true;
-	}
-
 	// Close the window when the close box is clicked
 	void thisWindowClosing(java.awt.event.WindowEvent e) {
 		setVisible(false);
