@@ -32,11 +32,20 @@
           <xsl:call-template name="l10n.language"/>
         </xsl:attribute>
         <xsl:attribute name="format">
-          <xsl:call-template name="page.number.format"/>
+          <xsl:call-template name="page.number.format">
+            <xsl:with-param name="master-reference" select="$master-reference"/>
+          </xsl:call-template>
         </xsl:attribute>
-        <xsl:if test="$double.sided != 0">
-          <xsl:attribute name="initial-page-number">auto-odd</xsl:attribute>
-        </xsl:if>
+        <xsl:attribute name="initial-page-number">
+          <xsl:call-template name="initial.page.number">
+            <xsl:with-param name="master-reference" select="$master-reference"/>
+          </xsl:call-template>
+        </xsl:attribute>
+        <xsl:attribute name="force-page-count">
+          <xsl:call-template name="force.page.count">
+            <xsl:with-param name="master-reference" select="$master-reference"/>
+          </xsl:call-template>
+        </xsl:attribute>
         <xsl:attribute name="hyphenation-character">
           <xsl:call-template name="gentext">
             <xsl:with-param name="key" select="'hyphenation-character'"/>
@@ -103,11 +112,33 @@
 
 <!-- ==================================================================== -->
 
+<xsl:template match="bibliolist">
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
+  <fo:block id="{$id}"
+	    space-before.minimum="1em"
+	    space-before.optimum="1.5em"
+	    space-before.maximum="2em">
+
+    <xsl:if test="blockinfo/title|info/title|title">
+      <xsl:call-template name="formal.object.heading"/>
+    </xsl:if>
+
+    <xsl:apply-templates select="*[not(self::blockinfo)
+			           and not(self::title)
+				   and not(self::titleabbrev)]"/>
+  </fo:block>
+</xsl:template>
+
+<!-- ==================================================================== -->
+
 <xsl:template match="biblioentry">
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
   <xsl:choose>
     <xsl:when test="string(.) = ''">
-      <xsl:variable name="bib" select="document($bibliography.collection)"/>
+      <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
       <xsl:variable name="entry" select="$bib/bibliography/*[@id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
@@ -143,7 +174,7 @@
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
   <xsl:choose>
     <xsl:when test="string(.) = ''">
-      <xsl:variable name="bib" select="document($bibliography.collection)"/>
+      <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
       <xsl:variable name="entry" select="$bib/bibliography/*[@id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
@@ -271,7 +302,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="authorblurb" mode="bibliography.mode">
+<xsl:template match="authorblurb|personblurb" mode="bibliography.mode">
   <fo:inline>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
@@ -430,6 +461,13 @@
 <!-- ================================================== -->
 
 <xsl:template match="corpauthor" mode="bibliography.mode">
+  <fo:inline>
+    <xsl:apply-templates mode="bibliography.mode"/>
+    <xsl:value-of select="$biblioentry.item.separator"/>
+  </fo:inline>
+</xsl:template>
+
+<xsl:template match="corpcredit" mode="bibliography.mode">
   <fo:inline>
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
@@ -771,7 +809,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="authorblurb" mode="bibliomixed.mode">
+<xsl:template match="authorblurb|personblurb" mode="bibliomixed.mode">
   <fo:inline>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </fo:inline>
@@ -880,6 +918,12 @@
 </xsl:template>
 
 <xsl:template match="corpauthor" mode="bibliomixed.mode">
+  <fo:inline>
+    <xsl:apply-templates mode="bibliomixed.mode"/>
+  </fo:inline>
+</xsl:template>
+
+<xsl:template match="corpcredit" mode="bibliomixed.mode">
   <fo:inline>
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </fo:inline>
