@@ -32,14 +32,12 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 
 $albumDB = new AlbumDB(FALSE); // read album database
 
-if (!isset($reorder)) {
-	$reorder = 0;
-}
+list ($reorder, $index, $newAlbum, $newIndex, $startPhoto, $endPhoto)
 
 if ($gallery->album->isAlbum($index)) {
-	$title=$reorder ? _("Reorder Album") : _("Move Album");
+	$title = !empty($reorder) ? _("Reorder Album") : _("Move Album");
 } else {
-	$title=$reorder ? _("Reorder Photo") : _("Move Photo");
+	$title = !empty($reorder) ? _("Reorder Photo") : _("Move Photo");
 }
 
 doctype();
