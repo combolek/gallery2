@@ -23,12 +23,12 @@ goto :EOF
 
 :make_clean_jar
 call :make_all
-jar cvf GalleryRemote.jar com/gallery/GalleryRemote/*.class HTTPClient/*.class
+jar cvf GalleryRemote.jar com/gallery/GalleryRemote/*.class com/gallery/GalleryRemote/model/*.class HTTPClient/*.class
 goto :EOF
 
 :make_zip
 call :make_clean_jar
-zip -0 gallery_remote.zip GalleryRemote.jar default.gif
+zip -0 gallery_remote.zip GalleryRemote.jar default.gif ChangeLog
 goto :EOF
 
 :make_source_zip
@@ -36,4 +36,10 @@ call :make_jar
 rem zip -0 gallery_remote.zip GalleryRemote.jar default.gif (for info-zip)
 rem pkzip -e0 gallery_remote.zip GalleryRemote.jar default.gif (for pkzip)
 zip -0 gallery_remote.zip GalleryRemote.jar default.gif
+goto :EOF
+
+:make_cvsbuild
+rem For this to work unattended, the cvs must be checked out with the read-only account-less method
+cvs update
+call :make_zip
 goto :EOF
