@@ -47,6 +47,7 @@ class GalleryItem extends GalleryNucleus {
      *
      * @gallery persistent
      * @gallery flag STORAGE_TYPE_LIST
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var object GalleryList $_childIds
      */
@@ -57,6 +58,7 @@ class GalleryItem extends GalleryNucleus {
      *
      * @gallery persistent
      * @gallery flag STORAGE_TYPE_LIST
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var object GalleryList $_commentIds
      */
@@ -112,6 +114,7 @@ class GalleryItem extends GalleryNucleus {
      *
      * @gallery persistent
      * @gallery flag STORAGE_TYPE_MAP
+     * @gallery flag STORAGE_TYPE_TEXT
      *
      * @var object GalleryMap $_properties
      */
@@ -165,6 +168,8 @@ class GalleryItem extends GalleryNucleus {
      *
      * @gallery persistent (no accessors)
      * @gallery flag STORAGE_TYPE_MAP
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
      *
      * @var object GalleryMap $_allowedPermissions;
      * @private
@@ -176,6 +181,8 @@ class GalleryItem extends GalleryNucleus {
      *
      * @gallery persistent (no accessors)
      * @gallery flag STORAGE_TYPE_MAP
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
      *
      * @var object GalleryMap $_deniedPermissions;
      * @private
@@ -503,26 +510,30 @@ class GalleryItem extends GalleryNucleus {
             'type' => STORAGE_TYPE_TEXT);
         $meta['members']['childIds'] = array(
             'class' => 'GalleryItem',
-            'type' => STORAGE_TYPE_LIST);
+            'type' => STORAGE_TYPE_LIST |
+                      STORAGE_TYPE_INTEGER);
         $meta['members']['title'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_TIMESTAMP |
                       STORAGE_MODIFIER_REQUIRED);
         $meta['members']['commentIds'] = array(
             'class' => 'GalleryItem',
-            'type' => STORAGE_TYPE_LIST);
+            'type' => STORAGE_TYPE_LIST |
+                      STORAGE_TYPE_INTEGER);
         $meta['members']['viewCount'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER);
         $meta['members']['deniedPermissions'] = array(
             'class' => 'GalleryItem',
-            'type' => STORAGE_TYPE_MAP);
+            'type' => STORAGE_TYPE_MAP |
+                      STORAGE_MODIFIER_MEDIUM | STORAGE_TYPE_STRING);
         $meta['members']['thumbnailId'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER);
         $meta['members']['allowedPermissions'] = array(
             'class' => 'GalleryItem',
-            'type' => STORAGE_TYPE_MAP);
+            'type' => STORAGE_TYPE_MAP |
+                      STORAGE_MODIFIER_MEDIUM | STORAGE_TYPE_STRING);
         $meta['members']['viewedSinceTimestamp'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_TIMESTAMP |
@@ -533,7 +544,8 @@ class GalleryItem extends GalleryNucleus {
                       STORAGE_MODIFIER_LARGE);
         $meta['members']['properties'] = array(
             'class' => 'GalleryItem',
-            'type' => STORAGE_TYPE_MAP);
+            'type' => STORAGE_TYPE_MAP |
+                      STORAGE_TYPE_TEXT);
         $meta['members']['ownerId'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER |

@@ -168,85 +168,105 @@ class MySqlDatabaseSchema extends DatabaseSchema {
     function _createTable($tableName, $tableInfo) {
 	$fullTableName = DATABASE_TABLE_PREFIX . $tableName;
 
-	$clause = '';
+	$columnDefinitions = array();
 	$primaryKey = '';
 
 	foreach ($tableInfo['members'] as $columnName => $columnInfo) {
-	    $type = $columnInfo['type'];
+	    $metaType = $columnInfo['type'];
 	    $targetTable = $columnInfo['class'];
 
 	    /**
 	     * Skip any columns that are targetted at a different table,
 	     * *except* the id column, which must be in all tables.
 	     */
-	    if (strcasecmp($targetTable, $tableName) && !($type & STORAGE_MODIFIER_ID)) {
+	    if (strcasecmp($targetTable, $tableName) && !($metaType & STORAGE_MODIFIER_ID)) {
 		continue;
 	    }
 
 	    /**
-	     * If this is not the first entry in the clause, put in a separator
+	     * Now generate the correct type designation.  Check the compound
+	     * types (map, list) first, simple types last.
 	     */
-	    if (!empty($clause)) {
-		$clause .= ', ';
-	    }
+	    if ($metaType & STORAGE_TYPE_LIST) {
 
-	    /**
-	     * Lead off with the column name, suitably escaped.
-	     */
-	    $clause .= "`$columnName`";
+		/*
+		 * Create a new sub-table as a list associated with this table.
+		 */
+		$subTableName = $tableName . '_' . strtolower($columnName);
+		$subTableMembers =
+			array('id' => array('type' => STORAGE_TYPE_INTEGER,
+					    'class' => $subTableName),
+			      'value' => array('type' => $metaType & ~STORAGE_TYPE_LIST,
+					       'class' => $subTableName),
+			      'weight' => array('type' => STORAGE_TYPE_INTEGER,
+						'class' => $subTableName));
+		$subTableInfo = array('version' => array('major' => 1,
+							 'minor' => 0),
+				      'members' => $subTableMembers);
+		$this->_createTable($subTableName, $subTableInfo);
+		continue;
+	    } else if ($metaType & STORAGE_TYPE_MAP) {
 
-	    /**
-	     * Now generate the correct type designation.
-	     */
-	    if ($type & STORAGE_TYPE_INTEGER) {
-		$clause .= ' int(11)';
-	    } else if ($type & STORAGE_TYPE_STRING) {
-		if ($type & STORAGE_MODIFIER_SMALL) {
+		/*
+		 * Create a new sub-table as a map associated with this table.
+		 */
+		$subTableName = $tableName . '_' . strtolower($columnName);
+		$subTableMembers =
+			array('id' => array('type' => STORAGE_TYPE_INTEGER,
+					    'class' => $subTableName),
+			      'key' => array('type' => (STORAGE_TYPE_STRING |
+							STORAGE_MODIFIER_MEDIUM),
+					     'class' => $subTableName),
+			      'value' => array('type' => $metaType & ~STORAGE_TYPE_MAP,
+					       'class' => $subTableName));
+		$subTableInfo = array('version' => array('major' => 1,
+							 'minor' => 0),
+				      'members' => $subTableMembers);
+		$this->_createTable($subTableName, $subTableInfo);
+		continue;
+	    } else if ($metaType & STORAGE_TYPE_INTEGER) {
+		$actualType = 'int(11)';
+	    } else if ($metaType & STORAGE_TYPE_STRING) {
+		if ($metaType & STORAGE_MODIFIER_SMALL) {
 		    $size = 32;
-		} else if ($type & STORAGE_MODIFIER_MEDIUM) {
+		} else if ($metaType & STORAGE_MODIFIER_MEDIUM) {
 		    $size = 128;
 		} else {
 		    $size = 255;
 		}
 		
-		$clause .= ' varchar(' . $size . ')';
-	    } else if ($type & STORAGE_TYPE_TEXT) {
-		$clause .= ' text';
-	    } else if ($type & STORAGE_TYPE_BOOLEAN) {
-		$clause .= ' int(1)';
-	    } else if ($type & STORAGE_TYPE_TIMESTAMP) {
-		$clause .= ' datetime';
-	    } else if ($type & STORAGE_TYPE_LIST) {
-		/* can't handle this yet.  remove the column name and separator */
-		print "WARNING!  ignoring LIST $columnName\n";
-		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
-		continue;
-	    } else if ($type & STORAGE_TYPE_MAP) {
-		/* can't handle this yet.  remove the column name and separator */
-		print "WARNING!  ignoring MAP $columnName\n";
-		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
-		continue;
-	    } else {
-		/* can't handle this yet.  remove the column name and separator */
-		print "ERROR!  UNKNOWN type for $columnName\n";
-		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
+		$actualType = 'varchar(' . $size . ')';
+	    } else if ($metaType & STORAGE_TYPE_TEXT) {
+		$actualType = 'text';
+	    } else if ($metaType & STORAGE_TYPE_BOOLEAN) {
+		$actualType = 'int(1)';
+	    } else if ($metaType & STORAGE_TYPE_TIMESTAMP) {
+		$actualType = 'datetime';
+	    } else  {
+		/* Unknown type!  Skip it*/
+		print "ERROR!  UNKNOWN type ($metaType) for $columnName\n";
 		continue;
 	    }
 
-	    if ($type & STORAGE_MODIFIER_REQUIRED) {
-		$clause .= ' NOT NULL';
+	    if ($metaType & STORAGE_MODIFIER_REQUIRED) {
+		$actualType .= ' NOT NULL';
 	    }
 
-	    if ($type & STORAGE_MODIFIER_ID) {
+	    if ($metaType & STORAGE_MODIFIER_ID) {
 		$primaryKey = $columnName;
 	    }
+
+	    $columnDefinitions[] = "`$columnName` $actualType";
 	}
 
 	if (!empty($primaryKey)) {
-	    $clause .= ", PRIMARY KEY ($primaryKey)";
+	    $columnDefinitions[] = "PRIMARY KEY ($primaryKey)";
 	}
 
-	$query = "CREATE TABLE $fullTableName ($clause) Type=MyISAM";
+	$query = 'CREATE TABLE ' . $fullTableName . '(';
+	$query .= join(", ", $columnDefinitions);
+	$query .= ') Type=MyISAM';
+	
 	$recordSet = $this->_db->Execute($query);
 	
 	/* Check the results */
