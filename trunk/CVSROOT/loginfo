@@ -24,4 +24,5 @@
 #DEFAULT (echo ""; id; echo %s; date; cat) >> $CVSROOT/CVSROOT/commitlog
 # or
 # DEFAULT	(echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
-ALL	Mail -s %s bharat@menalto.com chris@jacko.com
+ALL	Mail -s %s bharat@menalto.com chris@jacko.com john@backflipcorp.com
+
