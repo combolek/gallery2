@@ -91,7 +91,9 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
          status_text=<replaceable>explanatory-text</replaceable>
         /album.name.<replaceable>ref-num</replaceable>=<replaceable>album-url-name</replaceable>
         |album.title.<replaceable>ref-num</replaceable>=<replaceable>album-display-name</replaceable>
+	|album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
+	|album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -111,9 +113,15 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
           <listitem>
             <para><varname><replaceable>album-display-name</replaceable></varname> is the gallery&apos;s visual name,</para>
           </listitem>
+	  <listitem>
+	    <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>parent-ref-num</replaceable></varname> refers to some other album&apos;s ref-num. A <varname><replaceable>parent-ref-num</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
           </listitem>
+	  <listitem>
+	    <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
@@ -164,7 +172,9 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
          status_text=<replaceable>explanatory-text</replaceable>
         /album.name.<replaceable>ref-num</replaceable>=<replaceable>album-url-name</replaceable>
         |album.title.<replaceable>ref-num</replaceable>=<replaceable>album-display-name</replaceable>
+	|album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
+	|album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -184,9 +194,15 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
           <listitem>
             <para><varname><replaceable>album-display-name</replaceable></varname> is the gallery&apos;s visual name,</para>
           </listitem>
+	  <listitem>
+	    <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>parent-ref-num</replaceable></varname> refers to some other album&apos;s ref-num. A <varname><replaceable>parent-ref-num</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
           </listitem>
+	  <listitem>
+	    <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
