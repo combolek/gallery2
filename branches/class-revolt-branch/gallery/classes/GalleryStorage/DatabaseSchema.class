@@ -1,0 +1,149 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * Database schema management class
+ *
+ * This class is used to manage the database schema used by Gallery
+ *
+ * @version $Id$
+ * @package GalleryStorage
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class DatabaseSchema {
+
+    /**
+     * The current schema version
+     */
+    var $_schemaMajorVersion = 1;
+    var $_schemaMinorVersion = 0;
+
+    /**
+     * The database connection
+     *
+     * @var object ADOdb database connection
+     */
+    var $_db;
+
+    /**
+     * Constructor
+     *
+     * @param object ADOdb database connection
+     */
+    function DatabaseSchema($databaseConnection, $databaseType) {
+	$this->_db = $databaseConnection;
+
+	/* Load the right SQL Generator */
+	require_once(dirname(__FILE__) .
+		     '/DatabaseSchema/SqlGenerator-' .
+		     ucfirst(strtolower($databaseType)) .
+		     '.class');
+	$this->_generator = new SqlGenerator();
+    }
+
+    /**
+     * Create a new schema.
+     *
+     * @param string the name of the database to create
+     * @return int a status code
+     */
+    function createSchema($databaseName) {
+
+	/**
+	 * Create the database
+	 */
+	$query = $this->_generator->createDatabase($databaseName);
+	$recordSet = $this->_db->Execute($query);
+
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	/*
+	 * Make a new GalleryClassMetaInfo instance.  We could try to use the
+	 * one from the global $gallery's storage instance, but that implies
+	 * that the gallery instance is properly configured, and it's possible
+	 * that we'll want to do this operation at a time when we don't have a
+	 * functioning Gallery.  Who knows .. leave our options open.
+	 */
+	$metaInfo = new GalleryClassMetaInfo();
+
+	/*
+	 * Generate the schema for each class
+	 */
+	foreach ($metaInfo->listClasses() as $tableName) {
+	    $query = $this->_generator->createTable($tableName,
+	        $metaInfo->_metaInfo->fullClassInfo[$tableName]);
+	    $recordSet = $this->_db->Execute($query);
+
+	    /* Check the results */
+	    if (!$recordSet) {
+		return ERROR | ERROR_DATABASE_FAILURE;
+	    }
+	}
+
+	/*
+	 * Generate the schema table
+	 */
+	$schemaTableInfo = array("major" => array('type' => STORAGE_TYPE_INTEGER,
+						  'class' => 'schema'),
+				 "minor" => array('type' => STORAGE_TYPE_INTEGER,
+						  'class' => 'schema'));
+	$query = $this->_generator->createTable("schema", $schemaTableInfo);
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	/*
+	 * Populate the schema table with exactly one row.
+	 */
+	$schemaTable = DATABASE_TABLE_PREFIX . 'schema';
+	$query = 'DELETE FROM ' . $schemaTable;
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+	
+	$query = 'INSERT INTO ' . $schemaTable . '(major, minor) VALUES(?, ?)';
+	$data = array($this->_schemaMajorVersion, $this->_schemaMinorVersion);
+	
+	$recordSet = $this->_db->Execute($query, $data);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	return $data;
+    }
+
+    /**
+     * Update the schema to the current version
+     */
+    function updateSchema() {
+    }
+}
+?>

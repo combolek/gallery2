@@ -22,11 +22,24 @@
  * Require the ADOdb libraries
  */
 require_once(dirname(__FILE__) . '/adodb/adodb.inc.php');
+$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-/*
- * Constants specific to this storage class
+/**
+ * Name of the sequence we'll use for GalleryNucleus ids
  */
-define("ID_SEQUENCE", "idSequence");
+define('DATABASE_ID_SEQUENCE', 'idSequence');
+
+/**
+ * Prefix to append to table names
+ */
+define('DATABASE_TABLE_PREFIX', 'gallery_');
+
+/**
+ * Database connection states
+ */
+define('DATABASE_STATUS_NOT_CONNECTED', 0);
+define('DATABASE_STATUS_PARTIALLY_CONNECTED', 1);
+define('DATABASE_STATUS_FULLY_CONNECTED', 2);
 
 /**
  * Database implementation of the GalleryStorage interface.
@@ -41,18 +54,18 @@ define("ID_SEQUENCE", "idSequence");
 class DatabaseStorage extends GalleryStorage {
 
     /**
+     * Internal pointer to ADOdb database object
+     *
+     * @var object ADOdb $_db
+     */
+    var $_db;
+
+    /**
      * The type of database we're connecting to (eg 'mysql', 'postgres')
      *
      * @var string $_type
      */
     var $_type;
-    
-    /**
-     * Prefix to prepend to any table names
-     * 
-     * @var string $_prefix
-     */
-    var $_prefix;
     
     /**
      * Name of the database user
@@ -83,21 +96,35 @@ class DatabaseStorage extends GalleryStorage {
     var $_hostname;
 
     /**
+     * A DatabaseSchema instance, used to check and update the schema
+     * 
+     * @var object DatabaseSchema an instance of the DatabaseSchema class
+     * @access private
+     */
+    var $_hostname;
+
+    /**
+     * Status of the database connection
+     * 
+     * @var int status
+     * @access private
+     */
+    var $_connectionStatus;
+
+    /**
+     * Constructor.
+     */
+    function DatabaseStorage() {
+	$this->_connectionStatus = DATABASE_STATUS_NOT_CONNECTED;
+    }
+
+    /**
      * Specify the type of database using ADOdb names (eg 'mysql', 'postgres')
      *
      * @param string the database type
      */
     function setType($type) {
 	$this->_type = $type;
-    }
-
-    /**
-     * Specify the prefix to prepend to any table names
-     *
-     * @param string the prefix, like 'gallery_'
-     */
-    function setPrefix($prefix) {
-	$this->_prefix = $prefix;
     }
 
     /**
@@ -143,10 +170,8 @@ class DatabaseStorage extends GalleryStorage {
      */
     function connect() {
 	if (empty($this->_type) ||
-	        empty($this->_prefix) ||
 	        empty($this->_username) ||
 	        empty($this->_password) ||
-	        empty($this->_database) ||
 	        empty($this->_hostname)) {
 	    return ERROR | ERROR_MISSING_VALUE;
 	}
@@ -166,14 +191,26 @@ class DatabaseStorage extends GalleryStorage {
 	    $this->_db->debug = true;
 	}
 
-	if (!$this->_db->PConnect($this->_hostname, $this->_username,
-				  $this->_password, $this->_database)) {
+	if (empty($this->_database)) {
+	    $ret = $this->_db->PConnect($this->_hostname,
+					$this->_username,
+					$this->_password);
+	    $this->_connectionStatus = DATABASE_STATUS_PARTIALLY_CONNECTED;
+	} else {
+	    $ret = $this->_db->PConnect($this->_hostname,
+					$this->_username,
+					$this->_password,
+					$this->_database);
+	    $this->_connectionStatus = DATABASE_STATUS_FULLY_CONNECTED;
+	}
+	$this->_traceStop();
+
+	if (!$ret) {
+	    $this->_connectionStatus = DATABASE_STATUS_NOT_CONNECTED;
 	    $this->_db = null;
-	    $this->_traceStop();
 	    return ERROR | ERROR_DATABASE_FAILURE;
 	}
 
-	$this->_traceStop();
 	return SUCCESS;
     }
 
@@ -193,6 +230,9 @@ class DatabaseStorage extends GalleryStorage {
      * @return string the id of the GalleryItem
      */
     function getIdByPath($path) {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
     }
 
     /**
@@ -204,18 +244,10 @@ class DatabaseStorage extends GalleryStorage {
      * @return int a status code
      */
     function loadNucleus($id, &$nucleus) {
-
-	print "<pre>";
-	print_r($nucleus);
-	print "</pre>";
-	
-	$persistentInfo = $nucleus->getPersistentInfo();
-	foreach ($persistentInfo->members as $memberName => $memberInfo) {
-	    print "<pre>";
-	    print "$membername => ";
-	    print_r($memberInfo);
-	    print "</pre>";
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
+
 	return ERROR;
     }
 
@@ -227,8 +259,94 @@ class DatabaseStorage extends GalleryStorage {
      * @return int a status code
      */
     function saveNucleus(&$nucleus) {
-	// XXX: implement this
-	// XXX: check & increment serial number
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	/*
+	 * Get our persistent and meta info for this class
+	 */
+	$metaInfo = $this->_metaInfo->describeClass($nucleus);
+	$persistentInfo = $nucleus->getPersistentInfo();
+	$idColumn = null;
+
+	/*
+	 * Locate changed fields.
+	 */
+	foreach ($metaInfo as $name => $info) {
+	    /* Locate the id column */
+	    if ($metaInfo[$name]['type'] & STORAGE_TYPE_ID) {
+		$func = 'get' . ucfirst($name);
+		$value = $this->_db->qstr($nucleus->$func());
+		$idColumn = array('name' => $name, 'value' => $value);
+	    }
+	    
+	    /* If the member is modified, record the new value in our table */
+	    if (isset($persistentInfo->modified[$name])) {
+		$func = 'get' . ucfirst($name);
+		$value = $this->_db->qstr($nucleus->$func());
+		$dataTable[$info['class']][$name] = $value;
+	    }
+	    
+	    /*
+	     * If we haven't set up a table for this class, do so now.
+	     * Otherwise we don't have a complete list of tables that we
+	     * need to insert into in order for this class to be completely
+	     * serialized.
+	     */
+	    if (!isset($dataTable[$info['class']])) {
+		$dataTable[$info['class']] = array();
+	    }
+	}
+
+	if ($nucleus->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+
+	    /*
+	     * Iterate through the data table and make up an INSERT statement
+	     * for each table that requires one. 
+	     */
+	    foreach ($dataTable as $table => $changes) {
+
+		/* Make sure that the id column is set for each table */
+		if (empty($changes[$idColumn['name']])) {
+		    $changes[$idColumn['name']] = $idColumn['value'];
+		}
+		
+		$query = "INSERT INTO $table (";
+		$query .= join(',', array_keys($changes));
+		$query .= ') VALUES (';
+		$query .= join(',', array_values($changes));
+		$query .= ')';
+		print "$query<br>";
+	    }
+	} else {
+
+	    /*
+	     * Make one giant UPDATE statement out of all the changed fields.
+	     */
+	    $tableList = array();
+	    $changeList = array();
+	    foreach ($dataTable as $table => $changes) {
+
+		/* Make sure that the id column is set for each table */
+		if (empty($changes[$idColumn['name']])) {
+		    $changes[$idColumn['name']] = $idColumn['value'];
+		}
+		
+		$query = "INSERT INTO $table (";
+		$query .= join(',', array_keys($changes));
+		$query .= ') VALUES (';
+		$query .= join(',', array_values($changes));
+		$query .= ')';
+		print "$query<br>";
+	    }
+
+	    $query = "UPDATE ";
+	    print "$query<br>";
+	}
+	
+	$nucleus->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
+	$nucleus->clearModifyFlags();
 	return SUCCESS;
     }
 
@@ -240,6 +358,10 @@ class DatabaseStorage extends GalleryStorage {
      * @return int a status code
      */
     function deleteNucleus(&$nucleus) {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
 	// XXX: implement this
 	return SUCCESS;
     }
@@ -252,7 +374,7 @@ class DatabaseStorage extends GalleryStorage {
      * @return int a status code
      */
     function newNucleus(&$nucleus) {
-	if (empty($this->_db)) {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
@@ -260,11 +382,12 @@ class DatabaseStorage extends GalleryStorage {
 	 * Get the id of the next nucleus from our sequence.
 	 */
 	$this->_traceStart();
-	$id = $this->_db->GenId(ID_SEQUENCE);
+	$id = $this->_db->GenId(DATABASE_ID_SEQUENCE);
 	$this->_traceStop();
 
 	$nucleus->setId($id);
 	$nucleus->setSerialNumber(0);
+	$nucleus->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 	
 	return SUCCESS;
     }
@@ -277,6 +400,59 @@ class DatabaseStorage extends GalleryStorage {
      * @param array ids to lock (empty array means lock the world) 
      */
     function newLock($timeout, $ids=array()) {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+    }
+
+    /**
+     * Initialize the DatabaseSchema instance
+     *
+     * @access private
+     */
+    function _initDatabaseSchema() {
+	if (empty($this->_databaseSchema)) {
+	    require_once(dirname(__FILE__) . '/DatabaseSchema.class');
+	    $this->_databaseSchema = new DatabaseSchema($this->_db, $this->_type);
+	}
+    }
+
+    /**
+     * Create a new schema.
+     *
+     * @param string the name of the database to create
+     * @return int a status code
+     */
+    function createSchema($databaseName) {
+	if ($this->_connectionStatus != DATABASE_STATUS_PARTIALLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	$this->_initDatabaseSchema();
+	$this->_traceStart();
+	$ret = $this->_databaseSchema->createSchema($databaseName);
+	$this->_traceStop();
+
+	return $ret;
+    }
+
+    /**
+     * Bring the database schema up to date
+     *
+     * @return int a status code
+     */
+    function updateSchema() {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	$this->_initDatabaseSchema();
+	$this->_traceStart();
+	$ret = $this->_databaseSchema->updateSchema();
+	$this->_traceStop();
+
+	return $ret;
     }
 }
 ?>

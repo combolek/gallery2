@@ -25,45 +25,93 @@
 /**
  * Integer type
  *
- * @constant STORAGE_INTEGER
+ * @constant STORAGE_TYPE_INTEGER
  */
-define("STORAGE_INTEGER", 0x00000001);
-
+define("STORAGE_TYPE_INTEGER", 0x00000001);
 
 /**
  * String type
  *
- * @constant STORAGE_STRING
+ * @constant STORAGE_TYPE_STRING
  */
-define("STORAGE_STRING", 0x00000002);
+define("STORAGE_TYPE_STRING", 0x00000002);
 
 /**
  * List type
  *
- * @constant STORAGE_LIST
+ * @constant STORAGE_TYPE_LIST
  */
-define("STORAGE_LIST", 0x00000004);
+define("STORAGE_TYPE_LIST", 0x00000004);
 
 /**
  * Map type
  *
- * @constant STORAGE_MAP
+ * @constant STORAGE_TYPE_MAP
  */
-define("STORAGE_MAP", 0x00000008);
+define("STORAGE_TYPE_MAP", 0x00000008);
 
 /**
  * Text type
  *
- * @constant STORAGE_TEXT
+ * @constant STORAGE_TYPE_TEXT
  */
-define("STORAGE_TEXT", 0x00000010);
+define("STORAGE_TYPE_TEXT", 0x00000010);
 
 /**
  * Text type
  *
- * @constant STORAGE_BOOLEAN
+ * @constant STORAGE_TYPE_BOOLEAN
  */
-define("STORAGE_BOOLEAN", 0x00000020);
+define("STORAGE_TYPE_BOOLEAN", 0x00000020);
+
+/**
+ * Timestamp type
+ *
+ * @constant STORAGE_TYPE_TIMESTAMP
+ */
+define("STORAGE_TYPE_TIMESTAMP", 0x00000040);
+
+/**
+ * ID type
+ *
+ * @constant STORAGE_TYPE_ID
+ */
+define("STORAGE_TYPE_ID", 0x00010000);
+
+/**
+ * This is a required field
+ *
+ * @constant STORAGE_TYPE_REQUIRED
+ */
+define("STORAGE_TYPE_REQUIRED", 0x00020000);
+
+/**
+ * This is a small field
+ *
+ * @constant STORAGE_TYPE_SMALL
+ */
+define("STORAGE_TYPE_SMALL", 0x00040000);
+
+/**
+ * This is a medium sized field
+ *
+ * @constant STORAGE_TYPE_MEDIUM
+ */
+define("STORAGE_TYPE_MEDIUM", 0x00080000);
+
+/**
+ * This is a large field
+ *
+ * @constant STORAGE_TYPE_LARGE
+ */
+define("STORAGE_TYPE_LARGE", 0x00100000);
+
+/**
+ * Newly created flag
+ *
+ * @constant STORAGE_FLAG_NEWLY_CREATED
+ */
+define("STORAGE_FLAG_NEWLY_CREATED", 0x00000001);
 
 /**
  * Interface to the storage mechanism
@@ -76,6 +124,22 @@ define("STORAGE_BOOLEAN", 0x00000020);
  * @abstract
  */
 class GalleryStorage {
+
+    /**
+     * A GalleryClassMetaInfo instance
+     *
+     * @var object GalleryClassMetaInfo $_metaInfo
+     */
+    var $_metaInfo;
+
+    /**
+     * Constructor
+     *
+     * Initialize our Gallery class meta information map
+     */
+    function GalleryStorage() {
+	$this->_metaInfo = new GalleryClassMetaInfo();
+    }
 
     /**
      * Return the id of the GalleryItem associated with the path provided
