@@ -1,0 +1,6 @@
+* Improve gallery docs
+  - Explain how to customize (css/html_wrap)
+  - Explain how users/permissions work
+
+* Make mod_rewrite truly optional; internally use non-rewrite
+  URLs if mod_rewrite is not available.
