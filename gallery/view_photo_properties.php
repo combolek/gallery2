@@ -39,13 +39,15 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
+
 <?php
 if ($gallery->session->albumName && $index) {
 ?>
-<div class="popup">
-<div class="popuphead"><?php echo _("Photo Properties") ?></div>
-<div class="popupcontent" align="center">
-<span class="popuptd">
+
+<div align="center">
+<p class="popuphead"><?php echo _("Photo Properties") ?></p>
+
+<span class="popup">
 	<?php echo $gallery->album->getThumbnailTag($index) ?>
 	<br>
 	<?php echo $gallery->album->getCaption($index) ?>
@@ -135,7 +137,5 @@ PS: Rasmus has fixed this bug in later versions of PHP (yay Rasmus)
 </div>
 
 <?php print gallery_validation_link("view_photo_properties.php", true, array('index' => $index)); ?>
-</div>
-</div>
 </body>
 </html>

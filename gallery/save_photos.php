@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -53,14 +53,15 @@ doctype();
 
 </head>
 <body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();'>
+
 <?php
 $image_tags = array();
 $info_tags = array();
 if (!empty($urls)) {
 ?>
-<div class="popup">
-<div class="popuphead"><?php echo _("Fetching Urls...") ?></div>
-<div class="popupcontent">
+<span class="popuphead"><?php echo _("Fetching Urls...") ?></span>
+<span class="popup">
+<br>
 <?php
 	/* Process all urls first */
 	$temp_files = array();
@@ -147,23 +148,22 @@ if (!empty($urls)) {
 							$url));
 			continue;
 		} 
+                // Ensure that the file we've retrieved is in an acceptable image/movie format
+                if (!acceptableFormat($tag)) {
+                        echo gallery_error(sprintf(_("Invalid file type; %s !"), $tag));
+                        continue;
+                }
 
-		// Ensure that the file we've retrieved is in an acceptable image/movie format
-		if (!acceptableFormat($tag)) {
-			echo gallery_error(sprintf(_("Invalid file type; %s !"), $tag));
-			continue;
-		}
-
-		// Prevent overly long temp names from an external source
-		if(strlen($name) > 20) {
-			$name = substr($name, strlen($name) - 20);
-		}
-
-		/* copy file locally 
-		   use fopen instead of fs_fopen to prevent directory
-		   disclosure */
-		$file = $gallery->app->tmpDir . "/photo.$name";
-		$od = @fopen($file, "wb");
+                // Prevent overly long temp names from an external source
+                if(strlen($name) > 20) {
+                        $name = substr($name, strlen($name) - 20);
+                }       
+                
+                /* copy file locally 
+                   use fopen instead of fs_fopen to prevent directory
+                   disclosure */
+                $file = $gallery->app->tmpDir . "/photo.$name";
+                $od = @fopen($file, "wb");
 		if ($id && $od) {
 			while (!feof($id)) {
 				fwrite($od, fread($id, 65536));
@@ -251,13 +251,13 @@ if (!empty($urls)) {
 			processingMsg(sprintf(_("Found %d images"), count($image_tags)));
 		}
 	}
-	echo "</div>\n</div>";
 } /* if ($urls) */
 ?>
 
-<div class="popup">
-<div class="popuphead"><?php echo _("Processing status...") ?></div>
-<div class="popupcontent">
+</span>
+<br>
+<span class="popuphead"><?php echo _("Processing status...") ?></span>
+<br>
 
 <?php
 $image_count=0;
@@ -360,13 +360,13 @@ if (!empty($temp_files)) {
 }
 ?>
 
-<div class="popuptd">
+<span class="popup">
 <?php
 if (empty($msgcount)) {
 	print _("No images uploaded!");
 }
 ?>
-<div align="center">
+<center>
 <form>
 <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
 </form>
@@ -379,8 +379,8 @@ if (count($image_tags)) {
 	*/
 	insertFormJS('uploadurl_form');
 ?>
-</div>
-<p class="popuptd">
+</span>
+<p class="popup">
 <?php 
 	echo insertFormJSLinks('urls[]'); 
 ?>
@@ -388,7 +388,7 @@ if (count($image_tags)) {
 
 <table>
 <tr>
-	<td class="popuptd">
+	<td class="popup">
 <?php echo makeFormIntro("save_photos.php", 
 		array("name" => 'uploadurl_form',
 			"method" => "POST")); 
@@ -412,12 +412,12 @@ if (count($image_tags)) {
 ?>
 </p>
 <?php if (count($info_tags)) { ?>
-<span class="popuptd">
+<span class="popup">
 <?php
 	processingMsg(sprintf(_("%d meta file(s) found.  These files contain information about the images, such as titles and descriptions."), count($info_tags)));
 ?>
 </span>
-<p class="popuptd">
+<p class="popup">
 <?php
         echo insertFormJSLinks('meta[]');
 ?>
@@ -434,7 +434,7 @@ if (count($image_tags)) {
 	</td>
 </tr>
 </table>
-<p class="popuptd">
+<p class="popup">
 <?php
 	echo insertFormJSLinks('meta[]');
 ?>
@@ -449,10 +449,7 @@ if (count($image_tags)) {
 </p>
 
 </form>
-</div>
-</div>
+</center>
 <?php } /* End if links slurped */ ?>
-</div>
-</div>
 </body>
 </html>

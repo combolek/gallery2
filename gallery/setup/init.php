@@ -48,7 +48,8 @@ if (empty($register_globals) ||
 }
 
 /*
- * If register_globals is off, then extract all superglobals into the global namespace.
+ * If register_globals is off, then extract all HTTP variables into the global
+ * namespace.  
  */
 if (!$gallery->register_globals) {
 
@@ -57,7 +58,10 @@ if (!$gallery->register_globals) {
      * appending "?HTTP_POST_VARS[gallery]=xxx" to the url would cause extract
      * to overwrite HTTP_POST_VARS when it extracts HTTP_GET_VARS
      */
-    $scrubList = array("_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+    $scrubList = array('HTTP_GET_VARS', 'HTTP_POST_VARS', 'HTTP_COOKIE_VARS', 'HTTP_POST_FILES');
+    if (function_exists("version_compare") && version_compare(phpversion(), "4.1.0", ">=")) {
+	array_push($scrubList, "_GET", "_POST", "_COOKIE", "_FILES", "_REQUEST");
+    }
 
     foreach ($scrubList as $outer) {
 	foreach ($scrubList as $inner) {
@@ -65,14 +69,40 @@ if (!$gallery->register_globals) {
 	}
     }
     
+    if (is_array($_REQUEST)) {
 	extract($_REQUEST);
+    }
+    else {
+	if (is_array($HTTP_GET_VARS)) {
+	    extract($HTTP_GET_VARS);
+	}
 
+	if (is_array($HTTP_POST_VARS)) {
+	    extract($HTTP_POST_VARS);
+	}
+
+	if (is_array($HTTP_COOKIE_VARS)) {
+	    extract($HTTP_COOKIE_VARS);
+	}
+    }
+
+
+    if (is_array($HTTP_POST_FILES)) {
+	foreach($HTTP_POST_FILES as $key => $value) {
+	    ${$key."_name"} = $value["name"];
+	    ${$key."_size"} = $value["size"];
+	    ${$key."_type"} = $value["type"];
+	    ${$key} = $value["tmp_name"];
+	}
+    }
+    elseif (is_array($_FILES)) {
 	foreach($_FILES as $key => $value) {
 	    ${$key."_name"} = $value["name"];
 	    ${$key."_size"} = $value["size"];
 	    ${$key."_type"} = $value["type"];
 	    ${$key} = $value["tmp_name"];
 	}
+    }
 }
 
 /* load necessary functions */
@@ -113,9 +143,9 @@ set_magic_quotes_runtime(0);
  * Init prepend file for setup directory.
  */
 
-$tmp = $_SERVER["PHP_SELF"];
+$tmp = $HTTP_SERVER_VARS["PHP_SELF"];
 if (!$tmp) {
-	$tmp = $_ENV["PHP_SELF"];
+	$tmp = $HTTP_ENV_VARS["PHP_SELF"];
 }
 if (!$tmp) {
 	$tmp = getenv("SCRIPT_NAME");
@@ -127,7 +157,7 @@ $GALLERY_URL = ereg_replace("\/$", "", $GALLERY_URL);
 
 $MIN_PHP_MAJOR_VERSION = 4;
 
-if ($init_mod_rewrite = getRequestVar('init_mod_rewrite')) {
+if (!empty($init_mod_rewrite)) {
 	$GALLERY_REWRITE_OK = 1;
 	if (strstr($init_mod_rewrite, "ampersandbroken")) {
 		$GALLERY_REWRITE_SEPARATOR = "\&";

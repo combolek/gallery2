@@ -8,37 +8,6 @@
     <para>The &quot;Gallery Remote&quot; remote administration program is this protocol&apos;s <foreignphrase>raison d&apos;être</foreignphrase>. Version 1 of the protocol was tied very tightly to that application. It is clear that in addition to Gallery Remote users, there is a growing number of users that would like to query and control Gallery installations with their own programs.</para>
     <para>Version 2 adds some extra features but (hopefully) greater potential for other remote applications based on Gallery. If you would like to make suggestions for future work on the Gallery Remote protocol, please submit them to either of the authors.</para>
   </sect2>
-  <sect2 id="gallery-remote.protocol.g2">
-    <title>G2 support</title>
-    <para>
-     The long-term plan for G2 remote access is to design a protocol based on SOAP. However,
-     as a stopgap, we have implemented very basic for protocol 2 in G2, with some small differences.
-    </para>
-    <para>
-     Only <link linkend="gallery-remote.protocol.cmd.login">login</link>,
-     <link linkend="gallery-remote.protocol.cmd.fetch-albums-prune">fetch-albums-prune</link> and
-     <link linkend="gallery-remote.protocol.cmd.add-item">add-item</link> are supported.
-    </para>
-    <para>
-     Also, because of G2-specific constraints, the format of the URLs is a bit different:
-    <itemizedlist spacing="compact">
-     <listitem>
-      <para>The base URL is <literal><replaceable>http://www.example.com/g2_path</replaceable>/main.php</literal></para>
-     </listitem>
-     <listitem>
-      <para>An additional URL parameter needs to always be added: <literal>g2_controller=remote:GalleryRemote</literal></para>
-     </listitem>
-     <listitem>
-      <para>Each parameter needs to be modified to <literal>g2_form[<replaceable>name</replaceable>]=<replaceable>value</replaceable></literal></para>
-     </listitem>
-     <listitem>
-      <para>except in <link linkend="gallery-remote.protocol.cmd.add-item">add-item</link>,
-       where <literal>userfile</literal> and <literal>userfile_name</literal> become
-       <literal>g2_userfile</literal> and <literal>g2_userfile_name</literal> respectively.</para>
-     </listitem>
-    </itemizedlist>
-    </para>
-  </sect2>
   <sect2 id="gallery-remote.protocol.overview">
     <title>Overview</title>
     <para>Gallery remote queries and sends information from a Gallery server through a protocol based on HTTP and form-data. The protocol leverages the same user authentication (and session cookies) as the web/HTML interface to the site. It is implemented in the PHP source file gallery_remote2.php.</para>
@@ -122,10 +91,9 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
          status_text=<replaceable>explanatory-text</replaceable>
         /album.name.<replaceable>ref-num</replaceable>=<replaceable>album-url-name</replaceable>
         |album.title.<replaceable>ref-num</replaceable>=<replaceable>album-display-name</replaceable>
-	       |album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
+	|album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
-	       |album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
-	       |album.max_size.<replaceable>ref-num</replaceable>=<replaceable>image-max-size</replaceable><productnumber> [since 2.15]</productnumber>
+	|album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -133,7 +101,7 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
         |album.perms.create_sub.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         \album.info.extrafields.<replaceable>ref-num</replaceable>=<replaceable>extra-fields</replaceable><productnumber> [since 2.3]</productnumber>
          album_count=<replaceable>number-of-albums</replaceable>
-       	 can_create_root=<replaceable>yes/no</replaceable><productnumber> [since 2.11]</productnumber></programlisting>
+	 can_create_root=<replaceable>yes/no</replaceable><productnumber> [since 2.11]</productnumber></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the album data was fetched successfully.</para>
         <para>If successful, a response to the <varname>fetch-albums</varname> command returns several keys for each album in the gallery, where</para>
         <itemizedlist spacing="compact">
@@ -146,27 +114,24 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
           <listitem>
             <para><varname><replaceable>album-display-name</replaceable></varname> is the gallery&apos;s visual name,</para>
           </listitem>
-          <listitem>
-            <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
-          </listitem>
+	  <listitem>
+	    <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>parent-ref-num</replaceable></varname> refers to some other album&apos;s ref-num. A <varname><replaceable>parent-ref-num</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
           </listitem>
-         <listitem>
-           <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
-         </listitem>
-         <listitem>
-           <para><varname><replaceable>image-max-size</replaceable></varname> is the maximum size of images created when a large image is added to an album,</para>
-         </listitem>
+	  <listitem>
+	    <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
           <listitem>
             <para>and <varname><replaceable>boolean</replaceable></varname> represents a boolean value. <varname>true</varname> is considered true, any other value false.</para>
           </listitem>
-          </itemizedlist>
-            <para>Several &quot;permissions&quot; are reported for each album. The reported permissions are the effective permissions of the currently logged in user:</para>
-          <itemizedlist>
+        </itemizedlist>
+        <para>Several &quot;permissions&quot; are reported for each album. The reported permissions are the effective permissions of the currently logged in user:</para>
+        <itemizedlist>
           <listitem>
             <para>the <varname>add</varname> permission allows the user to add a picture to the album.</para>
           </listitem>
@@ -184,7 +149,7 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
           </listitem>
         </itemizedlist>
         <para>The number of albums in the response is returned as <varname><replaceable>number-of-albums</replaceable></varname>.</para>
-	       <para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
+	<para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.fetch-albums-prune">
@@ -211,10 +176,9 @@ check_writeable=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</p
         /album.name.<replaceable>ref-num</replaceable>=<replaceable>album-url-name</replaceable>
         |album.title.<replaceable>ref-num</replaceable>=<replaceable>album-display-name</replaceable>
         |album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
-        |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-name</replaceable>
+        |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
         |album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
         |album.thumb_size.<replaceable>ref-num</replaceable>=<replaceable>image-thumb-size</replaceable><productnumber> [since 2.9]</productnumber>
-	       |album.max_size.<replaceable>ref-num</replaceable>=<replaceable>image-max-size</replaceable><productnumber> [since 2.15]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -235,27 +199,24 @@ check_writeable=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</p
           <listitem>
             <para><varname><replaceable>album-display-name</replaceable></varname> is the gallery&apos;s visual name,</para>
           </listitem>
+	  <listitem>
+	    <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
+	  </listitem>
           <listitem>
-            <para><varname><replaceable>album-summary</replaceable></varname> is the summary of the album,</para>
+            <para><varname><replaceable>parent-ref-num</replaceable></varname> refers to some other album&apos;s ref-num. A <varname><replaceable>parent-ref-num</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
           </listitem>
-          <listitem>
-            <para><varname><replaceable>parent-name</replaceable></varname> refers to the parent album&apos;s name (this is different from the <link linkend="gallery-remote.protocol.cmd.fetch-albums">fetch-albums</link> command. A <varname><replaceable>parent-name</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
-          </listitem>
-          <listitem>
-            <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
-          </listitem>
-         <listitem>
-           <para><varname><replaceable>image-max-size</replaceable></varname> is the maximum size of images created when a large image is added to an album,</para>
-         </listitem>
+	  <listitem>
+	    <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
+	  </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
           <listitem>
             <para>and <varname><replaceable>boolean</replaceable></varname> represents a boolean value. <varname>true</varname> is considered true, any other value false.</para>
           </listitem>
-          </itemizedlist>
-            <para>Several &quot;permissions&quot; are reported for each album. The reported permissions are the effective permissions of the currently logged in user:</para>
-          <itemizedlist>
+        </itemizedlist>
+        <para>Several &quot;permissions&quot; are reported for each album. The reported permissions are the effective permissions of the currently logged in user:</para>
+        <itemizedlist>
           <listitem>
             <para>the <varname>add</varname> permission allows the user to add a picture to the album.</para>
           </listitem>
@@ -273,7 +234,7 @@ check_writeable=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</p
           </listitem>
         </itemizedlist>
         <para>The number of albums in the response is returned as <varname><replaceable>number-of-albums</replaceable></varname>.</para>
-        <para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
+	<para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.add-item">
@@ -328,12 +289,11 @@ set_albumName=<replaceable>album name</replaceable></programlisting>
 status=<replaceable>result-code</replaceable>
 status_text=<replaceable>explanatory-text</replaceable>
 auto_resize=<replaceable>resize-dimension</replaceable>
-max_size=<replaceable>max-dimension</replaceable> <productnumber>[since 2.15]</productnumber>
 add_to_beginning=<replaceable>yes/no</replaceable></programlisting>
-        <para>If the <varname>status</varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
-        <para>If an image is uploaded such that its largest dimension is greater than <varname>max-dimension</varname>, the server will resize it. Otherwise, the server will use the original image that was uploaded for both the full-sized and the resized size. In all cases a thumbnail-sized image will be created. The creation of a thumbnail is highly dependant on the size of the image that was uploaded.</para>
-        <para>If the value is <replaceable>0</replaceable> (zero), the Gallery server does not intend to resize uploaded images.</para>
-        <para><varname>add_to_beginning</varname> will contain yes or no based on whether the album will add images to the beginning or the end of the album. <productnumber>[since 2.10]</productnumber></para>
+        <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
+        <para>If an image is uploaded such that its largest dimension is greater than <varname><replaceable>resize-dimension</replaceable></varname>, the server will resize it. Otherwise, the server will use the original image that was uploaded for both the full-sized and the resized size. In all cases a thumbnail-sized image will be created. The creation of a thumbnail is highly dependant on the size of the image that was uploaded.</para>
+        <para>If the value is <varname>0</varname> (zero), the Gallery server does not intend to resize uploaded images.</para>
+	<para>add_to_beginning will contain yes or no based on whether the album will add images to the beginning or the end of the album. <productnumber>[since 2.10]</productnumber></para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.new-album">
@@ -540,11 +500,11 @@ status_text=<replaceable>explanatory-text</replaceable></programlisting>
             <entry>403</entry>
             <entry>The file was received, but could not be processed or added to the album.</entry>
           </row>
-          <row>
-            <entry>GR_STAT_NO_WRITE_PERMISSION</entry>
-            <entry>404</entry>
-            <entry>No write permission to destination album.</entry>
-          </row>
+	  <row>
+	    <entry>GR_STAT_NO_WRITE_PERMISSION</entry>
+	    <entry>404</entry>
+	    <entry>No write permission to destination album.</entry>
+	  </row>
           <row>
             <entry>GR_STAT_NO_CREATE_ALBUM_PERMISSION</entry>
             <entry>501</entry>

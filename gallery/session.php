@@ -53,9 +53,9 @@ if (session_id()) {
 
 /* emulate register_globals for sessions */
 if (!$gallery->register_globals) {
-	if (is_array($_SESSION) && !empty($_SESSION)) {
-		foreach($_SESSION as $key => $value) {
-			$$key =& $_SESSION[$key];
+	if (is_array($HTTP_SESSION_VARS) && !empty($HTTP_SESSION_VARS)) {
+		foreach($HTTP_SESSION_VARS as $key => $value) {
+			$$key =& $HTTP_SESSION_VARS[$key];
 		}
 	}
 	elseif (is_array($_SESSION) && !empty($_SESSION)) {
@@ -78,10 +78,9 @@ if(! isset($gallery->app->sessionVar)) {
 }
 session_register($gSessionVar);
 
-
-if (isset($_SESSION[$gSessionVar])) {
+if (isset($$gSessionVar)) {
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& $_SESSION[$gSessionVar];
+	$gallery->session =& $$gSessionVar;
 
 	/* Make sure our session is current.  If not, nuke it and restart. */
 	/* Disabled this code -- it has too many repercussions */

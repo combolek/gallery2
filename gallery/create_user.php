@@ -25,7 +25,7 @@
 require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 ?>
@@ -57,9 +57,7 @@ if (!empty($action) && $action == 'create') {
 		<?php common_header(); ?>
 		</head>
 		<body dir="<?php echo $gallery->direction ?>">
-		<div class="popup">
-		<div class="popuphead"><?php echo _("Create User") ?></div>
-		<div class="popupcontent">
+		<center>
 		<?php
 		$tmpUser = new Gallery_User();
 		$tmpUser->setUsername($uname);
@@ -111,9 +109,10 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Create User") ?></div>
-<div class="popupcontent">
+
+<center>
+<p class="popuphead"><?php echo _("Create User") ?></p>
+
 <?php
 $canCreate = 1;
 $canCreateChoices = array(1 => _("yes"), 0 => _("no"));
@@ -129,6 +128,7 @@ $allowChange["default_language"] = true;
 $allowChange["member_file"] = false;
 
 ?>
+<div class="popup">
 <?php echo _("Create a new user here.") ?>
 <br>
 
@@ -148,6 +148,7 @@ $allowChange["member_file"] = false;
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="usercreate_form.action.value='cancel'">
 </form>
 </div>
+</center>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--
@@ -157,7 +158,5 @@ document.usercreate_form.uname.focus();
 </script>
 
 <?php print gallery_validation_link("create_user.php"); ?>
-</div>
-</div>
 </body>
 </html>

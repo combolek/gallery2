@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 doctype();
@@ -65,9 +65,10 @@ if (isset($action)) {
 	#-- show the applet ---
 ?>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Custom Thumbnail") ?></div>
-<div class="popupcontent" align="center">
+
+<center>
+<p class="popuphead"><?php echo _("Custom Thumbnail") ?></p>
+
 <?php
 	#-- are we a go? ---
 	if ($gallery->session->albumName && isset($index)) { 
@@ -89,24 +90,24 @@ if (isset($action)) {
 		$bgcolor = "#FFFFFF";
 
 		/* Build up the submit URL */
-		if (isset($_SERVER['HTTPS']) && stristr($_SERVER['HTTPS'], "on")) {
+		if (isset($HTTP_SERVER_VARS['HTTPS']) && stristr($HTTP_SERVER_VARS['HTTPS'], "on")) {
 		    $submit = "https://";
 		} else {
 		    $submit = "http://";
 		}
 
-		if (empty($_SERVER['REQUEST_URI'])) {
-		    $submit .= $_SERVER['HTTP_HOST'];
-		    $submit .= $_SERVER['PATH_INFO'];
+		if (empty($HTTP_SERVER_VARS['REQUEST_URI'])) {
+		    $submit .= $HTTP_SERVER_VARS['HTTP_HOST'];
+		    $submit .= $HTTP_SERVER_VARS['PATH_INFO'];
 		    $submit .= '?';
-		    $submit .= $_SERVER['QUERY_STRING'];
+		    $submit .= $HTTP_SERVER_VARS['QUERY_STRING'];
 		} else {
-		    $submit .= $_SERVER['HTTP_HOST'];
-		    $submit .= $_SERVER['REQUEST_URI'];
+		    $submit .= $HTTP_SERVER_VARS['HTTP_HOST'];
+		    $submit .= $HTTP_SERVER_VARS['REQUEST_URI'];
 		}
 ?>
 
-<span class="popuptd">
+<span class="popup">
 <?php echo _("Choose which part of the image will compose your thumbnail:") ?>
 </span>
 
@@ -131,9 +132,8 @@ if (isset($action)) {
 	} 
 } 
 ?>
+</center>
 <?php print gallery_validation_link("edit_thumb.php"); ?>
-</div>
-</div>
 </body>
 </html>
 

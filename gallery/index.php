@@ -36,17 +36,16 @@ global $MOS_GALLERY_PARAMS;
 // Mambo calls index.php directly for popups - we need to make
 // sure that the option var has been extracted into the environment
 // otherwise it just won't work.
-$option = isset($_REQUEST['option']) ? $_REQUEST['option'] : null;
-$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : null;
-$mop = isset($_REQUEST['mop']) ? $_REQUEST['mop'] : null;
-$name = isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
-$include = isset($_REQUEST['include']) ? $_REQUEST['include'] : null;
+if (empty($option) && !empty($HTTP_GET_VARS['option']))
+	$option = $HTTP_GET_VARS['option'];
+elseif (empty($option) && !empty($HTTP_POST_VARS['option']))
+	$option = $HTTP_POST_VARS['option'];
 
 /* Detect PHP-Nuke, Postnuke, phpBB2 or Mambo and react accordingly.
  * Gallery can run embedded in GeekLog too, but to catch this we need
  * config.php * Therefore we have to detect GeeLog in init.php.
  */
-if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option) || isset($name)) {
+if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option)) {
 
 	/* 
 	 * Change this variable if your Gallery module has a different
@@ -83,7 +82,15 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option) || iss
 	}
 
 	if (empty($include)) {
-		$include = "albums.php";
+		if (!empty($HTTP_GET_VARS['include'])) {
+			$include = $HTTP_GET_VARS['include'];
+		}
+		elseif (!empty($HTTP_POST_VARS['include'])) {
+			$include = $HTTP_POST_VARS['include'];
+		}
+		else {
+			$include = "albums.php";
+		}
 	}
 
 	/*
@@ -140,7 +147,6 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option) || iss
 		       "slideshow_low.php",
 		       "sort_album.php",
 		       "tools/find_orphans.php",
-		       "tools/despam-comments.php",
 		       "upgrade_album.php",
 		       "upgrade_users.php",
 		       "user_preferences.php",

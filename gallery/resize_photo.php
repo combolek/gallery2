@@ -26,7 +26,7 @@ require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -38,9 +38,8 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Resizing photos") ?></div>
-<div class="popupcontent" align="center">
+
+<div class="popup" align="center">
 <?php
 $all = !strcmp($index, "all");
 if ($gallery->session->albumName && isset($index)) {
@@ -71,6 +70,9 @@ if ($gallery->session->albumName && isset($index)) {
 		return;
 	} else {
 ?>
+
+<p class="popuphead"><?php echo _("Resizing photos") ?></p>
+
 <p><?php echo _("This will resize your intermediate photos so that the longest side of the photo is equal to the target size below and the filesize will be close to the chosen size."); ?>
 </p>
 
@@ -85,7 +87,7 @@ if ($gallery->session->albumName && isset($index)) {
 		}
 ?>
 
-<table style="border-width:1px; border-style:solid; padding:10px; padding-left:20px; padding-right:20px" class="popuptd">
+<table style="border-width:1px; border-style:solid; padding:10px; padding-left:20px; padding-right:20px" class="popup">
 <tr>
 	<td><?php echo _("Target filesize"); ?></td>
 	<td><input type="text" size="4" name="resize_file_size" value="<?php print $gallery->album->fields["resize_file_size"] ?>" >  kbytes</td>
@@ -93,7 +95,7 @@ if ($gallery->session->albumName && isset($index)) {
 <tr>
 	<td valign="middle"><?php print _("Maximum side length in pixels") ?></td>
 	<td><br>
-	<table border="0" class="popuptd">
+	<table border="0" class="popup">
 	<?php 
 		$choices=array(1280,1024,700,800,640,600,500,400);
 		for ($i=0; $i<count($choices); $i=$i+2) {
@@ -132,8 +134,8 @@ if ($gallery->session->albumName && isset($index)) {
 }
 ?>
 
+</div>
+
 <?php print gallery_validation_link("resize_photo.php", true, array('index' => $index)); ?>
-</div>
-</div>
 </body>
 </html>

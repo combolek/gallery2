@@ -16,9 +16,8 @@
 ?>
 <?php
 includeHtmlWrap("wrapper.header");
-
-if(!includeTemplate('photo.header.tpl')) {
 ?>
+
 <table width="100%" border="0">
   <tr>
     <td>
@@ -47,6 +46,3 @@ if(!includeTemplate('photo.header.tpl')) {
   </tr>
   <tr>
     <td  align="center" valign="top">
-<?php
-}
-?>

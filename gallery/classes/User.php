@@ -45,6 +45,7 @@ class Abstract_User {
 
 	function salt($len = 4)
 	{
+	       	srand ((float) microtime() * 10000000); // for php v < 4.2
 		$salt = '';
 		for($i = 0; $i < $len; $i++)
 		{

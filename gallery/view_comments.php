@@ -108,6 +108,7 @@ if ($gallery->album->fields["textcolor"]) {
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">
+<span class="popup">
 <?php } 
 
 includeHtmlWrap("album.header");
@@ -181,6 +182,7 @@ includeHtmlWrap("album.footer");
 
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 
+</span>
 </body>
 </html>
 <?php } ?>

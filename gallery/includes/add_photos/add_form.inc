@@ -45,7 +45,7 @@ if (!isset($metaboxes)) {
 <?php echo makeFormIntro("add_photos.php", array("name" => "count_form", "method" => "POST")); ?>
 <input type="hidden" name="mode" value="<?php echo $mode ?>"/>
 
-<table class="popuptd">
+<table class="popup">
 <tr>
 	<td><?php echo _("1. Select the number of files you want to upload:") ?></td>
 	<td><select name="boxes" onChange="javascript:document.count_form.submit(); return false;">
@@ -81,7 +81,7 @@ if (!isset($metaboxes)) {
 				"enctype" => "multipart/form-data",
 				"method" => "POST")); ?>
 
-<table class="popuptd">
+<table class="popup">
 <tr>
 	<td colspan="2"><?php echo _("2. Use the Browse button to find the photos on your computer") ?></td>
 </tr>
@@ -108,11 +108,13 @@ if (!isset($metaboxes)) {
 ?>
 
 </table>
-<?php 
-	echo _("If no caption is set, what would you like the captions to default to?");
-	echo "\n<br><br>";
-	include(dirname(__FILE__) .'/captionOptions.inc.php');
 
+<input type="radio" name="setCaption" value="0" id="setCaption0"><label for="setCaption0"><?php echo _("Leave blank if no caption is specified.") ?></label>
+<br>
+<input type="radio" name="setCaption" value="1" id="setCaption1" checked><label for="setCaption1"><?php echo _("Use filename as caption if no caption is specified.") ?></label>
+<br>
+<input type="radio" name="setCaption" value="2" id="setCaption2"><label for="setCaption2"><?php echo _("Use file creation date stamp as caption if no caption is specified.") ?></label>
+<?php
 if (isset($gallery->app->watermarkDir)) {
    global $watermarkForm;
    $watermarkForm["askRecursive"] = 0;

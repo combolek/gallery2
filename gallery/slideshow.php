@@ -24,7 +24,7 @@
 	require(dirname(__FILE__)  . '/init.php');
 
 $cookieName = $gallery->app->sessionVar . "_slideshow_mode";
-$modeCookie = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : null;
+$modeCookie = isset($HTTP_COOKIE_VARS[$cookieName]) ? $HTTP_COOKIE_VARS[$cookieName] : null;
 if (isset($mode)) {
 	if ($modeCookie != $mode) {
 	    setcookie($cookieName, $mode, time()+60*60*24*365, "/" );
@@ -253,11 +253,11 @@ includeLayout('navtablemiddle.inc');
 ?>
 
 <br>
-<div align="center" class="pview">
+
 <?php
 slideshow_image();
 ?>
-</div>
+
 <?php
 includeLayout('ml_pulldown.inc');
 includeHtmlWrap("slideshow.footer"); ?>
