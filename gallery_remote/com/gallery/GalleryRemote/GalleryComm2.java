@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.StringBufferInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -352,6 +353,13 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 						Log.logException(Log.ERROR, MODULE, e);
 					}
 					return true;
+				} else if (p.getProperty("status").equals(GR_STAT_PASSWD_WRONG)) {
+					error(su, "Invalid username/password.\n\n" +
+							"If your Gallery is embedded inside a CMS like PostNuke,\n" +
+							"you need to use the \"native\" (non-embedded) Gallery URL to log in,\n" +
+							"as well as the native Gallery user and password.\n" +
+							"You can test these by trying to go the native URL and trying to log in.");
+					return false;
 				} else {
 					error(su, "Login Error: " + p.getProperty( "status_text" ));
 					return false;
@@ -448,7 +456,12 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 			} catch ( GR2Exception gr2e ) {
 				Log.logException(Log.ERROR, MODULE, gr2e );
 				error(su, "Error: " + gr2e.getMessage());
-			} catch (IOException ioe)	{
+			} catch (SocketException swe) {
+				Log.logException(Log.ERROR, MODULE, swe);
+				error(su, "You may need to set LimitRequestBody 16777216 and memory_limit = 64M " +
+						"in /etc/php.ini and /etc/httpd/conf.d/php.conf on your Gallery server\n\n" +
+						swe.toString());
+			} catch (IOException ioe) {
 				Log.logException(Log.ERROR, MODULE, ioe);
 				error(su, "Error: " + ioe.toString());
 			} catch (ModuleException me) {
