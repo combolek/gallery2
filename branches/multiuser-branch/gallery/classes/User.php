@@ -90,7 +90,7 @@ class User {
 		return false;
 	}
 
-	function canWriteAlbum($album) {
+	function canWriteToAlbum($album) {
 		if ($this->isAdmin()) {
 			return true;
 		}
@@ -108,7 +108,7 @@ class User {
 		}
 
 		// If they can write, they can add
-		if ($this->canWriteAlbum($album)) {
+		if ($this->canWriteToAlbum($album)) {
 			return true;
 		}
 
@@ -159,7 +159,7 @@ class User {
 		$this->canCreateAlbums(true);
 	}
 
-	function canChangeText($album) {
+	function canChangeTextOfAlbum($album) {
 		if ($this->isAdmin()) {
 			return true;
 		}
