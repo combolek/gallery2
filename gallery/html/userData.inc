@@ -79,4 +79,15 @@
 
  <?= errorRow("email") ?>
 
+<? if ($user->isAdmin()) { ?>
+ <tr>
+  <td>
+   User can create albums
+  </td>
+  <td> 
+   <?= drawSelect("canCreate", $canCreateChoices, $canCreate, 1); ?>
+  </td>
+ </tr>
+<? } ?>
+
 </table>
