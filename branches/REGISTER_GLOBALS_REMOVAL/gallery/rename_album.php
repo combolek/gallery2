@@ -50,6 +50,8 @@ if (!isset($useLoad)) {
 /* Read the album list */
 $albumDB = new AlbumDB(FALSE);
 
+list($oldName, $newName) = getRequestVar(array('oldName', 'newName'));
+
 if (!empty($newName)) {
 	$dismiss = 0;
 	$newName = str_replace("'", "", $newName);
