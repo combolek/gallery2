@@ -549,7 +549,7 @@ class GalleryTheme {
     function sidebarboxbody($params, $content) { assert(false); }
     function listing($params, $content) { assert(false); }
     function listingitem($params, $content) { assert(false); }
-    function listingitemselected($params, $content) { assert(false); }
+    function listingselecteditem($params, $content) { assert(false); }
     function detailedbox($params, $content) { assert(false); }
     function detailedboxtitle($params, $content) { assert(false); }
     function detailedboxdescription($params, $content) { assert(false); }

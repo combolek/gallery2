@@ -114,6 +114,7 @@ class SiteAdminView extends GalleryView {
 
 	$template = $this->_getTemplate();
 	$template->setVariable('subViewChoices', $subViewChoices);
+	$template->setVariable('subViewName', $subViewName);
 	$template->setVariable('subViewHtml', $subViewHtml);
 	list($ret, $html) = $template->render('SiteAdmin.tpl');
 	if ($ret->isError()) {

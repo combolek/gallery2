@@ -18,11 +18,17 @@
       {gallery->sidebarboxbody}
 	{gallery->listing}
 	  {foreach from=$subViewChoices item=choice}
-	    {gallery->listingitem}
-	      {gallery->link url_view='core:SiteAdmin' url_subView=$choice.view}
+	    {if ($subViewName == $choice.view)}
+	      {gallery->listingselecteditem}
 		{$choice.name}
-	      {/gallery->link}
-	    {/gallery->listingitem}
+	      {/gallery->listingselecteditem}
+	    {else}
+	      {gallery->listingitem}
+		{gallery->link url_view='core:SiteAdmin' url_subView=$choice.view}
+		  {$choice.name}
+		{/gallery->link}
+	      {/gallery->listingitem}
+	    {/if}
 	  {/foreach}
 	{/gallery->listing}
       {/gallery->sidebarboxbody}

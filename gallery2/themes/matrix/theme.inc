@@ -86,7 +86,7 @@ class MatrixTheme extends GalleryTheme {
 	return '<li class="listing_item">' . $content . '</li>';
     }
     
-    function listingitemselected($params, $content) {
+    function listingselecteditem($params, $content) {
 	return '<li class="listing_selecteditem">' . $content . '</li>';
     }
     
