@@ -29,7 +29,7 @@ case $1 in
 
 		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf manual.pdf
 
-		rm -f output.fo;;
+		rm -f manual.fo;;
 		
 	test-saxon) 
 		echo "Testing documentation (if you see no errors, everything is good)...";
@@ -49,7 +49,7 @@ case $1 in
 		echo "Options:";
 		echo "html          Generate HTML documents";
 		echo "bightml       Generate one big HTML document";
-		echo "pdf           Generate a PDF (incomplete)";
+		echo "pdf           Generate a PDF (requires fop)";
 		echo "test-saxon    Test for XML errors using saxon";
 		echo "test-xmllint  Test for XML errors using xmllint";
 		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
