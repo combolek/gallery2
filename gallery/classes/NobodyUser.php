@@ -31,5 +31,9 @@ class NobodyUser extends User {
 	function isLoggedIn() {
 		return false;
 	}
+
+	function isPseudo() {
+		return true;
+	}
 }
 ?>

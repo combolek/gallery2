@@ -31,6 +31,10 @@ class EverybodyUser extends User {
 	function isLoggedIn() {
 		return false;
 	}
+
+	function isPseudo() {
+		return true;
+	}
 }
 
 ?>
