@@ -58,6 +58,9 @@ class Album {
 		$this->fields["clicks_date"] = time();
 		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
 		$this->fields["public_comments"] = $gallery->app->default["public_comments"];
+
+		// Seed new albums with the appropriate version.
+		$this->version = $gallery->album_version;
 	}
 
 	function isRoot() {
@@ -484,7 +487,7 @@ class Album {
 			$photo = $this->getPhoto($this->getHighlight());
 			return $photo->getHighlightTag($this->getAlbumDirURL(), $size, $attrs);
 		} else {
-			return "No Highlight";
+			return "Empty!";
 		}
 	}
 
