@@ -137,9 +137,27 @@ function doNotes () {
 function printNotesForm ($action, $id = false, $sect = false, $user = false, $note = false, $extraFields = false) {
 	if (!$id) {
 ?>
-<font color="#ff0000"><b>Note: Do <i>not</i> submit support questions here.  Please use the
-<a href="http://gallery.sf.net/forums.php">forums</a> for support questions.  Your note will
-be deleted if you ask a support question.</b></font>
+<b>Note Submitting Guidelines:</b>
+<ul>
+ <li>
+  <b>Do <i>not</i> submit support questions here.  Please use the
+  <a href="http://gallery.sf.net/forums.php">forums</a> for support questions.  Your note will
+  be deleted if you ask a support question.</b>
+ </li>
+ <li>
+  All notes submitted here become the property of the Gallery Core Team.  Basically, this means
+  we have the right to include them into the documentation proper if we find your note especially
+  informative or useful.
+ </li>
+ <li>
+  HTML is <i>not</i> allowed in the notes.  If you submit HTML, your post will contain the HTML
+  literally.  Line breaks will be converted to &lt;br&gt;'s, so there is no need to use HTML &lt;br&gt;
+  tags.
+ </li>
+ <li>
+  Thank you for submitting your note!  We appreciate it!
+ </li>
+</ul>
 <?php
 	}
 ?>
@@ -157,7 +175,7 @@ if (is_array ($extraFields)) {
 <input type="hidden" name="sect" value="<?php echo $sect;?>">
 <input type="hidden" name="action" value="<?php echo ($id ? 'edit' : 'add');?>-note">
 
-<table bgcolor="#cfcfcf">
+<table bgcolor="#cfcfcf" width="100%">
  <tr>
   <th>
    Email Address<br/>
@@ -190,3 +208,4 @@ function spamProtectEmail ($email) {
 	
 	return $email;
 }
+?>

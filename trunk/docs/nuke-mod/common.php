@@ -5,7 +5,7 @@ if (!eregi("modules.php", $PHP_SELF)) {
 	die ("You can't access this file directly");
 }
 
-$noteadmin = pnSecAuthAction (0, 'GalleryDocs::', '::', ACCESS_ADMIN);
+$noteadmin = pnSecAuthAction (0, 'GalleryDocs::', '::', ACCESS_MODERATE);
 
 function throwError ($error) {
 	global $olddir;
