@@ -55,16 +55,11 @@
    tests on the first platform.
   </para>
   <para>
-   G2 uses a system called phpunit to do unit testing and at the
-   time of this writing has about 150 tests covering almost all
-   of the core and part of the core feature set. We started doing
-   test driven development after writing the bulk of the code so
-   we've been playing catchup to write tests to cover all the
-   stuff we've already written. Soon we'll have written tests for
-   all existing functionality, and all new functionality will
-   stem from tests. If you want to see what the test suite looks
-   like, install G2 and browse to
-   gallery2/setup/phpunit/index.php
+   G2 uses a system called phpunit to do unit testing and at the time
+   of this writing has about 600 tests covering almost all of the core
+   feature set.  If you want to see what the test suite looks like,
+   install G2 and browse to gallery2/setup/phpunit/index.php.  All the
+   tests should be green, at all times.
   </para>
   <para>
    Test Driven Development is not our idea. It stems from a
