@@ -41,10 +41,24 @@ case $1 in
 
 		xmllint --valid --noout manual.xml;;		
 	
+	help)
+		echo "Gallery Documentation Generation Script";
+		echo "---------------------------------------";
+		echo "Usage: ./gen [option]";
+		echo "";		
+		echo "Options:";
+		echo "html          Generate HTML documents";
+		echo "bightml       Generate one big HTML document";
+		echo "pdf           Generate a PDF (incomplete)";
+		echo "test-saxon    Test for XML errors using saxon";
+		echo "test-xmllint  Test for XML errors using xmllint";
+		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
+		echo "help          Display this help page";;
+
 	clean)
 		echo "Deleting generated documentation...";
 		rm -rf html manual.pdf manual.html;;
 		
 	*)
-		echo "Invalid Action";;
+		echo "Invalid Action.  Type './gen help' for help";;
 esac
