@@ -30,17 +30,18 @@
 class DatabaseSchema {
 
     /**
-     * The current schema version
-     */
-    var $_schemaMajorVersion = 1;
-    var $_schemaMinorVersion = 0;
-
-    /**
      * The database connection
      *
      * @var object ADOdb database connection
      */
     var $_db;
+
+    /**
+     * The database specific schema implementation
+     *
+     * @var object DatabaseSchema database connection
+     */
+    var $_implementation;
 
     /**
      * Constructor
@@ -50,12 +51,13 @@ class DatabaseSchema {
     function DatabaseSchema($databaseConnection, $databaseType) {
 	$this->_db = $databaseConnection;
 
-	/* Load the right SQL Generator */
+	/* Load the right DatabaseSchema instance */
+	$className = ucfirst(strtolower($databaseType)) . 'DatabaseSchema';
 	require_once(dirname(__FILE__) .
-		     '/DatabaseSchema/SqlGenerator-' .
-		     ucfirst(strtolower($databaseType)) .
+		     '/DatabaseSchema/' .
+		     $className .
 		     '.class');
-	$this->_generator = new SqlGenerator();
+	$this->_implementation = new $className($databaseConnection);
     }
 
     /**
@@ -68,13 +70,7 @@ class DatabaseSchema {
      * @return int a status code
      */
     function createDatabase($databaseName) {
-	$query = $this->_generator->createDatabase($databaseName);
-	$recordSet = $this->_db->Execute($query);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
+	return $this->_implementation->createDatabase($databaseName);
     }
 
     /**
@@ -89,13 +85,7 @@ class DatabaseSchema {
      * @return int a status code
      */
     function dropDatabase($databaseName) {
-	$query = $this->_generator->dropDatabase($databaseName);
-	$recordSet = $this->_db->Execute($query);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
+	return $this->_implementation->dropDatabase($databaseName);
     }
 
     /**
@@ -105,91 +95,14 @@ class DatabaseSchema {
      * @return int a status code
      */
     function createSchema() {
-
-	/*
-	 * Make a new GalleryClassMetaInfo instance.  We could try to use the
-	 * one from the global $gallery's storage instance, but that implies
-	 * that the gallery instance is properly configured, and it's possible
-	 * that we'll want to do this operation at a time when we don't have a
-	 * functioning Gallery.  Who knows .. leave our options open.
-	 */
-	$metaInfo = new GalleryClassMetaInfo();
-
-	/*
-	 * Generate the schema for each class
-	 */
-	foreach ($metaInfo->listClasses() as $tableName) {
-	    $query = $this->_generator->createTable($tableName,
-	        $metaInfo->describeClass($tableName));
-
-	    $recordSet = $this->_db->Execute($query);
-
-	    /* Check the results */
-	    if (!$recordSet) {
-		return ERROR | ERROR_DATABASE_FAILURE;
-	    }
-	}
-
-	/*
-	 * Generate the lock table
-	 */
-	$lockTableInfo = array('id' => array('type' => STORAGE_TYPE_INTEGER,
-					     'class' => 'lock'),
-			       'lock' => array('type' => STORAGE_TYPE_INTEGER,
-					       'class' => 'lock'));
-
-	$query = $this->_generator->createTable('lock', $lockTableInfo);
-	$recordSet = $this->_db->Execute($query);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
-
-	/*
-	 * Generate the schema table
-	 */
-	$schemaTableInfo = array('major' => array('type' => STORAGE_TYPE_INTEGER,
-						  'class' => 'schema'),
-				 'minor' => array('type' => STORAGE_TYPE_INTEGER,
-						  'class' => 'schema'));
-	$query = $this->_generator->createTable('schema', $schemaTableInfo);
-	$recordSet = $this->_db->Execute($query);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
-
-	/*
-	 * Populate the schema table with exactly one row.
-	 */
-	$schemaTable = DATABASE_TABLE_PREFIX . 'schema';
-	$query = 'DELETE FROM ' . $schemaTable;
-	$recordSet = $this->_db->Execute($query);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
-	
-	$query = 'INSERT INTO ' . $schemaTable . '(major, minor) VALUES(?, ?)';
-	$data = array($this->_schemaMajorVersion, $this->_schemaMinorVersion);
-	
-	$recordSet = $this->_db->Execute($query, $data);
-	
-	/* Check the results */
-	if (!$recordSet) {
-	    return ERROR | ERROR_DATABASE_FAILURE;
-	}
-
-	return $data;
+	return $this->_implementation->createSchema();
     }
 
     /**
      * Update the schema to the current version
      */
     function updateSchema() {
+	return $this->_implementation->updateSchema();
     }
 }
 ?>
