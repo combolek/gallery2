@@ -104,7 +104,7 @@ it all again!)
 <p>
 <center>
 <font size=+2>
-<a href=../albums.php>Enter the Gallery</a>
+<a href=../view_album.php>Enter the Gallery</a>
 </font>
 
 <br><br><br><br>
