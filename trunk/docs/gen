@@ -3,6 +3,14 @@ DIST=dist
 
 # $Id$
 
+# Functions
+
+function gendate{
+	echo "<!ENTITY last-gen-date '"`date`"'>" > $DIST/gendate.ent
+}
+
+# End Functions
+
 case $1 in
 	html)
 		echo "Generating HTML Manual...";
@@ -10,6 +18,8 @@ case $1 in
 		if [ ! -d $DIST/html ]; then
 			mkdir -p $DIST/html;
 		fi
+
+		gendate
 
 		cd $DIST/html
 		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/chunkfast.xsl ../../manual.xml
@@ -28,6 +38,8 @@ case $1 in
 			mkdir -p $DIST/bightml;
 		fi
 
+		gendate
+
 		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param toc.section.depth 1 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
 
 		cp -Rf images $DIST/bightml
@@ -42,6 +54,8 @@ case $1 in
 		if [ ! -d $DIST/galleryweb ]; then
 			mkdir -p $DIST/galleryweb;
 		fi
+
+		gendate
 
 		cd $DIST/galleryweb
 		xsltproc --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
@@ -64,6 +78,8 @@ case $1 in
 #		if [ -e $DIST/pdf/manual.pdf ]; then
 #			rm -f $DIST/pdf/manual.pdf;
 #		fi
+#
+#		gendate
 #
 #		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
 #

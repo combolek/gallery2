@@ -12,6 +12,9 @@
 <!ENTITY % global		SYSTEM "./global.ent">
 %global;
 
+<!ENTITY % gendate		SYSTEM "./dist/gendate.ent">
+%gendate;
+
 ]>
 
 <book id="manual" lang="en">

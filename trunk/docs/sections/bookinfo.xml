@@ -4,7 +4,7 @@
  <bookinfo id="credits">
   <title>Authors</title>
  
-  <authorgroup id="Authors">
+  <authorgroup>
   
    <author>
     <firstname>Bharat</firstname><surname>Mediratta</surname>
@@ -18,17 +18,13 @@
    <author>
     <firstname>Andrew</firstname><surname>Lindeman</surname>
    </author>
+
+   <editor>
+    <firstname>Beckett</firstname><surname>Madden-Woods</surname>
+   </editor>
   
   </authorgroup>
 
-  <authorgroup id="Editors">
-  
-   <author>
-    <firstname>Beckett</firstname><surname>Madden-Woods</surname>
-   </author>
-  
-  </authorgroup>
-  
   <copyright>
    <year>2003</year>
    <holder>Gallery Documentation Group</holder>
@@ -40,5 +36,9 @@
     GNU General Public License</ulink>.
    </para>
   </legalnotice>
-  
+
  </bookinfo>
+
+ <para>
+  Documentation lasted generated on: &last-gen-date;
+ </para>
