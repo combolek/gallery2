@@ -117,6 +117,28 @@ class Gallery {
      */
     var $_platform;
 
+    /**
+     * The current debugging mode.  One of 'buffered', 'logged', 'immediate' or false
+     * 
+     * @var bool $_debug
+     */
+    var $_debug;
+    
+    /**
+     * Where to send debug output (when the debugging mode is set to 'logged')
+     * 
+     * @var bool $_debugLogFile
+     */
+    var $_debugLogFile;
+    
+    /**
+     * A place to temporarily store debug output when the debugging mode is set
+     * to 'buffered'
+     * 
+     * @var bool $_debugBuffer
+     */
+    var $_debugBuffer;
+    
     /*
      * ****************************************
      *                 Methods
@@ -151,6 +173,7 @@ class Gallery {
      */
     function &getCachedNucleus($id) {
 	assert('!empty($id)');
+	assert('!empty($this->_nucleusCache[$id])');
 
 	return $this->_nucleusCache[$id];
     }
@@ -537,6 +560,58 @@ class Gallery {
      */
     function &setStorage(&$storage) {
 	$this->_storage =& $storage;
+    }
+
+    /**
+     * Change the debugging state
+     *
+     * @param mixed one of 'buffered', 'logged', 'immediate' or false
+     */
+    function setDebug($debug) {
+	$this->_debug = $debug;
+    }
+
+    /**
+     * Set the location of debugging output
+     *
+     * @param string a filename
+     */
+    function setDebugLogFile($debugLogFile) {
+	$this->_debugLogFile = $debugLogFile;
+    }
+
+    /**
+     * Get the debug state
+     *
+     * @return mixed the debug state
+     */
+    function getDebug() {
+	return $this->_debug;
+    }
+
+    /**
+     * Output a debug message
+     *
+     * @param string a message
+     */
+    function debug($msg) {
+	if (empty($msg)) {
+	    return;
+	}
+	
+	if (!empty($this->_debug)) {
+	    if (!strcmp($this->_debug, 'buffered')) {
+		$this->_debugBuffer .= "$msg\n";
+	    } else if (!strcmp($this->_debug, 'logged')) {
+		if ($fd = fopen($this->_debugLogFile, 'a')) {
+		    $date = date('Y-m-d H:i:s');
+		    fwrite($fd, '$date [' . session_id() . '] $msg\n');
+		    fclose($fd);
+		}
+	    } else if (!strcmp($this->_debug, 'immediate')) {
+		print $msg;
+	    }
+	}
     }
 }
 ?>
