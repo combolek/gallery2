@@ -441,7 +441,7 @@ class GalleryTheme {
 	    }
 	    
 	    /* Force the key to lower case */
-	    $key = strtolower($key);
+	    $key = strtolower($origKey);
 	    
 	    switch($key) {
 	    case 'charset':

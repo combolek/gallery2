@@ -166,6 +166,23 @@ body {
   color: #c00;
 }
 
+.table { 
+  width: 98%;
+  border-spacing: 2px;
+  margin: 2px 2px 2px 2px;
+}
+
+.columnheader { 
+  font-size: 81%;
+  background-color: #eee;
+}
+
+.column { 
+  font-size: 63%;
+  line-height: 1.33;
+  background-color: #fff;
+}
+
 /* Form Widgets */
 a {
   color: #006699;
