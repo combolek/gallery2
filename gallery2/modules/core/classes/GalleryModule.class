@@ -262,14 +262,12 @@ class GalleryModule {
      * listed in getSiteAdminViews().  As with getSiteAdminViews(), the view
      * title text must be localized.
      *
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
      * @return array object GalleryStatus a status code
      *               array(array('text' => 'localized text',
      *                           'params' => array(key => value, key => value))
      *                     ...)
      */
-    function getSystemLinks($returnUrlParams) {
+    function getSystemLinks() {
 	return array(GalleryStatus::success(), array());
     }
 
@@ -281,12 +279,10 @@ class GalleryModule {
      * page.
      *
      * @param mixed object GalleryItem a target item
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
      * @return array object GalleryStatus a status code
      *               array(array('content' => 'localized content'))
      */
-    function getSystemContent($returnUrlParams) {
+    function getSystemContent() {
 	return array(GalleryStatus::success(), array());
     }
 
@@ -296,14 +292,12 @@ class GalleryModule {
      * comments module uses this to link to the "add comments" view.
      *
      * @param mixed object GalleryItem a target item, or array of object GalleryItem
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
      * @return array object GalleryStatus a status code
      *               array(itemId => array(array('text' => 'localized text',
      *                                           'params' => array(key => value, key => value))
      *                                     ...))
      */
-    function getItemLinks($item, $returnUrlParams) {
+    function getItemLinks($item) {
 	return array(GalleryStatus::success(), array());
     }
 
@@ -311,12 +305,10 @@ class GalleryModule {
      * Return module-specific summary content about the item
      *
      * @param mixed object GalleryItem a target item, or array of object GalleryItem
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
      * @return array object GalleryStatus a status code
      *               string HTML content
      */
-    function getItemSummaries($item, $returnUrlParams) {
+    function getItemSummaries($item) {
 	return array(GalleryStatus::success(), array());
     }
 
@@ -327,12 +319,10 @@ class GalleryModule {
      * summaries.
      *
      * @param mixed object GalleryItem a target item
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
      * @return array object GalleryStatus a status code
      *               string HTML content
      */
-    function getItemDetails($item, $returnUrlParams) {
+    function getItemDetails($item) {
 	return array(GalleryStatus::success(), array());
     }
 

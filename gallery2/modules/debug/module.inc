@@ -126,12 +126,8 @@ class DebugModule extends GalleryModule {
     /**
      * 
      */
-    function getItemLinks($items, $returnUrlParams) {
+    function getItemLinks($items) {
 	global $gallery;
-
-	foreach ($returnUrlParams as $param => $value) {
-	    $params['return.' . $param] = $value;
-	}
 
 	$links = array();
 	foreach ($items as $item) {
