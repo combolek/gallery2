@@ -130,9 +130,10 @@ class GalleryToolkitHelper {
 
 	/* Associate all the mime types */
 	foreach ($mimeTypes as $mimeType) {
-	    GalleryToolkitOperationMimeTypeMap::addMapEntry(array('operationName' => $operationName,
-								  'toolkitId' => $toolkitId,
-								  'mimeType' => $mimeType));
+	    $ret = GalleryToolkitOperationMimeTypeMap::addMapEntry(
+	        array('operationName' => $operationName,
+		      'toolkitId' => $toolkitId,
+		      'mimeType' => $mimeType));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -209,9 +210,10 @@ class GalleryToolkitHelper {
 
 	/* Associate our mime types */
 	foreach ($mimeTypes as $mimeType) {
-	    GalleryToolkitPropertyMimeTypeMap::addMapEntry(array('propertyName' => $propertyName,
-								 'toolkitId' => $toolkitId,
-								 'mimeType' => $mimeType));
+	    $ret = GalleryToolkitPropertyMimeTypeMap::addMapEntry(
+	        array('propertyName' => $propertyName,
+		      'toolkitId' => $toolkitId,
+		      'mimeType' => $mimeType));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
