@@ -35,9 +35,11 @@ if ($doit) {
 
 		$f_name = str_replace("'", "", $f_name);
 		$f_name = str_replace("`", "", $f_name);
-		$f_name = strtr($f_name, "+\\/*?\"<>|& ", "-----------");
+		$f_name = strtr($f_name, "\\/*?\"<>|& .+#", "-------------");
 		$f_name = ereg_replace("\-+", "-", $f_name);
 		$f_name = ereg_replace("\-+$", "", $f_name);
+		$f_name = ereg_replace("^\-", "", $f_name);
+		$f_name = ereg_replace("\-$", "", $f_name);
 		if ($albumDB->renameAlbum($oldName, $f_name)) {
 			$albumDB->save();
 			// need to account for nested albums by updating
@@ -107,7 +109,7 @@ if ($doit) {
 		  <td colspan=\"2\">
 		  <span class=\"admin\">Album Name</span>
 		  <br>
-		  <span class=\"fineprint\">The name must be unique amongst all album names in the gallery.  <b>NOTE:</b> The name cannot conatin any of the following characters: <b>\ / * ? \" ' &amp; &lt; &gt; | + </b>or<b> spaces</b></span>
+		  <span class=\"fineprint\">The name must be unique amongst all album names in the gallery.  <b>NOTE:</b> The name cannot conatin any of the following characters: <b>\ / * ? \" ' &amp; &lt; &gt; | . + # </b>or<b> spaces</b></span>
 ";
 if (!strcmp($tab_error, "name in use")) {
 	$content .= "
