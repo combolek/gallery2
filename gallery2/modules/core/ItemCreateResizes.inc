@@ -51,6 +51,8 @@ class ItemCreateResizesController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	$redirectParams = array();
+	$status = array();
 	if (isset($form['action']['save'])) {
 
 	    /* Validate the input data. */
@@ -192,11 +194,13 @@ class ItemCreateResizesController extends GalleryController {
 		$redirectParams['view'] = 'core:ItemAdmin';
 		$redirectParams['subView'] = 'core:ItemCreateResizes';
 		$redirectParams['itemId'] = $item->getId();
+		$status['settingsSaved'] = 1;
 	    }
 	}
 
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
+	    $results['status'] = $status;
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:ItemAdmin';
@@ -219,7 +223,7 @@ class ItemCreateResizesView extends GalleryView {
     /**
      *
      */
-    function renderBody($form) {
+    function renderBody($form, $status) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -318,6 +322,7 @@ class ItemCreateResizesView extends GalleryView {
 	/* Render the HTML body */
 	$template = $this->_getTemplate();
 	$template->setVariable('form', $form);
+	$template->setVariable('status', $status);
 	$template->setVariable('item', $item->getMemberData());
 	$template->setVariable('controller', 'core:ItemCreateResizes');
 	list($ret,$html) = $template->render('ItemCreateResizes.tpl');
