@@ -1,23 +1,23 @@
 /*
-*  Gallery Remote - a File Upload Utility for Gallery
-*
-*  Gallery - a web based photo album viewer and editor
-*  Copyright (C) 2000-2001 Bharat Mediratta
-*
-*  This program is free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or (at
-*  your option) any later version.
-*
-*  This program is distributed in the hope that it will be useful, but
-*  WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-*  General Public License for more details.
-*
-*  You should have received a copy of the GNU General Public License
-*  along with this program; if not, write to the Free Software
-*  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
+ *  Gallery Remote - a File Upload Utility for Gallery
+ *
+ *  Gallery - a web based photo album viewer and editor
+ *  Copyright (C) 2000-2001 Bharat Mediratta
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or (at
+ *  your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 package com.gallery.GalleryRemote.model;
 
 import com.gallery.GalleryRemote.GalleryAbstractListModel;
@@ -30,9 +30,7 @@ import com.gallery.GalleryRemote.util.ImageUtils;
 import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Picture model
@@ -53,20 +51,8 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	boolean flipped = false;
 	boolean suppressServerAutoRotate = false;
 
-	boolean online = false;
-	URL urlFull = null;
-	Dimension sizeFull = null;
-	URL urlResized = null;
-	Dimension sizeResized = null;
-	URL urlThumbnail = null;
-	Dimension sizeThumbnail = null;
-
-	Album albumOnServer = null;
-	int indexOnServer = -1;
-
 	transient double fileSize = 0;
 	transient String escapedCaption = null;
-	transient int indexCache = -1;
 
 	/**
 	 * Constructor for the Picture object
@@ -89,21 +75,10 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		clone.source = source;
 		clone.caption = caption;
 		clone.album = album;
-
 		clone.extraFields = extraFields;
-
 		clone.angle = angle;
 		clone.flipped = flipped;
 		clone.suppressServerAutoRotate = suppressServerAutoRotate;
-
-		clone.online = online;
-		clone.urlFull = urlFull;
-		clone.sizeFull = sizeFull;
-		clone.urlResized = urlResized;
-		clone.sizeResized = sizeResized;
-		clone.urlThumbnail = urlThumbnail;
-		clone.sizeThumbnail = sizeThumbnail;
-
 		clone.fileSize = fileSize;
 		clone.escapedCaption = escapedCaption;
 
@@ -164,10 +139,6 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	 * @return The source value
 	 */
 	public File getSource() {
-		if (online) {
-			throw new RuntimeException("Can't get source for an online file!");
-		}
-
 		return source;
 	}
 
@@ -180,8 +151,8 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	public File getUploadSource() {
 		File picture = getSource();
 
-		if (album.getResize()) {
-			Dimension d = album.getResizeDimension();
+		if (GalleryRemote.getInstance().properties.getBooleanProperty(RESIZE_BEFORE_UPLOAD)) {
+			Dimension d = GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO);
 
 			if (d == null || d.equals(new Dimension(0, 0))) {
 				d = null;
@@ -259,14 +230,6 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		return fileSize;
 	}
 
-	public void setFileSize(double fileSize) {
-		if (!online) {
-			throw new RuntimeException("Can't set the size of a local image");
-		}
-
-		this.fileSize = fileSize;
-	}
-
 
 	/**
 	 * Gets the album this Picture is inside of
@@ -278,11 +241,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	}
 
 	public String toString() {
-		if (online) {
-			return getName();
-		} else {
-			return source.getName();
-		}
+		return source.getName();
 	}
 
 	// Hacks to allow Album to inherit from Picture and AbstractListModel
@@ -330,26 +289,6 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		return (String) extraFields.get(name);
 	}
 
-	public String getExtraFieldsString() {
-		if (extraFields == null) {
-			return "";
-		}
-
-		StringBuffer sb = new StringBuffer();
-		String sep = System.getProperty("line.separator");
-
-		for (Iterator it = album.getExtraFields().iterator(); it.hasNext();) {
-			String name = (String) it.next();
-			String value = (String) extraFields.get(name);
-
-			if (value != null) {
-				sb.append(name).append(": ").append(value).append(sep);
-			}
-		}
-
-		return sb.toString();
-	}
-
 	public void setExtraField(String name, String value) {
 		if (extraFields == null) {
 			extraFields = new HashMap();
@@ -372,137 +311,6 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 	public void setSuppressServerAutoRotate(boolean suppressServerAutoRotate) {
 		this.suppressServerAutoRotate = suppressServerAutoRotate;
-	}
-
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
-	}
-
-	public URL getUrlFull() {
-		if (!online) {
-			throw new RuntimeException("Can't get URL for a local file!");
-		}
-
-		return urlFull;
-	}
-
-	public void setUrlFull(URL urlFull) {
-		this.urlFull = urlFull;
-	}
-
-	public Dimension getSizeFull() {
-		if (!online) {
-			throw new RuntimeException("Can't get dimension for a local file!");
-		}
-
-		return sizeFull;
-	}
-
-	public void setSizeFull(Dimension sizeFull) {
-		this.sizeFull = sizeFull;
-	}
-
-	public URL getUrlResized() {
-		if (!online) {
-			throw new RuntimeException("Can't get URL for a local file!");
-		}
-
-		return urlResized;
-	}
-
-	public void setUrlResized(URL urlResized) {
-		this.urlResized = urlResized;
-	}
-
-	public Dimension getSizeResized() {
-		if (!online) {
-			throw new RuntimeException("Can't get dimension for a local file!");
-		}
-
-		return sizeResized;
-	}
-
-	public void setSizeResized(Dimension sizeResized) {
-		this.sizeResized = sizeResized;
-	}
-
-	public URL getUrlThumbnail() {
-		if (!online) {
-			throw new RuntimeException("Can't get URL for a local file!");
-		}
-
-		return urlThumbnail;
-	}
-
-	public void setUrlThumbnail(URL urlThumbnail) {
-		this.urlThumbnail = urlThumbnail;
-	}
-
-	public Dimension getSizeThumbnail() {
-		if (!online) {
-			throw new RuntimeException("Can't get dimension for a local file!");
-		}
-
-		return sizeThumbnail;
-	}
-
-	public void setSizeThumbnail(Dimension sizeThumbnail) {
-		this.sizeThumbnail = sizeThumbnail;
-	}
-
-	public String getName() {
-		String path = urlFull.getPath();
-
-		int i = path.lastIndexOf('/');
-
-		if (i != -1) {
-			path = path.substring(i + 1);
-		}
-
-		i = path.lastIndexOf('.');
-		if (i != -1) {
-			path = path.substring(0, i);
-		}
-
-		return path;
-	}
-
-	public Album getAlbumOnServer() {
-		if (!online) {
-			throw new RuntimeException("Can't get dimension for a local file!");
-		}
-
-		return albumOnServer;
-	}
-
-	public void setAlbumOnServer(Album albumOnServer) {
-		this.albumOnServer = albumOnServer;
-	}
-
-	public int getIndexOnServer() {
-		if (!online) {
-			throw new RuntimeException("Can't get dimension for a local file!");
-		}
-
-		return indexOnServer;
-	}
-
-	public int getIndex() {
-		if (indexCache == -1
-				|| indexCache >= album.pictures.size()
-				|| album.pictures.get(indexCache) != this) {
-			return album.pictures.indexOf(this);
-		} else {
-			return indexCache;
-		}
-	}
-
-	public void setIndexOnServer(int indexOnServer) {
-		this.indexOnServer = indexOnServer;
 	}
 }
 

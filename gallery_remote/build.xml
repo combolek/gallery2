@@ -65,7 +65,7 @@
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="com.gallery.GalleryRemote.GalleryRemote"/>
-				<attribute name="Class-Path" value="${lib}/metadata-extractor-2.1.jar ${lib}/JSX1.0.7.4.jar img/"/>
+				<attribute name="Class-Path" value="lib/metadata-extractor-2.1.jar lib/JSX1.0.7.4.jar img/"/>
 			</manifest>
 		</jar>
 	</target>
@@ -148,8 +148,6 @@
 
 	<target name="executable_macosx" depends="jar, img_jar"
 		description="Build a MacOSX executable">
-		<!--target name="installer_macosx"
-			description="Build a MacOSX executable"-->
 
 		<delete dir="Gallery Remote.app"/>
 
@@ -222,3 +220,5 @@
     <target name="nightly" depends="zip, installer_macosx"
         description="Run all the tasks for a nightly build" />
 </project>
+
+

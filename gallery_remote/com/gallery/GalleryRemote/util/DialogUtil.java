@@ -38,11 +38,6 @@ public class DialogUtil {
 		center(window, null);
 	}
 
-	public static void maxSize(Window window) {
-		Rectangle sr = window.getGraphicsConfiguration().getBounds();
-		window.setBounds(sr);
-	}
-
 	public static Frame findParentWindow(Component c) {
 		if (c instanceof Frame) {
 			return (Frame) c;

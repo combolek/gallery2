@@ -23,7 +23,10 @@ package com.gallery.GalleryRemote.prefs;
 import com.gallery.GalleryRemote.Log;
 
 import java.io.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * Properties file for Gallery Remote
@@ -164,6 +167,7 @@ public class PropertiesFile extends GalleryProperties {
 			} catch (IOException e) {
 				// Todo: what should happen here?
 			} finally {
+				read = true;
 				try {
 					fileIn.close();
 				} catch (IOException e2) {
@@ -254,10 +258,10 @@ public class PropertiesFile extends GalleryProperties {
 		if (header != null)
 			writeln(awriter, "#" + header);
 		writeln(awriter, "#" + new Date().toString());
-		ArrayList v = new ArrayList(keySet());
+		Vector v = new Vector(keySet());
 		Collections.sort(v);
-		for (Iterator e = v.iterator(); e.hasNext();) {
-			String key = (String) e.next();
+		for (Enumeration e = v.elements(); e.hasMoreElements();) {
+			String key = (String) e.nextElement();
 			String val = (String) get(key);
 			key = saveConvert(key, true);
 

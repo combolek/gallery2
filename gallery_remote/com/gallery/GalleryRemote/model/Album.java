@@ -26,11 +26,9 @@ import com.gallery.GalleryRemote.util.ImageUtils;
 import com.gallery.GalleryRemote.util.NaturalOrderComparator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
 import java.util.*;
-import java.util.List;
 
 /**
  * Album model
@@ -44,52 +42,41 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * CONSTANTS
 	 */
 	public static final String MODULE = "Album";
+	public static GRI18n grRes = GRI18n.getInstance();
 
 
 	/* -------------------------------------------------------------------------
 	 * LOCAL STORAGE
 	 */
-	ArrayList pictures = new ArrayList();
+	Vector pictures = new Vector();
 
 
 	/* -------------------------------------------------------------------------
 	 * SERVER INFO
 	 */
 	Gallery gallery = null;
-	ArrayList subAlbums = new ArrayList();
 
 	Album parent; // parent Album
-	String title = GRI18n.getString(MODULE, "title");
+	String title = grRes.getString(MODULE, "title");
 	String name;
 	ArrayList extraFields;
-	String summary;
 
-	Boolean overrideResize = null;
-	Boolean overrideResizeDefault = null;
-	Dimension overrideResizeDimension = null;
-	Boolean overrideAddToBeginning = null;
-
-	int autoResize = 0;
+	transient int autoResize = 0;
 	// permissions -- default to true for the sake of old protocols ...
-	boolean canRead = true;
-	boolean canAdd = true;
-	boolean canWrite = true;
-	boolean canDeleteFrom = true;
-	boolean canDeleteThisAlbum = true;
-	boolean canCreateSubAlbum = true;
+	transient boolean canRead = true;
+	transient boolean canAdd = true;
+	transient boolean canWrite = true;
+	transient boolean canDeleteFrom = true;
+	transient boolean canDeleteThisAlbum = true;
+	transient boolean canCreateSubAlbum = true;
 
-	boolean hasFetchedInfo = false;
-	boolean hasFetchedImages = false;
+	transient boolean hasFetchedInfo = false;
 
 	transient private Long pictureFileSize;
 	transient private Integer albumDepth;
 
-	public static List extraFieldsNoShow = Arrays.asList(new String[]{GRI18n.getString(MODULE, "upDate"), GRI18n.getString(MODULE, "captDate")});
+	public static List extraFieldsNoShow = Arrays.asList(new String[]{grRes.getString(MODULE, "upDate"), grRes.getString(MODULE, "captDate")});
 
-
-	public Album(Gallery gallery) {
-		this.gallery = gallery;
-	}
 
 	/**
 	 * Retrieves the album properties from the server.
@@ -107,22 +94,6 @@ public class Album extends Picture implements ListModel, Serializable {
 				gallery.getComm(su).albumInfo(su, this, false);
 			} catch (RuntimeException e) {
 				Log.log(Log.LEVEL_INFO, MODULE, "Server probably doesn't support album-info");
-				Log.logException(Log.LEVEL_INFO, MODULE, e);
-			}
-		}
-	}
-
-	public void fetchAlbumImages(StatusUpdate su) {
-		if (getGallery().getComm(su).hasCapability(GalleryCommCapabilities.CAPA_FETCH_ALBUM_IMAGES)) {
-			if (su == null) {
-				su = new StatusUpdateAdapter() {
-				};
-			}
-
-			try {
-				gallery.getComm(su).fetchAlbumImages(su, this, false);
-			} catch (RuntimeException e) {
-				Log.log(Log.LEVEL_INFO, MODULE, "Server probably doesn't support album-fetch-images");
 				Log.logException(Log.LEVEL_INFO, MODULE, e);
 			}
 		}
@@ -172,8 +143,8 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * 
 	 * @return The pictures value
 	 */
-	public Iterator getPictures() {
-		return pictures.iterator();
+	public Enumeration getPictures() {
+		return pictures.elements();
 	}
 
 	/**
@@ -193,14 +164,12 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * 
 	 * @param file the file to create the picture from
 	 */
-	public Picture addPicture(File file) {
+	public void addPicture(File file) {
 		Picture p = new Picture(file);
 		p.setAlbum(this);
 		addPictureInternal(p);
 
 		notifyListeners();
-
-		return p;
 	}
 
 	/**
@@ -208,8 +177,8 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * 
 	 * @param files the files to create the pictures from
 	 */
-	public ArrayList addPictures(File[] files) {
-		return addPictures(files, -1);
+	public void addPictures(File[] files) {
+		addPictures(files, -1);
 	}
 
 	/**
@@ -218,9 +187,7 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * @param files the files to create the pictures from
 	 * @param index the index in the list at which to begin adding
 	 */
-	public ArrayList addPictures(File[] files, int index) {
-		ArrayList pictures = new ArrayList(files.length);
-
+	public void addPictures(File[] files, int index) {
 		for (int i = 0; i < files.length; i++) {
 			Picture p = new Picture(files[i]);
 			p.setAlbum(this);
@@ -229,13 +196,9 @@ public class Album extends Picture implements ListModel, Serializable {
 			} else {
 				addPictureInternal(index++, p);
 			}
-
-			pictures.add(p);
 		}
 
 		notifyListeners();
-
-		return pictures;
 	}
 
 	/**
@@ -243,13 +206,19 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * 
 	 * @param picturesA the picturesA
 	 */
-	public void addPictures(List picturesL) {
-		addPictures(picturesL, -1);
+	public void addPictures(Picture[] picturesA) {
+		addPictures(picturesA, -1);
 	}
 
-	public void addPictures(List picturesL, int index) {
-		for (Iterator it = picturesL.iterator(); it.hasNext();) {
-			Picture p = (Picture) it.next();
+	/**
+	 * Adds pictures to the album at a specified index
+	 * 
+	 * @param pictures the pictures
+	 * @param index    the index in the list at which to begin adding
+	 */
+	public void addPictures(Picture[] picturesA, int index) {
+		for (int i = 0; i < picturesA.length; i++) {
+			Picture p = picturesA[i];
 			p.setAlbum(this);
 			if (index == -1) {
 				pictures.add(p);
@@ -364,20 +333,20 @@ public class Album extends Picture implements ListModel, Serializable {
 	}
 
 	/**
-	 *  Get the list of files that contain the pictures
-	 *
-	 *@return    The fileList value
+	 * Get the list of files that contain the pictures
+	 * 
+	 * @return The fileList value
 	 */
-	/*public ArrayList getFileList() {
-		ArrayList l = new ArrayList( pictures.size() );
+	public ArrayList getFileList() {
+		ArrayList l = new ArrayList(pictures.size());
 
 		Enumeration e = pictures.elements();
-		while ( e.hasMoreElements() ) {
-			l.add( ( (Picture) e.nextElement() ).getSource() );
+		while (e.hasMoreElements()) {
+			l.add(((Picture) e.nextElement()).getSource());
 		}
 
 		return l;
-	}*/
+	}
 
 	/**
 	 * Sets the name attribute of the Album object
@@ -420,8 +389,6 @@ public class Album extends Picture implements ListModel, Serializable {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
-
-		gallery.albumChanged(this);
 	}
 
 	/**
@@ -486,7 +453,7 @@ public class Album extends Picture implements ListModel, Serializable {
 		// currently.  eventually, when we start changing things
 		// on the server, permission support will get more ... interesting.
 		if (!canAdd) {
-			ret.append(" ").append(GRI18n.getString(MODULE, "ro"));
+			ret.append(grRes.getString(MODULE, "ro"));
 		}
 
 		return ret.toString();
@@ -501,7 +468,12 @@ public class Album extends Picture implements ListModel, Serializable {
 				&& ((Album) o).getName().equals(getName()));
 	}
 		
-
+	
+	//public void setListSelectionModel(ListSelectionModel listSelectionModel) {
+	//	this.listSelectionModel = listSelectionModel;
+	//}
+	
+	
 	/* -------------------------------------------------------------------------
 	 *ListModel Implementation
 	 */
@@ -522,7 +494,7 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * @return The elementAt value
 	 */
 	public Object getElementAt(int index) {
-		return pictures.get(index);
+		return pictures.elementAt(index);
 	}
 
 	/**
@@ -540,26 +512,7 @@ public class Album extends Picture implements ListModel, Serializable {
 	 * @param ldl Description of Parameter
 	 */
 	public void setParentAlbum(Album a) {
-		// take care of a Gallery bug...
-		if (a == this) {
-			Log.log(Log.LEVEL_ERROR, MODULE, "Gallery error: the album " + name +
-					" is its own parent. You should delete it, the album database " +
-					"is corrupted because of it.");
-
-			a = null;
-		}
-
 		parent = a;
-
-		if (a != null) {
-			if (!a.subAlbums.contains(this)) {
-				a.subAlbums.add(this);
-			}
-		} else {
-			if (!gallery.rootAlbums.contains(this)) {
-				gallery.rootAlbums.add(this);
-			}
-		}
 	}
 
 	public ArrayList getExtraFields() {
@@ -634,36 +587,23 @@ public class Album extends Picture implements ListModel, Serializable {
 		return canCreateSubAlbum;
 	}
 
-	public String getSummary() {
-		return summary;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-
-	public ArrayList getPicturesList() {
+	
+	/* -------------------------------------------------------------------------
+	 *NON-PUBLIC INSTANCE METHODS
+	 */
+	 
+	/**
+	 * Package access to get the whole picture vector at once.
+	 */
+	Vector getPicturesVector() {
 		return pictures;
 	}
 
-	ArrayList getUploadablePicturesList() {
-		ArrayList uploadable = new ArrayList();
-
-		for (Iterator it = pictures.iterator(); it.hasNext();) {
-			Picture picture = (Picture) it.next();
-			if (!picture.isOnline()) {
-				uploadable.add(picture);
-			}
-		}
-
-		return uploadable;
-	}
-
-	void setPicturesList(ArrayList pictures) {
+	void setPicturesVector(Vector pictures) {
 		this.pictures = pictures;
 
-		for (Iterator e = pictures.iterator(); e.hasNext();) {
-			((Picture) e.next()).setAlbum(this);
+		for (Enumeration e = pictures.elements(); e.hasMoreElements();) {
+			((Picture) e.nextElement()).setAlbum(this);
 		}
 
 		notifyListeners();
@@ -678,7 +618,7 @@ public class Album extends Picture implements ListModel, Serializable {
 	}
 
 	int depthHelper(int depth) {
-		if (getParentAlbum() != null && getParentAlbum() != this) {
+		if (getParentAlbum() != null) {
 			return getParentAlbum().depthHelper(depth + 1);
 		} else {
 			return depth;
@@ -697,88 +637,6 @@ public class Album extends Picture implements ListModel, Serializable {
 
 	void notifyListeners() {
 		fireContentsChanged(this, 0, pictures.size());
-		gallery.albumChanged(this);
 	}
-
-	public ArrayList getSubAlbums() {
-		return subAlbums;
-	}
-
-	public Boolean getOverrideResize() {
-		return overrideResize;
-	}
-
-	public void setOverrideResize(Boolean overrideResize) {
-		this.overrideResize = overrideResize;
-	}
-
-	public Boolean getOverrideResizeDefault() {
-		return overrideResizeDefault;
-	}
-
-	public void setOverrideResizeDefault(Boolean overrideResizeDefault) {
-		this.overrideResizeDefault = overrideResizeDefault;
-	}
-
-	public Dimension getOverrideResizeDimension() {
-		return overrideResizeDimension;
-	}
-
-	public void setOverrideResizeDimension(Dimension overrideResizeDimension) {
-		this.overrideResizeDimension = overrideResizeDimension;
-	}
-
-	public Boolean getOverrideAddToBeginning() {
-		return overrideAddToBeginning;
-	}
-
-	public void setOverrideAddToBeginning(Boolean overrideAddToBeginning) {
-		this.overrideAddToBeginning = overrideAddToBeginning;
-	}
-
-	public boolean getResize() {
-		if (overrideResize != null) {
-			return overrideResize.booleanValue();
-		} else {
-			return GalleryRemote.getInstance().properties.getBooleanProperty(RESIZE_BEFORE_UPLOAD);
-		}
-	}
-
-	public boolean getResizeDefault() {
-		if (overrideResizeDefault != null) {
-			return overrideResizeDefault.booleanValue();
-		} else {
-			return new Dimension(0, 0).equals(GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO));
-		}
-	}
-
-	public Dimension getResizeDimension() {
-		if (overrideResizeDimension != null) {
-			return overrideResizeDimension;
-		} else {
-			return GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO);
-		}
-	}
-
-	public boolean getAddToBeginning() {
-		if (overrideAddToBeginning != null) {
-			return overrideAddToBeginning.booleanValue();
-		} else {
-			// todo
-			return false;
-		}
-	}
-
-	public boolean isHasFetchedImages() {
-		return hasFetchedImages;
-	}
-
-	public void setHasFetchedImages(boolean hasFetchedImages) {
-		this.hasFetchedImages = hasFetchedImages;
-	}
-
-	/*public void checkTransients() {
-		subAlbums = new ArrayList();
-	}*/
 }
 

@@ -45,7 +45,7 @@ import java.net.UnknownHostException;
  */
 public abstract class GalleryComm implements PreferenceNames {
 	private static final String MODULE = "GalComm";
-
+	private static GRI18n grRes = GRI18n.getInstance();
 	int[] capabilities = null;
 	private static int lastRespCode = 0;
 
@@ -117,10 +117,6 @@ public abstract class GalleryComm implements PreferenceNames {
 	public String newAlbum(StatusUpdate su, Album parentAlbum,
 						   String newAlbumName, String newAlbumTitle,
 						   String newAlbumDesc, boolean async) {
-		throw new RuntimeException("This method is not available on this protocol");
-	}
-
-	public void fetchAlbumImages(StatusUpdate su, Album a, boolean async) {
 		throw new RuntimeException("This method is not available on this protocol");
 	}
 
@@ -234,7 +230,7 @@ public abstract class GalleryComm implements PreferenceNames {
 				if (ioe instanceof javax.net.ssl.SSLPeerUnverifiedException) {
 					Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 
-					JOptionPane.showMessageDialog((Component) su, GRI18n.getString(MODULE, "noAuth"), GRI18n.getString(MODULE, "error"), JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog((Component) su, grRes.getString(MODULE, "noAuth"), grRes.getString(MODULE, "error"), JOptionPane.ERROR_MESSAGE);
 				} else {
 					Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 				}

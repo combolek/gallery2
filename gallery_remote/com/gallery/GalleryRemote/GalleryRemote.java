@@ -95,9 +95,6 @@ public class GalleryRemote {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("apple.awt.showGrowBox", "false");
 		System.setProperty("apple.awt.brushMetalLook", "true");
-
-		// todo: this should not remain this way
-		System.setProperty("apple.awt.fakefullscreen", "true");
 		getInstance().run();
 	}
 }

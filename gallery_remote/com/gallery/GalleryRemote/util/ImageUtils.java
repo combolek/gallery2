@@ -20,10 +20,17 @@
 */
 package com.gallery.GalleryRemote.util;
 
-import com.gallery.GalleryRemote.*;
-import com.gallery.GalleryRemote.model.Picture;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.drew.imaging.jpeg.JpegMetadataReader;
+import com.drew.imaging.jpeg.JpegProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifDirectory;
+import com.gallery.GalleryRemote.GalleryFileFilter;
+import com.gallery.GalleryRemote.GalleryRemote;
+import com.gallery.GalleryRemote.Log;
+import com.gallery.GalleryRemote.MainFrame;
 import com.gallery.GalleryRemote.prefs.PreferenceNames;
+import com.gallery.GalleryRemote.prefs.PropertiesFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,13 +38,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.io.*;
-import java.lang.reflect.Method;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * Interface to common image manipulation routines
@@ -49,7 +54,7 @@ import java.util.List;
 public class ImageUtils {
 	public static final String MODULE = "ImageUtils";
 
-	static ArrayList toDelete = new ArrayList();
+	static Vector toDelete = new Vector();
 	static long totalTime = 0;
 	static int totalIter = 0;
 
@@ -82,6 +87,13 @@ public class ImageUtils {
 	public static boolean deferredStopUsingIM = false;
 	public static boolean deferredStopUsingJpegtran = false;
 
+	/**
+	 * Perform the actual icon loading
+	 * 
+	 * @param filename       path to the file
+	 * @param disableOnError 
+	 * @return Resized icon
+	 */
 	public static ImageIcon load(String filename, Dimension d, int usage) {
 		if (!new File(filename).exists()) {
 			return null;
@@ -385,137 +397,100 @@ public class ImageUtils {
 		return thumb;
 	}
 
-	public static LocalInfo getLocalFilenameForPicture(Picture p, boolean full) {
-		URL u = null;
-		Dimension d = null;
+	public static AngleFlip getExifTargetOrientation(String filename) {
+		if (GalleryFileFilter.canManipulateJpeg(filename)) {
+			File jpegFile = new File(filename);
+			try {
+				Metadata metadata = JpegMetadataReader.readMetadata(jpegFile);
 
-		if (full == false && p.getSizeResized() == null) {
-			// no resized version
+				Directory exifDirectory = metadata.getDirectory(ExifDirectory.class);
+				String orientation = exifDirectory.getString(ExifDirectory.TAG_ORIENTATION);
+
+				if (orientation == null) {
+					Log.log(Log.LEVEL_TRACE, MODULE, "Picture " + filename + " has no EXIF ORIENTATION tag");
+					return null;
+				} else {
+					Log.log(Log.LEVEL_TRACE, MODULE, "Picture " + filename + " EXIF ORIENTATION: " + orientation);
+
+					int or = 0;
+					AngleFlip af = null;
+					try {
+						or = Integer.parseInt(orientation);
+					} catch (NumberFormatException e) {
+						Log.log(Log.LEVEL_ERROR, MODULE, "Couldn't parse orientation " + orientation + " for " + filename);
+						return null;
+					}
+
+					switch (or) {
+						case 1:
+							af = new AngleFlip(0, false);
+							break;
+
+						case 2:
+							af = new AngleFlip(0, true);
+							break;
+
+						case 3:
+							af = new AngleFlip(2, false);
+							break;
+
+						case 4:
+							af = new AngleFlip(2, true);
+							break;
+
+						case 5:
+							af = new AngleFlip(1, true);
+							break;
+
+						case 6:
+							af = new AngleFlip(1, false);
+							break;
+
+						case 7:
+							af = new AngleFlip(3, true);
+							break;
+
+						case 8:
+							af = new AngleFlip(3, false);
+							break;
+
+						default:
+							Log.log(Log.LEVEL_ERROR, MODULE, "Couldn't parse orientation " + orientation + " for " + filename);
+							return null;
+					}
+
+					Log.log(Log.LEVEL_TRACE, MODULE, "Angle: " + af.angle + " Flipped: " + af.flip);
+					return af;
+				}
+			} catch (FileNotFoundException e) {
+				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				return null;
+			} catch (JpegProcessingException e) {
+				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				return null;
+			}
+		} else {
 			return null;
 		}
-
-		if (full) {
-			u = p.getUrlFull();
-			d = p.getSizeFull();
-		} else {
-			u = p.getUrlResized();
-			d = p.getSizeResized();
-		}
-
-		String name = u.getPath();
-		String ext;
-
-		int i = name.lastIndexOf('/');
-		name = name.substring(i + 1);
-
-		i = name.lastIndexOf('.');
-		ext = name.substring(i + 1);
-		name = name.substring(0, i);
-		String filename = name + "." + ext;
-
-		return new LocalInfo(name, ext, filename,
-				deterministicTempFile("server", "." + ext, tmpDir, p.getAlbumOnServer().getName() + name + d));
 	}
 
-	static class LocalInfo {
-		String name;
-		String ext;
-		String filename;
-		File file;
+	public static void resetExifOrientation(String filename) {
+		if (GalleryFileFilter.canManipulateJpeg(filename)) {
+			File jpegFile = new File(filename);
+			try {
+				Metadata metadata = JpegMetadataReader.readMetadata(jpegFile);
 
-		public LocalInfo(String name, String ext, String filename, File file) {
-			this.name = name;
-			this.ext = ext;
-			this.filename = filename;
-			this.file = file;
-		}
-	}
+				Directory exifDirectory = metadata.getDirectory(ExifDirectory.class);
+				exifDirectory.setString(ExifDirectory.TAG_ORIENTATION, "1");
 
-	public static File download(Picture p, Dimension d, StatusUpdate su) {
-		URL pictureUrl = null;
-		//Dimension pictureDimension = null;
-		File f;
-		String filename;
-		LocalInfo fullInfo = getLocalFilenameForPicture(p, true);
-
-		if (p.getSizeResized() != null) {
-			LocalInfo resizedInfo = getLocalFilenameForPicture(p, false);
-
-			if (d.width > p.getSizeResized().width || d.height > p.getSizeResized().height
-					|| fullInfo.file.exists()) {
-				pictureUrl = p.getUrlFull();
-				//pictureDimension = p.getSizeFull();
-				f = fullInfo.file;
-				filename = fullInfo.filename;
-			} else {
-				pictureUrl = p.getUrlResized();
-				//pictureDimension = p.getSizeResized();
-				f = resizedInfo.file;
-				filename = resizedInfo.filename;
+				// todo: this doesn't do anything at present: the library can only READ
+				// EXIF, not write to it...
+			} catch (FileNotFoundException e) {
+				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+			} catch (JpegProcessingException e) {
+				Log.logException(Log.LEVEL_ERROR, MODULE, e);
 			}
-		} else {
-			pictureUrl = p.getUrlFull();
-			//pictureDimension = p.getSizeFull();
-			f = fullInfo.file;
-			filename = fullInfo.filename;
 		}
-
-		Log.log(Log.LEVEL_TRACE, MODULE, "Going to download " + pictureUrl);
-
-		try {
-			URLConnection conn = pictureUrl.openConnection();
-			int size = conn.getContentLength();
-
-			if (f.exists()) {
-				Log.log(Log.LEVEL_TRACE, MODULE, filename + " already existed: no need to download it again");
-				return f;
-			}
-
-			su.startProgress(StatusUpdate.LEVEL_BACKGROUND, 0, size,
-					GRI18n.getString(MODULE, "down.start", new Object[]{filename}), false);
-
-			Log.log(Log.LEVEL_TRACE, MODULE, "Saving to " + f.getPath());
-
-			BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
-			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(f));
-
-			byte[] buffer = new byte[2000];
-			int l;
-			int dl = 0;
-			long t = -1;
-			long start = System.currentTimeMillis();
-			while ((l = in.read(buffer)) != -1) {
-				out.write(buffer, 0, l);
-				dl += l;
-
-				long now = System.currentTimeMillis();
-				if (t != -1 && now - t > 1000) {
-					su.updateProgressValue(StatusUpdate.LEVEL_BACKGROUND, dl);
-					su.updateProgressStatus(StatusUpdate.LEVEL_BACKGROUND,
-							GRI18n.getString(MODULE, "down.progress",
-									new Object[]{filename, new Integer(dl / 1024), new Integer(size / 1024), new Integer((int) (dl / (now - start) * 1000 / 1024))}));
-
-					t = now;
-				}
-
-				if (t == -1) {
-					t = now;
-				}
-			}
-
-			in.close();
-			out.close();
-
-			su.stopProgress(StatusUpdate.LEVEL_BACKGROUND,
-					GRI18n.getString(MODULE, "down.end", new Object[]{filename}));
-		} catch (IOException e) {
-			Log.logException(Log.LEVEL_ERROR, MODULE, e);
-			f = null;
-
-			su.stopProgress(StatusUpdate.LEVEL_BACKGROUND, "Downloading failed");
-		}
-
-		return f;
 	}
 
 	static {
@@ -620,9 +595,9 @@ public class ImageUtils {
 
 
 	public static void purgeTemp() {
-		for (Iterator it = toDelete.iterator(); it.hasNext();) {
-			File file = (File) it.next();
-			file.delete();
+		Enumeration e = toDelete.elements();
+		while (e.hasMoreElements()) {
+			((File) e.nextElement()).delete();
 		}
 	}
 
@@ -670,70 +645,6 @@ public class ImageUtils {
 		}
 
 		return new File(directory, prefix + hash.hashCode() + suffix);
-	}
-
-
-	public static ImageUtils.AngleFlip getExifTargetOrientation(String filename) {
-		try {
-			Class c = Class.forName("com.gallery.GalleryRemote.util.ExifImageUtils");
-			Method m = c.getMethod("getExifTargetOrientation", new Class[]{String.class});
-			return (AngleFlip) m.invoke(null, new Object[]{filename});
-		} catch (Throwable e) {
-			Log.logException(Log.LEVEL_ERROR, MODULE, e);
-			return null;
-		}
-	}
-
-	/* ********* Utilities ********** */
-	public static List expandDirectories(List filesAndFolders)
-			throws IOException {
-		ArrayList allFilesList = new ArrayList();
-
-		Iterator iter = filesAndFolders.iterator();
-		while (iter.hasNext()) {
-			File f = (File) iter.next();
-			if (f.isDirectory()) {
-				allFilesList.addAll(listFilesRecursive(f));
-			} else {
-				allFilesList.add(f);
-			}
-		}
-
-		return allFilesList;
-	}
-
-	public static java.util.List listFilesRecursive(File dir)
-			throws IOException {
-		ArrayList ret = new ArrayList();
-
-		/* File.listFiles: stupid call returns null if there's an
-				   i/o exception *or* if the file is not a directory, making a mess.
-				   http://java.sun.com/j2se/1.4/docs/api/java/io/File.html#listFiles() */
-		File[] fileArray = dir.listFiles();
-		if (fileArray == null) {
-			if (dir.isDirectory()) {
-				/* convert to exception */
-				throw new IOException("i/o exception listing directory: " + dir.getPath());
-			} else {
-				/* this method should only be called on a directory */
-				Log.log(Log.LEVEL_CRITICAL, MODULE, "assertion failed: listFilesRecursive called on a non-dir file");
-				return ret;
-			}
-		}
-
-		java.util.List files = Arrays.asList(fileArray);
-
-		Iterator iter = files.iterator();
-		while (iter.hasNext()) {
-			File f = (File) iter.next();
-			if (f.isDirectory()) {
-				ret.addAll(listFilesRecursive(f));
-			} else {
-				ret.add(f);
-			}
-		}
-
-		return ret;
 	}
 
 	public static int exec(String cmdline) {
@@ -811,9 +722,9 @@ public class ImageUtils {
 			if (GalleryRemote.getInstance().mainFrame != null
 					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
-						GRI18n.getString(MODULE, "warningTextIM"),
-						GRI18n.getString(MODULE, "warningUrlIM"),
-						GRI18n.getString(MODULE, "warningUrlTextIM")
+						GRI18n.getInstance().getString(MODULE, "warningTextIM"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlIM"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlTextIM")
 				);
 
 				if (md.dontShow()) {
@@ -832,9 +743,9 @@ public class ImageUtils {
 			if (GalleryRemote.getInstance().mainFrame != null
 					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
-						GRI18n.getString(MODULE, "warningTextJpegtran"),
-						GRI18n.getString(MODULE, "warningUrlJpegtran"),
-						GRI18n.getString(MODULE, "warningUrlTextJpegtran")
+						GRI18n.getInstance().getString(MODULE, "warningTextJpegtran"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlJpegtran"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlTextJpegtran")
 				);
 
 				if (md.dontShow()) {
@@ -855,7 +766,7 @@ public class ImageUtils {
 
 		public MessageDialog(String message, String url, String urlText) {
 			super(GalleryRemote.getInstance().mainFrame,
-					GRI18n.getString(MODULE, "warningTitle"),
+					GRI18n.getInstance().getString(MODULE, "warningTitle"),
 					true);
 
 			jIcon.setIcon(UIManager.getIcon("OptionPane.warningIcon"));
@@ -864,8 +775,8 @@ public class ImageUtils {
 			jMessage.setText(message);
 			jURL.setText(urlText);
 			jURL.setUrl(url);
-			jDontShow.setText(GRI18n.getString(MODULE, "warningDontShow"));
-			jOk.setText(GRI18n.getString(MODULE, "warningOK"));
+			jDontShow.setText(GRI18n.getInstance().getString(MODULE, "warningDontShow"));
+			jOk.setText(GRI18n.getInstance().getString(MODULE, "warningOK"));
 			jOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);

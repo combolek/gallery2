@@ -22,7 +22,6 @@ package com.gallery.GalleryRemote;
 
 import com.gallery.GalleryRemote.model.Picture;
 import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +31,8 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class DroppableList
 		extends JList implements DropTargetListener, DragSourceListener, DragGestureListener {
 
 	protected final static String MODULE = "Droplist";
+	protected static GRI18n grRes = GRI18n.getInstance();
 	MainFrame mf = null;
 
 	DragSource dragSource;
@@ -188,14 +190,14 @@ public class DroppableList
 
 				/* recursively add contents of directories */
 				try {
-					fileList = ImageUtils.expandDirectories(fileList);
+					fileList = expandDirectories(fileList);
 				} catch (IOException ioe) {
 					Log.log(Log.LEVEL_ERROR, MODULE, "i/o exception listing dirs in a drop");
 					Log.logStack(Log.LEVEL_ERROR, MODULE);
 					JOptionPane.showMessageDialog(
 							null,
-							GRI18n.getString(MODULE, "imgError"),
-							GRI18n.getString(MODULE, "dragError"),
+							grRes.getString(MODULE, "imgError"),
+							grRes.getString(MODULE, "dragError"),
 							JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -268,6 +270,59 @@ public class DroppableList
 		} else {
 			Log.log(Log.LEVEL_TRACE, MODULE, "nothing was selected");
 		}
+	}
+
+
+	/* ********* Utilities ********** */
+	List expandDirectories(List filesAndFolders)
+			throws IOException {
+		ArrayList allFilesList = new ArrayList();
+
+		Iterator iter = filesAndFolders.iterator();
+		while (iter.hasNext()) {
+			File f = (File) iter.next();
+			if (f.isDirectory()) {
+				allFilesList.addAll(listFilesRecursive(f));
+			} else {
+				allFilesList.add(f);
+			}
+		}
+
+		return allFilesList;
+	}
+
+	static List listFilesRecursive(File dir)
+			throws IOException {
+		ArrayList ret = new ArrayList();
+
+		/* File.listFiles: stupid call returns null if there's an
+				   i/o exception *or* if the file is not a directory, making a mess.
+				   http://java.sun.com/j2se/1.4/docs/api/java/io/File.html#listFiles() */
+		File[] fileArray = dir.listFiles();
+		if (fileArray == null) {
+			if (dir.isDirectory()) {
+				/* convert to exception */
+				throw new IOException("i/o exception listing directory: " + dir.getPath());
+			} else {
+				/* this method should only be called on a directory */
+				Log.log(Log.LEVEL_CRITICAL, MODULE, "assertion failed: listFilesRecursive called on a non-dir file");
+				return ret;
+			}
+		}
+
+		List files = Arrays.asList(fileArray);
+
+		Iterator iter = files.iterator();
+		while (iter.hasNext()) {
+			File f = (File) iter.next();
+			if (f.isDirectory()) {
+				ret.addAll(listFilesRecursive(f));
+			} else {
+				ret.add(f);
+			}
+		}
+
+		return ret;
 	}
 
 	public void setMainFrame(MainFrame mf) {

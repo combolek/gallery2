@@ -47,11 +47,13 @@ import java.util.Iterator;
 public class PictureInspector extends JPanel
 		implements ActionListener, DocumentListener {
 	public static final String MODULE = "PictInspec";
+	public static GRI18n grRes = GRI18n.getInstance();
 
 	HashMap extraLabels = new HashMap();
 	HashMap extraTextAreas = new HashMap();
 	String currentExtraFields = null;
 
+	GridBagLayout gridBagLayout4 = new GridBagLayout();
 	JLabel jLabel5 = new JLabel();
 	JLabel jLabel6 = new JLabel();
 	JLabel jLabel4 = new JLabel();
@@ -97,22 +99,25 @@ public class PictureInspector extends JPanel
 
 
 	private void jbInit() {
-		setLayout(new GridBagLayout());
-		jLabel5.setText(GRI18n.getString(MODULE, "Path"));
-		jLabel6.setText(GRI18n.getString(MODULE, "Album"));
-		jLabel4.setText(GRI18n.getString(MODULE, "Caption"));
-		jLabel8.setText(GRI18n.getString(MODULE, "Move"));
-		jLabel1.setText(GRI18n.getString(MODULE, "Size"));
-		jLabel2.setText(GRI18n.getString(MODULE, "Delete"));
+		setLayout(gridBagLayout4);
+		jLabel5.setText(grRes.getString(MODULE, "Path"));
+		jLabel6.setText(grRes.getString(MODULE, "Album"));
+		jLabel4.setText(grRes.getString(MODULE, "Caption"));
+		jLabel8.setText(grRes.getString(MODULE, "Move"));
+		jLabel1.setText(grRes.getString(MODULE, "Size"));
+		jLabel2.setText(grRes.getString(MODULE, "Delete"));
 
 		jAlbum.setRows(0);
+		jAlbum.setText("");
 		jAlbum.setEditable(false);
 		jAlbum.setFont(UIManager.getFont("Label.font"));
 		jAlbum.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jSize.setRows(0);
+		jSize.setText("");
 		jSize.setEditable(false);
 		jSize.setFont(UIManager.getFont("Label.font"));
 		jSize.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		jCaption.setText("");
 		jCaption.setLineWrap(true);
 		jCaption.setEditable(false);
 		jCaption.setFont(UIManager.getFont("Label.font"));
@@ -120,6 +125,7 @@ public class PictureInspector extends JPanel
 		jPath.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jPath.setFont(UIManager.getFont("Label.font"));
 		jPath.setEditable(false);
+		jPath.setText("");
 		jPath.setLineWrap(true);
 
 		setupKeyboardHandling(jCaption);
@@ -127,26 +133,26 @@ public class PictureInspector extends JPanel
 		jUpButton.setMaximumSize(new Dimension(120, 23));
 		jUpButton.setMinimumSize(new Dimension(120, 23));
 		jUpButton.setPreferredSize(new Dimension(120, 23));
-		jUpButton.setToolTipText(GRI18n.getString(MODULE, "upBtnTip"));
-		jUpButton.setText(GRI18n.getString(MODULE, "upBtn"));
+		jUpButton.setToolTipText(grRes.getString(MODULE, "upBtnTip"));
+		jUpButton.setText(grRes.getString(MODULE, "upBtn"));
 		jUpButton.setActionCommand("Up");
 		jUpButton.setHorizontalAlignment(SwingConstants.LEFT);
 		jUpButton.setIcon(MainFrame.iUp);
 		jDownButton.setMaximumSize(new Dimension(120, 23));
 		jDownButton.setMinimumSize(new Dimension(120, 23));
 		jDownButton.setPreferredSize(new Dimension(120, 23));
-		jDownButton.setToolTipText(GRI18n.getString(MODULE, "dnBtnTip"));
-		jDownButton.setText(GRI18n.getString(MODULE, "dnBtn"));
+		jDownButton.setToolTipText(grRes.getString(MODULE, "dnBtnTip"));
+		jDownButton.setText(grRes.getString(MODULE, "dnBtn"));
 		jDownButton.setActionCommand("Down");
 		jDownButton.setHorizontalAlignment(SwingConstants.LEFT);
 		jDownButton.setIcon(MainFrame.iDown);
 		jDeleteButton.setMaximumSize(new Dimension(120, 23));
 		jDeleteButton.setMinimumSize(new Dimension(120, 23));
 		jDeleteButton.setPreferredSize(new Dimension(120, 23));
-		jDeleteButton.setToolTipText(GRI18n.getString(MODULE, "delBtnTip"));
+		jDeleteButton.setToolTipText(grRes.getString(MODULE, "delBtnTip"));
 		jDeleteButton.setActionCommand("Delete");
 		jDeleteButton.setHorizontalAlignment(SwingConstants.LEFT);
-		jDeleteButton.setText(GRI18n.getString(MODULE, "Delete"));
+		jDeleteButton.setText(grRes.getString(MODULE, "Delete"));
 		jDeleteButton.setIcon(MainFrame.iDelete);
 
 		jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -157,18 +163,18 @@ public class PictureInspector extends JPanel
 
 		jIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		jIcon.setHorizontalTextPosition(SwingConstants.CENTER);
-		jIcon.setText(GRI18n.getString(MODULE, "icon"));
+		jIcon.setText(grRes.getString(MODULE, "icon"));
 		jIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
 		jRotateLeftButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		jRotateLeftButton.setToolTipText(GRI18n.getString(MODULE, "rotLtTip"));
+		jRotateLeftButton.setToolTipText(grRes.getString(MODULE, "rotLtTip"));
 		jRotateLeftButton.setActionCommand("Left");
 		jRotateLeftButton.setIcon(MainFrame.iLeft);
 		jRotateRightButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		jRotateRightButton.setToolTipText(GRI18n.getString(MODULE, "rotRtTip"));
+		jRotateRightButton.setToolTipText(grRes.getString(MODULE, "rotRtTip"));
 		jRotateRightButton.setActionCommand("Right");
 		jRotateRightButton.setIcon(MainFrame.iRight);
 		jFlipButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		jFlipButton.setToolTipText(GRI18n.getString(MODULE, "flipTip"));
+		jFlipButton.setToolTipText(grRes.getString(MODULE, "flipTip"));
 		jFlipButton.setActionCommand("Flip");
 		jFlipButton.setIcon(MainFrame.iFlip);
 
@@ -360,7 +366,7 @@ public class PictureInspector extends JPanel
 				+ jIcon.getIconTextGap()));
 
 		if (pictures == null || pictures.length == 0) {
-			jIcon.setText(GRI18n.getString(MODULE, "noPicSel"));
+			jIcon.setText(grRes.getString(MODULE, "noPicSel"));
 			jIcon.setIcon(ImageUtils.defaultThumbnail);
 			jPath.setText("");
 			jAlbum.setText("");
@@ -382,14 +388,9 @@ public class PictureInspector extends JPanel
 		} else if (pictures.length == 1) {
 			Picture p = (Picture) pictures[0];
 
+			jIcon.setText(p.getSource().getName());
 			jIcon.setIcon(mf.getThumbnail(p));
-			if (p.isOnline()) {
-				jPath.setText(GRI18n.getString(MODULE, "onServer"));
-				jIcon.setText(p.getName());
-			} else {
-				jIcon.setText(p.getSource().getName());
-				jPath.setText(p.getSource().getParent());
-			}
+			jPath.setText(p.getSource().getParent());
 			jAlbum.setText(p.getAlbum().getTitle());
 			if (p.getAlbum().getGallery().getComm(mf.jStatusBar).hasCapability(GalleryCommCapabilities.CAPA_UPLOAD_CAPTION)) {
 				jCaption.setText(p.getCaption());
@@ -411,7 +412,7 @@ public class PictureInspector extends JPanel
 			Picture p = (Picture) pictures[0];
 
 			Object[] params = {new Integer(pictures.length)};
-			jIcon.setText(GRI18n.getString(MODULE, "countElemSel", params));
+			jIcon.setText(grRes.getString(MODULE, "countElemSel", params));
 			jIcon.setIcon(ImageUtils.defaultThumbnail);
 			jPath.setText("");
 			jAlbum.setText(p.getAlbum().getTitle());
@@ -454,7 +455,7 @@ public class PictureInspector extends JPanel
 
 					JTextArea field = new JTextArea();
 					extraTextAreas.put(name, field);
-					field.setFont(new java.awt.Font("SansSerif", 0, 11));
+					field.setFont(UIManager.getFont("Label.font"));
 					add(field, new GridBagConstraints(1, FIRST_ROW_EXTRA + i, 1, 1, 1.0, 1.0
 							, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 					field.getDocument().addDocumentListener(this);

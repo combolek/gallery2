@@ -24,9 +24,9 @@ package com.gallery.GalleryRemote;
 import com.gallery.GalleryRemote.prefs.GalleryProperties;
 import com.gallery.GalleryRemote.prefs.PreferenceNames;
 import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.util.BrowserLink;
 import com.gallery.GalleryRemote.util.DialogUtil;
 import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.util.BrowserLink;
 import edu.stanford.ejalbert.BrowserLauncher;
 
 import javax.swing.*;
@@ -40,14 +40,14 @@ import java.util.Date;
 
 /**
  * Update check and dialog
- *
+ * 
  * @author paour
  * @created 08 septembre 2002
  */
 
 public class Update extends JFrame implements ActionListener, PreferenceNames {
 	public static final String MODULE = "Update";
-
+	public static GRI18n grRes = GRI18n.getInstance();
 
 	public static final int NO_UPDATE = 0;
 	public static final int RELEASE = 1;
@@ -159,28 +159,28 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 	}
 
 	private void jbInit() throws Exception {
-		this.setTitle(GRI18n.getString(MODULE, "title"));
+		this.setTitle(grRes.getString(MODULE, "title"));
 		this.getContentPane().setLayout(gridBagLayout1);
 
-		jLabel1.setFont(new java.awt.Font("Dialog", 1, 16));
-		jLabel1.setText(GRI18n.getString(MODULE, "newVerAvail"));
-		jLabel2.setText(GRI18n.getString(MODULE, "ver"));
-		jLabel3.setText(GRI18n.getString(MODULE, "relDate"));
-		jLabel4.setText(GRI18n.getString(MODULE, "relNotes"));
-		jLabel5.setText(GRI18n.getString(MODULE, "dnURL"));
+		jLabel1.setFont(UIManager.getFont("Label.font").deriveFont(Font.BOLD, 16));
+		jLabel1.setText(grRes.getString(MODULE, "newVerAvail"));
+		jLabel2.setText(grRes.getString(MODULE, "ver"));
+		jLabel3.setText(grRes.getString(MODULE, "relDate"));
+		jLabel4.setText(grRes.getString(MODULE, "relNotes"));
+		jLabel5.setText(grRes.getString(MODULE, "dnURL"));
 
 		jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		jDate.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jDate.setEditable(false);
-		jDate.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jDate.setFont(UIManager.getFont("Label.font"));
 		if (which.releaseDate != null) jDate.setText(DateFormat.getDateInstance().format(which.releaseDate));
 
-		jBrowse.setText(GRI18n.getString(MODULE, "openInBrwsr"));
+		jBrowse.setText(grRes.getString(MODULE, "openInBrwsr"));
 		jBrowse.addActionListener(this);
 
 		jReleaseNotes.setEditable(false);
-		jReleaseNotes.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jReleaseNotes.setFont(UIManager.getFont("Label.font"));
 		jReleaseNotes.setPreferredSize(new Dimension(520, 250));
 		jReleaseNotes.setMargin(new Insets(0, 3, 3, 3));
 		if (which.releaseNotes != null) jReleaseNotes.setText(which.releaseNotes);
@@ -195,7 +195,7 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 
 		jVersion.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jVersion.setEditable(false);
-		jVersion.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jVersion.setFont(UIManager.getFont("Label.font"));
 		if (which.version != null) jVersion.setText(which.version);
 
 		this.getContentPane().add(jLabel1, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
@@ -276,7 +276,7 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 				laxFile.renameTo(origFile);
 				patchFile.renameTo(laxFile);
 
-				JOptionPane.showMessageDialog(null, GRI18n.getString(MODULE, "restart.text"), GRI18n.getString(MODULE, "restart.title"), JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, GRI18n.getInstance().getString(MODULE, "restart.text"), GRI18n.getInstance().getString(MODULE, "restart.title"), JOptionPane.WARNING_MESSAGE);
 
 				return true;
 			} catch (FileNotFoundException e) {

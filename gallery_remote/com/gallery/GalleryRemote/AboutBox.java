@@ -28,8 +28,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * Gallery Remote About Box
@@ -42,6 +42,7 @@ public class AboutBox extends JDialog {
 	public static int TOP = 5;
 	public static int BOTTOM = 105;
 
+	public static GRI18n grRes = GRI18n.getInstance();
 
 	/**
 	 * Constructor for the AboutBox object
@@ -66,7 +67,7 @@ public class AboutBox extends JDialog {
 	private void init() {
 		setModal(true);
 		getContentPane().add(new AboutPanel(), BorderLayout.CENTER);
-		setTitle(GRI18n.getString(MODULE, "title"));
+		setTitle(grRes.getString(MODULE, "title"));
 
 		pack();
 
@@ -101,7 +102,7 @@ public class AboutBox extends JDialog {
 	 */
 	public class AboutPanel extends JComponent {
 		ImageIcon image;
-		ArrayList text;
+		Vector text;
 		int scrollPosition;
 		AnimationThread thread;
 		int maxWidth;
@@ -121,12 +122,12 @@ public class AboutBox extends JDialog {
 
 			setBorder(new MatteBorder(1, 1, 1, 1, Color.gray));
 
-			text = new ArrayList();
+			text = new Vector();
 			StringTokenizer st = new StringTokenizer(
 					GalleryRemote.getInstance().properties.getProperty("aboutText"), "\n");
 			while (st.hasMoreTokens()) {
 				String line = st.nextToken();
-				text.add(line);
+				text.addElement(line);
 				maxWidth = Math.max(maxWidth,
 						fm.stringWidth(line) + 10);
 			}
@@ -208,7 +209,7 @@ public class AboutBox extends JDialog {
 
 
 			AnimationThread() {
-				super(GRI18n.getString(MODULE, "aboutAnim"));
+				super(grRes.getString(MODULE, "aboutAnim"));
 				setPriority(Thread.MIN_PRIORITY);
 			}
 

@@ -26,10 +26,10 @@ import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.model.Picture;
 import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.util.HTMLEscaper;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -38,6 +38,7 @@ import java.util.StringTokenizer;
 public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities {
 	private static final String MODULE = "GalComm1";
 
+	private static GRI18n grRes = GRI18n.getInstance();
 
 	public static final String PROTOCAL_VERSION = "1";
 	public static final String SCRIPT_NAME = "gallery_remote.php";
@@ -112,7 +113,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 		private boolean login() {
 			Object[] params = {g.toString()};
 
-			status(StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "logging", params));
+			status(StatusUpdate.LEVEL_GENERIC, grRes.getString(MODULE, "logging", params));
 
 			try {
 				URL url = g.getGalleryUrl(SCRIPT_NAME);
@@ -132,36 +133,36 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 
 				if (rsp.getStatusCode() >= 300 && rsp.getStatusCode() < 400) {
 					// retry, the library will have fixed the URL
-					status(StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "redirect"));
+					status(StatusUpdate.LEVEL_GENERIC, grRes.getString(MODULE, "redirect"));
 
 					rsp = mConnection.Post(urlPath, form_data);
 				}
 
 				if (rsp.getStatusCode() >= 300) {
 					Object[] params2 = {new Integer(rsp.getStatusCode()), rsp.getReasonLine()};
-					error(GRI18n.getString(MODULE, "httpErr", params2));
+					error(grRes.getString(MODULE, "httpErr", params2));
 					return false;
 				} else {
 					String response = new String(rsp.getData()).trim();
 					Log.log(Log.LEVEL_TRACE, MODULE, response);
 
 					if (response.indexOf("SUCCESS") >= 0) {
-						status(StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "loggedIn"));
+						status(StatusUpdate.LEVEL_GENERIC, grRes.getString(MODULE, "loggedIn"));
 						return true;
 					} else {
 						Object[] params2 = {response};
-						error(GRI18n.getString(MODULE, "logErr", params2));
+						error(grRes.getString(MODULE, "logErr", params2));
 						return false;
 					}
 				}
 			} catch (IOException ioe) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 				Object[] params3 = {ioe.toString()};
-				status(StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "error", params3));
+				status(StatusUpdate.LEVEL_GENERIC, grRes.getString(MODULE, "error", params3));
 			} catch (ModuleException me) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, me);
 				Object[] params3 = {me.getMessage()};
-				status(StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "errReq", params3));
+				status(StatusUpdate.LEVEL_GENERIC, grRes.getString(MODULE, "errReq", params3));
 			}
 
 			return false;
@@ -190,7 +191,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 		void runTask() {
 			ArrayList pictures = g.getAllPictures();
 
-			su.startProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, 0, pictures.size(), GRI18n.getString(MODULE, "uploadingPic"), false);
+			su.startProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, 0, pictures.size(), grRes.getString(MODULE, "uploadingPic"), false);
 			
 			// upload each file, one at a time
 			boolean allGood = true;
@@ -200,7 +201,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 				Picture p = (Picture) iter.next();
 
 				Object[] params = {p.toString(), new Integer((uploadedCount + 1)), new Integer(pictures.size())};
-				su.updateProgressStatus(StatusUpdate.LEVEL_UPLOAD_PROGRESS, GRI18n.getString(MODULE, "uploadingStat", params));
+				su.updateProgressStatus(StatusUpdate.LEVEL_UPLOAD_PROGRESS, grRes.getString(MODULE, "uploadingStat", params));
 
 				allGood = uploadPicture(p);
 
@@ -210,9 +211,9 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 			}
 
 			if (allGood) {
-				su.stopProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, GRI18n.getString(MODULE, "upldComplete"));
+				su.stopProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, grRes.getString(MODULE, "upldComplete"));
 			} else {
-				su.stopProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, GRI18n.getString(MODULE, "upldFailed"));
+				su.stopProgress(StatusUpdate.LEVEL_UPLOAD_PROGRESS, grRes.getString(MODULE, "upldFailed"));
 			}
 		}
 
@@ -237,36 +238,36 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 
 				if (rsp.getStatusCode() >= 300 && rsp.getStatusCode() < 400) {
 					// retry, the library will have fixed the URL
-					status(StatusUpdate.LEVEL_UPLOAD_ONE, GRI18n.getString(MODULE, "redirect"));
+					status(StatusUpdate.LEVEL_UPLOAD_ONE, grRes.getString(MODULE, "redirect"));
 
 					rsp = mConnection.Post(urlPath, data, hdrs);
 				}
 
 				if (rsp.getStatusCode() >= 300) {
 					Object[] params2 = {new Integer(rsp.getStatusCode()), rsp.getReasonLine()};
-					error(GRI18n.getString(MODULE, "httpErr", params2));
+					error(grRes.getString(MODULE, "httpErr", params2));
 					return false;
 				} else {
 					String response = new String(rsp.getData()).trim();
 					Log.log(Log.LEVEL_TRACE, MODULE, response);
 
 					if (response.indexOf("SUCCESS") >= 0) {
-						trace(GRI18n.getString(MODULE, "upldSucc"));
+						trace(grRes.getString(MODULE, "upldSucc"));
 						return true;
 					} else {
 						Object[] params = {response};
-						error(GRI18n.getString(MODULE, "upldErr", params));
+						error(grRes.getString(MODULE, "upldErr", params));
 						return false;
 					}
 				}
 			} catch (IOException ioe) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 				Object[] params3 = {ioe.toString()};
-				error(GRI18n.getString(MODULE, "error", params3));
+				error(grRes.getString(MODULE, "error", params3));
 			} catch (ModuleException me) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, me);
 				Object[] params3 = {me.getMessage()};
-				error(GRI18n.getString(MODULE, "errReq", params3));
+				error(grRes.getString(MODULE, "errReq", params3));
 			}
 
 			return false;
@@ -280,7 +281,7 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 
 		void runTask() {
 			Object[] params = {g.toString()};
-			su.startProgress(StatusUpdate.LEVEL_BACKGROUND, 0, 10, GRI18n.getString(MODULE, "ftchngAlbm", params), true);
+			su.startProgress(StatusUpdate.LEVEL_BACKGROUND, 0, 10, grRes.getString(MODULE, "ftchngAlbm", params), true);
 
 			try {
 				URL url = g.getGalleryUrl(SCRIPT_NAME);
@@ -300,14 +301,14 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 
 				if (rsp.getStatusCode() >= 300 && rsp.getStatusCode() < 400) {
 					// retry, the library will have fixed the URL
-					status(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "redirect"));
+					status(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "redirect"));
 
 					rsp = mConnection.Post(urlPath, form_data);
 				}
 
 				if (rsp.getStatusCode() >= 300) {
 					Object[] params2 = {new Integer(rsp.getStatusCode()), rsp.getReasonLine()};
-					error(GRI18n.getString(MODULE, "httpErr", params2));
+					error(grRes.getString(MODULE, "httpErr", params2));
 					return;
 				} else {
 					String response = new String(rsp.getData()).trim();
@@ -322,40 +323,40 @@ public class GalleryComm1 extends GalleryComm implements GalleryCommCapabilities
 							StringTokenizer colT = new StringTokenizer(lineT.nextToken(), "\t");
 
 							if (colT.countTokens() == 2) {
-								Album a = new Album(g);
+								Album a = new Album();
 
-								a.setName(colT.nextToken());
-								a.setTitle(HTMLEscaper.unescape(colT.nextToken()));
+								a.setName(URLDecoder.decode(colT.nextToken()));
+								a.setTitle(URLDecoder.decode(colT.nextToken()));
+
+								a.setGallery(g);
 
 								mAlbumList.add(a);
-
-								a.setParentAlbum(null);
 							}
 						}
 
-						status(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "ftchdAlbm"));
+						status(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "ftchdAlbm"));
 
 						g.setAlbumList(mAlbumList);
 					} else {
 						Object[] params2 = {response};
-						error(GRI18n.getString(MODULE, "error", params2));
+						error(grRes.getString(MODULE, "error", params2));
 					}
 				}
 			} catch (IOException ioe) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 				Object[] params2 = {ioe.toString()};
-				status(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "error", params2));
+				status(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "error", params2));
 			} catch (ModuleException me) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, me);
 				Object[] params2 = {me.toString()};
-				status(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "error", params2));
+				status(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "error", params2));
 			} catch (Exception ee) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, ee);
 				Object[] params2 = {ee.toString()};
-				status(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "error", params2));
+				status(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "error", params2));
 			}
 
-			su.stopProgress(StatusUpdate.LEVEL_BACKGROUND, GRI18n.getString(MODULE, "ftchComplt"));
+			su.stopProgress(StatusUpdate.LEVEL_BACKGROUND, grRes.getString(MODULE, "ftchComplt"));
 		}
 	}
 }
