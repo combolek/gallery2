@@ -98,27 +98,27 @@ class SiteAdminView extends GalleryView {
 
 	/* If we have a specific sub view, render it now */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
-	if (!empty($subViewName)) {
-	    list ($ret, $subView) = GalleryView::loadView($subViewName);
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-
-	    list ($ret, $subViewHtml) = $subView->renderBody($form, $status);
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	} else {
-	    $subViewHtml = '';
+	if (empty($subViewName)) {
+	    $subViewName = 'core:AdminCore';
+	}
+	
+	list ($ret, $subView) = GalleryView::loadView($subViewName);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	list ($ret, $subViewHtml) = $subView->renderBody($form, $status);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template = $this->_getTemplate();
 	$template->setVariable('subViewChoices', $subViewChoices);
 	$template->setVariable('subViewHtml', $subViewHtml);
 	list($ret, $html) = $template->render('SiteAdmin.tpl');
-    if ($ret->isError()) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);
-    }
+	}
 
 	return array(GalleryStatus::success(), $html);
     }
