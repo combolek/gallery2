@@ -568,14 +568,9 @@ class Album {
 	function getThumbnailTag($index, $size=0, $attrs="") {
 		$photo = $this->getPhoto($index);
 		if ($photo->isAlbumName) {
-			$myAlbum = $this;
-			do {
-				$myAlbum = $myAlbum->getNestedAlbum($index);
-				$index = $myAlbum->getHighlight();
-				$photo = $myAlbum->getPhoto($index);
-			} while ($photo->isAlbumName);
-			return $photo->getThumbnailTag($myAlbum->getAlbumDirURL("thumb"), $size, $attrs);
-		} else {	
+			$myAlbum = $this->getNestedAlbum($index);
+			return $myAlbum->getHighlightAsThumbnailTag($size, $attrs);
+		} else {
 			return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"), $size, $attrs);
 		}
 	}
@@ -584,59 +579,72 @@ class Album {
 		$photo = $this->getPhoto($index);
 		if ($photo->isAlbumName) {
 			$myAlbum = $this->getNestedAlbum($index);
-			return $myAlbum->getHighlightPath();
+			return $myAlbum->getHighlightAsThumbnailPath();
 		} else {	
 			return $photo->getThumbnailPath($this->getAlbumDirURL("thumb"));
 		}
 	}
 
-	function getHighlightTag($size=0, $attrs="") {
-		if ($this->numPhotos(1)) {	
-			$photo = $this->getPhoto($this->getHighlight());
-			if ($photo->isAlbumName) {
-				$nestedAlbumName = $photo->isAlbumName;
-				do {
-					$nestedAlbum = new Album();
-					$nestedAlbum->load($nestedAlbumName);
-					$highlightIndex = $nestedAlbum->getHighlight();
-					if ($highlightIndex) {
-						$highlight = $nestedAlbum->getPhoto($nestedAlbum->getHighlight());
-						if ($highlight->isAlbumName) {
-							$nestedAlbumName = $highlight->isAlbumName;
-						}
-					}
-				} while ($highlight->isAlbumName);
-				return $highlight->getHighlightTag($nestedAlbum->getAlbumDirURL("highlight"), $size, $attrs);
-			} else {
-				return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs);
-			}
-		} else {
-			return "Empty!";
+	function getThumbnailImage($index) {
+		$photo = $this->getPhoto($index);
+		if ($photo->isAlbumName) {
+			$myAlbum = $this->getNestedAlbum($index);
+			return $myAlbum->getHighlightAsThumbnailImage();
+		} else {	
+			return $photo->thumbnail;
 		}
 	}
 
-	function getHighlightPath() {
-		if ($this->numPhotos(1)) {	
-			$photo = $this->getPhoto($this->getHighlight());
-			if ($photo->isAlbumName) {
-				$nestedAlbumName = $photo->isAlbumName;
-				do {
-					$nestedAlbum = new Album();
-					$nestedAlbum->load($nestedAlbumName);
-					$highlightIndex = $nestedAlbum->getHighlight();
-					if ($highlightIndex) {
-						$highlight = $nestedAlbum->getPhoto($nestedAlbum->getHighlight());
-						if ($highlight->isAlbumName) {
-							$nestedAlbumName = $highlight->isAlbumName;
-						}
-					}
-				} while ($highlight->isAlbumName);
-				return $highlight->getHighlightPath($nestedAlbum->getAlbumDirURL("highlight"));
-			} else {
-				return $photo->getHighlightPath($this->getAlbumDirURL("highlight"));
+	function getHighlightedItem() {
+		$index = $this->getHighlight();
+		if (!isset($index)) {
+			return array(null, null);
+		}
+		$photo = $this->getPhoto($index);
+		$album = $this;
+		while ($photo->isAlbumName && $album->numPhotos(1)) {
+			$album = $album->getNestedAlbum($index);
+			$index = $album->getHighlight();
+			if (!isset($index)) {
+				return array(null, null);
 			}
+			$photo = $album->getPhoto($index);
+		}
+		return array($album, $photo);
+	}
+
+	function getHighlightAsThumbnailTag($size=0, $attrs="") {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->getThumbnailTag($album->getAlbumDirURL("highlight"), $size, $attrs);
 		} else {
-			return "Empty!";
+			return "<span class=title>No highlight!</span>";
+		}
+	}
+
+	function getHighlightAsThumbnailPath() {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->getThumbnailPath($album->getAlbumDirURL("highlight"));
+		} else {
+			return "";
+		}
+	}
+	function getHighlightAsThumbnailImage() {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->highlightImage;
+		} else {
+			return null;
+		}
+	}
+
+	function getHighlightTag($size=0, $attrs="") {
+		list ($album, $photo) = $this->getHighlightedItem();
+		if ($photo) {
+			return $photo->getHighlightTag($album->getAlbumDirURL("highlight"), $size, $attrs);
+		} else {
+			return "<span class=title>No highlight!</span>";
 		}
 	}
 
@@ -767,10 +775,10 @@ class Album {
 	}
 
 	function &getPhoto($index) {
-		if ($index <= sizeof($this->photos)) { 
+		if ($index >= 1 && $index <= sizeof($this->photos)) { 
 			return $this->photos[$index-1];
 		} else {
-			print "ERROR: requested index $index out of bounds";
+			print "ERROR: requested index [$index] out of bounds";
 		}
 	}
 
