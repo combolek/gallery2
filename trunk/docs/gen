@@ -188,7 +188,21 @@ case $1 in
 		gendate
 
 		xmllint --valid --noout manual.xml
-		;;	
+		;;
+		
+	contexthelp)
+		if [ ! -d $DIST ]; then
+			mkdir $DIST;
+		fi
+
+		echo "Generating Context Help Docs (requires perl in PATH)";
+		
+		cd context-help
+		perl gen.pl
+
+		cp -Rpv ../dist/context-help/* ../../gallery/docs/context-help
+		
+		;;				
 	help)
 		echo "Gallery Documentation Generation Script";
 		echo "---------------------------------------";
@@ -205,6 +219,7 @@ case $1 in
 		echo "htmlhelp      Generate Windows help docs (experimental)";
 		echo "dist          Generate all types";
 		echo "autofaq       Generates the forum AutoFAQ popup";
+		echo "contexthelp   Generates context help documentation";
 		echo "test-xmllint  Test for XML errors using xmllint";
 		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
 		echo "help          Display this help page"
