@@ -337,7 +337,17 @@ class Album {
 
 	function getPerm($permName, $uid) {
 		$perm = $this->fields["perms"][$permName];
-		return ($perm[$uid] != null);
+		if ($perm[$uid]) {
+			return true;
+		}
+
+		global $userDB;
+		$everybody = $userDB->getEverybody();
+		if ($perm[$everybody->getUid()]) {
+			return true;
+		}
+
+		return false;
 	}
 
 	function setPerm($permName, $uid, $bool) {
