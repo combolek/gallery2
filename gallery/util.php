@@ -145,7 +145,7 @@ function my_flush() {
 function resize_image($src, $dest, $target) {
 	global $app;				
 
-	exec_wrapper(getAnyToPnmCmd($src,
+	$err = exec_wrapper(getAnyToPnmCmd($src,
 		     "| $app->pnmDir/pnmscale -xysize $target $target ".
 		     "| $app->pnmDir/ppmtojpeg > $dest"));
 
@@ -173,7 +173,7 @@ function valid_image($file) {
 function getAnyToPnmCmd($file, $args) {
 	global $app;
 
-	return sprintf($app->anytopnm, 
+	return sprintf($app->anytopnm,
 			$file . 
 			// " >&/dev/null " . 
 			$args);
@@ -182,7 +182,7 @@ function getAnyToPnmCmd($file, $args) {
 function exec_wrapper($cmd) {
 	global $app;
 
-	// echo "<p><b> About to exec [$cmd]</b>";
+	// print "<p><b> About to exec [$cmd]</b>";
 	exec($cmd, $results, $status);
 
 	// print "<br> Results: <pre>" . join("\n", $results);
