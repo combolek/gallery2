@@ -22,13 +22,11 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($oldName, $newName, $useLoad) = getRequestVar(array('oldName', 'newName', 'useLoad'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!isset($gallery->album) || !$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are not allowed to perform this action !");
 	exit;
 }
 
@@ -39,9 +37,10 @@ doctype();
   <title><?php echo _("Rename Album") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Rename Album") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+<center>
+<p class="popuphead"><?php echo _("Rename Album") ?></p>
+<div class="popup">
 <?php
 
 if (!isset($useLoad)) {
@@ -55,12 +54,12 @@ if (!empty($newName)) {
 	$dismiss = 0;
 	$newName = str_replace("'", "", $newName);
 	$newName = str_replace("`", "", $newName);
-	$newName = strtr($newName, "%\\/*?\"<>|& .+#(){}~", "-------------------");
+	$newName = strtr($newName, "\\/*?\"<>|& .+#()", "---------------");
 	$newName = ereg_replace("\-+", "-", $newName);
 	$newName = ereg_replace("\-+$", "", $newName);
 	$newName = ereg_replace("^\-", "", $newName);
 	$newName = ereg_replace("\-$", "", $newName);
-	if ($oldName == $newName || empty($newName)) {
+	if ($oldName == $newName) {
 		$dismiss = 1;
 	} elseif ($albumDB->renameAlbum($oldName, $newName)) {
 		$albumDB->save();
@@ -115,14 +114,11 @@ if (!empty($newName)) {
 <?php echo _("What do you want to name this album?") ?>
 <br>
 <?php echo _("The name cannot contain any of the following characters") ?>:
-<br><b>% \ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # ( )</b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br>
+<br><b>\ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # ( )</b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br>
 <p><?php echo _("Those characters will be ignored in your new album name.") ?></p>
 
 <br>
-<?php echo makeFormIntro("rename_album.php", 
-	array("name" => "theform"),
-	array("type" => "popup"));
-?>
+<?php echo makeFormIntro("rename_album.php", array("name" => "theform")); ?>
 <input type="text" name="newName" value="<?php echo $newName?>">
 <input type="hidden" name="oldName" value="<?php echo $gallery->session->albumName?>">
 <input type="hidden" name="useLoad" value="<?php echo $useLoad?>">    
@@ -137,8 +133,9 @@ if (!empty($newName)) {
 document.theform.newName.focus();
 //-->
 </script>
-</div>
 
+</div>
+</center>
 <?php print gallery_validation_link("rename_album.php",true); ?>
 </body>
 </html>

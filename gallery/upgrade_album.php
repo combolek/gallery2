@@ -39,10 +39,8 @@ if ($UPGRADE_LOOP == 2) {
 }
 
 if (!isset($gallery->version)) { 
-	require_once(dirname(__FILE__) . '/init.php'); 
+	require(dirname(__FILE__) . '/init.php'); 
 }
-
-list($upgrade_albumname, $upgradeall) = getRequestVar(array('upgrade_albumname', 'upgradeall'));
 
 /*
  * If we're not the admin, we can only upgrade the album that we're
@@ -54,7 +52,7 @@ if ($gallery->session->albumName) {
 
 // Hack check
 if (!$gallery->user->isAdmin() && empty($upgrade_albumname)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -77,7 +75,6 @@ function reload_button() {
 }
 
 function end_file() {
-	print "</div>";
 	print "</body>";
 	print "</html>";
 }
@@ -121,9 +118,9 @@ doctype();
   <title><?php echo _("Upgrade Albums") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Upgrade Albums") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<p align="center" class="popuphead"><?php echo _("Upgrade Albums") ?></p>
 <p>
 <?php 
 	echo _("The following albums in your gallery were created with an older version of the software and are out of date.");
@@ -166,14 +163,14 @@ if (!sizeof($albumDB->outOfDateAlbums)) {
 } else {
 ?>
 <?php echo sprintf(_("The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."),
-		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1, 'type' => 'popup')) . '">' . _("upgrade them all at once") . '</a>') ?>
+		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1)) . '">' . _("upgrade them all at once") . '</a>') ?>
 <ul>
 <?php
 	foreach ($albumDB->outOfDateAlbums as $albumName) {
 		$album = $albumDB->getAlbumByName($albumName);
 		print "<a href=\"";
 		print makeGalleryUrl("upgrade_album.php", 
-			array("upgrade_albumname" => $album->fields["name"], 'type' => 'popup'));
+			array("upgrade_albumname" => $album->fields["name"]));
 		print "\">[" . _("upgrade") ."]</a> ";
 		print "<b>" . $album->fields["title"] . "</b>";
 		print " (" . $album->numPhotos(1) . " " ._("items").")";

@@ -22,9 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($id, $index, $formaction, $albumDelete, $albumMatch, $nextId) = getRequestVar(array('id', 'index', 'formaction', 'albumDelete', 'albumMatch', 'nextId'));
+require(dirname(__FILE__) . '/init.php');
 
 if (isset($id)) {
         $index = $gallery->album->getPhotoIndex($id);
@@ -34,14 +32,14 @@ if (isset($id)) {
 if (!$gallery->user->canDeleteFromAlbum($gallery->album) 
 	&& (!$gallery->album->getItemOwnerDelete()
 	|| !$gallery->album->isItemOwner($gallery->user->getUid(), $index))) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 doctype();
 echo "\n<html>";
 
-if (isset($formaction) && $formaction == 'delete' && isset($id)) {
+if (isset($action) && $action == 'delete' && isset($id)) {
 	if (!empty($albumDelete)) {
 		/* Track down the corresponding photo index and remove it */
 		$index = 0;
@@ -64,7 +62,7 @@ if (isset($formaction) && $formaction == 'delete' && isset($id)) {
 	// deleting two albums by mistake
 	if (!isset($albumDelete) || isset($albumMatch)) {
 		$gallery->album->deletePhoto($index);
-		$gallery->album->fields['guid'] = md5(uniqid(mt_rand(), true));    // Update guid to reflect change in album contents
+		$gallery->album->fields['guid'] = md5(uniqid(rand(), true));    // Update guid to reflect change in album contents
 		$gallery->album->save(array(i18n("%s removed"), $id));
 	}
 
@@ -81,23 +79,25 @@ if (isset($formaction) && $formaction == 'delete' && isset($id)) {
   <title><?php echo isset($albumDelete) ? _("Delete Album") : _("Delete Photo") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
+<body dir="<?php echo $gallery->direction ?>">
+
+<div align="center">
 <?php
 if ($gallery->album && isset($id)) {
+	echo makeFormIntro("delete_photo.php", array('name' => 'deletephoto_form', 
+			'onsubmit' => "deletephoto_form.confirm.disabled = true;"));
 	if (isset($albumDelete)) {
 ?>
-<div class="popuphead"><?php echo _("Delete Album") ?></div>
-<div class="popup" align="center">
-<?php 
-        echo makeFormIntro("delete_photo.php", 
-		array('name' => 'deletephoto_form','onsubmit' => "deletephoto_form.confirm.disabled = true;"),
-		array('type' => 'popup'));
-	echo _("Do you really want to delete this album?") 
-?>
+
+<p class="popuphead"><?php echo _("Delete Album") ?></p>
+
+<p class="popup">
+	<?php echo _("Do you really want to delete this Album?") ?>
+</p>
 
 <?php
-	$myAlbum = new Album();
-	$myAlbum->load($id);
+$myAlbum = new Album();
+$myAlbum->load($id);
 ?>
 <p>
 <?php echo $myAlbum->getHighlightTag() ?>
@@ -115,14 +115,9 @@ if ($gallery->album && isset($id)) {
 <?php
 	} else {
 ?>
-<div class="popuphead"><?php echo _("Delete Photo") ?></div>
-<div class="popup" align="center">
-<?php 
-	echo _("Do you really want to delete this photo?") ;
-        echo makeFormIntro("delete_photo.php", 
-		array('name' => 'deletephoto_form', 'onsubmit' => "deletephoto_form.confirm.disabled = true;"),
-		array('type' => 'popup'));
-?>
+<p class="popuphead"><?php echo _("Delete Photo") ?></p>
+
+<?php echo _("Do you really want to delete this photo?") ?>
 
 <p><?php echo $gallery->album->getThumbnailTag($index) ?></p>
 
@@ -135,8 +130,8 @@ if ($gallery->album && isset($id)) {
 		} 
 	}
 ?>
-<input type="hidden" name="formaction" value="">
-<input type="submit" name="confirm" value="<?php echo _("Delete") ?>" onclick="deletephoto_form.formaction.value='delete'">
+<input type="hidden" name="action" value="">
+<input type="submit" name="confirm" value="<?php echo _("Delete") ?>" onclick="deletephoto_form.action.value='delete'">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <br>
@@ -146,6 +141,7 @@ if ($gallery->album && isset($id)) {
 }
 ?>
 </div>
+
 <?php print gallery_validation_link("delete_photo.php", false, array('id' => $id, 'index' => $index)); ?>
 </body>
 </html>

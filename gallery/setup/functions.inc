@@ -26,9 +26,6 @@ function evenOdd_row($fields, $evenOdd) {
 	$buf='';
 
 	$f0 = str_replace(" ", "&nbsp;", $fields[0]);
-	if (isset($fields[4])) {
-                        $f0 .= '&nbsp;<span class="littlered">*</span>';
-	}
 	if ($fields[3] == "block_element") {
 		$buf .= "\n<tr><td class=\"shortdesc\" width=\"30%\">$f0</td><td class=\"shortdesc\">".$fields[1]."</td></tr>";
 	} else if ($fields[3] == "block_start") {
@@ -101,9 +98,7 @@ function make_fields($key, $arr) {
 		$col3 = "";
 	}
 	$col4 = isset($arr["type"]) ?  $arr["type"] : NULL;
-	$col5 = isset($arr["required"]) ? true : NULL;
-
-	return array($col1, $col2, $col3,$col4,$col5);
+	return array($col1, $col2, $col3,$col4);
 }
 
 function form_textarea($key, $arr) {
@@ -133,9 +128,7 @@ function form_password($key, $arr) {
 
 	if (empty($arr['value'])) {
 	    $arr['value'] = array('', '', '', '');
-	} elseif (!is_array($arr['value'])) {
-	    $arr['value'] = array($arr['value'], $arr['value'], $arr['value'], $arr['value']);
-        }
+	}
 	return "<input type=\"password\" name=\"${key}[0]\" value=\"{$arr['value'][0]}\" $attrs> "
 		. '<br>'
 		. "<input type=\"password\" name=\"${key}[1]\" value=\"{$arr['value'][1]}\" $attrs> "
@@ -203,7 +196,7 @@ function form_multiple_choice($key, $arr) {
 		$count++;
 		$column++;
 		$selected = "";
-		if (is_array($arr["value"]) && in_array($item, $arr["value"])) {
+		if ($arr["value"] && in_array($item, $arr["value"])) {
 			$selected = "CHECKED";
 		}
 		$buf .= "\n\t<br><input name=\"${key}[]\" value=\"$item\" type=\"checkbox\" $selected>" . $value ;
@@ -234,9 +227,6 @@ function form_print_services($key, $arr) {
 	    }
 	    $checked = $value['checked'] ? ' checked' : '';
 	    $buf .= "\n\t\t<tr><td valign=\"top\">\n\t\t\t<input name=\"${key}[$item][checked]\" value=\"checked\" type=\"checkbox\"$checked><a href=\"${data['url']}\">${data['name']}</a>";
-            if (!empty($data['desc'])) {
-		$buf .= ' - ' . $data['desc'];
-	    }
 	    $buf .= "\n\t\t</td></tr>";
 	}
 	$buf .="\n\t</table>\n\t";
@@ -315,20 +305,21 @@ function defaults($key, $value) {
 function use_feature($feature) {
 	return "\$gallery->app->feature[\"$feature\"] = 1;\n";
 }
-
 function no_feature($feature, $cause) {
 	return "\$gallery->app->feature[\"$feature\"] = 0; // ($cause)\n";
 }
-
 function error_missing($desc, $key) {
 	if (empty($desc)) {
 		$desc=$key;
 	}
-	return gallery_error("// " . _("Missing value") . ": <b>$desc</b>!");
+	return gallery_error(_("Missing value").": <b>$desc</b>!<br>");
+}
+function row_wrap($buf) {
+	return "<code>$buf</code><br>";
 }
 
 function error_row_wrap($buf) {
-	return "// $buf";
+	return "</pre>$buf</pre><br>";
 }
 
 function check_exec() {
@@ -354,7 +345,7 @@ function check_exec() {
 
 function check_htaccess()
 {
-	global $GALLERY_PHP_VALUE_OK;
+	global $GALLERY_PHP_VALUE_OK; 
 
 	/*
 	 * the .htaccess file in the parent directory tries to
@@ -382,8 +373,14 @@ function check_php()
 	$fail = array();
 	$warn = array();
 
-	if (!function_exists('version_compare') || !version_compare($version, "4.1.0", ">=")) {
-		$fail['fail-too-old'] = 1;
+	if (floor($version) < floor($MIN_PHP_MAJOR_VERSION)) {
+		$fail["fail-too-old"] = 1;
+	} else if (!strcmp($version, "4.0.0")) {
+		$fail["fail-incompatible"] = 1;
+	} else if (!strcmp($version, "4.0RC1")) {
+		$fail["fail-incompatible"] = 1;
+	} else if (!strncmp($version, "4.0.3", 5)) {
+		$fail["fail-incompatible"] = 1;
 	} else {
 		$success[] = sprintf(_("PHP v%s is OK."), $version);
 	}
@@ -652,6 +649,7 @@ function check_gallery_languages()
 		$fail["fail-gallery-languages"] = _("No languages found."); // should never occur!
 	} else if (sizeof($languages) == 1 ) {
 		$warn['only_english'] = _("It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team.");
+		$warn['nocolor'] = true;
 	}
 	else {
 	$success[] = sprintf(_("%d languages are available.  If you are missing a language please visit the %sGallery download page%s."),
@@ -705,19 +703,19 @@ function check_absent_locales()
 	$warn = array();
 	$msg = '';
 
-	$available = $locale_check["available_locales"];
-	$maybe = $locale_check["maybe_locales"];
-	$unavailable = $locale_check["unavailable_locales"];
+	$available=$locale_check["available_locales"];
+	$maybe=$locale_check["maybe_locales"];
+	$unavailable=$locale_check["unavailable_locales"];
 
 	if($locale_check != NULL && sizeof($unavailable) ==0) {
 		$success[] = _("All gallery locales are available on this host.");
-	} else if( (sizeof($maybe) + sizeof($unavailable)) > 0) {
-		if (sizeof($maybe) > 0) {
+	} else if( (sizeof($maybe) + sizeof($unavailable)) >0) {
+		if (sizeof($maybe) >0) {
 			$msg = sprintf(_("There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "),sizeof($maybe));
 		}
 
-		if (sizeof($unavailable) > 0) {
-			if(sizeof($maybe) > 0) $msg .= "<p></p>";
+		if (sizeof($unavailable) >0) {
+			if(sizeof($maybe) >0) $msg.="<p></p>";
 
 			$msg .= sprintf(_("Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."),sizeof($unavailable));
 		}
@@ -734,27 +732,30 @@ function check_absent_locales()
 			}
 		}
 	}
+	if (sizeof($warn)) {
+		$warn['nocolor'] = true;
+	}
 	return array($success, $fail, $warn);
 }
 
 function check_locale() {
-	$nls = getNLS();
-	$gallery_languages = array_keys(gallery_languages());
-	$system_locales = array();
+	$nls=getNLS();
+	$gallery_languages=array_keys(gallery_languages());
+	$system_locales=array();
 	
-	$available_locales = array();
-	$maybe_locales = array();
-	$unavailable_locales = array();
+	$available_locales=array();
+	$maybe_locales=array();
+	$unavailable_locales=array();
 
 	/* Lets see which system locales are installed. */
 	if (getOS() != OS_WINDOWS) { 
 		# Unix / Linux
 		# Check which locales are installed
 
-		exec("locale -a", $results, $status);
+		exec("locale -a",$results,$status);
 
 		if(count($results) >2) {
-			$system_locales = $results;
+			$system_locales=$results;
 		} elseif (@is_readable("/etc/locale.gen")) {
 			exec('grep -v -e "^#" /etc/locale.gen | cut -d " " -f 1', $system_locales);
 		} elseif (@is_readable("/usr/share/locale")) {
@@ -851,24 +852,24 @@ function check_locale() {
 
 
 function config_maybe_locales() {
-	global $locale_check, $locales;
+	global $locale_check;
 
-	$results = array();
-	$locales = $locale_check;
-	$available = $locales["available_locales"];
-	$maybe = $locales["maybe_locales"];
-	$unavailable = $locales["unavailable_locales"];
+	$results=array();
+	$locales=$locale_check;
+	$available=$locales["available_locales"];
+	$maybe=$locales["maybe_locales"];
+	$unavailable=$locales["unavailable_locales"];
 
 	// If we are in Linux, our PHP has gettext, 
 	// but we could not find any locale we skip the whole aliasing part.
-	if($locales == NULL) return $results; // blank array
+	if($locales == NULL) return;
 
-	$nls = getNLS();
+	$nls=getNLS();
 
-	$block_start_done = false;
+	$block_start_done=false;
 	
 	$nr=0;
-	foreach ($maybe as $key => $aliases) {
+        foreach ($maybe as $key => $aliases) {
 		if (sizeof($aliases) < 1) {
 			$unavailable[]=$key;
 			continue;
@@ -1071,23 +1072,6 @@ function check_poll_nv_pairs($var) {
 	return array($success, $fail);
 }
 
-function check_register_globals() {
-	$fail = array();
-	$success = array();
-	$warn = array();
-
-	$globals_enabled = ini_get('register_globals');
-
-	if (!empty($globals_enabled) && !eregi('no|off|false', $globals_enabled)) {
-		$fail['warn-register_globals'] = 1;
-	}
-	else {
-		$success[] = _("<b>register_globals</b> is off.");
-	}
-
-	return array($success, $fail, $warn);
-}
-
 function detect_exec_status() 
 {
 	global $gallery;
@@ -1251,15 +1235,14 @@ function verify_password($passwords) {
 	if ($passwords[2] === $passwords[3]) {
 		$success[] = true;
 	} else {
-		$fail[] = _('Your passwords do not match!');
+		$fail[] = _('Your admin passwords do not match!');
 	}
 	return array($success, $fail);
 }
 
 function verify_email($emailMaster)
 {
-	global $gallery;
-
+	global $adminEmail, $senderEmail, $emailGreeting;
 	$fail = array();
 	$success = array();
        	if ($emailMaster == "no") {
@@ -1267,11 +1250,11 @@ function verify_email($emailMaster)
 	       	return array($success, $fail);
 	}
 
-	if (gallery_validate_email($gallery->session->configForm->adminEmail)) {
+	if (gallery_validate_email($adminEmail)) {
 		$success[] = _("Valid admin email address given.");
 	} else {
-		$adminEmail = ereg_replace('([[:space:]]+)', '', $gallery->session->configForm->adminEmail);
-		$emails = array_filter1(explode(',', $gallery->session->configForm->adminEmail));
+		$adminEmail = ereg_replace('([[:space:]]+)', '', $adminEmail);
+		$emails = array_filter1(explode(',', $adminEmail));
 		$size  = sizeof($emails);
 
 		if ($size < 1) {
@@ -1291,17 +1274,17 @@ function verify_email($emailMaster)
 		       	}
 	       	}
 	}
-	if (gallery_validate_email($gallery->session->configForm->senderEmail)) {
+	if (gallery_validate_email($senderEmail)) {
 	       	$success[] = _("Valid sender email address given.");
        	} else {
 	       	$fail[]= _("You must specify a valid sender email address");
        	}
-	if (!empty($gallery->session->configForm->emailGreeting) && !strstr($gallery->session->configForm->emailGreeting, "!!USERNAME!!")) {
+       	if (!empty($emailGreeting) && !strstr($emailGreeting, "!!USERNAME!!")) {
 	       	$fail[]= sprintf(_("You must include %s in your welcome email"), "<b>!!USERNAME!!</b>");
        	}
        	if (!empty($emailGreeting) && 
-			!strstr($gallery->session->configForm->emailGreeting, "!!PASSWORD!!" ) &&
-			!strstr($gallery->session->configForm->emailGreeting, "!!NEWPASSWORDLINK!!" )) {
+			!strstr($emailGreeting, "!!PASSWORD!!" ) && 
+			!strstr($emailGreeting, "!!NEWPASSWORDLINK!!" )) {
 	       	$fail[]= sprintf(_("You must include %s or %s in your welcome email"), 
 				"<b>!!PASSWORD!!</b>",
 				"<b>!!NEWPASSWORDLINK!!</b>");
@@ -1336,6 +1319,7 @@ function check_gallery_versions()  {
 		$warn[]=sprintf(_("%d files are more recent than expected.  This is OK if you are using pre-release, beta, CVS or modified code."), count($warnings)) .
 		      	"<br>" . sprintf(_("Look at %sCheck Versions%s for more details."), 
 					"<a href=check_versions.php>", "</a>");
+		$warn['nocolor'] = true;
 	} else {
 		if (count($oks) == 0) {
 			$success[] = sprintf(_("All tested files up-to-date."));
@@ -1435,8 +1419,7 @@ function check_admins() {
 		"dont-write" => 1,
 		'verify-func' => 'verify_password',
 		"value" => "",
-		"attrs" => array("size" => 20),
-		"required" => true,
+		"attrs" => array("size" => 20)
 	));
 	
 	return $result;
@@ -1553,12 +1536,11 @@ function checkVersions($verbose=false) {
 **			"desc"		=>
 **        )
 **
-** "type"		: Indicates that a group starts or ends. Possible values: 'group_start' , 'group_end'.
-** "name"		: To identify the group you have to set a name.
-** "default"		: Indicates wether the group is visible or not. Possible values: 'inlineÄ', 'none'.
-** "title"		: When the group is visible, this title is displayed in the header line.
-** "desc"		: This optional Description is displayed under the title.
-** ""contains_required"	: Indicates that this Group contains field that are required
+** "type"	: Indicates that a group starts or ends. Possible values: 'group_start' , 'group_end'.
+** "name"	: To identify the group you have to set a name.
+** "default"	: Indicates wether the group is visible or not. Possible values: 'inlineÄ', 'none'.
+** "title"	: When the group is visible, this title is displayed in the header line.
+** "desc"	: This optional Description is displayed under the title.
 **
 ** Note: - The first group which default is 'inline' will the group that is selected when opening the Page.
 **	 - You always need a group_end for a group. Otherwise everything below will belong to the group.	
@@ -1587,12 +1569,7 @@ function makeSectionTabs($array) {
 		else { 
 			$class = 'class="tab"';
 		}
-		echo "\n\t<td $class id=\"tab_". $cell['name'] ."\" onClick=\"section_tabs.toggle('" . $cell['name'] ."')\">";
-		echo '<span class="tab-text">'. $cell['title'] . '&nbsp;</span>';
-		if (isset($cell['contains_required'])) {
-			echo '<span class="littlered">*</span>';
-		}
-		echo '</td>';
+		echo "\n\t<td $class id=\"tab_". $cell['name'] ."\" onClick=\"section_tabs.toggle('" . $cell['name'] ."')\">". $cell['title'] ."</td>";
 		echo "\n\t<td class=\"tabspacer\">&nbsp;</td>";
 		if ($tabcount %6 ==0) {
 			echo "\n</tr>\n</table>";
@@ -1621,7 +1598,7 @@ function makeSectionTabs($array) {
 }
 
 function configLogin($target) {
-	global $gallery;
+	global $gallery, $gallerypassword, $username;
 	
 	if (fs_file_exists(GALLERY_SETUPDIR . "/resetadmin")) {
 		$resetFile = getFile(GALLERY_SETUPDIR . "/resetadmin");
@@ -1652,7 +1629,7 @@ function configLogin($target) {
 		// Check the UserDB for upgrades before trying to make someone login
 		if ($gallery->userDB->versionOutOfDate())
 		{
-			include(GALLERY_BASE . "/upgrade_users.php");
+			include(dirname(dirname(__FILE__)) . "/upgrade_users.php");
 			exit;
 		}
 

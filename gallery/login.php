@@ -22,87 +22,117 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
-$username = removeTags(getRequestVar('username'));
-list($gallerypassword, $forgot, $login) = getRequestVar(array('gallerypassword', 'forgot', 'login'));
-
+// Security check.
+if (!isset($username)) {
+	$username="";
+}
+$username = removeTags($username);
 doctype();
 ?>
 
 <html>
 <head>
-  <title><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></title>
+	<title><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<span class="popuphead"><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></span>
+<br>
+<br>
 <?php
 
-if (!empty($username) && !empty($gallerypassword)) {
-	$tmpUser = $gallery->userDB->getUserByUsername($username);
-	if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword)) {
+if (isset($username) && isset($gallerypassword)) {
+       	$tmpUser = $gallery->userDB->getUserByUsername($username);
+       	if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword)) {
 
 		$tmpUser->log("login");
 		$tmpUser->save();
-		$gallery->session->username = $username;
-		gallery_syslog("Successful login for $username from " . $_SERVER['REMOTE_ADDR']);
-		if ($tmpUser->getDefaultLanguage() != "") {
-			$gallery->session->language = $tmpUser->getDefaultLanguage();
-		}
-		if (!$gallery->session->offline) {
-			dismissAndReload();
-		} else {
-		       	echo '<span class="error">'. _("SUCCEEDED") . '</span><p>';
-			return;
-		}
-	} else {
-		$error=_("Invalid username or password");
-		$gallerypassword = null;
-		gallery_syslog("Failed login for $username from " . $_SERVER['REMOTE_ADDR']);
-	}
-} elseif (!empty($submitted)) {
-	$error=_("Please enter username and password.");
+	       	$gallery->session->username = $username;
+		gallery_syslog("Successful login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
+	       	if ($tmpUser->getDefaultLanguage() != "") {
+		       	$gallery->session->language = 
+				$tmpUser->getDefaultLanguage();
+	       	}
+	       	if (!$gallery->session->offline) {
+		       	dismissAndReload();
+	       	} else {
+		       	print "<span class=error>SUCCEEDED</span><p>";
+		       	return;
+	       	}
+       	} else {
+	       	$invalid = 1;
+	       	$gallerypassword = null;
+		gallery_syslog("Failed login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
+       	}
 }
 ?>
+<div class="popup">
 <?php echo makeFormIntro("login.php", array("name" => "login_form", "method" => "POST")); ?>
 <?php echo _("Logging in gives you greater permission to view, create, modify and delete albums.") ?>
 <p>
-<table align="center">
-<?php if (isset($error)) { ?>
-<tr>
-	<td colspan="2" align="left"><?php echo gallery_error($error); ?></td>
-</tr>
+<table>
+<?php if (isset($invalid)) { ?>
+ <tr>
+  <td colspan=2>
+   <?php echo gallery_error(_("Invalid username or password")); ?>
+  </td>
+ </tr>
 <?php } ?>
 
-<tr>
-	<td><?php echo _("Username") ?></td>
-	<td><input type="text" name="username"  class="popupform" value="<?php echo $username ?>"></td>
-</tr>
-<tr>
-	<td><?php echo _("Password") ?></td>
-	<td><input type="password" name="gallerypassword" class="popupform"></td>
-</tr>
-</table>
+ <tr>
+  <td class="popup">
+   <?php echo _("Username") ?>
+  </td>
+  <td>
+   <input type=text name="username" value="<?php echo $username ?>">
+  </td>
+ </tr>
 
+<?php if (isset($error) && !isset($username)) { ?>
+ <tr>
+  <td colspan=2 align=center>
+   <?php echo gallery_error(_("You must specify a username")); ?>
+  </td>
+ </tr>
+<?php } ?>
+
+ <tr>
+  <td class="popup">
+	<?php echo _("Password") ?>
+  </td>
+  <td>
+   <input type=password name="gallerypassword">
+  </td>
+ </tr>
+
+<?php if (isset($error) && !isset($gallerypassword)) { ?>
+ <tr>
+  <td colspan=2 align=center>
+   <?php echo gallery_error(_("You must specify a password")); ?>
+  </td>
+ </tr>
+<?php } ?>
+
+</table>
 <p>
-<div align="center">
-	<input type="submit" name="login" value="<?php echo _("Login") ?>">
-	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</div>
-</p>
+<input type="submit" name="login" value="<?php echo _("Login") ?>">
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
-</div>
+<br><hr>
+
 <?php 
 if (isset($gallery->app->emailOn) && $gallery->app->emailOn == 'yes') {
-?>
-<div class="popuphead"><?php echo _("Forgotten your password?") ?></div>
-<div class="popup" align="center">
-<?php
-	echo makeFormIntro("login.php", array("name" => "forgot_form", "method" => "POST"));
 
-if (!empty($forgot)) {
+echo makeFormIntro("login.php", array("name" => "forgot_form", "method" => "POST")); ?>
+<span class="popuphead"><?php echo _("Forgotten your password?") ?></span>
+<br>
+<br>
+<?php
+if (isset($forgot)) {
        	$tmpUser = $gallery->userDB->getUserByUsername($username);
        	if ($tmpUser) {
 		$wait_time=15;
@@ -137,19 +167,19 @@ if (!empty($forgot)) {
 ?>
 
 <p>
-<table align="center">
-<tr>
-	<td><?php echo _("Username") ?></td>
-	<td><input type="text" name="username"  class="popupform" value="<?php echo $username ?>"></td>
-</tr>
-</table>
-</p>
-
-<p>
-<div align="center"><input type="submit" name="forgot" value="<?php echo _("Send me my password") ?>"></div>
+<table>
+ <tr>
+  <td class="popup">
+   <?php echo _("Username") ?>
+  </td>
+  <td>
+   <input type="text" name="username" value="<?php echo $username ?>">
+  </td>
+ </tr>
+ </table>
+ <p>
+<input type="submit" name="forgot" value="<?php echo _("Send me my password") ?>">
 </form>
-
-</div>
 <?php } /* End if-email-on */ ?>
 
 <script language="javascript1.2" type="text/JavaScript">
@@ -159,9 +189,8 @@ document.login_form.username.focus();
 //--> 
 </script>
 
-
+</div>
+</center>
 <?php print gallery_validation_link("login.php"); ?>
-
 </body>
 </html>
-

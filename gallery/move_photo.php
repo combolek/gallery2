@@ -22,22 +22,24 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list ($reorder, $index, $newAlbum, $newIndex, $startPhoto, $endPhoto) = getRequestVar(array('reorder', 'index', 'newAlbum', 'newIndex', 'startPhoto', 'endPhoto'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 $albumDB = new AlbumDB(FALSE); // read album database
 
+if (!isset($reorder)) {
+	$reorder = 0;
+}
+
 if ($gallery->album->isAlbum($index)) {
-	$title = !empty($reorder) ? _("Reorder Album") : _("Move Album");
+	$title=$reorder ? _("Reorder Album") : _("Move Album");
 } else {
-	$title = !empty($reorder) ? _("Reorder Photo") : _("Move Photo");
+	$title=$reorder ? _("Reorder Photo") : _("Move Photo");
 }
 
 doctype();
@@ -47,9 +49,12 @@ doctype();
   <title><?php echo $title ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo $title ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead" align="center"><?php echo $title ?></p>
+
+<div class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -264,8 +269,8 @@ if ($gallery->album->isAlbum($index)) {
 <?php
 } else {  
 	echo _("Move a range of photos to a new album:") ?><br>
-<i>(<?php echo _("To move just one photo, make First and Last the same.") ?>)</i><br>
-<i>(<?php echo _("Nested albums in this range will be ignored.") ?>)</i>
+<i>(<?php echo _("To move just one photo, make First and Last the same") ?>)</i><br>
+<i>(<?php echo _("Nested albums in this range will be ignored") ?>)</i>
 <?php echo makeFormIntro("move_photo.php", array("name" => "move_to_album_form")); ?>
 <input type=hidden name="index" value="<?php echo $index ?>">
 
@@ -355,7 +360,7 @@ if ($reorder) {
 </script>
 
 </div>
+</center>
 <?php print gallery_validation_link("move_photo.php", true, array('index' => $index)); ?>
-</div>
 </body>
 </html>

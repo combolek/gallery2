@@ -46,9 +46,6 @@
   if (!isset($previewFull)) {
     $previewFull=0;
   }
-  if (!isset($wmSelect)) {
-    $wmSelect = $gallery->app->watermarkSizes;
-  }
 ?>
 <p>
 <?php
@@ -89,7 +86,7 @@ if ($wmDir = opendir($gallery->app->watermarkDir)) {
 	closedir($wmDir);
 
 	if ($found == 0) {
-		$err=sprintf(_("No files matching %s found in %s"),
+		$err=printf(_("No files matching %s found in %s"),
 			"<b>" . $extensions_string . "</b>",
 			"<b>" . $gallery->app->watermarkDir . "</b>");
 		echo gallery_error($err);
@@ -97,7 +94,7 @@ if ($wmDir = opendir($gallery->app->watermarkDir)) {
 		print "</select>\n";
 	}
 } else {
-	$err=sprintf (_("Could not open directory %s"), $gallery->app->watermarkDir);
+	$err=printf (_("Could not open directory %s"), $gallery->app->watermarkDir);
 	echo gallery_error($err);
 }
 ?>
@@ -155,9 +152,3 @@ if ($wmDir = opendir($gallery->app->watermarkDir)) {
   if (isset($recursive)) echo " checked";
   print ">" . _("Watermark subalbums") . "</input><br><br>";
 } ?>
-<?php echo _("Apply watermark to") ?> <select name="wmSelect">
-  <option value="0"<?php if ($wmSelect <  1) echo " selected"; ?>><?php echo _("All photos");?></option>
-  <option value="1"<?php if ($wmSelect == 1) echo " selected"; ?>><?php echo _("Only sized photos");?></option>
-  <option value="2"<?php if ($wmSelect >  1) echo " selected"; ?>><?php echo _("Only full photos");?></option>
-</select>
-<br>

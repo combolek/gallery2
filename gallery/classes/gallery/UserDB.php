@@ -53,19 +53,13 @@ class Gallery_UserDB extends Abstract_UserDB {
 		}
 
 		if (!fs_file_exists("$userDir/.htaccess")) {
-			if (is_writeable($userDir)) {
-				$fd = fs_fopen("$userDir/.htaccess", "w");
-				fwrite($fd, "Order deny,allow\nDeny from all\n");
-				fclose($fd);
-			} else {
-				echo gallery_error(sprintf(_("The folder folder which contain your userinformation (%s) is not writable."), 
-								$userDir));
-				exit;
-			}
+			$fd = fs_fopen("$userDir/.htaccess", "w");
+			fwrite($fd, "Order deny,allow\nDeny from all\n");
+			fclose($fd);
 		}
 
 
-		if (fs_file_exists("$userDir/userdb.dat") && is_writeable("$userDir/userdb.dat")) {
+		if (fs_file_exists("$userDir/userdb.dat")) {
 			$tmp = getFile("$userDir/userdb.dat");
 
 			/* 
@@ -78,9 +72,6 @@ class Gallery_UserDB extends Abstract_UserDB {
 					$this->$k = $v;
 				}
 			}
-		} elseif (fs_file_exists("$userDir/userdb.dat") && !is_writeable("$userDir/userdb.dat")) {
-			echo gallery_error(_("Your Userfile is not writeable"));
-			exit;
 		}
 
 		if (!$this->nobody) {

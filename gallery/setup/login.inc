@@ -21,28 +21,26 @@
  */
 ?>
 <?php
-
-list($login, $username, $gallerypassword) = getRequestVar(array('login', 'username', 'gallerypassword'));
-
 if (isset($gallery->session->username) && !empty($gallery->session->username)) {
 	$tmpUser = $gallery->userDB->getUserByUsername($gallery->session->username);
 }
 
 if (fs_file_exists(GALLERY_SETUPDIR . "/resetadmin")) {
 	if (!isset($gallery->session->resetAdminGuid)) {
-		$gallery->session->resetAdminGuid = md5(uniqid(mt_rand(), true));
+		$gallery->session->resetAdminGuid = md5(uniqid(rand(), true));
 	}
 }
-elseif (!empty($login)) {
+elseif (isset($GLOBALS['login'])) {
 	if (empty($username) || empty($gallerypassword)) {
-		$error = _("Please enter username and password.");
+		$error=_("Please enter username and password.");
 	} else {
+		global $HTTP_SERVER_VARS;
 		$tmpUser = $gallery->userDB->getUserByUsername($username);
 		if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword) && $tmpUser->isAdmin()) {
 			$tmpUser->log("login");
 			$tmpUser->save();
 			$gallery->session->username = $username;
-			gallery_syslog("Successful config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Successful config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			if ($tmpUser->getDefaultLanguage() != "") {
 				$gallery->session->language = 
 					$tmpUser->getDefaultLanguage();
@@ -51,12 +49,12 @@ elseif (!empty($login)) {
 		elseif (!isset($tmpUser) || !$tmpUser->isCorrectPassword($gallerypassword)) {
 			$tmpUser = null;
 			$gallerypassword = null;
-			gallery_syslog("Failed config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Failed config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			$error= _("Invalid username or password");
 		}
 		elseif (!$tmpUser->isAdmin()) {
 			$gallerypassword = null;
-			gallery_syslog("Failed config wizard login for $username from " . $_SERVER['REMOTE_ADDR']);
+			gallery_syslog("Failed config wizard login for $username from " . $HTTP_SERVER_VARS['REMOTE_ADDR']);
 			$error=_("User is not an admin - access denied");
 		}
 	}
@@ -81,7 +79,6 @@ elseif (!isset($tmpUser) || !$tmpUser->isAdmin()) {  // Not logged in
 <div align="center">
 <div class="header"><?php echo sprintf (_("%s configuration"), gallery()) ?></div>
 <div class="desc"><?php echo _("You must log in as an administrator to edit this server's configuration.") ?></div>
-<div class="desc"><?php echo sprintf(_("If you have forgotten the password to your admin account, you can reset it by creating a blank file named '%s' in your %s directory and then refreshing and following the instructions on this page."), 'resetadmin', GALLERY_SETUPDIR) ?></div>
 <p>
 <?php if(isset($error)) {
 	echo gallery_error($error) ."</p>\n<p>";

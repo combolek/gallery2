@@ -22,7 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 function image($name) {
 	return getImagePath("$name");
@@ -36,9 +36,11 @@ doctype();
   <?php common_header(); ?>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("File upload in progress!") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+<center>
+<span class="popuphead"><?php echo _("File upload in progress!") ?></span>
+<p>
+<span class="popup">
 <?php echo _("This page will go away automatically when the upload is complete.  Please be patient!") ?>
 <p>
 <table border=0 cellpadding=0 cellspacing=0>
@@ -49,6 +51,8 @@ doctype();
  </tr>
 </table>
 
-</div>
+</center>
+
+</span>
 </body>
 </html>

@@ -50,6 +50,7 @@ function slideshow_initialize()
         if ($random) {
             $random_full_urls = array();
             $random_photos = array();
+            srand ((float) microtime() * 10000000);
             $rand_keys = array_rand ($urls, $number);
             if ($number == 1) {
                 $rand_keys = array($rand_keys);
@@ -130,7 +131,6 @@ function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album = null, $r
         if ($photo->isAlbum()) {
             if ($recursive) {
                 $subAlbumName = $album->getAlbumName($index);
-
                 $subAlbum = new Album();
                 $subAlbum->load($subAlbumName);
                 if ($gallery->user->canReadAlbum($subAlbum)) {
@@ -585,7 +585,7 @@ function slideshow_controlPanel()
 
 <script language="Javascript">
 /* show the caption */
-document.write("<div class='pcaption' id='caption'></div>");
+document.write("<div class='modcaption' id='caption'></div>");
 
 /* Load the first picture */
 setCaption(photo_captions[1]);

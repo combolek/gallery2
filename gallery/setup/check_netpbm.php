@@ -22,7 +22,7 @@
 ?>
 <?php 
 
-	require_once(dirname(__FILE__) . '/init.php');
+	require(dirname(__FILE__) . '/init.php');
 	require(dirname(__FILE__) . '/functions.inc');
 ?>
 <html>
@@ -54,7 +54,7 @@
 			</td>
 
 <?php
-if (! file_exists(GALLERY_BASE . '/config.php')) {
+if (! file_exists(dirname(dirname(__FILE__)) . '/config.php')) {
 ?>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@ if (! file_exists(GALLERY_BASE . '/config.php')) {
 <?php
         exit;
 } else {
-	require(GALLERY_BASE . '/config.php'); 
+	require(dirname(dirname(__FILE__)) . '/config.php'); 
 ?>
 			<td class="Success"><?php echo _("OK") ?></td>
 		</tr>
@@ -99,7 +99,7 @@ if (! file_exists(GALLERY_BASE . '/config.php')) {
 	echo _("If both the attempts above failed, you should ask your ISP what operating system you are using."); 
 	echo sprintf(_("You can check via %s, they can often tell you."),
 		'<a href="http://www.netcraft.com/whats?host=' .
-		$_SERVER['HTTP_HOST'] . 
+		$HTTP_SERVER_VARS['HTTP_HOST'] . 
 		'">Netcraft</a>') ;
 ?>
 		</p>

@@ -5,7 +5,6 @@
 // width parameters .
 
 global $adminbox, $navigator;
-
 // If the border color is not passed in, we do a black/white combo
 if ($adminbox["bordercolor"]) {
 	$borderIn = $adminbox["bordercolor"];
@@ -30,12 +29,8 @@ if ($adminbox["top"]) {
 }
 ?>
   <tr> 
-    <td class="admin" align="left" valign="middle" height="18">&nbsp;<?php echo $adminbox["text"] ?></td>
-    <td class="admin" align="right" valign="middle" height="18">
-        <form name="admin_options_form" action="view_album.php" style="margin-bottom: 0px;">
-        <?php echo $adminbox["commands"] ?>
-        </form>
-    </td>
+    <td class="admin" align="left" valign="middle" width="4000" height="18">&nbsp;<?php echo $adminbox["text"] ?></td>
+    <td class="admin" align="right" valign="middle" width="3000" height="18">&nbsp;<?php echo $adminbox["commands"] ?>&nbsp;</td>
   </tr>
 <?php
 if (!$adminbox["top"]) {

@@ -22,19 +22,16 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-$mode = getRequestVar('mode');
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 $cookieName = $gallery->app->sessionVar . "_add_photos_mode";
-$modeCookie = isset($_COOKIE[$cookieName]) ? $_COOKIE[$cookieName] : null;
-
+$modeCookie = isset($HTTP_COOKIE_VARS[$cookieName]) ? $HTTP_COOKIE_VARS[$cookieName] : null;
 if (isset($mode)) {
 	if ($modeCookie != $mode) {
 	    setcookie($cookieName, $mode, time()+60*60*24*365, "/" );
@@ -116,9 +113,8 @@ doctype();
 // -->
 </script>
 </head>
-<body dir="<?php echo $gallery->direction ?>" onload="window.focus()" class="popupbody">
-<div class="popuphead"><?php echo _("Add Photos") ?></div>
-<div class="popup">
+<body dir="<?php echo $gallery->direction ?>" onload="window.focus()" class="popup">
+
 <?php
 
 if (file_exists(dirname(__FILE__) . "/java/GalleryRemoteAppletMini.jar") &&
@@ -141,29 +137,32 @@ if ($gallery->user->isAdmin()) {
     $modes["admin"] = _("Admin");
 }
 
+
 if (!isset($mode) || !isset($modes[$mode])) {
 	$mode = isset($modes[$gallery->app->uploadMode]) ? $gallery->app->uploadMode : "form";
 }
 ?>
 
-	<div id="container">
-	<ul id="tabnav">
+<div id="container">
+<ul id="tabnav">
 <?php
 foreach ($modes as $m => $mt) {
-	$url = makeGalleryUrl('add_photos.php', array('mode' => $m, 'type' => 'popup'));
+	$url=makeGalleryUrl('add_photos.php',array('mode' => $m));
 	if ($m == $mode) {
-		echo "\t\t<li><a href=\"$url\" class=\"active\">$mt</a></li>\n";
+		echo "\n\t<li><a href=\"$url\" class=\"active\">$mt</a></li>";
 	} else {
-		echo "\t\t<li><a href=\"$url\">$mt</a></li>\n";
+		echo "\n\t<li><a href=\"$url\">$mt</a></li>";
 	}
 }
 ?>
-	</ul>
+
+</ul>
+
 <?php
 include (dirname(__FILE__) . "/includes/add_photos/add_$mode.inc");
 ?>
 
-	</div>
 </div>
+
 </body>
 </html>

@@ -22,26 +22,18 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($save, $old_password, $new_password1, $new_password2) = getRequestVar(array('save', 'old_password', 'new_password1', 'new_password2'));
-list($uname, $email, $fullname, $defaultLanguage) = getRequestVar(array('uname', 'email', 'fullname', 'defaultLanguage'));
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isLoggedIn()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
 $errorCount=0;
-if (isset($save)) {
+if ( isset($save)) {
 	if (strcmp($gallery->user->getUsername(), $uname)) {
-		if ($gallery->user->isAdmin()) {
-			$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
-			if ($gErrors["uname"]) {
-				$errorCount++;
-			}
-		} else {
-			$gErrors['uname'] = _("You are not allowed to change your username.");
+		$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
+		if ($gErrors["uname"]) {
 			$errorCount++;
 		}
 	}
@@ -93,7 +85,7 @@ $fullname = $gallery->user->getFullname();
 $email = $gallery->user->getEmail();
 $defaultLanguage = $gallery->user->getDefaultLanguage();
 
-$allowChange["uname"] = $gallery->user->isAdmin() ? true : false;
+$allowChange["uname"] = true;
 $allowChange["email"] = true;
 $allowChange["fullname"] = true;
 $allowChange["password"] = true;
@@ -110,9 +102,11 @@ doctype();
   <title><?php echo _("Change User Preferences") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Change User Preferences") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Change User Preferences") ?></p>
+
 <?php echo _("You can change your user information here.") ?>
 <?php echo _("If you want to change your password, you must provide your old password and then enter the new one twice.") ?>
 <?php echo _("You can change your username to any combination of letters and digits.") ?>
@@ -132,6 +126,7 @@ doctype();
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 
+</center>
 <script language="javascript1.2" type="text/JavaScript">
 <!--
 // position cursor in top form field
@@ -139,6 +134,5 @@ document.usermodify_form.uname.focus();
 //--> 
 </script>
 <?php print gallery_validation_link("user_preferences.php"); ?>
-</div>
 </body>
 </html>

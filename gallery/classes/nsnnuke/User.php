@@ -21,28 +21,23 @@
  */
 ?>
 <?php
-class CPGNuke_User extends Abstract_User {
+class NsnNuke_User extends Abstract_User {
 	var $db;
 	var $prefix;
 	var $fields;
 	
-	function CPGNuke_User() {
+	function NsnNuke_User() {
 		global $gallery;
-		$this->db = $gallery->database{"cpgnuke"};
+		$this->db = $gallery->database{"nsnnuke"};
 		$this->prefix = $gallery->database{"user_prefix"};
 		$this->fields = $gallery->database{'fields'};
 	}
 
 	function loadByUid($uid) {
-
-		$sql = 'select '.
-			$this->fields{'uname'} . ', '. 
-			$this->fields{'name'} . ', '. 
-			$this->fields{'email'} .
-			' from ' . $this->prefix . 'users'. 
-			' where ' . $this->fields{'uid'} . "='$uid'";
-
-		$results = $this->db->query($sql);
+		$results = $this->db->query('select ' . $this->fields{'uname'} .
+		   ', ' . $this->fields{'name'} . ', ' . $this->fields{'email'} .
+		   ' from ' . $this->prefix . 'users '. 'where ' .
+		   $this->fields{'uid'} . "='$uid'");
 		$row = $this->db->fetch_row($results);
 		$this->username = $row[0];
 		$this->fullname = $row[1];
@@ -53,15 +48,10 @@ class CPGNuke_User extends Abstract_User {
 	}
 
 	function loadByUserName($uname) {
-
-		$sql = 'select '. 
-			$this->fields{'uid'} . ', '. 
-			$this->fields{'name'} . ', '. 
-			$this->fields{'email'} .
-			' from ' . $this->prefix . 'users'. 
-			' where ' . $this->fields{'uname'} . "='$uname'";
-
-		$results = $this->db->query($sql);
+		$results = $this->db->query('select ' . $this->fields{'uid'} .
+		   ', ' . $this->fields{'name'} . ', ' . $this->fields{'email'} .
+		   ' from ' . $this->prefix . 'users ' . 'where ' .
+		   $this->fields{'uname'} . "='$uname'");
 		$row = $this->db->fetch_row($results);
 		$this->uid = $row[0];
 		$this->fullname = $row[1];

@@ -21,6 +21,8 @@
  */
 ?>
 <?php
+
+@ini_set('session.bug_compat_warn', 'off');
 /*
  * PHP 4.0.1pl2 introduces a bug where you can't unserialize a 
  * stdClass instance correctly.  So create a dummy class to hold all
@@ -44,12 +46,24 @@ if (session_id()) {
 	 * oh well.
 	 */
 	$useStdClass = 1;
-} else {
-	$useStdClass = 0;
 }
 
 /* Start a new session, or resume our current one */
 @session_start();
+
+/* emulate register_globals for sessions */
+if (!$gallery->register_globals) {
+	if (is_array($HTTP_SESSION_VARS) && !empty($HTTP_SESSION_VARS)) {
+		foreach($HTTP_SESSION_VARS as $key => $value) {
+			$$key =& $HTTP_SESSION_VARS[$key];
+		}
+	}
+	elseif (is_array($_SESSION) && !empty($_SESSION)) {
+		foreach($_SESSION as $key => $value) {
+			$$key =& $_SESSION[$key];
+		}
+	}		
+}
 
 /*
  * Are we resuming an existing session?  Determine this by checking
@@ -57,35 +71,42 @@ if (session_id()) {
  * create the appropriate container for it.
  */
 
-if (empty($gallery->app->sessionVar)) {
+if(! isset($gallery->app->sessionVar)) {
 	$gSessionVar = "gallery_session_".md5(getcwd()); 
 } else {
 	$gSessionVar = $gallery->app->sessionVar . "_" . md5($gallery->app->userDir);
 }
+session_register($gSessionVar);
 
-if (isset($_SESSION[$gSessionVar])) {
+if (isset($$gSessionVar)) {
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& $_SESSION[$gSessionVar];
+	$gallery->session =& $$gSessionVar;
 
-	if (!empty($gallery->session->remoteHost) && $gallery->session->remoteHost != $_SERVER['REMOTE_ADDR']) {
-		printf('Attempted security breach. Please <a href="%s">re-login</a>.', $gallery->app->photoAlbumURL . '?PHPSESSID=');
+	/* Make sure our session is current.  If not, nuke it and restart. */
+	/* Disabled this code -- it has too many repercussions */
+	if (false) {
+	    if (strcmp($gallery->session->version, $gallery->version)) {
+		session_destroy();
+		header("Location: " . makeGalleryHeaderUrl("index.php"));
 		exit;
+	    }
 	}
 } else {
+	/* Register the session variable */
+	session_register($gSessionVar);
+
 	/* Create a new session container */
-	if (!empty($useStdClass)) {
-		$_SESSION[$gSessionVar] = new stdClass();
+	if (isset($useStdClass)) {
+		$$gSessionVar = new stdClass();
 	} else {
-		$_SESSION[$gSessionVar] = new GallerySession();
+		$$gSessionVar = new GallerySession();
 	}
 
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& $_SESSION[$gSessionVar];
+	$gallery->session =& $$gSessionVar;
 
 	/* Tag this session with the gallery version */
 	$gallery->session->version = $gallery->version;
-	$gallery->session->sessionStart = time();
-	$gallery->session->remoteHost = $_SERVER['REMOTE_ADDR'];
 }
 
 update_session_var("albumName");

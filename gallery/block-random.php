@@ -1,4 +1,4 @@
-<?php
+<?
 /*
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2004 Bharat Mediratta
@@ -19,6 +19,7 @@
  *
  * $Id$
  */
+
 /*
  * This block selects a random photo for display.  It will only display photos
  * from albums that are visible to the public.  It will not display hidden
@@ -38,11 +39,14 @@
  *
  * Mambo:
  * http://<URL to Mambo>/index.php?option=com_gallery&Itemid=XXX
+
+ 
  */
 
-// Random block does not require authentication of any sort... don't use sessions
-$GALLERY_NO_SESSIONS = 1;
 require(dirname(__FILE__) . "/init.php");
+
+/* Initializing the seed */
+srand ((double) microtime() * 1000000);
 
 define('CACHE_FILE', $gallery->app->albumDir . "/block-random.dat");
 define('CACHE_EXPIRED', $gallery->app->blockRandomCache);
@@ -64,43 +68,30 @@ if ($rebuild) {
 	readCache();
 }
 
-$i = 0;
-do { 
-	$success = doPhoto();
-	$i++;
-} while (empty($success) && $i < $gallery->app->blockRandomAttempts);
+$album = chooseAlbum();
 
-if (empty($success)) {
-	echo '<center>No photo chosen.</center>';
+if (!empty($album)) {
+	$index = choosePhoto($album);
 }
 
-function doPhoto() {
-	$album = chooseAlbum();
+if (!empty($index)) {
+	$id = $album->getPhotoId($index);
+	echo ""
+		. "<center><a href=" . makeAlbumUrl($album->fields["name"], $id) . ">"
+		. $album->getThumbnailTag($index)
+		. "</a></center>";
 
-	if (!empty($album)) {
-		$index = choosePhoto($album);
+	$caption = $album->getCaption($index);
+	if ($caption) {
+		echo "<br><center>$caption</center>";
 	}
 
-	if (!empty($index)) {
-		$id = $album->getPhotoId($index);
-		echo ""
-			. '<center><a href="' . makeAlbumUrl($album->fields['name'], $id) . '">'
-			. $album->getThumbnailTag($index)
-			. '</a></center>';
-
-		$caption = $album->getCaption($index);
-		if ($caption) {
-			echo '<br><center>' . $caption . '</center>';
-		}
-
-		echo '<br><center>From: '
-			. '<a href="' .makeAlbumUrl($album->fields['name']) .'">'
-			. $album->fields['title']
-			. '</a></center>';
-		return 1;
-	} else {
-		return 0;
-	}
+	echo "<br><center>From: "
+		."<a href=" .makeAlbumUrl($album->fields["name"]) .">"
+		.$album->fields["title"]
+		."</a></center>";
+} else {
+	print "<center>No photo chosen.</center>";
 }
 
 /*
@@ -134,7 +125,7 @@ function choosePhoto($album) {
 			return null;
 		}
 	} else {
-		$choose = mt_rand(1, $count);
+		$choose = rand(1, $count);
 		$wrap = 0;
 		while ($album->isHiddenRecurse($choose) || $album->isAlbum($choose)) {
 			$choose++;
@@ -165,7 +156,7 @@ function chooseAlbum() {
 		}
 
 		$total += $count;
-		if ($total != 0 && ($total == 1 || mt_rand(1, $total) <= $count)) {
+		if ($total != 0 && ($total == 1 || rand(1, $total) <= $count)) {
 			$choose = $name;
 		}
 	}

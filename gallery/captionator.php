@@ -22,10 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($page, $save, $next, $prev, $cancel) = getRequestVar(array('page', 'save', 'next', 'prev', 'cancel'));
-list($captionedAlbum, $extra_fields) = getRequestVar(array('captionedAlbum', 'extra_fields'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
@@ -65,12 +62,12 @@ if (isset($save) || isset($next) || isset($prev)) {
         $myAlbumName = $gallery->album->getAlbumName($i);
         $myAlbum = new Album();
         $myAlbum->load($myAlbumName);
-	$myAlbum->fields['description'] = stripslashes(getRequestVar("new_captions_$i"));
+        $myAlbum->fields['description'] = stripslashes(${"new_captions_" . $i});
 	$myAlbum->save(array(i18n("Text has been changed")));
 
       } else {
-	$gallery->album->setCaption($i, stripslashes(getRequestVar("new_captions_$i")));
-	$gallery->album->setKeywords($i, stripslashes(getRequestVar("new_keywords_$i")));
+        $gallery->album->setCaption($i, stripslashes(${"new_captions_" . $i}));
+        $gallery->album->setKeywords($i, stripslashes(${"new_keywords_" . $i}));
 	if (isset($extra_fields)) {
 		foreach ($extra_fields[$i] as $field => $value)
 		{
@@ -91,11 +88,8 @@ if (isset($save) || isset($next) || isset($prev)) {
 }
 
 if (isset($cancel) || isset($save)) {
-	if (!isDebugging())
-		header("Location: " . makeAlbumHeaderUrl($captionedAlbum));
-	else
-		echo "<br><a href='" . makeAlbumUrl($captionedAlbum) . "'>" . _("Debugging: Click here to return to the album") . "</a><br>";
-	return;
+    header("Location: " . makeAlbumHeaderUrl($captionedAlbum));
+    return;
 }
 
 #-- did they hit next? ---
@@ -172,7 +166,7 @@ if ($borderwidth == 0) {
     $bordercolor = "black";
 }
 
-$adminText = "<span>". _("Multiple Caption Editor.") . " ";
+$adminText = "<span class=\"popup\">". _("Multiple Caption Editor.") . " ";
 if ($numPhotos == 1) {
         $adminText .= _("1 photo in this album") ;
 } else {
@@ -243,22 +237,9 @@ if ($numPhotos) {
 	<td bgcolor="<?php echo $bordercolor ?>" height="1"><?php echo $pixelImage ?></td>
 </tr>
 <tr>
-	<td width="<?php echo $thumbSize ?>" align="center" valign="top" class="modcaption"><br>
-<?php
-		$photo = $gallery->album->getPhoto($i);
-		list($width, $height) = $photo->getDimensions();
-		if (!($photo->isMovie())) {
-			echo popup_link($gallery->album->getThumbnailTag($i, $thumbSize).
-						"<br />"._("(click to enlarge)"),
-					$gallery->album->getPhotoPath($i),1,false,
-					$height+20,$width+20);
-		} else {
-			echo $gallery->album->getThumbnailTag($i,$thumbSize);
-		}
-                if ($gallery->album->isHidden($i) && !$gallery->session->offline) {
-                        echo "<br>(" . _("hidden") .")<br>";
-                }
-?>	
+	<td width="<?php echo $thumbSize ?>" align="center" valign="top"><br>
+		<?php echo $gallery->album->getThumbnailTag($i, $thumbSize); ?>
+	
 	</td>
 	<td height="1"><?php echo $pixelImage ?></td>
 	<td valign="top"><?php
@@ -301,8 +282,14 @@ if ($numPhotos) {
 			echo "\n\t\t". '<input type="text" name="new_keywords_'. $i .'" size="65" value="'. $oldKeywords .'"></p>';
 
 			$itemCaptureDate = $gallery->album->getItemCaptureDate($i);
-			$capturedate=strftime($gallery->app->dateTimeString , $itemCaptureDate);
+			$hours = $itemCaptureDate["hours"];
+			$minutes = $itemCaptureDate["minutes"];
+			$seconds = $itemCaptureDate["seconds"];
+			$mon = $itemCaptureDate["mon"];
+			$mday = $itemCaptureDate["mday"];
+			$year = $itemCaptureDate["year"];
 
+			$capturedate=strftime($gallery->app->dateTimeString , mktime ($hours,$minutes,$seconds,$mon,$mday,$year));
 			echo "\n\t\t". '<p class="admin">'. _("Capture Date") . ': '. $capturedate. '</p><br>';
 		}
 	echo "\n\t</td>";

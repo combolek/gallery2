@@ -24,9 +24,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($id, $index, $confirm) = getRequestVar(array('id', 'index', 'confirm'));
+require(dirname(__FILE__) . '/init.php');
 
 if (isset($id)) {
         $index = $gallery->album->getPhotoIndex($id);
@@ -34,13 +32,13 @@ if (isset($id)) {
 
 // Hack check
 if (!$gallery->user->canDeleteFromAlbum($gallery->album) && !$gallery->album->isItemOwner($gallery->user, $index)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 doctype();
 echo "\n<html>";
-if (!empty($confirm)) {
+if (isset($confirm) && $confirm) {
 	$gallery->album->fields["votes"]=array();
 	$gallery->album->save(array(i18n("All votes removed")));
 	dismissAndReload();
@@ -52,9 +50,11 @@ if (!empty($confirm)) {
   <title><?php echo _("Reset Voting") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Reset Voting") ?></div>
-<div class="popup" align="center">
+<body>
+
+<center>
+<p class="popuphead"><?php echo _("Reset Voting") ?></p>
+
 <p>
 <?php echo sprintf(_("Do you really want to remove all votes in %s?"), "<b>{$gallery->album->fields['title']}</b>") ?>
 </p>
@@ -63,7 +63,9 @@ if (!empty($confirm)) {
 <input type=submit name=confirm value="<?php echo _("Remove Votes") ?>">
 <input type=submit value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
+<br>
+</center>
+
 <?php print gallery_validation_link("reset_votes.php"); ?>
-</div>
 </body>
 </html>
