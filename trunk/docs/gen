@@ -1,10 +1,17 @@
 #!/bin/sh
 DIST=dist 
+DATE=$(date +%c)
+
+function gen_date {
+	echo "<!ENTITY gen-date '$DATE'>" > $DIST/gen-date.ent
+}
 
 case $1 in
 	html)
 		echo "Generating HTML Manual...";
 		
+		gen_date
+
 		if [ ! -d $DIST/html ]; then
 			mkdir -p $DIST/html;
 		fi
@@ -38,7 +45,7 @@ case $1 in
 			rm -f $DIST/pdf/manual.pdf;
 		fi
 
-		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
+		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
 		cp -R images $DIST/pdf
 		rm -rf $DIST/pdf/CVS
 
@@ -89,3 +96,4 @@ case $1 in
 	*)
 		echo "Invalid Action.  Type './gen help' for help";;
 esac
+
