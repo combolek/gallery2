@@ -25,6 +25,14 @@ class Album {
 	var $dir;
 	var $version;
 
+	/* 
+	 * This variable contains data that is useful for the lifetime
+	 * of the album object but which should not be saved in the
+	 * database.  Data like the mirrorUrl which we want to validate
+	 * the first time we touch an album.
+	 */
+	var $transient;
+
 	function Album() {
 		global $gallery;
 
@@ -58,6 +66,7 @@ class Album {
 		$this->fields["clicks_date"] = time();
 		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
 		$this->fields["public_comments"] = $gallery->app->default["public_comments"];
+		$this->fields["serial_number"] = 0;
 
 		// Seed new albums with the appropriate version.
 		$this->version = $gallery->album_version;
@@ -69,19 +78,18 @@ class Album {
 	}
 
 	function getNestedAlbum($index) {
-		global $albumDB;
 		
-		if (!$albumDB) $albumDB = new AlbumDB();
 		$albumName = $this->isAlbumName($index);
-			$album = $albumDB->getAlbumbyName($albumName);
+		$album = new Album();
+		$album->load($albumName);
 		return $album;	
 	}
 
 	function getRootAlbumName() {
-		global $albumDB;
 
 		if ($this->fields[parentAlbumName]) {
-			$parentAlbum = $albumDB->getAlbumbyName($this->fields[parentAlbumName]);
+			$parentAlbum = new Album();
+			$parentAlbum->load($this->fields[parentAlbumName]);
 			$returnValue = $parentAlbum->getRootAlbumName();
 		} else {
 			$returnValue = $this->fields[name];
@@ -128,7 +136,6 @@ class Album {
 				$changed = 1;
 			}
 		}
-		print "done.<br>";
 
 		/* Special case for EXIF :-( */
 		if (!$this->fields["use_exif"]) {
@@ -137,7 +144,16 @@ class Album {
 			} else {
 				$this->fields["use_exif"] = "no";
 			}
-		}					   
+			$changed = 1;
+		}
+
+		/* Special case for serial number */
+		if (!$this->fields["serial_number"]) {
+			$this->fields["serial_number"] = 0;
+			$changed = 1;
+		}
+
+		print "done.<br>";
 
 		/* 
 		* Check all items 
@@ -148,10 +164,10 @@ class Album {
 			print "Upgrading item $i of $count...";
 			my_flush();
 
-			$photo = $this->getPhoto($i);
+			$photo = &$this->getPhoto($i);
 			if ($photo->integrityCheck($this->getAlbumDir())) {
-				$this->setPhoto($photo, $i);
 				$changed = 1;
+				$this->updateSerial = 1;
 			}
 
 			print "done.<br>";
@@ -162,17 +178,23 @@ class Album {
 			$changed = 1;
 		}
 
+		if ($changed) {
+			$this->updateSerial = 1;
+		}
 		return $changed;
 	}
 
 
 
 	function shufflePhotos() {
+		$this->updateSerial = 1;
+
 		shuffle($this->photos);
 	}
 
 	function sortPhotos($sort,$order) {
-		
+		$this->updateSerial = 1;
+
 		// if we are going to use sort, we need to set the historic dates.
 		// the get Date functions set any null dates for us, so that's what
 		// this for loop does for us...
@@ -296,10 +318,11 @@ class Album {
 	}
 
 	function setHighlight($index) {
+		$this->updateSerial = 1;
+
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
-			$photo = $this->getPhoto($i);
+			$photo = &$this->getPhoto($i);
 			$photo->setHighlight($this->getAlbumDir(), $i == $index);
-			$this->setPhoto($photo, $i);
 		}
 	}
 
@@ -311,6 +334,7 @@ class Album {
 		if ($tmp) {
 			$this = unserialize($tmp);
 			$this->fields["name"] = $name;
+			$this->updateSerial = 0;
 			return 1;
 		}
 		return 0;
@@ -341,11 +365,38 @@ class Album {
 			mkdir($dir, 0777);
 		}
 
+		if ($this->updateSerial) {
+			/* Remove the old serial file, if it exists */
+			$serial = "$dir/serial." . $this->fields["serial_number"]. ".dat";
+			if (fs_file_exists($serial)) {
+				fs_unlink($serial);
+			}
+			$this->fields["serial_number"]++;
+		}
+
+		/* Don't save transient data */
+		$transient_save = $this->transient;
+		unset($this->transient);
+	
 		if ($fd = fs_fopen("$dir/album.dat.new", "w")) {
 			fwrite($fd, serialize($this));
 			fclose($fd);
 			fs_rename("$dir/album.dat.new", "$dir/album.dat");
 		}
+
+		/* Restore transient data after saving */
+		$this->transient = $transient_save;
+
+		/* Create the new serial file */
+		if ($this->updateSerial) {
+			$serial = "$dir/serial." . $this->fields["serial_number"]. ".dat";
+			if ($fd = fs_fopen($serial, "w")) {
+				/* This space intentionally left blank */
+				fwrite($fd, "TSILB\n");
+				fclose($fd);
+			}
+		}
+		$this->updateSerial = 0;
 	}
 
 	function delete() {
@@ -390,15 +441,18 @@ class Album {
 	}
 
 	function resizePhoto($index, $target, $pathToResized="") {
-		$photo = $this->getPhoto($index);
+		$this->updateSerial = 1;
+
+		$photo = &$this->getPhoto($index);
 		if (!$photo->isMovie()) {
 			$photo->resize($this->getAlbumDir(), $target, $pathToResized);
-			$this->setPhoto($photo, $index);
 		}
 	}
 
 	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="") {
 		global $gallery;
+
+		$this->updateSerial = 1;
 
 		$dir = $this->getAlbumDir();
 		if (!strcmp($gallery->app->default["useOriginalFileNames"], "yes")) {
@@ -406,7 +460,7 @@ class Album {
 			// check to see if a file by that name already exists
 			if (file_exists("$dir/$name.$tag")) {
 				// append a 3 digit number to the end of the filename if it exists already
-				if (!preg_match("/_\d\d\d$/", $name)) {
+				if (!ereg("_[[:digit:]]{3}$", $name)) {
 					$name = $name . "_001";
 				}
 				// increment the 3 digits until we get a unique filename
@@ -454,21 +508,20 @@ class Album {
 	}
 
 	function addNestedAlbum($albumName) {
+		$this->updateSerial = 1;
 		$item = new AlbumItem();
 		$item->isAlbumName = $albumName;
 		$this->photos[] = $item;
 	}
 
 	function hidePhoto($index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->hide();
-		$this->setPhoto($photo, $index);
 	}
 	
 	function unhidePhoto($index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->unhide();
-		$this->setPhoto($photo, $index);
 	}
 
 	function isHidden($index) {
@@ -477,12 +530,13 @@ class Album {
 	}
 
 	function deletePhoto($index, $forceResetHighlight="0") {
+		$this->updateSerial = 1;
 		$photo = array_splice($this->photos, $index-1, 1);
 		// need to check for nested albums and delete them ...
 		if ($photo->isAlbumName) {
-			$albumDB = new AlbumDB;
 			$albumName = $photo->isAlbumName;
-			$album = $albumDB->getAlbumbyName($albumName);
+			$album = new Album();
+			$album->load($albumName);
 			$album->delete();
 		}
 				/* are we deleteing the highlight? pick a new one */
@@ -571,7 +625,27 @@ class Album {
 	function getAlbumDirURL() {
 		global $gallery;
 
-		return $gallery->app->albumDirURL . "/{$this->fields[name]}";
+		if ($this->transient->mirrorUrl) {
+			return $this->transient->mirrorUrl;
+		}
+
+		if ($gallery->app->feature["mirror"]) {
+			foreach(split("[[:space:]]+", $gallery->app->mirrorSites) as $base_url) {
+				$base_url .= "/{$this->fields[name]}";
+				$serial = $base_url . "/serial.{$this->fields[serial_number]}.dat";
+				if ($fd = @fopen($serial, "r")) {
+					$this->transient->mirrorUrl = $base_url;
+					return $this->transient->mirrorUrl;
+				} 
+			}
+
+			/* All mirrors are out of date */
+			$this->transient->mirrorUrl = 
+				$gallery->app->albumDirURL . "/{$this->fields[name]}";
+			return $this->transient->mirrorUrl;
+		} else {
+			return $gallery->app->albumDirURL . "/{$this->fields[name]}";
+		}
 	}
 
 	function numHidden() {
@@ -652,6 +726,7 @@ class Album {
 	}
 
 	function setPhoto($photo, $index) {
+		$this->updateSerial = 1;
 		$this->photos[$index-1] = $photo;		
 	}
 
@@ -661,9 +736,8 @@ class Album {
 	}
 
 	function setCaption($index, $caption) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->setCaption($caption);
-		$this->setPhoto($photo, $index);
 	}
 
 	function getUploadDate($index) {
@@ -678,9 +752,8 @@ class Album {
 	}
 
 	function setUploadDate($index, $uploadDate="") {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->setUploadDate($uploadDate);
-		$this->setPhoto($photo, $index);
 	}
 
 	function getItemCaptureDate($index) {
@@ -695,9 +768,8 @@ class Album {
 	}
 
 	function setItemCaptureDate($index, $itemCaptureDate="") {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->setItemCaptureDate($itemCaptureDate);
-		$this->setPhoto($photo, $index);
 	}
 	
 	function numComments($index) {
@@ -711,15 +783,13 @@ class Album {
 	}
 
 	function addComment($index, $comment, $IPNumber, $name) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->addComment($comment, $IPNumber, $name); 
-		$this->setPhoto($photo, $index);
 	}
 
 	function deleteComment($index, $comment_index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->deleteComment($comment_index);
-		$this->setPhoto($photo, $index);
 	}
 
 	function getKeywords($index) {
@@ -728,27 +798,25 @@ class Album {
 	}
 
 	function setKeyWords($index, $keywords) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->setKeywords($keywords);
-		$this->setPhoto($photo, $index);
-		}
+        }
 
 
 	function rotatePhoto($index, $direction) {
-		$photo = $this->getPhoto($index);
+		$this->updateSerial = 1;
+		$photo = &$this->getPhoto($index);
 		$photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"]);
 
 		/* Are we rotating the highlight?  If so, rebuild the highlight. */
 		if ($photo->isHighlight()) {
 			$photo->setHighlight($this->getAlbumDir(), 1);
 		}
-		$this->setPhoto($photo, $index);
 	}
 
 	function makeThumbnail($index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->makeThumbnail($this->getAlbumDir(), $this->fields["thumb_size"]);
-		$this->setPhoto($photo, $index);
 	}
 
 	function movePhoto($index, $newIndex) {
@@ -769,9 +837,8 @@ class Album {
 	}
 
 	function setIsAlbumName($index, $name) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->setIsAlbumName($name);
-		$this->setPhoto($photo, $index);
 	}
 	
 	function resetClicks() {
@@ -814,7 +881,7 @@ class Album {
 	function incrementClicks() {
 		$this->fields["clicks"]++;
 		$resetModDate=0; // don't reset last_mod_date
-		$this->save($resetModDate);
+	        $this->save($resetModDate);
 	}
 
 	function getItemClicks($index) {
@@ -823,17 +890,16 @@ class Album {
 	}
 
 	function incrementItemClicks($index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->incrementItemClicks();
-		$this->setPhoto($photo, $index);
+
 		$resetModDate=0; //don't reset last_mod_date
 		$this->save($resetModDate);
 	}
 
 	function resetItemClicks($index) {
-		$photo = $this->getPhoto($index);
+		$photo = &$this->getPhoto($index);
 		$photo->resetItemClicks();
-		$this->setPhoto($photo,$index);
 	}
 
 	function getExif( $index ) {
