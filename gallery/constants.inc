@@ -42,14 +42,14 @@
  *
  * @constant SUCCESS
  */
-define(SUCCESS, 0x00000000);
+define("SUCCESS", 0x00000000);
 
 /**
  * The operation had errors
  *
  * @constant ERROR
  */
-define(ERROR, 0x00000001);
+define("ERROR", 0x00000001);
 
 /**
  * A name collision happened in the filesystem as a result of this operation.
@@ -58,7 +58,7 @@ define(ERROR, 0x00000001);
  *
  * @constant ERROR_NAME_COLLISION
  */
-define(ERROR_NAME_COLLISION, 0x00000002);
+define("ERROR_NAME_COLLISION", 0x00000002);
 
 /**
  * The object you're trying to access is no longer available.  Perhaps it was
@@ -66,7 +66,23 @@ define(ERROR_NAME_COLLISION, 0x00000002);
  *
  * @constant ERROR_MISSING_OBJECT
  */
-define(ERROR_MISSING_OBJECT, 0x00000004);
+define("ERROR_MISSING_OBJECT", 0x00000004);
+
+/**
+ * The lock you're trying to acquire is currently in use and was not released
+ * within the timeout period you specified.
+ * 
+ *
+ * @constant ERROR_LOCK_IN_USE
+ */
+define("ERROR_LOCK_IN_USE", 0x00000008);
+
+/**
+ * One of the parameters passed to this function is bad.
+ *
+ * @constant ERROR_BAD_PARAMETER
+ */
+define("ERROR_BAD_PARAMETER", 0x00000010);
 
 /*
  * ****************************************
@@ -77,86 +93,51 @@ define(ERROR_MISSING_OBJECT, 0x00000004);
 /**
  * The user has permission to view the source image.
  *
- * @constant PERMISSION_CAN_VIEW_SOURCE
+ * @constant PERMISSION_VIEW_SOURCE
  */
-define(PERMISSION_CAN_VIEW_SOURCE, 0x00000001);
-
-/**
- * The user is denied permission to view the source image.
- *
- * @constant PERMISSION_CANNOT_VIEW_SOURCE
- */
-define(PERMISSION_CANNOT_VIEW_SOURCE, 0x00000002);
+define("PERMISSION_VIEW_SOURCE", 0x00000001);
 
 /**
  * The user has permission to view the thumbnail image.
  *
- * @constant PERMISSION_CAN_VIEW_THUMB
+ * @constant PERMISSION_VIEW_THUMB
  */
-define(PERMISSION_CAN_VIEW_THUMB, 0x00000004);
-
-/**
- * The user is denied permission to view the thumbnail image.
- *
- * @constant PERMISSION_CANNOT_VIEW_THUMB
- */
-define(PERMISSION_CANNOT_VIEW_THUMB, 0x00000008);
+define("PERMISSION_VIEW_THUMB", 0x00000004);
 
 /**
  * The user has permission to view the resized image.
  *
- * @constant PERMISSION_CAN_VIEW_RESIZES
+ * @constant PERMISSION_VIEW_RESIZES
  */
-define(PERMISSION_CAN_VIEW_RESIZES, 0x00000010);
+define("PERMISSION_VIEW_RESIZES", 0x00000010);
 
 /**
- * The user is denied permission to view the resized image.
+ * The user has permission to insert a new item.
  *
- * @constant PERMISSION_CANNOT_VIEW_RESIZES
+ * @constant PERMISSION_INSERT
  */
-define(PERMISSION_CANNOT_VIEW_RESIZES,  0x00000020);
+define("PERMISSION_INSERT", 0x00000020);
 
 /**
  * The user has permission to change the item.
  *
- * @constant PERMISSION_CAN_CHANGE
+ * @constant PERMISSION_CHANGE
  */
-define(PERMISSION_CAN_CHANGE, 0x00000040);
-
-/**
- * The user is denied permission to change the item.
- *
- * @constant PERMISSION_CANNOT_CHANGE
- */
-define(PERMISSION_CANNOT_CHANGE, 0x00000080);
+define("PERMISSION_CHANGE", 0x00000040);
 
 /**
  * The user has permission to change the item's text.
  *
- * @constant PERMISSION_CAN_CHANGE_TEXT
+ * @constant PERMISSION_CHANGE_TEXT
  */
-define(PERMISSION_CAN_CHANGE_TEXT, 0x00000100);
+define("PERMISSION_CHANGE_TEXT", 0x00000080);
 
 /**
- * The user is denied permission to change the item's text.
+ * The user has permission to delete the item.
  *
- * @constant PERMISSION_CANNOT_CHANGE_TEXT
+ * @constant PERMISSION_DELETE
  */
-define(PERMISSION_CANNOT_CHANGE_TEXT, 0x00000200);
-
-/**
- * The user has permission to add to the item.
- *
- * @constant PERMISSION_CAN_ADD_TO
- */
-define(PERMISSION_CAN_ADD_TO, 0x00000400);
-
-/**
- * The user is denied permission to add to the item.
- *
- * @constant PERMISSION_CANNOT_ADD_TO
- */
-define(PERMISSION_CANNOT_ADD_TO, 0x00000800);
+define("PERMISSION_DELETE", 0x00000100);
 
 /*
  * ****************************************
@@ -170,21 +151,21 @@ define(PERMISSION_CANNOT_ADD_TO, 0x00000800);
  *
  * @constant PROPERTY_CREATIONDATE
  */
-define(PROPERTY_CREATIONDATE, "creationDate");
+define("PROPERTY_CREATIONDATE", "creationDate");
 
 /**
  * Last modification date as an integer unix timestamp
  *
  * @constant PROPERTY_MODIFICATIONDATE
  */
-define(PROPERTY_MODIFICATIONDATE, "modificationDate");
+define("PROPERTY_MODIFICATIONDATE", "modificationDate");
 
 /**
  * View count start date as an integer unix timestamp
  *
  * @constant PROPERTY_VIEWEDSINCEDATE
  */
-define(PROPERTY_VIEWEDSINCEDATE, "viewedSinceDate");
+define("PROPERTY_VIEWEDSINCEDATE", "viewedSinceDate");
 
 
 /**
@@ -192,48 +173,69 @@ define(PROPERTY_VIEWEDSINCEDATE, "viewedSinceDate");
  *
  * @constant PROPERTY_VIEWCOUNT
  */
-define(PROPERTY_VIEWCOUNT, "viewCount");
+define("PROPERTY_VIEWCOUNT", "viewCount");
 
 /**
  * Key words about this item
  *
  * @constant PROPERTY_KEYWORDS
  */
-define(PROPERTY_KEYWORDS, "keywords" );
+define("PROPERTY_KEYWORDS", "keywords" );
 
 /**
  * A short title of this item
  *
  * @constant PROPERTY_TITLE
  */
-define(PROPERTY_TITLE, "title");
+define("PROPERTY_TITLE", "title");
 
 /**
  * A longer description of of this item
  *
  * @constant PROPERTY_DESCRIPTION
  */
-define(PROPERTY_DESCRIPTION, "description");
+define("PROPERTY_DESCRIPTION", "description");
 
 /**
  * Is HTML allowed in the title & description?
  *
  * @constant PROPERTY_ISHTMLALLOWED
  */
-define(PROPERTY_ISHTMLALLOWED, "isHtmlAllowed");
+define("PROPERTY_ISHTMLALLOWED", "isHtmlAllowed");
 
 /**
  * Is this item hidden?
  *
  * @constant PROPERTY_ISHIDDEN
  */
-define(PROPERTY_ISHIDDEN, "isHidden");
+define("PROPERTY_ISHIDDEN", "isHidden");
 
 /**
  * Does this item inherit permissions from its parents?
  *
  * @constant PROPERTY_INHERITSPERMISSIONS
  */
-define(PROPERTY_INHERITSPERMISSIONS, "inheritsPermissions");
+define("PROPERTY_INHERITSPERMISSIONS", "inheritsPermissions");
+
+/*
+ * ****************************************
+ *             Sorting Tags
+ * ****************************************
+ */
+
+/**
+ * Sort in an ascending fashion
+ *
+ * @constant SORT_ASCENDING
+ */
+define("SORT_ASCENDING", "asc");
+
+/**
+ * Sort in an descending fashion
+ *
+ * @constant SORT_DESCENDING
+ */
+define("SORT_DESCENDING", "desc");
+
 ?>
 
