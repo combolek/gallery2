@@ -58,7 +58,26 @@ case $1 in
 		gendate
 
 		cd $DIST/galleryweb
-		xsltproc --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
+		xsltproc --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/galleryweb.xsl ../../manual.xml
+
+
+		cp -Rf ../../images .
+		rm -rf images/CVS
+
+		cp ../../html.css .
+		;;
+
+	g1package)
+		echo "Generating Gallery 1 Docs Only...";
+
+		if [ ! -d $DIST/g1package ]; then
+			mkdir -p $DIST/g1package;
+		fi
+
+		gendate
+
+		cd $DIST/g1package
+		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/g1-package.xsl ../../manual.xml
 
 
 		cp -Rf ../../images .
