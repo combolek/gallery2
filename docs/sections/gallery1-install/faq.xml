@@ -1301,7 +1301,43 @@ print getcwd ();
       </para>
      </answer>
     </qandaentry>
-
+    
+    <qandaentry id="gallery1-install.faq.c.33">
+     <question>
+      <para>
+       When I try to enter an album, I get a 404 error.  What's up?
+      </para>
+     </question>
+     <answer>
+      <para>
+       One of two things in happening
+       <itemizedlist>
+        <listitem>
+	 <para>
+	  The Gallery URL you specified during the configuration wizard
+	  is incorrect.  Verify that the value you specified does indeed
+	  point to where Gallery is installed.
+	 </para>
+	</listitem>
+	<listitem>
+	 <para>
+	  <emphasis role="bold">mod_rewrite</emphasis> is not working.  Edit
+	  your &config.php; file and change this line:
+	  <screen>
+	   $gallery->app->feature["rewrite"] = 1;
+	  </screen>
+	  to
+	  <screen>
+	   $gallery->app->feature["rewrite"] = 0;
+	  </screen>          
+          Voila!  The URLs should work correctly now.
+         </para>
+        </listitem>
+       </itemizedlist>
+      </para>
+     </answer>
+    </qandaentry>
+     
    </qandadiv>
   
   </qandaset>
