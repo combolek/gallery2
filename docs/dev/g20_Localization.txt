@@ -43,9 +43,12 @@ Language configuration
 In the first pass, language is not user selectable. It is a Gallery-
 wide setting, configured in the configuration wizard. 
 
-the next level of sofistication (given time) is to have a Gallery-wide
+the next level of sophistication (given time) is to have a Gallery-wide
 (or album) config parameter: "allow user to choose language". If enabled
 a new command would appear on the Album page "[language]". Clicking
 this would bring up a dialog to allow the user to choose from the 
 available languages. This would be stored in the session, and possibly
 in a cookie.
+
+(2001-11-27 21:24 mrm: when would we *not* want to allow the user to
+choose the language?)
