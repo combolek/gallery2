@@ -128,28 +128,8 @@ class CoreModuleTest extends GalleryTestCase {
 	$this->assertEquals(null, $content);
     }
 
-    function testGetSystemLinks() {
-	global $gallery;
-	
-	list ($ret, $content) = $this->_module->getSystemLinks();
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	
-	$this->assertEquals(array(
-				  array('text' => $this->_module->translate('site admin'),
-					'params' => array('view' => 'core:SiteAdmin')),
-				  array('text' => $this->_module->translate('your account'),
-					'params' => array('view' => 'core:UserAdmin',
-							  'subView' => 'core:UserPreferences')),
-				  array('text' => $this->_module->translate('logout'),
-					'params' => array('controller' => 'core:Logout'))
-				  ),
-			    $content);
-    }
-
-    function testGetSystemContent() {
-	list ($ret, $content) = $this->_module->getSystemContent();
+    function testLoadSystemContent() {
+	list ($ret, $content) = $this->_module->loadSystemContent($template);
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

@@ -75,14 +75,12 @@ class MatrixTheme extends GalleryTheme {
 	    $title = $params['item']['pathComponent'];
 	}
 
-	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">' .
-			  '<p class="thumbnail_title"> %s </p>',
+	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">',
 			  $src,
 			  $width,
 			  $height,
 			  $title,
-			  $params['item']['description'],
-			  $title);
+			  $params['item']['description']);
 	return $result;
     }
 
@@ -152,23 +150,24 @@ class MatrixTheme extends GalleryTheme {
 	// Begin center row
 	$buf .= '<tr> ';
 
-	// First sidebar goes on the left 
-	if (sizeof($sidebar_array) > 0) {
-	    $buf .= '<td class="sidebar_left"> ' . $sidebar_array[0]['content'] . ' </td>';
+	// First sidebar (that isn't marked for the right side) goes on the left
+	for ($i = 0; $i < sizeof($sidebar_array); $i++) {
+	    if ($sidebar_array[$i]['params']['side'] != 'right') {
+		$buf .= '<td class="sidebar_left"> ' . $sidebar_array[$i]['content'] . ' </td>';
+		array_splice($sidebar_array, $i, 1);
+	    }
 	}
 
 	// Center body 
 	$buf .= '<td class="main_inner"> <table class="main_inner">';
 	for ($i = 0; $i < sizeof($component_array); $i++) {
-	    $buf .= '<tr> <td> ' . $component_array[$i]['content'] . '</td> </tr>';
+	    $buf .= '<tr> <td class="main_box"> ' . $component_array[$i]['content'] . '</td> </tr>';
 	}
 	$buf .= '</table> </td>';
 
 	// Remaining sidebars go on the right
-	if (sizeof($sidebar_array) > 1) {
-	    for ($i = 1; $i < sizeof($sidebar_array); $i++) {
-		$buf .= '<td> ' . $sidebar_array[$i]['content'] . ' </td>';
-	    }
+	for ($i = 0; $i < sizeof($sidebar_array); $i++) {
+	    $buf .= '<td class="sidebar_right"> ' . $sidebar_array[$i]['content'] . ' </td>';
 	}
 
 	// End center row
@@ -239,8 +238,13 @@ class MatrixTheme extends GalleryTheme {
      */
     function sidebar($context, $component_array) {
 	$buf = '<table class="sidebar">';
+	if ($context['params']['side'] == 'right') {
+	    $class="sidebar_box_right";
+	} else {
+	    $class="sidebar_box_left";
+	}
 	foreach ($component_array as $component) {
-	    $buf .= '<tr> <td class="sidebar_box"> ' . $component['content'] . ' </td> </tr>';
+	    $buf .= '<tr> <td class="' . $class . '"> ' . $component['content'] . ' </td> </tr>';
 	}
 	$buf .= '</table>';
 	return $buf;
@@ -258,14 +262,29 @@ class MatrixTheme extends GalleryTheme {
 	$buf = '<table class="bannerbox">';
 	if (empty($component_array)) {
 	    if (!empty($title)) {
-		$buf .= '<tr> <td> ' . $title['content'] . ' </td> </tr>';
+		$buf .= '<tr> <td class="bannerbox_title"> ' . $title['content'] . ' </td> </tr>';
 	    }
 
 	    if (!empty($description)) {
-		$buf .= '<tr> <td> ' . $description['content'] . ' </td> </tr>';
+		$buf .= '<tr> <td class="bannerbox_description"> ' . $description['content'] . ' </td> </tr>';
 	    }
 	} else {
-	    $buf .= '<tr> <td> BANNERBOX INCOMPLETE </td> </tr>';
+	    $buf .= '<tr>';
+	    if (!empty($title) || !empty($description)) {
+		$buf .= '<td valign="top"> <table class="bannerbox_inner">';
+		if (!empty($title)) {
+		    $buf .= '<tr> <td class="bannerbox_title"> ' . $title['content'] . ' </td> </tr>';
+		}
+
+		if (!empty($description)) {
+		    $buf .= '<tr> <td class="bannerbox_description"> ' . $description['content'] . ' </td> </tr>';
+		}
+		$buf .= '</table> </td>';
+	    }
+
+	    foreach ($component_array as $component) {
+		$buf .= '<td class="bannerbox_component">' . $component['content'] . '</td>';
+	    }
 	}
 	$buf .= '</table>';
 	return $buf;
@@ -278,7 +297,15 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function linksbox($context, $item_array) {
-        trigger_error("Undefined theme function: linksbox", E_USER_ERROR);
+	$buf = '<span class="linksbox"> ';
+	for ($i = 0; $i < sizeof($item_array); $i++) {
+	    if ($i > 0) {
+		$buf .= ' | ';
+	    }
+	    $buf .= $item_array[$i]['content'];
+	}
+	$buf .= '</span>';
+	return $buf;
     }
 
     /**
@@ -288,7 +315,12 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function infobox($context, $item_array) {
-        trigger_error("Undefined theme function: infobox", E_USER_ERROR);
+	$buf .= '<table class="infobox"> ';
+	foreach ($item_array as $item) {
+	    $buf .= '<tr> <td class="infobox_item"> ' . $item['content'] . '</td> </tr>';
+	}
+	$buf .= '</table>';
+	return $buf;
     }
 
     /**

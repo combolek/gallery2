@@ -519,9 +519,11 @@ function linksbox($params, $content, &$smarty) {
         $smarty->trigger_error("linksbox tag must be used inside one of: component, body", E_USER_ERROR);
     }
 
+    /*
     if ($context["stack"][0] != "component" && $context["stack"][0] != "body") {
         $smarty->trigger_error("linksbox tag found inside {$context['stack'][0]}, but must be used inside one of: component, body", E_USER_ERROR);
     }
+    */
     $_item = array_pop($this->_content["item"]);
     if ($context["stack"][0] == "component") {
         $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "linksbox", "params" => $params, "content" => $this->_theme->linksbox($context, $_item));

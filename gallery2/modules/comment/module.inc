@@ -177,10 +177,6 @@ class CommentModule extends GalleryModule {
     function getItemLinks($items) {
 	global $gallery;
 
-	if (!is_array($items)) {
-	    $items = array($items);
-	}
-
 	$links = array();
 	foreach ($items as $item) {
 
@@ -203,14 +199,10 @@ class CommentModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemSummaries()
+     * @see GalleryModule::loadItemSummaries()
      */
-    function getItemSummaries($items) {
+    function getItemSummaries(&$template, $items) {
 	global $gallery;
-
-	if (!is_array($items)) {
-	    $items = array($items);
-	}
 
 	$ids = array();
 	foreach ($items as $item) {
@@ -233,11 +225,11 @@ class CommentModule extends GalleryModule {
 
 	    if (isset($permissions['comment.view'])) {
 		if (!empty($commentCounts[$item->getId()])) {
-		    $message['one'] = '%d comment';
-		    $message['many'] = '%d comments';
-		    $message['count'] = $commentCounts[$item->getId()];
-		    $message['arg1'] = $commentCounts[$item->getId()];
-		    $summaries[$item->getId()] = $this->translate($message);
+		    $summaries[$item->getId()] =
+			$this->translate(array('one' => '%d comment',
+					       'many' => '%d comments',
+					       'count' => $commentCounts[$item->getId()],
+					       'arg1' => $commentCounts[$item->getId()]));
 		}
 	    }
 	}
@@ -246,9 +238,9 @@ class CommentModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemDetails()
+     * @see GalleryModule::loadItemDetails()
      */
-    function getItemDetails($item) {
+    function loadItemDetails(&$template, $item) {
 	global $gallery;
 
 	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
@@ -313,19 +305,15 @@ class CommentModule extends GalleryModule {
 		$can[$canFlag] = isset($permissions[$permission]);
 	    }
 
-	    /* Render the comments */
-	    $template = $this->_getTemplate();
-	    $template->setVariable('comments', $commentData);
-	    $template->setVariable('can', $can);
-	    $template->setVariable('item', $item->getMemberData());
-	    $template->setVariable('totalComments', $totalComments);
-	    list($ret, $html) = $template->render('ItemDetails.tpl');
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), $html);
-	    }
+	    $CommentItemDetails = array();
+	    $CommentItemDetails['comments'] = $commentData;
+	    $CommentItemDetails['can'] = $can;
+	    $CommentItemDetails['item'] = $item->getMemberData();
+	    $CommentItemDetails['totalComments'] = $totalComments;
+	    $template->setVariable('CommentItemDetails', $CommentItemDetails);
 	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), 'modules/comment/templates/CommentItemDetails.tpl');
     }
     
     /**

@@ -362,7 +362,7 @@ class GalleryTranslator {
 	 * This is a useful debug routine.  Uncomment it to have every
 	 * string prefixed with the domain it was localized in.
 	 */
-	// $localized = "[$domain: $localized]";
+	//$localized = "[$domain: $localized]";
 
 	GalleryProfiler::stop('modules.core.classes.GalleryTranslator::translate');
 	

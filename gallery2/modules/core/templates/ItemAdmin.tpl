@@ -27,6 +27,7 @@
 	    {else}
 	      {gallery->thumbnail item=$ItemAdmin.item thumbnail=$ItemAdmin.thumbnail}
 	    {/if}
+	    {$ItemAdmin.item.title}
 	  {/gallery->body}
 	{/gallery->simplebox}
 
