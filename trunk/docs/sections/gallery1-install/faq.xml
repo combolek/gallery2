@@ -1208,9 +1208,9 @@ if (!function_exists('array_search')) {
       <para>
        This is caused by a PHP directive called
        <ulink url="http://www.php.net/manual/en/features.safe-mode.php#ini.open-basedir">open_basedir</ulink>.
-       Basically, your host has mis-configured this directive and not added the directory where Gallery
-       is to the allowed directories where PHP can access and modify files.  You'll need to contact them
-       and ask them to add the directory where you website files are located.
+       Basically, your host has misconfigured this directive and not added the directory where Gallery
+       is located to the directories where PHP can access and modify files.  You'll need to contact them
+       and ask them to add the directory where your website files are located.
       </para>
      </answer>
     </qandaentry>
