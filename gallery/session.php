@@ -51,20 +51,6 @@ if (session_id()) {
 /* Start a new session, or resume our current one */
 @session_start();
 
-/* emulate register_globals for sessions */
-if (!$gallery->register_globals) {
-	if (is_array($_SESSION) && !empty($_SESSION)) {
-		foreach($_SESSION as $key => $value) {
-			$$key =& $_SESSION[$key];
-		}
-	}
-	elseif (is_array($_SESSION) && !empty($_SESSION)) {
-		foreach($_SESSION as $key => $value) {
-			$$key =& $_SESSION[$key];
-		}
-	}		
-}
-
 /*
  * Are we resuming an existing session?  Determine this by checking
  * to see if the session container variable is already set.  If not, then
