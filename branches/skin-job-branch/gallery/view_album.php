@@ -142,6 +142,18 @@ if ($user->canEditAlbum($album)) {
 	$name = "album_edit";
 	$commands[$name]['title'] = "Edit Album";
 	$commands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$albumName."&return=".urlencode($thisUrl));
+
+	if ($user->canAddToAlbum($myAlbum)) {
+		$name = "add_items";
+		$commands[$name]['title'] = "Add Items";
+		$commands[$name]['href'] = makeGalleryUrl("album_add_items.php?return=".urlencode($thisUrl));
+	}
+	if ($user->canAddToAlbum($myAlbum)) {
+		$name = "add_album";
+		$commands[$name]['title'] = "Add Album";
+		$commands[$name]['href'] = makeGalleryUrl("album_add_album.php?return=".urlencode($thisUrl));
+	}
+
 }
 if (!$GALLERY_EMBEDDED_INSIDE) {
 	if ($user->isLoggedIn()) {
