@@ -21,6 +21,15 @@
 
 package com.gallery.GalleryRemote;
 
+import com.gallery.GalleryRemote.prefs.GalleryProperties;
+import com.gallery.GalleryRemote.prefs.PreferenceNames;
+import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.util.BrowserLink;
+import com.gallery.GalleryRemote.util.DialogUtil;
+import com.gallery.GalleryRemote.util.GRI18n;
+import edu.stanford.ejalbert.BrowserLauncher;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,31 +38,21 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.util.Date;
 
-import javax.swing.*;
-
-import edu.stanford.ejalbert.BrowserLauncher;
-import com.gallery.GalleryRemote.prefs.GalleryProperties;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
-import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.util.DialogUtil;
-import com.gallery.GalleryRemote.util.BrowserLink;
-
 /**
- *  Update check and dialog
- *
- *@author     paour
- *@created    08 septembre 2002
+ * Update check and dialog
+ * 
+ * @author paour
+ * @created 08 septembre 2002
  */
 
 public class Update extends JFrame implements ActionListener, PreferenceNames {
 	public static final String MODULE = "Update";
-    public static GRI18n grRes = GRI18n.getInstance();
+	public static GRI18n grRes = GRI18n.getInstance();
 
 	public static final int NO_UPDATE = 0;
 	public static final int RELEASE = 1;
 	public static final int BETA = 2;
-	
+
 	Info release = null;
 	Info beta = null;
 	Info which = null;
@@ -74,35 +73,35 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 
 	public int check(boolean showImmediate) {
 		int result = 0;
-		
-		if ( GalleryRemote.getInstance().properties.getBooleanProperty(UPDATE_CHECK)) {
-			release = new Info( GalleryRemote.getInstance().properties.getProperty(UPDATE_URL) );
-			
+
+		if (GalleryRemote.getInstance().properties.getBooleanProperty(UPDATE_CHECK)) {
+			release = new Info(GalleryRemote.getInstance().properties.getProperty(UPDATE_URL));
+
 			if (release.check()) {
 				result = 1;
 				which = release;
 			}
 		}
 
-		if ( result == 0 && GalleryRemote.getInstance().properties.getBooleanProperty(UPDATE_CHECK_BETA)) {
-			beta = new Info( GalleryRemote.getInstance().properties.getProperty(UPDATE_URL_BETA) );
-			
+		if (result == 0 && GalleryRemote.getInstance().properties.getBooleanProperty(UPDATE_CHECK_BETA)) {
+			beta = new Info(GalleryRemote.getInstance().properties.getProperty(UPDATE_URL_BETA));
+
 			if (beta.check()) {
 				result = 2;
 				which = beta;
 			}
 		}
-		
+
 		if (showImmediate && which != null) {
 			showNotice();
 		}
-		
+
 		return result;
 	}
 
 	public void showNotice() {
 		if (which == null) return;
-		
+
 		try {
 			jbInit();
 
@@ -111,10 +110,10 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 			DialogUtil.center(this);
 
 			setIconImage(MainFrame.iconImage);
-			
-			setVisible( true );
-		} catch ( Exception e ) {
-			Log.logException( Log.LEVEL_CRITICAL, MODULE, e );
+
+			setVisible(true);
+		} catch (Exception e) {
+			Log.logException(Log.LEVEL_CRITICAL, MODULE, e);
 		}
 	}
 
@@ -128,37 +127,37 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 		Info(String url) {
 			this.url = url;
 		}
-		
+
 		boolean check() {
 			try {
 				InputStream content = (InputStream) new URL(url).getContent();
 				GalleryProperties props = new GalleryProperties();
 				props.load(content);
-	
+
 				releaseDate = props.getDateProperty("releaseDate");
 				version = props.getProperty("version");
 				releaseNotes = props.getProperty("releaseNotes");
 				releaseUrl = props.getProperty("releaseUrl");
 
 				Date myReleaseDate = GalleryRemote.getInstance().properties.getDateProperty("releaseDate");
-				
+
 				Log.log(Log.LEVEL_TRACE, MODULE, "Local release date: " + myReleaseDate + " new: " + releaseDate);
-				
+
 				return releaseDate.after(myReleaseDate);
 			} catch (Exception e) {
 				Log.log(Log.LEVEL_CRITICAL, MODULE, "Update check failed");
-				Log.logException( Log.LEVEL_ERROR, MODULE, e );
-				
+				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+
 				return false;
 			}
 		}
 	}
-	
+
 	private void jbInit() throws Exception {
 		this.setTitle(grRes.getString(MODULE, "title"));
 		this.getContentPane().setLayout(gridBagLayout1);
 
-		jLabel1.setFont(UIManager.getFont( "Label.font" ).deriveFont(Font.BOLD, 16));
+		jLabel1.setFont(UIManager.getFont("Label.font").deriveFont(Font.BOLD, 16));
 		jLabel1.setText(grRes.getString(MODULE, "newVerAvail"));
 		jLabel2.setText(grRes.getString(MODULE, "ver"));
 		jLabel3.setText(grRes.getString(MODULE, "relDate"));
@@ -169,14 +168,14 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 
 		jDate.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jDate.setEditable(false);
-		jDate.setFont(UIManager.getFont( "Label.font" ));
+		jDate.setFont(UIManager.getFont("Label.font"));
 		if (which.releaseDate != null) jDate.setText(DateFormat.getDateInstance().format(which.releaseDate));
 
 		jBrowse.setText(grRes.getString(MODULE, "openInBrwsr"));
 		jBrowse.addActionListener(this);
 
 		jReleaseNotes.setEditable(false);
-		jReleaseNotes.setFont(UIManager.getFont( "Label.font" ));
+		jReleaseNotes.setFont(UIManager.getFont("Label.font"));
 		jReleaseNotes.setPreferredSize(new Dimension(520, 250));
 		jReleaseNotes.setMargin(new Insets(0, 3, 3, 3));
 		if (which.releaseNotes != null) jReleaseNotes.setText(which.releaseNotes);
@@ -189,31 +188,31 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 
 		jVersion.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jVersion.setEditable(false);
-		jVersion.setFont(UIManager.getFont( "Label.font" ));
+		jVersion.setFont(UIManager.getFont("Label.font"));
 		if (which.version != null) jVersion.setText(which.version);
 
-		this.getContentPane().add(jLabel1,       new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 15, 0), 0, 0));
-		this.getContentPane().add(jLabel2,       new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
-		this.getContentPane().add(jLabel3,    new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
-		this.getContentPane().add(jLabel4,      new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(3, 0, 0, 0), 5, 0));
-		this.getContentPane().add(jLabel5,    new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
+		this.getContentPane().add(jLabel1, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 15, 0), 0, 0));
+		this.getContentPane().add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
+		this.getContentPane().add(jLabel3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
+		this.getContentPane().add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+				, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(3, 0, 0, 0), 5, 0));
+		this.getContentPane().add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 5, 0));
 
-		this.getContentPane().add(jScrollPane1,      new GridBagConstraints(1, 3, 2, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 2));
+		this.getContentPane().add(jScrollPane1, new GridBagConstraints(1, 3, 2, 1, 1.0, 1.0
+				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 2));
 
-		this.getContentPane().add(jVersion,          new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 2));
-		this.getContentPane().add(jDate,           new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 2));
-		this.getContentPane().add(jUrl,   new GridBagConstraints(1, 4, 1, 1, 1.0, 0.0
-			,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		this.getContentPane().add(jBrowse,  new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 5, 5), 0, 0));
+		this.getContentPane().add(jVersion, new GridBagConstraints(1, 1, 2, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 2));
+		this.getContentPane().add(jDate, new GridBagConstraints(1, 2, 2, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 2));
+		this.getContentPane().add(jUrl, new GridBagConstraints(1, 4, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		this.getContentPane().add(jBrowse, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 5, 5), 0, 0));
 
 		jScrollPane1.getViewport().add(jReleaseNotes, null);
 	}
@@ -241,7 +240,7 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 		String laxClasspath = lax.getProperty("lax.class.path");
 		String classpath = GalleryRemote.getInstance().properties.getProperty("classpath");
 
-		if (classpath != null && ! classpath.equals(laxClasspath)) {
+		if (classpath != null && !classpath.equals(laxClasspath)) {
 			Log.log(Log.LEVEL_INFO, MODULE, "Patching LAX classpath");
 
 			try {

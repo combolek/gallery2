@@ -20,28 +20,29 @@
 */
 package com.gallery.GalleryRemote.model;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-import java.io.Serializable;
+import com.gallery.GalleryRemote.*;
+import com.gallery.GalleryRemote.prefs.GalleryProperties;
+import com.gallery.GalleryRemote.prefs.PreferenceNames;
+import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.util.GRI18n;
 
 import javax.swing.*;
-
-import com.gallery.GalleryRemote.*;
-import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
-import com.gallery.GalleryRemote.prefs.GalleryProperties;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
- *  Gallery model
- *
- *@author     paour
- *@created    17 août 2002
+ * Gallery model
+ * 
+ * @author paour
+ * @created 17 août 2002
  */
 
 public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, Serializable, PreferenceNames {
-	public static final String MODULE="Gallery";
+	public static final String MODULE = "Gallery";
 
 	String stUrlString = null;
 	String pnLoginUrlString = null;
@@ -61,7 +62,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	transient private Boolean ambiguousUrl;
 	transient private boolean blockWrites = false;
 
-	public static String types[] = new String[] {STANDALONE, POSTNUKE, PHPNUKE};
+	public static String types[] = new String[]{STANDALONE, POSTNUKE, PHPNUKE};
 	public static final int TYPE_STANDALONE = 0;
 	public static final int TYPE_POSTNUKE = 1;
 	public static final int TYPE_PHPNUKE = 2;
@@ -84,25 +85,25 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	* **** Gallery online management ****
 	*/
 
-	public void uploadFiles( StatusUpdate su ) {
-		getComm( su ).uploadFiles( su, true );
+	public void uploadFiles(StatusUpdate su) {
+		getComm(su).uploadFiles(su, true);
 	}
 
-	public void fetchAlbums( StatusUpdate su ) {
+	public void fetchAlbums(StatusUpdate su) {
 		//albumList = null;
 
-		getComm( su ).fetchAlbums( su, true );
+		getComm(su).fetchAlbums(su, true);
 	}
 
-	public String newAlbum( Album a, StatusUpdate su) {
+	public String newAlbum(Album a, StatusUpdate su) {
 		Log.log(Log.LEVEL_INFO, MODULE, "Creating new album " + a.toString());
 
 		// create album synchronously
-		String newAlbumName = getComm( su ).newAlbum( su, a.getParentAlbum(), a.getName(),
-				a.getTitle(), a.getCaption(), false );
+		String newAlbumName = getComm(su).newAlbum(su, a.getParentAlbum(), a.getName(),
+				a.getTitle(), a.getCaption(), false);
 
 		// refresh album list asynchronously
-		fetchAlbums( su );
+		fetchAlbums(su);
 
 		return newAlbumName;
 	}
@@ -133,22 +134,22 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	* **** Gallery contents handling ****
 	*/
 
-	public void setAlbumList( ArrayList albumList ) {
-		if ( albumList == null ) {
-			throw new IllegalArgumentException( "Must supply non-null album list." );
+	public void setAlbumList(ArrayList albumList) {
+		if (albumList == null) {
+			throw new IllegalArgumentException("Must supply non-null album list.");
 		}
 
 		ArrayList oldList = this.albumList;
 		this.albumList = albumList;
-		if ( albumList.size() > 0 ) {
+		if (albumList.size() > 0) {
 			selectedAlbum = (Album) this.albumList.get(0);
 		}
 		if (oldList != null) {
-			for (Iterator i = oldList.iterator(); i.hasNext(); ) {
+			for (Iterator i = oldList.iterator(); i.hasNext();) {
 				Album a = (Album) i.next();
 
 				Log.log(Log.LEVEL_TRACE, MODULE, a.toString());
-				if (! a.getPicturesVector().isEmpty()) {
+				if (!a.getPicturesVector().isEmpty()) {
 					Log.log(Log.LEVEL_TRACE, MODULE, "Album " + a + " had pictures");
 					int j = albumList.indexOf(a);
 
@@ -166,9 +167,9 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	/**
 	 * Adds an album to the gallery and selects the first one added.
 	 */
-	public synchronized void addAlbum( Album a ) {
-		if ( a == null ) {
-			throw new IllegalArgumentException( "Must supply non-null album." );
+	public synchronized void addAlbum(Album a) {
+		if (a == null) {
+			throw new IllegalArgumentException("Must supply non-null album.");
 		}
 
 		// when the first album becomes available, make sure to select
@@ -176,14 +177,14 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		boolean firstAlbum = false;
 
 		// lazy allocation
-		if ( this.albumList == null ) {
+		if (this.albumList == null) {
 			this.albumList = new ArrayList();
 			firstAlbum = true;
 		}
 
-		albumList.add( a );
+		albumList.add(a);
 
-		if ( firstAlbum ) {
+		if (firstAlbum) {
 			selectedAlbum = (Album) this.albumList.get(0);
 		}
 
@@ -263,8 +264,8 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	*/
 
 	public static String reformatUrlString(String urlString, boolean trailingSlash) {
-		if ( urlString == null ) {
-			throw new IllegalArgumentException( "urlString must not be null" );
+		if (urlString == null) {
+			throw new IllegalArgumentException("urlString must not be null");
 		}
 
 		if (trailingSlash && !urlString.endsWith("/")) {
@@ -280,14 +281,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	/* Standalone URL */
 
-	public void setStUrlString( String urlString ) {
-		if (urlString == null)
-		{
+	public void setStUrlString(String urlString) {
+		if (urlString == null) {
 			stUrlString = null;
 			return;
 		}
 
-		stUrlString = reformatUrlString( urlString, true );
+		stUrlString = reformatUrlString(urlString, true);
 
 		if (!blockWrites && stUrlString != null) {
 			GalleryRemote.getInstance().properties.setProperty(URL + prefsIndex, stUrlString);
@@ -304,14 +304,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	/* PostNuke Gallery URL */
 
-	public void setPnGalleryUrlString( String urlString ) {
-		if (urlString == null)
-		{
+	public void setPnGalleryUrlString(String urlString) {
+		if (urlString == null) {
 			pnGalleryUrlString = null;
 			return;
 		}
 
-		pnGalleryUrlString = reformatUrlString( urlString, false );
+		pnGalleryUrlString = reformatUrlString(urlString, false);
 
 		if (!blockWrites && pnGalleryUrlString != null) {
 			GalleryRemote.getInstance().properties.setProperty(PN_GALLERY_URL + prefsIndex, pnGalleryUrlString);
@@ -328,14 +327,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	/* PostNuke Login URL */
 
-	public void setPnLoginUrlString( String urlString ) {
-		if (urlString == null)
-		{
+	public void setPnLoginUrlString(String urlString) {
+		if (urlString == null) {
 			pnLoginUrlString = null;
 			return;
 		}
 
-		pnLoginUrlString = reformatUrlString( urlString, false );
+		pnLoginUrlString = reformatUrlString(urlString, false);
 
 		if (!blockWrites && pnLoginUrlString != null) {
 			GalleryRemote.getInstance().properties.setProperty(PN_LOGIN_URL + prefsIndex, pnLoginUrlString);
@@ -352,14 +350,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	/* PHPNuke Gallery URL */
 
-	public void setPhpnGalleryUrlString( String urlString ) {
-		if (urlString == null)
-		{
+	public void setPhpnGalleryUrlString(String urlString) {
+		if (urlString == null) {
 			phpnGalleryUrlString = null;
 			return;
 		}
 
-		phpnGalleryUrlString = reformatUrlString( urlString, false );
+		phpnGalleryUrlString = reformatUrlString(urlString, false);
 
 		if (!blockWrites && phpnGalleryUrlString != null) {
 			GalleryRemote.getInstance().properties.setProperty(PHPN_GALLERY_URL + prefsIndex, phpnGalleryUrlString);
@@ -376,14 +373,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	/* PHPNuke Login URL */
 
-	public void setPhpnLoginUrlString( String urlString ) {
-		if (urlString == null)
-		{
+	public void setPhpnLoginUrlString(String urlString) {
+		if (urlString == null) {
 			phpnLoginUrlString = null;
 			return;
 		}
 
-		phpnLoginUrlString = reformatUrlString( urlString, false );
+		phpnLoginUrlString = reformatUrlString(urlString, false);
 
 		if (!blockWrites && phpnLoginUrlString != null) {
 			GalleryRemote.getInstance().properties.setProperty(PHPN_LOGIN_URL + prefsIndex, phpnLoginUrlString);
@@ -474,9 +470,9 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	* **** Gallery properties management ****
 	*/
 
-	public void setUsername( String username ) {
-		if ( /*username != null && username.length() > 0
-		&&*/ ! username.equals( this.username ) ) {
+	public void setUsername(String username) {
+		if (/*username != null && username.length() > 0
+		&&*/ !username.equals(this.username)) {
 
 			this.username = username;
 
@@ -488,10 +484,10 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		}
 	}
 
-	public void setPassword( String password ) {
+	public void setPassword(String password) {
 		//Log.log(Log.TRACE, MODULE, "setpassword: " + password);
-		if ( /*password != null && password.length() > 0
-		&&*/ ! password.equals( this.password ) ) {
+		if (/*password != null && password.length() > 0
+		&&*/ !password.equals(this.password)) {
 
 			this.password = password;
 
@@ -534,8 +530,8 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	}
 
 	public static Gallery readFromProperties(GalleryProperties p, int prefsIndex, StatusUpdate su, boolean mustHaveUsername) {
-		String url = p.getProperty( URL + prefsIndex );
-		String username = p.getProperty( USERNAME + prefsIndex );
+		String url = p.getProperty(URL + prefsIndex);
+		String username = p.getProperty(USERNAME + prefsIndex);
 
 		if (mustHaveUsername && username == null) {
 			return null;
@@ -543,10 +539,11 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 		String password = null;
 		try {
-			password = p.getBase64Property( PASSWORD + prefsIndex );
-		} catch (NumberFormatException e) {}
+			password = p.getBase64Property(PASSWORD + prefsIndex);
+		} catch (NumberFormatException e) {
+		}
 
-		Log.log(Log.LEVEL_INFO, MODULE, "Loaded saved URL " + prefsIndex + ": " + url + " (" + username + "/******)" );
+		Log.log(Log.LEVEL_INFO, MODULE, "Loaded saved URL " + prefsIndex + ": " + url + " (" + username + "/******)");
 
 		Gallery g = new Gallery(su);
 		g.setBlockWrites(true);
@@ -560,7 +557,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		g.setPhpnLoginUrlString(p.getProperty(PHPN_LOGIN_URL + prefsIndex));
 		g.setPhpnGalleryUrlString(p.getProperty(PHPN_GALLERY_URL + prefsIndex));
 
-		String typeS = p.getProperty( TYPE + prefsIndex );
+		String typeS = p.getProperty(TYPE + prefsIndex);
 		if (typeS != null) {
 			int type = Arrays.asList(types).indexOf(typeS);
 			if (type != -1) {
@@ -575,7 +572,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	}
 
 	public void writeToProperties(PropertiesFile p) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "Wrote to properties: " + toString() );
+		Log.log(Log.LEVEL_TRACE, MODULE, "Wrote to properties: " + toString());
 
 		p.setProperty(URL + prefsIndex, stUrlString);
 		p.setProperty(USERNAME + prefsIndex, username);
@@ -602,7 +599,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	}
 
 	public static void removeFromProperties(PropertiesFile p, int n) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "Removed from properties: " + n );
+		Log.log(Log.LEVEL_TRACE, MODULE, "Removed from properties: " + n);
 
 		p.remove(URL + n);
 		p.remove(USERNAME + n);
@@ -699,7 +696,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 
 	public void setSelectedItem(Object anObject) {
-		if ((selectedAlbum != null && !selectedAlbum.equals( anObject )) ||
+		if ((selectedAlbum != null && !selectedAlbum.equals(anObject)) ||
 				selectedAlbum == null && anObject != null) {
 			selectedAlbum = (Album) anObject;
 			fireContentsChanged(this, -1, -1);
@@ -716,10 +713,10 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	*/
 
 	/**
-	 *	Lazy instantiation for the GalleryComm instance.
+	 * Lazy instantiation for the GalleryComm instance.
 	 */
 	public GalleryComm getComm(StatusUpdate su) {
-		if ( comm == null && stUrlString != null ) {
+		if (comm == null && stUrlString != null) {
 			URL url = getGalleryUrl("");
 			if (url != null) {
 				comm = GalleryComm.getCommInstance(su, url, this);
@@ -744,10 +741,10 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		//ListDataEvent lde;
 		if (albumList != null) {
 			//lde = new ListDataEvent( this, ListDataEvent.CONTENTS_CHANGED, 0, albumList.size() );
-			fireContentsChanged( this, 0, albumList.size() );
+			fireContentsChanged(this, 0, albumList.size());
 		} else {
 			//lde = new ListDataEvent( this, ListDataEvent.CONTENTS_CHANGED, 0, 0 );
-			fireContentsChanged( this, 0, 0 );
+			fireContentsChanged(this, 0, 0);
 		}
 
 		//notifyListeners(lde);
@@ -764,8 +761,8 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		}
 	}
 
-	public Object getElementAt( int index ) {
-		return albumList.get( index );
+	public Object getElementAt(int index) {
+		return albumList.get(index);
 	}
 
 	public Album getAlbumByName(String name) {

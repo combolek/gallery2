@@ -20,30 +20,30 @@
  */
 package com.gallery.GalleryRemote.model;
 
-import java.awt.Dimension;
+import com.gallery.GalleryRemote.GalleryAbstractListModel;
+import com.gallery.GalleryRemote.GalleryRemote;
+import com.gallery.GalleryRemote.Log;
+import com.gallery.GalleryRemote.prefs.PreferenceNames;
+import com.gallery.GalleryRemote.util.HTMLEscaper;
+import com.gallery.GalleryRemote.util.ImageUtils;
+
+import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import com.gallery.GalleryRemote.GalleryRemote;
-import com.gallery.GalleryRemote.util.ImageUtils;
-import com.gallery.GalleryRemote.util.HTMLEscaper;
-import com.gallery.GalleryRemote.Log;
-import com.gallery.GalleryRemote.GalleryAbstractListModel;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
-
 /**
- *  Picture model
- *
- *@author     paour
- *@created    11 août 2002
+ * Picture model
+ * 
+ * @author paour
+ * @created 11 août 2002
  */
 public class Picture extends GalleryAbstractListModel implements Serializable, PreferenceNames, Cloneable {
-	public static final String MODULE="Picture";
+	public static final String MODULE = "Picture";
 
-    File source = null;
-    String caption = null;
-    Album album = null;
+	File source = null;
+	String caption = null;
+	Album album = null;
 
 	HashMap extraFields;
 
@@ -55,19 +55,20 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	transient String escapedCaption = null;
 
 	/**
-     *  Constructor for the Picture object
-     */
-    public Picture() { }
-    
-    
-    /**
-     *  Constructor for the Picture object
-     *
-     *@param  source  File the Picture is based on
-     */
-    public Picture( File source ) {
-        setSource( source );
-    }
+	 * Constructor for the Picture object
+	 */
+	public Picture() {
+	}
+
+
+	/**
+	 * Constructor for the Picture object
+	 * 
+	 * @param source File the Picture is based on
+	 */
+	public Picture(File source) {
+		setSource(source);
+	}
 
 	public Object clone() {
 		Picture clone = new Picture();
@@ -85,14 +86,14 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	}
 
 
-    /**
-     *  Sets the source file the Picture is based on
-     *
-     *@param  source  The new file
-     */
-    public void setSource( File source ) {
-        this.source = source;
-        
+	/**
+	 * Sets the source file the Picture is based on
+	 * 
+	 * @param source The new file
+	 */
+	public void setSource(File source) {
+		this.source = source;
+
 		if (GalleryRemote.getInstance().properties.getBooleanProperty(SET_CAPTIONS_WITH_FILENAMES)) {
 			String filename = source.getName();
 
@@ -106,73 +107,73 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 			setCaption(filename);
 		}
-		
-        fileSize = 0;
-    }
-    
-    
-    /**
-     *  Sets the caption attribute of the Picture object
-     *
-     *@param  caption  The new caption value
-     */
-    public void setCaption( String caption ) {
-        this.caption = caption;
-		this.escapedCaption = null;
-    }
-    
-    
-    /**
-     *  Sets the album this Picture is inside of
-     *
-     *@param  album  The new album value
-     */
-    public void setAlbum( Album album ) {
-        this.album = album;
-    }
-    
-    
-    /**
-     *  Gets the source file the Picture is based on
-     *
-     *@return    The source value
-     */
-    public File getSource() {
-        return source;
-    }
-    
+
+		fileSize = 0;
+	}
+
+
 	/**
-	 *  Gets the fource file of the picture, prepared for upload.
-	 *  Called by GalleryComm to upload the picture.
-	 *
-	 *@return    The source value
+	 * Sets the caption attribute of the Picture object
+	 * 
+	 * @param caption The new caption value
 	 */
-    public File getUploadSource() {
+	public void setCaption(String caption) {
+		this.caption = caption;
+		this.escapedCaption = null;
+	}
+
+
+	/**
+	 * Sets the album this Picture is inside of
+	 * 
+	 * @param album The new album value
+	 */
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+
+	/**
+	 * Gets the source file the Picture is based on
+	 * 
+	 * @return The source value
+	 */
+	public File getSource() {
+		return source;
+	}
+
+	/**
+	 * Gets the fource file of the picture, prepared for upload.
+	 * Called by GalleryComm to upload the picture.
+	 * 
+	 * @return The source value
+	 */
+	public File getUploadSource() {
 		File picture = getSource();
 
-		if ( GalleryRemote.getInstance().properties.getBooleanProperty(RESIZE_BEFORE_UPLOAD) ) {
+		if (GalleryRemote.getInstance().properties.getBooleanProperty(RESIZE_BEFORE_UPLOAD)) {
 			Dimension d = GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO);
-			
-			if ( d == null || d.equals( new Dimension( 0, 0 ) ) ) {
+
+			if (d == null || d.equals(new Dimension(0, 0))) {
 				d = null;
 				int l = album.getServerAutoResize();
-				
-				if ( l != 0 ) {
-					d = new Dimension( l, l );
+
+				if (l != 0) {
+					d = new Dimension(l, l);
 				} else {
 					// server can't tell us how to resize, try default
 					d = GalleryRemote.getInstance().properties.getDimensionProperty(RESIZE_TO_DEFAULT);
-					
-					if ( d.equals( new Dimension( 0, 0 ) ) ) {
+
+					if (d.equals(new Dimension(0, 0))) {
 						d = null;
 					}
 				}
 			}
 
 
-			if ( d != null ) {
+			if (d != null) {
 				try {
-					picture = ImageUtils.resize( picture.getPath(), d );
+					picture = ImageUtils.resize(picture.getPath(), d);
 				} catch (UnsupportedOperationException e) {
 					Log.log(Log.LEVEL_ERROR, MODULE, "Couldn't use ImageUtils to resize the image, it will be uploaded at the original size");
 					Log.logException(Log.LEVEL_ERROR, MODULE, e);
@@ -182,7 +183,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 		if (angle != 0 || flipped) {
 			try {
-				picture = ImageUtils.rotate( picture.getPath(), angle, flipped, true);
+				picture = ImageUtils.rotate(picture.getPath(), angle, flipped, true);
 			} catch (UnsupportedOperationException e) {
 				Log.log(Log.LEVEL_ERROR, MODULE, "Couldn't use jpegtran to resize the image, it will be uploaded unrotated");
 				Log.logException(Log.LEVEL_ERROR, MODULE, e);
@@ -191,18 +192,19 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 
 		return picture;
 	}
-	
-    /**
-     *  Gets the caption attribute of the Picture object
-     *
-     *@return    The caption value
-     */
-    public String getCaption() {
-        return caption;
-    }
+
+	/**
+	 * Gets the caption attribute of the Picture object
+	 * 
+	 * @return The caption value
+	 */
+	public String getCaption() {
+		return caption;
+	}
 
 	/**
 	 * Cache the escapedCaption because the escaping is lengthy and this is called by a frequent UI method
+	 * 
 	 * @return the HTML escaped version of the caption
 	 */
 	public String getEscapedCaption() {
@@ -215,28 +217,28 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 		return escapedCaption;
 	}
 
-    /**
-     *  Gets the size of the file
-     *
-     *@return    The size value
-     */
-    public double getFileSize() {
-        if ( fileSize == 0 && source != null && source.exists() ) {
-            fileSize = source.length();
-        }
-        
-        return fileSize;
-    }
-    
-    
-    /**
-     *  Gets the album this Picture is inside of
-     *
-     *@return    The album
-     */
-    public Album getAlbum() {
-        return album;
-    }
+	/**
+	 * Gets the size of the file
+	 * 
+	 * @return The size value
+	 */
+	public double getFileSize() {
+		if (fileSize == 0 && source != null && source.exists()) {
+			fileSize = source.length();
+		}
+
+		return fileSize;
+	}
+
+
+	/**
+	 * Gets the album this Picture is inside of
+	 * 
+	 * @return The album
+	 */
+	public Album getAlbum() {
+		return album;
+	}
 
 	public String toString() {
 		return source.getName();
@@ -260,7 +262,7 @@ public class Picture extends GalleryAbstractListModel implements Serializable, P
 	}
 
 	public void flip() {
-		flipped = ! flipped;
+		flipped = !flipped;
 	}
 
 	public int getAngle() {

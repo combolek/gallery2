@@ -20,37 +20,28 @@
  */
 package com.gallery.GalleryRemote;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-
 import com.gallery.GalleryRemote.model.Album;
 import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.util.DialogUtil;
 import com.gallery.GalleryRemote.util.GRI18n;
 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
+
 /**
- *  Description of the Class
- *
- *@author     paour
- *@created    October 18, 2002
+ * Description of the Class
+ * 
+ * @author paour
+ * @created October 18, 2002
  */
 public class NewAlbumDialog extends javax.swing.JDialog
-		 implements ActionListener
-{
+		implements ActionListener {
 	public final static String MODULE = "NewAlbum";
-    public static GRI18n grRes = GRI18n.getInstance();
+	public static GRI18n grRes = GRI18n.getInstance();
 
 	Gallery gallery = null;
 	Album defaultAlbum = null;
@@ -77,14 +68,14 @@ public class NewAlbumDialog extends javax.swing.JDialog
 
 
 	/**
-	 *  Constructor for the NewAlbumDialog object
-	 *
-	 *@param  owner         Description of Parameter
-	 *@param  gallery       Description of Parameter
-	 *@param  defaultAlbum  Description of Parameter
+	 * Constructor for the NewAlbumDialog object
+	 * 
+	 * @param owner        Description of Parameter
+	 * @param gallery      Description of Parameter
+	 * @param defaultAlbum Description of Parameter
 	 */
-	public NewAlbumDialog( Frame owner, Gallery gallery, Album defaultAlbum ) {
-		super( owner, true );
+	public NewAlbumDialog(Frame owner, Gallery gallery, Album defaultAlbum) {
+		super(owner, true);
 
 		this.gallery = gallery;
 		this.defaultAlbum = defaultAlbum;
@@ -94,15 +85,15 @@ public class NewAlbumDialog extends javax.swing.JDialog
 		pack();
 		DialogUtil.center(this, owner);
 
-		setVisible( true );
+		setVisible(true);
 	}
 
 
 	private void jbInit() {
-		this.getContentPane().setLayout( gridBagLayout1 );
-		this.setModal( true );
-		this.setTitle( grRes.getString(MODULE, "title") );
-		
+		this.getContentPane().setLayout(gridBagLayout1);
+		this.setModal(true);
+		this.setTitle(grRes.getString(MODULE, "title"));
+
 		Vector albums = new Vector(gallery.getAlbumList());
 		rootAlbum = new Album();
 		rootAlbum.setGallery(gallery);
@@ -111,85 +102,85 @@ public class NewAlbumDialog extends javax.swing.JDialog
 		albums.add(0, rootAlbum);
 
 		album = new JComboBox(albums);
-		album.setFont( UIManager.getFont( "Label.font" ) );
-		
+		album.setFont(UIManager.getFont("Label.font"));
+
 		if (defaultAlbum == null) {
 			album.setSelectedItem(rootAlbum);
 		} else {
 			album.setSelectedItem(defaultAlbum);
 		}
 
-		cancel.setText( grRes.getString(MODULE, "cancel") );
-        cancel.setActionCommand("Cancel");
-		description.setBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED, Color.white, Color.lightGray, Color.darkGray, Color.gray ) );
+		cancel.setText(grRes.getString(MODULE, "cancel"));
+		cancel.setActionCommand("Cancel");
+		description.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.white, Color.lightGray, Color.darkGray, Color.gray));
 		description.setLineWrap(true);
 		description.setRows(2);
-		description.setFont( UIManager.getFont( "Label.font" ) );
-		galleryName.setText( gallery.toString() );
-		name.setFont( UIManager.getFont( "Label.font" ) );
+		description.setFont(UIManager.getFont("Label.font"));
+		galleryName.setText(gallery.toString());
+		name.setFont(UIManager.getFont("Label.font"));
 		name.setToolTipText(grRes.getString(MODULE, "albmNameTip"));
-		ok.setText( grRes.getString(MODULE, "OK") );
-        ok.setActionCommand("OK");
-		title.setFont( UIManager.getFont( "Label.font" ) );
+		ok.setText(grRes.getString(MODULE, "OK"));
+		ok.setActionCommand("OK");
+		title.setFont(UIManager.getFont("Label.font"));
 
-		flowLayout1.setAlignment( FlowLayout.LEFT );
-		gridLayout1.setColumns( 2 );
-		gridLayout1.setHgap( 5 );
-		jLabel1.setText( grRes.getString(MODULE, "createAlbm") );
-		jLabel2.setText( grRes.getString(MODULE, "parentAlbm") );
-		jLabel3.setText( grRes.getString(MODULE, "albmTitle") );
-		jLabel4.setText( grRes.getString(MODULE, "albmName") );
-		jLabel5.setText( grRes.getString(MODULE, "albmDesc") );
-		jPanel1.setLayout( flowLayout1 );
-		jPanel2.setLayout( gridLayout1 );
+		flowLayout1.setAlignment(FlowLayout.LEFT);
+		gridLayout1.setColumns(2);
+		gridLayout1.setHgap(5);
+		jLabel1.setText(grRes.getString(MODULE, "createAlbm"));
+		jLabel2.setText(grRes.getString(MODULE, "parentAlbm"));
+		jLabel3.setText(grRes.getString(MODULE, "albmTitle"));
+		jLabel4.setText(grRes.getString(MODULE, "albmName"));
+		jLabel5.setText(grRes.getString(MODULE, "albmDesc"));
+		jPanel1.setLayout(flowLayout1);
+		jPanel2.setLayout(gridLayout1);
 
-		this.getContentPane().add( jLabel2, new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0
-				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 5, 0, 5 ), 0, 4 ) );
-		this.getContentPane().add( jLabel3, new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0
-				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 2, 5, 0, 5 ), 0, 4 ) );
-		this.getContentPane().add( jLabel4, new GridBagConstraints( 0, 3, 1, 1, 0.0, 0.0
-				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 2, 5, 0, 5 ), 0, 4 ) );
-		this.getContentPane().add( jLabel5, new GridBagConstraints( 0, 4, 1, 1, 0.0, 0.0
-				, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets( 0, 5, 0, 5 ), 0, 3 ) );
-		this.getContentPane().add( title, new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0
-				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
-		this.getContentPane().add( name, new GridBagConstraints( 1, 3, 1, 1, 1.0, 0.0
-				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
-		this.getContentPane().add( description, new GridBagConstraints( 1, 4, 1, 1, 1.0, 1.0
-				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
-		this.getContentPane().add( jPanel1, new GridBagConstraints( 0, 0, 2, 1, 1.0, 0.0
-				, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-		jPanel1.add( jLabel1, null );
-		jPanel1.add( galleryName, null );
-		this.getContentPane().add( album, new GridBagConstraints( 1, 1, 1, 1, 1.0, 0.0
-				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
-		this.getContentPane().add( jPanel2, new GridBagConstraints( 1, 5, 1, 1, 0.0, 0.0
-				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 5, 5, 5, 5 ), 0, 0 ) );
-		jPanel2.add( cancel, null );
-		jPanel2.add( ok, null );
-		
+		this.getContentPane().add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 4));
+		this.getContentPane().add(jLabel3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 5, 0, 5), 0, 4));
+		this.getContentPane().add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 5, 0, 5), 0, 4));
+		this.getContentPane().add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+				, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 3));
+		this.getContentPane().add(title, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 5), 0, 0));
+		this.getContentPane().add(name, new GridBagConstraints(1, 3, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 5), 0, 0));
+		this.getContentPane().add(description, new GridBagConstraints(1, 4, 1, 1, 1.0, 1.0
+				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 5), 0, 0));
+		this.getContentPane().add(jPanel1, new GridBagConstraints(0, 0, 2, 1, 1.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel1.add(jLabel1, null);
+		jPanel1.add(galleryName, null);
+		this.getContentPane().add(album, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 5), 0, 0));
+		this.getContentPane().add(jPanel2, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+		jPanel2.add(cancel, null);
+		jPanel2.add(ok, null);
+
 		ok.addActionListener(this);
 		cancel.addActionListener(this);
 	}
 
 
 	/**
-	 *  Description of the Method
-	 *
-	 *@param  e  Description of Parameter
+	 * Description of the Method
+	 * 
+	 * @param e Description of Parameter
 	 */
-	public void actionPerformed( ActionEvent e ) {
+	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		Log.log(Log.LEVEL_INFO, MODULE, "Command selected " + command);
-		
-		if ( command.equals( "Cancel" ) ) {
+
+		if (command.equals("Cancel")) {
 			setVisible(false);
-		} else if ( command.equals( "OK" ) ) {
+		} else if (command.equals("OK")) {
 			Album a = new Album();
 			a.setName(name.getText());
 			a.setTitle(title.getText());
 			a.setCaption(description.getText());
-			
+
 			Album selectedAlbum = (Album) album.getSelectedItem();
 			if (selectedAlbum == rootAlbum) {
 				Log.log(Log.LEVEL_TRACE, MODULE, "Selected root album");
@@ -197,9 +188,9 @@ public class NewAlbumDialog extends javax.swing.JDialog
 			} else {
 				a.setParentAlbum(selectedAlbum);
 			}
-			
+
 			newAlbumName = gallery.newAlbum(a, ((MainFrame) this.getOwner()).jStatusBar);
-			
+
 			setVisible(false);
 		}
 	}

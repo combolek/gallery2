@@ -21,16 +21,17 @@
 
 package com.gallery.GalleryRemote;
 
-import com.gallery.GalleryRemote.util.ImageUtils;
-import com.gallery.GalleryRemote.util.GRI18n;
 import com.gallery.GalleryRemote.model.Picture;
+import com.gallery.GalleryRemote.util.GRI18n;
+import com.gallery.GalleryRemote.util.ImageUtils;
 
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.*;
-
-import javax.swing.ImageIcon;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class PreviewFrame extends javax.swing.JFrame {
 	public static final String MODULE = "PreviewFrame";
@@ -88,7 +89,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 			repaint();
 		} else {
 			String filename = picture.getSource().getPath();
-			
+
 			if (!filename.equals(currentImageFile)) {
 				currentImageFile = filename;
 				currentPicture = picture;

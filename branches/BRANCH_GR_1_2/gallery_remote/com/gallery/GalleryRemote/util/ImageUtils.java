@@ -20,33 +20,35 @@
 */
 package com.gallery.GalleryRemote.util;
 
-import com.gallery.GalleryRemote.GalleryFileFilter;
-import com.gallery.GalleryRemote.Log;
-import com.gallery.GalleryRemote.prefs.PropertiesFile;
-import com.gallery.GalleryRemote.prefs.PreferenceNames;
-import com.gallery.GalleryRemote.GalleryRemote;
-import com.gallery.GalleryRemote.MainFrame;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
-import com.drew.metadata.Metadata;
 import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifDirectory;
-
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.geom.AffineTransform;
-import java.io.*;
-import java.util.*;
-import java.net.URL;
+import com.gallery.GalleryRemote.GalleryFileFilter;
+import com.gallery.GalleryRemote.GalleryRemote;
+import com.gallery.GalleryRemote.Log;
+import com.gallery.GalleryRemote.MainFrame;
+import com.gallery.GalleryRemote.prefs.PreferenceNames;
+import com.gallery.GalleryRemote.prefs.PropertiesFile;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
- *  Interface to common image manipulation routines
- *
- *@author     paour
- *@created    September 1, 2002
+ * Interface to common image manipulation routines
+ * 
+ * @author paour
+ * @created September 1, 2002
  */
 
 public class ImageUtils {
@@ -86,13 +88,13 @@ public class ImageUtils {
 	public static boolean deferredStopUsingJpegtran = false;
 
 	/**
-	 *  Perform the actual icon loading
-	 *
-	 *@param  filename  path to the file
-	 * @param disableOnError
-	 *@return           Resized icon
+	 * Perform the actual icon loading
+	 * 
+	 * @param filename       path to the file
+	 * @param disableOnError 
+	 * @return Resized icon
 	 */
-	public static ImageIcon load( String filename, Dimension d, int usage) {
+	public static ImageIcon load(String filename, Dimension d, int usage) {
 		if (!new File(filename).exists()) {
 			return null;
 		}
@@ -100,7 +102,7 @@ public class ImageUtils {
 		ImageIcon r = null;
 		long start = System.currentTimeMillis();
 
-		if ( ! GalleryFileFilter.canManipulate(filename) ) {
+		if (!GalleryFileFilter.canManipulate(filename)) {
 			return unrecognizedThumbnail;
 		}
 
@@ -132,7 +134,7 @@ public class ImageUtils {
 
 			File temp = deterministicTempFile("thumb", "." + format[usage], tmpDir, filename + d);
 
-			if (! temp.exists()) {
+			if (!temp.exists()) {
 				toDelete.add(temp);
 
 				//cmdline.append("\"" +temp.getPath() + "\"");
@@ -141,7 +143,7 @@ public class ImageUtils {
 				//int exitValue = exec(cmdline.toString());
 				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
-				if (exitValue != 0 && ! imIgnoreErrorCode) {
+				if (exitValue != 0 && !imIgnoreErrorCode) {
 					if (exitValue != -1) {
 						// don't kill IM if it's just an InterruptedException
 						Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
@@ -155,26 +157,26 @@ public class ImageUtils {
 			}
 		}
 
-		if ( ! useIM && r == null ) {
+		if (!useIM && r == null) {
 			r = javaLoad(filename, d);
 		}
 
 		long time = System.currentTimeMillis() - start;
 		totalTime += time;
 		totalIter++;
-		Log.log(Log.LEVEL_TRACE, MODULE, "Time: " + time + " - Avg: " + (totalTime/totalIter) );
+		Log.log(Log.LEVEL_TRACE, MODULE, "Time: " + time + " - Avg: " + (totalTime / totalIter));
 
 		return r;
 	}
 
 	public static ImageIcon javaLoad(URL url, Dimension d) {
-		ImageIcon r = new ImageIcon( url );
+		ImageIcon r = new ImageIcon(url);
 
 		return javaLoadInternal(r, d);
 	}
 
 	public static ImageIcon javaLoad(String filename, Dimension d) {
-		ImageIcon r = new ImageIcon( filename );
+		ImageIcon r = new ImageIcon(filename);
 
 		return javaLoadInternal(r, d);
 	}
@@ -182,20 +184,20 @@ public class ImageUtils {
 	private static ImageIcon javaLoadInternal(ImageIcon r, Dimension d) {
 		Image scaled = null;
 		Dimension newD = getSizeKeepRatio(
-				new Dimension( r.getIconWidth(), r.getIconHeight() ),
-				d );
-		scaled = r.getImage().getScaledInstance( newD.width, newD.height, Image.SCALE_FAST );
+				new Dimension(r.getIconWidth(), r.getIconHeight()),
+				d);
+		scaled = r.getImage().getScaledInstance(newD.width, newD.height, Image.SCALE_FAST);
 
 		r.getImage().flush();
-		r.setImage( scaled );
+		r.setImage(scaled);
 		return r;
 	}
 
-	public static File resize( String filename, Dimension d ) {
+	public static File resize(String filename, Dimension d) {
 		File r = null;
 		long start = System.currentTimeMillis();
 
-		if ( ! GalleryFileFilter.canManipulateJpeg(filename) ) {
+		if (!GalleryFileFilter.canManipulateJpeg(filename)) {
 			return new File(filename);
 		}
 
@@ -237,7 +239,7 @@ public class ImageUtils {
 
 				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
-				if (exitValue != 0 && ! imIgnoreErrorCode) {
+				if (exitValue != 0 && !imIgnoreErrorCode) {
 					if (exitValue != -1) {
 						// don't kill IM if it's just an InterruptedException
 						Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
@@ -250,22 +252,22 @@ public class ImageUtils {
 			}
 		}
 
-		if ( ! useIM && r == null ) {
+		if (!useIM && r == null) {
 			throw new UnsupportedOperationException("IM must be installed for this operation");
 		}
 
 		long time = System.currentTimeMillis() - start;
 		totalTime += time;
 		totalIter++;
-		Log.log(Log.LEVEL_TRACE, MODULE, "Time: " + time + " - Avg: " + (totalTime/totalIter) );
+		Log.log(Log.LEVEL_TRACE, MODULE, "Time: " + time + " - Avg: " + (totalTime / totalIter));
 
 		return r;
 	}
 
-	public static File rotate( String filename, int angle, boolean flip, boolean resetExifOrientation) {
+	public static File rotate(String filename, int angle, boolean flip, boolean resetExifOrientation) {
 		File r = null;
 
-		if ( ! GalleryFileFilter.canManipulateJpeg(filename) ) {
+		if (!GalleryFileFilter.canManipulateJpeg(filename)) {
 			Log.log(Log.LEVEL_TRACE, MODULE, "jpegtran doesn't support rotating anything but jpeg");
 			return new File(filename);
 		}
@@ -284,7 +286,7 @@ public class ImageUtils {
 				}
 
 				if (flip) {
-					r = jpegtranExec(filename, "-flip",  "horizontal");
+					r = jpegtranExec(filename, "-flip", "horizontal");
 					filename = r.getPath();
 				}
 
@@ -305,7 +307,7 @@ public class ImageUtils {
 			}
 		}
 
-		if ( ! useJpegtran && r == null ) {
+		if (!useJpegtran && r == null) {
 			throw new UnsupportedOperationException("jpegtran must be installed for this operation");
 		}
 
@@ -343,7 +345,7 @@ public class ImageUtils {
 		//int exitValue = exec(cmdline.toString());
 		int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
-		if (exitValue != 0 && ! jpegtranIgnoreErrorCode) {
+		if (exitValue != 0 && !jpegtranIgnoreErrorCode) {
 			if (exitValue != -1) {
 				// don't kill jpegtran if it's just an InterruptedException
 				Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
@@ -384,8 +386,8 @@ public class ImageUtils {
 			if (flipped) {
 				transform.scale(-1, 1);
 			}
-			transform.translate(-width1 / 2 - (angle == 3?width - width1:0) + (flipped?width - width1:0) * (angle == 1?-1:1),
-					-height1 / 2 - (angle == 1?height - height1:0));
+			transform.translate(-width1 / 2 - (angle == 3 ? width - width1 : 0) + (flipped ? width - width1 : 0) * (angle == 1 ? -1 : 1),
+					-height1 / 2 - (angle == 1 ? height - height1 : 0));
 
 			g.drawImage(thumb.getImage(), transform, c);
 
@@ -524,7 +526,7 @@ public class ImageUtils {
 				if (imPath.indexOf("/") == -1 && imPath.indexOf("\\") == -1) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick path is not fully qualified, " +
 							"presence won't be tested until later");
-				} else 	if (! new File(imPath).exists()) {
+				} else if (!new File(imPath).exists()) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "Can't find ImageMagick Convert at the above path");
 					stopUsingIM();
 				}
@@ -534,7 +536,7 @@ public class ImageUtils {
 				filterName[THUMB] = p.getProperty("imThumbnailResizeFilter");
 				filterName[PREVIEW] = p.getProperty("imPreviewResizeFilter");
 				filterName[UPLOAD] = p.getProperty("imUploadResizeFilter");
-				if ( filterName[UPLOAD] == null ) {
+				if (filterName[UPLOAD] == null) {
 					filterName[UPLOAD] = filterName[PREVIEW];
 				}
 
@@ -579,7 +581,8 @@ public class ImageUtils {
 				if (jpegtranPath.indexOf("/") == -1 && jpegtranPath.indexOf("\\") == -1) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran path is not fully qualified, " +
 							"presence won't be tested until later");
-				} if (! new File(jpegtranPath).exists()) {
+				}
+				if (!new File(jpegtranPath).exists()) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "Can't find jpegtran at the above path");
 					stopUsingJpegtran();
 				}
@@ -715,7 +718,7 @@ public class ImageUtils {
 	static void stopUsingIM() {
 		useIM = false;
 
-		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_IM)) {
+		if (!GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_IM)) {
 			if (GalleryRemote.getInstance().mainFrame != null
 					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
@@ -736,7 +739,7 @@ public class ImageUtils {
 	static void stopUsingJpegtran() {
 		useJpegtran = false;
 
-		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_JPEGTRAN)) {
+		if (!GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_JPEGTRAN)) {
 			if (GalleryRemote.getInstance().mainFrame != null
 					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
@@ -780,16 +783,16 @@ public class ImageUtils {
 				}
 			});
 
-			getContentPane().add(jIcon,    new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-					,GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(5, 5, 0, 10), 0, 0));
-			getContentPane().add(jMessage,       new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
-					,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
-			getContentPane().add(jURL,    new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
-					,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
-			getContentPane().add(jDontShow,    new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-					,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
-			getContentPane().add(jOk,   new GridBagConstraints(2, 2, 1, 2, 0.0, 0.0
-					,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+			getContentPane().add(jIcon, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+					, GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(5, 5, 0, 10), 0, 0));
+			getContentPane().add(jMessage, new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
+					, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jURL, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
+					, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jDontShow, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+					, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jOk, new GridBagConstraints(2, 2, 1, 2, 0.0, 0.0
+					, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
 
 			getRootPane().setDefaultButton(jOk);
 

@@ -1,16 +1,16 @@
 package com.gallery.GalleryRemote.prefs;
 
-import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.GalleryRemote;
+import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.util.GRI18n;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import java.util.List;
-import java.util.Vector;
-import java.util.Iterator;
-import java.util.Locale;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Vector;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,7 +37,7 @@ public class GeneralPanel extends /*JPanel*/ PreferencePanel implements Preferen
 	JCheckBox savePasswords = new JCheckBox();
 	GridBagLayout gridBagLayout2 = new GridBagLayout();
 	JLabel jLabel3 = new JLabel();
-	JComboBox logLevel = new JComboBox(new String[] {
+	JComboBox logLevel = new JComboBox(new String[]{
 		grRes.getString(MODULE, "logLevel0"),
 		grRes.getString(MODULE, "logLevel1"),
 		grRes.getString(MODULE, "logLevel2"),
@@ -150,16 +150,16 @@ public class GeneralPanel extends /*JPanel*/ PreferencePanel implements Preferen
 		thumbnailHeight.setMinimumSize(new Dimension(25, 21));
 		thumbnailHeight.setPreferredSize(new Dimension(25, 21));
 		thumbnailHeight.setToolTipText(grRes.getString(MODULE, "thumbH"));
-		jPanel1.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(148, 145, 140)),grRes.getString(MODULE, "thumb")));
+		jPanel1.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)), grRes.getString(MODULE, "thumb")));
 		jPanel2.setLayout(gridBagLayout2);
 		savePasswords.setToolTipText(grRes.getString(MODULE, "savePwdTip"));
 		savePasswords.setText(grRes.getString(MODULE, "savePwd"));
-		jPanel2.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(148, 145, 140)),grRes.getString(MODULE, "log_priv")));
+		jPanel2.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)), grRes.getString(MODULE, "log_priv")));
 		jLabel3.setText(grRes.getString(MODULE, "logLevel"));
 		logLevel.setToolTipText(grRes.getString(MODULE, "logLevelTip"));
 		logLevel.setActionCommand("comboBoxChanged");
 		logLevel.setSelectedIndex(-1);
-		jPanel4.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(148, 145, 140)),grRes.getString(MODULE, "versionCheck")));
+		jPanel4.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)), grRes.getString(MODULE, "versionCheck")));
 		jPanel4.setMaximumSize(new Dimension(32767, 32767));
 		jPanel4.setLayout(gridBagLayout3);
 		updateCheck.setToolTipText(grRes.getString(MODULE, "updateCheckTip"));
@@ -171,51 +171,51 @@ public class GeneralPanel extends /*JPanel*/ PreferencePanel implements Preferen
 		jPanel7.setLayout(new GridBagLayout());
 		jLabel4.setText(grRes.getString(MODULE, "langWarn"));
 		jLabel5.setText(grRes.getString(MODULE, "lang"));
-		jPanel7.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(148, 145, 140)), grRes.getString(MODULE, "langTitle")));
-		this.add(jPanel1,     new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-		jPanel1.add(jLabel1,       new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-		jPanel1.add(thumbnailWidth,      new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel1.add(jLabel2,       new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 0));
-		jPanel1.add(thumbnailHeight,      new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel1.add(jPanel6,   new GridBagConstraints(4, 1, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel1.add(showThumbnails,   new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(jPanel2,   new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-		jPanel2.add(savePasswords,      new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel2.add(jLabel3,     new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-		jPanel2.add(logLevel,   new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel2.add(jPanel3,   new GridBagConstraints(3, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(jPanel4,   new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel4.add(updateCheck,    new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel4.add(updateCheckBeta,    new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel4.add(jPanel5,   new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(jPanel7,  new GridBagConstraints(0, 3, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-		jPanel7.add(jLabel4,     new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel7.add(jLocale,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel7.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)), grRes.getString(MODULE, "langTitle")));
+		this.add(jPanel1, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+		jPanel1.add(jLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+		jPanel1.add(thumbnailWidth, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel1.add(jLabel2, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 0));
+		jPanel1.add(thumbnailHeight, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel1.add(jPanel6, new GridBagConstraints(4, 1, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel1.add(showThumbnails, new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(jPanel2, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+		jPanel2.add(savePasswords, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel2.add(jLabel3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+		jPanel2.add(logLevel, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel2.add(jPanel3, new GridBagConstraints(3, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(jPanel4, new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel4.add(updateCheck, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel4.add(updateCheckBeta, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel4.add(jPanel5, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(jPanel7, new GridBagConstraints(0, 3, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+		jPanel7.add(jLabel4, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel7.add(jLocale, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		jPanel7.add(jLabel5, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-		this.add(jPanel8,  new GridBagConstraints(0, 4, 1, 1, 1.0, 1.0
-				,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		jPanel7.add(jPanel9,  new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+		this.add(jPanel8, new GridBagConstraints(0, 4, 1, 1, 1.0, 1.0
+				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		jPanel7.add(jPanel9, new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 	}
 }
 
