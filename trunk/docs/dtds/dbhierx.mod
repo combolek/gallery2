@@ -1356,6 +1356,7 @@ change will not be made after all. -->
 		%common.attrib;
 		%sect2.role.attrib;
 		%local.sect2.attrib;
+                ischunk		CDATA		#IMPLIED
 >
 <!--end of sect2.attlist-->]]>
 <!--end of sect2.module-->]]>
