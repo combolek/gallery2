@@ -43,7 +43,7 @@ if (!$album->isLoaded()) {
     return;
 }
 
-//-- The user hit "done" ---
+//-- The user hit "done". forgetaboutit ---
 if ($doreturn) {
 	header("Location: $return");
 	return;
@@ -51,76 +51,79 @@ if ($doreturn) {
 
 $editDir = $GALLERY_BASEDIR . "edit/";
 
-//-- if we have a submit and the command wants to show progress ---
-//-- go straight there (don't bother loading the layout)...     ---
-//-- Otherwise the 'doit'  will happen when the tab is included for 
-//-- the layout ---
+//-- we're executing the command? ---
 if ($doit) {
-	$editInclude = $editDir. $type . "_" . $tab . ".inc";
+
+	$editTabInclude = $editDir. $type . "_" . $tab . ".inc";
+
+	//-- after doint it we either return to the edit or, if the tab
+	//-- sets forceReturn it exit's edit ---
+	$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
+
+	//-- if we have a submit and the command wants to show progress ---
+	//-- go straight there (don't bother loading the layout)...     ---
 	if ($show_progress) {
 
-	$progressHead = "
-		<html>
-		<head>
-		<title>in progress</title>
-		<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">
-		". getStyleSheetLink() ." 
-		</head>
-		<body>
-	";
-	echo($progressHead);
+		$progressHead = "
+			<html>
+			<head>
+			<title>in progress</title>
+			<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">
+			". getStyleSheetLink() ." 
+			</head>
+			<body>
+		";
+		echo($progressHead);
 
-	//-- here the command should 'execute' ---
-	require($editInclude);
+		//-- here the command should 'execute' ---
+		require($editTabInclude);
 
-	//-- use javascript to pop back to the edit page ---
-	$jsreturn = "
-		<script language=\"javascript1.2\">
-		<!--
-		document.location = \"". makeEditUrl($tab) . "\";
-		//-->
-		</script>
-	";
-	echo($jsreturn);
+		//-- use javascript to pop back to the edit page ---
+		$backtoEditUrl = makeEditUrl($tab);
+		$jsreturn = "
+			<script language=\"javascript1.2\">
+			<!--
+			document.location = \"$returnAfterDoit\";
+			//-->
+			</script>
+		";
+		echo($jsreturn);
+	
+		//-- if javascript is off, the location change won't work. Put a 
+		//-- link up to let the user get back to the edit page.
+		$nojsreturn = "
+			<hr size=\"1\">
+			Done!<br><br>
+			Click <a href=\"$returnAfterDoit\">here</a> to return.
+			</body>
+			</html>
+		";
+		echo($nojsreturn);
 
-	//-- if javascript is off, the location change won't work. Put a form
-	//-- button up to let the user get back to the edit page ---
-	echo("<hr>Done!<hr>");
-	$nojsreturn = "
-		<form action=\"".makeGalleryUrl("edit.php")."\" method=\"POST\">
-		<input type=\"hidden\" name=\"type\" value=\"$type\">
-		<input type=\"hidden\" name=\"tab\" value=\"$tab\">
-		<input type=\"hidden\" name=\"id\" value=\"$id\">
-		<input type=\"hidden\" name=\"return\" value=\"$return\">
-		<input type=\"submit\" value=\"OK\">
-		</form>
-		</body>
-		</html>
-	";
-	echo($nojsreturn);
+		return;	
 
-    return;	
 	} else {
 		
-		//-- a normal doit ---
-		require($editInclude);
+		//-- a normal doit (which should not emit any text) ---
+		require($editTabInclude);
 
-		//-- if the command sets this we're done with this item ---
+		//-- reset the doit so the command won't execute again ---
+		$doit = 0;
+
+		//-- we either leave edit here, or let the page display below ---
 		if ($forceReturn) {
-			header("Location: $return");
+			header("Location: $returnAfterDoit");
+			return;
 		}
 
-		//-- reset the doit so the page will display ---
-		$doit = 0;
 	}
 }
 
 
-
+//-- load up the available commands ---
 $commands = Array();
 $commandCount = 0;
 
-//-- load up the available commands ---
 switch ($type) {
 
 	case "album":
@@ -206,6 +209,9 @@ $editInclude = $editDir. $type . "_" . $tab . ".inc";
 //-- which command is selected ---
 $commands[$tab]['selected'] = 1;
 
+//-- the tab content ---
+$GLO['selected']['content'] = include($editInclude);
+
 //-- form elements ---
 $formUrl = makeGalleryUrl("edit.php");
 $form['openTag'] = "<form action=\"$formUrl\" method=\"POST\">";
@@ -216,6 +222,11 @@ $form['hidden'] = "
 	<input type=\"hidden\" name=\"id\" value=\"$id\">
 	<input type=\"hidden\" name=\"return\" value=\"$return\">
 ";
+
+//-- is the tab set this flag, insert a hidden field to be submitted ---
+if ($show_progress) {
+	$form['hidden'] .= "<input type=\"hidden\" name=\"show_progress\" value=\"1\">\n";
+}
 
 $form['buttons'] = "
 	<input type=\"submit\" name=\"doit\" value=\"Do It!\">
@@ -237,9 +248,6 @@ $GLO['album']['bgColor'] = "white";
 $GLO['commands'] = $commands;
 
 $GLO['form'] = $form;
-
-//-- the tab content ---
-$GLO['selected']['content'] = include($editInclude);
 
 //-- some extra useful stuff ---
 $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
