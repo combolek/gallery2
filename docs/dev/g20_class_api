@@ -30,8 +30,10 @@ The following functionality is not (yet) implemented in v2.0.
 
 Things that need to be added to this API:
 - Examples for how the API should be used.
-- Api for User management
 - better description of permissions
+- search API
+- Make the get/set() methods consistent.  Separate the calls that return
+  an id from the ones that return a class so that it's clearer.
 
 ================================================================================
 ================================================================================
@@ -39,24 +41,160 @@ Things that need to be added to this API:
 Class Gallery
 -------------
 	This is a container for global information required for gallery operation,
-	such as configuration, session, user, etc.
+	such as configuration, session, user, etc.  
 
 	Members
 	-------
 	- /* AlbumItem */ id rootAlbumItem
 		The id of the root album item in the Gallery
 
-	- string[] config
-		Storage for all configuration variables, set in config.php
-
-	- /* User */ id currentUser
-		The id of the user who's currently logged onto the system
+	- GalleryConfig config
+		Storage for all configuration variables, set in config.php.
+		The values contained here can't be modified.  Well, they
+		can be modified but they can't be saved so it's not a good
+		idea.
 
 	- UserDB userDB
 		An instance of the user database class
 
-	- string[] session
+	- GallerySession session
 		Storage for all session variables
+
+	Methods
+	-------
+	- /* AlbumItem */ id getRootAlbumId()
+		* return the id of the root AlbumItem
+
+	- void setRootAlbumId(string id)
+		* Set the id of the root AlbumItem
+
+	- GalleryConfig getConfig() 
+		* Return a copy of the GalleryConfig object generated in 
+		  config.php
+
+	- User &getCurrentUser()
+		* Return a reference to the current User object.  This
+		  value is determined by the currentUser value in the
+		  session and is cached for performance.
+
+	- UserDB getUserDB()
+		* Return the current UserDB object.  Cached for performance.
+
+	- GallerySession &getSession()
+		* Return a reference to the current GallerySession object.
+
+Class GallerySession
+--------------------
+	This class is a container for session specific data.  It is
+	designed so that it can be extended as we extend Gallery.  So
+	each attribute that's stored in the session is associated with
+	a feature set that can be enabled or disabled, with the
+	exception of the "core" feature set which is always enabled.
+	Currently I'm only describing the core features; I'll let the
+	config wizard architect slot more stuff in here.  Oh what the
+	hell, I'll throw in an example for the "stats" feature.
+
+	Members
+	-------
+	- string[] core
+		- core["currentAlbumId"]
+		- core["userId"]
+		- core["galleryVersion"]
+
+	- string[] stats
+		- stats["viewedAlbum"] (array)
+		- stats["viewedPhoto"] (array)
+
+	Methods
+	-------
+	- mixed &getValue(string feature, string key) 
+		* Return a reference to the value associated with the
+		  given key for the feature specified.  eg:
+		  getValue("core", "userId").  It's important that we
+		  return a reference so that if the value contained is
+		  a complex object we can modify it in place.  For
+		  example, if we're modifying the viewed stats we'd
+		  say: 
+			$arr = getValue("stats", "viewedAlbum");
+			$arr["album01"]++;
+
+	- setValue(string feature, string key, string value)
+		* Replace the value associated with the given key for
+		  the feature specified.  eg: 
+			setValue("core", "galleryVersion", "2.0-cvs")
+
+Class GalleryConfig
+-------------------
+	This is a container for all configuration information
+	necessary for Gallery to function.  Like GallerySession, it's
+	broken down by feature set so that we can enable and disable
+	entire feature sets and avoid name space collision.  I'm
+	thinking that we'll have the following feature sets:
+
+	- string[] core
+		- core["config_version"]
+		- core["tmpDir"]
+		- core["albumDir"]
+		- core["galleryUrl"] (used to be $photoAlbumURL)
+		- core["albumUrl"] (used to be $albumDirURL)
+		- core["debug"] (boolean)
+		- core["expectedExecStatus"]
+		- core["sessionVar"]
+
+		- core["imageToolKit"] ("feature_netpbm", etc)
+			This one specifies which image toolkit we're using
+
+		- core["persistent_system"] ("feature_persistent_filesystem", etc.)
+			This one specifies which persistent storage system
+			we're using.
+
+	- string[] defaults
+		- defaults["highlight_size"]
+		- defaults["movie_thumbnail_path"]
+		- defaults["bordercolor"]
+		- defaults["border"]
+		- defaults["font"]
+		- defaults["cols"]
+		- defaults["rows"]
+		- defaults["thumb_size"]
+		- defaults["resize_size"]
+		- defaults["use_fullOnly"]
+		- defaults["returnto"]
+		- defaults["showOwners"]
+		- defaults["albumsPerPage"]
+		- defaults["showSearchEngine"]
+		- defaults["useOriginalFileNames"]
+		- defaults["display_clicks"]
+		- defaults["public_comments"]
+		- defaults["layout"]
+
+	- string[] feature_printing
+		- feature_printing["enabled"] (boolean)
+		- feature_printing["use_shutterfly"] (boolean)		
+
+	- string[] feature_zip
+		- feature_zip["enabled"] (boolean)
+		- feature_zip["zipinfo_binary"]
+		- feature_zip["unzip_binary"]
+
+	- string[] feature_exif
+		- feature_exif["enabled"] (boolean)
+		- feature_exif["jhead_path"]
+
+	- string[] feature_mod_rewrite
+		- feature_mod_rewrite["enabled"] (boolean)
+
+	- string[] feature_mirror
+		- feature_mirror["enabled"] (boolean)
+		- feature_mirror["sites"] (array)
+
+	- string[] feature_netpbm
+		- feature_netpbm["enabled"] (boolean)
+		- feature_netpbm["pnmDir"]
+		- feature_netpbm["pnmtojpeg_binary"] 
+
+	- string[] feature_persistent_filesystem
+		- feature_persistent_filesystem["userDir"]
 
 
 Class GalleryItem
@@ -106,11 +244,11 @@ integrityCheck->
 	- CommentContainer getComment(/* CommentContainer */ id)
 		Return the comment with the given id
 
-	- mixed getProperty(PROPERTY_NAME)
-		Return the property associated with PROPERTY_NAME
+	- mixed getProperty(string propertyName)
+		Return the property associated with propertyName
 
-	- void setProperty(PROPERTY_NAME, mixed)
-		Set the property associated with PROPERTY_NAME to the
+	- void setProperty(string propertyName, mixed)
+		Set the property associated with propertyName to the
 		string provided
 
 	- string getType()
@@ -397,8 +535,6 @@ Class CommentContainer [extends DataContainer]
 	- string setEmail(string)
 	- string setComment(string)
 
-
-
 ================================================================================
 GRAPHICS
 ================================================================================
@@ -540,20 +676,20 @@ Class PseudoUser [implements AbstractUser]
 	- bool isAdmin()
 		* return false
 
-Class AuthenticatedUser [extends PseudoUser]
---------------------------------------------
+Class RegisteredUser [extends PseudoUser]
+-----------------------------------------
 
-	This is a PseudoUser that represents a user that is always logged in.
+	This is a PseudoUser that represents a user that is logged in.
 	It overrides the following methods in PseudoUser:
 
 	- string getUsername()
-		* return "AUTHENTICATED"
+		* return "REGISTERED"
 
 	- string getFullname()
-		* return "An authenticated user"
+		* return "A registered user"
 
 	- string getUid() 
-		* return "authenticated"	
+		* return "registered"	
 
 Class EverybodyUser [extends PseudoUser]
 ----------------------------------------
