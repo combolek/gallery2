@@ -137,6 +137,7 @@ case $1 in
 		echo "bightml       Generate one big HTML document";
 #		echo "pdf           Generate a PDF (requires fop)";
 		echo "galleryweb    Generate docs fitted for the Gallery Website";
+		echo "g1package     Generate only G1 docs";
 		echo "dist          Generate all types";
 		echo "test-saxon    Test for XML errors using saxon";
 		echo "test-xmllint  Test for XML errors using xmllint";
