@@ -20,8 +20,8 @@
 ?>
 <?
 class AlbumDB {
-	var $albumList;
-	var $albumOrder;
+	var $rootAlbum;
+	var $version;
 
 	function AlbumDB() {
 		global $gallery;
@@ -29,73 +29,61 @@ class AlbumDB {
 		$dir = $gallery->app->albumDir;
 
 		$tmp = getFile("$dir/albumdb.dat");
+
+		/*
+		 * Pre-migration AlbumDBs (ie up to v1.2.1) only serialized the
+		 * defunct $albumOrder variable.  The new code serializes the actual
+		 * AlbumDB class.  Check to see what we're unserializing to make
+		 * sure that we Do the Right Thing.
+		 */
 		if (strcmp($tmp, "")) {
-			$this->albumOrder = unserialize($tmp);
-		} else {
-			$this->albumOrder = array();
-		}
-
-		$this->albumList = array();
-		$i = 0;
-		while ($i < sizeof($this->albumOrder)) {
-			$name = $this->albumOrder[$i];
-			if (fs_is_dir("$dir/$name")) {
-				$album = new Album;
-				$album->load($name);
-				array_push($this->albumList, $album);
-				$i++;
+			$obj = unserialize($tmp);
+			if (!strcmp(get_class($obj), "albumdb")) {
+				$this = $obj;
 			} else {
-				/* Couldn't find the album -- delete it from order */
-				array_splice($this->albumOrder, $i, 1);
+				$albumOrder = $obj;
 			}
-		}
+		} 
 
-		if ($fd = fs_opendir($dir)) {
-			while ($file = readdir($fd)) {
-				if (!ereg("^\.", $file) && 
-				    fs_is_dir("$dir/$file") &&
-				    !in_array($file, $this->albumOrder)) {
-					$album = new Album;
-					$album->load($file);
-					array_push($this->albumList, $album);
-					array_push($this->albumOrder, $file);
+		/* 
+		 * If we don't have a version, then this albumdb predates
+		 * our AlbumDB -> Album migration.
+		 */
+		if (empty($this->version)) {
+			/*
+			 * Migrate our AlbumDB into a new root album.  Prefer the
+			 * name "root_album".  Allow this top level album to be 
+			 * owned by nobody.
+			 */
+			$rootAlbum = new Album();
+			$rootAlbum->fields["name"] = $this->newAlbumName("root_album");
+			$nobody = $gallery->userDB->getNobody();
+			$rootAlbum->setOwner($nobody->getUid());
+
+			/*
+			 * Add our albums in order.
+			 */
+			foreach ($albumOrder as $name) {
+				if (fs_is_dir("$dir/$name")) {
+					$rootAlbum->addNestedAlbum($name);
 				}
 			}
-			closedir($fd);
-		}
+			$rootAlbum->save();
 
-		$this->save();
+			$this->version = $gallery->albumdb_version;
+
+			/*
+			 * The AlbumDB now only contains a pointer to the
+			 * root album.
+			 */
+			$this->rootAlbum = array($rootAlbum->fields["name"]);
+			$this->save();
+		}
 	}
 
-	function renameAlbum($oldName, $newName) {
+	function newAlbumName($name="album01") {
 		global $gallery;
 
-		$dir = $gallery->app->albumDir;
-
-		if (fs_is_dir("$dir/$newName")) {
-			return 0;
-		}
-
-		if (fs_is_dir("$dir/$oldName")) {
-			$success = fs_rename("$dir/$oldName", "$dir/$newName");
-			if (!$success) {
-				return 0;
-			}
-		}
-
-		for ($i = 0; $i < sizeof($this->albumOrder); $i++) {
-			if (!strcmp($this->albumOrder[$i], $oldName)) {
-				$this->albumOrder[$i] = $newName;
-			}
-		}
-
-		return 1;
-	}
-
-	function newAlbumName() {
-		global $gallery;
-
-		$name = "album01";
 		$albumDir = $gallery->app->albumDir;
 		while (fs_file_exists("$albumDir/$name")) {
 			$name++;
@@ -104,104 +92,17 @@ class AlbumDB {
 	}
 
 	function numAlbums($user) {
-		return sizeof($this->getVisibleAlbums($user));
+		return "UNKNOWN";
 	}
-	
+
 	function numPhotos($user) {
-		$numPhotos = 0;
-		foreach ($this->albumList as $album) {
-			if ($user->canWriteToAlbum($album)) {
-				$numPhotos += $album->numPhotos(1);
-                        } else if ($user->canReadAlbum($album)) {
-                                $numPhotos += $album->numPhotos(0);
-                        }
-                }
-
-		return $numPhotos;
-	}
-
-	function getAlbum($user, $index) {
-		$list = $this->getVisibleAlbums($user);
-		return $list[$index-1];
-	}
-
-	function getAlbumbyName($name) {
-		$list = $this->albumList;
-		$indexLimit = count($list);
-		for ($i=0; $i<$indexLimit; $i++) {
-			if ($list[$i]->fields["name"] == $name) {
-				return $list[$i];
-			}
-		}
-		return 0;
-	}
-
-	function moveAlbum($user, $index, $newIndex) {
-
-		// This is tricky.  The old and new indices are only relevant
-		// within the list of albums that this user is able to see!  
-		// Find the location that the user desires and determine that it's
-		// one of three cases:
-		//	1. At the beginning of the album
-		// 	2. At the end
-		// 	3. After another album
-		// Beginning and end are easy.  If it's after another album, then
-		// figure out that album, find its absolute index and move it to
-		// that spot +1
-		//
-
-		$visible = $this->getVisibleAlbums($user);
-		$album1 = $visible[$index-1];
-		$album2 = $visible[$newIndex-1];
-
-		// Locate absolute indices of the target and destination
-		for ($i = 0; $i < sizeof($this->albumList); $i++) {
-			if ($this->albumList[$i] == $album1) {
-				$absIndex = $i;
-			} else if ($this->albumList[$i] == $album2) {
-				$absNewIndex = $i;
-			}
-		}
-
-		if ($newIndex == 1) {
-			// Move to beginning
-			$this->moveAlbumAbsolute($absIndex, 0);
-		} else if ($newIndex == sizeof($visible)) {
-			// Move to end
-			$this->moveAlbumAbsolute($absIndex, sizeof($this->albumList)-1);
-		} else {
-			// Move to relative spot
-			$this->moveAlbumAbsolute($absIndex, $absNewIndex);
-		}
-
-		return;
-	}
-
-	function moveAlbumAbsolute($index, $newIndex) {
-		/* Pull album out */
-		$name = array_splice($this->albumOrder, $index, 1);
-
-		/* Add it back in */
-		array_splice($this->albumOrder, $newIndex, 0, $name);
-	}
-
-	function getVisibleAlbums($user) {
-		$list = array();
-		foreach ($this->albumList as $album) {
-			if ($user->canReadAlbum($album) && $album->isRoot()) {
-				array_push($list, $album);
-			}
-		}
-
-		return $list;
+		return "UNKNOWN";
 	}
 
 	function save() {
 		global $gallery;
-		$success = 0;
-
 		$dir = $gallery->app->albumDir;
-		return safe_serialize($this->albumOrder, "$dir/albumdb.dat");
+		return safe_serialize($this, "$dir/albumdb.dat");
 	}
 }
 
