@@ -20,94 +20,89 @@
  */
 package com.gallery.GalleryRemote.prefs;
 
-import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.Base64;
+import com.gallery.GalleryRemote.Log;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Properties;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
- *  GalleryProperties: access property data with a higher level of abstraction
- *
- *@author     paour
- *@created    11 août 2002
+ * GalleryProperties: access property data with a higher level of abstraction
+ * 
+ * @author paour
+ * @created 11 août 2002
  */
 public class GalleryProperties extends Properties implements PreferenceNames {
 	public static final String MODULE = "GalProps";
-	
+
 	SimpleDateFormat dateFormat
-		= new SimpleDateFormat ("yyyy/MM/dd");
-	
+			= new SimpleDateFormat("yyyy/MM/dd");
+
 	// caches
 	protected Dimension thumbnailSize = null;
 	protected Rectangle mainBounds = null;
 	protected Rectangle previewBounds = null;
 
 
-	public GalleryProperties( Properties p ) {
-		super( p );
+	public GalleryProperties(Properties p) {
+		super(p);
 	}
 
 
-	public GalleryProperties( ) {}
+	public GalleryProperties() {
+	}
 
 
 	public File getCurrentDirectory() {
-		String currentDirectory = getProperty( "filedialogPath" );
-		if ( currentDirectory != null ) {
-			return new File( currentDirectory );
+		String currentDirectory = getProperty("filedialogPath");
+		if (currentDirectory != null) {
+			return new File(currentDirectory);
 		} else {
 			return null;
 		}
 	}
 
-	public void setCurrentDirectory( File currentDirectory ) {
-		setProperty( "filedialogPath", currentDirectory.getPath() );
+	public void setCurrentDirectory(File currentDirectory) {
+		setProperty("filedialogPath", currentDirectory.getPath());
 	}
 
 
 	public boolean getShowPreview() {
-		return getBooleanProperty( "showPreview" );
+		return getBooleanProperty("showPreview");
 	}
 
 
-	public void setShowPreview( boolean showPreview ) {
-		setProperty( "showPreview", String.valueOf( showPreview ) );
+	public void setShowPreview(boolean showPreview) {
+		setProperty("showPreview", String.valueOf(showPreview));
 	}
 
 
 	public boolean getShowPath() {
-		return getBooleanProperty( "showPath" );
+		return getBooleanProperty("showPath");
 	}
 
 
-	public void setShowPath( boolean showPath ) {
-		setProperty( "showPath", String.valueOf( showPath ) );
+	public void setShowPath(boolean showPath) {
+		setProperty("showPath", String.valueOf(showPath));
 	}
 
 
 	public boolean getShowThumbnails() {
-		return getBooleanProperty( SHOW_THUMBNAILS );
+		return getBooleanProperty(SHOW_THUMBNAILS);
 	}
 
 
-	public void setShowThumbnails( boolean showThumbnails ) {
-		setProperty( SHOW_THUMBNAILS, String.valueOf( showThumbnails ) );
+	public void setShowThumbnails(boolean showThumbnails) {
+		setProperty(SHOW_THUMBNAILS, String.valueOf(showThumbnails));
 	}
 
 
 	public Dimension getThumbnailSize() {
-		if ( thumbnailSize == null ) {
-			thumbnailSize = getDimensionProperty( THUMBNAIL_SIZE );
+		if (thumbnailSize == null) {
+			thumbnailSize = getDimensionProperty(THUMBNAIL_SIZE);
 		}
 
 		return thumbnailSize;
@@ -115,8 +110,8 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 
 
 	public Rectangle getMainBounds() {
-		if ( mainBounds == null ) {
-			mainBounds = getRectangleProperty( "mainBounds" );
+		if (mainBounds == null) {
+			mainBounds = getRectangleProperty("mainBounds");
 		}
 
 		return mainBounds;
@@ -124,81 +119,81 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 
 
 	public Rectangle getPreviewBounds() {
-		if ( previewBounds == null ) {
-			previewBounds = getRectangleProperty( "previewBounds" );
+		if (previewBounds == null) {
+			previewBounds = getRectangleProperty("previewBounds");
 		}
 
 		return previewBounds;
 	}
 
 
-	public void setMainBounds( Rectangle r ) {
-		setRectangleProperty( "mainBounds", r );
+	public void setMainBounds(Rectangle r) {
+		setRectangleProperty("mainBounds", r);
 	}
 
 
-	public void setPreviewBounds( Rectangle r ) {
-		setRectangleProperty( "previewBounds", r );
+	public void setPreviewBounds(Rectangle r) {
+		setRectangleProperty("previewBounds", r);
 	}
 
 
-	public void setThumbnailSize( Dimension size ) {
+	public void setThumbnailSize(Dimension size) {
 		thumbnailSize = size;
 		setDimensionProperty(THUMBNAIL_SIZE, size);
 	}
 
 
-	public Dimension getDimensionProperty( String key ) {
-		String value = getProperty( key );
+	public Dimension getDimensionProperty(String key) {
+		String value = getProperty(key);
 		if (value == null) return null;
 
 		StringTokenizer st;
-		if ( value != null && ( st = new StringTokenizer( value, "," ) ).countTokens() == 2 ) {
-			return new Dimension( Integer.parseInt( st.nextToken() ),
-					Integer.parseInt( st.nextToken() ) );
+		if (value != null && (st = new StringTokenizer(value, ",")).countTokens() == 2) {
+			return new Dimension(Integer.parseInt(st.nextToken()),
+					Integer.parseInt(st.nextToken()));
 		} else {
-			Log.log(Log.LEVEL_ERROR, MODULE,  "Parameter " + key + " is missing or malformed (should be width,height)" );
+			Log.log(Log.LEVEL_ERROR, MODULE, "Parameter " + key + " is missing or malformed (should be width,height)");
 			return null;
 		}
 	}
 
-	public void setDimensionProperty( String key, Dimension d ) {
-		setProperty( key, ( (int) d.getWidth() ) + "," + ( (int) d.getHeight() ) );
+	public void setDimensionProperty(String key, Dimension d) {
+		setProperty(key, ((int) d.getWidth()) + "," + ((int) d.getHeight()));
 	}
 
 
-	public Rectangle getRectangleProperty( String key ) {
-		String value = getProperty( key );
+	public Rectangle getRectangleProperty(String key) {
+		String value = getProperty(key);
 		if (value == null) return null;
 
 		StringTokenizer st;
-		if ( value != null && ( st = new StringTokenizer( value, "," ) ).countTokens() == 4 ) {
-			return new Rectangle( Integer.parseInt( st.nextToken() ),
-					Integer.parseInt( st.nextToken() ),
-					Integer.parseInt( st.nextToken() ),
-					Integer.parseInt( st.nextToken() ) );
+		if (value != null && (st = new StringTokenizer(value, ",")).countTokens() == 4) {
+			return new Rectangle(Integer.parseInt(st.nextToken()),
+					Integer.parseInt(st.nextToken()),
+					Integer.parseInt(st.nextToken()),
+					Integer.parseInt(st.nextToken()));
 		} else {
-			Log.log(Log.LEVEL_ERROR, MODULE,  "Parameter " + key + " is missing or malformed (should be x,y,width,height)" );
+			Log.log(Log.LEVEL_ERROR, MODULE, "Parameter " + key + " is missing or malformed (should be x,y,width,height)");
 			return null;
 		}
 	}
 
-	public void setRectangleProperty( String key, Rectangle rect ) {
-		setProperty( key, ( (int) rect.getX() ) + "," + ( (int) rect.getY() ) + ","
-				 + ( (int) rect.getWidth() ) + "," + ( (int) rect.getHeight() ) );
+	public void setRectangleProperty(String key, Rectangle rect) {
+		setProperty(key, ((int) rect.getX()) + "," + ((int) rect.getY()) + ","
+				+ ((int) rect.getWidth()) + "," + ((int) rect.getHeight()));
 	}
 
 
-	public boolean getBooleanProperty( String key ) {
-		String booleanS = getProperty( key );
+	public boolean getBooleanProperty(String key) {
+		String booleanS = getProperty(key);
 		try {
-			return Boolean.valueOf( booleanS ).booleanValue();
-		} catch ( Exception e ) {
-			throw new NumberFormatException( "Parameter " + key + " is missing or malformed (should be true or false)" );
+			return Boolean.valueOf(booleanS).booleanValue();
+		} catch (Exception e) {
+			throw new NumberFormatException("Parameter " + key + " is missing or malformed (should be true or false)");
 		}
 	}
 
-	public boolean getBooleanProperty( String key, boolean defaultValue ) {
+	public boolean getBooleanProperty(String key, boolean defaultValue) {
 		try {
 			return getBooleanProperty(key);
 		} catch (NumberFormatException e) {
@@ -206,21 +201,21 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 		}
 	}
 
-	public void setBooleanProperty( String key, boolean value ) {
-		setProperty( key, value?"true":"false" );
+	public void setBooleanProperty(String key, boolean value) {
+		setProperty(key, value ? "true" : "false");
 	}
 
 
-	public int getIntProperty( String key ) {
-		String intS = getProperty( key );
+	public int getIntProperty(String key) {
+		String intS = getProperty(key);
 		try {
-			return Integer.valueOf( intS ).intValue();
-		} catch ( Exception e ) {
-			throw new NumberFormatException( "Parameter " + key + " is missing or malformed (should be an integer value)" );
+			return Integer.valueOf(intS).intValue();
+		} catch (Exception e) {
+			throw new NumberFormatException("Parameter " + key + " is missing or malformed (should be an integer value)");
 		}
 	}
 
-	public int getIntProperty( String key, int defaultValue ) {
+	public int getIntProperty(String key, int defaultValue) {
 		try {
 			return getIntProperty(key);
 		} catch (NumberFormatException e) {
@@ -228,46 +223,46 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 		}
 	}
 
-	public void setIntProperty( String key, int value ) {
-		setProperty( key, String.valueOf( value ) );
+	public void setIntProperty(String key, int value) {
+		setProperty(key, String.valueOf(value));
 	}
 
 
-	public String getBase64Property( String key ) {
-		String base64S = getProperty( key );
+	public String getBase64Property(String key) {
+		String base64S = getProperty(key);
 		if (base64S == null) return null;
-		
+
 		try {
-			return Base64.decode( base64S );
-		} catch ( Error e ) {
-			throw new NumberFormatException( "Parameter " + key + " is missing or malformed (should be a Base64 value)" );
+			return Base64.decode(base64S);
+		} catch (Error e) {
+			throw new NumberFormatException("Parameter " + key + " is missing or malformed (should be a Base64 value)");
 		}
 	}
 
-	public void setBase64Property( String key, String value ) {
-		setProperty( key, Base64.encode( value ) );
+	public void setBase64Property(String key, String value) {
+		setProperty(key, Base64.encode(value));
 	}
-	
 
-	public Date getDateProperty( String key ) {
-		String dateS = getProperty( key );
+
+	public Date getDateProperty(String key) {
+		String dateS = getProperty(key);
 		if (dateS == null) return null;
-		
+
 		try {
-			return dateFormat.parse( dateS );
-		} catch ( ParseException e ) {
-			throw new NumberFormatException( "Parameter " + key + " is missing or malformed (should be a Date value (yyyy/mm/dd))" );
+			return dateFormat.parse(dateS);
+		} catch (ParseException e) {
+			throw new NumberFormatException("Parameter " + key + " is missing or malformed (should be a Date value (yyyy/mm/dd))");
 		}
 	}
 
-	public void setDateProperty( String key, Date date ) {
-		setProperty( key, dateFormat.format( date ) );
+	public void setDateProperty(String key, Date date) {
+		setProperty(key, dateFormat.format(date));
 	}
-	
-	
-	public String getProperty( String key, String defaultValue ) {
-		String tmp = getProperty( key );
-		
+
+
+	public String getProperty(String key, String defaultValue) {
+		String tmp = getProperty(key);
+
 		if (tmp == null) {
 			return defaultValue;
 		} else {
@@ -276,27 +271,27 @@ public class GalleryProperties extends Properties implements PreferenceNames {
 	}
 
 
-    public void logProperties(int level, String module) {
+	public void logProperties(int level, String module) {
 		if (module == null) {
 			module = MODULE;
 		}
-		
+
 		ArrayList names = new ArrayList(100);
-        Enumeration e = propertyNames();
-        while (e.hasMoreElements()) {
-            names.add( e.nextElement() );
-        }
-		
+		Enumeration e = propertyNames();
+		while (e.hasMoreElements()) {
+			names.add(e.nextElement());
+		}
+
 		Object[] namesArray = names.toArray();
 		Arrays.sort(namesArray);
-		
+
 		for (int i = 0; i < namesArray.length; i++) {
 			String name = (String) namesArray[i];
 			Log.log(level, module, name + "= |" + getProperty(name) + "|");
 		}
-    }
+	}
 
-	public void uncache()	{
+	public void uncache() {
 		thumbnailSize = null;
 		mainBounds = null;
 		previewBounds = null;
