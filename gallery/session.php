@@ -57,40 +57,28 @@ if (session_id()) {
  * create the appropriate container for it.
  */
 
-if(! isset($gallery->app->sessionVar)) {
+if (empty($gallery->app->sessionVar)) {
 	$gSessionVar = "gallery_session_".md5(getcwd()); 
 } else {
 	$gSessionVar = $gallery->app->sessionVar . "_" . md5($gallery->app->userDir);
 }
-session_register($gSessionVar);
-
 
 if (isset($_SESSION[$gSessionVar])) {
 	/* Get a simple reference to the session container (for convenience) */
 	$gallery->session =& $_SESSION[$gSessionVar];
-
-	/* Make sure our session is current.  If not, nuke it and restart. */
-	/* Disabled this code -- it has too many repercussions */
-	if (false) {
-	    if (strcmp($gallery->session->version, $gallery->version)) {
-		session_destroy();
-		header("Location: " . makeGalleryHeaderUrl("index.php"));
-		exit;
-	    }
-	}
 } else {
 	/* Register the session variable */
 	session_register($gSessionVar);
 
 	/* Create a new session container */
 	if (isset($useStdClass)) {
-		$$gSessionVar = new stdClass();
+		$_SESSION[$gSessionVar] = new stdClass();
 	} else {
-		$$gSessionVar = new GallerySession();
+		$_SESSION[$gSessionVar] = new GallerySession();
 	}
 
 	/* Get a simple reference to the session container (for convenience) */
-	$gallery->session =& $$gSessionVar;
+	$gallery->session =& $_SESSION[$gSessionVar];
 
 	/* Tag this session with the gallery version */
 	$gallery->session->version = $gallery->version;
