@@ -1,10 +1,5 @@
 #!/bin/sh
 DIST=dist 
-DATE=$(date +%c)
-
-function gen_date {
-	echo "<!ENTITY gen-date '$DATE'>" > $DIST/gen-date.ent
-}
 
 case $1 in
 	html)

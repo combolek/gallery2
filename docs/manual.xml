@@ -11,18 +11,10 @@
 <!ENTITY % global		SYSTEM "./global.ent">
 %global;
 
-<!-- Include generation date file -->
-<!ENTITY % gen-date		SYSTEM "./dist/gen-date.ent">
-%gen-date;
-
 ]>
 
 <book id="manual" lang="en">
  <title>Gallery Documentation</title>
-
- <para>
-  Generated: &gen-date;
- </para>
 
  &bookinfo;
  &preface;
