@@ -26,20 +26,28 @@
    used to:
    <itemizedlist>
     <listitem>
-     Create getters and setters for all of our entity members
+     <para>
+      Create getters and setters for all of our entity members
+     </para>
     </listitem>
     <listitem>
-     Create convenience methods for maps to add, remove and update map
-     entries.
+     <para>
+      Create convenience methods for maps to add, remove and update map
+      entries.
+     </para>
     </listitem>
     <listitem>
-     Create database specific SQL scripts (right now only MySQL and
-     Postgres, but we can add others).
+     <para>
+      Create database specific SQL scripts (right now only MySQL and
+      Postgres, but we can add others).
+     </para>
     </listitem>
     <listitem>
-     Generate UML diagrams (only partially supported at the moment)
+     <para>
+      Generate UML diagrams (only partially supported at the moment)
+     </para>
     </listitem>
-    </itemizedlist>
+   </itemizedlist>
    The way this works is that we embed tags in comments in the
    code that contain the string "@g2".  After these @g2 tags come bits
    of XML such that if you extract all of the @g2 tags in order from
@@ -328,28 +336,36 @@
    at all.  For example, in the core module, maps are used to store:
    <itemizedlist>
     <listitem>
-     Item properties.  These are key/value pairs associated with any
-     item.  They can be used by other modules to hang any data at all
-     onto an item.  We put this in a map because there is a one->many
-     cardinality from items to item properties.
+     <para>
+      Item properties.  These are key/value pairs associated with any 
+      item.  They can be used by other modules to hang any data at all
+      onto an item.  We put this in a map because there is a one->many
+      cardinality from items to item properties.
+     </para>
     </listitem>
     <listitem>
-     Module parameters.  Can store any data they want in the module
-     map.  This is where modules keep track of their preferences (like
-     the core module's default language settings, or the NetPBM
-     module's path to the binaries).
+     <para>
+      Module parameters.  Can store any data they want in the module
+      map.  This is where modules keep track of their preferences (like
+      the core module's default language settings, or the NetPBM
+      module's path to the binaries).
+     </para>
     </listitem>
     <listitem>
-     Item view counts.  The cardinality between items and view counts
-     is one to one, so you'd think that it would make sense to put
-     view counts into the entity itself.  However, you're required to
-     lock an entity before changing it and we expect view counts to be
-     pretty dynamic so it makes sense to put them into their own
-     separate map.
+     <para>
+      Item view counts.  The cardinality between items and view counts
+      is one to one, so you'd think that it would make sense to put
+      view counts into the entity itself.  However, you're required to
+      lock an entity before changing it and we expect view counts to be
+      pretty dynamic so it makes sense to put them into their own
+      separate map.
+     </para>
     </listitem>
     <listitem>
-     User/Group mapping.  This is a classic tie table where we
-     associate a user with a group.
+     <para>
+      User/Group mapping.  This is a classic tie table where we
+      associate a user with a group.
+     </para>
     </listitem>
    </itemizedlist>
    There are many other types of maps, these are just a few.  Read the
