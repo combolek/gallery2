@@ -134,6 +134,10 @@ function dismissAndLoad($url) {
 	echo("<BODY onLoad='opener.location = \"$url\"; parent.close()'>");
 }
 
+function dismiss() {
+	echo("<BODY onLoad='parent.close()'>");
+}
+
 function my_flush() {
 	print str_repeat(" ", 4096);	// force a flush
 }
