@@ -9,7 +9,7 @@ if (!$noteadmin) {
 	throwError ('You must be a note admin to do this');
 }
 
-$action = $_GET['do'] ? $_GET['do'] : $_POST['do'];
+$action =& $_REQUEST['do'];
 
 switch ($action) {
 	case 'edit':
