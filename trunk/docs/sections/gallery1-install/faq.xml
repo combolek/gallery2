@@ -1577,6 +1577,24 @@ print getcwd ();
      </answer>
     </qandaentry>
     
+    <qandaentry id="gallery1-install.faq.c.40">
+     <question>
+      <para>
+       I need to remove my albums directory, but I can't since the webserver user
+       owns the files.  What can I do?
+      </para>
+     </question>
+     <answer>
+      <para>
+       Bharat has made a simple script to chmod all the files in your albums directory
+       0777, so you can easily delete them with your FTP client.  Download his script
+       here: <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=Downloads&amp;file=index&amp;req=viewdownload&amp;cid=6">
+       Gallery Utilities</ulink> ("Bharat's Cleanup Script").  Instructions are included
+       in the top of the file.
+      </para>
+     </answer>
+    </qandaentry>
+    
    </qandadiv>
   
   </qandaset>
