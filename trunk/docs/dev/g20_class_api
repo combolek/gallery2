@@ -25,24 +25,23 @@ The following functionality is not (yet) implemented in v2.0.
 
 Things that need to be added to this API:
 -----------------------------------------
-- GalleryNucleus needs to have a peer, which will be the actual
-  persistent implementation.  The peer needs to implement the save, 
-  delete, etc. methods.  Peer needs to know a bit more info, too
-  such as the path.
+- How will we handle image rotation?  In v1.x we did it by modifying
+  the original file. This has nasty side effects, such as losing the
+  EXIF data, potentially corrupting the file, changing the quality due
+  to lossiness, etc.  If we do it via derivatives we'd never touch the
+  original (avoiding all those complications).  It'd be a bit weird
+  because we'd actually have two sources for an image.  The "original"
+  source and the "preferred" source which is a rotated derivative from
+  the original.  We'd have to make it such that all derivatives from
+  this item use the preferred source otherwise the thumbnails/resizes
+  would come from the un-rotated image.
 
-- Derivative images need more work -- clarify their status as
-  derivatives and their association with the source image.
-  DataContainers should have ids so that we can associate based on
-  them.
-
-- How do we create new objects?  I think this mostly applies to
-  DataContainers. The rule should be, when you create a new
-  DataContainer, it copies the source file provided and then does
-  whatever manipulation it cares to do on its copy.
+- How do we create the RootAlbum?  There's nothing in the API for
+  this, yet.
 
 - Support for some kind of LinkItem (ie, a shared item?)
+
 - Support for user groups
-- More examples for how the API should be used.
 
 Things that need to be documented more thoroughly in general:
 -------------------------------------------------------------
@@ -63,17 +62,17 @@ Things that need to be documented more thoroughly in general:
   a return code of FAILURE & F_DELETED.
 
   SUCCESS = 0x00000000
-  FAILURE = 0x00000001
+  ERROR   = 0x00000001
 
   If you get a FAILURE, one of the following bit fields can be set:
 
-  F_IN_USE    = 0x00000010	
+  E_IN_USE    = 0x00000010	
 	- Couldn't acquire a lock to change the object
 
-  F_DELETED   = 0x00000100
+  E_DELETED   = 0x00000100
 	- The object no longer exists
 
-  F_COLLISION = 0x00001000
+  E_COLLISION = 0x00001000
 	- Another change was made at the same time, causing this
 	  one to be invalid.
 
@@ -87,6 +86,12 @@ Things that need to be documented more thoroughly in general:
 	} else if ($status & F_DELETED) {
 		// Uh-oh
 	}
+
+- Creating a new persistence backend (ie, "Filesystem", "MySQL")
+  This is not finalized yet.  But I'm thinking that all you need to do is
+  to implement a GalleryStorage for your backend.  The config wizard
+  will instruct the init code to create the appropriate GalleryStorage
+  object and store it in the Gallery instance.
 
 ================================================================================
 ================================================================================
@@ -152,6 +157,14 @@ class Gallery {
 	 */
 	var $_session;
 
+	/**
+	 * The backend persistent store for the Gallery class
+	 *
+	 * @access private
+	 * @var	object	GalleryStorage	 $_storage;
+	 */
+	var $_storage;
+
 	/*
 	 * ****************************************
 	 *                 Methods
@@ -166,14 +179,12 @@ class Gallery {
 	 * item.  It doesn't really matter what types of items these are, as 
 	 * long as the path is legitimate.
 	 *
-	 * This method must be implemented by subclasses of Gallery.
-	 *
 	 * @access public
-	 * @abstract
 	 * @param string the path to a GalleryItem
 	 * @return Id
 	 */
 	function getIdByPath($path) {
+		return $this->_storage->getIdByPath($path);
 	}
 
 	/**
@@ -183,14 +194,27 @@ class Gallery {
 	 * that this returns the unique object itself, not a copy.
 	 * This means that you can change/save it.
 	 *
-	 * This method must be implemented by subclasses of Gallery
-	 *
 	 * @access public
-	 * @abstract
 	 * @param string the id of the item
 	 * @return GalleryItem the item	
 	 */
 	function &getItemById($id) {
+		return $this->_storage->getItemById($path);
+	}
+
+	/**
+	 * Get the DataContainer for the id provided
+	 *
+	 * Return the DataContainer associated with this id.  Note  
+	 * that this returns the unique object itself, not a copy.
+	 * This means that you can change/save it.
+	 *
+	 * @access public
+	 * @param string the id of the item
+	 * @return GalleryItem the item	
+	 */
+	function &getDataContainerById($id) {
+		return $this->_storage->getDataContainerById($path);
 	}
 
 	/**
@@ -287,6 +311,107 @@ class Gallery {
 	 * @access public
 	 */
 	function &getSession() {
+	}
+}
+
+/**
+ * Interface to the storage mechanism
+ *
+ * This object provides the hooks for saving and restoring objects in the persistent store.
+ *
+ * @version $Id$
+ * @module GalleryStorage
+ * @modulegroup core
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @abstract
+ */
+class GalleryStorage {
+
+	/**
+	 * Return the id of the GalleryItem associated with the path provided
+	 *
+	 * Return the id associated with the given path. Example path: 
+	 * "/birthdays/fred" .. this is the "fred" item in the "birthdays" 
+	 * item.  It doesn't really matter what types of items these are, as 
+	 * long as the path is legitimate.
+	 *
+	 * This method must be implemented by subclasses of Gallery.
+	 *
+	 * @access public
+	 * @abstract
+	 * @param string the path to a GalleryItem
+	 * @return Id
+	 */
+	function getIdByPath($path) {
+	}
+
+	/**
+	 * Get the GalleryItem for the id provided
+	 *
+	 * Return the GalleryItem associated with this id.  Note  
+	 * that this returns the unique object itself, not a copy.
+	 * This means that you can change/save it.
+	 *
+	 * This method must be implemented by subclasses of Gallery
+	 *
+	 * @access public
+	 * @abstract
+	 * @param string the id of the item
+	 * @return GalleryItem the item	
+	 */
+	function &getItemById($id) {
+	}
+
+	/**
+	 * Get the DataContainer for the id provided
+	 *
+	 * Return the DataContainer associated with this id.  Note  
+	 * that this returns the unique object itself, not a copy.
+	 * This means that you can change/save it.
+	 *
+	 * @access public
+	 * @param string the id of the item
+	 * @return GalleryItem the item	
+	 */
+	function &getDataContainerById($id) {
+	}
+
+	/**
+	 * Load a new GalleryNucleus from storage
+	 *
+	 * Load a new GalleryNucleus from storage
+	 *
+	 * @access public
+	 * @param string the id of the stored GalleryNucleus
+	 * @param GalleryNucleus a hint of the type of GalleryNucleus we're loading
+	 * @return int a status code
+	 */
+	function load($id, &$nucleus="") {
+	}
+
+	/**
+	 * Save the changes to the GalleryNucleus
+	 *
+	 * Save the changes to the GalleryNucleus.  
+	 *
+	 * @access public
+	 * @param GalleryNucleus the GalleryNucleus to save
+	 * @return int a status code
+	 */
+	function save($nucleus) {
+	}
+
+	/**
+	 * Delete the GalleryNucleus
+	 *
+	 * Delete the GalleryNucleus.
+	 *
+	 * @access public
+	 * @param GalleryNucleus the GalleryNucleus to delete
+	 * @return int a status code
+	 */
+	function delete($nucleus) {
 	}
 }
 
@@ -398,6 +523,7 @@ class GalleryMap {
 	function setValue($key, $value) {
 	}
 }
+
 
 GallerySession (instance of GalleryMap)
 ---------------------------------------------
@@ -546,11 +672,50 @@ class GalleryNucleus {
 	 */
 	var $_path;
 
+	/**
+	 * This is an internal variable that tracks whether or not
+	 * we've changed anything in this object that requires that we
+	 * update the persistent store.
+	 *
+	 * @access private
+	 */
+	var $_needToBeSaved;
+
 	/*
 	 * ****************************************
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * If an id is provided, load that object from storage and
+	 * become that object.  Else, initialize all variables to their
+	 * default values.
+	 */
+	function GalleryNucleus($id="") {
+		global $gallery;
+		$storage = $gallery->getStorage();
+
+		if (!empty($id)) {
+			$this = $storage->load($id, $this);
+		} else {
+			// Initialize myself
+		}
+	}
+
+	/**
+	 * Subclasses of GalleryNucleus can use this method to
+	 * indicate that their data structure has changed such that we
+	 * are required to update the persistent store.
+	 * 
+	 * @access protected
+	 * @return int a status code
+	 */
+	function setNeedToBeSaved() {
+	}
+	 
 
 	/**
 	 * Get the id of this GalleryNucleus
@@ -641,6 +806,10 @@ class GalleryNucleus {
 	 * @return int a status code
 	 */
 	function save() {
+		if ($this->_needToBeSaved) {
+			return $this->_storage->save($this);
+		}
+		return SUCCESS;
 	}
 
 	/**
@@ -735,6 +904,26 @@ class GalleryItem extends GalleryNucleus {
 	 */
 
 	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function GalleryItem($id="") {
+		$this->GalleryNucleus($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
+
+	/**
 	 * Get the list of supported file types
 	 *
 	 * Get the list of supported file types that this GalleryItem can
@@ -789,18 +978,6 @@ class GalleryItem extends GalleryNucleus {
 	 * @return array an ordered list of ids
 	 */
 	function getCommentIdList() {
-	}
-
-	/**
-	 * Return a reference to the comment with the given id
-	 *
-	 * Return a reference to the comment with the given id
-	 *
-	 * @access public
-	 * @param string a comment id
-	 * @return CommentContainer the appropriate comment or null
-	 */
-	function &getComment($id) {
 	}
 
 	/**
@@ -901,26 +1078,26 @@ class GalleryItem extends GalleryNucleus {
 	}
 
 	/**
-	 * Get the ImageContainer containing the thumbnail for this item
+	 * Get the id of the ImageContainer containing the thumbnail for this item
 	 *
-	 * Get the ImageContainer containing the thumbnail for this item
+	 * Get the id of the ImageContainer containing the thumbnail for this item
 	 *
 	 * @access public
-	 * @return ImageContainer the thumbnail
+	 * @return string the id of the thumbnail ImageContainer
 	 */
-	function getThumbnailImage() {
+	function getThumbnailId() {
 	}
 
 	/**
-	 * Set the thumbnail to the ImageContainer provided.
+	 * Get the id of the ImageContainer containing the thumbnail for this item
 	 *
-	 * Set the thumbnail to the ImageContainer provided.  If there was
-	 * a thumbnail before, delete it.
+	 * Get the id of the ImageContainer containing the thumbnail
+	 * for this item.
 	 *
 	 * @access public
-	 * @param ImageContainer the thumbnail image
+	 * @param string id of the ImageContainer containing the thumbnail image
 	 */
-	function setThumbnailImage($image) {
+	function setThumbnailId($id) {
 	}
 
 	/**
@@ -1102,15 +1279,23 @@ class AlbumItem extends GalleryItem {
 	 */
 	
 	/**
-	 * Construct a new AlbumItem object with the parent as a template
+	 * Constructor
 	 *
-	 * This new album item will have all the same properties as its 
-	 * parent.
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
 	 *
 	 * @access public
-	 * @param AlbumItem the parent AlbumItem
+	 * @param string the id of an object to be loaded
 	 */
-	function AlbumItem($parent) {
+	function AlbumItem($id="") {
+		$this->GalleryItem($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
 	}
 
 	/**
@@ -1161,28 +1346,49 @@ class DataItem extends GalleryItem {
 	 */
 
 	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function DataItem($id="") {
+		$this->GalleryItem($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
+
+	/**
 	 * Set the source of this item to the file provided
 	 *
-	 * If this item already had a source, delete the old source
-	 * and replace it with the one provided.  Subclasses should
-	 * override this method to do the appropriate thing when 
-	 * their data source changes.
+	 * If this item already had a source, replace it with the one
+	 * we provide here.  Subclasses should overload this method to
+	 * do the appropriate thing when their data source changes.
 	 *
 	 * @access public
 	 * @param string the path to a file
 	 */
-	function setSource(string $filePath) {
+	function setSourceId($id) {
 	}
 
 	/**
-	 * Get the source of this item.
+	 * Get the source id of this item.
 	 *
-	 * Return a DataContainer with the source of this item.
+	 * Return the id of the DataContainer that contains the source
+	 * for this item.  For example, if the DataItem is a PhotoItem,
+	 * the source is the full size original image.
 	 *
 	 * @access public
-	 * @return DataContainer the source object for this item
+	 * @return string the id of a DataContainer
 	 */
-	function &getSource() {
+	function getSourceId() {
 	}
 }
 
@@ -1221,6 +1427,32 @@ class CapturableItem extends DataItem {
 	 * @var	array
 	 */
 	var $_captureDate;
+
+	/*
+	 * ****************************************
+	 *                 Methods
+	 * ****************************************
+	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function CapturableItem($id="") {
+		$this->DataItem($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
 
 	/**
 	 * Get the attributes representing the date this item was captured.
@@ -1283,6 +1515,26 @@ class PhotoItem extends CapturableItem {
 	 */
 
 	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function PhotoItem($id="") {
+		$this->CapturableItem($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
+
+	/**
 	 * Return an ordered list of resized images
 	 *
 	 * The list is sorted by image size in ascending order.
@@ -1290,42 +1542,31 @@ class PhotoItem extends CapturableItem {
 	 * @access public
 	 * @return array ids of the resized images.
 	 */
-	function getResizedImageIds() {
-	}
-
-	/**
-	 * Get the ImageContainer for the resize image specified
-	 *
-	 * Get the ImageContainer for the resize image specified
-	 *
-	 * @access public
-	 * @param string the id of the desired resized image
-	 * @return ImageContainer the image
-	 */
-	function getResizedImage($id) {
+	function getResizeIds() {
 	}
 
 	/**
 	 * Set the specified resize image to the ImageContainer provided.
 	 *
 	 * If an ImageContainer exists at that index, delete it.
+	 * Triggers a save.
 	 *
 	 * @access public
-	 * @param int the id of the desired resized image
-	 * @param ImageContainer the image
+	 * @param string the id of the ImageContainer containing the resize
+	 * @return int a status code
 	 */
-	function setResizedImage($id, var $image) {
+	function addResizeId($id) {
 	}
 
 	/**
-	 * Delete the specified resized image
+	 * Remove the specified resized image
 	 *
-	 * Delete the specified resized image
+	 * Remove the specified resized image.  Triggers a save.
 	 * 
 	 * @access public
-	 * @param int the id of the desired resized image
+	 * @param int the id of the desired resized image to remove
 	 */
-	function deleteResizedImage($id) {
+	function removeResizeId($id) {
 	}
 }
 
@@ -1405,11 +1646,56 @@ class DataContainer extends GalleryNucleus {
 	 */
 	var $_dataFileName;
 
+	/**
+	 * Is this object derived from another one?  (eg, thumbnails
+	 * and resized images)
+	 *
+	 * @var bool
+	 */
+	var $_isDerivative;
+
+	/**
+	 * What's the source of this derivative?  The source must be
+	 * the id of another DataContainer.
+	 *
+	 * @var int
+	 */
+	var $_derivativeSource;
+
+	/**
+	 * A sequence of commands used to derive this data from the original
+	 *
+	 * @var int
+	 */
+	var $_derivativeCommands;
+
+
 	/*
 	 * ****************************************
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function DataContainer($id="", $dataFileName="") {
+		$this->GalleryNucleus($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+			// Make a copy the data file and start managing it
+		}
+	}
 
 	/**
 	 * Get the size of the source object.  If it's a cacheable
@@ -1423,16 +1709,70 @@ class DataContainer extends GalleryNucleus {
 	}
 
 	/**
-	 * Is this item expireable?
+	 * Is this item a derivative?
 	 *
-	 * If an item is a cacheable object, it can be expired using
+	 * If an item is a derative object, it can be expired using
 	 * the expireCache() method.  You must call rebuildCache() to
 	 * recreate the item.
 	 * 
 	 * @access public
 	 * @return bool whether the item is expireable or not
 	 */
-	function canBeExpired() {
+	function isDerative() {
+	}
+
+	/**
+	 * What's the source of this derivative?
+	 *
+	 * Only applicable if isDerative() returns true.
+	 * 
+	 * @access public
+	 * @return int the id of another DataContainer 
+	 */
+	function getDerivativeSource() {
+	}
+
+	/**
+	 * What's the source of this derivative?
+	 *
+	 * Only applicable if isDerative() returns true.
+	 * 
+	 * @access public
+	 * @param int the id of another DataContainer 
+	 */
+	function setDerivativeSource($id) {
+		$this->setNeedToBeSaved();
+	}
+
+	/**
+	 * Get the commands used to derive this data from its source
+	 *
+	 * Only applicable if isDerative() returns true.
+	 * 
+	 * @access public
+	 * @return int a derivative type
+	 */
+	function getDerivativeCommands() {
+	}
+
+	/**
+	 * Set the commands used to derive this data from its source
+	 *
+	 * Only applicable if isDerative() returns true.  The commands
+	 * follow this EBNF format:
+	 *
+	 * COMMAND   = <OPERATION> | <COMMAND> ; <COMMAND>
+	 * OPERATION = ROTATE | SCALE | RESIZE | CROP
+	 * ROTATE    = "rotate" ":" ("-90" | "180" | "90")
+	 * CROP      = "crop" ":" NUMBER "," NUMBER "," NUMBER "," NUMBER
+	 * RESIZE    = "resize" ":" NUMBER "," NUMBER 
+	 * SCALE     = "scale" ":" NUMBER 
+	 * 
+	 * @access public
+	 * @param string a sequence of derivative commands
+	 */
+	function setDerivativeCommands($commands) {
+		$this->setNeedToBeSaved();
 	}
 
 	/**
@@ -1552,11 +1892,39 @@ class ImageContainer extends DataContainer {
 	 */
 	var $_height;
 
+	/**
+	 * For derivatives, specify the scaling target.  This is used to rebuild
+	 * the image.
+	 *
+	 * @var	int
+	 */
+	var $_scalingTarget;
+
 	/*
 	 * ****************************************
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function ImageContainer($id="", $dataFileName="") {
+		$this->DataContainer($id, $dataFileName);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
 
 	/**
 	 * Return the width of the image
@@ -1578,48 +1946,6 @@ class ImageContainer extends DataContainer {
 	 * @access public
 	 */
 	function getHeight() {
-	}
-
-	/**
-	 * Rotate the image
-	 *
-	 * Rotate the image according to the degrees specified, which must
-	 * be one of -90, 180, 90.
-	 *
-	 * @param int degrees, one of (-90, 180, 90)
-	 * @access public
-	 * @return int a status code
-	 */
-	function rotate($degrees) {
-	}
-
-	/**
-	 * Scale the image
-	 *
-	 * Scale the image until it fits the bounding box described
-	 * by the width, height provided.
-	 *
-	 * @param int width of bounding box
-	 * @param int height of bounding box
-	 * @access public
-	 * @return int a status code
-	 */
-	function scale($width, $height) {
-	}
-
-	/**
-	 * Crop the image
-	 *
-	 * Crop the image 
-	 *
-	 * @param int x-axis origin
-	 * @param int y-axis origin
-	 * @param int width of crop rectangle
-	 * @param int height of crop rectangle
-	 * @access public
-	 * @return int a status code
-	 */
-	function crop($x, $y, $width, $height) {
 	}
 }
 
@@ -1661,6 +1987,26 @@ class MovieContainer extends DataContainer {
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function MovieContainer($id="", $dataFileName="") {
+		$this->DataContainer($id, $dataFileName);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
 
 	/**
 	 * Return the width of the movie
@@ -1714,31 +2060,6 @@ class UnknownContainer extends DataContainer {
 /**
  * A DataContainer for comments.
  *
- * We can't manipulate these objects in any way.
- *
- * @version $Id$
- * @module UnknownContainer
- * @modulegroup core
- * @package Gallery
- * @author Bharat Mediratta <bharat@menalto.com>
- */
-class UnknownContainer extends DataContainer {
-	/*
-	 * ****************************************
-	 *                 Members
-	 * ****************************************
-	 */
-
-	/*
-	 * ****************************************
-	 *                 Methods
-	 * ****************************************
-	 */
-}
-
-/**
- * A DataContainer for comments.
- *
  * Comments are just structured text objects.
  *
  * @version $Id$
@@ -1765,6 +2086,26 @@ class CommentContainer extends DataContainer {
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function CommentContainer($id="") {
+		$this->DataContainer($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
 
 	/**
 	 * Get the name
@@ -1934,11 +2275,11 @@ class GalleryImageToolKit {
 	}
 
 	/**
-	 * Resize the file to the target size specified
+	 * Resize the image to the target size specified
 	 *
 	 * Resize the image located at sourceFilename and write the results in      
-	 * destFilename.  Resize the image such that the largest side is targetSize 
-	 * while maintaining the aspect ratio.
+	 * destFilename.  Resize the image to the dimensions provided, ignoring
+	 * changes to the aspect ratio.
 	 *	
 	 * @access public
 	 * @param string the source file name
@@ -1946,11 +2287,28 @@ class GalleryImageToolKit {
 	 * @param string int the target size
 	 * @return int a status code
 	 */
-	function resizeImage($sourceFilename, $destFilename, $targetSize) {
+	function resizeImage($sourceFilename, $destFilename, $width, $height) {
 	}
 		
 	/**
-	 * Rotate the file by the degrees specified
+	 * Scale the image to the target size specified
+	 *
+	 * Resize the image located at sourceFilename and write the results in      
+	 * destFilename.  Scale the image such that it fits within the bounding
+	 * box specified by $targetSize x $targetSize, while maintaining the
+	 * aspect ratio.
+	 *	
+	 * @access public
+	 * @param string the source file name
+	 * @param string the destination file name (it will be overwritten if it exists)
+	 * @param string int the target size
+	 * @return int a status code
+	 */
+	function scaleImage($sourceFilename, $destFilename, $targetSize) {
+	}
+		
+	/**
+	 * Rotate the image by the degrees specified
 	 *
 	 * Rotate the image located at sourceFilename and write the results in      
 	 * destFilename.
@@ -1965,7 +2323,7 @@ class GalleryImageToolKit {
 	}
 		
 	/**
-	 * Crop the file by the position and dimensions specified
+	 * Crop the image by the position and dimensions specified
 	 *
 	 * Crop the image located at sourceFilename and write the results in 
 	 * destFilename.  The upper left corner of the subsection is
@@ -2157,6 +2515,7 @@ class GalleryUserDatabase {
 	}
 }
 
+
 Implementations
 ---------------
 	UserDB/GalleryFileSystem.php
@@ -2225,6 +2584,26 @@ class GalleryUser extends GalleryNucleus {
 	 *                 Methods
 	 * ****************************************
 	 */
+
+	/**
+	 * Constructor
+	 *
+	 * Call the superclass on the id provided.  That will create
+	 * either a blank object (if there's no id) or it will load the
+	 * appropriate object from the persistent storage.  If no id
+	 * was provided, initialize all private variables to their
+	 * default values.
+	 *
+	 * @access public
+	 * @param string the id of an object to be loaded
+	 */
+	function GalleryUser($id="") {
+		$this->GalleryNucleus($id);
+
+		if (empty($id)) {
+			// Set values to defaults
+		}
+	}
 
 	/**
 	 * Set the user's password
@@ -2371,6 +2750,25 @@ NobodyUser
 
 
 ================================================================================
+Constants
+================================================================================
+
+  /* Status codes */
+  SUCCESS     = 0x00000000
+  ERROR       = 0x00000001
+  E_IN_USE    = 0x00000010	
+  E_DELETED   = 0x00000100
+  E_COLLISION = 0x00001000
+
+  /* Permissions */
+  PERMISSION_CAN_VIEW 		= 0x01
+  PERMISSION_CANNOT_VIEW  	= 0x02
+  PERMISSION_CAN_CHANGE   	= 0x03
+  PERMISSION_CANNOT_CHANGE	= 0x04
+  PERMISSION_CAN_ADD_TO   	= 0x05
+  PERMISSION_CANNOT_ADD_TO	= 0x06
+
+================================================================================
 Examples
 ================================================================================
 
@@ -2466,14 +2864,84 @@ At this point, $item is now in a temporary holding bin.  Let's add it
 to an existing album:
 
 	$status = $album->addItem($item);
+	if ($status == SUCCESS) {
+		// Yay
+	} else if ($status & (E_IN_USE | E_COLLISION)) {
+		// Retry 
+	} else if ($status & E_DELETED) {
+		// Fail completely
+	}
 
-XXX More operations:
-XXX  How to change/get rid of resized images
-XXX  Associate a different thumbnail with the item
-XXX  Rebuild the thumbnail
-XXX  Associate a derivative image from a different item
-     (eg, an AlbumItem has a derivative thumbnail image
-          from a PhotoItem's source)
+Create a resized version of the image targetted to fit within a 
+800x800 bounding box:
+
+	// First get the id of the source image container
+	$sourceId = $item->getSourceId();
+
+	// Then create a new image container and set it's 
+	// source accordingly
+	$destImageContainer = new ImageContainer();
+	$destImageContainer->setDerivativeSource($sourceId);
+
+	// Now specify a target size
+	$destImageContainer->setDerivativeCommands("scale:800");
+	$destImageContainer->save();
+
+	// Finally, add the image as a resized image to the
+	// original item.
+	$item->addResizeId($destImageContainer->getId());
+
+	// At this point the image hasn't been created, but it
+	// will be the next time it's accessed.  You can trigger
+	// a rebuild right now by doing:
+	$destImageContainer->rebuildCache();
+
+Change the above resized image to be permanently sized to 200x400.
+
+	$ids = $item->getResizeIds();
+	$id = $ids[0];  // arbitrary choice here
+	$imageContainer = $gallery->getItemById($id);
+	$destImageContainer->setDerivativeCommands("resize:200,400");
+	$imageContainer->save();
+	$imageContainer->expireCache();
+
+Delete the above resized image:
+
+	$ids = $item->getResizeIds();
+	$id = $ids[0];  // arbitrary choice here
+	$imageContainer = $gallery->getItemById($id);
+
+	$item->removeResizeId($id);
+	$item->save();
+	
+	$imageContainer->delete();
+
+Associate a thumbnail with an AlbumItem (ie, make a highlight) from a
+PhotoItem's source:
+
+	$photoItem = // a PhotoItem
+	$albumItem = // an AlbumItem
+
+	$sourceId = $photoItem->getSourceId();
+	$thumb = new ImageContainer();
+	$thumb->setDerivativeSource($sourceId);
+	$destImageContainer->setDerivativeCommands("scale:200");
+	$thumb->save();
+
+	$oldThumb = $albumItem->getThumbnailId();
+	$albumItem->setThumbnailId($thumb->getId();)
+
+	// Delete the old thumbnail, if it exists
+	if (!empty($oldThumb)) {
+		$status = $oldThumb->delete();
+		// Check status here
+	}
+
+Rotate a source image:
+
+XXX Haven't yet decided if we're going to do this by using derivatives
+    or by replacing the source image with the rotated version.
+
 
 COMMENTS
 --------
@@ -2509,3 +2977,4 @@ Edit a comment:
 	$comment = $item->getComment($id);
 	$comment->setName("Jane Doe");
 	$comment->save();
+
