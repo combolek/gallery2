@@ -142,7 +142,9 @@ if ($user->canWriteToAlbum($album)) {
         $adminCommands .= "<a href=".popup("resize_photo.php?albumName=$albumName&index=all").">[Resize]</a>&nbsp;";
         // $adminCommands .= "<a href=".popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all").">[Rebuild Thumbs]</a>&nbsp;"; 
         $adminCommands .= "<a href=".popup("edit_appearance.php?albumName=$albumName").">[Properties]</a>&nbsp;";
+        $adminCommands .= "<a href=".popup("album_permissions.php?set_albumName=$albumName").">[Permissions]</a>&nbsp;";
 }
+
 
 if ($user->isLoggedIn()) {
         $adminCommands .= "<a href=do_command.php?cmd=logout&return=view_album.php>[Logout]</a>";
