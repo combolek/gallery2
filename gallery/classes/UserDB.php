@@ -88,6 +88,10 @@ class UserDB {
 			return "Username must be at least 3 characters";
 		}
 
+		if (strlen($username) > 15) {
+			return "Username must be at most 15 characters";
+		}
+
 		if (preg_match("/[^A-Za-z0-9]/", $username)) {
 			return "Username must contain only letters or digits";
 		}
