@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.StringBufferInputStream;
 import java.net.URL;
 import java.net.SocketException;
-import java.net.URLDecoder;
 import java.util.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -38,7 +37,6 @@ import com.gallery.GalleryRemote.model.Gallery;
 import com.gallery.GalleryRemote.model.Picture;
 import com.gallery.GalleryRemote.util.HTMLEscaper;
 import com.gallery.GalleryRemote.util.GRI18n;
-import com.gallery.GalleryRemote.util.DialogUtil;
 import com.gallery.GalleryRemote.prefs.PreferenceNames;
 import com.gallery.GalleryRemote.prefs.GalleryProperties;
 
@@ -383,7 +381,8 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 			String username = g.getUsername();
 			String password = g.getPassword();
 
-			if (username == null || username.length() == 0) {
+			if ((username == null || username.length() == 0)
+					&& ! g.cookieLogin) {
 				username = (String) JOptionPane.showInputDialog(
                     GalleryRemote.getInstance().mainFrame,
                     GRI18n.getString(MODULE, "usernameLbl"),
@@ -883,7 +882,6 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		}
 
 		void runTask() {
-            Object [] params = {g.toString()};
 			status(su, StatusUpdate.LEVEL_GENERIC, GRI18n.getString(MODULE, "getAlbmInfo"));
 
 			try {
@@ -1011,7 +1009,6 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		}
 
 		void runTask() {
-            Object [] params = {g.toString()};
 			status(su, StatusUpdate.LEVEL_GENERIC,
 					GRI18n.getString(MODULE, "fetchAlbImages",
 							new String[] {a.getName()}));

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This script was automatically generated using Zero G's InstallAnywhere 5.0.7 Enterprise, Build 1680
-     STATUS: Fully-Functional UNLICENSED Trial Edition
-     DATE:   Sun Feb 02 14:40:08 CET 2003 -->
-<InstallAnywhere_Deployment_Project increments="2090">
+<!-- This script was automatically generated using Zero G's InstallAnywhere 6.0 Enterprise, Build 2262
+     STATUS: Fully Functional LICENSED Edition
+     DATE:   Tue Dec 02 19:54:11 PST 2003 -->
+<InstallAnywhere_Deployment_Project increments="3443">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
-		<versionID major="5" minor="0" revision="7"/>
-		<editionID>53,46,48,46,55,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,49,54,56,48</editionID>
-		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
-		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,52,46,48,95,48,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
+		<versionID major="6" minor="0" revision="-1"/>
+		<editionID>54,46,48,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,50,50,54,50</editionID>
+		<scriptID>12,42,11,90,81,52,54,53,54,68,86,83,81,54,80,74</scriptID>
+		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,51,46,49,95,48,56,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,83,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,-16,19,-49,-32,-96,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,7,10,35,110,3,0,0,0</authorizationID>
+		<authorizationID>1,0,0,-16,51,62,-80,80,80,112,116,103,88,98,113,97,113,65,65,88,74,65,72,71,70,69,64,69,66,69,48,79,87,5,2,4,3,88,106,9,0,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="109">
+	<installationObjects uniqueObjects="175">
 		<object class="com.zerog.ia.installer.Installer" objectID="e14b381f9883">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="e14b435a989f">
@@ -38,6 +38,19 @@
 									<property name="propertyComment">
 										<string><![CDATA[leave blank for no input, "console" to read from the console window,
 and any path to a file to read from that file]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="5e08e5d2a881">
+									<property name="propertyValue">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[apple.laf.useScreenMenuBar]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[Integrate with Mac menu bar]]></string>
 									</property>
 								</object>
 							</method>
@@ -111,7 +124,7 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e14b435a98a1">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="5e0bf6cba881">
 									<property name="propertyValue">
 										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 									</property>
@@ -166,7 +179,7 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="32442179a763">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4db9a8eea49e">
 									<property name="propertyValue">
 										<string><![CDATA[com.gallery.GalleryRemote.GalleryRemote]]></string>
 									</property>
@@ -250,20 +263,692 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[GalleryRemote.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>335460</long>
+								<long>437759</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
 							</property>
+							<property name="targetCheckKind">
+								<int>0</int>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.InstallZipfile" objectID="ad46e3af8330">
+							<property name="unixPermissions">
+								<string><![CDATA[664]]></string>
+							</property>
+							<property name="sourceName">
+								<string><![CDATA[JSX1.0.7.4.jar]]></string>
+							</property>
+							<property name="overrideUnixPermissions">
+								<boolean>false</boolean>
+							</property>
+							<property name="sourcePath">
+								<string><![CDATA[$IA_PROJECT_DIR$\lib\]]></string>
+							</property>
+							<property name="shouldUninstall">
+								<boolean>true</boolean>
+							</property>
+							<property name="destinationName">
+								<string><![CDATA[JSX1.0.7.4.jar]]></string>
+							</property>
+							<property name="fileSize">
+								<long>204076</long>
+							</property>
+							<property name="macBinary">
+								<boolean>false</boolean>
+							</property>
+							<property name="targetCheckKind">
+								<int>0</int>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ed69f3f58330">
+							<property name="unixPermissions">
+								<string><![CDATA[775]]></string>
+							</property>
+							<property name="sourceName">
+								<string><![CDATA[]]></string>
+							</property>
+							<property name="overrideUnixPermissions">
+								<boolean>false</boolean>
+							</property>
+							<property name="sourcePath">
+								<string><![CDATA[$IA_PROJECT_DIR$\img]]></string>
+							</property>
+							<property name="shouldUninstall">
+								<boolean>true</boolean>
+							</property>
+							<property name="destinationName">
+								<string><![CDATA[img]]></string>
+							</property>
+							<property name="removeRecursively">
+								<boolean>false</boolean>
+							</property>
+							<property name="totalSize">
+								<long>0</long>
+							</property>
+							<property name="macBinary">
+								<boolean>false</boolean>
+							</property>
+							<visualChildren>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4be96185bf72">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[uploading.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[uploading.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>507</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4be96176bf72">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Paste16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Paste16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>298</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4be96175bf72">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Cut16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Cut16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>652</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4be96166bf72">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Copy16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Copy16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>288</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4be96165bf72">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[computer.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[computer.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>286</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68332">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Delete16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Delete16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>208</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58333">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Down16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Down16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>185</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68333">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[FlipHoriz24.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[FlipHoriz24.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>228</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58334">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Information16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Information16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>661</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68334">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[New16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[New16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>426</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58335">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Open16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Open16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>228</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68335">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Preferences16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Preferences16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>207</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58336">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[RotateLeft24.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[RotateLeft24.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>128</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68336">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[RotateRight24.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[RotateRight24.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>126</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58337">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Save16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Save16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>206</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68337">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Stop16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Stop16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>254</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58338">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[Up16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[Up16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>184</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f68338">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[WebComponent16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[WebComponent16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>637</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f58339">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[WebComponentAdd16.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[WebComponentAdd16.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>653</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed85f574837c">
+									<property name="unixPermissions">
+										<string><![CDATA[664]]></string>
+									</property>
+									<property name="sourceName">
+										<string><![CDATA[default.gif]]></string>
+									</property>
+									<property name="overrideUnixPermissions">
+										<boolean>false</boolean>
+									</property>
+									<property name="sourcePath">
+										<string><![CDATA[$IA_PROJECT_DIR$\img\]]></string>
+									</property>
+									<property name="shouldUninstall">
+										<boolean>true</boolean>
+									</property>
+									<property name="destinationName">
+										<string><![CDATA[default.gif]]></string>
+									</property>
+									<property name="fileSize">
+										<long>950</long>
+									</property>
+									<property name="macBinary">
+										<boolean>false</boolean>
+									</property>
+									<property name="targetCheckKind">
+										<int>0</int>
+									</property>
+								</object>
+							</visualChildren>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.InstallZipfile" objectID="83eedd7f84b0">
+							<property name="unixPermissions">
+								<string><![CDATA[664]]></string>
+							</property>
+							<property name="sourceName">
+								<string><![CDATA[metadata-extractor-2.1.jar]]></string>
+							</property>
+							<property name="overrideUnixPermissions">
+								<boolean>false</boolean>
+							</property>
+							<property name="sourcePath">
+								<string><![CDATA[$IA_PROJECT_DIR$\lib\]]></string>
+							</property>
+							<property name="shouldUninstall">
+								<boolean>true</boolean>
+							</property>
+							<property name="destinationName">
+								<string><![CDATA[metadata-extractor-2.1.jar]]></string>
+							</property>
+							<property name="fileSize">
+								<long>65152</long>
+							</property>
+							<property name="macBinary">
+								<boolean>false</boolean>
+							</property>
+							<property name="targetCheckKind">
+								<int>0</int>
+							</property>
 						</object>
 					</method>
 				</object>
-			</property>
-			<property name="installerName">
-				<string><![CDATA[InstallGalleryRemote]]></string>
-			</property>
-			<property name="productName">
-				<string><![CDATA[Gallery Remote]]></string>
 			</property>
 			<property name="rulesFailedMessage">
 				<string><![CDATA[The installer cannot run on your configuration. It will now quit.]]></string>
@@ -357,6 +1042,9 @@ and any path to a file to read from that file]]></string>
 			<property name="defaultInstallSetIndex">
 				<int>0</int>
 			</property>
+			<property name="disableUnixPermissions">
+				<boolean>false</boolean>
+			</property>
 			<property name="unixPermissions">
 				<string><![CDATA[775]]></string>
 			</property>
@@ -393,6 +1081,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 							</property>
 							<property name="labelIndex">
 								<int>0</int>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532b9bf2a">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
 							</property>
 						</object>
 					</method>
@@ -433,10 +1128,10 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 								<string><![CDATA[]]></string>
 							</property>
 							<property name="resourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
+								<string><![CDATA[G:\Dev\gallery_docs\dist\grpackage\]]></string>
 							</property>
 							<property name="resourceName">
-								<string><![CDATA[ReadMe.html]]></string>
+								<string><![CDATA[gallery-remote.intro.html]]></string>
 							</property>
 							<property name="sourceFileType">
 								<int>0</int>
@@ -449,6 +1144,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 							</property>
 							<property name="openExternalLinks">
 								<boolean>true</boolean>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c8bf2b">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
 							</property>
 						</object>
 					</method>
@@ -477,6 +1179,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 							</property>
 							<property name="labelIndex">
 								<int>1</int>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c8bf2c">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
 							</property>
 						</object>
 					</method>
@@ -509,6 +1218,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 							<property name="labelIndex">
 								<int>2</int>
 							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c8bf2d">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
+							</property>
 						</object>
 					</method>
 					<method name="addElement">
@@ -539,6 +1255,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 							</property>
 							<property name="labelIndex">
 								<int>3</int>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c8bf2e">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
 							</property>
 						</object>
 					</method>
@@ -597,6 +1320,13 @@ You may cancel this installation at any time by clicking the 'Cancel' button.]]>
 									</method>
 								</object>
 							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c8bf2f">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
+							</property>
 						</object>
 					</method>
 				</object>
@@ -630,6 +1360,201 @@ Press 'Done' to quit the installer.]]></string>
 							<property name="labelIndex">
 								<int>6</int>
 							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532c7bf31">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="b80f761c84b0">
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows 95]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 98]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Me]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/2]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Irix]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[DG-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Compaq's Digital UNIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Rhapsody]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.InstallCompleteAction" objectID="b80ed5a684b0">
+							<property name="imageOption">
+								<int>1</int>
+							</property>
+							<property name="stepTitle">
+								<string><![CDATA[Install Complete (non-Windows)]]></string>
+							</property>
+							<property name="message">
+								<string><![CDATA[Congratulations! $PRODUCT_NAME$ has been successfully installed to:
+
+     $USER_INSTALL_DIR$
+
+Press 'Done' to quit the installer.
+
+Some features of $PRODUCT_NAME$ need ImageMagick and jpegtran to be installed. On most Unix/Linux distributions, jpegtran is available by default, but ImageMagick almost always needs to be installed explicitly.
+
+Please make sure that these products are available in your Unix PATH variable: you should be able to run them from a command-line as:
+jpegtran
+convert
+
+If the commands above do not work, you should download and install these packages: http://jpegclub.org/ and http://www.imagemagick.org]]></string>
+							</property>
+							<property name="justification">
+								<int>0</int>
+							</property>
+							<property name="alignment">
+								<int>3</int>
+							</property>
+							<property name="labelOption">
+								<int>3</int>
+							</property>
+							<property name="labelIndex">
+								<int>0</int>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be532d8bf31">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="b80f41fd84b0">
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/2]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Irix]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[DG-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Compaq's Digital UNIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Rhapsody]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows 95]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 98]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Me]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+										</object>
+									</property>
+								</object>
+							</rules>
 						</object>
 					</method>
 				</object>
@@ -706,7 +1631,7 @@ Press 'Done' to quit the installer.]]></string>
 				<object class="java.util.Properties">
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[Sun Feb 02 14:40:08 CET 2003]]></string>
+						<string><![CDATA[December 2, 2003 7:54:10 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.merge]]></string>
@@ -718,7 +1643,7 @@ Press 'Done' to quit the installer.]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.vmpack.unix.path]]></string>
-						<string><![CDATA[SunJRE140_01LinuxINTEL.vm]]></string>
+						<string><![CDATA[SunJRE142_02LinuxINTEL.vm]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.linux.vm]]></string>
@@ -737,8 +1662,16 @@ Press 'Done' to quit the installer.]]></string>
 						<string><![CDATA[true]]></string>
 					</method>
 					<method name="put">
+						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.vm.version]]></string>
+						<string><![CDATA[1.3.1]]></string>
+					</method>
+					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.auto-populate.labels]]></string>
 						<string><![CDATA[true]]></string>
+					</method>
+					<method name="put">
+						<string><![CDATA[com.zerog.ia.build.options.webpage.language]]></string>
+						<string><![CDATA[en]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.named_unix.novm]]></string>
@@ -746,7 +1679,7 @@ Press 'Done' to quit the installer.]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[Sun Feb 02 14:40:08 CET 2003]]></string>
+						<string><![CDATA[December 2, 2003 7:47:51 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.heap.size.initial]]></string>
@@ -754,19 +1687,19 @@ Press 'Done' to quit the installer.]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.vmpack.linux.path]]></string>
-						<string><![CDATA[SunJRE140_01LinuxINTEL.vm]]></string>
+						<string><![CDATA[SunJRE142_02LinuxINTEL.vm]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.authentication]]></string>
 						<string><![CDATA[false]]></string>
 					</method>
 					<method name="put">
-						<string><![CDATA[com.zerog.ia.installer.options.platform.unix.ui.default]]></string>
-						<string><![CDATA[GUI]]></string>
-					</method>
-					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.linux.novm]]></string>
 						<string><![CDATA[true]]></string>
+					</method>
+					<method name="put">
+						<string><![CDATA[com.zerog.ia.installer.options.platform.unix.ui.default]]></string>
+						<string><![CDATA[GUI]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.authentication.gui]]></string>
@@ -786,7 +1719,7 @@ Press 'Done' to quit the installer.]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.vmpack.windows.path]]></string>
-						<string><![CDATA[SunJRE140_01Win32.vm]]></string>
+						<string><![CDATA[SunJRE142_02iWin32.vm]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.macos9.novm]]></string>
@@ -862,11 +1795,20 @@ Press 'Done' to quit the installer.]]></string>
 					<property name="futureLabelIconName">
 						<string><![CDATA[futureLabelIcon.gif]]></string>
 					</property>
+					<property name="enablePathSubst">
+						<boolean>true</boolean>
+					</property>
 					<property name="fitBackgroundImageHorizontally">
 						<boolean>true</boolean>
 					</property>
 					<property name="fitBackgroundImageVertically">
 						<boolean>true</boolean>
+					</property>
+					<property name="zerogBannerUI">
+						<boolean>false</boolean>
+					</property>
+					<property name="uninstallerTitle">
+						<string><![CDATA[Uninstall $PRODUCT_NAME$]]></string>
 					</property>
 				</object>
 			</property>
@@ -923,6 +1865,12 @@ Press 'Done' to quit the installer.]]></string>
 			</property>
 			<property name="installerInfoData">
 				<object class="com.zerog.ia.installer.util.InstallerInfoData" objectID="e14b382f9883">
+					<property name="installerTitle">
+						<string><![CDATA[Gallery Remote]]></string>
+					</property>
+					<property name="installerName">
+						<string><![CDATA[InstallGalleryRemote]]></string>
+					</property>
 					<property name="productName">
 						<string><![CDATA[Gallery Remote]]></string>
 					</property>
@@ -943,13 +1891,13 @@ Press 'Done' to quit the installer.]]></string>
 						<int>1</int>
 					</property>
 					<property name="productVersionMinor">
-						<int>0</int>
+						<int>2</int>
 					</property>
 					<property name="productVersionRevision">
 						<int>0</int>
 					</property>
 					<property name="productVersionSubRevision">
-						<int>1</int>
+						<int>0</int>
 					</property>
 					<property name="supportURL">
 						<string><![CDATA[gallery.menalto.com]]></string>
@@ -971,23 +1919,184 @@ Press 'Done' to quit the installer.]]></string>
 						<string><![CDATA[paour@sourceforge.net]]></string>
 					</property>
 					<property name="copyright">
-						<string><![CDATA[2002]]></string>
+						<string><![CDATA[2003]]></string>
 					</property>
 				</object>
 			</property>
 			<property name="installLogUninstall">
 				<boolean>true</boolean>
 			</property>
+			<property name="neverReboots">
+				<boolean>true</boolean>
+			</property>
+			<property name="suggestedMedias">
+				<object class="com.zerog.resources.Medias" objectID="4be5323cbf02">
+					<property name="medias">
+						<object class="java.util.Vector">
+							<method name="addElement">
+								<object class="com.zerog.resources.Media" objectID="4becce1bbf77">
+									<property name="name">
+										<string><![CDATA[Disk1]]></string>
+									</property>
+									<property name="size">
+										<long>681574400</long>
+									</property>
+								</object>
+							</method>
+						</object>
+					</property>
+				</object>
+			</property>
+			<property name="help">
+				<object class="com.zerog.ia.installer.util.Help" objectID="4be5323bbf02">
+					<property name="showHelp">
+						<boolean>false</boolean>
+					</property>
+				</object>
+			</property>
+			<property name="useInstallerHelp">
+				<boolean>false</boolean>
+			</property>
+			<property name="contextualHelp">
+				<boolean>true</boolean>
+			</property>
+			<property name="htmlHelp">
+				<boolean>true</boolean>
+			</property>
+			<property name="defaultTargetCheckKind">
+				<int>1</int>
+			</property>
+			<property name="preUninstallActions">
+				<object class="java.util.Vector">
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.UninstallIntroAction" objectID="4be7bc60bf69">
+							<property name="imageOption">
+								<int>1</int>
+							</property>
+							<property name="stepTitle">
+								<string><![CDATA[Uninstall $PRODUCT_NAME$]]></string>
+							</property>
+							<property name="message">
+								<string><![CDATA[About to uninstall...
+
+$PRODUCT_NAME$
+
+This will remove features installed by InstallAnywhere.  It will not remove files and folders created after the installation.]]></string>
+							</property>
+							<property name="justification">
+								<int>0</int>
+							</property>
+							<property name="alignment">
+								<int>3</int>
+							</property>
+							<property name="labelOption">
+								<int>3</int>
+							</property>
+							<property name="labelIndex">
+								<int>0</int>
+							</property>
+							<property name="help">
+								<object class="com.zerog.ia.installer.util.Help" objectID="4be7bc61bf69">
+									<property name="showHelp">
+										<boolean>false</boolean>
+									</property>
+								</object>
+							</property>
+						</object>
+					</method>
+				</object>
+			</property>
+			<property name="postUninstallActions">
+				<object class="java.util.Vector">
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.UninstallCompleteAction" objectID="4be7bc70bf6d">
+							<property name="imageOption">
+								<int>1</int>
+							</property>
+							<property name="stepTitle">
+								<string><![CDATA[Uninstall Complete]]></string>
+							</property>
+							<property name="justification">
+								<int>0</int>
+							</property>
+							<property name="alignment">
+								<int>3</int>
+							</property>
+							<property name="labelOption">
+								<int>3</int>
+							</property>
+							<property name="labelIndex">
+								<int>0</int>
+							</property>
+							<property name="uninstallSuccessMessage">
+								<string><![CDATA[All items were successfully uninstalled.]]></string>
+							</property>
+							<property name="uninstallIncompleteMessage">
+								<string><![CDATA[The following items could not be removed:]]></string>
+							</property>
+							<property name="rebootRecommendedMessage">
+								<string><![CDATA[You should restart the system to complete the uninstallation.]]></string>
+							</property>
+							<property name="rebootRequiredMessage">
+								<string><![CDATA[You need to restart the system to complete the uninstallation.]]></string>
+							</property>
+							<property name="allowUserChoice">
+								<boolean>true</boolean>
+							</property>
+							<property name="showsRebootStatusMessage">
+								<boolean>true</boolean>
+							</property>
+							<property name="showsInstallStatusMessage">
+								<boolean>true</boolean>
+							</property>
+							<property name="showsUnhandledFileList">
+								<boolean>true</boolean>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.RebootAction" objectID="4be7bc71bf6e">
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="4be7bc70bf6f">
+									<property name="operation">
+										<string><![CDATA[contains]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$RESTART_NEEDED$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[YES]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="4be7bc71bf6f">
+									<property name="operation">
+										<string><![CDATA[does not contain]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$USER_REQUESTED_RESTART$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[NO]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+				</object>
+			</property>
+			<property name="inputLanguage">
+				<string><![CDATA[en]]></string>
+			</property>
 			<visualChildren>
 				<object class="com.zerog.ia.installer.InstallSet" objectID="e14b385d9895">
 					<property name="imagePath">
-						<string><![CDATA[com/zerog/ia/installer/images/]]></string>
+						<string><![CDATA[$IA_HOME$\resource\image_defaults\com\zerog\ia\installer\images\]]></string>
 					</property>
 					<property name="description">
 						<string><![CDATA[This will install all the files for your application.]]></string>
 					</property>
 					<property name="imageName">
-						<string><![CDATA[typicalIcon.gif]]></string>
+						<string><![CDATA[typicalIcon.png]]></string>
 					</property>
 					<property name="shortName">
 						<string><![CDATA[Full]]></string>
@@ -1255,8 +2364,11 @@ and any path to a file to read from that file]]></string>
 											<property name="destinationName">
 												<string><![CDATA[Uninstall gallery_remote]]></string>
 											</property>
-											<property name="featureUninstallEnabled">
+											<property name="neverRestarts">
 												<boolean>false</boolean>
+											</property>
+											<property name="asksUserAboutRestart">
+												<boolean>true</boolean>
 											</property>
 										</object>
 									</property>
@@ -1277,6 +2389,9 @@ and any path to a file to read from that file]]></string>
 											</property>
 											<property name="removeRecursively">
 												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -1306,36 +2421,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[ChangeLog]]></string>
 											</property>
 											<property name="fileSize">
-												<long>7350</long>
+												<long>19059</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="e14cdefa98a4">
-											<property name="unixPermissions">
-												<string><![CDATA[664]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[default.gif]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[default.gif]]></string>
-											</property>
-											<property name="fileSize">
-												<long>950</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="e14cdef998a5">
@@ -1358,10 +2450,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[defaults.properties]]></string>
 											</property>
 											<property name="fileSize">
-												<long>2538</long>
+												<long>3799</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object refID="e14cdefa98a5"/>
@@ -1390,6 +2485,9 @@ and any path to a file to read from that file]]></string>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="e14cdefa98a6">
 											<property name="unixPermissions">
@@ -1411,10 +2509,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[LICENSE]]></string>
 											</property>
 											<property name="fileSize">
-												<long>18118</long>
+												<long>18457</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.CreateShortcut" objectID="e14b436a98a4">
@@ -1429,52 +2530,6 @@ and any path to a file to read from that file]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
-											</property>
-											<property name="args">
-												<string><![CDATA[]]></string>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="57e3c9cba7c1">
-											<property name="unixPermissions">
-												<string><![CDATA[664]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[ReadMe.html]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[ReadMe.html]]></string>
-											</property>
-											<property name="fileSize">
-												<long>8604</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.actions.CreateShortcut" objectID="57e9e516a7fb">
-											<property name="targetAction">
-												<object refID="57e3c9cba7c1"/>
-											</property>
-											<property name="useInstalledFile">
-												<boolean>true</boolean>
-											</property>
-											<property name="workingDir">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[ReadMe]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -1500,6 +2555,842 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[]]></string>
 											</property>
 										</object>
+										<object refID="ad46e3af8330"/>
+										<object refID="ed69f3f68332"/>
+										<object refID="ed69f3f58333"/>
+										<object refID="ed69f3f68333"/>
+										<object refID="ed69f3f58334"/>
+										<object refID="ed69f3f68334"/>
+										<object refID="ed69f3f58335"/>
+										<object refID="ed69f3f68335"/>
+										<object refID="ed69f3f58336"/>
+										<object refID="ed69f3f68336"/>
+										<object refID="ed69f3f58337"/>
+										<object refID="ed69f3f68337"/>
+										<object refID="ed69f3f58338"/>
+										<object refID="ed69f3f68338"/>
+										<object refID="ed69f3f58339"/>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f5833a">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[jpegtran.preinstalled]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\jpegtran\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[jpegtran.properties]]></string>
+											</property>
+											<property name="fileSize">
+												<long>330</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="b80aa77684ad">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f5833c">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[jpegtran.exe]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\jpegtran\win32\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[jpegtran.exe]]></string>
+											</property>
+											<property name="fileSize">
+												<long>139264</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="ed69f3f6833c">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[jpegtran.properties]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\jpegtran\win32\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[jpegtran.properties]]></string>
+											</property>
+											<property name="fileSize">
+												<long>317</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="ed86f60b837f">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object refID="ed85f574837c"/>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ed69f3f6833b">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\jpegtran\win32]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[win32]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="ed6a64df833f">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object refID="ed69f3f5833c"/>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ed69f3f68339">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\jpegtran]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[jpegtran]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="ed69f3f5833a"/>
+												<object refID="ed69f3f6833c"/>
+												<object refID="ed69f3f6833b"/>
+											</visualChildren>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc66932f">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.faq.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.faq.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>7227</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc659330">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>5274</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc669330">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.intro.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.intro.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>2574</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc659331">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.problems.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.problems.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>2077</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc669331">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.protocol.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.protocol.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>43266</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc659332">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.software.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.software.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>5409</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc669332">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[gallery-remote.using.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[gallery-remote.using.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>10344</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc659333">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[html.css]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[html.css]]></string>
+											</property>
+											<property name="fileSize">
+												<long>134</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc669336">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[index.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[index.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>6019</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc659337">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[preface.html]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[preface.html]]></string>
+											</property>
+											<property name="fileSize">
+												<long>1462</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="a66afc669337">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[pretty-html.css]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[pretty-html.css]]></string>
+											</property>
+											<property name="fileSize">
+												<long>417</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.CreateShortcut" objectID="a66c580d9338">
+											<property name="targetAction">
+												<object refID="a66afc669336"/>
+											</property>
+											<property name="useInstalledFile">
+												<boolean>true</boolean>
+											</property>
+											<property name="workingDir">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[ReadMe.html]]></string>
+											</property>
+											<property name="args">
+												<string><![CDATA[]]></string>
+											</property>
+										</object>
+										<object refID="83eedd7f84b0"/>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ad46e39e832e">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\lib]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[lib]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="ad46e3af8330"/>
+												<object refID="83eedd7f84b0"/>
+											</visualChildren>
+										</object>
+										<object refID="4be96165bf72"/>
+										<object refID="4be96166bf72"/>
+										<object refID="4be96175bf72"/>
+										<object refID="4be96176bf72"/>
+										<object refID="4be96185bf72"/>
+										<object refID="ed69f3f58330"/>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="a66afc669333">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage\images]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[images]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="a66afc65932f">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\..\gallery_docs\dist\grpackage]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[Documentation]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="a66afc66932f"/>
+												<object refID="a66afc659330"/>
+												<object refID="a66afc669330"/>
+												<object refID="a66afc659331"/>
+												<object refID="a66afc669331"/>
+												<object refID="a66afc659332"/>
+												<object refID="a66afc659333"/>
+												<object refID="a66afc669333"/>
+												<object refID="a66afc669332"/>
+												<object refID="a66afc669336"/>
+												<object refID="a66afc659337"/>
+												<object refID="a66afc669337"/>
+											</visualChildren>
+										</object>
 									</installChildren>
 								</object>
 							</installChildren>
@@ -1514,78 +3405,6 @@ and any path to a file to read from that file]]></string>
 							<property name="shortName">
 								<string><![CDATA[ImageMa]]></string>
 							</property>
-							<rules logicalOperation="AND">
-								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="566f922296aa">
-									<property name="installOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows 95]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 98]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Me]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-										</object>
-									</property>
-									<property name="doNotInstallOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Mac OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Mac OS X]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Solaris]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[SunOS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[HP-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Linux]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[FreeBSD]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-										</object>
-									</property>
-								</object>
-							</rules>
 							<installChildren>
 								<object refID="e14b385e9893"/>
 								<object refID="e14b385d9896"/>
@@ -1646,6 +3465,9 @@ and any path to a file to read from that file]]></string>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
 										</object>
 									</property>
 									<installChildren>
@@ -1667,14 +3489,89 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[im.properties.preinstalled]]></string>
+												<string><![CDATA[im.properties]]></string>
 											</property>
 											<property name="fileSize">
-												<long>787</long>
+												<long>1033</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="b80b7e8c84ad">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb20d968c">
 											<property name="unixPermissions">
@@ -1696,10 +3593,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[LICENSE]]></string>
 											</property>
 											<property name="fileSize">
-												<long>1533</long>
+												<long>1564</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21c9699">
@@ -1727,6 +3627,9 @@ and any path to a file to read from that file]]></string>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21d9699">
 											<property name="unixPermissions">
@@ -1748,10 +3651,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[convert.exe]]></string>
 											</property>
 											<property name="fileSize">
-												<long>94282</long>
+												<long>126976</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21d969b">
@@ -1774,10 +3680,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CORE_RL_jpeg_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>172112</long>
+												<long>135168</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21c969c">
@@ -1800,10 +3709,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CORE_RL_lcms_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>90192</long>
+												<long>102400</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21d969d">
@@ -1826,10 +3738,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CORE_RL_magick_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>1138770</long>
+												<long>1101824</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb21c969e">
@@ -1852,10 +3767,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CORE_RL_png_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>176207</long>
+												<long>135168</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb22c969e">
@@ -1878,10 +3796,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[CORE_RL_ttf_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>278607</long>
+												<long>286720</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb22d96a1">
@@ -1904,10 +3825,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[im.properties]]></string>
 											</property>
 											<property name="fileSize">
-												<long>787</long>
+												<long>1056</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 											<rules logicalOperation="AND">
 												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="566e5acb96aa">
@@ -2002,10 +3926,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_bmp_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>32849</long>
+												<long>19968</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23d96a5">
@@ -2028,10 +3955,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_gif_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>32849</long>
+												<long>14336</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23c96a6">
@@ -2054,10 +3984,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_jpeg_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>32850</long>
+												<long>24576</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23d96a6">
@@ -2080,10 +4013,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_pict_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>36946</long>
+												<long>21504</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23c96a7">
@@ -2106,10 +4042,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_png_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>69713</long>
+												<long>94208</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23d96a7">
@@ -2132,10 +4071,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[IM_MOD_RL_psd_.dll]]></string>
 											</property>
 											<property name="fileSize">
-												<long>32849</long>
+												<long>18944</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23c96a8">
@@ -2158,10 +4100,13 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[modules.mgk]]></string>
 											</property>
 											<property name="fileSize">
-												<long>2647</long>
+												<long>3240</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="566cb23d96a8">
@@ -2189,6 +4134,9 @@ and any path to a file to read from that file]]></string>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="566cb21d9696">
 											<property name="unixPermissions">
@@ -2211,6 +4159,9 @@ and any path to a file to read from that file]]></string>
 											</property>
 											<property name="removeRecursively">
 												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -2241,6 +4192,9 @@ and any path to a file to read from that file]]></string>
 											<property name="removeRecursively">
 												<boolean>false</boolean>
 											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
 											</property>
@@ -2252,115 +4206,6 @@ and any path to a file to read from that file]]></string>
 												<object refID="566cb23c96a7"/>
 												<object refID="566cb23d96a7"/>
 												<object refID="566cb23c96a8"/>
-											</visualChildren>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="566cb21c9696">
-											<property name="unixPermissions">
-												<string><![CDATA[775]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\imagemagick\win32]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[win32]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<rules logicalOperation="AND">
-												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="32400ddca77b">
-													<property name="installOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows 95]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 98]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2000]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows XP]]></string>
-															</method>
-														</object>
-													</property>
-													<property name="doNotInstallOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Mac OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Mac OS X]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Solaris]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[SunOS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[HP-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Linux]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[AIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[FreeBSD]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-														</object>
-													</property>
-												</object>
-											</rules>
-											<visualChildren>
-												<object refID="566cb21d9696"/>
-												<object refID="566cb21d9699"/>
-												<object refID="566cb21d969b"/>
-												<object refID="566cb21c969c"/>
-												<object refID="566cb21d969d"/>
-												<object refID="566cb21c969e"/>
-												<object refID="566cb22c969e"/>
-												<object refID="566cb22c96a3"/>
-												<object refID="566cb23d96a8"/>
 											</visualChildren>
 										</object>
 										<object class="com.zerog.ia.installer.actions.SpeedRegistry" objectID="57a6e616a778">
@@ -2621,6 +4466,178 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</rules>
 										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4beae91fbf74">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[CORE_RL_bzlib_.dll]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\imagemagick\win32\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[CORE_RL_bzlib_.dll]]></string>
+											</property>
+											<property name="fileSize">
+												<long>61440</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="4beae920bf74">
+											<property name="unixPermissions">
+												<string><![CDATA[664]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[CORE_RL_zlib_.dll]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\imagemagick\win32\]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[CORE_RL_zlib_.dll]]></string>
+											</property>
+											<property name="fileSize">
+												<long>45568</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<property name="targetCheckKind">
+												<int>0</int>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="566cb21c9696">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\imagemagick\win32]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[win32]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="32400ddca77b">
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Windows 95]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 98]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows Me]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2000]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows XP]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/2]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Irix]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[DG-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Compaq's Digital UNIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Rhapsody]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+												</object>
+											</rules>
+											<visualChildren>
+												<object refID="4beae920bf74"/>
+												<object refID="4beae91fbf74"/>
+												<object refID="566cb21d9696"/>
+												<object refID="566cb21d9699"/>
+												<object refID="566cb21d969b"/>
+												<object refID="566cb21c969c"/>
+												<object refID="566cb21d969d"/>
+												<object refID="566cb21c969e"/>
+												<object refID="566cb22c969e"/>
+												<object refID="566cb22c96a3"/>
+												<object refID="566cb23d96a8"/>
+											</visualChildren>
+										</object>
 										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="566cb1ed9688">
 											<property name="unixPermissions">
 												<string><![CDATA[775]]></string>
@@ -2642,6 +4659,9 @@ and any path to a file to read from that file]]></string>
 											</property>
 											<property name="removeRecursively">
 												<boolean>false</boolean>
+											</property>
+											<property name="totalSize">
+												<long>0</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -2710,13 +4730,15 @@ and any path to a file to read from that file]]></string>
 						<object refID="e14b387d9899"/>
 						<object refID="e14b435a989f"/>
 						<object refID="e14cdef998a4"/>
-						<object refID="e14cdefa98a4"/>
 						<object refID="e14cdef998a5"/>
 						<object refID="e14cdefa98a5"/>
 						<object refID="e14cdef998a6"/>
 						<object refID="e14cdefa98a6"/>
-						<object refID="57e3c9cba7c1"/>
 						<object refID="566cb1ed9688"/>
+						<object refID="ed69f3f68339"/>
+						<object refID="ad46e39e832e"/>
+						<object refID="ed69f3f58330"/>
+						<object refID="a66afc65932f"/>
 					</visualChildren>
 				</object>
 				<object class="com.zerog.ia.installer.GhostDirectory" objectID="e14b436b98a4">
@@ -2731,8 +4753,8 @@ and any path to a file to read from that file]]></string>
 					</property>
 					<visualChildren>
 						<object refID="e14b436a98a4"/>
-						<object refID="57e9e516a7fb"/>
 						<object refID="57f452f2a870"/>
+						<object refID="a66c580d9338"/>
 					</visualChildren>
 				</object>
 				<object refID="e14b385e9893"/>
@@ -2742,5 +4764,7 @@ and any path to a file to read from that file]]></string>
 			</installChildren>
 		</object>
 	</installationObjects>
-	<restorationObjects count="0"/>
+	<restorationObjects count="1">
+		<object refID="a66afc669333"/>
+	</restorationObjects>
 </InstallAnywhere_Deployment_Project>
