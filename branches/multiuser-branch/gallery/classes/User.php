@@ -83,7 +83,7 @@ class User {
 			return true;
 		}
 
-		if ($album->canRead($this)) {
+		if ($album->canRead($this->uid)) {
 			return true;
 		}
 
@@ -95,7 +95,7 @@ class User {
 			return true;
 		}
 
-		if ($album->canWrite($this)) {
+		if ($album->canWrite($this->uid)) {
 			return true;
 		}
 
@@ -112,7 +112,7 @@ class User {
 			return true;
 		}
 
-		if ($album->canAddTo($this)) {
+		if ($album->canAddTo($this->uid)) {
 			return true;
 		}
 
@@ -124,7 +124,7 @@ class User {
 			return true;
 		}
 
-		if ($album->canDeleteFrom($this)) {
+		if ($album->canDeleteFrom($this->uid)) {
 			return true;
 		}
 
@@ -136,7 +136,7 @@ class User {
 			return true;
 		}
 
-		if ($album->canDelete($this)) {
+		if ($album->canDelete($this->uid)) {
 			return true;
 		}
 
@@ -164,7 +164,15 @@ class User {
 			return true;
 		}
 
-		if ($album->canChangeText($this)) {
+		if ($album->canChangeText($this->uid)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function isOwnerOfAlbum($album) {
+		if ($album->isOwner($this)) {
 			return true;
 		}
 
@@ -175,12 +183,12 @@ class User {
 		return true;
 	}
 
-	function load($username) {
+	function load($uid) {
 		global $app;
 
 		$dir = $app->userDir;
 		
-		$tmp = getFile("$app->userDir/$username");
+		$tmp = getFile("$app->userDir/$uid");
 		if ($tmp) {
 			$this = unserialize($tmp);
 		}
@@ -191,12 +199,12 @@ class User {
 		$success = 0;
 
 		$dir = $app->userDir;
-		$tmpfile = tempnam($dir, $this->username);
+		$tmpfile = tempnam($dir, $this->uid);
 
 		if ($fd = fopen($tmpfile, "w")) {
 			fwrite($fd, serialize($this));
 			fclose($fd);
-			$success = rename($tmpfile, "$dir/$this->username");
+			$success = rename($tmpfile, "$dir/$this->uid");
 		}
 
 		return $success;
