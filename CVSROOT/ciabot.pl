@@ -58,7 +58,7 @@ $sync_delay = 5;
 #  %trimmed%- a notice about the log message being trimmed, if it is
 #             ($trimmed_template)
 #  %logmsg% - the log message
-$commit_template = '{green}%user%{normal}%tag% * {light blue}%module%{normal}/%path% (%file%): %trimmed%%logmsg%';
+$commit_template = '{green}%user%{normal}%tag% * {blue}%module%{normal}/%path% (%file%): %trimmed%%logmsg%';
 
 # The template string describing how the branch tag name should look like.
 # Expansions:
