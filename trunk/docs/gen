@@ -22,10 +22,6 @@ case $1 in
 			mkdir -p $DIST/bightml;
 		fi
 
-		if [ -e $DIST/bightml/manual.html ]; then
-			rm -f $DIST/bightml/manual.html;
-		fi
-
 		xsltproc docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/manual.html
 		cp -R ../../images .
 		rm -rf images/CVS
