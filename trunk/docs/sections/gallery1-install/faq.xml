@@ -1565,7 +1565,7 @@ print getcwd ();
      <answer>
       <para>
        Some other application has setup PHP to use a user-defined session handler.
-       Gallery, however, doesn't run it's own handler and relies on PHP to handle
+       Gallery, however, doesn't run its own handler and relies on PHP to handle
        things.  To correct for this, add this line to the end of your &htaccess;
        file:
        <screen>
