@@ -1392,7 +1392,11 @@ print getcwd ();
        These values are <emphasis>defaults</emphasis>.  They take effect for
        new top-level albums, but do not affect already existing albums.
        If you want to change the value of these parameters for already
-       existing albums, edit each album's properties.
+       existing albums, edit each album's properties.  You can access album
+       properties by logging in as admin and going into the album in question.
+       Select "properties" from the &lt;&lt;admin options&gt;&gt; pulldown.
+       Then, in the popup window you will be able to change the properties
+       for that album. 
       </para>
      </answer>
     </qandaentry>
