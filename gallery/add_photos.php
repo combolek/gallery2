@@ -39,7 +39,7 @@ if (!$gallery->user->canAddToAlbum($gallery->album)) {
 	exit;
 }
 	
-if (!isset($boxes)) {
+if (!$boxes) {
 	$boxes = 5;
 }
 

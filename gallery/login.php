@@ -36,9 +36,6 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
 
 <?php
 // Security check.
-if (!isset($uname)) {
-	$uname="";
-}
 $uname = removeTags($uname);
 ?>
 
@@ -54,7 +51,7 @@ $uname = removeTags($uname);
 <br>
 <br>
 <?php
-if (isset($submit)) {
+if ($submit) {
 	if ($uname && $gallerypassword) {
 		$tmpUser = $gallery->userDB->getUserByUsername($uname);
 		if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword)) {
@@ -83,7 +80,7 @@ if (isset($submit)) {
 <?php echo _("Logging in gives you greater permission to view, create, modify and delete albums.") ?>
 <p>
 <table>
-<?php if (isset($invalid)) { ?>
+<?php if ($invalid) { ?>
  <tr>
   <td colspan=2>
    <?php echo gallery_error(_("Invalid username or password")); ?>
@@ -100,7 +97,7 @@ if (isset($submit)) {
   </td>
  </tr>
 
-<?php if (isset($error) && !isset($uname)) { ?>
+<?php if ($error && !$uname) { ?>
  <tr>
   <td colspan=2 align=center>
    <?php echo gallery_error(_("You must specify a username")); ?>
@@ -117,7 +114,7 @@ if (isset($submit)) {
   </td>
  </tr>
 
-<?php if (isset($error) && !isset($gallerypassword)) { ?>
+<?php if ($error && !$gallerypassword) { ?>
  <tr>
   <td colspan=2 align=center>
    <?php echo gallery_error(_("You must specify a password")); ?>

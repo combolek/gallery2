@@ -47,13 +47,7 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload")) {
 	 */
 	$GALLERY_MODULENAME = $name;
 	$GALLERY_BASEDIR = "modules/$GALLERY_MODULENAME/";
-	$GALLERY_EMBEDDED_INSIDE='nuke';
-
-	if (isset($GLOBALS['pnconfig']) && function_exists("authorised")) {
-		$GALLERY_EMBEDDED_INSIDE_TYPE = "postnuke"; 
-	} else {
-		$GALLERY_EMBEDDED_INSIDE_TYPE = "phpnuke"; 
-	}
+	$GALLERY_EMBEDDED_INSIDE = "nuke";
 
 	if (!$include) {
 		$include = "albums.php";

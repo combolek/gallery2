@@ -828,7 +828,7 @@ function detect_exec_status()
 {
 	global $gallery;
 
-	if (isset($gallery->app) && isset($gallery->app->expectedExecStatus)) {
+	if ($gallery->app && isset($gallery->app->expectedExecStatus)) {
 		return $gallery->app->expectedExecStatus;
 	}
 

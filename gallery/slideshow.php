@@ -75,10 +75,10 @@ if (!strcmp($borderwidth, "off")) {
 $bgcolor = $gallery->album->fields['bgcolor'];
 $title = $gallery->album->fields["title"];
 
-define('PHOTO_URL',         1 << 0);
-define('PHOTO_CAPTION',     1 << 1);
-define('PHOTO_URL_AS_HREF', 1 << 2);
-define('PHOTO_ALL',     (1<<16)-1);      // all bits set
+define(PHOTO_URL,         1 << 0);
+define(PHOTO_CAPTION,     1 << 1);
+define(PHOTO_URL_AS_HREF, 1 << 2);
+define(PHOTO_ALL    ,     (1<<16)-1);      // all bits set
 
 function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
     global $gallery;
@@ -134,6 +134,7 @@ function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
 
 	// Go to the next photo
 	$index = getNextPhoto($index);
+	$photosLeft--;
     }
 
     return $photo_count;
@@ -159,8 +160,8 @@ if ($gallery->album->fields["linkcolor"]) {
 if ($gallery->album->fields["bgcolor"]) {
         echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
 }
-if (isset($gallery->album->fields["background"])) {
-        echo "BODY { background-image:url(".$gallery->album->fields['background']."); } ";
+if ($gallery->album->fields["background"]) {
+        echo "BODY { background-image:url(".$gallery->album->fields[background]."); } ";
 }
 if ($gallery->album->fields["textcolor"]) {
         echo "BODY, TD {color:".$gallery->album->fields[textcolor]."; }";
@@ -300,7 +301,7 @@ function stop() {
 }
 
 function play() {
-    changeElementText("stopOrStartText", "<?php echo _("stop") ?>");
+    changeElementText("stopOrStartText", <?php echo '"'. _("stop") .'"' ?>);
 
     onoff = 1;
     status = "<?php echo _("Slide show is running...") ?>";
@@ -310,10 +311,10 @@ function play() {
 function changeDirection() {
     if (direction == 1) {
 	direction = -1;
-	changeElementText("changeDirText", "<?php echo _("forward direction") ?>");
+	changeElementText("changeDirText", <?php echo '"'. _("forward") .'"' ?>);
     } else {
 	direction = 1;
-	changeElementText("changeDirText", "<?php echo _("reverse direction") ?>");
+	changeElementText("changeDirText", <?php echo '"'. _("reverse") .'"' ?>);
     }
     preload_next_photo();
 
@@ -471,7 +472,7 @@ do {
     $pAlbum->load($pAlbumName);
     $breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($pAlbumName) .
       "\">" . $pAlbum->fields['title'] . "</a>";
-  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+  } elseif (!$gallery->session->offline || $gallery->session->offlineAlbums["albums.php"]) {
     //-- we're at the top! ---
     $breadtext[$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") .
       "\">" . $gallery->app->galleryTitle . "</a>";
@@ -518,7 +519,7 @@ include ($GALLERY_BASEDIR . "layout/adminbox.inc");
 
 <?php
 echo "&nbsp;<a href='#' onClick='stopOrStart(); return false;'>[<span id='stopOrStartText'>". _("stop") ."</span>]</a>";
-echo "&nbsp;<a href='#' onClick='changeDirection(); return false;'>[<span id='changeDirText'>". _("reverse direction") ."</span>]</a>";
+echo "&nbsp;<a href='#' onClick='changeDirection(); return false;'>[<span id='changeDirText'>". _("reverse") ."</span> ". _("direction") ."]</a>";
 
 if ($gallery->user->canViewFullImages($gallery->album)) {
     if ($slide_full) {

@@ -40,7 +40,6 @@ foreach ($sensitiveList as $sensitive) {
  * error reporting is turned all the way up.  We'll fix this in v2.0
  */
 error_reporting(E_ALL & ~E_NOTICE);
-//error_reporting(E_ALL);
 
 /*
  * Figure out if register_globals is on or off and save that info
@@ -143,11 +142,11 @@ initLanguage();
 gallerySanityCheck();
 
 if (isset($GALLERY_EMBEDDED_INSIDE) &&
-	!strcmp($GALLERY_EMBEDDED_INSIDE, "nuke")) {
+    !strcmp($GALLERY_EMBEDDED_INSIDE, "nuke")) {
         include($GALLERY_BASEDIR . "classes/Database.php");
 
-	if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
-	/* We're in embedded in Postnuke */
+	/* Check for PostNuke */
+	if (isset($GLOBALS['pnconfig']) && function_exists("authorised")) {
 
 	    if (!function_exists("pnUserGetVar")) {
 		/* pre 0.7.1 */
@@ -176,7 +175,6 @@ if (isset($GALLERY_EMBEDDED_INSIDE) &&
 		    $gallery->userDB->getUserByUsername($gallery->session->username);
 	    }
 	} else {
-	/* we're in phpnuke */
 	    include($GALLERY_BASEDIR . "classes/database/mysql/Database.php");
 	    include($GALLERY_BASEDIR . "classes/nuke5/UserDB.php");
 	    include($GALLERY_BASEDIR . "classes/nuke5/User.php");
@@ -237,7 +235,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE) &&
 	$gallery->userDB = new Gallery_UserDB;
 
 	/* Load their user object with their username as the key */
-	if (isset($gallery->session->username)) {
+	if ($gallery->session->username) {
 		$gallery->user = 
 			$gallery->userDB->getUserByUsername($gallery->session->username);
 	}
@@ -260,7 +258,7 @@ if ($gallery->userDB->versionOutOfDate())
 }
 
 /* Load the correct album object */
-if (!empty($gallery->session->albumName)) {
+if ($gallery->session->albumName) {
 	$gallery->album = new Album;
 	$ret = $gallery->album->load($gallery->session->albumName);
 	if (!$ret) {

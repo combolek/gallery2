@@ -1,113 +1,37 @@
-2003-08-21  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-cvs-b16
+2003-08-21  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4-RC1
 
 	* Edited README
 
-2003-08-22 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b15
+	* v1.4 Release Candidate 1
 
-	* Synced languages against changes.
+2003-08-21 Jens Tkotz  <jens@peino.de> 1.4-cvs-b139
+
+	* Another Italian update
+
+2003-08-20 Jens Tkotz  <jens@peino.de> 1.4-cvs-b138
 
 	* Language Update: Italian (it_IT)
 
-2003-08-21 Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b14
+2003-08-20 Jens Tkotz  <jens@peino.de> 1.4-cvs-b137
 
-        * Quote attributes that HTML requires to be quoted (i.e. non-numeric
-	  things like links and image sources).  Hopefully caught all of them!
+	* Language Update: Spanish (es_ES), French (fr_FR)
 
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b13
+2003-08-18  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4-cvs-b136
 
-	* !!! UNDO Change of Value from $GALLERY_EMBEDDED_INSIDE !!!
+        * Removed my code which caused Gallery not to use Nuke's language.
 
-	* Added new global $GALLERY_EMBEDDED_INSIDE_TYPE which contains the
-	  nuketype (or whatever we are going to support in future) This was
-	  done for avoiding problems customizations require value 'nuke'.
+2003-08-18  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4-cvs-b135
 
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b12
+	* Changed error level so notices and warnings are not displayed.  
+	  There may still be warnings we have overlooked, and users should
+	  not see them.
 
-	* !!! Changed Value from $GALLERY_EMBEDDED_INSIDE !!!
-	  Now it's not only 'nuke' its 'postnuke' or 'phpnuke' We dont have to
-	  do extra checks later.
+2003-08-17  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4-cvs-b134
 
-	* Fixed bug in html_wrap/wrapper.header.default which made it not
-	  possible to have Gallery as the start page in PostNuke.  To fix this
-	  I added a test for Nuketype (see above).
-
-	* Note: the change of $GALLERY_EMBEDDED_INSIDE may cause problems
-	  with customized sites/blocks which do a test if
-	  $GALLERY_EMBEDDED_INSIDE=='nuke'.
-
-2003-08-21 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b11
-	
-	* Changed back to error_reporting(E_ALL & ~E_NOTICE). (Left in b10)
-
-	* Set ML_mode to 2 if we got none from Config. Wizard.
-	
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b10
-
-	* Language update: Italian (it_IT)
-
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b9
-	
-	* Changed behaviour of initlanguage().
-	  We now don't set $gallery->app->ML_mode if we have none,
-	  because it would override the value from config_data.inc.
-
-	* Changed text in slideshow to make it easier for translation. With
-	  luck we can use the translation from slideshow_low so no translation
-	  file additions will be necessary. Just a sync.
-
-2003-08-20 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b8 
-
-	* Language Update: French (fr_FR), Spanish (es_ES)
-
-	* Fixed little bug in a script.
-
-2003-08-19 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b7
-
-	* Tweaked initLanguage:
-	  - Removed en_US as default when no browser langauge is available.
-	  - Cleaned code to fetch warning in this case.
-
-	* Updated localization report generator.
-
-	* REALLY fix what i tried to do in -b5 #2.
-
-	* Removed debug code from ml_pulldown.inc.
-
-	* Tweaked bash script (added -f paramter which means fast, no more
-	  affirmation).
-
-2003-08-18  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b6
-
-        * Fix bug in URL upload code where, if you had images like 1.gif
-          and 11.gif, only the former would be detected.
-
-2003-08-18 Jens Tkotz  <jens@peino.de> 1.4.1-cvs-b5
-
-	* Fixed two bugs when Gallery was embedded
-	  1.) Removed Andrew's code which caused Gallery not to use Nuke's
-	      language.
-	  2.) Tweaked nls.php to separate aliases for Post/PHPNuke. Added
-	      detection for Post/PHPnuke to make combobox according to it.
-	      Language in PostNuke now changes correctly.
-
-	* Language Update: French (fr_FR), Norwegian (no_NO), Dutch (nl_NL) and
-	  Italian (it_IT)
-
-2003-08-18  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b4
-
-	* Warning message reductions throughout.
-
-	* Added html_wrap files to po/filelist, as they _could_ contain
-	  language strings.
-
-2003-08-17  Andrew Lindeman  <joyoflinux@yahoo.com> 1.4.1-cvs-b3
-
-        * Fixed bug in Nuke integration where the language was never saved.
+        * Fix bug in Nuke integration where the language was never saved.
           (Thanks Warren).
 
-2003-08-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-cvs-b2
-
-	* Code freeze of 1.4. Merging 1.4-cvs-b133 into 1.4.1 branch.
+***** NOTE: Code Freeze for 1.4-RC1 *****
 
 2003-08-16 Jens Tkotz  <jens@peino.de> 1.4-cvs-b133
 
@@ -192,14 +116,6 @@
 
 	* Changed the release version number from 1.3.5 to 1.4.
 
-2003-08-13  Bharat Mediratta  <bharat@menalto.com> 1.4.1-cvs-b1
-
-        * This is the beginning of development on v1.4.1.
-
-===============================================================================
-    v1.4 release branch created (1.3.5 was renamed to 1.4 before release)
-===============================================================================
-	
 2003-08-13 Jens Tkotz  <jens@peino.de> 1.3.5-cvs-b123
 
         * Cleaned up all language files. No more obsolete entries, no "# "
@@ -3752,3 +3668,4 @@ v1.3 release
 2000-07-04  Bharat Mediratta  <bharat@menalto.com>
 
 	* Updated README to reflect v1.0 feature list
+

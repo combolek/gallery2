@@ -66,7 +66,7 @@ if (!isset($page)) {
 
 $albumName = $gallery->session->albumName;
 
-if (!isset($gallery->session->viewedAlbum[$albumName]) && !$gallery->session->offline) {
+if (!$gallery->session->viewedAlbum[$albumName] && !$gallery->session->offline) {
 	$gallery->session->viewedAlbum[$albumName] = 1;
 	$gallery->album->incrementClicks();
 } 
@@ -99,17 +99,16 @@ if ($previousPage == 0) {
 $bordercolor = $gallery->album->fields["bordercolor"];
 
 $imageCellWidth = floor(100 / $cols) . "%";
+$fullWidth="100%";
 
 $navigator["page"] = $page;
 $navigator["pageVar"] = "page";
 $navigator["maxPages"] = $maxPages;
-$navigator["fullWidth"] = "100";
-$navigator["widthUnits"] = "%";
+$navigator["fullWidth"] = $fullWidth;
 $navigator["url"] = makeAlbumUrl($gallery->session->albumName);
 $navigator["spread"] = 5;
 $navigator["bordercolor"] = $bordercolor;
 
-$fullWidth = $navigator["fullWidth"] . $navigator["widthUnits"];
 $breadCount = 0;
 $breadtext = array();
 $pAlbum = $gallery->album;
@@ -119,12 +118,12 @@ do {
   }
   $pAlbumName = $pAlbum->fields['parentAlbumName'];
   if ($pAlbumName && (!$gallery->session->offline 
-     || isset($gallery->session->offlineAlbums[$pAlbumName]))) {
+     || $gallery->session->offlineAlbums[$pAlbumName])) {
 	$pAlbum = new Album();
 	$pAlbum->load($pAlbumName);
 	$breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($pAlbumName) . 
 	"\">" . $pAlbum->fields['title'] . "</a>";
-  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+  } elseif (!$gallery->session->offline || $gallery->session->offlineAlbums["albums.php"]) {
 	//-- we're at the top! --- 
 	$breadtext[$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") . 
 	"\">" . $gallery->app->galleryTitle . "</a>"; 
@@ -158,15 +157,15 @@ $breadcrumb["bordercolor"] = $bordercolor;
       <link rel="last" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => $maxPages)) ?>" />
   <?php } if ($gallery->album->isRoot() && 
   	(!$gallery->session->offline || 
-	 isset($gallery->session->offlineAlbums["albums.php"]))) { ?>
+	 $gallery->session->offlineAlbums["albums.php"])) { ?>
   <link rel="up" href="<?php echo makeAlbumUrl(); ?>" />
       <?php
       } else if (!$gallery->session->offline || 
-	 isset($gallery->session->offlineAlbums[$pAlbum->fields['parentAlbumName']])) { ?>
+	 $gallery->session->offlineAlbums[$pAlbum->fields['parentAlbumName']]) { ?>
   <link rel="up" href="<?php echo makeAlbumUrl($gallery->album->fields['parentAlbumName']); ?>" />
   <?php } 
   	if (!$gallery->session->offline || 
-	 isset($gallery->session->offlineAlbums["albums.php"])) { ?>
+	 $gallery->session->offlineAlbums["albums.php"]) { ?>
   <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
   <?php } ?>
   <style type="text/css">
@@ -183,7 +182,7 @@ if ($gallery->album->fields["linkcolor"]) {
 if ($gallery->album->fields["bgcolor"]) {
 	echo "BODY { background-color:".$gallery->album->fields['bgcolor']."; }";
 }
-if (isset($gallery->album->fields["background"])) {
+if ($gallery->album->fields["background"]) {
 	echo "BODY { background-image:url(".$gallery->album->fields['background']."); } ";
 }
 if ($gallery->album->fields["textcolor"]) {
@@ -225,7 +224,7 @@ if ($gallery->album->fields["textcolor"]) {
 	  var sel_value = selected_select.options[sel_index].value;
 	  selected_select.options[0].selected = true;
 	  selected_select.blur();
-	  <?php echo popup('sel_value', 1) ?>
+	  <?php echo popup(sel_value, 1) ?>
   } 
   // --> 
   </script>
@@ -312,11 +311,11 @@ if ($gallery->user->canChangeTextOfAlbum($gallery->album)) {
 		$adminCommands .= popup_link("[" . _("custom fields") ."]", 
 			"extra_fields.php?set_albumName=" .
 			$gallery->session->albumName);
-		$adminCommands .= '<a href="' . makeGalleryUrl("captionator.php", 
+		$adminCommands .= '<a href=' . makeGalleryUrl("captionator.php", 
 			array("set_albumName" => $gallery->session->albumName, 
 				"page" => $page, 
 				"perPage" => $perPage)) .
-			'">['. _("captions") . ']</a>&nbsp;';
+			'>['. _("captions") . ']</a>&nbsp;';
 	}
 }
 
@@ -343,18 +342,18 @@ if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($gallery->album)
 }
 if (($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($gallery->album)) &&
 	!strcmp($gallery->album->fields["public_comments"],"yes")) { 
-    $adminCommands .= '<a href="' . makeGalleryUrl("view_comments.php", array("set_albumName" => $gallery->session->albumName)) . '">[' . _("view&nbsp;all&nbsp;comments") . ']</a>&nbsp;';
+    $adminCommands .= '<a href=' . makeGalleryUrl("view_comments.php", array("set_albumName" => $gallery->session->albumName)) . '>[' . _("view&nbsp;all&nbsp;comments") . ']</a>&nbsp;';
 }
-$adminCommands .= '<a href="' . 
+$adminCommands .= '<a href=' . 
 	 makeGalleryUrl("slideshow.php",
 		array("set_albumName" => $albumName)) .
-	'">['. _("slideshow") .']</a> ';
+	'>['. _("slideshow") .']</a> ';
 
 if (!$GALLERY_EMBEDDED_INSIDE && !$gallery->session->offline) {
 	if ($gallery->user->isLoggedIn()) {
-	        $adminCommands .= "<a href=\"" .
+	        $adminCommands .= "<a href=" .
 					doCommand("logout", array(), "view_album.php", array("page" => $page)) .
-				  "\">[" . _("logout") . "]</a>";
+				  ">[" . _("logout") . "]</a>";
 	} else {
 	//	$adminCommands .= popup_link("[". _("login") ."]", "login.php", 0, true, 250, 500);
 		$adminCommands .= popup_link("[". _("login") ."]", "login.php", 0);
