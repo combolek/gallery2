@@ -428,4 +428,8 @@
       <l:template name="MsgOrig" text="Opphav: "/>
       <l:template name="MsgAud" text="Publikum: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0814 Norwegian (Nynorsk)"/>
+   </l:context>
 </l:l10n>

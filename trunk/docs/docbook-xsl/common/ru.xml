@@ -451,4 +451,8 @@
       <l:template name="MsgLevel" text="Level: "/>
       <l:template name="MsgOrig" text="Origin: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0419 Russian"/>
+   </l:context>
 </l:l10n>

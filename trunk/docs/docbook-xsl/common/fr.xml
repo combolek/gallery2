@@ -424,4 +424,8 @@
       <l:template name="MsgLevel" text="Niveau: "/>
       <l:template name="MsgOrig" text="Origine: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x040c French (FRANCE)"/>
+   </l:context>
 </l:l10n>

@@ -422,4 +422,8 @@
       <l:template name="MsgLevel" text="Tase: "/>
       <l:template name="MsgOrig" text="Algallikas: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0425 Estonian"/>
+   </l:context>
 </l:l10n>

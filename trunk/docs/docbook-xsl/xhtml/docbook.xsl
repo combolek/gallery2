@@ -142,7 +142,7 @@
     </xsl:if>
   </xsl:if>
 
-  <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'draft'                 and $draft.watermark.image != ''">
+  <xsl:if test="($draft.mode = 'yes' or                 ($draft.mode = 'maybe' and                 ancestor-or-self::*[@status][1]/@status = 'draft'))                 and $draft.watermark.image != ''">
     <style xmlns="http://www.w3.org/1999/xhtml" type="text/css"><xsl:text>
 body { background-image: url('</xsl:text>
 <xsl:value-of select="$draft.watermark.image"/><xsl:text>');

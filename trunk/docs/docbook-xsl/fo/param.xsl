@@ -64,6 +64,12 @@
 <xsl:param name="column.count.index" select="2"/>
 <xsl:param name="column.count.lot" select="1"/>
 <xsl:param name="column.count.titlepage" select="1"/>
+<xsl:param name="column.gap.back" select="'12pt'"/>
+<xsl:param name="column.gap.body" select="'12pt'"/>
+<xsl:param name="column.gap.front" select="'12pt'"/>
+<xsl:param name="column.gap.index" select="'12pt'"/>
+<xsl:param name="column.gap.lot" select="'12pt'"/>
+<xsl:param name="column.gap.titlepage" select="'12pt'"/>
 <xsl:attribute-set name="compact.list.item.spacing">
   <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
   <xsl:attribute name="space-before.minimum">0em</xsl:attribute>

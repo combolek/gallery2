@@ -11,6 +11,7 @@
 <!-- Ideally, onechunk would let anything be a chunk. But not today. -->
 
 <xsl:param name="onechunk" select="1"/>
+<xsl:param name="suppress.navigation">1</xsl:param>
 
 <xsl:template name="href.target.uri">
   <xsl:param name="object" select="."/>

@@ -1653,6 +1653,35 @@ because it uses extension functions to manipulate result-tree-fragments.</para>
 </refsect1>
 </refentry>
 
+<refentry id="draft.mode">
+<refmeta>
+<refentrytitle>draft.mode</refentrytitle>
+<refmiscinfo role="type">list</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>draft.mode</refname>
+<refpurpose>Select draft mode</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="draft.mode.frag">
+&lt;xsl:param name="draft.mode" select="'maybe'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Selects draft mode. If <parameter moreinfo="none">draft.mode</parameter> is
+<quote><literal moreinfo="none">yes</literal></quote>, the entire document will be treated
+as a draft. If it is <quote><literal moreinfo="none">no</literal></quote>, the entire document
+will be treated as a final copy. If it is <quote><literal moreinfo="none">maybe</literal></quote>,
+individual sections will be treated as draft or final independently, depending
+on how their <sgmltag class="attribute">status</sgmltag> attribute is set.
+</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="draft.watermark.image">
 <refmeta>
 <refentrytitle>draft.watermark.image</refentrytitle>
@@ -1809,7 +1838,7 @@ footer navigation will be suppressed.</para>
 </refsect1>
 </refentry>
 
-<refentry id="suppress.navigation">
+<refentry id="suppress.header.navigation">
 <refmeta>
 <refentrytitle>suppress.header.navigation</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -1832,7 +1861,7 @@ navigation will be suppressed.</para>
 </refsect1>
 </refentry>
 
-<refentry id="suppress.navigation">
+<refentry id="suppress.footer.navigation">
 <refmeta>
 <refentrytitle>suppress.footer.navigation</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -4389,7 +4418,7 @@ The order of selection when then parameter is non-zero is:
 </para>
 <orderedlist inheritnum="ignore" continuation="restarts">
 <listitem>
-    <para>If the stylesheet parameter <parameter moreinfo="none">preferred.mediaojbect.role</parameter> has a value, then the object whose role equals that value is selected.</para>
+    <para>If the stylesheet parameter <parameter moreinfo="none">preferred.mediaobject.role</parameter> has a value, then the object whose role equals that value is selected.</para>
 </listitem>
 <listitem>
 <para>Else if an object's role attribute has a value of
@@ -5977,7 +6006,9 @@ a default.</para>
 <refsect1><title>Description</title>
 
 <para>This parameter controls whether there should be folder-like
-icons (1) or book-like icons (0) in ToC.</para>
+icons (1) or book-like icons (0) in ToC. If you want to use
+folder-like icons you must swith off binary ToC using
+<parameter moreinfo="none">htmlhelp.hhc.binary</parameter>.</para>
 
 </refsect1>
 </refentry>
@@ -6770,6 +6801,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="default.float.class.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.image.width.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.table.width.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="draft.mode.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="draft.watermark.image.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ebnf.table.bgcolor.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ebnf.table.border.frag"&gt;&lt;/src:fragref&gt;

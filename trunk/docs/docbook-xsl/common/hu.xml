@@ -422,4 +422,8 @@
       <l:template name="MsgLevel" text="Szint: "/>
       <l:template name="MsgOrig" text="Eredet: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x040e Hungarian"/>
+   </l:context>
 </l:l10n>
