@@ -72,7 +72,7 @@ if ($photo->isMovie()) {
 list($imageWidth, $imageHeight) = $image->getDimensions();
 
 $do_fullOnly = !strcmp($gallery->session->fullOnly,"on") &&
-               !strcmp($album->fields["use_fullOnly"],"yes");
+			   !strcmp($album->fields["use_fullOnly"],"yes");
 if ($do_fullOnly) {
 	$full = 1;
 }
@@ -112,17 +112,17 @@ $page = ceil($index / ($album->fields["rows"] * $album->fields["cols"]));
 $borderColor = $album->fields["bordercolor"];
 $borderWidth = $album->fields["border"];
 if (!strcmp($borderWidth, "off")) {
-    $borderWidth = 1;
+	$borderWidth = 1;
 }
 
 //-- setup the album specific style sheet ---
 $albumStyle = "<style type=\"text/css\">\n";
 if ($album->fields["linkcolor"]) {
-    $albumStyle .= 
+	$albumStyle .= 
 		"  A:link, A:visited, A:active\n" .
-		"    { color: ".$album->fields[linkcolor]."; }\n" . 
+		"	{ color: ".$album->fields[linkcolor]."; }\n" . 
 		"  A:hover\n" . 
-		"    { color: #ff6600; }\n";
+		"	{ color: #ff6600; }\n";
 }
 if ($album->fields["bgcolor"]) {
 	$albumStyle .=
@@ -160,7 +160,7 @@ if (!strcmp($album->fields["public_comments"], "yes")) {
 }
 if (!$album->isMovie($id)) {
 
-    if (!strcmp($album->fields["use_fullOnly"], "yes")) {
+	if (!strcmp($album->fields["use_fullOnly"], "yes")) {
 		$name = "photo_view_toggle";
 		$commands[$name]['title'] = "View Images " .
 			(strcmp($gallery->session->fullOnly,"on") ? "Full" : "Normal");
@@ -170,15 +170,15 @@ if (!$album->isMovie($id)) {
 
 	}
    
-    if (!strcmp($album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
-        ($gallery->app->use_exif)) {
+	if (!strcmp($album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
+		($gallery->app->use_exif)) {
 		$name = "photo_properties";
 		$commands[$name]['title'] = "Properties";
 		$commands[$name]['href'] = makeGalleryUrl("view_photo_properties.php?index=$index");
-    }
+	}
 
 
-    if (!strcmp($album->fields["print_photos"],"shutterfly")) {
+	if (!strcmp($album->fields["print_photos"],"shutterfly")) {
 		$name = "photo_print_shutterfly";
 		$commands[$name]['title'] = "Print on Shutterfly";
 		$commands[$name]['action'] = "document.sflyc4p.returl.value=document.location; document.sflyc4p.submit()";
@@ -197,20 +197,20 @@ if (!$album->isMovie($id)) {
 		}
 		list($rawWidth, $rawHeight) = $image->getRawDimensions();
 
-        $pageBodyExtra .= "<form name=\"sflyc4p\" action=\"http://www.shutterfly.com/c4p/UpdateCart.jsp\" method=\"post\">\n"
+		$pageBodyExtra .= "<form name=\"sflyc4p\" action=\"http://www.shutterfly.com/c4p/UpdateCart.jsp\" method=\"post\">\n"
 			. "  <input type=hidden name=addim value=\"1\">\n"
-            . "  <input type=hidden name=protocol value=\"SFP,100\">\n"
-            . "  <input type=hidden name=pid value=\"C4P\">\n"
-            . "  <input type=hidden name=psid value=\"AFFL\">\n"
-            . "  <input type=hidden name=referid value=\"jackodog\">\n"
-            . "  <input type=hidden name=returl value=\"this-gets-set-by-javascript-in-onClick\">\n"
-            . "  <input type=hidden name=imraw-1 value=\"$rawImageURL\">\n"
-            . "  <input type=hidden name=imrawheight-1 value=\"$rawHeight\">\n"
-            . "  <input type=hidden name=imrawwidth-1 value=\"$rawWidth\">\n"
-            . "  <input type=hidden name=imthumb-1 value=\"$thumbImageURL\">\n"
-            . "  <input type=hidden name=imbkprntb-1 value=\"Hi\">\n"
-            . "</form>\n";
-    }
+			. "  <input type=hidden name=protocol value=\"SFP,100\">\n"
+			. "  <input type=hidden name=pid value=\"C4P\">\n"
+			. "  <input type=hidden name=psid value=\"AFFL\">\n"
+			. "  <input type=hidden name=referid value=\"jackodog\">\n"
+			. "  <input type=hidden name=returl value=\"this-gets-set-by-javascript-in-onClick\">\n"
+			. "  <input type=hidden name=imraw-1 value=\"$rawImageURL\">\n"
+			. "  <input type=hidden name=imrawheight-1 value=\"$rawHeight\">\n"
+			. "  <input type=hidden name=imrawwidth-1 value=\"$rawWidth\">\n"
+			. "  <input type=hidden name=imthumb-1 value=\"$thumbImageURL\">\n"
+			. "  <input type=hidden name=imbkprntb-1 value=\"Hi\">\n"
+			. "</form>\n";
+	}
 }
 
 
@@ -219,10 +219,10 @@ $navIds = $album->getIds($user, 1);
 $navPageCount = sizeof($navIds);
 $navPage = $navPageCount;
 while ($navPage > 0) { // looking for the index among the 'visible' items
-    if (!strcmp($navIds[$navPage], $id)) {
-        break;
-    }
-    $navPage--;
+	if (!strcmp($navIds[$navPage], $id)) {
+		break;
+	}
+	$navPage--;
 }
 $i_nav = 1; // pages are 1 based
 foreach ($navIds as $navId) {
@@ -239,25 +239,20 @@ $breadLevels[$breadCount]['href'] = makeAlbumUrl($albumName, "", array("page" =>
 $breadCount++;
 $pAlbum = $album;
 do {
-    if (!strcmp($pAlbum->fields["returnto"], "no")) {
-        break;
-    }   
-    $pAlbumName = $pAlbum->fields['parentAlbumName'];
-    if ($pAlbumName) {
-	$pAlbum = new Album($pAlbumName);
-        $breadLevels[$breadCount]['level'] = "Album";
-        $breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
-        $breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
-    } else { 
-        //-- we're at the top! ---
-        $breadLevels[$breadCount]['level'] = "Gallery";
-        $breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-        $breadLevels[$breadCount]['href'] = makeAlbumUrl();
-    }
-    $breadCount++;
-    if ($pAlbum) {
-    }
-} while ($pAlbumName);
+	if (!strcmp($pAlbum->fields["returnto"], "no")) {
+		break;
+	}
+	if ($pAlbum->isRoot()) {
+		break;
+	} else {
+		$pAlbumName = $pAlbum->fields['parentAlbumName'];
+		$pAlbum = new Album($pAlbumName);
+		$breadLevels[$breadCount]['level'] = "Album";
+		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
+		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
+	}
+	$breadCount++;
+} while ($pAlbum);
 
 //-- we built the array backwards, so reverse it now ---
 //-- XXX we have to zero-index this array to make it work ---
@@ -339,13 +334,13 @@ $GLO['layout']['dir'] = $GLO['gallery']['url'] . "/" . getLayoutFile("");
 
 //-- some axtra useful stuff ---
 $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
-                     "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
+					 "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
 $GLO['galleryProject']['anchor'] = "<a href=\"".$gallery->url."\">".
-                                 "Gallery v" . $gallery->version . "</a>";
+								 "Gallery v" . $gallery->version . "</a>";
 
 //-------------------------------------------------------------------------
 //-- The Layout of the Page ---
-//         
+//		 
 
 //-- first get the html for the header and footer and stick it in the GLO
 //-- for use by the layout. The html_wrap template gets is own limited
