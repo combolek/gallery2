@@ -111,9 +111,16 @@ class UserAdminView extends GalleryView {
 	    $subViewHtml = '';
 	}
 
+	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$show['userInPathbar'] = ($userId != $anonymousUserId);
+
 	/* Render our HTML body */
 	$template = $this->_getTemplate();
 	$template->setVariable('user', $user->getMemberData());
+	$template->setVariable('show', $show);
 	$template->setVariable('subViewChoices', $subViewChoices);
 	$template->setVariable('subViewHtml', $subViewHtml);
 	list($ret, $html) = $template->render('UserAdmin.tpl');

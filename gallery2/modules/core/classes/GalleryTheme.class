@@ -551,6 +551,7 @@ class GalleryTheme {
     function header($params, $content) { assert(false); }
     function pathbar($params, $content) { assert(false); }
     function pathbaritem($params, $content) { assert(false); }
+    function pathbarseparator($params) { assert(false); }
     function main($params, $content) { assert(false); }
     function maintitle1($params, $content) { assert(false); }
     function mainbody1($params, $content) { assert(false); }

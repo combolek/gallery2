@@ -49,6 +49,10 @@ class MatrixTheme extends GalleryTheme {
 	return '<span class="pathbar_item">' . $content . '</span>';
     }
     
+    function pathbarseparator($params) {
+	return '<span class="pathbar_item">&raquo;</span>';
+    }
+    
     function main($params, $content) {
 	return '<table class="main"> <tr> ' . $content . ' </tr> </table>';
     }

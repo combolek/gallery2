@@ -27,12 +27,12 @@
  */
 
 /**
- * Login controller tests
+ * UserLogin controller tests
  */
-class LoginControllerTest extends GalleryControllerTestCase {
+class UserLoginControllerTest extends GalleryControllerTestCase {
 
-    function LoginControllerTest($methodName) {
-	$this->GalleryControllerTestCase($methodName, 'core:Login');
+    function UserLoginControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'core:UserLogin');
     }
 
     function setUp() {
@@ -67,20 +67,21 @@ class LoginControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.login', 1);
 	GalleryUtilities::putRequestVariable('form.username', $this->_user->getUserName());
 	GalleryUtilities::putRequestVariable('form.password', 'password'); // from _createRandomUser
-	GalleryUtilities::putRequestVariable('return.x', 'y');
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('x' => 'y')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserPreferences')),
+			    $results);
     }
 
     function testLoginInvalidUser() {
 	GalleryUtilities::putRequestVariable('form.action.login', 1);
 	GalleryUtilities::putRequestVariable('form.username', 'some-bogus-user');
 	GalleryUtilities::putRequestVariable('form.password', 'password'); // from _createRandomUser
-	GalleryUtilities::putRequestVariable('return.x', 'y');
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:Login'), $results);
+	$this->assertEquals(array('view' => 'core:UserAdmin',
+				  'subView' => 'core:UserLogin'), $results);
 	$this->assert(GalleryUtilities::hasRequestVariable('form.error.invalidPassword'));
     }
 
@@ -88,19 +89,19 @@ class LoginControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.login', 1);
 	GalleryUtilities::putRequestVariable('form.username', $this->_user->getUserName());
 	GalleryUtilities::putRequestVariable('form.password', 'wrong password');
-	GalleryUtilities::putRequestVariable('return.x', 'y');
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:Login'), $results);
+	$this->assertEquals(array('view' => 'core:UserAdmin',
+				  'subView' => 'core:UserLogin'), $results);
 	$this->assert(GalleryUtilities::hasRequestVariable('form.error.invalidPassword'));
     }
 
     function testCancel() {
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
-	GalleryUtilities::putRequestVariable('return.x', 'y');
 	
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('x' => 'y')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserLogin')), $results);
     }
 }
 ?>
