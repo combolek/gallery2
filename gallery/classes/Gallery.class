@@ -93,20 +93,21 @@ class Gallery {
     var $_storage;
 
     /**
-     * A GalleryLock containing a Local lockset
+     * Our lock object
      *
      * @access private
-     * @var	object	GalleryLock	$_lockLocal;
+     * @var	object	GalleryLock	$_lock;
      */
-    var $_lockLocal;
+    var $_lock;
 
     /**
-     * A GalleryLock containing the World lock
+     * An associative array mapping GalleryItem ids to unique GalleryItem
+     * instances.
      *
      * @access private
-     * @var	object	GalleryLock	$_lockWorld;
+     * @var array $_nucleusCache;
      */
-    var $_lockWorld;
+    var $_nucleusCache;
 
     /*
      * ****************************************
@@ -131,33 +132,35 @@ class Gallery {
     }
 
     /**
-     * Get the GalleryItem for the id provided
+     * Get the cached GalleryNucleus for the id provided
      *
-     * Return the GalleryItem associated with this id.  Note  
+     * Return the GalleryNucleus associated with this id.  Note  
      * that this returns the unique object itself, not a copy.
      * This means that you can change/save it.
      *
      * @access public
-     * @param int the id of the GalleryItem
-     * @return object GalleryItem the GalleryItem
+     * @param int the id of the GalleryNucleus
      */
-    function &getItemById($id) {
-	return $this->_storage->getItemById($path);
+    function &getCachedNucleus($id) {
+	assert('!empty($id)');
+
+	return $this->_nucleusCache[$id];
     }
 
     /**
-     * Get the DataContainer for the id provided
+     * Add the GalleryNucleus to the cache.
      *
-     * Return the DataContainer associated with this id.  Note  
-     * that this returns the unique object itself, not a copy.
-     * This means that you can change/save it.
+     * Note that we're storing a reference to the GalleryNucleus that we
+     * received, so there should only ever be one instance.
      *
      * @access public
-     * @param int the id of the item
-     * @return object GalleryItem the GalleryItem
+     * @param object GalleryNucleus the GalleryNucleus to cache
      */
-    function &getDataContainerById($id) {
-	return $this->_storage->getDataContainerById($path);
+    function addToCache(&$nucleus) {
+	assert('!empty($nucleus)');
+	assert('!empty($nucleus->getId())');
+	
+	$this->_nucleusCache[$nucleus->getId()] =& $nucleus;
     }
 
     /**
@@ -199,7 +202,7 @@ class Gallery {
      * @param int the id of the GalleryItem
      */
     function setRootAlbumItemId($id) {
-	assert(!empty($id));
+	assert('!empty($id)');
 	$this->_rootAlbumItemId = $id;
     }
 
@@ -226,7 +229,7 @@ class Gallery {
      * @access public
      */
     function setActiveUserId($id) {
-	assert(!empty($id));
+	assert('!empty($id)');
 	$this->_activeUserId = $id;
     }
     
@@ -253,6 +256,7 @@ class Gallery {
      * @access public
      */
     function setUserDatabase(&$userDatabase) {
+	assert('!empty($userDatabase)');
 	$this->_userDatabase =& $userDatabase;
     }
 
@@ -278,7 +282,8 @@ class Gallery {
      * @param object GalleryImageToolkit the active image toolkit
      * @access public
      */
-    function getImageToolkit(&$imageToolkit) {
+    function setImageToolkit(&$imageToolkit) {
+	assert('!empty($imageToolkit)');
 	$this->_imageToolkit =& $imageToolkit;
     }
 
@@ -305,6 +310,7 @@ class Gallery {
      * @access public
      */
     function setConfig(&$config) {
+	assert('!empty($config)');
 	$this->_config =& $config;
     }
 
@@ -332,6 +338,7 @@ class Gallery {
      * @access public
      */
     function &setSession($session) {
+	assert('!empty($session)');
 	$this->_session =& $session;
     }
 
@@ -340,7 +347,7 @@ class Gallery {
      *
      * Use the active locking mechanism to lock the given GalleryNucleus instances.
      * 
-     * Use register_shutdown_function() to register the unlockLocal() method so
+     * Use register_shutdown_function() to register the unlock() method so
      * that we can be sure that we won't accidentally leave the instances
      * locked.
      * 
@@ -353,44 +360,26 @@ class Gallery {
 	/*
 	 * If we already have a lock, fail.
 	 */
-	assert(empty($this->_lockWorld) && empty($this->_lockLocal));
+	assert('empty($this->_lock)');
 
 	/*
 	 * If we don't have a lock, get one and register it with the
 	 * end-of-session handler so that we can be sure that it goes away.
 	 */
-	$this->_lockLocal = $this->_storage->newLock($array, $timeout);
-	if (empty($this->_lockLocal)) {
+	$this->_lock = $this->_storage->newLock($timeout, $array);
+	if (empty($this->_lock)) {
 	    return ERROR | ERROR_LOCK_IN_USE;
 	}
 
-	register_shutdown_function(array($this->_lockLocal, "unlock"));
-	
+	register_shutdown_function(array($this, 'unlock'));
+
 	/*
-	 * After we acquire the lock, refresh all the locked objects so that we
+	 * After we acquire the lock, refresh all cached objects so that we
 	 * know they are up to date before doing any operations.
-	 *
-	 * XXX: This still doesn't solve concurrency issues -- perhaps we
-	 * should change this so that we fail if one of the objects *isn't* up
-	 * to date, allowing the application code to let the user retry.
 	 */
-	for ($i = 0; $i < length($array); $i++) {
-	    $array[$i]->refresh();
-	}
+	$this->refreshAllCachedObjects();
 
 	return SUCCESS;
-    }
-
-    /**
-     * Release the local lock
-     *
-     * Save all the instances that were covered by the local lock.
-     *
-     * @access public
-     */
-    function unlockLocal() {
-	assert(!empty($this->_lockLocal));
-	$this->_lockLocal->unlock();
     }
 
     /**
@@ -399,10 +388,10 @@ class Gallery {
      * Use the active locking mechanism to lock the entire Gallery.  Then,
      * traverse the tree and refresh any objects that we have in memory.  The
      * result of this call is that the entire tree is in sync with the
-     * persistent store, and until unlockWorld is called, no one else can
+     * persistent store, and until unlock is called, no one else can
      * change it.
      *
-     * Use register_shutdown_function() to register the unlockWorld() method so
+     * Use register_shutdown_function() to register the unlock() method so
      * that we can be sure that we won't accidentally leave the world locked.
      * 
      * @access public
@@ -413,40 +402,63 @@ class Gallery {
 	/*
 	 * If we already have a lock, fail.
 	 */
-	assert(empty($this->_lockWorld) && empty($this->_lockLocal));
+	assert('empty($this->_lock)');
 	
 	/*
 	 * If we don't have a lock, get one and register it with the
 	 * end-of-session handler so that we can be sure that it goes away.
 	 */
-	$this->_lockWorld = $this->_storage->newLock($array, $timeout);
-	if (empty($this->_lockWorld)) {
+	$this->_lock = $this->_storage->newLock($timeout);
+	if (empty($this->_lock)) {
 	    return ERROR | ERROR_LOCK_IN_USE;
 	}
 
+	register_shutdown_function(array($this, 'unlock'));
+
 	/*
-	 * After we acquire the lock, refresh all the locked objects so that we
+	 * After we acquire the lock, refresh all cached objects so that we
 	 * know they are up to date before doing any operations.
-	 *
-	 * XXX: This still doesn't solve concurrency issues -- perhaps we
-	 * should change this so that we fail if one of the objects *isn't* up
-	 * to date, allowing the application code to let the user retry.
 	 */
-	for ($i = 0; $i < length($array); $i++) {
-	    $array[$i]->refresh();
-	}
+	$this->refreshAllCachedObjects();
     }
 
     /**
-     * Release the World lock
-     *
-     * Traverse the tree and save any objects that need saving.
+     * Release the lock
      *
      * @access public
      */
-    function unlockWorld() {
-	assert(!empty($this->_lockWorld));
-	$this->_lockWorld->unlock();
+    function unlock() {
+	assert('!empty($this->_lock)');
+	$this->_lock->unlock();
+    }
+
+    function isLocked($id) {
+	assert('!empty($id)');
+
+	if (empty($this->_lock)) {
+	    return false;
+	}
+
+	return $this->_lock->isLocked($id);
+    }
+
+    /**
+     * Refresh every cached object from the perisistent store
+     *
+     * This makes sure that any/all cached instances of an object are
+     * consistent with the data store, to prevent errors from concurrent
+     * modifications to the data store.
+     *
+     * @access public
+     */
+    function refreshAllCachedObjects() {
+	foreach ($this->_itemCache as $id => $instance) {
+	    $this->_itemCache[$id]->refresh();
+	}
+
+	foreach ($this->_dataContainerCache as $id => $instance) {
+	    $this->_dataContainerCache[$id]->refresh();
+	}
     }
 
     /**

@@ -55,30 +55,13 @@ class PhotoItem extends DataItem {
     /**
      * Constructor
      *
-     * Call the superclass on the id provided.  That will create
-     * either a blank object (if there's no id) or it will load the
-     * appropriate object from the persistent storage.  If no id
-     * was provided, initialize all private variables to their
-     * default values.
+     * Create a new blank instance, and register any members that need to
+     * persist in our storage.
      *
      * @access public
-     * @param string the id of an object to be loaded
      */
-    function PhotoItem($id='') {
-	$this->constructor();
-	$this->loadOrCreate($id);
-    }
-
-    /**
-     * Initialize this instance
-     *
-     * Construct the parent, then initialize anything relevant to this
-     * instance.
-     *
-     * @param string the id of the object to load
-     */
-    function constructor() {
-	parent::constructor();
+    function PhotoItem() {
+	$this->DataItem();
     }
 
     /**

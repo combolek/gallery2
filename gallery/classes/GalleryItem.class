@@ -126,33 +126,20 @@ class GalleryItem extends GalleryNucleus {
      * store.
      *
      * @access public
-     * @param string the id of an object to be loaded
      */
-    function GalleryItem($id='') {
-	$this->constructor();
-	$this->loadOrCreate($id);
+    function GalleryItem() {
+	$this->GalleryNucleus();
+
+	$this->registerPersistentMember("GalleryItem", "ownerId", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "commentIds", STORAGE_LIST);
+	$this->registerPersistentMember("GalleryItem", "properties", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "extendedProperties", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "thumbnailId", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "childIds", STORAGE_LIST);
+	$this->registerPersistentMember("GalleryItem", "allowedPermission", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "deniedPermission", STORAGE_MAP);
     }
 
-    /**
-     * Initialize this instance
-     *
-     * Construct the parent, then initialize anything relevant to this
-     * instance.
-     *
-     * @param string the id of the object to load
-     */
-    function constructor() {
-	parent::constructor();
-	$this->registerPersistentMember("ownerId", STORAGE_INTEGER);
-	$this->registerPersistentMember("commentIds", STORAGE_LIST);
-	$this->registerPersistentMember("properties", STORAGE_MAP);
-	$this->registerPersistentMember("extendedProperties", STORAGE_MAP);
-	$this->registerPersistentMember("thumbnailId", STORAGE_INTEGER);
-	$this->registerPersistentMember("childIds", STORAGE_LIST);
-	$this->registerPersistentMember("allowedPermission", STORAGE_MAP);
-	$this->registerPersistentMember("deniedPermission", STORAGE_MAP);
-    }
-    
     /**
      * Get the list of supported file types
      *
@@ -370,7 +357,7 @@ class GalleryItem extends GalleryNucleus {
 	// we have to calculate the visibility of every item.  Calculating once
 	// and maintaining deltas seems very error prone.  Let's put this whole
 	// issue off for now.
-	assert(false);
+	assert('false');
     }
 
     /**
@@ -390,7 +377,7 @@ class GalleryItem extends GalleryNucleus {
 	// we'll have to check each child individually
 
 	// See comment in getLocalChildCount();
-    	assert(false);
+    	assert('false');
     }
 
     /**
@@ -404,7 +391,7 @@ class GalleryItem extends GalleryNucleus {
      */
     function adjustTotalChildCount() {
 	// See comment in getLocalChildCount();
-    	assert(false);
+    	assert('false');
     }
 
     /**

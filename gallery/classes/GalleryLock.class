@@ -47,6 +47,10 @@ class GalleryLock {
 	// Be sure to register the unlock() method for when the script ends
     }
 
+    function isLocked($id) {
+	assert('!empty($id)');
+    }
+
     /**
      * Release all locks
      * 

@@ -92,33 +92,32 @@ class DataContainer extends GalleryNucleus {
     /**
      * Constructor
      *
-     * Call the superclass on the id provided.  That will create
-     * either a blank object (if there's no id) or it will load the
-     * appropriate object from the persistent storage.  If no id
-     * was provided, initialize all private variables to their
-     * default values.
+     * Create a new blank instance, and register any members that need to
+     * persist in our storage.
      *
      * @access public
-     * @param string the id of an object to be loaded
-     * @param string the path to a data file to be contained
      */
-    function DataContainer($id='', $dataFileName='') {
-	$this->constructor($dataFileName);
-	$this->loadOrCreate($id);
+    function DataContainer() {
+	$this->GalleryNucleus();
     }
 
     /**
-     * Initialize this instance
+     * Create a new instance of this type in the persistent store.
      *
-     * Construct the parent, then initialize anything relevant to this
-     * instance.
+     * Record the name of the data file that we will be containing.
      *
-     * @param string the id of the object to load
+     * @access public
+     * @param string the path to a data file to be contained
      */
-    function constructor() {
-	parent::constructor();
+    function create($dataFileName) {
+	assert('!empty($dataFileName)');
+	$ret = parent::create();
+	if ($ret == SUCCESS) {
+	    $this->setDataFileName($dataFileName);
+	}
+	return $ret;
     }
-    
+
     /**
      * Get the size of the source object.  If it's a cacheable
      * object and the cache is cleared, this will return the size

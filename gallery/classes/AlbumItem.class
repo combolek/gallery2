@@ -70,34 +70,13 @@ class AlbumItem extends GalleryItem {
     /**
      * Constructor
      *
-     * Call the superclass on the id provided.  That will create either a blank
-     * object (if there's no id) or it will load the appropriate object from
-     * the persistent storage.  If no id was provided, initialize all private
-     * variables to their default values.
-     *
-     * If we create a new album, we'll be creating a new directory with an
-     * arbitrary name in a temporary location.  When we add this AlbumItem to
-     * another AlbumItem (which happens in every case except the root album)
-     * we'll move our directory under that one.
+     * Create a new blank instance, and register any members that need to
+     * persist in our storage.
      *
      * @access public
-     * @param string the id of an object to be loaded
      */
-    function AlbumItem($id='') {
-	$this->constructor($id);
-	$this->loadOrCreate($id);
-    }
-
-    /**
-     * Initialize this instance
-     *
-     * Construct the parent, then initialize anything relevant to this
-     * instance.
-     *
-     * @param string the id of the object to load
-     */
-    function constructor() {
-	parent::constructor();
+    function AlbumItem() {
+	$this->GalleryItem();
     }
 
     /**

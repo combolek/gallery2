@@ -102,32 +102,7 @@ class GalleryStorage {
      * @param string the id of the item
      * @return object GalleryItem the item	
      */
-    function &getItemById($id) {
-    }
-
-    /**
-     * Get the DataContainer for the id provided
-     *
-     * Return the DataContainer associated with this id.  Note  
-     * that this returns the unique object itself, not a copy.
-     * This means that you can change/save it.
-     *
-     * @access public
-     * @param string the id of the item
-     * @return object GalleryItem the item	
-     */
-    function &getDataContainerById($id) {
-    }
-
-    /**
-     * Load a new GalleryNucleus from storage
-     *
-     * @access public
-     * @param string the id of the stored GalleryNucleus
-     * @param object GalleryNucleus the object we're loading into
-     * @return int a status code
-     */
-    function loadNucleus($id, $nucleus) {
+    function &loadNucleusById($id, $type) {
     }
 
     /**
@@ -160,5 +135,14 @@ class GalleryStorage {
     function newNucleus($nucleus) {
     }
 
+    /**
+     * Create and return a new GalleryLock object
+     *
+     * @access public
+     * @param int timeout before giving up on the lock
+     * @param array ids to lock (empty array means lock the world) 
+     */
+    function newLock($timeout, $ids=array()) {
+    }
 }
 ?>
