@@ -92,12 +92,21 @@ class GalleryUser extends GalleryNucleus {
      * @access public
      * @param string the id of an object to be loaded
      */
-    function GalleryUser($id="") {
-	$this->GalleryNucleus($id);
+    function GalleryUser($id='') {
+	$this->constructor();
+	$this->loadOrCreate($id);
+    }
 
-	if (empty($id)) {
-	    // Set values to defaults
-	}
+    /**
+     * Initialize this instance
+     *
+     * Construct the parent, then initialize anything relevant to this
+     * instance.
+     *
+     * @param string the id of the object to load
+     */
+    function constructor() {
+	parent::constructor();
     }
 
     /**

@@ -43,10 +43,10 @@ class GalleryNucleus {
     var $_dataVersion;
 
     /**
-     * The parent of this GalleryNucleus
-     * @var object GalleryNucleus $_parent
+     * The id of the parent of this GalleryNucleus
+     * @var int $_parentId
      */
-    var $_parent;
+    var $_parentId;
 
     /**
      * The path component of this item (eg. "image1").  This
@@ -57,13 +57,12 @@ class GalleryNucleus {
     var $_path;
 
     /**
-     * This is an internal variable that tracks whether or not
-     * we've changed anything in this object that requires that we
-     * update the persistent store.
-     *
-     * @access private
+     * Keep track of which internal values are persistant and which ones aren't
+     * so that we'll know when and what to save to the database.
+     * 
+     * @var array $_persistentInfo
      */
-    var $_needToBeSaved;
+    var $_persistentInfo;
 
     /*
      * ****************************************
@@ -74,56 +73,80 @@ class GalleryNucleus {
     /**
      * Constructor
      *
-     * If an id is provided, load that object from storage and
-     * become that object.  Else, initialize all variables to their
-     * default values.
+     * Initialize this instance and then load it from the persistent
+     * store.
      *
      * @param string the id of the object to load
      */
-    function GalleryNucleus($id="") {
-	global $gallery;
-	$storage = $gallery->getStorage();
+    function GalleryNucleus($id='') {
+	$this->constructor();
+	$this->loadOrCreate($id);
+    }
 
-	if (!empty($id)) {
-	    $this = $storage->load($id, $this);
+    /**
+     * Initialize this instance
+     *
+     * @param string the id of the object to load
+     */
+    function constructor() {
+
+	/*
+	 * Initialize our persistent info tracker
+	 */
+	$this->_persistentInfo = new stdClass();
+	$this->_persistentInfo->modified = array();
+	$this->_persistentInfo->members = array();
+
+	/*
+	 * Register the persistent variables for this class
+	 */
+	$this->registerPersistentMember("id", STORAGE_INTEGER | STORAGE_ID);
+	$this->registerPersistentMember("dataVersion", STORAGE_INTEGER);
+	$this->registerPersistentMember("parentId", STORAGE_INTEGER);
+	$this->registerPersistentMember("path", STORAGE_STRING);
+    }
+
+    /**
+     * Hook this object up to the persistent store
+     *
+     * If an id is provided, load from the persistent store.  Else, create a
+     * new object in the store. 
+     */
+    function loadOrCreate($id='') {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	if (empty($id)) {
+	    $storage->newNucleus($this);
 	} else {
-	    // Initialize myself
+	    $storage->loadNucleus($id, $this);
 	}
     }
 
     /**
-     * Subclasses of GalleryNucleus must use this method to
-     * indicate that their data structure has changed such that we
-     * are required to update the persistent store.
-     * 
-     * @access public
-     */
-    function setNeedToBeSaved() {
-    }
-	 
-
-    /**
      * Get the id of this GalleryNucleus
      *
      * Get the id of this GalleryNucleus
-     * 
+     *
      * @return string the id of this GalleryNucleus
      * @access public
      */
     function getId() {
+	return $this->_id;
     }
 
     /**
      * Get the version of this GalleryNucleus
      *
      * Return the version of this GalleryNucleus' data.
-     * 
+     *
      * @return float the data version of this GalleryNucleus
      * @access public
      */
     function getDataVersion() {
+	return $this->_dataVersion;
     }
-
+    
     /**
      * Check the data version and upgrade if necessary
      *
@@ -134,17 +157,33 @@ class GalleryNucleus {
      * @access public
      */
     function checkDataVersionAndUpgrade() {
+	// No upgrade instructions as yet.
     }
 
     /**
-     * Return the GalleryNucleus that owns this one.
+     * Set the id of the GalleryNucleus that owns this one.
      *
-     * Return a reference to the GalleryNucleus that owns this one.
+     * Set the id to the GalleryNucleus that owns this one.
+     *
+     * @param int id of the parent
+     * @access public
+     */
+    function setParentId($id) {
+	assert($id);
+	$this->_parentId = $id;
+	$this->modifyPersistentMember("parentId");
+    }
+
+    /**
+     * Return the id of the GalleryNucleus that owns this one.
+     *
+     * Return the id to the GalleryNucleus that owns this one.
      *
      * @access public
-     * @return object GalleryNucleus the parent
+     * @return int id of the parent
      */
-    function &getParent() {
+    function getParentId() {
+	return $this->_parentId;
     }
 
     /**
@@ -156,6 +195,7 @@ class GalleryNucleus {
      * @return string the path component
      */
     function getPath() {
+	return $this->_path;
     }
 
     /**
@@ -164,9 +204,12 @@ class GalleryNucleus {
      * Return the full path of this item
      *
      * @access public
-     * @return string the full path
+     * @return array an array of string path components
      */
     function getFullPath() {
+	$path = $this->_parent->getFullPath();
+	$path[] = $this->_path;
+	return $path;
     }
 
     /**
@@ -179,6 +222,8 @@ class GalleryNucleus {
      * @return boolean false if the path already exists, true otherwise
      */
     function setPath($path) {
+	$this->_path = $path;
+	$this->modifyPersistentMember("path");
     }
 
     /**
@@ -197,19 +242,6 @@ class GalleryNucleus {
     }
 
     /**
-     * Save the changes to this GalleryNucleus and any children
-     *
-     * Recursively walk the tree and save anything that needs saving.
-     *
-     * @access public
-     * @return int a status code
-     */
-    function saveRecursive() {
-	$this->save();
-	// foreach cached child, child->saveRecursive()
-    }
-
-    /**
      * Refresh this item from the persistent store
      *
      * @access public
@@ -218,19 +250,6 @@ class GalleryNucleus {
     function refresh() {
 	$this = $this->_storage->refresh($this);
 	return SUCCESS;
-    }
-
-    /**
-     * Refresh this item and any children
-     *
-     * Recursively walk the tree and refresh anything we've instantiated
-     *
-     * @access public
-     * @return int a status code
-     */
-    function refreshRecursive() {
-	$this->refresh();
-	// foreach cached child, child->refreshRecursive()
     }
 
     /**
@@ -243,6 +262,20 @@ class GalleryNucleus {
      * @return int a status code
      */
     function delete() {
+	return $this->_storage->delete($this);
+    }
+
+    /**
+     * Register a class member that will be kept in the persistent store.
+     *
+     * @param string the name of the member
+     * @param int a hint to the storage class for how to store this value
+     */
+    function registerPersistentMember($name, $typeHint) {
+	// Sanity check
+	assert('empty($this->_persistentInfo->members[$name])');
+	    
+	$this->_persistentInfo->members[$name] = $typeHint;
     }
 }
 ?>

@@ -46,6 +46,13 @@ class Gallery {
     var $_rootAlbumItemId;
 
     /**
+     * The id of the active user
+     *
+     * @var	int
+     */
+    var $_activeUserId;
+
+    /**
      * Storage for all configuration variables, set in config.php.
      * The values contained here can't be modified.  Well, they
      * can be modified but they can't be saved so it's not a good
@@ -117,7 +124,7 @@ class Gallery {
      *
      * @access public
      * @param string the path to a GalleryItem
-     * @return string the id of the GalleryItem (or null)
+     * @return int the id of the GalleryItem (or null)
      */
     function getIdByPath($path) {
 	return $this->_storage->getIdByPath($path);
@@ -131,7 +138,7 @@ class Gallery {
      * This means that you can change/save it.
      *
      * @access public
-     * @param string the id of the GalleryItem
+     * @param int the id of the GalleryItem
      * @return object GalleryItem the GalleryItem
      */
     function &getItemById($id) {
@@ -146,7 +153,7 @@ class Gallery {
      * This means that you can change/save it.
      *
      * @access public
-     * @param string the id of the item
+     * @param int the id of the item
      * @return object GalleryItem the GalleryItem
      */
     function &getDataContainerById($id) {
@@ -160,9 +167,15 @@ class Gallery {
      *
      * @access public
      * @param string the search criteria
-     * @return array a list of of GalleryItem(s)
+     * @return array a list of of GalleryItem ids
      */
     function search($criteria) {
+	// XXX: should this method live in Gallery or in GalleryItem?
+	// If we're aiming for speed, then we'd really like to do one search
+	// across the entire GalleryItem database.  But, that won't let us
+	// restrict the search to just one branch of the tree.  For now let's
+	// leave it here and then perhaps later we can introduce the concept of
+	// a "narrower" search
     }
 
     /**
@@ -171,9 +184,10 @@ class Gallery {
      * The root GalleryItem should be an AlbumItem
      *
      * @access public
-     * @return string the id of the root album
+     * @return int the id of the root album
      */
     function getRootAlbumItemId() {
+	return $this->_rootAlbumItemId;
     }
 
     /**
@@ -182,23 +196,40 @@ class Gallery {
      * The root GalleryItem should be an AlbumItem.
      *
      * @access public
-     * @param string the id of the GalleryItem
+     * @param int the id of the GalleryItem
      */
     function setRootAlbumItemId($id) {
+	assert(!empty($id));
+	$this->_rootAlbumItemId = $id;
     }
 
     /**
      * Get the Id of the active user
      *
      * The active user is the user who is logged on in this 
-     * session or the EverybodyUser, if nobody is logged on.
+     * session.
      * 
      * @access public
-     * @return string the id of the current User.
+     * @return int the id of the current User.
      */
     function getActiveUserId() {
+	return $this->_activeUserId;
     }
 
+    /**
+     * Set the id of the active user
+     *
+     * The active user is the user who is logged on in this 
+     * session.
+     * 
+     * @param int the id of the current User.
+     * @access public
+     */
+    function setActiveUserId($id) {
+	assert(!empty($id));
+	$this->_activeUserId = $id;
+    }
+    
     /**
      * Get the user database 
      *
@@ -209,6 +240,20 @@ class Gallery {
      * @return object GalleryUserDatabase the active user database
      */
     function &getUserDatabase() {
+	return $this->_userDatabase;
+    }
+
+    /**
+     * Set the user database 
+     *
+     * Assign a reference to the instance of the active
+     * GalleryUserDatabase class.
+     * 
+     * @param object GalleryUserDatabase the active user database
+     * @access public
+     */
+    function setUserDatabase(&$userDatabase) {
+	$this->_userDatabase =& $userDatabase;
     }
 
     /**
@@ -221,6 +266,20 @@ class Gallery {
      * @return object GalleryImageToolkit the active image toolkit
      */
     function &getImageToolkit() {
+	return $this->_imageToolkit;
+    }
+
+    /**
+     * Set the image toolkit
+     *
+     * Assign a reference to the instance of the active
+     * GalleryImageToolkit class.
+     * 
+     * @param object GalleryImageToolkit the active image toolkit
+     * @access public
+     */
+    function getImageToolkit(&$imageToolkit) {
+	$this->_imageToolkit =& $imageToolkit;
     }
 
     /**
@@ -234,6 +293,19 @@ class Gallery {
      * @return object GalleryMap the Gallery config map
      */
     function getConfig() {
+	return $this->_config;
+    }
+
+    /**
+     * Set a copy of the Gallery configuration settings
+     *
+     * Assign a reference to a GalleryMap config instance.
+     * 
+     * @param object GalleryMap the Gallery config map
+     * @access public
+     */
+    function setConfig(&$config) {
+	$this->_config =& $config;
     }
 
     /**
@@ -247,6 +319,20 @@ class Gallery {
      * @return object GalleryMap the Gallery session map
      */
     function &getSession() {
+	return $this->_session;
+    }
+
+    /**
+     * Get the Gallery session object.
+     *
+     * Assign a reference to the unique Gallery session object
+     * (implemented as an instance of the GalleryMap class).
+     * 
+     * @param object GalleryMap the Gallery session map
+     * @access public
+     */
+    function &setSession($session) {
+	$this->_session =& $session;
     }
 
     /**
@@ -261,18 +347,38 @@ class Gallery {
      * @access public
      * @param array the GalleryNucleus' to be locked 
      * @param integer how long to wait for the lock before giving up
-     * @return boolean true if the lock was acquired
+     * @return int a status code
      */
     function lockLocal($array, $timeout=2) {
-	// If we have a lock already, complain and return false
-	// If we don't have a lock, get one, register it with the end-of-session handler
-	// 	so that it goes away
+	/*
+	 * If we already have a lock, fail.
+	 */
+	assert(empty($this->_lockWorld) && empty($this->_lockLocal));
 
-	// If we acquire the lock, refresh all the locked objects
-	//
-	// for ($i = 0; $i < length($array); $i++) {
-	//	$array[$i]->refresh();
-	// }
+	/*
+	 * If we don't have a lock, get one and register it with the
+	 * end-of-session handler so that we can be sure that it goes away.
+	 */
+	$this->_lockLocal = $this->_storage->newLock($array, $timeout);
+	if (empty($this->_lockLocal)) {
+	    return ERROR | ERROR_LOCK_IN_USE;
+	}
+
+	register_shutdown_function(array($this->_lockLocal, "unlock"));
+	
+	/*
+	 * After we acquire the lock, refresh all the locked objects so that we
+	 * know they are up to date before doing any operations.
+	 *
+	 * XXX: This still doesn't solve concurrency issues -- perhaps we
+	 * should change this so that we fail if one of the objects *isn't* up
+	 * to date, allowing the application code to let the user retry.
+	 */
+	for ($i = 0; $i < length($array); $i++) {
+	    $array[$i]->refresh();
+	}
+
+	return SUCCESS;
     }
 
     /**
@@ -283,6 +389,8 @@ class Gallery {
      * @access public
      */
     function unlockLocal() {
+	assert(!empty($this->_lockLocal));
+	$this->_lockLocal->unlock();
     }
 
     /**
@@ -299,18 +407,34 @@ class Gallery {
      * 
      * @access public
      * @param integer how long to wait for the lock before giving up
-     * @return boolean true if the lock was acquired
+     * @return int a status code
      */
     function lockWorld($timeout=10) {
-	// If we have a lock already, complain and return false
-	// If we don't have a lock, get one, register it with the end-of-session handler
-	// 	so that it goes away
+	/*
+	 * If we already have a lock, fail.
+	 */
+	assert(empty($this->_lockWorld) && empty($this->_lockLocal));
+	
+	/*
+	 * If we don't have a lock, get one and register it with the
+	 * end-of-session handler so that we can be sure that it goes away.
+	 */
+	$this->_lockWorld = $this->_storage->newLock($array, $timeout);
+	if (empty($this->_lockWorld)) {
+	    return ERROR | ERROR_LOCK_IN_USE;
+	}
 
-	// If we acquire the lock, refresh all the objects
-	//
-	// for ($i = 0; $i < length($array); $i++) {
-	//	$array[$i]->refresh();
-	// }
+	/*
+	 * After we acquire the lock, refresh all the locked objects so that we
+	 * know they are up to date before doing any operations.
+	 *
+	 * XXX: This still doesn't solve concurrency issues -- perhaps we
+	 * should change this so that we fail if one of the objects *isn't* up
+	 * to date, allowing the application code to let the user retry.
+	 */
+	for ($i = 0; $i < length($array); $i++) {
+	    $array[$i]->refresh();
+	}
     }
 
     /**
@@ -321,6 +445,29 @@ class Gallery {
      * @access public
      */
     function unlockWorld() {
+	assert(!empty($this->_lockWorld));
+	$this->_lockWorld->unlock();
+    }
+
+    /**
+     * Return a reference to the implementation of the GalleryStorage class
+     *
+     * @access public
+     */
+    function &getStorage() {
+	return $this->_storage;
+    }
+
+    /**
+     * Set a new GalleryStorage instance.
+     *
+     * Accept a new instance of GalleryStorage and use it for all further
+     * storage requests.
+     *
+     * @access public
+     */
+    function &setStorage(&$storage) {
+	$this->_storage =& $storage;
     }
 }
 ?>

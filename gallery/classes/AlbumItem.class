@@ -83,12 +83,21 @@ class AlbumItem extends GalleryItem {
      * @access public
      * @param string the id of an object to be loaded
      */
-    function AlbumItem($id="") {
-	$this->GalleryItem($id);
+    function AlbumItem($id='') {
+	$this->constructor($id);
+	$this->loadOrCreate($id);
+    }
 
-	if (empty($id)) {
-	    // Set values to defaults
-	}
+    /**
+     * Initialize this instance
+     *
+     * Construct the parent, then initialize anything relevant to this
+     * instance.
+     *
+     * @param string the id of the object to load
+     */
+    function constructor() {
+	parent::constructor();
     }
 
     /**
@@ -124,7 +133,7 @@ class AlbumItem extends GalleryItem {
      *
      * @access public
      * @param string the name of a sort property.  Can be any standard
-     *               PROPERTY_XXX except PROPERTY_VIEWCOUNT.
+     *               PROPERTY_* except PROPERTY_VIEWCOUNT.
      * @param string SORT_ASCENDING or SORT_DESCENDING
      */
     function setSort($property, $style) {

@@ -68,12 +68,21 @@ class MovieContainer extends DataContainer {
      * @param string the id of an object to be loaded
      * @param string the path to a data file to be contained
      */
-    function MovieContainer($id="", $dataFileName="") {
-	$this->DataContainer($id, $dataFileName);
+    function MovieContainer($id='', $dataFileName='') {
+	$this->constructor($dataFileName);
+	$this->loadOrCreate($id);
+    }
 
-	if (empty($id)) {
-	    // Set values to defaults
-	}
+    /**
+     * Initialize this instance
+     *
+     * Construct the parent, then initialize anything relevant to this
+     * instance.
+     *
+     * @param string the id of the object to load
+     */
+    function constructor() {
+	parent::constructor();
     }
 
     /**

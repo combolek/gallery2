@@ -42,11 +42,15 @@ class GalleryItem extends GalleryNucleus {
 
     /**
      * The id of the User who owns this item
+     *
+     * @var int $_ownerId
      */
     var $_ownerId;
 
     /**
-     * An ordered list of 0+ Comment ids.
+     * An ordered list of 0+ CommentContainer ids.
+     *
+     * @var object GalleryList $_commentIds
      */
     var $_commentIds;
 
@@ -64,9 +68,8 @@ class GalleryItem extends GalleryNucleus {
      * - description	  (string) details of this item (long)
      * - isHtmlAllowed	  (bool)   allow html in the title & description
      * - isHidden	  (bool)   is this item hidden?
-     * - inheritsPermissions (bool)   does this item inherit permissions from its parents?
      *
-     * @var array $_properties
+     * @var object GalleryMap $_properties
      */
     var $_properties;
 
@@ -75,20 +78,40 @@ class GalleryItem extends GalleryNucleus {
      * item.  Each subclass can have an interface to read and
      * write values into this store (or they can use GalleryItem's
      * get/set methods).  Either way, this data is item specific.
+     *
+     * @var object GalleryMap $_extendedProperties
      */
     var $_extendedProperties;
 
     /**
      * The id of the ImageContainer containing this GalleryItem's thumbnail
+     *
+     * @var int $_thumbnailId
      */
     var $_thumbnailId;
 
     /**
      * An ordered list of 0+ GalleryItem children contained by this item
      *
-     * @var array $_childIds;
+     * @var object GalleryList $_childIds
      */
     var $_childIds;
+
+    /**
+     * A GalleryMap of usernames mapped to allowed permissions
+     *
+     * @var object GalleryMap $_allowedPermissions;
+     * @private
+     */
+    var $_allowedPermissions;
+    
+    /**
+     * A GalleryMap of usernames mapped to denied permissions
+     *
+     * @var object GalleryMap $_deniedPermissions;
+     * @private
+     */
+    var $_deniedPermissions;
 
     /*
      * ****************************************
@@ -99,23 +122,37 @@ class GalleryItem extends GalleryNucleus {
     /**
      * Constructor
      *
-     * Call the superclass on the id provided.  That will create
-     * either a blank object (if there's no id) or it will load the
-     * appropriate object from the persistent storage.  If no id
-     * was provided, initialize all private variables to their
-     * default values.
+     * Initialize this instance and then load it from the persistent
+     * store.
      *
      * @access public
      * @param string the id of an object to be loaded
      */
-    function GalleryItem($id="") {
-	$this->GalleryNucleus($id);
-
-	if (empty($id)) {
-	    // Set values to defaults
-	}
+    function GalleryItem($id='') {
+	$this->constructor();
+	$this->loadOrCreate($id);
     }
 
+    /**
+     * Initialize this instance
+     *
+     * Construct the parent, then initialize anything relevant to this
+     * instance.
+     *
+     * @param string the id of the object to load
+     */
+    function constructor() {
+	parent::constructor();
+	$this->registerPersistentMember("ownerId", STORAGE_INTEGER);
+	$this->registerPersistentMember("commentIds", STORAGE_LIST);
+	$this->registerPersistentMember("properties", STORAGE_MAP);
+	$this->registerPersistentMember("extendedProperties", STORAGE_MAP);
+	$this->registerPersistentMember("thumbnailId", STORAGE_INTEGER);
+	$this->registerPersistentMember("childIds", STORAGE_LIST);
+	$this->registerPersistentMember("allowedPermission", STORAGE_MAP);
+	$this->registerPersistentMember("deniedPermission", STORAGE_MAP);
+    }
+    
     /**
      * Get the list of supported file types
      *
@@ -126,6 +163,8 @@ class GalleryItem extends GalleryNucleus {
      * @return array lowercase file tags tags (eg "jpg", "gif")
      */
     function getSupportedFiletypes() {
+	// The base GalleryItem does not support any types specifically
+	return array();
     }
 		
     /**
@@ -138,6 +177,8 @@ class GalleryItem extends GalleryNucleus {
      * @return boolean true if the tag given is supported 
      */
     function isSupportedFiletype($tag) {
+	// The base GalleryItem does not support any types specifically
+	return false;
     }
 		
     /**
@@ -147,19 +188,10 @@ class GalleryItem extends GalleryNucleus {
      *
      * @access public
      * @param object CommentContainer $comment
+     * @return int a status code
      */
     function addComment($comment) {
-    }
-
-    /**
-     * Retrieve the list of Comment ids for this GalleryItem
-     *
-     * Retrieve the list of Comment ids for this GalleryItem
-     *
-     * @access public
-     * @return array an ordered list of ids
-     */
-    function getCommentIds() {
+	return $this->_commentIds->addUnique($commentId);
     }
 
     /**
@@ -169,8 +201,10 @@ class GalleryItem extends GalleryNucleus {
      *
      * @access public
      * @param string a comment id
+     * @return int a status code
      */
     function removeComment($id) {
+	return $this->_commentIds->removeValue($id);
     }
 
     /**
@@ -184,6 +218,7 @@ class GalleryItem extends GalleryNucleus {
      * @return mixed a value
      */
     function getProperty($propertyName) {
+	return $this->_properties->getValue($propertyName);
     }
 
     /**
@@ -202,6 +237,8 @@ class GalleryItem extends GalleryNucleus {
      * @param mixed a value.
      */
     function setProperty($propertyName, $value) {
+	return $this->_properties->setValue($propertyName, $value);
+	$this->modifyPersistentMember("properties");
     }
 
     /**
@@ -213,6 +250,8 @@ class GalleryItem extends GalleryNucleus {
      * @param string a key name
      */
     function removeProperty($propertyName) {
+	return $this->_properties->removeValue($propertyName);
+	$this->modifyPersistentMember("properties");
     }
 
     /**
@@ -226,6 +265,7 @@ class GalleryItem extends GalleryNucleus {
      * @return mixed a value
      */
     function getExtendedProperty($propertyName) {
+	return $this->_extendedProperties->getValue($propertyName);
     }
 
     /**
@@ -239,6 +279,8 @@ class GalleryItem extends GalleryNucleus {
      * @param mixed a value.
      */
     function setExtendedProperty($propertyName, $value) {
+	return $this->_extendedProperties->setValue($propertyName, $value);
+	$this->modifyPersistentMember("extendedProperties");
     }
 
     /**
@@ -250,6 +292,8 @@ class GalleryItem extends GalleryNucleus {
      * @param string a key name
      */
     function removeExtendedProperty($propertyName) {
+	return $this->_extendedProperties->removeValue($propertyName, $value);
+	$this->modifyPersistentMember("extendedProperties");
     }
 
     /**
@@ -261,6 +305,7 @@ class GalleryItem extends GalleryNucleus {
      * @return string the type of this GalleryItem, eg. "Album" or "Photo".
      */
     function getType() {
+	return "GalleryItem";
     }
 
     /**
@@ -272,6 +317,7 @@ class GalleryItem extends GalleryNucleus {
      * @return string the id of the thumbnail ImageContainer
      */
     function getThumbnailId() {
+	return $this->_thumbnailId;
     }
 
     /**
@@ -285,6 +331,8 @@ class GalleryItem extends GalleryNucleus {
      * @param string id of the ImageContainer containing the thumbnail image
      */
     function setThumbnailId($id) {
+	$this->_thumbnailId = $id;
+	$this->modifyPersistentMember("thumbnailId");
     }
 
     /**
@@ -298,6 +346,7 @@ class GalleryItem extends GalleryNucleus {
      * @return boolean true if the item can contain children
      */
     function canContainChildren() {
+	return false;
     }
 
     /**
@@ -315,6 +364,13 @@ class GalleryItem extends GalleryNucleus {
 	// Must track which children have their own permission
 	// set so that we can optimize this count process.  Otherwise
 	// we'll have to check each child individually
+
+	// XXX: The child counting code is tricky if we want to obscure the
+	// fact that hidden items even exist at all.  It will be very slow if
+	// we have to calculate the visibility of every item.  Calculating once
+	// and maintaining deltas seems very error prone.  Let's put this whole
+	// issue off for now.
+	assert(false);
     }
 
     /**
@@ -332,6 +388,9 @@ class GalleryItem extends GalleryNucleus {
 	// Must track which children have their own permission
 	// set so that we can optimize this count process.  Otherwise
 	// we'll have to check each child individually
+
+	// See comment in getLocalChildCount();
+    	assert(false);
     }
 
     /**
@@ -344,6 +403,8 @@ class GalleryItem extends GalleryNucleus {
      * @param int a delta value
      */
     function adjustTotalChildCount() {
+	// See comment in getLocalChildCount();
+    	assert(false);
     }
 
     /**
@@ -357,6 +418,7 @@ class GalleryItem extends GalleryNucleus {
      * @return array a list of 0+ GalleryItem ids
      */
     function getChildItemIds() {
+	return $this->_childIds->toArray();
     }
 
     /**
@@ -366,8 +428,6 @@ class GalleryItem extends GalleryNucleus {
      * child item already has a parent, it is removed from that other parent if
      * it's successfully added to this one.
      *
-     * Update the parent's total child count to reflect the new count.
-     *
      * Move all non-derived DataContainers of the child item from their old
      * location to the new one as part of this process.
      *
@@ -376,18 +436,23 @@ class GalleryItem extends GalleryNucleus {
      * @return int a status code
      */
     function addItem($item) {
+	assert('$this->canContainChildren()');
+	$this->_childIds->addUnique($item->getId());
+	$this->modifyPersistentMember("childIds");
     }
 
     /**
      * Remove the specified child item
      *
      * This is only legal if this item is allowed to have children.
-     * Update the parent's total child count to reflect the new count.
      *
      * @access public
      * @param string the child item's id
      */
     function removeItem($id) {
+	assert('$this->canContainChildren()');
+	$this->_childIds->removeValue($item->getId());
+	$this->modifyPersistentMember("childIds");
     }
 
     /**
@@ -397,16 +462,14 @@ class GalleryItem extends GalleryNucleus {
      * @return string the id of the owning user
      */
     function getOwnerId() {
+	return $this->_ownerId;
     }
 
     /**
      * Does the user have the given permission?
      *
      * This calculation is made taking into account the appropriate
-     * attributes for this user from all of its parents, provided that
-     * they have the inheritsPermissions property set.
-     *
-     * Acceptable permissions to check for are ones with _CAN_ in them.
+     * attributes for this user from all of its parents.
      *
      * @access public
      * @param string user id
@@ -414,47 +477,111 @@ class GalleryItem extends GalleryNucleus {
      * @return boolean true if the given user id has the given permission for this item
      */
     function hasPermission($id, $perm) {
+
+	/* Check for an explicit deny.  Deny supercedes allow. */
+	$denied = $this->_deniedPermissions->getValue($id);
+	if ($denied && ($denied & $perm)) {
+	    return false;
+	}
+
+	/* Check for an explicit allow */
+	$allowed = $this->_allowedPermissions->getValue($id);
+	if ($allowed && ($allowed & $perm)) {
+	    return true;
+	}
+
+	/* Defer to the parent */
+	$parent =& $this->getParent();
+	if ($parent) {
+	    return $parent->hasPermission($id, $perm);
+	}
+
+	/* No clear answer, so the default is deny */
+	return false;
     }
 
     /**
-     * Add the specified permission for the specified user
+     * Allow the specified permission for the specified user
      *
      * Adjust the user's permissions for this item to set the permission
-     * provided.  If the permission being set directly contradicts
-     * another one, the old (contradictory) permission is removed.
-     * For example, if the user's permission for this item has
-     * PERMISSION_CANNOT_VIEW set, and you set
-     * PERMISSION_CAN_VIEW, then the result is that the
-     * PERMISSION_CANNOT_VIEW is removed.
-     * All permissions are acceptable.
+     * provided.  
      *
      * @access public
      * @param string the id of the user
      * @param int the specific permission
-     * @return boolean true if the given user id has the given permission for this item
      */
-    function addPermission($id, $perm) {
+    function allowPermission($id, $perm) {
+
+	/*
+	 * Clear the permission for this id.  This has the nice side benefit of
+	 * calling modifyPersistentMember()
+	 */
+	$this->removePermission($id, $perm);
+
+	/* Grant the permission */
+	$allowed = $this->_allowedPermissions->getValue($id);
+	if (!($allowed && ($allowed & $perm))) {
+	    $allowed = ($allowed | $perm);
+	    $this->_allowedPermissions->setValue($id, $allowed);
+	}
+    }
+
+    /**
+     * Deny the specified permission for the specified user
+     *
+     * Adjust the user's permissions for this item to set the permission
+     * provided.  
+     *
+     * @access public
+     * @param string the id of the user
+     * @param int the specific permission
+     */
+    function denyPermission($id, $perm) {
+
+	/*
+	 * Clear the permission for this id.  This has the nice side benefit of
+	 * calling modifyPersistentMember()
+	 */
+	$this->removePermission($id, $perm);
+
+	/* Grant the permission */
+	$denied = $this->_deniedPermissions->getValue($id);
+	if (!($denied && ($denied & $perm))) {
+	    $denied = ($denied | $perm);
+	    $this->_deniedPermissions->setValue($id, $denied);
+	}
+
     }
 
     /**
      * Remove the specified permission for the specified user
      *
-     * Adjust the user's permissions for this item to set the permission
-     * provided.  If the permission being set directly contradicts
-     * another one, the old (contradictory) permission is removed.
-     * For example, if the user's permission for this item has
-     * PERMISSION_CANNOT_VIEW set, and you set
-     * PERMISSION_CAN_VIEW, then the result is that the
-     * PERMISSION_CANNOT_VIEW is removed.
-     *
-     * All permissions are acceptable.
+     * Adjust the user's permissions for this item to remove the permission
+     * provided.  This basically delegates the permission check for the user/item
+     * to the parent.
      *
      * @access public
      * @param string the id of the user
      * @param int the specific permission
-     * @return boolean true if the given user id has the given permission for this item
      */
     function removePermission($id, $perm) {
+
+	/* If the user was allowed this permission, un-allow them */
+	$allowed = $this->_allowedPermissions->getValue($id);
+	if ($allowed && ($allowed & $perm)) {
+	    $allowed = ($allowed ^ $perm);
+	    $this->_allowedPermissions->setValue($id, $allowed);
+	}
+
+	/* If the user was denied this permission, un-deny them */
+	$denied = $this->_deniedPermissions->getValue($id);
+	if ($denied && ($denied & $perm)) {
+	    $denied = ($denied ^ $perm);
+	    $this->_deniedPermissions->setValue($id, $denied);
+	}
+
+	$this->modifyPersistentMember("deniedPermissions");
+	$this->modifyPersistentMember("allowedPermissions");
     }
 
     /**
@@ -462,13 +589,35 @@ class GalleryItem extends GalleryNucleus {
      *
      * Return an associative array of permissions for this item.  The results
      * are a merged set of permissions including the parent's permissions and
-     * the ones specific to this particular item.  If the same user appears in
-     * both a CAN and a CANNOT after the merge, the CAN permission is removed.
+     * the ones specific to this particular item.  
      *
      * @access public
-     * @return array the full permission set
+     * @return array two associative arrays, the allowed and denied permission set
      */
     function getAllPermissions() {
+	$parent =& $this->getParent();
+	if ($parent) {
+	    list($allowed, $denied) = $parent->getAllPermissions();
+	} else {
+	    $allowed = array();
+	    $denied = array();
+	}
+
+	$tmp = $this->_deniedPermissions->toArray();
+	foreach ($tmp as $id => $perm) {
+	    /* Remove allows from the denied list, add them to allowed list */
+	    $denied[$id] &= ~$perm;
+	    $allowed[$id] |= $perm; 
+	}
+
+	$tmp = $this->_allowedPermissions->toArray();
+	foreach ($tmp as $id => $perm) {
+	    /* Remove denys from the allowed list, add them to deny list */
+	    $allowed[$id] &= ~$perm; 
+	    $denied[$id] |= $perm;
+	}
+
+	return array($allowed, $denied);
     }
 }
 ?>
