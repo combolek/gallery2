@@ -74,6 +74,10 @@ class User {
 		return $this->isAdmin;
 	}
 
+	function isPseudo() {
+		return false;
+	}
+
 	function setIsAdmin($bool) {
 		$this->isAdmin = $bool;
 	}
@@ -156,7 +160,7 @@ class User {
 	}
 
 	function setCanCreateAlbums($bool) {
-		$this->canCreateAlbums(true);
+		$this->canCreateAlbums = $bool;
 	}
 
 	function canChangeTextOfAlbum($album) {
