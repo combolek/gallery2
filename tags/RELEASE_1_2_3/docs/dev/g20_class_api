@@ -1,0 +1,758 @@
+Gallery v2.0 Class API
+----------------------
+$Id$
+
+This is a draft of the class API for Gallery v2.0.  It contains a
+sketch of the class hierarchy for the classes that contain the image
+metadata.  In writing this API, I've tried to maintain all the
+existing functionality that's available in v1.0 while leaving plenty
+of room to expand and cover the features that are yet to come in v2.0.
+
+Columns that say "xxx -> yyy" mean that in the v1.0 API the "yyy"
+field was refered to as "xxx" and that the semantics are roughly the
+same, although the name has changed.
+
+The following functionality is not (yet) implemented in v2.0.
+
+- fitToWindow
+	This is gone entirely.  We should be able to implement this
+	using the new layout code.
+
+- User.canCreateUsers()
+	- this permission will now be stored in the album's permissions
+	  field.
+
+- mirroring
+	I've left this out for now because it's heavily dependant on
+	the way that we implement the image firewalling code.  I
+	believe that this will be easy to add later, once we settle on
+	how we do the image firewall.
+
+Things that need to be added to this API:
+- Examples for how the API should be used.
+- better description of permissions
+- search API
+- Make the get/set() methods consistent.  Separate the calls that return
+  an id from the ones that return a class so that it's clearer.
+
+================================================================================
+================================================================================
+
+Class Gallery
+-------------
+	This is a container for global information required for gallery operation,
+	such as configuration, session, user, etc.  
+
+	Members
+	-------
+	- /* AlbumItem */ id rootAlbumItem
+		The id of the root album item in the Gallery
+
+	- GalleryConfig config
+		Storage for all configuration variables, set in config.php.
+		The values contained here can't be modified.  Well, they
+		can be modified but they can't be saved so it's not a good
+		idea.
+
+	- UserDB userDB
+		An instance of the user database class
+
+	- GallerySession session
+		Storage for all session variables
+
+	Methods
+	-------
+	- /* AlbumItem */ id getRootAlbumId()
+		* return the id of the root AlbumItem
+
+	- void setRootAlbumId(string id)
+		* Set the id of the root AlbumItem
+
+	- GalleryMap getConfig() 
+		* Return a copy of the GalleryConfig object generated in 
+		  config.php
+
+	- User &getCurrentUser()
+		* Return a reference to the current User object.  This
+		  value is determined by the currentUser value in the
+		  session and is cached for performance.
+
+	- UserDB getUserDB()
+		* Return the current UserDB object.  Cached for performance.
+
+	- GalleryMap &getSession()
+		* Return a reference to the current GallerySession object.
+
+Class GalleryMap
+--------------------
+	This class is a map implementation.  It is a utility
+	class that we'll use for the various data containers that 
+	we need in the system.
+
+	Methods
+	-------
+	- mixed &getValue(string key) 
+		* Return a reference to the value associated with the
+		  given key for the feature specified.  eg:
+		  getValue("core", "userId").  It's important that we
+		  return a reference so that if the value contained is
+		  a complex object we can modify it in place.  For
+		  example, if we're modifying the viewed stats we'd
+		  say: 
+			$arr = getValue("stats.viewedAlbum");
+			$arr["album01"]++;
+
+	- setValue(string key, string value)
+		* Replace the value associated with the given key for
+		  the feature specified.  eg: 
+			setValue("core.galleryVersion", "2.0-cvs")
+
+Class GallerySession (instance of GalleryMap)
+-------------------------------------------------
+	This class is a container for session specific data.
+	The naming convention for data that is stored in this
+	container is as follows:
+
+		feature.keyName1
+		feature.keyName2
+
+	Here are the currently known keys:
+
+	Core keys:
+		- core.userId
+		- core.galleryVersion
+
+	Feature keys:
+		- stats.viewedAlbum
+		- stats.viewedPhoto
+
+
+Class GalleryConfig (instance of GalleryMap)
+------------------------------------------------
+	This is a container for all configuration information
+	necessary for Gallery to function.  The config wizard will
+	create a file which builds an instance of a GalleryMap,
+	containing a set of keys describing how Gallery is configured.
+
+	Here are the currently known keys:
+
+	Core keys:	
+		- core.config.version
+		- core.config.tmpDir
+		- core.config.albumDir
+		- core.config.galleryUrl (used to be $photoAlbumURL)
+		- core.config.albumUrl (used to be $albumDirURL)
+		- core.config.debug (boolean)
+		- core.config.expectedExecStatus
+		- core.config.sessionVar
+		- core.config.imageToolKit ("imagetoolkit.netpbm", etc)
+			This one specifies which image toolkit we're using
+
+		- core.config.persistence.metadata ("filesystem", "rdb", etc.)
+			This one specifies which persistent storage system
+			we're using.
+
+		- core.config.persistence.users ("filesystem", "rdb", etc.)
+			This one specifies which persistent storage system
+			we're using.
+
+		- core.defaults.highlightSize
+		- core.defaults.movieThumbnailPath
+		- core.defaults.bordercolor
+		- core.defaults.border
+		- core.defaults.font
+		- core.defaults.cols
+		- core.defaults.rows
+		- core.defaults.thumbSize
+		- core.defaults.resizeSize
+		- core.defaults.useFullOnly
+		- core.defaults.returnto
+		- core.defaults.showOwners
+		- core.defaults.albumsPerPage
+		- core.defaults.showSearchEngine
+		- core.defaults.useOriginalFileNames
+		- core.defaults.layout
+		
+		- core.features
+			This is an array of enabled features eg:
+			("printing", "zip", "rewrite")
+
+
+	This is the list of feature keys.  All of these features are
+	optional, although there will be interdependencies.  For
+	example, you'll need to specify at least one valid
+	imagetoolkit or Gallery won't work.  As we add more features
+	we'll need to make sure that there are no name clashes at the
+	top level.
+
+	Feature keys:
+		- printing.shutterfly.enabled (boolean)
+		
+		- zip.zipinfo.path
+		- zip.unzip.path
+
+		- stats.displayClicks
+
+		- comments.allowPublic
+
+		- imagetoolkit.netpbm.pnmDir
+		- imagetoolkit.netpbm.pnmtojpeg.path
+		- imagetoolkit.netpbm.exif.mode
+		 	choices ("jhead", "netpbm", "none")
+		- imagetoolkit.netpbm.jhead.path
+
+		- mirror.sites
+			array of mirror sites
+
+		- filesystem.albumDir
+			This is the location of the image metadata.
+			It doesn't necessarily need to be the same as
+			core.config.albumDir (although it is in v1.0).
+			Only relevant if "core.config.persistence.metadata" 
+			is set to "filesystem"
+
+		- filesystem.userDir
+			This is the location of the user database.  
+			Only relevant if "core.config.persistence.users" 
+			is set to "filesystem"
+
+
+Class GalleryItem
+-----------------
+        Container for all functionality and data common objects that 
+	Gallery can deal with.  Cannot contain sub-items.
+
+        Members 
+	-------
+	- id				* (id) this item
+	- parentId 			* (id) this item's parent
+	- highlight 			* (id) an ImageContainer
+	- comment Ids			* (id[]) ids of 0+ comments
+	- version			* (float) data version of this item
+	- properties:
+		- creationDate		* (int) unix timestamp
+		- modificationDate	* (int) unix timestamp
+clicks_date->	- viewedSinceDate	* (int) unix timestamp click count start date 
+clicks->	- viewCount		* (int) number of times this item has been accessed
+		- keywords 		* (string) key words about this item
+		- title			* (string) title of this item (short)
+		- description		* (string) details of this item (long)
+		- isHtmlAllowed		* (bool) allow html in the title & description
+hidden->	- isHidden		* (bool) is this item hidden?
+
+	- /* ImageContainer */ id thumbnail
+		id of the thumbnail image
+
+
+	Methods
+	-------
+
+integrityCheck->
+	- bool checkVersion(void)
+		Check the item and do any necessary upgrading to its data 
+		structure.  
+		* returns true if the item changed as a result of
+		  the integrity check.
+
+	- void accessItem(id)
+		Update viewed counts.
+
+	- bool addComment(CommentContainer comment)
+		Add a comment for this item
+		* return true on success or false on failure
+
+	- /* CommentContainer */ id[] getCommentList(void)
+		Return an ordered array of comment ids
+
+	- CommentContainer getComment(/* CommentContainer */ id)
+		Return the comment with the given id
+
+	- mixed getProperty(string propertyName)
+		Return the property associated with propertyName
+
+	- void setProperty(string propertyName, mixed)
+		Set the property associated with propertyName to the
+		string provided
+
+	- string getType()
+		Returns the type of this item, eg:
+			GalleryItem::AlbumItem,
+			GalleryItem::PhotoItem,
+			GalleryItem::PhotoItem::JpegPhotoItem
+			GalleryItem::MovieItem
+
+	- bool save()
+		Save this GalleryItem
+
+	- bool delete()
+		Delete this GalleryItem and notify the owner accordingly
+
+	- ImageContainer getHighlightImage()
+		Get the ImageContainer that we're using as the highlight 
+
+	- void setHighlightImage(ImageContainer)
+		Set the ImageContainer that we're using as the highlight 
+
+Class AlbumItem [extends GalleryItem]
+-------------------------------------
+	A GalleryItem that has certain extra properties relating to displaying
+	albums and can contain other GalleryItems.
+
+        Members
+	-------
+	- child Ids		* (id[]) ids of 0+ items
+	- ownerId		* id of the User who owns this item
+	- properties
+		- bgcolor		* (string) primary background color
+		- bgcolor2		* (string) secondary background color
+		- textcolor		* (string) text color
+		- linkcolor		* (string) link color
+		- font			* (string) font name
+		- border		* (string) amount of table border
+		- bordercolor		* (string) color of border
+		- returnto		* (string) whether or not to show the breadcrum links
+		- thumbSize		* (string) target size of the thumbnail
+		- resizeSize		* (string) target size of the intermediate image
+		- rows			* (int) number of rows to show
+		- cols			* (int) number of columns to show
+		- useFullOnly		* (bool) allow the user to choose to show unresized only?
+print_photos ->	- printService		* (bool) allow printing?
+		- useExif		* allow user to view exif data?
+		- layout		* the layout to use for this album
+		- htmlHeader		* the html_header to use for this album
+		- htmlFooter		* the html_footer to use for this album
+display_clicks->- displayViewCount	* show view counts for my items?
+	
+	Methods
+	-------
+	- constructor(string title, [/* AlbumItem */ id parentAlbum]) 
+		Create a new album with the default values.
+		Optionally put this new album inside the parent album,
+		provided.
+
+	- Album load(id)
+		Return the Album instance whose id matches the id
+		provided, or null if there's no album by that id.
+
+	- bool addItem(GalleryItem item)
+		Add this item to the end of album.
+		* return true on success or false on failure
+
+	- /* GalleryItem */ id[] getItemList(void)
+		Return an ordered array of comment ids
+
+	- /* GalleryItem */ getItem(/* GalleryItem */ id)
+		Return the GalleryItem associated with the given id
+
+	- bool canRead(/* User */ id)
+		Return true if the given user id can read this album
+
+	- bool canWrite(/* User */ id)
+		Return true if the given user id can write to this album
+
+	- bool canAddTo(/* User */ id)
+		Return true if the given user id can add to this album
+
+	- bool canChangeText(/* User */ id)
+		Return true if the given user id can change the text
+		of this album
+
+	- bool canDeleteFrom(/* User */ id)
+		Return true if the given user id can delete items from
+		this album
+
+	- /* User */ id getOwner() 
+		Return the id of the User who owns this album
+
+Class PhotoItem [extends GalleryItem] 
+-----------------------------------
+	A GalleryItem whose source is an image.  It contains no image
+	information itself, but has references to several ImageContainer
+	versions of the original.
+
+        Members 
+	-------
+        - /* ImageContainer */ id raw
+		id of the raw image
+
+        - /* ImageContainer */ id[] resizes
+		array of ids of resized versions of this photo
+
+	- int[] captureDate
+		associative array of info describing the date the item
+		was captured not in EPOCH so we can support dates <
+		1970
+
+	Methods
+	-------
+	- ImageContainer getRawImage()
+		Return the ImageContainer associated with the original version of
+		this item
+
+	- void setRawImage(ImageContainer)
+		Set the ImageContainer associated with the original version of
+		this item
+
+	- int getNumberOfResizes()
+		Return the number of resized images available.
+
+	- ImageContainer getResizedImage(int)
+		Get the nth resized ImageContainer
+
+	- void setResizedImage(int, ImageContainer)
+		Set the nth resized ImageContainer (replacing whatever's already there).
+
+	- void deleteResizedImage(int) 
+		Remove the nth resized image (shifting all others down one to
+		fill the empty slot).
+
+	- ImageContainer getThumbnailImage()
+		Get the ImageContainer that we're using as the thumbnail 
+
+	- void setThumbnailImage(ImageContainer)
+		Set the ImageContainer that we're using as the thumbnail 
+
+	- int[] getCaptureDate()
+		Return the associative array of info describing the
+		date the item was captured not in EPOCH so we can
+		support dates < 1970
+
+	- int[] setCaptureDate()
+		Set the associative array of info describing the
+		date the item was captured not in EPOCH so we can
+		support dates < 1970
+
+Class JpegPhotoItem [extends PhotoItem]
+---------------------------------------
+	A PhotoItem whose source is a JPEG.
+
+	Members
+	-------
+	- string[] exifProperties
+		associative array of EXIF properties
+
+	Methods
+	-------
+	- string[] getExifProperties()
+		Return the associative array of EXIF properties
+
+	- void setExifProperties(string[])
+		Set the associative array of EXIF properties
+
+================================================================================
+================================================================================
+
+Class DataContainer
+-------------------
+	A container for any data that Gallery can manage, such as an
+	ImageContainer, MovieContainer or OpaqueContainer.  
+
+	Members
+	-------
+	- id
+		The unique id for this container object
+
+	- /* GalleryItem */ id ownerId
+		The id of the GalleryItem that owns this container
+	
+	- float version
+		data version of this container
+
+	Methods
+	-------
+integrityCheck->
+	- bool checkVersion(void)
+		Check the item and do any necessary upgrading to its data 
+		structure.  
+		* returns true if the item changed as a result of
+		  the integrity check.
+
+	- bool delete()
+		Remove any filesystem and metadata about this
+		DataContainer and notify the ownerId that it has been
+		deleted.
+
+	- bool save()
+		Save any metadata about this DataContainer.
+
+Class ImageContainer [extends DataContainer]
+--------------------------------------------
+	A container for a single image.
+
+	Members
+	-------
+	- string name
+		name of the image
+
+	- int width
+		width of the image
+
+	- int height
+		height of the image
+
+	Methods
+	-------
+	- int[] getDimensions() 
+		Return the image dimensions as width, height
+
+	- void resize(int, int) 
+		Resize the image to the width, height dimensions provided
+
+Class MovieContainer [extends DataContainer]
+--------------------------------------------
+	A container for a movie.
+
+	Members
+	-------
+	- string name
+		name of this image
+
+	- int width
+		width of this image
+
+	- int height
+		height of this image
+
+	Methods
+	-------
+	- int[] getDimensions() 
+		Return the image dimensions as width, height
+
+Class OpaqueContainer [extends DataContainer]
+---------------------------------------------
+	A container for a single object that we know nothing about and
+	can't manipulate in any way
+
+	Members
+	-------
+	- string name
+		name of this object
+
+	Methods
+	-------
+
+Class CommentContainer [extends DataContainer]
+----------------------------------------------
+	Members
+	-------
+	- string name
+	- string email
+	- string comment
+
+	Methods
+	-------
+	- string getName()
+	- string getEmail()
+	- string getComment()
+	- string setName(string)
+	- string setEmail(string)
+	- string setComment(string)
+
+================================================================================
+GRAPHICS
+================================================================================
+
+Class AbstractImageToolKit
+--------------------------
+
+	This is an abstract class that defines an interface for image
+	manipulation.  It is implemented by classes that do the actual
+	image manipulation using specific toolsets (such as
+	NetPBM or ImageMagick)
+
+	Methods
+	-------
+
+	- string[] getSupportedFiletypes()
+		Return an array of lowercase file tags tags (eg "jpg", "gif")
+		that are supported by this graphics package.
+		
+	- bool isSupportedFiletype(string tag)
+		Return true if the tag given is supported 
+		
+	- int[] getImageDimensions(string filename)
+		Return the dimensions of the file
+
+	- bool resizeImage(string sourceFilename, string destFilename, int targetSize)
+		Resize the image located at sourceFilename and write the results in
+		destFilename.  Resize the image such that the largest side is targetSize
+		while maintaining the aspect ratio. 
+		* return true on success or false on failure
+		
+	- bool rotateImage(string sourceFilename, string destFilename, int degrees)
+		Rotate the image located at sourceFilename and write the results in
+		destFilename.  Rotate the image according to the degrees specified
+		which must be one of -90, 180, 90
+		* return true on success or false on failure
+		
+	- bool cutImage(string sourceFilename, string destFilename, 
+			   int x, int y, int width, int height)
+		Extract a subsection of the image located at
+		sourceFilename and write the results in
+		destFilename.  The upper left corner of the
+		subsection is at the x, y coordinate provided and the
+		lower right is x+width, y+height.
+		* return true on success or false on failure
+
+	- bool validImage(string filename)
+		Return true if the filename represents an image file that can
+		be processed by this graphics package.
+
+	- string[] getExifProperties(string filename)
+		Extract the EXIF properties from the filename provided and
+		return it, or NULL if the file has no such properties.
+
+	Implementations
+	---------------
+		ImageToolKit/NetPbm.php
+		ImageToolKit/ImageMagick.php
+
+================================================================================
+User Management
+================================================================================
+
+Class AbstractUserDB
+--------------------
+	This is an abstract class that provides access to the database
+	of User objects.  It must be implemented by a class that can
+	save and restore User objects from a persistent store.  The
+	features of the UserDB implementation vary depending on where
+	Gallery is used, so the UserDB needs to be able to specify
+	it's available feature set.  For example, if you're using
+	Gallery inside an embedded app like Nuke, then the NukeUserDB
+	should not allow you to add and delete users from the database
+	(let the Nuke application take care of that, instead).
+
+	Members
+	-------
+	(none)
+
+	Methods
+	-------
+	- bool canCreateUser()
+	- bool canModifyUser()
+	- bool canDeleteUser()
+	- User getNobodyUser()
+	- User getEverybodyUser()
+	- User getAuthenticatedUser()
+	- string[] getUidList
+	- User getUserByUsername(string username)
+	- User getUserByUid(string uid)
+
+	Implementations
+	---------------
+	UserDB/GalleryFileSystem.php
+	UserDB/GalleryMySQL.php
+
+Class AbstractUser
+------------------
+	This class is the container for information about Gallery
+	users.  Each instance of User contains a unique user id. It
+	must be implemented by a class that has a persistent store for
+	the relevant user data.
+
+	Members
+	-------
+	- string username
+	- string fullname
+	- string password
+	- string email
+	- bool isAdmin
+	- string uid
+
+	Methods
+	-------
+	- void setPassword(string password)
+	- bool isCorrectPassword(string password)
+	- string getUid()
+	- void setUsername(string username)
+	- string getUsername()
+	- void setEmail(string email)
+	- string getEmail()
+	- void setFullName(string fullname)
+	- string getFullName()
+	- bool isAdmin()
+	- bool isPseudo()
+	- void setIsAdmin(bool yesOrNo)
+	- bool isLoggedIn()
+
+Class PseudoUser [implements AbstractUser]
+------------------------------------------
+	Pseudo users are user records for users that don't actually
+	exist.  They are used as placeholders in situations where an
+	actual user record can't be used (such as in a permissions
+	dialog).  It overrides the following methods in User:
+
+	- bool isPseudo()
+		* return true
+
+	- bool isAdmin()
+		* return false
+
+Class RegisteredUser [extends PseudoUser]
+-----------------------------------------
+
+	This is a PseudoUser that represents a user that is logged in.
+	It overrides the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "REGISTERED"
+
+	- string getFullname()
+		* return "A registered user"
+
+	- string getUid() 
+		* return "registered"	
+
+Class EverybodyUser [extends PseudoUser]
+----------------------------------------
+	
+	This is a PseudoUser that represents any user. It overrides
+	the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "EVERYBODY"
+
+	- string getFullname()
+		* return "Anonymous User"
+
+	- string getUid() 
+		* return "everybody"	
+
+
+Class NobodyUser
+----------------
+
+	This is a PseudoUser that represents no user.  It overrides
+	the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "NOBODY"
+
+	- string getFullname()
+		* return "Nobody"
+
+	- string getUid() 
+		* return "nobody"	
+
+
+================================================================================
+Examples
+================================================================================
+
+1. Create a new album with a title and set the isHtmlAllowed property.
+   By default, it starts off in the root album.
+
+	$newAlbum = new Album();
+	$newAlbum->setProperty("title", "This is my new album");
+	$newAlbum->setProperty("isHtmlAllowed", true);
+
+
+XXX 2. Create a new album and add it to an existing one
+XXX 
+XXX 	$existingAlbum = Album.load($existingAlbumId);
+XXX 
+XXX 	/*
+XXX 	 * Add it to the root album
+XXX 	 */
+XXX 	$album = new Album($gallery->rootAlbumItem);	
