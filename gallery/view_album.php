@@ -276,13 +276,11 @@ $GLO = array();
 //-- the 'gallery' ---
 $GLO['gallery']['title'] = $gallery->app->galleryTitle;
 $GLO['gallery']['url'] = $gallery->app->photoAlbumURL;
-$GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
 $GLO['album']['title'] = $album->fields['title'];
 $GLO['album']['url'] = makeAlbumUrl($albumName);
 $GLO['album']['name'] = $albumName;
-$GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
 $GLO['album']['thumbnailSize'] = $album->fields["thumb_size"];
 $GLO['album']['rows'] = $rows;
@@ -323,7 +321,6 @@ $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
 //-- The Layout of the Page ---
 //  
 
-//-- first get the html for the header and footer and stick it in the GLO
 //-- first get the html for the header and footer and stick it in the GLO
 //-- for use by the layout. The html_wrap template gets is own limited
 //-- layout object.
