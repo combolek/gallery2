@@ -104,6 +104,19 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
+     * Change the path component of this item of this item
+     *
+     * Overload GalleryNucleus' setPath so that when we change the path of an
+     * AlbumItem we also rename the underlying directory.
+     *
+     * @access public
+     * @param string the path component
+     * @return boolean false if the path already exists, true otherwise
+     */
+    function setPath($newname) {
+    }
+
+    /**
      * Set this as a root album
      *
      * Attempt to take over maintaining the top of the album tree.  Check the
