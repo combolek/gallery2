@@ -160,9 +160,47 @@ class GalleryTemplateAdapter {
 				      'input',
 				      'form',
 				      'select',
-				      'textArea',
+				      'textarea',
+				      'link',
 
-				      /* Style methods */
+				      /* New API Style methods */
+				      'header',
+				      'pathbar',
+				      'pathbaritem',
+				      'main',
+				      'maintitle1',
+				      'mainbody1',
+				      'sidebar1',
+				      'sidebarbox',
+				      'sidebarboxtitle',
+				      'sidebarboxbody',
+				      'detailedbox',
+				      'detailedboxtitle',
+				      'detailedboxdescription',
+				      'detailedboxbody',
+				      'widget1',
+				      'widget1set',
+				      'widget1title',
+				      'widget1description',
+				      'widget1body',
+				      'widget2',
+				      'widget2set',
+				      'widget2title',
+				      'widget2description',
+				      'widget2body',
+				      'footer',
+
+				      // New ones I added that weren't in the toolkit
+				      'status',
+				      'error',
+				      'textmodifier1',
+				      'listing',
+				      'listingtitle',
+				      'listingbody',
+				      'listingitem',
+				      'listingitemselected',
+
+				      /* Old API Style methods */
 				      'bigFontSize',
 				      'biggerFontSize',
 				      'biggestFontSize',
@@ -177,56 +215,58 @@ class GalleryTemplateAdapter {
 				      'successFontColor',
 				      'thinFrame',
 				      'threeDFrame',
-				      'warningFontColor'
+				      'warningFontColor',
 				      );
 	return $_blockMethods;
     }
 
-    /* ================================================== */
-    /* BEGIN DELEGATION METHODS */
+    /* New API methods */
+    function header($params, $content) { if (isset($content)) { return $this->_theme->header($params, $content); } }
+    function pathbar($params, $content) { if (isset($content)) { return $this->_theme->pathbar($params, $content); } }
+    function pathbaritem($params, $content) { if (isset($content)) { return $this->_theme->pathbaritem($params, $content); } }
+    function main($params, $content) { if (isset($content)) { return $this->_theme->main($params, $content); } }
+    function maintitle1($params, $content) { if (isset($content)) { return $this->_theme->maintitle1($params, $content); } }
+    function mainbody1($params, $content) { if (isset($content)) { return $this->_theme->mainbody1($params, $content); } }
+    function sidebar1($params, $content) { if (isset($content)) { return $this->_theme->sidebar1($params, $content); } }
+    function sidebarbox($params, $content) { if (isset($content)) { return $this->_theme->sidebarbox($params, $content); } }
+    function sidebarboxtitle($params, $content) { if (isset($content)) { return $this->_theme->sidebarboxtitle($params, $content); } }
+    function sidebarboxbody($params, $content) { if (isset($content)) { return $this->_theme->sidebarboxbody($params, $content); } }
+    function listing($params, $content) { if (isset($content)) { return $this->_theme->listing($params, $content); } }
+    function listingtitle($params, $content) { if (isset($content)) { return $this->_theme->listingtitle($params, $content); } }
+    function listingbody($params, $content) { if (isset($content)) { return $this->_theme->listingbody($params, $content); } }
+    function listingitem($params, $content) { if (isset($content)) { return $this->_theme->listingitem($params, $content); } }
+    function listingitemselected($params, $content) { if (isset($content)) { return $this->_theme->listingitemselected($params, $content); } }
+    function detailedbox($params, $content) { if (isset($content)) { return $this->_theme->detailedbox($params, $content); } }
+    function detailedboxtitle($params, $content) { if (isset($content)) { return $this->_theme->detailedboxtitle($params, $content); } }
+    function detailedboxdescription($params, $content) { if (isset($content)) { return $this->_theme->detailedboxdescription($params, $content); } }
+    function detailedboxbody($params, $content) { if (isset($content)) { return $this->_theme->detailedboxbody($params, $content); } }
+    function widget1($params, $content) { if (isset($content)) { return $this->_theme->widget1($params, $content); } }
+    function widget1set($params, $content) { if (isset($content)) { return $this->_theme->widget1set($params, $content); } }
+    function widget1title($params, $content) { if (isset($content)) { return $this->_theme->widget1title($params, $content); } }
+    function widget1description($params, $content) { if (isset($content)) { return $this->_theme->widget1description($params, $content); } }
+    function widget1body($params, $content) { if (isset($content)) { return $this->_theme->widget1body($params, $content); } }
+    function widget2($params, $content) { if (isset($content)) { return $this->_theme->widget2($params, $content); } }
+    function widget2set($params, $content) { if (isset($content)) { return $this->_theme->widget2set($params, $content); } }
+    function widget2title($params, $content) { if (isset($content)) { return $this->_theme->widget2title($params, $content); } }
+    function widget2description($params, $content) { if (isset($content)) { return $this->_theme->widget2description($params, $content); } }
+    function widget2body($params, $content) { if (isset($content)) { return $this->_theme->widget2body($params, $content); } }
+    function footer($params, $content) { if (isset($content)) { return $this->_theme->footer($params, $content); } }
+    function status($params, $content) { if (isset($content)) { return $this->_theme->status($params, $content); } }
+    function error($params, $content) { if (isset($content)) { return $this->_theme->error($params, $content); } }
+    function textmodifier1($params, $content) { if (isset($content)) { return $this->_theme->textmodifier1($params, $content); } }
 
-    /**
-     * @see GalleryTheme::form()
-     */
-    function form($params, $content) {
-	if (isset($content)) {
-	    return $this->_theme->form($params, $content);
-	}
-    }
+    /* block style builtins */
+    function form($params, $content) { if (isset($content)) { return $this->_theme->form($params, $content); } }
+    function input($params, $content) { if (isset($content)) { return $this->_theme->input($params, $content); } }
+    function select($params, $content) { if (isset($content)) { return $this->_theme->select($params, $content); } }
+    function textarea($params, $content) { if (isset($content)) { return $this->_theme->textarea($params, $content); } }
+    function link($params, $content) { if (isset($content)) { return $this->_theme->link($params, $content); } }
 
-    /**
-     * @see GalleryTheme::input()
-     */
-    function input($params, $content) {
-	if (isset($content)) {
-	    return $this->_theme->input($params, $content);
-	}
-    }
-
-    /**
-     * @see GalleryTheme::select()
-     */
-    function select($params, $content) {
-	if (isset($content)) {
-	    return $this->_theme->select($params, $content);
-	}
-    }
+    /* non-block style */
+    function style($params) { return $this->_theme->style($params); }
     
-    /**
-     * @see GalleryTheme::textarea()
-     */
-    function textarea($params, $content) {
-	if (isset($content)) {
-	    return $this->_theme->textarea($params, $content);
-	}
-    }
-
-    /**
-     * @see GalleryTheme::style()
-     */
-    function style($params) {
-	return $this->_theme->style($params);
-    }
+    /* ================================================== */
+    /* BEGIN OLD API DELEGATION METHODS */
 
     /**
      * @see GalleryTheme::smallestFontSize()
