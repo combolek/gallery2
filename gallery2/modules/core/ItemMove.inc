@@ -219,7 +219,6 @@ class ItemMoveView extends GalleryView {
 	    /* No validation at the moment */
         } else {
             /* First time around, load the form with item data */
-            $form = array();
             if ($selectedId) {
                 $form['selectedIds'][$selectedId] = true;
             }
