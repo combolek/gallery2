@@ -1,7 +1,3 @@
-{gallery->header}
-  {gallery->text text="Gallery 2"}
-{/gallery->header}
-
 {gallery->main}
   {gallery->mainbody1}
     {gallery->form action_controller="$controller"}
