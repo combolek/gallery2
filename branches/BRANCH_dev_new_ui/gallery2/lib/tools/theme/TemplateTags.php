@@ -21,7 +21,7 @@
  */
 
 $tags['style'] = array('type' => 'content', 'flag' => 'non-block');
-$tags['thumbnail'] = array('type' => 'content', 'flag' => 'non-block');
+$tags['thumbnail'] = array('type' => 'content', 'params' => array('item' => 'array()', 'thumbnail' => 'array()'), 'flag' => 'non-block');
 
 // Magic component tag
 $tags['component'] = array('type' => 'transparent');
@@ -64,7 +64,7 @@ $tags['widget2box'] = array('type' => 'component', 'children' => array('title?',
 
 // Widgetbox children
 $tags['widget1'] = array('type' => 'child', 'children' => array('title?', 'body'));
-$tags['widget2'] = array('type' => 'child', 'children' => array('title?', 'body'));
+$tags['widget2'] = array('type' => 'child', 'children' => array('title?', 'description?', 'body'));
     
 // grid layout components
 $tags['table'] = array('type' => 'component', 'params' => array('width' => '100%'), 'children' => array('row+'));
@@ -410,8 +410,8 @@ function blockTag($tagName, $tagInfo) {
     case 'component':
 	printf('    if ($context["stack"][0] == "component") {');
 	print "\n";
-	printf('        $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("params" => $params, "content" => $this->_theme->%s($context, %s));',
-	       "component", "component", $tagName, join(', ', $args));
+	printf('        $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("name" => "%s", "params" => $params, "content" => $this->_theme->%s($context, %s));',
+	       "component", "component", $tagName, $tagName, join(', ', $args));
 	print "\n";
 	printf('    } else /* body */ {');
 	print "\n";
@@ -425,15 +425,15 @@ function blockTag($tagName, $tagInfo) {
 	break;
 
     case 'child':
-	printf('    $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("params" => $params, "content" => $this->_theme->%s($context, %s));',
-	       $tagName, $tagName, $tagName, join(', ', $args));
+	printf('    $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("name" => "%s", "params" => $params, "content" => $this->_theme->%s($context, %s));',
+	       $tagName, $tagName, $tagName, $tagName, join(', ', $args));
 	print "\n";
 	printf('    return;');
 	print "\n";
 	break;
 	
     case 'attribute':
-	printf('    $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("params" => $params, "content" => $content);', $tagName, $tagName);
+	printf('    $this->_content["%s"][sizeof($this->_content["%s"])-1][] = array("name" => "%s", "params" => $params, "content" => $content);', $tagName, $tagName, $tagName);
 	print "\n";
 	printf('    return;');
 	print "\n";
@@ -492,6 +492,31 @@ function nonBlockTag($tagName, $tagInfo) {
 	print "\n";
     }
 
+    if (isset($tagInfo['params'])) {
+	printf('    foreach (array_keys($params) as $key) {');
+	print "\n";
+	foreach ($tagInfo['params'] as $paramName => $paramDefault) {
+	    $check[] = sprintf('$key != "%s"', $paramName);
+	}
+	printf('        if (%s) {', join(' && ', $check));
+	print "\n";
+	printf('            $smarty->trigger_error("invalid parameter $key for %s tag, must be one of: %s", E_USER_ERROR);',
+	       $tagName, join(', ', array_keys($tagInfo['params'])));
+	print "\n";
+	printf('        }');
+	print "\n";
+	printf('    }');
+	print "\n";
+	foreach ($tagInfo['params'] as $paramName => $paramDefault) {
+	    printf('    if (!isset($params["%s"])) {', $paramName);
+	    print "\n";
+	    printf('        $params["%s"] = "%s";', $paramName, $paramDefault);
+	    print "\n";
+	    printf('    }');
+	    print "\n";
+	}
+    }
+    
     printf('    return $this->_theme->%s($context);', $tagName);
     print "\n";
     printf('}');
