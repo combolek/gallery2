@@ -1,6 +1,8 @@
 #!/bin/sh
 DIST=dist 
 
+# $Id$
+
 case $1 in
 	html)
 		echo "Generating HTML Manual...";
