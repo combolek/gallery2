@@ -172,22 +172,22 @@
 		<tar destfile="GalleryRemote.MacOSX.NoVM.tgz" compression="gzip">
 			<tarfileset dir="." prefix="Gallery Remote">
 				<include name="Gallery Remote.app/**" />
-				<exclude name="Gallery Remote.app/Contents/MacOS/JavaApplicationStub" />
+				<exclude name="Gallery Remote.app/Contents/MacOS/*" />
 			</tarfileset>
 			<tarfileset dir="Gallery Remote.app/Contents/MacOS"
-				fullpath="Gallery Remote/Gallery Remote.app/Contents/MacOS/JavaApplicationStub"
+				prefix="Gallery Remote/Gallery Remote.app/Contents/MacOS/"
 				mode="777">
-				<include name="JavaApplicationStub" />
+				<include name="*" />
 			</tarfileset>
-			<tarfileset dir="imagemagick" fullpath="Gallery Remote/imagemagick/im.properties">
+			<!--tarfileset dir="imagemagick" fullpath="Gallery Remote/imagemagick/im.properties">
 				<include name="im.properties.preinstalled" />
 			</tarfileset>
 			<tarfileset dir="jpegtran" fullpath="Gallery Remote/jpegtran/jpegtran.properties">
 				<include name="jpegtran.preinstalled" />
-			</tarfileset>
-			<!--tarfileset dir="${docdist}" prefix="Gallery Remote/Documentation">
-				<include name="*" />
 			</tarfileset-->
+			<tarfileset dir="${docdist}" prefix="Gallery Remote/Documentation">
+				<include name="*" />
+			</tarfileset>
 		</tar>
 	</target>
 

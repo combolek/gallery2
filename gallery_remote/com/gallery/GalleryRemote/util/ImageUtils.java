@@ -142,8 +142,11 @@ public class ImageUtils {
 				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
-					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
-					stopUsingIM();
+					if (exitValue != -1) {
+						// don't kill IM if it's just an InterruptedException
+						Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
+						stopUsingIM();
+					}
 				} else {
 					r = new ImageIcon(temp.getPath());
 				}
@@ -235,8 +238,11 @@ public class ImageUtils {
 				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
-					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
-					stopUsingIM();
+					if (exitValue != -1) {
+						// don't kill IM if it's just an InterruptedException
+						Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
+						stopUsingIM();
+					}
 					r = null;
 				}
 			} catch (IOException e) {
@@ -338,8 +344,11 @@ public class ImageUtils {
 		int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 		if (exitValue != 0 && ! jpegtranIgnoreErrorCode) {
-			Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
-			stopUsingJpegtran();
+			if (exitValue != -1) {
+				// don't kill jpegtran if it's just an InterruptedException
+				Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
+				stopUsingJpegtran();
+			}
 			r = null;
 		}
 
@@ -641,25 +650,10 @@ public class ImageUtils {
 		try {
 			Process p = Runtime.getRuntime().exec(cmdline);
 
-			DataInputStream out = new DataInputStream(new BufferedInputStream(p.getInputStream()));
-			DataInputStream err = new DataInputStream(new BufferedInputStream(p.getErrorStream()));
-
-			int exitValue = p.waitFor();
-
-			String line = null;
-			while ((line = out.readLine()) != null) {
-				Log.log(Log.LEVEL_TRACE, MODULE, "Out: " + line);
-			}
-
-			while ((line = err.readLine()) != null) {
-				Log.log(Log.LEVEL_TRACE, MODULE, "Err: " + line);
-			}
-
-			Log.log(Log.LEVEL_TRACE, MODULE, "Returned with value " + exitValue);
-
-			return exitValue;
+			return pumpExec(p);
 		} catch (InterruptedException e) {
 			Log.logException(Log.LEVEL_ERROR, MODULE, e);
+			return -1;
 		} catch (IOException e) {
 			Log.logException(Log.LEVEL_ERROR, MODULE, e);
 		}
@@ -673,30 +667,35 @@ public class ImageUtils {
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
 
-			DataInputStream out = new DataInputStream(new BufferedInputStream(p.getInputStream()));
-			DataInputStream err = new DataInputStream(new BufferedInputStream(p.getErrorStream()));
-
-			int exitValue = p.waitFor();
-
-			String line = null;
-			while ((line = out.readLine()) != null) {
-				Log.log(Log.LEVEL_TRACE, MODULE, "Out: " + line);
-			}
-
-			while ((line = err.readLine()) != null) {
-				Log.log(Log.LEVEL_TRACE, MODULE, "Err: " + line);
-			}
-
-			Log.log(Log.LEVEL_TRACE, MODULE, "Returned with value " + exitValue);
-
-			return exitValue;
+			return pumpExec(p);
 		} catch (InterruptedException e) {
 			Log.logException(Log.LEVEL_ERROR, MODULE, e);
+			return -1;
 		} catch (IOException e) {
 			Log.logException(Log.LEVEL_ERROR, MODULE, e);
 		}
 
 		return 1;
+	}
+
+	private static int pumpExec(Process p) throws InterruptedException, IOException {
+		DataInputStream out = new DataInputStream(new BufferedInputStream(p.getInputStream()));
+		DataInputStream err = new DataInputStream(new BufferedInputStream(p.getErrorStream()));
+
+		int exitValue = p.waitFor();
+
+		String line = null;
+		while ((line = out.readLine()) != null) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "Out: " + line);
+		}
+
+		while ((line = err.readLine()) != null) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "Err: " + line);
+		}
+
+		Log.log(Log.LEVEL_TRACE, MODULE, "Returned with value " + exitValue);
+
+		return exitValue;
 	}
 
 	public static void deferredTasks() {
