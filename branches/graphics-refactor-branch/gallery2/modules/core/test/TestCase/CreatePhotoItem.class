@@ -13,11 +13,26 @@
  */
 class CreatePhotoItemTestCase extends TestCase {
 
+    function getIterations() {
+	return array(1, 10, 50);
+    }
+
     function getDescription() {
 	return "Create a new PhotoItem in the root album and save it";
     }
 
-    function testStart() {
+    function testStart($iterations) {
+	for ($i = 0; $i < $iterations; $i++) {
+	    $ret = $this->_runTest();
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	return GalleryStatus::success();
+    }
+    
+    function _runTest() {
 	global $gallery;
 
 	list ($ret, $rootId) =
@@ -38,7 +53,6 @@ class CreatePhotoItemTestCase extends TestCase {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	print("Creating new photo item\n");
 	list ($ret, $photo) = GalleryFactory::newInstance('GalleryEntity', 'GalleryPhotoItem');
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -86,7 +100,7 @@ class CreatePhotoItemTestCase extends TestCase {
 
 	/* Make it a derivative from the source image */
 	$thumbnail->setDerivativeSourceId($photo->getId());
-	$thumbnail->setDerivativeCommands("scale 200");
+	$thumbnail->setDerivativeOperations('scale|200');
 	$thumbnail->setDerivativeMimeType($photo->getMimeType());
 	$ret = $thumbnail->save();
 	if ($ret->isError()) {
@@ -106,32 +120,11 @@ class CreatePhotoItemTestCase extends TestCase {
 
 	/* Make it a derivative from the source image */
 	$resize->setDerivativeSourceId($photo->getId());
-	$resize->setDerivativeCommands("scale 600");
+	$resize->setDerivativeOperations('scale|600');
 	$resize->setDerivativeMimeType($photo->getMimeType());
 	$ret = $resize->save();
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	/*
-	 * Check to see if the thumbnail's cache is current.
-	 * It shouldn't be, since we haven't built it yet.
-	 */
-	list ($ret, $bool) = $thumbnail->isCacheCurrent();
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	
-	if ($bool) {
-	    print "Cache is current\n";
-	} else {
-	    print "Cache is not current\n";
-
-	    /* Rebuild the cache */
-	    $ret = $thumbnail->rebuildCache();
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
 	}
 
 	return GalleryStatus::success();

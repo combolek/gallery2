@@ -108,21 +108,10 @@ class NetPbmModule extends GalleryModule {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
-	/*
-	 * If our graphics type is not NetPBM, set it now.
-	 */
-	list($ret, $graphicsType) = $gallery->getModuleParameter('core', 'graphics.type');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
 
-	if ($graphicsType != 'netpbmgraphics') {
-	    $ret = $gallery->setModuleParameter('core', 'graphics.type', 'netpbmgraphics');
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
+	/*
+	 * Take any special action here.
+	 */
 
 	return GalleryStatus::success();
     }
@@ -137,31 +126,10 @@ class NetPbmModule extends GalleryModule {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
-	/*
-	 * If we are the current graphics package, switch to whatever other
-	 * graphics packages are available.
-	 */
-	list($ret, $graphicsType) = $gallery->getModuleParameter('core', 'graphics.type');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
 
-	if ($graphicsType == 'netpbmgraphics') {
-	    $ids = GalleryFactory::getAllImplementationIds('GalleryGraphics');
-	    $newId = '';
-	    foreach ($ids as $name => $id) {
-		if ($id == 'netpbmgraphics') {
-		    continue;
-		}
-		$newId = $id;
-		break;
-	    }
-	    $ret = $gallery->setModuleParameter('core', 'graphics.type', $newId);
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
+	/*
+	 * Take any special action here
+	 */
 
 	return GalleryStatus::success();
     }

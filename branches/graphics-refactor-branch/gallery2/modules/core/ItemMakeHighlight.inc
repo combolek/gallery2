@@ -86,7 +86,7 @@ class ItemMakeHighlightController extends GalleryController {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    /* Get the derivativeCommands to generate a thumbnail for the album */
+	    /* Get the derivativeOperations to generate a thumbnail for the album */
 	    list ($ret, $preferences) =
 		GalleryDerivativePreferencesMap::fetchPreferencesForItem($parentId);
 	    if ($ret->isError()) {
@@ -94,11 +94,11 @@ class ItemMakeHighlightController extends GalleryController {
 	    }
 	    foreach ($preferences as $preference) {
 		if ($preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
-		    $derivativeCommands = $preference['derivativeCommands'];
+		    $derivativeOperations = $preference['derivativeOperations'];
 		    break;
 		}
 	    }
-	    if (empty($derivativeCommands)) {
+	    if (empty($derivativeOperations)) {
 		return array(GalleryStatus::error(ERROR_MISSING_VALUE,
 						  __FILE__, __LINE__),
 			     null);
@@ -111,7 +111,7 @@ class ItemMakeHighlightController extends GalleryController {
 
 	    $derivative->setDerivativeMimeType($sourceItem->getDerivativeMimeType());
 	    $derivative->setDerivativeSourceId($sourceItem->getId());
-	    $derivative->setDerivativeCommands($derivativeCommands);
+	    $derivative->setDerivativeOperations($derivativeOperations);
 
 	    $ret = $derivative->save();
 	    if ($ret->isError()) {

@@ -74,7 +74,7 @@ class UnixPlatform extends GalleryPlatform {
 	list ($ret, $expected) =
 	    $gallery->getModuleParameter('core', 'exec.expectedStatus');
 	if ($ret->isError()) {
-	    $gallery->debug('Unable to look up core::exec.expectedStatus param');
+	    $gallery->debug('Unable to look up core.exec.expectedStatus param');
 	    $expected = 0;
 	}
 

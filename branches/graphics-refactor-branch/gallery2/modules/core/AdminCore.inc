@@ -54,7 +54,6 @@ class AdminCoreController extends GalleryController {
 		       'default.layout',
 		       'default.theme',
 		       'default.language',
-		       'graphics.type',
 		       'session.lifetime',
 		       'session.inactivityTimeout') as $key) {
 	    $value = GalleryUtilities::getRequestVariables($key);
@@ -106,7 +105,6 @@ class AdminCoreView extends GalleryView {
 		       'default.layout',
 		       'default.theme',
 		       'default.language',
-		       'graphics.type',
 		       'session.lifetime',
 		       'session.inactivityTimeout') as $key) {
 

@@ -81,6 +81,7 @@ class CoreModule extends GalleryModule {
 	require_once($classDir . 'GalleryTemplateModule.class');
 	require_once($classDir . 'GalleryTemplateAdapter.class');
 	require_once($classDir . 'GalleryTheme.class');
+	require_once($classDir . 'GalleryToolkitHelper.class');
 	require_once($classDir . 'GalleryUserGroupMap.class');
 	require_once($classDir . 'GalleryUserHelper.class');
 	require_once($classDir . 'GalleryGroupHelper.class');
@@ -298,95 +299,96 @@ class CoreModule extends GalleryModule {
 		 * extractor can find it.
 		 */
 		/* Register all core permissions */
-		// translate('All access')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.all', 'All access',
+								   'core.all', 'All access', /* translate */
 								   GALLERY_PERMISSION_ALL_ACCESS);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] View item')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.view', '[core] View item');
+								   'core.view',
+								   '[core] View item' ); /* translate */
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] View resized version(s)')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.viewResizes', '[core] View resized version(s)');
+								   'core.viewResizes',
+								   '[core] View resized version(s)'); /* translate */
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    
-		// translate('[core] View original version')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.viewSource', '[core] View original version');
+								   'core.viewSource',
+								   '[core] View original version'); /* translate */
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    
-		// translate('[core] View all versions')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.viewAll', '[core] View all versions',
+								   'core.viewAll',
+								   '[core] View all versions', /* translate */
 								   GALLERY_PERMISSION_COMPOSITE,
-								   array('core.view', 'core.viewResizes', 'core.viewSource'));
+								   array('core.view',
+									 'core.viewResizes',
+									 'core.viewSource'));
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Add sub-album')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.addAlbum', '[core] Add sub-album',
+								   'core.addAlbum',
+								   '[core] Add sub-album', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Add sub-item')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.addItem', '[core] Add sub-item',
+								   'core.addItem',
+								   '[core] Add sub-item', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    
-		// translate('[core] Change item properties')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.changeProperties', '[core] Change item properties',
+								   'core.changeProperties',
+								   '[core] Change item properties', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Change item permissions')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.changePermissions', '[core] Change item permissions',
+								   'core.changePermissions',
+								   '[core] Change item permissions', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Move item')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.move', '[core] Move item',
+								   'core.move',
+								   '[core] Move item', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Change item text')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.changeText', '[core] Change item text',
+								   'core.changeText',
+								   '[core] Change item text', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		// translate('[core] Delete item')
 		$ret = GalleryPermissionSetMap::registerPermission($this->getName(),
-								   'core.delete', '[core] Delete item',
+								   'core.delete',
+								   '[core] Delete item', /* translate */
 								   GALLERY_PERMISSION_ITEM_ADMIN);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
@@ -683,12 +685,12 @@ class CoreModule extends GalleryModule {
 	    }
 
 	    if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-		list ($ret, $graphics) = $gallery->getGraphics();
+		list ($ret, $operations) = GalleryToolkitHelper::getOperations($item->getMimeType());
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		
-		if ($graphics->isSupportedMimeType($item->getMimeType())) {
+		if (!empty($operations)) {
 		    $views[] = array('name' => $this->translate('Edit Image'),
 				     'view' => 'core:ItemEditImage');
 		    $views[] = array('name' => $this->translate('Edit Sizes'),

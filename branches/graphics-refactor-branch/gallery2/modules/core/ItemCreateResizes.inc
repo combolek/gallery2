@@ -75,7 +75,7 @@ class ItemCreateResizesController extends GalleryController {
 		$thumbnail = $thumbTable[$item->getId()];
 
 		/* Change the thumbnail */
-		$thumbnail->setDerivativeCommands('scale ' . $form['thumbnail']['size']);
+		$thumbnail->setDerivativeOperations('scale|' . $form['thumbnail']['size']);
 
 		if ($thumbnail->isModified()) {
 		    list ($ret, $lockId) = $gallery->acquireWriteLock($thumbnail->getId());
@@ -127,7 +127,7 @@ class ItemCreateResizesController extends GalleryController {
 
 		    $derivative->setDerivativeMimeType($item->getMimeType());
 		    $derivative->setDerivativeSourceId($item->getId());
-		    $derivative->setDerivativeCommands('scale ' . $form['resizes'][$i]['size']);
+		    $derivative->setDerivativeOperations('scale|' . $form['resizes'][$i]['size']);
 
 		    $ret = $derivative->save();
 		    if ($ret->isError()) {
@@ -222,8 +222,8 @@ class ItemCreateResizesView extends GalleryView {
 	    }
 
 	    foreach ($resizes[$item->getId()] as $resize) {
-		if (preg_match('/scale (\d+)/',
-			       $resize->getDerivativeCommands(),
+		if (preg_match('/scale\|(\d+)/',
+			       $resize->getDerivativeOperations(),
 			       $matches)) {
 		    $size = $matches[1];
 		}
@@ -242,8 +242,8 @@ class ItemCreateResizesView extends GalleryView {
 	    }
 	    if (!empty($thumbnails)) {
 		$thumbnail = $thumbnails[$item->getId()];
-		if (preg_match('/scale (\d+)/',
-			       $thumbnail->getDerivativeCommands(),
+		if (preg_match('/scale\|(\d+)/',
+			       $thumbnail->getDerivativeOperations(),
 			       $matches)) {
 		    $size = $matches[1];
 		}

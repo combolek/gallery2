@@ -83,7 +83,7 @@ class ItemEditAlbumController extends GalleryController {
 	            array('order' => 0,
 			  'itemId' => $item->getId(),
 			  'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-			  'derivativeCommands' => 'scale ' . $form['thumbnail']['size']));
+			  'derivativeOperations' => 'scale|' . $form['thumbnail']['size']));
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -98,7 +98,7 @@ class ItemEditAlbumController extends GalleryController {
 	                array('order' => $i,
 			      'itemId' => $item->getId(),
 			      'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
-			      'derivativeCommands' => 'scale ' . $form['resizes'][$i]['size']));
+			      'derivativeOperations' => 'scale|' . $form['resizes'][$i]['size']));
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -139,7 +139,7 @@ class ItemEditAlbumController extends GalleryController {
 			$thumbnail = $thumbTable[$childId];
 
 			/* Change the thumbnail */
-			$thumbnail->setDerivativeCommands('scale ' . $form['thumbnail']['size']);
+			$thumbnail->setDerivativeOperations('scale|' . $form['thumbnail']['size']);
 
 			if ($thumbnail->isModified()) {
 			    list ($ret, $lockIds[]) = $gallery->acquireWriteLock($thumbnail->getId());
@@ -192,7 +192,7 @@ class ItemEditAlbumController extends GalleryController {
 
 			    $derivative->setDerivativeMimeType($child->getMimeType());
 			    $derivative->setDerivativeSourceId($child->getId());
-			    $derivative->setDerivativeCommands('scale ' . $form['resizes'][$i]['size']);
+			    $derivative->setDerivativeOperations('scale|' . $form['resizes'][$i]['size']);
 
 			    $ret = $derivative->save();
 			    if ($ret->isError()) {
@@ -320,8 +320,8 @@ class ItemEditAlbumView extends GalleryView {
 	    }
 
 	    foreach ($preferences as $preference) {
-		if (preg_match('/scale (\d+)/',
-			       $preference['derivativeCommands'],
+		if (preg_match('/scale\|(\d+)/',
+			       $preference['derivativeOperations'],
 			       $matches)) {
 		    $size = $matches[1];
 		}

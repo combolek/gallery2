@@ -79,10 +79,6 @@ class SearchShowAllView extends GalleryView {
 	$return = GalleryUtilities::getFormVariables('return.');
 	$formName = GalleryUtilities::getRequestVariables('formName');
 	
-	print "<pre>";
-	print_r($form);
-	print "</pre>";
-
 	$searchResults = array();
 	$searchResultItems = array();
 	$searchResultThumbnails = array();
