@@ -1,40 +1,37 @@
-{gallery->mainbody1}
-  {gallery->maintitle1}
+{gallery->bannerbox}
+  {gallery->title}
     {gallery->text text="Upload Complete"}
-  {/gallery->maintitle1}
+  {/gallery->title}
+{/gallery->bannerbox}
 
-  {gallery->detailedbox}
-    {gallery->title}
-      {if ($count)}
-	{gallery->text one="Successfully added %d file." many="Successfully added %d files." count=$count arg1=$count}
-      {else}
-	{gallery->text text="No files added."}
-      {/if}
-    {/gallery->title}
-
-    {if ($count)}
-      {gallery->body}
-	{gallery->table}
-	  {foreach from=$status item=entry}
-	    {gallery->row}
-	      {gallery->column}
-		{gallery->text text="Added %s" arg1=$entry.fileName}
-	      {/gallery->column}
-	    {/gallery->row}
-	  {/foreach}
-	{/gallery->table}
-      {/gallery->body}
+{gallery->detailedbox}
+  {gallery->title}
+    {if ($ItemAddChildrenConfirmation.count)}
+      {gallery->text one="Successfully added %d file." many="Successfully added %d files." count=$ItemAddChildrenConfirmation.count arg1=$ItemAddChildrenConfirmation.count}
+    {else}
+      {gallery->text text="No files added."}
     {/if}
-  {/gallery->detailedbox}
-
-  {gallery->detailedbox}
+  {/gallery->title}
+  
+  {if ($ItemAddChildrenConfirmation.count)}
     {gallery->body}
-      {gallery->form action_view="core:ItemAdmin" action_subView="core:ItemAddChildren" action_itemId=$item.id}
-	{gallery->input type="submit"}
-	  {gallery->text text="Add more files"}
-	{/gallery->input}
-      {/gallery->form}
+      {gallery->table}
+	{foreach from=$status item=entry}
+	  {gallery->row}
+	    {gallery->column}
+	      {gallery->text text="Added %s" arg1=$entry.fileName}
+	    {/gallery->column}
+	  {/gallery->row}
+	{/foreach}
+      {/gallery->table}
     {/gallery->body}
-  {/gallery->detailedbox}
-{/gallery->mainbody1}
+  {/if}
+{/gallery->detailedbox}
 
+{gallery->detailedbox}
+  {gallery->body}
+    {gallery->link url_view="core:ItemAdmin" url_subView="core:ItemAddChildren" url_itemId=$ItemAdmin.item.id}
+      {gallery->text text="Add more files"}
+    {/gallery->link}
+  {/gallery->body}
+{/gallery->detailedbox}

@@ -195,9 +195,9 @@ class ItemAddChildrenController extends GalleryController {
 class ItemAddChildrenView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -323,20 +323,18 @@ class ItemAddChildrenView extends GalleryView {
 	    }
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('mode', $mode);
-	$template->setVariable('isAdmin', $isAdmin);
-	$template->setVariable('localServerDirList', $localServerDirList);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('controller', 'core:ItemAddChildren');
-	list($ret, $html) = $template->render('ItemAddChildren.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$ItemAddChildren = array();
 
-	return array(GalleryStatus::success(), $html);
+	$ItemAddChildren['mode'] = $mode;
+	$ItemAddChildren['isAdmin'] = $isAdmin;
+	$ItemAddChildren['localServerDirList'] = $localServerDirList;
+	$template->setVariable('ItemAddChildren', $ItemAddChildren);
+
+	if ($mode == 'fromBrowser') {
+	    $template->setVariable('enctype', 'multipart/form-data');
+	}
+	$template->setVariable('controller', 'core:ItemAddChildren');
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemAddChildren.tpl');
     }
 }
 ?>

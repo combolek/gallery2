@@ -10,6 +10,7 @@ SHORT TERM
 - investigate why "CreateRandomTree" test case isn't an ACID transaction
   (while it's running, you can see the items getting added to the db from 
    another transaction??)
+- let the UrlGenerator delegate to the views to create and parse URLs.
 
 MEDIUM TERM
 -----------

@@ -105,9 +105,9 @@ class ItemDeleteController extends GalleryController {
 class ItemDeleteView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -131,9 +131,7 @@ class ItemDeleteView extends GalleryView {
 	    if ($gallery->getDebug()) {
 		$gallery->debug("Can't delete the root album");
 	    }
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
-					      __FILE__, __LINE__),
-			 null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	
 	/* Count its children */
@@ -152,19 +150,14 @@ class ItemDeleteView extends GalleryView {
 	    $itemType = 'item';
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('itemType', $itemType);
-	$template->setVariable('childCount', $childCount);
-	$template->setVariable('controller', 'core:ItemDelete');
-	list($ret, $html) = $template->render('ItemDelete.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$ItemDelete = array();
+	$ItemDelete['itemType'] = $itemType;
+	$ItemDelete['childCount'] = $childCount;
 
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('controller', 'core:ItemDelete');
+	$template->setVariable('ItemDelete', $ItemDelete);
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemDelete.tpl');
     }
 }
 ?>

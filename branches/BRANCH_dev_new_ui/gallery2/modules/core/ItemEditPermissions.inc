@@ -301,9 +301,9 @@ class ItemEditPermissionsController extends GalleryController {
 class ItemEditPermissionsView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -336,6 +336,7 @@ class ItemEditPermissionsView extends GalleryView {
 	    }
 	    
 	    $form['owner']['ownerName'] = '';
+	    $form['formName'] = 'ItemEditPermissions';
 	}
 
 	/* Get all available permissions */
@@ -442,21 +443,16 @@ class ItemEditPermissionsView extends GalleryView {
 	$can['applyToSubItems'] = $item->getCanContainChildren();
 
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('owner', $owner->getMemberData());
-	$template->setVariable('can', $can);
-	$template->setVariable('userPermissions', $userPermissions);
-	$template->setVariable('groupPermissions', $groupPermissions);
-	$template->setVariable('allPermissions', $allPermissions);
-	$template->setVariable('controller', 'core:ItemEditPermissions');
-	list($ret, $html) = $template->render('ItemEditPermissions.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$ItemEditPermissions['owner'] = $owner->getMemberData();
+	$ItemEditPermissions['can'] = $can;
+	$ItemEditPermissions['userPermissions'] = $userPermissions;
+	$ItemEditPermissions['groupPermissions'] = $groupPermissions;
+	$ItemEditPermissions['allPermissions'] = $allPermissions;
 
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('ItemEditPermissions', $ItemEditPermissions);
+	$template->setVariable('controller', 'core:ItemEditPermissions');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemEditPermissions.tpl');
     }
 }
 ?>
