@@ -14,8 +14,14 @@
 <!ENTITY chapters.gallery1-install.help                 SYSTEM 'sections/gallery1-install/help.xml'>
 
 <!-- Gallery 2 -->
-<!ENTITY chapters.gallery2				SYSTEM 'sections/gallery2/index.xml'>
-<!ENTITY chapters.gallery2.dev-guide			SYSTEM 'sections/gallery2/developers_guide.xml'>
+<!ENTITY chapters.gallery2-devguide			SYSTEM 'sections/gallery2-devguide/index.xml'>
+<!ENTITY chapters.gallery2-devguide.introduction	SYSTEM 'sections/gallery2-devguide/introduction.xml'>
+<!ENTITY chapters.gallery2-devguide.concepts		SYSTEM 'sections/gallery2-devguide/concepts.xml'>
+<!ENTITY chapters.gallery2-devguide.patterns		SYSTEM 'sections/gallery2-devguide/patterns.xml'>
+<!ENTITY chapters.gallery2-devguide.modules		SYSTEM 'sections/gallery2-devguide/modules.xml'>
+<!ENTITY chapters.gallery2-devguide.layouts		SYSTEM 'sections/gallery2-devguide/layouts.xml'>
+<!ENTITY chapters.gallery2-devguide.themes		SYSTEM 'sections/gallery2-devguide/themes.xml'>
+<!ENTITY chapters.gallery2-devguide.support		SYSTEM 'sections/gallery2-devguide/support.xml'>
 
 <!-- Guide Standards -->
 <!ENTITY chapters.guide-standards			SYSTEM 'sections/guide-standards/index.xml'>
