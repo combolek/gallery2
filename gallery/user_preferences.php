@@ -95,7 +95,7 @@ and digits.
 
 <p>
 
-<form name=usermodify_form method=GET>
+<form name=usermodify_form method=POST>
 <p>
 
 <? include("html/userData.inc"); ?>
