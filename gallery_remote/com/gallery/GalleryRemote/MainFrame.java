@@ -36,7 +36,7 @@ import javax.swing.Timer;
 
 public class MainFrame extends javax.swing.JFrame {
     
-    public final static String APP_VERSION_STRING = "0.41 (updated by Pierre-Luc Paour and Dolan Halbrook)";
+    public final static String APP_VERSION_STRING = "0.4";
     public final static int ONE_SECOND = 1000;
     
     javax.swing.JMenuBar jMenuBar = new javax.swing.JMenuBar();
@@ -141,8 +141,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         jMenuBar.setVisible(true);
         jMenuBar.add(jMenuFile);
-        jMenuBar.add(jMenuHelp);
         jMenuBar.add(jMenuOptions);
+        jMenuBar.add(jMenuHelp);
         
         jMenuFile.setVisible(true);
         jMenuFile.setText("File");
@@ -157,7 +157,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuHelp.add(jMenuHelpAbout);
         
         jMenuHelpAbout.setVisible(true);
-        jMenuHelpAbout.setText("About");
+        jMenuHelpAbout.setText("About...");
         jMenuHelpAbout.setActionCommand("Help.About");
         
         jMenuOptions.setVisible(true);
