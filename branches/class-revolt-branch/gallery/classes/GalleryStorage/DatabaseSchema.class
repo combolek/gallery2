@@ -90,8 +90,9 @@ class DatabaseSchema {
 	 * Generate the schema for each class
 	 */
 	foreach ($metaInfo->listClasses() as $tableName) {
-	    $query = $this->_generator->createTable($tableName,
+	    $query = $this->_generator->createTable($databaseName, $tableName,
 	        $metaInfo->_metaInfo->fullClassInfo[$tableName]);
+
 	    $recordSet = $this->_db->Execute($query);
 
 	    /* Check the results */
@@ -107,7 +108,7 @@ class DatabaseSchema {
 						  'class' => 'schema'),
 				 "minor" => array('type' => STORAGE_TYPE_INTEGER,
 						  'class' => 'schema'));
-	$query = $this->_generator->createTable("schema", $schemaTableInfo);
+	$query = $this->_generator->createTable($databaseName, "schema", $schemaTableInfo);
 	$recordSet = $this->_db->Execute($query);
 	
 	/* Check the results */
@@ -118,7 +119,7 @@ class DatabaseSchema {
 	/*
 	 * Populate the schema table with exactly one row.
 	 */
-	$schemaTable = DATABASE_TABLE_PREFIX . 'schema';
+	$schemaTable = $databaseName . '.' . DATABASE_TABLE_PREFIX . 'schema';
 	$query = 'DELETE FROM ' . $schemaTable;
 	$recordSet = $this->_db->Execute($query);
 	
