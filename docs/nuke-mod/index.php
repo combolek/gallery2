@@ -38,6 +38,12 @@ if (empty ($action)) {
 	include ('galleryweb/'.$file);
 	doNotes();
 } else {
+	if (get_magic_quotes_gpc()) {
+		if (!empty($_POST['note'])) {
+	    		$_POST['note'] = stripslashes($_POST['note']);
+		}
+    	}
+	
 	switch ($action) {
 		case 'add-note':
 			include ('include/add-note.php');
@@ -45,6 +51,7 @@ if (empty ($action)) {
 		case 'manage-note':
 			include ('include/manage-note.php');
 			break;
+	    
 		default:
 			throwError ('Invalid Action');
 			break;
