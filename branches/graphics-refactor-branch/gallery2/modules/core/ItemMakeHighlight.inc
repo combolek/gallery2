@@ -79,13 +79,6 @@ class ItemMakeHighlightController extends GalleryController {
 		}
 	    }
 
-	    /* Create the new thumbnail for the album */
-	    list ($ret, $derivative) = 
-		GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-
 	    /* Get the derivativeOperations to generate a thumbnail for the album */
 	    list ($ret, $preferences) =
 		GalleryDerivativePreferencesMap::fetchPreferencesForItem($parentId);
@@ -104,19 +97,40 @@ class ItemMakeHighlightController extends GalleryController {
 			     null);
 	    }
 
-	    $ret = $derivative->create($parentId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	    /*
+	     * Validate the stored preferences to make sure that
+	     * they're supported by an active toolkit.
+	     */
+	    list ($ret, $isSupported, $outputMimeType) =
+		GalleryToolkitHelper::isSupportedOperationSequence($mimeType,
+								   $derivativeOperations);
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    $derivative->setDerivativeMimeType($sourceItem->getDerivativeMimeType());
-	    $derivative->setDerivativeSourceId($sourceItem->getId());
-	    $derivative->setDerivativeOperations($derivativeOperations);
+	    if ($isSupported) {
+		/* Create the new thumbnail for the album */
+		list ($ret, $derivative) = 
+		    GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 
-	    $ret = $derivative->save();
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		$ret = $derivative->create($parentId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		$derivative->setDerivativeMimeType($outputMimeType);
+		$derivative->setDerivativeSourceId($sourceItem->getId());
+		$derivative->setDerivativeOperations($derivativeOperations);
+
+		$ret = $derivative->save();
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 	    }
+	    
 	    /* Figure out where to redirect upon success */
 	    $redirectParams['view'] = 'core:ItemAdmin';
 	    $redirectParams['itemId'] = $item->getId();

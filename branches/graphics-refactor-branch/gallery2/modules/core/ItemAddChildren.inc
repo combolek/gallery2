@@ -126,38 +126,73 @@ class ItemAddChildrenController extends GalleryController {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
-		    list ($ret, $graphics) = $gallery->getGraphics();
+		    /*
+		     * Now create thumbnails and resizes according to the
+		     * wishes of the parent album.
+		     */
+		    list ($ret, $preferences) =
+			GalleryDerivativePreferencesMap::fetchPreferencesForItem($item->getId());
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
-		    /*
-		     * Create derivatives if we support the mime type.
-		     */
-		    if ($graphics->isSupportedMimeType($newItem->getMimeType())) {
+
+		    foreach ($preferences as $preference) {
 			/*
-			 * Now create thumbnails and resizes according to the
-			 * wishes of the parent album.
+			 * Validate the stored preferences to make sure that
+			 * they're supported by an active toolkit.
 			 */
-			list ($ret, $preferences) =
-			    GalleryDerivativePreferencesMap::fetchPreferencesForItem($item->getId());
+			list ($ret, $isSupported, $outputMimeType) =
+			    GalleryToolkitHelper::isSupportedOperationSequence($mimeType,
+									       $preference['derivativeOperations']);
+
 			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
-			foreach ($preferences as $preference) {
+			/* Not supported?  Try the next preference */
+			if (!$isSupported) {
+			    continue;
+			}
+
+			
+			list ($ret, $derivative) = 
+			    GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
+
+			$ret = $derivative->create($newItem->getId(), $preference['derivativeType']);
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
+
+			$derivative->setDerivativeMimeType($outputMimeType);
+			$derivative->setDerivativeSourceId($newItem->getId());
+			$derivative->setDerivativeOperations($preference['derivativeOperations']);
+			
+			$ret = $derivative->save();
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null);
+			}
+
+			/*
+			 * Create a thumbnail for the album, if necessary.
+			 * XXX: this needs to be refactored 
+			 */
+			if ($albumNeedsThumbnail && $preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
 			    list ($ret, $derivative) = 
 				GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
 			    if ($ret->isError()) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
 
-			    $ret = $derivative->create($newItem->getId(), $preference['derivativeType']);
+			    $ret = $derivative->create($item->getId(), $preference['derivativeType']);
 			    if ($ret->isError()) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
 
-			    $derivative->setDerivativeMimeType($newItem->getMimeType());
+			    $derivative->setDerivativeMimeType($outputMimeType);
 			    $derivative->setDerivativeSourceId($newItem->getId());
 			    $derivative->setDerivativeOperations($preference['derivativeOperations']);
 			
@@ -165,34 +200,8 @@ class ItemAddChildrenController extends GalleryController {
 			    if ($ret->isError()) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
-
-			    /*
-			     * Create a thumbnail for the album, if necessary.
-			     * XXX: this needs to be refactored 
-			     */
-			    if ($albumNeedsThumbnail && $preference['derivativeType'] == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
-				list ($ret, $derivative) = 
-				    GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
-				if ($ret->isError()) {
-				    return array($ret->wrap(__FILE__, __LINE__), null);
-				}
-
-				$ret = $derivative->create($item->getId(), $preference['derivativeType']);
-				if ($ret->isError()) {
-				    return array($ret->wrap(__FILE__, __LINE__), null);
-				}
-
-				$derivative->setDerivativeMimeType($newItem->getMimeType());
-				$derivative->setDerivativeSourceId($newItem->getId());
-				$derivative->setDerivativeOperations($preference['derivativeOperations']);
-			
-				$ret = $derivative->save();
-				if ($ret->isError()) {
-				    return array($ret->wrap(__FILE__, __LINE__), null);
-				}
 				
-				$albumNeedsThumbnail = false;
-			    }
+			    $albumNeedsThumbnail = false;
 			}
 		    }
 		}

@@ -223,226 +223,6 @@ class GalleryToolkitHelper {
     }
 
     /**
-     * Get all valid operations on a certain mime type
-     *
-     * @access public
-     * @static
-     * @param string a mime type
-     * @return array object GalleryStatus a status code
-     *               array('name' => ...,
-     *                     'outputMimeType' => ...,
-     *                     'description' => ...,
-     *                     arguments => array('type' => ...,
-     *                                        'description' => ...,
-     *                                        'default' => ...),
-     *                                  ...)
-     * @todo use priorities for choosing the correct toolkit
-     */
-    function getOperations($mimeType) {
-	global $gallery;
-
-	$query = '
-        SELECT
-          [GalleryToolkitOperationMap::name],
-          [GalleryToolkitOperationMap::outputMimeType],
-          [GalleryToolkitOperationMap::description],
-          [GalleryToolkitOperationParameterMap::type],
-          [GalleryToolkitOperationParameterMap::description],
-          [GalleryToolkitOperationParameterMap::default]
-        FROM
-          [GalleryToolkitOperationMap],
-          [GalleryToolkitOperationMimeTypeMap],
-          [GalleryToolkitOperationParameterMap]
-        WHERE
-          [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationParameterMap::operationName]
-          AND
-          [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
-          AND
-          [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
-        ORDER BY
-          [GalleryToolkitOperationParameterMap::position] ASC
-        ';
-
-	list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$data = array();
-	$current = array();
-	while ($result = $searchResults->nextResult()) {
-	    if (!empty($current)) {
-		if ($current['name'] != $result[0]) {
-		    $data[] = $current;
-		    $current = array();
-		}
-	    }
-		    
-	    if (empty($current)) {
-		$current = array('name' => $result[0],
-				 'outputMimeType' => empty($result[1]) ? $mimeType : $result[1],
-				 'description' => $result[2]);
-	    }
-	    $current['arguments'][] = array('type' => $result[3],
-					    'description' => $result[4],
-					    'default' => $result[5]);
-	}
-	$data[] = $current;
-
-	return array(GalleryStatus::success(), $data);
-    }
-
-    /**
-     * Get all valid properties of a certain mime type
-     *
-     * @access public
-     * @static
-     * @param string a mime type
-     * @return array object GalleryStatus a status code
-     *               array (
-     *                      array($toolkitId, $propertyId),
-     *                      array($toolkitId, $propertyId)
-     *               )
-     *
-     * @todo use priorities for choosing the correct toolkit
-     */
-    function getProperties($mimeType) {
-	global $gallery;
-
-	$query = '
-        SELECT
-          [GalleryToolkitPropertyMap::name],
-          [GalleryToolkitPropertyMap::type],
-          [GalleryToolkitPropertyMap::description],
-        FROM
-          [GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
-        WHERE
-          [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
-          AND
-          [GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
-        ';
-
-	list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$data = array();
-	while ($result = $searchResults->nextResult()) {
-	    $data[] = array('name' => $result[0],
-			    'type' => $result[1],
-			    'description' => $result[2]);
-	}
-
-	return array(GalleryStatus::success(), $data);
-    }
-
-    /**
-     * Get a toolkit that can perform the given operation
-     *
-     * @access public
-     * @static
-     * @param string a mime type
-     * @param string the operation name
-     * @return array object GalleryStatus a status code
-     *               object GalleryToolkit a toolkit
-     *               string a result mime type
-     * @todo use priorties for choosing the correct toolkit
-     */
-    function getToolkitByOperation($mimeType, $operationName) {
-	global $gallery;
-
-	$query = '
-        SELECT
-          [GalleryToolkitOperationMimeTypeMap::toolkitId],
-          [GalleryToolkitOperationMap::outputMimeType]
-        FROM
-          [GalleryToolkitOperationMap],
-          [GalleryToolkitOperationMimeTypeMap]
-        WHERE
-          [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
-          AND
-          [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
-          AND
-          [GalleryToolkitOperationMap::name] = ?
-        ';
-
-	list ($ret, $searchResults) = $gallery->search($query, array($mimeType, $operationName));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
-					      __FILE__, __LINE__),
-			 null,
-			 null);
-	}
-	$result = $searchResults->nextResult();
-
-	$toolkitId = $result[0];
-	$outputMimeType = empty($result[1]) ? $mimeType : $result[1];
-
-	list ($ret, $toolkit) = 
-	    GalleryFactory::newInstanceById('GalleryToolkit', $toolkitId);
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	return array(GalleryStatus::success(), $toolkit, $outputMimeType);
-    }
-
-    /**
-     * Get a toolkit that can retrieve the given property
-     *
-     * @access public
-     * @static
-     * @param string a mime type
-     * @param string the property name
-     * @return array object GalleryStatus a status code
-     *               object GalleryToolkit a toolkit
-     * @todo use priorties for choosing the correct toolkit
-     */
-    function getToolkitByProperty($mimeType, $propertyName) {
-	global $gallery;
-
-	$query = '
-        SELECT
-          [GalleryToolkitPropertyMimeTypeMap::toolkitId]
-        FROM
-          [GalleryToolkitPropertyMap],
-          [GalleryToolkitPropertyMimeTypeMap]
-        WHERE
-          [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
-          AND
-          [GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
-          AND
-          [GalleryToolkitPropertyMap::name] = ?
-        ';
-
-	list ($ret, $searchResults) =
-	    $gallery->search($query, array($mimeType, $propertyName));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	if ($searchResults->resultCount() == 0) {
-	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
-					      __FILE__, __LINE__),
-			 null);
-	}
-	$result = $searchResults->nextResult();
-
-	list ($ret, $toolkit) = 
-	    GalleryFactory::newInstanceById('GalleryToolkit', $result[0]);
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	return array(GalleryStatus::success(), $toolkit);
-    }
-
-    /**
      * Unregister a toolkit's operations and properties.  If we have any
      * remaining operations or properties that are no longer implemented by any
      * toolkit then remove them from the system also.
@@ -528,6 +308,278 @@ class GalleryToolkitHelper {
 	}
 
 	return GalleryStatus::success();
+    }
+
+    /**
+     * Get all valid operations on a certain mime type
+     *
+     * @access public
+     * @static
+     * @param string a mime type
+     * @return array object GalleryStatus a status code
+     *               array('name' => ...,
+     *                     'outputMimeType' => ...,
+     *                     'description' => ...,
+     *                     arguments => array('type' => ...,
+     *                                        'description' => ...,
+     *                                        'default' => ...),
+     *                                  ...)
+     * @todo use priorities for choosing the correct toolkit
+     */
+    function getOperations($mimeType) {
+	global $gallery;
+
+	$cacheKey = "GalleryToolkitHelper::getOperations($mimeType)";
+	if (!GalleryDataCache::containsKey($cacheKey)) {
+	    $query = '
+            SELECT
+              [GalleryToolkitOperationMap::name],
+              [GalleryToolkitOperationMap::outputMimeType],
+              [GalleryToolkitOperationMap::description],
+              [GalleryToolkitOperationParameterMap::type],
+              [GalleryToolkitOperationParameterMap::description],
+              [GalleryToolkitOperationParameterMap::default]
+            FROM
+              [GalleryToolkitOperationMap],
+              [GalleryToolkitOperationMimeTypeMap],
+              [GalleryToolkitOperationParameterMap]
+            WHERE
+              [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationParameterMap::operationName]
+              AND
+              [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
+              AND
+              [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
+            ORDER BY
+              [GalleryToolkitOperationParameterMap::position] ASC
+            ';
+
+	    list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $data = array();
+	    $current = array();
+	    while ($result = $searchResults->nextResult()) {
+		if (!empty($current)) {
+		    if ($current['name'] != $result[0]) {
+			$data[] = $current;
+			$current = array();
+		    }
+		}
+		    
+		if (empty($current)) {
+		    $current = array('name' => $result[0],
+				     'outputMimeType' => empty($result[1]) ? $mimeType : $result[1],
+				     'description' => $result[2]);
+		}
+		$current['arguments'][] = array('type' => $result[3],
+						'description' => $result[4],
+						'default' => $result[5]);
+	    }
+	    $data[] = $current;
+	    GalleryDataCache::put($cacheKey, $data);
+	} else {
+	    $data = GalleryDataCache::get($cacheKey);
+	}
+
+	return array(GalleryStatus::success(), $data);
+    }
+
+    /**
+     * Get all valid properties of a certain mime type
+     *
+     * @access public
+     * @static
+     * @param string a mime type
+     * @return array object GalleryStatus a status code
+     *               array (
+     *                      array($toolkitId, $propertyId),
+     *                      array($toolkitId, $propertyId)
+     *               )
+     *
+     * @todo use priorities for choosing the correct toolkit
+     */
+    function getProperties($mimeType) {
+	global $gallery;
+
+	$cacheKey = "GalleryToolkitHelper::getProperties($mimeType)";
+	if (!GalleryDataCache::containsKey($cacheKey)) {
+	    $query = '
+            SELECT
+              [GalleryToolkitPropertyMap::name],
+              [GalleryToolkitPropertyMap::type],
+              [GalleryToolkitPropertyMap::description],
+            FROM
+              [GalleryToolkitPropertyMap], [GalleryToolkitPropertyMimeTypeMap]
+            WHERE
+              [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+              AND
+              [GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
+            ';
+
+	    list ($ret, $searchResults) = $gallery->search($query, array($mimeType));
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $data = array();
+	    while ($result = $searchResults->nextResult()) {
+		$data[] = array('name' => $result[0],
+				'type' => $result[1],
+				'description' => $result[2]);
+	    }
+	    GalleryDataCache::put($cacheKey, $data);
+	} else {
+	    $data = GalleryDataCache::get($cacheKey);
+	}
+
+	return array(GalleryStatus::success(), $data);
+    }
+
+    /**
+     * Get a toolkit that can perform the given operation
+     *
+     * @access public
+     * @static
+     * @param string a mime type
+     * @param string the operation name
+     * @return array object GalleryStatus a status code
+     *               object GalleryToolkit a toolkit
+     *               string a result mime type
+     * @todo use priorties for choosing the correct toolkit
+     */
+    function getToolkitByOperation($mimeType, $operationName) {
+	global $gallery;
+
+	$cacheKey = "GalleryToolkitHelper::getToolkitByOperation($mimeType, $operationName)";
+	if (!GalleryDataCache::containsKey($cacheKey)) {
+	    $query = '
+            SELECT
+              [GalleryToolkitOperationMimeTypeMap::toolkitId],
+              [GalleryToolkitOperationMap::outputMimeType]
+            FROM
+              [GalleryToolkitOperationMap],
+              [GalleryToolkitOperationMimeTypeMap]
+            WHERE
+              [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
+              AND
+              [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
+              AND
+              [GalleryToolkitOperationMap::name] = ?
+            ';
+
+	    list ($ret, $searchResults) = $gallery->search($query, array($mimeType, $operationName));
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $toolkit = null;
+	    $outputMimeType = null;
+	    if ($searchResults->resultCount() > 0) {
+		$result = $searchResults->nextResult();
+
+		$toolkitId = $result[0];
+		$outputMimeType = empty($result[1]) ? $mimeType : $result[1];
+
+		list ($ret, $toolkit) = 
+		    GalleryFactory::newInstanceById('GalleryToolkit', $toolkitId);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+	    }
+	    GalleryDataCache::put($cacheKey, array($toolkit, $outputMimeType));
+	} else {
+	    list ($toolkit, $outputMimeType) = GalleryDataCache::get($cacheKey);
+	}
+
+	return array(GalleryStatus::success(), $toolkit, $outputMimeType);
+    }
+
+    /**
+     * Get a toolkit that can retrieve the given property
+     *
+     * @access public
+     * @static
+     * @param string a mime type
+     * @param string the property name
+     * @return array object GalleryStatus a status code
+     *               object GalleryToolkit a toolkit
+     * @todo use priorties for choosing the correct toolkit
+     */
+    function getToolkitByProperty($mimeType, $propertyName) {
+	global $gallery;
+
+	$cacheKey = "GalleryToolkitHelper::getToolkitByProperty($mimeType, $propertyName)";
+	if (!GalleryDataCache::containsKey($cacheKey)) {
+	    $query = '
+            SELECT
+              [GalleryToolkitPropertyMimeTypeMap::toolkitId]
+            FROM
+              [GalleryToolkitPropertyMap],
+              [GalleryToolkitPropertyMimeTypeMap]
+            WHERE
+              [GalleryToolkitPropertyMap::name] = [GalleryToolkitPropertyMimeTypeMap::propertyName]
+              AND
+              [GalleryToolkitPropertyMimeTypeMap::mimeType] = ?
+              AND
+              [GalleryToolkitPropertyMap::name] = ?
+            ';
+
+	    list ($ret, $searchResults) =
+		$gallery->search($query, array($mimeType, $propertyName));
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $toolkit = null;
+	    if ($searchResults->resultCount() > 0) {
+		$result = $searchResults->nextResult();
+		
+		list ($ret, $toolkit) = 
+		    GalleryFactory::newInstanceById('GalleryToolkit', $result[0]);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+	    }
+	    GalleryDataCache::put($cacheKey, $toolkit);
+	} else {
+	    $toolkit = GalleryDataCache::get($cacheKey);
+	}
+
+	return array(GalleryStatus::success(), $toolkit);
+    }
+
+    /**
+     * Verify that a given mime-type/operation-sequence combination is
+     * supported by our existing toolkits by walking the sequence and making
+     * sure that we have a toolkit that can handle each operation.
+     *
+     * @param string the original mime type
+     * @param string a sequence of operations
+     * @return object GalleryStatus a status code
+     *         boolean true if supported, false if not
+     */
+    function isSupportedOperationSequence($mimeType, $operations) {
+
+	$isSupported = true;
+	foreach (split(';', $operations) as $operation) {
+	    list($operationName, $operationArgs) = split('\|', $operation);
+	    
+	    /* Get the appropriate toolkit */
+	    list ($ret, $toolkit, $mimeType) =
+		GalleryToolkitHelper::getToolkitByOperation($mimeType, $operationName);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    if (!is_object($toolkit)) {
+		$isSupported = false;
+		break;
+	    }
+	}
+
+	return array(GalleryStatus::success(), $isSupported, $mimeType);
     }
 }
 ?>
