@@ -121,12 +121,6 @@ public class ImageCrop extends Applet
 		String imageUrlString = getParameter("IMAGE");
 		if (imageUrlString == null)
 			throw new Exception("No Image URL parameter provided.");
-		String host = this.getDocumentBase().getHost();
-		String port = "" + this.getDocumentBase().getPort();
-		if ("80".equals(port) || "-1".equals(port)) port = "";
-		else port = ":" + port;
-		String protocol = this.getDocumentBase().getProtocol();
-		imageUrlString = protocol + "://" + host + port + imageUrlString;
 		System.out.println("ImageUrl [" + imageUrlString + "]");
 
 		try {
