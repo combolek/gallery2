@@ -4,7 +4,7 @@
 
 {gallery->main}
   {gallery->mainbody1}
-    {gallery->form controller="$controller"}
+    {gallery->form action_controller="$controller"}
       {gallery->input type="hidden" name="form.formName"}Login{/gallery->input}
 
       <!-- Embed the hidden return fields -->
