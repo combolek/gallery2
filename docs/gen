@@ -169,6 +169,8 @@ case $1 in
 			mkdir -p $DIST/autofaq;
 		fi
 
+		gendate
+
 		echo "Generating AutoFAQ data...";
 		cd $DIST/autofaq
 		xsltproc ../../misc-xsl/autofaq.xsl ../../manual.xml > autofaq_data.txt || exit 1
