@@ -206,6 +206,18 @@ class Image {
 		$this->raw_height = $h;
 	}
 
+	/* return the imges's dimensions is scaled to $size */
+	function getScaledDimensions($size) {
+		if ($this->width > $this->height) {
+			$width = $size;
+			$height = $size * ($this->height / $this->width);
+		} else {
+			$width = $size * ($this->width / $this->height);
+			$height = $size;
+		}
+		return array($width, $height);
+	}
+
 	function getDimensions() {
 		return array($this->width, $this->height);
 	}
