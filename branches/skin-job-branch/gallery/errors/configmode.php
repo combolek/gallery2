@@ -21,10 +21,15 @@ To configure gallery,
 If you've finished your configuration but you're still seeing this
 page, that's because for safety's sake we don't let you run Gallery in
 an insecure mode.  You need to switch to secure mode before you can
-use it.  In a shell do this:
+use it.  Here's how:
 
 <p><center>
-<?= configure("secure.sh"); ?>
+<?= configure("secure"); ?>
 <p>
-Then just reload this page and all should be well.
+Then just reload this page and all should be well.  
+
+<? include($GALLERY_BASEDIR . "errors/configure_help.php"); ?>
+
 </table>
+</body>
+</html>

@@ -227,8 +227,13 @@ function check_graphics($location="")
 		} else {
 			$d = locateDir($bin, $gallery->app ? $gallery->app->pnmDir : "");
 		}
+
 		if (!$d) {
 			$missing[$bin] = "Can't find <i>$bin</i>!";
+		}
+
+		if (!is_executable("$d/$bin")) {
+			$missing[$bin] = "<i>$bin</i> is not executable!";
 		}
 	}
 	
@@ -283,7 +288,7 @@ function detect_exec_status()
 		if ($dir) {
 			$file = "$dir/$prog";
 			if (fs_is_executable($file)) {
-				exec($file, $results, $status);
+				fs_exec($file, $results, $status);
 				$count[$status]++;
 			} 
 		}
