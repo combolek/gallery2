@@ -33,8 +33,12 @@ class SqlGenerator {
 	return "CREATE DATABASE $databaseName";
     }
 
-    function createTable($databaseName, $tableName, $tableInfo) {
-	$fullTableName = $databaseName . '.' . DATABASE_TABLE_PREFIX . $tableName;
+    function dropDatabase($databaseName) {
+	return "DROP DATABASE $databaseName";
+    }
+
+    function createTable($tableName, $tableInfo) {
+	$fullTableName = DATABASE_TABLE_PREFIX . $tableName;
 
 	$clause = '';
 	$primaryKey = '';
