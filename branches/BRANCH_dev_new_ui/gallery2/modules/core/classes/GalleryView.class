@@ -175,13 +175,13 @@ class GalleryView {
 	/* Get the theme name from the view */
 	list ($ret, $themeName) = $this->getThemeName();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	
 	/* Load and initialize the theme */
 	list ($ret, $theme) = GalleryTheme::loadTheme();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Pass the theme to the template adapter */
@@ -201,7 +201,7 @@ class GalleryView {
 	    $session =& $gallery->getSession();
 	    $status = $session->getStatus($statusId);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} else {
 	    $status = array();
