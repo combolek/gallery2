@@ -37,7 +37,7 @@
 		<sect3 id="gallery-remote.problems.bundled.mac">
 			<title>Mac OS X</title>
 			<para>The Mac package includes jpegtran, but it does not include ImageMagick,
- 				so you need to <ulink url="http://www.apple.com/downloads/macosx/unix_open_source/imagemagick.html">download ImageMagick from Apple</ulink> 
+ 				so you need to <ulink url="http://www.entropy.ch/software/macosx/#imagemagick">download ImageMagick from Apple</ulink> 
  				and install it.</para>
 			<para>No other action should be necessary: the package is always installed
 				in <filename>/usr/local/bin</filename>.</para>
