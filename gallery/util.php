@@ -224,7 +224,8 @@ function getFile($fname) {
 function dismissAndReload() {
 	if (isDebugging()) {
 		echo "<BODY onLoad='opener.location.reload();'>";
-		echo("<b>Not closing this window because debug mode is on</b>");
+		echo("<center><b>Not closing this window because debug mode is on</b></center>");
+		echo("<hr>");
 	} else {
 		echo "<BODY onLoad='opener.location.reload(); parent.close()'>";
 	}
@@ -237,7 +238,8 @@ function reload() {
 function dismissAndLoad($url) {
 	if (isDebugging()) {
 		echo("<BODY onLoad='opener.location = \"$url\"; '>");
-		echo("<b>Not closing this window because debug mode is on</b>");
+		echo("<center><b>Not closing this window because debug mode is on</b></center>");
+		echo("<hr>");
 	} else {
 		echo("<BODY onLoad='opener.location = \"$url\"; parent.close()'>");
 	}
@@ -776,7 +778,7 @@ function getNextPhoto($idx) {
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
 		// even though a user can write to an album, they may
 		// not have read authority over a specific nested album.
-		if ($gallery->album->isAlbumName($idx)) {
+		if ($idx <= $numPhotos && $gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
 			$myAlbum = new Album();
 			$myAlbum->load($myAlbumName);
@@ -792,7 +794,7 @@ function getNextPhoto($idx) {
 		$idx++;
 	}
 
-	if ($gallery->album->isAlbumName($idx)) {
+	if ($idx <= $numPhotos && $gallery->album->isAlbumName($idx)) {
 		// do not display a nexted album if the user doesn't
 		// have permission to view it.
 		if ($gallery->album->isAlbumName($idx)) {
@@ -978,4 +980,14 @@ function breakString($buf, $desired_len=40, $space_char=' ', $overflow=5) {
 	}
 	return $result;
 }
+
+function padded_range_array($start, $end) {
+	$arr = array();
+	for ($i = $start; $i <= $end; $i++) {
+		$val = sprintf("%02d", $i);
+		$arr[$val] = $i;
+	}
+	return $arr;
+}
+
 ?>
