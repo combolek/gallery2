@@ -56,10 +56,6 @@ if ($doit) {
 
 	$editTabInclude = $editDir. $type . "_" . $tab . ".inc";
 
-	//-- after doint it we either return to the edit or, if the tab
-	//-- sets forceReturn it exit's edit ---
-	$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
-
 	//-- if we have a submit and the command wants to show progress ---
 	//-- go straight there (don't bother loading the layout)...     ---
 	if ($show_progress) {
@@ -77,6 +73,10 @@ if ($doit) {
 
 		//-- here the command should 'execute' ---
 		require($editTabInclude);
+
+		//-- after doint it we either return to the edit or, if the tab
+		//-- sets forceReturn it exit's edit ---
+		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
 
 		//-- use javascript to pop back to the edit page ---
 		$backtoEditUrl = makeEditUrl($tab);
@@ -107,6 +107,10 @@ if ($doit) {
 		//-- a normal doit (which should not emit any text) ---
 		require($editTabInclude);
 
+		//-- after doint it we either return to the edit or, if the tab
+		//-- sets forceReturn it exit's edit ---
+		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
+
 		//-- we either leave edit here, or refresh the edit page ---
 		header("Location: $returnAfterDoit");
 		return;
@@ -117,17 +121,23 @@ if ($doit) {
 
 //-- load up the available commands ---
 $commands = Array();
-$commandCount = 0;
 
 switch ($type) {
 
 	case "album":
 
+		//-- 
+		$typeLabel = "Album";
+
 		//-- the item info for display ---
 		$myAlbum = new Album();
 		$myAlbum->load($id);
-		$thumbnail['tag'] = $myAlbum->getHighlightTag(100);
-		$thumbnail['url'] = $album->getHighlightPath($index);
+
+		$thumbnail['url'] = $album->getHighlightAsThumbnailPath();
+		$image = $album->getHighlightAsThumbnailImage();
+		list($w, $h) = $image->getScaledDimensions(100);
+		$thumbnail['width'] = $w;
+		$thumbnail['height'] = $h;
  
 
         //-- the album commands ---
@@ -136,9 +146,6 @@ switch ($type) {
 			$commands[$name]['title'] = "Info";
 			$commands[$name]['href'] = makeEditUrl($name);
 		}
-
-		//-- 
-		$typeLabel = "Album";
 
 		break;
 
