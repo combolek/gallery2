@@ -373,11 +373,27 @@ class AlbumItem {
 		}
 	}
 
+	function getThumbnailPath($dir) {
+		if ($this->thumbnail) {
+			return $this->thumbnail->getTag($dir);
+		} else {
+			return "about:blank";
+		}
+	}
+
 	function getHighlightTag($dir, $size=0, $attrs) {
 		if (is_object($this->highlightImage)) {
 			return $this->highlightImage->getTag($dir, 0, $size, $attrs);
 		} else {
 			return "<i>No highlight</i>";
+		}
+	}
+
+	function getHighlightPath($dir) {
+		if (is_object($this->highlightImage)) {
+			return $this->highlightImage->getPath($dir);
+		} else {
+			return "about:blank";
 		}
 	}
 
