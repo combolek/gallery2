@@ -113,7 +113,7 @@
     <td align="left" valign="middle" width="3000" height="18">
     <span class="admin">&nbsp;
     <!-- BEGIN: command -->
-    <a href="#" onClick="{command.action};return false">[{command.title}]</a>
+    <a href="{command.href}">[{command.title}]</a>
     <!-- END: command -->
     </span>
     </td>

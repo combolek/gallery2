@@ -128,10 +128,11 @@
           <!-- BEGIN: commands -->
           <tr>
           <td align="center" valign="bottom" width="{thumbCellSize}">
-            COMMANDS
-            <!-- BEGIN: option -->
-
-            <!-- END: option -->
+            <span class="admin">
+            <!-- BEGIN: command -->
+            <a href="{command.href}">[{command.title}]</a>&nbsp;
+            <!-- END: command -->
+            </span>
             </td>
           </tr>
           <!-- END: commands -->

@@ -48,13 +48,11 @@ $xtpl_blocks->parse("breadcrumb");
 
 
 //$xtpl_blocks->parse("toolbox.left");
-if (count($GLO['toolbox']['commands']) > 0) {
-	for ($i=1; $i <=  count($GLO['toolbox']['commands']); $i++) {
-		$xtpl_blocks->assign("command", $GLO['toolbox']['commands'][$i]);
-		$xtpl_blocks->parse("toolbox.commands.command");
-	}
-	$xtpl_blocks->parse("toolbox.commands");
+foreach ($GLO['toolbox']['commands'] as $command) {
+	$xtpl_blocks->assign("command", $command);
+	$xtpl_blocks->parse("toolbox.commands.command");
 }
+$xtpl_blocks->parse("toolbox.commands");
 $xtpl_blocks->parse("toolbox");
 
 //-- modify page title here as the title tag is in global template ---
@@ -106,7 +104,11 @@ for ($row=1; $row <= $GLO['album']['rows']; $row++) {
 		$xtpl->parse($cellTypeBlock);
 
 		//-- do the command row --
-		if ($item && $item['commandCount']) {
+		if ($item && count($item['commands'])) {
+			foreach ($item['commands'] as $command) {
+				$xtpl->assign('command', $command);
+				$xtpl->parse("view_album.items.row.cell.commands.command");
+			}
 			$xtpl->parse("view_album.items.row.cell.commands");
 		}
 
