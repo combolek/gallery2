@@ -24,13 +24,13 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($reorder, $index, $newAlbum, $newIndex) = getRequestVars(array('reorder', 'index', 'newAlbum', 'newIndex'));
+
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 	echo _("You are not allowed to perform this action!");
 	exit;
 }
-
-list($reorder, $index, $newAlbum, $newIndex) = getRequestVars(array('reorder', 'index', 'newAlbum', 'newIndex'));
 
 doctype();
 ?>

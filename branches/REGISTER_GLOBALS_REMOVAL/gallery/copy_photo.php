@@ -32,7 +32,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 
 $albumDB = new AlbumDB(FALSE); // read album database
 
-list($index, $startPhoto, $endPhoto, $newAlbum) = getRequestVar('index', 'startPhoto', 'endPhoto', 'newAlbum');
+list($index, $startPhoto, $endPhoto, $newAlbum) = getRequestVar(array('index', 'startPhoto', 'endPhoto', 'newAlbum'));
 
 doctype();
 ?>

@@ -25,6 +25,11 @@
 <?php
 
 require(dirname(__FILE__) . '/init.php'); 
+
+list($action, $create, $cancel) = getRequestVar(array('action', 'create', 'cancel'));
+list($uname, $old_password, $new_password1, $new_password2) = getRequestVar(array('uname', 'old_password', 'new_password1', 'new_password2'));
+list($fullname, $email, $send_email) = getRequestVar(array('fullname', 'email', 'send_email'));
+
 doctype();
 ?>
 <html>
@@ -57,10 +62,6 @@ $allowChange['default_language'] = true;
 $allowChange['create_albums'] = false;
 $allowChange["send_email"] = false;
 $allowChange["member_file"] = false;
-
-list($action, $create, $cancel) = getRequestVar(array('action', 'create', 'cancel'));
-list($uname, $old_password, $new_password1, $new_password2) = getRequestVar(array('uname', 'old_password', 'new_password1', 'new_password2'));
-list($fullname, $email, $send_email) = getRequestVar(array('fullname', 'email', 'send_email'));
 
 $errorCount=0;
 if (!empty($action) && $action =='create') {
