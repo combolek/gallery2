@@ -101,6 +101,13 @@
     Put Gallery into config mode by running <filename>configure.bat</filename>
     in the root Gallery directory
    </para>
+   <note>
+    <para>
+     In Gallery 1.4.4, the configure.bat and secure.bat files are no longer
+     necessary.  You can safely ignore any steps which mention those two files
+     if you are using Gallery 1.4.4
+    </para>
+   </note>
   </listitem>
   <listitem>
    <para>
