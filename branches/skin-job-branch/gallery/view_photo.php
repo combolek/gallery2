@@ -244,8 +244,7 @@ do {
     }   
     $pAlbumName = $pAlbum->fields['parentAlbumName'];
     if ($pAlbumName) {
-	$pAlbum = new Album();
-	$pAlbum->load($pAlbumName);
+	$pAlbum = new Album($pAlbumName);
         $breadLevels[$breadCount]['level'] = "Album";
         $breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
         $breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
