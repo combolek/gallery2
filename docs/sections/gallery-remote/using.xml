@@ -139,8 +139,8 @@ Caution: Be careful before posting your log to forums or sending it to anyone: y
 		to end-users.
 	</para>
 	<para>
-		Special case: Gallery URLs: include keys like <varname><repleaceable>url.99</repleaceable></varname>,
-		<varname><repleaceable>username=99</repleaceable></varname>, etc to specify the URL and
+		Special case: Gallery URLs: include keys like <varname><replaceable>url.99</replaceable></varname>,
+		<varname><replaceable>username=99</replaceable></varname>, etc to specify the URL and
  		type of your Gallery. You need to use 99 for the Gallery preset number for Gallery Remote to
  		find the key. The new Gallery URL will be added after the last existing URL on the end-users
 		Gallery Remote installation. If you omit the username and/or password, Gallery Remote will
