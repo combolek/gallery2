@@ -30,6 +30,8 @@ if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
     $proto = "http";
 }
 
+list($uname, $password, $langid, $lcid, $cmd) = getRequestVar(array('uname', 'password', 'langid', 'lcid', 'cmd'));
+
 if(empty($cmd)){
 
   header("Cache-control: private");
