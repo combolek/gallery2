@@ -47,6 +47,3 @@ if (isset ($_POST['submit'])) {
 	printNotesForm ($modPage, false, $_GET['sect']);
 }
 ?>
-
-		
-		

@@ -9,8 +9,7 @@ or "./gen dist" from where the docs are checked out to "galleryweb" here.
 E.g.
  ln -sf /path/to/docs/dist/galleryweb /path/to/nuke/modules/GalleryDocs/galleryweb
 
-4) Note moderators must be have the "Admin" permission level for this
-module
+4) Note admins should have moderate permissions
 
 5) Setup a cron job to automatically update and generate the docs every once
 in a while.  Also make sure this directory gets "cvs updated" or changes won't
