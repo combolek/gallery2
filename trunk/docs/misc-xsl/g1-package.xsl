@@ -58,7 +58,7 @@
           <xsl:if test="$row2">
             <tr>
               <td width="20%" align="left">
-                <xsl:if test="count($prev)>0">
+                <xsl:if test="count($prev)>0 and substring ($prev/@id, 0, 10) = 'gallery1-'">
                   <a accesskey="p">
                     <xsl:attribute name="href">
                       <xsl:call-template name="href.target">
@@ -139,7 +139,7 @@
           <xsl:if test="$row1">
             <tr>
               <td width="40%" align="left">
-                <xsl:if test="count($prev)>0">
+                <xsl:if test="count($prev)>0 and substring ($prev/@id, 0, 10) = 'gallery1-'">
                   <a accesskey="p">
                     <xsl:attribute name="href">
                       <xsl:call-template name="href.target">
@@ -191,7 +191,7 @@
           <xsl:if test="$row2">
             <tr>
               <td width="40%" align="left" valign="top">
-                <xsl:if test="$navig.showtitles != 0">
+                <xsl:if test="$navig.showtitles != 0 and substring ($prev/@id, 0, 10) = 'gallery1-'">
                   <xsl:apply-templates select="$prev" mode="object.title.markup"/>
                 </xsl:if>
                 <xsl:text>&#160;</xsl:text>
