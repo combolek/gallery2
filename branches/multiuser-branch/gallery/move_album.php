@@ -38,12 +38,12 @@ $albumDB = new AlbumDB();
 
 if ($albumName && isset($index)) {
 	if (isset($newIndex)) {
-		$albumDB->moveAlbum($index, $newIndex);
+		$albumDB->moveAlbum($user, $index, $newIndex);
 		$albumDB->save();
 		dismissAndReload();
 		return;
 	} else {
-		$numAlbums = $albumDB->numAlbums();
+		$numAlbums = $albumDB->numAlbums($user);
 ?>
 
 <center>
