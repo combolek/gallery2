@@ -22,9 +22,7 @@
  * Global storage container and utility class for Gallery
  *
  * This is a container for global information required for gallery
- * operation, such as configuration, session, user, etc.  It also
- * serves as the GalleryItem manager.  All requests for GalleryItems
- * should go through this class so that they can be cached and shared.
+ * operation, such as configuration, session, user, etc.  
  *
  * @version $Id$
  * @package GalleryCore
@@ -108,7 +106,7 @@ class Gallery {
      * @var array $_nucleusCache;
      */
     var $_nucleusCache;
-
+    
     /**
      * An instance of the GalleryPlatform class
      *
@@ -164,36 +162,32 @@ class Gallery {
     /**
      * Get the cached GalleryNucleus for the id provided
      *
-     * Return the GalleryNucleus associated with this id.  Note  
-     * that this returns the unique object itself, not a copy.
-     * This means that you can change/save it.
+     * Return a cached copy of the GalleryNucleus associated with this id.
      *
      * @access public
      * @param int the id of the GalleryNucleus
      */
-    function &getCachedNucleus($id) {
+    function getCachedNucleus($id) {
 	assert('!empty($id)');
 	assert('!empty($this->_nucleusCache[$id])');
-
+	
 	return $this->_nucleusCache[$id];
     }
-
+    
     /**
      * Add the GalleryNucleus to the cache.
-     *
-     * Note that we're storing a reference to the GalleryNucleus that we
-     * received, so there should only ever be one instance.
      *
      * @access public
      * @param object GalleryNucleus the GalleryNucleus to cache
      */
-    function addToCache(&$nucleus) {
+    function addToCache($nucleus) {
 	assert('!empty($nucleus)');
-
+	
 	$id = $nucleus->getId();
 	assert('!empty($id)');
 	
 	$this->_nucleusCache[$id] =& $nucleus;
+
     }
 
     /**
@@ -441,21 +435,10 @@ class Gallery {
 	}
 
 	/*
-	 * If we don't have a lock, get one and register it with the
-	 * end-of-session handler so that we can be sure that it goes away.
+	 * Make and acquire a new lock.
 	 */
-	$this->_lock = $this->_storage->newLock($timeout, $array);
-	if (empty($this->_lock)) {
-	    return ERROR | ERROR_LOCK_IN_USE;
-	}
-
-	register_shutdown_function(array($this, 'unlock'));
-
-	/*
-	 * After we acquire the lock, refresh all cached objects so that we
-	 * know they are up to date before doing any operations.
-	 */
-	$this->refreshAllCachedObjects();
+	$this->_lock = new GalleryLock();
+	return $this->_lock->lock($array, $timeout);
 
 	return SUCCESS;
     }
@@ -477,29 +460,7 @@ class Gallery {
      * @return int a status code
      */
     function lockWorld($timeout=10) {
-	/*
-	 * If we already have a lock, fail.
-	 */
-	if (!empty($this->_lock)) {
-	    return ERROR | ERROR_ILLEGAL_LOCK;
-	}
-	
-	/*
-	 * If we don't have a lock, get one and register it with the
-	 * end-of-session handler so that we can be sure that it goes away.
-	 */
-	$this->_lock = $this->_storage->newLock($timeout);
-	if (empty($this->_lock)) {
-	    return ERROR | ERROR_LOCK_IN_USE;
-	}
-
-	register_shutdown_function(array($this, 'unlock'));
-
-	/*
-	 * After we acquire the lock, refresh all cached objects so that we
-	 * know they are up to date before doing any operations.
-	 */
-	$this->refreshAllCachedObjects();
+	return $this->lockLocal(array(), $timeout);
     }
 
     /**
@@ -512,6 +473,12 @@ class Gallery {
 	$this->_lock->unlock();
     }
 
+    /**
+     * Is the GalleryNucleus locked?
+     *
+     * @param int the id of a GalleryNucleus
+     * @access public
+     */
     function isLocked($id) {
 	assert('!empty($id)');
 
@@ -520,25 +487,6 @@ class Gallery {
 	}
 
 	return $this->_lock->isLocked($id);
-    }
-
-    /**
-     * Refresh every cached object from the perisistent store
-     *
-     * This makes sure that any/all cached instances of an object are
-     * consistent with the data store, to prevent errors from concurrent
-     * modifications to the data store.
-     *
-     * @access public
-     */
-    function refreshAllCachedObjects() {
-	foreach ($this->_itemCache as $id => $instance) {
-	    $this->_itemCache[$id]->refresh();
-	}
-
-	foreach ($this->_dataContainerCache as $id => $instance) {
-	    $this->_dataContainerCache[$id]->refresh();
-	}
     }
 
     /**
@@ -612,6 +560,26 @@ class Gallery {
 		print $msg;
 	    }
 	}
+    }
+
+    /**
+     * Get the string representation(s) of an error.
+     *
+     * An error is a set of bitflags, so we return an array of strings.
+     * @param int the error code
+     * @return array string names of the errors
+     */
+    function getErrorAsStrings($errorCode) {
+	$codes = array();
+	foreach (get_defined_constants() as $constantName => $constantValue) {
+	    if (strpos($constantName, 'ERROR_') === 0) {
+		if ($errorCode & $constantValue) {
+		    $codes[] = $constantName;
+		}
+	    }
+	}
+
+	return $codes;
     }
 }
 ?>
