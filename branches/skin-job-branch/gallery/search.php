@@ -148,7 +148,7 @@ if ($searchstring) {
 				    	$searchAlbum->isOwner($uid) || 
 			    	    	$gallery->user->isAdmin()) {
 						$photoMatch = 1;
-						$id = $searchAlbum->getPhotoId($j);
+						$id = $searchAlbum->getItemIdByIndex($j);
 						// cause search word to be bolded
 						$searchCaption = eregi_replace($searchstring, "<b>$searchstring</b>",$searchCaption);
 						$searchKeywords = eregi_replace($searchstring, "<b>$searchstring</b>",$searchKeywords);
