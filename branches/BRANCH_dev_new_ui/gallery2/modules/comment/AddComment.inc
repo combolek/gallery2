@@ -41,7 +41,6 @@ class AddCommentController extends GalleryController {
      */
     function handleRequest($form) {
 	global $gallery;
-	global $HTTP_SERVER_VARS;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	$return = GalleryUtilities::getFormVariables('return.');
@@ -73,7 +72,7 @@ class AddCommentController extends GalleryController {
 	    $form['comment'] = strip_tags($form['comment']);
 
 	    $comment->setCommenterId($gallery->getActiveUserId());
-	    $comment->setHost($HTTP_SERVER_VARS['REMOTE_ADDR']);
+	    $comment->setHost(GalleryUtilities::getRemoteHostAddress());
 	    $comment->setComment($form['comment']);
 	    $comment->setDate(time());
 
@@ -155,7 +154,14 @@ class AddCommentView extends GalleryView {
 	
 	$return = GalleryUtilities::getFormVariables('return.');
 
+	list ($ret, $user) = $gallery->getActiveUser();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	$template->setVariable('return', $return);
+	$template->setVariable('user', $user->getMemberData());
+	$template->setVariable('host', GalleryUtilities::getRemoteHostAddress());
 	$template->setVariable('item', $item->getMemberData());
 	$template->setVariable('controller', 'comment:AddComment');
 	list($ret, $html) = $template->render('AddComment.tpl');

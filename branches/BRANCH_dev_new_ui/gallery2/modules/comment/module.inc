@@ -194,7 +194,8 @@ class CommentModule extends GalleryTemplateModule {
 	    }
 
 	    if (isset($permissions['comment.add'])) {
-		$params['view'] = 'comment:AddComment';
+		$params['view'] = 'core:ItemAdmin';
+		$params['subView'] = 'comment:AddComment';
 		$params['itemId'] = $item->getId();
 		$links[$item->getId()][] =
 		    array('text' => $this->translate('add comment'),
@@ -353,6 +354,24 @@ class CommentModule extends GalleryTemplateModule {
 	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Comments'),
 				 'view' => 'comment:AdminComments')));
+    }
+
+    /**
+     * @see GalleryModule::getItemAdminViews();
+     */
+    function getItemAdminViews($item) {
+	$views = array();
+	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if (isset($permissions['comment.add'])) {
+	        $views[] = array('name' => $this->translate('Add Comment'),
+				 'view' => 'comment:AddComment');
+	}
+
+	return array(GalleryStatus::success(), $views);
     }
 
     /**
