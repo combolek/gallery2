@@ -39,16 +39,15 @@ function makeEditUrl($t, $error="") {
 require($GALLERY_BASEDIR . "init.php"); 
 
 $albumName = $gallery->session->albumName;
-$album = $gallery->album;
 $user = $gallery->user;
 
 //-- Hack check. You have to have permission to see the album ---
-if (!$user->canReadAlbum($album)) {
+if (!$user->canReadAlbum($gallery->album)) {
     header("Location: view_album.php");
     return;
 }
 
-if (!$album->isLoaded()) {
+if (!$gallery->album->isLoaded()) {
     header("Location: view_album.php");
     return;
 }
@@ -63,6 +62,16 @@ $editDir = $GALLERY_BASEDIR . "edit/";
 
 //-- we're executing the command? ---
 if ($doit) {
+
+	//-- XXX - messy - a little type-based initialization ---
+	switch ($type) {
+		case "album":
+			$album = new Album();
+			$album->load($id);
+			break;
+		case "item":
+			break;
+	}
 
 	$editTabInclude = $editDir. $type . "_" . $tab . ".inc";
 
@@ -145,18 +154,19 @@ switch ($type) {
 		$typeLabel = "Album";
 
 		//-- the item info for display ---
-		$myAlbum = new Album();
-		$myAlbum->load($id);
+		$album = new Album();
+		$album->load($id);
 
 		$thumbnail['url'] = $album->getHighlightAsThumbnailPath();
 		$image = $album->getHighlightAsThumbnailImage();
-		list($w, $h) = $image->getScaledDimensions(100);
-		$thumbnail['width'] = $w;
-		$thumbnail['height'] = $h;
- 
+		if ($image) {
+			list($w, $h) = $image->getScaledDimensions(100);
+			$thumbnail['width'] = $w;
+			$thumbnail['height'] = $h;
+ 		}
 
         //-- the album commands ---
-		if ($user->canChangeTextOfAlbum($myAlbum)) {
+		if ($user->canChangeTextOfAlbum($album)) {
 			$name = "general";
 			$commands[$name]['title'] = "Info";
 			$commands[$name]['href'] = makeEditUrl($name);
@@ -179,31 +189,31 @@ switch ($type) {
 	case "item":
 
 		//-- 
-		if ($album->isMovie($id)) {
+		if ($gallery->album->isMovie($id)) {
 			$typeLabel = "Movie";
 		} else {
 			$typeLabel = "Photo";
 		}
 
 		//-- the item info for display ---
-		$index = $album->getPhotoIndex($id);
+		$index = $gallery->album->getPhotoIndex($id);
 
 		//-- have to make url 'unique' to guarantee browser refresh ---
-		$thumbnail['url'] = $album->getThumbnailPath($index);
+		$thumbnail['url'] = $gallery->album->getThumbnailPath($index);
 
-		$p = $album->getPhoto($index);
+		$p = $gallery->album->getPhoto($index);
 		list($w, $h) = $p->thumbnail->getScaledDimensions(100);
 		$thumbnail['width'] = $w;
 		$thumbnail['height'] = $h;
 
 		//-- the item commands ---
-		if ($user->canChangeTextOfAlbum($album)) {
+		if ($user->canChangeTextOfAlbum($gallery->album)) {
 			$name = "general";
 			$commands[$name]['title'] = "Edit Info";
 			$commands[$name]['href'] = makeEditUrl($name);
 		}
-		if ($user->canWriteToAlbum($album)) {
-			if (!$album->isMovie($id)) {
+		if ($user->canWriteToAlbum($gallery->album)) {
+			if (!$gallery->album->isMovie($id)) {
 				$name = "image_thumbnail";
 				$commands[$name]['title'] = "Edit Thumbnail";
 				$commands[$name]['href'] = makeEditUrl($name);
@@ -217,7 +227,7 @@ switch ($type) {
 
         }
 
-		if ($user->canDeleteFromAlbum($album))
+		if ($user->canDeleteFromAlbum($gallery->album))
 			$name = "delete";
 			$commands[$name]['title'] = "Delete $typeLabel";
 			$commands[$name]['href'] = makeEditUrl($name);
