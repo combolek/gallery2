@@ -11,6 +11,10 @@ $action = $_GET['action'] ? $_GET['action'] : $_POST['action'];
 $olddir = getcwd();
 chdir ('modules/GalleryDocs');
 
+if (!is_dir ('galleryweb')) {
+	throwError ('Sanity Check Failed.  There is no <i>galleryweb</i> directory, please read the INSTALL instructions');
+}
+
 if (empty ($action)) {
 	if (empty ($_GET['page'])) {
 		$_GET['page'] = 'index.php';
