@@ -33,6 +33,7 @@ class Image {
 	var $thumb_height;
 	var $raw_width;
 	var $raw_height;
+	var $raw_filesize;
 	var $version;
 
 	function Image() {
@@ -52,6 +53,8 @@ class Image {
 			$this->raw_height = $h;
 			$this->width = $w;
 			$this->height = $h;
+			clearstatcache();
+			$this->raw_filesize= fs_filesize("$dir/$this->name.$this->type");
 		}
 	}
 
@@ -83,12 +86,11 @@ class Image {
 				list($w, $h) = getDimensions($filename);
 				$this->raw_width = $w;
 				$this->raw_height = $h;
+				clearstatcache();
+				$this->raw_filesize= fs_filesize($filename);
 				$changed = 1;
 			}
 		}
-
-		/* We introduced raw_filesize in 1.28 of this file, then got rid of it later. */
-		unset($this->raw_filesize);
 
 		if (strcmp($this->version, $gallery->album_version)) {
 			$this->version = $gallery->album_version;
@@ -253,10 +255,11 @@ class Image {
 	function getRawDimensions() {
 		return array($this->raw_width, $this->raw_height);
 	}
-
-	function rawFileSize($dir) {
-	    $filename = "$dir/$this->name.$this->type";
-	    return fs_filesize($filename);
+	function setRawFileSize($size) { 
+		$this->raw_filesize=$size;	
+	}
+	function getRawFileSize() { 
+		return $this->raw_filesize;
 	}
 }	
 

@@ -30,9 +30,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 }
 ?>
 <?php
-if (!isset($GALLERY_BASEDIR)) {
-    $GALLERY_BASEDIR = './';
-}
 require($GALLERY_BASEDIR . "init.php");
 
 // Hack check
