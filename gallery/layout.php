@@ -55,6 +55,40 @@ function getLayoutXTemplate($name) {
 }
 
 //-----------------------------------------------------------------------------
+//-- returns an initialized XTemplate object ---
+//-----------------------------------------------------------------------------
+function getLayoutWrapTemplate($name) {
+    global $GALLERY_BASEDIR;
+
+    $fullname = $GALLERY_BASEDIR . "html_wrap/$name";
+
+    if (!fs_file_exists($fullname)) {
+        $fullname .= ".default";
+    }
+	return new XTemplate($fullname);
+}
+
+//-----------------------------------------------------------------------------
+//-- returns the header and footer html parsed through an XTPL ---
+//-----------------------------------------------------------------------------
+function getLayoutWrapHeaderFooter($G) {
+	global $GALLERY_EMBEDDED_INSIDE;
+
+	$xtpl_hf = getLayoutWrapTemplate("header_footer.xtpl");
+	$xtpl_hf->assign('G', $G);
+
+	if (!$GALLERY_EMBEDDED_INSIDE) {
+    	$xtpl_hf->parse("header.standalone_only");
+    	$xtpl_hf->parse("footer.standalone_only");
+	}
+	$xtpl_hf->parse("header");
+	$xtpl_hf->parse("footer");
+	$header = $xtpl_hf->text("header");
+	$footer = $xtpl_hf->text("footer");
+
+	return array($header, $footer);
+}
+//-----------------------------------------------------------------------------
 //-- returns an initialized PSPCooker object ---
 //-----------------------------------------------------------------------------
 //require($GALLERY_BASEDIR . "layout_util/PSPCooker/class_pspcooker.php");
