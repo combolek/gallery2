@@ -125,6 +125,7 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
 	       |album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
 	       |album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
+	       |album.max_size.<replaceable>ref-num</replaceable>=<replaceable>image-max-size</replaceable><productnumber> [since 2.15]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -151,9 +152,12 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
           <listitem>
             <para><varname><replaceable>parent-ref-num</replaceable></varname> refers to some other album&apos;s ref-num. A <varname><replaceable>parent-ref-num</replaceable></varname> of <varname>0</varname> (zero) indicates that the album is a &quot;top-level&quot; album (it has no parent).</para>
           </listitem>
-          <listitem>
-            <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
-          </listitem>
+         <listitem>
+           <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
+         </listitem>
+         <listitem>
+           <para><varname><replaceable>image-max-size</replaceable></varname> is the maximum size of images created when a large image is added to an album,</para>
+         </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
@@ -210,6 +214,7 @@ check_writeable=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</p
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-name</replaceable>
         |album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
         |album.thumb_size.<replaceable>ref-num</replaceable>=<replaceable>image-thumb-size</replaceable><productnumber> [since 2.9]</productnumber>
+	       |album.max_size.<replaceable>ref-num</replaceable>=<replaceable>image-max-size</replaceable><productnumber> [since 2.15]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -239,6 +244,9 @@ check_writeable=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</p
           <listitem>
             <para><varname><replaceable>image-resize-size</replaceable></varname> is the intermediate size of images created when a large image is added to an album,</para>
           </listitem>
+         <listitem>
+           <para><varname><replaceable>image-max-size</replaceable></varname> is the maximum size of images created when a large image is added to an album,</para>
+         </listitem>
           <listitem>
             <para><varname><replaceable>extra-fields</replaceable></varname> is a comma-separated list of extra fields names,</para>
           </listitem>
@@ -320,11 +328,12 @@ set_albumName=<replaceable>album name</replaceable></programlisting>
 status=<replaceable>result-code</replaceable>
 status_text=<replaceable>explanatory-text</replaceable>
 auto_resize=<replaceable>resize-dimension</replaceable>
+max_size=<replaceable>max-dimension</replaceable> <productnumber>[since 2.15]</productnumber>
 add_to_beginning=<replaceable>yes/no</replaceable></programlisting>
-        <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
-        <para>If an image is uploaded such that its largest dimension is greater than <varname><replaceable>resize-dimension</replaceable></varname>, the server will resize it. Otherwise, the server will use the original image that was uploaded for both the full-sized and the resized size. In all cases a thumbnail-sized image will be created. The creation of a thumbnail is highly dependant on the size of the image that was uploaded.</para>
-        <para>If the value is <varname>0</varname> (zero), the Gallery server does not intend to resize uploaded images.</para>
-	<para>add_to_beginning will contain yes or no based on whether the album will add images to the beginning or the end of the album. <productnumber>[since 2.10]</productnumber></para>
+        <para>If the <varname>status</varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
+        <para>If an image is uploaded such that its largest dimension is greater than <varname>max-dimension</varname>, the server will resize it. Otherwise, the server will use the original image that was uploaded for both the full-sized and the resized size. In all cases a thumbnail-sized image will be created. The creation of a thumbnail is highly dependant on the size of the image that was uploaded.</para>
+        <para>If the value is <replaceable>0</replaceable> (zero), the Gallery server does not intend to resize uploaded images.</para>
+        <para><varname>add_to_beginning</varname> will contain yes or no based on whether the album will add images to the beginning or the end of the album. <productnumber>[since 2.10]</productnumber></para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.new-album">
