@@ -494,6 +494,7 @@
 <!-- ==================================================================== -->
 
 <xsl:template name="list.of.titles">
+<!--
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="titles" select="'table'"/>
   <xsl:param name="nodes" select=".//table"/>
@@ -544,6 +545,7 @@
       <xsl:apply-templates select="." mode="title.markup"/>
     </a>
   </xsl:element>
+-->  
 </xsl:template>
 
 </xsl:stylesheet>
