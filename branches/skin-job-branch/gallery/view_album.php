@@ -190,10 +190,10 @@ if ($gallery->user->canAddToAlbum($gallery->album)) {
 				$gallery->session->albumName).'">[add photos]</a>&nbsp;';
 }
 if ($gallery->user->canCreateAlbums()) {
-	$adminCommands .= '<a href="' . doCommand("new-album", 
+	$adminCommands .= '<a href="#" onClick="' . doCommand("new-album", 
 						 "&parentName=" . $gallery->session->albumName,
 						 "view_album.php") .
-						 '">[new nested album]</a>&nbsp;<br>';
+						 '; return false">[new nested album]</a>&nbsp;<br>';
 }
 
 if ($gallery->user->canWriteToAlbum($gallery->album)) {
@@ -221,9 +221,9 @@ if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($gallery->album)
 
 
 if ($gallery->user->isLoggedIn()) {
-        $adminCommands .= "<a href=" .
+        $adminCommands .= '<a href="#" onClick="'.
 				doCommand("logout", "", "view_album.php", "page=$page") .
-			  ">[logout]</a>";
+			  '; return false">[logout]</a>';
 } else {
 	$adminCommands .= '<a href="#" onClick="'.popup("login.php").'">[login]</a>';
 } 
@@ -347,6 +347,9 @@ if ($numPhotos) {
 			echo("<form name='image_form_$i'>"); // put form outside caption to compress lines
 			echo "<center><span class=\"caption\">";
 			$id = $gallery->album->getPhotoId($i);
+			if ($gallery->album->isHidden($i)) {
+				echo "(hidden)<br>";
+			}
 			if ($gallery->album->isAlbumName($i)) {
 				$myAlbum = $albumDB->getAlbumbyName($gallery->album->isAlbumName($i));
 				$myDescription = $myAlbum->fields[description];
@@ -418,6 +421,7 @@ if ($numPhotos) {
 				}
 				if ($gallery->album->isAlbumName($i)) {
 					$albumName=$gallery->album->isAlbumName($i);
+					#-- XXX CRS - this is currently broken with my mod to doCommand ---
 					echo("<option value=".doCommand("reset-album-clicks", "albumName=$albumName", "view_album.php").">Reset Counter</option>");
 				}
 				echo("<option value='move_photo.php?index=$i'>Move $label</option>");

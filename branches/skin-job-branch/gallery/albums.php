@@ -28,6 +28,7 @@ $page = 1;
 
 /* If there are albums in our list, display them in the table */
 $numAlbums = $albumDB->numAlbums($gallery->user);
+$numPhotos = $albumDB->numPhotos($gallery->user);
 
 if (!$gallery->session->albumListPage) {
 	$gallery->session->albumListPage = 1;
@@ -57,6 +58,17 @@ $navigator["bordercolor"] = $borderColor;
 <head>
   <title><?= $gallery->app->galleryTitle ?></title>
   <?= getStyleSheetLink() ?>
+
+ <script language="javascript1.2">
+  // <!--
+  function do_this_command(command) {
+    eval (command);
+  }
+  // --> 
+  </script>
+
+
+
 </head>
 <body>
 <? } ?>
@@ -85,6 +97,7 @@ if (!strcmp($gallery->app->default["showSearchEngine"], "yes")) {
 <? 
 $adminText = "<span class=\"admin\">";
 $adminText .= pluralize($numAlbums, "album", "no");
+$adminText .= ",&nbsp;" . pluralize($numPhotos, "photo", "no");
 if ($maxPages > 1) {
 	$adminText .= " on " . pluralize($maxPages, "page", "no") . "&nbsp;";
 }
@@ -96,7 +109,7 @@ if ($gallery->user->isLoggedIn()) {
 }
 
 if ($gallery->user->canCreateAlbums()) { 
-	$adminCommands .= "<a href=" . doCommand("new-album", "", "view_album.php") . ">[new album]</a>&nbsp;";
+	$adminCommands .= '<a href="#" onClick="'.doCommand("new-album", "", "view_album.php").'; return false">[new album]</a>&nbsp;';
 }
 
 if ($gallery->user->isAdmin()) {
@@ -105,7 +118,8 @@ if ($gallery->user->isAdmin()) {
 
 if ($gallery->user->isLoggedIn()) {
 	$adminCommands .= '<a href="#" onClick="'.popup("user_preferences.php").'">[preferences]</a>&nbsp;';
-	$adminCommands .= "<a href=". doCommand("logout", "", "albums.php"). ">[logout]</a>";
+	#$adminCommands .= '<a href="#" onClick="'.doCommand("logout", "", "albums.php").'; return false">[logout]</a>';
+	$adminCommands .= '<a href="#" onClick="do_this_command('.doCommand("logout", "", "albums.php").'); return false">[logout]</a>';
 } else {
 	$adminCommands .= '<a href="#" onClick="'.popup("login.php").'">[login]</a>';
 }
