@@ -1013,7 +1013,7 @@ class Album {
 				if ($this->isAlbumName($i)) {
 					$nestedAlbum = new Album();
 					$nestedAlbum->load($this->isAlbumName($i));
-					$nestedAlbum->setFields($fieldList, $resursive);
+					$nestedAlbum->setFields($fieldList, $recursive);
 				}
 			}
 		}
