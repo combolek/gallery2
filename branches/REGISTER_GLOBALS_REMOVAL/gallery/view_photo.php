@@ -24,9 +24,11 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($full, $id, $index, $votes) = getRequestVar(array('full', 'id', 'index', 'votes'));
+
 // Hack check
 if (empty($gallery->album) || !$gallery->user->canReadAlbum($gallery->album)) {
-        header("Location: " . makeAlbumHeaderUrl());
+	header("Location: " . makeAlbumHeaderUrl());
 	return;
 }
 if (isset($full) && !$gallery->user->canViewFullImages($gallery->album)) {
@@ -41,7 +43,7 @@ if (isset($id)) {
 	$index = $gallery->album->getPhotoIndex($id);
 	if ($index == -1) {
 		// That photo no longer exists.
-	        header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
+		header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
 		return;
 	}
 } else {
@@ -88,14 +90,14 @@ list($imageWidth, $imageHeight) = $image->getRawDimensions();
 
 $do_fullOnly = isset($gallery->session->fullOnly) &&
 		!strcmp($gallery->session->fullOnly,"on") &&
-               !strcmp($gallery->album->fields["use_fullOnly"],"yes");
+	       !strcmp($gallery->album->fields["use_fullOnly"],"yes");
 if ($do_fullOnly) {
 	$full = $gallery->user->canViewFullImages($gallery->album);
 }
     
 $fitToWindow = !strcmp($gallery->album->fields["fit_to_window"], "yes") 
 		&& !$gallery->album->isResized($index) 
-		&& !$full 
+		&& !$full
 		&& (!$GALLERY_EMBEDDED_INSIDE || $GALLERY_EMBEDDED_INSIDE =='phpBB2');
 
 $numPhotos = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
@@ -338,9 +340,9 @@ if (!$gallery->album->isMovie($id)) {
 			!$gallery->session->offline  &&
 			$gallery->user->canViewFullImages($gallery->album)) {
 		$link = doCommand("", 
-			array("set_fullOnly" => 
+			array("set_fullOnly" =>
 				(!isset($gallery->session->fullOnly) ||
-				 strcmp($gallery->session->fullOnly,"on") 
+				 strcmp($gallery->session->fullOnly,"on")
 				? "on" : "off")),
 			"view_photo.php", 
 			array("id" => $id));
@@ -445,7 +447,6 @@ if (!$gallery->album->isMovie($id)) {
 				$adminCommands .= "<a class=\"admin\" href=\"#\" onClick=\"doPrintService('$name');\">[" . sprintf(_('print this photo with %s'), $fullName[$name]) . ']</a>';
 			}
 		}
-	}
 ?>
 <script language="javascript1.2" type="text/JavaScript">
 	 function doPrintService(input) {
@@ -472,6 +473,7 @@ if (!$gallery->album->isMovie($id)) {
 	}
 </script>
 <?php
+	}
 }
 includeLayout('navtablebegin.inc');
 if ($adminCommands) {
@@ -527,9 +529,9 @@ if (!$gallery->album->isMovie($id)) {
 		if ($fitToWindow) {
 			$href="";
 		}
-		else if ($full) { 
+		else if ($full) {
 			$href= makeAlbumUrl($gallery->session->albumName, $id);
-	 	} else if ($gallery->user->canViewFullImages($gallery->album)) {
+		} else if ($gallery->user->canViewFullImages($gallery->album)) {
 			$href= makeAlbumUrl($gallery->session->albumName, $id, array("full" => 1));
 		}
 	}
