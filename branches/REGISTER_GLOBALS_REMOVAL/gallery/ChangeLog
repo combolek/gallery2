@@ -1,0 +1,754 @@
+2004-08-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b126
+
+	* Fix:  Long filename / disclosure fix
+
+	* Fix:  Sorting by caption ignored albums, because they have no "caption"
+	  It now sorts them by their titles.
+
+	* Change: Add getGUID() to prevent code repetition
+
+2004-08-20  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b125
+
+	* Change:  different div tags in login.php as well as centered text 
+		boxes.  This is a temporary fix until the full review of
+		ideas for CSS is finished.
+
+2004-08-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b124
+
+	* Change:  Minor wording changes
+
+2004-08-19  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.5-cvs-b123
+
+	* GR protocol: now returning the max image size for albums in addition
+	  to the intermediate size.
+	* gallery_remote2.php: removed output buffering.
+
+2004-08-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b122
+
+        * Fix: Make doubly-sure that we're setting mambo session vars when
+          embedded, to prevent the 'No info' error.
+
+2004-08-19  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b121
+
+	* Fix: Typos.
+
+2004-08-18  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b120
+
+	* Change: Extra whitespace in despam-comments
+
+	* Fix: Missing echo in save_photos
+
+	* Change: Prevent non-admin users from changing their own usernames via user
+	  preferences
+
+	* Change: Use & refs in get*Vars to save a miniscule amount of memory
+
+2004-08-18  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b119
+
+	* Fix: Added a setup option for "slowPhotoCount".  The accurate photo count
+	  on the Gallery index page was a much requested change, however it proved to
+	  be so slow on some machines/Galleries that this will disable it unless
+	  explicitly enabled by the user during setup.  (Galleries with vast numbers
+	  of albums or images could take as long as 30 seconds to load the index, by
+	  user reports)
+
+2004-08-17  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b118
+
+	* Fix: Variable ordering bug in user_preferences
+
+2004-08-17  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b117
+
+        * Fix: Navigation bar width was dependant on whether images were resized or not...
+          this caused albums where resize_size was off to have the table width set to 0.
+
+        * Fix: Extra-long filename prevention in save_photos.php, as well as verifying
+          that the uploaded file is a valid image format before saving to the temp
+          directory
+
+2004-08-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b116
+
+	* Fix: Enable slideshow in albums containing only sub-albums when
+	  slideshow_recursive is yes.
+
+2004-08-17  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b115
+
+	* Change: Code cleanups in util.php
+
+	* Fix: Moved return out of if clause in getFilesVar() and getEnvVar()
+
+2004-08-17  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b114
+
+	* Fix: Added missing ) in classes/Album.php
+
+2004-08-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b113
+
+        * Fix: If 'shutterfly' is set, but not checked, unset it during the
+          album upgrade.  This caused shutterfly to appear even though it wasn't
+          really enabled.
+
+2004-08-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b112
+
+	* Fix: bharat's cache code - Use getRequestVar() instead of 
+	  HTTP_GET_VARS and move the return inside the fopen, so that 
+	  if it fails for any reason we don't return a blank page
+
+2004-08-16  Bharat Mediratta  <bharat@menalto.com>  1.4.5-cvs-b111
+
+	* Modified block-random.php to put the part that retrieves a 
+	  photo into a function so that sites can easily modify it to
+	  generate 2 random photos (like we do on gallery.menalto.com)
+
+	* Fixed tools/despam-comments.php to work properly inside 
+	  Postnuke (and hopefully all other CMSen)
+
+2004-08-16  Bharat Mediratta  <bharat@menalto.com>  1.4.5-cvs-b110
+
+        * Added a tool for finding and removing comment spam from your 
+          gallery.  You can import and maintain your own blacklist.
+          It's very inefficient, but it works.
+
+2004-08-15  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b109
+
+	* Change: Corrected Userfile check again - checking is_writeable()
+	  by itself wasn't sufficient.
+
+2004-08-15  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b108
+
+	* Fix: The 'Userfile not writeable' error completely broke new installs where
+	  the userfile doesn't exist yet.
+
+2004-08-15  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b107
+
+	* Fix: Remove Debug Code.
+
+2004-08-15  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b106
+
+	* Change: Use timestamp for itemCaptureDate. This required a album version bump.
+
+	* New: Possibility to use capture date as caption.
+
+2004-08-13  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b105
+
+	Change: Initial commit of a little Block for Caption Options during upload.
+
+	Fix: strftime uses different format then date (for captions)
+
+2004-08-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b104
+
+	* Change:  Porting a missed fix forward - 
+	  phpBB2/modules.php needs to extract variables even when register_globals
+	  is enabled.
+
+2004-08-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b103
+
+	* Change: Support the new-style phpnuke embedding (no 'modload' passed)
+
+	* Change: Correct the sample phpnuke random block
+
+2004-08-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b102
+
+	* Add: block-Random_Image.php.sample for phpnuke
+
+	* Change: Added gpl.txt to phpBB2/modules.php
+
+2004-08-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b101
+
+        * Fix: Print fatal error message instead of obscure PHP error
+          when userDB fails to init before we try and use it.
+
+	* Change: Print the correct graphics package path in check_imagemagick.php
+
+2004-08-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b100
+
+	* Change: Add 'properties' link to the main page for 
+	  each root album
+
+	* Change: Make 'apply to subalbums' text clickable
+
+2004-08-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b99
+
+	* Fix: $i got removed from makeGalleryUrl()
+
+	* Change: check isset() on request vars in index.php
+
+2004-08-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b98
+
+	* Change: Make several files ready for register_globals
+	  photo_owner
+	  search
+	  user_preferences
+	  index
+
+2004-08-09  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b97
+
+        * Fix: numAccessibleItems was incorrectly checking isHiddenRecurse()
+          for albums.  It needed to just be isHidden()
+
+2004-08-08  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b96
+
+	* New: Delete of multiple users.
+	
+	* Changed: Added possibility to transport an array via makeGalleryUrl
+
+	* Change: Comment out a button disabling due to JS error.
+	  Note: This needs to be fixed correctly !
+
+2004-08-06  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b95
+
+        * Fix: Prevent foreach() error from being displayed when previewing
+          watermark previews.
+
+        * Fix: Logging into Gallery as a non-admin and then trying to reset
+          the admin password failed.  The logged in user was used and the
+          resetadmin file was ignored
+
+2004-08-05  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b94
+
+	* Change: Only call srand() once, instead of once at each rand()
+	  location.
+
+2004-08-05  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b93
+
+	* Fix: Quote URLs in  block-random for better HTML compliance
+ 
+2004-08-05  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b92
+
+	* Fix: Adjust Subject changes also to SMTP method.
+
+2004-08-05  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b91
+
+	* Fix: Use unhtmlentities for subject and msg in gallery_email()
+
+	* Fix: Add header for content charset in gallery_email()
+
+2004-08-04  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b90
+
+	* Change: When user wants photo captions to be filedate,
+	  then now the format from config is used.
+
+2004-08-03  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b89
+
+	* Fix: Bug #1002883  Albums could be renamed to include a 
+		% character in the name which is interpreted as 
+		an escape character and causes all kinds of issues
+
+2004-08-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b88
+
+        * Fix: Extract _FILES in phpBB2's modules.php
+
+        * Change: Remove modules.php.gz, add modules.php so that we can track
+          code changes.  There's no real reason for it to be gzip'ed.
+          - Updated HowTo.txt and removed 'unzip'...
+
+2004-08-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b87
+
+	* Fix: multi_create was b0rked
+
+2004-08-02  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b86
+
+	* Change:  Modify all popups to have the same CSS tags so that
+		they will look more uniform and look better with skins.
+
+	* Fix: misc. html cleanup including removing center tags and
+		replacing with align="center"
+
+2004-08-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b85
+
+	* Fix: Correct logic in _getStyleSheetLinks 
+
+2004-08-02  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b84
+
+	* Change: Added "Return to Gallery" link to find_orphans.php
+
+2004-08-02  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.5-cvs-b83
+
+	* Fixed phpBB2 integration (I'd missed the big superglobals change before).
+	* Fixed version number (b82 didn't bump).
+
+2004-08-02  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b82
+
+        * Fix: Correct the check_exec function which was being a little too liberal
+          in its regex for exec.  (shell_exec was incorrectly labeled as 'exec')
+
+        * Fix: Don't display clickable dimensions for movies
+
+        * Fix: Stack the custom fields on top of each other - users were
+          really displeased by the side-by-side view
+
+        * Fix: The admin options on root albums were displaying inside the
+          Mambo UI.
+
+2004-07-31  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b81
+
+	* Change: Make edit_appearance compatible with register_globals being
+	  turned off.
+
+	* Change: Make sessions compatible with no-register_globals
+
+2004-07-31  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b80
+
+        * Change: edit_appearance needs to properly handle the empty variable
+          without issuing any PHP notices/warnings
+          (Thanks for finding the issue, Tim)
+
+2004-07-31  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-79
+
+	 * Fix: Disabling ALL print services in edit_appearance (album properties) did not work.
+
+2004-07-31  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-78
+
+        * Fix: Removed shorttags in classes/phpbb files
+
+2004-07-30  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b77
+
+        * Fix: The admin options on root albums were displaying inside the
+          Mambo UI.
+
+2004-07-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b76
+
+	* Fix: view_comments would display albums without read permissions
+	  (user could not see anything except highlight image and album title)
+
+	* Change: Prevent the old 'example' geeklog_dir from causing a 
+	  security violation
+
+2004-07-29  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b75
+
+	* Fix: Typo in config data.
+
+2004-07-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b74
+
+	* Change: Switch from rand() to mt_rand() because it's faster,
+	  and more random.  Also, add mt_srand() in places where we
+	  were missing srand() originally.
+
+2004-07-28  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b73
+
+	* Fix: Typo in register.php prevented user registration
+
+	* Change: Unset the old invalid geeklog_dir during confirm
+
+2004-07-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b72
+
+	* Change: Completely eliminate the "embedded_inside_type" variable,
+	  since *everything* is auto-detected anyway and it really wasn't used.  
+	  GeekLog still requires one variable, but it was already dealt with as
+	  needed.
+
+2004-07-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b71
+
+        * Fix: Prevent the random block from grabbing an album highlight as its
+          image.
+
+2004-07-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b70
+
+        * Fix: Mambo popups failed to operate because the option var wasn't
+          set on systems with register_globals disabled - how did this
+          ever work?
+
+        * Fix: Eliminate two shutterfly/print_photos notices in edit_appearance
+
+2004-07-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b69
+
+        * Fix: I believe that this should fix the issue that some users have
+          had with extremely large Gallery installations during the upgrade
+          script, where the albums just don't show up on the page at all.
+
+2004-07-27  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b68
+
+        * Fix: Display the 'view comments in nested album' links for all users
+          in commentboxtop.inc.  This was restricted to admin/owner only, so it
+          broke navigation when view comments was allowed for all users.
+
+        * Change: Fix uninitialized variable notice
+
+2004-07-26  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b67
+
+        * Fix: Trim trailing spaces from setup vars where no-trailing-slash is
+          set.  This prevents the "/usr/bin /pnmtojpeg" issue
+
+        * Fix: The addition of the 'view comments' for everyone was exposing
+          hidden photos since view_comments.php had been written with only
+          the owner/admin in mind.
+
+2004-07-25  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b66
+
+	* Change: Remove bastard newlines from delete_user and delete_album that were causing
+	  jscript errors in Firefox.
+
+2004-07-25  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b65
+
+	* Fix: In some strange permission sets we got non fitting error messages.
+	  - When upload_tmp_dir is not in open_basedir
+	  - When userdir and /or files in it are is not writeable.
+
+2004-07-24  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b64
+
+        * Fix: Redirect in multi_create_user didnt worked after successfull adding.
+               Reason: doctype header was set before redirect header.
+
+2004-07-23  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b63
+
+	* Fix: Skins will be ignored when embedded.  This was causing a lot
+	  of display issues for users due to skin colors conflicting with
+	  embedding-system colors.
+
+2004-07-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b62
+
+        * Fix?: Revert an earlier checkin (b100?) that prevented a PHP notice
+          when first loading sessions while embedded.  Some users report not
+          getting a session at all in postnuke.  Since postnuke was the original
+          problem, I'm confused, but this will work.  Supressing the notice using
+          @session_start()
+
+2004-07-22  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.5-cvs-b61
+
+	* html_wrap/inline_imagewrap.inc: Removed showstopping typo
+
+2004-07-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b60
+
+        * Change: Remove the != SUNOS line from lib/lang.php
+          We're under the assumption that it was added based on a bogus
+          bug report some time ago because all docs (and user reports)
+          claim that the LANG= line is necessary.
+
+2004-07-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b59
+
+	* Fix: Missing ]
+
+2004-07-22 Jens A. Tkotz <jens@peino.de> 1.4.5-cvs-b58
+
+	* Fix: Show Album Summary only if it exists.
+
+	* Fix: wrong html around Album Summary.
+
+	* Fix: Correct .vassummary class for all skins.
+
+2004-07-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b57
+
+	* Change: Better handling of the onsubmit/double-clicking issue
+	  utilizing an 'action' input which is changed depending on
+	  which button was clicked.
+
+2004-07-22 Jens A. Tkotz <jens@peino.de> 1.4.5-cvs-b56
+
+	* Change: Print Extra fields above comments in view_photo
+
+	* New: Added css for album summary
+
+	* Change: Print Album summary above voting results and button
+
+	* Change: Cleanup and fixed irritating error messages in login
+
+2004-07-22  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b55
+
+	* Fix: Unset variable prevention
+
+	* Fix: b0rked list() in last checkin
+
+2004-07-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b54
+
+	* Change: Partial de-globalization of config wizard.
+
+2004-07-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b53
+
+	* Change: 'No files' to 'All files', and remove a stray binary
+	  char.
+
+2004-07-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b52
+
+	* Change: Whitespace readability changes
+
+	* Change: Prevent unset variable notices from PHP
+
+2004-07-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b51
+
+	* Change: Prevent unset variable notices from PHP
+
+2004-07-21  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b50
+
+	* Change:  Simplify the output for the confirm page of the 
+	  config wizard.  This allows us to use only one output buffer,
+	  requiring less memory, and chance for error.
+
+	  Errors are now placed inline with the normal config.php data,
+	  and prepended with //, just like the "optional" lines.
+
+2004-07-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b49
+
+	* Change: getRequestVar, getEnvVar, getFilesVar now accept string arrays
+
+	* Change: Correct the default value for the new SMTP option
+
+2004-07-21  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b48
+
+	* Change: show "highlight" under images when logged in as an admin
+		if the image is a highlight
+
+2004-07-20  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.5-cvs-b47
+
+	* Merged in changes made to 1.4.4 branch, except for what ckdake
+	  already merged (thanks ckdake).
+	* Fixed applets when Gallery is embedded in phpBB2.
+
+2004-07-20  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b46
+                                                                                                    
+        * Change: Users can specificy a mail server to use other than
+		one running on the local machine.
+
+2004-07-20  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b45
+
+	* Change: When editing captions, provide a popup for each image to 
+		show the sized image
+
+2004-07-20  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.5-cvs-b44
+
+	* Fix: hidden albums are now indicated as such in fetch-album-images
+	  (GR protocol)
+
+2004-07-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b43
+
+	* Change: Add 'alternate' link to the header if RSS is enabled
+
+2004-07-20  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b42
+
+	* Change: Check for fitToWindow before outputting the 'onclick'
+	  attribute in view_photo.
+
+2004-07-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b41
+
+	* Change: Unglobalize login.php
+
+2004-07-19  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b40
+
+	* Change: Since we no longer do shutterfly donations, 
+	  $gallery->app->default["print_photos"] can end up being ""
+	  which causes the key() in view_photo to fail.  This prevents
+	  the error message from key() and prevents printing of a blank
+	  print href.
+
+2004-07-19 JoEllen Drazan <skins@pownuke.com> 1.4.5-cvs-b39
+
+	* Change: New variable to pull the thumsize to create a 
+		  defaultwidth and height for the divCell to align everything up.
+
+2004-07-19 Jens A. Tkotz <jens@peino.de> 1.4.5-cvs-b38
+
+	* Change: Added link to JoEllen Drazans Skin Page in ConfigWizard.
+
+2004-07-18 Jens A. Tkotz <jens@peino.de> 1.4.5-cvs-b37
+
+	* Change: Accidently reverted 1.4.5-cvs-b12 rereverted ;)
+
+2004-07-18 Jens A. Tkotz <jens@peino.de> ; JoEllen Drazan <skins@pownuke.com> 1.4.5-cvs-b36
+	
+	* Fix: Added css classes to have "old" layout.
+
+	* New: Added version number and Last Update to Skins.
+
+2004-07-18 Jens A. Tkotz <jens@peino.de> ; JoEllen Drazan <skins@pownuke.com> 1.4.5-cvs-b35
+
+	* Change: Continue Skin Changes.
+
+	* New: added "bars002" as reference skin.
+
+2004-07-18  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b34
+
+	* Change: Minor fix for the view_album optimizations
+
+2004-07-17  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b33
+
+	* Change: Fix pseudo-register_globals to allow login/etc on PHP5
+	  until it goes away.
+
+2004-07-18 Jens A. Tkotz <jens@peino.de> ; JoEllen Drazan <skins@pownuke.com> 1.4.5-cvs-b32
+
+	* New: Added possibility to use your own header footer via a template file.
+
+2004-07-17 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b31
+
+	* Fix: bad quoting in util.php.
+
+2004-07-17 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b30 
+
+	Change: No more $HTTP*.
+
+2004-07-17 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b29
+
+	* Change: Switched more $HTTP Vars to superglobals. (not all)
+
+2004-07-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b28
+
+	* Change: Revert last change to album_permissions
+
+	* Change: Fix PHP5 - they stopped using the old-style GET and POST
+	  globals, and have switched to SuperGlobals only.  A couple session
+	  and form functions needed adapting.
+
+2004-07-16  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b27
+
+	* Change: album_permissions - if $gallery->album is not set, but
+	  set_albumName is, load it.
+
+2004-07-16 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b26
+
+        * Change: Adapted contrib/phpBB2/modules.php to fit with phpBB2 2.0.9
+
+        * Fix: added missing ; after a &quot in setup/configdata
+
+	* Fix: change $noHeader to sendHeader in lib/lang.php and init with true instead false.
+               Caught by Joerg Holzapfel
+
+	* Change: Switch to superglobals in lib/lang.php
+
+	* New: Added parameter for groups and fields in configwizard, 
+	       that adds a little red start to notify user a required field.
+
+2004-07-15  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b25
+
+	* Change: We no longer use the 'donation' option with Shutterfly,
+	  since we have an official affiliate agreement with them, now.
+	  - Remove the 'donation' option from the config wizard
+	  - Remove the 'donation' option from the album properties
+	  - Rev the album version and remove the donation flag
+	  - Fix setup text about donations/shutterfly
+
+	* Change: Minor text tweak for upgrade album text in albums.php
+
+	* Change: Fix unset variable error in print code.
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b24
+
+	* Change: Don't try and create clickable dimensions on albums.
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b23
+
+	* Change: Add a couple missing parens
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b22
+
+	* Change: Standardize on getRequestVar instead of Get/Post/Cookie
+
+	* Change: $_SERVER is a trusted source.. no need to sanitize.
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b21
+
+	* Change: get(Request|Get|Post|Files|Env|Server)Vars() functions.
+	  TODO - Add XSS filtering
+
+2004-07-14 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b20
+
+	* Change: Tweaked modules.php again.
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b19
+
+	* Change: Forgot a !
+
+2004-07-14  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b18
+
+	* Change: First minor changes for 1.4.5.  Set the required
+	  PHP version to 4.1.0, and add a setup function to check for 
+	  the status of register_globals.
+
+2004-07-13  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b17
+
+	* Change: Give clickable dimensions their own table row to prevent
+	  a scenario where they appear *beside* the image
+
+2004-07-14 Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b16
+
+	Fix: Use getImagePath for voting result bars.
+	     Voting bars were not skinable. (caught by Jade)
+
+	Fix: Adapted modules.php for phpBB2 2.0.9
+
+2004-07-13  Alan Harder <alan.harder@sun.com>  1.4.5-cvs-b15
+
+	* $album->save() after rehighlight in makeThumbnail() so new size is saved.
+
+2004-07-13  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b14
+
+	* Fix: Added missing " in albums.php.
+	  This caused every link after find orphans to be b0rked.
+
+	* Fix: Added missing / to link to configwizard.
+
+2004-07-13  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b13
+
+	* Change: Add a 'rssMaxAlbums' option to the RSS page in the config wizard,
+	  specifying the maximum number of changed albums to be returned in
+	  the feed.  Defaults to 25.
+
+	* Change: Try and optimize the number of times we use isHiddenRecurse and
+	  canReadRecurse when populating the RSS data
+
+2004-07-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b12
+
+	* Change: Get rid of the 'FRAME' alt= tags because it's valid HTML
+	  with alt="", and jmullan's right.. they look like ass in lynx.
+
+2004-07-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b11
+
+	* Change: Hidden images/albums could be *too* hidden (owner couldn't see them)
+
+	* Change: slideshow validation URL is based on whether you're looking at an
+	  album, or the gallery-wide show.
+
+	* Typo: Another photoAlbumUrl -> photoAlbumURL 
+	  (so much for variables being case insensitive)
+
+2004-07-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b10
+
+	* Typo: photoAlbumURL not photoAlbumUrl
+
+2004-07-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b9
+
+	* Change: $adminCommands links now use CSS to prevent breaks in 
+	  two-word links. (e.g. "[manage users]")
+
+	* Change: Change 'one' to '1' to maintain consistancy
+
+	* Change: Clear up to possible PHP notices for use_exif being
+	  unset.
+
+2004-07-11  Jens A. Tkotz <jens@peino.de> 1.4.5-cvs-b8
+
+	*  Fix: Links to config wizard and find orphans were not working embedded.
+		1.) Changed Link to wizard to direct Url
+		2.) Added tools/find_orphans.php to allowed list and modified the file itself, 
+		    to work embedded.
+
+2004-07-11  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b7
+
+	* Change: Check the UserDB for consistancy before logging into
+	  the config wizard.
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b6
+
+	* Change: Incorrect variable assignment in view_album optimization
+	  could yield hidden photos viewable
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b5
+
+	* Change: Center the block-random image, to match the text
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b4
+
+	* Change: Update security message to mention secure.sh, and only
+	  appear on non-Windows OSes.
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b3
+
+	* Change: Logout with relative URLs would return a redirect error
+	  due to doubling of the photoAlbumUrl
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b2
+
+	* Change: Another case of relying on the submit button for a value,
+	  but it's now disabled
+
+2004-07-10  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b1
+
+	* Change: (1.4.4RC1) Check POST vars for $include before resetting to 'albums.php'
+
+FOR THE REST OF THE CHANGELOG, SEE ChangeLog.archive.gz
