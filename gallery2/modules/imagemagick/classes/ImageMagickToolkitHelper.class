@@ -56,42 +56,42 @@ class ImageMagickToolkitHelper {
 
 	/* Scale */
 	$operations['scale']['params'][] = array('type' => 'int',
-						 'description' => 'target size', /* translate */
+						 'description' => $gallery->i18n('target size'), 
 						 'default' => 200);
-	$operations['scale']['description'] = 'Scale the image to the target size'; /* translate */
+	$operations['scale']['description'] = $gallery->i18n('Scale the image to the target size'); 
 	$operations['scale']['mimeTypes'] = $mimeTypes;
 
 	/* Resize */
 	$operations['resize']['params'][] = array('type' => 'int',
-						  'description' => 'target width', /* translate */
+						  'description' => $gallery->i18n('target width'), 
 						  'default' => 200);
 	$operations['resize']['params'][] = array('type' => 'int',
-						  'description' => 'target height', /* translate */
+						  'description' => $gallery->i18n('target height'), 
 						  'default' => 200);
-	$operations['resize']['description'] = 'Resize the image to the target dimensions'; /* translate */
+	$operations['resize']['description'] = $gallery->i18n('Resize the image to the target dimensions'); 
 	$operations['resize']['mimeTypes'] = $mimeTypes;
 
 	/* Rotate */
 	$operations['rotate']['params'][] = array('type' => 'int',
-						  'description' => 'rotation degrees', /* translate */
+						  'description' => $gallery->i18n('rotation degrees'), 
 						  'default' => 90);
-	$operations['rotate']['description'] = 'Rotate the image'; /* translate */
+	$operations['rotate']['description'] = $gallery->i18n('Rotate the image'); 
 	$operations['rotate']['mimeTypes'] = $mimeTypes;
 	
 	/* Crop */
 	$operations['crop']['params'][] = array('type' => 'int',
-						'description' => 'left edge', /* translate */
+						'description' => $gallery->i18n('left edge'), 
 						'default' => 0);
 	$operations['crop']['params'][] = array('type' => 'int',
-						'description' => 'top edge', /* translate */
+						'description' => $gallery->i18n('top edge'), 
 						'default' => 0);
 	$operations['crop']['params'][] = array('type' => 'int',
-						'description' => 'width', /* translate */
+						'description' => $gallery->i18n('width'), 
 						'default' => 0);
 	$operations['crop']['params'][] = array('type' => 'int',
-						'description' => 'height', /* translate */
+						'description' => $gallery->i18n('height'), 
 						'default' => 0);
-	$operations['crop']['description'] = 'Crop the image'; /* translate */
+	$operations['crop']['description'] = $gallery->i18n('Crop the image'); 
 	$operations['crop']['mimeTypes'] = $mimeTypes;
 
 	/*
@@ -100,7 +100,7 @@ class ImageMagickToolkitHelper {
 
 	/* Dimensions */
 	$properties['dimensions']['type'] = 'int,int';
-	$properties['dimensions']['description'] = 'Get the width and height of the image'; /* translate */
+	$properties['dimensions']['description'] = $gallery->i18n('Get the width and height of the image'); 
 	$properties['dimensions']['mimeTypes'] = $mimeTypes;
 
 	return array(GalleryStatus::success(), array('operations' => $operations,
