@@ -151,7 +151,7 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.fetch-albums-prune">
-      <title>Getting a list of albums v2, more efficient [since 2.2]</title>
+      <title>Getting a list of albums v2, more efficient <productnumber>[since 2.2]</productnumber></title>
       <para>The <varname>fetch-albums-prune</varname> command asks the server to return a list of all albums that the user can either write to, or that are visible to the user and contain a sub-album that is writable (including sub-albums several times removed).</para>
       <para>The reason for this slightly altered version of <varname>fetch-albums</varname> is two-fold: the previous version was slow on the server-side, because of the way it was structured, and limitation in the Gallery mode of operation; it returns all albums the the user can read, even if writing is not allowed. This new version is faster, because it uses a more efficient algorithm to find albums; it is more efficient because it only sends albums that are useful to the client. It also doesn&apos;t parse the pictures database, which makes it run much faster on the server.</para>
       <sect4>
@@ -172,9 +172,10 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
          status_text=<replaceable>explanatory-text</replaceable>
         /album.name.<replaceable>ref-num</replaceable>=<replaceable>album-url-name</replaceable>
         |album.title.<replaceable>ref-num</replaceable>=<replaceable>album-display-name</replaceable>
-	|album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
+        |album.summary.<replaceable>ref-num</replaceable>=<replaceable>album-summary</replaceable><productnumber> [since 2.8]</productnumber>
         |album.parent.<replaceable>ref-num</replaceable>=<replaceable>parent-ref-num</replaceable>
-	|album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
+        |album.resize_size.<replaceable>ref-num</replaceable>=<replaceable>image-resize-size</replaceable><productnumber> [since 2.8]</productnumber>
+        |album.thumb_size.<replaceable>ref-num</replaceable>=<replaceable>image-thumb-size</replaceable><productnumber> [since 2.9]</productnumber>
   0...n |album.perms.add.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.write.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.del_item.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
@@ -245,10 +246,10 @@ cmd=add-item
 protocol_version=<replaceable>2.0</replaceable>
 set_albumName=<replaceable>album name</replaceable>
 userfile=<replaceable>form-data-encoded image data</replaceable>
-caption=<replaceable>caption</replaceable> (optional) [since 2.0]
-force_filename=<replaceable>name of the file on the server</replaceable> (optional) [since 2.0]
-auto_rotate=<replaceable>yes/no</replaceable> (optional) [since 2.5]
-extrafield.<replaceable>fieldname</replaceable>=<replaceable>value of the extra field fieldname</replaceable> (optional) [since 2.3]</programlisting>
+caption=<replaceable>caption</replaceable> (optional) <productnumber>[since 2.0]</productnumber>
+force_filename=<replaceable>name of the file on the server</replaceable> (optional) <productnumber>[since 2.0]</productnumber>
+auto_rotate=<replaceable>yes/no</replaceable> (optional) <productnumber>[since 2.5]</productnumber>
+extrafield.<replaceable>fieldname</replaceable>=<replaceable>value of the extra field fieldname</replaceable> (optional) <productnumber>[since 2.3]</productnumber></programlisting>
         <para>Multiple <varname>extrafield</varname> lines with different <varname><replaceable>fieldname</replaceable></varname> values can be used.</para>
       </sect4>
       <sect4>
@@ -261,7 +262,7 @@ status_text=<replaceable>explanatory-text</replaceable></programlisting>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.album-properties">
-      <title>Getting information about an album [since 2.0]</title>
+      <title>Getting information about an album <productnumber>[since 2.0]</productnumber></title>
       <para>The <varname>album-properties</varname> command asks the server for information about an album.</para>
       <sect4>
         <title>Context</title>
@@ -287,7 +288,7 @@ auto_resize=<replaceable>resize-dimension</replaceable></programlisting>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.new-album">
-      <title>Creating a new album [since 2.1]</title>
+      <title>Creating a new album <productnumber>[since 2.1]</productnumber></title>
       <para>The <varname>new-album</varname> command asks the server to add a new album to the gallery installation.</para>
       <sect4>
         <title>Context</title>
@@ -323,14 +324,14 @@ newAlbumDesc=<replaceable>album-description</replaceable> (optional)</programlis
 #__GR2PROTO__
 status=<replaceable>result-code</replaceable>
 status_text=<replaceable>explanatory-text</replaceable>
-album_name=<replaceable>actual-name</replaceable> [since 2.5]</programlisting>
+album_name=<replaceable>actual-name</replaceable> <productnumber>[since 2.5]</productnumber></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
         <para>If the <varname>result-code</varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_NO_CREATE_ALBUM_PERMISSION</varname></link>, the logged-in user doesn&apos;t have permission to create an album in the specified location.</para>
         <para>If an album is created with the same name as an already existing album or <replaceable>album-title</replaceable> is left blank, gallery will automatically generate an album name. <replaceable>actual-name</replaceable> will return the name of the newly created album.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.fetch-album-images">
-      <title>Getting the list of photos in an album [since 2.4]</title>
+      <title>Getting the list of photos in an album <productnumber>[since 2.4]</productnumber></title>
       <para>The <varname>fetch-album-images</varname> command asks the server to return information about all the images in an album. It ignores sub-albums.</para>
       <sect4>
         <title>Context</title>
@@ -352,7 +353,12 @@ set_albumName=<replaceable>album-name</replaceable></programlisting>
         /image.name.<replaceable>ref_num</replaceable>=<replaceable>filename of the image</replaceable>
         |image.raw_width.<replaceable>ref_num</replaceable>=<replaceable>the width of the full-sized image</replaceable>
         |image.raw_height.<replaceable>ref_num</replaceable>=<replaceable>the height of the full-sized image</replaceable>
-        |image.resizedName.<replaceable>ref_num</replaceable>=<replaceable>filename of the resized image</replaceable>
+        |image.resizedName.<replaceable>ref_num</replaceable>=<replaceable>filename of the resized image, if there is one</replaceable>
+        |image.resized_width.<replaceable>ref_num</replaceable>=<replaceable>the width of the resized image, if there is one</replaceable> <productnumber>[since 2.9]</productnumber>
+        |image.resized_height.<replaceable>ref_num</replaceable>=<replaceable>the height of the resized image, if there is one</replaceable> <productnumber>[since 2.9]</productnumber>
+        |image.thumbName.<replaceable>ref_num</replaceable>=<replaceable>filename of the thumbnail</replaceable> <productnumber>[since 2.9]</productnumber>
+        |image.thumb_width.<replaceable>ref_num</replaceable>=<replaceable>the width of the thumbnail</replaceable> <productnumber>[since 2.9]</productnumber>
+        |image.thumb_height.<replaceable>ref_num</replaceable>=<replaceable>the height of the thumbnail</replaceable> <productnumber>[since 2.9]</productnumber>
         |image.raw_filesize.<replaceable>ref_num</replaceable>=<replaceable>size of the full-sized image</replaceable>
         |image.caption.<replaceable>ref_num</replaceable>=<replaceable>caption associated with the image</replaceable>
   0...n |image.extrafield.<replaceable>fieldname</replaceable>.<replaceable>ref_num</replaceable>=<replaceable>value of the extra field of key fieldname</replaceable>
@@ -372,7 +378,7 @@ set_albumName=<replaceable>album-name</replaceable></programlisting>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.move-album">
-      <title>Moving an album [since 2.7]</title>
+      <title>Moving an album <productnumber>[since 2.7]</productnumber></title>
       <para>The <varname>move-album</varname> command asks the server to move an album to a new location within the photo gallery.</para>
       <sect4>
         <title>Context</title>
