@@ -3,6 +3,8 @@
 <!--
 Created by Andrew Lindeman
 Inspired by the stylesheets used on the PHP documentation
+
+$Id$
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -12,8 +14,6 @@ Inspired by the stylesheets used on the PHP documentation
 
  <xsl:param name="html.ext" select="'.php'"/>
 
- <xsl:variable name="galleryweb-test" select="1"/>
- 
  <!-- END CUSTOM VARS --> 
  
 <xsl:template name="header.navigation">
