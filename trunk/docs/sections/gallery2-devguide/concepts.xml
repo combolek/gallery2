@@ -58,7 +58,7 @@
    G2 uses a system called phpunit to do unit testing and at the time
    of this writing has about 600 tests covering almost all of the core
    feature set.  If you want to see what the test suite looks like,
-   install G2 and browse to gallery2/setup/phpunit/index.php.  All the
+   install G2 and browse to gallery2/lib/tools/phpunit/index.php.  All the
    tests should be green, at all times.
   </para>
   <para>
@@ -162,7 +162,7 @@
   <para>
    Clean code is important, especially when many developers are
    collaborating.  Read and obey the Gallery 2
-   <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryOldDocs&amp;file=index&amp;req=viewarticle&amp;artid=19">
+   <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;page=gallery2-devguide.coding-standards.php">
     Coding Standards
    </ulink>
    document
