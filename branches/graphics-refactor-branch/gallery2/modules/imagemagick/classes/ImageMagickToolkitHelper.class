@@ -43,16 +43,9 @@ class ImageMagickToolkitHelper {
      * @static
      */
     function getOperationsAndProperties() {
-	
-	/*
-	 * XXX: We should test the binaries to figure this out, not just assume that
-	 * they work.
-	 */
-	$mimeTypes[] = 'image/jpeg';
-	$mimeTypes[] = 'image/pjpeg';
-	$mimeTypes[] = 'image/gif';
-	$mimeTypes[] = 'image/png';
-	$mimeTypes[] = 'image/tiff';
+	global $gallery;
+
+	$mimeTypes = ImageMagickToolkitHelper::discoverMimeTypes();
 
 	/*
 	 * -------------------- Operations --------------------
@@ -109,6 +102,173 @@ class ImageMagickToolkitHelper {
 
 	return array(GalleryStatus::success(), array('operations' => $operations,
 						     'properties' => $properties));
+    }
+
+    /**
+     * Find out which mime types our ImageMagick installation supports.
+     *
+     * This is done by trying to run 'identify' on a couple of sample images.
+     *
+     * @param string [optional] path to the ImageMagick we are testing, 
+     *	       if not given, use the 'imagemagick.path' module parameter
+     * @return array object GalleryStatus
+     *	       array supported mime-types
+     */
+    function discoverMimeTypes($imageMagickPath=null) {
+	global $gallery;
+
+	if (empty($imageMagickPath)) {
+	    list ($ret, $imageMagickPath) =
+		$gallery->getModuleParameter('imagemagick', 'path');
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	$command = array($imageMagickPath . 'identify',
+			 dirname(__FILE__) . '/../test/images/test.gif',
+			 dirname(__FILE__) . '/../test/images/test.jpg',
+			 dirname(__FILE__) . '/../test/images/test.png',
+			 dirname(__FILE__) . '/../test/images/test.tif',
+			);
+
+	$platform = $gallery->getPlatform();
+	list ($success, $results) = $platform->exec(array($command));
+	if (!$success) {
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	foreach ($results as $resultLine) {
+	    if (ereg('GIF.*PseudoClass', $resultLine)) {
+		$mimeTypes[] = 'image/gif';
+	    } elseif (ereg('JPEG.*DirectClass', $resultLine)) {
+		$mimeTypes[] = 'image/jpeg';
+		$mimeTypes[] = 'image/pjpeg';
+	    } elseif (ereg('PNG.*DirectClass', $resultLine)) {
+		$mimeTypes[] = 'image/png';
+	    } elseif (ereg('TIFF.*DirectClass', $resultLine)) {
+		$mimeTypes[] = 'image/tiff';
+	    }
+	}
+	$mimeTypes = array_values(array_unique($mimeTypes));
+
+	return array(GalleryStatus::success(), $mimeTypes);
+    }
+
+    /**
+     * Test if the given path has a working set of ImageMagick binaries.
+     *
+     * This is done by trying to run 'identify' on a sample image.
+     *
+     * @param string path to the ImageMagick we are testing
+     * @return array object GalleryStatus general status of tests
+     *	       array ('name' => string: the name of the binary,
+     *		      'success' => boolean: test successfull?
+     *		      'message' => string: the error message, in case of 
+     *				   IMAGEMAGIC_TEST_ERROR
+     *		     )
+     * @static
+     */
+    function testBinaries($imageMagickPath) {
+	global $gallery;
+
+	$platform = $gallery->getPlatform();
+	if (! $platform->file_exists($imageMagickPath)
+	    || ! $platform->is_dir($imageMagickPath) ) {
+	    return array(GalleryStatus::error(ERROR_BAD_PATH,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	/* We need to translate some strings */
+	list($ret, $module) = $gallery->loadModule('imagemagick');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* What do we want to test */
+	$binaries = array('identify', 'convert');
+
+	/* Test each binary */
+	$testArray = array();
+	foreach ($binaries as $binary) {
+	    switch ($binary) {
+	    case 'identify':
+		$command = array($imageMagickPath . 'identify',
+				 dirname(__FILE__) . '/../test/images/test.gif'
+				);
+		list ($success, $results) = $platform->exec(array($command));
+		if (!$success) {
+		    @$platform->unlink($tmpFilename);
+		    $testArray[] = array('name' => 'identify',
+					 'success' => false,
+					 'message' => array_merge($module->translate('Problem executing binary:'),
+								  $results)
+					 );
+		} elseif (! ereg('GIF.*PseudoClass', join(',', $results))) {
+		    $testArray[] = array('name' => 'identify',
+					 'success' => false,
+					 'message' => array_merge($module->translate('Binary output:'),
+								  $results)
+					 );
+		} else {
+		    $testArray[] = array('name' => 'identify',
+					 'success' => true);
+		}
+		break;
+	    case 'convert':
+		/* We will try to scale a gif using the 'convert' binary */
+
+		$tmpDir = $gallery->getConfig('data.gallery.tmp');
+		$tmpFilename = tempnam($tmpDir, 'imgk_');
+		if (empty($tmpFilename)) {
+		    /* This can happen if the $tmpDir path is bad */
+		    $gallery->debug('Could not create tmp file in \'' . $tmpDir . '\'');
+		    return array(GalleryStatus::error(ERROR_BAD_PATH,
+						      __FILE__, __LINE__),
+				 null);
+		}
+		$command = array($imageMagickPath . 'convert',
+				 '-scale', '200x200',
+				 dirname(__FILE__) . '/../test/images/test.gif',
+				 $tmpFilename
+				);
+		list ($success, $results) = $platform->exec(array($command));
+		if (!$success) {
+		    $testArray[] = array('name' => 'convert',
+					 'success' => false,
+					 'message' => array_merge($module->translate('Problem executing binary:'),
+								  $results)
+					);
+		} elseif (join('', $results) != '') {
+		    /*
+		     * 'convert' normaly doesn't say anything: if it does,
+		     * it was an error message
+		     */
+		    $testArray[] = array('name' => 'convert',
+					 'success' => false,
+					 'message' => array_merge($module->translate('Binary output:'),
+								  $results)
+					 );
+		} else {
+		    $testArray[] = array('name' => 'convert',
+					 'success' => true);
+		}
+		@$platform->unlink($tmpFilename);
+		break;
+	    default:
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
+						  __FILE__, __LINE__),
+			     null);
+		break;
+	    }
+	}
+
+	return array(GalleryStatus::success(),
+		     $testArray
+		     );
     }
 }
 ?>
