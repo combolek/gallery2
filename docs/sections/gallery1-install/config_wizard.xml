@@ -115,8 +115,16 @@
     </programlisting>
     If you're having trouble applying permissions of 0 to the
     <filename>setup</filename> directory, you can use 700 permissions
-    instead.
-   </para> 
+    instead.  These directions are for Unix/Linux installs only.
+   </para>
+   <para>
+    If you're on Windows, you cannot chmod files.  Instead, run the 
+    <filename>secure.bat</filename> file, located in your gallery directory.
+    This will tighten up security, and disallow the usage of the
+    configuration wizard. If you want to redo any configuration tasks, run
+    <filename>configure.bat</filename> from the same directory, do your 
+    changes and run <filename>secure.bat</filename> again.
+   </para>
   </listitem>
  </orderedlist>
 </sect1>
