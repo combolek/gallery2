@@ -63,7 +63,7 @@ class GalleryNucleus {
      * The serial number of this object in the persistent store.  This value
      * will help us to avoid collisions.
      *
-     * @var int $_serial;
+     * @var int $_serialNumber;
      */
     var $_serialNumber;
 
@@ -288,14 +288,15 @@ class GalleryNucleus {
 	}
 
 	/* Make sure we're working with the unique instance of this object */
-	$unique =& $gallery->getNucleusById($this->_id, get_class($this));
+	$unique =& $gallery->getCachedNucleus($this->_id, get_class($this));
 
-	if ($unique->getSerial() != $this->getSerial()) {
+	if ($unique->getSerialNumber() != $this->getSerialNumber()) {
 	    return ERROR | ERROR_OBSOLETE_DATA;
 	}
-	
-	if ($this->_needToBeSaved) {
-	    return $this->_storage->save($this);
+
+	if (!empty($this->_persistentInfo->modified)) {
+	    $storage = $gallery->getStorage();
+	    return $storage->saveNucleus($this);
 	}
 	return SUCCESS;
     }
@@ -326,6 +327,7 @@ class GalleryNucleus {
     /**
      * Register a class member that will be kept in the persistent store.
      *
+     * @param string the name of the class the member lives in
      * @param string the name of the member
      * @param int a hint to the storage class for how to store this value
      */
@@ -335,6 +337,34 @@ class GalleryNucleus {
 	$this->_persistentInfo->members[$name] = array($typeHint, $class);
     }
 
+    /**
+     * Mark a persistent member as modified
+     *
+     * @param string the name of the member
+     * @param boolean the modification state (default true)
+     */
+    function modifyPersistentMember($name, $state=true) {
+	$this->_persistentInfo->modified[$name] = $state;
+    }
+
+    /**
+     * Get a dump of the current state of our persistent members
+     *
+     * This should only be used by the GalleryStorage strategy.
+     *
+     * @return array of persistent info params
+     */
+    function getPersistentInfo() {
+	return $this->_persistentInfo;
+    }
+
+    /**
+     * Reset all modification flags
+     */
+    function clearModifyFlags() {
+	$this->_persistentInfo->modified = array();
+    }
+    
     /*
      * ============================================================
      * BEGIN: Accessor methods
@@ -351,7 +381,7 @@ class GalleryNucleus {
      * @access public
      */
     function setDataVersion($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_dataVersion = $value;
         $this->modifyPersistentMember('dataVersion');
     }
@@ -373,7 +403,7 @@ class GalleryNucleus {
      * @access public
      */
     function setId($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_id = $value;
         $this->modifyPersistentMember('id');
     }
@@ -395,7 +425,7 @@ class GalleryNucleus {
      * @access public
      */
     function setObjectType($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_objectType = $value;
         $this->modifyPersistentMember('objectType');
     }
@@ -417,7 +447,7 @@ class GalleryNucleus {
      * @access public
      */
     function setParentId($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_parentId = $value;
         $this->modifyPersistentMember('parentId');
     }
@@ -439,7 +469,7 @@ class GalleryNucleus {
      * @access public
      */
     function setPath($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_path = $value;
         $this->modifyPersistentMember('path');
     }
@@ -461,7 +491,7 @@ class GalleryNucleus {
      * @access public
      */
     function setSerialNumber($value) {
-        assert('!empty($value)');
+        assert('isset($value)');
         $this->_serialNumber = $value;
         $this->modifyPersistentMember('serialNumber');
     }
