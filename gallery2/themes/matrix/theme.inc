@@ -367,6 +367,30 @@ class MatrixTheme extends GalleryTheme {
     }
 
     /**
+     * imagebox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function imagebox($context, $title, $description, $body) {
+	$buf = '<table class="imagebox"> ';
+	$buf .= '<tr> <td> ' . $body['content'] . '</td> </tr>';
+	if (!empty($title['content'])) {
+	    $buf .= '<tr> <td class="imagebox_title"> ' . $title['content'] . '</td> </tr> ';
+	}
+
+	if (!empty($description['content'])) {
+	    $buf .= '<tr> <td class="imagebox_description"> ' . $description['content'] . '</td> </tr> ';
+	}
+
+	$buf .= ' </table>';
+
+	return $buf;
+    }
+
+    /**
      * detailedbox theme method
      * @param array the template context
      * @param array mandatory ("params" => array, "content" => title content)
@@ -531,14 +555,10 @@ class MatrixTheme extends GalleryTheme {
 	$buf = '<tr>';
 	for ($i = 0; $i < sizeof($column_array); $i++) {
 	    $attrs = "";
-	    if ($column_array[$i]['params']['width']) {
-		$attrs .= ' width="' . $column_array[$i]['params']['width'] . '"';
-	    }
-	    if ($column_array[$i]['params']['colspan']) {
-		$attrs .= ' colspan="' . $column_array[$i]['params']['colspan'] . '"';
-	    }
-	    if ($column_array[$i]['params']['valign']) {
-		$attrs .= ' valign="' . $column_array[$i]['params']['valign'] . '"';
+	    foreach (array('width', 'colspan', 'rowspan', 'valign') as $attrName) {
+		if ($column_array[$i]['params'][$attrName]) {
+		    $attrs .= ' ' . $attrName . ' ="' . $column_array[$i]['params'][$attrName] . '"';
+		}
 	    }
 	    
 	    if ($column_array[$i]['params']['header'] == 'true') {

@@ -363,6 +363,20 @@ table td {
   background-color: #fff;
 }
 
+.imagebox { 
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+.imagebox_title { 
+}
+
+.imagebox_description { 
+  font-size: 63%;
+  font-style: italic;
+}
+
 .tabbedbox {  
   width: 100%;
   margin-left: 12px;

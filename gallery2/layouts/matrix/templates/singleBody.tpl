@@ -96,9 +96,11 @@
       {/gallery->component}
     {/gallery->bannerbox}
 
-    {gallery->simplebox}
+    {gallery->imagebox}
+      {gallery->description}
+	{$layout.item.description}
+      {/gallery->description}
       {gallery->body}
-	{* image *}
 	{if ($layout.can.viewInline.$currentIndex)}
 	  {gallery->image item=$layout.item image=$image}
 	{else}
@@ -106,14 +108,8 @@
 	    {gallery->text text="Download this item"} 
 	  {/gallery->link}
 	{/if}
-
-	{* description *}
-	{if !empty($layout.item.description)}
-	  <br/>
-	  {$layout.item.description}
-	{/if}
       {/gallery->body}
-    {/gallery->simplebox}
+    {/gallery->imagebox}
 
     {if !empty($layout.moduleItemDetailFiles)}
       {foreach from=$layout.moduleItemDetailFiles key=moduleName item=detailFile}

@@ -155,6 +155,7 @@ class GalleryTemplateAdapter {
 	for ($i = sizeof($smarty->_tag_stack)-2; $i >= 0; $i--) {
 	    $context['stack'][] = $smarty->_tag_stack[$i][0];
 	}
+	$context['stack'][] = 'TOP';
 	return $context;
     }
     
@@ -185,6 +186,7 @@ class GalleryTemplateAdapter {
 		  "linksbox",          // type: component, contains (item+)
 		  "infobox",           // type: component, contains (item+)
 		  "listingbox",        // type: component, contains (title? item+)
+		  "imagebox",          // type: component, contains (title? description? body)
 		  "detailedbox",       // type: component, contains (title description body)
 		  "tabbedbox",         // type: component, contains (title? item+ body)
 		  "simplebox",         // type: component, contains (title? body)
@@ -556,6 +558,42 @@ class GalleryTemplateAdapter {
 	return;
     }
 
+    function imagebox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["description"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "imagebox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_description = array_pop($this->_content["description"]);
+	if (empty($_description)) {
+	    $_description = array("name" => "imagebox", "params" => array(), "content" => "");
+	} else {
+	    $_description = $_description[0];
+	}
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "imagebox", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "imagebox", "params" => $params, "content" => $this->_theme->imagebox($context, $_title, $_description, $_body));
+	} else /* body */ {
+	    return $this->_theme->imagebox($context, $_title, $_description, $_body);
+	}
+	return;
+    }
+
     function detailedbox($params, $content, &$smarty) {
 	if (!isset($content)) {
 	    /* Prepare space for output from child tags */
@@ -842,8 +880,8 @@ class GalleryTemplateAdapter {
 	    $smarty->trigger_error("column tag found inside {$context['stack'][0]}, but must be used inside one of: row", E_USER_ERROR);
 	}
 	foreach (array_keys($params) as $key) {
-	    if ($key != "valign" && $key != "width" && $key != "header" && $key != "colspan") {
-		$smarty->trigger_error("invalid parameter $key for column tag, must be one of: valign, width, header, colspan", E_USER_ERROR);
+	    if ($key != "valign" && $key != "width" && $key != "header" && $key != "colspan" && $key != "rowspan") {
+		$smarty->trigger_error("invalid parameter $key for column tag, must be one of: valign, width, header, colspan, rowspan", E_USER_ERROR);
 	    }
 	}
 	if (!isset($params["valign"])) {
@@ -858,6 +896,9 @@ class GalleryTemplateAdapter {
 	if (!isset($params["colspan"])) {
 	    $params["colspan"] = "1";
 	}
+	if (!isset($params["rowspan"])) {
+	    $params["rowspan"] = "1";
+	}
 	$this->_content["column"][sizeof($this->_content["column"])-1][] = array("name" => "column", "params" => $params, "content" => $content);
 	return;
     }
@@ -870,11 +911,11 @@ class GalleryTemplateAdapter {
 	$context = $this->_getContext($params, $smarty);
 	/* Make sure that we are being called in the right context */
 	if (empty($context["stack"])) {
-	    $smarty->trigger_error("title tag must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
+	    $smarty->trigger_error("title tag must be used inside one of: bannerbox, listingbox, imagebox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
 	}
 
-	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1box" && $context["stack"][0] != "widget2box" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
-	    $smarty->trigger_error("title tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
+	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "imagebox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1box" && $context["stack"][0] != "widget2box" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("title tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, listingbox, imagebox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
 	}
 	$this->_content["title"][sizeof($this->_content["title"])-1][] = array("name" => "title", "params" => $params, "content" => $content);
 	return;
@@ -888,11 +929,11 @@ class GalleryTemplateAdapter {
 	$context = $this->_getContext($params, $smarty);
 	/* Make sure that we are being called in the right context */
 	if (empty($context["stack"])) {
-	    $smarty->trigger_error("description tag must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
+	    $smarty->trigger_error("description tag must be used inside one of: bannerbox, imagebox, detailedbox, widget2", E_USER_ERROR);
 	}
 
-	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "widget2") {
-	    $smarty->trigger_error("description tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
+	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "imagebox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("description tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, imagebox, detailedbox, widget2", E_USER_ERROR);
 	}
 	$this->_content["description"][sizeof($this->_content["description"])-1][] = array("name" => "description", "params" => $params, "content" => $content);
 	return;
@@ -906,11 +947,11 @@ class GalleryTemplateAdapter {
 	$context = $this->_getContext($params, $smarty);
 	/* Make sure that we are being called in the right context */
 	if (empty($context["stack"])) {
-	    $smarty->trigger_error("body tag must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
+	    $smarty->trigger_error("body tag must be used inside one of: imagebox, detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
 	}
 
-	if ($context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
-	    $smarty->trigger_error("body tag found inside {$context['stack'][0]}, but must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
+	if ($context["stack"][0] != "imagebox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("body tag found inside {$context['stack'][0]}, but must be used inside one of: imagebox, detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
 	}
 	$this->_content["body"][sizeof($this->_content["body"])-1][] = array("name" => "body", "params" => $params, "content" => $content);
 	return;
