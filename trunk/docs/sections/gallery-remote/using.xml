@@ -34,6 +34,26 @@
   </para>
  </sect2>             
  
+ <sect2 id="gallery-remote.using.ImageMagick">
+  <title>ImageMagick setup</title>
+
+  <para>
+   GR will use ImageMagick (IM) to speed up (very greatly) the computation of resized images for 
+   thumbnails, previews and image uploads.
+   
+   On Windows, the installer will automatically install and set up a subset of the IM functionality, 
+   so there is nothing special to do.
+   
+   On other platforms, you should install IM separately (http://www.imagemagick.org/) 
+   and tell GR by renaming the <filename>im.properties.preinstalled</filename> to <filename>im.properties</filename> and set the 
+   <screen>imConvertPath property</screen> to the exact path to the Convert executable in your ImageMagick installation.
+   
+   We will add more platform support as time goes on, but we may need help. 
+   If you compiled ImageMagick for a platform we don't already have support for, 
+   please get in touch with me at paour@users.sourceforge.net so we can include your binaries in our standard distributions.
+   </para>
+ </sect2>
+
  <sect2 id="gallery-remote.using.logging">
   <title>Logging</title>
 
@@ -55,8 +75,7 @@
    You will see the log as it unfolds in the console...
    <note>
     <para>
-     Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed
-     in clear text in several places.
+     Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed in clear text in several places.
     </para>
    </note>
   
@@ -85,8 +104,7 @@
    is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
    server certificate that is not certified by a trusted certificate authority, Gallery Remote will
    be unable to connect. If that happens, you will need to add the site's certificate to the Java
-   registry of trusted certificates. The process for doing this is detailed
-   <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
+   registry of trusted certificates. The process for doing this is detailed <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
   </para>
  </sect2>
  
