@@ -1,1 +1,1 @@
-??ERROR?? {$content} ??ERROR??
+<p class="error">{$content}</p>
