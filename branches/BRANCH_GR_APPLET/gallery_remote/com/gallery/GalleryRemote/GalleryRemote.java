@@ -40,30 +40,27 @@ public class GalleryRemote {
 	public MainFrame mainFrame = null;
 	public PropertiesFile properties = null;
 	public PropertiesFile defaults = null;
-		
+	private boolean appletMode = false;
+	private GalleryRemoteApplet applet = null;
+
 	private GalleryRemote() {
 		defaults = new PropertiesFile("defaults");
 		
 		File f = new File(System.getProperty("user.home")
-		+ File.separator + ".GalleryRemote"
-		+ File.separator);
-		
+				+ File.separator + ".GalleryRemote"
+				+ File.separator);
+
 		f.mkdirs();
-		
+
 		properties = new PropertiesFile(defaults, f.getPath()
-		+ File.separator + "GalleryRemote");
+				+ File.separator + "GalleryRemote");
 	}
 	
 	private void run() {
 		try {
-			// For native Look and Feel, uncomment the following code.
-			/// *
 			try {
 				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-			}
-			catch ( Exception e ) {
-			}
-			//* /
+			} catch ( Exception e ) {}
 			
 			// log system properties
 			new GalleryProperties(System.getProperties()).logProperties(Log.LEVEL_INFO, "SysProps");
@@ -71,7 +68,7 @@ public class GalleryRemote {
 			// log properties
 			properties.logProperties(Log.LEVEL_TRACE, "UsrProps");
 
-			if (!Update.upgrade()) {
+			if (appletMode || !Update.upgrade()) {
 				mainFrame = new MainFrame();
 				mainFrame.initComponents();
 			} else {
@@ -84,18 +81,34 @@ public class GalleryRemote {
 			Log.shutdown();
 		}
 
-		Update update = new Update();
-		update.check( true );
+		if (!appletMode) {
+			Update update = new Update();
+			update.check( true );
+		}
 	}
-	
+
+	public boolean isAppletMode() {
+		return appletMode;
+	}
+
+	public GalleryRemoteApplet getApplet() {
+		return applet;
+	}
+
 	public static GalleryRemote getInstance() {
+		return getInstance(false, null);
+	}
+
+	public static GalleryRemote getInstance(boolean appletMode, GalleryRemoteApplet applet) {
 		if (singleton == null) {
 			singleton = new GalleryRemote();
+			singleton.appletMode = appletMode;
+			singleton.applet = applet;
 		}
 		
 		return singleton;
 	}
-	
+
 	// Main entry point
 	public static void main( String[] args ) {
 		getInstance().run();
