@@ -1,0 +1,445 @@
+Gallery v2.0 Class API
+----------------------
+$Id$
+
+This is a draft of the class API for Gallery v2.0.  It contains a
+sketch of the class hierarchy for the classes that contain the image
+metadata.  In writing this API, I've tried to maintain all the
+existing functionality that's available in v1.0 while leaving plenty
+of room to expand and cover the features that are yet to come in v2.0.
+
+Columns that say "xxx -> yyy" mean that in the v1.0 API the "yyy"
+field was refered to as "xxx" and that the semantics are roughly the
+same, although the name has changed.
+
+The following functionality is not (yet) implemented in v2.0.
+
+- fitToWindow
+	This is gone entirely.  We should be able to implement this
+	using the new layout code.
+
+- mirroring
+	I've left this out for now because it's heavily dependant on
+	the way that we implement the image firewalling code.  I
+	believe that this will be easy to add later, once we settle on
+	how we do the image firewall.
+
+Things that need to be added to this API:
+- Examples for how the API should be used.
+
+Class GalleryItem
+-----------------
+        Container for all functionality and data common objects that 
+	Gallery can deal with.  Cannot contain sub-items.
+
+        Members 
+	-------
+	- id				* (id) this item
+	- ownerId			* (id) this item's owner
+        - thumbnail 			* (id) an ImageContainer 
+	- highlight 			* (id) an ImageContainer
+	- comment Ids			* (id[]) ids of 0+ comments
+	- version			* (float) data version of this item
+	- properties:
+		- creationDate		* (int) unix timestamp
+		- keywords 		* (string) key words about this item
+		- title			* (string) title of this item (short)
+		- description		* (string) details of this item (long)
+clicks->	- viewCount		* (int) number of times this item has been accessed
+clicks_date->	- viewedSinceDate	* (int) click count start date 
+		- isHtmlAllowed		* (bool) allow html in the title & description
+hidden->	- isHidden		* (bool) is this item hidden?
+
+	Methods
+	-------
+
+integrityCheck->
+	- bool checkVersion(void)
+		Check the item and do any necessary upgrading to its data 
+		structure.  
+		* returns true if the item changed as a result of
+		  the integrity check.
+
+	- void accessItem(id)
+		Update viewed counts.
+
+	- bool addComment(CommentContainer comment)
+		Add a comment for this item
+		* return true on success or false on failure
+
+	- /* CommentContainer */ id[] getCommentList(void)
+		Return an ordered array of comment ids
+
+	- CommentContainer getComment(/* CommentContainer */ id)
+		Return the comment with the given id
+
+	- string getProperty(PROPERTY_NAME)
+		Return the property associated with PROPERTY_NAME
+
+	- void setProperty(PROPERTYNAME, string)
+		Set the property associated with PROPERTY_NAME to the
+		string provided
+
+	- int getCreationDate()
+		Return the unix timestamp of the time this item was
+		created
+
+	- int getLastModificationDate()
+		Return the unix timestamp of the last time this item
+		was modified
+
+	- int getViewedSinceDate() 
+		Return the unix timestamp of the reference date
+
+	- void resetViewCount()
+		Set the viewed-since-date to be the current date and
+		reset the view count to 0.
+
+getClickCount->
+	- int getViewedCount()
+		Return the number of times this item has been viewed
+
+	- bool hideItem()
+		Hide this item from view by anybody but the owner
+		* return true on success or false on failure
+	
+	- bool showItem()
+		Un-hide this item.
+		* return true on success or false on failure
+
+	- string getType()
+		Returns the type of this item, eg:
+			GalleryItem::AlbumItem,
+			GalleryItem::PhotoItem,
+			GalleryItem::PhotoItem::JpegPhotoItem
+			GalleryItem::MovieItem
+
+	- bool save()
+		Save this GalleryItem
+
+	- bool delete()
+		Delete this GalleryItem and notify the owner accordingly
+
+Class AlbumItem [extends GalleryItem]
+-------------------------------------
+	A GalleryItem that has certain extra properties relating to displaying
+	albums and can contain other GalleryItems.
+
+        Members
+	-------
+	- child Ids		* (id[]) ids of 0+ items
+	- properties
+		- bgcolor		* (string) primary background color
+		- bgcolor2		* (string) secondary background color
+		- textcolor		* (string) text color
+		- linkcolor		* (string) link color
+		- font			* (string) font name
+		- border		* (string) amount of table border
+		- bordercolor		* (string) color of border
+		- returnto		* (string) whether or not to show the breadcrum links
+		- thumb_size		* (string) target size of the thumbnail
+		- resize_size		* (string) target size of the intermediate image
+		- rows			* (int) number of rows to show
+		- cols			* (int) number of columns to show
+		- use_fullOnly		* (bool) allow the user to choose to show unresized only?
+print_photos ->	- print_service		* (bool) allow printing?
+		- use_exif		* allow user to view exif data?
+		- layout		* the layout to use for this album
+		- html_header		* the html_header to use for this album
+		- html_footer		* the html_footer to use for this album
+display_clicks->- display_view_count	* show view counts for my items?
+	
+	Methods
+	-------
+	- bool addItem(GalleryItem item)
+		Add this item to the end of album.
+		* return true on success or false on failure
+
+	- /* GalleryItem */ id[] getItemList(void)
+		Return an ordered array of comment ids
+
+	- /* GalleryItem */ getItem(/* GalleryItem */ id)
+		Return the GalleryItem associated with the given id
+
+	- bool highlightItem((/* GalleryItem */ id)
+		Use this item as the highlight for the album.
+		* return true on success or false on failure
+
+	- bool canRead(/* User */ id)
+		Return true if the given user id can read this album
+
+	- bool canWrite(/* User */ id)
+		Return true if the given user id can write to this album
+
+	- bool canAddTo(/* User */ id)
+		Return true if the given user id can add to this album
+
+	- bool canChangeText(/* User */ id)
+		Return true if the given user id can change the text
+		of this album
+
+	- bool canDeleteFrom(/* User */ id)
+		Return true if the given user id can delete items from
+		this album
+
+	- /* User */ id getOwner() 
+		Return the id of the User who owns this album
+
+Class PhotoItem [extends GalleryItem] 
+-----------------------------------
+	A GalleryItem whose source is an image.  It contains no image
+	information itself, but has references to several ImageContainer
+	versions of the original.
+
+        Members 
+	-------
+        - /* ImageContainer */ id raw
+		id of the raw image
+
+        - /* ImageContainer */ id[] resizes
+		array of ids of resized versions of this photo
+
+	- /* ImageContainer */ id thumbnail
+		id of the thumbnail image
+
+	- /* ImageContainer */ id highlight
+		id of the highlight image
+
+	- int[] captureDate
+		associative array of info describing the date the item
+		was captured not in EPOCH so we can support dates <
+		1970
+
+	Methods
+	-------
+	- ImageContainer getRawImage()
+		Return the ImageContainer associated with the original version of
+		this item
+
+	- void setRawImage(ImageContainer)
+		Set the ImageContainer associated with the original version of
+		this item
+
+	- int getNumberOfResizes()
+		Return the number of resized images available.
+
+	- ImageContainer getResizedImage(int)
+		Get the nth resized ImageContainer
+
+	- void setResizedImage(int, ImageContainer)
+		Set the nth resized ImageContainer (replacing whatever's already there).
+
+	- void deleteResizedImage(int) 
+		Remove the nth resized image (shifting all others down one to
+		fill the empty slot).
+
+	- ImageContainer getThumbnailImage()
+		Get the ImageContainer that we're using as the thumbnail 
+
+	- void setThumbnailImage(ImageContainer)
+		Set the ImageContainer that we're using as the thumbnail 
+
+	- ImageContainer getHighlightImage()
+		Get the ImageContainer that we're using as the highlight 
+
+	- void setHighlightImage(ImageContainer)
+		Set the ImageContainer that we're using as the highlight 
+
+	- int[] getCaptureDate()
+		Return the associative array of info describing the
+		date the item was captured not in EPOCH so we can
+		support dates < 1970
+
+	- int[] setCaptureDate()
+		Set the associative array of info describing the
+		date the item was captured not in EPOCH so we can
+		support dates < 1970
+
+Class JpegPhotoItem [extends PhotoItem]
+---------------------------------------
+	A PhotoItem whose source is a JPEG.
+
+	Members
+	-------
+	- string[] exifProperties
+		associative array of EXIF properties
+
+	Methods
+	-------
+	- string[] getExifProperties()
+		Return the associative array of EXIF properties
+
+	- void setExifProperties(string[])
+		Set the associative array of EXIF properties
+
+================================================================================
+================================================================================
+
+Class DataContainer
+-------------------
+	A container for any data that Gallery can manage, such as an
+	ImageContainer, MovieContainer or OpaqueContainer.
+
+	Members
+	-------
+	- id
+		The unique id for this container object
+
+	- /* GalleryItem */ id ownerId
+		The id of the GalleryItem that owns this container
+	
+	- float version
+		data version of this container
+
+	Methods
+	-------
+integrityCheck->
+	- bool checkVersion(void)
+		Check the item and do any necessary upgrading to its data 
+		structure.  
+		* returns true if the item changed as a result of
+		  the integrity check.
+
+	- bool delete()
+		Remove any filesystem and metadata about this
+		DataContainer and notify the ownerId that it has been
+		deleted.
+
+	- bool save()
+		Save any metadata about this DataContainer.
+
+Class ImageContainer [extends DataContainer]
+--------------------------------------------
+	A container for a single image.
+
+	Members
+	-------
+	- string name
+		name of the image
+
+	- int width
+		width of the image
+
+	- int height
+		height of the image
+
+	Methods
+	-------
+	- int[] getDimensions() 
+		Return the image dimensions as width, height
+
+	- void resize(int, int) 
+		Resize the image to the width, height dimensions provided
+
+Class MovieContainer [extends DataContainer]
+--------------------------------------------
+	A container for a movie.
+
+	Members
+	-------
+	- string name
+		name of this image
+
+	- int width
+		width of this image
+
+	- int height
+		height of this image
+
+	Methods
+	-------
+	- int[] getDimensions() 
+		Return the image dimensions as width, height
+
+Class OpaqueContainer [extends DataContainer]
+---------------------------------------------
+	A container for a single object that we know nothing about and
+	can't manipulate in any way
+
+	Members
+	-------
+	- string name
+		name of this object
+
+	Methods
+	-------
+
+Class CommentContainer [extends DataContainer]
+----------------------------------------------
+	Members
+	-------
+	- string name
+	- string email
+	- string comment
+
+	Methods
+	-------
+	- string getName()
+	- string getEmail()
+	- string getComment()
+	- string setName(string)
+	- string setEmail(string)
+	- string setComment(string)
+
+
+
+================================================================================
+================================================================================
+
+Class Graphics
+--------------
+
+	This is an abstract class that defines an interface for image
+	manipulation.  It is implemented by classes that do the actual
+	image manipulation using specific toolsets (such as
+	NetPBM or ImageMagick)
+
+	Methods
+	-------
+
+	- string[] getSupportedFiletypes()
+		Return an array of lowercase file tags tags (eg "jpg", "gif")
+		that are supported by this graphics package.
+		
+	- bool isSupportedFiletype(string tag)
+		Return true if the tag given is supported 
+		
+	- int[] getImageDimensions(string filename)
+		Return the dimensions of the file
+
+	- bool resizeImage(string source_filename, string dest_filename, int target_size)
+		Resize the image located at source_filename and write the results in
+		dest_filename.  Resize the image such that the largest side is target_size
+		while maintaining the aspect ratio. 
+		* return true on success or false on failure
+		
+	- bool rotateImage(string source_filename, string dest_filename, int degrees)
+		Rotate the image located at source_filename and write the results in
+		dest_filename.  Rotate the image according to the degrees specified
+		which must be one of -90, 180, 90
+		* return true on success or false on failure
+		
+	- bool cutImage(string source_filename, string dest_filename, 
+			   int x, int y, int width, int height)
+		Extract a subsection of the image located at
+		source_filename and write the results in
+		dest_filename.  The upper left corner of the
+		subsection is at the x, y coordinate provided and the
+		lower right is x+width, y+height.
+		* return true on success or false on failure
+
+	- bool validImage(string filename)
+		Return true if the filename represents an image file that can
+		be processed by this graphics package.
+
+	- string[] getExifProperties(string filename)
+		Extract the EXIF properties from the filename provided and
+		return it, or NULL if the file has no such properties.
+
+Class NetPbmGraphics [extends Graphics]
+---------------------------------------
+	Implement the Graphics API using the NetPBM toolkit.
+
+Class ImageMagickGraphics [extends Graphics]
+--------------------------------------------
+	Implement the Graphics API using the ImageMagick toolkit.
