@@ -475,7 +475,11 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
        If you're using Apache 2, especially with something like RedHat, you may
        need to edit another directive, <literal>LimitRequestBody</literal>, as
        described in <ulink url="http://gallery.menalto.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=7419">
-       this forum post</ulink>
+       this forum post</ulink>.  Setting this directive to 0 (i.e. <literal>
+       LimitRequestBody 0</literal>) will allow you to upload as big a file as
+       you want (until you hit <literal>upload_max_filesize</literal> and/or
+       <literal>post_max_size</literal> -- see the above email link for more
+       information).
       </para>
      </answer>
     </qandaentry>
