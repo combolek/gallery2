@@ -36,11 +36,6 @@ english:
 
 It's up to the layout to use the constants it defines. 
 
-NOTE: because these constants are loaded after the global constants
-      it is possible for the layout to override language constants
-      defined by the application. this is either good or bad, 
-      depending on how you look at it. 
-
 Language configuration
 ======================================================================
 In the first pass, language is not user selectable. It is a Gallery-
