@@ -99,8 +99,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		/* if this is a nested album, set nested parameters */
 		if ($parentName) {
 			$gallery->album->fields[parentAlbumName] = $parentName;
-			$parentAlbum = new Album();
-			$parentAlbum->load($parentName);
+			$parentAlbum = new Album($parentName);
 			$parentAlbum->addNestedAlbum($gallery->session->albumName);
 			$parentAlbum->save();
 			// Set default values in nested album to match settings of parent.
@@ -139,8 +138,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		header("Location: view_album.php");
 	}
 } else if (!strcmp($cmd, "reset-album-clicks")) {
-		$myAlbum = new Album();
-		$myAlbum->load($albumName);
+		$myAlbum = new Album($albumName);
 	if ($gallery->user->canWriteToAlbum($myAlbum)) {
 		$myAlbum->resetAllClicks();
 		// this is a popup do dismiss and reload!

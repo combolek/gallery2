@@ -66,8 +66,7 @@ if ($doit) {
 	//-- XXX - messy - a little type-based initialization ---
 	switch ($type) {
 		case "album":
-			$album = new Album();
-			$album->load($id);
+			$album = new Album($id);
 			break;
 		case "item":
 			break;
@@ -154,8 +153,7 @@ switch ($type) {
 		$typeLabel = "Album";
 
 		//-- the item info for display ---
-		$album = new Album();
-		$album->load($id);
+		$album = new Album($id);
 
 		$thumbnail['url'] = $album->getHighlightAsThumbnailPath();
 		$image = $album->getHighlightAsThumbnailImage();

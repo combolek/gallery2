@@ -123,8 +123,7 @@ do {
 		break;
 	} else {
 		$pAlbumName = $pAlbum->fields['parentAlbumName'];
-		$pAlbum = new Album();
-		$pAlbum->load($pAlbumName);
+		$pAlbum = new Album($pAlbumName);
 		$breadLevels[$breadCount]['level'] = "Album";
    		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
    		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
@@ -230,8 +229,7 @@ foreach ($itemIds as $itemId) {
 		$items[$i]['href'] = $album->getPhotoPath($index)."\" target=\"other"; 
 	} else if ($album->isAlbumName($index)) {
 		$items[$i]['type'] = 'album';
-		$myAlbum = new Album();
-		$myAlbum->load($album->isAlbumName($index));
+		$myAlbum = new Album($album->isAlbumName($index));
 		$items[$i]['itemCount'] = $myAlbum->numPhotos($user->canWriteToAlbum($myAlbum));
 		$items[$i]['href'] = makeAlbumUrl($myAlbum->fields['name']);
 		$items[$i]['title'] = $myAlbum->fields[title];

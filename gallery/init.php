@@ -146,8 +146,7 @@ if (!$gallery->session->albumName) {
 
 /* Load the correct album object */
 if ($gallery->session->albumName) {
-	$gallery->album = new Album;
-	$ret = $gallery->album->load($gallery->session->albumName);
+	$gallery->album = new Album($gallery->session->albumName);
 	if (!$ret) {
 		$gallery->session->albumName = "";
 	} else {

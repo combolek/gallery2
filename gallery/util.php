@@ -626,8 +626,7 @@ function makeGalleryUrl($target, $args=array()) {
 	if ($photoId) {
 		if (!$gallery->album) {
 			// $gallery->album was not defined for during "search".
-			$gallery->album = new Album();
-			$gallery->album->load($albumName);
+			$gallery->album = new Album($albumName);
 		}
 		$index = $gallery->album->getPhotoIndex($photoId);
 		if ($gallery->album->isAlbumName($index)) {
@@ -819,8 +818,7 @@ function getNextPhoto($idx) {
 		// not have read authority over a specific nested album.
 		if ($idx <= $numPhotos && $gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = new Album();
-			$myAlbum->load($myAlbumName);
+			$myAlbum = new Album($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -838,8 +836,7 @@ function getNextPhoto($idx) {
 		// have permission to view it.
 		if ($gallery->album->isAlbumName($idx)) {
 			$myAlbumName = $gallery->album->isAlbumName($idx);
-			$myAlbum = new Album();
-			$myAlbum->load($myAlbumName);
+			$myAlbum = new Album($myAlbumName);
 			if (!$gallery->user->canReadAlbum($myAlbum)) {
 				$idx = getNextPhoto($idx);
 			}
@@ -880,16 +877,14 @@ function printAlbumOptionList($rootDisplay=1, $moveRootAlbum=0, $movePhoto=0) {
 function printNestedVals($level, $albumName, $val, $movePhoto) {
 	global $gallery, $index;
 	
-	$myAlbum = new Album();
-	$myAlbum->load($albumName);
+	$myAlbum = new Album($albumName);
 	
 	$numPhotos = $myAlbum->numPhotos(1);
 
 	for ($i=1; $i <= $numPhotos; $i++) {
 		$myName = $myAlbum->isAlbumName($i);
 		if ($myName) {
-			$nestedAlbum = new Album();
-			$nestedAlbum->load($myName);
+			$nestedAlbum = new Album($myName);
 			if ($gallery->user->canWriteToAlbum($nestedAlbum)) {
 				$val2 = str_repeat("-- ", $level+1);
 				$val2 = $val2 . $nestedAlbum->fields[title];
