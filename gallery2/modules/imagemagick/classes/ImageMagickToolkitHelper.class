@@ -1,0 +1,114 @@
+<?php
+/*
+ * $RCSfile
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package ImageMagick
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * A helper class for the GalleryImageMagickToolkit class
+ *
+ * @package ImageMagick
+ * @subpackage Classes
+ */
+class ImageMagickToolkitHelper {
+
+    /**
+     * Figure out what operations and properties are supported by the
+     * ImageMagickToolkit and return them.
+     *
+     * @return object GalleryStatus a status code
+     *         array('operations' => ...
+     *               'properties' => ...)
+     * @static
+     */
+    function getOperationsAndProperties() {
+	
+	/*
+	 * XXX: We should test the binaries to figure this out, not just assume that
+	 * they work.
+	 */
+	$mimeTypes[] = 'image/jpeg';
+	$mimeTypes[] = 'image/pjpeg';
+	$mimeTypes[] = 'image/gif';
+	$mimeTypes[] = 'image/png';
+	$mimeTypes[] = 'image/tiff';
+
+	/*
+	 * -------------------- Operations --------------------
+	 */
+
+	/* Scale */
+	$operations['scale']['params'][] = array('type' => 'int',
+						 'description' => 'target size', /* translate */
+						 'default' => 200);
+	$operations['scale']['description'] = 'Scale the image to the target size'; /* translate */
+	$operations['scale']['mimeTypes'] = $mimeTypes;
+
+	/* Resize */
+	$operations['resize']['params'][] = array('type' => 'int',
+						  'description' => 'target width', /* translate */
+						  'default' => 200);
+	$operations['resize']['params'][] = array('type' => 'int',
+						  'description' => 'target height', /* translate */
+						  'default' => 200);
+	$operations['resize']['description'] = 'Resize the image to the target dimensions'; /* translate */
+	$operations['resize']['mimeTypes'] = $mimeTypes;
+
+	/* Rotate */
+	$operations['rotate']['params'][] = array('type' => 'int',
+						  'description' => 'rotation degrees', /* translate */
+						  'default' => 90);
+	$operations['rotate']['description'] = 'Rotate the image'; /* translate */
+	$operations['rotate']['mimeTypes'] = $mimeTypes;
+	
+	/* Crop */
+	$operations['crop']['params'][] = array('type' => 'int',
+						'description' => 'left edge', /* translate */
+						'default' => 0);
+	$operations['crop']['params'][] = array('type' => 'int',
+						'description' => 'top edge', /* translate */
+						'default' => 0);
+	$operations['crop']['params'][] = array('type' => 'int',
+						'description' => 'width', /* translate */
+						'default' => 0);
+	$operations['crop']['params'][] = array('type' => 'int',
+						'description' => 'height', /* translate */
+						'default' => 0);
+	$operations['crop']['description'] = 'Crop the image'; /* translate */
+	$operations['crop']['mimeTypes'] = $mimeTypes;
+
+	/*
+	 * -------------------- Properties --------------------
+	 */
+
+	/* Dimensions */
+	$properties['dimensions']['type'] = 'int,int';
+	$properties['dimensions']['description'] = 'Get the width and height of the image'; /* translate */
+	$properties['dimensions']['mimeTypes'] = $mimeTypes;
+
+	return array(GalleryStatus::success(), array('operations' => $operations,
+						     'properties' => $properties));
+    }
+}
+?>

@@ -159,7 +159,7 @@ class ItemAddChildrenController extends GalleryController {
 
 			    $derivative->setDerivativeMimeType($newItem->getMimeType());
 			    $derivative->setDerivativeSourceId($newItem->getId());
-			    $derivative->setDerivativeCommands($preference['derivativeCommands']);
+			    $derivative->setDerivativeOperations($preference['derivativeOperations']);
 			
 			    $ret = $derivative->save();
 			    if ($ret->isError()) {
@@ -184,7 +184,7 @@ class ItemAddChildrenController extends GalleryController {
 
 				$derivative->setDerivativeMimeType($newItem->getMimeType());
 				$derivative->setDerivativeSourceId($newItem->getId());
-				$derivative->setDerivativeCommands($preference['derivativeCommands']);
+				$derivative->setDerivativeOperations($preference['derivativeOperations']);
 			
 				$ret = $derivative->save();
 				if ($ret->isError()) {
