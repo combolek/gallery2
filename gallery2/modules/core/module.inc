@@ -530,8 +530,7 @@ class CoreModule extends GalleryModule {
 		$links[$item->getId()][] =
 		    array('text' => $text,
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 	    
 	    if ($showAddItemLink) {
@@ -539,8 +538,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $this->translate('add item'),
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemAddChildren',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 
 	    if ($showAddAlbumLink) {
@@ -548,8 +546,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $this->translate('add album'),
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemAddAlbum',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 	    
 	    if ($showPermissionsLink) {
@@ -557,8 +554,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $this->translate('permissions'),
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemEditPermissions',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 	    
 	    if ($showDeleteLink) {
@@ -571,8 +567,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $text,
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemDelete',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 
 	    if ($showMoveItemLink) {
@@ -581,8 +576,7 @@ class CoreModule extends GalleryModule {
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemMove',
 							'itemId' => $item->getParentId(),
-							'selectedId' => $item->getId()),
-						  $params));
+							'selectedId' => $item->getId())));
 	    }
 
 	    if ($showAddHighlightLink) {
@@ -590,8 +584,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $this->translate('make highlight'),
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemMakeHighlight',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 
 	    if ($showReorderItemLink) {
@@ -599,8 +592,7 @@ class CoreModule extends GalleryModule {
 		    array('text' => $this->translate('reorder items'),
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemReorder',
-							'itemId' => $item->getId()),
-						  $params));
+							'itemId' => $item->getId())));
 	    }
 	}
 
@@ -626,23 +618,19 @@ class CoreModule extends GalleryModule {
 
 	if ($isAdmin) {
 	    $links[] = array('text' => $this->translate('site admin'),
-			     'params' => array_merge(array('view' => 'core:SiteAdmin'),
-						     $params));
+			     'params' => array_merge(array('view' => 'core:SiteAdmin')));
 	}
 
 	if ($gallery->getActiveUserId() == $anonymousUserId) {
 	    $links[] = array('text' => $this->translate('login'),
 			     'params' => array_merge(array('view' => 'core:UserAdmin',
-							   'subView' => 'core:UserLogin'),
-						     $params));
+							   'subView' => 'core:UserLogin')));
 	} else {
 	    $links[] = array('text' => $this->translate('your account'),
 			     'params' => array_merge(array('view' => 'core:UserAdmin',
-							   'subView' => 'core:UserPreferences'),
-						     $params));
+							   'subView' => 'core:UserPreferences')));
 	    $links[] = array('text' => $this->translate('logout'),
-			     'params' => array_merge(array('controller' => 'core:Logout'),
-						     $params));
+			     'params' => array_merge(array('controller' => 'core:Logout')));
 	}
 
 	return array(GalleryStatus::success(), $links);

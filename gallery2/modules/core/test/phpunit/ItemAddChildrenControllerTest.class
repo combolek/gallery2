@@ -106,6 +106,9 @@ class ItemAddChildrenControllerTest extends GalleryControllerTestCase {
 	    $this->assertEquals($results['status']['addFromBrowser'][$i]['fileName'], $file);
 	    $i++;
 	}
+
+	/* Verify item attributes (like order weight) */
+	$this->assert(false);
     }
 
     function testAddChildrenFromLocalServer() {

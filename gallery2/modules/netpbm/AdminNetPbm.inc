@@ -122,7 +122,9 @@ class AdminNetPbmController extends GalleryController {
 
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	    if (!empty($status)) {
+		$results['status'] = $status;
+	    }
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:SiteAdmin';

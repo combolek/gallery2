@@ -58,9 +58,10 @@ class UserChangePasswordController extends GalleryController {
 
 	if (isset($form['action']['cancel'])) {
 
-	    /* Redirect back to the return view */
 	    /* XXX: broken for now */
-	    $redirectParams = array();
+	    /* Redirect back to the same view */
+	    $redirectParams['view'] = 'core:UserAdmin';
+	    $redirectParams['subView'] = 'core:UserChangePassword';
 	    
 	} else if (isset($form['action']['undo'])) {
 
@@ -126,7 +127,9 @@ class UserChangePasswordController extends GalleryController {
 
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	    if (!empty($status)) {
+		$results['status'] = $status;
+	    }
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:UserAdmin';

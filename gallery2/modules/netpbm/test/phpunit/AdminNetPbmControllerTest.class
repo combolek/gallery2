@@ -74,11 +74,13 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.path', '/validPath/');
 	GalleryUtilities::putRequestVariable('form.pnmtojpeg', 'ppmtojpeg');
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'target')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'netpbm:AdminNetPbm'),
+				  'status' => array('saved' => 1)),
+			    $results);
 	
 	/* Verify the settings went in properly */
 	$this->assertEquals(array(GalleryStatus::success(), '/validPath/'),
@@ -94,11 +96,12 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'target')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'netpbm:AdminNetPbm')),
+			    $results);
     }
     
     function testSaveTestErrorPath() {
@@ -109,7 +112,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.path', '/validPathBadBinaries/');
 	GalleryUtilities::putRequestVariable('form.pnmtojpeg', 'ppmtojpeg');
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we failed */
 	$results = $this->handleRequest();
@@ -127,7 +129,6 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.path', '/invalidPath/');
 	GalleryUtilities::putRequestVariable('form.pnmtojpeg', 'ppmtojpeg');
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we failed */
 	$results = $this->handleRequest();
