@@ -204,6 +204,7 @@ case $1 in
 		echo "prettyhtml    Generate nice looking docs";
 		echo "htmlhelp      Generate Windows help docs (experimental)";
 		echo "dist          Generate all types";
+		echo "autofaq       Generates the forum AutoFAQ popup";
 		echo "test-xmllint  Test for XML errors using xmllint";
 		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
 		echo "help          Display this help page"
