@@ -98,16 +98,16 @@ class GalleryToolkit {
      *
      * @param string the input mime type
      * @param string the first operation 
-     * @param string the first operation's arguments 
+     * @param array mixed the first operation's arguments 
      * @param string the second operation 
-     * @param string the second operation's arguments
-     * @return an empty array if the merge was unsuccessful, else
-     *         an array($mergedOperation, $mergedArgs)
+     * @param array mixed the second operation's arguments
+     * @return array (true if the operation was success,
+     *                $mergedOperation,
+     *                $mergedArgs)
      */
     function mergeOperations($mimeType, $operation1, $args1, $operation2, $args2) {
-	return array();
+	return array(false, null, null);
     }
-			     
 
     /**
      * Return a set of operations that are supported as "special-derivative"

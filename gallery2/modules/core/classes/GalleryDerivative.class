@@ -214,65 +214,99 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	}
 
 	$mimeType = $source->getMimeType();
+	$operationString = $this->getDerivativeOperations();
 
-	/*
-	 * Go through the operation list.  For each operation, find a toolkit
-	 * that supports it then ask the toolkit to try to merge the
-	 * operations.  If it succeeds, replace the operation with the merged
-	 * one and use the rest as-is.  Else, keep trying to merge.  If we
-	 * don't manage to merge then just add the new operation at the end of
-	 * the list.
-	 */
-	$newOperations = array();
-	$mergeComplete = false;
-	foreach (split(';', $this->getDerivativeOperations()) as $operationWithArgs) {
-
-	    if (empty($operationWithArgs)) {
-		continue;
-	    }
-
-	    if ($mergeComplete) {
-		$newOperations[] = $operationWithArgs;
-		next;
-	    }
-	    
-	    /* Split out the arg list */
-	    list ($operation, $argString) = split(' ', $operationWithArgs);
-	    list ($args) = split(',', $argString);
-	    
-	    list($ret, $toolkit, $outputMimeType) =
-		GalleryToolkitHelper::getToolkitByOperation($mimeType, $operation);
+	if (empty($operationString)) {
+	    $mergedOperations = $newOperation . '|' . join(',', $newArgs);
+	} else {
+	    /*
+	     * Here things get a little tricky.  When merging operations, we want
+	     * to try to merge against the last operation first because operations
+	     * are cumulative.  However, we can't start from the tail end of the
+	     * operations and merge backwards because we don't know what the input
+	     * mime type is for the last operation.  So perform a tail recursive merge
+	     * on our operations.
+	     */
+	    $operations = split(';', $operationString);
+	    list ($ret, $mergeComplete, $newOperations) =
+		$this->_recursiveMergeOperation($mimeType,
+						$operations,
+						$newOperation, $newArgs);
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    list ($mergedOperation, $mergedArgs) = 
+	    if (!$mergeComplete) {
+		$mergedOperations = join(';', $operations) . ';' . $newOperation . '|' . join(',', $newArgs);
+	    } else {
+		$mergedOperations = join(';', $newOperations);
+	    }
+	}
+
+	$this->setDerivativeOperations($mergedOperations);
+
+	return GalleryStatus::success();
+    }
+
+    function _recursiveMergeOperation($mimeType, $remainingOperations, $newOperation, $newArgs) {
+	if (empty($remainingOperations)) {
+	    /* Trivial case -- no operations left means nothing to merge against */
+	    return array(GalleryStatus::success(), false, array());
+	}
+
+	/*
+	 * Pull the first operation off of the queue and get a toolkit that can
+	 * handle it.  Use the toolkit to figure out what the mime type is for
+	 * the next operation in line.
+	 */
+	$currentOperation = array_shift($remainingOperations);
+	list ($operation, $argString) = split('\|', $currentOperation);
+	$args = split(',', $argString);
+	list($ret, $toolkit, $outputMimeType) =
+	    GalleryToolkitHelper::getToolkitByOperation($mimeType, $operation);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	/* Give the next operation in line the chance to do the merge. */
+	list ($ret, $mergeComplete, $returnedOperations) =
+	    $this->_recursiveMergeOperation($outputMimeType, $remainingOperations, $newOperation, $newArgs);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	if ($mergeComplete) {
+	    /*
+	     * If we successfully merged farther on down the line then just
+	     * prepend our operation back at the beginning and declare victory.
+	     */
+	    array_unshift($returnedOperations, $currentOperation);
+	    return array(GalleryStatus::success(), true, $returnedOperations);
+	} else {
+	    /*
+	     * No joy farther down the line.  Give the toolkit a chance to
+	     * merge against the current operation.
+	     *
+	     * XXX: We should try this against all toolkits, not just the first
+	     * one in line.
+	     */
+	    list ($mergeComplete, $mergedOperation, $mergedArgs) = 
 		$toolkit->mergeOperations($mimeType,
 					  $operation, $args,
 					  $newOperation, $newArgs);
-	    
-	    if (empty($mergedOperation)) {
-		/* Merge was unsuccessful */
-		$newOperations[] = $operationWithArgs;
+	    if ($mergeComplete) {
+		/* Success -- prepend our merged operation and return the results */
+		if (!empty($mergedOperation)) {
+		    array_unshift($returnedOperations,
+				  $mergedOperation . '|' . join(',', $mergedArgs));
+		}
+		return array(GalleryStatus::success(), true, $returnedOperations);
 	    } else {
-		/* Merge was successful */
-		$newOperations[] = "$mergedOperation|" . join(',', $mergedArgs);
-		$mergeComplete = true;
-	    }
-
-	    /* The mime type returned by the last operation */
-	    if (!empty($outputMimeType)) {
-		$mimeType = $outputMimeType;
+		/* No joy -- prepend the current operation and return the results */
+		array_unshift($returnedOperations, $currentOperation);
+		return array(GalleryStatus::success(), false, $returnedOperations);
 	    }
 	}
-
-	if (!$mergeComplete) {
-	    $newOperations[] = "$newOperation|" . join(',', $newArgs);
-	}
-
-	$this->setDerivativeOperations(join(';', $newOperations));
-
-	return GalleryStatus::success();
     }
 
     /**
@@ -401,7 +435,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    }
 
 	    /* Perform the operation */
-	    list ($ret, $newMimeType) =
+	    list ($ret, $outputMimeType) =
 		$toolkit->performOperation($mimeType,
 					   $operationName,
 					   $sourcePath,
@@ -413,9 +447,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	    /* Prepare for the next operation */
 	    $sourcePath = $destPath;
-	    if (!empty($newMimeType)) {
-		$mimeType = $newMimeType;
-	    }
+	    $mimeType = $outputMimeType;
 	}
 
 	/* Get the size of the file */
