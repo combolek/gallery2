@@ -29,9 +29,17 @@ Things that need to be added to this API:
   persistent implementation.  The peer needs to implement the save, 
   delete, etc. methods.  Peer needs to know a bit more info, too
   such as the path.
-- How do we create new objects?
-- How do we map path->object?  (look at end of this doc)
-- How do we map id->object?  in FS vs. SQL?
+
+- Derivative images need more work -- clarify their status as
+  derivatives and their association with the source image.
+  DataContainers should have ids so that we can associate based on
+  them.
+
+- How do we create new objects?  I think this mostly applies to
+  DataContainers. The rule should be, when you create a new
+  DataContainer, it copies the source file provided and then does
+  whatever manipulation it cares to do on its copy.
+
 - Support for some kind of LinkItem (ie, a shared item?)
 - Support for user groups
 - More examples for how the API should be used.
@@ -39,14 +47,14 @@ Things that need to be added to this API:
 Things that need to be documented more thoroughly in general:
 -------------------------------------------------------------
 - How permissions work.  Thumbnail sketch: you ask an item if a
-  specific user has canXXX or cannotXXX permission.  That item 
-  recursively asks it's ancestors for an answer.  We're looking
-  for the first parent that has an answer that matches (ie, if
+  specific user has PERMISSION_CAN_BLAH or PERMISSION_CANNOT_BLAH.
+  That item recursively asks it's ancestors for an answer.  We're
+  looking for the first parent that has an answer that matches (ie, if
   you're checking the "view" permission you're looking for the
-  user to be on the canView or cannotView list, and failing that
-  you're looking for Everybody, Nobody or RegisteredUser to be on the
-  canView list).  If no determination can be made, the default is
-  cannotXXX.
+  user to be on the CAN_VIEW or CANNOT_VIEW list, and failing that
+  you're looking for Everybody, Nobody or RegisteredUser to be on one
+  of those lists).  If no determination can be made, the default is
+  CANNOT.
 
 - status codes.  This is mostly in place.  Any time you attempt an
   operation that will actually commit data to the persistent store, you
@@ -130,6 +138,13 @@ class Gallery {
 	var $_userDatabase;
 
 	/**
+	 * The current GalleryImageToolkit
+	 *
+	 * @var object	GalleryImageToolkit	$_imageToolkit;
+	 */
+	var $_imageToolkit;
+
+	/**
 	 * Storage for all session variables.  Contains an instance
 	 * of the GalleryMap class.
 	 *
@@ -151,7 +166,7 @@ class Gallery {
 	 * item.  It doesn't really matter what types of items these are, as 
 	 * long as the path is legitimate.
 	 *
-	 * This method must be implemented by subclasses of Gallery
+	 * This method must be implemented by subclasses of Gallery.
 	 *
 	 * @access public
 	 * @abstract
@@ -225,16 +240,27 @@ class Gallery {
 	}
 
 	/**
-	 * Get the user associated with the Id provided
+	 * Get the user database 
 	 *
-	 * Return a reference to an implementation of the AbstractUser
-	 * class and also caches the value for performance.
+	 * Return a reference to the instance of the active
+	 * GalleryUserDatabase class.
 	 * 
-	 * @param string the id of the User
-	 * @return AbstractUser a user
+	 * @return GalleryUserDatabase the active user database
 	 * @access public
 	 */
-	function &getUserById($id) {
+	function &getUserDatabase() {
+	}
+
+	/**
+	 * Get the image toolkit
+	 *
+	 * Return a reference to the instance of the active
+	 * GalleryImageToolkit class.
+	 * 
+	 * @return GalleryImageToolkit the active image toolkit
+	 * @access public
+	 */
+	function &getImageToolkit() {
 	}
 
 	/**
@@ -298,10 +324,11 @@ class GalleryItemFactory {
 	 * 
 	 * @access public
 	 * @abstract
-	 * @param string the file tag (eg, "jpg", "Jpg", "JPG", "JPEG")
+	 * @param string the file location
+	 * @param string the file name (eg, "foo.jpg", "foo.Jpg", "FOO.JPG")
 	 * @return GalleryItem the new GalleryItem
 	 */
-	function newItemForTag($tag) {
+	function createItem($source, $name) {
 	}
 }
 
@@ -936,17 +963,6 @@ class GalleryItem extends GalleryNucleus {
 	}
 
 	/**
-	 * Get a specific GalleryItem child by the id provided
-	 *
-	 *
-	 * @access public
-	 * @param string a GalleryItem id
-	 * @return object a reference to the corresponding GalleryItem
-	 */
-	function &getItemById($id) {
-	}
-
-	/**
 	 * Add a specific item as a child of this item.  
 	 *
 	 * This is only legal if this item is allowed to have
@@ -1572,6 +1588,7 @@ class ImageContainer extends DataContainer {
 	 *
 	 * @param int degrees, one of (-90, 180, 90)
 	 * @access public
+	 * @return int a status code
 	 */
 	function rotate($degrees) {
 	}
@@ -1585,6 +1602,7 @@ class ImageContainer extends DataContainer {
 	 * @param int width of bounding box
 	 * @param int height of bounding box
 	 * @access public
+	 * @return int a status code
 	 */
 	function scale($width, $height) {
 	}
@@ -1599,6 +1617,7 @@ class ImageContainer extends DataContainer {
 	 * @param int width of crop rectangle
 	 * @param int height of crop rectangle
 	 * @access public
+	 * @return int a status code
 	 */
 	function crop($x, $y, $width, $height) {
 	}
@@ -1887,7 +1906,7 @@ class GalleryImageToolKit {
 	 * @access public
 	 * @return array lowercase file tags tags (eg "jpg", "gif")
 	 */
-	function getSupportedFiletypes() {
+	function getSupportedFileTypes() {
 	}
 		
 	/**
@@ -2383,7 +2402,7 @@ type.
 	}
 
 	$type = $item->getType();
-	// e.g., $type is now "AlbumItem" or "PhotoItem", etc
+	// e.g., $type is now "Album", "Photo", etc
 
 Can the current user view an item?
 
@@ -2404,9 +2423,9 @@ in a GalleryItem).
 	$album = // an AlbumItem
 	$itemIdList = $album->getItemIdList();
 	foreach ($itemIdList as $id) {
-		$item = $album->getItemById($id);
-		$type = $item->getClassName();
-		// e.g., $type is now "AlbumItem" or "PhotoItem", etc
+		$item = $gallery->getItemById($id);
+		$type = $item->getType();
+		// e.g., $type is now "Album" or "Photo", etc
 	}
 
 Get the thumbnail for an item and learn its dimensions:
@@ -2415,11 +2434,46 @@ Get the thumbnail for an item and learn its dimensions:
 	$image = $item->getThumbnailImage();
 	list($width, $height) = $image->getDimensions();
 
-Rotate and scale an image:
+Rotate, scale and crop an image:
 
-	$image->rotate(90);
-	$image->scale(200,200);
+	$status = $image->rotate(90);
+	$status = $image->scale(200,200);
+	$status = $image->crop(10, 10, 50, 50);
 
+ITEM CREATION
+-------------
+
+Find out what types of files our graphics toolkit can handle:
+
+	$toolkit = $gallery->getImageToolkit();
+	$types = $toolkit->getSupportedFileTypes();
+
+Create a new GalleryItem out of a file just uploaded from a browser.
+We get the $name and $path values from PHP as part of the file-upload
+feature:
+
+	$path = "/tmp/php712a3u";
+	$name = "foo.jpg";
+	$item = GalleryItemFactory::createItem($path, $name);
+	// $item->getType() == "Photo"
+
+	$path = "/tmp/php712a3u";
+	$name = "foo.doc";
+	$item2 = GalleryItemFactory::createItem($path, $name);
+	// $item2->getType() == "Unknown"
+
+At this point, $item is now in a temporary holding bin.  Let's add it
+to an existing album:
+
+	$status = $album->addItem($item);
+
+XXX More operations:
+XXX  How to change/get rid of resized images
+XXX  Associate a different thumbnail with the item
+XXX  Rebuild the thumbnail
+XXX  Associate a derivative image from a different item
+     (eg, an AlbumItem has a derivative thumbnail image
+          from a PhotoItem's source)
 
 COMMENTS
 --------
