@@ -192,34 +192,41 @@ class ItemReorderView extends GalleryView {
             return array($ret->wrap(__FILE__, __LINE__), null);
         }
 
-	/* Get all peers that we can see */
-        list ($ret, $peerIds) = $item->fetchChildIds();
-        if ($ret->isError()) {
-            return array($ret->wrap(__FILE__, __LINE__), null);
-        }
+	$show = array();
+	$ItemReorder = array();
+	$orderBy = $item->getOrderBy();
+	if (!empty($orderBy)) {
+	    $show['automaticOrderMessage'] = 1;
+	} else {
 
-	/* Load all the peers */
-        list ($ret, $peerItems) = $gallery->loadEntitiesById($peerIds);
-        if ($ret->isError()) {
-            return array($ret->wrap(__FILE__, __LINE__), null);
-        }
-
-	/* Build our peers table */
-	$peers = array();
-	foreach ($peerItems as $peerItem) {
-            $peers[$peerItem->getId()] = $peerItem->getMemberData();
-	    if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
-		$peerTypes['album'][$peerItem->getId()] = 1;
-	    } else {
-		$peerTypes['data'][$peerItem->getId()] = 1;
+	    /* Get all peers that we can see */
+	    list ($ret, $peerIds) = $item->fetchChildIds();
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-            $peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
-        }
 
-        /* Render the HTML body */
-	$ItemReorder = array(); 
-        $ItemReorder['peers'] = $peers;
-        $ItemReorder['peerTypes'] = $peerTypes;
+	    /* Load all the peers */
+	    list ($ret, $peerItems) = $gallery->loadEntitiesById($peerIds);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /* Build our peers table */
+	    $peers = array();
+	    foreach ($peerItems as $peerItem) {
+		$peers[$peerItem->getId()] = $peerItem->getMemberData();
+		if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
+		    $peerTypes['album'][$peerItem->getId()] = 1;
+		} else {
+		    $peerTypes['data'][$peerItem->getId()] = 1;
+		}
+		$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
+	    }
+	    $ItemReorder['peers'] = $peers;
+	    $ItemReorder['peerTypes'] = $peerTypes;
+	}
+
+	$ItemReorder['show'] = $show;
 
         $template->setVariable('ItemReorder', $ItemReorder);
         $template->setVariable('controller', 'core:ItemReorder');
