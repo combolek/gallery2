@@ -138,7 +138,7 @@ $breadLevels = array_reverse($breadLevels, false);
 
 //-- set up the command structure ---
 $commands = Array();
-if ($user->isLoggedIn()) {
+if ($user->canEditAlbum($album)) {
 	$name = "album_edit";
 	$commands[$name]['title'] = "Edit Album";
 	$commands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$albumName."&return=".urlencode($thisUrl));
@@ -195,36 +195,47 @@ foreach ($itemIds as $itemId) {
     $index = $album->getPhotoIndex($itemId);
 	$items[$i]['index'] = $index;
 	$items[$i]['hidden'] = $album->isHidden($index);
-	
-
-	$items[$i]['thumbnail']['tag'] = 
-		$album->getThumbnailTag($index, $album->fields["thumb_size"]);
-	$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
 
     if ($album->isMovie($itemId)) { 
 		$items[$i]['type'] = 'movie';
+		$items[$i]['thumbnail']['tag'] = 
+			$album->getThumbnailTag($index, $album->fields["thumb_size"]);
+		$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
 		$items[$i]['href'] = $album->getPhotoPath($index)."\" target=\"other"; 
 	} else if ($album->isAlbumName($index)) {
 		$items[$i]['type'] = 'album';
 		$myAlbum = new Album();
 		$myAlbum->load($album->isAlbumName($index));
+		if ($myAlbum->numPhotos(1)) {
+			$items[$i]['thumbnail']['tag'] = 
+				$myAlbum->getThumbnailTag($myAlbum->getHighlight(), $album->fields["thumb_size"]);
+			$items[$i]['thumbnail']['url'] = $myAlbum->getThumbnailPath($myAlbum->getHighlight());
+		} else {
+			$items[$i]['thumbnail']['tag'] = "";
+			$items[$i]['thumbnail']['url'] = "";
+		}
+		$items[$i]['itemCount'] = $myAlbum->numPhotos($user->canWriteToAlbum($myAlbum));
 		$items[$i]['href'] = makeAlbumUrl($myAlbum->fields['name']);
 		$items[$i]['title'] = $myAlbum->fields[title];
 		$items[$i]['description'] = $myAlbum->fields[description];
 		$items[$i]['dateChanged'] = $myAlbum->getLastModificationDate();
 		$items[$i]['clickCount'] = $myAlbum->getClicks();
 		$items[$i]['clickCountText'] = "Viewed: " . pluralize($myAlbum->getClicks(), "time", "0");
+		$items[$i]['itemCountText'] = "Contains: " . pluralize($items[$i]['itemCount'], item, "no");
 
 		//-- the album commands ---
-		if ($user->isLoggedIn()) {
+		if ($user->canEditAlbum($myAlbum)) {
 			$name = "album_edit";
 			$iCommands[$name]['title'] = "Edit Album";
 			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$myAlbum->fields['name']."&return=".urlencode($thisUrl));
 		}
 
 	} else {
-		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
 		$items[$i]['type'] = 'photo';
+		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
+		$items[$i]['thumbnail']['tag'] = 
+			$album->getThumbnailTag($index, $album->fields["thumb_size"]);
+		$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
 		$items[$i]['caption'] = $album->getCaption($index);
 		$items[$i]['commentCount'] = 
 			((!strcmp($album->fields["public_comments"], "yes"))) ? 
@@ -233,7 +244,7 @@ foreach ($itemIds as $itemId) {
 		$items[$i]['clickCountText'] = "Viewed: " . pluralize($album->getItemClicks($index), "time", "0");
 
 		//-- the photo commands ---
-		if ($user->isLoggedIn()) {
+		if ($user->canEditItemsInAlbum($album)) {
 			$name = "item_edit";
 			$iCommands[$name]['title'] = "Edit Photo";
 			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=item&id=".$itemId."&return=".urlencode($thisUrl));
