@@ -524,9 +524,9 @@ class Album {
 		return $photo->getPhotoPath($this->getAlbumDirURL(), $full);
 	}
 
-	function getPhotoId($index) {
+	function getItemIdByIndex($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getPhotoId($this->getAlbumDirURL());
+		return $photo->getId();
 	}
 
 	function getAlbumDir() {
@@ -597,7 +597,7 @@ class Album {
 					}
 				} 
 
-				$ids[] = $photo->getPhotoId($this->getAlbumDirURL());
+				$ids[] = $photo->getId();
 				$count++;
 			}
 		}
@@ -611,7 +611,7 @@ class Album {
 	function getPhotoIndex($id) {
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-			if (!strcmp($photo->getPhotoId($this->getAlbumDir()), $id)) {
+			if (!strcmp($photo->getId(), $id)) {
 				return $i;
 			}
 		}
