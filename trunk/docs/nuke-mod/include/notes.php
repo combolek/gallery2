@@ -19,6 +19,8 @@ function getNotes ($section) {
 
 function printNotesHeader () {
         global $data, $navigation;
+	
+	$loggedin = isLoggedIn ();
 ?>
 <table bgcolor="#dadada" border="0" bordercolor="#cccccc" width="100%" cellspacing="4" cellspacing="0">
  <tr>
@@ -29,7 +31,18 @@ function printNotesHeader () {
      User Contributed Notes
     </td>
     <td width="50%" align="right">
-     <a href="modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;action=add-note&amp;sect=<?php echo $navigation['this'];?>" style="color: #000000">[add a note]</a>
+    <?php
+     if ($loggedin !== false) {
+    ?>
+     <a href="modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;action=add-note&amp;sect=<?php echo $navigation['this'];?>" style="color: #000000">
+     [add a note]
+     </a>
+    <?
+     } else {
+      print '(please login or register to add a note)';
+     }
+    ?>
+     </a>
     </td>
    </tr>
   </table>
@@ -206,11 +219,10 @@ if (is_array ($extraFields)) {
 <table bgcolor="#cfcfcf" width="100%">
  <tr>
   <th>
-   Email Address or Name<br/>
-   (will be spam proofed)
+   Username
   </th>
   <td>
-   <input type="text" name="user" value="<?php echo $user;?>" size="50">
+   <b><?php echo isLoggedIn(); ?></b>
   </td>
  </tr>
  <tr>
@@ -236,5 +248,15 @@ function spamProtectEmail ($email) {
 	$email = str_replace ('.', ' [dot] ', $email);
 	
 	return $email;
+}
+
+function isLoggedIn () {
+	$user = pnUserGetVar ('uname');
+	
+	if (empty ($user)) {
+		return false;
+	} else {
+		return $user;
+	}
 }
 ?>
