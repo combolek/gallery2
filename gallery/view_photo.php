@@ -26,33 +26,37 @@ require($GALLERY_BASEDIR . "init.php");
 //-- The Business section ---
 //
 
+$albumName = $gallery->session->albumName;
+$album = $gallery->album;
+$user = $gallery->user;
+
 //-- Hack check. You have to have permission to see the album ---
-if (!$gallery->user->canReadAlbum($gallery->album)) {
+if (!$user->canReadAlbum($album)) {
 	header("Location: albums.php");
 	return;
 }
 
 //-- The AlbumItem ID --- 
 if ($id) {
-	$index = $gallery->album->getPhotoIndex($id);
+	$index = $album->getPhotoIndex($id);
 	if ($index == -1) {
 		// That photo no longer exists. Go back to the album 
 		header("Location: " . $gallery->app->photoAlbumURL . 
-			"/" . $gallery->session->albumName);
+			"/" . $albumName);
 		return;
 	}
 } else {
 	// We must have an index
-	$id = $gallery->album->getPhotoId($index);
+	$id = $album->getPhotoId($index);
 }
 
 //-- Increment the clickCount for this AlbumItem --- 
-if (!$viewedItem[$gallery->session->albumName][$id]) {
-	setcookie("viewedItem[$gallery->session->albumName][$id]", "1");
-	$gallery->album->incrementItemClicks($index);
+if (!$viewedItem[$albumName][$id]) {
+	setcookie("viewedItem[$albumName][$id]", "1");
+	$album->incrementItemClicks($index);
 }
 
-$photo = $gallery->album->getPhoto($index);
+$photo = $album->getPhoto($index);
 if ($photo->isMovie()) {
 	$image = $photo->thumbnail;
 } else {
@@ -61,30 +65,30 @@ if ($photo->isMovie()) {
 list($imageWidth, $imageHeight) = $image->getDimensions();
 
 $do_fullOnly = !strcmp($gallery->session->fullOnly,"on") &&
-               !strcmp($gallery->album->fields["use_fullOnly"],"yes");
+               !strcmp($album->fields["use_fullOnly"],"yes");
 if ($do_fullOnly) {
 	$full = 1;
 }
 
-$photoTag = $gallery->album->getPhotoTag($index, $full);
-$photoUrl = $gallery->album->getPhotoPath($index, $full);
+$photoTag = $album->getPhotoTag($index, $full);
+$photoUrl = $album->getPhotoPath($index, $full);
 
-if (!$gallery->album->isMovie($id)) {
-	if ($gallery->album->isResized($index) && !$do_fullOnly) { 
+if (!$album->isMovie($id)) {
+	if ($album->isResized($index) && !$do_fullOnly) { 
 		if (!$full) {
-			$photoHref = makeGalleryUrl($gallery->session->albumName, $id, "full=1");
+			$photoHref = makeAlbumUrl($albumName, $id, array("full" => 1));
 		} else {
-			$photoHref = makeGalleryUrl($gallery->session->albumName, $id);
+			$photoHref = makeAlbumUrl($albumName, $id);
 		}
 	}
 } else {
 	//-- XXX - if a movie, slip in the target ---
-	$photoHref = $gallery->album->getPhotoPath($index)."\" target=\"other";
+	$photoHref = $album->getPhotoPath($index)."\" target=\"other";
 }
 
 //-- in the fitToWindow case, wrap the photo with some JS ---
-$fitToWindow = !strcmp($gallery->album->fields["fit_to_window"], "yes") && 
-			!$gallery->album->isResized($index) && !$full;
+$fitToWindow = !strcmp($album->fields["fit_to_window"], "yes") && 
+			!$album->isResized($index) && !$full;
 if ($fitToWindow && !$GALLERY_EMBEDDED_INSIDE) { 
 	$photoTag = "\n"
 		. "<script language=\"javascript1.2\"> \n"
@@ -139,7 +143,7 @@ if ($fitToWindow && !$GALLERY_EMBEDDED_INSIDE) {
         . "        img.width = imageWidth; \n"
         . "    } else { \n"
         . "        if (changed) { \n"
-        . "            document.write('<a href=\"".makeGalleryUrl($gallery->session->albumName, $id, "&full=1")."\">'); \n"
+        . "            document.write('<a href=\"".makeAlbumUrl($albumName, $id, array("full" => 1))."\">'); \n"
         . "        } \n"
         . "        document.write('<img name=photo src=\"$photoUrl\" border=0 width=' + \n"
         . "                         imageWidth + ' height=' + imageHeight + '>'); \n"
@@ -164,7 +168,7 @@ if ($fitToWindow && !$GALLERY_EMBEDDED_INSIDE) {
 	$pageBodyTagExtra .= "onResize='doResize()'";
 }
 
-$numPhotos = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
+$numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
 $next = $index+1;
 if ($next > $numPhotos) {
 	$last = 1;
@@ -174,104 +178,105 @@ if ($prev <= 0) {
 	$first = 1;
 }
 
-if ($index > $gallery->album->numPhotos(1)) {
+if ($index > $album->numPhotos(1)) {
 	$index = $numPhotos;
 }
 
 //-- calculate the page we're on (for the breadcrumb) ---
-$page = ceil($index / ($gallery->album->fields["rows"] * $gallery->album->fields["cols"]));
+$page = ceil($index / ($album->fields["rows"] * $album->fields["cols"]));
 
-$borderColor = $gallery->album->fields["bordercolor"];
-$borderWidth = $gallery->album->fields["border"];
+$borderColor = $album->fields["bordercolor"];
+$borderWidth = $album->fields["border"];
 if (!strcmp($borderWidth, "off")) {
     $borderWidth = 1;
 }
 
 //-- setup the album specific style sheet ---
 $albumStyle = "<style type=\"text/css\">\n";
-if ($gallery->album->fields["linkcolor"]) {
+if ($album->fields["linkcolor"]) {
     $albumStyle .= 
 		"  A:link, A:visited, A:active\n" .
-		"    { color: ".$gallery->album->fields[linkcolor]."; }\n" . 
+		"    { color: ".$album->fields[linkcolor]."; }\n" . 
 		"  A:hover\n" . 
 		"    { color: #ff6600; }\n";
 }
-if ($gallery->album->fields["bgcolor"]) {
+if ($album->fields["bgcolor"]) {
 	$albumStyle .=
-		"  BODY { background-color:".$gallery->album->fields[bgcolor]."; }\n";
+		"  BODY { background-color:".$album->fields[bgcolor]."; }\n";
 } 
-if ($gallery->album->fields["background"]) {
+if ($album->fields["background"]) {
 	$albumStyle .= 
-		"  BODY { background-image:url(".$gallery->album->fields[background].") ; }\n";  
+		"  BODY { background-image:url(".$album->fields[background].") ; }\n";  
 }   
-if ($gallery->album->fields["textcolor"]) {
+if ($album->fields["textcolor"]) {
 	$albumStyle .= 
-		"  BODY, TD {color:".$gallery->album->fields[textcolor]."; }\n" .
-		"  .head {color:".$gallery->album->fields[textcolor]."; }\n" .
-		"  .headbox {background-color:".$gallery->album->fields[bgcolor]."; }\n";
+		"  BODY, TD {color:".$album->fields[textcolor]."; }\n" .
+		"  .head {color:".$album->fields[textcolor]."; }\n" .
+		"  .headbox {background-color:".$album->fields[bgcolor]."; }\n";
 }
 $albumStyle .= "</style>\n";
 
-if (!strcmp($gallery->album->fields["resize_size"], "off")) {
+if (!strcmp($album->fields["resize_size"], "off")) {
 	$mainWidth = imageWidth;
 } else {
-	$mainWidth = $gallery->album->fields["resize_size"];
+	$mainWidth = $album->fields["resize_size"];
 }
 $mainWidth += (borderWidth * 2);
 
 //-- set up the command structure ---
 $commands = Array();
 $commandCount = 0;
-if ($gallery->user->canChangeTextOfAlbum($gallery->album)) {
+if ($user->canChangeTextOfAlbum($album)) {
 	$commandCount++;
-	$commands[$commandCount]['name'] = "Edit Info";
+	$commands[$commandCount]['name'] = "item_edit_info";
+	$commands[$commandCount]['title'] = "Edit Info";
 	$commands[$commandCount]['action'] = popup("edit_caption.php?index=$index");
+	//$commands[$commandCount]['action'] = popup("item_edit_info.php, "index=$index");
 }
-if (!strcmp($gallery->album->fields["public_comments"], "yes")) {
+if (!strcmp($album->fields["public_comments"], "yes")) {
 	$commandCount++;
-	$commands[$commandCount]['name'] = "Add Comment";
+	$commands[$commandCount]['name'] = "item_add_comment";
+	$commands[$commandCount]['title'] = "Add Comment";
 	$commands[$commandCount]['action'] = popup("add_comment.php?index=$index");
 }
-if (!$gallery->album->isMovie($id)) {
-    if ($gallery->user->canWriteToAlbum($gallery->album)) {
+if (!$album->isMovie($id)) {
+    if ($user->canWriteToAlbum($album)) {
 		$commandCount++;
-		$commands[$commandCount]['name'] = "Resize Photo";
+		$commands[$commandCount]['name'] = "photo_resize";
+		$commands[$commandCount]['title'] = "Resize";
 		$commands[$commandCount]['action'] = popup("resize_photo.php?index=$index");
     }
 
-    if ($gallery->user->canDeleteFromAlbum($gallery->album)) {
+    if (!strcmp($album->fields["use_fullOnly"], "yes")) {
 		$commandCount++;
-		$commands[$commandCount]['name'] = "Delete Photo";
-		$commands[$commandCount]['action'] = popup("delete_photo.php?index=$index");
-    }
-
-    if (!strcmp($gallery->album->fields["use_fullOnly"], "yes")) {
-		$commandCount++;
-		$commands[$commandCount]['name'] = "View Images " .
+		$commands[$commandCount]['name'] = "photo_view_toggle";
+		$commands[$commandCount]['title'] = "View Images " .
 			(strcmp($gallery->session->fullOnly,"on") ? "Full" : "Normal");
-		$commands[$commandCount]['action'] = doCommand("", "set_fullOnly=" .
-			(strcmp($gallery->session->fullOnly,"on") ? "on" : "off"), 
-			"view_photo.php", "id=$id");
+		$commands[$commandCount]['action'] = doCommand("", array("set_fullOnly" =>
+			(strcmp($gallery->session->fullOnly,"on") ? "on" : "off")), 
+			"view_photo.php", array("id" => $id));
 
 	}
    
-    if (!strcmp($gallery->album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
+    if (!strcmp($album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
         ($gallery->app->use_exif)) {
 		$commandCount++;
-		$commands[$commandCount]['name'] = "Photo Properties";
+		$commands[$commandCount]['name'] = "photo_properties";
+		$commands[$commandCount]['title'] = "Properties";
 		$commands[$commandCount]['action'] = popup("view_photo_properties.php?index=$index");
     }
 
 
-    if (strcmp($gallery->album->fields["print_photos"],"none")) {
+    if (!strcmp($album->fields["print_photos"],"shutterfly")) {
 		$commandCount++;
-		$commands[$commandCount]['name'] = "Print on Shutterfly";
+		$commands[$commandCount]['name'] = "photo_print_shutterfly";
+		$commands[$commandCount]['title'] = "Print on Shutterfly";
 		$commands[$commandCount]['action'] = "document.sflyc4p.returl.value=document.location; document.sflyc4p.submit()";
 
 		//-- build the shutterfly form ---
 		$hostname = $GLOBALS["SERVER_NAME"];
 		$protocol = "http";
-		$photoPath = $protocol . "://" . $hostname . $gallery->album->getAlbumDirURL();
+		$photoPath = $protocol . "://" . $hostname . $album->getAlbumDirURL();
 		$rawImageURL = $photoPath . "/" . $image->name . "." . $image->type;
 
 		$thumbImageURL = $photoPath . "/";
@@ -297,9 +302,16 @@ if (!$gallery->album->isMovie($id)) {
             . "</form>\n";
     }
 }
+if ($user->canDeleteFromAlbum($album)) {
+	$commandCount++;
+	$commands[$commandCount]['name'] = "item_delete";
+	$commands[$commandCount]['title'] = "Delete";
+	$commands[$commandCount]['action'] = popup("delete_photo.php?index=$index");
+}
+
 
 //-- The page navigation info ---
-$navIds = $gallery->album->getIds($gallery->user);
+$navIds = $album->getIds($user);
 $navPageCount = sizeof($navIds);
 $navPage = $navPageCount;
 while ($navPage > 0) { // looking for the index among the 'visible' items
@@ -311,17 +323,17 @@ while ($navPage > 0) { // looking for the index among the 'visible' items
 $i_nav = 1; // pages are 1 based
 foreach ($navIds as $navId) {
 	$navPages[$i_nav]['name'] = $navId;
-	$navPages[$i_nav]['href'] = makeGalleryUrl($gallery->session->albumName, $navId); 
+	$navPages[$i_nav]['href'] = makeAlbumUrl($albumName, $navId); 
 	$i_nav++;
 }
 
 //-- the breadcrumb info ---
 $breadCount = 0;
 $breadLevels[$breadCount]['level'] = "Album";
-$breadLevels[$breadCount]['name'] = $gallery->album->fields["title"];
-$breadLevels[$breadCount]['href'] = makeGalleryUrl($gallery->session->albumName, "", "page=$page");
+$breadLevels[$breadCount]['name'] = $album->fields["title"];
+$breadLevels[$breadCount]['href'] = makeAlbumUrl($albumName, "", array("page" => $page));
 $breadCount++;
-$pAlbum = $gallery->album;
+$pAlbum = $album;
 do {
     if (!strcmp($pAlbum->fields["returnto"], "no")) {
         break;
@@ -331,12 +343,12 @@ do {
         $pAlbum = $albumDB->getAlbumByName($pAlbumName);
         $breadLevels[$breadCount]['level'] = "Album";
         $breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
-        $breadLevels[$breadCount]['href'] = makeGalleryUrl($pAlbumName);
+        $breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
     } else { 
         //-- we're at the top! ---
         $breadLevels[$breadCount]['level'] = "Gallery";
         $breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-        $breadLevels[$breadCount]['href'] = makeGalleryUrl();
+        $breadLevels[$breadCount]['href'] = makeGalleryUrl("albums.php");
     }
     $breadCount++;
     if ($pAlbum) {
@@ -354,20 +366,15 @@ $breadLevels = array_reverse($breadLevels, false);
 //$breadLevels[$breadCount]['href'] = makeGalleryUrl();
 
 //-- Public comments for this photo ---
-if (!strcmp($gallery->album->fields["public_comments"], "yes")) {
-	$publicCommentCount = $gallery->album->numComments($index);
+if (!strcmp($album->fields["public_comments"], "yes")) {
+	$publicCommentCount = $album->numComments($index);
 	for ($i=1; $i <= $publicCommentCount; $i++) {
-		$comment = $gallery->album->getComment($index, $i);
+		$comment = $album->getComment($index, $i);
 		$publicComments[$i]['text'] = $comment->getCommentText();
 		$publicComments[$i]['IPNumber'] = $comment->getIPNumber();
 		$publicComments[$i]['datePosted'] = $comment->getDatePosted();
 		$publicComments[$i]['name'] = $comment->getName();
 		$publicComments[$i]['UID'] = $comment->getUID();
-		if ($gallery->user->canWriteToAlbum($gallery->album)) {
-			$url = "do_command.php?cmd=delete-comment&index=$index&comment_index=$i";
-			$publicComments[$i]['remove'] = 
-				'<a href="#" onClick="' . popup($url) . '">[remove]</a>';
-		}
 	}
 }
 
@@ -382,9 +389,9 @@ $GLO['gallery']['url'] = $gallery->app->photoAlbumURL;
 $GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
-$GLO['album']['title'] = $gallery->album->fields['title'];
-$GLO['album']['url'] = $gallery->album->getAlbumDirURL();
-$GLO['album']['name'] = $gallery->session->albumName;
+$GLO['album']['title'] = $album->fields['title'];
+$GLO['album']['url'] = $album->getAlbumDirURL();
+$GLO['album']['name'] = $albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
 $GLO['borderColor'] = $borderColor;
@@ -392,7 +399,7 @@ $GLO['borderColor'] = $borderColor;
 //-- the 'item' is the focus of this page ---
 $GLO['item']['id'] = $id;
 $GLO['item']['index'] = $index;
-$GLO['item']['caption'] = $gallery->album->getCaption($index);
+$GLO['item']['caption'] = $album->getCaption($index);
  
 //-- the 'image' is the image that represents the 'item' ---
 $GLO['image']['width'] = $imageWidth;
