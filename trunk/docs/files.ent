@@ -1,5 +1,15 @@
+<!-- Entities file.  Add new files here -->
+
+<!-- Book information.  Top level stuff -->
 <!ENTITY bookinfo				SYSTEM 'sections/bookinfo.xml'>
 <!ENTITY preface				SYSTEM 'sections/preface.xml'>
+
+<!-- Gallery 1 -->
 <!ENTITY chapters.gallery1			SYSTEM 'sections/gallery1/index.xml'>
+
+<!-- Gallery 2 -->
 <!ENTITY chapters.gallery2			SYSTEM 'sections/gallery2/index.xml'>
 <!ENTITY chapters.gallery2.dev-guide		SYSTEM 'sections/gallery2/developers_guide.xml'>
+
+<!-- Guide Standards -->
+<!ENTITY chapters.guide-standards		SYSTEM 'sections/guide-standards/index.xml'>
