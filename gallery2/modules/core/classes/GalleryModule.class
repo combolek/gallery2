@@ -216,7 +216,7 @@ class GalleryModule {
     }
 
     /**
-     * Get the name of the GalleryView containing the various item
+     * Get the list of GalleryViews containing the various item
      * administration views for this module.  The module should check
      * permissions and item type to determine which views are applicable for
      * the authenticated user.  As with getSiteAdminViews(), the view title
@@ -227,6 +227,20 @@ class GalleryModule {
      *               array( array('name' => name, 'view' => view), ...)
      */
     function getItemAdminViews($item) {
+	return array(GalleryStatus::success(), null);
+    }
+
+    /**
+     * Get the list of GalleryViews containing the various user administration
+     * views for this module.  The module should check permissions and item
+     * type to determine which views are applicable for the authenticated user.
+     * As with getSiteAdminViews(), the view title text must be localized.
+     *
+     * @param object GalleryUser a user
+     * @return array object GalleryStatus a status code
+     *               array( array('name' => name, 'view' => view), ...)
+     */
+    function getUserAdminViews($user) {
 	return array(GalleryStatus::success(), null);
     }
 

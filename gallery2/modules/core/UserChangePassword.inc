@@ -34,7 +34,7 @@
  * @subpackage UserInterface
  *
  */
-class UserPreferencesController extends GalleryController {
+class UserChangePasswordController extends GalleryController {
 
     /**
      * @see GalleryController::handleRequest
@@ -66,7 +66,7 @@ class UserPreferencesController extends GalleryController {
 
 	    /* Redirect back to the same view to reset the form */
 	    $redirectParams['view'] = 'core:UserAdmin';
-	    $redirectParams['subView'] = 'core:UserPreferences';
+	    $redirectParams['subView'] = 'core:UserChangePassword';
 	    
 	} else if (isset($form['action']['save'])) {
 
@@ -75,13 +75,18 @@ class UserPreferencesController extends GalleryController {
 	     */
 	    $error = false;
 
-	    /* full name is optional */
+	    if (!isset($form['password1'])) {
+		GalleryUtilities::putRequestVariable('form.error.password1.missing', 1);
+		$error = true;
+	    }
 	    
-	    /* language is optional for everybody */
+	    if (!isset($form['password2'])) {
+		GalleryUtilities::putRequestVariable('form.error.password2.missing', 1);
+		$error = true;
+	    }
 
-	    /* email required for non-anonymous */
-	    if (empty($form['email'])) {
-		GalleryUtilities::putRequestVariable('form.error.email.missing', 1);
+	    if (!$error && $form['password1'] != $form['password2']) {
+		GalleryUtilities::putRequestVariable('form.error.password.mismatch', 1);
 		$error = true;
 	    }
 
@@ -100,11 +105,7 @@ class UserPreferencesController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		
-		$user->setFullname($form['fullName']);
-		$user->setEmail($form['email']);
-		if (isset($form['language'])) {
-		    $user->setLanguage($form['language']);
-		}
+		$user->changePassword($form['password1']);
 
 		$ret = $user->save();
 		if ($ret->isError()) {
@@ -118,8 +119,8 @@ class UserPreferencesController extends GalleryController {
 
 		/* Request a redirect to the confirmation screen */
 		$redirectParams['view'] = 'core:UserAdmin';
-		$redirectParams['subView'] = 'core:UserPreferences';
-		$status['saved'] = 1;
+		$redirectParams['subView'] = 'core:UserChangePassword';
+		$status['changedPassword'] = 1;
 	    }
 	}
 
@@ -129,7 +130,7 @@ class UserPreferencesController extends GalleryController {
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:UserAdmin';
-		$results['subView'] = 'core:UserPreferences';
+		$results['subView'] = 'core:UserChangePassword';
 	    }
 	}
 
@@ -144,7 +145,7 @@ class UserPreferencesController extends GalleryController {
  * @subpackage UserInterface
  *
  */
-class UserPreferencesView extends GalleryView {
+class UserChangePasswordView extends GalleryView {
 
     /**
      * @see GalleryView::renderBody
@@ -153,6 +154,7 @@ class UserPreferencesView extends GalleryView {
 	global $gallery;
 
 	$userId = $gallery->getActiveUserId();
+
 	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -167,27 +169,8 @@ class UserPreferencesView extends GalleryView {
 	}
 	
 	/* Load the form with user data the first time around. */
-	if ($form['formName'] != 'UserPreferences') {
-	    $form['userName'] = $user->getUserName();
-	    $form['fullName'] = $user->getFullName();
-	    $form['email'] = $user->getEmail();
-	    $form['language'] = $user->getLanguage();
-	}
-
-	/* Set up our language selection list */
-	list ($ret, $module) = $gallery->loadModule('core');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
-	$languageList = array();
-	$languageList[''] = $module->translate('<none>');
-	$translator =& $gallery->getTranslator();
-	$supportedLanguages = $translator->getSupportedLanguages();
-	foreach ($supportedLanguages as $language => $countryList) {
-	    foreach ($countryList as $country => $languageData) {
-		$languageList[$language . '_' . $country] = $languageData['description'];
-	    }
+	if ($form['formName'] != 'UserChangePassword') {
+	    /* We don't fill the password boxes */
 	}
 
 	/* Render the HTML body */
@@ -195,9 +178,8 @@ class UserPreferencesView extends GalleryView {
 	$template->setVariable('form', $form);
 	$template->setVariable('status', $status);
 	$template->setVariable('user', $user->getMemberData());
-	$template->setVariable('languageList', $languageList);
-	$template->setVariable('controller', 'core:UserPreferences');
-	list($ret, $html) = $template->render('UserPreferences.tpl');
+	$template->setVariable('controller', 'core:UserChangePassword');
+	list($ret, $html) = $template->render('UserChangePassword.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);
 	}
