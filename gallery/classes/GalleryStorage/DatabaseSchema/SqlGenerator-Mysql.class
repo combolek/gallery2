@@ -33,11 +33,11 @@ class SqlGenerator {
 	return "CREATE DATABASE $databaseName";
     }
 
-    function createTable($tableName, $tableInfo) {
-	$fullTableName = DATABASE_TABLE_PREFIX . $tableName;
+    function createTable($databaseName, $tableName, $tableInfo) {
+	$fullTableName = $databaseName . '.' . DATABASE_TABLE_PREFIX . $tableName;
 
 	$clause = '';
-
+	$primaryKey = '';
 	foreach ($tableInfo as $columnName => $columnInfo) {
 	    $type = $columnInfo['type'];
 	    $targetTable = $columnInfo['class'];
@@ -46,7 +46,7 @@ class SqlGenerator {
 	     * Skip any columns that are targetted at a different table,
 	     * *except* the id column, which must be in all tables.
 	     */
-	    if (strcasecmp($targetTable, $tableName) && $type & ~STORAGE_TYPE_ID) {
+	    if (strcasecmp($targetTable, $tableName) && !($type & STORAGE_TYPE_ID)) {
 		continue;
 	    }
 
@@ -103,6 +103,14 @@ class SqlGenerator {
 	    if ($type & STORAGE_TYPE_REQUIRED) {
 		$clause .= ' NOT NULL';
 	    }
+
+	    if ($type & STORAGE_TYPE_ID) {
+		$primaryKey = $columnName;
+	    }
+	}
+
+	if (!empty($primaryKey)) {
+	    $clause .= ", PRIMARY KEY ($primaryKey)";
 	}
 
 	return "CREATE TABLE $fullTableName ($clause) Type=MyISAM";
