@@ -28,12 +28,23 @@ if (isset ($_POST['submit'])) {
 		$errors .= 'Your note is too long<br>';
 	}
 	
-	if ($errors) {
-		print '<table bgcolor="#ff8080" width="100%" border="1" bordercolor="#ff0000">';
-		print '<tr><td>';
-		print '<b>Error Submitting Note: </b><br><i>';
-		print $errors;
-		print '</i></td></tr></table>';
+	if ($errors || $_POST['submit'] == 'Preview') {
+        	if ($errors) {
+			print '<table bgcolor="#ff8080" width="100%" border="1" bordercolor="#ff0000">';
+			print '<tr><td>';
+			print '<b>Error Submitting Note: </b><br><i>';
+			print $errors;
+			print '</i></td></tr></table>';
+		} 
+		
+		if ($_POST['submit'] == 'Preview') {
+			$note = array ('sect' => false,
+        			       'user' => &$_POST['user'],
+		                       'ts' => time(),
+		                       'note' => &$_POST['note']
+                		      );			
+			displayNote ($note);
+		}
 		
 		printNotesForm ($modPage, false, $_POST['sect'], $_POST['user'], $_POST['note']);
 	} else {
