@@ -7,6 +7,10 @@ if (!eregi("modules.php", $PHP_SELF)) {
 
 $noteadmin = pnSecAuthAction (0, 'GalleryDocs::', '::', ACCESS_MODERATE);
 
+function getTableName($table) {
+    return 'gallery_' . $table;
+}
+
 function throwError ($error) {
 	global $olddir;
 
