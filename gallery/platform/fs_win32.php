@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,9 +20,11 @@
 ?>
 <?
 function fs_copy($source, $dest) {
-	return copy(
+	$umask = umask(0133);
+	$results = copy(
 		fs_import_filename($source, 0), 
 		fs_import_filename($dest, 0));
+	umask($umask);
 }
 
 function fs_file_exists($filename) {
@@ -44,6 +46,11 @@ function fs_fopen($filename, $mode, $use_include_path=0) {
 function fs_is_dir($filename) {
 	$filename = fs_import_filename($filename, 0);
 	return is_dir($filename);
+}
+
+function fs_is_file($filename) {
+	$filename = fs_import_filename($filename, 0);
+	return is_file($filename);
 }
 
 function fs_opendir($path) {
@@ -82,6 +89,13 @@ function fs_executable($filename) {
 		$filename .= ".exe";
 	}
 	return $filename;
+}
+
+function fs_mkdir($filename, $perms) {
+	$umask = umask(0);
+	$results = mkdir(fs_import_filename($filename, 0), $perms);
+	umask($umask);
+	return $results;
 }
 
 function fs_import_filename($filename, $for_exec=1) {
@@ -127,7 +141,9 @@ function fs_export_filename($filename) {
 	return $filename;
 }
 
-function fs_exec($cmd, &$results, &$status) {
+function fs_exec($cmd, &$results, &$status, $debugfile) {
+
+	// We can't redirect stderr with Windows.  Hope that we won't need to.
 	return exec("cmd.exe /c $cmd", $results, $status);
 }
 

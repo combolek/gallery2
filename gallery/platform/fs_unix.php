@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +20,15 @@
 ?>
 <?
 function fs_copy($source, $dest) {
-	return copy($source, $dest);
+	$umask = umask(0133);
+	$results = copy($source, $dest);
+	umask($umask);
 }
 
-function fs_exec($cmd, &$results, &$status) {
+function fs_exec($cmd, &$results, &$status, $debugfile="") {
+	if (!empty($debugfile)) {
+		$cmd = "($cmd) 2>$debugfile";
+	} 
 	return exec($cmd, $results, $status);
 }
 
@@ -45,6 +50,10 @@ function fs_fopen($filename, $mode, $use_include_path=0) {
 
 function fs_is_dir($filename) {
 	return is_dir($filename);
+}
+
+function fs_is_file($filename) {
+	return is_file($filename);
 }
 
 function fs_opendir($path) {
@@ -79,4 +88,10 @@ function fs_executable($filename) {
 	return $filename;
 }
 
+function fs_mkdir($filename, $perms) {
+	$umask = umask(0);
+	$results = mkdir(fs_import_filename($filename, 0), $perms);
+	umask($umask);
+	return $results;
+}
 ?>
