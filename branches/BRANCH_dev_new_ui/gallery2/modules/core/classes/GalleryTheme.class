@@ -42,12 +42,20 @@ class GalleryTheme {
      */
 
     /**
-     * The template instance
+     * The theme directory
      *
-     * @var object GalleryTemplate $_template
+     * @var string $_baseDir;
      * @access private
      */
-    var $_template;
+    var $_baseDir;
+
+    /**
+     * The theme url
+     *
+     * @var string $_baseUrl;
+     * @access private
+     */
+    var $_baseUrl;
 
     /*
      * ****************************************
@@ -56,12 +64,38 @@ class GalleryTheme {
      */
 
     /**
+     * Constructor
+     *
+     * @param string the path to the theme directory
+     */
+    function GalleryTheme($themeDir) {
+	$this->_baseDir = $themeDir;
+	$this->_baseUrl = GalleryUtilities::convertPathToRelativeUrl($themeDir) . '/';
+    }
+
+    /**
+     * Get the theme url.
+     * @return string the theme url
+     */
+    function getBaseUrl() {
+	return $this->_baseUrl;
+    }
+
+    /**
+     * Get the theme directory.
+     * @return string the theme directory
+     */
+    function getBaseDir() {
+	return $this->_baseDir;
+    }
+
+    /**
      * Get an array of available theme-names
      *
      * @static
      * @return array string name of the themes
      */
-     function getThemes() {
+     function getThemeList() {
 	global $gallery;
 
 	$platform = $gallery->getPlatform();
@@ -74,7 +108,7 @@ class GalleryTheme {
 		}
 
 		if ($platform->is_dir("$themeDir$subdir")) {
-		    $file = "$themeDir$subdir/templates";
+		    $file = "$themeDir$subdir/theme.inc";
 		    if ($platform->file_exists($file)) {
 			$themeList[] = $subdir;
 		    }
@@ -89,48 +123,59 @@ class GalleryTheme {
      * Initialize this instance to use the theme specified.
      *
      * @param themeName the name of a theme in the themes directory.
-     * @return object GalleryStatus a status code
+     * @return array object GalleryStatus a status code
+     *               object a GalleryTheme instance
      */
-    function init($themeName=null) {
+    function loadTheme($themeName=null) {
 	global $gallery;
 
+	GalleryProfiler::start('modules.core.classes.GalleryTheme::loadTheme');
+	
 	/* If we don't have a theme name then use the default theme. */
 	if (empty($themeName)) {
-	    list ($ret, $themeName) =
-		$gallery->getModuleParameter('core', 'default.theme');
+	    list ($ret, $themeName) = $gallery->getModuleParameter('core', 'default.theme');
 	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
-	$themeDir = $gallery->getConfig('code.gallery.themes') . $themeName . '/';
-	$templateDir = $themeDir . 'templates/';
 	$platform = $gallery->getPlatform();
-	if (!$platform->file_exists($templateDir)) {
-	    if ($gallery->getDebug()) {
-		$gallery->debug("Missing theme template dir: $templateDir");
+	$themeDir = $gallery->getConfig('code.gallery.themes') . $themeName . '/';
+
+	$themeClass = $themeDir . 'theme.inc';
+	if ($platform->file_exists($themeClass)) {
+	    require_once($themeClass);
+
+	    /*
+	     * Expect the theme class name to be the same as the theme
+	     * name plus "Theme"
+	     */
+	    $themeClassName = $themeName . "Theme";
+	    if (!class_exists($themeClassName)) {
+		if ($gallery->getDebug()) {
+		    $gallery->debug("Theme $themeName must have a class named '$themeClassName'");
+		}
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+
+	    $theme = new $themeClassName($themeDir);
+	    if (!GalleryUtilities::isA($theme, 'GalleryTheme')) {
+		if ($gallery->getDebug()) {
+		    $gallery->debug("Theme $themeName is not an instance of GalleryTheme");
+		}
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    }
+	} else {
+	    if ($gallery->getDebug()) {
+		$gallery->debug("Theme $themeName is missing theme.inc");
+	    }
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
+	GalleryProfiler::stop('modules.core.classes.GalleryTheme::loadTheme');
 
-	$themeData['dir'] = $themeDir;
-	$themeData['url'] = GalleryUtilities::convertPathToRelativeUrl($themeDir);
-	$this->_template = new GalleryTemplate($templateDir);
-	$this->_template->setVariable('theme', $themeData);
-
-	return GalleryStatus::success();
+	return array(GalleryStatus::success(), $theme);
     }
     
-    /**
-     * Get the configured GalleryTemplate instance
-     *
-     * @return object GalleryTemplate a template instance
-     * @access protected
-     */
-    function &_getTemplate() {
-	return $this->_template;
-    }
-
     /**
      * Return an HTML form 
      *
@@ -492,251 +537,40 @@ class GalleryTheme {
     }
 
     /* New theme API methods */
-    function header($params, $content) { return $this->_renderTemplate('header', $params, $content); }
-    function pathbar($params, $content) { return $this->_renderTemplate('pathbar', $params, $content); }
-    function pathbaritem($params, $content) { return $this->_renderTemplate('pathbaritem', $params, $content); }
-    function main($params, $content) { return $this->_renderTemplate('main', $params, $content); }
-    function maintitle1($params, $content) { return $this->_renderTemplate('maintitle1', $params, $content); }
-    function mainbody1($params, $content) { return $this->_renderTemplate('mainbody1', $params, $content); }
-    function sidebar1($params, $content) { return $this->_renderTemplate('sidebar1', $params, $content); }
-    function sidebarbox($params, $content) { return $this->_renderTemplate('sidebarbox', $params, $content); }
-    function sidebarboxtitle($params, $content) { return $this->_renderTemplate('sidebarboxtitle', $params, $content); }
-    function sidebarboxbody($params, $content) { return $this->_renderTemplate('sidebarboxbody', $params, $content); }
-    function listing($params, $content) { return $this->_renderTemplate('listing', $params, $content); }
-    function listingtitle($params, $content) { return $this->_renderTemplate('listingtitle', $params, $content); }
-    function listingbody($params, $content) { return $this->_renderTemplate('listingbody', $params, $content); }
-    function listingitem($params, $content) { return $this->_renderTemplate('listingitem', $params, $content); }
-    function listingitemselected($params, $content) { return $this->_renderTemplate('listingitemselected', $params, $content); }
-    function detailedbox($params, $content) { return $this->_renderTemplate('detailedbox', $params, $content); }
-    function detailedboxtitle($params, $content) { return $this->_renderTemplate('detailedboxtitle', $params, $content); }
-    function detailedboxdescription($params, $content) { return $this->_renderTemplate('detailedboxdescription', $params, $content); }
-    function detailedboxbody($params, $content) { return $this->_renderTemplate('detailedboxbody', $params, $content); }
-    function widget1($params, $content) { return $this->_renderTemplate('widget1', $params, $content); }
-    function widget1set($params, $content) { return $this->_renderTemplate('widget1set', $params, $content); }
-    function widget1title($params, $content) { return $this->_renderTemplate('widget1title', $params, $content); }
-    function widget1description($params, $content) { return $this->_renderTemplate('widget1description', $params, $content); }
-    function widget1body($params, $content) { return $this->_renderTemplate('widget1body', $params, $content); }
-    function widget2($params, $content) { return $this->_renderTemplate('widget2', $params, $content); }
-    function widget2set($params, $content) { return $this->_renderTemplate('widget2set', $params, $content); }
-    function widget2title($params, $content) { return $this->_renderTemplate('widget2title', $params, $content); }
-    function widget2description($params, $content) { return $this->_renderTemplate('widget2description', $params, $content); }
-    function widget2body($params, $content) { return $this->_renderTemplate('widget2body', $params, $content); }
-    function footer($params, $content) { return $this->_renderTemplate('footer', $params, $content); }
-    function status($params, $content) { return $this->_renderTemplate('status', $params, $content); }
-    function error($params, $content) { return $this->_renderTemplate('error', $params, $content); }
-    function textmodifier1($params, $content) { return $this->_renderTemplate('textmodifier1', $params, $content); }
-    
-    function table($params, $content) { return $this->_renderTemplate('table', $params, $content); }
-    function row($params, $content) { return $this->_renderTemplate('row', $params, $content); }
-    function column($params, $content) { return $this->_renderTemplate('column', $params, $content); }
-    function columnheader($params, $content) { return $this->_renderTemplate('columnheader', $params, $content); }
-    
-    /* Non-block style themeables */
-    function style($params) { return $this->_renderTemplate('style', $params); }
-    
-    /*****************************************
-     * OLD THEME METHODS
-     */
-
-    /**
-     * Return 1 or more <style> blocks
-     *
-     * @param array key => value attributes
-     * @return HTML content
-     */
-    //    function style($params) {
-    //	return $this->_renderTemplate('style', $params);
-    //    }
-
-    /**
-     * Return the given content as in a very small font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function smallestFontSize($params, $content) {
-	return $this->_renderTemplate('smallestFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content as in a smaller font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function smallerFontSize($params, $content) {
-	return $this->_renderTemplate('smallerFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content as in a small font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function smallFontSize($params, $content) {
-	return $this->_renderTemplate('smallFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content as in a large font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function bigFontSize($params, $content) {
-	return $this->_renderTemplate('bigFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content as in a larger font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function biggerFontSize($params, $content) {
-	return $this->_renderTemplate('biggerFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content as in a very large font
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function biggestFontSize($params, $content) {
-	return $this->_renderTemplate('biggestFontSize', $params, $content);
-    }
-
-    /**
-     * Return the given content in a "happy" font color
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function successFontColor($params, $content) {
-	return $this->_renderTemplate('successFontColor', $params, $content);
-    }
-
-    /**
-     * Return the given content in a "pay attention!" font color
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function warningFontColor($params, $content) {
-	return $this->_renderTemplate('warningFontColor', $params, $content);
-    }
-
-    /**
-     * Return the given content in a "this is bad!" font color
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function errorFontColor($params, $content) {
-	return $this->_renderTemplate('errorFontColor', $params, $content);
-    }
-
-    /**
-     * Return the given content inside a highlight box
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function highlight1($params, $content) {
-	return $this->_renderTemplate('highlight1', $params, $content);
-    }
-    
-    /**
-     * Return the given content inside a highlight box
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function highlight2($params, $content) {
-	return $this->_renderTemplate('highlight2', $params, $content);
-    }
-    
-    /**
-     * Return the given content inside a thin themed frame
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function thinFrame($params, $content) {
-	return $this->_renderTemplate('thinFrame', $params, $content);
-    }
-
-    /**
-     * Return the given content inside a light themed frame
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function lightFrame($params, $content) {
-	return $this->_renderTemplate('lightFrame', $params, $content);
-    }
-
-    /**
-     * Return the given content inside a heavy themed frame
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function heavyFrame($params, $content) {
-	return $this->_renderTemplate('heavyFrame', $params, $content);
-    }
-
-    /**
-     * Return the given content inside a 3D themed frame
-     *
-     * @param array key => value attributes
-     * @param string content to go inside the block
-     * @return HTML content
-     */
-    function threeDFrame($params, $content) {
-	return $this->_renderTemplate('threeDFrame', $params, $content);
-    }
-
-    /*
-     * OLD THEME METHODS
-     ****************************************/
-
-    /**
-     * Render the given template
-     *
-     * @param templateName the template file name
-     * @param params array template data
-     * @param content string template data
-     * @access protected
-     */
-    function _renderTemplate($templateName, $params, $content=null) {
-	$content = trim($content);
-	$template = $this->_getTemplate();
-	$template->setVariable('params', $params);
-	$template->setVariable('content', $content);
-	list($ret, $html) = $template->render($templateName . '.tpl');
-	if ($ret->isError()) {
-	    $ret = $ret->wrap(__FILE__, __LINE__);
-	    return $ret->getAsHtml();
-	}
-	return $html;
-    }
+    function header($params, $content) { assert(false); }
+    function pathbar($params, $content) { assert(false); }
+    function pathbaritem($params, $content) { assert(false); }
+    function main($params, $content) { assert(false); }
+    function maintitle1($params, $content) { assert(false); }
+    function mainbody1($params, $content) { assert(false); }
+    function sidebar1($params, $content) { assert(false); }
+    function sidebarbox($params, $content) { assert(false); }
+    function sidebarboxtitle($params, $content) { assert(false); }
+    function sidebarboxbody($params, $content) { assert(false); }
+    function listing($params, $content) { assert(false); }
+    function listingitem($params, $content) { assert(false); }
+    function listingitemselected($params, $content) { assert(false); }
+    function detailedbox($params, $content) { assert(false); }
+    function detailedboxtitle($params, $content) { assert(false); }
+    function detailedboxdescription($params, $content) { assert(false); }
+    function detailedboxbody($params, $content) { assert(false); }
+    function widget1set($params, $content) { assert(false); }
+    function widget1($params, $content) { assert(false); }
+    function widget1title($params, $content) { assert(false); }
+    function widget1body($params, $content) { assert(false); }
+    function widget2set($params, $content) { assert(false); }
+    function widget2($params, $content) { assert(false); }
+    function widget2title($params, $content) { assert(false); }
+    function widget2body($params, $content) { assert(false); }
+    function footer($params, $content) { assert(false); }
+    function status($params, $content) { assert(false); }
+    function error($params, $content) { assert(false); }
+    function textmodifier1($params, $content) { assert(false); }
+    function table($params, $content) { assert(false); }
+    function row($params, $content) { assert(false); }
+    function column($params, $content) { assert(false); }
+    function columnheader($params, $content) { assert(false); }
+    function style($params) { assert(false); }
 }
 
 ?>

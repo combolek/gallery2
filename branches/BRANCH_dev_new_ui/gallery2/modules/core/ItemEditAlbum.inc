@@ -417,7 +417,7 @@ class ItemEditAlbumView extends GalleryView {
 	$template->setVariable('form', $form);
 	$template->setVariable('item', $item->getMemberData());
 	$template->setVariable('layoutList', $layoutList);
-	$template->setVariable('themeList', GalleryTheme::getThemes());
+	$template->setVariable('themeList', GalleryTheme::getThemeList());
 	$template->setVariable('orderByList', $orderByList);
 	$template->setVariable('orderDirectionList', $orderDirectionList);
 	$template->setVariable('controller', 'core:ItemEditAlbum');

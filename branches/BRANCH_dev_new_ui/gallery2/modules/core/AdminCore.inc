@@ -262,7 +262,7 @@ class AdminCoreView extends GalleryView {
 	$template = $this->_getTemplate();
 	$template->setVariable('form', $form);
 	$template->setVariable('layoutList', $layoutList);
-	$template->setVariable('themeList', GalleryTheme::getThemes());
+	$template->setVariable('themeList', GalleryTheme::getThemeList());
 	$template->setVariable('localServerDirList', $localServerDirList);
 	$template->setVariable('languageList', $languageList);
 	$template->setVariable('orderByList', $orderByList);

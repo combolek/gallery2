@@ -218,8 +218,7 @@ class GalleryView {
 	}
 	
 	/* Load and initialize the theme */
-	$theme = new GalleryTheme();
-	$ret = $theme->init($themeName);
+	list ($ret, $theme) = GalleryTheme::loadTheme();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
