@@ -281,10 +281,12 @@ set_albumName=<replaceable>album name</replaceable></programlisting>
 #__GR2PROTO__
 status=<replaceable>result-code</replaceable>
 status_text=<replaceable>explanatory-text</replaceable>
-auto_resize=<replaceable>resize-dimension</replaceable></programlisting>
+auto_resize=<replaceable>resize-dimension</replaceable>
+add_to_beginning=<replaceable>yes/no</replaceable></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
         <para>If an image is uploaded such that its largest dimension is greater than <varname><replaceable>resize-dimension</replaceable></varname>, the server will resize it. Otherwise, the server will use the original image that was uploaded for both the full-sized and the resized size. In all cases a thumbnail-sized image will be created. The creation of a thumbnail is highly dependant on the size of the image that was uploaded.</para>
-        <para>If the value is <varname>0</varname> (zero), the Gallery server does not intend to resize uploaded images. </para>
+        <para>If the value is <varname>0</varname> (zero), the Gallery server does not intend to resize uploaded images.</para>
+	<para>add_to_beginning will contain yes or no based on whether the album will add images to the beginning or the end of the album.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.new-album">
