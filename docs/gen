@@ -85,6 +85,16 @@ case $1 in
 #
 #		rm -f manual.fo
 #		;;
+
+	autofaq)
+		if [ ! -d $DIST/autofaq ]; then
+			mkdir -p $DIST/autofaq;
+		fi
+
+		echo "Generating AutoFAQ data...";
+		cd $DIST/autofaq
+		xsltproc ../../misc-xsl/autofaq.xsl ../../manual.xml > autofaq_data.txt
+		;;
 		
 	test-saxon) 
 		echo "Testing documentation (if you see no errors, everything is good)..."
@@ -97,7 +107,7 @@ case $1 in
 
 		xmllint --valid --noout manual.xml
 		;;		
-	
+
 	help)
 		echo "Gallery Documentation Generation Script";
 		echo "---------------------------------------";
