@@ -41,6 +41,12 @@
  				and install it.</para>
 			<para>No other action should be necessary: the package is always installed
 				in <filename>/usr/local/bin</filename>.</para>
+			<para>If you have already installed ImageMagick using Fink, it is probably installed in
+				<filename>/sw/bin</filename>. In that case, you can either create symlinks for
+				<filename>/sw/bin/convert</filename> to <filename>/usr/local/bin</filename> or
+				edit the file <filename>im.properties</filename> in <filename>Gallery Remote.app/Contents/Resource/Java/img.jar</filename>
+				to change <varname>imConvertPath</varname> to the real path for the <filename>convert</filename> executable.
+ </para>
 		</sect3>
 
 		<sect3 id="gallery-remote.problems.bundled.linux">
