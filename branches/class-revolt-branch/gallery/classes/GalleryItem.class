@@ -28,7 +28,7 @@
  * That capacity can be enabled or disabled by subclasses of
  * GalleryItem.
  *
- * @gallery metainfo
+ * @gallery metainfo 1.0
  *
  * @version $Id$
  * @package GalleryCore
@@ -246,7 +246,7 @@ class GalleryItem extends GalleryNucleus {
      * How many children does this item directly contain?
      * 
      * This is the number of items visible to the active user.  Internally this
-     * calls getChildItemIds() to figure out how many are around (and caches
+     * calls getChildIds() to figure out how many are around (and caches
      * the result for the duration of this in-memory version)
      *
      * @see getChildItemIds()
