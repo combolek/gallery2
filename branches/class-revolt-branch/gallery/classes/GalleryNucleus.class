@@ -109,7 +109,7 @@ class GalleryNucleus {
 	/*
 	 * Register the persistent variables for this class
 	 */
-	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_ID);
+	$this->registerPersistentMember("GalleryNucleus", "id", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryNucleus", "dataVersion", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryNucleus", "parentId", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryNucleus", "path", STORAGE_STRING);

@@ -41,11 +41,11 @@ class GalleryItem extends GalleryNucleus {
      */
 
     /**
-     * The id of the User who owns this item
+     * An ordered list of 0+ GalleryItem children contained by this item
      *
-     * @var int $_ownerId
+     * @var object GalleryList $_childIds
      */
-    var $_ownerId;
+    var $_childIds;
 
     /**
      * An ordered list of 0+ CommentContainer ids.
@@ -55,33 +55,56 @@ class GalleryItem extends GalleryNucleus {
     var $_commentIds;
 
     /**
+     * Date and time this item was created, in seconds since the epoch.
+     *
+     * @var int $_creationTimestamp;
+     */
+    var $_creationTimestamp;
+
+    /**
+     * The (long) description of this item
+     *
+     * @var int $_description;
+     */
+    var $_description;
+
+    /**
+     * Is HTML allowed in this item's title and description?
+     *
+     * @var int $_isHtmlAllowed;
+     */
+    var $_isHtmlAllowed;
+	     
+    /**
+     * A set of keywords that describe this item
+     *
+     * @var int $_keywords;
+     */
+    var $_keywords;
+
+    /**
+     * Date and time this item was last modified, in seconds since the epoch.
+     *
+     * @var int $_modificationTimestamp;
+     */
+    var $_modificationTimestamp;
+
+    /**
+     * The id of the User who owns this item
+     *
+     * @var int $_ownerId
+     */
+    var $_ownerId;
+
+    /**
      * Properties of this GalleryItem
      *
-     * Valid properties are:
-     * - creationDate	  (string) date in "YYYYMMDDHHMMSS" format
-     *                            (we don't want it limited by the epoch)
-     * - modificationDate (int)    unix timestamp
-     * - viewedSinceDate  (int)    unix timestamp click count start date 
-     * - viewCount	  (int)    number of times this item has been accessed
-     * - keywords 	  (string) key words about this item
-     * - title		  (string) title of this item (short)
-     * - description	  (string) details of this item (long)
-     * - isHtmlAllowed	  (bool)   allow html in the title & description
-     * - isHidden	  (bool)   is this item hidden?
+     * This area is reserved for extensions to Gallery.  Any string data can be
+     * stored in this table.
      *
      * @var object GalleryMap $_properties
      */
     var $_properties;
-
-    /**
-     * An associative array of item specific properties about this
-     * item.  Each subclass can have an interface to read and
-     * write values into this store (or they can use GalleryItem's
-     * get/set methods).  Either way, this data is item specific.
-     *
-     * @var object GalleryMap $_extendedProperties
-     */
-    var $_extendedProperties;
 
     /**
      * The id of the ImageContainer containing this GalleryItem's thumbnail
@@ -91,11 +114,25 @@ class GalleryItem extends GalleryNucleus {
     var $_thumbnailId;
 
     /**
-     * An ordered list of 0+ GalleryItem children contained by this item
+     * The (short) title of this item
      *
-     * @var object GalleryList $_childIds
+     * @var int $_title;
      */
-    var $_childIds;
+    var $_title;
+
+    /**
+     * How many times this item has been viewed
+     *
+     * @var int $_viewCount;
+     */
+    var $_viewCount;
+
+    /**
+     * Date and time marking the beginning of the view count
+     *
+     * @var int $_viewedSinceTimestamp;
+     */
+    var $_viewedSinceTimestamp;
 
     /**
      * A GalleryMap of usernames mapped to allowed permissions
@@ -132,10 +169,17 @@ class GalleryItem extends GalleryNucleus {
 
 	$this->registerPersistentMember("GalleryItem", "childIds", STORAGE_LIST);
 	$this->registerPersistentMember("GalleryItem", "commentIds", STORAGE_LIST);
-	$this->registerPersistentMember("GalleryItem", "extendedProperties", STORAGE_MAP);
+	$this->registerPersistentMember("GalleryItem", "creationTimestamp", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "description", STORAGE_TEXT);
+	$this->registerPersistentMember("GalleryItem", "isHtmlAllowed", STORAGE_BOOLEAN);
+	$this->registerPersistentMember("GalleryItem", "keywords", STORAGE_STRING);
+	$this->registerPersistentMember("GalleryItem", "modificationTimestamp", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryItem", "ownerId", STORAGE_INTEGER);
 	$this->registerPersistentMember("GalleryItem", "properties", STORAGE_MAP);
 	$this->registerPersistentMember("GalleryItem", "thumbnailId", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "title", STORAGE_STRING);
+	$this->registerPersistentMember("GalleryItem", "viewCount", STORAGE_INTEGER);
+	$this->registerPersistentMember("GalleryItem", "viewedSinceTimestamp", STORAGE_INTEGER);
 
 	/* HINT: Do not auto-generate accessors for these members */
 	$this->registerPersistentMember("GalleryItem", "allowedPermission", STORAGE_MAP);
@@ -485,15 +529,113 @@ class GalleryItem extends GalleryNucleus {
     }
     
     /**
-     * Get a reference to extendedProperties
+     * Set the value of creationTimestamp
      * 
-     * Return a reference to the actual instance of extendedProperties
+     * @param int the new value for creationTimestamp
+     * @access public
+     */
+    function setCreationTimestamp($value) {
+        assert('isset($value)');
+        $this->_creationTimestamp = $value;
+        $this->modifyPersistentMember('creationTimestamp');
+    }
+    
+    /**
+     * Get the value of creationTimestamp
      * 
      * @access public
-     * @return object GalleryMap the extendedProperties
+     * @return int the current value of creationTimestamp
      */
-    function getExtendedProperties() {
-        return $this->_extendedProperties;
+    function getCreationTimestamp() {
+        return $this->_creationTimestamp;
+    }
+    
+    /**
+     * Set the value of description
+     * 
+     * @param string the new value for description
+     * @access public
+     */
+    function setDescription($value) {
+        assert('isset($value)');
+        $this->_description = $value;
+        $this->modifyPersistentMember('description');
+    }
+    
+    /**
+     * Get the value of description
+     * 
+     * @access public
+     * @return string the current value of description
+     */
+    function getDescription() {
+        return $this->_description;
+    }
+    
+    /**
+     * Set the value of isHtmlAllowed
+     * 
+     * @param bool the new value for isHtmlAllowed
+     * @access public
+     */
+    function setIsHtmlAllowed($value) {
+        assert('isset($value)');
+        $this->_isHtmlAllowed = $value;
+        $this->modifyPersistentMember('isHtmlAllowed');
+    }
+    
+    /**
+     * Get the value of isHtmlAllowed
+     * 
+     * @access public
+     * @return bool the current value of isHtmlAllowed
+     */
+    function getIsHtmlAllowed() {
+        return $this->_isHtmlAllowed;
+    }
+    
+    /**
+     * Set the value of keywords
+     * 
+     * @param string the new value for keywords
+     * @access public
+     */
+    function setKeywords($value) {
+        assert('isset($value)');
+        $this->_keywords = $value;
+        $this->modifyPersistentMember('keywords');
+    }
+    
+    /**
+     * Get the value of keywords
+     * 
+     * @access public
+     * @return string the current value of keywords
+     */
+    function getKeywords() {
+        return $this->_keywords;
+    }
+    
+    /**
+     * Set the value of modificationTimestamp
+     * 
+     * @param int the new value for modificationTimestamp
+     * @access public
+     */
+    function setModificationTimestamp($value) {
+        assert('isset($value)');
+        $this->_modificationTimestamp = $value;
+        $this->modifyPersistentMember('modificationTimestamp');
+    }
+    
+    /**
+     * Get the value of modificationTimestamp
+     * 
+     * @access public
+     * @return int the current value of modificationTimestamp
+     */
+    function getModificationTimestamp() {
+        return $this->_modificationTimestamp;
     }
     
     /**
@@ -550,6 +692,72 @@ class GalleryItem extends GalleryNucleus {
      */
     function getThumbnailId() {
         return $this->_thumbnailId;
+    }
+    
+    /**
+     * Set the value of title
+     * 
+     * @param string the new value for title
+     * @access public
+     */
+    function setTitle($value) {
+        assert('isset($value)');
+        $this->_title = $value;
+        $this->modifyPersistentMember('title');
+    }
+    
+    /**
+     * Get the value of title
+     * 
+     * @access public
+     * @return string the current value of title
+     */
+    function getTitle() {
+        return $this->_title;
+    }
+    
+    /**
+     * Set the value of viewCount
+     * 
+     * @param int the new value for viewCount
+     * @access public
+     */
+    function setViewCount($value) {
+        assert('isset($value)');
+        $this->_viewCount = $value;
+        $this->modifyPersistentMember('viewCount');
+    }
+    
+    /**
+     * Get the value of viewCount
+     * 
+     * @access public
+     * @return int the current value of viewCount
+     */
+    function getViewCount() {
+        return $this->_viewCount;
+    }
+    
+    /**
+     * Set the value of viewedSinceTimestamp
+     * 
+     * @param int the new value for viewedSinceTimestamp
+     * @access public
+     */
+    function setViewedSinceTimestamp($value) {
+        assert('isset($value)');
+        $this->_viewedSinceTimestamp = $value;
+        $this->modifyPersistentMember('viewedSinceTimestamp');
+    }
+    
+    /**
+     * Get the value of viewedSinceTimestamp
+     * 
+     * @access public
+     * @return int the current value of viewedSinceTimestamp
+     */
+    function getViewedSinceTimestamp() {
+        return $this->_viewedSinceTimestamp;
     }
     
     /*

@@ -52,11 +52,18 @@ define("STORAGE_LIST", 0x00000004);
 define("STORAGE_MAP", 0x00000008);
 
 /**
- * id type
+ * Text type
  *
- * @constant STORAGE_ID
+ * @constant STORAGE_TEXT
  */
-define("STORAGE_ID", 0x00000010);
+define("STORAGE_TEXT", 0x00000010);
+
+/**
+ * Text type
+ *
+ * @constant STORAGE_BOOLEAN
+ */
+define("STORAGE_BOOLEAN", 0x00000020);
 
 /**
  * Interface to the storage mechanism
