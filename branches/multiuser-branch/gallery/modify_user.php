@@ -32,9 +32,12 @@ if ($submit) {
 			}
 		}
 
-		if ($password) {
-			$gErrors["password"] = $userDB->validPassword($password);
-			if ($gErrors["password"]) {
+		if (strcmp($new_password1, $new_password2)) {
+			$gErrors["new_password2"] = "Passwords do not match!";
+			$errorCount++;
+		} else {
+			$gErrors["new_password1"] = $userDB->validPassword($new_password1);
+			if ($gErrors["new_password1"]) {
 				$errorCount++;
 			}
 		}
