@@ -174,24 +174,24 @@ function check_mod_rewrite()
 	return array($success, $fail);
 }
 
-function check_exif($location="")
+function check_exif()
 {
 	global $gallery;
 
 	$fail = array();
 	$success = array();
 
-	$bin = "jhead";
+	$bin = fs_executable("jhead");
 
-	if ($location) {
-		$d = locateDir(bin, $location);
+	if ($gallery->app && fs_file_exists($gallery->app->use_exif)) {
+		$success[] = "jhead binary located";
 	} else {
 		$d = locateDir($bin, $gallery->app ? $gallery->app->pnmDir : "");
-	}
-	if (!$d) {
-		$fail["fail-exif"] = "Could not locate jhead";
-	} else {
-		$success[] = "jhead binary located";
+		if ($d) {
+			$success[] = "jhead binary located";
+		} else {
+			$fail["fail-exif"] = "Could not locate jhead";
+		}
 	}
 
 	return array($success, $fail);
