@@ -29,6 +29,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album) && !($gallery->album->isIt
 	echo _("You are not allowed to perform this action!");
 	exit;
 }
+list($action, $index, $crop_x, $crop_y, $crop_w, $crop_h) = getRequestVar(array('action', 'index', 'crop_x', 'crop_y', 'crop_w', 'crop_h'));
 doctype();
 ?>
 
