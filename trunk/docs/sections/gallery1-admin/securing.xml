@@ -4,7 +4,68 @@
 <sect1 id="gallery1-admin.securing">
  <title>Securing Gallery</title>
  
- <para>
-  Incomplete
- </para>
+ <sect2 id="gallery1-admin.securing.basic-auth">
+  <title>Basic Authentication</title>
+  
+  <para>
+   Basic HTTP Authentication allows you to add a second layer of security to
+   your Gallery.  It also prevents people being able to "hotlink" albums directly
+   from your albums directory.  The disadvantage is that basic HTTP authentication
+   isn't compatible with Gallery authentication.  This means that if you want to
+   give user permissions with the Gallery authentication system (e.g. to add
+   pictures) they will have to login <emphasis>twice</emphasis>.  As such, this
+   may not be the best solution for everyone, though it is the most secure.
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="images/basic-auth.gif" format="GIF" />
+    </imageobject>  
+    <caption>  
+     <para>  
+      Example of Basic HTTP Authentication (Mozilla)
+     </para>
+    </caption>  
+   </mediaobject>
+  </para>
+  <para>
+   Setting up basic authentication is relatively simple.  It can get a little
+   complex or annoying if you don't do certain things, however.  For instance,
+   I recommend putting your albums directory <emphasis>inside</emphasis> your
+   main Gallery directory, as a sub-directory.  This makes it easier to protect.
+   If it's not already there, it's easy to move, just move it and rerun the
+   <link linkend="gallery1-install.config-wizard">configuration wizard</link>.
+  </para>
+  <para>
+   Now that you have the preliminaries, edit the &htaccess; file in your gallery
+   directory.  Add the following
+   <screen>
+    AuthName "My Gallery"
+    AuthUserFile /path/to/gallery/directory/.htpasswd
+    AuthType Basic
+    require valid-user
+   </screen>
+  </para>
+  <para>
+   Now you need to create the <filename>.htpasswd</filename> file which will contain
+   usernames and passwords.  If you have shell access, use the <command>htpasswd</command>
+   command, e.g. <command>htpasswd -c /path/to/gallery/directory/.htpasswd [username]</command>
+   After you add one username, run the same command for the next user, without the -c flag.
+  </para>
+  <para>
+   If you don't have shell access, you'll have to create the .htpasswd file manually.
+   There are some web-based pages that will help you, for instance
+   <ulink url="http://www.xs4all.nl/~remcovz/htpasswd.html">this page</ulink>.  Enter
+   the username and password, and add it to the .htpasswd file in your Gallery directory.
+   Each username and password crypt should be on a separate line.
+  </para>
+  <para>
+   After you have that setup, basic authentication should work!
+  </para>
+  <note>
+   <para>
+    Because you edited your &htaccess; file in your Gallery directory, you will
+    have to re-add these lines if you re-run the configuration wizard.
+   </para>
+  </note>
+ </sect2>
+   
 </sect1>
