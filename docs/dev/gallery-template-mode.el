@@ -92,6 +92,7 @@
 					    "{counter}"
 					    "{assign "
 					    "{gallery->style}"
+					    "{gallery->pathbarseparator}"
 					    "{gallery->text "
 					    "{$"
 					    "{\"")
