@@ -119,8 +119,7 @@ class ItemMakeHighlightView extends GalleryView {
 
 	} else {
 	    /* First time around, load the form with item data */
-	    $form = array();
-
+	    $form['formName'] = 'ItemMakeHighlight';
 	}
 
 	/* Render the HTML body */

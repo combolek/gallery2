@@ -169,12 +169,12 @@ class ItemAddAlbumView extends GalleryView {
 
 	} else {
 	    /* First time around, load the form with item data */
-	    $form = array();
 	    $form['pathComponent'] = '';
 	    $form['title'] = '';
 	    $form['summary'] = '';
 	    $form['keywords'] = '';
 	    $form['description'] = '';
+	    $form['formName'] = 'ItemAddAlbum';
 	}
 
 	/* Load the parents */
