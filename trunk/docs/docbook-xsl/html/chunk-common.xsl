@@ -657,6 +657,10 @@
     <!-- CUSTOM CODE -->
      <link rel="stylesheet" href="html.css"/>
      
+     <xsl:if test="$prettyhtml = '1'">
+      <link rel="stylesheet" href="pretty-html.css"/>
+     </xsl:if>
+     
      <!-- For GalleryWeb, it will be included by the Nuke module -->
     <!-- END CUSTOM CODE -->
     
