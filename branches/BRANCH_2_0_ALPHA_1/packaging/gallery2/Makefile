@@ -1,6 +1,6 @@
 # $Id$
 
-BRANCH = HEAD
+BRANCH = BRANCH_2_0_ALPHA_1
 TARDIR = tardir
 CVS = cvs -z3 -d ${CVSROOT}
 VERSION = 2.0-alpha-1
