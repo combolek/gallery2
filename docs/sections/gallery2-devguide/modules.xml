@@ -22,40 +22,41 @@
    However, we do suggest a layout for your module files to make it
    consistent with the rest of the Gallery modules.
    <screen>
-    module/
-    <lineannotation>Views and Controllers</lineannotation>
-    module.inc    <lineannotation>this is the only mandatory file</lineannotation>
-    classes/
-    GNUmakefile
-    interfaces/
-    GNUmakefile
-    <lineannotation>generated entity and map interfaces</lineannotation>
-    GalleryStorage/
-    DatabaseStorage/
-    schema/
-    xml-src/
-    GNUmakefile
-    platform/
-    GNUmakefile
-    mysql/
-    GNUmakefile
-    <lineannotation>MySQL specific SQL scripts</lineannotation>
-    postgres/
-    GNUmakefile
-    <lineannotation>PostgresQL specific SQL scripts</lineannotation>
-    locale/
-    GNUmakefile
-    <lineannotation>a tree of generated gettext .mo files</lineannotation>
-    po/
-    GNUmakefile
-    <lineannotation>hand written gettext .po translation files</lineannotation>
-    templates/
-    <lineannotation>Smarty template files </lineannotation>
-    tests/
-    data/
-    <lineannotation>Data used by PHPUnit tests</lineannotation>
-    phpunit/
-    <lineannotation>PHPUnit tests</lineannotation>
+     <emphasis>module</emphasis>
+     |-- module.inc   <lineannotation>this is the only mandatory file</lineannotation>
+     |-- classes
+     |   |-- GNUmakefile
+     |   |-- GalleryPlatform
+     |   |-- GalleryStorage
+     |   |   `-- DatabaseStorage
+     |   |       `-- schema
+     |   |           |-- GNUmakefile
+     |   |           |-- platform
+     |   |           |   |-- GNUmakefile
+     |   |           |   |-- mysql
+     |   |           |   |   |-- GNUmakefile
+     |   |           |   |   `-- <lineannotation>MySQL specific SQL scripts</lineannotation>
+     |   |           |   `-- postgres
+     |   |           |       |-- GNUmakefile
+     |   |           |       `-- <lineannotation>PostgreSQL specific SQL scripts</lineannotation>
+     |   |           |-- xml-out
+     |   |           `-- xml-src
+     |   |               `-- GNUmakefile
+     |   `-- interfaces
+     |       |-- GNUmakefile
+     |       `-- <lineannotation>generated entity and map interfaces</lineannotation>
+     |-- locale
+     |   `-- <lineannotation>a tree of generated gettext .mo files</lineannotation>
+     |-- po
+     |   |-- GNUmakefile
+     |   `-- <lineannotation>hand written gettext .po translation files</lineannotation>
+     |-- templates
+     |   `-- <lineannotation>Smarty template files </lineannotation>
+     `-- test
+         |-- data
+         |   `-- <lineannotation>PHPUnit test data</lineannotation>
+         `-- phpunit
+             `-- <lineannotation>PHPUnit tests</lineannotation>
    </screen>
    Several notes about this layout:
    <itemizedlist>
