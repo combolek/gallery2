@@ -25,4 +25,4 @@
 # or
 # DEFAULT	(echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 ALL	/cvsroot/sitedocs/CVSROOT/cvstools/syncmail -u %{sVv} gallery-checkins@lists.sourceforge.net
-ALL     $CVSROOT/CVSROOT/ciabot.pl %s $USER
+ALL	/usr/bin/perl $CVSROOT/CVSROOT/ciabot_cvs.pl %{,,,s} $USER
