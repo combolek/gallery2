@@ -37,8 +37,9 @@ if (!$gallery->user->canDeleteFromAlbum($gallery->album) && !$gallery->album->is
 }
 
 doctype();
+$confirm = getRequestVar('confirm');
 echo "\n<html>";
-if (isset($confirm) && $confirm) {
+if (!empty($confirm)) {
 	$gallery->album->fields["votes"]=array();
 	$gallery->album->save(array(i18n("All votes removed")));
 	dismissAndReload();

@@ -32,6 +32,8 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 	exit;
 }
 
+list($apply, $extra_fields) = getRequestVar(array('apply', 'extra_fields'));
+
 if (isset($apply)) {
 	$count=0;
 	if (!isset($extra_fields)) {
