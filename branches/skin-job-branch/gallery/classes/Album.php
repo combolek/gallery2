@@ -40,6 +40,7 @@ class Album {
 		$this->fields["description"] = "No description";
 		$this->fields["nextname"] = "aaa";
 		$this->fields["bgcolor"] = "";
+		$this->fields["bgcolor2"] = "";
 		$this->fields["textcolor"] = "";
 		$this->fields["linkcolor"] = "";
 		$this->fields["font"] = $gallery->app->default["font"];
@@ -66,6 +67,10 @@ class Album {
 		$this->fields["clicks_date"] = time();
 		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
 		$this->fields["public_comments"] = $gallery->app->default["public_comments"];
+
+		$this->fields["layout"] = $gallery->app->default["layout"];
+		$this->fields["html_header"] = "";
+		$this->fields["html_footer"] = "";
 		$this->fields["serial_number"] = 0;
 
 		// Seed new albums with the appropriate version.
@@ -129,7 +134,8 @@ class Album {
 				"use_fullOnly", 
 				"print_photos",
 				"display_clicks",
-				"public_comments");
+				"public_comments",
+				"layout");
 		foreach ($check as $field) {
 			if (!$this->fields[$field]) {
 				$this->fields[$field] = $gallery->app->default[$field];
@@ -993,31 +999,22 @@ class Album {
 		return date("M d, Y", $time);
 	}
 
-	function setNestedProperties() {
-		for ($i=1; $i <= $this->numPhotos(1); $i++) {
-			if ($this->isAlbumName($i)) {
-				$nestedAlbum = new Album();
-				$nestedAlbum->load($this->isAlbumName($i));
-				$nestedAlbum->fields["bgcolor"] = $this->fields["bgcolor"];
-				$nestedAlbum->fields["textcolor"] = $this->fields["textcolor"];
-				$nestedAlbum->fields["linkcolor"] = $this->fields["linkcolor"];
-				$nestedAlbum->fields["font"] = $this->fields["font"];
-				$nestedAlbum->fields["bordercolor"] = $this->fields["bordercolor"];
-				$nestedAlbum->fields["border"] = $this->fields["border"];
-				$nestedAlbum->fields["background"] = $this->fields["background"];
-				$nestedAlbum->fields["thumb_size"] = $this->fields["thumb_size"];
-				$nestedAlbum->fields["resize_size"] = $this->fields["resize_size"];
-				$nestedAlbum->fields["returnto"] = $this->fields["returnto"];
-				$nestedAlbum->fields["rows"] = $this->fields["rows"];
-				$nestedAlbum->fields["cols"] = $this->fields["cols"];
-				$nestedAlbum->fields["fit_to_window"] = $this->fields["fit_to_window"];
-				$nestedAlbum->fields["use_fullOnly"] = $this->fields["use_fullOnly"];
-				$nestedAlbum->fields["print_photos"] = $this->fields["print_photos"];
-				$nestedAlbum->fields["use_exif"] = $this->fields["use_exif"];
-				$nestedAlbum->fields["display_clicks"] = $this->fields["display_clicks"];
-				$nestedAlbum->fields["public_comments"] = $this->fields["public_comments"];
-				$nestedAlbum->save();
-				$nestedAlbum->setNestedProperties();
+	function setFields($fieldList, $recursive=0)
+	{
+		// first apply new fields to itself 
+		foreach ($fieldList as $key => $value) {
+			$this->fields[$key] = $value;
+		}
+		$this->save();
+
+		// then all the kids
+		if ($recursive) {
+			for ($i=1; $i <= $this->numPhotos(1); $i++) {
+				if ($this->isAlbumName($i)) {
+					$nestedAlbum = new Album();
+					$nestedAlbum->load($this->isAlbumName($i));
+					$nestedAlbum->setFields($fieldList, $resursive);
+				}
 			}
 		}
 	}
