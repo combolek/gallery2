@@ -363,6 +363,11 @@ if (!strcmp($gallery->album->fields["public_comments"], "yes")) {
 		$publicComments[$i]['datePosted'] = $comment->getDatePosted();
 		$publicComments[$i]['name'] = $comment->getName();
 		$publicComments[$i]['UID'] = $comment->getUID();
+		if ($gallery->user->canWriteToAlbum($gallery->album)) {
+			$url = "do_command.php?cmd=delete-comment&index=$index&comment_index=$i";
+			$publicComments[$i]['remove'] = 
+				'<a href="#" onClick="' . popup($url) . '">[remove]</a>';
+		}
 	}
 }
 
