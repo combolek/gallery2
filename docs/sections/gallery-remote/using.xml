@@ -108,17 +108,44 @@ Caution: Be careful before posting your log to forums or sending it to anyone: y
    something useful to happen).
   </para>
  </sect2>
- 
- <sect2 id="gallery-remote.using.https">
-  <title>Using HTTPS</title>
 
-  <para>
-   You can use https:// URLs with Gallery Remote to connect to secured web sites. This functionality
-   is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
-   server certificate that is not certified by a trusted certificate authority, Gallery Remote will
-   be unable to connect. If that happens, you will need to add the site's certificate to the Java
-   registry of trusted certificates. The process for doing this is detailed <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
-  </para>
- </sect2>
- 
+	<sect2 id="gallery-remote.using.https">
+	 <title>Using HTTPS</title>
+
+	 <para>
+	  You can use https:// URLs with Gallery Remote to connect to secured web sites. This functionality
+	  is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
+	  server certificate that is not certified by a trusted certificate authority, Gallery Remote will
+	  be unable to connect. If that happens, you will need to add the site's certificate to the Java
+	  registry of trusted certificates. The process for doing this is detailed <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>.
+	 </para>
+	</sect2>
+
+	<sect2 id="gallery-remote.using.quickconfig">
+	 <title>Using QuickConfig (for administrators)</title>
+
+	 <para>
+	  QuickConfig allows Gallery administrators to make it easy for end-users to set up their Gallery
+		 Remote installation. End-users will only have to enter a URL, which they can copy from an
+		 email from the administator, into the QuickConfig tab of the Gallery Remote preferences dialog
+		 to set up pretty much anything.
+	 </para>
+	<para>
+		To create said URL, the administrator can just deploy on a web site a file that contains a
+ 		specially-formatted copy of a GalleryRemote.properties file. Within this
+		<link linkend="gallery-remote.using.preferences">properties file</link>, the
+		administrator will include keys and values that correspond to what they want to override in the
+ 		end-user's preferences. This file can the be deployed anywhere, and the URL to it communicated
+		to end-users.
+	</para>
+	<para>
+		Special case: Gallery URLs: include keys like <varname><repleaceable>url.99</repleaceable></varname>,
+		<varname><repleaceable>username=99</repleaceable></varname>, etc to specify the URL and
+ 		type of your Gallery. You need to use 99 for the Gallery preset number for Gallery Remote to
+ 		find the key. The new Gallery URL will be added after the last existing URL on the end-users
+		Gallery Remote installation. If you omit the username and/or password, Gallery Remote will
+		interactively ask the end-user to enter them when he first tries to log on.
+	</para>
+	</sect2>
+
 </sect1>
