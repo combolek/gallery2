@@ -283,7 +283,7 @@ class CoreModule extends GalleryModule {
 			       'default.orderBy' => 'id',
 			       'default.orderDirection' => '1',
 			       'default.layout' => 'classic',
-			       'default.theme' => 'classic',
+			       'default.theme' => 'matrix',
 			       'default.language' => GalleryTranslator::getLanguageCodeFromRequest(),
 			       'session.idParameter' => 'GALLERYSID',
 			       'session.lifetime' => 25 * 365 * 86400, /* 25 years */
