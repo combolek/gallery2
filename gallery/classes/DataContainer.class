@@ -25,6 +25,8 @@
  * implementations include ImageContainer, MovieContainer or
  * UnknownContainer.
  *
+ * @gallery metainfo
+ *
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -42,7 +44,11 @@ class DataContainer extends GalleryNucleus {
      * This, when combined with the parent's path forms the
      * complete path to the file.
      *
-     * @var string
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
+     *
+     * @var string $_dataFileName
      */
     var $_dataFileName;
 
@@ -50,7 +56,10 @@ class DataContainer extends GalleryNucleus {
      * Is this object derived from another one?  (eg, thumbnails
      * and resized images)
      *
-     * @var bool
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
+     *
+     * @var bool $_isDerivative
      */
     var $_isDerivative;
 
@@ -58,28 +67,41 @@ class DataContainer extends GalleryNucleus {
      * What's the source of this derivative?  The source must be
      * the id of another DataContainer.
      *
-     * @var int
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
+     * @var int $_derivativeSource
      */
     var $_derivativeSource;
 
     /**
      * A sequence of commands used to derive this data from the original
      *
-     * @var int
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_LARGE
+     *
+     * @var int $_derivativeCommands
      */
     var $_derivativeCommands;
 
     /**
      * The ids of DataContainers that are derived from this one.
      *
-     * @var array
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_MAP
+     *
+     * @var object GalleryList $_derivativeChildren
      */
     var $_derivativeChildren;
 
     /**
      * Track whether the cache is current or expired
      *
-     * @var boolean
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
+     *
+     * @var boolean $_cacheIsCurrent
      */
     var $_cacheIsCurrent;
 
@@ -286,5 +308,150 @@ class DataContainer extends GalleryNucleus {
      */
     function removeDerivativeChildId($id) {
     }
+    /* BEGIN: Accessor Block.  DO NOT MODIFY! */
+    
+    /**
+     * Return the meta class information about this class
+     *
+     * @return array member => array(type, class)
+     */
+    function getMetaInfo() {
+        $meta = parent::getMetaInfo();
+        $meta['derivativeSource'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['dataFileName'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_MEDIUM);
+        $meta['derivativeChildren'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_MAP);
+        $meta['derivativeCommands'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_LARGE);
+        $meta['isDerivative'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['cacheIsCurrent'] = array(
+            'class' => 'DataContainer',
+            'type' => STORAGE_TYPE_BOOLEAN);
+    
+        return $meta;
+    }
+    
+    /**
+     * Set the value of cacheIsCurrent
+     * 
+     * @param bool the new value for cacheIsCurrent
+     * @access public
+     */
+    function setCacheIsCurrent($value) {
+        assert('isset($value)');
+        $this->_cacheIsCurrent = $value;
+        $this->modifyPersistentMember('cacheIsCurrent');
+    }
+    
+    /**
+     * Get the value of cacheIsCurrent
+     * 
+     * @access public
+     * @return bool the current value of cacheIsCurrent
+     */
+    function getCacheIsCurrent() {
+        return $this->_cacheIsCurrent;
+    }
+    
+    /**
+     * Set the value of dataFileName
+     * 
+     * @param string the new value for dataFileName
+     * @access public
+     */
+    function setDataFileName($value) {
+        assert('isset($value)');
+        $this->_dataFileName = $value;
+        $this->modifyPersistentMember('dataFileName');
+    }
+    
+    /**
+     * Get the value of dataFileName
+     * 
+     * @access public
+     * @return string the current value of dataFileName
+     */
+    function getDataFileName() {
+        return $this->_dataFileName;
+    }
+    
+    /**
+     * Set the value of derivativeCommands
+     * 
+     * @param string the new value for derivativeCommands
+     * @access public
+     */
+    function setDerivativeCommands($value) {
+        assert('isset($value)');
+        $this->_derivativeCommands = $value;
+        $this->modifyPersistentMember('derivativeCommands');
+    }
+    
+    /**
+     * Get the value of derivativeCommands
+     * 
+     * @access public
+     * @return string the current value of derivativeCommands
+     */
+    function getDerivativeCommands() {
+        return $this->_derivativeCommands;
+    }
+    
+    /**
+     * Set the value of derivativeSource
+     * 
+     * @param int the new value for derivativeSource
+     * @access public
+     */
+    function setDerivativeSource($value) {
+        assert('isset($value)');
+        $this->_derivativeSource = $value;
+        $this->modifyPersistentMember('derivativeSource');
+    }
+    
+    /**
+     * Get the value of derivativeSource
+     * 
+     * @access public
+     * @return int the current value of derivativeSource
+     */
+    function getDerivativeSource() {
+        return $this->_derivativeSource;
+    }
+    
+    /**
+     * Set the value of isDerivative
+     * 
+     * @param bool the new value for isDerivative
+     * @access public
+     */
+    function setIsDerivative($value) {
+        assert('isset($value)');
+        $this->_isDerivative = $value;
+        $this->modifyPersistentMember('isDerivative');
+    }
+    
+    /**
+     * Get the value of isDerivative
+     * 
+     * @access public
+     * @return bool the current value of isDerivative
+     */
+    function getIsDerivative() {
+        return $this->_isDerivative;
+    }
+    
+    
+    /* END: Accessor Block.  DO NOT MODIFY! */
 }
 ?>

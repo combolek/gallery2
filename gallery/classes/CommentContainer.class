@@ -24,6 +24,8 @@
  *
  * Comments are just structured text objects.
  *
+ * @gallery metainfo
+ *
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -35,10 +37,58 @@ class CommentContainer extends DataContainer {
      *                 Members
      * ****************************************
      */
+
+    /**
+     * Name of the commenter
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
+     *
+     * @var $_name
+     */
     var $_name;
+
+    /**
+     * Email address of the commenter
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
+     *
+     * @var $_emailAddress
+     */
     var $_emailAddress;
+
+    /**
+     * Hostname of the commenter
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_MEDIUM
+     *
+     * @var $_hostname
+     */
     var $_hostname;
+
+    /**
+     * Text of the comment
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TEXT
+     *
+     * @var $_comment
+     */
     var $_comment;
+
+    /**
+     * Date of the comment
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TIMESTAMP
+     *
+     * @var $_date
+     */
     var $_date;
 
     /*
@@ -168,5 +218,148 @@ class CommentContainer extends DataContainer {
      */
     function setDate($date) {
     }
+    /* BEGIN: Accessor Block.  DO NOT MODIFY! */
+    
+    /**
+     * Return the meta class information about this class
+     *
+     * @return array member => array(type, class)
+     */
+    function getMetaInfo() {
+        $meta = parent::getMetaInfo();
+        $meta['comment'] = array(
+            'class' => 'CommentContainer',
+            'type' => STORAGE_TYPE_TEXT);
+        $meta['hostname'] = array(
+            'class' => 'CommentContainer',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_MEDIUM);
+        $meta['date'] = array(
+            'class' => 'CommentContainer',
+            'type' => STORAGE_TYPE_TIMESTAMP);
+        $meta['emailAddress'] = array(
+            'class' => 'CommentContainer',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_MEDIUM);
+        $meta['name'] = array(
+            'class' => 'CommentContainer',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_MEDIUM);
+    
+        return $meta;
+    }
+    
+    /**
+     * Set the value of comment
+     * 
+     * @param string the new value for comment
+     * @access public
+     */
+    function setComment($value) {
+        assert('isset($value)');
+        $this->_comment = $value;
+        $this->modifyPersistentMember('comment');
+    }
+    
+    /**
+     * Get the value of comment
+     * 
+     * @access public
+     * @return string the current value of comment
+     */
+    function getComment() {
+        return $this->_comment;
+    }
+    
+    /**
+     * Set the value of date
+     * 
+     * @param int the new value for date
+     * @access public
+     */
+    function setDate($value) {
+        assert('isset($value)');
+        $this->_date = $value;
+        $this->modifyPersistentMember('date');
+    }
+    
+    /**
+     * Get the value of date
+     * 
+     * @access public
+     * @return int the current value of date
+     */
+    function getDate() {
+        return $this->_date;
+    }
+    
+    /**
+     * Set the value of emailAddress
+     * 
+     * @param string the new value for emailAddress
+     * @access public
+     */
+    function setEmailAddress($value) {
+        assert('isset($value)');
+        $this->_emailAddress = $value;
+        $this->modifyPersistentMember('emailAddress');
+    }
+    
+    /**
+     * Get the value of emailAddress
+     * 
+     * @access public
+     * @return string the current value of emailAddress
+     */
+    function getEmailAddress() {
+        return $this->_emailAddress;
+    }
+    
+    /**
+     * Set the value of hostname
+     * 
+     * @param string the new value for hostname
+     * @access public
+     */
+    function setHostname($value) {
+        assert('isset($value)');
+        $this->_hostname = $value;
+        $this->modifyPersistentMember('hostname');
+    }
+    
+    /**
+     * Get the value of hostname
+     * 
+     * @access public
+     * @return string the current value of hostname
+     */
+    function getHostname() {
+        return $this->_hostname;
+    }
+    
+    /**
+     * Set the value of name
+     * 
+     * @param string the new value for name
+     * @access public
+     */
+    function setName($value) {
+        assert('isset($value)');
+        $this->_name = $value;
+        $this->modifyPersistentMember('name');
+    }
+    
+    /**
+     * Get the value of name
+     * 
+     * @access public
+     * @return string the current value of name
+     */
+    function getName() {
+        return $this->_name;
+    }
+    
+    
+    /* END: Accessor Block.  DO NOT MODIFY! */
 }
 ?>
