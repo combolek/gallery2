@@ -54,10 +54,10 @@ class NetPbmModule extends GalleryModule {
 	$classDir = dirname(__FILE__) . '/classes/';
 
 	/* Register our graphics class with the factory */
-	GalleryFactory::registerImplementation('GalleryGraphics',
-					       'NetPbmGraphics',
+	GalleryFactory::registerImplementation('GalleryToolkit',
+					       'NetPbmToolkit',
 					       'NetPBM',
-					       $classDir . 'NetPbmGraphics.class');
+					       $classDir . 'NetPbmToolkit.class');
 
 	return GalleryStatus::success();
     }
@@ -109,10 +109,38 @@ class NetPbmModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/*
-	 * Take any special action here.
-	 */
+	/* Load any classes we require */
+	require_once(dirname(__FILE__) . '/classes/NetPbmToolkitHelper.class');
 
+	/* Find out what operations and properties we have available to us */
+	list ($ret, $results) =
+	    NetPbmToolkitHelper::getOperationsAndProperties();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	foreach ($results['operations'] as $operation => $info) {
+	    $ret = GalleryToolkitHelper::registerOperation('NetPBM',
+							   $info['mimeTypes'],
+							   $operation,
+							   $info['params'],
+							   $info['description']);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	foreach ($results['properties'] as $property => $info) {
+	    $ret = GalleryToolkitHelper::registerProperty('NetPBM',
+							  $info['mimeTypes'],
+							  $property,
+							  $info['type'],
+							  $info['description']);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+	
 	return GalleryStatus::success();
     }
 	
@@ -127,9 +155,11 @@ class NetPbmModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/*
-	 * Take any special action here
-	 */
+	/* Unregister all of our properties and operations */
+	$ret = GalleryToolkitHelper::unregisterToolkit('NetPBM');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	return GalleryStatus::success();
     }

@@ -277,6 +277,11 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
+	if (!isset($toolkit)) {
+	    /* XXX: What can we do now? */
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
+	}
+
 	/* Give the next operation in line the chance to do the merge. */
 	list ($ret, $mergeComplete, $returnedOperations) =
 	    $this->_recursiveMergeOperation($outputMimeType, $remainingOperations, $newOperation, $newArgs);
@@ -441,6 +446,11 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		GalleryToolkitHelper::getToolkitByOperation($mimeType, $operationName);
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    if (!isset($toolkit)) {
+		/* XXX: What can we do now? */
+		return GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
 	    }
 
 	    /* Perform the operation */

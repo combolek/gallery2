@@ -99,8 +99,7 @@ class ItemAddChildrenController extends GalleryController {
 		     * get an appropriate GalleryDataItem from the
 		     * GalleryFactory.
 		     */
-		    list ($ret, $newItem) =
-			GalleryFactory::newInstanceByHint('GalleryDataItem', $mimeType);
+		    list ($ret, $newItem) = GalleryItemHelper::newItemByMimeType($mimeType);
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -162,6 +161,11 @@ class ItemAddChildrenController extends GalleryController {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
+			if (!isset($derivative)) {
+			    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+					 null);
+			}
+
 			$ret = $derivative->create($newItem->getId(), $preference['derivativeType']);
 			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -186,6 +190,11 @@ class ItemAddChildrenController extends GalleryController {
 			    if ($ret->isError()) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
+
+			    if (!isset($derivative)) {
+				return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+					     null);
+			    }  
 
 			    $ret = $derivative->create($item->getId(), $preference['derivativeType']);
 			    if ($ret->isError()) {

@@ -125,16 +125,18 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list ($ret, $dimensions) =
-	    $toolkit->getProperty($mimeType, 'dimensions', $imageFileName);
-	if ($ret->isError()) {
+	if (isset($toolkit)) {
+	    list ($ret, $dimensions) =
+		$toolkit->getProperty($mimeType, 'dimensions', $imageFileName);
+	    if ($ret->isError()) {
 
-	    /*
-	     * If we can't get the dimensions, it's probably a bad image.
-	     * Or our graphics code is broken.  Hard to tell which at this point.
-	     */
-	    $ret->addErrorCode(ERROR_BAD_DATA_TYPE);
-	    return $ret->wrap(__FILE__, __LINE__);
+		/*
+		 * If we can't get the dimensions, it's probably a bad image.
+		 * Or our graphics code is broken.  Hard to tell which at this point.
+		 */
+		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 	}
 
 	/* Create our data item */
@@ -172,20 +174,22 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list ($ret, $dimensions) =
-	    $toolkit->getProperty($mimeType, 'dimensions', $path);
-	if ($ret->isError()) {
+	if (isset($toolkit)) {
+	    list ($ret, $dimensions) =
+		$toolkit->getProperty($mimeType, 'dimensions', $path);
+	    if ($ret->isError()) {
 
-	    /*
-	     * If we can't get the dimensions, it's probably a bad image.
-	     * Or our graphics code is broken.  Hard to tell which at this point.
-	     */
-	    $ret->addErrorCode(ERROR_BAD_DATA_TYPE);
-	    return $ret->wrap(__FILE__, __LINE__);
+		/*
+		 * If we can't get the dimensions, it's probably a bad image.
+		 * Or our graphics code is broken.  Hard to tell which at this point.
+		 */
+		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $this->setWidth($dimensions[0]);
+	    $this->setHeight($dimensions[1]);
 	}
-
-	$this->setWidth($dimensions[0]);
-	$this->setHeight($dimensions[1]);
 
 	return GalleryStatus::success();
     }
