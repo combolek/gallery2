@@ -461,4 +461,4 @@ includeHtmlWrap("wrapper.header");
 includeLayout("view_item", $GLO);
 includeHtmlWrap("wrapper.footer");
 
-
+?>
