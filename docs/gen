@@ -22,7 +22,7 @@ case $1 in
 		gendate
 
 		cd $DIST/html
-		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/chunkfast.xsl ../../manual.xml
+		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/chunkfast.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
@@ -40,12 +40,12 @@ case $1 in
 
 		gendate
 
-		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param toc.section.depth 1 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
+		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param toc.section.depth 1 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html || exit 1
 
 		cp -Rf images $DIST/bightml
 		rm -rf $DIST/bightml/CVS
 
-		cp ../../css/*.css $DIST/bightml
+		cp css/*.css $DIST/bightml
 		;;
 		
 	galleryweb)
@@ -58,7 +58,7 @@ case $1 in
 		gendate
 
 		cd $DIST/galleryweb
-		xsltproc --param prettyhtml 0 --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/galleryweb.xsl ../../manual.xml
+		xsltproc --param prettyhtml 0 --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/galleryweb.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
@@ -77,7 +77,7 @@ case $1 in
 		gendate
 
 		cd $DIST/g1package
-		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/g1-package.xsl ../../manual.xml
+		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/g1-package.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
@@ -98,7 +98,7 @@ case $1 in
 		cd $DIST/prettyhtml
        		cp ../../css/*.css .
                 
-		xsltproc --param prettyhtml 1 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/pretty-html.xsl ../../manual.xml
+		xsltproc --param prettyhtml 1 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/pretty-html.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
@@ -120,7 +120,7 @@ case $1 in
 
 		gendate
 
-		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
+		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf || exit 1
 
 		rm -f manual.fo
 		;;
@@ -132,7 +132,7 @@ case $1 in
 
 		echo "Generating AutoFAQ data...";
 		cd $DIST/autofaq
-		xsltproc ../../misc-xsl/autofaq.xsl ../../manual.xml > autofaq_data.txt
+		xsltproc ../../misc-xsl/autofaq.xsl ../../manual.xml > autofaq_data.txt || exit 1
 		;;
 		
 	test-saxon) 
@@ -184,4 +184,3 @@ case $1 in
 	*)
 		echo "Invalid Action.  Type './gen help' for help";;
 esac
-
