@@ -30,7 +30,7 @@
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
-class GalleryMap {
+class GalleryMap extends PersistentInfo {
 
     /*
      * ****************************************
@@ -40,14 +40,49 @@ class GalleryMap {
 
     /**
      * Private storage for internal map data.
+     *
+     * @var array $_data
      */
     var $_data;
+
+    /**
+     * The GalleryNucleus that owns this map
+     *
+     * @var object GalleryNucleus $_parent
+     */
+    var $_parent;
+	
+    /**
+     * The name of this member inside the parent
+     *
+     * @var string $_memberName;
+     */
+    var $_memberName;
 	
     /*
      * ****************************************
      *                 Methods
      * ****************************************
      */
+
+    /**
+     * Constructor
+     */
+    function GalleryMap() {
+	$this->PersistentInfo();
+	$this->_data = array();
+    }
+
+    /**
+     * Specify the parent and the name of this member in the parent
+     *
+     * @param object GalleryNucleus the parent
+     * @param string the name of the member in the parent
+     */
+    function setParentInfo(&$parent, $memberName) {
+	$this->_parent =& $parent;
+	$this->_memberName = $memberName;
+    }
 
     /**
      * Retrieve data from the map
@@ -78,7 +113,52 @@ class GalleryMap {
     function setValue($key, $value) {
 	assert('!empty($key)');
 	assert('!empty($value)');
+
+	/* Mark it as created, if it wasn't set before */
+	if (!isset($this->_data[$key])) {
+	    $this->setModifiedFlag($key, MEMBER_CREATED);
+	}
+
+	/* Either way, mark it as modified */
+	$this->setModifiedFlag($key, MEMBER_MODIFIED);
+
+	/* Mark this map as modified in the parent */
+	if (isset($this->_parent)) {
+	    $this->_parent->setModifiedFlag($this->_memberName,
+					    MEMBER_MODIFIED);
+	}
+	
+	/* Set the value */
 	$this->_data[$key] = $value;
+    }
+
+    /**
+     * Remove a value from the map
+     * 
+     * @param mixed the map key
+     * @param mixed the new map value
+     * @access public
+     */
+    function removeValue($key) {
+	assert('!empty($key)');
+	$this->setModifiedFlag($key, MEMBER_REMOVED);
+	$this->_data[$key] = null;
+
+	/* Mark this map as modified in the parent */
+	if (isset($this->_parent)) {
+	    $this->_parent->setModifiedFlag($this->_memberName,
+					    MEMBER_MODIFIED);
+	}
+    }
+
+    /**
+     * Reset this map to a pristine state.
+     */
+    function reset() {
+	$this->_data = array();
+	$this->clearModifiedFlags();
+
+	// XXX: should we notify the parent?
     }
 }
 ?>
