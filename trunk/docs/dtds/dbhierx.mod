@@ -276,7 +276,8 @@
 		| %article.class;
  		| %appendix.class;
 		| %index.class;
-		| colophon)*)
+		| colophon
+		| para)*)
 		%ubiq.inclusion;>
 <!--end of book.element-->]]>
 
