@@ -20,6 +20,9 @@
 ?>
 <?
 
+// NOTE: I May wrap these functions into the kitchen sink that is util.php. 
+//       For now, it's alot more convient to have them here.
+
 require($GALLERY_BASEDIR . "layout_util/xtpl/xtemplate.inc");
 
 //-----------------------------------------------------------------------------

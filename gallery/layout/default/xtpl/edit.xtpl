@@ -1,0 +1,42 @@
+<!-- BEGIN: edit -->
+{GLO.header}
+
+{GLO.page.body.extra}
+
+<table border="0" width="{GLO.image.tableWidth}" cellpadding="0"  cellspacing="0">
+  <tr>
+	<td colspan="2">
+    <span class="title">&nbsp;Editing something or another</span>
+    <br>
+    <br>
+    </td>
+  <tr>
+
+  <tr>
+    <td width="200" valign="top">
+    the Thumb goes here.
+    <br>
+    <br>
+    The tabs go here
+    </td>
+
+    <td valign="top">
+    The Selected Tab content goes here.
+    {GLO.selected.content}
+    <br>
+    <br>
+    The form buttons go here.
+    </td>
+  </tr>
+
+
+  <tr><td height="10">{GLO.pixelImage}</td></tr>
+
+
+</table>
+<br>
+
+{GLO.footer}
+
+<!-- END: edit -->
+
