@@ -306,7 +306,7 @@ newAlbumDesc=<replaceable>album-description</replaceable></programlisting>
 #__GR2PROTO__
 status=<replaceable>result-code</replaceable>
 status_text=<replaceable>explanatory-text</replaceable>
-album_name=<replaceable>actual-name</replaceable></programlisting>
+album_name=<replaceable>actual-name</replaceable> [since 2.5]</programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
         <para>If the <varname>result-code</varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_NO_CREATE_ALBUM_PERMISSION</varname></link>, the logged-in user doesn&apos;t have permission to create an album in the specified location.</para>
         <para>If an album is created with the same name as an already existing album or <replaceable>album-title</replaceable> is left blank, gallery will automatically generate an album name. <replaceable>actual-name</replaceable> will return the name of the newly created album.</para>
