@@ -31,9 +31,9 @@ class Album {
 		$this->fields["title"] = "Untitled";
 		$this->fields["description"] = "No description";
 		$this->fields["nextname"] = "aaa";
-        	$this->fields["bgcolor"] = "";
-        	$this->fields["textcolor"] = "";
-        	$this->fields["linkcolor"] = "";
+		$this->fields["bgcolor"] = "";
+		$this->fields["textcolor"] = "";
+		$this->fields["linkcolor"] = "";
 		$this->fields["font"] = $gallery->app->default["font"];
 		$this->fields["border"] = $gallery->app->default["border"];
 		$this->fields["bordercolor"] = $gallery->app->default["bordercolor"];
@@ -73,7 +73,7 @@ class Album {
 		
 		if (!$albumDB) $albumDB = new AlbumDB();
 		$albumName = $this->isAlbumName($index);
-        	$album = $albumDB->getAlbumbyName($albumName);
+			$album = $albumDB->getAlbumbyName($albumName);
 		return $album;	
 	}
 
@@ -137,7 +137,7 @@ class Album {
 			} else {
 				$this->fields["use_exif"] = "no";
 			}
-		}                       
+		}					   
 
 		/* 
 		* Check all items 
@@ -205,7 +205,7 @@ class Album {
 				$func .= "if (\$timeA < \$timeB) return -1; else return 1;";
 			} else {
 				$func .= "if (\$timeA > \$timeB) return -1; else return 1;";
-			}    
+			}	
 		} else if (!strcmp($sort, "filename")) {
 			$func = "\$objA = (object)\$a; \$objB = (object)\$b; ";
 			$func .= "if (\$objA->isAlbumName) { ";
@@ -241,8 +241,8 @@ class Album {
 
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-                        if ($photo->isHighlight()) {
-                                return 1;
+						if ($photo->isHighlight()) {
+								return 1;
 			}
 		}
 		return 0;
@@ -452,7 +452,7 @@ class Album {
 			$album = $albumDB->getAlbumbyName($albumName);
 			$album->delete();
 		}
-                /* are we deleteing the highlight? pick a new one */
+				/* are we deleteing the highlight? pick a new one */
 		$needToRehighlight = 0;
 		if ( ($photo[0]->isHighlight()) && ($this->numPhotos(1) > 0) && (!$forceResetHighlight==-1)) {
 			$needToRehighlight = 1;
@@ -461,7 +461,7 @@ class Album {
 		if (($needToRehighlight) || ($forceResetHighlight==1)){
 			if ($this->numPhotos(1) > 0) {
 				$newHighlight = $this->getPhoto(1);
-                		if (!$newHighlight->isMovie()) {
+						if (!$newHighlight->isMovie()) {
 					$this->setHighlight(1);
 				}
 			}
@@ -482,10 +482,29 @@ class Album {
 		}
 	}
 
+	function getThumbnailPath($index) {
+		$photo = $this->getPhoto($index);
+		if ($photo->isAlbumName) {
+			$myAlbum = $this->getNestedAlbum($index);
+			return $myAlbum->getHighlightPath();
+		} else {	
+			return $photo->getThumbnailPath($this->getAlbumDirURL());
+		}
+	}
+
 	function getHighlightTag($size=0, $attrs="") {
 		if ($this->numPhotos(1)) {	
 			$photo = $this->getPhoto($this->getHighlight());
 			return $photo->getHighlightTag($this->getAlbumDirURL(), $size, $attrs);
+		} else {
+			return "Empty!";
+		}
+	}
+
+	function getHighlightPath() {
+		if ($this->numPhotos(1)) {	
+			$photo = $this->getPhoto($this->getHighlight());
+			return $photo->getHighlightPath($this->getAlbumDirURL());
 		} else {
 			return "Empty!";
 		}
@@ -541,10 +560,45 @@ class Album {
 		}
 	}
 
-	function getIds($show_hidden=0) {
+	function getIds($user, $first=1, $howmany=-1) {
+		global $albumDB;
+		if (!$albumDB) $albumDB = new AlbumDB();
+		$ids = Array();
+
+		/* what? no photos? */
+		if (!count($this->photos)) {
+			return $ids;
+		}
+
+		/* don't show hidden items to non-admins */
+		$show_hidden = $user->canWriteToAlbum($this);
+
+		if (($howmany == -1) || ($howmany > count($this->photos))) {
+			$howmany = count($this->photos);
+		}
+
+		$skipped = 1;
+		$count = 0;
 		foreach ($this->photos as $photo) {
+			if ($skipped < $first) {
+				$skipped++;
+				continue;
+			}
+			if ($count == $howmany) {
+				break;
+			}
+
 			if (!$photo->isHidden() || $show_hidden) {
+				/* if the user has no perms on a nested album skip it */
+				if ($photo->isAlbumName) {
+					$myAlbum = $albumDB->getAlbumbyName($photo->isAlbumName);
+					if (!$user->canReadAlbum($myAlbum)) {
+						continue;
+					}
+				} 
+
 				$ids[] = $photo->getPhotoId($this->getAlbumDirURL());
+				$count++;
 			}
 		}
 		return $ids;
@@ -644,7 +698,7 @@ class Album {
 		$photo = $this->getPhoto($index);
 		$photo->setKeywords($keywords);
 		$this->setPhoto($photo, $index);
-        }
+		}
 
 
 	function rotatePhoto($index, $direction) {
@@ -713,21 +767,21 @@ class Album {
 	}
 
 	function getClicksDate() {
-                $time = $this->fields["clicks_date"];
+				$time = $this->fields["clicks_date"];
 
-                // albums may not have this field.
-                if (!$time) {
-                        $this->resetClicks();
+				// albums may not have this field.
+				if (!$time) {
+						$this->resetClicks();
 			$time = $this->fields["clicks_date"];
-                }
+				}
 
-                return date("M d, Y", $time);
-        }
+				return date("M d, Y", $time);
+		}
 
 	function incrementClicks() {
 		$this->fields["clicks"]++;
 		$resetModDate=0; // don't reset last_mod_date
-        $this->save($resetModDate);
+		$this->save($resetModDate);
 	}
 
 	function getItemClicks($index) {
