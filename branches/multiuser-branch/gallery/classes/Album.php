@@ -25,7 +25,7 @@ class Album {
 	var $dir;
 
 	function Album() {
-		global $app;
+		global $app, $userDB;
 
 		$this->fields["title"] = "Untitled";
 		$this->fields["description"] = "No description";
@@ -39,6 +39,9 @@ class Album {
 		$this->fields["returnto"] = $app->default["returnto"];
 		$this->fields["thumb_size"] = $app->default["thumb_size"];
 		$this->fields["resize_size"] = $app->default["resize_size"];
+
+		$everybody = $userDB->getEverybody();
+		$this->setPerm("canRead", $everybody->getUid(), 1);
 	}
 
 	function integrityCheck() {
@@ -363,6 +366,13 @@ class Album {
 		if ($this->isOwner($uid)) {
 			return true;
 		}
+
+		// In the default case where there are no permissions for the album,
+		// let everybody see it.
+		if (!isset($this->fields["perms"])) {
+			return 1;			
+		}
+
 		return $this->getPerm("canRead", $uid);
 	}
 
