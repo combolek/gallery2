@@ -172,7 +172,7 @@ class Image {
 	}
 
 	function getName($dir, $full=0) {
-		if ((!$full) && (fs_file_exists("$dir/$this->resizedName.$this->type"))) {
+		if ((!$full) && ($this->isResized())) {
 			return $this->resizedName;
 		} else {
 			return $this->name;
