@@ -8,9 +8,9 @@
   <title>{GLO.pagetitle}</title>
   {GLO.gallery.styleSheetInclude}
   {GLO.album.styleSheetInclude}
-  {GLO.javascript.head}
+  {GLO.page.head.extra}
 </head>
-<body {GLO.javascript.bodytag}>
+<body {GLO.page.bodyTag.extra}>
 <!-- END: not_embedded_inside -->
 
 {GLO.javascript.body}
