@@ -91,13 +91,13 @@
      to use short URLs. In other words, you see this:
      <blockquote>
       <para>
-       <ulink url="http://www.menalto.com/photos/cole-earlydays/aga">http://www.menalto.com/photos/cole-earlydays/aga</ulink>
+       http://www.example.com/photos/cole-earlydays/aga
       </para>
      </blockquote>
      instead of this:
      <blockquote>
       <para>
-       <ulink url="http://www.menalto.com/photos/view_photo.php&#63;set_albumName=cole-earlydays&amp;id=aga">http://www.menalto.com/photos/view_photo.php&#63;set_albumName=cole-earlydays&amp;id=aga</ulink>
+       http://www.example.com/photos/view_photo.php&#63;set_albumName=cole-earlydays&amp;id=aga
       </para>
      </blockquote>
      Obviously the shorter one is easier to remember and nicer to use
@@ -132,7 +132,7 @@
    
    <blockquote>
     <para>
-     <ulink url="http://www.example.com/gallery/setup/phpinfo.php">http://www.yourdomain.com/gallery/setup/phpinfo.php</ulink>
+     http://www.example.com/gallery/setup/phpinfo.php
     </para>
    </blockquote>
    
@@ -160,7 +160,8 @@
      If you are installing Jhead yourself you can install it either in
      the Gallery directory or in your <filename>public_html</filename>
      directory (sometimes called <filename>www</filename> or something
-     similar).
+     similar).  See this <link linkend="gallery1-install.required-programs">
+     installation guide</link> for information.
     </para>
    </listitem>
   </itemizedlist>
