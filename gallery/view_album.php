@@ -19,12 +19,18 @@
  */
 ?>
 <? 
+// Hack check
+if (!$user->canReadAlbum($album)) {
+	header("Location: albums.php");
+	return;
+}
+
 if (!$album->isLoaded()) {
 	header("Location: albums.php");
 	return;
 }
 
-$numPhotos = $album->numPhotos($user->canWriteAlbum($album));
+$numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
 $perPage = $rows * $cols;
 $maxPages = max(ceil($numPhotos / $perPage), 1);
 
@@ -115,7 +121,7 @@ if ($numPhotos == 1) {
 	$adminText .= "$numPhotos photos in this album on $maxPages pages";
 }
 
-if ($user->canWriteAlbum($album)) {
+if ($user->canWriteToAlbum($album)) {
 	$hidden = $album->numHidden();
 	$verb = "are";
 	if ($hidden == 1) {
@@ -127,18 +133,18 @@ if ($user->canWriteAlbum($album)) {
 } 
 $adminText .="</span>";
 $adminCommands = "<span class =\"admin\">";
+if ($user->canAddToAlbum($album)) {
+	$adminCommands .= "<a href=".popup("add_photos.php?albumName=$albumName").">[Add]</a>&nbsp;";
+}
+
+if ($user->canWriteToAlbum($album)) {
+        $adminCommands .= "<a href=".popup("shuffle_album.php?albumName=$albumName").">[Shuffle]</a>&nbsp;";
+        $adminCommands .= "<a href=".popup("resize_photo.php?albumName=$albumName&index=all").">[Resize]</a>&nbsp;";
+        $adminCommands .= "<a href=".popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all").">[Rebuild Thumbs]</a>&nbsp;"; 
+        $adminCommands .= "<a href=".popup("edit_appearance.php?albumName=$albumName").">[Properties]</a>&nbsp;";
+}
+
 if ($user->isLoggedIn()) {
-	if ($user->canAddToAlbum($album)) {
-		$adminCommands .= "<a href=".popup("add_photos.php?albumName=$albumName").">[Add]</a>&nbsp;";
-	}
-
-	if ($user->canWriteAlbum($album)) {
-	        $adminCommands .= "<a href=".popup("shuffle_album.php?albumName=$albumName").">[Shuffle]</a>&nbsp;";
-	        $adminCommands .= "<a href=".popup("resize_photo.php?albumName=$albumName&index=all").">[Resize]</a>&nbsp;";
-	        //$adminCommands .= "<a href=".popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all").">[Rebuild Thumbs]</a>&nbsp;"; 
-	        $adminCommands .= "<a href=".popup("edit_appearance.php?albumName=$albumName").">[Properties]</a>&nbsp;";
-	}
-
         $adminCommands .= "<a href=do_command.php?cmd=logout&return=view_album.php>[Logout]</a>";
 } else {
 	$adminCommands .= "<a href=".popup("login.php").">[Login]</a>";
@@ -175,7 +181,7 @@ if ($numPhotos) {
 		$i = $start + $rowCount * $cols;
 		$j = 1;
 		while ($j <= $cols && $i <= $numPhotos) {
-			if (!$user->canWriteAlbum($album) && $album->isHidden($i)) {
+			if (!$user->canWriteToAlbum($album) && $album->isHidden($i)) {
 				$i++;
 				if ($i >= $numPhotos) {
 					break;
@@ -234,7 +240,7 @@ if ($numPhotos) {
 		$i = $start + $rowCount * $cols;
 		$j = 1;
 		while ($j <= $cols && $i <= $numPhotos) {
-			if (!$user->canWriteAlbum($album) && $album->isHidden($i)) {
+			if (!$user->canWriteToAlbum($album) && $album->isHidden($i)) {
 				$i++;
 				if ($i >= $numPhotos) {
 					break;
@@ -259,7 +265,7 @@ if ($numPhotos) {
 				}
 			}
 
-			if ($user->canWriteAlbum($album)) {
+			if ($user->canWriteToAlbum($album)) {
 				echo(" <a href=");
 				echo(popup("move_photo.php?index=$i"));
 				echo("><img src=\"images/admin_move.gif\" width=11 height=11 border=0 alt=\"Move Photo\"></a>");
