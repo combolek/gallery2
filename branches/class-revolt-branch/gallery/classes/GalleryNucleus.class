@@ -30,7 +30,7 @@
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
  */
-class GalleryNucleus {
+class GalleryNucleus extends PersistentInfo {
 
     /**
      * The id of this item
@@ -126,14 +126,6 @@ class GalleryNucleus {
      */
     var $_objectType;
 
-    /**
-     * Keep track of which internal values are persistant and which ones aren't
-     * so that we'll know when and what to save to the database.
-     * 
-     * @var array $_persistentInfo
-     */
-    var $_persistentInfo;
-
     /*
      * ****************************************
      *                 Methods
@@ -143,19 +135,10 @@ class GalleryNucleus {
     /**
      * Constructor
      *
-     * Initialize this instance and then load it from the persistent
-     * store.
-     *
      * @param string the id of the object to load
      */
     function GalleryNucleus() {
-
-	/*
-	 * Initialize our persistent info tracker
-	 */
-	$this->_persistentInfo = new stdClass();
-	$this->_persistentInfo->modified = array();
-	$this->_persistentInfo->flags = 0;
+	$this->PersistentInfo();
     }
 
     /**
@@ -243,15 +226,20 @@ class GalleryNucleus {
      */
     function getFullPath() {
 
-	$parent = new GalleryNucleus();
-	$ret = $parent->loadNoCache($this->_parentId);
-	if ($ret & ERROR) {
-	    return array($ret, null);
-	}
+	if (!empty($this->_parentId)) {
+	    $parent = new GalleryNucleus();
+	    $ret = $parent->loadNoCache($this->_parentId);
+	    if ($ret & ERROR) {
+		return array($ret, null);
+	    }
 
-	list ($ret, $path) = $parent->getFullPath();
-	if ($ret & ERROR) {
-	    return array($ret, null);
+	    list($ret, $path) = $parent->getFullPath();
+	    if ($ret & ERROR) {
+		return array($ret, null);
+	    }
+	} else {
+	    global $gallery;
+	    $path = $gallery->getConfigValue('core.directory.albums');
 	}
 
 	return array(SUCCESS, $path . '/' . $this->_path);
@@ -279,7 +267,7 @@ class GalleryNucleus {
 	    $storage = $gallery->getStorage();
 	    $ret = $storage->saveNucleus($this);
 	    if ($ret == SUCCESS) {
-		$gallery->addToCache($nucleus);
+		$gallery->addToCache($this);
 	    } else {
 		return $ret;
 	    }
@@ -322,71 +310,6 @@ class GalleryNucleus {
 
 	$storage = $gallery->getStorage();
 	return $storage->deleteNucleus($this);
-    }
-
-    /**
-     * Mark a persistent member as modified
-     *
-     * @param string the name of the member
-     * @param boolean the modification state (default true)
-     */
-    function modifyPersistentMember($name, $state=true) {
-	$this->_persistentInfo->modified[$name] = $state;
-    }
-
-    /**
-     * Get a dump of the current state of our persistent members
-     *
-     * This should only be used by the GalleryStorage strategy.
-     *
-     * @return array of persistent info params
-     */
-    function getPersistentInfo() {
-	return $this->_persistentInfo;
-    }
-
-    /**
-     * Reset all modification flags
-     */
-    function clearModifyFlags() {
-	$this->_persistentInfo->modified = array();
-    }
-
-    /**
-     * Set a flag
-     *
-     * The GalleryStorage strategy uses this to flag objects for its own
-     * internal purposes.
-     *
-     * @param string a bit flag to set
-     */
-    function setPersistentFlag($flag) {
-	$this->_persistentInfo->flags |= $flag;
-    }
-
-    /**
-     * Clear a flag
-     *
-     * The GalleryStorage strategy uses this to flag objects for its own
-     * internal purposes.
-     *
-     * @param string a bit flag to clear
-     */								     
-    function clearPersistentFlag($flag) {
-	$this->_persistentInfo->flags &= ~$flag;
-    }
-
-    /**
-     * Test a flag
-     *
-     * The GalleryStorage strategy uses this to flag objects for its own
-     * internal purposes.
-     *
-     * @param string a bit flag to test
-     * @return bool true if the bit is on, false otherwise
-     */								     
-    function testPersistentFlag($flag) {
-	return $this->_persistentInfo->flags & $flag;
     }
 
     /* BEGIN: Accessor Block.  DO NOT MODIFY! */
@@ -443,7 +366,7 @@ class GalleryNucleus {
     function setCreationTimestamp($value) {
         assert('isset($value)');
         $this->_creationTimestamp = $value;
-        $this->modifyPersistentMember('creationTimestamp');
+        $this->setModifiedFlag('creationTimestamp', MEMBER_MODIFIED);
     }
     
     /**
@@ -465,7 +388,7 @@ class GalleryNucleus {
     function setDataVersion($value) {
         assert('isset($value)');
         $this->_dataVersion = $value;
-        $this->modifyPersistentMember('dataVersion');
+        $this->setModifiedFlag('dataVersion', MEMBER_MODIFIED);
     }
     
     /**
@@ -487,7 +410,7 @@ class GalleryNucleus {
     function setId($value) {
         assert('isset($value)');
         $this->_id = $value;
-        $this->modifyPersistentMember('id');
+        $this->setModifiedFlag('id', MEMBER_MODIFIED);
     }
     
     /**
@@ -509,7 +432,7 @@ class GalleryNucleus {
     function setModificationTimestamp($value) {
         assert('isset($value)');
         $this->_modificationTimestamp = $value;
-        $this->modifyPersistentMember('modificationTimestamp');
+        $this->setModifiedFlag('modificationTimestamp', MEMBER_MODIFIED);
     }
     
     /**
@@ -531,7 +454,7 @@ class GalleryNucleus {
     function setObjectType($value) {
         assert('isset($value)');
         $this->_objectType = $value;
-        $this->modifyPersistentMember('objectType');
+        $this->setModifiedFlag('objectType', MEMBER_MODIFIED);
     }
     
     /**
@@ -553,7 +476,7 @@ class GalleryNucleus {
     function setParentId($value) {
         assert('isset($value)');
         $this->_parentId = $value;
-        $this->modifyPersistentMember('parentId');
+        $this->setModifiedFlag('parentId', MEMBER_MODIFIED);
     }
     
     /**
@@ -575,7 +498,7 @@ class GalleryNucleus {
     function setPath($value) {
         assert('isset($value)');
         $this->_path = $value;
-        $this->modifyPersistentMember('path');
+        $this->setModifiedFlag('path', MEMBER_MODIFIED);
     }
     
     /**
@@ -597,7 +520,7 @@ class GalleryNucleus {
     function setSerialNumber($value) {
         assert('isset($value)');
         $this->_serialNumber = $value;
-        $this->modifyPersistentMember('serialNumber');
+        $this->setModifiedFlag('serialNumber', MEMBER_MODIFIED);
     }
     
     /**
