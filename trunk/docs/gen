@@ -102,7 +102,7 @@ case $1 in
 	dist)
 		$0 html
 		$0 bightml
-		$0 pdf
+#		$0 pdf
 		$0 galleryweb
 		;;
 
