@@ -166,13 +166,19 @@ public class PropertiesFile extends GalleryProperties {
 				// try to get from JAR
 				if (mFilename.indexOf("/") == -1) {
 					// only if the resource is local
-					Log.log(Log.LEVEL_TRACE, MODULE, "Trying to find " + mFilename + " in Classpath");
+					if (!alreadyWarned) {
+						Log.log(Log.LEVEL_TRACE, MODULE, "Trying to find " + mFilename + " in Classpath");
+					}
+
 					fileIn = PropertiesFile.class.getResourceAsStream("/" + mFilename);
 				}
 
 				if (fileIn == null) {
 					// no dice? OK, from cwd then...
-					Log.log(Log.LEVEL_TRACE, MODULE, "Trying to find " + mFilename + " in Current Working Dir");
+					if (!alreadyWarned) {
+						Log.log(Log.LEVEL_TRACE, MODULE, "Trying to find " + mFilename + " in Current Working Dir");
+					}
+					
 					fileIn = new FileInputStream(mFilename);
 				}
 
