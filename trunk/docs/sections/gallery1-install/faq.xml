@@ -986,6 +986,41 @@ if (!function_exists('array_search')) {
     </answer>
    </qandaentry>
    
+   <qandaentry>
+    <question>
+     <para>
+      I can't extract a <literal>.tar.gz</literal> file on my Windows machine.
+      Why not?
+     </para>
+    </question>
+    <answer>
+     <para>
+      You need to use WinZip <emphasis>twice</emphasis>. (WinZip is a bit weird
+      when it comes to <literal>.tar.gz</literal> archives).
+      <orderedlist>
+       <listitem>
+        <para>
+         Unzip, with WinZip, like you have done.
+        </para>
+       </listitem>
+       <listitem>
+        <para>
+         Rename the extracted file (in this example,
+         <filename>netpbm1.1-gallery1.0-linux2.2-redhat6.2-intel</filename>
+         from <filename>netpbm1.1-gallery1.0-linux2.2-redhat6.2-intel</filename>
+         to <filename>netpbm1.1-gallery1.0-linux2.2-redhat6.2-intel.tar</filename>.
+        </para>
+       </listitem>
+       <listitem>
+        <para>
+         Unzip once more
+        </para>
+       </listitem>
+      </orderedlist>
+     </para>
+    </answer>
+   </qandaentry>
+   
   </qandadiv>
   
   <qandadiv>
