@@ -145,10 +145,18 @@ class ItemDeleteView extends GalleryView {
 	    }
 	}
 	
+	/* Get the type of the item */
+	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    $itemType = 'album';
+	} else {
+	    $itemType = 'item';
+	}
+
 	/* Render the HTML body */
 	$template = $this->_getTemplate();
 	$template->setVariable('form', $form);
 	$template->setVariable('item', $item->getMemberData());
+	$template->setVariable('itemType', $itemType);
 	$template->setVariable('childCount', $childCount);
 	$template->setVariable('controller', 'core:ItemDelete');
 	list($ret, $html) = $template->render('ItemDelete.tpl');
