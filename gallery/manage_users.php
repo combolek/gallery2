@@ -36,7 +36,7 @@ if ($action) {
 $displayUsers = array();
 foreach ($userDB->getUidList() as $uid) {
 	$tmpUser = $userDB->getUserByUid($uid);
-	if ($tmpUser->isAdmin()) {
+	if ($tmpUser->isAdmin() || $tmpUser->isPseudo()) {
 		continue;
 	}
 
@@ -46,13 +46,13 @@ foreach ($userDB->getUidList() as $uid) {
 ?>
 <html>
 <head>
-  <title>User Manager</title>
+  <title>Manage Users</title>
   <link rel="stylesheet" type="text/css" href="<?= getGalleryStyleSheetName() ?>">
 </head>
 <body>
 
 <center>
-<span class="popuphead">User Manager</span>
+<span class="popuphead">Manage Users</span>
 <br>
 <br>
 
