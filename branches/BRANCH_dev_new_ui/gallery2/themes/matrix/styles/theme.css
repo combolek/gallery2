@@ -39,6 +39,12 @@ body {
   font-size: 81%;
 }
 
+.widget1set { 
+}
+
+.widget1body { 
+}
+
 .widget1title {
   font-size: 63%;
   text-align: left;
@@ -46,6 +52,12 @@ body {
   padding-top: 2px; 
   padding-right: 8px;
   vertical-align: top;
+}
+
+.widget2set { 
+}
+
+.widget2body { 
 }
 
 .widget2title {
@@ -205,6 +217,9 @@ input {
   margin: 0px 0px 12px 0px;
 }
 
+select {
+  margin: 0px 0px 12px 0px;
+}
 
 textarea {
   margin: 0px 0px 12px 0px;
