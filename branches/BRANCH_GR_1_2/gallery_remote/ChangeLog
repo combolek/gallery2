@@ -1,3 +1,10 @@
+2003-12-29  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b6)
+
+	* Reorganized the Mac build so that jpegtran.properties and
+	  im.properties are readily editable in the application
+	  bundle, similar to the Windows version.
+	* Fixed Mac release URL in auto build system.
+
 2003-12-28  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b5)
 
 	* MacOS Build now finds jpegtran even if application is renamed.
