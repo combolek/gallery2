@@ -85,6 +85,7 @@ class GalleryLock {
 	    return $ret;
 	}
 
+	$this->_lockList = $ids;
 	$this->_isLockAcquired = true;
 
 	if (sizeof($ids) == 0) {
