@@ -1,9 +1,36 @@
-2001-07-19  John Kirkland <jpk@bl.org>
+2001-07-22  Bharat Mediratta  <bharat@menalto.com>
+
+	* Fixed bug #443479 "invalid PHP function in functions.inc"
+	  fs_is_executable() was missing from platform/ files.
+
+2001-07-21  John Kirkland  <jpk@bl.org>
+	
+	* Added ability to statically sort photos by name via the
+	  new sort feature.  This feature was added based on discussion
+	  between Ken Frank <kffrank@mn.mediaone.net> and 
+	  Ed Wilts <ewilts@ewilts.org> on our new Gallery-users mailing 
+	  list.
+
+	* uploadDate and itemCaptureDate now set at file upload time.
+	  One benefit to this is...  if you upload a zip file of
+	  photos, and you do not have exif data in the photos, the
+	  itemCaptureDate will be set to the time/date stamp of the
+	  files contained within the zip file.  This is SF feature
+	  #423208.
+
+	* Display number of Photos in addition to number
+	  of albums in the header of the main page.  This is SF feature
+	  #438840. 
+
+	* Display "(hidden)" above the caption if you are viewing a 
+	  hidden photo in the view_album display.  This is SF feature
+	  #441336. 
+
+2001-07-19  John Kirkland  <jpk@bl.org>
 
 	* Fixed SF bug #442881.  "Extra </table> tag in search.php."
 	
 	* Fixed SF bug #439790.  "Add photos and nested albums."
-
 
 2001-07-19  Bharat Mediratta  <bharat@menalto.com>
 
@@ -13,6 +40,7 @@
 	  dialog that will walk you through a mostly automated process. 
 
 2001-07-19  John Kirkland  <jpk@bl.org>
+	
 	* Replaced album shuffle with album sorting.  This feature
 	  will allow album owners to sort their albums according to
 	  the file upload date or the Picture-Taken date.  The 

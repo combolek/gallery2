@@ -109,6 +109,9 @@ if ($index > $gallery->album->numPhotos(1)) {
 	$index = $numPhotos;
 }
 
+//-- calculate the page we're on (for the breadcrumb) ---
+$page = ceil($index / ($gallery->album->fields["rows"] * $gallery->album->fields["cols"]));
+
 $borderColor = $gallery->album->fields["bordercolor"];
 $borderWidth = $gallery->album->fields["border"];
 if (!strcmp($borderWidth, "off")) {
@@ -147,11 +150,142 @@ if (!strcmp($gallery->album->fields["resize_size"], "off")) {
 }
 $mainWidth += (borderWidth * 2);
 
+//-- set up the command structure ---
+$commands = Array();
+$commandCount = 0;
+if ($gallery->user->canChangeTextOfAlbum($gallery->album)) {
+	$commandCount++;
+	$commands[$commandCount]['name'] = "Edit Info";
+	$commands[$commandCount]['action'] = popup("edit_caption.php?index=$index");
+}
+if (!strcmp($gallery->album->fields["public_comments"], "yes")) {
+	$commandCount++;
+	$commands[$commandCount]['name'] = "Add Comment";
+	$commands[$commandCount]['action'] = popup("add_comment.php?index=$index");
+}
+if (!$gallery->album->isMovie($id)) {
+    if ($gallery->user->canWriteToAlbum($gallery->album)) {
+		$commandCount++;
+		$commands[$commandCount]['name'] = "Resize Photo";
+		$commands[$commandCount]['action'] = popup("resize_photo.php?index=$index");
+    }
+
+    if ($gallery->user->canDeleteFromAlbum($gallery->album)) {
+		$commandCount++;
+		$commands[$commandCount]['name'] = "Delete Photo";
+		$commands[$commandCount]['action'] = popup("delete_photo.php?index=$index");
+    }
+
+#    if (!strcmp($gallery->album->fields["use_fullOnly"], "yes")) {
+#        $link = doCommand("", "set_fullOnly=" .
+#                (strcmp($gallery->session->fullOnly,"on") ? "on" : "off"),
+#            "view_photo.php", "id=$id");
+#        $adminCommands .= "<nobr>View Images: [ ";
+#        if (strcmp($gallery->session->fullOnly,"on"))
+#        {
+#            $adminCommands .= "normal | <a href=\"$link\">full</a> ]";
+#        } else {
+#            $adminCommands .= "<a href=\"$link\">normal</a> | full ]";
+#        }
+#        $adminCommands .= "</nobr>";
+#    }
+
+   
+    if (!strcmp($gallery->album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
+        ($gallery->app->use_exif)) {
+		$commandCount++;
+		$commands[$commandCount]['name'] = "Photo Properties";
+		$commands[$commandCount]['action'] = popup("view_photo_properties.php?index=$index");
+    }
+
+
+    if (strcmp($gallery->album->fields["print_photos"],"none")) {
+		$commandCount++;
+		$commands[$commandCount]['name'] = "Print on Shutterfly";
+		$commands[$commandCount]['action'] = "document.sflyc4p.returl.value=document.location; document.sflyc4p.submit()";
+
+		//-- build the shutterfly form ---
+		$hostname = $GLOBALS["SERVER_NAME"];
+		$protocol = "http";
+		$photoPath = $protocol . "://" . $hostname . $gallery->album->getAlbumDirURL();
+		$rawImageURL = $photoPath . "/" . $image->name . "." . $image->type;
+
+		$thumbImageURL = $photoPath . "/";
+		if ($image->resizedName) {
+			$thumbImageURL .= $image->resizedName . "." . $image->type;
+		} else {
+			$thumbImageURL .= $image->name . "." . $image->type;
+		}
+		list($rawWidth, $rawHeight) = $image->getRawDimensions();
+
+        $hiddenText .= "<form name=\"sflyc4p\" action=\"http://www.shutterfly.com/c4p/UpdateCart.jsp\" method=\"post\">\n"
+			. "  <input type=hidden name=addim value=\"1\">\n"
+            . "  <input type=hidden name=protocol value=\"SFP,100\">\n"
+            . "  <input type=hidden name=pid value=\"C4P\">\n"
+            . "  <input type=hidden name=psid value=\"AFFL\">\n"
+            . "  <input type=hidden name=referid value=\"jackodog\">\n"
+            . "  <input type=hidden name=returl value=\"this-gets-set-by-javascript-in-onClick\">\n"
+            . "  <input type=hidden name=imraw-1 value=\"$rawImageURL\">\n"
+            . "  <input type=hidden name=imrawheight-1 value=\"$rawHeight\">\n"
+            . "  <input type=hidden name=imrawwidth-1 value=\"$rawWidth\">\n"
+            . "  <input type=hidden name=imthumb-1 value=\"$thumbImageURL\">\n"
+            . "  <input type=hidden name=imbkprntb-1 value=\"Hi\">\n"
+            . "</form>\n";
+    }
+}
+
+//-- The page navigation info ---
+$navIds = $gallery->album->getIds($gallery->user->canWriteToAlbum($gallery->album));
+$navPageCount = sizeof($navIds);
+$navPage = $navPageCount;
+while ($navPage > 0) { // looking for the index among the 'visible' items
+    if (!strcmp($navIds[$navPage], $id)) {
+        break;
+    }
+    $navPage--;
+}
+$i_nav = 1; // pages are 1 based
+foreach ($navIds as $navId) {
+	$navPages[$i_nav]['name'] = $navId;
+	$navPages[$i_nav]['href'] = makeGalleryUrl($gallery->session->albumName, $navId); 
+	$i_nav++;
+}
+
+//-- the breadcrumb info ---
+$breadCount = 0;
+if (strcmp($gallery->album->fields["returnto"], "no")) {
+	$breadCount++;
+	$breadLevels[$breadCount]['level'] = "Gallery";
+	$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
+	$breadLevels[$breadCount]['href'] = makeGalleryUrl();
+}
+$breadCount++;
+$breadLevels[$breadCount]['level'] = "Album";
+$breadLevels[$breadCount]['name'] = $gallery->album->fields["title"];
+$breadLevels[$breadCount]['href'] = makeGalleryUrl($gallery->session->albumName, "", "page=$page");
+
+//-- XXX - I think we should add current page to breadcrumb??? ---
+//$breadCount++;
+//$breadLevels[$breadCount]['level'] = "";
+//$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
+//$breadLevels[$breadCount]['href'] = makeGalleryUrl();
+
+//-- Public comments for this photo ---
+if (!strcmp($gallery->album->fields["public_comments"], "yes")) {
+	$publicCommentCount = $gallery->album->numComments($index);
+	for ($i=1; $i <= $publicCommentCount; $i++) {
+		$comment = $gallery->album->getComment($index, $i);
+		$publicComments[$i]['text'] = $comment->getCommentText();
+		$publicComments[$i]['IPNumber'] = $comment->getIPNumber();
+		$publicComments[$i]['datePosted'] = $comment->getDatePosted();
+		$publicComments[$i]['name'] = $comment->getName();
+		$publicComments[$i]['UID'] = $comment->getUID();
+	}
+}
+
 //-------------------------------------------------------------------------
 //-- The Gallery Layout Object ---
 //
-require($GALLERY_BASEDIR . "layout.php"); // XXX move to init.php
-
 $GLO = array();
 
 //-- the 'gallery' ---
@@ -181,41 +315,23 @@ $GLO['image']['tag'] = $photoTag;
 $GLO['image']['href'] = $photoHref;
 
 //-- the 'boxTools' is the stuff that goes in the tool block ---
-$toolCount = 1;
-$GLO['toolbox']['tools'][$toolCount]['name'] = "Do This";
-$GLO['toolbox']['tools'][$toolCount]['href'] = "http://www.dothis.com";
-$toolCount++;
-$GLO['toolbox']['tools'][$toolCount]['name'] = "Do That";
-$GLO['toolbox']['tools'][$toolCount]['href'] = "http://www.dothat.com";
-$toolCount++;
-$GLO['toolbox']['tools'][$toolCount]['name'] = "Do The Other";
-$GLO['toolbox']['tools'][$toolCount]['href'] = "http://www.dotheother.com";
-$GLO['toolbox']['toolCount'] = $toolCount;
+$GLO['toolbox']['commands'] = $commands;
 
 //-- the 'boxBreadcrumb' is the stuff that goes in the breadcrums block ---
+$GLO['breadcrumb']['levels'] = $breadLevels;
 
 //-- the 'boxNavigation' is the stuff that goes in the navigation block ---
-$navIds = $gallery->album->getIds($gallery->user->canWriteToAlbum($gallery->album));
-
-$navPageCount = sizeof($navIds);
-$navpage = $navPageCount;
-while ($navpage > 0) { // looking for the index among the 'visible' items
-    if (!strcmp($navIds[$navpage], $id)) {
-        break;
-    }
-    $navpage--;
-}
-$i_nav = 1; // pages are 1 based
-foreach ($navIds as $navId) {
-	$GLO['navigator']['pages'][$i_nav]['name'] = $navId;
-	$GLO['navigator']['pages'][$i_nav]['href'] = 
-		makeGalleryUrl($gallery->session->albumName, $navId); 
-	$i_nav++;
-}
-$GLO['navigator']['pageNumber'] = $navpage + 1; // 1 based
-$GLO['navigator']['pageCount'] = $navPageCount;
+$GLO['navigator']['pages'] = $navPages;
+$GLO['navigator']['pageNumber'] = $navPage + 1; // 1 based
 $GLO['navigator']['pageLabel'] = "Items";
 
+$GLO['publicComments'] = $publicComments;
+
+//-- info...what to call this? ---
+$GLO['info'] = "no info";
+
+//-- special stuff ---
+$GLO['page']['body']['hiddenText'] = $hiddenText;
 
 //-- the 'layout' relevant info ---
 $GLO['layout']['dir'] = $GLO['gallery']['url'] . "/" . getLayoutFile(""); 
@@ -223,6 +339,8 @@ $GLO['layout']['dir'] = $GLO['gallery']['url'] . "/" . getLayoutFile("");
 //-- some axtra useful stuff ---
 $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
                      "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
+$GLO['galleryProject']['anchor'] = "<a href=\"".$gallery->url."\">".
+                                 "Gallery v" . $gallery->version . "</a>";
 
 //-------------------------------------------------------------------------
 //-- The Layout of the Page ---

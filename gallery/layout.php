@@ -51,7 +51,7 @@ function getLayoutFile($name) {
 //-----------------------------------------------------------------------------
 function getLayoutXTemplate($name) {
 
-	return new XTemplate(getLayoutFile($name));
+	return new XTemplate($name, getLayoutFile(""));
 }
 
 //-----------------------------------------------------------------------------

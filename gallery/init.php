@@ -30,6 +30,7 @@ if (fs_file_exists($GALLERY_BASEDIR . "config.php")) {
 }
 require($GALLERY_BASEDIR . "version.php");
 require($GALLERY_BASEDIR . "util.php");
+require($GALLERY_BASEDIR . "layout.php");
 
 /* 
  * Turn off magic quotes runtime as they interfere with saving and
