@@ -196,24 +196,24 @@ foreach ($itemIds as $itemId) {
 	$items[$i]['index'] = $index;
 	$items[$i]['hidden'] = $album->isHidden($index);
 
+	$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
+
+	$item = $album->getPhoto($index);
+	$thumbnailImage = $album->getThumbnailImage($index);
+
+	if ($thumbnailImage) {
+		list($w, $h) = $thumbnailImage->getScaledDimensions($album->fields["thumb_size"]);
+		$items[$i]['thumbnail']['width'] = $w;
+		$items[$i]['thumbnail']['height'] = $h;
+	}
+
     if ($album->isMovie($itemId)) { 
 		$items[$i]['type'] = 'movie';
-		$items[$i]['thumbnail']['tag'] = 
-			$album->getThumbnailTag($index, $album->fields["thumb_size"]);
-		$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
 		$items[$i]['href'] = $album->getPhotoPath($index)."\" target=\"other"; 
 	} else if ($album->isAlbumName($index)) {
 		$items[$i]['type'] = 'album';
 		$myAlbum = new Album();
 		$myAlbum->load($album->isAlbumName($index));
-		if ($myAlbum->numPhotos(1)) {
-			$items[$i]['thumbnail']['tag'] = 
-				$myAlbum->getThumbnailTag($myAlbum->getHighlight(), $album->fields["thumb_size"]);
-			$items[$i]['thumbnail']['url'] = $myAlbum->getThumbnailPath($myAlbum->getHighlight());
-		} else {
-			$items[$i]['thumbnail']['tag'] = "";
-			$items[$i]['thumbnail']['url'] = "";
-		}
 		$items[$i]['itemCount'] = $myAlbum->numPhotos($user->canWriteToAlbum($myAlbum));
 		$items[$i]['href'] = makeAlbumUrl($myAlbum->fields['name']);
 		$items[$i]['title'] = $myAlbum->fields[title];
@@ -233,9 +233,6 @@ foreach ($itemIds as $itemId) {
 	} else {
 		$items[$i]['type'] = 'photo';
 		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
-		$items[$i]['thumbnail']['tag'] = 
-			$album->getThumbnailTag($index, $album->fields["thumb_size"]);
-		$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
 		$items[$i]['caption'] = $album->getCaption($index);
 		$items[$i]['commentCount'] = 
 			((!strcmp($album->fields["public_comments"], "yes"))) ? 
