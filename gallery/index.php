@@ -32,6 +32,7 @@ global $GALLERY_BASEDIR;
 global $GALLERY_EMBEDDED_INSIDE;
 global $GALLERY_MODULENAME;
 global $op;
+global $name;
 global $include;
 
 /* Detect PHP-Nuke and react accordingly */
@@ -41,7 +42,7 @@ if (!strcmp($op, "modload")) {
 	 * Change this variable if your Gallery module has a different
 	 * name in the Nuke modules directory.
 	 */
-	$GALLERY_MODULENAME = "gallery";
+	$GALLERY_MODULENAME = $name;
 	$GALLERY_BASEDIR = "modules/$GALLERY_MODULENAME/";
 	$GALLERY_EMBEDDED_INSIDE = "nuke";
 
