@@ -68,9 +68,14 @@
 
           <tr>
           <td align="center" valign="top" width="{thumbCellSize}">
-            <span class="caption"><b>Album: {item.title}</b> {item.description}
+            <span class="caption"><b>Album: <a href="{item.href}">{item.title}</a></b>
+            <br>
+            {item.description}
             <br>
             <i>Changed: {item.dateChanged}</i>
+            <br>
+            <i>{item.itemCountText}</i>
+            <br>
             <i>{item.clickCountText}</i>
           </td>
           </tr>
