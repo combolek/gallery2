@@ -149,7 +149,6 @@ Class GalleryConfig
 			we're using.
 
 	- string[] defaults
-		- defaults["highlight_size"]
 		- defaults["movie_thumbnail_path"]
 		- defaults["bordercolor"]
 		- defaults["border"]
@@ -206,7 +205,6 @@ Class GalleryItem
 	-------
 	- id				* (id) this item
 	- parentId 			* (id) this item's parent
-        - thumbnail 			* (id) an ImageContainer 
 	- highlight 			* (id) an ImageContainer
 	- comment Ids			* (id[]) ids of 0+ comments
 	- version			* (float) data version of this item
@@ -220,6 +218,10 @@ clicks->	- viewCount		* (int) number of times this item has been accessed
 		- description		* (string) details of this item (long)
 		- isHtmlAllowed		* (bool) allow html in the title & description
 hidden->	- isHidden		* (bool) is this item hidden?
+
+	- /* ImageContainer */ id thumbnail
+		id of the thumbnail image
+
 
 	Methods
 	-------
@@ -263,6 +265,12 @@ integrityCheck->
 
 	- bool delete()
 		Delete this GalleryItem and notify the owner accordingly
+
+	- ImageContainer getHighlightImage()
+		Get the ImageContainer that we're using as the highlight 
+
+	- void setHighlightImage(ImageContainer)
+		Set the ImageContainer that we're using as the highlight 
 
 Class AlbumItem [extends GalleryItem]
 -------------------------------------
@@ -315,10 +323,6 @@ display_clicks->- display_view_count	* show view counts for my items?
 	- /* GalleryItem */ getItem(/* GalleryItem */ id)
 		Return the GalleryItem associated with the given id
 
-	- bool highlightItem((/* GalleryItem */ id)
-		Use this item as the highlight for the album.
-		* return true on success or false on failure
-
 	- bool canRead(/* User */ id)
 		Return true if the given user id can read this album
 
@@ -353,12 +357,6 @@ Class PhotoItem [extends GalleryItem]
         - /* ImageContainer */ id[] resizes
 		array of ids of resized versions of this photo
 
-	- /* ImageContainer */ id thumbnail
-		id of the thumbnail image
-
-	- /* ImageContainer */ id highlight
-		id of the highlight image
-
 	- int[] captureDate
 		associative array of info describing the date the item
 		was captured not in EPOCH so we can support dates <
@@ -392,12 +390,6 @@ Class PhotoItem [extends GalleryItem]
 
 	- void setThumbnailImage(ImageContainer)
 		Set the ImageContainer that we're using as the thumbnail 
-
-	- ImageContainer getHighlightImage()
-		Get the ImageContainer that we're using as the highlight 
-
-	- void setHighlightImage(ImageContainer)
-		Set the ImageContainer that we're using as the highlight 
 
 	- int[] getCaptureDate()
 		Return the associative array of info describing the
