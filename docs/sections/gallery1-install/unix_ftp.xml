@@ -6,11 +6,11 @@
  <para>
   <emphasis>IMPORTANT</emphasis>: These instructions are for a NEW
   INSTALLATION OF GALLERY on a LINUX or UNIX server using an FTP
-  client to upload files and set permissions. Use the <xref
-  linkend="gallery1-install.upgrade" /> guide if you are updating your
-  installation from an earlier version. Use the <xref
-  linkend="gallery1-install.windows" /> guide to install Gallery on a
-  Windows server.
+  client to upload files and set permissions. Use the <link
+  linkend="gallery1-install.upgrade">Upgrading</link> guide if you are updating
+  your installation from an earlier version. Use the <link
+  linkend="gallery1-install.windows">Installing on Windows</link> guide to
+  install Gallery on a Windows server.
  </para>
  <para>
   Once unpacked (unzipped), you should have a directory called
@@ -72,9 +72,9 @@
   <listitem>
    <para>
     Gallery requires an image manipulation program (as mentioned in
-    the <xref linkend="gallery1-install.requirements" />). Some hosts
-    have either NetPBM or ImageMagick already installed. If so, you'll
-    need to know the correct path (note that this is different from a
+    the <link linkend="gallery1-install.requirements">Installation Requirements
+    </link>). Some hosts have either NetPBM or ImageMagick already installed. If
+    so, you'll need to know the correct path (note that this is different from a
     URL, which begins with "http://www."). It will be something
     similar to: <filename>/usr/local/imagemagick</filename>.
    </para>
