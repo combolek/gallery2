@@ -387,7 +387,7 @@ class Album {
 		/* Restore transient data after saving */
 		$this->transient = $transient_save;
 
-		/* Create the new serial file */
+		/* Create the new album serial file */
 		if ($this->updateSerial) {
 			$serial = "$dir/serial." . $this->fields["serial_number"]. ".dat";
 			if ($fd = fs_fopen($serial, "w")) {
@@ -395,8 +395,14 @@ class Album {
 				fwrite($fd, "TSILB\n");
 				fclose($fd);
 			}
+
+			/* Update the master serial file */
+			if ($fd = fs_fopen($gallery->app->albumDir . "/serial.dat", "w")) {
+				fwrite($fd, time() . "\n");
+				fclose($fd);
+			}
+			$this->updateSerial = 0;
 		}
-		$this->updateSerial = 0;
 	}
 
 	function delete() {
@@ -565,7 +571,7 @@ class Album {
 			$myAlbum = $this->getNestedAlbum($index);
 			return $myAlbum->getHighlightTag($size, $attrs);
 		} else {	
-			return $photo->getThumbnailTag($this->getAlbumDirURL(), $size, $attrs);
+			return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"), $size, $attrs);
 		}
 	}
 
@@ -575,14 +581,14 @@ class Album {
 			$myAlbum = $this->getNestedAlbum($index);
 			return $myAlbum->getHighlightPath();
 		} else {	
-			return $photo->getThumbnailPath($this->getAlbumDirURL());
+			return $photo->getThumbnailPath($this->getAlbumDirURL("thumb"));
 		}
 	}
 
 	function getHighlightTag($size=0, $attrs="") {
 		if ($this->numPhotos(1)) {	
 			$photo = $this->getPhoto($this->getHighlight());
-			return $photo->getHighlightTag($this->getAlbumDirURL(), $size, $attrs);
+			return $photo->getHighlightTag($this->getAlbumDirURL("highlight"), $size, $attrs);
 		} else {
 			return "Empty!";
 		}
@@ -591,7 +597,7 @@ class Album {
 	function getHighlightPath() {
 		if ($this->numPhotos(1)) {	
 			$photo = $this->getPhoto($this->getHighlight());
-			return $photo->getHighlightPath($this->getAlbumDirURL());
+			return $photo->getHighlightPath($this->getAlbumDirURL("highlight"));
 		} else {
 			return "Empty!";
 		}
@@ -600,20 +606,20 @@ class Album {
 	function getPhotoTag($index, $full) {
 		$photo = $this->getPhoto($index);
 		if ($photo->isMovie()) {
-			return $photo->getThumbnailTag($this->getAlbumDirURL());
+			return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"));
 		} else {
-			return $photo->getPhotoTag($this->getAlbumDirURL(), $full);
+			return $photo->getPhotoTag($this->getAlbumDirURL("full"), $full);
 		}
 	}
 
 	function getPhotoPath($index, $full=0) {
 		$photo = $this->getPhoto($index);
-		return $photo->getPhotoPath($this->getAlbumDirURL(), $full);
+		return $photo->getPhotoPath($this->getAlbumDirURL("full"), $full);
 	}
 
 	function getItemIdByIndex($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getId();
+		return $photo->getId($this->getAlbumDirURL("full"));
 	}
 
 	function getAlbumDir() {
@@ -622,16 +628,25 @@ class Album {
 		return $gallery->app->albumDir . "/{$this->fields[name]}";
 	}
 
-	function getAlbumDirURL() {
+	function getAlbumDirURL($type) {
 		global $gallery;
 
 		if ($this->transient->mirrorUrl) {
 			return $this->transient->mirrorUrl;
 		}
 
-		if ($gallery->app->feature["mirror"]) {
+		$albumPath = "/{$this->fields[name]}";
+
+		/* 
+		 * Highlights are typically shown for many albums at once,
+		 * and it's slow to check each different album just for one
+		 * image.  Highlights are also typically pretty small.  So,
+		 * if this is for a highlight, don't mirror it.
+		 */
+		if ($gallery->app->feature["mirror"] &&
+		    strcmp($type, "highlight")) {
 			foreach(split("[[:space:]]+", $gallery->app->mirrorSites) as $base_url) {
-				$base_url .= "/{$this->fields[name]}";
+				$base_url .= $albumPath;
 				$serial = $base_url . "/serial.{$this->fields[serial_number]}.dat";
 				if ($fd = @fopen($serial, "r")) {
 					$this->transient->mirrorUrl = $base_url;
@@ -641,11 +656,11 @@ class Album {
 
 			/* All mirrors are out of date */
 			$this->transient->mirrorUrl = 
-				$gallery->app->albumDirURL . "/{$this->fields[name]}";
+				$gallery->app->albumDirURL . $albumPath;
 			return $this->transient->mirrorUrl;
-		} else {
-			return $gallery->app->albumDirURL . "/{$this->fields[name]}";
-		}
+		} 
+
+		return $gallery->app->albumDirURL . $albumPath;
 	}
 
 	function numHidden() {
@@ -667,7 +682,7 @@ class Album {
 		}
 	}
 
-	function getIds($user, $first=1, $howmany=-1) {
+	function getIds($user, $itemsOnly=0, $first=1, $howmany=-1) {
 		global $albumDB;
 		if (!$albumDB) $albumDB = new AlbumDB();
 		$ids = Array();
@@ -698,21 +713,28 @@ class Album {
 			if (!$photo->isHidden() || $show_hidden) {
 				/* if the user has no perms on a nested album skip it */
 				if ($photo->isAlbumName) {
-					$myAlbum = $albumDB->getAlbumbyName($photo->isAlbumName);
-					if (!$user->canReadAlbum($myAlbum)) {
-						continue;
+					if (!$itemsOnly) {
+						$myAlbum = $albumDB->getAlbumbyName($photo->isAlbumName);
+						if (!$user->canReadAlbum($myAlbum)) {
+							continue;
+						}
+						$ids[] = $photo->getId();
 					}
-				} 
-
-				$ids[] = $photo->getId();
+				} else { 
+					$ids[] = $photo->getId();
+				}
 				$count++;
 			}
 		}
 		return $ids;
 	}
 
-	function getPhoto($index) {
-		return $this->photos[$index-1];
+	function &getPhoto($index) {
+		if ($index <= sizeof($this->photos)) { 
+			return $this->photos[$index-1];
+		} else {
+			print "ERROR: requested index $index out of bounds";
+		}
 	}
 
 	function getPhotoIndex($id) {
@@ -758,7 +780,7 @@ class Album {
 
 	function getItemCaptureDate($index) {
 		$photo = $this->getPhoto($index);
-		$itemCaptureDate =  $photo->getItemCaptureDate();
+		$itemCaptureDate = $photo->getItemCaptureDate();
 		if (!$itemCaptureDate) { // populating old photos with data
 			$this->setItemCaptureDate($index);
 			$this->save();
@@ -802,7 +824,6 @@ class Album {
 		$photo->setKeywords($keywords);
         }
 
-
 	function rotatePhoto($index, $direction) {
 		$this->updateSerial = 1;
 		$photo = &$this->getPhoto($index);
@@ -815,6 +836,7 @@ class Album {
 	}
 
 	function makeThumbnail($index) {
+		$this->updateSerial = 1;
 		$photo = &$this->getPhoto($index);
 		$photo->makeThumbnail($this->getAlbumDir(), $this->fields["thumb_size"]);
 	}
