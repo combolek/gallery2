@@ -201,6 +201,17 @@ function selectOptions($album, $field, $opts) {
 		echo "<option $sel>$opt";
 	}
 }
+function getSelectOptions($album, $field, $opts) {
+	$content = "";
+	foreach ($opts as $opt) {
+		$sel = "";
+		if (!strcmp($opt, $album->fields[$field])) {
+			$sel = "selected";
+		}
+		$content .= "<option $sel>$opt</option>\n";
+	}
+	return $content;
+}
 
 function acceptableFormat($tag) {
 	return (isImage($tag) || isMovie($tag));
@@ -1046,5 +1057,6 @@ function safe_serialize($obj, $file) {
 
 	return $success;
 }
+
 
 ?>
