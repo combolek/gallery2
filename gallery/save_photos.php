@@ -39,9 +39,9 @@ function msg($buf) {
 
 	if ($msgcount) {
 		print "<br>";
-		my_flush();
 	}
 	print $buf;
+	my_flush();
 	$msgcount++;
 }
 
@@ -93,10 +93,6 @@ if ($urls) {
 		/* Get rid of any preceding whitespace (fix for odd browsers like konqueror) */
 		$url = eregi_replace("^[[:space:]]+", "", $url);
 
-		if (!ereg("http", $url)) {
-			$url = "http://$url";
-		}
-
 		/* Parse URL for name and file type */
 		$url_stuff = parse_url($url);
 		$name = basename($url_stuff["path"]);
@@ -104,18 +100,23 @@ if ($urls) {
 		$tag = strtolower($tag);
 	
 		/* Dont output warning messages if we cant open url */
-		$id = @fs_fopen($url, "r");
 	
-		/* Manual check - was the url accessible? */
-		if (!$id) {
-			$id = @fs_fopen("$url/", "r");
-			if (!$id) {
-				msg("Could not open url: '$url'");
-				continue;
-			}
-		} else {
-			msg(urldecode($url));
+		/*
+		 * Try to open the url in lots of creative ways.
+		 */
+ 		$id = @fs_fopen($url, "r");
+		if (!ereg("http", $url)) {
+			if (!$id) $id = @fs_fopen("http://$url");
+			if (!$id) $id = @fs_fopen("http://$url/");
 		}
+		if (!$id) $id = @fs_fopen("$url/");
+
+		if ($id) {
+			msg(urldecode($url));
+		} else {
+			msg("Could not open url: '$url'");
+			continue;
+		} 
 	
 		/* copy file locally */
 		$file = $gallery->app->tmpDir . "/photo.$name";
@@ -283,7 +284,7 @@ function process($file, $tag, $name, $setCaption="") {
 				if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
 					$index = $gallery->album->numPhotos(1);
 					$photo = $gallery->album->getPhoto($index);
-					list($w, $h) = $photo->getDimensions();
+					list($w, $h) = $photo->image->getRawDimensions();
 					if ($w > $gallery->album->fields["resize_size"] ||
 					    $h > $gallery->album->fields["resize_size"]) {
 						msg("- Resizing $name"); 
@@ -336,7 +337,7 @@ if (count($image_tags)) {
 ?>
 </table>
 <input type=hidden name="setCaption" value="<?=$setCaption?>">
-<input type=submit value="Add Files" onClick="opener.showProgress(); document.uploadurl_form.submit()">
+<input type=button value="Add Files" onClick="opener.showProgress(); document.uploadurl_form.submit()">
 </form>
 <? } /* End if links slurped */ ?>
 </body>
