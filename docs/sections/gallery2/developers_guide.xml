@@ -313,10 +313,11 @@
    </title>
    <para>
     Clean code is important, especially when many developers are
-    collaborating.  Read and obey the style guide:
+    collaborating.  Read and obey the Gallery 2
     <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19">
-     http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19
+     Coding Standards
     </ulink>
+    document
    </para>
   </sect3>
   <sect3>
@@ -497,7 +498,8 @@
         init method is called on every active module on every request.
         You should not do anything heavy in this method if you can
         avoid it.  Typically you would register any GalleryFactory
-        implementations (see below) at this time.  See the
+        implementations (see below) at this time and load any helper
+        classes that you now you'll need.  See the
         <emphasis>comment</emphasis> module for an example.
        </para>
       </listitem>
@@ -621,9 +623,32 @@
    </sect4>
    <sect4>
     <title>
+     classes
+    </title>
+    <para>
+     This is the home for any entities, items and helper classes that
+     you create.  See the comment and search modules for examples of
+     these.  
+    </para>
+   </sect4>
+   <sect4>
+    <title>
      PHPUnit Tests
     </title>
     <para>
+     You should create your PHPUnit tests inside the tests/phpunit
+     directory.  Framework tests should extend GalleryTest, and
+     controller tests should extend GalleryControllerTest.  Examine
+     those classes (in gallery2/setup/phpunit) to find common
+     convenience methods that you can use in your tests.
+    </para>
+    <para>
+     Unit tests should make an effort to avoid messing with existing
+     data and to leave the database in a clean state when they're
+     done.  It's ok for the tests to screw with the database when they
+     fail (what can ya do), but not when they run successfully.  You
+     should be able to run tests repeatedly without having to rebuild
+     the database, etc.
     </para>
    </sect4>
   </sect3>
@@ -644,6 +669,17 @@
       underlying technologies like the platform, storage subsystem,
       implementation factories, toolkits, caching system, entities, maps,
       events, etc.
+     </para>
+     <para>
+      The core module provides the base set of GalleryEntities and
+      GalleryMaps that form the framework for all managed data.  Here
+      is a
+      <ulink url="http://gallery.menalto.com/modules.php?set_albumName=userguide&amp;id=aab&amp;op=modload&amp;name=gallery&amp;file=index&amp;include=view_photo.php">
+       UML diagram of all GalleryEntities
+      </ulink>
+      .  At the moment, this diagram only contains the core entities
+      and their members.  It does not include core maps, helper
+      classes, entities from other modules or entity methods.
      </para>
     </listitem>
     <listitem>
@@ -693,35 +729,33 @@
   <title>
    Layouts
   </title>
-  <para>&nbsp;
+  <para>
+   Layouts are working, but are expected to change somewhat in the
+   near future so we haven't fully doc'd them yet.
   </para>
-  <sect3>
-   <title>
-    classic
-   </title>
-   <para>&nbsp;
-   </para>
-  </sect3>
  </sect2>
  <sect2 id="gallery2.dev-guide.themes">
   <title>
    Themes
   </title>
-  <para>&nbsp;
+  <para>
+   Themes are working, but are expected to change somewhat in the
+   near future so we haven't fully doc'd them yet.
   </para>
-  <sect3>
-   <title>
-    classic
-   </title>
-   <para>&nbsp;
-   </para>
-  </sect3>
  </sect2>
  <sect2 id="gallery2.dev-guide.patterns">
   <title>
    Patterns
   </title>
-  <para>&nbsp;
+  <para>
+   Gallery makes use of quite a few design patterns in the code.
+   These patterns are design and coding methodologies that make it
+   easier to implement and understand large systems.  If you're
+   working on the official Gallery codebase, you must understand and
+   use them in the code that you write.  If you're developing your own
+   module, we strongly recommend that you follow these patterns since
+   it'll make it that much easier to integrate your module into the
+   official module set (which is a good thing).
   </para>
   <sect3>
    <title>
