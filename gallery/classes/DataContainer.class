@@ -90,6 +90,7 @@ class DataContainer extends GalleryNucleus {
      *
      * @gallery persistent
      * @gallery flag STORAGE_TYPE_MAP
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var object GalleryList $_derivativeChildren
      */
@@ -326,7 +327,8 @@ class DataContainer extends GalleryNucleus {
                       STORAGE_MODIFIER_MEDIUM);
         $meta['members']['derivativeChildren'] = array(
             'class' => 'DataContainer',
-            'type' => STORAGE_TYPE_MAP);
+            'type' => STORAGE_TYPE_MAP |
+                      STORAGE_TYPE_INTEGER);
         $meta['members']['derivativeCommands'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_STRING |
