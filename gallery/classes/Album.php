@@ -350,6 +350,9 @@ class Album {
 
 	// ------------- 
 	function canRead($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canRead", $uid);
 	}
 
@@ -359,6 +362,9 @@ class Album {
 
 	// ------------- 
 	function canWrite($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canWrite", $uid);
 	}
 
@@ -368,6 +374,9 @@ class Album {
 
 	// ------------- 
 	function canDelete($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canDelete", $uid);
 	}
 
@@ -377,6 +386,9 @@ class Album {
 
 	// ------------- 
 	function canDeleteFrom($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canDeleteFrom", $uid);
 	}
 
@@ -386,6 +398,9 @@ class Album {
 
 	// ------------- 
 	function canAddTo($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canAddTo", $uid);
 	}
 
@@ -395,6 +410,9 @@ class Album {
 
 	// ------------- 
 	function canChangeText($uid) {
+		if ($this->isOwner($uid)) {
+			return true;
+		}
 		return $this->getPerm("canChangeText", $uid);
 	}
 
@@ -404,11 +422,11 @@ class Album {
 
 	// ------------- 
 	function isOwner($uid) {
-		return $this->getPerm("owner", $uid);
+		return (!strcmp($uid, $this->fields["owner"]));
 	}
 
-	function setOwner($uid, $bool) {
-		$this->setPerm("owner", $uid, $bool);
+	function setOwner($uid) {
+		$this->fields["owner"] = $uid;
 	}
 }
 
