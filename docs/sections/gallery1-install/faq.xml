@@ -128,7 +128,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       Running PHP as a CGI is usually done when PHP is not available on your
       server (but you can execute cgi-bin scripts) or when the normal PHP
       installation is running in safe mode.  Note that in order for this to
-      work, your server must be configured to read .htaccess files, which your
+      work, your server must be configured to read &htaccess; files, which your
       host can disable!
      </para>
      <orderedlist>
@@ -173,7 +173,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </listitem>
       <listitem>
        <para>
-        Create a new .htaccess file in your <filename>php-cgi</filename> directory
+        Create a new &htaccess; file in your <filename>php-cgi</filename> directory
         and put the following lines in it:
         <screen>
          RemoveHandler .php
@@ -203,7 +203,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       In the rare case that your ISP has PHP3 and PHP4 installed on the same server,
       sometimes .php files will end up being parsed by the PHP3 parser, which Gallery
       can't run under.  To force .php files to use the PHP4 parser, add these to your
-      <filename>.htaccess</filename> file.
+      &htaccess; file.
       <screen>
        &lt;Files *.php&gt;
         ForceType application/x-httpd-php
@@ -250,8 +250,8 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
     </question>
     <answer>
      <para>
-      This is because your webserver doesn't allow you to use certain <filename>
-      .htaccess</filename> overrides.  The Gallery setup script tries to set some
+      This is because your webserver doesn't allow you to use certain
+      &htaccess; overrides.  The Gallery setup script tries to set some
       PHP settings, but this requires you to set <literal>AllowOverride Options
       FileInfo</literal> or disable the overrides.  If you have access to your
       <filename>httpd.conf</filename> file, add this to it:
@@ -263,7 +263,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
      </para>
      <para>
       If you don't have access to your <filename>httpd.conf</filename>, delete
-      the <filename>.htaccess</filename> file in the <filename>setup/</filename>
+      the &htaccess; file in the <filename>setup/</filename>
       directory.
      </para>
     </answer>
@@ -300,7 +300,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </listitem>
       <listitem> 
        <para>
-        Re-run the <link linkend="gallery1-install.config_wizard">configuration
+        Re-run the <link linkend="gallery1-install.config-wizard">configuration
         wizard</link>.  On step 2, select the option to put Gallery into
         <emphasis>debug mode</emphasis>.  Finish the configuration wizard and
         secure Gallery (this is described in the configuration wizard tutorial).
@@ -510,14 +510,14 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       <listitem>
        <para>
         If you are on Windows, you need to edit your <literal>session.save_path
-        </literal> directive in <filename>php.ini</filename> to a valid directory.
+        </literal> directive in &php.ini; to a valid directory.
          This defaults to <filename>/tmp</filename> which isn't a valid directory
          on Windows.  Change it to a valid temp folder, such as
          <filename>c:\winnt\temp</filename>.  Then restart your webserver.
        </para>
        <para>
-        If you don't have access to <filename>php.ini</filename>, add this to the
-        <filename>.htaccess</filename> file in your gallery directory.
+        If you don't have access to &php.ini;, add this to the
+        &htaccess; file in your gallery directory.
         <screen>
          php_value session.save_path "c:\winnt\temp"
         </screen>
@@ -526,7 +526,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       <listitem>
        <para>
         Make sure that the <literal>session.use_cookies</literal> setting is on
-        in <filename>php.ini</filename>.  It defaults to on, but your host may
+        in &php.ini;.  It defaults to on, but your host may
         have turned it off.  You can verify the setting by putting Gallery into
         configuration mode and visiting the <filename>setup/phpinfo.php</filename>
         page in your browser.  Search for that directive.
@@ -568,20 +568,20 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
      <para>
       Gallery 1.x generates a ton of warnings. We're fixing this in the next
       release. In the meantime, you need to turn down the error reporting level
-      in your <filename>php.ini</filename> file so that you don't see these
+      in your &php.ini; file so that you don't see these
       warnings. You can do that by setting error_reporting = E_ALL &amp; ~E_NOTICE
-      in <filename>php.ini</filename>. Then restart your Apache server.     
+      in &php.ini;. Then restart your Apache server.     
      </para>
      <para>
       If you don't see a change after doing this, it's possible that you're
       editing the wrong php.ini file. Go to <filename>gallery/setup/phpinfo.php
       </filename> in your web browser and it will tell you (near the top of the
-      file) where it thinks your <filename>php.ini</filename> file is located.
+      file) where it thinks your &php.ini; file is located.
       After making the change, phpinfo() should say that your error_reporting
       level is "2039".
      </para>
      <para>
-      You can also add this line to your <filename>.htaccess</filename> file
+      You can also add this line to your &htaccess; file
       <screen>
        php_value error_reporting 2039
       </screen>
@@ -600,7 +600,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
      <para>
       You've specified an incorrect path to your albums directory in the config
       wizard.  You can fix this by re-running the config wizard and correcting
-      the Albums URL value or you can edit the <filename>config.php</filename>
+      the Albums URL value or you can edit the &config.php;
       file and fix the $gallery-&gt;app-&gt;albumDirURL variable. 
      </para>
     </answer>
@@ -733,19 +733,19 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
     <answer>
      <para>
       [answered by Vallimar] You are exhausting the available memory that PHP
-      has access to. In <filename>php.ini</filename> there is a config variable
+      has access to. In &php.ini; there is a config variable
       named <literal>memory_limit</literal> that by default is set to 8MB. I
       quickly exhausted this after uploading a couple thousand images and had
-      to increase it.  Edit <filename>php.ini</filename> and increase it to a larger
+      to increase it.  Edit &php.ini; and increase it to a larger
       value (restart Apache afterwards).  If you don't have access to <filename>
-      php.ini</filename>, you can add this line to your <filename>.htaccess</filename>
+      php.ini</filename>, you can add this line to your &htaccess;
       file.
       <screen>
        php_value memory_limit [new memory limit]
       </screen>
       <note>
        <simpara>
-        When adding that line to <filename>.htaccess</filename>, you must use a 
+        When adding that line to &htaccess;, you must use a 
         number, in bytes.  For example, 8MB would be about 8000000 bytes.
        </simpara>
       </note>
@@ -782,7 +782,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </listitem>
       <listitem>
        <para>
-        Edit your <filename>config.php</filename> and change 
+        Edit your &config.php; and change 
         $gallery-&gt;app-&gt;pnmtojpeg to <literal>"ppmtojpeg"</literal>
         (or <literal>"pnmtojpeg"</literal>, whichever you have).
        </para>
@@ -817,8 +817,8 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       and restart Apache.
      </para>
      <para>
-      If you don't have access to <filename>php.ini</filename>, add this line
-      to your <filename>.htaccess</filename>
+      If you don't have access to &php.ini;, add this line
+      to your &htaccess;
       <screen>
        php_flag session.bug_compat_warn off
       </screen>
@@ -832,7 +832,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    <qandaentry>
     <question>
      <para>
-      Why, when I try to upload a .htaccess and chmod it with my FTP client,
+      Why, when I try to upload a &htaccess; and chmod it with my FTP client,
       it "disappears"?
      </para>
     </question>
@@ -902,15 +902,14 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
     </question>
     <answer>
      <para>
-      The easiest way to do this is to use relative URLs in <filename>config.php
-      </filename>.
+      The easiest way to do this is to use relative URLs in &config.php;.
       <note>
        <simpara>
         You will have to redo this each time you run the config wizard, since
         the config wizard won't accept relative urls.
        </simpara>
       </note>
-      You need to edit config.php manually. There are two URLs in that file. Change each of them as follows:
+      You need to edit &config.php; manually. There are two URLs in that file. Change each of them as follows:
      </para>
      <para>
       From:
@@ -998,9 +997,9 @@ if (!function_exists('array_search')) {
       correctly.
      </para>
      <para>
-      If you wish, you can also save your old <filename>config.php</filename>
-      file and upload it instead of creating a new, blank <filename>config.php
-      </filename> (as you would with a normal installation) before configuring
+      If you wish, you can also save your old &config.php;
+      file and upload it instead of creating a new, blank &config.php;
+      (as you would with a normal installation) before configuring
       your new Gallery installation. You'll still have to re-run the
       configuration wizard to specify new paths for everything, but saving
       some host-independent information (e.g. album defaults, etc..) can save
