@@ -96,12 +96,22 @@ public class DroppableList
 	/* ********* TargetListener ********** */
 	public void dragEnter( DropTargetDragEvent dropTargetDragEvent ) {
 		Log.log( Log.LEVEL_TRACE, MODULE, "dragEnter - dtde" );
+		for (Iterator it = dropTargetDragEvent.getCurrentDataFlavorsAsList().iterator(); it.hasNext();) {
+			DataFlavor flavor = (DataFlavor) it.next();
+			Log.log(Log.LEVEL_TRACE, MODULE, "Flavor: " + flavor.getHumanPresentableName() + " -- " +
+					flavor.getMimeType());
+		}
+		Log.log(Log.LEVEL_TRACE, MODULE, "Action: " + dropTargetDragEvent.getSourceActions() + " -- " +
+				dropTargetDragEvent.getDropAction());
+
 		if (! isDragOK(dropTargetDragEvent)) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "Refusing drag");
 			dropTargetDragEvent.rejectDrag( );
 			return;
 		}
 
-		dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE );
+		Log.log(Log.LEVEL_TRACE, MODULE, "Accepting drag");
+		//dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE | DnDConstants.ACTION_REFERENCE );
 	}
 
 	public void dragExit( DropTargetEvent dropTargetEvent ) {
@@ -117,7 +127,7 @@ public class DroppableList
 			return;
 		}
 
-		dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE );
+		//dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE | DnDConstants.ACTION_REFERENCE );
 		dragOver( (int) dropTargetDragEvent.getLocation().getY() );
 	}
 
@@ -170,15 +180,18 @@ public class DroppableList
 		Log.log( Log.LEVEL_TRACE, MODULE, "drop - dtde" );
 		
 		if ( ! isDragOK(dropTargetDropEvent) ) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "Refusing drop");
 			dropTargetDropEvent.rejectDrop();
 			return;
 		}
+
+		Log.log(Log.LEVEL_TRACE, MODULE, "Accepting drop");
 
 		try {
 			Transferable tr = dropTargetDropEvent.getTransferable();
 
 			dropTargetDropEvent.acceptDrop(
-					DnDConstants.ACTION_COPY_OR_MOVE );
+					DnDConstants.ACTION_COPY_OR_MOVE | DnDConstants.ACTION_REFERENCE);
 
 			//thanks John Zukowski
 			Point dropLocation = dropTargetDropEvent.getLocation();
@@ -230,7 +243,7 @@ public class DroppableList
 			return;
 		}
 
-		dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE );
+		//dropTargetDragEvent.acceptDrag( DnDConstants.ACTION_COPY_OR_MOVE | DnDConstants.ACTION_REFERENCE );
 	}
 
 	
