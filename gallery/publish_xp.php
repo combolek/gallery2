@@ -24,13 +24,13 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($uname, $password, $langid, $lcid, $cmd) = getRequestVar(array('uname', 'password', 'langid', 'lcid', 'cmd'));
+
 if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
     $proto = "https";
 } else {
     $proto = "http";
 }
-
-list($uname, $password, $langid, $lcid, $cmd) = getRequestVar(array('uname', 'password', 'langid', 'lcid', 'cmd'));
 
 if(empty($cmd)){
 

@@ -24,19 +24,16 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($save, $data, $keywords, $index, $extra_fields) = getRequestVar(array('save', 'data', 'keywords', 'index', 'extra_fields'));
+list($capture_year, $capture_mon, $capture_mday, $capture_hours, $capture_minutes, $capture_seconds) = 
+	getRequestVar(array('capture_year', 'capture_mon', 'capture_mday', 'capture_hours', 'capture_minutes', 'capture_seconds'));
+
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
 	echo _("You are not allowed to perform this action!");
 	exit;
 }
 $err = "";
-
-$extra_fields = getRequestVar('extra_fields');
-
-list($save, $data, $keywords, $index) = getRequestVar(array('save', 'data', 'keywords', 'index'));
-
-list($capture_year, $capture_mon, $capture_mday, $capture_hours, $capture_minutes, $capture_seconds) = 
-	getRequestVar(array('capture_year', 'capture_mon', 'capture_mday', 'capture_hours', 'capture_minutes', 'capture_seconds'));
 
 doctype();
 echo "\n<html>";	

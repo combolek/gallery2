@@ -24,14 +24,14 @@
 
 require(dirname(__FILE__) . '/init.php');
 
+list($page, $save, $next, $prev, $cancel) = getRequestVar(array('page', 'save', 'next', 'prev', 'cancel'));
+list($captionedAlbum, $extra_fields) = getRequestVar(array('captionedAlbum', 'extra_fields'));
+
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
     header("Location: " . makeAlbumHeaderUrl());
     return;
 }
-
-list($page, $save, $next, $prev, $cancel) = getRequestVar(array('page', 'save', 'next', 'prev', 'cancel'));
-list($captionedAlbum, $extra_fields) = getRequestVar(array('captionedAlbum', 'extra_fields'));
 
 if (!isset($page)) {
     $page = 1;
