@@ -342,7 +342,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
          that your dynamic library loader can't find a library that it needs.
          On Linux you can add the directory containing the appropriate library
          to <filename>/etc/ld.so.conf</filename> and then run <command>ldconfig
-         -v</command> as root to fix this.
+         -v</command> as root to fix this.  If you don't have root access to the
+         server, either contact your host for help or download a new version
+         of ImageMagick or NetPBM and use the new install instead.
         </para>
        </listitem>
        <listitem>
