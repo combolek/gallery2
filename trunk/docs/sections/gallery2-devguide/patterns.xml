@@ -537,14 +537,114 @@
   <title>
    Model-View-Controller
   </title>
-  <para>&nbsp;
+  <para>
+   The Model-View-Controller (MVC) pattern is a way of organizing the code a
+   program's graphical user interface (GUI).  The basic premise is to separate
+   data from logic and display.
+  </para>
+  <para>
+   <ulink url="http://ootips.org/mvc-pattern.html">
+    <citetitle>
+     http://ootips.org/mvc-pattern.html
+    </citetitle>
+   </ulink>
+  </para>
+  <para>
+   <ulink url="http://www.phppatterns.com/index.php/article/articleprint/11/-1/1/">
+    <citetitle>
+     http://www.phppatterns.com/index.php/article/articleprint/11/-1/1/
+    </citetitle>
+   </ulink>
+  </para>
+  <para>
+   The "Model" is the information in the database (think of "data model") it's got
+   no logic.  it's just data.  The model is wrapped with logic in the core that
+   allows you to manipulate it safely without screwing things up.  These are the
+   entities/maps/utility classes, etc.
+  </para>
+  <para>
+   Anything you see in your browser is a View, which is just one way of looking at
+   any given model.  So you may have a GalleryUser entity as your data model. You
+   can have lots of different views of that user information, one might show the
+   email address, another might show a form where you can edit data.
+  </para>
+  <para>
+   If you are looking at a View that contains an HTML form, when you submit the
+   form it goes to a Controller. The Controller reads the form data and then
+   applies it to the model, then redirects you to the appropriate next View
+   which pulls data from the model and then shows it to you.
+  </para>
+  <para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      The model is the data and a set of functions that accept changes to the data
+	  and supply the data to views.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      The controller selects views and processes user input to supply to the model.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      The views are methods for displaying the data supplied by the model.  They can
+      also provide the visible interface to add and change data.
+     </para>
+    </listitem>
+   </itemizedlist>
+  </para>
+  <para>
+   We don't do view notification (which is a component of MVC) because we don't
+   actually have persistent views.  If G2 were a desktop UI application you
+   could have a persistent view which would need notification. Instead, upon
+   completion of a change to a model's data, a G2 controller will select a
+   different view, which asks the model for the data. The controller can
+   delegate to any view that it wants. We follow a pattern whereby if the
+   controller receives an error, it delegates back to the view that generated
+   the form.  If the controller completes successfully, it delegates (using
+   redirection) to a different "success" view.
+   See: Redirect-On-Post
+  </para>
+  <para>
+   Let's take the case of editing an item as an example.
+  </para>
+  <para>
+   The item itself is represented by a modules/core/classes/GalleryItem class.
+   All that we care about is that the item is a GalleryItem, even though we know
+   that it's almost definitely a GalleryPhotoItem or GalleryMovieItem, each of
+   which extend GalleryDataItem which extends GalleryItem.
+  </para>
+  <para>
+   The view (ItemEditItemView in modules/core/ItemEditItem.inc) doesn't care
+   which specific kind of item the model is because it knows that it can safely
+   treat the model as a GalleryItem (this is called polymorphism/abstraction).  The
+   ItemEditItemView uses the modules/core/templates/ItemEditItem.tpl template
+   to create an HTML form that it shows to the user.
+  </para>
+  <para>
+   The HTML form's submit button submits the data back to the ItemEditItemController
+   (also found in modules/core/ItemEditItem.inc) which loads the GalleryItem
+   model back into memory and makes any necessary changes to it.
+  </para>
+  <para>
+   The ItemEditItemController can then pass control back to the ItemEditItemView,
+   or it could pass control to any other view at that point.
   </para>
  </sect2>
  <sect2>
   <title>
    Internationalization and Localization
   </title>
-  <para>&nbsp;
+  <para>
+   We are striving to ensure that Gallery 2 runs equally well, no matter what the
+   language.  Gallery 2 has an international and multilingual team of developers.
+   We hope to carry our international userbase with us into the new version and
+   offer them a Gallery that speaks to them in their own language wherever possible.
+  </para>
+  <para>
+   UTF-8
   </para>
  </sect2>
  <sect2>
