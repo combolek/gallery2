@@ -27,7 +27,7 @@ $albumName = "";
 $page = 1;
 
 /* If there are albums in our list, display them in the table */
-$numAlbums = $albumDB->numAlbums();
+$numAlbums = $albumDB->numAlbums($user);
 
 if (!$albumListPage) {
 	$albumListPage = 1;
@@ -67,7 +67,9 @@ includeHtmlWrap("gallery.header");
 <!-- admin section begin -->
 <? 
 $adminText = "<span class=\"admin\">";
-$adminText .= "There are $numAlbums albums in this gallery on $maxPages pages&nbsp;";
+$adminText .= "There " . ($numAlbums == 1 ? "is " : "are ");
+$adminText .= pluralize($numAlbums, "album", "no") . " in this gallery ";
+$adminText .= " on " . pluralize($maxPages, "page", "no") . "&nbsp;";
 $adminText .= "</span>";
 $adminCommands = "<span class=\"admin\">";
 
@@ -111,7 +113,7 @@ $start = ($albumListPage - 1) * $perPage + 1;
 $end = min($start + $perPage - 1, $numAlbums);
 
 for ($i = $start; $i <= $end; $i++) {
-        $album = $albumDB->getAlbum($i);
+        $album = $albumDB->getAlbum($user, $i);
         $tmpAlbumName = $album->fields["name"];
         $albumURL = $app->photoAlbumURL . "/" . $tmpAlbumName;
 
