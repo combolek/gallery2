@@ -248,6 +248,15 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	return GalleryStatus::success();
     }
 
+    /**
+     * Tail-recursively merge a new operation onto an existing set of operations
+     *
+     * @param string the mime type of the source for the first operation
+     * @param array the remaining operations in the sequence
+     * @param string the new operation
+     * @param array mixed the new operation's args
+     * @access private
+     */
     function _recursiveMergeOperation($mimeType, $remainingOperations, $newOperation, $newArgs) {
 	if (empty($remainingOperations)) {
 	    /* Trivial case -- no operations left means nothing to merge against */
