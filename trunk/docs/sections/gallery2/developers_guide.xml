@@ -1,17 +1,13 @@
-<?xml version="1.0"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<book>
-  <bookinfo>
-    <title>
-      Gallery 2.0 Developer's Guide
-    </title>
-  </bookinfo>
-  <chapter>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+ <chapter id="gallery.dev-guide">
+  <title>Gallery 2.0 Developer's Guide</title>
+
+  <sect1 id="gallery.dev-guide.intro">
     <title>
       Introduction
     </title>
-    <sect1>
+    <sect2>
       <title>
 	Goals
       </title>
@@ -104,8 +100,8 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect1>
-    <sect1>
+    </sect2>
+    <sect2>
       <title>
 	Brief History
       </title>
@@ -132,13 +128,13 @@
 	complete rewrite would fix some of the fundamental problems
 	with Gallery 1.x and G2 was born.
       </para>
-    </sect1>
-  </chapter>
-  <chapter>
+    </sect2>
+  </sect1>
+  <sect1 id="gallery.dev-guide.concepts">
     <title>
       Concepts
     </title>
-    <sect1>
+    <sect2>
       <title>
 	Test Driven Development
       </title>
@@ -239,8 +235,8 @@
 	  </listitem>
 	</itemizedlist>
       </para>
-    </sect1>
-    <sect1>
+    </sect2>
+    <sect2>
       <title>
 	Embedding Gallery in Other Applications
       </title>
@@ -285,8 +281,8 @@
 	speculative stage so no substantive work has been done on it
 	yet.
       </para>
-    </sect1>
-    <sect1>
+    </sect2>
+    <sect2>
       <title>
 	Redirect-On-Post
       </title>
@@ -303,8 +299,8 @@
 	just give you the same error, but at least it won't cause any
 	damage.
       </para>
-    </sect1>
-    <sect1>
+    </sect2>
+    <sect2>
       <title>
 	Coding standards
       </title>
@@ -313,8 +309,8 @@
 	collaborating.  Read and obey the style guide:
 	http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19
 	</para>
-    </sect1>
-    <sect1>
+    </sect2>
+    <sect2>
       <title>
 	Check all return codes
       </title>
@@ -332,9 +328,9 @@
 	build up a stack trace while handling these errors and this
 	stack trace can be used to diagnose problems when they occur.
 	</para>
-    </sect1>
-  </chapter>
-  <chapter>
+    </sect2>
+  </sect1>
+  <sect1 id="gallery.dev-guide.components">
     <title>
       Components
     </title>
@@ -342,7 +338,7 @@
       Gallery is composed of three major components, modules layouts and
       themes.
     </para>
-    <sect1>
+    <sect2>
       <title>
 	Modules
       </title>
@@ -353,93 +349,93 @@
 	can add virtually unlimited functionality.  Modules can use
 	existing database tables, they can use APIs from other modules
       </para>
-      <sect2>
+      <sect3>
 	<title>
 	  core
 	</title>
 	<para>
 	</para>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  search
 	</title>
 	<para>
 	</para>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  imagemagick
 	</title>
 	<para>
 	</para>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  netpbm
 	</title>
 	<para>
 	</para>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  comments
 	</title>
 	<para>
 	</para>
-      </sect2>
-    </sect1>
-    <sect1>
+      </sect3>
+    </sect2>
+    <sect2>
       <title>
 	Layouts
       </title>
       <para>
       </para>
-      <sect2>
+      <sect3>
 	<title>
 	  classic
 	</title>
-      </sect2>
-    </sect1>
-    <sect1>
+      </sect3>
+    </sect2>
+    <sect2>
       <title>
 	Themes
       </title>
       <para>
       </para>
-      <sect2>
+      <sect3>
 	<title>
 	  classic
 	</title>
-      </sect2>
-    </sect1>
-    <sect1>
+      </sect3>
+    </sect2>
+    <sect2>
       <title>
 	Patterns
       </title>
       <para>
       </para>
-      <sect2>
+      <sect3>
 	<title>
 	  Entities
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Maps
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Helpers
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Templates
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Locking
 	</title>
@@ -561,62 +557,62 @@
 	  entity unless it is write locked.  So the main issue is
 	  knowing when to acquire read locks (more on that below).
 	</para>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Factories
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Model-View-Controller
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Internationalization and Localization
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Storage
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Platform
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Generated Code
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Cross-Module Interfaces
 	</title>
-      </sect2>
-    </sect1>
-    <sect1>
+      </sect3>
+    </sect2>
+    <sect2>
       <title>
 	Support
       </title>
-      <sect2>
+      <sect3>
 	<title>
 	  Libraries
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Setup
 	</title>
-      </sect2>
-      <sect2>
+      </sect3>
+      <sect3>
 	<title>
 	  Docs
 	</title>
-      </sect2>
-    </sect1>
-  </chapter>
-</book>
+      </sect3>
+    </sect2>
+  </sect1>
+</chapter>
