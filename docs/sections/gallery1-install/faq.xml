@@ -1380,6 +1380,41 @@ print getcwd ();
      </answer>
     </qandaentry>
      
+    <qandaentry id="gallery1-install.faq.c.36">
+     <question>
+      <para>
+       Why do I get errors with email on Windows?
+      </para>
+     </question>
+     <answer>
+      <para>
+       If you go to http://www.example.com/gallery/setup/check_mail.php and it gives you errors like
+       "Error! sendmail_path not set" (gallery v1.4.1) and/or "Error! SMTP not set" you have to configure php.
+       Locate your php.ini (probably under C:\Program Files\php or C:\windows), open it with a texteditor
+       and find "[mail function]".
+      </para>
+      <para>
+       It should look something like this:
+        <screen>
+         [mail function]
+         ; For Win32 only.
+         SMTP = 
+         ; For Win32 only.
+        sendmail_from = 
+        ; For Unix only.  You may supply arguments as well (default: 'sendmail -t -i').
+        ;sendmail_path =
+        </screen>
+       Change SMTP to whatever smtp-server you can use that doesn't need authentication
+       and sendmail_from to an email address.
+       Example:
+        <screen>
+         SMTP = smtp.server.com
+         sendmail_from = youremail@server.com
+        </screen>
+      </para>
+     </answer>
+    </qandaentry>
+     
    </qandadiv>
   
   </qandaset>
