@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
- <chapter id="gallery.dev-guide">
+ <sect1 id="gallery.dev-guide">
   <title>Gallery 2.0 Developer's Guide</title> 
 
-  <sect1 id="gallery.dev-guide.intro">
+  <sect2 id="gallery.dev-guide.intro">
    <title>
     Introduction 
    </title>
-   <sect2>
+   <sect3>
     <title>
      Goals
     </title>
@@ -100,8 +100,8 @@
       </para>
      </listitem>
     </itemizedlist>
-   </sect2>
-   <sect2>
+   </sect3>
+   <sect3>
     <title>
       Brief History
     </title>
@@ -128,13 +128,13 @@
      complete rewrite would fix some of the fundamental problems
      with Gallery 1.x and G2 was born.
     </para>
-   </sect2>
-  </sect1>
-  <sect1 id="gallery.dev-guide.concepts">
+   </sect3>
+  </sect2>
+  <sect2 id="gallery.dev-guide.concepts">
    <title>
     Concepts
    </title>
-   <sect2>
+   <sect3>
     <title>
      Test Driven Development
     </title>
@@ -243,8 +243,8 @@
       </listitem>
      </itemizedlist>
     </para>
-   </sect2>
-   <sect2>
+   </sect3>
+   <sect3>
     <title>
      Embedding Gallery in Other Applications
     </title>
@@ -289,8 +289,8 @@
      speculative stage so no substantive work has been done on it
      yet.
     </para>
-   </sect2>
-   <sect2>
+   </sect3>
+   <sect3>
     <title>
       Redirect-On-Post
     </title>
@@ -307,18 +307,20 @@
      just give you the same error, but at least it won't cause any
      damage.
     </para>
-   </sect2>
-   <sect2>
+   </sect3>
+   <sect3>
     <title>
       Coding standards
     </title>
     <para>
      Clean code is important, especially when many developers are
      collaborating.  Read and obey the style guide:
+     <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19">
      http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19
+     </ulink>
     </para>
-   </sect2>
-   <sect2>
+   </sect3>
+   <sect3>
     <title>
      Check all return codes
     </title>
@@ -336,9 +338,9 @@
      build up a stack trace while handling these errors and this
      stack trace can be used to diagnose problems when they occur.
     </para>
-   </sect2>
-  </sect1>
-  <sect1 id="gallery.dev-guide.components">
+   </sect3>
+  </sect2>
+  <sect2 id="gallery.dev-guide.components">
    <title>
     Components
    </title>
@@ -346,7 +348,7 @@
     Gallery is composed of three major components, modules layouts and
     themes.
    </para>
-   <sect2>
+   <sect3>
     <title>
      Modules
     </title>
@@ -357,105 +359,105 @@
      can add virtually unlimited functionality.  Modules can use
      existing database tables, they can use APIs from other modules
     </para>
-    <sect3>
+    <sect4>
      <title>
       core
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       search
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-     <sect3>
+    </sect4>
+     <sect4>
       <title>
         imagemagick
       </title>
       <para>&nbsp;
       </para>
-     </sect3>
-     <sect3>
+     </sect4>
+     <sect4>
       <title>
        netpbm
       </title>
       <para>&nbsp;
       </para>
-     </sect3>
-     <sect3>
+     </sect4>
+     <sect4>
       <title>
        comments
       </title>
       <para>&nbsp;
       </para>
-     </sect3>
-   </sect2>
-   <sect2>
+     </sect4>
+   </sect3>
+   <sect3>
     <title>
       Layouts
     </title>
     <para>&nbsp;
     </para>
-    <sect3>
+    <sect4>
      <title>
       classic
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-   </sect2>
-   <sect2>
+    </sect4>
+   </sect3>
+   <sect3>
     <title>
       Themes
     </title>
     <para>&nbsp;
     </para>
-    <sect3>
+    <sect4>
      <title>
       classic
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-   </sect2>
-   <sect2>
+    </sect4>
+   </sect3>
+   <sect3>
     <title>
      Patterns
     </title>
     <para>&nbsp;
     </para>
-    <sect3>
+    <sect4>
      <title>
       Entities
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Maps
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Helpers
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Templates
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Locking
      </title>
@@ -576,82 +578,82 @@
       entity unless it is write locked.  So the main issue is
       knowing when to acquire read locks (more on that below).
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Factories
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Model-View-Controller
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Internationalization and Localization
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Storage
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Platform
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Generated Code
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Cross-Module Interfaces
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-   </sect2>
-   <sect2>
+    </sect4>
+   </sect3>
+   <sect3>
     <title>
      Support
     </title>
-    <sect3>
+    <sect4>
      <title>
       Libraries
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Setup
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-    <sect3>
+    </sect4>
+    <sect4>
      <title>
       Docs
      </title>
      <para>&nbsp;
      </para>
-    </sect3>
-   </sect2>
-  </sect1>
- </chapter>
+    </sect4>
+   </sect3>
+  </sect2>
+ </sect1>
