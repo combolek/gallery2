@@ -13,7 +13,7 @@
   </para>
  </sect2>
  
- <sect2 id="galler-remote.preferences">
+ <sect2 id="gallery-remote.preferences">
   <title>Preferences</title>
    <para>
    Even though there is now a Preferences dialog, the preference files can still be edited. You should not 
@@ -28,5 +28,28 @@
    home directory/.GalleryRemote/GalleryRemote.properties.
    </para>
  </sect2>             
+ 
+ <sect2 id="gallery-remote.logging">
+  <title>Logging</title>
+   <para>
+   If you encounter a problem, the logging system may be some help, and we will definitely request it if you ask for support.
+   By default, GR writes most log information to the file log.txt in the directory where you installed GR. 
+   If you want to see more detailed information there, you can add the following lines to your GalleryRemote.properties file:
 
+  logLevel=3
+  toSysOut=true
+
+  If you also change your InstallAnywhere launcher file Gallery Remote.lax to set:
+
+  lax.stdout.redirect=console
+
+  you will see the log as it unfolds in the console...
+   <note>
+    <para>
+    Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed in clear text in several places.
+    </para>
+   </note>
+  
+  </para>
+ </sect2>
 </sect1>
