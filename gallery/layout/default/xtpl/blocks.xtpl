@@ -147,7 +147,7 @@
       <br>
       From: <b>{comment.name}</b> @ {comment.IPNumber} ({comment.datePosted})
       <br>
-      {comment.text}
+      {comment.text} {comment.remove}
       <br><br>
       </span>
     </td>
