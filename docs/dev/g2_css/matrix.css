@@ -1,0 +1,336 @@
+/*	de-bug	*/
+
+#blah
+ { border: 1px solid #bbb; }
+
+body {
+	font-family: Verdana, sans-serif;
+	font-size: 72%;
+}
+
+/*	delete	*/
+.spacer {clear: both;}
+
+.guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer {
+	clear: both;
+}
+
+/*
+    Page Definitions c2
+    declare page layout of gallery data
+*/
+
+/*  main page container */
+
+#gpMain {}
+#gpAdmin {}
+#gpAccount {}
+#gpSearch {}
+
+/*
+    Section Definitons c3
+    declare sections of gallery data
+*/
+
+#gsHeader {
+	border-bottom: 1px solid #ddd;
+}
+#gsFooter {
+	clear: both;
+	padding: 8px;
+	border-top: 1px solid #ddd;
+	font-size: 0.8em;
+	color: #bbb;
+}
+#gsSidebar {
+	float: left;
+	width: 148px;
+	padding: 12px;
+	background-color: #eee;
+	border-left: 1px solid #ddd;
+}
+
+.gsSection1 {}
+.gsSection2 {}
+.gsSection3 {}
+
+#gsAlbumContents {
+	float: left;
+	width: 72%;
+	min-width: 596px;
+}
+
+#gsCommentBox {
+	padding: 8px;
+	border-top: 1px solid #bbb;
+}
+
+/*
+    itemBoxes c4
+    declare inner boxes inside of sections
+*/
+
+/*  #gsHeader    */
+.gbTitleBanner {}
+.gbBreadCrumb, .gbAdminHead {
+	padding: 8px;
+}
+
+.gbBreadCrumb span + span:before { content: "\00BB \ " }
+
+/*  #gsAlbumContents */
+
+#gbTopFlag {
+	display: block;
+	background-color: #eee;
+	padding: 0 8px;
+}
+
+.gbTitle {
+	float: left;
+	width: 256px;
+	padding: 8px 0;
+}
+
+.gbItemAlbum {
+	clear: both;
+	float: left;
+	width: 97%;
+	margin: 8px 8px 0 0;
+	padding: 8px;
+	background-color: #eee;
+	border: 0px solid #bbb;
+}
+
+.gbItemImage {
+	float: left;
+	margin: 8px 8px 0 0;
+	padding: 8px;
+	background-color: #fff;
+	border: 0px solid #bbb;
+}
+.gbItemMovie {}
+.gbItemOther1 {}
+
+.gbItemImage .giTitle { clear: both; }
+
+/*  --> #gsCommentBox    */
+.gbComment {
+	border-bottom: 1px solid #ddd;
+	padding: 8px 0 16px 0;
+}
+
+/*  #gsAlbumContents (continued) */
+.gbExif {}
+#gbBottomFlag {
+	display: block;
+	padding: 8px;
+	background-color: #eee;
+}
+
+/*  gsFooter */
+.gbMiniBanner {
+	float: left;
+	margin-right: 8px;
+}
+
+/*  gsSidebar */
+
+#gsSidebar div {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 16px;
+	margin-bottom: 16px;	
+}
+
+.gbAdminMenu {}
+.gbListMenu {}
+.gbSearchMenu {}
+.gbBasicMenu {}
+.gbUserMenu {}
+.gbNavigationMenu {}
+.gbOtherMenu {}
+
+/*
+    items c5
+    declare inner items inside of boxes
+*/
+
+/*  gbBreadCrumb    
+.gbBreadCrumb.span {'È'}*/
+
+/*  #gbTopFlag */
+.giTitle {
+	font-size: 1.1em;
+	font-weight: 800;
+}
+.giDescription {
+	font-size: 0.85em;
+	height: 100%;
+}
+.giInfo {
+	float: left;
+	font-size: 80%;
+	color: #888;
+	padding: 8px 0;
+}
+
+.giInfo span {display: block;}
+span.giDate {}
+span.giOwner {}
+span.giCount {}
+
+#gsAlbumContents div.giHorizontalLinks {
+	float: right;
+	font-size: 80%;
+	padding: 8px;
+}
+
+/*  gbItem* 
+	JON: added a "thumbOther"
+*/
+.giThumbImage, .giThumbMovie, .giThumbOther {
+	float: left;
+	margin: 0 16px 8px 0;
+}
+
+.giThumbMovie {}
+
+.giActionSelect {
+	display: block;
+	margin-top: 4px;
+}
+
+.giDescription span {display: block;}
+span.giDate {}
+span.giOwner {}
+span.giCount {}
+
+/*  .giThumbBorder {}
+    ...giBorders...
+    discused the options of generating a table-based border (ie_test)
+    and alistapart.com http://www.alistapart.com/articles/customcorners/
+    method. Differ until completion of initial theme. */
+
+
+/*  gbComment */
+.giComment {
+	padding-bottom: 8px;
+}
+#gsCommentBox .gbComment div.giHorizontalLinks {
+	float: none;
+	padding: 0;
+}
+	span.giDate {}
+	span.giOwner {} */
+	span.giInternetAddress {}
+
+/*  #gbBottomFlag   */
+.giPageNumber, #gbBottomFlag div.giHorizontalLinks {
+	float: right;
+	font-size: 80%;
+	padding: 8px;
+}
+
+/*  gbXxxMenu   */
+/*  .giTitle
+    .giInfo     */
+
+#gsSidebar div h4 {
+	margin: 0;
+}
+
+#gsSidebar div ul, #gsSidebar div ol {
+	font-size: 0.9em;
+	margin: 0 0 0 20px;
+	padding: 0 0 0 0;
+}
+
+#gsSidebar div ul {	list-style-type: none; }
+
+#gsSidebar div li {
+	margin: 0.5em 0 0 0;
+}
+
+.giSelected {
+	font-weight: bold;
+	list-style-type: disc;
+}
+
+/* ******** jon's search additions *********** */
+
+.gbTitleBanner {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.gbTitleBanner .giTitle {
+	color: #ccc;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#gsSearchContents {}
+
+#gsSearchContents #gbTopFlag {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+#gbTopFlag .giTitle{
+	font-size: 12px;
+	
+}
+
+.giFormButton, .giFormInput { 
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.giFormCheckbox { 
+	margin: 4px;
+}
+
+
+#gsSearchContents .giThumbImage, .giThumbMovie, .giThumbOther {
+	border: 2px solid #ccc;
+}
+
+#gsSearchContents .gbItemImage {
+	clear: both;
+}
+
+/* admin additions	*/
+
+#gsAdminContents {
+	float: left;
+	width: 72%;
+}
+#gsAdminSidebar {
+	float: left;
+	width: 128px;
+	padding: 0 12px;
+	border-right: 1px solid #ddd;
+}
+
+#gsAdminSidebar div {
+	margin: 0px 0;
+	padding: 0 0 8px 0;
+	border-bottom: 1px solid #eee;
+}
+
+#gsAdminSidebar div ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.gbItemAdmin {
+	clear: both;
+	float: left;
+	width: 97%;
+	margin: 8px 8px 0 0;
+	padding: 8px;
+	border-bottom: 1px solid #bbb;
+}
