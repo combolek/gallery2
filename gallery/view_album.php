@@ -328,18 +328,29 @@ $GLO['navigator']['pageLabel'] = "Pages";
 
 //-- special stuff ---
 $GLO['page']['body']['extra'] = $pageBodyExtra;
-$GLO['page']['bodyTag']['extra'] = $pageBodyTagExtra;
-$GLO['page']['head']['extra'] = $pageHeadExtra;
 
 //-- some extra useful stuff ---
 $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
                      "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
-$GLO['galleryProject']['anchor'] = "<a href=\"".$gallery->url."\">".
-                                 "Gallery v" . $gallery->version . "</a>";
 
 //-------------------------------------------------------------------------
 //-- The Layout of the Page ---
 //  
+
+//-- first get the html for the header and footer and stick it in the GLO
+//-- for use by the layout. The html_wrap template gets is own limited
+//-- layout object.
+$G['TITLE'] = $gallery->app->galleryTitle . "::" . $album->fields['title'];
+$G['HEAD']['EXTRA'] = $pageHeadExtra;
+$G['HEAD']['STYLESHEET_INCLUDE'] = getStyleSheetLink() . "\n" . $albumStyle;
+$G['BODYTAG']['EXTRA'] = $pageBodyTagExtra;
+$G['GALLERY_PROJECT']['HREF'] = $gallery->url;
+$G['GALLERY_PROJECT']['VERSION'] = $gallery->version;
+$G['PIXEL_IMAGE'] = $GLO['pixelImage'];
+
+list($GLO['header'], $GLO['footer']) = getLayoutWrapHeaderFooter($G);
+
+//-- now do the layout, wrapped by the embed logic ---
 includeHtmlWrap("wrapper.header");
 includeLayout("view_album", $GLO);
 includeHtmlWrap("wrapper.footer");
