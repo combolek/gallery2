@@ -82,7 +82,7 @@ e=yes');
 
 
 <?
-if ($urls_or_path) {
+if (($urls_or_path[0]) || ($urls_or_path[1])) {
 ?>
 <span class=title>Fetching Image list from Url or Path...</span>
 <br>
@@ -91,6 +91,10 @@ if ($urls_or_path) {
 	$temp_files = array();
 	
 	foreach ($urls_or_path as $url) {
+
+		if (!$url) {
+			continue;
+		}
 
 		/*
 		 * Check to see if the URL is a local directory (inspired by
