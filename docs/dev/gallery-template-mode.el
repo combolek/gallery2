@@ -65,24 +65,28 @@
   (interactive)
   (beginning-of-line)
   (if (bobp)
-      (indent-line-to 0)   ; First line is always non-indented
+      (indent-line-to 0)		; First line is always non-indented
     (let ((not-indented t) cur-indent)
-        (if (looking-at "^[ \t]*\\(\{/\\|\{else\}\\)") 
-                               ; If the line we are looking at is the end of a block, 
-	                       ; or a special statement like {else} then decrease the indentation
+      (save-excursion
+	(forward-to-indentation 0)
+	(if (looking-at (regexp-opt '(             ; if the line is a ...
+				      "{/"         ; end of a block
+				      "{else}"	   ; special statement
+				      )            ; then decrease the indentation
+				    t))
 	    (progn
 	      (save-excursion
 		(forward-line -1)
 		(setq cur-indent (- (current-indentation) indent-width)))
-	      (if (< cur-indent 0) ; We can't indent past the left margin
+	      (if (< cur-indent 0)	; We can't indent past the left margin
 		  (setq cur-indent 0)))
 	  (save-excursion
-	    (while not-indented ; Iterate backwards until we find an indentation hint
+	    (while not-indented		; Iterate backwards until we find an indentation hint
 	      (forward-to-indentation -1)
 
 ;  Example of printing debug statements
 ;	      (print "some string" (get-buffer "*scratch*"))
-;	      (message '3)
+;	      (message "some string")
 
 	      (if (looking-at (regexp-opt '("{/"
 					    "{counter}"
@@ -96,26 +100,26 @@
 		  (progn
 		    (setq cur-indent (current-indentation)) ; Do the actual indenting
 		    (setq not-indented nil))
-		(if (and (looking-at "\{[^\/]")  ; We need to indent another level on a {...}
-			 (not (looking-at ".*\{\/")))  ; Unless the line has a matching {/...}
+		(if (and (looking-at "\{[^\/]") ; We need to indent another level on a {...}
+			 (not (looking-at ".*\{\/"))) ; Unless the line has a matching {/...}
 		    (progn
 		      (setq cur-indent (+ (current-indentation) indent-width)) ; Do the actual indenting
 		      (setq not-indented nil))
 		  (if (bobp)
-		      (setq not-indented nil)))))))
+		      (setq not-indented nil))))))))
 	(if cur-indent
-	    (indent-line-to cur-indent)
-	  (indent-line-to 0))))) ; If we didn't see an indentation hint, then allow no indentation
+	  (indent-line-to cur-indent)
+	(indent-line-to 0)))))		; If we didn't see an indentation hint, then allow no indentation
 
 (defvar gallery-template-mode-syntax-table nil
   "Syntax table for gallery-template-mode.")
 
 (defun gallery-template-create-syntax-table ()
   (if gallery-template-mode-syntax-table
-        ()
+      ()
     (setq gallery-template-mode-syntax-table (make-syntax-table))
     
-    ; Comments are of the form {* .. *}
+					; Comments are of the form {* .. *}
     (modify-syntax-entry ?{ ". 1" gallery-template-mode-syntax-table)
     (modify-syntax-entry ?* ". 23" gallery-template-mode-syntax-table)
     (modify-syntax-entry ?} "> 4" gallery-template-mode-syntax-table))
