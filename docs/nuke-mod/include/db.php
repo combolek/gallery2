@@ -7,12 +7,16 @@ function dbQuery ($query, $args = false) {
 	//I thought about this for a while, but I can't think of a better way.
 	//Feel free to change it.  It works, and I think it's the best way
 	if ($args) {
+		$pos = 0;
 		$i = 0;
-		$count = strpos ($query, '??');
+		$count = strpos (substr ($query, $pos), '??');
 		while ($count !== false) {
-			$query = substr_replace ($query, mysql_escape_string ($args[$i]), $count, 2);
-			
-			$count = strpos ($query, '??');
+			$tmp = mysql_escape_string ($args[$i]);
+			$query = substr_replace ($query, $tmp, $count + $pos, 2);
+
+			$pos += $count + strlen ($tmp);
+
+			$count = strpos (substr ($query, $pos), '??');
 			$i++;
 		}
 	}
