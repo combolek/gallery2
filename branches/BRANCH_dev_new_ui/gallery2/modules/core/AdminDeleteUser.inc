@@ -117,9 +117,9 @@ class AdminDeleteUserController extends GalleryController {
 class AdminDeleteUserView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -135,21 +135,17 @@ class AdminDeleteUserView extends GalleryView {
 
 	if ($form['formName'] != 'AdminDeleteUser') {
 	    /* First time around initialize our form */
-	    $form['userName'] = $user->getUserName();
+	    $form['formName'] = 'AdminDeleteUser';
 	}
 
+	$AdminDeleteUser = array();
+	$AdminDeleteUser['user'] = $user->getMemberData();
 
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('user', $user->getMemberData());
+	$template->setVariable('AdminDeleteUser', $AdminDeleteUser);
 	$template->setVariable('controller', 'core:AdminDeleteUser');
-	list($ret, $html) = $template->render('AdminDeleteUser.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminDeleteUser.tpl');
     }
 }
 ?>

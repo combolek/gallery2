@@ -1,5 +1,6 @@
 SHORT TERM
 ----------
+- augment debug code listing using http://us2.php.net/manual/en/function.highlight-file.php
 - Uploading hundreds of files stores too much (>64K) data in the session status
   field, breaking the session
 - Fix the AdminEditUser code so that it can change the username

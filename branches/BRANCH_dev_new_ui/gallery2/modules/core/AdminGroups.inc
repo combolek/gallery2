@@ -210,9 +210,9 @@ class AdminGroupsController extends GalleryController {
 class AdminGroupsView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -221,6 +221,11 @@ class AdminGroupsView extends GalleryView {
 	}
 	    
 	/* Load some standard form parameters */
+	if ($form['formName'] != 'AdminGroups') {
+	    $form['text']['groupName'] = '';
+	    $form['formName'] = 'AdminGroups';
+	}
+
 
 	/* Set some defaults, if necessary */
 	if (!isset($form['list']['filter'])) {
@@ -229,10 +234,6 @@ class AdminGroupsView extends GalleryView {
 	
 	if (empty($form['list']['page'])) {
 	    $form['list']['page'] = 1;
-	}
-
-	if (empty($form['text']['groupName'])) {
-	    $form['text']['groupName'] = '';
 	}
 
 	list ($ret, $totalGroupCount) = GalleryGroupHelper::fetchGroupCount();
@@ -266,18 +267,13 @@ class AdminGroupsView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('totalGroupCount', $totalGroupCount);
+	$AdminGroups = array();
+	$AdminGroups['totalGroupCount'] = $totalGroupCount;
+	
+	$template->setVariable('AdminGroups', $AdminGroups);
 	$template->setVariable('controller', 'core:AdminGroups');
-	list($ret, $html) = $template->render('AdminGroups.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminGroups.tpl');
     }
 }
 ?>

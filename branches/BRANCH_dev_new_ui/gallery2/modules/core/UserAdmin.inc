@@ -37,37 +37,21 @@
 class UserAdminView extends GalleryView {
 
     /**
-     * @see GalleryView::renderHead
+     * @see GalleryView::loadTemplate
      */
-    function renderHead() {
-	global $gallery;
-	
-	/* Render the HTML head */
-	$template = $this->_getTemplate();
-	list($ret, $html) = $template->render('UserAdminHead.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-	
-	return array(GalleryStatus::success(), $html);
-    }
-
-    /**
-     * @see GalleryView::renderBody
-     */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$userId = $gallery->getActiveUserId();
 	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	    
 	/* Load the module list */
 	list ($ret, $moduleStatus) = $gallery->getModuleStatus();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Get a list of all the admin views for each module */
@@ -80,56 +64,53 @@ class UserAdminView extends GalleryView {
 	    /* Get the selected module's admin view */
 	    list($ret, $module) = $gallery->loadModule($moduleName);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    list ($ret, $moduleViews) = $module->getUserAdminViews($user);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $subViewChoices = array_merge($subViewChoices, $moduleViews);
 	}
 
-	/* If we have a specific sub view, render it now */
+	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+	$show['userInPathbar'] = ($userId != $anonymousUserId);
+
+	/* If we have a specific sub view, load it now */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if (empty($subViewName) && !empty($subViewChoices)) {
 	    $subViewName = $subViewChoices[0]['view'];
 	}
 
+	/* Set up my view parameters */
+	$UserAdmin = array('user' => $user->getMemberData(),
+			   'show' => $show,
+			   'subViewChoices' => $subViewChoices,
+			   'subViewName' => $subViewName);
+
 	if (!empty($subViewName)) {
 	    list ($ret, $subView) = GalleryView::loadView($subViewName);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
-
-	    list ($ret, $subViewHtml) = $subView->renderBody($form, $status);
+	    
+	    list ($ret, $UserAdmin['viewHeadFile'], $UserAdmin['viewBodyFile']) = 
+		$subView->loadTemplate($template, $form);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
-	} else {
-	    $subViewHtml = '';
+	    $UserAdmin['viewL10Domain'] = $subView->getL10Domain();
 	}
 
-	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	$show['userInPathbar'] = ($userId != $anonymousUserId);
-
-	/* Render our HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('user', $user->getMemberData());
-	$template->setVariable('show', $show);
-	$template->setVariable('subViewChoices', $subViewChoices);
-	$template->setVariable('subViewHtml', $subViewHtml);
-	$template->setVariable('subViewName', $subViewName);
-	list($ret, $html) = $template->render('UserAdmin.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('UserAdmin', $UserAdmin);
+	return array(GalleryStatus::success(),
+		     'modules/core/templates/UserAdminHead.tpl',
+		     'modules/core/templates/UserAdmin.tpl');
     }
 }
 ?>

@@ -17,20 +17,20 @@
 {gallery->main}
   {gallery->sidebar1}
     {gallery->sidebarbox}
-      {gallery->sidebarboxbody}
+      {gallery->body}
 	{if empty($thumbnail)}
 	  {gallery->text text="No Thumbnail"}
 	{else}
 	  {gallery->thumbnail item=$item thumbnail=$thumbnail}
 	{/if}
-      {/gallery->sidebarboxbody}
+      {/gallery->body}
     {/gallery->sidebarbox}
 
     {gallery->sidebarbox}
-      {gallery->sidebarboxtitle}
+      {gallery->title}
 	{gallery->text text="Options"}
-      {/gallery->sidebarboxtitle}
-      {gallery->sidebarboxbody}
+      {/gallery->title}
+      {gallery->body}
 	{gallery->listing}
 	  {foreach from=$subViewChoices item=choice}
 	    {gallery->listingitem}
@@ -40,12 +40,12 @@
 	    {/gallery->listingitem}
 	  {/foreach}
 	{/gallery->listing}
-      {/gallery->sidebarboxbody}
+      {/gallery->body}
     {/gallery->sidebarbox}
 
     {gallery->sidebarbox}
-      {gallery->sidebarboxbody}
-	{gallery->sidebarboxtitle}
+      {gallery->body}
+	{gallery->title}
 	  {gallery->text text="Navigation"}
 	  {gallery->listing}
 	    {if ($itemType == 'item')}
@@ -67,8 +67,8 @@
 	      {/gallery->listingitem}
 	    {/if}
 	  {/gallery->listing}
-	{/gallery->sidebarboxtitle}
-      {/gallery->sidebarboxbody}
+	{/gallery->title}
+      {/gallery->body}
     {/gallery->sidebarbox}
   {/gallery->sidebar1}
 

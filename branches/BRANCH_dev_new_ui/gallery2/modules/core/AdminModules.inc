@@ -131,9 +131,9 @@ class AdminModulesController extends GalleryController {
 class AdminModulesView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 	
 	$ret = GalleryUserHelper::assertSiteAdministrator();
@@ -150,6 +150,11 @@ class AdminModulesView extends GalleryView {
 	list ($ret, $moduleStatus) = $gallery->getModuleStatus();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if ($form['formName'] != 'AdminModules') {
+	    /* We have no form variables */
+	    $form['formName'] = 'AdminModules';
 	}
 
 	ksort($moduleStatus);
@@ -217,16 +222,13 @@ class AdminModulesView extends GalleryView {
 	    $modules[] = $entry;
 	}
 
+	$AdminModules['modules'] = $modules;
+
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('modules', $modules);
+	$template->setVariable('AdminModules', $AdminModules);
 	$template->setVariable('controller', 'core:AdminModules');
-	list($ret, $html) = $template->render('AdminModules.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 	
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/AdminModules.tpl');
     }
 }
 ?>

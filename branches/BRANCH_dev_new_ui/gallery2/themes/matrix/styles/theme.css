@@ -3,19 +3,24 @@ body {
   font-size: 100%;
 }
 
+table td { 
+  padding: 0px; 
+}
+
 .main {
-  width: auto;
+  width: 91%;
   margin: 0px 32px 0px 32px;
   padding: 0px 0px 0px 0px;
   text-align: left;
-  border: 0px dashed #ddd;
+  border: 0px;
   background-color: #fff;
-  overflow: visible;
+  overflow: hidden;
   border-collapse: collapse;
   border-spacing: 0px;
+  vertical-align: top;
 }
 
-.mainbody1 { 
+.main_inner { 
   width: 100%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
@@ -24,16 +29,19 @@ body {
   border-spacing: 0px;
 }
 
-.mainbody1_inner { 
+.bannerbox {
+  color: #333;
   width: 100%;
   margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
-  vertical-align: top;
-  border-collapse: collapse;
-  border-spacing: 0px;
+  padding: 8px 12px 8px 12px;
+  text-align: left;
+  background-color: #eee;
+  border-right: 1px solid #ddd;
+  font-weight: bold;
+  font-size: 81%;
 }
 
-.maintitle1 {
+.complextitle {
   color: #333;
   width: 100%;
   margin: 0px 0px 0px 0px;
@@ -45,15 +53,12 @@ body {
   font-size: 81%;
 }
 
-.widget1set { 
+.widget1box { 
   border-collapse: collapse;
   border-spacing: 0px;
 }
 
-.widget1body { 
-}
-
-.widget1title {
+.widget1_title {
   font-size: 63%;
   text-align: left;
   width: auto; 
@@ -62,18 +67,11 @@ body {
   vertical-align: top;
 }
 
-.widget2set { 
-  border-collapse: collapse;
-  border-spacing: 0px;
+.widget1_body { 
+  padding-bottom: 8px;
 }
 
-.widget2 { 
-}
-
-.widget2body { 
-}
-
-.widget2title {
+.widget2_title {
   font-size: 69%;
   font-weight: bold;
   text-align: left;
@@ -82,7 +80,16 @@ body {
   vertical-align: top;
 }
 
-.widget2description {  
+.widget2_body { 
+  padding-bottom: 8px;
+}
+
+.linksbox_item {  
+  color: #bbb;
+  font-size: 63%;
+}
+
+.infobox_item {  
   color: #bbb;
   font-size: 63%;
 }
@@ -111,8 +118,8 @@ body {
   line-height: 1.6;
 }
 
-.header {
-  width: 100%;
+.globalheader {
+  width: 91%;
   margin: 0px 0px 0px 32px;
   padding: 0px 0px 0px 0px;
   text-align: left;
@@ -122,8 +129,8 @@ body {
   font-weight: bold;
 }
 
-.footer {
-  width: 100%;
+.globalfooter {
+  width: 91%;
   margin: 0px 32px 0px 32px;
   padding: 8px 16px 8px 16px;
   text-align: left;
@@ -134,11 +141,20 @@ body {
 }
 
 .pathbar {
-  width: 100%;
+  width: auto;
   height: 24px;
-  margin: 0px 0px 0px 32px;
+  margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   border-bottom: 1px solid #ddd;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+.pathbar_inner {
+  width: auto;
+  height: 24px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   border-collapse: collapse;
   border-spacing: 0px;
 }
@@ -146,8 +162,8 @@ body {
 .pathbar_item {
   color: #aaa;
   width: auto;
-  margin: 0px 0px 0px 2px;
-  padding: 0px 0px 0px 0px;
+  margin: 0px 2px 0px 2px;
+  padding: 0px 6px 0px 0px;
   text-align: left;
   vertical-align: middle;
   background-color: #fff;
@@ -155,7 +171,18 @@ body {
   font-weight: bold;
 }
 
-.sidebar1 {
+.sidebar_left {
+  text-align: left;
+  vertical-align: top;
+  width: 130px;
+  height: auto;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  border: 0px dashed #ddd;
+  background-color: #fff;
+}
+
+.sidebar {
   text-align: left;
   vertical-align: top;
   width: auto;
@@ -164,50 +191,82 @@ body {
   padding: 0px 0px 0px 0px;
   border: 0px dashed #ddd;
   background-color: #fff;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
-.textmodifier1 { 
+.sidebar_box {
+  text-align: left;
+  vertical-align: top;
+  width: auto;
+  height: auto;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  background-color: #fff;
+}
+
+.textmodifier { 
   color: #ddd;
 }
 
-.sidebarbox { 
+.simplebox { 
   width: 130;
-  margin: 0px 0px 0px 14px;
+  margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
-.sidebarbox_title { 
+.simplebox_title { 
   margin: 0px 0px 0px 0px;
   padding: 6px 0px 6px 0px;
   font-weight: bold;
   font-size: 69%;
 }
 
-.listing { 
+.simplebox_body { 
+}
+
+.listingbox { 
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  margin: 8px 0px 8px 8px;
+  padding: 0px 0px 0px 0px;
+}
+
+.listingbox_title { 
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 4px 0px;
+  font-weight: bold;
+  font-size: 69%;
+}
+
+.listingbox_list { 
   list-style-type: none;
   margin: 0px 0px 8px 12px;
   padding: 0px 0px 0px 0px;
 }
 
-.listing_item { 
+.listingbox_item { 
   margin: 0px 0px 0px 0px;
   padding: 2px 0px 2px 0px;
   color: #bbb;
-  display: block;
   line-height: 1.33;
   font-size: 63%;
 }
 
-.listing_selecteditem { 
-  list-style-type: disc;
-  font-weight: bold;
+.listingbox_selecteditem { 
   margin: 0px 0px 0px 0px;
   padding: 2px 0px 2px 0px;
   color: #000;
   line-height: 1.33;
   font-size: 63%;
+  list-style-type: disc;
+  font-weight: bold;
 }
 
 .status { 

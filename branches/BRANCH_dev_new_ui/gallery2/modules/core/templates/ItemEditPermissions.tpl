@@ -8,32 +8,32 @@
     {/gallery->maintitle1}
 
     {gallery->detailedbox}
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="Each item has its own independent set of permissions.  Changing the parent's permissions has no effect on the permissions of the child.  This allows you to restrict access to the parent of this item, but still grant full access to this item, or vice versa.  The most efficient way to use this permission system is to create groups and assign permissions to them.  Then if you want to grant permissions to a specific user, you can add (or remove) the user from the appropriate group."}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
     {/gallery->detailedbox}
     
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Owner"}
-      {/gallery->detailedboxtitle}
+      {/gallery->title}
 
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{if empty($owner.fullName)}
 	  {gallery->text text="This item is owned by user: %s" arg1=$owner.userName}
 	{else}
 	  {gallery->text text="This item is owned by user: %s (%s)" arg1=$owner.userName arg2=$owner.fullName}
 	{/if}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
       {if $can.changeOwner}
-	{gallery->detailedboxbody}
-	  {gallery->widget1set}
+	{gallery->body}
+	  {gallery->widget1box}
 	    {gallery->widget1}
-	      {gallery->widget1title}
+	      {gallery->title}
 		{gallery->text text="New owner"}
-	      {/gallery->widget1title}
-	      {gallery->widget1body}
+	      {/gallery->title}
+	      {gallery->body}
 		{gallery->input type="text" name="form.owner.ownerName"}{$form.owner.ownerName}{/gallery->input}
 		{gallery->input type="submit" name="form.action.changeOwner"}
 		  {gallery->text text="Change"}
@@ -50,35 +50,35 @@
 		    {gallery->text text="The user name you entered is invalid"}
 		  {/gallery->error}
 		{/if}
-	      {/gallery->widget1body}
+	      {/gallery->body}
 	    {/gallery->widget1}
-	  {/gallery->widget1set}
-	{/gallery->detailedboxbody}
+	  {/gallery->widget1box}
+	{/gallery->body}
       {/if}
     {/gallery->detailedbox}
 
     {if $can.applyToSubItems}
       {gallery->detailedbox}
-	{gallery->detailedboxtitle}
+	{gallery->title}
 	  {gallery->text text="Apply changes"}
-	{/gallery->detailedboxtitle}
+	{/gallery->title}
 	
-	{gallery->detailedboxdescription}
+	{gallery->description}
 	  {gallery->text text="This item has sub-items.  The changes you make here can be applied to just this item, or you can apply them to all sub-items.  Note that applying changes to sub-items will merge your change into the existing permissions of the sub-items and may be very time consuming if you have many of sub-items.  It's more efficient to grant permissions to groups and then add and remove users from groups whenever possible."}
-	{/gallery->detailedboxdescription}
+	{/gallery->description}
 
-	{gallery->detailedboxbody}
+	{gallery->body}
 	  {gallery->input type="checkbox" name="form.applyToSubItems"}{/gallery->input}
 	  {gallery->text text="Apply to sub-items"}
-	{/gallery->detailedboxbody}
+	{/gallery->body}
       {/gallery->detailedbox}
     {/if}
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="Group Permissions"}
-      {/gallery->detailedboxtitle}
-      {gallery->detailedboxbody}
+      {/gallery->title}
+      {gallery->body}
 	{if $groupPermissions}
 	  {gallery->table}
 	    {gallery->row}
@@ -127,18 +127,18 @@
 	    {/section}
 	  {/gallery->table}
 	{/if}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
-	{gallery->widget1set}
+      {gallery->body}
+	{gallery->widget1box}
 	  {gallery->widget1}
-	    {gallery->widget1title}
+	    {gallery->title}
 	      {gallery->text text="Group:"}
-	    {/gallery->widget1title}
+	    {/gallery->title}
 
-	    {gallery->widget1body}
+	    {gallery->body}
 	      {gallery->input type="text" name="form.group.groupName"}
 		{$form.group.groupName}
 	      {/gallery->input}
@@ -174,18 +174,18 @@
 		  {gallery->text text="Group already has this permission (maybe it's included in one of the permissions the group already has)"}
 		{/gallery->error}
 	      {/if}
-	    {/gallery->widget1body}
+	    {/gallery->body}
 	  {/gallery->widget1}
-	{/gallery->widget1set}
-      {/gallery->detailedboxbody}
+	{/gallery->widget1box}
+      {/gallery->body}
     {/gallery->detailedbox}
 
 
     {gallery->detailedbox}
-      {gallery->detailedboxtitle}
+      {gallery->title}
 	{gallery->text text="User Permissions"}
-      {/gallery->detailedboxtitle}
-      {gallery->detailedboxbody}
+      {/gallery->title}
+      {gallery->body}
 	{if $userPermissions}
 	  {gallery->table}
 	    {gallery->row}
@@ -234,17 +234,17 @@
 	    {/section}
 	  {/gallery->table}
 	{/if}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
 
     {gallery->detailedbox}
-      {gallery->detailedboxbody}
-	{gallery->widget1set}
+      {gallery->body}
+	{gallery->widget1box}
 	  {gallery->widget1}
-	    {gallery->widget1title}
+	    {gallery->title}
 	      {gallery->text text="User:"}
-	    {/gallery->widget1title}
-	    {gallery->widget1body}
+	    {/gallery->title}
+	    {gallery->body}
 	      {gallery->input type="text" name="form.user.userName"}
 		{$form.user.userName}
 	      {/gallery->input}
@@ -280,10 +280,10 @@
 		  {gallery->text text="The user already has this permission (maybe it's included in one of the permissions the user already has)"}
 		{/gallery->error}
 	      {/if}
-	    {/gallery->widget1body}
+	    {/gallery->body}
 	  {/gallery->widget1}
-	{/gallery->widget1set}
-      {/gallery->detailedboxbody}
+	{/gallery->widget1box}
+      {/gallery->body}
     {/gallery->detailedbox}
   {/gallery->form}
 {/gallery->mainbody1}

@@ -8,13 +8,13 @@
     {/gallery->maintitle1}
 
     {gallery->detailedbox}
-      {gallery->detailedboxdescription}
+      {gallery->description}
 	{gallery->text text="You can make use this item as the thumbnail for its parent album."}
-      {/gallery->detailedboxdescription}
+      {/gallery->description}
 
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->input type="submit" name="form.action.makeHighlight"}{gallery->text text="Yes, highlight this item!"}{/gallery->input}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/gallery->detailedbox}
   {/gallery->form}
 {/gallery->mainbody1}

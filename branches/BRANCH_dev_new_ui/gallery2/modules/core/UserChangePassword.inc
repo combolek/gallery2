@@ -86,7 +86,7 @@ class UserChangePasswordController extends GalleryController {
 	    }
 
 	    if (!$error && $form['password1'] != $form['password2']) {
-		GalleryUtilities::putRequestVariable('form.error.password.mismatch', 1);
+		GalleryUtilities::putRequestVariable('form.error.password2.mismatch', 1);
 		$error = true;
 	    }
 
@@ -130,7 +130,7 @@ class UserChangePasswordController extends GalleryController {
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:UserAdmin';
-		$results['subView'] = 'core:UserChangePassword';
+		GalleryUtilities::putRequestVariable('subView', 'core:UserChangePassword');
 	    }
 	}
 
@@ -148,43 +148,19 @@ class UserChangePasswordController extends GalleryController {
 class UserChangePasswordView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	$userId = $gallery->getActiveUserId();
-
-	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	if ($userId == $anonymousUserId) {
-	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
-	}
-
-	list ($ret, $user) = $gallery->getActiveUser();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
 	/* Load the form with user data the first time around. */
 	if ($form['formName'] != 'UserChangePassword') {
-	    /* We don't fill the password boxes */
+	    $form['formName'] = 'UserChangePassword';
 	}
 
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('user', $user->getMemberData());
 	$template->setVariable('controller', 'core:UserChangePassword');
-	list($ret, $html) = $template->render('UserChangePassword.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/UserChangePassword.tpl');
     }
 }
 ?>

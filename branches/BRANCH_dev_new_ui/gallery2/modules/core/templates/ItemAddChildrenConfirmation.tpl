@@ -4,16 +4,16 @@
   {/gallery->maintitle1}
 
   {gallery->detailedbox}
-    {gallery->detailedboxtitle}
+    {gallery->title}
       {if ($count)}
 	{gallery->text one="Successfully added %d file." many="Successfully added %d files." count=$count arg1=$count}
       {else}
 	{gallery->text text="No files added."}
       {/if}
-    {/gallery->detailedboxtitle}
+    {/gallery->title}
 
     {if ($count)}
-      {gallery->detailedboxbody}
+      {gallery->body}
 	{gallery->table}
 	  {foreach from=$status item=entry}
 	    {gallery->row}
@@ -23,18 +23,18 @@
 	    {/gallery->row}
 	  {/foreach}
 	{/gallery->table}
-      {/gallery->detailedboxbody}
+      {/gallery->body}
     {/if}
   {/gallery->detailedbox}
 
   {gallery->detailedbox}
-    {gallery->detailedboxbody}
+    {gallery->body}
       {gallery->form action_view="core:ItemAdmin" action_subView="core:ItemAddChildren" action_itemId=$item.id}
 	{gallery->input type="submit"}
 	  {gallery->text text="Add more files"}
 	{/gallery->input}
       {/gallery->form}
-    {/gallery->detailedboxbody}
+    {/gallery->body}
   {/gallery->detailedbox}
 {/gallery->mainbody1}
 

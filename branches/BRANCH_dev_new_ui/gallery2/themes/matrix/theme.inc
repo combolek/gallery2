@@ -37,197 +37,546 @@ class MatrixTheme extends GalleryTheme {
 	$this->GalleryTheme(dirname(__FILE__));
     }
     
-    function header($params, $content) {
-	return '<table class="header"> <tr> <td> ' . $content . ' </td> </tr> </table>';
-    }
-    
-    function pathbar($params, $content) {
-	return '<table class="pathbar"> <tr> <td> ' . $content . ' </td> </tr> </table>';
-    }
-    
-    function pathbaritem($params, $content) {
-	return '<span class="pathbar_item">' . $content . '</span>';
-    }
-    
-    function pathbarseparator($params) {
-	return '<span class="pathbar_item">&raquo;</span>';
-    }
-    
-    function main($params, $content) {
-	return '<table class="main"> <tr> ' . $content . ' </tr> </table>';
-    }
-    
-    function maintitle1($params, $content) {
-	return '<tr> <td class="maintitle1"> ' . $content . ' </td> </tr>';
-    }
-    
-    function mainbody1($params, $content) {
-	return '<td class="mainbody1"> <table class="mainbody1_inner"> ' . $content .
-	    ' </table> </td> ';
-    }
-    
-    function sidebar1($params, $content) {
-	return '<td class="sidebar1"> ' . $content . ' </td>';
-    }
-    
-    function sidebarbox($params, $content) {
-	return '<table class="sidebarbox"> <tr> <td> ' . $content . ' </td> </tr> </table>';
-    }
-    
-    function sidebarboxtitle($params, $content) {
-	return '<p class="sidebarbox_title">' . $content . '</p>';
-    }
-    
-    function sidebarboxbody($params, $content) {
-	return $content;
-    }
-    
-    function listing($params, $content) {
-	return '<ul class="listing"> ' . $content . ' </ul> ';
-    }
-    
-    function listingitem($params, $content) {
-	return '<li class="listing_item">' . $content . '</li>';
-    }
-    
-    function listingselecteditem($params, $content) {
-	return '<li class="listing_selecteditem">' . $content . '</li>';
-    }
-    
-    function detailedbox($params, $content) {
-	return '<tr> <td> <table class="detailedbox"> ' . $content . ' </table> </td> </tr> ';
-    }
-    
-    function detailedboxtitle($params, $content) {
-	return '<tr> <td class="detailedbox_title"> ' . $content . ' </td> </tr';
-    }
-    
-    function detailedboxdescription($params, $content) {
-	return '<tr> <td class="detailedbox_description"> ' . $content . ' </td> </tr';
-    }
-    
-    function detailedboxbody($params, $content) {
-	return '<tr> <td> ' . $content . ' </td> </tr>';
-    }
-    
-    function widget1($params, $content) {
-	return '<tr class="widget1"> ' . $content . ' </tr> ';
-    }
-    
-    function widget1set($params, $content) {
-	return '<table class="widget1set"> ' . $content . ' </table>';
-    }
-    
-    function widget1title($params, $content) {
-	return '<td class="widget1title"> ' . $content . ' </td>';
-    }
-    
-    function widget1body($params, $content) {
-	return '<td> ' . $content . ' </td>';
-    }
-    
-    function widget2($params, $content) {
-	return '<tr class="widget2"> <td> ' . $content . ' </tr> ';
-    }
-    
-    function widget2set($params, $content) {
-	return '<table class="widget2set"> ' . $content . ' </table>';
-    }
-    
-    function widget2title($params, $content) {
-	return '<span class="widget2title">' . $content . '</span> ';
-    }
-    
-    function widget2description($params, $content) {
-	return '<br /> <span class="widget2description">' . $content . '</span> ';
-    }
-    
-    function widget2body($params, $content) {
-	return '<br /> ' . $content . ' <br /> &nbsp ';
-    }
-    
-    function footer($params, $content) {
-	return '<table class="footer"> <tr> <td> <p> ' . $content . ' </p> </td> </tr> </table>';
-    }
-    
-    function status($params, $content) {
-	return '<span class="status">' . $content . '</span>';
-    }
-    
-    function error($params, $content) {
-	return '<p class="error">' . $content . '</p>';
-    }
-    
-    function textmodifier1($params, $content) {
-	return '<span class="textmodifier1">' . $content . '</span> ';
-    }
-    
-    function table($params, $content) {
-	return '<table class="table"> ' . $content . ' </table>';
-    }
-    
-    function row($params, $content) {
-	return '<tr class="row"> ' . $content . ' </tr>';
-    }
-    
-    function column($params, $content) {
-	return '<td class="column"> ' . $content . ' </td>';
-    }
-    
-    function columnheader($params, $content) {
-	return '<th class="columnheader"> ' . $content . ' </th>';
-    }
-
-    function tabbedbox($params, $content) {
-	return '<tr> <td> <table class="tabbedbox">' . $content . '</table> </td> </tr>';
-    }
-    
-    function tabbedboxtabset($params, $content) {
-	return '<tr> <td> <table class="tabbedboxtabset"> <tr>' . $content . '</tr> </table> </td> </tr>';
-    }
-    
-    function tabbedboxtab($params, $content) {
-	return '<td class="tabbedboxtab">' . $content . '</td>';
-    }
-    
-    function tabbedboxselectedtab($params, $content) {
-	return '<td class="tabbedboxselectedtab">' . $content . '</td>';
-    }
-    
-    function tabbedboxbody($params, $content) {
-	return '<tr> <td> <table class="tabbedboxbody">' . $content . '</table> </td> </tr>';
-    }
-    
-    function style($params) {
+    /**
+     * style theme method
+     * @param array the template context
+     * @return string HTML content
+     */
+    function style($context) {
 	$themeCss = $this->getBaseUrl() . 'styles/theme.css';
 	return '<style type="text/css" media="all">@import url(' . $themeCss . ');</style>';
     }
 
-    function thumbnail($params) {
-	global $gallery;
-	$urlGenerator = $gallery->getUrlGenerator();
-	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
-						'itemId' => $params['thumbnail']['id']));
+    /**
+     * thumbnail theme method
+     * @param array the template context
+     * @return string HTML content
+     */
+    function thumbnail($context) {
+        trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
+    }
 
-	list ($width, $height) =
-	    GalleryUtilities::shrinkDimensionsToFit(110,
-						    $params['thumbnail']['width'],
-						    $params['thumbnail']['height']);
+    /**
+     * error theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function error($context, $content) {
+	return '<p class="error">' . $content . '</p>';
+    }
 
-	$title = $params['item']['title'];
-	if (empty($title)) {
-	    $title = $params['item']['pathComponent'];
+    /**
+     * status theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function status($context, $content) {
+	return '<span class="status">' . $content . '</span>';
+    }
+
+    /**
+     * textmodifier theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function textmodifier($context, $content) {
+	return '<span class="textmodifier">' . $content . '</span>';
+    }
+
+    /**
+     * globalheader theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function globalheader($context, $content) {
+	return '<table class="globalheader"> <tr> <td> ' . $content . ' </td> </tr> </table>';
+    }
+
+    /**
+     * main theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => header content)
+     * @param array optional ("params" => array, "content" => footer content)
+     * @param array optional ("params" => array, "content" => pathbar content)
+     * @param array optional (array("params" => array, "content" => sidebar content), ...)
+     * @param array optional (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function main($context, $header, $footer, $pathbar, $sidebar_array, $component_array) {
+	$buf = '<table class="main"> ';
+
+	// Header row
+	if (!empty($header)) {
+	    $buf .= '<tr> <td class="header"> ' . $header['content'] . ' </td> </tr> ';
 	}
 
-	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">' .
-			  '<p class="thumbnail_title"> %s </p>',
-			  $src,
-			  $width,
-			  $height,
-			  $title,
-			  $params['item']['description'],
-			  $title);
-	return $result;
+	// Pathbar row
+	if (!empty($pathbar)) {
+	    $buf .= '<tr> <td class="pathbar" colspan="2"> ' . $pathbar['content'] . ' </td> </tr> ';
+	}
+
+	// Begin center row
+	$buf .= '<tr> ';
+
+	// First sidebar goes on the left 
+	if (sizeof($sidebar_array) > 0) {
+	    $buf .= '<td class="sidebar_left"> ' . $sidebar_array[0]['content'] . ' </td>';
+	}
+
+	// Center body 
+	$buf .= '<td class="main_inner"> <table class="main_inner">';
+	for ($i = 0; $i < sizeof($component_array); $i++) {
+	    $buf .= '<tr> <td> ' . $component_array[$i]['content'] . '</td> </tr>';
+	}
+	$buf .= '</table> </td>';
+
+	// Remaining sidebars go on the right
+	if (sizeof($sidebar_array) > 1) {
+	    for ($i = 1; $i < sizeof($sidebar_array); $i++) {
+		$buf .= '<td> ' . $sidebar_array[$i]['content'] . ' </td>';
+	    }
+	}
+
+	// End center row
+	$buf .= '</tr>';
+
+	// Footer row
+	if (!empty($footer)) {
+	    $buf .= '<tr> <td class="footer"> ' . $footer['content'] . ' </td> </tr> ';
+	}
+
+	$buf .= '</table>';
+	return $buf;
+    }
+
+    /**
+     * globalfooter theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function globalfooter($context, $content) {
+	return '<table class="globalfooter"> <tr> <td> <p> ' . $content . ' </p> </td> </tr> </table>';
+    }
+
+    /**
+     * header theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function header($context, $content) {
+	return $content;
+    }
+
+    /**
+     * footer theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function footer($context, $content) {
+        trigger_error("Undefined theme function: footer", E_USER_ERROR);
+    }
+
+    /**
+     * pathbar theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function pathbar($context, $item_array) {
+	$buf = '<table class="pathbar_inner"> <tr> ';
+	for ($i = 0; $i < sizeof($item_array); $i++) {
+	    $buf .= '<td class="pathbar_item">' . $item_array[$i]['content'] . '</td>';
+	    if ($i < sizeof($item_array)-1) {
+		$buf .= '<td class="pathbar_item"> &raquo; </td>';
+	    }
+	}
+	$buf .= ' </tr> </table>';
+	return $buf;
+    }
+
+    /**
+     * sidebar theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function sidebar($context, $component_array) {
+	$buf = '<table class="sidebar">';
+	foreach ($component_array as $component) {
+	    $buf .= '<tr> <td class="sidebar_box"> ' . $component['content'] . ' </td> </tr>';
+	}
+	$buf .= '</table>';
+	return $buf;
+    }
+
+    /**
+     * bannerbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
+     * @param array optional (array("params" => array, "content" => component content), ...)
+     * @return string HTML content
+     */
+    function bannerbox($context, $title, $description, $component_array) {
+	$buf = '<table class="bannerbox">';
+	if (empty($component_array)) {
+	    if (!empty($title)) {
+		$buf .= '<tr> <td> ' . $title['content'] . ' </td> </tr>';
+	    }
+
+	    if (!empty($description)) {
+		$buf .= '<tr> <td> ' . $description['content'] . ' </td> </tr>';
+	    }
+	} else {
+	    $buf .= '<tr> <td> BANNERBOX INCOMPLETE </td> </tr>';
+	}
+	$buf .= '</table>';
+	return $buf;
+    }
+
+    /**
+     * linksbox theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function linksbox($context, $item_array) {
+        trigger_error("Undefined theme function: linksbox", E_USER_ERROR);
+    }
+
+    /**
+     * infobox theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function infobox($context, $item_array) {
+        trigger_error("Undefined theme function: infobox", E_USER_ERROR);
+    }
+
+    /**
+     * listingbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @return string HTML content
+     */
+    function listingbox($context, $title, $item_array) {
+	$buf = '<table class="listingbox"> ';
+	if (!empty($title)) {
+	    $buf .= '<tr> <td class="listingbox_title"> ' . $title['content'] . '</td> </tr>';
+	}
+	$buf .= '<tr> <td> <ul class="listingbox_list">';
+	foreach ($item_array as $item) {
+	    if ($item['params']['selected'] == 'true') {
+		$buf .= '<li class="listingbox_selecteditem"> ' . $item['content'];
+	    } else {
+		$buf .= '<li class="listingbox_item"> ' . $item['content'];
+	    }
+	}
+	$buf .= '</ul> </td> </tr> </table>';
+	return $buf;
+    }
+
+    /**
+     * detailedbox theme method
+     * @param array the template context
+     * @param array mandatory ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => description content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function detailedbox($context, $title, $description, $body) {
+	$buf = '<table class="detailedbox"> ';
+	if (!empty($title)) {
+	    $buf .= '<tr> <td class="detailedbox_title"> ' . $title['content'] . '</td> </tr> ';
+	}
+
+	if (!empty($description)) {
+	    $buf .= '<tr> <td class="detailedbox_description"> ' . $description['content'] . '</td> </tr> ';
+	}
+
+	$buf .= '<tr> <td> ' . $body['content'] . '</td> </tr> </table>';
+	return $buf;
+    }
+
+    /**
+     * tabbedbox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => item content), ...)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function tabbedbox($context, $title, $item_array, $body) {
+        trigger_error("Undefined theme function: tabbedbox", E_USER_ERROR);
+    }
+
+    /**
+     * simplebox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function simplebox($context, $title, $body) {
+	$buf = '<table class="simplebox">';
+	if (!empty($title)) {
+	    $buf .= '<tr> <td class="simplebox_title"> ' . $title['content'] . '</td> </tr> ';
+	}
+
+	if (!empty($body)) {
+	    $buf .= '<tr> <td class="simplebox_body"> ' . $body['content'] . '</td> </tr> ';
+	}
+	$buf .= '</table>';
+	return $buf;
+    }
+
+    /**
+     * widget1box theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => widget1 content), ...)
+     * @return string HTML content
+     */
+    function widget1box($context, $title, $widget1_array) {
+	$buf = '<table class="widget1box"> <tr> <td> ' . $title . ' </td> </tr> ';
+	for ($i = 0; $i < sizeof($widget1_array); $i++) {
+	    $buf .= $widget1_array[$i]['content'];
+	}
+	$buf .= ' </table>';
+	return $buf;
+    }
+
+    /**
+     * widget2box theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory (array("params" => array, "content" => widget2 content), ...)
+     * @return string HTML content
+     */
+    function widget2box($context, $title, $widget2_array) {
+	$buf = '<table class="widget2box"> <tr> <td> ' . $title . ' </td> </tr> ';
+	for ($i = 0; $i < sizeof($widget2_array); $i++) {
+	    $buf .= $widget2_array[$i]['content'];
+	}
+	$buf .= ' </table>';
+	return $buf;
+    }
+
+    /**
+     * widget1 theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function widget1($context, $title, $body) {
+	return '<tr> <td class="widget1_title"> ' . $title['content'] . '</td> ' .
+	    '<td class="widget1_body"> ' . $body['content'] . '</td> </tr>';
+    }
+
+    /**
+     * widget2 theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function widget2($context, $title, $body) {
+	return '<tr> <td class="widget2_title"> ' . $title['content'] . ' </td> </tr> ' .
+	    '<tr> <td class="widget2_body"> ' . $body['content'] . ' </td> </tr>';
+    }
+
+    /**
+     * table theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => row content), ...)
+     * @return string HTML content
+     */
+    function table($context, $row_array) {
+	$buf = '<table class="table">';
+	for ($i = 0; $i < sizeof($row_array); $i++) {
+	    $buf .= $row_array[$i]['content'];
+	}
+	$buf .= '</table>';
+	return $buf;
+    }
+
+    /**
+     * row theme method
+     * @param array the template context
+     * @param array mandatory (array("params" => array, "content" => column content), ...)
+     * @return string HTML content
+     */
+    function row($context, $column_array) {
+	$buf = '<tr>';
+	for ($i = 0; $i < sizeof($column_array); $i++) {
+	    if ($column_array[$i]['params']['header'] == 'true') {
+		$buf .= '<td class="columnheader">' . $column_array[$i]['content'] . '</td>';
+	    } else {
+		$buf .= '<td class="column">' . $column_array[$i]['content'] . '</td>';
+	    }
+	}
+	$buf .= '</tr>';
+	return $buf;
+    }
+
+    /**
+     * bigFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function bigFontSize($context, $content) {
+        trigger_error("Undefined theme function: bigFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * biggerFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function biggerFontSize($context, $content) {
+        trigger_error("Undefined theme function: biggerFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * biggestFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function biggestFontSize($context, $content) {
+        trigger_error("Undefined theme function: biggestFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * errorFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function errorFontColor($context, $content) {
+        trigger_error("Undefined theme function: errorFontColor", E_USER_ERROR);
+    }
+
+    /**
+     * heavyFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function heavyFrame($context, $content) {
+        trigger_error("Undefined theme function: heavyFrame", E_USER_ERROR);
+    }
+
+    /**
+     * highlight1 theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function highlight1($context, $content) {
+        trigger_error("Undefined theme function: highlight1", E_USER_ERROR);
+    }
+
+    /**
+     * highlight2 theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function highlight2($context, $content) {
+        trigger_error("Undefined theme function: highlight2", E_USER_ERROR);
+    }
+
+    /**
+     * lightFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function lightFrame($context, $content) {
+        trigger_error("Undefined theme function: lightFrame", E_USER_ERROR);
+    }
+
+    /**
+     * smallFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallFontSize($context, $content) {
+        trigger_error("Undefined theme function: smallFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * smallerFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallerFontSize($context, $content) {
+        trigger_error("Undefined theme function: smallerFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * smallestFontSize theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function smallestFontSize($context, $content) {
+        trigger_error("Undefined theme function: smallestFontSize", E_USER_ERROR);
+    }
+
+    /**
+     * successFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function successFontColor($context, $content) {
+        trigger_error("Undefined theme function: successFontColor", E_USER_ERROR);
+    }
+
+    /**
+     * thinFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function thinFrame($context, $content) {
+        trigger_error("Undefined theme function: thinFrame", E_USER_ERROR);
+    }
+
+    /**
+     * threeDFrame theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function threeDFrame($context, $content) {
+        trigger_error("Undefined theme function: threeDFrame", E_USER_ERROR);
+    }
+
+    /**
+     * warningFontColor theme method
+     * @param array the template context
+     * @param string optional content
+     * @return string HTML content
+     */
+    function warningFontColor($context, $content) {
+        trigger_error("Undefined theme function: warningFontColor", E_USER_ERROR);
     }
 }
 ?>
