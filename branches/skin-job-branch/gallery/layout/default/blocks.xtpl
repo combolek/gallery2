@@ -15,7 +15,20 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
-    <td align="center" valign="middle" width="3000" height="18">BREADCRUMB BAR HI</td>         
+    <td align="left" valign="middle" width="3000" height="18">
+    <span class="bread">
+    &nbsp;&nbsp;<img src="{GLO.layout.dir}images/nav_home.gif" width="13" height="11">
+
+    <!-- BEGIN: crumb -->
+    {crumb.level}: <a href="{crumb.href}">{crumb.name}</a> ::
+    <!-- END: crumb -->
+
+    <!-- BEGIN: last_crumb -->
+    {crumb.level}: <a href="{crumb.href}">{crumb.name}</a>
+    <!-- END: last_crumb -->
+
+    </span>
+    </td>         
     
     <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr> 
@@ -101,18 +114,48 @@
     <td align="left" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
     <!-- END: left -->
 
-    <!-- BEGIN: tools -->
+    <!-- BEGIN: commands -->
     <td align="right" valign="middle" width="3000" height="18">
     <span class="admin">
-    <!-- BEGIN: tool -->
-    <a href="{tool.href}">[{tool.name}]</a>
-    <!-- END: tool -->
+    <!-- BEGIN: command -->
+    <a href="#" onClick="{command.action};return false">[{command.name}]</a>
+    <!-- END: command -->
     </span>
     &nbsp;</td>
-    <!-- END: tools -->
+    <!-- END: commands -->
 
     <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr>
 </table>
 <!-- END: toolbox -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: comments -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+  <!-- BEGIN: comment -->
+  <tr>
+    <td width=15%>{GLO.pixelImage}</td>
+    <td width=70% bgcolor="{GLO.borderColor}">{GLO.pixelImage}</td>
+    <td width=15%>{GLO.pixelImage}</td>
+  </tr>
+  <tr>
+    <td>{GLO.pixelImage}</td>
+    <td>
+      <span class=caption>
+      <br>
+      From: <b>{comment.name}</b> @ {comment.IPNumber} ({comment.datePosted})
+      <br>
+      {comment.text}
+      <br><br>
+      </span>
+    </td>
+    <td>{GLO.pixelImage}</td>
+  </tr>
+
+  <!-- END: comment -->
+
+</table>
+<!-- END: comments -->
 
