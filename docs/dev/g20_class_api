@@ -27,6 +27,9 @@ The following functionality is not (yet) implemented in v2.0.
 Things that need to be added to this API:
 - Examples for how the API should be used.
 
+================================================================================
+================================================================================
+
 Class GalleryItem
 -----------------
         Container for all functionality and data common objects that 
@@ -42,11 +45,12 @@ Class GalleryItem
 	- version			* (float) data version of this item
 	- properties:
 		- creationDate		* (int) unix timestamp
+		- modificationDate	* (int) unix timestamp
+clicks_date->	- viewedSinceDate	* (int) unix timestamp click count start date 
+clicks->	- viewCount		* (int) number of times this item has been accessed
 		- keywords 		* (string) key words about this item
 		- title			* (string) title of this item (short)
 		- description		* (string) details of this item (long)
-clicks->	- viewCount		* (int) number of times this item has been accessed
-clicks_date->	- viewedSinceDate	* (int) click count start date 
 		- isHtmlAllowed		* (bool) allow html in the title & description
 hidden->	- isHidden		* (bool) is this item hidden?
 
@@ -84,7 +88,7 @@ integrityCheck->
 		Return the unix timestamp of the time this item was
 		created
 
-	- int getLastModificationDate()
+	- int getModificationDate()
 		Return the unix timestamp of the last time this item
 		was modified
 
@@ -278,7 +282,7 @@ Class JpegPhotoItem [extends PhotoItem]
 Class DataContainer
 -------------------
 	A container for any data that Gallery can manage, such as an
-	ImageContainer, MovieContainer or OpaqueContainer.
+	ImageContainer, MovieContainer or OpaqueContainer.  
 
 	Members
 	-------
