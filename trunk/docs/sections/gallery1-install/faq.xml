@@ -752,7 +752,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </para>
       <para>
        If you don't have shell access, you can use your FTP client to <emphasis>
-       recursively</emphasis> (every file and every directory) chmod the albums
+       recursively every file and every directory)</emphasis> chmod the albums
        directory 777.  <emphasis>Make sure you chmod the <filename>.users</filename>
        directory, which can sometimes be hidden from view.  See <link linkend="gallery1-install.faq.c.19">
        FAQ C.19</link> for more details</emphasis>
