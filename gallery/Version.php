@@ -38,9 +38,10 @@ if (!$gallery) {
 	$gallery = new stdClass();
 }
 
-$gallery->version = "1.2.4-cvs-b1";
+$gallery->version = "CVS:class-revolt-branch";
 $gallery->config_version = 26;
-$gallery->album_version = 4;
+$gallery->album_version = "22";
+$gallery->albumdb_version = 2;
 $gallery->remote_protocol_version = 1;
 $gallery->url = "http://gallery.sourceforge.net";
 
