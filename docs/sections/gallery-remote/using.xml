@@ -60,29 +60,39 @@
  <sect2 id="gallery-remote.using.logging">
   <title>Logging</title>
 
-  <para>
-   If you encounter a problem, the logging system may be some help, and we will definitely request it
-   if you ask for support.  By default, GR writes most log information to the file <filename>log.txt
-   </filename> in the directory where you installed GR. If you want to see more detailed information
-   there, you can add the following lines to your <filename>GalleryRemote.properties</filename> file:
-   <screen>
-    logLevel=3
-    toSysOut=true
-   </screen>
-
-   If you also change your InstallAnywhere launcher file Gallery Remote.lax to set:
-   <screen>
-    lax.stdout.redirect=console
-   </screen>
-
-   You will see the log as it unfolds in the console...
-   <note>
-    <para>
-     Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed in clear text in several places.
-    </para>
-   </note>
-  
-  </para>
+				<para>
+If you encounter a problem, the logging system may be some help, and we will definitely request it
+if you ask for support.  By default, GR writes most log information to the file <filename>log.txt
+</filename> in the directory where you installed GR. If you want to see more detailed information
+there, you can set the Log level to "Detailed, very verbose" in the Gallery Remote preferences dialog.
+				</para>
+				<para>
+If you would like to see the log unfold as you use the application rather than having
+it go to a file, you should change the following:
+					<itemizedlist>
+						<listitem>
+							<para>
+In file <filename>GalleryRemote.properties</filename> (this is the preferences file, explained in the
+<link linkend="gallery-remote.using.preferences">Preferences section</link>), set
+								<screen>
+toSysOut=true
+								</screen>
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+In file <filename>Gallery Remote.lax</filename> (in the directory where Gallery Remote was installed),
+set:
+								<screen>
+lax.stdout.redirect=console
+								</screen>
+							</para>
+						</listitem>
+					</itemizedlist>
+				</para>
+				<para>
+Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed in clear text in several places.
+				</para>
  </sect2>
  
  <sect2 id="gallery-remote.using.saveload">

@@ -85,7 +85,26 @@ case $1 in
 
 		cp ../../css/*.css .
 		;;
-                
+
+	grpackage)
+		echo "Generating Gallery Remote Docs Only...";
+
+		if [ ! -d $DIST/grpackage ]; then
+			mkdir -p $DIST/grpackage;
+		fi
+
+		gendate
+
+		cd $DIST/grpackage
+		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/gr-package.xsl ../../manual.xml || exit 1
+
+
+		cp -Rf ../../images .
+		rm -rf images/CVS
+
+		cp ../../css/*.css .
+		;;
+
 	prettyhtml)
 		echo "Generating Pretty HTML Docs...";
 
@@ -179,6 +198,7 @@ case $1 in
 #		echo "pdf           Generate a PDF (requires fop)";
 		echo "galleryweb    Generate docs fitted for the Gallery Website";
 		echo "g1package     Generate only G1 docs";
+		echo "grpackage     Generate only GR docs";
 		echo "prettyhtml    Generate nice looking docs";
 		echo "htmlhelp      Generate Windows help docs (experimental)";
 		echo "dist          Generate all types";
