@@ -71,7 +71,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		$albumName = $albumDB->newAlbumName();
 		$album = new Album();
 		$album->fields["name"] = $albumName;
-		$album->setOwner($user);
+		$album->setOwner($user->getUid());
 		$album->save();
 	
 	        /* move the album to the top */ 
