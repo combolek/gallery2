@@ -10,7 +10,8 @@ if (!$gallery) {
 }
 
 $gallery->version = "CVS:skin-job-branch";
-$gallery->config_version = 22;
-$gallery->album_version = 1;
+$gallery->version = "1.2-cvs";
+$gallery->config_version = 23;
+$gallery->album_version = 3;
 $gallery->url = "http://gallery.sourceforge.net";
 ?>
