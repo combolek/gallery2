@@ -317,26 +317,27 @@ class DataContainer extends GalleryNucleus {
      */
     function getMetaInfo() {
         $meta = parent::getMetaInfo();
-        $meta['derivativeSource'] = array(
+        $meta['members']['derivativeSource'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['dataFileName'] = array(
+        $meta['members']['dataFileName'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_MEDIUM);
-        $meta['derivativeChildren'] = array(
+        $meta['members']['derivativeChildren'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_MAP);
-        $meta['derivativeCommands'] = array(
+        $meta['members']['derivativeCommands'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_LARGE);
-        $meta['isDerivative'] = array(
+        $meta['members']['isDerivative'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['cacheIsCurrent'] = array(
+        $meta['members']['cacheIsCurrent'] = array(
             'class' => 'DataContainer',
             'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }

@@ -398,37 +398,38 @@ class GalleryNucleus {
      */
     function getMetaInfo() {
         $meta = array();
-        $meta['path'] = array(
+        $meta['members']['path'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['objectType'] = array(
+        $meta['members']['objectType'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_REQUIRED | STORAGE_MODIFIER_SMALL);
-        $meta['modificationTimestamp'] = array(
+        $meta['members']['modificationTimestamp'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_TIMESTAMP |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['serialNumber'] = array(
+        $meta['members']['serialNumber'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_INTEGER |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['creationTimestamp'] = array(
+        $meta['members']['creationTimestamp'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_TIMESTAMP |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['dataVersion'] = array(
+        $meta['members']['dataVersion'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_INTEGER |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['id'] = array(
+        $meta['members']['id'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_INTEGER |
                       STORAGE_MODIFIER_ID | STORAGE_MODIFIER_REQUIRED);
-        $meta['parentId'] = array(
+        $meta['members']['parentId'] = array(
             'class' => 'GalleryNucleus',
             'type' => STORAGE_TYPE_INTEGER);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }

@@ -166,12 +166,13 @@ class DataItem extends GalleryItem {
      */
     function getMetaInfo() {
         $meta = parent::getMetaInfo();
-        $meta['preferredSource'] = array(
+        $meta['members']['preferredSource'] = array(
             'class' => 'DataItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['source'] = array(
+        $meta['members']['source'] = array(
             'class' => 'DataItem',
             'type' => STORAGE_TYPE_INTEGER);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }
