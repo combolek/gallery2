@@ -558,13 +558,14 @@ class GalleryTheme {
     /*************************************************************
      * Standard theme methods
      *************************************************************/
+    //(setq last-kbd-macro (read-kbd-macro "C-s /** C-a C-@ M-> 3*<C-p> C-w C-l C-x i GalleryTheme.inc RET C-x C-s"))
     /**
      * style theme method
      * @param array the template context
      * @return string HTML content
      */
     function style($context) {
-        $smarty->trigger_error("Undefined theme function: style", E_USER_ERROR);
+        trigger_error("Undefined theme function: style", E_USER_ERROR);
     }
 
     /**
@@ -573,7 +574,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function thumbnail($context) {
-        $smarty->trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
+        trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
     }
 
     /**
@@ -583,7 +584,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function error($context, $content) {
-        $smarty->trigger_error("Undefined theme function: error", E_USER_ERROR);
+        trigger_error("Undefined theme function: error", E_USER_ERROR);
     }
 
     /**
@@ -593,7 +594,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function status($context, $content) {
-        $smarty->trigger_error("Undefined theme function: status", E_USER_ERROR);
+        trigger_error("Undefined theme function: status", E_USER_ERROR);
     }
 
     /**
@@ -603,7 +604,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function textmodifier($context, $content) {
-        $smarty->trigger_error("Undefined theme function: textmodifier", E_USER_ERROR);
+        trigger_error("Undefined theme function: textmodifier", E_USER_ERROR);
     }
 
     /**
@@ -613,7 +614,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function globalheader($context, $content) {
-        $smarty->trigger_error("Undefined theme function: globalheader", E_USER_ERROR);
+        trigger_error("Undefined theme function: globalheader", E_USER_ERROR);
     }
 
     /**
@@ -627,7 +628,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function main($context, $header, $footer, $pathbar, $sidebar_array, $component_array) {
-        $smarty->trigger_error("Undefined theme function: main", E_USER_ERROR);
+        trigger_error("Undefined theme function: main", E_USER_ERROR);
     }
 
     /**
@@ -637,7 +638,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function globalfooter($context, $content) {
-        $smarty->trigger_error("Undefined theme function: globalfooter", E_USER_ERROR);
+        trigger_error("Undefined theme function: globalfooter", E_USER_ERROR);
     }
 
     /**
@@ -647,7 +648,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function header($context, $content) {
-        $smarty->trigger_error("Undefined theme function: header", E_USER_ERROR);
+        trigger_error("Undefined theme function: header", E_USER_ERROR);
     }
 
     /**
@@ -657,7 +658,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function footer($context, $content) {
-        $smarty->trigger_error("Undefined theme function: footer", E_USER_ERROR);
+        trigger_error("Undefined theme function: footer", E_USER_ERROR);
     }
 
     /**
@@ -667,7 +668,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function pathbar($context, $item_array) {
-        $smarty->trigger_error("Undefined theme function: pathbar", E_USER_ERROR);
+        trigger_error("Undefined theme function: pathbar", E_USER_ERROR);
     }
 
     /**
@@ -677,7 +678,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function sidebar($context, $component_array) {
-        $smarty->trigger_error("Undefined theme function: sidebar", E_USER_ERROR);
+        trigger_error("Undefined theme function: sidebar", E_USER_ERROR);
     }
 
     /**
@@ -689,7 +690,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function bannerbox($context, $title, $description, $component_array) {
-        $smarty->trigger_error("Undefined theme function: bannerbox", E_USER_ERROR);
+        trigger_error("Undefined theme function: bannerbox", E_USER_ERROR);
     }
 
     /**
@@ -699,7 +700,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function linksbox($context, $item_array) {
-        $smarty->trigger_error("Undefined theme function: linksbox", E_USER_ERROR);
+        trigger_error("Undefined theme function: linksbox", E_USER_ERROR);
     }
 
     /**
@@ -709,7 +710,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function infobox($context, $item_array) {
-        $smarty->trigger_error("Undefined theme function: infobox", E_USER_ERROR);
+        trigger_error("Undefined theme function: infobox", E_USER_ERROR);
     }
 
     /**
@@ -720,7 +721,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function listingbox($context, $title, $item_array) {
-        $smarty->trigger_error("Undefined theme function: listingbox", E_USER_ERROR);
+        trigger_error("Undefined theme function: listingbox", E_USER_ERROR);
     }
 
     /**
@@ -732,7 +733,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function detailedbox($context, $title, $description, $body) {
-        $smarty->trigger_error("Undefined theme function: detailedbox", E_USER_ERROR);
+        trigger_error("Undefined theme function: detailedbox", E_USER_ERROR);
     }
 
     /**
@@ -744,7 +745,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function tabbedbox($context, $title, $item_array, $body) {
-        $smarty->trigger_error("Undefined theme function: tabbedbox", E_USER_ERROR);
+        trigger_error("Undefined theme function: tabbedbox", E_USER_ERROR);
     }
 
     /**
@@ -755,7 +756,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function simplebox($context, $title, $body) {
-        $smarty->trigger_error("Undefined theme function: simplebox", E_USER_ERROR);
+        trigger_error("Undefined theme function: simplebox", E_USER_ERROR);
     }
 
     /**
@@ -766,7 +767,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function widget1box($context, $title, $widget1_array) {
-        $smarty->trigger_error("Undefined theme function: widget1box", E_USER_ERROR);
+        trigger_error("Undefined theme function: widget1box", E_USER_ERROR);
     }
 
     /**
@@ -777,7 +778,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function widget2box($context, $title, $widget2_array) {
-        $smarty->trigger_error("Undefined theme function: widget2box", E_USER_ERROR);
+        trigger_error("Undefined theme function: widget2box", E_USER_ERROR);
     }
 
     /**
@@ -788,18 +789,19 @@ class GalleryTheme {
      * @return string HTML content
      */
     function widget1($context, $title, $body) {
-        $smarty->trigger_error("Undefined theme function: widget1", E_USER_ERROR);
+        trigger_error("Undefined theme function: widget1", E_USER_ERROR);
     }
 
     /**
      * widget2 theme method
      * @param array the template context
      * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
      * @param array mandatory ("params" => array, "content" => body content)
      * @return string HTML content
      */
-    function widget2($context, $title, $body) {
-        $smarty->trigger_error("Undefined theme function: widget2", E_USER_ERROR);
+    function widget2($context, $title, $description, $body) {
+        trigger_error("Undefined theme function: widget2", E_USER_ERROR);
     }
 
     /**
@@ -809,7 +811,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function table($context, $row_array) {
-        $smarty->trigger_error("Undefined theme function: table", E_USER_ERROR);
+        trigger_error("Undefined theme function: table", E_USER_ERROR);
     }
 
     /**
@@ -819,17 +821,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function row($context, $column_array) {
-        $smarty->trigger_error("Undefined theme function: row", E_USER_ERROR);
-    }
-
-    /**
-     * column theme method
-     * @param array the template context
-     * @param array mandatory ("params" => array, "content" => body content)
-     * @return string HTML content
-     */
-    function column($context, $body) {
-        $smarty->trigger_error("Undefined theme function: column", E_USER_ERROR);
+        trigger_error("Undefined theme function: row", E_USER_ERROR);
     }
 
     /**
@@ -839,7 +831,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function bigFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: bigFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: bigFontSize", E_USER_ERROR);
     }
 
     /**
@@ -849,7 +841,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function biggerFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: biggerFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: biggerFontSize", E_USER_ERROR);
     }
 
     /**
@@ -859,7 +851,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function biggestFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: biggestFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: biggestFontSize", E_USER_ERROR);
     }
 
     /**
@@ -869,7 +861,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function errorFontColor($context, $content) {
-        $smarty->trigger_error("Undefined theme function: errorFontColor", E_USER_ERROR);
+        trigger_error("Undefined theme function: errorFontColor", E_USER_ERROR);
     }
 
     /**
@@ -879,7 +871,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function heavyFrame($context, $content) {
-        $smarty->trigger_error("Undefined theme function: heavyFrame", E_USER_ERROR);
+        trigger_error("Undefined theme function: heavyFrame", E_USER_ERROR);
     }
 
     /**
@@ -889,7 +881,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function highlight1($context, $content) {
-        $smarty->trigger_error("Undefined theme function: highlight1", E_USER_ERROR);
+        trigger_error("Undefined theme function: highlight1", E_USER_ERROR);
     }
 
     /**
@@ -899,7 +891,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function highlight2($context, $content) {
-        $smarty->trigger_error("Undefined theme function: highlight2", E_USER_ERROR);
+        trigger_error("Undefined theme function: highlight2", E_USER_ERROR);
     }
 
     /**
@@ -909,7 +901,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function lightFrame($context, $content) {
-        $smarty->trigger_error("Undefined theme function: lightFrame", E_USER_ERROR);
+        trigger_error("Undefined theme function: lightFrame", E_USER_ERROR);
     }
 
     /**
@@ -919,7 +911,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function smallFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: smallFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: smallFontSize", E_USER_ERROR);
     }
 
     /**
@@ -929,7 +921,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function smallerFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: smallerFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: smallerFontSize", E_USER_ERROR);
     }
 
     /**
@@ -939,7 +931,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function smallestFontSize($context, $content) {
-        $smarty->trigger_error("Undefined theme function: smallestFontSize", E_USER_ERROR);
+        trigger_error("Undefined theme function: smallestFontSize", E_USER_ERROR);
     }
 
     /**
@@ -949,7 +941,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function successFontColor($context, $content) {
-        $smarty->trigger_error("Undefined theme function: successFontColor", E_USER_ERROR);
+        trigger_error("Undefined theme function: successFontColor", E_USER_ERROR);
     }
 
     /**
@@ -959,7 +951,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function thinFrame($context, $content) {
-        $smarty->trigger_error("Undefined theme function: thinFrame", E_USER_ERROR);
+        trigger_error("Undefined theme function: thinFrame", E_USER_ERROR);
     }
 
     /**
@@ -969,7 +961,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function threeDFrame($context, $content) {
-        $smarty->trigger_error("Undefined theme function: threeDFrame", E_USER_ERROR);
+        trigger_error("Undefined theme function: threeDFrame", E_USER_ERROR);
     }
 
     /**
@@ -979,7 +971,7 @@ class GalleryTheme {
      * @return string HTML content
      */
     function warningFontColor($context, $content) {
-        $smarty->trigger_error("Undefined theme function: warningFontColor", E_USER_ERROR);
+        trigger_error("Undefined theme function: warningFontColor", E_USER_ERROR);
     }
 
 }
