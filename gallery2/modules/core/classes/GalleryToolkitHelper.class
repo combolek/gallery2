@@ -280,7 +280,7 @@ class GalleryToolkitHelper {
 		    
 	    if (empty($current)) {
 		$current = array('name' => $result[0],
-				 'outputMimeType' => $result[1],
+				 'outputMimeType' => empty($result[1]) ? $mimeType : $result[1],
 				 'description' => $result[2]);
 	    }
 	    $current['arguments'][] = array('type' => $result[3],
@@ -375,17 +375,21 @@ class GalleryToolkitHelper {
 	if ($searchResults->resultCount() == 0) {
 	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
 					      __FILE__, __LINE__),
+			 null,
 			 null);
 	}
 	$result = $searchResults->nextResult();
 
+	$toolkitId = $result[0];
+	$outputMimeType = empty($result[1]) ? $mimeType : $result[1];
+
 	list ($ret, $toolkit) = 
-	    GalleryFactory::newInstanceById('GalleryToolkit', $result[0], $result[1]);
+	    GalleryFactory::newInstanceById('GalleryToolkit', $toolkitId);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $toolkit);
+	return array(GalleryStatus::success(), $toolkit, $outputMimeType);
     }
 
     /**
