@@ -100,7 +100,7 @@ require ("../../init.php");
  <xsl:template match="ulink">
   <a href="#">
    <xsl:attribute name="onclick">
-    <xsl:text>javascript:window.opener.location.href='</xsl:text><xsl:value-of select="@url"/><xsl:text>'</xsl:text>
+    <xsl:text>javascript:window.opener.location.href='</xsl:text><xsl:value-of select="@url"/><xsl:text>'; window.close();</xsl:text>
    </xsl:attribute>    
    <xsl:apply-templates/>
   </a>
