@@ -36,7 +36,6 @@ if ($doit) {
 	//-- build up some html for output ---
 	$content = "
 
-		<input type=\"hidden\" name=\"show_progress\" value=\"1\">
 		<span class=\"title\">Rotate $typeLabel</span>
 		<br>
 		<br>
@@ -50,6 +49,7 @@ if ($doit) {
 		<br>
 	";
 
+	$show_progress = 1;
 	return $content;
 }
 ?>
