@@ -21,14 +21,33 @@
 <?
 if ($doit) {
 
+	// XXX this is a bassackwards way to delete an album in the 2.0
+	// XXX mindset. Should we fix Album->delete() to do all of this? hrm.
+
+	//-- find the parent album and this album's index ---
+	$pAlbum = new Album();
+	$pAlbum->load($album->fields["parentAlbumName"]);
+	$aIndex = $pAlbum->getPhotoIndex($album->fields["name"]);
+
+	//-- now delete the album from the parent ---
+	$pAlbum->deletePhoto($aIndex);
+	$pAlbum->save();
+
+	//-- when this command executes we want to leave the edit page ---
+	$forceReturn = 1;
+
 	return;
 } else {
 
 	//-- build up some html for output ---
 	$content = "
-
-		<span class=\"title\">Delete the Album</span>
+			<span class=\"title\">Delete Album</span>
 		<br>
+		<br>
+		Do you really want to delete this Album?
+		<br>
+		<br>
+		<i>This action cannot be undone!</i>
 	";
 
 	return $content;

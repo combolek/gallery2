@@ -110,8 +110,13 @@ function getLayoutWrapHeaderFooter(&$G) {
 	}
 	$xtpl_hf->parse("header");
 	$xtpl_hf->parse("footer");
-	$header = $xtpl_hf->text("header");
-	$footer = $xtpl_hf->text("footer");
+
+	$header = "\n<!-- Gallery Wrap Header Begin -->\n"
+		. $xtpl_hf->text("header") .
+		"\n<!-- Gallery Wrap Header End -->\n";
+	$footer = "\n<!-- Gallery Wrap Footer Begin -->\n"
+		. $xtpl_hf->text("footer") .
+		"\n<!-- Gallery Wrap Footer End -->\n";
 
 	return array($header, $footer);
 }

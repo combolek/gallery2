@@ -182,6 +182,10 @@ switch ($type) {
 			$name = "html";
 			$commands[$name]['title'] = "Custom HTML";
 			$commands[$name]['href'] = makeEditUrl($name);
+
+			$name = "delete";
+			$commands[$name]['title'] = "Delete Album";
+			$commands[$name]['href'] = makeEditUrl($name);
 		}
 
 		break;

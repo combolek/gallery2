@@ -80,7 +80,7 @@ if ($doit) {
 	$pixelsrc = $gallery->app->photoAlbumURL . "/images/pixel_trans.gif";
 	$content = "
 
-		<span class=\"title\">Edit the album's general info: name, title, description, ...</span>
+		<span class=\"title\">Edit the album's general info</span>
 		<br>
 		<br>
 		
