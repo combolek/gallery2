@@ -1,3 +1,13 @@
+2003-01-08  Pierre-Luc Paour <gallery@paour.com> (1.2.1)
+
+	* Fixed logging in when no username and/or no password
+	  is set.
+	* Reverted to previous version of ImageMagick from Windows:
+	  the version 1.2 shipped with caused many problems, because
+	  it's harder to use in pseudo-installed mode.
+
+	* Release 1.2.1.
+
 2003-12-29  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b6)
 
 	* Reorganized the Mac build so that jpegtran.properties and

@@ -366,7 +366,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 
 			if (username == null || username.length() == 0) {
 				username = (String) JOptionPane.showInputDialog(
-						(JFrame) su,
+						GalleryRemote.getInstance().mainFrame,
 						grRes.getString(MODULE, "usernameLbl"),
 						grRes.getString(MODULE, "username"),
 						JOptionPane.PLAIN_MESSAGE,
@@ -379,7 +379,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 
 			if (password == null || password.length() == 0) {
 				password = (String) JOptionPane.showInputDialog(
-						(JFrame) su,
+						GalleryRemote.getInstance().mainFrame,
 						grRes.getString(MODULE, "passwdLbl"),
 						grRes.getString(MODULE, "passwd"),
 						JOptionPane.PLAIN_MESSAGE,
