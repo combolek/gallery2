@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Zero G's InstallAnywhere 5.0.7 Enterprise, Build 1680
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Thu Jun 05 23:51:04 CEST 2003 -->
-<InstallAnywhere_Deployment_Project increments="2129">
+     DATE:   Wed Jun 18 09:27:56 CEST 2003 -->
+<InstallAnywhere_Deployment_Project increments="2083">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="5" minor="0" revision="7"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,90,88,50,55,53,52,53,67,50,53,54,88,70</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,52,46,48,95,48,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,-16,-109,-15,-112,-80,80,112,114,103,83,98,113,97,113,81,49,67,90,65,74,77,72,68,64,69,66,69,48,63,87,5,2,7,2,51,105,5,0,0,0</authorizationID>
+		<authorizationID>1,0,0,-16,-45,-47,0,64,80,112,114,103,83,98,113,97,113,81,49,67,90,65,74,77,72,68,64,69,66,69,48,63,87,5,2,11,5,48,105,5,0,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="111">
+	<installationObjects uniqueObjects="110">
 		<object class="com.zerog.ia.installer.Installer" objectID="e14b381f9883">
 			<property name="wizardME">
 				<object class="com.zerog.ia.installer.actions.MakeExecutable" objectID="e14b435a989f">
@@ -166,7 +166,7 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="ad5f3aa48308">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="ed4c01278308">
 									<property name="propertyValue">
 										<string><![CDATA[com.gallery.GalleryRemote.GalleryRemote]]></string>
 									</property>
@@ -734,7 +734,7 @@ Press 'Done' to quit the installer.]]></string>
 				<object class="java.util.Properties">
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[Thu Jun 05 23:51:04 CEST 2003]]></string>
+						<string><![CDATA[Wed Jun 18 09:27:56 CEST 2003]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.merge]]></string>
@@ -774,7 +774,7 @@ Press 'Done' to quit the installer.]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[Thu Jun 05 23:41:09 CEST 2003]]></string>
+						<string><![CDATA[Wed Jun 18 09:27:56 CEST 2003]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.heap.size.initial]]></string>
@@ -1386,7 +1386,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[defaults.properties]]></string>
 											</property>
 											<property name="fileSize">
-												<long>2732</long>
+												<long>2729</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -1482,7 +1482,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[ReadMe.html]]></string>
 											</property>
 											<property name="fileSize">
-												<long>8600</long>
+												<long>9350</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -1528,6 +1528,36 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[]]></string>
 											</property>
 										</object>
+										<object refID="ad46e3af8330"/>
+										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ad46e39e832e">
+											<property name="unixPermissions">
+												<string><![CDATA[775]]></string>
+											</property>
+											<property name="sourceName">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="overrideUnixPermissions">
+												<boolean>false</boolean>
+											</property>
+											<property name="sourcePath">
+												<string><![CDATA[$IA_PROJECT_DIR$\lib]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[lib]]></string>
+											</property>
+											<property name="removeRecursively">
+												<boolean>false</boolean>
+											</property>
+											<property name="macBinary">
+												<boolean>false</boolean>
+											</property>
+											<visualChildren>
+												<object refID="ad46e3af8330"/>
+											</visualChildren>
+										</object>
 									</installChildren>
 								</object>
 							</installChildren>
@@ -1542,78 +1572,6 @@ and any path to a file to read from that file]]></string>
 							<property name="shortName">
 								<string><![CDATA[ImageMa]]></string>
 							</property>
-							<rules logicalOperation="AND">
-								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="566f922296aa">
-									<property name="installOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Windows 95]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 98]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Me]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-										</object>
-									</property>
-									<property name="doNotInstallOnPlatformList">
-										<object class="java.util.Vector">
-											<method name="addElement">
-												<string><![CDATA[Mac OS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Mac OS X]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[OS/2]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Solaris]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[SunOS]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[HP-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Linux]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Irix]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[DG-UX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Compaq's Digital UNIX]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[FreeBSD]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Rhapsody]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Unlisted Platforms]]></string>
-											</method>
-										</object>
-									</property>
-								</object>
-							</rules>
 							<installChildren>
 								<object refID="e14b385e9893"/>
 								<object refID="e14b385d9896"/>
@@ -2681,36 +2639,6 @@ and any path to a file to read from that file]]></string>
 												<object refID="566cb20d968c"/>
 												<object refID="566cb21c9696"/>
 												<object refID="57a6e616a778"/>
-											</visualChildren>
-										</object>
-										<object refID="ad46e3af8330"/>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="ad46e39e832e">
-											<property name="unixPermissions">
-												<string><![CDATA[775]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\lib]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[lib]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
-											<visualChildren>
-												<object refID="ad46e3af8330"/>
 											</visualChildren>
 										</object>
 									</installChildren>
