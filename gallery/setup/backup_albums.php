@@ -106,10 +106,10 @@ if ($error_text) {
 <?php
 if (!isset($backup_method)) { $backup_method="zip";}
 if (!isset($target_files)) { $target_files="dat";}
-if (!isset($tar_path)) { $tar_path= ( ($path = findInPath ("tar")) ? $path : "/usr/bin/tar" );}
-if (!isset($find_path)) { $find_path=( ($path = findInPath ("find")) ? $path : "/usr/bin/find" );}
-if (!isset($xargs_path)) { $xargs_path=( ($path = findInPath ("xargs")) ? $path : "/usr/bin/xargs");}
-if (!isset($gzip_path)) { $gzip_path=( ($path = findInPath ("gzip")) ? $path : "/usr/bin/gzip");}
+if (!isset($tar_path)) { $tar_path="/usr/bin/tar";}
+if (!isset($find_path)) { $find_path="/usr/bin/find";}
+if (!isset($xargs_path)) { $xargs_path="/usr/bin/xargs";}
+if (!isset($gzip_path)) { $gzip_path="/usr/bin/gzip";}
 if (!isset($zip_path)) { $zip_path="C:\bin\zip.exe";}
 ?>
 <center>
@@ -143,7 +143,7 @@ Choose archiving option and which files you wish to archive.
 </center>
 <ol>
 <li> On Linux/Unix systems, tar/gzip is recommended.
-<li> On Windows system, choose zip backup, and ensure the path for the zip.exe is correct.
+<li> On Windows systems, it is recommended that you back up directly using Winzip or your favourite archiving software.  If you decide to use this tool, choose zip backup, and ensure the path for the zip.exe is correct.
 <li> Zip file backup requires enough space in the temporary directory to create a zip file of entire backup.
 <li> Data files backup will <b>not</b> backup your images, and is recommended before upgrade.
 <li> If you choose a tar/gzip backup of data files only, you need to have correct paths for <b>xargs</b> and <b>find</b>, otherwise these are not needed.

@@ -32,11 +32,11 @@ foreach ($constants as $key => $val) {
 	}
 
 	if (!$go_defaults && isset($$key)) {
-	    $val["value"] = $$key;
+		$val["value"] = $$key;
 
 	    if (get_magic_quotes_gpc()) {
 		$val["value"] = stripslashes($val["value"]);
-	    }
+	}
 	}
 
 	// Protect quote characters to avoid screwing up HTML forms

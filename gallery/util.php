@@ -262,7 +262,7 @@ function acceptableFormatRegexp() {
 }
 
 function acceptableMovieList() {
-    return array('avi', 'mpg', 'mpeg', 'wmv', 'mov', 'swf', 'mp4');
+    return array('avi', 'mpg', 'mpeg', 'wmv', 'mov', 'swf');
 }
 
 function acceptableImageList() {
@@ -1140,9 +1140,8 @@ function getExif($file) {
         $return = array();
         $path = $gallery->app->use_exif;
         list($return, $status) = exec_internal(fs_import_filename($path, 1) .
-						" \"" .
-						fs_import_filename($file, 1) .
-                                                "\"");
+						" " .
+						fs_import_filename($file, 1));
 
 	$myExif = array();
 	if ($status == 0) {
@@ -1306,12 +1305,10 @@ function safe_serialize($obj, $file) {
 	} while (fs_file_exists($tmpfile));
 
 	if ($fd = fs_fopen($tmpfile, "wb")) {
-	        $buf = serialize($obj);
-		$bufsize = strlen($buf);
-		$count = fwrite($fd, $buf);
+		fwrite($fd, serialize($obj));
 		fclose($fd);
 
-		if ($count != $bufsize || fs_filesize($tmpfile) != $bufsize) {
+		if (fs_filesize($tmpfile) == 0) {
 			/* Something went wrong! */
 			$success = 0;
 		} else {
@@ -1426,14 +1423,9 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 					     " -j -o " .
 					     fs_import_filename($file, 1) .
 					     " \"" .
-					     fs_import_filename($cmd_pic_path) .
+					     fs_import_filename($cmd_pic_path, 1) .
 					     "\" -d " .
 					     fs_import_filename($gallery->app->tmpDir, 1));
-					     
-					     /*
-					      Don't use the second argument for $cmd_pic_path, because it is
-					      already quoted.
-					     */
 				processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption);
 				fs_unlink($gallery->app->tmpDir . "/$pic");
 			}
@@ -1622,23 +1614,5 @@ function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newA
         }
 
         return $returnVal;
-}
-
-function escapeEregChars($string)
-{
-	return ereg_replace('(\.|\\\\|\+|\*|\?|\[|\]|\^|\$|\(|\)|\{|\}|\=|\!|\<|\>|\||\:)', '\\\\1', $string);
-}
-
-function findInPath($program)
-{
-	$path = explode(':', getenv('PATH'));
-	
-	foreach ($path as $dir) {
-		if (fs_file_exists("$dir/$program")) {
-			return "$dir/$program";
-		}
-	}
-	
-	return false;
 }
 ?>

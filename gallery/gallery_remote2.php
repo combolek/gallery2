@@ -122,43 +122,15 @@ function check_proto_version( &$response ) {
 	}
 }
 
-$response = new Properties();
-check_proto_version( $response );
-
-// some debug output
-//$response->setProperty( "debug_session_albumName", $gallery->session->albumName);
-$response->setProperty( "debug_album", $gallery->album->fields["name"]);
-
-// -- Handle request --
+//---------------------------------------------------------
+//-- login --
 
 if (!strcmp($cmd, "login")) {
-	//---------------------------------------------------------
-	//-- login --
-
+	$response = new Properties();
+	check_proto_version( $response );
+	
 	if ($uname && $password) {
-		//echo $gallery->user->getUsername()."\n";
-		//echo $gallery->user->isLoggedIn()."\n";
-
-		if ($gallery->user->isLoggedIn()) {
-			// we're embedded and the user is authenticated
-			$response->setProperty( "server_version", $GR_VER['MAJ'].".".$GR_VER['MIN'] );
-			$response->setProperty( "status", $GR_STAT['SUCCESS'] );
-			$response->setProperty( "status_text", "Login successful." );
-
-			// return the response
-			echo $response->listprops();
-			exit;
-		}
-
-		// try to log in using URL parameters (probably not embedded)
 		$tmpUser = $gallery->userDB->getUserByUsername($uname);
-
-		$response->setProperty( "debug_user", $tmpUser->getUsername());
-		$response->setProperty( "debug_user_type", get_class($tmpUser));
-		//echo $tmpUser->getUsername()."\n";
-		//echo get_class($tmpUser)."\n";
-		//echo $gallery->user->getUsername()."\n";
-		//echo $gallery->user->isLoggedIn()."\n";
 		if ($tmpUser && $tmpUser->isCorrectPassword($password)) {
 			// log user in
 			$gallery->session->username = $uname;
@@ -174,11 +146,19 @@ if (!strcmp($cmd, "login")) {
 		$response->setProperty( "status", $GR_STAT['LOGIN_MISSING'] );
 		$response->setProperty( "status_text", "Login parameters not found." );
 	}
+	
+	// return the response
+	echo $response->listprops();
+	exit;
+}
 
-} else if (!strcmp($cmd, "fetch-albums")) {
-	//---------------------------------------------------------
-	//-- fetch-albums --
+//---------------------------------------------------------
+//-- fetch-albums --
 
+if (!strcmp($cmd, "fetch-albums")) {
+	$response = new Properties();
+	check_proto_version( $response );
+	
 	$albumDB = new AlbumDB(FALSE);
     $mynumalbums = $albumDB->numAlbums($gallery->user);
 	
@@ -201,10 +181,19 @@ if (!strcmp($cmd, "login")) {
 	$response->setProperty( "status", $GR_STAT['SUCCESS'] );
 	$response->setProperty( "status_text", "Fetch albums successful." );
 
-} else if (!strcmp($cmd, "add-item")) {
-	//---------------------------------------------------------
-	//-- add-item --
+	// return the response
+	echo $response->listprops();
+	exit;
+}
 
+
+//---------------------------------------------------------
+//-- add-item --
+
+if (!strcmp($cmd, "add-item")) {
+	$response = new Properties();
+	check_proto_version( $response );
+	
 	// current album is set by the "set_albumName" form data and session.php
 	
 	// Hack check
@@ -242,10 +231,19 @@ if (!strcmp($cmd, "login")) {
 		}
 	}
 
-} else if (!strcmp($cmd, "album-properties")) {
-	//---------------------------------------------------------
-	//-- album-properties --
+	// return the response
+	echo $response->listprops();
+	exit;
+}
 
+
+//---------------------------------------------------------
+//-- album-properties --
+
+if (!strcmp($cmd, "album-properties")) {
+	$response = new Properties();
+	check_proto_version( $response );
+	
 	// current album is set by the "set_albumName" form data and session.php
 	
 	$max_dimension = $gallery->album->fields["resize_size"];
@@ -256,15 +254,19 @@ if (!strcmp($cmd, "login")) {
 	$response->setProperty( "auto_resize", $max_dimension );
 	$response->setProperty( "status", $GR_STAT['SUCCESS'] );
 	$response->setProperty( "status_text", "Album properties retrieved successfully." );
-} else if (!strcmp($cmd, "new-album")) {
-	//---------------------------------------------------------
-	//-- new-album --
+	
+	// return the response
+	echo $response->listprops();
+	exit;
+}
 
-	// Hack: detect this magic name that means the albumName should be null
-	//if ($gallery->session->albumName == "hack_null_albumName") {
-	//	$gallery->session->albumName = "";
-	//}
+//---------------------------------------------------------
+//-- new-album --
 
+if (!strcmp($cmd, "new-album")) {
+	$response = new Properties();
+	check_proto_version( $response );
+	
 	// Hack check
 	if ( $gallery->user->canCreateAlbums()
 			&& $gallery->user->canCreateSubAlbum($gallery->album) ) {
@@ -283,13 +285,26 @@ if (!strcmp($cmd, "login")) {
 		$response->setProperty( "status", $GR_STAT['NO_CREATE_ALBUM_PERMISSION'] );
 		$response->setProperty( "status_text", "A new album could not be created because the user does not have permission to do so." );
 	}
-} else {
-	// if the command hasn't been handled yet, we don't recognize it
-	$response->setProperty( "status", $GR_STAT['UNKNOWN_COMMAND'] );
-	$response->setProperty( "status_text", "Command '$cmd' unknown." );
+	
+	// return the response
+	echo $response->listprops();
+	exit;
 }
 
+
+//============================================================================
+
+//------------------------------------------------
+//-- if the command hasn't been handled yet, we don't recognize it
+//--
+$response = new Properties();
+check_proto_version( $response );
+$response->setProperty( "status", $GR_STAT['UNKNOWN_COMMAND'] );
+$response->setProperty( "status_text", "Command '$cmd' unknown." );
 echo $response->listprops();
+
+exit;
+
 
 
 //------------------------------------------------

@@ -88,12 +88,8 @@ $numAlbums = count($list);
 $photoMatch = 0;
 $albumMatch = 0;
 if ($searchstring) {
-	$origstr = $searchstring;
-	$searchstring = escapeEregChars ($searchstring);
-	$searchstring = str_replace ("\\*", ".*", $searchstring);
-
-	$adminbox["text"] = "<span class=\"admin\">Albums containing \"$origstr\"</span>";
-	$adminbox["bordercolor"] = $borderColor; 
+	$adminbox["text"] = "<span class=\"admin\">Albums containing \"$searchstring\"</span>";
+    $adminbox["bordercolor"] = $borderColor; 
 	$adminbox["top"] = false;
 	include($GALLERY_BASEDIR . "layout/adminbox.inc");
 	echo "<br>";
@@ -103,9 +99,9 @@ if ($searchstring) {
 		$searchTitle = $searchAlbum->fields['title'];
 		$searchDescription = $searchAlbum->fields['description'];
 		$searchSummary = $searchAlbum->fields['summary'];
-       		$matchTitle = eregi("$searchstring", $searchTitle);
-		$matchDescription = eregi("$searchstring", $searchDescription);
-		$matchSummary = eregi("$searchstring", $searchSummary);
+       		$matchTitle = eregi($searchstring, $searchTitle);
+		$matchDescription = eregi($searchstring, $searchDescription);
+		$matchSummary = eregi($searchstring, $searchSummary);
        		if ($matchTitle || $matchDescription || $matchSummary) {
 			$uid = $gallery->user->getUid();
 			if ($searchAlbum->canRead($uid) || $gallery->user->isAdmin()) {
@@ -135,8 +131,8 @@ if ($searchstring) {
 
 	$breadtext[0] = "";
 	$breadcrumb["text"] = $breadtext;
-	include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
-	$adminbox["text"] = "<span class=\"admin\">Photos containing \"$origstr\"</span>";
+    include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+	$adminbox["text"] = "<span class=\"admin\">Photos containing \"$searchstring\"</span>";
    	$adminbox["bordercolor"] = $borderColor; 
 	$adminbox["top"] = false;
 	include($GALLERY_BASEDIR . "layout/adminbox.inc");

@@ -228,10 +228,10 @@ function check_graphics($location="", $graphtool = "")
 	$fail = array();
 	$success = array();
 
-	if (!strcmp($graphtool, "ImageMagick")) {
-		$success[] = "NetPBM not being used in this installation";
-	    	return array($success, $fail);
-	}
+ 	if (!strcmp($graphtool, "ImageMagick")) {
+ 		$success[] = "NetPBM not being used in this installation";
+	return array($success, $fail);
+}
 
 	if (!empty($location) && !inOpenBasedir($location)) {
 	    $success[] = "Cannot verify this path (it's not in your open_basedir list)";

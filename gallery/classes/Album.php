@@ -424,8 +424,8 @@ class Album {
 			/* Dunno what we unserialized .. but it wasn't an album! */
 		        $tmp = unserialize(getFile($filename, true));
 			if (strcasecmp(get_class($tmp), "album")) {
-				return 0;
-			}
+			return 0;
+		}
 		}
 
 		$this = $tmp;
@@ -437,7 +437,7 @@ class Album {
 		if (!is_Array($tmp)){
 			$tmp = unserialize(getFile($filename, true));
 			if (!is_Array($tmp)){
-				return 0;
+			return 0;
 			}
 		}
 		if (count($tmp) > 0) {

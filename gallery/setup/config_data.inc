@@ -212,7 +212,7 @@ $constants = array(
 		"filename" => 1,
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
-		"verify-func-takes-graphics-type" => true,
+		"verify-func-takes-graphics-type" => true,			  
 	),
 	"pnmtojpeg" => array(
 		"prompt" => "PNM to JPEG converter",
@@ -240,7 +240,7 @@ $constants = array(
 		"filename" => 1,
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
-		"verify-func-takes-graphics-type" => true,
+		"verify-func-takes-graphics-type" => true,			  
 	),
 	"highlight_size" => array(
 		"prompt" => "Highlight size",
