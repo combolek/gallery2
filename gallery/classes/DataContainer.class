@@ -69,6 +69,19 @@ class DataContainer extends GalleryNucleus {
      */
     var $_derivativeCommands;
 
+    /**
+     * The ids of DataContainers that are derived from this one.
+     *
+     * @var array
+     */
+    var $_derivativeChildren;
+
+    /**
+     * Track whether the cache is current or expired
+     *
+     * @var boolean
+     */
+    var $_cacheIsCurrent;
 
     /*
      * ****************************************
@@ -177,14 +190,14 @@ class DataContainer extends GalleryNucleus {
     }
 
     /**
-     * Has this item expired?
+     * Has the cache for this item expired?
      *
-     * If the item is expired, it can be rebuilt with rebuildCache()
+     * If the cache is expired, it can be rebuilt with rebuildCache()
      * 
      * @access public
      * @return boolean true if the item is expired (ie, the cache is empty)
      */
-    function isExpired() {
+    function isCacheCurrent() {
     }
 
     /**
@@ -238,6 +251,30 @@ class DataContainer extends GalleryNucleus {
      * @return string the file path
      */
     function getDataFilePath() {
+    }
+
+    /**
+     * Add a derived child DataContainer
+     *
+     * This DataContainer will start tracking the fact that the DataContainer
+     * provided is a derivative of this one.
+     * 
+     * @access public
+     * @param string the id of the child DataContainer
+     */
+    function addDerivativeChildId($id) {
+    }
+
+    /**
+     * Remove a derived child DataContainer
+     *
+     * This DataContainer will stop tracking the fact that the DataContainer
+     * provided is a derivative of this one.
+     * 
+     * @access public
+     * @param string the id of the child DataContainer
+     */
+    function removeDerivativeChildId($id) {
     }
 }
 ?>
