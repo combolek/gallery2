@@ -69,5 +69,3 @@
   {$subViewHtml}
 
 {/gallery->main}
-
-

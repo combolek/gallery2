@@ -201,6 +201,11 @@ class GalleryTemplateAdapter {
 				      'row',
 				      'column',
 				      'columnheader',
+				      'tabbedbox',
+				      'tabbedboxtabset',
+				      'tabbedboxtab',
+				      'tabbedboxselectedtab',
+				      'tabbedboxbody',
 
 				      /* Old API Style methods */
 				      'bigFontSize',
@@ -258,6 +263,11 @@ class GalleryTemplateAdapter {
     function row($params, $content) { if (isset($content)) { return $this->_theme->row($params, $content); } }
     function column($params, $content) { if (isset($content)) { return $this->_theme->column($params, $content); } }
     function columnheader($params, $content) { if (isset($content)) { return $this->_theme->columnheader($params, $content); } }
+    function tabbedbox($params, $content) { if (isset($content)) { return $this->_theme->tabbedbox($params, $content); } }
+    function tabbedboxtabset($params, $content) { if (isset($content)) { return $this->_theme->tabbedboxtabset($params, $content); } }
+    function tabbedboxbody($params, $content) { if (isset($content)) { return $this->_theme->tabbedboxbody($params, $content); } }
+    function tabbedboxtab($params, $content) { if (isset($content)) { return $this->_theme->tabbedboxtab($params, $content); } }
+    function tabbedboxselectedtab($params, $content) { if (isset($content)) { return $this->_theme->tabbedboxselectedtab($params, $content); } }
 
     /* block style builtins */
     function form($params, $content) { if (isset($content)) { return $this->_theme->form($params, $content); } }

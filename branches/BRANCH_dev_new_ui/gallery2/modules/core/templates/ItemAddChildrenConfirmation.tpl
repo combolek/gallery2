@@ -1,35 +1,40 @@
+{gallery->mainbody1}
+  {gallery->maintitle1}
+    {gallery->text text="Uploaded Complete"}
+  {/gallery->maintitle1}
 
-    <center>
+  {gallery->detailedbox}
+    {gallery->detailedboxtitle}
       {if ($count)}
-      {gallery->biggerFontSize}
-      {gallery->successFontColor}
-      {gallery->text one="Successfully added %d file."
-                     many="Successfully added %d files."
-                     count=$count
-                     arg1=$count}
-      {/gallery->successFontColor}
-      {/gallery->biggerFontSize}
-
-      <table>
-	<!-- {foreach from=$status item=entry} -->
-	  <tr>
-	    <td>
-	      {gallery->text text="Added %s" arg1=$entry.fileName}
-	    </td>
-	  </tr>
-	<!-- {/foreach} -->
-      </table>
+	{gallery->text one="Successfully added %d file." many="Successfully added %d files." count=$count arg1=$count}
       {else}
-      {gallery->biggerFontSize}
-      {gallery->warningFontColor}
-      {gallery->text text="Did not add any files."}
-      {/gallery->warningFontColor}
-      {/gallery->biggerFontSize}
+	{gallery->text text="No files added."}
       {/if}
+    {/gallery->detailedboxtitle}
 
-      <br>
+    {if ($count)}
+      {gallery->detailedboxbody}
+	{gallery->table}
+	  {foreach from=$status item=entry}
+	    {gallery->row}
+	      {gallery->column}
+		{gallery->text text="Added %s" arg1=$entry.fileName}
+	      {/gallery->column}
+	    {/gallery->row}
+	  {/foreach}
+	{/gallery->table}
+      {/gallery->detailedboxbody}
+    {/if}
+  {/gallery->detailedbox}
 
-      <a href="{gallery->url view="core:ItemAdmin" subView="core:ItemAddChildren" itemId=$item.id}">
-	{gallery->text text="Add more files"}
-      </a>
-    </center>
+  {gallery->detailedbox}
+    {gallery->detailedboxbody}
+      {gallery->form action_view="core:ItemAdmin" action_subView="core:ItemAddChildren" action_itemId=$item.id}
+	{gallery->input type="submit"}
+	  {gallery->text text="Add more files"}
+	{/gallery->input}
+      {/gallery->form}
+    {/gallery->detailedboxbody}
+  {/gallery->detailedbox}
+{/gallery->mainbody1}
+

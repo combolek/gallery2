@@ -522,11 +522,19 @@ class GalleryTheme {
 	    case 'onkeyup':
 		$results .= " $key=\"$value\"";
 		break;
+
+	    case 'javascript':
+		$javascript = $value;
+		break;
 	    }
 	}
 
-	$urlGenerator = $gallery->getUrlGenerator();
-	$href = $urlGenerator->generateUrl($hrefParams);
+	if ($javascript) {
+	    $href = "javascript:$javascript";
+	} else {
+	    $urlGenerator = $gallery->getUrlGenerator();
+	    $href = $urlGenerator->generateUrl($hrefParams);
+	}
 	$results .= " href=\"$href\"";
 	
 	$results .= '>';
