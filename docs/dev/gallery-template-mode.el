@@ -49,13 +49,79 @@
 	    '(("\\.tpl\\'" . gallery-template-mode))
 	       auto-mode-alist))
 
+(defconst smarty-keywords
+  (eval-when-compile 
+    (regexp-opt
+     ;; Built-in Functions
+     '(
+       "capture" "config_load" "foreach" "foreachelse" "include" "include_php"
+       "if" "elseif" "else" "ldelim" "rdelim" "literal" "php" "section" "sectionelse"
+       "strip"
+       
+       ;; Custom functions
+       "assign" "counter" "cycle" "debug" "eval" "fetch"
+       "html_checkboxes" "html_image" "html_options" "html_radios" "html_select_date" "html_select_time"
+       "html_table" "math" "mailto" "popup_init" "popup" "textformat") t))
+  "Smarty keywords."
+  )
+
+(defconst gallery-keywords
+  (eval-when-compile
+    (regexp-opt
+     '(
+       ;; Builtin tags
+       "g->text"
+       "g->url"
+       "g->date"
+       "g->elementName"
+
+       ;; Theme tags 
+       "g->style"
+       "g->input"
+       "g->form"
+       "g->select"
+       "g->textarea"
+       "g->link"
+       "g->success"
+       "g->warning"
+       "g->error"
+       "g->image"
+       "g->listing"
+       "g->breadcrumb"
+       "g->linkset"
+       "g->actionset"
+       "g->infoset"
+       "g->tabset"
+       "g->table"
+       "g->row"
+       "g->column"
+       "g->element"
+       "g->title"
+       "g->subtitle"
+       "g->description"
+       "g->footer"
+       "g->media"
+       "g->value"
+       "g->main"
+       "g->sidebar"
+       "g->itemthumbnail"
+       "g->itemview"
+       "g->tabbedbox"
+       "g->box"
+       "g->pagebox"
+       "g->banner"
+       "g->item"
+       "g->actionitem") t))
+  "Gallery keywords"
+)
+
 (defconst gallery-template-font-lock-keywords-1
   (list
-   ; {gallery->...}
-   ; {/gallery->...}
-   (regexp-opt '("{gallery->.*}" "{/gallery->.*}") t)
-   '("\\<\\(?:{\\(?:/gallery->\\.\\*?}\\|gallery->\\.\\*?}\\)\\)\\>" . font-lock-builtin-face))
-  "Minimal highlighting expressions for Gallery-Template mode.")
+   (cons smarty-keywords 'smarty-keyword-face)
+   (cons gallery-keywords 'gallery-keyword-face)
+   )
+  "Minimal keywords highlighting for Gallery Template mode"
+  )
 
 (defvar gallery-template-font-lock-keywords gallery-template-font-lock-keywords-1
   "Default highlighting expressions for Gallery-Template mode.")
@@ -69,10 +135,11 @@
     (let ((not-indented t) cur-indent)
       (save-excursion
 	(forward-to-indentation 0)
-	(if (looking-at (regexp-opt '(             ; if the line is a ...
-				      "{/"         ; end of a block
-				      "{else}"	   ; special statement
-				      )            ; then decrease the indentation
+	(if (looking-at (regexp-opt '(                 ; if the line is a ...
+				      "{/"             ; end of a block
+				      "{else}"	       ; special statement
+				      "{foreachelse}"
+				      )		       ; then decrease the indentation
 				    t))
 	    (progn
 	      (save-excursion
@@ -89,11 +156,13 @@
 ;	      (message "some string")
 
 	      (if (looking-at (regexp-opt '("{/"
-					    "{counter}"
+					    "{*"
+					    "{counter "
 					    "{assign "
-					    "{gallery->style}"
-					    "{gallery->pathbarseparator}"
-					    "{gallery->text "
+					    "{include "
+					    "{g->image}"
+					    "{g->style}"
+					    "{g->text "
 					    "{$"
 					    "{\"")
 					  t))
@@ -136,6 +205,8 @@
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults
 	'(gallery-template-font-lock-keywords))
+
+  (setq font-lock-maximum-decoration t)
   
   ;; Register our indentation function
   (make-local-variable 'indent-line-function)
@@ -147,6 +218,17 @@
   (setq major-mode 'gallery-template-mode)
   (setq mode-name "gallery-template")
   (run-hooks 'gallery-template-mode-hook))
+
+;; Create "default" symbol for GNU Emacs so that both Xemacs and GNU
+;; emacs can refer to the default face by a variable named "default".
+(unless (boundp 'default)
+  (defvar default 'default))
+
+;; Create faces for XEmacs
+(unless (boundp 'gallery-keyword-face)
+  (copy-face 'default 'gallery-keyword-face))
+(unless (boundp 'smarty-keyword-face)
+  (copy-face 'default 'smarty-keyword-face))
 
 (provide 'gallery-template-mode)
 
