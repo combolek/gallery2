@@ -64,7 +64,7 @@ case $1 in
 		echo "html          Generate HTML documents";
 		echo "bightml       Generate one big HTML document";
 		echo "pdf           Generate a PDF (requires fop)";
-		echo "all           Generate all types";
+		echo "dist          Generate all types";
 		echo "test-saxon    Test for XML errors using saxon";
 		echo "test-xmllint  Test for XML errors using xmllint";
 		echo "clean         Remove all generated manuals (created by html, bightml, etc..)";
