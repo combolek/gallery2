@@ -57,14 +57,6 @@ if (count($GLO['toolbox']['commands']) > 0) {
 }
 $xtpl_blocks->parse("toolbox");
 
-$GLO['divider'] = $xtpl_blocks->text("divider");
-$GLO['blockNavigation'] = $xtpl_blocks->text("navigator");
-$GLO['blockTools'] = $xtpl_blocks->text("toolbox");
-$GLO['blockBreadcrumb'] = $xtpl_blocks->text("breadcrumb");
-
-
-
-
 //-------------------------------------------------------------------
 //-- The gallerywide headers and footers ---
 
@@ -81,58 +73,73 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 }
 $xtpl_hf->parse("header");
 $xtpl_hf->parse("footer");
-$GLO['header'] = $xtpl_hf->text("header");
-$GLO['footer'] = $xtpl_hf->text("footer");
+
 //-------------------------------------------------------------------
 //-- Finally do the main template ---
-//--   Note: only parse the header/footer if we are not embedded.
 
 $xtpl = getLayoutXTemplate("xtpl/view_album.xtpl");
 $xtpl->assign('GLO', $GLO);
+
+$xtpl->assign('blockDivider', $xtpl_blocks->text("divider"));
+$xtpl->assign('blockNavigation', $xtpl_blocks->text("navigator"));
+$xtpl->assign('blockTools', $xtpl_blocks->text("toolbox"));
+$xtpl->assign('blockBreadcrumb', $xtpl_blocks->text("breadcrumb"));
+$xtpl->assign('header', $xtpl_hf->text("header"));
+$xtpl->assign('footer', $xtpl_hf->text("footer"));
 
 //-- construct the items section ---
 $index=0;
 $itemCount = count($GLO['album']['items']);
 
+//-- build the item grid ---
+$xtpl->assign('thumbCellSize', $GLO['album']['thumbnailSize'] + (2 * $GLO['album']['borderSize']));
 for ($row=1; $row <= $GLO['album']['rows']; $row++) {
 	for ($col=1; $col <= $GLO['album']['cols']; $col++) {
 		$index++;
 		$item = $GLO['album']['items'][$index];
 
-		if ($item['clickCount'] > 0) {
-			$item['clickCountText'] = "<br>Viewed ".$item['clickCount']." times";
+		if ($item) {
+			//-- blank out the click count text if we're not supposed to see it ---
+			if (!$GLO['album']['displayClicks']) {
+				$item['clickCountText'] = "";
+			}
+			if ($item['commentCount'] > 0) {
+				$item['commentCountText'] = "*";
+				$anItemHasAComment = true;
+			}
+			if ($item['hidden']) {
+				$item['hiddenText'] = "[HIDDEN]";
+			}
+			$xtpl->assign('item', $item);
+	
+			//-- dynamically decide which cell block to use ---
+			$cellTypeBlock = "view_album.items.row.cell." . $item['type'];	
 		}
-		if ($item['commentCount'] > 0) {
-			$item['commentCountText'] = "*";
-			$anItemHasAComment = true;
+		else {
+			$cellTypeBlock = "view_album.items.row.cell.blank";
 		}
-		if ($item['hidden']) {
-			$item['hiddenText'] = "[HIDDEN]";
+		$xtpl->parse($cellTypeBlock);
+
+		//-- do the command row --
+		if ($item && $item['commandCount']) {
+			$xtpl->parse("view_album.items.row.cell.commands");
 		}
-		$xtpl->assign('item', $item);
-		
-		switch ($item['type']) {
-			case 'album':
-				$xtpl->parse("view_album.items.row.album_cell");
-				break;
-			case 'movie':
-				$xtpl->parse("view_album.items.row.movie_cell");
-				break;
-			case 'photo':
-				$xtpl->parse("view_album.items.row.photo_cell");
-				break;
-			default:
-				$xtpl->parse("view_album.items.row.blank_cell");
-				break;
-		}
+
+	
+		//-- finish up the item cell ---
+		$xtpl->parse("view_album.items.row.cell");
 	}
+
+	//-- finish up the item row ---
 	$xtpl->parse("view_album.items.row");
 
-	//-- don't do empty rows ---
+	//-- if the rest of the rows are gonna be blank, don't do 'em ---
 	if ($index > $itemCount) {
 		break;
 	}
 }
+
+//-- finish up the item grid block ---
 $xtpl->parse("view_album.items");
 
 if ($anItemHasAComment) {

@@ -96,8 +96,8 @@ $GLO['footer'] = $xtpl_hf->text("footer");
 
 $xtpl = getLayoutXTemplate("xtpl/view_item.xtpl");
 $xtpl->assign('GLO', $GLO);
-$xtpl->parse("view_photo");
-$xtpl->out("view_photo");
+$xtpl->parse("view_item");
+$xtpl->out("view_item");
 
 ?>
 
