@@ -134,9 +134,9 @@ class ItemEditItemController extends GalleryController {
 class ItemEditItemView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -159,26 +159,16 @@ class ItemEditItemView extends GalleryView {
 	    $form['keywords'] = $item->getKeywords();
 	    $form['description'] = $item->getDescription();
 	    $form['pathComponent'] = $item->getPathComponent();
+	    $form['formName'] = 'ItemEditItem';
 	}
 
-	/* Load the parents */
-	list ($ret, $parents) = $item->fetchParents();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
+	$ItemEditItem = array();
 
 	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('parents', $parents);
+	$template->setVariable('ItemEditItem', $ItemEditItem);
 	$template->setVariable('controller', 'core:ItemEditItem');
-	list($ret, $html) = $template->render('ItemEditItem.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemEditItem.tpl');
     }
 }
 ?>
