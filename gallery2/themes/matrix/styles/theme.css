@@ -11,6 +11,8 @@ body {
   border: 0px dashed #ddd;
   background-color: #fff;
   overflow: visible;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .mainbody1 { 
@@ -18,6 +20,8 @@ body {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   vertical-align: top;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .mainbody1_inner { 
@@ -25,6 +29,8 @@ body {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   vertical-align: top;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .maintitle1 {
@@ -40,6 +46,8 @@ body {
 }
 
 .widget1set { 
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .widget1body { 
@@ -55,6 +63,8 @@ body {
 }
 
 .widget2set { 
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .widget2 { 
@@ -103,8 +113,8 @@ body {
 
 .header {
   width: 100%;
-  margin: 0px 32px 0px 32px;
-  padding: 8px 16px 8px 16px;
+  margin: 0px 0px 0px 32px;
+  padding: 0px 0px 0px 0px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
@@ -125,18 +135,21 @@ body {
 
 .pathbar {
   width: 100%;
-  margin: 8px 64px 0px 32px;
-  padding: 0px 0px 8px 16px;
-  background-color: #fff;
+  height: 24px;
+  margin: 0px 0px 0px 32px;
+  padding: 0px 0px 0px 0px;
   border-bottom: 1px solid #ddd;
+  border-collapse: collapse;
+  border-spacing: 0px;
 }
 
 .pathbar_item {
   color: #aaa;
   width: auto;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 2px;
   padding: 0px 0px 0px 0px;
   text-align: left;
+  vertical-align: middle;
   background-color: #fff;
   font-size: 81%;
   font-weight: bold;
@@ -222,6 +235,27 @@ body {
   font-size: 63%;
   line-height: 1.33;
   background-color: #fff;
+}
+
+.tabbedbox {  
+  margin-left: 12px;
+}
+
+.tabbedboxset {  
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+.tabbedboxtab { 
+  font-size: 81%;
+  font-weight: bold;
+  background-color: #eee;
+}
+
+.tabbedboxselectedtab { 
+  font-size: 81%;
+  font-weight: bold;
+  background-color: #ccc;
 }
 
 .thumbnail {

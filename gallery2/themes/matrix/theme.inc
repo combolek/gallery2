@@ -38,11 +38,11 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function header($params, $content) {
-	return '<table class="header"> <tr> <td> <p> ' . $content . ' </p> </td> </tr> </table>';
+	return '<table class="header"> <tr> <td> ' . $content . ' </td> </tr> </table>';
     }
     
     function pathbar($params, $content) {
-	return '<table cellspacing="0" class="pathbar"> <tr> <td> ' . $content . ' </td> </tr> </table>';
+	return '<table class="pathbar"> <tr> <td> ' . $content . ' </td> </tr> </table>';
     }
     
     function pathbaritem($params, $content) {
@@ -50,7 +50,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function main($params, $content) {
-	return '<table cellspacing="0" class="main"> <tr> ' . $content . ' </tr> </table>';
+	return '<table class="main"> <tr> ' . $content . ' </tr> </table>';
     }
     
     function maintitle1($params, $content) {
@@ -58,7 +58,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function mainbody1($params, $content) {
-	return '<td class="mainbody1"> <table cellspacing="0" class="mainbody1_inner"> ' . $content .
+	return '<td class="mainbody1"> <table class="mainbody1_inner"> ' . $content .
 	    ' </table> </td> ';
     }
     
@@ -111,7 +111,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function widget1set($params, $content) {
-	return '<table cellspacing="0" class="widget1set"> ' . $content . ' </table>';
+	return '<table class="widget1set"> ' . $content . ' </table>';
     }
     
     function widget1title($params, $content) {
@@ -127,7 +127,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function widget2set($params, $content) {
-	return '<table cellspacing="0" class="widget2set"> ' . $content . ' </table>';
+	return '<table class="widget2set"> ' . $content . ' </table>';
     }
     
     function widget2title($params, $content) {
@@ -172,6 +172,26 @@ class MatrixTheme extends GalleryTheme {
     
     function columnheader($params, $content) {
 	return '<th class="columnheader"> ' . $content . ' </th>';
+    }
+
+    function tabbedbox($params, $content) {
+	return '<tr> <td> <table class="tabbedbox">' . $content . '</table> </td> </tr>';
+    }
+    
+    function tabbedboxtabset($params, $content) {
+	return '<tr> <td> <table class="tabbedboxtabset"> <tr>' . $content . '</tr> </table> </td> </tr>';
+    }
+    
+    function tabbedboxtab($params, $content) {
+	return '<td class="tabbedboxtab">' . $content . '</td>';
+    }
+    
+    function tabbedboxselectedtab($params, $content) {
+	return '<td class="tabbedboxselectedtab">' . $content . '</td>';
+    }
+    
+    function tabbedboxbody($params, $content) {
+	return '<tr> <td> <table class="tabbedboxbody">' . $content . '</table> </td> </tr>';
     }
     
     function style($params) {
