@@ -127,6 +127,43 @@ Caution: Be careful before posting your log to forums or sending it to anyone: y
 			</answer>
 		</qandaentry>
 
+		<qandaentry id="gallery-remote.faq.4">
+			<question>
+				<para>
+Building thumbnails and displaying preview is slow (Linux, MacOS)
+				</para>
+			</question>
+			<answer>
+				<para>
+Whereas on Windows, ImageMagick and jpegtran are installed by the installer, on other OSes,
+they are not automatically installed, and must be installed by the end-user.
+				</para>
+				<para>
+Please make sure that these products are available in your Unix <varname>PATH</varname> variable: you should be able to run them from a command-line as:
+<literallayout><command>jpegtran</command>
+<command>convert</command></literallayout>
+				</para>
+				<para>
+If the commands above do not work, you should download and install these packages:
+<ulink url="http://jpegclub.org/">http://jpegclub.org/</ulink> and
+<ulink url="http://www.imagemagick.org">http://www.imagemagick.org</ulink>.
+				</para>
+			</answer>
+		</qandaentry>
+
+		<qandaentry id="gallery-remote.faq.5">
+			<question>
+				<para>
+Rotating pictures seems to work (the thumbnails are rotated), but the pictures are uploaded without being rotated
+				</para>
+			</question>
+			<answer>
+				<para>
+Same as <link linkend="gallery-remote.faq.4">above</link>.
+				</para>
+			</answer>
+		</qandaentry>
+
 	</qandaset>
 
 </sect1>
