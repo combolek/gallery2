@@ -14,7 +14,7 @@
 	<property name="iafolder" location="G:\\Program Files\\InstallAnywhere 6 Enterprise" />
 
 	<taskdef name="jarbundler"
-		classpath="${lib}/jarbundler-0.1.jar"
+		classpath="${lib}/jarbundler-0.3.jar"
 		classname="com.loomcom.ant.tasks.jarbundler.JarBundler" />
 
 	<target name="init">
@@ -136,10 +136,10 @@
 	</target>
 
 	<target name="mac_img_jar"
-		description="create a jar of the images">
+		description="create a jar of the images for Mac build">
 
-		<copy file="imagemagick/im.properties.preinstalled" tofile="${img}/im.properties" />
-		<copy file="jpegtran/jpegtran.preinstalled" tofile="${img}/jpegtran.properties" />
+		<copy file="imagemagick/macos/im.properties" tofile="${img}/im.properties" />
+		<copy file="jpegtran/macos/jpegtran.properties" tofile="${img}/jpegtran.properties" />
 
 		<jar destfile="img.jar">
 			<fileset dir="${img}" />
@@ -163,6 +163,7 @@
 			mainclass="com.gallery.GalleryRemote.GalleryRemote"
 			icon="rar_icon_128_gr1.icns"
 			jars="./GalleryRemote.jar ${lib}/JSX1.0.7.4.jar ${lib}/metadata-extractor-2.1.jar ./img.jar"
+			execs="./jpegtran/macos/jpegtran"
 			version="${version}"
 			infostring="Gallery Remote ${version}, (c) 2003"
 			aboutmenuname="Gallery Remote"
