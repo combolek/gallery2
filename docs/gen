@@ -5,7 +5,7 @@ DIST=dist
 
 # Functions
 
-function gendate{
+function gendate {
 	echo "<!ENTITY last-gen-date '"`date`"'>" > $DIST/gendate.ent
 }
 
