@@ -1,4 +1,7 @@
 <?
+require("../classes/User.php");
+require("../classes/UserDB.php");
+
 $GALLERY_DIR = dirname(dirname(getenv("SCRIPT_FILENAME")));
 $GALLERY_URL = dirname(dirname(getenv("SCRIPT_NAME")));
 
@@ -25,15 +28,30 @@ if ($fd = @fopen($outfile, "w")) {
 	return;
 }
 
+$userDB = new UserDB();
+$admin = $userDB->getOrCreateUser("admin");
+$admin->setPassword($editPassword);
+$admin->setIsAdmin(true);
+$admin->setFullName("Administrator");
+$admin->setCanCreateAlbums(true);
+$admin->save();
+
 ?>
 
 <title> Success! </title>
 <center>
-<font size=+2> Your configuration has been successfully saved! </font>
-<p>
-<font size=+2 color=red>Note!</font> Don't forget to run:
-<br>
+<table width=450><tr><td>
 <center>
+<font size=+2> Your configuration has been successfully saved! </font>
+</center>
+<p>
+An account called <i>admin</i> has been created for you with the password you specified.
+<p>
+<center>
+<font size=+2 color=red>Note!</font>
+<br>
+Don't forget to run:
+<br>
 <code>
 % sh secure.sh
 </code>
@@ -47,6 +65,8 @@ to the setup URL.
 <p>
 <center>
 <a href=../albums.php>Enter the Gallery</a>
+
+</td></tr></table>
 
 
 
