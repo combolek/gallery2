@@ -89,20 +89,14 @@ class GalleryStorage {
     }
 
     /**
-     * Get the GalleryItem for the id provided
-     *
-     * Return the GalleryItem associated with this id.  Note  
-     * that this returns the unique object itself, not a copy.
-     * This means that you can change/save it.
-     *
-     * This method must be implemented by subclasses of Gallery
+     * Load a new GalleryNucleus from storage
      *
      * @access public
-     * @abstract
-     * @param string the id of the item
-     * @return object GalleryItem the item	
+     * @param string the id of the stored GalleryNucleus
+     * @param object GalleryNucleus the object we're loading into
+     * @return int a status code
      */
-    function &loadNucleusById($id, $type) {
+    function loadNucleus($id, &$nucleus) {
     }
 
     /**
@@ -143,6 +137,38 @@ class GalleryStorage {
      * @param array ids to lock (empty array means lock the world) 
      */
     function newLock($timeout, $ids=array()) {
+    }
+
+    /**
+     * Start tracing
+     *
+     * This method is for use by GalleryStorage subclasses only.  If Gallery is
+     * in debug, this method will begin storing all output and routing it into
+     * Gallery's debug system
+     *
+     * @access protected
+     */
+    function _traceStart() {
+	global $gallery;
+	if ($gallery->getDebug()) {
+	    ob_start();
+	}
+    }
+
+    /**
+     * Stop tracing
+     *
+     * This method is for use by GalleryStorage subclasses only.  If Gallery is
+     * in debug, this will method will stop tracing.
+     */
+    function _traceStop() {
+	global $gallery;
+	if ($gallery->getDebug()) {
+	    $buf = ob_get_contents();
+	    ob_end_clean();
+	    
+	    $gallery->debug($buf);
+	}
     }
 }
 ?>
