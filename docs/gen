@@ -170,6 +170,7 @@ case $1 in
 		$0 bightml
 #		$0 pdf
 		$0 galleryweb
+                $O prettyhtml
 		;;
 
 	clean)
