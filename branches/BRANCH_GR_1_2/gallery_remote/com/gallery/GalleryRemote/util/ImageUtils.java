@@ -23,6 +23,7 @@ package com.gallery.GalleryRemote.util;
 import com.gallery.GalleryRemote.GalleryFileFilter;
 import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.prefs.PreferenceNames;
 import com.gallery.GalleryRemote.GalleryRemote;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
@@ -31,12 +32,14 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.exif.ExifDirectory;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /**
  *  Interface to common image manipulation routines
@@ -75,6 +78,9 @@ public class ImageUtils {
 
 	public static ImageIcon defaultThumbnail = null;
 	public static ImageIcon unrecognizedThumbnail = null;
+
+	public static boolean deferredStopUsingIM = false;
+	public static boolean deferredStopUsingJpegtran = false;
 
 	/**
 	 *  Perform the actual icon loading
@@ -116,7 +122,7 @@ public class ImageUtils {
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
-					useIM = false;
+					stopUsingIM();
 				} else {
 					r = new ImageIcon(temp.getPath());
 				}
@@ -182,7 +188,7 @@ public class ImageUtils {
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
-					useIM = false;
+					stopUsingIM();
 					r = null;
 				}
 			} catch (IOException e) {
@@ -255,7 +261,7 @@ public class ImageUtils {
 
 		if (exitValue != 0 && ! jpegtranIgnoreErrorCode) {
 			Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
-			useJpegtran = false;
+			stopUsingJpegtran();
 			r = null;
 		}
 
@@ -416,6 +422,9 @@ public class ImageUtils {
 				p = new PropertiesFile("im");
 			}
 
+			// force exception handling if file is missing
+			p.read();
+
 			useIM = p.getBooleanProperty("enabled");
 			Log.log(Log.LEVEL_INFO, MODULE, "useIM: " + useIM);
 			if (useIM) {
@@ -430,7 +439,7 @@ public class ImageUtils {
 							"presence won't be tested until later");
 				} else 	if (! new File(imPath).exists()) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "Can't find ImageMagick Convert at the above path");
-					useIM = false;
+					stopUsingIM();
 				}
 			}
 
@@ -450,7 +459,7 @@ public class ImageUtils {
 			}
 		} catch (Exception e) {
 			Log.logException(Log.LEVEL_CRITICAL, MODULE, e);
-			useIM = false;
+			stopUsingIM();
 		}
 
 		defaultThumbnail = load(
@@ -472,6 +481,9 @@ public class ImageUtils {
 				p = new PropertiesFile("jpegtran");
 			}
 
+			// force exception handling if file is missing
+			p.read();
+
 			useJpegtran = p.getBooleanProperty("enabled");
 			Log.log(Log.LEVEL_INFO, MODULE, "useJpegtran: " + useJpegtran);
 			if (useJpegtran) {
@@ -486,12 +498,12 @@ public class ImageUtils {
 							"presence won't be tested until later");
 				} if (! new File(jpegtranPath).exists()) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "Can't find jpegtran at the above path");
-					useJpegtran = false;
+					stopUsingJpegtran();
 				}
 			}
 		} catch (Exception e) {
 			Log.logException(Log.LEVEL_CRITICAL, MODULE, e);
-			useJpegtran = false;
+			stopUsingJpegtran();
 		}
 	}
 
@@ -588,5 +600,110 @@ public class ImageUtils {
 		}
 
 		return 1;
+	}
+
+	public static void deferredTasks() {
+		if (deferredStopUsingIM) {
+			deferredStopUsingIM = false;
+
+			stopUsingIM();
+		}
+
+		if (deferredStopUsingJpegtran) {
+			deferredStopUsingJpegtran = false;
+
+			stopUsingJpegtran();
+		}
+	}
+
+	static void stopUsingIM() {
+		useIM = false;
+
+		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_IM)) {
+			if (GalleryRemote.getInstance().mainFrame.isVisible()) {
+				MessageDialog md = new MessageDialog(
+						GRI18n.getInstance().getString(MODULE, "warningTextIM"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlIM"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlTextIM")
+				);
+
+				if (md.dontShow()) {
+					GalleryRemote.getInstance().properties.setBooleanProperty(PreferenceNames.SUPPRESS_WARNING_IM, true);
+				}
+			} else {
+				deferredStopUsingIM = true;
+			}
+		}
+	}
+
+	static void stopUsingJpegtran() {
+		useJpegtran = false;
+
+		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_JPEGTRAN)) {
+			if (GalleryRemote.getInstance().mainFrame.isVisible()) {
+				MessageDialog md = new MessageDialog(
+						GRI18n.getInstance().getString(MODULE, "warningTextJpegtran"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlJpegtran"),
+						GRI18n.getInstance().getString(MODULE, "warningUrlTextJpegtran")
+				);
+
+				if (md.dontShow()) {
+					GalleryRemote.getInstance().properties.setBooleanProperty(PreferenceNames.SUPPRESS_WARNING_JPEGTRAN, true);
+				}
+			} else {
+				deferredStopUsingJpegtran = true;
+			}
+		}
+	}
+
+	static class MessageDialog extends JDialog {
+		JLabel jIcon = new JLabel();
+		JLabel jMessage = new JLabel();
+		BrowserLink jURL = new BrowserLink();
+		JCheckBox jDontShow = new JCheckBox();
+		JButton jOk = new JButton();
+
+		public MessageDialog(String message, String url, String urlText) {
+			super(GalleryRemote.getInstance().mainFrame,
+					GRI18n.getInstance().getString(MODULE, "warningTitle"),
+					true);
+
+			jIcon.setIcon(UIManager.getIcon("OptionPane.warningIcon"));
+			setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			getContentPane().setLayout(new GridBagLayout());
+			jMessage.setText(message);
+			jURL.setText(urlText);
+			jURL.setUrl(url);
+			jDontShow.setText(GRI18n.getInstance().getString(MODULE, "warningDontShow"));
+			jOk.setText(GRI18n.getInstance().getString(MODULE, "warningOK"));
+			jOk.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+				}
+			});
+
+			getContentPane().add(jIcon,    new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+					,GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(5, 5, 0, 10), 0, 0));
+			getContentPane().add(jMessage,       new GridBagConstraints(1, 0, 2, 1, 1.0, 1.0
+					,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jURL,    new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
+					,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jDontShow,    new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+					,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 0, 0));
+			getContentPane().add(jOk,   new GridBagConstraints(2, 2, 1, 2, 0.0, 0.0
+					,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+
+			getRootPane().setDefaultButton(jOk);
+
+			pack();
+
+			DialogUtil.center(this, getOwner());
+
+			setVisible(true);
+		}
+
+		public boolean dontShow() {
+			return jDontShow.isSelected();
+		}
 	}
 }

@@ -239,6 +239,8 @@ public class MainFrame extends javax.swing.JFrame
 		readPreferences(GalleryRemote.getInstance().properties);
 
 		//new UploadProgress();
+
+		ImageUtils.deferredTasks();
 	}
 
 	private void setGalleries(DefaultComboBoxModel galleries) {

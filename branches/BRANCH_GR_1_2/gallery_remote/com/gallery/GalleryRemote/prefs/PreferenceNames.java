@@ -45,4 +45,8 @@ public interface PreferenceNames {
 	public static final String PROXY_PORT = "proxyPort";
 	public static final String PROXY_USERNAME = "proxyUsername";
 	public static final String PROXY_PASSWORD = "proxyPassword";
+
+	// Other
+	public static final String SUPPRESS_WARNING_IM = "suppressWarningIM";
+	public static final String SUPPRESS_WARNING_JPEGTRAN = "suppressWarningJpegtran";
 }

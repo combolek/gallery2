@@ -113,20 +113,20 @@ public class PictureInspector extends JPanel
 		jAlbum.setRows(0);
 		jAlbum.setText("");
 		jAlbum.setEditable(false);
-		jAlbum.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jAlbum.setFont(UIManager.getFont( "Label.font" ));
 		jAlbum.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jSize.setRows(0);
 		jSize.setText("");
 		jSize.setEditable(false);
-		jSize.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jSize.setFont(UIManager.getFont( "Label.font" ));
 		jSize.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jCaption.setText("");
 		jCaption.setLineWrap(true);
 		jCaption.setEditable(false);
-		jCaption.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jCaption.setFont(UIManager.getFont( "Label.font" ));
 		jCaption.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jPath.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-		jPath.setFont(new java.awt.Font("SansSerif", 0, 11));
+		jPath.setFont(UIManager.getFont( "Label.font" ));
 		jPath.setEditable(false);
 		jPath.setText("");
 		jPath.setLineWrap(true);
@@ -458,7 +458,7 @@ public class PictureInspector extends JPanel
 
 					JTextArea field = new JTextArea();
 					extraTextAreas.put(name, field);
-					field.setFont(new java.awt.Font("SansSerif", 0, 11));
+					field.setFont(UIManager.getFont( "Label.font" ));
 					add( field,  new GridBagConstraints(1, FIRST_ROW_EXTRA + i, 1, 1, 1.0, 1.0
 							,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0) );
 					field.getDocument().addDocumentListener(this);

@@ -32,13 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 import com.gallery.GalleryRemote.model.Album;
@@ -117,7 +111,7 @@ public class NewAlbumDialog extends javax.swing.JDialog
 		albums.add(0, rootAlbum);
 
 		album = new JComboBox(albums);
-		album.setFont( new java.awt.Font( "SansSerif", 0, 11 ) );
+		album.setFont( UIManager.getFont( "Label.font" ) );
 		
 		if (defaultAlbum == null) {
 			album.setSelectedItem(rootAlbum);
@@ -130,13 +124,13 @@ public class NewAlbumDialog extends javax.swing.JDialog
 		description.setBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED, Color.white, Color.lightGray, Color.darkGray, Color.gray ) );
 		description.setLineWrap(true);
 		description.setRows(2);
-		description.setFont( new java.awt.Font( "SansSerif", 0, 11 ) );
+		description.setFont( UIManager.getFont( "Label.font" ) );
 		galleryName.setText( gallery.toString() );
-		name.setFont( new java.awt.Font( "SansSerif", 0, 11 ) );
+		name.setFont( UIManager.getFont( "Label.font" ) );
 		name.setToolTipText(grRes.getString(MODULE, "albmNameTip"));
 		ok.setText( grRes.getString(MODULE, "OK") );
         ok.setActionCommand("OK");
-		title.setFont( new java.awt.Font( "SansSerif", 0, 11 ) );
+		title.setFont( UIManager.getFont( "Label.font" ) );
 
 		flowLayout1.setAlignment( FlowLayout.LEFT );
 		gridLayout1.setColumns( 2 );
