@@ -37,24 +37,6 @@ class ImageContainer extends DataContainer {
      */
 
     /**
-     * The x-axis origin of this image, useful if this is a
-     * derivative image such as a thumbnail from a specific
-     * section of an original image.
-     *
-     * @var	int
-     */
-    var $_originX;
-
-    /**
-     * The y-axis origin of this image, useful if this is a
-     * derivative image such as a thumbnail from a specific
-     * section of an original image.
-     *
-     * @var	int
-     */
-    var $_originY;
-
-    /**
      * The width this image.
      *
      * @var	int
@@ -67,14 +49,6 @@ class ImageContainer extends DataContainer {
      * @var	int
      */
     var $_height;
-
-    /**
-     * For derivatives, specify the scaling target.  This is used to rebuild
-     * the image.
-     *
-     * @var	int
-     */
-    var $_scalingTarget;
 
     /*
      * ****************************************
@@ -101,6 +75,22 @@ class ImageContainer extends DataContainer {
 	if (empty($id)) {
 	    // Set values to defaults
 	}
+    }
+
+    /**
+     * Has the cache for this item current?
+     *
+     * Overload DataContainer::isCacheCurrent to also report on the state of
+     * the height/width metadata.  For derived images, the cache is considered
+     * not-current if the file doesn't exist or if the height/width metadata is
+     * unknown.  For source images, the cache is considered not-current if the
+     * height and width data is unset.
+     * 
+     * @access public
+     * @return boolean true if the item is expired (ie, the cache is empty)
+     */
+    function isCacheCurrent() {
+	// Don't forget to call the superclass also
     }
 
     /**
