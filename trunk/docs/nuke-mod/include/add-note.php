@@ -39,7 +39,7 @@ if (isset ($_POST['submit'])) {
 	} else {
 		addNote ($_POST['sect'], $_POST['user'], $_POST['note']);
 		
-		print 'Your note has been successfully added to the documentation.  It will show up in a few hours.<br/><br/>';
+		print 'Your note has been successfully added to the documentation.  It will show up in the documentation in an hour.<br/><br/>';
 		
 		print '<a href="modules.php?op=modload&name=GalleryDocs&file=index&page='.$_POST['sect'].'">Back to where you came from</a>';
 	}

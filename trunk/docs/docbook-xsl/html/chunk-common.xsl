@@ -2,6 +2,10 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
 
+<!-- CUSTOM CODE -->
+ <xsl:variable name="use.id.as.filename" select="1"/>
+<!-- END CUSTOM CODE -->
+
 <xsl:template name="chunk">
   <xsl:param name="node" select="."/>
   <!-- returns 1 if $node is a chunk -->

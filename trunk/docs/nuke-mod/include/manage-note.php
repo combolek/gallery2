@@ -48,13 +48,9 @@ function handle_edit_post () {
 }
 
 function handle_delete () {
-	if (!$note = getNoteByID ($_GET['id'])) {
-		throwError ('Could not fetch note');
-	}
-	
-	if (removeNote ($_GET['id'])) {
+	if ($arr = removeNote ($_GET['id'])) {
 		print 'Note sucessfully deleted.  ';
-		print '<a href="modules.php?op=modload&name=GalleryDocs&file=index&page='.$note['sect'].'">Back to where you came from</a>';
+		print '<a href="modules.php?op=modload&name=GalleryDocs&file=index&page='.$arr['sect'].'">Back to where you came from</a>';
 	} else {
 		throwError ('Could not remove note.  Probably means this note doesn\'t exist');
 	}

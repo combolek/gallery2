@@ -7,7 +7,7 @@ require_once ('db.php');
 
 function getNotes ($section) {
 	$table = getTableName('doc_notes');
-        $result = dbQuery ('SELECT * FROM ' . $table . ' WHERE sect="??"', array ($section));
+        $result = dbQuery ('SELECT * FROM ' . $table . ' WHERE (sect="??" AND (('.time().' - ts) > 3600))', array ($section));
         
         $arr = array ();
         while ($row = mysql_fetch_array ($result, MYSQL_ASSOC)) {
@@ -103,25 +103,42 @@ function addNote ($sect, $user, $note, $status = '') {
 	$table = getTableName('doc_notes');
 	dbQuery ('INSERT into ' . $table . ' SET sect="??", user="??", note="??", status="??", ts="??"', array ($sect, $user, $note, $status, time()));
 	
-	//TODO: Send to mailing list
+	$id = mysql_insert_id();
+	
+	$options = 'Edit Note	http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=edit&id='.$id."\n".
+		   'Delete Note http://gallery.menalto.com/modules.php?op=modload&name=GalleryDocs&file=index&action=manage-note&do=delete&id='.$id;
+		   
+	mail ('gallery-docs-notes@lists.sf.net', 'Note '.$id.' added to '.$sect, $note."\n\n---------\n".$options, 'From: notes@gallery.menalto.com', '-fnotes@gallery.menalto.com');
 }
 
 function removeNote ($id) {
 	$table = getTableName('doc_notes');
+	$note = getNoteByID ($id);
+	
+	if (!$note) {
+		return false;
+	}
+		
 	dbQuery ('DELETE from ' . $table . ' WHERE id="??"', array ($id));
 
-	//TODO: Send to mailing list
+	mail ('gallery-docs-notes@list.sf.net', 'Note '.$note['id'].' deleted from '.$note['sect'].' by '.pnUserGetVar('uname'), 'Note Submitter: '.$note['user']."\n\n".$note['note'], 'From: notes@gallery.menalto.com', '-fnotes@gallery.menalto.com');
 	
-	return (mysql_affected_rows () ? true : false);
+	return $note;
 }
 
 function editNote ($id, $user, $note, $status = '') {
 	$note = htmlentities ($note); //no html again
 
 	$table = getTableName('doc_notes');
+	$note_orig = getNoteByID ($id);
+	
+	if (!$note_orig) {
+		return false;
+	}
+	
 	dbQuery ('UPDATE ' . $table . ' SET user="??", note="??", status="??" WHERE id="??"', array ($user, $note, $status, $id));
 	
-	//TODO: Send to mailing list
+	mail ('gallery-docs-notes@lists.sf.net', 'Note '.$id.' from '.$note_orig['sect'].' modified by '.pnUserGetVar('uname'), $note."\n\n----was----\n\n".$note_orig['note'], 'From: notes@gallery.menalto.com', '-fnotes@gallery.menalto.com');
 	
 	return (mysql_affected_rows () ? true : false);	
 }

@@ -12,9 +12,6 @@ Inspired by the stylesheets used on the PHP documentation
 
  <xsl:param name="html.ext" select="'.php'"/>
 
- <!-- CUSTOM VARS -->
- <xsl:variable name="use.id.as.filename" select="1"/>
-
  <xsl:variable name="galleryweb-test" select="1"/>
  
  <!-- END CUSTOM VARS --> 
