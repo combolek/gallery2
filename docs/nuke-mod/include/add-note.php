@@ -3,15 +3,17 @@ if (!isset ($included)) {
 	die ('Must be included');
 }
 
+$username = isLoggedIn ();
+if ($username === false) {
+	print 'You must register and/or login to add a note';
+	exit;
+}
+
 $modPage = 'modules.php?op=modload&name=GalleryDocs&file=index&action=add-note';
 
 if (isset ($_POST['submit'])) {
 	$errors = '';
 
-	if (empty ($_POST['user'])) {
-		$errors .= 'The email field is blank.  Please insert your email address, it will be spam-proofed<br>';
-	}
-	
 	if (empty ($_POST['sect'])) {
 		$errors .= 'The section field didn\'t get passed to this page.  Please try submitting your note again<br>';
 	}
@@ -39,16 +41,16 @@ if (isset ($_POST['submit'])) {
 		
 		if ($_POST['submit'] == 'Preview') {
 			$note = array ('sect' => false,
-        			       'user' => &$_POST['user'],
+        			       'user' => $username,
 		                       'ts' => time(),
 		                       'note' => &$_POST['note']
                 		      );			
 			displayNote ($note);
 		}
 		
-		printNotesForm ($modPage, false, $_POST['sect'], $_POST['user'], $_POST['note']);
+		printNotesForm ($modPage, false, $_POST['sect'], false, $_POST['note']);
 	} else {
-		addNote ($_POST['sect'], $_POST['user'], $_POST['note']);
+		addNote ($_POST['sect'], $username, $_POST['note']);
 		
 		print 'Your note has been successfully added to the documentation.  It will show up in the documentation in an hour.<br/><br/>';
 		
