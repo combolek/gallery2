@@ -5,10 +5,11 @@
   
   <para>
    To generate the manual, you must have <literal>xsltproc</literal> installed
-   on your computer.  As of right now, the generation script uses a bash
-   shell script, so you need to be in a Unix-like environment to run it (Linux,
-   Unix, OS X, CygWin, etc...).  If you have that installed, generating the
-   manual is relatively easy.
+   on your computer (this is usually in the <literal>libxslt</literal> package).
+   As of right now, the generation script uses a bash shell script, so you need
+   to be in a Unix-like environment to run it (Linux, Unix, OS X, CygWin,
+   etc...   ).  If you have that installed, generating the manual is relatively
+   easy.
    <screen>
     cd /path/to/gallery/documentation
     ./gen html
