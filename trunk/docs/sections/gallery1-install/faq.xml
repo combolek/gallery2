@@ -395,8 +395,12 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
          it relies on. One possible solution is that your host has disabled some
          needed php functions. To determine if they have create a PHP file containing
           <screen>
-           <?php echo ini_get("disable_functions"); ?>
-          </screen>
+<![CDATA[
+<?php
+echo ini_get("disable_functions");
+?>
+]]>
+        </screen>
           If the output displays exec() see <link linkend="gallery1-install.faq.c.29">FAQ C.29</link>.
         </para>
        </listitem>
