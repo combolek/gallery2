@@ -366,12 +366,12 @@
 </xsl:template>
 
 <xsl:template match="editor" mode="titlepage.mode">
-  <h3 class="{name(.)}"><xsl:call-template name="person.name"/></h3>
+  <xsl:call-template name="person.name"/>
 </xsl:template>
 
 <xsl:template match="editor[position()=1]" mode="titlepage.mode">
   <h4 class="editedby"><xsl:call-template name="gentext.edited.by"/></h4>
-  <h3 class="{name(.)}"><xsl:call-template name="person.name"/></h3>
+  <xsl:call-template name="person.name"/>
 </xsl:template>
 
 <xsl:template match="firstname" mode="titlepage.mode">
