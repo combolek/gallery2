@@ -419,73 +419,74 @@ class AlbumItem extends GalleryItem {
      */
     function getMetaInfo() {
         $meta = parent::getMetaInfo();
-        $meta['font'] = array(
+        $meta['members']['font'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['backgroundColor2'] = array(
+        $meta['members']['backgroundColor2'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['rows'] = array(
+        $meta['members']['rows'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['htmlFooter'] = array(
+        $meta['members']['htmlFooter'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_TEXT);
-        $meta['sortProperty'] = array(
+        $meta['members']['sortProperty'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['columns'] = array(
+        $meta['members']['columns'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['resizeSize'] = array(
+        $meta['members']['resizeSize'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['backgroundColor'] = array(
+        $meta['members']['backgroundColor'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['layout'] = array(
+        $meta['members']['layout'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['sortDirection'] = array(
+        $meta['members']['sortDirection'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['htmlHeader'] = array(
+        $meta['members']['htmlHeader'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_TEXT);
-        $meta['linkColor'] = array(
+        $meta['members']['linkColor'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['allowPrinting'] = array(
+        $meta['members']['allowPrinting'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['textColor'] = array(
+        $meta['members']['textColor'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
-        $meta['border'] = array(
+        $meta['members']['border'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['thumbSize'] = array(
+        $meta['members']['thumbSize'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['viewExtendedData'] = array(
+        $meta['members']['viewExtendedData'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['showBreadCrumb'] = array(
+        $meta['members']['showBreadCrumb'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['displayViewCount'] = array(
+        $meta['members']['displayViewCount'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['borderColor'] = array(
+        $meta['members']['borderColor'] = array(
             'class' => 'AlbumItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_SMALL);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }

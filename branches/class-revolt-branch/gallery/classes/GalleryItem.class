@@ -495,49 +495,50 @@ class GalleryItem extends GalleryNucleus {
      */
     function getMetaInfo() {
         $meta = parent::getMetaInfo();
-        $meta['isHtmlAllowed'] = array(
+        $meta['members']['isHtmlAllowed'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_BOOLEAN);
-        $meta['description'] = array(
+        $meta['members']['description'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_TEXT);
-        $meta['childIds'] = array(
+        $meta['members']['childIds'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_LIST);
-        $meta['title'] = array(
+        $meta['members']['title'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_TIMESTAMP |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['commentIds'] = array(
+        $meta['members']['commentIds'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_LIST);
-        $meta['viewCount'] = array(
+        $meta['members']['viewCount'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['deniedPermissions'] = array(
+        $meta['members']['deniedPermissions'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_MAP);
-        $meta['thumbnailId'] = array(
+        $meta['members']['thumbnailId'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER);
-        $meta['allowedPermissions'] = array(
+        $meta['members']['allowedPermissions'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_MAP);
-        $meta['viewedSinceTimestamp'] = array(
+        $meta['members']['viewedSinceTimestamp'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_TIMESTAMP |
                       STORAGE_MODIFIER_REQUIRED);
-        $meta['keywords'] = array(
+        $meta['members']['keywords'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_LARGE);
-        $meta['properties'] = array(
+        $meta['members']['properties'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_MAP);
-        $meta['ownerId'] = array(
+        $meta['members']['ownerId'] = array(
             'class' => 'GalleryItem',
             'type' => STORAGE_TYPE_INTEGER |
                       STORAGE_MODIFIER_REQUIRED);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }

@@ -264,7 +264,7 @@ class DatabaseStorage extends GalleryStorage {
 
 	$tables = array();
 	$data = array();
-	foreach ($metaInfo as $columnName => $columnInfo) {
+	foreach ($metaInfo['members'] as $columnName => $columnInfo) {
 
 	    $type = $columnInfo['type'];
 	    if ($type & STORAGE_TYPE_LIST || $type & STORAGE_TYPE_MAP) {
@@ -343,7 +343,7 @@ class DatabaseStorage extends GalleryStorage {
 	/*
 	 * Locate changed fields.
 	 */
-	foreach ($metaInfo as $name => $info) {
+	foreach ($metaInfo['members'] as $name => $info) {
 	    /* Locate the id column */
 	    if ($metaInfo[$name]['type'] & STORAGE_MODIFIER_ID) {
 		$func = 'get' . ucfirst($name);

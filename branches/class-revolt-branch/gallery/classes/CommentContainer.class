@@ -227,24 +227,25 @@ class CommentContainer extends DataContainer {
      */
     function getMetaInfo() {
         $meta = parent::getMetaInfo();
-        $meta['comment'] = array(
+        $meta['members']['comment'] = array(
             'class' => 'CommentContainer',
             'type' => STORAGE_TYPE_TEXT);
-        $meta['hostname'] = array(
+        $meta['members']['hostname'] = array(
             'class' => 'CommentContainer',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_MEDIUM);
-        $meta['date'] = array(
+        $meta['members']['date'] = array(
             'class' => 'CommentContainer',
             'type' => STORAGE_TYPE_TIMESTAMP);
-        $meta['emailAddress'] = array(
+        $meta['members']['emailAddress'] = array(
             'class' => 'CommentContainer',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_MEDIUM);
-        $meta['name'] = array(
+        $meta['members']['name'] = array(
             'class' => 'CommentContainer',
             'type' => STORAGE_TYPE_STRING |
                       STORAGE_MODIFIER_MEDIUM);
+        $meta['version'] = array('major' => 1, 'minor' => 0);
     
         return $meta;
     }
