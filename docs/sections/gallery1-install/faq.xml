@@ -19,7 +19,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
  
  <qandaset>
   
-  <qandadiv>
+  <qandadiv label="A">
    <title>Getting Gallery</title>  
 
    <qandaentry>
@@ -75,7 +75,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    
   </qandadiv>
   
-  <qandadiv>
+  <qandadiv label="B">
    <title>Configuring Gallery</title>
    
    <qandaentry>
@@ -238,7 +238,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
 
   </qandadiv>
   
-  <qandadiv>
+  <qandadiv label="C">
    <title>Troubleshooting Gallery</title>
    
    <qandaentry>
@@ -376,7 +376,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       First, send them a quick email and ask them if they are willing to upgrade.
       They should considering a PHP version this old is years and years old, and
       probably contains security problems.  Your only other good option is to
-      install PHP as a CGI, as in FAQ 2.3
+      install PHP as a CGI, as in FAQ B.3
      </para>
     </answer>
    </qandaentry>
@@ -419,7 +419,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </listitem>
       <listitem>
        <para>
-        Try FAQ 2.3, where you can use PHP as a CGI.  This is usually pretty
+        Try FAQ B.3, where you can use PHP as a CGI.  This is usually pretty
         difficult, if you don't know exactly what you're doing.
        </para>
       </listitem>
@@ -540,7 +540,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       </listitem>
       <listitem>
        <para>
-        Verify that it is not FAQ 3.8
+        Verify that it is not FAQ C.8
        </para>
       </listitem>
       <listitem>
@@ -653,7 +653,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       <listitem>
        <para>
         You have safe mode enabled.  Gallery can't run in this environment.  See
-        FAQ 3.5 for more information
+        FAQ C.5 for more information
        </para>
       </listitem>
       <listitem>
@@ -680,7 +680,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
      <orderedlist>
       <listitem>
        <para>
-        FAQ 3.6
+        FAQ C.6
        </para>
       </listitem>
       <listitem>
@@ -723,7 +723,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
       If you don't have shell access, you can use your FTP client to <emphasis>
       recursively</emphasis> (every file and every directory) chmod the albums
       directory 777.  <emphasis>Make sure you chmod the <filename>.users</filename>
-      directory, which can sometimes be hidden from view.  See FAQ 3.19 for
+      directory, which can sometimes be hidden from view.  See FAQ C.19 for
       more details</emphasis>
      </para>
     </answer>
@@ -1028,7 +1028,7 @@ if (!function_exists('array_search')) {
    
   </qandadiv>
   
-  <qandadiv>
+  <qandadiv label="D">
    <title>Migrating Gallery</title>
    
    <qandaentry>
@@ -1050,13 +1050,13 @@ if (!function_exists('array_search')) {
       only use the command line utilities if you have shell access). Note that
       Gallery creates a <filename>.users</filename> folder in the albums
       directory, which can be hidden by some FTP clients. This directory is
-      vital if you want to maintain your user database. See FAQ 3.19 if your
+      vital if you want to maintain your user database. See FAQ C.19 if your
       FTP client hides this directory and you can't download it. Once you have
       a copy of the albums directory, upload it to your new host. If you used
       FTP, just re-upload the albums directory to your new host. If you used 
       something like tar, upload the archive to the new host and untar/unzip it.
       Once you have the albums directory on the new host, you must chmod all the
-      files and directories 0777 (recursively) (see FAQ 3.15 for information).
+      files and directories 0777 (recursively) (see FAQ C.15 for information).
       If you do not chmod the files correctly, your new Gallery will not work
       correctly.
      </para>
@@ -1092,7 +1092,7 @@ if (!function_exists('array_search')) {
     <answer>
      <para>
       This is caused by not recursively chmodding the new albums directory 0777.
-      See FAQ 3.15 for information on how to fix this.
+      See FAQ C.15 for information on how to fix this.
      </para>
     </answer>
    </qandaentry>
@@ -1106,7 +1106,7 @@ if (!function_exists('array_search')) {
     </question>
     <answer>
      <para>
-      If you follow the instructions in FAQ 4.1, there should be no lose of
+      If you follow the instructions in FAQ D.1, there should be no lose of
       data whatsoever. However, because of Murphy's law, it's a good idea not
       to delete your albums directory on your old host before you know
       everything is working on the new host.
@@ -1122,10 +1122,10 @@ if (!function_exists('array_search')) {
     </question>
     <answer>
      <para>
-      First, try again. Make sure you follow all the instructions in FAQ 4.1.
+      First, try again. Make sure you follow all the instructions in FAQ D.1.
       If you still cannot get it to work, start a thread in the forums. As with
       any forum post, include as much detail as possible -- exactly what you did
-      (don't just say 'I followed FAQ 4.1'), what you expected to happen, and
+      (don't just say 'I followed FAQ D.1'), what you expected to happen, and
       what really happened, along with any error messages. We will probably be
       able to sort you out!
      </para>
