@@ -1,0 +1,622 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>
+      Gallery 2.0 Developer's Guide
+    </title>
+  </bookinfo>
+  <chapter>
+    <title>
+      Introduction
+    </title>
+    <sect1>
+      <title>
+	Goals
+      </title>
+      <para>
+	Gallery 2.x is designed to be the next generation category killer of
+	open source photo presentation software.  With this product, users can
+	quickly and easily publish their media (photos, movies, audio clips,
+	etc).  It is reliable, scalable, flexible, modular, intuitive,
+	localizable, portable and easily customizable.	
+      </para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    Reliable
+	  </para>
+	  <para>
+	    G2 will be reliable at all times.  It will never lose your data, ever.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Scalable
+	  </para>
+	  <para>
+	    G2 will scale to managing hundreds of thousands of images
+	    with little or no degradation in its processing speed.
+	    Viewing an album will be just as fast if it contains 10
+	    items or 10000 items.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Flexible
+	  </para>
+	  <para>
+	    The G2 layout and theme system will allow you to present
+	    G2 in many different ways to suite your particular needs,
+	    from family websites to corporate employee databases to
+	    merchant catalogs.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Modular
+	  </para>
+	  <para>
+	    The G2 module API provides a mechanism for developers to
+	    add new functionality quickly and easily.  These new
+	    modules have all the power of existing ones and will
+	    integrate seamlessly into the product.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Localizable
+	  </para>
+	  <para>
+	    G2 will separate out all user-visible content such that it
+	    can be readily localized into any language.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Intuitive
+	  </para>
+	  <para>
+	    G2 will be intuitively easy to install and use.  Users who
+	    browse G2 will have no problem understanding how to
+	    navigate the product and use it effectively.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Customizable
+	  </para>
+	  <para>
+	    The styles and layouts used in G2 will be separated from
+	    the code so that they can be easily modified by the G2
+	    administrator.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Portable
+	  </para>
+	  <para>
+	    G2 will work on any PHP platform and support a wide range of data
+	    processors (eg, image toolkits) and all the popular database
+	    solutions.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1>
+      <title>
+	Brief History
+      </title>
+      <para>
+	In the beginning there was Gallery 1.x.  Actually, in the
+	beginning Bharat bought a digital camera and thought "wouldn't
+	it be nice if I could put these photos somewhere."  But when
+	Gallery 1.x came into being, the developers had no idea what
+	they were doing.  They didn't know PHP very well, didn't
+	understand the importance of separating code from content,
+	didn't have a whole lot of database experience, you get the
+	idea.  So they started by just writing something that worked,
+	and then slowly building upon it.  The end result is Gallery
+	1.x which works quite nicely but internally is a bit of a
+	mess.
+      </para>
+      <para>
+	When the developers realized that Gallery was going to be a
+	useful and successful product, they were faced with a choice:
+	fix all the various problems with Gallery 1.x, or start from
+	scratch and build Gallery 2.x which does everything the right
+	way and doesn't have all the various problems that abound in
+	Gallery 1.x.  After much discussion, they decided that only a
+	complete rewrite would fix some of the fundamental problems
+	with Gallery 1.x and G2 was born.
+      </para>
+    </sect1>
+  </chapter>
+  <chapter>
+    <title>
+      Concepts
+    </title>
+    <sect1>
+      <title>
+	Test Driven Development
+      </title>
+      <para>
+	Writing a application that must run on many different
+	platforms, works with multiple databases and is based on
+	emerging technologies can be very challenging. Especially when
+	the development is distributed and has been in progress over a
+	long period of time. As we've worked on Gallery2 we've found
+	issues with the design and implementation that make us want to
+	rework large parts of the system. However, we fear making
+	large changes because even though G2 is modular and well
+	written there are still interdependencies between different
+	parts of the system and there's the chance that we're breaking
+	something critical. After all, how do we have to know that our
+	change is going to work on all of our platforms and databases
+	without doing a lot of exhaustive and manual testing? This can
+	be daunting and it tends to impose a conservative mindset
+	where we fear to enact change because we know that we won't be
+	able to find out the consequences until its too late. That is
+	unacceptable; we must be willing to make large changes or
+	we'll get stuck with an inferior design.
+      </para>
+      <para>
+	Enter Test Driven Development.
+      </para>
+      <para>
+	This is a strategy whereby every new bit of functionality
+	starts its life as a test. We envision the feature and then
+	write a test that will only succeed when the feature is
+	complete. Initially when we run the test it fails because we
+	haven't written the feature yet. Then we go and write the
+	feature until it satisfies the test. If we think of a new
+	twist or restrictrion on the feature then we write a new test
+	and then keep working on the code until that test passes
+	also. Pretty soon we have a very large set of tests, and all
+	of our code is getting tested regularly. If we find something
+	that doesn't look right, or can be combined with other code we
+	can feel free to make as many small or large changes as we
+	want, as long as when we check the changes in the tests still
+	run. Find a bug? Write a test that fails until the bug is
+	fixed. Want to add a feature? Write a test first. Code running
+	slow? Refactor and optimize at will as long as the tests still
+	run. Want to know if your code is going to work on a different
+	platform? Go to that platform and run the tests. Find a bug on
+	that platform? Write a test to expose the bug, fix the bug so
+	that the test works, check it all in and then go and run the
+	tests on the first platform.
+      </para>
+      <para>
+	G2 uses a system called phpunit to do unit testing and at the
+	time of this writing has about 150 tests covering almost all
+	of the core and part of the core feature set. We started doing
+	test driven development after writing the bulk of the code so
+	we've been playing catchup to write tests to cover all the
+	stuff we've already written. Soon we'll have written tests for
+	all existing functionality, and all new functionality will
+	stem from tests. If you want to see what the test suite looks
+	like, install G2 and browse to
+	gallery2/setup/phpunit/index.php
+      </para>
+      <para>
+	Test Driven Development is not our idea. It stems from a
+	methodology called Extreme Programming. Bharat learned about
+	Extreme Programming while doing development on SourceForge,
+	grew enamored of it and decided that while not all principles
+	could be applied to an open source project like Gallery, at
+	least some of them were of tremendous value. For more
+	information about Extreme Programming read these links:
+	<itemizedlist>
+	  <listitem>
+	    <ulink url="http://www.google.com/search?q=extreme+programming">
+	      <citetitle>
+		Extreme Programming Google Links
+	      </citetitle>
+	    </ulink>
+	  </listitem>
+	  <listitem>
+	    <ulink url="http://junit.sourceforge.net/doc/testinfected/testing.htm">
+	      <citetitle>
+		Test Infected
+	      </citetitle>
+	    </ulink>
+	  </listitem>
+	  <listitem>
+	    <ulink url="http://www.artima.com/intv/testdriven4.html">
+	      <citetitle>
+		Test Driven Development
+	      </citetitle>
+	    </ulink>
+	  </listitem>
+	  <listitem>
+	    <ulink url="http://www.xprogramming.com/xpmag/whatisxp.htm">
+	      <citetitle>
+		What is Extreme Programming?
+	      </citetitle>
+	    </ulink>
+	  </listitem>
+	</itemizedlist>
+      </para>
+    </sect1>
+    <sect1>
+      <title>
+	Embedding Gallery in Other Applications
+      </title>
+      <para>
+	Gallery is designed very specifically to manage your
+	multimedia online.  It's not a content management system or a
+	blog or a website editor.  However, there's no reason why
+	Gallery can't be the multimedia management portion of a much
+	larger system which does much more context content management
+	or blogging, etc.  Many such systems focus on their core
+	competency and provide a very weak multimedia management
+	system.  Gallery is designed to work within those larger
+	systems and provide the functionality that they lack.
+      </para>
+      <para>
+	In order to make this process of embedding easier, Gallery is
+	very careful about not polluting global namespaces.  Core
+	classes, constants, database tables, etc are prefixed with
+	different forms of "gallery" to identify them as separate from
+	the outer program.
+      </para>
+      <para>
+	How we actually go about embedding Gallery into another
+	program depends heavily on which program we are going to work
+	with.  For PHP CMS systems like PostNuke/PHP-Nuke, we will
+	need to create a new entry point into G2 that replaces
+	main.php. This new entry point will be PostNuke/PHP-Nuke
+	specific and will give us a way to interoperate between the
+	two.  Then we need to extend the database storage layer so
+	that it understands that the user/group information is now
+	stored in a different table/column arrangement so that our
+	queries continue to function. Then we need disable certain
+	functionality (like user management) and provide some new
+	templates for the administration console so that we can tie
+	the G2 site admin interface into the CMS' admin system.
+      </para>
+      <para>
+	I'm envisioning shipping a snap-on pack for each CMS that
+	converts your G2 install into one that works for the specific
+	CMS. It'll work by adding new files/modules to the G2 install
+	(but not replacing existing files).  This is in the
+	speculative stage so no substantive work has been done on it
+	yet.
+      </para>
+    </sect1>
+    <sect1>
+      <title>
+	Redirect-On-Post
+      </title>
+      <para>
+	One aggravating thing about may dynamic websites is the
+	situation where you want to reload a page, but the page was
+	created by a form submission and reloading the page will
+	submit the form again which may do something you did not
+	intend.  To avoid this problem, G2 will always redirect you to
+	a new page after you successfully complete an operation.  If
+	you do a form post and it *doesn't* do anything (ie, it gives
+	you an error) it won't redirect since it's safe to reload that
+	page again if you choose.  Of course, reloading that page will
+	just give you the same error, but at least it won't cause any
+	damage.
+      </para>
+    </sect1>
+    <sect1>
+      <title>
+	Coding standards
+      </title>
+      <para>
+	Clean code is important, especially when many developers are
+	collaborating.  Read and obey the style guide:
+	http://gallery.menalto.com/modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;req=viewarticle&amp;artid=19
+	</para>
+    </sect1>
+    <sect1>
+      <title>
+	Check all return codes
+      </title>
+      <para>
+	Reliability is one of Gallery's fundamental goals.  The path
+	to reliability is to religiously check every single return
+	code and make sure that when something goes wrong we handle it
+	in the most appropriate way.
+      </para>
+      <para>
+	Sadly, PHP lacks exception handling which means that we have
+	to comeup with our own way to check return values.  G2 has its
+	own system for returning status values such that errors bubble
+	up to the top and can be handled at every step of the way.  We
+	build up a stack trace while handling these errors and this
+	stack trace can be used to diagnose problems when they occur.
+	</para>
+    </sect1>
+  </chapter>
+  <chapter>
+    <title>
+      Components
+    </title>
+    <para>
+      Gallery is composed of three major components, modules layouts and
+      themes.
+    </para>
+    <sect1>
+      <title>
+	Modules
+      </title>
+      <para>
+	Modules are where all of the Gallery functionality lives.
+	Even the core Gallery framework is a module.  Modules can be
+	added and removed from the Gallery framework and each module
+	can add virtually unlimited functionality.  Modules can use
+	existing database tables, they can use APIs from other modules
+      </para>
+      <sect2>
+	<title>
+	  core
+	</title>
+	<para>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  search
+	</title>
+	<para>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  imagemagick
+	</title>
+	<para>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  netpbm
+	</title>
+	<para>
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  comments
+	</title>
+	<para>
+	</para>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>
+	Layouts
+      </title>
+      <para>
+      </para>
+      <sect2>
+	<title>
+	  classic
+	</title>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>
+	Themes
+      </title>
+      <para>
+      </para>
+      <sect2>
+	<title>
+	  classic
+	</title>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>
+	Patterns
+      </title>
+      <para>
+      </para>
+      <sect2>
+	<title>
+	  Entities
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Maps
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Helpers
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Templates
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Locking
+	</title>
+	<para>
+	  G2 employs a locking methodology called "Pessimistic
+	  Locking".  What this means is that whenever the application
+	  layer wants to change an entity that already exists in the
+	  system, it must lock the entity before it begins editing and
+	  release the lock when its done.  While this entity is
+	  locked, no other session can touch the entity.
+	</para>
+	<para>
+	  We use two types of locks: read locks and write locks.
+	  Holding a read lock on an entity means that nobody can edit
+	  it.  That's useful in the case where you want to make sure
+	  that an entity (eg, an album) doesn't get moved while you're
+	  working with it.  The other type of lock is a write lock.
+	  It allows your session the exclusive ability to edit an
+	  entity.
+	</para>
+	<para>
+	  The general rule is that you acquire a lock as far upstream
+	  as possible.  When performing complex operations (like
+	  moving items, etc) only the application logic really knows
+	  what's going on.  The framework can check to make sure that
+	  a lock is acquired but in general, each framework call
+	  doesn't know the context that it's getting called in so it
+	  shouldn't be responsible for acquiring the lock.
+	</para>
+	<para>
+	  For example if we're writing the the move or copy item
+	  logic, at the app level we want to acquire a read lock on
+	  the source and destination albums and on all of their
+	  parents.  This prevents the source/destination containers
+	  from getting moved around while we're moving items within
+	  them.  Then we want to write-lock the items we're moving so
+	  that nobody can fiddle with them while we're moving them.
+	  Thus we can successfully move or copy the items safe in the
+	  knowledge that our operation should complete successfully.
+	</para>
+	<para>
+	  One of the interesting problems that we address in G2 is
+	  avoiding data corruption.  If you're using G2 in a
+	  transactional database, you should never get data corruption
+	  in the database.  However, we don't have a journalling
+	  filesystem and it's common for us to do filesystem
+	  operations at the same time as the database operations.  If
+	  the database transaction fails, the database changes will be
+	  rolled back cleanly but we'll be left with corruption in the
+	  filesystem (eg, an item gets moved to a new location but
+	  then the database statement fails, it all rolls back but the
+	  file gets stranded in the new place).  In a perfect world,
+	  we will check our database operations and trying to undo any
+	  filesystem changes if it looks like the database operation
+	  failed.  It's not perfect (and we're not doing it properly
+	  in a lot of places) but it's possible.
+	</para>
+	<para>
+	  Pessimistic locking minimizes the above problem.  We assume
+	  that there will be concurrency issues and try to lock all
+	  objects that we're going to touch.  We read lock anything
+	  that we're not going to change and write lock anything that
+	  we are going to change.  The downside is that because not
+	  all databases have row-level locking, the locking strategy
+	  involves quite a few reads and writes to a lock table so
+	  locking is somewhat expensive.  
+	</para>
+	<para>
+	  Only GalleryEntities are locked.  Data in maps is considered
+	  to be of a more transient nature and less susceptible to
+	  concurrency issues.  So in order to minimize the expense,
+	  we've moved some columns out of the entities and into the map
+	  classes.  These columns (like view count, etc) are much
+	  faster because they are not protected by locks, but the
+	  downside is that it's possible for them to be updated
+	  inaccurately so they're slightly less reliable.
+	</para>
+	<para>
+	  One possible alternative to the above solution is to let the
+	  framework handle all locking under the covers and not expose
+	  it at the application logic level.  This would make new
+	  application logic easier to write, since you wouldn't have
+	  to worry about locking.  There are a few reasons why this
+	  won't work:
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+		We don't know for sure that we have transactions, and
+		we don't want to fail in the middle of an operation
+		and corrupt our database and our filesystem, so we
+		should try to acquire all write locks up front to
+		ensure success before we make any changes.  That can
+		only be done in the controller, since no other part of
+		the code knows exactly what we need.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Locking is expensive in environments without good
+		row-level locking (eg, MySQL) so it's best to try to
+		acquire lots of locks at once instead of doing them as
+		we find out that we need them.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Right after you get the write lock for an entity, you
+		must refresh the entity, otherwise you don't know for
+		sure that you have the latest version (somebody else
+		might have had the write lock, modified the entity and
+		released the lock in between the time that you loaded
+		the entity and when you successfully acquire the write
+		lock).  This can also only be done safely at the top.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+
+	  The framework helps out by not allowing you to save an
+	  entity unless it is write locked.  So the main issue is
+	  knowing when to acquire read locks (more on that below).
+	</para>
+      </sect2>
+      <sect2>
+	<title>
+	  Factories
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Model-View-Controller
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Internationalization and Localization
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Storage
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Platform
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Generated Code
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Cross-Module Interfaces
+	</title>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>
+	Support
+      </title>
+      <sect2>
+	<title>
+	  Libraries
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Setup
+	</title>
+      </sect2>
+      <sect2>
+	<title>
+	  Docs
+	</title>
+      </sect2>
+    </sect1>
+  </chapter>
+</book>
