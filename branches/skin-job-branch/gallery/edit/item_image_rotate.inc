@@ -27,9 +27,9 @@ if ($doit) {
 		. "(this may take a while)";
 	my_flush();
 
-	$index = $album->getPhotoIndex($id);
-	$album->rotatePhoto($index, $rotateby);
-	$album->save();
+	$index = $gallery->album->getPhotoIndex($id);
+	$gallery->album->rotatePhoto($index, $rotateby);
+	$gallery->album->save();
 	return;
 } else {
 
