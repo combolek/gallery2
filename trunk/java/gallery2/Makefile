@@ -7,7 +7,7 @@ build/classes:
 	mkdir -p build/classes
 
 build/ImageCrop.jar: ImageCrop.class
-	${JAR} cvf build/ImageCrop.jar build/classes/*
+	(cd build/classes && ${JAR} cvf ../ImageCrop.jar *)
 
 ImageCrop.class: ImageCrop.java
 	${JAVAC} -d build/classes ImageCrop.java
