@@ -122,9 +122,20 @@ Caution: Be careful before posting your log to forums or sending it to anyone: y
 	  is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
 	  server certificate that is not certified by a trusted certificate authority, Gallery Remote will
 	  be unable to connect. If that happens, you will need to add the site's certificate to the Java
-	  registry of trusted certificates. The process for doing this is detailed
-   <ulink url="http://www.infy.com/knowledge_capital/thought-papers/usingHTTPwith_java.pdf">here</ulink>
-   (Importing a certificate as a Trusted Certificate section only).
+	  registry of trusted certificates:
+			<itemizedlist>
+				<listitem><para>go to the site with Internet Explorer</para></listitem>
+				<listitem><para>go to menu File>Properties</para></listitem>
+				<listitem><para>in the Properties window, click Certificates</para></listitem>
+				<listitem><para>on the Details tab, click Copy to File...</para></listitem>
+ 				<listitem><para>in the wizard, select DER-encoded X.509 certificate and save it to a file</para></listitem>
+ 				<listitem><para>open a console window (cmd.exe)</para></listitem>
+ 				<listitem>
+ 					<para>type the following command-line:</para>
+					<para><command>keytool -import -trustcacerts -file <replaceable>path_to_cer_file</replaceable> -keystore %JAVA_HOME%/jre/lib/security/cacerts -alias <replaceable>arbitrary_name</replaceable></command></para>
+				</listitem>
+ 				<listitem><para>you'll be prompted for the store password, which by default is changeit</para></listitem>
+			</itemizedlist>
 		</para>
 	</sect2>
 
