@@ -58,8 +58,8 @@ if ($id) {
 }
 
 //-- Increment the clickCount for this AlbumItem --- 
-if (!$gallery->session->viewedAlbum[$albumName][$id]) {
-	$gallery->session->viewedAlbum[$albumName][$id] = 1;
+if (!$gallery->session->viewedItem[$albumName][$id]) {
+	$gallery->session->viewedItem[$albumName][$id] = 1;
 	$album->incrementItemClicks($index);
 }
 
@@ -256,7 +256,10 @@ do {
 
 //-- we built the array backwards, so reverse it now ---
 //-- XXX we have to zero-index this array to make it work ---
-$breadLevels = array_reverse($breadLevels, false);
+for ($i = count($breadLevels) - 1; $i >= 0; $i--) {
+    $reversedLevels[] = $breadLevels[$i];
+}
+$breadLevels = $reversedLevels;
 
 //-- XXX - I think we should add current page to breadcrumb??? ---
 //$breadCount++;
