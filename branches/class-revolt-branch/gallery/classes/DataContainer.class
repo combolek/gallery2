@@ -110,7 +110,10 @@ class DataContainer extends GalleryNucleus {
      * @param string the path to a data file to be contained
      */
     function create($dataFileName) {
-	assert('!empty($dataFileName)');
+	if (empty($dataFileName)) {
+	    return ERROR | ERROR_BAD_PARAMETER;
+	}
+
 	$ret = parent::create();
 	if ($ret == SUCCESS) {
 	    $this->setDataFileName($dataFileName);

@@ -80,6 +80,41 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
+     * Create a new instance of this GalleryNucleus in the persistent store
+     *
+     * @return int a status code
+     */
+    function create($albumName) {
+	if (empty($albumName)) {
+	    return ERROR | ERROR_BAD_PARAMETER;
+	}
+	
+	global $gallery;
+	$platform = $gallery->getPlatform();
+
+	/* Create a new directory for this album in the temporary area */
+	$tempDir = $gallery->getConfigValue('core.directory.temp');
+	$albumDir = $tempDir . '/' . $albumName;
+	print $albumDir;
+	if (!$platform->mkdir($albumDir,
+			      $gallery->getConfigValue('core.permissions.directory'))) {
+	    return ERROR | ERROR_NAME_COLLISION;
+	}
+
+	/* Create a new instance of this nucleus in the persistent store */
+	$storage =& $gallery->getStorage();
+	$ret = $storage->newNucleus($this);
+	if ($ret == SUCCESS) {
+	    $gallery->addToCache($this);
+	} else {
+
+	    /* Clean up the directory */
+	    fs_unlink($albumDir);
+	}
+	return $ret;
+    }
+
+    /**
      * Can this item contain other items?
      *
      * AlbumItems are allowed to contain other GalleryItems

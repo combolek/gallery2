@@ -271,7 +271,10 @@ class GalleryItem extends GalleryNucleus {
      * @return int a status code
      */
     function addItem($item) {
-	assert('$this->canContainChildren()');
+	if (!$this->canContainChildren()) {
+	    return ERROR | ERROR_INVALID_OPERATION;
+	}
+	
 	$this->_childIds->addUnique($item->getId());
 	$this->modifyPersistentMember("childIds");
     }
@@ -285,7 +288,10 @@ class GalleryItem extends GalleryNucleus {
      * @param string the child item's id
      */
     function removeItem($id) {
-	assert('$this->canContainChildren()');
+	if (!$this->canContainChildren()) {
+	    return ERROR | ERROR_INVALID_OPERATION;
+	}
+	
 	$this->_childIds->removeValue($item->getId());
 	$this->modifyPersistentMember("childIds");
     }
@@ -498,8 +504,11 @@ class GalleryItem extends GalleryNucleus {
      */
     function setOwnerId($value) {
         assert('!empty($value)');
-        $this->_ownerId = $value;
-        $this->modifyPersistentMember('ownerId');
+
+	if (!empty($value)) {
+	    $this->_ownerId = $value;
+	    $this->modifyPersistentMember('ownerId');
+	}
     }
     
     /**
@@ -532,8 +541,11 @@ class GalleryItem extends GalleryNucleus {
      */
     function setThumbnailId($value) {
         assert('!empty($value)');
-        $this->_thumbnailId = $value;
-        $this->modifyPersistentMember('thumbnailId');
+
+	if (!empty($value)) {
+	    $this->_thumbnailId = $value;
+	    $this->modifyPersistentMember('thumbnailId');
+	}
     }
     
     /**
