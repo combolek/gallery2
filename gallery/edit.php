@@ -20,12 +20,9 @@
 ?>
 <? 
 
-function makeEditUrl($type, $id, $t, $return) {
-	$url = "edit.php?"
-		. "type=$type"
-		. "&id=$id"
-		. "&tab=$t"
-		. "&return=" . urlencode($return);
+function makeEditUrl($t) {
+	global $type, $id, $return;
+	$url = "edit.php?type=$type&id=$id&tab=$t&return=" . urlencode($return);
 	return makeGalleryUrl($url);
 }
 
@@ -46,32 +43,76 @@ if (!$album->isLoaded()) {
     return;
 }
 
+//-- The user hit "done" ---
 if ($doreturn) {
 	header("Location: $return");
 	return;
 }
 
-if (!$tab) {
-	$tab = "general";
-}
 $editDir = $GALLERY_BASEDIR . "edit/";
-$editInclude = $editDir. $type . "_" . $tab . ".inc";
 
 //-- if we have a submit and the command wants to show progress ---
 //-- go straight there (don't bother loading the layout)...     ---
-//-- Otherwise we 'doit' within the layout ---
-if ($doit && $show_progress) {
+//-- Otherwise the 'doit'  will happen when the tab is included for 
+//-- the layout ---
+if ($doit) {
+	$editInclude = $editDir. $type . "_" . $tab . ".inc";
+	if ($show_progress) {
 
-	echo ("<html><head><title>in progress</title></head>");
+	$progressHead = "
+		<html>
+		<head>
+		<title>in progress</title>
+		<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">
+		". getStyleSheetLink() ." 
+		</head>
+		<body>
+	";
+	echo($progressHead);
 
+	//-- here the command should 'execute' ---
 	require($editInclude);
 
-	$url = makeEditUrl($type, $id, $tab, $return);
-    $doit = 0;
-    $show_progress = 0;
-	echo ("<BODY onLoad='document.location = \"$url\"'>");
-	
+	//-- use javascript to pop back to the edit page ---
+	$jsreturn = "
+		<script language=\"javascript1.2\">
+		<!--
+		document.location = \"". makeEditUrl($tab) . "\";
+		//-->
+		</script>
+	";
+	echo($jsreturn);
+
+	//-- if javascript is off, the location change won't work. Put a form
+	//-- button up to let the user get back to the edit page ---
+	echo("<hr>Done!<hr>");
+	$nojsreturn = "
+		<form action=\"".makeGalleryUrl("edit.php")."\" method=\"POST\">
+		<input type=\"hidden\" name=\"type\" value=\"$type\">
+		<input type=\"hidden\" name=\"tab\" value=\"$tab\">
+		<input type=\"hidden\" name=\"id\" value=\"$id\">
+		<input type=\"hidden\" name=\"return\" value=\"$return\">
+		<input type=\"submit\" value=\"OK\">
+		</form>
+		</body>
+		</html>
+	";
+	echo($nojsreturn);
+
+    return;	
+	} else {
+		
+		//-- a normal doit ---
+		require($editInclude);
+		if ($forceReturn) {
+			header("Location: $return");
+		}
+
+		//-- reset the doit so teh page will display ---
+		$doit = 0;
+	}
 }
+
 
 
 $commands = Array();
@@ -92,12 +133,22 @@ switch ($type) {
 		if ($user->canChangeTextOfAlbum($myAlbum)) {
 			$name = "general";
 			$commands[$name]['title'] = "Info";
-			$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+			$commands[$name]['href'] = makeEditUrl($name);
 		}
+
+		//-- 
+		$typeLabel = "Album";
 
 		break;
 
 	case "item":
+
+		//-- 
+		if ($album->isMovie($id)) {
+			$typeLabel = "Movie";
+		} else {
+			$typeLabel = "Photo";
+		}
 
 		//-- the item info for display ---
 		$index = $album->getPhotoIndex($id);
@@ -107,34 +158,41 @@ switch ($type) {
 		//-- the item commands ---
 		if ($user->canChangeTextOfAlbum($album)) {
 			$name = "general";
-			$commands[$name]['title'] = "Info";
-			$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+			$commands[$name]['title'] = "Edit Info";
+			$commands[$name]['href'] = makeEditUrl($name);
 		}
 		if ($user->canWriteToAlbum($album)) {
 			if (!$album->isMovie($id)) {
 				$name = "image_thumbnail";
 				$commands[$name]['title'] = "Edit Thumbnail";
-				$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+				$commands[$name]['href'] = makeEditUrl($name);
 				$name = "image_rotate";
-				$commands[$name]['title'] = "Rotate";
-				$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+				$commands[$name]['title'] = "Rotate Photo";
+				$commands[$name]['href'] = makeEditUrl($name);
 			}
 			$name = "showhide";
-			$commands[$name]['title'] = "Show/Hide";
-			$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+			$commands[$name]['title'] = "Show/Hide $typeLabel";
+			$commands[$name]['href'] = makeEditUrl($name);
 
         }
 
 		if ($user->canDeleteFromAlbum($album))
 			$name = "delete";
-			$commands[$name]['title'] = "Delete";
-			$commands[$name]['href'] = makeEditUrl($type, $id, $name, $return);
+			$commands[$name]['title'] = "Delete $typeLabel";
+			$commands[$name]['href'] = makeEditUrl($name);
 
 		break;
 
 	default:
 		// uh, this is bad...
 }
+
+//-- is a tab is not passed in, pick the first one ---
+if (!$tab) {
+	$tabs = array_keys($commands);
+	$tab = $tabs[0];
+}
+$editInclude = $editDir. $type . "_" . $tab . ".inc";
 
 //-- which command is selected ---
 $commands[$tab]['selected'] = 1;
@@ -157,18 +215,26 @@ $form['buttons'] = "
 
 
 //-- The Layout object ---
+$GLO['type']['name'] = $type;
+$GLO['type']['label'] = $typeLabel;
 $GLO['item']['id'] = $id;
 $GLO['item']['thumbnail'] = $thumbnail;
 $GLO['item']['thumbnail']['size'] = 100;
 
+//-- XXX - we'll fix these colors ---
 $GLO['album']['fontColor'] = "black";
 $GLO['album']['bgColor'] = "white";
 
 $GLO['commands'] = $commands;
 
-//-- the tab content ---
 $GLO['form'] = $form;
+
+//-- the tab content ---
 $GLO['selected']['content'] = include($editInclude);
+
+//-- some extra useful stuff ---
+$GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
+                     "/images/pixel_trans.gif\" width=\"1\" height=\"1\">";
 
 //-------------------------------------------------------------------------
 //-- The Layout of the Page ---
