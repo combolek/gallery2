@@ -68,7 +68,7 @@ Class Gallery
 	- void setRootAlbumId(string id)
 		* Set the id of the root AlbumItem
 
-	- GalleryHashMap getConfig() 
+	- GalleryMap getConfig() 
 		* Return a copy of the GalleryConfig object generated in 
 		  config.php
 
@@ -80,12 +80,12 @@ Class Gallery
 	- UserDB getUserDB()
 		* Return the current UserDB object.  Cached for performance.
 
-	- GalleryHashMap &getSession()
+	- GalleryMap &getSession()
 		* Return a reference to the current GallerySession object.
 
-Class GalleryHashMap
+Class GalleryMap
 --------------------
-	This class is a hash map implementation.  It is a utility
+	This class is a map implementation.  It is a utility
 	class that we'll use for the various data containers that 
 	we need in the system.
 
@@ -107,7 +107,7 @@ Class GalleryHashMap
 		  the feature specified.  eg: 
 			setValue("core.galleryVersion", "2.0-cvs")
 
-Class GallerySession (instance of GalleryHashMap)
+Class GallerySession (instance of GalleryMap)
 -------------------------------------------------
 	This class is a container for session specific data.
 	The naming convention for data that is stored in this
@@ -127,11 +127,11 @@ Class GallerySession (instance of GalleryHashMap)
 		- stats.viewedPhoto
 
 
-Class GalleryConfig (instance of GalleryHashMap)
+Class GalleryConfig (instance of GalleryMap)
 ------------------------------------------------
 	This is a container for all configuration information
 	necessary for Gallery to function.  The config wizard will
-	create a file which builds an instance of a GalleryHashMap,
+	create a file which builds an instance of a GalleryMap,
 	containing a set of keys describing how Gallery is configured.
 
 	Here are the currently known keys:
