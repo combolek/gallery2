@@ -173,7 +173,7 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
         \album.info.extrafields.<replaceable>ref-num</replaceable>=<replaceable>extra-fields</replaceable><productnumber> [since 2.3]</productnumber>
          album_count=<replaceable>number-of-albums</replaceable></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the album data was fetched successfully.</para>
-        <para>If successful, a response to the <varname>fetch-albums-rune</varname> command returns several keys for each album in the gallery, where</para>
+        <para>If successful, a response to the <varname>fetch-albums-prune</varname> command returns several keys for each album in the gallery, where</para>
         <itemizedlist spacing="compact">
           <listitem>
             <para><varname><replaceable>ref-num</replaceable></varname> is a reference number,</para>
@@ -229,10 +229,10 @@ cmd=add-item
 protocol_version=<replaceable>2.0</replaceable>
 set_albumName=<replaceable>album name</replaceable>
 userfile=<replaceable>form-data-encoded image data</replaceable>
-caption=<replaceable>caption</replaceable> [since 2.0]
-force_filename=<replaceable>name of the file on the server</replaceable> [since 2.0]
-autoRotate=<replaceable>yes/no</replaceable> [since 2.5]
-extrafield.<replaceable>fieldname</replaceable>=<replaceable>value of the extra field fieldname</replaceable> [since 2.3]</programlisting>
+caption=<replaceable>caption</replaceable> (optional) [since 2.0]
+force_filename=<replaceable>name of the file on the server</replaceable> (optional) [since 2.0]
+auto_rotate=<replaceable>yes/no</replaceable> (optional) [since 2.5]
+extrafield.<replaceable>fieldname</replaceable>=<replaceable>value of the extra field fieldname</replaceable> (optional) [since 2.3]</programlisting>
         <para>Multiple <varname>extrafield</varname> lines with different <varname><replaceable>fieldname</replaceable></varname> values can be used.</para>
       </sect4>
       <sect4>
@@ -283,9 +283,9 @@ auto_resize=<replaceable>resize-dimension</replaceable></programlisting>
 cmd=new-album
 protocol_version=<replaceable>2.1</replaceable>
 set_albumName=<replaceable>parent-album-name</replaceable>
-newAlbumName=<replaceable>album-name</replaceable>
-newAlbumTitle=<replaceable>album-title</replaceable>
-newAlbumDesc=<replaceable>album-description</replaceable></programlisting>
+newAlbumName=<replaceable>album-name</replaceable> (optional)
+newAlbumTitle=<replaceable>album-title</replaceable> (optional)
+newAlbumDesc=<replaceable>album-description</replaceable> (optional)</programlisting>
         <itemizedlist spacing="compact">
           <listitem>
             <para><varname><replaceable>parent-album-name</replaceable></varname> is the name of the gallery that the new album should be created under, or 0 to create the album at the top-level;</para>
