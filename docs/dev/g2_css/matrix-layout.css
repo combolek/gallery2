@@ -4,6 +4,9 @@
 
 */
 
+/* ***************** DEBUG ********************** */
+
+
 /* try uncommenting this when working on the layout CSS alone to see the boxes*/
 /* div, table {border-width: 1;
             border-style: inset;
@@ -12,25 +15,18 @@
             marging: 1; }
 */
 
-/*	basic html defs	*/
-body {
-}
 
-/*	spacers neeed for expanding layouts	*/
-.guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer { clear: both; }
+/* ***************** GALLERY  ********************** */
+/*   Category 1: Gallery                             */
+/*    declare where to put Gallery Module            */
 
-/*
-    Page Definitions category 2
-    declare page layout of gallery data
-*/
-
-/*  main page container */
+/*  main container. Ignore in stand-alone install */
 #gallery { }
 
-/*
-    Section Definitons category 3
-    declare sections of gallery data
-*/
+
+/* ***************** SECTIONS ********************** */
+/*   Category 2: section definitions                 */
+/* declare relative or absolute section positions    */
 
 #gsHeader {  }
 
@@ -43,9 +39,13 @@ body {
 	width: 148px;
 }
 
-.gsSection1 { }
-.gsSection2 { }
-.gsSection3 { }
+#gsCommentBox { }
+
+/* Status message display section */
+#gsStatus { }
+
+
+/* gsXxxxContents	elements are the main 'holder' for the page. */
 
 #gsAlbumContents {
 	float: left;
@@ -53,35 +53,72 @@ body {
 	min-width: 596px;
 }
 
-#gsCommentBox {
+#gsSearchContents { }
+
+#gsAdminContents {
+	float: left;
+	width: 72%;
 }
 
-/*
-    itemBoxes c4
-    declare inner boxes inside of sections
-*/
 
-/*  #gsHeader    */
-.gbTitleBanner { }
-.gbBreadCrumb, .gbAdminHead { }
 
-/*  #gsAlbumContents */
-#gbTopFlag {
-	display: block;
+/* ***************** BOXES ******************************* */
+/*   Category 3: box definitions                           */
+/* declare relative position of boxes inside main sections */
+/* Declare relative pos. in relation to containing section */
+
+/* ********** global    *************** */
+
+/* Menus don't need to be global, but currently are */
+.gbMenu { }
+
+/* spacers neeed for expanding layouts */
+.guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer { clear: both; }
+
+
+/* ** Tabs ** */
+
+.gbTabBar {
+	float: left;
+	width: 100%;
 }
 
-.gbTitle {
+.gbTabBar li { float: left; }
+
+.gbTabBar a { float: left; }
+
+/* Commented Backslash Hack
+	   hides rule from IE5-Mac \*/
+.gbTabBar a { float: none; }
+/* End IE5-Mac hack */
+
+
+/* ********** default   *************** */
+
+
+
+/* ********** #gsHeader *************** */
+
+#gsHeader .gbTitleBanner { }
+#gsHeader .gbBreadCrumb { }
+
+/* ********** #gsAlbumContents ******** */
+
+#gsAlbumContents .gbTitleBanner {
 	float: left;
 	width: 256px;
 }
 
-.gbItemAlbum {
+#gsAlbumContents .gbItemAlbum {
 	clear: both;
 	float: left;
 	width: 97%;
 }
 
-.gbItemImage {
+/* individual items */
+#gsAlbumContents .gbItemImage,
+#gsAlbumContents .gbItemMovie,
+#gsAlbumContents .gbItemOther {
 	float: left;
 	/*	IE max-width >> http://www.svendtofte.com/code/max_width_in_ie/ */
 	min-height: 216px;
@@ -90,133 +127,53 @@ body {
 	width: expression(document.body.clientWidth > 172? '172px': 'auto' );
 }
 
-.gbItemMovie { }
-.gbItemOther1 { }
-.gbItemImage .giTitle { clear: both; }
+#gsAlbumContents .gbExif { }
 
-/*  --> #gsCommentBox    */
-.gbComment {
-}
-
-/*  #gsAlbumContents (continued) */
-.gbExif { }
-
-.gbBottomFlag {
-	display: block;
-}
-
-/*  gsFooter */
-.gbMiniBanner {
-	float: left;
-}
-
-/*  gsSidebar */
-#gsSidebar div {
-}
-
-/*	Tabs	*/
-.gbTabBar {
-	float: left;
-	width: 100%;
-}
-
-.gbTabBar ul {
-}
-
-.gbTabBar li {
-	float: left;
-	background: url('images/tab_left.jpg') no-repeat left top;
-}
-
-.gbTabBar a {
-	float: left;
-	display: block;
-}
-
-/* Commented Backslash Hack
-	   hides rule from IE5-Mac \*/
-
-.gbTabBar a { float: none; }
-
-/* End IE5-Mac hack */
-.gbTabBar a:hover { }
-.gbTabBar .giSelectedTab { }
-
-.gbTabBar .giSelectedTab a {
-}
-
-/*	Miscellaneous	*/
-.gbAdminMenu { }
-
-/*	icons for admin menu	*/
-.gbAdminMenu ul.icons li {
-}
-
-.gbAdminMenu li.comments:before {  }
-.gbAdminMenu li.general:before {  }
-.gbAdminMenu li.users:before {  }
-.gbAdminMenu li.groups:before {  }
-.gbAdminMenu li.modules:before { }
-.gbAdminMenu li.layouts:before { }
-.gbAdminMenu li.debug:before { }
-.gbListMenu { }
-.gbSearchMenu { }
-.gbBasicMenu { }
-.gbUserMenu { }
-.gbNavigationMenu { }
-.gbOtherMenu { }
-
-
+#gsAlbumContents .gbBottomFlag { display: block; }
 
 #gsAlbumContents div.giHorizontalLinks {
 	float: right;
 }
 
+/* ************* #gsCommentBox ************ */
 
-/*  gbComment */
+#gsComments .gbComment { }
 
-#gsCommentBox .gbComment div.giHorizontalLinks {
+/* ************* #gsFooter **************** */
+
+#gsFooter .gbMiniBanner { float: left; }
+
+/* ************* gsSidebar **************** */
+
+/* a default for any unknown div in #gsSideBar */
+#gsSidebar div { }
+
+
+/* ************* gsComments *************** */
+
+#gsComments .gbComment div.giHorizontalLinks {
 	float: none;
 }
 
-
-
-/* ******** jon's search additions *********** */
-/* form elements that I used */
+/* ************* #gsSearchContents *********** */
 
 /* The title banner is the light grey 'search' at the very top */
-.gbTitleBanner {
-}
-
-/* Search contents is along the same lines as the other gsXxxxContests
-	elements as a main 'holder' for the main stuff in the page. */
-
-#gsSearchContents { }
-
-/* This makes the images not wrap. But there's a weird bug on IE
-   that this seems to cause--see the html file for the workaround I found */
+#gsSearchContents .gbTitleBanner { }
 
 #gsSearchContents .gbItemImage { clear: left; }
 
+#gsSearchContents .gbForm { }
 
-.gbForm { }
-
-/* ********* admin additions ******** */
-#gsAdminContents {
-	float: left;
-	width: 72%;
-}
+/* ************* #gsAdminSideBar *************** */
 
 #gsAdminSidebar {
 	float: left;
 	width: 128px;
 }
 
-#gsAdminSidebar div {
-	margin: 0px 0;
-}
+/* ************* #gsAdminContents *************** */
 
-.gbItemAdmin {
+#gsAdminContents .gbAdmin {
 	clear: both;
 	float: left;
 	width: 97%;
@@ -224,20 +181,12 @@ body {
 
 * even and odd rows have different backgrounds */
 /* I count from 0, so the first row is even! */
-.gbEven { }
-
-.gbOdd { }
+#gsAdminContents .gbEven { }
+#gsAdminContents .gbOdd { }
 
 /* for tabular data */
-.gbDataTable { }
+#gsAdminContents .gbDataTable { }
 
-/* cell padding */
-.gbDataTable td { }
+/* ************** Status classes ***************** */
 
-/* Status classes */
-/* local error */
-.giError { clear: both; }
-
-/* Status section */
-#gsStatus { }
 
