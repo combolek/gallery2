@@ -181,16 +181,6 @@ class AlbumItem {
 		 * if it is now the highlight make sure it has a highlight
                  * thumb otherwise get rid of it's thumb (ouch!).
 		 */
-		$src_name = $this->image->name;
-		$tag = $this->image->type;
-
-		if ($this->isAlbumName) {
-			$dst_name = ".album";
-		} else {
-			$dst_name = $this->image->name;
-		}
-		$setDir = $dir;
-
 		if ($this->highlight) {
 			if ($this->isAlbumName) {
 				$nestedName = $this->isAlbumName;
@@ -207,24 +197,17 @@ class AlbumItem {
 				$tag  = $nestedHighlight->image->type;
 				$ret = 1;
 			} else {
+				$name = $this->image->name;
+				$tag = $this->image->type;
 
-				if (($this->image->thumb_width > 0) || ($nestedHighlight->image->thumb_width > 0)) {
+				if ($this->image->thumb_width > 0) {
 					// Crop it first
-					if ($this->isAlbumName) {
-						$ret = cut_image("$dir/$name.$tag",
-                	                                 	"$dir/$name.tmp.$tag",
-                        	                         	$nestedHighlight->image->thumb_x,
-                                	                 	$nestedHighlight->image->thumb_y,
-                                        	         	$nestedHighlight->image->thumb_width,
-                                                	 	$nestedHighlight->image->thumb_height);
-					} else {
-						$ret = cut_image("$dir/$name.$tag", 
-							 	"$dir/$name.tmp.$tag", 
-							 	$this->image->thumb_x, 
-							 	$this->image->thumb_y,
-							 	$this->image->thumb_width, 
-						 		$this->image->thumb_height);
-					}
+					$ret = cut_image("$dir/$name.$tag", 
+						 	"$dir/$name.tmp.$tag", 
+						 	$this->image->thumb_x, 
+						 	$this->image->thumb_y,
+						 	$this->image->thumb_width, 
+					 		$this->image->thumb_height);
 	
 					// Then resize it down
 					if ($ret) {
@@ -253,6 +236,8 @@ class AlbumItem {
 				fs_unlink("$dir/$name.highlight.$tag");
 			}
 		}	
+		print_r($this);
+
 	}
 
 	function isHighlight() {
