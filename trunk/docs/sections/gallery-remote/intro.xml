@@ -6,9 +6,51 @@
  
  <para>
   Gallery Remote is a desktop file upload utility for Gallery.
-  It works best with newer versions of Gallery. Gallery 1.3.2 and later
-  support a new protocol, which allows uploading captions along with images,
-  creating new albums, etc.  Gallery Remote is licensed under the GPL.
+  It enables easy batch uploading of images to a Gallery installation, without the need
+  to use the Gallery Web Interface. 
  </para>
+ 
+ <para>
+  Best used in conjunction with Gallery 1.3.2 and later due to changes in the Gallery Remote Protocol.
+ </para>
+ 
+ <para>
+  Features
+  <itemizedlist>
+   <listitem>
+    <para>
+     Multiple image upload
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Drag'n'drop support
+    </para>
+    </listitem>
+    <listitem>
+     <para>
+      Image preview
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Image resizing
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       New album creation
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Multiple Gallery installs
+      </para>
+    </listitem>
+  </itemizedlist>
+  </para>
+  <para>
+   Gallery Remote is licensed under the GPL.
+  </para>
 
 </sect1>
