@@ -63,7 +63,7 @@ $commit_template = '{green}%user%{normal}%tag% * {blue}%module%{normal}/%path% (
 # The template string describing how the branch tag name should look like.
 # Expansions:
 #  %tag%    - the tag name
-$branch_template = ' {yellow}%tag%{normal}';
+$branch_template = ' {purple}%tag%{normal}';
 
 # The template string describing how the trimming notice should look like.
 # Expansions:
