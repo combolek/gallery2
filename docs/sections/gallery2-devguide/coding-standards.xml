@@ -76,9 +76,20 @@
  <sect2 id="gallery2-devguide.coding-standards.indentation">
   <title>Indentation</title>
   <para>
-   Four spaces should be used as the unit of indentation. The exact
-   construction of the indentation (spaces vs. tabs) is
-   unspecified. Tabs must be set exactly every 8 spaces (not 4).
+   Four spaces should be used as the unit of indentation.  You can use
+   tabs or spaces, but it's important that the indentation looks the
+   same in all viewers (your editor, unix tools like "less", on the
+   web, when printed, etc).  In order for that to be true, you
+   <emphasis role="bold">must not redefine tabs</emphasis>.  Many
+   editors will let you change tab to be 4 spaces, some even do this
+   by default.  This is bad because others won't change the definition
+   of tab to match your settings (it's not always possible, for
+   example when you're viewing code via the CVS viewer or in the unix
+   "less" utility).  If you leave tab at 8 columns, then what you see
+   is what you get.  Editors like emacs and vi have a "smart tabs"
+   mode which will replace sequences of 8 spaces with a tab character
+   to make your files smaller.  This is preferable, but if you're in
+   doubt, just use spaces.
   </para>
   <sect3 id="gallery2-devguide.coding-standards.indentation.line-length">
    <title>Line Length</title>
