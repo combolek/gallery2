@@ -151,7 +151,7 @@ for ($i = $start; $i <= $end; $i++) {
    </span>
   <? } ?>
 
-  <? if ($user->canWriteAlbum($album)) { ?>
+  <? if ($user->canWriteToAlbum($album)) { ?>
    <span class="admin">
     <a href=<?= popup("move_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[move album]</a>
     <a href=<?= popup("rename_album.php?set_albumName={$tmpAlbumName}&index=$i")?>>[rename album]</a>
