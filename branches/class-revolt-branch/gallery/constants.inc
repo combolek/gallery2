@@ -1,0 +1,135 @@
+<?php
+/**
+ * Gallery application constants
+ *
+ * These are constants defined by Gallery for use throughout the application.
+ *
+ * @version $Id$
+ * @module Constants
+ * @modulegroup Application
+ * @package GalleryApplication
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/*
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/* Status codes bitflags */
+
+/**
+ * The operation was a success
+ *
+ * @constant SUCCESS
+ */
+define(SUCCESS, 0x00000000);
+
+/**
+ * The operation had errors
+ *
+ * @constant ERROR
+ */
+define(ERROR, 0x00000001);
+
+/* Permission bitflags */
+
+/**
+ * The user has permission to view the source image.
+ *
+ * @constant PERMISSION_CAN_VIEW_SOURCE
+ */
+define(PERMISSION_CAN_VIEW_SOURCE, 0x00000001);
+
+/**
+ * The user is denied permission to view the source image.
+ *
+ * @constant PERMISSION_CANNOT_VIEW_SOURCE
+ */
+define(PERMISSION_CANNOT_VIEW_SOURCE, 0x00000002);
+
+/**
+ * The user has permission to view the thumbnail image.
+ *
+ * @constant PERMISSION_CAN_VIEW_THUMB
+ */
+define(PERMISSION_CAN_VIEW_THUMB, 0x00000004);
+
+/**
+ * The user is denied permission to view the thumbnail image.
+ *
+ * @constant PERMISSION_CANNOT_VIEW_THUMB
+ */
+define(PERMISSION_CANNOT_VIEW_THUMB, 0x00000008);
+
+/**
+ * The user has permission to view the resized image.
+ *
+ * @constant PERMISSION_CAN_VIEW_RESIZES
+ */
+define(PERMISSION_CAN_VIEW_RESIZES, 0x00000010);
+
+/**
+ * The user is denied permission to view the resized image.
+ *
+ * @constant PERMISSION_CANNOT_VIEW_RESIZES
+ */
+define(PERMISSION_CANNOT_VIEW_RESIZES,  0x00000020);
+
+/**
+ * The user has permission to change the item.
+ *
+ * @constant PERMISSION_CAN_CHANGE
+ */
+define(PERMISSION_CAN_CHANGE, 0x00000040);
+
+/**
+ * The user is denied permission to change the item.
+ *
+ * @constant PERMISSION_CANNOT_CHANGE
+ */
+define(PERMISSION_CANNOT_CHANGE, 0x00000080);
+
+/**
+ * The user has permission to change the item's text.
+ *
+ * @constant PERMISSION_CAN_CHANGE_TEXT
+ */
+define(PERMISSION_CAN_CHANGE_TEXT, 0x00000100);
+
+/**
+ * The user is denied permission to change the item's text.
+ *
+ * @constant PERMISSION_CANNOT_CHANGE_TEXT
+ */
+define(PERMISSION_CANNOT_CHANGE_TEXT, 0x00000200);
+
+/**
+ * The user has permission to add to the item.
+ *
+ * @constant PERMISSION_CAN_ADD_TO
+ */
+define(PERMISSION_CAN_ADD_TO, 0x00000400);
+
+/**
+ * The user is denied permission to add to the item.
+ *
+ * @constant PERMISSION_CANNOT_ADD_TO
+ */
+define(PERMISSION_CANNOT_ADD_TO, 0x00000800);
+?>
