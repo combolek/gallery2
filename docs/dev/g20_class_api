@@ -38,14 +38,52 @@ Things that need to be added to this API:
 
 Things that need to be documented more thoroughly in general:
 -------------------------------------------------------------
-- Derived images.
-  - how they work
-  - how changes propagate
-  - short circuiting the source->source->source chain
-  - how to rebuild one
-  - how to expire one
-  - change notification
-  - real source vs. preferred source
+
+- Derived images.  All images that are not a source image (ie, an
+  image uploaded by the user will be "derived" images.  A derived
+  image is one that is created by applying a set of rules to an
+  existing image to form a new one.  For example, a thumbnail image is
+  derived from a source image by applying a "scale" rule to it.  This
+  derived image doesn't need to be kept around -- if we need the disk
+  space we can delete it because it can always be recreated.
+
+  One derived image can depend on another one.  Example: image X is
+  the highlight of Album A, and Album A is the highlight of Album B.
+  Really what's happening here is that image X has a source
+  ImageContainer(1).  Album A has a thumbnail ImageContainer(2) who's
+  derivative source is ImageContainer(1).  Album B has a thumbnail
+  ImageContainer(3) who's derivative source is ImageContainer(2).
+
+  If you wish to view Album B's thumbnail, ImageContainer(3) it must
+  be derived at that point.  ImageContainer(3) checks with
+  ImageContainer(2) and finds out that ImageContainer(2) is actually
+  derived from ImageContainer(1), which is the source.  So
+  ImageContainer(3) recreates itself by applying its rule to the
+  source image from ImageContainer(1).  This short circuit effect
+  stops when the derivative source discovered is a source or preferred
+  source (discussed below).
+
+  In the above example, if ImageContainer(1) changes (we'll discuss
+  how this might happen below), it should notify all DataContainers
+  that depend on it so that they can expire their derived cache.  The
+  next time they are accessed this cache will be rebuilt.
+
+  DataItems own a source DataContainer which is the DataContainer that
+  contains their canonical source file.  They also own a "preferred"
+  source DataContainer which is the one that they'd prefer that you
+  use, when possible.  This preferred one should be used in place of
+  the original for all derivations and for viewing.  Typically the
+  preferred source is derived from the canonical source.  When you
+  rotate an image, you create a new derivative ImageContainer that
+  derives from the source ImageContainer but contains a derivation
+  rule for rotation.
+
+  If you change the preferred source to a new DataContainer in a
+  DataItem, it assumes the derivation responsibilities of any old
+  preferred source DataContainers.  If there was no preferred source
+  before it, it assumes the derivation responsibilities of the
+  canonical source (ie, it inserts itself in the chain between the
+  derivation and the original source).
 
 - Locking explained.  There are two different types of locks:
   1. Local locks
@@ -129,6 +167,7 @@ Things that need to be documented more thoroughly in general:
   the ERROR bit set, as well as one or more error bitflags:
 
 	ERROR_NAME_COLLISION
+	ERROR_MISSING_OBJECT
 
 - Creating a new persistence backend (ie, "Filesystem", "MySQL")
   This is not finalized yet.  But I'm thinking that all you need to do is
