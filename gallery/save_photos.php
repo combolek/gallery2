@@ -24,7 +24,14 @@
 
 require(dirname(__FILE__) . '/init.php');
 
-list($urls, $meta, $metafile, $userfile, $userfile_name, $userfile_caption) = getRequestVar(array('urls', 'meta', 'metafile', 'userfile', 'userfile_name', 'userfile_caption'));
+foreach($_FILES as $key => $value) {
+    ${$key."_name"} = $value["name"];
+    ${$key."_size"} = $value["size"];
+    ${$key."_type"} = $value["type"];
+    ${$key} = $value["tmp_name"];
+}
+
+list($urls, $meta, $usercaption) = getRequestVar(array('urls', 'meta', 'usercaption'));
 list($wmName, $wmAlign, $wmAlignX, $wmAlignY) = getRequestVar(array('wmName', 'wmAlign', 'wmAlignX', 'wmAlignY'));
 
 // Hack check
