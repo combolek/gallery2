@@ -86,12 +86,20 @@ class Gallery {
     var $_storage;
 
     /**
-     * The active locking mechanism
+     * A GalleryLock containing a Local lockset
      *
      * @access private
-     * @var	object	GalleryLock	$_lock;
+     * @var	object	GalleryLock	$_lockLocal;
      */
-    var $_lock;
+    var $_lockLocal;
+
+    /**
+     * A GalleryLock containing the World lock
+     *
+     * @access private
+     * @var	object	GalleryLock	$_lockWorld;
+     */
+    var $_lockWorld;
 
     /*
      * ****************************************
@@ -246,12 +254,54 @@ class Gallery {
      *
      * Use the active locking mechanism to lock the given GalleryNucleus instances.
      * 
+     * Use register_shutdown_function() to register the unlockLocal() method so
+     * that we can be sure that we won't accidentally leave the instances
+     * locked.
+     * 
      * @access public
      * @param array the GalleryNucleus' to be locked 
-     * @param int how long to wait for the lock before giving up
+     * @param integer how long to wait for the lock before giving up
      * @return boolean true if the lock was acquired
      */
-    function lock($array, $timeout) {
+    function lockLocal($array, $timeout=2) {
+	// If we have a lock already, complain and return false
+	// If we don't have a lock, get one, register it with the end-of-session handler
+	// 	so that it goes away
+
+	// If we acquire the lock, refresh all the locked objects
+	//
+	// for ($i = 0; $i < length($array); $i++) {
+	//	$array[$i]->refresh();
+	// }
+    }
+
+    /**
+     * Release the local lock
+     *
+     * Save all the instances that were covered by the local lock.
+     *
+     * @access public
+     */
+    function unlockLocal() {
+    }
+
+    /**
+     * Lock the entire Gallery
+     *
+     * Use the active locking mechanism to lock the entire Gallery.  Then,
+     * traverse the tree and refresh any objects that we have in memory.  The
+     * result of this call is that the entire tree is in sync with the
+     * persistent store, and until unlockWorld is called, no one else can
+     * change it.
+     *
+     * Use register_shutdown_function() to register the unlockWorld() method so
+     * that we can be sure that we won't accidentally leave the world locked.
+     * 
+     * @access public
+     * @param integer how long to wait for the lock before giving up
+     * @return boolean true if the lock was acquired
+     */
+    function lockWorld($timeout=10) {
 	// If we have a lock already, complain and return false
 	// If we don't have a lock, get one, register it with the end-of-session handler
 	// 	so that it goes away
@@ -264,11 +314,13 @@ class Gallery {
     }
 
     /**
-     * Release the lock
+     * Release the World lock
+     *
+     * Traverse the tree and save any objects that need saving.
      *
      * @access public
      */
-    function unlock() {
+    function unlockWorld() {
     }
 }
 ?>
