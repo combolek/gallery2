@@ -41,6 +41,26 @@
        be a problem when printing the images.
      </para>
    </listitem>
+     <listitem>
+     <para>
+       You enable watermarking by entering a watermark directory in the 
+       Configuration Wizard under the Locations and URLs tab, fill out a 
+       directory containing the images you want to use as a watermark. 
+       Use the full system path. When logged in as admin you will now see 
+       [watermark album] as an option. By selecting that you will be presented 
+       by a page showing you the possible watermarking options.
+     </para>
+   </listitem>
+     <listitem>
+     <para>
+       Note that all files located in the watermark directory you defined 
+       earlier will now be available in the dropdown below the image. 
+       All you need to do to add a new watermark picture, is to add it to the 
+       watermark directory, re-open the watermarking page and select it in the dropdown.
+       The preview button enables you to preview the watermark before applying it,
+       this to help you visualize how its going to look.
+     </para>
+   </listitem>
   </itemizedlist>
  </para>
 
