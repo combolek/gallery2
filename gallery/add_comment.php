@@ -65,13 +65,12 @@ function emailComments($id, $comment_text, $commenter_name) {
 }
 
 $error_text = "";
-if ($gallery->user->isLoggedIn() ) {
+if ($gallery->user->isLoggedIn()) {
 	if (empty($commenter_name) || $gallery->app->comments_anonymous == 'no') {
        		$commenter_name=user_name_string($gallery->user->getUID(), 
 				$gallery->app->comments_display_name);
 	}
 }
-
 if (empty($comment_text)) {
 	$comment_text='';
 }
@@ -99,9 +98,9 @@ if (isset($save)) {
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead">
+<span class="popuphead">
 <?php echo _("Enter your comment for this picture in the text box below.") ?>
-</p>
+<br><br>
 </span>
 <?php echo $gallery->album->getThumbnailTagById($id) ?>
 <?php

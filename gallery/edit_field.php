@@ -59,14 +59,13 @@ if (isset($save)) {
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo sprintf(_("Edit %s"), _($field)) ?></p>
 <span class="popup">
-<?php 
-	echo sprintf(_("Edit the %s and click %s when you're done"), _($field), '<b>' . _("Save") . '</b>');
+<?php echo sprintf(_("Edit the %s and click %s when you're done"),
+		_($field), '<b>' . _("Save") . '</b>') ?>
 
-	echo makeFormIntro("edit_field.php", array(
-		"name" => "theform",
-		"method" => "POST")); 
+<?php echo makeFormIntro("edit_field.php", array(
+	"name" => "theform",
+	 "method" => "POST")); 
 ?>
 <input type="hidden" name="field" value="<?php echo $field ?>">
 <textarea name="data" rows="5" cols="40">

@@ -79,13 +79,16 @@ if (isset($confirm) && isset($id)) {
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
+
 <?php
 if ($gallery->album && isset($id)) {
 	if (isset($albumDelete)) {
 ?>
 
 <center>
-<p class="popuphead"><?php echo _("Delete Album") ?></p>
+<span class="popuphead"><?php echo _("Delete Album") ?></span>
+<br>
+<br>
 <span class="popup">
 <?php echo _("Do you really want to delete this Album?") ?>
 <br>
@@ -117,21 +120,20 @@ $myAlbum->load($id);
 ?>
 
 <center>
-<p class="popuphead"><?php echo _("Delete Photo") ?></p>
 <?php echo _("Do you really want to delete this photo?") ?>
 <br>
 <br>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 <br>
 <?php echo $gallery->album->getCaption($index) ?>
-<p>
+<br>
 <?php echo makeFormIntro("delete_photo.php"); ?>
 <input type="hidden" name="id" value="<?php echo $id?>">
 <input type="hidden" name="id2" value="<?php echo $id2 ?>">    
 <input type="submit" name="confirm" value="<?php echo _("Delete") ?>">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
-</p>
+<br>
 
 <?php
 	}

@@ -161,25 +161,18 @@ function form_multiple_choice($key, $arr) {
 	
 	$buf= '<table><tr><td valign="top">';
 	$count=0;
-	$column=0;
 	foreach ($arr["multiple_choices"] as $item => $value) {
-		if ($item == 'addon') continue;
 		if ($count%15 ==0) {
 			$buf .= "</td>\n<td valign=\"top\">";
 		}
 		$count++;
-		$column++;
 		$selected = "";
 		if ($arr["value"] && in_array($item, $arr["value"])) {
 			$selected = "CHECKED";
 		}
 		$buf .= "\n\t<br><input name=\"${key}[]\" value=\"$item\" type=\"checkbox\" $selected>" . $value ;
 	}
-	$buf .="</td></tr>";
-	if (isset($arr['multiple_choices']['addon'])) {
-		$buf .="\n<tr><td colspan=$column>++". $arr['multiple_choices']['addon'] . "\n++</td></tr>";
-	}
-	$buf .="</table>";
+	$buf .="</td></tr></table>";
 	return $buf;
 }
 
@@ -798,7 +791,7 @@ function config_maybe_locales() {
 			continue;
 		}
 		if (sizeof($aliases) == 1) {
-			$results["locale_alias[$key]"] = array (
+			$results["locale_alias['$key']"] = array (
 				"type" => "hidden", 
 				"value" => array_pop($aliases),
 				"desc" => "locale_alias[$key]",
@@ -1098,22 +1091,6 @@ function array_stripslashes($subject) {
 	return $ret;
 }
 
-/*
-** Check if Magic Quotes are On
-** If yes stripslashes and return the cleaned input.
-** 
-** Jens Tkotz, 02/2004
-*/
-function stripWQuotesON($mixed) {
-        if (get_magic_quotes_gpc()) {
-                return array_stripslashes($mixed);
-        }
-        else {
-                return $mixed;
-        }
-
-}
-
 function array_urldecode($subject) {
 	if (is_string($subject)) {
 		return urldecode($subject);
@@ -1309,14 +1286,14 @@ function check_admins() {
 		}
 		$desc_text .= "  " . sprintf (_("You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."), '<b>admin</b>');
 		$result=array(
-			"desc" => $desc_text . newIn('1.4.1'),
+			"desc" => $desc_text,
 			"optional" => 1,
 			"remove_empty" => true
 		);
 	}
 	else {
 		$result=array(
-			"desc" => sprintf(_("It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."), '<b>admin</b>', '<b>admin</b>') . newIn("1.4.1"),
+			"desc" => sprintf(_("It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."), '<b>admin</b>', '<b>admin</b>'),
 			"optional" => 1,
 			"remove_empty" => true
 		);
@@ -1353,21 +1330,5 @@ function displayNameOptions() {
 			sprintf("%s (%s)", _("Username"), _("email address")),
 		     );
 }
-
-function check_filedirective() {
-	$success = array();
-	$fail = array();
-	$warn = array();
-
-	if (strstr(__FILE__, 'setup/functions.inc') ||
-		strstr(__FILE__, 'setup\\functions.inc')) {
-		$success[]=_("Predefined Variable works fine");
-	} else {
-		$fail['buggy__FILE__']=1;
-	}
-
-return array($success, $fail, $warn);
-}
-
 
 ?>

@@ -17,6 +17,7 @@
 
 <body dir="<?php echo $gallery->direction ?>">
 <?php
+
 if (function_exists("posix_getpwuid")) {
 	$rec = @posix_getpwuid(posix_getuid());
 	$webserver_user = $rec["name"];
@@ -72,7 +73,7 @@ foreach (array_keys($preserve) as $key) {
 
 ?>
 
-<form method="post" action="index.php" name="config">
+<form method="post" action="index.php">
 
 <?php
 $legit = array("check", "constants", "defaults", "confirm", "write");
@@ -85,31 +86,27 @@ if (in_array($setup_page, $legit)) {
 ?>
 
 <?php
-
 function embed_hidden($key) {
 	global $$key;
 
 	$buf = "";
 	$real = $$key;
-
 	if (is_array($real)) {
 		foreach ($real as $real_key => $value) {
 			if (is_array($value)) {
 				foreach($value as $sub_key => $sub_value) {
-					$name = stripWQuotesON($key . "[$real_key][$sub_key]");
-					$buf .= '<input type="hidden" name="'. $name .'" value="';
+					$buf .= "<input type=hidden name=${key}[$real_key][$sub_key] value=\"";
 					$buf .= urlencode($sub_value);
 					$buf .= "\">\n";
 				}
 			} else {
-				$name = stripWQuotesON(${key} ."[$real_key]");
-				$buf .= '<input type="hidden" name="'. $name .'" value="';
+				$buf .= "<input type=hidden name=${key}[$real_key] value=\"";
 				$buf .= urlencode($value);
 				$buf .= "\">\n";
 			}
 		}
 	} else {
-		$buf .= '<input type="hidden" name="'. stripWQuotesON($key) . '" value="';
+		$buf .= "<input type=hidden name=$key value=\"";
 		$buf .= urlencode($real);
 		$buf .= "\">\n";
 	}

@@ -76,7 +76,8 @@ if (isset($action)) {
 ?>
 <body dir="<?php echo $gallery->direction ?>">
 
-<p align="center"><span class="popuphead"><?php echo _("Custom Thumbnail") ?></span></p>
+<span class="popuphead"><?php echo _("Custom Thumbnail") ?></span>
+<br>
 
 <?php
 	#-- are we a go? ---
@@ -141,6 +142,7 @@ if (isset($action)) {
 	} 
 } 
 ?>
+
 </body>
 </html>
 

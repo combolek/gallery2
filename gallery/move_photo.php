@@ -48,7 +48,6 @@ $albumDB = new AlbumDB(FALSE); // read album database
   <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<p class="popuphead" align="center"><?php echo _("Move Photo") ?></p>
 <span class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {

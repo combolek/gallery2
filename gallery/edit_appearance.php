@@ -40,6 +40,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 }
 	
 if (isset($save)) {
+
 /*
 ** The Radiobutton for Shutterflys Donation is set always.
 ** So its saved always as Service.
@@ -47,10 +48,9 @@ if (isset($save)) {
 ** we should change it.
 **
 */
-	if (! isset($print_photos['shutterfly']['checked'])) {
-        	unset($print_photos['shutterfly']);
-	}
-
+if (! isset($print_photos['shutterfly']['checked'])) {
+	unset($print_photos['shutterfly']);
+}
 	if (get_magic_quotes_gpc()) {
 		$gallery->album->fields["summary"] = stripslashes($summary);
 		$gallery->album->fields["title"] = stripslashes($title);
@@ -58,6 +58,7 @@ if (isset($save)) {
 		$gallery->album->fields["summary"] = $summary;
 		$gallery->album->fields["title"] = $title;
 	}
+
 	$gallery->album->fields["bgcolor"] = $bgcolor;
 	$gallery->album->fields["textcolor"] = $textcolor;
 	$gallery->album->fields["linkcolor"] = $linkcolor;

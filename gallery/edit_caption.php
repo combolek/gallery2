@@ -78,7 +78,6 @@ if (isset($save)) {
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo _("Edit Caption"); ?></p>
 <?php echo $gallery->album->getThumbnailTag($index) ?>
 </center>
 <span class="popup">
@@ -121,9 +120,7 @@ foreach ($gallery->album->getExtraFields() as $field)
 </table>
 <?php
 // get the itemCaptureDate
-if (isset($error)) {
-	echo "<span class=error>$err</span><br><br>";
-}
+echo "<span class=error>$err</span><br><br>";
 $itemCaptureDate = $gallery->album->getItemCaptureDate($index);
 
 $hours = $itemCaptureDate["hours"];
@@ -134,8 +131,7 @@ $mday = $itemCaptureDate["mday"];
 $year = $itemCaptureDate["year"];
 // start capture date table
 ?>
-<div align="center">
-<table border="0">
+<table border=0>
   <tr>
 	<td colspan="6" align="center" class="popup"><?php echo _("Photo Capture Date") ?></td>
   </tr>
@@ -180,8 +176,8 @@ echo "</td>";
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 
+
 </form>
-</div>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--   

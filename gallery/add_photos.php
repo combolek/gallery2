@@ -19,7 +19,8 @@
  *
  * $Id$
  */
-
+?>
+<?php
 // Hack prevention.
 if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
@@ -27,29 +28,21 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 	print _("Security violation") ."\n";
 	exit;
 }
-
-if (!isset($GALLERY_BASEDIR)) {
-    $GALLERY_BASEDIR = '';
+?>
+<?php if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
 }
-
-require($GALLERY_BASEDIR . 'init.php');
-
+require($GALLERY_BASEDIR . 'init.php'); ?>
+<?php
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
 	exit;
 }
-
-$cookieName = $gallery->app->sessionVar."add_photos_mode";
-$modeCookie = isset($HTTP_COOKIE_VARS[$cookieName]) ? $HTTP_COOKIE_VARS[$cookieName] : null;
-if (isset($mode)) {
-	if ($modeCookie != $mode) {
-	    setcookie($cookieName, $mode, time()+60*60*24*365, "/" );
-	}
-} else {
-	if (isset($modeCookie)) {
-	    $mode = $modeCookie;
-	}
+	
+if (!isset($boxes)) {
+	$boxes = 5;
 }
+
 ?>
 
 <html>
@@ -57,61 +50,6 @@ if (isset($mode)) {
   <title><?php echo _("Add Photos") ?></title>
   <?php echo getStyleSheetLink() ?>
 
-<style type="text/css">
-<!--
-#container
-	{
-		padding: 2px;
-	}
-
-#tabnav
-	{
-		height: 20px;
-		margin: 0;
-		padding-left: 5px;
-		background: url(images/tab_bottom.gif) repeat-x bottom;
-	}
-
-#tabnav li
-	{
-		margin: 0; 
-		padding: 0;
-  		display: inline;
-  		list-style-type: none;
-  	}
-	
-#tabnav a:link, #tabnav a:visited
-	{
-		float: left;
-		font-size: 11px;
-		line-height: 14px;
-		font-weight: bold;
-		padding: 2px 5px 2px 5px;
-		margin-right: 4px;
-		text-decoration: none;
-		color: #666;
-	        border-width:1px;
-	        border-style: solid; border-color: #000000;
-		-Moz-Border-Radius-TopLeft: 20px;
-		-Moz-Border-Radius-TopRight: 20px;
-	}
-
-#tabnav a:link.active, #tabnav a:visited.active
-	{
-	  background-color: #FCFCF3 ; padding:2px 5px 2px 5px; font-size:12px;
-	  margin-right: 4px;
-	  border-style: solid; border-color: #000000;
-	  -Moz-Border-Radius-TopLeft: 20px;
-	  -Moz-Border-Radius-TopRight: 20px;
-	  color:#000000;
-	}
-
-#tabnav a:hover
-	{
-		color: #444
-	}
--->
-</style>
 <script language="Javascript">
 <!--
 	function reloadPage() {
@@ -121,56 +59,92 @@ if (isset($mode)) {
 // -->
 </script>
 </head>
-<body dir="<?php echo $gallery->direction ?>" onload="window.focus()">
+<body dir="<?php echo $gallery->direction ?>">
 
-<?php
+<span class="popuphead"><?php echo _("Add Photos") ?></span>
+<br>
+<span class="popup">
+<?php echo _("Click the <b>Browse</b> button to locate a photo to upload.") ?>
 
-if (file_exists("java/GalleryRemoteAppletMini.jar") &&
-	file_exists("java/GalleryRemoteHTTPClient.jar")) {
-    $modes["applet_mini"] = _("Applet");
-	
-	if (file_exists("java/GalleryRemoteApplet.jar")) {
-	    $modes["applet"] = _("Applet (big)");
+<?php if ($gallery->app->feature["zip"]) { ?>
+<br>
+&nbsp;&nbsp;<?php echo _("Tip:  Upload a ZIP file full of photos and movies!") ?>
+<?php } ?>
+<br>
+&nbsp;&nbsp;(<?php echo _("Supported file types") ?>: <?php echo join(", ", acceptableFormatList()) ?>)
+
+<br><br>
+<?php echo makeFormIntro("add_photos.php",
+			array("name" => "count_form",
+				"method" => "POST")); ?>
+<?php echo _("1. Select the number of files you want to upload:") ?>
+<select name="boxes" onChange='reloadPage()'>
+<?php for ($i = 1; $i <= 10;  $i++) {
+	echo "<option ";
+        if ($i == $boxes) {
+		echo "selected ";
 	}
-}
+	echo "value=\"$i\">$i\n";
 
+} ?>
+</select>
+<br>
+</form>
 
-$modes["form"] = _("Form");
-// todo: this mode is broken. Fix it before enabling it again...
-//$modes["form_one"] = _("Form (1)");
-$modes["url"] = _("URL");
-$modes["other"] = _("Other");
+<?php echo makeFormIntro("save_photos.php",
+			array("name" => "upload_form",
+				"enctype" => "multipart/form-data",
+				"method" => "POST")); ?>
+<?php echo _("2. Use the Browse button to find the photos on your computer") ?>
+<input type="hidden" name="max_file_size" value="10000000">
+<table>
+<?php for ($i = 0; $i < $boxes;  $i++) { ?>
+<tr><td>
+<?php echo _("File") ?></td>
+<td><input name="userfile[]" type="file" size=40></td></tr>
+<td><?php echo _("Caption") ?></td><td> <input name="usercaption[]" type="text" size=40></td></tr>
+<tr><td></td></tr> 
+<?php } ?>
+</table>
+<input type=checkbox name=setCaption checked value="1"><?php echo _("Use filename as caption if no caption is specified.") ?>
+<br>
+<center>
+<input type="button" value="<?php echo _("Upload Now") ?>" onClick='opener.showProgress(); document.upload_form.submit()'>
+<input type=submit value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+</center>
+</form>
 
-if ($gallery->user->isAdmin()) {
-    $modes["admin"] = _("Admin");
-}
+<?php echo makeFormIntro("save_photos.php",
+			array("name" => "uploadurl_form",
+				"method" => "POST")); ?>
+<?php echo _("Or, upload any images found at this location.") ?>
+<?php echo _("The location can either be a URL or a directory on the server.") ?>
+<br>
 
-if (!isset($mode) || !isset($modes[$mode])) {
-	$mode = key($modes);
-}
-?>
+&nbsp;&nbsp;<?php echo _("Tip: FTP images to a directory on your server then provide that path here!") ?>
+<br>
 
-<div id="container">
-<ul id="tabnav">
-<?php
-foreach ($modes as $m => $mt) {
-	$url=makeGalleryUrl('add_photos.php',array('mode' => $m));
-	echo "<td>";
-	if ($m == $mode) {
-		echo "<li><a href=\"$url\" class=\"active\">$mt</a></li>";
-	} else {
-		echo "<li><a href=\"$url\">$mt</a></li>";
-	}
-	echo "</td>";
-}
-?>
-</ul>
+<input type="text" name="urls[]" size=40>
+<br>
+<input type="checkbox" name="setCaption" checked value="1"><?php echo _("Set photo captions with original filenames.") ?>
+<br>
+<center>
+<input type="button" value="<?php echo _("Submit URL or directory") ?>" onClick='opener.showProgress(); document.uploadurl_form.submit()'>
+<input type=submit value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+</center>
+</form>
+<?php echo _("Alternatively, you can use one of these desktop agents to drag and drop photos from your desktop") ?>:
+<br>
+&nbsp;&nbsp;&nbsp;<b><a href="#" onClick="opener.location = 'http://gallery.sourceforge.net/gallery_remote.php?protocol_version=<?php echo $gallery->remote_protocol_version ?>'; parent.close();">Gallery Remote</a></b>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo _("A Java application that runs on Mac, Windows and Unix") ?>
+<br>
+<?php if (empty($GALLERY_EMBEDDED_INSIDE)) { ?>
+&nbsp;&nbsp;&nbsp;<b><a href="<?php echo makeGalleryUrl("publish_xp_docs.php") ?>">Windows XP Publishing Agent</a></b>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo _("<i>Note:</i> this feature is still experimental!") ?>
+<?php } ?>					 
 
-<?php
-include ($GALLERY_BASEDIR . "includes/add_photos/add_$mode.inc");
-?>
-
-</div>
-
+</span>
 </body>
 </html>

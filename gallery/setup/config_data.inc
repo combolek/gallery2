@@ -50,18 +50,6 @@ $checklist = array(
 		"fail-too-old" => sprintf(_("You're running PHP version %s.  You need to upgrade to PHP %s."), phpversion(), $MIN_PHP_MAJOR_VERSION),
 		"fail-incompatible" => sprintf(_("You're running PHP version %s which has known bugs that cause Gallery to fail."),  phpversion()),
 	),
-	"php" => array(
-		"desc" => _("Check to see if you are running PHP 4.  Note that some versions of PHP have bugs that cause Gallery to fail.  PHP 4.0.0 uses a different file upload protocol, and versions 4.0.3 and 4.0.3pl1 have a bug in the unserialization code that cause Gallery to be unable to read its own database.  Upgrade to at least PHP 4.0.4pl1 if you can. <p>") ,
-	     	"func" => "check_php",
-		"fail-too-old" => sprintf(_("You're running PHP version %s.  You need to upgrade to PHP %s."), phpversion(), $MIN_PHP_MAJOR_VERSION),
-		"fail-incompatible" => sprintf(_("You're running PHP version %s which has known bugs that cause Gallery to fail."),  phpversion()),
-	),
-	"buggy_php" => array(
-		"desc" => _("Were are using a predefined Variable and the output it buggy in some PHP Version."),
-	     	"func" => "check_filedirective",
-		"buggy__FILE__" => _("It seems your PHP has a problem with __FILE__, please upgrade to a recent Version"),
-		"serious" => 1
-	),
 	"safe_mode" => array(
 		"desc" => _("Check to see if PHP is running in <b>safe_mode</b>.  Safe Mode is a PHP security feature commonly used in shared environments.  Gallery cannot run when Safe Mode is enabled because it imposes too many restrictions."),
 		"func" => "check_safe_mode",
@@ -247,30 +235,6 @@ $constants =  array_merge(
 		"type" => "textarea",
 		"value" => NULL,
 		"attrs" => array("cols" => 50, "rows" => 5)
-	),
-	"separator_embeded" => array (
-	       	"type" => "separator",
-	       	"title" => _("Embedded Gallery"),
-	       	"desc" => _("Use this section to set options to configure gallery to be embedded in another web application."),
-	),
-	"embedded_inside_type" => array(
-		"prompt" => _("Embed Gallery"),
-		"desc"   => sprintf(_("If you would like to run %s in another web application (such as *Nuke, phpBB2 or GeekLog) you have to choose the environment here."),gallery()),
-		"choices" => array(	NULL 	   => _("Standalone Gallery"),
-					'phpNuke'  => 'phpNuke',
-					'postNuke' => 'postNuke',
-					'phpBB2'   => 'phpBB2',
-					'GeekLog'  => 'GeekLog'),
-		"value"  => NULL,
-		"allow_empty" => true
-	),
-	"geeklog_dir" => array(
-		"prompt" => _("GeekLog Dir"),
-		"optional" => 1,
-		"desc" => _("If you choosed Geeklog above, please enter the location of the GeekLog public_html."),
-		"attrs" => array("size" => 80),
-		"type" => "text",
-		"value" => "/path/to/geeklog/public_html"
 	),
 	"separator2" => array (
 		"type" => "separator",
@@ -476,7 +440,7 @@ $constants =  array_merge(
 		"type" => (sizeof(gallery_languages()) > 1) ? "choices" : "hidden", 
 		"optional" => 1, 
 		"desc" => _("These languages will be available as user choices in a pulldown menu or flags, if you have chosen language Mode 3, and will be available to registered users as their default language in Mode 2 or 3."), 
-		"multiple_choices" => array_merge(gallery_languages(), array('addon' => insertFormJSLinks())),
+		"multiple_choices" => gallery_languages(),
 		"value" => array_keys(gallery_languages()),
 		"enabled" => $elawisyl
 	),
@@ -679,6 +643,7 @@ $constants = array_merge($constants,
 			"choices" => array("yes" => _("yes"), "no" => _("no")),
 		       	"value" => "no",
 			),
+
 	"comments_display_name" => array(
 			"prompt" => _("Format for commenter names"),
 			"desc" => _("Commenter names of logged in users can be displayed in a variety of different ways") .
@@ -972,7 +937,7 @@ $defaults = array(
 		"title" => _("Polling configuration"),
 		"desc"  => 
 			sprintf(_("It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."),
-				"1.4.1") .
+				">=1.4.1") .
 			"<p>" .
 			_("In each album, voting can be switched off, restricted to logged in users or open to all visitors.") 
 			. "<p>" .

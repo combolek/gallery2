@@ -1523,37 +1523,15 @@ class Album {
 		}
 
 		/*
-		** If loggedIn has the perm and we're logged in, then
-		** we're ok also.
-		**
-		** phpBB2's anonymous user are also "logged in", but we have to ignore this.
-		*/
-		global $GALLERY_EMBEDDED_INSIDE_TYPE;
-
+		 * If loggedIn has the perm and we're logged in, then
+		 * we're ok also.
+		 */
 		$loggedIn = $gallery->userDB->getLoggedIn();
-		if (isset($perm[$loggedIn->getUid()]) && strcmp($gallery->user->getUid(), $everybody->getUid()) &&
-			! ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2' && $gallery->user->uid == -1)) {
+		if (isset($perm[$loggedIn->getUid()]) &&
+		    strcmp($gallery->user->getUid(), $everybody->getUid())) {
 		        return true;
 		}
 
-
-		/* GEEKLOG MOD
-		** We're also going to check to see if its possible that a
-		** group membership can authenticate us.
-		*/
-		
-		if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'GeekLog' && is_array($perm)) {
-			foreach ($perm as $gid => $pbool) {
-				$group = $gallery->userDB->getUserByUid($gid);
-				if ($group->isGroup == 1) {
-					if (SEC_inGroup(abs($group->uid), $uid)) {
-						return true;
-					}
-				}
-			}
-		}
-
-		
 		return false;
 	}
 

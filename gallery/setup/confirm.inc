@@ -83,7 +83,7 @@ $graphpath = "";
 $graphtest = array();
 
 foreach ($constants as $key => $val) {
-	
+
 	if (isset($val["enabled"]) && $val["enabled"] == "no") continue;
 
 	if (isset($val["type"]) && 
@@ -92,36 +92,17 @@ foreach ($constants as $key => $val) {
 			 $val["type"] == "separator")) { 
 		continue;
 	}
-
 	$bracketStart = strpos($key, '[');
 	$bracketEnd = strpos($key, ']');
-
-/* 
-** This is a somewhat strange workaround i made for a strange SunOS with
-** register global On an Magic Quotes On.
-** The problem is that we have send/get hidden fields which are named like
-** foo[bar]. So the result is, the $key=foo[bar] and $$key seems to fail.
-** The former solution were to do create a string which is like the value 
-** of $key and put it in $real via eval().
-** This also seems not to work.
-** May Solution is this:
-** if $key contains [] then we know its an array. What we have to do is
-** to catch the first element.
-** So i get the array name via substr. Infact array could be an associative,
-** i use array_keys to get the keys. 
-** This only works an onedimensional arrays !
-** 02/2004 , Jens Tkotz
-*/
 	if ($bracketStart > 0 && $bracketEnd > 0) {
-		$subKey=substr($key,0, $bracketStart);
-		$newKey=$$subKey;
-		$arrKeys=(array_keys($newKey));
-		$real=$newKey[$arrKeys[0]];
+	        $line='$real = $'. substr($key, 0, $bracketStart) . '["' .
+		    substr($key, $bracketStart+1, $bracketEnd - $bracketStart - 1) . '"];';
+		eval($line);
 	} else {
 		$real = $$key;
 	}
 
-	if (get_magic_quotes_gpc()) {
+        if (get_magic_quotes_gpc()) {
 		$real = array_stripslashes($real);
 	}
 
@@ -433,6 +414,6 @@ if (!$error) {
 	echo '<p class="error" id="bottom">';
 	echo _("There are errors in your configuration.");
 	echo '<br>' . _("Please go back and fix them!");
-    echo '</p>';
+	echo '</p>';
 } ?>
 </p>

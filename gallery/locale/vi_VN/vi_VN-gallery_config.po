@@ -1,6 +1,6 @@
 # $Id$
 #
-# Version: 1_4_3-cvs
+# Version: 1_4_2-RC2
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2004 Bharat Mediratta
@@ -21,9 +21,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery 1.4.3\n"
+"Project-Id-Version: Gallery 1.4.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-02-11 14:03+0100\n"
+"POT-Creation-Date: 2004-01-26 14:04+0100\n"
 "PO-Revision-Date: 2004-01-26 12:30+0300\n"
 "Last-Translator: A.L.T <leanh@airland.kiev.ua>\n"
 "Language-Team: AIRLAND <admin@airland.kiev.ua>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../errors/configmode.php:7 ../errors/reconfigure.php:7
-#: ../errors/unconfigured.php:7 ../setup/index.php:82
+#: ../errors/unconfigured.php:7 ../setup/index.php:83
 msgid "Security violation"
 msgstr "Xâm phạm an toàn"
 
@@ -110,7 +110,7 @@ msgstr "Thư viện ảnh phải được cấu hình trước khi bạn sử d�
 msgid "Then start the %sConfiguration Wizard%s."
 msgstr "Và sau đó khởi động %sThuật cấu hình%s."
 
-#: ../setup/check.inc:6 ../setup/confirm.inc:6 ../setup/constants.inc:10
+#: ../setup/check.inc:6 ../setup/confirm.inc:6 ../setup/constants.inc:7
 #: ../setup/defaults.inc:7
 #, php-format
 msgid "Gallery Configuration Wizard: Step %d"
@@ -151,7 +151,7 @@ msgid "Serious Warning"
 msgstr "Cảnh báo nghiêm trọng"
 
 #: ../setup/check.inc:61 ../setup/check.inc:96 ../setup/check_mail.php:55
-#: ../setup/config_data.inc:831 ../setup/config_data.inc:837
+#: ../setup/config_data.inc:808 ../setup/config_data.inc:814
 msgid "Warning"
 msgstr "Cảnh báo"
 
@@ -179,7 +179,7 @@ msgstr "Quá trình cài đặt của bạn đã được cảnh báo, nhưng đ
 msgid "Your installation passed with flying colors!  Go go go!"
 msgstr "Quá trình cài đặt của bạn đã qua với các màu chỉ thị tốt!  Đi tiếp nào!"
 
-#: ../setup/check.inc:140 ../setup/constants.inc:20 ../setup/constants.inc:126
+#: ../setup/check.inc:140 ../setup/constants.inc:17 ../setup/constants.inc:125
 #: ../setup/defaults.inc:19 ../setup/defaults.inc:98
 msgid "Next Page"
 msgstr "Trang sau"
@@ -212,7 +212,7 @@ msgid "It seems that you did not configure your GALLERY. Please run and finish t
 msgstr "Có vẻ như bạn đã không cấu hình cho thư viện ảnh. Xin hãy chạy đến khi kết thúc thuật cấu hình."
 
 #: ../setup/check_imagemagick.php:55 ../setup/check_netpbm.php:54
-#: ../setup/functions.inc:1161
+#: ../setup/functions.inc:1138
 msgid "OK"
 msgstr "OK"
 
@@ -661,1033 +661,1002 @@ msgid "A list of URLs that contain mirrors of your albums directory.  Specify on
 msgstr "Danh sách của các URL mà bao gồm các trang phụ của thư mục album của bạn.  Hãy chỉ định một URL trên một hàng với một cái mà có độ tin tưởng từ trên.  VD: %s"
 
 #: ../setup/config_data.inc:241
-#, fuzzy
-msgid "Embedded Gallery"
-msgstr "Bước vào Thư viện ảnh"
-
-#: ../setup/config_data.inc:242
-msgid "Use this section to set options to configure gallery to be embedded in another web application."
-msgstr ""
-
-#: ../setup/config_data.inc:245
-#, fuzzy
-msgid "Embed Gallery"
-msgstr "Thư viện ảnh"
-
-#: ../setup/config_data.inc:246
-#, php-format
-msgid "If you would like to run %s in another web application (such as *Nuke, phpBB2 or GeekLog) you have to choose the environment here."
-msgstr ""
-
-#: ../setup/config_data.inc:247
-msgid "Standalone Gallery"
-msgstr ""
-
-#: ../setup/config_data.inc:256
-msgid "GeekLog Dir"
-msgstr ""
-
-#: ../setup/config_data.inc:258
-msgid "If you choosed Geeklog above, please enter the location of the GeekLog public_html."
-msgstr ""
-
-#: ../setup/config_data.inc:265
 msgid "Toolkits / image processing"
 msgstr "Công cụ / xử lý ảnh"
 
-#: ../setup/config_data.inc:268
+#: ../setup/config_data.inc:244
 msgid "Graphics suite to use"
 msgstr "Bộ công cụ sử lý ảnh được sử dụng"
 
-#: ../setup/config_data.inc:269
+#: ../setup/config_data.inc:245
 msgid "This setting tells Gallery which set of graphics tools you prefer it to use.  If Gallery says both are okay (on the first page) then this is simply user preference.  Otherwise go with the one that Gallery was able to find without error."
 msgstr "Lựa chọn này sẽ để Thư viện ảnh biết công cụ tạo ảnh nào bạn muốn đưa ra sử dụng.  Nếu Thư viện ảnh báo rằng cả 2 đều tốt (trên trang đầu) thì đó là ưu tiên đơn giản của người dùng.  Nếu không hãy dùng một loại mà Thư viện ảnh đã thấy và không có lỗi."
 
-#: ../setup/config_data.inc:275
+#: ../setup/config_data.inc:251
 msgid "Path to NetPBM"
 msgstr "Đường dẫn tới NetPBM"
 
-#: ../setup/config_data.inc:276
+#: ../setup/config_data.inc:252
 #, php-format
 msgid "The path to the directory containing NetPBM on your system.  If you downloaded NetPBM from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"
 msgstr "Đường dẫn tới thư mục chứa NetPBM trên hệ thống của bạn.  Nếu bạn đã tải NetPBM xuống từ trang tải phần mềm của Thư viện ảnh, xin đừng quên tạo cho nó khả năng có thể thực hiện.  VD: %s hoặc %s hoặc %s"
 
-#: ../setup/config_data.inc:282
+#: ../setup/config_data.inc:258
 msgid "I can't find NetPBM at the location you provided."
 msgstr "Không thấy NetPBM tại vị trí bạn đã cung cấp."
 
-#: ../setup/config_data.inc:292
+#: ../setup/config_data.inc:268
 msgid "PNM to JPEG converter"
 msgstr "Công cụ chuyển PNM sang JPEG"
 
-#: ../setup/config_data.inc:293
+#: ../setup/config_data.inc:269
 msgid "This value is only relevant if you use NetPBM.  NetPBM uses a tool to encode its internal image format into JPEG.  This tool is called either <i>ppmtojpeg</i> or <i>pnmtojpeg</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."
 msgstr "Giá trị này chỉ thích hợp nếu bạn sử dụng NetPBM.  NetPBM dùng một công cụ để tự mã dạng ảnh sang JPEG.  Công cụ này được gọi là <i>ppmtojpeg</i> hoặc <i>pnmtojpeg</i> phụ thuộc vào phiên bản NetPBM mà bạn đã cài đặt.  Hãy kiểm tra thư mục NetPBM và xem dạng nào bạn đã cài đặt và ghi đường dẫn tại đây.  Nếu bạn không chắc, hãy thử đoán và chọn 1 dạng, chúng tôi sẽ thử và kiểm định cho bạn."
 
-#: ../setup/config_data.inc:299
+#: ../setup/config_data.inc:275
 msgid "Path to ImageMagick"
 msgstr "Đường dẫn tới ImageMagick"
 
-#: ../setup/config_data.inc:300
+#: ../setup/config_data.inc:276
 msgid "The path to the directory containing ImageMagick on your system."
 msgstr "Đường dẫn tới thư mục chứa ImageMagick trên hệ thống của bạn."
 
-#: ../setup/config_data.inc:303
+#: ../setup/config_data.inc:279
 msgid "I can't find ImageMagick at the location you provided."
 msgstr "Không thấy ImageMagick tại vị trí bạn đã cung cấp."
 
-#: ../setup/config_data.inc:312
+#: ../setup/config_data.inc:288
 msgid "Auto-rotate images"
 msgstr "Tự động xoay ảnh"
 
-#: ../setup/config_data.inc:313
+#: ../setup/config_data.inc:289
 msgid "Selecting this option has Gallery automatically attempt to rotate images on upload, based on the orientation information that is stored in JPEG EXIF data by some newer digital cameras.  Requires Jhead EXIF parser v.1.9 or greater (see below)."
 msgstr "Chọn lựa chọn này sẽ để Thư viện ảnh tự động xoay ảnh khi tải lên, dựa trên thông tin định hướng được lưu giữ trong các dữ liệu EXIF của ảnh JPEG được viết vào do vài loại máy ảnh KT số mới.  Yêu cầu jhead EXIF parser phiên bản 1.9 hoặc mới hơn (xem bên dưới)."
 
-#: ../setup/config_data.inc:314 ../setup/config_data.inc:333
-#: ../setup/config_data.inc:346 ../setup/config_data.inc:359
-#: ../setup/config_data.inc:417 ../setup/config_data.inc:475
-#: ../setup/config_data.inc:517 ../setup/config_data.inc:569
-#: ../setup/config_data.inc:576 ../setup/config_data.inc:582
-#: ../setup/config_data.inc:630 ../setup/config_data.inc:660
-#: ../setup/config_data.inc:666 ../setup/config_data.inc:667
-#: ../setup/config_data.inc:695 ../setup/config_data.inc:701
-#: ../setup/config_data.inc:845 ../setup/config_data.inc:851
-#: ../setup/config_data.inc:858 ../setup/config_data.inc:864
-#: ../setup/config_data.inc:910 ../setup/config_data.inc:919
-#: ../setup/config_data.inc:933 ../setup/config_data.inc:943
-#: ../setup/config_data.inc:949 ../setup/config_data.inc:955
-#: ../setup/config_data.inc:1019 ../setup/config_data.inc:1026
-#: ../setup/config_data.inc:1073 ../setup/config_data.inc:1074
-#: ../setup/config_data.inc:1080
+#: ../setup/config_data.inc:290 ../setup/config_data.inc:309
+#: ../setup/config_data.inc:322 ../setup/config_data.inc:335
+#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
+#: ../setup/config_data.inc:493 ../setup/config_data.inc:545
+#: ../setup/config_data.inc:552 ../setup/config_data.inc:558
+#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
+#: ../setup/config_data.inc:642 ../setup/config_data.inc:643
+#: ../setup/config_data.inc:672 ../setup/config_data.inc:678
+#: ../setup/config_data.inc:822 ../setup/config_data.inc:828
+#: ../setup/config_data.inc:835 ../setup/config_data.inc:841
+#: ../setup/config_data.inc:887 ../setup/config_data.inc:896
+#: ../setup/config_data.inc:910 ../setup/config_data.inc:920
+#: ../setup/config_data.inc:926 ../setup/config_data.inc:932
+#: ../setup/config_data.inc:996 ../setup/config_data.inc:1003
+#: ../setup/config_data.inc:1050 ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1057
 msgid "yes"
 msgstr "đồng ý"
 
-#: ../setup/config_data.inc:314 ../setup/config_data.inc:333
-#: ../setup/config_data.inc:346 ../setup/config_data.inc:359
-#: ../setup/config_data.inc:417 ../setup/config_data.inc:475
-#: ../setup/config_data.inc:516 ../setup/config_data.inc:517
-#: ../setup/config_data.inc:569 ../setup/config_data.inc:576
-#: ../setup/config_data.inc:582 ../setup/config_data.inc:629
-#: ../setup/config_data.inc:630 ../setup/config_data.inc:660
-#: ../setup/config_data.inc:667 ../setup/config_data.inc:695
-#: ../setup/config_data.inc:701 ../setup/config_data.inc:845
-#: ../setup/config_data.inc:851 ../setup/config_data.inc:858
-#: ../setup/config_data.inc:864 ../setup/config_data.inc:910
-#: ../setup/config_data.inc:919 ../setup/config_data.inc:933
-#: ../setup/config_data.inc:943 ../setup/config_data.inc:949
-#: ../setup/config_data.inc:955 ../setup/config_data.inc:1018
-#: ../setup/config_data.inc:1019 ../setup/config_data.inc:1074
-#: ../setup/config_data.inc:1079 ../setup/config_data.inc:1080
+#: ../setup/config_data.inc:290 ../setup/config_data.inc:309
+#: ../setup/config_data.inc:322 ../setup/config_data.inc:335
+#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
+#: ../setup/config_data.inc:492 ../setup/config_data.inc:493
+#: ../setup/config_data.inc:545 ../setup/config_data.inc:552
+#: ../setup/config_data.inc:558 ../setup/config_data.inc:605
+#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
+#: ../setup/config_data.inc:643 ../setup/config_data.inc:672
+#: ../setup/config_data.inc:678 ../setup/config_data.inc:822
+#: ../setup/config_data.inc:828 ../setup/config_data.inc:835
+#: ../setup/config_data.inc:841 ../setup/config_data.inc:887
+#: ../setup/config_data.inc:896 ../setup/config_data.inc:910
+#: ../setup/config_data.inc:920 ../setup/config_data.inc:926
+#: ../setup/config_data.inc:932 ../setup/config_data.inc:995
+#: ../setup/config_data.inc:996 ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1056 ../setup/config_data.inc:1057
 msgid "no"
 msgstr "không"
 
-#: ../setup/config_data.inc:319 ../setup/config_data.inc:415
-#: ../setup/config_data.inc:480 ../setup/config_data.inc:490
-#: ../setup/functions.inc:814 ../setup/functions.inc:887
+#: ../setup/config_data.inc:295 ../setup/config_data.inc:391
+#: ../setup/config_data.inc:456 ../setup/config_data.inc:466
+#: ../setup/functions.inc:807 ../setup/functions.inc:880
 msgid "Advanced"
 msgstr "Nâng cao"
 
-#: ../setup/config_data.inc:319
+#: ../setup/config_data.inc:295
 msgid "JPEG Quality"
 msgstr "Chất lượng JPEG"
 
-#: ../setup/config_data.inc:320
+#: ../setup/config_data.inc:296
 msgid "The JPEG file format trades off size versus quality.  Gallery can control the quality of the JPEGs that it produces when you resize, rotate or make thumbnails from JPEG images.  Higher quality images are larger in size than lower quality images.  However, in many cases there's a point at which raising the quality increases the size of the files without noticeably affecting the appearance of the image.  Setting this value to &quot;100&quot; is not recommended. If you notice that your thumbnails and resized images are larger than the originals and you don't like this, you can try lowering this value.  <b>Note</b> that changing this value will only affect images changed in the <i>future</i>."
 msgstr "Tính chất ảnh JPEG là kích cỡ tỉ lệ nghịch với chất lượng.  Thư viện ảnh có thể điều khiển chất lượng các ảnh JPEG và xử lý để khi bạn chỉnh lại cỡ, xoay hoặc tạo thumbnails từ các ảnh JPEG.  Chất lượng ảnh cao hơn sẽ nhỏ hơn về kích cỡ.  Tuy nhiên, trong vài trường hợp có điểm mà tạo chất lượng sẽ tăng kích cỡ mà không thể thông báo tác động cho ảnh xuất hiện.  Không khuyến cáo để giá trị này tới &quot;100&quot;. Nếu bạn khai báo cho ảnh thumbnails của bạn được chỉnh cỡ lại lớn hơn ảnh nguyên gốc và bạn sẽ không muốn như vậy, bạn có thể thử làm thấp giá trị đó đi.  <b>Chú ý</b> rằng thay đổi giá trị đó sẽ chỉ có tác dụng trên những ảnh được thay đổi <i>sau này</i>."
 
-#: ../setup/config_data.inc:328
+#: ../setup/config_data.inc:304
 msgid "Main Gallery page"
 msgstr "Trang Thư viện ảnh chính"
 
-#: ../setup/config_data.inc:331
+#: ../setup/config_data.inc:307
 msgid "Show the album tree"
 msgstr "Hiển thị cây album"
 
-#: ../setup/config_data.inc:332
+#: ../setup/config_data.inc:308
 msgid "If you turn this option on, you'll see a complete list of all sub-albums when you're browsing the top level of your Gallery.  This will make navigating to a specific sub album much easier (although it can severely clutter the appearance of the top Gallery page)."
 msgstr "Nếu bạn bật chức năng này, bạn sẽ thấy một danh sách đầy đủ của tất cả các album phụ khi bạn duyệt từ đầu của Thư viện ảnh.  Điều đó sẽ giúp chỉ dẫn tới một album phụ được nhanh hơn (mặc dù có thể trông hơi lộn xộn trên bìa ngoài cùng của Thư viện ảnh)."
 
-#: ../setup/config_data.inc:337
+#: ../setup/config_data.inc:313
 msgid "Highlight size"
 msgstr "Cỡ ảnh đánh dấu"
 
-#: ../setup/config_data.inc:338
+#: ../setup/config_data.inc:314
 msgid "The target size (in pixels) of thumbnails shown in the Gallery page (highlight images)."
 msgstr "Cỡ cho thumbnails ảnh lựa chọn (tính bằng pixel) hiển thị trên trang Thư viện ảnh (ảnh đánh dấu)."
 
-#: ../setup/config_data.inc:344
+#: ../setup/config_data.inc:320
 msgid "Show Owner"
 msgstr "Hiển thị người sở hữu"
 
-#: ../setup/config_data.inc:345
+#: ../setup/config_data.inc:321
 msgid "Show album owner's name next to each album?"
 msgstr "Hiển thị tên người sở hữu trên mỗi trang album?"
 
-#: ../setup/config_data.inc:350
+#: ../setup/config_data.inc:326
 msgid "Albums per page"
 msgstr "Album trên trang"
 
-#: ../setup/config_data.inc:351
+#: ../setup/config_data.inc:327
 msgid "How many albums should be displayed per Gallery page?"
 msgstr "Bao nhiêu album sẽ được hiển thị trên mỗi trang của Thư viện ảnh?"
 
-#: ../setup/config_data.inc:357
+#: ../setup/config_data.inc:333
 msgid "Search Engine"
 msgstr "Công cụ tìm kiếm"
 
-#: ../setup/config_data.inc:358
+#: ../setup/config_data.inc:334
 msgid "Display search engine on main Gallery page?"
 msgstr "Hiển thị công cụ tìm kiếm trên trang chính của Thư viện ảnh?"
 
-#: ../setup/config_data.inc:363
+#: ../setup/config_data.inc:339
 msgid "Skin Name"
 msgstr "Kiểu dáng"
 
-#: ../setup/config_data.inc:364
+#: ../setup/config_data.inc:340
 msgid "Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4."
 msgstr "Chọn một kiểu dáng cho Thư viện ảnh. Bạn có một lựa chọn về &quot;kiểu dáng&quot; cho mọi trang trong thư viện ảnh của bạn.   Bạn có thể thử với những kiểu dáng có sẵn. Chọn &quot;Không&quot; sẽ sử dụng kiểu dáng như phiên bản 1.4."
 
-#: ../setup/config_data.inc:370
+#: ../setup/config_data.inc:346
 msgid "On the main page, the image representing each album has a frame arount it.  The following styles are available:"
 msgstr "Trên trang chính, ảnh tượng trưng cho mỗi album có một khung quanh nó.  Những kiểu khung có sẵn là:"
 
-#: ../setup/config_data.inc:378
+#: ../setup/config_data.inc:354
 msgid "Optional tools"
 msgstr "Công cụ lựa chọn"
 
-#: ../setup/config_data.inc:382
+#: ../setup/config_data.inc:358
 msgid "The filesystem path to the <b>zipinfo</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "Đường dẫn tới binary của <b>zipinfo</b> trên hệ thống.  Đây chỉ là lựa chọn nên nếu bạn không có nó cũng đừng lo quá."
 
-#: ../setup/config_data.inc:393
+#: ../setup/config_data.inc:369
 msgid "The filesystem path to the <b>unzip</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "Đường dẫn tới binary của <b>unzip</b> trên hệ thống.  Đây chỉ là lựa chọn nên nếu bạn không có nó cũng đừng lo quá."
 
-#: ../setup/config_data.inc:404
+#: ../setup/config_data.inc:380
 #, php-format
 msgid "The filesystem path to the <b>jhead</b> EXIF parser.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "Đường dẫn tới EXIF parser của <b>jhead</b> trên hệ thống.  Đây chỉ là lựa chọn nên nếu bạn không có nó cũng đừng lo quá.  VD: %s hoặc %s"
 
-#: ../setup/config_data.inc:415
+#: ../setup/config_data.inc:391
 msgid "Cache EXIF data"
 msgstr "Lưu giữ dữ liệu EXIF"
 
-#: ../setup/config_data.inc:416
+#: ../setup/config_data.inc:392
 msgid "The EXIF data extracted from JPEG files can be cached after it is read the first time.  The tradeoff is that if you cache this data it's possible for your album data files to get quite large which may slow down viewing your albums.  But, if you don't cache this data then it needs to be retrieved every time any user looks at the properties of a photo which can also be slow."
 msgstr "Dữ liệu EXIF lấy ra từ các ảnh JPEG có thể được lưu giữ sau lần đầu được đọc.  Nếu bạn lưu giữ dữ liệu này thì có khả năng những file dữ liệu album của bạn sẽ lớn hơn và làm chậm khi xem album.  Nhưng nếu bạn không lưu giữ dữ liệu đó thì cần phải đọc mỗi lần khi bất cứ người dùng nào xem đặc tính của ảnh và cũng sẽ làm chậm lại."
 
-#: ../setup/config_data.inc:422
+#: ../setup/config_data.inc:398
 #, php-format
 msgid "The filesystem path to the <b>jpegtran</b> utility.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "Đường dẫn tới ứng dụng <b>jpegtran</b> trên hệ thống.  Đây chỉ là lựa chọn nên nếu bạn không có nó, cũng đừng lo quá.  VD: %s hoặc %s"
 
-#: ../setup/config_data.inc:441
+#: ../setup/config_data.inc:417
 msgid "Languages and locales"
 msgstr "Ngôn ngữ và vùng (locale)"
 
-#: ../setup/config_data.inc:444
+#: ../setup/config_data.inc:420
 msgid "Default language"
 msgstr "Ngôn ngữ mặc định"
 
-#: ../setup/config_data.inc:446
+#: ../setup/config_data.inc:422
 #, php-format
 msgid "This is the language you will see as %s, and what users will see if no other preference is set."
 msgstr "Đây là ngôn ngữ bạn thấy như %s, và mọi người dùng cũng sẽ thấy nếu họ không có những lựa chọn cá nhân khác."
 
-#: ../setup/config_data.inc:453
+#: ../setup/config_data.inc:429
 msgid "Multi language mode"
 msgstr "Chế độ đa ngôn ngữ"
 
-#: ../setup/config_data.inc:454
+#: ../setup/config_data.inc:430
 msgid "Gallery has three multi language modes.  These affect the language that a user will see when visiting the site."
 msgstr "Thư viện ảnh có ba chế độ ngôn ngữ.  Những cái đó có tác động cho ngôn ngữ mà người dùng thấy khi ghé thăm trang."
 
-#: ../setup/config_data.inc:457
+#: ../setup/config_data.inc:433
 msgid "Gallery is only displayed in one language"
 msgstr "Thư viện ảnh chỉ hiển thị bằng một ngôn ngữ"
 
-#: ../setup/config_data.inc:458
+#: ../setup/config_data.inc:434
 msgid "Gallery is displayed in the language the browser sends"
 msgstr "Thư viện ảnh hiển thị ngôn ngữ mà trình duyệt gửi tới"
 
-#: ../setup/config_data.inc:459
+#: ../setup/config_data.inc:435
 msgid "The User can choose the language via pulldown menu or flags."
 msgstr "Người dùng có thể chọn ngôn ngữ qua hộp lựa chọn."
 
-#: ../setup/config_data.inc:463
+#: ../setup/config_data.inc:439
 msgid "Available languages"
 msgstr "Những ngôn ngữ có sẵn"
 
-#: ../setup/config_data.inc:466
+#: ../setup/config_data.inc:442
 msgid "These languages will be available as user choices in a pulldown menu or flags, if you have chosen language Mode 3, and will be available to registered users as their default language in Mode 2 or 3."
 msgstr "Những ngôn ngữ này sẽ có sẵn cho người dùng lựa chọn trong hộp lựa chọn, nếu bạn chọn ngôn ngữ Chế độ 3, và sẽ có sẵn cho người dùng đã đăng ký thành ngôn ngữ mặc định trong Chế độ 2 và 3."
 
-#: ../setup/config_data.inc:472
+#: ../setup/config_data.inc:448
 msgid "Show flags?"
 msgstr "Hiển thị bằng cờ?"
 
-#: ../setup/config_data.inc:474
+#: ../setup/config_data.inc:450
 msgid "In Mode 3 you can choose to display flags instead of a small pulldown menu for the available languages."
 msgstr "Trong chế độ 3 bạn có thể chọn hiển thị ngôn ngữ bằng cờ thay cho hộp lựa chọn ngôn ngữ cho những ngôn ngữ được lựa chọn."
 
-#: ../setup/config_data.inc:480
+#: ../setup/config_data.inc:456
 msgid "Format for date strings."
 msgstr "Dạng thức thời gian."
 
-#: ../setup/config_data.inc:481 ../setup/config_data.inc:491
+#: ../setup/config_data.inc:457 ../setup/config_data.inc:467
 #, php-format
 msgid "This format string will be used to display %s in %s.  It is recommended to use %s which will change format depending on language choice.  However, if you wish to change this string, please look at the %sPHP documentation%s."
 msgstr "Dạng thức này sẽ dùng để hiển thị %s trong %s.  Khuyến cáo sử dụng %s là cái sẽ làm thay đổi dạng thức trên ngôn ngữ được lựa chọn.  Tuy nhiên, nếu bạn muốn thay đổi dạng thức này, xin hãy xem tại %sTài liệu PHP%s."
 
-#: ../setup/config_data.inc:482
+#: ../setup/config_data.inc:458
 msgid "date without time"
 msgstr "ngày tháng không có giờ"
 
-#: ../setup/config_data.inc:483 ../setup/config_data.inc:493
+#: ../setup/config_data.inc:459 ../setup/config_data.inc:469
 msgid "http://www.php.net/manual/en/function.strftime.php"
 msgstr "http://www.php.net/manual/en/function.strftime.php"
 
-#: ../setup/config_data.inc:484
+#: ../setup/config_data.inc:460
 #, php-format
 msgid "For example, %s will display date like this: %s."
 msgstr "Ví dụ: %s sẽ hiển thị ngày là: %s."
 
-#: ../setup/config_data.inc:490
+#: ../setup/config_data.inc:466
 msgid "Format for date/time strings."
 msgstr "Dạng thức ngày tháng/thời gian."
 
-#: ../setup/config_data.inc:492
+#: ../setup/config_data.inc:468
 msgid "date with time"
 msgstr "ngày tháng có giờ"
 
-#: ../setup/config_data.inc:494
+#: ../setup/config_data.inc:470
 #, php-format
 msgid "For example, %s will display date and time like this: %s."
 msgstr "Ví dụ: %s sẽ hiển thị ngày và giờ là: %s."
 
-#: ../setup/config_data.inc:508
+#: ../setup/config_data.inc:484
 msgid "Email and Registration"
 msgstr "Email và Đăng ký"
 
-#: ../setup/config_data.inc:509
+#: ../setup/config_data.inc:485
 #, php-format
 msgid "If you are having problems with email, please run the %s diagnostic."
 msgstr "Nếu bạn có vấn đề với email, xin hãy thử vào phân tích %s."
 
-#: ../setup/config_data.inc:510 ../setup/diagnostics.php:73
+#: ../setup/config_data.inc:486 ../setup/diagnostics.php:73
 msgid "Check Email"
 msgstr "Kiểm tra Email"
 
-#: ../setup/config_data.inc:513
+#: ../setup/config_data.inc:489
 msgid "Enable email"
 msgstr "Cho phép chức năng email"
 
-#: ../setup/config_data.inc:515
+#: ../setup/config_data.inc:491
 #, php-format
 msgid "Turns email on for the whole gallery.  If you set this to %s then none of the rest of this section will apply."
 msgstr "Bật chức năng mail lên cho thư viện ảnh.  Nếu bạn để nó là %s khi đó không có gì trong phần này sẽ được thực thi."
 
-#: ../setup/config_data.inc:521
+#: ../setup/config_data.inc:497
 msgid "Admin email address"
 msgstr "Địa chỉ email QT (admin)"
 
-#: ../setup/config_data.inc:522
+#: ../setup/config_data.inc:498
 msgid "Set this value to a valid working email address to receive email notices upon certain user actions and also so that users know whom to reach in case of problems. You may specify more than one address by separating them with commas."
 msgstr "Ghi vào một địa chỉ email hợp lệ để nhận mail thông báo theo các yêu cầu của người dùng và để người dùng biết cần liên hệ với ai khi có vấn đề. Bạn có thể ghi nhiều địa chỉ bằng phân cách giữa chúng bằng dấu phẩy."
 
-#: ../setup/config_data.inc:530
+#: ../setup/config_data.inc:506
 msgid "Sender email address"
 msgstr "Địa chỉ email người gửi"
 
-#: ../setup/config_data.inc:531
+#: ../setup/config_data.inc:507
 msgid "Set this value to a valid working email address.  Emails that are automatically sent by Gallery will use this as a return address.  You should monitor this email address for bounce messages and replies from recipients."
 msgstr "Ghi vào một địa chỉ email hợp lệ.  Những email do Thư viện ảnh tự gửi sẽ sử dụng địa chỉ này là địa chỉ quay lại.  Bạn phải theo dõi địa chỉ email này cho những tin nhắn ngay và trả lời lại cho mọi người."
 
-#: ../setup/config_data.inc:539
+#: ../setup/config_data.inc:515
 msgid "Email subject prefix"
 msgstr "Tiêu đề Email chỉ định trước"
 
-#: ../setup/config_data.inc:540
+#: ../setup/config_data.inc:516
 msgid "All gallery emails will have this as the first part of their subject."
 msgstr "Tất cả email thư viện ảnh sẽ có cái này trong phần đầu của tiêu đề."
 
-#: ../setup/config_data.inc:548
+#: ../setup/config_data.inc:524
 msgid "Welcome email message text"
 msgstr "Email chào mừng"
 
-#: ../setup/config_data.inc:549
+#: ../setup/config_data.inc:525
 msgid "This email will be sent when new accounts are created."
 msgstr "Email này sẽ được gửi khi có tài khoản mới được tạo."
 
-#: ../setup/config_data.inc:550
+#: ../setup/config_data.inc:526
 #, php-format
 msgid "%s, %s and %s will be replaced by the fullname, user name and password of the newly created user."
 msgstr "%s, %s và %s sẽ được thay thế bằng tên đầy đủ, tên truy cập và mật khẩu của tài khoản mới được tạo."
 
-#: ../setup/config_data.inc:554
+#: ../setup/config_data.inc:530
 #, php-format
 msgid "%s will be replaced by a link the new user can click on to create a new password"
 msgstr "%s sẽ được thay thế bằng một liên kết để thành viên mới có thể nhấn để tạo một mật khẩu mới"
 
-#: ../setup/config_data.inc:556
+#: ../setup/config_data.inc:532
 msgid "Leave this field blank to get the default message that can be translated into other languages.  The default message is:"
 msgstr "Hãy để mẫu này trống để sử dụng tin mặc định mà có thể được dịch sang những ngôn ngữ khác.  Tin mặc định là:"
 
-#: ../setup/config_data.inc:566
+#: ../setup/config_data.inc:542
 msgid "Allow visitors to self register."
 msgstr "Cho phép khách viếng thăm tự đăng ký."
 
-#: ../setup/config_data.inc:567
+#: ../setup/config_data.inc:543
 msgid "Enabling this will allow visitors to your site to create their own login accounts."
 msgstr "Mở lựa chọn này sẽ cho phép khách viếng thăm được tạo tài khoản truy cập cho họ."
 
-#: ../setup/config_data.inc:573
+#: ../setup/config_data.inc:549
 msgid "Self registered users can create albums."
 msgstr "Những thành viên đã tự đăng ký có thể tạo album."
 
-#: ../setup/config_data.inc:574
+#: ../setup/config_data.inc:550
 msgid "Enabling this will allow self registered users to create their own albums as soon as they register.  Not having this enabled means you will have to give them permission manually before they can create or alter any contents of the Gallery.  This setting is ignored if self-registration is disabled."
 msgstr "Mở lựa chọn này sẽ cho phép những thành viên đã tự đăng ký có thể tạo album riêng cho họ ngay khi họ đăng ký.  Không cho phép lựa chọn này có nghĩa bạn sẽ tự phải cho họ quyền hạn trước khi họ có thể tạo hoặc thay đổi bất cứ nội dung nào của Thư viện ảnh.  Lựa chọn này sẽ bị bỏ qua nếu chức năng tự đăng ký tắt."
 
-#: ../setup/config_data.inc:579
+#: ../setup/config_data.inc:555
 msgid "Enable bulk account creation"
 msgstr "Cho phép tạo nhiều tài khoản"
 
-#: ../setup/config_data.inc:580
+#: ../setup/config_data.inc:556
 msgid "This option allows your to create many new user accounts at one time by creating a file of new users."
 msgstr "Lựa chọn này cho phép bạn có thể tạo nhiều tài khoản thành viên cùng một lúc bằng cách tạo một file của những thành viên mới."
 
-#: ../setup/config_data.inc:586
+#: ../setup/config_data.inc:562
 msgid "Admin notification of email activity"
 msgstr "Thô´ng báo QT về kích hoạt email"
 
-#: ../setup/config_data.inc:587
+#: ../setup/config_data.inc:563
 msgid "You can keep a record of every email that is sent by Gallery."
 msgstr "Bạn có thể giữ một bản ghi cho mọi email mà được gửi do Thư viện ảnh."
 
-#: ../setup/config_data.inc:589
+#: ../setup/config_data.inc:565
 msgid "Send summary email"
 msgstr "Gửi email tóm lược"
 
-#: ../setup/config_data.inc:590
+#: ../setup/config_data.inc:566
 msgid "Log to a file"
 msgstr "Ghi vào 1 log file"
 
-#: ../setup/config_data.inc:591
+#: ../setup/config_data.inc:567
 msgid "Send duplicate email"
 msgstr "Gửi bản sao email"
 
-#: ../setup/config_data.inc:597
+#: ../setup/config_data.inc:573
 msgid "Gallery wide slideshow"
 msgstr "Trình diễn ảnh diện rộng"
 
-#: ../setup/config_data.inc:599
+#: ../setup/config_data.inc:575
 msgid "Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources."
 msgstr "Thêm một liên kết trình diễn ảnh trên trang chính của thư viện ảnh.  Nhớ rằng đối với những thư viện ảnh lớn thì điều này có thể làm cho nó chạy chậm và sử dụng nhiều tài nguyên của máy tính."
 
-#: ../setup/config_data.inc:600 ../setup/config_data.inc:1052
+#: ../setup/config_data.inc:576 ../setup/config_data.inc:1029
 msgid "These settings do not apply to the low tech slideshow."
 msgstr "Những cấu hình này không tác dụng với trình diễn ảnh chế độ thấp."
 
-#: ../setup/config_data.inc:603
+#: ../setup/config_data.inc:579
 msgid "Slideshow preferences"
 msgstr "Tùy chọn trình diễn ảnh"
 
-#: ../setup/config_data.inc:605 ../setup/config_data.inc:613
-#: ../setup/config_data.inc:640 ../setup/config_data.inc:650
-#: ../setup/config_data.inc:1057 ../setup/config_data.inc:1065
+#: ../setup/config_data.inc:581 ../setup/config_data.inc:589
+#: ../setup/config_data.inc:616 ../setup/config_data.inc:626
+#: ../setup/config_data.inc:1034 ../setup/config_data.inc:1042
 msgid "Off"
 msgstr "Tắt"
 
-#: ../setup/config_data.inc:606 ../setup/config_data.inc:1058
+#: ../setup/config_data.inc:582 ../setup/config_data.inc:1035
 msgid "No slideshow link will appear."
 msgstr "Không có liên kết trình diễn ảnh nào được hiển thị."
 
-#: ../setup/config_data.inc:607 ../setup/config_data.inc:614
-#: ../setup/config_data.inc:1059 ../setup/config_data.inc:1066
+#: ../setup/config_data.inc:583 ../setup/config_data.inc:590
+#: ../setup/config_data.inc:1036 ../setup/config_data.inc:1043
 msgid "Ordered"
 msgstr "Thứ tự"
 
-#: ../setup/config_data.inc:608 ../setup/config_data.inc:1060
+#: ../setup/config_data.inc:584 ../setup/config_data.inc:1037
 msgid "Images will display in the same order as they appear in the Gallery."
 msgstr "Ảnh sẽ hiển thị theo thứ tự như khi chúng hiển thị trong Thư viện ảnh."
 
-#: ../setup/config_data.inc:609 ../setup/config_data.inc:615
-#: ../setup/config_data.inc:1061 ../setup/config_data.inc:1067
+#: ../setup/config_data.inc:585 ../setup/config_data.inc:591
+#: ../setup/config_data.inc:1038 ../setup/config_data.inc:1044
 msgid "Random"
 msgstr "Ngẫu nhiên"
 
-#: ../setup/config_data.inc:610 ../setup/config_data.inc:1062
+#: ../setup/config_data.inc:586 ../setup/config_data.inc:1039
 msgid "Images will appear in a random order."
 msgstr "Ảnh sẽ hiển thị theo ngẫu nhiên"
 
-#: ../setup/config_data.inc:620 ../setup/config_data.inc:1084
+#: ../setup/config_data.inc:596 ../setup/config_data.inc:1061
 msgid "Slideshow length"
 msgstr "Độ dài trình diễn ảnh"
 
-#: ../setup/config_data.inc:621 ../setup/config_data.inc:1085
+#: ../setup/config_data.inc:597 ../setup/config_data.inc:1062
 msgid "Number of images to display in slideshow.  Set to 0 or blank to display all images.  Set to a number if slideshow is random and you want to display only a selection of the images."
 msgstr "Số lượng ảnh hiển thị khi trình diễn ảnh.  Ghi là 0 hoặc để trống sẽ hiển thị tất cả các ảnh.  Ghi vào một số nếu trình diễn ảnh là ngẫu nhiên và bạn muốn hiển thị chỉ phần lựa chọn của các ả£nh."
 
-#: ../setup/config_data.inc:628 ../setup/config_data.inc:1078
+#: ../setup/config_data.inc:604 ../setup/config_data.inc:1055
 msgid "Allow slideshow to loop"
 msgstr "Cho phép trình diễn ảnh lặp lại"
 
-#: ../setup/config_data.inc:629
+#: ../setup/config_data.inc:605
 #, php-format
 msgid "This option will allow visitors to have your slideshows repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "Lựa chọn này sẽ cho phép trình diễn ảnh của bạn được lặp lại với người xem cho đến khi họ đóng cửa sổ hoặc chuyển qua trang khác.  Đặt là %s nếu bạn muốn giữ giới hạn đường truyền."
 
-#: ../setup/config_data.inc:635
+#: ../setup/config_data.inc:611
 msgid "Comments"
 msgstr "Lời bình"
 
-#: ../setup/config_data.inc:638
+#: ../setup/config_data.inc:614
 msgid "Indicate if there are comments available"
 msgstr "Hiển thị lời bình nếu có"
 
-#: ../setup/config_data.inc:641
+#: ../setup/config_data.inc:617
 msgid "No indication that an item has comments."
 msgstr "Không hiển thị ảnh có lời bình."
 
-#: ../setup/config_data.inc:642 ../setup/config_data.inc:651
+#: ../setup/config_data.inc:618 ../setup/config_data.inc:627
 msgid "Photos"
 msgstr "Ảnh"
 
-#: ../setup/config_data.inc:643
+#: ../setup/config_data.inc:619
 msgid "Images that have comments will be marked."
 msgstr "Những ảnh có lời bình sẽ được đánh dấu."
 
-#: ../setup/config_data.inc:644 ../setup/config_data.inc:652
+#: ../setup/config_data.inc:620 ../setup/config_data.inc:628
 msgid "Albums"
 msgstr "Albums"
 
-#: ../setup/config_data.inc:645
+#: ../setup/config_data.inc:621
 msgid "Albums and sub-albums that have comments will be marked."
 msgstr "Các album và các album phụ có lời bình sẽ được đánh dấu."
 
-#: ../setup/config_data.inc:646 ../setup/config_data.inc:653
+#: ../setup/config_data.inc:622 ../setup/config_data.inc:629
 msgid "Both"
 msgstr "Cả hai"
 
-#: ../setup/config_data.inc:647
+#: ../setup/config_data.inc:623
 msgid "Images and albums that have comments will be marked."
 msgstr "Những ảnh và album có lời bình sẽ được đánh dấu."
 
-#: ../setup/config_data.inc:658
+#: ../setup/config_data.inc:634
 msgid "Display date of last comment?"
 msgstr "Hiển thị ngày của lời bình cuối?"
 
-#: ../setup/config_data.inc:659
+#: ../setup/config_data.inc:635
 #, php-format
 msgid "If an item has comments, display date of last comment, rather than a %s."
 msgstr "Nếu một ảnh có lời bình, hiển thị ngày của lời bình cuối, giống như là một %s."
 
-#: ../setup/config_data.inc:664
+#: ../setup/config_data.inc:640
 msgid "Anonymous comments from known users?"
 msgstr "Cho phép lời bình ẩn danh từ những thành viên?"
 
-#: ../setup/config_data.inc:665
+#: ../setup/config_data.inc:641
 #, php-format
 msgid "When logged in, comments will automatically use format described below, unless this is set to %s."
 msgstr "Khi đã đăng nhập, lời bình sẽ tự động dùng dạng thức được mô tả bên dưới, nếu không nó được chọn là %s."
 
-#: ../setup/config_data.inc:671
+#: ../setup/config_data.inc:648
 msgid "Format for commenter names"
 msgstr "Dạng thức tên người bình"
 
-#: ../setup/config_data.inc:672
+#: ../setup/config_data.inc:649
 msgid "Commenter names of logged in users can be displayed in a variety of different ways"
 msgstr "Tên người bình đã đăng nhập có thể hiển thị bằng nhiều cách khác nhau"
 
-#: ../setup/config_data.inc:679
+#: ../setup/config_data.inc:656
 msgid "Technical"
 msgstr "Kỹ thuật"
 
-#: ../setup/config_data.inc:680
+#: ../setup/config_data.inc:657
 msgid "You usually don't need to change anything in this section."
 msgstr "Thường thì bạn không cần thay đổi gì trong phần này."
 
-#: ../setup/config_data.inc:684
+#: ../setup/config_data.inc:661
 msgid "Time Limit"
 msgstr "Giới hạn thời gian"
 
-#: ../setup/config_data.inc:685
+#: ../setup/config_data.inc:662
 msgid "The maximum amount of time in seconds any single operation should take.  If you find that you are getting the <b>Maximum execution time exceeded</b> error message, you can try making this a larger number.  Be warned that if you make this too large you <i>might</i> have a process that is stuck for a very long time without doing anything.  The default value is 30 which is pretty reasonable."
 msgstr "Giới hạn thời gian lớn nhất bằng giây trong mỗi quá trình hoạt động.  Nếu bạn thấy rằng bạn có lỗi <b>Maximum execution time exceeded</b>, bạn có thể thử bằng một số lớn hơn.  Chú ý nếu bạn để số quá lớn bạn <i>có thể</i> sẽ có một quá trình trong một lúc lâu mà không có gì xảy ra.  Giá trị mặc định là 30 là giá trị phù hợp."
 
-#: ../setup/config_data.inc:693
+#: ../setup/config_data.inc:670
 msgid "Debug mode"
 msgstr "Trình gỡ rối"
 
-#: ../setup/config_data.inc:694
+#: ../setup/config_data.inc:671
 msgid "Turn debug mode on so that you can diagnose problems?"
 msgstr "Bật trình gỡ rối lên có thể giúp bạn phân tích vấn đề?"
 
-#: ../setup/config_data.inc:699
+#: ../setup/config_data.inc:676
 #, php-format
 msgid "Use %s"
 msgstr "Sử dụng %s"
 
-#: ../setup/config_data.inc:700
+#: ../setup/config_data.inc:677
 msgid "Gallery uses a locking system called flock() for added protection against data corruption.  This is not supported on all platforms.  If you're seeing errors like <i>Could not acquire lock</i> then set this value to <i>no</i>."
 msgstr "Thư viện ảnh sử dụng một hệ thống khóa gọi là flock() để tăng cường sự bảo vệ hỏng dữ liệu.  Nhưng nó không hoàn toàn được trợ giúp trên tất cả các hệ điều hành.  Nếu bạn thấy có lỗi như là <i>Không thể thực hiện khóa</i> khi đó hãy để giá trị đó là <i>không</i>."
 
-#: ../setup/config_data.inc:704
+#: ../setup/config_data.inc:681
 msgid "Status code"
 msgstr "Mã trạng thái"
 
-#: ../setup/config_data.inc:705
+#: ../setup/config_data.inc:682
 msgid "The status code Gallery expects to see after a successful <i>exec()</i> call.  Gallery will try to figure this out on its own so you probably won't need to change this value unless you have problems."
 msgstr "Mã trạng thái của Thư viện ảnh được đòi hỏi sau khi hoành thành xong lệnh gọi <i>exec()</i>.  Thư viện ảnh sẽ cố tự hiểu được nó cho nên bạn không nhất thiết thay đổi giá trị này cho đến khi bạn có vấn đề."
 
-#: ../setup/config_data.inc:711
+#: ../setup/config_data.inc:688
 msgid "Session variable"
 msgstr "Biến session"
 
-#: ../setup/config_data.inc:712
+#: ../setup/config_data.inc:689
 msgid "This is the session variable used to contain all Gallery session information.  Change this if there is a conflict between Gallery and another PHP app on your website."
 msgstr "Các biến session được sử dụng để lưu giữ các thông tin Thư viện ảnh.  Bạn sẽ chỉ cần thay đổi nếu bạn có những ứng dụng khác của PHP trên trang web của bạn xung đột với nó."
 
-#: ../setup/config_data.inc:761
+#: ../setup/config_data.inc:738
 msgid "Appearance"
 msgstr "Trang trí"
 
-#: ../setup/config_data.inc:764
+#: ../setup/config_data.inc:741
 msgid "Border color"
 msgstr "Màu viền"
 
-#: ../setup/config_data.inc:765
+#: ../setup/config_data.inc:742
 #, php-format
 msgid "Default color of image borders. You can learn about %scolors%s here."
 msgstr "Màu mặc định của viền cho ảnh.  Bạn có thể biết thêm về %smàu sắc%s tại đây."
 
-#: ../setup/config_data.inc:776
+#: ../setup/config_data.inc:753
 msgid "Border width"
 msgstr "Độ rộng viền"
 
-#: ../setup/config_data.inc:777
+#: ../setup/config_data.inc:754
 msgid "Default width of image borders."
 msgstr "Độ rộng mặc định của viền ảnh."
 
-#: ../setup/config_data.inc:779 ../setup/config_data.inc:819
-#: ../setup/config_data.inc:833
+#: ../setup/config_data.inc:756 ../setup/config_data.inc:796
+#: ../setup/config_data.inc:810
 msgid "off"
 msgstr "tắt"
 
-#: ../setup/config_data.inc:782
+#: ../setup/config_data.inc:759
 msgid "Default Font"
 msgstr "Font mặc định"
 
-#: ../setup/config_data.inc:783
+#: ../setup/config_data.inc:760
 msgid "Default font face.  E.g. <i>arial</i> or <i>trebuchet</i>"
 msgstr "Loại font mặc định.  VD: <i>arial</i> hoặc <i>trebuchet</i>"
 
-#: ../setup/config_data.inc:790
+#: ../setup/config_data.inc:767
 msgid "Layout"
 msgstr "Sắp đặt"
 
-#: ../setup/config_data.inc:793
+#: ../setup/config_data.inc:770
 msgid "Default Columns"
 msgstr "Cột mặc định"
 
-#: ../setup/config_data.inc:794
+#: ../setup/config_data.inc:771
 msgid "The default number of columns in an album."
 msgstr "Số lượng cột mặc định trong một album."
 
-#: ../setup/config_data.inc:799
+#: ../setup/config_data.inc:776
 msgid "Default Rows"
 msgstr "Hàng mặc định"
 
-#: ../setup/config_data.inc:800
+#: ../setup/config_data.inc:777
 msgid "The default number of rows in an album."
 msgstr "Số lượng hàng mặc định trong một album."
 
-#: ../setup/config_data.inc:806
+#: ../setup/config_data.inc:783
 msgid "Image Processing and Display"
 msgstr "Sử lý ảnh và Hiển thị"
 
-#: ../setup/config_data.inc:809
+#: ../setup/config_data.inc:786
 msgid "Thumbnail size"
 msgstr "Cỡ thumbnail"
 
-#: ../setup/config_data.inc:810
+#: ../setup/config_data.inc:787
 msgid "The default target size (in pixels) of album thumbnails."
 msgstr "Kích cỡ mặc định (bằng pixel) của album thumbnails."
 
-#: ../setup/config_data.inc:816
+#: ../setup/config_data.inc:793
 msgid "Resized image size"
 msgstr "Kích cỡ ảnh được chỉnh cỡ"
 
-#: ../setup/config_data.inc:817
+#: ../setup/config_data.inc:794
 msgid "When large images are added to an album, an intermediate version will automatically be generated at this size."
 msgstr "Khi những ảnh kích cỡ lớn được thêm vào một album, một quá trình sẽ tiến hành tự động điều chỉnh tới kích cỡ này."
 
-#: ../setup/config_data.inc:822
+#: ../setup/config_data.inc:799
 msgid "Resized JPEG/PNG images file size"
 msgstr "Kích thước ảnh JPEG/PNG được chỉnh cỡ"
 
-#: ../setup/config_data.inc:823
+#: ../setup/config_data.inc:800
 msgid "The default target size (in kilobytes) of resized JPEG/PNG images.  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections.  Set to 0 for no target size."
 msgstr "Kích cỡ mặc định (bằng kilobyte) của những ảnh JPEG/PNG được chỉnh cỡ.  Bao gồm một giá trị có thể làm chậm quá trình tải lên, nhưng sẽ làm tăng tốc khi xem ảnh đặc biệt khi người xem sử dụng kết nối qua modem.  Đặt về 0 nếu không muốn chọn cỡ."
 
-#: ../setup/config_data.inc:830
+#: ../setup/config_data.inc:807
 msgid "Maximum image size"
 msgstr "Cỡ ảnh lớn nhất"
 
-#: ../setup/config_data.inc:831
+#: ../setup/config_data.inc:808
 msgid "You can optionally limit the dimensions your images on upload to Gallery."
 msgstr "Bạn có thể lựa chọn giới hạn cho kích thước ảnh của bạn khi tải lên Thư viện ảnh."
 
-#: ../setup/config_data.inc:831
+#: ../setup/config_data.inc:808
 msgid "Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."
 msgstr "Cho phép tính năng này bạn sẽ <b>không có ảnh đầy đủ nguyên gốc</b> trong Thư viện ảnh, nhưng lại giúp bạn tiết kiệm khoảng trống trên đĩa cứng. Thư viện ảnh sẽ cố thử giữ các lời bình JPEG và dữ liệu EXIF cho ảnh thu nhỏ, nhưng điều đó yêu cầu <b>ImageMagick</b> hoặc lựa chọn <b>jhead</b> (xem Bước 2)."
 
-#: ../setup/config_data.inc:833
+#: ../setup/config_data.inc:810
 #, php-format
 msgid "%d (%d MPix)"
 msgstr "%d (%d MêgaPixel)"
 
-#: ../setup/config_data.inc:836
+#: ../setup/config_data.inc:813
 msgid "Maximum JPEG/PNG image file size"
 msgstr "Cỡ ảnh JPEG/PNG lớn nhất"
 
-#: ../setup/config_data.inc:837
+#: ../setup/config_data.inc:814
 msgid "You can optionally limit the filesize of your JPEG/PNG images on upload to Gallery."
 msgstr "Bạn có thể lựa chọn giới hạn dung lượng ảnh JPEG/PNG khi tải lên Thư viện ảnh."
 
-#: ../setup/config_data.inc:837
+#: ../setup/config_data.inc:814
 msgid "Enabling this feature will leave you <b>without an original quality image</b> in your Gallery. Set the default target filesize (in kilobytes).  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections. Set to 0 if you don't want to restrict filesize."
 msgstr "Cho phép tính năng này bạn sẽ <b>không có ảnh chất lượng nguyên gốc</b> trong Thư viện ảnh. Hãy ghi giá trị mặc định (bằng kilobytes). Khi có một giá trị có thể làm chậm quá trình tải ảnh, nhưng sẽ làm tăng được tốc độ khi xem đặc biệt cho những ai sử dụng kết nối điện thoại. Ghi là 0 nếu bạn không muốn giới hạn dung lượng."
 
-#: ../setup/config_data.inc:843
+#: ../setup/config_data.inc:820
 msgid "Preserve Names"
 msgstr "Tên lưu giữ"
 
-#: ../setup/config_data.inc:844
+#: ../setup/config_data.inc:821
 msgid "When uploading images to Gallery, should we preserve the original names?  If you select <i>no</i>, Gallery will assign a new name for each photo or movie that gets uploaded."
 msgstr "Khi tải ảnh lên Thư viện ảnh, chúng tôi sẽ lưu giữ tên ảnh gốc?  Nếu bạn chọn <i>không</i>, Thư viện ảnh sẽ ghi một tên mới cho mỗi ảnh hoặc phim được tải lên."
 
-#: ../setup/config_data.inc:849
+#: ../setup/config_data.inc:826
 msgid "Add to beginning"
 msgstr "Thêm từ đầu"
 
-#: ../setup/config_data.inc:850
+#: ../setup/config_data.inc:827
 msgid "New images added to beginning rather than end of albums."
 msgstr "Những ảnh mới sẽ được thêm vào đầu của album."
 
-#: ../setup/config_data.inc:855
+#: ../setup/config_data.inc:832
 msgid "Fit-to-window"
 msgstr "Vừa vào cửa sổ"
 
-#: ../setup/config_data.inc:856
+#: ../setup/config_data.inc:833
 msgid "When viewing photos which don't have an intermediate version, Gallery can automatically resize the image to fit the viewer's browser window (using JavaScript).  This may not work in embedded environments such as Nuke."
 msgstr "Khi xem ảnh mà không có một quá trình trung gian, Thư viện ảnh có thể tự động chỉnh lại cỡ ảnh để vừa khít vào cửa sổ trình duyệt của người xem (sử dụng JavaScript).  Tính năng này có thể không làm việc trong ứng dụng nhúng như Nuke."
 
-#: ../setup/config_data.inc:861
+#: ../setup/config_data.inc:838
 msgid "Visitor size prefs"
 msgstr "Lựa chọn kích cỡ của người xem"
 
-#: ../setup/config_data.inc:862
+#: ../setup/config_data.inc:839
 msgid "Offer visitors the choice of always viewing the full sized version of an image instead of the intermediate size.  This setting only lasts for the visitor's session."
 msgstr "Giới thiệu cho người xem lựa chọn luôn xem ảnh cỡ trọn vẹn thay cho ảnh vừa cỡ.  Lựa chọn này chỉ có đối với session của người xem."
 
-#: ../setup/config_data.inc:868
+#: ../setup/config_data.inc:845
 msgid "Options"
 msgstr "Lựa chọn"
 
-#: ../setup/config_data.inc:871
+#: ../setup/config_data.inc:848
 msgid "Printing Services"
 msgstr "Dịch vụ in ấn"
 
-#: ../setup/config_data.inc:872
+#: ../setup/config_data.inc:849
 msgid "Allow visitors to print photos directly from the album.  Fotokasten is a print service based in Germany so is good for the European market. EZ Prints, PhotoAccess and Shutterfly are based in the United States. All services will give a small donation to the Gallery project for every print you make. If you choose Shutterfly's &quot;with donation&quot; option, Gallery will charge an extra 2 cents (US) for every photo printed, and 1.8 cents of that will get donated back to the Gallery project. EZ Prints, PhotoAccess and Fotokasten do not charge extra for the Gallery donation. Using these services is a great way for you to help support this free software."
 msgstr "Cho phép người xem thực hiện in ảnh trực tiếp từ trong album.  Fotokasten là một dịch vụ in tại Đức và cũng rất thuận tiện cho thị trường Châu Âu.  EZ Prints, PhotoAccess và Shutterfly nằm tại Mỹ.  Tất cả các dịch vụ này sẽ chuyển tặng một chút cho dự án Thư viện ảnh cho mỗi ảnh bạn in.  Nếu bạn chọn Shutterfly với lựa chọn &quot;có quyên góp&quot;, Thư viện ảnh sẽ trả thêm 2 xu (Mỹ) cho mỗi ảnh được in, và 1.8 xu trong đó sẽ được tặng lại cho dự án của Thư viện ảnh.  EZ Prints, PhotoAccess và Fotokasten không chi trả gì thêm cho Thư viện ảnh.  Sử dụng những dịch vụ này là cách hay nhất để bạn có thể giúp đỡ cho dự án phần mềm miễn phí này."
 
-#: ../setup/config_data.inc:882
+#: ../setup/config_data.inc:859
 msgid "with donation"
 msgstr "có quyên góp"
 
-#: ../setup/config_data.inc:883
+#: ../setup/config_data.inc:860
 msgid "without donation"
 msgstr "không quyên góp"
 
-#: ../setup/config_data.inc:907
+#: ../setup/config_data.inc:884
 msgid "Gallery Link"
 msgstr "Liên kết Thư viện ảnh"
 
-#: ../setup/config_data.inc:908
+#: ../setup/config_data.inc:885
 msgid "Display the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."
 msgstr "Hiển thị liên kết đầu của Thư viện ảnh trong album?  Nếu bạn tắt chức năng này, người dùng sẽ không thể thoát ra khỏi album. Nó chỉ thuận tiện khi bạn muốn nhúng một album trong một website và không cho phép người dùng xem (một cách dễ dàng) những album khác trong thư viện ảnh."
 
-#: ../setup/config_data.inc:914
+#: ../setup/config_data.inc:891
 msgid "Data displayed"
 msgstr "Hiển thị dữ liệu"
 
-#: ../setup/config_data.inc:917
+#: ../setup/config_data.inc:894
 msgid "Click counts"
 msgstr "Bộ đếm"
 
-#: ../setup/config_data.inc:918
+#: ../setup/config_data.inc:895
 msgid "Display click counts within Albums?"
 msgstr "Hiển thị bộ đếm trong các album?"
 
-#: ../setup/config_data.inc:923
+#: ../setup/config_data.inc:900
 msgid "Custom Fields"
 msgstr "Mẫu theo ý"
 
-#: ../setup/config_data.inc:925
+#: ../setup/config_data.inc:902
 msgid "Custom fields that are available to describe each image.  They should be separated by commas.  E.g. <i>Description, Location, Film Type</i>"
 msgstr "Mẫu theo ý để mô tả cho mỗi ảnh.  Chúng được phân cách bằng các dấu phẩy.  VD: <i>Chi tiết, Vị trí, Thể loại</i>"
 
-#: ../setup/config_data.inc:931
+#: ../setup/config_data.inc:908
 msgid "Display clickable image dimensions"
 msgstr "Cho phép nhấn chuột trên ảnh để thay đổi kích cỡ"
 
-#: ../setup/config_data.inc:932
+#: ../setup/config_data.inc:909
 msgid "Display clickable image dimensions beneath the thumbnails.  Will show dimensions for resized images (if any) first, then for the full image, depending on album settings user permissions.  You may click on these instead of the thumbnail to either image."
 msgstr "Cho phép nhấn chuột bên dưới ảnh để thay đổi kích cỡ.  Sẽ hiển thị kích cỡ cho những ảnh được chỉnh cỡ (hoặc có) trước, sau đó để cho ảnh đầy đủ, phụ thuộc vào quyền hạn được đặt của thành viên. Bạn có thể nhấn trên đó thay cho thumbnail của mỗi ảnh."
 
-#: ../setup/config_data.inc:938
+#: ../setup/config_data.inc:915
 msgid "Item Owner"
 msgstr "Người sở hữu mục"
 
-#: ../setup/config_data.inc:941
+#: ../setup/config_data.inc:918
 msgid "Photo owner modification"
 msgstr "Thay đổi của người sở hữu ảnh"
 
-#: ../setup/config_data.inc:942
+#: ../setup/config_data.inc:919
 msgid "Allow photo owners to edit and rotate/flip their own photos?"
 msgstr "Cho phép người sở hữu ảnh biên soạn và xoay/lật ảnh của họ?"
 
-#: ../setup/config_data.inc:947
+#: ../setup/config_data.inc:924
 msgid "Photo owner deletion"
 msgstr "Người sở hữu xóa ảnh"
 
-#: ../setup/config_data.inc:948
+#: ../setup/config_data.inc:925
 msgid "Allow photo owners to delete their own photos?"
 msgstr "Cho phép người sở hữu ảnh đựoc xóa ảnh của họ?"
 
-#: ../setup/config_data.inc:953
+#: ../setup/config_data.inc:930
 msgid "Photo owner display"
 msgstr "Hiển thị người sở hữu"
 
-#: ../setup/config_data.inc:954
+#: ../setup/config_data.inc:931
 msgid "Display the name of photo owners with the caption?"
 msgstr "Hiển thị tên người sở hữu ảnh với chú thích?"
 
-#: ../setup/config_data.inc:960
+#: ../setup/config_data.inc:937
 msgid "Polling configuration"
 msgstr "Cấu hình bình chọn"
 
-#: ../setup/config_data.inc:962
+#: ../setup/config_data.inc:939
 #, php-format
 msgid "It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."
 msgstr "Cho phép khách viếng thăm bình chọn hoặc đánh giá nội dung của một album.  Cấu hình mặc định bình chọn của bạn tại đây sẽ thực thi cho những album mới, và cho những album đã có khi bạn nâng cấp lần đầu tới phiên bản %s."
 
-#: ../setup/config_data.inc:965
+#: ../setup/config_data.inc:942
 msgid "In each album, voting can be switched off, restricted to logged in users or open to all visitors."
 msgstr "Trong mỗi album, bình chọn có thể được tắt, nghiêm cấm những thành viên đã đăng nhập hoặc mở ra cho tất cả khách viếng thăm."
 
-#: ../setup/config_data.inc:967
+#: ../setup/config_data.inc:944
 #, php-format
 msgid "There are two sorts of polls: %s, which allows voters to chose their favourites as first, second, third etc., and %s, which allows voters to rate any or all of the images without restriction.  %s is like a film review where all the images can get (for example) 5 points, while %s is useful in scoring competitions."
 msgstr "Có 2 kiểu cho bình chọn: %s, sẽ cho phép người bình chọn chọn những thứ họ thích đầu tiên, thứ hai, thứ ba, vv. và %s, sẽ cho phép người bình chọn đánh giá bất cứ hoặc tất cả ảnh không có ngăn cấm.  %s giống như một phim xem trước khi mà tất cả các ảnh có thể có (ví dụ) 5 điểm, còn %s sẽ thuận tiện dùng khi chọn điểm."
 
-#: ../setup/config_data.inc:968 ../setup/config_data.inc:971
-#: ../setup/config_data.inc:992 ../setup/config_data.inc:997
+#: ../setup/config_data.inc:945 ../setup/config_data.inc:948
+#: ../setup/config_data.inc:969 ../setup/config_data.inc:974
 msgid "Rank"
 msgstr "Nút chọn"
 
-#: ../setup/config_data.inc:969 ../setup/config_data.inc:970
-#: ../setup/config_data.inc:994 ../setup/config_data.inc:998
+#: ../setup/config_data.inc:946 ../setup/config_data.inc:947
+#: ../setup/config_data.inc:971 ../setup/config_data.inc:975
 msgid "Critique"
 msgstr "Hộp chọn"
 
-#: ../setup/config_data.inc:974
+#: ../setup/config_data.inc:951
 msgid "Voter class"
 msgstr "Hạng bình chọn"
 
-#: ../setup/config_data.inc:975
+#: ../setup/config_data.inc:952
 msgid "Voting is available to:"
 msgstr "Bình chọn là có sẵn cho:"
 
-#: ../setup/config_data.inc:977 ../setup/config_data.inc:984
+#: ../setup/config_data.inc:954 ../setup/config_data.inc:961
 msgid "Nobody"
 msgstr "Không ai cả"
 
-#: ../setup/config_data.inc:978
+#: ../setup/config_data.inc:955
 msgid "Voting is off."
 msgstr "Bình chọn đang tắt."
 
-#: ../setup/config_data.inc:979 ../setup/config_data.inc:985
+#: ../setup/config_data.inc:956 ../setup/config_data.inc:962
 msgid "Everybody"
 msgstr "Mọi người"
 
-#: ../setup/config_data.inc:980
+#: ../setup/config_data.inc:957
 msgid "Anyone can vote.  Votes are recorded against session ID."
 msgstr "Ai cũng có thể bình chọn.  Những bình chọn sẽ được ghi lại dựa vào nhận dạng session."
 
-#: ../setup/config_data.inc:981 ../setup/config_data.inc:986
+#: ../setup/config_data.inc:958 ../setup/config_data.inc:963
 msgid "Logged in"
 msgstr "Đã đăng nhập"
 
-#: ../setup/config_data.inc:982
+#: ../setup/config_data.inc:959
 msgid "Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices."
 msgstr "Những thành viên đã đăng ký có thể bình chọn.  Những bình chọn được ghi lại dựa theo nhận dạng thành viên (User ID), và những người bình chọn có thể quay lại và thay đổi cho lựa chọn của họ."
 
-#: ../setup/config_data.inc:989
+#: ../setup/config_data.inc:966
 msgid "Poll type"
 msgstr "Loại bình chọn"
 
-#: ../setup/config_data.inc:990
+#: ../setup/config_data.inc:967
 msgid "Gallery offers two sorts of polls for voting for images.  See above for a more detailed explanation."
 msgstr "Thư viện ảnh giới thiệu 2 loại bình chọn khi bình chọn cho ảnh.  Hãy xem bên trên cho diễn giải chi tiết."
 
-#: ../setup/config_data.inc:993
+#: ../setup/config_data.inc:970
 msgid "Users have a set of votes which they can allocate to the images."
 msgstr "Người dùng có một lựa chọn cho bình chọn mà họ có thể chỉ định tới ảnh."
 
-#: ../setup/config_data.inc:995
+#: ../setup/config_data.inc:972
 msgid "Enables users to give all images points without restriction."
 msgstr "Cho phép người dùng chọn điểm cho tất cả các ảnh không có ngăn cấm."
 
-#: ../setup/config_data.inc:1002
+#: ../setup/config_data.inc:979
 msgid "Number of choices"
 msgstr "Số lượng lựa chọn"
 
-#: ../setup/config_data.inc:1003
+#: ../setup/config_data.inc:980
 msgid "Number of choices that will be available to voters as radio buttons or in a pulldown menu."
 msgstr "Số lượng lựa chọn sẽ có sẵn cho người bình chọn như kiểu nút nhấn hoặc hộp thu thả."
 
-#: ../setup/config_data.inc:1008
+#: ../setup/config_data.inc:985
 msgid "Vote hint"
 msgstr "Gợi ý bình chọn"
 
-#: ../setup/config_data.inc:1009
+#: ../setup/config_data.inc:986
 msgid "This is displayed above the voting options under each image."
 msgstr "Cái đó sẽ được hiển thị trên những lựa chọn bình chọn phía bên dưới mỗi ảnh."
 
-#: ../setup/config_data.inc:1011
+#: ../setup/config_data.inc:988
 msgid "Vote for this image"
 msgstr "Bình chọn cho ảnh này"
 
-#: ../setup/config_data.inc:1016 ../setup/config_data.inc:1025
+#: ../setup/config_data.inc:993 ../setup/config_data.inc:1002
 msgid "Show vote results"
 msgstr "Hiển thị kết quả bình chọn"
 
-#: ../setup/config_data.inc:1017
+#: ../setup/config_data.inc:994
 #, php-format
 msgid "Display a summary and graph on the album page of images that have received the highest votes, and provide a link to the full results.  If this option is %s, results of voting will only be available to admins and album owners."
 msgstr "Hiển thị tóm lược và minh họa trên trang album của những ảnh nhận được bình chọn cao nhất, và cung cấp liên kết dẫn tới kết quả đầy đủ.  Nếu lựa chọn này là %s, kết quả bình chọn sẽ chỉ có sẵn dành cho QT và người sở hữu album."
 
-#: ../setup/config_data.inc:1023
+#: ../setup/config_data.inc:1000
 msgid "Number of results displayed"
 msgstr "Số lượng kết quả được hiển thị"
 
-#: ../setup/config_data.inc:1024
+#: ../setup/config_data.inc:1001
 #, php-format
 msgid "If %s is %s, display a graph showing this many top results.  (Full results will be available on a linked page.)"
 msgstr "Nếu %s là %s, hiển thị một minh họa chỉ vài kết quả cao nhất.  (Kết quả đầy đủ sẽ có sẵn trên một liên kết tới trang.)"
 
-#: ../setup/config_data.inc:1031
+#: ../setup/config_data.inc:1008
 msgid "Orientation of vote choices?"
 msgstr "Hướng lựa chọn của bình chọn"
 
-#: ../setup/config_data.inc:1032
+#: ../setup/config_data.inc:1009
 msgid "Rank poll choices can be displayed beside each other (horizontally) or underneath each other (vertically).  Has no effect on critique voting which is a pulldown menu."
 msgstr "Lựa chọn đánh giá theo hàng có thể hiển thị bên cạnh mỗi cái (ngang) hoặc bên dưới (dọc).  Không có tác động nào trên bình chọn phê bình trong hộp thu thả."
 
-#: ../setup/config_data.inc:1035
+#: ../setup/config_data.inc:1012
 msgid "Horizontal"
 msgstr "Ngang"
 
-#: ../setup/config_data.inc:1036
+#: ../setup/config_data.inc:1013
 msgid "Vertical"
 msgstr "Dọc"
 
-#: ../setup/config_data.inc:1038 ../setup/functions.inc:965
-#: ../setup/functions.inc:974 ../setup/functions.inc:979
+#: ../setup/config_data.inc:1015 ../setup/functions.inc:958
+#: ../setup/functions.inc:967 ../setup/functions.inc:972
 msgid "Vote words and values"
 msgstr "Từ bình chọn và giá trị"
 
-#: ../setup/config_data.inc:1039
+#: ../setup/config_data.inc:1016
 msgid "This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."
 msgstr "Điều này cho phép bạn cấu hình những chữ thực được hiển thị cho mỗi lựa chọn bình chọn, cộng với số lượng những điểm mà lựa chọn có."
 
-#: ../setup/config_data.inc:1041
+#: ../setup/config_data.inc:1018
 msgid "Excellent"
 msgstr "Tuyệt vời"
 
-#: ../setup/config_data.inc:1042
+#: ../setup/config_data.inc:1019
 msgid "Very Good"
 msgstr "Rất tốt"
 
-#: ../setup/config_data.inc:1043
+#: ../setup/config_data.inc:1020
 msgid "Good"
 msgstr "Tốt"
 
-#: ../setup/config_data.inc:1044
+#: ../setup/config_data.inc:1021
 msgid "Average"
 msgstr "Trung bình"
 
-#: ../setup/config_data.inc:1045
+#: ../setup/config_data.inc:1022
 msgid "Poor"
 msgstr "Kém"
 
-#: ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1028
 msgid "Album Slideshow"
 msgstr "Trình diễn ảnh album"
 
-#: ../setup/config_data.inc:1055
+#: ../setup/config_data.inc:1032
 msgid "Slideshow Type"
 msgstr "Kiểu trình diễn ảnh"
 
-#: ../setup/config_data.inc:1072
+#: ../setup/config_data.inc:1049
 msgid "Recursive slideshow"
 msgstr "Trình diễn ảnh thêm"
 
-#: ../setup/config_data.inc:1073
+#: ../setup/config_data.inc:1050
 #, php-format
 msgid "Set to %s if you want to include images in sub albums as part of the slideshow."
 msgstr "Đặt là %s nếu bạn muốn bao gồm những ảnh trong các album phụ là phần của trình diễn ảnh."
 
-#: ../setup/config_data.inc:1079
+#: ../setup/config_data.inc:1056
 #, php-format
 msgid "This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "Lựa chọn này sẽ cho phép trình diễn ảnh của bạn được lặp lại với người xem cho đến khi họ đóng cửa sổ hoặc chuyển qua trang khác.  Đặt là %s nếu bạn muốn giữ giới hạn đường truyền."
 
-#: ../setup/config_data.inc:1093
+#: ../setup/config_data.inc:1070
 msgid "Frames"
 msgstr "Khung"
 
-#: ../setup/config_data.inc:1094
+#: ../setup/config_data.inc:1071
 #, php-format
 msgid "Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"
 msgstr "Mỗi ảnh (thumbnails, chỉnh cỡ và đầy đủ) trong %s có thể có một khung.  Những kiểu dáng có sẵn:"
 
-#: ../setup/config_data.inc:1098
+#: ../setup/config_data.inc:1075
 msgid "Subalbum frames"
 msgstr "Khung album phụ"
 
-#: ../setup/config_data.inc:1099
+#: ../setup/config_data.inc:1076
 msgid "This frame will appear around the thumbnail image representing a subalbum."
 msgstr "Khung này sẽ hiển thị quanh ảnh thumbnail biểu trưng cho album phụ."
 
-#: ../setup/config_data.inc:1104
+#: ../setup/config_data.inc:1081
 msgid "Frame around thumbs"
 msgstr "Khung quanh thumbs"
 
-#: ../setup/config_data.inc:1105
+#: ../setup/config_data.inc:1082
 msgid "This frame will appear around the thumbnail image representing a photo or movie."
 msgstr "Khung này sẽ hiển thị quanh ảnh thumbnail biểu trưng cho một ảnh hoặc phim."
 
-#: ../setup/config_data.inc:1111
+#: ../setup/config_data.inc:1088
 msgid "Frame around images"
 msgstr "Khung quanh ảnh"
 
-#: ../setup/config_data.inc:1112
+#: ../setup/config_data.inc:1089
 msgid "This frame will appear around fulled sized and resized photos."
 msgstr "Khung này sẽ hiển thị quanh ảnh đầy đủ và ảnh chỉnh cỡ."
 
@@ -1704,7 +1673,7 @@ msgstr "Lỗi:"
 msgid "You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."
 msgstr "Bạn phải tạo một file trắng %s và thực hiện chmod 777 trước khi sử lý.  Xem %s cho chi tiết."
 
-#: ../setup/confirm.inc:62 ../setup/confirm.inc:156 ../setup/confirm.inc:157
+#: ../setup/confirm.inc:62 ../setup/confirm.inc:137 ../setup/confirm.inc:138
 msgid "missing"
 msgstr "mất"
 
@@ -1712,129 +1681,129 @@ msgstr "mất"
 msgid "it's optional"
 msgstr "lựa chọn"
 
-#: ../setup/confirm.inc:156 ../setup/confirm.inc:157
+#: ../setup/confirm.inc:137 ../setup/confirm.inc:138
 msgid "optional"
 msgstr "lựa chọn"
 
-#: ../setup/confirm.inc:176
+#: ../setup/confirm.inc:157
 #, php-format
 msgid "%s: <b>%s</b> must be an absolute URL!"
 msgstr "%s: <b>%s</b> phải là một URL chính xác!"
 
-#: ../setup/confirm.inc:188
+#: ../setup/confirm.inc:169
 #, php-format
 msgid "%s: <b>%s</b> must be a valid file (not a directory)!"
 msgstr "%s: <b>%s</b> phải là một file có giá trị (không phải là một thư mục)!"
 
-#: ../setup/confirm.inc:197
+#: ../setup/confirm.inc:178
 #, php-format
 msgid "%s: <b>&quot;%s&quot;</b> must be a positive number"
 msgstr "%s: <b>&quot;%s&quot;</b> phải là một số dương"
 
-#: ../setup/confirm.inc:205
+#: ../setup/confirm.inc:186
 #, php-format
 msgid "%s: <b>%s</b> must not be zero"
 msgstr "%s: <b>%s</b> không thể là không"
 
-#: ../setup/confirm.inc:215
+#: ../setup/confirm.inc:196
 #, php-format
 msgid "%s: <b>%s</b> must be an executable file!"
 msgstr "%s: <b>%s</b> phải là một file có thể thực thi!"
 
-#: ../setup/confirm.inc:224
+#: ../setup/confirm.inc:205
 #, php-format
 msgid "Directory %s does not exist.  Please create it."
 msgstr "Thư mục %s không có.  Xin hãy tạo nó."
 
-#: ../setup/confirm.inc:230
+#: ../setup/confirm.inc:211
 #, php-format
 msgid "%s exists but is not a directory.  Please fix this."
 msgstr "%s có nhưng không phải là một thư mục.  Xin hãy sửa lại."
 
-#: ../setup/confirm.inc:237
+#: ../setup/confirm.inc:218
 #, php-format
 msgid "%s: %s exists, but is not writeable by the webserver user.  Try: %s or if that doesn't work: %s.  Also make sure that if you have an %s restriction then this tmp directory should be under the %s path"
 msgstr "%s: %s có, nhưng người dùng webserver không thể ghi vào.  Hãy thử: %s hoặc nếu không làm việc: %s.  Hãy luôn chắc rằng nếu bạn có một giới hạn %s khi đó thư mục tmp này phải nằm trong đường dẫn %s"
 
-#: ../setup/confirm.inc:308
+#: ../setup/confirm.inc:289
 #, php-format
 msgid "Could not find %s.  Check your NetPBM directory to see which PNG->JPEG converter you have (or just try using %s instead).  Please check your configuration (or use ImageMagick)."
 msgstr "Không thấy %s.  Hãy kiểm tra thư mục NetPBM của bạn để xem bạn có bộ đổi PNG->JPEG nào (hoặc thử dùng %s).  Xin hãy kiểm tra cấu hình (hoặc dùng ImageMagick)."
 
-#: ../setup/confirm.inc:320
+#: ../setup/confirm.inc:301
 #, php-format
 msgid "You must specify a path for %s or %s for Gallery to function!!"
 msgstr "Bạn phải chỉ định một đường dẫn cho %s hoặc %s để Thư viện ảnh có chức năng!!"
 
-#: ../setup/confirm.inc:323 ../setup/confirm.inc:326
+#: ../setup/confirm.inc:304 ../setup/confirm.inc:307
 #, php-format
 msgid "%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."
 msgstr "%s không được cấu hình đúng cho sử dụng như là một gói graphic.  Hãy chắc rằng bạn đã ghi một đường dẫn vào %s binaries trong bước 2."
 
-#: ../setup/confirm.inc:331
+#: ../setup/confirm.inc:312
 msgid "Note:"
 msgstr "Chú ý:"
 
-#: ../setup/confirm.inc:332
+#: ../setup/confirm.inc:313
 msgid "Your server has the PHP open_basedir restriction set, and certain of your paths are not in the list of restricted paths"
 msgstr "Máy chủ hệ thống của bạn có đặt giới hạn PHP open_basedir, và đương nhiên đường dẫn của bạn không trong danh sách đường dẫn bị cấm"
 
-#: ../setup/confirm.inc:334
+#: ../setup/confirm.inc:315
 #, php-format
 msgid "This doesn't mean that they won't work, however it does mean that we can't verify that the paths are correct.  If you are unable to upload photos correctly, please refer to the FAQ and to the %sdiagnostics%s to resolve your problems."
 msgstr "Không có nghĩa rằng chúng không làm việc, tuy nhiên có thể là chúng tôi không thể kiểm định đường dẫn là đúng.  Nếu bạn không thể tải ảnh lên một cách chính xác, xin hãy tham khảo Hỏi đáp và %sphân tích%s để giải quyết vấn đề."
 
-#: ../setup/confirm.inc:407
+#: ../setup/confirm.inc:388
 msgid "Confirm that the settings you entered came through correctly.  If you find this page confusing, you can safely ignore it."
 msgstr "Xác nhận rằng những cài đặt bạn chọn là chính xác.  Nếu bạn thấy trang này lộn xộn, bạn có thể bỏ qua nó."
 
-#: ../setup/confirm.inc:409
+#: ../setup/confirm.inc:390
 msgid "Confirm that the settings you entered came through correctly.  There are errors highlighted below in red which need to be fixed before you can save your settings."
 msgstr "Xác nhận rằng những cài đặt bạn chọn là chính xác.  Có những lỗi được đánh dấu đỏ là cần được sửa trước khi bạn có thể lưu giữ những cấu hình cho bạn."
 
-#: ../setup/confirm.inc:414 ../setup/confirm.inc:429
+#: ../setup/confirm.inc:395 ../setup/confirm.inc:410
 msgid "Edit Config"
 msgstr "Biên soạn cấu hình"
 
-#: ../setup/confirm.inc:416 ../setup/confirm.inc:431
+#: ../setup/confirm.inc:397 ../setup/confirm.inc:412
 msgid "Save Config"
 msgstr "Lưu&nbsp;cấu&nbsp;hình"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 #, php-format
 msgid "%s.  Details below."
 msgstr "%s.  Chi tiết bên dưới."
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "One error"
 msgstr "Một lỗi"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "errors"
 msgstr "lỗi"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "no errors"
 msgstr "không có lỗi"
 
-#: ../setup/confirm.inc:434
+#: ../setup/confirm.inc:415
 msgid "There are errors in your configuration."
 msgstr "Có lỗi trong cấu hình của bạn."
 
-#: ../setup/confirm.inc:435
+#: ../setup/confirm.inc:416
 msgid "Please go back and fix them!"
 msgstr "Xin hãy quay lại và sửa chúng!"
 
-#: ../setup/constants.inc:14
+#: ../setup/constants.inc:11
 msgid "In this step you'll customize various settings for Gallery.  If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  Even so, you'll probably have to make at least some minor changes.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much."
 msgstr "Trong bước này bạn sẽ thực hiện cấu hình theo ý cho Thư viện ảnh.  Nếu đây là lần đầu bạn làm, bạn sẽ được thông báo rằng chúng tôi đã để các giá trị mặc định cho bạn.  Tuy nhiên, bạn sẽ phải làm tối thiểu vài thay đổi nhỏ. Nếu bạn đã cấu hình cho Thư viện ảnh trước, khi đó bạn được thông báo rằng trang này đã có thông tin cấu hình của bạn trong nó, nên bạn không nhất thiết làm quá nhiều."
 
-#: ../setup/constants.inc:19 ../setup/constants.inc:125
+#: ../setup/constants.inc:16 ../setup/constants.inc:124
 #: ../setup/defaults.inc:18 ../setup/defaults.inc:97
 msgid "Previous Page"
 msgstr "Trang trước"
 
-#: ../setup/constants.inc:21 ../setup/constants.inc:127
+#: ../setup/constants.inc:18 ../setup/constants.inc:126
 #: ../setup/defaults.inc:20 ../setup/defaults.inc:99
 msgid "Use Defaults"
 msgstr "Sử dụng mặc định"
@@ -1942,312 +1911,312 @@ msgstr "Điều này cho phép bạn kiểm tra xem bạn có phiên bản đún
 msgid "Please retype your password here"
 msgstr "Hãy ghi lại mật khẩu của bạn ở đây"
 
-#: ../setup/functions.inc:123 ../setup/functions.inc:966
+#: ../setup/functions.inc:123 ../setup/functions.inc:959
 msgid "Name"
 msgstr "Tên"
 
-#: ../setup/functions.inc:124 ../setup/functions.inc:966
+#: ../setup/functions.inc:124 ../setup/functions.inc:959
 msgid "Value"
 msgstr "Giá&nbsp;trị"
 
-#: ../setup/functions.inc:296
+#: ../setup/functions.inc:289
 msgid "Missing value"
 msgstr "Mất giá trị"
 
-#: ../setup/functions.inc:318
+#: ../setup/functions.inc:311
 msgid "I can read your <b>.htaccess</b> file."
 msgstr "Đã đọc thấy file <b>.htaccess</b>."
 
-#: ../setup/functions.inc:344
+#: ../setup/functions.inc:337
 #, php-format
 msgid "PHP v%s is OK."
 msgstr "PHP v%s tốt."
 
-#: ../setup/functions.inc:357
+#: ../setup/functions.inc:350
 msgid "<b>mod_rewrite</b> is enabled."
 msgstr "<b>mod_rewrite</b> có hiệu lực."
 
-#: ../setup/functions.inc:381
+#: ../setup/functions.inc:374
 msgid "Can't find <i>jhead</i>"
 msgstr "Không thấy <i>jhead</i>"
 
-#: ../setup/functions.inc:383
+#: ../setup/functions.inc:376
 msgid "<b>jhead</b> binary located."
 msgstr "Đã thấy <b>jhead</b> binary."
 
-#: ../setup/functions.inc:397
+#: ../setup/functions.inc:390
 msgid "NetPBM not being used in this installation."
 msgstr "NetPBM sẽ không sử dụng được trong quá trình cài đặt này."
 
-#: ../setup/functions.inc:402 ../setup/functions.inc:488
+#: ../setup/functions.inc:395 ../setup/functions.inc:481
 msgid "Cannot verify this path (it's not in your open_basedir list)."
 msgstr "Không thể kiểm tra đường dẫn này (không có trong danh sách open_basedir của bạn)."
 
-#: ../setup/functions.inc:451 ../setup/functions.inc:507
+#: ../setup/functions.inc:444 ../setup/functions.inc:500
 #, php-format
 msgid "Can't find %s!"
 msgstr "Không thấy %s!"
 
-#: ../setup/functions.inc:456 ../setup/functions.inc:512
+#: ../setup/functions.inc:449 ../setup/functions.inc:505
 #, php-format
 msgid "%s is not executable!"
 msgstr "%s không có khả năng thực thi!"
 
-#: ../setup/functions.inc:467
+#: ../setup/functions.inc:460
 #, php-format
 msgid "%d of %d NetPBM binaries located."
 msgstr "%d của %d NetPBM binaries đã thấy."
 
-#: ../setup/functions.inc:523
+#: ../setup/functions.inc:516
 #, php-format
 msgid "%d of %d ImageMagick binaries located."
 msgstr "%d của %d ImageMagick binaries đã thấy."
 
-#: ../setup/functions.inc:546
+#: ../setup/functions.inc:539
 msgid "Can't find <i>jpegtran</i>!"
 msgstr "Không thấy <i>jpegtran</i>!"
 
-#: ../setup/functions.inc:548
+#: ../setup/functions.inc:541
 msgid "<b>jpegtran</b> binary located."
 msgstr "Đã thấy <b>jpegtran</b> binary."
 
-#: ../setup/functions.inc:560
+#: ../setup/functions.inc:553
 msgid "PHP has <b>GNU gettext</b> support."
 msgstr "PHP có <b>GNU gettext</b> trợ giúp."
 
-#: ../setup/functions.inc:562
+#: ../setup/functions.inc:555
 msgid "PHP does not have <b>GNU gettext</b> support."
 msgstr "PHP không có <b>GNU gettext</b> trợ giúp."
 
-#: ../setup/functions.inc:578
+#: ../setup/functions.inc:571
 msgid "No languages found."
 msgstr "Không thấy ngôn ngữ nào."
 
-#: ../setup/functions.inc:580
+#: ../setup/functions.inc:573
 msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
 msgstr "Có vẻ như bạn không lấy về thêm ngôn ngữ nào.  Không thành vấn đề ! Thư viện ảnh sẽ hiển thị bằng tiếng Anh. Lưu ý: Nếu không đúng, hãy kiểm tra tất cả các file trong thư mục locale có thể cho phép máy chủ web đọc được, hoặc liên hệ với nhóm thiết kế Thư viện ảnh."
 
-#: ../setup/functions.inc:584
+#: ../setup/functions.inc:577
 #, php-format
 msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
 msgstr "%d ngôn ngữ có sẵn.  Nếu bạn mất một ngôn ngữ nào hãy vào %sTrang cung cấp cho Thư viện ảnh%s."
 
-#: ../setup/functions.inc:608
+#: ../setup/functions.inc:601
 #, php-format
 msgid "You can check for more recent versions by visiting %s."
 msgstr "Bạn có thể kiểm tra để biết thêm các phiên bản mới khi ghé thăm %s."
 
-#: ../setup/functions.inc:610
+#: ../setup/functions.inc:603
 #, php-format
 msgid "This version of %s was released on %s."
 msgstr "Phiên bản này của %s đã được phát hành vào %s."
 
-#: ../setup/functions.inc:612
+#: ../setup/functions.inc:605
 #, php-format
 msgid "This is a development build of %s that was released on %s."
 msgstr "Đây là bản phát triển của %s đã được phát hành vào %s."
 
-#: ../setup/functions.inc:621
+#: ../setup/functions.inc:614
 msgid "Please check regularly for updates."
 msgstr "Xin hãy thường xuyên kiểm tra để cập nhật."
 
-#: ../setup/functions.inc:642
+#: ../setup/functions.inc:635
 msgid "All gallery locales are available on this host."
 msgstr "Tất cả các locale cho Thư viện ảnh là có sẵn trên hệ thống này."
 
-#: ../setup/functions.inc:645
+#: ../setup/functions.inc:638
 #, php-format
 msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
 msgstr "Có %d locale mà Thư viện ảnh không thể định dạng được. Bạn cần tự chọn chúng tới giá trị chính xác."
 
-#: ../setup/functions.inc:651
+#: ../setup/functions.inc:644
 #, php-format
 msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
 msgstr "Dạng thức ngày tháng của ngôn ngữ %d có thể không định dạng đúng, bởi locale tương thích bị mất. Bạn cần phải tự chọn dạng thức ngày giờ cho chúng."
 
-#: ../setup/functions.inc:656
+#: ../setup/functions.inc:649
 #, php-format
 msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
 msgstr "Chúng tôi không thể dò tìm bất cứ locale nào.  Tuy nhiên, máy chủ của bạn được cấu hình với giới hạn %s nên có thể nó trùng với cách chúng tôi dò tìm locale.  Đáng tiếc là dạng thức ngày tháng sẽ không thay đổi trên những ngôn ngữ khác nhau.  Tuy nhiên, vẫn tốt để tiếp tục."
 
-#: ../setup/functions.inc:660
+#: ../setup/functions.inc:653
 #, php-format
 msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
 msgstr "Chúng tôi không thể dò tìm bất cứ locale hệ thống nào. Chức năng đa ngôn ngữ sẽ bị tắt. Xin hãy cài đặt locale tương thích hoặc hỏi nhà cung cấp để làm điều đó. Vấn đề này được biết đến trên hệ thống %s. Trong trường hợp này xin hãy xem tại %sDebian locale HowTo%s."
 
-#: ../setup/functions.inc:662
+#: ../setup/functions.inc:655
 msgid "Only the default locale for this machine is available, so date format will not change for different languages."
 msgstr "Chỉ locale mặc định cho hệ thống máy này là có sẵn nên dạng thức ngày tháng sẽ không thay đổi trên những ngôn ngữ khác nhau."
 
-#: ../setup/functions.inc:814
+#: ../setup/functions.inc:807
 msgid "<b>System</b> locale selection required"
 msgstr "<b>Hệ thống</b> locale được yêu cầu lựa chọn"
 
-#: ../setup/functions.inc:815
+#: ../setup/functions.inc:808
 msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
 msgstr "Có hơn một loại <b>hệ thống</b> locale phù hợp được cài đặt trên hệ thống máy của bạn cho những ngôn ngữ sau.  Xin hãy chọn một cái mà bạn nghĩ phù hợp nhất."
 
-#: ../setup/functions.inc:817 ../setup/functions.inc:890
+#: ../setup/functions.inc:810 ../setup/functions.inc:883
 msgid "This is <b>only</b> for date & time format. You only need to edit the languages you enabled above"
 msgstr "Chỉ dành cho định dạng ngày tháng và thời gian. Bạn chỉ cần biên soạn những ngôn ngữ mà bạn đã chọn ở trên"
 
-#: ../setup/functions.inc:845 ../setup/functions.inc:852
-#: ../setup/functions.inc:862
+#: ../setup/functions.inc:838 ../setup/functions.inc:845
+#: ../setup/functions.inc:855
 msgid "System locale"
 msgstr "Hệ thống locale"
 
-#: ../setup/functions.inc:887
+#: ../setup/functions.inc:880
 msgid "<b>System</b> locale problems"
 msgstr "<b>Hệ thống</b> locale có vấn đề"
 
-#: ../setup/functions.inc:888
+#: ../setup/functions.inc:881
 msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
 msgstr "Không có <b>hệ thống</b> locale phù hợp nào được cài đặt trên hệ thống máy của bạn cho những ngôn ngữ sau.  Xin hãy chọn một cái mà bạn nghĩ phù hợp nhất."
 
-#: ../setup/functions.inc:933
+#: ../setup/functions.inc:926
 msgid "<b>safe_mode</b> is off."
 msgstr "<b>safe_mode</b> đang tắt."
 
-#: ../setup/functions.inc:946
+#: ../setup/functions.inc:939
 msgid "<b>magic_quotes</b> are off."
 msgstr "<b>magic_quotes</b> đang tắt."
 
-#: ../setup/functions.inc:964
+#: ../setup/functions.inc:957
 #, php-format
 msgid "In %s, missing %s in row %d with %s %s."
 msgstr "Trong %s, mất %s ở hàng %d với %s %s."
 
-#: ../setup/functions.inc:973
+#: ../setup/functions.inc:966
 #, php-format
 msgid "In %s, blank in row %d."
 msgstr "Trong %s, bị trống trong hàng %d."
 
-#: ../setup/functions.inc:978
+#: ../setup/functions.inc:971
 #, php-format
 msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
 msgstr "Trong %s, cho tên %s (hàng %d) giá trị %s phải là một số dương"
 
-#: ../setup/functions.inc:1150
+#: ../setup/functions.inc:1127
 msgid "Your admin passwords do not match!"
 msgstr "Mật khẩu quản trị của bạn chưa đúng!"
 
-#: ../setup/functions.inc:1166
+#: ../setup/functions.inc:1143
 msgid "Valid admin email address given."
 msgstr "Đưa ra địa chỉ email QT hợp lệ."
 
-#: ../setup/functions.inc:1173
+#: ../setup/functions.inc:1150
 msgid "You must specify valid admin email addresses"
 msgstr "Bạn phải ghi địa chỉ email QT hợp lệ"
 
-#: ../setup/functions.inc:1181
+#: ../setup/functions.inc:1158
 #, php-format
 msgid "%s is not a valid email address."
 msgstr "%s là địa chỉ email không hợp lệ."
 
-#: ../setup/functions.inc:1190
+#: ../setup/functions.inc:1167
 msgid "Valid sender email address given."
 msgstr "Đưa ra địa chỉ email người gửi hợp lệ."
 
-#: ../setup/functions.inc:1192
+#: ../setup/functions.inc:1169
 msgid "You must specify a valid sender email address"
 msgstr "Bạn phải ghi địa chỉ email người gửi hợp lệ"
 
-#: ../setup/functions.inc:1195
+#: ../setup/functions.inc:1172
 #, php-format
 msgid "You must include %s in your welcome email"
 msgstr "Bạn phải bao gồm cả %s trong email chào mừng"
 
-#: ../setup/functions.inc:1200
+#: ../setup/functions.inc:1177
 #, php-format
 msgid "You must include %s or %s in your welcome email"
 msgstr "Bạn phải bao gồm cả %s hoặc %s trong email chào mừng"
 
-#: ../setup/functions.inc:1224
+#: ../setup/functions.inc:1201
 #, php-format
 msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 msgstr "Những file sau đây đã quá cũ, hư hỏng hoặc mất<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 
-#: ../setup/functions.inc:1226
+#: ../setup/functions.inc:1203
 msgid "This should be fixed before proceeding"
 msgstr "Cần phải sửa lỗi trước khi tiếp tục"
 
-#: ../setup/functions.inc:1227 ../setup/functions.inc:1231
+#: ../setup/functions.inc:1204 ../setup/functions.inc:1208
 #, php-format
 msgid "Look at %sCheck Versions%s for more details."
 msgstr "Hãy xem %sKiểm tra Phiên bản%s để biết chi tiết hơn."
 
-#: ../setup/functions.inc:1230
+#: ../setup/functions.inc:1207
 #, php-format
 msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, CVS or modified code."
 msgstr "%d files là mới gần đây hơn so với yêu cầu.  Điều đó tốt khi bạn sử dụng phiên bản giới thiệu trước, beta, CVS hoặc thay đổi mã."
 
-#: ../setup/functions.inc:1235
+#: ../setup/functions.inc:1212
 #, php-format
 msgid "All %d tested files up-to-date."
 msgstr "Tất cả %d file kiểm tra đúng hạn."
 
-#: ../setup/functions.inc:1243
+#: ../setup/functions.inc:1220
 #, php-format
 msgid "this is new in version %s"
 msgstr "tính năng mới trong phiên bản %s"
 
-#: ../setup/functions.inc:1248
+#: ../setup/functions.inc:1225
 #, php-format
 msgid "Return to %s."
 msgstr "Quay lại %s."
 
-#: ../setup/functions.inc:1249
+#: ../setup/functions.inc:1226
 msgid "Configuration Wizard"
 msgstr "Thuật cấu hình"
 
-#: ../setup/functions.inc:1300
+#: ../setup/functions.inc:1277
 #, php-format
 msgid "You must enter a password for the %s account."
 msgstr "Bạn phải ghi một mật khẩu cho tài khoản %s."
 
-#: ../setup/functions.inc:1305
+#: ../setup/functions.inc:1282
 #, php-format
 msgid "It seems you've already configured Gallery, because there is one admin account, but its not called %s."
 msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì đã có một tài khoản QT, nhưng không được gọi là %s."
 
-#: ../setup/functions.inc:1308
+#: ../setup/functions.inc:1285
 #, php-format
 msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
 msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì đã có tài khoản QT %d, nhưng không ai có tên là %s."
 
-#: ../setup/functions.inc:1310
+#: ../setup/functions.inc:1287
 #, php-format
 msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
 msgstr "Bạn không phải ghi mật khẩu.  Nhưng nếu bạn vẫn ghi, Thư viện ảnh sẽ tạo một tài khoản quản trị có tên %s với mật khẩu đó."
 
-#: ../setup/functions.inc:1319
+#: ../setup/functions.inc:1296
 #, php-format
 msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
 msgstr "Có vẻ như bạn đã cấu hình cho Thư viện ảnh, bởi vì thành viên %s đã có.  Bạn không nhất thiết phải ghi mật khẩu.  Nhưng nếu bạn vẫn ghi, thì Thư viện ảnh sẽ đổi mật khẩu cho thành viên tên %s."
 
-#: ../setup/functions.inc:1326
+#: ../setup/functions.inc:1303
 msgid "Admin password"
 msgstr "Mật khẩu quản trị"
 
-#: ../setup/functions.inc:1339 ../setup/functions.inc:1341
-#: ../setup/functions.inc:1343 ../setup/functions.inc:1351
+#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
+#: ../setup/functions.inc:1320 ../setup/functions.inc:1328
 msgid "Full Name"
 msgstr "Tên đầy đủ"
 
-#: ../setup/functions.inc:1339 ../setup/functions.inc:1341
-#: ../setup/functions.inc:1345 ../setup/functions.inc:1353
+#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
+#: ../setup/functions.inc:1322 ../setup/functions.inc:1330
 msgid "Username"
 msgstr "Tên truy cập"
 
-#: ../setup/functions.inc:1347
+#: ../setup/functions.inc:1324
 msgid "Full name that you can click on to send email (mailto:)"
 msgstr "Tên đầy đủ mà bạn có thể nhấn chuột vào và gửi mail (mailto:)"
 
-#: ../setup/functions.inc:1349
+#: ../setup/functions.inc:1326
 msgid "Username that you can click on to send email (mailto:)"
 msgstr "Tên truy cập mà bạn có thể nhấn chuột vào và gửi mail (mailto:)"
 
-#: ../setup/functions.inc:1351 ../setup/functions.inc:1353
+#: ../setup/functions.inc:1328 ../setup/functions.inc:1330
 msgid "email address"
 msgstr "địa chỉ email"
 
@@ -2255,7 +2224,7 @@ msgstr "địa chỉ email"
 msgid "Gallery Configuration"
 msgstr "Cấu hình Thư viện ảnh"
 
-#: ../setup/index.php:29
+#: ../setup/index.php:30
 msgid "unknown"
 msgstr "không&nbsp;rõ"
 

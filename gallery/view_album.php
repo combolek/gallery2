@@ -308,7 +308,13 @@ $adminOptions = array(
 		      'add_photos'      => array('name' => _('add photos'),
 						 'requirements' => array('canAddToAlbum'),
 						 'action' => 'popup',
-						 'value' => makeGalleryUrl('add_photos_frame.php',
+						 'value' => makeGalleryUrl('add_photos.php',
+									   array('set_albumName' => $gallery->session->albumName))),
+		      'add_photo'       => array('name' => _('add photo'),
+						 'requirements' => array('canAddToAlbum',
+									 'extraFieldsExist'),
+						 'action' => 'popup',
+						 'value' => makeGalleryUrl('add_photo.php',
 									   array('set_albumName' => $gallery->session->albumName))),
 		      'rename_album'    => array('name' => _('rename album'),
 						 'requirements' => array('isAlbumOwner'),
@@ -947,7 +953,7 @@ if ($numPhotos) {
 					showChoice(_("Rotate/Flip") ." $label", "rotate_photo.php", array("index" => $i));
 				}
 				if (!$gallery->album->isMovie($id)) {
-					 /* Show Highlight Album/Photo only when this i a photo, or Album has a highlight */
+					/* Show Highlight Album/Photo only when this i a photo, or Album has a highlight */
 					$nestedAlbum=$gallery->album->getNestedAlbum($i);
 					if (! $gallery->album->isAlbumName($i) || $nestedAlbum->hasHighlight()) {
 						showChoice(_('Highlight') . " $label", 'do_command.php', array('cmd' => 'highlight', 'index' => $i));

@@ -55,7 +55,7 @@ if (isset($userfile_name)) {
   <?php echo getStyleSheetLink() ?>
 
 </head>
-<body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();'>
+<body dir="<?php echo $gallery->direction ?>" onLoad='opener.hideProgressAndReload();'>
 
 <?php
 $image_tags = array();
@@ -106,7 +106,7 @@ if (!empty($urls)) {
 		$tag = strtolower($tag);
 
 		/* If the URI doesn't start with a scheme, prepend 'http://' */
-		if (!empty($url) && !fs_is_file($url)) {
+		if (!fs_is_file($url)) {
 			if (!ereg("^(http|ftp)", $url)) {
 				$url = "http://$url";
 			}
@@ -267,7 +267,7 @@ while (isset($userfile) && sizeof($userfile)) {
 
 $gallery->album->save(array(i18n("%d files uploaded"), $image_count));
 
-if (!empty($temp_files)) {
+if ($temp_files) {
 	/* Clean up the temporary url file */
 	foreach ($temp_files as $tf => $junk) {
 		fs_unlink($tf);
@@ -277,7 +277,7 @@ if (!empty($temp_files)) {
 
 <span class="popup">
 <?php
-if (empty($msgcount)) {
+if (!$msgcount) {
 	print _("No images uploaded!");
 }
 ?>
@@ -288,47 +288,69 @@ if (empty($msgcount)) {
 <?php
 /* Prompt for additional files if we found links in the HTML slurpage */
 if (count($image_tags)) {
-
-	/*
-	** include JavaScript (de)selection and invert
-	*/
-	insertFormJS('uploadurl_form','urls[]');
 ?>
+
+<?php $uploadUrlFormName = "uploadurl_form"; ?>
+
+<?php /* Note: the w3c-suggested "text/javascript" doesn't work with Navigator 4 */ ?>
+<script language="javascript">
+// <!-- 
+function setCheck(val) {
+	ufne=document.<?php echo $uploadUrlFormName; ?>;
+	len = ufne.elements.length;
+	for(i = 0 ; i < len ; i++) {
+		if (ufne.elements[i].name=='urls[]') {
+			ufne.elements[i].checked=val;
+		}
+	}
+}
+function invertCheck() {
+	ufne=document.<?php echo $uploadUrlFormName; ?>;
+	len = ufne.elements.length;
+	for(i = 0 ; i < len ; i++) {
+		if (ufne.elements[i].name=='urls[]') {
+			ufne.elements[i].checked = !(ufne.elements[i].checked);
+		}
+	}
+}
+// -->
+</script>
 </span>
-<p class="popup">
-<?php 
-	echo insertFormJSLinks(); 
-?>
-</p>
+<p><span class="popup">
+<a href="javascript:setCheck(1)"><?php echo _("Check All") ?></a>
+-
+<a href="javascript:setCheck(0)"><?php echo _("Clear All") ?></a>
+-
+<a href="javascript:invertCheck()"><?php echo _("Invert Selection") ?></a>
+</span></p>
 
-<table>
-<tr>
-	<td class="popup">
+<table><tr><td class="popup">
 <?php echo makeFormIntro("save_photos.php", 
-		array("name" => 'uploadurl_form',
-			"method" => "POST")); 
-
+		array("name" => $uploadUrlFormName, 
+			"method" => "POST")); ?>
+<?php
 	/* Allow user to select which files to grab - only show url right now ( no image previews ) */
 	sort($image_tags);
 	foreach ( $image_tags as $image_src) {
-		print "\t<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src<br />\n";
+		print "<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src<br />\n";
 	}
 ?>
-	</td>
-</tr>
-</table>
+</td></tr></table>
 
 <?php /* REVISIT - it'd be nice to have these functions get shoved
   into util.php at some time - maybe added functionality to the makeFormIntro? */ ?>
 
-<p class="popup">
-<?php 
-	echo insertFormJSLinks(); 
-?>
-</p>
+<p><span class="popup">
+<a href="javascript:setCheck(1)"><?php echo _("Check All") ?></a>
+-
+<a href="javascript:setCheck(0)"><?php echo _("Clear All") ?></a>
+-
+<a href="javascript:invertCheck()"><?php echo _("Invert Selection") ?></a>
+</span></p>
+
 <p>
 <input type="hidden" name="setCaption" value="<?php echo $setCaption ?>">
-<input type="button" value="<?php echo _("Add Files") ?>" onClick="parent.opener.showProgress(); document.uploadurl_form.submit()">
+<input type="button" value="<?php echo _("Add Files") ?>" onClick="opener.showProgress(); document.uploadurl_form.submit()">
 </p>
 
 </form>

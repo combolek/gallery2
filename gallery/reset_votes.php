@@ -1,7 +1,7 @@
 <?php
 /*
-   $Id$
-
+ *  $Id$
+ *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2004 Bharat Mediratta
  *

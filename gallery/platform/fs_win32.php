@@ -170,11 +170,11 @@ function fs_exec($cmd, &$results, &$status, $debugfile) {
 }
 
 function fs_tempdir() {
-	return export_filename($gallery->app->tmpDir); 
+	return export_filename(getenv("TEMP"));
 }
 
 function fs_is_executable($filename) {
-	return eregi(".(exe|com|vbs)$", $filename);
+	return eregi(".(exe|com)$", $filename);
 }
 
 function debug($msg) {

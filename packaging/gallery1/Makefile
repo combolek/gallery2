@@ -1,6 +1,6 @@
 # $Id$
 
-BRANCH = BRANCH_1_4_2
+BRANCH = HEAD
 TARDIR = tardir
 CVS = cvs -z3 -d ${CVSROOT}
 VERSION_PHP = ${TARDIR}/gallery/Version.php

@@ -1,6 +1,6 @@
 # $Id$
 #
-# Version: 1_4_3-cvs
+# Version: 1_4_2-RC2
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2004 Bharat Mediratta
@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.4.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-02-11 14:03+0100\n"
+"POT-Creation-Date: 2004-01-15 17:02+0100\n"
 "PO-Revision-Date: 2003-09-09 13:21+0100\n"
 "Last-Translator: Gunnlaugur Þór Briem <gthb@hi.is>\n"
 "Language-Team:  <>\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../errors/configmode.php:7 ../errors/reconfigure.php:7
-#: ../errors/unconfigured.php:7 ../setup/index.php:82
+#: ../errors/unconfigured.php:7 ../setup/index.php:83
 msgid "Security violation"
 msgstr "Öryggisbrot"
 
@@ -112,7 +112,7 @@ msgstr "Setja verður upp Gallery áður en þú getur notað það. Fyrst þarftu að set
 msgid "Then start the %sConfiguration Wizard%s."
 msgstr "Ræstu síðan %sUppsetningarferilinn%s."
 
-#: ../setup/check.inc:6 ../setup/confirm.inc:6 ../setup/constants.inc:10
+#: ../setup/check.inc:6 ../setup/confirm.inc:6 ../setup/constants.inc:7
 #: ../setup/defaults.inc:7
 #, php-format
 msgid "Gallery Configuration Wizard: Step %d"
@@ -153,7 +153,7 @@ msgid "Serious Warning"
 msgstr "Alvarleg aðvörun"
 
 #: ../setup/check.inc:61 ../setup/check.inc:96 ../setup/check_mail.php:55
-#: ../setup/config_data.inc:831 ../setup/config_data.inc:837
+#: ../setup/config_data.inc:808 ../setup/config_data.inc:814
 msgid "Warning"
 msgstr "Aðvörun"
 
@@ -181,7 +181,7 @@ msgstr "Aðvaranir voru gefnar um uppsetningu þína, en það er venjulega í lagi.  
 msgid "Your installation passed with flying colors!  Go go go!"
 msgstr "Uppsetning heppnaðist glimrandi! Áfram nú!"
 
-#: ../setup/check.inc:140 ../setup/constants.inc:20 ../setup/constants.inc:126
+#: ../setup/check.inc:140 ../setup/constants.inc:17 ../setup/constants.inc:125
 #: ../setup/defaults.inc:19 ../setup/defaults.inc:98
 msgid "Next Page"
 msgstr "Næsta Síða"
@@ -214,7 +214,7 @@ msgid "It seems that you did not configure your GALLERY. Please run and finish t
 msgstr "Þú virðist ekki hafa sett upp Gallery.  Vinsamlegast keyrðu og kláraðu uppsetningarferilinn."
 
 #: ../setup/check_imagemagick.php:55 ../setup/check_netpbm.php:54
-#: ../setup/functions.inc:1161
+#: ../setup/functions.inc:1138
 msgid "OK"
 msgstr "Í lagi"
 
@@ -663,1033 +663,1002 @@ msgid "A list of URLs that contain mirrors of your albums directory.  Specify on
 msgstr "Listi af vefslóðum sem spegla albúmamöppuna þína.  Gefðu upp eina vefslóð í hverri línu, og hafðu þær áreiðanlegustu efst.  T.d. %s"
 
 #: ../setup/config_data.inc:241
-#, fuzzy
-msgid "Embedded Gallery"
-msgstr "Opna Gallery"
-
-#: ../setup/config_data.inc:242
-msgid "Use this section to set options to configure gallery to be embedded in another web application."
-msgstr ""
-
-#: ../setup/config_data.inc:245
-#, fuzzy
-msgid "Embed Gallery"
-msgstr "Myndasafn"
-
-#: ../setup/config_data.inc:246
-#, php-format
-msgid "If you would like to run %s in another web application (such as *Nuke, phpBB2 or GeekLog) you have to choose the environment here."
-msgstr ""
-
-#: ../setup/config_data.inc:247
-msgid "Standalone Gallery"
-msgstr ""
-
-#: ../setup/config_data.inc:256
-msgid "GeekLog Dir"
-msgstr ""
-
-#: ../setup/config_data.inc:258
-msgid "If you choosed Geeklog above, please enter the location of the GeekLog public_html."
-msgstr ""
-
-#: ../setup/config_data.inc:265
 msgid "Toolkits / image processing"
 msgstr "Hjálparforrit / myndmeðhöndlun"
 
-#: ../setup/config_data.inc:268
+#: ../setup/config_data.inc:244
 msgid "Graphics suite to use"
 msgstr "Myndmeðhöndlunarpakki sem nota skal"
 
-#: ../setup/config_data.inc:269
+#: ../setup/config_data.inc:245
 msgid "This setting tells Gallery which set of graphics tools you prefer it to use.  If Gallery says both are okay (on the first page) then this is simply user preference.  Otherwise go with the one that Gallery was able to find without error."
 msgstr "Þessi stilling segir Gallery hvaða pakka af myndmeðhöndlunarforritum þú vilt að það noti.  Ef Gallery segir að bæði séu í lagi (á fyrstu síðunni), þá er þetta bara háð því hvað notandanum líkar betur.  Annars skal velja það sem Gallery gat fundið án vandræða."
 
-#: ../setup/config_data.inc:275
+#: ../setup/config_data.inc:251
 msgid "Path to NetPBM"
 msgstr "Skráaslóð á NetPBM"
 
-#: ../setup/config_data.inc:276
+#: ../setup/config_data.inc:252
 #, php-format
 msgid "The path to the directory containing NetPBM on your system.  If you downloaded NetPBM from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"
 msgstr "Skráaslóðin á möppuna sem inniheldur NetPBM á kerfinu þínu.  Ef þú náðir í NetPBM frá Gallery download-síðunni, gleymdu þá ekki að gera skrárnar keyranlegar. T.d. %s eða %s eða %s"
 
-#: ../setup/config_data.inc:282
+#: ../setup/config_data.inc:258
 msgid "I can't find NetPBM at the location you provided."
 msgstr "Finn ekki NetPBM á þeirri skráaslóð sem gefin var upp."
 
-#: ../setup/config_data.inc:292
+#: ../setup/config_data.inc:268
 msgid "PNM to JPEG converter"
 msgstr "PNM-til-JPEG breytir"
 
-#: ../setup/config_data.inc:293
+#: ../setup/config_data.inc:269
 msgid "This value is only relevant if you use NetPBM.  NetPBM uses a tool to encode its internal image format into JPEG.  This tool is called either <i>ppmtojpeg</i> or <i>pnmtojpeg</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."
 msgstr "Þetta gildi skiptir aðeins máli ef þú notar NetPBM.  NetPBM notar hjálparforrit til að umbreyta innra myndsniði sínu yfir í JPEG.  Þetta hjálparforrit heitir ýmist <i>ppmtojpeg</i> eða <i>pnmtojpeg</i> eftir því hvaða útgáfu af NetPBM þú hefur sett up.  Gáðu í NetPBM-möppuna þína til að sjá hvort forritið þú ert með, og tilgreindu það hér.  Ef þú ert ekki viss, giskaðu þá bara og við reynum að staðfesta það fyrir þig."
 
-#: ../setup/config_data.inc:299
+#: ../setup/config_data.inc:275
 msgid "Path to ImageMagick"
 msgstr "Skráaslóð á ImageMagick"
 
-#: ../setup/config_data.inc:300
+#: ../setup/config_data.inc:276
 msgid "The path to the directory containing ImageMagick on your system."
 msgstr "Skráaslóðin á möppuna sem inniheldur ImageMagick á kerfinu þínu."
 
-#: ../setup/config_data.inc:303
+#: ../setup/config_data.inc:279
 msgid "I can't find ImageMagick at the location you provided."
 msgstr "Ég finn ekki ImageMagick á staðnum sem þú tilgreindir."
 
-#: ../setup/config_data.inc:312
+#: ../setup/config_data.inc:288
 msgid "Auto-rotate images"
 msgstr "Snúa myndum sjálfvirkt"
 
-#: ../setup/config_data.inc:313
+#: ../setup/config_data.inc:289
 msgid "Selecting this option has Gallery automatically attempt to rotate images on upload, based on the orientation information that is stored in JPEG EXIF data by some newer digital cameras.  Requires Jhead EXIF parser v.1.9 or greater (see below)."
 msgstr "Ef þetta er valið reynir Gallery að snúa myndum sjálfkrafa þegar þær eru settar inn, eftir upplýsingum um hvernig myndavélin sneri, sem sumar nýrri stafrænar myndavélar geyma í JPEG-EXIF-gögnunum.  Þarfnast Jhead EXIF-forritsins, útgáfu 1.9 eða hærri (sjá hér á eftir)."
 
-#: ../setup/config_data.inc:314 ../setup/config_data.inc:333
-#: ../setup/config_data.inc:346 ../setup/config_data.inc:359
-#: ../setup/config_data.inc:417 ../setup/config_data.inc:475
-#: ../setup/config_data.inc:517 ../setup/config_data.inc:569
-#: ../setup/config_data.inc:576 ../setup/config_data.inc:582
-#: ../setup/config_data.inc:630 ../setup/config_data.inc:660
-#: ../setup/config_data.inc:666 ../setup/config_data.inc:667
-#: ../setup/config_data.inc:695 ../setup/config_data.inc:701
-#: ../setup/config_data.inc:845 ../setup/config_data.inc:851
-#: ../setup/config_data.inc:858 ../setup/config_data.inc:864
-#: ../setup/config_data.inc:910 ../setup/config_data.inc:919
-#: ../setup/config_data.inc:933 ../setup/config_data.inc:943
-#: ../setup/config_data.inc:949 ../setup/config_data.inc:955
-#: ../setup/config_data.inc:1019 ../setup/config_data.inc:1026
-#: ../setup/config_data.inc:1073 ../setup/config_data.inc:1074
-#: ../setup/config_data.inc:1080
+#: ../setup/config_data.inc:290 ../setup/config_data.inc:309
+#: ../setup/config_data.inc:322 ../setup/config_data.inc:335
+#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
+#: ../setup/config_data.inc:493 ../setup/config_data.inc:545
+#: ../setup/config_data.inc:552 ../setup/config_data.inc:558
+#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
+#: ../setup/config_data.inc:642 ../setup/config_data.inc:643
+#: ../setup/config_data.inc:672 ../setup/config_data.inc:678
+#: ../setup/config_data.inc:822 ../setup/config_data.inc:828
+#: ../setup/config_data.inc:835 ../setup/config_data.inc:841
+#: ../setup/config_data.inc:887 ../setup/config_data.inc:896
+#: ../setup/config_data.inc:910 ../setup/config_data.inc:920
+#: ../setup/config_data.inc:926 ../setup/config_data.inc:932
+#: ../setup/config_data.inc:996 ../setup/config_data.inc:1003
+#: ../setup/config_data.inc:1050 ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1057
 msgid "yes"
 msgstr "já"
 
-#: ../setup/config_data.inc:314 ../setup/config_data.inc:333
-#: ../setup/config_data.inc:346 ../setup/config_data.inc:359
-#: ../setup/config_data.inc:417 ../setup/config_data.inc:475
-#: ../setup/config_data.inc:516 ../setup/config_data.inc:517
-#: ../setup/config_data.inc:569 ../setup/config_data.inc:576
-#: ../setup/config_data.inc:582 ../setup/config_data.inc:629
-#: ../setup/config_data.inc:630 ../setup/config_data.inc:660
-#: ../setup/config_data.inc:667 ../setup/config_data.inc:695
-#: ../setup/config_data.inc:701 ../setup/config_data.inc:845
-#: ../setup/config_data.inc:851 ../setup/config_data.inc:858
-#: ../setup/config_data.inc:864 ../setup/config_data.inc:910
-#: ../setup/config_data.inc:919 ../setup/config_data.inc:933
-#: ../setup/config_data.inc:943 ../setup/config_data.inc:949
-#: ../setup/config_data.inc:955 ../setup/config_data.inc:1018
-#: ../setup/config_data.inc:1019 ../setup/config_data.inc:1074
-#: ../setup/config_data.inc:1079 ../setup/config_data.inc:1080
+#: ../setup/config_data.inc:290 ../setup/config_data.inc:309
+#: ../setup/config_data.inc:322 ../setup/config_data.inc:335
+#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
+#: ../setup/config_data.inc:492 ../setup/config_data.inc:493
+#: ../setup/config_data.inc:545 ../setup/config_data.inc:552
+#: ../setup/config_data.inc:558 ../setup/config_data.inc:605
+#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
+#: ../setup/config_data.inc:643 ../setup/config_data.inc:672
+#: ../setup/config_data.inc:678 ../setup/config_data.inc:822
+#: ../setup/config_data.inc:828 ../setup/config_data.inc:835
+#: ../setup/config_data.inc:841 ../setup/config_data.inc:887
+#: ../setup/config_data.inc:896 ../setup/config_data.inc:910
+#: ../setup/config_data.inc:920 ../setup/config_data.inc:926
+#: ../setup/config_data.inc:932 ../setup/config_data.inc:995
+#: ../setup/config_data.inc:996 ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1056 ../setup/config_data.inc:1057
 msgid "no"
 msgstr "nei"
 
-#: ../setup/config_data.inc:319 ../setup/config_data.inc:415
-#: ../setup/config_data.inc:480 ../setup/config_data.inc:490
-#: ../setup/functions.inc:814 ../setup/functions.inc:887
+#: ../setup/config_data.inc:295 ../setup/config_data.inc:391
+#: ../setup/config_data.inc:456 ../setup/config_data.inc:466
+#: ../setup/functions.inc:807 ../setup/functions.inc:880
 msgid "Advanced"
 msgstr "Fyrir lengra komna"
 
-#: ../setup/config_data.inc:319
+#: ../setup/config_data.inc:295
 msgid "JPEG Quality"
 msgstr "Gæði JPEG-þjöppunar"
 
-#: ../setup/config_data.inc:320
+#: ../setup/config_data.inc:296
 msgid "The JPEG file format trades off size versus quality.  Gallery can control the quality of the JPEGs that it produces when you resize, rotate or make thumbnails from JPEG images.  Higher quality images are larger in size than lower quality images.  However, in many cases there's a point at which raising the quality increases the size of the files without noticeably affecting the appearance of the image.  Setting this value to &quot;100&quot; is not recommended. If you notice that your thumbnails and resized images are larger than the originals and you don't like this, you can try lowering this value.  <b>Note</b> that changing this value will only affect images changed in the <i>future</i>."
 msgstr "JPEG-skráasniðið gerir fórnarskipti (tradeoff) á milli skráarstærðar og myndgæða.  Gallery getur stýrt gæðastuðli JPEG-þjöppunarinnar í skrám sem það býr til þegar JPEG-myndir eru stækkaðar/smækkaðar, þeim snúið eða smámyndir búnar til.  Hins vegar er oft tilgangslaust að auka þennan gæðastuðul umfram eitthvert mark, því að það stækkar aðeins skrárnar án þess að hafa nein sjáanleg áhrif á gæði myndarinnar.  Ekki er mælt með því að setja þetta gildi á &quot;100&quot;.  Ef þú verður var/vör við að smámyndir þínar og smækkaðar myndir séu stærri (í bætum talið) en frummyndirnar og þér fellur það ekki, þá geturðu prófað að lækka þetta gildi.  <b>Ath.</b> að breytingar á þessu gildi hafa aðeins áhrif á myndir sem Gallery býr til eða breytir <i>framvegis</i>."
 
-#: ../setup/config_data.inc:328
+#: ../setup/config_data.inc:304
 msgid "Main Gallery page"
 msgstr "Forsíða myndasafns"
 
-#: ../setup/config_data.inc:331
+#: ../setup/config_data.inc:307
 msgid "Show the album tree"
 msgstr "Sýna albúm í tré formi"
 
-#: ../setup/config_data.inc:332
+#: ../setup/config_data.inc:308
 msgid "If you turn this option on, you'll see a complete list of all sub-albums when you're browsing the top level of your Gallery.  This will make navigating to a specific sub album much easier (although it can severely clutter the appearance of the top Gallery page)."
 msgstr "Ef þú virkjar þessa stillingu, þá sést listi af öllum undiralbúmum þegar efsta lag myndasafnsins er skoðað.  Þetta gerir það mun auðveldara að vafra á tiltekið undiralbúm (en það getur gert forsíðu myndasafnsins verulega sóðalega)."
 
-#: ../setup/config_data.inc:337
+#: ../setup/config_data.inc:313
 msgid "Highlight size"
 msgstr "Stærð forsíðumyndar albúma"
 
-#: ../setup/config_data.inc:338
+#: ../setup/config_data.inc:314
 msgid "The target size (in pixels) of thumbnails shown in the Gallery page (highlight images)."
 msgstr "Markstærð (í mynddílum, pixels) smámynda sem sýndar eru á forsíðu myndasafnsins (forsíðumynda)"
 
-#: ../setup/config_data.inc:344
+#: ../setup/config_data.inc:320
 msgid "Show Owner"
 msgstr "Sýna eiganda"
 
-#: ../setup/config_data.inc:345
+#: ../setup/config_data.inc:321
 msgid "Show album owner's name next to each album?"
 msgstr "Sýna eiganda hvers albúms við hlið albúmsins?"
 
-#: ../setup/config_data.inc:350
+#: ../setup/config_data.inc:326
 msgid "Albums per page"
 msgstr "Albúm á síðu"
 
-#: ../setup/config_data.inc:351
+#: ../setup/config_data.inc:327
 msgid "How many albums should be displayed per Gallery page?"
 msgstr "Hversu mörg albúm á að sýna á hverri síðu myndasafnsins?"
 
-#: ../setup/config_data.inc:357
+#: ../setup/config_data.inc:333
 msgid "Search Engine"
 msgstr "Leitarvél"
 
-#: ../setup/config_data.inc:358
+#: ../setup/config_data.inc:334
 msgid "Display search engine on main Gallery page?"
 msgstr "Birta leitarvél á forsíðu myndasafnsins?"
 
-#: ../setup/config_data.inc:363
+#: ../setup/config_data.inc:339
 msgid "Skin Name"
 msgstr "Nafn útlitspakka"
 
-#: ../setup/config_data.inc:364
+#: ../setup/config_data.inc:340
 msgid "Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4."
 msgstr "Veldu útlitspakka (&quot;skin&quot;) til að nota á myndasafnið.  Þú getur nú valið úr allmörgum útlitspökkum sem ráða útliti sérhverrar síðu í myndasafninu.  Þú getur skemmt þér við að gera tilraunir með þá útlitspakka sem til eru.  Veldu &quot;Ekkert&quot; til að nota útlitið úr útgáfu 1.4."
 
-#: ../setup/config_data.inc:370
+#: ../setup/config_data.inc:346
 msgid "On the main page, the image representing each album has a frame arount it.  The following styles are available:"
 msgstr "Á forsíðunni birtist rammi utan um forsíðumynd hvers albúms.  Eftirfarandi rammagerðir eru til:"
 
-#: ../setup/config_data.inc:378
+#: ../setup/config_data.inc:354
 msgid "Optional tools"
 msgstr "Önnur tæki"
 
-#: ../setup/config_data.inc:382
+#: ../setup/config_data.inc:358
 msgid "The filesystem path to the <b>zipinfo</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "Skráaslóðin á <b>zipinfo</b>-forritið.  Þetta er ekki nauðsynlegt, svo að ef þú ert ekki með það, hafðu þá ekki of miklar áhyggjur af því."
 
-#: ../setup/config_data.inc:393
+#: ../setup/config_data.inc:369
 msgid "The filesystem path to the <b>unzip</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "Skráaslóðin á <b>unzip</b>-forritið.  Þetta er ekki nauðsynlegt, svo að ef þú ert ekki með það, hafðu þá ekki of miklar áhyggjur af því."
 
-#: ../setup/config_data.inc:404
+#: ../setup/config_data.inc:380
 #, fuzzy, php-format
 msgid "The filesystem path to the <b>jhead</b> EXIF parser.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "Skráaslóðin á <b>jhead</b>-forritið fyrir EXIF-lestur.  Þetta er ekki nauðsynlegt, svo að ef þú ert ekki með það, hafðu þá ekki of miklar áhyggjur af því."
 
-#: ../setup/config_data.inc:415
+#: ../setup/config_data.inc:391
 msgid "Cache EXIF data"
 msgstr "Flýtivista (cache) EXIF-gögn"
 
-#: ../setup/config_data.inc:416
+#: ../setup/config_data.inc:392
 msgid "The EXIF data extracted from JPEG files can be cached after it is read the first time.  The tradeoff is that if you cache this data it's possible for your album data files to get quite large which may slow down viewing your albums.  But, if you don't cache this data then it needs to be retrieved every time any user looks at the properties of a photo which can also be slow."
 msgstr "EXIF-gögnin sem lesin eru úr JPEG-skrám er hægt að flýtivista eftir að skráin er fyrst lesin.  Fórnarskiptin eru þau að ef þessi gögn eru flýtivistuð geta albúmaskrárnar orðið allstórar, og það getur hægt á birtingu albúmanna.  En, ef þú flýtivistar ekki þessi gögn, þá þarf að lesa það í hvert sinn sem notandi skoðar nánari upplýsingar um einhverja mynd; það getur þá líka orðið hægvirkt."
 
-#: ../setup/config_data.inc:422
+#: ../setup/config_data.inc:398
 #, php-format
 msgid "The filesystem path to the <b>jpegtran</b> utility.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "Skráaslóðin á <b>jpegtran</b>-hjálparforritið.  Þetta er ekki nauðsynlegt, svo að ef þú ert ekki með það, hafðu þá ekki of miklar áhyggjur af því.  T.d. %s eða %s"
 
-#: ../setup/config_data.inc:441
+#: ../setup/config_data.inc:417
 msgid "Languages and locales"
 msgstr "Tungumál og staðfærslur"
 
-#: ../setup/config_data.inc:444
+#: ../setup/config_data.inc:420
 msgid "Default language"
 msgstr "Sjálfvalið tungumál"
 
-#: ../setup/config_data.inc:446
+#: ../setup/config_data.inc:422
 #, php-format
 msgid "This is the language you will see as %s, and what users will see if no other preference is set."
 msgstr "Þetta er tungumálið sem birtist sem %s, og það sem notendur munu sjá ef ekki er hægt að ákvarða að þeir vilji eitthvert annað tungumál frekar."
 
-#: ../setup/config_data.inc:453
+#: ../setup/config_data.inc:429
 msgid "Multi language mode"
 msgstr "Tungumálahamur"
 
-#: ../setup/config_data.inc:454
+#: ../setup/config_data.inc:430
 msgid "Gallery has three multi language modes.  These affect the language that a user will see when visiting the site."
 msgstr "Gallery býður upp á þrjá mismunandi tungumálahami.  Þeir ákvarða það tungumál sem notandanum er birt þegar hann skoðar myndasafnið."
 
-#: ../setup/config_data.inc:457
+#: ../setup/config_data.inc:433
 msgid "Gallery is only displayed in one language"
 msgstr "Myndasafnið er aðeins birt á einu tungumál"
 
-#: ../setup/config_data.inc:458
+#: ../setup/config_data.inc:434
 msgid "Gallery is displayed in the language the browser sends"
 msgstr "Myndasafnið er birt á því tungumáli sem vafri notandans gefur upp"
 
-#: ../setup/config_data.inc:459
+#: ../setup/config_data.inc:435
 msgid "The User can choose the language via pulldown menu or flags."
 msgstr "Notandinn getur valið tungumálið úr lista eða með því að smella á þjóðfána."
 
-#: ../setup/config_data.inc:463
+#: ../setup/config_data.inc:439
 msgid "Available languages"
 msgstr "Tungumál í boði"
 
-#: ../setup/config_data.inc:466
+#: ../setup/config_data.inc:442
 msgid "These languages will be available as user choices in a pulldown menu or flags, if you have chosen language Mode 3, and will be available to registered users as their default language in Mode 2 or 3."
 msgstr "Þessi tungumál munu verða í boði fyrir notandann að velja úr lista eða með því að smella á þjóðfána, ef þú hefur valið tungumálaham 3, og skráðir notendur geta stillt þau sem sjálfvalin tungumál þeirra í tungumálaham 2 eða 3."
 
-#: ../setup/config_data.inc:472
+#: ../setup/config_data.inc:448
 msgid "Show flags?"
 msgstr "Sýna fána?"
 
-#: ../setup/config_data.inc:474
+#: ../setup/config_data.inc:450
 msgid "In Mode 3 you can choose to display flags instead of a small pulldown menu for the available languages."
 msgstr "Í tungumálaham 3 getur þú kosið að sýna þjóðfána í stað lítillar listavalmyndar."
 
-#: ../setup/config_data.inc:480
+#: ../setup/config_data.inc:456
 msgid "Format for date strings."
 msgstr "Framsetning dagsetninga."
 
-#: ../setup/config_data.inc:481 ../setup/config_data.inc:491
+#: ../setup/config_data.inc:457 ../setup/config_data.inc:467
 #, php-format
 msgid "This format string will be used to display %s in %s.  It is recommended to use %s which will change format depending on language choice.  However, if you wish to change this string, please look at the %sPHP documentation%s."
 msgstr "Þessi sniðstrengur (format string) verður notaður til að birta %s í %s.  Mælt er með því að nota %s, sem mun velja dagsetningarframsetningu eftir tungumáli.  En ef þú vilt breyta þessum streng, lestu þá %sPHP-skjölunina%s."
 
-#: ../setup/config_data.inc:482
+#: ../setup/config_data.inc:458
 msgid "date without time"
 msgstr "dagsetning án tíma dags"
 
-#: ../setup/config_data.inc:483 ../setup/config_data.inc:493
+#: ../setup/config_data.inc:459 ../setup/config_data.inc:469
 msgid "http://www.php.net/manual/en/function.strftime.php"
 msgstr "http://www.php.net/manual/en/function.strftime.php"
 
-#: ../setup/config_data.inc:484
+#: ../setup/config_data.inc:460
 #, php-format
 msgid "For example, %s will display date like this: %s."
 msgstr "Til dæmis mun %s birta dagsetninguna svona: %s."
 
-#: ../setup/config_data.inc:490
+#: ../setup/config_data.inc:466
 msgid "Format for date/time strings."
 msgstr "Framsetning dagsetninga ásamt tíma dags."
 
-#: ../setup/config_data.inc:492
+#: ../setup/config_data.inc:468
 msgid "date with time"
 msgstr "dagsetning ásamt tíma dags"
 
-#: ../setup/config_data.inc:494
+#: ../setup/config_data.inc:470
 #, php-format
 msgid "For example, %s will display date and time like this: %s."
 msgstr "Til dæmis mun %s birta dagsetningu ásamt tíma dags, svona: %s."
 
-#: ../setup/config_data.inc:508
+#: ../setup/config_data.inc:484
 msgid "Email and Registration"
 msgstr "Tölvupóstur og skráning notenda."
 
-#: ../setup/config_data.inc:509
+#: ../setup/config_data.inc:485
 #, php-format
 msgid "If you are having problems with email, please run the %s diagnostic."
 msgstr "Ef þú átt í vandræðum með tölvupóst, keyrðu þá vinsamlegast &quot;%s&quot;."
 
-#: ../setup/config_data.inc:510 ../setup/diagnostics.php:73
+#: ../setup/config_data.inc:486 ../setup/diagnostics.php:73
 msgid "Check Email"
 msgstr "Prófa tölvupóst"
 
-#: ../setup/config_data.inc:513
+#: ../setup/config_data.inc:489
 msgid "Enable email"
 msgstr "Virkja tölvupóst:"
 
-#: ../setup/config_data.inc:515
+#: ../setup/config_data.inc:491
 #, php-format
 msgid "Turns email on for the whole gallery.  If you set this to %s then none of the rest of this section will apply."
 msgstr "Virkjar tölvupóst fyrir allt myndasafnið.  Ef þú stillir þetta á %s, þá gildir ekkert af stillingunum sem eftir eru í þessum kafla."
 
-#: ../setup/config_data.inc:521
+#: ../setup/config_data.inc:497
 msgid "Admin email address"
 msgstr "Netfang stjórnanda myndasafnsins"
 
-#: ../setup/config_data.inc:522
+#: ../setup/config_data.inc:498
 msgid "Set this value to a valid working email address to receive email notices upon certain user actions and also so that users know whom to reach in case of problems. You may specify more than one address by separating them with commas."
 msgstr "Stilltu þetta gildi á gilt og virkandi tölvupóstfang til að vera látin(n) vita í tölvupósti þegar notendur gera tiltekna hluti í myndasafninu, og einnig til að notendur viti hvern á að hafa samband við ef eitthvað kemur upp á. Þú getur gefið upp fleiri en eitt tölvupóstfang með því að setja stafbil á milli þeirra."
 
-#: ../setup/config_data.inc:530
+#: ../setup/config_data.inc:506
 msgid "Sender email address"
 msgstr "Tölvupóstfang sendanda"
 
-#: ../setup/config_data.inc:531
+#: ../setup/config_data.inc:507
 msgid "Set this value to a valid working email address.  Emails that are automatically sent by Gallery will use this as a return address.  You should monitor this email address for bounce messages and replies from recipients."
 msgstr "Stilltu þetta gildi á gilt og virkandi tölvupóstfang.  Tölvupóstar sem Gallery sendir sjálfkrafa munu gefa þetta upp sem póstfang sendanda.  Þú ættir að fylgjast með pósti sem berst á þetta tölvupóstfang, til að sjá villusvarpósta og svör frá viðtakendum."
 
-#: ../setup/config_data.inc:539
+#: ../setup/config_data.inc:515
 msgid "Email subject prefix"
 msgstr "Forskeyti í efnislínu tölvupósta"
 
-#: ../setup/config_data.inc:540
+#: ../setup/config_data.inc:516
 msgid "All gallery emails will have this as the first part of their subject."
 msgstr "Öll tölvuskeyti sem Gallery sendir munu hafa þetta forskeyti fremst í efnislínunni (subject)."
 
-#: ../setup/config_data.inc:548
+#: ../setup/config_data.inc:524
 msgid "Welcome email message text"
 msgstr "Texti í ávarpspósti"
 
-#: ../setup/config_data.inc:549
+#: ../setup/config_data.inc:525
 msgid "This email will be sent when new accounts are created."
 msgstr "Þetta tölvuskeyti verður sent þegar nýir notendur eru skráðir."
 
-#: ../setup/config_data.inc:550
+#: ../setup/config_data.inc:526
 #, php-format
 msgid "%s, %s and %s will be replaced by the fullname, user name and password of the newly created user."
 msgstr "%s, %s og %s verður skipt út fyrir fullt nafn, notandanafn og lykilorð nýja notandans."
 
-#: ../setup/config_data.inc:554
+#: ../setup/config_data.inc:530
 #, php-format
 msgid "%s will be replaced by a link the new user can click on to create a new password"
 msgstr "%s verður skipt út fyrir tengil sem nýi notandinn getur smellt á til að búa til nýtt lykilorð"
 
-#: ../setup/config_data.inc:556
+#: ../setup/config_data.inc:532
 msgid "Leave this field blank to get the default message that can be translated into other languages.  The default message is:"
 msgstr "Skildu þetta svið eftir tómt til þess að fá sjálfvalinn texta sem hægt er að þýða í önnur tungumál.  Sjálfvaldi textinn er:"
 
-#: ../setup/config_data.inc:566
+#: ../setup/config_data.inc:542
 msgid "Allow visitors to self register."
 msgstr "Leyfa gestum að skrá sig sjálfir sem nýja notendur."
 
-#: ../setup/config_data.inc:567
+#: ../setup/config_data.inc:543
 msgid "Enabling this will allow visitors to your site to create their own login accounts."
 msgstr "Ef þetta er virkjað geta gestir þínir sjálfir búið til nýjar notendaskráningar fyrir sig."
 
-#: ../setup/config_data.inc:573
+#: ../setup/config_data.inc:549
 msgid "Self registered users can create albums."
 msgstr "Sjálfskráðir notendur geta búið til albúm."
 
-#: ../setup/config_data.inc:574
+#: ../setup/config_data.inc:550
 msgid "Enabling this will allow self registered users to create their own albums as soon as they register.  Not having this enabled means you will have to give them permission manually before they can create or alter any contents of the Gallery.  This setting is ignored if self-registration is disabled."
 msgstr "Ef þetta er virkjað geta sjálfskráðir notendur búið til sín eigin albúm um leið og þeir hafa skráð sig. Ef þetta er ekki virkjað þarft þú handvirkt að gefa þeim aðgangsheimildir til að þeir geti búið til eða breytt nokkru innihaldi myndasafnsins.  Þessi stilling skiptir engu máli ef sjálfskráning er ekki leyfð."
 
-#: ../setup/config_data.inc:579
+#: ../setup/config_data.inc:555
 msgid "Enable bulk account creation"
 msgstr "Virkja skráningu margra notenda í einu"
 
-#: ../setup/config_data.inc:580
+#: ../setup/config_data.inc:556
 msgid "This option allows your to create many new user accounts at one time by creating a file of new users."
 msgstr "Þessi valkostur gerir þér kleift að búa til marga nýja notendur í einu, með því að lista þá upp í skrá."
 
-#: ../setup/config_data.inc:586
+#: ../setup/config_data.inc:562
 msgid "Admin notification of email activity"
 msgstr "Láta umsjónarmann vita þegar tölvupóstur er sendur"
 
-#: ../setup/config_data.inc:587
+#: ../setup/config_data.inc:563
 msgid "You can keep a record of every email that is sent by Gallery."
 msgstr "Þú getur haldið skrá yfir allan tölvupóst sem Gallery sendir."
 
-#: ../setup/config_data.inc:589
+#: ../setup/config_data.inc:565
 msgid "Send summary email"
 msgstr "Senda yfirlitspóst"
 
-#: ../setup/config_data.inc:590
+#: ../setup/config_data.inc:566
 msgid "Log to a file"
 msgstr "Safna í skrá"
 
-#: ../setup/config_data.inc:591
+#: ../setup/config_data.inc:567
 msgid "Send duplicate email"
 msgstr "Senda afrit af pósti"
 
-#: ../setup/config_data.inc:597
+#: ../setup/config_data.inc:573
 msgid "Gallery wide slideshow"
 msgstr "Myndasýning fyrir allt myndasafnið"
 
-#: ../setup/config_data.inc:599
+#: ../setup/config_data.inc:575
 msgid "Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources."
 msgstr ""
 
-#: ../setup/config_data.inc:600 ../setup/config_data.inc:1052
+#: ../setup/config_data.inc:576 ../setup/config_data.inc:1029
 msgid "These settings do not apply to the low tech slideshow."
 msgstr ""
 
-#: ../setup/config_data.inc:603
+#: ../setup/config_data.inc:579
 msgid "Slideshow preferences"
 msgstr "Stillingar myndasýninga"
 
-#: ../setup/config_data.inc:605 ../setup/config_data.inc:613
-#: ../setup/config_data.inc:640 ../setup/config_data.inc:650
-#: ../setup/config_data.inc:1057 ../setup/config_data.inc:1065
+#: ../setup/config_data.inc:581 ../setup/config_data.inc:589
+#: ../setup/config_data.inc:616 ../setup/config_data.inc:626
+#: ../setup/config_data.inc:1034 ../setup/config_data.inc:1042
 msgid "Off"
 msgstr "Óvirkt"
 
-#: ../setup/config_data.inc:606 ../setup/config_data.inc:1058
+#: ../setup/config_data.inc:582 ../setup/config_data.inc:1035
 msgid "No slideshow link will appear."
 msgstr "Enginn myndasýningartengill birtist."
 
-#: ../setup/config_data.inc:607 ../setup/config_data.inc:614
-#: ../setup/config_data.inc:1059 ../setup/config_data.inc:1066
+#: ../setup/config_data.inc:583 ../setup/config_data.inc:590
+#: ../setup/config_data.inc:1036 ../setup/config_data.inc:1043
 msgid "Ordered"
 msgstr "Í röð"
 
-#: ../setup/config_data.inc:608 ../setup/config_data.inc:1060
+#: ../setup/config_data.inc:584 ../setup/config_data.inc:1037
 msgid "Images will display in the same order as they appear in the Gallery."
 msgstr "Myndir eru sýndar í sömu röð og þær birtast í myndasafninu."
 
-#: ../setup/config_data.inc:609 ../setup/config_data.inc:615
-#: ../setup/config_data.inc:1061 ../setup/config_data.inc:1067
+#: ../setup/config_data.inc:585 ../setup/config_data.inc:591
+#: ../setup/config_data.inc:1038 ../setup/config_data.inc:1044
 msgid "Random"
 msgstr "Í handahófsröð"
 
-#: ../setup/config_data.inc:610 ../setup/config_data.inc:1062
+#: ../setup/config_data.inc:586 ../setup/config_data.inc:1039
 msgid "Images will appear in a random order."
 msgstr "Myndir birtast í tilviljanakenndri röð."
 
-#: ../setup/config_data.inc:620 ../setup/config_data.inc:1084
+#: ../setup/config_data.inc:596 ../setup/config_data.inc:1061
 msgid "Slideshow length"
 msgstr "Lengd myndasýningar"
 
-#: ../setup/config_data.inc:621 ../setup/config_data.inc:1085
+#: ../setup/config_data.inc:597 ../setup/config_data.inc:1062
 msgid "Number of images to display in slideshow.  Set to 0 or blank to display all images.  Set to a number if slideshow is random and you want to display only a selection of the images."
 msgstr "Fjöldi mynda sem birta á í myndasýningu.  Stilltu þetta á 0 eða hafðu það tómt, til að birta allar myndir.  Stilltu á einhverja tölu ef myndasýningin er í handahófsröð og þú vilt birta aðeins hluta af myndunum."
 
-#: ../setup/config_data.inc:628 ../setup/config_data.inc:1078
+#: ../setup/config_data.inc:604 ../setup/config_data.inc:1055
 msgid "Allow slideshow to loop"
 msgstr "Leyfa myndasýningu að endurtaka sig"
 
-#: ../setup/config_data.inc:629
+#: ../setup/config_data.inc:605
 #, php-format
 msgid "This option will allow visitors to have your slideshows repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "Þessi valkostur leyfir gestum að láta myndasýninguna ganga þar til þeir loka glugganum eða fara á aðra síðu.  Stilltu þetta á %s ef þú vilt spara bandvídd."
 
-#: ../setup/config_data.inc:635
+#: ../setup/config_data.inc:611
 msgid "Comments"
 msgstr "Athugasemdir"
 
-#: ../setup/config_data.inc:638
+#: ../setup/config_data.inc:614
 msgid "Indicate if there are comments available"
 msgstr "Gefa til kynna hvort athugasemdir eru til staðar."
 
-#: ../setup/config_data.inc:641
+#: ../setup/config_data.inc:617
 msgid "No indication that an item has comments."
 msgstr "Ekki gefa til kynna að athugasemdir séu til fyrir mynd."
 
-#: ../setup/config_data.inc:642 ../setup/config_data.inc:651
+#: ../setup/config_data.inc:618 ../setup/config_data.inc:627
 msgid "Photos"
 msgstr "Ljósmyndir"
 
-#: ../setup/config_data.inc:643
+#: ../setup/config_data.inc:619
 msgid "Images that have comments will be marked."
 msgstr "Myndir með athugasemdum verða merktar til að gefa það til kynna."
 
-#: ../setup/config_data.inc:644 ../setup/config_data.inc:652
+#: ../setup/config_data.inc:620 ../setup/config_data.inc:628
 msgid "Albums"
 msgstr "Albúm"
 
-#: ../setup/config_data.inc:645
+#: ../setup/config_data.inc:621
 msgid "Albums and sub-albums that have comments will be marked."
 msgstr "Albúm og undiralbúm með athugasemdurm verða merkt til að gefa það til kynna."
 
-#: ../setup/config_data.inc:646 ../setup/config_data.inc:653
+#: ../setup/config_data.inc:622 ../setup/config_data.inc:629
 msgid "Both"
 msgstr "Hvort tveggja"
 
-#: ../setup/config_data.inc:647
+#: ../setup/config_data.inc:623
 msgid "Images and albums that have comments will be marked."
 msgstr "Myndir og albúm með athugasemdum verða merkt til að gefa það til kynna."
 
-#: ../setup/config_data.inc:658
+#: ../setup/config_data.inc:634
 msgid "Display date of last comment?"
 msgstr "Sýna dagsetningu síðustu athugasemdar?"
 
-#: ../setup/config_data.inc:659
+#: ../setup/config_data.inc:635
 #, php-format
 msgid "If an item has comments, display date of last comment, rather than a %s."
 msgstr "Ef mynd er með athugasemdir, sýna þá dagsetningu síðustu athugasemdar, frekar en %s."
 
-#: ../setup/config_data.inc:664
+#: ../setup/config_data.inc:640
 msgid "Anonymous comments from known users?"
 msgstr "Nafnlausar athugasemdir frá skráðum notendum?"
 
-#: ../setup/config_data.inc:665
+#: ../setup/config_data.inc:641
 #, php-format
 msgid "When logged in, comments will automatically use format described below, unless this is set to %s."
 msgstr ""
 
-#: ../setup/config_data.inc:671
+#: ../setup/config_data.inc:648
 msgid "Format for commenter names"
 msgstr ""
 
-#: ../setup/config_data.inc:672
+#: ../setup/config_data.inc:649
 msgid "Commenter names of logged in users can be displayed in a variety of different ways"
 msgstr ""
 
-#: ../setup/config_data.inc:679
+#: ../setup/config_data.inc:656
 msgid "Technical"
 msgstr "Tæknilegt"
 
-#: ../setup/config_data.inc:680
+#: ../setup/config_data.inc:657
 msgid "You usually don't need to change anything in this section."
 msgstr "Þú þarft venjulega ekki að breyta neinu í þessum kafla."
 
-#: ../setup/config_data.inc:684
+#: ../setup/config_data.inc:661
 msgid "Time Limit"
 msgstr "Tímamörk"
 
-#: ../setup/config_data.inc:685
+#: ../setup/config_data.inc:662
 msgid "The maximum amount of time in seconds any single operation should take.  If you find that you are getting the <b>Maximum execution time exceeded</b> error message, you can try making this a larger number.  Be warned that if you make this too large you <i>might</i> have a process that is stuck for a very long time without doing anything.  The default value is 30 which is pretty reasonable."
 msgstr "Hámarkstími í sekúndum sem hver einstök aðgerð má taka.  Ef þú verður var/vör við að þú fáir <b>Maximum execution time exceeded</b> villuboðin, þá geturðu reynt að gera þessa tölu stærri.  Hafðu í huga að ef þú gerir þetta of stórt <i>gætirðu</i> fengið ferli (process) sem er fast í mjög langan tíma án þess að gera neitt.  Sjálfvalið gildi er 30, sem er nokkuð sanngjarnt."
 
-#: ../setup/config_data.inc:693
+#: ../setup/config_data.inc:670
 msgid "Debug mode"
 msgstr "Aflúsunarhamur"
 
-#: ../setup/config_data.inc:694
+#: ../setup/config_data.inc:671
 msgid "Turn debug mode on so that you can diagnose problems?"
 msgstr "Virkja aflúsunarham svo að þú getir greint vandamál?"
 
-#: ../setup/config_data.inc:699
+#: ../setup/config_data.inc:676
 #, php-format
 msgid "Use %s"
 msgstr "Nota %s"
 
-#: ../setup/config_data.inc:700
+#: ../setup/config_data.inc:677
 msgid "Gallery uses a locking system called flock() for added protection against data corruption.  This is not supported on all platforms.  If you're seeing errors like <i>Could not acquire lock</i> then set this value to <i>no</i>."
 msgstr "Gallery notar læsikerfi sem kallast flock() til að forðast gagnaskemmdir.  Ekki öll stýrikerfi styðja þetta.  Ef þú færð villur á borð við <i>Could not acquire lock</i>, settu þá þetta gildi á <i>no</i>."
 
-#: ../setup/config_data.inc:704
+#: ../setup/config_data.inc:681
 msgid "Status code"
 msgstr "Ástandskóði"
 
-#: ../setup/config_data.inc:705
+#: ../setup/config_data.inc:682
 msgid "The status code Gallery expects to see after a successful <i>exec()</i> call.  Gallery will try to figure this out on its own so you probably won't need to change this value unless you have problems."
 msgstr "Ástandskóðinn sem Gallery væntir þess að sjá eftir <i>exec()</i>-kall sem tókst.  Gallery reynir að finna þetta út sjálft, svo að þú þarft sennilega ekki að breyta þessu gildi nema þú lendir í vandræðum."
 
-#: ../setup/config_data.inc:711
+#: ../setup/config_data.inc:688
 msgid "Session variable"
 msgstr "Setubreyta"
 
-#: ../setup/config_data.inc:712
+#: ../setup/config_data.inc:689
 msgid "This is the session variable used to contain all Gallery session information.  Change this if there is a conflict between Gallery and another PHP app on your website."
 msgstr "Þetta er setubreytan (&quot;session variable&quot;) sem inniheldur allar setuupplýsingar fyrir Gallery.  Breyttu þessu ef þetta rekst saman við annað PHP-forrit á vefsvæði þínu."
 
-#: ../setup/config_data.inc:761
+#: ../setup/config_data.inc:738
 msgid "Appearance"
 msgstr "Útlit"
 
-#: ../setup/config_data.inc:764
+#: ../setup/config_data.inc:741
 msgid "Border color"
 msgstr "Litur ramma"
 
-#: ../setup/config_data.inc:765
+#: ../setup/config_data.inc:742
 #, php-format
 msgid "Default color of image borders. You can learn about %scolors%s here."
 msgstr "Sjálfvalinn litur myndramma.  Þú getur lært um %sliti%s þarna."
 
-#: ../setup/config_data.inc:776
+#: ../setup/config_data.inc:753
 msgid "Border width"
 msgstr "Breidd ramma"
 
-#: ../setup/config_data.inc:777
+#: ../setup/config_data.inc:754
 msgid "Default width of image borders."
 msgstr "Sjálfvalin breidd myndramma."
 
-#: ../setup/config_data.inc:779 ../setup/config_data.inc:819
-#: ../setup/config_data.inc:833
+#: ../setup/config_data.inc:756 ../setup/config_data.inc:796
+#: ../setup/config_data.inc:810
 msgid "off"
 msgstr "óvirkt"
 
-#: ../setup/config_data.inc:782
+#: ../setup/config_data.inc:759
 msgid "Default Font"
 msgstr "Sjálfvalið letur"
 
-#: ../setup/config_data.inc:783
+#: ../setup/config_data.inc:760
 msgid "Default font face.  E.g. <i>arial</i> or <i>trebuchet</i>"
 msgstr "Sjálfgefin leturgerð. Td. <i>arial</i> eða <i>trebuchet</i>"
 
-#: ../setup/config_data.inc:790
+#: ../setup/config_data.inc:767
 msgid "Layout"
 msgstr "Útlit"
 
-#: ../setup/config_data.inc:793
+#: ../setup/config_data.inc:770
 msgid "Default Columns"
 msgstr "Fjöldi dálka"
 
-#: ../setup/config_data.inc:794
+#: ../setup/config_data.inc:771
 msgid "The default number of columns in an album."
 msgstr "Sjálfvalinn fjöldi dálka í albúmi."
 
-#: ../setup/config_data.inc:799
+#: ../setup/config_data.inc:776
 msgid "Default Rows"
 msgstr "Sjálfgefin fjöldi raða"
 
-#: ../setup/config_data.inc:800
+#: ../setup/config_data.inc:777
 msgid "The default number of rows in an album."
 msgstr "Sjálfgefinn fjöldi raða í albúmi"
 
-#: ../setup/config_data.inc:806
+#: ../setup/config_data.inc:783
 msgid "Image Processing and Display"
 msgstr "Myndvinnsla og birting"
 
-#: ../setup/config_data.inc:809
+#: ../setup/config_data.inc:786
 msgid "Thumbnail size"
 msgstr "Stærð smámynda"
 
-#: ../setup/config_data.inc:810
+#: ../setup/config_data.inc:787
 msgid "The default target size (in pixels) of album thumbnails."
 msgstr "Sjálfvalin óskastærð (í mynddílum, &quot;pixels&quot;) smámynda fyrir albúm."
 
-#: ../setup/config_data.inc:816
+#: ../setup/config_data.inc:793
 msgid "Resized image size"
 msgstr "Stærð smækkaðra mynda"
 
-#: ../setup/config_data.inc:817
+#: ../setup/config_data.inc:794
 msgid "When large images are added to an album, an intermediate version will automatically be generated at this size."
 msgstr "Þegar stórum myndum er bætt í albúm er sjálfkrafa búin til millistærðarmynd í þessari stærð."
 
-#: ../setup/config_data.inc:822
+#: ../setup/config_data.inc:799
 msgid "Resized JPEG/PNG images file size"
 msgstr "Skráarstærð smækkaðra JPEG/PNG-mynda"
 
-#: ../setup/config_data.inc:823
+#: ../setup/config_data.inc:800
 msgid "The default target size (in kilobytes) of resized JPEG/PNG images.  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections.  Set to 0 for no target size."
 msgstr "Sjálfvalin óskastærð (í kílóbætum) smækkaðra JPEG/PNG-mynda.  Að tiltaka gildi getur hægt á skráainnhleðslu, en mun hraða á síðubirtingum, sérstaklega fyrir fólk með hægvirka nettengingu.  Stilltu á 0 til að tiltaka ekki þessa óskastærð."
 
-#: ../setup/config_data.inc:830
+#: ../setup/config_data.inc:807
 msgid "Maximum image size"
 msgstr "Hámarksstærð mynda"
 
-#: ../setup/config_data.inc:831
+#: ../setup/config_data.inc:808
 msgid "You can optionally limit the dimensions your images on upload to Gallery."
 msgstr "Þú getur, ef þú vilt, takmarkað stærð mynda þinna þegar þú hleður þeim inn í Gallery."
 
-#: ../setup/config_data.inc:831
+#: ../setup/config_data.inc:808
 msgid "Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."
 msgstr "Ef þú virkjar þennan valkost hefur þú <b>enga frumútgáfu í fullri stærð</b> í myndasafninu, en getur sparað takmarkað diskpláss.  Gallery mun reyna að halda JPEG-athugasemdum og EXIF-gögnum í smækkuðu myndinni, en til þess þarf annaðhvort <b>ImageMagick</b> eða hið valfrjálsa <b>jhead</b>-forrit (sjá skref 2)."
 
-#: ../setup/config_data.inc:833
+#: ../setup/config_data.inc:810
 #, php-format
 msgid "%d (%d MPix)"
 msgstr "%d (%d MPix)"
 
-#: ../setup/config_data.inc:836
+#: ../setup/config_data.inc:813
 msgid "Maximum JPEG/PNG image file size"
 msgstr "Hámarksstærð myndskráa i kílóbætum"
 
-#: ../setup/config_data.inc:837
+#: ../setup/config_data.inc:814
 msgid "You can optionally limit the filesize of your JPEG/PNG images on upload to Gallery."
 msgstr "Þú getur kosið að setja þak á skráastærð JPEG/PNG-mynda þinna þegar þú hleður þeim inn í Gallery."
 
-#: ../setup/config_data.inc:837
+#: ../setup/config_data.inc:814
 msgid "Enabling this feature will leave you <b>without an original quality image</b> in your Gallery. Set the default target filesize (in kilobytes).  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections. Set to 0 if you don't want to restrict filesize."
 msgstr "Ef þú virkjar þennan valkost hefur þú <b>enga frumútgáfu í fullri stærð</b> í myndasafninu. Tilgreindu sjálfvöldu hámarksstærðina (í kílóbætum).  Að gefa gildi hér getur hægt á innhleðslu mynda, en mun hraða á síðubirtingu, sérstaklega fyrir fólk með hægvirka nettengingu.  Stilltu á 0 til að tiltaka ekki þessa hámarksstærð."
 
-#: ../setup/config_data.inc:843
+#: ../setup/config_data.inc:820
 msgid "Preserve Names"
 msgstr "Halda nöfnum óbreyttum"
 
-#: ../setup/config_data.inc:844
+#: ../setup/config_data.inc:821
 msgid "When uploading images to Gallery, should we preserve the original names?  If you select <i>no</i>, Gallery will assign a new name for each photo or movie that gets uploaded."
 msgstr "Á að viðhalda skráanöfnum mynda þegar þeim er hlaðið inn í Gallery? Ef þú velur <i>no</i> mun Gallery úthluta nýju nafni fyrir hverja ljósmynd eða kvikmynd sem hlaðið er inn."
 
-#: ../setup/config_data.inc:849
+#: ../setup/config_data.inc:826
 msgid "Add to beginning"
 msgstr "Bæta við í byrjun"
 
-#: ../setup/config_data.inc:850
+#: ../setup/config_data.inc:827
 msgid "New images added to beginning rather than end of albums."
 msgstr "Nýjum myndum bætt inn fremst í albúm í stað þess að bæta þeim við aftast."
 
-#: ../setup/config_data.inc:855
+#: ../setup/config_data.inc:832
 msgid "Fit-to-window"
 msgstr "Fylla-út-í-skjá"
 
-#: ../setup/config_data.inc:856
+#: ../setup/config_data.inc:833
 msgid "When viewing photos which don't have an intermediate version, Gallery can automatically resize the image to fit the viewer's browser window (using JavaScript).  This may not work in embedded environments such as Nuke."
 msgstr "Þegar myndir eru skoðaðar sem ekki er til smækkuð mynd fyrir getur Gallery sjálfkrafa smækkað myndina til að passa í vafraglugga notandans (með JavaScript). Vera má að þetta virki ekki í samþættum vefkerfum á borð við Nuke."
 
-#: ../setup/config_data.inc:861
+#: ../setup/config_data.inc:838
 msgid "Visitor size prefs"
 msgstr "Óskastærð skoðenda"
 
-#: ../setup/config_data.inc:862
+#: ../setup/config_data.inc:839
 msgid "Offer visitors the choice of always viewing the full sized version of an image instead of the intermediate size.  This setting only lasts for the visitor's session."
 msgstr "Bjóða gestum að velja hvort þeir sjá alltaf myndir í fullri stærð í stað smækkuðu stærðarinnar.  Slíkt val varir aðeins út setu (&quot;session&quot;) notandans"
 
-#: ../setup/config_data.inc:868
+#: ../setup/config_data.inc:845
 msgid "Options"
 msgstr "Val"
 
-#: ../setup/config_data.inc:871
+#: ../setup/config_data.inc:848
 msgid "Printing Services"
 msgstr "Prentþjónusta"
 
-#: ../setup/config_data.inc:872
+#: ../setup/config_data.inc:849
 msgid "Allow visitors to print photos directly from the album.  Fotokasten is a print service based in Germany so is good for the European market. EZ Prints, PhotoAccess and Shutterfly are based in the United States. All services will give a small donation to the Gallery project for every print you make. If you choose Shutterfly's &quot;with donation&quot; option, Gallery will charge an extra 2 cents (US) for every photo printed, and 1.8 cents of that will get donated back to the Gallery project. EZ Prints, PhotoAccess and Fotokasten do not charge extra for the Gallery donation. Using these services is a great way for you to help support this free software."
 msgstr "Leyfa notendum að prenta myndir beint úr albúminu.  Fotokasten er prentþjónusta staðsett í Þýskalandi, svo að hún hentar evrópska markaðnum. EZ Prints, PhotoAccess og Shutterfly eru staðsettar í Bandaríkjunum.  Allir þessir þjónustuaðilar gefa Gallery-verkefninu dálítið fé fyrir hverja útprentun sem þú framkvæmir.  Ef þú velur Shutterfly &quot;með peningagjöf&quot;-valkostinn, þá rukkar Gallery 2 cent í viðbót fyrir hverja mynd sem þú prentar út, og 1.8 cent af þessu verður gefið aftur til Gallery-verkefnisins. EZ Prints, PhotoAccess og Fotokasten rukka ekki aukalega fyrir Gallery-gjöfina. Að nota þessa þjónustuaðila er góð leið fyrir þig að hjélpa til við að styðja þennan frjálsa hugbúnað."
 
-#: ../setup/config_data.inc:882
+#: ../setup/config_data.inc:859
 msgid "with donation"
 msgstr "%s með peningagjöf"
 
-#: ../setup/config_data.inc:883
+#: ../setup/config_data.inc:860
 msgid "without donation"
 msgstr "%s án peningagjafar"
 
-#: ../setup/config_data.inc:907
+#: ../setup/config_data.inc:884
 msgid "Gallery Link"
 msgstr "Tengill myndasafns"
 
-#: ../setup/config_data.inc:908
+#: ../setup/config_data.inc:885
 msgid "Display the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."
 msgstr "Birta tengil á forsíðu myndasafnsins innan hvers albúms?  Ef þú slekkur á þessum valkosti, þá getur notandinn ekki vafrað út úr albúminu.  Þetta er aðeins nytsamlegt þegar þú vilt fella albúm inn í vefkerfi og ekki leyfa notendum (auðveldlega) að skoða hin albúmin í myndasafninu."
 
-#: ../setup/config_data.inc:914
+#: ../setup/config_data.inc:891
 msgid "Data displayed"
 msgstr "Gögn birt"
 
-#: ../setup/config_data.inc:917
+#: ../setup/config_data.inc:894
 msgid "Click counts"
 msgstr "Telja smelli"
 
-#: ../setup/config_data.inc:918
+#: ../setup/config_data.inc:895
 msgid "Display click counts within Albums?"
 msgstr "Sýna teljara innan hvers albúms?"
 
-#: ../setup/config_data.inc:923
+#: ../setup/config_data.inc:900
 msgid "Custom Fields"
 msgstr "Sérsniðnir reitir"
 
-#: ../setup/config_data.inc:925
+#: ../setup/config_data.inc:902
 msgid "Custom fields that are available to describe each image.  They should be separated by commas.  E.g. <i>Description, Location, Film Type</i>"
 msgstr "Sérsniðnir reitir sem eru til staðar til að lýsa hverri mynd. Þá ætti að aðskilja með kommum.  T.d. <i>Description, Location, Film Type</i>"
 
-#: ../setup/config_data.inc:931
+#: ../setup/config_data.inc:908
 msgid "Display clickable image dimensions"
 msgstr "Birta veljanlega myndastærð"
 
-#: ../setup/config_data.inc:932
+#: ../setup/config_data.inc:909
 msgid "Display clickable image dimensions beneath the thumbnails.  Will show dimensions for resized images (if any) first, then for the full image, depending on album settings user permissions.  You may click on these instead of the thumbnail to either image."
 msgstr "Birta veljanlega myndastærð fyrir neðan hverja smámynd.  Fyrst verður sýnd breidd og hæð smækkaðra mynda (ef einhverjar eru), síðan myndarinnar sjálfrar, eftir stillingum albúms og notendastillingum.  Þú getur smellt á þessa myndastærð í stað smámyndarinnar fyrir hvora mynd sem er."
 
-#: ../setup/config_data.inc:938
+#: ../setup/config_data.inc:915
 msgid "Item Owner"
 msgstr "Eigandi"
 
-#: ../setup/config_data.inc:941
+#: ../setup/config_data.inc:918
 msgid "Photo owner modification"
 msgstr "Breyting af hálfu eiganda myndar"
 
-#: ../setup/config_data.inc:942
+#: ../setup/config_data.inc:919
 msgid "Allow photo owners to edit and rotate/flip their own photos?"
 msgstr "Leyfa myndeigendum að breyta og snúa/spegla eigin myndum?"
 
-#: ../setup/config_data.inc:947
+#: ../setup/config_data.inc:924
 msgid "Photo owner deletion"
 msgstr "Eyðing af hálfu eiganda myndar"
 
-#: ../setup/config_data.inc:948
+#: ../setup/config_data.inc:925
 msgid "Allow photo owners to delete their own photos?"
 msgstr "Leyfa myndeigendum að eyða eigin myndum?"
 
-#: ../setup/config_data.inc:953
+#: ../setup/config_data.inc:930
 msgid "Photo owner display"
 msgstr "Birta eiganda myndar"
 
-#: ../setup/config_data.inc:954
+#: ../setup/config_data.inc:931
 msgid "Display the name of photo owners with the caption?"
 msgstr "Birta nafn myndeiganda með myndatextanum?"
 
-#: ../setup/config_data.inc:960
+#: ../setup/config_data.inc:937
 msgid "Polling configuration"
 msgstr "Uppsetning atkvæðagreiðslu"
 
-#: ../setup/config_data.inc:962
+#: ../setup/config_data.inc:939
 #, php-format
 msgid "It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."
 msgstr "Þetta gerir gestum þínum kleift að greiða atkvæði, eða gefa einkunnir, myndum í albúmi.  Þú stillir sjálfvalin stjórngildi atkvæðagreiðslu hér, sem munu gilda fyrir ný albúm, og fyrir öll albúm sem þegar eru til þegar þú uppfærir í útgáfu %s."
 
-#: ../setup/config_data.inc:965
+#: ../setup/config_data.inc:942
 msgid "In each album, voting can be switched off, restricted to logged in users or open to all visitors."
 msgstr "Í hverju albúmi getur atkvæðagreiðslan verið óvirk, takmörkuð við innskráða notendur, eða opin öllum gestum."
 
-#: ../setup/config_data.inc:967
+#: ../setup/config_data.inc:944
 #, php-format
 msgid "There are two sorts of polls: %s, which allows voters to chose their favourites as first, second, third etc., and %s, which allows voters to rate any or all of the images without restriction.  %s is like a film review where all the images can get (for example) 5 points, while %s is useful in scoring competitions."
 msgstr "Til eru tvær tegundir atkvæðagreiðslu: %s, þar sem kjósendur velja uppáhaldsmyndir sínar í fyrsta, annað, þriðja sæti, o.s.frv., og %s, þar sem kjósendur gefa einhverjum eða öllum myndanna einkunn eins og þeim sýnist.  %s er eins og kvikmyndagagnrýni þar sem allar myndirnar geta fengið (til dæmis) 5 stig, en %s er nytsamleg við að reikna út úrslit í keppni."
 
-#: ../setup/config_data.inc:968 ../setup/config_data.inc:971
-#: ../setup/config_data.inc:992 ../setup/config_data.inc:997
+#: ../setup/config_data.inc:945 ../setup/config_data.inc:948
+#: ../setup/config_data.inc:969 ../setup/config_data.inc:974
 msgid "Rank"
 msgstr "Staða"
 
-#: ../setup/config_data.inc:969 ../setup/config_data.inc:970
-#: ../setup/config_data.inc:994 ../setup/config_data.inc:998
+#: ../setup/config_data.inc:946 ../setup/config_data.inc:947
+#: ../setup/config_data.inc:971 ../setup/config_data.inc:975
 msgid "Critique"
 msgstr "Umsögn"
 
-#: ../setup/config_data.inc:974
+#: ../setup/config_data.inc:951
 msgid "Voter class"
 msgstr "Hverjir geta greitt atkvæði"
 
-#: ../setup/config_data.inc:975
+#: ../setup/config_data.inc:952
 msgid "Voting is available to:"
 msgstr "Eftirfarandi geta greitt atkvæði:"
 
-#: ../setup/config_data.inc:977 ../setup/config_data.inc:984
+#: ../setup/config_data.inc:954 ../setup/config_data.inc:961
 msgid "Nobody"
 msgstr "Enginn"
 
-#: ../setup/config_data.inc:978
+#: ../setup/config_data.inc:955
 msgid "Voting is off."
 msgstr "Slökkt er á atkvæðagreiðslu"
 
-#: ../setup/config_data.inc:979 ../setup/config_data.inc:985
+#: ../setup/config_data.inc:956 ../setup/config_data.inc:962
 msgid "Everybody"
 msgstr "Allir"
 
-#: ../setup/config_data.inc:980
+#: ../setup/config_data.inc:957
 msgid "Anyone can vote.  Votes are recorded against session ID."
 msgstr "Hver sem er getur greitt atkvæði.  Atkvæði eru tengd við setulykil (&quot;session ID&quot;)."
 
-#: ../setup/config_data.inc:981 ../setup/config_data.inc:986
+#: ../setup/config_data.inc:958 ../setup/config_data.inc:963
 msgid "Logged in"
 msgstr "Innskráðir"
 
-#: ../setup/config_data.inc:982
+#: ../setup/config_data.inc:959
 msgid "Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices."
 msgstr "Skráðir notendur geta kosið.  Atkvæði eru tengd við notendur, og kjósendur geta komið aftur og breytt atkvæðum sínum."
 
-#: ../setup/config_data.inc:989
+#: ../setup/config_data.inc:966
 msgid "Poll type"
 msgstr "Tegund atkvæðagreiðslu"
 
-#: ../setup/config_data.inc:990
+#: ../setup/config_data.inc:967
 msgid "Gallery offers two sorts of polls for voting for images.  See above for a more detailed explanation."
 msgstr "Gallery býður upp á tvær tegundir atkvæðagreiðslu um myndir.  Sjá nánari útskýringu hér á undan."
 
-#: ../setup/config_data.inc:993
+#: ../setup/config_data.inc:970
 msgid "Users have a set of votes which they can allocate to the images."
 msgstr "Notendur hafa ákveðinn fjölda atkvæða sem þeir geta úthlutað myndunum."
 
-#: ../setup/config_data.inc:995
+#: ../setup/config_data.inc:972
 msgid "Enables users to give all images points without restriction."
 msgstr "Gerir notendum kleift að gefa öllum myndum stig án takmarkana."
 
-#: ../setup/config_data.inc:1002
+#: ../setup/config_data.inc:979
 msgid "Number of choices"
 msgstr "Fjöldi valmöguleika"
 
-#: ../setup/config_data.inc:1003
+#: ../setup/config_data.inc:980
 msgid "Number of choices that will be available to voters as radio buttons or in a pulldown menu."
 msgstr "Fjöldi valmöguleika sem verða birtir kjósendum sem valtakkar (&quot;radio buttons&quot;) eða í fellivalmynd (&quot;pulldown menu&quot;)."
 
-#: ../setup/config_data.inc:1008
+#: ../setup/config_data.inc:985
 msgid "Vote hint"
 msgstr "Atkvæðatengill"
 
-#: ../setup/config_data.inc:1009
+#: ../setup/config_data.inc:986
 msgid "This is displayed above the voting options under each image."
 msgstr "Þetta er birt fyrir ofan atkvæðavalkostina undir hverri mynd."
 
-#: ../setup/config_data.inc:1011
+#: ../setup/config_data.inc:988
 msgid "Vote for this image"
 msgstr "Greiða þessari mynd atkvæði"
 
-#: ../setup/config_data.inc:1016 ../setup/config_data.inc:1025
+#: ../setup/config_data.inc:993 ../setup/config_data.inc:1002
 msgid "Show vote results"
 msgstr "Sýna niðurstöður atkvæðagreiðslu"
 
-#: ../setup/config_data.inc:1017
+#: ../setup/config_data.inc:994
 #, php-format
 msgid "Display a summary and graph on the album page of images that have received the highest votes, and provide a link to the full results.  If this option is %s, results of voting will only be available to admins and album owners."
 msgstr "Birta yfirlit og graf á albúmasíðunni af myndum sem hafa fengið hæsta atkvæðafölda, og gefa link á fullar niðurstöður.  Ef þessi valmöguleiki er %s, verða niðurstöður atkvæðagreiðslu aðeins sýnilegar umsjónarmönnum og eigendum albúma."
 
-#: ../setup/config_data.inc:1023
+#: ../setup/config_data.inc:1000
 msgid "Number of results displayed"
 msgstr "Fjöldi niðurstaðna sem birta skal"
 
-#: ../setup/config_data.inc:1024
+#: ../setup/config_data.inc:1001
 #, php-format
 msgid "If %s is %s, display a graph showing this many top results.  (Full results will be available on a linked page.)"
 msgstr "Ef %s er %s, birta graf sem sýnir svo margar efstu niðurstöður.  (Niðurstöður má fá í heilu lagi á tengdri síðu.)"
 
-#: ../setup/config_data.inc:1031
+#: ../setup/config_data.inc:1008
 msgid "Orientation of vote choices?"
 msgstr "Stefna atkvæðavalkosta?"
 
-#: ../setup/config_data.inc:1032
+#: ../setup/config_data.inc:1009
 msgid "Rank poll choices can be displayed beside each other (horizontally) or underneath each other (vertically).  Has no effect on critique voting which is a pulldown menu."
 msgstr "Valkosti í stöðuatkvæðagreiðslu er hægt að birta hlið við hlið (lárétt) eða hvern ofan á öðrum (lóðrétt).  Hefur engin áhrif á umsagnaratkvæðagreiðslu, sem birtist í fellivalmynd (&quot;pulldown menu&quot;)."
 
-#: ../setup/config_data.inc:1035
+#: ../setup/config_data.inc:1012
 msgid "Horizontal"
 msgstr "Lárétt"
 
-#: ../setup/config_data.inc:1036
+#: ../setup/config_data.inc:1013
 msgid "Vertical"
 msgstr "Lóðrétt"
 
-#: ../setup/config_data.inc:1038 ../setup/functions.inc:965
-#: ../setup/functions.inc:974 ../setup/functions.inc:979
+#: ../setup/config_data.inc:1015 ../setup/functions.inc:958
+#: ../setup/functions.inc:967 ../setup/functions.inc:972
 msgid "Vote words and values"
 msgstr "Orð og gildi í atkvæðagreiðslum"
 
-#: ../setup/config_data.inc:1039
+#: ../setup/config_data.inc:1016
 msgid "This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."
 msgstr "Þetta gerir þér kleift að stilla textann sem birtist fyrir hvern valkost í atkvæðagreiðslu, og að auki hversu margra stiga virði sá valkostur er."
 
-#: ../setup/config_data.inc:1041
+#: ../setup/config_data.inc:1018
 msgid "Excellent"
 msgstr "Frábært"
 
-#: ../setup/config_data.inc:1042
+#: ../setup/config_data.inc:1019
 msgid "Very Good"
 msgstr "Mjög gott"
 
-#: ../setup/config_data.inc:1043
+#: ../setup/config_data.inc:1020
 msgid "Good"
 msgstr "Gott"
 
-#: ../setup/config_data.inc:1044
+#: ../setup/config_data.inc:1021
 msgid "Average"
 msgstr "Miðlungs"
 
-#: ../setup/config_data.inc:1045
+#: ../setup/config_data.inc:1022
 msgid "Poor"
 msgstr "Lélegt"
 
-#: ../setup/config_data.inc:1051
+#: ../setup/config_data.inc:1028
 msgid "Album Slideshow"
 msgstr "Myndasýning albúms"
 
-#: ../setup/config_data.inc:1055
+#: ../setup/config_data.inc:1032
 msgid "Slideshow Type"
 msgstr "Gerð myndasýningar"
 
-#: ../setup/config_data.inc:1072
+#: ../setup/config_data.inc:1049
 msgid "Recursive slideshow"
 msgstr "Myndasýning fer inn í undiralbúm"
 
-#: ../setup/config_data.inc:1073
+#: ../setup/config_data.inc:1050
 #, php-format
 msgid "Set to %s if you want to include images in sub albums as part of the slideshow."
 msgstr "Stilltu á %s ef þú vilt taka með myndir í undiralbúmum sem hluta af myndasýningunni."
 
-#: ../setup/config_data.inc:1079
+#: ../setup/config_data.inc:1056
 #, php-format
 msgid "This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "Þessi valkostur gerir gestum kleift að láta myndasýninguna endurtaka sig þar til þeir loka glugganum eða fara á aðra síðu.  Settu þetta á %s ef þú vilt spara bandvídd."
 
-#: ../setup/config_data.inc:1093
+#: ../setup/config_data.inc:1070
 msgid "Frames"
 msgstr "Rammar"
 
-#: ../setup/config_data.inc:1094
+#: ../setup/config_data.inc:1071
 #, php-format
 msgid "Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"
 msgstr "Hver mynd (smámyndir, smækkaðar og í fullri stærð) í %s getur haft ramma.  Eftirfarandi stílar eru í boði:"
 
-#: ../setup/config_data.inc:1098
+#: ../setup/config_data.inc:1075
 msgid "Subalbum frames"
 msgstr "Rammar utan um undiralbúm"
 
-#: ../setup/config_data.inc:1099
+#: ../setup/config_data.inc:1076
 msgid "This frame will appear around the thumbnail image representing a subalbum."
 msgstr "Þessi rammi mun birtast utan um smámyndina sem táknar undiralbúm."
 
-#: ../setup/config_data.inc:1104
+#: ../setup/config_data.inc:1081
 msgid "Frame around thumbs"
 msgstr "Rammi utan um smámyndir"
 
-#: ../setup/config_data.inc:1105
+#: ../setup/config_data.inc:1082
 msgid "This frame will appear around the thumbnail image representing a photo or movie."
 msgstr "Þessi rammi mun birtast utan um smámyndina sem táknar ljósmynd eða kvikmynd."
 
-#: ../setup/config_data.inc:1111
+#: ../setup/config_data.inc:1088
 msgid "Frame around images"
 msgstr "Rammi utan um myndir"
 
-#: ../setup/config_data.inc:1112
+#: ../setup/config_data.inc:1089
 msgid "This frame will appear around fulled sized and resized photos."
 msgstr "Þessi rammi mun birtast utan um ljósmyndir í fullri stærð og smækkaðar ljósmyndir."
 
@@ -1706,7 +1675,7 @@ msgstr "Villa:"
 msgid "You must create empty file %s and chmod it 777 before proceeding.  See %s for more details."
 msgstr "Þú verður að búa til tómu skrána %s og breyta aðgangsheimildum á hana í 777 (chmod 777).  Sjá nánar í %s."
 
-#: ../setup/confirm.inc:62 ../setup/confirm.inc:156 ../setup/confirm.inc:157
+#: ../setup/confirm.inc:62 ../setup/confirm.inc:137 ../setup/confirm.inc:138
 msgid "missing"
 msgstr "vantar"
 
@@ -1714,129 +1683,129 @@ msgstr "vantar"
 msgid "it's optional"
 msgstr "þetta er val"
 
-#: ../setup/confirm.inc:156 ../setup/confirm.inc:157
+#: ../setup/confirm.inc:137 ../setup/confirm.inc:138
 msgid "optional"
 msgstr "val"
 
-#: ../setup/confirm.inc:176
+#: ../setup/confirm.inc:157
 #, php-format
 msgid "%s: <b>%s</b> must be an absolute URL!"
 msgstr "%s: <b>%s</b> verður að vera fullt URL!"
 
-#: ../setup/confirm.inc:188
+#: ../setup/confirm.inc:169
 #, php-format
 msgid "%s: <b>%s</b> must be a valid file (not a directory)!"
 msgstr "%s: <b>%s</b> verður að vera gild skrá (ekki mappa)!"
 
-#: ../setup/confirm.inc:197
+#: ../setup/confirm.inc:178
 #, php-format
 msgid "%s: <b>&quot;%s&quot;</b> must be a positive number"
 msgstr "%s: <b>&quot;%s&quot;</b> verður að vera jákvæð tala"
 
-#: ../setup/confirm.inc:205
+#: ../setup/confirm.inc:186
 #, php-format
 msgid "%s: <b>%s</b> must not be zero"
 msgstr "%s: <b>%s</b> má ekki vera núll"
 
-#: ../setup/confirm.inc:215
+#: ../setup/confirm.inc:196
 #, php-format
 msgid "%s: <b>%s</b> must be an executable file!"
 msgstr "%s: <b>%s</b> verður að vera keyranleg skrá!"
 
-#: ../setup/confirm.inc:224
+#: ../setup/confirm.inc:205
 #, php-format
 msgid "Directory %s does not exist.  Please create it."
 msgstr "Mappan %s er ekki til.  Vinsamlegast búðu hana til."
 
-#: ../setup/confirm.inc:230
+#: ../setup/confirm.inc:211
 #, php-format
 msgid "%s exists but is not a directory.  Please fix this."
 msgstr "%s er til, en er ekki mappa.  Vinsamlegast lagaðu þetta."
 
-#: ../setup/confirm.inc:237
+#: ../setup/confirm.inc:218
 #, php-format
 msgid "%s: %s exists, but is not writeable by the webserver user.  Try: %s or if that doesn't work: %s.  Also make sure that if you have an %s restriction then this tmp directory should be under the %s path"
 msgstr "%s: %s er til, en er ekki skrifanlegt af vefþjónsnotandanum.  Reyndu: %s eða ef það virkar ekki: %s.  Gakktu einnig úr skugga um að ef þú ert með %s takmörkun, þá sé þessi &quot;tmp&quot;-mappa undir skráaslóðinni %s"
 
-#: ../setup/confirm.inc:308
+#: ../setup/confirm.inc:289
 #, php-format
 msgid "Could not find %s.  Check your NetPBM directory to see which PNG->JPEG converter you have (or just try using %s instead).  Please check your configuration (or use ImageMagick)."
 msgstr "Fann ekki %s.  Rannsakaðu NetPBM-möppuna þína til að sjá hvaða PNG->JPEG-breyti þú ert með (eða reyndu bara að nota %s í staðinn).  Skoðaðu vinsamlegast uppsetninguna þína (eða notaðu ImageMagick)."
 
-#: ../setup/confirm.inc:320
+#: ../setup/confirm.inc:301
 #, php-format
 msgid "You must specify a path for %s or %s for Gallery to function!!"
 msgstr "Þú verður að gefa upp skráaslóð fyrir %s eða %s til að Gallery virki!!"
 
-#: ../setup/confirm.inc:323 ../setup/confirm.inc:326
+#: ../setup/confirm.inc:304 ../setup/confirm.inc:307
 #, php-format
 msgid "%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."
 msgstr ""
 
-#: ../setup/confirm.inc:331
+#: ../setup/confirm.inc:312
 msgid "Note:"
 msgstr "Ath.:"
 
-#: ../setup/confirm.inc:332
+#: ../setup/confirm.inc:313
 msgid "Your server has the PHP open_basedir restriction set, and certain of your paths are not in the list of restricted paths"
 msgstr "Vefþjónninn þinn er með PHP open_basedir-takmörkunina stillta, og sumar skráaslóðir þínar eru ekki í listanum yfir leyfðar slóðir."
 
-#: ../setup/confirm.inc:334
+#: ../setup/confirm.inc:315
 #, php-format
 msgid "This doesn't mean that they won't work, however it does mean that we can't verify that the paths are correct.  If you are unable to upload photos correctly, please refer to the FAQ and to the %sdiagnostics%s to resolve your problems."
 msgstr "Þetta þýðir ekki að þær muni ekki virka, en það þýðir að við getum ekki staðfest að skráaslóðirnar séu réttar.  Ef þú getur ekki hlaðið inn myndum vandræðalaust, skoðaðu þá FAQ-skrána og %sgreiningartólin%s til að finna lausn þinna mála."
 
-#: ../setup/confirm.inc:407
+#: ../setup/confirm.inc:388
 msgid "Confirm that the settings you entered came through correctly.  If you find this page confusing, you can safely ignore it."
 msgstr "Staðfestu að stillingarnar sem þú settir inn hafi skráðst rétt.  Ef þessi síða ruglar þig í ríminu, þá geturðu leitt hana hjá þér áhyggjulaust."
 
-#: ../setup/confirm.inc:409
+#: ../setup/confirm.inc:390
 msgid "Confirm that the settings you entered came through correctly.  There are errors highlighted below in red which need to be fixed before you can save your settings."
 msgstr "Staðfestu að stillingarnar sem þú settir inn hafi skráðst rétt.  Hér fyrir neðan eru villur áherslumerktar með rauðum lit, sem þarf að laga áður en þú getur vistað stillingar þínar."
 
-#: ../setup/confirm.inc:414 ../setup/confirm.inc:429
+#: ../setup/confirm.inc:395 ../setup/confirm.inc:410
 msgid "Edit Config"
 msgstr "Breyta uppsetningu"
 
-#: ../setup/confirm.inc:416 ../setup/confirm.inc:431
+#: ../setup/confirm.inc:397 ../setup/confirm.inc:412
 msgid "Save Config"
 msgstr "Vista uppsetningu"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 #, php-format
 msgid "%s.  Details below."
 msgstr "%s.  Nánar um þetta neðar."
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "One error"
 msgstr "Ein villa"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "errors"
 msgstr "villur"
 
-#: ../setup/confirm.inc:419
+#: ../setup/confirm.inc:400
 msgid "no errors"
 msgstr "engar villur"
 
-#: ../setup/confirm.inc:434
+#: ../setup/confirm.inc:415
 msgid "There are errors in your configuration."
 msgstr "Það eru villur í uppsetningunni."
 
-#: ../setup/confirm.inc:435
+#: ../setup/confirm.inc:416
 msgid "Please go back and fix them!"
 msgstr "Vinsamlegast farið  til bakaog leiðréttið!"
 
-#: ../setup/constants.inc:14
+#: ../setup/constants.inc:11
 msgid "In this step you'll customize various settings for Gallery.  If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  Even so, you'll probably have to make at least some minor changes.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much."
 msgstr "Í þessu skrefi muntu sérsníða hinar og þessar stillingar í Gallery.  Ef þetta er fyrsta skiptið sem þú sérsníður Gallery, þá muntu taka eftir að við höfum reynt að velja skynsamleg sjálfvalin gildi fyrir þig.  En þrátt fyrir það muntu líklega þurfa að gera einhverjar minniháttar breytingar.  Ef þú hefur þegar sett upp Gallery áður, þá muntu sjá að þessi síða er nú þegar frumstillt með stillingum þínum, svo að þú munt líklega ekki þurfa að gera mikið."
 
-#: ../setup/constants.inc:19 ../setup/constants.inc:125
+#: ../setup/constants.inc:16 ../setup/constants.inc:124
 #: ../setup/defaults.inc:18 ../setup/defaults.inc:97
 msgid "Previous Page"
 msgstr "Fyrri síða"
 
-#: ../setup/constants.inc:21 ../setup/constants.inc:127
+#: ../setup/constants.inc:18 ../setup/constants.inc:126
 #: ../setup/defaults.inc:20 ../setup/defaults.inc:99
 msgid "Use Defaults"
 msgstr "Nota sjálfvalsgildi"
@@ -1946,313 +1915,313 @@ msgstr ""
 msgid "Please retype your password here"
 msgstr "Vinsamlegast stimplaðu aftur inn lykilorðið þitt hér"
 
-#: ../setup/functions.inc:123 ../setup/functions.inc:966
+#: ../setup/functions.inc:123 ../setup/functions.inc:959
 msgid "Name"
 msgstr "Nafn"
 
-#: ../setup/functions.inc:124 ../setup/functions.inc:966
+#: ../setup/functions.inc:124 ../setup/functions.inc:959
 msgid "Value"
 msgstr "Gildi"
 
-#: ../setup/functions.inc:296
+#: ../setup/functions.inc:289
 msgid "Missing value"
 msgstr "Gildi vantar"
 
-#: ../setup/functions.inc:318
+#: ../setup/functions.inc:311
 msgid "I can read your <b>.htaccess</b> file."
 msgstr "Get lesið .htaccess skrána þína"
 
-#: ../setup/functions.inc:344
+#: ../setup/functions.inc:337
 #, php-format
 msgid "PHP v%s is OK."
 msgstr "PHP útgáfa %s er í lagi."
 
-#: ../setup/functions.inc:357
+#: ../setup/functions.inc:350
 msgid "<b>mod_rewrite</b> is enabled."
 msgstr "<b>mod_rewrite</b> er virkt."
 
-#: ../setup/functions.inc:381
+#: ../setup/functions.inc:374
 msgid "Can't find <i>jhead</i>"
 msgstr "Finn ekki <i>jhead</i>"
 
-#: ../setup/functions.inc:383
+#: ../setup/functions.inc:376
 msgid "<b>jhead</b> binary located."
 msgstr "<b>jhead</b> forritð fannst."
 
-#: ../setup/functions.inc:397
+#: ../setup/functions.inc:390
 msgid "NetPBM not being used in this installation."
 msgstr "NetPBM er ekki í notkun í þessari uppsetningu."
 
-#: ../setup/functions.inc:402 ../setup/functions.inc:488
+#: ../setup/functions.inc:395 ../setup/functions.inc:481
 msgid "Cannot verify this path (it's not in your open_basedir list)."
 msgstr "Get ekki staðfest þessa slóð (er ekki hluti af open_basedir lista)."
 
-#: ../setup/functions.inc:451 ../setup/functions.inc:507
+#: ../setup/functions.inc:444 ../setup/functions.inc:500
 #, php-format
 msgid "Can't find %s!"
 msgstr "Finn ekki %s!"
 
-#: ../setup/functions.inc:456 ../setup/functions.inc:512
+#: ../setup/functions.inc:449 ../setup/functions.inc:505
 #, php-format
 msgid "%s is not executable!"
 msgstr "Hef ekki aðgangsheimild til að keyra %s!"
 
-#: ../setup/functions.inc:467
+#: ../setup/functions.inc:460
 #, php-format
 msgid "%d of %d NetPBM binaries located."
 msgstr "%d af %d NetPBM-forritum fundin."
 
-#: ../setup/functions.inc:523
+#: ../setup/functions.inc:516
 #, php-format
 msgid "%d of %d ImageMagick binaries located."
 msgstr "%d af %d ImageMagick-forritum fundin."
 
-#: ../setup/functions.inc:546
+#: ../setup/functions.inc:539
 msgid "Can't find <i>jpegtran</i>!"
 msgstr "Get ekki fundið <i>jpegtran</i>!"
 
-#: ../setup/functions.inc:548
+#: ../setup/functions.inc:541
 msgid "<b>jpegtran</b> binary located."
 msgstr "<b>jpegtran</b> forritð fannst."
 
-#: ../setup/functions.inc:560
+#: ../setup/functions.inc:553
 msgid "PHP has <b>GNU gettext</b> support."
 msgstr "PHP-uppsetningin styður <b>GNU gettext</b>."
 
-#: ../setup/functions.inc:562
+#: ../setup/functions.inc:555
 msgid "PHP does not have <b>GNU gettext</b> support."
 msgstr "PHP-uppsetningin styður ekki <b>GNU gettext</b>."
 
-#: ../setup/functions.inc:578
+#: ../setup/functions.inc:571
 msgid "No languages found."
 msgstr "Engin tungumál fundust"
 
-#: ../setup/functions.inc:580
+#: ../setup/functions.inc:573
 msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
 msgstr "Þú virðist ekki hafa náð í nein önnur tungumál.  Það er ekki vandamál!  Gallery mun aðeins birtast á ensku.  Ath.: ef þetta er ekki rétt, aðgættu þá að allar skrár í locale-möppunni séu lesanlegar fyrir vefþjónsnotandann, eða komdu þér í samband við Gallery-hópinn."
 
-#: ../setup/functions.inc:584
+#: ../setup/functions.inc:577
 #, php-format
 msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
 msgstr "%d tungumál eru til staðar.  Ef þig vantar þýðingar, farðu þá á %sGallery download-síðuna%s."
 
-#: ../setup/functions.inc:608
+#: ../setup/functions.inc:601
 #, php-format
 msgid "You can check for more recent versions by visiting %s."
 msgstr "Þú getur gáð að nýrri útgáfum með því að fara á %s."
 
-#: ../setup/functions.inc:610
+#: ../setup/functions.inc:603
 #, php-format
 msgid "This version of %s was released on %s."
 msgstr "Þessi útgáfa af %s var gefin út %s."
 
-#: ../setup/functions.inc:612
+#: ../setup/functions.inc:605
 #, php-format
 msgid "This is a development build of %s that was released on %s."
 msgstr "Þetta er þróunarútgáfa af %s sem var gefin út þann %s."
 
-#: ../setup/functions.inc:621
+#: ../setup/functions.inc:614
 msgid "Please check regularly for updates."
 msgstr "Vinsamlegast athugið reglulega hvort uppfærsla finnst."
 
-#: ../setup/functions.inc:642
+#: ../setup/functions.inc:635
 msgid "All gallery locales are available on this host."
 msgstr "Allar Gallery-þýðingar eru til staðar á þessum þjóni."
 
-#: ../setup/functions.inc:645
+#: ../setup/functions.inc:638
 #, php-format
 msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
 msgstr "Það eru %d þýðingar sem Gallery gat ekki fundið.  Þú gætir þurft að velja dagsetningarform handvirkt."
 
-#: ../setup/functions.inc:651
+#: ../setup/functions.inc:644
 #, php-format
 msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
 msgstr "Dagsetningar í %d tungumálum gætu birst ranglega, vegna þess að samsvarandi staðfærslur (&quot;locale&quot;) eru ekki til staðar. Þú gætir þurft að velja dagsetningarform handvirkt fyrir þessi tungumál."
 
-#: ../setup/functions.inc:656
+#: ../setup/functions.inc:649
 #, php-format
 msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
 msgstr "Við fundum engar staðfærslur (&quot;locales&quot;).  Hins vegar er PHP-uppsetning þín stillt með %s-takmörkuninni, svo að þetta gæti truflað það hvernig við veljum staðfærslur.  Því miður þýðir þetta að dagsetningarformið verður ekki mismunandi fyrir mismunandi tungumál.  En það er allt í lagi að halda áfram."
 
-#: ../setup/functions.inc:660
+#: ../setup/functions.inc:653
 #, php-format
 msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
 msgstr "Við fundum engar kerfisstaðfærslur (&quot;system locales&quot;).  Margtunguvirkni verður gerð óvirk.  Vinsamlegast settu upp viðeigandi staðfærslur eða biddu umsjónarmanninn um að gera það.  Þetta vandamál er þekkt á %s kerfum.  Í þessu tilfelli ættir þú að líta á þetta: %sDebian locale HowTo%s."
 
-#: ../setup/functions.inc:662
+#: ../setup/functions.inc:655
 msgid "Only the default locale for this machine is available, so date format will not change for different languages."
 msgstr "Aðeins sjálfvalda staðfærslan í þessari vél er til boða, svo að dagsetningarsnið mun ekki breytast með mismunandi tungumálum."
 
-#: ../setup/functions.inc:814
+#: ../setup/functions.inc:807
 msgid "<b>System</b> locale selection required"
 msgstr ""
 
-#: ../setup/functions.inc:815
+#: ../setup/functions.inc:808
 msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
 msgstr ""
 
-#: ../setup/functions.inc:817 ../setup/functions.inc:890
+#: ../setup/functions.inc:810 ../setup/functions.inc:883
 msgid "This is <b>only</b> for date & time format. You only need to edit the languages you enabled above"
 msgstr "Þetta er <b>aðeins</b> fyrir dagsetningar- og tímasnið. Það þarf einungis að breyta tungumálum sem þú virkjaðir hér á undan."
 
-#: ../setup/functions.inc:845 ../setup/functions.inc:852
-#: ../setup/functions.inc:862
+#: ../setup/functions.inc:838 ../setup/functions.inc:845
+#: ../setup/functions.inc:855
 msgid "System locale"
 msgstr "Kerfisstaðfærsla"
 
-#: ../setup/functions.inc:887
+#: ../setup/functions.inc:880
 msgid "<b>System</b> locale problems"
 msgstr ""
 
-#: ../setup/functions.inc:888
+#: ../setup/functions.inc:881
 msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
 msgstr ""
 
-#: ../setup/functions.inc:933
+#: ../setup/functions.inc:926
 msgid "<b>safe_mode</b> is off."
 msgstr "<b>safe mode</b> er óvirkt."
 
-#: ../setup/functions.inc:946
+#: ../setup/functions.inc:939
 msgid "<b>magic_quotes</b> are off."
 msgstr "<b>magic quotes</b> er óvirkt."
 
-#: ../setup/functions.inc:964
+#: ../setup/functions.inc:957
 #, php-format
 msgid "In %s, missing %s in row %d with %s %s."
 msgstr "Í &quot;%s&quot; vantar gildið %s í línu %d með %s %s."
 
-#: ../setup/functions.inc:973
+#: ../setup/functions.inc:966
 #, php-format
 msgid "In %s, blank in row %d."
 msgstr "Í %s, tómt gildi í línu %d."
 
-#: ../setup/functions.inc:978
+#: ../setup/functions.inc:971
 #, php-format
 msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
 msgstr "Í %s, fyrir nafn %s (línu %d) ætti gildið %s að vera jákvæð heiltala"
 
-#: ../setup/functions.inc:1150
+#: ../setup/functions.inc:1127
 msgid "Your admin passwords do not match!"
 msgstr "Umsjónarlykilorðin þín passa ekki saman!"
 
-#: ../setup/functions.inc:1166
+#: ../setup/functions.inc:1143
 msgid "Valid admin email address given."
 msgstr "Gilt umsjónarmannstölvupóstfang gefið."
 
-#: ../setup/functions.inc:1173
+#: ../setup/functions.inc:1150
 msgid "You must specify valid admin email addresses"
 msgstr "Þú verður að gefa upp gilt tölvupóstfang"
 
-#: ../setup/functions.inc:1181
+#: ../setup/functions.inc:1158
 #, php-format
 msgid "%s is not a valid email address."
 msgstr "%s er ekki gilt tölvupóstfang."
 
-#: ../setup/functions.inc:1190
+#: ../setup/functions.inc:1167
 msgid "Valid sender email address given."
 msgstr "Gilt tölvupóstang sendanda gefið."
 
-#: ../setup/functions.inc:1192
+#: ../setup/functions.inc:1169
 msgid "You must specify a valid sender email address"
 msgstr "Þú verður að gefa upp gilt tölvupóstfang sendanda."
 
-#: ../setup/functions.inc:1195
+#: ../setup/functions.inc:1172
 #, php-format
 msgid "You must include %s in your welcome email"
 msgstr "Þú verður að hafa %s með í ávarpspóstinum"
 
-#: ../setup/functions.inc:1200
+#: ../setup/functions.inc:1177
 #, php-format
 msgid "You must include %s or %s in your welcome email"
 msgstr "Þú verður að hafa %s eða %s í ávarpspóstinum"
 
-#: ../setup/functions.inc:1224
+#: ../setup/functions.inc:1201
 #, php-format
 msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 msgstr "Eftirfarandi skrár eru úreltar, skemmdar eða týndar.<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 
-#: ../setup/functions.inc:1226
+#: ../setup/functions.inc:1203
 msgid "This should be fixed before proceeding"
 msgstr "Þetta ætti að laga áður en lengra er haldið."
 
-#: ../setup/functions.inc:1227 ../setup/functions.inc:1231
+#: ../setup/functions.inc:1204 ../setup/functions.inc:1208
 #, php-format
 msgid "Look at %sCheck Versions%s for more details."
 msgstr "Líttu á %sCheck Versions%s til að fá nánari upplýsingar."
 
-#: ../setup/functions.inc:1230
+#: ../setup/functions.inc:1207
 #, php-format
 msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, CVS or modified code."
 msgstr "%d skrár eru nýrri en búist var við.  Það er í lagi ef þú ert að nota forútgáfu, beta-útgáfu, CVS-smíði eða breyttan kóða."
 
-#: ../setup/functions.inc:1235
+#: ../setup/functions.inc:1212
 #, php-format
 msgid "All %d tested files up-to-date."
 msgstr "Allar %d skrárnar sem ég prófaði reyndust nógu nýjar."
 
-#: ../setup/functions.inc:1243
+#: ../setup/functions.inc:1220
 #, php-format
 msgid "this is new in version %s"
 msgstr "þetta er nýtt í útgáfu %s"
 
-#: ../setup/functions.inc:1248
+#: ../setup/functions.inc:1225
 #, php-format
 msgid "Return to %s."
 msgstr "Til baka í %s"
 
-#: ../setup/functions.inc:1249
+#: ../setup/functions.inc:1226
 msgid "Configuration Wizard"
 msgstr "Gallery: Uppsetningarhamur"
 
-#: ../setup/functions.inc:1300
+#: ../setup/functions.inc:1277
 #, php-format
 msgid "You must enter a password for the %s account."
 msgstr "Þú verður að gefa upp lykilorð fyrir %s-reikninginn."
 
-#: ../setup/functions.inc:1305
+#: ../setup/functions.inc:1282
 #, php-format
 msgid "It seems you've already configured Gallery, because there is one admin account, but its not called %s."
 msgstr ""
 
-#: ../setup/functions.inc:1308
+#: ../setup/functions.inc:1285
 #, php-format
 msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
 msgstr ""
 
-#: ../setup/functions.inc:1310
+#: ../setup/functions.inc:1287
 #, php-format
 msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
 msgstr ""
 
-#: ../setup/functions.inc:1319
+#: ../setup/functions.inc:1296
 #, php-format
 msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
 msgstr ""
 
-#: ../setup/functions.inc:1326
+#: ../setup/functions.inc:1303
 msgid "Admin password"
 msgstr "Lykilorð Stjórnanda"
 
-#: ../setup/functions.inc:1339 ../setup/functions.inc:1341
-#: ../setup/functions.inc:1343 ../setup/functions.inc:1351
+#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
+#: ../setup/functions.inc:1320 ../setup/functions.inc:1328
 #, fuzzy
 msgid "Full Name"
 msgstr "Nafn"
 
-#: ../setup/functions.inc:1339 ../setup/functions.inc:1341
-#: ../setup/functions.inc:1345 ../setup/functions.inc:1353
+#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
+#: ../setup/functions.inc:1322 ../setup/functions.inc:1330
 msgid "Username"
 msgstr ""
 
-#: ../setup/functions.inc:1347
+#: ../setup/functions.inc:1324
 msgid "Full name that you can click on to send email (mailto:)"
 msgstr ""
 
-#: ../setup/functions.inc:1349
+#: ../setup/functions.inc:1326
 msgid "Username that you can click on to send email (mailto:)"
 msgstr ""
 
-#: ../setup/functions.inc:1351 ../setup/functions.inc:1353
+#: ../setup/functions.inc:1328 ../setup/functions.inc:1330
 #, fuzzy
 msgid "email address"
 msgstr "Netþjóns IP addressa"
@@ -2261,7 +2230,7 @@ msgstr "Netþjóns IP addressa"
 msgid "Gallery Configuration"
 msgstr "Uppsetning Gallery"
 
-#: ../setup/index.php:29
+#: ../setup/index.php:30
 msgid "unknown"
 msgstr "óþekkt"
 

@@ -178,7 +178,8 @@ correctPseudoUsers($uAdd, $ownerUid);
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo _("Album Permissions") ?></p>
+<span class="popuphead"><?php echo _("Album Permissions") ?></span>
+<br>
 <div class="popup">
 <?php echo sprintf(_("Changing permissions for %s"), '<b>'.$gallery->album->fields["title"] . '</b>');
 
