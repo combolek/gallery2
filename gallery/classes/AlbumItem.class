@@ -117,6 +117,31 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
+     * Specify this AlbumItem sort style
+     *
+     * Specify that this AlbumItem's contents always be sorted by the property
+     * and style provided.
+     *
+     * @access public
+     * @param string the name of a sort property.  Can be any standard
+     *               PROPERTY_XXX except PROPERTY_VIEWCOUNT.
+     * @param string SORT_ASCENDING or SORT_DESCENDING
+     */
+    function setSort($property, $style) {
+    }
+
+    /**
+     * Turn off sorting for this AlbumItem
+     *
+     * The order of the items remains the same, but any further changes will
+     * not force a re-sort.
+     *
+     * @access public
+     */
+    function removeSort() {
+    }
+
+    /**
      * Set this as a root album
      *
      * Attempt to take over maintaining the top of the album tree.  Check the
