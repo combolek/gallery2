@@ -172,7 +172,7 @@ if (!strcmp($borderwidth, "off")) {
     $bordercolor = "black";
 }
 
-$adminText = "<span class=\"admin\">". _("Multiple Caption Editor.") . " ";
+$adminText = "<span class=\"popup\">". _("Multiple Caption Editor.") . " ";
 if ($numPhotos == 1) {
         $adminText .= _("1 photo in this album") ;
 } else {
@@ -242,7 +242,7 @@ if ($numPhotos) {
     </tr>
     <tr>
       <td width=<?php echo $thumbSize ?> align=center valign="top">
-      <span class="admin">&nbsp;</span><br>
+      <span class="popup">&nbsp;</span><br>
       <?php echo $gallery->album->getThumbnailTag($i, $thumbSize); ?>
       </td width=10>
       <td height=1>
@@ -257,7 +257,7 @@ if ($numPhotos) {
         $myAlbum->load($myAlbumName);
         $oldCaption = $myAlbum->fields['description'];
 ?>
-      <span class="admin"><?php echo _("Album Caption:") ?></span><br>
+      <span class="popup"><?php echo _("Album Caption:") ?></span><br>
       <textarea name="new_captions_<?php echo $i ?>" rows=3 cols=60><?php echo $oldCaption ?></textarea><br>
 
 <?php
@@ -265,7 +265,7 @@ if ($numPhotos) {
         $oldCaption = $gallery->album->getCaption($i);
         $oldKeywords = $gallery->album->getKeywords($i);
 ?>
-      <span class="admin"><?php echo _("Caption") ?>:</span><br>
+      <span class="popup"><?php echo _("Caption") ?>:</span><br>
       <textarea name="new_captions_<?php echo $i ?>" rows=3 cols=60><?php echo $oldCaption ?></textarea><br>
       <br>
 <?php
@@ -285,10 +285,10 @@ if ($numPhotos) {
 		}
 	}
 ?>
-      	<span class="admin"><br><?php echo _("Keywords") ?>:</span><br>
+      	<span class="popup"><br><?php echo _("Keywords") ?>:</span><br>
       	<input type=text name="new_keywords_<?php echo $i ?>" size=65 value="<?php echo $oldKeywords ?>">
 
-       	<span class="admin"><br><?php echo _("Capture Date") ?>:</span>
+       	<span class="popup"><br><?php echo _("Capture Date") ?>:</span>
 <?php
 	$itemCaptureDate = $gallery->album->getItemCaptureDate($i);
 	$hours = $itemCaptureDate["hours"];

@@ -394,12 +394,8 @@ include ($GALLERY_BASEDIR . "layout/adminbox.inc");
 
 ?>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modnavboxmid">
   <tr>
-    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
-  </tr>
-  <tr>
-    <td height="25" width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
     <td width="5000" align="left" valign="middle">
     <span class=admin>
     &nbsp;<a href="#" onClick='stop(); return false;'>[<?php echo _("stop") ?>]</a>
@@ -445,10 +441,6 @@ drawSelect("time", array(1 => "1 ". _("second"),
     &nbsp;<?php echo _("Loop") ?>:<input type="checkbox" name="loopCheck" <?php echo ($slide_loop) ? "checked" : "" ?> onclick='toggleLoop();'>
     </span>
     </td>
-    <td width="1" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
-  </tr>
-  <tr>
-    <td colspan="3" bgcolor="<?php echo $borderColor ?>"><?php echo $pixelImage ?></td>
   </tr>
 </table>
 
@@ -478,7 +470,7 @@ if ($photo_count > 0) {
 
 <script language="Javascript">
 /* show the caption either in a nice div or an ugly form textarea */
-document.write("<div class='desc'>" + "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + photo_captions[<?php echo $slide_index ?>] + "</div>");
+document.write("<div class='modcaption'>" + "[" + current_location + " <?php echo _("of") ?> " + photo_count + "] " + photo_captions[<?php echo $slide_index ?>] + "</div>");
 
 /* Load the first picture */
 preload_photo(<?php echo $slide_index ?>);

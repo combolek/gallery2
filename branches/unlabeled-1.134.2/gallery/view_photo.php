@@ -543,21 +543,21 @@ if (!$gallery->album->isMovie($id)) {
 
 		$adminbox["bordercolor"] = $bordercolor;
 		$adminbox["top"] = true;
-		include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+		includeLayout('adminbox.inc');
 	}
 }
 
 $breadcrumb["bordercolor"] = $bordercolor;
 $breadcrumb["top"] = true;
 $breadcrumb['bottom'] = false;
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('breadcrumb.inc');
 ?>
 </td>
 </tr>
 <tr>
 <td>
 <?php
-include($GALLERY_BASEDIR . "layout/navphoto.inc");
+includeLayout('navphoto.inc');
 
 #-- if borders are off, just make them the bgcolor ----
 if (!strcmp($gallery->album->fields["border"], "off")) {
@@ -582,10 +582,7 @@ includeHtmlWrap("inline_photo.header");
 </table>
 
 <!-- image -->
-
-
 <?
-
 $href="";
 if (!$gallery->album->isMovie($id)) {
 	if ($gallery->album->isResized($index) && !$do_fullOnly) { 
@@ -630,8 +627,10 @@ includeHtmlWrap("inline_photo.frame");
 <table border=0 width=<?php echo $mainWidth ?> cellpadding=0 cellspacing=0>
 <!-- caption -->
 <tr>
-<td colspan=3 align=center>
-<span class="caption"><?php echo editCaption($gallery->album, $index) ?>
+<td colspan=3 align=center class="modcaption">
+<span class="title"><?php echo editCaption($gallery->album, $index) ?>
+</span>
+<span class="modcaption">
 <?php
 if ( canVote() )
 {
@@ -835,16 +834,16 @@ echo("</td></tr>");
 <tr>
 <td>
 <?php
-include($GALLERY_BASEDIR . "layout/navphoto.inc");
+includeLayout('navphoto.inc');
 $breadcrumb["top"] = false;
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('breadcrumb.inc');
 ?>
 </td>
 </tr>
 </table>
 
 <?php
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("photo.footer");
 ?>
 

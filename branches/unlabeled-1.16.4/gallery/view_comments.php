@@ -118,6 +118,7 @@ if ($gallery->album->fields["textcolor"]) {
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">
+<span class="popup">
 <?php } 
 includeHtmlWrap("album.header");
 $adminText = "<span class=\"admin\">". _("Comments for this Album") ."</span>";
@@ -133,7 +134,7 @@ include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
 ?><br><?php
 if(strcmp($gallery->album->fields["public_comments"], "yes"))
 {
-    ?><br><b><span class="error"><?php echo _("Sorry.  This album does not allow public comments.") ?></span><br><br></b><?php
+    ?></span><br><b><span class="error"><?php echo _("Sorry.  This album does not allow public comments.") ?></span><span class="popup"><br><br></b><?php
 }
 else
 {
@@ -182,6 +183,8 @@ includeHtmlWrap("album.footer");
 ?>
 
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+
+</span>
 </body>
 </html>
 <?php } ?>
