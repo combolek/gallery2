@@ -12,7 +12,7 @@ case $1 in
 		fi
 
 		cd $DIST/html
-		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1../../docbook-xsl/html/chunkfast.xsl ../../manual.xml
+		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/chunkfast.xsl ../../manual.xml
 
 
 		cp -Rf ../../images .
@@ -28,7 +28,7 @@ case $1 in
 			mkdir -p $DIST/bightml;
 		fi
 
-		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
+		xsltproc --param galleryweb 0 --param generate.section.toc.level 1 --param toc.section.depth 1 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
 
 		cp -Rf images $DIST/bightml
 		rm -rf $DIST/bightml/CVS
@@ -44,7 +44,7 @@ case $1 in
 		fi
 
 		cd $DIST/galleryweb
-		xsltproc --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
+		xsltproc --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
 
 
 		cp -Rf ../../images .
