@@ -49,6 +49,8 @@ if (!$gallery->album->isLoaded()) {
 	return;
 }
 
+
+
 $albumName = $gallery->session->albumName;
 
 if (!$gallery->session->viewedAlbum[$albumName]) {
@@ -64,7 +66,9 @@ $fullWidth="100%";
 
 $pAlbum = $gallery->album;
 
-if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+?>
+
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] . "::" . _("Poll Results") ?></title>

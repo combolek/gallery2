@@ -102,7 +102,7 @@ class Image {
 		global $gallery;
 
 		/* getting rid of the resized image */
-		if ( strcmp(htmlentities($target), _("Get rid of resized")) == 0  || (stristr($target, "orig")) ) {
+		if ( (stristr($target, _("Get rid of resized"))) || (stristr($target, "orig")) ) {
 			list($w, $h) = getDimensions("$dir/$this->name.$this->type");
 			$this->width = $w;
 			$this->height = $h;
@@ -174,7 +174,7 @@ class Image {
 					"$attrs alt=\"$alttext\" title=\"$alttext\" />";
 			}
 		} else {
-			return "<img src=\"$dir/$this->name.$this->type\" $size_val $attrs alt=\"$alttext\" title=\"$alttext\" name=\"photo_j\" />";
+			return "<img src=\"$dir/$this->name.$this->type\" $size_val $attrs alt=\"$alttext\" title=\"$alttext\" />";
 		}
 	}
 

@@ -2,10 +2,16 @@
 <?php 
 
 	$GALLERY_BASEDIR="../";
+	require($GALLERY_BASEDIR . "util.php");
 	require($GALLERY_BASEDIR . "setup/init.php");
+
+	initLanguage();
+
+	// We set this to false to get the config stylesheet
+        $GALLERY_OK=false;
+	extract($HTTP_POST_VARS);
 	require($GALLERY_BASEDIR . "setup/functions.inc");
 ?>
-
 <html>
 <head>
 	<title> <?php echo _("Check Mail") ?> </title>
@@ -14,6 +20,15 @@
 
 <body dir="<?php echo $gallery->direction ?>">
 <h1 class="header"><?php echo _("Check Mail") ?></h1>
+<?php
+	if (getOS() == OS_WINDOWS) {
+		if (fs_file_exists("SECURE")) {
+			echo _("You cannot access this file while gallery is in secure mode.");
+			echo "</body></html>";
+			exit;
+		}
+	}
+?>
 
 <?php 
 
@@ -39,21 +54,17 @@ if (isset($submit)) {
 	echo '<div class="sitedesc">';
 	print sprintf(_("This enables you to confirm that email is working correctly on your system.  Submit your email address below, and an email will be sent to you. If you receive it, then you know that mail is working on your system"));
 	echo '</div>';
-	if (getOS() != OS_WINDOWS) {
-	       	if (! ini_get("sendmail_path")) {
-		       	$warning[] = sprintf(_("%s not set."), 
-					"sendmail_path");
-	       	}
-	} else { 
-		if (!ini_get("SMTP")) {
-		       	$warning[] = sprintf(_("%s not set."), "SMTP");
-		}
+	if (! ini_get("sendmail_path")) {
+		$warning[] = sprintf(_("Error! %s not set."), "sendmail_path");
+	}
+
+	if (! ini_get("SMTP") && getOS()==OS_WINDOWS) {
+		$warning[] = sprintf(_("Error! %s not set."), "SMTP");
 	}
 	if (isset($warning)) {
 		echo '<table class="inner" width="100%">';
 		foreach ($warning as $value) {
-			echo '<tr><td class="warningpct">' . _("Warning") . 
-				": " .  $value .'</td></tr>';
+			echo '<tr><td class="warningpct">' . $value .'</td></tr>';
 		}
 //		echo '<td class="desc">' . _("Please fix this before you continue!") .'</td>';
 		echo '</table>';

@@ -81,23 +81,7 @@
   <xsl:param name="content">
     <xsl:apply-templates/>
   </xsl:param>
-
-  <xsl:choose>
-    <xsl:when test="@dir">
-      <fo:inline>
-        <xsl:attribute name="direction">
-          <xsl:choose>
-            <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-            <xsl:otherwise>rtl</xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-        <xsl:copy-of select="$content"/>
-      </fo:inline>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:copy-of select="$content"/>
-    </xsl:otherwise>
-  </xsl:choose>
+  <xsl:copy-of select="$content"/>
 </xsl:template>
 
 <xsl:template name="inline.monoseq">
@@ -105,14 +89,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline xsl:use-attribute-sets="monospace.properties">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -122,14 +98,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-weight="bold">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -139,14 +107,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-style="italic">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -156,14 +116,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-weight="bold" xsl:use-attribute-sets="monospace.properties">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -173,14 +125,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-style="italic" xsl:use-attribute-sets="monospace.properties">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -189,24 +133,7 @@
   <xsl:param name="content">
     <xsl:apply-templates/>
   </xsl:param>
-
-  <fo:inline xsl:use-attribute-sets="superscript.properties">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:choose>
-      <xsl:when test="$fop.extensions != 0">
-        <xsl:attribute name="vertical-align">super</xsl:attribute>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:attribute name="baseline-shift">super</xsl:attribute>
-      </xsl:otherwise>
-    </xsl:choose>
+  <fo:inline baseline-shift="super">
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -215,24 +142,7 @@
   <xsl:param name="content">
     <xsl:apply-templates/>
   </xsl:param>
-
-  <fo:inline xsl:use-attribute-sets="subscript.properties">
-    <xsl:if test="@dir">
-      <xsl:attribute name="direction">
-        <xsl:choose>
-          <xsl:when test="@dir = 'ltr' or @dir = 'lro'">ltr</xsl:when>
-          <xsl:otherwise>rtl</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:choose>
-      <xsl:when test="$fop.extensions != 0">
-        <xsl:attribute name="vertical-align">sub</xsl:attribute>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:attribute name="baseline-shift">sub</xsl:attribute>
-      </xsl:otherwise>
-    </xsl:choose>
+  <fo:inline baseline-shift="sub">
     <xsl:copy-of select="$content"/>
   </fo:inline>
 </xsl:template>
@@ -413,10 +323,6 @@
 </xsl:template>
 
 <xsl:template match="literal">
-  <xsl:call-template name="inline.monoseq"/>
-</xsl:template>
-
-<xsl:template match="code">
   <xsl:call-template name="inline.monoseq"/>
 </xsl:template>
 
@@ -851,14 +757,6 @@
     <xsl:if test="position()>1"><xsl:value-of select="$joinchar"/></xsl:if>
     <xsl:apply-templates select="."/>
   </xsl:for-each>
-</xsl:template>
-
-<xsl:template match="orgname">
-  <xsl:call-template name="inline.charseq"/>
-</xsl:template>
-
-<xsl:template match="uri">
-  <xsl:call-template name="inline.monoseq"/>
 </xsl:template>
 
 <!-- ==================================================================== -->

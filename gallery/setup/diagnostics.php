@@ -2,10 +2,13 @@
 <?php 
 
 	$GALLERY_BASEDIR="../";
-
+	require($GALLERY_BASEDIR . "util.php");
+	require('./init.php');
+	require('./functions.inc');
 	@include($GALLERY_BASEDIR . "config.php"); 
-	require($GALLERY_BASEDIR . 'setup/init.php');
-	require($GALLERY_BASEDIR . 'setup/functions.inc');
+	$GALLERY_OK = false;
+
+	initLanguage();
 ?>
 <html>
 <head>
@@ -14,8 +17,16 @@
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">
-
 <div class="header"><?php echo _("Gallery Diagnostics") ?></div>
+<?php
+	if (getOS() == OS_WINDOWS) {
+		if (fs_file_exists("SECURE")) {
+		echo _("You cannot access this file while gallery is in secure mode.");
+		echo "</body></html>";
+		exit;
+	}
+}
+?>
 <p></p>
 <div class="sitedesc">
 <?php echo _("This page is designed to provide some diagnostics about your server to help you find issues that may prevent Gallery from functioning properly.") ?>
@@ -75,16 +86,6 @@
 	    <td class="desc" valign="top">
 		<?php echo _("This page will simply send a test email.") ?>
 		<?php echo sprintf(_("This allows you to see if you can use the email functions in %s."), Gallery()) ?>
-	    </td>
-	  </tr>
-
-	  <tr>
-	    <td class="shortdesc" style="padding: 10px;" width="140" align=center valign="top">
-	      <a href="check_versions.php"><?php echo _("Check versions") ?></a>
-	    </td>
-	    <td class="desc" valign="top">
-		<?php echo sprintf(_("This page is for %s upgrades that have problems."), Gallery()); ?>
-		<?php echo sprintf(_("This allows you to check you have the correct version of all your %s files."), Gallery()) ?>
 	    </td>
 	  </tr>
 	</table>

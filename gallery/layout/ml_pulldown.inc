@@ -35,9 +35,11 @@ function ML_reload() {
 }
 </script>
 <?php } ?>
+
 	<form name="MLForm" action="#">
 	<table width="100%" cellpadding="0" cellspacing="0">
-	<tr><td valign="top" align="right">
+	<tr><td valign="top" align="right"><br >
+
 <?php
 
 if($gallery->app->show_flags !='yes') {

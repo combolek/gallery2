@@ -2,8 +2,17 @@
 <?php
 
 	$GALLERY_BASEDIR="../";
+	require($GALLERY_BASEDIR . 'util.php');
 	require($GALLERY_BASEDIR . 'setup/init.php');
 	require($GALLERY_BASEDIR . 'setup/functions.inc');
+
+	initLanguage();
+
+	// We set this to false to get the config stylesheet
+        $GALLERY_OK=false;
+
+// Pull the $destroy variable into the global namespace
+extract($HTTP_GET_VARS);
 
 session_start();
 
@@ -30,7 +39,15 @@ $count++;
 
 <body dir="<?php echo $gallery->direction ?>">
 	<h1 class="header"><?php echo _("Session Test") ?></h1>
-
+<?php
+	if (getOS() == OS_WINDOWS) {
+		if (fs_file_exists("SECURE")) {
+		echo _("You cannot access this file while gallery is in secure mode.");
+		echo "</body></html>";
+		exit;
+	    }
+	}
+?>
 	<div class="sitedesc">
 		<?php echo _("If sessions are configured properly in your PHP installation, then you should see a session id below.") ?>
 	<br>

@@ -21,71 +21,25 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <xsl:variable name="level">
-    <xsl:call-template name="section.level">
-      <xsl:with-param name="node" select="."/>
-    </xsl:call-template>
-  </xsl:variable>
+  <fo:block id="{$id}">
+    <xsl:call-template name="section.titlepage"/>
 
-  <!-- xsl:use-attribute-sets takes only a Qname, not a variable -->
-  <xsl:choose>
-    <xsl:when test="$level = 1">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level1.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="$level = 2">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level2.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="$level = 3">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level3.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="$level = 4">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level4.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:when test="$level = 5">
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level5.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:when>
-    <xsl:otherwise>
-      <fo:block id="{$id}"
-                xsl:use-attribute-sets="section.level6.properties">
-        <xsl:call-template name="section.content"/>
-      </fo:block>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
+    <xsl:variable name="toc.params">
+      <xsl:call-template name="find.path.params">
+        <xsl:with-param name="table" select="normalize-space($generate.toc)"/>
+      </xsl:call-template>
+    </xsl:variable>
 
-<xsl:template name="section.content">
-  <xsl:call-template name="section.titlepage"/>
+    <xsl:if test="contains($toc.params, 'toc')
+                  and (count(ancestor::section)+1) &lt;= $generate.section.toc.level">
+      <xsl:call-template name="section.toc">
+        <xsl:with-param name="toc.title.p" select="contains($toc.params, 'title')"/>
+      </xsl:call-template>
+     <xsl:call-template name="section.toc.separator"/>
+    </xsl:if>
 
-  <xsl:variable name="toc.params">
-    <xsl:call-template name="find.path.params">
-      <xsl:with-param name="table" select="normalize-space($generate.toc)"/>
-    </xsl:call-template>
-  </xsl:variable>
-
-  <xsl:if test="contains($toc.params, 'toc')
-                and (count(ancestor::section)+1) &lt;= $generate.section.toc.level">
-    <xsl:call-template name="section.toc">
-      <xsl:with-param name="toc.title.p" select="contains($toc.params, 'title')"/>
-    </xsl:call-template>
-   <xsl:call-template name="section.toc.separator"/>
-  </xsl:if>
-
-  <xsl:apply-templates/>
+    <xsl:apply-templates/>
+  </fo:block>
 </xsl:template>
 
 <xsl:template match="/section">
@@ -134,8 +88,7 @@
     </xsl:apply-templates>
 
     <fo:flow flow-name="xsl-region-body">
-      <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level1.properties">
+      <fo:block id="{$id}">
         <xsl:call-template name="section.titlepage"/>
       </fo:block>
 
@@ -179,13 +132,6 @@
       </xsl:call-template>
     </xsl:variable>
 
-    <xsl:variable name="marker">
-      <xsl:choose>
-        <xsl:when test="$level &lt;= $marker.section.level">1</xsl:when>
-        <xsl:otherwise>0</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
     <xsl:variable name="title">
       <xsl:apply-templates select="$section" mode="object.title.markup">
         <xsl:with-param name="allow-anchors" select="1"/>
@@ -194,13 +140,6 @@
 
     <xsl:variable name="titleabbrev">
       <xsl:apply-templates select="$section" mode="titleabbrev.markup"/>
-    </xsl:variable>
-
-    <!-- Use for running head only if actual titleabbrev element -->
-    <xsl:variable name="titleabbrev.elem">
-      <xsl:if test="$section/titleabbrev">
-        <xsl:apply-templates select="$section" mode="titleabbrev.markup"/>
-      </xsl:if>
     </xsl:variable>
 
     <xsl:if test="$passivetex.extensions != 0">
@@ -224,8 +163,7 @@
     <xsl:call-template name="section.heading">
       <xsl:with-param name="level" select="$level"/>
       <xsl:with-param name="title" select="$title"/>
-      <xsl:with-param name="marker" select="$marker"/>
-      <xsl:with-param name="titleabbrev" select="$titleabbrev.elem"/>
+      <xsl:with-param name="titleabbrev" select="$titleabbrev"/>
     </xsl:call-template>
   </fo:block>
 </xsl:template>
@@ -235,8 +173,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level1.properties">
+  <fo:block id="{$id}">
     <xsl:call-template name="sect1.titlepage"/>
 
     <xsl:variable name="toc.params">
@@ -301,8 +238,7 @@
     </xsl:apply-templates>
 
     <fo:flow flow-name="xsl-region-body">
-      <fo:block id="{$id}" 
-                xsl:use-attribute-sets="section.level1.properties">
+      <fo:block id="{$id}">
         <xsl:call-template name="sect1.titlepage"/>
       </fo:block>
 
@@ -328,8 +264,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level2.properties">
+  <fo:block id="{$id}">
     <xsl:call-template name="sect2.titlepage"/>
 
     <xsl:variable name="toc.params">
@@ -353,8 +288,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level3.properties">
+  <fo:block id="{$id}">
     <xsl:call-template name="sect3.titlepage"/>
 
     <xsl:variable name="toc.params">
@@ -378,8 +312,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level4.properties">
+  <fo:block id="{$id}">
     <xsl:call-template name="sect4.titlepage"/>
 
     <xsl:variable name="toc.params">
@@ -403,8 +336,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}" 
-            xsl:use-attribute-sets="section.level5.properties">
+  <fo:block id="{$id}">
     <xsl:call-template name="sect5.titlepage"/>
 
     <xsl:variable name="toc.params">

@@ -69,28 +69,14 @@ $navigator["widthUnits"] = "%";
 $navigator["bordercolor"] = $borderColor;
 
 $displayCommentLegend = 0;  // this determines if we display "* Item contains a comment" at end of page 
-
-/*
-** when direction is ltr(left to right) everything is fine)
-** when rtl(right to left), like in hebrew, we have to switch the alignment at some places.
-*/
-if ($gallery->direction == 'ltr') {
-	$left="left";
-	$right="right";
-}
-else {
-	$left="right";
-	$right="left";
-}
-if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
 ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php doctype() ?>
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?></title>
-  <?php 
-	echo getStyleSheetLink();
-	/* prefetching/navigation */
+  <?php echo getStyleSheetLink() ?>
+  <?php /* prefetching/navigation */
   if ($navigator['page'] > 1) { ?>
       <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
       <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
@@ -102,21 +88,19 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   <?php } ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<?php }
-	includeHtmlWrap("gallery.header");
-	if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
-?>
-<table width="100%" border="0" cellspacing="0">
-<tr>
+<?php } ?>
 <?php
-	if ($GALLERY_EMBEDDED_INSIDE =='phpBB2') {
-		echo '<td class="nav"><a href="index.php">'. sprintf($lang['Forum_Index'], $board_config['sitename']) . '</a></td>';
-}
+includeHtmlWrap("gallery.header");
 ?>
+<?php
+if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
+?>
+<table width="100%" border=0 cellspacing=0>
+<tr>
 <td valign="middle" align="right">
 <?php echo makeFormIntro("search.php"); ?>
 <span class="search"> <?php echo _("Search") ?>: </span>
-<input style="font-size:10px;" type="text" name="searchstring" value="" size="25">
+<input style="font-size=10px;" type="text" name="searchstring" value="" size="25">
 </form>
 </td>
 </tr>
@@ -145,9 +129,7 @@ else if ($numAccess != $numAlbums) {
 $adminText .= "</span>";
 $adminCommands = "<span class=\"admin\">";
 
-if ($gallery->user->isLoggedIn() && !$gallery->session->offline && 
-	! ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2' && $gallery->user->uid == -1)) {
-
+if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	$displayName = $gallery->user->getFullname();
 	if (empty($displayName)) {
 		$displayName = $gallery->user->getUsername();
@@ -156,18 +138,18 @@ if ($gallery->user->isLoggedIn() && !$gallery->session->offline &&
 }
 
 if ($gallery->app->gallery_slideshow_type != "off") {
-    	 $adminCommands .= '<a class="admin" href="' . makeGalleryUrl("slideshow.php",
+    	 $adminCommands .= '<a href="' . makeGalleryUrl("slideshow.php",
 	 array("set_albumName" => null)) .
 	       	'">['._("slideshow") . ']</a>&nbsp;';
 }
 if ($gallery->user->isAdmin()) {
-	$doc = galleryDocs('admin');
+	$doc = galleryDocs();
 	if ($doc) {
 		$adminCommands .= "[$doc]&nbsp;";
 	}
 }
 if ($gallery->user->canCreateAlbums() && !$gallery->session->offline) { 
-	$adminCommands .= "<a class=\"admin\" href=\"" . doCommand("new-album", array(), "view_album.php") . "\">[". _("new album") ."]</a>&nbsp;";
+	$adminCommands .= "<a href=\"" . doCommand("new-album", array(), "view_album.php") . "\">[". _("new album") ."]</a>&nbsp;";
 }
 
 if ($gallery->user->isAdmin()) {
@@ -175,28 +157,25 @@ if ($gallery->user->isAdmin()) {
 	    $gallery->userDB->canCreateUser() ||
 	    $gallery->userDB->canDeleteUser()) {
 		$adminCommands .= popup_link("[" . _("manage users") ."]", 
-			"manage_users.php", false, true, 500, 500, 'admin')
-			. '&nbsp;';
+			"manage_users.php");
 	}
 }
 
 if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	if ($gallery->userDB->canModifyUser()) {
 		$adminCommands .= popup_link("[". _("preferences") ."]", 
-			"user_preferences.php", false, true, 500, 500, 'admin')
-			. '&nbsp;';
+			"user_preferences.php");
 	}
 	
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-		$adminCommands .= "<a class=\"admin\" href=\"". doCommand("logout", array(), "albums.php"). "\">[". _("logout") ."]</a>";
+		$adminCommands .= "<a href=\"". doCommand("logout", array(), "albums.php"). "\">[". _("logout") ."]</a>";
 	}
 } else {
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-	        $adminCommands .= popup_link("[" . _("login") . "]", "login.php", false, true, 500, 500, 'admin');
-		
+	        $adminCommands .= popup_link("[" . _("login") . "]", "login.php", 0);
             if (!strcmp($gallery->app->selfReg, 'yes')) {
                 $adminCommands .= '&nbsp;';
-                $adminCommands .= popup_link('[' . _("register") . ']', 'register.php', false, true, 500, 500, 'admin');
+                $adminCommands .= popup_link('[' . _("register") . ']', 'register.php', 0);
             }
 	}
 }
@@ -288,6 +267,13 @@ for ($i = $start; $i <= $end; $i++) {
 	  $iWidth = $gallery->app->highlight_size;
 	  $iHeight = 100;
       }
+      /*begin backwards compatibility */
+      $gallery->html_wrap['thumbWidth'] = $iWidth;
+      $gallery->html_wrap['thumbHeight'] = $iHeight;
+      $gallery->html_wrap['thumbTag'] = $gallery->album->getHighlightTag($scaleTo,'', _("Highlight for Album: "). $gallery->album->fields["title"]);
+      $gallery->html_wrap['thumbHref'] = $albumURL;
+      /*end backwards compatibility*/
+      
       $gallery->html_wrap['imageWidth'] = $iWidth;
       $gallery->html_wrap['imageHeight'] = $iHeight;
       $gallery->html_wrap['imageTag'] = $gallery->album->getHighlightTag($scaleTo,'', _("Highlight for Album: "). $gallery->album->fields["title"]);
@@ -298,19 +284,19 @@ for ($i = $start; $i <= $end; $i++) {
   </td>
   <!-- End Image Cell -->
   <!-- Begin Text Cell -->
-  <td align="<?php echo $left ?>" valign="top" class="albumdesc">
+  <td align="<?php echo $gallery->align ?>" valign="top" class="albumdesc">
     <table cellpadding="0" cellspacing="0" width="100%" border="0" align="center" class="mod_title">
       <tr valign="middle">
-        <td class="leftspacer"></td>
+        <td class="leftspacer">
         <td>
           <table cellspacing="0" cellpadding="0" border="0" class="mod_title_bg">
             <tr>
-              <td class="mod_title_left"></td>
-              <td nowrap class="title">
+              <td class="mod_title_left" align="right"></td>
+              <td nowrap class="title" align="left">
                 <?php _("title") ?>
                 <?php echo editField($gallery->album, "title", $albumURL) ?>
               </td>
-              <td class="mod_title_right"></td>
+              <td class="mod_title_right" align="left"></td>
             </tr>
           </table>
         </td>
@@ -421,7 +407,7 @@ $albumName=$gallery->album->fields["name"];
 if ($gallery->user->canWriteToAlbum($gallery->album) &&
    (!($gallery->album->fields["display_clicks"] == "no"))) {
 ?>
-<?php echo " ".popup_link("[" . _("reset counter") ."]", doCommand("reset-album-clicks", array("set_albumName" => $albumName), "albums.php"), 1) ?>
+<?php echo " ".popup_link("[" . _("reset counter") ."]", "'" . doCommand("reset-album-clicks", array("set_albumName" => $albumName), "albums.php") . "'" , 1) ?>
 
 <?php
 }

@@ -106,74 +106,60 @@ if (isset($save)) {
 <?php echo makeFormIntro("edit_appearance.php", 
 			array("name" => "theform", 
 				"method" => "POST")); ?>
-<input type="hidden" name="save" value="1">
+<input type=hidden name="save" value="1">
 <table>
 <tr>
 <td colspan="2"><?php echo _("Album Summary") ?></td>
 </tr>
 <tr>
 <td colspan="2" align="left">
-<textarea cols="60" rows="8" name="summary"><?php echo $gallery->album->fields["summary"] ?></textarea>
+<textarea cols=60 rows=8 name="summary"><?php echo $gallery->album->fields["summary"] ?></textarea>
 </td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Album Title") ?></td>
-<?php 
-	/* 
-	** Check if we are using PHP >= 4.1.0
-	** If yes, we can use 3rd Parameter so e.g. titles in chinese BIG5 or UTF8 are displayed correct.
-	** Otherwise they are messed.
-	*/
-
-	if (function_exists('version_compare')) {
-		$album_title=htmlentities($gallery->album->fields["title"],ENT_COMPAT, $gallery->charset);
-	}
-	else {
-		$album_title=htmlentities($gallery->album->fields["title"]);
-	}
-?>
-<td><input type="text" name="title" value="<?php echo $album_title; ?>"></td>
+<td><input type=text name="title" value="<?php echo htmlentities($gallery->album->fields["title"]) ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Background Color") ?></td>
-<td><input type="text" name="bgcolor" value="<?php echo $gallery->album->fields["bgcolor"] ?>"></td>
+<td><input type=text name="bgcolor" value="<?php echo $gallery->album->fields["bgcolor"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Text Color") ?></td>
-<td><input type="text" name="textcolor" value="<?php echo $gallery->album->fields["textcolor"] ?>"></td>
+<td><input type=text name="textcolor" value="<?php echo $gallery->album->fields["textcolor"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Link Color") ?></td>
-<td><input type="text" name="linkcolor" value="<?php echo $gallery->album->fields["linkcolor"] ?>"></td>
+<td><input type=text name="linkcolor" value="<?php echo $gallery->album->fields["linkcolor"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Background Image") ?> (URL)</td>
-<td><input type="text" name="background" value="<?php echo $gallery->album->fields["background"] ?>"></td>
+<td><input type=text name="background" value="<?php echo $gallery->album->fields["background"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Font") ?></td>
-<td><input type="text" name="font" value="<?php echo $gallery->album->fields["font"] ?>"></td>
+<td><input type=text name="font" value="<?php echo $gallery->album->fields["font"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Borders") ?></td>
 <?php _("off") ?>
-<td><select name="border"><?php echo selectOptions($gallery->album, "border", array("off" => _("off"), 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 10 => 10, 15 => 15, 20 => 20)) ?></select></td>
+<td><select name="border"><?php echo selectOptions($gallery->album, "border", array("off" => _("off"), 1 => 1, 2 => 2, 3 => 3, 4 => 4)) ?></select></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Border color") ?></td>
-<td><input type="text" name="bordercolor" value="<?php echo $gallery->album->fields["bordercolor"] ?>"></td>
+<td><input type=text name="bordercolor" value="<?php echo $gallery->album->fields["bordercolor"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Thumbnail size") ?></td>
-<td><input type="text" name="thumb_size" value="<?php echo $gallery->album->fields["thumb_size"] ?>"></td>
+<td><input type=text name="thumb_size" value="<?php echo $gallery->album->fields["thumb_size"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Maximum dimensions of intermediate sized images") ?></td>
-<td><select name="resize_size"><?php echo selectOptions($gallery->album, "resize_size", array("off" => _("off"), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024, 1280 => 1280)) ?></select></td>
+<td><select name="resize_size"><?php echo selectOptions($gallery->album, "resize_size", array("off" => _("off"), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024)) ?></select></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)") ?></td>
-<td><input type="text" name="resize_file_size" value="<?php echo $gallery->album->fields["resize_file_size"] ?>"></td>
+<td><input type=text name="resize_file_size" value="<?php echo $gallery->album->fields["resize_file_size"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Maximum dimensions of full sized images") ?></td>
@@ -181,7 +167,7 @@ if (isset($save)) {
 </tr>
 <tr>
 <td class="popup"><?php echo _("Maximum file size of full sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)") ?></td>
-<td><input type="text" name="max_file_size" value="<?php echo $gallery->album->fields['max_file_size'] ?>"></td>
+<td><input type=text name="max_file_size" value="<?php echo $gallery->album->fields['max_file_size'] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Show <i>Return to</i> link") ?></td>
@@ -191,7 +177,7 @@ if (isset($save)) {
 <td class="popup"><?php echo _("Rows") ?></td>
 <td>
  <select name="rows">
-  <?php echo selectOptions($gallery->album, "rows", array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10)) ?>
+  <?php echo selectOptions($gallery->album, "rows", array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9)) ?>
  </select>
 </td>
 </tr>
@@ -199,7 +185,7 @@ if (isset($save)) {
 <td class="popup"><?php echo _("Columns") ?></td>
 <td>
  <select name="cols">
-  <?php echo selectOptions($gallery->album, "cols", array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10)) ?>
+  <?php echo selectOptions($gallery->album, "cols", array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9)) ?>
  </select>
 </td>
 </tr>
@@ -216,6 +202,12 @@ if (isset($save)) {
 <td valign="top">
 <?php
 $services = array(
+	'ezprints'    => array(
+		'name'    => 'EZ Prints',
+		'url'     => 'http://www.ezprints.com/'),
+	'fotokasten'  => array(
+		'name'    => 'Fotokasten',
+		'url'     => 'http://www.fotokasten.de/'),
 	'photoaccess' => array(
 		'name'    => 'PhotoAccess',
 		'url'     => 'http://www.photoaccess.com/'),
@@ -226,13 +218,7 @@ $services = array(
 			'yes' => _('with donation'),
 			'no'  => _('without donation')
 		)
-	),
-	'fotokasten'  => array(
-		'name'    => 'Fotokasten',
-		'url'     => 'http://www.fotokasten.de/'),
-	'ezprints'    => array(
-		'name'    => 'EZ Prints',
-		'url'     => 'http://www.ezprints.com/')                  
+	)
 );
 foreach ($services as $item => $data) {
 	if (isset($gallery->album->fields['print_photos'][$item])) {
@@ -261,7 +247,7 @@ foreach ($services as $item => $data) {
 <td><select name="slideshow_type"><?php echo selectOptions($gallery->album, "slideshow_type", array( "off" => _("Off"), "ordered" => _("Ordered"), "random" => _("Random"))) ?></select></td>
 </tr>
 <tr>
-<td class="popup"><?php echo _("Include sub-albums in slideshow") ?></td>
+<td class="popup"><?php echo _("Slideshow recursive") ?></td>
 <td><select name="slideshow_recursive"><?php echo selectOptions($gallery->album, "slideshow_recursive", array("yes" => _("yes"), "no" => _("no"))) ?></select></td>
 </tr>
 <tr>
@@ -271,7 +257,7 @@ foreach ($services as $item => $data) {
 <tr>
 <tr>
 <td class="popup"><?php echo _("Slideshow Length") ?></td>
-<td><input type="text" name="slideshow_length" value="<?php echo $gallery->album->fields["slideshow_length"] ?>"></td>
+<td><input type=text name="slideshow_length" value="<?php echo $gallery->album->fields["slideshow_length"] ?>"></td>
 </tr>
 <tr>
 <td class="popup"><?php echo _("Album Frame") ?></td>
@@ -341,3 +327,4 @@ document.theform.title.focus();
 </span>
 </body>
 </html>
+

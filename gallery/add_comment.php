@@ -65,13 +65,6 @@ function emailComments($id, $comment_text, $commenter_name) {
 }
 
 $error_text = "";
-if (empty($commenter_name) || $gallery->app->comments_anonymous == 'no') {
-       	$commenter_name=user_name_string($gallery->user->getUID(), 
-			$gallery->app->comments_display_name);
-}
-if (empty($comment_text)) {
-	$comment_text='';
-}
 
 if (isset($save)) {
        	if (!empty($commenter_name) && !empty($comment_text)) {
@@ -121,14 +114,23 @@ if (isset($error_text)) {
    <td class="popup"><?php echo _("Name or email:") ?></td>
    <td>
 <?php
+if (!isset($commenter_name)) {
+	$commenter_name='';
+}
+if (!isset($comment_text)) {
+	$comment_text='';
+}
 if (!$gallery->user->isLoggedIn() ) {
     echo "<input name=\"commenter_name\" value=\"".$commenter_name."\" size=\"30\">";
 } else {
+	if (empty($commenter_name)) {
+		$commenter_name=user_name_string($gallery->user->getUID());
+       	}
        	if ($gallery->app->comments_anonymous == 'yes') {
 	       	echo '<input name="commenter_name" value="'.$commenter_name.'" size="30">';
 	} else {
 		echo $commenter_name;
-	       	echo '<input type="hidden" name="commenter_name" value="" size="30">';
+	       	echo '<input type="hidden" name="commenter_name" value="'.$commenter_name.'" size="30">';
 	}
 }
 ?>
@@ -151,6 +153,10 @@ document.theform.commenter_name.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("add_comments.php", false); ?>
+<?php if ($gallery->app->devMode == "yes") {
+       	print "<p>";
+       	print gallery_validation_link("add_comments.php");
+       	print "Not valid yet.";
+} ?>
 </body>
 </html>

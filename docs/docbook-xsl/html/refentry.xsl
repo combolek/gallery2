@@ -204,9 +204,7 @@
 <xsl:template match="refsection|refsect1|refsect2|refsect3">
   <div class="{name(.)}">
     <xsl:call-template name="language.attribute"/>
-    <xsl:call-template name="anchor">
-      <xsl:with-param name="conditional" select="0"/>
-    </xsl:call-template>
+    <xsl:call-template name="anchor"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>

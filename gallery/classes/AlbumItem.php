@@ -112,27 +112,21 @@ class AlbumItem {
 		 * Otherwise return what we have.
 		 */
 		$needToSave = 0;
-		if (!strcmp($gallery->app->cacheExif, "yes")) {
-		    if (empty($this->exifData) || $forceRefresh) {
-			/* Cache the current EXIF data and update the item capture date */
-			list($status, $this->exifData) = getExif($file);
-			$this->setItemCaptureDate();
-			$needToSave = 1;
-		    } else {
-			/* We have a cached value and are not forcing a refresh */
-			$status = 0;
-		    }
-		    $returnExifData = $this->exifData;
+		if (!empty($this->exifData) && !$forceRefresh) {
+		    $status = 0;
 		} else {
-		    /* If the data is cached but the feature is disabled, remove the cache */
-		    if (!empty($this->exifData)) {
-			unset($this->exifData);
-			$needToSave = 1;
+		    list($status, $exifData) = getExif($file);
+		    if ($status == 0) {
+			$this->exifData = $exifData;
+			if (!strcmp($gallery->app->cacheExif, "yes")) {
+				$needToSave = 1;
+			} else {
+				$needToSave = 0;
+			}
 		    }
-		    list($status, $returnExifData) = getExif($file);
+		    $this->setItemCaptureDate();
 		}
-		
-		return array($status, $returnExifData, $needToSave);
+		return array($status, $this->exifData, $needToSave);
 	}
 
 	function numComments() {
@@ -416,8 +410,6 @@ class AlbumItem {
 		if ($this->isResized()) {
 			rotate_image("$dir/$name.sized.$type", "$dir/$name.sized.$type", $direction, $type);
 			list($w, $h) = getDimensions("$dir/$name.sized.$type");
-			$this->image->setDimensions($w, $h);	
-		} else {
 			$this->image->setDimensions($w, $h);	
 		}
 

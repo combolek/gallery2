@@ -1,6 +1,6 @@
 # $Id$
 #
-# Version: 1_4_2-cvs
+# Version: 1_4_1-u1
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2003 Bharat Mediratta
@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.4.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-01-23 05:18+0100\n"
+"POT-Creation-Date: 2003-11-27 14:07+0100\n"
 "PO-Revision-Date: 2003-11-13 01:08+0900\n"
 "Last-Translator: Kennichi Uehara <ken_w3m@yahoo.co.jp>\n"
 "Language-Team: Japanese <ken_w3m@yahoo.co.jp>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../errors/configmode.php:7 ../errors/reconfigure.php:7
-#: ../errors/unconfigured.php:7 ../setup/index.php:83
+#: ../errors/unconfigured.php:7 ../setup/index.php:94
 msgid "Security violation"
 msgstr "¥»¥­¥å¥ê¥Æ¥£¿¯³²"
 
@@ -127,7 +127,7 @@ msgstr "¤³¤³¤Ï Gallery¥·¥¹¥Æ¥à¥Á¥§¥Ã¥¯¥Ú¡¼¥¸¤Ç¤¹¡£"
 msgid "This page will validate your installation to make sure that you have all the necessary components and permissions on this system and that everything is configured reasonably."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¡¢¤¢¤Ê¤¿¤¬¤³¤Î¥·¥¹¥Æ¥à¾å¤ËÉ¬Í×¤Ê¥³¥ó¥Ý¡¼¥Í¥ó¥ÈµÚ¤Ó¥Ñ¡¼¥ß¥Ã¥·¥ç¥ó¤ò»ý¤Ã¤Æ¤¤¤ë¤«¡¢¤½¤·¤ÆÁ´¤Æ¤¬Àµ¤·¤¯ÀßÄê¤µ¤ì¤Æ¤¤¤ë¤«³ÎÇ§¤¹¤ë¤¿¤á¤Ë¡¢¥¤¥ó¥¹¥È¥ì¡¼¥·¥ç¥ó¤ò¸¡¾Ú¤·¤Þ¤¹¡£"
 
-#: ../setup/check.inc:15 ../setup/diagnostics.php:12
+#: ../setup/check.inc:15 ../setup/diagnostics.php:15
 msgid "Gallery Diagnostics Page"
 msgstr "Gallery ¿ÇÃÇ¥Ú¡¼¥¸"
 
@@ -145,307 +145,274 @@ msgstr "ÌäÂê¤¬µ¯¤­¤Þ¤·¤¿¤«?   %s ¤ä %s ¡¢ %s ¤ò»î¤·¤Æ¤¯¤À¤µ¤¤¡£"
 msgid "Having problems?  Try the %s and %s."
 msgstr "ÌäÂê¤¬µ¯¤­¤Þ¤·¤¿¤«? %s ¤ä %s ¤ò»î¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check.inc:46
+#: ../setup/check.inc:49
 msgid "Success"
 msgstr "À®¸ù"
 
-#: ../setup/check.inc:58
+#: ../setup/check.inc:61
 msgid "Serious Warning"
 msgstr "¿¼¹ï¤Ê·Ù¹ð"
 
-#: ../setup/check.inc:61 ../setup/check.inc:96 ../setup/check_mail.php:55
-#: ../setup/config_data.inc:807 ../setup/config_data.inc:813
+#: ../setup/check.inc:64 ../setup/check.inc:99 ../setup/config_data.inc:805
+#: ../setup/config_data.inc:811
 msgid "Warning"
 msgstr "·Ù¹ð"
 
-#: ../setup/check.inc:70
+#: ../setup/check.inc:73
 msgid "Failed!"
 msgstr "¼ºÇÔ"
 
-#: ../setup/check.inc:123
+#: ../setup/check.inc:131
 msgid "There are errors in your configuration that will prevent Gallery from functioning properly."
 msgstr "Gallery¤¬Å¬ÀÚ¤Ëµ¡Ç½¤·¤Ê¤¤¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¨¥é¡¼¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: ../setup/check.inc:125
+#: ../setup/check.inc:133
 msgid "You must fix them before you can continue."
 msgstr "Â³¤±¤ëÁ°¤Ë½¤Àµ¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check.inc:130
+#: ../setup/check.inc:138
 msgid "Your installation has <b>serious warnings</b>!<br>Continue at your own risk..."
 msgstr "¤¢¤Ê¤¿¤Î¥¤¥ó¥¹¥È¥ì¡¼¥·¥ç¥ó¤Ë¤Ï<b>¿¼¹ï¤Ê·Ù¹ð</b>¤¬Â¸ºß¤·¤Þ¤¹¡£<br>¼«¸ÊÀÕÇ¤¤ÇÂ³¤±¤Æ¤¯¤À¤µ¤¤..."
 
-#: ../setup/check.inc:133
+#: ../setup/check.inc:141
 msgid "Your installation has warnings, but this is usually OK.  Keep going!"
 msgstr "¤¢¤Ê¤¿¤ÎÀßÄê¤Ë¤Ï·Ù¹ð¤¬¤¢¤ê¤Þ¤¹¤¬¡¢ÂçÄñ¤ÏÂç¾æÉ×¤Ç¤¹¡£ ¤½¤Î¤Þ¤ÞÂ³¤±¤Þ¤·¤ç¤¦¡£"
 
-#: ../setup/check.inc:137
+#: ../setup/check.inc:145
 msgid "Your installation passed with flying colors!  Go go go!"
 msgstr "¥¤¥ó¥¹¥È¥ì¡¼¥·¥ç¥ó¤Ï¥Æ¥¹¥È¤òÆ²¡¹¤È¥Ñ¥¹¤·¤Þ¤·¤¿¡£¤µ¤¢¼¡¤Ø¿Ê¤á¤Þ¤·¤ç¤¦!"
 
-#: ../setup/check.inc:140 ../setup/constants.inc:17 ../setup/constants.inc:123
-#: ../setup/defaults.inc:19 ../setup/defaults.inc:98
+#: ../setup/check.inc:148 ../setup/constants.inc:17 ../setup/constants.inc:119
+#: ../setup/defaults.inc:18 ../setup/defaults.inc:94
 msgid "Next Page"
 msgstr "¼¡¤Î¥Ú¡¼¥¸"
 
-#: ../setup/check_imagemagick.php:11
+#: ../setup/check_imagemagick.php:15
 msgid "Gallery ImageMagick Check"
 msgstr "Gallery ImageMagick ¥Á¥§¥Ã¥¯"
 
-#: ../setup/check_imagemagick.php:17 ../setup/check_netpbm.php:16
+#: ../setup/check_imagemagick.php:21 ../setup/check_netpbm.php:21
 #, php-format
 msgid "Check %s"
 msgstr "%s¤Î¥Á¥§¥Ã¥¯"
 
-#: ../setup/check_imagemagick.php:21 ../setup/check_netpbm.php:20
+#: ../setup/check_imagemagick.php:25 ../setup/check_netpbm.php:25
 #, php-format
 msgid "This script is designed to examine your %s installation to see if it is ok to be used by Gallery."
 msgstr "¤³¤Î¥¹¥¯¥ê¥×¥È¤Ï¡¢¤¢¤Ê¤¿¤Î%s¥¤¥ó¥¹¥È¡¼¥ë¤¬Gallery¤Ç»È¤ï¤ì¤Æ¤âÂç¾æÉ×¤«¥Æ¥¹¥È¤¹¤ë¤â¤Î¤Ç¤¹¡£"
 
-#: ../setup/check_imagemagick.php:22 ../setup/check_netpbm.php:21
+#: ../setup/check_imagemagick.php:26 ../setup/check_netpbm.php:26
 #, php-format
 msgid "You should run this script <b>after</b> you have run the config wizard, if you have had problems with your %s installation that the wizard did not detect."
 msgstr "%s¥¤¥ó¥¹¥È¡¼¥ë¤Ë¤ª¤¤¤Æ¥¦¥£¥¶¡¼¥É¤¬¸¡½Ð¤Ç¤­¤Ê¤«¤Ã¤¿ÌäÂê¤¬¤¢¤ë¾ì¹ç¤Ï¡¢¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤¬´°Î»¤·¤¿ <b>¸å</b> ¤Ë¤³¤Î¥¹¥¯¥ê¥×¥È¤ò¼Â¹Ô¤¹¤Ù¤­¤Ç¤¹¡£"
 
-#: ../setup/check_imagemagick.php:33 ../setup/check_netpbm.php:32
+#: ../setup/check_imagemagick.php:37 ../setup/check_netpbm.php:37
 msgid "Loading configuration files.  If you see an error here, it is probably because you have not successfully run the config wizard."
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥Õ¥¡¥¤¥ë¤òÆÉ¤ß¹þ¤ßÃæ¤Ç¤¹¡£ ¤³¤³¤Ç¥¨¥é¡¼¤¬È¯À¸¤¹¤ë¤è¤¦¤Ê¤é¡¢¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤Î¼Â¹Ô¤Ë¼ºÇÔ¤·¤Æ¤¤¤ë¤«¤âÃÎ¤ì¤Þ¤»¤ó¡£"
 
-#: ../setup/check_imagemagick.php:41 ../setup/check_netpbm.php:40
+#: ../setup/check_imagemagick.php:45 ../setup/check_netpbm.php:45
 msgid "It seems that you did not configure your GALLERY. Please run and finish the configuration wizard."
 msgstr "Gallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤¬½ª¤ï¤Ã¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤ò´°Î»¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:55 ../setup/check_netpbm.php:54
-#: ../setup/functions.inc:1138
+#: ../setup/check_imagemagick.php:59 ../setup/check_netpbm.php:59
+#: ../setup/functions.inc:1131
 msgid "OK"
 msgstr "OK"
 
-#: ../setup/check_imagemagick.php:65 ../setup/check_netpbm.php:64
+#: ../setup/check_imagemagick.php:69 ../setup/check_netpbm.php:69
 msgid "Let us see if we can figure out what operating system you are using."
 msgstr "¤¢¤Ê¤¿¤¬»ÈÍÑ¤·¤Æ¤¤¤ëOS¤ò¸¡½Ð¤Ç¤­¤Ê¤«¤Ã¤¿¾ì¹ç¤Ï»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:69 ../setup/check_netpbm.php:68
+#: ../setup/check_imagemagick.php:73 ../setup/check_netpbm.php:73
 msgid "This is what your system reports"
 msgstr "¤³¤ì¤Ï¤¢¤Ê¤¿¤Î¥·¥¹¥Æ¥à¤¬Êó¹ð¤·¤¿¤â¤Î¤Ç¤¹"
 
-#: ../setup/check_imagemagick.php:72 ../setup/check_netpbm.php:71
+#: ../setup/check_imagemagick.php:76 ../setup/check_netpbm.php:76
 msgid "This is the type of system on which PHP was compiled"
 msgstr "PHP¤¬¥³¥ó¥Ñ¥¤¥ë¤µ¤ì¤¿¥·¥¹¥Æ¥à¤Î¥¿¥¤¥×¤Ç¤¹"
 
-#: ../setup/check_imagemagick.php:74 ../setup/check_netpbm.php:73
+#: ../setup/check_imagemagick.php:78 ../setup/check_netpbm.php:78
 msgid "Make sure that the values above make sense to you."
 msgstr "°Ê¾å¤ÎÃÍ¤¬Ç¼ÆÀ¤Î¤¤¤¯¤â¤Î¤«³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:77 ../setup/check_netpbm.php:76
+#: ../setup/check_imagemagick.php:81 ../setup/check_netpbm.php:81
 #, php-format
 msgid "Look for keywords like %s, %s, %s etc. in the output above."
 msgstr " %s¡¢%s¡¢%s ¤È¤¤¤Ã¤¿¥­¡¼¥ï¡¼¥É¤òÃµ¤·¤Æ¤¯¤À¤µ¤¤¡£ ¾åµ­¤Î½ÐÎÏ¤Ç¡£"
 
-#: ../setup/check_imagemagick.php:79 ../setup/check_netpbm.php:78
+#: ../setup/check_imagemagick.php:83 ../setup/check_netpbm.php:83
 msgid "If both the attempts above failed, you should ask your ISP what operating system you are using."
 msgstr "¾åµ­¤Î»î¹Ô¤¬Î¾Êý¼ºÇÔ¤·¤Æ¤¤¤ë¤Ê¤é¡¢ISP¤ËOS¤òÌä¤¤¹ç¤ï¤»¤Æ¤ß¤Þ¤·¤ç¤¦¡£"
 
-#: ../setup/check_imagemagick.php:80 ../setup/check_netpbm.php:79
+#: ../setup/check_imagemagick.php:84 ../setup/check_netpbm.php:84
 #, php-format
 msgid "You can check via %s, they can often tell you."
 msgstr "%s·ÐÍ³¤Ç¥Á¥§¥Ã¥¯¤·¤Æ¤¯¤À¤µ¤¤¡£ÂçÄñ¤Ï¶µ¤¨¤Æ¤¯¤ì¤Þ¤¹¡£"
 
-#: ../setup/check_imagemagick.php:96 ../setup/check_netpbm.php:95
+#: ../setup/check_imagemagick.php:100 ../setup/check_netpbm.php:100
 #, php-format
 msgid "You told the config wizard that your %s binaries live here:"
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤Ë%s¥Ð¥¤¥Ê¥ê¤¬°Ê²¼¤Ë¤¢¤ë¤³¤È¤òÅÁ¤¨¤Æ¤¯¤À¤µ¤¤:"
 
-#: ../setup/check_imagemagick.php:98 ../setup/check_netpbm.php:97
+#: ../setup/check_imagemagick.php:102 ../setup/check_netpbm.php:102
 #, php-format
 msgid "If that is not right (or if it is blank), re-run the configuration wizard and enter a location for %s."
 msgstr "¤³¤ì¤¬´Ö°ã¤Ã¤Æ¤¤¤ë(¤¢¤ë¤¤¤Ï¶õÍó¤Ç¤¢¤ë)¾ì¹ç¤Ï¡¢¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤òºÆ¼Â¹Ô¤·¤Æ¡¢%s¤Î°ÌÃÖ¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:107 ../setup/check_netpbm.php:106
+#: ../setup/check_imagemagick.php:111 ../setup/check_netpbm.php:111
 #, php-format
 msgid "<b>Note:</b> Your %s directory (%s) is not in your open_basedir list %s"
 msgstr "<b>Ãí°Õ:</b> ¤¢¤Ê¤¿¤Î %s ¥Ç¥£¥ì¥¯¥È¥ê(%s)¤Ïopen_basedir¤ê¤¹¤È %s ¤Ë¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/check_imagemagick.php:111 ../setup/check_netpbm.php:110
+#: ../setup/check_imagemagick.php:115 ../setup/check_netpbm.php:115
 msgid "The open_basedir list is specified in php.ini."
 msgstr "open_basedir¥ê¥¹¥È¤¬¡¢php.ini¤Ç»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£"
 
-#: ../setup/check_imagemagick.php:112 ../setup/check_netpbm.php:111
+#: ../setup/check_imagemagick.php:116 ../setup/check_netpbm.php:116
 msgid "The result is, that we can't perform all of our basic checks on the files to make sure that they exist and they're executable."
 msgstr "¤½¤Î¤¿¤á¡¢¤½¤ì¤é¤¬Â¸ºß¤·¤Æ¼Â¹Ô²ÄÇ½¤«¤É¤¦¤«¤ò³ÎÇ§¤¹¤ë¸¡ºº¤ò´°Î»¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£"
 
-#: ../setup/check_imagemagick.php:123 ../setup/check_netpbm.php:123
+#: ../setup/check_imagemagick.php:127 ../setup/check_netpbm.php:128
 #, php-format
 msgid "We are going to test each %s binary individually."
 msgstr "¤½¤ì¤¾¤ì¤Î%s¥Ð¥¤¥Ê¥ê¤ò¸ÄÊÌ¤Ë¥Æ¥¹¥È¤·¤è¤¦¤È¤·¤Æ¤¤¤Þ¤¹¡£ "
 
-#: ../setup/check_imagemagick.php:138 ../setup/check_netpbm.php:163
+#: ../setup/check_imagemagick.php:142 ../setup/check_netpbm.php:163
 msgid "Checking:"
 msgstr "¥Á¥§¥Ã¥¯:"
 
-#: ../setup/check_imagemagick.php:161 ../setup/check_netpbm.php:193
+#: ../setup/check_imagemagick.php:165 ../setup/check_netpbm.php:193
 #, php-format
 msgid "If you see an error above complaining about reading or writing to %s then this is likely a permission/configuration issue on your system.  If it mentions %s then it's because your system is configured with %s enabled."
 msgstr "¾å¤Ë%s¤ÎÆÉ¤ß½ñ¤­¤Ë´Ø¤·¤Æ¥¨¥é¡¼¤¬È¯À¸¤·¤Æ¤¤¤¿¤é¡¢¥·¥¹¥Æ¥à¤Î¥Ñ¡¼¥ß¥Ã¥·¥ç¥ó¤ä¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ÎÌäÂê¤Ç¤¢¤ë¤«¤â¤·¤ì¤Þ¤»¤ó¡£¤â¤·¥¨¥é¡¼¤Ë%s¤Ë´Ø¤·¤Æ½ñ¤«¤ì¤Æ¤¤¤¿¤é¡¢¥·¥¹¥Æ¥à¤¬%s¤òÍ­¸ú¤ËÀßÄê¤ò¤·¤Æ¤¤¤ë¤³¤È¤¬¸¶°ø¤Ç¤¹¡£"
 
-#: ../setup/check_imagemagick.php:165 ../setup/check_netpbm.php:197
+#: ../setup/check_imagemagick.php:169 ../setup/check_netpbm.php:197
 #, php-format
 msgid "You should talk to your system administrator about this, or see the %sGallery Help Page%s."
 msgstr "¤³¤ì¤Ë´Ø¤·¤Æ¥·¥¹¥Æ¥à´ÉÍý¼Ô¤ËÏ¢Íí¤·¤Æ¤¯¤À¤µ¤¤¡£¤Þ¤¿¡¢%sGallery ¥Ø¥ë¥×¥Ú¡¼¥¸%s¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:170 ../setup/check_netpbm.php:202
+#: ../setup/check_imagemagick.php:174 ../setup/check_netpbm.php:202
 #, php-format
 msgid "For other errors, please refer to the list of possible responses in %s to get more information."
 msgstr "Â¾¤Î¥¨¥é¡¼¤Ë´Ø¤·¤Æ¤µ¤é¤Ë¾ðÊó¤òÆÀ¤ë¤Ë¤Ï¡¢%s ¤Î²ÄÇ½¤Ê¥ì¥¹¥Ý¥ó¥¹¤Î¥ê¥¹¥È¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_imagemagick.php:198 ../setup/check_netpbm.php:230
+#: ../setup/check_imagemagick.php:202 ../setup/check_netpbm.php:230
 #, php-format
 msgid "File %s does not exist."
 msgstr "¥Õ¥¡¥¤¥ë%s¤ÏÂ¸ºß¤·¤Þ¤»¤ó¡£"
 
-#: ../setup/check_imagemagick.php:209 ../setup/check_netpbm.php:241
+#: ../setup/check_imagemagick.php:213 ../setup/check_netpbm.php:241
 #, php-format
 msgid "Expected status: %s, but actually received status %s."
 msgstr "´üÂÔ¤µ¤ì¤¿¥¹¥Æ¡¼¥¿¥¹¤Ï%s¤Ç¤·¤¿¤¬¡¢¼ÂºÝ¤Î¥¹¥Æ¡¼¥¿¥¹¤Ï%s¤Ç¤·¤¿¡£"
 
-#: ../setup/check_imagemagick.php:222 ../setup/check_netpbm.php:255
+#: ../setup/check_imagemagick.php:226 ../setup/check_netpbm.php:255
 msgid "can't detect version on Windows"
 msgstr "Windows¾å¤Ç¤Ï¥Ð¡¼¥¸¥ç¥ó¸¡½Ð¤Ç¤­¤Þ¤»¤ó"
 
-#: ../setup/check_imagemagick.php:233 ../setup/check_netpbm.php:281
+#: ../setup/check_imagemagick.php:237 ../setup/check_netpbm.php:281
 #, php-format
 msgid "OK!  Version: %s"
 msgstr "OK! ¥Ð¡¼¥¸¥ç¥ó: %s"
 
-#: ../setup/check_mail.php:11 ../setup/check_mail.php:16
+#: ../setup/check_mail.php:17 ../setup/check_mail.php:22
 msgid "Check Mail"
 msgstr "¥á¡¼¥ë¤ò¥Á¥§¥Ã¥¯"
 
-#: ../setup/check_mail.php:23
+#: ../setup/check_mail.php:26 ../setup/check_versions.php:10
+#: ../setup/diagnostics.php:24 ../setup/session_test.php:45
+msgid "You cannot access this file while gallery is in secure mode."
+msgstr "Gallery¤¬¥»¥­¥å¥¢¥â¡¼¥É¤Ë¤Ê¤Ã¤Æ¤¤¤ë¤È¤­¤Ï¡¢¤³¤Î¥Õ¥¡¥¤¥ë¤Ë¤Ï¥¢¥¯¥»¥¹¤Ç¤­¤Þ¤»¤ó¡£"
+
+#: ../setup/check_mail.php:38
 #, php-format
 msgid "Test email from %s"
 msgstr "%s¤«¤é¤Î¥Æ¥¹¥È¥á¡¼¥ë"
 
-#: ../setup/check_mail.php:24
+#: ../setup/check_mail.php:39
 msgid "This email was automatically generated."
 msgstr "¤³¤Î¥á¡¼¥ë¤Ï¼«Æ°À¸À®¤µ¤ì¤¿¤â¤Î¤Ç¤¹¡£"
 
-#: ../setup/check_mail.php:25
+#: ../setup/check_mail.php:40
 msgid "If you recevied this in error, then please disregard, as you should not receive any similar emails."
 msgstr "¥¨¥é¡¼¤ò¼õ¤±¼è¤Ã¤Æ¤â¡¢Æ±ÍÍ¤Î¤¤¤«¤Ê¤ë¥á¡¼¥ë¤â¼õ¤±¼è¤Ã¤Æ¤Ï¤Ê¤é¤Ê¤¤¤Î¤Ç¡¢Ìµ»ë¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_mail.php:26
+#: ../setup/check_mail.php:41
 #, php-format
 msgid "If you were expecting email from the %s installation at %s, then Congratulations!  Email is working and you can enable the %s email functions."
 msgstr "%2$s¤Î%1$s¥¤¥ó¥¹¥È¥ì¡¼¥·¥ç¥ó¤«¤é¤Î¥á¡¼¥ë¤ò´üÂÔ¤·¤Æ¤¤¤¿¤Ê¤é¡¢´î¤ó¤Ç¤¯¤À¤µ¤¤! ÅÅ»Ò¥á¡¼¥ë¤ÏÀµ¾ïÆ°ºî¤·¡¢%3$s¥á¡¼¥ëµ¡Ç½¤¬ÍøÍÑ¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/check_mail.php:30
+#: ../setup/check_mail.php:45
 msgid "SUCCESS!"
 msgstr "À®¸ù"
 
-#: ../setup/check_mail.php:31
+#: ../setup/check_mail.php:46
 #, php-format
 msgid "Test email sent to <b>%s</b>, and should arrive in a few minutes.  If you don't receive it please confirm the email address used was correct.  If you cannot receive the email, then it must be disabled for this server, and %s email functions cannot be used until that is rectified"
 msgstr "¥Æ¥¹¥È¥á¡¼¥ë¤¬ <b>%s</b> ¤ËÁ÷¿®¤µ¤ì¡¢¿ôÊ¬¤ÇÅþÃå¤¹¤ë¤Ï¤º¤Ç¤¹¡£¤â¤·¥á¡¼¥ë¤ò¼õ¤±¼è¤é¤Ê¤«¤Ã¤¿¾ì¹ç¡¢¥á¡¼¥ë¥¢¥É¥ì¥¹¤¬Àµ¤·¤¤¤³¤È¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£¥á¡¼¥ë¤ò¼õ¤±¼è¤ì¤Ê¤¤¾ì¹ç¤Ï¡¢¤³¤Î¥µ¡¼¥Ð¤Ç¤Ï¥á¡¼¥ëµ¡Ç½¤¬Ìµ¸ú¤Ç¡¢¤½¤ì¤òÄ¾¤¹¤Þ¤Ç %s ¥á¡¼¥ë´Ø¿ô¤¬»È¤¨¤Þ¤»¤ó¡£"
 
-#: ../setup/check_mail.php:33
+#: ../setup/check_mail.php:48
 msgid "You must use a valid email address"
 msgstr "Àµ¤·¤¤¥á¡¼¥ë¥¢¥É¥ì¥¹¤ò»ÈÍÑ¤·¤Æ¤¯¤À¤µ¤¤"
 
-#: ../setup/check_mail.php:34
+#: ../setup/check_mail.php:49
 msgid "Try again?"
 msgstr "¤â¤¦°ìÅÙ?"
 
-#: ../setup/check_mail.php:40
+#: ../setup/check_mail.php:55
 msgid "This enables you to confirm that email is working correctly on your system.  Submit your email address below, and an email will be sent to you. If you receive it, then you know that mail is working on your system"
 msgstr "¤³¤ì¤Ï¡¢¤³¤Î¥·¥¹¥Æ¥à¤ÇÅÅ»Ò¥á¡¼¥ë¤¬Àµ¤·¤¯Æ°ºî¤¹¤ë¤«³ÎÇ§¤¹¤ë¤â¤Î¤Ç¤¹¡£¥á¡¼¥ë¥¢¥É¥ì¥¹¤ò°Ê²¼¤«¤éÁ÷¿®¤¹¤ë¤È¡¢¥á¡¼¥ë¤¬Á÷¿®¤µ¤ì¤Þ¤¹¡£¤½¤ì¤ò¼õ¤±¼è¤Ã¤¿¤é¡¢ÅÅ»Ò¥á¡¼¥ë¤Ï¥·¥¹¥Æ¥à¤ÏÆ°ºî¤·¤Æ¤¤¤Þ¤¹¡£"
 
-#: ../setup/check_mail.php:44 ../setup/check_mail.php:49
-#, fuzzy, php-format
-msgid "%s not set."
+#: ../setup/check_mail.php:58 ../setup/check_mail.php:62
+#, php-format
+msgid "Error! %s not set."
 msgstr "¥¨¥é¡¼! %s¤Ï¥»¥Ã¥È¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£"
 
-#: ../setup/check_mail.php:69
+#: ../setup/check_mail.php:80
 msgid "Your email address:"
 msgstr "¤¢¤Ê¤¿¤Î¥á¡¼¥ë¥¢¥É¥ì¥¹:"
 
-#: ../setup/check_mail.php:71
+#: ../setup/check_mail.php:82
 msgid "Send Email"
 msgstr "¥á¡¼¥ë¤òÁ÷¤ë"
 
-#: ../setup/check_netpbm.php:10
+#: ../setup/check_netpbm.php:15
 msgid "Gallery NetPBM Check"
 msgstr "Gallery NetPBM ¥Á¥§¥Ã¥¯"
 
-#: ../setup/check_netpbm.php:126 ../setup/check_versions.php:31
+#: ../setup/check_netpbm.php:131 ../setup/check_versions.php:41
 #, php-format
 msgid "%sClick here%s to hide the details"
 msgstr "%s¤³¤³¤ò¥¯¥ê¥Ã¥¯%s¤·¤Æ¡¢¾ÜºÙ¤ò±£¤¹"
 
-#: ../setup/check_netpbm.php:129
+#: ../setup/check_netpbm.php:134
 #, php-format
 msgid "If you see errors, you should %sclick here%s to see more details"
 msgstr "¥¨¥é¡¼¤¬È¯À¸¤·¤Æ¤¤¤¿¤é¡¢%s¤³¤³¤ò¥¯¥ê¥Ã¥¯¤·¤Æ%s¾ÜºÙ¤ò¸«¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/check_versions.php:10 ../setup/check_versions.php:18
+#: ../setup/check_versions.php:29 ../setup/check_versions.php:34
 #, fuzzy
 msgid "Check Versions"
 msgstr "¥»¥Ã¥·¥ç¥ó¤Î¥Á¥§¥Ã¥¯"
 
-#: ../setup/check_versions.php:20
-#, fuzzy, php-format
-msgid "This page gives you information about the version of each necessary %s file"
-msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¥·¥¹¥Æ¥à¤ÎImageMagick¥Ð¥¤¥Ê¥ê¤Ë´Ø¤¹¤ë¾ðÊó¤òÄó¶¡¤·¤Þ¤¹¡£"
-
-#: ../setup/check_versions.php:21
-msgid "If you see error, we highly suggest to get the actual version of that file/s"
-msgstr ""
-
-#: ../setup/check_versions.php:34
+#: ../setup/check_versions.php:44
 #, fuzzy, php-format
 msgid "%sClick here%s to see more details"
 msgstr "%s¤³¤³¤ò¥¯¥ê¥Ã¥¯%s¤·¤Æ¡¢¾ÜºÙ¤ò±£¤¹"
 
-#: ../setup/check_versions.php:47
+#: ../setup/check_versions.php:53
 #, php-format
-msgid "%s missing, corrupt or older than expected."
+msgid "The following files are missing or not the correct version for this version of %s.  Please replace them with the correct version."
 msgstr ""
 
-#: ../setup/check_versions.php:48 ../setup/check_versions.php:73
-#: ../setup/check_versions.php:97
-msgid "1 file"
-msgstr ""
-
-#: ../setup/check_versions.php:49 ../setup/check_versions.php:73
-#: ../setup/check_versions.php:98
-msgid "files"
-msgstr ""
-
-#: ../setup/check_versions.php:49 ../setup/check_versions.php:73
-#: ../setup/check_versions.php:98
-msgid "No files"
-msgstr ""
-
-#: ../setup/check_versions.php:54
-#, php-format
-msgid "There are problems with the following files.  Please correct them before configuring %s."
-msgstr ""
-
-#: ../setup/check_versions.php:72
-#, php-format
-msgid "%s more recent than expected."
-msgstr ""
-
-#: ../setup/check_versions.php:79
+#: ../setup/check_versions.php:63
 #, php-format
 msgid "The following files are more up-to-date than expected for this version of %s.  If you are using pre-release code, this is OK."
 msgstr ""
 
-#: ../setup/check_versions.php:96
+#: ../setup/check_versions.php:71
 #, php-format
-msgid "%s up-to-date."
-msgstr ""
-
-#: ../setup/check_versions.php:102
-msgid "The following files are up-to-date."
+msgid "%d files up-to-date."
 msgstr ""
 
 #: ../setup/config_data.inc:17
@@ -586,8 +553,7 @@ msgid "Check to see what languages are available."
 msgstr "¤É¤Î¸À¸ì¤¬ÍøÍÑ¤Ç¤­¤ë¤«³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
 #: ../setup/config_data.inc:147
-#, fuzzy
-msgid "Testing to see which <b>system</b> locales (if any) are absent."
+msgid "Testing to see which locales (if any) are absent."
 msgstr "(¤â¤·¤¢¤ì¤Ð)¤É¤Î¥í¥±¡¼¥ë¤¬µÙ»ß¾õÂÖ¤«¸«¤ë¤¿¤á¤Î¥Æ¥¹¥È¤Ç¤¹¡£"
 
 #: ../setup/config_data.inc:152
@@ -637,9 +603,9 @@ msgstr "°ì»þ¥Õ¥¡¥¤¥ë¤ò¤ª¤¯¥Ç¥£¥ì¥¯¥È¥ê¤Î¥Ñ¥¹¡£Îã¤¨¤Ð  %s ¤ä %s¡£¤¢¤Ê¤¿¤Î¥·¥¹¥Æ¥à
 msgid "The full URL to the Gallery web application.  E.g. %s"
 msgstr "Gallery¥¦¥§¥Ö¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤ÎURL¡£Îã¤¨¤Ð %s"
 
-#: ../setup/config_data.inc:212
-#, fuzzy
-msgid "Albums URL"
+#: ../setup/config_data.inc:212 ../setup/config_data.inc:622
+#: ../setup/config_data.inc:631
+msgid "Albums"
 msgstr "¥¢¥ë¥Ð¥à"
 
 #: ../setup/config_data.inc:213
@@ -720,45 +686,45 @@ msgstr "¤³¤Î¥ª¥×¥·¥ç¥ó¤òÁªÂò¤¹¤ë¤È¥¢¥Ã¥×¥í¡¼¥É»þ¤ËGallery¤¬²èÁü¤Î¼«Æ°²óÅ¾¤ò¤·¤è¤
 
 #: ../setup/config_data.inc:290 ../setup/config_data.inc:309
 #: ../setup/config_data.inc:322 ../setup/config_data.inc:335
-#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
-#: ../setup/config_data.inc:493 ../setup/config_data.inc:545
-#: ../setup/config_data.inc:552 ../setup/config_data.inc:558
-#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
-#: ../setup/config_data.inc:642 ../setup/config_data.inc:643
-#: ../setup/config_data.inc:671 ../setup/config_data.inc:677
-#: ../setup/config_data.inc:821 ../setup/config_data.inc:827
-#: ../setup/config_data.inc:834 ../setup/config_data.inc:840
-#: ../setup/config_data.inc:886 ../setup/config_data.inc:895
-#: ../setup/config_data.inc:909 ../setup/config_data.inc:919
-#: ../setup/config_data.inc:925 ../setup/config_data.inc:931
-#: ../setup/config_data.inc:995 ../setup/config_data.inc:1002
-#: ../setup/config_data.inc:1049 ../setup/config_data.inc:1050
-#: ../setup/config_data.inc:1056
+#: ../setup/config_data.inc:394 ../setup/config_data.inc:447
+#: ../setup/config_data.inc:492 ../setup/config_data.inc:546
+#: ../setup/config_data.inc:553 ../setup/config_data.inc:559
+#: ../setup/config_data.inc:608 ../setup/config_data.inc:640
+#: ../setup/config_data.inc:646 ../setup/config_data.inc:648
+#: ../setup/config_data.inc:669 ../setup/config_data.inc:675
+#: ../setup/config_data.inc:819 ../setup/config_data.inc:825
+#: ../setup/config_data.inc:832 ../setup/config_data.inc:838
+#: ../setup/config_data.inc:884 ../setup/config_data.inc:893
+#: ../setup/config_data.inc:907 ../setup/config_data.inc:917
+#: ../setup/config_data.inc:923 ../setup/config_data.inc:929
+#: ../setup/config_data.inc:998 ../setup/config_data.inc:1005
+#: ../setup/config_data.inc:1054 ../setup/config_data.inc:1056
+#: ../setup/config_data.inc:1063
 msgid "yes"
 msgstr "¤Ï¤¤"
 
 #: ../setup/config_data.inc:290 ../setup/config_data.inc:309
 #: ../setup/config_data.inc:322 ../setup/config_data.inc:335
-#: ../setup/config_data.inc:393 ../setup/config_data.inc:451
-#: ../setup/config_data.inc:492 ../setup/config_data.inc:493
-#: ../setup/config_data.inc:545 ../setup/config_data.inc:552
-#: ../setup/config_data.inc:558 ../setup/config_data.inc:605
-#: ../setup/config_data.inc:606 ../setup/config_data.inc:636
-#: ../setup/config_data.inc:643 ../setup/config_data.inc:671
-#: ../setup/config_data.inc:677 ../setup/config_data.inc:821
-#: ../setup/config_data.inc:827 ../setup/config_data.inc:834
-#: ../setup/config_data.inc:840 ../setup/config_data.inc:886
-#: ../setup/config_data.inc:895 ../setup/config_data.inc:909
-#: ../setup/config_data.inc:919 ../setup/config_data.inc:925
-#: ../setup/config_data.inc:931 ../setup/config_data.inc:994
-#: ../setup/config_data.inc:995 ../setup/config_data.inc:1050
-#: ../setup/config_data.inc:1055 ../setup/config_data.inc:1056
+#: ../setup/config_data.inc:394 ../setup/config_data.inc:447
+#: ../setup/config_data.inc:491 ../setup/config_data.inc:492
+#: ../setup/config_data.inc:546 ../setup/config_data.inc:553
+#: ../setup/config_data.inc:559 ../setup/config_data.inc:606
+#: ../setup/config_data.inc:608 ../setup/config_data.inc:640
+#: ../setup/config_data.inc:648 ../setup/config_data.inc:669
+#: ../setup/config_data.inc:675 ../setup/config_data.inc:819
+#: ../setup/config_data.inc:825 ../setup/config_data.inc:832
+#: ../setup/config_data.inc:838 ../setup/config_data.inc:884
+#: ../setup/config_data.inc:893 ../setup/config_data.inc:907
+#: ../setup/config_data.inc:917 ../setup/config_data.inc:923
+#: ../setup/config_data.inc:929 ../setup/config_data.inc:996
+#: ../setup/config_data.inc:998 ../setup/config_data.inc:1056
+#: ../setup/config_data.inc:1061 ../setup/config_data.inc:1063
 msgid "no"
 msgstr "¤¤¤¤¤¨"
 
-#: ../setup/config_data.inc:295 ../setup/config_data.inc:391
-#: ../setup/config_data.inc:456 ../setup/config_data.inc:466
-#: ../setup/functions.inc:807 ../setup/functions.inc:880
+#: ../setup/config_data.inc:295 ../setup/config_data.inc:392
+#: ../setup/config_data.inc:452 ../setup/config_data.inc:463
+#: ../setup/functions.inc:800 ../setup/functions.inc:873
 msgid "Advanced"
 msgstr "¹âÅÙ"
 
@@ -826,163 +792,163 @@ msgstr "Gallery¤¬»È¤¦¥¹¥­¥ó¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£Gallery¤ÎÁ´¥Ú¡¼¥¸¤Î³°¸«¤Ë±Æ¶Á¤¹¤ë
 msgid "On the main page, the image representing each album has a frame arount it.  The following styles are available:"
 msgstr "¥á¥¤¥ó¥Ú¡¼¥¸¾å¤Ç¤Ï¡¢¥¢¥ë¥Ð¥à¤òÉ½¤¹²èÁü¤Ï¤½¤Î¼þ¤ê¤Ë¥Õ¥ì¡¼¥à¤ò¤â¤Ã¤Æ¤¤¤Þ¤¹¡£°Ê²¼¤Î¥¹¥¿¥¤¥ë¤¬ÍøÍÑ¤Ç¤­¤Þ¤¹:"
 
-#: ../setup/config_data.inc:354
+#: ../setup/config_data.inc:355
 msgid "Optional tools"
 msgstr "¥ª¥×¥·¥ç¥ó¤Î¥Ä¡¼¥ë"
 
-#: ../setup/config_data.inc:358
+#: ../setup/config_data.inc:359
 msgid "The filesystem path to the <b>zipinfo</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "<b>zipinfo</b> ¥Ð¥¤¥Ê¥ê¤Î¥Ñ¥¹¤Ç¤¹¡£¤³¤ì¤Ï¥ª¥×¥·¥ç¥ó¤Ç¤¹¤Î¤Ç¡¢¥Ð¥¤¥Ê¥ê¤¬¤Ê¤¯¤Æ¤â¤½¤ó¤Ê¤Ëµ¤¤Ë¤¹¤ë¤³¤È¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:369
+#: ../setup/config_data.inc:370
 msgid "The filesystem path to the <b>unzip</b> binary.  This is optional so if you don't have it, don't worry about it too much."
 msgstr "<b>unzip</b> ¥Ð¥¤¥Ê¥ê¤Î¥Ñ¥¹¤Ç¤¹¡£¤³¤ì¤Ï¥ª¥×¥·¥ç¥ó¤Ç¤¹¤Î¤Ç¡¢¥Ð¥¤¥Ê¥ê¤¬¤Ê¤¯¤Æ¤â¤½¤ó¤Ê¤Ëµ¤¤Ë¤¹¤ë¤³¤È¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:380
+#: ../setup/config_data.inc:381
 #, php-format
 msgid "The filesystem path to the <b>jhead</b> EXIF parser.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "EXIF¥Ç¡¼¥¿²òÀÏ¤ò¤¹¤ë <b>jhead</b> ¤Î¥Ñ¥¹¤Ç¤¹¡£¤³¤ì¤Ï¥ª¥×¥·¥ç¥ó¤Ç¤¹¤Î¤Ç¡¢jhead¤¬¤Ê¤¯¤Æ¤â¤½¤ó¤Ê¤Ëµ¤¤Ë¤¹¤ë¤³¤È¤Ï¤¢¤ê¤Þ¤»¤ó¡£Îã¤¨¤Ð %s ¤ä %s¡£"
 
-#: ../setup/config_data.inc:391
+#: ../setup/config_data.inc:392
 msgid "Cache EXIF data"
 msgstr "EXIF ¥Ç¡¼¥¿¤Î¥­¥ã¥Ã¥·¥å"
 
-#: ../setup/config_data.inc:392
+#: ../setup/config_data.inc:393
 msgid "The EXIF data extracted from JPEG files can be cached after it is read the first time.  The tradeoff is that if you cache this data it's possible for your album data files to get quite large which may slow down viewing your albums.  But, if you don't cache this data then it needs to be retrieved every time any user looks at the properties of a photo which can also be slow."
 msgstr "JPEG¥Õ¥¡¥¤¥ë¤«¤éÃê½Ð¤µ¤ì¤¿EXIF¥Ç¡¼¥¿¤ÏºÇ½é¤Ë1²óÆÉ¤ß½Ð¤µ¤ì¤¿¸å¤Ë¥­¥ã¥Ã¥·¥å¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£¤³¤Î¥Ç¡¼¥¿¤ò¥­¥ã¥Ã¥·¥å¤·¤¿¾ì¹ç¤Î¥È¥ì¡¼¥É¥ª¥Õ¤Ï¡¢¥¢¥ë¥Ð¥à¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë¤¬µðÂç²½¤·¡¢¥¢¥ë¥Ð¥à¤ò¸«¤ë¤Î¤Ë»þ´Ö¤¬¤«¤«¤ë¤è¤¦¤Ë¤Ê¤ë²ÄÇ½À­¤¬¤¢¤ë¤³¤È¤Ç¤¹¡£¤·¤«¤·¡¢¥­¥ã¥Ã¥·¥å¤·¤Ê¤¤¤È³Æ¥æ¡¼¥¶¤¬²èÁü¤Î¥×¥í¥Ñ¥Æ¥£¤ò¸«¤ë¤¿¤Ó¤Ë¤³¤Î¥Ç¡¼¥¿¤òÆÉ¤ß½Ð¤¹É¬Í×¤¬¤¢¤ë¤¿¤á¡¢¤½¤ì¤Ë¤è¤Ã¤ÆÃÙ¤¯¤Ê¤ê¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:398
+#: ../setup/config_data.inc:399
 #, php-format
 msgid "The filesystem path to the <b>jpegtran</b> utility.  This is optional so if you don't have it, don't worry about it too much.  E.g. %s or %s"
 msgstr "<b>jpegtran</b> ¥æ¡¼¥Æ¥£¥ê¥Æ¥£¤Î¥Ñ¥¹¡£¤³¤ì¤Ï¥ª¥×¥·¥ç¥ó¤Ç¤¹¤Î¤Ç¡¢jpegtran¤¬¤Ê¤¯¤Æ¤â¤½¤ó¤Ê¤Ëµ¤¤Ë¤¹¤ë¤³¤È¤Ï¤¢¤ê¤Þ¤»¤ó¡£Îã¤¨¤Ð %s ¤ä %s¡£"
 
-#: ../setup/config_data.inc:417
+#: ../setup/config_data.inc:412
 msgid "Languages and locales"
 msgstr "¸À¸ì¤È¥í¥±¡¼¥ë"
 
-#: ../setup/config_data.inc:420
+#: ../setup/config_data.inc:415
 msgid "Default language"
 msgstr "¥Ç¥Õ¥©¥ë¥È¸À¸ì"
 
-#: ../setup/config_data.inc:422
+#: ../setup/config_data.inc:417
 #, php-format
 msgid "This is the language you will see as %s, and what users will see if no other preference is set."
 msgstr "¤³¤ì¤Ï%s¤È¤·¤Æ¸«¤¨¤ë¸À¸ì¤Ç¤¹¡¢¤½¤·¤Æ³Æ¥æ¡¼¥¶¤¬¸ÄÊÌ¤ËÀßÄê¤·¤Æ¤¤¤Ê¤¤¤È¤­¤Ë¸«¤¨¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:429
+#: ../setup/config_data.inc:424
 msgid "Multi language mode"
 msgstr "Â¿¸À¸ì¥â¡¼¥É"
 
-#: ../setup/config_data.inc:430
+#: ../setup/config_data.inc:425
 msgid "Gallery has three multi language modes.  These affect the language that a user will see when visiting the site."
 msgstr "Gallery¤Ë¤Ï3¤Ä¤ÎÂ¿¸À¸ì¥â¡¼¥É¤¬¤¢¤ê¤Þ¤¹¡£¤³¤ì¤é¤Ï¥æ¡¼¥¶¤¬¥µ¥¤¥È¤òË¬¤ì¤¿¤È¤­¤ËÉ½¼¨¤µ¤ì¤ë¸À¸ì¤Ë±Æ¶Á¤·¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:433
+#: ../setup/config_data.inc:428
 msgid "Gallery is only displayed in one language"
 msgstr "Gallery¤Ï1¤Ä¤Î¸À¸ì¤Ç¤Î¤ßÉ½¼¨¤µ¤ì¤Þ¤¹"
 
-#: ../setup/config_data.inc:434
+#: ../setup/config_data.inc:429
 msgid "Gallery is displayed in the language the browser sends"
 msgstr "Gallery¤Ï¥Ö¥é¥¦¥¶¤¬Á÷¿®¤¹¤ë¸À¸ì¤ÇÉ½¼¨¤µ¤ì¤Þ¤¹"
 
-#: ../setup/config_data.inc:435
+#: ../setup/config_data.inc:430
 msgid "The User can choose the language via pulldown menu or flags."
 msgstr "¥æ¡¼¥¶¤Ï¥×¥ë¥À¥¦¥ó¥á¥Ë¥å¡¼¤«¥Õ¥é¥°¤Ë¤è¤Ã¤Æ¸À¸ì¤òÁªÂò¤Ç¤­¤Þ¤¹"
 
-#: ../setup/config_data.inc:439
+#: ../setup/config_data.inc:434
 msgid "Available languages"
 msgstr "ÍøÍÑ²ÄÇ½¤Ê¸À¸ì"
 
-#: ../setup/config_data.inc:442
+#: ../setup/config_data.inc:437
 msgid "These languages will be available as user choices in a pulldown menu or flags, if you have chosen language Mode 3, and will be available to registered users as their default language in Mode 2 or 3."
 msgstr "¤³¤ì¤é¤Î¸À¸ì¤Ï¸À¸ì¥â¡¼¥É¤ò3¤Ë¤·¤Æ¤¤¤ë¤È¤­¤Ë¡¢¥æ¡¼¥¶¤¬¥É¥í¥Ã¥×¥À¥¦¥ó¥á¥Ë¥å¡¼¤ä¥Õ¥é¥°¤ÇÁªÂò²ÄÇ½¤Ë¤Ê¤ê¤Þ¤¹¡£¤½¤·¤Æ¡¢¥â¡¼¥É 2¤«3¤Î¾ì¹ç¤Ë¡¢ÅÐÏ¿¥æ¡¼¥¶¤Î¥Ç¥Õ¥©¥ë¥È¸À¸ì¤È¤·¤ÆÁªÂò²ÄÇ½¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:448
+#: ../setup/config_data.inc:443
 msgid "Show flags?"
 msgstr "¥Õ¥é¥°¤òÉ½¼¨¤¹¤ë?"
 
-#: ../setup/config_data.inc:450
+#: ../setup/config_data.inc:445
 msgid "In Mode 3 you can choose to display flags instead of a small pulldown menu for the available languages."
 msgstr "¥â¡¼¥É 3¤Ç¤ÏÍ­¸ú¤Ê¸À¸ì¤Î¾®¤µ¤Ê¥×¥ë¥À¥¦¥ó¥á¥Ë¥å¡¼¤«¥Õ¥é¥°¤òÉ½¼¨¤¹¤ë¤«ÁªÂò¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:456
+#: ../setup/config_data.inc:452
 msgid "Format for date strings."
 msgstr "ÆüÉÕ¤Î¥Õ¥©¡¼¥Þ¥Ã¥È"
 
-#: ../setup/config_data.inc:457 ../setup/config_data.inc:467
+#: ../setup/config_data.inc:453 ../setup/config_data.inc:464
 #, php-format
 msgid "This format string will be used to display %s in %s.  It is recommended to use %s which will change format depending on language choice.  However, if you wish to change this string, please look at the %sPHP documentation%s."
 msgstr "¤³¤Î¥Õ¥©¡¼¥Þ¥Ã¥ÈÊ¸»úÎó¤Ï%s¤ò%s¤ÇÉ½¼¨¤¹¤ë¤¿¤á¤Ë»È¤ï¤ì¤Þ¤¹¡£ÁªÂò¸À¸ì¤Ë±þ¤¸¤Æ¥Õ¥©¡¼¥Þ¥Ã¥È¤¬ÊÑ¹¹¤µ¤ì¤ë%s¤ò»È¤¦¤³¤È¤¬¿ä¾©¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¤·¤«¤·¤Ê¤¬¤é¡¢¤³¤ì¤òÊÑ¹¹¤·¤¿¤¤¤Ê¤é¡¢%sPHP¥É¥­¥å¥á¥ó¥È%s¤ò¤´Í÷¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:458
+#: ../setup/config_data.inc:454
 msgid "date without time"
 msgstr "ÆüÉÕ¤Î¤ß"
 
-#: ../setup/config_data.inc:459 ../setup/config_data.inc:469
+#: ../setup/config_data.inc:455 ../setup/config_data.inc:466
 msgid "http://www.php.net/manual/en/function.strftime.php"
 msgstr "http://www.php.net/manual/ja/function.strftime.php"
 
-#: ../setup/config_data.inc:460
+#: ../setup/config_data.inc:457
 #, php-format
 msgid "For example, %s will display date like this: %s."
 msgstr "Îã¤¨¤Ð¡¢%s ¤ÏÆüÉÕ¤ò¤³¤Î¤è¤¦¤ËÉ½¼¨¤·¤Þ¤¹: %s¡£"
 
-#: ../setup/config_data.inc:466
+#: ../setup/config_data.inc:463
 msgid "Format for date/time strings."
 msgstr "ÆüÉÕ¤È»þ´Ö¤Î¥Õ¥©¡¼¥Þ¥Ã¥È"
 
-#: ../setup/config_data.inc:468
+#: ../setup/config_data.inc:465
 msgid "date with time"
 msgstr "ÆüÉÕ¤È»þ´Ö"
 
-#: ../setup/config_data.inc:470
+#: ../setup/config_data.inc:468
 #, php-format
 msgid "For example, %s will display date and time like this: %s."
 msgstr "Îã¤¨¤Ð¡¢%s ¤ÏÆüÉÕ¤È»þ´Ö¤ò¤³¤Î¤è¤¦¤ËÉ½¼¨¤·¤Þ¤¹: %s"
 
-#: ../setup/config_data.inc:484
+#: ../setup/config_data.inc:482
 msgid "Email and Registration"
 msgstr "¥á¡¼¥ë¤ÈÅÐÏ¿"
 
-#: ../setup/config_data.inc:485
+#: ../setup/config_data.inc:483
 #, php-format
 msgid "If you are having problems with email, please run the %s diagnostic."
 msgstr "ÅÅ»Ò¥á¡¼¥ë¤Ë´Ø¤·¤ÆÌäÂê¤¬¤¢¤ë¤Ê¤é¡¢%s¿ÇÃÇ¤ò¼Â¹Ô¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:486 ../setup/diagnostics.php:73
+#: ../setup/config_data.inc:484 ../setup/diagnostics.php:84
 msgid "Check Email"
 msgstr "¥á¡¼¥ë¤Î¥Á¥§¥Ã¥¯"
 
-#: ../setup/config_data.inc:489
+#: ../setup/config_data.inc:488
 msgid "Enable email"
 msgstr "¥á¡¼¥ë¤òÍ­¸ú¤Ë¤¹¤ë"
 
-#: ../setup/config_data.inc:491
+#: ../setup/config_data.inc:490
 #, php-format
 msgid "Turns email on for the whole gallery.  If you set this to %s then none of the rest of this section will apply."
 msgstr "¥®¥ã¥é¥ê¡¼Á´ÂÎ¤Ë¤ª¤¤¤Æ¥á¡¼¥ë¤òÍ­¸ú¤Ë¤·¤Þ¤¹¡£¤³¤ì¤ò%s¤Ë¥»¥Ã¥È¤·¤¿¤é¤³¤ì°Ê¹ß¤Î¥»¥¯¥·¥ç¥ó¤ÏÅ¬ÍÑ¤µ¤ì¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:497
+#: ../setup/config_data.inc:496
 msgid "Admin email address"
 msgstr "´ÉÍý¼Ô¥á¡¼¥ë¥¢¥É¥ì¥¹"
 
-#: ../setup/config_data.inc:498
+#: ../setup/config_data.inc:497
 msgid "Set this value to a valid working email address to receive email notices upon certain user actions and also so that users know whom to reach in case of problems. You may specify more than one address by separating them with commas."
 msgstr "¤³¤ÎÃÍ¤Ï¤¢¤ë¥æ¡¼¥¶¤Î¥¢¥¯¥·¥ç¥ó¤äÌäÂê¤¬µ¯¤³¤Ã¤Æ¤¤¤ë¥æ¡¼¥¶¤òÃÎ¤ë¤¿¤á¤Î¥á¡¼¥ë¤ò¼õ¤±¼è¤ë¡¢Í­¸ú¤Ê¥á¡¼¥ë¥¢¥É¥ì¥¹¤Ë¤·¤Æ¤¯¤À¤µ¤¤¡£¥«¥ó¥Þ¤Ç¶èÀÚ¤Ã¤ÆÊ£¿ô¤Î¥¢¥É¥ì¥¹¤¬»ØÄê¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:506
+#: ../setup/config_data.inc:505
 msgid "Sender email address"
 msgstr "Á÷¿®¼Ô¥á¡¼¥ë¥¢¥É¥ì¥¹"
 
-#: ../setup/config_data.inc:507
+#: ../setup/config_data.inc:506
 msgid "Set this value to a valid working email address.  Emails that are automatically sent by Gallery will use this as a return address.  You should monitor this email address for bounce messages and replies from recipients."
 msgstr "¤³¤ÎÃÍ¤ÏÍ­¸ú¤Ê¥á¡¼¥ë¥¢¥É¥ì¥¹¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£Gallery¤Ë¤è¤Ã¤Æ¼«Æ°Åª¤ËÁ÷¿®¤µ¤ì¤ë¥á¡¼¥ë¥¢¥É¥ì¥¹¤ÎÊÖ¿®¥¢¥É¥ì¥¹¤Ë¤Ï¤³¤ì¤¬»È¤ï¤ì¤Þ¤¹¡£You should monitor this email address for bounce messages and replies from recipients."
 
-#: ../setup/config_data.inc:515
+#: ../setup/config_data.inc:514
 msgid "Email subject prefix"
 msgstr "¥á¡¼¥ë¥µ¥Ö¥¸¥§¥¯¥È¤Î¥×¥ì¥Õ¥£¥Ã¥¯¥¹"
 
-#: ../setup/config_data.inc:516
+#: ../setup/config_data.inc:515
 msgid "All gallery emails will have this as the first part of their subject."
 msgstr "Á´¤Æ¤ÎGallery¤Î¥á¡¼¥ë¤Ï¥µ¥Ö¥¸¥§¥¯¥È¤ÎÀèÆ¬¤Ë¤³¤ÎÊ¸»úÎó¤¬ÁÞÆþ¤µ¤ì¤Þ¤¹¡£"
 
@@ -1008,477 +974,464 @@ msgstr "%s ¤Ï¿·¤·¤¤¥æ¡¼¥¶¤¬¿·¤·¤¤¥Ñ¥¹¥ï¡¼¥É¤òºîÀ®¤¹¤ë¤¿¤á¤Î¥ê¥ó¥¯¤ËÃÖ¤­´¹¤¨¤é¤ì¤
 msgid "Leave this field blank to get the default message that can be translated into other languages.  The default message is:"
 msgstr "Â¾¤Î¸À¸ì¤ËËÝÌõ²ÄÇ½¤Ê¥Ç¥Õ¥©¥ë¥È¤Î¥á¥Ã¥»¡¼¥¸¤òÆÀ¤ë¤Ë¤Ï¡¢¤³¤Î¥Õ¥£¡¼¥ë¥É¤ò¶õ¤Î¤Þ¤Þ¤Ë¤·¤Æ¤ª¤¤¤Æ¤¯¤À¤µ¤¤¡£¥Ç¥Õ¥©¥ë¥È¥á¥Ã¥»¡¼¥¸¤Ï:"
 
-#: ../setup/config_data.inc:542
+#: ../setup/config_data.inc:543
 msgid "Allow visitors to self register."
 msgstr "Ë¬Ìä¼Ô¤¬¼«Ê¬¤ÇÅÐÏ¿¤¹¤ë¤³¤È¤òµö²Ä¤¹¤ë¡£"
 
-#: ../setup/config_data.inc:543
+#: ../setup/config_data.inc:544
 msgid "Enabling this will allow visitors to your site to create their own login accounts."
 msgstr "¤³¤ì¤òÍ­¸ú¤Ë¤¹¤ë¤È¡¢¥µ¥¤¥È¤ÎË¬Ìä¼Ô¤¬¼«Ê¬¤Ç¥¢¥«¥¦¥ó¥ÈºîÀ®¤ò¤Ç¤­¤ë¤è¤¦¤Ë¤Ê¤ê¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:549
+#: ../setup/config_data.inc:550
 msgid "Self registered users can create albums."
 msgstr "¼«Ê¬¤Ç¥¢¥«¥¦¥ó¥ÈºîÀ®¤ò¤·¤¿¥æ¡¼¥¶¤Ï¥¢¥ë¥Ð¥àºîÀ®²ÄÇ½¤Ë¤¹¤ë¡£"
 
-#: ../setup/config_data.inc:550
+#: ../setup/config_data.inc:551
 msgid "Enabling this will allow self registered users to create their own albums as soon as they register.  Not having this enabled means you will have to give them permission manually before they can create or alter any contents of the Gallery.  This setting is ignored if self-registration is disabled."
 msgstr "¤³¤ì¤òÍ­¸ú¤Ë¤¹¤ë¤È¡¢¼«Ê¬¤ÇÅÐÏ¿¤ò¤·¤¿¥æ¡¼¥¶¤¬ÅÐÏ¿¤¹¤ë¤ÈÂ¨ºÂ¤Ë¼«Ê¬¤Î¥¢¥ë¥Ð¥àºîÀ®¤¬¤Ç¤­¤ë¤è¤¦¤Ë¤Ê¤ê¤Þ¤¹¡£¤³¤ì¤òÍ­¸ú¤Ë¤·¤Ê¤¤¤È¡¢ÅÐÏ¿¥æ¡¼¥¶¤¬Gallery¤Î¤¢¤é¤æ¤ë¥³¥ó¥Æ¥ó¥Ä¤òºîÀ®¤·¤¿¤ê¡¢¼ê¤ò²Ã¤¨¤¿¤ê¤¹¤ë¤¿¤á¤Ë¼êÆ°¤Ç¥Ñ¡¼¥ß¥Ã¥·¥ç¥ó¤ò³ä¤êÅö¤Æ¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó¡£¤³¤ÎÀßÄê¤Ï¼«Ê¬¤Ç¥¢¥«¥¦¥ó¥ÈºîÀ®¤¬¤Ç¤­¤ë¤è¤¦¤Ë¤Ê¤Ã¤Æ¤¤¤Ê¤¤¤ÈÌµ»ë¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:555
+#: ../setup/config_data.inc:556
 msgid "Enable bulk account creation"
 msgstr "ÂçÎÌ¤Î¥¢¥«¥¦¥ó¥ÈºîÀ®¤òÍ­¸ú¤Ë¤¹¤ë"
 
-#: ../setup/config_data.inc:556
+#: ../setup/config_data.inc:557
 msgid "This option allows your to create many new user accounts at one time by creating a file of new users."
 msgstr "¤³¤Î¥ª¥×¥·¥ç¥ó¤Ï¡¢¤¢¤Ê¤¿¤¬¿·¤·¤¤¥æ¡¼¥¶¤Î¥Õ¥¡¥¤¥ë¤òºîÀ®¤¹¤ë¤³¤È¤Ç¡¢°ìÅÙ¤Ë¤¿¤¯¤µ¤ó¤Î¥æ¡¼¥¶¤òºîÀ®¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:562
+#: ../setup/config_data.inc:563
 msgid "Admin notification of email activity"
 msgstr "´ÉÍý¼ÔÄÌÃÎ¥á¡¼¥ë¤ÎÆ°ºî"
 
-#: ../setup/config_data.inc:563
+#: ../setup/config_data.inc:564
 msgid "You can keep a record of every email that is sent by Gallery."
 msgstr "Gallery¤Ë¤è¤Ã¤ÆÁ÷¤é¤ì¤ë¤¹¤Ù¤Æ¤ÎÅÅ»Ò¥á¡¼¥ë¤Îµ­Ï¿¤ò¤È¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:565
+#: ../setup/config_data.inc:566
 msgid "Send summary email"
 msgstr "³µÍ×¥á¡¼¥ë¤òÁ÷¤ë"
 
-#: ../setup/config_data.inc:566
+#: ../setup/config_data.inc:567
 msgid "Log to a file"
 msgstr "¥Õ¥¡¥¤¥ë¤Ë¥í¥°¤ò½ÐÎÏ"
 
-#: ../setup/config_data.inc:567
+#: ../setup/config_data.inc:568
 msgid "Send duplicate email"
 msgstr "Ê£À½¥á¡¼¥ë¤òÁ÷¤ë"
 
-#: ../setup/config_data.inc:573
+#: ../setup/config_data.inc:574
 msgid "Gallery wide slideshow"
 msgstr "Gallery Á´ÂÎ¤Î¥¹¥é¥¤¥É¥·¥ç¡¼"
 
-#: ../setup/config_data.inc:575
+#: ../setup/config_data.inc:576
 msgid "Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources."
 msgstr "Gallery¤Î¥á¥¤¥ó¥Ú¡¼¥¸¤Ë¥¹¥é¥¤¥É¥·¥ç¡¼¤Î¥ê¥ó¥¯¤òÄÉ²Ã¤·¤Þ¤¹¡£Âç¤­¤Ê¥®¥ã¥é¥ê¡¼¤À¤È¼Â¹Ô¤¹¤ë¤Î¤¬ÃÙ¤¯¡¢Â¿¤¯¤Î¥·¥¹¥Æ¥à¥ê¥½¡¼¥¹¤ò¾ÃÈñ¤·¤Þ¤¹¡£"
-
-#: ../setup/config_data.inc:576 ../setup/config_data.inc:1028
-msgid "These settings do not apply to the low tech slideshow."
-msgstr ""
 
 #: ../setup/config_data.inc:579
 msgid "Slideshow preferences"
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼ÀßÄê"
 
-#: ../setup/config_data.inc:581 ../setup/config_data.inc:589
-#: ../setup/config_data.inc:616 ../setup/config_data.inc:626
-#: ../setup/config_data.inc:1033 ../setup/config_data.inc:1041
+#: ../setup/config_data.inc:580 ../setup/config_data.inc:589
+#: ../setup/config_data.inc:618 ../setup/config_data.inc:629
+#: ../setup/config_data.inc:1036 ../setup/config_data.inc:1046
 msgid "Off"
 msgstr "¥ª¥Õ"
 
-#: ../setup/config_data.inc:582 ../setup/config_data.inc:1034
+#: ../setup/config_data.inc:581 ../setup/config_data.inc:1037
 msgid "No slideshow link will appear."
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤Î¥ê¥ó¥¯¤ÏÉ½¼¨¤µ¤ì¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:583 ../setup/config_data.inc:590
-#: ../setup/config_data.inc:1035 ../setup/config_data.inc:1042
+#: ../setup/config_data.inc:582 ../setup/config_data.inc:590
+#: ../setup/config_data.inc:1038 ../setup/config_data.inc:1047
 msgid "Ordered"
 msgstr "½çÈÖ"
 
-#: ../setup/config_data.inc:584 ../setup/config_data.inc:1036
+#: ../setup/config_data.inc:583 ../setup/config_data.inc:1039
 msgid "Images will display in the same order as they appear in the Gallery."
 msgstr "²èÁü¤ÏGallery¤ÇÉ½¼¨¤µ¤ì¤Æ¤¤¤ëÆ±¤¸ÊÂ¤Ó½ç¤ÇÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:585 ../setup/config_data.inc:591
-#: ../setup/config_data.inc:1037 ../setup/config_data.inc:1043
+#: ../setup/config_data.inc:584 ../setup/config_data.inc:591
+#: ../setup/config_data.inc:1040 ../setup/config_data.inc:1048
 msgid "Random"
 msgstr "¥é¥ó¥À¥à"
 
-#: ../setup/config_data.inc:586 ../setup/config_data.inc:1038
+#: ../setup/config_data.inc:585 ../setup/config_data.inc:1041
 msgid "Images will appear in a random order."
 msgstr "²èÁü¤Ï¥é¥ó¥À¥à¤ËÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:596 ../setup/config_data.inc:1060
+#: ../setup/config_data.inc:596 ../setup/config_data.inc:1067
 msgid "Slideshow length"
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤ÎÄ¹¤µ"
 
-#: ../setup/config_data.inc:597 ../setup/config_data.inc:1061
+#: ../setup/config_data.inc:597 ../setup/config_data.inc:1068
 msgid "Number of images to display in slideshow.  Set to 0 or blank to display all images.  Set to a number if slideshow is random and you want to display only a selection of the images."
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤ÇÉ½¼¨¤µ¤ì¤ë²èÁü¤Î¿ô¤Ç¤¹¡£0¤«¶õÇò¤Ë¤¹¤ë¤ÈÁ´¤Æ¤Î²èÁü¤¬É½¼¨¤µ¤ì¤Þ¤¹¡£¥é¥ó¥À¥à¥¹¥é¥¤¥É¥·¥ç¡¼¤Ç¡¢²èÁü¤ÎÁªÂò¤ò¤·¤¿¤¤¾ì¹ç¤Ï¡¢¿ô¤ò¤¤¤ì¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:604 ../setup/config_data.inc:1054
+#: ../setup/config_data.inc:605 ../setup/config_data.inc:1060
 msgid "Allow slideshow to loop"
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤Î¥ë¡¼¥×¤òµö²Ä"
 
-#: ../setup/config_data.inc:605
+#: ../setup/config_data.inc:606
 #, php-format
 msgid "This option will allow visitors to have your slideshows repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "¤³¤Î¥ª¥×¥·¥ç¥ó¤ÏË¬Ìä¼Ô¤¬¥¦¥£¥ó¥É¥¦¤òÊÄ¤¸¤ë¤«Â¾¤Î¥Ú¡¼¥¸¤Ë°ÜÆ°¤¹¤ë¤Þ¤Ç¥¹¥é¥¤¥É¥·¥ç¡¼¤ò·«¤êÊÖ¤¹¤³¤È¤òµö²Ä¤·¤Þ¤¹¡£ÂÓ°è¤òÍÞ¤¨¤¿¤¤¤Ê¤é %s ¤ËÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:611
+#: ../setup/config_data.inc:613
 msgid "Comments"
 msgstr "¥³¥á¥ó¥È"
 
-#: ../setup/config_data.inc:614
+#: ../setup/config_data.inc:617
 msgid "Indicate if there are comments available"
 msgstr "¥³¥á¥ó¥È¤¬¤¢¤ì¤ÐÉ½¼¨¤¹¤ë"
 
-#: ../setup/config_data.inc:617
+#: ../setup/config_data.inc:619
 msgid "No indication that an item has comments."
 msgstr "¥¢¥¤¥Æ¥à¤Ë¥³¥á¥ó¥È¤µ¤ì¤Æ¤¤¤ë¤«É½¼¨¤·¤Ê¤¤¡£"
 
-#: ../setup/config_data.inc:618 ../setup/config_data.inc:627
+#: ../setup/config_data.inc:620 ../setup/config_data.inc:630
 msgid "Photos"
 msgstr "²èÁü"
 
-#: ../setup/config_data.inc:619
+#: ../setup/config_data.inc:621
 msgid "Images that have comments will be marked."
 msgstr "¥³¥á¥ó¥È¤Î¤¢¤ë²èÁü¤Ï¥Þ¡¼¥¯¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:620 ../setup/config_data.inc:628
-msgid "Albums"
-msgstr "¥¢¥ë¥Ð¥à"
-
-#: ../setup/config_data.inc:621
+#: ../setup/config_data.inc:623
 msgid "Albums and sub-albums that have comments will be marked."
 msgstr "¥³¥á¥ó¥È¤Î¤¢¤ë¥¢¥ë¥Ð¥à¤È¥µ¥Ö¥¢¥ë¥Ð¥à¤Ï¥Þ¡¼¥¯¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:622 ../setup/config_data.inc:629
+#: ../setup/config_data.inc:624 ../setup/config_data.inc:632
 msgid "Both"
 msgstr "Î¾Êý"
 
-#: ../setup/config_data.inc:623
+#: ../setup/config_data.inc:625
 msgid "Images and albums that have comments will be marked."
 msgstr "¥³¥á¥ó¥È¤Î¤¢¤ë²èÁü¤È¥¢¥ë¥Ð¥à¤Ï¥Þ¡¼¥¯¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:634
+#: ../setup/config_data.inc:637
 msgid "Display date of last comment?"
 msgstr "ºÇ½ª¥³¥á¥ó¥ÈÆü¤òÉ½¼¨¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:635
+#: ../setup/config_data.inc:638
 #, php-format
 msgid "If an item has comments, display date of last comment, rather than a %s."
 msgstr "¥¢¥¤¥Æ¥à¤Ë¥³¥á¥ó¥È¤µ¤ì¤Æ¤¤¤ì¤Ð¡¢%s¤ÎÂå¤ï¤ê¤ËºÇ¸å¤Î¥³¥á¥ó¥È¤¬¤µ¤ì¤¿Æü¤òÉ½¼¨¤·¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:640
+#: ../setup/config_data.inc:644
 msgid "Anonymous comments from known users?"
 msgstr "¥í¥°¥¤¥ó¥æ¡¼¥¶¤«¤é¤ÎÆ¿Ì¾¥³¥á¥ó¥È¤Ï?"
 
-#: ../setup/config_data.inc:641
-#, fuzzy, php-format
-msgid "When logged in, comments will automatically use format described below, unless this is set to %s."
+#: ../setup/config_data.inc:645
+#, php-format
+msgid "When logged in, comments will automatically use fullname and username, unless this is set to %s."
 msgstr "¥í¥°¥¤¥ó»þ¡¢¤³¤Î¥ª¥×¥·¥ç¥ó¤ò %s ¤Ë¤·¤Ê¤¤¸Â¤ê¡¢¥³¥á¥ó¥È¤Ë¤Ï¥Õ¥ë¥Í¡¼¥à¤«¥æ¡¼¥¶Ì¾¤¬¼«Æ°Åª¤Ë»È¤ï¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:647
-#, fuzzy
-msgid "Format for commenter names"
-msgstr "ÆüÉÕ¤Î¥Õ¥©¡¼¥Þ¥Ã¥È"
-
-#: ../setup/config_data.inc:648
-msgid "Commenter names of logged in users can be displayed in a variety of different ways"
-msgstr ""
-
-#: ../setup/config_data.inc:655
+#: ../setup/config_data.inc:653
 msgid "Technical"
 msgstr "¥Æ¥¯¥Ë¥«¥ë"
 
-#: ../setup/config_data.inc:656
+#: ../setup/config_data.inc:654
 msgid "You usually don't need to change anything in this section."
 msgstr "¤³¤ÎÁªÂò¤Ë¤ª¤¤¤Æ¡¢¤¿¤¤¤Æ¤¤¤Ï²¿¤âÊÑ¹¹¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:660
+#: ../setup/config_data.inc:658
 msgid "Time Limit"
 msgstr "»þ´ÖÀ©¸Â"
 
-#: ../setup/config_data.inc:661
+#: ../setup/config_data.inc:659
 msgid "The maximum amount of time in seconds any single operation should take.  If you find that you are getting the <b>Maximum execution time exceeded</b> error message, you can try making this a larger number.  Be warned that if you make this too large you <i>might</i> have a process that is stuck for a very long time without doing anything.  The default value is 30 which is pretty reasonable."
 msgstr "¤Ò¤È¤Ä¤ÎÌ¿Îá¤ò¼õ¤±¼è¤ëºÇÂç¤ÎÉÃ¿ô¤Ç¤¹¡£¤â¤·¡¢<b>Maximum execution time exceeded</b> ¤Î¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤¬½Ð¤¿¤é¡¢¤³¤ì¤ò¤â¤Ã¤ÈÂç¤­¤ÊÃÍ¤Ë¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤¡£¤¢¤Þ¤êÂç¤­¤ÊÃÍ¤Ë¤¹¤ë¤È¡¢¥×¥í¥»¥¹¤¬Ä¹»þ´Ö²¿¤â¤Ç¤­¤º¤Ë¸Ç¤Þ¤ë <i>¤«¤â¤·¤ì¤Ê¤¤</i> ¤³¤È¤ò·Ù¹ð¤·¤Æ¤ª¤­¤Þ¤¹¡£¥Ç¥Õ¥©¥ë¥ÈÃÍ¤ÏÈó¾ï¤ËÅ¬ÀÚ¤Ç¤¢¤ë 30 ¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:669
+#: ../setup/config_data.inc:667
 msgid "Debug mode"
 msgstr "¥Ç¥Ð¥Ã¥°¥â¡¼¥É"
 
-#: ../setup/config_data.inc:670
+#: ../setup/config_data.inc:668
 msgid "Turn debug mode on so that you can diagnose problems?"
 msgstr "ÌäÂê¤Î¸¶°ø¤òÃµ¤ë¤¿¤á¤Ë¥Ç¥Ð¥Ã¥°¥â¡¼¥É¤òON¤Ë¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:675
+#: ../setup/config_data.inc:673
 #, php-format
 msgid "Use %s"
 msgstr "%s¤ò»È¤¦"
 
-#: ../setup/config_data.inc:676
+#: ../setup/config_data.inc:674
 msgid "Gallery uses a locking system called flock() for added protection against data corruption.  This is not supported on all platforms.  If you're seeing errors like <i>Could not acquire lock</i> then set this value to <i>no</i>."
 msgstr "Gallery¤Ïflock()¤È¸Æ¤Ð¤ì¤ë¥Ç¡¼¥¿²þÊÑ¤òËÉ¤°¥í¥Ã¥¯µ¡¹½¤¬»ÈÍÑ¤Ç¤­¤Þ¤¹¡£¤³¤ì¤ÏÁ´¤Æ¤Î¥×¥é¥Ã¥È¥Õ¥©¡¼¥à¤Ç¥µ¥Ý¡¼¥È¤µ¤ì¤Æ¤¤¤ë¤ï¤±¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£<i>¥í¥Ã¥¯¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿</i> ¤È¤¤¤Ã¤¿¥¨¥é¡¼¤¬È¯À¸¤·¤Æ¤¤¤¿¤é¡¢ <i>¤¤¤¤¤¨</i> ¤ËÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:680
+#: ../setup/config_data.inc:678
 msgid "Status code"
 msgstr "¥¹¥Æ¡¼¥¿¥¹¥³¡¼¥É"
 
-#: ../setup/config_data.inc:681
+#: ../setup/config_data.inc:679
 msgid "The status code Gallery expects to see after a successful <i>exec()</i> call.  Gallery will try to figure this out on its own so you probably won't need to change this value unless you have problems."
 msgstr "¥¹¥Æ¡¼¥¿¥¹¥³¡¼¥É¤È¤ÏGallery¤¬ <i>exec()</i> ¥³¡¼¥ë¤ËÀ®¸ù¤·¤¿¤«¤òÃÎ¤ë¤¿¤á¤Î¤â¤Î¤Ç¤¹¡£Gallery¤Ï¼«ÎÏ¤Ç¤³¤ÎÃÍ¤ò²ò·è¤·¤è¤¦¤È¤¹¤ë¤Î¤Ç¡¢ÌäÂê¤¬¤Ê¤¤¸Â¤ê¤Ï¤³¤ÎÃÍ¤òÊÑ¹¹¤¹¤ëÉ¬Í×¤Ï¤Ê¤¤¤Ç¤·¤ç¤¦¡£"
 
-#: ../setup/config_data.inc:687
+#: ../setup/config_data.inc:685
 msgid "Session variable"
 msgstr "¥»¥Ã¥·¥ç¥óÊÑ¿ô"
 
-#: ../setup/config_data.inc:688
+#: ../setup/config_data.inc:686
 msgid "This is the session variable used to contain all Gallery session information.  Change this if there is a conflict between Gallery and another PHP app on your website."
 msgstr "¤¹¤Ù¤Æ¤ÎGallery¥»¥Ã¥·¥ç¥ó¾ðÊó¤¬´Þ¤Þ¤ì¤ëÊÑ¿ô¤Ç¤¹¡£Æ±¤¸¥¦¥§¥Ö¥µ¥¤¥È¾å¤ÎÂ¾¤ÎGallery¤äPHP¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¤È¾×ÆÍ¤¹¤ë¾ì¹ç¤ÏÊÑ¹¹¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:737
+#: ../setup/config_data.inc:735
 msgid "Appearance"
 msgstr "³°´Ñ"
 
-#: ../setup/config_data.inc:740
+#: ../setup/config_data.inc:738
 msgid "Border color"
 msgstr "ÏÈÀþ¿§"
 
-#: ../setup/config_data.inc:741
+#: ../setup/config_data.inc:739
 #, php-format
 msgid "Default color of image borders. You can learn about %scolors%s here."
 msgstr "¥Ç¥Õ¥©¥ë¥È¤Î²èÁü¤ÎÏÈÀþ¿§¤Ç¤¹¡£¿§¤Ë¤Ä¤¤¤Æ¤Ï%s¤³¤Á¤é%s¤Ë¾ðÊó¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:752
+#: ../setup/config_data.inc:750
 msgid "Border width"
 msgstr "ÏÈÀþ¤ÎÂÀ¤µ"
 
-#: ../setup/config_data.inc:753
+#: ../setup/config_data.inc:751
 msgid "Default width of image borders."
 msgstr "¥Ç¥Õ¥©¥ë¥È¤Î²èÁü¤ÎÏÈÀþ¤ÎÂÀ¤µ"
 
-#: ../setup/config_data.inc:755 ../setup/config_data.inc:795
-#: ../setup/config_data.inc:809
+#: ../setup/config_data.inc:753 ../setup/config_data.inc:793
+#: ../setup/config_data.inc:807
 msgid "off"
 msgstr "off"
 
-#: ../setup/config_data.inc:758
+#: ../setup/config_data.inc:756
 msgid "Default Font"
 msgstr "¥Ç¥Õ¥©¥ë¥È¥Õ¥©¥ó¥È"
 
-#: ../setup/config_data.inc:759
+#: ../setup/config_data.inc:757
 msgid "Default font face.  E.g. <i>arial</i> or <i>trebuchet</i>"
 msgstr "¥Ç¥Õ¥©¥ë¥È¤Î¥Õ¥©¥ó¥ÈÀßÄê¤Ç¤¹¡£Îã: <i>arial</i> ¤ä <i>trebuchet</i>"
 
-#: ../setup/config_data.inc:766
+#: ../setup/config_data.inc:764
 msgid "Layout"
 msgstr "¥ì¥¤¥¢¥¦¥È"
 
-#: ../setup/config_data.inc:769
+#: ../setup/config_data.inc:767
 msgid "Default Columns"
 msgstr "¥Ç¥Õ¥©¥ë¥ÈÎó¿ô"
 
-#: ../setup/config_data.inc:770
+#: ../setup/config_data.inc:768
 msgid "The default number of columns in an album."
 msgstr "¥¢¥ë¥Ð¥à¤Ç¤Î¥Ç¥Õ¥©¥ë¥È¤ÎÎó¿ô¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:775
+#: ../setup/config_data.inc:773
 msgid "Default Rows"
 msgstr "¥Ç¥Õ¥©¥ë¥È¹Ô¿ô"
 
-#: ../setup/config_data.inc:776
+#: ../setup/config_data.inc:774
 msgid "The default number of rows in an album."
 msgstr "¥¢¥ë¥Ð¥à¤Ç¤Î¥Ç¥Õ¥©¥ë¥È¤Î¹Ô¿ô¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:782
+#: ../setup/config_data.inc:780
 msgid "Image Processing and Display"
 msgstr "²èÁü¤Î½èÍý¤ÈÉ½¼¨"
 
-#: ../setup/config_data.inc:785
+#: ../setup/config_data.inc:783
 msgid "Thumbnail size"
 msgstr "¥µ¥à¥Í¥¤¥ë¤Î¥µ¥¤¥º"
 
-#: ../setup/config_data.inc:786
+#: ../setup/config_data.inc:784
 msgid "The default target size (in pixels) of album thumbnails."
 msgstr "¥¢¥ë¥Ð¥à¤Î¥µ¥à¥Í¥¤¥ë¤Î¥Ç¥Õ¥©¥ë¥È¤ÎÂç¤­¤µ(¥Ô¥¯¥»¥ëÃ±°Ì)¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:792
+#: ../setup/config_data.inc:790
 msgid "Resized image size"
 msgstr "¥ê¥µ¥¤¥º²èÁü¤Î¥µ¥¤¥º"
 
-#: ../setup/config_data.inc:793
+#: ../setup/config_data.inc:791
 msgid "When large images are added to an album, an intermediate version will automatically be generated at this size."
 msgstr "Âç¤­¤Ê²èÁü¤¬¥¢¥ë¥Ð¥à¤ËÄÉ²Ã¤µ¤ì¤¿¾ì¹ç¡¢¤³¤Î¥µ¥¤¥º¤Ë¹ç¤ï¤»¤ÆÃæ´Ö¥Õ¥¡¥¤¥ë¤¬¼«Æ°Åª¤ËºîÀ®¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:798
+#: ../setup/config_data.inc:796
 msgid "Resized JPEG/PNG images file size"
 msgstr "¥ê¥µ¥¤¥ººÑ²èÁü¤Î¥Õ¥¡¥¤¥ë¥µ¥¤¥º"
 
-#: ../setup/config_data.inc:799
+#: ../setup/config_data.inc:797
 msgid "The default target size (in kilobytes) of resized JPEG/PNG images.  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections.  Set to 0 for no target size."
 msgstr "JPEG¥Õ¥©¡¼¥Þ¥Ã¥È¤Î¥ê¥µ¥¤¥ººÑ²èÁü¤Î¥Ç¥Õ¥©¥ë¥È¤Î¥Õ¥¡¥¤¥ë¥µ¥¤¥º(¥­¥í¥Ð¥¤¥È»ØÄê)¤Ç¤¹¡£ÃÍ¤òÆþÎÏ¤¹¤ë¤È¡¢¥¢¥Ã¥×¥í¡¼¥É»þ¤Î²èÁü½èÍý¤Ë»þ´Ö¤¬¤«¤«¤ê¤Þ¤¹¤¬¡¢ÆÃ¤Ë¥À¥¤¥¢¥ë¥¢¥Ã¥×¥æ¡¼¥¶¤ËÂÐ¤·¤Æ²èÁü¤ÎÆÉ¤ß¹þ¤ß¤¬Â®¤¯¤Ê¤ë¤Ç¤·¤ç¤¦¡£0¤òÆþÎÏ¤¹¤ë¤ÈÌµ»ØÄê¤È¤Ê¤ê¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:806
+#: ../setup/config_data.inc:804
 msgid "Maximum image size"
 msgstr "ºÇÂç¤Î²èÁü¤Î¥µ¥¤¥º"
 
-#: ../setup/config_data.inc:807
+#: ../setup/config_data.inc:805
 msgid "You can optionally limit the dimensions your images on upload to Gallery."
 msgstr "Gallery¤Ë¥¢¥Ã¥×¥í¡¼¥É¤¹¤ëºÇÂç¤Î²èÁü¤ÎÍÆÎÌ¤ò¥ª¥×¥·¥ç¥ó¤ÇÀßÄê¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:807
+#: ../setup/config_data.inc:805
 msgid "Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."
 msgstr "¤³¤Îµ¡Ç½¤òÍ­¸ú¤Ë¤¹¤ë¤È¡¢Gallery¤Ë¤ª¤¤¤Æ <b>¸µ¤Î´°Á´¤Ê²èÁü¤Ê¤·</b> ¤Î¾õÂÖ¤Ë¤Ê¤ê¤Þ¤¹¤¬¡¢À©Ìó¤Î¤¢¤ë¥Ç¥£¥¹¥¯¥¹¥Ú¡¼¥¹¤òÀáÌó¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£Gallery¤Ï½Ì¾®¤·¤¿JPEG²èÁü¤Î¥³¥á¥ó¥È¤ÈEXIF¥Ç¡¼¥¿¤òÊÝÂ¸¤·¤è¤¦¤È¤·¤Þ¤¹¤¬¡¢<b>ImageMagick</b> ¤«¥ª¥×¥·¥ç¥ó¤Î <b>jhead</b> ¤Î¤É¤Á¤é¤«¤¬É¬Í×¤Ë¤Ê¤ê¤Þ¤¹¡£(¥¹¥Æ¥Ã¥×2¤ò»²¾È)"
 
-#: ../setup/config_data.inc:809
+#: ../setup/config_data.inc:807
 #, php-format
 msgid "%d (%d MPix)"
 msgstr "%d (%d ¥á¥¬¥Ô¥¯¥»¥ë)"
 
-#: ../setup/config_data.inc:812
+#: ../setup/config_data.inc:810
 msgid "Maximum JPEG/PNG image file size"
 msgstr "¥ê¥µ¥¤¥º²èÁü¤ÎºÇÂç¥Õ¥¡¥¤¥ë¥µ¥¤¥º"
 
-#: ../setup/config_data.inc:813
+#: ../setup/config_data.inc:811
 msgid "You can optionally limit the filesize of your JPEG/PNG images on upload to Gallery."
 msgstr "Gallery¤Ë¥¢¥Ã¥×¥í¡¼¥É¤¹¤ëJPEG/PNG²èÁü¤Î¥Õ¥¡¥¤¥ë¥µ¥¤¥º¤ÎÀ©¸Â¤ò¥ª¥×¥·¥ç¥ó¤ÇÀßÄê¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:813
+#: ../setup/config_data.inc:811
 msgid "Enabling this feature will leave you <b>without an original quality image</b> in your Gallery. Set the default target filesize (in kilobytes).  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections. Set to 0 if you don't want to restrict filesize."
 msgstr "¤³¤Îµ¡Ç½¤òÍ­¸ú¤Ë¤¹¤ë¤È¡¢Gallery¤Ë¤ª¤¤¤Æ <b>¸µ¤Î²è¼Á¤Î²èÁü</b> ¤Ê¤·¤Ë¤·¤Þ¤¹¡£JPEG¥Õ¥©¡¼¥Þ¥Ã¥È¤Î¥µ¥¤¥º²èÁü¤Î¥Ç¥Õ¥©¥ë¥È¤Î¥Õ¥¡¥¤¥ë¥µ¥¤¥º(¥­¥í¥Ð¥¤¥È»ØÄê)¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£ÃÍ¤òÆþÎÏ¤¹¤ë¤È¡¢¥¢¥Ã¥×¥í¡¼¥É»þ¤Î²èÁü½èÍý¤Ë»þ´Ö¤¬¤«¤«¤ê¤Þ¤¹¤¬¡¢ÆÃ¤Ë¥À¥¤¥¢¥ë¥¢¥Ã¥×¥æ¡¼¥¶¤ËÂÐ¤·¤Æ²èÁü¤ÎÆÉ¤ß¹þ¤ß¤¬Â®¤¯¤Ê¤ë¤Ç¤·¤ç¤¦¡£0¤òÆþÎÏ¤¹¤ë¤ÈÌµ»ØÄê¤È¤Ê¤ê¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:819
+#: ../setup/config_data.inc:817
 msgid "Preserve Names"
 msgstr "¥Õ¥¡¥¤¥ëÌ¾¤ÎÊÝÂ¸"
 
-#: ../setup/config_data.inc:820
+#: ../setup/config_data.inc:818
 msgid "When uploading images to Gallery, should we preserve the original names?  If you select <i>no</i>, Gallery will assign a new name for each photo or movie that gets uploaded."
 msgstr "Gallery¤Ë²èÁü¤ò¥¢¥Ã¥×¥í¡¼¥É¤·¤¿ºÝ¡¢¸µ¤Î¥Õ¥¡¥¤¥ëÌ¾¤ò¤½¤Î¤Þ¤Þ»È¤¤¤Þ¤¹¤«? <i>¤¤¤¤¤¨</i> ¤òÁªÂò¤·¾ì¹ç¡¢Gallery¤Ï¥¢¥Ã¥×¥í¡¼¥É¤µ¤ì¤¿¤½¤ì¤¾¤ì¤Î¥Õ¥¡¥¤¥ë¤Ë¿·¤·¤¤Ì¾Á°¤ò³ä¤êÅö¤Æ¤ë¤Ç¤·¤ç¤¦¡£"
 
-#: ../setup/config_data.inc:825
+#: ../setup/config_data.inc:823
 msgid "Add to beginning"
 msgstr "ÀèÆ¬¤ËÄÉ²Ã"
 
-#: ../setup/config_data.inc:826
+#: ../setup/config_data.inc:824
 msgid "New images added to beginning rather than end of albums."
 msgstr "¿·¤·¤¤²èÁü¤ò¥¢¥ë¥Ð¥à¤ÎËöÈø¤Ç¤Ê¤¯ÀèÆ¬¤ËÄÉ²Ã¤·¤Þ¤¹"
 
-#: ../setup/config_data.inc:831
+#: ../setup/config_data.inc:829
 msgid "Fit-to-window"
 msgstr "¥¦¥£¥ó¥É¥¦¤Ë¥Õ¥£¥Ã¥È¤µ¤»¤ë"
 
-#: ../setup/config_data.inc:832
+#: ../setup/config_data.inc:830
 msgid "When viewing photos which don't have an intermediate version, Gallery can automatically resize the image to fit the viewer's browser window (using JavaScript).  This may not work in embedded environments such as Nuke."
 msgstr "¥ê¥µ¥¤¥º¤µ¤ì¤¿Ãæ´Ö¥Õ¥¡¥¤¥ë¤Î¤Ê¤¤²èÁü¤ò¸«¤ë¤È¤­¡¢Gallery¤Ï¥Ö¥é¥¦¥¶¤Î¥¦¥£¥ó¥É¥¦¥µ¥¤¥º¤Ë¹ç¤ï¤»¤Æ¼«Æ°Åª¤Ë²èÁü¤ò¥ê¥µ¥¤¥º¤Ç¤­¤Þ¤¹¡£(JavaScript»ÈÍÑ) ¤³¤ì¤ÏNuke¤Ê¤É¤ËÁÈ¤ß¹þ¤Þ¤ì¤¿´Ä¶­¤Ç¤Ï¤¦¤Þ¤¯Æ°ºî¤·¤Ê¤¤¤«¤âÃÎ¤ì¤Þ¤»¤ó¡£"
 
-#: ../setup/config_data.inc:837
+#: ../setup/config_data.inc:835
 msgid "Visitor size prefs"
 msgstr "Ë¬Ìä¼Ô¤Ë¤è¤ë¥µ¥¤¥ºÀßÄê"
 
-#: ../setup/config_data.inc:838
+#: ../setup/config_data.inc:836
 msgid "Offer visitors the choice of always viewing the full sized version of an image instead of the intermediate size.  This setting only lasts for the visitor's session."
 msgstr "Ë¬Ìä¼Ô¤¬¥ê¥µ¥¤¥º²èÁü¤Ç¤Ê¤¯¥Õ¥ë¥µ¥¤¥º¤Î²èÁü¤ò¾ï¤ËÉ½¼¨¤¹¤ë¤è¤¦¤ÊÁªÂò»è¤òÄó¶¡¤·¤Þ¤¹¡£¤³¤ÎÀßÄê¤ÏË¬Ìä¼Ô¤Î¥»¥Ã¥·¥ç¥ó¤Î´ÖÂ³¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:844
+#: ../setup/config_data.inc:842
 msgid "Options"
 msgstr "¥ª¥×¥·¥ç¥ó"
 
-#: ../setup/config_data.inc:847
+#: ../setup/config_data.inc:845
 msgid "Printing Services"
 msgstr "¥×¥ê¥ó¥È¥µ¡¼¥Ó¥¹"
 
-#: ../setup/config_data.inc:848
+#: ../setup/config_data.inc:846
 msgid "Allow visitors to print photos directly from the album.  Fotokasten is a print service based in Germany so is good for the European market. EZ Prints, PhotoAccess and Shutterfly are based in the United States. All services will give a small donation to the Gallery project for every print you make. If you choose Shutterfly's &quot;with donation&quot; option, Gallery will charge an extra 2 cents (US) for every photo printed, and 1.8 cents of that will get donated back to the Gallery project. EZ Prints, PhotoAccess and Fotokasten do not charge extra for the Gallery donation. Using these services is a great way for you to help support this free software."
 msgstr "Ë¬Ìä¼Ô¤¬¥¢¥ë¥Ð¥à¤«¤éÄ¾ÀÜ²èÁü¤ò°õºþ¤Ç¤­¤ë¤è¤¦¤Ë¤·¤Þ¤¹¡£Fotokasten¤Ï¥É¥¤¥Ä¤Î¥×¥ê¥ó¥È¥µ¡¼¥Ó¥¹¤Ç¡¢¥è¡¼¥í¥Ã¥Ñ»Ô¾ì¸þ¤±¤Ç¤¹¡£EZ Prints¤ÈPhotoAccess¡¢Shutterfly¤ÏÊÆ¹ñ¤ËËÜµòÃÏ¤¬¤¢¤ê¤Þ¤¹¡£Á´¤Æ¤Î¥µ¡¼¥Ó¥¹¤Ï¡¢ÍøÍÑ¤¹¤ë¤¿¤Ó¤ËGallery¥×¥í¥¸¥§¥¯¥È¤Ë¾¯¤·¤Î´óÉÕ¤ò¤·¤Þ¤¹¡£Shutterfly¤Î&quot;´óÉÕ¤¢¤ê&quot;¥ª¥×¥·¥ç¥ó¤òÁªÂò¤¹¤ì¤Ð¡¢1²ó¤Î¥×¥ê¥ó¥È¤Ç2¥»¥ó¥È(US)Í¾Ê¬¤Ë»ÙÊ§¤¤¡¢1.8¥»¥ó¥È¤¬Gallery¥×¥í¥¸¥§¥¯¥È¤Ë´Ô¸µ¤µ¤ì¤Þ¤¹¡£EZ Prints¤ÈPhotoAccess¤ÈFotokasten¤ÏÍ¾Ê¬¤ÊGallery¤Ø¤Î´óÉÕ¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤³¤ì¤é¤Î¥µ¡¼¥Ó¥¹¤òÍøÍÑ¤¹¤ë¤³¤È¤Ï¡¢¤³¤Î¥Õ¥ê¡¼¥½¥Õ¥È¥¦¥§¥¢¤ò»Ù±ç¤¹¤ëÁÇÀ²¤é¤·¤¤ÊýË¡¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:858
+#: ../setup/config_data.inc:862
 msgid "with donation"
 msgstr "´óÉÕ¤¢¤ê"
 
-#: ../setup/config_data.inc:859
+#: ../setup/config_data.inc:863
 msgid "without donation"
 msgstr "´óÉÕ¤Ê¤·"
 
-#: ../setup/config_data.inc:883
+#: ../setup/config_data.inc:881
 msgid "Gallery Link"
 msgstr "Gallery ¥ê¥ó¥¯"
 
-#: ../setup/config_data.inc:884
+#: ../setup/config_data.inc:882
 msgid "Display the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."
 msgstr "¥¢¥ë¥Ð¥àÃæ¤ËGallery¤Î¥È¥Ã¥×¤Ø¤Î¥ê¥ó¥¯¤òÉ½¼¨¤·¤Þ¤¹¤«? ¤³¤Îµ¡Ç½¤òOFF¤Ë¤¹¤ë¤È¡¢¥æ¡¼¥¶¤Ï¥¢¥ë¥Ð¥à¤Î³°¤Ø½Ð¤é¤ì¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£¤³¤ì¤Ï¥¢¥ë¥Ð¥à¤ò¥¦¥§¥Ö¥µ¥¤¥È¤ËËä¤á¹þ¤ó¤Ç¡¢¥æ¡¼¥¶¤Ë¥®¥ã¥é¥ê¡¼Ãæ¤ÎÂ¾¤Î¥¢¥ë¥Ð¥à¤ò(ÍÆ°×¤Ë)¸«¤»¤¿¤¯¤Ê¤¤¾ì¹ç¤Ë¤Î¤ßÌò¤ËÎ©¤Á¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:890
+#: ../setup/config_data.inc:888
 msgid "Data displayed"
 msgstr "É½¼¨¤µ¤ì¤ë¥Ç¡¼¥¿"
 
-#: ../setup/config_data.inc:893
+#: ../setup/config_data.inc:891
 msgid "Click counts"
 msgstr "¥¯¥ê¥Ã¥¯¿ô¥«¥¦¥ó¥È"
 
-#: ../setup/config_data.inc:894
+#: ../setup/config_data.inc:892
 msgid "Display click counts within Albums?"
 msgstr "¥¢¥ë¥Ð¥àÆâ¤Ë¥¯¥ê¥Ã¥¯¿ô¤òÉ½¼¨¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:899
+#: ../setup/config_data.inc:897
 msgid "Custom Fields"
 msgstr "¥«¥¹¥¿¥à¥Õ¥£¡¼¥ë¥É"
 
-#: ../setup/config_data.inc:901
+#: ../setup/config_data.inc:899
 msgid "Custom fields that are available to describe each image.  They should be separated by commas.  E.g. <i>Description, Location, Film Type</i>"
 msgstr "¥«¥¹¥¿¥à¥Õ¥£¡¼¥ë¥É¤Ï¤½¤ì¤¾¤ì¤Î²èÁü¤Ë¤Ä¤¤¤Æµ­½Ò¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£¥«¥ó¥Þ¤Ç¶èÀÚ¤Ã¤ÆÊ£¿ô»ØÄê¤Ç¤­¤Þ¤¹¡£ (ÌõÃí:ÆüËÜ¸ìÈó¿ä¾©) Îã <i>Description, Location, Film Type</i>"
 
-#: ../setup/config_data.inc:907
+#: ../setup/config_data.inc:905
 msgid "Display clickable image dimensions"
 msgstr "¥¯¥ê¥Ã¥¯²ÄÇ½¤Ê²èÁü¤Î³°À£¤ÎÉ½¼¨"
 
-#: ../setup/config_data.inc:908
+#: ../setup/config_data.inc:906
 msgid "Display clickable image dimensions beneath the thumbnails.  Will show dimensions for resized images (if any) first, then for the full image, depending on album settings user permissions.  You may click on these instead of the thumbnail to either image."
 msgstr "¥µ¥à¥Í¥¤¥ë¤Î²¼¤Ë¥¯¥ê¥Ã¥¯¤Ç¤­¤ë²èÁü¤ÎÀ£Ë¡¤òÉ½¼¨¤·¤Þ¤¹¡£¥¢¥ë¥Ð¥à¤Î¥æ¡¼¥¶¥Ñ¡¼¥ß¥Ã¥·¥ç¥óÀßÄê¤Ë¤·¤¿¤¬¤Ã¤Æ¡¢(¤¢¤ì¤Ð)ºÇ½é¤Ë¥ê¥µ¥¤¥º²èÁü¤ÎÀ£Ë¡¤òÉ½¼¨¤·¡¢¤½¤ì¤«¤é¥Õ¥ë¥µ¥¤¥º²èÁü¤ÎÀ£Ë¡¤òÉ½¼¨¤·¤Þ¤¹¡£¥µ¥à¥Í¥¤¥ë¤ÎÂå¤ï¤ê¤Ë¤³¤ì¤é¤ò¥¯¥ê¥Ã¥¯¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:914
+#: ../setup/config_data.inc:912
 msgid "Item Owner"
 msgstr "¥¢¥¤¥Æ¥à½êÍ­¼Ô"
 
-#: ../setup/config_data.inc:917
+#: ../setup/config_data.inc:915
 msgid "Photo owner modification"
 msgstr "²èÁü½êÍ­¼Ô¤Ë¤è¤ëÊÑ¹¹"
 
-#: ../setup/config_data.inc:918
+#: ../setup/config_data.inc:916
 msgid "Allow photo owners to edit and rotate/flip their own photos?"
 msgstr "²èÁü½êÍ­¼Ô¤Ë²èÁüÊÔ½¸¡¢²óÅ¾/È¿Å¾¤òµö²Ä¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:923
+#: ../setup/config_data.inc:921
 msgid "Photo owner deletion"
 msgstr "²èÁü½êÍ­¼Ô¤Ë¤è¤ëºï½ü"
 
-#: ../setup/config_data.inc:924
+#: ../setup/config_data.inc:922
 msgid "Allow photo owners to delete their own photos?"
 msgstr "²èÁü½êÍ­¼Ô¤¬¼«Ê¬¤Î²èÁü¤òºï½ü¤¹¤ë¤³¤È¤òµö²Ä¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:929
+#: ../setup/config_data.inc:927
 msgid "Photo owner display"
 msgstr "²èÁü½êÍ­¼Ô¤ÎÉ½¼¨"
 
-#: ../setup/config_data.inc:930
+#: ../setup/config_data.inc:928
 msgid "Display the name of photo owners with the caption?"
 msgstr "¥¿¥¤¥È¥ë¤È¤È¤â¤Ë²èÁü¤Î½êÍ­¼Ô¤âÉ½¼¨¤·¤Þ¤¹¤«?"
 
-#: ../setup/config_data.inc:936
+#: ../setup/config_data.inc:934
 msgid "Polling configuration"
 msgstr "ÅêÉ¼¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó"
 
-#: ../setup/config_data.inc:938
+#: ../setup/config_data.inc:936
 #, php-format
 msgid "It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."
 msgstr "¤³¤ì¤ÏË¬Ìä¼Ô¤Ë¥¢¥ë¥Ð¥àÆâÍÆ¤Ë´Ø¤·¤ÆÅêÉ¼¤äÉ¾²Á¤¬¤Ç¤­¤ë¤è¤¦¤Ë¤·¤Þ¤¹¡£¤³¤³¤Ç¡¢¿·¤·¤¤¥¢¥ë¥Ð¥à¤äÂ¸ºß¤¹¤ë¥¢¥ë¥Ð¥à¤ò%s¤«¤éºÇ½é¤Ë¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤È¤­¤ËÅ¬ÍÑ¤µ¤ì¤ë¡¢ÅêÉ¼¤Î¥Ç¥Õ¥©¥ë¥ÈÀßÄê¤ò¤·¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:941
+#: ../setup/config_data.inc:939
 msgid "In each album, voting can be switched off, restricted to logged in users or open to all visitors."
 msgstr "³Æ¡¹¤Î¥¢¥ë¥Ð¥à¤ÇÅêÉ¼¤ÏOFF¤Ë¤¹¤ë¡¢¥í¥°¥¤¥ó¥æ¡¼¥¶¤Ë¸ÂÄê¤¹¤ë¡¢Á´¤Æ¤ÎË¬Ìä¼Ô¤Ë¸ø³«¤¹¤ë¡¢¤Ë¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:943
+#: ../setup/config_data.inc:941
 #, php-format
 msgid "There are two sorts of polls: %s, which allows voters to chose their favourites as first, second, third etc., and %s, which allows voters to rate any or all of the images without restriction.  %s is like a film review where all the images can get (for example) 5 points, while %s is useful in scoring competitions."
 msgstr "2¼ïÎà¤ÎÅêÉ¼¤Î¼ïÎà¤¬¤¢¤ê¤Þ¤¹: %s¤Ç¤ÏÅêÉ¼¼Ô¤Ï¤â¤Ã¤È¤âµ¤¤ËÆþ¤Ã¤¿²èÁü¡¢¤½¤·¤Æ2ÈÖÌÜ¡¢3ÈÖÌÜ..¡¢ ¤ÈÁª¤Ó¤Þ¤¹¡£¤½¤·¤Æ%s¤Ç¤ÏÅêÉ¼¼Ô¤ÏÀ©¸Â¤Ê¤·¤ËÁ´¤Æ¤Î²èÁü¤ËÂÐ¤·¤ÆÉ¾²Á¤ò¤·¤Þ¤¹¡£%s¤ÏÁ´¤Æ¤Î²èÁü¤¬(Îã¤¨¤Ð)5¥Ý¥¤¥ó¥È¼èÆÀ¤Ç¤­¤ë¡¢¥Õ¥£¥ë¥à¥ì¥Ó¥å¡¼¤Ë»÷¤Æ¤¤¤Þ¤¹¡£%s¤Ï¥¹¥³¥¢¤òÁè¤¦¤Î¤ËÊØÍø¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:944 ../setup/config_data.inc:947
-#: ../setup/config_data.inc:968 ../setup/config_data.inc:973
+#: ../setup/config_data.inc:942 ../setup/config_data.inc:945
+#: ../setup/config_data.inc:967 ../setup/config_data.inc:973
 msgid "Rank"
 msgstr "¥é¥ó¥¯"
 
-#: ../setup/config_data.inc:945 ../setup/config_data.inc:946
-#: ../setup/config_data.inc:970 ../setup/config_data.inc:974
+#: ../setup/config_data.inc:943 ../setup/config_data.inc:944
+#: ../setup/config_data.inc:969 ../setup/config_data.inc:974
 msgid "Critique"
 msgstr "ÈãÉ¾"
+
+#: ../setup/config_data.inc:948
+msgid "<b>ATTENTION Upgrade users</b>: ONLY change these settings from the default if you want voting on in all your existing albums.  It is recommended that you leave these values as they are and turn voting on in individual albums as required."
+msgstr ""
 
 #: ../setup/config_data.inc:950
 msgid "Voter class"
@@ -1488,27 +1441,27 @@ msgstr "ÅêÉ¼¼Ô¥¯¥é¥¹"
 msgid "Voting is available to:"
 msgstr "ÅêÉ¼¤¬²ÄÇ½¤Ê¤Î¤Ï:"
 
-#: ../setup/config_data.inc:953 ../setup/config_data.inc:960
+#: ../setup/config_data.inc:952 ../setup/config_data.inc:960
 msgid "Nobody"
 msgstr "Nobody"
 
-#: ../setup/config_data.inc:954
+#: ../setup/config_data.inc:953
 msgid "Voting is off."
 msgstr "ÅêÉ¼¤ÏOFF¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:955 ../setup/config_data.inc:961
+#: ../setup/config_data.inc:954 ../setup/config_data.inc:961
 msgid "Everybody"
 msgstr "Ã¯¤Ç¤â"
 
-#: ../setup/config_data.inc:956
+#: ../setup/config_data.inc:955
 msgid "Anyone can vote.  Votes are recorded against session ID."
 msgstr "Ã¯¤Ç¤âÅêÉ¼¤Ç¤­¤Þ¤¹¡£ÅêÉ¼¤Ï¥»¥Ã¥·¥ç¥óID¤Çµ­Ï¿¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:957 ../setup/config_data.inc:962
+#: ../setup/config_data.inc:956 ../setup/config_data.inc:962
 msgid "Logged in"
 msgstr "¥í¥°¥¤¥ó´°Î»"
 
-#: ../setup/config_data.inc:958
+#: ../setup/config_data.inc:957
 msgid "Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices."
 msgstr "ÅÐÏ¿¥æ¡¼¥¶¤¬ÅêÉ¼¤Ç¤­¤Þ¤¹¡£ÅêÉ¼¤Ï¥æ¡¼¥¶ID¤Çµ­Ï¿¤µ¤ì¡¢ÅêÉ¼¼Ô¤Ï¸å¤«¤éÉ¼¤òÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
@@ -1520,11 +1473,11 @@ msgstr "ÅêÉ¼¤Î¥¿¥¤¥×"
 msgid "Gallery offers two sorts of polls for voting for images.  See above for a more detailed explanation."
 msgstr "Gallery¤Ï²èÁü¤ËÂÐ¤¹¤ëÆó¤Ä¤ÎÅêÉ¼¥¿¥¤¥×¤òÄó¶¡¤·¤Þ¤¹¡£¾Ü¤·¤¤ÀâÌÀ¤Ï¾å¤ò¤ß¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:969
+#: ../setup/config_data.inc:968
 msgid "Users have a set of votes which they can allocate to the images."
 msgstr "¥æ¡¼¥¶¤Ï²èÁü¤Ë³ä¤ê¿¶¤ë¤³¤È¤Î¤Ç¤­¤ëÉ¼¤Î¥»¥Ã¥È¤ò»ý¤Á¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:971
+#: ../setup/config_data.inc:970
 msgid "Enables users to give all images points without restriction."
 msgstr "¥æ¡¼¥¶¤ÏÁ´¤Æ¤Î²èÁü¤ËÂÐ¤·¤ÆÀ©¸Â¤Ê¤·¤ÎÅÀ¿ô¤ò¤Ä¤±¤é¤ì¤Þ¤¹¡£"
 
@@ -1536,133 +1489,133 @@ msgstr "ÁªÂò¿ô"
 msgid "Number of choices that will be available to voters as radio buttons or in a pulldown menu."
 msgstr "ÅêÉ¼¼Ô¤¬Áª¤Ù¤ë¥é¥¸¥ª¥Ü¥¿¥ó¤«¥×¥ë¥À¥¦¥ó¥á¥Ë¥å¡¼¤«¤é¤ÎÁªÂò»è¤Î¿ô¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:984
+#: ../setup/config_data.inc:985
 msgid "Vote hint"
 msgstr "ÅêÉ¼¤Î¥Ò¥ó¥È"
 
-#: ../setup/config_data.inc:985
+#: ../setup/config_data.inc:986
 msgid "This is displayed above the voting options under each image."
 msgstr "¤³¤ì¤Ï¤½¤ì¤¾¤ì¤Î²èÁü¤Î²¼¤Ç¡¢ÅêÉ¼¥ª¥×¥·¥ç¥ó¤Î¾å¤ËÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:987
+#: ../setup/config_data.inc:989
 msgid "Vote for this image"
 msgstr "¤³¤Î²èÁü¤ËÅêÉ¼"
 
-#: ../setup/config_data.inc:992 ../setup/config_data.inc:1001
+#: ../setup/config_data.inc:994 ../setup/config_data.inc:1004
 msgid "Show vote results"
 msgstr "ÅêÉ¼·ë²Ì¤ÎÉ½¼¨"
 
-#: ../setup/config_data.inc:993
+#: ../setup/config_data.inc:995
 #, php-format
 msgid "Display a summary and graph on the album page of images that have received the highest votes, and provide a link to the full results.  If this option is %s, results of voting will only be available to admins and album owners."
 msgstr "¤â¤Ã¤È¤âÂ¿¤¯¤ÎÅêÉ¼¤¬¤¢¤Ã¤¿²èÁü¤Î¥¢¥ë¥Ð¥à¾å¤ËÍ×Ìó¤È¥°¥é¥Õ¤òÉ½¼¨¤·¡¢´°Á´¤Ê·ë²Ì¤Ø¤Î¥ê¥ó¥¯¤òÄó¶¡¤·¤Þ¤¹¡£¤³¤Î¥ª¥×¥·¥ç¥ó¤¬ %s ¤À¤È¡¢ÅêÉ¼¤Î·ë²Ì¤Ï´ÉÍý¼Ô¤È¥¢¥ë¥Ð¥à½êÍ­¼Ô¤Ë¤·¤«¸«¤¨¤Þ¤»¤ó"
 
-#: ../setup/config_data.inc:999
+#: ../setup/config_data.inc:1002
 msgid "Number of results displayed"
 msgstr "·ë²ÌÉ½¼¨¤Î¿ô"
 
-#: ../setup/config_data.inc:1000
+#: ../setup/config_data.inc:1003
 #, php-format
 msgid "If %s is %s, display a graph showing this many top results.  (Full results will be available on a linked page.)"
 msgstr "%s ¤¬ %s ¤Ê¤é¡¢¤³¤Î¿ô¤À¤±¤Î¥È¥Ã¥×¤Î·ë²Ì¤ò¼¨¤¹¥°¥é¥Õ¤òÉ½¼¨¤·¤Þ¤¹¡£(´°Á´¤Ê·ë²Ì¤Ï¥ê¥ó¥¯¤µ¤ì¤¿¥Ú¡¼¥¸¤Ç¸«¤ì¤Þ¤¹)"
 
-#: ../setup/config_data.inc:1007
+#: ../setup/config_data.inc:1011
 msgid "Orientation of vote choices?"
 msgstr "ÅêÉ¼ÁªÂò»è¤ÎÊý¸þ"
 
-#: ../setup/config_data.inc:1008
+#: ../setup/config_data.inc:1012
 msgid "Rank poll choices can be displayed beside each other (horizontally) or underneath each other (vertically).  Has no effect on critique voting which is a pulldown menu."
 msgstr "¥é¥ó¥¯¤Å¤±ÅêÉ¼¤ÎÁªÂò»è¤Ï¡¢ÎÙ¤É¤¦¤·(¿åÊ¿Êý¸þ)¤â¤·¤¯¤Ï¤½¤ì¤¾¤ì¤Î²¼(¿âÄ¾Êý¸þ)¤ËÉ½¼¨¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£ÈãÉ¾¤ÎÅêÉ¼¤Ç¤Ï±Æ¶Á¤¬¤Ê¤¯¡¢¥×¥ë¥À¥¦¥ó¥á¥Ë¥å¡¼¤Ç¤¹¡£"
 
-#: ../setup/config_data.inc:1011
+#: ../setup/config_data.inc:1016
 msgid "Horizontal"
 msgstr "¿åÊ¿Êý¸þ"
 
-#: ../setup/config_data.inc:1012
+#: ../setup/config_data.inc:1017
 msgid "Vertical"
 msgstr "¿âÄ¾Êý¸þ"
 
-#: ../setup/config_data.inc:1014 ../setup/functions.inc:958
-#: ../setup/functions.inc:967 ../setup/functions.inc:972
+#: ../setup/config_data.inc:1019 ../setup/functions.inc:951
+#: ../setup/functions.inc:960 ../setup/functions.inc:965
 msgid "Vote words and values"
 msgstr "ÅêÉ¼¤ÎÃ±¸ì¤ÈÃÍ"
 
-#: ../setup/config_data.inc:1015
+#: ../setup/config_data.inc:1020
 msgid "This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."
 msgstr "¤½¤ì¤¾¤ì¤ÎÅêÉ¼¥ª¥×¥·¥ç¥ó¤ËÂÐ¤·¤Æ¡¢¼ÂºÝ¤ËÉ½¼¨¤µ¤ì¤ë¥Æ¥­¥¹¥È¡¢¤ª¤è¤Ó¤½¤ÎÁªÂò»è¤ÎÅÀ¿ô¤ò¤òÀßÄê¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:1017
+#: ../setup/config_data.inc:1022
 msgid "Excellent"
 msgstr "ºÇ¹â"
 
-#: ../setup/config_data.inc:1018
+#: ../setup/config_data.inc:1023
 msgid "Very Good"
 msgstr "¤¤¤¤¤ó¤¸¤ã¤Í¡¼¤Î"
 
-#: ../setup/config_data.inc:1019
+#: ../setup/config_data.inc:1024
 msgid "Good"
 msgstr "¤¤¤¤´¶¤¸"
 
-#: ../setup/config_data.inc:1020
+#: ../setup/config_data.inc:1025
 msgid "Average"
 msgstr "ÉáÄÌ¤À¤è"
 
-#: ../setup/config_data.inc:1021
+#: ../setup/config_data.inc:1026
 msgid "Poor"
 msgstr "¤¤¤Þ¤¤¤Á"
 
-#: ../setup/config_data.inc:1027
+#: ../setup/config_data.inc:1032
 msgid "Album Slideshow"
 msgstr "¥¢¥ë¥Ð¥à ¥¹¥é¥¤¥É¥·¥ç¡¼"
 
-#: ../setup/config_data.inc:1031
+#: ../setup/config_data.inc:1035
 msgid "Slideshow Type"
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤Î¥¿¥¤¥×"
 
-#: ../setup/config_data.inc:1048
+#: ../setup/config_data.inc:1053
 msgid "Recursive slideshow"
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤ÎºÆµ¢"
 
-#: ../setup/config_data.inc:1049
+#: ../setup/config_data.inc:1054
 #, php-format
 msgid "Set to %s if you want to include images in sub albums as part of the slideshow."
 msgstr "¥¹¥é¥¤¥É¥·¥ç¡¼¤Ç¥µ¥Ö¥¢¥ë¥Ð¥à¤ÎÆâÍÆ¤â¤Õ¤¯¤á¤ÆºÆµ¢Åª¤ËÉ½¼¨¤·¤¿¤¤¾ì¹ç¤Ï %s ¤ËÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:1055
+#: ../setup/config_data.inc:1061
 #, php-format
 msgid "This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
 msgstr "¤³¤Î¥ª¥×¥·¥ç¥ó¤ÏË¬Ìä¼Ô¤¬¥¦¥£¥ó¥É¥¦¤òÊÄ¤¸¤ë¤«Â¾¤Î¥Ú¡¼¥¸¤Ø°ÜÆ°¤¹¤ë¤Þ¤Ç¥¹¥é¥¤¥É¥·¥ç¡¼¤ò·«¤êÊÖ¤¹¤³¤È¤òµö²Ä¤·¤Þ¤¹¡£ÂÓ°è¤òÍÞ¤¨¤¿¤¤¾ì¹ç¤Ï %s ¤ËÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/config_data.inc:1069
+#: ../setup/config_data.inc:1077
 msgid "Frames"
 msgstr "¥Õ¥ì¡¼¥à"
 
-#: ../setup/config_data.inc:1070
+#: ../setup/config_data.inc:1078
 #, php-format
 msgid "Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"
 msgstr "%s¤Î³Æ¡¹¤Î²èÁü(¥µ¥à¥Í¥¤¥ë¡¢¥ê¥µ¥¤¥ºµÚ¤Ó¥Õ¥ë¥µ¥¤¥º²èÁü)¤Ï¥Õ¥ì¡¼¥à¤ò»ý¤¿¤»¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£°Ê²¼¤Î¥¹¥¿¥¤¥ë¤¬ÍøÍÑ¤Ç¤­¤Þ¤¹:"
 
-#: ../setup/config_data.inc:1074
+#: ../setup/config_data.inc:1083
 msgid "Subalbum frames"
 msgstr "¥µ¥Ö¥¢¥ë¥Ð¥à ¥Õ¥ì¡¼¥à"
 
-#: ../setup/config_data.inc:1075
+#: ../setup/config_data.inc:1084
 msgid "This frame will appear around the thumbnail image representing a subalbum."
 msgstr "¤³¤Î¥Õ¥ì¡¼¥à¤Ï¥µ¥Ö¥¢¥ë¥Ð¥à¤ò¼¨¤¹¤¿¤á¤Ë¥µ¥à¥Í¥¤¥ë¤Î¼þ¤ê¤ËÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:1080
+#: ../setup/config_data.inc:1090
 msgid "Frame around thumbs"
 msgstr "¥µ¥à¥Í¥¤¥ë¤Î¥Õ¥ì¡¼¥à"
 
-#: ../setup/config_data.inc:1081
+#: ../setup/config_data.inc:1091
 msgid "This frame will appear around the thumbnail image representing a photo or movie."
 msgstr "¤³¤Î¥Õ¥ì¡¼¥à¤Ï²èÁü¤äÆ°²è¤ò¼¨¤¹¤¿¤á¤Ë¥µ¥à¥Í¥¤¥ë¤Î¼þ¤ê¤ËÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
-#: ../setup/config_data.inc:1087
+#: ../setup/config_data.inc:1098
 msgid "Frame around images"
 msgstr "²èÁü¤Î¼þ¤ê¤Î¥Õ¥ì¡¼¥à"
 
-#: ../setup/config_data.inc:1088
+#: ../setup/config_data.inc:1099
 msgid "This frame will appear around fulled sized and resized photos."
 msgstr "¤³¤Î¥Õ¥ì¡¼¥à¤Ï¥Õ¥ë¥µ¥¤¥º¤¢¤ë¤¤¤Ï¥ê¥µ¥¤¥º²èÁü¤Î¼þ¤ê¤ËÉ½¼¨¤µ¤ì¤Þ¤¹¡£"
 
@@ -1804,13 +1757,13 @@ msgstr "Ìá¤Ã¤Æ¤½¤ì¤é¤ò½¤Àµ¤·¤Æ¤¯¤À¤µ¤¤¡£"
 msgid "In this step you'll customize various settings for Gallery.  If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  Even so, you'll probably have to make at least some minor changes.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much."
 msgstr "¤³¤Î¥¹¥Æ¥Ã¥×¤Ç¤ÏGallery¤ÎÂ¿¤¯¤ÎÀßÄê¤ò¥«¥¹¥¿¥Þ¥¤¥º¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£Gallery¤Î¥«¥¹¥¿¥Þ¥¤¥ºÀßÄê¤Ï¤³¤ì¤¬½é¤á¤Æ¤Ê¤Î¤Ç¤·¤¿¤é¡¢¤¢¤Ê¤¿¤Ë¤È¤Ã¤ÆÂÅÅö¤Ê¥Ç¥Õ¥©¥ë¥ÈÀßÄê¤Ë¤·¤è¤¦¤È¤·¤Æ¤¤¤ë¤Î¤¬Ê¬¤«¤ë¤Ç¤·¤ç¤¦¡£¤¿¤È¤¨¤½¤¦¤Ç¤â¡¢Â¿¾¯¤ÎÊÑ¹¹¤Ï¤·¤Ê¤¤¤È¤¤¤±¤Ê¤¤¤Ç¤·¤ç¤¦¡£°ÊÁ°¤ËGallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ò¤·¤¿¤³¤È¤¬¤¢¤ë¤Ê¤é¡¢¸½ºß¤ÎÀßÄê¾ðÊó¤¬´û¤ËÆþÎÏ¤µ¤ì¤Æ¤ª¤ê¡¢¤¢¤Þ¤êÊÑ¹¹¤¹¤ëÉ¬Í×¤¬¤Ê¤¤¤³¤È¤Ëµ¤¤¬¤Ä¤¯¤³¤È¤Ç¤·¤ç¤¦¡£"
 
-#: ../setup/constants.inc:16 ../setup/constants.inc:122
-#: ../setup/defaults.inc:18 ../setup/defaults.inc:97
+#: ../setup/constants.inc:16 ../setup/constants.inc:118
+#: ../setup/defaults.inc:17 ../setup/defaults.inc:93
 msgid "Previous Page"
 msgstr "Á°¤Î¥Ú¡¼¥¸"
 
-#: ../setup/constants.inc:18 ../setup/constants.inc:124
-#: ../setup/defaults.inc:20 ../setup/defaults.inc:99
+#: ../setup/constants.inc:18 ../setup/constants.inc:120
+#: ../setup/defaults.inc:19 ../setup/defaults.inc:95
 msgid "Use Defaults"
 msgstr "¥Ç¥Õ¥©¥ë¥È¤ËÌá¤¹"
 
@@ -1822,467 +1775,414 @@ msgstr "¤³¤Î¥¹¥Æ¥Ã¥×¤Ç¤Ï¡¢¿·¤·¤¯ºîÀ®¤¹¤ë¥¢¥ë¥Ð¥à¤ËÂÐ¤¹¤ë¥Ç¥Õ¥©¥ë¥È¤ÎÀßÄêÃÍ¤ò¥«¥¹
 msgid "Note to users upgrading from a previous version: settings new since your old version will be applied to all existing albums. If you wish to change these later, they must be changed one by one in each album. Please choose these default values carefully."
 msgstr "Á°¤Î¥Ð¡¼¥¸¥ç¥ó¤«¤é¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¥æ¡¼¥¶¤Ïµ¤¤ò¤Ä¤±¤Æ¤¯¤À¤µ¤¤: ¸Å¤¤¥Ð¡¼¥¸¥ç¥ó¤«¤é°ú¤­·Ñ¤¬¤ì¤ë¿·¤·¤¤ÀßÄê¤Ï´ûÂ¸¤Î¤¹¤Ù¤Æ¤Î¥¢¥ë¥Ð¥à¤ËÅ¬ÍÑ¤µ¤ì¤Þ¤¹¡£¤³¤ì¤é¤ò¸å¤ÇÊÑ¹¹¤·¤¿¤¤¤Î¤Ê¤é¡¢¤½¤ì¤¾¤ì¤Î¥¢¥ë¥Ð¥à¤Ç¤Ò¤È¤Ä¤Ò¤È¤ÄÊÑ¹¹¤·¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó¡£¤³¤ì¤é¤Î¥Ç¥Õ¥©¥ë¥È¤ÎÃÍ¤Ï¿µ½Å¤ËÁª¤ó¤Ç¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/diagnostics.php:18
+#: ../setup/diagnostics.php:20
 msgid "Gallery Diagnostics"
 msgstr "Gallery ¿ÇÃÇ"
 
-#: ../setup/diagnostics.php:21
+#: ../setup/diagnostics.php:32
 msgid "This page is designed to provide some diagnostics about your server to help you find issues that may prevent Gallery from functioning properly."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¡¢Gallery¤¬Àµ¤·¤¯µ¡Ç½¤¹¤ë¤Î¤òË¸¤²¤ë²ÄÇ½À­¤Î¤¢¤ëÌäÂê¤ò¸«¤Ä¤±¤ë¼ê½õ¤±¤ò¤¹¤ë¤¿¤á¤Ë¡¢¤¢¤Ê¤¿¤Î¥µ¡¼¥Ð¤Ë´Ø¤¹¤ë¤¤¤¯¤Ä¤«¤Î¿ÇÃÇ¤òÄó¶¡¤¹¤ë¤³¤È¤òÌÜ»Ø¤·¤Æ¤¤¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:22
+#: ../setup/diagnostics.php:33
 msgid "The config wizard tries all kinds of diagnostics to try to find and work around any issues that it finds on your system, but there may be other problems that we have not thought of."
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤Ï¡¢¥·¥¹¥Æ¥à¾å¤Î¤¢¤é¤æ¤ëÌäÂê¤òÈ¯¸«¤·¤ÆÂÐ½è¤¹¤ë¤¿¤á¤Ë¡¢¤¹¤Ù¤Æ¤Î¼ïÎà¤Î¿ÇÃÇ¤ò»î¤ß¤Þ¤¹¡£¤·¤«¤·¡¢¹ÍÎ¸¤ËÆþ¤ì¤Æ¤¤¤Ê¤¤¤Û¤«¤ÎÌäÂê¤¬¤¢¤ë¤«¤â¤·¤ì¤Þ¤»¤ó¡£"
 
-#: ../setup/diagnostics.php:23
+#: ../setup/diagnostics.php:34
 msgid "You can use these tools to find out more about your setup"
 msgstr "¥»¥Ã¥È¥¢¥Ã¥×¤Ë´Ø¤¹¤ë¤è¤êÂ¿¤¯¤Î¾ðÊó¤òÆÀ¤ë¤¿¤á¤Ë¤³¤ì¤é¤Î¥Ä¡¼¥ë¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:28
+#: ../setup/diagnostics.php:39
 msgid "Tool"
 msgstr "¥Ä¡¼¥ë"
 
-#: ../setup/diagnostics.php:29
+#: ../setup/diagnostics.php:40
 msgid "Description"
 msgstr "ÀâÌÀ"
 
-#: ../setup/diagnostics.php:33
+#: ../setup/diagnostics.php:44
 msgid "PHP Info"
 msgstr "PHP Info"
 
-#: ../setup/diagnostics.php:36
+#: ../setup/diagnostics.php:47
 msgid "This page provides information about your PHP installation."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¤³¤Î¥·¥¹¥Æ¥à¤ÎPHP¤Ë´Ø¤¹¤ë¾ðÊó¤òÄó¶¡¤·¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:37
+#: ../setup/diagnostics.php:48
 msgid "It's a good place to look to examine all the various PHP configuration settings, and to find out on what kind of system you're running (sometimes it's difficult to tell when you're on an ISP's machine)"
 msgstr "¤³¤ì¤Ï¡¢¤µ¤Þ¤¶¤Þ¤ÊPHP¤ÎÀßÄê¤ò¸¡ºº¤·¤¿¤ê¡¢¤É¤Î¤è¤¦¤Ê¥·¥¹¥Æ¥à¾å¤ÇÆ°¤¤¤Æ¤¤¤ë¤Î¤«¤ò³ÎÇ§¤¹¤ë¤Î¤ËÅ¬¤·¤Æ¤¤¤Þ¤¹¡£(ISP¤¬¥Û¥¹¥Æ¥£¥ó¥°¤·¤Æ¤¤¤ë¤Ê¤É¡¢³ÎÇ§¤¹¤ë¤Î¤¬Æñ¤·¤¤¾ì¹ç¤â¤¢¤ê¤Þ¤¹¡£)"
 
-#: ../setup/diagnostics.php:43 ../setup/diagnostics.php:53
+#: ../setup/diagnostics.php:54 ../setup/diagnostics.php:64
 msgid "Check"
 msgstr "¥Á¥§¥Ã¥¯"
 
-#: ../setup/diagnostics.php:46
+#: ../setup/diagnostics.php:57
 msgid "This page provides information about your NetPBM binaries."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¥·¥¹¥Æ¥à¤ÎNetPBM¥Ð¥¤¥Ê¥ê¤Ë´Ø¤¹¤ë¾ðÊó¤òÄó¶¡¤·¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:47
+#: ../setup/diagnostics.php:58
 msgid "You can only use this page after you have successfully completed the configuration wizard (as it expects that you've already located and configured Gallery with the right path to NetPBM)."
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤¬´°Î»¤·¤¿¸å¤Ç¤Ê¤¤¤È»È¤¦¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£(NetPBM¤¬ÀßÃÖºÑ¤Ç¡¢¥Ñ¥¹¤¬Gallery¤ËÀßÄê¤µ¤ì¤Æ¤¤¤ë¤³¤È¤¬É¬Í×¤Ç¤¹¡£)"
 
-#: ../setup/diagnostics.php:56
+#: ../setup/diagnostics.php:67
 msgid "This page provides information about your ImageMagick binaries."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¥·¥¹¥Æ¥à¤ÎImageMagick¥Ð¥¤¥Ê¥ê¤Ë´Ø¤¹¤ë¾ðÊó¤òÄó¶¡¤·¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:57
+#: ../setup/diagnostics.php:68
 msgid "You can only use this page after you have successfully complete the configuration wizard (as it expects that you've already located and configured Gallery with the right path to ImageMagick)."
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤¬´°Î»¤·¤¿¸å¤Ç¤Ê¤¤¤È»È¤¦¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£(ImageMagick¤¬ÀßÃÖºÑ¤Ç¡¢¥Ñ¥¹¤¬Gallery¤ËÀßÄê¤µ¤ì¤Æ¤¤¤ë¤³¤È¤¬É¬Í×¤Ç¤¹¡£)"
 
-#: ../setup/diagnostics.php:63
+#: ../setup/diagnostics.php:74
 msgid "Check Sessions"
 msgstr "¥»¥Ã¥·¥ç¥ó¤Î¥Á¥§¥Ã¥¯"
 
-#: ../setup/diagnostics.php:66
+#: ../setup/diagnostics.php:77
 msgid "This page runs a very simple test on your PHP session configuration."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤Ï¸½ºß¤ÎPHP¤ÎÀßÄê¤Ë¤·¤¿¤¬¤Ã¤ÆÈó¾ï¤ËÃ±½ã¤Ê¥Æ¥¹¥È¤ò¹Ô¤¤¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:67
+#: ../setup/diagnostics.php:78
 msgid "Gallery requires that your PHP installation is configured with proper session support."
 msgstr "Gallery¤Ï¥»¥Ã¥·¥ç¥ó¤Î¥µ¥Ý¡¼¥È¤¬Å¬ÀÚ¤ËÀßÄê¤µ¤ì¤¿PHP¤¬É¬¿Ü¤Ç¤¹¡£"
 
-#: ../setup/diagnostics.php:76
+#: ../setup/diagnostics.php:87
 msgid "This page will simply send a test email."
 msgstr "¤³¤Î¥Ú¡¼¥¸¤ÏÃ±¤Ë¥Æ¥¹¥È¥á¡¼¥ë¤òÁ÷¤ë¤À¤±¤Ç¤¹¡£"
 
-#: ../setup/diagnostics.php:77
+#: ../setup/diagnostics.php:88
 #, php-format
 msgid "This allows you to see if you can use the email functions in %s."
 msgstr "¤³¤ì¤Ï%s¤Ç¥á¡¼¥ëµ¡Ç½¤¬»È¤¨¤ë¤«¤É¤¦¤«³ÎÇ§¤·¤Þ¤¹¡£"
 
-#: ../setup/diagnostics.php:83
-#, fuzzy
-msgid "Check versions"
-msgstr "¥»¥Ã¥·¥ç¥ó¤Î¥Á¥§¥Ã¥¯"
-
-#: ../setup/diagnostics.php:86
-#, php-format
-msgid "This page is for %s upgrades that have problems."
-msgstr ""
-
-#: ../setup/diagnostics.php:87
-#, fuzzy, php-format
-msgid "This allows you to check you have the correct version of all your %s files."
-msgstr "¤³¤ì¤Ï%s¤Ç¥á¡¼¥ëµ¡Ç½¤¬»È¤¨¤ë¤«¤É¤¦¤«³ÎÇ§¤·¤Þ¤¹¡£"
-
-#: ../setup/functions.inc:109
+#: ../setup/functions.inc:108
 msgid "Please retype your password here"
 msgstr "¤³¤³¤Ë¥Ñ¥¹¥ï¡¼¥É¤ò¤â¤¦°ìÅÙÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:123 ../setup/functions.inc:959
+#: ../setup/functions.inc:120 ../setup/functions.inc:952
 msgid "Name"
 msgstr "Ì¾Á°"
 
-#: ../setup/functions.inc:124 ../setup/functions.inc:959
+#: ../setup/functions.inc:120 ../setup/functions.inc:952
 msgid "Value"
 msgstr "ÃÍ"
 
-#: ../setup/functions.inc:289
+#: ../setup/functions.inc:282
 msgid "Missing value"
 msgstr "·çÍî¤·¤¿ÃÍ"
 
-#: ../setup/functions.inc:311
+#: ../setup/functions.inc:304
 msgid "I can read your <b>.htaccess</b> file."
 msgstr "<b>.htaccess</b> ¥Õ¥¡¥¤¥ë¤¬ÆÉ¤ß¹þ¤á¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:337
+#: ../setup/functions.inc:330
 #, php-format
 msgid "PHP v%s is OK."
 msgstr "PHP v%s ¤ÏOK¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:350
+#: ../setup/functions.inc:343
 msgid "<b>mod_rewrite</b> is enabled."
 msgstr "<b>mod_rewrite</b> ¤ÏÍ­¸ú¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:374
+#: ../setup/functions.inc:367
 msgid "Can't find <i>jhead</i>"
 msgstr "<i>jhead</i> ¤¬¸«ÉÕ¤«¤ê¤Þ¤»¤ó"
 
-#: ../setup/functions.inc:376
+#: ../setup/functions.inc:369
 msgid "<b>jhead</b> binary located."
 msgstr "<b>jhead</b> ¥Ð¥¤¥Ê¥ê¤¬¸¡½Ð¤µ¤ì¤Þ¤·¤¿¡£"
 
-#: ../setup/functions.inc:390
+#: ../setup/functions.inc:383
 msgid "NetPBM not being used in this installation."
 msgstr "NetPBM¤Ï¤³¤Î¥¤¥ó¥¹¥È¥ì¡¼¥·¥ç¥ó¤Ç¤Ï»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
 
-#: ../setup/functions.inc:395 ../setup/functions.inc:481
+#: ../setup/functions.inc:388 ../setup/functions.inc:474
 msgid "Cannot verify this path (it's not in your open_basedir list)."
 msgstr "¤³¤Î¥Ñ¥¹¤ò³ÎÇ§¤Ç¤­¤Þ¤»¤ó¡£(open_basedir¥ê¥¹¥È¤ËÆþ¤Ã¤Æ¤¤¤Þ¤»¤ó)"
 
-#: ../setup/functions.inc:444 ../setup/functions.inc:500
+#: ../setup/functions.inc:437 ../setup/functions.inc:493
 #, php-format
 msgid "Can't find %s!"
 msgstr "%s¤¬¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£"
 
-#: ../setup/functions.inc:449 ../setup/functions.inc:505
+#: ../setup/functions.inc:442 ../setup/functions.inc:498
 #, php-format
 msgid "%s is not executable!"
 msgstr "%s ¤Ï¼Â¹Ô²ÄÇ½¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:460
+#: ../setup/functions.inc:453
 #, php-format
 msgid "%d of %d NetPBM binaries located."
 msgstr "%2$d¸ÄÃæ%1$d¸Ä¤ÎNetPBM¥Ð¥¤¥Ê¥êÁ´¤Æ¤¬¸¡½Ð¤µ¤ì¤Þ¤·¤¿"
 
-#: ../setup/functions.inc:516
+#: ../setup/functions.inc:509
 #, php-format
 msgid "%d of %d ImageMagick binaries located."
 msgstr "%2$d¸ÄÃæ%1$d¸Ä¤ÎImageMagick¥Ð¥¤¥Ê¥êÁ´¤Æ¤¬¸¡½Ð¤µ¤ì¤Þ¤·¤¿¡£"
 
-#: ../setup/functions.inc:539
+#: ../setup/functions.inc:532
 msgid "Can't find <i>jpegtran</i>!"
 msgstr "<i>jpegtran</i> ¤¬¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£"
 
-#: ../setup/functions.inc:541
+#: ../setup/functions.inc:534
 msgid "<b>jpegtran</b> binary located."
 msgstr "<b>jpegtran</b> ¥Ð¥¤¥Ê¥ê¤¬¸¡½Ð¤µ¤ì¤Þ¤·¤¿"
 
-#: ../setup/functions.inc:553
+#: ../setup/functions.inc:546
 msgid "PHP has <b>GNU gettext</b> support."
 msgstr "PHP¤Ï <b>GNU gettext</b> ¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:555
+#: ../setup/functions.inc:548
 msgid "PHP does not have <b>GNU gettext</b> support."
 msgstr "PHP¤Ï <b>GNU gettext</b> ¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:571
+#: ../setup/functions.inc:564
 msgid "No languages found."
 msgstr "°ì¤Ä¤â¸À¸ì¤¬¸¡½Ð¤µ¤ì¤Þ¤»¤ó¤Ç¤·¤¿¡£(Ìõ¤·¤Æ¤â°ÕÌ£¤Í¡¼¤è"
 
-#: ../setup/functions.inc:573
+#: ../setup/functions.inc:566
 msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
 msgstr "ÄÉ²Ã¤Î¸À¸ì¤ò¤Ò¤È¤Ä¤â¥À¥¦¥ó¥í¡¼¥É¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¤³¤ì¤ÏÌäÂê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£Gallery¤Ï±Ñ¸ì¤ÇÉ½¼¨¤µ¤ì¤ë¤À¤±¤Ç¤¹¡£Ãí°Õ: ¤³¤ì¤¬»ö¼Â¤Ç¤Ê¤¤¤Ê¤é¡¢Á´¤Æ¤Î¥í¥±¡¼¥ë¥Õ¥©¥ë¥À¤¬¥¦¥§¥Ö¥µ¡¼¥Ð¤«¤éÆÉ¤ß¹þ¤ß¤¬¤Ç¤­¤ë¤«¡¢Gallery¥Á¡¼¥à¤ËÏ¢Íí¤·¤Æ¤¯¤À¤µ¤¤¡£(¤³¤ì¤â°ÕÌ£¤Í¡¼"
 
-#: ../setup/functions.inc:577
+#: ../setup/functions.inc:570
 #, php-format
 msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
 msgstr "%d¸À¸ì¤¬ÍøÍÑ²ÄÇ½¤Ç¤¹¡£¸À¸ì¤¬ÉÔÂ­¤·¤Æ¤¤¤ì¤Ð¡¢%sGallery ¥À¥¦¥ó¥í¡¼¥É¥Ú¡¼¥¸%s ¤Ø¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:601
+#: ../setup/functions.inc:594
 #, php-format
 msgid "You can check for more recent versions by visiting %s."
 msgstr "%s¤Ë¹Ô¤±¤Ð¡¢¤è¤ê¿·¤·¤¤¥Ð¡¼¥¸¥ç¥ó¤¬¤Ê¤¤¤«³ÎÇ§¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:603
+#: ../setup/functions.inc:596
 #, php-format
 msgid "This version of %s was released on %s."
 msgstr "%s¤Î¤³¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï%s¤Ë¥ê¥ê¡¼¥¹¤µ¤ì¤Þ¤·¤¿¡£"
 
-#: ../setup/functions.inc:605
+#: ../setup/functions.inc:598
 #, php-format
 msgid "This is a development build of %s that was released on %s."
 msgstr "¤³¤ì¤Ï%s¤Î³«È¯ÈÇ¥Ó¥ë¥É¤Ç¤¹¡£(¥ê¥ê¡¼¥¹Æü %s)"
 
-#: ../setup/functions.inc:614
+#: ../setup/functions.inc:607
 msgid "Please check regularly for updates."
 msgstr "Àµ¼°ÈÇ¤¬¥ê¥ê¡¼¥¹¤µ¤ì¤Æ¤¤¤Ê¤¤¤«Äê´üÅª¤Ë³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:635
+#: ../setup/functions.inc:628
 msgid "All gallery locales are available on this host."
 msgstr "¤³¤Î¥Û¥¹¥È¤Ç¤ÏÁ´¤Æ¤ÎGallery¥í¥±¡¼¥ë¤¬ÍøÍÑ²ÄÇ½¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:638
+#: ../setup/functions.inc:631
 #, php-format
 msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
 msgstr "Gallery¤¬¸¡½Ð¤Ç¤­¤Ê¤«¤Ã¤¿%d¤Î¥í¥±¡¼¥ë¤¬¤¢¤ê¤Þ¤¹¡£¼êÆ°¤ÇÆüÉÕ¥Õ¥©¡¼¥Þ¥Ã¥È¤òÁªÂò¤¹¤ë¤Ò¤Ä¤è¤¦¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:644
+#: ../setup/functions.inc:637
 #, php-format
 msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
 msgstr "ÂÐ±þ¤¹¤ë¥í¥±¡¼¥ë¤¬¤Ê¤¤¤¿¤á¡¢%d¸À¸ì¤ÎÆüÉÕ¤ÏÀµ¤·¤¯¥Õ¥©¡¼¥Þ¥Ã¥È¤µ¤ì¤Þ¤»¤ó¡£¤³¤ì¤é¤Î¤¿¤á¤Ë¼êÆ°¤ÇÆüÉÕ¥Õ¥©¡¼¥Þ¥Ã¥È¤òÁªÂò¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:649
+#: ../setup/functions.inc:642
 #, php-format
 msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
 msgstr "¥í¥±¡¼¥ë¤ÏÁ´¤¯¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£¤·¤«¤·¤Ê¤¬¤é¡¢PHP¤ÎÀßÄê¤Ë¤è¤ê%sÀ©Ìó¤¬¤«¤«¤Ã¤Æ¤¤¤Þ¤¹¤Î¤Ç¥í¥±¡¼¥ë¤ò¸¡½Ð¤¹¤ëÊýË¡¤¬Ë¸³²¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ÉÔ¹¬¤Ë¤â¤³¤ì¤ÏÆüÉÕ¥Õ¥©¡¼¥Þ¥Ã¥È¤¬¸À¸ì¤Ë¤è¤Ã¤ÆÀÚ¤êÂØ¤ï¤é¤Ê¤¤¤³¤È¤ò°ÕÌ£¤·¤Þ¤¹¡£¤Ç¤â¡¢Âç¾æÉ×¤À¤«¤éÂ³¤±¤Þ¤·¤ç¤¦¡£"
 
-#: ../setup/functions.inc:653
-#, fuzzy, php-format
+#: ../setup/functions.inc:646
+#, php-format
 msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
-msgstr "¤¤¤«¤Ê¤ë¥·¥¹¥Æ¥à¥í¥±¡¼¥ë¤â¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£Â¿¸À¸ìµ¡Ç½¤Ï»ÈÍÑ¤Ç¤­¤Þ¤»¤ó¡£³ºÅö¤¹¤ë¥í¥±¡¼¥ë¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤³¤Îºî¶È¤ò¤¹¤ë¤è¤¦¤Ë´ÉÍý¼Ô¤ËÍê¤ó¤Ç¤¯¤À¤µ¤¤¡£¤³¤ÎÌäÂê¤Ï %s ¥·¥¹¥Æ¥à¾å¤ÇÃÎ¤é¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤Î¾ì¹ç¤Ï %Debian locale HowTo%s ¤ò¤´¤é¤ó¤¯¤À¤µ¤¤¡£"
+msgstr "¤¤¤«¤Ê¤ë¥·¥¹¥Æ¥à¥í¥±¡¼¥ë¤â¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£Â¿¸À¸ìµ¡Ç½¤Ï»ÈÍÑ¤Ç¤­¤Þ¤»¤ó¡£³ºÅö¤¹¤ë¥í¥±¡¼¥ë¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤³¤Îºî¶È¤ò¤¹¤ë¤è¤¦¤Ë´ÉÍý¼Ô¤ËÍê¤ó¤Ç¤¯¤À¤µ¤¤¡£¤³¤ÎÌäÂê¤Ï %s ¥·¥¹¥Æ¥à¾å¤ÇÃÎ¤é¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤Î¾ì¹ç¤Ï %sDebian locale HowTo%s ¤ò¤´¤é¤ó¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:655
+#: ../setup/functions.inc:648
 msgid "Only the default locale for this machine is available, so date format will not change for different languages."
 msgstr "¤³¤Î¥Þ¥·¥ó¤ËÂÐ¤¹¤ë¥Ç¥Õ¥©¥ë¥È¸À¸ì¤À¤±¤¬ÍøÍÑ²ÄÇ½¤Ç¤¹¡£¤è¤Ã¤Æ¡¢°Û¤Ê¤ë¸À¸ì¤ËÂÐ¤·¤Æ¤âÆüÉÕ¥Õ¥©¡¼¥Þ¥Ã¥È¤ÏÆ±¤¸¤â¤Î¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:807
-#, fuzzy
-msgid "<b>System</b> locale selection required"
+#: ../setup/functions.inc:800
+msgid "Locale Selection required"
 msgstr "¥í¥±¡¼¥ëÁªÂò¤¬É¬Í×¤Ç¤¹"
 
-#: ../setup/functions.inc:808
-#, fuzzy
-msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
+#: ../setup/functions.inc:801
+msgid "There is more than one suitable locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
 msgstr "°Ê²¼¤Î¸À¸ì¤ËÂÐ±þ¤¹¤ë2¤Ä°Ê¾å¤Î¥í¥±¡¼¥ë¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ºÇ¤âÅ¬ÀÚ¤Ê¤â¤Î¤ò°ì¤ÄÁª¤ó¤Ç¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:810 ../setup/functions.inc:883
+#: ../setup/functions.inc:803 ../setup/functions.inc:876
 msgid "This is <b>only</b> for date & time format. You only need to edit the languages you enabled above"
 msgstr "¤³¤ì¤ÏÆüÉÕ¤È»þ´Ö¤Î¥Õ¥©¡¼¥Þ¥Ã¥È <b>¤Î¤ß</b> ¤Î¤¿¤á¤Î¤â¤Î¤Ç¤¹¡£¾å¤ÇÍ­¸ú¤Ë¤·¤¿¸À¸ì¤òÊÔ½¸¤¹¤ë¤³¤È¤À¤±É¬Í×¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:838 ../setup/functions.inc:845
-#: ../setup/functions.inc:855
+#: ../setup/functions.inc:831 ../setup/functions.inc:838
+#: ../setup/functions.inc:848
 msgid "System locale"
 msgstr "¥·¥¹¥Æ¥à¤Î¥í¥±¡¼¥ë"
 
-#: ../setup/functions.inc:880
-#, fuzzy
-msgid "<b>System</b> locale problems"
+#: ../setup/functions.inc:873
+msgid "Locale problems"
 msgstr "¥í¥±¡¼¥ë¤ÎÉÔ¶ñ¹ç"
 
-#: ../setup/functions.inc:881
-#, fuzzy
-msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
+#: ../setup/functions.inc:874
+msgid "There are no apparently suitable locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
 msgstr "°Ê²¼¤Î¸À¸ì¤ËÂÐ±þ¤¹¤ëÅ¬ÀÚ¤Ê¥í¥±¡¼¥ë¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£ºÇ¤âÅ¬Åö¤À¤È»×¤¦¤â¤Î¤òÁª¤ó¤Ç¤¯¤À¤µ¤¤¡£"
 
-#: ../setup/functions.inc:926
+#: ../setup/functions.inc:919
 msgid "<b>safe_mode</b> is off."
 msgstr "<b>safe_mode</b> ¤ÏOFF¤Ç¤¹"
 
-#: ../setup/functions.inc:939
+#: ../setup/functions.inc:932
 msgid "<b>magic_quotes</b> are off."
 msgstr "<b>magic_quotes</b> ¤ÏOFF¤Ç¤¹"
 
-#: ../setup/functions.inc:957
-#, fuzzy, php-format
+#: ../setup/functions.inc:950
+#, php-format
 msgid "In %s, missing %s in row %d with %s %s."
-msgstr "%1$s ¤Ë¤ª¤¤¤Æ¡¢%4$s ¤¬ %3$s ¤Ç¤¢¤ëÎó %d ¤Î %2$s¤¬·çÍî¤·¤Æ¤¤¤Þ¤¹¡£"
+msgstr "%1$s ¤Ë¤ª¤¤¤Æ¡¢%5$s ¤¬ %4$s ¤Ç¤¢¤ëÎó %3$d ¤Î %2$s¤¬·çÍî¤·¤Æ¤¤¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:966
+#: ../setup/functions.inc:959
 #, php-format
 msgid "In %s, blank in row %d."
 msgstr "%s ¤Ë¤ª¤¤¤Æ¡¢%d ÎóÌÜ¤¬¶õÇò¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:971
+#: ../setup/functions.inc:964
 #, php-format
 msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
 msgstr "%s ¤Ë¤ª¤±¤ë¥é¥Ù¥ë %s (Îó %d) ¤ÎÃÍ %s ¤ÏÀµ¤Î¿ô¤Ç¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1127
+#: ../setup/functions.inc:1120
 msgid "Your admin passwords do not match!"
 msgstr "´ÉÍý¼Ô¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Þ¤»¤ó!"
 
-#: ../setup/functions.inc:1143
+#: ../setup/functions.inc:1136
 msgid "Valid admin email address given."
 msgstr "Í­¸ú¤Ê´ÉÍý¼Ô¤Î¥¢¥É¥ì¥¹¤¬¤¢¤¿¤¨¤é¤ì¤Þ¤·¤¿¡£"
 
-#: ../setup/functions.inc:1150
+#: ../setup/functions.inc:1143
 msgid "You must specify valid admin email addresses"
 msgstr "Í­¸ú¤Ê´ÉÍý¼Ô¥á¡¼¥ë¥¢¥É¥ì¥¹¤ò»ØÄê¤·¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1158
+#: ../setup/functions.inc:1151
 #, php-format
 msgid "%s is not a valid email address."
 msgstr "%s ¤ÏÍ­¸ú¤Ê¥á¡¼¥ë¥¢¥É¥ì¥¹¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1167
+#: ../setup/functions.inc:1160
 msgid "Valid sender email address given."
 msgstr "Í­¸ú¤ÊÁ÷¿®¼Ô¥á¡¼¥ë¥¢¥É¥ì¥¹¤¬¤¢¤¿¤¨¤é¤ì¤Þ¤·¤¿¡£"
 
-#: ../setup/functions.inc:1169
+#: ../setup/functions.inc:1162
 msgid "You must specify a valid sender email address"
 msgstr "Í­¸ú¤ÊÁ÷¿®¼Ô¥á¡¼¥ë¥¢¥É¥ì¥¹¤ò»ØÄê¤·¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1172
+#: ../setup/functions.inc:1165
 #, php-format
 msgid "You must include %s in your welcome email"
 msgstr "%s ¤ò¥¦¥§¥ë¥«¥à¥á¡¼¥ë¤Ë´Þ¤á¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1177
+#: ../setup/functions.inc:1170
 #, php-format
 msgid "You must include %s or %s in your welcome email"
 msgstr "%s ¤« %s ¤ò¥¦¥§¥ë¥«¥à¥á¡¼¥ë¤Ë´Þ¤á¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1201
+#: ../setup/functions.inc:1194
 #, php-format
 msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
 msgstr ""
 
-#: ../setup/functions.inc:1203
+#: ../setup/functions.inc:1196
 msgid "This should be fixed before proceeding"
 msgstr ""
 
-#: ../setup/functions.inc:1204 ../setup/functions.inc:1208
+#: ../setup/functions.inc:1197 ../setup/functions.inc:1201
 #, php-format
 msgid "Look at %sCheck Versions%s for more details."
 msgstr ""
 
-#: ../setup/functions.inc:1207
+#: ../setup/functions.inc:1200
 #, php-format
 msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, CVS or modified code."
 msgstr ""
 
-#: ../setup/functions.inc:1212
+#: ../setup/functions.inc:1205
 #, php-format
 msgid "All %d tested files up-to-date."
 msgstr ""
 
-#: ../setup/functions.inc:1220
+#: ../setup/functions.inc:1213
 #, php-format
 msgid "this is new in version %s"
 msgstr "¤³¤ì¤Ï¥Ð¡¼¥¸¥ç¥ó%s¤Î¿·¤·¤¤¤â¤Î¤Ç¤¹¡£"
 
-#: ../setup/functions.inc:1225
+#: ../setup/functions.inc:1218
 #, php-format
 msgid "Return to %s."
 msgstr "%s ¤ËÌá¤ë"
 
-#: ../setup/functions.inc:1226
+#: ../setup/functions.inc:1219
 msgid "Configuration Wizard"
 msgstr "¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥â¡¼¥É"
 
-#: ../setup/functions.inc:1277
+#: ../setup/functions.inc:1270
 #, php-format
 msgid "You must enter a password for the %s account."
 msgstr "¥¢¥«¥¦¥ó¥È %s ¤ËÂÐ¤¹¤ë¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Ê¤¯¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
 
-#: ../setup/functions.inc:1282
-#, fuzzy, php-format
-msgid "It seems you've already configured Gallery, because there is one admin account, but its not called %s."
-msgstr "¤¢¤Ê¤¿¤Ï¤¹¤Ç¤ËGallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ò½ª¤¨¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¤Î¤Ç¡¢%s ¥æ¡¼¥¶¤ÏÂ¸ºß¤·¤Þ¤¹¡£¥Ñ¥¹¥ï¡¼¥É¤ÏÆþÎÏ¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤·¤«¤·¡¢ÆþÎÏ¤·¤¿¾ì¹ç¤Ï %s ¥æ¡¼¥¶¤Î¥Ñ¥¹¥ï¡¼¥É¤òÊÑ¹¹¤·¤Þ¤¹¡£"
-
-#: ../setup/functions.inc:1285
-#, fuzzy, php-format
-msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
-msgstr "¤¢¤Ê¤¿¤Ï¤¹¤Ç¤ËGallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ò½ª¤¨¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¤Î¤Ç¡¢%s ¥æ¡¼¥¶¤ÏÂ¸ºß¤·¤Þ¤¹¡£¥Ñ¥¹¥ï¡¼¥É¤ÏÆþÎÏ¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤·¤«¤·¡¢ÆþÎÏ¤·¤¿¾ì¹ç¤Ï %s ¥æ¡¼¥¶¤Î¥Ñ¥¹¥ï¡¼¥É¤òÊÑ¹¹¤·¤Þ¤¹¡£"
-
-#: ../setup/functions.inc:1287
-#, fuzzy, php-format
-msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
+#: ../setup/functions.inc:1275
+#, php-format
+msgid "It seems you've already configured Gallery, because there are %d admin accounts, but not a user called %s.  You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
 msgstr "¤¢¤Ê¤¿¤Ï¤¹¤Ç¤ËGallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ò½ª¤¨¤Æ¤¤¤Þ¤¹¤Î¤Ç¡¢%d¸Ä¤Î´ÉÍý¼Ô¥¢¥«¥¦¥ó¥È¤¬¤¢¤ê¡¢but not a user called %s. ¥Ñ¥¹¥ï¡¼¥É¤ÏÆþÎÏ¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤·¤«¤·¡¢ÆþÎÏ¤·¤¿¾ì¹ç¤Ï¤½¤Î¥Ñ¥¹¥ï¡¼¥É¤Ç %s ¤È¤¤¤¦´ÉÍý¼Ô¥¢¥«¥¦¥ó¥È¤òºîÀ®¤·¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:1296
+#: ../setup/functions.inc:1282
 #, php-format
 msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
 msgstr "¤¢¤Ê¤¿¤Ï¤¹¤Ç¤ËGallery¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ò½ª¤¨¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¤Î¤Ç¡¢%s ¥æ¡¼¥¶¤ÏÂ¸ºß¤·¤Þ¤¹¡£¥Ñ¥¹¥ï¡¼¥É¤ÏÆþÎÏ¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤·¤«¤·¡¢ÆþÎÏ¤·¤¿¾ì¹ç¤Ï %s ¥æ¡¼¥¶¤Î¥Ñ¥¹¥ï¡¼¥É¤òÊÑ¹¹¤·¤Þ¤¹¡£"
 
-#: ../setup/functions.inc:1303
+#: ../setup/functions.inc:1289
 msgid "Admin password"
 msgstr "´ÉÍý¼Ô¥Ñ¥¹¥ï¡¼¥É"
 
-#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
-#: ../setup/functions.inc:1320 ../setup/functions.inc:1328
-#, fuzzy
-msgid "Full Name"
-msgstr "Ì¾Á°"
-
-#: ../setup/functions.inc:1316 ../setup/functions.inc:1318
-#: ../setup/functions.inc:1322 ../setup/functions.inc:1330
-msgid "Username"
-msgstr ""
-
-#: ../setup/functions.inc:1324
-msgid "Full name that you can click on to send email (mailto:)"
-msgstr ""
-
-#: ../setup/functions.inc:1326
-msgid "Username that you can click on to send email (mailto:)"
-msgstr ""
-
-#: ../setup/functions.inc:1328 ../setup/functions.inc:1330
-#, fuzzy
-msgid "email address"
-msgstr "¤¢¤Ê¤¿¤Î¥á¡¼¥ë¥¢¥É¥ì¥¹:"
-
-#: ../setup/index.php:14
+#: ../setup/index.php:25
 msgid "Gallery Configuration"
 msgstr "Gallery ¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó"
 
-#: ../setup/index.php:30
+#: ../setup/index.php:41
 msgid "unknown"
 msgstr "ÉÔÌÀ"
 
-#: ../setup/session_test.php:27
+#: ../setup/session_test.php:36
 msgid "Gallery Session Test"
 msgstr "Gallery ¥»¥Ã¥·¥ç¥ó ¥Æ¥¹¥È"
 
-#: ../setup/session_test.php:32
+#: ../setup/session_test.php:41
 msgid "Session Test"
 msgstr "¥»¥Ã¥·¥ç¥ó¤Î¥Æ¥¹¥È"
 
-#: ../setup/session_test.php:35
+#: ../setup/session_test.php:52
 msgid "If sessions are configured properly in your PHP installation, then you should see a session id below."
 msgstr "PHP¤Î¥¤¥ó¥¹¥È¡¼¥ë»þ¤Ë¥»¥Ã¥·¥ç¥ó¤¬Àµ¤·¤¯ÀßÄê¤µ¤ì¤Æ¤¤¤ì¤Ð¡¢²¼¤Ë¥»¥Ã¥·¥ç¥óID¤¬É½¼¨¤µ¤ì¤ë¤Ï¤º¤Ç¤¹¡£"
 
-#: ../setup/session_test.php:37
+#: ../setup/session_test.php:54
 msgid "The &quot;page views&quot; number should increase every time you reload the page."
 msgstr " &quot;¥Ú¡¼¥¸¥Ó¥å¡¼&quot; ¿ô¤Ï¥Ú¡¼¥¸¤ò¥ê¥í¡¼¥É¤¹¤ë¤¿¤Ó¤ËÁý¤¨¤ë¤Ï¤º¤Ç¤¹¡£"
 
-#: ../setup/session_test.php:39
+#: ../setup/session_test.php:56
 #, php-format
 msgid "Clicking %s should reset the page view number back to 1."
 msgstr "%s ¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È¥Ú¡¼¥¸¥Ó¥å¡¼¿ô¤ò1¤ËÌá¤ë¤Ï¤º¤Ç¤¹¡£"
 
-#: ../setup/session_test.php:41
+#: ../setup/session_test.php:58
 msgid "If this <b>does not</b> work, then you most likely have a configuration issue with your PHP installation."
 msgstr "¤³¤ì¤¬Æ°¤¤¤Æ <b>¤¤¤Ê¤¤</b> ¤Ê¤é¡¢PHP¤Î¥¤¥ó¥¹¥È¡¼¥ë»þ¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤ËÌäÂê¤¬¤¢¤ë²ÄÇ½À­¤¬¹â¤¤¤Ç¤¹¡£"
 
-#: ../setup/session_test.php:42
+#: ../setup/session_test.php:59
 msgid "Gallery will not work properly until PHP's session management is configured properly."
 msgstr "PHP¤Î¥»¥Ã¥·¥ç¥ó´ÉÍýµ¡Ç½¤¬Àµ¤·¤¯ÀßÄê¤µ¤ì¤Ê¤¤¸Â¤ê¡¢Gallery¤Ï¤¦¤Þ¤¯Æ°¤«¤Ê¤¤¤Ç¤·¤ç¤¦¡£"
 
-#: ../setup/session_test.php:50
+#: ../setup/session_test.php:67
 msgid "Your session id is"
 msgstr "¤¢¤Ê¤¿¤Î¥»¥Ã¥·¥ç¥óID¤Ï"
 
-#: ../setup/session_test.php:54
+#: ../setup/session_test.php:71
 msgid "Page views in this session"
 msgstr "¤³¤Î¥»¥Ã¥·¥ç¥ó¤Ë¤ª¤±¤ë¥Ú¡¼¥¸¥Ó¥å¡¼¤Ï"
 
-#: ../setup/session_test.php:58
+#: ../setup/session_test.php:75
 msgid "Server IP address"
 msgstr "¥µ¡¼¥Ð¤ÎIP¥¢¥É¥ì¥¹"
 
-#: ../setup/session_test.php:68
+#: ../setup/session_test.php:85
 msgid "Start over"
 msgstr "½é¤á¤«¤é¤ä¤êÄ¾¤¹"
 
@@ -2300,7 +2200,7 @@ msgstr "%s ¤È¤¤¤¦¥¢¥«¥¦¥ó¥È¤¬»ØÄê¤Î¥Ñ¥¹¥ï¡¼¥É¤È¤È¤â¤ËºîÀ®¤µ¤ì¤Þ¤·¤¿¡£"
 msgid "Success!"
 msgstr "À®¸ù"
 
-#: ../setup/write.inc:163
+#: ../setup/write.inc:164
 msgid "Your configuration has been successfully saved!"
 msgstr "ÀßÄê¾ðÊó¤ÎÊÝÂ¸¤ËÀ®¸ù¤·¤Þ¤·¤¿¡£"
 
@@ -2308,45 +2208,45 @@ msgstr "ÀßÄê¾ðÊó¤ÎÊÝÂ¸¤ËÀ®¸ù¤·¤Þ¤·¤¿¡£"
 msgid "Note"
 msgstr "Ãí°Õ"
 
-#: ../setup/write.inc:175
+#: ../setup/write.inc:176
 msgid "Don't forget to run this to make your Gallery secure!"
 msgstr "¤³¤ì¤ò¼Â¹Ô¤·¤ÆGallery¤ò¥»¥­¥å¥¢¥â¡¼¥É¤Ë¤¹¤ë¤³¤È¤òËº¤ì¤Ê¤¤¤Ç¤¯¤À¤µ¤¤!"
 
-#: ../setup/write.inc:181
+#: ../setup/write.inc:182
 msgid "Gallery won't run if it is not in secure mode."
 msgstr "¥»¥­¥å¥¢¥â¡¼¥É¤Ç¤Ê¤¤¤ÈGallery¤ÏÆ°ºî¤·¤Þ¤»¤ó¡£"
 
-#: ../setup/write.inc:184
+#: ../setup/write.inc:183
 msgid "You can reconfigure Gallery at any time by re-running this configuration wizard."
 msgstr "¤³¤Î¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¥¦¥£¥¶¡¼¥É¤ò¼Â¹Ô¤¹¤ë¤³¤È¤Ç¡¢¤¤¤Ä¤Ç¤âGallery¤ò¥³¥ó¥Õ¥£¥°¥ì¡¼¥·¥ç¥ó¤·Ä¾¤¹¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
-#: ../setup/write.inc:186
+#: ../setup/write.inc:184
 msgid "It will save your data so you won't have to enter it all again!"
 msgstr "¥Ç¡¼¥¿¤Ï¥»¡¼¥Ö¤µ¤ì¤Þ¤¹¤Î¤Ç¡¢¤â¤¦°ìÅÙÆþÎÏ¤¹¤ëÉ¬Í×¤Ï¤Ê¤¤¤Ç¤·¤ç¤¦¡£"
 
-#: ../setup/write.inc:189
+#: ../setup/write.inc:188
 #, php-format
 msgid "Please subscribe to the %s mailing list. This is a very low volume mailing list that will keep you abreast of important changes in %s.  This is where we announce new versions, important bug fixes and any security issues and their resolution."
 msgstr "%s ¥á¡¼¥ê¥ó¥°¥ê¥¹¥È¤Ë»²²Ã¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤ì¤ÏÎ®ÎÌ¤Î¾¯¤Ê¤¤¥á¡¼¥ê¥ó¥°¥ê¥¹¥È¤Ç¡¢%s¤Î½ÅÍ×¤ÊÊÑ¹¹¤ËÄÉ½¾¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£¤³¤ì¤Ï»ä¤¿¤Á¤¬¿·¤·¤¤¥Ð¡¼¥¸¥ç¥ó¤ä½ÅÍ×¤Ê¥Ð¥°½¤Àµ¡¢¤¢¤é¤æ¤ë¥»¥­¥å¥ê¥Æ¥£¤ÎÌäÂê¤ä¤½¤ì¤é¤Î·èÄê¤ò¥¢¥Ê¥¦¥ó¥¹¤¹¤ë¤È¤³¤í¤Ç¤¹¡£"
 
-#: ../setup/write.inc:196
+#: ../setup/write.inc:195
 msgid "Enter the Gallery"
 msgstr "Gallery¤ØÆþ¤ë"
 
-#: ../setup/write.inc:206
+#: ../setup/write.inc:207
 msgid "Failure"
 msgstr "¼ºÇÔ"
 
-#: ../setup/write.inc:207
+#: ../setup/write.inc:208
 #, php-format
 msgid "Unable to write to %s."
 msgstr "%s¤Ë½ñ¤­¹þ¤á¤Þ¤»¤ó"
 
-#: ../setup/write.inc:210
+#: ../setup/write.inc:211
 #, php-format
 msgid "You are missing either %s or %s."
 msgstr "%s ¤« %s ¤Î¤É¤Á¤é¤«¤¬·çÍî¤·¤Æ¤¤¤Þ¤¹¡¥"
 
-#: ../setup/write.inc:214
+#: ../setup/write.inc:215
 msgid "Review Settings"
 msgstr "ÀßÄê¤ò¸«Ä¾¤¹"

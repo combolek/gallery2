@@ -132,7 +132,7 @@ function build_popup_url($url, $url_is_complete=0) {
 	
 	if (!$url_is_complete) {
 		$url = makeGalleryUrl($target, $args);
-		$url = "$url";
+		$url = "'$url'";
 	}
 
 	return $url;
@@ -154,21 +154,20 @@ function popup_status($url, $height=150, $width=350) {
 	return "open('" . makeGalleryUrl($url) . "','Status','$attrs');";
 }
 
-function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height=500,$width=500, $class='') {
+function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height=500,$width=500) {
     static $popup_counter = 0;
     global $gallery;
 
     if ( !empty($gallery->session->offline) && $online_only ) {
 	return;
     }
-    $class = empty($class) ? '' : "class=\"$class\"";
 
     $popup_counter++;
 
     $link_name = "popuplink_".$popup_counter;
     $url = build_popup_url($url, $url_is_complete);
     
-    $a1 = "<a $class id=\"$link_name\" target=\"Edit\" href=\"$url\" onClick=\"javascript:".
+    $a1 = "<a id=\"$link_name\" target=\"Edit\" href=$url onClick=\"javascript:".
 	popup_js("document.getElementById('$link_name').href", "Edit",
 		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes").
 	"\">";
@@ -866,7 +865,7 @@ function _getStyleSheetLink($filename, $skinname='') {
 	} elseif (stristr($HTTP_SERVER_VARS['REQUEST_URI'],"setup")) {
 		$base = "..";
 	} else {
-		$base = $GALLERY_BASEDIR;
+		$base = ".";
 	}
 
 	if (fs_file_exists($sheetdomainpath) && !broken_link($sheetdomainpath)) {
@@ -883,7 +882,24 @@ function _getStyleSheetLink($filename, $skinname='') {
 	    }
 	}
 
-	return '  <link rel="stylesheet" type="text/css" href="' .$url . '">';
+	return '<link rel="stylesheet" type="text/css" href="' .
+		$url .
+		'">';
+}
+
+function pluralize_n($amt, $one, $more, $none) {
+        switch ($amt) {
+                case 0 :
+                        return $none;
+                        break;
+                case 1 :
+			return $one;
+                        break;
+
+                default :
+                        return "$amt $more";
+                        break;
+        }
 }
 
 function errorRow($key) {
@@ -1029,49 +1045,21 @@ function makeFormIntro($target, $attrList=array()) {
 function makeGalleryUrl($target, $args=array()) {
 	global $gallery;
 	global $GALLERY_EMBEDDED_INSIDE;
-	global $GALLERY_EMBEDDED_INSIDE_TYPE;
 	global $GALLERY_MODULENAME;
 
-	/* Needed for phpBB2 */
-	global $userdata;
-	global $board_config;
-	global $HTTP_COOKIE_VARS;
+	if(stristr($GALLERY_EMBEDDED_INSIDE,"nuke")) {
+			$args["op"] = "modload";
+			$args["name"] = "$GALLERY_MODULENAME";
+			$args["file"] = "index";
 
-	if( isset($GALLERY_EMBEDDED_INSIDE)) {
-                switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
-	                case 'phpBB2':
-				$cookiename = $board_config['cookie_name'];			
-				if(!isset($HTTP_COOKIE_VARS[$cookiename . '_sid'])) {
-					// no cookie so we need to pass the session ID manually.
-					$args["sid"] = $userdata['session_id'];
-					if(!isset($args["set_albumName"])) {
-						// This var is only passed some of the time and but is required so PUT IT IN when needed.
-						$args["set_albumName"] = $gallery->session->albumName;
-					}
-				}	
-
-        	        case 'phpnuke':
-                	case 'postnuke':
-				$args["op"] = "modload";
-				$args["name"] = "$GALLERY_MODULENAME";
-				$args["file"] = "index";
-
-				/*
-				 * include *must* be last so that the JavaScript code in 
-				 * view_album.php can append a filename to the resulting URL.
-				 */
-				$args["include"] = $target;
-				$target = "modules.php";
-
-			break;
-	
-			// Maybe something went wrong, then we assume we are like standalone.		
-			default:
-				$target = $gallery->app->photoAlbumURL . "/" . $target;
-		}
-	}
-	else {
-		$target = $gallery->app->photoAlbumURL . "/" . $target;
+			/*
+			 * include *must* be last so that the JavaScript code in 
+			 * view_album.php can append a filename to the resulting URL.
+			 */
+			$args["include"] = $target;
+			$target = "modules.php";
+	} else {
+			$target = $gallery->app->photoAlbumURL . "/" . $target;
 	}
 
 	$url = $target;
@@ -1133,7 +1121,6 @@ function gallerySanityCheck() {
        	if (!empty($gallery->backup_mode)) {
 	       	return NULL;
        	}
-
 
 	if (!fs_file_exists($GALLERY_BASEDIR . "config.php") ||
                 broken_link($GALLERY_BASEDIR . "config.php") ||
@@ -1647,7 +1634,6 @@ function printChildren($albumName,$depth=0) {
 	$myAlbum->load($albumName);
 	$numPhotos = $myAlbum->numPhotos(1);
 	for ($i=1; $i <= $numPhotos; $i++) {
-		set_time_limit($gallery->app->timeLimit);
 		$myName = $myAlbum->isAlbumName($i);
 		if ($myName && !$myAlbum->isHidden($i)) {
 		        $nestedAlbum = new Album();
@@ -1699,7 +1685,6 @@ function mostRecentComment($album, $i)
 function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5", 
 	$col_1_head=null, $col_2_head=null) 
 {
-	global $GALLERY_BASEDIR;
 	foreach ($array as $value) 
 	{
 		if ((IsSet($max_value) && ($value > $max_value)) ||
@@ -1713,7 +1698,7 @@ function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5",
 		// no results!
 		return null;
 	}
-	$string_to_return = "\n  <table $table_values>";
+	$string_to_return = "<TABLE $table_values>";
 	if ($col_1_head || $col_2_head)
 	{
 		$string_to_return.="<tr><td></td><td><span class=\"admin\">$col_1_head</span></td><td><span class=\"admin\">$col_2_head</span></td></tr>";
@@ -1730,14 +1715,14 @@ function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5",
 	$counter = 0;
 	foreach ($array as $name => $value) {
 		$bar_width = $value * $pixels_per_value;
-		$string_to_return .= "\n\t<tr>"
-			. "\n\t<td>(". ++$counter .")</td>"
-			. "\n\t<td>$name ($value)</td>"
-			. "\n\t<td><img src=\"". $GALLERY_BASEDIR . "images/bar.gif\" border=\"1\""
-			. " width=\"$bar_width\" height=\"10\" alt=\"BAR\"></td>"
-			. "\n\t</tr>";
+		$string_to_return .= "<tr> <td>" .
+		       	(++$counter) .
+		      	"</td> <td>$name ($value)</td> <td>" .
+			"<IMG SRC=\"images/bar.gif\" BORDER=\"1\" " .
+			"WIDTH=\"$bar_width\" HEIGHT=\"10\" alt=\"BAR\">" .
+		       "</td></tr>";
 	}
-	$string_to_return .= "\n  </table";
+	$string_to_return .= "</TABLE>";
 	return($string_to_return);
 }
 
@@ -2308,6 +2293,247 @@ function findInPath($program)
 	return false;
 }
 
+function initLanguage() {
+
+	global $gallery, $GALLERY_BASEDIR, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
+	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_SESSION_VARS;
+
+	// $locale is *NUKEs locale var
+	global $locale ;
+
+       $nls = getNLS();
+
+       // before we do any tests or settings test if we are in mode 0
+       // If so, we skip language settings at all
+
+       $gallery->direction=$nls['default']['direction'];
+       $gallery->align=$nls['default']['alignment'];
+       if (isset($gallery->app->ML_mode)) {
+		// Mode 0 means no Multilanguage at all.
+		if($gallery->app->ML_mode == 0) {
+			// Maybe PHP has no gettext, then we have to substitute _()
+			if (! gettext_installed()) {
+				function _($string) { 
+					return $string ;
+				}
+			}
+			return;
+		}
+       }
+       // Detect Browser Language
+
+       if (isset($HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"])) {
+		$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
+		$spos=strpos($lang[0],";");
+		if ($spos >0) {
+			$lang[0]=substr($lang[0],0,$spos);
+		}
+		$lang_pieces=explode ("-",$lang[0]);
+
+		if (strlen($lang[0]) ==2) {
+			$gallery->browser_language=$lang[0] ."_".strtoupper($lang[0]);
+		} else {
+			$gallery->browser_language=
+				strtolower($lang_pieces[0]).
+				"_".strtoupper($lang_pieces[1]) ;
+		}
+	}
+
+	// Does the user wants a new lanuage ?
+	if (isset($HTTP_GET_VARS['newlang'])) {
+		$newlang=$HTTP_GET_VARS['newlang'];
+	}
+
+	/**
+	 ** We have now 2+1 Ways. PostNuke, phpNuke or not Nuke
+	 ** Now we (try) to do the language settings
+	 ** 
+	 ** Note: ML_mode is only used when not in *Nuke
+	 **/
+
+	if (isset($GALLERY_EMBEDDED_INSIDE)) {
+		//We're in NUKE";
+		if (!empty($newlang)) {
+			// if there was a new language given, use it
+			$gallery->nuke_language=$newlang;
+		} else {
+			//No new language. Lets see which Nuke we use and look for a language
+			if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
+				/* postnuke */
+				if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
+					$gallery->nuke_language=$HTTP_SESSION_VARS['PNSVlang'];
+				}
+			}
+			else {
+				/* phpnuke */
+				if (isset($HTTP_COOKIE_VARS['lang'])) {
+					$gallery->nuke_language=$HTTP_COOKIE_VARS['lang'];
+				}
+			}
+		}
+
+		if (isset ($gallery->session->language) && ! isset($gallery->nuke_language)) {
+			$gallery->language = $gallery->session->language;
+		} else {
+			$gallery->language=$nls['alias'][$gallery->nuke_language];
+		}
+	} else {
+		// We're not in Nuke
+		// If we got a ML_mode from config.php we use it
+		// If not we use Mode 2 (Browserlanguage)
+
+		if (isset($gallery->app->ML_mode)) {
+			$ML_mode=$gallery->app->ML_mode;
+		} else {
+			$ML_mode=2;
+		}
+
+		switch ($ML_mode) {
+			case 1:
+				//Static Language
+				$gallery->language = $gallery->app->default_language;
+				break;
+			case 3:
+				// Does the user want a new language ?
+				if (!empty($newlang)) {
+					// Use Alias if
+					if (isset($nls['alias'][$newlang])) $newlang=$nls['alias'][$newlang] ;
+					// Set Language to the User selected language (if this language is defined)
+					if (isset($nls['language'][$newlang])) {
+						$gallery->language=$newlang;
+					}
+				} elseif (isset($gallery->session->language)) {
+					//maybe we already have a language
+					$gallery->language=$gallery->session->language;
+				}
+				break;
+			default:
+				// Use Browser Language or Userlanguage 
+				// when mode 2 or any other (wrong) mode
+				if (!empty($gallery->user) && 
+						$gallery->user->getDefaultLanguage() != "") {
+					$gallery->language = $gallery->user->getDefaultLanguage();
+				} elseif (isset($gallery->browser_language)) {
+					$gallery->language=$gallery->browser_language;
+				}
+				break;
+		}
+	}
+
+	/**
+	 **  Fall back to Default Language if :
+	 **	- we cant detect Language
+	 **	- Nuke sent an unsupported
+	 **	- User sent an undefined
+	 **/
+	if (empty($gallery->language)) {
+		if (isset($gallery->app->default_language)) {
+			$gallery->language = $gallery->app->default_language;
+		} elseif(isset($gallery->browser_language)) {
+			$gallery->language = $gallery->browser_language;
+		} else {
+			// when we REALLY REALLY cant detect a language
+			$gallery->language="en_US";
+		}
+	}
+
+	// if an alias for a language is given, use it
+	//
+	if (isset($nls['alias'][$gallery->language])) {
+		$gallery->language = $nls['alias'][$gallery->language] ;
+	}
+
+	// And now set this language into session
+	$gallery->session->language = $gallery->language;
+
+	// locale
+	if (isset($gallery->app->locale_alias[$gallery->language])) {
+		$gallery->locale=$gallery->app->locale_alias["$gallery->language"];
+	} else {
+		$gallery->locale=$gallery->language;
+	}
+
+	// Override NUKEs locale :)))	
+	$locale=$gallery->locale;
+
+
+	// Check defaults :
+	$checklist=array('direction', 'charset', 'alignment') ;
+
+	foreach($checklist as $check) {
+		// if no ... is given, use default
+		if ( !isset($nls[$check][$gallery->language])) {
+			$gallery->$check = $nls['default'][$check] ;
+		} else {
+			$gallery->$check = $nls[$check][$gallery->language] ;
+		}
+	}
+
+	// When all is done do the settings
+	//
+	if (getOS() != OS_SUNOS) {
+		putenv("LANG=". $gallery->language);
+	}
+	putenv("LANGUAGE=". $gallery->language);
+
+	// Set Locale
+	setlocale(LC_ALL,$gallery->locale);
+
+	// Set Charset
+	// Only when we're not in nuke, because headers might be sent already.
+	if (! isset($GALLERY_EMBEDDED_INSIDE)) {
+		header('Content-Type: text/html; charset=' . $gallery->charset);
+	}
+
+
+	/**
+	 ** Test if we're using gettext.
+	 ** if yes, do some gettext settings.
+	 ** if not emulate _() function
+	 **/
+
+	if (gettext_installed()) {
+		$bindtextdomain=bindtextdomain($gallery->language. "-gallery_". where_i_am(), $GALLERY_BASEDIR."locale");
+		textdomain($gallery->language. "-gallery_". where_i_am());
+
+	}  else {
+		emulate_gettext();
+	}
+}
+
+function emulate_gettext() {
+	global $translation;
+	global $GALLERY_BASEDIR, $gallery;
+
+	if (in_array($gallery->language,array_keys(gallery_languages())) &&
+		$gallery->language != 'en_US') {
+		$filename=$GALLERY_BASEDIR ."locale/". $gallery->language ."/". $gallery->language ."-gallery_". where_i_am()  .".po";
+		$lines=file($filename);
+
+		foreach ($lines as $key => $value) {
+			if (stristr($value, "msgid") && ! stristr($lines[$key-1],"fuzzy")) {
+				$new_key=substr($value, 7,-2);
+				$translation[$new_key]=substr($lines[$key+1],8,-2);
+			}
+		}
+		// Substitute _() gettext function
+		function _($search) {
+			if (! empty($GLOBALS['translation'][$search])) {
+				return $GLOBALS['translation'][$search] ;
+			}
+			else {
+				return $search;
+			}
+		}
+	}
+	// There is no translation file or we are using original (en_US), so just return what we got
+	else {
+		function _($search) {
+			return $search;
+		}
+	}
+}
+
 /* little function useful for debugging.  no calls to this should be in 
    committed code. */
 
@@ -2323,10 +2549,10 @@ function Gallery() {
 }
 
 /*returns a link to the docs, if present, or NULL */
-function galleryDocs($class='') {
+function galleryDocs() {
 	global $GALLERY_BASEDIR;
 	if (fs_file_exists($GALLERY_BASEDIR."docs/index.html")) {
-		return "<a class=\"$class\" href=\"${GALLERY_BASEDIR}docs/index.html\">" .  _("documentation").'</a>';
+		return "<a href=\"${GALLERY_BASEDIR}docs/index.html\">" .  _("documentation").'</a>';
 	}
 	return NULL;
 }
@@ -2490,10 +2716,10 @@ function pretty_password($pass, $print, $pre = '    ', $post = '')
 
 function emailDisclaimer() {
 	global $gallery;
-	$msg=sprintf(_("Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."),$gallery->app->photoAlbumURL).
+	$msg=sprintf(_("Note: This is an automatically generated email message sent from the website %s.  If you have received this in error, please ignore this message."),$gallery->app->photoAlbumURL).
 	     "  \r\n".
-	     sprintf(_("Report abuse to %s"),$gallery->app->adminEmail);
-	$msg2=sprintf("Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message.  \r\nReport abuse to %s", 
+	     sprintf(_("Report abuse to %s."),$gallery->app->adminEmail);
+	$msg2=sprintf("Note: This is an automatically generated email message sent from the website %s.  If you have received this in error, please ignore this message.  \r\nReport abuse to %s.", 
 		$gallery->app->photoAlbumURL, $gallery->app->adminEmail);
 	if ($msg != $msg2) {
 		return "[$msg\r\n$msg2]\r\n\r\n";
@@ -2653,6 +2879,15 @@ Gallery @ %s Administrator.");
 
 }
 
+function gettext_installed() {
+	if (in_array("gettext", get_loaded_extensions()) && function_exists('gettext') && function_exists('_')) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 function available_skins($description_only=false) {
 	global $GALLERY_BASEDIR;
 
@@ -2687,12 +2922,10 @@ function available_skins($description_only=false) {
 							   $screenshot, 1, false,
 							   500, 800);
 				}
-			       	$descriptions.="\n<dt>$name</dt><dd>$description</dd>";
+			       	$descriptions.="<dt>$name</dt><dd>$description</dd>";
 			}
 		}
 	}
-	$descriptions .="\n</dl>";
- 
 	if ($description_only) {
 		return $descriptions;
 	} else {
@@ -2728,7 +2961,7 @@ function available_frames($description_only=false) {
 					$description=$file;
 				}
 				$opts[$file]=$name;
-				$descriptions.="\n<dt>$name</dt><dd>$description</dd>";
+				$descriptions.="<dt>$name</dt><dd>$description</dd>";
 			} else {
 				if (false && isDebugging()) 
 				{
@@ -2740,8 +2973,6 @@ function available_frames($description_only=false) {
 	} else {
 		gallery_error(sprintf(_("Can't open %s"), $dir));
 	}
-
-	$descriptions.="\n</dl>";
 	if ($description_only) {
 		return $descriptions;
 	} else {
@@ -2793,64 +3024,76 @@ function testRequirement($test) {
 }
 
 function doctype() {
-	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">';
-	echo "\n\n";
-}
-
-function common_header() {
-
-// Do some meta tags
-	metatags();
-	
-// Import CSS Style_sheet
-	echo getStyleSheetLink();
-}
-
-function metatags() {
-	global $gallery;
-
-	echo '<meta http-equiv="content-style-type" content="text/css">';
-	echo "\n  ". '<meta http-equiv="content-type" content="Mime-Type; charset='. $gallery->charset .'">';
-	echo "\n  ". '<meta name="content-language" content="' . str_replace ("_","-",$gallery->language) . '">';
-	echo "\n";
+	?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+	<?php
 }
 
 // uses makeGalleryURL
-function gallery_validation_link($file, $valid=true) {
-	global $gallery;
-	if ($gallery->app->devMode == "no") {
-		return "";
-	}
-	$args=array();
+function gallery_validation_link($file, $args=array()) {
 	$args['PHPSESSID']=session_id();
 	$link='<a href="http://validator.w3.org/check?uri='.
 		urlencode(eregi_replace("&amp;", "&",
 					makeGalleryURL($file, $args))) .
 		'"> <img border="0" src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a>';
-	if (!$valid) {
-		$link .= _("Not valid yet");
-	}
 	return $link;
 
 }
 
 // uses makeAlbumURL
-function album_validation_link($album, $photo='', $valid=true) {
-	global $gallery;
-	if ($gallery->app->devMode == "no") {
-		return "";
-	}
-	$args=array();
+function album_validation_link($album, $photo='', $args=array()) {
 	$args['PHPSESSID']=session_id();
 	$link='<a href="http://validator.w3.org/check?uri='.
 		urlencode(eregi_replace("&amp;", "&", 
 					makeAlbumURL($album, $photo, $args))).
 		'"> <img border="0" src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a>';
-	if (!$valid) {
-		$link .= _("Not valid yet");
-	}
 	return $link;
 }
+
+//returns all languages in this gallery installation
+function gallery_languages() {
+	$nls=getNLS();
+	return $nls['language'];
+}
+
+function getNLS() {
+	global $GALLERY_BASEDIR;
+	static $nls;
+
+	if (empty($nls)) {
+
+		$nls=array();
+		// Load defaults
+		include ($GALLERY_BASEDIR. "nls.php");
+
+		$modules=array('config','core');
+		$dir=$GALLERY_BASEDIR. "locale";
+	       	if (fs_is_dir($dir) && is_readable($dir) && $handle = fs_opendir($dir)) {
+	
+		    while ($dirname = readdir($handle)) {
+			if (ereg("^([a-z]{2}_[A-Z]{2})", $dirname)) {
+				$locale=$dirname;
+				$fc=0;
+				foreach ($modules as $module) {
+					if (gettext_installed()) {
+						if (fs_file_exists($GALLERY_BASEDIR . "locale/$dirname/$locale-gallery_$module.po")) $fc++;
+					} else {
+						if (fs_file_exists($GALLERY_BASEDIR . "locale/$dirname/LC_MESSAGES/$locale-gallery_$module.mo")) $fc++;
+					}
+				}
+				if (fs_file_exists($GALLERY_BASEDIR . "locale/$dirname/$locale-nls.php") && $fc==sizeof($modules)) {
+					include ($GALLERY_BASEDIR . "locale/$dirname/$locale-nls.php");
+				}
+			}
+		}
+		closedir($handle);
+	    }
+	}
+
+//print_r($nls);
+return $nls;
+}
+
 
 function where_i_am() {
 	global $GALLERY_OK;
@@ -2862,16 +3105,18 @@ function where_i_am() {
 	}
 
 }
-function user_name_string($uid, $format='!!FULLNAME!! (!!USERNAME!!)') {
+function user_name_string($uid) {
        	global $gallery;
-       	if ($uid) {
-		$user=$gallery->userDB->getUserByUid($uid);
-	}
-       	if (empty($user) || $user->isPseudo()) {
+       	$user=$gallery->userDB->getUserByUid($uid);
+       	if (!$user || $user->isPseudo()) {
 	       	return "";
        	} else {
-		return $user->printableName($format);
+		return $user->printableName();
 	}
+}
+
+function i18n($buf) {
+       	return $buf;
 }
 
 // Returns the CVS version as a string, NULL if file can't be read, or "" 
@@ -2976,26 +3221,16 @@ function checkVersions($verbose=false) {
 			       	print "<br>\n";
 				print sprintf(_("%s OK.  Actual version (%s) more recent than expected version (%s)"), $file, $found_version, $version);
 			}
-			$warn[$file]=sprintf(_("Expected version %s but found %s."), $version, $found_version);
+			$warn[$file]=sprintf(_("%s is a more recent version than expected.  Expected version %s but found %s."), $file, $version, $found_version);
 		} else {
 			if ($verbose) {
 			       	print "<br>\n";
 			       	print sprintf(_("%s OK"), $file);
 		       	}
-			$success[$file]=sprintf(_("Found expected version %s."), $version);
+			$success[$file]="OK";
 		}
 			
 	}
        	return array($success, $fail, $warn);
 }
-
-function contextHelp ($link) {
-	global $gallery;
-	
-	if ($gallery->app->showContextHelp == 'yes') {
-		return popup_link ('?', 'docs/context-help/' . $link, false, true, 500, 500);
-	}
-}
-
-require ($GALLERY_BASEDIR . "lib/lang.php");
 ?>

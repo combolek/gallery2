@@ -90,7 +90,7 @@ function buildSlideshowPhotos(&$full_urls, &$urls, &$captions, $album=NULL, $rec
     
     if (!$album) {
 	    // Top level
-	    $albumDB = new AlbumDB(false);
+	    $albumDB = new AlbumDB();
 	    $numAlbums = $albumDB->numAlbums($gallery->user);
 
 	    for ($i=1; $i <= $numAlbums; $i++) {
@@ -191,54 +191,53 @@ function printSlideshowPhotos($full_urls, $urls, $captions, $what, $photo_count)
 
 
 ?>
+
 <?php
 $url=array();
 $full_urls=array();
 $caption=array();
 $photo_count = buildSlideshowPhotos($full_urls, $urls, $captions, $album, $recursive);
 
-if ($photo_count > 0) {
-       	if ($number == 0 || $number  > $photo_count) {
-	       	$number=$photo_count;
+if ($number == 0 || $number  > sizeof($urls)) {
+	$number=sizeof($urls);
+}
+if ($random) {
+	$random_full_urls=array();
+	$random_photos=array();
+       	srand ((float) microtime() * 10000000);
+       	$rand_keys = array_rand ($urls, $number);
+       	if ($number == 1)
+       	{
+	       	$rand_keys=array($rand_keys);
        	}
+       	foreach ($rand_keys as $key)
+       	{
+	       	$random_urls[] = $urls[$key];
+	       	$random_full_urls[] = $full_urls[$key];
+	       	$random_captions[] = $captions[$key];
+       	}
+	$urls=$random_urls;
+	$full_urls=$random_full_urls;
+	$captions=$random_captions;
+}
+if (empty($albumName)) {
        	if ($random) {
-	       	$random_full_urls=array();
-	       	$random_photos=array();
-	       	srand ((float) microtime() * 10000000);
-	       	$rand_keys = array_rand ($urls, $number);
-	       	if ($number == 1)
-	       	{
-		       	$rand_keys=array($rand_keys);
-	       	}
-	       	foreach ($rand_keys as $key)
-	       	{
-		       	$random_urls[] = $urls[$key];
-		       	$random_full_urls[] = $full_urls[$key];
-		       	$random_captions[] = $captions[$key];
-	       	}
-	       	$urls=$random_urls;
-	       	$full_urls=$random_full_urls;
-	       	$captions=$random_captions;
-       	}
-       	if (empty($albumName)) {
-	       	if ($random) {
-		       	$title = sprintf(_("%s Random Images from %s"), 
-					$number,
-				       	$gallery->app->galleryTitle);
-	       	} else {
-		       	$title = sprintf(_("Slide Show for Gallery :: %s"), 
-					$gallery->app->galleryTitle);
-	       	}
+	       	$title = sprintf(_("%s Random Images from %s"), 
+				$number,
+			       	$gallery->app->galleryTitle);
        	} else {
-	       	if ($random) {
-		       	$title = sprintf(_("%d Random Images from album :: %s"), 
-					$number,
-				       	$gallery->album->fields["title"] );
-	       	} else {
-		       	$title = sprintf(_("Slide Show for album :: %s"), $gallery->album->fields["title"] );
-	       	}
-       	} 
-}?>
+	       	$title = sprintf(_("Slide Show for Gallery :: %s"), 
+			       	$gallery->app->galleryTitle);
+       	}
+} else {
+       	if ($random) {
+	       	$title = sprintf(_("%d Random Images from album :: %s"), 
+				$number,
+			       	$gallery->album->fields["title"] );
+       	} else {
+	       	$title = sprintf(_("Slide Show for album :: %s"), $gallery->album->fields["title"] );
+       	}
+} ?>
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
@@ -366,7 +365,10 @@ var slideShowLow = "<?php echo "view_album.php?set_albumName=".$gallery->session
 
 // Browser capabilities detection ---
 // - assume only IE4+ and NAV6+ can do image resizing, others redirect to low 
-if ( (is_ie && !is_ie4up) || (is_opera && !is_opera5up) || (is_nav && !is_nav6up)) {
+if (is_ie4up || is_opera5up || is_nav6up) {
+    //-- it's all good ---
+} else {
+    //-- any other browser we go low-tech ---
     document.location = slideShowLow;
 }
 
@@ -411,7 +413,7 @@ function stop() {
     changeElementText("stopOrStartText", "<?php echo _("play") ?>");
 
     onoff = 0;
-    status = "<?php echo unhtmlentities(_("The slide show is stopped, Click [play] to resume.")) ?>";
+    status = "<?php echo _("The slide show is stopped, Click [play] to resume.") ?>";
     clearTimeout(timer);
 
 }
@@ -420,21 +422,21 @@ function play() {
     changeElementText("stopOrStartText", "<?php echo _("stop") ?>");
 
     onoff = 1;
-    status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>";
+    status = "<?php echo _("Slide show is running...") ?>";
     go_to_next_photo();
 }
 
 function full() {
     changeElementText("fullOrNormalText", "<?php echo _("normal size") ?>");
     fullsized = 1;
-    status = "<?php echo unhtmlentities(_("The slide is showing full sized images, Click [normal size] to view resized images.")) ?>";
+    status = "<?php echo _("The slide is showing full sized images, Click [normal size] to view resized images.") ?>";
 }
 
 function normal() {
     changeElementText("fullOrNormalText", "<?php echo _("full size") ?>");
 
     fullsized = 0;
-    status = "<?php echo unhtmlentities(_("The slide is showing normal sized images, Click [full size] to view full sized images.")) ?>";
+    status = "<?php echo _("The slide is showing normal sized images, Click [full size] to view full sized images.") ?>";
 }
 
 function changeDirection() {
@@ -473,13 +475,13 @@ function wait_for_current_photo() {
 	 * The current photo isn't loaded yet.  Set a short timer just to wait
 	 * until the current photo is loaded.
 	 */
-	status = "<?php echo unhtmlentities(_("Picture is loading...")) ?>(" + current_location + " <?php echo unhtmlentities(_("of")) ?>" + photo_count +  
-		").  " + "<?php echo unhtmlentities(_("Please Wait...")) ?>" ;
+	status = "<?php echo _("Picture is loading...") ?>(" + current_location + " <?php echo _("of") ?>" + photo_count +  
+		").  " + "<?php echo _("Please Wait...") ?>" ;
 	clearTimeout(timer);
 	timer = setTimeout('wait_for_current_photo()', 500);
 	return 0;
     } else {
-   	status = "<?php echo unhtmlentities(_("Slide show is running...")) ?>" ;
+   	status = "<?php echo _("Slide show is running...") ?>" ;
 	preload_next_photo();
 	reset_timer();
     }
@@ -591,7 +593,7 @@ $breadtext=array();
 if ($albumName) {
 if (!$gallery->session->offline 
 	|| isset($gallery->session->offlineAlbums[$gallery->session->albumName])) {
-	$breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($gallery->session->albumName) .
+	$breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($gallery->session->albumName) .
       	"\">" . $gallery->album->fields['title'] . "</a>";
 	$breadCount++;
 }
@@ -605,11 +607,11 @@ do {
   	|| isset($gallery->session->offlineAlbums[$pAlbumName]))) {
     $pAlbum = new Album();
     $pAlbum->load($pAlbumName);
-    $breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($pAlbumName) .
+    $breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($pAlbumName) .
       "\">" . $pAlbum->fields['title'] . "</a>";
   } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
     //-- we're at the top! ---
-    $breadtext[$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") .
+    $breadtext[$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") .
       "\">" . $gallery->app->galleryTitle . "</a>";
   } else {
 	  break;
@@ -625,7 +627,7 @@ for ($i = count($breadtext) - 1; $i >= 0; $i--) {
 else {
        	if (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
 	       	//-- we're at the top! ---
-	       	$breadcrumb["text"][$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") .
+	       	$breadcrumb["text"][$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") .
 		      	"\">" . $gallery->app->galleryTitle . "</a>";
 		$breadCount++;
        	}
@@ -634,13 +636,15 @@ else {
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
 
+includeLayout('breadcrumb.inc');
+
 $adminbox["commands"] = "<span class=\"admin\">";
 
 // Low-tech version is just for online. It does not work offline (because the
 // URLs are generated dynamically by JavaScript and were therfore not 
 // downloaded by Wget).
 if ( !$gallery->session->offline && isset($gallery->session->albumName)) {
-    $adminbox["commands"] .= "&nbsp;<a class=\"admin\" href=\"" . makeGalleryUrl("slideshow_low.php",
+    $adminbox["commands"] .= "&nbsp;<a href=\"" . makeGalleryUrl("slideshow_low.php",
         array("set_albumName" => $gallery->session->albumName)) . 
 	"\">[" ._("not working for you? try the low-tech") ."]</a>";
 }
@@ -648,11 +652,7 @@ $adminbox["commands"] .= "</span>";
 $adminbox["text"] = _("Slide Show");
 $adminbox["bordercolor"] = $borderColor;
 $adminbox["top"] = true;
-includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
-includeLayout('navtablemiddle.inc');
-includeLayout('breadcrumb.inc');
-includeLayout('navtablemiddle.inc');
 
 ?>
 
@@ -666,16 +666,16 @@ includeLayout('navtablemiddle.inc');
     <span class=admin>
 
 <?php
-echo "&nbsp;<a class=\"admin\" href='#' onClick='stopOrStart(); return false;'>[<span id='stopOrStartText'>". _("stop") ."</span>]</a>";
-echo "&nbsp;<a class=\"admin\" href='#' onClick='changeDirection(); return false;'>[<span id='changeDirText'>". _("reverse direction") ."</span>]</a>";
+echo "&nbsp;<a href='#' onClick='stopOrStart(); return false;'>[<span id='stopOrStartText'>". _("stop") ."</span>]</a>";
+echo "&nbsp;<a href='#' onClick='changeDirection(); return false;'>[<span id='changeDirText'>". _("reverse direction") ."</span>]</a>";
 
 if ( $full_option) {
-       	echo "&nbsp;<a class=\"admin\" href='#' onClick='fullOrNormal(); return false;'>[<span id='fullOrNormalText'>". _("full size") ."</span>]</a>";
+       	echo "&nbsp;<a href='#' onClick='fullOrNormal(); return false;'>[<span id='fullOrNormalText'>". _("full size") ."</span>]</a>";
 }
        	echo "&nbsp;&nbsp;||";
 ?>
 
-    &nbsp;<?php echo _('Delay:') . '&nbsp;' ?>
+    &nbsp;<?php echo _("Delay:") ?>
 <?php echo 
 drawSelect("time", array(1 => "1 ". _("second"),
                          2 => "2 ". _("seconds"),
@@ -689,7 +689,7 @@ drawSelect("time", array(1 => "1 ". _("second"),
                          60 => "60 ". _("seconds")),
 	   $defaultPause, // default value
 	   1, // select size
-	   array('onchange' => 'reset_timer()', 'style' => 'font-size:10px;' ));
+	   array('onchange' => 'reset_timer()', 'style' => 'font-size=10px;' ));
 ?>
     <script language="Javascript">
     /* show the blend select if appropriate */
@@ -699,13 +699,13 @@ drawSelect("time", array(1 => "1 ". _("second"),
 		$transitionNames,
 		$defaultTransition,
 		1,
-		array('onchange' => 'change_transition()', 'style' => 'font-size:10px;'))); 
+		array('onchange' => 'change_transition()', 'style' => 'font-size=10px;'))); 
 		?>');
     }
 
     </script>
     <?php if ($loop) { ?>
-    &nbsp;<?php echo _('Loop') ?>:&nbsp;<input type="checkbox" name="loopCheck" <?php echo ($defaultLoop) ? "checked" : "" ?> onclick='toggleLoop();'>
+    &nbsp;<?php echo _("Loop") ?>:<input type="checkbox" name="loopCheck" <?php echo ($defaultLoop) ? "checked" : "" ?> onclick='toggleLoop();'>
     <?php } ?>
     </span>
     </td>
@@ -715,14 +715,13 @@ drawSelect("time", array(1 => "1 ". _("second"),
     <td colspan="3"><?php echo $pixelImage ?></td>
   </tr>
 </table>
-<?php
-    includeLayout('navtableend.inc');
-?>
-    
+
 <br>
 <div align="center">
 
-<?php if ($photo_count > 0) { ?>
+<?php
+if ($photo_count > 0) {
+?>
 
 <table width=1% border=0 cellspacing=0 cellpadding=0>
   <tr bgcolor="<?php echo $borderColor ?>">

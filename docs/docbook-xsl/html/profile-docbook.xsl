@@ -37,7 +37,6 @@
 <xsl:include href="xref.xsl"/>
 <xsl:include href="formal.xsl"/>
 <xsl:include href="table.xsl"/>
-<xsl:include href="htmltbl.xsl"/>
 <xsl:include href="sections.xsl"/>
 <xsl:include href="inline.xsl"/>
 <xsl:include href="footnote.xsl"/>
@@ -54,7 +53,6 @@
 <xsl:include href="biblio.xsl"/>
 <xsl:include href="glossary.xsl"/>
 <xsl:include href="block.xsl"/>
-<xsl:include href="task.xsl"/>
 <xsl:include href="qandaset.xsl"/>
 <xsl:include href="synop.xsl"/>
 <xsl:include href="titlepage.xsl"/>

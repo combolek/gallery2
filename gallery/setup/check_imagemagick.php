@@ -2,9 +2,13 @@
 <?php 
 
 	$GALLERY_BASEDIR="../";
+	require($GALLERY_BASEDIR . 'util.php');
 	require($GALLERY_BASEDIR . 'setup/init.php');
 	require($GALLERY_BASEDIR . 'setup/functions.inc');
+	initLanguage();
 
+	// We set this to false to get the config stylesheet
+	$GALLERY_OK=false;
 ?>
 <html>
 <head>

@@ -5,13 +5,7 @@
  * In v1.2, we know that we'll have lots and lots of warnings if
  * error reporting is turned all the way up.  We'll fix this in v2.0
  */
-
-
-if (isset($gallery->app->devMode) && $gallery->app->devMode == "yes") {
-        error_reporting(E_ALL);
-} else {
-        error_reporting(E_ALL & ~E_NOTICE);
-}
+error_reporting(E_ALL & ~E_NOTICE);
 
 /* emulate part of register_globals = on */
 /*
@@ -29,29 +23,15 @@ extract($HTTP_GET_VARS);
 extract($HTTP_POST_VARS);
 extract($HTTP_COOKIE_VARS);
 
-if (! isset ($GALLERY_BASEDIR)) {
-	$GALLERY_BASEDIR="../";
-}
-
-/* load necessary functions */
-	require ($GALLERY_BASEDIR . 'util.php');
-
 if (getOS() == OS_WINDOWS) {
-	require($GALLERY_BASEDIR . "platform/fs_win32.php");
-} else {
-	require($GALLERY_BASEDIR . "platform/fs_unix.php");
-}
-
-/* Set Language etc. */
-	initLanguage();
-
-if (getOS() == OS_WINDOWS && fs_file_exists("SECURE")) {
-		echo _("Gallery is in secure mode and cannot be configured. If you want to configure it, you must run the <b>configure.bat</b> script in the gallery directory then reload this page.");
+	include("../platform/fs_win32.php");
+	if (fs_file_exists("SECURE")) {
+		echo "Gallery is in secure mode and cannot be configured. If you want to configure it, you must run the <b>configure.bat</b> script in the gallery directory then reload this page.";
 		exit;
+	}
+} else {
+	include("../platform/fs_unix.php");
 }
-
-/* We do this to get the config stylesheet */
-	$GALLERY_OK=false;
 
 /* 
  * Turn off magic quotes runtime as they interfere with saving and

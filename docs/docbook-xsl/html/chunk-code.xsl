@@ -3,18 +3,6 @@
 		version="1.0"
                 exclude-result-prefixes="exsl">
 
-<!-- ********************************************************************
-     $Id$
-     ********************************************************************
-
-     This file is part of the XSL DocBook Stylesheet distribution.
-     See ../README or http://nwalsh.com/docbook/xsl/ for copyright
-     and other information.
-
-     ******************************************************************** -->
-
-<!-- ==================================================================== -->
-
 <xsl:param name="onechunk" select="0"/>
 <xsl:param name="refentry.separator" select="0"/>
 <xsl:param name="chunk.fast" select="0"/>
@@ -244,8 +232,8 @@
              |preceding::article[1]
              |preceding::bibliography[1]
              |preceding::glossary[1]
-             |preceding::index[$generate.index != 0][1]
-             |preceding::setindex[$generate.index != 0][1]
+             |preceding::index[1]
+             |preceding::setindex[1]
              |ancestor::set
              |ancestor::book[1]
              |ancestor::preface[1]
@@ -328,9 +316,9 @@
              |following::colophon[1]
              |following::bibliography[1]
              |following::glossary[1]
-             |following::index[$generate.index != 0][1]
+             |following::index[1]
              |following::article[1]
-             |following::setindex[$generate.index != 0][1]
+             |following::setindex[1]
              |descendant::book[1]
              |descendant::preface[1]
              |descendant::chapter[1]
@@ -338,9 +326,9 @@
              |descendant::article[1]
              |descendant::bibliography[1]
              |descendant::glossary[1]
-             |descendant::index[$generate.index != 0][1]
+             |descendant::index[1]
              |descendant::colophon[1]
-             |descendant::setindex[$generate.index != 0][1]
+             |descendant::setindex[1]
              |descendant::part[1]
              |descendant::reference[1]
              |descendant::refentry[1]
@@ -387,8 +375,8 @@
              |preceding::article[1]
              |preceding::bibliography[1]
              |preceding::glossary[1]
-             |preceding::index[$generate.index != 0][1]
-             |preceding::setindex[$generate.index != 0][1]
+             |preceding::index[1]
+             |preceding::setindex[1]
              |ancestor::set
              |ancestor::book[1]
              |ancestor::preface[1]
@@ -428,9 +416,9 @@
              |following::colophon[1]
              |following::bibliography[1]
              |following::glossary[1]
-             |following::index[$generate.index != 0][1]
+             |following::index[1]
              |following::article[1]
-             |following::setindex[$generate.index != 0][1]
+             |following::setindex[1]
              |descendant::book[1]
              |descendant::preface[1]
              |descendant::chapter[1]
@@ -438,9 +426,9 @@
              |descendant::article[1]
              |descendant::bibliography[1]
              |descendant::glossary[1]
-             |descendant::index[$generate.index != 0][1]
+             |descendant::index[1]
              |descendant::colophon[1]
-             |descendant::setindex[$generate.index != 0][1]
+             |descendant::setindex[1]
              |descendant::part[1]
              |descendant::reference[1]
              |descendant::refentry[1]

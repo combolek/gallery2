@@ -103,11 +103,15 @@
     </xsl:if>
 
     <xsl:call-template name="anchor"/>
-    <xsl:apply-templates select="*[not(self::indexentry)]"/>
+    <xsl:apply-templates mode="not-indexentrys"/>
     <dl>
       <xsl:apply-templates select="indexentry"/>
     </dl>
   </div>
+</xsl:template>
+
+<xsl:template match="indexentry" mode="not-indexentrys">
+  <!-- suppress -->
 </xsl:template>
 
 <xsl:template match="indexdiv/title">

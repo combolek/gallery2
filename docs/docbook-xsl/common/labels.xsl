@@ -4,18 +4,7 @@
                 exclude-result-prefixes="doc"
                 version='1.0'>
 
-<!-- ********************************************************************
-     $Id$
-     ********************************************************************
-
-     This file is part of the XSL DocBook Stylesheet distribution.
-     See ../README or http://nwalsh.com/docbook/xsl/ for copyright
-     and other information.
-
-     ******************************************************************** -->
-
-<!-- ==================================================================== -->
-
+<!-- ============================================================ -->
 <!-- label markup -->
 
 <doc:mode mode="label.markup" xmlns="">
@@ -214,7 +203,7 @@ element label.</para>
   </xsl:variable>
 
   <xsl:if test="$section.label.includes.component.label != 0
-                and $parent.is.component != 0">
+                and $parent.is.component">
     <xsl:variable name="parent.label">
       <xsl:apply-templates select=".." mode="label.markup"/>
     </xsl:variable>
@@ -411,6 +400,10 @@ element label.</para>
   </xsl:variable>
 
   <xsl:choose>
+    <xsl:when test="@label">
+      <xsl:value-of select="$prefix"/>
+      <xsl:value-of select="@label"/>
+    </xsl:when>
     <xsl:when test="$qandadiv.autolabel != 0">
       <xsl:value-of select="$prefix"/>
       <xsl:number level="multiple" count="qandadiv" format="1"/>

@@ -388,22 +388,6 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
          <link linkend="gallery1-install.faq.c.30">FAQ C.30</link>.
         </para>
        </listitem>
-       <listitem>
-        <para>
-         <emphasis>Status: (expected 0)</emphasis> -- This means that Gallery is unable to 
-         get a status message from PHP, which it relies on. One possible solution is that 
-         your host has disabled some needed php functions. To determine if they have create
-         a PHP file containing
-          <screen>
-<![CDATA[
-<?php
-echo ini_get("disable_functions");
-?>
-]]>
-          </screen>
-         If the output displays exec() see <link linkend="gallery1-install.faq.c.29">FAQ C.29</link>.
-        </para>
-       </listitem>
       </itemizedlist>
       <para>
        If you still can't find a solution, try asking in the <ulink url="http://gallery.sf.net/forums.php">
@@ -1269,8 +1253,8 @@ if (!function_exists('array_search')) {
        <itemizedlist>
         <listitem>
          <para>
-          Put your Gallery into <link linkend="gallery1-install.config-wizard">
-          configuration mode</link>.  On Step 2, there will be an option to
+          Put your Gallery into <ulink url="gallery1-install.config-wizard">
+          configuration mode</ulink>.  On Step 2, there will be an option to
           turn on debug mode.  Make sure this is "on" and complete the wizard.
          </para>
         </listitem>
@@ -1392,52 +1376,6 @@ print getcwd ();
        will attempt to use the images on the server with lots of bandwidth, so that
        the local server doesn't suffer so much.  More information is available in the
        <link linkend="gallery1-admin.mirroring">mirroring tutorial</link>.
-      </para>
-     </answer>
-    </qandaentry>
-     
-    <qandaentry id="gallery1-install.faq.c.36">
-     <question>
-      <para>
-       Why do I get errors with email on Windows?
-      </para>
-     </question>
-     <answer>
-      <para>
-       If you go to http://www.example.com/gallery/setup/check_mail.php and it gives you the following
-       errors:
-       </para>
-       <para>
-        <screen>
-         "Error! sendmail_path not set"
-         and/or 
-         "Error! SMTP not set"
-         </screen>
-         you will have to do some changes to your php installation.
-         If you get the "Error! sendmail_path not set" you can safely ignore it on Windows, since
-         it disregards the sendmail_path anyway.
-         To fix the other potential problem, locate your php.ini 
-         (probably under C:\Program Files\php or C:\windows), open it with a texteditor
-         and find "[mail function]".
-       </para>
-       <para>
-        It should look something like this:
-        <screen>
-         [mail function]
-         ; For Win32 only.
-         SMTP = 
-         ; For Win32 only.
-        sendmail_from = 
-        ; For Unix only.  You may supply arguments as well (default: 'sendmail -t -i').
-        ;sendmail_path =
-        </screen>
-       Change SMTP to whatever smtp-server you can use that doesn't need authentication
-       and sendmail_from to an email address.
-       Example:
-        <screen>
-         SMTP = smtp.server.com
-         sendmail_from = youremail@server.com
-        </screen>
       </para>
      </answer>
     </qandaentry>

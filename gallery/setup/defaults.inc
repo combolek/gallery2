@@ -10,7 +10,6 @@
 <?php
 	echo _("Here you can customize the default values for new albums that you create.  Note that these are not <b>master switches</b> (i.e., if you turn a setting on here, you can still turn it off in a given album).  If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much.");
 	echo '<br><br>' . _('Note to users upgrading from a previous version: settings new since your old version will be applied to all existing albums. If you wish to change these later, they must be changed one by one in each album. Please choose these default values carefully.');
-
 ?>
 </div>
 
@@ -20,30 +19,26 @@
 <input type=submit name="go_defaults" value="<?php echo _("Use Defaults") ?>">
 </p>
 
+<table width="100%">
+
+
 <?php
 $i = 0;
 foreach ($defaults as $key => $val) {
-
-	if( isset($val["type"]) && ($val["type"] === "separator")) {
-		echo '<table width="100%">';
-		echo make_separator($key, $val);
-		echo "\n</table>";
-		continue;
-        }
-
-	echo "\n<table width=\"100%\" class=\"inner\">";
-
 	if (isset($val["type"]) && ($val["type"] === "block_start" )) {
 		echo evenOdd_row(make_fields($key, $val), $i % 2);
-		echo "\n</table>";
 		continue;
 	}
 	if (isset($val["type"]) && ($val["type"] === "block_end" )) {
 		echo evenOdd_row(make_fields($key, $val), $i++ % 2);
 		echo "\n<tr><td colspan=\"2\"> &nbsp; </td></tr>";
-		echo "\n</table>";
 		continue;
 	}
+
+	if( isset($val["type"]) && ($val["type"] === "separator")) {
+		echo make_separator($key, $val);
+		continue;
+        }
 
 	/* Support $app-> for backwards compatibility */
 	if (isset($app->default[$key])) {
@@ -84,15 +79,16 @@ foreach ($defaults as $key => $val) {
 	} else {
 		echo evenOdd_row(make_fields($key, $val),
 				$i++ % 2);
+		if (!isset($val["type"]) || ($val["type"] !== "block_element" )) {
+			echo "<tr><td colspan=2> &nbsp; </td></tr>";
+		}
 	}
 
 	$onThisPage[$key] = 1;
 	$preserve[$key] = 1;
-	
-	echo "\n</table>";
 }
 ?>
-
+</table>
 <p align="center">
 	<input type=submit name="go_back" value="<- <?php echo _("Previous Page") ?>">
 	<input type=submit name="go_next" value="<?php echo _("Next Page") ?> ->">

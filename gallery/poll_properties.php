@@ -43,7 +43,7 @@ if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 }
 	
 $error="";
-if (!empty($apply)) {
+if (isset($apply) && $apply) {
 	for ($i=0; $i<$gallery->album->getPollScale() ; $i++)
 	{
 		//convert values to numbers
@@ -68,9 +68,6 @@ if (!empty($apply)) {
 	$gallery->album->fields["poll_orientation"] = $poll_orientation;
 	$gallery->album->save(array(i18n("Poll properties change")));
 
-	if (isset($setNested)) {
-		$gallery->album->setNestedPollProperties();
-       	}
 	reload();
 }
 
@@ -140,10 +137,8 @@ for ($i=0; $i<$gallery->album->getPollScale() ; $i++)
 ?>
 <table>
 <br>
-<input type="checkbox" name="setNested" value="1"><span class="popup"><?php echo _("Apply values to nested Albums.") ?></span>
 <br>
 <br>
-
 <input type=submit name="apply" value="<?php echo _("Apply") ?>">
 <input type=reset value="<?php echo _("Undo") ?>">
 <input type=submit value="<?php echo _("Close") ?>" onclick='parent.close()'>

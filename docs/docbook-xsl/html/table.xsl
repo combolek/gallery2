@@ -961,14 +961,7 @@
                           and $use.extensions != 0
                           and $tablecolumns.extension != 0">
               <xsl:attribute name="width">
-	        <xsl:choose>
-		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
-                    <xsl:value-of select="'1*'"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-                    <xsl:value-of select="$colspec/@colwidth"/>
-		  </xsl:otherwise>
-		</xsl:choose>
+                <xsl:value-of select="$colspec/@colwidth"/>
               </xsl:attribute>
             </xsl:if>
 

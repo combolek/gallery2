@@ -29,16 +29,19 @@
 
 <p />
 
+<table width="100%">
 <?php
 $warning =0;
 foreach ($checklist as $check) {
 	if( isset($check["enabled"]) && $check["enabled"] == "no") continue;
 ?> 
-	<table class="inner" width="100%">
 	<tr>
-		<td class="desc" width="50%" valign="top"><?php echo $check["desc"] ?></td>
-		<td width="5%">&nbsp;</td>
-		<td class="desc" valign="top">
+		<td>
+		<table class="inner" width="100%">
+		<tr>
+			<td class="desc" width="50%" valign="top"><?php echo $check["desc"] ?></td>
+			<td width="5%">&nbsp;</td>
+			<td class="desc" valign="top">
 <?php
 	$func = $check["func"];
 	list($success, $fail, $warn) = $func();
@@ -109,12 +112,17 @@ foreach ($checklist as $check) {
 	}
 ?>
 
+			</td>
+		</tr>
+		</table>
 		</td>
 	</tr>
-	</table>
+
 <?php
 }
 ?>
+
+</table>
 
 <div align="center">
 <?php 

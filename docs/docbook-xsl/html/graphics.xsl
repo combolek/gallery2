@@ -271,14 +271,13 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$nominal.image.depth"/>
+        <xsl:value-of select="$nominal.image.width"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:variable name="contentwidth">
     <xsl:choose>
-      <xsl:when test="$ignore.image.scaling != 0"></xsl:when>
       <xsl:when test="@contentwidth">
         <xsl:variable name="units">
           <xsl:call-template name="length-units">
@@ -345,7 +344,6 @@
 
   <xsl:variable name="contentdepth">
     <xsl:choose>
-      <xsl:when test="$ignore.image.scaling != 0"></xsl:when>
       <xsl:when test="@contentdepth">
         <xsl:variable name="units">
           <xsl:call-template name="length-units">
