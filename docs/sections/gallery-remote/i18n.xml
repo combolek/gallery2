@@ -12,6 +12,11 @@
    to translate Gallery Remote to a new language or improving an existing translation.
 		</para>
 
+  <para>
+   The process for creating or updating Gallery Remote translations is significantly
+   different from that of Gallery (1 and 2) translations. Please read this document carefully.
+  </para>
+
   <sect3>
    <title>Setting up Gallery Remote for localization work</title>
 
@@ -56,7 +61,15 @@
      <listitem><para>if the language you intend to work on is a national modification of an existing base language, the
       filename will be <filename>GRResources_<replaceable>languagecode</replaceable>_<replaceable>countrycode</replaceable>.properties</filename>
      </para>
-     <para>In this case you also need to extract the main language from <filename>GalleryRemote.jar</filename>.</para>
+     <para>
+      In this case you also need to extract the main language from <filename>GalleryRemote.jar</filename>
+      (the Java SDK must be in your path) and you must have a console in the Gallery Remote
+      installation folder):
+      <command>
+       jar xfv GalleryRemote.jar com/gallery/GalleryRemote/resources/GRResources.properties
+      </command>
+      and move it to the <filename>img</filename> folder.
+     </para>
      </listitem>
     </itemizedlist>
     <para>
@@ -66,7 +79,7 @@
      You can find the standardized list of country codes <ulink url="http://userpage.chemie.fu-berlin.de/diverse/doc/ISO_3166.html">here</ulink>.
     </para>
     <para>
-     Capitalization is important: language codes are lowercase, while language codes are uppercase.
+     Capitalization is important: language codes are lowercase, while country codes are uppercase.
     </para>
 
    </sect4>
@@ -156,6 +169,18 @@
      are not loaded dynamically.</para>
     </listitem>
    </itemizedlist>
+  </sect3>
+
+  <sect3>
+   <title>Sending completed translations</title>
+
+   <para>
+    When your translation is complete, you can either add it to the
+    <ulink url="http://sourceforge.net/tracker/?atid=582564&amp;group_id=7130">Gallery language tracker</ulink>
+    (preferred), with a title like:
+    <command>[GR] language file for <replaceable>language</replaceable></command>
+    or send it to me via email (paour AT users DOT sourceforge DOT net).
+   </para>
   </sect3>
 	</sect2>
 
