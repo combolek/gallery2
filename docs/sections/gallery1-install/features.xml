@@ -183,12 +183,14 @@
    <title>Embedding Gallery</title>
    
    <para>
-    Gallery is compatible with <ulink url="http://www.phpnuke.org">Nuke 5.0+</ulink>
-    and <ulink url="http://www.postnuke.com">Post-Nuke</ulink> as an add-on module.
-    Simply put your gallery directory inside the Nuke modules directory and you're
-    all set. All the regular Gallery features will work properly while embedded
-    inside Nuke, and Gallery will have the same look and feel as the rest of your
-    Nuke site.
+    Gallery is compatible with <ulink url="http://www.phpnuke.org">PHPNuke 5.0+</ulink>,
+    <ulink url="http://www.postnuke.com">PostNuke</ulink>, 
+    <ulink url="http://www.geeklog.net/">GeekLog</ulink> and 
+    <ulink url="http://www.mamboserver.com/">Mambo</ulink>, as an add-on module.
+    Once configure, Gallery will take on the look and feel of whatever application it's
+    embedded into. 
+    Since each CMS has slightly different requirements to enable embedding, specifications
+    are included in the "contrib" directory of the Gallery install.
    </para>
   </sect3>
   
