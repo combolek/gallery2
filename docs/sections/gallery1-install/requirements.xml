@@ -107,25 +107,14 @@
    </listitem>
    <listitem>
     <para>
-     <ulink url="http://netpbm.sourceforge.net/">NetPBM</ulink>
+     <ulink url="http://netpbm.sourceforge.net/">NetPBM</ulink> or
+     <ulink url="http://www.imagemagick.org/">ImageMagick</ulink>
     </para>
     <para>
-     NetPBM is an image manipulation package that handles many, many
-     file formats. It is very flexible and can be used to scale,
-     rotate and convert images. Many systems will already have this
-     installed. If not, you can get a binary distribution from the
-     <ulink url="http://gallery.menalto.com/modules.php&#63;op=modload&amp;name=phpWiki&amp;file=index&amp;pagename=Download">Gallery
-     Download Page</ulink>. <emphasis>You don't need to be root to
-     install it on your system</emphasis>; you can just put these
-     files in your home directory. If there isn't a binary
-     distribution for your architecture, it's easy to compile your own
-     version.
-    </para>
-    <para>
-     As well, Gallery supports the use of <ulink
-     url="http://www.imagemagick.org/">ImageMagick</ulink>. When you
-     run the configuration wizard, choose the package you wish Gallery
-     to use (usually only one or the other is installed).
+     Gallery requires an image manipulation program to do certain operations
+     with images.  Please install either NetPBM or ImageMagick before trying
+     to install Gallery.  See this <link linkend="gallery1-install.required-programs">
+     installation guide</link> for information.
     </para>
    </listitem>
   </itemizedlist>
