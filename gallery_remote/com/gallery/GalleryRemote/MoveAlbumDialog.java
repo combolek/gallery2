@@ -31,6 +31,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.Iterator;
 
 /**
  * Description of the Class
@@ -90,8 +91,10 @@ public class MoveAlbumDialog extends JDialog
 		rootAlbum.setSuppressEvents(true);
 		rootAlbum.setTitle(GRI18n.getString(MODULE, "rootAlbmTitle"));
 		rootAlbum.setName("root.root");
-		albums.add(0, rootAlbum);
-		albums.remove(album);
+		if (album.getParentAlbum() != null) {
+			albums.add(0, rootAlbum);
+		}
+		removeChildren(albums, album);
 
 		jAlbum = new JComboBox(albums);
 		jAlbum.setFont(UIManager.getFont("Label.font"));
@@ -123,6 +126,14 @@ public class MoveAlbumDialog extends JDialog
 		getRootPane().setDefaultButton(jOk);
 	}
 
+	public void removeChildren(Vector albums, Album album) {
+		for (Iterator it = album.getSubAlbums().iterator(); it.hasNext();) {
+			Album subAlbum = (Album) it.next();
+			removeChildren(albums, subAlbum);
+		}
+
+		albums.remove(album);
+	}
 
 	/**
 	 * Description of the Method

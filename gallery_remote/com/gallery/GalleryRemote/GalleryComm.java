@@ -33,6 +33,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.StringTokenizer;
 
 /**
  * This interface is a temporary mechanism to let us use version
@@ -187,6 +188,7 @@ public abstract class GalleryComm implements PreferenceNames {
 
 			// create a connection
 			HTTPConnection mConnection = new HTTPConnection(url);
+			addUserInfo(mConnection, url);
 
 			if (g.getType() == Gallery.TYPE_STANDALONE) {
 				// assemble the URL
@@ -217,6 +219,27 @@ public abstract class GalleryComm implements PreferenceNames {
 		}
 
 		return null;
+	}
+
+	public static void addUserInfo(HTTPConnection conn, URL url) {
+		String userInfo = url.getUserInfo();
+		if (userInfo != null) {
+			StringTokenizer st = new StringTokenizer(userInfo, ":");
+			if (st.countTokens() == 2) {
+				String username = st.nextToken();
+				String password = st.nextToken();
+
+				Log.log(Log.LEVEL_TRACE, MODULE, "Added basic auth params: " + username + " - " + password);
+
+				AuthorizePopup.hackUsername = username;
+				AuthorizePopup.hackPassword = password;
+
+				return;
+			}
+		}
+		
+		AuthorizePopup.hackUsername = null;
+		AuthorizePopup.hackPassword = null;
 	}
 
 	private static boolean tryComm(StatusUpdate su, HTTPConnection mConnection, String urlPath) {

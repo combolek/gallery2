@@ -316,6 +316,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 
 			// create a connection
 			HTTPConnection mConnection = new HTTPConnection(galUrl);
+			addUserInfo(mConnection, galUrl);
 
 			// Markus Cozowicz (mc@austrian-mint.at) 2003/08/24
 			HTTPResponse rsp = null;

@@ -222,12 +222,12 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 			selectedAlbum = (Album) this.albumList.get(0);
 		}
 
-		//notifyListeners();
-		if (a.getParentAlbum() == null) {
+		notifyListeners();
+		/*if (a.getParentAlbum() == null) {
 			fireTreeNodesInserted(this, getObjectArrayForAlbum(root), null, new Object[] { a });
 		} else {
 			fireTreeNodesInserted(this, getObjectArrayForAlbum(a.getParentAlbum()), null, new Object[] { a });
-		}
+		}*/
 	}
 
 	public ArrayList getAlbumList() {
