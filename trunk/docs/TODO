@@ -7,7 +7,20 @@ Global Documentation
 	eye
 	-Make the numbering on the FAQ not the same as the previous FAQ (use
 	letters sounds like a good option) (-alindeman-)
+        -Convert underscores to hyphens and add this to the guide standards, 
+        under naming conventions (-alindeman-)
+        -Create entities for .htaccess, php.ini, and config.php.  Then implement
+        them.
 
 Gallery 1 Install Docs
+	-Review the docs and improve!!! :-) (-everyone-)
 	-Document backup_albums.php in the upgrading docs, before it's officially
 	released with Gallery
+        -FAQ 3.2, the section about the "/usr/bin/convert: Not a JPEG file: 
+        starts with 0x0a 0x4d (/home/uspalmer/public_html/gallery/AUTHORS)."
+	Verify that this has been fixed in the latest version.  I think Beckett
+        talked about fixing this for good by removing -profile "*" and adding
+        the arguments explicitely
+        -FAQ 3.2, see if there are any other possible reasons for the image
+        manipulation program to fail and add the possibility and fix to the
+        <itemizedlist> list.

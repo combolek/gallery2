@@ -24,7 +24,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
 
    <qandaentry>
     <question>
-     <para>How can I get the latest version of Gallery</para>
+     <para>
+      How can I get the latest version of Gallery?
+     </para>
     </question>
     <answer>
      <para>
@@ -43,7 +45,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    
    <qandaentry>
     <question>
-     <para>How can I get the latest CVS version of Gallery</para>
+     <para>
+      How can I get the latest CVS version of Gallery?
+     </para>
     </question>
     <answer>
      <para>
@@ -100,7 +104,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    
    <qandaentry>
     <question>
-     <para>Does Gallery work under Windows?</para>
+     <para>
+      Does Gallery work under Windows?
+     </para>
     </question>
     <answer>
      <para>
@@ -113,7 +119,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    
    <qandaentry>
     <question>
-     <para>How do I run PHP as a CGI?</para>
+     <para>
+      How do I run PHP as a CGI?
+     </para>
     </question>
     <answer>
      <para>
@@ -129,20 +137,20 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
         Obtain a CGI version of PHP for your platform. You can downloads PHP
         binaries for various platforms on the
         <ulink url="https://sourceforge.net/project/showfiles.php?group_id=7130&amp;release_id=167649">
-	Gallery SourceForge Download Page</ulink>.  If you can't find a binary
-	for your platform, but you have access to compile programs, you
-	can configure PHP with this <command>configure</command> line.
-	<screen>
+        Gallery SourceForge Download Page</ulink>.  If you can't find a binary
+        for your platform, but you have access to compile programs, you
+        can configure PHP with this <command>configure</command> line.
+        <screen>
          ./configure --enable-force-cgi-redirect --disable-safe-mode
-	 --with-config-file-path=/usr/local/lib/php-cgi
-	</screen>
-	Then run <command>make</command>.  The resulting binary will be called
-	<command>php</command> in the <filename>sapi/cgi/</filename> directory
-	of the PHP source.  Please submit the binary to
-	<ulink url="mailto:joyoflinux@yahoo.com">Andrew Lindeman</ulink>, so
-	he can include it on the download page.  Please only submit binaries
-	that use that exact <command>configure</command> line, for consistancy
-	reasons.
+         --with-config-file-path=/usr/local/lib/php-cgi
+        </screen>
+        Then run <command>make</command>.  The resulting binary will be called
+        <command>php</command> in the <filename>sapi/cgi/</filename> directory
+        of the PHP source.  Please submit the binary to
+        <ulink url="mailto:joyoflinux@yahoo.com">Andrew Lindeman</ulink>, so
+        he can include it on the download page.  Please only submit binaries
+        that use that exact <command>configure</command> line, for consistancy
+        reasons.
        </para>
       </listitem>
       <listitem>
@@ -186,7 +194,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
    
    <qandaentry>
     <question>
-     <para>How do I force .php files to use PHP4</para>
+     <para>
+      How do I force .php files to use PHP4?
+     </para>
     </question>
     <answer>
      <para>
@@ -226,7 +236,840 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
     </answer>
    </qandaentry>
 
-  </qandadiv>      
+  </qandadiv>
+  
+  <qandadiv>
+   <title>Troubleshooting Gallery</title>
+   
+   <qandaentry>
+    <question>
+     <para>
+      When I try to access the configuration wizard, I get a <literal>500
+      Internal Server Error</literal>.  What's up?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is because your webserver doesn't allow you to use certain <filename>
+      .htaccess</filename> overrides.  The Gallery setup script tries to set some
+      PHP settings, but this requires you to set <literal>AllowOverride Options
+      FileInfo</literal> or disable the overrides.  If you have access to your
+      <filename>httpd.conf</filename> file, add this to it:
+      <screen>
+       &lt;Directory "<filename>/path/to/your/gallery/directory</filename>"&gt;
+        AllowOverride Options FileInfo
+       &lt;/Directory&gt;
+      </screen>
+     </para>
+     <para>
+      If you don't have access to your <filename>httpd.conf</filename>, delete
+      the <filename>.htaccess</filename> file in the <filename>setup/</filename>
+      directory.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      I've installed Gallery and all seems well. But when I try to upload an
+      image it says <literal>Unable to make thumbnail(0)</literal> or 
+      <literal>Invalid image</literal>. What gives?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is a very common problem.  It's usually because the image manipulation
+      program isn't getting called correctly, and this can happen for a number
+      of reasons.  To diagnose the problem, follow these steps:
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        <emphasis>
+         Verify that the binaries (NetPBM or ImageMagick) are installed
+         correctly and are chmodded 0755 (including the directory they are in).
+        </emphasis>
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Put Gallery back into configuration mode (see the tutorials earlier
+        in the manual for details)
+       </para>
+      </listitem>
+      <listitem> 
+       <para>
+        Re-run the <link linkend="gallery1-install.config_wizard">configuration
+        wizard</link>.  On step 2, select the option to put Gallery into
+        <emphasis>debug mode</emphasis>.  Finish the configuration wizard and
+        secure Gallery (this is described in the configuration wizard tutorial).
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Attempt to upload a picture.  There will be a whole lot more debugging
+        messages now, and it will help to diagnose the problem.  Possible issues
+        are listed below
+       </para>
+      </listitem>
+     </orderedlist>
+     <para>
+      If you see any of the following messages, the solutions are listed below
+     </para>
+     <!-- TODO: Search the forums to make sure this list covers most or all
+     possibilities -->
+     <itemizedlist>
+      <listitem>
+       <para>
+        <emphasis>Error in loading shared libraries</emphasis> -- Indicates
+        that your dynamic library loader can't find a library that it needs.
+        On Linux you can add the directory containing the appropriate library
+        to <filename>/etc/ld.so.conf</filename> and then run <command>ldconfig
+        -v</command> as root to fix this.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <emphasis>Abort trap</emphasis> or <emphasis>Segmentation Fault</emphasis>
+        -- probably means you installed the wrong binaries for your system (e.g.
+        installed the FreeBSD binaries on a Linux system) or you uploaded the binaries
+        in <literal>ASCII FTP mode</literal> instead of <literal>BINARY FTP mode</literal>.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <emphasis>/usr/bin/convert: Not a JPEG file: starts with 0x0a 0x4d
+        (/home/uspalmer/public_html/gallery/AUTHORS).</emphasis> -- This is a bug
+        that has been fixed with the latest version of Gallery, please upgrade
+        (FIXME: Has this really been fixed???)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <emphasis>/usr/local/bin/convert: no delegate for this image format
+        (/home/sites/home/web/albums/album_01/IMGP0215.jpg)</emphasis> -- This
+        means ImageMagick doesn't have the appropriate libraries to handle
+        a type of image format (in this case JPEG).  If you have root access, make
+        sure the appropriate image libraries are installed or ask your host to
+        verify this.  If not, you can try using NetPBM from the Gallery Download
+        Page, which has all major image formats already included.
+       </para>
+      </listitem>
+     </itemizedlist>
+     <para>
+      If you still can't find a solution, try asking in the <ulink url="http://gallery.sf.net/forums.php">
+      Gallery Support Forums</ulink>.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      My ISP has a really old version of PHP, something before 4.0.4pl1, which
+      Gallery can't work with.  What do I do?
+     </para>
+    </question>
+    <answer>
+     <para>
+      First, send them a quick email and ask them if they are willing to upgrade.
+      They should considering a PHP version this old is years and years old, and
+      probably contains security problems.  Your only other good option is to
+      install PHP as a CGI, as in FAQ 2.3
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Whenever I try to upload grayscale JPEG images I get a <literal>Unable to
+      make thumbnail</literal> error.  Why?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is a bug in some versions of NetPBM that cause it to choke on grayscale
+      images.  This is fixed in the version of NetPBM available on the Gallery
+      download page.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Whenever I try to upload an image in Gallery, I get all these errors about
+      <literal>safe mode</literal>.  How can I fix this?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is an unfortunate situation, because Gallery cannot run in safe mode.
+      You have three options, listed below (try them in that order).
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        Email your host asking them to turn off safe mode.  They are providing a
+        service to you, and safe mode puts severe limits on that.  If they are a
+        good host, they should listen
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Try FAQ 2.3, where you can use PHP as a CGI.  This is usually pretty
+        difficult, if you don't know exactly what you're doing.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Find another host that doesn't use safe mode.  Some are listed in the
+        <ulink url="http://gallery.sourceforge.net/wiki.php?page=Web%20Hosting%20Referral%20Page">
+        Gallery Hosting Referrals Page</ulink>
+       </para>
+      </listitem>
+     </orderedlist>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why can't I upload big files (over a megabyte or two)?
+     </para>
+    </question>
+    <answer>
+     <para>
+      Craig Goranson wrote a very informative <ulink url="http://marc.theaimsgroup.com/?l=gallery-users&amp;m=102589601604892&amp;w=2">
+      email</ulink> about how to fix this.
+     </para>
+    </answer>
+   </qandaentry>
+  
+   <qandaentry>
+    <question>
+     <para>
+      When I try to run <command>configure.sh</command>, I get an error like this:
+      <literal>chmod: getting attributes of `setup\r': No such file or directory</literal>
+      How do I fix that?
+     </para>
+    </question>
+    <answer>
+     <para>
+      The answer is to simply upload the <filename>configure.sh</filename> file
+      in <literal>ASCII FTP mode</literal>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      When I try to click on the "[login]" link on the Gallery page, nothing happens
+      (no window pops up).  What's wrong?
+     </para>
+    </question>
+    <answer>
+     <para>
+      The most common reason for this is that you have JavaScript disabled or limited
+      in your browser.  Make sure that JavaScript is allowed to open windows, or else
+      you may not be able to login to Gallery.
+     </para>
+     <para>
+      The number two reason for this problem is that your login page has a
+      slightly different hostname than the one you used for your gallery.
+      You can check this by right clicking on the login page and selecting
+      Properties to see what its URL is. The common cause for this is that you
+      used a variation on the standard URL to get to your Gallery, and then the
+      browser thinks that the JavaScript popup is actually on a different host
+      and it causes a security exception when the popup tries to control the
+      main window. For example, if you've told Gallery in the config wizard that
+      your gallery is at http://www.menalto.com/photos and then you actually
+      access the Gallery by going to http://menalto.com/photos
+      (note the "www" is missing), you'll still see your Gallery, but you'll
+      experience this problem. The solution is to pick one hostname and stick
+      with it.  
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      When I try to login, everything seems to go correctly, but Gallery doesn't
+      log me in?
+     </para>
+    </question>
+    <answer>
+     <para>
+      There could be a few reasons why this doesn't work.  Here are some of them
+     </para>
+     <itemizedlist>
+      <listitem>
+       <para>
+        If you are on Windows, you need to edit your <literal>session.save_path
+        </literal> directive in <filename>php.ini</filename> to a valid directory.
+         This defaults to <filename>/tmp</filename> which isn't a valid directory
+         on Windows.  Change it to a valid temp folder, such as
+         <filename>c:\winnt\temp</filename>.  Then restart your webserver.
+       </para>
+       <para>
+        If you don't have access to <filename>php.ini</filename>, add this to the
+        <filename>.htaccess</filename> file in your gallery directory.
+        <screen>
+         php_value session.save_path "c:\winnt\temp"
+        </screen>
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Make sure that the <literal>session.use_cookies</literal> setting is on
+        in <filename>php.ini</filename>.  It defaults to on, but your host may
+        have turned it off.  You can verify the setting by putting Gallery into
+        configuration mode and visiting the <filename>setup/phpinfo.php</filename>
+        page in your browser.  Search for that directive.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Verify that it is not FAQ 3.8
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Verify that your browser is configured to accept cookies.  If you have
+        this functionality turned off, please turn it back on, or Gallery will
+        not work.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Put Gallery back into configuration mode and visit the <filename>setup/
+        session_test.php</filename> script.  Refresh the page and see if the
+        number increases.  If it doesn't, you have a problem with sessions.  If you
+        have done all of the above steps, you may need to contact your host for
+        help.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </answer>
+   </qandaentry>
+
+   <qandaentry>
+    <question>
+     <para>
+      Why do I see <literal>Warning: Undefined variable: GALLERY_BASEDIR...
+      </literal> at the top of the page?
+     </para>
+    </question>
+    <answer>
+     <para>
+      Gallery 1.x generates a ton of warnings. We're fixing this in the next
+      release. In the meantime, you need to turn down the error reporting level
+      in your <filename>php.ini</filename> file so that you don't see these
+      warnings. You can do that by setting error_reporting = E_ALL &amp; ~E_NOTICE
+      in <filename>php.ini</filename>. Then restart your Apache server.     
+     </para>
+     <para>
+      If you don't see a change after doing this, it's possible that you're
+      editing the wrong php.ini file. Go to <filename>gallery/setup/phpinfo.php
+      </filename> in your web browser and it will tell you (near the top of the
+      file) where it thinks your <filename>php.ini</filename> file is located.
+      After making the change, phpinfo() should say that your error_reporting
+      level is "2039".
+     </para>
+     <para>
+      You can also add this line to your <filename>.htaccess</filename> file
+      <screen>
+       php_value error_reporting 2039
+      </screen>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      I can successfully upload photos, but when I look in my album all I see
+      are broken image icons. Why?
+     </para>
+    </question>
+    <answer>
+     <para>
+      You've specified an incorrect path to your albums directory in the config
+      wizard.  You can fix this by re-running the config wizard and correcting
+      the Albums URL value or you can edit the <filename>config.php</filename>
+      file and fix the $gallery-&gt;app-&gt;albumDirURL variable. 
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get <literal>Failed opening 'html_wrap/inline_albumthumb.header.default'</literal>
+     </para>
+    </question>
+    <answer>
+     <para>
+      If you unzipped/untarred the Gallery script on a Mac running OS 9.2.1
+      or less (ie, non OS X), once its uploaded, three files need ot be renamed.
+      They are in the HTML_Wrap folder - <filename>inline_albumthumb.footer.default
+      </filename>, <filename>inline_albumthumb.header.default</filename>, and
+      <filename>inline_gallerythumb.frame.default</filename>. The last few
+      characters at the end of these file names will get truncated on the Mac
+      so Gallery won't be able to find them (there will be an error message
+      above and below each photo). Adding the 't' at the end in FTP or Telnet
+      will solve this. This is only a problem if its untarred/gzipped on a Mac.
+      If they are unzipped on the server they will work fine. [Thanks James
+      O'Donnell]
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why do I see this error:
+      <screen>
+       jpegtopnm: WRITING PPM FILE
+       option `--quality' doesn't allow an argument?
+      </screen>
+     </para>
+    </question>
+    <answer>
+     <para>
+      This problem is caused by one of two things:
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        You have safe mode enabled.  Gallery can't run in this environment.  See
+        FAQ 3.5 for more information
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Your NetPBM binaries have a bug.  Please use the NetPBM binaries found
+        on the Gallery Download Page.
+       </para>
+      </listitem>
+     </orderedlist>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry> 
+    <question>
+     <para>
+      Why, when I try to upload images, does it say <literal>No images uploaded
+      </literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This can be caused by one of two things:
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        FAQ 3.6
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Your PHP configuration has file uploads disabled. Put Gallery in config
+        mode and open <filename>gallery/setup/phpinfo.php</filename> in your
+        web browser and search for the <literal>file_uploads</literal> row. If
+        <literal>file_uploads</literal> isn't enabled, then you won't be able
+        to upload images to Gallery, and you should talk to your system
+        administrator.
+       </para>
+      </listitem>
+     </orderedlist>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get this error: <literal>Warning: fopen(".../albums/team/album.dat.lock","a+")</literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This typically happens when your ISP makes a change in your environment
+      (like upgrading PHP or moving things around) without telling you about it.
+      In a nutshell, some of Gallery's files wind up being owned by the wrong
+      user and their permissions become set such that Gallery can no longer
+      write to them. I've never found this to be the result of a bug in Gallery.
+      To fix this, you can change the permissions on your Gallery data files
+      so that Apache can read the files again. This should only happen on Unix.
+      If you have shell access, you can fix it like this:
+      <screen>
+       cd /path/to/albums
+       cd ..
+       chmod -R 777 albums
+      </screen>
+     </para>
+     <para>
+      If you don't have shell access, you can use your FTP client to <emphasis>
+      recursively</emphasis> (every file and every directory) chmod the albums
+      directory 777.  <emphasis>Make sure you chmod the <filename>.users</filename>
+      directory, which can sometimes be hidden from view.  See !!!FIXME!!! for
+      more details</emphasis>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get the error <literal>Allowed memory size of Xxx bytes exhausted
+      </literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      [answered by Vallimar] You are exhausting the available memory that PHP
+      has access to. In <filename>php.ini</filename> there is a config variable
+      named <literal>memory_limit</literal> that by default is set to 8MB. I
+      quickly exhausted this after uploading a couple thousand images and had
+      to increase it.  Edit <filename>php.ini</filename> and increase it to a larger
+      value (restart Apache afterwards).  If you don't have access to <filename>
+      php.ini</filename>, you can add this line to your <filename>.htaccess</filename>
+      file.
+      <screen>
+       php_value memory_limit [new memory limit]
+      </screen>
+      <note>
+       <simpara>
+        When adding that line to <filename>.htaccess</filename>, you must use a 
+        number, in bytes.  For example, 8MB would be about 8000000 bytes.
+       </simpara>
+      </note>
+     </para>
+    </answer>
+   </qandaentry>
+
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get <literal>pnmtojpeg: No such file or directory when uploading
+      images</literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      In version 9.19 of NetPBM, they changed the name of the <command>ppmtojpeg
+      </command> binary to <command>pnmtojpeg</command>. It's the same binary
+      and serves the same purpose, but it's got a different name. The precompiled
+      binaries provided on the Gallery download page come with <command>ppmtojpeg
+      </command>. The newer stuff that you might get comes with <command>pnmtojpeg
+      </command>. Gallery tries really hard to figure out which one you have
+      available and use it. However, security restrictions can make it impossible
+      for us to tell for sure. So, it's possible that you have one version of the
+      binary and Gallery expects the other. There are several easy solutions
+      (you only need to do one of these):
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        Copy <command>ppmtojpeg</command> to <command>pnmtojpeg</command>
+        (or vice versa, as the case may be).
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Edit your <filename>config.php</filename> and change 
+        $gallery-&gt;app-&gt;pnmtojpeg to <literal>"ppmtojpeg"</literal>
+        (or <literal>"pnmtojpeg"</literal>, whichever you have).
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Upgrade to Gallery v1.3.4 which lets you specify which one you have in
+        the config wizard.
+       </para>
+      </listitem>
+     </orderedlist>
+    </answer>
+   </qandaentry>
+
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get this warning: <literal>Your script possibly relies on a
+      session side-effect which existed until PHP 4.2.3</literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      In PHP 4.2.3, they made a change to the way that the session code works
+      that results in PHP generating a warning when a session is created.
+      In order to resolve this, we have to update some code in Gallery.
+      This warning has no effect, except that it shows up on screen. You can
+      make it go away by editing your php.ini and setting
+      <screen>
+       session.bug_compat_warn to <literal>off</literal>
+      </screen>
+      and restart Apache.
+     </para>
+     <para>
+      If you don't have access to <filename>php.ini</filename>, add this line
+      to your <filename>.htaccess</filename>
+      <screen>
+       php_flag session.bug_compat_warn off
+      </screen>
+     </para>
+     <para>
+      This should be fixed in future versions of Gallery.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why, when I try to upload a .htaccess and chmod it with my FTP client,
+      it "disappears"?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is because on some FTP clients, the default setting is to hide files
+      that begin with a dot. The file may actually be on the server, but your
+      FTP client isn't programmed to display it. To make these files
+      "reappear", you must change some settings. PixelPoet has written a
+      tutorial for WS_FTP available here:
+      <ulink url="http://www.eclecticpixels.com/tutorials/chmod/">Quick Tips
+      for Chmod with WS_FTP</ulink>.  If you use CuteFTP, see
+      <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=phpBB_14&amp;file=index&amp;topic=701&amp;action=viewtopic&amp;topic=1902">
+      this thread in the forums.</ulink>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why does uploading pictures on my RedHat 8.0 system result in an error
+      or scewed picture?
+     </para>
+    </question>
+    <answer>
+     <para>
+      In RedHat 8.0, the default web server is Apache 2.0. Unfortunately, PHP
+      and Apache 2 aren't very stable together yet, though current versions of
+      PHP and Apache 2 do work relatively well together. However, there is a bug
+      in the version of PHP distributed with RedHat 8.0 that can corrupt uploads.
+      For information on how to fix these errors or scewed pictures, see
+      <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=phpBB_14&amp;file=index&amp;action=viewtopic&amp;topic=4662">     
+      this thread in the forums</ulink>.  Keep in mind that these are merely
+      workarounds.  The best option is to upgrade your PHP version to the latest
+      from <ulink url="http://www.php.net/">http://www.php.net/</ulink>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why doesn't Gallery work correctly on my RedHat 9.0 system?
+     </para>
+    </question>
+    <answer>
+     <para>
+      As in Red Hat Linux versions since 8.0, the default web server is Apache
+      2. Apache 2.0 uses a totally different module API, making it necessary
+      to rewrite all modules for this new version. Unfortunately, the PHP
+      version that Red Hat 9.0 is distributed with has a very buggy interface
+      with Apache 2.0. Some of these bugs have been fixed with the latest
+      version of PHP. Please download the latest version from
+      <ulink url="http://www.php.net/">http://www.php.net/</ulink>.  See
+      <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=phpBB_14&amp;file=index&amp;action=viewtopic&amp;topic=5741&amp;1">
+      this forum post</ulink> for information on how to compile PHP.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      How do I use Gallery both from inside my LAN and the internet?
+     </para>
+    </question>
+    <answer>
+     <para>
+      The easiest way to do this is to use relative URLs in <filename>config.php
+      </filename>.
+      <note>
+       <simpara>
+        You will have to redo this each time you run the config wizard, since
+        the config wizard won't accept relative urls.
+       </simpara>
+      </note>
+      You need to edit config.php manually. There are two URLs in that file. Change each of them as follows:
+     </para>
+     <para>
+      From:
+      <literal>http://www.example.com/gallery</literal>
+      <literal>http://www.example.com/gallery/albums</literal>
+      To:
+      <literal>/gallery</literal>
+      <literal>/gallery/albums</literal>
+      (change these URL's to match your Gallery setup)
+     </para>
+     <note>
+      <simpara>
+       There is a fix planned for future versions of Gallery to allow the config
+       wizard to use relative URLs.  Stay tuned.
+      </simpara>
+     </note>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      I'm running Gallery 1.3.4, PHP 4.0.4 and I get <literal>Call to undefined
+      function: array_search() in view_photo.php</literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is a function that was introduced in PHP 4.0.5. You can upgrade your
+      version of PHP, or if you prefer, make the following change to
+      <filename>view_photo.php</filename>
+     </para>
+     <para>
+      Insert the following at line 57 in view_photo.php
+     </para>
+     <programlisting>
+<![CDATA[
+if (!function_exists('array_search')) {
+        function array_search($needle, $haystack) {
+                for ($x=0; $x < sizeof($haystack); $x++) {
+                        if ($haystack[$x] == $needle) {
+                                return $x;
+                        }
+                }
+                return NULL;
+        }
+}
+]]>
+     </programlisting>
+    </answer>
+   </qandaentry>
+
+  </qandadiv>
+  
+  <qandadiv>
+   <title>Migrating Gallery</title>
+   
+   <qandaentry>
+    <question>
+     <para>
+      How can I migrate my Gallery from one host to another?
+     </para>
+    </question>
+    <answer>
+     <para>
+      The important data that needs to be saved is your albums directory.
+      You only need to save the actual Gallery files if you modified them.
+     </para>
+     <para>
+      To move your Gallery from one server to another, you must move your old
+      albums directory to the new host. To do this, either download the albums
+      directory via FTP (if you are using FTP) or use a utility like tar and/or
+      gzip/bzip (or zip) to make an archive of the albums directory (you can
+      only use the command line utilities if you have shell access). Note that
+      Gallery creates a <filename>.users</filename> folder in the albums
+      directory, which can be hidden by some FTP clients. This directory is
+      vital if you want to maintain your user database. See FAQ 3.19 if your
+      FTP client hides this directory and you can't download it. Once you have
+      a copy of the albums directory, upload it to your new host. If you used
+      FTP, just re-upload the albums directory to your new host. If you used 
+      something like tar, upload the archive to the new host and untar/unzip it.
+      Once you have the albums directory on the new host, you must chmod all the
+      files and directories 0777 (recursively) (see FAQ 3.15 for information).
+      If you do not chmod the files correctly, your new Gallery will not work
+      correctly.
+     </para>
+     <para>
+      If you wish, you can also save your old <filename>config.php</filename>
+      file and upload it instead of creating a new, blank <filename>config.php
+      </filename> (as you would with a normal installation) before configuring
+      your new Gallery installation. You'll still have to re-run the
+      configuration wizard to specify new paths for everything, but saving
+      some host-independent information (e.g. album defaults, etc..) can save
+      you some time.
+     </para>
+     <para>
+      After you have your old albums directory on the new server, you should
+      download a copy of Gallery and upload it just as you would install any
+      other copy of Gallery (see the README file for installation instructions).
+      However, when you get to the configuration wizard, for the
+      'Albums Directory' configuration parameter, you should put the path to
+      the albums directory you just uploaded, not a blank directory, as you
+      would on a clean install of Gallery. After you secure Gallery, all your
+      data should show up intact!
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Why do I get this error after migration: <literal>Warning: fopen
+      ('.../albums/foo/album.dat.lock', 'a+')</literal>?
+     </para>
+    </question>
+    <answer>
+     <para>
+      This is caused by not recursively chmodding the new albums directory 0777.
+      See FAQ 3.15 for information on how to fix this.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Will moving my Gallery to another host cause me to lose data
+      (comment, images, etc..)?
+     </para>
+    </question>
+    <answer>
+     <para>
+      If you follow the instructions in FAQ 4.1, there should be no lose of
+      data whatsoever. However, because of Murphy's law, it's a good idea not
+      to delete your albums directory on your old host before you know
+      everything is working on the new host.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Something went wrong, it's not working! What do I do?
+     </para>
+    </question>
+    <answer>
+     <para>
+      First, try again. Make sure you follow all the instructions in FAQ 4.1.
+      If you still cannot get it to work, start a thread in the forums. As with
+      any forum post, include as much detail as possible -- exactly what you did
+      (don't just say 'I followed FAQ 4.1'), what you expected to happen, and
+      what really happened, along with any error messages. We will probably be
+      able to sort you out!
+     </para>
+    </answer>
+   </qandaentry> 
+   
+  </qandadiv>    
 
  </qandaset>
   
