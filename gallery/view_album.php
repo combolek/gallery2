@@ -26,13 +26,17 @@ require($GALLERY_BASEDIR . "init.php");
 //-- The Business section ---
 //
 
+$albumName = $gallery->session->albumName;
+$album = $gallery->album;
+$user = $gallery->user;
+
 //-- Hack check. You have to have permission to see the album ---
-if (!$gallery->user->canReadAlbum($gallery->album)) {
+if (!$user->canReadAlbum($album)) {
 	header("Location: albums.php");
 	return;
 }
 
-if (!$gallery->album->isLoaded()) {
+if (!$album->isLoaded()) {
     header("Location: albums.php");
     return;
 }
@@ -42,18 +46,17 @@ $albumDB = new AlbumDB();
 if (!$page) {
     $page = 1;
 }
-$albumName = $gallery->session->albumName;
 
 //-- increment album click counter ---
 if (!$viewedAlbum[$albumName]) {
     setcookie("viewedAlbum[$albumName]","1");
-    $gallery->album->incrementClicks();
+    $album->incrementClicks();
 }
 
 //-- some stuff for nav ---
-$rows = $gallery->album->fields["rows"];
-$cols = $gallery->album->fields["cols"];
-$numPhotos = $gallery->album->numPhotos($gallery->user->canWriteToAlbum($gallery->album));
+$rows = $album->fields["rows"];
+$cols = $album->fields["cols"];
+$numPhotos = $album->numPhotos($user->canWriteToAlbum($album));
 $perPage = $rows * $cols;
 $maxPages = max(ceil($numPhotos / $perPage), 1);
 
@@ -67,40 +70,40 @@ for ($i_nav=1; $i_nav<=$maxPages; $i_nav++) {
 }
 
 //--
-$borderColor = $gallery->album->fields["bordercolor"];
-$borderWidth = $gallery->album->fields["border"];
+$borderColor = $album->fields["bordercolor"];
+$borderWidth = $album->fields["border"];
 if (!strcmp($borderWidth, "off")) {
     $borderWidth = 1;
 }
 
 //-- setup the album specific style sheet ---
 $albumStyle = "<style type=\"text/css\">\n";
-if ($gallery->album->fields["linkcolor"]) {
+if ($album->fields["linkcolor"]) {
     $albumStyle .=
         "  A:link, A:visited, A:active\n" .
-        "    { color: ".$gallery->album->fields[linkcolor]."; }\n" .
+        "    { color: ".$album->fields[linkcolor]."; }\n" .
         "  A:hover\n" .
         "    { color: #ff6600; }\n";
 }
-if ($gallery->album->fields["bgcolor"]) {
+if ($album->fields["bgcolor"]) {
     $albumStyle .=
-        "  BODY { background-color:".$gallery->album->fields[bgcolor]."; }\n";
+        "  BODY { background-color:".$album->fields[bgcolor]."; }\n";
 }
-if ($gallery->album->fields["background"]) {
+if ($album->fields["background"]) {
     $albumStyle .=
-        "  BODY { background-image:url(".$gallery->album->fields[background].") ; }\n";
+        "  BODY { background-image:url(".$album->fields[background].") ; }\n";
 }
-if ($gallery->album->fields["textcolor"]) {
+if ($album->fields["textcolor"]) {
     $albumStyle .=
-        "  BODY, TD {color:".$gallery->album->fields[textcolor]."; }\n" .
-        "  .head {color:".$gallery->album->fields[textcolor]."; }\n" .
-        "  .headbox {background-color:".$gallery->album->fields[bgcolor]."; }\n";
+        "  BODY, TD {color:".$album->fields[textcolor]."; }\n" .
+        "  .head {color:".$album->fields[textcolor]."; }\n" .
+        "  .headbox {background-color:".$album->fields[bgcolor]."; }\n";
 }
 $albumStyle .= "</style>\n";
 
 //-- the breadcrumb info ---
 $breadCount = 0;
-$pAlbum = $gallery->album;
+$pAlbum = $album;
 do {
 	if (!strcmp($pAlbum->fields["returnto"], "no")) {
 		break;
@@ -129,17 +132,58 @@ $breadLevels = array_reverse($breadLevels, false);
 //-- XXX - I think we should add current page to breadcrumb ---
 //$breadCount++;
 //$breadLevels[$breadCount]['level'] = "Album";
-//$breadLevels[$breadCount]['name'] = $gallery->album->fields["title"];
-//$breadLevels[$breadCount]['href'] = makeGalleryUrl($gallery->session->albumName, "", "page=$page");
+//$breadLevels[$breadCount]['name'] = $album->fields["title"];
+//$breadLevels[$breadCount]['href'] = makeGalleryUrl($albumName, "", "page=$page");
 
 //-- set up the command structure ---
 $commands = Array();
 $commandCount = 0;
-if (1) {
+if ($user->canAddToAlbum($album)) {
     $commandCount++;
-    $commands[$commandCount]['name'] = "Dummy Command";
-    $commands[$commandCount]['action'] = popup("xxx.php?index=$index");
+    $commands[$commandCount]['name'] = "Add Items";
+    $commands[$commandCount]['action'] = popup("add_photos.php?albumName=$albumName");
 }   
+if ($user->canCreateAlbums()) {
+    $commandCount++;
+    $commands[$commandCount]['name'] = "New Album";
+    $commands[$commandCount]['action'] = doCommand("new-album",
+		"&parentName=$albumName", "view_album.php");
+}   
+if ($user->canWriteToAlbum($album)) {
+	if ($album->numPhotos(1)) {
+    	$commandCount++;
+    	$commands[$commandCount]['name'] = "Sort";
+    	$commands[$commandCount]['action'] = popup("sort_album.php?albumName=$albumName");
+    	$commandCount++;
+    	$commands[$commandCount]['name'] = "Resize All";
+    	$commands[$commandCount]['action'] = popup("resize_photo.php?albumName=$albumName");
+    	$commandCount++;
+    	$commands[$commandCount]['name'] = "Rethumb All";
+		//-- XXX - popup do_command ??? huh??? ---
+    	$commands[$commandCount]['action'] = 
+			popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all");
+	
+	}
+    $commandCount++;
+    $commands[$commandCount]['name'] = "Properties";
+    $commands[$commandCount]['action'] = popup("edit_appearance.php?albumName=$albumName");
+	
+}
+if ($user->isAdmin() || $user->isOwnerOfAlbum($album)) {
+    $commandCount++;
+    $commands[$commandCount]['name'] = "Permissions";
+    $commands[$commandCount]['action'] = popup("album_permissions.php?albumName=$albumName");
+}   
+if ($user->isLoggedIn()) {
+    $commandCount++;
+    $commands[$commandCount]['name'] = "Logout";
+    $commands[$commandCount]['action'] = doCommand("logout", "", "view_album.php", "page=$page");
+} else {
+    $commandCount++;
+    $commands[$commandCount]['name'] = "Login";
+    $commands[$commandCount]['action'] = popup("login.php");
+}
+
 
 //-- some javascript for the body required to interact with the add photo windows ---
 $pageBodyExtra = "\n"
@@ -166,43 +210,44 @@ $pageBodyExtra = "\n"
 
 //-- Load up the AlbumItem array ---
 $firstItem = $perPage * ($page - 1);
-$itemIds = $gallery->album->getIds($gallery->user, $firstItem, $perPage);
+$itemIds = $album->getIds($user, $firstItem, $perPage);
 $i = 0;
 foreach ($itemIds as $itemId) {
 
 	$i++;
 	$items[$i]['id'] = $itemId;
 
-    $index = $gallery->album->getPhotoIndex($itemId);
+    $index = $album->getPhotoIndex($itemId);
 	$items[$i]['index'] = $index;
-	$items[$i]['hidden'] = $gallery->album->isHidden($index);
+	$items[$i]['hidden'] = $album->isHidden($index);
 	
-	if (!$gallery->album->isMovie($itemId)) {
+	if (!$album->isMovie($itemId)) {
 		$photoHref = makeGalleryUrl($gallery->session->albumName, $itemId);
 	} else {
 	    //-- XXX - if a movie, slip in the target ---
-	    $photoHref = $gallery->album->getPhotoPath($index)."\" target=\"other";
+	    $photoHref = $album->getPhotoPath($index)."\" target=\"other";
 	}
 	$items[$i]['href'] = $photoHref;
 
-	$items[$i]['thumbnail']['tag'] = $gallery->album->getThumbnailTag($index);
-	$items[$i]['thumbnail']['url'] = $gallery->album->getThumbnailPath($index);
-    if ($gallery->album->isMovie($itemId)) { 
+	$items[$i]['thumbnail']['tag'] = 
+		$album->getThumbnailTag($index, $album->fields["thumb_size"]);
+	$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
+    if ($album->isMovie($itemId)) { 
 		$items[$i]['type'] = 'movie';
-	} else if ($gallery->album->isAlbumName($index)) {
+	} else if ($album->isAlbumName($index)) {
 		$items[$i]['type'] = 'album';
-		$myAlbum = $albumDB->getAlbumbyName($gallery->album->isAlbumName($index));
+		$myAlbum = $albumDB->getAlbumbyName($album->isAlbumName($index));
 		$items[$i]['title'] = $myAlbum->fields[title];
 		$items[$i]['description'] = $myAlbum->fields[description];
 		$items[$i]['dateChanged'] = $myAlbum->getLastModificationDate();
 		$items[$i]['clickCount'] = $myAlbum->getClicks();
 	} else {
 		$items[$i]['type'] = 'photo';
-		$items[$i]['caption'] = $gallery->album->getCaption($index);
+		$items[$i]['caption'] = $album->getCaption($index);
 		$items[$i]['commentCount'] = 
-			((!strcmp($gallery->album->fields["public_comments"], "yes"))) ? 
-			$gallery->album->numComments($index) : 0;
-		$items[$i]['clickCount'] = $gallery->album->getItemClicks($index);
+			((!strcmp($album->fields["public_comments"], "yes"))) ? 
+			$album->numComments($index) : 0;
+		$items[$i]['clickCount'] = $album->getItemClicks($index);
 	}
 
 }
@@ -218,15 +263,15 @@ $GLO['gallery']['url'] = $gallery->app->photoAlbumURL;
 $GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
-$GLO['album']['title'] = $gallery->album->fields['title'];
-$GLO['album']['url'] = $gallery->album->getAlbumDirURL();
+$GLO['album']['title'] = $album->fields['title'];
+$GLO['album']['url'] = $album->getAlbumDirURL();
 $GLO['album']['name'] = $gallery->session->albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
-$GLO['album']['thumbnailSize'] = $gallery->album->fields["thumb_size"];
+$GLO['album']['thumbnailSize'] = $album->fields["thumb_size"];
 $GLO['album']['rows'] = $rows;
 $GLO['album']['cols'] = $cols;
-$GLO['album']['displayClicks'] = !(strcmp($gallery->album->fields["display_clicks"] , "yes"));
+$GLO['album']['displayClicks'] = !(strcmp($album->fields["display_clicks"] , "yes"));
 
 $GLO['album']['items'] = $items;
 
