@@ -1,0 +1,169 @@
+<?php
+/*
+ * $RCSfile
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * This is an implementation of the search module's SearchInterface_1_0
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class GalleryCoreSearch extends GallerySearchInterface_1_0 {
+
+    /**
+     * @see GallerySearchInterface_1_0.getSearchModuleInfo()
+     */
+    function getSearchModuleInfo() {
+	global $gallery;
+
+	list ($ret, $module) = $gallery->loadModule('core');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$info = array('name' => $module->translate('Gallery Core'),
+		      'description' => $module->translate('Gallery Core Module'),
+		      'options' => array('descriptions' => array('description' => $module->translate('Search descriptions'),
+								 'enabled' => 1),
+					 'keywords' => array('description' => $module->translate('Search keywords'),
+							     'enabled' => 1),
+					 'summaries' => array('description' => $module->translate('Search summaries'),
+							      'enabled' => 1),
+					 'titles' => array('description' => $module->translate('Search titles'),
+							   'enabled' => 1)));
+	    return array(GalleryStatus::success(), $info);
+    }
+
+    /**
+     * @see GallerySearchInterface_1_0.search()
+     */
+    function search($options, $criteria, $offset=0, $count=-1) {
+	global $gallery;
+
+	$whereList = array();
+	$whereData = array();
+	foreach (array('descriptions' => '[GalleryItem::description]',
+		       'keywords' => '[GalleryItem::keywords]',
+		       'summaries' => '[GalleryItem::summary]',
+		       'titles' => '[GalleryItem::title]')
+		 as $key => $column) {
+
+	    if (isset($options[$key])) {
+		$whereList[] = "$column LIKE ?";
+		$whereData[] = '%' . $criteria . '%';
+	    }
+	}
+
+	$countQuery = '
+        SELECT
+          COUNT(DISTINCT([GalleryItem::id]))
+        FROM
+          [GalleryItem], [GalleryPermissionMap], [GalleryUserGroupMap]
+        WHERE
+          (' . join(' OR ', $whereList) . ')
+          AND
+          [GalleryItem::id] = [GalleryPermissionMap::itemId]
+          AND
+          ([GalleryPermissionMap::userId] = ?
+           OR
+           ([GalleryUserGroupMap::userId] = ?
+            AND
+            [GalleryPermissionMap::groupId] = [GalleryUserGroupMap::groupId]))
+          AND
+          [GalleryPermissionMap::permission] & ? > ?
+        ';
+
+	$query = '
+        SELECT
+          DISTINCT([GalleryItem::id]), [GalleryEntity::modificationTimestamp]
+        FROM
+          [GalleryItem], [GalleryPermissionMap], [GalleryUserGroupMap], [GalleryEntity]
+        WHERE
+          (' . join(' OR ', $whereList) . ')
+          AND
+          [GalleryItem::id] = [GalleryPermissionMap::itemId]
+          AND
+          [GalleryItem::id] = [GalleryEntity::id]
+          AND
+          ([GalleryPermissionMap::userId] = ?
+           OR
+           ([GalleryUserGroupMap::userId] = ?
+            AND
+            [GalleryPermissionMap::groupId] = [GalleryUserGroupMap::groupId]))
+          AND
+          [GalleryPermissionMap::permission] & ? > ?
+        GROUP BY
+          [GalleryItem::id], [GalleryEntity::modificationTimestamp]
+        ORDER BY
+          [GalleryEntity::modificationTimestamp] DESC
+        ';
+
+	list ($ret, $viewPermission) =
+	    GalleryPermissionSetMap::convertIdsToBits('core.view');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$storage = $gallery->getStorage();
+
+	$data = $whereData;
+	$data[] = $gallery->getActiveUserId();
+	$data[] = $gallery->getActiveUserId();
+	$data[] = $storage->convertIntToBits($viewPermission);
+	$data[] = $storage->convertIntToBits(0);
+
+	/* Find the total */
+	list ($ret, $results) = $gallery->search($countQuery, $data);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$result = $results->nextResult();
+	$numRows = $result[0];
+
+	/* Get the results that we're interested in */
+	list ($ret, $results) =
+	    $gallery->search($query,
+			     $data,
+			     array('limit' => array('offset' => $offset,
+						    'count' => $count)));
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$itemIds = array();
+	while ($result = $results->nextResult()) {
+	    $itemIds[] = $result[0];
+	}
+
+	$data = array('start' => $offset+1,
+		      'end' => $offset + sizeof($itemIds),
+		      'count' => $numRows,
+		      'ids' => $itemIds);
+	return array(GalleryStatus::success(), $data);
+    }
+}
+
+?>

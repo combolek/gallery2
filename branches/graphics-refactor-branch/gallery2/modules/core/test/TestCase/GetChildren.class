@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @subpackage TestCase
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * @package GalleryCore
+ * @subpackage TestCase
+ */
+class GetChildrenTestCase extends TestCase {
+
+    function getIterations() {
+	return array(1, 5, 10, 100);
+    }
+     
+    function getDescription() {
+	return "Anonymous user's view of root's children";
+    }
+
+    function testStart($iterations) {
+	global $gallery;
+
+	list ($ret, $rootId) =
+	    $gallery->getModuleParameter('core', 'id.rootAlbum');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$userId = $gallery->getActiveUserId();
+
+	/* Load the root */
+	list ($ret, $root) = $gallery->loadEntitiesById($rootId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	for ($i = 0; $i < $iterations; $i++) {
+	    /* Get the child count */
+	    list ($ret, $count) =
+		GalleryItemHelper::getChildCounts(array($root->getId()), $userId);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $gallery->debug("count: $count[$rootId]");
+
+	    /* Get 'em all */ 
+	    list ($ret, $childIds) = $root->fetchChildren($userId);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $gallery->debug_r($childIds);
+	}
+	
+	return GalleryStatus::success();
+    }
+}
+
+?>

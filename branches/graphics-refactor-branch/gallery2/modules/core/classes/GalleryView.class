@@ -1,0 +1,275 @@
+<?php
+/*
+ * $RCSfile
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * The API for module views
+ *
+ * This class defines the API for view classes used by the various modules to
+ * render HTML and binary data to the browser.
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class GalleryView {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The template instance
+     *
+     * @var object GalleryTemplate $_template
+     * @access private
+     */
+    var $_template;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Initialize the veiw
+     *
+     * @param string the name of the module
+     * @param string the path to the template directory
+     */
+    function init($moduleName, $templateDir) {
+	global $gallery;
+	
+	$platform = $gallery->getPlatform();
+	if (!$platform->file_exists($templateDir)) {
+	    $gallery->debug("Missing view template dir: $templateDir");
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	}
+	
+	$this->_template = new GalleryTemplate($templateDir);
+	$this->_template->setTranslationBase('modules', $moduleName);
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Get the configured GalleryTemplate instance
+     *
+     * @return object GalleryTemplate a template instance
+     * @access protected
+     */
+    function &_getTemplate() {
+	return $this->_template;
+    }
+
+    /**
+     * Is this an immediate or a buffered view?
+     *
+     * @return boolean true if it's an immediate view.
+     */
+    function isImmediate() {
+	return false;
+    }
+
+    /**
+     * Print out the immediate output for this view.  This will bypass any
+     * global templating.  This style of view should be reserved for binary
+     * data.
+     *
+     * @return object GalleryStatus a status code
+     */
+    function renderImmediate() {
+	return GalleryStatus::success();
+    }
+    
+    /**
+     * Return the HTML head content for this view.
+     *
+     * The content should not include the <head> tags, but it should include
+     * any content that should be contained within those tags in the resulting
+     * HTML.
+     *
+     * @return array object GalleryStatus a status code
+     *               string html content
+     */
+    function renderHead() {
+	return array(GalleryStatus::success(), '');
+    }
+
+    /**
+     * Return the HTML body content for this view.
+     *
+     * The content should not include the <body> tag, but it should include any
+     * content that should be contained within those tags in the resulting
+     * HTML.
+     *
+     * @return array object GalleryStatus a status code
+     *               string html content
+     */
+    function renderBody() {
+	return array(GalleryStatus::success(), '');
+    }
+
+    /**
+     * Load a view
+     *
+     * Be very security conscious about checking the inputs for possible
+     * misuse. The view name is in the format <module>:<classname>, where
+     * - <module> is the module the view belongs to
+     * - <classname> is the name of the .inc-file to be loaded. The class
+     *   that is loaded is the <classname>View, that must extend GalleryView class
+     *
+     * @param string a view name in the format <module>:<classname> (eg 'core:ShowItem')
+     * @return array object GalleryStatus a status code
+     *               object GalleryView a view
+     * @static
+     */
+    function loadView($viewName) {
+	global $gallery;
+
+	if (preg_match('/^(\w+):(\w+)$/', $viewName, $regs) == 1) {
+	    $module = $regs[1];
+	    $class = $regs[2];
+	} else {
+	    $gallery->debug("$viewName can't be parsed");
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	}
+
+	$moduleDir = $gallery->getConfig('code.gallery.modules') . $module . '/';
+	$fileName = $moduleDir . $class . '.inc';
+
+	$ret = GalleryUtilities::requireOnce($fileName);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$viewClassName = $class . 'View';
+	if (!class_exists($viewClassName)) {
+	    $gallery->debug("Class $viewClassName not defined in $viewName");
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	}
+
+	$view = new $viewClassName();
+	if (!GalleryUtilities::isA($view, 'GalleryView')) {
+	    $gallery->debug("Class $viewClassName is not a subclass of GalleryView");
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	}
+	$ret = $view->init($module, $moduleDir . 'templates/');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	return array(GalleryStatus::success(), $view);
+    }
+
+    /**
+     * Return the head and body content with a single call
+     *
+     * @return array object GalleryStatus a status code
+     *               array ('head' => head HTML, 'body' => body html)
+     */
+    function renderHeadAndBody() {
+	global $gallery;
+
+	GalleryProfiler::start('GalleryView::renderHeadAndBody');
+	/* Get the theme name from the view */
+	list ($ret, $themeName) = $this->getThemeName();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	/* Load and initialize the theme */
+	$theme = new GalleryTheme();
+	$ret = $theme->init($themeName);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Pass the theme to the template adapter */
+	$templateAdapter =& $gallery->getTemplateAdapter();
+	$templateAdapter->setTheme($theme);
+	
+	GalleryProfiler::start('GalleryView::renderHead');
+	list ($ret, $head) = $this->renderHead();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	GalleryProfiler::stop('GalleryView::renderHead');
+	
+	GalleryProfiler::start('GalleryView::renderBody');
+	list ($ret, $body) = $this->renderBody();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	GalleryProfiler::stop('GalleryView::renderBody');
+	GalleryProfiler::stop('GalleryView::renderHeadAndBody');
+	
+	return array(GalleryStatus::success(),
+		     array('head' => $head,
+			   'body' => $body));
+    }
+
+    /**
+     * Views should override this to return the theme that they wish to use.
+     *
+     * @param string a theme name.
+     * @return array object GalleryStatus a status code
+     *               string a theme name
+     */
+    function getThemeName() {
+	return array(GalleryStatus::success(), null);
+    }
+
+    /**
+     * Return the current item, as specified in the 'itemId' request variable
+     *
+     * @return array object GalleryStatus a status code
+     *               object GalleryItem an item
+     */
+    function _getItem() {
+	global $gallery;
+	
+	/* If we don't have an item id, default to the root */
+	$itemId = GalleryUtilities::getRequestVariables('itemId');
+	if (empty($itemId)) {
+	    list ($ret, $itemId) =
+		$gallery->getModuleParameter('core', 'id.rootAlbum');
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	/* Load the item */
+	list ($ret, $item) = $gallery->loadEntitiesById($itemId);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $item);
+    }
+}
+?>

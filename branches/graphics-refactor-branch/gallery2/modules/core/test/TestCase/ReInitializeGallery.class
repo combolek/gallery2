@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @subpackage TestCase
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * @package GalleryCore
+ * @subpackage TestCase
+ */
+class ReInitializeGalleryTestCase extends TestCase {
+
+    function getDescription() {
+	return 'Reset the database and the gallery data area.  ' .
+		'Create root album, anonymous user.';
+    }
+
+    function getDependencies() {
+	return array(array('moduleName' => 'core', 'testName' => 'EmptyGallery'),
+		     array('moduleName' => 'core', 'testName' => 'CleanStore'),
+		     array('moduleName' => 'core', 'testName' => 'InitializeGallery'),
+		     array('moduleName' => 'imagemagick', 'testName' => 'ConfigureImageMagick'),
+		     array('moduleName' => 'imagemagick', 'testName' => 'ActivateModule'),
+		     array('moduleName' => 'search', 'testName' => 'ActivateModule'),
+		     array('moduleName' => 'comment', 'testName' => 'ConfigureComment'),
+		     array('moduleName' => 'comment', 'testName' => 'ActivateModule')
+		     );
+    }
+
+    function testStart() {
+	return GalleryStatus::success();
+    }
+}
+
+?>

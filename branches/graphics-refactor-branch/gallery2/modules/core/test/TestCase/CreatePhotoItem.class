@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @subpackage TestCase
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * @package GalleryCore
+ * @subpackage TestCase
+ */
+class CreatePhotoItemTestCase extends TestCase {
+
+    function getDescription() {
+	return "Create a new PhotoItem in the root album and save it";
+    }
+
+    function testStart() {
+	global $gallery;
+
+	list ($ret, $rootId) =
+	    $gallery->getModuleParameter('core', 'id.rootAlbum');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	$lockIds = array();
+
+	/*
+	 * Read lock the root.  Normally we'd have to read lock its
+	 * ancestors too so that shit doesn't move around while we're working
+	 * on it, but in this case we know it's the root.
+	 */
+	list ($ret, $lockIds[]) = $gallery->acquireReadLock($rootId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	print("Creating new photo item\n");
+	list ($ret, $photo) = GalleryFactory::newInstance('GalleryEntity', 'GalleryPhotoItem');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	$imagePath = dirname(dirname(__FILE__)) . '/data/test1.jpg';
+	$extension = GalleryUtilities::getFileExtension($imagePath);
+	$mimeType = GalleryUtilities::getMimeType($imagePath);
+	$ret = $photo->create($rootId,
+			      $imagePath,
+			      $gallery->getActiveUserId(),
+			      $mimeType,
+			      $extension,
+			      'itemPath_' . time());
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Set basic details for our PhotoItem */
+	$photo->setTitle('PhotoItem Title');
+	$photo->setDescription('This is the description of my PhotoItem');
+
+	/* Save it */
+	$ret = $photo->save();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Release our locks */
+	$ret = $gallery->releaseLocks($lockIds);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Create a thumbnail */
+	list ($ret, $thumbnail) = GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $thumbnail->create($photo->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Make it a derivative from the source image */
+	$thumbnail->setDerivativeSourceId($photo->getId());
+	$thumbnail->setDerivativeCommands("scale 200");
+	$thumbnail->setDerivativeMimeType($photo->getMimeType());
+	$ret = $thumbnail->save();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Create a resize */
+	list ($ret, $resize) = GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $resize->create($photo->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Make it a derivative from the source image */
+	$resize->setDerivativeSourceId($photo->getId());
+	$resize->setDerivativeCommands("scale 600");
+	$resize->setDerivativeMimeType($photo->getMimeType());
+	$ret = $resize->save();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/*
+	 * Check to see if the thumbnail's cache is current.
+	 * It shouldn't be, since we haven't built it yet.
+	 */
+	list ($ret, $bool) = $thumbnail->isCacheCurrent();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	if ($bool) {
+	    print "Cache is current\n";
+	} else {
+	    print "Cache is not current\n";
+
+	    /* Rebuild the cache */
+	    $ret = $thumbnail->rebuildCache();
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	return GalleryStatus::success();
+    }
+}
+
+?>
+

@@ -1,0 +1,316 @@
+<?php
+/*
+ * $RCSfile
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * This class is a glue layer between the templating system and our various
+ * callbacks that generate URLs, localized text, dates, themed widgets, etc.
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class GalleryTemplateAdapter {
+
+    /**
+     * The active theme
+     *
+     * @var object GalleryTheme a theme instance
+     * @access private
+     */
+    var $_theme;
+
+    /**
+     * The base path of our localized data required for translation
+     *
+     * @var string a directory
+     */
+    var $_translationBasePath;
+
+    /**
+     * The translation domain (eg modules_core)
+     *
+     * @var string a gettext domain
+     */
+    var $_translationDomain;
+
+    /**
+     * @see GalleryUrlGenerator::generateUrl()
+     *
+     * Return a valid Gallery URL, standalone or embedded.
+     *
+     * @param array data in key/value pairs
+     * @return string a URL
+     */
+    function url($params) {
+	global $gallery;
+	$urlGenerator = $gallery->getUrlGenerator();
+	return $urlGenerator->generateUrl($params);
+    }
+
+    /**
+     * Return a valid Gallery date.
+     *
+     * @todo This needs to be refactored.
+     *
+     * @param array data in key/value pairs
+     * @return string a URL
+     */
+    function date($params) {
+	global $gallery;
+
+	if (empty($params['format'])) {
+	    $params['format'] = '%D %T';
+	}
+	
+	return strftime($params['format'], $params['timestamp']);
+    }
+
+    /**
+     * @see GalleryTranslator::translate()
+     */
+    function text($params) {
+	global $gallery;
+
+	$translator =& $gallery->getTranslator();
+	list ($ret, $text) = $translator->translate($this->_translationDomain,
+						    $this->_translationBasePath,
+						    $params);
+	if ($ret->isError()) {
+	    return "[Translation error]";
+	} else {
+	    return $text;
+	}
+    }
+
+    /* ================================================== */
+    /* BEGIN DELEGATION METHODS */
+
+    /**
+     * @see GalleryTheme::form()
+     */
+    function form($params, $content) {
+	return $this->_theme->form($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::input()
+     */
+    function input($params, $content) {
+	return $this->_theme->input($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::select()
+     */
+    function select($params, $content) {
+	return $this->_theme->select($params, $content);
+    }
+    
+    /**
+     * @see GalleryTheme::textarea()
+     */
+    function textarea($params, $content) {
+	return $this->_theme->textarea($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::style()
+     */
+    function style($params) {
+	return $this->_theme->style($params);
+    }
+
+    /**
+     * @see GalleryTheme::smallestFontSize()
+     */
+    function smallestFontSize($params, $content) {
+	return $this->_theme->smallestFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::smallerFontSize()
+     */
+    function smallerFontSize($params, $content) {
+	return $this->_theme->smallerFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::smallFontSize()
+     */
+    function smallFontSize($params, $content) {
+	return $this->_theme->smallFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::bigFontSize()
+     */
+    function bigFontSize($params, $content) {
+	return $this->_theme->bigFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::biggerFontSize()
+     */
+    function biggerFontSize($params, $content) {
+	return $this->_theme->biggerFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::biggestFontSize()
+     */
+    function biggestFontSize($params, $content) {
+	return $this->_theme->biggestFontSize($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::successFontColor()
+     */
+    function successFontColor($params, $content) {
+	return $this->_theme->successFontColor($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::warningFontColor()
+     */
+    function warningFontColor($params, $content) {
+	return $this->_theme->warningFontColor($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::errorFontColor()
+     */
+    function errorFontColor($params, $content) {
+	return $this->_theme->errorFontColor($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::highlight1()
+     */
+    function highlight1($params, $content) {
+	return $this->_theme->highlight1($params, $content);
+    }
+    
+    /**
+     * @see GalleryTheme::highlight2()
+     */
+    function highlight2($params, $content) {
+	return $this->_theme->highlight2($params, $content);
+    }
+    
+    /**
+     * @see GalleryTheme::thinFrame()
+     */
+    function thinFrame($params, $content) {
+	return $this->_theme->thinFrame($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::lightFrame()
+     */
+    function lightFrame($params, $content) {
+	return $this->_theme->lightFrame($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::heavyFrame()
+     */
+    function heavyFrame($params, $content) {
+	return $this->_theme->heavyFrame($params, $content);
+    }
+
+    /**
+     * @see GalleryTheme::threeDFrame()
+     */
+    function threeDFrame($params, $content) {
+	return $this->_theme->threeDFrame($params, $content);
+    }
+
+    /* END DELEGATION METHODS */
+    /* ================================================== */
+    
+    /**
+     * Return an array of the theme methods that operate on a block of text.
+     *
+     * @static
+     * @staticvar array $_blockMethods a list of methods
+     */
+    function getBlockMethods() {
+	static $_blockMethods = array('bigFontSize',
+				      'biggerFontSize',
+				      'biggestFontSize',
+				      'errorFontColor',
+				      'form',
+				      'heavyFrame',
+				      'highlight1',
+				      'highlight2',
+				      'input',
+				      'lightFrame',
+				      'select',
+				      'smallFontSize',
+				      'smallerFontSize',
+				      'smallestFontSize',
+				      'successFontColor',
+				      'textArea',
+				      'thinFrame',
+				      'threeDFrame',
+				      'warningFontColor');
+	return $_blockMethods;
+    }
+
+    /**
+     * Set the active theme
+     *
+     * @param object GalleryTheme
+     */ 
+    function setTheme($theme) {
+	$this->_theme = $theme;
+    }
+
+    /**
+     * Get the active theme
+     *
+     * @return object GalleryTheme
+     */ 
+    function getTheme() {
+	return $this->_theme;
+    }
+
+    /**
+     * Specify the translation base for this template
+     *
+     * @param componentType the type of component we're using (module, layout, theme, etc)
+     * @param componentName the name of the component (core, comment, classic, etc)
+     */
+    function setTranslationBase($componentType, $componentName) {
+	global $gallery;
+	$this->_translationDomain = $componentType . '_' . $componentName;
+	$this->_translationBasePath =
+	    $gallery->getConfig('code.gallery.' . $componentType) .
+	    $componentName;
+    }
+}
+
+?>

@@ -1,0 +1,319 @@
+<?php
+/*
+ * $RCSfile
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Load the parent class
+ */
+require_once(dirname(__FILE__) . '/GalleryItem.class');
+
+/**
+ * A subclass of GalleryItem for containing groups of GalleryItems
+ *
+ * A GalleryItem that has certain extra properties relating to
+ * displaying item groups and is allowed to contain other
+ * GalleryItems.
+ *
+ * @g2 <class-name>GalleryAlbumItem</class-name>
+ * @g2 <schema>
+ * @g2   <schema-major>1</schema-major>
+ * @g2   <schema-minor>0</schema-minor>
+ * @g2 </schema>
+ * @g2 <requires-id/>
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class GalleryAlbumItem_core extends GalleryItem {
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Create a new instance of this AlbumItem in the persistent store
+     *
+     * Also create the album directory on the filesystem
+     *
+     * @param int the id of the parent of this object
+     * @return object GalleryStatus a status code
+     */
+    function create($parentId, $albumName, $ownerId) {
+	global $gallery;
+	
+	if (empty($albumName) || empty($ownerId) || empty($parentId)) {
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER,
+				       __FILE__, __LINE__);
+	}
+
+	/* Let our superclass take care of creation in the persistent store */
+	$ret = parent::create($parentId, $albumName, $ownerId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	list($ret, $parent) = $gallery->loadEntitiesById($parentId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	list($ret, $parentPath) = $parent->fetchPath();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Copy over derivative preferences from the parent */
+	$ret = GalleryDerivativePreferencesMap::copyPreferences($parentId, $this->getId());
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $this->_createDir($parentPath . $albumName);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Create a new root level album 
+     *
+     * Also create the album directory on the filesystem
+     *
+     * @return object GalleryStatus a status code
+     */
+    function createRoot($albumName, $ownerId) {
+	global $gallery;
+
+	if (empty($albumName) || empty($ownerId)) {
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER,
+				       __FILE__, __LINE__);
+	}
+
+	/* Let our superclass take care of creation in the persistent store */
+	$ret = parent::createRoot($albumName, $ownerId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$parentPath = $gallery->getConfig('data.gallery.albums');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Create default preferences */
+	/* XXX: parameterize this */
+	$ret = GalleryDerivativePreferencesMap::addMapEntry(
+	    array('order' => 0,
+		  'itemId' => $this->getId(),
+		  'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+		  'derivativeCommands' => 'scale 200'));
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = GalleryDerivativePreferencesMap::addMapEntry(
+	    array('order' => 0,
+		  'itemId' => $this->getId(),
+		  'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
+		  'derivativeCommands' => 'scale 640'));
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $this->_createDir($parentPath . $albumName);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Internal function to create the album directory
+     *
+     * @access private
+     */
+    function _createDir($albumDir) {
+	global $gallery;
+	
+	$platform = $gallery->getPlatform();
+
+	list($ret, $perm) =
+	    $gallery->getModuleParameter('core', 'permissions.directory');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	if ($platform->file_exists($albumDir)) {
+	    return GalleryStatus::error(ERROR_COLLISION,
+					__FILE__, __LINE__);
+	}
+	if (!$platform->mkdir($albumDir, $perm)) {
+	    return GalleryStatus::error(ERROR_COLLISION,
+					__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Can this item contain other file system items?
+     *
+     * Always returns true -- AlbumItems contain other GalleryItems
+     *
+     * @return true if this item can contain other file system items
+     */
+    function isContainer() {
+	return true;
+    }
+    
+    /**
+     * Delete this AlbumItem
+     *
+     * Delete all children and then remove the album directory
+     *
+     * @access public
+     * @return object GalleryStatus a status code
+     */
+    function delete() {
+	global $gallery;
+
+	/* Delete myself from the store */
+	$ret = parent::delete();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Delete derivative preferences */
+	$ret = GalleryDerivativePreferencesMap::removeMapEntry(
+	    array('itemId' => $this->getId()));
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Get my path */
+	list($ret, $path) = $this->fetchPath();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Remove my directory and everything in it */
+	$platform = $gallery->getPlatform();
+
+	if (!$platform->recursiveRmdir($path)) {
+	    return GalleryStatus::error(ERROR_BAD_PATH,
+				       __FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Can this item contain other items?
+     *
+     * AlbumItems are allowed to contain other GalleryItems
+     *
+     * @access public
+     * @return boolean true if the item can contain children
+     */
+    function canContainChildren() {
+	return true;
+    }
+
+    /**
+     * Rename this album
+     *
+     * @access public
+     * @param string the path component
+     * @return object GalleryStatus a status code
+     */
+    function rename($newname) {
+	global $gallery;
+
+	if ($newname == $this->getPathComponent()) {
+	    return GalleryStatus::success();
+	}
+
+	/*
+	 * Read lock the parent so that we don't have a race condition below.
+	 */
+	list ($ret, $lockId) = $gallery->acquireReadLock($this->getParentId());
+	if ($ret->isError()) {
+	    return $ret;
+	}
+
+	$platform = $gallery->getPlatform();
+
+	/*
+	 * Get the current path
+	 */
+	list($ret, $currentPath) = $this->fetchPath();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/*
+	 * Set the new path in the database.  If that succeeds then we should
+	 * be ok in general.
+	 */
+	$ret = parent::rename($newname);
+	if ($ret->isError()) {
+	    return $ret;
+	}
+
+	/* Check to see if the desired path exists. */
+	$newPath = dirname($currentPath) . '/' . $newname;
+	if ($platform->file_exists($newPath)) {
+	    return GalleryStatus::error(ERROR_COLLISION,
+					__FILE__, __LINE__);
+	}
+
+	if (!$platform->rename($currentPath, $newPath)) {
+	    return GalleryStatus::error(ERROR_BAD_PATH,
+					__FILE__, __LINE__);
+	}
+
+	/* Release locks */
+	$ret = $gallery->releaseLocks($lockId);
+	if ($ret->isError()) {
+	    return $ret;
+	}
+				   
+	return GalleryStatus::success();
+    }
+}
+
+include(dirname(__FILE__) . '/interfaces/GalleryAlbumItem.inc');
+?>
