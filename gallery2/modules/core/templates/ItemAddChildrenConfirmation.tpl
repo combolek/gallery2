@@ -1,6 +1,6 @@
 {gallery->mainbody1}
   {gallery->maintitle1}
-    {gallery->text text="Uploaded Complete"}
+    {gallery->text text="Upload Complete"}
   {/gallery->maintitle1}
 
   {gallery->detailedbox}
