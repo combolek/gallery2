@@ -63,18 +63,20 @@ class AlbumDB {
 			/*
 			 * Add our albums in order.
 			 */
-			foreach ($albumOrder as $name) {
-				if (fs_is_dir("$dir/$name")) {
-					/* 
-					 * All the kids of the new root need to be updated 
-					 */ 
-					$childAlbum = new Album(); 
-					$childAlbum->load($name); 
+			if ($albumOrder) {
+				foreach ($albumOrder as $name) {
+					if (fs_is_dir("$dir/$name")) {
+						/* 
+					 	* All the kids of the new root need to be updated 
+					 	*/ 
+						$childAlbum = new Album(); 
+						$childAlbum->load($name); 
 	
-					if ($childAlbum->isRoot()) {
-						$rootAlbum->addNestedAlbum($name);
-						$childAlbum->fields["parentAlbumName"] = $rootName; 
-						$childAlbum->save(); 
+						if ($childAlbum->isRoot()) {
+							$rootAlbum->addNestedAlbum($name);
+							$childAlbum->fields["parentAlbumName"] = $rootName; 
+							$childAlbum->save(); 
+						}
 					}
 				}
 			}
