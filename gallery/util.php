@@ -251,7 +251,7 @@ function popup_js($url, $window, $attrs) {
 	if (ereg("^http|^ftp|&amp;", $url)) {
 		$url = "'$url'";
 	}
-	return "nw=window.open($url,'$window','$attrs');nw.opener=self;return false;";
+	return "nw=window.open($url,'$window','$attrs'); nw.opener=self; return false;";
 }
 
 function popup_status($url, $height=150, $width=350) {
@@ -259,7 +259,7 @@ function popup_status($url, $height=150, $width=350) {
 	return "open('" . unhtmlentities(makeGalleryUrl($url)) . "','Status','$attrs');";
 }
 
-function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height=500,$width=500, $cssclass='') {
+function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height=500,$width=500, $cssclass='', $extraJS='') {
     static $popup_counter = 0;
     global $gallery;
 
@@ -274,8 +274,9 @@ function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height
     $url = build_popup_url($url, $url_is_complete);
     
 	$a1 = "<a $cssclass style=\"white-space:nowrap;\" id=\"$link_name\" target=\"Edit\" href=\"$url\" onClick=\"javascript:".
+	$extraJS . 
 	popup_js("document.getElementById('$link_name').href", "Edit",
-		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes").
+		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes") .
 	"\">$title</a>";
 
     return "\n$a1\n";
@@ -2632,7 +2633,8 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 			in_array("bcc", $gallery->app->email_notification)) {
 		$bcc .= $join.$gallery->app->adminEmail;
 	}
-	$additional_headers = "From: $from\r\nReply-To: $reply_to\r\n";
+	$additional_headers  = "From: $from\r\n";
+	$additional_headers .= "Reply-To: $reply_to\r\n";
 	$additional_headers .= "X-GalleryRequestIP: " . $_SERVER['REMOTE_ADDR'] . "\r\n";
 	$additional_headers .= "MIME-Version: 1.0\r\n";
 	$additional_headers .= "Content-type: text/plain; charset=\"". $gallery->charset ."\"\r\n";
@@ -2853,9 +2855,11 @@ function available_skins($description_only=false) {
 	}
 
 	$dir = dirname(__FILE__) . '/skins';
-	$opts['none'] = 'None';
+	$opts['none'] = 'No Skin';
 	$descriptions="<dl>";
-	$descriptions .= _('<dt>None</dt><dd>The original look and feel.</dd>');
+	$name = "<a href \"#\" onClick=\"document.config.skinname.options[0].selected=true; return false;\">". _("No Skin") ."</a>";
+	$descriptions .= sprintf (_('<dt>%s</dt><dd>The original look and feel.</dd>'), $name);
+	$skincount=0;
 	if (fs_is_dir($dir) && is_readable($dir) && $fd = fs_opendir($dir)) {
                 while ($file = readdir($fd)) {
 			$subdir="$dir/$file/css";
@@ -2864,6 +2868,7 @@ function available_skins($description_only=false) {
 			$description="";
 			$skincss="$subdir/embedded_style.css";
 			if (fs_is_dir($subdir) && fs_file_exists($skincss)) {
+				$skincount++;
 				if (fs_file_exists($skininc)) {
 				       	require($skininc);
 			       	}
@@ -2880,8 +2885,8 @@ function available_skins($description_only=false) {
 				}
 				if ($screenshot) {
 					$name = popup_link($name,
-							   $screenshot, 1, false,
-							   500, 800);
+							$screenshot, 1, false,
+							500, 800, '', 'document.config.skinname.options['. $skincount. '].selected=true; ');
 				}
 
 				$descriptions.="\n<dt style=\"margin-top:5px;\">$name";
@@ -3330,7 +3335,7 @@ function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withE
 	}
 
 	foreach ($tables as $caption => $fields) {
-		echo "\n". '<table border="0" align="center" class="popup">';
+		echo "\n". '<table border="0" align="center">';
 		echo "\n". '<tr><th colspan="3" align="center">'. $caption .'</th></tr>';
 
 	        $i=0;
@@ -3420,7 +3425,46 @@ function includeTemplate($tplName, $skinname='') {
 function genGUID() {
 	return md5(uniqid(mt_rand(), true));
 }
+
+function calcVAdivDimension($frame, $iHeight, $iWidth, $borderwidth) {
+	global $gallery;
+	$thumbsize= $gallery->album->fields["thumb_size"];
+
+	switch ($frame) {
+		// special cases
+		case "none":
+			$divCellWidth = $thumbsize + 3;
+			$divCellAdd =  3;
+		break;
+
+		case "dots":
+			$divCellWidth = $thumbsize + 7;
+			$divCellAdd =  7;
+		break;
 	
+		case "solid":
+			$divCellWidth = $thumbsize + $borderwidth +3;
+			$divCellAdd =  $borderwidth +3;
+		break;
+                  
+
+		default: // use frames directory
+			require(dirname(__FILE__) . "/html_wrap/frames/$frame/frame.def");
+                    
+			$divCellWidth = $thumbsize + $widthTL + $widthTR;
+			$divCellAdd = $heightTT + $heightBB;
+		break;
+	} // end of switch
+
+	// This is needed to keep smaller images centered
+		$padding=round(($thumbsize-$iHeight)/2,0);
+		$divCellHeight=$thumbsize-$padding*2+$divCellAdd;
+
+	/* For Debugging */
+	// echo "$divCellWidth, $divCellHeight, $padding";
+	return array ($divCellWidth, $divCellHeight, $padding);
+}
+
 require (dirname(__FILE__) . '/lib/lang.php');
 require (dirname(__FILE__) . '/lib/Form.php');
 require (dirname(__FILE__) . '/lib/voting.php');

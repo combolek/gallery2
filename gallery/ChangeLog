@@ -1,3 +1,74 @@
+2004-08-30  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b139
+
+	* Fix: Remove PHP Warnings in view_album, Fixes SF Bug #1018848.
+
+2004-08-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b138
+
+	* Fix: Always use the correct functions and import your globals
+	  before trying to use them.
+
+2004-08-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b137
+
+	* Fix: Remove half-written debug code
+
+2004-08-29  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b136
+
+	* Fix: Remove the block-random cache file whenever we delete photos
+
+	* Change: Separate the mail headers so that it's easier to read.
+
+2004-08-28  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b135
+
+	* Fix: remove tr that was causing netscape problems
+    
+	* Change: vertically align albums at the top of the table cell on the front page
+
+2004-08-27  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b134
+
+	* Fix: one more stay "popup" css class removed
+
+2004-08-27  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b133
+	* Fix: one popup had the wrong class tag for its body
+
+2004-08-27  Chris Kelly <ckdake@users.sf.net> 1.4.5-cvs-b132
+
+	* Change: new popup CSS and class tags in all popups  to reflect 
+	          this. see embedded_style.default.css for what they do.
+
+2004-08-28  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b131
+
+	* New: Added optional Parameter $extraJS to popup_link()
+
+	* Change: If you click on the link to view a screenshot for Skins,
+	  its also selected in selectbox.
+
+2004-08-28  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b130
+
+	* Fix: view_album was a little b0rked when frames around thumbs and subalbums where different
+
+	* Change: Skin bars002. Its a side by side layout.
+
+	* Fix: There was always a "." when Date of last comment was enabled.
+	  Caught by Dariush.
+
+2004-08-26  Jens A. Tkotz <jens@peino.de>  1.4.5-cvs-b129
+
+	* Change: Remove class .vaspacer from all skins.
+
+	* Fix: Corrected invalid CSS and removed margin-left inside a centered div.
+	       (fixes alignment in Opera 7.x)
+
+	* "Fix": Vertical center thumbnails again.
+
+2004-08-25 Christian Mohn <h0bbel@p0ggel.org> 1.4.5-cvs-b128
+
+        * Change: Replaced "header" with "footer" in html_wrap/ footer files
+		
+
+2004-08-25 JoEllen Drazan <skins@pownuke.com> 1.4.5-cvs-b127
+
+	* Change: Use divs instead of tables for view_album.php
+
 2004-08-24  Jay Rossiter <cryptographite@users.sf.net>  1.4.5-cvs-b126
 
 	* Fix:  Long filename / disclosure fix
