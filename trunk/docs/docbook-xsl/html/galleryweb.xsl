@@ -76,7 +76,7 @@ Inspired by the stylesheets used on the PHP documentation
    </xsl:variable>
 
    <xsl:choose>
-    <xsl:when test="$tmpnameparent = 'index'">
+    <xsl:when test="$tmpnameparent = 'modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;page=index.php'">
      <xsl:variable name="tmptitle">
       <xsl:apply-templates select="." mode="galleryweb.title.nochapter"/>
      </xsl:variable>
@@ -98,7 +98,7 @@ Inspired by the stylesheets used on the PHP documentation
         'title' =&gt; "</xsl:text>
 
    <xsl:choose>
-    <xsl:when test="$tmpnameparent = 'index.php'">
+    <xsl:when test="$tmpnameparent = 'modules.php?op=modload&amp;name=GalleryDocs&amp;file=index&amp;page=index.php'">
      <xsl:apply-templates select="." mode="galleryweb.title.nochapter"/>
     </xsl:when>
     <xsl:otherwise>
