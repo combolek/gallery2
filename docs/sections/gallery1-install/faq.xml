@@ -12,7 +12,7 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
  <warning>
   <para>
    These FAQ items are a totally re-vamped version from the old FAQ.  The
-   numbers are <emphasis>not the same</emphasis>.  If you can here from a
+   numbers are <emphasis>not the same</emphasis>.  If you came here from a
    forum post, please keep in mind that the FAQ has been changed.
   </para>
  </warning>
@@ -444,6 +444,12 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
      <para>
       Craig Goranson wrote a very informative <ulink url="http://marc.theaimsgroup.com/?l=gallery-users&amp;m=102589601604892&amp;w=2">
       email</ulink> about how to fix this.
+     </para>
+     <para>
+      If you're using Apache 2, especially with something like RedHat, you may
+      need to edit another directive, <literal>LimitRequestBody</literal>, as
+      described in <ulink url="http://gallery.menalto.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=7419">
+      this forum post</ulink>
      </para>
     </answer>
    </qandaentry>
@@ -961,7 +967,7 @@ if (!function_exists('array_search')) {
      </programlisting>
     </answer>
    </qandaentry>
-
+   
   </qandadiv>
   
   <qandadiv>
