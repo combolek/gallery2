@@ -21,16 +21,27 @@
  */
 ?>
 <?php
-
-require(dirname(__FILE__) . '/init.php');
-
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+?>
+<?php if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
+require(dirname(__FILE__) . '/init.php'); ?>
+<?php
 // Hack check
 if (!$gallery->user->canReadAlbum($gallery->album)) {
-        header("Location: " . makeAlbumHeaderUrl());
+        header("Location: " . makeAlbumUrl());
 	return;
 }
 if (isset($full) && !$gallery->user->canViewFullImages($gallery->album)) {
-	header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName, $id));
+	header("Location: " . makeAlbumUrl($gallery->session->albumName,
+				$id));
 	return;
 }
 if (!isset($full)) {
@@ -41,16 +52,29 @@ if (!isset($openAnchor)) {
 	$openAnchor=0;
 }
 
+
 if (isset($id)) {
 	$index = $gallery->album->getPhotoIndex($id);
 	if ($index == -1) {
 		// That photo no longer exists.
-	        header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
+	        header("Location: " . makeAlbumUrl($gallery->session->albumName));
 		return;
 	}
 } else {
 	$id = $gallery->album->getPhotoId($index);
 }
+
+if (!function_exists('array_search')) {
+        function array_search($needle, $haystack) {
+                for ($x=0; $x < sizeof($haystack); $x++) {
+                        if ($haystack[$x] == $needle) {
+                                return $x;
+                        }
+                }
+                return NULL;
+        }
+}
+
 
 if (!empty($votes))
 {
@@ -69,7 +93,7 @@ if (!empty($votes))
 // is photo hidden?  should user see it anyway?
 if (($gallery->album->isHidden($index))
     && (!$gallery->user->canWriteToAlbum($gallery->album))){
-    header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
+    header("Location: " . makeAlbumUrl($gallery->session->albumName));
     return;
 }
 
@@ -187,45 +211,23 @@ do {
 for ($i = count($breadtext) - 1; $i >= 0; $i--) {
     $breadcrumb["text"][] = $breadtext[$i];
 }
-$extra_fields=$gallery->album->getExtraFields(false);
+$extra_fields=$gallery->album->getExtraFields();
 $title=NULL;
-if (in_array("Title", $extra_fields)) {
+if (in_array("Title", $extra_fields))
+{
 	$title=$gallery->album->getExtraField($index, "Title");
 }
 if (!$title) {
 	$title=$index;
 }
 
-if (isset($gallery->app->comments_length)) {
-	$maxlength=$gallery->app->comments_length;
-} else {
-	$maxlength=0;
-}
-
-if (isset($save)) {
-	if ( empty($commenter_name) || empty($comment_text)) {
-		$error_text = _("Name and comment are both required to save a new comment!");
-	} elseif ($maxlength >0 && strlen($comment_text) >$maxlength) {
-		$error_text = sprintf(_("Your comment is too long, the admin set maximum length to %d chars"), $maxlength);
-	} else {
-		$comment_text = removeTags($comment_text);
-		$commenter_name = removeTags($commenter_name);
-		$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
-		$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
-		$gallery->album->save();
-		emailComments($id, $comment_text, $commenter_name);
-	}
-}
-
 if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype(); ?>
+	doctype() ?>
 <html> 
 <head>
-  <title><?php echo $gallery->app->galleryTitle . ' :: '. $gallery->album->fields["title"] . ' :: '. $title ; ?></title>
-  <?php 	
-	common_header();
-	
-	/* prefetch/navigation */
+  <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?> :: <?php echo $title ?></title>
+  	<?php echo getStyleSheetLink() ?>
+  	<?php /* prefetch/navigation */
   	$navcount = sizeof($navigator['allIds']);
   	$navpage = $navcount - 1; 
   	while ($navpage > 0) {
@@ -301,10 +303,11 @@ if ($fitToWindow) {
 <?php
 
 $adminCommands = '';
-$page_url=makeAlbumUrl($gallery->session->albumName, $id, array("full" => 0));
 if (!$gallery->album->isMovie($id)) {
 	print "<a id=\"photo_url\" href=\"$photoURL\" ></a>\n";
-	print '<a id="page_url" href="'. $page_url .'"></a>'."\n";
+	print '<a id="page_url" href="'. 
+		makeAlbumUrl($gallery->session->albumName, $id, 
+			array("full" => 1)).'"></a>'."\n";
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
 		$adminCommands .= popup_link("[" . _("resize photo") ."]", 
 			"resize_photo.php?index=$index", false, true, 500, 500, 'admin');
@@ -509,7 +512,6 @@ if ($bordercolor) {
 </tr>
 </table>
 </form>
-
 <table border="0" width="<?php echo $mainWidth ?>" cellpadding="0" cellspacing="0">
 <tr><td colspan=3>
 <?php
@@ -538,7 +540,7 @@ if (!$gallery->album->isMovie($id)) {
 
 $photoTag="";
 $frame= $gallery->album->fields['image_frame'];
-if ($fitToWindow && (preg_match('/safari|opera/i', $HTTP_SERVER_VARS['HTTP_USER_AGENT']) || $gallery->session->offline)) {
+if ($fitToWindow && preg_match('/safari|opera/i', $HTTP_SERVER_VARS['HTTP_USER_AGENT'])) {
 	//Safari/Opera can't render dynamically sized image frame
 	$frame = 'none';
 }
@@ -556,20 +558,26 @@ $gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
 
 includeHtmlWrap("inline_photo.frame");
 ?>
-
-<!-- caption -->
-<p align="center" class="modcaption">
-	<?php echo editCaption($gallery->album, $index) ?>
-</p>
+<br><br>
 
 <?php
-
 /*
-** Block for Voting
+** Block for Caption, extra fields, comments and votes.
 */
-
+?>
+<table border="0" width="<?php echo $mainWidth ?>" cellpadding="0" cellspacing="0">
+<!-- caption -->
+<tr>
+	<td colspan="3" align="center" class="modcaption">
+	<?php echo editCaption($gallery->album, $index) ?>
+	<br><br>
+	</td>
+</tr>
+	<?php
 if ( canVote()) {
-	echo "\n<!-- Voting pulldown -->\n";
+	echo "\n<!-- Voting pulldown -->";
+	echo "\n<tr>";
+	echo "\n\t". '<td colspan="3" align="center">';
 	echo makeFormIntro("view_photo.php", array("name" => "vote_form",
                                        "method" => "POST"));
 ?>
@@ -583,82 +591,118 @@ if ( canVote()) {
 		document.vote_form.submit("Vote");
 	}
 	</script>
-	<?php
-		echo '<input type="hidden" name="id" value="'. $id .'">';
-		echo addPolling("item.$id");
-	?>
-	</form>
-<?php
+       <?php
+       print '<input type="hidden" name="id" value="'. $id .'">' . addPolling("item.$id");
+       print '</form>';
+	echo "\n\t</td>";
+	echo "\n</tr>";
 }
 
-if ($gallery->album->getPollShowResults()) {
+if ($gallery->album->getPollShowResults())
+{
 	echo "\n<!-- Voting Results -->";
-	echo "\n". '<p align="center">';
+	echo "\n<tr>";
+	echo "\n\t". '<td colspan="3" align="center">';
 	echo showResults("item.$id");
-	echo "\n</p>";
+	echo "\n\t</td>";
+	echo "\n</tr>";
+}
+echo "\n<!-- Custom Fields -->";
+echo "\n<tr>";
+echo "\n\t". '<td colspan="3" align="center">';
+
+$automaticFields=automaticFieldsList();
+$field="Upload Date";
+$table='';
+$key=array_search($field, $extra_fields);
+if (is_int($key))
+{
+	$table .= "<tr><td valign=top align=right><b>".$automaticFields[$field].":</b></td><td>".
+		strftime($gallery->app->dateTimeString , $gallery->album->getUploadDate($index)).
+		"</td></tr>";
+	unSet($extra_fields[$key]);
 }
 
-echo "\n<!-- Comments -->";
-if (isset($error_text)) {
-	echo gallery_error($error_text) ."<br><br>";
+$field="Capture Date";
+$key=array_search($field, $extra_fields);
+if (is_int($key))
+{
+	$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
+	$table .= "<tr><td valign=top align=right><b>".$automaticFields[$field].":</b></td><td>".
+		strftime($gallery->app->dateTimeString , mktime ($itemCaptureDate['hours'],
+					$itemCaptureDate['minutes'],
+					$itemCaptureDate['seconds'],
+					$itemCaptureDate['mon'],
+					$itemCaptureDate['mday'],
+					$itemCaptureDate['year'])).  
+		"</td></tr>";
+	unSet($extra_fields[$key]);
 }
- 
-if ($gallery->user->canViewComments($gallery->album) && $gallery->app->comments_enabled == 'yes') {
-		echo viewComments($index, $gallery->user->canAddComments($gallery->album), $page_url);
+
+$field="Dimensions";
+$key=array_search($field, $extra_fields);
+if (is_int($key))
+{
+
+	$dimensions=$photo->getDimensions($full);
+	$table .= "<tr><td valign=top align=right><b>".$automaticFields[$field].":</b></td><td>".
+	$dimensions[0]." x ".$dimensions[1]." (". ((int) $photo->getFileSize($full) >> 10) ."k)</td></tr>";
+	unSet($extra_fields[$key]);
 }
 
-echo "\n\n<!-- Custom Fields -->";
-displayPhotoFields($index, $extra_fields, true, in_array('EXIF', $extra_fields), $full);
-
-echo "<br>";
-
-includeHtmlWrap("inline_photo.footer");
-?>
-
-<?php if ($gallery->user->isLoggedIn() &&  
-		$gallery->user->getEmail() &&
-		!$gallery->session->offline &&
-		$gallery->app->emailOn == "yes") {
-	if (isset($submitEmailMe)) {
-		if (isset($comments)) {
-			$gallery->album->setEmailMe('comments', $gallery->user, $id);
-		} else {
-			$gallery->album->unsetEmailMe('comments', $gallery->user, $id);
-		}
-		/* if (isset($other)) {
-			$gallery->album->setEmailMe('other', $gallery->user, $id);
-		} else {
-			$gallery->album->unsetEmailMe('other', $gallery->user, $id);
-		} */
+// skip title - only for header display
+$field="Title";
+$key=array_search($field, $extra_fields);
+if (is_int($key))
+{
+	unSet($extra_fields[$key]);
+}
+$field="EXIF";
+$do_exif=false;
+$key=array_search($field, $extra_fields);
+if (is_int($key))
+{
+	unSet($extra_fields[$key]);
+	if ( ($gallery->album->fields["use_exif"] === "yes") 
+		&& $gallery->app->use_exif &&
+		(eregi("jpe?g\$", $photo->image->type))) {
+		$do_exif=true;
 	}
-	echo makeFormIntro("view_photo.php",
-		       	array("name" => "email_me", "method" => "POST"));
-       	print "<input type=hidden name=id value=$id>";
-       	print _("Email me when:") . "  ";
-       	print _("Comments are added");
-       	?>
-	<input type="checkbox" name="comments" <?php echo ($gallery->album->getEmailMe('comments', $gallery->user, $id)) ? "checked" : "" ?> onclick="document.email_me.submit()" >
-	<input type="hidden" name="submitEmailMe">
-		</form>
-<?php }
 
-includeLayout('navtablebegin.inc');
-includeLayout('navphoto.inc');
-$breadcrumb["top"] = false;
-includeLayout('navtablemiddle.inc');
-includeLayout('breadcrumb.inc');
-includeLayout('navtableend.inc');
-includeLayout('ml_pulldown.inc');
-if ($fitToWindow) {
-?>
-<script type="text/javascript">
-<!--
-	calculateNewSize();
-//-->
-</script>
-<?php
 }
-includeHtmlWrap("photo.footer");
+
+foreach ($extra_fields as $field)
+{
+	$value=$gallery->album->getExtraField($index, $field);
+	if ($value)
+	{
+		$table .= "<tr><td valign=top align=right><b>$field:</b></td><td>".
+			str_replace("\n", "<br>", $value).
+			"</td></tr>";
+	}
+}
+if ($do_exif) {
+	$myExif = $gallery->album->getExif($index, isset($forceRefresh));
+	// we dont want to show the full system path to the file
+	array_shift($myExif);
+	foreach ($myExif as $field => $value) {
+		$table .= "<tr><td valign=top align=right><b>$field:</b></td><td>".
+			str_replace("\n", "<p>", $value).
+			"</td></tr>";
+	}
+}
+if ($table) {
+	print "<table>$table</table>\n";
+}
+?>
+</td>
+</tr>
+<!-- Comments -->
+<?php 
+	if ($gallery->user->canViewComments($gallery->album)
+		 && $gallery->app->comments_enabled == 'yes') {
+			echo viewComments($index, $gallery->user->canAddComments($gallery->album));
+	}
 ?>
 <?php if (isset($printShutterflyForm)) { ?>
 <form name="sflyc4p" action="http://www.shutterfly.com/c4p/UpdateCart.jsp" method="post">
@@ -688,8 +732,8 @@ includeHtmlWrap("photo.footer");
   ?>
   <input type=hidden name=imbkprnta-1 value="<?php echo strip_tags($imbkprnt) ?>">
 </form>
-<?php }
-if (isset($printPhotoAccessForm)) { ?>
+<?php } ?>
+<?php if (isset($printPhotoAccessForm)) { ?>
   <form method="post" name="photoAccess" action="http://www.photoaccess.com/buy/anonCart.jsp">
   <input type="hidden" name="cb" value="CB_GP">
   <input type="hidden" name="redir" value="true">
@@ -700,8 +744,8 @@ if (isset($printPhotoAccessForm)) { ?>
   <input type="hidden" name="imgWidth" value="<?php echo $imageWidth ?>">
   <input type="hidden" name="imgHeight" value="<?php echo $imageHeight ?>">
 </form>
-<?php }
-if (isset($printEZPrintsForm)) { ?>
+<?php } ?> 
+<?php if (isset($printEZPrintsForm)) { ?>
 <form method="post" name="ezPrintsForm" action="http://gallery.mye-pix.com/partner.asp">
   <?php
      /* Print the caption on back of photo. If no caption,
@@ -720,8 +764,68 @@ if (isset($printEZPrintsForm)) { ?>
   <input type="hidden" name="height0" value="<?php echo $imageHeight ?>">
   <input type="hidden" name="startwith" value="cart">
 </form>
-<?php }
-	if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+</td></tr>
+<?php } ?> 
+<?php
+
+echo("<tr><td colspan=3 align=center>");
+includeHtmlWrap("inline_photo.footer");
+echo("</td></tr>");
+?>
+
+</table>
+
+<?php if ($gallery->user->isLoggedIn() &&  
+		$gallery->user->getEmail() &&
+		!$gallery->session->offline &&
+		$gallery->app->emailOn == "yes") {
+	if (isset($submitEmailMe)) {
+		if (isset($comments)) {
+			$gallery->album->setEmailMe('comments', $gallery->user, $id);
+		} else {
+			$gallery->album->unsetEmailMe('comments', $gallery->user, $id);
+		}
+		/* if (isset($other)) {
+			$gallery->album->setEmailMe('other', $gallery->user, $id);
+		} else {
+			$gallery->album->unsetEmailMe('other', $gallery->user, $id);
+		} */
+	}
+	echo makeFormIntro("view_photo.php",
+		       	array("name" => "email_me", "method" => "POST"));
+       	print "<input type=hidden name=id value=$id>";
+       	print _("Email me when:") . "  ";
+       	print _("Comments are added");
+       	?>
+	<input type="checkbox" name="comments" <?php echo ($gallery->album->getEmailMe('comments', $gallery->user, $id)) ? "checked" : "" ?>
+		        onclick="document.email_me.submit()" >
+		<!-- <?php print _("Other changes are made") ?>
+		<input type="checkbox" name="other" <?php echo ($gallery->album->getEmailMe('other', $gallery->user, $id)) ? "checked" : "" ?>
+		        onclick="document.email_me.submit()" > -->
+	       	<input type="hidden" name="submitEmailMe">
+		</form>
+<?php } ?>
+
+<?php
+includeLayout('navtablebegin.inc');
+includeLayout('navphoto.inc');
+$breadcrumb["top"] = false;
+includeLayout('navtablemiddle.inc');
+includeLayout('breadcrumb.inc');
+includeLayout('navtableend.inc');
+includeLayout('ml_pulldown.inc');
+if ($fitToWindow) {
+?>
+<script type="text/javascript">
+<!--
+	calculateNewSize();
+//-->
+</script>
+<?php
+}
+includeHtmlWrap("photo.footer");
+?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 </body>
 </html>
 <?php } ?>

@@ -21,18 +21,25 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
-$err = "";
-
-doctype();
-echo "\n<html>";	
+$err = "";	
 if (isset($save)) {
 	// Only allow dates which mktime() will operate on.  
 	// 1970-2037 (Windows and some UNIXes) -- 1970-2069 (Some UNIXes)
@@ -67,25 +74,27 @@ if (isset($save)) {
 	}
 }
 ?>
+<html>
 <head>
   <title><?php echo _("Edit Text") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
-	<p class="popuphead"><?php echo _("Edit Caption"); ?></p>
-	<?php echo $gallery->album->getThumbnailTag($index) ?>
-
+<center>
+<p class="popuphead"><?php echo _("Edit Caption"); ?></p>
+<?php echo $gallery->album->getThumbnailTag($index) ?>
+</center>
+<span class="popup">
+<table>
+<tr>
+	<td valign="top"><b><?php echo _("Caption") ?>:</b></td>
 <?php echo makeFormIntro("edit_caption.php", 
 			array("name" => "theform", 
 				"method" => "POST")); ?>
 
 <input type=hidden name="index" value="<?php echo $index ?>">
-<table>
-<tr>
-	<td valign="top"><b><?php echo _("Caption") ?>:</b></td>
-	<td><textarea name="data" rows="4" cols="40"><?php echo $gallery->album->getCaption($index) ?></textarea></td>
+	<td><textarea name="data" rows=4 cols=40><?php echo $gallery->album->getCaption($index) ?></textarea></td>
 </tr>
 <?php
 
@@ -93,7 +102,8 @@ $translateableFields=translateableFields();
 
 foreach ($gallery->album->getExtraFields() as $field)
 {
-	if (in_array($field, array_keys(automaticFieldsList()))) {
+	if (in_array($field, array_keys(automaticFieldsList())))
+	{
 		continue;
 	}
         $value=$gallery->album->getExtraField($index, $field);
@@ -115,14 +125,14 @@ foreach ($gallery->album->getExtraFields() as $field)
 
 <tr>
 	<td valign=top><b><?php echo _("Keywords") ?>:</b></td>
-	<td><textarea name="keywords" rows="1" cols="40"><?php echo $gallery->album->getKeywords($index) ?></textarea></td>
+	<td><textarea name="keywords" rows=1 cols=40><?php echo $gallery->album->getKeywords($index) ?></textarea></td>
 </tr>
 </table>
-
+</span>
 <?php
 // get the itemCaptureDate
 if (isset($error)) {
-	echo "\n<p>". gallery_error($error_text) . "</p>";
+	echo "<span class=error>$err</span><br><br>";
 }
 $itemCaptureDate = $gallery->album->getItemCaptureDate($index);
 
@@ -134,8 +144,7 @@ $mday = $itemCaptureDate["mday"];
 $year = $itemCaptureDate["year"];
 // start capture date table
 ?>
-
-<br>
+<div align="center">
 <table border="0">
   <tr>
 	<td colspan="6" align="center" class="popup"><?php echo _("Photo Capture Date") ?></td>
@@ -177,11 +186,9 @@ echo "</td>";
 ?>
   </tr>
 </table>
-
-<p>
-	<input type="submit" name="save" value="<?php echo _("Save") ?>">
-	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</p>
+<br><br>
+<input type="submit" name="save" value="<?php echo _("Save") ?>">
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 
 </form>
 </div>
@@ -193,6 +200,5 @@ document.theform.data.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("edit_caption.php", true, array('index' => $index)); ?>
 </body>
 </html>

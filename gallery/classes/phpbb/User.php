@@ -140,13 +140,6 @@ class phpbb_User extends Abstract_User {
 	}
 */
 
-	function isLoggedIn() {
-		if ($this->uid != -1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
 
 ?>

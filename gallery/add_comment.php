@@ -21,14 +21,48 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") . "\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 
 if (!$gallery->user->canAddComments($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
         exit;
+}
+function emailComments($id, $comment_text, $commenter_name) {
+	global $gallery;
+	$to = implode(", ", $gallery->album->getEmailMeList('comments', $id));
+       	if (strlen($to) > 0) {
+
+
+		$text="";
+		$text.= sprintf("A comment has been added to %s by %s in album %s.",
+			makeAlbumUrl($gallery->session->albumName, $id),
+			$commenter_name,
+			makeAlbumUrl($gallery->session->albumName));
+		$text.= "\n\n"."****BEGIN COMMENT****"."\n";
+		$text.= str_replace("\r", "\n", str_replace("\r\n", "\n", $comment_text));
+		$text.= "\n"."****END COMMENT****"."\n\n";
+	       	$text .= "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when comments are added\" is unchecked in both the photo and album page (You'll need to login first).";
+	       	$subject=sprintf("New comment for %s", $id);
+		$logmsg=sprintf("New comment for %s.", 
+			makeAlbumUrl($gallery->session->albumName, $id));
+		gallery_mail($to, $subject, $text, $logmsg, true);
+
+       	} else if (isDebugging()) {
+		print _("No email sent as no valid email addresses were found");
+	}
 }
 
 $error_text = "";
@@ -37,69 +71,87 @@ if ($gallery->user->isLoggedIn() ) {
        		$commenter_name=user_name_string($gallery->user->getUID(), 
 				$gallery->app->comments_display_name);
 	}
-} elseif (!isset($commenter_name)) {
-	$commenter_name='';
 }
 
 if (empty($comment_text)) {
 	$comment_text='';
 }
 
-if (isset($gallery->app->comments_length)) {
-	$maxlength=$gallery->app->comments_length;
-} else {
-	$maxlength=0;
-}
-
 if (isset($save)) {
-       	if ( empty($commenter_name) || empty($comment_text)) {
-	       	$error_text = _("Name and comment are both required to save a new comment!");
-	} elseif ($maxlength >0 && strlen($comment_text) > $maxlength) {
-		$error_text = sprintf(_("Your comment is too long, the admin set maximum length to %d chars"), $maxlength);
-	} else {
-		$comment_text = removeTags($comment_text);
-		$commenter_name = removeTags($commenter_name);
-		$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
-		$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
-		$gallery->album->save();
+       	if (!empty($commenter_name) && !empty($comment_text)) {
+	       	$comment_text = removeTags($comment_text);
+	       	$commenter_name = removeTags($commenter_name);
+	       	$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
+	       	$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
+	       	$gallery->album->save();
 		emailComments($id, $comment_text, $commenter_name);
-		dismissAndReload();
-		return;
+	       	dismissAndReload();
+	       	return;
+       	} else {
+	       	$error_text = _("Name and comment are both required to save a new comment!");
        	}
 }
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Add Comment") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
+<center>
 <p class="popuphead"><?php echo _("Add Comment") ?></p>
-<p><?php echo _("Enter your comment for this picture in the text box below.") ?></p>
-
+<p>
+<?php echo _("Enter your comment for this picture in the text box below.") ?>
+</p>
+</span>
 <?php 
 	echo $gallery->album->getThumbnailTagById($id);
+
 if (!empty($error_text)) {
-	echo "\n<br>". gallery_error($error_text);
+?>
+<br><br>
+<span class="error"><?php echo $error_text ?></span>
+<br><br>
+<?php
 }
-echo "<br><br>";
-
-
 
 echo makeFormIntro("add_comment.php", array(
 	"name" => "theform", 
 	"method" => "POST")); 
-
-drawCommentAddForm($commenter_name, 35);
 ?>
 <input type="hidden" name="id" value="<?php echo $id ?>">
-<br><input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<table border="0" cellpadding="5">
+<tr>
+   <td class="popup"><?php echo _("Name or email:") ?></td>
+   <td>
+<?php
+if (! isset($commenter_name)) {
+	$commenter_name='';
+}
+
+if (!$gallery->user->isLoggedIn() ) {
+	echo "<input name=\"commenter_name\" value=\"". $commenter_name ."\" size=\"30\">";
+} else {
+	if ($gallery->app->comments_anonymous == 'yes') {
+		echo '<input name="commenter_name" value="'.$commenter_name.'" size="30">';
+	} else {
+		echo $commenter_name;
+		echo '<input type="hidden" name="commenter_name" value="" size="30">';
+	}
+}
+?>
+  </td>
+</tr>
+<tr>
+  <td colspan="2"><textarea name="comment_text" rows="5" cols="40"><?php echo $comment_text ?></textarea></td>
+</tr>
+</table>
+<br>
+<input type="submit" name="save" value="<?php echo _("Save") ?>">
+<input type="button" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 
 </form>
-</div>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--   
@@ -108,6 +160,6 @@ document.theform.commenter_name.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("add_comment.php", true, array('id' => $id)); ?>
+<?php print gallery_validation_link("add_comments.php", false); ?>
 </body>
 </html>

@@ -21,13 +21,23 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") . "\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->isAdmin() && 
     !$gallery->user->isOwnerOfAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 ?>
@@ -164,7 +174,7 @@ correctPseudoUsers($uAdd, $ownerUid);
 <html>
 <head>
   <title><?php echo _("Album Permissions") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -297,7 +307,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can add comments.") ?>
      </td>
     </tr>
@@ -312,7 +322,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popup">
+     <td colspan=2>
       <?php echo _("Users who can view comments.") ?>
      </td>
     </tr>

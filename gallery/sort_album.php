@@ -21,6 +21,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -28,13 +39,11 @@ require(dirname(__FILE__) . '/init.php');
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
 	exit;
 }
-
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Sort Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -56,13 +65,12 @@ if ($gallery->session->albumName) {
 ?>
 
 <center>
-<p class="popuphead"><?php echo _("Sort Album"); ?></p>
-
-<p class="popup">
+<span class="popup">
 <?php echo _("Select your sorting criteria for this album below") ?>
 <br>
-<b><?php echo _("Warning:  This operation can't be undone.") ?></b>
-</p>
+<?php echo _("Warning:  This operation can't be undone.") ?>
+<br>
+<br>
 
 <p>
 <?php
@@ -77,7 +85,7 @@ if (isset($gallery->album->fields['caption'])) {
 }
 echo makeFormIntro("sort_album.php");
 ?>
-
+</span>
 <table>
   <tr>
     <td class="popup"><input checked type="radio" name="sort" value="upload"><?php echo _("By Upload Date") ?></td>
@@ -116,10 +124,9 @@ echo makeFormIntro("sort_album.php");
 <?php
 	}
 } else {
-	echo gallery_error(_("no album specified"));
+	gallery_error(_("no album specified"));
 }
 ?>
-</center>
-<?php print gallery_validation_link("sort_album.php"); ?>
+
 </body>
 </html>

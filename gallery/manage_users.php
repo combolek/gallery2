@@ -21,27 +21,37 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
 if (isset($create)) {
-	header("Location: " . makeGalleryHeaderUrl("create_user.php"));
+	header("Location: create_user.php");
 }
 if (isset($bulk_create)) {
-	header("Location: " . makeGalleryHeaderUrl("multi_create_user.php"));
+	header("Location: multi_create_user.php");
 }
 
 if ( (isset($modify) || isset($delete)) && ! isset($uname)) {
 	$error=_("Please select a user");
 } elseif (isset($modify)) {
-	header("Location: " . makeGalleryHeaderUrl("modify_user.php", array("uname" => $uname)));
+	header("Location: modify_user.php?uname=$uname");
 } elseif (isset($delete)) {
-	header("Location: " . makeGalleryHeaderUrl("delete_user.php", array("uname" => $uname)));
+	header("Location: delete_user.php?uname=$uname");
 }
 
 $displayUsers = array();
@@ -53,23 +63,25 @@ foreach ($gallery->userDB->getUidList() as $uid) {
 
 	array_push($displayUsers, $tmpUser->getUsername());
 }
-doctype();
+
 ?>
 <html>
 <head>
   <title><?php echo _("Manage Users") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo _("Manage Users") ?></p>
+<span class="popuphead"><?php echo _("Manage Users") ?></span>
+<br>
+<br>
 <?php 
 	if (isset($error)) {
-		echo gallery_error($error);
+		echo "<span style=\"color:red\">". _("Error:") . $error ."</span>";
 	}
 ?>
-<div class="popup">	
+<span class="popup">	
 <?php echo makeFormIntro("manage_users.php", array(
 			"name" => "manageusers_form", 
 			"method" => "POST"));
@@ -106,8 +118,6 @@ if (!$displayUsers) {
 <input type="button" value="<?php echo _("Done") ?>" onclick='parent.close()'>
 </form>
 
-</div>
-</center>
-<?php print gallery_validation_link("manage_users.php"); ?>
+</span>
 </body>
 </html>

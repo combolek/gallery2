@@ -1,4 +1,4 @@
-<!-- Begin adminAlbumCommands -->
+<!-- Beginn adminAlbumCommands -->
 <div class="admin"><?php
 
 /* User is allowed to delete the album */
@@ -28,14 +28,13 @@ if ($gallery->user->isAdmin() || $gallery->user->isOwnerOfAlbum($gallery->album)
 
 	/* User is allowed to view ALL comments */
 	if ($gallery->user->canViewComments($gallery->album)
-		&& ($gallery->app->comments_enabled == 'yes')
-		&& ($gallery->album->lastCommentDate() != -1)) {
+		&& $gallery->app->comments_enabled == 'yes') {
 	    	echo "\n\t". '<a href="'. makeGalleryUrl("view_comments.php", array("set_albumName" => $tmpAlbumName)) . '">' .
 			'[' . _("view&nbsp;comments") . ']</a>';
 	}
 
 	/* Watermarking support is enabled and user is allowed to watermark images/albums */
-	if (!empty($gallery->app->watermarkDir)) {
+	if (strlen($gallery->app->watermarkDir)) {
 		echo "\n\t". popup_link("[" . _("watermark&nbsp;album") . "]", "watermark_album.php?set_albumName={$tmpAlbumName}");
 	}
 }

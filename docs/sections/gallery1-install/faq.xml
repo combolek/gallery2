@@ -591,14 +591,6 @@ echo ini_get("disable_functions");
        </listitem>
        <listitem>
         <para>
-         Locate the temporary directory specified in php.ini, or as specified
-         in the paragraph above, and remove the sess_* files.  If Apache/PHP leave stale
-         session files in the temporary directory, errors can occur when trying to
-         create the session, and not logging in is the symptom.
-        </para>
-       </listitem>
-       <listitem>
-        <para>
          Make sure that the <literal>session.use_cookies</literal> setting is on
          in &php.ini;.  It defaults to on, but your host may
          have turned it off.  You can verify the setting by putting Gallery into
@@ -1172,7 +1164,14 @@ if (!function_exists('array_search')) {
      </question>
      <answer>
       <para>
-       Please see <link linkend="gallery1-install.faq.c.2">FAQ c.2</link>
+       [Answered by forum user Allistah] Replace your NetPBM binaries with binaries from
+       <ulink url="http://prdownloads.sourceforge.net/gnuwin32/netpbm-10.6-bin.zip?download">
+       this page</ulink>.  Then add <filename>libjpeg.dll</filename> which can be downloaded
+       from <ulink url="http://prdownloads.sourceforge.net/gnuwin32/libjpeg-6b-bin.zip?download">  
+       this page</ulink>.  Unzip the NetPBM binaries and libjpeg into the same directory.  Finally,
+       re-run the <link linkend="gallery1-install.config-wizard">configuration wizard</link>
+       and provide the path of these new binaries.  (original forum post:
+       <ulink url="http://gallery.menalto.com/index.php?name=PNphpBB2&amp;file=viewtopic&amp;t=7238">here</ulink>).
       </para>
      </answer>
     </qandaentry>

@@ -59,7 +59,7 @@ if (stristr (__FILE__, '/var/lib/gallery/setup')) {
 }
 
 /* define the constants */
-	getGalleryPaths();
+	get_GalleryPathes();
 
 if (getOS() == OS_WINDOWS) {
 	require(GALLERY_BASE . '/platform/fs_win32.php');

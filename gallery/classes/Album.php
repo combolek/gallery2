@@ -172,7 +172,7 @@ class Album {
 		return $mostRecent;
 	}
 
-	function &getNestedAlbum($index) {
+	function getNestedAlbum($index) {
 		
 		$albumName = $this->getAlbumName($index);
 		$album = new Album();
@@ -522,7 +522,7 @@ class Album {
 		}
 	
 		//print $filenameA $filenameB;
-		return (strnatcasecmp($filenameA, $filenameB));
+		return (strnatcmp($filenameA, $filenameB));
 	}
 	
 	function sortByClick($a, $b) {
@@ -547,7 +547,7 @@ class Album {
 		$objB = (object)$b;
 		$captionA = $objA->getCaption();	
 		$captionB = $objB->getCaption();
-		return (strnatcasecmp($captionA, $captionB));
+		return (strnatcmp($captionA, $captionB));
 	}
 	
 	function sortByComment($a, $b) {
@@ -819,7 +819,7 @@ class Album {
 		if ($success && $msg) { // send email
 			global $HTTP_SERVER_VARS;
 			if (!is_array($msg)) {
-				echo gallery_error(_("msg should be an array!"));
+				gallery_error(_("msg should be an array!"));
 				vd($msg);
 				return $success;
 			}
@@ -1164,7 +1164,7 @@ class Album {
 
 	function getPhotoId($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getPhotoId();
+		return $photo->getPhotoId($this->getAlbumDirURL("full"));
 	}
 
 	function getAlbumDir() {
@@ -1256,7 +1256,7 @@ class Album {
 	function getIds($show_hidden=0) {
 		foreach ($this->photos as $photo) {
 			if ((!$photo->isHidden() || $show_hidden) && !$photo->getAlbumName()) {
-				$ids[] = $photo->getPhotoId();
+				$ids[] = $photo->getPhotoId($this->getAlbumDir());
 			}
 		}
 		return $ids;
@@ -1266,14 +1266,14 @@ class Album {
 		if ($index >= 1 && $index <= sizeof($this->photos)) { 
 			return $this->photos[$index-1];
 		} else {
-			echo gallery_error(sprintf(_("Requested index [%d] out of bounds [%d]"),$index,sizeof($this->photos)));
+			print "ERROR: requested index [$index] out of bounds [" . sizeof($this->photos) . "]";
 		}
 	}
 
 	function getPhotoIndex($id) {
 		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
 			$photo = $this->getPhoto($i);
-			if (!strcmp($photo->getPhotoId(), $id)) {
+			if (!strcmp($photo->getPhotoId($this->getAlbumDir()), $id)) {
 				return $i;
 			}
 		}
@@ -1558,7 +1558,7 @@ class Album {
 		if ($status != 0) {
 		    // An error occurred.
 		    return array("junk1" => "",
-				 "Error" => sprintf(_("Error %s getting EXIF data"),$status),
+				 "Error" => "Error $status getting EXIF data",
 				 "junk2" => "");
 		}
 
@@ -1875,20 +1875,9 @@ class Album {
 		global $gallery;
 		return $gallery->userDB->getUserByUid($this->fields["owner"]);
 	}
-	function getExtraFields($all=true) {
-		if ($all) {
-			return $this->fields["extra_fields"];
-		} else {
-			$return=array();
-			foreach($this->fields["extra_fields"] as $value) {
-				if ($value != 'AltText') {
-					$return[]=$value;
-				}
-			}
-			return $return;
-		}
+	function getExtraFields() {
+		return $this->fields["extra_fields"];
 	}
-
 	function setExtraFields($extra_fields) {
 		$this->fields["extra_fields"]=$extra_fields;
 	}
@@ -1958,20 +1947,13 @@ class Album {
 		$everybodyUid = $everybody->getUid();
 
                 $user=$gallery->userDB->getUserByUid($this->getItemOwner($index));
-
-		if ( !$user) {
+		if (!$user) {
 			return "";
 		}
-		if ( !strcmp($user->getUid(), $nobodyUid) || !strcmp($user->getUid(), $everybodyUid) ) {
+		if (!strcmp($user->getUid(), $nobodyUid) || !strcmp($user->getUid(), $everybodyUid)) {
 			return "";
 		}
-
-		$fullName=$user->getFullname();	
-		if (empty($fullName)) {
-			return ' - '. $user->getUsername();
-		} else {
-			return ' - '. $user->getFullname() .' ('. $user->getUsername() .')';
-		}
+		return " - ".$user->getFullname()." (". $user->getUsername().")";
         }
 
 
@@ -2074,7 +2056,7 @@ class Album {
 		if ($this->fields["poll_type"] != "critique") {
 			return false;
 		}
-		if (isset($album->fields["poll_type"]) && ($album->fields["poll_type"] != "critique")) {
+		if ($album->fields["poll_type"] != "critique") {
 			return false;
 		}
 		if ($this->fields["poll_scale"] != $album->fields["poll_scale"]) {
@@ -2180,7 +2162,7 @@ class Album {
 		       	if (gallery_validate_email($user->getEmail())) {
 			       	$result[]=$user->getEmail();
 		       	} else if (isDebugging()) {
-				echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
+			       	gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
 							$user->getUsername(), $uid, $user->getEmail()));
 		       	}
 	       	}

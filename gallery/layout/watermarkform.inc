@@ -40,84 +40,83 @@
 ?>
 <p>
 <?php
-   
-if (!isset($wmAlign)) {
-	$wmAlign = 0;
-}
-
-// get a list of watermarks
-if ($wmDir = opendir($gallery->app->watermarkDir)) { 
-	$found = 0;
-	$extensions = array ("png", "gif", "tif");
-	$extensions_string = "png, gif, tif";
-	while ($wmFile = readdir($wmDir)) {
-		$matches_ext = 0;
-		foreach ($extensions as $ext) {
-			if (eregi("\\.$ext$", $wmFile, $regs)) {
-				$matches_ext = 1;
-			}
-		}
-		if ($matches_ext) {
-			$found++;
-			if ($found == 1) {
-				// Start select form element on first matching file
-				print "<b>" . _("Watermark") . ":</b>";
-				print "<select name=\"wmName\">\n";
-			}
-			print "\t<option ";
-			if ($wmName == $wmFile) {
-				print "selected ";
-			}
-			print "label=\"".$wmFile."\" value=\"".$wmFile."\">".$wmFile."</option>\n";
-		} // end if ($matches_ext)
-	} // end while ($wmFile
-	closedir($wmDir);
-
-	if ($found == 0) {
-		$err=printf(_("No files matching %s found in %s"),
-			"<b>" . $extensions_string . "</b>",
-			"<b>" . $gallery->app->watermarkDir . "</b>");
-		echo gallery_error($err);
-	} else {
-		print "</select>\n";
-	}
-} else {
-	$err=printf (_("Could not open directory %s"), $gallery->app->watermarkDir);
-	echo gallery_error($err);
-}
+   if (!isset($wmAlign)) {
+      $wmAlign = 0;
+   }
+   // get a list of watermarks
+   if ($wmDir = opendir($gallery->app->watermarkDir)) { 
+      $found = 0;
+      $extensions = array ("png", "gif", "tif");
+      $extensions_string = "png, gif, tif";
+      while ($wmFile = readdir($wmDir)) {
+         $matches_ext = 0;
+         foreach ($extensions as $ext) {
+            if (eregi("\\.$ext$", $wmFile, $regs)) {
+               $matches_ext = 1;
+            }
+         }
+         if ($matches_ext) {
+            $found++;
+            if ($found == 1) {
+               // Start select form element on first matching file
+               print "<b>" . _("Watermark") . ":</b>";
+               print "<select name=\"wmName\">\n";
+            }
+            print "\t<option ";
+            if ($wmName == $wmFile) {
+               print "selected ";
+            }
+            print "label=\"".$wmFile."\" value=\"".$wmFile."\">".$wmFile."</option>\n";
+         } // end if ($matches_ext)
+      } // end while ($wmFile
+      closedir($wmDir);
+      if ($found == 0) {
+         print "<span class=\"error\">\n";
+         printf(_("Error: No files matching %s found in %s"),
+                "<b>" . $extensions_string . "</b>",
+                "<b>" . $gallery->app->watermarkDir . "</b>");
+         print "</span>\n";
+      } else {
+         print "</select>\n";
+      }
+   } else {
+      print "<span class=\"error\">\n";
+      printf (_("Could not open directory %s"), $gallery->app->watermarkDir);
+      print "</span>\n";
+   }
 ?>
 </p>
 
-<p><b><?php echo _("Alignment") ?>:</b></p>
-<table border="1" width="100%">
+<b><?php echo _("Alignment") ?>:</b><br>
+<table name="watermark_alignment" border="1" width="100%">
 <tr>
  <td><input <?php if ($wmAlign==1) echo checked ?> type="radio" name="wmAlign" value="1">
-     <?php echo _("Upper&nbsp;Left") ?></td>
+     <?php echo _("Upper&nbsp;Left") ?></input></td>
  <td><input <?php if ($wmAlign==2) echo checked ?> type="radio" name="wmAlign" value="2">
-     <?php echo _("Top") ?></td>
+     <?php echo _("Top") ?></input></td>
  <td><input <?php if ($wmAlign==3) echo checked ?> type="radio" name="wmAlign" value="3">
-     <?php echo _("Upper&nbsp;Right") ?></td>
+     <?php echo _("Upper&nbsp;Right") ?></input></td>
 </tr>
 <tr>
  <td><input <?php if ($wmAlign==4) echo checked ?> type="radio" name="wmAlign" value="4">
-     <?php echo _("Left") ?></td>
+     <?php echo _("Left") ?></input></td>
  <td><input <?php if ($wmAlign==5) echo checked ?> type="radio" name="wmAlign" value="5">
-     <?php echo _("Center") ?></td>
+     <?php echo _("Center") ?></input></td>
  <td><input <?php if ($wmAlign==6) echo checked ?> type="radio" name="wmAlign" value="6">
-     <?php echo _("Right") ?></td>
+     <?php echo _("Right") ?></input></td>
 </tr>
 <tr>
  <td><input <?php if ($wmAlign==7) echo checked ?> type="radio" name="wmAlign" value="7">
-     <?php echo _("Lower&nbsp;Left") ?></td>
+     <?php echo _("Lower&nbsp;Left") ?></input></td>
  <td><input <?php if ($wmAlign==8) echo checked ?> type="radio" name="wmAlign" value="8">
-     <?php echo _("Bottom") ?></td>
+     <?php echo _("Bottom") ?></input></td>
  <td><input <?php if ($wmAlign==9) echo checked ?> type="radio" name="wmAlign" value="9">
-     <?php echo _("Lower&nbsp;Right") ?></td>
+     <?php echo _("Lower&nbsp;Right") ?></input></td>
 </tr>
 <tr>
   <td colspan="3">
     <input <?php if ($wmAlign==10) echo checked ?> type="radio" name="wmAlign" value="10">
-    <?php echo _("Other") ?>
+    <?php echo _("Other") ?></input>
     X=<input type="text" name="wmAlignX" value="<?php echo $wmAlignX ?>">
     Y=<input type="text" name="wmAlignY" value="<?php echo $wmAlignY ?>">
   </td>

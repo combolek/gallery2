@@ -41,12 +41,12 @@ class Gallery_UserDB extends Abstract_UserDB {
 
 		if (!fs_file_exists($userDir)) {
 			if (!mkdir($userDir, 0777)) {
-				echo gallery_error(_("Unable to create dir") .": $userDir");
+				gallery_error(_("Unable to create dir") .": $userDir");
 				return;
 			}
 		} else {
 			if (!fs_is_dir($userDir)) {
-				echo gallery_error(sprintf(_("%s exists, but is not a directory!"),
+				gallery_error(sprintf(_("%s exists, but is not a directory!"),
 							$userDir));
 				return;
 			}

@@ -21,6 +21,13 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -92,8 +99,8 @@ function appendNestedAlbums($level, $albumName, $albumString) {
     $numPhotos = $myAlbum->numPhotos(1);
 
     for ($i=1; $i <= $numPhotos; $i++) {
-        if ($myAlbum->isAlbum($i)) {
-            $myName = $myAlbum->getAlbumName($i);
+        $myName = $myAlbum->getAlbumName($i);
+        if ($myName) {
             $nestedAlbum = new Album();
             $nestedAlbum->load($myName);
             if ($gallery->user->canWriteToAlbum($nestedAlbum)) {

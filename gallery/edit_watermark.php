@@ -33,7 +33,7 @@ $err = "";
 if (isset($save)) {
         if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12))
         {
-		if (isset($wmName) && !empty($wmName)) {
+		if (isset($wmName) && strlen($wmName)) {
 		
 	                echo "<center> ". _("Watermarking photo.")."<br/>(". _("this may take a while"). ")</center>\n";
 	                my_flush();
@@ -51,19 +51,18 @@ if (isset($save)) {
             $err = _("Please select an alignment.");
         }
 }
-
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Edit Watermark") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
+<center>
 <p class="popuphead"><?php echo _("Edit Watermark") ?></p>
 <p><?php echo $gallery->album->getThumbnailTag($index) ?></p>
+</center>
 
 <?php 
 
@@ -77,21 +76,19 @@ echo makeFormIntro("edit_watermark.php",
 
 include (dirname(__FILE__) .'/layout/watermarkform.inc');
 ?>
-<p>
+<div align="center">
 	<input type="hidden" name="index" value="<?php echo $index ?>">
 	<input type="submit" name="save" value="<?php echo _("Save") ?>">
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</p>
-</form>
 </div>
+</form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.cancel.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("edit_watermark.php"); ?>
 </body>
 </html>

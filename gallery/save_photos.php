@@ -21,12 +21,22 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -39,12 +49,11 @@ if (isset($userfile_name)) {
 	}
 }
 
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Processing and Saving Photos") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 
 </head>
 <body dir="<?php echo $gallery->direction ?>" onLoad='parent.opener.hideProgressAndReload();'>
@@ -380,7 +389,7 @@ if (count($image_tags)) {
 	/* Allow user to select which files to grab - only show url right now ( no image previews ) */
 	sort($image_tags);
 	foreach ( $image_tags as $image_src) {
-		print "\t<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src</input><br>\n";
+		print "\t<input type=checkbox name=\"urls[]\" value=\"$image_src\" checked>$image_src</input><br />\n";
 	}
 ?>
 	</td>
@@ -411,7 +420,7 @@ if (count($image_tags)) {
 	<td>
 <?php
 	foreach ($info_tags as $info_tag) {
-		print "\t<input type=\"checkbox\" name=\"meta[]\" value=\"$info_tag\" checked/>$info_tag</input><br>\n";
+		print "\t<input type=\"checkbox\" name=\"meta[]\" value=\"$info_tag\" checked/>$info_tag</input><br />\n";
 	}
 
 ?>

@@ -21,11 +21,21 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 $errorCount=0;
@@ -74,15 +84,15 @@ if (isset($save)) {
 			$gallery->session->username = $uname;
 		}
 
-		header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
+		header("Location: manage_users.php");
 	}
 } else if (isset($cancel)) {
-	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
+	header("Location: manage_users.php");
 }
 
 $tmpUser = $gallery->userDB->getUserByUsername($uname);
 if (!$tmpUser) {
-	echo gallery_error(_("Invalid user") ." <i>$uname</i>");
+	gallery_error(_("Invalid user") ." <i>$uname</i>");
 	exit;
 }
 
@@ -118,21 +128,20 @@ $isAdminChoices = array(1 => _("yes"), 0 => _("no"));
 $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 
 ?>
-<?php doctype(); ?>
 <html>
 <head>
   <title><?php echo _("Modify User") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
 <center>
-<p class="popuphead"><?php echo _("Modify User") ?></p>
-
-<div class="popup">
-<?php echo _("You can change any information about the user using this form.") ?>
-
+<span class="popuphead"><?php echo _("Modify User") ?></span>
 <br>
+<br>
+<span class="popup">
+<?php echo _("You can change any information about the user using this form.") ?>
+<p>
 
 <?php echo makeFormIntro("modify_user.php", 
 				array("name" => "usermodify_form", 
@@ -140,16 +149,15 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 
 <input type="hidden" name="old_uname" value="<?php echo $uname ?>">
 
-<br>
+<p>
 
 <?php include(dirname(__FILE__) . '/html/userData.inc'); ?>
+<p>
 
-<br>
+
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
 <input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
-</div>
-</center>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--
@@ -158,6 +166,6 @@ document.usermodify_form.uname.focus();
 //--> 
 </script>
 
-<?php print gallery_validation_link("modify_user.php"); ?>
+</span>
 </body>
 </html>

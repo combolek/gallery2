@@ -21,6 +21,17 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation")."\n";
+	exit;
+}
+?>
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
@@ -57,13 +68,11 @@ function getAlbumString($albums) {
 $borderColor = $gallery->app->default["bordercolor"];
 $thumbSize = $gallery->app->default["thumb_size"];
 ?>
-<?php if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
-?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: Advanced Search</title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction; ?>">
 <?php } ?>

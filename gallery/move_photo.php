@@ -21,12 +21,22 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -35,26 +45,15 @@ $albumDB = new AlbumDB(FALSE); // read album database
 if (!isset($reorder)) {
 	$reorder = 0;
 }
-
-if ($gallery->album->isAlbum($index)) {
-	$title=$reorder ? _("Reorder Album") : _("Move Album");
-} else {
-	$title=$reorder ? _("Reorder Photo") : _("Move Photo");
-}
-
-doctype();
 ?>
 <html>
 <head>
-  <title><?php echo $title ?></title>
-  <?php common_header(); ?>
+  <title><?php echo $reorder ? _('Reorder Photo') : _('Move Photo') ?></title>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-
-<center>
-<p class="popuphead" align="center"><?php echo $title ?></p>
-
-<div class="popup">
+<p class="popuphead" align="center"><?php echo $reorder ? _('Reorder Photo') : _('Move Photo') ?></p>
+<span class="popup">
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -66,7 +65,7 @@ if ($gallery->session->albumName && isset($index)) {
 
         if (isset($newAlbum)) {	// we are moving from one album to another
 		if ($gallery->session->albumName == $newAlbum) {
-			echo gallery_error(_("You can't move photos into the album they already exist in."));
+			gallery_error(_("You can't move photos into the album they already exist in."));
 			exit;
 		}
             	$postAlbum = $albumDB->getAlbumbyName($newAlbum);
@@ -74,7 +73,7 @@ if ($gallery->session->albumName && isset($index)) {
 			printf(_("You do not have the required permissions to write to %s!"), $newAlbum);
 			exit;
 		}
-	       	if ((isset($postAlbum->fields['name']) || $newAlbum == ".root") && ($gallery->album->fields['name'] != $postAlbum->fields['name'])) {
+	       	if ($gallery->album->fields['name'] != $postAlbum->fields['name']) {
 			$votes_transferable = $gallery->album->pollsCompatible($postAlbum);
 			$vote_id=$gallery->album->getVotingIdByIndex($index);
 
@@ -84,8 +83,8 @@ if ($gallery->session->albumName && isset($index)) {
 		       	} else {
 			       	$votes=NULL;
 		       	}
-			if ($gallery->album->isAlbum($index)) { // moving "album" to another location
-				if ($newAlbum == ".root") { // moving "album" to .root location
+			if ($gallery->album->getAlbumName($index)) { // moving "album" to another location
+				if ($newAlbum == "ROOT") { // moving "album" to ROOT location
 					$myAlbum = $gallery->album->getNestedAlbum($index);
 					$myAlbum->fields['parentAlbumName'] = 0;
 					$gallery->album->deletePhoto($index, 0, 0); 
@@ -117,7 +116,7 @@ if ($gallery->session->albumName && isset($index)) {
 				$index = $startPhoto; // set the index to the first photo that we are moving.	
 
 				while ($startPhoto <= $endPhoto) {
-					if (!$gallery->album->isAlbum($index)) {
+					if (!$gallery->album->getAlbumName($index)) {
 					        set_time_limit($gallery->app->timeLimit);
 						echo _("Moving photo #").$startPhoto."<br>";
 						my_flush();
@@ -183,7 +182,7 @@ if ($gallery->session->albumName && isset($index)) {
 										$id,
 										$postAlbum->fields['name']));
 						} else {
-							echo gallery_error($err);
+							echo "<font color=red>". _("Error") . ": "."$err!</font>";
 							return;
                 				}
 			     		} else {
@@ -210,15 +209,16 @@ if ($gallery->session->albumName && isset($index)) {
 	} else {
 ?>
 
+<center>
 <?php
 echo '<br>'. $gallery->album->getThumbnailTag($index) .'<br><br>';
 if ($reorder ) { // Reorder, intra-album move
-	if ($gallery->album->isAlbum($index)) {
-		echo _("Reorder this album within the album:") ."<br>";
-	} else {
-		echo _("Reorder this photo within the album:") ."<br>";
-	}
+if ($gallery->album->getAlbumName($index)) {
 ?>
+<?php echo _("Reorder this album within the album:") ?><br>
+<?php } else { ?>
+<?php echo _("Reorder this photo within the album:") ?><br>
+<?php } ?>
 <i>(<?php echo sprintf(_("Current Location is %s"), $index) ?>)</i>
 <p>
 <p>
@@ -244,10 +244,10 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 
 <?php
 } else if (!$reorder) { // Don't reorder, trans-album move
-if ($gallery->album->isAlbum($index)) {
-	echo _("Move the album to a new album:");
-	echo makeFormIntro("move_photo.php", array("name" => "move_to_album_form"));
+if ($gallery->album->getAlbumName($index)) {
 ?>
+<?php echo _("Move the album to a new album:") ?>
+<?php echo makeFormIntro("move_photo.php", array("name" => "move_to_album_form")); ?>
 <input type=hidden name="index" value="<?php echo $index ?>">
 <select name="newAlbum">
 <?php
@@ -256,9 +256,10 @@ if ($gallery->album->isAlbum($index)) {
 </select>
 <?php
 } else {  
-	echo _("Move a range of photos to a new album:") ?><br>
+?>
+<?php echo _("Move a range of photos to a new album:") ?><br>
 <i>(<?php echo _("To move just one photo, make First and Last the same") ?>)</i><br>
-<i>(<?php echo _("Nested albums in this range will be ignored") ?>)</i>
+<i>(<?php echo _("Nested albums in this range will be ignored") ?>)</i><p>
 <?php echo makeFormIntro("move_photo.php", array("name" => "move_to_album_form")); ?>
 <input type=hidden name="index" value="<?php echo $index ?>">
 
@@ -319,11 +320,11 @@ if (sizeof($gallery->album->fields["votes"])> 0) {
 }
 
 if (!$uptodate) {
-	echo '<span class="error">' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>';
-	echo '<a href="' . makeGalleryUrl("upgrade_album.php") . '"><br>' . _("Upgrade now") . '</a>';
+	print '<span class="error"> <br>' . sprintf(_("WARNING: Some of the albums need to be upgraded to the current version of %s."), Gallery()) . '</span>  ' .
+	'<a href="'. makeGalleryUrl("upgrade_album.php").'"><br>'. _("Upgrade now") . '</a>.<p>';
 }
 ?>
-<p>
+<br><br>
 <input type="submit" value="<?php echo _("Move to Album!") ?>">
 <input type="button" name="close" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
@@ -331,24 +332,22 @@ if (!$uptodate) {
 } // end reorder    
 }
 } else {
-	echo gallery_error(_("no album / index specified"));
+	gallery_error(_("no album / index specified"));
 }
 ?>
+</font>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--   
 // position cursor in top form field
-<?php 
-if ($reorder) {
-	echo 'document.theform.newIndex.focus()';
-} else {
-	echo 'document.move_to_album_form.newAlbum.focus()';
-} ?>
+<?php if ($reorder) { ?>
+document.theform.newIndex.focus();
+<?php } else { ?>
+document.move_to_album_form.newAlbum.focus();
+<?php } ?>
 //-->
 </script>
 
-</div>
-</center>
-<?php print gallery_validation_link("move_photo.php", true, array('index' => $index)); ?>
+</span>
 </body>
 </html>

@@ -22,7 +22,7 @@
 ?>
 <?php
 // Hack prevention.
-$sensitiveList = array("gallery");
+$sensitiveList = array("gallery", "GALLERY_BASEDIR");
 foreach ($sensitiveList as $sensitive) {
 	if (!empty($HTTP_GET_VARS[$sensitive]) ||
 			!empty($HTTP_POST_VARS[$sensitive]) ||
@@ -232,7 +232,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 				$GLOBALS['dbname']);
 	    
 			if (isset($GLOBALS['user_prefix'])) {
-                                $gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
+				$gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
 			}
 			else {
 				$gallery->database{"user_prefix"} = 'nuke_';
@@ -288,7 +288,7 @@ if (isset($GALLERY_EMBEDDED_INSIDE)) {
 				$GLOBALS['dbname']);
 	    
 			if (isset($GLOBALS['user_prefix'])) {
-                                $gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
+				$gallery->database{"user_prefix"} = $GLOBALS['user_prefix'] . '_';
 			}
 			else {
 				$gallery->database{"user_prefix"} = 'nukea_';

@@ -24,15 +24,24 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin() || $gallery->app->multiple_create != "yes") {
-	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
-doctype();
 $errorCount=0;
 if (isset($create))
 {
@@ -40,7 +49,7 @@ if (isset($create))
 <html>
 <head>
   <title><?php echo _("Create Multiple Users") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
@@ -120,14 +129,14 @@ if (isset($create))
 	}	
 
 } else if (isset($cancel) || isset($dismiss)) {
-	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
+	header("Location: manage_users.php");
 } 
 ?>
 
 <html>
 <head>
   <title><?php echo _("Create Multiple Users") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 

@@ -21,12 +21,21 @@
  */
 ?>
 <?php
-
-require(dirname(__FILE__) . '/init.php');
-
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+?>
+<?php if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = '';
+}
+require(dirname(__FILE__) . '/init.php'); ?>
+<?php
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -34,11 +43,10 @@ if (empty($index)) {
 	$index='';
 }
 
-
 $err = "";	
 if (isset($save)) {
 	if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12)) {
-		if (isset($wmName) && !empty($wmName)) {
+		if (isset($wmName) && strlen($wmName)) {
 			print "<html><body>\n";
 	                echo "<center> ". _("Watermarking album.")."<br>(". _("this may take a while"). ")</center>\n";
 
@@ -55,43 +63,39 @@ if (isset($save)) {
 		$err = _("Please select an alignment.");
 	}
 }
-doctype();
 ?>
 <html>
 <head>
   <title><?php echo _("Watermark Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 
-<div align="center">
 <p align="center" class="popuphead"><?php echo _("Watermark Album") ?></p>
 
 <?php
 if (!empty($err)) {
-	echo "\n<p>". gallery_error($err) . "</p>";
+	echo '<p class="error">'. $err . "</p>\n";
 }
+
    echo makeFormIntro("watermark_album.php",
                       array("name" => "theform",
                             "method" => "POST"));
    include (dirname(__FILE__). '/layout/watermarkform.inc') ;
 ?>
-
-<p>
+<div align="center">
 	<input type="hidden" name="index" value="<?php echo $index ?>">
 	<input type="submit" name="save" value="<?php echo _("Save") ?>">
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
-</p>
-</form>
 </div>
+</form>
 
-<script language="javascript1.2" type="text/JavaScript">
+<script language="javascript1.2">
 <!--   
 // position cursor in top form field
 document.theform.data.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("watermark_album.php"); ?>
 </body>
 </html>

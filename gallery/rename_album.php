@@ -21,39 +21,43 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = './';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!isset($gallery->album) || !$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action !");
 	exit;
 }
-
-doctype();
 ?>
+
 <html>
 <head>
   <title><?php echo _("Rename Album") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <center>
 <p class="popuphead"><?php echo _("Rename Album") ?></p>
-<div class="popup">
+<span class="popup">
 <?php
-
-if (!isset($useLoad)) {
-	$useLoad="";
-}
-
 /* Read the album list */
 $albumDB = new AlbumDB(FALSE);
 
 if (!empty($newName)) {
 	$newName = str_replace("'", "", $newName);
 	$newName = str_replace("`", "", $newName);
-	$newName = strtr($newName, "\\/*?\"<>|& .+#()", "---------------");
+	$newName = strtr($newName, "\\/*?\"<>|& .+#", "-------------");
 	$newName = ereg_replace("\-+", "-", $newName);
 	$newName = ereg_replace("\-+$", "", $newName);
 	$newName = ereg_replace("^\-", "", $newName);
@@ -80,9 +84,9 @@ if (!empty($newName)) {
 		}
 		// then we need to update the parentAlbumName field in the children
 		for ($i=1; $i <= $gallery->album->numPhotos(1); $i++) {
-			if ($gallery->album->isAlbum($i)) {
+			if ($gallery->album->getAlbumName($i)) {
 				$childAlbum = $gallery->album->getNestedAlbum($i);
-				$childAlbum->fields['parentAlbumName'] = $newName;
+				$childAlbum->fields[parentAlbumName] = $newName;
 				$childAlbum->save();
 			}
 		}
@@ -94,7 +98,7 @@ if (!empty($newName)) {
 		}
 		return;
 	} else {
-		echo gallery_error(_("There is already an album with that name!"));
+		gallery_error(_("There is already an album with that name!"));
 	}
 } else {
 	$newName = $gallery->session->albumName;
@@ -105,8 +109,8 @@ if (!empty($newName)) {
 <?php echo _("What do you want to name this album?") ?>
 <br>
 <?php echo _("The name cannot contain any of the following characters") ?>:
-<br><b>\ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # ( )</b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br>
-<p><?php echo _("Those characters will be ignored in your new album name.") ?></p>
+<br><center><b>\ / * ? &quot; &rsquo; &amp; &lt; &gt; | . + # </b><?php echo _("or") ?><b> <?php echo _("spaces") ?></b><br></center>
+<?php echo _("Those characters will be ignored in your new album name.") ?>
 
 <br>
 <?php echo makeFormIntro("rename_album.php", array("name" => "theform")); ?>
@@ -125,8 +129,6 @@ document.theform.newName.focus();
 //-->
 </script>
 
-</div>
-</center>
-<?php print gallery_validation_link("rename_album.php",true); ?>
+</span>
 </body>
 </html>

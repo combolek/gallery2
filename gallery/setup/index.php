@@ -32,62 +32,14 @@
 	require (dirname(__FILE__) . '/config_data.inc');
 
 ?>
-<?php doctype(); ?>
+<?php echo doctype(); ?>
 <html>
 <head>
 	<title><?php echo _("Gallery Configuration") ?></title>
-	<?php common_header(); ?>
-
-	<!--
-		This Javascript and the Tabs are inspired by the Horde Forms code
-	-->
-	<script language="JavaScript" type="text/javascript">
-	<!--
-	function configSection(inittab) {
-
-		this.oldtab=inittab;
-
-		this.toggle = function(id) {
-			document.getElementById(this.oldtab).style.display = 'none';
-			document.getElementById('tab_' + this.oldtab).className = 'tab';
-	
-			document.getElementById(id).style.display = 'inline';
-			document.getElementById('tab_' + id).className = 'tab-hi';
-
-			this.oldtab=id;
-		}
-	}
-
-	function localGetElementsByTagName(tagName) {
-		var eleArray;
-		if (window.opera) eleArray = document.body.getElementsByTagName(tagName);
-		else if (document.getElementsByTagName) eleArray = document.getElementsByTagName(tagName);
-		else if (document.all) eleArray = document.all.tags(tagName);
-		else if (document.layers) {
-			eleArray = new Array();
-			nnGetAllLayers(window, eleArray, 0);
-		}
-		return eleArray;
-	}
-
-	function enableButtons() {
-		var buttons = localGetElementsByTagName("input");
-
-		var i = 0;
-		while (buttons[i]) {
-			if (buttons[i].type == "submit") {
-				buttons[i].disabled = false;
-			}
-			i++;
-		}
-	}
-
-	-->
-        </script>
-
+	<?php echo getStyleSheetLink() ?>
 </head>
 
-<body dir="<?php echo $gallery->direction ?>" onload="enableButtons()">
+<body dir="<?php echo $gallery->direction ?>">
 <?php
 
 
@@ -188,5 +140,6 @@ print embed_hidden("preserve");
 ?>
 
 </form>
+
 </body>
 </html>

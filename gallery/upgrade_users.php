@@ -21,19 +21,25 @@
  */
 ?>
 <?php
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+?>
+<?php
 
 /* should only be called from init.php
 */
-if (!$gallery->version) { 
-	exit; 
-}
-doctype();
+if (!$gallery->version) { exit; }
 ?>
 
 <html>
 <head>
   <title><?php echo _("Upgrading Users") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <center>
@@ -55,7 +61,7 @@ doctype();
 <?php 
 if (!$gallery->userDB->integrityCheck() ) {
 	print "<p>";
-	echo gallery_error(_("There was a problem upgrading users.  Please check messages above, and try again"));
+	print error_format(_("There was a problem upgrading users.  Please check messages above, and try again"));
 	$button = _("Retry");
 }
 else {

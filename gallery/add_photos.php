@@ -19,14 +19,23 @@
  *
  * $Id$
  */
-?>
-<?php
+
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print _("Security violation") ."\n";
+	exit;
+}
+
+if (!isset($GALLERY_BASEDIR)) {
+    $GALLERY_BASEDIR = '';
+}
 
 require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canAddToAlbum($gallery->album)) {
-	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -41,13 +50,12 @@ if (isset($mode)) {
 	    $mode = $modeCookie;
 	}
 }
-doctype();
 ?>
 
 <html>
 <head>
   <title><?php echo _("Add Photos") ?></title>
-  <?php common_header(); ?>
+  <?php echo getStyleSheetLink() ?>
 
 <style type="text/css">
 <!--
