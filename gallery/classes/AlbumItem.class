@@ -88,16 +88,17 @@ class AlbumItem extends GalleryItem {
 	if (empty($albumName)) {
 	    return ERROR | ERROR_BAD_PARAMETER;
 	}
-	
+
 	global $gallery;
 	$platform = $gallery->getPlatform();
 
 	/* Create a new directory for this album in the temporary area */
 	$tempDir = $gallery->getConfigValue('core.directory.temp');
 	$albumDir = $tempDir . '/' . $albumName;
-	print $albumDir;
-	if (!$platform->mkdir($albumDir,
-			      $gallery->getConfigValue('core.permissions.directory'))) {
+
+	if (!@$platform->mkdir($albumDir,
+	        $gallery->getConfigValue('core.permissions.directory'))) {
+
 	    return ERROR | ERROR_NAME_COLLISION;
 	}
 
@@ -106,10 +107,13 @@ class AlbumItem extends GalleryItem {
 	$ret = $storage->newNucleus($this);
 	if ($ret == SUCCESS) {
 	    $gallery->addToCache($this);
+
+	    /* Set our path component */
+	    $this->setPath($albumName);
 	} else {
 
 	    /* Clean up the directory */
-	    fs_unlink($albumDir);
+	    $platform->unlink($albumDir);
 	}
 	return $ret;
     }
@@ -175,6 +179,16 @@ class AlbumItem extends GalleryItem {
      * @return int a status code
      */
     function becomeTheRootAlbum() {
+    }
+
+    /**
+     * Is this album the root album?
+     * 
+     * @return bool true if yes, false if no
+     */
+    function isRoot() {
+	global $gallery;
+	return ($this->getId() == $gallery->getRootAlbumItemId());
     }
 }
 ?>
