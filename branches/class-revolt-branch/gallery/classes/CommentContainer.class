@@ -1,0 +1,180 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+
+/**
+ * A DataContainer for comments.
+ *
+ * Comments are just structured text objects.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class CommentContainer extends DataContainer {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+    var $_name;
+    var $_emailAddress;
+    var $_hostname;
+    var $_comment;
+    var $_date;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     * Call the superclass on the id provided.  That will create
+     * either a blank object (if there's no id) or it will load the
+     * appropriate object from the persistent storage.  If no id
+     * was provided, initialize all private variables to their
+     * default values.
+     *
+     * @access public
+     * @param string the id of an object to be loaded
+     */
+    function CommentContainer($id="") {
+	$this->DataContainer($id);
+
+	if (empty($id)) {
+	    // Set values to defaults
+	}
+    }
+
+    /**
+     * Get the name
+     *
+     * Get the name
+     *
+     * @access public
+     * @return string the name from the comment
+     */
+    function getName() {
+    }
+
+    /**
+     * Set the name
+     *
+     * Set the name
+     *
+     * @access public
+     * @param string the name for the comment
+     */
+    function setName($name) {
+    }
+
+    /**
+     * Get the email address
+     *
+     * Get the email address
+     *
+     * @access public
+     * @return string the email address from the comment
+     */
+    function getEmailAddress() {
+    }
+
+    /**
+     * Set the email address
+     *
+     * Set the email address
+     *
+     * @access public
+     * @param string the email address for the comment
+     */
+    function setEmailAddress($email) {
+    }
+
+    /**
+     * Get the hostname
+     *
+     * Get the hostname
+     *
+     * @access public
+     * @return string the hostname from the comment
+     */
+    function getHostname() {
+    }
+
+    /**
+     * Set the hostname
+     *
+     * Set the hostname
+     *
+     * @access public
+     * @param string the hostname for the comment
+     */
+    function setHostname($hostname) {
+    }
+
+    /**
+     * Get the comment
+     *
+     * Get the comment
+     *
+     * @access public
+     * @return string the comment from the comment
+     */
+    function getComment() {
+    }
+
+    /**
+     * Set the comment
+     *
+     * Set the comment
+     *
+     * @access public
+     * @param string the comment for the comment
+     */
+    function setComment($comment) {
+    }
+
+    /**
+     * Get the date
+     *
+     * Get the date
+     *
+     * @access public
+     * @return string the date from the comment
+     */
+    function getDate() {
+    }
+
+    /**
+     * Set the date
+     *
+     * Set the date
+     *
+     * @access public
+     * @param string the date for the comment
+     */
+    function setDate($date) {
+    }
+}
+?>

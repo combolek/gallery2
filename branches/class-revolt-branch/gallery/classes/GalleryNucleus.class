@@ -1,0 +1,222 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * The central seed that all Gallery objects are formed around
+ *
+ * This object performs all of the basic functions required in all
+ * Gallery objects.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryNucleus {
+
+    /**
+     * The id of this item
+     */
+    var $_id;
+
+    /**
+     * Data version of this GalleryNucleus
+     *
+     * @var float $_dataVersion
+     */
+    var $_dataVersion;
+
+    /**
+     * The parent of this GalleryNucleus
+     * @var object GalleryNucleus $_parent
+     */
+    var $_parent;
+
+    /**
+     * The path component of this item (eg. "image1").  This
+     * value, when combined with the paths of all the parent
+     * objects (say, "rootAlbum", "album01") will form the
+     * complete path to the item ("rootAlbum/album01/image1").
+     */
+    var $_path;
+
+    /**
+     * This is an internal variable that tracks whether or not
+     * we've changed anything in this object that requires that we
+     * update the persistent store.
+     *
+     * @access private
+     */
+    var $_needToBeSaved;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     * If an id is provided, load that object from storage and
+     * become that object.  Else, initialize all variables to their
+     * default values.
+     *
+     * @param string the id of the object to load
+     */
+    function GalleryNucleus($id="") {
+	global $gallery;
+	$storage = $gallery->getStorage();
+
+	if (!empty($id)) {
+	    $this = $storage->load($id, $this);
+	} else {
+	    // Initialize myself
+	}
+    }
+
+    /**
+     * Subclasses of GalleryNucleus must use this method to
+     * indicate that their data structure has changed such that we
+     * are required to update the persistent store.
+     * 
+     * @access public
+     */
+    function setNeedToBeSaved() {
+    }
+	 
+
+    /**
+     * Get the id of this GalleryNucleus
+     *
+     * Get the id of this GalleryNucleus
+     * 
+     * @return string the id of this GalleryNucleus
+     * @access public
+     */
+    function getId() {
+    }
+
+    /**
+     * Get the version of this GalleryNucleus
+     *
+     * Return the version of this GalleryNucleus' data.
+     * 
+     * @return float the data version of this GalleryNucleus
+     * @access public
+     */
+    function getDataVersion() {
+    }
+
+    /**
+     * Check the data version and upgrade if necessary
+     *
+     * Check the data version of this GalleryNucleus and instruct it
+     * to upgrade itself, if necessary.
+     * 
+     * @return boolean true if the item was upgraded
+     * @access public
+     */
+    function checkDataVersionAndUpgrade() {
+    }
+
+    /**
+     * Return the GalleryNucleus that owns this one.
+     *
+     * Return the GalleryNucleus that owns this one.
+     *
+     * @access public
+     * @return object GalleryNucleus the parent
+     */
+    function getParent() {
+    }
+
+    /**
+     * Return the path component of this item
+     *
+     * Return the path component of this item
+     *
+     * @access public
+     * @return string the path component
+     */
+    function getPath() {
+    }
+
+    /**
+     * Return the full path of this item
+     *
+     * Return the full path of this item
+     *
+     * @access public
+     * @return string the full path
+     */
+    function getFullPath() {
+    }
+
+    /**
+     * Set the path component of this item
+     *
+     * Set the path component of this item
+     *
+     * @access public
+     * @param string the path component
+     * @return boolean false if the path already exists, true otherwise
+     */
+    function setPath($path) {
+    }
+
+    /**
+     * Save the changes to this GalleryNucleus
+     *
+     * Save the changes to this GalleryNucleus.  
+     *
+     * @access public
+     * @return int a status code
+     */
+    function save() {
+	if ($this->_needToBeSaved) {
+	    return $this->_storage->save($this);
+	}
+	return SUCCESS;
+    }
+
+    /**
+     * Refresh this item from the persistent store
+     *
+     * @access public
+     * @return int a status code
+     */
+    function refresh() {
+	$this = $this->_storage->refresh($this);
+	return SUCCESS;
+    }
+
+    /**
+     * Delete this GalleryNucleus
+     *
+     * Delete this GalleryNucleus and notify its parent GalleryNucleus of
+     * the change.
+     *
+     * @access public
+     * @return int a status code
+     */
+    function delete() {
+    }
+}
+?>

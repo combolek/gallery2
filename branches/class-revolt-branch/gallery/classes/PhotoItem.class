@@ -1,0 +1,110 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * A subclass of DataItem for containing Photos
+ *
+ * A GalleryItem whose source is an image.  It contains no image   
+ * information itself, but contains several ImageContainer
+ * versions of the original.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class PhotoItem extends DataItem {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * An ordered list of ids of ImageContainers containing
+     * resized versions of the raw image, sorted by
+     * in ascending order by size.
+     *
+     * @var	array
+     */
+    var $_resizeIds;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     * Call the superclass on the id provided.  That will create
+     * either a blank object (if there's no id) or it will load the
+     * appropriate object from the persistent storage.  If no id
+     * was provided, initialize all private variables to their
+     * default values.
+     *
+     * @access public
+     * @param string the id of an object to be loaded
+     */
+    function PhotoItem($id="") {
+	$this->DataItem($id);
+
+	if (empty($id)) {
+	    // Set values to defaults
+	    // Pull in EXIF data, if applicable
+	    // Set the creation date from the EXIF capture date
+	}
+    }
+
+    /**
+     * Return an ordered list of resized images
+     *
+     * The list is sorted by image size in ascending order.
+     *
+     * @access public
+     * @return array ids of the resized images.
+     */
+    function getResizeIds() {
+    }
+
+    /**
+     * Set the specified resize image to the ImageContainer provided.
+     *
+     * If an ImageContainer exists at that index, delete it.
+     *
+     * @access public
+     * @param string the id of the ImageContainer containing the resize
+     */
+    function addResizeId($id) {
+    }
+
+    /**
+     * Remove the specified resized image
+     *
+     * Remove the specified resized image.
+     * 
+     * @access public
+     * @param int the id of the desired resized image to remove
+     */
+    function removeResizeId($id) {
+    }
+}
+?>

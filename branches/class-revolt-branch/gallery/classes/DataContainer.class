@@ -1,0 +1,243 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * A container for a data source that Gallery manages.
+ *
+ * A container for any data that Gallery can manage.  Known
+ * implementations include ImageContainer, MovieContainer or
+ * UnknownContainer.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class DataContainer extends GalleryNucleus {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The name of the file that contains the actual media data.
+     * This, when combined with the parent's path forms the
+     * complete path to the file.
+     *
+     * @var string
+     */
+    var $_dataFileName;
+
+    /**
+     * Is this object derived from another one?  (eg, thumbnails
+     * and resized images)
+     *
+     * @var bool
+     */
+    var $_isDerivative;
+
+    /**
+     * What's the source of this derivative?  The source must be
+     * the id of another DataContainer.
+     *
+     * @var int
+     */
+    var $_derivativeSource;
+
+    /**
+     * A sequence of commands used to derive this data from the original
+     *
+     * @var int
+     */
+    var $_derivativeCommands;
+
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     * Call the superclass on the id provided.  That will create
+     * either a blank object (if there's no id) or it will load the
+     * appropriate object from the persistent storage.  If no id
+     * was provided, initialize all private variables to their
+     * default values.
+     *
+     * @access public
+     * @param string the id of an object to be loaded
+     * @param string the path to a data file to be contained
+     */
+    function DataContainer($id="", $dataFileName="") {
+	$this->GalleryNucleus($id);
+
+	if (empty($id)) {
+	    // Set values to defaults
+	    // Make a copy the data file and start managing it
+	}
+    }
+
+    /**
+     * Get the size of the source object.  If it's a cacheable
+     * object and the cache is cleared, this will return the size
+     * that it *will* be once the cache is recreated.
+     * 
+     * @access public
+     * @return int the size of the object
+     */
+    function getSize() {
+    }
+
+    /**
+     * Is this item a derivative?
+     *
+     * If an item is a derative object, it can be expired using
+     * the expireCache() method.  You must call rebuildCache() to
+     * recreate the item.
+     * 
+     * @access public
+     * @return boolean whether the item is expireable or not
+     */
+    function isDerative() {
+    }
+
+    /**
+     * What's the source of this derivative?
+     *
+     * Only applicable if isDerative() returns true.
+     * 
+     * @access public
+     * @return int the id of another DataContainer 
+     */
+    function getDerivativeSource() {
+    }
+
+    /**
+     * What's the source of this derivative?
+     *
+     * Only applicable if isDerative() returns true.
+     * 
+     * @access public
+     * @param int the id of another DataContainer 
+     */
+    function setDerivativeSource($id) {
+	$this->setNeedToBeSaved();
+    }
+
+    /**
+     * Get the commands used to derive this data from its source
+     *
+     * Only applicable if isDerative() returns true.
+     * 
+     * @access public
+     * @return int a derivative type
+     */
+    function getDerivativeCommands() {
+    }
+
+    /**
+     * Set the commands used to derive this data from its source
+     *
+     * Only applicable if isDerative() returns true.  The commands
+     * follow this EBNF format:
+     *
+     * COMMAND   = <OPERATION> | <COMMAND> ; <COMMAND>
+     * OPERATION = ROTATE | SCALE | RESIZE | CROP
+     * ROTATE    = "rotate" ":" ("-90" | "180" | "90")
+     * CROP      = "crop" ":" NUMBER "," NUMBER "," NUMBER "," NUMBER
+     * RESIZE    = "resize" ":" NUMBER "," NUMBER 
+     * SCALE     = "scale" ":" NUMBER 
+     * 
+     * @access public
+     * @param string a sequence of derivative commands
+     */
+    function setDerivativeCommands($commands) {
+	$this->setNeedToBeSaved();
+    }
+
+    /**
+     * Has this item expired?
+     *
+     * If the item is expired, it can be rebuilt with rebuildCache()
+     * 
+     * @access public
+     * @return boolean true if the item is expired (ie, the cache is empty)
+     */
+    function isExpired() {
+    }
+
+    /**
+     * Expire the cache.
+     * 
+     * @access public
+     * @return int a status code
+     */
+    function expireCache() {
+    }
+
+    /**
+     * Rebuild the cache.
+     * 
+     * @access public
+     * @return int a status code
+     */
+    function rebuildCache() {
+    }
+
+    /**
+     * Get the size of the cached data.
+     *
+     * Get the size of the data that we're currently keeping in 
+     * the cache for this source object.  It'll be 0 if the cache
+     * has been cleared.
+     * 
+     * @access public
+     * @return int the size of the cache
+     */
+    function getCacheSize() {
+    }
+
+    /**
+     * Get name of the data file.
+     *
+     * Get the name of the data file.
+     * 
+     * @access public
+     * @return string the file name
+     */
+    function getDataFileName() {
+    }
+
+    /**
+     * Get the full path to the data file.
+     *
+     * Get the full path to the data file.
+     * 
+     * @access public
+     * @return string the file path
+     */
+    function getDataFilePath() {
+    }
+}
+?>
