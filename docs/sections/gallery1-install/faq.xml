@@ -968,6 +968,24 @@ if (!function_exists('array_search')) {
     </answer>
    </qandaentry>
    
+   <qandaentry>
+    <question>
+     <para>
+      Why, when I add edit an album or photo's text, do quotation marks appear
+      as <literal>\'</literal> (e.g. <literal>John Doe\'s Album</literal>)?
+     </para>
+    </question>
+    <answer>
+     <para>
+      Your host has <literal>magic_quotes_gpc</literal> enabled in &php.ini;  This
+      causes form variables with quotes to be escaped with backslashes.  Gallery
+      tries to turn off this functionality, but in your case, this didn't succeed.
+      You'll need to contact your host and ask them to turn this directive off, at
+      least just for your site.
+     </para>
+    </answer>
+   </qandaentry>
+   
   </qandadiv>
   
   <qandadiv>
