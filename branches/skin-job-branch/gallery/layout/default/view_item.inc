@@ -4,14 +4,16 @@
 //-- First assemble the pieces and dump them into the GLO structure
 
 //-- the blocks ---
-$xtpl_blocks = getLayoutXTemplate("blocks.xtpl");
+$pageCount = count($GLO['navigator']['pages']);
+$GLO['navigator']['pageCount'] = $pageCount;
+
+$xtpl_blocks = getLayoutXTemplate("xtpl/blocks.xtpl");
 $xtpl_blocks->assign('GLO', $GLO);
 
 //-- This divider goes between any of the blocks ---
 $xtpl_blocks->parse("divider");
 
 //-- The navigator block ---
-$pageCount = count($GLO['navigator']['pages']);
 if ($GLO['navigator']['pageNumber'] > 1) {
 	$xtpl_blocks->assign('page', $GLO['navigator']['pages'][1]);
 	$xtpl_blocks->parse("navigator.first");
@@ -77,7 +79,7 @@ $GLO['pagetitle'] = $GLO['gallery']['title'] . " :: " .
                     $GLO['album']['title'] . " :: " . 
                     $GLO['item']['id'];
 
-$xtpl_hf = getLayoutXTemplate("header_footer.xtpl");
+$xtpl_hf = getLayoutXTemplate("xtpl/header_footer.xtpl");
 $xtpl_hf->assign('GLO', $GLO);
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
@@ -92,7 +94,7 @@ $GLO['footer'] = $xtpl_hf->text("footer");
 //-- Finally do the main template ---
 //--   Note: only parse the header/footer if we are not embedded.
 
-$xtpl = getLayoutXTemplate("view_item.xtpl");
+$xtpl = getLayoutXTemplate("xtpl/view_item.xtpl");
 $xtpl->assign('GLO', $GLO);
 $xtpl->parse("view_photo");
 $xtpl->out("view_photo");
