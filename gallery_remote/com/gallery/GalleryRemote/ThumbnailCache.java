@@ -21,9 +21,9 @@
 package com.gallery.GalleryRemote;
 
 import java.io.File;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Stack;
+import java.io.IOException;
+import java.util.*;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
@@ -41,13 +41,12 @@ import com.gallery.GalleryRemote.util.GRI18n;
 public class ThumbnailCache implements Runnable
 {
 	public static final String MODULE = "ThumbCache";
-    public static GRI18n grRes = GRI18n.getInstance();
+
 
 	boolean stillRunning = false;
 	Stack toLoad = new Stack();
-	Hashtable thumbnails = new Hashtable();
+	HashMap thumbnails = new HashMap();
 	MainFrame mf;
-
 
 	/**
 	 *  Constructor for the ThumbnailCache object
@@ -65,17 +64,32 @@ public class ThumbnailCache implements Runnable
 	public void run() {
 		Thread.yield();
 		int loaded = 0;
-		mf.jStatusBar.startProgress(StatusUpdate.LEVEL_CACHE, 0, toLoad.size(), grRes.getString(MODULE, "loadThmb"), false);
+		mf.jStatusBar.startProgress(StatusUpdate.LEVEL_CACHE, 0, toLoad.size(), GRI18n.getString(MODULE, "loadThmb"), false);
 		//Log.log(Log.TRACE, MODULE, "Starting " + iFilename);
 		while ( !toLoad.isEmpty() ) {
-			String filename = (String) toLoad.pop();
+			Picture p = (Picture) toLoad.pop();
+			ImageIcon i = null;
 
-			if ( ! thumbnails.containsKey( filename ) ) {
-				ImageIcon i = ImageUtils.load(
-					filename, 
-					GalleryRemote.getInstance().properties.getThumbnailSize(), 
-					ImageUtils.THUMB );
-				thumbnails.put( filename, i );
+			if ( ! thumbnails.containsKey( p ) ) {
+				if (p.isOnline()) {
+					i = new ImageIcon(p.getUrlThumbnail());
+
+					Image scaled = null;
+					Dimension newD = ImageUtils.getSizeKeepRatio(
+							new Dimension( i.getIconWidth(), i.getIconHeight() ),
+							GalleryRemote.getInstance().properties.getThumbnailSize() );
+					scaled = i.getImage().getScaledInstance( newD.width, newD.height, Image.SCALE_FAST );
+
+					i.getImage().flush();
+					i.setImage( scaled );
+				} else {
+					i = ImageUtils.load(
+						p.getSource().getPath(),
+						GalleryRemote.getInstance().properties.getThumbnailSize(),
+						ImageUtils.THUMB );
+				}
+
+				thumbnails.put( p, i );
 				
 				loaded++;
 				
@@ -86,7 +100,7 @@ public class ThumbnailCache implements Runnable
 		}
 		stillRunning = false;
 		
-		mf.jStatusBar.stopProgress(StatusUpdate.LEVEL_CACHE, grRes.getString(MODULE, "thmbLoaded"));
+		mf.jStatusBar.stopProgress(StatusUpdate.LEVEL_CACHE, GRI18n.getString(MODULE, "thmbLoaded"));
 
 		//Log.log(Log.TRACE, MODULE, "Ending");
 	}
@@ -97,7 +111,7 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filename  path to the file
 	 */
-	public void preloadThumbnailFilename( String filename ) {
+	/*public void preloadThumbnailFilename( String filename ) {
 		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailFilename " + filename);
 		
 		if (!thumbnails.containsKey(filename)) {
@@ -105,7 +119,7 @@ public class ThumbnailCache implements Runnable
 
 			rerun();
 		}
-	}
+	}*/
 
 
 	/**
@@ -113,11 +127,11 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filename  path to the file
 	 */
-	public void preloadThumbnailFilenameFirst( String filename ) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailFilenameFirst " + filename);
+	public void preloadThumbnailFirst( Picture p ) {
+		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailFirst " + p);
 
-		if (!thumbnails.containsKey(filename)) {
-			toLoad.push( filename );
+		if (!thumbnails.containsKey(p)) {
+			toLoad.push( p );
 
 			rerun();
 		}
@@ -127,16 +141,16 @@ public class ThumbnailCache implements Runnable
 	/**
 	 *  Ask for several thumnails to be loaded
 	 *
-	 *@param  files  enumeration of Picture objects that should be loaded
+	 *@param  pictures  enumeration of Picture objects that should be loaded
 	 */
-	public void preloadThumbnailPictures( Enumeration files ) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailFilename " + files);
+	public void preloadThumbnails( Iterator pictures ) {
+		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnails " + pictures);
 
-		while ( files.hasMoreElements() ) {
-			String filename = ( (Picture) files.nextElement() ).getSource().getPath();
-			
-			if (!thumbnails.containsKey(filename)) {
-				toLoad.add( 0, filename );
+		while ( pictures.hasNext() ) {
+			Picture p = (Picture) pictures.next();
+
+			if (!thumbnails.containsKey(p)) {
+				toLoad.add( 0, p );
 			}
 		}
 
@@ -149,7 +163,7 @@ public class ThumbnailCache implements Runnable
 	 *
 	 *@param  filenames  an array of File objects
 	 */
-	public void preloadThumbnailFiles( File[] files ) {
+	/*public void preloadThumbnailFiles( File[] files ) {
 		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailPictures " + files);
 
 		for ( int i = 0; i < files.length; i++ ) {
@@ -161,14 +175,14 @@ public class ThumbnailCache implements Runnable
 		}
 
 		rerun();
-	}
+	}*/
 
 	/**
 	 * Ask for an enumeration fo file names to be loaded
 	 *
 	 * @param filenames an enumeration of String file names
 	 */
-	public void preloadThumbnailFilenames( Enumeration filenames ) {
+	/*public void preloadThumbnailFilenames( Enumeration filenames ) {
 		Log.log(Log.LEVEL_TRACE, MODULE, "preloadThumbnailFilenames " + filenames);
 
 		while ( filenames.hasMoreElements() ) {
@@ -179,12 +193,22 @@ public class ThumbnailCache implements Runnable
 		}
 
 		rerun();
-	}
+	}*/
 
 	public void reload() {
-		Enumeration e = ((Hashtable) thumbnails.clone()).keys();
+		Iterator it = ((HashMap) thumbnails.clone()).keySet().iterator();
 		thumbnails.clear();
-		preloadThumbnailFilenames(e);
+		preloadThumbnails(it);
+	}
+
+	public void flushMemory() {
+		Iterator it = thumbnails.values().iterator();
+		while (it.hasNext()) {
+			ImageIcon i = (ImageIcon) it.next();
+			i.getImage().flush();
+		}
+
+		thumbnails.clear();
 	}
 
 
@@ -208,8 +232,8 @@ public class ThumbnailCache implements Runnable
 	 *@param  filename  path to the file
 	 *@return           The thumbnail object
 	 */
-	public ImageIcon getThumbnail( String filename ) {
-		return (ImageIcon) thumbnails.get( filename );
+	public ImageIcon getThumbnail( Picture p ) {
+		return (ImageIcon) thumbnails.get( p );
 	}
 }
 

@@ -41,22 +41,19 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- *  Bean inspector for Pictures
- *
- *@author     paour
- *@created    August 16, 2002
+ * Bean inspector for Pictures
+ * 
+ * @author paour
+ * @created August 16, 2002
  */
 public class PictureInspector extends JPanel
-		implements ActionListener, DocumentListener
-{
+		implements ActionListener, DocumentListener {
 	public static final String MODULE = "PictInspec";
-    public static GRI18n grRes = GRI18n.getInstance();
 
 	HashMap extraLabels = new HashMap();
 	HashMap extraTextAreas = new HashMap();
 	String currentExtraFields = null;
 
-	GridBagLayout gridBagLayout4 = new GridBagLayout();
 	JLabel jLabel5 = new JLabel();
 	JLabel jLabel6 = new JLabel();
 	JLabel jLabel4 = new JLabel();
@@ -90,42 +87,34 @@ public class PictureInspector extends JPanel
 	static int FIRST_ROW_EXTRA = 8;
 
 	/**
-	 *  Constructor for the PictureInspector object
+	 * Constructor for the PictureInspector object
 	 */
 	public PictureInspector() {
-		try {
-			jbInit();
-			jbInitEvents();
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		}
+		jbInit();
+		jbInitEvents();
 
 		emptyIconHeight = (int) jIcon.getPreferredSize().getHeight();
 		Log.log(Log.LEVEL_TRACE, MODULE, "emptyIconHeight: " + emptyIconHeight);
 	}
 
 
-	private void jbInit()
-			throws Exception {
-		setLayout( gridBagLayout4 );
-		jLabel5.setText(grRes.getString(MODULE, "Path") );
-		jLabel6.setText(grRes.getString(MODULE, "Album") );
-		jLabel4.setText(grRes.getString(MODULE, "Caption") );
-		jLabel8.setText(grRes.getString(MODULE, "Move") );
-		jLabel1.setText(grRes.getString(MODULE, "Size") );
-		jLabel2.setText(grRes.getString(MODULE, "Delete") );
+	private void jbInit() {
+		setLayout(new GridBagLayout());
+		jLabel5.setText(GRI18n.getString(MODULE, "Path"));
+		jLabel6.setText(GRI18n.getString(MODULE, "Album"));
+		jLabel4.setText(GRI18n.getString(MODULE, "Caption"));
+		jLabel8.setText(GRI18n.getString(MODULE, "Move"));
+		jLabel1.setText(GRI18n.getString(MODULE, "Size"));
+		jLabel2.setText(GRI18n.getString(MODULE, "Delete"));
 
 		jAlbum.setRows(0);
-		jAlbum.setText("");
 		jAlbum.setEditable(false);
 		jAlbum.setFont(new java.awt.Font("SansSerif", 0, 11));
 		jAlbum.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jSize.setRows(0);
-		jSize.setText("");
 		jSize.setEditable(false);
 		jSize.setFont(new java.awt.Font("SansSerif", 0, 11));
 		jSize.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-		jCaption.setText("");
 		jCaption.setLineWrap(true);
 		jCaption.setEditable(false);
 		jCaption.setFont(new java.awt.Font("SansSerif", 0, 11));
@@ -133,34 +122,33 @@ public class PictureInspector extends JPanel
 		jPath.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jPath.setFont(new java.awt.Font("SansSerif", 0, 11));
 		jPath.setEditable(false);
-		jPath.setText("");
 		jPath.setLineWrap(true);
 
 		setupKeyboardHandling(jCaption);
 
-		jUpButton.setMaximumSize(new Dimension( 120, 23 ) );
-		jUpButton.setMinimumSize( new Dimension( 120, 23 ) );
-		jUpButton.setPreferredSize( new Dimension( 120, 23 ) );
-		jUpButton.setToolTipText(grRes.getString(MODULE, "upBtnTip"));
-		jUpButton.setText( grRes.getString(MODULE, "upBtn") );
-		jUpButton.setActionCommand( "Up" );
+		jUpButton.setMaximumSize(new Dimension(120, 23));
+		jUpButton.setMinimumSize(new Dimension(120, 23));
+		jUpButton.setPreferredSize(new Dimension(120, 23));
+		jUpButton.setToolTipText(GRI18n.getString(MODULE, "upBtnTip"));
+		jUpButton.setText(GRI18n.getString(MODULE, "upBtn"));
+		jUpButton.setActionCommand("Up");
 		jUpButton.setHorizontalAlignment(SwingConstants.LEFT);
 		jUpButton.setIcon(MainFrame.iUp);
-		jDownButton.setMaximumSize(new Dimension( 120, 23 ) );
-		jDownButton.setMinimumSize( new Dimension( 120, 23 ) );
-		jDownButton.setPreferredSize( new Dimension( 120, 23 ) );
-		jDownButton.setToolTipText(grRes.getString(MODULE, "dnBtnTip"));
-		jDownButton.setText( grRes.getString(MODULE, "dnBtn") );
-		jDownButton.setActionCommand( "Down" );
+		jDownButton.setMaximumSize(new Dimension(120, 23));
+		jDownButton.setMinimumSize(new Dimension(120, 23));
+		jDownButton.setPreferredSize(new Dimension(120, 23));
+		jDownButton.setToolTipText(GRI18n.getString(MODULE, "dnBtnTip"));
+		jDownButton.setText(GRI18n.getString(MODULE, "dnBtn"));
+		jDownButton.setActionCommand("Down");
 		jDownButton.setHorizontalAlignment(SwingConstants.LEFT);
 		jDownButton.setIcon(MainFrame.iDown);
-		jDeleteButton.setMaximumSize(new Dimension( 120, 23 ) );
-		jDeleteButton.setMinimumSize(new Dimension( 120, 23 ) );
-		jDeleteButton.setPreferredSize(new Dimension( 120, 23 ) );
-		jDeleteButton.setToolTipText(grRes.getString(MODULE, "delBtnTip"));
+		jDeleteButton.setMaximumSize(new Dimension(120, 23));
+		jDeleteButton.setMinimumSize(new Dimension(120, 23));
+		jDeleteButton.setPreferredSize(new Dimension(120, 23));
+		jDeleteButton.setToolTipText(GRI18n.getString(MODULE, "delBtnTip"));
 		jDeleteButton.setActionCommand("Delete");
 		jDeleteButton.setHorizontalAlignment(SwingConstants.LEFT);
-		jDeleteButton.setText(grRes.getString(MODULE, "Delete"));
+		jDeleteButton.setText(GRI18n.getString(MODULE, "Delete"));
 		jDeleteButton.setIcon(MainFrame.iDelete);
 
 		jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -171,65 +159,65 @@ public class PictureInspector extends JPanel
 
 		jIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		jIcon.setHorizontalTextPosition(SwingConstants.CENTER);
-		jIcon.setText(grRes.getString(MODULE, "icon"));
+		jIcon.setText(GRI18n.getString(MODULE, "icon"));
 		jIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
-		jRotateLeftButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		jRotateLeftButton.setToolTipText(grRes.getString(MODULE, "rotLtTip"));
+		jRotateLeftButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		jRotateLeftButton.setToolTipText(GRI18n.getString(MODULE, "rotLtTip"));
 		jRotateLeftButton.setActionCommand("Left");
 		jRotateLeftButton.setIcon(MainFrame.iLeft);
-		jRotateRightButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		jRotateRightButton.setToolTipText(grRes.getString(MODULE, "rotRtTip"));
+		jRotateRightButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		jRotateRightButton.setToolTipText(GRI18n.getString(MODULE, "rotRtTip"));
 		jRotateRightButton.setActionCommand("Right");
 		jRotateRightButton.setIcon(MainFrame.iRight);
-		jFlipButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		jFlipButton.setToolTipText(grRes.getString(MODULE, "flipTip"));
+		jFlipButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		jFlipButton.setToolTipText(GRI18n.getString(MODULE, "flipTip"));
 		jFlipButton.setActionCommand("Flip");
 		jFlipButton.setIcon(MainFrame.iFlip);
 
-		add( jLabel5,    new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-				,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 2, 0) );
-		add( jLabel6,   new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-				,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 2, 0) );
-		add( jLabel4,         new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 2, 0) );
-		add( jLabel8,    new GridBagConstraints(0, 4, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 2, 0) );
-		add( jLabel1,   new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-				,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(1, 0, 0, 0), 2, 0) );
-		add(jLabel2,       new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 2, 0));
-		add( jSpacer,    new GridBagConstraints(0, 20, 2, 1, 1.0, 0.1
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0) );
+		add(jLabel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+				, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 2, 0));
+		add(jLabel6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 2, 0));
+		add(jLabel4, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+				, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 5), 2, 0));
+		add(jLabel8, new GridBagConstraints(0, 4, 1, 2, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 2, 0));
+		add(jLabel1, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 2, 0));
+		add(jLabel2, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 2, 0));
+		add(jSpacer, new GridBagConstraints(0, 20, 2, 1, 1.0, 0.1
+				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-		add( jIconAreaPanel,  new GridBagConstraints(0, 0, 2, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
-		jIconAreaPanel.add(jIcon,           new GridBagConstraints(0, 1, 3, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jRotateLeftButton,     new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jFlipButton,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jRotateRightButton,  new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		add( jAlbum,  new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
-		add( jSize,  new GridBagConstraints(1, 3, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
+		add(jIconAreaPanel, new GridBagConstraints(0, 0, 2, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jIconAreaPanel.add(jIcon, new GridBagConstraints(0, 1, 3, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		jIconAreaPanel.add(jRotateLeftButton, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jIconAreaPanel.add(jFlipButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		jIconAreaPanel.add(jRotateRightButton, new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		add(jAlbum, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		add(jSize, new GridBagConstraints(1, 3, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-		add( jUpButton,     new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 0, 0, 0), 0, 0) );
-		add( jDownButton,    new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0) );
-		add(jDeleteButton,      new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 0, 0, 0), 0, 0));
-		this.add(jScrollPane1,   new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(jScrollPane2,    new GridBagConstraints(1, 7, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
+		add(jUpButton, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 0, 0, 0), 0, 0));
+		add(jDownButton, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		add(jDeleteButton, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
+				, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 0, 0, 0), 0, 0));
+		this.add(jScrollPane1, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0
+				, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(jScrollPane2, new GridBagConstraints(1, 7, 1, 1, 1.0, 1.0
+				, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 		jScrollPane1.getViewport().add(jPath, null);
 		jScrollPane2.getViewport().add(jCaption, null);
 
-		this.setMinimumSize( new Dimension( 150, 0 ) );
+		this.setMinimumSize(new Dimension(150, 0));
 	}
 
 	private void setupKeyboardHandling(JComponent c) {
@@ -245,46 +233,46 @@ public class PictureInspector extends JPanel
 	}
 
 	private void jbInitEvents() {
-		jDeleteButton.addActionListener( this );
-		jUpButton.addActionListener( this );
-		jDownButton.addActionListener( this );
-		jRotateLeftButton.addActionListener( this );
-		jRotateRightButton.addActionListener( this );
-		jFlipButton.addActionListener( this );
-		jCaption.getDocument().addDocumentListener( this );
+		jDeleteButton.addActionListener(this);
+		jUpButton.addActionListener(this);
+		jDownButton.addActionListener(this);
+		jRotateLeftButton.addActionListener(this);
+		jRotateRightButton.addActionListener(this);
+		jFlipButton.addActionListener(this);
+		jCaption.getDocument().addDocumentListener(this);
 	}
 
 	// Event handling
 	/**
-	 *  Menu and button handling
-	 *
-	 *@param  e  Action event
+	 * Menu and button handling
+	 * 
+	 * @param e Action event
 	 */
-	public void actionPerformed( ActionEvent e ) {
+	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
-		Log.log(Log.LEVEL_INFO, MODULE, "Command selected " + command );
+		Log.log(Log.LEVEL_INFO, MODULE, "Command selected " + command);
 
-		if ( command.equals( "Delete" ) ) {
+		if (command.equals("Delete")) {
 			mf.deleteSelectedPictures();
-		} else if ( command.equals( "Up" ) ) {
+		} else if (command.equals("Up")) {
 			mf.movePicturesUp();
-		} else if ( command.equals( "Down" ) ) {
+		} else if (command.equals("Down")) {
 			mf.movePicturesDown();
-		} else if ( command.equals( "Left" ) ) {
+		} else if (command.equals("Left")) {
 			for (int i = 0; i < pictures.length; i++) {
 				((Picture) pictures[i]).rotateLeft();
 			}
 			setPictures(pictures);
 			mf.repaint();
 			mf.previewFrame.repaint();
-		} else if ( command.equals( "Right" ) ) {
+		} else if (command.equals("Right")) {
 			for (int i = 0; i < pictures.length; i++) {
 				((Picture) pictures[i]).rotateRight();
 			}
 			setPictures(pictures);
 			mf.repaint();
 			mf.previewFrame.repaint();
-		} else if ( command.equals( "Flip" ) ) {
+		} else if (command.equals("Flip")) {
 			for (int i = 0; i < pictures.length; i++) {
 				((Picture) pictures[i]).flip();
 			}
@@ -295,7 +283,7 @@ public class PictureInspector extends JPanel
 	}
 
 	/**
-	 *	Caption JTextArea events.
+	 * Caption JTextArea events.
 	 */
 	public void insertUpdate(DocumentEvent e) {
 		textUpdate(e);
@@ -317,10 +305,10 @@ public class PictureInspector extends JPanel
 
 	public void textUpdate(DocumentEvent e) {
 		if (pictures != null && pictures.length == 1) {
-			Picture p = ((Picture)pictures[0]);
+			Picture p = ((Picture) pictures[0]);
 
 			if (e.getDocument() == jCaption.getDocument()) {
-				p.setCaption( jCaption.getText() );
+				p.setCaption(jCaption.getText());
 			}
 
 			Iterator it = extraTextAreas.keySet().iterator();
@@ -344,42 +332,42 @@ public class PictureInspector extends JPanel
 
 
 	/**
-	 *  Sets the mainFrame attribute of the PictureInspector object
-	 *
-	 *@param  mf  The new mainFrame value
+	 * Sets the mainFrame attribute of the PictureInspector object
+	 * 
+	 * @param mf The new mainFrame value
 	 */
-	public void setMainFrame( MainFrame mf ) {
+	public void setMainFrame(MainFrame mf) {
 		this.mf = mf;
-		jIcon.setIcon( ImageUtils.defaultThumbnail );
+		jIcon.setIcon(ImageUtils.defaultThumbnail);
 	}
 
 	/**
-	 *  Sets the picture attribute of the PictureInspector object
-	 *
-	 *@param  p  The new picture value
+	 * Sets the picture attribute of the PictureInspector object
+	 * 
+	 * @param p The new picture value
 	 */
-	public void setPictures( Object[] pictures ) {
+	public void setPictures(Object[] pictures) {
 		//Log.log(Log.TRACE, MODULE, "setPictures " + pictures);
 		//Log.logStack(Log.TRACE, MODULE);
 		this.pictures = pictures;
 
 		jIcon.setPreferredSize(
-				new Dimension( 0,
+				new Dimension(0,
 						GalleryRemote.getInstance().properties.getThumbnailSize().height
 				+ emptyIconHeight
-				+ jIcon.getIconTextGap() ) );
+				+ jIcon.getIconTextGap()));
 
-		if ( pictures == null || pictures.length == 0 ) {
-			jIcon.setText(grRes.getString(MODULE, "noPicSel"));
-			jIcon.setIcon( ImageUtils.defaultThumbnail );
-			jPath.setText( "" );
-			jAlbum.setText( "" );
+		if (pictures == null || pictures.length == 0) {
+			jIcon.setText(GRI18n.getString(MODULE, "noPicSel"));
+			jIcon.setIcon(ImageUtils.defaultThumbnail);
+			jPath.setText("");
+			jAlbum.setText("");
 
-			jCaption.setText( "" );
+			jCaption.setText("");
 			jCaption.setEditable(false);
 			jCaption.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 
-			jSize.setText( "" );
+			jSize.setText("");
 
 			jUpButton.setEnabled(false);
 			jDownButton.setEnabled(false);
@@ -389,20 +377,25 @@ public class PictureInspector extends JPanel
 			jFlipButton.setEnabled(false);
 
 			removeExtraFields();
-		} else if ( pictures.length == 1) {
+		} else if (pictures.length == 1) {
 			Picture p = (Picture) pictures[0];
 
-			jIcon.setText( p.getSource().getName() );
-			jIcon.setIcon( mf.getThumbnail( p ) );
-			jPath.setText( p.getSource().getParent() );
-			jAlbum.setText( p.getAlbum().getTitle() );
-			if (p.getAlbum().getGallery().getComm( mf.jStatusBar ).hasCapability(GalleryCommCapabilities.CAPA_UPLOAD_CAPTION)) {
-				jCaption.setText( p.getCaption() );
+			jIcon.setIcon(mf.getThumbnail(p));
+			if (p.isOnline()) {
+				jPath.setText(GRI18n.getString(MODULE, "onServer"));
+				jIcon.setText(p.getName());
+			} else {
+				jIcon.setText(p.getSource().getName());
+				jPath.setText(p.getSource().getParent());
+			}
+			jAlbum.setText(p.getAlbum().getTitle());
+			if (p.getAlbum().getGallery().getComm(mf.jStatusBar).hasCapability(GalleryCommCapabilities.CAPA_UPLOAD_CAPTION)) {
+				jCaption.setText(p.getCaption());
 				jCaption.setEditable(true);
 				jCaption.setBackground(UIManager.getColor("TextField.background"));
 			}
-			jSize.setText( NumberFormat.getInstance().format(
-					(int) p.getFileSize() ) + " bytes" );
+			jSize.setText(NumberFormat.getInstance().format(
+					(int) p.getFileSize()) + " bytes");
 
 			jUpButton.setEnabled(isEnabled());
 			jDownButton.setEnabled(isEnabled());
@@ -415,16 +408,16 @@ public class PictureInspector extends JPanel
 		} else {
 			Picture p = (Picture) pictures[0];
 
-            Object [] params = {new Integer(pictures.length) };
-			jIcon.setText( grRes.getString(MODULE, "countElemSel", params) );
-			jIcon.setIcon( ImageUtils.defaultThumbnail );
-			jPath.setText( "" );
-			jAlbum.setText( p.getAlbum().getTitle() );
-			jCaption.setText( "" );
+			Object[] params = {new Integer(pictures.length)};
+			jIcon.setText(GRI18n.getString(MODULE, "countElemSel", params));
+			jIcon.setIcon(ImageUtils.defaultThumbnail);
+			jPath.setText("");
+			jAlbum.setText(p.getAlbum().getTitle());
+			jCaption.setText("");
 			jCaption.setEditable(false);
 			jCaption.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-			jSize.setText( NumberFormat.getInstance().format(
-					Album.getObjectFileSize(pictures) ) + " bytes" );
+			jSize.setText(NumberFormat.getInstance().format(
+					Album.getObjectFileSize(pictures)) + " bytes");
 
 			jUpButton.setEnabled(isEnabled());
 			jDownButton.setEnabled(isEnabled());
@@ -443,7 +436,7 @@ public class PictureInspector extends JPanel
 		if (newExtraFields == null) {
 			removeExtraFields();
 		} else {
-			if (! newExtraFields.equals(currentExtraFields)) {
+			if (!newExtraFields.equals(currentExtraFields)) {
 				removeExtraFields();
 
 				int i = 0;
@@ -454,14 +447,14 @@ public class PictureInspector extends JPanel
 
 					JLabel label = new JLabel(name);
 					extraLabels.put(name, label);
-					add( label,   new GridBagConstraints(0, FIRST_ROW_EXTRA + i, 1, 1, 0.0, 0.0
-							,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 2, 0) );
+					add(label, new GridBagConstraints(0, FIRST_ROW_EXTRA + i, 1, 1, 0.0, 0.0
+							, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 2, 0));
 
 					JTextArea field = new JTextArea();
 					extraTextAreas.put(name, field);
 					field.setFont(new java.awt.Font("SansSerif", 0, 11));
-					add( field,  new GridBagConstraints(1, FIRST_ROW_EXTRA + i, 1, 1, 1.0, 1.0
-							,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0) );
+					add(field, new GridBagConstraints(1, FIRST_ROW_EXTRA + i, 1, 1, 1.0, 1.0
+							, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 0, 0), 0, 0));
 					field.getDocument().addDocumentListener(this);
 					setupKeyboardHandling(field);
 
@@ -516,21 +509,21 @@ public class PictureInspector extends JPanel
 	}
 
 	// Focus traversal actions
-    public Action nextFocusAction = new AbstractAction("Move Focus Forwards") {
-        public void actionPerformed(ActionEvent evt) {
-            ((Component)evt.getSource()).transferFocus();
-        }
-    };
+	public Action nextFocusAction = new AbstractAction("Move Focus Forwards") {
+		public void actionPerformed(ActionEvent evt) {
+			((Component) evt.getSource()).transferFocus();
+		}
+	};
 
-    public Action prevFocusAction = new AbstractAction("Move Focus Backwards") {
-        public void actionPerformed(ActionEvent evt) {
+	public Action prevFocusAction = new AbstractAction("Move Focus Backwards") {
+		public void actionPerformed(ActionEvent evt) {
 			try {
-				((Component)evt.getSource()).transferFocusBackward();
+				((Component) evt.getSource()).transferFocusBackward();
 			} catch (NoSuchMethodError e) {
 				Log.log(Log.LEVEL_ERROR, MODULE, "Can't transfer focus backwards on 1.3");
 			}
-        }
-    };
+		}
+	};
 
 	public Action nextPictureAction = new AbstractAction("Select Next Picture") {
 		public void actionPerformed(ActionEvent evt) {
