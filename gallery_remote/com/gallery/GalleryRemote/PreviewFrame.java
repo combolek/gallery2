@@ -30,20 +30,17 @@ import javax.swing.border.*;
 import java.util.*;
 
 public class PreviewFrame extends javax.swing.JFrame {
-	public static final String MODULE = "PreviewFrame";
-	
 	SmartHashtable imageIcons = new SmartHashtable();
 	ImageIcon currentImage = null;
 	String currentImageFile = null;
 	PreviewLoader previewLoader = new PreviewLoader();
 	int previewCacheSize = 10;
 
-	public void initComponents()
+	public void initComponents(Properties mPropertiesFile)
 	{
 		setTitle("Preview");
 		
-		setBounds(GalleryRemote.getInstance().properties.getPreviewBounds());
-		/*if (mPropertiesFile.getProperty("previewx") == null || mPropertiesFile.getProperty("previewy") == null)
+		if (mPropertiesFile.getProperty("previewx") == null || mPropertiesFile.getProperty("previewy") == null)
 		{
 			setLocation(new java.awt.Point(578, 0));
 		}
@@ -59,7 +56,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 		else
 		{
 			setSize(new java.awt.Dimension(Integer.parseInt(mPropertiesFile.getProperty("previewwidth")), Integer.parseInt(mPropertiesFile.getProperty("previewheight"))));
-		}*/
+		}
 		
 		addComponentListener(new ComponentAdapter()
 			{
@@ -70,8 +67,10 @@ public class PreviewFrame extends javax.swing.JFrame {
 			}
 		);
 		
-		previewCacheSize = GalleryRemote.getInstance().properties.getIntProperty("previewCacheSize");
-
+		if (mPropertiesFile.getProperty("previewcachesize") != null)
+		{
+			previewCacheSize = Integer.parseInt(mPropertiesFile.getProperty("previewcachesize"));
+		}
 	}
 	
 	public void paint(Graphics g)
@@ -131,7 +130,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 		
 		public void run()
 		{
-			Log.log(Log.TRACE, MODULE, "Starting " + iFilename);
+			//System.out.println("Starting " + iFilename);
 			while (iFilename != null)
 			{
 				String tmpFilename;
@@ -146,19 +145,19 @@ public class PreviewFrame extends javax.swing.JFrame {
 			stillRunning = false;
 
 			repaint();
-			Log.log(Log.TRACE, MODULE, "Ending");
+			//System.out.println("Ending");
 		}
 		
 		public void loadPreview(String filename)
 		{
-			Log.log(Log.TRACE, MODULE, "loadPreview " + filename);
+			//System.out.println("loadPreview " + filename);
 			
 			iFilename = filename;
 			
 			if (! stillRunning)
 			{
 				stillRunning = true;
-				Log.log(Log.TRACE, MODULE,"Calling Start");
+				//System.out.println("Calling Start");
 				new Thread(this).start();
 			}
 		}
@@ -166,28 +165,28 @@ public class PreviewFrame extends javax.swing.JFrame {
 	
 	public ImageIcon safeNewImageIcon(String filename)
 	{
-		Log.log(Log.TRACE, MODULE, "safeNewImageIcon " + filename);
-		Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+		//System.out.println("safeNewImageIcon " + filename);
+		//System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 		try
 		{
 			return new ImageIcon(filename);
 		}
 		catch (OutOfMemoryError e)
 		{
-			Log.log(Log.ERROR, MODULE, "Caught out of memory error in safeNewImageIcon");
+			//System.out.println("Caught error");
 			imageIcons.shrink();
 			return safeNewImageIcon(filename);
 		}
 		finally
 		{
-			Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+			//System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 		}
 	}
 	
 	public Image safeGetScaledInstance(Image image, int width, int height, int mode)
 	{
-		Log.log(Log.TRACE, MODULE, "safeGetScaledInstance");
-		Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+		System.out.println("safeGetScaledInstance");
+		System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 		try
 		{
 			Image result = image.getScaledInstance(width, height, mode);
@@ -196,13 +195,13 @@ public class PreviewFrame extends javax.swing.JFrame {
 		}
 		catch (OutOfMemoryError e)
 		{
-			Log.log(Log.ERROR, MODULE, "Caught out of memory error in safeGetScaledInstance");
+			//System.out.println("Caught error");
 			imageIcons.shrink();
 			return safeGetScaledInstance(image, width, height, mode);
 		}
 		finally
 		{
-			Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+			System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 		}
 	}
 	
@@ -236,7 +235,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 			touch(key);
 			super.put(key, value);
 			
-			Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+			System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 			if (Runtime.getRuntime().freeMemory() < 2000000)
 			{
 				shrink();
@@ -246,7 +245,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 			{
 				shrink();
 			}
-			Log.log(Log.TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
+			System.out.println(Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 			
 			return value;
 		}
@@ -271,7 +270,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 		
 		public void touch(Object key)
 		{
-			Log.log(Log.TRACE, MODULE, "touch " + key);
+			//System.out.println("touch " + key);
 			int i = touchOrder.indexOf(key);
 			
 			if (i != -1)
@@ -284,10 +283,10 @@ public class PreviewFrame extends javax.swing.JFrame {
 		
 		public void shrink()
 		{
-			Log.log(Log.TRACE, MODULE, "shrink");
+			System.out.println("shrink");
 			if (touchOrder.size() == 0)
 			{
-				Log.log(Log.ERROR, MODULE, "Empty SmartHashtable");
+				System.out.println("Empty SmartHashtable");
 				//throw new OutOfMemoryError();
 				return;
 			}
