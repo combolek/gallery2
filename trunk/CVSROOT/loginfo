@@ -25,4 +25,4 @@
 # or
 # DEFAULT	(echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 ALL	python $CVSROOT/CVSROOT/syncmail %{sVv} gallery-checkins@lists.sourceforge.net
-
+ALL     $CVSROOT/CVSROOT/ciabot.pl %s $USER
