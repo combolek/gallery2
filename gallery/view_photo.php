@@ -299,7 +299,7 @@ if (!$gallery->album->isMovie($id)) {
 }
 
 //-- The page navigation info ---
-$navIds = $gallery->album->getIds($gallery->user->canWriteToAlbum($gallery->album));
+$navIds = $gallery->album->getIds($gallery->user);
 $navPageCount = sizeof($navIds);
 $navPage = $navPageCount;
 while ($navPage > 0) { // looking for the index among the 'visible' items
@@ -317,16 +317,35 @@ foreach ($navIds as $navId) {
 
 //-- the breadcrumb info ---
 $breadCount = 0;
-if (strcmp($gallery->album->fields["returnto"], "no")) {
-	$breadCount++;
-	$breadLevels[$breadCount]['level'] = "Gallery";
-	$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-	$breadLevels[$breadCount]['href'] = makeGalleryUrl();
-}
-$breadCount++;
 $breadLevels[$breadCount]['level'] = "Album";
 $breadLevels[$breadCount]['name'] = $gallery->album->fields["title"];
 $breadLevels[$breadCount]['href'] = makeGalleryUrl($gallery->session->albumName, "", "page=$page");
+$breadCount++;
+$pAlbum = $gallery->album;
+do {
+    if (!strcmp($pAlbum->fields["returnto"], "no")) {
+        break;
+    }   
+    $pAlbumName = $pAlbum->fields['parentAlbumName'];
+    if ($pAlbumName) {
+        $pAlbum = $albumDB->getAlbumByName($pAlbumName);
+        $breadLevels[$breadCount]['level'] = "Album";
+        $breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
+        $breadLevels[$breadCount]['href'] = makeGalleryUrl($pAlbumName);
+    } else { 
+        //-- we're at the top! ---
+        $breadLevels[$breadCount]['level'] = "Gallery";
+        $breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
+        $breadLevels[$breadCount]['href'] = makeGalleryUrl();
+    }
+    $breadCount++;
+    if ($pAlbum) {
+    }
+} while ($pAlbumName);
+
+//-- we built the array backwards, so reverse it now ---
+//-- XXX we have to zero-index this array to make it work ---
+$breadLevels = array_reverse($breadLevels, false);
 
 //-- XXX - I think we should add current page to breadcrumb??? ---
 //$breadCount++;
