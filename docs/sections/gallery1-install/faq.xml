@@ -591,6 +591,14 @@ echo ini_get("disable_functions");
        </listitem>
        <listitem>
         <para>
+         Locate the temporary directory specified in php.ini, or as specified
+         in the paragraph above, and remove the sess_* files.  If Apache/PHP leave stale
+         session files in the temporary directory, errors can occur when trying to
+         create the session, and not logging in is the symptom.
+        </para>
+       </listitem>
+       <listitem>
+        <para>
          Make sure that the <literal>session.use_cookies</literal> setting is on
          in &php.ini;.  It defaults to on, but your host may
          have turned it off.  You can verify the setting by putting Gallery into
