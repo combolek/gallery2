@@ -403,6 +403,19 @@ class MatrixLayout extends GalleryLayout {
 	    $navigator['last'] = $peerIds[sizeof($peerIds)-1];
 	}
 
+	/* Load a few peers around us */
+	$peers = array();
+	for ($i = max($itemIndex-3, 0); $i <= min($itemIndex+3, sizeof($peerIds)-1); $i++) {
+	    $peers[] = $peerIds[$i];
+	}
+	list ($ret, $peers) = $gallery->loadEntitiesById($peers);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	for ($i = 0; $i < sizeof($peers); $i++) {
+	    $peers[$i] = $peers[$i]->getMemberData();
+	}
+
 	/* Load the parents */
 	list ($ret, $parents) = $item->fetchParents();
 	if ($ret->isError()) {
@@ -452,6 +465,12 @@ class MatrixLayout extends GalleryLayout {
 	$layout['moduleItemDetailFiles'] = $moduleItemDetailFiles;
 	$layout['baseUrl'] = GalleryUtilities::convertPathToRelativeUrl(dirname(__FILE__));
 	$layout['parents'] = $parents;
+	$layout['peers'] = $peers;
+	if (!empty($parents)) {
+	    $layout['parent'] = $parents[sizeof($parents)-1];
+	} else {
+	    $layout['parent'] = null;
+	}
 	$layout['item'] = $item->getMemberData();
 	$layout['itemIndex'] = $itemIndex+1;
 	$layout['imageViews'] = $imageViews;

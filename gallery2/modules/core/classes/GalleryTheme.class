@@ -176,6 +176,10 @@ class GalleryTheme {
 	return array(GalleryStatus::success(), $theme);
     }
     
+    /*************************************************************
+     * Built-in theme methods
+     *************************************************************/
+
     /**
      * Return an HTML form 
      *

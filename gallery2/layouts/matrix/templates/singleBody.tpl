@@ -35,6 +35,33 @@
       {/gallery->listingbox}
 
       {* List of peer items *}
+      {gallery->detailedbox}
+	{gallery->title}
+	  {$layout.parent.title|default:$layout.parent.pathComponent}
+	{/gallery->title}
+	{gallery->description}
+	  {gallery->textmodifier}
+	    {gallery->text one="(%d item)" many="(%d items)" count=$layout.totalPeerCount arg1=$layout.totalPeerCount}
+	  {/gallery->textmodifier}
+	{/gallery->description}
+	{gallery->body}
+	  {gallery->listingbox}
+	    {foreach from=$layout.peers item=peer}
+	      {if ($peer.id == $layout.item.id)}
+		{gallery->item selected="true"}
+		  {$peer.title}
+		{/gallery->item}
+	      {else}
+		{gallery->item}
+		  {gallery->link url_view="core:ShowItem" url_itemId=$peer.id}
+		    {$peer.title}
+		  {/gallery->link}
+		{/gallery->item}
+	      {/if}
+	    {/foreach}
+	  {/gallery->listingbox}
+	{/gallery->body}
+      {/gallery->detailedbox}
 
       {* Extra modules system content *}
       {foreach from=$layout.moduleSystemContentFiles key=moduleName item=moduleFile}
