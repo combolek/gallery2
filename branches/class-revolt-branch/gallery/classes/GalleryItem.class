@@ -28,6 +28,8 @@
  * That capacity can be enabled or disabled by subclasses of
  * GalleryItem.
  *
+ * @gallery metainfo
+ *
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -43,12 +45,18 @@ class GalleryItem extends GalleryNucleus {
     /**
      * An ordered list of 0+ GalleryItem children contained by this item
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_LIST
+     *
      * @var object GalleryList $_childIds
      */
     var $_childIds;
 
     /**
      * An ordered list of 0+ CommentContainer ids.
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_LIST
      *
      * @var object GalleryList $_commentIds
      */
@@ -57,12 +65,18 @@ class GalleryItem extends GalleryNucleus {
     /**
      * The (long) description of this item
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TEXT
+     *
      * @var int $_description;
      */
     var $_description;
 
     /**
      * Is HTML allowed in this item's title and description?
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
      *
      * @var int $_isHtmlAllowed;
      */
@@ -71,12 +85,20 @@ class GalleryItem extends GalleryNucleus {
     /**
      * A set of keywords that describe this item
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_LARGE
+     *
      * @var int $_keywords;
      */
     var $_keywords;
 
     /**
      * The id of the User who owns this item
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     * @gallery flag STORAGE_MODIFIER_REQUIRED
      *
      * @var int $_ownerId
      */
@@ -88,12 +110,18 @@ class GalleryItem extends GalleryNucleus {
      * This area is reserved for extensions to Gallery.  Any string data can be
      * stored in this table.
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_MAP
+     *
      * @var object GalleryMap $_properties
      */
     var $_properties;
 
     /**
      * The id of the ImageContainer containing this GalleryItem's thumbnail
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var int $_thumbnailId
      */
@@ -102,12 +130,20 @@ class GalleryItem extends GalleryNucleus {
     /**
      * The (short) title of this item
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TIMESTAMP
+     * @gallery flag STORAGE_MODIFIER_REQUIRED
+     *
      * @var int $_title;
      */
     var $_title;
 
     /**
      * How many times this item has been viewed
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     * @gallery flag
      *
      * @var int $_viewCount;
      */
@@ -116,12 +152,19 @@ class GalleryItem extends GalleryNucleus {
     /**
      * Date and time marking the beginning of the view count
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TIMESTAMP
+     * @gallery flag STORAGE_MODIFIER_REQUIRED
+     *
      * @var int $_viewedSinceTimestamp;
      */
     var $_viewedSinceTimestamp;
  
     /**
      * A GalleryMap of usernames mapped to allowed permissions
+     *
+     * @gallery persistent (no accessors)
+     * @gallery flag STORAGE_TYPE_MAP
      *
      * @var object GalleryMap $_allowedPermissions;
      * @private
@@ -130,6 +173,9 @@ class GalleryItem extends GalleryNucleus {
     
     /**
      * A GalleryMap of usernames mapped to denied permissions
+     *
+     * @gallery persistent (no accessors)
+     * @gallery flag STORAGE_TYPE_MAP
      *
      * @var object GalleryMap $_deniedPermissions;
      * @private
@@ -252,60 +298,6 @@ class GalleryItem extends GalleryNucleus {
     function adjustTotalChildCount() {
 	// See comment in getLocalChildCount();
     	assert('false');
-    }
-
-    /**
-     * Get the list of children ids
-     *
-     * If this item is allowed to have children, return the list of child ids
-     * it contains that are visible to the active user.  Else, return an empty
-     * array.
-     *
-     * @access public
-     * @return array a list of 0+ GalleryItem ids
-     */
-    function getChildItemIds() {
-	return $this->_childIds->toArray();
-    }
-
-    /**
-     * Add a specific item as a child of this item.  
-     *
-     * This is only legal if this item is allowed to have children.  If the
-     * child item already has a parent, it is removed from that other parent if
-     * it's successfully added to this one.
-     *
-     * Move all non-derived DataContainers of the child item from their old
-     * location to the new one as part of this process.
-     *
-     * @access public
-     * @param object GalleryItem the child item
-     * @return int a status code
-     */
-    function addItem($item) {
-	if (!$this->canContainChildren()) {
-	    return ERROR | ERROR_INVALID_OPERATION;
-	}
-	
-	$this->_childIds->addUnique($item->getId());
-	$this->modifyPersistentMember("childIds");
-    }
-
-    /**
-     * Remove the specified child item
-     *
-     * This is only legal if this item is allowed to have children.
-     *
-     * @access public
-     * @param string the child item's id
-     */
-    function removeItem($id) {
-	if (!$this->canContainChildren()) {
-	    return ERROR | ERROR_INVALID_OPERATION;
-	}
-	
-	$this->_childIds->removeValue($item->getId());
-	$this->modifyPersistentMember("childIds");
     }
 
     /**
@@ -493,38 +485,61 @@ class GalleryItem extends GalleryNucleus {
     function save() {
 	return parent::save();
     }
-    
-    /*
-     * ============================================================
-     * BEGIN: Accessor methods
-     *   Don't modify anything inside this block as it will get
-     *   overwritten by the code that generates these accessor
-     *   methods.
-     * ============================================================
-     */
+
+    /* BEGIN: Accessor Block.  DO NOT MODIFY! */
     
     /**
-     * Get a reference to childIds
-     * 
-     * Return a reference to the actual instance of childIds
-     * 
-     * @access public
-     * @return object GalleryList the childIds
+     * Return the meta class information about this class
+     *
+     * @return array member => array(type, class)
      */
-    function getChildIds() {
-        return $this->_childIds;
-    }
+    function getMetaInfo() {
+        $meta = parent::getMetaInfo();
+        $meta['isHtmlAllowed'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['description'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_TEXT);
+        $meta['childIds'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_LIST);
+        $meta['title'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_TIMESTAMP |
+                      STORAGE_MODIFIER_REQUIRED);
+        $meta['commentIds'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_LIST);
+        $meta['viewCount'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['deniedPermissions'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_MAP);
+        $meta['thumbnailId'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['allowedPermissions'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_MAP);
+        $meta['viewedSinceTimestamp'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_TIMESTAMP |
+                      STORAGE_MODIFIER_REQUIRED);
+        $meta['keywords'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_LARGE);
+        $meta['properties'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_MAP);
+        $meta['ownerId'] = array(
+            'class' => 'GalleryItem',
+            'type' => STORAGE_TYPE_INTEGER |
+                      STORAGE_MODIFIER_REQUIRED);
     
-    /**
-     * Get a reference to commentIds
-     * 
-     * Return a reference to the actual instance of commentIds
-     * 
-     * @access public
-     * @return object GalleryList the commentIds
-     */
-    function getCommentIds() {
-        return $this->_commentIds;
+        return $meta;
     }
     
     /**
@@ -616,18 +631,6 @@ class GalleryItem extends GalleryNucleus {
     }
     
     /**
-     * Get a reference to properties
-     * 
-     * Return a reference to the actual instance of properties
-     * 
-     * @access public
-     * @return object GalleryMap the properties
-     */
-    function getProperties() {
-        return $this->_properties;
-    }
-    
-    /**
      * Set the value of thumbnailId
      * 
      * @param int the new value for thumbnailId
@@ -652,7 +655,7 @@ class GalleryItem extends GalleryNucleus {
     /**
      * Set the value of title
      * 
-     * @param string the new value for title
+     * @param int the new value for title
      * @access public
      */
     function setTitle($value) {
@@ -665,7 +668,7 @@ class GalleryItem extends GalleryNucleus {
      * Get the value of title
      * 
      * @access public
-     * @return string the current value of title
+     * @return int the current value of title
      */
     function getTitle() {
         return $this->_title;
@@ -715,10 +718,7 @@ class GalleryItem extends GalleryNucleus {
         return $this->_viewedSinceTimestamp;
     }
     
-    /*
-     * ============================================================
-     * END: Accessor methods
-     * ============================================================
-     */
+    
+    /* END: Accessor Block.  DO NOT MODIFY! */
 }
 ?>

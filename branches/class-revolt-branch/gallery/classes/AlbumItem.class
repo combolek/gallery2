@@ -25,6 +25,8 @@
  * displaying item groups and is allowed to contain other
  * GalleryItems.
  *
+ * @gallery metainfo
+ *
  * @version $Id$
  * @package GalleryCore
  * @author Bharat Mediratta <bharat@menalto.com>
@@ -39,6 +41,10 @@ class AlbumItem extends GalleryItem {
     /**
      * Primary background color
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
+     *
      * @var string $_backgroundColor;
      */
     var $_backgroundColor;
@@ -47,12 +53,19 @@ class AlbumItem extends GalleryItem {
     /**
      * Secondary background color
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
+     *
      * @var string $_backgroundColor2
      */
     var $_backgroundColor2;
 
     /**
      * Amount of table border
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var string $_border
      */
@@ -61,12 +74,19 @@ class AlbumItem extends GalleryItem {
     /**
      * Color of border
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
+     *
      * @var string $_borderColor
      */
     var $_borderColor;
 
     /**
      * Number of columns to show
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var int $_columns
      */
@@ -75,12 +95,19 @@ class AlbumItem extends GalleryItem {
     /**
      * Show view counts for my items?
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
+     *
      * @var bool $_displayViewCount
      */
     var $_displayViewCount;
 
     /**
      * Font name
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
      *
      * @var string $_font
      */
@@ -89,12 +116,18 @@ class AlbumItem extends GalleryItem {
     /**
      * The html_footer to use for this album
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TEXT
+     *
      * @var string $_htmlFooter
      */
     var $_htmlFooter;
 
     /**
      * The html_header to use for this album
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_TEXT
      *
      * @var string $_htmlHeader
      */
@@ -103,12 +136,20 @@ class AlbumItem extends GalleryItem {
     /**
      * The layout to use for this album
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
+     *
      * @var string $_layout
      */
     var $_layout;
 
     /**
      * Link color
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
      *
      * @var string $_linkColor
      */
@@ -117,12 +158,18 @@ class AlbumItem extends GalleryItem {
     /**
      * Allow printing?
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
+     *
      * @var bool $_allowPrinting
      */
     var $_allowPrinting;
 
     /**
      * Target size of the intermediate image
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
      *
      * @var integer $_resizeSize
      */
@@ -131,6 +178,9 @@ class AlbumItem extends GalleryItem {
     /**
      * Number of rows to show
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
      * @var int $_rows
      */
     var $_rows;
@@ -138,12 +188,39 @@ class AlbumItem extends GalleryItem {
     /**
      * Whether or not to show the breadcrumb links
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
+     *
      * @var boolean $_showBreadCrumb
      */
     var $_showBreadCrumb;
 
     /**
+     * The sort direction
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
+     * @var boolean $_sortDirection
+     */
+    var $_sortDirection;
+
+    /**
+     * The property we're sorting on 
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
+     * @var boolean $_sortProperty
+     */
+    var $_sortProperty;
+
+    /**
      * Text color
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_STRING
+     * @gallery flag STORAGE_MODIFIER_SMALL
      *
      * @var string $_textColor
      */
@@ -152,12 +229,18 @@ class AlbumItem extends GalleryItem {
     /**
      * Target size of thumbnails inside this album
      *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_INTEGER
+     *
      * @var integer $_thumbSize
      */
     var $_thumbSize;
 
     /**
      * Allow user to view extended data?
+     *
+     * @gallery persistent
+     * @gallery flag STORAGE_TYPE_BOOLEAN
      *
      * @var bool $_viewExtendedData
      */
@@ -264,31 +347,6 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
-     * Specify this AlbumItem sort style
-     *
-     * Specify that this AlbumItem's contents always be sorted by the property
-     * and style provided.
-     *
-     * @access public
-     * @param string the name of a sort property.  Can be any standard
-     *               PROPERTY_* except PROPERTY_VIEWCOUNT.
-     * @param string SORT_ASCENDING or SORT_DESCENDING
-     */
-    function setSort($property, $style) {
-    }
-
-    /**
-     * Turn off sorting for this AlbumItem
-     *
-     * The order of the items remains the same, but any further changes will
-     * not force a re-sort.
-     *
-     * @access public
-     */
-    function removeSort() {
-    }
-
-    /**
      * Set this as a root album
      *
      * Attempt to take over maintaining the top of the album tree.  Check the
@@ -312,19 +370,90 @@ class AlbumItem extends GalleryItem {
 	return ($this->getId() == $gallery->getRootAlbumItemId());
     }
     
-    /*
-     * ============================================================
-     * BEGIN: Accessor methods
-     *   Don't modify anything inside this block as it will get
-     *   overwritten by the code that generates these accessor
-     *   methods.
-     * ============================================================
+    /* BEGIN: Accessor Block.  DO NOT MODIFY! */
+    
+    /**
+     * Return the meta class information about this class
+     *
+     * @return array member => array(type, class)
      */
+    function getMetaInfo() {
+        $meta = parent::getMetaInfo();
+        $meta['font'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['backgroundColor2'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['rows'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['htmlFooter'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_TEXT);
+        $meta['sortProperty'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['columns'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['resizeSize'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['backgroundColor'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['layout'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['sortDirection'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['htmlHeader'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_TEXT);
+        $meta['linkColor'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['allowPrinting'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['textColor'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+        $meta['border'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['thumbSize'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_INTEGER);
+        $meta['viewExtendedData'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['showBreadCrumb'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['displayViewCount'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_BOOLEAN);
+        $meta['borderColor'] = array(
+            'class' => 'AlbumItem',
+            'type' => STORAGE_TYPE_STRING |
+                      STORAGE_MODIFIER_SMALL);
+    
+        return $meta;
+    }
     
     /**
      * Set the value of allowPrinting
      * 
-     * @param  the new value for allowPrinting
+     * @param bool the new value for allowPrinting
      * @access public
      */
     function setAllowPrinting($value) {
@@ -337,7 +466,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of allowPrinting
      * 
      * @access public
-     * @return  the current value of allowPrinting
+     * @return bool the current value of allowPrinting
      */
     function getAllowPrinting() {
         return $this->_allowPrinting;
@@ -390,7 +519,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of border
      * 
-     * @param string the new value for border
+     * @param int the new value for border
      * @access public
      */
     function setBorder($value) {
@@ -403,7 +532,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of border
      * 
      * @access public
-     * @return string the current value of border
+     * @return int the current value of border
      */
     function getBorder() {
         return $this->_border;
@@ -412,7 +541,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of borderColor
      * 
-     * @param integer the new value for borderColor
+     * @param string the new value for borderColor
      * @access public
      */
     function setBorderColor($value) {
@@ -425,7 +554,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of borderColor
      * 
      * @access public
-     * @return integer the current value of borderColor
+     * @return string the current value of borderColor
      */
     function getBorderColor() {
         return $this->_borderColor;
@@ -588,7 +717,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of resizeSize
      * 
-     * @param integer the new value for resizeSize
+     * @param int the new value for resizeSize
      * @access public
      */
     function setResizeSize($value) {
@@ -601,7 +730,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of resizeSize
      * 
      * @access public
-     * @return integer the current value of resizeSize
+     * @return int the current value of resizeSize
      */
     function getResizeSize() {
         return $this->_resizeSize;
@@ -632,7 +761,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of showBreadCrumb
      * 
-     * @param boolean the new value for showBreadCrumb
+     * @param bool the new value for showBreadCrumb
      * @access public
      */
     function setShowBreadCrumb($value) {
@@ -645,10 +774,54 @@ class AlbumItem extends GalleryItem {
      * Get the value of showBreadCrumb
      * 
      * @access public
-     * @return boolean the current value of showBreadCrumb
+     * @return bool the current value of showBreadCrumb
      */
     function getShowBreadCrumb() {
         return $this->_showBreadCrumb;
+    }
+    
+    /**
+     * Set the value of sortDirection
+     * 
+     * @param int the new value for sortDirection
+     * @access public
+     */
+    function setSortDirection($value) {
+        assert('isset($value)');
+        $this->_sortDirection = $value;
+        $this->modifyPersistentMember('sortDirection');
+    }
+    
+    /**
+     * Get the value of sortDirection
+     * 
+     * @access public
+     * @return int the current value of sortDirection
+     */
+    function getSortDirection() {
+        return $this->_sortDirection;
+    }
+    
+    /**
+     * Set the value of sortProperty
+     * 
+     * @param int the new value for sortProperty
+     * @access public
+     */
+    function setSortProperty($value) {
+        assert('isset($value)');
+        $this->_sortProperty = $value;
+        $this->modifyPersistentMember('sortProperty');
+    }
+    
+    /**
+     * Get the value of sortProperty
+     * 
+     * @access public
+     * @return int the current value of sortProperty
+     */
+    function getSortProperty() {
+        return $this->_sortProperty;
     }
     
     /**
@@ -676,7 +849,7 @@ class AlbumItem extends GalleryItem {
     /**
      * Set the value of thumbSize
      * 
-     * @param integer the new value for thumbSize
+     * @param int the new value for thumbSize
      * @access public
      */
     function setThumbSize($value) {
@@ -689,7 +862,7 @@ class AlbumItem extends GalleryItem {
      * Get the value of thumbSize
      * 
      * @access public
-     * @return integer the current value of thumbSize
+     * @return int the current value of thumbSize
      */
     function getThumbSize() {
         return $this->_thumbSize;
@@ -717,10 +890,7 @@ class AlbumItem extends GalleryItem {
         return $this->_viewExtendedData;
     }
     
-    /*
-     * ============================================================
-     * END: Accessor methods
-     * ============================================================
-     */
+    
+    /* END: Accessor Block.  DO NOT MODIFY! */
 }
 ?>
