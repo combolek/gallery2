@@ -33,6 +33,7 @@ class UnixPlatform extends GalleryPlatform {
      *
      * @param string neutral path
      * @return string platform specific path
+     * @public
      */
     function importPath($path) {
 
@@ -45,6 +46,7 @@ class UnixPlatform extends GalleryPlatform {
      *
      * @param string platform specific path
      * @return string neutral path
+     * @public
      */
     function exportPath($path) {
 
@@ -57,6 +59,7 @@ class UnixPlatform extends GalleryPlatform {
      *
      * @param string neutral path
      * @return string platform specific path
+     * @public
      */
     function executablePath($path) {
 
@@ -75,6 +78,7 @@ class UnixPlatform extends GalleryPlatform {
      * @param int the location to put the status code from the command
      * @param string optional file to record STDERR output
      * @return bool TRUE if the copy succeeded, FALSE otherwise.
+     * @public
      */
     function exec($cmd, &$results, &$status, $debugFile='') {
 
