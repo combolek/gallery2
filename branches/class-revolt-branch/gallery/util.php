@@ -244,7 +244,7 @@ function isMovie($tag) {
 function getFile($fname) {
 	$tmp = "";
 
-	if (!fs_file_exists($fname)) {
+	if (!fs_file_exists($fname) || broken_link($fname)) {
 		return $tmp;
 	}
 
@@ -468,8 +468,8 @@ function includeHtmlWrap($name) {
 	// define these globals to make them available to custom text
         global $gallery;
 	$fullname = $GALLERY_BASEDIR . "html_wrap/$name";
-
-	if (fs_file_exists($fullname)) {
+	
+	if (fs_file_exists($fullname) && !broken_link($fullname)) {
 		include ($fullname);
 	} else {
 		include ("$fullname.default");
@@ -501,7 +501,7 @@ function _getStyleSheetLink($filename) {
 		$base = ".";
 	}
 
-	if (fs_file_exists($sheetname)) {
+	if (fs_file_exists($sheetname) && !broken_link($sheetname)) {
 		$url = "$base/$sheetname";
 	} else {
 		$url = "$base/$sheetname.default";
@@ -712,12 +712,15 @@ function gallerySanityCheck() {
 	global $gallery;
 	global $GALLERY_BASEDIR;
 
-	if (!fs_file_exists($GALLERY_BASEDIR . "config.php") || !$gallery->app) {
+	if (!fs_file_exists($GALLERY_BASEDIR . "config.php") ||
+                broken_link($GALLERY_BASEDIR . "config.php") ||
+                !$gallery->app) {
 		include($GALLERY_BASEDIR . "errors/unconfigured.php");
 		exit;
 	}
 
 	if (fs_file_exists($GALLERY_BASEDIR . "setup") && 
+                !broken_link($GALLERY_BASEDIR . "setup") &&
 		is_readable($GALLERY_BASEDIR . "setup")) {
 		/* 
 		 * on some systems, PHP's is_readable returns false
@@ -743,7 +746,7 @@ function gallerySanityCheck() {
 
 function preprocessImage($dir, $file) {
 
-	if (!fs_file_exists("$dir/$file")) {
+	if (!fs_file_exists("$dir/$file") || broken_link("$dir/$file")) {
 		return 0;
 	}
 
@@ -1090,6 +1093,14 @@ function safe_serialize($obj, $file) {
 function removeTags($msg) {
     $msg = eregi_replace("<([^>]*)>", "", $msg);
     return $msg;
+}
+
+function broken_link($file) {
+    if (fs_is_link($file)) {
+	return !fs_is_file($file);
+    } else {
+	return 0;
+    }
 }
 
 
