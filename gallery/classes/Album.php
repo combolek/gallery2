@@ -40,7 +40,7 @@ class Album {
 		global $gallery;
 
 		$this->fields["title"] = _("Untitled");
-		$this->fields["description"] = "";
+		$this->fields["description"] = _("No description");
 		$this->fields["summary"]="";
 		$this->fields["nextname"] = "aaa";
 		$this->fields["bgcolor"] = "";
@@ -58,7 +58,7 @@ class Album {
 		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
 		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
 		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-		if (isset($gallery->app->use_exif)) {
+		if ($gallery->app->use_exif) {
 			$this->fields["use_exif"] = "yes";
 		} else {
 			$this->fields["use_exif"] = "no";
@@ -87,28 +87,6 @@ class Album {
 		$this->fields["item_owner_delete"] = $gallery->app->default["item_owner_delete"];
 		$this->fields["add_to_beginning"] = $gallery->app->default["add_to_beginning"];
 		$this->fields["last_quality"] = $gallery->app->jpegImageQuality;
-
-
-               // VOTING Variables
-               $this->fields["poll_type"]=$gallery->app->default["poll_type"]; // none, rank or critique
-               $this->fields["poll_scale"]=$gallery->app->default["poll_scale"]; // num of choices to offer voter
-               $this->fields["votes"]=array(); // holds all the votes by UID or session ID
-               $this->fields["poll_nv_pairs"]= $gallery->app->default["poll_nv_pairs"];
-                       // allows admin to explicitly set display value and
-                       // points for all voting options.  EG "Excellent" -> 4
-                       // points; "Good" -> 3 points etc etc
-               $this->fields["poll_hint"]=$gallery->app->default["poll_hint"];
-                       // This is displayed above the voting options
-                       // for each image.
-               $this->fields["poll_show_results"]=$gallery->app->default["poll_show_results"];
-                       // The results graph and breakdown will be displayed
-                       // if this is yes.  Note that this should eventually
-                       // be part of permissions
-               $this->fields["poll_num_results"]=$gallery->app->default["poll_num_results"]; 
-	       		// number of lines of graph to show on the album page
-	       $this->fields["voter_class"]=$gallery->app->default["voter_class"];
-                        // Nobody, Everybody, Logged in
-	       // end of VOTING variables
 
 		// Seed new albums with the appropriate version.
 		$this->version = $gallery->album_version;
@@ -177,16 +155,9 @@ class Album {
 				"item_owner_display",
 				"item_owner_modify",
 				"item_owner_delete", 
-				"add_to_beginning",
-				"poll_type",
-				"poll_scale",
-				"poll_nv_pairs",
-				"poll_hint",
-				"poll_show_results",
-				"poll_num_results",
-				"voter_class");
+				"add_to_beginning");
 		foreach ($check as $field) {
-			if (!isset($this->fields[$field])) {
+			if (!$this->fields[$field]) {
 				$this->fields[$field] = $gallery->app->default[$field];
 				$changed = 1;
 			}
@@ -214,19 +185,8 @@ class Album {
 			$changed = 1;
 		    }
 		}
-		if ($this->version < 16) {
-		    if (empty($this->fields['votes'])) {
-		    		$this->fields['votes']=array();
-			$changed = 1;
-		    }
-		}
-		if ($this->version < 17) {
-			foreach ($this->fields['votes'] as $key => $value) {
-				unset($this->fields['votes'][$key]);
-				$this->fields['votes']["item.$key"]=$value;
-				$changed = 1;
-			}
-		}
+
+
 		/* Special case for EXIF :-( */
 		if (!$this->fields["use_exif"]) {
 			if ($gallery->app->use_exif) {
@@ -653,7 +613,7 @@ class Album {
 		}
 	}
 
-	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="", $votes=NULL) {
+	function addPhoto($file, $tag, $originalFilename, $caption, $pathToThumb="", $extraFields=array(), $owner="") {
 		global $gallery;
 
 		$this->updateSerial = 1;
@@ -715,10 +675,6 @@ class Album {
 		/* If this is the only photo, make it the highlight */
 		if ($this->numPhotos(1) == 1 && !$item->isMovie()) {
 			$this->setHighlight(1);
-		}
-
-		if ($votes) {
-			$this->fields["votes"][$name]=$votes;
 		}
 
 		return 0;
@@ -816,10 +772,10 @@ class Album {
 		}
 	}
 
-	function getHighlightTag($size=0, $attrs="",$alttext="") {
+	function getHighlightTag($size=0, $attrs="") {
 		list ($album, $photo) = $this->getHighlightedItem();
 		if ($photo) {
-			return $photo->getHighlightTag($album->getAlbumDirURL("highlight"), $size, $attrs, $alttext);
+			return $photo->getHighlightTag($album->getAlbumDirURL("highlight"), $size, $attrs);
 		} else {
 			return "<span class=title>". _("No highlight") ."!</span>";
 		}
@@ -936,15 +892,6 @@ class Album {
 		return -1;
 	}
 
-	function getAlbumIndex($albumName) {
-		for ($i = 1; $i <= $this->numPhotos(1); $i++) {
-			if ($albumName === $this->isAlbumName($i)) {
-				return $i;
-			}
-		}
-		return -1;
-	}
-
 	function setPhoto($photo, $index) {
 		$this->updateSerial = 1;
 		$this->photos[$index-1] = $photo;		
@@ -969,15 +916,6 @@ class Album {
 		$photo = &$this->getPhoto($index);
 		$photo->setOwner($owner);
 	}
-
-       function getRank($index) {
-               $photo = $this->getPhoto($index);
-               return $photo->getRank();
-       }
-       function setRank($index, $rank) {
-               $photo = &$this->getPhoto($index);
-               $photo->setRank($rank);
-       }
 
 	function getUploadDate($index) {
 		$photo = $this->getPhoto($index);
@@ -1122,8 +1060,6 @@ class Album {
 	}
 
 	function getClicksDate() {
-		global $gallery;
-
                 $time = $this->fields["clicks_date"];
 
                 // albums may not have this field.
@@ -1131,7 +1067,7 @@ class Album {
                         $this->resetClicks();
 			$time = $this->fields["clicks_date"];
                 }
-		return strftime($gallery->app->dateString,$time);
+		return strftime("%x",$time);
 
         }
 
@@ -1205,7 +1141,7 @@ class Album {
 			$time = $stat[9];
 		}
 
-		return strftime($gallery->app->dateString,$time);
+		return strftime("%x",$time);
 	}
 
 	function setNestedProperties() {
@@ -1254,12 +1190,8 @@ class Album {
 	}
 
 	function getPerm($permName, $uid) {
-		if (isset($this->fields["perms"][$permName])) {
-			$perm = $this->fields["perms"][$permName];
-		} else {
-			$perm=array();
-		}
-		if (isset($perm[$uid])) {
+		$perm = $this->fields["perms"][$permName];
+		if ($perm[$uid]) {
 			return true;
 		}
 
@@ -1267,7 +1199,7 @@ class Album {
 
 		/* If everybody has the perm, then we do too */
 		$everybody = $gallery->userDB->getEverybody();
-		if (isset($perm[$everybody->getUid()])) {
+		if ($perm[$everybody->getUid()]) {
 			return true;
 		}
 
@@ -1276,7 +1208,7 @@ class Album {
 		 * we're ok also.
 		 */
 		$loggedIn = $gallery->userDB->getLoggedIn();
-		if (isset($perm[$loggedIn->getUid()]) &&
+		if ($perm[$loggedIn->getUid()] &&
 		    strcmp($gallery->user->getUid(), $everybody->getUid())) {
 		        return true;
 		}
@@ -1504,151 +1436,6 @@ class Album {
         }
 
 
-
-       /*
-        * Voting type can either be Rank (first, second, third) or critique
-        * (1 point, 2 point 3 point).  The difference is with rank there
-        * can be only one of each point value.
-        */
-        function getPollType() {
-		if (!isset($this->fields["poll_type"]) || $this->fields["poll_type"] == "")
-		{
-			return "critique";
-		}
-		return $this->fields["poll_type"];
-	}
-	function getVoterClass() {
-		if (isset($this->fields["voter_class"])) {
-			return $this->fields["voter_class"];
-		}
-		return "Nobody";
-	}
-
-       function getPollScale() {
-               if (isset($this->fields["poll_scale"])) {
-                       return $this->fields["poll_scale"];
-               }
-               return 0;
-       }
-	function getPollNumResults(){
-		if (isset($this->fields["poll_num_results"])) {
-			return $this->fields["poll_num_results"];
-		}
-		return 3;
-	}
-	function getPollShowResults() {
-		if (isset($this->fields["poll_show_results"])) {
-			if (strcmp($this->fields["poll_show_results"], "no"))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	function getPollHorizontal() {
-		if (isset($this->fields["poll_orientation"])) {
-			if (!strcmp($this->fields["poll_orientation"], "horizontal"))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	function getVoteNVPairs()
-	{
-		global $gallery;
-		$nv_pairs=$gallery->album->fields["poll_nv_pairs"];
-		if ($nv_pairs == null)
-		{
-			$nv_pairs == array();
-			if ($gallery->album->getPollScale() == 1)
-			{
-				$nv_pairs[0]["name"]="";
-				$nv_pairs[0]["value"]="1";
-			}
-		}
-		for ($i = sizeof($nv_pairs); $i<$gallery->album->getPollScale() ; $i++)
-		{
-			if ($gallery->album->getPollType() == "rank")
-			{
-				$nv_pairs[$i]["name"]=sprintf(_("#%d"),($i));
-				$nv_pairs[$i]["value"]=$gallery->album->getPollScale()-$i+1;
-			}
-			else
-			{
-				$nv_pairs[$i]["name"]=$i;
-				$nv_pairs[$i]["value"]=$i;
-			}
-		}
-		return $nv_pairs;
-	}
-	function getPollHint()
-	{
-		global $gallery;
-		$hint=$gallery->album->fields["poll_hint"];
-		if (is_string($hint))
-			return $hint;
-		if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() != "rank")
-			return "I like this";
-		else if ($gallery->album->getPollType() == "rank")
-			return "Vote for this";
-		else
-			return "Do you like this? (1=love it)";
-	}
-	/* Returns true if votes can be moved with images between $this and 
-	   $album
-	 */
-	function pollsCompatible($album) 
-	{
-		if ($this->fields["poll_type"] != "critique") {
-			return false;
-		}
-		if ($album->fields["poll_type"] != "critique") {
-			return false;
-		}
-		if ($this->fields["poll_scale"] != $album->fields["poll_scale"]) {
-			return false;
-		}
-		for ($i = 0; $i<$this->fields["poll_scale"]; $i++ ) {
-			if ($this->fields["poll_nv_pairs"][$i]["value"] !=
-				$album->fields["poll_nv_pairs"][$i]["value"] )
-			{
-				return false;
-			}
-		}
-		return true;
-
-	}
-
-	function getIndexByVotingId($vote_id) {
-		global $gallery;
-		if (ereg("^item\.(.*)$", $vote_id, $matches)) {
-			$index=$this->getPhotoIndex($matches[1]);
-		} else if (ereg("^album\.(.*)$", $vote_id, $matches)) {
-			$index=$this->getAlbumIndex($matches[1]);
-			if ($index > 0) {
-				$myAlbum = new Album();
-				$myAlbum->load($matches[1]);
-				if (!$gallery->user->canReadAlbum($myAlbum)) {
-					$index=-1;
-				}
-			}
-		} else {
-			$index=-1;
-		}
-		if ($index > 0 && $this->isHidden($index) &&
-				!$gallery->user->isAdmin() && 
-				!$gallery->user->isOwnerOfAlbum($myAlbum)) {
-			$index=-1;
-
-		}
-		return $index;
-																			 
-	}
-	function getSubAlbum($index) {
-		$myAlbum = new Album();
-		$myAlbum->load($this->isAlbumName($index));
-		return $myAlbum;
-	}
 }
+
 ?>

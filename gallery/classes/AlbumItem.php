@@ -38,7 +38,6 @@ class AlbumItem {
 	var $exifData;
 	var $owner;		// UID of item owner.
 	var $extraFields;
-	var $rank;
 	var $version;
 
 	function AlbumItem() {
@@ -163,9 +162,6 @@ class AlbumItem {
 				$changed = 1;
 			}
 		}
-		if ($this->version < 16) {
-			$this->setRank(0);
-		}
 		if ($this->image) {
 			if ($this->image->integrityCheck($dir)) {
 				$changed = 1;
@@ -249,12 +245,6 @@ class AlbumItem {
 		}
 		$this->clicks++;
 	}
-       function setRank($rank) {
-               $this->rank = $rank;
-       }
-       function getRank() {
-               return $this->rank;
-       }
 
 	function hide() {
 		$this->hidden = 1;
@@ -483,9 +473,9 @@ class AlbumItem {
 		}
 	}
 
-	function getHighlightTag($dir, $size=0, $attrs="",$alttext="") {
+	function getHighlightTag($dir, $size=0, $attrs) {
 		if (is_object($this->highlightImage)) {
-			return $this->highlightImage->getTag($dir, 0, $size, $attrs,$alttext);
+			return $this->highlightImage->getTag($dir, 0, $size, $attrs);
 		} else {
 			return "<i>". _("No highlight") ."</i>";
 		}

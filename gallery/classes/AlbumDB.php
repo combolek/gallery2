@@ -104,12 +104,10 @@ class AlbumDB {
 		return 1;
 	}
 
-	function newAlbumName($name="album01") {
+	function newAlbumName() {
 		global $gallery;
 
-		if (!$name) {
-			$name="album01";
-		}
+		$name = "album01";
 		$albumDir = $gallery->app->albumDir;
 		while (fs_file_exists("$albumDir/$name")) {
 			switch($name) {
@@ -126,9 +124,6 @@ class AlbumDB {
 					break;
 
 				default:
-					if (!ereg('[0-9][0-9]$', $name)) {
-						$name.="00";
-					}
 					$name++;
 			}
 		}
@@ -216,9 +211,9 @@ class AlbumDB {
 
 		// Locate absolute indices of the target and destination
 		for ($i = 0; $i < sizeof($this->albumList); $i++) {
-			if ($this->albumList[$i]->fields['name'] == $album1->fields['name']) {
+			if ($this->albumList[$i]->fields[name] == $album1->fields[name]) {
 				$absIndex = $i;
-			} else if ($this->albumList[$i]->fields['name'] == $album2->fields['name']) {
+			} else if ($this->albumList[$i]->fields[name] == $album2->fields[name]) {
 				$absNewIndex = $i;
 			}
 		}

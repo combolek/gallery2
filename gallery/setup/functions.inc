@@ -3,24 +3,28 @@
 
 function evenOdd_row($fields, $evenOdd) {
 	$buf='';
-
+	if ($evenOdd) {
+		$bgColor = "#88cccc";
+	} else {
+		$bgColor = "#88cccc";
+	}
 	$f0 = str_replace(" ", "&nbsp;", $fields[0]);
 	if ($fields[3] == "block_element") {
-		$buf .= "\n<tr><td class=\"shortdesc\">$f0</td><td class=\"shortdesc\">".$fields[1]."</td></tr>";
+		$buf .= "\n<tr><td>$f0</td><td>".$fields[1]."</td></tr>";
 	} else if ($fields[3] == "block_start") {
-		$buf .= "\n<tr><td class=\"shortdesc\" colspan=2 valign=top align=left><table>";
-		$buf .= "\n\t<td class=\"content\" align=\"left\" valign=\"top\">$f0<p>";
+		$buf .= "\n<tr><td colspan=2 bgcolor=$bgColor valign=top align=left><table>";
+		$buf .= "\n\t<td align=\"left\" valign=\"top\">$f0<p>";
 		$buf .= "\n\t".$fields[2]."</td>";
 		$buf .= "\n<td><table >";
 	} else if ($fields[3] == "block_end") {
 		$buf .= "\n</table></td></table></td></tr>";
 	} else {
 		$buf .= "\n<tr>";
-		$buf .= "\n\t<td class=\"shortdesc\" valign=top align=left>$f0</td>";
-		$buf .= "\n\t<td class=\"shortdesc\" width=90% valign=top>$fields[1]</td>";
+		$buf .= "\n\t<td bgcolor=$bgColor valign=top align=left>$f0</td>";
+		$buf .= "\n\t<td bgColor=$bgColor width=90% valign=top>$fields[1]</td>";
 		$buf .= "\n</tr>";
 		$buf .= "\n<tr>";
-		$buf .= "\n\t<td class=\"desc\" colspan=2 valign=top align=left>$fields[2]</td>";
+		$buf .= "\n\t<td bgcolor=$bgColor colspan=2 valign=top align=left>$fields[2]</td>";
 		$buf .= "\n</tr>\n";
 	}
 
@@ -56,8 +60,6 @@ function make_fields($key, $arr) {
 		$col2 = form_textarea($key, $arr);
 	} else if (isset($arr["type"]) && $arr["type"] == "text") {
 		$col2 = form_input($key, $arr);
-	} else if (isset($arr["type"]) && $arr["type"] == "nv_pairs") {
-		$col2 = form_nv_pairs($key, $arr);
 	} else {
 		$col2 ="";
 	}
@@ -88,32 +90,6 @@ function form_input($key, $arr) {
 	return "<input $type name=$key value=\"$arr[value]\" $attrs>";
 }
 
-function form_nv_pairs($key, $arr) {
-	if (isset($arr["attrs"])) {
-		$attrs = make_attrs($arr["attrs"]);
-	} else {
-		$attrs = '';
-	}
-	$x=0;
-	$buf="\n<table><tr><td><b>"._("Name")."</b></td><td><b>"._("Value")."</b></td></tr>";
-	foreach ($arr["value"] as $result) {
-		$name=$result["name"];
-		$value=$result["value"];
-		$buf .= '<tr><td><input type="text" name="' . $key ."[$x][name]\" value=\"$name\" $attrs></td>\n";
-		$buf .= '<td><input type="text" name="' . $key . "[$x][value]\" value=\"$value\" $attrs></td></tr>\n";
-		$x++;
-		if ($x >= $arr["size"]) {
-			break;
-		}
-	}
-	for (; $x<$arr["size"]; $x++) {
-		$buf .= '<tr><td><input type="text" name="' . $key ."[$x][name]\" $attrs></td>\n";
-		$buf .= '<td><input type="text" name="' . $key ."[$x][value]\" $attrs></td></tr>\n";
-	}
-	$buf.="</table>";
-	return $buf;
-}
-
 function form_choice($key, $arr) {
 	
 	$buf = "\n\t<select name=$key>";
@@ -130,20 +106,14 @@ function form_choice($key, $arr) {
 
 function form_multiple_choice($key, $arr) {
 	
-	$buf= '<table><tr><td valign="top">';
-	$count=0;
+	$buf="";
 	foreach ($arr["multiple_choices"] as $item => $value) {
-		if ($count%10 ==0) {
-			$buf .= "</td>\n<td valign=\"top\">";
-		}
-		$count++;
 		$selected = "";
 		if (in_array($item, $arr["value"])) {
 			$selected = "CHECKED";
 		}
 		$buf .= "\n\t<br><input name=\"${key}[]\" value=\"$item\" type=\"checkbox\" $selected>" . $value ;
 	}
-	$buf .="</td></tr></table>";
 	return $buf;
 }
 
@@ -218,19 +188,13 @@ function use_feature($feature) {
 function no_feature($feature, $cause) {
 	return "\$gallery->app->feature[\"$feature\"] = 0; // ($cause)\n";
 }
-function error_missing($desc, $key) {
-	if (empty($desc)) {
-		$desc=$key;
-	}
-	return error_format(_("Missing value").": <b>$desc</b>!<br>");
+function error_missing($desc) {
+	return error_format(_("Missing value").": <b>$desc</b>!");
 }
 function row_wrap($buf) {
-	return "<code>$buf</code><br>";
+	return "<tr><td><code>$buf</code></td></tr>";
 }
 
-function error_row_wrap($buf) {
-	return "</pre>$buf</pre><br>";
-}
 function check_htaccess()
 {
 	global $GALLERY_PHP_VALUE_OK; 
@@ -280,12 +244,13 @@ function check_php4_1()
 	$success = array();
 	$fail = array();
 
-        $version = explode(".", phpversion());
-        if ($version[0] < 4) {
+	$version = explode(".", phpversion());
+	// $version = explode(".", "4.0.4");
+	if ($version[0] < 4) {
 		$fail["fail-too-old"]= 1;
-        } elseif ($version[0] == 4 && $version[1] < 1) {
+	} elseif ($version[1] <1) {
 		$fail["fail-too-old"] = 1;
-        } else{
+	} else{
 		$success[] = sprintf(_("PHP v%s is OK"), phpversion());
 	}
 
@@ -337,7 +302,7 @@ function check_graphics($location="", $graphtool = "")
 	$success = array();
 	if (!strcmp($graphtool, "ImageMagick")) {
 		$success[] = _("NetPBM not being used in this installation");
-	    	return array($success, $fail);
+		return array($success, $fail);
 	}
 
 	if (!empty($location) && !inOpenBasedir($location)) {
@@ -422,7 +387,7 @@ function check_graphics_im($location="", $graphtool="")
 
 	if (!strcmp($graphtool, "NetPBM")) {
 		$success[] = "ImageMagick not being used in this installation";
-	    	return array($success, $fail);
+		return array($success, $fail);
 	}
 
 	if (!empty($location) && !inOpenBasedir($location)) {
@@ -574,15 +539,15 @@ function check_absent_locales()
 	if($locales != NULL && sizeof($locales["unavailable_locales"]) ==0) {
 		$success[] = _("All gallery locales are available on this host");
 	} else if(sizeof($locales["available_locales"]) == 0) {
-	    if (ini_get('open_basedir')) {
-		$fail[] = sprintf(_("We were unable to detect any locales.  However, your server is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is ok to continue."),
+		if (ini_get('open_basedir')) {
+			$fail[] = sprintf(_("We were unable to detect any locales.  However, your server is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is ok to continue."),
 				'<a href="http://www.php.net/manual/en/features.safe-mode.php#ini.open-basedir">open_basedir</a>');
-	    } else {
+		} else {
 			if (getOS() == OS_LINUX) {
 				$fail[] = sprintf(_("We were unable to detect any system locales. Multilanguage functions will be disabled. Please install the corresponding locales or ask your Provider to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s"),"Debian", '<a href="http://people.debian.org/~schultmc/locales.html">', "</a>");
 			} else {
-		$fail[] = _("Only the default locale for this machine is available, so date format will not change for different languages.");
-	    }
+				$fail[] = _("Only the default locale for this machine is available, so date format will not change for different languages.");
+			}
 		}
 	} else {
 		$msg = _("Dates in these languages may not be formatted properly, because the corresponding locales are missing:") . "<br>";
@@ -662,23 +627,23 @@ function check_locale() {
 		**  e.G. nl to find nl_BE or nl_NL
 		*/
 		if (in_array($locale,$nls['alias'])) {
-			$keylist = array_keys($nls['alias'],$locale);
-			if (getOS() != OS_WINDOWS) {
-                                foreach ($system_locales as $key => $value) {
-                                        if (ereg('^(' . substr($locale,0,2) . '|' . implode('|', $keylist) . ')', $value)) {
-                                                $aliases[$key] = $value;
-                                        }
-                                }
-			} else {
-				$aliases=$keylist;
-			}
-		} else {
-                        foreach ($system_locales as $key => $value) {
-                                if (ereg('^' . substr($locale,0,2), $value)) {
-                                        $aliases[$key] = $value;
-                                }
+                        $keylist = array_keys($nls['alias'],$locale);
+                        if (getOS() != OS_WINDOWS) {
+			    foreach ($system_locales as $key => $value) {
+				if (ereg('^(' . substr($locale,0,2) . '|' . implode('|', $keylist) . ')', $value)) {
+				    $aliases[$key] = $value;
+				}
+			    }
+                        } else {
+                                $aliases=$keylist;
                         }
-		}
+                } else {
+		    foreach ($system_locales as $key => $value) {
+			if (ereg('^' . substr($locale,0,2), $value)) {
+			    $aliases[$key] = $value;
+			}
+		    }
+                }
 
 		if ($aliases) {
 			foreach ($aliases as $test) {
@@ -686,9 +651,7 @@ function check_locale() {
 					$maybe_locales[$locale][]=$test;
 				}
 			}
-			if (! isset($maybe_locales[$locale])) {
-                                $unavailable_locales[] = $locale;
-                        }
+			if (! isset( $maybe_locales[$locale])) $unavailable_locales[]=$locale;
 		} else {
 			$unavailable_locales[]=$locale;
 		}
@@ -718,7 +681,7 @@ function config_maybe_locales() {
 
 	$block_start_done=false;
 	
-        foreach ($maybe as $key => $aliases) {
+	foreach ($maybe as $key => $aliases) {
 		if (sizeof($aliases) < 1) {
 			$unavailable[]=$key;
 			continue;
@@ -754,7 +717,7 @@ function config_maybe_locales() {
 			"value" => current($choices));
 
 			
-        }
+	}
 	if ($block_start_done) {
 		$results[] = array ("type" => "block_end");
 	}
@@ -763,7 +726,7 @@ function config_maybe_locales() {
 	foreach ($available as $choice => $value) { 
 		$choices[$choice]=$nls['language'][$value];
 	}
-        foreach ($unavailable as $key) {
+	foreach ($unavailable as $key) {
 		if (sizeof($available) <= 1) {
 			$results["locale_alias['$key']"] = array (
 				"type" => "hidden", 
@@ -791,7 +754,7 @@ function config_maybe_locales() {
 			"value" => current($choices));
 
 			
-        }
+	}
 	if ($block_start_done) {
 		$results[] = array ("type" => "block_end");
 	}
@@ -803,7 +766,7 @@ function config_maybe_locales() {
 function default_graphics()
 {
 	list ($imageMagick,) = check_graphics_im();
-        
+	
 	if (count ($imageMagick)) {
 		return "ImageMagick";
 	} else {
@@ -840,45 +803,11 @@ function check_magic_quotes()
 	return array($success, $fail);
 }
 
-function check_poll_nv_pairs($var) {
-	$fail = array();
-	$success = array();
-	$finished = false;
-	$rownum=0;
-	foreach ($var as $element) {
-		$rownum++;
-		if (!$element["name"]) {
-			$finished=true;
-			if ($element["value"]) {
-				$fail[]=sprintf(_("In %s, missing %s in row %d with %s %s."),
-					_("Vote words and values"), 
-					_("Name"), $rownum, _("Value"), 
-					$element["value"]);
-				break;
-			}
-			continue;
-		} else {
-			if ($finished) {
-				$fail[]=sprintf(_("In %s, blank in row %d."),
-					_("Vote words and values"), 
-					$rownum-1); 
-				break;
-			} else if (!ereg("^[1-9][0-9]*$", $element["value"])) {
-				$fail[]=sprintf(_("In %s, %s (row %d) %s should be a positive whole number"), 
-					_("Vote words and values"), 
-					$element["name"], 
-					$rownum, $element["value"]);
-				break;
-			}
-		}
-	}
-	return array($success, $fail);
-}
 function detect_exec_status() 
 {
 	global $gallery;
 
-	if (isset($gallery->app) && isset($gallery->app->expectedExecStatus)) {
+	if ($gallery->app && isset($gallery->app->expectedExecStatus)) {
 		return $gallery->app->expectedExecStatus;
 	}
 
@@ -962,41 +891,5 @@ function inOpenBasedir($dir) {
     }
     
     return false;
-}
-
-function make_separator($key, $arr)  {
-		$buf="\n<tr><td class=\"separator\" colspan=\"2\"><b>". $arr["title"] ."</b></td></tr>";
-		if( isset($arr["desc"])) {
-			$buf .= "\n<tr><td class=\"desc\" colspan=\"2\">". $arr["desc"] ."</td></tr>";
-		}
-		$buf .= "\n<tr><td>&nbsp;</td></tr>";
-		return $buf;
-}
-
-function array_stripslashes($subject) {
-	if (is_string($subject)) {
-		return stripslashes($subject);
-	}
-	if (!is_array($subject)) {
-		return ($subject);
-	}
-	$ret=array();
-	foreach ($subject as $key => $value) {
-		$ret[$key]=array_stripslashes($value);
-	}
-	return $ret;
-}
-function array_str_replace($search, $replace, $subject) {
-	if (is_string($subject)) {
-		return str_replace($search, $replace, $subject);
-	}
-	if (!is_array($subject)) {
-		return ($subject);
-	}
-	$ret=array();
-	foreach ($subject as $key => $value) {
-		$ret[$key]=array_str_replace($search, $replace, $value);
-	}
-	return $ret;
 }
 ?>

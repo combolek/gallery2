@@ -34,10 +34,10 @@ function editField($album, $field) {
 	global $gallery;
 
 	$buf = $album->fields[$field];
+	if (!strcmp($buf, "")) {
+		$buf = "<i>&lt;". _("Empty") . "&gt;</i>";
+	}
 	if ($gallery->user->canChangeTextOfAlbum($album)) {
-		if (!strcmp($buf, "")) {
-			$buf = "<i>&lt;". _("Empty") . "&gt;</i>";
-		}
 		$url = "edit_field.php?set_albumName={$album->fields['name']}&field=$field";
 		$buf .= "<span class=editlink>";
 		$buf .= popup_link( "[". sprintf(_("edit %s"), _($field)) . "]", $url) ;
@@ -88,7 +88,7 @@ function viewComments($index) {
         $buf = "<span class=editlink>";
         $buf .= popup_link('[' . _("add comment") . ']', $url, 0);
         $buf .= "</span>";
-        echo "<tr align=\"center\"><td colspan=\"3\">$buf<br><br></td></tr>";
+        echo "<tr align=center><td colspan=3>$buf<br><br></td></tr>";
 }
 
 function center($message) {
@@ -100,19 +100,13 @@ function gallery_error($message) {
 }
 
 function error_format($message) {
-	return "<span class=\"error\">". _("Error:") . " $message</span>";
+	return "<span class=error>". _("Error:") . " $message</span>";
 }
 
 function build_popup_url($url, $url_is_complete=0) {
 
 	/* Separate the target from the arguments */
-	$result = explode('?', $url);
-	$target = $result[0];
-	if (isset($result[1])) {
-		$arglist = $result[1];
-	} else {
-		$arglist = "";
-	}
+	list($target, $arglist) = explode('?', $url);
 
 	/* Parse the query string arguments */
 	parse_str($arglist, $args);
@@ -159,7 +153,7 @@ function popup_link($title, $url, $url_is_complete=0, $online_only=true, $height
 		 "height=$height,width=$width,location=no,scrollbars=yes,menubars=no,toolbars=no,resizable=yes").
 	"\">";
     
-    return "$a1<span style=\"white-space:nowrap;\">$title</span></a> ";
+    return "$a1<nobr>$title</nobr></a> ";
 }
 
 function exec_internal($cmd) {
@@ -595,31 +589,24 @@ function cut_image($src, $dest, $x, $y, $width, $height) {
 }
 
 function valid_image($file) {
-	if (($type = getimagesize($file)) == FALSE) {
-		if (isDebugging()) {
-			echo "<br>". sprintf(_("Call to %s failed in %s for file %s!"), 'getimagesize()', 'valid_image()', $file) ."<br>";
-		}
-		return 0;
-	}
+    if (($type = getimagesize($file)) == FALSE)
+        return 0;
 
-	if (isDebugging()) {
-		echo "<br>". sprintf(_("File %s type %d."), $file, $type[2]) ."<br>";
-	}
-	switch($type[2])
-	{
-		case 1: // GIF
-		case 2: // JPEG
-		case 3: // PNG
-			return 1;
-			break;
-		default:
-			return 0;
-			break;
-	}
+    switch($type[2])
+    {
+    case 1: // GIF
+    case 2: // JPEG
+    case 3: // PNG
+        return 1;
+        break;
+    default:
+        return 0;
+        break;
+    }
 
 	if (isDebugging())
 		echo "<br>". sprintf(_("There was an unknown failure in the %s call!"), 'valid_image()') ."<br>";
-	return 0;
+    return 0;
 }
 
 function toPnmCmd($file) {
@@ -728,13 +715,7 @@ function includeHtmlWrap($name) {
 
 function getStyleSheetLink() {
 	global $GALLERY_EMBEDDED_INSIDE;
-	global $GALLERY_OK;
 
-	if (isset($GALLERY_OK)) {
-		if ($GALLERY_OK == false) {
-			return _getStyleSheetLink("config");
-		}
-	}
 	if ($GALLERY_EMBEDDED_INSIDE) {
 		return _getStyleSheetLink("embedded_style");
 	} else {
@@ -758,7 +739,7 @@ function _getStyleSheetLink($filename) {
 	if (isset($gallery->app) && isset($gallery->app->photoAlbumURL)) {
 		$base = $gallery->app->photoAlbumURL;
 	} else {
-		$base = "..";
+		$base = ".";
 	}
 
 	if (fs_file_exists($sheetdomainpath) && !broken_link($sheetdomainpath)) {
@@ -774,6 +755,18 @@ function _getStyleSheetLink($filename) {
 	return '<link rel="stylesheet" type="text/css" href="' .
 		$url .
 		'">';
+}
+
+function pluralize($amt, $noun, $none="") {
+	if ($amt == 1) {
+		return "$amt $noun";
+	}
+
+	if ($amt == 0 && $none) {
+		$amt = $none;
+	}
+
+	return "$amt ${noun}s";
 }
 
 function pluralize_n($amt, $one, $more, $none) {
@@ -801,7 +794,6 @@ function errorRow($key) {
 }
 
 function drawSelect($name, $array, $selected, $size, $attrList=array()) {
-	$attrs = "";
 	if (!empty($attrList)) {
 	    	foreach ($attrList as $key => $value) {
 			if ($value == NULL) {
@@ -887,13 +879,7 @@ function correctPseudoUsers(&$array, $ownerUid) {
  */
 function makeFormIntro($target, $attrList=array()) {
 	$url = makeGalleryUrl($target);
-	$result = split("\?", $url);
-	$target = $result[0];
-	if (sizeof($result) > 1) {
-		$tmp = $result[1];
-	} else {
-		$tmp = "";
-	}
+	list($target, $tmp) = split("\?", $url);
 
 	$attrs = '';
 	foreach ($attrList as $key => $value) {
@@ -904,9 +890,6 @@ function makeFormIntro($target, $attrList=array()) {
 
 	$args = split("&", $tmp);
 	foreach ($args as $arg) {
-		if (strlen($arg) == 0) {
-			continue;
-		}
 		list($key, $val) = split("=", $arg);
 		$form .= "<input type=hidden name=\"$key\" value=\"$val\">\n";
 	}
@@ -932,7 +915,8 @@ function makeGalleryUrl($target, $args=array()) {
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_MODULENAME;
 
-	if(stristr($GALLERY_EMBEDDED_INSIDE,"nuke")) {
+	switch ($GALLERY_EMBEDDED_INSIDE) {
+		case "nuke":
 			$args["op"] = "modload";
 			$args["name"] = "$GALLERY_MODULENAME";
 			$args["file"] = "index";
@@ -943,8 +927,11 @@ function makeGalleryUrl($target, $args=array()) {
 			 */
 			$args["include"] = $target;
 			$target = "modules.php";
-	} else {
+			break;
+
+		default:
 			$target = $gallery->app->photoAlbumURL . "/" . $target;
+			break;
 	}
 
 	$url = $target;
@@ -1002,12 +989,10 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 function gallerySanityCheck() {
 	global $gallery;
 	global $GALLERY_BASEDIR;
-	global $GALLERY_OK;
 
 	if (!fs_file_exists($GALLERY_BASEDIR . "config.php") ||
                 broken_link($GALLERY_BASEDIR . "config.php") ||
                 !$gallery->app) {
-		$GALLERY_OK=false;
 		include($GALLERY_BASEDIR . "errors/unconfigured.php");
 		exit;
 	}
@@ -1026,14 +1011,12 @@ function gallerySanityCheck() {
 		 */
 		$perms = sprintf("%o", fileperms($GALLERY_BASEDIR . "setup"));
 		if (strstr($perms, "755")) {
-			$GALLERY_OK=false;
 			include($GALLERY_BASEDIR . "errors/configmode.php");
 			exit;
 		}
 	}
 
 	if ($gallery->app->config_version != $gallery->config_version) {
-		$GALLERY_OK=false;
 		include($GALLERY_BASEDIR . "errors/reconfigure.php");
 		exit;
 	}
@@ -1289,7 +1272,7 @@ function getExif($file) {
 	        while (list($key,$value) = each ($return)) {
 		    if (trim($value)) {
 			$explodeReturn = explode(':', $value, 2);
-			if (isset($myExif[trim($explodeReturn[0])])) { 
+			if ($myExif[trim($explodeReturn[0])]) { 
 			    $myExif[trim($explodeReturn[0])] .= "<br>" . 
 				    trim($explodeReturn[1]);
 			} else {
@@ -1541,403 +1524,6 @@ function mostRecentComment($album, $i)
         return $recentcomment->getDatePosted();
 }
 
-
-/*
- * expects as input an array where the keys
- * are string labels and the values are
- * numbers.  Values must be non-negative
- * returns an HTML bar graph as a string
- * assumes bar.gif, located in images/
- * modified from example in PHP Bible
- */
-function arrayToBarGraph ($array, $max_width, $table_values="CELLPADDING=5", 
-	$col_1_head=null, $col_2_head=null) 
-{
-	foreach ($array as $value) 
-	{
-		if ((IsSet($max_value) && ($value > $max_value)) ||
-				(!IsSet($max_value))) 
-		{
-			$max_value = $value;
-		}
-	}
-	if (!isSet($max_value))
-	{
-		// no results!
-		return null;
-	}
-	$string_to_return = "<TABLE $table_values>";
-	if ($col_1_head || $col_2_head)
-	{
-		$string_to_return.="<tr><td></td><td><span class=\"admin\">$col_1_head</span></td><td><span class=\"admin\">$col_2_head</span></td></tr>";
-	}
-	if ($max_value > 0)
-	{
-		$pixels_per_value = ((double) $max_width)
-			/ $max_value;
-	}
-	else 
-	{
-		$pixels_per_value = 0;
-	}
-	$counter = 0;
-	foreach ($array as $name => $value) {
-		$bar_width = $value * $pixels_per_value;
-		$string_to_return .= 
-		 "<tr>
-			<td>".(++$counter)."</td>
-			<td>$name ($value)</td>
-			<td><IMG SRC=\"images/bar.gif\" 
-			     BORDER=1
-			     WIDTH=$bar_width 
-			     HEIGHT=10>
-			</td></tr>";
-	}
-	$string_to_return .= "</TABLE>";
-	return($string_to_return);
-}
-
-/*not used*/
-function ordinal($num=1)
-{
-	$ords = array("th","st","nd","rd");
-	$val = $num;
-	if ((($num%=100)>9 && $num<20) || ($num%=10)>3) $num=0;
-	return "$val" . $ords[$num];
-}
-
-function saveResults($votes)
-{
-	global $gallery;
-	if (!$votes)
-	{
-		return;
-	}
-	if (!$gallery->album->fields["votes"])
-		$gallery->album->fields["votes"]=array();
-	if ($gallery->album->getPollType() == "critique")
-	{
-		foreach ($votes as $vote_key => $vote_value)
-		{
-			if ($vote_value === null || $vote_value == "NULL")
-			{
-				unset($gallery->album->fields["votes"]
-					[$vote_key]
-					[getVotingID()]);
-			}
-			else
-			{
-				$gallery->album->fields["votes"]
-					[$vote_key]
-					[getVotingID()]=intval($vote_value);
-			}
-		}
-	}
-	else
-	{
-		krsort($votes, SORT_NUMERIC);
-		foreach ($votes as $vote_value => $vote_key)
-		{
-			if ($gallery->album->fields["votes"]
-				[$vote_key]
-				[getVotingID()]===intval($vote_value))
-			{
-				//vote hasn't changed, so skip to next one
-				continue;
-			}
-			foreach ($gallery->album->fields["votes"] as $previous_key => $previous_vote)
-			{
-				if ($previous_vote[getVotingID()] === intval($vote_value))
-				{
-					unset($gallery->album->fields["votes"]
-						[$previous_key]
-						[getVotingID()]);
-				}
-			}
-			$gallery->album->fields["votes"][$vote_key][getVotingID()]
-				=intval($vote_value);
-		}
-		
-	}
-	$gallery->album->save();
-}
-
-function getVotingID()
-{
-	global $gallery;
-	if ($gallery->album->getVoterClass() ==  "Logged in")
-	{
-		return $gallery->user->getUid();
-	}
-	else if ($gallery->album->getVoterClass() ==  "Everybody")
-	{
-		return session_id();
-	}
-	else 
-	{
-		return NULL;
-	}
-
-}
-function canVote()
-{
-	global $gallery;
-	if ($gallery->album->getVoterClass() == "Everybody")
-	{
-		return true;
-	}
-	if ($gallery->album->getVoterClass() == "Logged in" 
-		&& $gallery->user->isLoggedIn())
-	{
-		return true;
-	}
-	return false;
-}
-function addPolling ($id, $form_pos=-1, $immediate=true)
-{
-	global $gallery;
-	if ( !canVote())
-	{
-		return;
-	}
-	$current_vote=$gallery->album->fields["votes"][$id][getVotingID()];
-	if ($current_vote === NULL) { 
-		$current_vote = -1;
-	}
-	$nv_pairs=$gallery->album->getVoteNVPairs();
-	print $gallery->album->getPollHint();
-	if ($gallery->album->getPollScale() == 1 && $gallery->album->getPollType() == "critique")
-	{
-		print "\n<input type=checkbox name=\"votes[$id]\" value=\"1\"";
-		if ($current_vote > 0)
-		{
-			print "checked";
-		}
-		print ">".$nv_pairs[0]["name"];
-	}
-	else if ($gallery->album->getPollType() == "rank")
-	{
-	    if ($gallery->album->getPollHorizontal())
-	    {
-		print "<table><tr>";
-		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
-		{
-			print "\n<td align=center><input type=radio name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
-			$gallery->album->getPollScale().")\" ";
-			if ($current_vote === $i)
-			{
-				print "checked";
-			}
-			print "></td>";
-		}
-		print "</tr><tr>";
-		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
-		{
-			print "<td align=center>".$nv_pairs[$i]["name"]."</td>";
-		}
-		print "</tr></table>";
-	    }
-	    else
-	    {
-		print "<table>";
-		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
-		{
-			print "<tr>";
-			print "\n<td align=center><input type=radio name=\"votes[$i]\" value=$id onclick=\"chooseOnlyOne($i, $form_pos,".
-			$gallery->album->getPollScale().")\" ";
-			if ($current_vote === $i)
-			{
-				print "checked";
-			}
-			print "></td>";
-			print "<td >".$nv_pairs[$i]["name"]."</td>";
-			print "</tr><tr>";
-		}
-		print "</table>";
-	    }
-	}
-	else // "critique"
-	{
-		if ($immediate)
-		{
-			print "\n<br><select name=\"votes[$id]\" ";
-			print "onChange='this.form.submit();'>";
-		}
-		else
-		{
-			print "\n<br><select name=\"votes[$id]\">";
-		}
-		if ($current_vote == -1)
-		{
-			print "<option value=NULL><< VOTE >></option>\n";
-		}
-		for ($i = 0; $i < $gallery->album->getPollScale() ; $i++)
-		{
-			$sel="";
-			if ($current_vote === $i) {
-				$sel="selected";
-			}
-			print "<option value=$i $sel>".$nv_pairs[$i]["name"]."</option>\n";
-		}
-		print "</select>";
-	}
-}
-
-function showResultsGraph($num_rows)
-{
-	global $gallery;
-	$results=array();
-	$nv_pairs=$gallery->album->getVoteNVPairs();
-	$buf='';
-	if (!$gallery->album->fields["votes"])
-		$gallery->album->fields["votes"]=array();
-
-	$voters=array();
-	foreach ($gallery->album->fields["votes"] as $element => $image_votes)
-	{
-	    $accum_votes=0;
-	    $count=0;
-	    foreach ($image_votes as $voter => $vote_value )
-	    {
-		$voters[$voter]=true;
-		if ($vote_value> $gallery->album->getPollScale()) // scale has changed
-		{
-			$vote_value=$gallery->album->getPollScale();
-		}
-		$accum_votes+=$nv_pairs[$vote_value]["value"];
-		$count++;
-	    }
-	    if ($accum_votes > 0) 
-	    {
-		if ($gallery->album->getPollType() == "rank" || $gallery->album->getPollScale() == 1)
-		{
-	    		$results[$element]=$accum_votes;
-		}
-	    	else
-		{
-			$results[$element]=number_format(((double)$accum_votes)/$count, 2);
-		}
-	    }
-	}
-	arsort($results);
-	$rank=0;
-	$graph=array();
-	$needs_saving=false;
-	foreach ($results as $element => $count)
-	{
-		$index=$gallery->album->getIndexByVotingId($element);
-		if ($index < 0) 
-		{
-			// image has been deleted!
-			// unset($gallery->album->fields["votes"][$element]);
-			continue;
-		} 
-		$isAlbumName=$gallery->album->isAlbumName($index);
-		if ($isAlbumName) {
-			$url=makeAlbumUrl($isAlbumName);
-			$album=$gallery->album->getSubAlbum($index);
-			$desc=sprintf(_("Album: %s"), 
-					$album->fields['title']);
-
-		} else {
-			$id = $gallery->album->getPhotoId($index);
-			$url=makeAlbumUrl($gallery->session->albumName, $id);
-			$desc=$gallery->album->getCaption($index);
-		}
-		$current_rank = $gallery->album->getRank($index);
-		$rank++;
-		if ($rank != $current_rank) {
-			$needs_saving = true;
-			$gallery->album->setRank($index, $rank);
-		}
-		if ($rank > $num_rows)
-		{
-			continue;
-		}
-		
-	    	$name_string="<a href=";
-		$name_string.= $url;
-		$name_string.= ">";
-		$name_string.= $desc;
-		$name_string.= "</a>";
-		$graph[$name_string]=$count;
-	}
-	if ($needs_saving)
-	{
-		$gallery->album->save();
-	}
-	$graph=arrayToBarGraph($graph, 300, "border=0");
-	if ($graph)
-        {
-                $buf .= "<span class=\"title\">".
-			sprintf(_("Results from %s."),
-					pluralize_n(sizeof($voters), 
-						_("voter"), _("voters"), 
-						_("0 voters"))).
-                        "</span>";
-                if ($gallery->album->getPollType() == "critique")
-                {
-                        $key_string="";
-                        foreach ($nv_pairs as $nv_pair)
-                        {
-				if (empty($nv_pair["name"])) {
-					continue;
-				}
-				$key_string .= sprintf(_("%s: %s points; "), 
-						$nv_pair["name"],
-						$nv_pair["value"]);
-			}
-                        if (strlen($key_string) > 0)
-                        {       
-                                $buf .= "<br>". sprintf(_("Key - %s"), 
-						$key_string)."<br>";
-                        }
-                }
-                $buf .= $graph;
-        } else if ($num_rows > 0 && 
-			$gallery->user->canWriteToAlbum($gallery->album)) {
-		$buf .= "<span class=\"title\">"._("No votes so far.")."<br></span>";
-	}
-	return array($buf, $results);
-}
-function showResults($id)
-{
-	global $gallery;
-	$vote_tally=array();
-	$nv_pairs=$gallery->album->getVoteNVPairs();
-	$buf='';
-	if (isSet ($gallery->album->fields["votes"][$id]))
-	{
-	    foreach ($gallery->album->fields["votes"][$id] as $vote)
-	    {
-		if (!isSet($vote_tally[$vote]))
-		{
-			$vote_tally[$vote]=1;
-		}
-		else
-		{
-			$vote_tally[$vote]++;
-		}
-	    }
-	}
-	$buf .= "<span class=\"admin\">"._("Poll results:")."</span> ";
-	if (sizeof($vote_tally) === 0)
-	{
-		$buf .= _("No votes")."<br>";
-		return;
-	}
-	$index=$gallery->album->getIndexByVotingId($id);
-	$buf .= sprintf(_("Number %d overall."), 
-			$gallery->album->getRank($index)) ."<br>";
-	ksort($vote_tally);
-	foreach ($vote_tally as $key => $value)
-	{
-		$buf .= sprintf(_("%s: %s"), $nv_pairs[$key]["name"],
-			pluralize_n($value, _("vote"), _("votes"), _("0 votes"))). "<br>";
-	}
-	return $buf;
-}
-
 function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fields=array()) {
 	global $gallery;
 	global $temp_files;
@@ -2102,14 +1688,23 @@ function processingMsg($buf) {
         $msgcount++;
 }
 
-function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newAlbumDesc="") {
+function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newAlbumDesc="" ) {
         global $gallery;
 
         // get parent album name
         $albumDB = new AlbumDB(FALSE);
 
+        // Make sure no album $newAlbumName exists
+        if ($newAlbumName && $albumDB->getAlbumbyName($newAlbumName)) {
+                $newAlbumName = null;
+        }
+
         // set new album name from param or default
-	$gallery->session->albumName = $albumDB->newAlbumName($newAlbumName);
+        if ($newAlbumName) {
+                $gallery->session->albumName = $newAlbumName;
+        } else {
+                $gallery->session->albumName = $albumDB->newAlbumName();
+        }
 
         $gallery->album = new Album();
         $gallery->album->fields["name"] = $gallery->session->albumName;
@@ -2171,11 +1766,7 @@ function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newA
                 $returnVal = $albumDB->save();
         }
 
-        if ($returnVal) {
-		return $gallery->session->albumName;
-	} else {
-		return 0;
-	}
+        return $returnVal;
 }
 
 function escapeEregChars($string)
@@ -2197,107 +1788,85 @@ function findInPath($program)
 }
 
 function initLanguage() {
-
-	global $gallery, $GALLERY_BASEDIR, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
-	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_SESSION_VARS;
+	global $gallery, $GALLERY_BASEDIR, $GALLERY_EMBEDDED_INSIDE;
+	global $HTTP_SERVER_VARS, $HTTP_COOKIE_VARS, $HTTP_GET_VARS;
 
 	// $locale is *NUKEs locale var
 	global $locale ;
 
 	// Detect Browser Language
+	$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
+	$lang_pieces=explode ("-",$lang[0]);
 
-	if (isset($HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"])) {
-		$lang = explode (",", $HTTP_SERVER_VARS["HTTP_ACCEPT_LANGUAGE"]);
-		$lang_pieces=explode ("-",$lang[0]);
-
-		if (strlen($lang[0]) ==2) {
-			$gallery->browser_language=$lang[0] ."_".strtoupper($lang[0]);
-		} else {
-			$gallery->browser_language=
-				strtolower($lang_pieces[0]).
-				"_".strtoupper($lang_pieces[1]) ;
-		}
+	if (strlen($lang[0]) ==2) {
+		$gallery->browser_language=$lang[0] ."_".strtoupper($lang[0]);
+	} else {
+		$gallery->browser_language=
+			strtolower($lang_pieces[0]).
+			"_".strtoupper($lang_pieces[1]) ;
 	}
 
+	// If we have no Mode, use Browserlanguage
+	if (!isset($gallery->app->ML_mode)) {
+		$gallery->app->ML_mode = 2;
+	}
 
 	$nls = getNLS();
 
-	// Does the user wants a new lanuage ?
+	/**
+	 ** We have 2 Ways. Nuke or not Nuke
+	 ** If we are in Nuke this override the Mode
+	 **/
 	if (isset($HTTP_GET_VARS['newlang'])) {
 		$newlang=$HTTP_GET_VARS['newlang'];
 	}
 
-	/**
-	 ** We have now 2+1 Ways. PostNuke, phpNuke or not Nuke
-	 ** Now we (try) to do the language settings
-	 ** 
-	 ** Note: ML_mode is only used when not in *Nuke
-	 **/
+	// Check if we are in Nuke or in which Mode and set language
 
 	if (isset($GALLERY_EMBEDDED_INSIDE)) {
 		//We're in NUKE";
 		if (!empty($newlang)) {
 			// if there was a new language given, use it
-			$gallery->nuke_language=$newlang;
-		} else {
-			//No new language. Lets see which Nuke we use and look for a language
-			if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'postnuke') {
-				/* postnuke */
-				if (isset($HTTP_SESSION_VARS['PNSVlang'])) {
-					$gallery->nuke_language=$HTTP_SESSION_VARS['PNSVlang'];
-				}
-			}
-			else {
-				/* phpnuke */
-				if (isset($HTTP_COOKIE_VARS['lang'])) {
-					$gallery->nuke_language=$HTTP_COOKIE_VARS['lang'];
-				}
-			}
+			$gallery->nuke_language=$newlang;	
+		} elseif (isset($HTTP_COOKIE_VARS['lang'])) {
+			// if not and a language is given by NUKE Cookie use it
+			$gallery->nuke_language=$HTTP_COOKIE_VARS['lang'];
 		}
-
-		if (isset ($gallery->session->language) && ! isset($gallery->nuke_language)) {
+                
+		if (isset ($gallery->session->language) && !isset($gallery->nuke_language)) {
 			$gallery->language = $gallery->session->language;
 		} else {
 			$gallery->language=$nls['alias'][$gallery->nuke_language];
 		}
 	} else {
-		// We're not in Nuke
-		// If we got a ML_mode from config.php we use it
-		// If not we use Mode 2 (Browserlanguage)
-
-		if (isset($gallery->app->ML_mode)) {
-			$ML_mode=$gallery->app->ML_mode;
-		} else {
-			$ML_mode=2;
-		}
-
-		switch ($ML_mode) {
+		//We're not in Nuke
+		switch ($gallery->app->ML_mode) {
 			case 1:
 				//Static Language
 				$gallery->language = $gallery->app->default_language;
+				break;
+			case 2:
+				// Use Browser Language
+				if (!empty($gallery->user) && 
+						$gallery->user->getDefaultLanguage() != "") {
+					$gallery->language = $gallery->user->getDefaultLanguage();
+				} else {
+					$gallery->language=$gallery->browser_language;
+				}
 				break;
 			case 3:
 				// Does the user want a new language ?
 				if (!empty($newlang)) {
 					// Use Alias if
-					if (isset($nls['alias'][$newlang])) $newlang=$nls['alias'][$newlang] ;
-					// Set Language to the User selected language (if this language is defined)
-					if (isset($nls['language'][$newlang])) {
+					if ($nls['alias'][$newlang]) $newlang=$nls['alias'][$newlang] ;
+					// use Language if its okay
+					// Set Language to the User selected language (if this language is defined
+					if ($nls['language'][$newlang]) {
 						$gallery->language=$newlang;
 					}
 				} elseif (isset($gallery->session->language)) {
 					//maybe we already have a language
 					$gallery->language=$gallery->session->language;
-				}
-				break;
-			default:
-				// Use Browser Language or Userlanguage 
-				// when mode 2 or any other (wrong) mode
-				if (!empty($gallery->user) && 
-						$gallery->user->getDefaultLanguage() != "") {
-					$gallery->language = $gallery->user->getDefaultLanguage();
-				} elseif (isset($gallery->browser_language)) {
-					$gallery->language=$gallery->browser_language;
 				}
 				break;
 		}
@@ -2331,11 +1900,10 @@ function initLanguage() {
 
 	// locale
 	if (isset($gallery->app->locale_alias[$gallery->language])) {
-		$gallery->locale=$gallery->app->locale_alias["$gallery->language"];
+		$gallery->locale=$gallery->app->locale_alias[$gallery->language];
 	} else {
 		$gallery->locale=$gallery->language;
 	}
-
 	// Override NUKEs locale :)))	
 	$locale=$gallery->locale;
 

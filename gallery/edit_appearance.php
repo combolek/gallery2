@@ -87,7 +87,7 @@ if (isset($save)) {
   <title><?php echo _("Album Properties") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <?php echo _("Album Properties") ?>
@@ -95,14 +95,14 @@ if (isset($save)) {
 <?php echo makeFormIntro("edit_appearance.php", 
 			array("name" => "theform", 
 				"method" => "POST")); ?>
-<input type=hidden name="save" value="1">
+<input type=hidden name="save" value=1>
 <table>
 <tr>
 <td colspan="2"><?php echo _("Album Summary") ?></td>
 </tr>
 <tr>
 <td colspan="2" align="left">
-<textarea cols=60 rows=8 name="summary"><?php echo $gallery->album->fields["summary"] ?></textarea>
+<textarea cols=50 rows=4 name="summary"><?php echo $gallery->album->fields["summary"] ?></textarea>
 </td>
 </tr>
 <tr>
@@ -221,12 +221,12 @@ if ($gallery->app->use_exif) {
 </table>
 
 <br>
-<input type="checkbox" name="setNested" value="1"><?php echo _("Apply values to nested Albums (except Album Title and Summary).") ?>
+<input type=checkbox name=setNested value="1"><?php echo _("Apply values to nested Albums (except Album Title and Summary).") ?>
 <br>
 <br>
 <input type="submit" name="apply" value="<?php echo _("Apply") ?>">
-<input type="reset" value="<?php echo _("Undo") ?>">
-<input type="button" name="close" value="<?php echo _("Close") ?>" onclick='parent.close()'>
+<input type=reset value="<?php echo _("Undo") ?>">
+<input type="button" name="close" value="<?php echo _("Close") ?>" onclick="parent.close()">
 
 </form>
 

@@ -36,9 +36,6 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
 
 <?php
 // Security check.
-if (!isset($uname)) {
-	$uname="";
-}
 $uname = removeTags($uname);
 ?>
 
@@ -47,14 +44,14 @@ $uname = removeTags($uname);
 	<title><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo sprintf(_("Login to %s"), $gallery->app->galleryTitle) ?></span>
 <br>
 <br>
 <?php
-if (isset($login)) {
+if ($login) {
 	if ($uname && $gallerypassword) {
 		$tmpUser = $gallery->userDB->getUserByUsername($uname);
 		if ($tmpUser && $tmpUser->isCorrectPassword($gallerypassword)) {
@@ -83,7 +80,7 @@ if (isset($login)) {
 <?php echo _("Logging in gives you greater permission to view, create, modify and delete albums.") ?>
 <p>
 <table>
-<?php if (isset($invalid)) { ?>
+<?php if ($invalid) { ?>
  <tr>
   <td colspan=2>
    <?php echo gallery_error(_("Invalid username or password")); ?>
@@ -100,7 +97,7 @@ if (isset($login)) {
   </td>
  </tr>
 
-<?php if (isset($error) && !isset($uname)) { ?>
+<?php if ($error && !$uname) { ?>
  <tr>
   <td colspan=2 align=center>
    <?php echo gallery_error(_("You must specify a username")); ?>
@@ -117,7 +114,7 @@ if (isset($login)) {
   </td>
  </tr>
 
-<?php if (isset($error) && !isset($gallerypassword)) { ?>
+<?php if ($error && !$gallerypassword) { ?>
  <tr>
   <td colspan=2 align=center>
    <?php echo gallery_error(_("You must specify a password")); ?>
@@ -128,7 +125,7 @@ if (isset($login)) {
 </table>
 <p>
 <input type="submit" name="login" value="<?php echo _("Login") ?>">
-<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick="parent.close()">
 </form>
 
 <script language="javascript1.2">

@@ -38,7 +38,7 @@ if (!$gallery->user->isLoggedIn()) {
 	exit;	
 }
 
-if ( isset($save)) {
+if (isset($save)) {
 	if (strcmp($gallery->user->getUsername(), $uname)) {
 		$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 		if ($gErrors["uname"]) {
@@ -100,7 +100,7 @@ $defaultLanguage = $gallery->user->getDefaultLanguage();
   <title><?php echo _("Change User Preferences") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Change User Preferences") ?></span>
@@ -113,10 +113,9 @@ $defaultLanguage = $gallery->user->getDefaultLanguage();
 
 <p>
 
-<?php echo makeFormIntro("user_preferences.php", array(
-			"name" => "usermodify_form", 
-			"method" => "POST"));
-?>
+<?php echo makeFormIntro("user_preferences.php", 
+			array("name" => "usermodify_form", 
+				"method" => "POST")); ?>
 <p>
 
 <?php include($GALLERY_BASEDIR . "html/userData.inc"); ?>

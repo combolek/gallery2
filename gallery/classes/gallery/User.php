@@ -81,7 +81,7 @@ class Gallery_User extends Abstract_User {
 		}
 		$this->version = $gallery->user_version;
 		if ($this->save()) {
-			$success=true;
+			$success = true;
 		} else {
 			$success = false;
 		}
