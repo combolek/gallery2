@@ -54,12 +54,18 @@
 		  {gallery->text text="Back to Item View"}
 		{/gallery->link}
 	      {/gallery->listingitem}
+	      {gallery->listingitem}
+		{gallery->link url_view='core:ShowItem' url_itemId=$parents[0].id}
+		  {gallery->text text="Back to Album View"}
+		{/gallery->link}
+	      {/gallery->listingitem}
+	    {else}
+	      {gallery->listingitem}
+		{gallery->link url_view='core:ShowItem' url_itemId=$item.id}
+		  {gallery->text text="Back to Album View"}
+		{/gallery->link}
+	      {/gallery->listingitem}
 	    {/if}
-	    {gallery->listingitem}
-	      {gallery->link url_view='core:ShowItem' url_itemId=$parents[0].id}
-		{gallery->text text="Back to Album View"}
-	      {/gallery->link}
-	    {/gallery->listingitem}
 	  {/gallery->listing}
 	{/gallery->sidebarboxtitle}
       {/gallery->sidebarboxbody}
