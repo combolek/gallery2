@@ -1,136 +1,99 @@
-2003-11-20  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-cvs-b28
+2003-11-20  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC4
+
+	* v1.4.1 Release Candidate 4
+
+2003-11-20  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC4-cvs-b23
 
 	* Updated EZ Prints form to new API in view_photo.php.
 
-2003-11-20  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b27
+2003-11-19  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b22
 
-	* More tweaks to the check_versions.php text.
+	* Tweaked text.  Hopefully last change before RC4.
 
-2003-11-20  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b26
+2003-11-19  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b21
 
-	* Fixed typo in check_versions.php
+	* Tweaked tools/build_manifest to make it simpler, and clearer.
 
-2003-11-20  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b25
+	* Updated manifest.inc.
 
-	* Reformat output of check_versions.php to make it more amenable to 
-	  style sheets.
+2003-11-19  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b20
 
-2003-11-19  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b24
+	* Added check_versions to gallery check page, to check that gallery
+	  is up-to-date before running.
 
-        * Added check_versions to gallery check page, to check that gallery
-          is up-to-date before running.
+	* Modified checkVersions to return ($success, $fail, $warn)
 
-	* Default to high tech slide show unless we know it won't work.
+	* Fixed potential warning in setup/check.inc.
 
-        * Moved checkVersions() to util.php, and fixed a logical bug in it.
+2003-11-19  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b19
 
-        * Modified checkVersions to return ($success, $fail, $warn)
+	* Moved checkVersions() to util.php, and fixed a logical bug in it.  
+	  Also added some improvements to it's behaviour from HEAD.
 
-	* Removed warning from check.inc.
+2003-11-19 Jens Tkotz <jens@peino.de> 1.4.1-RC4-cvs-b18
 
-        * Tweaked tools/build_manifest to make it simpler, and clearer.
+	* Bugfix: Change Parameter for check imagemagick to -version.
+
+2003-11-18 Jens Tkotz <jens@peino.de> 1.4.1-RC4-cvs-b17
+
+	* Bugfix: In Windows in some diagnostic files fs_win32.php 
+		  was called twice.
+
+	* Bugfix: Disabled one little translation, because at that time _()
+		  is undefined when PHP has no gettext. To really fix this a
+		  bigger change were needed.
+
+
+2003-11-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b16
 
 	* Fixed CSS file so text is readable with bluemod skin.
 
-        * Update manifest.inc. 
+2003-11-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b15
 
-2003-11-18 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b23
+	* Increase the warnings on vote initialization to try to stop 
+	  people turning voting on in all albums by mistake.
 
-	* Change: Code cleanup in setup files. Moved initialization things into
-		  init.php.
+2003-11-17 Jens Tkotz <jens@peino.de> 1.4.1-RC4-cvs-b14
 
-	  Note: This also fixes a Bug where fs_win32.php was loaded when in win32.
-		This also fixes a Bug when PHP has no gettext and diagnostics were called.
+	* Bugfix: Changed check in confirm.inc to 
+	  catch empty fields which are new.
 
-2003-11-17  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-cvs-b22
-
-	* Fix from Bharat to reduce time limit errors in large galleries.
-
-2003-11-17 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b21
-
-        * Bigfix: Changed check in confirm.inc to
-          catch empty fields which are new.
-
-2003-11-15  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b20
+2003-11-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b13
 
 	* Fixed bug where focus on new password page was an uneditable field.
 
-	* Re-arranged email message slightly, so links are clickable.
-
-2003-11-15  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b19
+2003-11-17  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b12
 
 	* Added message if you run backup_albums.php from setup directory.
 
-	* Added message in config that slide show improvements don't 
-	  work for low tech version.
+2003-11-15  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b11
 
-2003-11-15  Jesse Mullan  <jmullan@visi.com> 1.4.2-cvs-b18
+        * Removed error message so skins/ can be removed without problems.
 
-	* Fixed php short tag to long tag in html_wrap/gallery.footer.default
-
-2003-11-15  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b17
-
-	* Removed error message so skins/ can be removed without problems.
-
-2003-11-14  Pierre-Luc Paour  <paour@users.sourceforge.net> 1.4.2-cvs-b16
-
-	* Updated gallery_remote2.php to tweak fetch-album-images and
-	  fetch-albums*, adding some data that GR needs.
-	* Also added some trivial debugging.
-
-2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b15
-
+2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b10
+	
 	* Added backwards compatibility for user customized thumbnail frames.
 
-	* check_versions more verbose, and translatable.
+2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b9
 
-2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b14
+	* w3.org links only if devMode="yes"
 
-	* Tidy up of validation link. Note this is not the  same as the change 
-	  made in 1.4.1-RC4-b9.
-
-2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b13
+2003-11-14  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b8
 
 	* Moved email.log to .users directory.
 
-2003-11-13  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b12
+2003-11-13  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b7
+
+	* Fixed bug introduced in -b3.  However, the problem that -b3 was
+	  trying to fix was that new Gallery_UserDB was returning a generic
+	  class.  Will revisit this later.  Note, this fix is from 
+	  1.4.2-cvs-b10
+
+2003-11-13  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b6
 
 	* Ignore config_version when running backup script.
 
-2003-11-13 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b11
-
-	* Bugfix: Fixed wrong style.
-
-	* Change: Fix Typo.
-	
-	* Change: Doctype is now more detailed.
-
-	* New: Added function metatags() which writes metatags.
-		- content-style-type
-		- content-type
-		- content-language
-
-	* New: Added function common_header() which writes a commmon header
-		- stylesheets
-		- metatags
-
-	* New: Added function unhtmlentities() which transforms html entities
-	       back. This is necessary for Statusbar of IE and Opera.
-
-	* Bugfix: When in Language Mode 0 (No ML at all) then check for
-          PHP has gettext or not is skipped. So _() was undefined.
-          Fixed now.
-
-2003-11-13  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-cvs-b10
-
-	* Part 1 of 2 of improving skins capabilities.
-	  - Added class="..." to various elements, mostly <a> tags.
-	  - Modified popup_link() to accept a class for the <a> tag.
-	  - Slightly rearranged admin/nav/bread boxes where needed.
-
-	* Modified check_admins() in Config. Wizard to work better.
-
-2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b9
+2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b5
 
 	* Modified backup_albums.php to prevent a catch-22 situation.  You 
 	  had to be logged in as admin to run the backup.  you can't login 
@@ -140,67 +103,97 @@
 	  backup.  Also changed timeout to 10 minutes, and added 
 	  instructions about copying file from setup before running.
 
-2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b8
+2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b4
 
 	* "Not valid yet" was appearing under photos for non-logged in users.
 
+2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-cvs-b3
+
 	* Upgrades will work in versions that predate $userDB->getUidList().
 
-2003-11-12  Chris Schwerdt  <muti@afterglo.ws> 1.4.2-cvs-b7
+2003-11-12 Jens Tkotz <jens@peino.de> 1.4.1-RC4-cvs-b2
 
-	* Added album summary to fetch-albums and fetch-albums-prune
+	* From now on languages changes that only are done 
+	  in locale folder are not longer documented here.
+	  
+	  The changes are now in the corresponding Changelog file.
 
-	* Added resize_size to fetch-albums and fetch-albums-prune
+	* Change: Use RC-cvs Version Number like we did for 1.4
 
-2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b6
+2003-11-12  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC4-b1
 
 	* Fixed bug where you couldn't move your albums after you'd configured
 	  them once. Thanks to Ozgreg.
 
-	* Added code so inline_gallerythumb.frames on existing sites still
-	  works.
+2003-11-12  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC3
 
-2003-11-12  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-cvs-b5
+	* v1.4.1 Release Candidate 3
+
+	* Added warning notice to upgraders in Config. Wizard Step 3.
+
+2003-11-11  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC3-b7
 
 	* Fixed Image::getTag() to properly set image dimensions to $size if
 	  specified. Previously, the setting was being improperly ignored in
 	  some cases.
 
-	* Fixed Config. Wizard's check_jpegtran() which was failing in some
-	  cases when it shouldn't have been. (Bug #818041)
-
-	* Added warning notice to upgraders in Config. Wizard Step 3.	
+	* Fixed Config. Wizard's check_jpegtran() which was failing in
+	  some cases when it shouldn't have been. (Bug #818041)
 	
-2003-11-09 Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b4
+2003-11-11 Jens Tkotz <jens@peino.de> 1.4.1-RC3b6
 
+	* Language: Update German (de_DE), Brazilian Portuguese (pt_BR)
+	  and swedish (sv_SE) (yeah, 2nd 100%)
+
+2003-11-11  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC3-b5
+
+	* Added code so inline_gallerythumb.frames on existing sites still
+	  works.
+
+2003-11-11  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC3-b4
+
+	* Fixed bug that you get error when deleting last image if there is 
+	  a subalbum.
+
+2003-11-11 Jens Tkotz <jens@peino.de> 1.4.1-RC3-b3
+
+	* Bugfix: When in Language Mode 0 (No ML at all) then check for
+	  PHP has gettext or not is skipped. So _() was undefined.
+	  Fixed now.
+
+2003-11-11  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC3-b2
+	
 	* Moved gallery/setup/manifest.inc to gallery/manifest.inc as 
 	  it's purpose is to test that all the files in subdirectories 
 	  have been updated, and so we need to make sure it has been 
 	  updated.
 
+2003-11-10  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC3-b1
+
 	* Fix to gettext (missing _() ) problem.
 
-	* Add check_version.php to diagnostics.
+	* Fix to missing pixels in shadow frame. 
 
-	* Add new files to manifest.inc and build_manifest.php.
+	* Updating of manifest.inc.
 
-2003-11-09 Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b3
+2003-11-09  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC2
 
-	* Fixed shadow frames so they work in Firebird on mac.  Await to see 
-	  if it works with other browsers.
+	* v1.4.1 Release Candidate 2
 
-2003-11-09 Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.2-cvs-b2
+2003-11-09 Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.1-RC1-b1
 
-	* Added number of votes to sorting order of voting.  Critique sorts 
-	  by the average votes, and this enables differentiation between 
-	  one voter giving and image 10/10 while everyone else ignores it 
-	  and 400 voter giving it 10/10.  It also means that in rank voting, 
-	  if 4 people vote an image 1/4 it will appear higher on the list 
-	  than an image that one person rates 4/4.  
+ 	* Added number of votes to sorting order of voting.  Critique sorts 
+ 	  by the average votes, and this enables differentiation between 
+ 	  one voter giving and image 10/10 while everyone else ignores it 
+ 	  and 400 voter giving it 10/10.  It also means that in rank voting, 
+ 	  if 4 people vote an image 1/4 it will appear higher on the list 
+ 	  than an image that one person rates 4/4.
 
-2003-11-08  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.2-cvs-b1
+2003-11-08  Beckett Madden-Woods  <beckett@beckettmw.com> 1.4.1-RC1
 
-        * Bumped Config. Wizard version (forgot to do it in 1.4.1-cvs-b216).
+	* v1.4.1 Release Candidate 1
+
+	* Bumped Config. Wizard version (forgot to do it in -b216).
 
 2003-11-08 Jens Tkotz <jens@peino.de> 1.4.1-cvs-b217
 

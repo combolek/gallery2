@@ -142,11 +142,11 @@ do {
      || isset($gallery->session->offlineAlbums[$pAlbumName]))) {
 	$pAlbum = new Album();
 	$pAlbum->load($pAlbumName);
-	$breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($pAlbumName) . 
+	$breadtext[$breadCount] = _("Album") .": <a href=\"" . makeAlbumUrl($pAlbumName) . 
 	"\">" . $pAlbum->fields['title'] . "</a>";
   } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
 	//-- we're at the top! --- 
-	$breadtext[$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . 
+	$breadtext[$breadCount] = _("Gallery") .": <a href=\"" . makeGalleryUrl("albums.php") . 
 	"\">" . $gallery->app->galleryTitle . "</a>"; 
   } 
   elseif ($gallery->session->offline) {	// test is redundant.  offline must be 
@@ -168,8 +168,7 @@ $breadcrumb["bordercolor"] = $bordercolor;
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?></title>
-  <?php common_header(); ?>
-
+  <?php echo getStyleSheetLink() ?>
   <?php /* prefetching/navigation */
   if (!isset($first)) { ?>
       <link rel="first" href="<?php echo makeAlbumUrl($gallery->session->albumName, '', array('page' => 1)) ?>" >
@@ -224,7 +223,7 @@ if ($gallery->album->fields["textcolor"]) {
 <?php if (!$gallery->session->offline) { ?>
 
   <script language="javascript1.2" type="text/JavaScript">
-  <!-- //
+  // <!--
   var statusWin;
   function showProgress() {
 	statusWin = <?php echo popup_status("progress_uploading.php"); ?>
@@ -249,7 +248,7 @@ if ($gallery->album->fields["textcolor"]) {
 	  selected_select.blur();
 	  <?php echo popup('sel_value', 1) ?>
   } 
-  //--> 
+  // --> 
   </script>
 <?php } ?>
 
@@ -446,7 +445,7 @@ if (!empty($adminOptionHTML)) {
 	    . "}\n"
 	    . "</script>\n\n";
     
-    $adminCommands .= "\n\t<select class=\"admin\" name=\"admin_select\" onChange=\"execAdminOption()\">\n";
+    $adminCommands .= "\n\t<select style=\"font-size: 10px;\" name=\"admin_select\" onChange=\"execAdminOption()\">\n";
     $adminCommands .= "\t\t<option value=\"\">&laquo; " . _('admin options') . " &raquo;</option>\n";
     $adminCommands .= $adminOptionHTML;
     $adminCommands .= "\t</select>\n";
@@ -454,18 +453,18 @@ if (!empty($adminOptionHTML)) {
 
 $userCommands = '';
 if ($gallery->album->fields["slideshow_type"] != "off") {
-       	$userCommands .= "<a class=\"admin\" href=\"" . 
+       	$userCommands .= "\t<a href=\"" . 
 	       	makeGalleryUrl("slideshow.php",
 			       	array("set_albumName" => $albumName)) .
-	      	'">['. _("slideshow") ."]</a>&nbsp;";
+	      	'">['. _("slideshow") ."]</a>\n";
 }
 if (!$GALLERY_EMBEDDED_INSIDE && !$gallery->session->offline) {
 	if ($gallery->user->isLoggedIn()) {
-	        $userCommands .= "<a class=\"admin\" href=\"" .
+	        $userCommands .= "\t<a href=\"" .
 					doCommand("logout", array(), "view_album.php", array("page" => $page)) .
 				  "\">[" . _("logout") . "]</a>\n";
 	} else {
-		$userCommands .= popup_link("[". _("login") ."]", "login.php", false, true, 500, 500, 'admin') . "\n";
+		$userCommands .= "\t" . popup_link("[". _("login") ."]", "login.php", 0) . "\n";
 	} 
 }
 $adminbox["text"] = $adminText;
@@ -1060,11 +1059,10 @@ if ($numPhotos) {
 if (canVote())
 {
 ?>
-	<table width="100%">
-	<tr>
-		<td align="center"><input type=submit name="Vote" value="<?php print _("Vote") ?>"></td>
-	</tr>
-	</table>
+	<table width="100%"><tr><td align="center">
+ 	<input type="submit" name="Vote" value="<?php print _("Vote") ?>">
+	</td></tr></table>
+
 <?php
 }
 

@@ -347,6 +347,9 @@ echo makeFormIntro("album_permissions.php",
 
 </div>
 </center>
-<?php print gallery_validation_link("album_permissions.php"); ?>
+<?php if ($gallery->app->devMode == "yes") {
+       	print "<p>";
+       	print gallery_validation_link("album_permissions.php");
+} ?>
 </body>
 </html>

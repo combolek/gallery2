@@ -52,10 +52,10 @@ if (empty ($cmd)) {
 header("Content-type: text/plain");
 
 /*
- * Gallery remote protocol version 2.9
+ * Gallery remote protocol version 2.7
  */
 $GR_VER['MAJ'] = 2;
-$GR_VER['MIN'] = 9;
+$GR_VER['MIN'] = 7;
 
 
 /*
@@ -82,7 +82,7 @@ $GR_STAT['NO_WRITE_PERMISSION']	= 404;
 $GR_STAT['NO_CREATE_ALBUM_PERMISSION']	= 501;
 $GR_STAT['CREATE_ALBUM_FAILED']			= 502;
 $GR_STAT['MOVE_ALBUM_FAILED']	= 503;
-$GR_STAT['ROTATE_IMAGE_FAILED'] = 504;
+
 /*
  * Check protocol version
  */
@@ -138,7 +138,6 @@ $response->setProperty( "debug_album", $gallery->album->fields["name"]);
 if ($gallery->user) {
 	$response->setProperty( "debug_user", $gallery->user->getUsername());
 	$response->setProperty( "debug_user_type", get_class($gallery->user));
-	$response->setProperty( "debug_user_already_logged_in", $gallery->user->isLoggedIn());
 } else {
 	$response->setProperty( "debug_user", "NO_USER");
 }
@@ -346,24 +345,10 @@ if (!strcmp($cmd, "login")) {
 	foreach($gallery->album->photos as $albumItemObj) {
 		if(empty($albumItemObj->isAlbumName)) { //Make sure this object is a picture, not an album
 			$tmpImageNum++;
-			
 			$response->setProperty( 'image.name.'.$tmpImageNum, $albumItemObj->image->name.'.'.$albumItemObj->image->type );
-			$fullSize = $albumItemObj->getDimensions(1);
-			$response->setProperty( 'image.raw_width.'.$tmpImageNum, $fullSize[0] );
-			$response->setProperty( 'image.raw_height.'.$tmpImageNum, $fullSize[1] );
-
-			if ($albumItemObj->isResized()) {
-				$response->setProperty( 'image.resizedName.'.$tmpImageNum, $albumItemObj->image->resizedName.'.'.$albumItemObj->image->type );
-				$resizedSize = $albumItemObj->getDimensions(0);
-				$response->setProperty( 'image.resized_width.'.$tmpImageNum, $resizedSize[0] );
-				$response->setProperty( 'image.resized_height.'.$tmpImageNum, $resizedSize[1] );
-			}
-
-			$response->setProperty( 'image.thumbName.'.$tmpImageNum, $albumItemObj->thumbnail->name.'.'.$albumItemObj->image->type );
-			$thumbnailSize = $albumItemObj->getThumbDimensions();
-			$response->setProperty( 'image.thumb_width.'.$tmpImageNum, $thumbnailSize[0] );
-			$response->setProperty( 'image.thumb_height.'.$tmpImageNum, $thumbnailSize[1] );
-
+			$response->setProperty( 'image.raw_width.'.$tmpImageNum, $albumItemObj->image->raw_width );
+			$response->setProperty( 'image.raw_height.'.$tmpImageNum, $albumItemObj->image->raw_height );
+			$response->setProperty( 'image.resizedName.'.$tmpImageNum, $albumItemObj->image->resizedName.'.'.$albumItemObj->image->type );
 			$response->setProperty( 'image.raw_filesize.'.$tmpImageNum, $albumItemObj->getFileSize(1) );
 			$response->setProperty( 'image.caption.'.$tmpImageNum, $albumItemObj->caption );
 			if(count($albumItemObj->extraFields)) { //if there are extra fields for this image
@@ -460,51 +445,6 @@ if (!strcmp($cmd, "login")) {
 			$response->setProperty( 'status_text', 'Album and destination album cannot be the same.' );
 		}
 	}
-/*
-} else if (!strcmp($cmd, 'move-image')) {
-
-} else if (!strcmp($cmd, 'reorder')) {
-	if(!isset($gallery->album)) { //if reordering root album
-		if($gallery->user->canCreateAlbums() or $gallery->user->isAdmin()) {
-			$albumDB = new AlbumDB(FALSE);
-			$albumDB->moveAlbum($gallery->user, $index, $newIndex);
-			$albumDB->save();
-			$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-			$response->setProperty( 'status_text', 'Change index successful.' );
-		} else {
-			$response->setProperty( 'status', $GR_STAT['NO_WRITE_PERMISSION'] );
-			$response->setProperty( 'status_text', 'No write permission.' );
-		}
-	} else {
-		if($gallery->user->canWriteToAlbum($gallery->album)) {
-			$gallery->album->movePhoto($index,$newIndex-1);
-			$gallery->album->save();
-			$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-			$response->setProperty( 'status_text', 'Change index successful.' );
-		} else {
-			$response->setProperty( 'status', $GR_STAT['NO_WRITE_PERMISSION'] );
-			$response->setProperty( 'status_text', 'No write permission.' );
-		}
-	}
-} else if (!strcmp($cmd, 'rotate-image')) {
-	//verify index is a picture
-	if(is_object($gallery->album->photos[$index-1]->image)) {
-		if($gallery->user->canWriteToAlbum($gallery->album)) {
-			if(isset($index) && $gallery->session->albumName) {
-				set_time_limit($gallery->app->timeLimit);
-				$gallery->album->rotatePhoto($index,$rotate);
-				$gallery->album->save();
-				$response->setProperty( 'status', $GR_STAT['SUCCESS'] );
-				$response->setProperty( 'status_text', 'Image successfully rotated.' );
-			}
-		} else {
-			$response->setProperty( 'status', $GR_STAT['NO_WRITE_PERMISSION'] );
-			$response->setProperty( 'status_text', 'No write permission.' );
-		}
-	} else {
-		$response->setProperty( 'status', $GR_STAT['ROTATE_IMAGE_FAILED'] );
-		$response->setProperty( 'status_text', 'Specified index is not an image.' );
-	}*/
 } else {
 	// if the command hasn't been handled yet, we don't recognize it
 	$response->setProperty( "status", $GR_STAT['UNKNOWN_COMMAND'] );
@@ -563,7 +503,7 @@ function add_album( &$myAlbum, &$album_index, $parent_index, &$response ){
 	
 	// increment index
 	$album_index++;
-
+	
 	// fetch name & title
 	$albumName = $myAlbum->fields[name];
 	$albumTitle = $myAlbum->fields[title];
@@ -571,11 +511,8 @@ function add_album( &$myAlbum, &$album_index, $parent_index, &$response ){
 	// write name, title and parent
 	$response->setProperty( "album.name.$album_index", $albumName );
 	$response->setProperty( "album.title.$album_index", $albumTitle );
-	$response->setProperty( "album.summary.$album_index", $myAlbum->fields['summary'] );
 	$response->setProperty( "album.parent.$album_index", $parent_index );
-	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] );
-	$response->setProperty( "album.thumb_size.$album_index", $myAlbum->fields['thumb_size'] );
-
+	
 	// write permissions
 	$can_add = $gallery->user->canAddToAlbum($myAlbum) ? "true" : "false";
 	$can_write = $gallery->user->canWriteToAlbum($myAlbum) ? "true" : "false";

@@ -100,7 +100,7 @@ if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes
 <td valign="middle" align="right">
 <?php echo makeFormIntro("search.php"); ?>
 <span class="search"> <?php echo _("Search") ?>: </span>
-<input style="font-size:10px;" type="text" name="searchstring" value="" size="25">
+<input style="font-size=10px;" type="text" name="searchstring" value="" size="25">
 </form>
 </td>
 </tr>
@@ -138,18 +138,18 @@ if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 }
 
 if ($gallery->app->gallery_slideshow_type != "off") {
-    	 $adminCommands .= '<a class="admin" href="' . makeGalleryUrl("slideshow.php",
+    	 $adminCommands .= '<a href="' . makeGalleryUrl("slideshow.php",
 	 array("set_albumName" => null)) .
 	       	'">['._("slideshow") . ']</a>&nbsp;';
 }
 if ($gallery->user->isAdmin()) {
-	$doc = galleryDocs('admin');
+	$doc = galleryDocs();
 	if ($doc) {
 		$adminCommands .= "[$doc]&nbsp;";
 	}
 }
 if ($gallery->user->canCreateAlbums() && !$gallery->session->offline) { 
-	$adminCommands .= "<a class=\"admin\" href=\"" . doCommand("new-album", array(), "view_album.php") . "\">[". _("new album") ."]</a>&nbsp;";
+	$adminCommands .= "<a href=\"" . doCommand("new-album", array(), "view_album.php") . "\">[". _("new album") ."]</a>&nbsp;";
 }
 
 if ($gallery->user->isAdmin()) {
@@ -157,27 +157,25 @@ if ($gallery->user->isAdmin()) {
 	    $gallery->userDB->canCreateUser() ||
 	    $gallery->userDB->canDeleteUser()) {
 		$adminCommands .= popup_link("[" . _("manage users") ."]", 
-			"manage_users.php", false, true, 500, 500, 'admin')
-			. '&nbsp;';
+			"manage_users.php");
 	}
 }
 
 if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	if ($gallery->userDB->canModifyUser()) {
 		$adminCommands .= popup_link("[". _("preferences") ."]", 
-			"user_preferences.php", false, true, 500, 500, 'admin')
-			. '&nbsp;';
+			"user_preferences.php");
 	}
 	
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-		$adminCommands .= "<a class=\"admin\" href=\"". doCommand("logout", array(), "albums.php"). "\">[". _("logout") ."]</a>";
+		$adminCommands .= "<a href=\"". doCommand("logout", array(), "albums.php"). "\">[". _("logout") ."]</a>";
 	}
 } else {
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-	        $adminCommands .= popup_link("[" . _("login") . "]", "login.php", false, true, 500, 500, 'admin');
+	        $adminCommands .= popup_link("[" . _("login") . "]", "login.php", 0);
             if (!strcmp($gallery->app->selfReg, 'yes')) {
                 $adminCommands .= '&nbsp;';
-                $adminCommands .= popup_link('[' . _("register") . ']', 'register.php', false, true, 500, 500, 'admin');
+                $adminCommands .= popup_link('[' . _("register") . ']', 'register.php', 0);
             }
 	}
 }
@@ -269,6 +267,13 @@ for ($i = $start; $i <= $end; $i++) {
 	  $iWidth = $gallery->app->highlight_size;
 	  $iHeight = 100;
       }
+      /*begin backwards compatibility */
+      $gallery->html_wrap['thumbWidth'] = $iWidth;
+      $gallery->html_wrap['thumbHeight'] = $iHeight;
+      $gallery->html_wrap['thumbTag'] = $gallery->album->getHighlightTag($scaleTo,'', _("Highlight for Album: "). $gallery->album->fields["title"]);
+      $gallery->html_wrap['thumbHref'] = $albumURL;
+      /*end backwards compatibility*/
+      
       $gallery->html_wrap['imageWidth'] = $iWidth;
       $gallery->html_wrap['imageHeight'] = $iHeight;
       $gallery->html_wrap['imageTag'] = $gallery->album->getHighlightTag($scaleTo,'', _("Highlight for Album: "). $gallery->album->fields["title"]);
