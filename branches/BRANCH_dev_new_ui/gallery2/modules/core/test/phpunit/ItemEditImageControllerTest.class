@@ -131,7 +131,8 @@ class ItemEditImageControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditImage',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('scaledImage' => 1)),
 			    $results);
 
 	/* Verify that the transform went ok */
@@ -184,7 +185,8 @@ class ItemEditImageControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditImage',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('rotatedImage' => 1)),
 			    $results);
 
 	/* Verify that the transform went ok */
@@ -206,7 +208,8 @@ class ItemEditImageControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditImage',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('rotatedImage' => 1)),
 			    $results);
 
 	/* Verify that the transform went ok */
@@ -228,7 +231,8 @@ class ItemEditImageControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditImage',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('rotatedImage' => 1)),
 			    $results);
 
 	/* Verify that the transform went ok */
@@ -250,7 +254,8 @@ class ItemEditImageControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditImage',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('revertedImage' => 1)),
 			    $results);
 
 	/* Verify that the preferred is gone */
