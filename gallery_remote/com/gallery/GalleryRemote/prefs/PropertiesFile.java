@@ -256,10 +256,10 @@ public class PropertiesFile extends GalleryProperties
 		if (header != null)
 			writeln(awriter, "#" + header);
 		writeln(awriter, "#" + new Date().toString());
-		ArrayList v = new ArrayList(keySet());
+		Vector v = new Vector(keySet());
 		Collections.sort(v);
-		for (Iterator e = v.iterator(); e.hasNext();) {
-			String key = (String)e.next();
+		for (Enumeration e = v.elements(); e.hasMoreElements();) {
+			String key = (String)e.nextElement();
 			String val = (String)get(key);
 			key = saveConvert(key, true);
 

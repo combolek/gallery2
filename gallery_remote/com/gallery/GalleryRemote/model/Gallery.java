@@ -23,16 +23,9 @@ package com.gallery.GalleryRemote.model;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.*;
-import javax.swing.event.TreeModelListener;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
 
 import com.gallery.GalleryRemote.*;
 import com.gallery.GalleryRemote.util.GRI18n;
@@ -47,7 +40,7 @@ import com.gallery.GalleryRemote.prefs.GalleryProperties;
  *@created    17 août 2002
  */
 
-public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, Serializable, PreferenceNames, TreeModel {
+public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, Serializable, PreferenceNames {
 	public static final String MODULE="Gallery";
 
 	String stUrlString = null;
@@ -60,8 +53,6 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	ArrayList albumList = null;
 	Album selectedAlbum = null;
 	int type = TYPE_STANDALONE;
-	Album root = new Album(this);
-	ArrayList rootAlbums = new ArrayList();
 
 	transient GalleryComm comm = null;
 
@@ -77,10 +68,12 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	public static final int TOSTRING_MAXLEN = 40;
 
+	public static GRI18n grRes = GRI18n.getInstance();
+
 	public Gallery(StatusUpdate su) {
 		this.su = su;
 
-		// when loading from prefs, galleries not yet created. No matter: in that case, the
+		// when loading from prefs, galleries not yet create. No matter: in that case, the
 		// prefsIndex is forced.
 		if (GalleryRemote.getInstance().mainFrame != null) {
 			prefsIndex = GalleryRemote.getInstance().mainFrame.galleries.getSize();
@@ -117,16 +110,15 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	public void logOut() {
 		boolean logout = true;
 
-		albumList = null;
-		selectedAlbum = null;
-		if (comm != null) {
-			comm.logOut();
+		if (hasPictures()) {
+			if (JOptionPane.showConfirmDialog(null, grRes.getString(MODULE, "logoutQuestion"),
+					grRes.getString(MODULE, "logoutQuestion.title"), JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+				logout = false;
+			}
 		}
-		comm = null;
 
 		if (logout) {
 			albumList = null;
-			rootAlbums.clear();
 			selectedAlbum = null;
 			if (comm != null) {
 				comm.logOut();
@@ -156,13 +148,13 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 				Album a = (Album) i.next();
 
 				Log.log(Log.LEVEL_TRACE, MODULE, a.toString());
-				if (! a.getPicturesList().isEmpty()) {
+				if (! a.getPicturesVector().isEmpty()) {
 					Log.log(Log.LEVEL_TRACE, MODULE, "Album " + a + " had pictures");
 					int j = albumList.indexOf(a);
 
 					if (j != -1) {
 						Album newAlbum = (Album) albumList.get(j);
-						newAlbum.setPicturesList(a.getPicturesList());
+						newAlbum.setPicturesVector(a.getPicturesVector());
 					}
 				}
 			}
@@ -204,35 +196,10 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 
 	public void clearAlbumList() {
 		albumList.clear();
-
 		notifyListeners();
 	}
 
-    public File getGalleryDefaultFile() {
-        StringBuffer defaultFilePath = new StringBuffer();
-
-        defaultFilePath.append(System.getProperty("user.home"));
-        defaultFilePath.append(File.separator);
-        defaultFilePath.append(".GalleryRemote");
-        defaultFilePath.append(File.separator);
-        defaultFilePath.append("backup.");
-        defaultFilePath.append(getPrefsIndex());
-        defaultFilePath.append(".grg");
-
-        // Define which file is used to store the current state if
-        // the user does not provide a specific file.
-        return(new File(defaultFilePath.toString()));
-    }
-
 	public ArrayList getAllPictures() {
-		return getAllPictures(false);
-	}
-
-	public ArrayList getAllUploadablePictures() {
-		return getAllPictures(true);
-	}
-
-	public ArrayList getAllPictures(boolean onlyUploadable) {
 		ArrayList pictures = new ArrayList();
 
 		if (albumList != null) {
@@ -240,18 +207,14 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 			while (i.hasNext()) {
 				Album a = (Album) i.next();
 
-				if (onlyUploadable) {
-					pictures.addAll(a.getUploadablePicturesList());
-				} else {
-					pictures.addAll(a.getPicturesList());
-				}
+				pictures.addAll(a.getPicturesVector());
 			}
 		}
 
 		return pictures;
 	}
 
-	/*public ArrayList getAllPictureFiles() {
+	public ArrayList getAllPictureFiles() {
 		ArrayList files = new ArrayList();
 
 		if (albumList != null) {
@@ -264,23 +227,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		}
 
 		return files;
-	}*/
-
-    /**
-     * Delete all of the pictures from the current gallery without
-     * effecting the list of albums that are loaded.  This is used
-     * by the "New" function in the UI.
-     *
-     */
-    public void deleteAllPictures () {
-        if (albumList != null) {
-            Iterator i = albumList.iterator();
-            while (i.hasNext()) {
-                Album a = (Album) i.next();
-                a.clearPictures();
-            }
-        }
-    }
+	}
 
 	public int countAllPictures() {
 		int c = 0;
@@ -423,7 +370,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		if (phpnGalleryUrlString != null) {
 			return phpnGalleryUrlString.toString();
 		} else {
-			return "http://your.host.com/modules.php?name=gallery&include=$GALLERYFILE$";
+			return "http://your.host.com/nuke/modules.php?name=gallery&include=$GALLERYFILE$";
 		}
 	}
 
@@ -447,7 +394,7 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		if (phpnLoginUrlString != null) {
 			return phpnLoginUrlString.toString();
 		} else {
-			return "http://your.host.com/modules.php?name=Your_Account&op=login&username=$USERNAME$&user_password=$PASSWORD$";
+			return "http://your.host.com/nuke/modules.php?name=Your_Account&op=login&username=$USERNAME$&user_password=$PASSWORD$";
 		}
 	}
 
@@ -671,10 +618,6 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		this.prefsIndex = prefsIndex;
 	}
 
-    protected int getPrefsIndex () {
-        return(this.prefsIndex);
-    }
-
 	public String toString() {
 		return toString(true);
 	}
@@ -750,11 +693,6 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		}
 	}
 
-	/** this no longer works: the JTree is the only object that
-	 * knows what the selected album is. This only works in
-	 * JList context...
-	 * @return
-	 */
 	public Album getSelectedAlbum() {
 		return selectedAlbum;
 	}
@@ -772,20 +710,9 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 		return selectedAlbum;
 	}
 
-	public void albumChanged(Album a) {
-		// this doesn't seem to be effective
-		fireTreeStructureChanged(this, getPathForAlbum(a));
-
-		// this either...
-		//GalleryRemote.getInstance().mainFrame.jAlbumTree.treeDidChange();
-
-		// ugly... didn't want to have to implement TreeModelListener in MainFrame
-		GalleryRemote.getInstance().mainFrame.albumChanged(a);
-	}
-
 
 	/*
-	* Miscellaneous
+	* Miscelaneous
 	*/
 
 	/**
@@ -822,7 +749,6 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 			//lde = new ListDataEvent( this, ListDataEvent.CONTENTS_CHANGED, 0, 0 );
 			fireContentsChanged( this, 0, 0 );
 		}
-		fireTreeStructureChanged(this, new TreePath(root));
 
 		//notifyListeners(lde);
 	}
@@ -862,136 +788,4 @@ public class Gallery extends GalleryAbstractListModel implements ComboBoxModel, 
 	private void setBlockWrites(boolean blockWrites) {
 		this.blockWrites = blockWrites;
 	}
-
-	/********** TreeModel interface **********/
-
-	/**
-	 * Returns the root of the tree.  Returns <code>null</code>
-	 * only if the tree has no nodes.
-	 *
-	 * @return the root of the tree
-	 */
-	public Object getRoot() {
-		return root;
-	}
-
-	/**
-	 * Returns the number of children of <code>parent</code>.
-	 * Returns 0 if the node
-	 * is a leaf or if it has no children.  <code>parent</code> must be a node
-	 * previously obtained from this data source.
-	 *
-	 * @param parent a node in the tree, obtained from this data source
-	 * @return the number of children of the node <code>parent</code>
-	 */
-	public int getChildCount(Object parent) {
-		if (parent == root) {
-			return rootAlbums.size();
-		} else {
-			return ((Album) parent).getSubAlbums().size();
-		}
-	}
-
-	/**
-	 * Returns <code>true</code> if <code>node</code> is a leaf.
-	 * It is possible for this method to return <code>false</code>
-	 * even if <code>node</code> has no children.
-	 * A directory in a filesystem, for example,
-	 * may contain no files; the node representing
-	 * the directory is not a leaf, but it also has no children.
-	 *
-	 * @param node a node in the tree, obtained from this data source
-	 * @return true if <code>node</code> is a leaf
-	 */
-	public boolean isLeaf(Object node) {
-		if (node == root) {
-			return rootAlbums.size() == 0;
-		} else {
-			return ((Album) node).getSubAlbums().size() == 0;
-		}
-	}
-
-	/**
-	 * Returns the child of <code>parent</code> at index <code>index</code>
-	 * in the parent's
-	 * child array.  <code>parent</code> must be a node previously obtained
-	 * from this data source. This should not return <code>null</code>
-	 * if <code>index</code>
-	 * is a valid index for <code>parent</code> (that is <code>index >= 0 &&
-	 * index < getChildCount(parent</code>)).
-	 *
-	 * @param parent a node in the tree, obtained from this data source
-	 * @return the child of <code>parent</code> at index <code>index</code>
-	 */
-	public Object getChild(Object parent, int index) {
-		if (parent == root) {
-			return rootAlbums.get(index);
-		} else {
-			return ((Album) parent).getSubAlbums().get(index);
-		}
-	}
-
-	/**
-	 * Returns the index of child in parent.  If <code>parent</code>
-	 * is <code>null</code> or <code>child</code> is <code>null</code>,
-	 * returns -1.
-	 *
-	 * @param parent a note in the tree, obtained from this data source
-	 * @param child  the node we are interested in
-	 * @return the index of the child in the parent, or -1 if either
-	 *         <code>child</code> or <code>parent</code> are <code>null</code>
-	 */
-	public int getIndexOfChild(Object parent, Object child) {
-		if (parent == root) {
-			return rootAlbums.indexOf(child);
-		} else {
-			return ((Album) parent).getSubAlbums().indexOf(child);
-		}
-	}
-
-	/**
-	 * Messaged when the user has altered the value for the item identified
-	 * by <code>path</code> to <code>newValue</code>.
-	 * If <code>newValue</code> signifies a truly new value
-	 * the model should post a <code>treeNodesChanged</code> event.
-	 *
-	 * @param path     path to the node that the user has altered
-	 * @param newValue the new value from the TreeCellEditor
-	 */
-	public void valueForPathChanged(TreePath path, Object newValue) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "valueForPathChanged");
-		Log.logStack(Log.LEVEL_TRACE, MODULE);
-		//To change body of implemented methods use Options | File Templates.
-	}
-
-	public TreePath getPathForAlbum(Album album) {
-		LinkedList path = new LinkedList();
-
-		path.addFirst(album);
-
-		Album parent = null;
-		while ((parent = album.getParentAlbum()) != null) {
-			path.addFirst(parent);
-			album = parent;
-		}
-
-		path.addFirst(root);
-
-		return new TreePath(path.toArray());
-	}
-
-	/*public void checkTransients() {
-		root = new Object();
-		rootAlbums = new ArrayList();
-
-		if (albumList != null) {
-			for (Iterator it = albumList.iterator(); it.hasNext();) {
-				Album album = (Album) it.next();
-
-				if (album.getParentAlbum() == null) {
-					rootAlbums.add(album);
-				}
-			}
-		}
-	}*/
 }
