@@ -620,7 +620,7 @@ $gallery->html_wrap['imageWidth'] = $width;
 $gallery->html_wrap['imageHeight'] = $height;
 $gallery->html_wrap['imageHref'] = $href;
 $gallery->html_wrap['imageTag'] = $photoTag;
-$gallery->html_wrap['pixelImage'] = $imageDir . "/pixel_trans.gif";
+$gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
 
 includeHtmlWrap("inline_photo.frame");
 ?>

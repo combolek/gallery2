@@ -119,8 +119,8 @@ if ($nextPage > $maxPages) {
 }
 
 $thumbSize = $gallery->app->default["thumb_size"];
-$imageDir = $gallery->app->photoAlbumURL."/images";
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
+
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\">";
 
 $bordercolor = $gallery->album->fields["bordercolor"];
 ?>
@@ -163,7 +163,7 @@ if ($gallery->album->fields["textcolor"]) {
 includeHtmlWrap("album.header");
 
 #-- if borders are off, just make them the bgcolor ----
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\">";
 $borderwidth = $gallery->album->fields["border"];
 if (!strcmp($borderwidth, "off")) {
     $bordercolor = $gallery->album->fields["bgcolor"];

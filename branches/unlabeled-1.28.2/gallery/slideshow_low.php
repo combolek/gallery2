@@ -345,7 +345,7 @@ function preload_photo(index) {
 
 <?php
 $imageDir = $gallery->app->photoAlbumURL."/images"; 
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\">";
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\">";
 ?>
 
 <form name="TopForm">

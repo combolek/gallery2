@@ -56,8 +56,7 @@ if ($gallery->session->albumListPage > $maxPages) {
 	$gallery->session->albumListPage = $maxPages;
 }
 
-$imageDir = $gallery->app->photoAlbumURL . '/images';
-$pixelImage = "<img src=\"$imageDir/pixel_trans.gif\" width=\"1\" height=\"1\" alt=\"pixel_trans\">";
+$pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"pixel_trans\">";
 $borderColor = $gallery->app->default["bordercolor"];
 
 $navigator["page"] = $gallery->session->albumListPage;
@@ -105,7 +104,7 @@ if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes
 </form>
 </td>
 </tr>
-<tr><td height="2"><img src="<?php echo $gallery->app->photoAlbumURL ?>/images/pixel_trans.gif" alt="pixel_trans"></td></tr></table>
+<tr><td height="2"><img src="<?php echo getImagePath('pixel_trans.gif')?>" alt="pixel_trans"></td></tr></table>
 <?php
 }
 ?>
@@ -256,7 +255,7 @@ for ($i = $start; $i <= $end; $i++) {
 <?php
       $gallery->html_wrap['borderColor'] = $borderColor;
       $gallery->html_wrap['borderWidth'] = 1;
-      $gallery->html_wrap['pixelImage'] = $imageDir . "/pixel_trans.gif";
+      $gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
       $scaleTo = $gallery->app->highlight_size;
       $highlightIndex = $gallery->album->getHighlight();
       if (isset($highlightIndex)) {

@@ -681,7 +681,7 @@ if ($numPhotos) {
 			//-- put some parameters for the wrap files in the global object ---
 			$gallery->html_wrap['borderColor'] = $bordercolor;
 			$gallery->html_wrap['borderWidth'] = $borderwidth;
-			$gallery->html_wrap['pixelImage'] = $imageDir . "/pixel_trans.gif";
+			$gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
 			if ($gallery->album->isAlbumName($i)) {
 				$scaleTo = $gallery->album->fields["thumb_size"];
 			} else {
