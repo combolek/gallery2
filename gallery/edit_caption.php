@@ -31,6 +31,13 @@ if (!$gallery->user->canChangeTextOfAlbum($gallery->album) && !($gallery->album-
 }
 $err = "";
 
+$extra_fields = getRequestVar('extra_fields');
+
+list($save, $data, $keywords, $index) = getRequestVar(array('save', 'data', 'keywords', 'index'));
+
+list($capture_year, $capture_mon, $capture_mday, $capture_hours, $capture_minutes, $capture_seconds) = 
+	getRequestVar(array('capture_year', 'capture_mon', 'capture_mday', 'capture_hours', 'capture_minutes', 'capture_seconds'));
+
 doctype();
 echo "\n<html>";	
 if (isset($save)) {
@@ -48,7 +55,7 @@ if (isset($save)) {
 		$dateArray["seconds"] = $capture_seconds;
 
 		$timestamp=mktime($capture_hours, $capture_minutes, $capture_seconds, $capture_mon, $capture_mday, $capture_year);
-		$gallery->album->setItemCaptureDate($index, $dateArray );
+		$gallery->album->setItemCaptureDate($index, $timestamp);
 		if (isset($extra_fields)) {
 			foreach ($extra_fields as $field => $value)
 			{
