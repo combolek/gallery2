@@ -83,16 +83,11 @@ class SearchModule extends GalleryModule {
     /**
      * @see GalleryModule::getSystemContent
      */
-    function getSystemContent($returnUrlParams) {
+    function getSystemContent() {
 	global $gallery;
 
-	foreach ($returnUrlParams as $param => $value) {
-	    $return[$param] = $value;
-	}
-	
 	$template = $this->_getTemplate();
 	$template->setVariable('view', 'search:SearchScan');
-	$template->setVariable('return', $return);
 	list($ret, $html) = $template->render('SystemContent.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);

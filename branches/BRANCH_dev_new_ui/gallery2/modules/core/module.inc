@@ -426,16 +426,11 @@ class CoreModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $returnUrlParams) {
+    function getItemLinks($items) {
 	global $gallery;
 
 	if (!is_array($items)) {
 	    $items = array($items);
-	}
-
-	/* Format our return-url params */
-	foreach ($returnUrlParams as $param => $value) {
-	    $params['return.' . $param] = $value;
 	}
 
 	/*
@@ -615,16 +610,12 @@ class CoreModule extends GalleryModule {
     /**
      * @see GalleryModule::getSystemLinks
      */
-    function getSystemLinks($returnUrlParams) {
+    function getSystemLinks() {
 	global $gallery;
 
 	list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	foreach ($returnUrlParams as $param => $value) {
-	    $params['return.' . $param] = $value;
 	}
 
 	$links = array();

@@ -174,15 +174,11 @@ class CommentModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks()
      */
-    function getItemLinks($items, $returnUrlParams) {
+    function getItemLinks($items) {
 	global $gallery;
 
 	if (!is_array($items)) {
 	    $items = array($items);
-	}
-
-	foreach ($returnUrlParams as $param => $value) {
-	    $params['return.' . $param] = $value;
 	}
 
 	$links = array();
@@ -207,15 +203,9 @@ class CommentModule extends GalleryModule {
     }
 
     /**
-     * Return module-specific summary content about the item
-     *
-     * @param object GalleryItem a target item
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
-     * @return array object GalleryStatus a status code
-     *               array (itemId => string HTML content)
+     * @see GalleryModule::getItemSummaries()
      */
-    function getItemSummaries($items, $returnUrlParams) {
+    function getItemSummaries($items) {
 	global $gallery;
 
 	if (!is_array($items)) {
@@ -256,16 +246,9 @@ class CommentModule extends GalleryModule {
     }
 
     /**
-     * Return module-specific summary content about the item
-     *
-     * @param object GalleryItem a target item
-     * @param array key => value parameters provided by the
-     *              parent view -- the module can augment or override these.
-     * @return array object GalleryStatus a status code
-     *               array (itemId => string HTML content)
-     * @todo parameterize the $viewMax option
+     * @see GalleryModule::getItemDetails()
      */
-    function getItemDetails($item, $returnUrlParams) {
+    function getItemDetails($item) {
 	global $gallery;
 
 	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
