@@ -287,7 +287,7 @@ newAlbumTitle=<replaceable>album-title</replaceable>
 newAlbumDesc=<replaceable>album-description</replaceable></programlisting>
         <itemizedlist spacing="compact">
           <listitem>
-            <para><varname><replaceable>parent-album-name</replaceable></varname> is the name of the gallery that the new album should be created under, or empty to create the album at the top-level;</para>
+            <para><varname><replaceable>parent-album-name</replaceable></varname> is the name of the gallery that the new album should be created under, or 0 to create the album at the top-level;</para>
           </listitem>
           <listitem>
             <para><varname><replaceable>album-name</replaceable></varname> is the new album's desired name. The name must be unique within the Gallery. If it is not, then Gallery will assign an automatically-generated name. An automatically generated name will also be used if this parameter is not provided or is empty;</para>
@@ -305,9 +305,11 @@ newAlbumDesc=<replaceable>album-description</replaceable></programlisting>
         <programlisting>
 #__GR2PROTO__
 status=<replaceable>result-code</replaceable>
-status_text=<replaceable>explanatory-text</replaceable></programlisting>
+status_text=<replaceable>explanatory-text</replaceable>
+album_name=<replaceable>actual-name</replaceable></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the request succeeded.</para>
         <para>If the <varname>result-code</varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_NO_CREATE_ALBUM_PERMISSION</varname></link>, the logged-in user doesn&apos;t have permission to create an album in the specified location.</para>
+        <para>If an album is created with the same name as an already existing album or <replaceable>album-title</replaceable> is left blank, gallery will automatically generate an album name. <replaceable>actual-name</replaceable> will return the name of the newly created album.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.fetch-album-images">
