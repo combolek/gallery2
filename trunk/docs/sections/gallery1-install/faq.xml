@@ -349,7 +349,8 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
        </listitem>
        <listitem>
         <para>
-         <emphasis>Abort trap</emphasis> or <emphasis>Segmentation Fault</emphasis>
+         <emphasis>Abort trap</emphasis> or <emphasis>Segmentation Fault</emphasis> or
+         <emphasis>Cannot execute binary file</emphasis>
          -- probably means you installed the wrong binaries for your system (e.g.
          installed the FreeBSD binaries on a Linux system) or you uploaded the binaries
          in <literal>ASCII FTP mode</literal> instead of <literal>BINARY FTP mode</literal>.
