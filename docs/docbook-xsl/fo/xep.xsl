@@ -27,12 +27,12 @@
 
 <xsl:template name="xep-document-information">
   <rx:meta-info>
-    <xsl:if test="(//author)[1]">
+    <xsl:if test="//author[1]">
       <xsl:element name="rx:meta-field">
         <xsl:attribute name="name">author</xsl:attribute>
         <xsl:attribute name="value">
           <xsl:call-template name="person.name">
-            <xsl:with-param name="node" select="(//author)[1]"/>
+            <xsl:with-param name="node" select="//author[1]"/>
           </xsl:call-template>
         </xsl:attribute>
       </xsl:element>
@@ -107,7 +107,7 @@
     <xsl:when test="parent::*">
       <rx:bookmark internal-destination="{$id}">
         <rx:bookmark-label>
-          <xsl:value-of select="$bookmark-label"/>
+          <xsl:value-of select="translate($bookmark-label, $a-dia, $a-asc)"/>
         </rx:bookmark-label>
         <xsl:apply-templates select="*" mode="xep.outline"/>
       </rx:bookmark>
@@ -116,7 +116,7 @@
       <xsl:if test="$bookmark-label != ''">
         <rx:bookmark internal-destination="{$id}">
           <rx:bookmark-label>
-            <xsl:value-of select="$bookmark-label"/>
+            <xsl:value-of select="translate($bookmark-label, $a-dia, $a-asc)"/>
           </rx:bookmark-label>
         </rx:bookmark>
       </xsl:if>
@@ -128,7 +128,7 @@
       </xsl:variable>
       <xsl:if test="contains($toc.params, 'toc')
                     and set|book|part|reference|section|sect1|refentry
-                        |article|bibliography|glossary|chapter
+                        |article|bibliography|glossary
                         |appendix">
         <rx:bookmark internal-destination="toc...{$id}">
           <rx:bookmark-label>

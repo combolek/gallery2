@@ -158,7 +158,8 @@
    <title>Gallery Remote</title>
    
    <para>
-    Gallery comes with a Java application called Gallery Remote that your users
+    Gallery comes with a Java application called Gallery Remote
+    (<link linkend="gallery-remote">more information</link>) that your users
     can use to upload photos to your Gallery via a drag-and-drop interface.
     You can download Gallery Remote from the
     <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=phpWiki&amp;file=index&amp;pagename=Download">
@@ -182,14 +183,12 @@
    <title>Embedding Gallery</title>
    
    <para>
-    Gallery is compatible with <ulink url="http://www.phpnuke.org">PHPNuke 5.0+</ulink>,
-    <ulink url="http://www.postnuke.com">PostNuke</ulink>, 
-    <ulink url="http://www.geeklog.net/">GeekLog</ulink> and 
-    <ulink url="http://www.mamboserver.com/">Mambo</ulink>, as an add-on module.
-    Once configured, Gallery will take on the look and feel of whatever application it's
-    embedded into. 
-    Since each CMS has slightly different requirements to enable embedding, specifications
-    are included in the "contrib" directory of the Gallery install.
+    Gallery is compatible with <ulink url="http://www.phpnuke.org">Nuke 5.0+</ulink>
+    and <ulink url="http://www.postnuke.com">Post-Nuke</ulink> as an add-on module.
+    Simply put your gallery directory inside the Nuke modules directory and you're
+    all set. All the regular Gallery features will work properly while embedded
+    inside Nuke, and Gallery will have the same look and feel as the rest of your
+    Nuke site.
    </para>
   </sect3>
   

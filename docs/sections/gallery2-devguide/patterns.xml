@@ -169,7 +169,7 @@
    instance of GalleryEntity itself; it's an abstract class even
    though PHP doesn't explicitly support abstract classes.  When you
    want a new instance of an entity you should create it using the
-   factory methods of GalleryCoreApi (described below).
+   GalleryFactory (described below).
   </para>
   <para>
    There are a variety of different types of entities that server
@@ -190,8 +190,7 @@
    GalleryDataItems.  GalleryDataItems are the manageable data types
    such as GalleryPhotoItem or GalleryMovieItem instances.  Modules
    can introduce new item types by creating entities that extend
-   GalleryDataItem and registering them with the factory methods
-   of the GalleryCoreApi.
+   GalleryDataItem and registering them with the GalleryFactory.
   </para>
   <para>
    GalleryEntities contain contents that have special embedded
@@ -203,15 +202,15 @@
   </para>
   <para>
    You create a new GalleryEntity by first getting an instance of it
-   from the GalleryCoreApi:
+   from the GalleryFactory:
    <programlisting>
-    list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+    list ($ret, $user) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUser');
     if ($ret->isError()) { 
-        return array($ret->wrap(__FILE__, __LINE__), null); 
+    return array($ret->wrap(__FILE__, __LINE__), null); 
     }
 
     if (!isset($user)) {
-        return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);      
+    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);      
     }
    </programlisting>
    Note a couple of things about the above code.  First, we know that
@@ -244,9 +243,9 @@
    to create their own GalleryDataItem entities and register them
    with the factory so that we can simply do this:
    <programlisting>
-    list ($ret, $newItem) = GalleryCoreApi::newItemByMimeType($mimeType); 
+    list ($ret, $newItem) = GalleryItemHelper::newItemByMimeType($mimeType); 
     if ($ret->isError()) { 
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
    </programlisting>
    Note that in this example, we're going to get back a GalleryItem
@@ -273,7 +272,7 @@
     // then call create.
     $ret = $user->create("jdoe");
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
 
     $user->setEmail("jdoe@jdoe.com");
@@ -282,23 +281,23 @@
     // it to the database:
     $ret = $user->save();
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
    </programlisting>
    Modifying or deleting entities requires you to lock and refresh
    the item before you change or delete it.
    <programlisting>
     // Let's assume $user is a loaded GalleryUser entity.  First we lock it:
-    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
+    list ($ret, $lockId) = $gallery->acquireWriteLock($user->getId());
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
 
     // Then we refresh the user in case somebody modified it in the window between
     // when we loaded it and when we acquired the lock
     $ret = $user->refresh();
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
 
     // Then modify the item
@@ -307,18 +306,18 @@
     // Now save it:
     $ret = $user->save();
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
 
     // And then release our write lock
-    list ($ret, $lockId) = GalleryCoreApi::releaseLocks($lockId);
+    list ($ret, $lockId) = $gallery->releaseLocks($lockId);
     if ($ret->isError()) {
     return $ret->wrap(__FILE__, __LINE__);
     }
    </programlisting>
    Deleting is the same as saving, except that you use the delete()
    method on the entity instead of save().  And you can also use the
-   <programlisting>GalleryCoreApi::deleteEntityById()</programlisting>
+   <programlisting>$gallery->deleteEntityById()</programlisting>
    convenience method instead since that handles all the locking
    issues and doesn't require you to actually load the entity just so
    that you can delete it.
@@ -355,45 +354,41 @@
     </listitem>
     <listitem>
      <para>
-      Item attributes.  Some attributes for items (like its view counts)
-      are placed in an item attribute map. The cardinality between items
-      and those attributes is one to one, so you'd think that it would
-      make sense to put them into the entity itself. However, you're
-      required to lock an entity before changing any of them. Since these
-      attributes are non-essential to the integrity of the entity itself,
-      we can have them in a map to allow faster updates.
+      Item view counts.  The cardinality between items and view counts
+      is one to one, so you'd think that it would make sense to put
+      view counts into the entity itself.  However, you're required to
+      lock an entity before changing it and we expect view counts to be
+      pretty dynamic so it makes sense to put them into their own
+      separate map.
      </para>
     </listitem>
     <listitem>
      <para>
-      User/Group mapping.  This is a classic tie table where we associate
-      an user with a group.
+      User/Group mapping.  This is a classic tie table where we
+      associate a user with a group.
      </para>
     </listitem>
    </itemizedlist>
-   There are many other types of maps, these are just a few. Usually a 
-   map class is ends with "Map", so they are easy to find. Read the
+   There are many other types of maps, these are just a few.  Read the
    API documentation for more specific details on each map type.
   </para>
   <para>
-   Maps are pure static classes.  They should never be instantiated, but
-   instead their methods should be called statically.  For example, to
-   add a user to a group you'd say:
+   Maps are pure static classes.  They should never be instantiated,
+   but instead their methods should be called statically.  For
+   example, to add a user to a group you'd say:
    <programlisting>
-    $ret = GalleryUserGroupMap::addMapEntry($userId, $groupId);
+    $ret = GalleryUserGroupMap::addUserToGroup($userId, $groupId);
     if ($ret->isError()) {
         return $ret->wrap(__FILE__, __LINE__);
     }
    </programlisting>
-   Usually a map will also provide a helper-class that provides common
-   methods for manipulating its entries. In the above case, we have the
-   following API-call:
-   <programlisting>
-    $ret = GalleryCoreApi::addUserToGroup($userId, $groupId);
-    if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
-    }
-   </programlisting>
+   All maps come with a few built in methods that come with the
+   automatically generated map interface classes.  See the Code
+   Generation section for more information on how to specify the
+   contents of a...
+
+       &lt;bharat falls asleep&gt;
+
   </para>
  </sect2>
  <sect2>
@@ -761,7 +756,7 @@
  </sect2>
  <sect2>
   <title>
-   Graphics Toolkit
+   Gallery Toolkit
   </title>
   <para>&nbsp;
   </para>
@@ -795,7 +790,7 @@
    in the most appropriate way.
   </para>
   <para>
-   Sadly, PHP4 lacks exception handling which means that we have
+   Sadly, PHP lacks exception handling which means that we have
    to comeup with our own way to check return values.  G2 has its
    own system for returning status values such that errors bubble
    up to the top and can be handled at every step of the way.  We
@@ -815,13 +810,12 @@
     return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
    </programlisting>
    The complete list of error codes can be found in the
-   modules/core/GalleryStatus class.  The code that calls a method that
-   returns a GalleryStatus object should check the error code and handle
-   it properly:
+   modules/core/GalleryStatus class.  The code that calls this method
+   should check this error code and handle it properly:
    <programlisting>
     $ret = methodThatReturnsStatus();
     if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
+    return $ret->wrap(__FILE__, __LINE__);
     }
    </programlisting>
    Note that we tag on the file and line numbers when we return the
@@ -831,22 +825,7 @@
    refactor this code later on; it'll make those lines easier to
    find.  Note also that if your method returns other values, it
    should return an array so that the first element can be a status
-   code, like:
-   <programlisting>
-    function foo() {
-        ...
-        return array(GalleryStatus::success(), "actual results");
-    }
-   </programlisting>
-   The code calling this method should then split the return value
-   in an array and first handle the status object before continuing:
-   <programlisting>
-    list ($ret, $results) = foo();
-    if ($ret->isError()) {
-        return $ret->wrap(__FILE__, __LINE__);
-    }
-    // Now do something with the $results here
-   </programlisting>
+   code.
   </para>
  </sect2>
 </sect1>

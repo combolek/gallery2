@@ -1055,15 +1055,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="titlepage-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">titlepage-even</xsl:when>
-              <xsl:otherwise>titlepage-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="titlepage-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1076,15 +1069,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="lot-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">lot-even</xsl:when>
-              <xsl:otherwise>lot-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="lot-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1097,15 +1083,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="front-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">front-even</xsl:when>
-              <xsl:otherwise>front-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="front-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1118,15 +1097,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="body-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">body-even</xsl:when>
-              <xsl:otherwise>body-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="body-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1139,15 +1111,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="back-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">back-even</xsl:when>
-              <xsl:otherwise>back-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="back-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1160,15 +1125,8 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="index-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
-                                              odd-or-even="even">
-          <xsl:attribute name="master-reference">
-            <xsl:choose>
-              <xsl:when test="$double.sided != 0">index-even</xsl:when>
-              <xsl:otherwise>index-odd</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-        </fo:conditional-page-master-reference>
+        <fo:conditional-page-master-reference master-reference="index-even"
+                                              odd-or-even="even"/>
       </fo:repeatable-page-master-alternatives>
     </fo:page-sequence-master>
 
@@ -1182,15 +1140,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="titlepage-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">titlepage-even-draft</xsl:when>
-                <xsl:otherwise>titlepage-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="titlepage-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
 
@@ -1203,15 +1154,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="lot-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">lot-even-draft</xsl:when>
-                <xsl:otherwise>lot-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="lot-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
 
@@ -1224,15 +1168,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="front-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">front-even-draft</xsl:when>
-                <xsl:otherwise>front-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="front-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
 
@@ -1245,15 +1182,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="body-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">body-even-draft</xsl:when>
-                <xsl:otherwise>body-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="body-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
 
@@ -1266,15 +1196,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="back-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">back-even-draft</xsl:when>
-                <xsl:otherwise>back-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="back-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
 
@@ -1287,15 +1210,8 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="index-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
-                                                odd-or-even="even">
-            <xsl:attribute name="master-reference">
-              <xsl:choose>
-                <xsl:when test="$double.sided != 0">index-even-draft</xsl:when>
-                <xsl:otherwise>index-odd-draft</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </fo:conditional-page-master-reference>
+          <fo:conditional-page-master-reference master-reference="index-even-draft"
+                                                odd-or-even="even"/>
         </fo:repeatable-page-master-alternatives>
       </fo:page-sequence-master>
     </xsl:if>
@@ -1448,9 +1364,8 @@
     </fo:block>
   </fo:static-content>
 
-  <xsl:call-template name="footnote-separator"/>
-
   <xsl:if test="$fop.extensions = 0">
+    <xsl:call-template name="footnote-separator"/>
     <xsl:call-template name="blank.page.content"/>
   </xsl:if>
 </xsl:template>
@@ -1458,7 +1373,7 @@
 <xsl:template name="footnote-separator">
   <fo:static-content flow-name="xsl-footnote-separator">
     <fo:block>
-      <fo:leader xsl:use-attribute-sets="footnote.sep.leader.properties"/>
+      <fo:leader color="black" leader-pattern="rule" leader-length="1in"/>
     </fo:block>
   </fo:static-content>
 </xsl:template>
@@ -1483,22 +1398,6 @@
       </xsl:when>
   </xsl:choose>
 
-  <xsl:variable name="column1">
-    <xsl:choose>
-      <xsl:when test="$double.sided = 0">1</xsl:when>
-      <xsl:when test="$sequence = 'first' or $sequence = 'odd'">1</xsl:when>
-      <xsl:otherwise>3</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="column3">
-    <xsl:choose>
-      <xsl:when test="$double.sided = 0">3</xsl:when>
-      <xsl:when test="$sequence = 'first' or $sequence = 'odd'">3</xsl:when>
-      <xsl:otherwise>1</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <xsl:variable name="candidate">
     <fo:table table-layout="fixed" width="100%">
       <xsl:call-template name="head.sep.rule">
@@ -1507,43 +1406,15 @@
         <xsl:with-param name="gentext-key" select="$gentext-key"/>
       </xsl:call-template>
 
-      <fo:table-column column-number="1">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">header</xsl:with-param>
-            <xsl:with-param name="position" select="$column1"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-      <fo:table-column column-number="2">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">header</xsl:with-param>
-            <xsl:with-param name="position" select="2"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-      <fo:table-column column-number="3">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">header</xsl:with-param>
-            <xsl:with-param name="position" select="$column3"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-
+      <fo:table-column column-number="1" column-width="proportional-column-width(1)"/>
+      <fo:table-column column-number="2" column-width="proportional-column-width(1)"/>
+      <fo:table-column column-number="3" column-width="proportional-column-width(1)"/>
       <fo:table-body>
         <fo:table-row height="14pt">
           <fo:table-cell text-align="left"
                          display-align="before">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="header.content">
@@ -1557,7 +1428,7 @@
           <fo:table-cell text-align="center"
                          display-align="before">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="header.content">
@@ -1571,7 +1442,7 @@
           <fo:table-cell text-align="right"
                          display-align="before">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="header.content">
@@ -1669,48 +1540,6 @@
   </fo:block>
 </xsl:template>
 
-<xsl:template name="header.footer.width">
-  <xsl:param name="location" select="'header'"/>
-  <xsl:param name="position" select="1"/>
-
-  <xsl:variable name="width.set">
-    <xsl:choose>
-      <xsl:when test="$location = 'header'">
-        <xsl:value-of select="normalize-space($header.column.widths)"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="normalize-space($footer.column.widths)"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-
-  <xsl:variable name="width">
-    <xsl:choose>
-      <xsl:when test="$position = 1">
-        <xsl:value-of select="substring-before($width.set, ' ')"/>
-      </xsl:when>
-      <xsl:when test="$position = 2">
-        <xsl:value-of select="substring-before(substring-after($width.set, ' '), ' ')"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="substring-after(substring-after($width.set, ' '), ' ')"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <!-- Make sure it is a number -->
-  <xsl:choose>
-    <xsl:when test = "$width = number($width)">
-      <xsl:value-of select="$width"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:message>Error: value in <xsl:value-of select="$location"/>.column.widths at position <xsl:value-of select="$position"/> is not a number.</xsl:message>
-      <xsl:text>1</xsl:text>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
 <xsl:template name="draft.text">
   <xsl:choose>
     <xsl:when test="$draft.mode = 'yes'">
@@ -1796,30 +1625,14 @@
   <xsl:param name="sequence" select="''"/>
   <xsl:param name="gentext-key" select="''"/>
 
-  <!-- default is a single table style for all footers -->
-  <!-- Customize it for different page classes or sequence location -->
-
   <xsl:choose>
       <xsl:when test="$pageclass = 'index'">
           <xsl:attribute name="margin-left">0pt</xsl:attribute>
       </xsl:when>
   </xsl:choose>
 
-  <xsl:variable name="column1">
-    <xsl:choose>
-      <xsl:when test="$double.sided = 0">1</xsl:when>
-      <xsl:when test="$sequence = 'first' or $sequence = 'odd'">1</xsl:when>
-      <xsl:otherwise>3</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="column3">
-    <xsl:choose>
-      <xsl:when test="$double.sided = 0">3</xsl:when>
-      <xsl:when test="$sequence = 'first' or $sequence = 'odd'">3</xsl:when>
-      <xsl:otherwise>1</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
+  <!-- default is a single table style for all footers -->
+  <!-- Customize it for different page classes or sequence location -->
 
   <xsl:variable name="candidate">
     <fo:table table-layout="fixed" width="100%">
@@ -1828,43 +1641,15 @@
         <xsl:with-param name="sequence" select="$sequence"/>
         <xsl:with-param name="gentext-key" select="$gentext-key"/>
       </xsl:call-template>
-      <fo:table-column column-number="1">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">footer</xsl:with-param>
-            <xsl:with-param name="position" select="$column1"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-      <fo:table-column column-number="2">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">footer</xsl:with-param>
-            <xsl:with-param name="position" select="2"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-      <fo:table-column column-number="3">
-        <xsl:attribute name="column-width">
-          <xsl:text>proportional-column-width(</xsl:text>
-          <xsl:call-template name="header.footer.width">
-            <xsl:with-param name="location">footer</xsl:with-param>
-            <xsl:with-param name="position" select="$column3"/>
-          </xsl:call-template>
-          <xsl:text>)</xsl:text>
-        </xsl:attribute>
-      </fo:table-column>
-
+      <fo:table-column column-number="1" column-width="proportional-column-width(1)"/>
+      <fo:table-column column-number="2" column-width="proportional-column-width(1)"/>
+      <fo:table-column column-number="3" column-width="proportional-column-width(1)"/>
       <fo:table-body>
         <fo:table-row height="14pt">
           <fo:table-cell text-align="left"
                          display-align="after">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="footer.content">
@@ -1878,7 +1663,7 @@
           <fo:table-cell text-align="center"
                          display-align="after">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="footer.content">
@@ -1892,7 +1677,7 @@
           <fo:table-cell text-align="right"
                          display-align="after">
             <xsl:if test="$fop.extensions = 0">
-              <xsl:attribute name="relative-align">before</xsl:attribute>
+              <xsl:attribute name="relative-align">baseline</xsl:attribute>
             </xsl:if>
             <fo:block>
               <xsl:call-template name="footer.content">
@@ -1990,83 +1775,12 @@
 
 <xsl:template name="page.number.format">
   <xsl:param name="element" select="local-name(.)"/>
-  <xsl:param name="master-reference" select="''"/>
 
   <xsl:choose>
-    <xsl:when test="$element = 'toc' and self::book">i</xsl:when>
+    <xsl:when test="$element = 'toc'">i</xsl:when>
     <xsl:when test="$element = 'preface'">i</xsl:when>
     <xsl:when test="$element = 'dedication'">i</xsl:when>
     <xsl:otherwise>1</xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<xsl:template name="initial.page.number">
-  <xsl:param name="element" select="local-name(.)"/>
-  <xsl:param name="master-reference" select="''"/>
-
-  <xsl:choose>
-    <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">
-      <xsl:choose>
-        <xsl:when test="$element = 'toc'">auto-odd</xsl:when>
-        <xsl:when test="$element = 'book'">1</xsl:when>
-        <xsl:when test="$element = 'preface'">auto-odd</xsl:when>
-        <xsl:when test="$element = 'part' and not(preceding::chapter)
-                        and not(preceding::part)">1</xsl:when>
-        <xsl:when test="($element = 'dedication' or $element = 'article') and
-                        not(preceding::chapter
-                            or preceding::preface
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:when test="($element = 'chapter' or $element = 'appendix') and
-                        not(preceding::chapter
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:otherwise>auto-odd</xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
-
-    <!-- single-sided output -->
-    <xsl:otherwise>
-      <xsl:choose>
-        <xsl:when test="$element = 'toc'">auto</xsl:when>
-        <xsl:when test="$element = 'preface'">auto</xsl:when>
-        <xsl:when test="($element = 'dedication' or $element = 'article') and
-                        not(preceding::chapter
-                            or preceding::preface
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:when test="($element = 'chapter' or $element = 'appendix') and
-                        not(preceding::chapter
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
-      </xsl:choose>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<xsl:template name="force.page.count">
-  <xsl:param name="element" select="local-name(.)"/>
-  <xsl:param name="master-reference" select="''"/>
-
-  <xsl:choose>
-    <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">end-on-even</xsl:when>
-    <!-- single-sided output -->
-    <xsl:otherwise>no-force</xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 

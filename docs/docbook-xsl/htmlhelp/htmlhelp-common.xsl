@@ -20,26 +20,6 @@
 
 <xsl:variable name="htmlhelp.generate.index" select="//indexterm[1]"/>
 
-<xsl:variable name="raw.help.title">
-  <xsl:choose>
-    <xsl:when test="$htmlhelp.title = ''">
-      <xsl:choose>
-        <xsl:when test="$rootid != ''">
-          <xsl:apply-templates select="key('id',$rootid)" mode="title.markup"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="/*" mode="title.markup"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="$htmlhelp.title"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:variable>
-
-<xsl:variable name="help.title" select="normalize-space($raw.help.title)"/>
-  
 <!-- ==================================================================== -->
 
 <xsl:template match="/">
@@ -194,7 +174,21 @@ Full-text search=Yes
 </xsl:for-each>
 <xsl:text>
 Title=</xsl:text>
-  <xsl:value-of select="$help.title"/>
+  <xsl:choose>
+    <xsl:when test="$htmlhelp.title = ''">
+      <xsl:choose>
+        <xsl:when test="$rootid != ''">
+          <xsl:apply-templates select="key('id',$rootid)" mode="title.markup"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="/*" mode="title.markup"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$htmlhelp.title"/>
+    </xsl:otherwise>
+  </xsl:choose>
 <xsl:text>
 Enhanced decompilation=</xsl:text>
   <xsl:choose>
@@ -212,9 +206,7 @@ Enhanced decompilation=</xsl:text>
 [WINDOWS]
 </xsl:text>
 <xsl:value-of select="$htmlhelp.hhp.window"/>
-<xsl:text>="</xsl:text>
-<xsl:value-of select="$help.title"/>
-<xsl:text>","</xsl:text><xsl:value-of select="$htmlhelp.hhc"/>
+<xsl:text>=,"</xsl:text><xsl:value-of select="$htmlhelp.hhc"/>
 <xsl:text>",</xsl:text>
 <xsl:if test="$htmlhelp.generate.index">
   <xsl:text>"</xsl:text>
@@ -265,26 +257,6 @@ Enhanced decompilation=</xsl:text>
 <xsl:text>,</xsl:text><xsl:value-of select="$htmlhelp.window.geometry"/><xsl:text>,,,,,,,0
 </xsl:text>
 </xsl:if>
-
-<!-- 
-  Needs more investigation to generate propetly all fields 
-<xsl:text>search="</xsl:text>
-<xsl:value-of select="normalize-space(//title[1])"/>
-<xsl:text>","toc.hhc","index.hhk","</xsl:text>
-<xsl:value-of select="$root.filename"/>
-<xsl:text>.html","</xsl:text>
-<xsl:value-of select="$root.filename"/>
-<xsl:text>.html",,,,,</xsl:text>
-<xsl:value-of select="$xnavigation"/>
-<xsl:text>,</xsl:text>
-<xsl:value-of select="$htmlhelp.hhc.width"/>
-<xsl:text>,</xsl:text>
-<xsl:value-of select="$xbuttons"/>
-<xsl:text>,</xsl:text>
-<xsl:value-of select="$htmlhelp.window.geometry"/>
-<xsl:text>,,,,,2,,0
-</xsl:text>
--->
 
 <xsl:if test="$htmlhelp.hhp.windows">
   <xsl:value-of select="$htmlhelp.hhp.windows"/>
@@ -1212,19 +1184,6 @@ Enhanced decompilation=</xsl:text>
   <xsl:value-of select="$angle.escaped"/>
 
 </xsl:template>
-
-<!-- ==================================================================== -->
-<!-- Modification to standard HTML stylesheets -->
-
-<!-- There are links from ToC pane to bibliodivs, so there must be anchor -->
-<xsl:template match="bibliodiv/title">
-  <h3 class="{name(.)}">
-    <xsl:call-template name="anchor">
-      <xsl:with-param name="node" select=".."/>
-      <xsl:with-param name="conditional" select="0"/>
-    </xsl:call-template>
-    <xsl:apply-templates/>
-  </h3>
-</xsl:template>
+  
 
 </xsl:stylesheet>

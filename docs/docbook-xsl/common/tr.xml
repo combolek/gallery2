@@ -194,7 +194,6 @@
       <l:template name="bibliodiv" text="%t"/>
       <l:template name="biblioentry" text="%t"/>
       <l:template name="bibliography" text="%t"/>
-      <l:template name="bibliolist" text="%t" lang="en"/>
       <l:template name="bibliomixed" text="%t"/>
       <l:template name="bibliomset" text="%t"/>
       <l:template name="biblioset" text="%t"/>
@@ -390,12 +389,8 @@
       <l:template name="variablelist" text="%t"/>
       <l:template name="varlistentry" text="%n"/>
       <l:template name="warning" text="%t"/>
-      <l:template name="olink.document.citation" text=" in %o" lang="en"/>
-      <l:template name="olink.page.citation" text=" (page %p)" lang="en"/>
       <l:template name="page.citation" text=" [%p]"/>
       <l:template name="page" text="(sayfa %p)"/>
-      <l:template name="docname" text=" in %o" lang="en"/>
-      <l:template name="docnamelong" text=" in the document titled %o" lang="en"/>
       <l:template name="pageabbrev" text="(shf. %p)"/>
       <l:template name="Page" text="Sayfa %p"/>
       <l:template name="bridgehead" text=" &#8220;%t&#8221;"/>
@@ -528,67 +523,4 @@
    <l:context name="htmlhelp">
       <l:template name="langcode" text="0x041f Turkish"/>
    </l:context>
-
-   <l:letters>
-      <l:l i="-1"/>
-      <l:l i="0">Semboller</l:l>
-      <l:l i="1">A</l:l>
-      <l:l i="1">a</l:l>
-      <l:l i="2">B</l:l>
-      <l:l i="2">b</l:l>
-      <l:l i="3">C</l:l>
-      <l:l i="3">c</l:l>
-      <l:l i="4">&#199;</l:l>
-      <l:l i="4">&#231;</l:l>
-      <l:l i="5">D</l:l>
-      <l:l i="5">d</l:l>
-      <l:l i="6">E</l:l>
-      <l:l i="6">e</l:l>
-      <l:l i="7">F</l:l>
-      <l:l i="7">f</l:l>
-      <l:l i="8">G</l:l>
-      <l:l i="8">g</l:l>
-      <l:l i="9">&#286;</l:l>
-      <l:l i="9">&#287;</l:l>
-      <l:l i="10">H</l:l>
-      <l:l i="10">h</l:l>
-      <l:l i="11">I</l:l>
-      <l:l i="11">&#305;</l:l>
-      <l:l i="12">&#304;</l:l>
-      <l:l i="12">i</l:l>
-      <l:l i="13">J</l:l>
-      <l:l i="13">j</l:l>
-      <l:l i="14">K</l:l>
-      <l:l i="14">k</l:l>
-      <l:l i="15">L</l:l>
-      <l:l i="15">l</l:l>
-      <l:l i="16">M</l:l>
-      <l:l i="16">m</l:l>
-      <l:l i="17">N</l:l>
-      <l:l i="17">n</l:l>
-      <l:l i="18">O</l:l>
-      <l:l i="18">o</l:l>
-      <l:l i="19">&#214;</l:l>
-      <l:l i="19">&#246;</l:l>
-      <l:l i="20">P</l:l>
-      <l:l i="20">p</l:l>
-      <l:l i="21">R</l:l>
-      <l:l i="21">r</l:l>
-      <l:l i="22">S</l:l>
-      <l:l i="22">s</l:l>
-      <l:l i="23">&#350;</l:l>
-      <l:l i="23">&#351;</l:l>
-      <l:l i="24">T</l:l>
-      <l:l i="24">t</l:l>
-      <l:l i="25">U</l:l>
-      <l:l i="25">u</l:l>
-      <l:l i="26">&#220;</l:l>
-      <l:l i="26">&#252;</l:l>
-      <l:l i="27">V</l:l>
-      <l:l i="27">v</l:l>
-      <l:l i="28">Y</l:l>
-      <l:l i="28">y</l:l>
-      <l:l i="29">Z</l:l>
-      <l:l i="29">z</l:l>
-   </l:letters>
 </l:l10n>
