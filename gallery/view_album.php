@@ -41,8 +41,6 @@ if (!$album->isLoaded()) {
     return;
 }
 
-$albumDB = new AlbumDB();
-
 if (!$page) {
     $page = 1;
 }
@@ -75,6 +73,8 @@ $borderWidth = $album->fields["border"];
 if (!strcmp($borderWidth, "off")) {
     $borderWidth = 1;
 }
+
+$thisUrl = makeAlbumUrl($albumName, "", array('page' => $page));
 
 //-- setup the album specific style sheet ---
 $albumStyle = "<style type=\"text/css\">\n";
@@ -110,7 +110,8 @@ do {
 	}
 	$pAlbumName = $pAlbum->fields['parentAlbumName'];
    	if ($pAlbumName) {
-		$pAlbum = $albumDB->getAlbumByName($pAlbumName);
+		$pAlbum = new Album();
+		$pAlbum->load($pAlbumName);
 		$breadLevels[$breadCount]['level'] = "Album";
    		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
    		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
@@ -133,64 +134,26 @@ $breadLevels = array_reverse($breadLevels, false);
 //$breadCount++;
 //$breadLevels[$breadCount]['level'] = "Album";
 //$breadLevels[$breadCount]['name'] = $album->fields["title"];
-//$breadLevels[$breadCount]['href'] = makeAlbumUrl($albumName, "", array("page" => $page));
+//$breadLevels[$breadCount]['href'] = $thisUrl;
 
 //-- set up the command structure ---
 $commands = Array();
-$commandCount = 0;
-if ($user->canAddToAlbum($album)) {
-    $commandCount++;
-    $commands[$commandCount]['name'] = "album_add_items";
-    $commands[$commandCount]['title'] = "Add Items";
-    $commands[$commandCount]['action'] = popup("add_photos.php?albumName=$albumName");
-}   
-if ($user->canCreateAlbums()) {
-    $commandCount++;
-    $commands[$commandCount]['name'] = "album_new_nested_album";
-    $commands[$commandCount]['title'] = "New Album";
-    $commands[$commandCount]['action'] = doCommand("new-album",
-		array("parentName" => $albumName), "view_album.php");
-}   
-if ($user->canWriteToAlbum($album)) {
-	if ($album->numPhotos(1)) {
-    	$commandCount++;
-    	$commands[$commandCount]['name'] = "album_sort";
-    	$commands[$commandCount]['title'] = "Sort";
-    	$commands[$commandCount]['action'] = popup("sort_album.php?albumName=$albumName");
-    	$commandCount++;
-    	$commands[$commandCount]['name'] = "album_resize_all";
-    	$commands[$commandCount]['title'] = "Resize All";
-    	$commands[$commandCount]['action'] = popup("resize_photo.php?albumName=$albumName");
-    	$commandCount++;
-    	$commands[$commandCount]['name'] = "album_rethumb_all";
-    	$commands[$commandCount]['title'] = "Rethumb All";
-		//-- XXX - popup do_command ??? huh??? ---
-    	$commands[$commandCount]['action'] = 
-			popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all");
-	
-	}
-    $commandCount++;
-    $commands[$commandCount]['name'] = "album_properties";
-    $commands[$commandCount]['title'] = "Properties";
-    $commands[$commandCount]['action'] = popup("edit_appearance.php?albumName=$albumName");
-	
-}
-if ($user->isAdmin() || $user->isOwnerOfAlbum($album)) {
-    $commandCount++;
-    $commands[$commandCount]['name'] = "album_permissions";
-    $commands[$commandCount]['title'] = "Permissions";
-    $commands[$commandCount]['action'] = popup("album_permissions.php?albumName=$albumName");
-}   
 if ($user->isLoggedIn()) {
-    $commandCount++;
-    $commands[$commandCount]['name'] = "user_logout";
-    $commands[$commandCount]['title'] = "Logout";
-    $commands[$commandCount]['action'] = doCommand("logout", "", "view_album.php", array("page" => $page));
-} else {
-    $commandCount++;
-    $commands[$commandCount]['name'] = "user_login";
-    $commands[$commandCount]['title'] = "Login";
-    $commands[$commandCount]['action'] = popup("login.php");
+	$name = "album_edit";
+	$commands[$name]['title'] = "Edit Album";
+	$commands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$albumName."&return=".urlencode($thisUrl));
+}
+if (!$GALLERY_EMBEDDED_INSIDE) {
+	if ($user->isLoggedIn()) {
+    	$name = "user_logout";
+    	$commands[$name]['title'] = "Logout";
+    	$commands[$name]['href'] = 
+			doCommand("logout", "", "view_album.php", array("page" => $page));
+	} else {
+    	$name = "user_login";
+    	$commands[$name]['title'] = "Login";
+    	$commands[$name]['href'] = makeGalleryUrl("login.php", array('return' => urlencode($thisUrl)));
+	}
 }
 
 
@@ -220,13 +183,12 @@ $pageBodyExtra = "\n"
 
 //-- Load up the AlbumItem array ---
 $firstItem = $perPage * ($page - 1);
-$itemIds = $album->getIds($user, $firstItem, $perPage);
+$itemIds = $album->getIds($user, 0, $firstItem, $perPage);
 $i = 0;
 foreach ($itemIds as $itemId) {
 
 	$i++;
 	$iCommands = Array();
-	$icCount = 0;
 
 	$items[$i]['id'] = $itemId;
 
@@ -234,22 +196,19 @@ foreach ($itemIds as $itemId) {
 	$items[$i]['index'] = $index;
 	$items[$i]['hidden'] = $album->isHidden($index);
 	
-	if (!$album->isMovie($itemId)) {
-		$photoHref = makeAlbumUrl($gallery->session->albumName, $itemId);
-	} else {
-	    //-- XXX - if a movie, slip in the target ---
-	    $photoHref = $album->getPhotoPath($index)."\" target=\"other";
-	}
-	$items[$i]['href'] = $photoHref;
 
 	$items[$i]['thumbnail']['tag'] = 
 		$album->getThumbnailTag($index, $album->fields["thumb_size"]);
 	$items[$i]['thumbnail']['url'] = $album->getThumbnailPath($index);
+
     if ($album->isMovie($itemId)) { 
 		$items[$i]['type'] = 'movie';
+		$items[$i]['href'] = $album->getPhotoPath($index)."\" target=\"other"; 
 	} else if ($album->isAlbumName($index)) {
 		$items[$i]['type'] = 'album';
-		$myAlbum = $albumDB->getAlbumbyName($album->isAlbumName($index));
+		$myAlbum = new Album();
+		$myAlbum->load($album->isAlbumName($index));
+		$items[$i]['href'] = makeAlbumUrl($myAlbum->fields['name']);
 		$items[$i]['title'] = $myAlbum->fields[title];
 		$items[$i]['description'] = $myAlbum->fields[description];
 		$items[$i]['dateChanged'] = $myAlbum->getLastModificationDate();
@@ -257,16 +216,14 @@ foreach ($itemIds as $itemId) {
 		$items[$i]['clickCountText'] = "Viewed: " . pluralize($myAlbum->getClicks(), "time", "0");
 
 		//-- the album commands ---
-		if ($user->canChangeTextOfAlbum($myAlbum)) {
-			$icCount++;
-			$iCommands['name'] = "album_edit_info";
-			$iCommands['title'] = "Edit Album Info";
-			$iCommands['action'] = 
-				popup("album_edit_info.php?albumName={$myAlbum->fields[name]}");
+		if ($user->isLoggedIn()) {
+			$name = "album_edit";
+			$iCommands[$name]['title'] = "Edit Album";
+			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=album&id=".$myAlbum->fields['name']."&return=".urlencode($thisUrl));
 		}
-		//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx HERE
 
 	} else {
+		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
 		$items[$i]['type'] = 'photo';
 		$items[$i]['caption'] = $album->getCaption($index);
 		$items[$i]['commentCount'] = 
@@ -274,16 +231,15 @@ foreach ($itemIds as $itemId) {
 			$album->numComments($index) : 0;
 		$items[$i]['clickCount'] = $album->getItemClicks($index);
 		$items[$i]['clickCountText'] = "Viewed: " . pluralize($album->getItemClicks($index), "time", "0");
+
+		//-- the photo commands ---
+		if ($user->isLoggedIn()) {
+			$name = "item_edit";
+			$iCommands[$name]['title'] = "Edit Photo";
+			$iCommands[$name]['href'] = makeGalleryUrl("edit.php?type=item&id=".$itemId."&return=".urlencode($thisUrl));
+		}
 	}
 
-	//-- the generic commands ---
-	if ($user->canChangeTextOfAlbum($album)) {
-		$icCount++;
-		$iCommands['name'] = "";
-		$iCommands['title'] = "Nuke Russia";
-		$iCommands['action'] = popup("nuke_russia.php?albumName=$albumName");
-	}
-	$items[$i]['commandCount'] = $icCount;
 	$items[$i]['commands'] = $iCommands;
 }
 
@@ -300,8 +256,8 @@ $GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
 $GLO['album']['title'] = $album->fields['title'];
-$GLO['album']['url'] = $album->getAlbumDirURL();
-$GLO['album']['name'] = $gallery->session->albumName;
+$GLO['album']['url'] = makeAlbumUrl($albumName);
+$GLO['album']['name'] = $albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
 $GLO['album']['thumbnailSize'] = $album->fields["thumb_size"];

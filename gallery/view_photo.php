@@ -225,34 +225,22 @@ $mainWidth += (borderWidth * 2);
 
 //-- set up the command structure ---
 $commands = Array();
-$commandCount = 0;
-if ($user->canChangeTextOfAlbum($album)) {
-	$commandCount++;
-	$commands[$commandCount]['name'] = "item_edit_info";
-	$commands[$commandCount]['title'] = "Edit Info";
-	$commands[$commandCount]['action'] = popup("edit_caption.php?index=$index");
-	//$commands[$commandCount]['action'] = popup("item_edit_info.php, "index=$index");
-}
+$name = "item_edit";
+$commands[$name]['title'] = "Edit";
+$returnFromEdit = urlencode(makeAlbumUrl($albumName, $id));
+$commands[$name]['href'] = makeGalleryUrl("edit.php?type=item&id=$id&return=$returnFromEdit");
 if (!strcmp($album->fields["public_comments"], "yes")) {
-	$commandCount++;
-	$commands[$commandCount]['name'] = "item_add_comment";
-	$commands[$commandCount]['title'] = "Add Comment";
-	$commands[$commandCount]['action'] = popup("add_comment.php?index=$index");
+	$name = "item_add_comment";
+	$commands[$name]['title'] = "Add Comment";
+	$commands[$name]['href'] = makeGalleryUrl("add_comment.php?index=$index");
 }
 if (!$album->isMovie($id)) {
-    if ($user->canWriteToAlbum($album)) {
-		$commandCount++;
-		$commands[$commandCount]['name'] = "photo_resize";
-		$commands[$commandCount]['title'] = "Resize";
-		$commands[$commandCount]['action'] = popup("resize_photo.php?index=$index");
-    }
 
     if (!strcmp($album->fields["use_fullOnly"], "yes")) {
-		$commandCount++;
-		$commands[$commandCount]['name'] = "photo_view_toggle";
-		$commands[$commandCount]['title'] = "View Images " .
+		$name = "photo_view_toggle";
+		$commands[$name]['title'] = "View Images " .
 			(strcmp($gallery->session->fullOnly,"on") ? "Full" : "Normal");
-		$commands[$commandCount]['action'] = doCommand("", array("set_fullOnly" =>
+		$commands[$name]['href'] = doCommand("", array("set_fullOnly" =>
 			(strcmp($gallery->session->fullOnly,"on") ? "on" : "off")), 
 			"view_photo.php", array("id" => $id));
 
@@ -260,23 +248,21 @@ if (!$album->isMovie($id)) {
    
     if (!strcmp($album->fields["use_exif"],"yes") && (!strcmp($image->type,"jpg")) &&
         ($gallery->app->use_exif)) {
-		$commandCount++;
-		$commands[$commandCount]['name'] = "photo_properties";
-		$commands[$commandCount]['title'] = "Properties";
-		$commands[$commandCount]['action'] = popup("view_photo_properties.php?index=$index");
+		$name = "photo_properties";
+		$commands[$name]['title'] = "Properties";
+		$commands[$name]['href'] = makeGalleryUrl("view_photo_properties.php?index=$index");
     }
 
 
     if (!strcmp($album->fields["print_photos"],"shutterfly")) {
-		$commandCount++;
-		$commands[$commandCount]['name'] = "photo_print_shutterfly";
-		$commands[$commandCount]['title'] = "Print on Shutterfly";
-		$commands[$commandCount]['action'] = "document.sflyc4p.returl.value=document.location; document.sflyc4p.submit()";
+		$name = "photo_print_shutterfly";
+		$commands[$name]['title'] = "Print on Shutterfly";
+		$commands[$name]['action'] = "document.sflyc4p.returl.value=document.location; document.sflyc4p.submit()";
 
 		//-- build the shutterfly form ---
 		$hostname = $GLOBALS["SERVER_NAME"];
 		$protocol = "http";
-		$photoPath = $protocol . "://" . $hostname . $album->getAlbumDirURL();
+		$photoPath = $protocol . "://" . $hostname . $album->getAlbumDirURL("full");
 		$rawImageURL = $photoPath . "/" . $image->name . "." . $image->type;
 
 		$thumbImageURL = $photoPath . "/";
@@ -302,16 +288,10 @@ if (!$album->isMovie($id)) {
             . "</form>\n";
     }
 }
-if ($user->canDeleteFromAlbum($album)) {
-	$commandCount++;
-	$commands[$commandCount]['name'] = "item_delete";
-	$commands[$commandCount]['title'] = "Delete";
-	$commands[$commandCount]['action'] = popup("delete_photo.php?index=$index");
-}
 
 
 //-- The page navigation info ---
-$navIds = $album->getIds($user);
+$navIds = $album->getIds($user, 1);
 $navPageCount = sizeof($navIds);
 $navPage = $navPageCount;
 while ($navPage > 0) { // looking for the index among the 'visible' items
@@ -390,7 +370,7 @@ $GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
 $GLO['album']['title'] = $album->fields['title'];
-$GLO['album']['url'] = $album->getAlbumDirURL();
+$GLO['album']['url'] = makeAlbumUrl($albumName);
 $GLO['album']['name'] = $albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
