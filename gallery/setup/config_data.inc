@@ -401,6 +401,12 @@ $defaults = array(
 		"desc" => "Allow the public to add comments to your photos?",
 		"choices" => array("yes", "no"),
 		"value" => "yes",
+	),
+	"layout" => array(
+		"prompt" => "Theme",
+		"desc" => "The overall layout (page structure).",
+		"choices" => getLayouts(),
+		"value" => "default",
 	)
 );
 
