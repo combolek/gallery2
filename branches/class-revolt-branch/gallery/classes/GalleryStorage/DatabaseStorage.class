@@ -22,12 +22,19 @@
  * Require the ADOdb libraries
  */
 require_once(dirname(__FILE__) . '/adodb/adodb.inc.php');
+require_once(dirname(__FILE__) . '/ErrorHandler.inc');
+
 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 /**
  * Name of the sequence we'll use for GalleryNucleus ids
  */
 define('DATABASE_ID_SEQUENCE', 'idSequence');
+
+/**
+ * Name of the sequence we'll use for lock ids
+ */
+define('DATABASE_LOCK_SEQUENCE', 'lockSequence');
 
 /**
  * Prefix to append to table names
@@ -40,6 +47,12 @@ define('DATABASE_TABLE_PREFIX', 'gallery_');
 define('DATABASE_STATUS_NOT_CONNECTED', 0);
 define('DATABASE_STATUS_PARTIALLY_CONNECTED', 1);
 define('DATABASE_STATUS_FULLY_CONNECTED', 2);
+
+/**
+ * Lock semaphores
+ */
+define('SEMAPHORE_WORLD_LOCK_REQUESTED', 1);
+define('SEMAPHORE_WORLD_LOCK_ACQUIRED', 2);
 
 /**
  * Database implementation of the GalleryStorage interface.
@@ -520,26 +533,175 @@ class DatabaseStorage extends GalleryStorage {
      * the future we can optimize this to actually hold row locks for efficiency.
      *
      * @access public
-     * @param int timeout before giving up on the lock
      * @param array ids to lock (empty array means lock the world)
-     * @return int a status code
+     * @param int timeout before giving up on the lock
+     * @return array int a status code, int a lock id
      */
-    function acquireLock($timeout, $ids=array()) {
+    function acquireLock($ids=array(), $timeout) {
 	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
+	/* Remember when we started trying to acquire this lock */
+	$startTime = time();
+
 	$this->_traceStart();
-	$lockTable = DATABASE_TABLE_PREFIX . 'gallerylock';
-	$query = 'LOCK TABLE ' . $lockTable . ' WRITE';
-	$this->_db->Execute($query);
-	$this->_traceStop();
-	
-	if (!$recordSet) {
-	    return ERROR | ERROR_LOCK_IN_USE;
+	$lockTable = DATABASE_TABLE_PREFIX . 'lock';
+	$lockSemaphoreTable = DATABASE_TABLE_PREFIX . 'lock_semaphore';
+
+	/* Make sure there are no pending world locks. */
+	while (true) {
+	    if ((time() - $startTime) > $timeout) {
+		$this->_traceStop();
+		return array(ERROR | ERROR_LOCK_IN_USE, null);
+	    }
+	    
+	    /* See if there are any pending world locks */
+	    $query = 'SELECT * FROM ' . $lockSemaphoreTable .
+		    ' WHERE semaphore=?';
+	    $data = array(SEMAPHORE_WORLD_LOCK_REQUESTED);
+	    $recordSet = $this->_db->Execute($query, $data);
+	    if (!$recordSet) {
+		$this->_traceStop();
+		return array(ERROR | ERROR_DATABASE_FAILURE, null);
+	    }
+
+	    if ($recordSet->RecordCount() > 0) {
+		sleep(1);
+	    } else {
+		break;
+	    }
 	}
 
-	return SUCCESS;
+	 /* Get our lock id */
+	$lockId = $this->_db->GenId(DATABASE_LOCK_SEQUENCE);
+
+	if (sizeof($ids) == 0) {
+	    /*
+	     * This is a world lock.  First get the "world lock requested"
+	     * semaphore to prevent any new local locks from being created.
+	     * Then get the "world lock acquired" lock (which is currently a
+	     * semaphore also).
+	     *
+	     * Technically I don't think the "world lock acquired" semaphore is
+	     * entirely necessary, since the "world lock requested" semaphore
+	     * pretty much covers it.  But, it might be useful in the future
+	     */
+	    $query = 'INSERT INTO ' . $lockSemaphoreTable .
+		    '(semaphore, lockId) VALUES (?, ?)';
+
+	    /* Insert our semaphore */
+	    while (true) {
+		/*
+		 * If we've exceeded our time limit, abort.
+		 */
+		if ((time() - $startTime) > $timeout) {
+		    $this->_traceStop();
+		    $this->releaseLock($lockId);
+		    return array(ERROR | ERROR_LOCK_IN_USE, null);
+		}
+		$data = array(SEMAPHORE_WORLD_LOCK_REQUESTED, $lockId);
+		$recordSet = $this->_db->Execute($query, $data);
+
+		if (!$recordSet) {
+		    /* We can't lock this record .. wait then retry */
+		    sleep(1);
+		} else {
+		    /* We got our semaphore */
+		    break;
+		}
+	    }
+
+	    /* Wait for local locks to go away */
+	    $query = 'SELECT COUNT(*) FROM ' . $lockTable;
+	    while (true) {
+		/*
+		 * If we've exceeded our time limit, abort.
+		 */
+		if ((time() - $startTime) > $timeout) {
+		    $this->_traceStop();
+		    $this->releaseLock($lockId);
+		    return array(ERROR | ERROR_LOCK_IN_USE, null);
+		}
+
+		$count = $this->_db->GetOne($query);
+		if ($count === false) {
+		    $this->_traceStop();
+		    $this->releaseLock($lockId);
+		    return array(ERROR | ERROR_DATABASE_FAILURE, null);
+		}
+
+		/*
+		 * No locks left?  Great, we're done with this step.
+		 */
+		if ($count == 0) {
+		    break;
+		} else {
+		    sleep(1);
+		}
+	    }
+
+	    /* Acquire our lock */
+	    $query = 'INSERT INTO ' . $lockSemaphoreTable .
+		    '(semaphore, lockId) VALUES (?, ?)';
+	    while (true) {
+		/*
+		 * If we've exceeded our time limit, abort.
+		 */
+		if ((time() - $startTime) > $timeout) {
+		    $this->_traceStop();
+		    $this->releaseLock($lockId);
+		    return array(ERROR | ERROR_LOCK_IN_USE, null);
+		}
+		$data = array(SEMAPHORE_WORLD_LOCK_ACQUIRED, $lockId);
+		$recordSet = $this->_db->Execute($query, $data);
+		    
+		if (!$recordSet) {
+		    /* We can't lock this record .. wait then retry */
+		    sleep(1);
+		} else {
+		    /* We got our lock */
+		    break;
+		}
+	    }
+	} else {
+	    /*
+	     * This is a local lock.  Acquire all our locks.  If we fail to get
+	     * one, release all of them and let the user know.
+	     */
+	    $i = 0;
+	    $query = 'INSERT INTO ' . $lockTable . '(id, lockId) VALUES (?, ?)';
+	    while (true) {
+		$id = $ids[$i];
+
+		/*
+		 * If we've exceeded our time limit, abort.
+		 */
+		if ((time() - $startTime) > $timeout) {
+		    $this->_traceStop();
+		    $this->releaseLock($lockId);
+		    return array(ERROR | ERROR_LOCK_IN_USE, null);
+		}
+		    
+		$data = array($id, $lockId);
+		$recordSet = $this->_db->Execute($query, $data);
+		    
+		if (!$recordSet || $recordSet->RecordCount() != 1) {
+		    /* We can't lock this record .. wait then retry */
+		    sleep(1);
+		}
+
+		$i++;
+
+		/* If we've locked them all, we're done */
+		if ($i == sizeof($ids)) {
+		    break;
+		}
+	    }
+	}
+
+	$this->_traceStop();
+	return array(SUCCESS, $lockId);
     }
 
     /**
@@ -548,15 +710,23 @@ class DatabaseStorage extends GalleryStorage {
      * @access public
      * @return int a status code
      */
-    function releaseLock() {
+    function releaseLock($lockId, $isWorldLock) {
 	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
 	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
 	}
 
 	$this->_traceStart();
-	$lockTable = DATABASE_TABLE_PREFIX . 'gallerylock';
-	$query = 'UNLOCK TABLES';
-	$this->_db->Execute($query);
+
+	if ($isWorldLock) {
+	    $lockTable = DATABASE_TABLE_PREFIX . 'lock_semaphore';
+	} else {
+	    $lockTable = DATABASE_TABLE_PREFIX . 'lock';
+	}
+
+	$query = 'DELETE FROM ' . $lockTable . ' WHERE lockId=?';
+	$data = array($lockId);
+
+	$recordSet = $this->_db->Execute($query, $data);
 	$this->_traceStop();
 	
 	if (!$recordSet) {
