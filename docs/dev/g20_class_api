@@ -18,6 +18,10 @@ The following functionality is not (yet) implemented in v2.0.
 	This is gone entirely.  We should be able to implement this
 	using the new layout code.
 
+- User.canCreateUsers()
+	- this permission will now be stored in the album's permissions
+	  field.
+
 - mirroring
 	I've left this out for now because it's heavily dependant on
 	the way that we implement the image firewalling code.  I
@@ -26,9 +30,34 @@ The following functionality is not (yet) implemented in v2.0.
 
 Things that need to be added to this API:
 - Examples for how the API should be used.
+- Api for User management
+- better description of permissions
 
 ================================================================================
 ================================================================================
+
+Class Gallery
+-------------
+	This is a container for global information required for gallery operation,
+	such as configuration, session, user, etc.
+
+	Members
+	-------
+	- /* AlbumItem */ id rootAlbumItem
+		The id of the root album item in the Gallery
+
+	- string[] config
+		Storage for all configuration variables, set in config.php
+
+	- /* User */ id currentUser
+		The id of the user who's currently logged onto the system
+
+	- UserDB userDB
+		An instance of the user database class
+
+	- string[] session
+		Storage for all session variables
+
 
 Class GalleryItem
 -----------------
@@ -38,7 +67,7 @@ Class GalleryItem
         Members 
 	-------
 	- id				* (id) this item
-	- ownerId			* (id) this item's owner
+	- parentId 			* (id) this item's parent
         - thumbnail 			* (id) an ImageContainer 
 	- highlight 			* (id) an ImageContainer
 	- comment Ids			* (id[]) ids of 0+ comments
@@ -77,39 +106,12 @@ integrityCheck->
 	- CommentContainer getComment(/* CommentContainer */ id)
 		Return the comment with the given id
 
-	- string getProperty(PROPERTY_NAME)
+	- mixed getProperty(PROPERTY_NAME)
 		Return the property associated with PROPERTY_NAME
 
-	- void setProperty(PROPERTYNAME, string)
+	- void setProperty(PROPERTY_NAME, mixed)
 		Set the property associated with PROPERTY_NAME to the
 		string provided
-
-	- int getCreationDate()
-		Return the unix timestamp of the time this item was
-		created
-
-	- int getModificationDate()
-		Return the unix timestamp of the last time this item
-		was modified
-
-	- int getViewedSinceDate() 
-		Return the unix timestamp of the reference date
-
-	- void resetViewCount()
-		Set the viewed-since-date to be the current date and
-		reset the view count to 0.
-
-getClickCount->
-	- int getViewedCount()
-		Return the number of times this item has been viewed
-
-	- bool hideItem()
-		Hide this item from view by anybody but the owner
-		* return true on success or false on failure
-	
-	- bool showItem()
-		Un-hide this item.
-		* return true on success or false on failure
 
 	- string getType()
 		Returns the type of this item, eg:
@@ -132,6 +134,7 @@ Class AlbumItem [extends GalleryItem]
         Members
 	-------
 	- child Ids		* (id[]) ids of 0+ items
+	- ownerId		* id of the User who owns this item
 	- properties
 		- bgcolor		* (string) primary background color
 		- bgcolor2		* (string) secondary background color
@@ -155,6 +158,15 @@ display_clicks->- display_view_count	* show view counts for my items?
 	
 	Methods
 	-------
+	- constructor(string title, [/* AlbumItem */ id parentAlbum]) 
+		Create a new album with the default values.
+		Optionally put this new album inside the parent album,
+		provided.
+
+	- Album load(id)
+		Return the Album instance whose id matches the id
+		provided, or null if there's no album by that id.
+
 	- bool addItem(GalleryItem item)
 		Add this item to the end of album.
 		* return true on success or false on failure
@@ -388,10 +400,11 @@ Class CommentContainer [extends DataContainer]
 
 
 ================================================================================
+GRAPHICS
 ================================================================================
 
-Class Graphics
---------------
+Class AbstractImageToolKit
+--------------------------
 
 	This is an abstract class that defines an interface for image
 	manipulation.  It is implemented by classes that do the actual
@@ -440,10 +453,157 @@ Class Graphics
 		Extract the EXIF properties from the filename provided and
 		return it, or NULL if the file has no such properties.
 
-Class NetPbmGraphics [extends Graphics]
----------------------------------------
-	Implement the Graphics API using the NetPBM toolkit.
+	Implementations
+	---------------
+		ImageToolKit/NetPbm.php
+		ImageToolKit/ImageMagick.php
 
-Class ImageMagickGraphics [extends Graphics]
+================================================================================
+User Management
+================================================================================
+
+Class AbstractUserDB
+--------------------
+	This is an abstract class that provides access to the database
+	of User objects.  It must be implemented by a class that can
+	save and restore User objects from a persistent store.  The
+	features of the UserDB implementation vary depending on where
+	Gallery is used, so the UserDB needs to be able to specify
+	it's available feature set.  For example, if you're using
+	Gallery inside an embedded app like Nuke, then the NukeUserDB
+	should not allow you to add and delete users from the database
+	(let the Nuke application take care of that, instead).
+
+	Members
+	-------
+	(none)
+
+	Methods
+	-------
+	- bool canCreateUser()
+	- bool canModifyUser()
+	- bool canDeleteUser()
+	- User getNobodyUser()
+	- User getEverybodyUser()
+	- User getAuthenticatedUser()
+	- string[] getUidList
+	- User getUserByUsername(string username)
+	- User getUserByUid(string uid)
+
+	Implementations
+	---------------
+	UserDB/GalleryFileSystem.php
+	UserDB/GalleryMySQL.php
+
+Class AbstractUser
+------------------
+	This class is the container for information about Gallery
+	users.  Each instance of User contains a unique user id. It
+	must be implemented by a class that has a persistent store for
+	the relevant user data.
+
+	Members
+	-------
+	- string username
+	- string fullname
+	- string password
+	- string email
+	- bool isAdmin
+	- string uid
+
+	Methods
+	-------
+	- void setPassword(string password)
+	- bool isCorrectPassword(string password)
+	- string getUid()
+	- void setUsername(string username)
+	- string getUsername()
+	- void setEmail(string email)
+	- string getEmail()
+	- void setFullName(string fullname)
+	- string getFullName()
+	- bool isAdmin()
+	- bool isPseudo()
+	- void setIsAdmin(bool yes_or_no)
+	- bool isLoggedIn()
+
+Class PseudoUser [implements AbstractUser]
+------------------------------------------
+	Pseudo users are user records for users that don't actually
+	exist.  They are used as placeholders in situations where an
+	actual user record can't be used (such as in a permissions
+	dialog).  It overrides the following methods in User:
+
+	- bool isPseudo()
+		* return true
+
+	- bool isAdmin()
+		* return false
+
+Class AuthenticatedUser [extends PseudoUser]
 --------------------------------------------
-	Implement the Graphics API using the ImageMagick toolkit.
+
+	This is a PseudoUser that represents a user that is always logged in.
+	It overrides the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "AUTHENTICATED"
+
+	- string getFullname()
+		* return "An authenticated user"
+
+	- string getUid() 
+		* return "authenticated"	
+
+Class EverybodyUser [extends PseudoUser]
+----------------------------------------
+	
+	This is a PseudoUser that represents any user. It overrides
+	the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "EVERYBODY"
+
+	- string getFullname()
+		* return "Anonymous User"
+
+	- string getUid() 
+		* return "everybody"	
+
+
+Class NobodyUser
+----------------
+
+	This is a PseudoUser that represents no user.  It overrides
+	the following methods in PseudoUser:
+
+	- string getUsername()
+		* return "NOBODY"
+
+	- string getFullname()
+		* return "Nobody"
+
+	- string getUid() 
+		* return "nobody"	
+
+
+================================================================================
+Examples
+================================================================================
+
+1. Create a new album with a title and set the isHtmlAllowed property.
+   By default, it starts off in the root album.
+
+	$newAlbum = new Album();
+	$newAlbum->setProperty("title", "This is my new album");
+	$newAlbum->setProperty("isHtmlAllowed", true);
+
+
+XXX 2. Create a new album and add it to an existing one
+XXX 
+XXX 	$existingAlbum = Album.load($existing_album_id);
+XXX 
+XXX 	/*
+XXX 	 * Add it to the root album
+XXX 	 */
+XXX 	$album = new Album($gallery->rootAlbumItem);	
