@@ -32,8 +32,11 @@ msgstr ""
 msgid "Binary Name"
 msgstr "Nome do arquivo bin&aacute;rio"
 
+msgid "Binary output:"
+msgstr "Output:"
+
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "Defaults"
 msgstr "Padr&otilde;es"
@@ -79,12 +82,24 @@ msgstr "Passou"
 msgid "Path to ImageMagick:"
 msgstr "Diret&oacute;rio do ImageMagick"
 
+msgid "Problem executing binary:"
+msgstr "Problema executando arquivo bin&aacute;rio:"
+
 msgid "Save Settings"
 msgstr "Salvar Par&acirc;metros"
 
-#, fuzzy
 msgid "Test Settings"
-msgstr "Resetar Par&acirc;metros"
+msgstr "Testar Par&acirc;metros"
+
+msgid ""
+"The path you entered doesn't contain valid ImageMagick binaries. Use the "
+"'test' button to check where the error is."
+msgstr ""
+"O diret&oacute;rio entrado n&atilde;o cont&eacute;m arquivos "
+"bin&aacute;rios do ImageMagick v&aacute;lidos. Use o bot&atilde;o "
+"de 'Teste' para verificar onde est&aacute; o problema."
 
 msgid "You must enter a path to your ImageMagick binaries"
 msgstr ""
+"Voc&ecirc; precisa entrar o diret&oacute;rio dos arquivos "
+"bin&aacute;rios do ImageMagick"
