@@ -15,6 +15,12 @@
      This file contains general templates common to both the HTML and FO
      versions of the DocBook stylesheets.
      ******************************************************************** -->
+<!-- CUSTOM CODE -->
+ <xsl:variable name="galleryweb">
+  <xsl:value-of select="$galleryweb-test"/>
+ </xsl:variable>
+<!-- END CUSTOM CODE -->
+
 
 <doc:reference xmlns="">
 <referenceinfo>
@@ -1056,6 +1062,11 @@ object is recognized as a graphic.</para>
                                     |$object"/>
 
   <xsl:variable name="filename">
+   <!-- CUSTOM CODE -->
+    <xsl:if test="$galleryweb">
+     <xsl:text>modules/GalleryDocs/galleryweb/</xsl:text>
+    </xsl:if>
+   <!-- END CUSTOM CODE -->
     <xsl:choose>
       <xsl:when test="$data[@fileref]">
         <xsl:value-of select="$data/@fileref"/>

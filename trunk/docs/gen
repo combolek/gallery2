@@ -15,7 +15,7 @@ case $1 in
 		xsltproc ../../docbook-xsl/html/chunk.xsl ../../manual.xml
 
 
-		cp -R ../../images .
+		cp -Rf ../../images .
 		rm -rf images/CVS
 
 		cp ../../html.css .
@@ -30,12 +30,29 @@ case $1 in
 
 		xsltproc docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
 
-		cp -R images $DIST/bightml
+		cp -Rf images $DIST/bightml
 		rm -rf $DIST/bightml/CVS
 
 		cp html.css $DIST/bightml
 		;;
 		
+	galleryweb)
+		echo "Generating Gallery Web Manual...";
+
+		if [ ! -d $DIST/galleryweb ]; then
+			mkdir -p $DIST/galleryweb;
+		fi
+
+		cd $DIST/galleryweb
+		xsltproc ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
+
+
+		cp -Rf ../../images .
+		rm -rf images/CVS
+
+		cp ../../html.css .
+		;;
+
 	pdf)
 		echo "Generating PDF Manual...";
 
@@ -73,6 +90,7 @@ case $1 in
 		echo "html          Generate HTML documents";
 		echo "bightml       Generate one big HTML document";
 		echo "pdf           Generate a PDF (requires fop)";
+		echo "galleryweb    Generate docs fitted for the Gallery Website";
 		echo "dist          Generate all types";
 		echo "test-saxon    Test for XML errors using saxon";
 		echo "test-xmllint  Test for XML errors using xmllint";
@@ -84,6 +102,7 @@ case $1 in
 		$0 html
 		$0 bightml
 		$0 pdf
+		$0 galleryweb
 		;;
 
 	clean)
