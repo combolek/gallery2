@@ -624,7 +624,8 @@ class CoreModule extends GalleryModule {
 					       'subView' => 'core:UserLogin'));
 	} else {
             $links[] = array('text' => $this->translate('Your account'),
-                             'params' => array('view' => 'core:UserAdmin',
+                             'params' => array('return' => 'true',
+					       'view' => 'core:UserAdmin',
 					       'subView' => 'core:UserPreferences'));
             $links[] = array('text' => $this->translate('Logout'),
                              'params' => array('return' => 'true',

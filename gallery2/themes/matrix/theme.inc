@@ -58,7 +58,8 @@ class MatrixTheme extends GalleryTheme {
  
  	$params = $context['params'];
  	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
- 						'itemId' => $params['image']['id']));
+ 						'itemId' => $params['image']['id'],
+						'serial' => $params['image']['serialNumber']));
 
 	/* Shrink down images that we display in the sidebar */
  	if (in_array('sidebar', $context['stack'])) {
