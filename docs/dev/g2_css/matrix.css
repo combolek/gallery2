@@ -1,5 +1,4 @@
 /*	de-bug	*/
-
 #blah
  { border: 1px solid #bbb; }
 
@@ -165,7 +164,7 @@ body {
 }
 .giDescription {
 	font-size: 0.85em;
-	height: 100%;
+	/*height: 100%;*/
 }
 .giInfo {
 	float: left;
@@ -258,6 +257,43 @@ span.giCount {}
 
 /* ******** jon's search additions *********** */
 
+
+/* form elements that I used */
+.giFormButton, .giFormInput { 
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+/* checkboxes */
+.giFormCheckbox {
+	margin: 4px;
+	vertical-align: middle;
+}
+
+
+/*  note that this is a gi inside a gi.
+	(this covers the inline buttons needing to be the
+	same text size as the title element its embedded in in
+	the search more line)
+	While it would be possible to do this without embedding,
+	e.g. by not giving it a class and allowing the giTitle 
+	class to set the buttons as well or using a different
+	button class, it would be less powerful	and lessrobust. 
+	Since we've already allowed most everything
+	else to be nested, I can't see the harm in nesting
+	cat5 elements too. That seem okay to you?
+	
+	margins are set 0 to allow good wrapping on small screens.
+*/
+.giTitle .giFormButton {
+	font-size: 6pt;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;		
+}
+
+/* The title banner is the light grey "search" at the very top */
 .gbTitleBanner {
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -265,43 +301,68 @@ span.giCount {}
 	border-bottom: 1px solid #ddd;
 }
 
+/* Text inside the title bar */
 .gbTitleBanner .giTitle {
 	color: #ccc;
 	font-weight: bold;
 	font-size: 11px;
 }
 
+/* Search contents is along the same lines as the other gsXxxxContests
+	elements as a main "holder" for the main stuff in the page. */
 #gsSearchContents {}
 
+/* A small spacing edit to the main area banner. Though this really should be 
+   univerally declared, I didn't want to mess with Ross's stuff yet. So I 
+   declared it gsSeachContents only  */
 #gsSearchContents #gbTopFlag {
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
 
+/* Same as above, but for the text */
 #gbTopFlag .giTitle{
 	font-size: 12px;
 	
 }
 
-.giFormButton, .giFormInput { 
-	margin-top: 4px;
-	margin-bottom: 4px;
-}
-
-.giFormCheckbox { 
-	margin: 4px;
-}
-
-
-#gsSearchContents .giThumbImage, .giThumbMovie, .giThumbOther {
+/* small grey border around all the thumbnails */
+#gsSearchContents .giThumbImage, .giThumbMovie, .giThumbOther {	
 	border: 2px solid #ccc;
 }
 
-#gsSearchContents .gbItemImage {
-	clear: both;
+/* override the normal title clear so as to wrap information
+ on the right of the thumbnail */
+#gsSearchContents .gbItemImage .giTitle {
+	clear: none;
+	margin: 0;
+	padding: 0;
 }
 
-/* admin additions	*/
+/* This makes the images not wrap. But there's a weird bug on IE
+   that this seems to cause--see the html file for the workaround I found */
+#gsSearchContents .gbItemImage {
+	clear: left;
+}
+
+/* here are other form elements we haven't used yet */
+/* generally speaking, only a few are really useful. For example,
+   this allows the themer to distinguish between different buttons
+   and different "input" types. Some, like giHidden are pretty useless
+   but included for completeness.
+*/
+.gbForm,
+.giFormTextarea,
+.giFormHidden,
+.giFormRadio,
+.giFormSelect,
+.giFormFile,
+.giFormText,
+.giSubmitButton,
+.giClearButton,
+{}
+
+/* ********* admin additions ******** */
 
 #gsAdminContents {
 	float: left;
@@ -334,3 +395,4 @@ span.giCount {}
 	padding: 8px;
 	border-bottom: 1px solid #bbb;
 }
+

@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="guAdmin">
-<div id="gpSearch">
+<div id="gpMain">
 	<div id="gsHeader">
 		<div class="gbTitleBanner">	
 			<div class="giTitle">Search</div>
@@ -43,28 +43,17 @@
 			
 			<div class="giTitle">Comments</div>			
 			<div class="giDescripton"><input name="Search" type="checkbox" class="giFormCheckbox" /> Search comments</div>
-
-		</div>
-
-		<div class="gbItemImage">
-			
-			<div class="giThumbImage"><img src="images/thumb1.jpg" alt="" /></div> 				         
-			
-			
-        <div class="giTitle"> Title: album02a </div>
-			<div class="giInfo">
-				<span>Summary: this is my summery</span>
-				<span>Keywords: there are some keywords</span>  
-				<span>Description: this is the long description</span> 
-				<span>Owner: Gallery Administrator</span>
+			<div class="giTitle">Searching Gallery Core only  
+				<input type="button" value="Search all modules" class="giFormButton">
+				Gallery Core (Results 1 - 10)  
+				<input type="button" value="Show all 15" class="giFormButton">
+				(Results 1 - 10 of 15, Page 1 of 2)
 			</div>
 		</div>
-		<div class="gbItemImage">
-			
+
+<div class="gbItemImage">
 			<div class="giThumbImage"><img src="images/thumb2.jpg" alt="" /></div> 				         
-			
-			
-        <div class="giTitle"> Title: Another Album </div>
+	        <div class="giTitle"> Title: Another Album </div>
 			<div class="giInfo">
 				<span>Summary:  this is my summery</span>
 				<span>Keywords:  there are some keywords</span>  
@@ -72,10 +61,35 @@
 				<span>Owner:  Gallery Administrator</span>
 			</div>
 		</div>
+		<div>&nbsp;</div> <!--the empty div (or any other formatting element will do: br, etc) 
+			prevents a strange formatting bug with IE where later albums will wrap 
+			the description text when the window is smaller than about 800 pixels or so -->
+		<div class="gbItemImage">
+			<div class="giThumbImage"><img src="images/thumb1.jpg" alt="" /></div> 				         
+	        <div class="giTitle"> Title: album02a </div>
+			<div class="giInfo">
+				<span>Summary: this is my summery</span>
+				<span>Keywords: there are some keywords</span>  
+				<span>Description: this is the long description</span> 
+				<span>Owner: Gallery Administrator</span>
+			</div>
+		</div>
+		
+		<div>&nbsp;</div> 
+		
+		<div class="gbItemImage">
+			<div class="giThumbImage"><img src="images/thumb1.jpg" alt="" /></div> 				         
+	        <div class="giTitle"> Title: album02a </div>
+			<div class="giInfo">
+				<span>Summary: this is my summery</span>
+				<span>Keywords: there are some keywords</span>  
+				<span>Description: this is the long description</span> 
+				<span>Owner: Gallery Administrator</span>
+			</div>
+		</div>
 				
 		
-		
-	</div>
+    </div>
 	<div id="gsFooter">
 		<img src="images/mini1.gif" alt="" class="gbMiniBanner" /> <img src="images/mini2.gif" alt="" class="gbMiniBanner" /> 
 	</div>
