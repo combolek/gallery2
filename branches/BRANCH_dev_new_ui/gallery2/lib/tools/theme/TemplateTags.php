@@ -54,6 +54,7 @@ $tags['bannerbox'] = array('type' => 'component', 'children' => array('title?', 
 $tags['linksbox'] = array('type' => 'component', 'children' => array('item+'));
 $tags['infobox'] = array('type' => 'component', 'children' => array('item+'));
 $tags['listingbox'] = array('type' => 'component', 'children' => array('title?', 'item+'));
+$tags['imagebox'] = array('type' => 'component', 'children' => array('title?', 'description?', 'body'));
 
 // Boxes that can contain a body
 $tags['detailedbox'] = array('type' => 'component', 'children' => array('title', 'description', 'body'));
@@ -69,7 +70,7 @@ $tags['widget2'] = array('type' => 'child', 'children' => array('title?', 'descr
 // grid layout components
 $tags['table'] = array('type' => 'component', 'params' => array('width' => '100%'), 'children' => array('row+'));
 $tags['row'] = array('type' => 'child', 'params' => array('rowspan' => '1'), 'children' => array('column+'));
-$tags['column'] = array('type' => 'attribute', 'params' => array('valign' => '', 'width' => '', 'header' => 'false', 'colspan' => '1'));
+$tags['column'] = array('type' => 'attribute', 'params' => array('valign' => '', 'width' => '', 'header' => 'false', 'colspan' => '1', 'rowspan' => '1'));
 
 // generic attributes
 $tags['title'] = array('type' => 'attribute');

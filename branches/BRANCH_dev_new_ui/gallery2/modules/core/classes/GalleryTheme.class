@@ -740,6 +740,18 @@ class GalleryTheme {
     }
 
     /**
+     * imagebox theme method
+     * @param array the template context
+     * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
+     * @param array mandatory ("params" => array, "content" => body content)
+     * @return string HTML content
+     */
+    function imagebox($context, $title, $description, $body) {
+        trigger_error("Undefined theme function: imagebox", E_USER_ERROR);
+    }
+
+    /**
      * detailedbox theme method
      * @param array the template context
      * @param array mandatory ("params" => array, "content" => title content)
