@@ -21,25 +21,32 @@
  */
 ?>
 <?php
-class CPGNuke_AdminUser extends Abstract_User {
+class NsnNuke_AdminUser extends Abstract_User {
 	var $db;
 	var $prefix;
 
-	function CPGNuke_AdminUser($admin) {
+	function NsnNuke_AdminUser($admin) {
 		global $gallery;
-		global $CLASS;
-		
-		$admin_info = $CLASS['member']->admin;
+		$this->db = $gallery->database{"nsnnuke"};
+		$this->prefix = $gallery->database{"admin_prefix"};
 
-		$this->db = $gallery->database{"cpgnuke"};
-		$this->prefix = $gallery->database{"prefix"};
-
-		$this->username = $admin_info['aid'];
-		$this->fullname = $admin_info['aid'];
-		$this->email = $admin_info['email'];
+		if(!is_array($admin)) {
+			$admin = base64_decode($admin);
+			$admin = explode(":", $admin);
+			$aid = "$admin[0]";
+		} else {
+			$aid = "$admin[0]";
+		}
+		$results = $this->db->query("select name, email from " .
+				$this->prefix . "admin_authors " .
+				"where aid='$aid'");
+		$row = $this->db->fetch_row($results);
+		$this->username = $aid;
+		$this->fullname = $row[0];
+		$this->email = $row[1];
 		$this->isAdmin = 1;
 		$this->canCreateAlbums = 1;
-		$this->uid = "admin_". $admin_info['aid'];
+		$this->uid = "admin_$aid";
 	}
 }
 

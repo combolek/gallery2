@@ -336,9 +336,9 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
        </listitem>
        <listitem>
         <para>
-         Attempt to upload a picture using the web form interface, not the applet.
-         There will be a whole lot more debugging messages now, and it will help
-         to diagnose the problem.  Possible issues are listed below:
+         Attempt to upload a picture.  There will be a whole lot more debugging
+         messages now, and it will help to diagnose the problem.  Possible issues
+         are listed below
         </para>
        </listitem>
       </orderedlist>
@@ -1208,9 +1208,9 @@ if (!function_exists('array_search')) {
       <para>
        This is caused by a PHP directive called
        <ulink url="http://www.php.net/manual/en/features.safe-mode.php#ini.open-basedir">open_basedir</ulink>.
-       Basically, your host has misconfigured this directive and not added the directory where Gallery
-       is located to the directories where PHP can access and modify files.  You'll need to contact them
-       and ask them to add the directory where your website files are located.
+       Basically, your host has mis-configured this directive and not added the directory where Gallery
+       is to the allowed directories where PHP can access and modify files.  You'll need to contact them
+       and ask them to add the directory where you website files are located.
       </para>
      </answer>
     </qandaentry>
@@ -1489,30 +1489,8 @@ print getcwd ();
      </question>
      <answer>
       <para>
-       Version 1.4.3 or below: Resetting your admin password is easy; 
-       just set your Gallery into config mode, rerun the <link linkend="gallery1-install.config-wizard">
+       Resetting your admin password is easy; just rerun the <link linkend="gallery1-install.config-wizard">
        configuration wizard</link> and specify a new password on step 2.
-      </para>
-      <para>
-       Version 1.4.4 and above:
-       <orderedlist>
-        <listitem>
-	 <para>Create a file named <screen>resetadmin</screen> in your /gallery/setup directory.</para>
-        </listitem>
-        <listitem>
-         <para>Visit the <link linkend="gallery1-install.config-wizard">configuration wizard</link> in your browser</para>
-        </listitem>
-        <listitem>
-         <para>Follow the instructions on the page</para>
-        </listitem>
-        <listitem>
-         <para>Specify a new password in step 2 of the configuration wizard</para>
-        </listitem>
-       </orderedlist>
-       The config wizard will give you a special piece of information,
-       and you will be required to edit the <emphasis>resetadmin</emphasis> file,
-       add the string, save, and refresh your browser.  This is a security measure to prove that you
-       are an administrator.
       </para>
      </answer>
     </qandaentry>
@@ -1551,46 +1529,6 @@ print getcwd ();
        If you didn't touch the CSS or frame files, this probably means that
        you didn't override the files upon upgrade.  Make sure that your FTP
        client overrides the old files and upgrades to the new ones.
-      </para>
-     </answer>
-    </qandaentry>
-    
-    <qandaentry id="gallery1-install.faq.c.39">
-     <question>
-      <para>
-       Why do I get this error: <literal>Fatal error: session_start(): Failed to
-       initialize storage module: user...</literal>?
-      </para>
-     </question>
-     <answer>
-      <para>
-       Some other application has setup PHP to use a user-defined session handler.
-       Gallery, however, doesn't run its own handler and relies on PHP to handle
-       things.  To correct for this, add this line to the end of your &htaccess;
-       file:
-       <screen>
-        php_value session.save_handler "files"
-       </screen>
-       This should fix it if you host allows you to edit PHP directives in &htaccess;.
-       If not, you may need to contact them to get it changed globally.
-      </para>
-     </answer>
-    </qandaentry>
-    
-    <qandaentry id="gallery1-install.faq.c.40">
-     <question>
-      <para>
-       I need to remove my albums directory, but I can't since the webserver user
-       owns the files.  What can I do?
-      </para>
-     </question>
-     <answer>
-      <para>
-       Bharat has made a simple script to chmod all the files in your albums directory
-       0777, so you can easily delete them with your FTP client.  Download his script
-       here: <ulink url="http://gallery.menalto.com/modules.php?op=modload&amp;name=Downloads&amp;file=index&amp;req=viewdownload&amp;cid=6">
-       Gallery Utilities</ulink> ("Bharat's Cleanup Script").  Instructions are included
-       in the top of the file.
       </para>
      </answer>
     </qandaentry>

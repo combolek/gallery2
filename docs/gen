@@ -153,32 +153,15 @@ case $1 in
 			mkdir -p $DIST/pdf;
 		fi
 
-		if [ -e $DIST/pdf/manual-fop.pdf ]; then
-			rm -f $DIST/pdf/manual-fop.pdf;
+		if [ -e $DIST/pdf/manual.pdf ]; then
+			rm -f $DIST/pdf/manual.pdf;
 		fi
 
 		gendate
 
-		fop -d -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual-fop.pdf || exit 1
+		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf || exit 1
 
 		rm -f manual.fo
-		;;
-
-	pdf-htmldoc)
-		echo "Generating PDF Manual (htmldoc)...";
-
-		if [ ! -d $DIST/pdf ]; then
-			mkdir -p $DIST/pdf
-		fi
-
-		if [ -e $DIST/pdf/manual-htmldoc.pdf ]; then
-			rm -f $DIST/pdf/manual-htmldoc.pdf;
-		fi
-
-		$0 bightml
-
-		htmldoc -t pdf14 -f $DIST/pdf/manual-htmldoc.pdf --book $DIST/bightml/index.html
-
 		;;
 
 	autofaq)

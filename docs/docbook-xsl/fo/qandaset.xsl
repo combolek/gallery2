@@ -43,8 +43,8 @@
   </xsl:variable>
 
   <fo:block id="{$id}">
-    <xsl:if test="blockinfo/title|info/title|title">
-      <xsl:apply-templates select="(blockinfo/title|info/title|title)[1]"/>
+    <xsl:if test="blockinfo/title|title">
+      <xsl:apply-templates select="(blockinfo/title|title)[1]"/>
     </xsl:if>
 
     <xsl:apply-templates select="*[name(.) != 'title'
@@ -70,7 +70,7 @@
   </fo:block>
 </xsl:template>
 
-<xsl:template match="qandaset/blockinfo/title|qandset/info/title|qandaset/title">
+<xsl:template match="qandaset/blockinfo/title|qandaset/title">
   <xsl:variable name="enclsect" select="(ancestor::section
                                         | ancestor::simplesect
                                         | ancestor::sect5
@@ -129,7 +129,7 @@
   </xsl:variable>
 
   <fo:block id="{$id}">
-    <xsl:apply-templates select="(blockinfo/title|info/title|title)[1]"/>
+    <xsl:apply-templates select="(blockinfo/title|title)[1]"/>
     <xsl:apply-templates select="*[name(.) != 'title'
                                  and name(.) != 'titleabbrev'
                                  and name(.) != 'qandadiv'
@@ -155,7 +155,7 @@
   </fo:block>
 </xsl:template>
 
-<xsl:template match="qandadiv/blockinfo/title|qandadiv/info/title|qandadiv/title">
+<xsl:template match="qandadiv/blockinfo/title|qandadiv/title">
   <xsl:variable name="enclsect" select="(ancestor::section
                                         | ancestor::simplesect
                                         | ancestor::sect5
@@ -187,8 +187,15 @@
 </xsl:template>
 
 <xsl:template match="qandaentry">
-  <!-- Omit revhistory from fo:list-block because it is a table -->
-  <xsl:apply-templates select="question|answer"/>
+  <xsl:apply-templates/>
+<!--
+  <fo:block>
+    <xsl:if test="@id">
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates/>
+  </fo:block>
+-->
 </xsl:template>
 
 <xsl:template match="question">
@@ -239,8 +246,6 @@
           <xsl:apply-templates select="*[local-name(.)!='label']"/>
         </xsl:otherwise>
       </xsl:choose>
-      <!-- Uncomment this line to get revhistory output in the question -->
-      <!-- <xsl:apply-templates select="preceding-sibling::revhistory"/> -->
     </fo:list-item-body>
   </fo:list-item>
 </xsl:template>

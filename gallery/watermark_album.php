@@ -22,14 +22,11 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($index, $save, $preview, $wmAlign, $wmName, $wmSelect) = getRequestVar(array('index', 'save', 'preview', 'wmAlign', 'wmName', 'wmSelect'));
-list($wmAlignX, $wmAlignY, $recursive, $previewFull) = getRequestVar(array('wmAlignX', 'wmAlignY', 'recursive', 'previewFull'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -38,33 +35,18 @@ if (empty($index)) {
 }
 $highlightIndex = $gallery->album->getHighlight();
 
-$err = "";
+$err = "";	
 if (isset($save) || isset($preview)) {
 	if (isset($wmAlign) && ($wmAlign > 0) && ($wmAlign < 12)) {
 		if (isset($wmName) && !empty($wmName)) {
 			if (isset($save)) {
-?>
-<html>
-<head>
-  <title><?php echo _("Watermarking album.") ?></title>
-  <?php common_header(); ?>
-</head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Watermarking album."); ?></div>
-<div class="popup" align="center">
-(<?php echo _("this may take a while"); ?> )
-<?php
+				print "<html><body>\n";
+	        	        echo "<center> ". _("Watermarking album.")."<br>(". _("this may take a while"). ")</center>\n";
         	        	my_flush();
                			set_time_limit($gallery->app->timeLimit);
 	                	$gallery->album->watermarkAlbum($wmName, "",
-					$wmAlign, $wmAlignX, $wmAlignY, $recursive, $wmSelect);
+					$wmAlign, $wmAlignX, $wmAlignY, $recursive);
         	        	$gallery->album->save();
-?>
-</div>
-</div>
-</body>
-</html>
-<?php
                 		dismissAndReload();
 	                	return;
 			} else {
@@ -96,9 +78,10 @@ doctype();
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popup">
-<div class="popuphead"><?php echo _("Watermark Album") ?></div>
-<div class="popupcontent" align="center">
+
+<div align="center">
+<p align="center" class="popuphead"><?php echo _("Watermark Album") ?></p>
+
 <?php
 if (!$gallery->album->numPhotos(1)) {
 	echo "\n<p>". gallery_error(_("No items to watermark.")) . "</p>";
@@ -135,6 +118,7 @@ if (!$gallery->album->numPhotos(1)) {
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </p>
 </form>
+</div>
 
 <script language="javascript1.2" type="text/JavaScript">
 <!--   
@@ -144,6 +128,5 @@ document.theform.data.focus();
 </script>
 <?php } // end if numPhotos() ?>
 <?php print gallery_validation_link("watermark_album.php"); ?>
-</div>
 </body>
 </html>

@@ -27,7 +27,10 @@ ${TARDIR}/gallery: ${TARDIR}/docs
 	(mv ${TARDIR}/gallery/en_US_temp ${TARDIR}/gallery/locale/en_US) && \
 	(cd ${TARDIR}/docs && ./gen g1package) && \
 	(mv ${TARDIR}/docs/dist/g1package ${TARDIR}/gallery/docs) && \
-	(cd ${TARDIR})
+	(cd ${TARDIR}) && \
+	(wget http://jpmullan.com/galleryupdates/remote/current_gallery_remote_applets.zip) && \
+	(unzip current_gallery_remote_applets.zip -d ${TARDIR}/gallery/java) && \
+	(rm current_gallery_remote_applets.zip)
 
 # Export the docs module
 #

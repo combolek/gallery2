@@ -22,11 +22,9 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
-list($uname, $password, $langid, $lcid, $cmd, $set_albumName, $setCaption, $newAlbumTitle, $createNewAlbum, $album ) = getRequestVar(array('uname', 'password', 'langid', 'lcid', 'cmd', 'set_albumName', 'setCaption', 'newAlbumTitle', 'createNewAlbum', 'album'));
-
-if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
+if (isset($HTTP_SERVER_VARS["HTTPS"] ) && stristr($HTTP_SERVER_VARS["HTTPS"], "on")) {
     $proto = "https";
 } else {
     $proto = "http";
@@ -44,7 +42,7 @@ if(empty($cmd)){
   $lines[] = '"displayname"="' . $gallery->app->galleryTitle . '"';
   $lines[] = '"description"="' . sprintf(_("Publish Your Photos and Movies to %s."),  $gallery->app->galleryTitle) . '"';
   $lines[] = '"href"="' . makeGalleryUrl("publish_xp.php", array("cmd" => "publish")) . '"';
-  $lines[] = '"icon"="' . $proto . '://' . $_SERVER['SERVER_NAME'] . '/favicon.ico"';
+  $lines[] = '"icon"="' . $proto . '://' . $HTTP_SERVER_VARS['SERVER_NAME'] . '/favicon.ico"';
   print join("\r\n", $lines);
   print "\r\n";
   exit;
@@ -209,7 +207,7 @@ if (!strcmp($cmd, "select-album")) {
 			    $gallery->album->fields[title]);
 	}
 
-	if (!empty($error)) {
+	if ($error) {
 		echo gallery_error($error). "<br>";
 		echo _("Press the 'Back' button and try again!");
 		$ONBACK_SCRIPT="window.location.href = \"publish_xp.php?cmd=fetch-albums\";";
@@ -308,7 +306,7 @@ if (!strcmp($cmd, "new-album")) {
                 $WIZARD_BUTTONS="true,true,true";
 	}
 
-        if (!empty($error)) {
+        if ($error) {
                 echo gallery_error($error);
 		echo _("Press the 'Back' button and try again!");
 		echo "<form id=\"folder\">";
@@ -340,23 +338,23 @@ if (!strcmp($cmd, "add-item")) {
 	    $error = _("User cannot add to album");
 	}
 
-	else if (empty($_FILES['userfile']['name'])) {
+	else if (!$userfile_name) {
 	    	$error = _("No file specified");
 	}
 
 	else {
-		$name = $_FILES['userfile']['name'];
-		$file = $_FILES['userfile']['tmp_name'];
+		$name = $userfile_name;
+		$file = $userfile;
 		$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $name);
 		$tag = strtolower($tag);
 
-		if (!empty($name)) {
-    			processNewImage($file, $tag, $name, "", $setCaption);
+		if ($name) {
+    			processNewImage($userfile, $tag, $userfile_name,"",$setCaption);
 		}
 
 		$gallery->album->save(array(i18n("Image added")));
 
-		if (!empty($temp_files)) {
+		if ($temp_files) {
     			/* Clean up the temporary url file */
     			foreach ($temp_files as $tf => $junk) {
         			fs_unlink($tf);
@@ -364,7 +362,7 @@ if (!strcmp($cmd, "add-item")) {
 		}
 	}
 
-	if (!empty($error)) {
+	if ($error) {
 	    	echo gallery_error($error);
 	} else {
     		echo "SUCCESS";

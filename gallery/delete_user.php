@@ -22,21 +22,17 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($formaction, $unames) = getRequestVar(array('formaction', 'unames'));
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
-if (isset($formaction) && $formaction == 'delete') {
-	foreach($unames as $user) {
-		$gallery->userDB->deleteUserByUsername($user);
-	}
+if (isset($action) && $action == 'delete') {
+	$gallery->userDB->deleteUserByUsername($uname);
 }
-if (!empty($formaction)) {
+if (!empty($action)) {
 	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
 }
 
@@ -47,45 +43,40 @@ doctype();
   <title><?php echo _("Delete User") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Delete User") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
 
-<?php echo makeFormIntro("delete_user.php", array(
-                                "name" => "deleteuser_form"));
-//				"onsubmit" => "deleteuser_form.deleteButton.disabled='true'"));
+<center>
+<p class="popuphead"><?php echo _("Delete User") ?></p>
 
-foreach ($unames as $user) {
-	if (!strcmp($gallery->user->getUsername(), $user)) {
-		echo '<p align="center">';
-		echo gallery_error(_("You can't delete your own account!"));
-		echo '</p>';
-		$error++;
-	}
-}
-if (! isset($error)) {	
+<div class="popup">
+<?php echo makeFormIntro("delete_user.php", array('name' => 'deleteuser_form', 
+						'onsubmit' => 'deleteuser_form.delete.disabled = true;')); ?>
+<input type="hidden" name="uname" value="<?php echo $uname ?>">
+
+<?php
+if (!strcmp($gallery->user->getUsername(), $uname)) {
+	echo '<p align="center">';
+	echo gallery_error(_("You can't delete your own account!"));
+	echo '</p>';
+} else {
 	echo _("Users can have special permissions in each album.") .
-	ngettext("If you delete this user, any such permissions go away.", "if you delete these users, any permissions will go away", sizeof($unames)) .
-	_("Users cannot be recreated.") .
-	ngettext ("Even if this user is recreated, those permissions are gone.", "Even if you recreate one of those users, the permissions are gone.", sizeof($unames));
+		_("If you delete this user, any such permissions go away.") .
+		_("Users cannot be recreated.") .
+		_("Even if this user is recreated, those permissions are gone.");
 ?>
-<p>
-<?php 
-	echo ngettext("Do you really want to delete user", "Do you really want to delete these users", sizeof($unames)) .":";
-	foreach ($unames as $key => $value) { 
-		echo "<input type=\"hidden\" name=\"unames[$key]\" value=\"$value\"><br>$value\n";
-	}
-?>
-<br><br>
-<input type="submit" name="deleteButton" value="<?php echo _("Delete") ?>" onclick="deleteuser_form.formaction.value='delete'">
+<p><b><?php echo  _("Do you really want to delete user"). ": ". $uname ?><b></p>
+
+<input type="hidden" name="action" value="">
+<input type="submit" name="delete" value="<?php echo _("Delete") ?>" onclick="deleteuser_form.action.value='delete'">
 <?php
 }
 ?>
-<input type="hidden" name="formaction" value="">
-<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="deleteuser_form.formaction.value='cancel'">
-</form> 
-</div>
 
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="deleteuser_form.action.value='cancel'">
+</form> 
+
+</div>
+</center>
 <?php print gallery_validation_link("delete_user.php"); ?>
 </body>
 </html>

@@ -33,7 +33,7 @@
       <xsl:text> PNG PDF JPG JPEG linespecific </xsl:text>
     </xsl:when>
     <xsl:when test="$fop.extensions != 0">
-      <xsl:text> BMP GIF TIFF SVG PNG EPS JPG JPEG linespecific </xsl:text>
+      <xsl:text> BMP GIF TIFF SVG PNG PDF JPG JPEG linespecific </xsl:text>
     </xsl:when>
     <xsl:when test="$arbortext.extensions != 0">
       <xsl:text> PNG PDF JPG JPEG linespecific GIF GIF87a GIF89a TIFF BMP </xsl:text>
@@ -59,28 +59,23 @@
       <xsl:text> png pdf jpg jpeg </xsl:text>
     </xsl:when>
     <xsl:when test="$fop.extensions != 0">
-      <xsl:text> bmp gif tif tiff svg png pdf jpg jpeg eps </xsl:text>
+      <xsl:text> gif svg png pdf jpg jpeg </xsl:text>
     </xsl:when>
     <xsl:when test="$arbortext.extensions != 0">
       <xsl:text> png pdf jpg jpeg gif tif tiff bmp </xsl:text>
     </xsl:when>
     <xsl:when test="$xep.extensions != 0">
-      <xsl:text> svg png pdf jpg jpeg gif tif tiff bmp eps </xsl:text>
+      <xsl:text> svg png pdf jpg jpeg gif tif tiff bmp </xsl:text>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:text> svg png pdf jpg jpeg gif tif tiff bmp eps </xsl:text>
+      <xsl:text> png pdf jpg jpeg gif tif tiff bmp </xsl:text>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:param>
 
 <xsl:template name="is.graphic.extension">
   <xsl:param name="ext"/>
-  <xsl:variable name="lcext" select="translate($ext,
-                                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                                       'abcdefghijklmnopqrstuvwxyz')"/>
-
-  <xsl:if test="contains($graphic.extensions,
-                         concat(' ', $lcext, ' '))">1</xsl:if>
+  <xsl:if test="contains($graphic.extensions, concat(' ', $ext, ' '))">1</xsl:if>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -171,12 +166,6 @@
             <xsl:with-param name="default.units" select="'px'"/>
           </xsl:call-template>
         </xsl:when>
-        <xsl:when test="not(@depth) and $default.image.width != ''">
-          <xsl:call-template name="length-spec">
-            <xsl:with-param name="length" select="$default.image.width"/>
-            <xsl:with-param name="default.units" select="'px'"/>
-          </xsl:call-template>
-        </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
@@ -213,7 +202,6 @@
           <xsl:value-of select="$scale * 100"/>
           <xsl:text>%</xsl:text>
         </xsl:when>
-        <xsl:when test="$scalefit = 1">scale-to-fit</xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
@@ -267,7 +255,7 @@
 
 <xsl:template match="graphic">
   <xsl:choose>
-    <xsl:when test="parent::inlineequation">
+    <xsl:when test="../inlineequation">
       <xsl:call-template name="process.image"/>
     </xsl:when>
     <xsl:otherwise>
@@ -291,7 +279,7 @@
         <xsl:value-of select="unparsed-entity-uri(@entityref)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="@fileref"/>
+        <xsl:value-of select="@fileref"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -303,7 +291,7 @@
                         and $textinsert.extension != '0'">
           <xsl:choose>
             <xsl:when test="contains($vendor, 'SAXON')">
-              <stext:insertfile href="{$filename}" encoding="{$textdata.default.encoding}"/>
+              <stext:insertfile href="{$filename}"/>
             </xsl:when>
             <xsl:when test="contains($vendor, 'Apache Software Foundation')">
               <xtext:insertfile href="{$filename}"/>
@@ -334,7 +322,7 @@
 
   <xsl:variable name="olist" select="imageobject|imageobjectco
                      |videoobject|audioobject
-                     |textobject"/>
+		     |textobject"/>
 
   <xsl:variable name="object.index">
     <xsl:call-template name="select.mediaobject.index">
@@ -349,11 +337,7 @@
     <xsl:value-of select="$object/imagedata[@align][1]/@align"/>
   </xsl:variable>
 
-  <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-  </xsl:variable>
-
-  <fo:block id="{$id}">
+  <fo:block>
     <xsl:if test="$align != '' ">
       <xsl:attribute name="text-align">
         <xsl:value-of select="$align"/>
@@ -421,7 +405,7 @@
                         and $textinsert.extension != '0'">
           <xsl:choose>
             <xsl:when test="contains($vendor, 'SAXON')">
-              <stext:insertfile href="{$filename}" encoding="{$textdata.default.encoding}"/>
+              <stext:insertfile href="{$filename}"/>
             </xsl:when>
             <xsl:when test="contains($vendor, 'Apache Software Foundation')">
               <xtext:insertfile href="{$filename}"/>
@@ -479,18 +463,7 @@
         <xsl:value-of select="unparsed-entity-uri(@entityref)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="@fileref"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="encoding">
-    <xsl:choose>
-      <xsl:when test="@encoding">
-        <xsl:value-of select="@encoding"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$textdata.default.encoding"/>
+        <xsl:value-of select="@fileref"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -500,7 +473,7 @@
                     and $textinsert.extension != '0'">
       <xsl:choose>
         <xsl:when test="element-available('stext:insertfile')">
-          <stext:insertfile href="{$filename}" encoding="{$encoding}"/>
+          <stext:insertfile href="{$filename}"/>
         </xsl:when>
         <xsl:when test="element-available('xtext:insertfile')">
           <xtext:insertfile href="{$filename}"/>
@@ -540,22 +513,6 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:value-of select="concat('url(', $filename, ')')"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<!-- Resolve xml:base attributes -->
-<xsl:template match="@fileref">
-  <!-- need a check for absolute urls -->
-  <xsl:choose>
-    <xsl:when test="contains(., ':')">
-      <!-- it has a uri scheme so it is an absolute uri -->
-      <xsl:value-of select="."/>
-    </xsl:when>
-    <xsl:otherwise>
-      <!-- its a relative uri -->
-      <xsl:call-template name="relative-uri">
-      </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

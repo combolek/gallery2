@@ -39,10 +39,8 @@ if ($UPGRADE_LOOP == 2) {
 }
 
 if (!isset($gallery->version)) { 
-	require_once(dirname(__FILE__) . '/init.php'); 
+	require(dirname(__FILE__) . '/init.php'); 
 }
-
-list($upgrade_albumname, $upgradeall) = getRequestVar(array('upgrade_albumname', 'upgradeall'));
 
 /*
  * If we're not the admin, we can only upgrade the album that we're
@@ -54,11 +52,19 @@ if ($gallery->session->albumName) {
 
 // Hack check
 if (!$gallery->user->isAdmin() && empty($upgrade_albumname)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 $albumDB = new AlbumDB(FALSE);
+
+function close_button() {
+	print "<center>";
+	print "<form>";
+	print "<input type=\"button\" name=\"close\" value=\"" . _("Done") ."\" onclick='opener.location.reload(); parent.close()'>";
+	print "</form>";
+	print "</center>";
+}
 
 function reload_button() {
 	print "<center>";
@@ -69,9 +75,8 @@ function reload_button() {
 }
 
 function end_file() {
-	print "\n</div>";
-	print "\n</body>";
-	print "\n</html>";
+	print "</body>";
+	print "</html>";
 }
 
 function process($album=null) {
@@ -113,9 +118,9 @@ doctype();
   <title><?php echo _("Upgrade Albums") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Upgrade Albums") ?></div>
-<div class="popup">
+<body dir="<?php echo $gallery->direction ?>">
+
+<p align="center" class="popuphead"><?php echo _("Upgrade Albums") ?></p>
 <p>
 <?php 
 	echo _("The following albums in your gallery were created with an older version of the software and are out of date.");
@@ -128,7 +133,7 @@ doctype();
 	echo '<br>';
 	echo _("Rest assured, that if this process takes a long time now, it's going to make your gallery run more efficiently in the future.");
 ?>  
-</p>
+<p>
 
 <?php
 if (isset($upgrade_albumname)) {
@@ -150,37 +155,31 @@ if (isset($upgradeall) && sizeof($albumDB->outOfDateAlbums)) {
 	exit;
 }
 	
-
 if (!sizeof($albumDB->outOfDateAlbums)) {
+	print "<center>";
 	print "<b>". _("All albums are up to date.") ."</b>";
+	print "</center>";
+	close_button();
 } else {
-
-	echo "\n<p>";
-	echo sprintf(_("The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."),
-		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1, 'type' => 'popup')) . '"><b>' . _("upgrade them all at once") . '</b></a>');
-
-	echo '</p>';
-	echo "\n<table align=\"center\">";
+?>
+<?php echo sprintf(_("The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."),
+		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1)) . '">' . _("upgrade them all at once") . '</a>') ?>
+<ul>
+<?php
 	foreach ($albumDB->outOfDateAlbums as $albumName) {
 		$album = $albumDB->getAlbumByName($albumName);
-		echo "\n<tr>";
-		echo '<td><a href="';
-		echo makeGalleryUrl("upgrade_album.php", 
-			array("upgrade_albumname" => $album->fields["name"], 'type' => 'popup'));
-		echo '">['. _("upgrade") .']</a></td>';
-		echo '<td><b>'. $album->fields["title"] . '</b></td>';
-		echo '<td>('. $album->numPhotos(1) .' '. _("items"). ')</td>';
-		echo '</tr>';
+		print "<a href=\"";
+		print makeGalleryUrl("upgrade_album.php", 
+			array("upgrade_albumname" => $album->fields["name"]));
+		print "\">[" . _("upgrade") ."]</a> ";
+		print "<b>" . $album->fields["title"] . "</b>";
+		print " (" . $album->numPhotos(1) . " " ._("items").")";
+		print "<br>";
 	}
-	echo "\n</table>\n";
+	close_button();
 }
-
-	print '<form name="close" action="#">';
-	print '<input type="button" name="close" value="'. _("Done") .'" onclick="opener.location.reload(); parent.close()">';
-	print '</form>';
-
-	echo "\n</div>";
-	print gallery_validation_link("upgrade_album.php");
 ?>
-</body>
-</html>
+</ul>
+<?php
+end_file();
+?>

@@ -139,12 +139,6 @@ to be incomplete. Don't forget to read the source, too :-)</para>
 <!-- ==================================================================== -->
 
 <xsl:template match="tgroup" name="tgroup">
-  <xsl:if test="not(@cols)">
-    <xsl:message terminate="yes">
-      <xsl:text>Error: CALS tables must specify the number of columns.</xsl:text>
-    </xsl:message>
-  </xsl:if>
-
   <xsl:variable name="explicit.table.width">
     <xsl:call-template name="dbfo-attribute">
       <xsl:with-param name="pis"
@@ -423,7 +417,10 @@ to be incomplete. Don't forget to read the source, too :-)</para>
     <xsl:otherwise>
       <xsl:variable name="cell.content">
         <fo:block>
-          <xsl:call-template name="table.cell.block.properties"/>
+          <!-- highlight this entry? -->
+          <xsl:if test="ancestor::thead">
+            <xsl:attribute name="font-weight">bold</xsl:attribute>
+          </xsl:if>
 
           <!-- are we missing any indexterms? -->
           <xsl:if test="not(preceding-sibling::entry)
@@ -452,7 +449,7 @@ to be incomplete. Don't forget to read the source, too :-)</para>
             <xsl:when test="self::entrytbl">
               <xsl:variable name="prop-columns"
                             select=".//colspec[contains(@colwidth, '*')]"/>
-              <fo:table xsl:use-attribute-sets="table.table.properties">
+              <fo:table border-collapse="collapse">
                 <xsl:if test="count($prop-columns) != 0">
                   <xsl:attribute name="table-layout">fixed</xsl:attribute>
                 </xsl:if>
@@ -529,10 +526,9 @@ to be incomplete. Don't forget to read the source, too :-)</para>
       </xsl:variable>
 
       <fo:table-cell xsl:use-attribute-sets="table.cell.padding">
-        <xsl:call-template name="table.cell.properties"/>
         <xsl:if test="$xep.extensions != 0">
           <!-- Suggested by RenderX to workaround a bug in their implementation -->
-          <!--          <xsl:attribute name="keep-together.within-column">always</xsl:attribute> -->
+          <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
         </xsl:if>
 
         <xsl:if test="$bgcolor != ''">
@@ -639,18 +635,6 @@ to be incomplete. Don't forget to read the source, too :-)</para>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
-</xsl:template>
-
-<!-- Expand this template to add properties to any fo:table-cell -->
-<xsl:template name="table.cell.properties">
-</xsl:template>
-
-<!-- Expand this template to add properties to any cell's block -->
-<xsl:template name="table.cell.block.properties">
-  <!-- highlight this entry? -->
-  <xsl:if test="ancestor::thead">
-    <xsl:attribute name="font-weight">bold</xsl:attribute>
-  </xsl:if>
 </xsl:template>
 
 <xsl:template match="entry|entrytbl" name="sentry" mode="span">

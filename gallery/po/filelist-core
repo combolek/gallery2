@@ -1,6 +1,5 @@
 ../add_comment.php
 ../add_photos.php
-../admin-page.php
 ../album_permissions.php
 ../albums.php
 ../captionator.php
@@ -26,6 +25,7 @@
 ../includes/add_photos/add_applet.inc
 ../includes/add_photos/add_applet_mini.inc
 ../includes/add_photos/add_form.inc
+../includes/add_photos/add_form_one.inc 
 ../includes/add_photos/add_other.inc
 ../includes/add_photos/add_url.inc
 ../includes/slideshow/applet.inc
@@ -88,9 +88,7 @@
 ../search.php
 ../slideshow.php
 ../sort_album.php
-../stats.php
 ../tools/find_orphans.php
-../tools/despam-comments.php
 ../upgrade_album.php
 ../upgrade_users.php
 ../user_preferences.php

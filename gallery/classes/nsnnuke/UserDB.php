@@ -21,13 +21,13 @@
  */
 ?>
 <?php
-class CPGNuke_UserDB extends Abstract_UserDB {
+class NsnNuke_UserDB extends Abstract_UserDB {
 	var $db;
 	var $fields;
 	
-	function CPGNuke_UserDB() {
+	function NsnNuke_UserDB() {
 		global $gallery;
-		$this->db = $gallery->database{"cpgnuke"};
+		$this->db = $gallery->database{"nsnnuke"};
 		$this->prefix = $gallery->database{"user_prefix"};		
 		$this->nobody = new NobodyUser();
 		$this->everybody = new EverybodyUser();
@@ -39,12 +39,8 @@ class CPGNuke_UserDB extends Abstract_UserDB {
 		$uidList = array();
 		$db = $this->db;
 
-		$sql= 'select ' . $this->fields{'uid'} . 
-		      ' from ' . $this->prefix. 'users' .
-		      ' where '. $this->fields{'uid'} .'>1';
-
-		$results = $db->query($sql);
-
+		$results = $db->query('select ' . $this->fields{'uid'} .
+				      ' from ' . $this->user_prefix . 'users');
 		while ($row = $db->fetch_row($results)) {
 			array_push($uidList, $row[0]);
 		}
@@ -65,7 +61,7 @@ class CPGNuke_UserDB extends Abstract_UserDB {
 			return $this->loggedIn;
 		}
 
-		$user = new CPGNuke_User();
+		$user = new NsnNuke_User();
 		$user->loadByUsername($username);
 		return $user;
 	}
@@ -82,7 +78,7 @@ class CPGNuke_UserDB extends Abstract_UserDB {
 			return $this->loggedIn;
 		}
 
-		$user = new CPGNuke_User();
+		$user = new NsnNuke_User();
 		$user->loadByUid($uid);
 		return $user;
 	}

@@ -7,7 +7,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -22,18 +22,21 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
-list($full, $id, $index, $votes) = getRequestVar(array('full', 'id', 'index', 'votes'));
-list($save, $commenter_name, $comment_text) = getRequestVar(array('save', 'commenter_name', 'comment_text'));
-
-// Hack check and prevent errors
-if (empty($gallery->session->albumName) || !$gallery->user->canReadAlbum($gallery->album) || !$gallery->album->isLoaded()) {
-        header("Location: " . makeAlbumHeaderUrl('', '', array('gRedir' => 1)));
-        return;
+// Hack check
+if (!$gallery->user->canReadAlbum($gallery->album)) {
+        header("Location: " . makeAlbumHeaderUrl());
+	return;
+}
+if (isset($full) && !$gallery->user->canViewFullImages($gallery->album)) {
+	header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName, $id));
+	return;
+}
+if (!isset($full)) {
+	$full=NULL;
 }
 
-// Set $index from $id
 if (isset($id)) {
 	$index = $gallery->album->getPhotoIndex($id);
 	if ($index == -1) {
@@ -44,22 +47,6 @@ if (isset($id)) {
 } else {
 	$id = $gallery->album->getPhotoId($index);
 }
-
-// Determine if user has the rights to view full-sized images
-if (!empty($full) && !$gallery->user->canViewFullImages($gallery->album)) {
-	header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName, $id));
-	return;
-} elseif (!$gallery->album->isResized($index) && !$gallery->user->canViewFullImages($gallery->album)) {
-	header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
-	return;
-}
-
-
-if (!isset($full)) {
-	$full=NULL;
-}
-
-
 
 if (!empty($votes))
 {
@@ -162,18 +149,39 @@ $navigator["url"] = ".";
 $navigator["bordercolor"] = $bordercolor;
 
 #-- breadcrumb text ---
-$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" '.
-		'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+$breadCount = 0;
+$breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($gallery->session->albumName) .
+      "\">" . $gallery->album->fields['title'] . "&nbsp;" . $upArrowURL . "</a>";
+$breadCount++;
+$pAlbum = $gallery->album;
+$depth = 0;
+do {
+  if (!strcmp($pAlbum->fields["returnto"], "no")) {
+    break;
+  }
+  $depth++;
+  $pAlbumName = $pAlbum->fields['parentAlbumName'];
+  if ($pAlbumName && (!$gallery->session->offline
+          || $gallery->session->offlineAlbums[$pAlbumName])) {
 
-if ($gallery->album->fields['returnto'] != 'no') {
-	$breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
-		$gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
-	foreach ($gallery->album->getParentAlbums(true) as $name => $title) {
-		$breadcrumb["text"][] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($name) . "\">" .
-			$title. "&nbsp;" . $upArrowURL . "</a>";
-        }
+    $pAlbum = new Album();
+    $pAlbum->load($pAlbumName);
+    $breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($pAlbumName) .
+      "\">" . $pAlbum->fields['title'] . "&nbsp;" . $upArrowURL . "</a>";
+  } elseif (!$gallery->session->offline || isset($gallery->session->offlineAlbums["albums.php"])) {
+    //-- we're at the top! ---
+    $breadtext[$breadCount] = _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") .
+      "\">" . $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
+    $pAlbumName = '';
+  }
+  $breadCount++;
+} while ($pAlbumName && $depth < $gallery->app->maximumAlbumDepth);
+
+//-- we built the array backwards, so reverse it now ---
+for ($i = count($breadtext) - 1; $i >= 0; $i--) {
+    $breadcrumb["text"][] = $breadtext[$i];
 }
-
 $extra_fields=$gallery->album->getExtraFields(false);
 $title=NULL;
 if (in_array("Title", $extra_fields)) {
@@ -189,17 +197,15 @@ if (isset($gallery->app->comments_length)) {
 	$maxlength=0;
 }
 
-if (!empty($save)) {
+if (isset($save)) {
 	if ( empty($commenter_name) || empty($comment_text)) {
 		$error_text = _("Name and comment are both required to save a new comment!");
-	} elseif ($maxlength >0 && strlen($comment_text) > $maxlength) {
+	} elseif ($maxlength >0 && strlen($comment_text) >$maxlength) {
 		$error_text = sprintf(_("Your comment is too long, the admin set maximum length to %d chars"), $maxlength);
-	} elseif (isBlacklistedComment($tmp = array('commenter_name' => $commenter_name, 'comment_text' => $comment_text), false)) {
-		$error_text = _("Your Comment contains forbidden words. It will not be added.");
 	} else {
 		$comment_text = removeTags($comment_text);
 		$commenter_name = removeTags($commenter_name);
-		$IPNumber = $_SERVER['REMOTE_ADDR'];
+		$IPNumber = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 		$gallery->album->addComment($id, stripslashes($comment_text), $IPNumber, $commenter_name);
 		$gallery->album->save();
 		emailComments($id, $comment_text, $commenter_name);
@@ -253,26 +259,24 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   <style type="text/css">
 <?php
 	// the link colors have to be done here to override the style sheet
-	if (!empty($gallery->album->fields["linkcolor"])) {
+	if ($gallery->album->fields["linkcolor"]) {
 ?>      
     A:link, A:visited, A:active
-      { color: <?php echo $gallery->album->fields['linkcolor'] ?>; }
+      { color: <?php echo $gallery->album->fields[linkcolor] ?>; }
     A:hover
       { color: #ff6600; }
 <?php 
 	}       
-	if (!empty($gallery->album->fields["bgcolor"])) {
-        	echo "BODY { background-color:" . $gallery->album->fields['bgcolor'] . "; }";
+	if ($gallery->album->fields["bgcolor"]) {
+        	echo "BODY { background-color:".$gallery->album->fields[bgcolor]."; }";
 	}       
-	if (!empty($gallery->album->fields["background"])) {
-        	echo "BODY { background-image:url(" . $gallery->album->fields['background'] . "); } ";
+	if (isset($gallery->album->fields["background"]) && $gallery->album->fields["background"]) {
+        	echo "BODY { background-image:url(".$gallery->album->fields['background']."); } ";
 	} 
-	if (!empty($gallery->album->fields["textcolor"])) {
-        	echo "BODY, TD, P, DIV, SPAN { color:" . $gallery->album->fields['textcolor'] . "; }\n";
-		echo ".head { color:" . $gallery->album->fields['textcolor'] . "; }\n";
-		if (!empty($gallery->album->fields["bgcolor"])) {
-			echo ".headbox { background-color:" . $gallery->album->fields['bgcolor'] . "; }\n";
-		}
+	if ($gallery->album->fields["textcolor"]) {
+        	echo "BODY, TD {color:".$gallery->album->fields[textcolor]."; }";
+		echo ".head {color:".$gallery->album->fields[textcolor]."; }";
+		echo ".headbox {background-color:".$gallery->album->fields[bgcolor]."; }";
 	}       
 ?> 
   </style> 
@@ -281,12 +285,12 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <?php
 } // End if ! embedded
 
-includeHtmlWrap("photo.header");
-
 if ($fitToWindow) {
 	/* Include Javascript */
-	include(dirname(__FILE__) .'/js/fitToWindow.js.php');
+	include("js/fitToWindow.js.php");
 }
+
+includeHtmlWrap("photo.header");
 ?>
 <!-- Top Nav Bar -->
 <form name="admin_form" action="view_photos.php">
@@ -296,15 +300,14 @@ if ($fitToWindow) {
 <td>
 <?php
 
-$adminText = '';
-$page_url = makeAlbumUrl($gallery->session->albumName, $id, array("full" => 0));
-
+$adminCommands = '';
+$page_url=makeAlbumUrl($gallery->session->albumName, $id, array("full" => 0));
 if (!$gallery->album->isMovie($id)) {
 	print "<a id=\"photo_url\" href=\"$photoURL\" ></a>\n";
 	print '<a id="page_url" href="'. $page_url .'"></a>'."\n";
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
-		$iconText = getIconText('window_fullscreen.gif', _("resize photo"));
-		$iconElements[] = popup_link($iconText, "resize_photo.php?index=$index", false, true, 500, 500);
+		$adminCommands .= popup_link("[" . _("resize photo") ."]", 
+			"resize_photo.php?index=$index", false, true, 500, 500, 'admin');
 	}
 
 	if ($gallery->user->canDeleteFromAlbum($gallery->album) || 
@@ -327,25 +330,28 @@ if (!$gallery->album->isMovie($id)) {
 		} else {
 			$nextId = $gallery->album->getPhotoId($nextIndex);
 		}
-
-		$iconText = getIconText('delete.gif', _("delete photo"));
-		$iconElements[] = popup_link($iconText,
-			"delete_photo.php?id=$id&nextId=$nextId", false, true, 500, 500);
+		$adminCommands .= '&nbsp;' . popup_link("[" . _("delete photo") ."]", 
+			"delete_photo.php?id=$id&nextId=$nextId", false, true, 500, 500, 'admin');
 	}
 
 	if (!strcmp($gallery->album->fields["use_fullOnly"], "yes") &&
 			!$gallery->session->offline  &&
 			$gallery->user->canViewFullImages($gallery->album)) {
+		$link = doCommand("", 
+			array("set_fullOnly" => 
+				(!isset($gallery->session->fullOnly) ||
+				 strcmp($gallery->session->fullOnly,"on") 
+				? "on" : "off")),
+			"view_photo.php", 
+			array("id" => $id));
 
-		$lparams['set_fullOnly'] = (!isset($gallery->session->fullOnly) || strcmp($gallery->session->fullOnly,"on")) ? "on" : "off";
-		$link = makeAlbumURL($gallery->session->albumName, $id, $lparams);
-
-		$adminText = '&nbsp;' . _('View Images') .':&nbsp;[&nbsp;';
+		$adminCommands .= '&nbsp;' . _('View Images') .':&nbsp;[&nbsp;';
 		if (!isset($gallery->session->fullOnly) ||
-				strcmp($gallery->session->fullOnly,"on")) {
-			$adminText .= _('normal') . "&nbsp;|&nbsp;<a class=\"admin\" href=\"$link\">" . _('full') .'</a>&nbsp;]';
+				strcmp($gallery->session->fullOnly,"on"))
+		{
+			$adminCommands .= _('normal') . "&nbsp;|&nbsp;<a class=\"admin\" href=\"$link\">" . _('full') .'</a>&nbsp;]';
 		} else {
-			$adminText .= "<a class=\"admin\" href=\"$link\">" . _("normal") .'</a>&nbsp;|&nbsp;'. _('full') .'&nbsp;]';
+			$adminCommands .= "<a class=\"admin\" href=\"$link\">" . _("normal") .'</a>&nbsp;|&nbsp;'. _('full') .'&nbsp;]';
 		}
 	} 
 	
@@ -356,24 +362,21 @@ if (!$gallery->album->isMovie($id)) {
 	    (eregi("jpe?g\$", $photo->image->type)) &&
 	    isset($gallery->app->use_exif)) {
 		$albumName = $gallery->session->albumName;
-		$iconText = getIconText('frame_query.gif', _("photo properties"));
-		$iconElements[] =  popup_link($iconText, 
-		  "view_photo_properties.php?set_albumName=$albumName&index=$index", 0, false, 500, 500);
+		$adminCommands .= '&nbsp;' . popup_link("[" . _("photo properties") ."]", "view_photo_properties.php?set_albumName=$albumName&index=$index", 0, false, 500, 500, 'admin');
 	}
 
 	if (isset($gallery->album->fields["print_photos"]) &&
 		!$gallery->session->offline &&
 		!$gallery->album->isMovie($id)){
 
-		$photo = $gallery->album->getPhoto($GLOBALS["index"]);
 		$photoPath = $gallery->album->getAlbumDirURL("full");
 		$prependURL = '';
 		if (!ereg('^https?://', $photoPath)) {
 		    $prependURL = 'http';
-		    if  (isset($_SERVER['HTTPS']) && stristr($_SERVER['HTTPS'], "on")) {
+		    if  (isset($HTTP_SERVER_VARS['HTTPS']) && stristr($HTTP_SERVER_VARS['HTTPS'], "on")) {
 			$prependURL .= 's';
 		    }
-		    $prependURL .= '://'. $_SERVER['HTTP_HOST'];
+		    $prependURL .= '://'. $HTTP_SERVER_VARS['HTTP_HOST'];
 		}
 		$rawImage = $prependURL . $photoPath . "/" . $photo->image->name . "." . $photo->image->type;
 
@@ -386,22 +389,22 @@ if (!$gallery->album->isMovie($id)) {
 			$thumbImage .= $photo->image->name . "." . $photo->image->type;
 		}
 		list($imageWidth, $imageHeight) = $photo->image->getRawDimensions();
+		if (strlen($adminCommands) > 0) {
+			$adminCommands .="<br>";
+		}
 		
 		/* display photo printing services */
 		$printServices = $gallery->album->fields['print_photos'];
 		$numServices = count($printServices);
 		$fullName = array(
-			'ezprints'    => 'EZ Prints - Photo Printing',
-			'fotokasten'  => 'Fotokasten - Photo Printing',
-			'fotoserve'   => 'Fotoserve - Photo Printing',
-			'mpush'       => 'mPUSH - Send to Mobile',
-			'photoaccess' => 'PhotoWorks - Photo Printing',
-			'shutterfly'  => 'Shutterfly - Photo Printing',
+			'ezprints'    => 'EZ Prints',
+			'fotokasten'  => 'Fotokasten',
+			'photoaccess' => 'PhotoAccess',
+			'shutterfly'  => 'Shutterfly'
 		);
 		/* display a <select> menu if more than one option */
 		if ($numServices > 1) {
-			ksort($printServices);
-			$selectCommand = '<select name="print_services" class="adminform" onChange="doPrintService()">';
+			$selectCommand = '<select name="print_services" class="admin" onChange="doPrintService()">';
 			$selectCommand .= '<option value="">&laquo; '. _("Select service") .' &raquo;</option>';
 			foreach ($printServices as $name => $data) {
 				/* skip if it's not actually selected */
@@ -418,16 +421,11 @@ if (!$gallery->album->isMovie($id)) {
 				case 'shutterfly':
 					$printShutterflyForm = true;
 					break;
-				case 'fotoserve':
-					$printFotoserveForm = true;
-					break;
-				default:
-					break;
 				}
 				$selectCommand .= "<option value=\"$name\">${fullName[$name]}</option>";
 			}
 			$selectCommand .= '</select>';
-			$adminText .= '[' . sprintf(_('process this photo with %s'), $selectCommand) . ']';
+			$adminCommands .= '[' . sprintf(_('print this photo with %s'), $selectCommand) . ']';
 		/* just print out text if only one option */
 		} elseif ($numServices == 1 && isset($printServices[@key($printServices)]['checked'])) {
 			$name = @key($printServices);
@@ -441,15 +439,9 @@ if (!$gallery->album->isMovie($id)) {
 			case 'shutterfly':
 				$printShutterflyForm = true;
 				break;
-			case 'fotoserve':
-				$printFotoserveForm = true;
-				break;
-			default:
-				break;
 			}
 			if (!empty($name)) {
-				$adminText .= "<a class=\"admin\" href=\"#\" onClick=\"doPrintService('$name');\">[" .
-						    sprintf(_('process this photo with %s'), $fullName[$name]) . ']</a>';
+				$adminCommands .= "<a class=\"admin\" href=\"#\" onClick=\"doPrintService('$name');\">[" . sprintf(_('print this photo with %s'), $fullName[$name]) . ']</a>';
 			}
 		}
 ?>
@@ -474,39 +466,24 @@ if (!$gallery->album->isMovie($id)) {
 			document.sflyc4p.returl.value=document.location;
 			document.sflyc4p.submit();
 			break;
-
-		case 'mpush':
-			window.open('http://mpush.msolutions.cc/req.php?account=<?php echo $gallery->app->default['mPUSHAccount'] ?>&image=<?php echo $rawImage ?>&caption=<?php echo urlencode($gallery->album->getCaption($index)) ?>','_MPUSH','width=640,height=420,titlebar=1,resizable=1,scrollbars=1');
-			break;
-		case 'fotoserve':
-			document.fotoserve.redirect.value=document.location;
-			document.fotoserve.submit();
-			break;
 		}
 	}
 </script>
 <?php
 	}
 }
-
-if (!$GALLERY_EMBEDDED_INSIDE && !$gallery->session->offline) {
-	if ($gallery->user->isLoggedIn()) {
-		$iconText = getIconText('exit.gif', _("logout"));
-		$iconElements[] = '<a href="'.
-				doCommand("logout", array(), "view_album.php", array("page" => $page)) .
-					'">'. $iconText .'</a>';
-	} else {
-		$iconText = getIconText('identity.gif', _("login"));
-		$iconElements[] = popup_link($iconText, "login.php", false, true, 500, 500);
-        }
-}
 includeLayout('navtablebegin.inc');
+if ($adminCommands) {
 
-$adminbox["text"] = $adminText;	
-$adminbox["commands"] = makeIconMenu($iconElements);;
-$adminbox["bordercolor"] = $bordercolor;
-includeLayout('adminbox.inc');
-includeLayout('navtablemiddle.inc');
+	$adminCommands = "<span class=\"admin\">$adminCommands</span>";
+       	$adminbox["commands"] = $adminCommands;
+       	$adminbox["text"] = "&nbsp;";
+
+	$adminbox["bordercolor"] = $bordercolor;
+       	$adminbox["top"] = true;
+       	includeLayout('adminbox.inc');
+       	includeLayout('navtablemiddle.inc');
+}
 
 $breadcrumb["bordercolor"] = $bordercolor;
 $breadcrumb["top"] = true;
@@ -530,9 +507,13 @@ if ($bordercolor) {
 </table>
 </form>
 
-<div width="<?php echo $mainWidth ?>">
-<?php includeHtmlWrap("inline_photo.header"); ?>
-</div>
+<table border="0" width="<?php echo $mainWidth ?>" cellpadding="0" cellspacing="0">
+<tr><td colspan=3>
+<?php
+includeHtmlWrap("inline_photo.header");
+?>
+</td></tr>
+</table>
 
 <!-- image -->
 <a name="image"></a>
@@ -557,7 +538,7 @@ if (!$gallery->album->isMovie($id)) {
 
 $photoTag="";
 $frame= $gallery->album->fields['image_frame'];
-if ($fitToWindow && (eregi('safari|opera', $_SERVER['HTTP_USER_AGENT']) || $gallery->session->offline)) {
+if ($fitToWindow && (preg_match('/safari|opera/i', $HTTP_SERVER_VARS['HTTP_USER_AGENT']) || $gallery->session->offline)) {
 	//Safari/Opera can't render dynamically sized image frame
 	$frame = 'none';
 }
@@ -578,17 +559,10 @@ $gallery->html_wrap['pixelImage'] = getImagePath('pixel_trans.gif');
 
 includeHtmlWrap("inline_photo.frame");
 ?>
-<div class="pview" align="center">
+
 <!-- caption -->
-<p align="center" class="pcaption"><?php echo editCaption($gallery->album, $index) ?>
+<p align="center" class="modcaption"><?php echo editCaption($gallery->album, $index) ?></p>
 
-<!-- Custom Fields -->
-<?php
-	displayPhotoFields($index, $extra_fields, true, in_array('EXIF', $extra_fields), $full);
-?>
-</p>
-
-<!-- voting -->
 <?php
 
 /*
@@ -629,10 +603,13 @@ echo "\n<!-- Comments -->";
 if (isset($error_text)) {
 	echo gallery_error($error_text) ."<br><br>";
 }
-
+ 
 if ($gallery->user->canViewComments($gallery->album) && $gallery->app->comments_enabled == 'yes') {
-	echo viewComments($index, $gallery->user->canAddComments($gallery->album), $page_url);
+		echo viewComments($index, $gallery->user->canAddComments($gallery->album), $page_url);
 }
+
+echo "\n\n<!-- Custom Fields -->";
+displayPhotoFields($index, $extra_fields, true, in_array('EXIF', $extra_fields), $full);
 
 echo "<br>";
 
@@ -643,30 +620,28 @@ includeHtmlWrap("inline_photo.footer");
 		$gallery->user->getEmail() &&
 		!$gallery->session->offline &&
 		$gallery->app->emailOn == "yes") {
-	$emailMeComments = getRequestVar('emailMeComments');
-	if (!empty($emailMeComments)) {
-		if ($emailMeComments == 'true') {
+	if (isset($submitEmailMe)) {
+		if (isset($comments)) {
 			$gallery->album->setEmailMe('comments', $gallery->user, $id);
 		} else {
 			$gallery->album->unsetEmailMe('comments', $gallery->user, $id);
 		}
+		/* if (isset($other)) {
+			$gallery->album->setEmailMe('other', $gallery->user, $id);
+		} else {
+			$gallery->album->unsetEmailMe('other', $gallery->user, $id);
+		} */
 	}
-
-	if (! $gallery->album->getEmailMe('comments', $gallery->user)) {
-		echo "\n<form name=\"emailMe\" action=\"#\">";
-
- 		$url= makeAlbumUrl($gallery->session->albumName, $id, array(
-			'emailMeComments' => ($gallery->album->getEmailMe('comments', $gallery->user, $id)) ? 'false' : 'true')
-		);
-
-		echo _("Email me when comments are added");
-?>
-	<input type="checkbox" name="comments" <?php echo ($gallery->album->getEmailMe('comments', $gallery->user, $id)) ? "checked" : "" ?> onclick="location.href='<?php echo $url; ?>'" >
-	</form>
-<?php
-	} 
-}
-echo "</div>";
+	echo makeFormIntro("view_photo.php",
+		       	array("name" => "email_me", "method" => "POST"));
+       	print "<input type=hidden name=id value=$id>";
+       	print _("Email me when:") . "  ";
+       	print _("Comments are added");
+       	?>
+	<input type="checkbox" name="comments" <?php echo ($gallery->album->getEmailMe('comments', $gallery->user, $id)) ? "checked" : "" ?> onclick="document.email_me.submit()" >
+	<input type="hidden" name="submitEmailMe">
+		</form>
+<?php }
 includeLayout('navtablebegin.inc');
 includeLayout('navphoto.inc');
 $breadcrumb["top"] = false;
@@ -704,20 +679,11 @@ if (isset($printShutterflyForm)) { ?>
         $imbkprnt = makeAlbumUrl($gallery->session->albumName, $id);
      }
   ?>
-  <input type=hidden name=imbkprnta-1 value="<?php echo htmlentities(strip_tags($imbkprnt)) ?>">
-</form>
-<?php }
-if (isset($printFotoserveForm)) { ?>
-<form name="fotoserve" 
-action="http://www.fotoserve.com/menalto/build.html" method="post">
-  <input type="hidden" name="image" value="<?php echo $rawImage ?>">
-  <input type="hidden" name="thumb" value="<?php echo $thumbImage ?>">
-  <input type="hidden" name="redirect" value="this-gets-set-by-javascript-in-onClick">
-  <input type="hidden" name="name" value="<?php echo $photo->image->name . '.' . $photo->image->type; ?>">
+  <input type=hidden name=imbkprnta-1 value="<?php echo strip_tags($imbkprnt) ?>">
 </form>
 <?php }
 if (isset($printPhotoAccessForm)) { ?>
-  <form method="post" name="photoAccess" action="http://www.photoworks.com/sbo/anonCart.jsp">
+  <form method="post" name="photoAccess" action="http://www.photoaccess.com/buy/anonCart.jsp">
   <input type="hidden" name="cb" value="CB_GP">
   <input type="hidden" name="redir" value="true">
   <input type="hidden" name="returnUrl" value="this-gets-set-by-javascript-in-onClick">
@@ -739,7 +705,7 @@ if (isset($printEZPrintsForm)) { ?>
      }
   ?>
   <input type="hidden" name="count" value="1">
-  <input type="hidden" name="title0" value="<?php echo htmlentities(strip_tags($imbkprnt)) ?>">
+  <input type="hidden" name="title0" value="<?php echo strip_tags($imbkprnt) ?>">
   <input type="hidden" name="lo_res_url0" value="<?php echo $thumbImage ?>">
   <input type="hidden" name="hi_res_url0" value="<?php echo $rawImage ?>">
   <input type="hidden" name="returnpage" value="this-gets-set-by-javascript-in-onClick">

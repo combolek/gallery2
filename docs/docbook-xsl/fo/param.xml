@@ -695,98 +695,6 @@ an automatically generated one and <quote>bingo</quote>!</para>
 </refsect1>
 </refentry>
 
-<refentry id="index.on.type">
-<refmeta>
-<refentrytitle>index.on.type</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>index.on.type</refname>
-<refpurpose>Select indexterms based on <sgmltag>type</sgmltag>
-attribute value</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="index.on.type.frag">
-&lt;xsl:param name="index.on.type" select="0"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>
-If non-zero, 
-then an <sgmltag>index</sgmltag> element that has a
-<sgmltag>type</sgmltag> attribute
-value will contain only those <sgmltag>indexterm</sgmltag>
-elements with a matching <sgmltag>type</sgmltag> attribute value.
-If an <sgmltag>index</sgmltag> has no <sgmltag>type</sgmltag>
-attribute or it is blank, then the index will contain
-all <sgmltag>indexterm</sgmltag>s in the current scope.
-</para>
-
-<para>
-If <literal moreinfo="none">index.on.type</literal> is zero, then the
-<sgmltag>type</sgmltag> attribute has no effect
-on selecting indexterms for an index.
-</para>
-
-<para>For those using DocBook version 4.2 or earlier,
-the <sgmltag>type</sgmltag> attribute is not available
-for index terms.  However, you can achieve the same
-effect by using the <sgmltag>role</sgmltag> attribute
-in the same manner on <sgmltag>indexterm</sgmltag>
-and <sgmltag>index</sgmltag>, and setting the stylesheet parameter 
-<parameter moreinfo="none">index.on.role</parameter> to a nonzero value.
-</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="index.on.role">
-<refmeta>
-<refentrytitle>index.on.role</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>index.on.role</refname>
-<refpurpose>Select indexterms based on role value</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="index.on.role.frag">
-&lt;xsl:param name="index.on.role" select="0"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>
-If non-zero, 
-then an <sgmltag>index</sgmltag> element that has a
-<sgmltag>role</sgmltag> attribute
-value will contain only those <sgmltag>indexterm</sgmltag>
-elements with a matching role value.
-If an <sgmltag>index</sgmltag> has no <sgmltag>role</sgmltag>
-attribute or it is blank, then the index will contain
-all <sgmltag>indexterm</sgmltag>s in the current scope.
-</para>
-<para>
-If <literal moreinfo="none">index.on.role</literal> is zero, then the
-<sgmltag>role</sgmltag> attribute has no effect
-on selecting indexterms for an index.
-</para>
-
-<para>If you are using DocBook version 4.3 or later, you should
-use the <sgmltag>type</sgmltag> attribute instead of <sgmltag>role</sgmltag>
-on <sgmltag>indexterm</sgmltag> and <sgmltag>index</sgmltag>,
-and set the <parameter moreinfo="none">index.on.type</parameter> to a nonzero
-value.
-</para>
-
-</refsect1>
-</refentry>
-
 <refentry id="index.preferred.page.properties">
 <refnamediv>
 <refname>index.preferred.page.properties</refname>
@@ -994,8 +902,6 @@ level sections, but not in fourth level sections.
 <ulink url="http://www.arbortext.com/">Arbortext</ulink>
 extensions will be used.
 </para>
-<para>This parameter can also affect which graphics file formats
-are supported</para>
 
 </refsect1>
 </refentry>
@@ -1023,9 +929,6 @@ are supported</para>
 extensions will be used. XSL Formatter extensions consists of PDF bookmarks,
 document information and better index processing.</para>
 
-<para>This parameter can also affect which graphics file formats
-are supported</para>
-
 </refsect1>
 </refentry>
 
@@ -1050,8 +953,6 @@ are supported</para>
 extensions will be used. At present, this consists of PDF bookmarks.
 </para>
 
-<para>This parameter can also affect which graphics file formats
-are supported</para>
 </refsect1>
 </refentry>
 
@@ -1077,8 +978,6 @@ extensions will be used. At present, this consists of PDF bookmarks
 and sorted index terms.
 </para>
 
-<para>This parameter can also affect which graphics file formats
-are supported</para>
 </refsect1>
 </refentry>
 
@@ -1186,8 +1085,6 @@ extensions will be used. XEP extensions consists of PDF bookmarks,
 document information and better index processing.
 </para>
 
-<para>This parameter can also affect which graphics file formats
-are supported</para>
 </refsect1>
 </refentry>
 
@@ -1334,34 +1231,6 @@ a file into the result tree (as text).
 </refsect1>
 </refentry>
 
-<refentry id="textdata.default.encoding">
-<refmeta>
-<refentrytitle>textdata.default.encoding</refentrytitle>
-<refmiscinfo role="type">string</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>textdata.default.encoding</refname>
-<refpurpose>Default encoding of external text files which are included
-using textdata element</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="textdata.default.encoding.frag">
-&lt;xsl:param name="textdata.default.encoding" select="''"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>Default encoding of external text files which are included using
-textdata element. This value is used only when you do not specify
-encoding by appropriate attribute directly on textdata. Default
-encoding (empty string) is interpreted as system default
-encoding.</para>
-
-</refsect1>
-</refentry>
-
 <refentry id="use.extensions">
 <refmeta>
 <refentrytitle>use.extensions</refentrytitle>
@@ -1501,33 +1370,6 @@ enumerated.
 </refsect1>
 </refentry>
 
-<refentry id="section.autolabel.max.depth">
-<refmeta>
-<refentrytitle>section.autolabel.max.depth</refentrytitle>
-<refmiscinfo role="type">integer</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>section.autolabel.max.depth</refname>
-<refpurpose>The deepest level of sections that are numbered.</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="section.autolabel.max.depth.frag">&lt;xsl:param name="section.autolabel.max.depth" select="8"&gt;&lt;/xsl:param&gt;</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>When section numbering is turned on by the
-<literal moreinfo="none">section.autolabel</literal> parameter,
-then this parameter controls the depth of section nesting
-that is numbered.
-Sections nested to a level deeper than this value will
-not be numbered.
-</para>
-
-</refsect1>
-</refentry>
-
 <refentry id="section.label.includes.component.label">
 <refmeta>
 <refentrytitle>section.label.includes.component.label</refentrytitle>
@@ -1572,40 +1414,6 @@ component that contains them.
 will be numbered from 1 in each <sgmltag>part</sgmltag>. Otherwise,
 they will be numbered monotonically throughout each
 <sgmltag>book</sgmltag>.
-</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="component.label.includes.part.label">
-<refmeta>
-<refentrytitle>component.label.includes.part.label</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>component.label.includes.part.label</refname>
-<refpurpose>Do section labels include the component label?</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="component.label.includes.part.label.frag">&lt;xsl:param name="component.label.includes.part.label" select="0"&gt;&lt;/xsl:param&gt;</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>If true (non-zero), labels for chapters, appendices, and other component
-elements are prefixed with the label of the
-part element that contains them.
-Also, the labels for formal elements such as table and figure will
-include the part label.
-If there is no part element container, then no prefix is generated.
-</para>
-<para>
-This feature is most useful when the
-<literal moreinfo="none">label.from.part</literal> parameter is turned on.
-In that case, there would be more than one chapter
-<quote>1</quote>, and the extra part label prefix will identify
-each chapter unambiguously.
 </para>
 
 </refsect1>
@@ -2160,589 +1968,9 @@ length (not a percentag).</para>
 </refsect1>
 </refentry>
 
-<refentry id="table.table.properties">
-<refnamediv>
-<refname>table.table.properties</refname>
-<refpurpose>Properties associated with a table</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="table.table.properties.frag">
-&lt;xsl:attribute-set name="table.table.properties"&gt;
-  &lt;xsl:attribute name="border-before-width.conditionality"&gt;retain&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="border-collapse"&gt;collapse&lt;/xsl:attribute&gt;
-&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The styling for tables. This parameter should really
-have been called <literal moreinfo="none">table.properties</literal>, but that parameter
-name was inadvertantly established for the block-level properties
-of the table as a whole.
-</para>
-
-<para>See also <parameter moreinfo="none">table.properties</parameter>.</para>
-
-</refsect1>
-</refentry>
-
 </reference>
 
 <reference><title>Linking</title>
-<refentry id="current.docid"> 
-<refmeta> 
-<refentrytitle>current.docid</refentrytitle> 
-<refmiscinfo role="type">string</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>current.docid</refname> 
-<refpurpose>targetdoc identifier for the document being
-processed</refpurpose> 
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="current.docid.frag">
-&lt;xsl:param name="current.docid" select="''"&gt;&lt;/xsl:param&gt; </programlisting> 
-</refsynopsisdiv> 
-<refsect1> 
-<title>Description</title> 
-<para>When olinks between documents are resolved for HTML output, the stylesheet can compute the relative path between the current document and the target document. The stylesheet needs to know the <literal moreinfo="none">targetdoc</literal> identifiers for both documents, as they appear in the <parameter moreinfo="none">target.database.document</parameter> database file. This parameter passes to the stylesheet
-the targetdoc identifier of the current document, since that
-identifier does not appear in the document itself. </para>
-<para>This parameter can also be used for print output. If an olink's  <literal moreinfo="none">targetdoc</literal>  id differs from the <literal moreinfo="none">current.docid</literal>, then the stylesheet can append the target document's title to the generated olink text. That identifies to the reader that the link is to a different document, not the current document. See also <parameter moreinfo="none">olink.doctitle</parameter> to enable that feature.</para> 
-</refsect1> 
-</refentry> 
-
-<refentry id="collect.xref.targets"> 
-<refmeta> 
-<refentrytitle>collect.xref.targets</refentrytitle> 
-<refmiscinfo role="type">string</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>collect.xref.targets</refname> 
-<refpurpose>Controls whether cross reference data is
-collected</refpurpose> 
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="collect.xref.targets.frag">
-&lt;xsl:param name="collect.xref.targets" select="'no'"&gt;&lt;/xsl:param&gt;
-</programlisting> 
-</refsynopsisdiv> 
-<refsect1> 
-<title>Description</title> 
-<para>
-In order to resolve olinks efficiently, the stylesheets can
-generate an external data file containing information about
-all potential cross reference endpoints in a document.
-This parameter determines whether the collection process is run when the document is processed by the stylesheet. The default value is  <literal moreinfo="none">no</literal>, which means the data file is not generated during processing. The other choices are <literal moreinfo="none">yes</literal>, which means the data file is created and the document is processed for output, and <literal moreinfo="none">only</literal>, which means the data file is created but the document is not processed for output.
-See also <parameter moreinfo="none">targets.filename</parameter>.
-</para> 
-</refsect1> 
-</refentry> 
-
-<refentry id="insert.olink.page.number">
-<refmeta>
-<refentrytitle>insert.olink.page.number</refentrytitle>
-<refmiscinfo role="type">string</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>insert.olink.page.number</refname>
-<refpurpose>Turns page numbers in olinks on and off</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="insert.olink.page.number.frag">
-&lt;xsl:param name="insert.olink.page.number"&gt;no&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The value of this parameter determines if
-cross references made between documents with
-<sgmltag>olink</sgmltag> will 
-include page number citations.
-In most cases this is only applicable to references in printed output.
-</para>
-<para>The parameter has three possible values.
-</para>
-<variablelist>
-<varlistentry>
-<term>no</term>
-<listitem><para>No page number references will be generated for olinks.
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term>yes</term>
-<listitem><para>Page number references will be generated
-for all <sgmltag>olink</sgmltag> references.
-The style of page reference may be changed
-if an <sgmltag class="attribute">xrefstyle</sgmltag>
-attribute is used.
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term>maybe</term>
-<listitem><para>Page number references will not be generated
-for an <sgmltag>olink</sgmltag> element unless 
-it has an
-<sgmltag class="attribute">xrefstyle</sgmltag>
-attribute whose value specifies a page reference.
-</para></listitem>
-</varlistentry>
-</variablelist>
-<para>Olinks that point to targets within the same document
-are treated as <sgmltag>xref</sgmltag>s, and controlled by
-the <parameter moreinfo="none">insert.xref.page.number</parameter> parameter.
-</para>
-
-<para>Page number references for olinks to
-external documents can only be inserted if the 
-information exists in the olink database. 
-This means each olink target element 
-(<sgmltag>div</sgmltag> or <sgmltag>obj</sgmltag>)
-must have a <sgmltag class="attribute">page</sgmltag> attribute
-whose value is its page number in the target document.
-The XSL stylesheets are not able to extract that information
-during processing because pages have not yet been created in
-XSLT transformation.  Only the XSL-FO processor knows what
-page each element is placed on.
-Therefore some postprocessing must take place to populate
-page numbers in the olink database.
-</para>
-
-
-
-</refsect1>
-</refentry>
-
-<refentry id="insert.olink.pdf.frag">
-<refmeta>
-<refentrytitle>insert.olink.pdf.frag</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>insert.olink.pdf.frag</refname>
-<refpurpose>Add fragment identifiers for links into PDF files</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="insert.olink.pdf.frag.frag">
-&lt;xsl:param name="insert.olink.pdf.frag" select="0"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The value of this parameter determines whether
-the cross reference URIs to PDF documents made with
-<sgmltag>olink</sgmltag> will 
-include fragment identifiers.
-</para>
-
-<para>When forming a URI to link to a PDF document,
-a fragment identifier (typically a '#' followed by an
-id value) appended to the PDF filename can be used by
-the PDF viewer to open
-the PDF file to a location within the document instead of
-the first page.
-However, not all PDF files have id
-values embedded in them, and not all PDF viewers can
-handle fragment identifiers. 
-</para>
-
-<para>If <parameter moreinfo="none">insert.olink.pdf.frag</parameter> is set
-to a non-zero value, then any olink targeting a
-PDF file will have the fragment identifier appended to the URI.
-The URI is formed by concatenating the value of the
-<parameter moreinfo="none">olink.base.uri</parameter> parameter, the
-value of the <sgmltag class="attribute">baseuri</sgmltag>
-attribute from the <sgmltag class="element">document</sgmltag>
-element in the olink database with the matching
-<sgmltag class="attribute">targetdoc</sgmltag> value,
-and the value of the <sgmltag class="attribute">href</sgmltag>
-attribute for the targeted element in the olink database.
-The <sgmltag class="attribute">href</sgmltag> attribute
-contains the fragment identifier.
-</para>
-
-<para>If <parameter moreinfo="none">insert.olink.pdf.frag</parameter> is set
-to zero (the default value), then 
-the <sgmltag class="attribute">href</sgmltag> attribute
-from the olink database
-is not appended to PDF olinks, so the fragment identifier is left off.
-A PDF olink is any olink for which the
-<sgmltag class="attribute">baseuri</sgmltag> attribute
-from the matching <sgmltag class="element">document</sgmltag>
-element in the olink database ends with '.pdf'.
-Any other olinks will still have the fragment identifier added.
-</para>
-</refsect1>
-</refentry>
-
-<refentry id="olink.base.uri"> 
-<refmeta> 
-<refentrytitle>olink.base.uri</refentrytitle> 
-<refmiscinfo role="type">uri</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>olink.base.uri</refname> 
-<refpurpose>Base URI used in olink hrefs</refpurpose> 
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="olink.base.uri.frag">
-&lt;xsl:param name="olink.base.uri" select="''"&gt;&lt;/xsl:param&gt; </programlisting> 
-</refsynopsisdiv> 
-<refsect1> 
-<title>Description</title> 
-<para>When cross reference data is collected for resolving olinks, it may be necessary to prepend a base URI to each target's href. This parameter lets you set that base URI when cross reference data is collected. This feature is needed when you want to link to a document that is processed without chunking. The output filename for such a document is not known to the XSL stylesheet; the only target information consists of fragment identifiers such as <literal moreinfo="none">#idref</literal>. To enable the resolution of olinks between documents, you should pass the name of the HTML output file as the value of this parameter. Then the hrefs recorded in the cross reference data collection look like <literal moreinfo="none">outfile.html#idref</literal>, which can  be reached as links from other documents.</para> 
-</refsect1> 
-</refentry> 
-
-<refentry id="olink.debug">
-<refmeta>
-<refentrytitle>olink.debug</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>olink.debug</refname>
-<refpurpose>Turn on debugging messages for olinks</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="olink.debug.frag">
-&lt;xsl:param name="olink.debug" select="0"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>If non-zero, then each olink will generate several
-messages about how it is being resolved during processing.
-This is useful when an olink does not resolve properly
-and the standard error messages are not sufficient to
-find the problem. 
-</para>
-
-<para>You may need to read through the olink XSL templates
-to understand the context for some of the debug messages.
-</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="olink.doctitle"> 
-<refmeta> 
-<refentrytitle>olink.doctitle</refentrytitle> 
-<refmiscinfo role="type">string</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>olink.doctitle</refname> 
-<refpurpose>show the document title for external olinks?</refpurpose>
-
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="olink.doctitle.frag">
-&lt;xsl:param name="olink.doctitle" select="no"&gt;&lt;/xsl:param&gt; </programlisting> 
-</refsynopsisdiv> 
-<refsect1> 
-<title>Description</title> 
-<para>When olinks between documents are resolved, the generated text
-may not make it clear that the reference is to another document.
-It is possible for the stylesheets to append the other document's
-title to external olinks. For this to happen, two parameters must
-be set.</para>
-<itemizedlist>
-<listitem>
-<para>This <parameter moreinfo="none">olink.doctitle</parameter> parameter
-should be set to either <literal moreinfo="none">yes</literal> or <literal moreinfo="none">maybe</literal>
-to enable this feature.
-</para>
-</listitem>
-<listitem>
-<para>And you should also set the <parameter moreinfo="none">current.docid</parameter>
-parameter to the document id for the  document currently
-being processed for output.
-</para>
-</listitem>
-</itemizedlist>
-
-<para>
-Then if an olink's  <literal moreinfo="none">targetdoc</literal> id differs from
-the <literal moreinfo="none">current.docid</literal> value, the stylesheet knows
-that it is a reference to another document and can
-append the target document's
-title to the generated olink text. </para> 
-
-<para>The text for the target document's title is copied from the
-olink database from the <sgmltag>ttl</sgmltag> element
-of the top-level <sgmltag>div</sgmltag> for that document.
-If that <sgmltag>ttl</sgmltag> element is missing or empty,
-no title is output.
-</para>
-
-<para>The supported values for <parameter moreinfo="none">olink.doctitle</parameter> are:
-</para>
-<variablelist>
-<varlistentry>
-<term><literal moreinfo="none">yes</literal></term>
-<listitem>
-<para>
-Always insert the title to the target document if it is not
-the current document.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><literal moreinfo="none">no</literal></term>
-<listitem>
-<para>
-Never insert the title to the target document, even if requested
-in an <sgmltag class="attribute">xrefstyle</sgmltag> attribute.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><literal moreinfo="none">maybe</literal></term>
-<listitem>
-<para>
-Only insert the title to the target document, if requested
-in an <sgmltag class="attribute">xrefstyle</sgmltag> attribute.
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
-<para>An <sgmltag class="attribute">xrefstyle</sgmltag> attribute
-may override the global setting for individual olinks.
-The following values are supported in an
-<sgmltag class="attribute">xrefstyle</sgmltag>
-attribute using the <literal moreinfo="none">select:</literal> syntax:
-</para>
-
-<variablelist>
-<varlistentry>
-<term><literal moreinfo="none">docname</literal></term>
-<listitem>
-<para>
-Insert the target document name for this olink using the
-<literal moreinfo="none">docname</literal> gentext template, but only
-if the value of <parameter moreinfo="none">olink.doctitle</parameter>
-is not <literal moreinfo="none">no</literal>.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><literal moreinfo="none">docnamelong</literal></term>
-<listitem>
-<para>
-Insert the target document name for this olink using the
-<literal moreinfo="none">docnamelong</literal> gentext template, but only
-if the value of <parameter moreinfo="none">olink.doctitle</parameter>
-is not <literal moreinfo="none">no</literal>.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><literal moreinfo="none">nodocname</literal></term>
-<listitem>
-<para>
-Omit the target document name even if
-the value of <parameter moreinfo="none">olink.doctitle</parameter>
-is <literal moreinfo="none">yes</literal>.
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
-<para>Another way of inserting the target document name 
-for a single olink is to employ an
-<sgmltag class="attribute">xrefstyle</sgmltag>
-attribute using the <literal moreinfo="none">template:</literal> syntax.
-The <literal moreinfo="none">%o</literal> placeholder (the letter o, not zero)
-in such a template
-will be filled in with the target document's title when it is processed.
-This will occur regardless of 
-the value of <parameter moreinfo="none">olink.doctitle</parameter>.
-</para>
-<para>Note that prior to version 1.66 of the XSL stylesheets,
-the allowed values for this parameter were 0 and 1.  Those
-values are still supported and mapped to 'no' and 'yes', respectively.
-</para>
-</refsect1> 
-</refentry> 
-
-<refentry id="olink.lang.fallback.sequence"> 
-<refmeta> 
-<refentrytitle>olink.lang.fallback.sequence</refentrytitle> 
-<refmiscinfo role="type">string</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>olink.lang.fallback.sequence</refname> 
-<refpurpose>look up translated documents if olink not found?</refpurpose>
-
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="olink.lang.fallback.sequence.frag">
-&lt;xsl:param name="olink.lang.fallback.sequence" select="''"&gt;&lt;/xsl:param&gt; </programlisting> 
-</refsynopsisdiv> 
-<refsect1> 
-<title>Description</title> 
-
-<para>This parameter defines a list of lang values
-to search among to resolve olinks.
-</para>
-
-<para>Normally an olink tries to resolve to a document in the same
-language as the olink itself.  The language of an olink
-is determined by its nearest ancestor element with a
-<sgmltag class="attribute">lang</sgmltag> attribute, otherwise the
-value of the <parameter moreinfo="none">l10n.gentext.default.lang</parameter>
-parameter.
-</para>
-
-<para>An olink database can contain target data for the same
-document in multiple languages.  Each set of data has the
-same value for the <sgmltag>targetdoc</sgmltag> attribute in
-the <sgmltag>document</sgmltag> element in the database, but with a 
-different <sgmltag>lang</sgmltag> attribute value.
-</para>
-
-<para>When an olink is being resolved, the target is first
-sought in the document with the same language as the olink.
-If no match is found there, then this parameter is consulted
-for additional languages to try.</para>
-
-<para>The <parameter moreinfo="none">olink.lang.fallback.sequence</parameter>
-must be a whitespace separated list of lang values to
-try.  The first one with a match in the olink database is used.
-The default value is empty.</para>
-
-<para>For example, a document might be written in German
-and contain an olink with
-<literal moreinfo="none">targetdoc="adminguide"</literal>.
-When the document is processed, the processor
-first looks for a target dataset in the
-olink database starting with:</para>
-
-<literallayout format="linespecific" class="normal"><literal moreinfo="none">&lt;document targetdoc="adminguide" lang="de"&gt;</literal>.
-</literallayout>
-
-<para>If there is no such element, then the
-<parameter moreinfo="none">olink.lang.fallback.sequence</parameter> 
-parameter is consulted.
-If its value is, for example, <quote>fr en</quote>, then the processor next
-looks for <literal moreinfo="none">targetdoc="adminguide" lang="fr"</literal>, and
-then for <literal moreinfo="none">targetdoc="adminguide" lang="en"</literal>.
-If there is still no match, it looks for
-<literal moreinfo="none">targetdoc="adminguide"</literal> with no
-lang attribute.
-</para>
-
-<para>This parameter is useful when a set of documents is only
-partially translated, or is in the process of being translated.  
-If a target of an olink has not yet been translated, then this
-parameter permits the processor to look for the document in
-other languages.  This assumes the reader would rather have
-a link to a document in a different language than to have
-a broken link.
-</para>
-
-</refsect1> 
-</refentry> 
-
-<refentry id="olink.properties">
-<refnamediv>
-<refname>olink.properties</refname>
-<refpurpose>Properties associated with the cross-reference 
-text of an olink.</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="olink.properties.frag">
-&lt;xsl:attribute-set name="olink.properties"&gt;
-&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>This attribute set is used on cross reference text
-from an olink. It is not applied to the
-optional page number or 
-optional title of the external document.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="prefer.internal.olink">
-<refmeta>
-<refentrytitle>prefer.internal.olink</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>prefer.internal.olink</refname>
-<refpurpose>Prefer a local olink reference to an external reference</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="prefer.internal.olink.frag">
-&lt;xsl:param name="prefer.internal.olink" select="0"&gt;&lt;/xsl:param&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>If you are re-using XML content modules in multiple documents,
-you may want to redirect some of your olinks.  This parameter
-permits you to redirect an olink to the current document.
-</para>
-
-<para>For example: you are writing documentation for a  product, 
-which includes 3 manuals: a little installation
-booklet (booklet.xml), a user 
-guide (user.xml), and a reference manual (reference.xml).
-All 3 documents begin with the same introduction section (intro.xml) that 
-contains a reference to the customization section (custom.xml) which is 
-included in both user.xml and reference.xml documents.
-</para>
-
-<para>How do you write the link to custom.xml in intro.xml
-so that it is interpreted correctly in all 3 documents?</para>
-<itemizedlist>
-<listitem><para>If you use xref, it will fail in user.xml.</para>
-</listitem>
-<listitem><para>If you use olink (pointing to reference.xml),
-the reference in user.xml  
-will point to the customization section of the reference manual, while it is 
-actually available in user.xml.</para>
-</listitem>
-</itemizedlist>
-
-<para>If you set the <parameter moreinfo="none">prefer.internal.olink</parameter>
-parameter to a non-zero value, then the processor will
-first look in the olink database
-for the olink's <sgmltag>targetptr</sgmltag> attribute value
-in document matching the <parameter moreinfo="none">current.docid</parameter>
-parameter value.  If it isn't found there, then
-it tries the document in the database
-with the <sgmltag>targetdoc</sgmltag>
-value that matches the olink's <sgmltag>targetdoc</sgmltag>
-attribute.
-</para>
-
-<para>This feature permits an olink reference to resolve to
-the current document if there is an element
-with an id matching the olink's <sgmltag>targetptr</sgmltag>
-value.  The current document's olink data must be
-included in the target database for this to work.</para>
-
-<caution>
-<para>There is a potential for incorrect links if
-the same <sgmltag>id</sgmltag> attribute value is used for different
-content in different documents.
-Some of your olinks may be redirected to the current document
-when they shouldn't be.  It is not possible to control
-individual olink instances.</para>
-</caution>
-
-</refsect1>
-</refentry>
-
 <refentry id="target.database.document"> 
 <refmeta> 
 <refentrytitle>target.database.document</refentrytitle> 
@@ -2771,34 +1999,6 @@ The default value is <filename moreinfo="none">olinkdb.xml</filename>.</para>
 </refsect1> 
 </refentry> 
 
-<refentry id="targets.filename"> 
-<refmeta> 
-<refentrytitle>targets.filename</refentrytitle> 
-<refmiscinfo role="type">string</refmiscinfo> 
-</refmeta> 
-<refnamediv> 
-<refname>targets.filename</refname> 
-<refpurpose>Name of cross reference targets data file</refpurpose> 
-</refnamediv> 
-<refsynopsisdiv> <programlisting id="targets.filename.frag">
-&lt;xsl:param name="targets.filename" select="'target.db'"&gt;&lt;/xsl:param&gt;
-</programlisting> 
-</refsynopsisdiv> 
-<refsect1>
-<title>Description</title> 
-<para>
-In order to resolve olinks efficiently, the stylesheets can
-generate an external data file containing information about
-all potential cross reference endpoints in a document.
-This parameter lets you change the name of the generated
-file from the default name <filename moreinfo="none">target.db</filename>.
-The name must agree with that used in the target database
-used to resolve olinks during processing.
-See also <parameter moreinfo="none">target.database.document</parameter>.
-</para> 
-</refsect1> 
-</refentry> 
-
 <refentry id="use.local.olink.style"> 
 <refmeta> 
 <refentrytitle>use.local.olink.style</refentrytitle> 
@@ -2820,6 +2020,50 @@ element name, using the stylesheet processing the targeting document.
 Then olinks will match the xref style in the targeting document
 rather than in the target document. If  both documents are processed
 with the same stylesheet, then the results will be the same.</para> 
+</refsect1> 
+</refentry> 
+
+<refentry id="current.docid"> 
+<refmeta> 
+<refentrytitle>current.docid</refentrytitle> 
+<refmiscinfo role="type">string</refmiscinfo> 
+</refmeta> 
+<refnamediv> 
+<refname>current.docid</refname> 
+<refpurpose>targetdoc identifier for the document being
+processed</refpurpose> 
+</refnamediv> 
+<refsynopsisdiv> <programlisting id="current.docid.frag">
+&lt;xsl:param name="current.docid" select="''"&gt;&lt;/xsl:param&gt; </programlisting> 
+</refsynopsisdiv> 
+<refsect1> 
+<title>Description</title> 
+<para>When olinks between documents are resolved for HTML output, the stylesheet can compute the relative path between the current document and the target document. The stylesheet needs to know the <literal moreinfo="none">targetdoc</literal> identifiers for both documents, as they appear in the <parameter moreinfo="none">target.database.document</parameter> database file. This parameter passes to the stylesheet
+the targetdoc identifier of the current document, since that
+identifier does not appear in the document itself. </para>
+<para>This parameter can also be used for print output. If an olink's  <literal moreinfo="none">targetdoc</literal>  id differs from the <literal moreinfo="none">current.docid</literal>, then the stylesheet can append the target document's title to the generated olink text. That identifies to the reader that the link is to a different document, not the current document. See also <parameter moreinfo="none">olink.doctitle</parameter> to enable that feature.</para> 
+</refsect1> 
+</refentry> 
+
+<refentry id="olink.doctitle"> 
+<refmeta> 
+<refentrytitle>olink.doctitle</refentrytitle> 
+<refmiscinfo role="type">boolean</refmiscinfo> 
+</refmeta> 
+<refnamediv> 
+<refname>olink.doctitle</refname> 
+<refpurpose>show the document title for external olinks?</refpurpose>
+
+</refnamediv> 
+<refsynopsisdiv> <programlisting id="olink.doctitle.frag">
+&lt;xsl:param name="olink.doctitle" select="0"&gt;&lt;/xsl:param&gt; </programlisting> 
+</refsynopsisdiv> 
+<refsect1> 
+<title>Description</title> 
+<para>When olinks between documents are resolved for print output, the generated text may not make it clear that the reference is to another document. It is possible for the stylesheets to append the other document's title to external olinks. For this to happen, two parameters must be set. The <parameter moreinfo="none">olink.doctitle</parameter> parameter should be set to nonzero to enable this
+feature. And you should set the <parameter moreinfo="none">current.docid</parameter> parameter to the document id for the  document currently
+being processed for output.  If an olink's  <literal moreinfo="none">targetdoc</literal>  id differs from the <literal moreinfo="none">current.docid</literal>, then the stylesheet can append the target document's
+title to the generated olink text. </para> 
 </refsect1> 
 </refentry> 
 
@@ -4189,37 +3433,6 @@ processor (or browser) to render the symbols you select. Not all systems are
 capable of displaying the full range of Unicode characters. If the quoted characters
 in the preceding paragraph are not displayed properly, that's a good indicator
 that you may have trouble using those symbols for footnotes.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="footnote.sep.leader.properties">
-<refnamediv>
-<refname>footnote.sep.leader.properties</refname>
-<refpurpose>Properties associated with a procedure</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="footnote.sep.leader.properties.frag">
-&lt;xsl:attribute-set name="footnote.sep.leader.properties"&gt;
-  &lt;xsl:attribute name="color"&gt;black&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="leader-pattern"&gt;rule&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="leader-length"&gt;1in&lt;/xsl:attribute&gt;
-&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The styling for the rule line that separates the
-footnotes from the body text.
-These are properties applied to the fo:leader used as
-the separator.
-</para>
-<para>If you want to do more than just set properties on
-the leader element, then you can customize the template
-named <literal moreinfo="none">footnote.separator</literal> in 
-<filename moreinfo="none">fo/pagesetup.xsl</filename>.</para>
 
 </refsect1>
 </refentry>
@@ -5678,146 +4891,6 @@ on how their <sgmltag class="attribute">status</sgmltag> attribute is set.
 </refsect1>
 </refentry>
 
-<refentry id="header.column.widths">
-<refmeta>
-<refentrytitle>header.column.widths</refentrytitle>
-<refmiscinfo role="type">string</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>header.column.widths</refname>
-<refpurpose>Specify relative widths of header areas</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv><programlisting id="header.column.widths.frag">
-&lt;xsl:param name="header.column.widths" select="'1 1 1'"&gt;&lt;/xsl:param&gt;
-</programlisting></refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>Page headers in print output use a three column table
-to position text at the left, center, and right side of
-the header on the page.
-This parameter lets you specify the relative sizes of the
-three columns.  The default value is
-"1 1 1".</para>
-
-<para>The parameter value must be three numbers, separated
-by white space. The first number represents the relative
-width of the left header for
-single-sided output, or the inside header for
-double-sided output.  The second number is the relative
-width of the center header.  The third number is the
-relative width of the right header for
-single-sided output, or the outside header for
-double-sided output.
-</para>
-
-<para>The numbers are used to specify the column widths
-for the table that makes up the header area.
-In the FO output, this looks like:
-</para>
-
-<programlisting format="linespecific">
-&lt;fo:table-column column-number="1" 
-    column-width="proportional-column-width(1)"/&gt;
-</programlisting>
-
-<para>
-The <literal moreinfo="none">proportional-column-width()</literal>
-function computes a column width by dividing its
-argument by the total of the arguments for all the columns, and
-then multiplying the result by the width of the whole table
-(assuming all the column specs use the function).
-Its argument can be any positive integer or floating point number.
-Zero is an acceptable value, although some FO processors
-may warn about it, in which case using a very small number might
-be more satisfactory.
-</para>
-
-<para>For example, the value "1 2 1" means the center
-header should have twice the width of the other areas.
-A value of "0 0 1" means the entire header area
-is reserved for the right (or outside) header text.
-Note that to keep the center area centered on
-the page, the left and right values must be
-the same. A specification like "1 2 3" means the
-center area is no longer centered on the page
-since the right area is three times the width of the left area.
-</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="footer.column.widths">
-<refmeta>
-<refentrytitle>footer.column.widths</refentrytitle>
-<refmiscinfo role="type">string</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>footer.column.widths</refname>
-<refpurpose>Specify relative widths of footer areas</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv><programlisting id="footer.column.widths.frag">
-&lt;xsl:param name="footer.column.widths" select="'1 1 1'"&gt;&lt;/xsl:param&gt;
-</programlisting></refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>Page footers in print output use a three column table
-to position text at the left, center, and right side of
-the footer on the page.
-This parameter lets you specify the relative sizes of the
-three columns.  The default value is
-"1 1 1".</para>
-
-<para>The parameter value must be three numbers, separated
-by white space. The first number represents the relative
-width of the left footer for
-single-sided output, or the inside footer for
-double-sided output.  The second number is the relative
-width of the center footer.  The third number is the
-relative width of the right footer for
-single-sided output, or the outside footer for
-double-sided output.
-</para>
-
-<para>The numbers are used to specify the column widths
-for the table that makes up the footer area.
-In the FO output, this looks like:
-</para>
-
-<programlisting format="linespecific">
-&lt;fo:table-column column-number="1" 
-    column-width="proportional-column-width(1)"/&gt;
-</programlisting>
-
-<para>
-The <literal moreinfo="none">proportional-column-width()</literal>
-function computes a column width by dividing its
-argument by the total of the arguments for all the columns, and
-then multiplying the result by the width of the whole table
-(assuming all the column specs use the function).
-Its argument can be any positive integer or floating point number.
-Zero is an acceptable value, although some FO processors
-may warn about it, in which case using a very small number might
-be more satisfactory.
-</para>
-
-<para>For example, the value "1 2 1" means the center
-footer should have twice the width of the other areas.
-A value of "0 0 1" means the entire footer area
-is reserved for the right (or outside) footer text.
-Note that to keep the center area centered on
-the page, the left and right values must be
-the same. A specification like "1 2 3" means the
-center area is no longer centered on the page
-since the right area is three times the width of the left area.
-</para>
-
-</refsect1>
-</refentry>
-
 <refentry id="header.content.properties">
 <refmeta>
 <refentrytitle>header.content.properties</refentrytitle>
@@ -6512,7 +5585,6 @@ formatter supports it.</para>
 <programlisting id="monospace.verbatim.properties.frag">
 &lt;xsl:attribute-set name="monospace.verbatim.properties" use-attribute-sets="verbatim.properties monospace.properties"&gt;
   &lt;xsl:attribute name="text-align"&gt;start&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="wrap-option"&gt;no-wrap&lt;/xsl:attribute&gt;
 &lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -6555,29 +5627,6 @@ formatter supports it.</para>
 <refsect1><title>Description</title>
 
 <para>The styling for sidebars.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="component.title.properties">
-<refmeta>
-<refentrytitle>component.title.properties</refentrytitle>
-<refmiscinfo role="type">attribute set</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>component.title.properties</refname>
-<refpurpose>Properties for component titles</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="component.title.properties.frag">
-&lt;xsl:attribute-set name="component.title.properties"&gt;&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The properties common to all component titles.</para>
 
 </refsect1>
 </refentry>
@@ -7109,7 +6158,7 @@ general <sgmltag>section.properties</sgmltag> attribute set.
 <refentry id="table.properties">
 <refnamediv>
 <refname>table.properties</refname>
-<refpurpose>Properties associated with the block surrounding a table</refpurpose>
+<refpurpose>Properties associated with a table</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -7120,93 +6169,7 @@ general <sgmltag>section.properties</sgmltag> attribute set.
 
 <refsect1><title>Description</title>
 
-<para>Block styling properties for tables. This parameter should really
-have been called <literal moreinfo="none">table.block.properties</literal> or something
-like that, but we’re leaving it to avoid backwards-compatibility
-problems.</para>
-
-<para>See also <parameter moreinfo="none">table.table.properties</parameter>.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="informalfigure.properties">
-<refnamediv>
-<refname>informalfigure.properties</refname>
-<refpurpose>Properties associated with an informalfigure</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="informalfigure.properties.frag">
-&lt;xsl:attribute-set name="informalfigure.properties" use-attribute-sets="informal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The styling for informalfigures.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="informalexample.properties">
-<refnamediv>
-<refname>informalexample.properties</refname>
-<refpurpose>Properties associated with an informalexample</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="informalexample.properties.frag">
-&lt;xsl:attribute-set name="informalexample.properties" use-attribute-sets="informal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The styling for informalexamples.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="informalequation.properties">
-<refnamediv>
-<refname>informalequation.properties</refname>
-<refpurpose>Properties associated with a informalequation</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="informalequation.properties.frag">
-&lt;xsl:attribute-set name="informalequation.properties" use-attribute-sets="informal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>The styling for informalequations.</para>
-
-</refsect1>
-</refentry>
-
-<refentry id="informaltable.properties">
-<refnamediv>
-<refname>informaltable.properties</refname>
-<refpurpose>Properties associated with the block surrounding an informaltable</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<programlisting id="informaltable.properties.frag">
-&lt;xsl:attribute-set name="informaltable.properties" use-attribute-sets="informal.object.properties"&gt;&lt;/xsl:attribute-set&gt;
-</programlisting>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>Block styling properties for informaltables. This parameter should really
-have been called <literal moreinfo="none">informaltable.block.properties</literal> or something
-like that, but we’re leaving it to avoid backwards-compatibility
-problems.</para>
-
-<para>See also <parameter moreinfo="none">table.table.properties</parameter>.</para>
+<para>The styling for tables.</para>
 
 </refsect1>
 </refentry>
@@ -7256,7 +6219,6 @@ problems.</para>
     &lt;xsl:value-of select="$line-height"&gt;&lt;/xsl:value-of&gt;
   &lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="font-selection-strategy"&gt;character-by-character&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="line-height-shift-adjustment"&gt;disregard-shifts&lt;/xsl:attribute&gt;
 &lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -8215,7 +7177,6 @@ around all these parameters.</para>
 &lt;src:fragref linkend="callout.unicode.start.character.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="callouts.extension.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="chapter.autolabel.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="collect.xref.targets.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.back.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.body.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.front.frag"&gt;&lt;/src:fragref&gt;
@@ -8229,8 +7190,6 @@ around all these parameters.</para>
 &lt;src:fragref linkend="column.gap.lot.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.gap.titlepage.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="compact.list.item.spacing.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="component.label.includes.part.label.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="component.title.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="current.docid.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.float.class.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.image.width.frag"&gt;&lt;/src:fragref&gt;
@@ -8248,12 +7207,10 @@ around all these parameters.</para>
 &lt;src:fragref linkend="firstterm.only.link.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footer.content.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footer.rule.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="footer.column.widths.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footers.on.blank.pages.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footnote.font.size.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footnote.number.format.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="footnote.number.symbols.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="footnote.sep.leader.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="fop.extensions.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="formal.object.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="formal.procedures.frag"&gt;&lt;/src:fragref&gt;
@@ -8275,17 +7232,10 @@ around all these parameters.</para>
 &lt;src:fragref linkend="graphic.default.extension.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="header.content.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="header.rule.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="header.column.widths.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="headers.on.blank.pages.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="hyphenate.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ignore.image.scaling.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="index.on.role.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="index.on.type.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="informalequation.properties.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="informalexample.properties.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="informalfigure.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="informal.object.properties.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="informaltable.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="index.preferred.page.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="insert.xref.page.number.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="l10n.gentext.default.language.frag"&gt;&lt;/src:fragref&gt;
@@ -8311,13 +7261,6 @@ around all these parameters.</para>
 &lt;src:fragref linkend="nominal.table.width.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="normal.para.spacing.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="olink.doctitle.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="olink.base.uri.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="olink.debug.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="olink.properties.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="olink.lang.fallback.sequence.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="prefer.internal.olink.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="insert.olink.page.number.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="insert.olink.pdf.frag.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="page.height.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="page.height.portrait.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="page.margin.bottom.frag"&gt;&lt;/src:fragref&gt;
@@ -8373,7 +7316,6 @@ around all these parameters.</para>
 &lt;src:fragref linkend="runinhead.title.end.punct.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="sans.font.family.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.autolabel.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="section.autolabel.max.depth.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.label.includes.component.label.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.title.level1.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.title.level2.properties.frag"&gt;&lt;/src:fragref&gt;
@@ -8408,10 +7350,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="table.frame.border.thickness.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="table.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="tablecolumns.extension.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="table.table.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="target.database.document.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="targets.filename.frag"&gt;&lt;/src:fragref&gt;
-&lt;src:fragref linkend="textdata.default.encoding.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="tex.math.delims.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="tex.math.in.alt.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="textinsert.extension.frag"&gt;&lt;/src:fragref&gt;

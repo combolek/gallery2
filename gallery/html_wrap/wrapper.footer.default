@@ -1,6 +1,6 @@
 <?php
 // $Id$
-// This footer file detects whether Gallery is embedded in any 
+// This header file detects whether Gallery is embedded in any 
 // known PHP applications and then decorates Gallery appropriately.
 
 global $GALLERY_EMBEDDED_INSIDE_TYPE;
@@ -8,7 +8,6 @@ global $GALLERY_EMBEDDED_INSIDE_TYPE;
 switch($GALLERY_EMBEDDED_INSIDE_TYPE) {
 	case 'phpnuke':
 	case 'postnuke':
-	case 'cpgnuke':
 
 		/*
 		 * We can control whether we see the right side blocks
@@ -56,5 +55,4 @@ switch($GALLERY_EMBEDDED_INSIDE_TYPE) {
 	break;
 
 }
-includeTemplate('footer.tpl');
 ?>

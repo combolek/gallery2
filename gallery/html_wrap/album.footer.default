@@ -2,14 +2,13 @@
 // This is the default album footer (for the gallery album
 // page: view_album.php). It's companion is album.header.default.
 //
-// To override this footer, create a file called album.footer
+// To override this header, create a file called album.footer
 // in this directory.
-// 
+//
+// NOTE: This header gets inserted above the </body> tag. 
 // $Id$
 ?>
-<?php
-includeTemplate('album.footer.tpl');
-?>
+
       <table width="100%" cellspacing="0" cellpadding="0" class="modfooter">
         <tr>
           <td valign=top>
@@ -19,14 +18,12 @@ includeTemplate('album.footer.tpl');
             </span>
 <?php 
 global $GALLERY_EMBEDDED_INSIDE;
-
-if (! isset($GALLERY_EMBEDDED_INSIDE)) {
-	print album_validation_link($gallery->session->albumName, NULL);
-}
-?>
+       	if (! isset($GALLERY_EMBEDDED_INSIDE)) {
+		print album_validation_link($gallery->session->albumName, NULL);
+       	} ?>
           </td>
-<?php if (!$gallery->session->offline && (!isset($gallery->app->rssEnabled) || $gallery->app->rssEnabled == "yes")) { ?>
-          <td style="text-align:right"><a href="<?php echo $gallery->app->photoAlbumURL . "/rss.php?set_albumName=" . $gallery->session->albumName; ?>" style="background-color:#f60; border:2px outset #ffc8a4; color:white; text-decoration:none; font:bold 10px sans-serif; padding:0px 3px 0px 5px; letter-spacing:1;">RSS</a></td> 
+<?php if (!isset($gallery->app->rssEnabled) || $gallery->app->rssEnabled == "yes") { ?>
+          <td style="text-align:right"><a href="<?php echo $gallery->app->photoAlbumURL . "/rss.php"; ?>" style="background-color:#f60; border:2px outset #ffc8a4; color:white; text-decoration:none; font:bold 10px sans-serif; padding:0px 3px 0px 5px; letter-spacing:1;">RSS</a></td> 
 <?php 
 } // if rssEnabled
 if ($gallery->user->isAdmin() ) { ?>

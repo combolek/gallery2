@@ -22,7 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 doctype();
 ?>
 <html>
@@ -30,9 +30,13 @@ doctype();
   <title><?php echo _("Publishing with Windows XP") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popup">
-<div class="popuphead"><?php echo _("Using the Windows XP <i>Publish To the Web</i> feature") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<p class="popuphead" align="center">
+<?php echo _("Using the Windows XP <i>Publish To the Web</i> feature") ?>
+</p>
+
+<span class="popup">
 <?php 
 	echo sprintf(_("Windows XP comes with a nice feature that allows you to publish content from your desktop directly to a web service.  %s <b>has experimental</b> support for this feature."), Gallery());
 	echo _("It's relatively easy to configure.");
@@ -68,7 +72,7 @@ doctype();
 <a href="<?php echo makeGalleryUrl("add_photos.php") ?>"><?php echo _("Return to Add Photos") ?></a>
 <center>
 
-</div>
+</span>
 </body>
 </html>
 <?php

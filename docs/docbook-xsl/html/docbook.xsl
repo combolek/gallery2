@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:exsl="http://exslt.org/common"
-                exclude-result-prefixes="exsl"
+                xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                exclude-result-prefixes="doc"
                 version='1.0'>
 
 <xsl:output method="html"
@@ -30,7 +30,6 @@
 <xsl:include href="../common/subtitles.xsl"/>
 <xsl:include href="../common/gentext.xsl"/>
 <xsl:include href="../common/targets.xsl"/>
-<xsl:include href="../common/olink.xsl"/>
 <xsl:include href="../common/pi.xsl"/>
 <xsl:include href="autotoc.xsl"/>
 <xsl:include href="autoidx.xsl"/>
@@ -67,7 +66,6 @@
 <xsl:include href="ebnf.xsl"/>
 <xsl:include href="chunker.xsl"/>
 <xsl:include href="html-rtf.xsl"/>
-<xsl:include href="docbookng.xsl"/>
 
 <xsl:param name="stylesheet.result.type" select="'html'"/>
 
@@ -153,7 +151,6 @@
                                       |referenceinfo
                                       |refentryinfo
                                       |partinfo
-                                      |info
                                       |docinfo)[1]"/>
     <xsl:if test="$info and $info/abstract">
       <meta name="description">
@@ -241,7 +238,6 @@ body { background-image: url('</xsl:text>
   <xsl:apply-templates select="partinfo/keywordset" mode="html.header"/>
   <xsl:apply-templates select="referenceinfo/keywordset" mode="html.header"/>
   <xsl:apply-templates select="docinfo/keywordset" mode="html.header"/>
-  <xsl:apply-templates select="info/keywordset" mode="html.header"/>
 
   <xsl:if test="$inherit.keywords != 0
                 and parent::*">
@@ -261,11 +257,6 @@ body { background-image: url('</xsl:text>
 </xsl:template>
 
 <!-- ============================================================ -->
-
-<xsl:template name="user.preroot">
-  <!-- Pre-root output, can be used to output comments and PIs. -->
-  <!-- This must not output any element content! -->
-</xsl:template>
 
 <xsl:template name="user.head.content">
   <xsl:param name="node" select="."/>
@@ -289,58 +280,43 @@ body { background-image: url('</xsl:text>
 
 <xsl:template match="/">
   <xsl:choose>
-    <xsl:when test="function-available('exsl:node-set')
-                    and namespace-uri(*[1]) = 'http://docbook.org/docbook-ng'">
-      <!-- Hack! If someone hands us a DocBook NG document, toss the namespace -->
-      <!-- and continue. Someday we may reverse this logic and add the namespace -->
-      <!-- to documents that don't have one. But not before the whole stylesheet -->
-      <!-- has been converted to use namespaces. i.e., don't hold your breath -->
-      <xsl:variable name="nons">
-	<xsl:apply-templates mode="stripNS"/>
-      </xsl:variable>
-      <xsl:apply-templates select="exsl:node-set($nons)"/>
+    <xsl:when test="$rootid != ''">
+      <xsl:choose>
+        <xsl:when test="count(key('id',$rootid)) = 0">
+          <xsl:message terminate="yes">
+            <xsl:text>ID '</xsl:text>
+            <xsl:value-of select="$rootid"/>
+            <xsl:text>' not found in document.</xsl:text>
+          </xsl:message>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:if test="$collect.xref.targets = 'yes' or
+                        $collect.xref.targets = 'only'">
+            <xsl:apply-templates select="key('id', $rootid)"
+                        mode="collect.targets"/>
+          </xsl:if>
+          <xsl:if test="$collect.xref.targets != 'only'">
+            <xsl:apply-templates select="key('id',$rootid)"
+                        mode="process.root"/>
+            <xsl:if test="$tex.math.in.alt != ''">
+              <xsl:apply-templates select="key('id',$rootid)"
+                          mode="collect.tex.math"/>
+            </xsl:if>
+          </xsl:if>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:choose>
-	<xsl:when test="$rootid != ''">
-	  <xsl:choose>
-	    <xsl:when test="count(key('id',$rootid)) = 0">
-	      <xsl:message terminate="yes">
-		<xsl:text>ID '</xsl:text>
-		<xsl:value-of select="$rootid"/>
-		<xsl:text>' not found in document.</xsl:text>
-	      </xsl:message>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:if test="$collect.xref.targets = 'yes' or
-		            $collect.xref.targets = 'only'">
-		<xsl:apply-templates select="key('id', $rootid)"
-				     mode="collect.targets"/>
-	      </xsl:if>
-	      <xsl:if test="$collect.xref.targets != 'only'">
-		<xsl:apply-templates select="key('id',$rootid)"
-				     mode="process.root"/>
-		<xsl:if test="$tex.math.in.alt != ''">
-		  <xsl:apply-templates select="key('id',$rootid)"
-				       mode="collect.tex.math"/>
-		</xsl:if>
-	      </xsl:if>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:if test="$collect.xref.targets = 'yes' or
-		        $collect.xref.targets = 'only'">
-	    <xsl:apply-templates select="/" mode="collect.targets"/>
-	  </xsl:if>
-	  <xsl:if test="$collect.xref.targets != 'only'">
-	    <xsl:apply-templates select="/" mode="process.root"/>
-	    <xsl:if test="$tex.math.in.alt != ''">
-	      <xsl:apply-templates select="/" mode="collect.tex.math"/>
-	    </xsl:if>
-	  </xsl:if>
-	</xsl:otherwise>
-      </xsl:choose>
+      <xsl:if test="$collect.xref.targets = 'yes' or
+                    $collect.xref.targets = 'only'">
+        <xsl:apply-templates select="/" mode="collect.targets"/>
+      </xsl:if>
+      <xsl:if test="$collect.xref.targets != 'only'">
+        <xsl:apply-templates select="/" mode="process.root"/>
+        <xsl:if test="$tex.math.in.alt != ''">
+          <xsl:apply-templates select="/" mode="collect.tex.math"/>
+        </xsl:if>
+      </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -348,7 +324,6 @@ body { background-image: url('</xsl:text>
 <xsl:template match="*" mode="process.root">
   <xsl:variable name="doc" select="self::*"/>
 
-  <xsl:call-template name="user.preroot"/>
   <xsl:call-template name="root.messages"/>
 
   <html>
@@ -389,29 +364,6 @@ body { background-image: url('</xsl:text>
 
   <!-- The default is that we are not chunking... -->
   <xsl:text>0</xsl:text>
-</xsl:template>
-
-<!-- ==================================================================== -->
-
-<xsl:template match="*" mode="stripNS">
-  <xsl:choose>
-    <xsl:when test="namespace-uri(.) = 'http://docbook.org/docbook-ng'">
-      <xsl:element name="{local-name(.)}">
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="stripNS"/>
-      </xsl:element>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:copy>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="stripNS"/>
-      </xsl:copy>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<xsl:template match="comment()|processing-instruction()|text()" mode="stripNS">
-  <xsl:copy/>
 </xsl:template>
 
 <!-- ==================================================================== -->

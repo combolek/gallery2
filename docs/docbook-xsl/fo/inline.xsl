@@ -139,11 +139,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-style="italic">
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -161,11 +156,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-weight="bold" xsl:use-attribute-sets="monospace.properties">
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -183,11 +173,6 @@
     <xsl:apply-templates/>
   </xsl:param>
   <fo:inline font-style="italic" xsl:use-attribute-sets="monospace.properties">
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -206,11 +191,6 @@
   </xsl:param>
 
   <fo:inline xsl:use-attribute-sets="superscript.properties">
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -237,11 +217,6 @@
   </xsl:param>
 
   <fo:inline xsl:use-attribute-sets="subscript.properties">
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -646,7 +621,7 @@
     <xsl:when test="($firstterm.only.link = 0 or $firstterm = 1) and @linkend">
       <fo:basic-link internal-destination="{@linkend}"
                      xsl:use-attribute-sets="xref.properties">
-        <xsl:call-template name="inline.italicseq"/>
+        <xsl:call-template name="inline.charseq"/>
       </fo:basic-link>
     </xsl:when>
 
@@ -740,7 +715,7 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="sgmltag|tag">
+<xsl:template match="sgmltag">
   <xsl:variable name="class">
     <xsl:choose>
       <xsl:when test="@class">

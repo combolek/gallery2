@@ -5,19 +5,14 @@
 // width parameters .
 
 global $adminbox, $navigator;
-
 // If the border color is not passed in, we do a black/white combo
-if (isset ($adminbox["bordercolor"])) {
+if ($adminbox["bordercolor"]) {
 	$borderIn = $adminbox["bordercolor"];
 } else {
 	$borderIn = "#FFFFFF";
 }
-
-$checklist = array('commands', 'text');
-foreach ($checklist as $check) {
-	if (!isset($adminbox[$check])) {
-		$adminbox[$check] = '';
-	}
+if (!isset($adminbox["commands"])) {
+	$adminbox["commands"] = "";
 }
 
 $pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"pixel_trans\">";
@@ -28,13 +23,17 @@ if (isset($navigator["fullWidth"]) && isset($navigator["widthUnits"])) {
 }
 
 ?>
-<table<?php echo $width; ?> border="0" cellspacing="0" cellpadding="2" id="adminbox">
+<table<?php echo $width; ?> border="0" cellspacing="0" cellpadding="0" class="modnavboxtop">
+<?php
+if ($adminbox["top"]) {
+}
+?>
   <tr> 
-    <td align="left">&nbsp;<?php echo $adminbox["text"] ?></td>
-    <td align="right">
-	<form name="admin_options_form" action="view_album.php" style="margin-bottom: 0px;">
-	<?php echo $adminbox["commands"] ?>
-	</form>
-    </td>
+    <td class="admin" align="left" valign="middle" width="4000" height="18">&nbsp;<?php echo $adminbox["text"] ?></td>
+    <td class="admin" align="right" valign="middle" width="3000" height="18">&nbsp;<?php echo $adminbox["commands"] ?>&nbsp;</td>
   </tr>
+<?php
+if (!$adminbox["top"]) {
+}
+?>
 </table>    

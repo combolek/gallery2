@@ -132,11 +132,11 @@
    <l:gentext key="nonexistantelement" text="elemento inexistente"/>
    <l:gentext key="notes" text="notas"/>
    <l:gentext key="Notes" text="Notas"/>
-   <l:gentext key="Pgs" text="P&#225;gs."/>
-   <l:gentext key="pgs" text="p&#225;gs."/>
+   <l:gentext key="Pgs" text="Pags."/>
+   <l:gentext key="pgs" text="pags."/>
    <l:gentext key="Revisedby" text="Revisado por: "/>
    <l:gentext key="revisedby" text="revisado por: "/>
-   <l:gentext key="TableNotes" text="Notas de tabla"/>
+   <l:gentext key="TableNotes" text="Notas de Tabla"/>
    <l:gentext key="tablenotes" text="notas de tabla"/>
    <l:gentext key="TableofContents" text="Tabla de contenidos"/>
    <l:gentext key="tableofcontents" text="tabla de contenidos"/>
@@ -194,7 +194,6 @@
       <l:template name="bibliodiv" text="%t"/>
       <l:template name="biblioentry" text="%t"/>
       <l:template name="bibliography" text="%t"/>
-      <l:template name="bibliolist" text="%t" lang="en"/>
       <l:template name="bibliomixed" text="%t"/>
       <l:template name="bibliomset" text="%t"/>
       <l:template name="biblioset" text="%t"/>
@@ -211,7 +210,6 @@
       <l:template name="formalpara" text="%t"/>
       <l:template name="glossary" text="%t"/>
       <l:template name="glossdiv" text="%t"/>
-      <l:template name="glosslist" text="%t" lang="en"/>
       <l:template name="glossentry" text="%t" lang="en"/>
       <l:template name="important" text="%t"/>
       <l:template name="index" text="%t"/>
@@ -253,7 +251,6 @@
       <l:template name="sidebar" text="%t"/>
       <l:template name="step" text="%t"/>
       <l:template name="table" text="Tabla %n. %t"/>
-      <l:template name="task" text="%t" lang="en"/>
       <l:template name="tip" text="%t"/>
       <l:template name="toc" text="%t"/>
       <l:template name="variablelist" text="%t"/>
@@ -390,12 +387,8 @@
       <l:template name="variablelist" text="%t"/>
       <l:template name="varlistentry" text="%n"/>
       <l:template name="warning" text="%t"/>
-      <l:template name="olink.document.citation" text=" in %o" lang="en"/>
-      <l:template name="olink.page.citation" text=" (page %p)" lang="en"/>
       <l:template name="page.citation" text=" [%p]"/>
       <l:template name="page" text="(page %p)" lang="en"/>
-      <l:template name="docname" text=" in %o" lang="en"/>
-      <l:template name="docnamelong" text=" in the document titled %o" lang="en"/>
       <l:template name="pageabbrev" text="(p. %p)" lang="en"/>
       <l:template name="Page" text="Page %p" lang="en"/>
       <l:template name="bridgehead" text="&#8220;%t&#8221;"/>
@@ -442,7 +435,6 @@
       <l:template name="equation" text="Ecuaci&#243;n&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="example" text="Ejemplo&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="figure" text="Figura&#160;%n, &#8220;%t&#8221;"/>
-      <l:template name="part" text="Parte&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="procedure" text="Procedimiento&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="productionset" text="Producci&#243;n&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="qandadiv" text="Q &amp; A&#160;%n, &#8220;%t&#8221;"/>
@@ -528,77 +520,4 @@
    <l:context name="htmlhelp">
       <l:template name="langcode" text="0x040a Spanish (Traditional Sort)"/>
    </l:context>
-
-   <l:letters>
-      <l:l i="-1"/>
-      <l:l i="0">S&#237;mbolos</l:l>
-      <l:l i="1">A</l:l>
-      <l:l i="1">a</l:l>
-      <l:l i="1">&#225;</l:l>
-      <l:l i="1">&#193;</l:l>
-      <l:l i="2">B</l:l>
-      <l:l i="2">b</l:l>
-      <l:l i="3">C</l:l>
-      <l:l i="3">c</l:l>
-      <l:l i="4">CH</l:l>
-      <l:l i="4">ch</l:l>
-      <l:l i="5">D</l:l>
-      <l:l i="5">d</l:l>
-      <l:l i="6">E</l:l>
-      <l:l i="6">e</l:l>
-      <l:l i="6">&#201;</l:l>
-      <l:l i="6">&#233;</l:l>
-      <l:l i="7">F</l:l>
-      <l:l i="7">f</l:l>
-      <l:l i="8">G</l:l>
-      <l:l i="8">g</l:l>
-      <l:l i="9">H</l:l>
-      <l:l i="9">h</l:l>
-      <l:l i="10">I</l:l>
-      <l:l i="10">i</l:l>
-      <l:l i="10">&#205;</l:l>
-      <l:l i="10">&#237;</l:l>
-      <l:l i="11">J</l:l>
-      <l:l i="11">j</l:l>
-      <l:l i="12">K</l:l>
-      <l:l i="12">k</l:l>
-      <l:l i="13">L</l:l>
-      <l:l i="13">l</l:l>
-      <l:l i="14">LL</l:l>
-      <l:l i="14">ll</l:l>
-      <l:l i="15">M</l:l>
-      <l:l i="15">m</l:l>
-      <l:l i="16">N</l:l>
-      <l:l i="16">n</l:l>
-      <l:l i="17">&#209;</l:l>
-      <l:l i="17">&#241;</l:l>
-      <l:l i="18">O</l:l>
-      <l:l i="18">o</l:l>
-      <l:l i="18">&#211;</l:l>
-      <l:l i="18">&#243;</l:l>
-      <l:l i="19">P</l:l>
-      <l:l i="19">p</l:l>
-      <l:l i="20">Q</l:l>
-      <l:l i="20">q</l:l>
-      <l:l i="21">R</l:l>
-      <l:l i="21">r</l:l>
-      <l:l i="22">S</l:l>
-      <l:l i="22">s</l:l>
-      <l:l i="23">T</l:l>
-      <l:l i="23">t</l:l>
-      <l:l i="24">U</l:l>
-      <l:l i="24">u</l:l>
-      <l:l i="24">&#218;</l:l>
-      <l:l i="24">&#250;</l:l>
-      <l:l i="25">V</l:l>
-      <l:l i="25">v</l:l>
-      <l:l i="26">W</l:l>
-      <l:l i="26">w</l:l>
-      <l:l i="27">X</l:l>
-      <l:l i="27">x</l:l>
-      <l:l i="28">Y</l:l>
-      <l:l i="28">y</l:l>
-      <l:l i="29">Z</l:l>
-      <l:l i="29">z</l:l>
-   </l:letters>
 </l:l10n>

@@ -22,25 +22,12 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($allUid, $submit_read, $readUid, $submit_text, $textUid, $submit_add, $addUid) =
-	getRequestVar(array('allUid', 'submit_read', 'readUid', 'submit_text', 'textUid', 'submit_add', 'addUid'));
-
-list($submit_write, $writeUid, $submit_delete, $deleteUid, $submit_createSub, $createSubUid) =
-	getRequestVar(array('submit_write', 'writeUid', 'submit_delete', 'deleteUid', 'submit_createSub', 'createSubUid'));
-
-list($submit_viewFullImages, $viewFullImagesUid, $submit_addComments, $addCommentsUid) =
-	getRequestVar(array('submit_viewFullImages', 'viewFullImagesUid', 'submit_addComments', 'addCommentsUid'));
-
-
-list($submit_viewComments, $viewCommentsUid, $save, $ownerUid) =
-	getRequestVar(array('submit_viewComments', 'viewCommentsUid', 'save', 'ownerUid'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->isAdmin() && 
     !$gallery->user->isOwnerOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 ?>
@@ -118,17 +105,13 @@ if (isset($allUid) && isset($submit_viewComments) && strchr($submit_viewComments
         $changed++;
 }
 
-if (isset($save) && $ownerUid) {
+if ( isset($save) && $ownerUid) {
 	$gallery->album->setOwner($ownerUid);
 	$changed++;
 }
 
 if ($changed) {
 	$gallery->album->save(array(i18n("Permissions have been changed")));
-
-	if (getRequestVar('setNested')) {
-		$gallery->album->setNestedPermissions();
-	}
 }
 
 // Start with a default owner of nobody -- if there is an
@@ -183,15 +166,15 @@ correctPseudoUsers($uAdd, $ownerUid);
   <title><?php echo _("Album Permissions") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Album Permissions") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Album Permissions") ?></p>
+<div class="popup">
 <?php echo sprintf(_("Changing permissions for %s"), '<b>'.$gallery->album->fields["title"] . '</b>');
 
 echo makeFormIntro("album_permissions.php", 
-			array("name" => "albumperms_form"),
-			array("type" => "popup"));
-?>
+			array("name" => "albumperms_form")) ?>
 
 <?php if ($gallery->user->isAdmin) { ?>
 <?php echo _("Owner:") ?> <?php echo drawSelect("ownerUid", $uAll, $ownerUid, 1); ?>
@@ -208,7 +191,7 @@ echo makeFormIntro("album_permissions.php",
   <td valign=top>
    <table border="0" cellspacing="3" cellpadding="0">
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can see the album") ?>
      </td>
     </tr>
@@ -223,7 +206,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can change album text.") ?>
      </td>
     </tr>
@@ -238,7 +221,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can add photos.") ?>
      </td>
     </tr>
@@ -253,7 +236,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
 	<?php echo _("Users who can modify photos.") ?>
      </td>
     </tr>
@@ -268,7 +251,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
 	<?php echo _("Users who can delete photos.") ?>
      </td>
     </tr>
@@ -283,7 +266,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
 	<?php echo _("Users who can create sub albums.") ?>
      </td>
     </tr>
@@ -298,7 +281,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can view full (original) images.") ?>
      </td>
     </tr>
@@ -314,7 +297,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can add comments.") ?>
      </td>
     </tr>
@@ -329,7 +312,7 @@ echo makeFormIntro("album_permissions.php",
     </tr>
 
     <tr>
-     <td colspan="2" class="popuptd">
+     <td colspan="2" class="popup">
       <?php echo _("Users who can view comments.") ?>
      </td>
     </tr>
@@ -350,11 +333,10 @@ echo makeFormIntro("album_permissions.php",
 
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
 <input type="button" name="done" value="<?php echo _("Done") ?>" onclick='parent.close()'>
-<br>
-<label for="setNested">Apply permissions to all sub-albums</label>
-<input type="checkbox" id="setNested" name="setNested" value="setNested" <?php if (getRequestVar('setNested')) echo 'CHECKED'; ?>>
 </form>
+
 </div>
+</center>
 <?php print gallery_validation_link("album_permissions.php"); ?>
 </body>
 </html>

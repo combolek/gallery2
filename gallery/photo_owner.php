@@ -24,14 +24,12 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($save, $owner, $id) = getRequestVar(array('save', 'owner', 'id'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->isAdmin() && 
     !$gallery->user->isOwnerOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -78,9 +76,10 @@ asort($uAll);
   <title><?php echo _("Change Owner") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Change Owner") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Change Owner") ?></p>
 <?php 
 	$index=$gallery->album->getPhotoIndex($id);
 	echo $gallery->album->getThumbnailTag($index);
@@ -89,9 +88,7 @@ asort($uAll);
 
 <p>
 <?php 
-	echo makeFormIntro("photo_owner.php", 
-		array("name" => "photoowner_form"),
-		array("type" => "popup"));
+	echo makeFormIntro("photo_owner.php", array("name" => "photoowner_form"));
 	if ($gallery->user->isAdmin) {
 		echo _("Owner") .": ";
 		echo drawSelect("owner", $uAll, $owner, 1);
@@ -104,7 +101,8 @@ asort($uAll);
 	<input type="button" name="done" value="<?php echo _("Done") ?>" onclick='parent.close()'>
 </p>
 </form>
-</div>
+</center>
+
 <?php print gallery_validation_link("photo_owner.php", true, array('id' => $id)); ?>
 </body>
 </html>

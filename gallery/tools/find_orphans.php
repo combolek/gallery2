@@ -23,10 +23,8 @@
 <?php
 
 if (!isset($gallery->version)) {
-        require_once(dirname(dirname(__FILE__)) . '/init.php');
+        require(dirname(dirname(__FILE__)) . '/init.php');
 }
-
-$action = getRequestVar('action');
 
 // Security check
 if (!$gallery->user->isAdmin()) {
@@ -36,7 +34,7 @@ if (!$gallery->user->isAdmin()) {
 
 $albumDB = new AlbumDB();
 
-function attachOrphanedAlbums($orphans) {
+function attachOrphans($orphans) {
 	global $albumDB;
 	foreach ($orphans as $childname => $parentname) {
 		if ($parentname == 0) {
@@ -62,7 +60,7 @@ function attachOrphanedAlbums($orphans) {
 	}
 }
 
-function findOrphanedAlbums() {
+function findOrphans() {
 	global $albumDB;
 	$orphaned = Array();
 	foreach ($albumDB->albumList as $album) {
@@ -100,221 +98,58 @@ function findOrphanedAlbums() {
 	return $orphaned;
 }
 
-function findOrphanedImages() {
-	global $gallery, $albumDB;
-
-	$orphans = Array();
-
-	// "." covers the "." and ".." dir entries
-	$ignoreFiles = array('.', 'dat', 'bak', 'lock');
-
-	foreach ($albumDB->albumList as $album) {
-
-		// Get the album name, build the album path, open the directory
-		$albumName = $album->fields['name'];
-		$albumDir = $gallery->app->albumDir . "/" . $albumName;
-		$dirhandle = fs_opendir($albumDir);
-
-		// Storage array
-		$albumFiles = array();
-
-		// Retrieve each file until the directory ends
-		// Skip the files which have arrays in the ignoreFiles array
-		while (false !== ($file = readdir($dirhandle))) { 
-			$file = pathinfo($file);
-
-			if (empty($file['extension']) || in_array($file['extension'], $ignoreFiles))
-				continue;
-
-			$albumFiles[$file['basename']] = 1;
-		} 
-
-		// Don't bother doing anything if there are no orphans
-		if (sizeof($albumFiles)) {
-
-			// Only check subkeys if the album has photos
-			if (!empty($album->photos)) {
-				foreach ($album->photos as $photo) {
-					foreach ($photo as $image) {
-
-						// Theoretically we know which keys hold image locations, 
-						// however this is to be absolutely safe as we go forward
-						// in case any new keys are added
-
-   						// Since we're iterating through the entire AlbumItem class looking for files
-						// we know we can skip any objects that aren't of the class "Image"
-						if (strcasecmp(get_class($image), "Image")) {
-							continue;
-	
-						// If we encounter a file that's in the AlbumItem, and in the file array
-						// purge it, because it's valid
-						} elseif (isset($albumFiles[$image->name . "." . $image->type])) {
-							unset($albumFiles[$image->name . "." . $image->type]);
-						}
-
-						// Resized files have to be handled separately
-						if (!empty($image->resizedName) && isset($albumFiles[$image->resizedName . "." . $image->type])) {
-							unset($albumFiles[$image->resizedName . "." . $image->type]);
-						}
-					}
-				}
-			}
-
-			// Make sure the array isn't empty
-			// It is valid to get here even if the album has no _valid_ photos
-			if (sizeof($albumFiles)) {
-				$orphans[$albumName] = $albumFiles;
-			}
-		}
-	}
-
-	asort($orphans);
-	return $orphans;
-}
-
-function deleteOrphanedImages($orphans) {
-	global $gallery;
-	$unwriteableFiles = array();
-
-	foreach ($orphans as $albumName => $imageVal) {
-		foreach (array_keys($imageVal) as $fileName) {
-			$deleteFile = $gallery->app->albumDir . "/" . $albumName . "/" . $fileName;
-			if (! fs_unlink($deleteFile)) {
-				$unwriteableFiles[] = $deleteFile;
-			}
-		}
-	}
-	return $unwriteableFiles;
-}
-
-clearstatcache() ;
-$orphanAlbums = findOrphanedAlbums();
-$orphanImages = findOrphanedImages();
-
 global $GALLERY_EMBEDDED_INSIDE;
 if (!$GALLERY_EMBEDDED_INSIDE) {
 	doctype();
 ?>
 <html>
 <head>
-<title><?php echo $gallery->app->galleryTitle ?>::<?php echo _("Find Orphans"); ?></title>
+<title><?php echo $gallery->app->galleryTitle ?></title>
 <?php 
-	common_header();
+	common_header() ;
 ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<?php 
-} 
+<?php  
+}
         includeHtmlWrap("gallery.header");
 ?>
-<div class="popuphead"><?php echo _("Find Orphans") ?></div>
+<p align="center" class="popuphead"><?php echo _("Orphaned Albums") ?></p>
+
 <?php
+$orphans = findOrphans();
 
-$adminCommands = '[<a href="'. makeAlbumUrl() .'">'. _("Return to Gallery") .'</a>] ';
-
-$adminbox["commands"] = $adminCommands;
-$adminbox["bordercolor"] = $gallery->app->default["bordercolor"];
-includeLayout('adminbox.inc');
-includeLayout('ml_pulldown.inc');
-
-if (empty($action)) { 
-	if (!empty($orphanAlbums)) { ?>
-		<p class="popup"><?php echo _("Orphaned Albums:") . " " . sizeof($orphanAlbums) ?></p>
-		<p><?php echo _("Orphaned Albums will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there.") ?></p>
-		<center>
+if (!empty($orphans)) {
+	if (!isset($update)) { ?>
+		<p><?php echo _("Orphans will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there.") ?></p>
 		<table>
-		<tr>
-			<th><?php echo _("Parent Album") ?></th>
-			<th>&nbsp;</th>
-			<th><?php echo _("Orphaned Album") ?></th>
-		</tr>
+		<tr><th><?php echo _("Orphaned Album") ?></th><th>&nbsp;</th><th><?php echo _("Parent Album") ?></th></tr>
 <?php
-		$current="";
-		foreach ($orphanAlbums as $childName => $parentName) {
-			echo "\t<tr>";
-			if ($current == $parentName) {
-				echo "\n\t<td>" . ($parentName ? "<a href='" . makeAlbumUrl($albumName) . "'>" . $albumName . "</a>" : _("Gallery Root")) . "</td>";
-				$current = $parentName;
-			} else {
-				echo "\n\t<td>\------</td>";
-			}
-			echo "\n\t<td>=&gt;</td>";			
-			echo "\n\t<td><a href=\"" . makeAlbumUrl($childName) . "\">" . $childName . "</a></td>";
-			echo "\n\t</tr>";
+		foreach ($orphans as $childname => $parentname) {
+			echo "\t<tr><td>" . $childname . "</td><td>=&gt;</td><td>" . 
+			     ($parentname ? $parentname : _("Gallery Root")) . "</td></tr>\n";
 		}
 ?>
 		</table>
-		<br>
 		<?php echo makeFormIntro("tools/find_orphans.php", array("method" => "GET")); ?>
-		<input type="hidden" name="action" value="albums">
-		<input type="submit" value="<?php echo _("Re-Attach Orphaned Albums!") ?>">
+		<input type="hidden" name="update" value="1">
+		<input type="submit" value="<?php echo _("Correct Them!") ?>">
 		</form>	
-		</center>
-<?php
-	} elseif (!empty($orphanImages)) {
-?>
-
-		<p class="popup"><?php echo _("Orphaned Files:") . " " . recursiveCount($orphanImages) ?></p>
-
-		<p><?php echo _("Orphaned files will be deleted from the disk.  Orphaned files should never exist - if they do, they are the result of a failed upload attempt, or other more serious issue such as the photos database being overwritten with bad information.") ?></p>
-		<center>
-		<table>
-		<tr>
-			<th><?php echo _("Album directory") ?></th>
-			<th>&nbsp;</th>
-			<th><?php echo _("Orphaned file") ?></th>
-		</tr>
-<?php
-		$current="";
-		foreach ($orphanImages as $albumName => $imageVal) {
-			foreach (array_keys($imageVal) as $fileName) {
-				echo "\n\t\t<tr>";
-				if($current != $albumName) {
-					echo "\n\t\t\t<td><a href='" . makeAlbumUrl($albumName) . "'>" . $albumName . "</a></td>";
-					$current = $albumName;
-				} else {
-					echo "\n\t\t\t<td>\------</td>";
-				} 
-				echo "\n\t\t\t<td>=&gt;</td>";
-				echo "\n\t\t\t<td><a href='" . $gallery->app->albumDirURL . "/" . $albumName . "/" . $fileName . "'>" . $fileName . "</a></td>";
-				echo "\n\t\t</tr>";
-			}       
-		}       
-?>
-		</table>
-		<br>
-		<?php echo makeFormIntro("tools/find_orphans.php", array("method" => "GET")); ?>
-		<input type="hidden" name="action" value="images">
-		<input type="submit" value="<?php echo _("Delete Orphaned Files!") ?>">
-		</form>
-		</center>
 <?php 
-	} else {
-		// No Orphans
-		echo "\n<p align=\"center\" class=\"warning\">" .  _("No Orphans Found") . "</p>";
-		echo "\n<p align=\"center\">". _("There are no orphaned elements in this Gallery.") . "</p>";
+	} // !isset(update) 
+	else { 
+		attachOrphans($orphans);
+		echo '<a href="' . makeAlbumUrl() .'">'. _("Return to Gallery") .'</a>';
 	}
-} // !isset(update) 
-else { 
-	echo "\n<p align=\"center\" class=\"warning\">" .  sprintf(_("Orphan %s Repaired"), ($action == "albums") ? _("Albums") : _("Files")) . "</p>";
-	if ($action == "albums") {
-		attachOrphanedAlbums($orphanAlbums);
-	}
-	if ($action == "images") {
-		$unwriteableFiles = deleteOrphanedImages($orphanImages);
-                if (!empty($unwriteableFiles)) {
-			echo "<p>". gallery_error(_("The Webserver has not enough permission to delete the following files:")) . "</p>";
-			echo "\n<ul>";
-			foreach ($unwriteableFiles as $filename) {
-				echo "<li>$filename</li>";
-			}
-			echo "\n</ul>";
-			echo "\n<p align=\"center\">". _("Please check the permission of these files and the folder above. chmod them, or ask your admin to do this.") . "<br>";
-			echo '<button name="Klickmich" type="button" onClick="location.reload()">'. _("Reload") . '</button></p>';
-		}
-	}
+} else {
+	// No Orphans
+	echo "\n<p align=\"center\">". _("There are no orphaned albums in this Gallery.") . "</p>";
 }
 
+	echo "\n<p align=\"center\"><a href=\"" . makeAlbumUrl() . "\">"._("Return to Gallery")."</a></p>";
+?>
+<hr>
+<?php 
 	includeHtmlWrap("gallery.footer"); 
 if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>

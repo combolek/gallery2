@@ -44,19 +44,17 @@
 
   <xsl:choose>
     <xsl:when test="$shade.verbatim != 0">
-      <fo:block id="{$id}"
+      <fo:block wrap-option='no-wrap'
                 white-space-collapse='false'
-                white-space-treatment='preserve'
-                linefeed-treatment='preserve'
+                linefeed-treatment="preserve"
                 xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
 
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
     <xsl:otherwise>
-      <fo:block id="{$id}"
+      <fo:block wrap-option='no-wrap'
                 white-space-collapse='false'
-                white-space-treatment='preserve'
                 linefeed-treatment="preserve"
                 xsl:use-attribute-sets="monospace.verbatim.properties">
         <xsl:copy-of select="$content"/>
@@ -67,8 +65,6 @@
 
 <xsl:template match="literallayout">
   <xsl:param name="suppress-numbers" select="'0'"/>
-
-  <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
 
   <xsl:variable name="content">
     <xsl:choose>
@@ -92,9 +88,8 @@
     <xsl:when test="@class='monospaced'">
       <xsl:choose>
         <xsl:when test="$shade.verbatim != 0">
-          <fo:block id="{$id}"
+          <fo:block wrap-option='no-wrap'
                     white-space-collapse='false'
-                    white-space-treatment='preserve'
                     linefeed-treatment="preserve"
                     xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
 
@@ -102,9 +97,8 @@
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
-          <fo:block id="{$id}"
+          <fo:block wrap-option='no-wrap'
                     white-space-collapse='false'
-                    white-space-treatment='preserve'
                     linefeed-treatment="preserve"
                     xsl:use-attribute-sets="monospace.verbatim.properties">
             <xsl:copy-of select="$content"/>
@@ -115,10 +109,8 @@
     <xsl:otherwise>
       <xsl:choose>
         <xsl:when test="$shade.verbatim != 0">
-          <fo:block id="{$id}"
-                    wrap-option='no-wrap'
+          <fo:block wrap-option='no-wrap'
                     white-space-collapse='false'
-                    white-space-treatment='preserve'
                     text-align='start'
                     linefeed-treatment="preserve"
                     xsl:use-attribute-sets="verbatim.properties shade.verbatim.style">
@@ -126,10 +118,8 @@
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
-          <fo:block id="{$id}"
-                    wrap-option='no-wrap'
+          <fo:block wrap-option='no-wrap'
                     white-space-collapse='false'
-                    white-space-treatment='preserve'
                     text-align='start'
                     linefeed-treatment="preserve"
                     xsl:use-attribute-sets="verbatim.properties">
@@ -164,7 +154,6 @@
 
   <fo:block wrap-option='no-wrap'
             white-space-collapse='false'
-            white-space-treatment='preserve'
             linefeed-treatment="preserve"
             xsl:use-attribute-sets="verbatim.properties">
     <xsl:copy-of select="$content"/>

@@ -70,18 +70,6 @@ element label.</para>
       <xsl:value-of select="@label"/>
     </xsl:when>
     <xsl:when test="$preface.autolabel != 0">
-      <xsl:if test="$component.label.includes.part.label != 0 and
-                      ancestor::part">
-        <xsl:variable name="part.label">
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="label.markup"/>
-        </xsl:variable>
-        <xsl:if test="$part.label != ''">
-          <xsl:value-of select="$part.label"/>
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="intralabel.punctuation"/>
-        </xsl:if>
-      </xsl:if>
       <xsl:choose>
         <xsl:when test="$label.from.part != 0 and ancestor::part">
           <xsl:number from="part" count="preface" format="1" level="any"/>
@@ -101,18 +89,6 @@ element label.</para>
       <xsl:value-of select="@label"/>
     </xsl:when>
     <xsl:when test="$chapter.autolabel != 0">
-      <xsl:if test="$component.label.includes.part.label != 0 and
-                      ancestor::part">
-        <xsl:variable name="part.label">
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="label.markup"/>
-        </xsl:variable>
-        <xsl:if test="$part.label != ''">
-          <xsl:value-of select="$part.label"/>
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="intralabel.punctuation"/>
-        </xsl:if>
-      </xsl:if>
       <xsl:choose>
         <xsl:when test="$label.from.part != 0 and ancestor::part">
           <xsl:number from="part" count="chapter" format="1" level="any"/>
@@ -134,18 +110,6 @@ element label.</para>
       <xsl:value-of select="@label"/>
     </xsl:when>
     <xsl:when test="$appendix.autolabel != 0">
-      <xsl:if test="$component.label.includes.part.label != 0 and
-                      ancestor::part">
-        <xsl:variable name="part.label">
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="label.markup"/>
-        </xsl:variable>
-        <xsl:if test="$part.label != ''">
-          <xsl:value-of select="$part.label"/>
-          <xsl:apply-templates select="ancestor::part" 
-                               mode="intralabel.punctuation"/>
-        </xsl:if>
-      </xsl:if>
       <xsl:choose>
         <xsl:when test="$label.from.part != 0 and ancestor::part">
           <xsl:number from="part" count="appendix" format="A" level="any"/>
@@ -192,11 +156,9 @@ element label.</para>
   <!-- if this is a nested section, label the parent -->
   <xsl:if test="local-name(..) = 'section'">
     <xsl:variable name="parent.section.label">
-      <xsl:call-template name="label.this.section">
-        <xsl:with-param name="section" select=".."/>
-      </xsl:call-template>
+      <xsl:apply-templates select=".." mode="label.markup"/>
     </xsl:variable>
-    <xsl:if test="$parent.section.label != '0'">
+    <xsl:if test="$parent.section.label != ''">
       <xsl:apply-templates select=".." mode="label.markup"/>
       <xsl:apply-templates select=".." mode="intralabel.punctuation"/>
     </xsl:if>
@@ -229,7 +191,7 @@ element label.</para>
 
 <!--
   <xsl:message>
-    test: <xsl:value-of select="$label"/>, <xsl:number count="section"/>
+    <xsl:value-of select="$label"/>, <xsl:number count="section"/>
   </xsl:message>
 -->
 
@@ -262,15 +224,11 @@ element label.</para>
     </xsl:if>
   </xsl:if>
 
-  <xsl:variable name="is.numbered">
-    <xsl:call-template name="label.this.section"/>
-  </xsl:variable>
-
   <xsl:choose>
     <xsl:when test="@label">
       <xsl:value-of select="@label"/>
     </xsl:when>
-    <xsl:when test="$is.numbered != 0">
+    <xsl:when test="$section.autolabel != 0">
       <xsl:number count="sect1"/>
     </xsl:when>
   </xsl:choose>
@@ -278,41 +236,35 @@ element label.</para>
 
 <xsl:template match="sect2|sect3|sect4|sect5" mode="label.markup">
   <!-- label the parent -->
-  <xsl:variable name="parent.section.label">
-    <xsl:call-template name="label.this.section">
-      <xsl:with-param name="section" select=".."/>
-    </xsl:call-template>
+  <xsl:variable name="parent.label">
+    <xsl:apply-templates select=".." mode="label.markup"/>
   </xsl:variable>
-  <xsl:if test="$parent.section.label != '0'">
+  <xsl:if test="$parent.label != ''">
     <xsl:apply-templates select=".." mode="label.markup"/>
     <xsl:apply-templates select=".." mode="intralabel.punctuation"/>
   </xsl:if>
-
-  <xsl:variable name="is.numbered">
-    <xsl:call-template name="label.this.section"/>
-  </xsl:variable>
 
   <xsl:choose>
     <xsl:when test="@label">
       <xsl:value-of select="@label"/>
     </xsl:when>
-    <xsl:when test="$is.numbered != 0">
+    <xsl:when test="$section.autolabel != 0">
       <xsl:choose>
         <xsl:when test="local-name(.) = 'sect2'">
-          <xsl:number count="sect2"/>
-        </xsl:when>
-        <xsl:when test="local-name(.) = 'sect3'">
-          <xsl:number count="sect3"/>
-        </xsl:when>
-        <xsl:when test="local-name(.) = 'sect4'">
-          <xsl:number count="sect4"/>
-        </xsl:when>
-        <xsl:when test="local-name(.) = 'sect5'">
-          <xsl:number count="sect5"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:message>label.markup: this can't happen!</xsl:message>
-        </xsl:otherwise>
+	  <xsl:number count="sect2"/>
+	</xsl:when>
+	<xsl:when test="local-name(.) = 'sect3'">
+	  <xsl:number count="sect3"/>
+	</xsl:when>
+	<xsl:when test="local-name(.) = 'sect4'">
+	  <xsl:number count="sect4"/>
+	</xsl:when>
+	<xsl:when test="local-name(.) = 'sect5'">
+	  <xsl:number count="sect5"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:message>label.markup: this can't happen!</xsl:message>
+	</xsl:otherwise>
       </xsl:choose>
     </xsl:when>
   </xsl:choose>
@@ -366,11 +318,11 @@ element label.</para>
     <xsl:when test="$section.autolabel != 0">
       <xsl:choose>
         <xsl:when test="local-name(.) = 'refsect2'">
-          <xsl:number count="refsect2"/>
-        </xsl:when>
+	  <xsl:number count="refsect2"/>
+	</xsl:when>
         <xsl:otherwise>
-          <xsl:number count="refsect3"/>
-        </xsl:otherwise>
+	  <xsl:number count="refsect3"/>
+	</xsl:otherwise>
       </xsl:choose>
     </xsl:when>
   </xsl:choose>
@@ -568,10 +520,6 @@ element label.</para>
     <xsl:when test="@label">
       <xsl:value-of select="@label"/>
     </xsl:when>
-    <xsl:when test="local-name() = 'procedure' and
-                    $formal.procedures = 0">
-      <!-- No label -->
-    </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
         <xsl:when test="count($pchap)>0">
@@ -658,29 +606,15 @@ element label.</para>
 
 <xsl:template name="label.this.section">
   <xsl:param name="section" select="."/>
-
-  <xsl:variable name="level">
-    <xsl:call-template name="section.level"/>
-  </xsl:variable>
-
-  <xsl:choose>
-    <xsl:when test="$level &lt;= $section.autolabel.max.depth">
-      <xsl:value-of select="$section.autolabel"/>
-    </xsl:when>
-    <xsl:otherwise>0</xsl:otherwise>
-  </xsl:choose>
+  <xsl:value-of select="$section.autolabel"/>
 </xsl:template>
 
 <doc:template name="label.this.section" xmlns="">
 <refpurpose>Returns true if $section should be labelled</refpurpose>
 <refdescription>
 <para>Returns true if the specified section should be labelled.
-By default, this template returns zero unless 
-the section level is less than or equal to the value of the
-<literal>$section.autolabel.max.depth</literal> parameter, in
-which case it returns
-<literal>$section.autolabel</literal>.
-Custom stylesheets may override it to get more selective behavior.</para>
+By default, this template simply returns $section.autolabel, but
+custom stylesheets may override it to get more selective behavior.</para>
 </refdescription>
 </doc:template>
 

@@ -21,17 +21,13 @@
  */
 ?>
 <?php
-	require_once(dirname(__FILE__) . '/init.php');
+	require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are not allowed to perform this action.");
 	exit;
 }
-
-list($index, $save, $preview, $previewFull) = getRequestVar(array('index', 'save', 'preview', 'previewFull'));
-list($wmName, $wmAlign, $wmAlignX, $wmAlignY) = getRequestVar(array('wmName', 'wmAlign', 'wmAlignX', 'wmAlignY'));
-list($wmSelect) = getRequestVar(array('wmSelect'));
 
 $err = "";	
 if (isset($save) || isset($preview)) {
@@ -45,9 +41,7 @@ if (isset($save) || isset($preview)) {
 	                	set_time_limit($gallery->app->timeLimit);
 	        	        $gallery->album->watermarkPhoto($index, $wmName, "", $wmAlign,
 	                                               isset($wmAlignX) ? $wmAlignX : 0, 
-	                                               isset($wmAlignY) ? $wmAlignY : 0,
-	                                               0, 0, // Not a preview
-	                                               isset($wmSelect) ? $wmSelect : 0);
+	                                               isset($wmAlignY) ? $wmAlignY : 0);
 	            		$gallery->album->save();
 	               		dismissAndReload();
 	                	return;
@@ -75,9 +69,10 @@ doctype();
   <title><?php echo _("Edit Watermark") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Edit Watermark") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<div align="center">
+<p class="popuphead"><?php echo _("Edit Watermark") ?></p>
 <p>
 <?php
 if (isset($preview)) {
@@ -117,7 +112,7 @@ includeLayout ('watermarkform.inc');
 document.theform.cancel.focus();
 //-->
 </script>
+
 <?php print gallery_validation_link("edit_watermark.php"); ?>
-</div>
 </body>
 </html>
