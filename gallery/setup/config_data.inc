@@ -90,7 +90,13 @@ $checklist = array(
 	     	"func" => "check_gallery_version"
 	),
 	"php" => array(
-		"desc" => _("Check to see if you are running PHP 4.1.0 or greater.") ."<br>".  _("Since Gallery 1.4.5 Gallery needs at least PHP 4.1.0, this is due to that some versions of PHP have bugs that cause Gallery to fail and that older Version does not have required functionality."),
+		"desc" => _("Check to see if you are running PHP 4.  Note that some versions of PHP have bugs that cause Gallery to fail.  PHP 4.0.0 uses a different file upload protocol, and versions 4.0.3 and 4.0.3pl1 have a bug in the unserialization code that cause Gallery to be unable to read its own database.  Upgrade to at least PHP 4.0.4pl1 if you can. <p>") ,
+	     	"func" => "check_php",
+		"fail-too-old" => sprintf(_("You're running PHP version %s.  You need to upgrade to PHP %s."), phpversion(), $MIN_PHP_MAJOR_VERSION),
+		"fail-incompatible" => sprintf(_("You're running PHP version %s which has known bugs that cause Gallery to fail."),  phpversion()),
+	),
+	"php" => array(
+		"desc" => _("Check to see if you are running PHP 4.  Note that some versions of PHP have bugs that cause Gallery to fail.  PHP 4.0.0 uses a different file upload protocol, and versions 4.0.3 and 4.0.3pl1 have a bug in the unserialization code that cause Gallery to be unable to read its own database.  Upgrade to at least PHP 4.0.4pl1 if you can. <p>") ,
 	     	"func" => "check_php",
 		"fail-too-old" => sprintf(_("You're running PHP version %s.  You need to upgrade to PHP %s."), phpversion(), $MIN_PHP_MAJOR_VERSION),
 		"fail-incompatible" => sprintf(_("You're running PHP version %s which has known bugs that cause Gallery to fail."),  phpversion()),
@@ -227,8 +233,7 @@ $constants =  array_merge(
 		"type"		=> "group_start",
 		"name"		=> "group_mandatory",
 		"default"	=> "inline",
-		"title" => _("General settings"),
-		"contains_required" => true,
+		"title" => _("General settings")
 	),
 	"galleryTitle" => array(
 		"prompt" => _("Gallery Title"),
@@ -260,8 +265,7 @@ $constants =  array_merge(
 		"type"		=> "group_start",
 		"name"		=> "group_URLS",
 		"default"	=> "none",
-		"title" => _("Locations and URLs"),
-		"contains_required" => true,
+		"title" => _("Locations and URLs")
 	),
 	"albumDir" => array(
 		"prompt" => _("Album directory"),
@@ -272,8 +276,7 @@ $constants =  array_merge(
 		"require-write-dir" => 1,
 		"filename" => 1,
 		"type" => "text",
-		"attrs" => array("size" => 50),
-		"required" => true,
+		"attrs" => array("size" => 50)
 	),
 	"tmpDir" => array(
 		"prompt" => _("Temporary directory"),
@@ -284,8 +287,7 @@ $constants =  array_merge(
 		"filename" => 1,
 		"require-write-dir" => 1,
 		"type" => "text",
-		"attrs" => array("size" => 50),
-		"required" => true,
+		"attrs" => array("size" => 50)
 	),
 	"photoAlbumURL" => array(
 		"prompt" => "Gallery URL",
@@ -296,8 +298,7 @@ $constants =  array_merge(
 		"no-trailing-slash" => 1,
 		"must-be-url" => 1,
 		"type" => "text",
-		"attrs" => array("size" => 50),
-		"required" => true,
+		"attrs" => array("size" => 50)
 	),
 	"albumDirURL" => array(
 		"prompt" => _("Albums URL"),
@@ -308,8 +309,7 @@ $constants =  array_merge(
 		"no-trailing-slash" => 1,
 		"must-be-url" => 1,
 		"type" => "text",
-		"attrs" => array("size" => 50),
-		"required" => true,
+		"attrs" => array("size" => 50)
 	),
 	"watermarkDir" => array(
 	"prompt" => _("Watermark directory"),
@@ -349,7 +349,6 @@ $constants =  array_merge(
 		"default"	=> "none",
 	       	"title" => _("Embedded Gallery"),
 		"desc" => _("Use this section to set options to configure gallery to be embedded in another web application."),
-		"contains_required" => true,
 	),
 
 	"embedded_inside_type" => array(
@@ -363,8 +362,7 @@ $constants =  array_merge(
 					'nsnNuke'  => 'nsnNuke',
 					'Mambo'	   => 'Mambo'),
 		"value"  => NULL,
-		"allow_empty" => true,
-		"required" => true,
+		"allow_empty" => true
 	),
 	"geeklog_dir" => array(
 		"prompt" => _("GeekLog Dir"),
@@ -381,15 +379,13 @@ $constants =  array_merge(
 		"type"		=> "group_start",
 		"name"		=> "group_toolkits",
 		"default"	=> "none",
-		"title" => _("Toolkits / image processing"),
-		"contains_required" => true,
+		"title" => _("Toolkits / image processing")
 	),
 	"graphics" => array(
 		"prompt" => _("Graphics suite to use"),
 		"desc" => _("This setting tells Gallery which set of graphics tools you prefer it to use.  If Gallery says both are okay (on the first page) then this is simply user preference.  Otherwise go with the one that Gallery was able to find without error."),
 		"choices" => array("NetPBM" => "NetPBM", "ImageMagick" => "ImageMagick"),
-		"value" => default_graphics(),
-		"required" => true,
+		"value" => default_graphics()
 	),
 	"pnmDir" => array(
 		"optional" => 1,
@@ -397,8 +393,7 @@ $constants =  array_merge(
 		"desc" => sprintf(_("The path to the directory containing NetPBM on your system.  If you downloaded NetPBM from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"),
 			'<i>/usr/local/netpbm</i>',
 			'<i>/usr/local/bin</i>', 
-			'<i>c:\\apps\\netpbm</i>'). '<br>'.
-			sprintf(_("This path is only required if you choosed %s above. Otherwise you can leave it like it is, or empty."), "NetPBM"),
+			'<i>c:\\apps\\netpbm</i>'),
 		"value" => locateDir("jpegtopnm", isset($gallery->app->pnmDir) ? $gallery->app->pnmDir : ""),
 		"verify-func" => "check_graphics",
 		"fail-netpbm" => _("I can't find NetPBM at the location you provided.") . "  " .
@@ -408,8 +403,7 @@ $constants =  array_merge(
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
 		"type" => "text",
-		"verify-func-takes-graphics-type" => true,
-		"required" => true,
+		"verify-func-takes-graphics-type" => true
 	),
 	"pnmtojpeg" => array(
 		"prompt" => _("PNM to JPEG converter"),
@@ -420,8 +414,7 @@ $constants =  array_merge(
 	"ImPath" => array(
 		"optional" => 1,
 		"prompt" => _("Path to ImageMagick"),
-		"desc" => _("The path to the directory containing ImageMagick on your system."). '<br>'.
-			sprintf(_("This path is only required if you choosed %s above. Otherwise you can leave it like it is, or empty."), "ImageMagick"),
+		"desc" => _("The path to the directory containing ImageMagick on your system."),
 		"verify-func" => "check_graphics_im",
 		"value" => locateDir("convert", isset($gallery->app->ImPath) ? $gallery->app->ImPath : ""),
 		"fail-imagemagick" => _("I can't find ImageMagick at the location you provided.") . "  " .
@@ -430,13 +423,12 @@ $constants =  array_merge(
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
 		"type" => "text",
-		"verify-func-takes-graphics-type" => true,
-		"required" => true,
+		"verify-func-takes-graphics-type" => true
 	),
 	"autorotate" => array(
                 "prompt" => _("Auto-rotate images"),
 		"desc" => _("Selecting this option has Gallery automatically attempt to rotate images on upload, based on the orientation information that is stored in JPEG EXIF data by some newer digital cameras.") . '<br>' .
-				'<span class="attention">' . _("Requires Jhead EXIF parser v.1.9 or greater (See optional tools).") . '</span>',
+				'<span class="attention">' . _("Requires Jhead EXIF parser v.1.9 or greater (see below).") . '</span>',
                 "choices" => array("yes" => _("yes"), "no" => _("no")),
                 "value" => "yes"
         ),
@@ -975,8 +967,7 @@ $constants = array_merge($constants,
 	),
 	"rssMaxAlbums" => array(
 		"prompt" => _("Maximum Albums Returned"),
-		"desc" => _("This value is the maximum number of albums that the RSS feed will display to the user. Only the most
-recently modified albums are chosen for this value."),
+		"desc" => _("This value is the maximum number of albums that the RSS feed will display to the user. Only the most recently modified albums are chosen for this value."),
 		"value" => 25,
 		"type" => "text",
 		"must-be-number" => 1,

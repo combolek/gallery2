@@ -669,7 +669,7 @@ if ($page == 1)
 } ?>
 
 <!-- image grid table -->
-<table border="0" cellspacing="0" cellpadding="0" class="vatable" align="center">
+<table width="<?php echo $fullWidth ?>" border="0" cellspacing="0" cellpadding="7">
 <?php
 $numPhotos = $gallery->album->numPhotos(1);
 $displayCommentLegend = 0;  // this determines if we display "* Item contains a comment" at end of page
@@ -696,14 +696,12 @@ if ($numPhotos) {
 			echo("<td>");
 			includeHtmlWrap("inline_albumthumb.header");
 			echo("</td>");
-			echo("<td class=\"vaspacer\">&nbsp;</td>");
 			$j++; 
 			$visibleItemIndex++;
 			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
 			echo('</tr>');
-			echo("\n");
 		}
 
 		/* Do the picture row */
@@ -714,8 +712,7 @@ if ($numPhotos) {
 			echo('<tr>');
 		}
 		while ($j <= $cols && $i <= $numPhotos) {
-			echo("<td align=\"center\" valign=\"top\" class=\"vathumbs\">\n");
-			echo("<div  align=\"center\" class=\"vafloat2\">\n");
+			echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 
 			//-- put some parameters for the wrap files in the global object ---
 			$gallery->html_wrap['borderColor'] = $bordercolor;
@@ -783,13 +780,27 @@ if ($numPhotos) {
 			       	/*end backwards compatibility*/
       
 				includeHtmlWrap('inline_photothumb.frame');
-						}
+			}
 
-		echo "\n";
-		echo("</div>\n");
-		echo("<div class=\"vafloat\">\n");
+			echo("</td>");
+			$j++; 
+			$visibleItemIndex++;
+			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+		}
+		if ($printTableRow) {
+			echo('</tr>');
+		}
+		
 		/* Do the clickable-dimensions row */
 		if (!strcmp($gallery->album->fields['showDimensions'], 'yes')) {
+			$visibleItemIndex = $rowStart;
+			$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			$j = 1;
+			if ($printTableRow) {
+				echo('<tr>');
+			}
+			while ($j <= $cols && $i <= $numPhotos) {
+				echo("<td width=\"$imageCellWidth\" align=\"center\" valign=\"middle\">");
 				$photo    = $gallery->album->getPhoto($i);
 				$image    = $photo->image;
 				if (!empty($image)) {
@@ -821,10 +832,24 @@ if ($numPhotos) {
 				} else {
 					echo "&nbsp;";
 				}
-				
+				echo("</td>");
+				$j++; 
+				$visibleItemIndex++;
+				$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+			}
+			if ($printTableRow) {
+				echo('</tr>');
+			}
 		}
 				
 		/* Now do the caption row */
+		$visibleItemIndex = $rowStart;
+		$i = $visibleItemIndex <= $numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
+		$j = 1;
+		if ($printTableRow) {
+		    echo('<tr>');
+		}
+		while ($j <= $cols && $i <= $numPhotos) {
 			if ($gallery->album->isAlbum($i)) {
 				$myAlbum = new Album;
 				$myAlbum->load($gallery->album->getAlbumName($i));
@@ -838,6 +863,7 @@ if ($numPhotos) {
 			} else {
 			    list($iWidth, $iHeight) = $gallery->album->getThumbDimensions($i);
 			}
+			echo("<td width=\"$imageCellWidth\" valign=\"top\" align=\"center\">");
 
 			// put form outside caption to compress lines
 			if (!$gallery->session->offline &&
@@ -854,9 +880,7 @@ if ($numPhotos) {
 			}
 
 			// Caption itself
-			echo "\n";		
-			echo '<div class="captiontable" align="center"><div class="modcaption">';
-			echo "\n";
+			echo "\n". '<div class="modcaption" style="width:60%">';
 			$id = $gallery->album->getPhotoId($i);
 			if ($gallery->album->isHidden($i) && !$gallery->session->offline) {
 				echo "(" . _("hidden") .")<br>";
@@ -918,11 +942,11 @@ if ($numPhotos) {
 					echo ".</div>\n";
 				}
 			}
-		       	echo "<br>\n";
+		       	echo "</div>\n";
 			// End Caption
 
 		       	if (canVote()) {
-					echo("<div align=\"center\">\n");
+				print '<table><tr><td align="center">';
 			       	addPolling($gallery->album->getVotingIdByIndex($i),
 					       	$form_pos, false);
 			       	$form_pos++;
@@ -938,9 +962,9 @@ if ($numPhotos) {
 				}
 
 			       	if (canVote()) {
-				       	print '</div>';
+				       	echo '</td></tr>';
+					echo "\n" . '<tr><td align="center">';
 				}
-				echo("</div>\n");
 				echo("\n\t<select style=\"font-size:10px\" class=\"adminform\" name=\"s$i\" ".
 					"onChange='imageEditChoice(document.vote_form.s$i)'>");
 				echo("\n\t\t<option value=''>&laquo; ". sprintf(_("Edit %s"), $label) . " &raquo;</option>");
@@ -1061,15 +1085,10 @@ if ($numPhotos) {
 			       echo "</select>\n";
 		       }
 		       if (canVote()) {
-			       print '</div>';
+			       print '</td></tr></table>';
 		       }
 
-			echo("</div></div></div>");
-			echo "\n";
-			echo("</td>");
-			echo "\n";
-			echo("<td class=\"vaspacer\">&nbsp;</td>");
-			echo "\n";
+			echo('</td>');
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
@@ -1089,14 +1108,12 @@ if ($numPhotos) {
 			echo("<td>");
 			includeHtmlWrap("inline_albumthumb.footer");
 			echo("</td>");
-			echo("<td class=\"vaspacer\">&nbsp;</td>");
 			$j++;
 			$visibleItemIndex++;
 			$i = $visibleItemIndex<=$numVisibleItems ? $visibleItems[$visibleItemIndex] : $numPhotos+1;
 		}
 		if ($printTableRow) {
 			echo('</tr>');
-			echo("\n");
 		}
 		$rowCount++;
 		$rowStart = $visibleItemIndex;

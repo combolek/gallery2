@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-07-13 15:59+0200\n"
+"POT-Creation-Date: 2004-07-16 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -347,7 +347,7 @@ msgstr[1] ""
 msgid "This album has been viewed %s since %s."
 msgstr ""
 
-#: ../albums.php:373 ../view_album.php:897 ../view_album.php:920
+#: ../albums.php:373 ../view_album.php:918 ../view_album.php:941
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -362,7 +362,7 @@ msgstr ""
 msgid "reset counter"
 msgstr ""
 
-#: ../albums.php:413 ../view_album.php:1118
+#: ../albums.php:413 ../view_album.php:1139
 msgid "Comments available for this item."
 msgstr ""
 
@@ -508,17 +508,17 @@ msgstr ""
 msgid "Requested index [%d] out of bounds [%d]"
 msgstr ""
 
-#: ../classes/Album.php:1690
+#: ../classes/Album.php:1691
 #, php-format
 msgid "Error %s getting EXIF data"
 msgstr ""
 
-#: ../classes/Album.php:2195
+#: ../classes/Album.php:2196
 #, php-format
 msgid "#%d"
 msgstr ""
 
-#: ../classes/Album.php:2333
+#: ../classes/Album.php:2334
 #, php-format
 msgid "Email problem: skipping %s (UID %s) because email address %s is not valid."
 msgstr ""
@@ -1007,7 +1007,7 @@ msgstr ""
 msgid "Year must be between 1000 and 3000"
 msgstr ""
 
-#: ../edit_caption.php:71 ../view_album.php:993
+#: ../edit_caption.php:71 ../view_album.php:1014
 msgid "Edit Text"
 msgstr ""
 
@@ -1048,7 +1048,7 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: ../edit_field.php:47 ../edit_field.php:53 ../view_album.php:949
+#: ../edit_field.php:47 ../edit_field.php:53 ../view_album.php:970
 #, php-format
 msgid "Edit %s"
 msgstr ""
@@ -1090,8 +1090,8 @@ msgstr ""
 msgid "Please select an alignment."
 msgstr ""
 
-#: ../edit_watermark.php:69 ../edit_watermark.php:75 ../view_album.php:965
-#: ../view_album.php:1001
+#: ../edit_watermark.php:69 ../edit_watermark.php:75 ../view_album.php:986
+#: ../view_album.php:1022
 msgid "Edit Watermark"
 msgstr ""
 
@@ -1570,13 +1570,13 @@ msgid "add comment"
 msgstr ""
 
 #: ../layout/commentboxtop.inc:17 ../slideshow.php:179 ../slideshow.php:193
-#: ../upgrade_album.php:87 ../view_album.php:136 ../view_album.php:938
+#: ../upgrade_album.php:87 ../view_album.php:136 ../view_album.php:959
 #: ../view_comments.php:65 ../view_photo.php:158 ../view_photo.php:174
 msgid "Album"
 msgstr ""
 
 #: ../layout/commentboxtop.inc:20 ../layout/commentboxtop.inc:46
-#: ../view_album.php:865
+#: ../view_album.php:886
 msgid "hidden"
 msgstr ""
 
@@ -1728,7 +1728,7 @@ msgid "Description"
 msgstr ""
 
 #: ../lib/voting.php:215 ../view_album.php:631 ../view_album.php:660
-#: ../view_album.php:1124
+#: ../view_album.php:1145
 msgid "Vote"
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgid "Average points in brackets"
 msgstr ""
 
 #: ../lib/voting.php:275 ../poll_results.php:149 ../view_album.php:573
-#: ../view_album.php:870
+#: ../view_album.php:891
 #, php-format
 msgid "Album: %s"
 msgstr ""
@@ -2094,7 +2094,7 @@ msgstr ""
 msgid "You must enter the new password twice."
 msgstr ""
 
-#: ../photo_owner.php:76 ../photo_owner.php:82 ../view_album.php:1061
+#: ../photo_owner.php:76 ../photo_owner.php:82 ../view_album.php:1082
 msgid "Change Owner"
 msgstr ""
 
@@ -2413,7 +2413,7 @@ msgstr ""
 msgid "You are not allowed to perform this action !"
 msgstr ""
 
-#: ../rename_album.php:37 ../rename_album.php:42 ../view_album.php:987
+#: ../rename_album.php:37 ../rename_album.php:42 ../view_album.php:1008
 msgid "Rename Album"
 msgstr ""
 
@@ -3344,127 +3344,127 @@ msgstr[1] ""
 msgid "You can change your choices if you wish."
 msgstr ""
 
-#: ../view_album.php:795 ../view_album.php:796
+#: ../view_album.php:815 ../view_album.php:816
 #, php-format
 msgid "%dkB"
 msgstr ""
 
-#: ../view_album.php:871
+#: ../view_album.php:892
 msgid "No description"
 msgstr ""
 
-#: ../view_album.php:879
+#: ../view_album.php:900
 msgid "Changed: "
 msgstr ""
 
-#: ../view_album.php:882
+#: ../view_album.php:903
 msgid "Contains: "
 msgstr ""
 
-#: ../view_album.php:882
+#: ../view_album.php:903
 #, php-format
 msgid "1 item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../view_album.php:897 ../view_album.php:920
+#: ../view_album.php:918 ../view_album.php:941
 msgid "Viewed:"
 msgstr ""
 
-#: ../view_album.php:936
+#: ../view_album.php:957
 msgid "Movie"
 msgstr ""
 
-#: ../view_album.php:940
+#: ../view_album.php:961
 msgid "Photo"
 msgstr ""
 
-#: ../view_album.php:962 ../view_album.php:998
+#: ../view_album.php:983 ../view_album.php:1019
 msgid "Edit Thumbnail"
 msgstr ""
 
-#: ../view_album.php:963 ../view_album.php:999
+#: ../view_album.php:984 ../view_album.php:1020
 #, php-format
 msgid "Rotate/Flip %s"
 msgstr ""
 
-#: ../view_album.php:972 ../view_album.php:1035 ../view_album.php:1040
+#: ../view_album.php:993 ../view_album.php:1056 ../view_album.php:1061
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: ../view_album.php:977
+#: ../view_album.php:998
 msgid "Edit Title"
 msgstr ""
 
-#: ../view_album.php:981
+#: ../view_album.php:1002
 msgid "Edit Description"
-msgstr ""
-
-#: ../view_album.php:1008
-#, php-format
-msgid "Highlight %s"
-msgstr ""
-
-#: ../view_album.php:1012
-msgid "Reset Counter"
-msgstr ""
-
-#: ../view_album.php:1017
-#, php-format
-msgid "Move %s"
-msgstr ""
-
-#: ../view_album.php:1018
-#, php-format
-msgid "Reorder %s"
-msgstr ""
-
-#: ../view_album.php:1020
-#, php-format
-msgid "Copy %s"
-msgstr ""
-
-#: ../view_album.php:1027
-#, php-format
-msgid "Show %s"
 msgstr ""
 
 #: ../view_album.php:1029
 #, php-format
+msgid "Highlight %s"
+msgstr ""
+
+#: ../view_album.php:1033
+msgid "Reset Counter"
+msgstr ""
+
+#: ../view_album.php:1038
+#, php-format
+msgid "Move %s"
+msgstr ""
+
+#: ../view_album.php:1039
+#, php-format
+msgid "Reorder %s"
+msgstr ""
+
+#: ../view_album.php:1041
+#, php-format
+msgid "Copy %s"
+msgstr ""
+
+#: ../view_album.php:1048
+#, php-format
+msgid "Show %s"
+msgstr ""
+
+#: ../view_album.php:1050
+#, php-format
 msgid "Hide %s"
 msgstr ""
 
-#: ../view_album.php:1046
+#: ../view_album.php:1067
 msgid "Permissions"
 msgstr ""
 
-#: ../view_album.php:1051 ../watermark_album.php:77 ../watermark_album.php:83
+#: ../view_album.php:1072 ../watermark_album.php:77 ../watermark_album.php:83
 msgid "Watermark Album"
 msgstr ""
 
-#: ../view_album.php:1056
+#: ../view_album.php:1077
 msgid "View Comments"
 msgstr ""
 
-#: ../view_album.php:1105
+#: ../view_album.php:1126
 msgid "Hey! Add some photos."
 msgstr ""
 
-#: ../view_album.php:1107
+#: ../view_album.php:1128
 msgid "This album is empty."
 msgstr ""
 
-#: ../view_album.php:1149 ../view_photo.php:645
+#: ../view_album.php:1170 ../view_photo.php:645
 msgid "Email me when:"
 msgstr ""
 
-#: ../view_album.php:1150 ../view_photo.php:646
+#: ../view_album.php:1171 ../view_photo.php:646
 msgid "Comments are added"
 msgstr ""
 
-#: ../view_album.php:1153
+#: ../view_album.php:1174
 msgid "Other changes are made"
 msgstr ""
 
