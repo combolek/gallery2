@@ -138,12 +138,14 @@ public class ImageCrop extends Applet
 		//-- the cropAspectRatio choices --
 		aspectRatios = new Vector(); 
 		aspectRatios.addElement(new AspectRatio("As Image", rawImageSize.width, rawImageSize.height));
+		aspectRatios.addElement(new AspectRatio("Letterbox", 1, 3));
+		aspectRatios.addElement(new AspectRatio("HDTV", 9, 16));
+		aspectRatios.addElement(new AspectRatio("Photo", 3, 5));
+		aspectRatios.addElement(new AspectRatio("Photo", 4, 6));
+		aspectRatios.addElement(new AspectRatio("Photo", 5, 7));
+		aspectRatios.addElement(new AspectRatio("Screen", 3, 4));
+		aspectRatios.addElement(new AspectRatio("Photo", 8, 10));
 		aspectRatios.addElement(new AspectRatio("Square", 1, 1));
-		aspectRatios.addElement(new AspectRatio(3, 4));
-		aspectRatios.addElement(new AspectRatio(3, 5));
-		aspectRatios.addElement(new AspectRatio(4, 6));
-		aspectRatios.addElement(new AspectRatio(5, 7));
-		aspectRatios.addElement(new AspectRatio(8, 10));
 		//aspectRatios.addElement(new AspectRatio(1, 1, "Custom.."));
 
 		//-- finally set up the UI ---
@@ -588,32 +590,21 @@ public class ImageCrop extends Applet
 		public int shortSide; //-- the short dimension ---
 		private String label;
 
-		public AspectRatio(String label, int shortSide, int longSide)
+		public AspectRatio(String label, int a, int b)
 		{
-			this(longSide, shortSide);
+			this(a, b);
 			this.label = label;
 		}
 		 
-		public AspectRatio(int shortSide, int longSide)
+		public AspectRatio(int a, int b)
 		{
-			this.longSide = longSide;
-			this.shortSide = shortSide;
+			this.longSide = (a < b) ? b : a;
+			this.shortSide = (a < b) ? a : b;
 		}
 		 
 		public String getLabel()
 		{
-			if (label != null)
-			{
-				return label;
-			}
-			if (cropLayout == LANDSCAPE)
-			{
-				return "" + longSide + " : " + shortSide;
-			}
-			else
-			{
-				return "" + shortSide + " : " + longSide;
-			}
+			return shortSide + ":" + longSide + " (" + label + ")";
 		}
 
 		public int getX()
