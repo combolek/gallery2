@@ -231,6 +231,7 @@ set_albumName=<replaceable>album name</replaceable>
 userfile=<replaceable>form-data-encoded image data</replaceable>
 caption=<replaceable>caption</replaceable> [since 2.0]
 force_filename=<replaceable>name of the file on the server</replaceable> [since 2.0]
+autoRotate=<replaceable>yes/no</replaceable> [since 2.5]
 extrafield.<replaceable>fieldname</replaceable>=<replaceable>value of the extra field fieldname</replaceable> [since 2.3]</programlisting>
         <para>Multiple <varname>extrafield</varname> lines with different <varname><replaceable>fieldname</replaceable></varname> values can be used.</para>
       </sect4>
