@@ -3,70 +3,90 @@
 <sect1 id="gallery-remote.using">
  <title>Using Gallery Remote</title>
  
- <sect2 id="gallery-remote.platforms">
-  <title>Can I run Gallery Remote on platforms for which there is no installer?</title>
+ <sect2 id="gallery-remote.using.platforms">
+  <title>Running GR on platforms without an installer</title>
+
   <para>
-   Yes, maybe. Gallery Remote was written in Java. 
-   If you have Java 1.3 or later installed on your machine, you may be able to run the app with the command:
-   java -cp GalleryRemote.jar com.gallery.GalleryRemote.GalleryRemote
-   assuming you are in the same directory as the GalleryRemote.jar file.
+   Gallery Remote was written in Java. If you have Java 1.3 or later installed on your machine,
+   you may be able to run the app with the command:
+   <command>java -cp GalleryRemote.jar com.gallery.GalleryRemote.GalleryRemote</command>
+   assuming you are in the same directory as the <filename>GalleryRemote.jar</filename> file.
   </para>
  </sect2>
  
- <sect2 id="gallery-remote.preferences">
+ <sect2 id="gallery-remote.using.preferences">
   <title>Preferences</title>
-   <para>
+
+  <para>
    Even though there is now a Preferences dialog, the preference files can still be edited. You should not 
-   modify the defaults.properties file, but you should read it to understand what each preference does. 
-   Then, you can edit the GalleryRemote.properties (it is created the first time GR is run) and add or replace the preferences you want to change.
+   modify the <filename>defaults.properties</filename> file, but you should read it to understand
+   what each preference does.  Then, you can edit the <filename>GalleryRemote.properties</filename>
+   (it is created the first time GR is run) and add or replace the preferences you want to change.
 
    The preferences files used to be stored in the same directory as the GalleryRemote executable, 
    and has been moved (and renamed) to the current user's home directory.
     
-   On recent versions of Windows, this is the Documents and Settings/username directory in the boot partition. 
-   When you upgrade from versions older than 1.0b6, you will lose your current preferences unless you copy the previously used remote.properties to 
-   home directory/.GalleryRemote/GalleryRemote.properties.
-   </para>
+   On recent versions of Windows, this is the <filename>Documents and Settings/username</filename> directory in
+   the boot partition. 
+   When you upgrade from versions older than 1.0b6, you will lose your current preferences unless you copy
+   the previously used <filename>remote.properties</filename> to <filename>~/.GalleryRemote/GalleryRemote.properties
+   </filename> (~ means your home directory).
+  </para>
  </sect2>             
  
- <sect2 id="gallery-remote.logging">
+ <sect2 id="gallery-remote.using.logging">
   <title>Logging</title>
-   <para>
-   If you encounter a problem, the logging system may be some help, and we will definitely request it if you ask for support.
-   By default, GR writes most log information to the file log.txt in the directory where you installed GR. 
-   If you want to see more detailed information there, you can add the following lines to your GalleryRemote.properties file:
 
-  logLevel=3
-  toSysOut=true
+  <para>
+   If you encounter a problem, the logging system may be some help, and we will definitely request it
+   if you ask for support.  By default, GR writes most log information to the file <filename>log.txt
+   </filename> in the directory where you installed GR. If you want to see more detailed information
+   there, you can add the following lines to your <filename>GalleryRemote.properties</filename> file:
+   <screen>
+    logLevel=3
+    toSysOut=true
+   </screen>
 
-  If you also change your InstallAnywhere launcher file Gallery Remote.lax to set:
+   If you also change your InstallAnywhere launcher file Gallery Remote.lax to set:
+   <screen>
+    lax.stdout.redirect=console
+   </screen>
 
-  lax.stdout.redirect=console
-
-  you will see the log as it unfolds in the console...
+   You will see the log as it unfolds in the console...
    <note>
     <para>
-    Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed in clear text in several places.
+     Caution: Be careful before posting your log to forums or sending it to anyone: your password is printed
+     in clear text in several places.
     </para>
    </note>
   
   </para>
  </sect2>
  
- <sect2 id="gallery-remote.saveload">
+ <sect2 id="gallery-remote.using.saveload">
   <title>Saving/loading</title>
-   <para>
-   In order to attempt to guarantee that you will not lose your hard work if the upload doesn't work and Gallery Remote doesn't recover gracefully, it will save the project before attempting to upload into the same folder your Gallery Remote options file resides. If something does happen, you can load the project again, and even modify it (it's XML).
-You can also save and open a project at any time.
-Project files use the extension .grg (for Gallery Remote gallery); this extension is not automatically mapped to Gallery Remote (you can't double click the project files and expect something useful to happen).
+
+  <para>
+   In order to attempt to guarantee that you will not lose your hard work if the upload doesn't work
+   and Gallery Remote doesn't recover gracefully, it will save the project before attempting to
+   upload into the same folder your Gallery Remote options file resides. If something does happen,
+   you can load the project again, and even modify it (it's XML). You can also save and open a project
+   at any time.  Project files use the extension .grg (for Gallery Remote gallery); this extension is
+   not automatically mapped to Gallery Remote (you can't double click the project files and expect
+   something useful to happen).
   </para>
  </sect2>
  
- <sect2 id="gallery-remote.https">
+ <sect2 id="gallery-remote.using.https">
   <title>Using HTTPS</title>
-   <para>
-   You can use https:// URLs with Gallery Remote to connect to secured web sites. This functionality is only available on Java 1.4 and later.
-   If the site you are attempting to connect to uses a server certificate that is not certified by a trusted certificate authority, Gallery Remote will be unable to connect. If that happens, you will need to add the site's certificate to the Java registry of trusted certificates. The process for doing this is detailed here.
+
+  <para>
+   You can use https:// URLs with Gallery Remote to connect to secured web sites. This functionality
+   is only available on Java 1.4 and later.  If the site you are attempting to connect to uses a
+   server certificate that is not certified by a trusted certificate authority, Gallery Remote will
+   be unable to connect. If that happens, you will need to add the site's certificate to the Java
+   registry of trusted certificates. The process for doing this is detailed here.
   </para>
  </sect2>
+ 
 </sect1>
