@@ -571,6 +571,26 @@ class GalleryTheme {
     function column($params, $content) { assert(false); }
     function columnheader($params, $content) { assert(false); }
     function style($params) { assert(false); }
+
+    /*
+     * Old theme methods -- remove these when all template files have been
+     * migrated.
+     */
+    function smallestFontSize($params, $content) { return $content; }
+    function smallerFontSize($params, $content) { return $content; }
+    function smallFontSize($params, $content) { return $content; }
+    function bigFontSize($params, $content) { return $content; }
+    function biggerFontSize($params, $content) { return $content; }
+    function biggestFontSize($params, $content) { return $content; }
+    function successFontColor($params, $content) { return $content; }
+    function warningFontColor($params, $content) { return $content; }
+    function errorFontColor($params, $content) { return $content; }
+    function highlight1($params, $content) { return $content; }
+    function highlight2($params, $content) { return $content; }
+    function thinFrame($params, $content) { return $content; }
+    function lightFrame($params, $content) { return $content; }
+    function heavyFrame($params, $content) { return $content; }
+    function threeDFrame($params, $content) { return $content; }
 }
 
 ?>
