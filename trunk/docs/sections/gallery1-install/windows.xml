@@ -1,9 +1,189 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <sect1 id="gallery1-install.windows">
-  <title>Installing on a Windows Server</title>
-
-  <para>
-    Instructions for installing Gallery on a Windows server will go here.
-  </para>
+ <title>Installing on a Windows Server</title>
+ 
+ <para>
+  <note>
+   <para>
+    These instructions are for a <emphasis>new installation</emphasis> on a
+    Windows 2000/XP using Apache 1.3.x.  Make sure that the
+    <link linkend="gallery1-install.requirements">requirements</link> are filled,
+    and you should be ready to go.
+   </para>
+  </note>
+ </para>
+ <para>
+  These are the steps to installing Gallery on a Windows Server
+  <orderedlist>
+   <listitem>
+    <para>
+     Unpack your downloaded Gallery files and place them under your webroot.
+    </para>
+    <para>
+     (Standard installation directory is "C:\Program Files\Apache Group\Apache\
+     htdocs").  This may vary depending on the location of your Apache
+     installation.  Don't worry if the file extension unknown to you,
+     since WinZip and WinRAR both support .tar.gz archives.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Create a directory on your webspace called <filename>albums</filename>.
+    </para>
+    <para>
+     Gallery will use this directory to store the albums you create and the
+     images you upload to those albums.  This directory can reside inside the
+     Gallery directory or outside the Gallery directory - your choice. 
+     The only requirement is that the directory is inside your webroot.
+     <emphasis>Make note of where you create this directory.</emphasis>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Install NetPBM or ImageMagick
+    </para>
+    <para>
+     Gallery requires an image manipulation program (as mentioned in the
+     Installation Requirements).  You may use NetPBM or ImageMagick, we support
+     both.  NetPBM is easy to install. You can grab the files from the Gallery
+     Download Page.  <emphasis>Make sure you get the binaries for Windows</emphasis>
+     Place them somewhere on your machine, preferably in a path without spaces. 
+     <filename>C:\apps\netpbm</filename> or something similar is a good location.
+     If you want to use Imagemagick, download it from
+     <ulink url="http://www.imagemagick.org/www/archives.html">
+     http://www.imagemagick.org/www/archives.html</ulink> and follow the
+     installation guide on their site.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Display EXIF data with Jhead (Optional)
+    </para>
+    <para>
+     If you want to display the EXIF information that many digital cameras
+     store in JPEG images, you'll need to  install a small program called Jhead.
+     Download the executable and place it somewhere on your machine. 
+     You will have to fill in the path to the Jhead file when you run the
+     configuration wizard, so please take note of the directory you installed it
+     too.  An example would be <filename>C:\apps\jhead\jhead.exe</filename>.
+     You can download Jhead and find out more information here:
+     <ulink url="http://www.sentex.net/~mwandel/jhead/">
+     http://www.sentex.net/~mwandel/jhead/</ulink>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     PHP.ini Changes
+    </para>
+    <para>
+     While you are at it, check the line in <filename>php.ini</filename>
+     (usually stored in <filename>c:\winnt\php.ini</filename>) that defines
+     <literal>session.save_path</literal> The default install of PHP refers to
+     <filename>/tmp</filename>, a path not valid in Windows. 
+     If that points  to <filename>/tmp</filename>, you will have trouble when
+     uploading pictures later on. Change that line to a valid directory, such as
+     <filename>C:\winnt\temp</filename>.  <emphasis>Make sure that this
+     directory actually exists.</emphasis>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Run the configuration wizard
+    </para>
+    <para>
+     To put Gallery into configuration mode, which is need to configure it,
+     run <filename>configure.bat</filename> from the command line.  The easiest
+     way to do this is to open up <literal>Windows Explorer</literal>, find
+     the directory Gallery is located in (see the above sections), and double
+     click on <filename>configure.bat</filename>.
+    </para>
+    <para>
+     Once you have done that, open up your favorite browser and visit 
+     <filename>http://www.example.com/gallery/setup/</filename>
+     in your browser window. You will see a page that starts with this:
+    </para>
+    <para>
+     Gallery Setup: Step 1
+    </para>
+    <para>
+     This is the Gallery system check page. This page will validate your
+     installation to make sure that you have all the necessary components
+     and permissions on this system and that everything is configured
+     reasonably. 
+    </para>
+    <para>
+     Having problems? Try the Gallery Diagnostics Page and the Gallery Help
+     Page.  Use the Diagnostics Page to help find out more about the PHP
+     installation on your webserver, if you have NetPBM or ImageMagick located
+     and configured correctly and to check your PHP session configuration. 
+    </para>
+    <para>
+     The other link takes you to the Gallery Help Page where you can find more
+     detailed answers for any problems you might incur during installation.
+     This first part will run through a series of automatic checks to see if you
+     have a current version of PHP running, whether or not Safe Mode is off
+     (you want it OFF), whether it can read your .htaccess file, if magic quotes
+     are on or off, if mod_rewrite is installed, whether it can find NetPBM or
+     ImageMagick binaries and to see if you have Jhead installed. There is also
+     some information there about NetPBM and ImageMagick and links to more
+     information. 
+    </para>
+    <para>
+     For all of the above you will either see a green text message that says:
+     "SUCCESS", with a short list of what was found, or a yellow "WARNING!"
+     message with a brief description of the problem.
+    </para>
+    <note>
+     <para>
+      If the config wizard complains about missing mod_rewrite support, there is
+      a simple solution for that. Mod_Rewrite is not enabled by default in a
+      Windows/Apache environment.  To correct this, follow these steps:
+      Edit <filename>httpd.conf</filename> (Start Menu-&gt;Programs-&gt;Apache HTTP
+      Server-&gt;Configure Apache Server-&gt;Edit the Apache httpd.conf Configuration
+      File). This will start up Notepad. Press CTRL-F to bring out the search
+      box, and type 'mod_rewrite' in the dialog box. You will find a line that
+      says <literal>#LoadModule rewrite_module modules/mod_rewrite.so</literal>.
+      Remove the # from that line, and press 'Find Next'.  The next entry that
+      it will find reads: <literal>#AddModule mod_rewrite.c</literal>. Remove the
+      '#' from that line too.
+     </para>
+     <para>
+      Save the file, and restart Apache (Start Menu-&gt;Programs-&gt;Apache HTTP
+      Server-&gt;Control Apache Server-&gt;Restart).
+     </para>
+    </note>
+    <para>
+     If the errors are minor (unable to locate paths automatically), you will
+     see this message: "Your installation has warnings, but life is short so
+     let's GO!" and a button to click to continue with the configuration of
+     Gallery. 
+    </para>
+    <para>
+     Now you're on to the fun stuff! Step Two of the Gallery setup is where you
+     enter the name you'd like to have appear for your Gallery, your admin
+     password and the paths Gallery needs to know for where your albums will
+     be stored. This is the path to the directory you created in the first few
+     steps.  You will also need to provide the paths to NetPBM or ImageMagick
+     and Jhead (if you chose to install it). The rest of the configuration 
+     should be pretty self-explanatory.
+    </para>
+    <para>
+     Finally you need to run the <filename>secure.bat</filename> file, located
+     in your gallery directory.  This will tighten up security, and disallow
+     the usage of the configuration wizard. If you want to redo any configuration
+     tasks, run <filename>configure.bat</filename> from the same directory, do your 
+     changes and run <filename>secure.bat</filename> again.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Point your browser to <filename>http://www.example.com/gallery/</filename>
+     and you should see your freshly installed Gallery.  Press the 'login' link, and
+     log in with the username <literal>admin</literal> and the password you provided
+     in step 2 of the configuration wizard.
+    </para> 
+   </listitem>
+  </orderedlist>
+ </para>
 </sect1>
