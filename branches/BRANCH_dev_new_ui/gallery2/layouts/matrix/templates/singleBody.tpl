@@ -61,39 +61,49 @@
 	  {/gallery->item}
 
 	  {gallery->item}
-	    {gallery->text text="Current size: %d x %d" arg1=$image.width arg2=$image.height}
+	    {gallery->text text="Current size: "}
+	    {gallery->select onChange="if (this.value) javascript:location.href=this.value"}
+	      {section name=imageView loop=$layout.imageViews}
+		{if $smarty.section.imageView.index != $layout.imageViewsIndex}
+		  <option value="{gallery->url view="core:ShowItem" itemId=$layout.item.id imageViewsIndex=$smarty.section.imageView.index}">
+		{else}
+		  <option value="{gallery->url view="core:ShowItem" itemId=$layout.item.id imageViewsIndex=$smarty.section.imageView.index}" SELECTED>		  
+		{/if}
+		{gallery->text text="%dx%d" arg1=$layout.imageViews[imageView].width arg2=$layout.imageViews[imageView].height}
+	      {/section}
+	    {/gallery->select}
 	  {/gallery->item}
 
 	  {if !empty($layout.sourceImage)}
 	    {gallery->item}
-	      {gallery->text text="Full size: %d x %d" arg1=$layout.sourceImage.width arg2=$layout.sourceImage.height}
+	      {gallery->text text="Original size: "}
+	      {gallery->link url_view="core:ShowItem" url_itemId=$layout.item.id url_imageViewsIndex=$layout.sourceImageViewIndex}
+		{gallery->text text="%dx%d" arg1=$layout.sourceImage.width arg2=$layout.sourceImage.height}
+	      {/gallery->link}
 	    {/gallery->item}
 	  {/if}
 	{/gallery->infobox}
 
-	{gallery->linksbox}
-	  {gallery->item}
-	    {gallery->link}
-	      {gallery->text text="back"}
-	    {/gallery->link}
-	  {/gallery->item}
-	  {gallery->item}
-	    {gallery->link}
-	      {gallery->text text="next"}
-	    {/gallery->link}
-	  {/gallery->item}
-	{/gallery->linksbox}
+	{include file="layouts/matrix/templates/itemNavigator.tpl"}
+
       {/gallery->component}
     {/gallery->bannerbox}
 
     {gallery->simplebox}
       {gallery->body}
-	{if ($image.inline)}
-	  {gallery->thumbnail item=$layout.item thumbnail=$image}
+	{* image *}
+	{if ($layout.can.viewInline.$currentIndex)}
+	  {gallery->image item=$layout.item image=$image}
 	{else}
 	  {gallery->link url_view="core:DownloadItem" url_itemId=$image.id}
 	    {gallery->text text="Download this item"} 
 	  {/gallery->link}
+	{/if}
+
+	{* description *}
+	{if !empty($layout.item.description)}
+	  <br/>
+	  {$layout.item.description}
 	{/if}
       {/gallery->body}
     {/gallery->simplebox}
@@ -114,9 +124,8 @@
 	  {gallery->body}
 	    {foreach from=$layout.moduleItemLinks item=itemLinks key=loopId}
 	      {if ($loopId == $layout.item.id)}
-		{gallery->text text="Action: "}
 		{gallery->select onChange="if (this.value) javascript:location.href=this.value"}
-		  <option value=""> {gallery->text text="<< Action >>"}
+		  <option value=""> {gallery->text text="&laquo; edit item &raquo;"}
 		  {foreach from=$itemLinks item=module}
 		    {foreach from=$module item=link}
 		      <option value="{$link.url}"> {$link.text}
@@ -128,18 +137,8 @@
 	  {/gallery->body}
 	{/gallery->simplebox}
 
-	{gallery->linksbox}
-	  {gallery->item}
-	    {gallery->link}
-	      {gallery->text text="back"}
-	    {/gallery->link}
-	  {/gallery->item}
-	  {gallery->item}
-	    {gallery->link}
-	      {gallery->text text="next"}
-	    {/gallery->link}
-	  {/gallery->item}
-	{/gallery->linksbox}
+	{include file="layouts/matrix/templates/itemNavigator.tpl"}
+
       {/gallery->component}
     {/gallery->bannerbox}
 
@@ -222,36 +221,6 @@
     </tr>
     <tr>
     <td align="center">
-    {strip}
-      {section name=imageView loop=$imageViews}
-	{if $smarty.section.imageView.index != $imageViewsIndex}
-	  <a href="{gallery->url view=core:ShowItem itemId=$layout.item.id imageViewsIndex=$smarty.section.imageView.index}">
-	{else}
-	  <b>
-	{/if}
-
-	{if $imageViews[imageView].inline}
-	  [
-	  {if empty($imageViews[imageView].width)}
-	    {gallery->text text="??? x ???"}
-	  {else}
-	    {gallery->text text="%d x %d" arg1=$imageViews[imageView].width arg2=$imageViews[imageView].height}
-	  {/if}
-	  ]
-	{/if}
-
-	{if $smarty.section.imageView.index == $imageViewsIndex}
-	  </b>
-	{else}
-	  </a>
-	{/if}
-
-	{if empty($smarty.section.imageView.last)}
-	  &nbsp;
-	{/if}
-
-{/section}
-{/strip}
 </td>
 </tr>
 </table>

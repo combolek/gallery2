@@ -43,7 +43,6 @@ class EditCommentController extends GalleryController {
 
 	list ($itemId, $commentId) =
 	    GalleryUtilities::getRequestVariables('itemId', 'commentId');
-	$return = GalleryUtilities::getFormVariables('return.');
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryUserHelper::assertHasItemPermission($itemId, 'comment.edit');
@@ -114,15 +113,17 @@ class EditCommentController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    
-		/* Redirect back to the return path */
-		$results['redirect'] = $return;
+		/* Redirect back to the item */
+		$results['redirect'] = array('view' => 'core:ShowItem',
+					     'itemId' => $itemId);
 	    } else {
 		/* Stay on the same page */
 		$results['view'] = 'comment:EditComment';
 	    }
 	} else {
-	    /* Redirect back to the return path */
-	    $results['redirect'] = $return;
+	    /* Redirect back to the item */
+	    $results['redirect'] = array('view' => 'core:ShowItem',
+					 'itemId' => $itemId);
 	}
 
 	return array(GalleryStatus::success(), $results);
@@ -139,64 +140,35 @@ class EditCommentController extends GalleryController {
 class EditCommentView extends GalleryView {
 
     /**
-     * @see GalleryView::renderHead()
+     * @see GalleryView::loadTemplate
      */
-    function renderHead() {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	/* Render the HTML head */
-	$template = $this->_getTemplate();
-	$template->setVariable('item', $item->getMemberData());
-	list($ret, $html) = $template->render('EditCommentHead.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-	return array(GalleryStatus::success(), $html);
-    }
-    
-    /**
-     * @see GalleryView::renderBody()
-     */
-    function renderBody($form) {
-	global $gallery;
-
-	/* Load our item */
-	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryUserHelper::assertHasItemPermission($item->getId(), 'comment.edit');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	/* Get its thumbnail */
-	list ($ret, $thumbnailTable) = 
-		GalleryDerivativeHelper::fetchThumbnailsByItemIds(array($item->getId()));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Load the specific comment */
 	$commentId = GalleryUtilities::getRequestVariables('commentId');
 	list ($ret, $comment) = $gallery->loadEntitiesById($commentId);
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Associate the commenter's info */
 	$commenterId = $comment->getCommenterId();
 	list ($ret, $commenter) = $gallery->loadEntitiesById($commenterId);
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if ($form['formName'] != 'EditComment') {
@@ -204,29 +176,15 @@ class EditCommentView extends GalleryView {
 	    $form['host'] = $comment->getHost();
 	    $form['date'] = $comment->getDate();
 	    $form['comment'] = $comment->getComment();
+	    $form['formName'] = 'EditComment';
 	}
-	
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	
-	if (!empty($thumbnailTable)) {
-	    $thumbnail = $thumbnailTable[$item->getId()];
-	    $template->setVariable('thumbnail', $thumbnail->getMemberData());
-	}
-	
-	$return = GalleryUtilities::getFormVariables('return.');
 
-	$template->setVariable('return', $return);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('comment', $comment->getMemberData());
-	$template->setVariable('form', $form);
+	$EditComment['comment'] = $comment->getMemberData();
+
+	$template->setVariable('EditComment', $EditComment);
 	$template->setVariable('controller', 'comment:EditComment');
-	list($ret, $html) = $template->render('EditComment.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 	
-	return array(GalleryStatus::success(), $html);
+	return array(GalleryStatus::success(), '', 'modules/comment/templates/EditComment.tpl');
     }
 }
 ?>

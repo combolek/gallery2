@@ -25,7 +25,7 @@
 	    {if empty($ItemAdmin.thumbnail)}
 	      {gallery->text text="No Thumbnail"}
 	    {else}
-	      {gallery->thumbnail item=$ItemAdmin.item thumbnail=$ItemAdmin.thumbnail}
+	      {gallery->image item=$ItemAdmin.item image=$ItemAdmin.thumbnail}
 	    {/if}
 	    {$ItemAdmin.item.title}
 	  {/gallery->body}

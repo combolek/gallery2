@@ -15,17 +15,11 @@
 	{gallery->detailedbox}
 	  {gallery->title}
 	    {$comment.commenter.fullName|default:$comment.commenter.userName}
-	    {if !empty($comment.host) && $CommentItemDetails.can.viewIp}
-	      {gallery->textmodifier}
-		{$comment.host}
-	      {/gallery->textmodifier}
-	    {/if}
-
 	    {if $CommentItemDetails.can.edit || $CommentItemDetails.can.delete}
 	      {gallery->linksbox}
 		{if $CommentItemDetails.can.edit}
 		  {gallery->item}
-		    {gallery->link url_view="comment:EditComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
+		    {gallery->link url_view="core:ItemAdmin" url_subView="comment:EditComment" url_itemId=$CommentItemDetails.item.id url_commentId=$comment.id}
 		      {gallery->text text="edit"}
 		    {/gallery->link}
 		  {/gallery->item}
@@ -44,6 +38,11 @@
 
 	  {gallery->description}
 	    {gallery->date timestamp=$comment.date format="%e-%b-%Y %H:%M"}
+	    {if !empty($comment.host) && $CommentItemDetails.can.viewIp}
+	      {gallery->textmodifier}
+		{$comment.host}
+	      {/gallery->textmodifier}
+	    {/if}
 	  {/gallery->description}
 
 	  {gallery->body}

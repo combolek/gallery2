@@ -88,7 +88,7 @@ class SearchModule extends GalleryModule {
 
 	$SearchSystemContent['view'] = 'search:SearchScan';
 	$template->setVariable('SearchSystemContent', $SearchSystemContent);
-	return array(GalleryStatus::success(), 'modules/search/templates/SystemContent.tpl');
+	return array(GalleryStatus::success(), 'modules/search/templates/SearchSystemContent.tpl');
     }
 
     /**
