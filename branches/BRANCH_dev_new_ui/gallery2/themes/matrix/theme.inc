@@ -53,7 +53,37 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function thumbnail($context) {
-        trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
+	global $gallery;
+	$urlGenerator = $gallery->getUrlGenerator();
+
+	$params = $context['params'];
+	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
+						'itemId' => $params['thumbnail']['id']));
+
+	if (in_array('sidebar', $context['stack'])) {
+	    list ($width, $height) =
+		GalleryUtilities::shrinkDimensionsToFit(110,
+							$params['thumbnail']['width'],
+							$params['thumbnail']['height']);
+	} else {
+	    list ($width, $height) = array($params['thumbnail']['width'],
+					   $params['thumbnail']['height']);
+	}
+
+	$title = $params['item']['title'];
+	if (empty($title)) {
+	    $title = $params['item']['pathComponent'];
+	}
+
+	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">' .
+			  '<p class="thumbnail_title"> %s </p>',
+			  $src,
+			  $width,
+			  $height,
+			  $title,
+			  $params['item']['description'],
+			  $title);
+	return $result;
     }
 
     /**
@@ -387,12 +417,22 @@ class MatrixTheme extends GalleryTheme {
      * widget2 theme method
      * @param array the template context
      * @param array optional ("params" => array, "content" => title content)
+     * @param array optional ("params" => array, "content" => description content)
      * @param array mandatory ("params" => array, "content" => body content)
      * @return string HTML content
      */
-    function widget2($context, $title, $body) {
-	return '<tr> <td class="widget2_title"> ' . $title['content'] . ' </td> </tr> ' .
-	    '<tr> <td class="widget2_body"> ' . $body['content'] . ' </td> </tr>';
+    function widget2($context, $title, $description, $body) {
+	$buf = '';
+	if (!empty($title)) {
+	    $buf .= '<tr> <td class="widget2_title"> ' . $title['content'] . ' </td> </tr> ';
+	}
+	
+	if (!empty($description)) {
+	    $buf .= '<tr> <td class="widget2_description"> ' . $description['content'] . ' </td> </tr> ';
+	}
+
+	$buf .= '<tr> <td class="widget2_body"> ' . $body['content'] . ' </td> </tr>';
+	return $buf;
     }
 
     /**
