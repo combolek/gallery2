@@ -72,13 +72,21 @@ body {
 /*   with respect to sections.
 
 
-/* GLOBALS *********************** */
+/* Defaults / GLOBALS *********************** */
 
 .gbDataEntry { }
 
 /*	spacers neeed for expanding layouts	*/
-.guSpacer, .gpSpacer, .gsSpacer, .gbSpacer, .giSpacer { }
+#gallery .guSpacer, 
+#gallery .gpSpacer, 
+#gallery .gsSpacer, 
+#gallery .gbSpacer, 
+#gallery .giSpacer { }
 
+#gallery .gbTopFlag  {
+	background-color: #eee;
+	border: 1 solid #FFFFFF;
+}
 
 /* Tabs ******** */
 .gbTabBar {
@@ -175,12 +183,6 @@ body {
 
 /* #gsAlbumContents  ************************** */
 
-#gsAlbumContents .gbTopFlag,
-#gsAdminContents .gbTopFlag  {
-	background-color: #eee;
-	border: 1 solid #FFFFFF;
-}
-
 #gsAlbumContents .gbTitleBanner {
 	border: 0;
 }
@@ -240,7 +242,8 @@ body {
 
 /* ********* #gsAdminContents *********** */
 
-#gsAdminContents .gbAdmin {
+#gsAdminContents .gbAdmin, 
+#gsAdminContents .gbButtons {
 	border-bottom: 1px solid #bbb;
 	background-color: #fff;
 }
@@ -285,36 +288,38 @@ body {
 
 /* Global / Defaults ************* */
 
-.giTitle { 
+#gallery .giTitle { 
 	font-weight: bold;
 	font-size: 11px;
  }
 
-.giDescription {
+#gallery .giDescription {
 	font-size: 0.85em;
 	width: 100%;
 }
-.giDescription span { display: block; }
+#gallery .giDescription span { display: block; }
 
-.giInfo {
+#gallery .giInfo {
 	display: block;
 	font-size: 80%;
 	color: #888;
 	padding: 8px 0;
 }
-.giInfo span { display: block; }
+#gallery .giInfo span { display: block; }
 
 span.giDate { }
 span.giOwner { }
 span.giCount { }
 
 /*  thumbnails */
-.giThumbImage, .giThumbMovie, .giThumbOther {
+#gallery .giThumbImage, 
+#gallery .giThumbMovie, 
+#gallery .giThumbOther {
 	float: left;
 	margin: 0 16px 8px 0;
 }
 
-.giActionSelect {
+#gallery .giActionSelect {
 	display: block;
 	margin-top: 4px;
 }
@@ -326,38 +331,39 @@ span.giCount { }
     method. Defer until completion of initial theme.
 */
 
-.giPageNumber {
+#gallery .giPageNumber {
 	font-size: 80%;
 	padding: 8px;
 }
 
-.giSelected {
+#gallery .giSelected {
 	font-weight: bold;
 	list-style-type: disc;
 }
 
 /*  Form elements */
 
-.giFormButton, .giFormInput {
+#gallery .giFormButton, 
+#gallery .giFormInput {
 	margin-top: 4px;
 	margin-bottom: 4px;
 }
 
-.giFormCheckbox {
+#gallery .giFormCheckbox {
 	margin: 4px;
 	vertical-align: middle;
 }
 
-.gbForm,
-.giFormTextarea,
-.giFormRadio,
-.giFormSelect,
-.giFormFile,
-.giFormText { }
+#gallery .gbForm,
+#gallery .giFormTextarea,
+#gallery .giFormRadio,
+#gallery .giFormSelect,
+#gallery .giFormFile,
+#gallery .giFormText { }
 
 /* Status class local error */
 
-.giError {
+#gallery .giError {
 	color: #AA4444;
 	font-weight: bold;
 	clear: both;
@@ -366,33 +372,33 @@ span.giCount { }
 
 /* .gbTopFlag ************ */
 
-.gbTopFlag .giTitle {
+#gallery .gbTopFlag .giTitle {
 	font-weight: 800;
 	font-size: 12px; 
 }
 
 /* .gbComment ************* */
 
-.gbComment .giComment { padding-bottom: 8px; }
+#gallery .gbComment .giComment { padding-bottom: 8px; }
 
 #gsComments .gbComment div.giHorizontalLinks {
 	padding: 0;
 }
 
-.gbComment span.giDate { }
-.gbComment span.giOwner { }
-.gbComment span.giInternetAddress { }
+#gallery .gbComment span.giDate { }
+#gallery .gbComment span.giOwner { }
+#gallery .gbComment span.giInternetAddress { }
 
 /* .gbBottomFlag ********* */
 
-.gbBottomFlag .giHorizontalLinks {
+#gallery .gbBottomFlag .giHorizontalLinks {
 	font-size: 80%;
 	padding: 8px;
 }
 
 /* .gbDataEntry ************ */
 
-.gbDataEntry .giFormButton {
+#gallery .gbDataEntry .giFormButton {
 	font-size: 10px;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -404,12 +410,12 @@ span.giCount { }
 
 * even and odd rows have different backgrounds */
 /* I count from 0, so the first row is even! */
-.gbDataTable .gbEven {	background-color: #CDCDCD; }
-.gbDataTable .gbOdd { background-color: #DCDCDC; }
+#gallery .gbDataTable .gbEven {	background-color: #CDCDCD; }
+#gallery .gbDataTable .gbOdd { background-color: #DCDCDC; }
 
 /* cell padding */
-.gbDataTable td { padding: 4px; }
-.gbDataTable th { padding: 4px; }
+#gallery .gbDataTable td { padding: 4px; }
+#gallery .gbDataTable th { padding: 4px; }
 
 
 

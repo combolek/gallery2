@@ -44,6 +44,7 @@
 
 #gsComments { 
 	padding: 8px;
+	display: block;
 }
 
 /* Status message display section */
@@ -61,6 +62,13 @@
 	width: 72%;
 	min-width: 596px;
 }
+
+#gsImageContents {
+	float: left;
+	width: 80%;
+	min-width: 596px;
+}
+
 
 #gsSearchContents { }
 
@@ -86,6 +94,8 @@
 
 	clear: all;
 }
+
+
 
 /* ***************** BOXES ******************************* */
 /*   Category 3: box definitions                           */
@@ -129,7 +139,10 @@
 
 /* ********** default   *************** */
 
-
+#gallery .gbTopFlag  {
+	display: block;
+	padding: 6px;
+}
 
 /* ********** #gsHeader *************** */
 
@@ -140,13 +153,18 @@
 
 #gsHeader .gbBreadCrumb { padding: 8px; }
 
+/* ********** #gsImageContents ******** */
+
+#gsAlbumContents .gbTitleBanner {
+	float: left;
+	width: 256px;
+	padding: 8px 0;
+}
+
+
+
 /* ********** #gsAlbumContents ******** */
 
-#gsAlbumContents .gbTopFlag,
-#gsAdminContents .gbTopFlag  {
-	display: block;
-	padding: 6px;
-}
 
 #gsAlbumContents .gbTitleBanner {
 	float: left;
@@ -187,7 +205,17 @@
 	float: right;
 }
 
-/* ************* #gsCommentBox ************ */
+/* ************* #gsAlbumImages ************ */
+
+
+
+
+/* ************* #gsItemImages ************ */
+
+
+
+
+/* ************* #gsComment *************** */
 
 #gsComments .gbComment { 
 			padding: 8px 0 16px 0;
@@ -227,7 +255,8 @@
 
 /* ************* #gsAdminContents *************** */
 
-#gsAdminContents .gbAdmin {
+#gsAdminContents .gbAdmin,
+#gsAdminContents .gbButtons {
 		clear: both;
 		float: left;
 		width: 97%;
