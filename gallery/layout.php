@@ -31,7 +31,7 @@ function includeLayout($name, $GLO) {
 	// define these globals to make them available to layouts
 	global $gallery;
 	global $GLO;
-    include (getLayoutFile("$name.inc"));
+    include (getLayoutFile("$name.inc.php"));
     
 	return 1;
 }   
