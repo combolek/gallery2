@@ -116,6 +116,9 @@ class GalleryAlbumItem_core extends GalleryItem {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
+	/* Copy some of the parents properties */
+	$this->setLayout($parent->getLayout());
+
 	$ret = $this->_createDir($parentPath . $albumName);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -177,6 +180,13 @@ class GalleryAlbumItem_core extends GalleryItem {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+
+	/* Use the default layout */
+	list($ret, $layout) = $gallery->getModuleParameter('core', 'default.layout');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	$this->setLayout($layout);
 
 	return GalleryStatus::success();
     }

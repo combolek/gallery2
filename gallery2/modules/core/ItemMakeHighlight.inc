@@ -91,7 +91,7 @@ class ItemMakeHighlightView extends GalleryView {
     /**
      * 
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -108,26 +108,17 @@ class ItemMakeHighlightView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	if ($form['formName'] == 'ItemMakeHighlight') {
-
-	    /* Complain if we have any invalid data */
-
-	} else {
-	    /* First time around, load the form with item data */
+	if ($form['formName'] != 'ItemMakeHighlight') {
 	    $form['formName'] = 'ItemMakeHighlight';
 	}
 
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('controller', 'core:ItemMakeHighlight');
-	list($ret, $html) = $template->render('ItemMakeHighlight.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$ItemMakeHighlight = array();
 
-	return array(GalleryStatus::success(), $html);
+	/* Render the HTML body */
+	$template->setVariable('ItemMakeHighlight', $ItemMakeHighlight);
+	$template->setVariable('controller', 'core:ItemMakeHighlight');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemMakeHighlight.tpl');
     }
 }
 ?>

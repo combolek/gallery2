@@ -297,7 +297,6 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	
 	$this->setOrderBy($orderBy);
 	$this->setOrderDirection($orderDirection);
 

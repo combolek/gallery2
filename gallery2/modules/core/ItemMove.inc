@@ -200,15 +200,13 @@ class ItemMoveView extends GalleryView {
     /**
      * 
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	/* itemId is the album where we want to move items from */
 	list ($itemId, $selectedId) = GalleryUtilities::getRequestVariables('itemId', 'selectedId');
 
-        if ($form['formName'] == 'ItemMove') {
-	    /* No validation at the moment */
-        } else {
+        if ($form['formName'] != 'ItemMove') {
             /* First time around, load the form with item data */
             if ($selectedId) {
                 $form['selectedIds'][$selectedId] = true;
@@ -279,21 +277,16 @@ class ItemMoveView extends GalleryView {
 
 	$albumTree = $this->_createAlbumTree($albums);
 
-        /* Render the HTML body */
-        $template = $this->_getTemplate();
-	$template->setVariable('albumIds', $albumIds);
-        $template->setVariable('item', $item->getMemberData());
-        $template->setVariable('form', $form);
-        $template->setVariable('peers', $peers);
-        $template->setVariable('peerTypes', $peerTypes);
-        $template->setVariable('albumTree', $albumTree);
-        $template->setVariable('controller', 'core:ItemMove');
-        list($ret, $html) = $template->render('ItemMove.tpl');
-        if ($ret->isError()) {
-            return array($ret->wrap(__FILE__, __LINE__), $html);
-        }
+	$ItemMove = array();
 
-        return array(GalleryStatus::success(), $html);
+	$ItemMove['albumIds'] = $albumIds;
+        $ItemMove['peers'] = $peers;
+        $ItemMove['peerTypes'] = $peerTypes;
+        $ItemMove['albumTree'] = $albumTree;
+        $template->setVariable('ItemMove', $ItemMove);
+        $template->setVariable('controller', 'core:ItemMove');
+
+        return array(GalleryStatus::success(), '', 'modules/core/templates/ItemMove.tpl');
     }
 
     /**
