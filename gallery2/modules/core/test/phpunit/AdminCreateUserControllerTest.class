@@ -91,7 +91,7 @@ class AdminCreateUserControllerTest extends GalleryControllerTestCase {
 
 	$this->assertEquals(array('view' => 'core:SiteAdmin'), $results);
 	$this->assertEquals('core:AdminCreateUser', GalleryUtilities::getRequestVariables('subView'));
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.password.mismatch'),
+	$this->assert(GalleryUtilities::hasRequestVariable('form.error.password2.mismatch'),
 		      "missing password mismatch");
     }
 

@@ -141,7 +141,8 @@ class ItemCreateResizesControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemCreateResizes',
-						      'itemId' => $this->_item->getId())),
+						      'itemId' => $this->_item->getId()),
+				  'status' => array('settingsSaved' => 1)),
 			    $results);
 
 	/* Examine the thumbnail and make sure it lines up */
