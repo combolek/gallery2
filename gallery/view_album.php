@@ -140,7 +140,7 @@ if ($user->canAddToAlbum($album)) {
 if ($user->canWriteToAlbum($album)) {
         $adminCommands .= "<a href=".popup("shuffle_album.php?albumName=$albumName").">[Shuffle]</a>&nbsp;";
         $adminCommands .= "<a href=".popup("resize_photo.php?albumName=$albumName&index=all").">[Resize]</a>&nbsp;";
-        $adminCommands .= "<a href=".popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all").">[Rebuild Thumbs]</a>&nbsp;"; 
+        // $adminCommands .= "<a href=".popup("do_command.php?cmd=remake-thumbnail&albumName=$albumName&index=all").">[Rebuild Thumbs]</a>&nbsp;"; 
         $adminCommands .= "<a href=".popup("edit_appearance.php?albumName=$albumName").">[Properties]</a>&nbsp;";
 }
 
