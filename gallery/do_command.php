@@ -48,8 +48,8 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 		$album->save();
 		dismissAndReload();
 	}
-} else if (!strcmp($cmd, "leave-edit")) {
-	$edit = "";
+} else if (!strcmp($cmd, "logout")) {
+	$username = "";
 	header("Location: $return");	
 } else if (!strcmp($cmd, "hide")) {
 	$album->hidePhoto($index);
@@ -64,6 +64,7 @@ if (!strcmp($cmd, "remake-thumbnail")) {
 	$albumName = $albumDB->newAlbumName();
 	$album = new Album();
 	$album->fields["name"] = $albumName;
+	$album->setOwner($user);
 	$album->save();
 
         /* move the album to the top */ 
