@@ -49,6 +49,7 @@ if ($submit) {
 			$tmpUser->setUsername($uname);
 			$tmpUser->setFullname($fullname);
 			$tmpUser->setEmail($email);
+			$tmpUser->setCanCreateAlbums($canCreate);
 
 			// If a new password was entered, use it.  Otherwise leave
 			// it the same.
@@ -73,6 +74,9 @@ if (!$tmpUser) {
 $fullname = $tmpUser->getFullname();
 $email = $tmpUser->getEmail();
 
+$canCreateChoices = array(1 => "true", 0 => "false");
+$canCreate = $tmpUser->canCreateAlbums() ? 1 : 0;
+
 ?>
 <html>
 <head>
@@ -90,10 +94,12 @@ You can change any information about the user using this form.
 
 <form name=usermodify_form method=GET>
 <input type=hidden name=old_uname value=<?=$uname?>>
+
 <p>
 
 <? include("html/userData.inc"); ?>
 <p>
+
 
 <input type=submit name="submit" value="Save">
 <input type=submit name="submit" value="Cancel">
