@@ -569,12 +569,12 @@ class GalleryTheme {
     }
 
     /**
-     * thumbnail theme method
+     * image theme method
      * @param array the template context
      * @return string HTML content
      */
-    function thumbnail($context) {
-        trigger_error("Undefined theme function: thumbnail", E_USER_ERROR);
+    function image($context) {
+        trigger_error("Undefined theme function: image", E_USER_ERROR);
     }
 
     /**

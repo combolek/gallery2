@@ -71,6 +71,7 @@ table td {
 
 .bannerbox_component {  
   vertical-align: top;
+  text-align: right;
 }
 
 .widget1box { 
@@ -131,6 +132,10 @@ table td {
 .infobox_item {  
   color: #666;
   font-size: 63%;
+}
+
+.infobox_item select { 
+  font-size: 100%;
 }
 
 .detailedbox {
@@ -204,7 +209,7 @@ table td {
   text-align: left;
   vertical-align: middle;
   background-color: #fff;
-  font-size: 81%;
+  font-size: 69%;
   font-weight: bold;
 }
 
@@ -241,6 +246,7 @@ table td {
   background-color: #fff;
   border-collapse: collapse;
   border-spacing: 0px;
+  font-size: 69% important;
 }
 
 .sidebar_box_left {
@@ -249,7 +255,7 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  padding: 4px 4px 4px 4px;
   background-color: #fff;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -261,10 +267,11 @@ table td {
   width: auto;
   height: auto;
   margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 0px;
+  padding: 4px 4px 4px 4px;
   background-color: #fff;
   border-left: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  font-size: 69%;
 }
 
 .textmodifier { 
@@ -287,6 +294,7 @@ table td {
 }
 
 .simplebox_body { 
+  font-size: 69%;
 }
 
 .listingbox { 
@@ -387,15 +395,14 @@ table td {
   padding: 0px 0px 0px 4px;
 }
 
-.thumbnail {
+.thumbnail_image { 
   border: 3px solid #ddd;
+  margin: 5px;
 }
 
-.thumbnail_title { 
-  margin: 0px 0px 0px 0px;
-  padding: 6px 0px 6px 0px;
-  font-weight: bold;
-  font-size: 69%;
+.fullsize_image { 
+  border: 3px solid #ddd;
+  margin: 5px;
 }
 
 /* Form Widgets */
@@ -417,7 +424,7 @@ a:hover {
 }
 
 input {
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;  font-size: 81%;
 }
 
 select {

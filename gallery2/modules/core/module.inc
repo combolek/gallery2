@@ -654,7 +654,7 @@ class CoreModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::getItemAdminViews();
+     * @see GalleryModule::getUserAdminViews();
      */
     function getUserAdminViews($user) {
 	global $gallery;

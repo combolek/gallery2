@@ -232,12 +232,6 @@ class MatrixLayout extends GalleryLayout {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Get system links */
-	list ($ret, $moduleSystemLinks) = $this->_getModuleSystemLinks();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	/* Get system content */
 	list ($ret, $moduleSystemContentFiles) = $this->_loadModuleSystemContent($template);
 	if ($ret->isError()) {
@@ -246,7 +240,6 @@ class MatrixLayout extends GalleryLayout {
 
 	/* Tell Smarty about everything we've learned */
 	$layout['moduleItemLinks'] = $moduleItemLinks;
-	$layout['moduleSystemLinks'] = $moduleSystemLinks;
 	$layout['moduleSystemContentFiles'] = $moduleSystemContentFiles;
 	$layout['moduleItemDetailFiles'] = $moduleItemDetailFiles;
 	$layout['navigator'] = $navigator;
@@ -282,7 +275,7 @@ class MatrixLayout extends GalleryLayout {
 	 * get them into an acceptable format for the template engine.
 	 */
 	$imageViews = array();
-
+	$can = array();
 	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -312,11 +305,8 @@ class MatrixLayout extends GalleryLayout {
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
-		    $imageViews[] = array('inline' => true,
-					  'height' => $resize->getHeight(),
-					  'width' => $resize->getWidth(),
-					  'size' => $resize->getDerivativeSize(),
-					  'id' => $resize->getId());
+		    $imageViews[] = $resize->getMemberData();
+		    $can['viewInline'][] = 1;
 		}
 	    }
 	    if ($gallery->getDebug()) {
@@ -336,28 +326,18 @@ class MatrixLayout extends GalleryLayout {
 
 	    /* Show the preferred item, if it's there */
 	    if (empty($preferred)) {
-		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-		    $dataItem = array('size' => $item->getSize(),
-				      'id' => $item->getId());
-
-		    if ($item->canBeViewedInline()) {
-			$dataItem['inline'] = true;
-			$dataItem['height'] = $item->getHeight();
-			$dataItem['width'] = $item->getWidth();
-		    } else {
-			$dataItem['inline'] = false;
-		    }
-
-		    $sourceImage = $dataItem;
+		$sourceImage = $item->getMemberData();
+		if ($item->canBeViewedInline()) {
+		    $can['viewInline'][] = 1;
+		} else {
+		    $can['viewInline'][] = 0;
 		}
 	    } else {
-		$preferred = $preferred[$item->getId()];
-		$sourceImage = array('inline' => true,
-				     'height' => $preferred->getHeight(),
-				     'width' => $preferred->getWidth(),
-				     'size' => $preferred->getDerivativeSize(),
-				     'id' => $preferred->getId());
+		$sourceImage = $preferred[$item->getId()]->getMemberData();
+		$can['viewInline'][] = 1;
 	    }
+	    $imageViews[] = $sourceImage;
+	    $sourceImageViewIndex = sizeof($imageViews)-1;
 	}
 
 	/*
@@ -373,12 +353,8 @@ class MatrixLayout extends GalleryLayout {
 	    }
 
 	    if (!empty($thumbnails)) {
-		$thumbnail = $thumbnails[$item->getId()];
-		$imageViews[] = array('inline' => true,
-				      'height' => $thumbnail->getHeight(),
-				      'width' => $thumbnail->getWidth(),
-				      'size' => $thumbnail->getDerivativeSize(),
-				      'id' => $thumbnail->getId());
+		$imageViews[] = $thumbnails[$item->getId()]->getMemberData();
+		$can['viewInline'][] = 1;
 	    }
 	}
 
@@ -418,13 +394,13 @@ class MatrixLayout extends GalleryLayout {
 
 	$navigator = array();
 	if ($itemIndex > 0) {
-	    $navigator['firstItem'] = $peerIds[0];
-	    $navigator['previousItem'] = $peerIds[$itemIndex-1];
+	    $navigator['first'] = $peerIds[0];
+	    $navigator['back'] = $peerIds[$itemIndex-1];
 	}
 	
 	if ($itemIndex < $totalPeerCount-1) {
-	    $navigator['nextItem'] = $peerIds[$itemIndex+1];
-	    $navigator['lastItem'] = $peerIds[sizeof($peerIds)-1];
+	    $navigator['next'] = $peerIds[$itemIndex+1];
+	    $navigator['last'] = $peerIds[sizeof($peerIds)-1];
 	}
 
 	/* Load the parents */
@@ -445,12 +421,6 @@ class MatrixLayout extends GalleryLayout {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Get system links */
-	list ($ret, $moduleSystemLinks) = $this->_getModuleSystemLinks();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	/* Get system content */
 	list ($ret, $moduleSystemContentFiles) = $this->_loadModuleSystemContent($template);
 	if ($ret->isError()) {
@@ -458,12 +428,15 @@ class MatrixLayout extends GalleryLayout {
 	}
 	
 	/* Tell Smarty about everything we've learned */
+	$layout['can'] = $can;
+	if (isset($sourceImageViewIndex)) {
+	    $layout['sourceImageViewIndex'] = $sourceImageViewIndex;
+	}
 	$layout['navigator'] = $navigator;
 	$layout['moduleItemLinks'] = $moduleItemLinks;
-	$layout['moduleSystemLinks'] = $moduleSystemLinks;
 	$layout['moduleSystemContentFiles'] = $moduleSystemContentFiles;
 	$layout['moduleItemDetailFiles'] = $moduleItemDetailFiles;
-	$layout['layoutUrl'] = GalleryUtilities::convertPathToRelativeUrl(dirname(__FILE__));
+	$layout['baseUrl'] = GalleryUtilities::convertPathToRelativeUrl(dirname(__FILE__));
 	$layout['parents'] = $parents;
 	$layout['item'] = $item->getMemberData();
 	$layout['itemIndex'] = $itemIndex+1;

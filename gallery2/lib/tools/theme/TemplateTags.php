@@ -21,7 +21,7 @@
  */
 
 $tags['style'] = array('type' => 'content', 'flag' => 'non-block');
-$tags['thumbnail'] = array('type' => 'content', 'params' => array('item' => 'array()', 'thumbnail' => 'array()'), 'flag' => 'non-block');
+$tags['image'] = array('type' => 'content', 'params' => array('item' => 'array()', 'image' => 'array()'), 'flag' => 'non-block');
 
 // Magic component tag
 $tags['component'] = array('type' => 'transparent');
@@ -69,7 +69,7 @@ $tags['widget2'] = array('type' => 'child', 'children' => array('title?', 'descr
 // grid layout components
 $tags['table'] = array('type' => 'component', 'params' => array('width' => '100%'), 'children' => array('row+'));
 $tags['row'] = array('type' => 'child', 'params' => array('rowspan' => '1'), 'children' => array('column+'));
-$tags['column'] = array('type' => 'attribute', 'params' => array('header' => 'false', 'colspan' => '1'));
+$tags['column'] = array('type' => 'attribute', 'params' => array('valign' => '', 'width' => '', 'header' => 'false', 'colspan' => '1'));
 
 // generic attributes
 $tags['title'] = array('type' => 'attribute');
@@ -308,30 +308,34 @@ function blockTag($tagName, $tagInfo) {
     print "\n";
 
 
-    if (!empty($parentMap[$tagName])) {
-	printf('    /* Make sure that we are being called in the right context */');
-	print "\n";
-	printf('    if (empty($context["stack"])) {');
-	print "\n";
-	printf('        $smarty->trigger_error("%s tag must be used inside one of: %s", E_USER_ERROR);',
-	       $tagName, join(", ", array_keys($parentMap[$tagName])));
-	print "\n";
-	printf('    }');
-	print "\n";
-	print "\n";
+    if ($tagInfo['type'] == 'child' ||
+	$tagInfo['type'] == 'attribute' || 
+	$tagInfo['type'] == 'transparent') {
+	if (!empty($parentMap[$tagName])) {
+	    printf('    /* Make sure that we are being called in the right context */');
+	    print "\n";
+	    printf('    if (empty($context["stack"])) {');
+	    print "\n";
+	    printf('        $smarty->trigger_error("%s tag must be used inside one of: %s", E_USER_ERROR);',
+		   $tagName, join(", ", array_keys($parentMap[$tagName])));
+	    print "\n";
+	    printf('    }');
+	    print "\n";
+	    print "\n";
 	
-	$comps = array();
-	foreach ($parentMap[$tagName] as $parentName => $junk) {
-	    $comps[] = sprintf('$context["stack"][0] != "%s"', $parentName);
+	    $comps = array();
+	    foreach ($parentMap[$tagName] as $parentName => $junk) {
+		$comps[] = sprintf('$context["stack"][0] != "%s"', $parentName);
+	    }
+	    printf('    if (%s) {', join(' && ', $comps));
+	    print "\n";
+	    printf('        $smarty->trigger_error("%s tag found inside {$context[\'stack\'][0]}, but must be used inside one of: %s", E_USER_ERROR);',
+		   $tagName,
+		   join(", ", array_keys($parentMap[$tagName])));
+	    print "\n";
+	    printf('    }');
+	    print "\n";
 	}
-	printf('    if (%s) {', join(' && ', $comps));
-	print "\n";
-	printf('        $smarty->trigger_error("%s tag found inside {$context[\'stack\'][0]}, but must be used inside one of: %s", E_USER_ERROR);',
-	       $tagName,
-	       join(", ", array_keys($parentMap[$tagName])));
-	print "\n";
-	printf('    }');
-	print "\n";
     }
     
     $args = array();

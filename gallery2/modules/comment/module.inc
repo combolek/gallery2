@@ -342,6 +342,12 @@ class CommentModule extends GalleryModule {
 				 'view' => 'comment:AddComment');
 	}
 
+	if (isset($permissions['comment.edit']) ||
+	    isset($permissions['comment.delete'])) {
+	        $views[] = array('name' => $this->translate('Manage Comments'),
+				 'view' => 'comment:ManageComments');
+	}
+	
 	return array(GalleryStatus::success(), $views);
     }
 

@@ -48,40 +48,58 @@ class MatrixTheme extends GalleryTheme {
     }
 
     /**
-     * thumbnail theme method
+     * image theme method
      * @param array the template context
      * @return string HTML content
      */
-    function thumbnail($context) {
-	global $gallery;
-	$urlGenerator = $gallery->getUrlGenerator();
+    function image($context) {
+ 	global $gallery;
+ 	$urlGenerator = $gallery->getUrlGenerator();
+ 
+ 	$params = $context['params'];
+ 	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
+ 						'itemId' => $params['image']['id']));
 
-	$params = $context['params'];
-	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
-						'itemId' => $params['thumbnail']['id']));
+	/* Shrink down images that we display in the sidebar */
+ 	if (in_array('sidebar', $context['stack'])) {
+ 	    list ($width, $height) =
+ 		GalleryUtilities::shrinkDimensionsToFit(110,
+ 							$params['image']['width'],
+ 							$params['image']['height']);
+ 	} else {
+ 	    list ($width, $height) = array($params['image']['width'],
+ 					   $params['image']['height']);
+ 	}
+ 
+ 	$title = $params['item']['title'];
+ 	if (empty($title)) {
+ 	    $title = $params['item']['pathComponent'];
+ 	}
 
-	if (in_array('sidebar', $context['stack'])) {
-	    list ($width, $height) =
-		GalleryUtilities::shrinkDimensionsToFit(110,
-							$params['thumbnail']['width'],
-							$params['thumbnail']['height']);
-	} else {
-	    list ($width, $height) = array($params['thumbnail']['width'],
-					   $params['thumbnail']['height']);
+	switch($params['image']['derivativeType']) {
+	case DERIVATIVE_TYPE_IMAGE_RESIZE:
+	    ; // fall through
+	    
+	default:
+	    ; // probably the data item -- fall through
+	    
+	case DERIVATIVE_TYPE_IMAGE_PREFERRED:
+	    $imageClass = "fullsize_image";
+	    break;
+	    
+	case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
+	    $imageClass = "thumbnail_image";
+	    break;
 	}
 
-	$title = $params['item']['title'];
-	if (empty($title)) {
-	    $title = $params['item']['pathComponent'];
-	}
-
-	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">',
-			  $src,
-			  $width,
-			  $height,
-			  $title,
-			  $params['item']['description']);
-	return $result;
+ 	$result = sprintf('<img class="%s" src="%s" width="%s" height="%s" alt="%s" longdesc="%s">',
+			  $imageClass,
+ 			  $src,
+ 			  $width,
+ 			  $height,
+ 			  $title,
+ 			  $params['item']['description']);
+ 	return $result;
     }
 
     /**
@@ -138,12 +156,12 @@ class MatrixTheme extends GalleryTheme {
 	$buf = '<table class="main"> ';
 
 	// Header row
-	if (!empty($header)) {
+	if (!empty($header['content'])) {
 	    $buf .= '<tr> <td class="header"> ' . $header['content'] . ' </td> </tr> ';
 	}
 
 	// Pathbar row
-	if (!empty($pathbar)) {
+	if (!empty($pathbar['content'])) {
 	    $buf .= '<tr> <td class="pathbar" colspan="2"> ' . $pathbar['content'] . ' </td> </tr> ';
 	}
 
@@ -174,7 +192,7 @@ class MatrixTheme extends GalleryTheme {
 	$buf .= '</tr>';
 
 	// Footer row
-	if (!empty($footer)) {
+	if (!empty($footer['content'])) {
 	    $buf .= '<tr> <td class="footer"> ' . $footer['content'] . ' </td> </tr> ';
 	}
 
@@ -261,22 +279,22 @@ class MatrixTheme extends GalleryTheme {
     function bannerbox($context, $title, $description, $component_array) {
 	$buf = '<table class="bannerbox">';
 	if (empty($component_array)) {
-	    if (!empty($title)) {
+	    if (!empty($title['content'])) {
 		$buf .= '<tr> <td class="bannerbox_title"> ' . $title['content'] . ' </td> </tr>';
 	    }
 
-	    if (!empty($description)) {
+	    if (!empty($description['content'])) {
 		$buf .= '<tr> <td class="bannerbox_description"> ' . $description['content'] . ' </td> </tr>';
 	    }
 	} else {
 	    $buf .= '<tr>';
-	    if (!empty($title) || !empty($description)) {
+	    if (!empty($title['content']) || !empty($description['content'])) {
 		$buf .= '<td valign="top"> <table class="bannerbox_inner">';
-		if (!empty($title)) {
+		if (!empty($title['content'])) {
 		    $buf .= '<tr> <td class="bannerbox_title"> ' . $title['content'] . ' </td> </tr>';
 		}
 
-		if (!empty($description)) {
+		if (!empty($description['content'])) {
 		    $buf .= '<tr> <td class="bannerbox_description"> ' . $description['content'] . ' </td> </tr>';
 		}
 		$buf .= '</table> </td>';
@@ -332,7 +350,7 @@ class MatrixTheme extends GalleryTheme {
      */
     function listingbox($context, $title, $item_array) {
 	$buf = '<table class="listingbox"> ';
-	if (!empty($title)) {
+	if (!empty($title['content'])) {
 	    $buf .= '<tr> <td class="listingbox_title"> ' . $title['content'] . '</td> </tr>';
 	}
 	$buf .= '<tr> <td> <ul class="listingbox_list">';
@@ -357,11 +375,11 @@ class MatrixTheme extends GalleryTheme {
      */
     function detailedbox($context, $title, $description, $body) {
 	$buf = '<table class="detailedbox"> ';
-	if (!empty($title)) {
+	if (!empty($title['content'])) {
 	    $buf .= '<tr> <td class="detailedbox_title"> ' . $title['content'] . '</td> </tr> ';
 	}
 
-	if (!empty($description)) {
+	if (!empty($description['content'])) {
 	    $buf .= '<tr> <td class="detailedbox_description"> ' . $description['content'] . '</td> </tr> ';
 	}
 
@@ -379,7 +397,7 @@ class MatrixTheme extends GalleryTheme {
      */
     function tabbedbox($context, $title, $item_array, $body) {
 	$buf = '<table class="tabbedbox">';
-	if (!empty($title)) {
+	if (!empty($title['content'])) {
 	    $buf .= '<tr> <td class="tabbedbox_title"> ' . $title['content'] . '</td> </tr> ';
 	}
 
@@ -407,7 +425,7 @@ class MatrixTheme extends GalleryTheme {
      */
     function simplebox($context, $title, $body) {
 	$buf = '<table class="simplebox">';
-	if (!empty($title)) {
+	if (!empty($title['content'])) {
 	    $buf .= '<tr> <td class="simplebox_title"> ' . $title['content'] . '</td> </tr> ';
 	}
 
@@ -424,7 +442,12 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function widget1box($context, $title, $widget1_array) {
-	$buf = '<table class="widget1box"> <tr> <td> ' . $title . ' </td> </tr> ';
+	$buf = '<table class="widget1box"> ';
+
+	if (!empty($title['content'])) {
+	    $buf .= '<tr> <td> ' . $title['content'] . ' </td> </tr> ';
+	}
+	
 	for ($i = 0; $i < sizeof($widget1_array); $i++) {
 	    $buf .= $widget1_array[$i]['content'];
 	}
@@ -470,11 +493,11 @@ class MatrixTheme extends GalleryTheme {
      */
     function widget2($context, $title, $description, $body) {
 	$buf = '';
-	if (!empty($title)) {
+	if (!empty($title['content'])) {
 	    $buf .= '<tr> <td class="widget2_title"> ' . $title['content'] . ' </td> </tr> ';
 	}
 	
-	if (!empty($description)) {
+	if (!empty($description['content'])) {
 	    $buf .= '<tr> <td class="widget2_description"> ' . $description['content'] . ' </td> </tr> ';
 	}
 
@@ -506,15 +529,21 @@ class MatrixTheme extends GalleryTheme {
     function row($context, $column_array) {
 	$buf = '<tr>';
 	for ($i = 0; $i < sizeof($column_array); $i++) {
+	    $attrs = "";
+	    if ($column_array[$i]['params']['width']) {
+		$attrs .= ' width="' . $column_array[$i]['params']['width'] . '"';
+	    }
+	    if ($column_array[$i]['params']['colspan']) {
+		$attrs .= ' colspan="' . $column_array[$i]['params']['colspan'] . '"';
+	    }
+	    if ($column_array[$i]['params']['valign']) {
+		$attrs .= ' valign="' . $column_array[$i]['params']['valign'] . '"';
+	    }
+	    
 	    if ($column_array[$i]['params']['header'] == 'true') {
-		$buf .= '<td class="columnheader">' . $column_array[$i]['content'] . '</td>';
+		$buf .= '<td class="columnheader" ' . $attrs . '>' . $column_array[$i]['content'] . '</td>';
 	    } else {
-		$colspan = $column_array[$i]['params']['colspan'];
-		if ($colspan == 1) {
-		    $buf .= '<td class="column">';
-		} else {
-		    $buf .= '<td class="column" colspan="' . $colspan . '">';
-		}
+		$buf .= '<td class="column" ' . $attrs . '>';
 		$buf .= $column_array[$i]['content'] . '</td>';
 	    }
 	}
