@@ -501,6 +501,17 @@ echo ini_get("disable_functions");
        Craig Goranson wrote a very informative <ulink url="http://marc.theaimsgroup.com/?l=gallery-users&amp;m=102589601604892&amp;w=2">
        email</ulink> about how to fix this.
       </para>
+      <note>
+       <para>
+        Gallery tries to override the <literal>upload_max_filesize</literal>
+        and <literal>post_max_size</literal> directives in its &htaccess; file.
+        This means that changing the setting globally may still result in it
+        being overridden at the .htaccess level, so you may want to just change
+        the directive there instead of globally.  Gallery tries to set both
+        of the directives to about 20 megabytes, so this will only affect you
+        if you're going to upload files over that size.
+       </para>
+      </note>
       <para>
        If you're using Apache 2, especially with something like RedHat, you may
        need to edit another directive, <literal>LimitRequestBody</literal>, as
