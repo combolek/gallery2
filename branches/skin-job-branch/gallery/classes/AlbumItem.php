@@ -236,8 +236,6 @@ class AlbumItem {
 				fs_unlink("$dir/$name.highlight.$tag");
 			}
 		}	
-		print_r($this);
-
 	}
 
 	function isHighlight() {
