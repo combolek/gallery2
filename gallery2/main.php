@@ -179,8 +179,7 @@ function GalleryMain($startTime) {
 		 * We need to set a theme here, since we're not expressly
 		 * displaying a view so nobody else will.
 		 */
-		$theme = new GalleryTheme();
-		$ret = $theme->init();
+		list ($ret, $theme) = GalleryTheme::loadTheme();
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
