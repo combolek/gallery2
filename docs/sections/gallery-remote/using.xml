@@ -52,4 +52,21 @@
   
   </para>
  </sect2>
+ 
+ <sect2 id="gallery-remote.saveload">
+  <title>Saving/loading</title>
+   <para>
+   In order to attempt to guarantee that you will not lose your hard work if the upload doesn't work and Gallery Remote doesn't recover gracefully, it will save the project before attempting to upload into the same folder your Gallery Remote options file resides. If something does happen, you can load the project again, and even modify it (it's XML).
+You can also save and open a project at any time.
+Project files use the extension .grg (for Gallery Remote gallery); this extension is not automatically mapped to Gallery Remote (you can't double click the project files and expect something useful to happen).
+  </para>
+ </sect2>
+ 
+ <sect2 id="gallery-remote.https">
+  <title>Using HTTPS</title>
+   <para>
+   You can use https:// URLs with Gallery Remote to connect to secured web sites. This functionality is only available on Java 1.4 and later.
+   If the site you are attempting to connect to uses a server certificate that is not certified by a trusted certificate authority, Gallery Remote will be unable to connect. If that happens, you will need to add the site's certificate to the Java registry of trusted certificates. The process for doing this is detailed here.
+  </para>
+ </sect2>
 </sect1>
