@@ -38,6 +38,7 @@
 <html>
 <head>
   <title>{G.TITLE}</title>
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   {G.HEAD.STYLESHEET_INCLUDE}
   {G.HEAD.EXTRA}
 </head>
@@ -55,13 +56,11 @@
 </tr>
 <tr>
   <td valign="top">
-  <br>
 <!-- END: header -->
 
 <!----------------------------------------------------------------------->
 
 <!-- BEGIN: footer -->
-<br>
   </td>
 </tr>
 <tr bgcolor="black">
@@ -74,7 +73,7 @@
   </font>
   </td>
 </tr>
-
+</table>
 
 <!-- BEGIN: standalone_only -->
 </body>
