@@ -123,6 +123,7 @@ class UserAdminView extends GalleryView {
 	$template->setVariable('show', $show);
 	$template->setVariable('subViewChoices', $subViewChoices);
 	$template->setVariable('subViewHtml', $subViewHtml);
+	$template->setVariable('subViewName', $subViewName);
 	list($ret, $html) = $template->render('UserAdmin.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);
