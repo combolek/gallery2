@@ -268,7 +268,9 @@ class GalleryTheme {
     function input($params, $content=null) {
 	/* Do some preprocessing */
 	$params['value'] = trim($content);
-	$params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	if (isset($params['name'])) {
+	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	}
 	if (empty($params['type'])) {
 	    $params['type'] = 'text';
 	}
@@ -478,6 +480,7 @@ class GalleryTheme {
 	/* Prepare the tag */
 	$results = '<a';
 	$hrefParams = array();
+	$javascript = null;
 	foreach ($params as $origKey => $value) {
 
 	    if (!strncmp($origKey, 'url_', 4)) {
