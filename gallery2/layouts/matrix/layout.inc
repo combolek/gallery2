@@ -536,10 +536,17 @@ class MatrixLayout extends GalleryLayout {
 	}
 	
 	/* Get a window of peer ids around us */
-	$peerWindow = 6;
+	$windowSize = 6;
 	$peers = array();
-	$neighborStart = max($itemIndex-$peerWindow, 0);
-	$neighborEnd = min($itemIndex+$peerWindow, sizeof($peerIds)-1);
+	$neighborStart = max($itemIndex - (int)($windowSize/2), 0);
+	$neighborEnd = min($itemIndex + (int)($windowSize/2), sizeof($peerIds)-1);
+
+	/* If the window is pinned to one end, expand it to the entire windowSize */
+	if ($neighborStart == 0) {
+	    $neighborEnd = min(sizeof($peerIds)-1, $windowSize-1);
+	} else if ($neighborEnd == sizeof($peerIds)-1) {
+	    $neighborStart = max(sizeof($peerIds)-1 - $windowSize, 0);
+	}
 
 	if ($neighborStart > 0) {
 	    $peers[] = $peerIds[0];
