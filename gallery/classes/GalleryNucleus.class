@@ -236,8 +236,8 @@ class GalleryNucleus {
     /**
      * Delete this GalleryNucleus
      *
-     * Delete this GalleryNucleus and notify its parent GalleryNucleus of
-     * the change.
+     * It's only legal to delete GalleryNuclei that have already been removed
+     * from the tree (ie, have no parent).  
      *
      * @access public
      * @return int a status code
