@@ -413,9 +413,11 @@ class AlbumItem {
 		}
 	}
 
-	function getPhotoId($dir) {
+	function getId() {
 		if ($this->image) {
-			return $this->image->getId($dir);
+			return $this->image->getId();
+		} else if ($this->isAlbumName) {
+			return $this->isAlbumName;
 		} else {
 			return "unknown";
 		}
