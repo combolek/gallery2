@@ -1,0 +1,83 @@
+<!-- --------------------------------------------------------------------
+     
+     This file contails th eheader and footer blocks to be used on every
+     page of the gallery. If you would like to customize these blocks
+     create a copy of this file called 
+
+       "header_footer.xtpl" (same name without the ".default") 
+
+     If that file is found in this directory it eill be used instead of
+     this one.
+
+     NOTE: Comment about the standalone_only section. These blocks
+     will not be parsed (they will be omitted by the application), if you
+     are running gallery within another application like phpNuke.
+     If you are running Gallery as a standalone application you need 
+     these blocks and you need to put the <html>, <head and <body> tags 
+     within them.
+
+     The following tags will be replaced by application generated data.
+     The tags marked by an astrick (*) are required for proper gallery
+     functionality.
+      - {G.TITLE} : title of the page.
+     *- {G.HEAD.STYLESHEET_INCLUDE} : Reference to style sheet file, as 
+           well as custom album styles. Required in <head> block. 
+     *- {G.HEAD.EXTRA} : Content that must be in the head block. This is 
+           most likely javascript. Required in <head> block.
+     *- {G.BODYTAG.EXTRA} : Contend that must be inside the body tag. This
+           is most likely javascript onLoad stuff.
+      - {G.GALLERY_PROJECT.HREF} : URL to the gallery project homepage.
+      - {G.GALLERY_PROJECT.VERSION} : installed version of the Gallery. 
+      - {G.PIXEL_IMAGE} : an image tag to a one pixel transparent gif. It's
+           here for layout convienence.
+
+     -------------------------------------------------------------------- -->
+
+<!-- BEGIN: header -->
+<!-- BEGIN: standalone_only -->
+<html>
+<head>
+  <title>{G.TITLE}</title>
+  {G.HEAD.STYLESHEET_INCLUDE}
+  {G.HEAD.EXTRA}
+</head>
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" {G.BODYTAG.EXTRA}>
+<!-- END: standalone_only -->
+
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<tr bgcolor="black">
+  <td>
+  <font color="666666">
+  <center>
+  - THE GALLERY - SKIN JOB BRANCH - TOP SEKRIT - NOONE KUMZ IN HEER -  
+  </center>
+  </td>
+</tr>
+<tr>
+  <td valign="top">
+  <br>
+<!-- END: header -->
+
+<!----------------------------------------------------------------------->
+
+<!-- BEGIN: footer -->
+<br>
+  </td>
+</tr>
+<tr bgcolor="black">
+  <td>
+  <font color="666666">
+  <!-- The Gallery code version number, linked to the Gallery home page -->
+  <span align="right" class="fineprint">
+  Powered by <a href="{G.GALLERY_PROJECT.HREF}">Gallery v{G.GALLERY_PROJECT.VERSION}</a>
+  </span>
+  </font>
+  </td>
+</tr>
+
+
+<!-- BEGIN: standalone_only -->
+</body>
+</html>
+<!-- END: standalone_only -->
+<!-- END: footer -->
