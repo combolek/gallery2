@@ -5,7 +5,8 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title>#gpAdmin</title><style type="text/css">
 /* <![CDATA[ */
-@import url(matrix.css);
+ @import url(matrix-layout.css); 
+ @import url(matrix-style.css);  
 /* ]]> */
 </style> 
 </head>
@@ -14,15 +15,16 @@
 	<div id="gsHeader">
 		<div class="gbTitleBanner">
 <!-- img banner -->
-		</div>
-		<div class="gbAdminHead">
+		<div class="giTitle">
 			Site Administration 
+		</div>
+
 		</div>
 	</div>
 	<div id="gsAdminSidebar">
-		<div class="gbAdminMenu">
-			<h4>Admin Options</h4> 
-			<ul class="icons">
+		<div class="gbMenu">
+			<div class="giTitle">Admin Options</div> 
+			<ul>
 				<li class="comments">
 					Comments 
 				</li>
@@ -58,8 +60,8 @@
 				</li>
 			</ul>
 		</div>
-		<div class="gbAdminMenu">
-			<h4>Navigation</h4> 
+		<div class="gbMenu">
+			<div class="giTitle">Navigation</div> 
 			<ul>
 				<li>
 					Browse gallery 
@@ -69,15 +71,7 @@
 	</div>
 	<div id="gsAdminContents">
 		<div class="gbTopFlag">
-			<div class="gbTitle">
-				<div class="giTitle">
-					General Settings 
-				</div>
-			</div>
-			<div class="gbSpacer">
-				&nbsp; 				
-				
-			</div>
+			<div class="giTitle">General Settings</div>
 		</div>
 					
 		<!-- status report -->
@@ -88,7 +82,7 @@
 			<div class="giWarning">Hi I'm a warning!</div>
 		</div>
 		<div
- class="gbItemAdmin">
+ class="gbAdmin">
 			<div class="giTitle">
 				Add Items Excuse For Tabs 
 			</div>
@@ -152,7 +146,7 @@
       <div class="giError">Hi! I am a Local Error!</div>
 			
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				Defaults 
 			</div>
@@ -196,7 +190,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				Language Settings 
 			</div>
@@ -215,7 +209,7 @@ erride this setting in their personal preferences.
 				</tr>
 			</table>
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				Filesystem Permissions 
 			</div>
@@ -242,7 +236,7 @@ created.
 				</tr>
 			</table>
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				Local Server Upload Paths 
 			</div>
@@ -270,7 +264,7 @@ es and then upload them into Gallery using the Upload from Local Server feature.
 				</tr>
 			</table>
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				Session Settings 
 			</div>
@@ -297,7 +291,7 @@ es and then upload them into Gallery using the Upload from Local Server feature.
 				</tr>
 			</table>
 		</div>
-		<div class="gbItemAdmin">
+		<div class="gbAdmin">
 			<div class="giTitle">
 				URL Style 
 			</div>

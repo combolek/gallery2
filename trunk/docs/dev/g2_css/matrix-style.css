@@ -4,6 +4,13 @@
 
 */
 
+/* ******** GLOBAL DEFUALTS ************** */
+
+.giTitle { 
+	font-weight: bold;
+	font-size: 11px;
+ }
+
 /*	basic html defs	*/
 body {
 	font-family: Verdana, sans-serif;
@@ -36,19 +43,15 @@ body {
 }
 
 #gsSidebar {
-	padding: 12px;
-	background-color: #eee;
+	padding: 0 12px;
+	background-color: #FFFFFF;
 	border-left: 1px solid #ddd;
 }
-
-.gsSection1 { }
-.gsSection2 { }
-.gsSection3 { }
 
 #gsAlbumContents {
 }
 
-#gsCommentBox {
+#gsComments {
 	padding: 8px;
 	border-top: 1px solid #bbb;
 }
@@ -58,19 +61,43 @@ body {
     declare inner boxes inside of sections
 */
 
-/*  #gsHeader    */
-.gbTitleBanner { }
-.gbBreadCrumb, .gbAdminHead { padding: 8px; }
-.gbBreadCrumb span + span:before { content: '\00BB \ '; }
 
-/*  #gsAlbumContents */
-#gbTopFlag {
-	display: block;
-	background-color: #eee;
-	padding: 0 8px;
+
+
+
+
+/*  #gsHeader    */
+
+/* The title banner is the light grey 'search' at the very top */
+#gsHeader .gbTitleBanner {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
-.gbTitle {
+/* Text inside the title bar */
+#gsHeader .gbTitleBanner .giTitle {
+	color: #ccc;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.gbBreadCrumb { padding: 8px; }
+.gbBreadCrumb span + span:before { content: '\00BB \ '; }
+
+/* *************  #gsAlbumContents  ******************* */
+
+#gsAlbumContents .gbTopFlag,
+#gsAdminContents .gbTopFlag  {
+	display: block;
+	background-color: #eee;
+	padding: 6px;
+	border: 1 solid #FFFFFF;
+}
+
+#gsAlbumContents .gbTitleBanner {
+	border: 0;
 	padding: 8px 0;
 }
 
@@ -81,18 +108,14 @@ body {
 	border: 0px solid #bbb;
 }
 
-.gbItemImage {
+.gbItemImage, .gbItemMovie, .gbItemOther1 {
 	margin: 8px 8px 0 0;
 	padding: 8px;
 	background-color: #fff;
-	border: 1px solid #bbb;
 }
 
-.gbItemMovie { }
-.gbItemOther1 { }
-.gbItemImage .giTitle { clear: both; }
 
-/*  --> #gsCommentBox    */
+/*  --> #gsComments    */
 .gbComment {
 	border-bottom: 1px solid #ddd;
 	padding: 8px 0 16px 0;
@@ -112,11 +135,7 @@ body {
 }
 
 /*  gsSidebar */
-#gsSidebar div {
-	border-bottom: 1px solid #ddd;
-	padding-bottom: 16px;
-	margin-bottom: 16px;
-}
+
 
 /*	Tabs	*/
 .gbTabBar {
@@ -144,14 +163,10 @@ body {
 	text-decoration: none;
 	font-weight: bold;
 	color: #777;
+	display: block;
 }
 
-/* Commented Backslash Hack
-	   hides rule from IE5-Mac \*/
 
-.gbTabBar a {  }
-
-/* End IE5-Mac hack */
 .gbTabBar a:hover { color: #333; }
 .gbTabBar .giSelectedTab { background-image: url('images/tab_left_on.jpg'); }
 
@@ -161,28 +176,42 @@ body {
 	padding-bottom: 5px;
 }
 
-/*	Miscellaneous	*/
-.gbAdminMenu { }
 
-/*	icons for admin menu	*/
-.gbAdminMenu ul.icons li {
-	margin: 0 0 0 4px;
-	padding: 4px 0;
+/*	Miscellaneous	*/
+.gbMenu { 
+	border-bottom: 1px solid #ddd;
+	padding: 16px 0;
+	margin: 16px 0;
 }
 
-.gbAdminMenu li.comments:before { content: url('images/icon_comments.jpg'); }
-.gbAdminMenu li.general:before { content: url('images/icon_general.jpg'); }
-.gbAdminMenu li.users:before { content: url('images/icon_users.jpg'); }
-.gbAdminMenu li.groups:before { content: url('images/icon_groups.jpg'); }
-.gbAdminMenu li.modules:before { content: url('images/icon_modules.jpg'); }
-.gbAdminMenu li.layouts:before { content: url('images/icon_layouts.jpg'); }
-.gbAdminMenu li.debug:before { content: url('images/icon_debug.jpg'); }
-.gbListMenu { }
-.gbSearchMenu { }
-.gbBasicMenu { }
-.gbUserMenu { }
-.gbNavigationMenu { }
-.gbOtherMenu { }
+.gbMenu .giTitle { 
+	padding: 2;
+	margin: 2;
+}
+
+/*	icons for admin menu	*/
+.gbMenu li {
+	padding: 6 0 0 0px;
+	font-size: 10px;
+}
+
+.gbMenu ul, .gbMenu ol {
+	margin: 0 0 0 20px;
+	padding: 0 0 0 0;
+}
+
+.gbMenu ul { list-style-type: none; }
+
+
+
+.gbMenu li.comments:before { content: url('images/icon_comments.jpg'); }
+.gbMenu li.general:before { content: url('images/icon_general.jpg'); }
+.gbMenu li.users:before { content: url('images/icon_users.jpg'); }
+.gbMenu li.groups:before { content: url('images/icon_groups.jpg'); }
+.gbMenu li.modules:before { content: url('images/icon_modules.jpg'); }
+.gbMenu li.layouts:before { content: url('images/icon_layouts.jpg'); }
+.gbMenu li.debug:before { content: url('images/icon_debug.jpg'); }
+
 
 /*
     items c5
@@ -193,9 +222,9 @@ body {
 .gbBreadCrumb.span {'È'}*/
 
 /*  .gbTopFlag */
-.giTitle {
-	font-size: 1.1em;
+.gbTopFlag .giTitle {
 	font-weight: 800;
+	font-size: 12px; 
 }
 
 .giDescription {
@@ -205,6 +234,7 @@ body {
 }
 
 .giInfo {
+	display: block;
 	font-size: 80%;
 	color: #888;
 	padding: 8px 0;
@@ -249,7 +279,7 @@ span.giCount { }
 /*  gbComment */
 .giComment { padding-bottom: 8px; }
 
-#gsCommentBox .gbComment div.giHorizontalLinks {
+#gsComments .gbComment div.giHorizontalLinks {
 	float: none;
 	padding: 0;
 }
@@ -264,21 +294,9 @@ span.giInternetAddress { }
 	padding: 8px;
 }
 
-/*  gbXxxMenu   */
 
-/*  .giTitle
-    .giInfo     */
 
-#gsSidebar div h4 { margin: 0; }
 
-#gsSidebar div ul, #gsSidebar div ol {
-	font-size: 0.9em;
-	margin: 0 0 0 20px;
-	padding: 0 0 0 0;
-}
-
-#gsSidebar div ul { list-style-type: none; }
-#gsSidebar div li { margin: 0.5em 0 0 0; }
 
 .giSelected {
 	font-weight: bold;
@@ -321,20 +339,7 @@ span.giInternetAddress { }
 	padding-bottom: 0;
 }
 
-/* The title banner is the light grey 'search' at the very top */
-.gbTitleBanner {
-	padding-top: 6px;
-	padding-bottom: 6px;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-}
 
-/* Text inside the title bar */
-.gbTitleBanner .giTitle {
-	color: #ccc;
-	font-weight: bold;
-	font-size: 11px;
-}
 
 /* Search contents is along the same lines as the other gsXxxxContests
 	elements as a main 'holder' for the main stuff in the page. */
@@ -345,14 +350,6 @@ span.giInternetAddress { }
    univerally declared, I didn't want to mess with Ross's stuff yet. So I 
    declared it gsSeachContents only  */
 
-#gsSearchContents .gbTopFlag {
-	padding-top: 4px;
-	padding-bottom: 4px;
-}
-
-/* Same as above, but for the text */
-.gbTopFlag .giTitle { font-size: 12px; }
-
 /* small grey border around all the thumbnails */
 #gsSearchContents .giThumbImage, .giThumbMovie, .giThumbOther { border: 2px solid #ccc; }
 
@@ -360,14 +357,11 @@ span.giInternetAddress { }
  on the right of the thumbnail */
 
 #gsSearchContents .gbItemImage .giTitle {
+	border-width: 0;
 	margin: 0;
 	padding: 0;
+	clear: both; 
 }
-
-/* This makes the images not wrap. But there's a weird bug on IE
-   that this seems to cause--see the html file for the workaround I found */
-
-#gsSearchContents .gbItemImage { }
 
 /* here are other form elements we haven't used yet */
 
@@ -387,43 +381,27 @@ span.giInternetAddress { }
 .giSubmitButton,
 .giClearButton, { }
 
-/* ********* admin additions ******** */
+/* ********* #gsAdminContents *********** */
+
+
 #gsAdminContents {
-	background-color: #eee;
+	background-color: #FFFFFF;
 }
 
 #gsAdminSidebar {
-	padding: 0 12px;
+	padding: 0 4px;
 	border-right: 1px solid #ddd;
 }
 
-#gsAdminSidebar div {
-	margin: 0px 0;
-	padding: 0 0 8px 0;
-	border-bottom: 1px solid #eee;
-}
 
-#gsAdminSidebar div ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-.gbItemAdmin {
+.gbAdmin {
 	margin: 0px 8px 0 0;
 	padding: 8px;
 	border-bottom: 1px solid #bbb;
 	background-color: #fff;
 }
 
-* even and odd rows have different backgrounds */
-/* I count from 0, so the first row is even! */
-.gbEven {
-	background-color: #CDCDCD;
-	padding: 40px;
-}
 
-.gbOdd { background-color: #DCDCDC; }
 
 /* for tabular data */
 .gbDataTable {
@@ -431,8 +409,18 @@ span.giInternetAddress { }
 	margin: 4px;
 }
 
+* even and odd rows have different backgrounds */
+/* I count from 0, so the first row is even! */
+.gbEven {
+	background-color: #CDCDCD;
+}
+
+.gbOdd { background-color: #DCDCDC; }
+
 /* cell padding */
 .gbDataTable td { padding: 4px; }
+.gbDataTable th { padding: 4px; }
+
 
 /* Status classes */
 /* local error */
@@ -470,3 +458,5 @@ span.giInternetAddress { }
 	font-weight: normal;
 	font-size: 20px;
 }
+
+
