@@ -113,28 +113,24 @@ $albumStyle .= "</style>\n";
 
 //-- the breadcrumb info ---
 $breadCount = 0;
+$breadLevels = Array();
 $pAlbum = $album;
 do {
 	if (!strcmp($pAlbum->fields["returnto"], "no")) {
 		break;
 	}
-	$pAlbumName = $pAlbum->fields['parentAlbumName'];
-   	if ($pAlbumName) {
+	if ($pAlbum->isRoot()) {
+		break;
+	} else {
+		$pAlbumName = $pAlbum->fields['parentAlbumName'];
 		$pAlbum = new Album();
 		$pAlbum->load($pAlbumName);
 		$breadLevels[$breadCount]['level'] = "Album";
    		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
    		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
-	} else {
-		//-- we're at the top! ---
-    	$breadLevels[$breadCount]['level'] = "Gallery";
-    	$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-	    $breadLevels[$breadCount]['href'] = makeGalleryUrl("view_album.php");
 	}
 	$breadCount++;
-	if ($pAlbum) {
-	}
-} while ($pAlbumName);
+} while ($pAlbum);
 
 //-- we built the array backwards, so reverse it now ---
 //-- XXX we have to zero-index this array to make it work ---
@@ -299,8 +295,12 @@ $GLO['album']['items'] = $items;
 
 $GLO['borderColor'] = $borderColor;
 
-$GLO['album']['html_header'] = $album->fields['html_header'];
-$GLO['album']['html_footer'] = $album->fields['html_footer'];
+$GLO['album']['html_header'] = "\n<!-- Album Custom HTML Header Begin -->\n"
+	. $album->fields['html_header'] .
+	"\n<!-- Album Custom HTML Header End -->\n";
+$GLO['album']['html_footer'] = "\n<!-- Album Custom HTML Footer Begin -->\n"
+	. $album->fields['html_footer'] .
+	"\n<!-- Album Custom HTML Footer End -->\n";
 
 
 //-- the 'boxTools' is the stuff that goes in the tool block ---
@@ -325,6 +325,7 @@ $GLO['pixelImage'] = "<img src=\"" . $gallery->app->photoAlbumURL .
 //-- The Layout of the Page ---
 //  
 
+//-- first get the html for the header and footer and stick it in the GLO
 //-- first get the html for the header and footer and stick it in the GLO
 //-- for use by the layout. The html_wrap template gets is own limited
 //-- layout object.
