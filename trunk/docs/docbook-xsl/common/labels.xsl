@@ -403,16 +403,21 @@ element label.</para>
 
   <xsl:variable name="prefix">
     <xsl:if test="$qanda.inherit.numeration != 0">
-      <xsl:if test="$lparent.prefix != ''">
+      <xsl:choose>
+       <xsl:when test="$lparent.prefix != ''">
         <xsl:apply-templates select="$lparent" mode="label.markup"/>
-        <xsl:apply-templates select="$lparent" mode="intralabel.punctuation"/>
-      </xsl:if>
+        <xsl:apply-templates select="$lparent" mode="intralabel.punctuation"/>	
+       </xsl:when>
+       <xsl:otherwise>
+        <xsl:apply-templates select="@label"/>
+       </xsl:otherwise>
+      </xsl:choose>
     </xsl:if>
   </xsl:variable>
 
+  <xsl:value-of select="$prefix"/>
   <xsl:choose>
     <xsl:when test="$qandadiv.autolabel != 0">
-      <xsl:value-of select="$prefix"/>
       <xsl:number level="multiple" count="qandadiv" format="1"/>
     </xsl:when>
   </xsl:choose>
