@@ -20,9 +20,9 @@
 ?>
 <?
 if ($doit) {
-    $index = $album->getPhotoIndex($id);
-	$album->deletePhoto($index);
-    $album->save();
+    $index = $gallery->album->getPhotoIndex($id);
+	$gallery->album->deletePhoto($index);
+    $gallery->album->save();
 
 	//-- when this command executes we want to leave the edit page ---
 	$forceReturn = 1;
