@@ -18,6 +18,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+/*
+ * Require the ADOdb libraries
+ */
+require_once(dirname(__FILE__) . '/adodb/adodb.inc.php');
+
+/*
+ * Constants specific to this storage class
+ */
+define("ID_SEQUENCE", "idSequence");
+
 /**
  * Database implementation of the GalleryStorage interface.
  *
@@ -28,7 +38,144 @@
  * @package GalleryStorage
  * @author Bharat Mediratta <bharat@menalto.com>
  */
-class DatabaseStorage {
+class DatabaseStorage extends GalleryStorage {
+
+    /**
+     * The type of database we're connecting to (eg 'mysql', 'postgres')
+     *
+     * @var string $_type
+     */
+    var $_type;
+    
+    /**
+     * Prefix to prepend to any table names
+     * 
+     * @var string $_prefix
+     */
+    var $_prefix;
+    
+    /**
+     * Name of the database user
+     * 
+     * @var string $_username
+     */
+    var $_username;
+    
+    /**
+     * Password for the database user
+     * 
+     * @var string $_password
+     */
+    var $_password;
+    
+    /**
+     * Name of the database to use
+     * 
+     * @var string $_database
+     */
+    var $_database;
+
+    /**
+     * Host the database runs on
+     * 
+     * @var string $_hostname
+     */
+    var $_hostname;
+
+    /**
+     * Specify the type of database using ADOdb names (eg 'mysql', 'postgres')
+     *
+     * @param string the database type
+     */
+    function setType($type) {
+	$this->_type = $type;
+    }
+
+    /**
+     * Specify the prefix to prepend to any table names
+     *
+     * @param string the prefix, like 'gallery_'
+     */
+    function setPrefix($prefix) {
+	$this->_prefix = $prefix;
+    }
+
+    /**
+     * Specify the name of the user with which to connect to the database 
+     *
+     * @param string username
+     */
+    function setUsername($username) {
+	$this->_username = $username;
+    }
+
+    /**
+     * Specify the database user's password
+     *
+     * @param string password (in clear text)
+     */
+    function setPassword($password) {
+	$this->_password = $password;
+    }
+
+    /**
+     * Specify the name of the logical database
+     *
+     * @param string the name of the logical database
+     */
+    function setDatabase($database) {
+	$this->_database = $database;
+    }
+
+    /**
+     * Host the database runs on 
+     *
+     * @param string a hostname
+     */
+    function setHostname($hostname) {
+	$this->_hostname = $hostname;
+    }
+
+    /**
+     * Connect to the database
+     *
+     * @return int a status code
+     */
+    function connect() {
+	if (empty($this->_type) ||
+	        empty($this->_prefix) ||
+	        empty($this->_username) ||
+	        empty($this->_password) ||
+	        empty($this->_database) ||
+	        empty($this->_hostname)) {
+	    return ERROR | ERROR_MISSING_VALUE;
+	}
+
+	$this->_traceStart();
+	$this->_db = ADONewConnection($this->_type);
+	if (empty($this->_db)) {
+	    return ERROR;
+	}
+
+	/*
+	 * Turn on debugging in the database connection if Gallery is in debug
+	 * mode
+	 */
+	global $gallery;
+	if ($gallery->getDebug()) {
+	    $this->_db->debug = true;
+	}
+
+	if (!$this->_db->PConnect($this->_hostname, $this->_username,
+				  $this->_password, $this->_database)) {
+	    $this->_db = null;
+	    $this->_traceStop();
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	$this->_traceStop();
+	return SUCCESS;
+    }
 
     /**
      * Return the id of the GalleryItem associated with the path provided
@@ -49,23 +196,6 @@ class DatabaseStorage {
     }
 
     /**
-     * Get the GalleryItem for the id provided
-     *
-     * Return the GalleryItem associated with this id.  Note  
-     * that this returns the unique object itself, not a copy.
-     * This means that you can change/save it.
-     *
-     * This method must be implemented by subclasses of Gallery
-     *
-     * @access public
-     * @abstract
-     * @param string the id of the item
-     * @return object GalleryItem the item	
-     */
-    function &loadNucleusById($id, $type) {
-    }
-
-    /**
      * Load a new GalleryNucleus from storage
      *
      * @access public
@@ -74,15 +204,19 @@ class DatabaseStorage {
      * @return int a status code
      */
     function loadNucleus($id, &$nucleus) {
-	// XXX: make sure that the type from the database matches the type from
-	// $nucleus
 
-	// XXX: implement this
-	$nucleus->_id = $id;
-	$nucleus->_dataVersion = -1;
-	$nucleus->_parent = -1;
-	$nucleus->_path = -1;
-	return SUCCESS;
+	print "<pre>";
+	print_r($nucleus);
+	print "</pre>";
+	
+	$persistentInfo = $nucleus->getPersistentInfo();
+	foreach ($persistentInfo->members as $memberName => $memberInfo) {
+	    print "<pre>";
+	    print "$membername => ";
+	    print_r($memberInfo);
+	    print "</pre>";
+	}
+	return ERROR;
     }
 
     /**
@@ -118,16 +252,21 @@ class DatabaseStorage {
      * @return int a status code
      */
     function newNucleus(&$nucleus) {
+	if (empty($this->_db)) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
 
 	/*
-	 * Create a row in the right table, pull back the id and then load that
-	 * instance.
+	 * Get the id of the next nucleus from our sequence.
 	 */
-	$classtype = get_class($nucleus);
+	$this->_traceStart();
+	$id = $this->_db->GenId(ID_SEQUENCE);
+	$this->_traceStop();
 
-	// XXX: for now, just make up an id!
-	$id = -1;
-	$this->loadNucleus($id, $nucleus);
+	$nucleus->setId($id);
+	$nucleus->setSerialNumber(0);
+	
+	return SUCCESS;
     }
 
     /**
