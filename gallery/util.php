@@ -565,7 +565,7 @@ function makeGalleryUrl($albumName="", $photoId="", $extra="") {
 				$url .= "&id=$photoId";
 			}
 			$url .= $inc;
-			$url .= $extra;
+			$url .= "&" . $extra;
 			break;
 
 		default:
@@ -624,6 +624,11 @@ function gallerySanityCheck() {
 		/* 
 		 * on some systems, PHP's is_readable returns false
 		 * positives.  Make extra sure.
+		 *
+		 * Note: it's not possible for a win32 directory to
+		 *       have 755 perms which is fine, since on win32
+		 *       we don't actually change the permissions of
+		 *       the directory anyway.
 		 */
 		$perms = sprintf("%o", fileperms($GALLERY_BASEDIR . "setup"));
 		if (strstr($perms, "755")) {
@@ -707,16 +712,37 @@ function addUrlArg($url, $arg) {
 }
 
 function getNextPhoto($idx) {
-	global $gallery;
+	global $gallery, $albumDB;
 
 	$idx++;
 	if ($gallery->user->canWriteToAlbum($gallery->album)) {
+		// even though a user can write to an album, they may
+		// not have read authority over a specific nested album.
+		if ($gallery->album->isAlbumName($idx)) {
+			$myAlbumName = $gallery->album->isAlbumName($idx);
+			$myAlbum = $albumDB->getAlbumbyName($myAlbumName);
+			if (!$gallery->user->canReadAlbum($myAlbum)) {
+				$idx = getNextPhoto($idx);
+			}
+		}
 		return $idx;
 	}
 
 	$numPhotos = $gallery->album->numPhotos(1);
 	while ($idx <= $numPhotos && $gallery->album->isHidden($idx)) {
 		$idx++;
+	}
+
+	if ($gallery->album->isAlbumName($idx)) {
+		// do not display a nexted album if the user doesn't
+		// have permission to view it.
+		if ($gallery->album->isAlbumName($idx)) {
+			$myAlbumName = $gallery->album->isAlbumName($idx);
+			$myAlbum = $albumDB->getAlbumbyName($myAlbumName);
+			if (!$gallery->user->canReadAlbum($myAlbum)) {
+				$idx = getNextPhoto($idx);
+			}
+		}
 	}
 
 	return $idx;
