@@ -1871,7 +1871,7 @@ public class MainFrame extends JFrame
 	/*** TreeModelListener implementation ***/
 	public void treeNodesChanged(TreeModelEvent e) {
 		TreePath treePath = e.getTreePath();
-		if (treePath != null && getCurrentGallery().getRoot() != treePath.getLastPathComponent()) {
+		if (treePath != null && getCurrentGallery() != null && getCurrentGallery().getRoot() != treePath.getLastPathComponent()) {
 			albumChanged((Album) treePath.getLastPathComponent());
 		}
 	}

@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.StringBufferInputStream;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.MalformedURLException;
 import java.util.*;
 
 /**
@@ -1146,6 +1147,19 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 					// parse and store the data
 					int numImages = p.getIntProperty("image_count");
 					String baseUrl = p.getProperty("baseurl");
+
+					try {
+						if (baseUrl == null) {
+							Log.log(Log.LEVEL_TRACE, MODULE, "Gallery root, baseurl is null");
+						} else {
+							URL tmpUrl = new URL(baseUrl);
+						}
+					} catch (MalformedURLException e) {
+						Log.log(Log.LEVEL_TRACE, MODULE, "baseurl is relative, tacking on Gallery URL (only works for standalone)");
+						URL tmpUrl = new URL(g.getStUrlString());
+						baseUrl = new URL(tmpUrl.getProtocol(), tmpUrl.getHost(), tmpUrl.getPort(), baseUrl).toString();
+					}
+
 					int width;
 					int height;
 					ArrayList extraFields = a.getExtraFields();
