@@ -111,11 +111,9 @@
     <programlisting>
      chmod 644 .htaccess
      chmod 644 config.php
-     chmod 0 setup
+     chmod 700 setup
     </programlisting>
-    If you're having trouble applying permissions of 0 to the
-    <filename>setup</filename> directory, you can use 700 permissions
-    instead.  These directions are for Unix/Linux installs only.
+    These directions are for Unix/Linux installs only.
    </para>
    <para>
     If you're on Windows, you cannot chmod files.  Instead, run the 
