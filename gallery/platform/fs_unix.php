@@ -23,6 +23,14 @@ function fs_copy($source, $dest) {
 	return copy($source, $dest);
 }
 
+function fs_exec($cmd, &$results, &$status) {
+	return exec($cmd, $results, $status);
+}
+
+function fs_tempdir() {
+	return export_filename(getenv("TEMP"));
+}
+
 function fs_file_exists($filename) {
 	return file_exists($filename);
 }
@@ -53,5 +61,13 @@ function fs_stat($filename) {
 
 function fs_unlink($filename) {
 	return unlink($filename);
+}
+
+function fs_import_filename($filename) {
+	return $filename;
+}
+
+function fs_export_filename($filename) {
+	return $filename;
 }
 ?>
