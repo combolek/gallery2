@@ -68,7 +68,7 @@ Class Gallery
 	- void setRootAlbumId(string id)
 		* Set the id of the root AlbumItem
 
-	- GalleryConfig getConfig() 
+	- GalleryHashMap getConfig() 
 		* Return a copy of the GalleryConfig object generated in 
 		  config.php
 
@@ -80,34 +80,18 @@ Class Gallery
 	- UserDB getUserDB()
 		* Return the current UserDB object.  Cached for performance.
 
-	- GallerySession &getSession()
+	- GalleryHashMap &getSession()
 		* Return a reference to the current GallerySession object.
 
-Class GallerySession
+Class GalleryHashMap
 --------------------
-	This class is a container for session specific data.  It is
-	designed so that it can be extended as we extend Gallery.  So
-	each attribute that's stored in the session is associated with
-	a feature set that can be enabled or disabled, with the
-	exception of the "core" feature set which is always enabled.
-	Currently I'm only describing the core features; I'll let the
-	config wizard architect slot more stuff in here.  Oh what the
-	hell, I'll throw in an example for the "stats" feature.
-
-	Members
-	-------
-	- string[] core
-		- core["currentAlbumId"]
-		- core["userId"]
-		- core["galleryVersion"]
-
-	- string[] stats
-		- stats["viewedAlbum"] (array)
-		- stats["viewedPhoto"] (array)
+	This class is a hash map implementation.  It is a utility
+	class that we'll use for the various data containers that 
+	we need in the system.
 
 	Methods
 	-------
-	- mixed &getValue(string feature, string key) 
+	- mixed &getValue(string key) 
 		* Return a reference to the value associated with the
 		  given key for the feature specified.  eg:
 		  getValue("core", "userId").  It's important that we
@@ -115,85 +99,122 @@ Class GallerySession
 		  a complex object we can modify it in place.  For
 		  example, if we're modifying the viewed stats we'd
 		  say: 
-			$arr = getValue("stats", "viewedAlbum");
+			$arr = getValue("stats.viewedAlbum");
 			$arr["album01"]++;
 
-	- setValue(string feature, string key, string value)
+	- setValue(string key, string value)
 		* Replace the value associated with the given key for
 		  the feature specified.  eg: 
-			setValue("core", "galleryVersion", "2.0-cvs")
+			setValue("core.galleryVersion", "2.0-cvs")
 
-Class GalleryConfig
--------------------
+Class GallerySession (instance of GalleryHashMap)
+-------------------------------------------------
+	This class is a container for session specific data.
+	The naming convention for data that is stored in this
+	container is as follows:
+
+		feature.keyName1
+		feature.keyName2
+
+	Here are the currently known keys:
+
+	Core keys:
+		- core.userId
+		- core.galleryVersion
+
+	Feature keys:
+		- stats.viewedAlbum
+		- stats.viewedPhoto
+
+
+Class GalleryConfig (instance of GalleryHashMap)
+------------------------------------------------
 	This is a container for all configuration information
-	necessary for Gallery to function.  Like GallerySession, it's
-	broken down by feature set so that we can enable and disable
-	entire feature sets and avoid name space collision.  I'm
-	thinking that we'll have the following feature sets:
+	necessary for Gallery to function.  The config wizard will
+	create a file which builds an instance of a GalleryHashMap,
+	containing a set of keys describing how Gallery is configured.
 
-	- string[] core
-		- core["config_version"]
-		- core["tmpDir"]
-		- core["albumDir"]
-		- core["galleryUrl"] (used to be $photoAlbumURL)
-		- core["albumUrl"] (used to be $albumDirURL)
-		- core["debug"] (boolean)
-		- core["expectedExecStatus"]
-		- core["sessionVar"]
+	Here are the currently known keys:
 
-		- core["imageToolKit"] ("feature_netpbm", etc)
+	Core keys:	
+		- core.config.version
+		- core.config.tmpDir
+		- core.config.albumDir
+		- core.config.galleryUrl (used to be $photoAlbumURL)
+		- core.config.albumUrl (used to be $albumDirURL)
+		- core.config.debug (boolean)
+		- core.config.expectedExecStatus
+		- core.config.sessionVar
+		- core.config.imageToolKit ("imagetoolkit.netpbm", etc)
 			This one specifies which image toolkit we're using
 
-		- core["persistent_system"] ("feature_persistent_filesystem", etc.)
+		- core.config.persistence.metadata ("filesystem", "rdb", etc.)
 			This one specifies which persistent storage system
 			we're using.
 
-	- string[] defaults
-		- defaults["movie_thumbnail_path"]
-		- defaults["bordercolor"]
-		- defaults["border"]
-		- defaults["font"]
-		- defaults["cols"]
-		- defaults["rows"]
-		- defaults["thumb_size"]
-		- defaults["resize_size"]
-		- defaults["use_fullOnly"]
-		- defaults["returnto"]
-		- defaults["showOwners"]
-		- defaults["albumsPerPage"]
-		- defaults["showSearchEngine"]
-		- defaults["useOriginalFileNames"]
-		- defaults["display_clicks"]
-		- defaults["public_comments"]
-		- defaults["layout"]
+		- core.config.persistence.users ("filesystem", "rdb", etc.)
+			This one specifies which persistent storage system
+			we're using.
 
-	- string[] feature_printing
-		- feature_printing["enabled"] (boolean)
-		- feature_printing["use_shutterfly"] (boolean)		
+		- core.defaults.highlightSize
+		- core.defaults.movieThumbnailPath
+		- core.defaults.bordercolor
+		- core.defaults.border
+		- core.defaults.font
+		- core.defaults.cols
+		- core.defaults.rows
+		- core.defaults.thumbSize
+		- core.defaults.resizeSize
+		- core.defaults.useFullOnly
+		- core.defaults.returnto
+		- core.defaults.showOwners
+		- core.defaults.albumsPerPage
+		- core.defaults.showSearchEngine
+		- core.defaults.useOriginalFileNames
+		- core.defaults.layout
+		
+		- core.features
+			This is an array of enabled features eg:
+			("printing", "zip", "rewrite")
 
-	- string[] feature_zip
-		- feature_zip["enabled"] (boolean)
-		- feature_zip["zipinfo_binary"]
-		- feature_zip["unzip_binary"]
 
-	- string[] feature_exif
-		- feature_exif["enabled"] (boolean)
-		- feature_exif["jhead_path"]
+	This is the list of feature keys.  All of these features are
+	optional, although there will be interdependencies.  For
+	example, you'll need to specify at least one valid
+	imagetoolkit or Gallery won't work.  As we add more features
+	we'll need to make sure that there are no name clashes at the
+	top level.
 
-	- string[] feature_mod_rewrite
-		- feature_mod_rewrite["enabled"] (boolean)
+	Feature keys:
+		- printing.shutterfly.enabled (boolean)
+		
+		- zip.zipinfo.path
+		- zip.unzip.path
 
-	- string[] feature_mirror
-		- feature_mirror["enabled"] (boolean)
-		- feature_mirror["sites"] (array)
+		- stats.displayClicks
 
-	- string[] feature_netpbm
-		- feature_netpbm["enabled"] (boolean)
-		- feature_netpbm["pnmDir"]
-		- feature_netpbm["pnmtojpeg_binary"] 
+		- comments.allowPublic
 
-	- string[] feature_persistent_filesystem
-		- feature_persistent_filesystem["userDir"]
+		- imagetoolkit.netpbm.pnmDir
+		- imagetoolkit.netpbm.pnmtojpeg.path
+		- imagetoolkit.netpbm.exif.mode
+		 	choices ("jhead", "netpbm", "none")
+		- imagetoolkit.netpbm.jhead.path
+
+		- mirror.sites
+			array of mirror sites
+
+		- filesystem.albumDir
+			This is the location of the image metadata.
+			It doesn't necessarily need to be the same as
+			core.config.albumDir (although it is in v1.0).
+			Only relevant if "core.config.persistence.metadata" 
+			is set to "filesystem"
+
+		- filesystem.userDir
+			This is the location of the user database.  
+			Only relevant if "core.config.persistence.users" 
+			is set to "filesystem"
 
 
 Class GalleryItem
@@ -290,17 +311,17 @@ Class AlbumItem [extends GalleryItem]
 		- border		* (string) amount of table border
 		- bordercolor		* (string) color of border
 		- returnto		* (string) whether or not to show the breadcrum links
-		- thumb_size		* (string) target size of the thumbnail
-		- resize_size		* (string) target size of the intermediate image
+		- thumbSize		* (string) target size of the thumbnail
+		- resizeSize		* (string) target size of the intermediate image
 		- rows			* (int) number of rows to show
 		- cols			* (int) number of columns to show
-		- use_fullOnly		* (bool) allow the user to choose to show unresized only?
-print_photos ->	- print_service		* (bool) allow printing?
-		- use_exif		* allow user to view exif data?
+		- useFullOnly		* (bool) allow the user to choose to show unresized only?
+print_photos ->	- printService		* (bool) allow printing?
+		- useExif		* allow user to view exif data?
 		- layout		* the layout to use for this album
-		- html_header		* the html_header to use for this album
-		- html_footer		* the html_footer to use for this album
-display_clicks->- display_view_count	* show view counts for my items?
+		- htmlHeader		* the html_header to use for this album
+		- htmlFooter		* the html_footer to use for this album
+display_clicks->- displayViewCount	* show view counts for my items?
 	
 	Methods
 	-------
@@ -552,23 +573,23 @@ Class AbstractImageToolKit
 	- int[] getImageDimensions(string filename)
 		Return the dimensions of the file
 
-	- bool resizeImage(string source_filename, string dest_filename, int target_size)
-		Resize the image located at source_filename and write the results in
-		dest_filename.  Resize the image such that the largest side is target_size
+	- bool resizeImage(string sourceFilename, string destFilename, int targetSize)
+		Resize the image located at sourceFilename and write the results in
+		destFilename.  Resize the image such that the largest side is targetSize
 		while maintaining the aspect ratio. 
 		* return true on success or false on failure
 		
-	- bool rotateImage(string source_filename, string dest_filename, int degrees)
-		Rotate the image located at source_filename and write the results in
-		dest_filename.  Rotate the image according to the degrees specified
+	- bool rotateImage(string sourceFilename, string destFilename, int degrees)
+		Rotate the image located at sourceFilename and write the results in
+		destFilename.  Rotate the image according to the degrees specified
 		which must be one of -90, 180, 90
 		* return true on success or false on failure
 		
-	- bool cutImage(string source_filename, string dest_filename, 
+	- bool cutImage(string sourceFilename, string destFilename, 
 			   int x, int y, int width, int height)
 		Extract a subsection of the image located at
-		source_filename and write the results in
-		dest_filename.  The upper left corner of the
+		sourceFilename and write the results in
+		destFilename.  The upper left corner of the
 		subsection is at the x, y coordinate provided and the
 		lower right is x+width, y+height.
 		* return true on success or false on failure
@@ -652,7 +673,7 @@ Class AbstractUser
 	- string getFullName()
 	- bool isAdmin()
 	- bool isPseudo()
-	- void setIsAdmin(bool yes_or_no)
+	- void setIsAdmin(bool yesOrNo)
 	- bool isLoggedIn()
 
 Class PseudoUser [implements AbstractUser]
@@ -729,7 +750,7 @@ Examples
 
 XXX 2. Create a new album and add it to an existing one
 XXX 
-XXX 	$existingAlbum = Album.load($existing_album_id);
+XXX 	$existingAlbum = Album.load($existingAlbumId);
 XXX 
 XXX 	/*
 XXX 	 * Add it to the root album
