@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -182,15 +182,7 @@ class Gallery_UserDB extends Abstract_UserDB {
 			$this->userMap[$uid] = $username;
 		}
 
-		$success = 0;
-		$tmpfile = tempnam($userDir, "userdb.dat");
-		if ($fd = fs_fopen($tmpfile, "w")) {
-			fwrite($fd, serialize($this));
-			fclose($fd);
-			$success = fs_rename($tmpfile, "$userDir/userdb.dat");
-		}
-
-		return $success;
+		return safe_serialize($this, "$userDir/userdb.dat");
 	}
 
 	function getUidList() {
@@ -203,7 +195,7 @@ class Gallery_UserDB extends Abstract_UserDB {
 					continue;
 				}
 
-				if (fs_is_dir($file)) {
+				if (fs_is_dir($gallery->app->userDir . "/" . $file)) {
 					continue;
 				}
 

@@ -1,7 +1,7 @@
 <?
 /*
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000 Bharat Mediratta
+ * Copyright (C) 2000-2001 Bharat Mediratta
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -362,7 +362,7 @@ class Album {
 		}
 
 		if (!fs_file_exists($dir)) {
-			mkdir($dir, 0777);
+			fs_mkdir($dir, 0755);
 		}
 
 		if ($this->updateSerial) {
@@ -776,7 +776,7 @@ class Album {
 		if ($index >= 1 && $index <= sizeof($this->photos)) { 
 			return $this->photos[$index-1];
 		} else {
-			print "ERROR: requested index [$index] out of bounds";
+			print "ERROR: requested index [$index] out of bounds [" . sizeof($this->photos) . "]";
 		}
 	}
 
@@ -870,7 +870,10 @@ class Album {
 	function rotatePhoto($index, $direction) {
 		$this->updateSerial = 1;
 		$photo = &$this->getPhoto($index);
-		$photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"]);
+		$retval = $photo->rotate($this->getAlbumDir(), $direction, $this->fields["thumb_size"]);
+		if (!$retval) {
+			return $retval;
+		}
 
 		/* Are we rotating the highlight?  If so, rebuild the highlight. */
 		if ($photo->isHighlight()) {
@@ -991,7 +994,7 @@ class Album {
 	}
 
 	function setNestedProperties() {
-		for ($i=0; $i < $this->numPhotos(1); $i++) {
+		for ($i=1; $i <= $this->numPhotos(1); $i++) {
 			if ($this->isAlbumName($i)) {
 				$nestedAlbum = new Album();
 				$nestedAlbum->load($this->isAlbumName($i));
