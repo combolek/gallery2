@@ -3,78 +3,8 @@
 {assign var="image" value=$layout.imageViews.$currentIndex}
 
 {gallery->main}
-  {gallery->pathbar}
-    {foreach from=$layout.parents item=parent}
-      {gallery->item}
-	{gallery->link url_view='core:ShowItem' url_itemId=$parent.id}
-	  {$parent.title|default:$parent.pathComponent}
-	{/gallery->link}
-      {/gallery->item}
-    {/foreach}
-    {gallery->item}
-      {gallery->link url_view='core:ShowItem' url_itemId=$layout.item.id}
-	{$layout.item.title|default:$layout.item.pathComponent}
-      {/gallery->link}
-    {/gallery->item}
-  {/gallery->pathbar}
-
-  {gallery->sidebar side="right"}
-    {gallery->component}
-      {* Module links *}
-      {gallery->listingbox}
-	{gallery->title}
-	  {gallery->text text="Greetings, %s!" arg1=$layout.user.fullName|default:$layout.user.userName}
-	{/gallery->title}
-	{foreach from=$layout.moduleSystemLinks item=module}
-	  {foreach from=$module item=link}
-	    {gallery->item}
-	      {gallery->link params=$link.params}{$link.text}{/gallery->link}
-	    {/gallery->item}
-	  {/foreach}
-	{/foreach}
-      {/gallery->listingbox}
-
-      {* List of peer items *}
-      {gallery->detailedbox}
-	{gallery->title}
-	  {$layout.parent.title|default:$layout.parent.pathComponent}
-	{/gallery->title}
-	{gallery->description}
-	  {gallery->textmodifier}
-	    {gallery->text one="(%d item)" many="(%d items)" count=$layout.totalPeerCount arg1=$layout.totalPeerCount}
-	  {/gallery->textmodifier}
-	{/gallery->description}
-	{gallery->body}
-	  {gallery->listingbox}
-	    {foreach from=$layout.peers item=peer}
-	      {if ($peer.id == $layout.item.id)}
-		{gallery->item selected="true"}
-		  {$peer.title}
-		{/gallery->item}
-	      {else}
-		{gallery->item}
-		  {gallery->link url_view="core:ShowItem" url_itemId=$peer.id}
-		    {$peer.title}
-		  {/gallery->link}
-		{/gallery->item}
-	      {/if}
-	    {/foreach}
-	  {/gallery->listingbox}
-	{/gallery->body}
-      {/gallery->detailedbox}
-
-      {* Extra modules system content *}
-      {foreach from=$layout.moduleSystemContentFiles key=moduleName item=moduleFile}
-	{if ($moduleName != 'core')}
-	  {gallery->simplebox}
-	    {gallery->body}
-	      {include file=$moduleFile l10Domain="module_$moduleName"}
-	    {/gallery->body}
-	  {/gallery->simplebox}
-	{/if}
-      {/foreach}
-    {/gallery->component}
-  {/gallery->sidebar}
+  {include file="layouts/matrix/templates/pathbar.tpl"}
+  {include file="layouts/matrix/templates/sidebar.tpl"}
 
   {gallery->component}
     {gallery->bannerbox}
@@ -95,7 +25,7 @@
 	  {/gallery->item}
 
 	  {gallery->item}
-	    {gallery->text text="Current size: "}
+	    {gallery->text text="Size: "}
 	    {gallery->select onChange="if (this.value) javascript:location.href=this.value"}
 	      {section name=imageView loop=$layout.imageViews}
 		{if $smarty.section.imageView.index != $layout.imageViewsIndex}
@@ -116,6 +46,10 @@
 	      {/gallery->link}
 	    {/gallery->item}
 	  {/if}
+
+	  {gallery->item}
+	    {gallery->text text="Owner: %s" arg1=$layout.owner.fullName|default:$layout.owner.userName}
+	  {/gallery->item}
 	{/gallery->infobox}
 
 	{include file="layouts/matrix/templates/itemNavigator.tpl"}
@@ -174,123 +108,3 @@
 
   {/gallery->component}
 {/gallery->main}
-
-{*
-
-  {gallery->lightFrame width="100%"}
-    <table border="0" width="100%" cellspacing="0%" cellpadding="0%">
-    <tr>
-    <td>
-    <table border="0" width="100%" cellspacing="0%" cellpadding="0%">
-    <tr>
-    <td colspan="2" align="right">
-    </td>
-    </tr>
-    <tr>	
-    <td>
-    </td>
-    <td align="right">
-    {foreach from=$layout.moduleSystemLinks item=module}
-      {foreach from=$layout.module item=link}
-	<a href="{$link.url}">[{$link.text}]</a>
-      {/foreach}
-    {/foreach}
-    </td>
-    </tr>
-    </table>
-    </td>
-    </tr>
-
-    <tr>
-    <td>
-    {include file="parents.tpl"}
-    </td>
-    </tr>
-
-    <tr>
-    <td width="100%">
-    {include file="itemNavigator.tpl"}
-    </td>
-    </tr>
-
-    <tr>
-    <td>
-    &nbsp;
-    </td>
-    </tr>
-
-    <tr>
-    <td>
-    <table border="0" width="100%" cellspacing="0%" cellpadding="0%">
-    <tr>
-    <td align=center>
-    {strip}
-
-      {if ($image.inline)}
-	{gallery->thinFrame}
-	  <img src="{gallery->url view=core:DownloadItem itemId=$image.id}"
-	  {if ($image.width && $image.height)}
-	    width="{$image.width}"
-	    height="{$image.height}"
-	  {/if}
-	  border="0"
-	  >
-	{/gallery->thinFrame}
-      {else}
-	<a href="{gallery->url view=core:DownloadItem itemId=$image.id}">
-	{gallery->text text="Download this item"} 
-	</a>
-      {/if}
-    {/strip}
-    </td>
-    </tr>
-    <tr>
-    <td>
-    &nbsp;
-    </td>
-    </tr>
-    <tr>
-    <td align="center">
-</td>
-</tr>
-</table>
-</td>
-</tr>
-
-<tr>
-<td>
-&nbsp;
-</td>
-</tr>
-
-<tr>
-<td align="center">
-{if !empty($layout.item.title)}
-  <b>{$layout.item.title}</b>
-  <p>
-{/if}
-
-{if !empty($layout.item.description)}
-  {$layout.item.description}
-{/if}
-<p>
-</td>
-</tr>
-
-<tr>
-<td width="100%">
-{include file="itemNavigator.tpl"}
-</td>
-</tr>
-
-<tr>
-<td>
-{include file="parents.tpl"}
-</td>
-</tr>
-
-<!-- Module Item Details for the active item -->
-</table>
-{/gallery->lightFrame}
-
-*}
