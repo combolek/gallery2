@@ -162,920 +162,919 @@ class GalleryTemplateAdapter {
      * Theme callback methods
      *************************************************************/
     //(setq last-kbd-macro (read-kbd-macro "C-s function SPC getB C-a C-@ M-> 2*<C-p> C-w C-l C-x i GalleryTemplateAdapter.inc RET C-x C-s"))
-function getBlockMethods() {
-    static $_blockMethods = 
-        array(
-        "component",         // type: transparent
-        "input",             // type: content
-        "form",              // type: content
-        "select",            // type: content
-        "textarea",          // type: content
-        "link",              // type: content
-        "error",             // type: content
-        "status",            // type: content
-        "textmodifier",      // type: content
-        "globalheader",      // type: content
-        "main",              // type: content, contains (header? footer? pathbar? sidebar* component*)
-        "globalfooter",      // type: content
-        "header",            // type: child
-        "footer",            // type: child
-        "pathbar",           // type: child, contains (item+)
-        "sidebar",           // type: child, contains (component+)
-        "bannerbox",         // type: component, contains (title? description? component*)
-        "linksbox",          // type: component, contains (item+)
-        "infobox",           // type: component, contains (item+)
-        "listingbox",        // type: component, contains (title? item+)
-        "detailedbox",       // type: component, contains (title description body)
-        "tabbedbox",         // type: component, contains (title? item+ body)
-        "simplebox",         // type: component, contains (title? body)
-        "widget1box",        // type: component, contains (title? widget1+)
-        "widget2box",        // type: component, contains (title? widget2+)
-        "widget1",           // type: child, contains (title? body)
-        "widget2",           // type: child, contains (title? description? body)
-        "table",             // type: component, contains (row+)
-        "row",               // type: child, contains (column+)
-        "column",            // type: attribute
-        "title",             // type: attribute
-        "description",       // type: attribute
-        "body",              // type: attribute
-        "item",              // type: attribute
-        "bigFontSize",       // type: content (obsolete)
-        "biggerFontSize",    // type: content (obsolete)
-        "biggestFontSize",   // type: content (obsolete)
-        "errorFontColor",    // type: content (obsolete)
-        "heavyFrame",        // type: content (obsolete)
-        "highlight1",        // type: content (obsolete)
-        "highlight2",        // type: content (obsolete)
-        "lightFrame",        // type: content (obsolete)
-        "smallFontSize",     // type: content (obsolete)
-        "smallerFontSize",   // type: content (obsolete)
-        "smallestFontSize",  // type: content (obsolete)
-        "successFontColor",  // type: content (obsolete)
-        "thinFrame",         // type: content (obsolete)
-        "threeDFrame",       // type: content (obsolete)
-        "warningFontColor",  // type: content (obsolete)
-        );
-    return $_blockMethods;
-}
-function style($params, &$smarty) {
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->style($context);
-}
-
-function image($params, &$smarty) {
-    $context = $this->_getContext($params, $smarty);
-    foreach (array_keys($params) as $key) {
-        if ($key != "item" && $key != "image") {
-            $smarty->trigger_error("invalid parameter $key for image tag, must be one of: item, image", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["item"])) {
-        $params["item"] = "array()";
-    }
-    if (!isset($params["image"])) {
-        $params["image"] = "array()";
-    }
-    return $this->_theme->image($context);
-}
-
-function component($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("component tag must be used inside one of: main, sidebar, bannerbox", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "main" && $context["stack"][0] != "sidebar" && $context["stack"][0] != "bannerbox") {
-        $smarty->trigger_error("component tag found inside {$context['stack'][0]}, but must be used inside one of: main, sidebar, bannerbox", E_USER_ERROR);
-    }
-    /* Structural tag -- does nothing */
-    return;
-}
-
-function input($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->input($context, $content);
-}
-
-function form($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->form($context, $content);
-}
-
-function select($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->select($context, $content);
-}
-
-function textarea($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->textarea($context, $content);
-}
-
-function link($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->link($context, $content);
-}
-
-function error($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->error($context, $content);
-}
-
-function status($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->status($context, $content);
-}
-
-function textmodifier($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->textmodifier($context, $content);
-}
-
-function globalheader($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->globalheader($context, $content);
-}
-
-function main($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["header"][] = array();
-        $this->_content["footer"][] = array();
-        $this->_content["pathbar"][] = array();
-        $this->_content["sidebar"][] = array();
-        $this->_content["component"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_header = array_pop($this->_content["header"]);
-    if (empty($_header)) {
-        $_header = array("name" => "main", "params" => array(), "content" => "");
-    } else {
-        $_header = $_header[0];
-    }
-    $_footer = array_pop($this->_content["footer"]);
-    if (empty($_footer)) {
-        $_footer = array("name" => "main", "params" => array(), "content" => "");
-    } else {
-        $_footer = $_footer[0];
-    }
-    $_pathbar = array_pop($this->_content["pathbar"]);
-    if (empty($_pathbar)) {
-        $_pathbar = array("name" => "main", "params" => array(), "content" => "");
-    } else {
-        $_pathbar = $_pathbar[0];
-    }
-    $_sidebar = array_pop($this->_content["sidebar"]);
-    $_component = array_pop($this->_content["component"]);
-    return $this->_theme->main($context, $_header, $_footer, $_pathbar, $_sidebar, $_component);
-}
-
-function globalfooter($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->globalfooter($context, $content);
-}
-
-function header($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("header tag must be used inside one of: main", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "main") {
-        $smarty->trigger_error("header tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
-    }
-    $this->_content["header"][sizeof($this->_content["header"])-1][] = array("name" => "header", "params" => $params, "content" => $this->_theme->header($context, $content));
-    return;
-}
-
-function footer($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("footer tag must be used inside one of: main", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "main") {
-        $smarty->trigger_error("footer tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
-    }
-    $this->_content["footer"][sizeof($this->_content["footer"])-1][] = array("name" => "footer", "params" => $params, "content" => $this->_theme->footer($context, $content));
-    return;
-}
-
-function pathbar($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["item"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("pathbar tag must be used inside one of: main", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "main") {
-        $smarty->trigger_error("pathbar tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
-    }
-    $_item = array_pop($this->_content["item"]);
-    $this->_content["pathbar"][sizeof($this->_content["pathbar"])-1][] = array("name" => "pathbar", "params" => $params, "content" => $this->_theme->pathbar($context, $_item));
-    return;
-}
-
-function sidebar($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["component"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("sidebar tag must be used inside one of: main", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "main") {
-        $smarty->trigger_error("sidebar tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
-    }
-    $_component = array_pop($this->_content["component"]);
-    foreach (array_keys($params) as $key) {
-        if ($key != "side") {
-            $smarty->trigger_error("invalid parameter $key for sidebar tag, must be one of: side", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["side"])) {
-        $params["side"] = "";
-    }
-    $this->_content["sidebar"][sizeof($this->_content["sidebar"])-1][] = array("name" => "sidebar", "params" => $params, "content" => $this->_theme->sidebar($context, $_component));
-    return;
-}
-
-function bannerbox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["description"][] = array();
-        $this->_content["component"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "bannerbox", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_description = array_pop($this->_content["description"]);
-    if (empty($_description)) {
-        $_description = array("name" => "bannerbox", "params" => array(), "content" => "");
-    } else {
-        $_description = $_description[0];
-    }
-    $_component = array_pop($this->_content["component"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "bannerbox", "params" => $params, "content" => $this->_theme->bannerbox($context, $_title, $_description, $_component));
-    } else /* body */ {
-        return $this->_theme->bannerbox($context, $_title, $_description, $_component);
-    }
-    return;
-}
-
-function linksbox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["item"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_item = array_pop($this->_content["item"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "linksbox", "params" => $params, "content" => $this->_theme->linksbox($context, $_item));
-    } else /* body */ {
-        return $this->_theme->linksbox($context, $_item);
-    }
-    return;
-}
-
-function infobox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["item"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_item = array_pop($this->_content["item"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "infobox", "params" => $params, "content" => $this->_theme->infobox($context, $_item));
-    } else /* body */ {
-        return $this->_theme->infobox($context, $_item);
-    }
-    return;
-}
-
-function listingbox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["item"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "listingbox", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_item = array_pop($this->_content["item"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "listingbox", "params" => $params, "content" => $this->_theme->listingbox($context, $_title, $_item));
-    } else /* body */ {
-        return $this->_theme->listingbox($context, $_title, $_item);
+    function getBlockMethods() {
+	static $_blockMethods = 
+	    array(
+		  "component",         // type: transparent
+		  "input",             // type: content
+		  "form",              // type: content
+		  "select",            // type: content
+		  "textarea",          // type: content
+		  "link",              // type: content
+		  "error",             // type: content
+		  "status",            // type: content
+		  "textmodifier",      // type: content
+		  "globalheader",      // type: content
+		  "main",              // type: content, contains (header? footer? pathbar? sidebar* component*)
+		  "globalfooter",      // type: content
+		  "header",            // type: child
+		  "footer",            // type: child
+		  "pathbar",           // type: child, contains (item+)
+		  "sidebar",           // type: child, contains (component+)
+		  "bannerbox",         // type: component, contains (title? description? component*)
+		  "linksbox",          // type: component, contains (item+)
+		  "infobox",           // type: component, contains (item+)
+		  "listingbox",        // type: component, contains (title? item+)
+		  "detailedbox",       // type: component, contains (title description body)
+		  "tabbedbox",         // type: component, contains (title? item+ body)
+		  "simplebox",         // type: component, contains (title? body)
+		  "widget1box",        // type: component, contains (title? widget1+)
+		  "widget2box",        // type: component, contains (title? widget2+)
+		  "widget1",           // type: child, contains (title? body)
+		  "widget2",           // type: child, contains (title? description? body)
+		  "table",             // type: component, contains (row+)
+		  "row",               // type: child, contains (column+)
+		  "column",            // type: attribute
+		  "title",             // type: attribute
+		  "description",       // type: attribute
+		  "body",              // type: attribute
+		  "item",              // type: attribute
+		  "bigFontSize",       // type: content (obsolete)
+		  "biggerFontSize",    // type: content (obsolete)
+		  "biggestFontSize",   // type: content (obsolete)
+		  "errorFontColor",    // type: content (obsolete)
+		  "heavyFrame",        // type: content (obsolete)
+		  "highlight1",        // type: content (obsolete)
+		  "highlight2",        // type: content (obsolete)
+		  "lightFrame",        // type: content (obsolete)
+		  "smallFontSize",     // type: content (obsolete)
+		  "smallerFontSize",   // type: content (obsolete)
+		  "smallestFontSize",  // type: content (obsolete)
+		  "successFontColor",  // type: content (obsolete)
+		  "thinFrame",         // type: content (obsolete)
+		  "threeDFrame",       // type: content (obsolete)
+		  "warningFontColor",  // type: content (obsolete)
+		  );
+	return $_blockMethods;
+    }
+    function style($params, &$smarty) {
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->style($context);
+    }
+
+    function image($params, &$smarty) {
+	$context = $this->_getContext($params, $smarty);
+	foreach (array_keys($params) as $key) {
+	    if ($key != "item" && $key != "image") {
+		$smarty->trigger_error("invalid parameter $key for image tag, must be one of: item, image", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["item"])) {
+	    $params["item"] = "array()";
+	}
+	if (!isset($params["image"])) {
+	    $params["image"] = "array()";
+	}
+	return $this->_theme->image($context);
+    }
+
+    function component($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("component tag must be used inside one of: main, sidebar, bannerbox", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "main" && $context["stack"][0] != "sidebar" && $context["stack"][0] != "bannerbox") {
+	    $smarty->trigger_error("component tag found inside {$context['stack'][0]}, but must be used inside one of: main, sidebar, bannerbox", E_USER_ERROR);
+	}
+	/* Structural tag -- does nothing */
+	return;
+    }
+
+    function input($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->input($context, $content);
     }
-    return;
-}
-
-function detailedbox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["description"][] = array();
-        $this->_content["body"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "detailedbox", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_description = array_pop($this->_content["description"]);
-    if (empty($_description)) {
-        $_description = array("name" => "detailedbox", "params" => array(), "content" => "");
-    } else {
-        $_description = $_description[0];
-    }
-    $_body = array_pop($this->_content["body"]);
-    if (empty($_body)) {
-        $_body = array("name" => "detailedbox", "params" => array(), "content" => "");
-    } else {
-        $_body = $_body[0];
-    }
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "detailedbox", "params" => $params, "content" => $this->_theme->detailedbox($context, $_title, $_description, $_body));
-    } else /* body */ {
-        return $this->_theme->detailedbox($context, $_title, $_description, $_body);
-    }
-    return;
-}
-
-function tabbedbox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["item"][] = array();
-        $this->_content["body"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "tabbedbox", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_item = array_pop($this->_content["item"]);
-    $_body = array_pop($this->_content["body"]);
-    if (empty($_body)) {
-        $_body = array("name" => "tabbedbox", "params" => array(), "content" => "");
-    } else {
-        $_body = $_body[0];
-    }
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "tabbedbox", "params" => $params, "content" => $this->_theme->tabbedbox($context, $_title, $_item, $_body));
-    } else /* body */ {
-        return $this->_theme->tabbedbox($context, $_title, $_item, $_body);
-    }
-    return;
-}
-
-function simplebox($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["body"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "simplebox", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_body = array_pop($this->_content["body"]);
-    if (empty($_body)) {
-        $_body = array("name" => "simplebox", "params" => array(), "content" => "");
-    } else {
-        $_body = $_body[0];
-    }
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "simplebox", "params" => $params, "content" => $this->_theme->simplebox($context, $_title, $_body));
-    } else /* body */ {
-        return $this->_theme->simplebox($context, $_title, $_body);
-    }
-    return;
-}
-
-function widget1box($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["widget1"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "widget1box", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_widget1 = array_pop($this->_content["widget1"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "widget1box", "params" => $params, "content" => $this->_theme->widget1box($context, $_title, $_widget1));
-    } else /* body */ {
-        return $this->_theme->widget1box($context, $_title, $_widget1);
-    }
-    return;
-}
-
-function widget2box($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["widget2"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "widget2box", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_widget2 = array_pop($this->_content["widget2"]);
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "widget2box", "params" => $params, "content" => $this->_theme->widget2box($context, $_title, $_widget2));
-    } else /* body */ {
-        return $this->_theme->widget2box($context, $_title, $_widget2);
-    }
-    return;
-}
-
-function widget1($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["body"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("widget1 tag must be used inside one of: widget1box", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "widget1box") {
-        $smarty->trigger_error("widget1 tag found inside {$context['stack'][0]}, but must be used inside one of: widget1box", E_USER_ERROR);
-    }
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "widget1", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_body = array_pop($this->_content["body"]);
-    if (empty($_body)) {
-        $_body = array("name" => "widget1", "params" => array(), "content" => "");
-    } else {
-        $_body = $_body[0];
-    }
-    $this->_content["widget1"][sizeof($this->_content["widget1"])-1][] = array("name" => "widget1", "params" => $params, "content" => $this->_theme->widget1($context, $_title, $_body));
-    return;
-}
-
-function widget2($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["title"][] = array();
-        $this->_content["description"][] = array();
-        $this->_content["body"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("widget2 tag must be used inside one of: widget2box", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "widget2box") {
-        $smarty->trigger_error("widget2 tag found inside {$context['stack'][0]}, but must be used inside one of: widget2box", E_USER_ERROR);
-    }
-    $_title = array_pop($this->_content["title"]);
-    if (empty($_title)) {
-        $_title = array("name" => "widget2", "params" => array(), "content" => "");
-    } else {
-        $_title = $_title[0];
-    }
-    $_description = array_pop($this->_content["description"]);
-    if (empty($_description)) {
-        $_description = array("name" => "widget2", "params" => array(), "content" => "");
-    } else {
-        $_description = $_description[0];
-    }
-    $_body = array_pop($this->_content["body"]);
-    if (empty($_body)) {
-        $_body = array("name" => "widget2", "params" => array(), "content" => "");
-    } else {
-        $_body = $_body[0];
-    }
-    $this->_content["widget2"][sizeof($this->_content["widget2"])-1][] = array("name" => "widget2", "params" => $params, "content" => $this->_theme->widget2($context, $_title, $_description, $_body));
-    return;
-}
-
-function table($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["row"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    $_row = array_pop($this->_content["row"]);
-    foreach (array_keys($params) as $key) {
-        if ($key != "width") {
-            $smarty->trigger_error("invalid parameter $key for table tag, must be one of: width", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["width"])) {
-        $params["width"] = "100%";
-    }
-    if ($context["stack"][0] == "component") {
-        $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "table", "params" => $params, "content" => $this->_theme->table($context, $_row));
-    } else /* body */ {
-        return $this->_theme->table($context, $_row);
-    }
-    return;
-}
-
-function row($params, $content, &$smarty) {
-    if (!isset($content)) {
-        /* Prepare space for output from child tags */
-        $this->_content["column"][] = array();
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("row tag must be used inside one of: table", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "table") {
-        $smarty->trigger_error("row tag found inside {$context['stack'][0]}, but must be used inside one of: table", E_USER_ERROR);
-    }
-    $_column = array_pop($this->_content["column"]);
-    foreach (array_keys($params) as $key) {
-        if ($key != "rowspan") {
-            $smarty->trigger_error("invalid parameter $key for row tag, must be one of: rowspan", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["rowspan"])) {
-        $params["rowspan"] = "1";
-    }
-    $this->_content["row"][sizeof($this->_content["row"])-1][] = array("name" => "row", "params" => $params, "content" => $this->_theme->row($context, $_column));
-    return;
-}
-
-function column($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("column tag must be used inside one of: row", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "row") {
-        $smarty->trigger_error("column tag found inside {$context['stack'][0]}, but must be used inside one of: row", E_USER_ERROR);
-    }
-    foreach (array_keys($params) as $key) {
-        if ($key != "valign" && $key != "width" && $key != "header" && $key != "colspan") {
-            $smarty->trigger_error("invalid parameter $key for column tag, must be one of: valign, width, header, colspan", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["valign"])) {
-        $params["valign"] = "";
-    }
-    if (!isset($params["width"])) {
-        $params["width"] = "";
-    }
-    if (!isset($params["header"])) {
-        $params["header"] = "false";
-    }
-    if (!isset($params["colspan"])) {
-        $params["colspan"] = "1";
-    }
-    $this->_content["column"][sizeof($this->_content["column"])-1][] = array("name" => "column", "params" => $params, "content" => $content);
-    return;
-}
-
-function title($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("title tag must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1box" && $context["stack"][0] != "widget2box" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
-        $smarty->trigger_error("title tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
-    }
-    $this->_content["title"][sizeof($this->_content["title"])-1][] = array("name" => "title", "params" => $params, "content" => $content);
-    return;
-}
-
-function description($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("description tag must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "widget2") {
-        $smarty->trigger_error("description tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
-    }
-    $this->_content["description"][sizeof($this->_content["description"])-1][] = array("name" => "description", "params" => $params, "content" => $content);
-    return;
-}
 
-function body($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("body tag must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
-        $smarty->trigger_error("body tag found inside {$context['stack'][0]}, but must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
-    }
-    $this->_content["body"][sizeof($this->_content["body"])-1][] = array("name" => "body", "params" => $params, "content" => $content);
-    return;
-}
-
-function item($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    /* Make sure that we are being called in the right context */
-    if (empty($context["stack"])) {
-        $smarty->trigger_error("item tag must be used inside one of: pathbar, linksbox, infobox, listingbox, tabbedbox", E_USER_ERROR);
-    }
-
-    if ($context["stack"][0] != "pathbar" && $context["stack"][0] != "linksbox" && $context["stack"][0] != "infobox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "tabbedbox") {
-        $smarty->trigger_error("item tag found inside {$context['stack'][0]}, but must be used inside one of: pathbar, linksbox, infobox, listingbox, tabbedbox", E_USER_ERROR);
-    }
-    foreach (array_keys($params) as $key) {
-        if ($key != "selected") {
-            $smarty->trigger_error("invalid parameter $key for item tag, must be one of: selected", E_USER_ERROR);
-        }
-    }
-    if (!isset($params["selected"])) {
-        $params["selected"] = "false";
-    }
-    $this->_content["item"][sizeof($this->_content["item"])-1][] = array("name" => "item", "params" => $params, "content" => $content);
-    return;
-}
-
-function bigFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->bigFontSize($context, $content);
-}
-
-function biggerFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->biggerFontSize($context, $content);
-}
+    function form($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function biggestFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->form($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->biggestFontSize($context, $content);
-}
+    function select($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function errorFontColor($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->select($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->errorFontColor($context, $content);
-}
+    function textarea($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function heavyFrame($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->textarea($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->heavyFrame($context, $content);
-}
+    function link($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function highlight1($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->link($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->highlight1($context, $content);
-}
+    function error($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function highlight2($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->error($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->highlight2($context, $content);
-}
+    function status($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
 
-function lightFrame($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->status($context, $content);
     }
 
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->lightFrame($context, $content);
-}
-
-function smallFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->smallFontSize($context, $content);
-}
-
-function smallerFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->smallerFontSize($context, $content);
-}
-
-function smallestFontSize($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->smallestFontSize($context, $content);
-}
-
-function successFontColor($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+    function textmodifier($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->textmodifier($context, $content);
     }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->successFontColor($context, $content);
-}
-
-function thinFrame($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->thinFrame($context, $content);
-}
-
-function threeDFrame($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
+
+    function globalheader($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->globalheader($context, $content);
+    }
+
+    function main($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["header"][] = array();
+	    $this->_content["footer"][] = array();
+	    $this->_content["pathbar"][] = array();
+	    $this->_content["sidebar"][] = array();
+	    $this->_content["component"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_header = array_pop($this->_content["header"]);
+	if (empty($_header)) {
+	    $_header = array("name" => "main", "params" => array(), "content" => "");
+	} else {
+	    $_header = $_header[0];
+	}
+	$_footer = array_pop($this->_content["footer"]);
+	if (empty($_footer)) {
+	    $_footer = array("name" => "main", "params" => array(), "content" => "");
+	} else {
+	    $_footer = $_footer[0];
+	}
+	$_pathbar = array_pop($this->_content["pathbar"]);
+	if (empty($_pathbar)) {
+	    $_pathbar = array("name" => "main", "params" => array(), "content" => "");
+	} else {
+	    $_pathbar = $_pathbar[0];
+	}
+	$_sidebar = array_pop($this->_content["sidebar"]);
+	$_component = array_pop($this->_content["component"]);
+	return $this->_theme->main($context, $_header, $_footer, $_pathbar, $_sidebar, $_component);
+    }
+
+    function globalfooter($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->globalfooter($context, $content);
+    }
+
+    function header($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("header tag must be used inside one of: main", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "main") {
+	    $smarty->trigger_error("header tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
+	}
+	$this->_content["header"][sizeof($this->_content["header"])-1][] = array("name" => "header", "params" => $params, "content" => $this->_theme->header($context, $content));
+	return;
+    }
+
+    function footer($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("footer tag must be used inside one of: main", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "main") {
+	    $smarty->trigger_error("footer tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
+	}
+	$this->_content["footer"][sizeof($this->_content["footer"])-1][] = array("name" => "footer", "params" => $params, "content" => $this->_theme->footer($context, $content));
+	return;
+    }
+
+    function pathbar($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["item"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("pathbar tag must be used inside one of: main", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "main") {
+	    $smarty->trigger_error("pathbar tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
+	}
+	$_item = array_pop($this->_content["item"]);
+	$this->_content["pathbar"][sizeof($this->_content["pathbar"])-1][] = array("name" => "pathbar", "params" => $params, "content" => $this->_theme->pathbar($context, $_item));
+	return;
+    }
+
+    function sidebar($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["component"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("sidebar tag must be used inside one of: main", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "main") {
+	    $smarty->trigger_error("sidebar tag found inside {$context['stack'][0]}, but must be used inside one of: main", E_USER_ERROR);
+	}
+	$_component = array_pop($this->_content["component"]);
+	foreach (array_keys($params) as $key) {
+	    if ($key != "side") {
+		$smarty->trigger_error("invalid parameter $key for sidebar tag, must be one of: side", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["side"])) {
+	    $params["side"] = "";
+	}
+	$this->_content["sidebar"][sizeof($this->_content["sidebar"])-1][] = array("name" => "sidebar", "params" => $params, "content" => $this->_theme->sidebar($context, $_component));
+	return;
+    }
+
+    function bannerbox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["description"][] = array();
+	    $this->_content["component"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "bannerbox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_description = array_pop($this->_content["description"]);
+	if (empty($_description)) {
+	    $_description = array("name" => "bannerbox", "params" => array(), "content" => "");
+	} else {
+	    $_description = $_description[0];
+	}
+	$_component = array_pop($this->_content["component"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "bannerbox", "params" => $params, "content" => $this->_theme->bannerbox($context, $_title, $_description, $_component));
+	} else /* body */ {
+	    return $this->_theme->bannerbox($context, $_title, $_description, $_component);
+	}
+	return;
+    }
+
+    function linksbox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["item"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_item = array_pop($this->_content["item"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "linksbox", "params" => $params, "content" => $this->_theme->linksbox($context, $_item));
+	} else /* body */ {
+	    return $this->_theme->linksbox($context, $_item);
+	}
+	return;
+    }
+
+    function infobox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["item"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_item = array_pop($this->_content["item"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "infobox", "params" => $params, "content" => $this->_theme->infobox($context, $_item));
+	} else /* body */ {
+	    return $this->_theme->infobox($context, $_item);
+	}
+	return;
+    }
+
+    function listingbox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["item"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "listingbox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_item = array_pop($this->_content["item"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "listingbox", "params" => $params, "content" => $this->_theme->listingbox($context, $_title, $_item));
+	} else /* body */ {
+	    return $this->_theme->listingbox($context, $_title, $_item);
+	}
+	return;
+    }
+
+    function detailedbox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["description"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "detailedbox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_description = array_pop($this->_content["description"]);
+	if (empty($_description)) {
+	    $_description = array("name" => "detailedbox", "params" => array(), "content" => "");
+	} else {
+	    $_description = $_description[0];
+	}
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "detailedbox", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "detailedbox", "params" => $params, "content" => $this->_theme->detailedbox($context, $_title, $_description, $_body));
+	} else /* body */ {
+	    return $this->_theme->detailedbox($context, $_title, $_description, $_body);
+	}
+	return;
+    }
+
+    function tabbedbox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["item"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "tabbedbox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_item = array_pop($this->_content["item"]);
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "tabbedbox", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "tabbedbox", "params" => $params, "content" => $this->_theme->tabbedbox($context, $_title, $_item, $_body));
+	} else /* body */ {
+	    return $this->_theme->tabbedbox($context, $_title, $_item, $_body);
+	}
+	return;
+    }
+
+    function simplebox($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "simplebox", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "simplebox", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "simplebox", "params" => $params, "content" => $this->_theme->simplebox($context, $_title, $_body));
+	} else /* body */ {
+	    return $this->_theme->simplebox($context, $_title, $_body);
+	}
+	return;
+    }
+
+    function widget1box($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["widget1"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "widget1box", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_widget1 = array_pop($this->_content["widget1"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "widget1box", "params" => $params, "content" => $this->_theme->widget1box($context, $_title, $_widget1));
+	} else /* body */ {
+	    return $this->_theme->widget1box($context, $_title, $_widget1);
+	}
+	return;
+    }
+
+    function widget2box($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["widget2"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "widget2box", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_widget2 = array_pop($this->_content["widget2"]);
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "widget2box", "params" => $params, "content" => $this->_theme->widget2box($context, $_title, $_widget2));
+	} else /* body */ {
+	    return $this->_theme->widget2box($context, $_title, $_widget2);
+	}
+	return;
+    }
+
+    function widget1($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("widget1 tag must be used inside one of: widget1box", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "widget1box") {
+	    $smarty->trigger_error("widget1 tag found inside {$context['stack'][0]}, but must be used inside one of: widget1box", E_USER_ERROR);
+	}
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "widget1", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "widget1", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	$this->_content["widget1"][sizeof($this->_content["widget1"])-1][] = array("name" => "widget1", "params" => $params, "content" => $this->_theme->widget1($context, $_title, $_body));
+	return;
+    }
+
+    function widget2($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["title"][] = array();
+	    $this->_content["description"][] = array();
+	    $this->_content["body"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("widget2 tag must be used inside one of: widget2box", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "widget2box") {
+	    $smarty->trigger_error("widget2 tag found inside {$context['stack'][0]}, but must be used inside one of: widget2box", E_USER_ERROR);
+	}
+	$_title = array_pop($this->_content["title"]);
+	if (empty($_title)) {
+	    $_title = array("name" => "widget2", "params" => array(), "content" => "");
+	} else {
+	    $_title = $_title[0];
+	}
+	$_description = array_pop($this->_content["description"]);
+	if (empty($_description)) {
+	    $_description = array("name" => "widget2", "params" => array(), "content" => "");
+	} else {
+	    $_description = $_description[0];
+	}
+	$_body = array_pop($this->_content["body"]);
+	if (empty($_body)) {
+	    $_body = array("name" => "widget2", "params" => array(), "content" => "");
+	} else {
+	    $_body = $_body[0];
+	}
+	$this->_content["widget2"][sizeof($this->_content["widget2"])-1][] = array("name" => "widget2", "params" => $params, "content" => $this->_theme->widget2($context, $_title, $_description, $_body));
+	return;
+    }
+
+    function table($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["row"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	$_row = array_pop($this->_content["row"]);
+	foreach (array_keys($params) as $key) {
+	    if ($key != "width") {
+		$smarty->trigger_error("invalid parameter $key for table tag, must be one of: width", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["width"])) {
+	    $params["width"] = "100%";
+	}
+	if ($context["stack"][0] == "component") {
+	    $this->_content["component"][sizeof($this->_content["component"])-1][] = array("name" => "table", "params" => $params, "content" => $this->_theme->table($context, $_row));
+	} else /* body */ {
+	    return $this->_theme->table($context, $_row);
+	}
+	return;
+    }
+
+    function row($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    /* Prepare space for output from child tags */
+	    $this->_content["column"][] = array();
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("row tag must be used inside one of: table", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "table") {
+	    $smarty->trigger_error("row tag found inside {$context['stack'][0]}, but must be used inside one of: table", E_USER_ERROR);
+	}
+	$_column = array_pop($this->_content["column"]);
+	foreach (array_keys($params) as $key) {
+	    if ($key != "rowspan") {
+		$smarty->trigger_error("invalid parameter $key for row tag, must be one of: rowspan", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["rowspan"])) {
+	    $params["rowspan"] = "1";
+	}
+	$this->_content["row"][sizeof($this->_content["row"])-1][] = array("name" => "row", "params" => $params, "content" => $this->_theme->row($context, $_column));
+	return;
+    }
+
+    function column($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("column tag must be used inside one of: row", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "row") {
+	    $smarty->trigger_error("column tag found inside {$context['stack'][0]}, but must be used inside one of: row", E_USER_ERROR);
+	}
+	foreach (array_keys($params) as $key) {
+	    if ($key != "valign" && $key != "width" && $key != "header" && $key != "colspan") {
+		$smarty->trigger_error("invalid parameter $key for column tag, must be one of: valign, width, header, colspan", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["valign"])) {
+	    $params["valign"] = "";
+	}
+	if (!isset($params["width"])) {
+	    $params["width"] = "";
+	}
+	if (!isset($params["header"])) {
+	    $params["header"] = "false";
+	}
+	if (!isset($params["colspan"])) {
+	    $params["colspan"] = "1";
+	}
+	$this->_content["column"][sizeof($this->_content["column"])-1][] = array("name" => "column", "params" => $params, "content" => $content);
+	return;
+    }
+
+    function title($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("title tag must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1box" && $context["stack"][0] != "widget2box" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("title tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, listingbox, detailedbox, tabbedbox, simplebox, widget1box, widget2box, widget1, widget2", E_USER_ERROR);
+	}
+	$this->_content["title"][sizeof($this->_content["title"])-1][] = array("name" => "title", "params" => $params, "content" => $content);
+	return;
+    }
+
+    function description($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("description tag must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "bannerbox" && $context["stack"][0] != "detailedbox" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("description tag found inside {$context['stack'][0]}, but must be used inside one of: bannerbox, detailedbox, widget2", E_USER_ERROR);
+	}
+	$this->_content["description"][sizeof($this->_content["description"])-1][] = array("name" => "description", "params" => $params, "content" => $content);
+	return;
+    }
+
+    function body($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("body tag must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "detailedbox" && $context["stack"][0] != "tabbedbox" && $context["stack"][0] != "simplebox" && $context["stack"][0] != "widget1" && $context["stack"][0] != "widget2") {
+	    $smarty->trigger_error("body tag found inside {$context['stack'][0]}, but must be used inside one of: detailedbox, tabbedbox, simplebox, widget1, widget2", E_USER_ERROR);
+	}
+	$this->_content["body"][sizeof($this->_content["body"])-1][] = array("name" => "body", "params" => $params, "content" => $content);
+	return;
+    }
+
+    function item($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	/* Make sure that we are being called in the right context */
+	if (empty($context["stack"])) {
+	    $smarty->trigger_error("item tag must be used inside one of: pathbar, linksbox, infobox, listingbox, tabbedbox", E_USER_ERROR);
+	}
+
+	if ($context["stack"][0] != "pathbar" && $context["stack"][0] != "linksbox" && $context["stack"][0] != "infobox" && $context["stack"][0] != "listingbox" && $context["stack"][0] != "tabbedbox") {
+	    $smarty->trigger_error("item tag found inside {$context['stack'][0]}, but must be used inside one of: pathbar, linksbox, infobox, listingbox, tabbedbox", E_USER_ERROR);
+	}
+	foreach (array_keys($params) as $key) {
+	    if ($key != "selected") {
+		$smarty->trigger_error("invalid parameter $key for item tag, must be one of: selected", E_USER_ERROR);
+	    }
+	}
+	if (!isset($params["selected"])) {
+	    $params["selected"] = "false";
+	}
+	$this->_content["item"][sizeof($this->_content["item"])-1][] = array("name" => "item", "params" => $params, "content" => $content);
+	return;
+    }
+
+    function bigFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->bigFontSize($context, $content);
+    }
+
+    function biggerFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->biggerFontSize($context, $content);
+    }
+
+    function biggestFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->biggestFontSize($context, $content);
+    }
+
+    function errorFontColor($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->errorFontColor($context, $content);
+    }
+
+    function heavyFrame($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->heavyFrame($context, $content);
+    }
+
+    function highlight1($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->highlight1($context, $content);
+    }
+
+    function highlight2($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->highlight2($context, $content);
+    }
+
+    function lightFrame($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->lightFrame($context, $content);
+    }
+
+    function smallFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->smallFontSize($context, $content);
+    }
+
+    function smallerFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->smallerFontSize($context, $content);
+    }
+
+    function smallestFontSize($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->smallestFontSize($context, $content);
+    }
+
+    function successFontColor($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->successFontColor($context, $content);
+    }
+
+    function thinFrame($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->thinFrame($context, $content);
+    }
+
+    function threeDFrame($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->threeDFrame($context, $content);
+    }
+
+    function warningFontColor($params, $content, &$smarty) {
+	if (!isset($content)) {
+	    return;
+	}
+
+	$context = $this->_getContext($params, $smarty);
+	return $this->_theme->warningFontColor($context, $content);
     }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->threeDFrame($context, $content);
-}
-
-function warningFontColor($params, $content, &$smarty) {
-    if (!isset($content)) {
-        return;
-    }
-
-    $context = $this->_getContext($params, $smarty);
-    return $this->_theme->warningFontColor($context, $content);
-}
-
 }
 ?>

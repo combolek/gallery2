@@ -128,6 +128,27 @@ class CoreModuleTest extends GalleryTestCase {
 	$this->assertEquals(null, $content);
     }
 
+    function testGetSystemLinks() {
+        global $gallery;
+	
+        list ($ret, $content) = $this->_module->getSystemLinks();
+        if ($ret->isError()) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	
+        $this->assertEquals(array(
+                                  array('text' => $this->_module->translate('Site admin'),
+                                        'params' => array('view' => 'core:SiteAdmin')),
+                                  array('text' => $this->_module->translate('Your account'),
+                                        'params' => array('view' => 'core:UserAdmin',
+                                                          'subView' => 'core:UserPreferences')),
+                                  array('text' => $this->_module->translate('Logout'),
+                                        'params' => array('return' => 'true',
+							  'controller' => 'core:Logout'))
+                                  ),
+                            $content);
+    }
+
     function testLoadSystemContent() {
 	$template = new CoreModuleMockTemplate();
 	list ($ret, $file) = $this->_module->loadSystemContent($template);
@@ -135,7 +156,7 @@ class CoreModuleTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals('modules/core/templates/CoreSystemContent.tpl', $file);
+	$this->assertEquals(null, $file);
     }
 
     function testGetItemLinks() {

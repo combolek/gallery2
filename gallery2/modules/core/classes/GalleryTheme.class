@@ -486,6 +486,14 @@ class GalleryTheme {
     function link($context, $content) {
 	global $gallery;
 	$params = $context['params'];
+
+	/* All the user to pass in bulk params */
+	if (isset($params['params'])) {
+	    foreach ($params['params'] as $key => $value) {
+		$params['url_' . $key] = $value;
+	    }
+	    unset($params['params']);
+	}
 	
 	/* Translate the form variable name */
 	if (isset($params['name'])) {

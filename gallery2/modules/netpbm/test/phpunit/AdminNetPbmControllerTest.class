@@ -150,7 +150,7 @@ class AdminNetPbmControllerTest extends GalleryControllerTestCase {
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form.action.save', 1);
-	GalleryUtilities::putRequestVariable('form.path', '/invalidPath/');
+	GalleryUtilities::putRequestVariable('form.path', '');
 	GalleryUtilities::putRequestVariable('form.pnmtojpeg', 'ppmtojpeg');
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
 

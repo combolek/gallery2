@@ -415,6 +415,12 @@ class MatrixLayout extends GalleryLayout {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	/* Get system links */
+	list ($ret, $moduleSystemLinks) = $this->_getModuleSystemLinks();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	/* Get item details */
 	list ($ret, $moduleItemDetailFiles) = $this->_loadModuleItemDetails($template, $item);
 	if ($ret->isError()) {
@@ -432,8 +438,16 @@ class MatrixLayout extends GalleryLayout {
 	if (isset($sourceImageViewIndex)) {
 	    $layout['sourceImageViewIndex'] = $sourceImageViewIndex;
 	}
+
+	list ($ret, $user) = $gallery->getActiveUser();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$layout['user'] = $user->getMemberData();
 	$layout['navigator'] = $navigator;
 	$layout['moduleItemLinks'] = $moduleItemLinks;
+	$layout['moduleSystemLinks'] = $moduleSystemLinks;
 	$layout['moduleSystemContentFiles'] = $moduleSystemContentFiles;
 	$layout['moduleItemDetailFiles'] = $moduleItemDetailFiles;
 	$layout['baseUrl'] = GalleryUtilities::convertPathToRelativeUrl(dirname(__FILE__));

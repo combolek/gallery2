@@ -594,50 +594,46 @@ class CoreModule extends GalleryModule {
 
 	return array(GalleryStatus::success(), $links);
     }
-    
+
     /**
-     * @see GalleryModule::loadSystemContent
+     * @see GalleryModule::getSystemLinks
      */
-    function loadSystemContent(&$template) {
-	global $gallery;
-
-	list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+    function getSystemLinks() {
+        global $gallery;
+	
+        list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
+        if ($ret->isError()) {
+            return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
-	list ($ret, $user) = $gallery->getActiveUser();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	
+        $links = array();
+        list ($ret, $isAdmin) = GalleryUserGroupMap::isUserInSiteAdminGroup();
+        if ($ret->isError()) {
+            return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
-	$links = array();
-	list ($ret, $isAdmin) = GalleryUserGroupMap::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	
+        if ($isAdmin) {
+            $links[] = array('text' => $this->translate('Site admin'),
+                             'params' => array('view' => 'core:SiteAdmin'));
 	}
-
-	$show = array();
-
-	if ($isAdmin) {
-	    $show['siteAdmin'] = 1;
-	}
-
-	if ($gallery->getActiveUserId() == $anonymousUserId) {
-	    $show['login'] = 1;
+	
+        if ($gallery->getActiveUserId() == $anonymousUserId) {
+            $links[] = array('text' => $this->translate('Login'),
+                             'params' => array('return' => 'true',
+					       'view' => 'core:UserAdmin',
+					       'subView' => 'core:UserLogin'));
 	} else {
-	    $show['yourAccount'] = 1;
-	    $show['logout'] = 1;
+            $links[] = array('text' => $this->translate('Your account'),
+                             'params' => array('view' => 'core:UserAdmin',
+					       'subView' => 'core:UserPreferences'));
+            $links[] = array('text' => $this->translate('Logout'),
+                             'params' => array('return' => 'true',
+					       'controller' => 'core:Logout'));
 	}
-
-	$CoreSystemContent = array();
-	$CoreSystemContent['show'] = $show;
-	$CoreSystemContent['user'] = $user->getMemberData();
-
-	$template->setVariable('CoreSystemContent', $CoreSystemContent);
-	return array(GalleryStatus::success(), 'modules/core/templates/CoreSystemContent.tpl');
+	
+        return array(GalleryStatus::success(), $links);
     }
-    
+
     /**
      * @see GalleryModule::getSiteAdminViews();
      */

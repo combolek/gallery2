@@ -20,12 +20,19 @@
 
   {gallery->sidebar side="right"}
     {gallery->component}
-      {* Core system content *}
-      {gallery->simplebox}
-	{gallery->body}
-	  {include file=$layout.moduleSystemContentFiles.core l10Domain="module_core"}
-	{/gallery->body}
-      {/gallery->simplebox}
+      {* Module links *}
+      {gallery->listingbox}
+	{gallery->title}
+	  {gallery->text text="Greetings, %s!" arg1=$layout.user.fullName|default:$layout.user.userName}
+	{/gallery->title}
+	{foreach from=$layout.moduleSystemLinks item=module}
+	  {foreach from=$module item=link}
+	    {gallery->item}
+	      {gallery->link params=$link.params}{$link.text}{/gallery->link}
+	    {/gallery->item}
+	  {/foreach}
+	{/foreach}
+      {/gallery->listingbox}
 
       {* List of peer items *}
 

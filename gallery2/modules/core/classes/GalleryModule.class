@@ -256,6 +256,22 @@ class GalleryModule {
     }
 
     /**
+     * Return 0 or more system-specific links to an arbitrary module view.  Get
+     * the name of the GalleryView containing the administration view
+     * specifically for configuring this module.  It may be one that is also
+     * listed in getSiteAdminViews().  As with getSiteAdminViews(), the view
+     * title text must be localized.
+     *
+     * @return array object GalleryStatus a status code
+     *               array(array('text' => 'localized text',
+     *                           'params' => array(key => value, key => value))
+     *                     ...)
+     */
+    function getSystemLinks() {
+	return array(GalleryStatus::success(), array());
+    }
+    
+    /**
      * Return system level content.  This is similar to system links, but it's
      * actually HTML content and not a link to a view.  It must be localized
      * since it will be displayed directly to the user.  This is useful for
