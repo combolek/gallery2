@@ -23,10 +23,13 @@
 /* Load defaults */
 require('version.php');
 require('config.php');
-require('class_Album.php');
-require('class_Image.php');
-require('class_AlbumItem.php');
-require('class_AlbumDB.php');
+require('classes/Album.php');
+require('classes/Image.php');
+require('classes/AlbumItem.php');
+require('classes/AlbumDB.php');
+require('classes/User.php');
+require('classes/PublicUser.php');
+require('classes/UserDB.php');
 require('util.php');
 require('session.php');
 
@@ -101,4 +104,13 @@ if ($albumName) {
 		$album->save();
 	}
 }
+
+/* And load our user object */
+$userDB = new UserDB;
+if ($username) {
+	$user = $userDB->getUser($username);
+} else {
+	$user = new PublicUser();
+}
+
 ?>
