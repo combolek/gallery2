@@ -30,6 +30,9 @@ if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
     return;
 }
 
+list($page, $save, $next, $prev, $cancel) = getRequestVar(array('page', 'save', 'next', 'prev', 'cancel'));
+list($captionedAlbum, $extra_fields) = getRequestVar(array('captionedAlbum', 'extra_fields'));
+
 if (!isset($page)) {
     $page = 1;
 }
@@ -62,12 +65,12 @@ if (isset($save) || isset($next) || isset($prev)) {
         $myAlbumName = $gallery->album->getAlbumName($i);
         $myAlbum = new Album();
         $myAlbum->load($myAlbumName);
-        $myAlbum->fields['description'] = stripslashes(${"new_captions_" . $i});
+	$myAlbum->fields['description'] = stripslashes(getRequestVar({"new_captions_" . $i}));
 	$myAlbum->save(array(i18n("Text has been changed")));
 
       } else {
-        $gallery->album->setCaption($i, stripslashes(${"new_captions_" . $i}));
-        $gallery->album->setKeywords($i, stripslashes(${"new_keywords_" . $i}));
+	$gallery->album->setCaption($i, stripslashes(getRequestVar({"new_captions_" . $i})));
+	$gallery->album->setKeywords($i, stripslashes(getRequestVar{"new_keywords_" . $i})));
 	if (isset($extra_fields)) {
 		foreach ($extra_fields[$i] as $field => $value)
 		{
