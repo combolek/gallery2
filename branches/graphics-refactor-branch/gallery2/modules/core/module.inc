@@ -110,7 +110,7 @@ class CoreModule extends GalleryModule {
 					       'UnixPlatform',
 					       'Unix',
 					       $classDir . 'GalleryPlatform/UnixPlatform.class',
-					       array(FACTORY_DEFAULT));
+					       array('unix', '*'));
 
 	GalleryFactory::registerImplementation('GalleryPlatform',
 					       'WinNtPlatform',
@@ -169,21 +169,24 @@ class CoreModule extends GalleryModule {
 					       'GalleryUnknownItem',
 					       $classDir . 'GalleryUnknownItem.class');
 
-	/* Register GalleryDataItem implementations */
-	GalleryFactory::registerImplementation('GalleryDataItem',
+	/* Register GalleryItem implementations */
+	GalleryFactory::registerImplementation('GalleryItem',
 					       'GalleryPhotoItem',
 					       'GalleryPhotoItem',
 					       $classDir . 'GalleryPhotoItem.class',
-					       array('image/pjpeg',
-						     'image/jpeg',
-						     'image/gif',
-						     'image/png'));
+					       array('image/*'));
 
-	GalleryFactory::registerImplementation('GalleryDataItem',
+	GalleryFactory::registerImplementation('GalleryItem',
+					       'GalleryMovieItem',
+					       'GalleryMovieItem',
+					       $classDir . 'GalleryPhotoItem.class',
+					       array('video/*'));
+
+	GalleryFactory::registerImplementation('GalleryItem',
 					       'GalleryUnknownItem',
 					       'GalleryUnknownItem',
 					       $classDir . 'GalleryUnknownItem.class',
-					       array(FACTORY_DEFAULT));
+					       array('*'));
 
 	/* Register our search implementation */
 	GalleryFactory::registerImplementation('GallerySearchInterface_1_0',
@@ -754,6 +757,10 @@ class CoreModule extends GalleryModule {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+
+	if (!isset($group)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
     
 	$ret = $group->create('All Users', GROUP_ALL_USERS);
 	if ($ret->isError()) {
@@ -795,6 +802,10 @@ class CoreModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 					     
+	if (!isset($group)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
+    
 	$ret = $group->create('Site Admins', GROUP_SITE_ADMINS);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -835,6 +846,10 @@ class CoreModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 					     
+	if (!isset($user)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
+    
 	$ret = $user->create($this->translate('anonymous'));
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -883,6 +898,10 @@ class CoreModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 					     
+	if (!isset($user)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
+    
 	$ret = $user->create($this->translate('admin'));
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -943,6 +962,10 @@ class CoreModule extends GalleryModule {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 					     
+	if (!isset($album)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
+    
 	$ret = $album->createRoot('root', $adminId);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);

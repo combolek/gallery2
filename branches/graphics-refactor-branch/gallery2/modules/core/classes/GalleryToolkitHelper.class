@@ -573,7 +573,7 @@ class GalleryToolkitHelper {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    if (!is_object($toolkit)) {
+	    if (!isset($toolkit)) {
 		$isSupported = false;
 		break;
 	    }

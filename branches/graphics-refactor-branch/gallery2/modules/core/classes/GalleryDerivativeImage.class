@@ -178,20 +178,22 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Figure out our target path */
-	list($ret, $destPath) = $this->fetchPath();
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
+	if (isset($toolkit)) {
+	    /* Figure out our target path */
+	    list($ret, $destPath) = $this->fetchPath();
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
-	list ($ret, $dimensions) =
-	    $toolkit->getProperty($mimeType, 'dimensions', $destPath);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
+	    list ($ret, $dimensions) =
+		$toolkit->getProperty($mimeType, 'dimensions', $destPath);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 	
-	$this->setWidth($dimensions[0]);
-	$this->setHeight($dimensions[1]);
+	    $this->setWidth($dimensions[0]);
+	    $this->setHeight($dimensions[1]);
+	}
 
 	return GalleryStatus::success();
     }

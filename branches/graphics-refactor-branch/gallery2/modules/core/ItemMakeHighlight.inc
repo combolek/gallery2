@@ -116,6 +116,11 @@ class ItemMakeHighlightController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
+		if (!isset($derivative)) {
+		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+				 null);
+		}
+
 		$ret = $derivative->create($parentId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);

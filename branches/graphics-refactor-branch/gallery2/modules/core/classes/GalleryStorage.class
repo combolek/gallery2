@@ -427,6 +427,9 @@ class GalleryStorage {
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
+	    if (!isset($entity)) {
+		return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    }
 	    $this->_entityInfoCache[$entityName] = $entity->getPersistentMemberInfo();
 	}
 
@@ -467,9 +470,11 @@ class GalleryStorage {
 		GalleryFactory::newInstance('GalleryEntity', $className);
 	    
 	    if ($ret->isError()) {
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
-						  __FILE__, __LINE__),
-			     null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    if (!isset($instance)) {
+		return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	    }
 	    
 	    $this->_classTypeCache[$className] = $instance ;

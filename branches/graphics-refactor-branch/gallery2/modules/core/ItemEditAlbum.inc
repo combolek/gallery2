@@ -201,6 +201,11 @@ class ItemEditAlbumController extends GalleryController {
 				    return array($ret->wrap(__FILE__, __LINE__), null);
 				}
 
+				if (!isset($derivative)) {
+				    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+						 null);
+				}  
+
 				$ret = $derivative->create($childId, DERIVATIVE_TYPE_IMAGE_RESIZE);
 				if ($ret->isError()) {
 				    return array($ret->wrap(__FILE__, __LINE__), null);

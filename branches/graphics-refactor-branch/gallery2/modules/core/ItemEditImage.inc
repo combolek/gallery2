@@ -132,6 +132,11 @@ class ItemEditImageController extends GalleryController {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
+		if (!isset($toolkit)) {
+		    /* This should never happen */
+		    return GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
+		}
+
 		/* Perform the operation */
 		list ($ret, $outputMimeType) =
 		    $toolkit->performOperation($item->getMimeType(),
@@ -180,6 +185,11 @@ class ItemEditImageController extends GalleryController {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    
+		    if (!isset($preferred)) {
+			return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+				     null);
+		    }
+		
 		    $ret = $preferred->create($item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);

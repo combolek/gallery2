@@ -85,6 +85,9 @@ class CreateRandomTreeTestCase extends TestCase {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	if (!isset($album)) {
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	}  
 	
 	$ret = $album->create($parentId,
 			      $this->_randomName(),
@@ -130,8 +133,7 @@ class CreateRandomTreeTestCase extends TestCase {
 	    $extension = GalleryUtilities::getFileExtension($imageFile);
 
 	    /* Create the item */
-	    list ($ret, $item) =
-		GalleryFactory::newInstanceByHint('GalleryDataItem', $mimeType);
+	    list ($ret, $item) = GalleryItemHelper::newItemByMimeType($mimeType);
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -174,6 +176,10 @@ class CreateRandomTreeTestCase extends TestCase {
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
+
+		if (!isset($thumbnail)) {
+		    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+		}  
 	    
 		$ret = $thumbnail->create($item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 		if ($ret->isError()) {
@@ -194,6 +200,10 @@ class CreateRandomTreeTestCase extends TestCase {
 		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
+
+		    if (!isset($thumbnail)) {
+			return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+		    }  
 		
 		    $ret = $thumbnail->create($album->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
 		    if ($ret->isError()) {
@@ -225,6 +235,10 @@ class CreateRandomTreeTestCase extends TestCase {
 		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
+
+		    if (!isset($resize)) {
+			return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+		    }  
 		
 		    $ret = $resize->create($item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
 		    if ($ret->isError()) {

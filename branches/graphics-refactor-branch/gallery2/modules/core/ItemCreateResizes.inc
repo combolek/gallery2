@@ -131,6 +131,11 @@ class ItemCreateResizesController extends GalleryController {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
+			if (!isset($derivative)) {
+			    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+					 null);
+			}
+
 			$ret = $derivative->create($item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
 			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -233,16 +238,18 @@ class ItemCreateResizesView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    foreach ($resizes[$item->getId()] as $resize) {
-		if (preg_match('/scale\|(\d+)/',
-			       $resize->getDerivativeOperations(),
-			       $matches)) {
-		    $size = $matches[1];
-		}
-		if (empty($size)) {
-		    $form['resizes'][] = array('active' => 0, 'size' => '');
-		} else {
-		    $form['resizes'][] = array('active' => 1, 'size' => $size);
+	    if (!empty($resizes)) {
+		foreach ($resizes[$item->getId()] as $resize) {
+		    if (preg_match('/scale\|(\d+)/',
+				   $resize->getDerivativeOperations(),
+				   $matches)) {
+			$size = $matches[1];
+		    }
+		    if (empty($size)) {
+			$form['resizes'][] = array('active' => 0, 'size' => '');
+		    } else {
+			$form['resizes'][] = array('active' => 1, 'size' => $size);
+		    }
 		}
 	    }
 

@@ -483,18 +483,29 @@ class Gallery {
 	if (!isset($this->_platform)) {
 	    $platformType = $this->getConfig('platform.type');
 
-	    list ($ret, $this->_platform) =
-		GalleryFactory::newInstanceByHint('GalleryPlatform', $platformType);
+	    foreach (array($platformType, '*') as $type) {
+		list ($ret, $this->_platform) =
+		    GalleryFactory::newInstanceByHint('GalleryPlatform', $type);
 
-	    /*
-	     * The platform factory should never fail.  It's highly
-	     * inconvenient to have to return an error code from this function,
-	     * so just drop a debug message if there was a failure.
-	     */
-	    if ($ret->isError()) {
+		/*
+		 * The platform factory should never fail.  It's highly
+		 * inconvenient to have to return an error code from this function,
+		 * so just drop a debug message if there was a failure.
+		 *
+		 * XXX: Refactor this out into initPlatform() and getPlatform()
+		 *      so that we can actually return an error code.
+		 */
+		if ($ret->isError()) {
+		    $this->debug($ret->getAsHtml());
+		}
+
+		if (isset($this->_platform)) {
+		    break;
+		}
+	    }
+
+	    if (!isset($this->_platform)) {
 		$this->debug('Failed to get the platform!');
-		$this->debug($ret->getAsHtml());
-		return null;
 	    }
 	}
 	
