@@ -46,7 +46,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function pathbaritem($params, $content) {
-	return '<p class="pathbar_item">' . $content . '</p>';
+	return '<span class="pathbar_item">' . $content . '</span>';
     }
     
     function main($params, $content) {
@@ -107,7 +107,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function widget1($params, $content) {
-	return '<tr> ' . $content . ' </tr> ';
+	return '<tr class="widget1"> ' . $content . ' </tr> ';
     }
     
     function widget1set($params, $content) {
@@ -123,7 +123,7 @@ class MatrixTheme extends GalleryTheme {
     }
     
     function widget2($params, $content) {
-	return '<tr> <td> ' . $content . ' </td> </tr> ';
+	return '<tr class="widget2"> <td> ' . $content . ' </tr> ';
     }
     
     function widget2set($params, $content) {
@@ -134,12 +134,16 @@ class MatrixTheme extends GalleryTheme {
 	return '<span class="widget2title">' . $content . '</span> ';
     }
     
+    function widget2description($params, $content) {
+	return '<br /> <span class="widget2description">' . $content . '</span> ';
+    }
+    
     function widget2body($params, $content) {
-	return '<br /> ' . $content . ' ';
+	return '<br /> ' . $content . ' <br /> &nbsp ';
     }
     
     function footer($params, $content) {
-	return $content;
+	return '<table class="footer"> <tr> <td> <p> ' . $content . ' </p> </td> </tr> </table>';
     }
     
     function status($params, $content) {
@@ -173,6 +177,33 @@ class MatrixTheme extends GalleryTheme {
     function style($params) {
 	$themeCss = $this->getBaseUrl() . 'styles/theme.css';
 	return '<style type="text/css" media="all">@import url(' . $themeCss . ');</style>';
+    }
+
+    function thumbnail($params) {
+	global $gallery;
+	$urlGenerator = $gallery->getUrlGenerator();
+	$src = $urlGenerator->generateUrl(array('view' => 'core:DownloadItem',
+						'itemId' => $params['thumbnail']['id']));
+
+	list ($width, $height) =
+	    GalleryUtilities::shrinkDimensionsToFit(110,
+						    $params['thumbnail']['width'],
+						    $params['thumbnail']['height']);
+
+	$title = $params['item']['title'];
+	if (empty($title)) {
+	    $title = $params['item']['pathComponent'];
+	}
+
+	$result = sprintf('<img src="%s" width="%s" height="%s" alt="%s" longdesc="%s" class="thumbnail">' .
+			  '<p class="thumbnail_title"> %s </p>',
+			  $src,
+			  $width,
+			  $height,
+			  $title,
+			  $params['item']['description'],
+			  $title);
+	return $result;
     }
 }
 ?>

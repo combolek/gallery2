@@ -2,30 +2,37 @@
 <html>
   <head>
       {if !empty($master.error)}
-      <title>{gallery->text text="Error"}</title>
+	<title>
+	{gallery->text text="Error"}
+	</title>
       {else}
-      {$master.view.head}
+	{$master.view.head}
       {/if}
   </head>
   <body>
-    
-    {if !empty($master.error)}
-    {$master.error}
-    {else}
-    {$master.view.body}
-    {/if}
 
+      {gallery->header}
+	{gallery->text text="Gallery 2"}
+      {/gallery->header}
 
-    <a href="http://validator.w3.org/check/referer"><img border="0" 
+      {if !empty($master.error)}
+	{$master.error}
+      {else}
+	{$master.view.body}
+      {/if}
+
+      {gallery->footer}
+	<a href="http://validator.w3.org/check/referer"><img border="0" 
 	   src="{gallery->url href="images/html401.gif"}"
            alt="{gallery->text text="This page is valid HTML 4.01"}" 
            height="15" width="80"></a>
 
-    <a href="http://gallery.sourceforge.net"><img border="0" 
+	<a href="http://gallery.sourceforge.net"><img border="0" 
 	   src="{gallery->url href="images/gallery.gif"}"
            alt="{gallery->text text="Powered by Gallery %s" arg1=$gallery.version}"
            height="15"  
            width="80"></a>
+      {/gallery->footer}
 
     {if !empty($master.debug)}
     <!-- Debug output -->

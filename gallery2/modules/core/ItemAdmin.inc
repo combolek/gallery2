@@ -150,9 +150,16 @@ class ItemAdminView extends GalleryView {
 	    $itemType = 'item';
 	}
 
+	/* Load the item's parents */
+	list ($ret, $parents) = $item->fetchParents();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	/* Render our HTML body */
 	$template = $this->_getTemplate($item);
 	$template->setVariable('item', $item->getMemberData());
+	$template->setVariable('parents', $parents);
 	$template->setVariable('itemType', $itemType);
 	$template->setVariable('thumbnail', $thumbnailData);
 	$template->setVariable('subViewChoices', $subViewChoices);
