@@ -50,7 +50,9 @@
 	</ul>
       <li> <a href="#Comments">Comments</a>
 	<ul>
-	  <li> <a href="#CodeDocumentation">Code Documentation</a>
+	  <li> <a href="#ClassModuleComments">Class/Module Comments</a>
+	  <li> <a href="#FunctionComments">Function/Method Comments</a>
+	  <li> <a href="#ClassVariableandIncludeFileComments">Class Variable and Include File Comments</a>
 	  <li> <a href="#DocumentHeader">Document Header</a>
 	  <li> <a href="#SpecialComments">Special Comments</a>
 	</ul>
@@ -111,6 +113,7 @@
       <li> <a href="http://www.php.net/manual/en/pear.standards.php">Pear Coding Standards</a>
       <li> <a href="http://phpbb.sourceforge.net/codingstandards.html">phpBB Coding Standard Guidelines</a>
       <li> <a href="http://www.phpdoc.de/doc">PHPDoc</a>
+      <li> <a href="http://www.k-fish.de/krabutzig/phpwebsite/devdoc.html#comments">phpWebSite developer documentation</a>
     </ul>
 
     In some places we've copied it verbatim.  Please don't sue us,
@@ -640,7 +643,7 @@
     <pre>
       $a += $c + $d;
       $a = ($a + $b) / ($c * $d);
-      while ($d++ = $s++) {
+      while ($n < $s) {
           $n++;
       }
       print("size is " . $foo . "\n");
@@ -662,31 +665,12 @@
     <br>
     [<a href=#Contents>contents</a>]
     <a name="Comments"><h2>Comments</h2></a>
-	    
-    Each function should be preceded by a comment that tells a
-    programmer everything they need to know to use that function. The
-    meaning of every parameter, the expected input, and the output are
-    required as a minimal comment. The function's behaviour in error
-    conditions (and what those error conditions are) should also be
-    present. Nobody should have to look at the actual source of a
-    function in order to be able to call it with confidence in their
-    own code.  This comment block should adhere to the PHPDoc
-    specification.  They haven't documented it incredibly clearly at
-    the time of this writing, so I'll refer you to the <a
-    href=http://www.phpdoc.de>PHPDoc website</a> for more information
-    and leave you with an example:
 
-    <pre>
-      /**
-       * Short description - used in indexlists
-       *
-       * Multiple line detailed description.
-       * The handling of line breaks and HTML is up to the renderer.
-       * Order: short description - detailed description - doc tags.
-       *
-       * @paramstringTarget directory for the generated HTML Files
-       */
-    </pre>
+    If you change code and/or write new code you should add
+    appropriate comments. This applies to whole files (so called
+    modules when we talk about procedural code, or classes when
+    talking OO), function/method definitions, included files and
+    important variables.
 
     <br><br>
 
@@ -705,15 +689,128 @@
     application and figure out what's going on in a reasonable amount
     of time.
 
-
     <br>
-    [<a href=#Contents>contents</a>]
-    <a name="CodeDocumentation"><h3>Code Documentation</h3></a>
-	    
-    Finally, each class and function should be preceded by a PHPDoc
-    style comment block that describes the purpose of the function,
-    its arguments and its return value.  
 
+    [<a href=#Contents>contents</a>]
+    <a name="ClassModuleComments"><h3>Class/Module Comments</h3></a>
+
+    These should appear at the beginning of every file, and help to
+    explain the purpose of the file. Further they give the file a name
+    (module) and put the file in a certain group (a module group). All
+    phpWebSite modules should belong to the package phpWebSite. This
+    might be helpful in the future, if code is distributed with
+    phpWebSite that is not part of the core package (e.g. certain
+    modules). Module comments apply to classes as well, here they
+    magically turn into class comments. Such a comment looks like
+    this:
+
+    <p>
+
+    <pre>
+      /**
+       * Short explanation (1 line!)
+       *
+       * Some more text which explains in more detail
+       * what the file does and who might be interested
+       * in understanding that.
+       *
+       * @version &#36;Id&#36;
+       * @module modulename
+       * @modulegroup group
+       * @package Gallery
+       */
+    </pre>
+
+    <ul>
+      <li> The first line should be short but meaningful. 
+
+      <li> The longer explanation may span several lines. Currently
+	HTML markup is not retained, so try to avoid it.
+
+      <li> An @author statement might be present - see function comments below for details. 
+
+      <li> The @version statement should be used unchanged except that
+      you of course have to put real dollar signs into the source -
+      this way it will be substituted through CVS (and that is why I
+      cannot use the real dollar sign in this text - it would get
+      substituted.) If you want to know how this looks, look at this
+      web pages source, first line.
+
+      <li>The @module statement gives the file a more meaningful
+      name. Usually it should be the filename without the suffix
+      .php. Dots are not allowed in the name, convert them to
+      underscore if needed.
+
+      <li> The @modulegroup should be one of the following. If you
+      think a new group is needed, please email me (better yet the
+      developers mailing list). We will add it if appropriate.
+	<ul>
+	  <li> core    - core class files
+	  <li> layout  - files used by the layout engine
+	  <li> app     - procedural files that form the application
+	  <li> config  - configuration wizard files
+	  <li> backend - backend metadata storage implementations
+	</ul>
+
+      <li> The @package statement should be left unchanged. 
+    </ul>
+
+    [<a href=#Contents>contents</a>]
+    <a name="FunctionComments"><h3>Function/Method Comments</h3></a>
+
+    These explain in detail what a function does, what parameters it
+    expects and what is returned by the function. Function comments
+    apply to classes as well, here they magically turn into method
+    comments. Such a comment appears directly above a function
+    definition looks like this:
+
+    <pre>
+      /**
+       * Short explanation (1 line!)
+       *
+       * Some more text which explains in more detail what
+       * the function does and who might be interested
+       * in understanding that.
+       *
+       * @author Name &lt;email address&gt;, Name2 &lt;other email address&gt;
+       * @param type description
+       * @return type description
+       */
+    </pre>
+
+    <ul>
+      <li> The first line should be short but meaningful. 
+
+      <li> The longer explanation may span several lines. Currently
+      HTML markup is not retained, so try to avoid it.
+
+      <li> One @author statement may be present. More than one author
+      may appear in the stamement, consisting of his/her name and
+      optionally the email address in lt or gt signs, individual
+      authors seperated by colons. If given, the email address will be
+      converted into a hyperlink automagically.
+
+      <li> One or more @param statements describing the arguments the
+      function expects. They must be given in the order in which they
+      appear in the function definition.  A return statement, if the
+      function returns something.
+    </ul>
+
+    [<a href=#Contents>contents</a>]
+    <a name="ClassVariableandIncludeFileComments"><h3>Class Variable and Include File Comments</h3></a>
+
+    These are simple: They just quickly explain what a class varibale
+    is used for, or what an included file does, or why we need
+    it. These comments may be longer, if you have to explain more
+    (e.g. the $dbp variable in the config file). They should appear
+    just above the corresponding variable or include/require
+    statement. They have to be one line and look like this.
+    
+    <pre>
+      /**
+       * Some explanation of the variable or file just below this comment.
+       */
+    </pre>
 
     <br>
     [<a href=#Contents>contents</a>]
@@ -948,6 +1045,11 @@
     <font size=-1>
       <pre>
 $Log$
+Revision 1.3  2001/11/13 08:42:40  bharat
+Fleshed out the comments section to include much more detail on the
+PHPdoc style comment blocks.  No big changes here, just a lot more
+detail.
+
 Revision 1.2  2001/11/11 08:06:17  bharat
 Numerous cosmetic tweaks, no content changes.
 
@@ -960,7 +1062,7 @@ Draft #1 of the definitive Gallery code style document.
     <address><a href="mailto:bharat@menalto.com">Bharat Mediratta</a></address>
 <!-- Created: Fri Nov  9 16:37:09 PST 2001 -->
 <!-- hhmts start -->
-Last modified: Sun Nov 11 00:05:25 PST 2001
+Last modified: Tue Nov 13 00:40:44 PST 2001
 <!-- hhmts end -->
   </body>
 </html>
