@@ -288,12 +288,11 @@ class GalleryModule {
     /**
      * Return module-specific summary content about the item
      *
-     * @param object GalleryTemplate a template
      * @param array object GalleryItem 
      * @return array object GalleryStatus a status code
      *               string HTML content
      */
-    function getItemSummaries(&$template, $items) {
+    function getItemSummaries($items) {
 	return array(GalleryStatus::success(), array());
     }
 

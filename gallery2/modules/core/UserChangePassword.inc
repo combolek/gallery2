@@ -54,48 +54,41 @@ class UserChangePasswordController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
-
+	$error = array();
 	if (isset($form['action']['cancel'])) {
 
-	    /* XXX: broken for now */
-	    /* Redirect back to the same view */
-	    $redirectParams['view'] = 'core:UserAdmin';
-	    $redirectParams['subView'] = 'core:UserChangePassword';
+	    /* Redirect back to user preferences */
+	    $redirect['view'] = 'core:UserAdmin';
+	    $redirect['subView'] = 'core:UserPreferences';
 	    
 	} else if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:UserAdmin';
-	    $redirectParams['subView'] = 'core:UserChangePassword';
+	    $redirect['view'] = 'core:UserAdmin';
+	    $redirect['subView'] = 'core:UserChangePassword';
 	    
 	} else if (isset($form['action']['save'])) {
 
 	    /*
 	     * Validate our data before we continue.
 	     */
-	    $error = false;
-
 	    if (!isset($form['password1'])) {
-		GalleryUtilities::putRequestVariable('form.error.password1.missing', 1);
-		$error = true;
+		$error[] = 'form.error.password1.missing';
 	    }
 	    
 	    if (!isset($form['password2'])) {
-		GalleryUtilities::putRequestVariable('form.error.password2.missing', 1);
-		$error = true;
+		$error[] = 'form.error.password2.missing';
 	    }
 
 	    if (!$error && $form['password1'] != $form['password2']) {
-		GalleryUtilities::putRequestVariable('form.error.password2.mismatch', 1);
-		$error = true;
+		$error[] = 'form.error.password2.mismatch';
 	    }
 
 	    /*
 	     * If all the right fields are in place then go ahead and modify
 	     * the user.
 	     */
-	    if (!$error) {
+	    if (empty($error)) {
 		list ($ret, $lockId) = $gallery->acquireWriteLock($userId);
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -119,23 +112,20 @@ class UserChangePasswordController extends GalleryController {
 		}
 
 		/* Request a redirect to the confirmation screen */
-		$redirectParams['view'] = 'core:UserAdmin';
-		$redirectParams['subView'] = 'core:UserChangePassword';
+		$redirect['view'] = 'core:UserAdmin';
+		$redirect['subView'] = 'core:UserChangePassword';
 		$status['changedPassword'] = 1;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    if (!empty($status)) {
-		$results['status'] = $status;
-	    }
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:UserAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:UserChangePassword');
-	    }
+	    $results['delegate']['view'] = 'core:UserAdmin';
+	    $results['delegate']['subView'] = 'core:UserChangePassword';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

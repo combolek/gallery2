@@ -122,8 +122,6 @@ class ShowCommentsView extends GalleryView {
 	    $template->setVariable('thumbnail', $thumbnail->getMemberData());
 	}
 	
-	$return = GalleryUtilities::getFormVariables('return.');
-
 	list ($ret, $permissions) = GalleryItemHelper::getPermissions($item->getId());
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

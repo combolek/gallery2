@@ -51,12 +51,13 @@ class ItemEditItemController extends GalleryController {
 	}
 
 	$status = array();
+	$error = array();
 	if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['subView'] = 'core:ItemEditItem';
-	    $redirectParams['itemId'] = $itemId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['subView'] = 'core:ItemEditItem';
+	    $redirect['itemId'] = $itemId;
 	    
 	} else if (isset($form['action']['save'])) {
 	    /*
@@ -64,9 +65,9 @@ class ItemEditItemController extends GalleryController {
 	     */
 	    $platform = $gallery->getPlatform();
 	    if (empty($form['pathComponent'])) {
-		GalleryUtilities::putRequestVariable('form.error.pathComponent.missing', 1);
+		$error[] = 'form.error.pathComponent.missing';
 	    } else if (!$platform->isLegalPathComponent($form['pathComponent'])) {
-		GalleryUtilities::putRequestVariable('form.error.pathComponent.invalid', 1);
+		$error[] = 'form.error.pathComponent.invalid';
 	    } else {
 		list ($ret, $lockId) = $gallery->acquireWriteLock($itemId);
 		if ($ret->isError()) {
@@ -88,7 +89,7 @@ class ItemEditItemController extends GalleryController {
 		}
 
 		if ($ret->isError() && $ret->getErrorCode() & ERROR_COLLISION) {
-		    GalleryUtilities::putRequestVariable('form.error.pathComponent.collision', 1);
+		    $error[] = 'form.error.pathComponent.collision';
 		} else {
 		    $item->setTitle($form['title']);
 		    $item->setSummary($form['summary']);
@@ -101,9 +102,9 @@ class ItemEditItemController extends GalleryController {
 		    }
 
 		    /* Figure out where to redirect upon success */
-		    $redirectParams['view'] = 'core:ItemAdmin';
-		    $redirectParams['subView'] = 'core:ItemEditItem';
-		    $redirectParams['itemId'] = $itemId;
+		    $redirect['view'] = 'core:ItemAdmin';
+		    $redirect['subView'] = 'core:ItemEditItem';
+		    $redirect['itemId'] = $itemId;
 		    $status['saved'] = 1;
 		}
 
@@ -114,17 +115,15 @@ class ItemEditItemController extends GalleryController {
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    if (!empty($status)) {
-		$results['status'] = $status;
-	    }
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemEditItem');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemEditItem';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	
 
 	return array(GalleryStatus::success(), $results);
     }

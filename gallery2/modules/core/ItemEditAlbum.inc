@@ -56,34 +56,31 @@ class ItemEditAlbumController extends GalleryController {
 	}
 
 	$status = array();
+	$error = array();
 	if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['subView'] = 'core:ItemEditAlbum';
-	    $redirectParams['itemId'] = $itemId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['subView'] = 'core:ItemEditAlbum';
+	    $redirect['itemId'] = $itemId;
 	    
 	} else if (isset($form['action']['save'])) {
 	    /* Validate the input data. */
-	    $error = false;
 	    if (!is_numeric($form['thumbnail']['size'])) {
-		GalleryUtilities::putRequestVariable('form.error.thumbnail.size.invalid', 1);
-		$error = true;
+		$error[] = 'form.error.thumbnail.size.invalid';
 	    }
 
 	    for ($i = 0; $i < sizeof($form['resizes']); $i++) {
 		if (!empty($form['resizes'][$i]['active'])) {
 		    if (empty($form['resizes'][$i]['size'])) {
-			GalleryUtilities::putRequestVariable('form.error.resizes.' . $i . '.size.missing', 1);
-			$error = true;
+			$error[] = 'form.error.resizes.' . $i . '.size.missing';
 		    } else if (!is_numeric($form['resizes'][$i]['size'])) {
-			GalleryUtilities::putRequestVariable('form.error.resizes.' . $i . '.size.invalid', 1);
-			$error = true;
+			$error[] = 'form.error.resizes.' . $i . '.size.invalid';
 		    }
 		}
 	    }
 
-	    if (!$error) {
+	    if (empty($error)) {
 		/* Delete existing derivative preferences */
 		$ret = GalleryDerivativePreferencesMap::removeMapEntry(
 		    array('itemId' => $item->getId()));
@@ -118,8 +115,7 @@ class ItemEditAlbumController extends GalleryController {
 		}
 
 		/* Load the children if we might need them */
-		if (   isset($form['recreateThumbnails'])
-		    || isset($form['recreateResizes']) ) {
+		if (isset($form['recreateThumbnails']) || isset($form['recreateResizes']) ) {
 			/* Get the child id => child types */
 			list ($ret, $childIds) = $item->fetchChildIds();
 			if ($ret->isError()) {
@@ -278,24 +274,21 @@ class ItemEditAlbumController extends GalleryController {
 		}
 		
 		/* Figure out where to redirect upon success */
-		$redirectParams['view'] = 'core:ItemAdmin';
-		$redirectParams['subView'] = 'core:ItemEditAlbum';
-		$redirectParams['itemId'] = $itemId;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['subView'] = 'core:ItemEditAlbum';
+		$redirect['itemId'] = $itemId;
 		$status['saved'] = 1;
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    if (!empty($status)) {
-		$results['status'] = $status;
-	    }
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemEditAlbum');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemEditAlbum';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

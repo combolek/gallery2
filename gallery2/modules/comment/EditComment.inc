@@ -41,8 +41,7 @@ class EditCommentController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	list ($itemId, $commentId) =
-	    GalleryUtilities::getRequestVariables('itemId', 'commentId');
+	list ($itemId, $commentId) = GalleryUtilities::getRequestVariables('itemId', 'commentId');
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryUserHelper::assertHasItemPermission($itemId, 'comment.edit');
@@ -50,6 +49,8 @@ class EditCommentController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 	    /* Edit the comment */
 	    list ($ret, $comment) = $gallery->loadEntitiesById($commentId);
@@ -63,32 +64,26 @@ class EditCommentController extends GalleryController {
 	    }
 
 	    /* Verify the input parameters */
-	    $valid = true;
 	    if (empty($form['commenterName'])) {
-		GalleryUtilities::putRequestVariable('form.error.missingCommenterName', 1);
-		$valid = false;
+		$error[] = 'form.error.missingCommenterName';
 	    } else {
 		list ($ret, $commenter) = GalleryUserHelper::fetchUserByUsername($form['commenterName']);
 		if ($ret->isError()) {
-		    GalleryUtilities::putRequestVariable('form.error.invalidCommenterName', 1);
-		    $valid = false;
+		    $error[] = 'form.error.invalidCommenterName';
 		}
 	    }
 
+	    $longDate = null;
 	    if (empty($form['date'])) {
-		GalleryUtilities::putRequestVariable('form.error.missingDate', 1);
-		$valid = false;
+		$error[] = 'form.error.missingDate';
 	    } else {
-		$newDate = strtotime($form['date']);
-		if ($newDate == -1) {
-		    GalleryUtilities::putRequestVariable('form.error.invalidDate', 1);
-		    $valid = false;
-		} else {
-		    $form['date'] = $newDate;
+		$longDate = strtotime($form['date']);
+		if ($longDate == -1) {
+		    $error[] = 'form.error.invalidDate';
 		}
 	    }
 
-	    if ($valid) {
+	    if (empty($error)) {
 		list ($ret, $lockId) = $gallery->acquireWriteLock(array($comment->getId()));
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -98,11 +93,11 @@ class EditCommentController extends GalleryController {
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-		
+
 		$comment->setCommenterId($commenter->getId());
 		$comment->setHost($form['host']);
 		$comment->setComment($form['comment']);
-		$comment->setDate($form['date']);
+		$comment->setDate($longDate);
 		$ret = $comment->save();
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -112,19 +107,29 @@ class EditCommentController extends GalleryController {
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-	    
-		/* Redirect back to the item */
-		$results['redirect'] = array('view' => 'core:ShowItem',
-					     'itemId' => $itemId);
-	    } else {
-		/* Stay on the same page */
-		$results['view'] = 'comment:EditComment';
+
+		$status['saved'] = 1;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['subView'] = 'comment:CommentChangeConfirmation';
+		$redirect['itemId'] = (int)$itemId;
 	    }
-	} else {
-	    /* Redirect back to the item */
-	    $results['redirect'] = array('view' => 'core:ShowItem',
-					 'itemId' => $itemId);
+	} else if (isset($form['action']['cancel'])) {
+	    /* Where to go on a cancel?  Go to item admin.*/
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['itemId'] = (int)$itemId;
 	}
+
+	if (!empty($redirect)) {
+	    /* Redirect back to the confirmation page by default */
+	    $results['return'] = 1;
+	    $results['redirect'] = $redirect;
+	} else {
+	    /* Stay on the same page */
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'comment:EditComment';
+	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }
@@ -157,11 +162,17 @@ class EditCommentView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	/* Load the specific comment */
 	$commentId = GalleryUtilities::getRequestVariables('commentId');
+
+	/* Load the specific comment */
 	list ($ret, $comment) = $gallery->loadEntitiesById($commentId);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	/* Make sure the comment is associated with the item */
+	if ($comment->getParentId() != $item->getId()) {
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null, null);
 	}
 
 	/* Associate the commenter's info */

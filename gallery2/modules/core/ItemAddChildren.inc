@@ -73,6 +73,7 @@ class ItemAddChildrenController extends GalleryController {
 	$albumNeedsThumbnail = empty($thumbnailTable) ? true : false;
 
 	$status = array();
+	$error = array();
 	if (isset($form['action']['addFromBrowser'])) {
 	    
 	    /* Upload any new files */
@@ -117,9 +118,9 @@ class ItemAddChildrenController extends GalleryController {
 	    }
 
 	    /* Figure out where to redirect upon success */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['subView'] = 'core:ItemAddChildrenConfirmation';
-	    $redirectParams['itemId'] = $itemId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['subView'] = 'core:ItemAddChildrenConfirmation';
+	    $redirect['itemId'] = $itemId;
 
 	} else if (isset($form['action']['findFilesFromLocalServer'])) {
 	    /* Delegate back to the same view */
@@ -161,9 +162,9 @@ class ItemAddChildrenController extends GalleryController {
 	    }
 
 	    /* Figure out where to redirect upon success */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['subView'] = 'core:ItemAddChildrenConfirmation';
-	    $redirectParams['itemId'] = $itemId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['subView'] = 'core:ItemAddChildrenConfirmation';
+	    $redirect['itemId'] = $itemId;
 	}
 
 	$ret = $gallery->releaseLocks($lockIds);
@@ -171,16 +172,15 @@ class ItemAddChildrenController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	if (!empty($redirectParams)) {
-	    $urlGenerator = $gallery->getUrlGenerator();
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemAddChildren');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemAddChildren';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	
 
 	return array(GalleryStatus::success(), $results);
     }

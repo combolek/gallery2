@@ -124,7 +124,7 @@ function GalleryMain($startTime) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Get our form variables */
+	/* Get our form and return variables */
 	$form = GalleryUtilities::getFormVariables('form.');
 
 	/* Let the controller handle the input */
@@ -132,9 +132,26 @@ function GalleryMain($startTime) {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
-	/* Redirect, if so instructed */
-	if (!empty($results['redirect'])) {
+
+	/* Check to make sure we got back everything we want */
+	if (!isset($results['status']) ||
+	    !isset($results['error']) ||
+	    (!isset($results['redirect']) && !isset($results['delegate']))) {
+	    $gallery->debug("Controller results are missing status, error or (redirect,delegate)");
+	    $gallery->debug_r($results);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	}
+
+	/* Try to return if the controller instructs it */
+	$redirectUrl = null;
+	if (!empty($results['return'])) {
+	    $redirectUrl = GalleryUtilities::getRequestVariables('return');
+	}
+
+	/* Failing that, redirect if so instructed */
+	if (empty($redirectUrl) && !empty($results['redirect'])) {
+	    $urlGenerator = $gallery->getUrlGenerator();
+
 	    /*
 	     * If we have a status, store its data in the session and attach it
 	     * to the URL.
@@ -147,11 +164,12 @@ function GalleryMain($startTime) {
 		}
 	    }
 	    
-	    $urlGenerator = $gallery->getUrlGenerator();
 	    $redirectUrl = $urlGenerator->generateUrl($results['redirect']);
-
+	}
+	
+	/* If we have a redirect url .. use it */ 
+	if (!empty($redirectUrl)) {
 	    if ($gallery->getDebug() == false) {
-
 		/*
 		 * The URL generator makes HTML 4.01 compliant URLs using
 		 * &amp; but we don't want those in our Location: header.
@@ -166,8 +184,27 @@ function GalleryMain($startTime) {
 	}
 	
 	/* Let the controller specify the next view */
-	if (!empty($results['view'])) {
-	    $viewName = $results['view'];
+	if (!empty($results['delegate'])) {
+
+	    /* Load any errors into the request */
+	    if (!empty($results['error'])) {
+		for ($i = 0; $i < sizeof($results['error']); $i++) {
+		    GalleryUtilities::putRequestVariable($results['error'][$i], 1);
+		}
+	    }
+
+	    /* Save the view name, put the rest into the request so the view can get it */
+	    foreach ($results['delegate'] as $key => $value) {
+		switch($key) {
+		case 'view':
+		    $viewName = $value;
+		    break;
+
+		default:
+		    GalleryUtilities::putRequestVariable($key, $value);
+		    break;
+		}
+	    }
 	}
     }
 

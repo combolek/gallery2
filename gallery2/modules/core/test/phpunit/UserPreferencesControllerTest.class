@@ -59,10 +59,12 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
 
 	$results = $this->handleRequest();
-	/* XXX: this is broken for now -- haven't yet decided how cancel should work */
-	$this->assertEquals(array('view' => 'core:UserAdmin',
-				  'subView' => 'core:UserPreferences'),
+	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserPreferences'),
+				  'status' => array(),
+				  'error' => array()),
 			    $results);
+	
     }
 
     function testUndo() {
@@ -71,7 +73,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
-				  'status' => array()),
+				  'status' => array(),
+				  'error' => array()),
 			    $results);
     }
 
@@ -84,7 +87,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
-				  'status' => array('saved' => 1)),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
 			    $results);
 
 	/* Load back the user object and make sure the data got saved */
@@ -106,7 +110,8 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:UserAdmin',
 						      'subView' => 'core:UserPreferences'),
-				  'status' => array('saved' => 1)),
+				  'status' => array('saved' => 1),
+				  'error' => array()),
 			    $results);
     }
 
@@ -116,9 +121,11 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	// GalleryUtilities::putRequestVariable('form.email', 'email');
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:UserAdmin',
-				  'subView' => 'core:UserPreferences'), $results);
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.email.missing'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:UserAdmin',
+						      'subView' => 'core:UserPreferences'),
+				  'status' => array(),
+				  'error' => array('form.error.email.missing')),
+			    $results);
     }
 }
 ?>

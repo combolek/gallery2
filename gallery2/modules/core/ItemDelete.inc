@@ -70,7 +70,9 @@ class ItemDeleteController extends GalleryController {
 	    }
 	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
-	
+
+	$status = array();
+	$error = array();
 	if (isset($form['action']['delete'])) {
 
 	    $ret = $gallery->deleteEntityById($itemId);
@@ -79,18 +81,18 @@ class ItemDeleteController extends GalleryController {
 	    }
 
 	    /* Figure out where to redirect upon success */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['itemId'] = $parentId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['itemId'] = $parentId;
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemDelete');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemDelete';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -49,12 +49,12 @@ class AdminCreateUserController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
+	$error = array();
 	if (isset($form['action']['cancel'])) {
 
 	    /* Go back to the AdminUsers view */
-	    $results['view'] = 'core:SiteAdmin';
-	    GalleryUtilities::putRequestVariable('subView', 'core:AdminUsers');
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminUsers';
 	    
 	} else if (isset($form['action']['create'])) {
 	    /*
@@ -83,7 +83,7 @@ class AdminCreateUserController extends GalleryController {
 		    }
 
 		    // Set our error status and fall back to the view.
-		    GalleryUtilities::putRequestVariable('form.error.userName.exists', 1);
+		    $error[] = 'form.error.userName.exists';
 		} else {
 		    $user->setEmail($form['email']);
 		    $user->setFullName($form['fullName']);
@@ -96,34 +96,33 @@ class AdminCreateUserController extends GalleryController {
 		    }
 
 		    /* Request a redirect to the confirmation screen */
-		    $redirectParams['view'] = 'core:SiteAdmin';
-		    $redirectParams['subView'] = 'core:AdminUsers';
+		    $redirect['view'] = 'core:SiteAdmin';
+		    $redirect['subView'] = 'core:AdminUsers';
 		    $status['createdUser'] = $form['userName'];
 		}
 	    } else {
 		foreach (array('userName', 'email', 'password1', 'password2') as $key) {
 		    if (empty($form[$key])) {
-			GalleryUtilities::putRequestVariable('form.error.' . $key . '.missing', 1);
+			$error[] = 'form.error.' . $key . '.missing';
 		    }
 		}
 
 		if (!empty($form['password1']) &&
 		        !empty($form['password2']) &&
 		        $form['password1'] != $form['password2']) {
-		    GalleryUtilities::putRequestVariable('form.error.password2.mismatch', 1);
+		    $error[] = 'form.error.password2.mismatch';
 		}
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminCreateUser');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminCreateUser';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -249,6 +249,13 @@ class GalleryTheme {
 	}
 	$results .= ">\n";
 
+	/*
+	 * Add the "return" parameter to the action params if it exists
+	 */
+	if (GalleryUtilities::hasRequestVariable('return')) {
+	    $actionParams['return'] = GalleryUtilities::getRequestVariables('return');
+	}
+
 	foreach ($actionParams as $key => $value) {
 	    $results .= sprintf('<input type="hidden" name="%s" value="%s">',
 				GALLERY_FORM_VARIABLE_PREFIX . $key, $value);

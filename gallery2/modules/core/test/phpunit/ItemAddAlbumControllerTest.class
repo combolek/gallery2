@@ -80,7 +80,8 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditAlbum',
 						      'itemId' => $this->_getChildId()),
-				  'status' => array('createdAlbum' => 1)),
+				  'status' => array('createdAlbum' => 1),
+				  'error' => array()),
 			    $results);
     }
 
@@ -107,9 +108,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	/* Perform the request and verify that we failed */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:ItemAdmin'), $results);
-	$this->assert('core:ItemAddAlbum', GalleryUtilities::getRequestVariables('subView'));
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.pathComponent.collision'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:ItemAdmin',
+						      'subView' => 'core:ItemAddAlbum'),
+				  'status' => array(),
+				  'error' => array('form.error.pathComponent.collision')),
+			    $results);
     }
     
     function testAddAlbumMissingName() {
@@ -126,9 +129,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:ItemAdmin'), $results);
-	$this->assert('core:ItemAddAlbum', GalleryUtilities::getRequestVariables('subView'));
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.pathComponent.missing'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:ItemAdmin',
+						      'subView' => 'core:ItemAddAlbum'),
+				  'status' => array(),
+				  'error' => array('form.error.pathComponent.missing')),
+			    $results);
     }
     
     function testAddAlbumInvalidName() {
@@ -145,9 +150,11 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('view' => 'core:ItemAdmin'), $results);
-	$this->assert('core:ItemAddAlbum', GalleryUtilities::getRequestVariables('subView'));
-	$this->assert(GalleryUtilities::hasRequestVariable('form.error.pathComponent.invalid'));
+	$this->assertEquals(array('delegate' => array('view' => 'core:ItemAdmin',
+						      'subView' => 'core:ItemAddAlbum'),
+				  'status' => array(),
+				  'error' => array('form.error.pathComponent.invalid')),
+			    $results);
     }
 
     function _getChildId() {

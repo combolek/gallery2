@@ -80,8 +80,6 @@ class SearchShowAllView extends GalleryView {
 	// XXX: Parameterize this
 	$pageSize = 10;
 
-	$return = GalleryUtilities::getFormVariables('return.');
-	
 	$searchResults = array();
 	$searchResultThumbnails = array();
 	if ($form['formName'] == 'SearchShowAll' || $form['formName'] == 'SearchScan') {

@@ -99,6 +99,7 @@ class ItemAddChildrenControllerTest extends GalleryControllerTestCase {
 				  'subView' => 'core:ItemAddChildrenConfirmation',
 				  'itemId' => $this->_rootAlbum->getId()),
 			    $results['redirect']);
+	$this->assertEquals(array(), $results['error']);
 
 	/* We don't know the ids, but we can verify everything else */
 	$i = 0;
@@ -152,6 +153,7 @@ class ItemAddChildrenControllerTest extends GalleryControllerTestCase {
 				  'subView' => 'core:ItemAddChildrenConfirmation',
 				  'itemId' => $this->_rootAlbum->getId()),
 			    $results['redirect']);
+	$this->assertEquals(array(), $results['error']);
 
 	/* We don't know the ids, but we can verify everything else */
 	$i = 0;

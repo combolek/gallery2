@@ -80,8 +80,6 @@ class SearchScanView extends GalleryView {
 	// XXX: Parameterize this
 	$scanSize = 3;
 
-	$return = GalleryUtilities::getFormVariables('return.');
-	
 	/* Find all the modules that support the Search interface */
 	$ids = GalleryFactory::getAllImplementationIds('GallerySearchInterface_1_0');
 	foreach ($ids as $id => $className) {

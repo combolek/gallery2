@@ -3,11 +3,6 @@
       {gallery->input type="hidden" name="form.moduleId"}{$form.moduleId}{/gallery->input}
       {gallery->input type="hidden" name="form.page"}{$form.page}{/gallery->input}
 
-      <!-- Embed the hidden return fields -->
-      {foreach from=$return key=key item=value}
-      {gallery->input type="hidden" name=return.$key}{$value}{/gallery->input}
-      {/foreach}
-
       {gallery->thinFrame width="100%"}
     <table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr>

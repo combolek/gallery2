@@ -76,20 +76,21 @@ class MatrixTheme extends GalleryTheme {
  	    $title = $params['item']['pathComponent'];
  	}
 
-	switch($params['image']['derivativeType']) {
-	case DERIVATIVE_TYPE_IMAGE_RESIZE:
-	    ; // fall through
-	    
-	default:
-	    ; // probably the data item -- fall through
-	    
-	case DERIVATIVE_TYPE_IMAGE_PREFERRED:
+	if (isset($params['image']['derivativeType'])) {
+	    switch($params['image']['derivativeType']) {
+	    case DERIVATIVE_TYPE_IMAGE_RESIZE:
+		; // fall through
+		
+	    case DERIVATIVE_TYPE_IMAGE_PREFERRED:
+		$imageClass = "fullsize_image";
+		break;
+		
+	    case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
+		$imageClass = "thumbnail_image";
+		break;
+	    }
+	} else {
 	    $imageClass = "fullsize_image";
-	    break;
-	    
-	case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
-	    $imageClass = "thumbnail_image";
-	    break;
 	}
 
  	$result = sprintf('<img class="%s" src="%s" width="%s" height="%s" alt="%s" longdesc="%s">',

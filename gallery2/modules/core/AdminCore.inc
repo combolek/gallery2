@@ -53,6 +53,7 @@ class AdminCoreController extends GalleryController {
 	}
 	$localServerDirList = split(',', $localServerDirs);
 
+	$error = array();
 	$status = array();
 	if (isset($form['action']['save'])) {
 	    foreach (array('permissions.directory',
@@ -74,8 +75,8 @@ class AdminCoreController extends GalleryController {
 		}
 	    }
 	    $status['saved'] = 1;
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'core:AdminCore';
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminCore';
 	} else if (isset($form['action']['addUploadLocalServerDir'])) {
 	    $path = $form['uploadLocalServer']['newDir'];
 	    if (!empty($path)) {
@@ -94,10 +95,10 @@ class AdminCoreController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['addedDir'] = 1;
-		$redirectParams['view'] = 'core:SiteAdmin';
-		$redirectParams['subView'] = 'core:AdminCore';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminCore';
 	    } else {
-		GalleryUtilities::putRequestVariable('form.error.uploadLocalServer.newDir.missing', 1);
+		$error[] = 'form.error.uploadLocalServer.newDir.missing';
 	    }
 	} else if (isset($form['action']['removeUploadLocalServerDir'])) {
 	    if (!empty($form['uploadLocalServer']['selectedDir'])) {
@@ -118,22 +119,21 @@ class AdminCoreController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['removedDir'] = 1;
-		$redirectParams['view'] = 'core:SiteAdmin';
-		$redirectParams['subView'] = 'core:AdminCore';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminCore';
 	    } else {
-		GalleryUtilities::putRequestVariable('form.error.uploadLocalServer.selectedDir.missing', 1);
+		$error[] = 'form.error.uploadLocalServer.selectedDir.missing';
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminCore');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminCore';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -49,7 +49,7 @@ class AdminEditGroupController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
+	$error = array();
 
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = $gallery->loadEntitiesById($groupId);
@@ -60,25 +60,23 @@ class AdminEditGroupController extends GalleryController {
 	if (isset($form['action']['cancel'])) {
 
 	    /* Redirect back to the AdminGroups view */
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'core:AdminGroups';
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminGroups';
 	    
 	} else if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'core:AdminEditGroup';
-	    $redirectParams['groupId'] = $groupId;
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminEditGroup';
+	    $redirect['groupId'] = $groupId;
 	    
 	} else if (isset($form['action']['save'])) {
 
-	    $error = false;
 	    if (empty($form['groupName'])) {
-		GalleryUtilities::putRequestVariable('form.error.groupName.missing', 1);
-		$error = true;
+		$error[] = 'form.error.groupName.missing';
 	    }
 
-	    if (!$error && !empty($groupId)) {
+	    if (empty($error)) {
 		/* Save our changes */
 		list ($ret, $lockId) = $gallery->acquireWriteLock($groupId);
 		if ($ret->isError()) {
@@ -104,21 +102,20 @@ class AdminEditGroupController extends GalleryController {
 		}
 
 		/* Request a redirect to the confirmation screen */
-		$redirectParams['view'] = 'core:SiteAdmin';
-		$redirectParams['subView'] = 'core:AdminGroups';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminGroups';
 		$status['modifiedGroup'] = $group->getGroupName();
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminEditGroup');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminEditGroup';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

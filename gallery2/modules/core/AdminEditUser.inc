@@ -49,7 +49,7 @@ class AdminEditUserController extends GalleryController {
 
 	$results = array();
 	$status = array();
-	$redirectParams = array();
+	$error = array();
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = $gallery->loadEntitiesById($userId);
@@ -71,23 +71,22 @@ class AdminEditUserController extends GalleryController {
 	if (isset($form['action']['cancel'])) {
 
 	    /* Redirect back to the AdminUsers view */
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'core:AdminUsers';
-	    GalleryUtilities::putRequestVariable('subView', 'core:AdminUsers');
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminUsers';
 	    
 	} else if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'core:AdminEditUser';
-	    $redirectParams['userId'] = $userId;
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'core:AdminEditUser';
+	    $redirect['userId'] = $userId;
 	    
 	} else if (isset($form['action']['save'])) {
 
 	    /*
 	     * Validate our data before we continue.
 	     */
-	    $error = false;
+	    
 	    /* full name is optional for everybody */
 
 	    /* language is optional for everybody */
@@ -95,13 +94,11 @@ class AdminEditUserController extends GalleryController {
 	    if (!$isAnonymous) {
 		/* email required for non-anonymous */
 		if (empty($form['email'])) {
-		    GalleryUtilities::putRequestVariable('form.error.email.missing', 1);
-		    $error = true;
+		    $error[] = 'form.error.email.missing';
 		}
 
 		if ($form['password1'] != $form['password2']) {
-		    GalleryUtilities::putRequestVariable('form.error.password.mismatch', 1);
-		    $error = true;
+		    $error[] = 'form.error.password.mismatch';
 		}
 	    }
 
@@ -109,7 +106,7 @@ class AdminEditUserController extends GalleryController {
 	     * If all the right fields are in place then go ahead and modify
 	     * the user.
 	     */
-	    if (!$error) {
+	    if (empty($error)) {
 		list ($ret, $lockId) = $gallery->acquireWriteLock($user->getId());
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -140,21 +137,21 @@ class AdminEditUserController extends GalleryController {
 		}
 
 		/* Request a redirect to the confirmation screen */
-		$redirectParams['view'] = 'core:SiteAdmin';
-		$redirectParams['subView'] = 'core:AdminUsers';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'core:AdminUsers';
 		$status['modifiedUser'] = $form['userName'];
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:AdminEditUser');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'core:AdminEditUser';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
+	
 
 	return array(GalleryStatus::success(), $results);
     }

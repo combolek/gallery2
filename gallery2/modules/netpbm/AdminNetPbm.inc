@@ -48,45 +48,47 @@ class AdminNetPbmController extends GalleryController {
 	}
 
 	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 
-	    /* Set the path.  Guarantee that it's got a trailing slash. */
-	    $platform = $gallery->getPlatform();
-	    $slash = $platform->getDirectorySeparator();
-	    $form['path'] = trim($form['path']);
-	    if (!empty($form['path'])) {
-		if ($form['path']{strlen($form['path'])-1} != $slash) {
-		    $form['path'] .= $slash;
-		}
-	    }
-
-	    $saveSuccess = false;
-	    $success = true;
-	    list ($ret, $testResults) =
-		NetPbmToolkitHelper::testBinaries($form['path'], array('pnmtojpeg' => $form['pnmtojpeg']));
-	    if ($ret->isError()) {
-		if ($ret->getErrorCode() & ERROR_BAD_PATH) {
-		    GalleryUtilities::putRequestVariable('form.error.path.badPath', 1);
-		    $success = false;
-		} else {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
+	    if (empty($form['path'])) {
+		$error[] = 'form.error.path.missing';
 	    } else {
-	        $success = false;
-		foreach ($testResults as $testResult) {
-		    /* At least one test should work, else this path is not a valid one */
-		    if ($testResult['success']) {
-		        $success = true;
+		
+		/* Set the path.  Guarantee that it's got a trailing slash. */
+		$platform = $gallery->getPlatform();
+		$slash = $platform->getDirectorySeparator();
+		$form['path'] = trim($form['path']);
+		if (!empty($form['path'])) {
+		    if ($form['path']{strlen($form['path'])-1} != $slash) {
+			$form['path'] .= $slash;
 		    }
-		    
-		    if (!$success) {
-			GalleryUtilities::putRequestVariable('form.error.path.testError', 1);
+		}
+
+		list ($ret, $testResults) =
+		    NetPbmToolkitHelper::testBinaries($form['path'], array('pnmtojpeg' => $form['pnmtojpeg']));
+		if ($ret->isError()) {
+		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
+			$error[] = 'form.error.path.badPath';
+		    } else {
+			return array($ret->wrap(__FILE__, __LINE__), null);
+		    }
+		} else {
+		    $failCount = 0;
+		    foreach ($testResults as $testResult) {
+			/* At least one test should work, else this path is not a valid one */
+			if (!$testResult['success']) {
+			    $failCount++;
+			}
+		    }
+
+		    if ($failCount > 0) {
+			$error[] = 'form.error.path.testError';
 		    }
 		}
 	    }
 	    
-	    if ($success) {
-		$saveSuccess = true;
+	    if (empty($error)) {
 		$ret = $gallery->setModuleParameter('netpbm', 'path', $form['path']);
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -107,30 +109,25 @@ class AdminNetPbmController extends GalleryController {
 		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-	    }
-	}
 
-	/* Figure out where to redirect upon success/cancel */
-	if (isset($form['action']['save']) && $saveSuccess) {
-	    $status['saved'] = 1;
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'netpbm:AdminNetPbm';
+		$redirect['view'] = 'core:SiteAdmin';
+		$redirect['subView'] = 'netpbm:AdminNetPbm';
+		$status['saved'] = 1;
+	    }
 	} else if (isset($form['action']['cancel'])) {
-	    $redirectParams['view'] = 'core:SiteAdmin';
-	    $redirectParams['subView'] = 'netpbm:AdminNetPbm';
+	    $redirect['view'] = 'core:SiteAdmin';
+	    $redirect['subView'] = 'netpbm:AdminNetPbm';
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    if (!empty($status)) {
-		$results['status'] = $status;
-	    }
+	if (!empty($redirect)) {
+	    $results['return'] = 1;
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:SiteAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'netpbm:AdminNetPbm');
-	    }
+	    $results['delegate']['view'] = 'core:SiteAdmin';
+	    $results['delegate']['subView'] = 'netpbm:AdminNetPbm';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }

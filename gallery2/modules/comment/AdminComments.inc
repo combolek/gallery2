@@ -54,6 +54,8 @@ class AdminCommentsController extends GalleryController {
 	$redirectParams['subView'] = 'comment:AdminComments';
 
 	$results['redirect'] = $redirectParams;
+	$results['status'] = array();
+	$results['error'] = array();
 
 	return array(GalleryStatus::success(), $results);
     }

@@ -69,15 +69,16 @@ class ItemEditImageController extends GalleryController {
 
 	$redirectParams = array();
 	$status = array();
+	$error = array();
 
 	$remapSourceIds = array();
 	$operation = null;
 	/* Figure out which command we're taking */
 	if (isset($form['action']['scale'])) {
 	    if (!isset($form['scale']['size'])) {
-		GalleryUtilities::putRequestVariable('form.error.scale.size.missing', 1);
+		$error[] = 'form.error.scale.size.missing';
 	    } else if (!is_numeric($form['scale']['size']) || $form['scale']['size'] < 1) {
-		GalleryUtilities::putRequestVariable('form.error.scale.size.invalid', 1);
+		$error[] = 'form.error.scale.size.invalid';
 	    } else {
 		$operation = 'scale';
 		$args = array($form['scale']['size']);
@@ -101,9 +102,9 @@ class ItemEditImageController extends GalleryController {
 		$remapSourceIds = array($preferred->getId(), $item->getId(), null);
 
 		/* Figure out where to redirect upon success */
-		$redirectParams['view'] = 'core:ItemAdmin';
-		$redirectParams['subView'] = 'core:ItemEditImage';
-		$redirectParams['itemId'] = $itemId;
+		$redirect['view'] = 'core:ItemAdmin';
+		$redirect['subView'] = 'core:ItemEditImage';
+		$redirect['itemId'] = $itemId;
 		$status['revertedImage'] = 1;
 	    }
 	}
@@ -261,9 +262,9 @@ class ItemEditImageController extends GalleryController {
 	    }
 
 	    /* Figure out where to redirect upon success */
-	    $redirectParams['view'] = 'core:ItemAdmin';
-	    $redirectParams['subView'] = 'core:ItemEditImage';
-	    $redirectParams['itemId'] = $itemId;
+	    $redirect['view'] = 'core:ItemAdmin';
+	    $redirect['subView'] = 'core:ItemEditImage';
+	    $redirect['itemId'] = $itemId;
 	    switch ($operation) {
 	    case 'rotate':
 		$status['rotatedImage'] = 1;
@@ -284,15 +285,14 @@ class ItemEditImageController extends GalleryController {
 	    }
 	}
 
-	if (!empty($redirectParams)) {
-	    $results['redirect'] = $redirectParams;
-	    $results['status'] = $status;
+	if (!empty($redirect)) {
+	    $results['redirect'] = $redirect;
 	} else {
-	    if (empty($results['view'])) {
-		$results['view'] = 'core:ItemAdmin';
-		GalleryUtilities::putRequestVariable('subView', 'core:ItemEditImage');
-	    }
+	    $results['delegate']['view'] = 'core:ItemAdmin';
+	    $results['delegate']['subView'] = 'core:ItemEditImage';
 	}
+	$results['status'] = $status;
+	$results['error'] = $error;
 
 	return array(GalleryStatus::success(), $results);
     }
