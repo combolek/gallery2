@@ -39,6 +39,7 @@ public class AboutBox extends javax.swing.JFrame {
 	javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
 	javax.swing.JLabel jLabelMaintained = new javax.swing.JLabel();
 	javax.swing.JLabel jLabelContrib = new javax.swing.JLabel();
+	javax.swing.JLabel jLabelUpdate = new javax.swing.JLabel();
 // END GENERATED CODE
 
 	public AboutBox() {
@@ -78,7 +79,7 @@ public class AboutBox extends javax.swing.JFrame {
 		jLabel3.setSize(new java.awt.Dimension(160, 20));
 		jLabel3.setLocation(new java.awt.Point(250, 170));
 		jLabel3.setVisible(true);
-		jLabel3.setText("© 2001 Chris Smith");
+		jLabel3.setText("Copyright 2001 Chris Smith");
 		jLabel3.setHorizontalAlignment(javax.swing.JLabel.RIGHT);
 
 		jLabel4.setSize(new java.awt.Dimension(250, 20));
@@ -105,6 +106,12 @@ public class AboutBox extends javax.swing.JFrame {
 		jLabelContrib.setVerticalAlignment(javax.swing.JLabel.TOP);
 		jLabelContrib.setText("with contributions by Dolan Halbrook");
 
+		jLabelUpdate.setSize(new java.awt.Dimension(400, 20));
+		jLabelUpdate.setLocation(new java.awt.Point(10, 140));
+		jLabelUpdate.setVisible(true);
+		jLabelUpdate.setVerticalAlignment(javax.swing.JLabel.TOP);
+		jLabelUpdate.setText("Look for updates at: http://gallery.sourceforge.net/gallery_remote.php");
+
 		setLocation(new java.awt.Point(0, 0));
 		setSize(new java.awt.Dimension(428, 263));
 		setBackground(java.awt.Color.white);
@@ -118,6 +125,7 @@ public class AboutBox extends javax.swing.JFrame {
 		getContentPane().add(jLabel5);
 		getContentPane().add(jLabelMaintained);
 		getContentPane().add(jLabelContrib);
+		getContentPane().add(jLabelUpdate);
 
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
