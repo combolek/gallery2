@@ -57,7 +57,12 @@ case $1 in
 
 	clean)
 		echo "Deleting generated documentation...";
-		rm -rf html manual.pdf manual.html;;
+                
+                #Remove files
+		rm -rf manual.pdf manual.html;
+                
+                #Remove directories
+                rm -rf html dist;;
 		
 	*)
 		echo "Invalid Action.  Type './gen help' for help";;
