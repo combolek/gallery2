@@ -72,6 +72,10 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
         setup directory won't get updated!
        </emphasis>
       </para>
+      <para>
+       CVS nightlies can also be downloaded from <ulink url="http://jpmullan.com/galleryupdates/">
+       http://jpmullan.com/galleryupdates/</ulink>.
+      </para>	
      </answer>
     </qandaentry>
    
@@ -1271,6 +1275,32 @@ if (!function_exists('array_search')) {
       </para>
      </answer>
     </qandaentry>
+    
+    <qandaentry id="gallery1-install.faq.c.32">
+     <question>
+      <para>
+       I have upload the NetPBM or ImageMagick binaries to my site, but
+       I don't know the absolute path to specify in the configuration
+       wizard.  What do I do?
+      </para>
+     </question>
+     <answer>
+      <para>
+       Upload a file named <filename>test.php</filename> to your
+       NetPBM or ImageMagick directory.  The contents of this file should
+       be
+       <screen>
+<![CDATA[
+<?php
+print getcwd ();
+?>
+]]>
+       </screen>
+       View this file via the web (for example: http://www.example.com/gallery/
+       netpbm/test.php).  It will tell you the absolute path to specify.
+      </para>
+     </answer>
+    </qandaentry>
 
    </qandadiv>
   
@@ -1292,6 +1322,13 @@ if (!function_exists('array_search')) {
       </para>
      </question>
      <answer>
+      <warning>
+       <para>
+        If you are moving between a Windows and non-Windows host, please
+	make sure your Gallery is upgraded to at least version 1.4
+	<emphasis>before</emphasis> you attempt to migrate
+       </para>
+      </warning>
       <para>
        The important data that needs to be saved is your albums directory.
        You only need to save the actual Gallery files if you modified them.

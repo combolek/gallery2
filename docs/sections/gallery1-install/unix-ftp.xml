@@ -62,7 +62,7 @@
      chmod 777 albums (this is the album dir created in step 2)
      chmod 666 .htaccess
      chmod 666 config.php
-     chmod 755 setup
+     chmod 755 setup/ (setup/ is a directory)
     </programlisting>
    </para>
   </listitem>

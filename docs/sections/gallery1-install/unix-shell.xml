@@ -34,6 +34,7 @@
     &config.php;.  The easiest way is to use the <command>touch
     </command> command.
     <screen>
+     cd gallery (cd to where you are installing Gallery)
      touch config.php .htaccess
     </screen>
     Now, you need to chmod both of these files 0777.

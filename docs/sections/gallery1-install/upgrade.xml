@@ -110,6 +110,16 @@
     </para>
    </listitem>
   </orderedlist>
+  
+  <note>
+   <para>
+    If after you upgrade your Gallery, you get a blank screen or a PHP error
+    (e.g. "function not found", etc...), don't panic.  Your FTP client probably
+    didn't override all the files.  The solution is to delete all the Gallery
+    files except &config.php; and your albums directory and re-upload Gallery
+    (don't forget to re-run the configuration wizard).
+   </para>
+  </note>
  </sect2>
  
  <sect2 id="gallery1-install.upgrade.modified">

@@ -48,7 +48,7 @@
    To download an album from a password protected gallery using httrack
    <screen>
     httrack -%F "" -K0 "http://www.example.com/gallery/login.php?uname=admin&amp;gallerypassword=SECRET \
-     &amp;submit=Login&amp;set_offline=true" \
+     &amp;login=Login&amp;set_offline=true" \
      http://www.example.com/gallery/album04 http://www.example.com/albums
    </screen>
   </para>
@@ -56,7 +56,7 @@
    To download an album from a password protected gallery using wget
    <screen>
     wget --proxy=off --cookies=on \
-     'http://www.example.com/login.php?uname=UNAME&amp;gallerypassword=SECRET&amp;submit=Login' \
+     'http://www.example.com/login.php?uname=UNAME&amp;gallerypassword=SECRET&amp;login=Login' \
      'http://www.example.com/backup.php'
    </screen>
   </para>
