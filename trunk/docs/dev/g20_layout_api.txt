@@ -1,0 +1,219 @@
+
+Page Layout in Gallery 2.0
+
+[[ XXX - work in progress                                  ]]
+[[ this document will eventually grow into a how-to create ]]
+[[ layouts. right now I'm trying to get things on paper.   ]]
+
+======================================================================
+Page layout basically happens in two steps:
+ 1. The application generates all of the data required in the 
+    requested page.
+ 2. This data, in the form of a multi-level array and called the Gallery
+    Layout Object (or GLO), is passed to the Layout Engine for display.
+
+
+Page Layers:
+======================================================================
+A Gallery page is made up of it's content, wrapped by three "layers":
+
+     -------------------------------------------------------
+    |                                                       |
+    | (1) [App] Embedded Header                             |
+    |                                                       |
+    |  ---------------------------------------------------  |
+    | |                                                   | |
+    | | (2) [App/Layout] Gallery-wide Header              | |
+    | |                                                   | |
+    | |  -----------------------------------------------  | | 
+    | | |                                               | | | 
+    | | | (3) [App/Layout] Album-wide Header            | | | 
+    | | |                                               | | |
+    | | |  -------------------------------------------  | | | 
+    | | | |                                           | | | | 
+    | | | |                                           | | | |
+    | | | | (4) [Layout] The Page Content             | | | | 
+    | | | |                                           | | | | 
+    | | | |                                           | | | |
+    | | |  -------------------------------------------  | | | 
+    | | |                                               | | | 
+    | | | (3) [App/Layout] Album-wide Footer            | | | 
+    | | |                                               | | | 
+    | |  -----------------------------------------------  | | 
+    | |                                                   | | 
+    | | (2) [App/Layout] Gallery-wide Footer              | | 
+    | |                                                   | |
+    |  ---------------------------------------------------  | 
+    |                                                       | 
+    | (1) [App] Embedded Footer                             | 
+    |                                                       | 
+     -------------------------------------------------------
+
+The Layers:
+
+(1) Embedded Header/Footer
+    
+    This content is controlled by the App, and is output
+    outside of the scope of the Layout. It is here that content
+    appropriate to being embedded in an application like Nuke
+    is located.
+
+(2) Gallery-wide Header/Footer
+
+    These blocks appear on every page, in every album in the 
+    Gallery.
+
+    These HTML blocks are loaded from the html_wrap directory (as
+    entered by the Gallery Administrator). The App loads this data 
+    and inserts it in the GLO. The Layout is responsible for putting 
+    this header and footer in the right place. These blocks are 
+    parsed using the xtpl template engine, and have special 
+    "standalone_only" sub-blocks that are only parsed in the case 
+    that the Gallery is not embedded in an application such as Nuke.
+    Refer to the html_wrap/header_footer.xtpl.default for a more
+    complete discussion on its use.
+
+    This layer has available to it a mini version of the GLO. See
+    below.
+
+(3) Album-wide Header/Footer
+
+    These blocks appear on every page, in the current album.
+
+    These HTML blocks are loaded from the Album object, the 
+    current Album (as entered by the Album Administrator). The App
+    loads this data and inserts it in the GLO. The Layout is 
+    responsible for putting this header and footer in the right 
+    place.
+
+    This layer has available to it...um, nothing officially, in terms
+    of app data yet [[coming soon]]. 
+
+(4) Page Content
+
+    The App loads any data necessary for page display in the GLO. The
+    Layout can do whatever it wants with this data.
+
+
+The Gallery Layout Object (GLO)
+======================================================================
+The content of this object varies depending on what page is being 
+rendered. The GLO content for each page is defined below. For the 
+sake of brevity I will use the following abbreviation for array
+structure:
+
+  $GLO['something']['other']['thing'] => GLO.something.other.thing
+
+----------------------------------------------------------------------
+--- view_album.php ---
+
+GLO.gallery
+  .title              => The title of the Gallery
+  .url                => The URL to the top level of the Gallery
+
+GLO.album
+  .title              => The title of the album
+  .url                => The URL to the album.
+  .name               => The album name (maps to it's directory)
+  .borderSize         => Width of image borders.
+
+  .thumbnailSize      => Size of thumbnail images.
+  .rows               => Rows of thumbnails per page.
+  .cols               => Columns of thumbnails per page. 
+  .displayClicks      => [1, 0] whether or not click counts should be
+                        displayed.
+  .html_header        => 
+  .html_footer        =>
+  .items              => array of items to be displayed on the page.
+    .<<i>>           (where i is the iterator, 1 -> #items on page)
+      .id             => the id of the item.
+      .index          => item's index in the album
+      .hidden         => [1, 0] whether or not the item is hidden.
+      .thumbnail
+        .url
+        .width
+        .height
+
+      .type           => 
+      .href
+      .title          => [album]
+      .description    =>
+      .dateChanged    => [album]
+      .clickCount
+      .clickCountText
+      .itemCountText  => [album]
+      .commands       => Array of commands available for the item. This
+                         array is indexed by command name.
+        .<<name>>
+          .title
+          .href
+  
+GLO.toolbox           => 
+  .commands
+    .<<name>>
+      .title
+      .href
+
+GLO.breadcrumb        =>
+  .levels
+   .<<i>>
+     .level
+     .name
+     .href
+
+GLO.navigator         =>
+  .pages
+    .<<i>>    
+      .name            
+      .href
+  .pageNumber
+  .pageLabel
+
+GLO.page.body.extra   => app generated html content that must be 
+                         put inside the body tags. [this will likely
+                         be removed soon].
+
+GLO.pixelImage        => image tag pointing to a 1 pixel transparent
+                         gif. Nice to have.
+
+----------------------------------------------------------------------
+--- view_item.php ---
+
+[[ coming soon ]]
+
+----------------------------------------------------------------------
+--- search.php ---
+
+[[ coming soon ]]
+
+----------------------------------------------------------------------
+--- edit.php ---
+
+[[ coming soon ]]
+
+
+The Gallery-wide Limited Layout Object (G)
+======================================================================
+This is like a mini-GLO, for use by the Gallery-wide header/footer.
+It is provided so that is is not required to understand the GLO
+to be able to work with the Gallery-wide header/footers. This mini-GLO
+has a subset of the GLO, data most likely of use to this audience.
+
+G.TITLE                    => The title of the Gallery, as defined in 
+                              the configuration wizard.
+G.HEAD.EXTRA               => App generated HTML content that *must*
+                              be places inside the <head> block.
+G.HEAD.STYLESHEET_INCLUDE  => App generated HTML that links the page
+                              to the Gallery style sheets. This *must*
+                              be placed in the <head> block.
+G.BODYTAG.EXTRA            => App generated string that *must* be 
+                              placed inside the <body> tag itself.
+G.GALLERY_PROJECT.VERSION  => The Gallery project version
+G.PIXEL_IMAGE              => Image tag pointing to a 1 pixel transparent
+                              gif. Nice to have.
+
+
+
+
+
+
