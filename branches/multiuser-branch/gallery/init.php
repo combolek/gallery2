@@ -28,7 +28,8 @@ require('classes/Image.php');
 require('classes/AlbumItem.php');
 require('classes/AlbumDB.php');
 require('classes/User.php');
-require('classes/PublicUser.php');
+require('classes/EverybodyUser.php');
+require('classes/NobodyUser.php');
 require('classes/UserDB.php');
 require('util.php');
 require('session.php');
@@ -112,7 +113,7 @@ if ($username) {
 }
 
 if (!$user) {
-	$user = new PublicUser();
+	$user = $userDB->getEverybody();
 	$username = "";
 }
 
