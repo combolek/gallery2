@@ -1388,13 +1388,24 @@ print getcwd ();
      </question>
      <answer>
       <para>
-       If you go to http://www.example.com/gallery/setup/check_mail.php and it gives you errors like
-       "Error! sendmail_path not set" (gallery v1.4.1) and/or "Error! SMTP not set" you have to configure php.
-       Locate your php.ini (probably under C:\Program Files\php or C:\windows), open it with a texteditor
-       and find "[mail function]".
-      </para>
-      <para>
-       It should look something like this:
+       If you go to http://www.example.com/gallery/setup/check_mail.php and it gives you the following
+       errors:
+       </para>
+       <para>
+        <screen>
+         "Error! sendmail_path not set"
+         and/or 
+         "Error! SMTP not set"
+         </screen>
+         you will have to do some changes to your php installation.
+         If you get the "Error! sendmail_path not set" you can safely ignore it on Windows, since
+         it disregards the sendmail_path anyway.
+         To fix the other potential problem, locate your php.ini 
+         (probably under C:\Program Files\php or C:\windows), open it with a texteditor
+         and find "[mail function]".
+       </para>
+       <para>
+        It should look something like this:
         <screen>
          [mail function]
          ; For Win32 only.
