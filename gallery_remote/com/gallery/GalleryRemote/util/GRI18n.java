@@ -9,6 +9,7 @@ import com.gallery.GalleryRemote.GalleryRemote;
 import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.prefs.PreferenceNames;
 
+import javax.swing.*;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -142,6 +143,19 @@ public class GRI18n implements PreferenceNames {
         List aList = new LinkedList();
 		long start = System.currentTimeMillis();
 
+		// todo: it seems that the dialog can't be displayed because all this
+		// is running in the Swing event thread. Need to find a better way...
+//		JDialog dialog = new JDialog(GalleryRemote.getInstance().mainFrame, "Please wait...");
+//		dialog.getContentPane().add("Center", new JLabel("<HTML>Parsing list of locales for this platform." +
+//				"<br>This can take between 1 and 10 seconds..."));
+//		dialog.pack();
+//		DialogUtil.center(dialog);
+//		dialog.setVisible(true);
+//		Thread.yield();
+
+		Log.log(Log.LEVEL_TRACE, MODULE, "Getting the list of locales");
+
+		// this call is apparently very slow...
         Locale [] list = Locale.getAvailableLocales();
 
 		Log.log(Log.LEVEL_TRACE, MODULE, "The platform supports " + list.length + " locales. Pruning...");
@@ -152,13 +166,28 @@ public class GRI18n implements PreferenceNames {
             if (!loc.startsWith(prefix)) {
                 prefix = loc;
                 locPath = RESPATH + "_" + loc + ".properties";
-                if (ClassLoader.getSystemClassLoader().getResource(locPath) != null)
+                if (ClassLoader.getSystemClassLoader().getResource(locPath) != null) {
                     aList.add(list[i]);
+				}
             }
         }
 
         Log.log(Log.LEVEL_TRACE, MODULE, "Pruned locales in " + (System.currentTimeMillis() - start) + "ms");
 
+		//dialog.setVisible(false);
+
         return aList;
     }
+
+	/*class PatienceDialog extends JDialog implements Runnable {
+		public boolean done = false;
+
+		public void run() {
+			try {
+				Thread.sleep(1000);
+
+
+			} catch (InterruptedException e) {}
+		}
+	}*/
 }

@@ -52,12 +52,12 @@ public class ImageUtils {
 	static long totalTime = 0;
 	static int totalIter = 0;
 
-	static boolean useIM = false;
+	public static boolean useIM = false;
 	static String imPath = null;
 	static int jpegQuality = 75;
 	static boolean imIgnoreErrorCode = false;
 
-	static boolean useJpegtran = false;
+	public static boolean useJpegtran = false;
 	static String jpegtranPath = null;
 	static boolean jpegtranIgnoreErrorCode = false;
 
