@@ -59,6 +59,7 @@
     url="http://www.eclecticpixels.com/tutorials/chmod/">http://www.eclecticpixels.com/tutorials/chmod/</ulink>. Chmod
     as follows:
     <programlisting>
+     chmod 755 albums (this is the album dir created in step 2)
      chmod 666 .htaccess
      chmod 666 config.php
      chmod 755 setup
