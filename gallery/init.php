@@ -48,7 +48,7 @@ if (substr(PHP_OS, 0, 3) == 'WIN') {
 if (fs_file_exists($GALLERY_BASEDIR . "config.php")) {
 	include($GALLERY_BASEDIR . "config.php");
 }
-require($GALLERY_BASEDIR . "version.php");
+require($GALLERY_BASEDIR . "Version.php");
 require($GALLERY_BASEDIR . "util.php");
 require($GALLERY_BASEDIR . "layout.php");
 
