@@ -17,17 +17,17 @@
     <br>
     <table width="1%" border="0" cellspacing="0" cellpadding="0">
 
-      <tr bgcolor="{GLO.borderColor}">
+      <tr bgcolor="{GLO.album.borderColor}">
         <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
       </tr>
 
       <tr>
-        <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+        <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
         <td><a href="{GLO.image.href}"><img src="{GLO.image.url}" width="{GLO.image.width}" height="{GLO.image.height}" border="0"></a></td>
-        <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+        <td bgcolor="{GLO.album.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
       </tr>
 
-      <tr bgcolor="{GLO.borderColor}">
+      <tr bgcolor="{GLO.album.borderColor}">
         <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
       </tr>
 

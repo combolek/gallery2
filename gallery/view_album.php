@@ -125,7 +125,7 @@ do {
 		$pAlbumName = $pAlbum->fields['parentAlbumName'];
 		$pAlbum = new Album($pAlbumName);
 		$breadLevels[$breadCount]['level'] = "Album";
-   		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
+   		$breadLevels[$breadCount]['title'] = $pAlbum->fields['title'];
    		$breadLevels[$breadCount]['href'] = makeAlbumUrl($pAlbumName);
 	}
 	$breadCount++;
@@ -138,7 +138,7 @@ $breadLevels = array_reverse($breadLevels, false);
 //-- XXX - I think we should add current page to breadcrumb ---
 //$breadCount++;
 //$breadLevels[$breadCount]['level'] = "Album";
-//$breadLevels[$breadCount]['name'] = $album->fields["title"];
+//$breadLevels[$breadCount]['title'] = $album->fields["title"];
 //$breadLevels[$breadCount]['href'] = $thisUrl;
 
 //-- set up the command structure ---
@@ -249,7 +249,7 @@ foreach ($itemIds as $itemId) {
 	} else {
 		$items[$i]['type'] = 'photo';
 		$items[$i]['href'] = makeAlbumUrl($albumName, $itemId);
-		$items[$i]['caption'] = $album->getCaption($index);
+		$items[$i]['description'] = $album->getCaption($index);
 		$items[$i]['commentCount'] = 
 			((!strcmp($album->fields["public_comments"], "yes"))) ? 
 			$album->numComments($index) : 0;
@@ -291,7 +291,7 @@ $GLO['album']['displayClicks'] = !(strcmp($album->fields["display_clicks"] , "ye
 
 $GLO['album']['items'] = $items;
 
-$GLO['borderColor'] = $borderColor;
+$GLO['album']['borderColor'] = $borderColor;
 
 $GLO['album']['html_header'] = "\n<!-- Album Custom HTML Header Begin -->\n"
 	. $album->fields['html_header'] .

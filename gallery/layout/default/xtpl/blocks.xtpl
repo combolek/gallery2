@@ -3,7 +3,7 @@
 <!-- BEGIN: divider -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td>
   </tr>
 </table>
 <!-- END: divider -->
@@ -13,23 +13,23 @@
 <!-- BEGIN: breadcrumb -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
     <td align="left" valign="middle" width="3000" height="18">
     <span class="bread">
     &nbsp;&nbsp;<img src="{GLO.layout.dir}images/nav_home.gif" width="13" height="11">
 
     <!-- BEGIN: crumb -->
-    {crumb.level}: <a href="{crumb.href}">{crumb.name}</a> ::
+    {crumb.level}: <a href="{crumb.href}">{crumb.title}</a> ::
     <!-- END: crumb -->
 
     <!-- BEGIN: last_crumb -->
-    {crumb.level}: <a href="{crumb.href}">{crumb.name}</a>
+    {crumb.level}: <a href="{crumb.href}">{crumb.title}</a>
     <!-- END: last_crumb -->
 
     </span>
     </td>         
     
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr> 
 </table>
 <!-- END: breadcrumb -->
@@ -39,13 +39,13 @@
 <!-- BEGIN: navigator -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
     
     <!-- BEGIN: first -->
     <td align="center" width="27" height="18">
     <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_first.gif" border="0" width="27" height="11" alt="First ({page.name})"></a>
     </td>
-    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
     <!-- END: first -->
 
     <!-- BEGIN: no_first -->
@@ -57,7 +57,7 @@
     <td align="center" width="72" height="18">
     <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_prev.gif" border="0" width="72" height="11" alt="Previous ({page.name})"></a>
     </td>
-    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
     <!-- END: previous -->
  
     <!-- BEGIN: no_previous -->
@@ -74,7 +74,7 @@
     <!-- END: pages -->
  
     <!-- BEGIN: next -->
-    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
     <td align="center" width="72" height="18">
     <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_next.gif" border="0" width="72" height="11" alt="Next ({page.name})"></a>
     </td>
@@ -86,7 +86,7 @@
     <!-- END: no_next -->
  
     <!-- BEGIN: last -->
-    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
     <td align="center" width="27" height="18">
     <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_last.gif" border="0" width="27" height="11" alt="Last ({page.name})"></a>
     </td>
@@ -97,7 +97,7 @@
     <td align="center" width="27" height="18">&nbsp;</td>
     <!-- END: no_last -->
 
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr>
 </table>
 <!-- END: navigator -->
@@ -107,7 +107,7 @@
 <!-- BEGIN: toolbox -->
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
 
     <!-- BEGIN: commands -->
     <td align="left" valign="middle" width="3000" height="18">
@@ -123,7 +123,7 @@
     <td align="right" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
     <!-- END: right -->
 
-    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td bgcolor="{GLO.album.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr>
 </table>
 <!-- END: toolbox -->
@@ -136,7 +136,7 @@
   <!-- BEGIN: comment -->
   <tr>
     <td width=15%>{GLO.pixelImage}</td>
-    <td width=70% bgcolor="{GLO.borderColor}">{GLO.pixelImage}</td>
+    <td width=70% bgcolor="{GLO.album.borderColor}">{GLO.pixelImage}</td>
     <td width=15%>{GLO.pixelImage}</td>
   </tr>
   <tr>
