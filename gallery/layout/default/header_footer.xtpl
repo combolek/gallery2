@@ -1,0 +1,30 @@
+<!-- --------------------------------------------------------------------
+     -------------------------------------------------------------------- -->
+
+<!-- BEGIN: header -->
+<!-- BEGIN: not_embedded_inside -->
+<html>
+<head>
+  <title>{GLO.pagetitle}</title>
+  {GLO.gallery.styleSheetInclude}
+  {GLO.album.styleSheetInclude}
+  {GLO.javascript.head}
+</head>
+<body {GLO.javascript.bodytag}>
+<!-- END: not_embedded_inside -->
+
+{GLO.javascript.body}
+THIS HEAD TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
+
+<!-- END: header -->
+
+<!----------------------------------------------------------------------->
+<!-- BEGIN: footer -->
+
+THIS FOOT TEXT SHOWS UP ON EVERY GALLERY PAGE<br>
+
+<!-- BEGIN: not_embedded_inside -->
+</body>
+</html>
+<!-- END: not_embedded_inside -->
+<!-- END: footer -->

@@ -1,0 +1,118 @@
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: divider -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: divider -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: breadcrumb -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    <td align="center" valign="middle" width="3000" height="18">BREADCRUMB BAR HI</td>         
+    
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr> 
+</table>
+<!-- END: breadcrumb -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: navigator -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+    
+    <!-- BEGIN: first -->
+    <td align="center" width="27" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_first.gif" border="0" width="27" height="11" alt="First ({page.name})"></a>
+    </td>
+    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: first -->
+
+    <!-- BEGIN: no_first -->
+    <td align="center" width="27" height="18">&nbsp;</td>
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: no_first -->
+ 
+    <!-- BEGIN: previous -->
+    <td align="center" width="72" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_prev.gif" border="0" width="72" height="11" alt="Previous ({page.name})"></a>
+    </td>
+    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: previous -->
+ 
+    <!-- BEGIN: no_previous -->
+    <td align="center" width="72" height="18">&nbsp;</td>
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <!-- END: no_previous -->
+ 
+    <!-- BEGIN: pages -->
+    <td width="3000" height="18" align="center">
+      <span class="nav">
+      {GLO.navigator.pageNumber} (of {GLO.navigator.pageCount} {GLO.navigator.pageLabel})
+      </span>
+    </td> 
+    <!-- END: pages -->
+ 
+    <!-- BEGIN: next -->
+    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="72" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_next.gif" border="0" width="72" height="11" alt="Last ({page.name})"></a>
+    </td>
+    <!-- END: next -->
+ 
+    <!-- BEGIN: no_next -->
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="72" height="18">&nbsp;</td>
+    <!-- END: no_next -->
+ 
+    <!-- BEGIN: last -->
+    <td bgcolor="{GLO.borderColor}" width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="27" height="18">
+    <a href="{page.href}"><img src="{GLO.layout.dir}images/nav_last.gif" border="0" width="27" height="11" alt="Last ({page.name})"></a>
+    </td>
+    <!-- END: last -->
+
+    <!-- BEGIN: no_last -->
+    <td width="1" height="1">{GLO.pixelImage}</td> 
+    <td align="center" width="27" height="18">&nbsp;</td>
+    <!-- END: no_last -->
+
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: navigator -->
+
+<!-- --------------------------------------------------------------------------------
+     -------------------------------------------------------------------------------- -->
+<!-- BEGIN: toolbox -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+
+    <!-- BEGIN: left -->
+    <td align="left" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
+    <!-- END: left -->
+
+    <!-- BEGIN: tools -->
+    <td align="right" valign="middle" width="3000" height="18">
+    <span class="admin">
+    <!-- BEGIN: tool -->
+    <a href="{tool.href}">[{tool.name}]</a>
+    <!-- END: tool -->
+    </span>
+    &nbsp;</td>
+    <!-- END: tools -->
+
+    <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
+  </tr>
+</table>
+<!-- END: toolbox -->
+
