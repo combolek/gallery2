@@ -310,5 +310,24 @@ function detect_exec_status()
 
 	return $status;
 }
-?>
 
+//-----------------------------------------------------------------------------
+function getLayouts() {
+
+	// define these globals to make them available to layouts
+	global $gallery;
+
+	// XXX not very intelligent way to differentiate layout dirs...
+
+	$dir_handle = fs_opendir('../layout');
+	while ($file = readdir($dir_handle)) {
+		if ( (!ereg("[.]", $file)) && (!ereg("CVS", $file)) ) {
+			$layout_list[] = $file;
+		}
+	}
+	closedir($dir_handle);
+	sort($layout_list);
+
+	return $layout_list;
+}
+?>
