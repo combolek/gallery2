@@ -121,7 +121,7 @@
     <xsl:when test="name($node)='part'">1</xsl:when>
     <xsl:when test="name($node)='reference'">1</xsl:when>
     <xsl:when test="name($node)='refentry'">1</xsl:when>
-    <xsl:when test="name($node)='index'
+    <xsl:when test="name($node)='index' and $generate.index != 0
                     and (name($node/parent::*) = 'article'
                          or name($node/parent::*) = 'book')">1</xsl:when>
     <xsl:when test="name($node)='bibliography'
@@ -575,7 +575,7 @@
     <xsl:call-template name="head.content"/>
 
     <xsl:if test="$home">
-      <link rel="home">
+      <link rel="start">
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
             <xsl:with-param name="object" select="$home"/>
@@ -602,7 +602,7 @@
     </xsl:if>
 
     <xsl:if test="$prev">
-      <link rel="previous">
+      <link rel="prev">
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
             <xsl:with-param name="object" select="$prev"/>
@@ -981,6 +981,8 @@
   <xsl:param name="content">
     <xsl:apply-imports/>
   </xsl:param>
+
+  <xsl:call-template name="user.preroot"/>
 
 <!-- CUSTOM CODE --> 
   <xsl:choose>

@@ -321,6 +321,10 @@
   <xsl:apply-templates mode="titlepage.mode"/>
 </xsl:template>
 
+<xsl:template match="corpcredit" mode="titlepage.mode">
+  <xsl:apply-templates mode="titlepage.mode"/>
+</xsl:template>
+
 <xsl:template match="corpname" mode="titlepage.mode">
   <xsl:apply-templates mode="titlepage.mode"/>
 </xsl:template>
@@ -338,13 +342,16 @@
 </xsl:template>
 
 <xsl:template match="editor" mode="titlepage.mode">
-  <xsl:call-template name="person.name"/>
+  <!-- The first editor is dealt with in the following template,
+       which in turn displays all editors of the same mode. -->
 </xsl:template>
 
 <xsl:template match="editor[1]" priority="2" mode="titlepage.mode">
   <xsl:call-template name="gentext.edited.by"/>
   <xsl:call-template name="gentext.space"/>
-  <xsl:call-template name="person.name"/>
+  <xsl:call-template name="person.name.list">
+    <xsl:with-param name="person.list" select="../editor"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="firstname" mode="titlepage.mode">
@@ -394,7 +401,12 @@
 </xsl:template>
 
 <xsl:template match="legalnotice" mode="titlepage.mode">
-  <fo:block>
+
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+
+  <fo:block id="{$id}">
     <xsl:if test="title"> <!-- FIXME: add param for using default title? -->
     <xsl:call-template name="formal.object.heading">
         <xsl:with-param name="title">
@@ -640,7 +652,8 @@
 
 <!-- book recto -->
 
-<xsl:template match="bookinfo/authorgroup" mode="titlepage.mode" priority="2">
+<xsl:template match="bookinfo/authorgroup|info/authorgroup"
+	      mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:if test="@id">
       <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
@@ -656,10 +669,12 @@
     <xsl:apply-templates mode="titlepage.mode"/>
 
     <xsl:if test="following-sibling::subtitle
+                  |following-sibling::info/subtitle
                   |following-sibling::bookinfo/subtitle">
       <xsl:text>: </xsl:text>
 
       <xsl:apply-templates select="(following-sibling::subtitle
+                                   |following-sibling::info/subtitle
                                    |following-sibling::bookinfo/subtitle)[1]"
                            mode="book.verso.subtitle.mode"/>
     </xsl:if>
@@ -688,19 +703,22 @@
   <xsl:apply-templates select="othercredit" mode="titlepage.mode"/>
 </xsl:template>
 
-<xsl:template match="bookinfo/author" mode="titlepage.mode" priority="2">
+<xsl:template match="bookinfo/author|info/author"
+	      mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:call-template name="person.name"/>
   </fo:block>
 </xsl:template>
 
-<xsl:template match="bookinfo/corpauthor" mode="titlepage.mode" priority="2">
+<xsl:template match="bookinfo/corpauthor|info/corpauthor"
+	      mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 
-<xsl:template match="bookinfo/pubdate" mode="titlepage.mode" priority="2">
+<xsl:template match="bookinfo/pubdate|info/pubdate"
+	      mode="titlepage.mode" priority="2">
   <fo:block>
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'published'"/>
