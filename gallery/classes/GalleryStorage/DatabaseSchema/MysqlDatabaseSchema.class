@@ -120,15 +120,37 @@ class MySqlDatabaseSchema extends DatabaseSchema {
 	 * Generate the lock table
 	 */
 	$lockTableMembers =
-		array('id' => array('type' => STORAGE_TYPE_INTEGER,
+		array('id' => array('type' => (STORAGE_TYPE_INTEGER |
+					       STORAGE_MODIFIER_ID |
+					       STORAGE_MODIFIER_REQUIRED),
 				    'class' => 'lock'),
-		      'lock' => array('type' => STORAGE_TYPE_INTEGER,
-				      'class' => 'lock'));
+		      'lockId' => array('type' => STORAGE_TYPE_INTEGER,
+					'class' => 'lock'));
 	$lockTableInfo = array('version' => array('major' => 1,
 						  'minor' => 0),
 			       'members' => $lockTableMembers);
 
 	$ret = $this->_createTable('lock', $lockTableInfo);
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+	
+	/*
+	 * Generate the lock semaphore table
+	 */
+	$lockSemaphoreMembers =
+		array('semaphore' => array('type' => (STORAGE_TYPE_INTEGER |
+						      STORAGE_MODIFIER_ID |
+						      STORAGE_MODIFIER_REQUIRED),
+					   'class' => 'lock_semaphore'),
+		      'lockId' => array('type' => STORAGE_TYPE_INTEGER,
+					'class' => 'lock_semaphore'));
+	
+	$lockSemaphoreInfo = array('version' => array('major' => 1,
+						      'minor' => 0),
+				   'members' => $lockSemaphoreMembers);
+
+	$ret = $this->_createTable('lock_semaphore', $lockSemaphoreInfo);
 	if ($ret & ERROR) {
 	    return $ret;
 	}
