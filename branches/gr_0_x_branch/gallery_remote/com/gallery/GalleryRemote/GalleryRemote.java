@@ -1,5 +1,5 @@
 /*
- * Gallery Remote - a File Upload Utility for Gallery 
+ * Gallery Remote - a File Upload Utility for Gallery
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2001 Bharat Mediratta
