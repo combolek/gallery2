@@ -1,0 +1,19 @@
+#!/usr/local/bin/php -q
+<?php
+
+if ($argc != 2) {
+	die ("Usage: $argv[0] filename");
+}
+
+$file = file ($argv[1], 'w');
+
+for ($i = 0; $i < count ($file); $i++) {
+	$file[$i] = str_replace ("\t", '        ', $file[$i]);
+}
+
+$fopen = fopen ($argv[1], 'w');
+for ($i = 0; $i < count ($file); $i++) {
+	fwrite ($fopen, $file[$i]);
+}
+fclose ($fopen);
+?>
