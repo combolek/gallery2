@@ -21,13 +21,13 @@
 <?
 
 function editField($album, $field, $edit) {
-	global $app;
+	global $app, $user;
 
 	$buf = $album->fields[$field];
 	if (!strcmp($buf, "")) {
 		$buf = "<i>&lt;Empty&gt;</i>";
 	}
-	if (isCorrectPassword($edit)) {
+	if ($user->canChangeText($album)) {
 		$url = "$app->photoAlbumURL/edit_field.php?set_albumName={$album->fields[name]}&field=$field";
 		$buf .= "<span class=editlink>";
 		$buf .= "<a href=" . popup($url) . ">[edit $field]</a>";
@@ -37,10 +37,10 @@ function editField($album, $field, $edit) {
 }
 
 function editCaption($album, $index, $edit) {
-	global $app;
+	global $app, $user;
 
 	$buf = $album->getCaption($index);
-	if (isCorrectPassword($edit)) {
+	if ($user->canChangeText($album)) {
 		if (!strcmp($buf, "")) {
 			$buf = "<i>&lt;No Caption&gt;</i>";
 		}
@@ -53,7 +53,7 @@ function editCaption($album, $index, $edit) {
 }
 
 function error($message) {
-	echo "<H1>Error: $message</H1>";
+	echo "<span class=error>Error: $message<span>";
 }
 
 function popup($url) {
@@ -104,17 +104,6 @@ function isImage($tag) {
 function isMovie($tag) {
 	return (!strcmp($tag, "avi") ||
 		!strcmp($tag, "mpg"));
-}
-
-function isCorrectPassword($pass) {
-	global $app;
-
-	return (!strcmp($app->editPassword, $pass));
-}
-
-function editMode() {
-	global $edit;
-	return (isCorrectPassword($edit));
 }
 
 function getFile($fname) {
@@ -206,7 +195,7 @@ function exec_wrapper($cmd) {
 }
 function includeHtmlWrap($name) {
 	// define these globals to make them available to custom text
-        global $app, $gallery, $album, $edit;
+        global $app, $gallery, $album, $user;
 	$fullname = "html_wrap/$name";
 
 	if (file_exists($fullname)) {
@@ -241,4 +230,13 @@ function pluralize($amt, $noun, $none="") {
 	}
 
 	return "$amt ${noun}s";
+}
+
+function errorRow($key) {
+	global $gErrors;
+
+	$error = $gErrors[$key];
+	if ($error) {	
+		include("html/errorRow.inc");
+	}
 }
