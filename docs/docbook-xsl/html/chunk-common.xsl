@@ -650,7 +650,10 @@
     </xsl:if>
     
     <!-- CUSTOM CODE -->
-    <link rel="stylesheet" href="html.css"/>
+     <link rel="stylesheet" href="html.css"/>
+     
+     <!-- For GalleryWeb, it will be included by the Nuke module -->
+    <!-- END CUSTOM CODE -->
     
   </head>
 </xsl:template>
@@ -932,6 +935,11 @@
     <xsl:apply-imports/>
   </xsl:param>
 
+<!-- CUSTOM CODE --> 
+  <xsl:choose>
+   <xsl:when test="not ($galleryweb)">
+<!-- END CUSTOM CODE -->
+  
   <html>
     <xsl:call-template name="html.head">
       <xsl:with-param name="prev" select="$prev"/>
@@ -940,6 +948,7 @@
 
     <body>
       <xsl:call-template name="body.attributes"/>
+
       <xsl:call-template name="user.header.navigation"/>
 
       <xsl:call-template name="header.navigation">
@@ -961,8 +970,38 @@
       </xsl:call-template>
 
       <xsl:call-template name="user.footer.navigation"/>
+     
     </body>
   </html>
+ 
+<!-- CUSTOM CODE -->
+   </xsl:when>
+   <xsl:otherwise>
+      <xsl:call-template name="user.header.navigation"/>
+
+      <xsl:call-template name="header.navigation">
+	<xsl:with-param name="prev" select="$prev"/>
+	<xsl:with-param name="next" select="$next"/>
+	<xsl:with-param name="nav.context" select="$nav.context"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="user.header.content"/>
+
+      <xsl:copy-of select="$content"/>
+
+      <xsl:call-template name="user.footer.content"/>
+
+      <xsl:call-template name="footer.navigation">
+	<xsl:with-param name="prev" select="$prev"/>
+	<xsl:with-param name="next" select="$next"/>
+	<xsl:with-param name="nav.context" select="$nav.context"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="user.footer.navigation"/>
+   </xsl:otherwise>
+  </xsl:choose>
+<!-- END CUSTOM CODE -->  
+    
 </xsl:template>
 
 </xsl:stylesheet>
