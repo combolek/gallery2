@@ -626,7 +626,8 @@ function makeGalleryUrl($target, $args=array()) {
 	if ($photoId) {
 		if (!$gallery->album) {
 			// $gallery->album was not defined for during "search".
-			$gallery->album = $albumDB->getAlbumByName($albumName);
+			$gallery->album = new Album();
+			$gallery->album->load($albumName);
 		}
 		$index = $gallery->album->getPhotoIndex($photoId);
 		if ($gallery->album->isAlbumName($index)) {
@@ -687,7 +688,7 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 				$target .= "/$photoId";
 			} 
 		} else {
-			$target = "view_album.php";
+			$target = $albumDB->rootAlbum;
 		}
 	} else {
 		if ($albumName) {
@@ -700,6 +701,8 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 			}
 		} else {
 			$target = "view_album.php";
+			$albumDB = new AlbumDB;
+			$args["set_albumName"] = $albumDB->rootAlbum;
 		}
 
 	}
