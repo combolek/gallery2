@@ -244,3 +244,19 @@ function errorRow($key) {
 		include("html/errorRow.inc");
 	}
 }
+
+function drawSelect($name, $array, $selected, $size) {
+
+	$buf = "";
+	$buf .= "<select name=\"$name\" size=$size>\n";
+	foreach ($array as $uid => $username) {
+		$sel = "";
+		if (!strcmp($uid, $selected)) {
+			$sel = "selected";
+		} 
+		$buf .= "<option value=$uid $sel> $username\n";
+	}
+	$buf .= "</select>\n";
+
+	return $buf;
+}
