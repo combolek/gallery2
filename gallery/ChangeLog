@@ -1,3 +1,221 @@
+2001-09-14  Bharat Mediratta  <bharat@menalto.com>
+
+	* v1.2.1 ships!
+
+2001-09-13  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs-b5) 
+
+	* Fixed bug "#461263: local upload don't work anymore!".  Thanks to
+	  Jens Langner for the catch.
+
+2001-09-12  Chris Smith  <chris@jacko.com> (1.2.1-cvs-b4) 
+
+	* Fixed a bug that caused [add comment] in view_photo.php to not	
+	  work in some circumstances. 
+
+2001-09-10  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs-b3) 
+
+	* Fixed a bug that caused rotate images to appear with the wrong aspect
+	  ratio when using the auto-resize code, thanks to Edouard Lafargue
+
+	* Fixed several fairly serious security vulnerabilities thanks to
+	  timely info from Mary J. Alderdice and Scott Salvidio.  
+
+	* Updated copyright notice.
+
+2001-09-10  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs-b2) 
+
+	* Fixed a harmless but annoying bug in Gallery_UserDB::getUidList()
+	  where we were failing to use the full pathname to refer to a file.  
+
+2001-09-09  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs-b2)
+
+	* Fixed the sporadic session timeout bug!  It was caused by the click
+	  counter code stuffing way too much data into the cookie.  Cookies
+	  have a 1024 byte limit and the new stuff we were putting in would
+	  eventually cause the session id to drop out.  D'oh!
+
+	* Fixed issues with sucking images via the web:
+	  - Fixed timeout bug when parsing large HTML files 
+	  - Prepend http: when no scheme is present (both initially and on the 
+	    results of parsed data) 
+
+	* It turns out that mod_rewrite requires the FollowSymLinks option
+	  enabled (thanks to Dan Brown for catching this).  The setup wizard
+	  will now turn it on for you.
+
+2001-09-08  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs)
+
+	* Extended the configure instruction pages to have links to the FAQ and
+	  the mailing lists
+
+	* Dial down the error reporting (in case it's turned on for the
+	  server) for now.  We'll properly address this in v2.0	
+	
+	* Fixed a bug in the way that we were detecting HTTPS that was  
+	  accidentally causing false positives on some systems. 
+
+2001-09-07  Bharat Mediratta  <bharat@menalto.com> (1.2.1-cvs)
+
+	* Fixed bug #459471 where you get "Cannot redeclare fs_copy()"
+	  in the config wizard.  This only happens on older versions
+	  of PHP like 4.0.1pl2
+
+	* Fixed a bug in the style sheet link function (thanks to Tony Clayton)
+	  that caused it to return a link in "/css" when upgrading from older
+	  versions of Gallery.	
+	
+2001-09-07  Bharat Mediratta  <bharat@menalto.com>
+
+	* At long last, released v1.2!
+
+2001-08-31  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b19)
+
+	* Set the umask before copying files and making directories (and
+	  restore it when we're done) so that we avoid any potential issues if
+	  the umask is in some weird state.  Thanks to Jeff Kilbride for the
+	  patch. 
+
+2001-08-29  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b18)
+
+	* Potentially fixed a bug on PHP 4.0.1 where it complains that the
+	  fs_XXX methods are redefined.  This is happening because the
+	  require() method fires even when the line it's on never gets
+	  executed.  Replace those with include().
+
+2001-08-24  Bharat Mediratta  <bharat@menalto.com>
+
+	* Upped the quality of the ppmtojpeg operation to 95.  This is the
+	  highest quality setting recommended by the jpeg folks and should
+	  minimize image degradation when processing jpeg images.
+
+a2001-08-21  Chris Smith  <chris@jacko.com> (1.2-cvs-b17)
+
+	* Fixed a minor bug that would cause the edit_caption dialog
+          to display an incorrect value in the capture year field when
+          using IE6beta. 
+
+2001-08-20  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b16)
+
+	* Fixed a minor bug that would cause index-out-of-bounds errors when
+	  trying to move albums.  The error is visible in Netscape, but not in
+	  IE.  The function would still work, but it would look bad.
+
+2001-08-15  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b15)
+
+	* Fixed a serious bug that could cause album corruption in large
+	  albums.  The way that we were serializing data files had a race
+	  condition; if you have two users who modify an album at the same
+	  time (one of them might just be updating a click count) you will wind
+	  up with a mangled data file.
+
+2001-08-10  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b14)
+
+	* Fixed a bug where if you turned off image resizing in the album and
+	  turned on fit-to-window, you'll get a Javascript error.
+
+2001-08-09  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b13)
+
+	* Fixed a minor warning, "Warning: Missing argument 1 for
+	  getrawdimensions()" when uploading.
+
+2001-08-08  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b12)
+
+	* Yet *another* set of bug fixes to the highlight album code.  This
+	  round fixes another variant of the problem when you have nested empty
+	  albums.
+
+2001-08-08  Bharat Mediratta  <bharat@menalto.com> (1.2-cvs-b11)
+
+	* Yet another bug fix to the highlight album code.  This time around
+	  we're fixing an edge case which occurs when you have a nested album
+	  that contains only an empty nested album.  This incidentally fixes
+	  some problems with the mirroring caused by the prior fixes.
+
+	* Sessions are no longer shared between multiple Galleries on the same
+	  server, unless both Galleries use the same user database files.  Each
+	  Gallery will have its own session (and you can flip back and forth
+	  between them).
+
+2001-08-07  John Kirkland  <jpk@bl.org> (1.2-cvs-b10)
+
+	* Removed an extraneous "Highlight $label" line from
+	  view_album.php.
+
+2001-08-06  John Kirkland  <jpk@bl.org> 
+
+	(1.2-cvs-b9)
+	* Bug fix for "highlight Album" not working for nested
+	  albums.  There are a couple of changes here.  
+	  First, if we are highlighting a nested album, don't create
+	  a new highlight image... one already exists in the
+	  nested directory.  
+	  Second, if we are attempting to get a HighlightTag or 
+	  ThumbnailTag from an album, Gallery will now traverse the 
+	  nestedAlbum tree downwards until it actually hits a highlight 
+	  or thumbnail for a real picture.  
+	  Third, since we are not creating new highlight images 
+	  when highlighting a nestedAlbum, if you change the highlight 
+	  photo of a highlighted nested album it will change the 
+	  highlight in the parent as well.  (geez... try saying that 
+	  3 times real fast)
+
+	(1.2-cvs-b8)
+	* Added the ability to set the album properties for nested
+	  albums without having to manually traverse a given tree
+	  and change each one.  This was accomplished by adding a
+	  checkbox in edit_appearance.php and by adding a new
+	  method in Album.php called setNestedProperties().
+	  Ed and Mary, this one is for you.  :-)
+
+2001-08-05  Chris Smith <chris@jacko.com> (1.2-cvs-b7)
+
+	* Fixed a bug where the raw and sized dimensions of an 
+	  image were not getting updated after rotate.
+
+2001-08-05  John Kirkland  <jpk@bl.org>  (1.2-cvs-b6)
+	* Changed a few more $name variables to $src_name and one to
+	  $dst_name in classes/AlbumItem.php.
+
+2001-08-05  John Kirkland  <jpk@bl.org>  (1.2-cvs-b5)
+	* Don't display [reset counter] in albums.php if the display
+	  counts feature is turned off for that particular album.
+
+2001-08-05  John Kirkland  <jpk@bl.org>  (1.2-cvs-b4)
+	* Nested albums now inherit the album settings from their parents
+	  when they are created.  
+
+	* Modified the "return-to" behavior when nested albums are used.
+	  Now, if return is turned off, then nested albums will only show
+	  a return link to their parent album, but not the main gallery.
+
+2001-08-04  Bharat Mediratta  <bharat@menalto.com>  (1.2-cvs-b3)
+
+	* Added a hack that allows you to do multi-level album highlighting.
+	  It's still a bit limited; if you change the highlight at the
+	  innermost level you still need to update it every step of the way
+	  back up the chain.
+
+2001-08-03  Bharat Mediratta  <bharat@menalto.com>
+
+	* Fixed a bug that was causing you to be unable to modify the 
+	  photo capture date.
+
+	* Fixed a bug where if you change your own username it drops you
+	  out of your session!
+
+	* Fix for bug #447424: rotate not working under Nuke5.
+
+	* Fixed bug #445598: duplicate images generated when uploading via
+	  URL or from the local filesystem.  It turns out that we've had a
+	  bug in the URL submit code since it was first written where we
+	  double submit the form!  Thanks to cybertech@users.sourceforge.net
+	  for letting me debug the problem onsite.
+
+	* Added the mirror-site feature!  It still needs to be optimized,
+	  but in its current state, you can rsync your albums to a remote
+	  site (that you specify in the config wizard) and Gallery will
+	  use photos from that location if they are up to date.
+
 2001-08-02  Bharat Mediratta  <bharat@menalto.com>
 
 	* Improved the URL fetch code so that now 

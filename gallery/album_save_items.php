@@ -20,6 +20,15 @@
 ?>
 <? require($GALLERY_BASEDIR . "init.php"); ?>
 <?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+        !empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+        !empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+    print "Security violation\n";
+    exit;
+}
+
+
 if ($cancel) {
     header("Location: $return");
     return;
@@ -111,6 +120,13 @@ if ($urls_or_path) {
 		/* Get rid of any preceding whitespace (fix for odd browsers like konqueror) */
 		$url = eregi_replace("^[[:space:]]+", "", $url);
 
+		/* If the URI doesn't start with a scheme, prepend 'http://' */
+		if (!fs_is_file($url)) {
+			if (!ereg("^(http|ftp)", $url)) {
+				$url = "http://$url";
+			}
+		}
+
 		/* Parse URL for name and file type */
 		$url_stuff = parse_url($url);
 		$name = basename($url_stuff["path"]);
@@ -192,6 +208,15 @@ if ($urls_or_path) {
 
 			/* Add each unique link to an array we scan later */
 			foreach (array_keys($things) as $thing) {
+
+				/*
+				 * Some sites (slashdot) have images that start with // and this
+				 * confuses Gallery.  Prepend 'http:'
+				 */
+				if (!strcmp(substr($thing, 0, 2), "//")) {
+					$thing = "http:$thing";
+				}
+
 				/* Absolute Link ( http://www.foo.com/bar ) */
 				if (substr($thing, 0, 4) == 'http') {
 					$image_tags[] = $thing;
@@ -312,6 +337,8 @@ function process($file, $tag, $name, $setCaption="") {
 				}
 			} else {
 				msg("<font color=red>Error: $err!</font>");
+				msg("<b>Need help?  Look in the " .
+					"<a href=http://gallery.sourceforge.net/faq.php target=_new>Gallery FAQ</a></b>");
 			}
 		} else {
 			msg("Skipping $name (can't handle '$tag' format)");

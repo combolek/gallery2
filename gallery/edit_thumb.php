@@ -19,6 +19,15 @@
  */
 ?>
 <?
+// Hack prevention.
+if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_POST_VARS["GALLERY_BASEDIR"]) ||
+		!empty($HTTP_COOKIE_VARS["GALLERY_BASEDIR"])) {
+	print "Security violation\n";
+	exit;
+}
+?>
+<?
 require($GALLERY_BASEDIR . "init.php");
 
 // Hack check
@@ -69,7 +78,7 @@ if ($action == "doit") {
 		$photo = $gallery->album->getPhoto($index);
 	
 		#-- the url to the image ---
-		$photoURL = $gallery->album->getAlbumDirURL("thumb") . "/";
+		$photoURL = $gallery->album->getAlbumDirURL("highlight") . "/";
 		if ($photo->image->resizedName) {
 			$photoURL .= $photo->image->resizedName . "." . $photo->image->type;
 		} else {
