@@ -1120,6 +1120,21 @@ if (!function_exists('array_search')) {
      </answer>
     </qandaentry>
     
+    <qandaentry id="gallery1-install.faq.c.29">
+     <question>
+      <para>
+       Why do I get this error: <literal>Warning:  exec() has been disabled for security reasons</literal>?
+      </para>
+     </question>
+     <answer>
+      <para>
+       Basically, this is a form of safe mode.  Gallery requires functions like <literal>exec()</literal> to
+       perform operations on images.  The steps to "fix" this problem are the same as in
+       <link linkend="gallery1-install.faq.c.5">FAQ C.5</link>.
+      </para>
+     </answer>
+    </qandaentry>
+    
    </qandadiv>
   
   </qandaset>
