@@ -1,0 +1,199 @@
+2001-01-06  Bharat Mediratta  <bharat@sinia.com>
+
+	* Fixed bug in the setup code that generates the anytopnm wrapper.
+	  It was not basing the wrapper on the path the user provided --
+	  it was only basing it on the path that it found.  This will
+	  further help non-FreeBSD users.
+
+	* Changed from using constant() to one_constant() in setup code
+	  'cause "constant" is now a reserved word in PHP 4.0.4
+
+	* Backticks (`) are no longer valid as part of an album name/url
+
+	* Added last modification date and the number of items in the
+	  album to the album description.
+
+2001-01-04  chris Smith <chris@jacko.com>
+
+        * Moved 'Edit Album Title' to the Album Properties Popup.
+        
+        * Added app parameter galleryTitle. Because of this bumped the
+          version number.
+
+        * Created a style sheet for the gallery. It can be overriden
+          by a custom style sheet. It controls fonts and colors. 
+          Album parameters override these styles when appropriate.
+
+        * Created a new directory called html_wrap. It contains 
+          wrapper html for the three page types in the gallery:
+            gallery main, album view and photo view.
+          These wrappers can be used to customize the look of the
+          three page types. If custom wrappers are not provided, 
+          the default ones are used.
+          All gallery html is now encapsulated within the navigation
+          bars on these pages (a nice rectangle).
+
+        * Added an 'admin' box to sit over the navigation bars. It
+          contains the admin controls.
+
+        * All popups now use the gallery style sheet and when 
+          appropriate have a default focus. 
+
+2001-01-02  Bharat Mediratta  <bharat@sinia.com>
+
+	* Made the NetPBM check optional since now it doesn't need to be
+	  in the path and you can specify it by hand during the config process.
+
+	* Fixed a conflict between PHP magic quotes and my new anytopnm
+	  wrapper by disabling magic quotes in the gallery app.
+
+2001-01-01  Chris Smith <chris@jacko.com>
+
+	* Made New Year's resolution to enter my changes in the changelog.
+
+	* Added fancy frames to the photos in AlbumView and PhotoView. 
+	  These frames can be configured on a per-Album basis (in the 
+          'Edit Album Appearence' panel.
+
+	* UI revamp if the navigation controls (used in the main page and
+	  AlbumView pages). Fancy icons.
+
+	* Added navigation controls to the ViewPhoto Page. More fancy icons.
+
+	* Added 'breadcrumb' control to ViewAlbum and ViewPhoto pages. Even
+	  more fancy icons.  
+
+	* Revamped the admin photo controls. You guessed it, fancy icons.
+
+2001-01-01  Bharat Mediratta  <bharat@sinia.com>
+
+	* Switched from using system("mv") to using rename() for greater
+	  portability (thanks Andreas Fuchs [fox@tcnet.ch])
+
+	* Added a wrapper around anytopnm so that it will work properly on
+	  webservers that don't have the NetPBM binary directory in the
+	  path.  This should ease the pain on most standard Linux
+	  configurations. 
+
+2000-12-29  Bharat Mediratta  <bharat@sinia.com>
+
+	* Fixed several small bugs involving uploading movies.  
+
+	* We now include the error details when an error occurs adding a
+	  photo or movie to an album.
+
+	* Minor page navigator cleanup
+
+	* Fixed the config wizard to request the movie thumbnail image as
+	  a filesystem path instead of a URL (since we copy it into the
+	  album instead of linking to it)
+
+	* Added config version numbering.  During the Gallery upgrade
+	  process, this will alert you if it's necessary to re-run the
+	  configuration wizard.
+
+	* the generated config.php now contains the GPL license
+
+	* Config wizard now locates the 'mv' binary and uses it via it's
+	  full path to avoid a weird bug where the webserver looks for it
+	  in /
+
+2000-12-28  Bharat Mediratta  <bharat@harmony.menalto.com>
+
+	* Fixed bug #126982; the wizard won't save config.php if you don't
+	  provide zip binaries (and everything else -- ie, it had no
+	  concept of an optional constant).
+
+2000-12-27  Bharat Mediratta  <bharat@harmony.menalto.com>
+
+	* All references to specific images now use the image ID (eg
+	  "photo-aaa", "photo-aac") instead of the image index (eg "1",
+	  "3").  This means that URLs to specific images will continue to
+	  be valid even if they are moved around the album.  That's
+	  essential if you want to give a URL for an image to a friend.
+
+	* Broke main album page into separate pages and used the navigator
+	  to swap between them.  This will lighten the server load since
+	  every time the end user goes to the main gallery page they won't
+	  be downloading every highlight image.  Not to mention the fact
+	  that in large galleries you can have a ton of HTML just to
+	  display all the album names, etc.
+
+2000-12-26  Bharat Mediratta  <bharat@harmony.menalto.com>
+
+	* Rotating photos now also rotates the resized version (instead of
+	  throwing it out).
+	
+2000-11-23  Bharat Mediratta  <bharat@harmony.menalto.com>
+
+	* Removed an extra backslash from htaccess.template that was
+	  causing the mod_rewrite rules generated in .htaccess to be
+	  broken.  This caused us not to be able to view album photos.
+
+2000-09-28  Bharat Mediratta  <bharat@harmony.menalto.com>
+
+	* Removed final dependencies on GD and JPEG, so likewise removed
+	  those checks from the config wizard
+
+	* Setup code: Made the code that detects the webserver uid more
+	  robust so that it'll work in the absence of posix (it falls back
+	  on 'whoami')
+
+	* Setup code: Removed extra commas at the end of array
+	  initializers as they caused parse problems on earlier versions
+	  of PHP 4  
+
+2000-09-19  Bharat Mediratta  <bharat@menalto.com>
+
+	* Added error checking code to allow us to catch photos that we
+	  won't be able to work with and flag them early.  This helps us
+	  prevent having extra crufty file lying around the album from
+	  failed photo insertions (which in turn leads to problems when we
+	  want to delete the album)
+	  
+	* Abstracted my ad-hoc flush code into a function and put it in
+	  util.php
+
+	* Broke classes.php up into individual class files.  I should have
+	  done this ages ago...the repetition of method names across
+	  classes makes it hard to find the right method if they're all in
+	  the same file.
+
+2000-09-17  Bharat Mediratta  <bharat@menalto.com>
+
+	* Added versioning support
+
+	* Added feedback to the user when resizing all thumbnails or all
+	  photos. 
+
+	* Lots of small changes regarding thumbnails not worth mentioning
+	  here. 
+
+	* Fixed a bug where resizing to original size was not working at all.
+
+	* Removed gif_support feature because now NetPBM is mandatory.
+
+	* resize now uses the netpbm library to do resize instead of
+	  GD. This rUleZ. [CHRIS]
+
+	* Made the border size a choice so that off could be an
+	  option. Also made the resize a choice, for the same reason [CHRIS]
+
+	* When loading the old values, it was looking at
+	  app->defaults[xxx] instead of app->default[xxx], so the defaults
+	  was always getting reset to the original settings.  [CHRIS]
+
+	* Fixed several bugs stemmming from the fact that we were not
+	  always correctly treating all thumbnails as JPGs.  This would
+	  mean that we'd sometimes leave cruft files lying around which
+	  would prevent deleting albums.
+
+2000-07-05  Bharat Mediratta  <bharat@menalto.com>
+
+	* Added new setup process using the 'setup' directory.  This
+	set of pages, although not yet very robust, will walk you through
+	the process of configuring Gallery for your local site.
+
+2000-07-04  Bharat Mediratta  <bharat@menalto.com>
+
+	* Updated README to reflect v1.0 feature list
