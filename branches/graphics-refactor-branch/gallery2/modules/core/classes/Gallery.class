@@ -1362,5 +1362,19 @@ class Gallery {
 
 	return $this->_templateAdapter;
     }
+
+    /**
+     * Mark a string as being internationalized.  This is a semaphore method; it
+     * does nothing but it allows us to easily identify strings that require
+     * translation.  Generally this is used to mark strings that will be stored
+     * in the database (like descriptions of permissions).
+     *
+     * @param string the value
+     * @return string the same value
+     */
+    function i18n($value) {
+	/* Just pass the value through */
+	return $value;
+    }
 }
 ?>

@@ -106,21 +106,21 @@ class CommentModule extends GalleryTemplateModule {
 	    /* Register our permissions */
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.add',
-							       '[comment] Add comments'); /* translate */
+							       $gallery->i18n('[comment] Add comments')); 
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.edit',
-							       '[comment] Edit comments'); /* translate */
+							       $gallery->i18n('[comment] Edit comments')); 
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.delete',
-							       '[comment] Delete comments'); /* translate */
+							       $gallery->i18n('[comment] Delete comments')); 
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -134,14 +134,14 @@ class CommentModule extends GalleryTemplateModule {
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.viewIp',
-							       '[comment] View commenter\'s IP address'); /* translate */
+							       $gallery->i18n('[comment] View commenter\'s IP address'));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.all',
-							       '[comment] All access', /* translate */
+							       $gallery->i18n('[comment] All access'), 
 							       GALLERY_PERMISSION_COMPOSITE,
 							       array('comment.add',
 								     'comment.edit',
