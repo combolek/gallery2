@@ -259,7 +259,7 @@ class CommentContainer extends DataContainer {
     function setComment($value) {
         assert('isset($value)');
         $this->_comment = $value;
-        $this->modifyPersistentMember('comment');
+        $this->setModifiedFlag('comment', MEMBER_MODIFIED);
     }
     
     /**
@@ -281,7 +281,7 @@ class CommentContainer extends DataContainer {
     function setDate($value) {
         assert('isset($value)');
         $this->_date = $value;
-        $this->modifyPersistentMember('date');
+        $this->setModifiedFlag('date', MEMBER_MODIFIED);
     }
     
     /**
@@ -303,7 +303,7 @@ class CommentContainer extends DataContainer {
     function setEmailAddress($value) {
         assert('isset($value)');
         $this->_emailAddress = $value;
-        $this->modifyPersistentMember('emailAddress');
+        $this->setModifiedFlag('emailAddress', MEMBER_MODIFIED);
     }
     
     /**
@@ -325,7 +325,7 @@ class CommentContainer extends DataContainer {
     function setHostname($value) {
         assert('isset($value)');
         $this->_hostname = $value;
-        $this->modifyPersistentMember('hostname');
+        $this->setModifiedFlag('hostname', MEMBER_MODIFIED);
     }
     
     /**
@@ -347,7 +347,7 @@ class CommentContainer extends DataContainer {
     function setName($value) {
         assert('isset($value)');
         $this->_name = $value;
-        $this->modifyPersistentMember('name');
+        $this->setModifiedFlag('name', MEMBER_MODIFIED);
     }
     
     /**
