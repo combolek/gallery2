@@ -76,26 +76,57 @@
  <sect2 id="gallery2-devguide.coding-standards.indentation">
   <title>Indentation</title>
   <para>
-   Four spaces should be used as the unit of indentation.  You can use
-   tabs or spaces, but it's important that the indentation looks the
-   same in all viewers (your editor, unix tools like "less", on the
-   web, when printed, etc).  In order for that to be true, you
-   <emphasis role="bold">must not redefine tabs</emphasis>.  Many
-   editors will let you change tab to be 4 spaces, some even do this
-   by default.  This is bad because others won't change the definition
-   of tab to match your settings (it's not always possible, for
-   example when you're viewing code via the CVS viewer or in the unix
-   "less" utility).  If you leave tab at 8 columns, then what you see
-   is what you get.  Editors like emacs and vi have a "smart tabs"
-   mode which will replace sequences of 8 spaces with a tab character
-   to make your files smaller.  This is preferable, but if you're in
-   doubt, just use spaces.
+   Four columns is the basic unit of indentation.  The most efficient
+   way to achieve this is to use a mixture of 8-column tabs and
+   spaces, as in the example below:
+  </para>
+  <screen>
+function myFunction() {
+    // 4 spaces
+    code;
+    code;
+
+    if (indentAnotherLevel) {
+        // 8 spaces, or 1 tab
+        moreCode;
+        moreCode;
+
+        if (indentAnotherLevel) {
+            // 12 spaces, or 1 tab and 4 spaces
+            moreCode;
+            moreCode;
+        }
+    }
+}
+  </screen>
+  <para>
+   Some people prefer to achieve 4 column indentation by having their
+   editor define a tab as 4 columns.  <emphasis role="bold">Do not do
+   this when you edit Gallery code!</emphasis>.  This is bad because
+   it requires everybody who views this file to redefine their tab
+   character or the code does not appear the way you intended it to
+   look.  For example, other viewers like the sourceforge.net CVS
+   browser, or via Unix utilities like "less" and "cat") will treat
+   the tab as the standard 8 columns and now all your code will appear
+   different.  Stick with the standard 8 column tab.
+  </para>
+  <para>
+   Some editors, like Emacs and VI, will create this mixture of tabs
+   and spaces for you automatically (in Emacs this is called "smart
+   tabs" mode).  This is more efficient than using only spaces because
+   it cuts down considerably on the number of bytes in a file (since
+   many lines of code will start with one or more levels of
+   indentation).  If for some reason your editor does not support
+   smart tabs and you're finding it too difficult, you can use only
+   spaces and the next person to edit the file with a smart editor
+   will fix it.
   </para>
   <sect3 id="gallery2-devguide.coding-standards.indentation.line-length">
    <title>Line Length</title>
    <para>
-    Avoid lines greater than 100 characters. Yes, <emphasis role="bold">100</emphasis> not 80. We're
-    in the new millenium now and we've got bigger screens.
+    Avoid lines greater than 100 characters. Yes, <emphasis
+    role="bold">100</emphasis> not 80. We're in the new millenium now
+    and we've got bigger screens.
    </para>
   </sect3>
   <sect3 id="gallery2-devguide.coding-standards.indentation.wrapping-lines">
@@ -113,7 +144,7 @@
     </listitem>
     <listitem>
      <para>
-      Prefer higher-level breaks to lowere-level breaks.
+      Prefer higher-level breaks to lower-level breaks.
      </para>
     </listitem>
     <listitem>
@@ -125,7 +156,7 @@
     <listitem>
      <para>
       If the above rules lead to confusing code or to code that's squished up against the right
-      margin, just indent 8 spaces instead (<emphasis role="bold">not</emphasis> 4 spaces).
+      margin, just indent 8 columns instead (<emphasis role="bold">not</emphasis> 4 columns).
      </para>
     </listitem>
    </itemizedlist>
@@ -144,31 +175,39 @@
     <screen>
     <lineannotation>// <emphasis role="bold">PREFER</emphasis></lineannotation>
     longName1 = longName2 * (longName3 + longName4 - longName5) 
-            + 4 * longname6;
+        + 4 * longname6;
 
     <lineannotation>// <emphasis role="bold">AVOID</emphasis></lineannotation>
     longName1 = longName2 * (longName3 + longName4
-            - longName5) + 4 * longname6;
+        - longName5) + 4 * longname6;
     </screen>
-    Following are two examples of indenting function declarations. The first is the conventional
-    case. The second would shift the second and third lines to the far right if it used conventional
-    indentation, so instead it indents only 4 spaces.
+    Following are two examples of indenting function declarations. The
+    first is the conventional case where the arguments are indented
+    under the open parenthesis.  In the second case, the function name
+    is so long that indenting under the parenthesis would require us
+    to put many parameters on their own line which is not visually
+    appealing.  But we can't indent the follow on lines by 4 columns
+    because then it would be hard to differentiate them from the code
+    that follows, so we indent them 8 columns, as we do when indenting
+    wrapping if-clauses (see below).
     <screen>
     <lineannotation>// <emphasis role="bold">CONVENTIONAL INDENTATION</emphasis></lineannotation>
     function someFunction($anArg, $anotherArg, $yetAnotherArg,
-            $andStillAnother) {
-        ...
+		          $andStillAnother) {
+        codeHere;
     }
 
-    <lineannotation>// <emphasis role="bold">INDENT 8 SPACES TO AVOID VERY DEEP INDENTS</emphasis></lineannotation>
+    <lineannotation>// <emphasis role="bold">INDENT 8 COLUMNS TO AVOID VERY DEEP INDENTS</emphasis></lineannotation>
     function superExtraHorkingLongMethodName($anArg, $anArg, $anArg,
             $anotherArg, $yetAnotherArg, $yetMoreArg, $anArg, $anArg
             $andStillAnother) {
-        ...
+        codeHere;
     }
     </screen>
-    Line wrapping for if statements should generally use the 8-space rule, since conventional (4
-    space) indentation makes seeing the body difficult. For example:
+    Line wrapping for if statements should generally use the 8 column
+    rule, since conventional 4 column indentation makes it difficult
+    to differentiate the predicate of the if-clause from its
+    condition.  For example:
     <screen>
     <lineannotation>// <emphasis role="bold">DON'T USE THIS INDENTATION</emphasis></lineannotation>
     if ((condition1 &amp;&amp; condition2)
