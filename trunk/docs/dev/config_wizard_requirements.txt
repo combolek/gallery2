@@ -33,6 +33,9 @@ describe what's going to happen.  It should provide a link to Gallery
 resources on the net that the user can turn to if there are any
 problems during the installation.
 
+QUESTION - do we need to display the license here? Are we distributing
+under PHP or GPL (We can't live in PEAR if we aren't in GPL).
+
 3. System Check.
 
 At this stage we will check your system to make sure that it's got the
@@ -54,9 +57,10 @@ from outside contributors).  The core modules:
 
 Each module should be able to:
  * Read it's default state from the existing config file
- * Be optional (warning) or mandatory (error)
+ * Have a generic "unit test" method that succeeds or fails
+ * Be optional (warning errors) or mandatory (fatal errors)
  * Return an informative success, warning or error message as
-   appropriate. 
+   appropriate. Errors must point to an appropriate FAQ section.
 
 4. System configuration
 
@@ -103,9 +107,12 @@ accepting ones from outside contributors).  The core modules:
 
   * Defaults
     - border color, border, font, cols, rows, thumb_size, resize_size,
-      fit-to-window, use_fullOnly, print_photos, retornTo, showOwners,
+      use_fullOnly, print_photos, returnTo, showOwners,
       albumsPerPage, showSearchEngine, useOriginalFileNames,
       display_clicks, public_comments, layout
+
+QUESTION - should a given skin advertise its configurable properties?
+Or are these properties generic and forced upon all skins?
 
 Note that these modules include everything from the v1.2 branch.
 The modules should be able to read their starting values from the
