@@ -39,8 +39,6 @@ case $1 in
 		fi
 
 		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf
-		cp -R images $DIST/pdf
-		rm -rf $DIST/pdf/CVS
 
 		rm -f manual.fo
 		;;
