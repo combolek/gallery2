@@ -1,4 +1,48 @@
 
+Each user-mutable property may assert 0 or more of the following
+validations:
+
+* mustBeBoolean
+* mustBeInteger
+* mustBeFile
+* mustBeDir
+* mustBeExecutible
+* mustBeWriteable
+* mustBeUrl
+* mustBeColor
+* mustBeFont
+
+These assertions are expected to return 0/null if all is well, or an
+error code (see the Localization spec) that can be horked up
+sensically to the user. 
+
+Note that this is not a complete list of the assertions - additional
+assertions can be provided by a plugin module whose 
+include_once() calls in the plugin's pluginname_defaults.inc file.
+
+
+### Security note ###
+
+I was realizing that having these "autorunnable" "warm pluggable"
+thingimabobbers sitting in the gallery tree could certainly pose a
+security risk -- we'll need to ensure .. path traversal hacks don't
+allow users to install shtuff in the config directories or gallery's
+root dir proper.
+
+### End gratuitous security note ###
+
+
+
+Each property can be mucked with one of the following edit widgets (of which it will request):
+
+* choice (>1 item array required) (good enough for booleans?)
+* field (with default)
+* passwd
+* textarea
+
+
+
+
 Class ConfigModule
 -----------------
 
