@@ -1,19 +1,19 @@
 <!-- --------------------------------------------------------------------
      
-     This file contails th eheader and footer blocks to be used on every
+     This file contails the header and footer blocks to be used on every
      page of the gallery. If you would like to customize these blocks
      create a copy of this file called 
 
        "header_footer.xtpl" (same name without the ".default") 
 
-     If that file is found in this directory it eill be used instead of
+     If that file is found in this directory it will be used instead of
      this one.
 
      NOTE: Comment about the standalone_only section. These blocks
      will not be parsed (they will be omitted by the application), if you
      are running gallery within another application like phpNuke.
      If you are running Gallery as a standalone application you need 
-     these blocks and you need to put the <html>, <head and <body> tags 
+     these blocks and you need to put the <html>, <head> and <body> tags 
      within them.
 
      The following tags will be replaced by application generated data.
@@ -47,7 +47,7 @@
 
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 <tr bgcolor="black">
-  <td>
+  <td colspan="3">
   <font color="666666">
   <center>
   - THE GALLERY - SKIN JOB BRANCH - TOP SEKRIT - NOONE KUMZ IN HEER -  
@@ -55,6 +55,10 @@
   </td>
 </tr>
 <tr>
+  <td width="10">
+  &nbsp;
+  </td>
+
   <td valign="top">
 <!-- END: header -->
 
@@ -62,9 +66,13 @@
 
 <!-- BEGIN: footer -->
   </td>
+
+  <td width="10">
+  &nbsp;
+  </td>
 </tr>
 <tr bgcolor="black">
-  <td>
+  <td colspan="3">
   <font color="666666">
   <!-- The Gallery code version number, linked to the Gallery home page -->
   <span align="right" class="fineprint">
