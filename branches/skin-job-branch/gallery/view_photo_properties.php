@@ -117,8 +117,8 @@ program, I build the functionality using 'jhead'.
 	echo ("Item Capture Date: &nbsp;&nbsp " . $itemCaptureDate[mon] . "-" . $itemCaptureDate[mday] . "-" . $itemCaptureDate[year] . "&nbsp;&nbsp;");
 	echo ($itemCaptureDate[hours] . ":" . $itemCaptureDate[minutes] . ":" . $itemCaptureDate[seconds] . "<br>");
 
-	if ($gallery->album->getKeyWords($index)) {
-		echo "<b>KEYWORDS</b>: &nbsp;&nbsp " . $gallery->album->getKeyWords($index);
+	if ($gallery->album->getItemKeywords($index)) {
+		echo "<b>KEYWORDS</b>: &nbsp;&nbsp " . $gallery->album->getItemKeywords($index);
 	}
 } else {
 	error("no album / index specified");

@@ -37,7 +37,7 @@ $err = "";
 if ($save) {
 	if (($capture_year < 3000) && ($capture_year > 1000)) { // only allow photo capture dates from 1000 to 3000.
 		$gallery->album->setCaption($index, stripslashes($data));
-		$gallery->album->setKeywords($index, stripslashes($keywords));
+		$gallery->album->setItemKeywords($index, stripslashes($keywords));
 		$dateArray["year"] = $capture_year;	
 		$dateArray["mon"] = $capture_mon;
 		$dateArray["mday"] = $capture_mday;
@@ -80,7 +80,7 @@ box below.
 Enter "keywords" for this photo in the text box below.
 <br><br>
 <textarea name="keywords" rows=1 cols=40>
-<?= $gallery->album->getKeywords($index) ?>
+<?= $gallery->album->getItemKeywords($index) ?>
 </textarea>
 
 <br>
