@@ -60,7 +60,7 @@ class SearchScanController extends GalleryController {
 class SearchScanView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;

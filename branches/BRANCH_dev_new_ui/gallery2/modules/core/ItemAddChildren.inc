@@ -129,17 +129,17 @@ class ItemAddChildrenController extends GalleryController {
 	    $dir = $form['localServerPath'];
 	    
 	    foreach ($form['localServerFiles'] as $fileKey => $unused) {
-		$basename = base64_decode($fileKey);
-		$filename = $dir . '/' . $basename;
-		    
-		$extension = GalleryUtilities::getFileExtension($filename);
+		$filename = base64_decode($fileKey);
+		$filepath = $dir . '/' . $filename;
+
+		list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 		$mimeType = GalleryUtilities::convertExtensionToMime($extension);
 
-		list ($ret, $newItem) = GalleryItemHelper::addItemToAlbum($filename,
-									  $basename,
-									  $basename,
-									  $basename,
-									  $basename,
+		list ($ret, $newItem) = GalleryItemHelper::addItemToAlbum($filepath,
+									  $base,
+									  $base,
+									  $base,
+									  $base,
 									  $mimeType,
 									  $item->getId());
 		if ($ret->isError()) {
@@ -157,7 +157,7 @@ class ItemAddChildrenController extends GalleryController {
 		    }
 		}
 
-		$status['addFromLocalServer'][] = array('fileName' => $basename,
+		$status['addFromLocalServer'][] = array('fileName' => $filename,
 							'id' => $newItem->getId());
 	    }
 
