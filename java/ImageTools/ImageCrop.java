@@ -123,7 +123,7 @@ public class ImageCrop extends Applet
 			throw new Exception("No Image URL parameter provided.");
 		String host = this.getDocumentBase().getHost();
 		String port = "" + this.getDocumentBase().getPort();
-		if (port == "80") port = "";
+		if ("80".equals(port) || "-1".equals(port)) port = "";
 		else port = ":" + port;
 		String protocol = this.getDocumentBase().getProtocol();
 		imageUrlString = protocol + "://" + host + port + imageUrlString;
@@ -422,6 +422,7 @@ public class ImageCrop extends Applet
 		public void actionPerformed(ActionEvent e) 
 		{
 			String submitTo = getDocumentBase() + "&";
+
 			if (((Button)e.getSource()).getLabel() == "OK")
 			{
 				submitTo += "action=doit";
@@ -451,6 +452,21 @@ public class ImageCrop extends Applet
 	//----------------------------------------------------------------------
 	class MyMouseListener extends MouseAdapter implements MouseMotionListener
 	{
+
+	        public void mouseClicked(MouseEvent e)
+	        {
+		    if (e.getClickCount() == 2) {
+			    cropRect.x = 0;
+			    cropRect.y = 0;
+			    cropRect.width = imageRect.width;
+			    cropRect.height = imageRect.height;
+			    constrainCrop();
+			    updateHandles();
+			    invalidate();
+			    repaint();
+		    }
+		}
+
 		public void mousePressed(MouseEvent e)
 		{
 			mouseDownPoint = e.getPoint();
