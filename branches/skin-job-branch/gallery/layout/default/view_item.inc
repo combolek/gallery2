@@ -48,13 +48,11 @@ $xtpl_blocks->parse("breadcrumb");
 
 
 //$xtpl_blocks->parse("toolbox.left");
-if (count($GLO['toolbox']['commands']) > 0) {
-	for ($i=1; $i <=  count($GLO['toolbox']['commands']); $i++) {
-		$xtpl_blocks->assign("command", $GLO['toolbox']['commands'][$i]);
-		$xtpl_blocks->parse("toolbox.commands.command");
-	}
-	$xtpl_blocks->parse("toolbox.commands");
+foreach ($GLO['toolbox']['commands'] as $command) {
+	$xtpl_blocks->assign("command", $command);
+	$xtpl_blocks->parse("toolbox.commands.command");
 }
+$xtpl_blocks->parse("toolbox.commands");
 $xtpl_blocks->parse("toolbox");
 
 

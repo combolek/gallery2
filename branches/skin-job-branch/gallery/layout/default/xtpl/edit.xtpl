@@ -2,39 +2,74 @@
 {GLO.header}
 
 {GLO.page.body.extra}
+{GLO.form.openTag}
+{GLO.form.hidden}
 
-<table border="0" width="{GLO.image.tableWidth}" cellpadding="0"  cellspacing="0">
-  <tr>
-	<td colspan="2">
-    <span class="title">&nbsp;Editing something or another</span>
-    <br>
-    <br>
-    </td>
-  <tr>
+<table border="0" width="100%" height="100%" cellpadding="0"  cellspacing="0">
 
   <tr>
-    <td width="200" valign="top">
-    the Thumb goes here.
-    <br>
-    <br>
-    The tabs go here
+    <td bgcolor="{GLO.album.fontColor}" width="200" height="100" valign="top">
+
+    <table border="0" width="100%"  cellpadding="0"  cellspacing="0">
+      <tr>
+        <td align="center">
+        <font color="{GLO.album.bgColor}">
+        <span class="title">&nbsp;Editing This!</span>
+        <br>
+        <br>
+        </font>
+        </td>
+      </tr>
+ 
+      <tr>
+        <td align="center" valign="middle">
+        {GLO.item.thumbnail.tag}
+        </td>
+      </tr>
+
+        <!-- BEGIN: tab -->
+
+      <!-- BEGIN: not_selected -->
+      <tr>
+        <td>
+          <font color="{GLO.album.bgColor}">
+          <a href="{command.href}">{command.title}</a>
+        </td>
+      </tr>
+      <!-- END: not_selected -->
+
+      <!-- BEGIN: selected -->
+      <tr>
+        <td bgcolor="{GLO.album.bgColor}">
+          <font color="{GLO.album.fontColor}">
+          {command.title}
+          </font>
+        </td>
+      </tr>
+      <!-- END: selected -->
+
+      <!-- END: tab -->
+        
+	
+    </table>
     </td>
 
     <td valign="top">
-    The Selected Tab content goes here.
     {GLO.selected.content}
-    <br>
-    <br>
-    The form buttons go here.
     </td>
   </tr>
 
 
-  <tr><td height="10">{GLO.pixelImage}</td></tr>
+  <tr>
+    <td colspan="2" height="1" align="right">
+    {GLO.form.buttons}
+    </td>
+  </tr>
 
 
 </table>
 <br>
+{GLO.form.closeTag}
 
 {GLO.footer}
 
