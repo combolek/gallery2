@@ -3,11 +3,15 @@
 
 <sect1 id="gallery1-install.requirements">
  <title>Installation Requirements</title>
- 
- <para>
-  Gallery runs on both Unix and Windows platforms. This manual
-  contains information for both types of installation.
- </para>
+  
+ <note>
+  <para>
+   For information on installing all the required programs, along with other
+   optional programs that can enhance Gallery, see the
+   <link linkend="gallery1-install.required-programs">installing required programs</link>
+   guide.
+  </para>
+ </note> 
 
  <sect2 id="gallery1-install.requirements.required">
   <title>Required Items</title>
@@ -141,29 +145,4 @@
   </para>
  </sect2>
 
- <sect2 id="gallery1-install.requirements.optional">
-  <title>Optional Items</title>
-  
-  <itemizedlist>
-   <listitem>
-    <para>
-     <ulink url="http://www.sentex.net/~mwandel/jhead/">Jhead</ulink>: To
-     extract EXIF headers out of JPEG images, you can (optionally) use
-     this tool.
-    </para>
-    <para>
-     You need to know the directory where this binary is installed,
-     including the name of the binary. Usually something like this:
-     <filename>/usr/local/bin/jhead</filename> .
-    </para>
-    <para>
-     If you are installing Jhead yourself you can install it either in
-     the Gallery directory or in your <filename>public_html</filename>
-     directory (sometimes called <filename>www</filename> or something
-     similar).  See this <link linkend="gallery1-install.required-programs">
-     installation guide</link> for information.
-    </para>
-   </listitem>
-  </itemizedlist>
- </sect2>
 </sect1>

@@ -80,6 +80,37 @@
    more information here: <ulink
    url="http://www.sentex.net/~mwandel/jhead/">http://www.sentex.net/~mwandel/jhead/</ulink>
   </para>
- </sect2>  
-
+ </sect2>
+ 
+ <sect2 id="gallery1-install.required-programs.jpegtran">
+  <title>JpegTRAN (optional)</title>
+  
+  <note>
+   <simpara>
+    JpegTRAN support added in 1.3.5
+   </simpara>
+  </note>
+  
+  <para>
+   JpegTRAN is a utility to allow Gallery perform lossless rotation on JPEG
+   images.  This results in a better quality rotation, as well as a speed
+   increase, according to some.
+  </para>
+  <para>
+   JpegTRAN is incredibly easy to install, and is usually included in most
+   distributions.  JpegTRAN is usually included in the <literal>libjpeg</literal>
+   or <literal>libjpeg-progs</literal> package.  Simply install this package
+   on your system, and (re)-run the <link linkend="gallery1-install.config-wizard">
+   configuration wizard</link> and specify the path to JpegTRAN.
+  </para>
+  <para>
+   For Windows, JpegTRAN can be downloaded from
+   <ulink url="http://www.sf.net/projects/gnuwin32">the GNU Win32 project</ulink>.
+   It is in the <literal>jpeg</literal> package, specifically the <literal>jpeg-bin</literal>
+   package.  Download the file and unzip it in a directory (<command>jpegtran</command>
+   will be in the <filename>bin/</filename> directory), then specify the full
+   path to it in the config wizard.
+  </para>
+ </sect2>
+   
 </sect1>
