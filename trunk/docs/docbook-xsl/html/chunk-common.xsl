@@ -648,6 +648,10 @@
         </link>
       </xsl:for-each>
     </xsl:if>
+    
+    <!-- CUSTOM CODE -->
+    <link rel="stylesheet" href="html.css"/>
+    
   </head>
 </xsl:template>
 

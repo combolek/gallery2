@@ -335,6 +335,10 @@ body { background-image: url('</xsl:text>
       <xsl:call-template name="user.head.content">
         <xsl:with-param name="node" select="$doc"/>
       </xsl:call-template>
+
+     <!-- CUSTOM CODE -->
+     <link rel="stylesheet" href="html.css"/>
+
     </head>
     <body>
       <xsl:call-template name="body.attributes"/>

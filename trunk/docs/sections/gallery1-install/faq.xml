@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $Id$ -->
+
+<!--
+NOTE TO CONTRIBUTORS: THIS FAQ SHOULD BE CONSTANTLY UPDATED.  PLEASE
+ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
+-->
+
+<sect1 id="gallery1-install.faq">
+ <title>Frequently Asked Questions</title>
+
+ <warning>
+  <para>
+   These FAQ items are a totally re-vamped version from the old FAQ.  The
+   numbers are <emphasis>not the same</emphasis>.  If you can here from a
+   forum post, please keep in mind that the FAQ has been changed.
+  </para>
+ </warning>
+ 
+ <qandaset>
+  
+  <qandadiv>
+   <title>Getting Gallery</title>  
+
+   <qandaentry>
+    <question>
+     <para>How can I get the latest version of Gallery</para>
+    </question>
+    <answer>
+     <para>
+      There are two different 'latest' versions of Gallery. There is the version
+      that has been released by the Gallery developers in a packaged format on
+      the downloads page, and there is the source code which is available from
+      CVS on SourceForge. Since developers are continuously adding new features
+      and tweaking the codebase, the Gallery packages will tend to be more stable
+      than the version you'll get from CVS. However, the version in CVS will have
+      more current bugfixes and neat modifications. The version in CVS is
+      typically pretty stable, since the developers use it to power their own
+      personal Galleries, but it is bound to have the occasional major glitch.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>How can I get the latest CVS version of Gallery</para>
+    </question>
+    <answer>
+     <para>
+      The CVS binaries are a prerequisite. You can get them from cvshome.org.
+      To download the initial copy of the source run these commands:
+      <screen>
+       % cvs -d:pserver:anonymous@cvs.Gallery.sourceforge.net:/cvsroot/gallery login
+      </screen>
+      When it asks for a password just hit enter.
+      <screen>
+       % cvs -z3 -d:pserver:anonymous@cvs.Gallery.sourceforge.net:/cvsroot/gallery co gallery
+      </screen>
+      Once you have a version of Gallery that you've downloaded via CVS all you
+      have to do is:
+      <screen>
+       % sh configure.sh; cvs -z3 update -APd
+      </screen>
+      <emphasis>
+       Don't forget to put Gallery in config mode before doing the update or your
+       setup directory won't get updated!
+      </emphasis>
+     </para>
+    </answer>
+   </qandaentry>
+   
+  </qandadiv>
+  
+  <qandadiv>
+   <title>Configuring Gallery</title>
+   
+   <qandaentry>
+    <question>
+     <para>
+      The setup page tells me that mod_rewrite is not installed. Since mod_rewrite is
+      optional, how do I configure this option?
+     </para>
+    </question>
+    <answer>
+     <para>
+      Mod_rewrite is a module that is compiled with Apache.  To enable it, you
+      must have root access to the server.  Unless you compiled Apache by
+      yourself, most distributions will include mod_rewrite, but not necessarily
+      enabled it.  The most common way to do so is this:
+      <screen>
+       LoadModule rewrite_module libexec/mod_rewrite.so
+       AddModule mod_rewrite.c
+      </screen>
+      For more information on mod_rewrite check out the
+      <ulink url="http://httpd.apache.org/docs/mod/mod_rewrite.html">Apache
+      module mod_rewrite</ulink> page.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>Does Gallery work under Windows?</para>
+    </question>
+    <answer>
+     <para>
+      Many people have gotten Gallery to work under Windows using Apache.  However,
+      Gallery does not interact well with IIS, because PHP still has some issues
+      with executing programs like NetPBM and ImageMagick.
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>How do I run PHP as a CGI?</para>
+    </question>
+    <answer>
+     <para>
+      Running PHP as a CGI is usually done when PHP is not available on your
+      server (but you can execute cgi-bin scripts) or when the normal PHP
+      installation is running in safe mode.  Note that in order for this to
+      work, your server must be configured to read .htaccess files, which your
+      host can disable!
+     </para>
+     <orderedlist>
+      <listitem>
+       <para>
+        Obtain a CGI version of PHP for your platform. You can downloads PHP
+        binaries for various platforms on the
+        <ulink url="https://sourceforge.net/project/showfiles.php?group_id=7130&amp;release_id=167649">
+	Gallery SourceForge Download Page</ulink>.  If you can't find a binary
+	for your platform, but you have access to compile programs, you
+	can configure PHP with this <command>configure</command> line.
+	<screen>
+         ./configure --enable-force-cgi-redirect --disable-safe-mode
+	 --with-config-file-path=/usr/local/lib/php-cgi
+	</screen>
+	Then run <command>make</command>.  The resulting binary will be called
+	<command>php</command> in the <filename>sapi/cgi/</filename> directory
+	of the PHP source.  Please submit the binary to
+	<ulink url="mailto:joyoflinux@yahoo.com">Andrew Lindeman</ulink>, so
+	he can include it on the download page.  Please only submit binaries
+	that use that exact <command>configure</command> line, for consistancy
+	reasons.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Upload the CGI version of PHP to the <filename>cgi-bin</filename>
+        directory and call it <filename>php.cgi</filename>.  Upload it in
+        BINARY FTP mode.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Chmod <filename>php.cgi</filename> 755 (<command>chmod 755 php.cgi</command>)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Create a new directory in your webserver root called <filename>php-cgi
+        </filename>
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Create a new .htaccess file in your <filename>php-cgi</filename> directory
+        and put the following lines in it:
+        <screen>
+         RemoveHandler .php
+         AddType application/cgi-php php
+         Action application/cgi-php /cgi-bin/php.cgi
+        </screen>
+       </para>
+      </listitem>
+     </orderedlist>
+     <para>
+      That should be it!  Install Gallery in your <filename>php-cgi</filename>
+      directory.  <emphasis>It is extremely difficult to provide support for
+      this, because there are many things that can go wrong and it's hard to
+      diagnose the problem.</emphasis>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>How do I force .php files to use PHP4</para>
+    </question>
+    <answer>
+     <para>
+      In the rare case that your ISP has PHP3 and PHP4 installed on the same server,
+      sometimes .php files will end up being parsed by the PHP3 parser, which Gallery
+      can't run under.  To force .php files to use the PHP4 parser, add these to your
+      <filename>.htaccess</filename> file.
+      <screen>
+       &lt;Files *.php&gt;
+        ForceType application/x-httpd-php
+       &lt;/Files&gt;
+      </screen>
+     </para>
+    </answer>
+   </qandaentry>
+   
+   <qandaentry>
+    <question>
+     <para>
+      Where can I find the <command>unzip</command> and <command>zipinfo</command>
+      binaries?
+     </para>
+    </question>
+    <answer>
+     <para>
+      You can download the latest unzip binary from the 
+      <ulink url="http://www.info-zip.org/pub/infozip/UnZip.html">Info-Zip website
+      </ulink>.
+     </para>
+     <para>
+      The recent releases of unzip no longer come with a zipinfo binary. That's
+      ok, though because it's really just the same binary as unzip with a
+      different name. Just make a copy of unzip and call it zipinfo and then
+      tell Gallery about that on page 2 of the config wizard and you'll be all
+      set.
+     </para>
+    </answer>
+   </qandaentry>
+
+  </qandadiv>      
+
+ </qandaset>
+  
+</sect1>
