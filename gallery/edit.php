@@ -27,11 +27,11 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 		exit;
 }
 
-function makeEditUrl($t, $te=0) {
+function makeEditUrl($t, $error="") {
 	global $type, $id, $return;
 	$url = "edit.php?type=$type&id=$id&tab=$t&return=" . urlencode($return);
 	if ($error) {
-		$url .= "&tab_error=$te";
+		$url .= "&tab_error=$error";
 	}
 	return makeGalleryUrl($url);
 }
@@ -120,7 +120,7 @@ if ($doit) {
 	} else {
 		
 		//-- a normal doit (which should not emit any text) ---
-		$tab_error = require($editTabInclude);
+		require($editTabInclude);
 
 		//-- after doint it we either return to the edit or, if the tab
 		//-- sets forceReturn it exit's edit ---
@@ -159,6 +159,18 @@ switch ($type) {
 		if ($user->canChangeTextOfAlbum($myAlbum)) {
 			$name = "general";
 			$commands[$name]['title'] = "Info";
+			$commands[$name]['href'] = makeEditUrl($name);
+
+			$name = "properties";
+			$commands[$name]['title'] = "Options";
+			$commands[$name]['href'] = makeEditUrl($name);
+
+			$name = "look";
+			$commands[$name]['title'] = "Look &amp; Feel";
+			$commands[$name]['href'] = makeEditUrl($name);
+
+			$name = "html";
+			$commands[$name]['title'] = "Custom HTML";
 			$commands[$name]['href'] = makeEditUrl($name);
 		}
 
