@@ -67,5 +67,48 @@
    </para>
   </note>
  </sect2>
+ 
+ <sect2 id="gallery1-admin.securing.additional">
+  <title>Additional Album Security</title>
+  
+  <para>
+   Because of Gallery 1.x's design, the albums directory must be in a publicly
+   accessible directory.  So, some people who want extra privacy will want
+   to prevent spiders, search servers, and hotlinkers from stealing the images
+   and bandwidth, but still grant regular users access.
+  </para>
+  <para>
+   To do this, we will use Apache's mod_rewrite module.  Your server must have
+   this module installed to do this.  See the Apache documentation for more
+   information.
+  </para>
+  <para>
+   Basically, what we'll do is only allow Apache to serve the images to people
+   who are coming from <emphasis>your</emphasis> site.  To do this, we'll check
+   the referrer (misspelled in the HTTP RFC as "referer").  To do this, add the
+   following lines to a &htaccess; file in your <emphasis>albums</emphasis> directory
+   <emphasis>NOT YOUR GALLERY DIRECTORY</emphasis> (you will have to create the
+   &htaccess; file in your albums directory, unless you've added something before).
+   <screen>
+<![CDATA[
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{HTTP_REFERER} !^http://www.example.com/gallery.*$ [NC]
+        RewriteCond %{REMOTE_HOST} ^.*\.shutterfly.com$  [NC]
+	RewriteRule ^/albums/.*\.(jpg|gif|avi|png)$  -  [F]
+</IfModule>
+]]>
+   </screen>
+   Obviously, change <literal>http://www.example.com/gallery</literal> to
+   the real address of your <emphasis>gallery</emphasis> directory.
+   <literal>^/albums/.*\.(jpg|gif|avi|png)$</literal> is the pattern to
+   your albums directory.  It uses regular expressions.  You can find more
+   information about regular expressions by searching Google or buying a book.
+   The line regarding shutterfly.com exempts addresses coming from
+   shutterfly.com from the ban.  This allows users to still be able to use
+   ShutterFly.
+  </para>
+ </sect2>
    
+       
 </sect1>
