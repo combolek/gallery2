@@ -265,9 +265,8 @@ class ItemCreateResizesView extends GalleryView {
 	    }
 	    
 	} else {
-	    /* First time around, load the form with item data */
-	    $form = array();
-
+	    $form['formName'] = 'ItemCreateResizes';
+	    
 	    /* Load the resizes */
 	    list ($ret, $resizes) =
 		GalleryDerivativeHelper::fetchResizesByItemIds(array($item->getId()));

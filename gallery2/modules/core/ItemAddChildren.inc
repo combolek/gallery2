@@ -225,10 +225,9 @@ class ItemAddChildrenView extends GalleryView {
 
 	} else {
 	    /* First time around, load the form with item data */
-	    $form = array();
-
 	    $form['uploadBoxCount'] = 4;
 	    $form['localServerPath'] = '';
+	    $form['formName'] = 'ItemAddChildren';
 	}
 
 	list ($ret, $localServerDirs) = $gallery->getModuleParameter('core', 'uploadLocalServer.dirs');

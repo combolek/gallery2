@@ -224,6 +224,7 @@ class ItemMoveView extends GalleryView {
                 $form['selectedIds'][$selectedId] = true;
             }
             $form['destination'] = '';
+	    $form['formName'] = 'ItemMove';
         }
 
         list ($ret, $item) = $gallery->loadEntitiesById($itemId);

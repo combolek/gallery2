@@ -185,6 +185,7 @@ class ItemReorderView extends GalleryView {
         } else {
             /* First time around, load the form with item data */
             $form = array();
+	    $form['formName'] = 'ItemReorder';
         }
 
         list ($ret, $item) = $gallery->loadEntitiesById($itemId);
