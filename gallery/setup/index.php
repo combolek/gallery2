@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php require('init.php'); ?>
 
 <html>

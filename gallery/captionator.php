@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -267,25 +265,22 @@ if ($numPhotos) {
       <br>
 <?php
 	foreach ($gallery->album->getExtraFields() as $field) { 
-		if (in_array($field, array_keys(automaticFieldsList())))
+		if ($field == "Capture Date" || $field == "Upload Date")
 		{
 			continue;
 		}
 		$value=$gallery->album->getExtraField($i, $field);
+		print "<br><span class=\"admin\">$field:</span><br>";
         	if ($field == "Title") {
-			print "<br><span class=\"admin\">Title:</span><br>";
                 	print "<input type=text name=\"extra_fields[$i][$field]\" value=\"$value\" size=\"40\">";
         	}
 		else {
-			print "<br><span class=\"admin\">$field:</span><br>";
 			print "<textarea name=\"extra_fields[$i][$field]\" rows=2 cols=60>$value</textarea>";
 		}
 	}
 ?>
       	<span class="admin"><br>Keywords:</span><br>
       	<input type=text name="new_keywords_<?php echo $i?>" size=65 value="<?php echo $oldKeywords ?>">
-
-	// this needs to be translated automatically.  Add it as a todo.
        	<span class="admin"><br>Capture Date:</span>
 <?php
 	$itemCaptureDate = $gallery->album->getItemCaptureDate($i);

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -60,10 +58,6 @@ if ($save) {
 	$gallery->album->fields["use_exif"] = $use_exif;
 	$gallery->album->fields["display_clicks"] = $display_clicks;
 	$gallery->album->fields["public_comments"] = $public_comments;
-	$gallery->album->fields["item_owner_modify"] = $item_owner_modify;
-	$gallery->album->fields["item_owner_delete"] = $item_owner_delete;
-	$gallery->album->fields["item_owner_display"] = $item_owner_display;
-	$gallery->album->fields["add_to_beginning"] = $add_to_beginning;
 	$gallery->album->save();
 
 	if ($setNested) {
@@ -184,22 +178,6 @@ if ($gallery->app->use_exif) {
 <tr>
 <td>Display click counter for this album?</td>
 <td><select name="display_clicks"><?php echo selectOptions($gallery->album, "display_clicks", array("yes", "no")) ?></select></td>
-</tr>
-<tr>
-<td>Display owners name with caption</td>
-<td><select name="item_owner_display"><?php echo selectOptions($gallery->album, "item_owner_display", array("yes", "no")) ?></select></td>
-</tr>
-<tr>
-<td>Allow item owners to modify their images</td>
-<td><select name="item_owner_modify"><?php echo selectOptions($gallery->album, "item_owner_modify", array("yes", "no")) ?></select></td>
-</tr>
-<tr>
-<td>Allow item owners to delete their images</td>
-<td><select name="item_owner_delete"><?php echo selectOptions($gallery->album, "item_owner_delete", array("yes", "no")) ?></select></td>
-</tr>
-<tr>
-<td>Add new items at beginning of album</td>
-<td><select name="add_to_beginning"><?php echo selectOptions($gallery->album, "add_to_beginning", array("yes", "no")) ?></select></td>
 </tr>
 <tr>
 <td>Allow public commenting for photos in this album?</td>

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -34,16 +32,13 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 }
 require($GALLERY_BASEDIR . 'init.php'); ?>
 <?php
+// Hack check
+if (!$gallery->user->canDeleteFromAlbum($gallery->album)) {
+	exit;
+}
 
 if (isset($id)) {
         $index = $gallery->album->getPhotoIndex($id);
-}
-
-// Hack check
-if (!$gallery->user->canDeleteFromAlbum($gallery->album) 
-	&& (!$gallery->album->getItemOwnerDelete()
-	|| !$gallery->album->isItemOwner($gallery->user->getUid(), $index))) {
-	exit;
 }
 
 if ($confirm && isset($id)) {
@@ -62,11 +57,7 @@ if ($confirm && isset($id)) {
 
 	$gallery->album->deletePhoto($index);
 	$gallery->album->save();
-	if (isset($id2) && strlen($id2) > 0 && $id2 = $gallery->album->getPhotoId($id2)) {
-	    dismissAndLoad(makeAlbumUrl($gallery->session->albumName, $id2));
-	} else {
-		dismissAndReload();
-	}
+	dismissAndReload();
 	return;
 }
 ?>
@@ -127,7 +118,6 @@ Do you really want to delete this photo?
 <br>
 <?php echo makeFormIntro("delete_photo.php"); ?>
 <input type=hidden name=id value=<?php echo $id?>>
-<input type=hidden name=id2 value=<?php echo $id2 ?>>    
 <input type=submit name=confirm value="Delete">
 <input type=submit value="Cancel" onclick='parent.close()'>
 </form>

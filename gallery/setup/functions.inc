@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php
 
 function evenOdd_row($fields, $evenOdd) {
@@ -211,7 +210,7 @@ function check_exif($location="")
 	if ($location) {
 		$d = locateDir($bin, $location);
 	} else {
-		$d = locateDir($bin, $gallery->app ? dirname($gallery->app->use_exif) : "");
+		$d = locateDir($bin, $gallery->app ? $gallery->app->pnmDir : "");
 	}
 	if (!$d) {
 		$fail["fail-exif"] = "Could not locate jhead";
@@ -229,10 +228,10 @@ function check_graphics($location="", $graphtool = "")
 	$fail = array();
 	$success = array();
 
-	if (!strcmp($graphtool, "ImageMagick")) {
-		$success[] = "NetPBM not being used in this installation";
-	    	return array($success, $fail);
-	}
+ 	if (!strcmp($graphtool, "ImageMagick")) {
+ 		$success[] = "NetPBM not being used in this installation";
+	return array($success, $fail);
+}
 
 	if (!empty($location) && !inOpenBasedir($location)) {
 	    $success[] = "Cannot verify this path (it's not in your open_basedir list)";
@@ -327,6 +326,7 @@ function check_graphics_im($location="", $graphtool="")
 	$imagick = array(
 		fs_executable("identify"), 
 		fs_executable("convert"),
+		fs_executable("composite")
 	);
 
 	foreach ($imagick as $bin) {
@@ -353,29 +353,6 @@ function check_graphics_im($location="", $graphtool="")
 		$fail["fail-imagemagick"] = array_values($missing);
 	} else {
 		$success[] = "All " . count($imagick) . " ImageMagick binaries located";
-	}
-
-	return array($success, $fail);
-}
-
-function check_jpegtran($location="")
-{
-	global $gallery;
-
-	$fail = array();
-	$success = array();
-
-	$bin = fs_executable("jpegtran");
-
-	if ($location) {
-		$d = locateDir($bin, $location);
-	} else {
-		$d = locateDir($bin, $gallery->app ? $gallery->app->pnmDir : "");
-	}
-	if (!$d) {
-		$fail["fail-jpegtran"] = "Could not locate jpegtran";
-	} else {
-		$success[] = "jpegtran binary located";
 	}
 
 	return array($success, $fail);

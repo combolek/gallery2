@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php
 
 $common_messages["getting-netpbm"] =
@@ -167,23 +166,7 @@ $checklist = array(
 			"<a href=http://www.sentex.net/~mwandel/jhead/index.html>the jhead " .
 			"homepage</a>.",
 		"open-basedir-note" => $common_messages["open-basedir-active"],
-	),
-	"jpegtran" => array (
-		"optional" => 1,
-		"desc" => "Check to see if jpegtran is installed so that Gallery " .
-			"can perform lossless rotations",
-		"func" => "check_jpegtran",
-		"fail-jpegtran" => "I can't find jpegtran.  If it's installed and not in " .
-			"the path of the webserver user that's OK -- you can specify the " .
-             		"path to jpegtran by hand on the following page.  If it's not " .
-			"installed, you can install it yourself.  " .
-			"jpegtran is a freely distributable tool distributed by the " .
-			"Independent JPEG Group as part of libjpeg. Source may be found at " .
-			"<a href=http://www.ijg.org/>the IJG homepage. Binaries may be " .
-			"found at <a href=http://jpegclub.org/>the JPEG club website</a> " .
-			"or in the libjpeg package of Linux distributions.",
-		"open-basedir-note" => $common_messages["open-basedir-active"],
-	),	
+	)
 );
 
 $features = array(
@@ -229,7 +212,7 @@ $constants = array(
 		"filename" => 1,
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
-		"verify-func-takes-graphics-type" => true,
+		"verify-func-takes-graphics-type" => true,			  
 	),
 	"pnmtojpeg" => array(
 		"prompt" => "PNM to JPEG converter",
@@ -239,7 +222,8 @@ $constants = array(
 			  "depending on the version of NetPBM that you have installed.  " .
 			  "Check your NetPBM directory to see which one you have installed and " .
 			  "specify it here.  If you aren't sure, just take a guess and we'll " .
-			  "try to verify it for you.  " ,
+			  "try to verify it for you.  " .
+			  "<br><font color=blue><b>(this is new in version 1.3.4)</b></font>",
 
 		"choices" => array("pnmtojpeg", "ppmtojpeg"),
 		"value" => "pnmtojpeg",
@@ -256,7 +240,7 @@ $constants = array(
 		"filename" => 1,
 		"attrs" => array("size" => 50),
 		"no-trailing-slash" => 1,
-		"verify-func-takes-graphics-type" => true,
+		"verify-func-takes-graphics-type" => true,			  
 	),
 	"highlight_size" => array(
 		"prompt" => "Highlight size",
@@ -299,19 +283,6 @@ $constants = array(
 		"filename" => 1,
 		"attrs" => array("size" => 50),
 	),
-	"use_jpegtran" => array (
-		"prompt" => "Jpegtran",
-		"desc" => "The filesystem path to the 'jpegtran' utility.  This is optional " .	
-			"so if you don't have it, don't worry about it too much.  Eg. <i> " .
-			"/usr/local/bin/jpegtran</i> or <i>c:\\bin\\jpegtran.exe</i>".
-			"<br><font color=blue><b>(this is new in version 1.3.5)</b></font>",
-		"value" => locateFile("jpegtran"),
-		"must-be-file" => 1,
-		"must-be-executable" => 1,
-		"optional" => 1,
-		"filename" => 1,
-		"attrs" => array ("size" => 50),
-	),		
 	"movieThumbnail" => array(
 		"prompt" => "Thumbnail image",
 		"desc" => "The filesystem path to the thumbnail image to show for movies.  Eg. " .
@@ -606,37 +577,10 @@ $defaults = array(
 		"optional" => 1,
 		"desc" => "Custom fields that are available to describe each image.  ".
 			  "They should be separated by commas ".
-			  "Eg. <i>Description, Location, Film Type<i>",
+			  "Eg. <i>Description, Location, Film Type<i>".
+			  "<br><font color=blue><b>(this is new in version 1.3.4)</b></font>",
 		"attrs" => array("size" => 80),
 		"value" => "Description"
-	),
-	"item_owner_modify" => array(
-		"prompt" => "Photo owner modification",
-		"desc" => "Allow photo owners to edit and rotate/flip their own photos?".
-			  "<br><font color=blue><b>(this is new in version 1.3.5)</b></font>",
-		"choices" => array("yes", "no"),
-		"value" => "yes",
-	),
-	"item_owner_delete" => array(
-		"prompt" => "Photo owner deletion",
-		"desc" => "Allow photo owners to delete their own photos?".
-			  "<br><font color=blue><b>(this is new in version 1.3.5)</b></font>",
-		"choices" => array("yes", "no"),
-		"value" => "yes",
-	),
-	"item_owner_display" => array(
-		"prompt" => "Photo owner display",
-		"desc" => "Display the name of photo owners with the caption?".
-			  "<br><font color=blue><b>(this is new in version 1.3.5)</b></font>",
-		"choices" => array("yes", "no"),
-		"value" => "no",
-	),
-	"add_to_beginning" => array(
-		"prompt" => "Add to beginning",
-		"desc" => "New images added to beginning rather than end of albums".
-			  "<br><font color=blue><b>(this is new in version 1.3.5)</b></font>",
-		"choices" => array("yes", "no"),
-		"value" => "no",
 	)
 );
 

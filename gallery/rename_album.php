@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -89,9 +87,6 @@ if ($newName) {
 				$childAlbum->save();
 			}
 		}
-		if ($useLoad == 1)
-			dismissAndLoad($newName);
-		else
 		dismissAndReload();
 		return;
 	} else {
@@ -113,7 +108,6 @@ Those characters will be ignored in your new album name.
 <?php echo makeFormIntro("rename_album.php", array("name" => "theform")); ?>
 <input type=text name="newName" value=<?php echo $newName?>>
 <input type=hidden name="oldName" value=<?php echo $gallery->session->albumName?>>
-<input type=hidden name="useLoad" value=<?php echo $useLoad?>>    
 <p>
 <input type=submit value="Rename">
 <input type=submit name="submit" value="Cancel" onclick='parent.close()'>

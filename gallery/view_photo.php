@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -56,18 +54,6 @@ if ($id) {
 } else {
 	$id = $gallery->album->getPhotoId($index);
 }
-
-if (!function_exists('array_search')) {
-        function array_search($needle, $haystack) {
-                for ($x=0; $x < sizeof($haystack); $x++) {
-                        if ($haystack[$x] == $needle) {
-                                return $x;
-                        }
-                }
-                return NULL;
-        }
-}
-
 
 // is photo hidden?  should user see it anyway?
 if (($gallery->album->isHidden($index))
@@ -364,11 +350,9 @@ if (!$gallery->album->isMovie($id)) {
 			"resize_photo.php?index=$index");
 	}
 
-	if ($gallery->user->canDeleteFromAlbum($gallery->album) || 
-	    ($gallery->album->getItemOwnerDelete() && $gallery->album->isItemOwner($gallery->user->getUid(), $index))) {
-		$nextId = ($index >= $numPhotos ? $index - 1 : $index);
+	if ($gallery->user->canDeleteFromAlbum($gallery->album)) {
 		$adminCommands .= popup_link("[delete photo]", 
-			"delete_photo.php?id=$id&id2=$nextId");
+			"delete_photo.php?id=$id");
 	}
 
 	if (!strcmp($gallery->album->fields["use_fullOnly"], "yes")) {
@@ -396,13 +380,10 @@ if (!$gallery->album->isMovie($id)) {
 			$adminCommands .= "<a href=\"$link\">normal</a> | full ]";
 		}
 		$adminCommands .= "</nobr>";
-	} 
-	
-	$field="EXIF";
-	$key=array_search($field, $extra_fields);
-	if (!is_int($key) && 
-	    !strcmp($gallery->album->fields["use_exif"],"yes") && 
-	    (eregi("jpe?g\$", $photo->image->type)) &&
+	}
+
+    
+	if (!strcmp($gallery->album->fields["use_exif"],"yes") && (eregi("jpe?g\$", $photo->image->type)) &&
 	    ($gallery->app->use_exif)) {
 		$albumName = $gallery->session->albumName;
 		$adminCommands .= popup_link("[photo properties]", "view_photo_properties.php?set_albumName=$albumName&index=$index", 0, false);
@@ -495,7 +476,8 @@ echo("<td colspan=3 height=$borderwidth><img src=$top/images/pixel_trans.gif></t
 echo("</tr><tr>");
 echo("<td $bordercolor width=$borderwidth>");
 echo("<img src=$top/images/pixel_trans.gif width=$borderwidth height=1>");
-echo("</td><td align='center'>");
+echo("</td><td>");
+echo "<center>";
 
 $photoTag = $gallery->album->getPhotoTag($index, $full);
 if (!$gallery->album->isMovie($id)) {
@@ -551,12 +533,11 @@ echo("<td colspan=3 height=$borderwidth><img src=$top/images/pixel_trans.gif></t
 <table>
 <?php
 
-$automaticFields=automaticFieldsList();
 $field="Upload Date";
 $key=array_search($field, $extra_fields);
 if (is_int($key))
 {
-	print "<tr><td valign=top align=right><b>".$automaticFields[$field].":<b></td><td>".
+	print "<tr><td valign=top><b>$field:<b></td><td>".
 		date("m-d-Y H:i:s" , $gallery->album->getUploadDate($index)).
 		"</td></tr>";
 	unSet($extra_fields[$key]);
@@ -567,22 +548,11 @@ $key=array_search($field, $extra_fields);
 if (is_int($key))
 {
 	$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
-	print "<tr><td valign=top align=right><b>".$automaticFields[$field].":<b></td><td>".
+	print "<tr><td valign=top><b>$field:<b></td><td>".
 	       $itemCaptureDate[mon] . "-" . $itemCaptureDate[mday] . "-" . 
 	       $itemCaptureDate[year] . " ".  $itemCaptureDate[hours] . ":" . 
 	       $itemCaptureDate[minutes] . ":" . $itemCaptureDate[seconds].
 	       "</td></tr>";
-	unSet($extra_fields[$key]);
-}
-
-$field="Dimensions";
-$key=array_search($field, $extra_fields);
-if (is_int($key))
-{
-
-	$dimensions=$photo->getDimensions($full);
-	print "<tr><td valign=top align=right><b>".$automaticFields[$field].":<b></td><td>".
-	$dimensions[0]." x ".$dimensions[1]." (".round($photo->getFileSize($full)/1000)."k)</td></tr>";
 	unSet($extra_fields[$key]);
 }
 
@@ -593,34 +563,13 @@ if (is_int($key))
 {
 	unSet($extra_fields[$key]);
 }
-$field="EXIF";
-$do_exif=false;
-$key=array_search($field, $extra_fields);
-if (is_int($key))
-{
-	unSet($extra_fields[$key]);
-	if ( ($gallery->album->fields["use_exif"] === "yes") 
-		&& $gallery->app->use_exif &&
-		(eregi("jpe?g\$", $photo->image->type))) {
-		$do_exif=true;
-	}
-
-}
 
 foreach ($extra_fields as $field)
 {
 	$value=$gallery->album->getExtraField($index, $field);
 	if ($value)
 	{
-		print "<tr><td valign=top align=right><b>$field:<b></td><td>".
-			str_replace("\n", "<p>", $value).
-			"</td></tr>";
-	}
-}
-if ($do_exif) {
-	$myExif = $gallery->album->getExif($index, $forceRefresh);
-	foreach ($myExif as $field => $value) {
-		print "<tr><td valign=top align=right><b>$field:<b></td><td>".
+		print "<tr><td valign=top><b>$field:<b></td><td>".
 			str_replace("\n", "<p>", $value).
 			"</td></tr>";
 	}
@@ -698,7 +647,7 @@ include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
 </td>
 </tr>
 </table>
-
+</center>
 <?php
 includeHtmlWrap("photo.footer");
 ?>

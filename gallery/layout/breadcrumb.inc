@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 // If the border color is not passed in, we do a black/white combo
 if ($breadcrumb["bordercolor"]) {
@@ -33,7 +32,7 @@ while (isset($breadcrumb["text"][$i])) {
 		//echo "<img src=\"$imageDir/nav_dot_left.gif\" width=8 height=11>";
 		echo "<img src=\"$imageDir/nav_home.gif\" width=13 height=11>";
 	}
-	echo "&nbsp;".$breadcrumb["text"][$i]."&nbsp;";
+	echo "&nbsp;".$breadcrumb["text"][$i]."&nbsp";
 	$i++;
 }
 ?>

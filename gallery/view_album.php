@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -34,12 +32,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 }
 require($GALLERY_BASEDIR . 'init.php'); ?>
 <?php 
-//Prevent error
-if (!$gallery->session->albumName) {
-	header("Location: " . makeAlbumUrl());
-	return;
-}
-
 // Hack check
 if (!$gallery->user->canReadAlbum($gallery->album)) {
 	header("Location: " . makeAlbumUrl());
@@ -242,22 +234,15 @@ function showChoice($label, $target, $args) {
 	echo "<option value='" . makeGalleryUrl($target, $args) . "'>$label</option>";
 }
 
-for ($i = 1, $numAlbums = 0; $i <= $numPhotos; ++$i) {
-	if ($gallery->album->isAlbumName($i))
-	$numAlbums++;
-}
-
 $adminText = "<span class=\"admin\">";
-if ($numAlbums) {
-	$adminText .= pluralize($numAlbums, "album", "No") . " and ";
-	$adminText .= pluralize($numPhotos - $numAlbums, "image", "no");
+if ($numPhotos == 1) {  
+	$adminText .= "1 photo in this album";
 } else {
-	$adminText .= pluralize($numPhotos - $numAlbums, "image", "No");
-}
-$adminText .= " in this album";
+	$adminText .= "$numPhotos items in this album";
 	if ($maxPages > 1) {
 		$adminText .= " on " . pluralize($maxPages, "page");
 	}
+}
 
 if ($gallery->user->canWriteToAlbum($gallery->album) && 
 	!$gallery->session->offline) {
@@ -283,12 +268,6 @@ if ($gallery->user->canAddToAlbum($gallery->album)) {
 		    "add_photo.php?set_albumName=" .
 		    $gallery->session->albumName);
 	}
-}
-if ($gallery->user->isOwnerOfAlbum($gallery->album)) {
-	$adminCommands .= popup_link("[rename album]",
-		"rename_album.php?set_albumName=" .
-		$gallery->session->albumName .
-		"&index=". $i ."&useLoad=1");
 }
 if ($gallery->user->canCreateSubAlbum($gallery->album) 
 	&& !$gallery->session->offline) {
@@ -483,10 +462,7 @@ if ($numPhotos) {
                         if (!$gallery->session->offline &&
 				(($gallery->user->canDeleteFromAlbum($gallery->album)) ||
                                     ($gallery->user->canWriteToAlbum($gallery->album)) ||
-                                    ($gallery->user->canChangeTextOfAlbum($gallery->album)) ||
-				    (($gallery->album->getItemOwnerModify() || 
-				    $gallery->album->getItemOwnerDelete()) && 
-				     $gallery->album->isItemOwner($gallery->user->getUid(), $i)))) {
+                                    ($gallery->user->canChangeTextOfAlbum($gallery->album)))) {
 				$showAdminForm = 1;
 			} else { 
 				$showAdminForm = 0;
@@ -521,7 +497,6 @@ if ($numPhotos) {
 <?php
 			} else {
 				echo($gallery->album->getCaption($i));
-				echo($gallery->album->getCaptionName($i));
 				// indicate with * if we have a comment for a given photo
 				if ((!strcmp($gallery->album->fields["public_comments"], "yes")) && 
 				   ($gallery->album->numComments($i) > 0)) {
@@ -546,26 +521,6 @@ if ($numPhotos) {
 				echo("<select style='FONT-SIZE: 10px;' name='s' ".
 					"onChange='imageEditChoice(document.image_form_$i.s)'>");
 				echo("<option value=''><< Edit $label>></option>");
-			}
-			if ($gallery->album->getItemOwnerModify() && 
-			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbumName($i) && 
-			    !$gallery->user->canChangeTextOfAlbum($gallery->album)) {
-				showChoice("Edit Text", "edit_caption.php", array("index" => $i));
-			}
-			if ($gallery->album->getItemOwnerModify() && 
-			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbumName($i) && 
-			    !$gallery->album->isMovie($id) &&
-			    !$gallery->user->canWriteToAlbum($gallery->album)) {
-				showChoice("Edit Thumbnail", "edit_thumb.php", array("index" => $i));
-				showChoice("Rotate/Flip $label", "rotate_photo.php", array("index" => $i));
-			}
-			if ($gallery->album->getItemOwnerDelete() && 
-			    $gallery->album->isItemOwner($gallery->user->getUid(), $i) && 
-			    !$gallery->album->isAlbumName($i) &&
-			    !$gallery->user->canDeleteFromAlbum($gallery->album)) {
-				showChoice("Delete $label", "delete_photo.php", array("id" => $id));
 			}
 			if ($gallery->user->canChangeTextOfAlbum($gallery->album)) {
 				if ($gallery->album->isAlbumName($i)) {
@@ -592,7 +547,7 @@ if ($numPhotos) {
 			if ($gallery->user->canWriteToAlbum($gallery->album)) {
 				if (!$gallery->album->isMovie($id) && !$gallery->album->isAlbumName($i)) {
 					showChoice("Edit Thumbnail", "edit_thumb.php", array("index" => $i));
-					showChoice("Rotate/Flip $label", "rotate_photo.php", array("index" => $i));
+					showChoice("Rotate $label", "rotate_photo.php", array("index" => $i));
 				}
 				if (!$gallery->album->isMovie($id)) {
 					showChoice("Highlight $label", "highlight_photo.php", array("index" => $i));
@@ -630,11 +585,6 @@ if ($numPhotos) {
 					   array("set_albumName" => $myAlbum->fields["name"]));
 			    }
 			}
-                       if ($gallery->user->isAdmin())
-                       {
-                               showChoice("Change owner", "photo_owner.php", array("id" => $id));
-                       }
-
 			if ($showAdminForm) {
 				echo('</select></form>');
 			}

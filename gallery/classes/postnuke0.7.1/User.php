@@ -16,16 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
 class PostNuke_User extends Abstract_User {
 
 	function loadByUid($uid) {
-		global $name; /* Gallery PN module name */
-
 		/* 
 		 * Consider the case where we're trying to load a $uid
 		 * that stemmed from a user created by a standalone
@@ -54,7 +50,7 @@ class PostNuke_User extends Abstract_User {
 		 * be an issue, except that it just so happens that it doesn't 
 		 * affect anything we're doing in the app level code.
 		 */
-		$this->isAdmin = (pnSecAuthAction(0, "$name::", '::', ACCESS_ADMIN));
+		$this->isAdmin = (pnSecAuthAction(0, '::', '::', ACCESS_ADMIN));
 	}
 
 	function loadByUserName($uname) {

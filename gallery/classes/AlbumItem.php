@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -36,7 +34,6 @@ class AlbumItem {
 	var $itemCaptureDate;	// associative array of date the item was captured 
 				// not in EPOCH so we can support dates < 1970
 	var $exifData;
-	var $owner;		// UID of item owner.
 	var $extraFields;
 	var $version;
 
@@ -144,22 +141,6 @@ class AlbumItem {
 		if ($this->version < 10) {
 			if (!isset($this->extraFields) or !is_array($this->extraFields)) {
 				$this->extraFields=array();
-				$changed=1;
-			}
-		}
-		if ($this->version < 11) { 
-			if (!isset($this->owner)) {
-				$this->owner = $gallery->album->fields["owner"];
-				$changed = 1;
-			}
-		}
-		if ($this->version < 12) {
-		    	$nobody = $gallery->userDB->getNobody();
-			$nobodyUid = $nobody->getUid();
-			if ((!strcmp($this->owner, $nobodyUid) || empty($this->owner)) && 
-			    strcmp($gallery->album->fields["owner"], $nobodyUid)) {
-				$this->owner = $gallery->album->fields["owner"];
-				$changed = 1;
 			}
 		}
 		if ($this->image) {
@@ -214,20 +195,6 @@ class AlbumItem {
 		return $this->keywords;
         }
 
-	function setOwner($owner) {
-		$this->owner = $owner;
-	}
-	
-	function getOwner() {
-		global $gallery;
-		if (!isset($this->owner)) {
-			$nobody = $gallery->userDB->getNobody(); 
-			$nobodyUid = $nobody->getUid();
-			$this->setOwner($nobodyUid);
-		}
-		return $this->owner;
-	}
-	
 	function resetItemClicks() {
 		$this->clicks = 0;
 	}
@@ -346,18 +313,9 @@ class AlbumItem {
 		}
 	}
 
-	function getFileSize($full=0) {
-		global $gallery;
-		$stat = fs_stat($this->image->getPath($gallery->album->getAlbumDir(), $full));
-		if (is_array($stat)) {
-			return $stat[7];
-		} else {
-			return 0;
-		}
-	}
-	function getDimensions($full=0) {
+	function getDimensions() {
 		if ($this->image) {
-			return $this->image->getDimensions(0, $full);
+			return $this->image->getDimensions();
 		} else {
 			return array(0, 0);
 		}

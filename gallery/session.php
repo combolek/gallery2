@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -36,12 +34,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
  * of our session data.
  */
 class GallerySession {}
-
-/*
- * Turn on cookie support, if possible.  Don't complain on errors, in case
- * safe mode has disabled this call.
- */
-@ini_set('session.use_cookies', 1);
 
 if (session_id()) {
 	/* 

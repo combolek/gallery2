@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -111,11 +109,6 @@ class Abstract_User {
 	function canAddToAlbum($album) {
 		if ($this->isAdmin()) {
 			return true;
-		}
-
-		if (!$album)
-		{
-			return false;
 		}
 
 		// If they can write, they can add

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -51,10 +49,7 @@ function editCaption($album, $index) {
 	global $gallery;
 
 	$buf = $album->getCaption($index);
-	$buf .= $album->getCaptionName($index);
-	if (($gallery->user->canChangeTextOfAlbum($album) ||
-               ($gallery->album->getItemOwnerModify() && 
-	         $gallery->album->isItemOwner($gallery->user->getUid(), $index))) 
+	if ($gallery->user->canChangeTextOfAlbum($album) 
 		&& !$gallery->session->offline) {
 		if (!strcmp($buf, "")) {
 			$buf = "<i>&lt;No Caption&gt;</i>";
@@ -267,7 +262,7 @@ function acceptableFormatRegexp() {
 }
 
 function acceptableMovieList() {
-    return array('avi', 'mpg', 'mpeg', 'wmv', 'mov', 'swf', 'mp4');
+    return array('avi', 'mpg', 'mpeg', 'wmv', 'mov', 'swf');
 }
 
 function acceptableImageList() {
@@ -276,19 +271,6 @@ function acceptableImageList() {
 
 function acceptableFormatList() {
     return array_merge(acceptableImageList(), acceptableMovieList());
-}
-
-/* These are custom fields that are turned on and off at an album
- * level, and are populated for each photo automatically, without the
- * user typing values.  The $value of each pair should be translated
- * as appropriate in the ML version.
- */
-
-function automaticFieldsList() {
-	return array("Upload Date" => "Upload Date", 
-	      "Capture Date" => "Capture Date", 
-	      "Dimensions" => "Image Size",
-	      "EXIF" => "Additional EXIF Data");
 }
 
 function isImage($tag) {
@@ -332,9 +314,7 @@ function dismissAndReload() {
 }
 
 function reload() {
-	echo '<script language="javascript1.2">';
-	echo 'opener.location.reload()';
-	echo '</script>';
+	echo "<BODY onLoad='opener.location.reload()'>";
 }
 
 function dismissAndLoad($url) {
@@ -421,81 +401,44 @@ function rotate_image($src, $dest, $target) {
 		$out = $dest;
 	}
 
-        $pathinfo = pathinfo($src);
-        $pathinfo['extension'] = strtolower($pathinfo['extension']);
-
-	if (isset ($gallery->app->use_jpegtran) && ($pathinfo['extension'] == "jpg" || $pathinfo['extension'] == "jpeg")) {
+	switch($gallery->app->graphics)
+	{
+	case "NetPBM":
 		if (!strcmp($target, "90")) {
-			$args = "-rotate 270";
+			$args = "-r90";
 		} else if (!strcmp($target, "-90")) {
-			$args = "-rotate 90";
-		} else if (!strcmp($target, "fv")) {
-			$args = "-flip vertical";
-		} else if (!strcmp($target, "fh")) {
-			$args = "-flip horizontal";
+			$args = "-r270";
 		} else {
-			$args = "-rotate 180";
+			$args = "-r180";
 		}
 
-		$path = $gallery->app->use_jpegtran;
-		// -copy all ensures all headers (i.e. EXIF) are copied to the rotated image
-		exec_internal(fs_import_filename($path, 1) . " $args -copy all -outfile $out $src");
-	} else {
-		switch($gallery->app->graphics)
-		{
-		case "NetPBM":
-			if (!strcmp($target, "90")) {
-				$args = "-r90";
-			} else if (!strcmp($target, "-90")) {
-				$args = "-r270";
-			} else if (!strcmp($target, "fv")) {
-				$args = "-tb";
-			} else if (!strcmp($target, "fh")){
-				$args = "-lr";
-			} else {
-				$args = "-r180";
-			}		
+		$err = exec_wrapper(toPnmCmd($src) .
+				" | " .
+				NetPBM("pnmflip", $args) .
+				" | " . fromPnmCmd($out));
 
-			$err = exec_wrapper(toPnmCmd($src) .
-					" | " .
-					NetPBM("pnmflip", $args) .
-					" | " . fromPnmCmd($out));	
-
-			// copy exif headers from original image to rotated image	
-			if (isset($gallery->app->use_exif)) {
-				$path = $gallery->app->use_exif;
-				exec_internal(fs_import_filename($path, 1) . " -te $src $out");
-			}
-			break;
-		case "ImageMagick":
-		        if (!strcmp($target, "90")) {
-			    $target = "-90";
-			    $im_cmd = "-rotate";             
-			} else if (!strcmp($target, "-90")) {
-			    $target = "90";
-			    $im_cmd = "-rotate";
-			} else if (!strcmp($target, "180")) {
-			    $target = "180";
-			    $im_cmd = "-rotate";
-			} else if (!strcmp($target, "fv")) {
-			    $target = "";
-			    $im_cmd = "-flip";
-			} else if (!strcmp($target, "fh")) {
-			    $target = "";
-			    $im_cmd = "-flop";
-			}
-			
-		  	
-			$src = fs_import_filename($src);
-			$out = fs_import_filename($out);
-			$err = exec_wrapper(ImCmd("convert", "$im_cmd $target $src $out"));
-			break;
-		default:
-			if (isDebugging())
-				echo "<br>You have no graphics package configured for use!<br>";
-			return 0;
-			break;
-		}	
+		// copy exif headers from original image to rotated image
+		if (isset($gallery->app->use_exif)) {
+			$path = $gallery->app->use_exif;
+			exec_internal(fs_import_filename($path, 1) . " -te $src $out");
+		}
+		break;
+	case "ImageMagick":
+	        if (!strcmp($target, "90")) {
+		    $target = "-90";
+		} else if (!strcmp($target, "-90")) {
+		    $target = "90";
+		}
+	  
+		$src = fs_import_filename($src);
+		$out = fs_import_filename($out);
+		$err = exec_wrapper(ImCmd("convert", "-rotate $target $src $out"));
+		break;
+	default:
+		if (isDebugging())
+			echo "<br>You have no graphics package configured for use!<br>";
+		return 0;
+		break;
 	}
 
 	if (fs_file_exists("$out") && fs_filesize("$out") > 0) {
@@ -1197,9 +1140,8 @@ function getExif($file) {
         $return = array();
         $path = $gallery->app->use_exif;
         list($return, $status) = exec_internal(fs_import_filename($path, 1) .
-						" \"" .
-						fs_import_filename($file, 1) .
-                                                "\"");
+						" " .
+						fs_import_filename($file, 1));
 
 	$myExif = array();
 	if ($status == 0) {
@@ -1363,12 +1305,10 @@ function safe_serialize($obj, $file) {
 	} while (fs_file_exists($tmpfile));
 
 	if ($fd = fs_fopen($tmpfile, "wb")) {
-	        $buf = serialize($obj);
-		$bufsize = strlen($buf);
-		$count = fwrite($fd, $buf);
+		fwrite($fd, serialize($obj));
 		fclose($fd);
 
-		if ($count != $bufsize || fs_filesize($tmpfile) != $bufsize) {
+		if (fs_filesize($tmpfile) == 0) {
 			/* Something went wrong! */
 			$success = 0;
 		} else {
@@ -1483,14 +1423,9 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 					     " -j -o " .
 					     fs_import_filename($file, 1) .
 					     " \"" .
-					     fs_import_filename($cmd_pic_path) .
+					     fs_import_filename($cmd_pic_path, 1) .
 					     "\" -d " .
 					     fs_import_filename($gallery->app->tmpDir, 1));
-					     
-					     /*
-					      Don't use the second argument for $cmd_pic_path, because it is
-					      already quoted.
-					     */
 				processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption);
 				fs_unlink($gallery->app->tmpDir . "/$pic");
 			}
@@ -1544,7 +1479,7 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 			if (!$extra_fields) {
 			    $extra_fields=array();
 			}
-			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid);
+			$err = $gallery->album->addPhoto($file, $tag, $mangledFilename, $caption, "", $extra_fields);
 			if (!$err) {
 				/* resize the photo if needed */
 				if ($gallery->album->fields["resize_size"] > 0 && isImage($tag)) {
@@ -1583,11 +1518,6 @@ function processNewImage($file, $tag, $name, $caption, $setCaption="", $extra_fi
 						}
 					}
 				}
-				/*move to the beginning if needed */
-				if ($gallery->album->getAddToBeginning() ) {
-					$gallery->album->movePhoto($gallery->album->numPhotos(1), 0);
-				}
-
 			} else {
 				processingMsg("<font color=red>Error: $err!</font>");
 				processingMsg("<b>Need help?  Look in the " .
@@ -1684,23 +1614,5 @@ function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newA
         }
 
         return $returnVal;
-}
-
-function escapeEregChars($string)
-{
-	return ereg_replace('(\.|\\\\|\+|\*|\?|\[|\]|\^|\$|\(|\)|\{|\}|\=|\!|\<|\>|\||\:)', '\\\\1', $string);
-}
-
-function findInPath($program)
-{
-	$path = explode(':', getenv('PATH'));
-	
-	foreach ($path as $dir) {
-		if (fs_file_exists("$dir/$program")) {
-			return "$dir/$program";
-		}
-	}
-	
-	return false;
 }
 ?>

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -35,7 +33,7 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 require($GALLERY_BASEDIR . 'init.php'); ?>
 <?php
 // Hack check
-if (!$gallery->user->canChangeTextOfAlbum($gallery->album) && !($gallery->album->isItemOwner($gallery->user->getUid(), $index) && $gallery->album->getItemOwnerModify())) {
+if (!$gallery->user->canChangeTextOfAlbum($gallery->album)) {
 	exit;
 }
 $err = "";	
@@ -87,19 +85,18 @@ if (!strcmp($submit, "Save")) {
 <?php
 foreach ($gallery->album->getExtraFields() as $field)
 {
-	if (in_array($field, array_keys(automaticFieldsList())))
+	if ($field == "Capture Date" || $field == "Upload Date")
 	{
 		continue;
 	}
         $value=$gallery->album->getExtraField($index, $field);
+	print "<tr><td valign=top><b>$field:<b></td><td>";
 	if ($field == "Title")
 	{
-		print "<tr><td valign=top><b>Title:<b></td><td>";
 		print "<input type=text name=\"extra_fields[$field]\" value=\"$value\" size=\"40\">";
 	}
 	else
 	{
-		print "<tr><td valign=top><b>$field:<b></td><td>";
 		print "<textarea name=\"extra_fields[$field]\" rows=4 cols=40>";
 		print "$value</textarea>";
 	}

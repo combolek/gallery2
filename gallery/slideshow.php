@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -122,10 +120,19 @@ function printSlideshowPhotos($slide_full, $what = PHOTO_ALL) {
 	if ( ($what & PHOTO_CAPTION) != 0 ) {
 	    // Now lets get the captions
 	    $caption = $gallery->album->getCaption($index);
-	    $caption .= $gallery->album->getCaptionName($index);
+
+	    /*
+	     * Remove unwanted Characters from the comments,
+	     * We don't use the array based form of str_replace
+	     * because it's not supported on older versions of PHP
+	     */
+	    $caption = str_replace(";", " ", $caption);
 	    $caption = str_replace("\"", " ", $caption);
 	    $caption = str_replace("\n", " ", $caption);
-	    $caption = str_replace("\r", " ", $caption);	    
+	    $caption = str_replace("\r", " ", $caption);
+	    
+	    // strip_tags takes out the html tags
+	    $caption = strip_tags($caption);
 	    
 	    // Print out the entry for this image as Javascript
 	    print "photo_captions[$photo_count] = \"$caption\";\n";

@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php
 // Pull the $destroy variable into the global namespace
 extract($HTTP_GET_VARS);

@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php
 // If the border color is not passed in, we do a black/white combo
 if ($commentdraw["bordercolor"]) {

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -44,7 +42,6 @@ $page = 1;
 /* If there are albums in our list, display them in the table */
 $numAlbums = $albumDB->numAlbums($gallery->user);
 $numPhotos = $albumDB->getCachedNumPhotos($gallery->user);
-$numAccess = $albumDB->numAccessibleAlbums($gallery->user);
 
 if (!$gallery->session->albumListPage) {
 	$gallery->session->albumListPage = 1;
@@ -109,11 +106,8 @@ if (!$gallery->session->offline && !strcmp($gallery->app->default["showSearchEng
 <!-- admin section begin -->
 <?php 
 $adminText = "<span class=\"admin\">";
-$adminText .= pluralize($numAlbums, ($numAccess != $numAlbums) ? "top-level album" : "album", "No");
-if ($numAccess != $numAlbums) {
-    $adminText .= " ($numAccess total)";
-}
-$adminText .= ",&nbsp;" . pluralize($numPhotos, "image", "no");
+$adminText .= pluralize($numAlbums, "album", "no");
+$adminText .= ",&nbsp;" . pluralize($numPhotos, "photo", "no");
 if ($maxPages > 1) {
 	$adminText .= " on " . pluralize($maxPages, "page", "no") . "&nbsp;";
 }

@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <?php
 // Calculate the beginning and ending of the navigator range
 $begin = max($navigator["page"] - $navigator["spread"], 1);
@@ -74,33 +73,31 @@ if ($prevPage >= 1) {
     <td align="center" width="3000" height="18">   
 <?php
 #-- 'page numbers' cell ---                  
-if ($begin != $end) {
-	$current = $navigator["page"];
-	echo "<span class=\"nav\">";
-	for ($i = $begin; $i <= $end; $i++) {
-		if ($i == $current) {
-			$number = "<b>$i</b>";
-			$leftdot = "<img src=\"$imageDir/nav_dot_left.gif\" width=\"8\" height=\"11\">";
-		} else {
-			$number = "<a href=".$url.$navigator['pageVar']."=$i>$i</a>";
-			if (($i-1) == $navigator["page"]) {
-				$leftdot = "<img src=\"$imageDir/nav_dot_right.gif\" width=\"8\" height=\"11\">";
-			} else {
-				$leftdot = "<img src=\"$imageDir/nav_dot.gif\" width=\"8\" height=\"11\">";
-			}
-		}
-	
-		echo "&nbsp;$leftdot&nbsp;";
-		echo "$number";
-	}
-	echo "</span>";
-	if ($end == $current) {
-		$rightdot = "<img src=\"$imageDir/nav_dot_right.gif\" width=\"8\" height=\"11\">";
+$current = $navigator["page"];
+echo "<span class=\"nav\">";
+for ($i = $begin; $i <= $end; $i++) {
+	if ($i == $current) {
+		$number = "<b>$i</b>";
+		$leftdot = "<img src=\"$imageDir/nav_dot_left.gif\" width=\"8\" height=\"11\">";
 	} else {
-		$rightdot = "<img src=\"$imageDir/nav_dot.gif\" width=\"8\" height=\"11\">";
+		$number = "<a href=".$url.$navigator['pageVar']."=$i>$i</a>";
+		if (($i-1) == $navigator["page"]) {
+			$leftdot = "<img src=\"$imageDir/nav_dot_right.gif\" width=\"8\" height=\"11\">";
+		} else {
+			$leftdot = "<img src=\"$imageDir/nav_dot.gif\" width=\"8\" height=\"11\">";
+		}
 	}
-	echo "&nbsp;$rightdot&nbsp;";
+
+	echo "&nbsp;$leftdot&nbsp;";
+	echo "$number";
 }
+echo "</span>";
+if ($end == $current) {
+	$rightdot = "<img src=\"$imageDir/nav_dot_right.gif\" width=\"8\" height=\"11\">";
+} else {
+	$rightdot = "<img src=\"$imageDir/nav_dot.gif\" width=\"8\" height=\"11\">";
+}
+echo "&nbsp;$rightdot&nbsp;";
 ?>
     </td>
 <?php
@@ -142,3 +139,4 @@ if ($navigator["page"] == $navigator["maxPages"]) {
     <td colspan="11" bgcolor="<?php echo $borderIn?>"><?php echo $pixelImage?></td>
   </tr>
 </table>
+    

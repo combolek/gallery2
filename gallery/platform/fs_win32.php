@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -160,7 +158,7 @@ function fs_export_filename($filename) {
 function fs_exec($cmd, &$results, &$status, $debugfile) {
 
 	// We can't redirect stderr with Windows.  Hope that we won't need to.
-	return exec("cmd.exe /c \"$cmd\"", $results, $status);
+	return exec("cmd.exe /c $cmd", $results, $status);
 }
 
 function fs_tempdir() {

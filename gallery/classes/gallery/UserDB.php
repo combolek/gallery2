@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -47,7 +45,7 @@ class Gallery_UserDB extends Abstract_UserDB {
 
 		if (!fs_file_exists("$userDir/.htaccess")) {
 			$fd = fs_fopen("$userDir/.htaccess", "w");
-			fwrite($fd, "Order deny,allow\nDeny from all\n");
+			fwrite($fd, "Order deny, allow\nDeny from all\n");
 			fclose($fd);
 		}
 

@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -124,6 +122,7 @@ and digits.
 <script language="javascript1.2">
 <!--
 // position cursor in top form field
+document.usermodify_form.fullname.focus();
 document.usermodify_form.uname.focus();
 //--> 
 </script>

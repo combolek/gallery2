@@ -1,4 +1,3 @@
-<?php /* $Id$ */ ?>
 <center>
 <font size=+2> Gallery Setup: Step 1 </font>
 <br>
@@ -95,7 +94,7 @@ foreach ($checklist as $check) {
 <?php		if ($serious_warning) { ?>
 Your installation has <b>serious warnings</b>!  Continue at your own risk...
 <?php 		} else { ?>
-Your installation has warnings, but this is usually OK.  Keep going!
+Your installation has warnings, but life is short so let's GO!
 <?php 		} ?>
 <?php 	} else { ?>
 Your installation passed with flying colors!  Go go go!

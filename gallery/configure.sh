@@ -1,6 +1,4 @@
 #!/bin/sh
-# $Id$
-
 chmod 755 setup
 
 if [ ! -f config.php ]; then
