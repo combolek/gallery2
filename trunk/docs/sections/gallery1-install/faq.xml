@@ -313,6 +313,12 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
           correctly and are chmodded 0755 (including the directory they are in).
          </emphasis>
         </para>
+        <para>
+         One common installation mistake is to put the executable in a path
+         that contains spaces. This happens often on Windows, if either
+         package is installed in <filename>Program Files</filename>. The
+         executables <emphasis>must not be installed in a path that contains spaces</emphasis>.
+        </para>
        </listitem>
        <listitem>
         <para>
