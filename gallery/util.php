@@ -852,14 +852,11 @@ function printNestedVals($level, $albumName, $val, $movePhoto) {
 			$nestedAlbum = new Album();
 			$nestedAlbum->load($myName);
 			if ($gallery->user->canWriteToAlbum($nestedAlbum)) {
-				#$val2 = $val . " -> " . $nestedAlbum->fields[title];
-				$val2 = "";
-				for ($j=0; $j<=$level; $j++) {
-					$val2 = $val2 . "-- ";
-				}
+				$val2 = str_repeat("-- ", $level+1);
 				$val2 = $val2 . $nestedAlbum->fields[title];
-				if (($nestedAlbum != $gallery->album) && 
-				   ($nestedAlbum != $gallery->album->getNestedAlbum($index))) {
+				if ($nestedAlbum != $gallery->album &&
+				    $gallery->album->numPhotos(1) <= $index ||
+				    $nestedAlbum != $gallery->album->getNestedAlbum($index)) {
 					echo "<option value=\"$myName\"> $val2</option>\n";
 					printNestedVals($level + 1, $myName, $val2, $movePhoto);
 				} elseif ($movePhoto) {
@@ -988,6 +985,38 @@ function padded_range_array($start, $end) {
 		$arr[$val] = $i;
 	}
 	return $arr;
+}
+
+function safe_serialize($obj, $file) {
+	
+	/*
+	 * Don't use tempnam because it may create a file on a different
+	 * partition which would cause rename() to fail.  Instead, create our own 
+	 * temporary file.
+	 */
+	$i = 0;
+	do {
+		$tmpfile = "$file.$i";
+		$i++;
+	} while (fs_file_exists($tmpfile));
+
+	if ($fd = fs_fopen($tmpfile, "w")) {
+		fwrite($fd, serialize($obj));
+		fclose($fd);
+
+		/* 
+		 * Make the current copy the backup, and then 
+		 * write the new current copy
+		 */
+		if (fs_file_exists($file)) {
+			$success = fs_rename($file, "$file.bak") &&
+				   fs_rename($tmpfile, $file);
+		} else {
+			$success = fs_rename($tmpfile, $file);
+		}
+	}
+
+	return $success;
 }
 
 ?>
