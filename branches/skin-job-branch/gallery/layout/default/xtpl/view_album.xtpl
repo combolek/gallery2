@@ -1,20 +1,33 @@
 <!-- BEGIN: view_album -->
-{GLO.header}
+{header}
+
+{GLO.page.body.extra}
+<script language="javascript1.2">
+// <!--
+  function itemEditChoice(selected_select) {
+      var sel_index = selected_select.selectedIndex;
+      var sel_value = selected_select.options[sel_index].value;
+      selected_select.options[0].selected = true;
+      selected_select.blur();
+      eval(sel_value);
+  }
+// -->
+</script>
 
 <table border="0" width="{GLO.image.tableWidth}" cellpadding="0"  cellspacing="0">
   <tr>
 	<td>
-    Album is [{GLO.album.title}]
+    <span class="title">&nbsp;{GLO.album.title}</span>
     </td>
   <tr>
 
   <tr>
 	<td>
-    {GLO.divider}
-    {GLO.blockBreadcrumb}
-    {GLO.divider}
-    {GLO.blockNavigation}
-    {GLO.divider}
+    {blockDivider}
+    {blockBreadcrumb}
+    {blockDivider}
+    {blockNavigation}
+    {blockDivider}
 	</td>
   </tr>
 
@@ -23,17 +36,18 @@
   <tr>
 	<td align="center">
     <!-- BEGIN: items -->
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
           
       <!-- BEGIN: row -->
       <tr>
-        
-        <!-- BEGIN: photo_cell -->
+
+        <!-- BEGIN: cell -->
         <td align="center" valign="top">
-        
-          <table width="{GLO.album.thumbnailSize}" border="0" cellspacing="0" cellpadding="2">
+          <table width="{thumbCellSize}" border="0" cellspacing="0" cellpadding="0">
+
+          <!-- BEGIN: album -->
           <tr>
-          <td align="center" valign="bottom" width="{GLO.album.thumbnailSize}" height="{GLO.album.thumbnailSize}">
+          <td align="center" valign="bottom" width="{thumbCellSize}" height="{thumbCellSize}">
 
           <table width="1%" border="0" cellspacing="0" cellpadding="0">
             <tr bgcolor="{GLO.borderColor}">
@@ -53,53 +67,7 @@
           </tr>
 
           <tr>
-          <td align="center" valign="top" width="{GLO.album.thumbnailSize}">
-
-            <span class="caption"><b>{item.hiddenText}</b> {item.caption} {item.commentCountText}
-            <i>{item.clickCountText}</i>
-            <br>
-            </span>
-
-          </td>
-          </tr>
-
-          </table>
-
-        </td>
-        <!-- END: photo_cell -->
-
-        <!-- BEGIN: movie_cell -->
-        <td align="center">
-        MOVIE
-        </td>
-        <!-- END: movie_cell -->
-
-        <!-- BEGIN: album_cell -->
-        <td align="center" valign="top">
-
-          <table width="{GLO.album.thumbnailSize}" border="0" cellspacing="0" cellpadding="2">
-          <tr>
-          <td align="center" valign="bottom" width="{GLO.album.thumbnailSize}" height="{GLO.album.thumbnailSize}">
-
-          <table width="1%" border="0" cellspacing="0" cellpadding="0">
-            <tr bgcolor="{GLO.borderColor}">
-              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
-            </tr>
-            <tr>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
-              <td><a href="{item.href}">{item.thumbnail.tag}</a></td>
-              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
-            </tr>
-            <tr bgcolor="{GLO.borderColor}">
-              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
-            </tr>
-          </table>
-
-          </td>
-          </tr>
-
-          <tr>
-          <td align="center" valign="top" width="{GLO.album.thumbnailSize}">
+          <td align="center" valign="top" width="{thumbCellSize}">
             <span class="caption"><b>Album: {item.title}</b> {item.description}
             <br>
             <i>Changed: {item.dateChanged}</i>
@@ -107,17 +75,70 @@
           </td>
           </tr>
 
+          <!-- END: album -->
 
+          <!-- BEGIN: photo -->
+          <tr>
+          <td align="center" valign="bottom" width="{thumbCellSize}" height="{thumbCellSize}">
+
+          <table width="1%" border="0" cellspacing="0" cellpadding="0">
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+            <tr>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+              <td><a href="{item.href}">{item.thumbnail.tag}</a></td>
+              <td bgcolor="{GLO.borderColor}" width="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
+            <tr bgcolor="{GLO.borderColor}">
+              <td colspan=3 height="{GLO.album.borderSize}">{GLO.pixelImage}</td>
+            </tr>
           </table>
 
-        </td>
-        <!-- END: album_cell -->
+          </td>
+          </tr>
 
-        <!-- BEGIN: blank_cell -->
-        <td align="center">
-        &nbsp;
+          <tr>
+          <td align="center" valign="top" width="{thumbCellSize}">
+            <span class="caption"><b>{item.hiddenText}</b> {item.caption} {item.commentCountText}
+            <br>
+            <i>{item.clickCountText}</i>
+            <br>
+            </span>
+          </td>
+          </tr>
+          <!-- END: photo -->
+
+          <!-- BEGIN: movie -->
+          <tr>
+            <td>
+            MOVIE
+            </td>
+          </tr>
+          <!-- END: movie -->
+
+          <!-- BEGIN: blank -->
+          <tr>
+            <td>
+            &nbsp;
+            </td>
+          </tr>
+          <!-- END: blank -->
+
+          <!-- BEGIN: commands -->
+          <tr>
+          <td align="center" valign="bottom" width="{thumbCellSize}">
+            COMMANDS
+            <!-- BEGIN: option -->
+
+            <!-- END: option -->
+            </td>
+          </tr>
+          <!-- END: commands -->
+
+          </table>
         </td>
-        <!-- END: blank_cell -->
+        <!-- END: cell -->        
 
       </tr>
       <!-- END: row -->
@@ -133,26 +154,18 @@
 
   <tr>
     <td>
-    {GLO.divider}
-    {GLO.blockTools}
-    {GLO.divider}
-	{GLO.blockNavigation}
-    {GLO.divider}
+    {blockDivider}
+    {blockTools}
+    {blockDivider}
+	{blockNavigation}
+    {blockDivider}
 	</td>
   </tr>
 
 </table>
-{GLO.page.body.extra}
 <br>
-SKIN JOB TODO:
-<ul>
-<li>the album general stat info.
-<li>the item commands.
-<li>the movie block.
-<li>bug in "new nested album"
-</ul>
 
-{GLO.footer}
+{footer}
 
 <!-- END: view_album -->
 

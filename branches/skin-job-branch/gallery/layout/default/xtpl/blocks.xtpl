@@ -1,4 +1,3 @@
-
 <!-- --------------------------------------------------------------------------------
      -------------------------------------------------------------------------------- -->
 <!-- BEGIN: divider -->
@@ -110,19 +109,19 @@
   <tr>
     <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
 
-    <!-- BEGIN: left -->
-    <td align="left" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
-    <!-- END: left -->
-
     <!-- BEGIN: commands -->
-    <td align="right" valign="middle" width="3000" height="18">
-    <span class="admin">
+    <td align="left" valign="middle" width="3000" height="18">
+    <span class="admin">&nbsp;
     <!-- BEGIN: command -->
-    <a href="#" onClick="{command.action};return false">[{command.name}]</a>
+    <a href="#" onClick="{command.action};return false">[{command.title}]</a>
     <!-- END: command -->
     </span>
-    &nbsp;</td>
+    </td>
     <!-- END: commands -->
+
+    <!-- BEGIN: right -->
+    <td align="right" valign="middle" width="3000" height="18">&nbsp;toolbox</td>
+    <!-- END: right -->
 
     <td bgcolor="{GLO.borderColor}" width="1" height="18">{GLO.pixelImage}</td>
   </tr>
@@ -147,7 +146,7 @@
       <br>
       From: <b>{comment.name}</b> @ {comment.IPNumber} ({comment.datePosted})
       <br>
-      {comment.text} {comment.remove}
+      {comment.text}
       <br><br>
       </span>
     </td>
