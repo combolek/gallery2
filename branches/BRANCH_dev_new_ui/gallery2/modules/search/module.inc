@@ -81,19 +81,14 @@ class SearchModule extends GalleryModule {
     }
 	
     /**
-     * @see GalleryModule::getSystemContent
+     * @see GalleryModule::oadSystemContent
      */
-    function getSystemContent() {
+    function loadSystemContent(&$template) {
 	global $gallery;
 
-	$template = $this->_getTemplate();
-	$template->setVariable('view', 'search:SearchScan');
-	list($ret, $html) = $template->render('SystemContent.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-
-	return array(GalleryStatus::success(), array('content' => $html));
+	$SearchSystemContent['view'] = 'search:SearchScan';
+	$template->setVariable('SearchSystemContent', $SearchSystemContent);
+	return array(GalleryStatus::success(), 'modules/search/templates/SystemContent.tpl');
     }
 
     /**

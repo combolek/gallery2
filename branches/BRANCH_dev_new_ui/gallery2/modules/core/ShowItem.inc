@@ -90,8 +90,6 @@ class ShowItemView extends GalleryView {
 	}
 
 	/* Load the correct layout */
-	$platform = $gallery->getPlatform();
-
 	if (empty($layoutName)) {
 	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null, null);
 	}
@@ -106,15 +104,16 @@ class ShowItemView extends GalleryView {
 	$layout->init($layoutName);
 
 	$ShowItem = array();
-
-	/* Render and retrieve the body */
+	$ShowItem['item'] = $item->getMemberData();
+	$ShowItem['layoutL10Domain'] = $layout->getL10Domain();
+	
+	/* Let the layout load the template and get its body file */
 	list ($ret, $ShowItem['layoutBodyFile']) = $layout->loadTemplate($template, $item);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	$ShowItem['layoutL10Domain'] = $layout->getL10Domain();
-	$template->setTemplateVariable('ShowItem', $ShowItem);
+	$template->setVariable('ShowItem', $ShowItem);
 
 	return array(GalleryStatus::success(),
 		     'modules/core/templates/ShowItemHead.tpl',

@@ -29,6 +29,10 @@ table td {
   border-spacing: 0px;
 }
 
+.main_box { 
+  border-bottom: 1px solid #ddd;
+}
+
 .bannerbox {
   color: #333;
   width: 100%;
@@ -41,16 +45,32 @@ table td {
   font-size: 81%;
 }
 
-.complextitle {
+.bannerbox_inner {  
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  vertical-align: top;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+.bannerbox_title {  
   color: #333;
   width: 100%;
   margin: 0px 0px 0px 0px;
-  padding: 12px 16px 8px 16px;
+  vertical-align: top;
   text-align: left;
   background-color: #eee;
-  border-right: 1px solid #ddd;
   font-weight: bold;
   font-size: 81%;
+}
+
+.bannerbox_description {  
+  font-size: 63%;
+}
+
+.bannerbox_component {  
+  vertical-align: top;
 }
 
 .widget1box { 
@@ -92,13 +112,24 @@ table td {
   padding-bottom: 8px;
 }
 
+.linksbox {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  font-size: 81%;
+}
+
 .linksbox_item {  
   color: #bbb;
   font-size: 63%;
 }
 
+.infobox {
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
 .infobox_item {  
-  color: #bbb;
+  color: #666;
   font-size: 63%;
 }
 
@@ -106,8 +137,6 @@ table td {
   width: 100%;
   margin: 0px 0px 0px 16px;
   padding: 8px 0px 8px 0px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   background-color: transparent;
   clear: none;
 }
@@ -190,6 +219,17 @@ table td {
   background-color: #fff;
 }
 
+.sidebar_right {
+  text-align: left;
+  vertical-align: top;
+  width: 130px;
+  height: auto;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  border: 0px dashed #ddd;
+  background-color: #fff;
+}
+
 .sidebar {
   text-align: left;
   vertical-align: top;
@@ -203,7 +243,7 @@ table td {
   border-spacing: 0px;
 }
 
-.sidebar_box {
+.sidebar_box_left {
   text-align: left;
   vertical-align: top;
   width: auto;
@@ -211,6 +251,20 @@ table td {
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   background-color: #fff;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar_box_right {
+  text-align: left;
+  vertical-align: top;
+  width: auto;
+  height: auto;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .textmodifier { 
@@ -218,11 +272,9 @@ table td {
 }
 
 .simplebox { 
-  width: 130;
+  width: 100%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #ddd;
   border-collapse: collapse;
   border-spacing: 0px;
 }

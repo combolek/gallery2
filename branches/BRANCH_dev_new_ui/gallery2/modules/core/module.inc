@@ -429,10 +429,6 @@ class CoreModule extends GalleryModule {
     function getItemLinks($items) {
 	global $gallery;
 
-	if (!is_array($items)) {
-	    $items = array($items);
-	}
-
 	/*
 	 * Look up all item admin permissions so that we can decide whether or
 	 * not to display the "[edit item]" link.
@@ -600,12 +596,17 @@ class CoreModule extends GalleryModule {
     }
     
     /**
-     * @see GalleryModule::getSystemLinks
+     * @see GalleryModule::loadSystemContent
      */
-    function getSystemLinks() {
+    function loadSystemContent(&$template) {
 	global $gallery;
 
 	list ($ret, $anonymousUserId) = $this->getModuleParameter('id.anonymousUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -616,24 +617,25 @@ class CoreModule extends GalleryModule {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	$show = array();
+
 	if ($isAdmin) {
-	    $links[] = array('text' => $this->translate('site admin'),
-			     'params' => array_merge(array('view' => 'core:SiteAdmin')));
+	    $show['siteAdmin'] = 1;
 	}
 
 	if ($gallery->getActiveUserId() == $anonymousUserId) {
-	    $links[] = array('text' => $this->translate('login'),
-			     'params' => array_merge(array('view' => 'core:UserAdmin',
-							   'subView' => 'core:UserLogin')));
+	    $show['login'] = 1;
 	} else {
-	    $links[] = array('text' => $this->translate('your account'),
-			     'params' => array_merge(array('view' => 'core:UserAdmin',
-							   'subView' => 'core:UserPreferences')));
-	    $links[] = array('text' => $this->translate('logout'),
-			     'params' => array_merge(array('controller' => 'core:Logout')));
+	    $show['yourAccount'] = 1;
+	    $show['logout'] = 1;
 	}
 
-	return array(GalleryStatus::success(), $links);
+	$CoreSystemContent = array();
+	$CoreSystemContent['show'] = $show;
+	$CoreSystemContent['user'] = $user->getMemberData();
+
+	$template->setVariable('CoreSystemContent', $CoreSystemContent);
+	return array(GalleryStatus::success(), 'modules/core/templates/CoreSystemContent.tpl');
     }
     
     /**
