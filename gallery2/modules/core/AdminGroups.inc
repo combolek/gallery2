@@ -241,7 +241,7 @@ class AdminGroupsView extends GalleryView {
 	}
 
 	$form['list']['count'] = $totalGroupCount;
-	$form['list']['pageSize'] = 15;
+	$form['list']['pageSize'] = $totalGroupCount > 10 ? 10 : $totalGroupCount + 2;
 
 	/* If we have a filter, find out how many groups match it */
 	if (!empty($form['list']['filter'])) {
