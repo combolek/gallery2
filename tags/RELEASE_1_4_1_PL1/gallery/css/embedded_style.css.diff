@@ -1,0 +1,100 @@
+/** These are the new classes available in 1.4.1.  Upgrading users who have customized 
+  their stylesheets should append this file to their existing embedded_style.css file
+ **/
+
+.mod_title			/* album title -- Text is controlled by .title */
+	{
+	  border:1px solid #000000;
+	  border-right-width:0px;
+	  border-bottom-width:0px;
+	  border-left-width:0px;
+	}
+.mod_title_bg   /* album title hightlight Text is controled by .title */
+	{
+	}
+.mod_title_right  /* album title hightlight  Text is controled by .title*/
+	{
+	}
+.mod_title_left  /* album title hightlight  Text is controled by .title */
+	{
+	}
+.albumdesc  /*album description includes all text and background*/
+	{
+	}
+.modcaption  /* modifies background for caption text to reside */
+	{
+	  font-size: 10px; 
+	}
+.attention                          /* so far, just for voting instructions*/
+        {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-weight: normal;
+          color: blue;
+          font-size: 12px;
+        }
+
+.mod_headliner  /* Gallery & Album titles. Text is controled by .head */
+	{
+	}
+.mod_toplight_bg  /* Gallery & Album titles. Text is controled by .head */
+	{
+	}
+.mod_toplight_right  /* Gallery & Album titles. Text is controled by .head*/
+	{
+	}
+.mod_toplight_left  /* Gallery & Album titles. Text is controled by .head */
+	{
+	}
+.navtableborderbegin
+ 	{ 
+	  border:1px solid #000000;
+	}
+.navtableborderend
+	{
+	  border:1px solid #000000;
+	  border-top-width:0px;
+	}
+.bordertop
+	{
+	  border:1px solid #000000;
+	  border-right-width:0px;
+	  border-bottom-width:0px;
+	  border-left-width:0px;
+	}
+.borderright
+	{
+	  border:1px solid #000000;
+	  border-top-width:0px;
+	  border-bottom-width:0px;
+	  border-left-width:0px;
+	}
+.borderleft
+	{
+	  border:1px solid #000000;
+	  border-top-width:0px;
+	  border-bottom-width:0px;
+	  border-right-width:0px;
+ 	}
+.modnavbox  /* main navigation bar next and previous */
+	{
+	}
+.search                          /* used in search text */
+	{ 
+	  font-size: 10px; 
+	  font-weight: bold; 
+	}
+.leftspacer  /* amount of space to the left of the header and titles */
+	{
+	  width: 0px;
+	}
+.modnavboxtop  /*navagation bar top of screen where admin buttons show*/
+	{
+ 
+        }
+.modnavboxmid  /*navagation bar middle where the link for the albums show*/
+	{
+
+	}
+.modfooter /*footer where the Gallery version is located*/
+	{
+	}
