@@ -285,13 +285,11 @@ $GLO = array();
 //-- the 'gallery' ---
 $GLO['gallery']['title'] = $gallery->app->galleryTitle;
 $GLO['gallery']['url'] = $gallery->app->photoAlbumURL;
-$GLO['gallery']['styleSheetInclude'] = getStyleSheetLink();
 
 //-- the 'album' ---
 $GLO['album']['title'] = $album->fields['title'];
 $GLO['album']['url'] = makeAlbumUrl($albumName);
 $GLO['album']['name'] = $albumName;
-$GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
 $GLO['album']['borderColor'] = $borderColor;
 
