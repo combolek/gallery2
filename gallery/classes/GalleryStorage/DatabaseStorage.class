@@ -115,6 +115,7 @@ class DatabaseStorage extends GalleryStorage {
      * Constructor.
      */
     function DatabaseStorage() {
+	$this->GalleryStorage();
 	$this->_connectionStatus = DATABASE_STATUS_NOT_CONNECTED;
     }
 
@@ -277,14 +278,14 @@ class DatabaseStorage extends GalleryStorage {
 	    /* Locate the id column */
 	    if ($metaInfo[$name]['type'] & STORAGE_TYPE_ID) {
 		$func = 'get' . ucfirst($name);
-		$value = $this->_db->qstr($nucleus->$func());
+		$value = $nucleus->$func();
 		$idColumn = array('name' => $name, 'value' => $value);
 	    }
 	    
 	    /* If the member is modified, record the new value in our table */
 	    if (isset($persistentInfo->modified[$name])) {
 		$func = 'get' . ucfirst($name);
-		$value = $this->_db->qstr($nucleus->$func());
+		$value = $nucleus->$func();
 		$dataTable[$info['class']][$name] = $value;
 	    }
 	    
@@ -311,38 +312,53 @@ class DatabaseStorage extends GalleryStorage {
 		if (empty($changes[$idColumn['name']])) {
 		    $changes[$idColumn['name']] = $idColumn['value'];
 		}
-		
+
+		$table = DATABASE_TABLE_PREFIX . strtolower($table);
 		$query = "INSERT INTO $table (";
 		$query .= join(',', array_keys($changes));
 		$query .= ') VALUES (';
-		$query .= join(',', array_values($changes));
+		for ($i = 0; $i < sizeof($changes); $i++) {
+		    if ($i > 0) {
+			$query .= ', ';
+		    }
+		    $query .= '?';
+		}
 		$query .= ')';
-		print "$query<br>";
+		$data = array_values($changes);
+
+		$recordSet = $this->_db->Execute($query, $data);
+		if (!$recordSet) {
+		    return ERROR | ERROR_DATABASE_FAILURE;
+		}
 	    }
 	} else {
 
 	    /*
-	     * Make one giant UPDATE statement out of all the changed fields.
+	     * Iterate through the data table and make an UPDATE statement
+	     * for each table that requires one. 
 	     */
-	    $tableList = array();
-	    $changeList = array();
 	    foreach ($dataTable as $table => $changes) {
-
-		/* Make sure that the id column is set for each table */
-		if (empty($changes[$idColumn['name']])) {
-		    $changes[$idColumn['name']] = $idColumn['value'];
-		}
+		$changeList = array();
+		$data = array();
 		
-		$query = "INSERT INTO $table (";
-		$query .= join(',', array_keys($changes));
-		$query .= ') VALUES (';
-		$query .= join(',', array_values($changes));
-		$query .= ')';
-		print "$query<br>";
-	    }
+		foreach ($changes as $key => $value) {
+		    $changeList[] = " `$key` = ?";
+		    $data[] = $value;
+		}
 
-	    $query = "UPDATE ";
-	    print "$query<br>";
+		if (sizeof($changeList)) {
+		    $table = DATABASE_TABLE_PREFIX . strtolower($table);
+		    $query = "UPDATE $table SET";
+		    $query .= join(',', $changeList);
+		    $query .= " WHERE `$idColumn[name]`=?";
+		    $data[] = $idColumn['value'];
+		    
+		    $recordSet = $this->_db->Execute($query, $data);
+		    if (!$recordSet) {
+			return ERROR | ERROR_DATABASE_FAILURE;
+		    }
+		}
+	    }
 	}
 	
 	$nucleus->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
