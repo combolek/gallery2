@@ -1,4 +1,10 @@
-2003-05-09  Pierre-Luc Paour <gallery@paour.com> (1.0.1-b6)
+2003-05-28  Pierre-Luc Paour <gallery@paour.com> (1.0.1-RC1)
+
+	* No changes from b6.
+	* No longer building 'run' batch scripts: running GR is now only
+	  with the native InstallAnywhere launcher or ant.
+
+2003-05-25  Pierre-Luc Paour <gallery@paour.com> (1.0.1-b6)
 
 	* When an auth error occurs, made the error message more informative.
 
