@@ -122,6 +122,7 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 		Date releaseDate = null;
 		String releaseNotes = null;
 		String releaseUrl = null;
+		String releaseUrlMac = null;
 		String url = null;
 
 		Info(String url) {
@@ -138,6 +139,10 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 				version = props.getProperty("version");
 				releaseNotes = props.getProperty("releaseNotes");
 				releaseUrl = props.getProperty("releaseUrl");
+				releaseUrlMac = props.getProperty("releaseUrlMac");
+				if (releaseUrlMac == null) {
+					releaseUrlMac = releaseUrl;
+				}
 
 				Date myReleaseDate = GalleryRemote.getInstance().properties.getDateProperty("releaseDate");
 
@@ -180,11 +185,13 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 		jReleaseNotes.setMargin(new Insets(0, 3, 3, 3));
 		if (which.releaseNotes != null) jReleaseNotes.setText(which.releaseNotes);
 
-		//jUrl.setBackground(UIManager.getColor("TextField.inactiveBackground"));
-		//jUrl.setEditable(false);
-		//jUrl.setFont(new java.awt.Font("SansSerif", 0, 11));
-		//jUrl.setForeground(Color.blue);
-		if (which.releaseUrl != null) jUrl.setText(which.releaseUrl);
+		if (which.releaseUrl != null) {
+			if (MainFrame.IS_MAC_OS_X) {
+				jUrl.setText(which.releaseUrlMac);
+			} else {
+				jUrl.setText(which.releaseUrl);
+			}
+		}
 
 		jVersion.setBackground(UIManager.getColor("TextField.inactiveBackground"));
 		jVersion.setEditable(false);
@@ -219,7 +226,7 @@ public class Update extends JFrame implements ActionListener, PreferenceNames {
 
 	public void actionPerformed(ActionEvent ae) {
 		try {
-			BrowserLauncher.openURL(which.releaseUrl);
+			BrowserLauncher.openURL(jUrl.getUrl());
 		} catch (Exception e) {
 			Log.log(Log.LEVEL_CRITICAL, MODULE, "Exception while trying to open browser");
 			Log.logException(Log.LEVEL_CRITICAL, MODULE, e);
