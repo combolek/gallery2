@@ -3373,19 +3373,6 @@ function emailComments($id, $comment_text, $commenter_name) {
 	}
 }
 
-// Function array_search is only available in PHP >=4.0.5
-// So we emulate it.
-if (!function_exists('array_search')) {
-        function array_search($needle, $haystack) {
-                for ($x=0; $x < sizeof($haystack); $x++) {
-                        if ($haystack[$x] == $needle) {
-                                return $x;
-                        }
-                }
-                return NULL;
-	}
-}
-
 if (!function_exists('glob')) {
 	function glob($pattern) {
 		$path_parts = pathinfo($pattern);
