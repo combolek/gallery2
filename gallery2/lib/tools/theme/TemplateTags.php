@@ -68,8 +68,8 @@ $tags['widget2'] = array('type' => 'child', 'children' => array('title?', 'descr
     
 // grid layout components
 $tags['table'] = array('type' => 'component', 'params' => array('width' => '100%'), 'children' => array('row+'));
-$tags['row'] = array('type' => 'child', 'children' => array('column+'));
-$tags['column'] = array('type' => 'attribute', 'params' => array('header' => 'false'));
+$tags['row'] = array('type' => 'child', 'params' => array('rowspan' => '1'), 'children' => array('column+'));
+$tags['column'] = array('type' => 'attribute', 'params' => array('header' => 'false', 'colspan' => '1'));
 
 // generic attributes
 $tags['title'] = array('type' => 'attribute');

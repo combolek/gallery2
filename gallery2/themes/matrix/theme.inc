@@ -462,7 +462,13 @@ class MatrixTheme extends GalleryTheme {
 	    if ($column_array[$i]['params']['header'] == 'true') {
 		$buf .= '<td class="columnheader">' . $column_array[$i]['content'] . '</td>';
 	    } else {
-		$buf .= '<td class="column">' . $column_array[$i]['content'] . '</td>';
+		$colspan = $column_array[$i]['params']['colspan'];
+		if ($colspan == 1) {
+		    $buf .= '<td class="column">';
+		} else {
+		    $buf .= '<td class="column" colspan="' . $colspan . '">';
+		}
+		$buf .= $column_array[$i]['content'] . '</td>';
 	    }
 	}
 	$buf .= '</tr>';
