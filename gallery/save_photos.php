@@ -24,11 +24,13 @@
 
 require(dirname(__FILE__) . '/init.php');
 
-foreach($_FILES as $key => $value) {
-    ${$key."_name"} = $value["name"];
-    ${$key."_size"} = $value["size"];
-    ${$key."_type"} = $value["type"];
-    ${$key} = $value["tmp_name"];
+foreach (array('userfile', 'metafile') as $filekey) {
+	foreach($_FILES[$filekey] as $key => $value) {
+		${$key."_name"} = $value["name"];
+		${$key."_size"} = $value["size"];
+		${$key."_type"} = $value["type"];
+		${$key} = $value["tmp_name"];
+	}
 }
 
 list($urls, $meta, $usercaption) = getRequestVar(array('urls', 'meta', 'usercaption'));
