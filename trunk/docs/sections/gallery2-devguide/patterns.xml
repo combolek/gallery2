@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<sect1 id="gallery2-devguide.patterns">
+ <title>
+  Patterns
+ </title>
+ <para>
+  Gallery makes use of quite a few design patterns in the code.
+  These patterns are design and coding methodologies that make it
+  easier to implement and understand large systems.  If you're
+  working on the official Gallery codebase, you must understand and
+  use them in the code that you write.  If you're developing your own
+  module, we strongly recommend that you follow these patterns since
+  it'll make it that much easier to integrate your module into the
+  official module set (which is a good thing).
+ </para>
+ <sect2>
+  <title>
+   Entities
+  </title>
+  <para>
+   An entity in Gallery is an atomic chunk of data that can be loaded
+   from and saved to the database and has its own internal behaviour.
+   Each entity has its own unique id, creation timestamp,
+   modification timestamp, serial number and entity type.  All
+   entities are subclasses of GalleryEntity.  You never create an
+   instance of GalleryEntity itself; it's an abstract class even
+   though PHP doesn't explicitly support abstract classes.  When you
+   want a new instance of an entity you should create it using the
+   GalleryFactory (described below).
+  </para>
+  <para>
+   There are a variety of different types of entities that server
+   different purposes.  In the Gallery object model we take advantage
+   of inheritance to create subclasses of entities that contain only
+   the data and behaviour that we need.  For example, groups and
+   users do not have a parent/child relationship with other entities
+   so they directly subclass GalleryEntity.  Everything else in the
+   system has a parent/child relationship so we have a new entity
+   type called GalleryChildEntity that subclasses GalleryEntity and
+   contains a <emphasis>parentId</emphasis> member.  Read the UML
+   diagram to see exactly how the various entities are related.
+  </para>
+  <para>
+   Gallery data is arranged in a tree starting with a single
+   GalleryAlbumItem as the root.  The root album contains other
+   GalleryItems which are either GalleryAlbumItems or
+   GalleryDataItems.  GalleryDataItems are the manageable data types
+   such as GalleryPhotoItem or GalleryMovieItem instances.  Modules
+   can introduce new item types by creating entities that extend
+   GalleryDataItem and registering them with the GalleryFactory.
+  </para>
+  <para>
+   GalleryEntities contain contents that have special embedded
+   metadata in them.  We use this metadata to describe the entity in
+   such a way that our automated tools can automatically generate
+   interface classes and SQL table definitions for the entity.  This
+   saves a considerable amount of time writing code by hand.  Read
+   the "Code Generation" section for more details on how this works.
+  </para>
+  <para>
+   You create a new GalleryEntity by first getting an instance of it
+   from the GalleryFactory:
+   <programlisting>
+    list ($ret, $user) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUser');
+    if ($ret->isError()) { 
+    return array($ret->wrap(__FILE__, __LINE__), null); 
+    }
+
+    if (!isset($user)) {
+    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);      
+    }
+   </programlisting>
+   Note a couple of things about the above code.  First, we know that
+   we want to create a GalleryUser, and that GalleryUser extends
+   GalleryEntity.  This allows us to make the specific factory call
+   telling it to give us an instance of the GalleryUser class.  Now
+   the nice thing is that we don't actually care what GalleryUser we
+   get back as long as we get back something that fulfills the
+   GalleryUser API.  This is necessary since later on when we embed
+   Gallery inside another system we'll change the factory method to
+   return (for example) an instance of PostNukeGalleryUser and our
+   application logic will still function properly.
+  </para>
+  <para>
+   The other thing to note is that we don't actually know for sure
+   that we received back an instance of the class.  We may have asked
+   for a class type that is not registered, so not only do we have to
+   check for (and handle) an error code, but we have to handle the
+   situation where no object was returned.  Now in the case of
+   GalleryUser it's pretty unlikely that we won't have an
+   implementation handy, but it's still a good pattern to check so
+   that we can meet our reliability goal.
+  </para>
+  <para>
+   It's not always going to be the case that we know exactly what
+   type of entity we want, especially when we're creating new
+   GalleryItem types.  Typically, we want to create a GalleryItem
+   based on the mime type of the file the user just uploaded.  This
+   is when the factory code really shines, since we can allow modules
+   to create their own GalleryDataItem entities and register them
+   with the factory so that we can simply do this:
+   <programlisting>
+    list ($ret, $newItem) = GalleryItemHelper::newItemByMimeType($mimeType); 
+    if ($ret->isError()) { 
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+   </programlisting>
+   Note that in this example, we're going to get back a GalleryItem
+   but we have no idea what the actual implementation is.  In the
+   core module, we map some mime types to GalleryPhotoItem, some to
+   GalleryMovieItem and the rest to GalleryUnknownItem.  But there
+   may be a new module in the system that has created a
+   FlashMovieItem type and registered it with the
+   <emphasis>application/x-shockwave-flash</emphasis> mime type, and
+   we might be getting one of those entities back if the user
+   uploaded a flash movie.  We don't know, and we don't care as long
+   as the entity returned is a GalleryItem.
+  </para>
+  <para>
+   You must write lock a GalleryEntity before you modify or delete
+   it.  However, you do not have to write lock it before creating the
+   entity, since nothing else can modify it before you create it.
+   However, you should read lock the parent to make sure that it does
+   not get modified while you're creating entities inside it.Entity
+   creation looks like this (without locking; see the locking section
+   for examples with locking also).
+   <programlisting>
+    // use the factory to get a new instance of GalleryUser, as shown above
+    // then call create.
+    $ret = $user->create("jdoe");
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+
+    $user->setEmail("jdoe@jdoe.com");
+
+    // Now we have a well formed instance of GalleryUser in memory so save
+    // it to the database:
+    $ret = $user->save();
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+   </programlisting>
+   Modifying or deleting entities requires you to lock and refresh
+   the item before you change or delete it.
+   <programlisting>
+    // Let's assume $user is a loaded GalleryUser entity.  First we lock it:
+    list ($ret, $lockId) = $gallery->acquireWriteLock($user->getId());
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+
+    // Then we refresh the user in case somebody modified it in the window between
+    // when we loaded it and when we acquired the lock
+    $ret = $user->refresh();
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+
+    // Then modify the item
+    $user->setEmail("jdoe@jdoe.com");
+
+    // Now save it:
+    $ret = $user->save();
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+
+    // And then release our write lock
+    list ($ret, $lockId) = $gallery->releaseLocks($lockId);
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+   </programlisting>
+   Deleting is the same as saving, except that you use the delete()
+   method on the entity instead of save().  And you can also use the
+   <programlisting>$gallery->deleteEntityById()</programlisting>
+   convenience method instead since that handles all the locking
+   issues and doesn't require you to actually load the entity just so
+   that you can delete it.
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Maps
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Helpers
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Templates
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Locking
+  </title>
+  <para>
+   G2 employs a locking methodology called "Pessimistic
+   Locking".  What this means is that whenever the application
+   layer wants to change an entity that already exists in the
+   system, it must lock the entity before it begins editing and
+   release the lock when its done.  While this entity is
+   locked, no other session can touch the entity.
+  </para>
+  <para>
+   We use two types of locks: read locks and write locks.
+   Holding a read lock on an entity means that nobody can edit
+   it.  That's useful in the case where you want to make sure
+   that an entity (eg, an album) doesn't get moved while you're
+   working with it.  The other type of lock is a write lock.
+   It allows your session the exclusive ability to edit an
+   entity.
+  </para>
+  <para>
+   The general rule is that you acquire a lock as far upstream
+   as possible.  When performing complex operations (like
+   moving items, etc) only the application logic really knows
+   what's going on.  The framework can check to make sure that
+   a lock is acquired but in general, each framework call
+   doesn't know the context that it's getting called in so it
+   shouldn't be responsible for acquiring the lock.
+  </para>
+  <para>
+   For example if we're writing the the move or copy item
+   logic, at the app level we want to acquire a read lock on
+   the source and destination albums and on all of their
+   parents.  This prevents the source/destination containers
+   from getting moved around while we're moving items within
+   them.  Then we want to write-lock the items we're moving so
+   that nobody can fiddle with them while we're moving them.
+   Thus we can successfully move or copy the items safe in the
+   knowledge that our operation should complete successfully.
+  </para>
+  <para>
+   One of the interesting problems that we address in G2 is
+   avoiding data corruption.  If you're using G2 in a
+   transactional database, you should never get data corruption
+   in the database.  However, we don't have a journalling
+   filesystem and it's common for us to do filesystem
+   operations at the same time as the database operations.  If
+   the database transaction fails, the database changes will be
+   rolled back cleanly but we'll be left with corruption in the
+   filesystem (eg, an item gets moved to a new location but
+   then the database statement fails, it all rolls back but the
+   file gets stranded in the new place).  In a perfect world,
+   we will check our database operations and trying to undo any
+   filesystem changes if it looks like the database operation
+   failed.  It's not perfect (and we're not doing it properly
+   in a lot of places) but it's possible.
+  </para>
+  <para>
+   Pessimistic locking minimizes the above problem.  We assume
+   that there will be concurrency issues and try to lock all
+   objects that we're going to touch.  We read lock anything
+   that we're not going to change and write lock anything that
+   we are going to change.  The downside is that because not
+   all databases have row-level locking, the locking strategy
+   involves quite a few reads and writes to a lock table so
+   locking is somewhat expensive.  
+  </para>
+  <para>
+   Only GalleryEntities are locked.  Data in maps is considered
+   to be of a more transient nature and less susceptible to
+   concurrency issues.  So in order to minimize the expense,
+   we've moved some columns out of the entities and into the map
+   classes.  These columns (like view count, etc) are much
+   faster because they are not protected by locks, but the
+   downside is that it's possible for them to be updated
+   inaccurately so they're slightly less reliable.
+  </para>
+  <para>
+   One possible alternative to the above solution is to let the
+   framework handle all locking under the covers and not expose
+   it at the application logic level.  This would make new
+   application logic easier to write, since you wouldn't have
+   to worry about locking.  There are a few reasons why this
+   won't work:
+   <itemizedlist>
+    <listitem>
+     <para>
+      We don't know for sure that we have transactions, and
+      we don't want to fail in the middle of an operation
+      and corrupt our database and our filesystem, so we
+      should try to acquire all write locks up front to
+      ensure success before we make any changes.  That can
+      only be done in the controller, since no other part of
+      the code knows exactly what we need.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Locking is expensive in environments without good
+      row-level locking (eg, MySQL) so it's best to try to
+      acquire lots of locks at once instead of doing them as
+      we find out that we need them.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      Right after you get the write lock for an entity, you
+      must refresh the entity, otherwise you don't know for
+      sure that you have the latest version (somebody else
+      might have had the write lock, modified the entity and
+      released the lock in between the time that you loaded
+      the entity and when you successfully acquire the write
+      lock).  This can also only be done safely at the top.
+     </para>
+    </listitem>
+   </itemizedlist>
+   The framework helps out by not allowing you to save an
+   entity unless it is write locked.  So the main issue is
+   knowing when to acquire read locks (more on that below).
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Factories
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Model-View-Controller
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Internationalization and Localization
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Storage
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Platform
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Code Generation
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Cross-Module Interfaces
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Event Listeners
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Data Caching
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Gallery Toolkit
+  </title>
+  <para>&nbsp;
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Redirect-On-Post
+  </title>
+  <para>
+   One aggravating thing about may dynamic websites is the
+   situation where you want to reload a page, but the page was
+   created by a form submission and reloading the page will
+   submit the form again which may do something you did not
+   intend.  To avoid this problem, G2 will always redirect you to
+   a new page after you successfully complete an operation.  If
+   you do a form post and it *doesn't* do anything (ie, it gives
+   you an error) it won't redirect since it's safe to reload that
+   page again if you choose.  Of course, reloading that page will
+   just give you the same error, but at least it won't cause any
+   damage.
+  </para>
+ </sect2>
+ <sect2>
+  <title>
+   Check all return codes
+  </title>
+  <para>
+   Reliability is one of Gallery's fundamental goals.  The path
+   to reliability is to religiously check every single return
+   code and make sure that when something goes wrong we handle it
+   in the most appropriate way.
+  </para>
+  <para>
+   Sadly, PHP lacks exception handling which means that we have
+   to comeup with our own way to check return values.  G2 has its
+   own system for returning status values such that errors bubble
+   up to the top and can be handled at every step of the way.  We
+   build up a stack trace while handling these errors and this
+   stack trace can be used to diagnose problems when they occur.
+  </para>
+  <para>
+   Any method that can fail should return an instance of a
+   GalleryStatus object.  In the case of a successful result, it
+   should return:
+   <programlisting>
+    return GalleryStatus::success();
+   </programlisting>
+   Upon failure, it should return the appropriate error code along
+   with the relevant file name and line number like this:
+   <programlisting>
+    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+   </programlisting>
+   The complete list of error codes can be found in the
+   modules/core/GalleryStatus class.  The code that calls this method
+   should check this error code and handle it properly:
+   <programlisting>
+    $ret = methodThatReturnsStatus();
+    if ($ret->isError()) {
+    return $ret->wrap(__FILE__, __LINE__);
+    }
+   </programlisting>
+   Note that we tag on the file and line numbers when we return the
+   status code.  This is how we build up the stack trace.  We follow
+   the convention that all status codes are called
+   <emphasis>$ret</emphasis>.  This is a good idea in case we wish to
+   refactor this code later on; it'll make those lines easier to
+   find.  Note also that if your method returns other values, it
+   should return an array so that the first element can be a status
+   code.
+  </para>
+ </sect2>
+</sect1>
