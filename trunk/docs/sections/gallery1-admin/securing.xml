@@ -78,9 +78,14 @@
    and bandwidth, but still grant regular users access.
   </para>
   <para>
-   To do this, we will use Apache's mod_rewrite module.  Your server must have
-   this module installed to do this.  See the Apache documentation for more
-   information.
+   To do this, we will use Apache's mod_rewrite module.  Your server
+   must have this module installed to do this.  See the Apache
+   documentation for more information.  Additionally, if when you
+   installed Gallery the config wizard instructed you to add lines to
+   your httpd.conf to allow .htaccess files to work, then you should
+   review those lines and add something similar to httpd.conf for your
+   albums directory.  Otherwise, your changes to .htaccess may not
+   have any effect.
   </para>
   <para>
    Basically, what we'll do is only allow Apache to serve the images to people
