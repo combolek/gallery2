@@ -100,21 +100,32 @@ $albumStyle .= "</style>\n";
 
 //-- the breadcrumb info ---
 $breadCount = 0;
-if (strcmp($gallery->album->fields["returnto"], "no")) {
-    $breadCount++;
-    $breadLevels[$breadCount]['level'] = "Gallery";
-    $breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-    $breadLevels[$breadCount]['href'] = makeGalleryUrl();
-    $pAlbumName = $gallery->album->fields['parentAlbumName'];
-	while ($pAlbumName) {
-		$pAlbum = $albumDB->getAlbumByName($pAlbumName);
-		$breadCount++;
-    	$breadLevels[$breadCount]['level'] = "Album";
-    	$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
-    	$breadLevels[$breadCount]['href'] = makeGalleryUrl($pAlbumName);
-		$pAlbumName = $pAlbum->fields['parentAlbumName'];
+$pAlbum = $gallery->album;
+do {
+	if (!strcmp($pAlbum->fields["returnto"], "no")) {
+		break;
 	}
-}
+	$pAlbumName = $pAlbum->fields['parentAlbumName'];
+   	if ($pAlbumName) {
+		$pAlbum = $albumDB->getAlbumByName($pAlbumName);
+		$breadLevels[$breadCount]['level'] = "Album";
+   		$breadLevels[$breadCount]['name'] = $pAlbum->fields['title'];
+   		$breadLevels[$breadCount]['href'] = makeGalleryUrl($pAlbumName);
+	} else {
+		//-- we're at the top! ---
+    	$breadLevels[$breadCount]['level'] = "Gallery";
+    	$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
+	    $breadLevels[$breadCount]['href'] = makeGalleryUrl();
+	}
+	$breadCount++;
+	if ($pAlbum) {
+	}
+} while ($pAlbumName);
+
+//-- we built the array backwards, so reverse it now ---
+//-- XXX we have to zero-index this array to make it work ---
+$breadLevels = array_reverse($breadLevels, false);
+
 //-- XXX - I think we should add current page to breadcrumb ---
 //$breadCount++;
 //$breadLevels[$breadCount]['level'] = "Album";
@@ -154,21 +165,18 @@ $pageBodyExtra = "\n"
     . "</script> \n";
 
 //-- Load up the AlbumItem array ---
-$itemIds = $gallery->album->getIds($gallery->user->canWriteToAlbum($gallery->album));
+$firstItem = $perPage * ($page - 1);
+$itemIds = $gallery->album->getIds($gallery->user, $firstItem, $perPage);
 $i = 0;
-$to_skip = 0;
 foreach ($itemIds as $itemId) {
-	//-- skip the images from previous pages ---
-	if ($to_skip++ < ($perPage * ($page - 1))) {
-		continue;
-	}
 
 	$i++;
 	$items[$i]['id'] = $itemId;
 
     $index = $gallery->album->getPhotoIndex($itemId);
 	$items[$i]['index'] = $index;
-
+	$items[$i]['hidden'] = $gallery->album->isHidden($index);
+	
 	if (!$gallery->album->isMovie($itemId)) {
 		$photoHref = makeGalleryUrl($gallery->session->albumName, $itemId);
 	} else {
@@ -177,19 +185,27 @@ foreach ($itemIds as $itemId) {
 	}
 	$items[$i]['href'] = $photoHref;
 
+	$items[$i]['thumbnail']['tag'] = $gallery->album->getThumbnailTag($index);
+	$items[$i]['thumbnail']['url'] = $gallery->album->getThumbnailPath($index);
     if ($gallery->album->isMovie($itemId)) { 
-		$itemType = "movie";
+		$items[$i]['type'] = 'movie';
 	} else if ($gallery->album->isAlbumName($index)) {
-		$itemType = "album";
+		$items[$i]['type'] = 'album';
+		$myAlbum = $albumDB->getAlbumbyName($gallery->album->isAlbumName($index));
+		$items[$i]['title'] = $myAlbum->fields[title];
+		$items[$i]['description'] = $myAlbum->fields[description];
+		$items[$i]['dateChanged'] = $myAlbum->getLastModificationDate();
+		$items[$i]['clickCount'] = $myAlbum->getClicks();
 	} else {
-		$itemType= "photo";
+		$items[$i]['type'] = 'photo';
+		$items[$i]['caption'] = $gallery->album->getCaption($index);
+		$items[$i]['commentCount'] = 
+			((!strcmp($gallery->album->fields["public_comments"], "yes"))) ? 
+			$gallery->album->numComments($index) : 0;
+		$items[$i]['clickCount'] = $gallery->album->getItemClicks($index);
 	}
-	$items[$i]['type'] = $itemType;
-    $items[$i]['thumbnailTag'] = $gallery->album->getThumbnailTag($index);
-	$items[$i]['thumbnailUrl'] = "";
 
 }
-
 
 //-------------------------------------------------------------------------
 //-- The Gallery Layout Object ---
@@ -207,9 +223,10 @@ $GLO['album']['url'] = $gallery->album->getAlbumDirURL();
 $GLO['album']['name'] = $gallery->session->albumName;
 $GLO['album']['styleSheetInclude'] = $albumStyle;
 $GLO['album']['borderSize'] = $borderWidth;
-$GLO['album']['thumbSize'] = $gallery->album->fields["thumb_size"];
+$GLO['album']['thumbnailSize'] = $gallery->album->fields["thumb_size"];
 $GLO['album']['rows'] = $rows;
 $GLO['album']['cols'] = $cols;
+$GLO['album']['displayClicks'] = !(strcmp($gallery->album->fields["display_clicks"] , "yes"));
 
 $GLO['album']['items'] = $items;
 
