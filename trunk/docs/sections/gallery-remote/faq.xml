@@ -6,15 +6,18 @@
  
  <qandaset>
   
-  <qandaentry>
+  <qandaentry id="gallery-remote.faq.a.1">
    <question>
     <para>
-     Sample Question
+     How do I upgrade Gallery Remote?
     </para>
    </question>
    <answer>
     <para>
-     Sample Answer
+     Download the newest version of Gallery Remote.
+     Extract the new zip file on top of your existing GR install, and overwrite all files.
+     Remember to stop GR before doing this.
+     Restart Gallery Remote.
     </para>
    </answer>
   </qandaentry>
