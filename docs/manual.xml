@@ -4,11 +4,11 @@
                       "./dtds/docbookx.dtd" [
 
 <!-- Include files entities -->
-<!ENTITY % files	SYSTEM "./files.ent">
+<!ENTITY % files		SYSTEM "./files.ent">
 %files;
 
 <!-- Include global entities -->
-<!ENTITY % global	SYSTEM "./global.ent">
+<!ENTITY % global		SYSTEM "./global.ent">
 %global;
 
 ]>
@@ -27,6 +27,11 @@
  <part id="gallery2">
   <title>Gallery 2.x</title>
   &chapters.gallery2;
+ </part>
+ 
+ <part id="guide-standards">
+  <title>Standards for this Guide</title>
+  &chapters.guide-standards;
  </part>
  
 </book>
