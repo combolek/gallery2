@@ -270,8 +270,8 @@ if ($temp_files) {
 }
 ?>
 
-<?php
 <span class="popup">
+<?php
 if (!$msgcount) {
 	print _("No images uploaded!");
 }
