@@ -54,7 +54,7 @@
    </listitem>
    <listitem>
     <para>
-     Re-run the <link linkend="gallery1-install.config_wizard">configuration
+     Re-run the <link linkend="gallery1-install.config-wizard">configuration
      wizard</link>.  Afterward, put Gallery back into secure mode, as described
      in that guide.
     </para>
@@ -79,8 +79,8 @@
    </listitem>
    <listitem>
     <para>
-     Put your Gallery into configuration mode, by chmodding <filename>.htaccess
-     </filename> and <filename>config.php</filename> 0777 and by chmodding the
+     Put your Gallery into configuration mode, by chmodding &htaccess;
+     and &config.php; 0777 and by chmodding the
      <filename>setup/</filename> directory 0755.
     </para>
    </listitem>
@@ -99,7 +99,7 @@
    </listitem>
    <listitem>
     <para>
-     Re-run the <link linkend="gallery1-install.config_wizard">configuration
+     Re-run the <link linkend="gallery1-install.config-wizard">configuration
      wizard</link>.  Afterward, put Gallery back into secure mode, as described
      in that guide.
     </para>
