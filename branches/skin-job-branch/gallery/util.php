@@ -543,9 +543,14 @@ function makeGalleryUrl($albumName="", $photoId="", $extra="") {
 	global $gallery;
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_MODULENAME;
+	global $albumDB;
 
 	//-- If the Id points to a nested album ---
 	if ($photoId) {
+		if (!$gallery->album) {
+			// $gallery->album was not defined for during "search".
+			$gallery->album = $albumDB->getAlbumByName($albumName);
+		}
 		$index = $gallery->album->getPhotoIndex($photoId);
 		if ($gallery->album->isAlbumName($index)) {
 			$albumName = $gallery->album->isAlbumName($index);
