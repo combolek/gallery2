@@ -19,7 +19,6 @@
 	    {gallery->widget2body}
 	      {gallery->input size="32" type="text" name="form.userName"}{$form.userName}{/gallery->input}
 	      {if isset($form.error.userName.missing)}
-		<br/>
 		{gallery->error}
 		  {gallery->text text="You must enter a username"}
 		{/gallery->error}
@@ -53,7 +52,6 @@
 	      {gallery->input size="32" type="text" name="form.email"}{$form.email}{/gallery->input}
 	      
 	      {if isset($form.error.email.missing)}
-		<br/>
 		{gallery->error}
 		  {gallery->text text="You must enter an email address"}
 		{/gallery->error}
@@ -84,7 +82,6 @@
 	      {gallery->input size="32" type="password" name="form.password1"}{/gallery->input}
 
 	      {if isset($form.error.password1.missing)}
-		<br/>
 		{gallery->error}
 		  {gallery->text text="You must enter a password"}
 		{/gallery->error}
@@ -104,14 +101,12 @@
 	      {gallery->input size="32" type="password" name="form.password2"}{/gallery->input}
 
 	      {if isset($form.error.password2.missing)}
-		<br/>
 		{gallery->error}
 		  {gallery->text text="You must enter the password a second time"}
 		{/gallery->error}
 	      {/if}
 	      
 	      {if isset($form.error.password2.mismatch)}
-		<br/>
 		{gallery->error}
 		  {gallery->text text="The passwords you entered did not match"}
 		{/gallery->error}

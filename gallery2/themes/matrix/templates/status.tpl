@@ -1,1 +1,1 @@
-<span class="status">??STATUS?? {$content} ??STATUS??</span>
+<span class="status">{$content}</span>

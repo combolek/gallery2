@@ -13,7 +13,7 @@
       {/gallery->detailedboxtitle}
 
       {gallery->detailedboxdescription}
-	{gallery->text text="This will completely remove <b>%s</b> from the Gallery.  There is no undo!" arg1=$user.userName}
+	{gallery->text text="This will completely remove <b>%s</b> from Gallery.  There is no undo!" arg1=$user.userName}
       {/gallery->detailedboxdescription}
 
       {gallery->detailedboxbody}
