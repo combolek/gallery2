@@ -19,6 +19,46 @@
  */
 
 /**
+ * Storage constants.
+ */
+
+/**
+ * Integer type
+ *
+ * @constant STORAGE_INTEGER
+ */
+define("STORAGE_INTEGER", 0x00000001);
+
+
+/**
+ * String type
+ *
+ * @constant STORAGE_STRING
+ */
+define("STORAGE_STRING", 0x00000002);
+
+/**
+ * List type
+ *
+ * @constant STORAGE_LIST
+ */
+define("STORAGE_LIST", 0x00000004);
+
+/**
+ * Map type
+ *
+ * @constant STORAGE_MAP
+ */
+define("STORAGE_MAP", 0x00000008);
+
+/**
+ * id type
+ *
+ * @constant STORAGE_ID
+ */
+define("STORAGE_ID", 0x00000010);
+
+/**
  * Interface to the storage mechanism
  *
  * This object provides the hooks for saving and restoring objects in the persistent store.
@@ -84,10 +124,10 @@ class GalleryStorage {
      *
      * @access public
      * @param string the id of the stored GalleryNucleus
-     * @param object GalleryNucleus a hint of the type of GalleryNucleus we're loading
-     * @return object GalleryNucleus a GalleryNucleus or null if the id is bogus.
+     * @param object GalleryNucleus the object we're loading into
+     * @return int a status code
      */
-    function load($id, $nucleus) {
+    function loadNucleus($id, $nucleus) {
     }
 
     /**
@@ -97,7 +137,7 @@ class GalleryStorage {
      * @param object GalleryNucleus the GalleryNucleus to save
      * @return int a status code
      */
-    function save($nucleus) {
+    function saveNucleus($nucleus) {
     }
 
     /**
@@ -107,7 +147,18 @@ class GalleryStorage {
      * @param object GalleryNucleus the GalleryNucleus to delete
      * @return int a status code
      */
-    function delete($nucleus) {
+    function deleteNucleus($nucleus) {
     }
+
+    /**
+     * Create a new GalleryNucleus 
+     *
+     * @access public
+     * @param object GalleryNucleus a hint of the type of GalleryNucleus we're creating
+     * @return object GalleryNucleus a GalleryNucleus or null if the hint is bogus.
+     */
+    function newNucleus($nucleus) {
+    }
+
 }
 ?>
