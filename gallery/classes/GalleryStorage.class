@@ -207,11 +207,11 @@ class GalleryStorage {
      * the future we can optimize this to actually hold row locks for efficiency.
      *
      * @access public
-     * @param int timeout before giving up on the lock
      * @param array ids to lock (empty array means lock the world)
+     * @param int timeout before giving up on the lock
      * @return int a status code
      */
-    function acquireLock($timeout, $ids=array()) {
+    function acquireLock($ids=array(), $timeout) {
     }
 
     /**

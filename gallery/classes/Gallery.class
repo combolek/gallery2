@@ -426,7 +426,9 @@ class Gallery {
      * @param integer how long to wait for the lock before giving up
      * @return int a status code
      */
-    function lockLocal($array, $timeout=2) {
+    function lockLocal($ids, $timeout=10) {
+	assert('is_array($ids)');
+	
 	/*
 	 * If we already have a lock, fail.
 	 */
@@ -438,7 +440,7 @@ class Gallery {
 	 * Make and acquire a new lock.
 	 */
 	$this->_lock = new GalleryLock();
-	return $this->_lock->lock($array, $timeout);
+	return $this->_lock->lock($ids, $timeout);
 
 	return SUCCESS;
     }
