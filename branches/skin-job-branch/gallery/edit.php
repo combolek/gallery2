@@ -20,9 +20,12 @@
 ?>
 <? 
 
-function makeEditUrl($t) {
+function makeEditUrl($t, $te=0) {
 	global $type, $id, $return;
 	$url = "edit.php?type=$type&id=$id&tab=$t&return=" . urlencode($return);
+	if ($error) {
+		$url .= "&tab_error=$te";
+	}
 	return makeGalleryUrl($url);
 }
 
@@ -68,18 +71,18 @@ if ($doit) {
 			". getStyleSheetLink() ." 
 			</head>
 			<body>
+			<blockquote><blockquote><br><br>
 		";
 		echo($progressHead);
 
 		//-- here the command should 'execute' ---
-		require($editTabInclude);
+		$tab_error = require($editTabInclude);
 
 		//-- after doint it we either return to the edit or, if the tab
 		//-- sets forceReturn it exit's edit ---
-		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
+		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab, $tab_error);
 
 		//-- use javascript to pop back to the edit page ---
-		$backtoEditUrl = makeEditUrl($tab);
 		$jsreturn = "
 			<script language=\"javascript1.2\">
 			<!--
@@ -93,23 +96,28 @@ if ($doit) {
 		//-- link up to let the user get back to the edit page.
 		$nojsreturn = "
 			<hr size=\"1\">
-			Done!<br><br>
-			Click <a href=\"$returnAfterDoit\">here</a> to return.
+			<br><br>Done!<br><br>
+			Click <a href=\"$returnAfterDoit\"><b>here</b></a> to return.
+		";
+		echo($nojsreturn);
+
+		$progressFoot = "
+			</blockquote></blockquote>
 			</body>
 			</html>
 		";
-		echo($nojsreturn);
+		echo($progressFoot);
 
 		return;	
 
 	} else {
 		
 		//-- a normal doit (which should not emit any text) ---
-		require($editTabInclude);
+		$tab_error = require($editTabInclude);
 
 		//-- after doint it we either return to the edit or, if the tab
 		//-- sets forceReturn it exit's edit ---
-		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab);
+		$returnAfterDoit = ($forceReturn) ? $return : makeEditUrl($tab, $tab_error);
 
 		//-- we either leave edit here, or refresh the edit page ---
 		header("Location: $returnAfterDoit");
