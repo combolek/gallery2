@@ -96,7 +96,7 @@ case $1 in
 		gendate
 
 		cd $DIST/grpackage
-		xsltproc --param toc-offset 3 --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 4 --param section.autolabel 1 ../../misc-xsl/gr-package.xsl ../../manual.xml || exit 1
+		xsltproc --param toc-offset 3 --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 3 --param section.autolabel 1 ../../misc-xsl/gr-package.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
