@@ -104,11 +104,13 @@ if ($doit) {
 		
 		//-- a normal doit ---
 		require($editInclude);
+
+		//-- if the command sets this we're done with this item ---
 		if ($forceReturn) {
 			header("Location: $return");
 		}
 
-		//-- reset the doit so teh page will display ---
+		//-- reset the doit so the page will display ---
 		$doit = 0;
 	}
 }
@@ -128,6 +130,7 @@ switch ($type) {
 		$myAlbum->load($id);
 		$thumbnail['tag'] = $myAlbum->getHighlightTag(100);
 		$thumbnail['url'] = $album->getHighlightPath($index);
+ 
 
         //-- the album commands ---
 		if ($user->canChangeTextOfAlbum($myAlbum)) {
@@ -152,8 +155,14 @@ switch ($type) {
 
 		//-- the item info for display ---
 		$index = $album->getPhotoIndex($id);
-		$thumbnail['tag'] = $album->getThumbnailTag($index, 100);
+
+		//-- have to make url 'unique' to guarantee browser refresh ---
 		$thumbnail['url'] = $album->getThumbnailPath($index);
+
+		$p = $album->getPhoto($index);
+		list($w, $h) = $p->thumbnail->getScaledDimensions(100);
+		$thumbnail['width'] = $w;
+		$thumbnail['height'] = $h;
 
 		//-- the item commands ---
 		if ($user->canChangeTextOfAlbum($album)) {
