@@ -91,7 +91,7 @@ class DatabaseSchema {
 	 */
 	foreach ($metaInfo->listClasses() as $tableName) {
 	    $query = $this->_generator->createTable($databaseName, $tableName,
-	        $metaInfo->_metaInfo->fullClassInfo[$tableName]);
+	        $metaInfo->describeClass($tableName));
 
 	    $recordSet = $this->_db->Execute($query);
 

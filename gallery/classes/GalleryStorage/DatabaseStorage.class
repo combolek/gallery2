@@ -267,7 +267,7 @@ class DatabaseStorage extends GalleryStorage {
 	/*
 	 * Get our persistent and meta info for this class
 	 */
-	$metaInfo = $this->_metaInfo->describeClass($nucleus);
+	$metaInfo = $this->_metaInfo->describeClass(get_class($nucleus));
 	$persistentInfo = $nucleus->getPersistentInfo();
 	$idColumn = null;
 

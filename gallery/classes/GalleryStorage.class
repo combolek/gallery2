@@ -72,39 +72,39 @@ define("STORAGE_TYPE_BOOLEAN", 0x00000020);
 define("STORAGE_TYPE_TIMESTAMP", 0x00000040);
 
 /**
- * ID type
+ * ID modifier
  *
- * @constant STORAGE_TYPE_ID
+ * @constant STORAGE_MODIFIER_ID
  */
-define("STORAGE_TYPE_ID", 0x00010000);
+define("STORAGE_MODIFIER_ID", 0x00010000);
 
 /**
  * This is a required field
  *
- * @constant STORAGE_TYPE_REQUIRED
+ * @constant STORAGE_MODIFIER_REQUIRED
  */
-define("STORAGE_TYPE_REQUIRED", 0x00020000);
+define("STORAGE_MODIFIER_REQUIRED", 0x00020000);
 
 /**
  * This is a small field
  *
- * @constant STORAGE_TYPE_SMALL
+ * @constant STORAGE_MODIFIER_SMALL
  */
-define("STORAGE_TYPE_SMALL", 0x00040000);
+define("STORAGE_MODIFIER_SMALL", 0x00040000);
 
 /**
  * This is a medium sized field
  *
- * @constant STORAGE_TYPE_MEDIUM
+ * @constant STORAGE_MODIFIER_MEDIUM
  */
-define("STORAGE_TYPE_MEDIUM", 0x00080000);
+define("STORAGE_MODIFIER_MEDIUM", 0x00080000);
 
 /**
  * This is a large field
  *
- * @constant STORAGE_TYPE_LARGE
+ * @constant STORAGE_MODIFIER_LARGE
  */
-define("STORAGE_TYPE_LARGE", 0x00100000);
+define("STORAGE_MODIFIER_LARGE", 0x00100000);
 
 /**
  * Newly created flag

@@ -33,11 +33,18 @@
 class GalleryClassMetaInfo {
 
     /**
-     * Private container for holding class and member information
+     * Private container for holding class information
      *
-     * @var array $_metaInfo
+     * @var array $_classInfo
      */
-    var $_metaInfo;
+    var $_classInfo;
+
+    /**
+     * A list of every class that has meta info
+     *
+     * @var array $_classList
+     */
+    var $_classList;
 
     /**
      * Constructor
@@ -45,180 +52,43 @@ class GalleryClassMetaInfo {
      * Create a map of classes, members and member types
      */
     function GalleryClassMetaInfo() {
-
 	/* Initialize our meta info tables */
-	$this->_metaInfo->partialClassInfo = array();
-	$this->_metaInfo->fullClassInfo = array();
-	$this->_metaInfo->memberClassInfo = array();
-	
-	/* GalleryNucleus */
-	$this->_register('GalleryNucleus', 'creationTimestamp',
-			 STORAGE_TYPE_TIMESTAMP |
-			 STORAGE_TYPE_REQUIRED);
-	$this->_register('GalleryNucleus', 'dataVersion',
-			 STORAGE_TYPE_INTEGER |
-			 STORAGE_TYPE_REQUIRED);
-	$this->_register('GalleryNucleus', 'id',
-			 STORAGE_TYPE_INTEGER |
-			 STORAGE_TYPE_ID |
-			 STORAGE_TYPE_REQUIRED);
-	$this->_register('GalleryNucleus', 'modificationTimestamp',
-			 STORAGE_TYPE_TIMESTAMP |
-			 STORAGE_TYPE_REQUIRED);
-	$this->_register('GalleryNucleus', 'objectType',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_REQUIRED |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('GalleryNucleus', 'parentId',
-			 STORAGE_TYPE_INTEGER);
-	$this->_register('GalleryNucleus', 'path',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('GalleryNucleus', 'serialNumber',
-			 STORAGE_TYPE_INTEGER |
-			 STORAGE_TYPE_REQUIRED);
-
-	/* GalleryItem */
-	$this->_register('GalleryItem', 'childIds', STORAGE_TYPE_LIST);
-	$this->_register('GalleryItem', 'commentIds', STORAGE_TYPE_LIST);
-	$this->_register('GalleryItem', 'description', STORAGE_TYPE_TEXT);
-	$this->_register('GalleryItem', 'isHtmlAllowed', STORAGE_TYPE_BOOLEAN);
-
-	$this->_register('GalleryItem', 'keywords',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_LARGE);
-	$this->_register('GalleryItem', 'ownerId',
-			 STORAGE_TYPE_INTEGER |
-			 STORAGE_TYPE_REQUIRED);
-	$this->_register('GalleryItem', 'properties', STORAGE_TYPE_MAP);
-	$this->_register('GalleryItem', 'thumbnailId', STORAGE_TYPE_INTEGER);
-	$this->_register('GalleryItem', 'title',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_MEDIUM);
-	$this->_register('GalleryItem', 'viewCount', STORAGE_TYPE_INTEGER);
-	
-	$this->_register('GalleryItem', 'viewedSinceTimestamp',
-			 STORAGE_TYPE_TIMESTAMP |
-			 STORAGE_TYPE_REQUIRED);
-
-	/* IGNORE BEGIN: Do not auto-generate accessors for these members */
-	$this->_register('GalleryItem', 'allowedPermission', STORAGE_TYPE_MAP);
-	$this->_register('GalleryItem', 'deniedPermission', STORAGE_TYPE_MAP);
-	/* IGNORE END */
-
-	/* AlbumItem */
-	$this->_register('AlbumItem', 'backgroundColor',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'backgroundColor2',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'border', STORAGE_TYPE_INTEGER);
-	$this->_register('AlbumItem', 'borderColor',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'columns', STORAGE_TYPE_INTEGER);
-	$this->_register('AlbumItem', 'displayViewCount', STORAGE_TYPE_BOOLEAN);
-	$this->_register('AlbumItem', 'font',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'htmlFooter', STORAGE_TYPE_TEXT);
-	$this->_register('AlbumItem', 'htmlHeader', STORAGE_TYPE_TEXT);
-	$this->_register('AlbumItem', 'layout',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'linkColor',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'allowPrinting', STORAGE_TYPE_BOOLEAN);
-	$this->_register('AlbumItem', 'resizeSize', STORAGE_TYPE_INTEGER);
-	$this->_register('AlbumItem', 'rows', STORAGE_TYPE_INTEGER);
-	$this->_register('AlbumItem', 'showBreadCrumb', STORAGE_TYPE_BOOLEAN);
-	$this->_register('AlbumItem', 'textColor',
-			 STORAGE_TYPE_STRING |
-			 STORAGE_TYPE_SMALL);
-	$this->_register('AlbumItem', 'thumbSize', STORAGE_TYPE_INTEGER);
-	$this->_register('AlbumItem', 'viewExtendedData', STORAGE_TYPE_BOOLEAN);
-
-	$this->_buildTables();
+	$this->_classInfo = array();
     }
-
 
     /**
      * Describe all the members of a class
      * @return array member => type associative array
      */
-    function describeClass($class) {
-	return $this->_metaInfo->fullClassInfo[get_class($class)];
+    function describeClass($className) {
+	$this->_loadClassList();
+
+	if (empty($this->_classInfo[$className])) {
+	    $nucleus = new $className;
+	    $this->_classInfo[$className] = $nucleus->getMetaInfo();
+	}
+
+	return $this->_classInfo[$className];
     }
 
     /**
-     * Describe a member
-     * @return array type and owner class name
-     */
-    function describeMember($member) {
-	return $this->_metaInfo->memberInfo[$member];
-    }
-
-    /**
-     * List all the available class members
+     * List all the available classes
      *
      * @return array a list of class names
      */
     function listClasses() {
-	return array_keys($this->_metaInfo->partialClassInfo);
-    }
-    
-    /**
-     * Register a class member that will be kept in the persistent store.
-     *
-     * @param string the name of the owning class
-     * @param string the name of the member
-     * @param int a hint to the storage class for how to store this value
-     * @access private
-     */
-    function _register($class, $name, $typeHint) {
-	assert('empty($this->_metaInfo->memberInfo[$name])');
-	assert('empty($this->_metaInfo->partialClassInfo[$name])');
-
-	$this->_metaInfo->partialClassInfo[strtolower($class)][$name] =
-		array('type' => $typeHint, 'class' => $class);
-	$this->_metaInfo->memberInfo[$name] =
-		array('type' => $typeHint, 'class' => $class);
+	$this->_loadClassList();
+	return array_keys($this->_classList);
     }
 
-    /**
-     * Create the full class info tables from the registration information
-     * @access private
-     */
-    function _buildTables() {
-	$classInstances = array();
-	foreach ($this->_metaInfo->partialClassInfo as $class => $members) {
-	    $this->_fillFromParent($class, $class, $classInstances);
-	}
-    }
-
-    /**
-     * Recursively fill in the full class info from the parents partial info
-     * @access private
-     */
-    function _fillFromParent($class, $ancestor, &$instanceTable) {
-	if (empty($instanceTable[$ancestor])) {
-		$instanceTable[$ancestor] = new $ancestor;
-	}
-
-	$parent = get_parent_class($instanceTable[$ancestor]);
-	if (!empty($parent)) {
-	    $this->_fillFromParent($class, $parent, $instanceTable);
-	}
-
-	if (empty($this->_metaInfo->fullClassInfo[$class])) {
-	    $this->_metaInfo->fullClassInfo[$class] =
-		    $this->_metaInfo->partialClassInfo[$ancestor];
-	} else {
-	    $this->_metaInfo->fullClassInfo[$class] =
-		    array_merge($this->_metaInfo->fullClassInfo[$class],
-				$this->_metaInfo->partialClassInfo[$ancestor]);
+    function _loadClassList() {
+	if (empty($this->_classList)) {
+	    $this->_classList = array();
+	    foreach (get_declared_classes() as $className) {
+		if (in_array("getmetainfo", get_class_methods($className))) {
+		    $this->_classList[$className] = 1;
+		}
+	    }
 	}
     }
 }

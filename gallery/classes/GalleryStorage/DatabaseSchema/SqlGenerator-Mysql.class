@@ -38,6 +38,7 @@ class SqlGenerator {
 
 	$clause = '';
 	$primaryKey = '';
+
 	foreach ($tableInfo as $columnName => $columnInfo) {
 	    $type = $columnInfo['type'];
 	    $targetTable = $columnInfo['class'];
@@ -46,7 +47,7 @@ class SqlGenerator {
 	     * Skip any columns that are targetted at a different table,
 	     * *except* the id column, which must be in all tables.
 	     */
-	    if (strcasecmp($targetTable, $tableName) && !($type & STORAGE_TYPE_ID)) {
+	    if (strcasecmp($targetTable, $tableName) && !($type & STORAGE_MODIFIER_ID)) {
 		continue;
 	    }
 
@@ -68,9 +69,9 @@ class SqlGenerator {
 	    if ($type & STORAGE_TYPE_INTEGER) {
 		$clause .= ' int(11)';
 	    } else if ($type & STORAGE_TYPE_STRING) {
-		if ($type & STORAGE_TYPE_SMALL) {
+		if ($type & STORAGE_MODIFIER_SMALL) {
 		    $size = 32;
-		} else if ($type & STORAGE_TYPE_MEDIUM) {
+		} else if ($type & STORAGE_MODIFIER_MEDIUM) {
 		    $size = 128;
 		} else {
 		    $size = 255;
@@ -100,11 +101,11 @@ class SqlGenerator {
 		continue;
 	    }
 
-	    if ($type & STORAGE_TYPE_REQUIRED) {
+	    if ($type & STORAGE_MODIFIER_REQUIRED) {
 		$clause .= ' NOT NULL';
 	    }
 
-	    if ($type & STORAGE_TYPE_ID) {
+	    if ($type & STORAGE_MODIFIER_ID) {
 		$primaryKey = $columnName;
 	    }
 	}
