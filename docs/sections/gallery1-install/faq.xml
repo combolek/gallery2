@@ -1555,6 +1555,28 @@ print getcwd ();
      </answer>
     </qandaentry>
     
+    <qandaentry id="gallery1-install.faq.c.39">
+     <question>
+      <para>
+       Why do I get this error: <literal>Fatal error: session_start(): Failed to
+       initialize storage module: user...</literal>?
+      </para>
+     </question>
+     <answer>
+      <para>
+       Some other application has setup PHP to use a user-defined session handler.
+       Gallery, however, doesn't run it's own handler and relies on PHP to handle
+       things.  To correct for this, add this line to the end of your &htaccess;
+       file:
+       <screen>
+        php_value session.save_handler "files"
+       </screen>
+       This should fix it if you host allows you to edit PHP directives in .htaccess.
+       If not, you may need to contact them to get it changed globally.
+      </para>
+     </answer>
+    </qandaentry>
+    
    </qandadiv>
   
   </qandaset>
