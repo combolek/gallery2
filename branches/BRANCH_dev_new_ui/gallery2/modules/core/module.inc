@@ -568,8 +568,13 @@ class CoreModule extends GalleryModule {
 	    }
 	    
 	    if ($showDeleteLink) {
+		if ($itemType == 'album') {
+		    $text = $this->translate('delete album');
+		} else {
+		    $text = $this->translate('delete item');
+		}
 		$links[$item->getId()][] =
-		    array('text' => $this->translate('delete item'),
+		    array('text' => $text,
 			  'params' => array_merge(array('view' => 'core:ItemAdmin',
 							'subView' => 'core:ItemDelete',
 							'itemId' => $item->getId()),
