@@ -1354,6 +1354,31 @@ print getcwd ();
       </para>
      </answer>
     </qandaentry>
+    
+    <qandaentry id="gallery1-install.faq.c.35">
+     <question>
+      <para>
+       Can I host images on another server to conserve space?
+      </para>
+     </question>
+     <answer>
+      <para>
+       The straight answer is no.  Gallery must have the images on the local
+       server in order to manipulate (i.e. resize, rotate, etc..) them.  There
+       is no fast, easy, and widely available way to manipulate (i.e. edit) files
+       on remote servers (there are a few, but none fit all 3 criteria).
+      </para>
+      <para>
+       It <emphasis>is possible</emphasis>, however, to host your images on multiple
+       servers in order to distribute the bandwidth.  For instance, if you have a server
+       that doesn't support PHP, but has lots of bandwidth, you can host the images
+       on that server (<emphasis>as well as the local server</emphasis>) and Gallery
+       will attempt to use the images on the server with lots of bandwidth, so that
+       the local server doesn't suffer so much.  More information is available in the
+       <link linkend="gallery1-admin.mirroring">mirroring tutorial</link>.
+      </para>
+     </answer>
+    </qandaentry>
      
    </qandadiv>
   
