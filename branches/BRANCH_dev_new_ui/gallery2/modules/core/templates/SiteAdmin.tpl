@@ -1,7 +1,3 @@
-{gallery->header}
-  {gallery->text text="Gallery 2"}
-{/gallery->header}
-
 {gallery->pathbar}
   {gallery->pathbaritem}
     {gallery->text text="Site Administration"}

@@ -1,64 +1,73 @@
-    <table border="0" cellspacing="0" cellpadding="4" width="100%" height="100%">
-	<tr>
-	  <td colspan="2" align="center">
-	    {gallery->biggestFontSize}
-	    {gallery->text text="Gallery Item Administration"}
-	    {/gallery->biggestFontSize}
-	  </td>
-	</tr>
-	
-	<tr>
-	  <td valign="top" width="200" height="100%">
-	    {gallery->lightFrame}
-	    <center>
-	      {gallery->bigFontSize}
-	      <nobr>
-	      {if $itemType == "album"}
-		{gallery->text text="Editing this album"}
-	      {else} 
-		{gallery->text text="Editing this item"}
-	      {/if} 
-	      </nobr>
-	      {/gallery->bigFontSize}
-	      <br>
-	      <a href="{gallery->url view="core:ShowItem" itemId=$item.id}">
-		{if !empty($thumbnail)} 
-		<img src="{gallery->url view='core:DownloadItem' itemId=$thumbnail.id}" 
-		     width="{$thumbnail.width}" 
-		     height="{$thumbnail.height}" 
-		     alt="{$item.title}"
-		     border="0">
-		{else}
-		<br>
-		<i>{gallery->text text="No Thumbnail"}</i>
-		<br>
-		{/if}
-	      </a>
-	    </center>
-	    
-	    <br>
-	    
-	    <nobr>
-	      {gallery->bigFontSize}
-	      {gallery->text text="Available Settings"}
-	      {/gallery->bigFontSize}
-	    </nobr>
-	    
-	    <table border="0" cellspacing="0" cellpadding="0">
-	      {foreach from=$subViewChoices item=choice}
-		<tr>
-		  <td>
-		    <a href="{gallery->url view='core:ItemAdmin' subView=$choice.view itemId=$item.id}">{$choice.name}</a>
-                  </td>
-		</tr>
-	        {/foreach}
-            </table>
-            {/gallery->lightFrame}
-          </td>
-	  <td valign="top" width="100%" height="100%">
-	    {gallery->lightFrame}
-	    {$subViewHtml}
-	    {/gallery->lightFrame}
-	  </td>
-	</tr>
-    </table>
+{gallery->pathbar}
+  {foreach from=$parents item=parent}
+    {gallery->pathbaritem}
+      {gallery->link url_view='core:ShowItem' url_itemId=$parent.id}
+	{$parent.title|default:$parent.pathComponent}
+      {/gallery->link}
+    {/gallery->pathbaritem}
+    &raquo;
+  {/foreach}
+  {gallery->pathbaritem}
+    {gallery->link url_view='core:ShowItem' url_itemId=$item.id}
+      {$item.title|default:$item.pathComponent}
+    {/gallery->link}
+  {/gallery->pathbaritem}
+{/gallery->pathbar}
+
+{gallery->main}
+  {gallery->sidebar1}
+    {gallery->sidebarbox}
+      {gallery->sidebarboxbody}
+	{if empty($thumbnail)}
+	  {gallery->text text="No Thumbnail"}
+	{else}
+	  {gallery->thumbnail item=$item thumbnail=$thumbnail}
+	{/if}
+      {/gallery->sidebarboxbody}
+    {/gallery->sidebarbox}
+
+    {gallery->sidebarbox}
+      {gallery->sidebarboxtitle}
+	{gallery->text text="Options"}
+      {/gallery->sidebarboxtitle}
+      {gallery->sidebarboxbody}
+	{gallery->listing}
+	  {foreach from=$subViewChoices item=choice}
+	    {gallery->listingitem}
+	      {gallery->link url_view='core:ItemAdmin' url_subView=$choice.view url_itemId=$item.id}
+		{$choice.name}
+	      {/gallery->link}
+	    {/gallery->listingitem}
+	  {/foreach}
+	{/gallery->listing}
+      {/gallery->sidebarboxbody}
+    {/gallery->sidebarbox}
+
+    {gallery->sidebarbox}
+      {gallery->sidebarboxbody}
+	{gallery->sidebarboxtitle}
+	  {gallery->text text="Navigation"}
+	  {gallery->listing}
+	    {if ($itemType == 'item')}
+	      {gallery->listingitem}
+		{gallery->link url_view='core:ShowItem' url_itemId=$item.id}
+		  {gallery->text text="Back to Item View"}
+		{/gallery->link}
+	      {/gallery->listingitem}
+	    {/if}
+	    {gallery->listingitem}
+	      {gallery->link url_view='core:ShowItem' url_itemId=$parents[0].id}
+		{gallery->text text="Back to Album View"}
+	      {/gallery->link}
+	    {/gallery->listingitem}
+	  {/gallery->listing}
+	{/gallery->sidebarboxtitle}
+      {/gallery->sidebarboxbody}
+    {/gallery->sidebarbox}
+  {/gallery->sidebar1}
+
+  {$subViewHtml}
+
+{/gallery->main}
+
+

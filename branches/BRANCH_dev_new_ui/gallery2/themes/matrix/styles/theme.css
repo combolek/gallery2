@@ -57,6 +57,9 @@ body {
 .widget2set { 
 }
 
+.widget2 { 
+}
+
 .widget2body { 
 }
 
@@ -67,6 +70,11 @@ body {
   padding-top: 2px; 
   padding-right: 8px;
   vertical-align: top;
+}
+
+.widget2description {  
+  color: #bbb;
+  font-size: 63%;
 }
 
 .detailedbox {
@@ -104,10 +112,21 @@ body {
   font-weight: bold;
 }
 
+.footer {
+  width: 100%;
+  margin: 0px 32px 0px 32px;
+  padding: 8px 16px 8px 16px;
+  text-align: left;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 100%;
+  font-weight: bold;
+}
+
 .pathbar {
   width: 100%;
   margin: 8px 64px 0px 32px;
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 8px 16px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
 }
@@ -116,7 +135,7 @@ body {
   color: #aaa;
   width: auto;
   margin: 0px 0px 0px 0px;
-  padding: 0px 16px 8px 16px;
+  padding: 0px 0px 0px 0px;
   text-align: left;
   background-color: #fff;
   font-size: 81%;
@@ -205,6 +224,17 @@ body {
   background-color: #fff;
 }
 
+.thumbnail {
+  border: 3px solid #ddd;
+}
+
+.thumbnail_title { 
+  margin: 0px 0px 0px 0px;
+  padding: 6px 0px 6px 0px;
+  font-weight: bold;
+  font-size: 69%;
+}
+
 /* Form Widgets */
 a {
   color: #006699;
@@ -224,18 +254,18 @@ a:hover {
 }
 
 input {
-  margin: 0px 0px 12px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 select {
-  margin: 0px 0px 12px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 textarea {
-  margin: 0px 0px 12px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 button {
-  margin: 2px 2px 12px 2px;
+  margin: 0px 0px 0px 0px;
 }
 
