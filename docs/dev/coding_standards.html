@@ -50,7 +50,8 @@
 	</ul>
       <li> <a href="#Comments">Comments</a>
 	<ul>
-	  <li> <a href="#ClassModuleComments">Class/Module Comments</a>
+	  <li> <a href="#ClassComments">Class Comments</a>
+	  <li> <a href="#ModuleComments">Module Comments</a>
 	  <li> <a href="#FunctionComments">Function/Method Comments</a>
 	  <li> <a href="#ClassVariableandIncludeFileComments">Class Variable and Include File Comments</a>
 	  <li> <a href="#DocumentHeader">Document Header</a>
@@ -691,17 +692,13 @@
     <br>
 
     [<a href=#Contents>contents</a>]
-    <a name="ClassModuleComments"><h3>Class/Module Comments</h3></a>
+    <a name="ClassComments"><h3>Class Comments</h3></a>
 
-    These should appear at the beginning of every file, and help to
-    explain the purpose of the file. Further they give the file a name
-    (module) and put the file in a certain group (a module group). All
-    phpWebSite modules should belong to the package phpWebSite. This
-    might be helpful in the future, if code is distributed with
-    phpWebSite that is not part of the core package (e.g. certain
-    modules). Module comments apply to classes as well, here they
-    magically turn into class comments. Such a comment looks like
-    this:
+    These should appear before every class, and help to explain the
+    purpose of the class.  All core Gallery classes should belong to
+    the package GalleryCore.  All feature or implementation based
+    add-on classes modules should belong to a package named XxxFeature
+    or XxxImplementation.  A class comment looks like this:
 
     <p>
 
@@ -714,9 +711,8 @@
        * in understanding that.
        *
        * @version &#36;Id&#36;
-       * @module modulename
-       * @modulegroup group
-       * @package Gallery
+       * @package GalleryCore
+       * @author Bharat Mediratta <bharat@menalto.com>
        */
     </pre>
 
@@ -726,29 +722,79 @@
       <li> The longer explanation may span several lines. Currently
 	HTML markup is not retained, so try to avoid it.
 
-      <li> An @author statement might be present - see function comments below for details. 
+      <li> One @author statement may be present. More than one author
+      may appear in the statement, consisting of his/her name and
+      optionally the email address in &lt; and &gt; signs, individual
+      authors separated by colons. If given, the email address will be
+      converted into a hyperlink automagically.
+
+      <li> The @version statement should be used unchanged.  CVS will
+      magically transform this into the actual version info of the
+      file.
+
+      <li> The @package statement should be set according to the rules
+      listed above.
+    </ul>
+
+    [<a href=#Contents>contents</a>]
+    <a name="ModuleComments"><h3>Module Comments</h3></a>
+
+    A "module" is a PHP file that contains in-line PHP code.  This
+    doesn't apply to code that is in a PHP class (see above for that).
+    The comments for PHP files give the file a name (module) and put
+    the file in a certain group (a module group).  A module comment
+    looks like this:
+
+    <p>
+
+    <pre>
+      /**
+       * Short explanation (1 line!)
+       *
+       * Some more text which explains in more detail
+       * what the file does and who might be interested
+       * in understanding that.
+       *
+       * @version &#36;Id&#36;
+       * @module EditThumbnail
+       * @modulegroup Edit
+       * @package GalleryApplication
+       * @author Bharat Mediratta <bharat@menalto.com>
+       */
+    </pre>
+
+    <ul>
+      <li> The first line should be short but meaningful. 
+
+      <li> The longer explanation may span several lines. Currently
+	HTML markup is not retained, so try to avoid it.
 
       <li> The @version statement should be used unchanged.  CVS will
       magically transform this into the actual version info of the
       file.
 
       <li>The @module statement gives the file a more meaningful
-      name. Usually it should be the filename without the suffix
-      .php. Dots are not allowed in the name, convert them to
-      underscore if needed.
+      name. Usually it should be the filename in <b>StudlyCaps</b>
+      form without the suffix .php.  Dots are not allowed in the name.
 
       <li> The @modulegroup should be one of the following. If you
       think a new group is needed, please email me (better yet the
       developers mailing list). We will add it if appropriate.
 	<ul>
-	  <li> core    - core class files
-	  <li> layout  - files used by the layout engine
-	  <li> app     - procedural files that form the application
-	  <li> config  - configuration wizard files
-	  <li> backend - backend metadata storage implementations
+	  <li> Layout      - files used by the layout engine
+	  <li> Application - procedural files that form the application
+	  <li> Config      - configuration wizard files
+	  <li> Feature     - feature specific files
 	</ul>
 
-      <li> The @package statement should be left unchanged. 
+      <li> The @package statement should be set according to the rules
+      listed above.
+
+      <li> One @author statement may be present. More than one author
+      may appear in the statement, consisting of his/her name and
+      optionally the email address in &lt; and &gt; signs, individual
+      authors separated by colons. If given, the email address will be
+      converted into a hyperlink automagically.
     </ul>
 
     [<a href=#Contents>contents</a>]
@@ -779,12 +825,6 @@
 
       <li> The longer explanation may span several lines. Currently
       HTML markup is not retained, so try to avoid it.
-
-      <li> One @author statement may be present. More than one author
-      may appear in the statement, consisting of his/her name and
-      optionally the email address in &lt; and &gt; signs, individual
-      authors separated by colons. If given, the email address will be
-      converted into a hyperlink automagically.
 
       <li> One or more @param statements describing the arguments the
       function expects. They must be given in the order in which they
@@ -1075,6 +1115,24 @@
     <font size=-1>
       <pre>
 $Log$
+Revision 1.7  2001/11/28 06:00:57  bharat
+Having learned much more about PHPDoc by:
+a) trying to PHPDoc my code
+b) pulling some hair out
+e) realizing that they never wrote an actual honest-to-god
+   MANUAL for their damn tag syntax
+b) pulling some more hair out
+c) reading the PHPDoc code
+d) weeping to see that their own code isn't PHPDoc'd very well
+f) putting debug statements in their code
+g) pulling more hair out (running low!)
+h) experimenting, experimenting, experimenting
+
+I now have a better idea of what to put where.  I've revised the doc
+to separate Modules from Classes and to put an example in for each
+one.  The (as yet to be checked in) 2.0 core classes are now doc'd
+pretty nicely.
+
 Revision 1.6  2001/11/26 22:35:34  bharat
 Backed off the line-length to 80 characters max.
 
@@ -1102,7 +1160,7 @@ Draft #1 of the definitive Gallery code style document.
     <address><a href="mailto:bharat@menalto.com">Bharat Mediratta</a></address>
 <!-- Created: Fri Nov  9 16:37:09 PST 2001 -->
 <!-- hhmts start -->
-Last modified: Wed Nov 21 13:46:43 PST 2001
+Last modified: Tue Nov 27 21:57:49 PST 2001
 <!-- hhmts end -->
   </body>
 </html>
