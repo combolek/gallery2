@@ -78,7 +78,7 @@
 (defun my-c-mode-common-hook ()
   (c-add-style "php-gallery" php-gallery-style t)
   (turn-on-auto-fill)                 ; turn on auto-fill by default
-  (setq fill-column 99)
+  (setq fill-column 79)
   (setq comment-column 50)            ; set default comment column
   (define-key c-mode-map "\C-m" 'newline-and-indent)
   )
