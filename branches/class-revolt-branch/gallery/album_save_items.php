@@ -96,6 +96,9 @@ if (($urls_or_path[0]) || ($urls_or_path[1])) {
 			continue;
 		}
 
+		/* Get rid of any extra white space */
+		$url = trim($url);
+
 		/*
 		 * Check to see if the URL is a local directory (inspired by
 		 * code from Jared (hogalot)
