@@ -880,5 +880,15 @@ class GalleryUtilities {
 	}
 	return false;
     }
+
+    /**
+     * Return the address of the remote host.
+     *
+     * @return string the remote host address
+     */
+    function getRemoteHostAddress() {
+	global $HTTP_SERVER_VARS;
+	return $HTTP_SERVER_VARS['REMOTE_ADDR'];
+    }
 }
 ?>
