@@ -12,11 +12,11 @@
   <para>
    First of all, I'll talk about indentation.  <emphasis>Do not use tabs</emphasis>.
    Tabs are horrible if you're ever trying to reformat a document like this.  If
-   you accidentally use tabs for indentation, there is a PHP shell script called
+   you accidentally use tabs for indentation, there is a perl shell script called
    <filename>tab2space</filename> in the docs module that will help you convert it
-   (it's a PHP shell script, so you may have to edit it and adjust it to your
-   PHP binary).  Also, when indenting use one space per tag.  An example is
-   listed below
+   (it's a perl script, so you may have to edit it and adjust it to your
+   perl binary).  Also, when indenting use one space per tag.  An example is
+   listed below.
    <screen>
 <![CDATA[
 <para>
