@@ -93,6 +93,10 @@ public class GalleryRemote {
 	
 	// Main entry point
 	public static void main( String[] args ) {
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Gallery Remote");
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("apple.awt.showGrowBox", "false");
+		System.setProperty("apple.awt.brushMetalLook", "true");
 		getInstance().run();
 	}
 }

@@ -1,3 +1,13 @@
+2003-12-16  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b2)
+
+	* Fixed Mac version: Native Mac build now works, uses screen menu bar
+	  (not window menu bar), uses Command instead of Control for
+	  accelerators, uses brushed metal appearance.
+	* No longer displaying rotate arrows for pictures when jpegtran
+	  is not present.
+	* Pruned .java files from JSX library, making it lighter and resolving a
+	  conflict with recent versions of IntelliJ.
+
 2003-12-09  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b1)
 
 	* Some apps wouldn't let you drag and drop pictures to GR. This is now fixed

@@ -200,12 +200,16 @@ public class PictureInspector extends JPanel
 				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
 		jIconAreaPanel.add(jIcon,           new GridBagConstraints(0, 1, 3, 1, 1.0, 0.0
 				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jRotateLeftButton,     new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jFlipButton,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-				,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		jIconAreaPanel.add(jRotateRightButton,  new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
-				,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
+		if (ImageUtils.useJpegtran) {
+			jIconAreaPanel.add(jRotateLeftButton,     new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
+					,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+			jIconAreaPanel.add(jFlipButton,   new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+					,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+			jIconAreaPanel.add(jRotateRightButton,  new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
+					,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		}
+
 		add( jAlbum,  new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
 				,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0) );
 		add( jSize,  new GridBagConstraints(1, 3, 1, 1, 1.0, 0.0

@@ -149,7 +149,9 @@
 		<delete file="${img}/jpegtran.properties" />
 	</target>
 
-	<target name="installer_macosx" depends="jar, mac_img_jar, docs"
+	<!--target name="installer_macosx" depends="jar, mac_img_jar, docs"
+		description="Build a MacOSX executable"-->
+	<target name="installer_macosx"
 		description="Build a MacOSX executable">
 
 		<delete dir="Gallery Remote.app" />
@@ -164,17 +166,17 @@
 			version="${version}"
 			infostring="Gallery Remote ${version}, (c) 2003"
 			aboutmenuname="Gallery Remote"
-			jvmversion="1.3+"
-			smalltabs="true"
-			antialiasedgraphics="true"
-			antialiasedtext="true"
-			liveresize="true"
-			growboxintrudes="false"
-			screenmenu="true"/>
+			jvmversion="1.3+" />
 
 		<tar destfile="GalleryRemote.MacOSX.NoVM.tgz" compression="gzip">
 			<tarfileset dir="." prefix="Gallery Remote">
 				<include name="Gallery Remote.app/**" />
+				<exclude name="Gallery Remote.app/Contents/MacOS/JavaApplicationStub" />
+			</tarfileset>
+			<tarfileset dir="Gallery Remote.app/Contents/MacOS"
+				fullpath="Gallery Remote/Gallery Remote.app/Contents/MacOS/JavaApplicationStub"
+				mode="777">
+				<include name="JavaApplicationStub" />
 			</tarfileset>
 			<tarfileset dir="imagemagick" fullpath="Gallery Remote/imagemagick/im.properties">
 				<include name="im.properties.preinstalled" />
@@ -182,9 +184,9 @@
 			<tarfileset dir="jpegtran" fullpath="Gallery Remote/jpegtran/jpegtran.properties">
 				<include name="jpegtran.preinstalled" />
 			</tarfileset>
-			<tarfileset dir="${docdist}" prefix="Gallery Remote/Documentation">
+			<!--tarfileset dir="${docdist}" prefix="Gallery Remote/Documentation">
 				<include name="*" />
-			</tarfileset>
+			</tarfileset-->
 		</tar>
 	</target>
 

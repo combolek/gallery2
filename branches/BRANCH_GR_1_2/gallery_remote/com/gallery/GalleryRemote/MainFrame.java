@@ -144,6 +144,7 @@ public class MainFrame extends javax.swing.JFrame
 	//final static int MENU_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
     public static GRI18n grRes = GRI18n.getInstance();
+	public static int ACCELERATOR_MASK = 0;
 
 	/**
 	 *  Constructor for the MainFrame object
@@ -205,7 +206,6 @@ public class MainFrame extends javax.swing.JFrame
 		}
 
 		setBounds( GalleryRemote.getInstance().properties.getMainBounds() );
-		setJMenuBar( jMenuBar1 );
 		setTitle( "Gallery Remote" );
 
 		jPicturesList.setMainFrame( this );
@@ -854,29 +854,29 @@ public class MainFrame extends javax.swing.JFrame
 		jMenuItemSave.setText( grRes.getString(MODULE, "menuSave" ));
 		jMenuItemSave.setActionCommand( "File.Save" );
 		jMenuItemSave.setIcon(iSave);
-		jMenuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		jMenuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ACCELERATOR_MASK));
 		jMenuItemOpen.setText( grRes.getString(MODULE, "menuOpen"));
 		jMenuItemOpen.setActionCommand( "File.Open" );
 		jMenuItemOpen.setIcon(iOpen);
-		jMenuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		jMenuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ACCELERATOR_MASK));
 		jMenuItemQuit.setText( grRes.getString(MODULE, "menuQuit" ));
 		jMenuItemQuit.setActionCommand( "File.Quit" );
 		jMenuItemQuit.setIcon(iQuit);
-		jMenuItemQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+		jMenuItemQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ACCELERATOR_MASK));
 
 		jMenuEdit.setText( grRes.getString(MODULE, "menuEdit" ));
 		jMenuItemCut.setText( grRes.getString(MODULE, "menuCut" ));
 		jMenuItemCut.setActionCommand( "Edit.Cut" );
 		jMenuItemCut.setIcon(iCut);
-		jMenuItemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+		jMenuItemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ACCELERATOR_MASK));
 		jMenuItemCopy.setText( grRes.getString(MODULE, "menuCopy" ));
 		jMenuItemCopy.setActionCommand( "Edit.Copy" );
 		jMenuItemCopy.setIcon(iCopy);
-		jMenuItemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		jMenuItemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ACCELERATOR_MASK));
 		jMenuItemPaste.setText( grRes.getString(MODULE, "menuPaste" ));
 		jMenuItemPaste.setActionCommand( "Edit.Paste" );
 		jMenuItemPaste.setIcon(iPaste);
-		jMenuItemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+		jMenuItemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ACCELERATOR_MASK));
 
 		jMenuOptions.setText( grRes.getString(MODULE, "menuOptions") );
 		jCheckBoxMenuThumbnails.setActionCommand( "Options.Thumbnails" );
@@ -932,7 +932,10 @@ public class MainFrame extends javax.swing.JFrame
 		jMenuBar1.add( jMenuFile );
 		jMenuBar1.add( jMenuEdit );
 		jMenuBar1.add( jMenuOptions );
-		jMenuBar1.add( jMenuHelp );
+
+		if (!IS_MAC_OS_X) {
+			jMenuBar1.add( jMenuHelp );
+		}
 
 		jMenuFile.add( jMenuItemOpen );
 		jMenuFile.add( jMenuItemSave );
@@ -964,6 +967,8 @@ public class MainFrame extends javax.swing.JFrame
 			jMenuOptions.addSeparator();
 			jMenuOptions.add( jMenuItemPrefs );
 		}
+
+		setJMenuBar( jMenuBar1 );
 	}//}}}
 
 
@@ -1395,6 +1400,12 @@ public class MainFrame extends javax.swing.JFrame
 
 	static {
 		try {
+			if (! IS_MAC_OS_X) {
+				ACCELERATOR_MASK = ActionEvent.CTRL_MASK;
+			} else {
+				ACCELERATOR_MASK = ActionEvent.META_MASK;
+			}
+
 			iAbout = new ImageIcon(MainFrame.class.getResource("/Information16.gif"));
 			iSave = new ImageIcon(MainFrame.class.getResource("/Save16.gif"));
 			iOpen = new ImageIcon(MainFrame.class.getResource("/Open16.gif"));
