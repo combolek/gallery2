@@ -21,18 +21,38 @@
 <?
 
 // NOTE: I May wrap these functions into the kitchen sink that is util.php. 
-//       For now, it's alot more convient to have them here.
+//	   For now, it's alot more convient to have them here.
 
 require($GALLERY_BASEDIR . "layout_util/xtpl/xtemplate.inc");
 
 //-----------------------------------------------------------------------------
+function getLayouts() {
+
+	// define these globals to make them available to layouts
+	global $gallery;
+
+	// XXX not very intelligent way to differentiate layout dirs...
+
+	$dir_handle = fs_opendir('layout');
+	while ($file = readdir($dir_handle)) {
+		if ( (!ereg("[.]", $file)) && (!ereg("CVS", $file)) ) {
+			$layout_list[] = $file;
+		}
+	}
+	closedir($dir_handle);
+	sort($layout_list);
+
+	return $layout_list;
+}
+
+//-----------------------------------------------------------------------------
 function includeLayout($name, $GLO) {
-        
+		
 	// define these globals to make them available to layouts
 	global $gallery;
 	global $GLO;
-    include (getLayoutFile("$name.inc"));
-    
+	include (getLayoutFile("$name.inc"));
+	
 	return 1;
 }   
 
@@ -40,9 +60,13 @@ function includeLayout($name, $GLO) {
 function getLayoutFile($name) {
 	global $gallery;
 
-    $LAYOUT_DIR_NAME = "layout/";
-	//$layout = $gallery->layout;
-	$layout = "default";
+	$LAYOUT_DIR_NAME = "layout/";
+	$layout = $gallery->album->fields["layout"];
+	
+	# XXX TEMPORARY
+	if (!$layout) {
+		$layout = "default";
+	}
 
 	$layoutDir =  $GALLERY_BASEDIR . $LAYOUT_DIR_NAME . $layout;
 
@@ -61,13 +85,13 @@ function getLayoutXTemplate($name) {
 //-- returns an initialized XTemplate object ---
 //-----------------------------------------------------------------------------
 function getLayoutWrapTemplate($name) {
-    global $GALLERY_BASEDIR;
+	global $GALLERY_BASEDIR;
 
-    $fullname = $GALLERY_BASEDIR . "html_wrap/$name";
+	$fullname = $GALLERY_BASEDIR . "html_wrap/$name";
 
-    if (!fs_file_exists($fullname)) {
-        $fullname .= ".default";
-    }
+	if (!fs_file_exists($fullname)) {
+		$fullname .= ".default";
+	}
 	return new XTemplate($fullname);
 }
 
@@ -81,8 +105,8 @@ function getLayoutWrapHeaderFooter($G) {
 	$xtpl_hf->assign('G', $G);
 
 	if (!$GALLERY_EMBEDDED_INSIDE) {
-    	$xtpl_hf->parse("header.standalone_only");
-    	$xtpl_hf->parse("footer.standalone_only");
+		$xtpl_hf->parse("header.standalone_only");
+		$xtpl_hf->parse("footer.standalone_only");
 	}
 	$xtpl_hf->parse("header");
 	$xtpl_hf->parse("footer");
@@ -98,7 +122,7 @@ function getLayoutWrapHeaderFooter($G) {
 //function getLayoutPSPCooker($handle, $name) {
 //
 //	$template = new PSPCooker($gallery->app->tmpDir);
-//    $template->load_file($handle, getLayoutFile($name));
+//	$template->load_file($handle, getLayoutFile($name));
 //}
 
 ?>
