@@ -19,7 +19,7 @@
 	    {/gallery->widget1title}
 	    
 	    {gallery->widget1body}
-	      {gallery->input type="text" name="form.path"}{$form.path}{/gallery->input}
+	      {gallery->input type="text" size="40" name="form.path"}{$form.path}{/gallery->input}
 	      
 	      {if isset($form.error.path.missing)}
 		{gallery->error}
