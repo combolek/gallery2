@@ -28,8 +28,8 @@ import com.gallery.GalleryRemote.model.Picture;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.*;
-import java.io.File;
+import java.util.Hashtable;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
@@ -38,13 +38,13 @@ public class PreviewFrame extends javax.swing.JFrame {
 
 	SmartHashtable imageIcons = new SmartHashtable();
 	ImageIcon currentImage = null;
-	//String currentImageFile = null;
+	String currentImageFile = null;
 	Picture currentPicture = null;
 	PreviewLoader previewLoader = new PreviewLoader();
 	int previewCacheSize = 10;
 
 	public void initComponents() {
-		setTitle(GRI18n.getString(MODULE, "title"));
+		setTitle(GRI18n.getInstance().getString(MODULE, "title"));
 
 		setIconImage(MainFrame.iconImage);
 
@@ -52,7 +52,7 @@ public class PreviewFrame extends javax.swing.JFrame {
 
 		addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
-				flushMemory();
+				imageIcons.clear();
 			}
 		});
 
@@ -68,83 +68,63 @@ public class PreviewFrame extends javax.swing.JFrame {
 		}
 	}
 
-	public void hide() {
-		// release memory if no longer necessary
-		flushMemory();
-		super.hide();
-
-		displayPicture(null);
-	}
-
-	public void flushMemory() {
-		imageIcons.clear();
-	}
-
-	public void displayPicture(Picture picture) {
+	public void displayFile(Picture picture) {
 		if (picture == null) {
 			currentImage = null;
-			//currentImageFile = null;
+			currentImageFile = null;
 			currentPicture = null;
 
 			repaint();
 		} else {
-			//String filename = picture.getSource().getPath();
+			String filename = picture.getSource().getPath();
 			
-			if (picture != currentPicture) {
-				//currentImageFile = filename;
+			if (!filename.equals(currentImageFile)) {
+				currentImageFile = filename;
 				currentPicture = picture;
 
-				ImageIcon r = (ImageIcon) imageIcons.get(picture);
+				ImageIcon r = (ImageIcon) imageIcons.get(filename);
 				if (r != null) {
-					Log.log(Log.LEVEL_TRACE, MODULE, "Cache hit: " + picture);
+					Log.log(Log.LEVEL_TRACE, MODULE, "Cache hit: " + filename);
 					currentImage = r;
 					repaint();
 				} else {
-					Log.log(Log.LEVEL_TRACE, MODULE, "Cache miss: " + picture);
-					previewLoader.loadPreview(picture);
+					Log.log(Log.LEVEL_TRACE, MODULE, "Cache miss: " + filename);
+					previewLoader.loadPreview(filename);
 				}
 			}
 		}
 	}
 
-	public ImageIcon getSizedIconForce(Picture picture) {
-		ImageIcon r = (ImageIcon) imageIcons.get(picture);
+	public ImageIcon getSizedIconForce(String filename) {
+		ImageIcon r = (ImageIcon) imageIcons.get(filename);
 
 		if (r == null) {
-			if (picture.isOnline()) {
-				File f = ImageUtils.download(picture, getRootPane().getSize(), GalleryRemote.getInstance().mainFrame.jStatusBar);
+			r = ImageUtils.load(
+					filename,
+					getRootPane().getSize(),
+					ImageUtils.PREVIEW);
 
-				r = ImageUtils.load(
-						f.getPath(),
-						getRootPane().getSize(),
-						ImageUtils.PREVIEW);
-			} else {
-				r = ImageUtils.load(
-						picture.getSource().getPath(),
-						getRootPane().getSize(),
-						ImageUtils.PREVIEW);
-			}
-			Log.log(Log.LEVEL_TRACE, MODULE, "Adding to cache: " + picture);
-			imageIcons.put(picture, r);
+			Log.log(Log.LEVEL_TRACE, MODULE, "Adding to cache: " + filename);
+			imageIcons.put(filename, r);
 		}
 
 		return r;
 	}
 
 	class PreviewLoader implements Runnable {
-		Picture picture;
+		String iFilename = null;
 		boolean stillRunning = false;
 
 		public void run() {
-			Log.log(Log.LEVEL_TRACE, MODULE, "Starting " + picture);
-			while (picture != null) {
-				Picture tmpPicture;
-				synchronized (picture) {
-					tmpPicture = picture;
-					picture = null;
+			Log.log(Log.LEVEL_TRACE, MODULE, "Starting " + iFilename);
+			while (iFilename != null) {
+				String tmpFilename;
+				synchronized (iFilename) {
+					tmpFilename = iFilename;
+					iFilename = null;
 				}
 
-				currentImage = getSizedIconForce(tmpPicture);
+				currentImage = getSizedIconForce(tmpFilename);
 			}
 			stillRunning = false;
 
@@ -152,10 +132,10 @@ public class PreviewFrame extends javax.swing.JFrame {
 			Log.log(Log.LEVEL_TRACE, MODULE, "Ending");
 		}
 
-		public void loadPreview(Picture picture) {
-			Log.log(Log.LEVEL_TRACE, MODULE, "loadPreview " + picture);
+		public void loadPreview(String filename) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "loadPreview " + filename);
 
-			this.picture = picture;
+			iFilename = filename;
 
 			if (!stillRunning) {
 				stillRunning = true;
@@ -166,8 +146,8 @@ public class PreviewFrame extends javax.swing.JFrame {
 	}
 
 
-	public class SmartHashtable extends HashMap {
-		ArrayList touchOrder = new ArrayList();
+	public class SmartHashtable extends Hashtable {
+		Vector touchOrder = new Vector();
 
 		public Object put(Object key, Object value) {
 			touch(key);
@@ -189,13 +169,9 @@ public class PreviewFrame extends javax.swing.JFrame {
 		}
 
 		public Object get(Object key) {
-			return get(key, true);
-		}
-
-		public Object get(Object key, boolean touch) {
 			Object result = super.get(key);
 
-			if (result != null && touch) {
+			if (result != null) {
 				touch(key);
 			}
 
@@ -203,23 +179,8 @@ public class PreviewFrame extends javax.swing.JFrame {
 		}
 
 		public void clear() {
-			Log.log(Log.LEVEL_TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
-
-			// flush images before clearing hastables for quicker deletion
-			Iterator it = values().iterator();
-			while (it.hasNext()) {
-				ImageIcon i = (ImageIcon) it.next();
-				if (i != null) {
-					i.getImage().flush();
-				}
-			}
-
 			super.clear();
 			touchOrder.clear();
-
-			Runtime.getRuntime().gc();
-
-			Log.log(Log.LEVEL_TRACE, MODULE, Runtime.getRuntime().freeMemory() + " - " + Runtime.getRuntime().totalMemory());
 		}
 
 		public void touch(Object key) {
@@ -240,12 +201,13 @@ public class PreviewFrame extends javax.swing.JFrame {
 				return;
 			}
 
-			Object key = touchOrder.get(0);
+			Object key = touchOrder.elementAt(0);
 			touchOrder.remove(0);
 
-			ImageIcon i = (ImageIcon) get(key, false);
+			ImageIcon i = (ImageIcon) get(key);
 			if (i != null) {
 				i.getImage().flush();
+				i = null;
 			}
 
 			remove(key);

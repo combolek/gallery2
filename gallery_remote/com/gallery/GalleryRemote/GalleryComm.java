@@ -47,7 +47,7 @@ import javax.swing.*;
  */
 public abstract class GalleryComm implements PreferenceNames {
 	private static final String MODULE = "GalComm";
-
+    private static GRI18n grRes = GRI18n.getInstance();
 	int[] capabilities = null;
 	private static int lastRespCode = 0;
 	
@@ -78,6 +78,11 @@ public abstract class GalleryComm implements PreferenceNames {
 			}
 		});
 	}
+
+	public static void initHTTPClient() {
+		// no need to do anything: the static initializer does it...
+	}
+
 
 	/**
 	 *	Causes the GalleryComm instance to upload the pictures in the
@@ -122,11 +127,7 @@ public abstract class GalleryComm implements PreferenceNames {
 			String newAlbumDesc, boolean async ) {
 		throw new RuntimeException( "This method is not available on this protocol" );
 	}
-
-	public void fetchAlbumImages(StatusUpdate su, Album a, boolean async) {
-		throw new RuntimeException( "This method is not available on this protocol" );
-	}
-
+	
 	public void logOut() {
 		isLoggedIn = false;
 		CookieModule.discardAllCookies();
@@ -161,10 +162,8 @@ public abstract class GalleryComm implements PreferenceNames {
 				HTTPConnection.setProxyServer(hostname, port);
 				
 				if (username != null && username.length() > 0) {
-					String password = p.getBase64Property(PROXY_PASSWORD);
-					Log.log(Log.LEVEL_TRACE, MODULE, "Setting proxy auth to " + username + ":" + password);
 					AuthorizationInfo.addBasicAuthorization(hostname, port, "",
-							username, password);
+							username, p.getBase64Property(PROXY_PASSWORD));
 				}
 			} else {
 				HTTPConnection.setProxyServer(null, 0);
@@ -217,10 +216,7 @@ public abstract class GalleryComm implements PreferenceNames {
 			if (rspCode >= 300 && rspCode < 400) {
 				// retry, the library will have fixed the URL
 				rsp = mConnection.Post(urlPath);
-				rspCode = rsp.getStatusCode();
 			}
-
-			Log.log(Log.LEVEL_TRACE, MODULE, "tryComm " + urlPath + ": " + rspCode);
 
 			return rspCode == 200;
 		} catch (UnknownHostException uhe) {
@@ -232,7 +228,7 @@ public abstract class GalleryComm implements PreferenceNames {
 				if (ioe instanceof javax.net.ssl.SSLPeerUnverifiedException) {
 					Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 
-					JOptionPane.showMessageDialog((Component) su, GRI18n.getString(MODULE, "noAuth"), GRI18n.getString(MODULE, "error"), JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog((Component) su, grRes.getString(MODULE, "noAuth"), grRes.getString(MODULE, "error"), JOptionPane.ERROR_MESSAGE);
 				} else {
 					Log.logException(Log.LEVEL_ERROR, MODULE, ioe);
 				}

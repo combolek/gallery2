@@ -93,7 +93,7 @@ public class PropertiesFile extends GalleryProperties
 	 *@param  name  The new filename value
 	 */
 	public synchronized void setFilename( String name ) {
-		if (name.length() < 5 || name.length() - name.lastIndexOf('.') > 5) {
+		if (name.length() - name.lastIndexOf('.') > 5) {
 			mFilename = name + ".properties";
 		} else {
 			mFilename = name;
@@ -130,7 +130,7 @@ public class PropertiesFile extends GalleryProperties
 			try {
 				read();
 			} catch ( FileNotFoundException e ) {
-				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -188,7 +188,7 @@ public class PropertiesFile extends GalleryProperties
 				fileOut = new FileOutputStream( mFilename );
 				store( fileOut, null );
 			} catch ( IOException e ) {
-				Log.logException(Log.LEVEL_ERROR, MODULE, e);
+				e.printStackTrace();
 			} finally {
 				try {
 					fileOut.close();
@@ -256,10 +256,10 @@ public class PropertiesFile extends GalleryProperties
 		if (header != null)
 			writeln(awriter, "#" + header);
 		writeln(awriter, "#" + new Date().toString());
-		ArrayList v = new ArrayList(keySet());
+		Vector v = new Vector(keySet());
 		Collections.sort(v);
-		for (Iterator e = v.iterator(); e.hasNext();) {
-			String key = (String)e.next();
+		for (Enumeration e = v.elements(); e.hasMoreElements();) {
+			String key = (String)e.nextElement();
 			String val = (String)get(key);
 			key = saveConvert(key, true);
 

@@ -2,12 +2,16 @@ package com.gallery.GalleryRemote.util;
 
 import org.apache.tools.ant.BuildException;
 import com.gallery.GalleryRemote.prefs.PropertiesFile;
+import com.gallery.GalleryRemote.GalleryComm;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
 
-import HTTPClient.*;
+import HTTPClient.HTTPConnection;
+import HTTPClient.HTTPResponse;
+import HTTPClient.NVPair;
+import HTTPClient.ModuleException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -115,17 +119,8 @@ public class PostChangeLog extends org.apache.tools.ant.Task {
 				new NVPair("newVersion", betaCheck.toString() ),
 			};
 
-			// set cookie handling
-			CookieModule.setCookiePolicyHandler(new CookiePolicyHandler() {
-				public boolean acceptCookie(Cookie cookie, RoRequest req, RoResponse resp) {
-					System.out.println("Accepting cookie: " + cookie);
-					return true;
-				}
-				public boolean sendCookie(Cookie cookie, RoRequest req) {
-					System.out.println("Sending cookie: " + cookie);
-					return true;
-				}
-			});
+			// hack: set cookie handling
+			GalleryComm.initHTTPClient();
 
 			HTTPConnection mConnection = new HTTPConnection( "gallery.menalto.com" );
 			HTTPResponse rsp = null;

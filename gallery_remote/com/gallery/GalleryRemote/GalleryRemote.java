@@ -45,20 +45,25 @@ public class GalleryRemote {
 		defaults = new PropertiesFile("defaults");
 		
 		File f = new File(System.getProperty("user.home")
-				+ File.separator + ".GalleryRemote"
-				+ File.separator);
-
+		+ File.separator + ".GalleryRemote"
+		+ File.separator);
+		
 		f.mkdirs();
-
+		
 		properties = new PropertiesFile(defaults, f.getPath()
-				+ File.separator + "GalleryRemote");
+		+ File.separator + "GalleryRemote");
 	}
 	
 	private void run() {
 		try {
+			// For native Look and Feel, uncomment the following code.
+			/// *
 			try {
 				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-			} catch ( Exception e ) {}
+			}
+			catch ( Exception e ) {
+			}
+			//* /
 			
 			// log system properties
 			new GalleryProperties(System.getProperties()).logProperties(Log.LEVEL_INFO, "SysProps");
