@@ -390,18 +390,18 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
        </listitem>
        <listitem>
         <para>
-         <emphasis>Status: (expected 0)</emphasis>
-         This means that Gallery is unable to get a status message from PHP, which
-         it relies on. One possible solution is that your host has disabled some
-         needed php functions. To determine if they have create a PHP file containing
+         <emphasis>Status: (expected 0)</emphasis> -- This means that Gallery is unable to 
+         get a status message from PHP, which it relies on. One possible solution is that 
+         your host has disabled some needed php functions. To determine if they have create
+         a PHP file containing
           <screen>
 <![CDATA[
 <?php
 echo ini_get("disable_functions");
 ?>
 ]]>
-        </screen>
-          If the output displays exec() see <link linkend="gallery1-install.faq.c.29">FAQ C.29</link>.
+          </screen>
+         If the output displays exec() see <link linkend="gallery1-install.faq.c.29">FAQ C.29</link>.
         </para>
        </listitem>
       </itemizedlist>
