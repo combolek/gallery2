@@ -526,6 +526,11 @@ class GalleryTheme {
     function error($params, $content) { return $this->_renderTemplate('error', $params, $content); }
     function textmodifier1($params, $content) { return $this->_renderTemplate('textmodifier1', $params, $content); }
     
+    function table($params, $content) { return $this->_renderTemplate('table', $params, $content); }
+    function row($params, $content) { return $this->_renderTemplate('row', $params, $content); }
+    function column($params, $content) { return $this->_renderTemplate('column', $params, $content); }
+    function columnheader($params, $content) { return $this->_renderTemplate('columnheader', $params, $content); }
+    
     /* Non-block style themeables */
     function style($params) { return $this->_renderTemplate('style', $params); }
     

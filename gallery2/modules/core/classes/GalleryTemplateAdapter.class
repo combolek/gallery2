@@ -199,6 +199,10 @@ class GalleryTemplateAdapter {
 				      'listingbody',
 				      'listingitem',
 				      'listingitemselected',
+				      'table',
+				      'row',
+				      'column',
+				      'columnheader',
 
 				      /* Old API Style methods */
 				      'bigFontSize',
@@ -254,6 +258,10 @@ class GalleryTemplateAdapter {
     function status($params, $content) { if (isset($content)) { return $this->_theme->status($params, $content); } }
     function error($params, $content) { if (isset($content)) { return $this->_theme->error($params, $content); } }
     function textmodifier1($params, $content) { if (isset($content)) { return $this->_theme->textmodifier1($params, $content); } }
+    function table($params, $content) { if (isset($content)) { return $this->_theme->table($params, $content); } }
+    function row($params, $content) { if (isset($content)) { return $this->_theme->row($params, $content); } }
+    function column($params, $content) { if (isset($content)) { return $this->_theme->column($params, $content); } }
+    function columnheader($params, $content) { if (isset($content)) { return $this->_theme->columnheader($params, $content); } }
 
     /* block style builtins */
     function form($params, $content) { if (isset($content)) { return $this->_theme->form($params, $content); } }
