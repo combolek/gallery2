@@ -100,7 +100,8 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
         |album.perms.del_alb.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.create_sub.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         \album.info.extrafields.<replaceable>ref-num</replaceable>=<replaceable>extra-fields</replaceable><productnumber> [since 2.3]</productnumber>
-         album_count=<replaceable>number-of-albums</replaceable></programlisting>
+         album_count=<replaceable>number-of-albums</replaceable>
+	 can_create_root=<replaceable>yes/no</replaceable><productnumber> [since 2.11]</productnumber></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the album data was fetched successfully.</para>
         <para>If successful, a response to the <varname>fetch-albums</varname> command returns several keys for each album in the gallery, where</para>
         <itemizedlist spacing="compact">
@@ -148,6 +149,7 @@ protocol_version=<replaceable>2.0</replaceable></programlisting>
           </listitem>
         </itemizedlist>
         <para>The number of albums in the response is returned as <varname><replaceable>number-of-albums</replaceable></varname>.</para>
+	<para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.fetch-albums-prune">
@@ -182,7 +184,8 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
         |album.perms.del_alb.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         |album.perms.create_sub.<replaceable>ref-num</replaceable>=<replaceable>boolean</replaceable>
         \album.info.extrafields.<replaceable>ref-num</replaceable>=<replaceable>extra-fields</replaceable><productnumber> [since 2.3]</productnumber>
-         album_count=<replaceable>number-of-albums</replaceable></programlisting>
+         album_count=<replaceable>number-of-albums</replaceable>
+	 can_create_root=<replaceable>yes/no</replaceable><productnumber> [since 2.11]</productnumber></programlisting>
         <para>If the <varname><replaceable>result-code</replaceable></varname> is equal to <link linkend="gallery-remote.protocol.retcodes"><varname>GR_STAT_SUCCESS</varname></link>, the album data was fetched successfully.</para>
         <para>If successful, a response to the <varname>fetch-albums-prune</varname> command returns several keys for each album in the gallery, where</para>
         <itemizedlist spacing="compact">
@@ -230,6 +233,7 @@ protocol_version=<replaceable>2.2</replaceable></programlisting>
           </listitem>
         </itemizedlist>
         <para>The number of albums in the response is returned as <varname><replaceable>number-of-albums</replaceable></varname>.</para>
+	<para>can_create_root will be set to either yes or no depending on the user's permissions to create albums at the root level.</para>
       </sect4>
     </sect3>
     <sect3 id="gallery-remote.protocol.cmd.add-item">
