@@ -49,7 +49,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			     'default.theme',
 			     'default.language',
 			     'session.lifetime',
-			     'session.inactivityTimeout');
+			     'session.inactivityTimeout',
+			     'uploadLocalServer.dirs');
 	
 	/* Save the original values */
 	foreach ($this->_keys as $key) {
@@ -115,19 +116,71 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     }
 
     function testAddUploadLocalServerDir() {
-	$this->assert(false);
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form.uploadLocalServer.newDir', 'foo');
+	GalleryUtilities::putRequestVariable('form.action.addUploadLocalServerDir', 1);
+
+	$ret = $gallery->setModuleParameter('core', 'uploadLocalServer.dirs', 'a,b,c');
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'core:AdminCore'),
+				  'status' => array('addedDir' => 1)),
+			    $results);
+
+	GalleryDataCache::reset();
+
+	list ($ret, $dirs) = $gallery->getModuleParameter('core', 'uploadLocalServer.dirs');
+	$this->assertEquals('a,b,c,foo', $dirs);
     }
 
     function testAddUploadLocalServerDirMissing() {
-	$this->assert(false);
+	GalleryUtilities::putRequestVariable('form.uploadLocalServer.newDir', '');
+	GalleryUtilities::putRequestVariable('form.action.addUploadLocalServerDir', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('view' => 'core:SiteAdmin'), $results);
+	$this->assertEquals('core:AdminCore', GalleryUtilities::getRequestVariables('subView'));
+	$this->assert(GalleryUtilities::hasRequestVariable('form.error.uploadLocalServer.newDir.missing'));
     }
     
     function testRemoveUploadLocalServerDir() {
-	$this->assert(false);
+	global $gallery;
+	GalleryUtilities::putRequestVariable('form.uploadLocalServer.selectedDir', 'foo');
+	GalleryUtilities::putRequestVariable('form.action.removeUploadLocalServerDir', 1);
+
+	$ret = $gallery->setModuleParameter('core', 'uploadLocalServer.dirs', 'a,foo,b,c');
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'core:AdminCore'),
+				  'status' => array('removedDir' => 1)),
+			    $results);
+
+	GalleryDataCache::reset();
+
+	list ($ret, $dirs) = $gallery->getModuleParameter('core', 'uploadLocalServer.dirs');
+	$this->assertEquals('a,b,c', $dirs);
     }
 
     function testRemoveUploadLocalServerDirMissing() {
-	$this->assert(false);
+	GalleryUtilities::putRequestVariable('form.uploadLocalServer.selectedDir', '');
+	GalleryUtilities::putRequestVariable('form.action.removeUploadLocalServerDir', 1);
+
+	/* Perform the request and verify that we succeeded */
+	$results = $this->handleRequest();
+	$this->assertEquals(array('view' => 'core:SiteAdmin'), $results);
+	$this->assertEquals('core:AdminCore', GalleryUtilities::getRequestVariables('subView'));
+	$this->assert(GalleryUtilities::hasRequestVariable('form.error.uploadLocalServer.selectedDir.missing'));
     }
     
 }

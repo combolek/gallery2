@@ -131,7 +131,7 @@ class AdminCoreController extends GalleryController {
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:SiteAdmin';
-		$results['subView'] = 'core:AdminCore';
+		GalleryUtilities::putRequestVariable('subView', 'core:AdminCore');
 	    }
 	}
 
