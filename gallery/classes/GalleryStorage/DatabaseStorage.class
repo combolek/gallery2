@@ -318,12 +318,76 @@ class DatabaseStorage extends GalleryStorage {
 	    }
 	    $recordSet->Close();
 
-	    $prototype->clearModifyFlags();
+	    $prototype->clearModifiedFlags();
 	    $nucleus = $prototype;
 	    return SUCCESS;
 	} else {
 	    return array(ERROR | ERROR_DATABASE_FAILURE, null);
 	}
+    }
+
+    /**
+     * Load a class member from the database
+     *
+     * This is used for class members that are objects, like GalleryMap and
+     * GalleryList instances.
+     *
+     * @param object GalleryNucleus the containing GalleryNucleus
+     * @param string the name of the member
+     * @return int a status code
+     */
+    function loadMember(&$nucleus, $memberName, &$object) {
+
+	$metaInfo = $this->_metaInfo->describeClass($nucleus->getObjectType());
+	$type = $metaInfo['members'][$memberName]['type'];
+	if ($type & STORAGE_TYPE_MAP) {
+	    return $this->_loadMap($nucleus, $memberName, $object);
+	} else {
+	    return ERROR;
+	}
+    }
+
+    /**
+     * Load a GalleryMap from the database
+     *
+     * @param object GalleryNucleus the containing GalleryNucleus
+     * @param string the name of the member
+     * @access private
+     * @return int a status code
+     */
+    function _loadMap(&$nucleus, $memberName, &$map) {
+
+	$this->_traceStart();
+	
+	/* Figure out which table we're reading from */
+	$tableName = DATABASE_TABLE_PREFIX .
+		$nucleus->getObjectType() . '_' .
+		$memberName;
+
+	/* Clear out the map */
+	$map->reset();
+
+	/* Set up and execute our query */
+	$query = 'SELECT `key`, `value` from ' . $tableName .
+		' WHERE id=?';
+	$data = array($nucleus->getId());
+	$recordSet = $this->_db->Execute($query, $data);
+	if (!$recordSet) {
+	    $this->_traceStop();
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+
+	/* Push all our data into the map */
+	while (!$recordSet->EOF) {
+	    $map->setValue($recordSet->fields['key'], $recordSet->fields['value']);
+	    $recordSet->MoveNext();
+	}
+
+	$map->clearModifiedFlags();
+	$nucleus->setLoadedFlag($memberName, true);
+
+	$this->_traceStop();
+	return SUCCESS;
     }
 
     /**
@@ -358,14 +422,20 @@ class DatabaseStorage extends GalleryStorage {
 	 */
 	foreach ($metaInfo['members'] as $name => $info) {
 	    /* Locate the id column */
-	    if ($metaInfo[$name]['type'] & STORAGE_MODIFIER_ID) {
+	    $type = $metaInfo['members'][$name]['type'];
+	    if ($type & STORAGE_MODIFIER_ID) {
 		$func = 'get' . ucfirst($name);
 		$value = $nucleus->$func();
 		$idColumn = array('name' => $name, 'value' => $value);
 	    }
+
+	    /* Skip compound types, we'll handle them separately */
+	    if ($type & (STORAGE_TYPE_MAP | STORAGE_TYPE_LIST)) {
+		continue;
+	    }
 	    
 	    /* If the member is modified, record the new value in our table */
-	    if (isset($persistentInfo->modified[$name])) {
+	    if ($nucleus->getModifiedFlag($name) & MEMBER_MODIFIED) {
 		$func = 'get' . ucfirst($name);
 		$value = $nucleus->$func();
 		$dataTable[$info['class']][$name] = $value;
@@ -477,11 +547,116 @@ class DatabaseStorage extends GalleryStorage {
 	    }
 	}
 	
+	/*
+	 * Save sub-objects as necessary
+	 */
+	foreach ($metaInfo['members'] as $name => $info) {
+	    if ($metaInfo['members'][$name]['type'] & STORAGE_TYPE_MAP) {
+		$func = 'get' . ucfirst($name);
+		if ($nucleus->getLoadedFlag($name)) {
+		    $map =& $nucleus->$func();
+		    $ret = $this->_saveMap($nucleus, $name, $map);
+		    if ($ret & ERROR) {
+			return $ret;
+		    }
+		}
+	    }
+	}
+
 	$nucleus->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-	$nucleus->clearModifyFlags();
+	$nucleus->clearModifiedFlags();
+
 	$this->_traceStop();
 	
 	return SUCCESS;
+    }
+
+    /**
+     * Save a GalleryMap
+     *
+     * @access public
+     * @param object GalleryNucleus the containing GalleryNucleus
+     * @param string the member name of the map
+     * @param object GalleryMap the map object
+     * @return int a status code
+     */
+    function _saveMap($nucleus, $memberName, &$map) {
+	if ($this->_connectionStatus != DATABASE_STATUS_FULLY_CONNECTED) {
+	    return ERROR | ERROR_DATABASE_NOT_CONNECTED;
+	}
+
+	/* Figure out which table we're reading from */
+	$tableName = DATABASE_TABLE_PREFIX .
+		$nucleus->getObjectType() . '_' .
+		$memberName;
+	
+	$deleteKeys = array();
+	$modifyKeys = array();
+	$createKeys = array();
+
+	$persistentInfo = $map->getPersistentInfo();
+	foreach ($persistentInfo->modified as $name => $flag) {
+	    if ($flag & MEMBER_REMOVED) {
+		if (!($flag & MEMBER_CREATED)) {
+		    $deleteMarkers[] = '?';
+		    $deleteKeys[] = $name;
+		}
+	    } else if ($flag & MEMBER_CREATED) {
+		$createKeys[] = $name;
+	    } else {
+		$modifyKeys[] = $name;
+	    }
+	}
+
+	$id = $nucleus->getId();
+
+	if ($deleteKeys) {
+	    $query = 'DELETE FROM ' . $tableName .
+		    ' WHERE id = ? ' .
+		    ' AND `key` in (' . join(', ', $deleteMarkers) . ')';
+
+	    $data = $deleteKeys;
+	    array_unshift($data, $id);
+	    
+	    $recordSet = $this->_db->Execute($query, $data);
+	    if (!$recordSet) {
+		return ERROR | ERROR_DATABASE_FAILURE;
+	    }
+	}
+
+	if ($createKeys) {
+	    foreach ($createKeys as $key) {
+		$query = 'INSERT INTO ' . $tableName .
+			' (`id`, `key`, `value`)' .
+			' VALUES (?, ?, ?) ';
+		$data = array($id,
+			      $key,
+			      $map->getValue($key));
+
+		$recordSet = $this->_db->Execute($query, $data);
+		if (!$recordSet) {
+		    return ERROR | ERROR_DATABASE_FAILURE;
+		}
+	    }
+	}
+
+	if ($modifyKeys) {
+	    foreach ($modifyKeys as $key) {
+		$query = 'UPDATE ' . $tableName .
+			' SET value=? ' .
+			' WHERE id=? AND `key`=?';
+		$data = array($map->getValue($key), $id, $key);
+		$recordSet = $this->_db->Execute($query, $data);
+		if (!$recordSet) {
+		    return ERROR | ERROR_DATABASE_FAILURE;
+		}
+	    }
+	}
+
+	/*
+	 * Clear out our modification flags.
+	 */
+	$map->clearModifiedFlags();
     }
 
     /**
