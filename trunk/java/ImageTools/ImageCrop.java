@@ -415,7 +415,7 @@ public class ImageCrop extends Applet
 	{
 		public void actionPerformed(ActionEvent e) 
 		{
-			String submitTo = getDocumentBase() + "&";
+			String submitTo = getParameter("submit") + "&";
 
 			if (((Button)e.getSource()).getLabel() == "OK")
 			{
