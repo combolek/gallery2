@@ -1,0 +1,1435 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Global storage container and utility class for Gallery
+ *
+ * This is a container for global information required for gallery
+ * operation, such as configuration, session, user, etc.  
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class Gallery {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The id of the active user
+     *
+     * @var int $_activeUserId
+     * @access private
+     */
+    var $_activeUserId;
+
+    /**
+     * The active GalleryUser instance
+     *
+     * @var object GalleryUser $_activeUser
+     * @access private
+     */
+    var $_activeUser;
+
+    /**
+     * Storage for all configuration variables, set in config.php.
+     * The values contained here can't be modified.  Well, they
+     * can be modified but they can't be saved so it's not a good
+     * idea.  
+     *
+     * @var array $_config
+     * @access private
+     */
+    var $_config;
+
+    /**
+     * The current debugging mode.  One of 'buffered', 'logged', 'immediate' or false
+     * 
+     * @var string $_debug
+     * @access private
+     */
+    var $_debug;
+    
+    /**
+     * Where to send debug output (when the debugging mode is set to 'logged')
+     * 
+     * @var bool $_debugLogFile
+     * @access private
+     */
+    var $_debugLogFile;
+    
+    /**
+     * A place to temporarily store debug output when the debugging mode is set
+     * to 'buffered'
+     * 
+     * @var bool $_debugBuffer
+     * @access private
+     */
+    var $_debugBuffer;
+
+    /**
+     * A registry of event listeners
+     *
+     * @var array $_eventListeners;
+     * @access private
+     */
+    var $_eventListeners;
+
+    /**
+     * The current GalleryGraphics
+     *
+     * @var object GalleryGraphics $_graphics
+     * @access private
+     */
+    var $_graphics;
+
+    /**
+     * A list of all the locks that have been acquired during this request
+     *
+     * @var array $_locks
+     * @access private
+     */
+    var $_locks;
+
+    /**
+     * Information about Gallery modules
+     *
+     * @var array
+     * @access private
+     */
+    var $_modules;
+
+    /**
+     * An instance of the GalleryPlatform class
+     *
+     * @var object GalleryPlatform $_platform
+     * @access private
+     */
+    var $_platform;
+
+    /**
+     * The current profiling mode.
+     * 
+     * @var bool $_profile
+     * @access private
+     */
+    var $_profile;
+    
+    /**
+     * Storage for all session variables.  
+     *
+     * @var object GallerySession $_session
+     * @access private
+     */
+    var $_session;
+
+    /**
+     * The backend persistent store for the Gallery class
+     *
+     * @var object GalleryStorage $_storage
+     * @access private
+     */
+    var $_storage;
+
+    /**
+     * The adapter between the template system and any Gallery callbacks that
+     * we want to use during the template process.
+     *
+     * @var object GalleryTemplateAdapter $_templateAdapter
+     * @access private
+     */
+    var $_templateAdapter;
+
+    /**
+     * Instance of the GalleryTranslator class
+     *
+     * @var object $_translator
+     * @access private
+     */
+    var $_translator;
+
+    /**
+     * Instance of the GalleryUrlGenerator class
+     *
+     * @var object $_urlGenerator
+     * @access private
+     */
+    var $_urlGenerator;
+
+    /**
+     * The time at which we should cease whatever operation we're doing
+     *
+     * @var int $_timeLimit
+     * @access private
+     */
+    var $_timeLimit;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     */
+    function Gallery() {
+	$this->reset();
+	$this->_modules = array();
+	$this->_locks = array();
+	$this->_boundDomains = array();
+	$this->_activeUserId = null;
+	    
+	/* Set up a shutdown function to release any hanging locks. */
+	register_shutdown_function(array(&$this, '_shutdown'));
+    }
+
+    /**
+     * Reset persistent information
+     *
+     * This should only be called by test cases.
+     */
+    function reset() {
+	$this->_templateAdapter = null;
+	$this->_eventListeners = array();
+	GalleryDataCache::reset();
+    }
+
+    /**
+     * Load the GalleryEntities with the ids specified
+     *
+     * @param mixed the ids (or id) of the GalleryEntities to load
+     * @return array object GalleryStatus a status code,
+     *               mixed one GalleryEntity or an array of GalleryEntities
+     */
+    function loadEntitiesById($ids) {
+	GalleryProfiler::start('modules.core.classes.Gallery::loadEntitiesById');
+	
+	$this->guaranteeTimeLimit(5);
+	    
+	if (empty($ids)) {
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	if (is_array($ids)) {
+	    $returnArray = true;
+	} else {
+	    $returnArray = false;
+	    $ids = array($ids);
+	}
+
+	/* Grab what we can from the cache and make up a list of what's missing */
+	$cached = array();
+	$missing = array();
+	foreach ($ids as $id) {
+	    if (GalleryDataCache::containsKey("Gallery::loadEntitiesById($id)")) {
+		$cached[$id] = GalleryDataCache::get("Gallery::loadEntitiesById($id)");
+	    } else {
+		$missing[] = $id;
+	    }
+	}
+
+	if (!empty($missing)) {
+	    /* Get our storage object */
+	    $storage = $this->getStorage();
+	    
+	    /* Load the entities from our persistent store */
+	    list ($ret, $missing) = $storage->loadEntities($missing);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	/* Move the new entities into the cache */
+	foreach ($missing as $entity) {
+	    $id = $entity->getId();
+	    GalleryDataCache::put("Gallery::loadEntitiesById($id)", $entity);
+	    $cached[$id] = $entity;
+	}
+
+	/* Build up the results from the cache */
+	$results = array();
+	foreach ($ids as $id) {
+	    $results[] =& $cached[$id];
+	}
+	
+	GalleryProfiler::stop('modules.core.classes.Gallery::loadEntitiesById');
+
+	if (!$returnArray) {
+	    $results = $results[0];
+	}
+
+	return array(GalleryStatus::success(), $results);
+    }
+
+    /**
+     * Delete the entity with the given id 
+     *
+     * @param int the id of a GalleryEntity to delete
+     * @return object GalleryStatus a status code 
+     */
+    function deleteEntityById($id) {
+	GalleryProfiler::start('modules.core.classes.Gallery::deleteEntityById');
+	
+	if (empty($id)) {
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	$lockIds = array();
+
+	/* Don't write lock it if it's already locked somewhere else */
+	if (!$this->isWriteLocked($id)) {
+	    list ($ret, $lockIds[]) = $this->acquireWriteLock($id);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+	
+	list ($ret, $entity) = $this->loadEntitiesById($id);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	if (GalleryUtilities::isA($entity, 'GalleryChildEntity')) {
+	    list ($ret, $newLock) = $this->acquireReadLockParents($id);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    /* The new lock can be null if we have no parents */
+	    if ($newLock != null) {
+		$lockIds[] = $newLock;
+	    }
+	}
+
+	$ret = $entity->delete();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	$ret = $this->releaseLocks($lockIds);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::deleteEntityById');
+	return GalleryStatus::success();
+    }
+
+    /**
+     * @see GalleryStorage::search()
+     */
+    function search($query, $data=array(), $options=array()) {
+	GalleryProfiler::start('modules.core.classes.Gallery::search');
+
+	$storage = $this->getStorage();
+	list ($ret, $results) = $storage->search($query, $data, $options);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::search');
+	return array(GalleryStatus::success(), $results);
+    }
+
+    /**
+     * Get the Id of the active user
+     *
+     * The active user is the user who is logged on in this 
+     * session.
+     * 
+     * @access public
+     * @return int the id of the current User.
+     */
+    function getActiveUserId() {
+	return $this->_activeUserId;
+    }
+
+    /**
+     * Set the id of the active user
+     *
+     * The active user is the user who is logged on in this 
+     * session.
+     * 
+     * @param int the id of the current User.
+     * @access public
+     */
+    function setActiveUserId($id) {
+	assert('!empty($id)');
+	$this->_activeUserId = (int)$id;
+	$this->_activeUser = null;
+    }
+
+    /**
+     * Get the active user
+     *
+     * Cache the results of the first call and return that same value each
+     * time.
+     *
+     * @return array object GalleryStatus a status code
+     *               object GalleryUser the active user
+     */
+    function getActiveUser() {
+	if (empty($this->_activeUser)) {
+	    list ($ret, $user) = $this->loadEntitiesById($this->getActiveUserId());
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $this->_activeUser = $user;
+	}
+
+	return array(GalleryStatus::success(), $this->_activeUser);
+    }
+
+    /**
+     * Store a value in the Gallery config table
+     *
+     * @param string the key name
+     * @param mixed the value
+     * @access public
+     */
+    function setConfig($key, $value) {
+	assert('!empty($key)');
+	$this->_config[$key] = $value;
+    }
+
+    /**
+     * Get a value from the Gallery configuration settings
+     *
+     * @access public
+     * @return mixed an arbitrary value
+     */
+    function getConfig($key) {
+	assert('!empty($key)');
+	return $this->_config[$key];
+    }
+
+    /**
+     * Get the Gallery session object.
+     *
+     * Return a reference to the unique Gallery session object.  Any changes
+     * made to this object will be saved in the session.
+     * 
+     * @access public
+     * @return object GalleryStatus a status code
+     */
+    function initSession() {
+	GalleryProfiler::start('modules.core.classes.Gallery::initSession');
+
+	if (empty($this->_session)) {
+	    $this->_session = new GallerySession();
+	    $ret = $this->_session->init();
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::initSession');
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Get the Gallery session object.
+     *
+     * Return a reference to the unique Gallery session object.  Any changes
+     * made to this object will be saved in the session.
+     * 
+     * @access public
+     * @return object GallerySession a session instance
+     */
+    function &getSession() {
+	return $this->_session;
+    }
+
+    /**
+     * Get the Gallery platform object.
+     *
+     * Return a copy of the unique Gallery platform object.
+     * 
+     * @access public
+     * @return array object GalleryPlatform the Gallery platform object
+     */
+    function getPlatform() {
+
+	if (!isset($this->_platform)) {
+	    $platformType = $this->getConfig('platform.type');
+
+	    foreach (array($platformType, '*') as $type) {
+		list ($ret, $this->_platform) =
+		    GalleryFactory::newInstanceByHint('GalleryPlatform', $type);
+
+		/*
+		 * The platform factory should never fail.  It's highly
+		 * inconvenient to have to return an error code from this function,
+		 * so just drop a debug message if there was a failure.
+		 *
+		 * XXX: Refactor this out into initPlatform() and getPlatform()
+		 *      so that we can actually return an error code.
+		 */
+		if ($ret->isError()) {
+		    $this->debug($ret->getAsHtml());
+		}
+
+		if (isset($this->_platform)) {
+		    break;
+		}
+	    }
+
+	    if (!isset($this->_platform)) {
+		$this->debug('Failed to get the platform!');
+	    }
+	}
+	
+	return $this->_platform;
+    }
+
+    /**
+     * Read Lock one or more objects
+     *
+     * @access public
+     * @param array ids to lock
+     * @param integer how long to wait for the lock before giving up
+     * @return array object GalleryStatus a status code
+     *               int the lock id
+     */
+    function acquireReadLock($ids, $timeout=10) {
+
+	GalleryProfiler::start('modules.core.classes.Gallery::acquireReadLock');
+
+	$storage = $this->getStorage();
+	
+	list ($ret, $lock) =
+	    $storage->acquireReadLock($ids, $timeout);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$lockId = $lock->getId();
+	$this->_locks[$lockId] = $lock;
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::acquireReadLock');
+
+	return array($ret->wrap(__FILE__, __LINE__), $lockId);
+    }
+
+    /**
+     * Acquire read locks on all the parents of this id.  This is useful when
+     * we're going to do a filesystem related operation and we want to make
+     * sure that the tree does not change out from underneath us.
+     *
+     * @access public
+     * @param integer an id to lock
+     * @param integer how long to wait for the lock before giving up
+     * @return array object GalleryStatus a status code
+     *               object GalleryLock a lock
+     */
+    function acquireReadLockParents($id, $timeout=10) {
+	global $gallery;
+
+	$storage = $this->getStorage();
+
+	/* Get the parent entity id */
+	$query = '
+        SELECT
+          [GalleryChildEntity::parentId]
+        FROM
+          [GalleryChildEntity]
+        WHERE
+          [GalleryChildEntity::id] = ?
+        ';
+
+	list ($ret, $searchResults) = $gallery->search($query, array($id));
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	if ($searchResults->resultCount() == 0) {
+	    /* This should never happen! */
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	}
+	
+	/* Extract the parent id */
+	while ($result = $searchResults->nextResult()) {
+	    $parentId = $result[0];
+	}
+	
+	if ($parentId == null) {
+	    
+	    /* No parent -- we're at the root */
+	    return array(GalleryStatus::success(), null);
+	}
+	
+	/* Don't both read locking if we already have a read or write lock. */
+	if (!($this->isWriteLocked($parentId) || $this->isReadLocked($parentId))) {
+	    
+	    /* Read lock the parent */
+	    list ($ret, $lock1) = $this->acquireReadLock($parentId, $timeout);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+	
+	/* Then lock all ancestors of the parent */
+	list ($ret, $lock2) = $this->acquireReadLockParents($parentId, $timeout);
+	if ($ret->isError()) {
+	    $this->releaseLocks($lock1);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Merge the locks down to a single lock. */
+	if (empty($lock1) && empty($lock2)) {
+	    $lockId = null;
+	} else if (empty($lock1) && !empty($lock2)) {
+	    $lockId = $lock2;
+	} else if (!empty($lock1) && empty($lock2)) {
+	    $lockId = $lock1;
+	} else {
+	    $this->_locks[$lock1]->merge($this->_locks[$lock2]);
+	    unset($this->_locks[$lock2]);
+	    $lockId = $lock1;
+	}
+
+	return array(GalleryStatus::success(), $lockId);
+    }
+
+    /**
+     * Return true if the given id is read locked or write locked.
+     *
+     * @access public
+     * @param int an entity id
+     * @return boolean true if the entity is read locked
+     */
+    function isReadLocked($id) {
+	foreach (array_keys($this->_locks) as $lockId) {
+	    $lock =& $this->_locks[$lockId];
+
+	    if ($lock->getLockType() != LOCK_READ && $lock->getLockType() != LOCK_WRITE) {
+		continue;
+	    }
+
+	    $ids = $lock->getEntityIds();
+	    if (in_array($id, $ids)) {
+		return true;
+	    }
+	}
+
+	return false;
+    }
+
+    /**
+     * Write lock one or more objects
+     *
+     * @access public
+     * @param array ids to lock
+     * @param integer how long to wait for the lock before giving up
+     * @return array object GalleryStatus a status code
+     *               int the lock id
+     */
+    function acquireWriteLock($ids, $timeout=10) {
+
+	$storage = $this->getStorage();
+
+	list ($ret, $lock) =
+	    $storage->acquireWriteLock($ids, $timeout);
+
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$lockId = $lock->getId();
+	$this->_locks[$lockId] = $lock;
+	return array(GalleryStatus::success(), $lockId);
+    }
+
+    /**
+     * Return true if the given id is write locked
+     *
+     * @access public
+     * @param int an entity id
+     * @return boolean true if the entity is write locked
+     */
+    function isWriteLocked($id) {
+
+	foreach (array_keys($this->_locks) as $lockId) {
+	    $lock =& $this->_locks[$lockId];
+
+	    if ($lock->getLockType() != LOCK_WRITE) {
+		continue;
+	    }
+
+	    $ids = $lock->getEntityIds();
+	    if (in_array($id, $ids)) {
+		return true;
+	    }
+	}
+
+	return false;
+    }
+
+    /**
+     * Release the given lock(s)
+     *
+     * @param array a list of lock ids, or a single lock id
+     * @return object GalleryStatus a status code
+     */
+    function releaseLocks($lockIds) {
+
+	if (!is_array($lockIds)) {
+	    $lockIds = array($lockIds);
+	}
+
+	/* Check all parameters before starting to release locks */
+	foreach ($lockIds as $lockId) {
+	    if (!isset($this->_locks[$lockId])) {
+		return GalleryStatus::error(ERROR_BAD_PARAMETER,
+					    __FILE__, __LINE__);
+	    }
+	}
+
+	/* Now release all locks */
+	foreach ($lockIds as $lockId) {
+	    $this->guaranteeTimeLimit(5);
+	    $ret = $this->_locks[$lockId]->release();
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    unset($this->_locks[$lockId]);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Let go of all of our locks.  We expect to call this from within the
+     * shutdown routine so allow for the fact that we don't want to halt on the
+     * first failure.
+     *
+     * @param string halt after the first failure?  default: no
+     * @return object GalleryStatus a status code
+     * @access private
+     */
+    function _releaseAllLocks($haltOnFailure=false) {
+	/* Release any hanging locks */
+	$errorRet = null;
+	foreach ($this->_locks as $lock) {
+	    $this->guaranteeTimeLimit(5);
+	    if ($lock->isLocked()) {
+		/* Bitch at the developer! */
+		$this->debug('Lock id ' . $lock->getId() . ' was left hanging!');
+		$ret = $lock->release();
+		if ($ret->isError()) {
+		    $errorRet = $ret->wrap(__FILE__, __LINE__);
+		    if ($haltOnFailure) {
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+	    }
+	}
+	$this->_locks = array();
+	if (!empty($errorRet)) {
+	    return $errorRet;
+	} else {
+	    return GalleryStatus::success();
+	}
+    }
+
+    /**
+     * Perform any necessary shutdown tasks.
+     *
+     * This should only be invoked as a register_shutdown callback.
+     *
+     * @access private
+     */
+    function _shutdown() {
+
+	/* Release all locks and ignore any errors */
+	$this->_releaseAllLocks(false);
+
+	/* Roll back any transactions */
+	$this->rollbackTransaction();
+    }
+
+    /**
+     * Return an instance of the GalleryStorage class
+     *
+     * @access public
+     * @return object GalleryStatus a status code
+     */
+    function initStorage() {
+	GalleryProfiler::start('modules.core.classes.Gallery::initStorage');
+
+	$type = $this->getConfig('storage.type');
+	$config = $this->getConfig('storage.config');
+	    
+	/* Load the factory class */
+	require_once(dirname(__FILE__) . '/GalleryStorageFactory.class');
+	    
+	list ($ret, $storage) =
+	    GalleryStorageFactory::newInstance($type, $config);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	    
+	$ret = $storage->init();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	$this->_storage = $storage;
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::initStorage');
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Return an instance of the GalleryStorage class
+     *
+     * @access public
+     * @return object GalleryStorage a storage instance
+     */
+    function getStorage() {
+	return $this->_storage;
+    }
+    
+    /**
+     * Begin a new transaction, if the storage layer supports them.
+     *
+     * @return object GalleryStatus a status code
+     */
+    function beginTransaction() {
+	if ($this->_storage == null) {
+	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	}
+	
+	$ret = $this->_storage->beginTransaction();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Commit our transaction, if the storage layer supports them.
+     *
+     * @return object GalleryStatus a status code
+     */
+    function commitTransaction() {
+	if ($this->_storage == null) {
+	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	}
+
+	$ret = $this->_storage->commitTransaction();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Roll back our transaction, if the storage layer supports transactions.
+     *
+     * @return object GalleryStatus a status code
+     */
+    function rollbackTransaction() {
+	if ($this->_storage == null) {
+	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	}
+
+	$ret = $this->_storage->rollbackTransaction();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Get the status of all modules
+     *
+     * @return array object GalleryStatus as status code
+     *                      array (moduleName => array('active' => true/false,
+     *                                                 'installed' => true/false)
+     */
+    function getModuleStatus() {
+	GalleryProfiler::start('modules.core.classes.Gallery::getModuleStatus');
+
+	if (!isset($this->_modules['_status'])) {
+	    list ($ret, $modules) = GalleryModuleMap::fetchModuleList();
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $platform = $this->getPlatform();
+
+	    /* Scan modules directory for installed modules */
+	    $modulesDir = $this->getConfig('code.gallery.modules');
+	    if ($dir = $platform->opendir($modulesDir)) {
+		while ($moduleName = readdir($dir)) {
+		    if ($moduleName{0} == '.') {
+			continue;
+		    }
+		    if (!$platform->is_dir($modulesDir . $moduleName)) {
+		        continue;
+		    }
+
+		    $path = $modulesDir . $moduleName . '/module.inc';
+		    if ($platform->file_exists($path)) {
+			$modules[$moduleName]['installed'] = 1;
+		    }
+		}
+		closedir($dir);
+	    }
+
+	    /* Find and remove modules that are active, but not installed */
+	    foreach ($modules as $moduleName => $moduleStatus) {
+		if (!isset($moduleStatus['installed'])) {
+		    $this->debug("Module $moduleName no longer installed");
+		    unset($modules[$moduleName]);
+		}
+	    }
+
+	    /* Force the core module's status */
+	    $modules['core'] = array('active' => 1, 'installed' => 1);
+
+	    $this->_modules['_status'] = $modules;
+	}
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::getModuleStatus');
+	
+	return array(GalleryStatus::success(),
+		     $this->_modules['_status']);
+    }
+
+    /**
+     * Set the core module instance in the modules table.
+     *
+     * The core module can't be loaded from inside Gallery with the
+     * loadModule() call for chicken-and-egg reasons, so we have to be able to
+     * set it here.
+     *
+     * @param object GalleryModule a module
+     */
+    function setCoreModule($instance) {
+	$this->_modules['core']['instance'] = $instance;
+    }
+
+    /**
+     * Load and initialize the given module
+     *
+     * @param string the module name
+     * @return array object GalleryStatus a status code
+     *               object GalleryModule the module
+     */
+    function loadModule($moduleName) {
+	GalleryProfiler::start('modules.core.classes.Gallery::loadModule');
+
+	if (!isset($this->_modules[$moduleName]['instance'])) {
+
+	    /* Figure out where the module lives */
+	    $galleryBase = $this->getConfig('code.gallery.modules');
+	    $moduleFile = $galleryBase . $moduleName . '/module.inc';
+
+	    $platform = $this->getPlatform();
+
+	    if (!$platform->file_exists($moduleFile)) {
+		$this->debug('Missing file: ' . $moduleFile);
+		return array(GalleryStatus::error(ERROR_BAD_MODULE,
+						  __FILE__, __LINE__),
+			     null);
+	    }
+
+	    /* Load it */
+	    require_once($moduleFile);
+
+	    /* Try to instantiate it */
+	    $moduleClass = $moduleName . 'Module';
+	    if (!class_exists($moduleClass)) {
+		return array(GalleryStatus::error(ERROR_BAD_MODULE,
+						  __FILE__, __LINE__),
+			     null);
+	    }
+	    $module = new $moduleClass();
+
+	    /* Initialize it */
+	    $ret = $module->init();
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /* Store it in our table */
+	    $this->_modules[$moduleName]['instance'] = $module;
+	}
+
+	GalleryProfiler::stop('modules.core.classes.Gallery::loadModule');
+	return array(GalleryStatus::success(),
+		     $this->_modules[$moduleName]['instance']);
+    }
+
+    /**
+     * Get the list of all available modules
+     *
+     * @return array object GalleryStatus a status code
+     *               string module names
+     */
+    function getAllModuleNames() {
+	$modulesDir = $this->getConfig('code.gallery.modules');
+
+	$platform = $this->getPlatform();
+	
+	if ($dir = $platform->opendir($modulesDir)) {
+	    while (($file = readdir($dir)) != false) {
+		$path = $modulesDir . $file;
+		if (preg_match('/^(\.|CVS)/', $file)) {
+		    continue;
+		}
+		
+		if ($platform->is_dir($path)) {
+		    $moduleNames[] = $file;
+		}
+	    }
+	    closedir($dir);
+	}
+
+	return array(GalleryStatus::success(), $moduleNames);
+    }
+
+    /**
+     * Retrieve all the parameters for a module
+     *
+     * @param string the module name
+     * @return array object GalleryStatus a status code
+     *               string a value
+     */
+    function getAllModuleParameters($moduleName) {
+	if (!isset($this->_modules[$moduleName]['parameters'])) {
+	    list ($ret, $this->_modules[$moduleName]['parameters']) =
+		GalleryModuleParameterMap::fetchAllParameters($moduleName);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	return array(GalleryStatus::success(),
+		     $this->_modules[$moduleName]['parameters']);
+    }
+
+    /**
+     * Retrieve a module parameter
+     *
+     * @param string the module name
+     * @param string the parameter name
+     * @return array object GalleryStatus a status code
+     *               string a value
+     */
+    function getModuleParameter($moduleName, $parameterName) {
+	if (empty($moduleName) || empty($parameterName)) {
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER,
+					      __FILE__, __LINE__),
+			 null);
+	}
+	
+	/* Load all parameters for the module, if necessary */
+	list ($ret, $params) = $this->getAllModuleParameters($moduleName);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	/* Return the value, or null if the param doesn't exist */
+	if (!isset($params[$parameterName])) {
+	    return array(GalleryStatus::success(), null);
+	} else {
+	    return array(GalleryStatus::success(), $params[$parameterName]);
+	}
+    }
+
+    /**
+     * Set a module parameter
+     *
+     * @param string the module name
+     * @param string the parameter name
+     * @param string the value
+     * @return object GalleryStatus a status code
+     */
+    function setModuleParameter($moduleName, $parameterName, $parameterValue) {
+	if (empty($moduleName) || empty($parameterName)) {
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER,
+					__FILE__, __LINE__);
+	}
+
+	/*
+	 * Figure out if this is an insert or an update.  It's an insert if
+	 * we don't have an existing parameter by that name.  Otherwise, it's
+	 * an update.
+	 */
+	if (!isset($this->_modules[$moduleName]['parameters'])) {
+	    list ($ret, $this->_modules[$moduleName]['parameters']) =
+		GalleryModuleParameterMap::fetchAllParameters($moduleName);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	if (!isset($this->_modules[$moduleName]['parameters'][$parameterName])) {
+	    $ret = GalleryModuleParameterMap::addParameter($moduleName,
+							   $parameterName,
+							   $parameterValue);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	} else {
+	    $ret = GalleryModuleParameterMap::updateParameter($moduleName,
+							      $parameterName,
+							      $parameterValue);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	/* Update our local cache */
+	$this->_modules[$moduleName]['parameters'][$parameterName] = $parameterValue;
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Set the URL generator
+     *
+     * @param object GalleryUrlGenerator
+     */
+    function setUrlGenerator($urlGenerator) {
+	$this->_urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * Get the URL generator
+     *
+     * @return object GalleryUrlGenerator
+     */
+    function getUrlGenerator() {
+	return $this->_urlGenerator;
+    }
+
+    /**
+     * Return a reference to our GalleryTranslator instance
+     *
+     * @return array object GalleryTranslator
+     */
+    function &getTranslator() {
+	return $this->_translator;
+    }
+
+    /**
+     * Initialize our GalleryTranslator
+     *
+     * @return object GalleryStatus a status code
+     */
+    function initTranslator() {
+	if (empty($this->_translator)) {
+	    /* Load the translator class */
+	    require_once(dirname(__FILE__) . '/GalleryTranslator.class');
+	    
+	    $this->_translator = new GalleryTranslator();
+
+	    $language = null;
+	    $activeUserId = $this->getActiveUserId();
+	    if (!empty($activeUserId)) {
+		list ($ret, $activeUser) = $this->getActiveUser();
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		$language = $activeUser->getLanguage();
+	    }
+
+	    /* Nothing specified for the user -- try the default */
+	    if (empty($language)) {
+		list ($ret, $language) = $this->getModuleParameter('core', 'default.language');
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
+
+	    $ret = $this->_translator->init($language);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Set the maximum amount of time we should contine to work
+     *
+     * @param int a time interval in seconds
+     */
+    function setTimeLimit($limit) {
+	set_time_limit($limit);
+	$this->_timeLimit = time() + $limit;
+    }
+
+    /**
+     * Guarantee that we have at least this many more seconds to work
+     *
+     * After this function completes, we will be guaranteed to have at least
+     * this much more time to work.
+     *
+     * @param int a time interval in seconds
+     */
+    function guaranteeTimeLimit($limit) {
+	$now = time();
+	if (empty($this->_timeLimit) || ($this->_timeLimit - $now < $limit)) {
+	    $this->debug("[$now] can't guarantee $limit -- extending!");
+	    $this->setTimeLimit($limit);
+	}
+    }
+
+    /**
+     * Change the profiling state
+     *
+     * @param bool
+     */
+    function setProfile($profile=null) {
+	$this->_profile = $profile ? true : false;
+    }
+
+    /**
+     * Get the profiling state
+     *
+     * @return bool
+     */
+    function isProfiling() {
+	return $this->_profile;
+    }
+
+    /**
+     * Change the debugging state
+     *
+     * @param mixed one of 'buffered', 'logged', 'immediate' or false
+     */
+    function setDebug($debug) {
+
+	// Try to do the right thing in the face of bogus input
+	if ($debug === true) {
+	    $debug = 'buffered';
+	}
+
+	$this->_debug = $debug;
+	if (isset($this->_storage)) {
+	    if ($this->_debug) {
+		$this->_storage->setDebug(true);
+	    } else {
+		$this->_storage->setDebug(false);
+	    }
+	}
+	if (!isset($this->_debugBuffer)) {
+	    $this->clearDebugBuffer();
+	}
+	if (!empty($this->_debug)) {
+	    error_reporting(E_ALL);
+	    ini_set('short_open_tag', false);
+	    ini_set('allow_call_time_pass_reference', false);
+	}
+    }
+
+    /**
+     * Set the location of debugging output
+     *
+     * @param string a filename
+     */
+    function setDebugLogFile($debugLogFile) {
+	$this->_debugLogFile = $debugLogFile;
+    }
+
+    /**
+     * Get the debug state
+     *
+     * @return mixed the debug state
+     */
+    function getDebug() {
+	return $this->_debug;
+    }
+
+    /**
+     * Get any buffered debug output
+     *
+     * @return string the debug state
+     */
+    function getDebugBuffer() {
+	return $this->_debugBuffer;
+    }
+
+    /**
+     * Clear any buffered debug output
+     */
+    function clearDebugBuffer() {
+	$this->_debugBuffer = '';
+    }
+
+    /**
+     * Output a debug message
+     *
+     * @param string a message
+     */
+    function debug($msg) {
+	if (empty($msg)) {
+	    return;
+	}
+
+	if (!empty($this->_debug)) {
+	    if (!strcmp($this->_debug, 'buffered')) {
+		$this->_debugBuffer .= wordwrap("$msg\n");
+	    } else if (!strcmp($this->_debug, 'logged')) {
+		if ($fd = fopen($this->_debugLogFile, 'a')) {
+		    $date = date('Y-m-d H:i:s');
+		    $session =& $this->getSession();
+		    if (!empty($session)) {
+			list ($param, $id) = $session->getSessionDescriptor();
+		    } else {
+			$id = '<no session id>';
+		    }
+		    fwrite($fd, "$date [" . $id . "] $msg\n");
+		    fclose($fd);
+		}
+	    } else if (!strcmp($this->_debug, 'immediate')) {
+		print "$msg\n";
+	    }
+	}
+    }
+
+    /**
+     * Output a print_r style debug message
+     *
+     * @param mixed any object or value
+     */
+    function debug_r($object) {
+	if (!empty($this->_debug)) {
+	    if (phpversion() >= '4.3.0') {
+		$buf = print_r($object, true);
+	    } else {
+		ob_start();
+		print_r($object);
+		$buf = ob_get_contents();
+		ob_end_clean();
+	    }
+	    
+	    $this->debug($buf);
+	}
+    }
+
+    /**
+     * Get the string representation(s) of an error.
+     *
+     * An error is a set of bitflags, so we return an array of strings.
+     * @param int the error code
+     * @return array string names of the errors
+     */
+    function getErrorAsStrings($errorCode) {
+	$codes = array();
+	foreach (get_defined_constants() as $constantName => $constantValue) {
+	    if (strpos($constantName, 'ERROR_') === 0) {
+		if ($errorCode & $constantValue) {
+		    $codes[] = $constantName;
+		}
+	    }
+	}
+
+	return $codes;
+    }
+
+    /**
+     * Register an event listener
+     *
+     * @param string the name of the event (eg "GalleryEntity::save")
+     * @param object a GalleryEventListener instance
+     */
+    function registerEventListener($eventName, &$listener) {
+	if (empty($this->_eventListeners[$eventName])) {
+	    $this->_eventListeners[$eventName] = array();
+	}
+
+	$this->_eventListeners[$eventName][] =& $listener;
+    }
+
+    /**
+     * Deliver an event to anybody listening
+     *
+     * @param string the name of the event (eg "GalleryEntity::save")
+     * @param object a GalleryEvent
+     * @return object GalleryStatus a status code
+     */
+    function postEvent($event) {
+	if (!empty($this->_eventListeners[$event->getEventName()])) {
+	    $listeners = $this->_eventListeners[$event->getEventName()];
+	    for ($i = 0; $i < sizeof($listeners); $i++) {
+		$ret = $listeners[$i]->handleEvent($event);
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Return the template adapter.  There is only ever one in the system.
+     *
+     * @return object GalleryTemplateAdapter
+     */
+    function &getTemplateAdapter() {
+	if (!isset($this->_templateAdapter)) {
+	    $this->_templateAdapter = new GalleryTemplateAdapter();
+	}
+
+	return $this->_templateAdapter;
+    }
+
+    /**
+     * Mark a string as being internationalized.  This is a semaphore method; it
+     * does nothing but it allows us to easily identify strings that require
+     * translation.  Generally this is used to mark strings that will be stored
+     * in the database (like descriptions of permissions).
+     *
+     * @param string the value
+     * @return string the same value
+     */
+    function i18n($value) {
+	/* Just pass the value through */
+	return $value;
+    }
+}
+?>

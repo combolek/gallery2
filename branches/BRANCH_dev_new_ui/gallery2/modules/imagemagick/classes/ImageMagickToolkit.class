@@ -1,0 +1,263 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package ImageMagick
+ * @author Vallimar <vallimar@sexorcisto.net>
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Load required classes
+ */
+require_once(dirname(__FILE__) . '/../../core/classes/GalleryToolkit.class');
+
+/**
+ * A ImageMagick version of GalleryToolkit
+ *
+ * This class implements the GalleryToolkit API using ImageMagick.
+ *
+ * @package ImageMagick
+ * @subpackage Classes
+ */
+class ImageMagickToolkit extends GalleryToolkit {
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * @see GalleryToolkit::getProperty()
+     */
+    function getProperty($mimeType, $propertyName, $sourceFilename) {
+
+	switch($propertyName) {
+	case 'dimensions':
+	    list ($ret, $width, $height) = $this->_getImageDimensions($mimeType, $sourceFilename);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__),
+			     null);
+	    }
+	    $results = array((int)$width, (int)$height);
+	    break;
+
+	default:
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	return array(GalleryStatus::success(), $results);
+    }
+
+    /**
+     * @see GalleryToolkit::performOperation()
+     */
+    function performOperation($mimeType, $operationName, $sourceFilename,
+			      $destFilename, $parameters) {
+	switch($operationName) {
+	case 'thumbnail':
+	case 'scale':
+	    $transform = array('-scale', $parameters[0] . 'x' . $parameters[0]);
+	    break;
+	    
+	case 'resize':
+	    $transform = array('-geometry', $parameters[0] . 'x' . $parameters[1]);
+	    break;
+
+	case 'rotate':
+	    $transform = array('-rotate', $parameters[0]);
+	    break;
+	    
+	case 'crop':
+	    $transform = array('-crop', $parameters[0] . 'x' . $parameters[1] .
+			       '+' . $parameters[2] . '+' . $parameters[3]);
+	    break;
+	    
+	default:
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
+					      __FILE__, __LINE__),
+			 null);
+	}
+
+	$ret = $this->_transformImage($mimeType, $transform, $sourceFilename, $destFilename);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $mimeType);
+    }
+
+    /**
+     * @see GalleryToolkit::mergeOperations()
+     */
+    function mergeOperations($mimeType, $operation1, $args1, $operation2, $args2) {
+
+	/* We can only merge like operations */
+	if ($operation1 != $operation2) {
+	    return array(false, null, null);
+	}
+
+	switch ($operation1) {
+	case 'crop':
+	case 'resize':
+	case 'scale':
+	    /* Second scale, resize, or crop takes precedence */
+	    return array(true, $operation2, $args2);
+	    break;
+
+	case 'rotate':
+	    /* Rotation is additive */
+	    $rotation = ($args1[0] + $args2[0]) % 360;
+
+	    /* 0 rotation means the operation goes away */
+	    if ($rotation == 0) {
+		return array(true, null, null);
+	    }
+
+	    if ($rotation == 270) {
+		$rotation = -90;
+	    }
+	    return array(true, $operation2, array($rotation));
+
+	default:
+	    return array(false, null, null);
+	}
+    }
+			     
+    /**
+     * @see GalleryGraphics::getImageDimensions()
+     */
+    function _getImageDimensions($mimeType, $filename) {
+	global $gallery;
+
+	/*
+	 * Run it through PHP first, it's faster and more portable.  If it runs
+	 * afoul of open_basedir it'll return false and we can try ImageMagick.
+	 */
+	$platform = $gallery->getPlatform();
+	$results = $platform->getimagesize($filename);
+	if (($results != false) &&
+	    (($results[0] > 1) && ($results[1] > 1))) {
+	    return array(GalleryStatus::success(), $results[0], $results[1]);
+	}
+
+	list($success, $output) = $platform->exec(array(array($this->_imageMagickCmd('identify'), $filename)));
+	if (!$success) {
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), 0, 0);
+	}
+
+	foreach ($output as $line) {
+	    if (ereg('([0-9]+)x([0-9]+)', $line, $regs)) {
+		return array(GalleryStatus::success(), $regs[1], $regs[2]);
+	    }
+	}
+
+	return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE,
+					  __FILE__, __LINE__),
+		     null, null);
+    }
+
+    /**
+     * Do the given transform on the source image 
+     *
+     * @param string the command to execute
+     * @param string the path to a source file
+     * @param string the path to a destination file
+     * @return object GalleryStatus a status code
+     */
+    function _transformImage($mimeType, $args, $sourceFilename, $destFilename) {
+	global $gallery;
+
+	/* Get a temp file name and figure out our convert-from-pnm command */
+	$tmpDir = $gallery->getConfig('data.gallery.tmp');
+	$tmpFilename = tempnam($tmpDir, 'imgk_');
+	if (empty($tmpFilename)) {
+	    /* This can happen if the $tmpDir path is bad */
+	    return GalleryStatus::error(ERROR_BAD_PATH,
+					__FILE__, __LINE__);
+	}
+
+	$command = array($this->_imageMagickCmd('convert'));
+
+	list ($ret, $jpegQuality) =
+	    $gallery->getModuleParameter('imagemagick', 'jpegQuality');
+	if ($ret->isError()) {
+	    @$platform->unlink($tmpFilename);
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	    
+	switch($mimeType) {
+	case 'image/png'  :
+	case 'image/jpeg' :
+	    $command[] = '-quality';
+	    $command[] = $jpegQuality;
+	    break;
+	}
+
+	$platform = $gallery->getPlatform();
+	
+	/* Do the conversion */
+	$command = array_merge($command, $args);
+	$command[] = $sourceFilename;
+	$command[] = $tmpFilename;
+	list($success, $output) = $platform->exec(array($command));
+
+	if (!$success) {
+	    @$platform->unlink($tmpFilename);
+	    return GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__);
+	}
+
+	$success = $platform->rename($tmpFilename, $destFilename);
+	@$platform->unlink($tmpFilename);
+	if (!$success) {
+	    if ($gallery->getDebug()) {
+		$gallery->debug("Failed renaming $tmpFilename -> $destFilename");
+	    }
+	    return GalleryStatus::error(ERROR_PLATFORM_FAILURE,
+					__FILE__, __LINE__);
+	} else {
+	    return GalleryStatus::success();
+	}
+    }
+
+    /**
+     * Return the full path to the ImageMagick command
+     *
+     * @access private
+     * @param string an ImageMagick command (eg. "convert")
+     */
+    function _imageMagickCmd($cmd) {
+	global $gallery;
+
+	$platform = $gallery->getPlatform();
+	list ($ret, $imageMagickPath) =
+	    $gallery->getModuleParameter('imagemagick', 'path');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return $imageMagickPath . $cmd;
+    }
+}
+?>

@@ -1,0 +1,662 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Load the parent class
+ */
+require_once(dirname(__FILE__) . '/GalleryFileSystemEntity.class');
+
+/**
+ * Abstract base class for all objects in the Gallery
+ * composite tree
+ *
+ * Container for all functionality and data common objects that 
+ * Gallery can deal with.  Each GalleryItem has the capacity
+ * to own other GalleryItems in a parent-child relationship.
+ * That capacity can be enabled or disabled by subclasses of
+ * GalleryItem.
+ *
+ * @g2 <class-name>GalleryItem</class-name>
+ * @g2 <parent-class-name>GalleryFileSystemEntity</parent-class-name>
+ * @g2 <schema>
+ * @g2   <schema-major>1</schema-major>
+ * @g2   <schema-minor>0</schema-minor>
+ * @g2 </schema>
+ * @g2 <requires-id/>
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ * @abstract
+ */
+class GalleryItem_core extends GalleryFileSystemEntity {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * Can this item contain children?
+     *
+     * @g2 <member>
+     * @g2  <member-name>canContainChildren</member-name>
+     * @g2  <member-type>BOOLEAN</member-type>
+     * @g2 </member>
+     *
+     * @var int $_canContainChildren
+     * @access private
+     */
+    var $_canContainChildren;
+
+    /**
+     * The (long) description of this item
+     *
+     * @g2 <member>
+     * @g2  <member-name>description</member-name>
+     * @g2  <member-type>TEXT</member-type>
+     * @g2 </member>
+     *
+     * @var int $_description
+     * @access private
+     */
+    var $_description;
+
+    /**
+     * A set of keywords that describe this item
+     *
+     * @g2 <member>
+     * @g2  <member-name>keywords</member-name>
+     * @g2  <member-type>STRING</member-type>
+     * @g2  <member-size>LARGE</member-size>
+     * @g2  <indexed/>
+     * @g2 </member>
+     *
+     * @var string $_keywords
+     * @access private
+     */
+    var $_keywords;
+
+    /**
+     * The layout to use for this item
+     *
+     * @g2 <member>
+     * @g2   <member-name>layout</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>SMALL</member-size>
+     * @g2 </member>
+     *
+     * @var string $_layout
+     * @access private
+     */
+    var $_layout;
+
+    /**
+     * Specify the name of the field that we're using to order children
+     *
+     * @g2 <member>
+     * @g2  <member-name>orderBy</member-name>
+     * @g2  <member-type>STRING</member-type>
+     * @g2 </member>
+     *
+     * @var int $_orderBy
+     * @access private
+     */
+    var $_orderBy;
+
+    /**
+     * Specify the order direction that we're applying to the orderBy field.
+     *
+     * @g2 <member>
+     * @g2  <member-name>orderDirection</member-name>
+     * @g2  <member-type>STRING</member-type>
+     * @g2 </member>
+     *
+     * @var int $_orderDirection
+     * @access private
+     */
+    var $_orderDirection;
+
+    /**
+     * The id of the User who owns this item
+     *
+     * @g2 <member>
+     * @g2  <member-name>ownerId</member-name>
+     * @g2  <member-type>INTEGER</member-type>
+     * @g2  <indexed/>
+     * @g2  <required/>
+     * @g2 </member>
+     *
+     * @var int $_ownerId
+     * @access private
+     */
+    var $_ownerId;
+
+    /**
+     * The summary of this item
+     *
+     * @g2 <member>
+     * @g2  <member-name>summary</member-name>
+     * @g2  <member-type>STRING</member-type>
+     * @g2  <member-size>LARGE</member-size>
+     * @g2  <indexed/>
+     * @g2 </member>
+     *
+     * @var int $_summary
+     * @access private
+     */
+    var $_summary;
+
+    /**
+     * The theme to use for this item
+     *
+     * @g2 <member>
+     * @g2   <member-name>theme</member-name>
+     * @g2   <member-type>STRING</member-type>
+     * @g2   <member-size>SMALL</member-size>
+     * @g2 </member>
+     *
+     * @var string $_theme
+     * @access private
+     */
+    var $_theme;
+
+    /**
+     * The (short) title of this item
+     *
+     * @g2 <member>
+     * @g2  <member-name>title</member-name>
+     * @g2  <member-type>STRING</member-type>
+     * @g2  <member-size>MEDIUM</member-size>
+     * @g2  <indexed/>
+     * @g2 </member>
+     *
+     * @var int $_title
+     * @access private
+     */
+    var $_title;
+
+    /**
+     * Date and time marking the beginning of the view count
+     *
+     * @g2 <member>
+     * @g2  <member-name>viewedSinceTimestamp</member-name>
+     * @g2  <member-type>INTEGER</member-type>
+     * @g2  <required/>
+     * @g2 </member>
+     *
+     * @var int $_viewedSinceTimestamp
+     * @access private
+     */
+    var $_viewedSinceTimestamp;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Create a new instance of this GalleryEntity in the persistent store
+     *
+     * Let the parent do its work, then add any initialization specific to this
+     * class.
+     *
+     * @param int the id of the GalleryEntity parent of this object
+     * @param string the path component of this new object
+     * @param int the id of the parent object
+     * @return object GalleryStatus a status code
+     */
+    function create($parentId, $path) {
+	global $gallery;
+
+	if (!isset($path) || !isset($parentId)) {
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER,
+					__FILE__, __LINE__);
+	}
+
+	list($ret, $parent) = $gallery->loadEntitiesById($parentId);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	if (!$parent->getCanContainChildren()) {
+	    return GalleryStatus::error(ERROR_ILLEGAL_CHILD,
+					__FILE__, __LINE__);
+	}
+
+	$ret = parent::create($parentId, $path);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Record the owner */
+	$this->setOwnerId($gallery->getActiveUserId());
+
+	/* Initialize the viewedSince timestamp */
+	$this->setViewedSinceTimestamp(time());
+
+	/* Adopt the parent's ordering scheme */
+	$this->setOrderBy($parent->getOrderBy());
+	$this->setOrderDirection($parent->getOrderDirection());
+
+	/* By default, items can't contain children */
+	$this->setCanContainChildren(false);
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Create a root level instance of this GalleryEntity in the persistent store
+     *
+     * Let the parent do its work, then add any initialization specific to this
+     * class.
+     *
+     * @param string the path component of this new object
+     * @return object GalleryStatus a status code
+     */
+    function createRoot($path) {
+	global $gallery;
+
+	if (!isset($path)) {
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER,
+					__FILE__, __LINE__);
+	}
+
+	$ret = parent::createRoot($path);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Record the owner */
+	$this->setOwnerId($gallery->getActiveUserId());
+
+	/* Initialize the viewedSince timestamp */
+	$this->setViewedSinceTimestamp(time());
+
+	/* Pick up the default order */
+	list ($ret, $orderBy) =
+	    $gallery->getModuleParameter('core', 'default.orderBy');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	list ($ret, $orderDirection) =
+	    $gallery->getModuleParameter('core', 'default.orderDirection');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	
+	$this->setOrderBy($orderBy);
+	$this->setOrderDirection($orderDirection);
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * If we want to sort, which storage info we need?
+     *
+     * This will return the ORDER BY clause to sort the items and a
+     * condition that we need to add to the fetching query. To join with
+     * a new table, the [GalleryChildEntity::id] will contain the current
+     * ID. Eventualy another table mentioned in the condition will have to
+     * be included too, the calling function has to decide that (using
+     * GalleryStorage::extractClasses())
+     *
+     * @return array string an order clause, string a row matching condition
+     * @access private
+     */
+    function _getOrderInfo() {
+	/*
+	 * Don't simply plug getOrderBy into the SQL clause, or we could open
+	 * the door for SQL injection.
+	 *
+	 * XXX: Eventually this should be something that a module can register
+	 * so that we can allow modules to introduce their own custom sort
+	 * orders.
+	 */
+	switch ($this->getOrderBy()) {
+	case 'title':
+	    $orderColumn = '[GalleryItem::title]';
+	    $condition = '[GalleryItem::id] = [GalleryChildEntity::id]';
+	    break;
+	    
+	case 'summary':
+	    $orderColumn = '[GalleryItem::summary]';
+	    $condition = '[GalleryItem::id] = [GalleryChildEntity::id]';
+	    break;
+	    
+	case 'creationTimestamp':
+	    $orderColumn = '[GalleryEntity::creationTimestamp]';
+	    $condition = '[GalleryEntity::id] = [GalleryChildEntity::id]';
+	    break;
+	    
+	case 'modificationTimestamp':
+	    $orderColumn = '[GalleryEntity::modificationTimestamp]';
+	    $condition = '[GalleryEntity::id] = [GalleryChildEntity::id]';
+	    break;
+	    
+	case 'description':
+	    $orderColumn = '[GalleryItem::description]';
+	    $condition = '[GalleryItem::id] = [GalleryChildEntity::id]';
+	    break;
+	    
+	case 'keywords':
+	    $orderColumn = '[GalleryItem::keywords]';
+	    $condition = '[GalleryItem::id] = [GalleryChildEntity::id]';
+	    break;
+
+	default:
+	    $orderColumn = '[GalleryItemAttributesMap::orderWeight]';
+	    $condition = '[GalleryItemAttributesMap::itemId] = [GalleryChildEntity::id]';
+	}
+
+	switch ($this->getOrderDirection()) {
+	case ORDER_DESCENDING:
+	    $direction = 'DESC';
+	    break;
+
+	case ORDER_ASCENDING:
+	default:
+	    $direction = '';
+	}
+
+	return array($orderColumn, $condition, $direction);
+    }
+    
+    /**
+     * Return the ids of the children of this entity, in the order specified
+     * by the orderBy field and the direction specified by the orderDirection
+     * field, that are visible to the given user.
+     *
+     * @param int where to start
+     * @param int how many to return
+     *
+     * @access public
+     * @return array object GalleryStatus a status code
+     *               array integer ids
+     */
+    function fetchChildIds($offset=null, $count=null) {
+	global $gallery;
+
+	list ($ret, $permissionBits) = GalleryPermissionSetMap::convertIdsToBits('core.view');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$storage = $gallery->getStorage();
+
+	/* List of classes that we will need */
+	$classes = array('[GalleryChildEntity]', '[GalleryUserGroupMap]', '[GalleryPermissionMap]');
+
+	list($orderColumn, $extraWhere, $orderDirection) = $this->_getOrderInfo();
+	$extraIds = 0;
+
+	if (!empty($extraWhere)) {
+	    $extraIds = substr_count($extraWhere, '?');
+	    $extraWhere = 'AND ' . $extraWhere;
+
+	    list ($ret, $orderClasses) = $storage->extractClasses($extraWhere);
+	    if ($ret->isError()) {
+    		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    $classes = array_unique(array_merge($classes, $orderClasses));
+	}
+	if (!empty($orderColumn)) {
+	    $orderClause = 'ORDER BY ' . $orderColumn . ' ' . $orderDirection;
+	    $groupExtra = ', ' . $orderColumn;
+	    $selectExtra = ', ' . $orderColumn;
+	} else {
+	    $orderClause = '';
+	    $groupExtra = '';
+	    $selectExtra = '';
+	}
+
+	/* Prepare the query */
+	$query = '
+        SELECT
+          [GalleryChildEntity::id] ' . $selectExtra . '
+        FROM
+          ' . join(', ', $classes) . '
+        WHERE
+          [GalleryChildEntity::parentId] = ?
+          AND
+          ([GalleryPermissionMap::userId] = ?
+           OR
+           ([GalleryUserGroupMap::userId] = ?
+            AND
+            [GalleryPermissionMap::groupId] = [GalleryUserGroupMap::groupId]))
+          AND
+          [GalleryPermissionMap::permission] & ? > ?
+          AND
+          [GalleryPermissionMap::itemId] = [GalleryChildEntity::id]
+	  ' . $extraWhere . '
+        GROUP BY
+          [GalleryChildEntity::id] ' . $groupExtra . '
+	' . $orderClause . '
+	';
+	$data[] = $this->getId();
+	$data[] = $gallery->getActiveUserId();
+	$data[] = $gallery->getActiveUserId();
+	$data[] = $storage->convertIntToBits($permissionBits);
+	$data[] = $storage->convertIntToBits(0);
+	for ($i = 0; $i < $extraIds; $i++) {
+	    /* add the data for $orderWhere's extra ?'s */
+	    $data[] = $this->getId();
+	}
+	$options = array();
+	$options['limit'] = array('count' => $count, 'offset' => $offset);
+	if ($gallery->getDebug()) {
+	    $gallery->debug_r($options);
+	}
+	list ($ret, $searchResults) = $gallery->search($query, $data, $options);
+	
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$ids = array();
+	while ($result = $searchResults->nextResult()) {
+	    $ids[] = (int)$result[0];
+	}
+	
+	return array(GalleryStatus::success(), $ids);
+    }
+
+    /**
+     * Return the children of this entity, in the order specified by the
+     * orderBy field and the direction specified by the orderDirection field,
+     * that are visible to the given user.
+     *
+     * @param int the user id of the user making the request
+     * @param int where to start
+     * @param int how many to return
+     *
+     * @access public
+     * @return array object GalleryStatus a status code
+     *               array integer ids
+     */
+    function fetchChildren($offset=null, $count=null) {
+	global $gallery;
+	
+	list ($ret, $childIds) = $this->fetchChildIds($offset, $count);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $children) = $gallery->loadEntitiesById($childIds);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $children);
+    }
+
+    /**
+     * Load all the ancestors of this item
+     *
+     * @return array object GalleryStatus a status code 
+     *               array (array(memberName => memberValue))
+     */
+    function fetchParents() {
+	global $gallery;
+
+	GalleryProfiler::start('modules.core.classes.GalleryItem::fetchParents');
+	
+	$parents = array();
+	$parentId = $this->getParentId();
+	while (!empty($parentId)) {
+
+	    list ($ret, $parent) = $gallery->loadEntitiesById($parentId);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    array_unshift($parents, $parent->getMemberData());
+	    $parentId = $parent->getParentId();
+	}
+
+	GalleryProfiler::stop('modules.core.classes.GalleryItem::fetchParents');
+	
+	return array(GalleryStatus::success(), $parents);
+    }
+
+    /**
+     * Delete this GalleryEntity
+     *
+     * Delete all of its children also, if it has any
+     *
+     * @access public
+     * @return object GalleryStatus a status code
+     */
+    function delete() {
+	global $gallery;
+
+	/* Delete any children */
+	$query = '
+        SELECT
+          [GalleryChildEntity::id]
+        FROM
+          [GalleryChildEntity]
+        WHERE
+          [GalleryChildEntity::parentId] = ?
+        ';
+	list ($ret, $searchResults) =
+	    $gallery->search($query, array($this->getId()));
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	while ($result = $searchResults->nextResult()) {
+	    $ret = $gallery->deleteEntityById($result[0]);
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	/* Delete myself */
+	$ret = parent::delete();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Remove all my properties, permissions, view counts */
+	$ret1 = GalleryItemPropertiesMap::removeProperties($this->getId());
+	$ret2 = GalleryPermissionMap::removeItemPermissions($this->getId());
+	$ret3 = GalleryItemAttributesMap::removeItemAttributes($this->getId());
+	
+	if ($ret1->isError()) {
+	    return $ret1->wrap(__FILE__, __LINE__);
+	}
+	
+	if ($ret2->isError()) {
+	    return $ret2->wrap(__FILE__, __LINE__);
+	}
+
+	if ($ret3->isError()) {
+	    return $ret3->wrap(__FILE__, __LINE__);
+	}
+	
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Save the changes to this GalleryItem
+     *
+     * Save the changes to this GalleryItem.
+     *
+     * @access public
+     * @return object GalleryStatus a status code
+     */
+    function save() {
+
+	if ($this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
+	    $newItem = true;
+	} else {
+	    $newItem = false;
+	}
+
+	/* Save myself */
+	$ret = parent::save();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	if ($newItem) {
+	    if ($this->getParentId()) {
+		$ret = GalleryPermissionMap::copyPermissions($this->getId(),
+							     $this->getParentId());
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
+
+	    /* Create an empty attribute entry */
+	    $ret = GalleryItemAttributesMap::createItemAttributes($this->getId());
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+	
+	return GalleryStatus::success();
+    }
+
+    /**
+     *
+     * Return the internationalized (but NOT localized) name of this item type.
+     * Subclasses should override this to provide their own name.
+     *
+     * @return string the type name
+     */
+    function itemTypeName() {
+	assert(false);
+    }
+}
+
+include(dirname(__FILE__) . '/interfaces/GalleryItem.inc');
+?>

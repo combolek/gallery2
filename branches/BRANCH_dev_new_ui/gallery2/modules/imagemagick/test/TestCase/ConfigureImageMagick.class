@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @version $Revision$ $Date$
+ * @package ImageMagick
+ * @subpackage TestCase
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * @package ImageMagick
+ * @subpackage TestCase
+ */
+class ConfigureImageMagickTestCase extends TestCase {
+    var $_moduleName = 'imagemagick';
+
+    function getDescription() {
+	return "Configure the $this->_moduleName module";
+    }
+
+    function testStart() {
+	global $gallery;
+
+	list ($ret, $module) = $gallery->loadModule($this->_moduleName);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $module->init();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	
+	$ret = $module->install();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Hardcode a path we know will work (on Bharat's dev box) */
+	$platform = $gallery->getPlatform();
+	if (get_class($platform) == 'unixplatform') {
+	    foreach (array('/usr/local/bin/', '/usr/bin/') as $dir) {
+		if (!$platform->isRestrictedByOpenBaseDir($dir)) {
+		    if ($platform->file_exists($dir . 'convert')) {
+			$path = $dir;
+		    }
+		}
+	    }
+	    if (empty($path)) {
+		$path = '/usr/local/bin/';
+	    }
+	} else {
+	    $path = 'c:\\apps\\imagemagick\\';
+	}
+	$ret = $module->setModuleParameter('path', $path);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+}
+
+?>

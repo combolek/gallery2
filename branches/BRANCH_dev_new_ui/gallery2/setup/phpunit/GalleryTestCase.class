@@ -1,0 +1,393 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package Gallery
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Gallery specific version of PHPUnit's TestCase class.  
+ */
+class GalleryTestCase extends TestCase {
+
+    function GalleryTestCase($methodName) {
+	$this->TestCase($methodName);
+    }
+
+    function failWithStatus($ret) {
+	global $gallery;
+	
+	// Fail with as much debug info as we can muster.
+	$this->assert(false, $ret->getAsHtml() . $gallery->getDebugBuffer());
+    }
+
+    function setUp() {
+	global $gallery;
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+	global $HTTP_POST_FILES;
+
+	parent::setUp();
+
+	/* Clear out any request vars */
+	$this->_saveRequestVars = array($HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_POST_FILES);
+	$HTTP_GET_VARS = array();
+	$HTTP_POST_VARS = array();
+	$HTTP_POST_FILES = array();
+	
+	/*
+	 * Try to ensure enough time for this test to complete.  If a test
+	 * needs more time, then it should extend the limit itself.
+	 */
+	$gallery->guaranteeTimeLimit(30);
+
+	/* Start with a clean slate*/
+	$gallery->reset();
+	
+	$ret = $gallery->beginTransaction();
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$gallery->clearDebugBuffer();
+    }
+
+    function assert($boolean, $message=null) {
+	global $gallery;
+	$message = $gallery->getDebugBuffer() . $message;
+	parent::assert($boolean, $message);
+    }
+
+    function assertEquals($expected, $actual, $message=null) {
+	global $gallery;
+	$message = $gallery->getDebugBuffer() . $message;
+	parent::assertEquals($expected, $actual, $message);
+    }
+
+    function tearDown() {
+	global $gallery;
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+	global $HTTP_POST_FILES;
+
+	/* Make sure we're not hanging onto any locks */
+	if (!empty($gallery->_locks)) {
+	    /* Bend the API slightly and release all locks */
+	    $gallery->_releaseAllLocks(false);
+	    $this->assert(0, 'There are unreleased locks!');
+	}
+	
+	$ret = $gallery->commitTransaction();
+	if ($ret->isError()) {
+	    $ret = $ret->wrap(__FILE__, __LINE__);
+	    $this->fail($ret->getAsText());
+	}
+
+	/* Restore form vars */
+	list ($HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_POST_FILES) = $this->_saveRequestVars;
+	
+	parent::tearDown();
+    }
+
+    /*
+     * Create a random album
+     *
+     * @param int the id of the parent album
+     * @return array object GalleryStatus a status code
+     *               object GalleryAlbumItem
+     * @access private
+     */
+    function _createRandomAlbum($parentId=null) {
+	global $gallery;
+	
+	list ($ret, $album) = GalleryFactory::newInstance('GalleryEntity', 'GalleryAlbumItem');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if (!isset($album)) {
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	}
+
+	if (isset($parentId)) {
+	    list ($ret, $lockIds[]) = $gallery->acquireReadLock($parentId);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    
+	    $ret = $album->create($parentId, 'albumtest' . rand());
+	} else {
+	    $ret = $album->createRoot('albumtest' . rand());
+	}
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Change some settings */
+	$album->setTitle('This is my title');
+	$album->setDescription('This is a description');
+
+	/* Save it */
+	$ret = $album->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Leggo of our locks */
+	if (isset($lockIds)) {
+	    $ret = $gallery->releaseLocks($lockIds);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	return array(GalleryStatus::success(), $album);
+    }
+    
+
+    /*
+     * Create a random data item
+     *
+     * @param int the id of the parent album
+     * @return array object GalleryStatus a status code
+     *               object GalleryDataItem
+     * @access private
+     */
+    function _createRandomDataItem($parentId, $mimeType='application/unknown', $fields=array()) {
+	global $gallery;
+	
+	list ($ret, $item) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUnknownItem');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if (!isset($item)) {
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	}
+
+	list ($ret, $lockIds[]) = $gallery->acquireReadLock($parentId);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$inputFile = __FILE__;
+	if (get_magic_quotes_gpc()) {
+	    $inputFile = addslashes($inputFile);
+	}
+	
+	$ret = $item->create($parentId, $inputFile, $mimeType,
+			     'test-' . rand(1, 5000) . '.dat');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Change some settings */
+	$item->setTitle('This is my title');
+	$item->setSummary('This is a summary');
+	$item->setKeywords('These are some keywords');
+	$item->setDescription('This is a description');
+
+	foreach ($fields as $key => $value) {
+	    eval("\$item->set$key(\$value);");
+	}
+
+	/* Save it */
+	$ret = $item->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Leggo of our locks */
+	if (isset($lockIds)) {
+	    $ret = $gallery->releaseLocks($lockIds);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	return array(GalleryStatus::success(), $item);
+    }
+    
+    function _createRandomUser() {
+	list ($ret, $user) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	if (!isset($user)) {
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	}  
+
+	$ret = $user->create('testuser-' . rand());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$user->setFullName('User 1');
+	$user->changePassword('password');
+	$user->setEmail('user1@gallery.com');
+
+	$ret = $user->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $user);
+    }
+
+    function _createRandomGroup() {
+	list ($ret, $group) = GalleryFactory::newInstance('GalleryEntity', 'GalleryGroup');
+	if ($ret->isError()) {
+	    return array($this->failWithStatus($ret->wrap(__FILE__, __LINE__)), null);
+	}
+
+	if (!isset($group)) {
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	}
+	
+	$ret = $group->create('testgroup-' . rand());
+	if ($ret->isError()) {
+	    return array($this->failWithStatus($ret->wrap(__FILE__, __LINE__)), null);
+	}
+
+	$group->setGroupName('Test Group ' . rand());
+
+	$ret = $group->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	return array(GalleryStatus::success(), $group);
+    }
+    
+    function _createDerivative($parentId, $type, $operations='test-operation|100', $mimeType='') {
+	global $gallery;
+
+	list ($ret, $derivative) = 
+	    GalleryFactory::newInstance('GalleryEntity', 'GalleryDerivativeImage');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	$ret = $derivative->create($parentId, $type);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Set bogus values */
+	$derivative->setDerivativeMimeType($mimeType);
+	$derivative->setDerivativeSourceId($parentId);
+	$derivative->setDerivativeOperations($operations);
+			
+	$ret = $derivative->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	return array(GalleryStatus::success(), $derivative);
+    }
+    
+    function _deleteAndVerifyEntity($id) {
+	global $gallery;
+
+	$ret = $gallery->deleteEntityById($id);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$ret = $this->_verifyMissing($id);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return GalleryStatus::success();
+    }
+    
+    function _verifyMissing($id) {
+	global $gallery;
+	
+	GalleryDataCache::reset();
+
+	list ($ret, $entity) = $gallery->loadEntitiesById($id);
+	if ($ret->isError()) {
+	    if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	} else {
+	    // We failed to delete!
+	    return GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__);
+	} 
+
+	return GalleryStatus::success();
+    }
+
+    function _verifyEntity($entity) {
+	global $gallery;
+	
+	GalleryDataCache::reset();
+	
+	/* Load it back from the storage */
+	list ($ret, $newEntity) = $gallery->loadEntitiesById($entity->getId());
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Verify it */
+	$this->assertEquals($entity, $newEntity);
+
+	return GalleryStatus::success();
+    }
+
+    function _createUser() {
+	global $gallery;
+	
+	list ($ret, $user) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUser');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	
+	if (!isset($user)) {
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+			 null);
+	}
+	
+	$ret = $user->create('testuser-'.rand());
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$ret = $user->save();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(GalleryStatus::success(), $user);
+    }
+
+    function _deleteUser($user) {
+	global $gallery;
+	$ret = $gallery->deleteEntityById($user->getId());
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+    }
+}
+?>

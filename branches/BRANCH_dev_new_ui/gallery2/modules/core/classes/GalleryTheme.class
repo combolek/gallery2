@@ -1,0 +1,608 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * Theme handling class. It provides functions to create an user-interface 
+ * based on a customizable theme.
+ *
+ * @package GalleryCore
+ * @subpackage Classes
+ */
+class GalleryTheme {
+
+    
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The template instance
+     *
+     * @var object GalleryTemplate $_template
+     * @access private
+     */
+    var $_template;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Get an array of available theme-names
+     *
+     * @static
+     * @return array string name of the themes
+     */
+     function getThemes() {
+	global $gallery;
+
+	$platform = $gallery->getPlatform();
+	$themeList = array();
+	$themeDir = $gallery->getConfig('code.gallery.themes');
+	if ($dir = $platform->opendir($themeDir)) {
+	    while (($subdir = readdir($dir)) !== false) {
+		if ($subdir{0} == '.' || $subdir == 'CVS') {
+		    continue;
+		}
+
+		if ($platform->is_dir("$themeDir$subdir")) {
+		    $file = "$themeDir$subdir/templates";
+		    if ($platform->file_exists($file)) {
+			$themeList[] = $subdir;
+		    }
+		}
+	    }
+	    closedir($dir);
+	}
+	return $themeList;
+    }
+
+    /**
+     * Initialize this instance to use the theme specified.
+     *
+     * @param themeName the name of a theme in the themes directory.
+     * @return object GalleryStatus a status code
+     */
+    function init($themeName=null) {
+	global $gallery;
+
+	/* If we don't have a theme name then use the default theme. */
+	if (empty($themeName)) {
+	    list ($ret, $themeName) =
+		$gallery->getModuleParameter('core', 'default.theme');
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	$themeDir = $gallery->getConfig('code.gallery.themes') . $themeName . '/';
+	$templateDir = $themeDir . 'templates/';
+	$platform = $gallery->getPlatform();
+	if (!$platform->file_exists($templateDir)) {
+	    if ($gallery->getDebug()) {
+		$gallery->debug("Missing theme template dir: $templateDir");
+	    }
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	}
+
+	$themeData['dir'] = $themeDir;
+	$themeData['url'] = GalleryUtilities::convertPathToRelativeUrl($themeDir);
+	$this->_template = new GalleryTemplate($templateDir);
+	$this->_template->setVariable('theme', $themeData);
+
+	return GalleryStatus::success();
+    }
+    
+    /**
+     * Get the configured GalleryTemplate instance
+     *
+     * @return object GalleryTemplate a template instance
+     * @access protected
+     */
+    function &_getTemplate() {
+	return $this->_template;
+    }
+
+    /**
+     * Return an HTML form 
+     *
+     * @param array data in key/value pairs
+     * @param string HTML content to go inside the form
+     * @return string a complete HTML form
+     */
+    function form($params, $content) {
+	global $gallery;
+
+	/* Embed the session key, if we're not using cookies */
+	$session =& $gallery->getSession();
+	if (!($session->isUsingCookies())) {
+	    list ($sessionKey, $sessionId) = $session->getSessionDescriptor();
+	    $params[$sessionKey] = $sessionId;
+	}
+
+	/* Preprocessing */
+	if (empty($params['method'])) {
+	    $params['method'] = 'post';
+	}
+	$urlGenerator = $gallery->getUrlGenerator();
+	$params['action'] = $urlGenerator->generateUrl();
+	$params['accept-charset'] = 'UTF-8';
+
+	/* Prepare the tag */
+	$results = '<form';
+	$hiddenFields = '';
+	foreach ($params as $caseSensitiveKey => $value) {
+	    /* Force the key to lower case */
+	    $key = strtolower($caseSensitiveKey);
+	    switch($key) {
+	    case 'action':
+	    case 'method':
+	    case 'enctype':
+	    case 'accept':
+	    case 'name':
+	    case 'onsubmit':
+	    case 'onreset':
+	    case 'accept-charset':
+		$results .= " $key=\"$value\"";
+		break;
+
+		
+	    /* Generic attributes */
+	    case 'id':
+	    case 'class':
+	    case 'style':
+	    case 'title':
+	    case 'lang':
+	    case 'dir':
+	    case 'onclick':
+	    case 'ondblclick':
+	    case 'onmousedown':
+	    case 'onmouseup':
+	    case 'onmouseover':
+	    case 'onmouseout':
+	    case 'onkeypress':
+	    case 'onkeydown':
+	    case 'onkeyup':
+		$results .= " $key=\"$value\"";
+		break;
+
+	    default:
+		$hiddenFields .= '<input type="hidden" name="' .
+		    GALLERY_FORM_VARIABLE_PREFIX . $caseSensitiveKey .
+		    '" value="' . $value . "\">\n";
+	    }
+	}
+	$results .= ">\n";
+	$results .= $hiddenFields;
+	$results .= $content;
+	$results .= "\n</form>\n";
+
+	return $results;
+    }
+
+    /**
+     * Return a themed <input> tag
+     *
+     * @param array key => value attributes
+     * @return HTML content
+     */
+    function input($params, $content=null) {
+	/* Do some preprocessing */
+	$params['value'] = trim($content);
+	$params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	if (empty($params['type'])) {
+	    $params['type'] = 'text';
+	}
+
+	/* Prepare the tag */
+	$results = '<input';
+	foreach ($params as $key => $value) {
+	    /* Force the key to lower case */
+	    $key = strtolower($key);
+	    switch($key) {
+	    case 'type':
+	    case 'name':
+	    case 'size':
+	    case 'maxlength':
+	    case 'src':
+	    case 'alt':
+	    case 'usemap':
+	    case 'tabindex':
+	    case 'accesskey':
+	    case 'onfocus':
+	    case 'onblur':
+	    case 'onchange':
+	    case 'onselect':
+	    case 'accept':
+		$results .= " $key=\"$value\"";
+		break;
+
+	    case 'disabled':
+	    case 'readonly':
+	    case 'ismap':
+		$results .= " $key";
+		break;
+
+	    case 'value':
+		if ($params['type'] == 'checkbox' || $params['type'] == 'radio') {
+		    if (!empty($value)) {
+			$results .= ' checked';
+		    }
+		} else {
+		    $results .= " value=\"$value\"";
+		}
+		break;
+
+	    /* Generic attributes */
+	    case 'id':
+	    case 'class':
+	    case 'style':
+	    case 'title':
+	    case 'lang':
+	    case 'dir':
+	    case 'onclick':
+	    case 'ondblclick':
+	    case 'onmousedown':
+	    case 'onmouseup':
+	    case 'onmouseover':
+	    case 'onmouseout':
+	    case 'onkeypress':
+	    case 'onkeydown':
+	    case 'onkeyup':
+		$results .= " $key=\"$value\"";
+		break;
+	    }
+	}
+	$results .= '>';
+
+	return $results;
+    }
+
+    /**
+     * Return a themed <select> .. </select> block
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function select($params, $content) {
+	/* Translate the form variable name */
+	if (isset($params['name'])) {
+	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	}
+
+	/* Prepare the tag */
+	$results = '<select';
+	foreach ($params as $key => $value) {
+	    /* Force the key to lower case */
+	    $key = strtolower($key);
+	    switch($key) {
+	    case 'name':
+	    case 'size':
+	    case 'tabindex':
+	    case 'onfocus':
+	    case 'onblur':
+	    case 'onchange':
+		$results .= " $key=\"$value\"";
+		break;
+
+	    case 'multiple':
+	    case 'disabled':
+		$results .= " $key";
+		break;
+
+	    /* Generic attributes */
+	    case 'id':
+	    case 'class':
+	    case 'style':
+	    case 'title':
+	    case 'lang':
+	    case 'dir':
+	    case 'onclick':
+	    case 'ondblclick':
+	    case 'onmousedown':
+	    case 'onmouseup':
+	    case 'onmouseover':
+	    case 'onmouseout':
+	    case 'onkeypress':
+	    case 'onkeydown':
+	    case 'onkeyup':
+		$results .= " $key=\"$value\"";
+		break;
+	    }
+	}
+	$results .= '>';
+	$results .= $content;
+	$results .= '</select>';
+
+	return $results;
+    }
+    
+    /**
+     * Return a themed <textarea> .. </textarea> block
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function textarea($params, $content) {
+	/* Translate the form variable name */
+	if (isset($params['name'])) {
+	    $params['name'] = GALLERY_FORM_VARIABLE_PREFIX . $params['name'];
+	}
+
+	/* Prepare the tag */
+	$results = '<textarea';
+	foreach ($params as $key => $value) {
+	    /* Force the key to lower case */
+	    $key = strtolower($key);
+	    switch($key) {
+	    case 'name':
+	    case 'rows':
+	    case 'cols':
+	    case 'tabindex':
+	    case 'accesskey':
+	    case 'onfocus':
+	    case 'onblur':
+	    case 'onselect':
+	    case 'onchange':
+		$results .= " $key=\"$value\"";
+		break;
+
+	    case 'disabled':
+	    case 'readonly':
+		$results .= " $key";
+		break;
+
+	    /* Generic attributes */
+	    case 'id':
+	    case 'class':
+	    case 'style':
+	    case 'title':
+	    case 'lang':
+	    case 'dir':
+	    case 'onclick':
+	    case 'ondblclick':
+	    case 'onmousedown':
+	    case 'onmouseup':
+	    case 'onmouseover':
+	    case 'onmouseout':
+	    case 'onkeypress':
+	    case 'onkeydown':
+	    case 'onkeyup':
+		$results .= " $key=\"$value\"";
+		break;
+	    }
+	}
+	$results .= '>';
+	$results .= $content;
+	$results .= '</textarea>';
+
+	return $results;
+    }
+
+    /**
+     * Return 1 or more <style> blocks
+     *
+     * @param array key => value attributes
+     * @return HTML content
+     */
+    function style($params) {
+	return $this->_renderTemplate('style', $params);
+    }
+
+    /**
+     * Return the given content as in a very small font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function smallestFontSize($params, $content) {
+	return $this->_renderTemplate('smallestFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content as in a smaller font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function smallerFontSize($params, $content) {
+	return $this->_renderTemplate('smallerFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content as in a small font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function smallFontSize($params, $content) {
+	return $this->_renderTemplate('smallFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content as in a large font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function bigFontSize($params, $content) {
+	return $this->_renderTemplate('bigFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content as in a larger font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function biggerFontSize($params, $content) {
+	return $this->_renderTemplate('biggerFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content as in a very large font
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function biggestFontSize($params, $content) {
+	return $this->_renderTemplate('biggestFontSize', $params, $content);
+    }
+
+    /**
+     * Return the given content in a "happy" font color
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function successFontColor($params, $content) {
+	return $this->_renderTemplate('successFontColor', $params, $content);
+    }
+
+    /**
+     * Return the given content in a "pay attention!" font color
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function warningFontColor($params, $content) {
+	return $this->_renderTemplate('warningFontColor', $params, $content);
+    }
+
+    /**
+     * Return the given content in a "this is bad!" font color
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function errorFontColor($params, $content) {
+	return $this->_renderTemplate('errorFontColor', $params, $content);
+    }
+
+    /**
+     * Return the given content inside a highlight box
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function highlight1($params, $content) {
+	return $this->_renderTemplate('highlight1', $params, $content);
+    }
+    
+    /**
+     * Return the given content inside a highlight box
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function highlight2($params, $content) {
+	return $this->_renderTemplate('highlight2', $params, $content);
+    }
+    
+    /**
+     * Return the given content inside a thin themed frame
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function thinFrame($params, $content) {
+	return $this->_renderTemplate('thinFrame', $params, $content);
+    }
+
+    /**
+     * Return the given content inside a light themed frame
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function lightFrame($params, $content) {
+	return $this->_renderTemplate('lightFrame', $params, $content);
+    }
+
+    /**
+     * Return the given content inside a heavy themed frame
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function heavyFrame($params, $content) {
+	return $this->_renderTemplate('heavyFrame', $params, $content);
+    }
+
+    /**
+     * Return the given content inside a 3D themed frame
+     *
+     * @param array key => value attributes
+     * @param string content to go inside the block
+     * @return HTML content
+     */
+    function threeDFrame($params, $content) {
+	return $this->_renderTemplate('threeDFrame', $params, $content);
+    }
+
+    /**
+     * Render the given template
+     *
+     * @param templateName the template file name
+     * @param params array template data
+     * @param content string template data
+     * @access protected
+     */
+    function _renderTemplate($templateName, $params, $content=null) {
+	$template = $this->_getTemplate();
+	$template->setVariable('params', $params);
+	$template->setVariable('content', $content);
+	list($ret, $html) = $template->render($templateName . '.tpl');
+	if ($ret->isError()) {
+	    $ret = $ret->wrap(__FILE__, __LINE__);
+	    return $ret->getAsHtml();
+	}
+	return $html;
+    }
+}
+
+?>

@@ -1,0 +1,111 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @subpackage PHPUnit
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * AdminEditUser controller tests
+ */
+class AdminEditUserControllerTest extends GalleryControllerTestCase {
+
+    function AdminEditUserControllerTest($methodName) {
+	$this->GalleryControllerTestCase($methodName, 'core:AdminEditUser');
+    }
+
+    function setUp() {
+	parent::setUp();
+
+	list ($ret, $this->_user) = $this->_createUser();
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+    }
+
+    function tearDown() {
+	$this->_deleteUser($this->_user);
+	parent::tearDown();
+    }
+
+    function testCancel() {
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'core:AdminUsers'),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testUndo() {
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form.action.undo', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'core:AdminEditUser',
+						      'userId' => $this->_user->getId()),
+				  'status' => array()),
+			    $results);
+    }
+
+    function testEditUser() {
+	$newUserName = 'newname-'.rand();
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form.action.save', 1);
+	GalleryUtilities::putRequestVariable('form.userName', $newUserName);
+	GalleryUtilities::putRequestVariable('form.fullName', 'full name');
+	GalleryUtilities::putRequestVariable('form.email', 'email');
+	GalleryUtilities::putRequestVariable('form.language', 'language');
+	GalleryUtilities::putRequestVariable('form.password1', '');
+	GalleryUtilities::putRequestVariable('form.password2', '');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'core:AdminUsers'),
+				  'status' => array('modifiedUser' => $newUserName)),
+			    $results);
+    }
+
+    function testMissingFields() {
+	$newUserName = 'newname-'.rand();
+	GalleryUtilities::putRequestVariable('userId', $this->_user->getId());
+	GalleryUtilities::putRequestVariable('form.action.save', 1);
+	GalleryUtilities::putRequestVariable('form.userName', $newUserName);
+	GalleryUtilities::putRequestVariable('form.email', '');
+	GalleryUtilities::putRequestVariable('form.fullName', '');
+	GalleryUtilities::putRequestVariable('form.language', '');
+	GalleryUtilities::putRequestVariable('form.password1', 'x');
+	GalleryUtilities::putRequestVariable('form.password2', '');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('view' => 'core:SiteAdmin'), $results);
+	$this->assertEquals('core:AdminEditUser', GalleryUtilities::getRequestVariables('subView'));
+	$this->assert(GalleryUtilities::hasRequestVariable('form.error.email.missing'));
+	$this->assert(GalleryUtilities::hasRequestVariable('form.error.password.mismatch'));
+    }
+}
+?>

@@ -1,0 +1,884 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2003 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+
+/**
+ * The prefix for all HTTP GET/POST arguments
+ *
+ */
+define('GALLERY_FORM_VARIABLE_PREFIX', 'g2_');
+
+/**
+ * A collection of useful utilities that have no obvious home
+ *
+ * All of these utilities should be accessed in a static sense,
+ * ie:
+ *
+ *   GalleryUtilities::getFileExtension($filename);
+ *
+ * Try not to jam too many methods into this class.  Only put methods here if
+ * they are of obvious value to the class layer and there's no other home for
+ * them.
+ * 
+ * @package GalleryCore
+ * @subpackage Classes
+ * @static
+ */
+class GalleryUtilities {
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Get the type of the file from its filename
+     *
+     * Eg, "foo.jpg" yields 'foo', 'jpg'
+     *     "foo.bar.jpeg" yields 'foo.bar', 'jpeg'
+     *
+     * @param string the filename
+     * @return array the file base name, the file extension
+     * @static
+     */
+    function getFileNameComponents($filename) {
+
+	$pos = strrpos($filename, '.');
+
+	/* No dot == it's all base, no extension */
+	if ($pos === false) {
+	    return array($filename, '');
+	}
+
+	$pos++;
+	
+	/* If it's the last char in the name, it's also bogus */
+	if ($pos >= strlen($filename)) {
+	    return null;
+	}
+
+	return array(substr($filename, 0, $pos-1), substr($filename, $pos));
+    }
+
+    /**
+     * Return the file's extension
+     *
+     * Eg, "foo.jpg" yields "jpg"
+     *
+     * @param string the filename
+     * @return array the file extension
+     * @static
+     */
+    function getFileExtension($filename) {
+	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
+	return $extension;
+    }
+
+    /**
+     * Return the file's extension
+     *
+     * Eg, "foo.jpg" yields "foo"
+     *
+     * @param string the filename
+     * @return array the file base
+     * @static
+     */
+    function getFileBase($filename) {
+	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
+	return $base;
+    }
+
+    /**
+     * Figure out the file's mime type
+     *
+     * Eg, "foo.jpg" returns "image/jpeg"
+     *
+     * @param string the filename
+     * @return string the mime type
+     * @static
+     */
+    function getMimeType($filename) {
+	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
+	return GalleryUtilities::convertExtensionToMime($extension);
+    }
+
+    /**
+     * Return all request variables that match the prefix
+     *
+     * @param string a prefix
+     * @return array key value pairs
+     * @static
+     */
+    function getFormVariables($prefix) {
+	global $gallery;
+	global $HTTP_POST_VARS;
+	global $HTTP_POST_FILES;
+	global $HTTP_GET_VARS;
+	
+	/*
+	 * Convert dots to underscores.  Some versions of PHP seem to do
+	 * this when processing POST data, so we force the issue here so
+	 * that we get consistent behaviour across all versions.
+	 */
+	$prefix = strtr(GALLERY_FORM_VARIABLE_PREFIX . $prefix, '.', '_');
+	$values = array();
+	
+	/*
+	 * Find all matching GET and POST variables
+	 */
+	foreach (array_keys($HTTP_POST_VARS) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		$formKey = $matches[1];
+		$values[$formKey] = $HTTP_POST_VARS[$key];
+	    }
+	}
+
+	foreach (array_keys($HTTP_GET_VARS) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		$formKey = $matches[1];
+		$values[$formKey] = $HTTP_GET_VARS[$key];
+	    }
+	}
+
+	foreach (array_keys($HTTP_POST_FILES) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		$formKey = $matches[1];
+		$values[$formKey] = $HTTP_POST_FILES[$key];
+
+		/*
+		 * Later on during our sanitization process we're going to call
+		 * stripslashes on our file name.  But it may legitimately have
+		 * backslashes in it (eg c:\apache\foo.jpg), so make sure those
+		 * are escaped at this time.  There's gotta be a better way to
+		 * handle this.
+		 */
+		if (get_magic_quotes_gpc()) {
+		    $values[$formKey]['tmp_name'] = addslashes($values[$formKey]['tmp_name']);
+		}
+	    }
+	}
+
+	/* Perform any necessary transformations on our values */
+	GalleryUtilities::_processInputValues($values);
+	
+	/*
+	 * Now split out any keys that contain a field separator (_) into
+	 * subarrays.  Eg, convert:
+	 *  array('name_first' => 'john'
+	 *        'name_last' => 'doe'
+	 *        'action_create' => 1)
+	 *
+	 * to:
+	 *  array('name' => array('first' => 'john'
+	 *                        'last'  => 'doe'),
+	 *        'action' => array('create' => 1))
+	 */
+	$form = array();
+	foreach ($values as $key => $value) {
+	    $base =& $form;
+	    $components = split('_', $key);
+	    for ($i = 0; $i < sizeof($components) - 1; $i++) {
+		$base =& $base[$components[$i]];
+	    }
+	    
+	    if (is_array($value)) {
+		/* XXX: this only handles arrays 1 level deep */
+		foreach ($value as $subKey => $subValue) {
+		    $base[$components[sizeof($components)-1]][$subKey] = $subValue;
+		}
+	    } else {
+		$base[$components[sizeof($components)-1]] = $value;
+	    }
+	}
+
+	return $form;
+    }
+
+    /**
+     * Remove all request variables that match the prefix
+     *
+     * @param string a prefix
+     * @static
+     */
+    function removeFormVariables($prefix) {
+	global $gallery;
+	global $HTTP_POST_VARS;
+	global $HTTP_POST_FILES;
+	global $HTTP_GET_VARS;
+	
+	/*
+	 * Convert dots to underscores.  Some versions of PHP seem to do
+	 * this when processing POST data, so we force the issue here so
+	 * that we get consistent behaviour across all versions.
+	 */
+	$prefix = strtr(GALLERY_FORM_VARIABLE_PREFIX . $prefix, '.', '_');
+	$values = array();
+	
+	/*
+	 * Find all matching GET and POST variables
+	 */
+	foreach (array_keys($HTTP_POST_VARS) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		unset($HTTP_POST_VARS[$key]);
+	    }
+	}
+
+	foreach (array_keys($HTTP_GET_VARS) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		unset($HTTP_GET_VARS[$key]);
+	    }
+	}
+
+	foreach (array_keys($HTTP_POST_FILES) as $key) {
+	    if (preg_match("/^${prefix}_?(.*)/", $key, $matches)) {
+		unset($HTTP_POST_FILES[$key]);
+	    }
+	}
+    }
+    
+
+    /**
+     * Return the specified request variables
+     *
+     * Accept any number of keys and return that number of values, in order.
+     *
+     * @param mixed a single key or many keys
+     * @return mixed a single value or many values
+     * @static
+     */
+    function getRequestVariables() {
+	global $gallery;
+
+	$values = array();
+	foreach (func_get_args() as $argName) {
+	    $values[] = GalleryUtilities::_getRequestVariable($argName);
+	}
+
+	/* Sanitize the input */
+	GalleryUtilities::_processInputValues($values);
+
+	if (sizeof($values) == 1) {
+	    return $values[0];
+	} else {
+	    return $values;
+	}
+    }
+
+    /**
+     * Remove any potentially dangerous content from input values.
+     *
+     * @param string an input value 
+     * @return string the sanitized version 
+     * @static
+     */
+    function sanitizeInputValue($value) {
+	/* Undo the damage caused by magic_quotes */
+	if (get_magic_quotes_gpc()) {
+	    if (is_array($value)) {
+		/* XXX: this only handles arrays 1 level deep */
+		foreach ($value as $subKey => $subValue) {
+		    $value[$subKey] = stripslashes($subValue);
+		}
+	    } else {
+		$value = stripslashes($value);
+	    }
+	}
+
+	/*
+	 * This was lifted verbatim from PostNuke 0.72
+	 */
+	$search = array('|</?\s*SCRIPT.*?>|si',
+			'|</?\s*FRAME.*?>|si',
+			'|</?\s*OBJECT.*?>|si',
+			'|</?\s*META.*?>|si',
+			'|</?\s*APPLET.*?>|si',
+			'|</?\s*LINK.*?>|si',
+			'|</?\s*IFRAME.*?>|si',
+			'|STYLE\s*=\s*"[^"]*"|si',
+			'|javascript|si');
+	$replace = array('');
+
+	$value = preg_replace($search, $replace, $value);
+
+	return $value;
+    }
+
+    /**
+     * Push the given key => value pair back into the request
+     * 
+     * @param string the key
+     * @param string the value
+     * @static
+     */
+    function putRequestVariable($key, $value) {
+	global $HTTP_GET_VARS;
+
+	/*
+	 * Convert dots to underscores.  Some versions of PHP seem to do
+	 * this when processing POST data, so we force the issue here so
+	 * that we get consistent behaviour across all versions.
+	 */
+	$key = strtr(GALLERY_FORM_VARIABLE_PREFIX . $key, '.', '_');
+
+	/* Simulate the damage caused by magic_quotes */
+	if (get_magic_quotes_gpc()) {
+	    if (is_array($value)) {
+		/* XXX: this only handles arrays 1 level deep */
+		foreach ($value as $subKey => $subValue) {
+		    $value[$subKey] = addslashes($subValue);
+		}
+	    } else {
+		$value = addslashes($value);
+	    }
+	}
+	$HTTP_GET_VARS[$key] = $value;
+    }
+
+    /**
+     * Check to see if the given key is in the request
+     * 
+     * @param string the key
+     * @param string the value
+     * @static
+     */
+    function hasRequestVariable($key) {
+	$value = GalleryUtilities::_getRequestVariable($key);
+	return !empty($value);
+    }
+
+    /**
+     * Remove a request variable
+     * 
+     * @param string the key
+     * @param string the value
+     * @static
+     */
+    function removeRequestVariable($key) {
+	global $HTTP_POST_VARS;
+	global $HTTP_GET_VARS;
+	
+	/*
+	 * Convert dots to underscores.  Some versions of PHP seem to do
+	 * this when processing POST data, so we force the issue here so
+	 * that we get consistent behaviour across all versions.
+	 */
+	$key = strtr(GALLERY_FORM_VARIABLE_PREFIX . $key, '.', '_');
+	unset($HTTP_POST_VARS[$key]);
+	unset($HTTP_GET_VARS[$key]);
+    }
+    
+    /**
+     * Return a singleton copy of a map of file extensions to mime types
+     *
+     * @return array
+     * @access private
+     * @static
+     */
+    function _getExtensionToMimeMap() {
+	return $extensionMap;
+    }
+
+    /**
+     * Convert a file extension to a mime type
+     *
+     * @param string a file extension
+     * @return string a mime type 
+     * @staticvar array extensionMap Maps file extentions to equivalent MIME-types
+     * @static
+     */
+    function convertExtensionToMime($extension) {
+	static $extensionMap;
+
+	if (!isset($extensionMap)) {
+	    /* This data was lifted from Apache's mime.types listing. */
+	    $extensionMap = array(
+				  'z'	    => 'application/x-compress',
+				  'ai'	    => 'application/postscript',
+				  'aif'	    => 'audio/x-aiff',
+				  'aifc'    => 'audio/x-aiff',
+				  'aiff'    => 'audio/x-aiff',
+				  'asc'	    => 'text/plain',
+				  'au'	    => 'audio/basic',
+				  'avi'	    => 'video/x-msvideo',
+				  'bcpio'   => 'application/x-bcpio',
+				  'bin'	    => 'application/octet-stream',
+				  'bmp'	    => 'image/bmp',
+				  'cdf'	    => 'application/x-netcdf',
+				  'class'   => 'application/octet-stream',
+				  'cpio'    => 'application/x-cpio',
+				  'cpt'	    => 'application/mac-compactpro',
+				  'csh'	    => 'application/x-csh',
+				  'css'	    => 'text/css',
+				  'dcr'	    => 'application/x-director',
+				  'dir'	    => 'application/x-director',
+				  'djv'	    => 'image/vnd.djvu',
+				  'djvu'    => 'image/vnd.djvu',
+				  'dll'	    => 'application/octet-stream',
+				  'dms'	    => 'application/octet-stream',
+				  'doc'	    => 'application/msword',
+				  'dvi'	    => 'application/x-dvi',
+				  'dxr'	    => 'application/x-director',
+				  'eps'	    => 'application/postscript',
+				  'etx'	    => 'text/x-setext',
+				  'exe'	    => 'application/octet-stream',
+				  'ez'	    => 'application/andrew-inset',
+				  'gif'	    => 'image/gif',
+				  'gtar'    => 'application/x-gtar',
+				  'gz'	    => 'application/x-gzip',
+				  'hdf'	    => 'application/x-hdf',
+				  'hqx'	    => 'application/mac-binhex40',
+				  'htm'	    => 'text/html',
+				  'html'    => 'text/html',
+				  'ice'	    => 'x-conference/x-cooltalk',
+				  'ief'	    => 'image/ief',
+				  'iges'    => 'model/iges',
+				  'igs'	    => 'model/iges',
+				  'jpe'	    => 'image/jpeg',
+				  'jpeg'    => 'image/jpeg',
+				  'jpg'	    => 'image/jpeg',
+				  'js'	    => 'application/x-javascript',
+				  'kar'	    => 'audio/midi',
+				  'latex'   => 'application/x-latex',
+				  'lha'	    => 'application/octet-stream',
+				  'lzh'	    => 'application/octet-stream',
+				  'm3u'	    => 'audio/x-mpegurl',
+				  'man'	    => 'application/x-troff-man',
+				  'me'	    => 'application/x-troff-me',
+				  'mesh'    => 'model/mesh',
+				  'mid'	    => 'audio/midi',
+				  'midi'    => 'audio/midi',
+				  'mif'	    => 'application/vnd.mif',
+				  'mov'	    => 'video/quicktime',
+				  'movie'   => 'video/x-sgi-movie',
+				  'mp2'	    => 'audio/mpeg',
+				  'mp3'	    => 'audio/mpeg',
+				  'mpe'	    => 'video/mpeg',
+				  'mpeg'    => 'video/mpeg',
+				  'mpg'	    => 'video/mpeg',
+				  'mpga'    => 'audio/mpeg',
+				  'ms'	    => 'application/x-troff-ms',
+				  'msh'	    => 'model/mesh',
+				  'mxu'	    => 'video/vnd.mpegurl',
+				  'nc'	    => 'application/x-netcdf',
+				  'oda'	    => 'application/oda',
+				  'pbm'	    => 'image/x-portable-bitmap',
+				  'pdb'	    => 'chemical/x-pdb',
+				  'pdf'	    => 'application/pdf',
+				  'pgm'	    => 'image/x-portable-graymap',
+				  'pgn'	    => 'application/x-chess-pgn',
+				  'png'	    => 'image/png',
+				  'pnm'	    => 'image/x-portable-anymap',
+				  'ppm'	    => 'image/x-portable-pixmap',
+				  'ppt'	    => 'application/vnd.ms-powerpoint',
+				  'ps'	    => 'application/postscript',
+				  'qt'	    => 'video/quicktime',
+				  'ra'	    => 'audio/x-realaudio',
+				  'ram'	    => 'audio/x-pn-realaudio',
+				  'ras'	    => 'image/x-cmu-raster',
+				  'rgb'	    => 'image/x-rgb',
+				  'rm'	    => 'audio/x-pn-realaudio',
+				  'roff'    => 'application/x-troff',
+				  'rpm'	    => 'audio/x-pn-realaudio-plugin',
+				  'rtf'	    => 'text/rtf',
+				  'rtx'	    => 'text/richtext',
+				  'sgm'	    => 'text/sgml',
+				  'sgml'    => 'text/sgml',
+				  'sh'	    => 'application/x-sh',
+				  'shar'    => 'application/x-shar',
+				  'silo'    => 'model/mesh',
+				  'sit'	    => 'application/x-stuffit',
+				  'skd'	    => 'application/x-koan',
+				  'skm'	    => 'application/x-koan',
+				  'skp'	    => 'application/x-koan',
+				  'skt'	    => 'application/x-koan',
+				  'smi'	    => 'application/smil',
+				  'smil'    => 'application/smil',
+				  'snd'	    => 'audio/basic',
+				  'so'	    => 'application/octet-stream',
+				  'spl'	    => 'application/x-futuresplash',
+				  'src'	    => 'application/x-wais-source',
+				  'sv4cpio' => 'application/x-sv4cpio',
+				  'sv4crc'  => 'application/x-sv4crc',
+				  'swf'	    => 'application/x-shockwave-flash',
+				  't'	    => 'application/x-troff',
+				  'tar'	    => 'application/x-tar',
+				  'tcl'	    => 'application/x-tcl',
+				  'tex'	    => 'application/x-tex',
+				  'texi'    => 'application/x-texinfo',
+				  'texinfo' => 'application/x-texinfo',
+				  'tif'	    => 'image/tiff',
+				  'tiff'    => 'image/tiff',
+				  'tr'	    => 'application/x-troff',
+				  'tsv'	    => 'text/tab-separated-values',
+				  'txt'	    => 'text/plain',
+				  'ustar'   => 'application/x-ustar',
+				  'vcd'	    => 'application/x-cdlink',
+				  'vrml'    => 'model/vrml',
+				  'vsd'	    => 'application/vnd.visio',
+				  'wav'	    => 'audio/x-wav',
+				  'wbmp'    => 'image/vnd.wap.wbmp',
+				  'wbxml'   => 'application/vnd.wap.wbxml',
+				  'wml'	    => 'text/vnd.wap.wml',
+				  'wmlc'    => 'application/vnd.wap.wmlc',
+				  'wmls'    => 'text/vnd.wap.wmlscript',
+				  'wmlsc'   => 'application/vnd.wap.wmlscriptc',
+				  'wrl'	    => 'model/vrml',
+				  'xbm'	    => 'image/x-xbitmap',
+				  'xht'	    => 'application/xhtml+xml',
+				  'xhtml'   => 'application/xhtml+xml',
+				  'xls'	    => 'application/vnd.ms-excel',
+				  'xml'	    => 'text/xml',
+				  'xpm'	    => 'image/x-xpixmap',
+				  'xsl'	    => 'text/xml',
+				  'xwd'	    => 'image/x-xwindowdump',
+				  'xyz'	    => 'chemical/x-xyz',
+				  'zip'	    => 'application/zip'
+				  );
+	}
+
+	$extension = strtolower($extension);
+	if (empty($extensionMap[$extension])) {
+	    return 'application/unknown';
+	} else {
+	    return $extensionMap[$extension];
+	}
+    }
+
+    /**
+     * Return a string of ? markers
+     *
+     * @param int the number of markers to return
+     * @access private
+     * @static
+     */
+    function makeMarkers($count) {
+
+	if (is_array($count)) {
+	    $count = sizeof($count);
+	}
+	
+	$markers = array();
+	for ($i = 0; $i < $count; $i++) {
+	    $markers[$i] = '?';
+	}
+	return join(', ', $markers);
+    }
+
+    /**
+     * Convert a filesystem path inside the gallery directory to a relative URL
+     *
+     *  ie /path/to/gallery/themes/classic/styles/style.css =>
+     *             themes/classic/styles/style.css
+     *
+     * @param string path to a file in the gallery directory tree
+     * @return string a relative url
+     * @static
+     */
+    function convertPathToRelativeUrl($path) {
+	global $gallery;
+
+	$dirbase = $gallery->getConfig('code.gallery.base');
+
+	/*
+	 * Factor the gallery code base out of the path, accounting for
+	 * differences in directory separators between platforms.
+	 */
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
+	if ($slash != '/') {
+	    $dirbase = str_replace($slash, '/', $dirbase);
+	    $path = str_replace($slash, '/', $path);
+	}
+	$relativePath = str_replace($dirbase, '', $path);
+	
+	/* Prepend the URL base */
+	$urlBase = $gallery->getConfig('url.gallery.base');
+	if (!empty($urlBase)) {
+	    return $urlBase . $relativePath;
+	}
+
+	return $relativePath;
+    }
+
+    /**
+     * Load a file in a security conscious fashion
+     *
+     * @param string a local filename
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function requireOnce($filename) {
+	global $gallery;
+
+	$platform = $gallery->getPlatform();
+
+	if (!$platform->file_exists($filename)) {
+	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	}
+
+	require_once($filename);
+
+	return GalleryStatus::success();
+    }
+
+    /**
+     * Scale the given width/height to a new target size, maintaining
+     * aspect ratio, but only if the dimensions are already larger than the
+     * target (in other words, don't increase the dimensions)
+     *
+     * @param int target size
+     * @param int width
+     * @param int height
+     * @return array(width, height)
+     * @static
+     */
+    function shrinkDimensionsToFit($target, $width, $height) {
+	if ($width > $target || $height > $target) {
+	    list ($width, $height) =
+		GalleryUtilities::scaleDimensionsToFit($target, $width, $height);
+	}
+
+	return array($width, $height);
+    }
+
+    /**
+     * Scale the given width/height to a new target size, maintaining
+     * aspect ratio
+     *
+     * @param int target size
+     * @param int width
+     * @param int height
+     * @return array(width, height)
+     * @static
+     */
+    function scaleDimensionsToFit($target, $width, $height) {
+
+	if ($width > $height) {
+	    $height = (int)($target * ($height / $width));
+	    $width = $target;
+	} else {
+	    $width = (int)($target * ($width / $height));
+	    $height = $target;
+	}
+	
+	return array($width, $height);
+    }
+
+    /**
+     * Figure out if the object specified is an instance of or an instance of a
+     * sub class of the class specified.
+     *
+     * @param object any kind of object
+     * @param string a class name
+     * @return boolean true or false
+     * @static
+     */
+    function isA($instance, $className) {
+	global $gallery;
+
+	if ($gallery->getConfig('function.exists.is_a')) {
+	    return is_a($instance, $className);
+	} else {
+	    return (is_subclass_of($instance, $className) ||
+		    !strcasecmp(get_class($instance), $className));
+	}
+    }
+
+    /**
+     * Takes a string of utf-8 encoded characters and converts it to a string
+     * of unicode entities.  Each unicode entity has the form &#nnnnn; n={0..9}
+     * and can be displayed by utf-8 supporting browsers.
+     *
+     * This function was posted in a comment here:
+     *   http://www.php.net/manual/en/function.utf8-decode.php
+     * by "ronen at greyzone dot com".
+     *
+     * @param $source string encoded using utf-8 [STRING]
+     * @return string of unicode entities [STRING]
+     * @access public
+     */
+    function utf8ToUnicodeEntities($source) {
+	// array used to figure what number to decrement from character order
+	// value
+	// according to number of characters used to map unicode to ascii by
+	// utf-8
+	$decrement[4] = 240;
+	$decrement[3] = 224;
+	$decrement[2] = 192;
+	$decrement[1] = 0;
+
+	// the number of bits to shift each charNum by
+	$shift[1][0] = 0;
+	$shift[2][0] = 6;
+	$shift[2][1] = 0;
+	$shift[3][0] = 12;
+	$shift[3][1] = 6;
+	$shift[3][2] = 0;
+	$shift[4][0] = 18;
+	$shift[4][1] = 12;
+	$shift[4][2] = 6;
+	$shift[4][3] = 0;
+
+	$pos = 0;
+	$len = strlen($source);
+	$encodedString = '';
+	while ($pos < $len) {
+	    $asciiPos = ord(substr($source, $pos, 1));
+	    if (($asciiPos >= 240) && ($asciiPos <= 255)) {
+		// 4 chars representing one unicode character
+		$thisLetter = substr($source, $pos, 4);
+		$pos += 4;
+	    }
+	    else if (($asciiPos >= 224) && ($asciiPos <= 239)) {
+		// 3 chars representing one unicode character
+		$thisLetter = substr($source, $pos, 3);
+		$pos += 3;
+	    }
+	    else if (($asciiPos >= 192) && ($asciiPos <= 223)) {
+		// 2 chars representing one unicode character
+		$thisLetter = substr($source, $pos, 2);
+		$pos += 2;
+	    }
+	    else {
+		// 1 char (lower ascii)
+		$thisLetter = substr($source, $pos, 1);
+		$pos += 1;
+	    }
+
+	    // process the string representing the letter to a unicode entity
+	    $thisLen = strlen ($thisLetter);
+	    $thisPos = 0;
+	    $decimalCode = 0;
+	    while ($thisPos < $thisLen) {
+		$thisCharOrd = ord(substr($thisLetter, $thisPos, 1));
+		if ($thisPos == 0) {
+		    $charNum = intval($thisCharOrd - $decrement[$thisLen]);
+		    $decimalCode += ($charNum << $shift[$thisLen][$thisPos]);
+		} else {
+		    $charNum = intval($thisCharOrd - 128);
+		    $decimalCode += ($charNum << $shift[$thisLen][$thisPos]);
+		}
+		$thisPos++;
+	    }
+	    if (($thisLen == 1) && ($decimalCode<=128)) {
+		$encodedLetter = $thisLetter;
+	    } else {
+		$encodedLetter = '&#' . $decimalCode . ';';
+	    }
+	    $encodedString .= $encodedLetter;
+	}
+	return $encodedString;
+    }
+
+    /**
+     * Perform necessary pre-processing on the "value" part of the incoming
+     * array (which may be an associative array or a simple list of values).
+     * We do the following:
+     * 1.  Convert UTF-8 values to Unicode entities
+     * 2.  Sanitize any input values to remove dangerous values
+     */
+    function _processInputValues(&$values) {
+	foreach (array_keys($values) as $key) {
+	    if (is_array($values[$key])) {
+		GalleryUtilities::_processInputValues($values[$key]);
+	    } else {
+		/* Convert UTF-8 to Unicode entities */
+		$values[$key] = GalleryUtilities::utf8ToUnicodeEntities($values[$key]);
+
+		/* Sanitize the input */
+		$values[$key] = GalleryUtilities::sanitizeInputValue($values[$key]);
+	    }
+	}
+    }
+
+    /**
+     * Return a specified request variable from the GET or POST vars.
+     *
+     * @param string a single key
+     * @return string a single value
+     * @static
+     */
+    function _getRequestVariable($argName) {
+	global $HTTP_POST_VARS;
+	global $HTTP_GET_VARS;
+
+	/*
+	 * Convert dots to underscores.  Some versions of PHP seem to do
+	 * this when processing POST data, so we force the issue here so
+	 * that we get consistent behaviour across all versions.
+	 */
+	$argName = strtr(GALLERY_FORM_VARIABLE_PREFIX . $argName, '.', '_');
+	
+	if (!empty($HTTP_GET_VARS[$argName])) {
+	    $value = $HTTP_GET_VARS[$argName];
+	} else if (!empty($HTTP_POST_VARS[$argName])) {
+	    $value = $HTTP_POST_VARS[$argName];
+	} else {
+	    $value = null;
+	}
+	return $value;
+    }
+
+    /**
+     * Return true if the path exists and is in the given path list
+     *
+     * @param string the path
+     * @param string the list of legal paths
+     * @return true or false
+     */
+    function isPathInList($path, $list) {
+	global $gallery;
+
+	$pos = strpos($path, '..');
+	if (!($pos === false)) {
+	    return false;
+	}
+
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
+
+	foreach ($list as $element) {
+	    if ($path == $element) {
+		return true;
+	    }
+
+	    /*
+	     * Make sure the compare directory has a trailing slash so that
+	     * /tmp doesn't accidentally match /tmpfoo
+	     */
+	    if ($element{strlen($element)-1} != $slash) {
+		$element .= $slash;
+	    }
+
+	    if (!strncmp($element, $path, strlen($element))) {
+		return true;
+	    }
+	}
+	return false;
+    }
+}
+?>
