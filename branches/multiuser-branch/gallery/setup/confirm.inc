@@ -52,10 +52,6 @@ $view .= row_wrap("/* Constants */\n");
 foreach ($constants as $key => $val) {
 	echo "<input type=hidden name=$key value=\"{$$key}\">";
 
-	if ($constants[$key]["dont-write"]) {
-		continue;
-	}
-
 	if ($constants[$key]["eval"]) {
 		$tmp = $constants[$key]["eval"];
 		eval("\$$key = $tmp;");
@@ -94,8 +90,10 @@ foreach ($constants as $key => $val) {
 			}
 		}
 
-		$data .= one_constant($key, $$key);
-		$view .= row_wrap(one_constant($key, $$key));
+		if (!$constants[$key]["dont-write"]) {
+			$data .= one_constant($key, $$key);
+			$view .= row_wrap(one_constant($key, $$key));
+		}
 	}
 }
 
