@@ -58,7 +58,7 @@ case $1 in
 		gendate
 
 		cd $DIST/galleryweb
-		xsltproc --param prettyhtml 0 --param galleryweb 1 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/galleryweb.xsl ../../manual.xml || exit 1
+		xsltproc --param prettyhtml 0 --param galleryweb 1 --param generate.section.toc.level 2 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/galleryweb.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
@@ -96,7 +96,7 @@ case $1 in
 		gendate
 
 		cd $DIST/grpackage
-		xsltproc --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 1 ../../misc-xsl/gr-package.xsl ../../manual.xml || exit 1
+		xsltproc --param toc-offset 3 --param prettyhtml 0 --param galleryweb 0 --param generate.section.toc.level 1 --param chunk.first.sections 1 --param toc.section.depth 4 ../../misc-xsl/gr-package.xsl ../../manual.xml || exit 1
 
 
 		cp -Rf ../../images .
