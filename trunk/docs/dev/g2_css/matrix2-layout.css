@@ -21,29 +21,41 @@
 /*    declare where to put Gallery Module            */
 
 /*  main container. Ignore in stand-alone install */
-#gallery { }
+#gallery {}
 
 
 /* ***************** SECTIONS ********************** */
 /*   Category 2: section definitions                 */
 /* declare relative or absolute section positions    */
 
-#gsHeader {  }
+#gsHeader { 
+	position: absolute;
+	left: 10 px;
+	height: 10px;
+	padding: 0 200px; 
+ }
 
 #gsFooter {
-	clear: both;
-	padding: 8px;
-
+	position: absolute;
+	left: 15px;
+	height: 10px;	
 }
 
 #gsSidebar {
-	float: left;
-	width: 148px;
-	padding: 0 12px;
+	position: absolute;
+	top: 40px;
+	left: 12px;	
+	width: 75px;
+	padding: 5px;
 }
 
 #gsComments { 
-	padding: 8px;
+	position: absolute;
+	left: 580px;
+	top: 0px;
+	height: 500px;
+	overflow: scroll;
+	width: 200px;
 }
 
 /* Status message display section */
@@ -53,13 +65,33 @@
 	margin-bottom: 4px;
  }
 
+#gsItemImages {
+	position: absolute;
+	left: 220px;
+	top: 0px;
+	height: 500px;
+	overflow: scroll;
+	width: 350px;
+
+}
+
+#gsAlbumImages {
+	position: absolute;
+	left: 0px;
+	top: 95px;
+	height: 405px;
+	overflow: scroll;
+	width: 210px;
+}
+
 
 /* gsXxxxContents	elements are the main 'holder' for the page. */
 
 #gsAlbumContents {
-	float: left;
-	width: 72%;
-	min-width: 596px;
+	position: absolute;
+	top: 40px;
+	left: 150px;
+
 }
 
 #gsSearchContents { }
@@ -75,17 +107,6 @@
 	padding: 0 4px;
 }
 
-#gsItemImages {
-	display: block;
-
-	clear: all;
-}
-
-#gsAlbumImages {
-	display: block;
-
-	clear: all;
-}
 
 /* ***************** BOXES ******************************* */
 /*   Category 3: box definitions                           */
@@ -100,8 +121,8 @@
 
 /* Menus don't need to be global, but currently are */
 .gbMenu { 
-	padding: 16px 0;
-	margin: 16px 0;
+	padding: 8px 0;
+	margin: 0px 0;
 }
 
 /* spacers neeed for expanding layouts */
@@ -134,63 +155,72 @@
 /* ********** #gsHeader *************** */
 
 #gsHeader .gbTitleBanner { 
-	padding-top: 6px;
-	padding-bottom: 6px;
+	padding: 0px;
 }
 
-#gsHeader .gbBreadCrumb { padding: 8px; }
+#gsHeader .gbBreadCrumb { padding: 0px; }
 
 /* ********** #gsAlbumContents ******** */
 
 #gsAlbumContents .gbTopFlag,
 #gsAdminContents .gbTopFlag  {
 	display: block;
-	padding: 6px;
+	padding: 0 8px;
+	width: 170px;
 }
 
 #gsAlbumContents .gbTitleBanner {
 	float: left;
-	width: 256px;
-	padding: 8px 0;
+	width: 100%;	
+	padding: 4px 0px;
+	clear:both;
 }
 
-#gsAlbumContents .gbItemAlbum {
-	clear: both;
-	float: left;
-	width: 97%;
-	margin: 8px 8px 0 0;
-	padding: 8px;
-}
 
-/* individual items */
-#gsAlbumContents .gbItemImage,
-#gsAlbumContents .gbItemMovie,
-#gsAlbumContents .gbItemOther {
-	float: left;
-	/*	IE max-width >> http://www.svendtofte.com/code/max_width_in_ie/ */
-	min-height: 216px;
-	height: expression(this.scrollHeight < 216? '216px' : 'auto' );
-	max-width: 172px;
-	width: expression(document.body.clientWidth > 172? '172px': 'auto' );
-	margin: 8px 8px 0 0;
-	padding: 8px;
-}
 
 #gsAlbumContents .gbExif { }
 
 #gsAlbumContents .gbBottomFlag { 
-			display: block; 
-			padding: 8px;
+	position: absolute;
+	left: 0px;
+	top: 520px;
+	width: 780px;
+	height: 12px;
 }
 
 #gsAlbumContents div.giHorizontalLinks {
 	float: right;
 }
 
+
+/* ********* #gsAlbumImages *************** */
+
+#gsAlbumImages .gbItemAlbum {
+	margin-top: 5px;
+	padding: 4px 8px;
+	width: 170px;
+
+}
+
+
+/* ********* #gsItemImages *************** */
+
+/* individual items */
+#gsItemImages .gbItemImage,
+#gsItemImages .gbItemMovie,
+#gsItemImages .gbItemOther {
+	height: 160px;
+	width: 300px;
+	align: left;
+	display: block;
+	clear: all;
+}
+
+
 /* ************* #gsCommentBox ************ */
 
 #gsComments .gbComment { 
-			padding: 8px 0 16px 0;
+			padding: 4px;
 }
 
 /* ************* #gsFooter **************** */
@@ -246,4 +276,3 @@
 }
 
 /* ************** Status classes ***************** */
-
