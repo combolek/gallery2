@@ -59,15 +59,6 @@ class UserAdminView extends GalleryView {
 	global $gallery;
 
 	$userId = $gallery->getActiveUserId();
-
-	list ($ret, $anonymousUserId) = $gallery->getModuleParameter('core', 'id.anonymousUser');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	if ($userId == $anonymousUserId) {
-	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
-	}
-	
 	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

@@ -1,5 +1,6 @@
 {gallery->mainbody1}
   {gallery->form action_controller=$controller}
+    {gallery->input type="hidden" name="form.formName"}UserChangePassword{/gallery->input}
     {gallery->maintitle1}
       {gallery->text text="Change Password"}
     {/gallery->maintitle1}

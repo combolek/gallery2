@@ -34,7 +34,7 @@
  * @subpackage UserInterface
  *
  */
-class LoginController extends GalleryController {
+class UserLoginController extends GalleryController {
     
     /**
      * @see GalleryController::handleRequest
@@ -43,7 +43,6 @@ class LoginController extends GalleryController {
 	global $gallery;
 
 	$results = array();
-	$return = GalleryUtilities::getFormVariables('return.');
 
 	if (isset($form['action']['login'])) {
 
@@ -56,21 +55,27 @@ class LoginController extends GalleryController {
 		if ($user != null && $user->isCorrectPassword($form['password'])) {
 		    $session =& $gallery->getSession();
 		    $session->put('core.id.activeUser', $user->getId());
-		    $redirectParams = $return;
+
+		    // XXX: where do we go?
+		    $redirectParams = array('view' => 'core:UserAdmin',
+					    'subView' => 'core:UserPreferences');
 		} else {
 		    GalleryUtilities::putRequestVariable('form.error.invalidPassword', 1);
 		}
 	    }
 
 	} else if (isset($form['action']['cancel'])) {
-	    $redirectParams = $return;
+	    // XXX: Haven't figured out how this should work yet
+	    $redirectParams = array('view' => 'core:UserAdmin',
+				    'subView' => 'core:UserLogin');
 	}
 	
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
 	} else {
 	    if (empty($results['view'])) {
-		$results['view'] = 'core:Login';
+		$results['view'] = 'core:UserAdmin';
+		$results['subView'] = 'core:UserLogin';
 	    }
 	}
 
@@ -86,22 +91,7 @@ class LoginController extends GalleryController {
  * @subpackage UserInterface
  *
  */
-class LoginView extends GalleryView {
-
-    /**
-     * @see GalleryView::renderHead
-     */
-    function renderHead() {
-	global $gallery;
-
-	$template = $this->_getTemplate();
-	list($ret, $html) = $template->render('LoginHead.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-
-	return array(GalleryStatus::success(), $html);
-    }
+class UserLoginView extends GalleryView {
 
     /**
      * @see GalleryView::renderBody
@@ -109,9 +99,7 @@ class LoginView extends GalleryView {
     function renderBody($form) {
 	global $gallery;
 
-	$return = GalleryUtilities::getFormVariables('return.');
-
-	if ($form['formName'] == 'Login') {
+	if ($form['formName'] == 'UserLogin') {
 	    if (empty($form['username'])) {
 		$form['error']['username']['missing'] = 1;
 	    }
@@ -121,14 +109,12 @@ class LoginView extends GalleryView {
 	    }
 	} else {
 	    $form['username'] = '';
-	    $form['return'] = $return;
 	}
 
 	$template = $this->_getTemplate();
 	$template->setVariable('form', $form);
-	$template->setVariable('return', $return);
-	$template->setVariable('controller', 'core:Login');
-	list($ret, $html) = $template->render('Login.tpl');
+	$template->setVariable('controller', 'core:UserLogin');
+	list($ret, $html) = $template->render('UserLogin.tpl');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), $html);	    
 	}
