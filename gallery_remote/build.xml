@@ -149,10 +149,10 @@
 		<delete file="${img}/jpegtran.properties" />
 	</target>
 
-	<!--target name="installer_macosx" depends="jar, mac_img_jar, docs"
-		description="Build a MacOSX executable"-->
-	<target name="installer_macosx"
+	<target name="installer_macosx" depends="jar, mac_img_jar, docs"
 		description="Build a MacOSX executable">
+	<!--target name="installer_macosx"
+		description="Build a MacOSX executable"-->
 
 		<delete dir="Gallery Remote.app" />
 
