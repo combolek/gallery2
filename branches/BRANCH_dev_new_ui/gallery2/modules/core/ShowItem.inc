@@ -91,8 +91,17 @@ class ShowItemView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Find the right layout for this item  */
-	$layoutName = $item->getLayout();
+	/* Find the right layout for this item */
+	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    $layoutName = $item->getLayout();
+	} else {
+	    list ($ret, $parent) = $gallery->loadEntitiesById($item->getParentId());
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $layoutName = $parent->getLayout();
+	}
 	if (empty($layoutName)) {
 	    list ($ret, $layoutName) =
 		$gallery->getModuleParameter('core', 'default.layout');
