@@ -33,8 +33,8 @@
 <?
 if ($submit) {
 	if ($uname && $password) {
-		$user = $userDB->getUser($uname);
-		if ($user && $user->isCorrectPassword($password)) {
+		$tmpUser = $userDB->getUserByUsername($uname);
+		if ($tmpUser && $tmpUser->isCorrectPassword($password)) {
 			$username = $uname;
 			dismissAndReload();
 		} else {
