@@ -1307,6 +1307,14 @@ if (!function_exists('array_search')) {
         </listitem>
        </itemizedlist>
       </para>
+      <para>
+       Sometimes it is also helpful to enable <literal>devMode</literal>.  Find this line in &config.php;
+       <screen>
+        $gallery->app->devMode = "no";
+       </screen>
+       And change "no" to "yes"  This will enable some extra debugging features and turn up PHP's
+       error reporting level.
+      </para>
      </answer>
     </qandaentry>
     
