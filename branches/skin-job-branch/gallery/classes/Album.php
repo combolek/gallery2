@@ -33,8 +33,13 @@ class Album {
 	 */
 	var $transient;
 
-	function Album() {
+	function Album($loadName="") {
 		global $gallery;
+
+		if ($loadName) {
+			$this->load($loadName);
+			return;
+		}
 
 		$this->fields["title"] = "Untitled";
 		$this->fields["description"] = "No description";
