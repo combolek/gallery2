@@ -503,12 +503,9 @@ class GalleryItem extends GalleryNucleus {
      * @access public
      */
     function setOwnerId($value) {
-        assert('!empty($value)');
-
-	if (!empty($value)) {
-	    $this->_ownerId = $value;
-	    $this->modifyPersistentMember('ownerId');
-	}
+        assert('isset($value)');
+        $this->_ownerId = $value;
+        $this->modifyPersistentMember('ownerId');
     }
     
     /**
@@ -540,12 +537,9 @@ class GalleryItem extends GalleryNucleus {
      * @access public
      */
     function setThumbnailId($value) {
-        assert('!empty($value)');
-
-	if (!empty($value)) {
-	    $this->_thumbnailId = $value;
-	    $this->modifyPersistentMember('thumbnailId');
-	}
+        assert('isset($value)');
+        $this->_thumbnailId = $value;
+        $this->modifyPersistentMember('thumbnailId');
     }
     
     /**
