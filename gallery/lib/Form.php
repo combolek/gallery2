@@ -155,16 +155,44 @@ function makeFormIntro($target, $attrList=array()) {
 }
 
 function formVar($name) {
-	if (!strncmp($_REQUEST[$name], 'false', 5)) {
-		return false;
-	} else {
-		return ($_REQUEST[$name]);
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+
+	if (!empty($HTTP_GET_VARS[$name])) {
+		if (!strncmp($HTTP_GET_VARS[$name], 'false', 5)) {
+			return false;
+		} else {
+			return($HTTP_GET_VARS[$name]);
+		}
+	}
+
+	if (!empty($HTTP_POST_VARS[$name])) {
+		if (!strncmp($HTTP_POST_VARS[$name], 'false', 5)) {
+			return false;
+		} else {
+			return($HTTP_POST_VARS[$name]);
+		}
+	}
+
+	if (is_array($_REQUEST) && !empty($_REQUEST[$name])) {
+		if (!strncmp($_REQUEST[$name], 'false', 5)) {
+			return false;
+		} else {
+			return ($_REQUEST[$name]);
+		}
 	}
 }
 
 
 function emptyFormVar($name) {
-	return !isset($_REQUEST[$name]);
+	global $HTTP_GET_VARS;
+	global $HTTP_POST_VARS;
+
+	$ret = !isset($HTTP_GET_VARS[$name]) && !isset($HTTP_POST_VARS[$name]);
+	if (is_array($_REQUEST)) {
+		$ret = $ret && !isset($_REQUEST[$name]);
+	}
+	return $ret;
 }
 
 ?>

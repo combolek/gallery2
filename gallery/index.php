@@ -74,11 +74,11 @@ if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option)) {
 	}
 
 	if (empty($include)) {
-		if (!empty($_GET['include'])) {
-			$include = $_GET['include'];
+		if (!empty($HTTP_GET_VARS['include'])) {
+			$include = $HTTP_GET_VARS['include'];
 		}
-		elseif (!empty($_POST['include'])) {
-			$include = $_POST['include'];
+		elseif (!empty($HTTP_POST_VARS['include'])) {
+			$include = $HTTP_POST_VARS['include'];
 		}
 		else {
 			$include = "albums.php";

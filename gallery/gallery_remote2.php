@@ -879,11 +879,12 @@ function processFile($file, $tag, $name, $setCaption="") {
 			// add the extra fields
 			$myExtraFields = array();
 			foreach ($gallery->album->getExtraFields() as $field) {
+				global $HTTP_POST_VARS;
 				//$fieldname = "extrafield_$field";
 				//echo "Looking for extra field $fieldname\n";
 
 				// The way it should be done now
-				$value = $_POST[("extrafield.".$field)];
+				$value = $HTTP_POST_VARS[("extrafield.".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {
@@ -894,7 +895,7 @@ function processFile($file, $tag, $name, $setCaption="") {
 				}
 
 				// Deprecated
-				$value = $_POST[("extrafield_".$field)];
+				$value = $HTTP_POST_VARS[("extrafield_".$field)];
 				//echo "Got extra field $field = $value\n";
 				if ($value) {
 					if (get_magic_quotes_gpc()) {

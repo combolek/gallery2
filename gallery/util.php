@@ -24,61 +24,6 @@
 
 require(dirname(__FILE__) . '/nls.php');
 
-function getRequestVar($str) {
-	if (!is_array($str)) {
-		if (!isset($_REQUEST[$str])) {
-			return null;
-		}
-		$ret = $_REQUEST[$str];
-		if (get_magic_quotes_gpc()) {
-			$ret = stripslashes($ret);
-		}	
-	}
-	else {
-		foreach ($str as $reqvar) {
-			$ret[] = getRequestVar($reqvar);
-		}
-	}
-	
-	return $ret;
-}
-
-function getFilesVar($str) {
-	if (!is_array($str)) {
-		if (!isset($_FILES[$str])) {
-			return null;
-		}
-		$ret = $_FILES[$str];
-		if (get_magic_quotes_gpc()) {
-			$ret = stripslashes($ret);
-		}
-		return $ret;
-	}
-	else {
-		foreach ($str as $reqvar) {
-			$ret[] = getFilesVar($reqvar);
-		}
-	}
-}
-
-function getEnvVar($str) {
-	if (!is_array($str)) {
-		if (!isset($_ENV[$str])) {
-			return null;
-		}
-		$ret = $_ENV[$str];
-		if (get_magic_quotes_gpc()) {
-			$ret = stripslashes($ret);
-		}
-		return $ret;
-	}
-	else {
-		foreach ($str as $reqvar) {
-			$ret[] = getEnvVar($reqvar);
-		}
-	}
-}
-
 function editField($album, $field, $link=null) {
 	global $gallery;
 	$buf = "";
@@ -1130,7 +1075,8 @@ function includeHtmlWrap($name, $skinname='') {
 	// define these globals to make them available to custom text
         global $gallery;
 
-	$domainname = dirname(__FILE__) . '/html_wrap/' . $_SERVER['HTTP_HOST'] . "/$name";
+	global $HTTP_SERVER_VARS;
+	$domainname = dirname(__FILE__) . '/html_wrap/' . $HTTP_SERVER_VARS['HTTP_HOST'] . "/$name";
 
 	if (!$skinname) {
 		$skinname = $gallery->app->skinname;
@@ -1168,13 +1114,13 @@ function getStyleSheetLink() {
 	} else {
 		return _getStyleSheetLink("embedded_style") . 
 			"\n" .
-		       _getStyleSheetLink("standalone_style").
-			"\n";
+		       _getStyleSheetLink("standalone_style");
 	}
 }
 
 function _getStyleSheetLink($filename, $skinname='') {
 	global $gallery;
+	global $HTTP_SERVER_VARS;
 	global $GALLERY_EMBEDDED_INSIDE;
 
 	if (! defined("GALLERY_URL")) define ("GALLERY_URL","");
@@ -1190,13 +1136,13 @@ function _getStyleSheetLink($filename, $skinname='') {
         $sheetname = "skins/$skinname/css/$filename.css";
 	$sheetpath = dirname(__FILE__) . "/$sheetname";
 
-	$sheetdefaultdomainname = 'css/'. $_SERVER['HTTP_HOST'] ."/$filename.css";
+	$sheetdefaultdomainname = "css/$HTTP_SERVER_VARS[HTTP_HOST]/$filename.css";
 	$sheetdefaultname = "css/$filename.css";
 	$sheetdefaultpath = $sheetname;
 
 	if (isset($gallery->app) && isset($gallery->app->photoAlbumURL)) {
 		$base = $gallery->app->photoAlbumURL;
-	} elseif (stristr($_SERVER['REQUEST_URI'],"setup")) {
+	} elseif (stristr($HTTP_SERVER_VARS['REQUEST_URI'],"setup")) {
 		$base = '..';
 	} elseif (GALLERY_URL== "") {
 		$base = '.';
@@ -1233,7 +1179,7 @@ function errorRow($key) {
 }
 
 function drawApplet($width, $height, $code, $archive, $album, $defaults, $overrides, $configFile, $errorMsg) {
-	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE;
+	global $gallery, $GALLERY_EMBEDDED_INSIDE, $GALLERY_EMBEDDED_INSIDE_TYPE, $HTTP_COOKIE_VARS;
 	global $_CONF; // for geeklog
 	global $board_config; // for phpBB2
 
@@ -1259,10 +1205,10 @@ function drawApplet($width, $height, $code, $archive, $album, $defaults, $overri
 	if (isset($GALLERY_EMBEDDED_INSIDE)) {
 		if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpnuke') {
 			$cookie_name = 'user';
-			$cookie_value = $_COOKIE[$cookie_name];
+			$cookie_value = $HTTP_COOKIE_VARS[$cookie_name];
 		} else if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'GeekLog') {
 			$cookie_name = $_CONF['cookie_session'];
-			$cookie_value = $_COOKIE[$cookie_name];
+			$cookie_value = $HTTP_COOKIE_VARS[$cookie_name];
 		} else if ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2') {
 			$cookie_name = $board_config['cookie_name'] . '_sid';
 			$cookie_value = $HTTP_COOKIE_VARS[$cookie_name];
@@ -1406,6 +1352,7 @@ function makeGalleryUrl($target, $args=array()) {
 	/* Needed for phpBB2 */
 	global $userdata;
 	global $board_config;
+	global $HTTP_COOKIE_VARS;
 
 	/*needed for Mambo */
 	global $MOS_GALLERY_PARAMS;
@@ -1419,7 +1366,7 @@ function makeGalleryUrl($target, $args=array()) {
                 switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 	                case 'phpBB2':
 				$cookiename = $board_config['cookie_name'];			
-				if(!isset($_COOKIE[$cookiename . '_sid'])) {
+				if(!isset($HTTP_COOKIE_VARS[$cookiename . '_sid'])) {
 					// no cookie so we need to pass the session ID manually.
 					$args["sid"] = $userdata['session_id'];
 					if(!isset($args["set_albumName"])) {
@@ -2610,7 +2557,7 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 		$bcc="";
 		$join="";
 	}
-	global $gallery;
+	global $gallery, $HTTP_SERVER_VARS;
 	if (!gallery_validate_email($from)) {
 		if (isDebugging() && $from) {
 			echo gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
@@ -2626,106 +2573,14 @@ function gallery_mail($to, $subject, $msg, $logmsg,
 		$bcc .= $join.$gallery->app->adminEmail;
 	}
 	$additional_headers = "From: $from\r\nReply-To: $reply_to\r\n";
-	$additional_headers .= "X-GalleryRequestIP: " . $_SERVER['REMOTE_ADDR'] . "\r\n";
+	$additional_headers .= "X-GalleryRequestIP: " . $HTTP_SERVER_VARS['REMOTE_ADDR'] . "\r\n";
 	if ($bcc) {
 		$additional_headers .= "Bcc: " . $bcc. "\r\n";
 	}
 	if (get_magic_quotes_gpc() ) {
 		$msg = stripslashes($msg);
 	}
-	if ($gallery->app->useOtherSMTP != "yes") {
-		$result=mail($to, $gallery->app->emailSubjPrefix." ".$subject, emailDisclaimer().$msg, $additional_headers);
-	} else {
-	        $lb="\r\n";                        //linebreak
-	        $msg_lb="\r\n";                //body linebreak
-	        $hdr = explode($lb,$additional_headers);        //header
-		$result = 0;
-     
-	        if(emailDisclaimer().$msg) {
-			$bdy = preg_replace("/^\./","..",explode($msg_lb,emailDisclaimer().$msg));
-		}
-     
-	        // build the array for the SMTP dialog. Line content is array(command, success code, additonal error message)
-	        if($gallery->app->smtpUserName != ""){// SMTP authentication methode AUTH LOGIN, use extended HELO "EHLO"
-	            $smtp = array(
-	                // call the server and tell the name of your local host
-	                array("EHLO ".$gallery->app->smtpFromHost.$lb,"220,250","HELO error: "),
-	                // request to auth
-	                array("AUTH LOGIN".$lb,"334","AUTH error:"),
-	                // username
-	                array(base64_encode($gallery->app->smtpUserName).$lb,"334","AUTHENTICATION error : "),
-	                // password
-	                array(base64_encode($gallery->app->smtpPassword).$lb,"235","AUTHENTICATION error : "));
-	        }
-	        else {// no authentication, use standard HELO   
-	            $smtp = array(
-	                // call the server and tell the name of your local host
-	                array("HELO ".$gallery->app->smtpFromHost.$lb,"220,250","HELO error: "));
-	        }
- 
-	        // envelop
-		if ($to == "") {
-			$bcc_array = explode(", ",$bcc);
-			foreach($bcc_array as $bccto) {
-				if ($bccto != "") {
-				        $smtp[] = array("MAIL FROM: ".$from.$lb,"250","MAIL FROM error: ");
-					$smtp[] = array("RCPT TO: ".$bccto.$lb,"250","RCPT TO:".$bccto." error: ");
-					// begin data       
-				        $smtp[] = array("DATA".$lb,"354","DATA error: ");
-				        // header
-				        $smtp[] = array("Subject: ".$gallery->app->emailSubjPrefix." ".$subject.$lb,"","");
-				        $smtp[] = array("To:".$bccto.$lb,"","");       
-				        foreach($hdr as $h) {$smtp[] = array($h.$lb,"","");}
-				        // end header, begin the body
-				        $smtp[] = array($lb,"","");
-				        if($bdy) {foreach($bdy as $b) {$smtp[] = array($b.emailDisclaimer().$msg_lb,"","");}}
-				        // end of messageO5B
-				        $smtp[] = array(".".$lb,"250","DATA(end)error: ");
-				}
-			}
-		} else {
-                        $smtp[] = array("MAIL FROM: ".$from.$lb,"250","MAIL FROM error: ");
-                        $smtp[] = array("RCPT TO: ".$to.$lb,"250","RCPT TO:".$to." error: ");
-                        // begin data
-                        $smtp[] = array("DATA".$lb,"354","DATA error: ");
-                        // header
-                        $smtp[] = array("Subject: ".$gallery->app->emailSubjPrefix." ".$subject.$lb,"","");                       
-			$smtp[] = array("To:".$to.$lb,"","");
-                        foreach($hdr as $h) {$smtp[] = array($h.$lb,"","");}
-                        // end header, begin the body
-                        $smtp[] = array($lb,"","");
-                        if($bdy) {foreach($bdy as $b) {$smtp[] = array($b.emailDisclaimer().$msg_lb,"","");}}
-			// end of message
-                        $smtp[] = array(".".$lb,"250","DATA(end)error: ");
-		}
-	        $smtp[] = array("QUIT".$lb,"221","QUIT error: ");
-
-	        // open socket
-	        $fp = @fsockopen($gallery->app->smtpHost, $gallery->app->smtpPort);
-	        if (!$fp){
-			 echo "<b>Error:</b> Cannot connect to ".$gallery->app->smtpHost."<br>";
-     			 $result = 1;
-		}
-	        $banner = @fgets($fp, 1024);
-	        // perform the SMTP dialog with all lines of the list
-	        foreach($smtp as $req){
-	            $r = $req[0];
-	            // send request
-	            @fputs($fp, $req[0]);
-	            // get available server messages and stop on errors
-	            if($req[1]){
-	                while($result = @fgets($fp, 1024)){if(substr($result,3,1) == " ") { break; }};
-	                if (!strstr($req[1],substr($result,0,3))) {
-				echo"$req[2].$result<br>";
-				$result = 1;
-			}
-	            }
-	       }
-	       $done = @fgets($fp, 1024);
-	       // close socket
-	       @fclose($fp);
-	}
-
+	$result=mail($to, $gallery->app->emailSubjPrefix." ".$subject, emailDisclaimer().$msg, $additional_headers);
 //	if (isDebugging()) {
 	if (false) {
 		print "<table>";
@@ -2848,7 +2703,7 @@ function available_skins($description_only=false) {
 			$subdir="$dir/$file/css";
 			$skininc="$dir/$file/style.def";
 		       	$name="";
-			$description="";
+		       	$description="";
 			$skincss="$subdir/embedded_style.css";
 			if (fs_is_dir($subdir) && fs_file_exists($skincss)) {
 				if (fs_file_exists($skininc)) {
@@ -2870,19 +2725,7 @@ function available_skins($description_only=false) {
 							   $screenshot, 1, false,
 							   500, 800);
 				}
-
-				$descriptions.="\n<dt style=\"margin-top:5px;\">$name";
-				if (!isset ($version)) {
-					$version= _("unknown");
-				}
-				if (!isset($last_update)) {
-					$last_update=_("unknown");
-				}
-				$descriptions .= '<span style="margin-left:10px; font-size:x-small">';
-				$descriptions .= _("Version") .": $version";
-				$descriptions .= "&nbsp;&nbsp;&nbsp;";
-				$descriptions .= _("Last Update") . ": $last_update</span></dt>";
-				$descriptions .= "<dd style=\"font-weight:bold; background-color:white;\">$description<br></dd>";
+			       	$descriptions.="\n<dt>$name</dt><dd>$description</dd>";
 			}
 		}
 	}
@@ -3314,8 +3157,8 @@ function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withE
 		echo "\n<tr>";
 	        foreach ($fields as $key => $value) {
         	        $i++;
-                	echo "\n\t<td valign=\"top\"><b>$key<b></td>";
-	                echo "\n\t<td valign=\"top\">:</td>";
+                	echo "\n\t<td><b>$key<b></td>";
+	                echo "\n\t<td>:</td>";
         	        echo "\n\t<td>$value</td>";
                 	        if ($i != sizeof($fields)) {
                         	        if ($i%2 == 0) {
@@ -3386,22 +3229,6 @@ if (!function_exists('glob')) {
 	} 
 }
 
-function includeTemplate($tplName, $skinname='') {
-	global $gallery;
-
-	if (!$skinname) {
-		$skinname = $gallery->app->skinname;
-	}
-
-	$filename = dirname(__FILE__) . "/skins/$skinname/wrap/$tplName";
-	if (fs_is_readable($filename)) {
-		include($filename);
-		return true;
-	} else {
-		return false;
-	}
-}
-	
 require (dirname(__FILE__) . '/lib/lang.php');
 require (dirname(__FILE__) . '/lib/Form.php');
 require (dirname(__FILE__) . '/lib/voting.php');
