@@ -34,13 +34,13 @@ if ($action) {
 }
 
 $displayUsers = array();
-foreach ($userDB->getUserList() as $name) {
-	$tmpUser = $userDB->getUser($name);
+foreach ($userDB->getUidList() as $uid) {
+	$tmpUser = $userDB->getUserByUid($uid);
 	if ($tmpUser->isAdmin()) {
 		continue;
 	}
 
-	array_push($displayUsers, $name);
+	array_push($displayUsers, $tmpUser->getUsername());
 }
 
 ?>
