@@ -63,7 +63,7 @@ class MatrixTheme extends GalleryTheme {
 	/* Shrink down images that we display in the sidebar */
  	if (in_array('sidebar', $context['stack'])) {
  	    list ($width, $height) =
- 		GalleryUtilities::shrinkDimensionsToFit(110,
+ 		GalleryUtilities::shrinkDimensionsToFit(140,
  							$params['image']['width'],
  							$params['image']['height']);
  	} else {
