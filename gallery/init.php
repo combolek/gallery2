@@ -138,6 +138,12 @@ if (!$gallery->user) {
 	$gallery->session->username = "";
 }
 
+/* If we don't have an album name, point at the root */
+if (!$gallery->session->albumName) {
+	$albumDB = new AlbumDB;
+	$gallery->session->albumName = $albumDB->rootAlbum;
+}
+
 /* Load the correct album object */
 if ($gallery->session->albumName) {
 	$gallery->album = new Album;

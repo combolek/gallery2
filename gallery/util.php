@@ -687,7 +687,7 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 				$target .= "/$photoId";
 			} 
 		} else {
-			$target = "albums.php";
+			$target = "view_album.php";
 		}
 	} else {
 		if ($albumName) {
@@ -699,7 +699,7 @@ function makeAlbumUrl($albumName="", $photoId="", $args=array()) {
 				$target = "view_album.php";
 			}
 		} else {
-			$target = "albums.php";
+			$target = "view_album.php";
 		}
 
 	}

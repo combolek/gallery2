@@ -40,12 +40,14 @@ $user = $gallery->user;
 
 //-- Hack check. You have to have permission to see the album ---
 if (!$user->canReadAlbum($album)) {
-	header("Location: albums.php");
+	$gallery->sesson->albumName = "";
+	header("Location: view_album.php");
 	return;
 }
 
 if (!$album->isLoaded()) {
-    header("Location: albums.php");
+    $gallery->sesson->albumName = "";
+    header("Location: view_album.php");
     return;
 }
 
@@ -127,7 +129,7 @@ do {
 		//-- we're at the top! ---
     	$breadLevels[$breadCount]['level'] = "Gallery";
     	$breadLevels[$breadCount]['name'] = $gallery->app->galleryTitle;
-	    $breadLevels[$breadCount]['href'] = makeGalleryUrl("albums.php");
+	    $breadLevels[$breadCount]['href'] = makeGalleryUrl("view_album.php");
 	}
 	$breadCount++;
 	if ($pAlbum) {
@@ -340,7 +342,6 @@ list($GLO['header'], $GLO['footer']) = getLayoutWrapHeaderFooter($G);
 includeHtmlWrap("wrapper.header");
 includeLayout("view_album");
 includeHtmlWrap("wrapper.footer");
-
 
 ?>
 

@@ -46,11 +46,11 @@ if (!strcmp($op, "modload")) {
 	$GALLERY_EMBEDDED_INSIDE = "nuke";
 
 	if (!$include) {
-		$include = "albums.php";
+		$include = "view_album.php";
 	}
 
 	include(${GALLERY_BASEDIR} . $include);
 } else {
-	include("albums.php");
+	include("view_album.php");
 }
 ?>

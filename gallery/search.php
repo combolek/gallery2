@@ -65,7 +65,7 @@ if ($searchstring) {
 <!-- search.header ends -->
 <!-- Top Nav -->
 <?
-$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("albums.php") . ">".$gallery->app->galleryTitle."</a>";
+$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("view_album.php") . ">".$gallery->app->galleryTitle."</a>";
 $breadcrumb["text"] = $breadtext;
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
@@ -202,7 +202,7 @@ else {
 <?
 }
 echo "<br>";
-$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("albums.php") . ">".$gallery->app->galleryTitle."</a>";
+$breadtext[0] = "Gallery: <a href=". makeGalleryUrl("view_album.php") . ">".$gallery->app->galleryTitle."</a>";
 $breadcrumb["text"] = $breadtext;
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
