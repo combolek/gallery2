@@ -1,3 +1,34 @@
+2003-06-22  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* docbook.xsl, param.ent, param.xweb: Added draft.mode parameter.
+
+2003-06-22  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* param.xweb: Added fragment for draft.mode
+
+2003-06-21  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* block.xsl: Make attribution a div not a span
+
+	* chunk-code.xsl: Test part/glossary for chunking
+
+	* html-rtf.xsl: Added remove-empty-div mode
+
+2003-06-19  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* autotoc.xsl: Fixed bug 743752 where generate.index=0 and empty index
+	left a dead Index link in the TOC.
+
+	* biblio.xsl: Removed duplicate templates for biblioid.
+
+	* onechunk.xsl, profile-onechunk.xsl: Reset suppress.navigation parameter to 1 to turn off useless nav headers.
+
+2003-05-28  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* sections.xsl: Fixed bridgehead renderas levels to match section level.
+	This was missed when the section levels were corrected
+	a couple of releases back.
+
 2003-05-18  Norman Walsh <nwalsh@users.sourceforge.net>
 
 	* .cvsignore: Ignore profile-chunk-code.xsl

@@ -170,9 +170,11 @@
 <xsl:template match="epigraph">
   <div xmlns="http://www.w3.org/1999/xhtml" class="{name(.)}">
       <xsl:apply-templates select="para|simpara|formalpara|literallayout"/>
-    <div class="attribution">
-      <span>--<xsl:apply-templates select="attribution"/></span>
-    </div>
+      <xsl:if test="attribution">
+        <div class="attribution">
+          <span>--<xsl:apply-templates select="attribution"/></span>
+        </div>
+      </xsl:if>
   </div>
 </xsl:template>
 

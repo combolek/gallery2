@@ -422,4 +422,8 @@
       <l:template name="MsgLevel" text="Tingkatan: "/>
       <l:template name="MsgOrig" text="Asal: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0421 Indonesian (INDONESIA)"/>
+   </l:context>
 </l:l10n>

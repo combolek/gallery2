@@ -422,4 +422,8 @@
       <l:template name="MsgLevel" text="Poziom: "/>
       <l:template name="MsgOrig" text="Nadawca: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0415 Polish"/>
+   </l:context>
 </l:l10n>

@@ -423,4 +423,8 @@
       <l:template name="MsgLevel" text="Dringlichkeit: "/>
       <l:template name="MsgOrig" text="Ursprung: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0407 German (GERMANY)"/>
+   </l:context>
 </l:l10n>

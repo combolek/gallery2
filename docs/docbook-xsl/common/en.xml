@@ -166,7 +166,7 @@
    <l:dingbat key="nestedstartquote" text="&#8216;"/>
    <l:dingbat key="nestedendquote" text="&#8217;"/>
    <l:dingbat key="bullet" text="&#8226;"/>
-   <l:gentext key="hyphenation-character" text="&#8208;"/>
+   <l:gentext key="hyphenation-character" text="-"/>
    <l:gentext key="hyphenation-push-character-count" text="2"/>
    <l:gentext key="hyphenation-remain-character-count" text="2"/>
 
@@ -488,5 +488,9 @@
       <l:template name="Fri" text="Fri"/>
       <l:template name="Sat" text="Sat"/>
       <l:template name="Sun" text="Sun"/>
+   </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x0409 English (UNITED STATES)"/>
    </l:context>
 </l:l10n>

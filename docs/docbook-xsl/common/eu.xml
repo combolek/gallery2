@@ -423,4 +423,8 @@
       <l:template name="MsgLevel" text="Maila: "/>
       <l:template name="MsgOrig" text="Jatorria: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x042d Basque"/>
+   </l:context>
 </l:l10n>

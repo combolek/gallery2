@@ -191,11 +191,9 @@
 
 <xsl:template match="author" mode="titlepage.mode">
   <div class="{name(.)}">
-    <li>
-     <b class="{name(.)}"><xsl:call-template name="person.name"/></b>
-     <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
-     <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
-    </li> 
+    <xsl:call-template name="person.name"/>
+    <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
+    <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
   </div>
 </xsl:template>
 

@@ -1,3 +1,7 @@
+2003-05-23  <twaugh@users.sourceforge.net>
+
+	* synop.xsl: Only escape option spaces once when args are nested.
+
 2003-05-15  <twaugh@users.sourceforge.net>
 
 	* docbook.xsl: Handle refsection as well as refsect1|refsect2 in the manpages stylesheet.

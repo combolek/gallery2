@@ -3495,7 +3495,7 @@ The order of selection when then parameter is non-zero is:
 </para>
 <orderedlist inheritnum="ignore" continuation="restarts">
 <listitem>
-    <para>If the stylesheet parameter <parameter moreinfo="none">preferred.mediaojbect.role</parameter> has a value, then the object whose role equals that value is selected.</para>
+    <para>If the stylesheet parameter <parameter moreinfo="none">preferred.mediaobject.role</parameter> has a value, then the object whose role equals that value is selected.</para>
 </listitem>
 <listitem>
 <para>Else if an object's role attribute has a value of
@@ -4244,6 +4244,151 @@ List of Figures, etc.</para>
 <refsect1><title>Description</title>
 
 <para>Number of columns on a title page</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.back">
+<refmeta>
+<refentrytitle>column.gap.back</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.back</refname>
+<refpurpose>Gap between columns in back matter</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.back.frag">
+&lt;xsl:param name="column.gap.back" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns in back matter (if
+<parameter moreinfo="none">column.count.back</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.body">
+<refmeta>
+<refentrytitle>column.gap.body</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.body</refname>
+<refpurpose>Gap between columns in the body</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.body.frag">
+&lt;xsl:param name="column.gap.body" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns in body matter (if
+<parameter moreinfo="none">column.count.body</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.front">
+<refmeta>
+<refentrytitle>column.gap.front</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.front</refname>
+<refpurpose>Gap between columns in the front matter</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.front.frag">
+&lt;xsl:param name="column.gap.front" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns in front matter (if
+<parameter moreinfo="none">column.count.front</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.index">
+<refmeta>
+<refentrytitle>column.gap.index</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.index</refname>
+<refpurpose>Gap between columns in the index</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.index.frag">
+&lt;xsl:param name="column.gap.index" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns in indexes (if
+<parameter moreinfo="none">column.count.index</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.lot">
+<refmeta>
+<refentrytitle>column.gap.lot</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.lot</refname>
+<refpurpose>Gap between columns on a 'List-of-Titles' page</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.lot.frag">
+&lt;xsl:param name="column.gap.lot" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns on 'List-of-Titles' pages (if
+<parameter moreinfo="none">column.count.lot</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="column.gap.titlepage">
+<refmeta>
+<refentrytitle>column.gap.titlepage</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.titlepage</refname>
+<refpurpose>Gap between columns on title pages</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="column.gap.titlepage.frag">
+&lt;xsl:param name="column.gap.titlepage" select="'12pt'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns on title pages (if
+<parameter moreinfo="none">column.count.titlepage</parameter> is greater than one).</para>
+
 
 </refsect1>
 </refentry>
@@ -6134,6 +6279,12 @@ around all these parameters.</para>
 &lt;src:fragref linkend="column.count.index.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.lot.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.titlepage.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.back.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.body.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.front.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.index.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.lot.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.titlepage.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="compact.list.item.spacing.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="current.docid.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.float.class.frag"&gt;&lt;/src:fragref&gt;

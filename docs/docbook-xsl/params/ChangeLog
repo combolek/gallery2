@@ -1,3 +1,17 @@
+2003-06-21  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* column.gap.back.xml, column.gap.body.xml, column.gap.front.xml, column.gap.index.xml, column.gap.lot.xml, column.gap.titlepage.xml: 
+	New file.
+
+	* suppress.footer.navigation.xml, suppress.header.navigation.xml: 
+	Fixed id values
+
+	* use.role.for.mediaobject.xml: Editorial nit.
+
+2003-05-27  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* htmlhelp.hhc.folders.instead.books.xml: Notice of HTML Help limitation.
+
 2003-05-15  Jirka Kosek <kosek@users.sourceforge.net>
 
 	* axf.extensions.xml, xep.extensions.xml: Added support for AntennaHouse XSL Formatter. You can use axf.extensions=1 setting to generate bookmarks, document info and to merge duplicate page numbers in index.

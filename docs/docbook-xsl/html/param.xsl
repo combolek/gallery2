@@ -52,6 +52,7 @@
 <xsl:param name="default.float.class" select="'before'"/>
 <xsl:param name="default.image.width" select="''"/>
 <xsl:param name="default.table.width" select="''"/>
+<xsl:param name="draft.mode" select="'maybe'"/>
 <xsl:param name="draft.watermark.image" select="'http://docbook.sourceforge.net/release/images/draft.png'"/>
 <xsl:param name="ebnf.table.bgcolor" select="'#F5DCB3'"/>
 <xsl:param name="ebnf.table.border" select="1"/>

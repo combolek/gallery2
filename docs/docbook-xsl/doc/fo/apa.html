@@ -1,6 +1,6 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Appendix&nbsp;A.&nbsp;The Stylesheet</title><link rel="stylesheet" href="../ref.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.0"><link rel="home" href="index.html" title="FO Parameter Reference"><link rel="up" href="index.html" title="FO Parameter Reference"><link rel="previous" href="ebnf.statement.terminator.html" title="ebnf.statement.terminator"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix&nbsp;A.&nbsp;The Stylesheet</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ebnf.statement.terminator.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;</td></tr></table><hr></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="d0e5243"></a>Appendix&nbsp;A.&nbsp;The Stylesheet</h2></div></div><div></div></div><p>The <tt class="filename">param.xsl</tt> stylesheet is just a wrapper
+   <title>Appendix&nbsp;A.&nbsp;The Stylesheet</title><link rel="stylesheet" href="../ref.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.0"><link rel="home" href="index.html" title="FO Parameter Reference"><link rel="up" href="index.html" title="FO Parameter Reference"><link rel="previous" href="ebnf.statement.terminator.html" title="ebnf.statement.terminator"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix&nbsp;A.&nbsp;The Stylesheet</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ebnf.statement.terminator.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;</td></tr></table><hr></div><div class="appendix" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="d0e5375"></a>Appendix&nbsp;A.&nbsp;The Stylesheet</h2></div></div><div></div></div><p>The <tt class="filename">param.xsl</tt> stylesheet is just a wrapper
 around all these parameters.</p><a name="top"></a><pre class="programlisting">
 &lt;xsl:stylesheet exclude-result-prefixes="src" version="1.0"&gt;
 
@@ -55,6 +55,12 @@ around all these parameters.</p><a name="top"></a><pre class="programlisting">
 &lt;src:fragref linkend="column.count.index.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.lot.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="column.count.titlepage.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.back.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.body.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.front.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.index.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.lot.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="column.gap.titlepage.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="compact.list.item.spacing.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="current.docid.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="default.float.class.frag"&gt;&lt;/src:fragref&gt;

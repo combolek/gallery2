@@ -424,4 +424,8 @@
       <l:template name="MsgLevel" text="Nivel: "/>
       <l:template name="MsgOrig" text="Origen: "/>
    </l:context>
+
+   <l:context name="htmlhelp">
+      <l:template name="langcode" text="0x040a Spanish (Traditional Sort)"/>
+   </l:context>
 </l:l10n>
