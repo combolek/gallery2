@@ -1337,6 +1337,23 @@ print getcwd ();
       </para>
      </answer>
     </qandaentry>
+    
+    <qandaentry id="gallery1-install.faq.c.34">
+     <question>
+      <para>
+       I changed a value on Step 3 of the configuration wizard (or in
+       &config.php;), but the change isn't taking effect.  What's going on?
+      </para>
+     </question>
+     <answer>
+      <para>
+       These values are <emphasis>defaults</emphasis>.  They take effect for
+       new top-level albums, but do not affect already existing albums.
+       If you want to change the value of these parameters for already
+       existing albums, edit each album's properties.
+      </para>
+     </answer>
+    </qandaentry>
      
    </qandadiv>
   
