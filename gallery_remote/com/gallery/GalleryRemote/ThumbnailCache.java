@@ -72,7 +72,7 @@ public class ThumbnailCache implements Runnable
 				ImageIcon i = ImageUtils.load(
 					filename, 
 					GalleryRemote.getInstance().properties.getThumbnailSize(), 
-					ImageUtils.THUMB );
+					ImageUtils.THUMB);
 				thumbnails.put( filename, i );
 				
 				loaded++;

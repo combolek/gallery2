@@ -1,3 +1,14 @@
+2003-12-17  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b4)
+
+	* Now building jpegtran in Mac version, hard-coded ImageMagick
+	  path to /usr/local/bin on Mac.
+	* Fixed invoking external apps on Mac
+	* Fixed loading default image when it's in a jar (for Mac).
+	* Upgraded to JarBundler 0.3, which I extended to add support
+	  for bundling executables.
+	* Fixed BrowserLauncher to correctly detect Panther.
+	* The Mac version is now fully functional!
+
 2003-12-17  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b3)
 
 	* Added alerts when ImageMagick or jpegtran are unavailable.

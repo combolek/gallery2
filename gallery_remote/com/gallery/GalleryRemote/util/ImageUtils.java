@@ -25,6 +25,7 @@ import com.gallery.GalleryRemote.Log;
 import com.gallery.GalleryRemote.prefs.PropertiesFile;
 import com.gallery.GalleryRemote.prefs.PreferenceNames;
 import com.gallery.GalleryRemote.GalleryRemote;
+import com.gallery.GalleryRemote.MainFrame;
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Metadata;
@@ -36,8 +37,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.io.*;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.*;
+import java.net.URL;
 
 import javax.swing.*;
 
@@ -75,6 +76,8 @@ public class ImageUtils {
 
 	public final static String DEFAULT_IMAGE = "img/default.gif";
 	public final static String UNRECOGNIZED_IMAGE = "img/default.gif";
+	public final static String DEFAULT_RESOURCE = "default.gif";
+	public final static String UNRECOGNIZED_RESOURCE = "default.gif";
 
 	public static ImageIcon defaultThumbnail = null;
 	public static ImageIcon unrecognizedThumbnail = null;
@@ -86,9 +89,14 @@ public class ImageUtils {
 	 *  Perform the actual icon loading
 	 *
 	 *@param  filename  path to the file
+	 * @param disableOnError
 	 *@return           Resized icon
 	 */
-	public static ImageIcon load( String filename, Dimension d, int usage ) {
+	public static ImageIcon load( String filename, Dimension d, int usage) {
+		if (!new File(filename).exists()) {
+			return null;
+		}
+
 		ImageIcon r = null;
 		long start = System.currentTimeMillis();
 
@@ -97,28 +105,41 @@ public class ImageUtils {
 		}
 
 		if (useIM) {
-			StringBuffer cmdline = new StringBuffer(imPath);
+			//StringBuffer cmdline = new StringBuffer(imPath);
+			ArrayList cmd = new ArrayList();
+			cmd.add(imPath);
 
-			cmdline.append(" -size ").append(d.width).append("x").append(d.height);
+			//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
+			cmd.add("-size");
+			cmd.add(d.width + "x" + d.height);
 
 			if (filterName[usage] != null && filterName[usage].length() > 0) {
-				cmdline.append(" -filter ").append(filterName[usage]);
+				//cmdline.append(" -filter ").append(filterName[usage]);
+				cmd.add("-filter");
+				cmd.add(filterName[usage]);
 			}
 
-			cmdline.append(" \"").append(filename).append("\"");
+			//cmdline.append(" \"").append(filename).append("\"");
+			cmd.add(filename);
 
-			cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append("\"");
+			//cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append("\"");
+			cmd.add("-resize");
+			cmd.add(d.width + "x" + d.height);
 
-			cmdline.append(" +profile \"*\" ");
+			//cmdline.append(" +profile \"*\" ");
+			cmd.add("+profile");
+			cmd.add("*");
 
 			File temp = deterministicTempFile("thumb", "." + format[usage], tmpDir, filename + d);
 
 			if (! temp.exists()) {
 				toDelete.add(temp);
 
-				cmdline.append("\"" +temp.getPath() + "\"");
+				//cmdline.append("\"" +temp.getPath() + "\"");
+				cmd.add(temp.getPath());
 
-				int exitValue = exec(cmdline.toString());
+				//int exitValue = exec(cmdline.toString());
+				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
@@ -132,16 +153,7 @@ public class ImageUtils {
 		}
 
 		if ( ! useIM && r == null ) {
-			r = new ImageIcon( filename );
-
-			Image scaled = null;
-			Dimension newD = getSizeKeepRatio(
-					new Dimension( r.getIconWidth(), r.getIconHeight() ),
-					d );
-			scaled = r.getImage().getScaledInstance( newD.width, newD.height, Image.SCALE_FAST );
-
-			r.getImage().flush();
-			r.setImage( scaled );
+			r = javaLoad(filename, d);
 		}
 
 		long time = System.currentTimeMillis() - start;
@@ -149,6 +161,30 @@ public class ImageUtils {
 		totalIter++;
 		Log.log(Log.LEVEL_TRACE, MODULE, "Time: " + time + " - Avg: " + (totalTime/totalIter) );
 
+		return r;
+	}
+
+	public static ImageIcon javaLoad(URL url, Dimension d) {
+		ImageIcon r = new ImageIcon( url );
+
+		return javaLoadInternal(r, d);
+	}
+
+	public static ImageIcon javaLoad(String filename, Dimension d) {
+		ImageIcon r = new ImageIcon( filename );
+
+		return javaLoadInternal(r, d);
+	}
+
+	private static ImageIcon javaLoadInternal(ImageIcon r, Dimension d) {
+		Image scaled = null;
+		Dimension newD = getSizeKeepRatio(
+				new Dimension( r.getIconWidth(), r.getIconHeight() ),
+				d );
+		scaled = r.getImage().getScaledInstance( newD.width, newD.height, Image.SCALE_FAST );
+
+		r.getImage().flush();
+		r.setImage( scaled );
 		return r;
 	}
 
@@ -162,29 +198,41 @@ public class ImageUtils {
 
 		if (useIM) {
 			try {
-				StringBuffer cmdline = new StringBuffer(imPath);
+				//StringBuffer cmdline = new StringBuffer(imPath);
+				ArrayList cmd = new ArrayList();
+				cmd.add(imPath);
 
-				cmdline.append(" -size ").append(d.width).append("x").append(d.height);
+				//cmdline.append(" -size ").append(d.width).append("x").append(d.height);
+				cmd.add("-size");
+				cmd.add(d.width + "x" + d.height);
 
 				if (filterName[UPLOAD] != null && filterName[UPLOAD].length() > 0) {
-					cmdline.append(" -filter ").append(filterName[UPLOAD]);
+					//cmdline.append(" -filter ").append(filterName[UPLOAD]);
+					cmd.add("-filter");
+					cmd.add(filterName[UPLOAD]);
 				}
 
-				cmdline.append(" \"").append(filename).append("\"");
+				//cmdline.append(" \"").append(filename).append("\"");
+				cmd.add(filename);
 
-				cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append(">\"");
+				//cmdline.append(" -resize \"").append(d.width).append("x").append(d.height).append(">\"");
+				cmd.add("-resize");
+				cmd.add(d.width + "x" + d.height);
 
 				//cmdline.append("-gravity SouthEast -draw \"image Over 200,200 0,0 G:\\Projects\\Dev\\gallery_remote10\\2ni.png\" ");
 
-				cmdline.append(" -quality ").append(jpegQuality);
+				//cmdline.append(" -quality ").append(jpegQuality);
+				cmd.add("-quality");
+				cmd.add("" + jpegQuality);
 
 				r = File.createTempFile("res"
 						, "." + GalleryFileFilter.getExtension(filename), tmpDir);
 				toDelete.add(r);
 
-				cmdline.append(" \"").append(r.getPath()).append("\"");
+				//cmdline.append(" \"").append(r.getPath()).append("\"");
+				cmd.add(r.getPath());
 
-				int exitValue = exec(cmdline.toString());
+				int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 				if (exitValue != 0 && ! imIgnoreErrorCode) {
 					Log.log(Log.LEVEL_CRITICAL, MODULE, "ImageMagick doesn't seem to be working. Disabling");
@@ -212,25 +260,42 @@ public class ImageUtils {
 		File r = null;
 
 		if ( ! GalleryFileFilter.canManipulateJpeg(filename) ) {
+			Log.log(Log.LEVEL_TRACE, MODULE, "jpegtran doesn't support rotating anything but jpeg");
 			return new File(filename);
 		}
 
 		if (useJpegtran) {
+			File orig = null;
+			File dest = null;
 			try {
+				if (MainFrame.IS_MAC_OS_X) {
+					orig = new File(filename);
+					dest = File.createTempFile("tmp"
+							, "." + GalleryFileFilter.getExtension(filename), tmpDir);
+
+					orig.renameTo(dest);
+					filename = dest.getPath();
+				}
+
 				if (flip) {
-					r = jpegtranExec(filename, " -flip horizontal");
+					r = jpegtranExec(filename, "-flip",  "horizontal");
 					filename = r.getPath();
 				}
 
 				if (angle != 0) {
-					r = jpegtranExec(filename, " -rotate " + angle * 90);
+					r = jpegtranExec(filename, "-rotate", "" + (angle * 90));
 				}
 
 				/*if (resetExifOrientation) {
 				resetExifOrientation(filename);
 				}*/
+
 			} catch (IOException e1) {
 				Log.logException(Log.LEVEL_ERROR, MODULE, e1);
+			} finally {
+				if (orig != null && dest != null) {
+					dest.renameTo(orig);
+				}
 			}
 		}
 
@@ -241,23 +306,36 @@ public class ImageUtils {
 		return r;
 	}
 
-	private static File jpegtranExec(String filename, String command) throws IOException {
+	private static File jpegtranExec(String filename, String arg1, String arg2) throws IOException {
 		File r;
-		StringBuffer cmdline = new StringBuffer(jpegtranPath);
+		//StringBuffer cmdline = new StringBuffer(jpegtranPath);
+		ArrayList cmd = new ArrayList();
+		cmd.add(jpegtranPath);
 
-		cmdline.append(" -copy all");
+		//cmdline.append(" -copy all");
+		cmd.add("-copy");
+		cmd.add("all");
+		//cmd.add("-debug");
 
-		cmdline.append(command);
+		//cmdline.append(command);
+		//cmd.add(command);
+		cmd.add(arg1);
+		cmd.add(arg2);
 
 		r = File.createTempFile("rot"
 				, "." + GalleryFileFilter.getExtension(filename), tmpDir);
 		toDelete.add(r);
 
-		cmdline.append(" -outfile \"").append(r.getPath()).append("\"");
+		//cmdline.append(" -outfile \"").append(r.getPath()).append("\"");
+		//cmdline.append(" -outfile ").append(r.getPath());
+		cmd.add("-outfile");
+		cmd.add(r.getPath());
 
-		cmdline.append(" \"").append(filename).append("\"");
+		//cmdline.append(" \"").append(filename).append("\"");
+		cmd.add(filename);
 
-		int exitValue = exec(cmdline.toString());
+		//int exitValue = exec(cmdline.toString());
+		int exitValue = exec((String[]) cmd.toArray(new String[0]));
 
 		if (exitValue != 0 && ! jpegtranIgnoreErrorCode) {
 			Log.log(Log.LEVEL_CRITICAL, MODULE, "jpegtran doesn't seem to be working. Disabling");
@@ -465,12 +543,22 @@ public class ImageUtils {
 		defaultThumbnail = load(
 				DEFAULT_IMAGE,
 				GalleryRemote.getInstance().properties.getThumbnailSize(),
-				THUMB );
+				THUMB);
+
+		if (defaultThumbnail == null) {
+			defaultThumbnail = javaLoad(ImageUtils.class.getResource(DEFAULT_RESOURCE),
+					GalleryRemote.getInstance().properties.getThumbnailSize());
+		}
 
 		unrecognizedThumbnail = load(
 				UNRECOGNIZED_IMAGE,
 				GalleryRemote.getInstance().properties.getThumbnailSize(),
-				THUMB );
+				THUMB);
+
+		if (unrecognizedThumbnail == null) {
+			unrecognizedThumbnail = javaLoad(ImageUtils.class.getResource(UNRECOGNIZED_RESOURCE),
+					GalleryRemote.getInstance().properties.getThumbnailSize());
+		}
 
 		// Making sure jpegtran works
 		try {
@@ -571,10 +659,42 @@ public class ImageUtils {
 	}
 
 	public static int exec(String cmdline) {
-		Log.log(Log.LEVEL_TRACE, MODULE, "Executing " + cmdline.toString());
+		Log.log(Log.LEVEL_TRACE, MODULE, "Executing " + cmdline);
 
 		try {
-			Process p = Runtime.getRuntime().exec(cmdline.toString());
+			Process p = Runtime.getRuntime().exec(cmdline);
+
+			DataInputStream out = new DataInputStream(new BufferedInputStream(p.getInputStream()));
+			DataInputStream err = new DataInputStream(new BufferedInputStream(p.getErrorStream()));
+
+			int exitValue = p.waitFor();
+
+			String line = null;
+			while ((line = out.readLine()) != null) {
+				Log.log(Log.LEVEL_TRACE, MODULE, "Out: " + line);
+			}
+
+			while ((line = err.readLine()) != null) {
+				Log.log(Log.LEVEL_TRACE, MODULE, "Err: " + line);
+			}
+
+			Log.log(Log.LEVEL_TRACE, MODULE, "Returned with value " + exitValue);
+
+			return exitValue;
+		} catch (InterruptedException e) {
+			Log.logException(Log.LEVEL_ERROR, MODULE, e);
+		} catch (IOException e) {
+			Log.logException(Log.LEVEL_ERROR, MODULE, e);
+		}
+
+		return 1;
+	}
+
+	public static int exec(String[] cmd) {
+		Log.log(Log.LEVEL_TRACE, MODULE, "Executing " + Arrays.asList(cmd));
+
+		try {
+			Process p = Runtime.getRuntime().exec(cmd);
 
 			DataInputStream out = new DataInputStream(new BufferedInputStream(p.getInputStream()));
 			DataInputStream err = new DataInputStream(new BufferedInputStream(p.getErrorStream()));
@@ -620,7 +740,8 @@ public class ImageUtils {
 		useIM = false;
 
 		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_IM)) {
-			if (GalleryRemote.getInstance().mainFrame.isVisible()) {
+			if (GalleryRemote.getInstance().mainFrame != null
+					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
 						GRI18n.getInstance().getString(MODULE, "warningTextIM"),
 						GRI18n.getInstance().getString(MODULE, "warningUrlIM"),
@@ -640,7 +761,8 @@ public class ImageUtils {
 		useJpegtran = false;
 
 		if (! GalleryRemote.getInstance().properties.getBooleanProperty(PreferenceNames.SUPPRESS_WARNING_JPEGTRAN)) {
-			if (GalleryRemote.getInstance().mainFrame.isVisible()) {
+			if (GalleryRemote.getInstance().mainFrame != null
+					&& GalleryRemote.getInstance().mainFrame.isVisible()) {
 				MessageDialog md = new MessageDialog(
 						GRI18n.getInstance().getString(MODULE, "warningTextJpegtran"),
 						GRI18n.getInstance().getString(MODULE, "warningUrlJpegtran"),
