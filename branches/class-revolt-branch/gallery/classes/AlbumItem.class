@@ -182,16 +182,19 @@ class AlbumItem extends GalleryItem {
     }
 
     /**
-     * Create a new instance of this GalleryNucleus in the persistent store
+     * Create a new instance of this AlbumItem in the persistent store
      *
      * Also create the album directory on the filesystem
      *
      * @return int a status code
      */
-    function create($albumName) {
+    function create($parentId, $albumName) {
 	if (empty($albumName)) {
 	    return ERROR | ERROR_BAD_PARAMETER;
 	}
+
+	// XXX: modify the code to create new album in the right location
+	assert(false);
 
 	global $gallery;
 	$platform = $gallery->getPlatform();
@@ -219,6 +222,18 @@ class AlbumItem extends GalleryItem {
 	}
 	
 	return $ret;
+    }
+
+    /**
+     * Delete this AlbumItem
+     *
+     * Delete all children and then remove the directory
+     *
+     * @access public
+     * @return int a status code
+     */
+    function delete() {
+	return parent::delete();
     }
 
     /**
