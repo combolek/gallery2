@@ -207,36 +207,36 @@
      <listitem>
       <para>
        <ulink url="http://www.google.com/search?q=extreme+programming">
-	<citetitle>
-	 Extreme Programming Google Links
-	</citetitle>
+        <citetitle>
+         Extreme Programming Google Links
+        </citetitle>
        </ulink>
       </para>
      </listitem>
      <listitem>
       <para>
        <ulink url="http://junit.sourceforge.net/doc/testinfected/testing.htm">
-	<citetitle>
-	 Test Infected
-	</citetitle>
+        <citetitle>
+         Test Infected
+        </citetitle>
        </ulink>
       </para>
      </listitem>
      <listitem>
       <para>
        <ulink url="http://www.artima.com/intv/testdriven4.html">
-	<citetitle>
-	 Test Driven Development
-	</citetitle>
+        <citetitle>
+         Test Driven Development
+        </citetitle>
        </ulink>
       </para>
      </listitem>
      <listitem>
       <para>
        <ulink url="http://www.xprogramming.com/xpmag/whatisxp.htm">
-	<citetitle>
-	 What is Extreme Programming?
-	</citetitle>
+        <citetitle>
+         What is Extreme Programming?
+        </citetitle>
        </ulink>
       </para>
      </listitem>
@@ -402,160 +402,158 @@
    <title>
     Module Components
    </title>
-   <para>
-    <sect4>
-     <title>
-      module.inc
-     </title>
-     <para>
-      All modules live within the modules/ directory inside the Gallery
-      directory.  Each module must contain a file called "module.inc" at
-      the top level which contains a PHP class that extends
-      GalleryModule.  The GalleryModule class provides a very simple
-      module implementation designed to be a framework that you can
-      build on.  You must override some of the GalleryModule methods in
-      your own module implementation to give it the behaviour that you
-      want.  
-      <itemizedlist>
-       <listitem>
-	<para>
-	 init()
-	</para>
-	<para>
-	 Do any initialization required for this module to run.  The
-	 init method is called on every active module on every request.
-	 You should not do anything heavy in this method if you can
-	 avoid it.  Typically you would register any GalleryFactory
-	 implementations (see below) at this time.  See the
-	 <emphasis>comment</emphasis> module for an example.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 install()
-	</para>
-	<para>
-	 Perform any install/upgrade tasks required at this point.  This
-	 method is called if the module version in the module.inc does
-	 not match the version number in the database.  If this method
-	 completes successfully, it should have set its version number
-	 in the database appropriately so that it will not be called
-	 again.  Typically a module will call upon the storage system to
-	 load any new tables or alter existing ones, upgrade any module
-	 parameters, and register any new permissions.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getSiteAdminViews()
-	</para>
-	<para>
-	 Using this method you can return a list of views (see the
-	 Model-View-Controller pattern below) that this module will
-	 display in the <emphasis>Site Admin</emphasis> section of
-	 Gallery.
-	</para>
-	<para>
-	 The returned views should be in an array of the format:
-	 <programlisting>
-	  array('text' => $this->translate('delete item'),
-	  'params' => array('view' => 'core:ItemAdmin',
-	  'subView' => 'core:ItemEditPermissions'));
-	 </programlisting>
-	 Note that the text value is localized since it will be
-	 displayed directly to the user.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getItemAdminViews()
-	</para>
-	<para>
-	 Using this method you can return a list of item administration
-	 views (see the Model-View-Controller pattern below) that this
-	 module will display for each item.  The module should check
-	 permissions and item type to determine which views are
-	 applicable for the authenticated user.  As with
-	 getSiteAdminViews(), the view title text must be localized.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getConfigurationView()
-	</para>
-	<para>
-	 Get the name of the GalleryView containing the administration
-	 view specifically for configuring this module.  It may be one
-	 that is also listed in getSiteAdminViews().  As with
-	 getSiteAdminViews(), the view title text must be localized.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getSystemLinks()
-	</para>
-	<para>
-	 Return links to system level views.  These are views that are
-	 relevant throughout the system but are unrelated to any given
-	 item.  The login, logout and site admin links are examples of
-	 these types of links.  As with getSiteAdminViews(), the view
-	 title text must be localized.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getSystemContent()
-	</para>
-	<para>
-	 Return system level content.  This is similar to system links,
-	 but it's actually HTML content and not a link to a view.  It
-	 must be localized since it will be displayed directly to the
-	 user.  This is useful for things like the search module that
-	 want to embed a search box on every page.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getItemLinks()
-	</para>
-	<para>
-	 Return item specific links.  These are links to item specific
-	 module views.  For example, the comments module uses this to
-	 link to the "add comments" view.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getItemSummaries()
-	</para>
-	<para>
-	 Return item specific summaries.  This is localized content
-	 specific to a given item.  For example, the comments module
-	 uses this to display the last few comments about an item.
-	</para>
-       </listitem>
-       <listitem>
-	<para>
-	 getItemDetails()
-	</para>
-	<para>
-	 Return item specific details.  This is localized content
-	 specific to a given item.  You can use this to return in-depth
-	 item content.  In theory it should be more detailed than the
-	 item summaries.
-	</para>
-       </listitem>
-      </itemizedlist>
-     </para>
-    </sect4>
-    <sect4>
-     <title>
-      PHPUnit Tests
-     </title>
-     <para>
-     </para>
-    </sect4>
-   </para>
+   <sect4>
+    <title>
+     module.inc
+    </title>
+    <para>
+     All modules live within the modules/ directory inside the Gallery
+     directory.  Each module must contain a file called "module.inc" at
+     the top level which contains a PHP class that extends
+     GalleryModule.  The GalleryModule class provides a very simple
+     module implementation designed to be a framework that you can
+     build on.  You must override some of the GalleryModule methods in
+     your own module implementation to give it the behaviour that you
+     want.  
+     <itemizedlist>
+      <listitem>
+       <para>
+        init()
+       </para>
+       <para>
+        Do any initialization required for this module to run.  The
+        init method is called on every active module on every request.
+        You should not do anything heavy in this method if you can
+        avoid it.  Typically you would register any GalleryFactory
+        implementations (see below) at this time.  See the
+        <emphasis>comment</emphasis> module for an example.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        install()
+       </para>
+       <para>
+        Perform any install/upgrade tasks required at this point.  This
+        method is called if the module version in the module.inc does
+        not match the version number in the database.  If this method
+        completes successfully, it should have set its version number
+        in the database appropriately so that it will not be called
+        again.  Typically a module will call upon the storage system to
+        load any new tables or alter existing ones, upgrade any module
+        parameters, and register any new permissions.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getSiteAdminViews()
+       </para>
+       <para>
+        Using this method you can return a list of views (see the
+        Model-View-Controller pattern below) that this module will
+        display in the <emphasis>Site Admin</emphasis> section of
+        Gallery.
+       </para>
+       <para>
+        The returned views should be in an array of the format:
+        <programlisting>
+         array('text' => $this->translate('delete item'),
+         'params' => array('view' => 'core:ItemAdmin',
+         'subView' => 'core:ItemEditPermissions'));
+        </programlisting>
+        Note that the text value is localized since it will be
+        displayed directly to the user.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getItemAdminViews()
+       </para>
+       <para>
+        Using this method you can return a list of item administration
+        views (see the Model-View-Controller pattern below) that this
+        module will display for each item.  The module should check
+        permissions and item type to determine which views are
+        applicable for the authenticated user.  As with
+        getSiteAdminViews(), the view title text must be localized.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getConfigurationView()
+       </para>
+       <para>
+        Get the name of the GalleryView containing the administration
+        view specifically for configuring this module.  It may be one
+        that is also listed in getSiteAdminViews().  As with
+        getSiteAdminViews(), the view title text must be localized.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getSystemLinks()
+       </para>
+       <para>
+        Return links to system level views.  These are views that are
+        relevant throughout the system but are unrelated to any given
+        item.  The login, logout and site admin links are examples of
+        these types of links.  As with getSiteAdminViews(), the view
+        title text must be localized.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getSystemContent()
+       </para>
+       <para>
+        Return system level content.  This is similar to system links,
+        but it's actually HTML content and not a link to a view.  It
+        must be localized since it will be displayed directly to the
+        user.  This is useful for things like the search module that
+        want to embed a search box on every page.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getItemLinks()
+       </para>
+       <para>
+        Return item specific links.  These are links to item specific
+        module views.  For example, the comments module uses this to
+        link to the "add comments" view.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getItemSummaries()
+       </para>
+       <para>
+        Return item specific summaries.  This is localized content
+        specific to a given item.  For example, the comments module
+        uses this to display the last few comments about an item.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        getItemDetails()
+       </para>
+       <para>
+        Return item specific details.  This is localized content
+        specific to a given item.  You can use this to return in-depth
+        item content.  In theory it should be more detailed than the
+        item summaries.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </sect4>
+   <sect4>
+    <title>
+     PHPUnit Tests
+    </title>
+    <para>
+    </para>
+   </sect4>
   </sect3>
   <sect3>
    <title>
