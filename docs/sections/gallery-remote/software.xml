@@ -5,6 +5,8 @@
  <title>Bundled Software</title>
  <para>
   The following software is bundled with Gallery Remote, to provide some of the functions provided.
+  No particular action is necessary to install these packages. The following information is provided
+  for the benefit of curious users and developers only.
  </para>
  
  <sect2 id="gallery-remote.software.imagemagick">
@@ -35,14 +37,14 @@
   <title>Jpegtran</title>
   <para>
    The Win32 version of Jpegtran, compiled and patched by <ulink url="http://sylvana.net/jpegcrop/">Guido Vollbeding</ulink>.
-   We use Jpegtran to rotate pictures before upload. In the future, it may also be used to crop pictures.
+   We use Jpegtran to rotate JPEG pictures before upload. In the future, it may also be used to crop pictures.
   </para>
   <para>
    Jpegtran doesn't appear to have any particular license, but is obviously redistributable, 
    since it comes with most Linux distributions. Guido's version is freely downloadable.
   </para>
   <para>
-   JSX is licensed under the GPL.
+   Jpegtran is licensed under the GPL.
   </para>
  </sect2>
 
