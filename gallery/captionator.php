@@ -188,16 +188,13 @@ $adminbox["text"] = $adminText;
 $adminbox["commands"] = $adminCommands;
 $adminbox["bordercolor"] = $bordercolor;
 $adminbox["top"] = true;
-includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
-includeLayout('navtablemiddle.inc');
 
 $adminbox["text"] = "";
 $adminbox["commands"] = "";
 $adminbox["bordercolor"] = $bordercolor;
 $adminbox["top"] = false;
 includeLayout('adminbox.inc');
-includeLayout('navtableend.inc');
 
 ?>
 

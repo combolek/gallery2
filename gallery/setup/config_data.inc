@@ -144,7 +144,7 @@ $checklist = array(
 	"missing-locales" => array (
 		"optional" => 1,
 		"enabled" => (sizeof(gallery_languages()) > 1) ? "yes" :"no",
-		"desc" => _("Testing to see which <b>system</b> locales (if any) are absent."),
+		"desc" => _("Testing to see which locales (if any) are absent."),
 		"func" => "check_absent_locales",
 		"serious" => ( $elawisyl == "no" ) ? 1 : 0 ,
 	),
@@ -573,19 +573,17 @@ $constants = array_merge($constants,
 		       	"type" => "separator",
 		       	"title" => _("Gallery wide slideshow"),
 			"desc" => newIn("1.4.1") . "<br>" .
-				_("Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources.") . "  " .
-				_("These settings do not apply to the low tech slideshow.")
+				_("Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources.")
 			),
 	"gallery_slideshow_type" => array(
 		       	"prompt" => _("Slideshow preferences"),
-		       	"desc" => "<dl>"
-				."<dt>". _("Off") . "</dt>"
-				."<dd>". _("No slideshow link will appear.") . "</dd>"
-				."<dt>". _("Ordered") . "</dt>"
-				."<dd>". _("Images will display in the same order as they appear in the Gallery.") . "</dd>"
-				."<dt>". _("Random") . "</dt>"
-				."<dd>". _("Images will appear in a random order.") . "</dd>"
-				."</dl>" .
+		       	"desc" => "<dl><dt>"._("Off")."</dt><dd>" . 
+		       		_("No slideshow link will appear.") .
+		      		"</dd><dt>"._("Ordered")."</dt><dd>" . 
+		       		_("Images will display in the same order as they appear in the Gallery.") .
+		      		"</dd><dt>"._("Random")."</dt><dd>" . 
+		       		_("Images will appear in a random order.") .
+		      		"</dl>" .
 				newIn("1.4.1"),
 		       	"choices" => array(
 			       	"off" => _("Off"),
@@ -617,16 +615,15 @@ $constants = array_merge($constants,
 			),
 	"comments_indication" => array(
 		       	"prompt" => _("Indicate if there are comments available"),
-		       	"desc" => "<dl>"
-				. "<dt>" . _("Off") . "</dt>"
-				. "<dd>" . _("No indication that an item has comments.") . "</dd>"
-				. "<dt>" . _("Photos") . "</dt>"
-				. "<dd>" . _("Images that have comments will be marked.") . "</dd>"
-				. "<dt>" . _("Albums"). " </dt>"
-				. "<dd>" . _("Albums and sub-albums that have comments will be marked.") . "</dd>"
-				. "<dt>" ._("Both") . "</dt>"
-				. "<dd>" . _("Images and albums that have comments will be marked.") . "</dd>"
-				. "</dl>" .
+		       	"desc" => "<dl><dt>"._("Off")."</dt><dd>" . 
+		       		_("No indication that an item has comments.") .
+		      		"</dd><dt>"._("Photos")."</dt><dd>" . 
+		       		_("Images that have comments will be marked.") .
+		      		"</dd><dt>"._("Albums")."</dt><dd>" . 
+		       		_("Albums and sub-albums that have comments will be marked.") .
+		      		"</dd><dt>"._("Both")."</dt><dd>" . 
+		       		_("Images and albums that have comments will be marked.") .
+		      		"</dl>" .
 				newIn("1.4.1"),
 		       	"choices" => array(
 			       	"off" => _("Off"),
@@ -849,6 +846,12 @@ $defaults = array(
  		"desc" => _("Allow visitors to print photos directly from the album.  Fotokasten is a print service based in Germany so is good for the European market. EZ Prints, PhotoAccess and Shutterfly are based in the United States. All services will give a small donation to the Gallery project for every print you make. If you choose Shutterfly's &quot;with donation&quot; option, Gallery will charge an extra 2 cents (US) for every photo printed, and 1.8 cents of that will get donated back to the Gallery project. EZ Prints, PhotoAccess and Fotokasten do not charge extra for the Gallery donation. Using these services is a great way for you to help support this free software."),
 		'type' => 'print_services',
 		'services' => array(
+			'ezprints'    => array(
+				'name'    => 'EZ Prints',
+				'url'     => 'http://www.ezprints.com/'),
+			'fotokasten'  => array(
+				'name'    => 'Fotokasten',
+				'url'     => 'http://www.fotokasten.de/'),
 			'photoaccess' => array(
 				'name'    => 'PhotoAccess',
 				'url'     => 'http://www.photoaccess.com/'),
@@ -859,13 +862,7 @@ $defaults = array(
 					'yes' => _('with donation'),
 					'no'  => _('without donation')
 				)
-			),
-			'fotokasten'  => array(
-				'name'    => 'Fotokasten',
-				'url'     => 'http://www.fotokasten.de/'),    
-			'ezprints'    => array(
-				'name'    => 'EZ Prints',
-				'url'     => 'http://www.ezprints.com/')
+			)
 		),
 		'value' => array(
 			'ezprints' => array(
@@ -946,18 +943,19 @@ $defaults = array(
 				"<b>"._("Critique")."</b>",
 				_("Critique"),
 				_("Rank")) 
-	),
-	"voter_class" => array(
+	. 
+	"<br><br>" .
+	_("<b>ATTENTION Upgrade users</b>: ONLY change these settings from the default if you want voting on in all your existing albums.  It is recommended that you leave these values as they are and turn voting on in individual albums as required.")),
+       	"voter_class" => array(
 		"prompt" => _("Voter class"),
 		"desc" => _("Voting is available to:") . 
-			"<dl>"
-			. "<dt>" . _("Nobody")."</dt>"
-			. "<dd>" . _("Voting is off.") ."</dd>"
-			. "<dt>" . _("Everybody") . "</dt>"
-			. "<dd>" . _("Anyone can vote.  Votes are recorded against session ID.") ."</dd>"
-			. "<dt>" . _("Logged in") ."</dt>"
-			. "<dd>" . _("Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices.") . "</dd>"
-			. "</dl>" .
+		"<dl><dt>"._("Nobody")."</dt><dd>" . 
+		_("Voting is off.") .
+		"</dd><dt>"._("Everybody")."</dt><dd>" . 
+		_("Anyone can vote.  Votes are recorded against session ID.") .
+		"</dd><dt>"._("Logged in")."</dt><dd>" . 
+		_("Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices.") .
+		"</dl>" .
 			newIn("1.4.1"),
 		"choices" => array("Nobody" => _("Nobody"), 
 			"Everybody" => _("Everybody"), 
@@ -966,12 +964,11 @@ $defaults = array(
 	"poll_type" => array(
 		"prompt" => _("Poll type"),
 	       	"desc" => _("Gallery offers two sorts of polls for voting for images.  See above for a more detailed explanation.") . 
-			"<dl>"
-			. "<dt>" . _("Rank")."</dt>"
-			. "<dd>" . _("Users have a set of votes which they can allocate to the images.") . "</dd>"
-			. "<dt>" . _("Critique")."</dt>"
-			. "<dd>" . _("Enables users to give all images points without restriction.") . "</dd>"
-			. "</dl>" .
+		"<dl><dt>"._("Rank")."</dt><dd>" . 
+		_("Users have a set of votes which they can allocate to the images.") . 
+		"<dd><dt>"._("Critique")."</dt><dd>" . 
+		_("Enables users to give all images points without restriction.") .
+		"</dl>" .
 	      	 	newIn("1.4.1"),
 		"choices" => array("rank" => _("Rank"), 
 			"critique" => _("Critique")),
@@ -1033,19 +1030,18 @@ $defaults = array(
        	"separator8" => array (
 		       	"type" => "separator",
 		       	"title" => _("Album Slideshow"),
-			"desc" => _("These settings do not apply to the low tech slideshow.")
 			),
 	"slideshow_type" => array(
 		       	"prompt" => _("Slideshow Type"),
-		       	"desc" => "<dl>"
-				. "<dt>" . _("Off") ."</dt>"
-				. "<dd>" . _("No slideshow link will appear.") . "</dd>"
-				. "<dt>" . _("Ordered") . "</dt>"
-				. "<dd>" . _("Images will display in the same order as they appear in the Gallery.") . "</dd>"
-				. "<dt>" . _("Random") . "</dt>"
-				. "<dd>" . _("Images will appear in a random order.") . "</dd>"
-				. "</dl>" .
+		       	"desc" => "<dl><dt>"._("Off")."</dt><dd>" . 
+		       		_("No slideshow link will appear.") .
+		      		"</dd><dt>"._("Ordered")."</dt><dd>" . 
+		       		_("Images will display in the same order as they appear in the Gallery.") .
+		      		"</dd><dt>"._("Random")."</dt><dd>" . 
+		       		_("Images will appear in a random order.") .
+		      		"</dl>" .
 				newIn("1.4.1"),
+			newIn("1.4.1"),
 		       	"choices" => array(
 			       	"off" => _("Off"),
 			       	"ordered" => _("Ordered"),

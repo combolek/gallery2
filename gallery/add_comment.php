@@ -153,6 +153,10 @@ document.theform.commenter_name.focus();
 //-->
 </script>
 
-<?php print gallery_validation_link("add_comments.php", false); ?>
+<?php if ($gallery->app->devMode == "yes") {
+       	print "<p>";
+       	print gallery_validation_link("add_comments.php");
+       	print "Not valid yet.";
+} ?>
 </body>
 </html>
