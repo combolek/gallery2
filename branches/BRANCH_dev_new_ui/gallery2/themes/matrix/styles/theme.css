@@ -168,6 +168,16 @@ body {
   font-size: 63%;
 }
 
+.listing_selecteditem { 
+  list-style-type: disc;
+  font-weight: bold;
+  margin: 0px 0px 0px 0px;
+  padding: 2px 0px 2px 0px;
+  color: #000;
+  line-height: 1.33;
+  font-size: 63%;
+}
+
 .status { 
   font-weight: bold;
   color: #696;

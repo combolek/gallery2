@@ -196,7 +196,7 @@ class GalleryTemplateAdapter {
 				      'textmodifier1',
 				      'listing',
 				      'listingitem',
-				      'listingitemselected',
+				      'listingselecteditem',
 				      'table',
 				      'row',
 				      'column',
@@ -235,7 +235,7 @@ class GalleryTemplateAdapter {
     function sidebarboxbody($params, $content) { if (isset($content)) { return $this->_theme->sidebarboxbody($params, $content); } }
     function listing($params, $content) { if (isset($content)) { return $this->_theme->listing($params, $content); } }
     function listingitem($params, $content) { if (isset($content)) { return $this->_theme->listingitem($params, $content); } }
-    function listingitemselected($params, $content) { if (isset($content)) { return $this->_theme->listingitemselected($params, $content); } }
+    function listingselecteditem($params, $content) { if (isset($content)) { return $this->_theme->listingselecteditem($params, $content); } }
     function detailedbox($params, $content) { if (isset($content)) { return $this->_theme->detailedbox($params, $content); } }
     function detailedboxtitle($params, $content) { if (isset($content)) { return $this->_theme->detailedboxtitle($params, $content); } }
     function detailedboxdescription($params, $content) { if (isset($content)) { return $this->_theme->detailedboxdescription($params, $content); } }
