@@ -25,7 +25,7 @@ $Id$
 Stylesheets; it documents (some of) the parameters, templates, and
 other elements of the stylesheets.</para>
 
-<para>This reference describes each of the HTML Stylesheet parameters.
+<para>This reference describes each of the XSL FO Stylesheet parameters.
 These are the <quote>easily customizable</quote> parts of the stylesheet.
 If you want to specify an alternate value for one or more of these
 parameters, you can do so in a <quote>driver</quote> stylesheet.</para>
@@ -695,6 +695,30 @@ an automatically generated one and <quote>bingo</quote>!</para>
 </refsect1>
 </refentry>
 
+<refentry id="index.preferred.page.properties">
+<refnamediv>
+<refname>index.preferred.page.properties</refname>
+<refpurpose>Properties used to emphasize page number references for
+significant index terms</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="index.preferred.page.properties.frag">
+&lt;xsl:attribute-set name="index.preferred.page.properties"&gt;
+  &lt;xsl:attribute name="font-weight"&gt;bold&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Properties used to emphasize page number references for
+significant index terms (<sgmltag class="attribute">significance</sgmltag>=<sgmltag class="attvalue">preffered</sgmltag>). Currently works only with
+XEP.</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="xep.index.item.properties">
 <refnamediv>
 <refname>xep.index.item.properties</refname>
@@ -713,7 +737,8 @@ an automatically generated one and <quote>bingo</quote>!</para>
 <refsect1><title>Description</title>
 
 <para>Properties associated with XEP index-items. For more info see
-<ulink url="http://xep.xattic.com/xep/spec.html#N6836">http://xep.xattic.com/xep/spec.html</ulink>.</para>
+the section "Indexes" in
+<ulink url="http://xep.xattic.com/xep/doc/spec.html"/>.</para>
 
 </refsect1>
 </refentry>
@@ -1632,6 +1657,30 @@ you want get quite strange output.</para>
 </refsect1>
 </refentry>
 
+<refentry id="refentry.pagebreak">
+<refmeta>
+<refentrytitle>refentry.pagebreak</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>refentry.pagebreak</refname>
+<refpurpose>Start each refentry on a new page</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="refentry.pagebreak.frag">&lt;xsl:param name="refentry.pagebreak" select="1"&gt;&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If non-zero (the default), each <sgmltag>refentry</sgmltag>
+element will start on a new page.  If zero, a page
+break will not be generated.
+</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="refentry.title.properties">
 <refmeta>
 <refentrytitle>refentry.title.properties</refentrytitle>
@@ -1653,6 +1702,9 @@ you want get quite strange output.</para>
   &lt;xsl:attribute name="space-after"&gt;1em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="hyphenate"&gt;false&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="keep-with-next.within-column"&gt;always&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.minimum"&gt;0.8em&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.optimum"&gt;1.0em&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.maximum"&gt;1.2em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="space-after.optimum"&gt;0.5em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="space-after.minimum"&gt;0.4em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="space-after.maximum"&gt;0.6em&lt;/xsl:attribute&gt;
@@ -1662,7 +1714,13 @@ you want get quite strange output.</para>
 
 <refsect1><title>Description</title>
 
-<para>FIXME:</para>
+<para>Formatting properties applied to refentry titles,
+including refnamediv, refsect1 through 3, and refsection.
+The font size is supplied by the appropriate 
+<parameter moreinfo="none">section.level<replaceable>X</replaceable>.title.properties</parameter>
+attribute-set,
+computed from its location in the section hierarchy.
+</para>
 
 </refsect1>
 </refentry>
@@ -2052,6 +2110,30 @@ title to the generated olink text. </para>
 
 <para>If true (non-zero), numbered QandADiv elements and Questions and Answers inherit
 the numeration of the ancestors of the QandASet.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.defaultlabel">
+<refmeta>
+<refentrytitle>qanda.defaultlabel</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.defaultlabel</refname>
+<refpurpose>Sets the default for defaultlabel on QandASet.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.defaultlabel.frag">&lt;xsl:param name="qanda.defaultlabel"&gt;number&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If no defaultlabel attribute is specified on a QandASet, this
+value is used. It must be one of the legal values for the defaultlabel
+attribute.
 </para>
 
 </refsect1>
@@ -2687,6 +2769,7 @@ example before
 equation before
 table before
 procedure before
+task before
 &lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -3373,6 +3456,56 @@ that you may have trouble using those symbols for footnotes.</para>
 <refsect1><title>Description</title>
 
 <para>FIXME:</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="superscript.properties">
+<refmeta>
+<refentrytitle>superscript.properties</refentrytitle>
+<refmiscinfo role="type"/>
+</refmeta>
+<refnamediv>
+<refname>superscript.properties</refname>
+<refpurpose>Properties associated with superscripts</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="superscript.properties.frag">
+&lt;xsl:attribute-set name="superscript.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;75%&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies styling properties for superscripts.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="subscript.properties">
+<refmeta>
+<refentrytitle>subscript.properties</refentrytitle>
+<refmiscinfo role="type"/>
+</refmeta>
+<refnamediv>
+<refname>subscript.properties</refname>
+<refpurpose>Properties associated with subscripts</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="subscript.properties.frag">
+&lt;xsl:attribute-set name="subscript.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;75%&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies styling properties for subscripts.</para>
 
 </refsect1>
 </refentry>
@@ -4580,13 +4713,35 @@ so that math can be performed on the font size by XSLT.
 
 <refsynopsisdiv>
 <programlisting id="title.margin.left.frag">
-&lt;xsl:param name="title.margin.left" select="'-4pc'"&gt;&lt;/xsl:param&gt;
+&lt;xsl:param name="title.margin.left"&gt;
+  &lt;xsl:choose&gt;
+    &lt;xsl:when test="$passivetex.extensions != 0"&gt;0pt&lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;-4pc&lt;/xsl:otherwise&gt;
+  &lt;/xsl:choose&gt;
+&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>This parameter adjusts the left margin for titles.
+<para>This parameter adjusts the left margin for titles,
+effectively leaving the titles at the left
+margin and indenting the body text.
+The default value is -4pc, which means the
+body text is indented 4 picas relative to
+the titles.
+</para>
+<para>
+If you set the value to zero, be sure to still include
+a unit indicator such as <literal moreinfo="none">0pt</literal>, or
+the FO processor will report errors.
+</para>
+<para>
+This parameter is set to 0pt if the
+<parameter moreinfo="none">passivetex.extensions</parameter>
+parameter is nonzero because PassiveTeX cannot handle
+the math expression with negative values 
+used to calculate the indents.
 </para>
 
 </refsect1>
@@ -4750,7 +4905,7 @@ on how their <sgmltag class="attribute">status</sgmltag> attribute is set.
 <programlisting id="header.content.properties.frag">
 &lt;xsl:attribute-set name="header.content.properties"&gt;
   &lt;xsl:attribute name="font-family"&gt;
-    &lt;xsl:value-of select="$body.font.family"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:value-of select="$body.fontset"&gt;&lt;/xsl:value-of&gt;
   &lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="margin-left"&gt;
     &lt;xsl:value-of select="$title.margin.left"&gt;&lt;/xsl:value-of&gt;
@@ -4780,7 +4935,7 @@ on how their <sgmltag class="attribute">status</sgmltag> attribute is set.
 <programlisting id="footer.content.properties.frag">
 &lt;xsl:attribute-set name="footer.content.properties"&gt;
   &lt;xsl:attribute name="font-family"&gt;
-    &lt;xsl:value-of select="$body.font.family"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:value-of select="$body.fontset"&gt;&lt;/xsl:value-of&gt;
   &lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="margin-left"&gt;
     &lt;xsl:value-of select="$title.margin.left"&gt;&lt;/xsl:value-of&gt;
@@ -4792,6 +4947,52 @@ on how their <sgmltag class="attribute">status</sgmltag> attribute is set.
 <refsect1><title>Description</title>
 
 <para>Properties of page footer content.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="marker.section.level">
+<refmeta>
+<refentrytitle>marker.section.level</refentrytitle>
+<refmiscinfo role="type">integer</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>marker.section.level</refname>
+<refpurpose>Control depth of sections shown in running headers or footers</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="marker.section.level.frag">
+&lt;xsl:param name="marker.section.level" select="2"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The <parameter moreinfo="none">marker.section.level</parameter> parameter
+controls the depth of section levels that may be displayed
+in running headers and footers.  For example, if the value
+is 2 (the default), then titles from <sgmltag>sect1</sgmltag> and 
+<sgmltag>sect2</sgmltag> or equivalent <sgmltag>section</sgmltag>
+elements are candidates for use in running headers and
+footers.
+</para>
+<para>Each candidate title is marked in the FO output with a
+<sgmltag>&lt;fo:marker marker-class-name="section.head.marker"&gt;</sgmltag>
+element.
+</para>
+<para>In order for such titles to appear in headers
+or footers, the <literal moreinfo="none">header.content</literal>
+or <literal moreinfo="none">footer.content</literal> template
+must be customized to retrieve the marker using
+an output element such as:
+</para>
+<programlisting format="linespecific">
+&lt;fo:retrieve-marker retrieve-class-name="section.head.marker"
+                       retrieve-position="first-including-carryover"
+                       retrieve-boundary="page-sequence"/&gt;
+</programlisting>
+
 
 </refsect1>
 </refentry>
@@ -4923,6 +5124,43 @@ etc.)
 </refsect1>
 </refentry>
 
+<refentry id="symbol.font.family">
+<refmeta>
+<refentrytitle>symbol.font.family</refentrytitle>
+
+</refmeta>
+<refnamediv>
+<refname>symbol.font.family</refname>
+<refpurpose>The font families to be searched for symbols outside
+    of the body font</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="symbol.font.family.frag">
+&lt;xsl:param name="symbol.font.family" select="'Symbol,ZapfDingbats'"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>A typical body or title font does not contain all
+the character glyphs that DocBook supports.  This parameter
+specifies additional fonts that should be searched for
+special characters not in the normal font.
+These symbol font names are automatically appended
+to the body or title font family name when fonts
+are specified in a 
+<sgmltag class="attribute">font-family</sgmltag>
+property in the FO output.
+</para>
+<para>The symbol font names should be entered as a
+comma-separated list.  The default value is
+<literal moreinfo="none">Symbol,ZapfDingbats</literal>.
+</para>
+
+</refsect1>
+</refentry>
+
 </reference>
 
 <reference><title>Lists</title>
@@ -4985,13 +5223,55 @@ etc.)
 </refsect1>
 </refentry>
 
+<refentry id="variablelist.max.termlength">
+<refmeta>
+<refentrytitle>variablelist.max.termlength</refentrytitle>
+
+</refmeta>
+<refnamediv>
+<refname>variablelist.max.termlength</refname>
+<refpurpose>Specifies the longest term in variablelists</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="variablelist.max.termlength.frag">
+&lt;xsl:param name="variablelist.max.termlength"&gt;24&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>In variablelists, the <sgmltag>listitem</sgmltag>
+is indented to leave room for the 
+<sgmltag>term</sgmltag> elements. That indent may be computed
+if it is not specified with a <sgmltag class="attribute">termlength</sgmltag>
+attribute on the <sgmltag>variablelist</sgmltag> element.
+</para>
+<para>
+The computation counts characters in the 
+<sgmltag>term</sgmltag> elements in the list
+to find the longest term.  However, some terms are very long
+and would produce extreme indents.  This parameter lets you
+set a maximum character count.  Any terms longer than the maximum
+would line wrap.  The default value is 24.
+</para>
+<para>
+The character counts are converted to physical widths
+by multiplying by 0.50em. There will be some variability
+in how many actual characters fit in the space
+since some characters are wider than others.
+</para>
+
+</refsect1>
+</refentry>
+
 </reference>
 
 <reference><title>Cross References</title>
 <refentry id="insert.xref.page.number">
 <refmeta>
 <refentrytitle>insert.xref.page.number</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
+<refmiscinfo role="type">string</refmiscinfo>
 </refmeta>
 <refnamediv>
 <refname>insert.xref.page.number</refname>
@@ -5000,15 +5280,43 @@ etc.)
 
 <refsynopsisdiv>
 <programlisting id="insert.xref.page.number.frag">
-&lt;xsl:param name="insert.xref.page.number" select="0"&gt;&lt;/xsl:param&gt;
+&lt;xsl:param name="insert.xref.page.number"&gt;no&lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, cross references (<sgmltag>xref</sgmltag>s) will
+<para>The value of this parameter determines if
+cross references (<sgmltag>xref</sgmltag>s) in
+printed output will
 include page number citations.
+It has three possible values.
 </para>
+<variablelist>
+<varlistentry>
+<term>no</term>
+<listitem><para>No page number references will be generated.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>yes</term>
+<listitem><para>Page number references will be generated
+for all <sgmltag>xref</sgmltag> elements.
+The style of page reference may be changed
+if an <sgmltag class="attribute">xrefstyle</sgmltag>
+attribute is used.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>maybe</term>
+<listitem><para>Page number references will not be generated
+for an <sgmltag>xref</sgmltag> element unless 
+it has an
+<sgmltag class="attribute">xrefstyle</sgmltag>
+attribute whose value specifies a page reference.
+</para></listitem>
+</varlistentry>
+</variablelist>
 
 </refsect1>
 </refentry>
@@ -5033,6 +5341,104 @@ include page number citations.
 </refsect1>
 </refentry>
 
+<refentry id="xref.label-title.separator">
+<refmeta>
+<refentrytitle>xref.label-title.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.label-title.separator</refname>
+<refpurpose>Punctuation or space separating label from title in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.label-title.separator.frag">&lt;xsl:param name="xref.label-title.separator"&gt;: &lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both label and title,
+then the value of this parameter is inserted between
+label and title in the output.  
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="xref.label-page.separator">
+<refmeta>
+<refentrytitle>xref.label-page.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.label-page.separator</refname>
+<refpurpose>Punctuation or space separating label from page number in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.label-page.separator.frag">&lt;xsl:param name="xref.label-page.separator"&gt;&lt;xsl:text&gt; &lt;/xsl:text&gt;&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both label and page
+but no title,
+then the value of this parameter is inserted between
+label and page number in the output.  
+If a title is included, then other separators are used.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="xref.title-page.separator">
+<refmeta>
+<refentrytitle>xref.title-page.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.title-page.separator</refname>
+<refpurpose>Punctuation or space separating title from page number in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.title-page.separator.frag">&lt;xsl:param name="xref.title-page.separator"&gt;&lt;xsl:text&gt; &lt;/xsl:text&gt;&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both title and page number,
+then the value of this parameter is inserted between
+title and page number in the output.  
+</para>
+
+</refsect1>
+</refentry>
+
 </reference>
 
 <reference><title>Property Sets</title>
@@ -5051,7 +5457,7 @@ include page number citations.
   &lt;xsl:attribute name="space-after.minimum"&gt;0.5em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="space-after.optimum"&gt;1em&lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="space-after.maximum"&gt;2em&lt;/xsl:attribute&gt;
-  &lt;xsl:attribute name="keep-together"&gt;always&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="keep-together.within-column"&gt;always&lt;/xsl:attribute&gt;
 &lt;/xsl:attribute-set&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -5427,6 +5833,271 @@ used for all titles below level 5.</para>
 </refsect1>
 </refentry>
 
+<refentry id="section.properties">
+<refmeta>
+<refentrytitle>section.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.properties</refname>
+<refpurpose>Properties for all section levels</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.properties.frag">
+&lt;xsl:attribute-set name="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of all section levels, and therefore apply to
+the whole section.  
+This attribute set is inherited by the
+more specific attribute sets such as
+<sgmltag>section.level1.properties</sgmltag>.
+The default is empty.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level1.properties">
+<refmeta>
+<refentrytitle>section.level1.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level1.properties</refname>
+<refpurpose>Properties for level-1 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level1.properties.frag">
+&lt;xsl:attribute-set name="section.level1.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level-1 section, and therefore apply to
+the whole section.  This includes <sgmltag>sect1</sgmltag>
+elements and <sgmltag>section</sgmltag> elements at level 1.
+</para>
+
+<para>For example, you could start each level-1 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level1.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level2.properties">
+<refmeta>
+<refentrytitle>section.level2.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level2.properties</refname>
+<refpurpose>Properties for level-2 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level2.properties.frag">
+&lt;xsl:attribute-set name="section.level2.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level-2 section, and therefore apply to
+the whole section.  This includes <sgmltag>sect2</sgmltag>
+elements and <sgmltag>section</sgmltag> elements at level 2.
+</para>
+
+<para>For example, you could start each level-2 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level2.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level3.properties">
+<refmeta>
+<refentrytitle>section.level3.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level3.properties</refname>
+<refpurpose>Properties for level-3 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level3.properties.frag">
+&lt;xsl:attribute-set name="section.level3.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level-3 section, and therefore apply to
+the whole section.  This includes <sgmltag>sect3</sgmltag>
+elements and <sgmltag>section</sgmltag> elements at level 3.
+</para>
+
+<para>For example, you could start each level-3 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level3.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level4.properties">
+<refmeta>
+<refentrytitle>section.level4.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level4.properties</refname>
+<refpurpose>Properties for level-4 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level4.properties.frag">
+&lt;xsl:attribute-set name="section.level4.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level-4 section, and therefore apply to
+the whole section.  This includes <sgmltag>sect4</sgmltag>
+elements and <sgmltag>section</sgmltag> elements at level 4.
+</para>
+
+<para>For example, you could start each level-4 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level4.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level5.properties">
+<refmeta>
+<refentrytitle>section.level5.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level5.properties</refname>
+<refpurpose>Properties for level-5 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level5.properties.frag">
+&lt;xsl:attribute-set name="section.level5.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level-5 section, and therefore apply to
+the whole section.  This includes <sgmltag>sect5</sgmltag>
+elements and <sgmltag>section</sgmltag> elements at level 5.
+</para>
+
+<para>For example, you could start each level-5 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level5.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="section.level6.properties">
+<refmeta>
+<refentrytitle>section.level6.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>section.level6.properties</refname>
+<refpurpose>Properties for level-6 sections</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="section.level6.properties.frag">
+&lt;xsl:attribute-set name="section.level6.properties" use-attribute-sets="section.properties"&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties that apply to the containing
+block of a level 6 or lower section, and therefore apply to
+the whole section.  This includes 
+<sgmltag>section</sgmltag> elements at level 6 and lower.
+</para>
+
+<para>For example, you could start each level-6 section on
+a new page by using:</para>
+<programlisting format="linespecific">&lt;xsl:attribute-set name="section.level6.properties"&gt;
+  &lt;xsl:attribute name="break-before"&gt;page&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+
+<para>This attribute set inherits attributes from the
+general <sgmltag>section.properties</sgmltag> attribute set.
+</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="figure.properties">
 <refnamediv>
 <refname>figure.properties</refname>
@@ -5536,7 +6207,7 @@ used for all titles below level 5.</para>
 <programlisting id="root.properties.frag">
 &lt;xsl:attribute-set name="root.properties"&gt;
   &lt;xsl:attribute name="font-family"&gt;
-    &lt;xsl:value-of select="$body.font.family"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:value-of select="$body.fontset"&gt;&lt;/xsl:value-of&gt;
   &lt;/xsl:attribute&gt;
   &lt;xsl:attribute name="font-size"&gt;
     &lt;xsl:value-of select="$body.font.size"&gt;&lt;/xsl:value-of&gt;
@@ -5556,6 +6227,238 @@ used for all titles below level 5.</para>
 
 <para>This property set is used on the <sgmltag>fo:root</sgmltag> element of
 an FO file. It defines a set of default, global parameters.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.properties">
+<refmeta>
+<refentrytitle>qanda.title.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.properties</refname>
+<refpurpose>Properties for qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.properties"&gt;
+  &lt;xsl:attribute name="font-family"&gt;
+    &lt;xsl:value-of select="$title.font.family"&gt;&lt;/xsl:value-of&gt;
+  &lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="font-weight"&gt;bold&lt;/xsl:attribute&gt;
+  &lt;!-- font size is calculated dynamically by qanda.heading template --&gt;
+  &lt;xsl:attribute name="keep-with-next.within-column"&gt;always&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.minimum"&gt;0.8em&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.optimum"&gt;1.0em&lt;/xsl:attribute&gt;
+  &lt;xsl:attribute name="space-before.maximum"&gt;1.2em&lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties common to all qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level1.properties">
+<refmeta>
+<refentrytitle>qanda.title.level1.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level1.properties</refname>
+<refpurpose>Properties for level-1 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level1.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level1.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master * 2.0736"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-1 qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level2.properties">
+<refmeta>
+<refentrytitle>qanda.title.level2.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level2.properties</refname>
+<refpurpose>Properties for level-2 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level2.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level2.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master * 1.728"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-2 qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level3.properties">
+<refmeta>
+<refentrytitle>qanda.title.level3.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level3.properties</refname>
+<refpurpose>Properties for level-3 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level3.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level3.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master * 1.44"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-3 qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level4.properties">
+<refmeta>
+<refentrytitle>qanda.title.level4.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level4.properties</refname>
+<refpurpose>Properties for level-4 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level4.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level4.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master * 1.2"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-4 qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level5.properties">
+<refmeta>
+<refentrytitle>qanda.title.level5.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level5.properties</refname>
+<refpurpose>Properties for level-5 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level5.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level5.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-5 qanda set titles.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="qanda.title.level6.properties">
+<refmeta>
+<refentrytitle>qanda.title.level6.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>qanda.title.level6.properties</refname>
+<refpurpose>Properties for level-6 qanda set titles</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="qanda.title.level6.properties.frag">
+&lt;xsl:attribute-set name="qanda.title.level6.properties"&gt;
+  &lt;xsl:attribute name="font-size"&gt;
+    &lt;xsl:value-of select="$body.font.master"&gt;&lt;/xsl:value-of&gt;
+    &lt;xsl:text&gt;pt&lt;/xsl:text&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties of level-6 qanda set titles.
+This property set is actually
+used for all titles below level 5.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="article.appendix.title.properties">
+<refmeta>
+<refentrytitle>article.appendix.title.properties</refentrytitle>
+<refmiscinfo role="type">attribute set</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>article.appendix.title.properties</refname>
+<refpurpose>Properties for appendix titles that appear in an article</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="article.appendix.title.properties.frag">
+&lt;xsl:attribute-set name="article.appendix.title.properties" use-attribute-sets="section.title.properties                          section.title.level1.properties"&gt;
+  &lt;xsl:attribute name="margin-left"&gt;
+    &lt;xsl:value-of select="$title.margin.left"&gt;&lt;/xsl:value-of&gt;
+  &lt;/xsl:attribute&gt;
+&lt;/xsl:attribute-set&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The properties for the title of an appendix that
+appears inside an article.  The default is to use
+the properties of sect1 titles.</para>
 
 </refsect1>
 </refentry>
@@ -6249,6 +7152,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="alignment.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="appendix.autolabel.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="arbortext.extensions.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="article.appendix.title.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="author.othername.in.middle.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="autotoc.label.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="axf.extensions.frag"&gt;&lt;/src:fragref&gt;
@@ -6332,6 +7236,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="hyphenate.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ignore.image.scaling.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="informal.object.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="index.preferred.page.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="insert.xref.page.number.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="l10n.gentext.default.language.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="l10n.gentext.language.frag"&gt;&lt;/src:fragref&gt;
@@ -6347,6 +7252,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="make.index.markup.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="make.single.year.ranges.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="make.year.ranges.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="marker.section.level.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="menuchoice.menu.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="menuchoice.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="monospace.font.family.frag"&gt;&lt;/src:fragref&gt;
@@ -6387,10 +7293,19 @@ around all these parameters.</para>
 &lt;src:fragref linkend="profile.value.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="profile.vendor.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="punct.honorific.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.defaultlabel.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="qanda.inherit.numeration.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="qandadiv.autolabel.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level1.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level2.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level3.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level4.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level5.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.level6.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="qanda.title.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="refentry.generate.name.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="refentry.generate.title.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="refentry.pagebreak.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="refentry.title.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="refentry.xref.manvolnum.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="region.after.extent.frag"&gt;&lt;/src:fragref&gt;
@@ -6409,11 +7324,21 @@ around all these parameters.</para>
 &lt;src:fragref linkend="section.title.level5.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.title.level6.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="section.title.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level1.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level2.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level3.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level4.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level5.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.level6.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="section.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="segmentedlist.as.table.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="shade.verbatim.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="shade.verbatim.style.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="show.comments.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="sidebar.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="subscript.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="superscript.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="symbol.font.family.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="table.cell.border.color.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="table.cell.border.style.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="table.cell.border.thickness.frag"&gt;&lt;/src:fragref&gt;
@@ -6444,10 +7369,14 @@ around all these parameters.</para>
 &lt;src:fragref linkend="use.role.for.mediaobject.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="use.svg.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="variablelist.as.blocks.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="variablelist.max.termlength.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="verbatim.properties.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="xep.extensions.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="xep.index.item.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.label-page.separator.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.label-title.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="xref.properties.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.title-page.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="xref.with.number.and.title.frag"&gt;&lt;/src:fragref&gt;
 
 &lt;/xsl:stylesheet&gt;

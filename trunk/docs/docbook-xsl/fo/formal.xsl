@@ -35,31 +35,31 @@
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="local-name(.) = 'figure'">
+    <xsl:when test="self::figure">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="figure.properties">
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="local-name(.) = 'example'">
+    <xsl:when test="self::example">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="example.properties">
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="local-name(.) = 'equation'">
+    <xsl:when test="self::equation">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="equation.properties">
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="local-name(.) = 'table'">
+    <xsl:when test="self::table">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="table.properties">
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="local-name(.) = 'procedure'">
+    <xsl:when test="self::procedure">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="procedure.properties">
         <xsl:copy-of select="$content"/>
@@ -202,9 +202,9 @@
     <xsl:choose>
       <xsl:when test="$align != ''">
         <fo:block>
-	  <xsl:attribute name="text-align">
-	    <xsl:value-of select="$align"/>
-	  </xsl:attribute>
+          <xsl:attribute name="text-align">
+            <xsl:value-of select="$align"/>
+          </xsl:attribute>
           <xsl:call-template name="formal.object">
             <xsl:with-param name="placement" select="$placement"/>
           </xsl:call-template>
@@ -263,7 +263,7 @@
       <xsl:variable name="olist" select="mediaobject/imageobject
                      |mediaobject/imageobjectco
                      |mediaobject/videoobject
-		     |mediaobject/audioobject
+                     |mediaobject/audioobject
 		     |mediaobject/textobject"/>
 
       <xsl:variable name="object.index">
@@ -440,6 +440,23 @@
 </xsl:template>
 
 <xsl:template match="table">
+  <xsl:choose>
+    <xsl:when test="tgroup|mediaobject|graphic">
+      <xsl:call-template name="calsTable"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="." mode="htmlTable"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="calsTable">
+  <xsl:if test="tgroup/tbody/tr
+                |tgroup/thead/tr
+                |tgroup/tfoot/tr">
+    <xsl:message terminate="yes">Broken table: tr descendent of CALS Table.</xsl:message>
+  </xsl:if>
+
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -512,7 +529,7 @@
 
   <xsl:variable name="footnotes">
     <xsl:if test="tgroup//footnote">
-      <fo:block font-family="{$body.font.family}"
+      <fo:block font-family="{$body.fontset}"
                 font-size="{$footnote.font.size}"
                 keep-with-previous="always">
         <xsl:apply-templates select="tgroup//footnote" mode="table.footnote.mode"/>
@@ -524,6 +541,10 @@
     <xsl:when test="@orient='land'">
       <fo:block-container reference-orientation="90">
         <fo:block>
+	  <!-- Such spans won't work in most FO processors since it does
+	       not follow the XSL spec, which says it must appear on
+	       an element that is a direct child of fo:flow.
+	       Some processors relax that requirement, however. -->
           <xsl:attribute name="span">
             <xsl:choose>
               <xsl:when test="@pgwide=1">all</xsl:when>
@@ -591,6 +612,17 @@
 </xsl:template>
 
 <xsl:template match="informaltable">
+  <xsl:choose>
+    <xsl:when test="tgroup|mediaobject|graphic">
+      <xsl:call-template name="informalCalsTable"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="." mode="htmlTable"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="informalCalsTable">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
   </xsl:variable>
@@ -599,7 +631,7 @@
     <xsl:for-each select="tgroup">
       <xsl:variable name="prop-columns"
                     select=".//colspec[contains(@colwidth, '*')]"/>
-      <fo:table id="{$id}"
+      <fo:table 
                 border-collapse="collapse"
                 xsl:use-attribute-sets="informal.object.properties">
         <xsl:call-template name="table.frame"/>
@@ -633,7 +665,7 @@
 
   <xsl:variable name="footnotes">
     <xsl:if test="tgroup//footnote">
-      <fo:block font-family="{$body.font.family}"
+      <fo:block font-family="{$body.fontset}"
                 font-size="{$footnote.font.size}"
                 keep-with-previous="always">
         <xsl:apply-templates select="tgroup//footnote" mode="table.footnote.mode"/>
@@ -644,7 +676,7 @@
   <xsl:choose>
     <xsl:when test="@orient='land'">
       <fo:block-container reference-orientation="90">
-        <fo:block>
+        <fo:block id="{$id}">
           <xsl:attribute name="span">
             <xsl:choose>
               <xsl:when test="@pgwide=1">all</xsl:when>
@@ -657,7 +689,7 @@
       </fo:block-container>
     </xsl:when>
     <xsl:otherwise>
-      <fo:block>
+      <fo:block id="{$id}">
         <xsl:attribute name="span">
           <xsl:choose>
             <xsl:when test="@pgwide=1">all</xsl:when>

@@ -2,6 +2,18 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
 
+<!-- ********************************************************************
+     $Id$
+     ********************************************************************
+
+     This file is part of the XSL DocBook Stylesheet distribution.
+     See ../README or http://nwalsh.com/docbook/xsl/ for copyright
+     and other information.
+
+     ******************************************************************** -->
+
+<!-- ==================================================================== -->
+
 <!-- CUSTOM CODE -->
  <xsl:variable name="use.id.as.filename" select="1"/>
 <!-- END CUSTOM CODE -->
@@ -138,7 +150,27 @@
     <xsl:apply-templates select="." mode="recursive-chunk-filename"/>
   </xsl:variable>
 
-  <xsl:if test="$ischunk != 0 and $fn != ''">
+  <!--
+  <xsl:message>
+    <xsl:value-of select="$ischunk"/>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select="local-name(.)"/>
+    <xsl:text>) </xsl:text>
+    <xsl:value-of select="$fn"/>
+    <xsl:text>, </xsl:text>
+    <xsl:call-template name="dbhtml-dir"/>
+  </xsl:message>
+  -->
+
+  <!-- 2003-11-25 by ndw:
+       The following test used to read test="$ischunk != 0 and $fn != ''"
+       I've removed the ischunk part of the test so that href.to.uri and
+       href.from.uri will be fully qualified even if the source or target
+       isn't a chunk. I *think* that if $fn != '' then it's appropriate
+       to put the directory on the front, even if the element isn't a
+       chunk. I could be wrong. -->
+
+  <xsl:if test="$fn != ''">
     <xsl:call-template name="dbhtml-dir"/>
   </xsl:if>
 
@@ -475,6 +507,11 @@
       <xsl:with-param name="object" select="$context"/>
     </xsl:call-template>
   </xsl:variable>
+  
+  <!--
+  <xsl:message>href.to.uri: <xsl:value-of select="$href.to.uri"/></xsl:message>
+  <xsl:message>href.from.uri: <xsl:value-of select="$href.from.uri"/></xsl:message>
+  -->
 
   <xsl:variable name="href.to">
     <xsl:call-template name="trim.common.uri.paths">
@@ -506,7 +543,7 @@
     <xsl:value-of select="$href.to"/>
   </xsl:variable>
 
-<!--
+  <!--
   <xsl:message>
     <xsl:text>In </xsl:text>
     <xsl:value-of select="name(.)"/>
@@ -519,7 +556,7 @@
     <xsl:text> href=</xsl:text>
     <xsl:value-of select="$href"/>
   </xsl:message>
--->
+  -->
 
   <xsl:value-of select="$href"/>
 </xsl:template>
@@ -536,7 +573,6 @@
   <head>
     <xsl:call-template name="system.head.content"/>
     <xsl:call-template name="head.content"/>
-    <xsl:call-template name="user.head.content"/>
 
     <xsl:if test="$home">
       <link rel="home">
@@ -653,17 +689,18 @@
         </link>
       </xsl:for-each>
     </xsl:if>
-    
-    <!-- CUSTOM CODE -->
-     <link rel="stylesheet" href="html.css"/>
-     
-     <xsl:if test="$prettyhtml = '1'">
-      <link rel="stylesheet" href="pretty-html.css"/>
-     </xsl:if>
-     
-     <!-- For GalleryWeb, it will be included by the Nuke module -->
-    <!-- END CUSTOM CODE -->
-    
+
+     <!-- CUSTOM CODE -->
+      <link rel="stylesheet" href="html.css"/>
+      
+      <xsl:if test="$prettyhtml = '1'">
+       <link rel="stylesheet" href="pretty-html.css"/>
+      </xsl:if>
+      
+      <!-- For GalleryWeb, it will be included by the Nuke module -->
+     <!-- END CUSTOM CODE -->
+
+    <xsl:call-template name="user.head.content"/>
   </head>
 </xsl:template>
 
@@ -680,7 +717,7 @@
   <xsl:variable name="row1" select="$navig.showtitles != 0"/>
   <xsl:variable name="row2" select="count($prev) &gt; 0
                                     or (count($up) &gt; 0 
-                                        and $up != $home
+					and generate-id($up) != generate-id($home)
                                         and $navig.showtitles != 0)
                                     or count($next) &gt; 0"/>
 
@@ -716,7 +753,7 @@
               <th width="60%" align="center">
                 <xsl:choose>
                   <xsl:when test="count($up) > 0
-                                  and $up != $home
+				  and generate-id($up) != generate-id($home)
                                   and $navig.showtitles != 0">
                     <xsl:apply-templates select="$up" mode="object.title.markup"/>
                   </xsl:when>
@@ -764,7 +801,8 @@
                                     or count($next) &gt; 0"/>
 
   <xsl:variable name="row2" select="($prev and $navig.showtitles != 0)
-                                    or ($home != . or $nav.context = 'toc')
+                                    or (generate-id($home) != generate-id(.)
+                                        or $nav.context = 'toc')
                                     or ($chunk.tocs.and.lots != 0
                                         and $nav.context != 'toc')
                                     or ($next and $navig.showtitles != 0)"/>

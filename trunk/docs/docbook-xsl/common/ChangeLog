@@ -1,3 +1,80 @@
+2003-12-15  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* .cvsignore, Makefile: Support sr_Latn locale
+
+2003-12-13  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* l10n.xml: Added sr_Latn.xml for Serbian in Latin script.
+
+2003-12-06  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* common.xsl: Fixed bug #851603 infinite recursion in copyright.year when
+	no <year> elements at all.
+
+2003-12-05  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* common.xsl: section.level now computes refentry sections relative to container element.
+
+2003-11-30  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* gentext.xsl, labels.xsl, subtitles.xsl, table.xsl, targets.xsl, titles.xsl: 
+	Added CVS $Id$ comment.
+
+2003-11-17  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* labels.xsl: Fixed bug where sect1 generated infinite loop when root element
+	and $section.label.includes.component.label is non zero.
+
+2003-10-12  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* gentext.xsl: Fixed cut-and-paste typo in substitute.markup template.
+
+2003-09-23  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* pi.xsl: Fixed dbdatetime PI, which was using context
+	datetime-abbrev for format "B" rather than datetime-full.
+
+2003-08-27  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* titles.xsl: Support HTML tables
+
+2003-08-18  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* .cvsignore: Ignore generate XML documents for Latin and Bangla
+
+	* Makefile, l10n.xml: Add support for Latin
+
+2003-07-31  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* Makefile: Update Makefile to new gentext mechanism
+
+2003-07-31  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* gentext.xsl: Added template for question in object.xref.markup mode
+	to handle case of defaultlabel = qanda.
+
+	* labels.xsl: Removed processing of @label on qandadiv since that is
+	not an allowed attribute of qandadiv.
+
+2003-07-25  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* Makefile, l10n.xml: Added bn.xml Bangla language.
+
+	* gentext.xsl: Handles new xref contexts and the new xrefstyle attribute
+	on xref elements.
+
+	* pi.xsl: Now uses new datetime-full and datetime-abbrev gentext
+	contexts for certain date components.
+
+2003-07-08  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* l10n.xsl: Removed extraneous variable l10n.name which is not used.
+
+2003-06-24  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* l10n.xsl: Fixed bug in l10n.language template where $target parameter
+	was missing from xpath expression.
+
 2003-06-21  Norman Walsh <nwalsh@users.sourceforge.net>
 
 	* .cvsignore, Makefile: Added Croatian
@@ -62,9 +139,9 @@
 
 2003-01-20  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* gentext.xsl: Added object.titleabbrev.markup for consistency
-
 	* gentext.xsl: Support experimental parameter to specify that number-and-title xrefs should be used even when things are numbered
+
+	* gentext.xsl: Added object.titleabbrev.markup for consistency
 
 	* l10n.xsl: Added gentext.template.exists to test if a gentext template exists. Clever name, huh?
 
@@ -160,20 +237,20 @@
 
 2002-07-29  Robert Stayton <bobstayton@users.sourceforge.net>
 
-	* targetdatabase.dtd: Changed the targetptr attribute from #REQUIRED to #IMPLIED
-	since it is not required on all objects.
-
 	* targetdatabase.dtd: Forgot to fix the attribute on the <obj> element
 	as well.
+
+	* targetdatabase.dtd: Changed the targetptr attribute from #REQUIRED to #IMPLIED
+	since it is not required on all objects.
 
 	* targetdatabase.dtd: Replaced targetid attribute on document with targetptr
 	per the decision of the DocBook Technical Committee.
 
 2002-07-17  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* labels.xsl: Don't count equations without titles when labelling equations
-
 	* labels.xsl: Fixed thinko
+
+	* labels.xsl: Don't count equations without titles when labelling equations
 
 2002-07-13  Robert Stayton <bobstayton@users.sourceforge.net>
 

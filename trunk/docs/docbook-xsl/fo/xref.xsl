@@ -40,8 +40,8 @@
   <xsl:choose>
     <xsl:when test="$refelem=''">
       <xsl:message>
-	<xsl:text>XRef to nonexistent id: </xsl:text>
-	<xsl:value-of select="@linkend"/>
+        <xsl:text>XRef to nonexistent id: </xsl:text>
+        <xsl:value-of select="@linkend"/>
       </xsl:message>
       <xsl:text>???</xsl:text>
     </xsl:when>
@@ -70,9 +70,9 @@
     <xsl:when test="$target/@xreflabel">
       <fo:basic-link internal-destination="{@linkend}"
                      xsl:use-attribute-sets="xref.properties">
-	<xsl:call-template name="xref.xreflabel">
-	  <xsl:with-param name="target" select="$target"/>
-	</xsl:call-template>
+        <xsl:call-template name="xref.xreflabel">
+          <xsl:with-param name="target" select="$target"/>
+        </xsl:call-template>
       </fo:basic-link>
     </xsl:when>
 
@@ -96,7 +96,13 @@
     </xsl:otherwise>
   </xsl:choose>
 
-  <xsl:if test="$insert.xref.page.number != 0 or local-name($target) = 'para'">
+  <!-- Add standard page reference? -->
+  <xsl:if test="not(starts-with(normalize-space(@xrefstyle), 'select:') != '' 
+                and (contains(@xrefstyle, 'page')
+                     or contains(@xrefstyle, 'Page')))
+                and ( $insert.xref.page.number = 'yes' 
+		   or $insert.xref.page.number = '1')
+                or local-name($target) = 'para'">
     <fo:basic-link internal-destination="{@linkend}"
                    xsl:use-attribute-sets="xref.properties">
       <xsl:apply-templates select="$target" mode="page.citation">
@@ -642,7 +648,7 @@
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </fo:basic-link>
@@ -653,9 +659,10 @@
     <!-- yes, show the URI -->
     <xsl:choose>
       <xsl:when test="$ulink.footnotes != 0 and not(ancestor::footnote)">
+	<xsl:text>&#xA0;</xsl:text>
         <fo:footnote>
           <xsl:call-template name="ulink.footnote.number"/>
-          <fo:footnote-body font-family="{$body.font.family}"
+          <fo:footnote-body font-family="{$body.fontset}"
                             font-size="{$footnote.font.size}">
             <fo:block>
               <xsl:call-template name="ulink.footnote.number"/>

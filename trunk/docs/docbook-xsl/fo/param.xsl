@@ -26,6 +26,11 @@
 <xsl:param name="alignment">justify</xsl:param>
 <xsl:param name="appendix.autolabel" select="1"/>
 <xsl:param name="arbortext.extensions" select="0"/>
+<xsl:attribute-set name="article.appendix.title.properties" use-attribute-sets="section.title.properties                          section.title.level1.properties">
+  <xsl:attribute name="margin-left">
+    <xsl:value-of select="$title.margin.left"/>
+  </xsl:attribute>
+</xsl:attribute-set>
 <xsl:param name="author.othername.in.middle" select="1"/>
 <xsl:param name="autotoc.label.separator" select="'. '"/>
 <xsl:param name="axf.extensions" select="0"/>
@@ -98,7 +103,7 @@
 <xsl:param name="firstterm.only.link" select="0"/>
 <xsl:attribute-set name="footer.content.properties">
   <xsl:attribute name="font-family">
-    <xsl:value-of select="$body.font.family"/>
+    <xsl:value-of select="$body.fontset"/>
   </xsl:attribute>
   <xsl:attribute name="margin-left">
     <xsl:value-of select="$title.margin.left"/>
@@ -119,7 +124,7 @@
   <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
   <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">2em</xsl:attribute>
-  <xsl:attribute name="keep-together">always</xsl:attribute>
+  <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="formal.procedures" select="1"/>
 <xsl:param name="formal.title.placement">
@@ -128,6 +133,7 @@ example before
 equation before
 table before
 procedure before
+task before
 </xsl:param>
 <xsl:attribute-set name="formal.title.properties" use-attribute-sets="normal.para.spacing">
   <xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -175,7 +181,7 @@ set       toc,title
 <xsl:param name="graphic.default.extension"/>
 <xsl:attribute-set name="header.content.properties">
   <xsl:attribute name="font-family">
-    <xsl:value-of select="$body.font.family"/>
+    <xsl:value-of select="$body.fontset"/>
   </xsl:attribute>
   <xsl:attribute name="margin-left">
     <xsl:value-of select="$title.margin.left"/>
@@ -193,7 +199,10 @@ set       toc,title
   <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">2em</xsl:attribute>
 </xsl:attribute-set>
-<xsl:param name="insert.xref.page.number" select="0"/>
+<xsl:attribute-set name="index.preferred.page.properties">
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
+<xsl:param name="insert.xref.page.number">no</xsl:param>
 <xsl:param name="l10n.gentext.default.language" select="'en'"/>
 <xsl:param name="l10n.gentext.language" select="''"/>
 <xsl:param name="l10n.gentext.use.xref.language" select="0"/>
@@ -219,6 +228,7 @@ set       toc,title
 <xsl:param name="make.index.markup" select="0"/>
 <xsl:param name="make.single.year.ranges" select="0"/>
 <xsl:param name="make.year.ranges" select="0"/>
+<xsl:param name="marker.section.level" select="2"/>
 <xsl:param name="menuchoice.menu.separator" select="'-&gt;'"/>
 <xsl:param name="menuchoice.separator" select="'+'"/>
 <xsl:param name="monospace.font.family" select="'monospace'"/>
@@ -379,10 +389,59 @@ set       toc,title
 <xsl:param name="profile.value" select="''"/>
 <xsl:param name="profile.vendor" select="''"/>
 <xsl:param name="punct.honorific" select="'.'"/>
+<xsl:param name="qanda.defaultlabel">number</xsl:param>
 <xsl:param name="qanda.inherit.numeration" select="1"/>
 <xsl:param name="qandadiv.autolabel" select="1"/>
+<xsl:attribute-set name="qanda.title.level1.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master * 2.0736"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.level2.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master * 1.728"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.level3.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master * 1.44"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.level4.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master * 1.2"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.level5.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.level6.properties">
+  <xsl:attribute name="font-size">
+    <xsl:value-of select="$body.font.master"/>
+    <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="qanda.title.properties">
+  <xsl:attribute name="font-family">
+    <xsl:value-of select="$title.font.family"/>
+  </xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <!-- font size is calculated dynamically by qanda.heading template -->
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
+</xsl:attribute-set>
 <xsl:param name="refentry.generate.name" select="1"/>
 <xsl:param name="refentry.generate.title" select="0"/>
+<xsl:param name="refentry.pagebreak" select="1"/>
 <xsl:attribute-set name="refentry.title.properties">
   <xsl:attribute name="font-family">
     <xsl:value-of select="$title.font.family"/>
@@ -392,6 +451,9 @@ set       toc,title
   <xsl:attribute name="space-after">1em</xsl:attribute>
   <xsl:attribute name="hyphenate">false</xsl:attribute>
   <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
   <xsl:attribute name="space-after.optimum">0.5em</xsl:attribute>
   <xsl:attribute name="space-after.minimum">0.4em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">0.6em</xsl:attribute>
@@ -401,7 +463,7 @@ set       toc,title
 <xsl:param name="region.before.extent" select="'0.4in'"/>
 <xsl:attribute-set name="root.properties">
   <xsl:attribute name="font-family">
-    <xsl:value-of select="$body.font.family"/>
+    <xsl:value-of select="$body.fontset"/>
   </xsl:attribute>
   <xsl:attribute name="font-size">
     <xsl:value-of select="$body.font.size"/>
@@ -467,6 +529,20 @@ set       toc,title
   <xsl:attribute name="space-before.optimum">1.0em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
 </xsl:attribute-set>
+<xsl:attribute-set name="section.level1.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level2.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level3.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level4.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level5.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level6.properties" use-attribute-sets="section.properties">
+</xsl:attribute-set>
+<xsl:attribute-set name="section.properties">
+</xsl:attribute-set>
 <xsl:param name="segmentedlist.as.table" select="0"/>
 <xsl:param name="shade.verbatim" select="0"/>
 
@@ -490,6 +566,13 @@ set       toc,title
   <xsl:attribute name="margin-bottom">6pt</xsl:attribute>
 -->
 </xsl:attribute-set>
+<xsl:attribute-set name="subscript.properties">
+  <xsl:attribute name="font-size">75%</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="superscript.properties">
+  <xsl:attribute name="font-size">75%</xsl:attribute>
+</xsl:attribute-set>
+<xsl:param name="symbol.font.family" select="'Symbol,ZapfDingbats'"/>
 
 <xsl:param name="table.cell.border.color" select="'black'"/>
 <xsl:param name="table.cell.border.style" select="'solid'"/>
@@ -513,7 +596,12 @@ set       toc,title
 <xsl:param name="tex.math.in.alt" select="''"/>
 <xsl:param name="textinsert.extension" select="'1'"/>
 <xsl:param name="title.font.family" select="'sans-serif'"/>
-<xsl:param name="title.margin.left" select="'-4pc'"/>
+<xsl:param name="title.margin.left">
+  <xsl:choose>
+    <xsl:when test="$passivetex.extensions != 0">0pt</xsl:when>
+    <xsl:otherwise>-4pc</xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
 <xsl:param name="toc.indent.width" select="24"/>
 <xsl:attribute-set name="toc.margin.properties">
   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
@@ -534,6 +622,7 @@ set       toc,title
 <xsl:param name="use.role.for.mediaobject" select="1"/>
 <xsl:param name="use.svg" select="1"/>
 <xsl:param name="variablelist.as.blocks" select="0"/>
+<xsl:param name="variablelist.max.termlength">24</xsl:param>
 <xsl:attribute-set name="verbatim.properties">
   <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
@@ -547,8 +636,11 @@ set       toc,title
   <xsl:attribute name="merge-subsequent-page-numbers">true</xsl:attribute>
   <xsl:attribute name="link-back">true</xsl:attribute>
 </xsl:attribute-set>
+<xsl:param name="xref.label-page.separator"><xsl:text> </xsl:text></xsl:param>
+<xsl:param name="xref.label-title.separator">: </xsl:param>
 <xsl:attribute-set name="xref.properties">
 </xsl:attribute-set>
+<xsl:param name="xref.title-page.separator"><xsl:text> </xsl:text></xsl:param>
 <xsl:param name="xref.with.number.and.title" select="1"/>
 
 </xsl:stylesheet>

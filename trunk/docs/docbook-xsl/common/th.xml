@@ -69,8 +69,12 @@
    <l:gentext key="Procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619;"/>
    <l:gentext key="procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619;"/>
    <l:gentext key="ProductionSet" text="&#3612;&#3621;&#3636;&#3605;"/>
+   <l:gentext key="PubDate" text="Publication Date" lang="en"/>
+   <l:gentext key="pubdate" text="Publication date" lang="en"/>
    <l:gentext key="Published" text="&#3605;&#3637;&#3614;&#3636;&#3617;&#3614;&#3660;"/>
    <l:gentext key="published" text="&#3605;&#3637;&#3614;&#3636;&#3617;&#3614;&#3660;"/>
+   <l:gentext key="Qandadiv" text="Q &amp; A" lang="en"/>
+   <l:gentext key="qandadiv" text="Q &amp; A" lang="en"/>
    <l:gentext key="Question" text="&#3606;&#3634;&#3617;:"/>
    <l:gentext key="question" text="&#3606;&#3634;&#3617;:"/>
    <l:gentext key="RefEntry" text=""/>
@@ -94,11 +98,11 @@
    <l:gentext key="sect5" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;"/>
    <l:gentext key="section" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;"/>
    <l:gentext key="Section" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;"/>
-   <l:gentext key="See" text="&#3604;&#3641;"/>
    <l:gentext key="see" text="&#3604;&#3641;"/>
-   <l:gentext key="SeeAlso" text="&#3604;&#3641;&#3648;&#3614;&#3636;&#3656;&#3617;&#3648;&#3605;&#3636;&#3617;"/>
+   <l:gentext key="See" text="&#3604;&#3641;"/>
    <l:gentext key="seealso" text="&#3604;&#3641;&#3648;&#3614;&#3636;&#3656;&#3617;&#3648;&#3605;&#3636;&#3617;"/>
    <l:gentext key="Seealso" text="&#3604;&#3641;&#3648;&#3614;&#3636;&#3656;&#3617;&#3648;&#3605;&#3636;&#3617;"/>
+   <l:gentext key="SeeAlso" text="&#3604;&#3641;&#3648;&#3614;&#3636;&#3656;&#3617;&#3648;&#3605;&#3636;&#3617;"/>
    <l:gentext key="set" text="&#3594;&#3640;&#3604;"/>
    <l:gentext key="Set" text="&#3594;&#3640;&#3604;"/>
    <l:gentext key="setindex" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3594;&#3640;&#3604;"/>
@@ -117,6 +121,7 @@
    <l:gentext key="WARNING" text="&#3650;&#3611;&#3619;&#3604;&#3619;&#3632;&#3623;&#3633;&#3591;"/>
    <l:gentext key="and" text="&#3649;&#3621;&#3632;"/>
    <l:gentext key="by" text="&#3650;&#3604;&#3618;"/>
+   <l:gentext key="called" text="called" lang="en"/>
    <l:gentext key="Edited" text="&#3648;&#3619;&#3637;&#3618;&#3610;&#3648;&#3619;&#3637;&#3618;&#3591;"/>
    <l:gentext key="edited" text="&#3648;&#3619;&#3637;&#3618;&#3610;&#3648;&#3619;&#3637;&#3618;&#3591;"/>
    <l:gentext key="Editedby" text="&#3648;&#3619;&#3637;&#3618;&#3610;&#3648;&#3619;&#3637;&#3618;&#3591;&#3650;&#3604;&#3610;"/>
@@ -135,6 +140,7 @@
    <l:gentext key="tablenotes" text="&#3627;&#3617;&#3634;&#3618;&#3648;&#3627;&#3605;&#3640;"/>
    <l:gentext key="TableofContents" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;"/>
    <l:gentext key="tableofcontents" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;"/>
+   <l:gentext key="the" text="" lang="en"/>
    <l:gentext key="unexpectedelementname" text="&#3614;&#3610;&#3626;&#3656;&#3623;&#3609;&#3607;&#3637;&#3656;&#3652;&#3617;&#3656;&#3605;&#3657;&#3629;&#3591;&#3585;&#3634;&#3619;"/>
    <l:gentext key="unsupported" text="&#3652;&#3617;&#3656;&#3626;&#3609;&#3633;&#3610;&#3626;&#3609;&#3640;&#3609;"/>
    <l:gentext key="xrefto" text="xref to"/>
@@ -144,6 +150,8 @@
    <l:gentext key="listofexamples" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3605;&#3633;&#3623;&#3629;&#3618;&#3656;&#3634;&#3591;"/>
    <l:gentext key="ListofFigures" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3619;&#3641;&#3611;"/>
    <l:gentext key="listoffigures" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3619;&#3641;&#3611;"/>
+   <l:gentext key="ListofProcedures" text="List of Procedures" lang="en"/>
+   <l:gentext key="listofprocedures" text="List of Procedures" lang="en"/>
    <l:gentext key="listoftables" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3605;&#3634;&#3619;&#3634;&#3591;"/>
    <l:gentext key="ListofTables" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3605;&#3634;&#3619;&#3634;&#3591;"/>
    <l:gentext key="ListofUnknown" text="&#3626;&#3634;&#3619;&#3610;&#3633;&#3597;&#3629;&#3639;&#3656;&#3609; &#3654;"/>
@@ -154,10 +162,11 @@
    <l:gentext key="nav-prev" text="&#3585;&#3656;&#3629;&#3609;&#3627;&#3609;&#3657;&#3634;"/>
    <l:gentext key="nav-prev-sibling" text="&#3585;&#3656;&#3629;&#3609;&#3627;&#3609;&#3657;&#3634;"/>
    <l:gentext key="nav-up" text="&#3585;&#3621;&#3633;&#3610;"/>
-   <l:gentext key="sectioncalled" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634;"/>
+   <l:gentext key="nav-toc" text="ToC" lang="en"/>
    <l:gentext key="Draft" text="Draft"/>
    <l:gentext key="above" text="above"/>
    <l:gentext key="below" text="below"/>
+   <l:gentext key="sectioncalled" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634;"/>
    <l:gentext key="index symbols" text="&#3626;&#3633;&#3597;&#3621;&#3633;&#3585;&#3625;&#3603;&#3660;"/>
    <l:gentext key="lowercase.alpha" text="abcdefghijklmnopqrstuvwxyz"/>
    <l:gentext key="uppercase.alpha" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
@@ -165,7 +174,12 @@
    <l:dingbat key="endquote" text="&#8221;"/>
    <l:dingbat key="nestedstartquote" text="&#8216;"/>
    <l:dingbat key="nestedendquote" text="&#8217;"/>
+   <l:dingbat key="singlestartquote" text="&#8216;" lang="en"/>
+   <l:dingbat key="singleendquote" text="&#8217;" lang="en"/>
    <l:dingbat key="bullet" text="&#8226;"/>
+   <l:gentext key="hyphenation-character" text="-" lang="en"/>
+   <l:gentext key="hyphenation-push-character-count" text="2" lang="en"/>
+   <l:gentext key="hyphenation-remain-character-count" text="2" lang="en"/>
 
    <l:context name="styles">
       <l:template name="person-name" text="first-last"/>
@@ -196,6 +210,7 @@
       <l:template name="formalpara" text="%t"/>
       <l:template name="glossary" text="%t"/>
       <l:template name="glossdiv" text="%t"/>
+      <l:template name="glossentry" text="%t" lang="en"/>
       <l:template name="important" text="%t"/>
       <l:template name="index" text="%t"/>
       <l:template name="indexdiv" text="%t"/>
@@ -236,6 +251,7 @@
       <l:template name="sidebar" text="%t"/>
       <l:template name="step" text="%t"/>
       <l:template name="table" text="&#3605;&#3634;&#3619;&#3634;&#3591; %n. %t"/>
+      <l:template name="task" text="%t" lang="en"/>
       <l:template name="tip" text="%t"/>
       <l:template name="toc" text="%t"/>
       <l:template name="variablelist" text="%t"/>
@@ -245,6 +261,7 @@
 
    <l:context name="title-unnumbered">
       <l:template name="appendix" text="%t"/>
+      <l:template name="article/appendix" text="%t" lang="en"/>
       <l:template name="bridgehead" text="%t"/>
       <l:template name="chapter" text="%t"/>
       <l:template name="sect1" text="%t"/>
@@ -258,6 +275,7 @@
 
    <l:context name="title-numbered">
       <l:template name="appendix" text="&#3616;&#3634;&#3588;&#3612;&#3609;&#3623;&#3585; %n. %t"/>
+      <l:template name="article/appendix" text="%n.&#160;%t" lang="en"/>
       <l:template name="bridgehead" text="%n. %t"/>
       <l:template name="chapter" text="&#3610;&#3607;&#3607;&#3637;&#3656; %n. %t"/>
       <l:template name="sect1" text="%n. %t"/>
@@ -312,9 +330,8 @@
 
    <l:context name="xref">
       <l:template name="abstract" text="%t"/>
-      <l:template name="answer" text="&#3605;&#3629;&#3610;: %n"/>
       <l:template name="answer" text="&#3605;&#3629;&#3610;:&#160;%n"/>
-      <l:template name="appendix" text="&#3616;&#3634;&#3588;&#3612;&#3609;&#3623;&#3585; %n"/>
+      <l:template name="appendix" text="%t"/>
       <l:template name="article" text="%t"/>
       <l:template name="authorblurb" text="%t"/>
       <l:template name="bibliodiv" text="%t"/>
@@ -325,14 +342,13 @@
       <l:template name="book" text="%t"/>
       <l:template name="calloutlist" text="%t"/>
       <l:template name="caution" text="%t"/>
-      <l:template name="chapter" text="&#3610;&#3607;&#3607;&#3637;&#3656; %n"/>
+      <l:template name="chapter" text="%t"/>
       <l:template name="colophon" text="%t"/>
       <l:template name="constraintdef" text="%t"/>
       <l:template name="dedication" text="%t"/>
-      <l:template name="equation" text="&#3626;&#3617;&#3585;&#3634;&#3619; %n"/>
-      <l:template name="equation" text="&#3626;&#3617;&#3585;&#3634;&#3619;&#160;%n"/>
-      <l:template name="example" text="&#3605;&#3633;&#3623;&#3629;&#3618;&#3656;&#3634;&#3591; %n"/>
-      <l:template name="figure" text="&#3619;&#3641;&#3611; %n"/>
+      <l:template name="equation" text="%t"/>
+      <l:template name="example" text="%t"/>
+      <l:template name="figure" text="%t"/>
       <l:template name="formalpara" text="%t"/>
       <l:template name="glossary" text="%t"/>
       <l:template name="glossdiv" text="%t"/>
@@ -351,41 +367,31 @@
       <l:template name="msgsub" text="%t"/>
       <l:template name="note" text="%t"/>
       <l:template name="orderedlist" text="%t"/>
-      <l:template name="part" text="&#3616;&#3634;&#3588; %n"/>
+      <l:template name="part" text="%t"/>
       <l:template name="partintro" text="%t"/>
       <l:template name="preface" text="%t"/>
-      <l:template name="procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619; %n"/>
-      <l:template name="procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619;&#160;%n"/>
+      <l:template name="procedure" text="%t"/>
       <l:template name="productionset" text="%t"/>
       <l:template name="qandadiv" text="%t"/>
-      <l:template name="qandadiv" text="%t"/>
-      <l:template name="qandaentry" text="&#3606;&#3634;&#3617;: %n"/>
       <l:template name="qandaentry" text="&#3606;&#3634;&#3617;:&#160;%n"/>
       <l:template name="qandaset" text="%t"/>
-      <l:template name="qandaset" text="%t"/>
-      <l:template name="question" text="&#3606;&#3634;&#3617;: %n"/>
       <l:template name="question" text="&#3606;&#3634;&#3617;:&#160;%n"/>
       <l:template name="reference" text="%t"/>
-      <l:template name="refsection" text="%t"/>
-      <l:template name="refsect1" text="%t"/>
-      <l:template name="refsect2" text="%t"/>
-      <l:template name="refsect3" text="%t"/>
       <l:template name="refsynopsisdiv" text="%t"/>
       <l:template name="segmentedlist" text="%t"/>
       <l:template name="set" text="%t"/>
       <l:template name="setindex" text="%t"/>
       <l:template name="sidebar" text="%t"/>
-      <l:template name="table" text="&#3605;&#3634;&#3619;&#3634;&#3591; %n"/>
+      <l:template name="table" text="%t"/>
       <l:template name="tip" text="%t"/>
       <l:template name="toc" text="%t"/>
       <l:template name="variablelist" text="%t"/>
       <l:template name="varlistentry" text="%n"/>
-      <l:template name="varlistentry" text="%n"/>
       <l:template name="warning" text="%t"/>
       <l:template name="page.citation" text=" [%p]"/>
-   </l:context>
-
-   <l:context name="section-xref">
+      <l:template name="page" text="(page %p)" lang="en"/>
+      <l:template name="pageabbrev" text="(p. %p)" lang="en"/>
+      <l:template name="Page" text="Page %p" lang="en"/>
       <l:template name="bridgehead" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
       <l:template name="refsection" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
       <l:template name="refsect1" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
@@ -400,19 +406,52 @@
       <l:template name="simplesect" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
    </l:context>
 
-   <l:context name="section-xref-numbered">
-      <l:template name="bridgehead" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="refsection" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
+   <l:context name="xref-number">
+      <l:template name="answer" text="&#3605;&#3629;&#3610;:&#160;%n"/>
+      <l:template name="appendix" text="&#3616;&#3634;&#3588;&#3612;&#3609;&#3623;&#3585;&#160;%n"/>
+      <l:template name="bridgehead" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="chapter" text="&#3610;&#3607;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="equation" text="&#3626;&#3617;&#3585;&#3634;&#3619;&#160;%n"/>
+      <l:template name="example" text="&#3605;&#3633;&#3623;&#3629;&#3618;&#3656;&#3634;&#3591;&#160;%n"/>
+      <l:template name="figure" text="&#3619;&#3641;&#3611;&#160;%n"/>
+      <l:template name="part" text="&#3616;&#3634;&#3588;&#160;%n"/>
+      <l:template name="procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619;&#160;%n"/>
+      <l:template name="productionset" text="&#3612;&#3621;&#3636;&#3605;&#160;%n"/>
+      <l:template name="qandadiv" text="Q &amp; A&#160;%n"/>
+      <l:template name="qandaentry" text="&#3606;&#3634;&#3617;:&#160;%n"/>
+      <l:template name="question" text="&#3606;&#3634;&#3617;:&#160;%n"/>
+      <l:template name="sect1" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="sect2" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="sect3" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="sect4" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="sect5" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="section" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n"/>
+      <l:template name="table" text="&#3605;&#3634;&#3619;&#3634;&#3591;&#160;%n"/>
+   </l:context>
+
+   <l:context name="xref-number-and-title">
+      <l:template name="appendix" text="&#3616;&#3634;&#3588;&#3612;&#3609;&#3623;&#3585;&#160;%n, %t"/>
+      <l:template name="bridgehead" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="chapter" text="&#3610;&#3607;&#3607;&#3637;&#3656;&#160;%n, %t"/>
+      <l:template name="equation" text="&#3626;&#3617;&#3585;&#3634;&#3619;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="example" text="&#3605;&#3633;&#3623;&#3629;&#3618;&#3656;&#3634;&#3591;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="figure" text="&#3619;&#3641;&#3611;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="part" text="&#3616;&#3634;&#3588;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="procedure" text="&#3619;&#3632;&#3648;&#3610;&#3637;&#3618;&#3610;&#3585;&#3634;&#3619;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="productionset" text="&#3612;&#3621;&#3636;&#3605;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="qandadiv" text="Q &amp; A&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="refsect1" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
       <l:template name="refsect2" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
       <l:template name="refsect3" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
-      <l:template name="sect1" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="sect2" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="sect3" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="sect4" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="sect5" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
-      <l:template name="section" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656; %n"/>
+      <l:template name="refsection" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
+      <l:template name="sect1" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="sect2" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="sect3" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="sect4" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="sect5" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
+      <l:template name="section" text="&#3605;&#3629;&#3609;&#3607;&#3637;&#3656;&#160;%n, &#8220;%t&#8221;"/>
       <l:template name="simplesect" text="&#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3657;&#3619;&#3637;&#3618;&#3585;&#3623;&#3656;&#3634; &#8220;%t&#8221;"/>
+      <l:template name="table" text="&#3605;&#3634;&#3619;&#3634;&#3591;&#160;%n, &#8220;%t&#8221;"/>
    </l:context>
 
    <l:context name="authorgroup">
@@ -430,6 +469,54 @@
       <l:template name="MsgAud" text="&#3612;&#3641;&#3657;&#3629;&#3656;&#3634;&#3609;: "/>
       <l:template name="MsgLevel" text="&#3619;&#3632;&#3604;&#3633;&#3610;: "/>
       <l:template name="MsgOrig" text="&#3607;&#3637;&#3656;&#3617;&#3634;: "/>
+   </l:context>
+
+   <l:context name="datetime">
+      <l:template name="format" text="m/d/Y" lang="en"/>
+   </l:context>
+
+   <l:context name="datetime-full">
+      <l:template name="January" text="January" lang="en"/>
+      <l:template name="February" text="February" lang="en"/>
+      <l:template name="March" text="March" lang="en"/>
+      <l:template name="April" text="April" lang="en"/>
+      <l:template name="May" text="May" lang="en"/>
+      <l:template name="June" text="June" lang="en"/>
+      <l:template name="July" text="July" lang="en"/>
+      <l:template name="August" text="August" lang="en"/>
+      <l:template name="September" text="September" lang="en"/>
+      <l:template name="October" text="October" lang="en"/>
+      <l:template name="November" text="November" lang="en"/>
+      <l:template name="December" text="December" lang="en"/>
+      <l:template name="Monday" text="Monday" lang="en"/>
+      <l:template name="Tuesday" text="Tuesday" lang="en"/>
+      <l:template name="Wednesday" text="Wednesday" lang="en"/>
+      <l:template name="Thursday" text="Thursday" lang="en"/>
+      <l:template name="Friday" text="Friday" lang="en"/>
+      <l:template name="Saturday" text="Saturday" lang="en"/>
+      <l:template name="Sunday" text="Sunday" lang="en"/>
+   </l:context>
+
+   <l:context name="datetime-abbrev">
+      <l:template name="Jan" text="Jan" lang="en"/>
+      <l:template name="Feb" text="Feb" lang="en"/>
+      <l:template name="Mar" text="Mar" lang="en"/>
+      <l:template name="Apr" text="Apr" lang="en"/>
+      <l:template name="May" text="May" lang="en"/>
+      <l:template name="Jun" text="Jun" lang="en"/>
+      <l:template name="Jul" text="Jul" lang="en"/>
+      <l:template name="Aug" text="Aug" lang="en"/>
+      <l:template name="Sep" text="Sep" lang="en"/>
+      <l:template name="Oct" text="Oct" lang="en"/>
+      <l:template name="Nov" text="Nov" lang="en"/>
+      <l:template name="Dec" text="Dec" lang="en"/>
+      <l:template name="Mon" text="Mon" lang="en"/>
+      <l:template name="Tue" text="Tue" lang="en"/>
+      <l:template name="Wed" text="Wed" lang="en"/>
+      <l:template name="Thu" text="Thu" lang="en"/>
+      <l:template name="Fri" text="Fri" lang="en"/>
+      <l:template name="Sat" text="Sat" lang="en"/>
+      <l:template name="Sun" text="Sun" lang="en"/>
    </l:context>
 
    <l:context name="htmlhelp">

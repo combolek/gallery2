@@ -47,7 +47,8 @@
             space-before.maximum="{$body.font.master * 1.2}pt"
             hyphenate="false">
     <xsl:if test="$pagewide != 0">
-      <xsl:attribute name="span">all</xsl:attribute>
+      <!-- Doesn't work to use 'all' here since not a child of fo:flow -->
+      <xsl:attribute name="span">inherit</xsl:attribute>
     </xsl:if>
     <xsl:attribute name="hyphenation-character">
       <xsl:call-template name="gentext">
@@ -541,16 +542,46 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
+  <xsl:variable name="title">
+    <xsl:apply-templates select="." mode="title.markup"/>
+  </xsl:variable>
+
+  <xsl:variable name="titleabbrev">
+    <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+  </xsl:variable>
+
   <fo:block id='{$id}'>
-    <xsl:call-template name="section.heading">
-      <xsl:with-param name="level" select="2"/>
-      <xsl:with-param name="title">
-        <xsl:apply-templates select="." mode="object.title.markup"/>
-      </xsl:with-param>
-      <xsl:with-param name="titleabbrev">
-        <xsl:apply-templates select="." mode="titleabbrev.markup"/>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="$passivetex.extensions != 0">
+      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex" 
+                      fotex-bookmark-level="{count(ancestor::*)+2}" 
+                      fotex-bookmark-label="{$id}">
+        <xsl:value-of select="$titleabbrev"/>
+      </fotex:bookmark>
+    </xsl:if>
+
+    <xsl:if test="$axf.extensions != 0">
+      <xsl:attribute name="axf:outline-level">
+        <xsl:value-of select="count(ancestor::*)+2"/>
+      </xsl:attribute>
+      <xsl:attribute name="axf:outline-expand">false</xsl:attribute>
+      <xsl:attribute name="axf:outline-title">
+        <xsl:value-of select="$titleabbrev"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <fo:block xsl:use-attribute-sets="article.appendix.title.properties">
+      <fo:marker marker-class-name="section.head.marker">
+        <xsl:choose>
+          <xsl:when test="$titleabbrev = ''">
+            <xsl:value-of select="$title"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$titleabbrev"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </fo:marker>
+      <xsl:copy-of select="$title"/>
+    </fo:block>
 
     <xsl:apply-templates/>
   </fo:block>
