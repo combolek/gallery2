@@ -106,6 +106,19 @@ class AlbumDB {
 	function numAlbums($user) {
 		return sizeof($this->getVisibleAlbums($user));
 	}
+	
+	function numPhotos($user) {
+		$numPhotos = 0;
+		foreach ($this->albumList as $album) {
+			if ($user->canWriteToAlbum($album)) {
+				$numPhotos += $album->numPhotos(1);
+                        } else if ($user->canReadAlbum($album)) {
+                                $numPhotos += $album->numPhotos(0);
+                        }
+                }
+
+		return $numPhotos;
+	}
 
 	function getAlbum($user, $index) {
 		$list = $this->getVisibleAlbums($user);
