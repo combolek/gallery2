@@ -98,7 +98,8 @@ class ItemEditAlbumControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditAlbum',
-						      'itemId' => $this->_album->getId())),
+						      'itemId' => $this->_album->getId()),
+				  'status' => array('saved' => 1)),
 			    $results);
 
 	list ($ret, $this->_album) = $this->_album->refresh();

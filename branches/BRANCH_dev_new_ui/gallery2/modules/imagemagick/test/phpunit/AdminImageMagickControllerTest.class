@@ -87,11 +87,13 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
 	GalleryUtilities::putRequestVariable('form.path', "${slash}validPath${slash}");
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'target')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'imagemagick:AdminImageMagick'),
+				  'status' => array('saved' => 1)),
+			    $results);
 	
 	/* Verify the settings went in properly */
 	$this->assertEquals(array(GalleryStatus::success(), "${slash}validPath${slash}"),
@@ -105,11 +107,12 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form.action.cancel', 1);
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'target')), $results);
+	$this->assertEquals(array('redirect' => array('view' => 'core:SiteAdmin',
+						      'subView' => 'imagemagick:AdminImageMagick')),
+			    $results);
     }
     
     function testSaveTestErrorPath() {
@@ -122,7 +125,6 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.save', 1);
 	GalleryUtilities::putRequestVariable('form.path', "${slash}validPathBadBinaries${slash}");
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we failed */
 	$results = $this->handleRequest();
@@ -142,7 +144,6 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form.action.save', 1);
 	GalleryUtilities::putRequestVariable('form.path', "${slash}invalidPath${slash}");
 	GalleryUtilities::putRequestVariable('form.jpegQuality', '12');
-	GalleryUtilities::putRequestVariable('return.view', 'target');
 
 	/* Perform the request and verify that we failed */
 	$results = $this->handleRequest();

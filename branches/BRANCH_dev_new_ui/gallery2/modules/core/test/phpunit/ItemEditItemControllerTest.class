@@ -114,7 +114,8 @@ class ItemEditItemControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core:ItemAdmin',
 						      'subView' => 'core:ItemEditItem',
-						      'itemId' => $this->_item[0]->getId())),
+						      'itemId' => $this->_item[0]->getId()),
+				  'status' => array('saved' => 1)),
 			    $results);
     }
 
