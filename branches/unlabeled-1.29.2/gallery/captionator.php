@@ -188,13 +188,13 @@ $adminbox["text"] = $adminText;
 $adminbox["commands"] = $adminCommands;
 $adminbox["bordercolor"] = $bordercolor;
 $adminbox["top"] = true;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+includeLayout('adminbox.inc');
 
 $adminbox["text"] = "";
 $adminbox["commands"] = "";
 $adminbox["bordercolor"] = $bordercolor;
 $adminbox["top"] = false;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+includeLayout('adminbox.inc');
 
 ?>
 
@@ -336,7 +336,7 @@ if ($numPhotos) {
 <br>
 
 <?php
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("album.footer");
 ?>
 

@@ -129,8 +129,8 @@ $adminbox["text"] = $adminText;
 $adminbox["commands"] = $adminCommands;
 $adminbox["bordercolor"] = $bordercolor;
 $adminbox["top"] = true;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('adminbox.inc');
+includeLayout('breadcrumb.inc');
 ?><br><?php
 if(strcmp($gallery->album->fields["public_comments"], "yes"))
 {
@@ -153,21 +153,21 @@ else
             $myAlbum = new Album();
             $myAlbum->load($myAlbumName);
             $myHighlightTag = $myAlbum->getHighlightAsThumbnailTag();
-            include($GALLERY_BASEDIR . "layout/commentboxtop.inc");
-            include($GALLERY_BASEDIR . "layout/commentboxbottom.inc");
+	    includeLayout('commentboxtop.inc');
+	    includeLayout('commentboxbottom.inc');
         }
         else
         {
             $comments = $gallery->album->numComments($i);
             if($comments > 0)
             {
-                include($GALLERY_BASEDIR . "layout/commentboxtop.inc");
+		includeLayout('commentboxtop.inc');
                 for($j = 1; $j <= $comments; $j++)
                 {
                     $comment = $gallery->album->getComment($index, $j);
-                    include($GALLERY_BASEDIR . "layout/commentbox.inc");
+		    includeLayout('commentbox.inc');
                 }
-                include($GALLERY_BASEDIR . "layout/commentboxbottom.inc");
+		includeLayout('commentboxbottom.inc');
             }
         }
         $embeddedAlbum = 0;
@@ -176,9 +176,9 @@ else
 }
 $breadcrumb["top"] = true;
 $breadcrumb["bottom"] = true;
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('breadcrumb.inc');
 
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("album.footer");
 ?>
 

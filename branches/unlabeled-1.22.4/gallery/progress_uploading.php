@@ -36,7 +36,7 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
 <?php
 function image($name) {
 	global $GALLERY_BASEDIR;
-	return $GALLERY_BASEDIR . "images/$name";
+	return getImagePath("$name");
 }
 ?>
 <html>

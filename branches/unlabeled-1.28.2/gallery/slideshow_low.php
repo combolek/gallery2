@@ -383,14 +383,14 @@ for ($i = count($breadtext) - 1; $i >= 0; $i--) {
 $breadcrumb["bordercolor"] = $borderColor;
 $breadcrumb["top"] = true;
 
-include($GALLERY_BASEDIR . "layout/breadcrumb.inc");
+includeLayout('breadcrumb.inc');
 
 
 $adminbox["commands"] = "";
 $adminbox["text"] = _("Slide Show");
 $adminbox["bordercolor"] = $borderColor;
 $adminbox["top"] = true;
-include ($GALLERY_BASEDIR . "layout/adminbox.inc");
+includeLayout('adminbox.inc');
 
 ?>
 
@@ -500,7 +500,7 @@ array("set_albumName" => $gallery->session->albumName)) ?>">[<?php echo _("back 
 
 
 <?php
-include($GALLERY_BASEDIR . "layout/ml_pulldown.inc");
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("slideshow.footer"); ?>
 
 
