@@ -124,7 +124,7 @@ public class ImageCrop extends Applet
 		System.out.println("ImageUrl [" + imageUrlString + "]");
 
 		try {
-			image = getImage(new URL(imageUrlString));
+			image = getImage(new URL(getCodeBase(), imageUrlString));
 		} catch (java.net.MalformedURLException e) {
 			throw new Exception("Malformed Image URL ["+imageUrlString+"]");
 		}
