@@ -200,7 +200,7 @@ $pageBodyExtra = "\n"
 
     . "  function hideProgressAndReload() { \n"
     . "    hideProgress(); \n"
-    . "    document.location.reload(); \n"
+    . "    window.location.reload(); \n"
     . "  } \n"
 
     . "// --> \n"
