@@ -337,6 +337,14 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
         in <literal>ASCII FTP mode</literal> instead of <literal>BINARY FTP mode</literal>.
        </para>
       </listitem>
+      <listitem> 
+       <para>
+        <emphasis>Permission Denied</emphasis> -- More than likely, your NetPBM directory
+        or the actual NetPBM binaries are not chmodded 0755.  It could also mean that your
+        host has disallowed you from executing programs; if this is the case, you must talk
+        to them in order to get it resolved.
+       </para>
+      </listitem>
       <listitem>
        <para>
         <emphasis>/usr/bin/convert: Not a JPEG file: starts with 0x0a 0x4d
