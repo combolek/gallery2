@@ -1,3 +1,8 @@
+2003-12-17  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b3)
+
+	* Added alerts when ImageMagick or jpegtran are unavailable.
+	* No longer showing rotate arrows when jpegtran is unavailable.
+
 2003-12-16  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b2)
 
 	* Fixed Mac version: Native Mac build now works, uses screen menu bar
@@ -7,7 +12,7 @@
 	  is not present.
 	* Pruned .java files from JSX library, making it lighter and resolving a
 	  conflict with recent versions of IntelliJ.
-
+	  
 2003-12-09  Pierre-Luc Paour <gallery@paour.com> (1.2.1-b1)
 
 	* Some apps wouldn't let you drag and drop pictures to GR. This is now fixed

@@ -165,6 +165,7 @@ public class PropertiesFile extends GalleryProperties
 			} catch ( IOException e ) {
 				// Todo: what should happen here?
 			} finally {
+				read = true;
 				try {
 					fileIn.close();
 				} catch ( IOException e2 ) {
