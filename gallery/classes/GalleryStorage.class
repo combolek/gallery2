@@ -1,0 +1,113 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * Interface to the storage mechanism
+ *
+ * This object provides the hooks for saving and restoring objects in the persistent store.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ * @abstract
+ */
+class GalleryStorage {
+
+    /**
+     * Return the id of the GalleryItem associated with the path provided
+     *
+     * Return the id associated with the given path. Example path: 
+     * "/birthdays/fred" .. this is the "fred" item in the "birthdays" 
+     * item.  It doesn't really matter what types of items these are, as 
+     * long as the path is legitimate.
+     *
+     * This method must be implemented by subclasses of Gallery.
+     *
+     * @access public
+     * @abstract
+     * @param string the path to a GalleryItem
+     * @return string the id of the GalleryItem
+     */
+    function getIdByPath($path) {
+    }
+
+    /**
+     * Get the GalleryItem for the id provided
+     *
+     * Return the GalleryItem associated with this id.  Note  
+     * that this returns the unique object itself, not a copy.
+     * This means that you can change/save it.
+     *
+     * This method must be implemented by subclasses of Gallery
+     *
+     * @access public
+     * @abstract
+     * @param string the id of the item
+     * @return object GalleryItem the item	
+     */
+    function &getItemById($id) {
+    }
+
+    /**
+     * Get the DataContainer for the id provided
+     *
+     * Return the DataContainer associated with this id.  Note  
+     * that this returns the unique object itself, not a copy.
+     * This means that you can change/save it.
+     *
+     * @access public
+     * @param string the id of the item
+     * @return object GalleryItem the item	
+     */
+    function &getDataContainerById($id) {
+    }
+
+    /**
+     * Load a new GalleryNucleus from storage
+     *
+     * @access public
+     * @param string the id of the stored GalleryNucleus
+     * @param object GalleryNucleus a hint of the type of GalleryNucleus we're loading
+     * @return object GalleryNucleus a GalleryNucleus or null if the id is bogus.
+     */
+    function load($id, $nucleus) {
+    }
+
+    /**
+     * Save the changes to the GalleryNucleus.  
+     *
+     * @access public
+     * @param object GalleryNucleus the GalleryNucleus to save
+     * @return int a status code
+     */
+    function save($nucleus) {
+    }
+
+    /**
+     * Delete the GalleryNucleus.
+     *
+     * @access public
+     * @param object GalleryNucleus the GalleryNucleus to delete
+     * @return int a status code
+     */
+    function delete($nucleus) {
+    }
+}
+?>

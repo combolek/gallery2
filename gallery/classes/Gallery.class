@@ -1,0 +1,274 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * Global storage container and utility class for Gallery
+ *
+ * This is a container for global information required for gallery
+ * operation, such as configuration, session, user, etc.  It also
+ * serves as the GalleryItem manager.  All requests for GalleryItems
+ * should go through this class so that they can be cached and shared.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class Gallery {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The id of the root AlbumItem in the Gallery
+     *
+     * @var	string
+     */
+    var $_rootAlbumItemId;
+
+    /**
+     * Storage for all configuration variables, set in config.php.
+     * The values contained here can't be modified.  Well, they
+     * can be modified but they can't be saved so it's not a good
+     * idea.  
+     *
+     * @var	object	GalleryMap	$_config;
+     */
+    var $_config;
+
+    /**
+     * An instance of the user database class
+     *
+     * @var	object	UserDatabase	$_userDatabase;
+     */
+    var $_userDatabase;
+
+    /**
+     * The current GalleryImageToolkit
+     *
+     * @var object	GalleryImageToolkit	$_imageToolkit;
+     */
+    var $_imageToolkit;
+
+    /**
+     * Storage for all session variables.  Contains an instance
+     * of the GalleryMap class.
+     *
+     * @var	object	GalleryMap	 $_session;
+     */
+    var $_session;
+
+    /**
+     * The backend persistent store for the Gallery class
+     *
+     * @access private
+     * @var	object	GalleryStorage	 $_storage;
+     */
+    var $_storage;
+
+    /**
+     * The active locking mechanism
+     *
+     * @access private
+     * @var	object	GalleryLock	$_lock;
+     */
+    var $_lock;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Return the id of the GalleryItem associated with the path provided
+     *
+     * Return the id associated with the given path. Example path:
+     * "/birthdays/fred" .. this is the "fred" item in the "birthdays"
+     * item.  It doesn't really matter what types of items these are, as
+     * long as the path is legitimate.
+     *
+     * @access public
+     * @param string the path to a GalleryItem
+     * @return string the id of the GalleryItem (or null)
+     */
+    function getIdByPath($path) {
+	return $this->_storage->getIdByPath($path);
+    }
+
+    /**
+     * Get the GalleryItem for the id provided
+     *
+     * Return the GalleryItem associated with this id.  Note  
+     * that this returns the unique object itself, not a copy.
+     * This means that you can change/save it.
+     *
+     * @access public
+     * @param string the id of the GalleryItem
+     * @return object GalleryItem the GalleryItem
+     */
+    function &getItemById($id) {
+	return $this->_storage->getItemById($path);
+    }
+
+    /**
+     * Get the DataContainer for the id provided
+     *
+     * Return the DataContainer associated with this id.  Note  
+     * that this returns the unique object itself, not a copy.
+     * This means that you can change/save it.
+     *
+     * @access public
+     * @param string the id of the item
+     * @return object GalleryItem the GalleryItem
+     */
+    function &getDataContainerById($id) {
+	return $this->_storage->getDataContainerById($path);
+    }
+
+    /**
+     * Search this item to see if it contains the search string.
+     *
+     * If this item has sub-items, search them also.
+     *
+     * @access public
+     * @param string the search criteria
+     * @return array a list of of GalleryItem(s)
+     */
+    function search($criteria) {
+    }
+
+    /**
+     * Return the id of the root GalleryItem
+     *
+     * The root GalleryItem should be an AlbumItem
+     *
+     * @access public
+     * @return string the id of the root album
+     */
+    function getRootAlbumItemId() {
+    }
+
+    /**
+     * Set the id of the root GalleryItem
+     *
+     * The root GalleryItem should be an AlbumItem.
+     *
+     * @access public
+     * @param string the id of the GalleryItem
+     */
+    function setRootAlbumItemId($id) {
+    }
+
+    /**
+     * Get the Id of the active user
+     *
+     * The active user is the user who is logged on in this 
+     * session or the EverybodyUser, if nobody is logged on.
+     * 
+     * @access public
+     * @return string the id of the current User.
+     */
+    function getActiveUserId() {
+    }
+
+    /**
+     * Get the user database 
+     *
+     * Return a reference to the instance of the active
+     * GalleryUserDatabase class.
+     * 
+     * @access public
+     * @return object GalleryUserDatabase the active user database
+     */
+    function &getUserDatabase() {
+    }
+
+    /**
+     * Get the image toolkit
+     *
+     * Return a reference to the instance of the active
+     * GalleryImageToolkit class.
+     * 
+     * @access public
+     * @return object GalleryImageToolkit the active image toolkit
+     */
+    function &getImageToolkit() {
+    }
+
+    /**
+     * Get a copy of the Gallery configuration settings
+     *
+     * Return a copy of the GalleryMap config instance.  Do not
+     * change the copy, as the changes will be lost.  The value of
+     * this config object is generated in config.php
+     * 
+     * @access public
+     * @return object GalleryMap the Gallery config map
+     */
+    function getConfig() {
+    }
+
+    /**
+     * Get the Gallery session object.
+     *
+     * Return a reference to the unique Gallery session object
+     * (implemented as an instance of the GalleryMap class).  Any
+     * changes made to this object will be saved in the session.
+     * 
+     * @access public
+     * @return object GalleryMap the Gallery session map
+     */
+    function &getSession() {
+    }
+
+    /**
+     * Lock the given GalleryNucleus instances.
+     *
+     * Use the active locking mechanism to lock the given GalleryNucleus instances.
+     * 
+     * @access public
+     * @param array the GalleryNucleus' to be locked 
+     * @param int how long to wait for the lock before giving up
+     * @return boolean true if the lock was acquired
+     */
+    function lock($array, $timeout) {
+	// If we have a lock already, complain and return false
+	// If we don't have a lock, get one, register it with the end-of-session handler
+	// 	so that it goes away
+
+	// If we acquire the lock, refresh all the objects
+	//
+	// for ($i = 0; $i < length($array); $i++) {
+	//	$array[$i]->refresh();
+	// }
+    }
+
+    /**
+     * Release the lock
+     *
+     * @access public
+     */
+    function unlock() {
+    }
+}
+?>

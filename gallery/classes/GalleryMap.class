@@ -1,0 +1,86 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+
+/**
+ * Utility storage container
+ *
+ * This class is a map implementation.  It is a utility class that
+ * we'll use for the various data containers that we need in the
+ * system.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryMap {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * Private storage for internal map data.
+     */
+    var $_data;
+	
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Retrieve data from the map
+     *
+     * Return a reference to the value associated with the given
+     * key for the feature specified.  eg: getValue("core.userId").  
+     * It's important that we return a reference so that if the
+     * value contained is a complex object we can modify it in
+     * place.  For example, if we're modifying the viewed stats
+     * we'd say:
+     *
+     *       $arr =& $map->getValue("stats.viewedItem");
+     *       $arr["album01"]++;                             
+     *
+     * @param mixed the map key
+     * @return mixed the map value
+     * @access public
+     */
+    function &getValue($key) {
+    }
+
+    /**
+     * Store data in the map
+     * 
+     * Replace the value associated with the given key for
+     * the feature specified.  eg:                        
+     *       setValue("core.galleryVersion", "2.0-cvs")   
+     *
+     * @param mixed the map key
+     * @param mixed the new map value
+     * @access public
+     */
+    function setValue($key, $value) {
+    }
+}
+?>

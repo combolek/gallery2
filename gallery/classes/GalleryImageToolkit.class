@@ -1,0 +1,169 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * A toolkit for manipulating images
+ *
+ * This class defines the API for image toolkits.  Subclasses should
+ * implement this for a specific image toolkit, such as NetPBM or
+ * ImageMagick.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryImageToolKit {
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Get the list of supported file types
+     *
+     * Get the list of supported file types that this toolkit can
+     * support.
+     *
+     * @access public
+     * @return array lowercase file tags tags (eg "jpg", "gif")
+     */
+    function getSupportedFileTypes() {
+    }
+		
+    /**
+     * Is this file type supported?
+     *
+     * Is this file type supported?
+     * 
+     * @access public
+     * @param string a file tag (eg "jpg", "Jpg", "JPG", "JPEG")
+     * @return bool true if the tag given is supported 
+     */
+    function isSupportedFiletype($tag) {
+    }
+		
+    /**
+     * Calculate the dimensions of the image file
+     *
+     * Calculate the dimensions of the image file
+     * 
+     * @access public
+     * @param string a file name
+     * @return array the width, height of the image
+     */
+    function getImageDimensions($filename) {
+    }
+
+    /**
+     * Resize the image to the target size specified
+     *
+     * Resize the image located at sourceFilename and write the results in      
+     * destFilename.  Resize the image to the dimensions provided, ignoring
+     * changes to the aspect ratio.
+     *	
+     * @access public
+     * @param string the source file name
+     * @param string the destination file name (it will be overwritten if it exists)
+     * @param string int the target width
+     * @param string int the target height
+     * @return int a status code
+     */
+    function resizeImage($sourceFilename, $destFilename, $width, $height) {
+    }
+		
+    /**
+     * Scale the image to the target size specified
+     *
+     * Resize the image located at sourceFilename and write the results in      
+     * destFilename.  Scale the image such that it fits within the bounding
+     * box specified by $targetSize x $targetSize, while maintaining the
+     * aspect ratio.
+     *	
+     * @access public
+     * @param string the source file name
+     * @param string the destination file name (it will be overwritten if it exists)
+     * @param string int the target size
+     * @return int a status code
+     */
+    function scaleImage($sourceFilename, $destFilename, $targetSize) {
+    }
+		
+    /**
+     * Rotate the image by the degrees specified
+     *
+     * Rotate the image located at sourceFilename and write the results in      
+     * destFilename.
+     *	
+     * @access public
+     * @param string the source file name
+     * @param string the destination file name (it will be overwritten if it exists)
+     * @param string int the degrees to be rotated (one of -90, 180, 90)
+     * @return int a status code
+     */
+    function rotateImage($sourceFilename, $destFilename, $degrees) {
+    }
+		
+    /**
+     * Crop the image by the position and dimensions specified
+     *
+     * Crop the image located at sourceFilename and write the results in 
+     * destFilename.  The upper left corner of the subsection is
+     * at the x, y coordinate provided and the lower right is
+     * x+width, y+height.
+     *	
+     * @access public
+     * @param string the source file name
+     * @param string the destination file name (it will be overwritten if it exists)
+     * @param int x-axis origin
+     * @param int y-axis origin
+     * @param int width of crop rectangle
+     * @param int height of crop rectangle
+     * @return int a status code
+     */
+    function cropImage($sourceFilename, $destFilename, $x, $y, $width, $height) {
+    }
+
+    /**
+     * Is this image valid?
+     *
+     * Is this image valid?  Can it be handled by this toolkit?
+     * 
+     * @access public
+     * @param string the image file name
+     * @return boolean true if the filename represents an image file
+     */
+    function isValidImage($filename) {
+    }
+
+    /**
+     * Get any extended image properties associated with this image
+     *
+     * Some file types have embedded data.  Eg, JPEG can have EXIF
+     * data.
+     * 
+     * @access public
+     * @param string the image file name
+     * @return array a set of key value pairs
+     */
+    function getExtendedProperties($filename) {
+    }
+}
+?>

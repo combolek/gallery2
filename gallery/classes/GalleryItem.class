@@ -1,0 +1,432 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+
+/**
+ * Base class for all objects in the Gallery composite tree
+ *
+ * Container for all functionality and data common objects that 
+ * Gallery can deal with.  Each GalleryItem has the capacity
+ * to own other GalleryItems in a parent-child relationship.
+ * That capacity can be enabled or disabled by subclasses of
+ * GalleryItem.
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryItem extends GalleryNucleus {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
+
+    /**
+     * The id of the User who owns this item
+     */
+    var $_ownerId;
+
+    /**
+     * An ordered list of 0+ Comment ids.
+     */
+    var $_commentIds;
+
+    /**
+     * Properties of this GalleryItem
+     *
+     * Valid properties are:
+     * - creationDate	  (string) date in "YYYYMMDDHHMMSS" format
+     *                            (we don't want it limited by the epoch)
+     * - modificationDate (int)    unix timestamp
+     * - viewedSinceDate  (int)    unix timestamp click count start date 
+     * - viewCount	  (int)    number of times this item has been accessed
+     * - keywords 	  (string) key words about this item
+     * - title		  (string) title of this item (short)
+     * - description	  (string) details of this item (long)
+     * - isHtmlAllowed	  (bool)   allow html in the title & description
+     * - isHidden	  (bool)   is this item hidden?
+     * - inheritsPermissions (bool)   does this item inherit permissions from its parents?
+     *
+     * @var array $_properties
+     */
+    var $_properties;
+
+    /**
+     * An associative array of item specific properties about this
+     * item.  Each subclass can have an interface to read and
+     * write values into this store (or they can use GalleryItem's
+     * get/set methods).  Either way, this data is item specific.
+     */
+    var $_extendedProperties;
+
+    /**
+     * The id of the ImageContainer containing this GalleryItem's thumbnail
+     */
+    var $_thumbnailId;
+
+    /**
+     * An ordered list of 0+ GalleryItem children contained by this item
+     *
+     * @var array $_childIds;
+     */
+    var $_childIds;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Constructor
+     *
+     * Call the superclass on the id provided.  That will create
+     * either a blank object (if there's no id) or it will load the
+     * appropriate object from the persistent storage.  If no id
+     * was provided, initialize all private variables to their
+     * default values.
+     *
+     * @access public
+     * @param string the id of an object to be loaded
+     */
+    function GalleryItem($id="") {
+	$this->GalleryNucleus($id);
+
+	if (empty($id)) {
+	    // Set values to defaults
+	}
+    }
+
+    /**
+     * Get the list of supported file types
+     *
+     * Get the list of supported file types that this GalleryItem can
+     * support.
+     *
+     * @access public
+     * @return array lowercase file tags tags (eg "jpg", "gif")
+     */
+    function getSupportedFiletypes() {
+    }
+		
+    /**
+     * Is this file type supported?
+     *
+     * Is this file type supported?
+     * 
+     * @access public
+     * @param string a file tag (eg "jpg", "Jpg", "JPG", "JPEG")
+     * @return boolean true if the tag given is supported 
+     */
+    function isSupportedFiletype($tag) {
+    }
+		
+    /**
+     * Update the viewed counter.
+     *
+     * Record the fact that this item has just been viewed.
+     *
+     * @access public
+     */
+    function incrementViewed() {
+    }
+
+    /**
+     * Add a comment to this GalleryItem
+     *
+     * Add a comment to this GalleryItem
+     *
+     * @access public
+     * @param object CommentContainer $comment
+     */
+    function addComment($comment) {
+    }
+
+    /**
+     * Retrieve the list of Comment ids for this GalleryItem
+     *
+     * Retrieve the list of Comment ids for this GalleryItem
+     *
+     * @access public
+     * @return array an ordered list of ids
+     */
+    function getCommentIds() {
+    }
+
+    /**
+     * Remove a comment from this Item
+     *
+     * Remove a comment from this Item
+     *
+     * @access public
+     * @param string a comment id
+     */
+    function removeComment($id) {
+    }
+
+    /**
+     * Return the value of the property with the given key
+     *
+     * Return a copy of the value of the property with the 
+     * given key.
+     *
+     * @access public
+     * @param string a key name
+     * @return mixed a value
+     */
+    function getProperty($propertyName) {
+    }
+
+    /**
+     * Store the given key/value pair
+     *
+     * Store the given value in the properties map and associate
+     * it with the key provided.
+     *
+     * @access public
+     * @param string a key name
+     * @param mixed a value.
+     */
+    function setProperty($propertyName, $value) {
+    }
+
+    /**
+     * Remove the given key
+     *
+     * Remove the given key from the properties map.
+     *
+     * @access public
+     * @param string a key name
+     */
+    function removeProperty($propertyName) {
+    }
+
+    /**
+     * Return the value of the extended property with the given key
+     *
+     * Return a copy of the value of the extended property with
+     * the given key.
+     *
+     * @access public
+     * @param string a key name
+     * @return mixed a value
+     */
+    function getExtendedProperty($propertyName) {
+    }
+
+    /**
+     * Store the given key/value pair as an extended property
+     *
+     * Store the given value in the extended properties map and
+     * associate it with the key provided.
+     *
+     * @access public
+     * @param string a key name
+     * @param mixed a value.
+     */
+    function setExtendedProperty($propertyName, $value) {
+    }
+
+    /**
+     * Remove the given key from the extended properties map
+     *
+     * Remove the given key from the extended properties map.
+     *
+     * @access public
+     * @param string a key name
+     */
+    function removeExtendedProperty($propertyName) {
+    }
+
+    /**
+     * Return the type of this GalleryItem
+     *
+     * Return the type of this GalleryItem
+     *
+     * @access public
+     * @return string the type of this GalleryItem, eg. "Album" or "Photo".
+     */
+    function getType() {
+    }
+
+    /**
+     * Get the id of the ImageContainer containing the thumbnail for this item
+     *
+     * Get the id of the ImageContainer containing the thumbnail for this item
+     *
+     * @access public
+     * @return string the id of the thumbnail ImageContainer
+     */
+    function getThumbnailId() {
+    }
+
+    /**
+     * Get the id of the ImageContainer containing the thumbnail for this item
+     *
+     * Get the id of the ImageContainer containing the thumbnail
+     * for this item.
+     *
+     * @access public
+     * @param string id of the ImageContainer containing the thumbnail image
+     */
+    function setThumbnailId($id) {
+    }
+
+    /**
+     * Can this item contain other items?
+     *
+     * By default, GalleryItems cannot contain other items.  However
+     * Subclasses may wish to override this method to allow
+     * containment.
+     *
+     * @access public
+     * @return boolean true if the item can contain children
+     */
+    function canContainChildren() {
+    }
+
+    /**
+     * How many children does this item and all of its sub-items
+     * contain, including itself?
+     *
+     * If this item can't contain children, the answer is 1, else
+     * it's 1 + the number of immediate children and all their
+     * children, etc, etc.
+     *
+     * @access public
+     * @return int the number of children
+     */
+    function getChildCount() {
+
+	// Must track which children have their own permission
+	// set so that we can optimize this count process.  Otherwise
+	// we'll have to check each child individually
+    }
+
+    /**
+     * Get the list of children ids
+     *
+     * If this item is allowed to have children, return the list
+     * of child ids it contains.  Else, return an empty array.
+     *
+     * @access public
+     * @return array a list of 0+ GalleryItem ids
+     */
+    function getItemIds() {
+    }
+
+    /**
+     * Add a specific item as a child of this item.  
+     *
+     * This is only legal if this item is allowed to have
+     * children.  If the child item already has a parent, it is
+     * removed from that other parent if it's successfully added
+     * to this one.
+     *
+     * Move all DataContainers of the child item from their old
+     * location to the new one as part of this process.
+     *
+     * @access public
+     * @param object GalleryItem the child item
+     */
+    function addItem($item) {
+    }
+
+    /**
+     * Remove the specified child item
+     *
+     * This is only legal if this item is allowed to have children.
+     *
+     * @access public
+     * @param string the child item's id
+     */
+    function removeItem($id) {
+    }
+
+    /**
+     * Return the id of the User object who owns this GalleryItem
+     *
+     * @access public
+     * @return string the id of the owning user
+     */
+    function getOwnerId() {
+    }
+
+    /**
+     * Does the user have the given permission?
+     *
+     * This calculation is made taking into account the appropriate
+     * attributes for this user from all of its parents, provided that
+     * they have the inheritsPermissions property set.
+     *
+     * Acceptable permissions are ones with _CAN_ in them.
+     *
+     * @access public
+     * @param string user id
+     * @param string permission name
+     * @return boolean true if the given user id has the given permission for this item
+     */
+    function hasPermission($id, $perm) {
+    }
+
+    /**
+     * Add the specified permission for the specified user
+     *
+     * Adjust the user's permissions for this item to set the permission
+     * provided.  If the permission being set directly contradicts
+     * another one, the old (contradictory) permission is removed.
+     * For example, if the user's permission for this item has
+     * PERMISSION_CANNOT_VIEW set, and you set
+     * PERMISSION_CAN_VIEW, then the result is that the
+     * PERMISSION_CANNOT_VIEW is removed.
+     * All permissions are acceptable.
+     *
+     * @access public
+     * @param string the id of the user
+     * @param int the specific permission
+     * @return boolean true if the given user id has the given permission for this item
+     */
+    function addPermission($id, $perm) {
+    }
+
+    /**
+     * Remove the specified permission for the specified user
+     *
+     * Adjust the user's permissions for this item to set the permission
+     * provided.  If the permission being set directly contradicts
+     * another one, the old (contradictory) permission is removed.
+     * For example, if the user's permission for this item has
+     * PERMISSION_CANNOT_VIEW set, and you set
+     * PERMISSION_CAN_VIEW, then the result is that the
+     * PERMISSION_CANNOT_VIEW is removed.
+     *
+     * All permissions are acceptable.
+     *
+     * @access public
+     * @param string the id of the user
+     * @param int the specific permission
+     * @return boolean true if the given user id has the given permission for this item
+     */
+    function removePermission($id, $perm) {
+    }
+}
+?>

@@ -1,0 +1,160 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * Access to a repository of GalleryUser objects
+ *
+ * This is an abstract class that provides access to the database of
+ * User objects.  It must be implemented by a class that can save and
+ * restore User objects from a persistent store.  The features of the
+ * UserDatabase implementation vary depending on where Gallery is
+ * used, so the UserDatabase needs to be able to specify it's
+ * available feature set. For example, if you're using Gallery inside
+ * an embedded app like Nuke, then the NukeUserDatabase should not
+ * allow you to add and delete users from the database (let the Nuke
+ * application take care of that, instead).
+ *
+ * @version $Id$
+ * @package GalleryCore
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class GalleryUserDatabase {
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
+
+    /**
+     * Can you create a user using this implementation?
+     *
+     * Can you create a user using this implementation?
+     * 
+     * @access public
+     * @return boolean true if this implementation can create a user
+     */
+    function canCreateUser() {
+    }
+
+    /**
+     * Can you modify a user using this implementation?
+     *
+     * Can you modify a user using this implementation?
+     * 
+     * @access public
+     * @return boolean true if this implementation can modify a user
+     */
+    function canModifyUser() {
+    }
+
+    /**
+     * Can you delete a user using this implementation?
+     *
+     * Can you delete a user using this implementation?
+     * 
+     * @access public
+     * @return boolean true if this implementation can delete a user
+     */
+    function canDeleteUser() {
+    }
+
+    /**
+     * Get the "nobody" pseudo-user
+     *
+     * Get the "nobody" pseudo-user
+     * 
+     * @access public
+     * @return object GalleryUser the "nobody" pseudo-user
+     */
+    function getNobodyUser() {
+    }
+
+    /**
+     * Get the "everybody" pseudo-user
+     *
+     * Get the "everybody" pseudo-user
+     * 
+     * @access public
+     * @return object GalleryUser the "everybody" pseudo-user
+     */
+    function getEverybodyUser() {
+    }
+
+    /**
+     * Get the "authenticated" pseudo-user
+     *
+     * Get the "authenticated" pseudo-user
+     * 
+     * @access public
+     * @return object GalleryUser the "authenticated" pseudo-user
+     */
+    function getAuthenticatedUser() {
+    }
+
+    /**
+     * Get the number of users in the database
+     *
+     * Get the number of users in the database
+     * 
+     * @access public
+     * @return int the number of users
+     */
+    function getNumberOfUsers() {
+    }
+
+    /**
+     * Get the ids of users in the given range
+     *
+     * Get the ids of users in the given range
+     * 
+     * @access public
+     * @param int start of the range (inclusive)
+     * @param int end of the range (inclusive)
+     * @return array user ids
+     */
+    function getUserIds($start, $end) {
+    }
+
+    /**
+     * Get the GalleryUser for the id specified
+     *
+     * Get the GalleryUser for the id specified
+     * 
+     * @access public
+     * @param string id of the user desired
+     * @return object GalleryUser the user
+     */
+    function &getUserById($id) {
+    }
+
+    /**
+     * Get the GalleryUser for the username specified
+     *
+     * Get the GalleryUser for the username specified
+     * 
+     * @access public
+     * @param string username of the user desired
+     * @return object GalleryUser the user
+     */
+    function &getUserByUsername($username) {
+    }
+}
+?>
