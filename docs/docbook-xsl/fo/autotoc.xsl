@@ -106,7 +106,7 @@
 
   <xsl:variable name="nodes" select="section|sect1|refentry
                                      |article|bibliography|glossary
-                                     |appendix|index"/>
+                                     |appendix"/>
   <xsl:if test="$nodes">
     <fo:block id="toc...{$id}"
               xsl:use-attribute-sets="toc.margin.properties">
@@ -193,7 +193,7 @@
           <xsl:copy-of select="$label"/>
           <xsl:value-of select="$autotoc.label.separator"/>
         </xsl:if>
-        <xsl:apply-templates select="." mode="titleabbrev.markup"/>
+        <xsl:apply-templates select="." mode="title.markup"/>
       </fo:basic-link>
     </fo:inline>
     <fo:inline keep-together.within-line="always">
@@ -314,7 +314,7 @@
 
   <xsl:call-template name="toc.line"/>
 
-  <xsl:variable name="nodes" select="section|sect1|simplesect|refentry"/>
+  <xsl:variable name="nodes" select="section|sect1"/>
 
   <xsl:if test="$toc.section.depth &gt; 0 and $nodes">
     <fo:block id="toc.{$cid}.{$id}"

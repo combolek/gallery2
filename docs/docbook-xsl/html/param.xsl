@@ -45,10 +45,8 @@
 <xsl:param name="chunk.section.depth" select="1"/>
 <xsl:param name="chunk.toc" select="''"/>
 <xsl:param name="chunk.tocs.and.lots" select="0"/>
-<xsl:param name="chunk.separate.lots" select="0"/>
 <xsl:param name="citerefentry.link" select="'0'"/>
 <xsl:param name="collect.xref.targets" select="'no'"/>
-<xsl:param name="component.label.includes.part.label" select="0"/>
 <xsl:param name="css.decoration" select="1"/>
 <xsl:param name="current.docid" select="''"/> 
 <xsl:param name="default.float.class" select="'before'"/>
@@ -178,9 +176,6 @@ set       toc,title
 <xsl:param name="htmlhelp.title" select="''"/>
 <xsl:param name="htmlhelp.use.hhk" select="0"/>
 <xsl:param name="htmlhelp.window.geometry"/>
-<xsl:param name="img.src.path"/>
-<xsl:param name="index.on.role" select="0"/>
-<xsl:param name="index.on.type" select="0"/>
 <xsl:param name="ignore.image.scaling" select="0"/>
 <xsl:param name="inherit.keywords" select="'1'"/>
 <xsl:param name="l10n.gentext.default.language" select="'en'"/>
@@ -209,14 +204,7 @@ set       toc,title
 <xsl:param name="nominal.image.width" select="6 * $pixels.per.inch"/>
 <xsl:param name="nominal.table.width" select="'6in'"/>
 <xsl:param name="olink.base.uri" select="''"/> 
-<xsl:param name="olink.debug" select="0"/>
-<xsl:attribute-set name="olink.properties">
-</xsl:attribute-set>
-<xsl:param name="insert.olink.page.number">no</xsl:param>
-<xsl:param name="insert.olink.pdf.frag" select="0"/>
-<xsl:param name="prefer.internal.olink" select="0"/>
-<xsl:param name="olink.lang.fallback.sequence" select="''"/> 
-<xsl:param name="olink.doctitle" select="no"/> 
+<xsl:param name="olink.doctitle" select="0"/> 
 <xsl:param name="olink.fragid" select="'fragid='"/>
 <xsl:param name="olink.outline.ext" select="'.olink'"/>
 <xsl:param name="olink.pubid" select="'pubid='"/>
@@ -258,7 +246,6 @@ set       toc,title
 <xsl:param name="runinhead.default.title.end.punct" select="'.'"/>
 <xsl:param name="runinhead.title.end.punct" select="'.!?:'"/>
 <xsl:param name="section.autolabel" select="0"/>
-<xsl:param name="section.autolabel.max.depth" select="8"/>
 <xsl:param name="section.label.includes.component.label" select="0"/>
 <xsl:param name="segmentedlist.as.table" select="0"/>
 <xsl:param name="shade.verbatim" select="0"/>
@@ -287,7 +274,6 @@ set       toc,title
 <xsl:param name="tablecolumns.extension" select="'1'"/>
 <xsl:param name="target.database.document" select="''"/>
 <xsl:param name="targets.filename" select="'target.db'"/>
-<xsl:param name="textdata.default.encoding" select="''"/>
 <xsl:param name="tex.math.delims" select="'1'"/>
 <xsl:param name="tex.math.file" select="'tex-math-equations.tex'"/>
 <xsl:param name="tex.math.in.alt" select="''"/>

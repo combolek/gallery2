@@ -22,9 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-$index=getRequestVar('index');
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canReadAlbum($gallery->album)) {
@@ -40,13 +38,16 @@ doctype();
   <title><?php echo _("Photo Properties") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
+<body dir="<?php echo $gallery->direction ?>">
+
 <?php
 if ($gallery->session->albumName && $index) {
 ?>
-<div class="popuphead"><?php echo _("Photo Properties") ?></div>
-<div class="popup" align="center">
-<span>
+
+<div align="center">
+<p class="popuphead"><?php echo _("Photo Properties") ?></p>
+
+<span class="popup">
 	<?php echo $gallery->album->getThumbnailTag($index) ?>
 	<br>
 	<?php echo $gallery->album->getCaption($index) ?>
@@ -131,11 +132,10 @@ PS: Rasmus has fixed this bug in later versions of PHP (yay Rasmus)
 ?>
 <br><br>
 <form action="#">
-<input type="button" value="<?php echo _("Done") ?>" onclick='parent.close()'>
+<input type=button value="<?php echo _("Done") ?>" onclick='parent.close()'>
 </form>
 </div>
 
 <?php print gallery_validation_link("view_photo_properties.php", true, array('index' => $index)); ?>
-</div>
 </body>
 </html>

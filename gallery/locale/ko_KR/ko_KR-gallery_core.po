@@ -1,6 +1,6 @@
 # $Id$
 #
-# Version: 1.4.5-cvs
+# Version: 1.4.4-pl2
 #
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2004 Bharat Mediratta
@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.4.4\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2004-09-22 02:30+0200\n"
+"POT-Creation-Date: 2004-08-23 00:38+0200\n"
 "PO-Revision-Date: 2003-10-12 17:59+0900\n"
 "Last-Translator: The Darkness <xgate32 AT hotmail DOT com>\n"
 "Language-Team: Gallery Korean Translation <xgate32 AT hotmail DOT com>\n"
@@ -34,444 +34,426 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../add_comment.php:30 ../add_photos.php:31 ../album_permissions.php:43
-#: ../copy_photo.php:29 ../create_user.php:31 ../delete_album.php:31
-#: ../delete_photo.php:37 ../delete_user.php:28 ../edit_appearance.php:29
-#: ../edit_caption.php:33 ../edit_field.php:31 ../edit_thumb.php:31
-#: ../edit_watermark.php:28 ../extra_fields.php:33 ../manage_users.php:31
-#: ../modify_user.php:28 ../move_album.php:31 ../move_photo.php:31
-#: ../multi_create_user.php:31 ../photo_owner.php:34 ../poll_properties.php:33
-#: ../rename_album.php:29 ../reset_votes.php:37 ../resize_photo.php:31
-#: ../rotate_photo.php:31 ../save_photos.php:32 ../upgrade_album.php:57
-#: ../user_preferences.php:31 ../watermark_album.php:32
+#: ../add_comment.php:30 ../add_photos.php:29 ../album_permissions.php:30
+#: ../copy_photo.php:29 ../create_user.php:28 ../delete_album.php:29
+#: ../delete_photo.php:35 ../delete_user.php:28 ../edit_appearance.php:29
+#: ../edit_caption.php:29 ../edit_field.php:29 ../edit_thumb.php:29
+#: ../extra_fields.php:31 ../manage_users.php:28 ../modify_user.php:28
+#: ../move_album.php:29 ../move_photo.php:29 ../multi_create_user.php:31
+#: ../photo_owner.php:32 ../poll_properties.php:31 ../reset_votes.php:35
+#: ../resize_photo.php:29 ../rotate_photo.php:29 ../save_photos.php:29
+#: ../upgrade_album.php:55 ../user_preferences.php:28
+#: ../watermark_album.php:29
 #, fuzzy
-msgid "You are not allowed to perform this action!"
+msgid "You are no allowed to perform this action !"
 msgstr "이 설문에 투표한 적이 없습니다."
 
-#: ../add_comment.php:58 ../view_photo.php:205
+#: ../add_comment.php:56 ../view_photo.php:202
 msgid "Name and comment are both required to save a new comment!"
 msgstr "새로운 코멘트를 저장하기 위해선 이름과 코멘트 두개가 필요합니다!"
 
-#: ../add_comment.php:60 ../view_photo.php:207
+#: ../add_comment.php:58 ../view_photo.php:204
 #, php-format
 msgid "Your comment is too long, the admin set maximum length to %d chars"
 msgstr ""
 
-#: ../add_comment.php:76 ../add_comment.php:80
+#: ../add_comment.php:74 ../add_comment.php:80
 msgid "Add Comment"
 msgstr "코멘트 추가"
 
-#: ../add_comment.php:82
+#: ../add_comment.php:81
 msgid "Enter your comment for this picture in the text box below."
 msgstr "이 사진을 위한 당신의 코멘트를 아래의 박스에 입력하세요."
 
-#: ../add_comment.php:100 ../copy_photo.php:194 ../create_user.php:149
-#: ../delete_album.php:64 ../delete_photo.php:138 ../delete_user.php:85
-#: ../edit_caption.php:188 ../edit_field.php:66 ../edit_watermark.php:106
-#: ../includes/add_photos/add_form.inc:126
+#: ../add_comment.php:99 ../copy_photo.php:194 ../create_user.php:148
+#: ../delete_album.php:65 ../delete_photo.php:135 ../delete_user.php:75
+#: ../edit_caption.php:183 ../edit_field.php:68 ../edit_watermark.php:104
+#: ../includes/add_photos/add_form.inc:128
 #: ../includes/add_photos/add_form_one.inc:72
-#: ../includes/add_photos/add_url.inc:60 ../login.php:92
-#: ../modify_user.php:146 ../move_album.php:111 ../move_album.php:131
-#: ../move_photo.php:249 ../move_photo.php:335 ../multi_create_user.php:172
-#: ../new_password.php:126 ../register.php:142 ../rename_album.php:128
-#: ../reset_votes.php:64 ../resize_photo.php:125 ../sort_album.php:114
-#: ../user_preferences.php:132 ../watermark_album.php:135
+#: ../includes/add_photos/add_url.inc:60 ../login.php:123
+#: ../modify_user.php:149 ../move_album.php:117 ../move_album.php:137
+#: ../move_photo.php:254 ../move_photo.php:340 ../multi_create_user.php:166
+#: ../new_password.php:126 ../register.php:139 ../rename_album.php:127
+#: ../reset_votes.php:64 ../resize_photo.php:126 ../sort_album.php:114
+#: ../user_preferences.php:126 ../watermark_album.php:118
 msgid "Cancel"
 msgstr "취소"
 
-#: ../add_photos.php:52 ../add_photos.php:120
+#: ../add_photos.php:49
 msgid "Add Photos"
 msgstr "복수사진 추가"
 
-#: ../add_photos.php:126
+#: ../add_photos.php:122
 #, fuzzy
 msgid "Applet"
 msgstr "적용"
 
-#: ../add_photos.php:129
+#: ../add_photos.php:125
 #, fuzzy
 msgid "Applet (big)"
 msgstr "적용"
 
-#: ../add_photos.php:134
+#: ../add_photos.php:130
 #, fuzzy
 msgid "Form"
 msgstr "또는"
 
-#: ../add_photos.php:137
+#: ../add_photos.php:133
 msgid "URL"
 msgstr ""
 
-#: ../add_photos.php:138 ../layout/watermarkform.inc:132
+#: ../add_photos.php:134 ../layout/watermarkform.inc:132
 #, fuzzy
 msgid "Other"
 msgstr "소유자"
 
-#: ../add_photos.php:141
+#: ../add_photos.php:137
 msgid "Admin"
 msgstr ""
 
-#: ../album_permissions.php:183 ../album_permissions.php:187
+#: ../album_permissions.php:166 ../album_permissions.php:172
 msgid "Album Permissions"
 msgstr "앨범 권한"
 
-#: ../album_permissions.php:189
+#: ../album_permissions.php:174
 #, php-format
 msgid "Changing permissions for %s"
 msgstr "%s 를 위한 권한 변경"
 
-#: ../album_permissions.php:195 ../albums.php:360
+#: ../album_permissions.php:180 ../albums.php:355
 msgid "Owner:"
 msgstr "소유자:"
 
-#: ../album_permissions.php:210
+#: ../album_permissions.php:195
 msgid "Users who can see the album"
 msgstr "앨범을 볼 수 있는 회원"
 
-#: ../album_permissions.php:225
+#: ../album_permissions.php:210
 msgid "Users who can change album text."
 msgstr "앨범 텍스트를 변경할 수 있는 회원"
 
-#: ../album_permissions.php:240
+#: ../album_permissions.php:225
 msgid "Users who can add photos."
 msgstr "사진을 추가할 수 있는 회원"
 
-#: ../album_permissions.php:255
+#: ../album_permissions.php:240
 msgid "Users who can modify photos."
 msgstr "사진을 변형할 수 있는 회원"
 
-#: ../album_permissions.php:270
+#: ../album_permissions.php:255
 msgid "Users who can delete photos."
 msgstr "사진을 삭제할 수 있는 회원"
 
-#: ../album_permissions.php:285
+#: ../album_permissions.php:270
 msgid "Users who can create sub albums."
 msgstr "하위 앨범을 생성할 수 있는 회원"
 
-#: ../album_permissions.php:300
+#: ../album_permissions.php:285
 msgid "Users who can view full (original) images."
 msgstr "원본 이미지를 볼 수 있는 회원."
 
-#: ../album_permissions.php:316
+#: ../album_permissions.php:301
 #, fuzzy
 msgid "Users who can add comments."
 msgstr "사진을 추가할 수 있는 회원"
 
-#: ../album_permissions.php:331
+#: ../album_permissions.php:316
 #, fuzzy
 msgid "Users who can view comments."
 msgstr "사진을 추가할 수 있는 회원"
 
-#: ../album_permissions.php:349 ../edit_caption.php:187 ../edit_field.php:56
-#: ../edit_field.php:65 ../edit_watermark.php:104 ../modify_user.php:145
-#: ../new_password.php:125 ../photo_owner.php:101 ../user_preferences.php:131
-#: ../watermark_album.php:130
+#: ../album_permissions.php:334 ../edit_caption.php:182 ../edit_field.php:56
+#: ../edit_field.php:67 ../edit_watermark.php:102 ../modify_user.php:148
+#: ../new_password.php:125 ../photo_owner.php:100 ../user_preferences.php:125
+#: ../watermark_album.php:113
 msgid "Save"
 msgstr "저장"
 
-#: ../album_permissions.php:350 ../manage_users.php:105 ../photo_owner.php:102
-#: ../upgrade_album.php:66 ../upgrade_album.php:74 ../upgrade_users.php:61
-#: ../view_photo_properties.php:134
+#: ../album_permissions.php:335 ../manage_users.php:107 ../photo_owner.php:101
+#: ../upgrade_album.php:64 ../upgrade_album.php:72 ../upgrade_users.php:64
+#: ../view_photo_properties.php:135
 msgid "Done"
 msgstr "완료"
 
-#: ../albums.php:114
-#, php-format
-msgid "%s RSS"
-msgstr ""
-
-#: ../albums.php:134 ../html_wrap/search.header.default:29 ../search.php:42
+#: ../albums.php:130 ../html_wrap/search.header.default:28 ../search.php:40
 msgid "Search"
 msgstr "검색"
 
-#: ../albums.php:147
+#: ../albums.php:143
 #, fuzzy, php-format
 msgid "1 album"
 msgid_plural "%d albums"
 msgstr[0] "1 앨범"
 
-#: ../albums.php:147
+#: ../albums.php:143
 #, fuzzy
 msgid "no albums"
 msgstr "앨범 없음"
 
-#: ../albums.php:149
+#: ../albums.php:145
 #, fuzzy, php-format
 msgid "1 top-level album"
 msgid_plural "%d top-level albums"
 msgstr[0] "1 최상위 앨범"
 
-#: ../albums.php:149
+#: ../albums.php:145
 #, fuzzy
 msgid "No top-level albums"
 msgstr "최상위 앨범"
 
-#: ../albums.php:152
+#: ../albums.php:148
 #, php-format
 msgid "%d total"
 msgstr "%d 전체"
 
-#: ../albums.php:153 ../view_album.php:271
+#: ../albums.php:149 ../view_album.php:268
 #, fuzzy, php-format
 msgid "1 image"
 msgid_plural "%d images"
 msgstr[0] "1 이미지"
 
-#: ../albums.php:153 ../view_album.php:271
+#: ../albums.php:149 ../view_album.php:268
 msgid "no images"
 msgstr "이미지 없음"
 
-#: ../albums.php:154 ../view_album.php:272
+#: ../albums.php:150 ../view_album.php:269
 #, fuzzy, php-format
 msgid "1 page"
 msgid_plural "%d pages"
 msgstr[0] "1 페이지"
 
-#: ../albums.php:154
+#: ../albums.php:150
 msgid "no pages"
 msgstr "페이지 없음"
 
-#: ../albums.php:157
+#: ../albums.php:153
 #, php-format
 msgid "%s (%s), %s on %s"
 msgstr "%s (%s), %s on %s"
 
-#: ../albums.php:160
+#: ../albums.php:156
 #, php-format
 msgid "%s (%s), %s"
 msgstr "%s (%s), %s"
 
-#: ../albums.php:162
+#: ../albums.php:158
 #, php-format
 msgid "%s, %s on %s"
 msgstr "%s, %s on %s"
 
-#: ../albums.php:164
+#: ../albums.php:160
 #, php-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
-#: ../albums.php:172
+#: ../albums.php:168
 #, php-format
 msgid "Welcome, %s"
 msgstr "환영합니다, %s"
 
-#: ../albums.php:178 ../view_album.php:471
+#: ../albums.php:174 ../view_album.php:468
 msgid "slideshow"
 msgstr "슬라이드쇼"
 
-#: ../albums.php:186
+#: ../albums.php:182
 #, fuzzy
 msgid "configuration wizard"
 msgstr "사용자 필드 설정"
 
-#: ../albums.php:187
+#: ../albums.php:183
 msgid "find orphans"
 msgstr ""
 
-#: ../albums.php:188
-#, fuzzy
-msgid "find comment spam"
-msgstr "코멘트 보기"
-
-#: ../albums.php:192
+#: ../albums.php:187
 msgid "new album"
 msgstr "새로운 앨범"
 
-#: ../albums.php:199
+#: ../albums.php:194
 msgid "manage users"
 msgstr "회원 관리"
 
-#: ../albums.php:207
+#: ../albums.php:202
 msgid "preferences"
 msgstr "설정"
 
-#: ../albums.php:213 ../view_album.php:489
+#: ../albums.php:208 ../view_album.php:486
 msgid "logout"
 msgstr "로그아웃"
 
-#: ../albums.php:217 ../view_album.php:491
+#: ../albums.php:212 ../view_album.php:488
 msgid "login"
 msgstr "로그인"
 
-#: ../albums.php:221
+#: ../albums.php:216
 msgid "register"
 msgstr "가입"
 
-#: ../albums.php:247
+#: ../albums.php:242
 msgid "Attention Gallery Administrator!"
 msgstr "갤러리 관리자에게 주목!"
 
-#: ../albums.php:250
+#: ../albums.php:245
 #, fuzzy, php-format
 msgid "%s has detected the following %d invalid album(s) in your albums directory<br>(%s):"
 msgstr "%s 가 다음 디렉토리를 찾았습니다: 당신의 앨범 디렉토리 %s "
 
-#: ../albums.php:256
+#: ../albums.php:251
 #, fuzzy
 msgid "Please move it/them out of the albums directory."
 msgstr "이것들은 올바른 앨범이 아닙니다. 앨범 디렉토리에서 제거하시기 바랍니다."
 
-#: ../albums.php:260
+#: ../albums.php:255
 #, php-format
 msgid "%s has detected that %d of your albums are out of date."
 msgstr ""
 
-#: ../albums.php:264
+#: ../albums.php:259
 #, fuzzy, php-format
 msgid "Please %s."
 msgstr "잠시 기다리세요..."
 
-#: ../albums.php:264
+#: ../albums.php:259
 #, fuzzy
 msgid "upgrade those albums"
 msgstr "모든 앨범 업그레이드"
 
-#: ../albums.php:316 ../view_album.php:761
+#: ../albums.php:311 ../view_album.php:755
 #, fuzzy
 msgid "Highlight for Album:"
 msgstr "앨범 하이라이트:"
 
-#: ../albums.php:333
+#: ../albums.php:328
 msgid "title"
 msgstr "제목"
 
-#: ../albums.php:365
+#: ../albums.php:360
 msgid "url:"
 msgstr "url:"
 
-#: ../albums.php:376
+#: ../albums.php:371
 msgid "Hey!"
 msgstr "안녕!"
 
-#: ../albums.php:377
+#: ../albums.php:372
 #, fuzzy, php-format
 msgid "%s so that the URL is not so generic!"
 msgstr "위 URL을 일반적이지 않은 것으로 %s을 하세요!"
 
-#: ../albums.php:378
+#: ../albums.php:373
 #, fuzzy
 msgid "Rename this album"
 msgstr "앨범 이름바꾸기"
 
-#: ../albums.php:389
+#: ../albums.php:384
 #, php-format
 msgid "Last changed on %s."
 msgstr "마지막 업로드 :  %s."
 
-#: ../albums.php:392
+#: ../albums.php:387
 #, fuzzy, php-format
 msgid "This album contains 1 item"
 msgid_plural "This album contains %d items"
 msgstr[0] "이 앨범은 %s을 포함합니다."
 
-#: ../albums.php:397
+#: ../albums.php:392
 #, php-format
 msgid "This album has been viewed %s since %s."
 msgstr "이 앨범은 %2$s 부터 %1$s되었습니다."
 
-#: ../albums.php:398 ../view_album.php:905 ../view_album.php:929
+#: ../albums.php:393 ../view_album.php:918 ../view_album.php:941
 #, fuzzy, php-format
 msgid "1 time"
 msgid_plural "%d times"
 msgstr[0] "1 조회"
 
-#: ../albums.php:398
+#: ../albums.php:393
 msgid "0 times"
 msgstr "조회 없음"
 
-#: ../albums.php:404
+#: ../albums.php:399
 msgid "reset counter"
 msgstr "조회수 리셋"
 
-#: ../albums.php:438 ../view_album.php:1124
+#: ../albums.php:433 ../view_album.php:1139
 msgid "Comments available for this item."
 msgstr "이 아이템에 사용가능한 코멘트"
 
-#: ../captionator.php:50
+#: ../captionator.php:47
 msgid "Captioned album does not match current album - aborting changes!"
 msgstr ""
 
-#: ../captionator.php:97
-msgid "Debugging: Click here to return to the album"
-msgstr ""
-
-#: ../captionator.php:133
+#: ../captionator.php:127
 msgid "Captionator"
 msgstr "제목제작자"
 
-#: ../captionator.php:175
+#: ../captionator.php:169
 msgid "Multiple Caption Editor."
 msgstr "복수 제목 편집자."
 
-#: ../captionator.php:177
+#: ../captionator.php:171
 msgid "1 photo in this album"
 msgstr "이 앨범에 1개의 사진"
 
-#: ../captionator.php:179
+#: ../captionator.php:173
 msgid "items in this album"
 msgstr "이 앨범의 아이템"
 
-#: ../captionator.php:181
+#: ../captionator.php:175
 msgid "on"
 msgstr "on"
 
-#: ../captionator.php:181
+#: ../captionator.php:175
 #, fuzzy, php-format
 msgid "one page"
 msgid_plural "%d pages"
 msgstr[0] "페이지 없음"
 
-#: ../captionator.php:210 ../captionator.php:322
+#: ../captionator.php:204 ../captionator.php:312
 msgid "Save and Exit"
 msgstr "저장후 나가기"
 
-#: ../captionator.php:213 ../captionator.php:325
+#: ../captionator.php:207 ../captionator.php:315
 #, php-format
 msgid "Save and Edit Next %d"
 msgstr "저장 및 수정 다음 %d"
 
-#: ../captionator.php:217 ../captionator.php:329
+#: ../captionator.php:211 ../captionator.php:319
 #, php-format
 msgid "Save and Edit Previous %d"
 msgstr "저장 및 수정 이전 %d"
 
-#: ../captionator.php:221 ../captionator.php:333
+#: ../captionator.php:215 ../captionator.php:323
 msgid "Exit"
 msgstr "나가기"
 
-#: ../captionator.php:252
-msgid "(click to enlarge)"
-msgstr ""
-
-#: ../captionator.php:269
+#: ../captionator.php:253
 #, fuzzy
 msgid "Album Caption"
 msgstr "앨범 제목:"
 
-#: ../captionator.php:276
+#: ../captionator.php:260
 #, fuzzy
 msgid "Movie Caption"
 msgstr "제목 없음"
 
-#: ../captionator.php:278
+#: ../captionator.php:262
 #, fuzzy
 msgid "Photo Caption"
 msgstr "제목 없음"
 
-#: ../captionator.php:288 ../extra_fields.php:101 ../lib/lang.php:648
+#: ../captionator.php:272 ../extra_fields.php:101 ../lib/lang.php:652
 msgid "Title"
 msgstr "제목"
 
-#: ../captionator.php:297 ../edit_caption.php:122
+#: ../captionator.php:281 ../edit_caption.php:117
 msgid "Keywords"
 msgstr "키워드"
 
-#: ../captionator.php:303 ../lib/lang.php:638
+#: ../captionator.php:293 ../lib/lang.php:642
 msgid "Capture Date"
 msgstr "캡쳐일자"
 
-#: ../captionator.php:314
+#: ../captionator.php:304
 msgid "NO PHOTOS!"
 msgstr "사진 없음!"
 
@@ -479,97 +461,101 @@ msgstr "사진 없음!"
 msgid "Untitled"
 msgstr "제목 없음"
 
-#: ../classes/Album.php:237
+#: ../classes/Album.php:235
 msgid "Album up to date."
 msgstr "최신 앨범."
 
-#: ../classes/Album.php:241
+#: ../classes/Album.php:239
 msgid "Upgrading album properties..."
 msgstr "앨범 등록정보 업그레이드중..."
 
-#: ../classes/Album.php:384
+#: ../classes/Album.php:382
 #, fuzzy, php-format
 msgid "Renaming album from %s to %s..."
 msgstr "앨범이름 변경"
 
-#: ../classes/Album.php:439 ../classes/Album.php:456
+#: ../classes/Album.php:437 ../classes/Album.php:454
 msgid "done"
 msgstr "종료"
 
-#: ../classes/Album.php:447
+#: ../classes/Album.php:445
 #, php-format
 msgid "Upgrading item %d of %d . . . "
 msgstr "%d of %d 아이템 업그레이드중. . ."
 
-#: ../classes/Album.php:876
+#: ../classes/Album.php:861
 msgid "msg should be an array!"
 msgstr ""
 
-#: ../classes/Album.php:897 ../util.php:3405
+#: ../classes/Album.php:882 ../util.php:3187
 #, fuzzy
 msgid "No email sent as no valid email addresses were found"
 msgstr "올바른 이메일 주소를 지정하셔야 합니다."
 
-#: ../classes/Album.php:994
+#: ../classes/Album.php:979
 msgid "Resizing/compressing original image"
 msgstr "원본 이미지 크지재조정/압축중"
 
-#: ../classes/Album.php:998
+#: ../classes/Album.php:983
 msgid "Cannot resize/compress this filetype"
 msgstr "이 파일형식은 재조정/압축할 수 없습니다."
 
-#: ../classes/Album.php:1046
+#: ../classes/Album.php:1031
 #, php-format
 msgid "Resizing %s"
 msgstr "크기 조정중 %s"
 
-#: ../classes/Album.php:1087
+#: ../classes/Album.php:1072
 msgid "Photo auto-rotated/transformed"
 msgstr "사진 회전/변형"
 
-#: ../classes/Album.php:1096
+#: ../classes/Album.php:1081
 #, fuzzy
 msgid "Watermarking Image"
 msgstr "앨범명"
 
-#: ../classes/Album.php:1251 ../classes/Album.php:1261
-#: ../classes/AlbumItem.php:640
+#: ../classes/Album.php:1227 ../classes/Album.php:1239
+#: ../classes/AlbumItem.php:630
 msgid "No highlight"
 msgstr "하이라이트 없음"
 
-#: ../classes/Album.php:1415
+#: ../classes/Album.php:1392
 #, php-format
 msgid "Requested index [%d] out of bounds [%d]"
 msgstr ""
 
-#: ../classes/Album.php:1726
+#: ../classes/Album.php:1703
 #, php-format
 msgid "Error %s getting EXIF data"
 msgstr ""
 
-#: ../classes/Album.php:2247
+#: ../classes/Album.php:2208
 #, php-format
 msgid "#%d"
 msgstr "#%d"
 
-#: ../classes/Album.php:2385
+#: ../classes/Album.php:2346
 #, php-format
 msgid "Email problem: skipping %s (UID %s) because email address %s is not valid."
 msgstr ""
 
-#: ../classes/AlbumItem.php:539
+#: ../classes/AlbumItem.php:529
 msgid "Invalid image"
 msgstr "잘못된 이미지"
 
-#: ../classes/AlbumItem.php:597
+#: ../classes/AlbumItem.php:587
 msgid "Unable to make thumbnail"
 msgstr "썸네일 만들기 불가"
 
-#: ../classes/AlbumItem.php:608
+#: ../classes/AlbumItem.php:598
 msgid "No preview"
 msgstr ""
 
-#: ../classes/AlbumItem.php:627
+#: ../classes/AlbumItem.php:608 ../util.php:61
+msgid "No Caption"
+msgstr "제목 없음"
+
+#: ../classes/AlbumItem.php:617
 msgid "No thumbnail"
 msgstr "썸네일 없음"
 
@@ -577,7 +563,7 @@ msgstr "썸네일 없음"
 msgid "Anonymous User"
 msgstr "익명 회원"
 
-#: ../classes/NobodyUser.php:27 ../poll_properties.php:105
+#: ../classes/NobodyUser.php:27 ../poll_properties.php:104
 msgid "Nobody"
 msgstr "Nobody"
 
@@ -590,59 +576,50 @@ msgstr "디렉토리 생성 불가"
 msgid "%s exists, but is not a directory!"
 msgstr "%s 존재합니다만 디렉토리가 아닙니다!"
 
-#: ../classes/gallery/UserDB.php:61
-#, php-format
-msgid "The folder folder which contain your userinformation (%s) is not writable."
-msgstr ""
-
-#: ../classes/gallery/UserDB.php:82
-msgid "Your Userfile is not writeable"
-msgstr ""
-
-#: ../classes/gallery/UserDB.php:280
+#: ../classes/gallery/UserDB.php:271
 #, php-format
 msgid "Illegal username %s: must at least 2 characters"
 msgstr "잘못된 아이디 %s:  적어도 2자 이상이어야 합니다."
 
-#: ../classes/gallery/UserDB.php:285
+#: ../classes/gallery/UserDB.php:276
 #, php-format
 msgid "Illegal username %s: must at most 15 characters"
 msgstr "잘못된 아이디 %s: 아이디는 최대 15자를 넘을 수 없습니다."
 
-#: ../classes/gallery/UserDB.php:291
+#: ../classes/gallery/UserDB.php:282
 #, php-format
 msgid "Illegal username %s: must contain only letters or digits"
 msgstr "잘못된 아이디 %s: 아이디는 문자와 숫자만 허용합니다."
 
-#: ../classes/gallery/UserDB.php:298
+#: ../classes/gallery/UserDB.php:289
 #, php-format
 msgid "%s is reserved and cannot be used."
 msgstr "%s는 예약어이거나 사용할 수 없습니다."
 
-#: ../classes/gallery/UserDB.php:304
+#: ../classes/gallery/UserDB.php:295
 #, php-format
 msgid "A user with the username of %s already exists"
 msgstr "%s 아이디가 이미 존재합니다."
 
-#: ../classes/gallery/UserDB.php:313
+#: ../classes/gallery/UserDB.php:304
 msgid "Password must be at least 3 characters"
 msgstr "비밀번호는 적어도 3자 이상이어야 합니다."
 
-#: ../classes/gallery/UserDB.php:344
+#: ../classes/gallery/UserDB.php:335
 #, php-format
 msgid "Checking user %d of %d . . . . "
 msgstr "%2$d 의 %1$d 회원 확인중. . .."
 
-#: ../classes/gallery/UserDB.php:349
+#: ../classes/gallery/UserDB.php:340
 msgid "skipped"
 msgstr "건너뜀"
 
-#: ../classes/gallery/UserDB.php:395
+#: ../classes/gallery/UserDB.php:386
 #, php-format
 msgid "Problem adding %s:"
 msgstr "%s 추가시 문제:"
 
-#: ../copy_photo.php:41 ../copy_photo.php:45
+#: ../copy_photo.php:39 ../copy_photo.php:44
 msgid "Copy Photo"
 msgstr "사진 복사"
 
@@ -661,18 +638,18 @@ msgstr "앨범 #%d 복사 못함"
 msgid "Copying photo #%d"
 msgstr "사진 복사 #%d"
 
-#: ../copy_photo.php:78 ../move_photo.php:143
+#: ../copy_photo.php:78 ../move_photo.php:148
 msgid "Creating Thumbnail"
 msgstr "미리보기 생성중"
 
-#: ../copy_photo.php:112 ../move_photo.php:197
+#: ../copy_photo.php:112 ../move_photo.php:202
 #, php-format
 msgid "Skipping Album #%d"
 msgstr "앨범 지나치기 #%d"
 
-#: ../copy_photo.php:119 ../create_user.php:101 ../do_command.php:164
-#: ../login.php:124 ../multi_create_user.php:127 ../register.php:47
-#: ../register.php:122 ../save_photos.php:366
+#: ../copy_photo.php:119 ../create_user.php:97 ../do_command.php:161
+#: ../login.php:154 ../multi_create_user.php:117 ../register.php:45
+#: ../register.php:119 ../save_photos.php:362
 msgid "Dismiss"
 msgstr "확인"
 
@@ -681,33 +658,31 @@ msgid "Copy a range of photos to a new album:"
 msgstr "새 앨범으로 복사할 사진의 범위:"
 
 #: ../copy_photo.php:134
-#, fuzzy
-msgid "To copy just one photo, make First and Last the same."
+msgid "To copy just one photo, make First and Last the same"
 msgstr "사진 한 장만 옮기시려면, 처음과 끝이 같아야 합니다."
 
-#: ../copy_photo.php:135 ../move_photo.php:268
-#, fuzzy
-msgid "Nested albums in this range will be ignored."
+#: ../copy_photo.php:135 ../move_photo.php:273
+msgid "Nested albums in this range will be ignored"
 msgstr "범위안에 있는 하위 앨범은 무시됩니다."
 
-#: ../copy_photo.php:144 ../move_photo.php:277
+#: ../copy_photo.php:144 ../move_photo.php:282
 msgid "First"
 msgstr "처음"
 
-#: ../copy_photo.php:145 ../move_photo.php:278
+#: ../copy_photo.php:145 ../move_photo.php:283
 msgid "Last"
 msgstr "끝"
 
-#: ../copy_photo.php:146 ../move_photo.php:279
+#: ../copy_photo.php:146 ../move_photo.php:284
 msgid "New Album"
 msgstr "새 앨범"
 
-#: ../copy_photo.php:188 ../move_photo.php:329
+#: ../copy_photo.php:188 ../move_photo.php:334
 #, fuzzy, php-format
 msgid "WARNING: Some of the albums need to be upgraded to the current version of %s."
 msgstr "경고: 앨범의 일부분은 갤러리 현재 버젼으로 업그레이드 할 필요가 있습니다."
 
-#: ../copy_photo.php:189 ../move_photo.php:330
+#: ../copy_photo.php:189 ../move_photo.php:335
 msgid "Upgrade now"
 msgstr "지금 업그레이드"
 
@@ -715,382 +690,377 @@ msgstr "지금 업그레이드"
 msgid "Copy to Album!"
 msgstr "앨범으로 복사!"
 
-#: ../copy_photo.php:198 ../delete_photo.php:143 ../edit_thumb.php:131
-#: ../move_album.php:137 ../move_photo.php:341 ../resize_photo.php:132
-#: ../rotate_photo.php:93 ../view_photo_properties.php:129
+#: ../copy_photo.php:198 ../delete_photo.php:140 ../edit_thumb.php:131
+#: ../move_album.php:145 ../move_photo.php:346 ../resize_photo.php:133
+#: ../rotate_photo.php:94 ../view_photo_properties.php:130
 msgid "no album / index specified"
 msgstr "앨범 없음 / 색인 지정됨"
 
-#: ../create_user.php:43 ../modify_user.php:43 ../new_password.php:52
-#: ../user_preferences.php:61
+#: ../create_user.php:41 ../modify_user.php:43 ../new_password.php:49
+#: ../user_preferences.php:53
 msgid "Passwords do not match!"
 msgstr "비밀번호가 일치하지 않습니다!"
 
-#: ../create_user.php:58 ../create_user.php:63 ../create_user.php:112
-#: ../create_user.php:116
+#: ../create_user.php:56 ../create_user.php:108 ../create_user.php:114
 msgid "Create User"
 msgstr "회원 생성"
 
-#: ../create_user.php:77
+#: ../create_user.php:73
 #, php-format
 msgid "User %s created"
 msgstr "%s 회원 생성됨"
 
-#: ../create_user.php:85 ../multi_create_user.php:101
+#: ../create_user.php:81 ../multi_create_user.php:91
 #, php-format
 msgid "%s has registered by %s.  Email has been sent to %s."
 msgstr "%s 는 %s 에 의해 가입되었습니다. %s에게 이메일이 전송되었습니다."
 
-#: ../create_user.php:93 ../multi_create_user.php:109
+#: ../create_user.php:89 ../multi_create_user.php:99
 msgid "Gallery Registration"
 msgstr "갤러리 회원가입"
 
-#: ../create_user.php:96
+#: ../create_user.php:92
 #, php-format
 msgid "Email sent to %s."
 msgstr "%s 에게 이메일 전송"
 
-#: ../create_user.php:120 ../edit_appearance.php:173
-#: ../edit_appearance.php:194 ../edit_appearance.php:201
-#: ../edit_appearance.php:249 ../edit_appearance.php:256
-#: ../edit_appearance.php:291 ../edit_appearance.php:301
-#: ../edit_appearance.php:308 ../edit_appearance.php:315
-#: ../edit_appearance.php:322 ../edit_appearance.php:329
-#: ../edit_appearance.php:336 ../modify_user.php:114 ../modify_user.php:117
-#: ../multi_create_user.php:163 ../poll_properties.php:97
+#: ../create_user.php:118 ../edit_appearance.php:174
+#: ../edit_appearance.php:195 ../edit_appearance.php:202
+#: ../edit_appearance.php:247 ../edit_appearance.php:254
+#: ../edit_appearance.php:289 ../edit_appearance.php:299
+#: ../edit_appearance.php:306 ../edit_appearance.php:313
+#: ../edit_appearance.php:320 ../edit_appearance.php:327
+#: ../edit_appearance.php:334 ../modify_user.php:114 ../modify_user.php:117
+#: ../multi_create_user.php:158 ../poll_properties.php:96
 msgid "yes"
 msgstr "예"
 
-#: ../create_user.php:120 ../edit_appearance.php:173
-#: ../edit_appearance.php:194 ../edit_appearance.php:201
-#: ../edit_appearance.php:249 ../edit_appearance.php:256
-#: ../edit_appearance.php:291 ../edit_appearance.php:301
-#: ../edit_appearance.php:308 ../edit_appearance.php:315
-#: ../edit_appearance.php:322 ../edit_appearance.php:329
-#: ../edit_appearance.php:336 ../modify_user.php:114 ../modify_user.php:117
-#: ../multi_create_user.php:163 ../poll_properties.php:97
+#: ../create_user.php:118 ../edit_appearance.php:174
+#: ../edit_appearance.php:195 ../edit_appearance.php:202
+#: ../edit_appearance.php:247 ../edit_appearance.php:254
+#: ../edit_appearance.php:289 ../edit_appearance.php:299
+#: ../edit_appearance.php:306 ../edit_appearance.php:313
+#: ../edit_appearance.php:320 ../edit_appearance.php:327
+#: ../edit_appearance.php:334 ../modify_user.php:114 ../modify_user.php:117
+#: ../multi_create_user.php:158 ../poll_properties.php:96
 msgid "no"
 msgstr "아니요"
 
-#: ../create_user.php:133
+#: ../create_user.php:132
 msgid "Create a new user here."
 msgstr "새 회원을 여기서 생성하세요"
 
-#: ../create_user.php:148 ../manage_users.php:97 ../multi_create_user.php:171
-#: ../register.php:141
+#: ../create_user.php:147 ../manage_users.php:99 ../multi_create_user.php:165
+#: ../register.php:138
 msgid "Create"
 msgstr "생성"
 
-#: ../delete_album.php:49 ../delete_album.php:53 ../delete_photo.php:81
-#: ../delete_photo.php:89
+#: ../delete_album.php:47 ../delete_album.php:53 ../delete_photo.php:79
+#: ../delete_photo.php:92
 msgid "Delete Album"
 msgstr "앨범 삭제"
 
-#: ../delete_album.php:55 ../delete_photo.php:94
+#: ../delete_album.php:56
 msgid "Do you really want to delete this album?"
 msgstr "이 앨범을 정말 삭제하시겠습니까?"
 
-#: ../delete_album.php:63 ../delete_photo.php:137 ../delete_user.php:80
-#: ../manage_users.php:103 ../tools/despam-comments.php:186
-#: ../tools/despam-comments.php:337
+#: ../delete_album.php:64 ../delete_photo.php:134 ../delete_user.php:70
+#: ../manage_users.php:105
 msgid "Delete"
 msgstr "삭제"
 
-#: ../delete_album.php:72 ../sort_album.php:119
+#: ../delete_album.php:73 ../sort_album.php:119
 msgid "no album specified"
 msgstr "정의된 앨범이 없습니다"
 
-#: ../delete_photo.php:81 ../delete_photo.php:117
+#: ../delete_photo.php:79 ../delete_photo.php:118
 msgid "Delete Photo"
 msgstr "사진 삭제"
+
+#: ../delete_photo.php:95
+msgid "Do you really want to delete this Album?"
+msgstr "이 앨범을 정말 삭제하시겠습니까?"
 
 #: ../delete_photo.php:120
 msgid "Do you really want to delete this photo?"
 msgstr "이 사진을 정말 삭제하시겠습니까?"
 
-#: ../delete_user.php:48 ../delete_user.php:52
+#: ../delete_user.php:43 ../delete_user.php:49
 msgid "Delete User"
 msgstr "회원 삭제"
 
-#: ../delete_user.php:62
+#: ../delete_user.php:59
 msgid "You can't delete your own account!"
 msgstr "당신의 계정을 삭제할 수 없습니다!"
 
-#: ../delete_user.php:68
+#: ../delete_user.php:62
 msgid "Users can have special permissions in each album."
 msgstr "회원은 각 앨범마다 고유한 권한을 가질 수 있습니다."
 
-#: ../delete_user.php:69
-#, fuzzy
+#: ../delete_user.php:63
 msgid "If you delete this user, any such permissions go away."
-msgid_plural "if you delete these users, any permissions will go away"
-msgstr[0] "이 회원을 삭제하시면 권한도 없어집니다."
+msgstr "이 회원을 삭제하시면 권한도 없어집니다."
 
-#: ../delete_user.php:70
+#: ../delete_user.php:64
 msgid "Users cannot be recreated."
 msgstr "회원은 재생성 하실 수 없습니다."
 
-#: ../delete_user.php:71
-#, fuzzy
+#: ../delete_user.php:65
 msgid "Even if this user is recreated, those permissions are gone."
-msgid_plural "Even if you recreate one of those users, the permissions are gone."
-msgstr[0] "이 회원이 재생성되더라도, 그 권한은 사라집니다."
+msgstr "이 회원이 재생성되더라도, 그 권한은 사라집니다."
 
-#: ../delete_user.php:73
-#, fuzzy
+#: ../delete_user.php:67
 msgid "Do you really want to delete user"
-msgid_plural "Do you really want to delete these users"
-msgstr[0] "회원을 정말 삭제하시겠습니까"
+msgstr "회원을 정말 삭제하시겠습니까"
 
-#: ../do_command.php:33 ../do_command.php:37
-msgid "Performing Operation.."
-msgstr ""
+#: ../do_command.php:32
+msgid "Rebuilding Thumbnails"
+msgstr "썸네일 재구성"
 
-#: ../do_command.php:43
+#: ../do_command.php:41
 #, php-format
 msgid "Rebuilding %d thumbnails..."
 msgstr "%d 썸네일 재구성..."
 
-#: ../do_command.php:46
+#: ../do_command.php:44
 #, php-format
 msgid "Processing image %d..."
 msgstr "이미지 %d 처리중..."
 
-#: ../do_command.php:52
+#: ../do_command.php:50
 msgid "Rebuilding 1 thumbnail..."
 msgstr "1 썸네일 재구성..."
 
-#: ../edit_appearance.php:89 ../edit_appearance.php:94
+#: ../edit_appearance.php:88 ../edit_appearance.php:94
 msgid "Album Properties"
 msgstr "앨범 등록정보"
 
-#: ../edit_appearance.php:102
+#: ../edit_appearance.php:103
 msgid "Album Summary"
 msgstr "앨범 요약"
 
-#: ../edit_appearance.php:110
+#: ../edit_appearance.php:111
 msgid "Album Title"
 msgstr "앨범 제목"
 
-#: ../edit_appearance.php:114
+#: ../edit_appearance.php:115
 msgid "Background Color"
 msgstr "배경색"
 
-#: ../edit_appearance.php:118
+#: ../edit_appearance.php:119
 msgid "Text Color"
 msgstr "글자색"
 
-#: ../edit_appearance.php:122
+#: ../edit_appearance.php:123
 msgid "Link Color"
 msgstr "링크색"
 
-#: ../edit_appearance.php:126
+#: ../edit_appearance.php:127
 msgid "Background Image"
 msgstr "배경 이미지"
 
-#: ../edit_appearance.php:130
+#: ../edit_appearance.php:131
 msgid "Font"
 msgstr "글꼴"
 
-#: ../edit_appearance.php:134
+#: ../edit_appearance.php:135
 msgid "Borders"
 msgstr "경계"
 
-#: ../edit_appearance.php:141
+#: ../edit_appearance.php:142
 msgid "Border color"
 msgstr "경계선 색상"
 
-#: ../edit_appearance.php:145
+#: ../edit_appearance.php:146
 msgid "Thumbnail size"
 msgstr "썸네일 크기"
 
-#: ../edit_appearance.php:149
+#: ../edit_appearance.php:150
 msgid "Maximum dimensions of intermediate sized images"
 msgstr ""
 
-#: ../edit_appearance.php:151 ../edit_appearance.php:162
+#: ../edit_appearance.php:152 ../edit_appearance.php:163
 msgid "off"
 msgstr "끄기"
 
-#: ../edit_appearance.php:156
+#: ../edit_appearance.php:157
 #, fuzzy
 msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
 msgstr "최대 JPEG/PNG 파일 크기(kilobytes)(크기 제한 없음은 0 또는 공백)"
 
-#: ../edit_appearance.php:160
+#: ../edit_appearance.php:161
 msgid "Maximum dimensions of full sized images"
 msgstr ""
 
-#: ../edit_appearance.php:162
+#: ../edit_appearance.php:163
 #, php-format
 msgid "%d (%d MPix)"
 msgstr ""
 
-#: ../edit_appearance.php:167
+#: ../edit_appearance.php:168
 #, fuzzy
 msgid "Maximum file size of full sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
 msgstr "최대 JPEG/PNG 파일 크기(kilobytes)(크기 제한 없음은 0 또는 공백)"
 
-#: ../edit_appearance.php:171
+#: ../edit_appearance.php:172
 msgid "Show <i>Return to</i> link"
 msgstr "<i>돌아가기</i> 링크 보이기"
 
-#: ../edit_appearance.php:178
+#: ../edit_appearance.php:179
 msgid "Rows"
 msgstr "행"
 
-#: ../edit_appearance.php:185
+#: ../edit_appearance.php:186
 msgid "Columns"
 msgstr "열"
 
-#: ../edit_appearance.php:192
+#: ../edit_appearance.php:193
 msgid "Auto fit-to-window for<br>images without a resized copy"
 msgstr "크기조정된 사본없이<br>자동 이미지 창에 채우기"
 
-#: ../edit_appearance.php:199
+#: ../edit_appearance.php:200
 msgid "Offer visitors ability to specify<br>preference for full-size or resized images"
 msgstr "방문자에게 이미지의 실제크기나<br>크기조정할 능력을 제공하시겠습니까"
 
-#: ../edit_appearance.php:206
+#: ../edit_appearance.php:207
 #, fuzzy
 msgid "Which photo printing services<br>do you want to let visitors use?"
 msgstr "방문자에게 사용하게 할<br>사진 출력서비스는 무엇입니까?"
 
-#: ../edit_appearance.php:240
+#: ../edit_appearance.php:238
 msgid "Slideshow Type"
 msgstr "슬라이드쇼 형태"
 
-#: ../edit_appearance.php:242
+#: ../edit_appearance.php:240
 msgid "Off"
 msgstr "끄기"
 
-#: ../edit_appearance.php:242
+#: ../edit_appearance.php:240
 msgid "Ordered"
 msgstr "정렬됨"
 
-#: ../edit_appearance.php:242
+#: ../edit_appearance.php:240
 msgid "Random"
 msgstr "무작위"
 
-#: ../edit_appearance.php:247
+#: ../edit_appearance.php:245
 msgid "Include sub-albums in slideshow"
 msgstr ""
 
-#: ../edit_appearance.php:254
+#: ../edit_appearance.php:252
 msgid "Allow slideshow to loop"
 msgstr ""
 
-#: ../edit_appearance.php:261
+#: ../edit_appearance.php:259
 msgid "Slideshow Length"
 msgstr "슬라이드쇼 시간"
 
-#: ../edit_appearance.php:265
+#: ../edit_appearance.php:263
 msgid "Album Frame"
 msgstr "앨범 틀"
 
-#: ../edit_appearance.php:272
+#: ../edit_appearance.php:270
 msgid "Thumb Frame"
 msgstr "미리보기 틀"
 
-#: ../edit_appearance.php:279
+#: ../edit_appearance.php:277
 msgid "Image Frame"
 msgstr "이미지 틀"
 
-#: ../edit_appearance.php:289
+#: ../edit_appearance.php:287
 msgid "Display EXIF data?"
 msgstr "EXIF날짜 표시?"
 
-#: ../edit_appearance.php:299
+#: ../edit_appearance.php:297
 msgid "Display click counter for this album?"
 msgstr "이 앨범에 클릭 카운터 표시?"
 
-#: ../edit_appearance.php:306
+#: ../edit_appearance.php:304
 msgid "Display owners name with caption"
 msgstr "제목과 소유자 표시"
 
-#: ../edit_appearance.php:313
+#: ../edit_appearance.php:311
 msgid "Allow item owners to modify their images"
 msgstr "소유자가 이미지 변경을 허용"
 
-#: ../edit_appearance.php:320
+#: ../edit_appearance.php:318
 msgid "Allow item owners to delete their images"
 msgstr "소유자가 이미지 삭제를 허용"
 
-#: ../edit_appearance.php:327
+#: ../edit_appearance.php:325
 msgid "Add new items at beginning of album"
 msgstr "앨범 시작에 새로운 아이템 추가"
 
-#: ../edit_appearance.php:334
+#: ../edit_appearance.php:332
 msgid "Display clickable image dimensions"
 msgstr "클릭가능한 이미지 크기 표시"
 
-#: ../edit_appearance.php:343
-#, fuzzy
-msgid "Apply values to nested albums (except album title and summary)."
+#: ../edit_appearance.php:341
+msgid "Apply values to nested Albums (except Album Title and Summary)."
 msgstr "하위 앨범까지 값 적용 (앨범명과 요약 제외)."
 
-#: ../edit_appearance.php:346 ../extra_fields.php:175
-#: ../poll_properties.php:141
+#: ../edit_appearance.php:344 ../extra_fields.php:175
+#: ../poll_properties.php:140
 msgid "Apply"
 msgstr "적용"
 
-#: ../edit_appearance.php:347 ../extra_fields.php:176
-#: ../poll_properties.php:142
+#: ../edit_appearance.php:345 ../extra_fields.php:176
+#: ../poll_properties.php:141
 msgid "Undo"
 msgstr "되돌리기"
 
-#: ../edit_appearance.php:348 ../extra_fields.php:177
-#: ../poll_properties.php:143 ../rotate_photo.php:85
+#: ../edit_appearance.php:346 ../extra_fields.php:177
+#: ../poll_properties.php:142 ../rotate_photo.php:86
 msgid "Close"
 msgstr "닫기"
 
-#: ../edit_caption.php:72
+#: ../edit_caption.php:66
 msgid "Year must be between 1000 and 3000"
 msgstr "년도는 1000과 3000사이이어야 합니다."
 
-#: ../edit_caption.php:77 ../view_album.php:1002
+#: ../edit_caption.php:71 ../view_album.php:1014
 msgid "Edit Text"
 msgstr "글 수정"
 
-#: ../edit_caption.php:81
+#: ../edit_caption.php:77
 #, fuzzy
 msgid "Edit Caption"
 msgstr "제목 수정"
 
-#: ../edit_caption.php:92 ../includes/add_photos/add_form.inc:95
+#: ../edit_caption.php:87 ../includes/add_photos/add_form.inc:95
 #: ../includes/add_photos/add_form_one.inc:45
 msgid "Caption"
 msgstr "제목"
 
-#: ../edit_caption.php:146
+#: ../edit_caption.php:141
 msgid "Photo Capture Date"
 msgstr "사진 캡쳐 일자"
 
-#: ../edit_caption.php:149
+#: ../edit_caption.php:144
 msgid "Month"
 msgstr "월"
 
-#: ../edit_caption.php:150
+#: ../edit_caption.php:145
 msgid "Day"
 msgstr "일"
 
-#: ../edit_caption.php:151
+#: ../edit_caption.php:146
 msgid "Year"
 msgstr "년"
 
-#: ../edit_caption.php:152
+#: ../edit_caption.php:147
 msgid "Hours"
 msgstr "시"
 
-#: ../edit_caption.php:153
+#: ../edit_caption.php:148
 msgid "Minutes"
 msgstr "분"
 
-#: ../edit_caption.php:154
+#: ../edit_caption.php:149
 msgid "Seconds"
 msgstr "초"
 
-#: ../edit_field.php:49 ../edit_field.php:53 ../view_album.php:958
+#: ../edit_field.php:47 ../edit_field.php:53 ../view_album.php:970
 #, php-format
 msgid "Edit %s"
 msgstr "수정 %s"
@@ -1100,11 +1070,11 @@ msgstr "수정 %s"
 msgid "Edit the %s and click %s when you're done"
 msgstr "%s 을 수정하고,  %s 을 클릭하세요."
 
-#: ../edit_thumb.php:39 ../edit_thumb.php:70
+#: ../edit_thumb.php:37 ../edit_thumb.php:70
 msgid "Custom Thumbnail"
 msgstr "사용자정의 썸네일"
 
-#: ../edit_thumb.php:48
+#: ../edit_thumb.php:46
 msgid "Remaking the Thumbnail..."
 msgstr "썸네일 재생성"
 
@@ -1112,45 +1082,50 @@ msgstr "썸네일 재생성"
 msgid "Choose which part of the image will compose your thumbnail:"
 msgstr "썸네일을 어떤 형식으로 할 지 고르세요:"
 
-#: ../edit_watermark.php:42
+#: ../edit_watermark.php:28
+#, fuzzy
+msgid "You are not allowed to perform this action."
+msgstr "이 설문에 투표한 적이 없습니다."
+
+#: ../edit_watermark.php:39
 msgid "Watermarking photo."
 msgstr ""
 
-#: ../edit_watermark.php:42 ../watermark_album.php:55
+#: ../edit_watermark.php:39 ../watermark_album.php:44
 #, fuzzy
 msgid "this may take a while"
 msgstr "(시간이 좀 소요됩니다.)"
 
-#: ../edit_watermark.php:61 ../watermark_album.php:80
+#: ../edit_watermark.php:58 ../watermark_album.php:62
 #, fuzzy
 msgid "Please select a watermark."
 msgstr "회원을 선택하세요"
 
-#: ../edit_watermark.php:64 ../watermark_album.php:83
+#: ../edit_watermark.php:61 ../watermark_album.php:65
 #, fuzzy
 msgid "Please select an alignment."
 msgstr "회원을 선택하세요"
 
-#: ../edit_watermark.php:72 ../edit_watermark.php:76 ../view_album.php:974
-#: ../view_album.php:1010
+#: ../edit_watermark.php:69 ../edit_watermark.php:75 ../view_album.php:986
+#: ../view_album.php:1022
 msgid "Edit Watermark"
 msgstr ""
 
-#: ../edit_watermark.php:105 ../watermark_album.php:133
+#: ../edit_watermark.php:103 ../watermark_album.php:116
 #, fuzzy
 msgid "Preview"
 msgstr "이전 페이지"
 
-#: ../extra_fields.php:59
+#: ../extra_fields.php:57
 #, fuzzy
 msgid "untitled field"
 msgstr "제목 없음"
 
-#: ../extra_fields.php:79 ../extra_fields.php:83
+#: ../extra_fields.php:77 ../extra_fields.php:83
 msgid "Configure Custom Fields"
 msgstr "사용자 필드 설정"
 
-#: ../extra_fields.php:122 ../lib/lang.php:651
+#: ../extra_fields.php:122 ../lib/lang.php:654
 msgid "Alt Text / onMouseOver"
 msgstr ""
 
@@ -1162,9 +1137,8 @@ msgstr "회원이 정의한 사용자 필드 수"
 msgid "Field"
 msgstr "필드"
 
-#: ../extra_fields.php:172 ../poll_properties.php:138
-#, fuzzy
-msgid "Apply values to nested albums."
+#: ../extra_fields.php:172
+msgid "Apply to nested Albums"
 msgstr "하위 앨범까지 적용"
 
 #: ../includes/add_photos/add_admin.inc:28
@@ -1203,41 +1177,41 @@ msgstr ""
 msgid "Use the Gallery Remote Mini Applet to upload pictures. It will take a short while to download."
 msgstr ""
 
-#: ../includes/add_photos/add_form.inc:35
+#: ../includes/add_photos/add_form.inc:33
 #: ../includes/add_photos/add_form_one.inc:27
 msgid "Click the <b>Browse</b> button to locate a photo to upload."
 msgstr "업로드하시려면 사진의 경로를 알기 위해 <b>찾아보기</b>를 클릭하세요."
 
-#: ../includes/add_photos/add_form.inc:37
+#: ../includes/add_photos/add_form.inc:35
 #: ../includes/add_photos/add_form_one.inc:31
 msgid "Supported file types"
 msgstr "지원되는 파일 형식"
 
-#: ../includes/add_photos/add_form.inc:41
+#: ../includes/add_photos/add_form.inc:39
 #: ../includes/add_photos/add_url.inc:31
 msgid "Tip:"
 msgstr ""
 
-#: ../includes/add_photos/add_form.inc:42
+#: ../includes/add_photos/add_form.inc:40
 #, fuzzy
 msgid "Upload a ZIP file full of photos and movies!"
 msgstr "팁 : 사진과 무비 모두 올릴때는 ZIP파일로"
 
-#: ../includes/add_photos/add_form.inc:51
+#: ../includes/add_photos/add_form.inc:50
 msgid "1. Select the number of files you want to upload:"
 msgstr "1. 업로드 하기 원하는 파일수를 선택하세요:"
 
-#: ../includes/add_photos/add_form.inc:64
+#: ../includes/add_photos/add_form.inc:62
 #, fuzzy
 msgid "Optional:"
 msgstr "제목"
 
-#: ../includes/add_photos/add_form.inc:65
+#: ../includes/add_photos/add_form.inc:63
 #, fuzzy
 msgid "Select the number of meta data files you want to upload:"
 msgstr "1. 업로드 하기 원하는 파일수를 선택하세요:"
 
-#: ../includes/add_photos/add_form.inc:87
+#: ../includes/add_photos/add_form.inc:86
 msgid "2. Use the Browse button to find the photos on your computer"
 msgstr "2. 당신의 컴퓨터에서 사진을 찾기 위해 찾아보기 버튼을 사용하세요"
 
@@ -1253,17 +1227,25 @@ msgid "3. Use the Browse button to find the meta data files on your computer"
 msgstr "2. 당신의 컴퓨터에서 사진을 찾기 위해 찾아보기 버튼을 사용하세요"
 
 #: ../includes/add_photos/add_form.inc:112
-msgid "If no caption is set, what would you like the captions to default to?"
-msgstr ""
+#: ../includes/add_photos/add_url.inc:43
+#, fuzzy
+msgid "Leave blank if no caption is specified."
+msgstr "만약 제목이 없으면 파일명을 제목으로 사용합니다."
 
-#: ../includes/add_photos/add_form.inc:125
-#: ../includes/add_photos/add_form_one.inc:71
-msgid "Upload Now"
-msgstr "지금 업로드"
-
+#: ../includes/add_photos/add_form.inc:114
 #: ../includes/add_photos/add_form_one.inc:68
 msgid "Use filename as caption if no caption is specified."
 msgstr "만약 제목이 없으면 파일명을 제목으로 사용합니다."
+
+#: ../includes/add_photos/add_form.inc:116
+#, fuzzy
+msgid "Use file creation date stamp as caption if no caption is specified."
+msgstr "만약 제목이 없으면 파일명을 제목으로 사용합니다."
+
+#: ../includes/add_photos/add_form.inc:127
+#: ../includes/add_photos/add_form_one.inc:71
+msgid "Upload Now"
+msgstr "지금 업로드"
 
 #: ../includes/add_photos/add_other.inc:25
 #, fuzzy
@@ -1305,20 +1287,25 @@ msgstr "&nbsp;경로는 서버의 URL이거나 디렉토리가 될 수 있습니다."
 msgid "FTP images to a directory on your server then provide that path here!"
 msgstr "팁: 당신의 서버의 디렉토리에 FTP로 이미지를 제공하려면 여기에 경로를 기입하세요!"
 
-#: ../includes/add_photos/add_url.inc:44
-msgid "What would you like the captions to default to?"
-msgstr ""
+#: ../includes/add_photos/add_url.inc:45
+msgid "Set photo captions with original filenames."
+msgstr "원본 파일명으로 사진 제목 설정."
+
+#: ../includes/add_photos/add_url.inc:47
+#, fuzzy
+msgid "Set photo captions with file creation times."
+msgstr "원본 파일명으로 사진 제목 설정."
 
 #: ../includes/add_photos/add_url.inc:59
 msgid "Submit URL or directory"
 msgstr "URL 또는 디렉토리 승인"
 
-#: ../includes/slideshow/applet.inc:28 ../includes/slideshow/high.inc:72
+#: ../includes/slideshow/applet.inc:28 ../includes/slideshow/high.inc:73
 #, php-format
 msgid "Slide Show for Gallery :: %s"
 msgstr "갤러리를 위한 슬라이드쇼 :: %s"
 
-#: ../includes/slideshow/applet.inc:31 ../includes/slideshow/high.inc:81
+#: ../includes/slideshow/applet.inc:31 ../includes/slideshow/high.inc:82
 #, php-format
 msgid "Slide Show for album :: %s"
 msgstr "앨범을 위한 슬라이드쇼 :: %s"
@@ -1331,12 +1318,12 @@ msgstr ""
 msgid "Your browser doesn't support applets; you should use one of the other slideshow methods."
 msgstr ""
 
-#: ../includes/slideshow/high.inc:68
+#: ../includes/slideshow/high.inc:69
 #, php-format
 msgid "%s Random Images from %s"
 msgstr "%2$s에서 %1$s 무작위 이미지"
 
-#: ../includes/slideshow/high.inc:77
+#: ../includes/slideshow/high.inc:78
 #, fuzzy, php-format
 msgid "%d Random Images from album :: %s"
 msgstr "앨범 %s에서 %d 무작위 이미지"
@@ -1464,7 +1451,7 @@ msgid "of"
 msgstr "of"
 
 #: ../includes/slideshow/high.inc:381 ../includes/slideshow/low.inc:206
-#: ../upgrade_users.php:49
+#: ../upgrade_users.php:52
 msgid "Please Wait..."
 msgstr "잠시 기다리세요..."
 
@@ -1512,7 +1499,7 @@ msgstr "앨범을 위한 슬라이드쇼"
 msgid "Member file"
 msgstr "회원 파일"
 
-#: ../html/userData.inc:26 ../login.php:80 ../login.php:142
+#: ../html/userData.inc:26 ../login.php:88 ../login.php:173
 msgid "Username"
 msgstr "아이디"
 
@@ -1540,34 +1527,34 @@ msgstr "이메일 주소"
 msgid "Gallery language"
 msgstr "갤러리 언어"
 
-#: ../html/userData.inc:106
+#: ../html/userData.inc:113
 msgid "User can create albums"
 msgstr "회원은 앨범을 생성할 수 있습니다."
 
-#: ../html/userData.inc:114
+#: ../html/userData.inc:121
 msgid "Send email to user <br>when account is created"
 msgstr "계정이 생성되면<br> 회원에게 이메일 전송"
 
-#: ../html/userData.inc:123
+#: ../html/userData.inc:130
 msgid "User is an admin"
 msgstr "회원은 최고관리자입니다."
 
-#: ../html/userData.inc:127
+#: ../html/userData.inc:134
 msgid "you can't un-admin yourself"
 msgstr "당신 스스로 관리자포기를 할 수 없습니다."
 
-#: ../html/userData.inc:131
+#: ../html/userData.inc:138
 msgid "Note: admins can always create albums"
 msgstr "주의: 관리자는 항상 앨범을 생성할 수 있습니다."
 
-#: ../html_wrap/album.footer.default:45 ../html_wrap/gallery.footer.default:51
-#: ../html_wrap/photo.footer.default:44 ../html_wrap/search.footer.default:51
-#: ../html_wrap/slideshow.footer.default:47
+#: ../html_wrap/album.footer.default:42 ../html_wrap/gallery.footer.default:50
+#: ../html_wrap/photo.footer.default:42 ../html_wrap/search.footer.default:50
+#: ../html_wrap/slideshow.footer.default:46
 #, fuzzy
 msgid "Donate to Gallery now!!"
 msgstr "갤러리 들어가기"
 
-#: ../html_wrap/wrapper.header.default:98 ../view_photo_properties.php:31
+#: ../html_wrap/wrapper.header.default:98 ../view_photo_properties.php:29
 msgid "Security violation"
 msgstr "보안 위반"
 
@@ -1583,23 +1570,23 @@ msgstr "앨범 이동"
 msgid "reorder album"
 msgstr "앨범 재정렬"
 
-#: ../layout/adminAlbumCommands.inc:13 ../view_album.php:309
+#: ../layout/adminAlbumCommands.inc:13 ../view_album.php:306
 msgid "rename album"
 msgstr "앨범이름 변경"
 
-#: ../layout/adminAlbumCommands.inc:20 ../view_album.php:329
+#: ../layout/adminAlbumCommands.inc:20 ../view_album.php:326
 msgid "edit captions"
 msgstr "제목 수정"
 
-#: ../layout/adminAlbumCommands.inc:27 ../view_album.php:364
+#: ../layout/adminAlbumCommands.inc:27 ../view_album.php:361
 msgid "permissions"
 msgstr "권한"
 
-#: ../layout/adminAlbumCommands.inc:28 ../view_album.php:358
+#: ../layout/adminAlbumCommands.inc:28 ../view_album.php:355
 msgid "properties"
 msgstr "등록정보"
 
-#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:482
+#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:479
 msgid "view&nbsp;comments"
 msgstr "조회&nbsp;코멘트"
 
@@ -1607,7 +1594,7 @@ msgstr "조회&nbsp;코멘트"
 msgid "watermark&nbsp;album"
 msgstr ""
 
-#: ../layout/breadcrumb.inc:37
+#: ../layout/breadcrumb.inc:34
 #, fuzzy
 msgid "Logged in as:"
 msgstr "로그인"
@@ -1621,19 +1608,19 @@ msgstr "또는"
 msgid "delete comment"
 msgstr "코멘트 삭제"
 
-#: ../layout/commentboxbottom.inc:12 ../util.php:161
+#: ../layout/commentboxbottom.inc:12 ../util.php:105
 msgid "add comment"
 msgstr "코멘트 추가"
 
-#: ../layout/commentboxtop.inc:17 ../slideshow.php:181 ../slideshow.php:195
-#: ../upgrade_album.php:92 ../upgrade_album.php:104 ../view_album.php:138
-#: ../view_album.php:947 ../view_comments.php:65 ../view_photo.php:157
-#: ../view_photo.php:173
+#: ../layout/commentboxtop.inc:17 ../slideshow.php:179 ../slideshow.php:193
+#: ../upgrade_album.php:89 ../upgrade_album.php:101 ../view_album.php:136
+#: ../view_album.php:959 ../view_comments.php:65 ../view_photo.php:154
+#: ../view_photo.php:170
 msgid "Album"
 msgstr "앨범"
 
 #: ../layout/commentboxtop.inc:20 ../layout/commentboxtop.inc:47
-#: ../view_album.php:867
+#: ../view_album.php:886
 msgid "hidden"
 msgstr "숨김"
 
@@ -1646,39 +1633,39 @@ msgstr "이 하위앨범의 코멘트 보기"
 msgid "Album contains no comments"
 msgstr "%s 포함된 앨범"
 
-#: ../layout/navigator.inc:33
+#: ../layout/navigator.inc:32
 msgid "First Page"
 msgstr "첫 페이지"
 
-#: ../layout/navigator.inc:34
+#: ../layout/navigator.inc:33
 msgid "Previous Page"
 msgstr "이전 페이지"
 
-#: ../layout/navigator.inc:35
+#: ../layout/navigator.inc:34
 msgid "Next Page"
 msgstr "다음 페이지"
 
-#: ../layout/navigator.inc:36
+#: ../layout/navigator.inc:35
 msgid "Last Page"
 msgstr "마지막 페이지"
 
-#: ../layout/navphoto.inc:22
+#: ../layout/navphoto.inc:24
 msgid "First Photo"
 msgstr "첫 사진"
 
-#: ../layout/navphoto.inc:23
+#: ../layout/navphoto.inc:25
 msgid "Previous Photo"
 msgstr "이전 사진"
 
-#: ../layout/navphoto.inc:24
+#: ../layout/navphoto.inc:26
 msgid "Next Photo"
 msgstr "다음 사진"
 
-#: ../layout/navphoto.inc:25
+#: ../layout/navphoto.inc:27
 msgid "Last Photo"
 msgstr "마지막 사진"
 
-#: ../layout/navphoto.inc:62
+#: ../layout/navphoto.inc:65
 #, php-format
 msgid "%d of %d"
 msgstr "%2$d 의 %1$d"
@@ -1687,7 +1674,7 @@ msgstr "%2$d 의 %1$d"
 msgid "Watermark"
 msgstr ""
 
-#: ../layout/watermarkform.inc:76 ../util.php:2952 ../util.php:2957
+#: ../layout/watermarkform.inc:76 ../util.php:2746 ../util.php:2751
 msgid "None"
 msgstr "없음"
 
@@ -1773,29 +1760,25 @@ msgstr "모두 지우기"
 msgid "Invert Selection"
 msgstr "선택 반전"
 
-#: ../lib/lang.php:637
+#: ../lib/lang.php:641
 msgid "Upload Date"
 msgstr "업로드 날짜"
 
-#: ../lib/lang.php:639
+#: ../lib/lang.php:643
 msgid "Image Size"
 msgstr "이미지 크기"
 
-#: ../lib/lang.php:640
+#: ../lib/lang.php:644
 msgid "Additional EXIF Data"
 msgstr "추가할 EXIF자료 "
 
-#: ../lib/lang.php:649
+#: ../lib/lang.php:653
 #, fuzzy
 msgid "Description"
 msgstr "설명"
 
-#: ../lib/lang.php:650
-msgid "description"
-msgstr "설명"
-
-#: ../lib/voting.php:215 ../view_album.php:639 ../view_album.php:671
-#: ../view_album.php:1130
+#: ../lib/voting.php:215 ../view_album.php:631 ../view_album.php:660
+#: ../view_album.php:1145
 msgid "Vote"
 msgstr "투표"
 
@@ -1807,8 +1790,8 @@ msgstr "괄호안은 총점수"
 msgid "Average points in brackets"
 msgstr "괄호안은 평균점수"
 
-#: ../lib/voting.php:275 ../poll_results.php:148 ../view_album.php:578
-#: ../view_album.php:877
+#: ../lib/voting.php:275 ../poll_results.php:148 ../view_album.php:573
+#: ../view_album.php:891
 #, php-format
 msgid "Album: %s"
 msgstr "앨범: %s"
@@ -1863,96 +1846,95 @@ msgid "one vote"
 msgid_plural "%d votes"
 msgstr[0] "투표 없음"
 
-#: ../login.php:35 ../login.php:39 ../publish_xp.php:56 ../publish_xp.php:99
+#: ../login.php:37 ../login.php:43 ../publish_xp.php:54 ../publish_xp.php:97
 #, php-format
 msgid "Login to %s"
 msgstr "%s(으)로 로그인"
 
-#: ../login.php:57
-msgid "SUCCEEDED"
-msgstr ""
-
-#: ../login.php:61
-msgid "Invalid username or password"
-msgstr "잘못된 아이디 또는 비밀번호"
-
-#: ../login.php:66
-#, fuzzy
-msgid "Please enter username and password."
-msgstr "아이디와 비밀번호를 입력하세요"
-
-#: ../login.php:70
+#: ../login.php:75
 msgid "Logging in gives you greater permission to view, create, modify and delete albums."
 msgstr "로그인을 하면 앨범의 생성/변경/삭제 등을 할 수 있습니다."
 
-#: ../login.php:84
+#: ../login.php:81
+msgid "Invalid username or password"
+msgstr "잘못된 아이디 또는 비밀번호"
+
+#: ../login.php:98
+msgid "You must specify a username"
+msgstr "아이디를 지정하셔야 합니다."
+
+#: ../login.php:105
 msgid "Password"
 msgstr "비밀번호"
 
-#: ../login.php:91
+#: ../login.php:115
+msgid "You must specify a password"
+msgstr "비밀번호를 지정하셔야 합니다."
+
+#: ../login.php:122
 msgid "Login"
 msgstr "로그인"
 
-#: ../login.php:100
+#: ../login.php:131
 msgid "Forgotten your password?"
 msgstr "비밀번호를 잊으셨나요?"
 
-#: ../login.php:111
+#: ../login.php:141
 #, fuzzy, php-format
 msgid "The last request for a password was less than %d minutes ago.  Please check for previous email, or wait before trying again."
 msgstr "비밀번호에 대한 마지막 요청이 %d 분 전에 이루어졌습니다. 이전 이메일을 확인하시거나 다시 시도하시기 전에 기다려주세요."
 
-#: ../login.php:115
+#: ../login.php:145
 msgid "New password request"
 msgstr "새 비밀번호 신청"
 
-#: ../login.php:116
+#: ../login.php:146
 #, fuzzy, php-format
 msgid "Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "
 msgstr "%2$s의 갤러리 %s에서 새로운 비밀번호를 요청하였습니다. 아래 링크를 방문하여 비밀번호를 생성할 수 있습니다. 비밀번호를 요청한 적이 없으시면, 이 메일을 무시하세요."
 
-#: ../login.php:117
+#: ../login.php:147
 #, php-format
 msgid "Click to reset your password: %s"
 msgstr "비밀번호를 초기화하기 위해서 클릭하세요: %s"
 
-#: ../login.php:119
+#: ../login.php:149
 #, php-format
 msgid "New password request %s"
 msgstr "새 비밀번호 신청 %s"
 
-#: ../login.php:122
+#: ../login.php:152
 #, php-format
 msgid "An email has been sent to the address stored for %s.  Follow the instructions to change your password.  If you do not receive this email, please contact the Gallery administrators."
 msgstr "%s에 저장된 주소로 이메일이 전송되었습니다. 비밀번호를 바꾸기 위해 지시를 따르세요. 이 이메일을 받으시지 않으려면 갤러리 관리자에게 문의하세요."
 
-#: ../login.php:127
+#: ../login.php:157
 #, fuzzy, php-format
 msgid "Email could not be sent.  Please contact %s administrators for a new password"
 msgstr "이메일이 전송되지 않았습니다. 새로운 비밀번호를 위해 %s 관리자에게 접촉하세요."
 
-#: ../login.php:131
+#: ../login.php:161
 #, fuzzy, php-format
 msgid "There is no valid email for this account.  Please contact %s administrators for a new password"
 msgstr "이메일이 전송되지 않았습니다. 새로운 비밀번호를 위해 %s 관리자에게 접촉하세요."
 
-#: ../login.php:134 ../new_password.php:35 ../new_password.php:39
+#: ../login.php:164 ../new_password.php:32 ../new_password.php:36
 msgid "Not a valid username"
 msgstr "잘못된 회원"
 
-#: ../login.php:149
+#: ../login.php:181
 msgid "Send me my password"
 msgstr "내 비밀번호를 전송해주세요"
 
-#: ../manage_users.php:43
+#: ../manage_users.php:40
 msgid "Please select a user"
 msgstr "회원을 선택하세요"
 
-#: ../manage_users.php:64 ../manage_users.php:68
+#: ../manage_users.php:61 ../manage_users.php:67
 msgid "Manage Users"
 msgstr "회원관리"
 
-#: ../manage_users.php:79
+#: ../manage_users.php:78
 msgid "You can create, modify and delete users here."
 msgstr "여기서 회원을 생성, 수정, 삭제할 수 있습니다."
 
@@ -1960,15 +1942,11 @@ msgstr "여기서 회원을 생성, 수정, 삭제할 수 있습니다."
 msgid "There are no users!  Create one."
 msgstr "회원이 없습니다! 생성하세요."
 
-#: ../manage_users.php:93
-msgid "To select multiple users (only recognized for deletion), hold down the Control (PC) or Command (Mac) key while clicking."
-msgstr ""
-
-#: ../manage_users.php:99
+#: ../manage_users.php:101
 msgid "Bulk Create"
 msgstr "벌크 생성"
 
-#: ../manage_users.php:102
+#: ../manage_users.php:104
 msgid "Modify"
 msgstr "수정"
 
@@ -1976,192 +1954,185 @@ msgstr "수정"
 msgid "Invalid user"
 msgstr "잘못된 회원"
 
-#: ../modify_user.php:124 ../modify_user.php:128
+#: ../modify_user.php:124 ../modify_user.php:130
 msgid "Modify User"
 msgstr "회원 수정"
 
-#: ../modify_user.php:130
+#: ../modify_user.php:133
 msgid "You can change any information about the user using this form."
 msgstr "여기에서 사용자에 대한 정보를 변경할 수 있습니다."
 
-#: ../move_album.php:39 ../move_album.php:43 ../move_photo.php:38
+#: ../move_album.php:41 ../move_album.php:92 ../move_photo.php:40
 msgid "Move Album"
 msgstr "앨범 이동"
 
-#: ../move_album.php:89
+#: ../move_album.php:95
 msgid "Select the new location of album"
 msgstr "앨범의 새로운 위치를 선택하세요"
 
-#: ../move_album.php:110 ../move_photo.php:248
+#: ../move_album.php:116 ../move_photo.php:253
 msgid "Move it!"
 msgstr "이동!"
 
-#: ../move_album.php:118
+#: ../move_album.php:124
 msgid "Nest within another Album:"
 msgstr "다른 앨범의 아래로 이동:"
 
-#: ../move_album.php:130 ../move_photo.php:334
+#: ../move_album.php:136 ../move_photo.php:339
 msgid "Move to Album!"
 msgstr "앨범으로 이동!"
 
-#: ../move_photo.php:38
+#: ../move_photo.php:40
 #, fuzzy
 msgid "Reorder Album"
 msgstr "앨범 재정렬"
 
-#: ../move_photo.php:40
+#: ../move_photo.php:42
 #, fuzzy
 msgid "Reorder Photo"
 msgstr "재정렬"
 
-#: ../move_photo.php:40
+#: ../move_photo.php:42
 msgid "Move Photo"
 msgstr "사진 이동"
 
-#: ../move_photo.php:64
+#: ../move_photo.php:69
 msgid "You can't move photos into the album they already exist in."
 msgstr ""
 
-#: ../move_photo.php:69
+#: ../move_photo.php:74
 #, php-format
 msgid "You do not have the required permissions to write to %s!"
 msgstr ""
 
-#: ../move_photo.php:129
+#: ../move_photo.php:134
 msgid "Moving photo #"
 msgstr "사진 이동 #"
 
-#: ../move_photo.php:181
+#: ../move_photo.php:186
 msgid "- Creating New Album Highlight"
 msgstr "-새 앨범 하이라이트 생성"
 
-#: ../move_photo.php:224
+#: ../move_photo.php:229
 #, fuzzy
 msgid "Reorder this album within the album:"
 msgstr "앨범내에서 이 앨범 이동:"
 
-#: ../move_photo.php:226
+#: ../move_photo.php:231
 #, fuzzy
 msgid "Reorder this photo within the album:"
 msgstr "앨범내에서 이 사진 이동:"
 
-#: ../move_photo.php:229
+#: ../move_photo.php:234
 #, php-format
 msgid "Current Location is %s"
 msgstr "현재 위치는 %s"
 
-#: ../move_photo.php:233
+#: ../move_photo.php:238
 msgid "Select the new location:"
 msgstr "새 위치를 선택:"
 
-#: ../move_photo.php:248
+#: ../move_photo.php:253
 #, fuzzy
 msgid "Reorder it!"
 msgstr "재정렬"
 
-#: ../move_photo.php:255
+#: ../move_photo.php:260
 msgid "Move the album to a new album:"
 msgstr "새로운 앨범으로 이동:"
 
-#: ../move_photo.php:266
+#: ../move_photo.php:271
 msgid "Move a range of photos to a new album:"
 msgstr "새 앨범으로 이동할 사진의 범위:"
 
-#: ../move_photo.php:267
-#, fuzzy
-msgid "To move just one photo, make First and Last the same."
+#: ../move_photo.php:272
+msgid "To move just one photo, make First and Last the same"
 msgstr "사진 한 장만 옮기시려면, 처음과 끝이 같아야 합니다."
 
-#: ../move_photo.php:322
+#: ../move_photo.php:327
 msgid "Note: items that have votes will lose these votes when moved to another album"
 msgstr "주의: 투표된 아이템을 다른 앨범으로 이동시키면 이 투표결과는 사라집니다."
 
-#: ../move_photo.php:324
+#: ../move_photo.php:329
 #, php-format
 msgid "Note: items that have votes will lose these votes if moved to an album without compatible polling.  Compatible albums are marked with an &quot;%s&quot;."
 msgstr "주의: 투표된 아이템을 적합한 설문없이 앨범으로 이동시키면 투표결과가 사라집니다. 적합한 앨범은 &quot;%s&quot;로 표시됩니다."
 
-#: ../multi_create_user.php:42 ../multi_create_user.php:46
-#: ../multi_create_user.php:140
+#: ../multi_create_user.php:42 ../multi_create_user.php:131
 #, fuzzy
 msgid "Create Multiple Users"
 msgstr "복수회원 생성"
 
-#: ../multi_create_user.php:50
+#: ../multi_create_user.php:49
 msgid "No file selected."
 msgstr "파일 선택 안됨"
 
-#: ../multi_create_user.php:55
+#: ../multi_create_user.php:54
 #, php-format
 msgid "Upload failed: %s."
 msgstr "업로드 실패함: %s."
 
-#: ../multi_create_user.php:64
-#, php-format
-msgid "Upload went fine, but the file is not readable, please make sure %s is accessable for your webserver. (Also check openbasedir restrictions.)"
-msgstr ""
-
-#: ../multi_create_user.php:87
+#: ../multi_create_user.php:77
 #, fuzzy, php-format
 msgid "adding %s"
 msgstr "추가중 %s"
 
-#: ../multi_create_user.php:94
+#: ../multi_create_user.php:84
 #, fuzzy, php-format
 msgid "Send email to %s"
 msgstr "%s에게 보낸 이메일 문제"
 
-#: ../multi_create_user.php:110
+#: ../multi_create_user.php:100
 #, php-format
 msgid "Problem with email to %s"
 msgstr "%s에게 보낸 이메일 문제"
 
-#: ../multi_create_user.php:122
+#: ../multi_create_user.php:112
 #, php-format
 msgid "%s added, %s skipped"
 msgstr "%s 추가됨, %s 건너뜀"
 
-#: ../multi_create_user.php:123 ../multi_create_user.php:124
+#: ../multi_create_user.php:113 ../multi_create_user.php:114
 #, fuzzy, php-format
 msgid "1 user"
 msgid_plural "%d users"
 msgstr[0] "1 회원"
 
-#: ../multi_create_user.php:144
+#: ../multi_create_user.php:138
 msgid "Create Users"
 msgstr "회원 생성"
 
-#: ../multi_create_user.php:146
+#: ../multi_create_user.php:141
 msgid "Create multiple new users from a file."
 msgstr "파일로  새 회원들을 생성."
 
-#: ../multi_create_user.php:176
+#: ../multi_create_user.php:170
 #, fuzzy
 msgid "Notes:"
 msgstr "투표"
 
-#: ../multi_create_user.php:179
+#: ../multi_create_user.php:173
 #, fuzzy
 msgid "The members file should be one user per line, and the fields should be space separated.  Each line is of the form:<br> <i>username emailaddress fullname</i>.<br>  Only username is required. Everything after the email address is the full name, so there can be spaces in it.<p>"
 msgstr "회원파일은 한 줄당 한 회원이며, 필드는 공백으로 구분됩니다. 폼의 각 줄은 다음과 같습니다:<br><i>아이디 이메일주소 실제이름</i><br>. 오직 회원명만 필수입니다. 이메일주소 다음의 모든 것은 실제이름이므로 공백으로 할 수 있습니다.<p>"
 
-#: ../multi_create_user.php:184
+#: ../multi_create_user.php:178
 msgid "The strings !!USERNAME!!, !!FULLNAME!! and !!PASSWORD!! will be substituted in the email with the values from the membership file.  An individual email will be sent to each member with a valid email address in the members file (if &quot;send emails&quot; checkbox is ticked)."
 msgstr ""
 
-#: ../new_password.php:32
+#: ../new_password.php:29
 msgid "missing hash parameter"
 msgstr ""
 
-#: ../new_password.php:42
+#: ../new_password.php:39
 msgid "The recovery password is not the expected value, please try again"
 msgstr "비밀번호 복구가 기대되지 않은 값입니다. 다시 시도하세요."
 
-#: ../new_password.php:49
+#: ../new_password.php:46
 msgid "You must provide your new password."
 msgstr "새 비밀번호를 준비하세요."
 
-#: ../new_password.php:93 ../new_password.php:97
+#: ../new_password.php:90 ../new_password.php:96
 msgid "Make New Password"
 msgstr "새 비밀번호 만들기"
 
@@ -2169,7 +2140,7 @@ msgstr "새 비밀번호 만들기"
 msgid "Enter the Gallery"
 msgstr "갤러리 들어가기"
 
-#: ../new_password.php:106 ../user_preferences.php:116
+#: ../new_password.php:106 ../user_preferences.php:110
 msgid "You can change your user information here."
 msgstr "당신의 정보를 여기에서 바꿀 수 있습니다."
 
@@ -2177,84 +2148,84 @@ msgstr "당신의 정보를 여기에서 바꿀 수 있습니다."
 msgid "You must enter the new password twice."
 msgstr "새로운 비밀번호를 두 번 입력하셔야 합니다."
 
-#: ../photo_owner.php:78 ../photo_owner.php:82 ../view_album.php:1070
+#: ../photo_owner.php:76 ../photo_owner.php:82 ../view_album.php:1082
 msgid "Change Owner"
 msgstr "소유자 변경"
 
-#: ../photo_owner.php:94
+#: ../photo_owner.php:93
 msgid "Owner"
 msgstr "소유자"
 
-#: ../poll_properties.php:52
+#: ../poll_properties.php:50
 #, php-format
 msgid "Warning: you have changed voters from %s to %s.  It is advisable to reset the poll to remove all previous votes."
 msgstr "경고: %s에서 %s로 투표자를 변경하였습니다. 모든 지난 투표를 삭제하도록 설문을 초기화할 것을 조언합니다."
 
-#: ../poll_properties.php:53 ../poll_properties.php:105
+#: ../poll_properties.php:51 ../poll_properties.php:104
 msgid "Everybody"
 msgstr ""
 
-#: ../poll_properties.php:54 ../poll_properties.php:105
+#: ../poll_properties.php:52 ../poll_properties.php:104
 #, fuzzy
 msgid "Logged in"
 msgstr "로그인"
 
-#: ../poll_properties.php:73 ../poll_properties.php:77
+#: ../poll_properties.php:71 ../poll_properties.php:77
 msgid "Poll Properties"
 msgstr "설문 등록정보"
 
-#: ../poll_properties.php:88
+#: ../poll_properties.php:87
 msgid "Type of poll for this album"
 msgstr "이 앨범에 대한 설문 형식"
 
-#: ../poll_properties.php:89
+#: ../poll_properties.php:88
 msgid "Rank"
 msgstr "순위"
 
-#: ../poll_properties.php:89
+#: ../poll_properties.php:88
 msgid "Critique"
 msgstr "평론"
 
-#: ../poll_properties.php:92
+#: ../poll_properties.php:91
 msgid "Number of voting options"
 msgstr "투표 항목수"
 
-#: ../poll_properties.php:96
+#: ../poll_properties.php:95
 msgid "Show results of voting to all visitors?"
 msgstr "모든 방문객에게 투표결과 보이기?"
 
-#: ../poll_properties.php:100
+#: ../poll_properties.php:99
 msgid "Number of lines of results graph to display on the album page"
 msgstr "앨범 페이지에 표시되는 결과 그래프의 줄수"
 
-#: ../poll_properties.php:104
+#: ../poll_properties.php:103
 msgid "Who can vote"
 msgstr "투표할 수 있는 이"
 
-#: ../poll_properties.php:108
+#: ../poll_properties.php:107
 msgid "Orientation of vote choices"
 msgstr "투표 선택 방향"
 
-#: ../poll_properties.php:109 ../rotate_photo.php:80
+#: ../poll_properties.php:108 ../rotate_photo.php:81
 msgid "Horizontal"
 msgstr "수평"
 
-#: ../poll_properties.php:109 ../rotate_photo.php:83
+#: ../poll_properties.php:108 ../rotate_photo.php:84
 msgid "Vertical"
 msgstr "수직"
 
-#: ../poll_properties.php:112
+#: ../poll_properties.php:111
 msgid "Vote hint"
 msgstr "투표 힌트"
 
-#: ../poll_properties.php:121
+#: ../poll_properties.php:120
 msgid "Displayed Value"
 msgstr "표시되는 값"
 
-#: ../poll_properties.php:122
+#: ../poll_properties.php:137
 #, fuzzy
-msgid "Points"
-msgstr "분"
+msgid "Apply values to nested Albums."
+msgstr "하위 앨범까지 적용"
 
 #: ../poll_results.php:61
 msgid "Poll Results"
@@ -2273,102 +2244,102 @@ msgstr "결과 분석"
 msgid "Uploading Photos"
 msgstr "사진 업로딩중"
 
-#: ../progress_uploading.php:40
+#: ../progress_uploading.php:41
 msgid "File upload in progress!"
 msgstr "파일 업로드 진행중!"
 
-#: ../progress_uploading.php:42
+#: ../progress_uploading.php:44
 msgid "This page will go away automatically when the upload is complete.  Please be patient!"
 msgstr "이 페이지는 업로드가 끝난 후 자동으로 사라집니다. 잠시 기다리세요!"
 
-#: ../publish_xp.php:45
+#: ../publish_xp.php:43
 #, php-format
 msgid "Publish Your Photos and Movies to %s."
 msgstr "당신의 사진과 무비를 %s에 출판."
 
-#: ../publish_xp.php:86
+#: ../publish_xp.php:84
 msgid "Username and Password are not correct."
 msgstr "아이디와 비밀번호가 틀립니다."
 
-#: ../publish_xp.php:91
+#: ../publish_xp.php:89
 msgid "Please Enter Username and Password"
 msgstr "아이디와 비밀번호를 입력하세요"
 
-#: ../publish_xp.php:105
+#: ../publish_xp.php:103
 msgid "Username:"
 msgstr "아이디:"
 
-#: ../publish_xp.php:109
+#: ../publish_xp.php:107
 msgid "Password:"
 msgstr "비밀번호:"
 
-#: ../publish_xp.php:129
+#: ../publish_xp.php:127
 msgid "Select the Album to which to Publish"
 msgstr "출판할 앨범 선택"
 
-#: ../publish_xp.php:154
+#: ../publish_xp.php:152
 msgid "Use filenames as captions"
 msgstr "파일명을 제목으로 사용"
 
-#: ../publish_xp.php:157 ../publish_xp.php:271
+#: ../publish_xp.php:155 ../publish_xp.php:269
 msgid "Create New Album"
 msgstr "새 앨범 생성"
 
-#: ../publish_xp.php:202 ../publish_xp.php:235
+#: ../publish_xp.php:200 ../publish_xp.php:233
 msgid "Not Logged In!"
 msgstr "로그인하지 않았습니다!"
 
-#: ../publish_xp.php:206
+#: ../publish_xp.php:204
 msgid "No album specified!"
 msgstr "앨범 정의 안됨!"
 
-#: ../publish_xp.php:208
+#: ../publish_xp.php:206
 #, php-format
 msgid "This user cannot add photos in %s."
 msgstr "이 회원은 %s에 사진을 추가할 수 없습니다."
 
-#: ../publish_xp.php:214 ../publish_xp.php:313
+#: ../publish_xp.php:212 ../publish_xp.php:311
 msgid "Press the 'Back' button and try again!"
 msgstr "'뒤로'버튼을 누르고 다시 시도하세요!"
 
-#: ../publish_xp.php:240
+#: ../publish_xp.php:238
 msgid "User cannot create ROOT level album."
 msgstr "회원은 ROOT레벨 앨범을 생성할 수 없습니다."
 
-#: ../publish_xp.php:248
+#: ../publish_xp.php:246
 #, php-format
 msgid "User cannot create nested album in %s."
 msgstr "회원은 %s에 하위 앨범을 생성할 수 없습니다."
 
-#: ../publish_xp.php:251
+#: ../publish_xp.php:249
 msgid "No Parent Album Specified!"
 msgstr "부모 앨범 정의 안됨!"
 
-#: ../publish_xp.php:275
+#: ../publish_xp.php:273
 msgid "Enter New Album Title"
 msgstr "새 앨범 제목을 입력하세요"
 
-#: ../publish_xp.php:278
+#: ../publish_xp.php:276
 msgid "Select Parent Album"
 msgstr "부모 앨범을 선택하세요"
 
-#: ../publish_xp.php:285
+#: ../publish_xp.php:283
 msgid "NEW TOP LEVEL ALBUM"
 msgstr "새로운 최상위 앨범"
 
-#: ../publish_xp.php:340
+#: ../publish_xp.php:338
 msgid "User cannot add to album"
 msgstr "회원은 앨범을 추가할 수 없습니다."
 
-#: ../publish_xp.php:344
+#: ../publish_xp.php:342
 msgid "No file specified"
 msgstr "파일 정의 안됨"
 
-#: ../publish_xp.php:441
+#: ../publish_xp.php:439
 msgid "Photo Upload"
 msgstr "사진 업로드"
 
-#: ../publish_xp.php:441
+#: ../publish_xp.php:439
 msgid "Upload Photos to"
 msgstr "사진 업로드 : "
 
@@ -2376,160 +2347,165 @@ msgstr "사진 업로드 : "
 msgid "Publishing with Windows XP"
 msgstr "Windows XP로 출판"
 
-#: ../publish_xp_docs.php:34
+#: ../publish_xp_docs.php:36
 msgid "Using the Windows XP <i>Publish To the Web</i> feature"
 msgstr "Windows XP <i>웹에 출판</i> 기능을 사용"
 
-#: ../publish_xp_docs.php:37
+#: ../publish_xp_docs.php:41
 #, php-format
 msgid "Windows XP comes with a nice feature that allows you to publish content from your desktop directly to a web service.  %s <b>has experimental</b> support for this feature."
 msgstr "좋은 기능의 Windows XP는 당신의 데스트탑에서 웹서비스로 직접 내용을 출판하는 것을 허용합니다. %s는 이 기능을 <b>실험적</b>으로 지원합니다."
 
-#: ../publish_xp_docs.php:38
+#: ../publish_xp_docs.php:42
 msgid "It's relatively easy to configure."
 msgstr "설정에 비해 쉽습니다."
 
-#: ../publish_xp_docs.php:43
+#: ../publish_xp_docs.php:47
 msgid "Step 1"
 msgstr "Step1"
 
-#: ../publish_xp_docs.php:46
+#: ../publish_xp_docs.php:50
 #, php-format
 msgid "Download the %sXP Configuration File%s"
 msgstr "%sXP 설정파일%s 다운로드"
 
-#: ../publish_xp_docs.php:48
+#: ../publish_xp_docs.php:52
 #, php-format
 msgid "Save this file on your PC and rename it %s."
 msgstr "이 파일을 당신의 PC에 저장하고 이름을 바꾸세요%s."
 
-#: ../publish_xp_docs.php:49
+#: ../publish_xp_docs.php:53
 msgid "If it asks you for confirmation about changing the file type, answer &quot;yes&quot;."
 msgstr "파일 형식 변경에 대한 확인을 물어보면, &quot;예&quot;로 답하세요."
 
-#: ../publish_xp_docs.php:50
+#: ../publish_xp_docs.php:54
 msgid "Right click on this file and you should see a menu appear."
 msgstr "이 파일에 오른쪽 클릭하면 메뉴가 나타나는 것을 보실 수 있습니다."
 
-#: ../publish_xp_docs.php:51
+#: ../publish_xp_docs.php:55
 msgid "Select the <b>Merge</b> option (this should be at the top of the menu)."
 msgstr "<b>병합</b> 옵션을 선택하세요 (메뉴 상단에 위치합니다)."
 
-#: ../publish_xp_docs.php:52
+#: ../publish_xp_docs.php:56
 msgid "It will ask you if you want to import these values into your registry."
 msgstr "당신의 레지스트리에 이 값들을 임포트하시길 원하는 지 묻게 됩니다."
 
-#: ../publish_xp_docs.php:53
+#: ../publish_xp_docs.php:57
 msgid "Click &quot;ok&quot;."
 msgstr "&quot;ok&quot;를 클릭하세요."
 
-#: ../publish_xp_docs.php:54
+#: ../publish_xp_docs.php:58
 msgid "It will tell you that the files were imported successfully."
 msgstr "파일이 성공적으로 임포트되었다고 말할 겁니다."
 
-#: ../publish_xp_docs.php:55
+#: ../publish_xp_docs.php:59
 msgid "Click &quot;ok&quot; again."
 msgstr "다시 &quot;ok&quot;를 클릭하세요."
 
-#: ../publish_xp_docs.php:59
+#: ../publish_xp_docs.php:63
 msgid "Step 2"
 msgstr "Step 2"
 
-#: ../publish_xp_docs.php:61
+#: ../publish_xp_docs.php:65
 #, fuzzy
 msgid "Open your Windows explorer and browse to a folder containing supported images."
 msgstr "Windows 탐색기를 열고, JPG 이미지를 포함하고 있는 폴더를 브라우즈하세요."
 
-#: ../publish_xp_docs.php:62
+#: ../publish_xp_docs.php:66
 #, fuzzy
 msgid "Select the image(s) or a folder and there should be a link on the left that says &quot;Publish this file to the web...&quot;"
 msgstr "이미지를 선택하면 &quot;이 파일을 웹에 출판...&quot;같은 링크가 나옵니다 "
 
-#: ../publish_xp_docs.php:63
+#: ../publish_xp_docs.php:67
 msgid "Click this link and then follow the instructions to log into your Gallery, select an album and publish the image."
 msgstr "이 링크를 클릭해서 설명에 따라 당신의 갤러리에 로그온하시고 앨범을 선택하여 이미지를 출판하세요."
 
-#: ../publish_xp_docs.php:68
+#: ../publish_xp_docs.php:72
 msgid "Return to Add Photos"
 msgstr "사진 추가로 돌아가기"
 
-#: ../register.php:37 ../register.php:41
+#: ../register.php:32 ../register.php:38
 #, php-format
 msgid "Create User for %s."
 msgstr "%s를 위한 회원 생성"
 
-#: ../register.php:45
+#: ../register.php:43
 msgid "This Gallery does not support self-registration by visitors."
 msgstr "이 갤러리는 방문자 스스로 가입하는 것을 지원하지 않습니다."
 
-#: ../register.php:77
+#: ../register.php:74
 msgid "You must specify a name."
 msgstr "이름를 지정하셔야 합니다."
 
-#: ../register.php:82
+#: ../register.php:79
 msgid "You must specify a valid email address."
 msgstr "올바른 이메일 주소를 지정하셔야 합니다."
 
-#: ../register.php:104
+#: ../register.php:101
 #, php-format
 msgid "%s has registered.  Email has been sent to %s."
 msgstr "%s님이 가입했습니다. %s님에게 이메일을 전송하였습니다."
 
-#: ../register.php:112
+#: ../register.php:109
 msgid "Gallery Self Registration"
 msgstr "갤러리 회원가입"
 
-#: ../register.php:114
+#: ../register.php:111
 #, php-format
 msgid "An email has been sent to %s."
 msgstr "%s님에게 이메일이 전송되었습니다."
 
-#: ../register.php:116
+#: ../register.php:113
 msgid "Your account information is contained within the email."
 msgstr "당신의 계정 정보는 이메일 안에 포함되었습니다."
 
-#: ../register.php:118
+#: ../register.php:115
 #, fuzzy
 msgid "Email could not be sent.  Please contact gallery administrator to register on this site"
 msgstr "이메일이 전송될 수 없습니다. 이 사이트의 갤러리 관리자에게 회원가입에 대해 문의하세요."
 
-#: ../register.php:138
+#: ../register.php:135
 msgid "Your account information will be sent to the email address you provide."
 msgstr "당신의 계정 정보는 당신이 제공한 이메일주소로 전송되어집니다."
 
-#: ../rename_album.php:37 ../rename_album.php:41 ../view_album.php:996
+#: ../rename_album.php:29
+#, fuzzy
+msgid "You are not allowed to perform this action !"
+msgstr "이 설문에 투표한 적이 없습니다."
+
+#: ../rename_album.php:37 ../rename_album.php:42 ../view_album.php:1008
 msgid "Rename Album"
 msgstr "앨범 이름바꾸기"
 
-#: ../rename_album.php:95
+#: ../rename_album.php:94
 msgid "There is already an album with that name!"
 msgstr "이미 이름을 가진 앨범이 존재합니다!"
 
-#: ../rename_album.php:115
+#: ../rename_album.php:114
 msgid "What do you want to name this album?"
 msgstr "이 앨범에 어떤 이름을 지으실 건가요?"
 
-#: ../rename_album.php:117
+#: ../rename_album.php:116
 msgid "The name cannot contain any of the following characters"
 msgstr "이름에 아래 문자들은 포함될 수 없습니다."
 
-#: ../rename_album.php:118
+#: ../rename_album.php:117
 msgid "or"
 msgstr "또는"
 
-#: ../rename_album.php:118
+#: ../rename_album.php:117
 msgid "spaces"
 msgstr "공백"
 
-#: ../rename_album.php:119
+#: ../rename_album.php:118
 msgid "Those characters will be ignored in your new album name."
 msgstr "이 문자들은 새로운 앨범명에서 무시됩니다."
 
-#: ../rename_album.php:127
+#: ../rename_album.php:126
 msgid "Rename"
 msgstr "이름변경"
 
-#: ../reset_votes.php:52 ../reset_votes.php:56
+#: ../reset_votes.php:50 ../reset_votes.php:56
 msgid "Reset Voting"
 msgstr "투표 초기화"
 
@@ -2542,225 +2518,225 @@ msgstr "%s에 있는 모든 투표결과를 삭제하시겠습니까?"
 msgid "Remove Votes"
 msgstr "투표 삭제"
 
-#: ../resize_photo.php:39
+#: ../resize_photo.php:37
 msgid "Resize Photo"
 msgstr "사진 크기조정"
 
-#: ../resize_photo.php:43
-msgid "Resizing photos"
-msgstr "사진 크기조정"
-
-#: ../resize_photo.php:54
+#: ../resize_photo.php:52
 #, php-format
 msgid "Resizing %d photos..."
 msgstr "%d 사진 크기조정"
 
-#: ../resize_photo.php:57
+#: ../resize_photo.php:55
 msgid "Processing image"
 msgstr "이미지 처리 중"
 
-#: ../resize_photo.php:63
+#: ../resize_photo.php:61
 msgid "Resizing 1 photo..."
 msgstr "1개의 사진 크기조정"
 
-#: ../resize_photo.php:75
+#: ../resize_photo.php:74
+msgid "Resizing photos"
+msgstr "사진 크기조정"
+
+#: ../resize_photo.php:76
 #, fuzzy
 msgid "This will resize your intermediate photos so that the longest side of the photo is equal to the target size below and the filesize will be close to the chosen size."
 msgstr "이것은  가장 큰 폭의 사진이 아래의 목표 파일 폭과 파일크기가 선택된 크기에 가깝도록 당신의 사진을 크기조정할 것입니다."
 
-#: ../resize_photo.php:80
+#: ../resize_photo.php:81
 #, fuzzy
 msgid "What is the target size for all the intermediate photos in this album?"
 msgstr "이 앨범내의 모든 사진들의 목표 크기가 얼마입니까?"
 
-#: ../resize_photo.php:80
+#: ../resize_photo.php:81
 #, fuzzy
 msgid "What is the target size for the intermediate version of this photo?"
 msgstr "이 사진의 목표 크기가 얼마입니까?"
 
-#: ../resize_photo.php:91
+#: ../resize_photo.php:92
 msgid "Target filesize"
 msgstr "목표 파일크기"
 
-#: ../resize_photo.php:95
+#: ../resize_photo.php:96
 msgid "Maximum side length in pixels"
 msgstr "최대 폭(픽셀)"
 
-#: ../resize_photo.php:109
+#: ../resize_photo.php:110
 msgid "(manual value)"
 msgstr "(사용자값)"
 
-#: ../resize_photo.php:118
+#: ../resize_photo.php:119
 msgid "Get rid of resized"
 msgstr "리사이즈 제거"
 
-#: ../resize_photo.php:119
+#: ../resize_photo.php:120
 msgid "(Use only the original picture)"
 msgstr "(원본 사진만 사용)"
 
-#: ../resize_photo.php:124
+#: ../resize_photo.php:125
 msgid "Change Size"
 msgstr "크기변경"
 
-#: ../rotate_photo.php:40 ../rotate_photo.php:46
+#: ../rotate_photo.php:38 ../rotate_photo.php:46
 msgid "Rotate/Flip Photo"
 msgstr "사진 회전/반사"
 
-#: ../rotate_photo.php:51
+#: ../rotate_photo.php:52
 msgid "Rotating/Flipping photo."
 msgstr "사진 회전/반사."
 
-#: ../rotate_photo.php:53
+#: ../rotate_photo.php:54
 msgid "(this may take a while)"
 msgstr "(시간이 좀 소요됩니다.)"
 
-#: ../rotate_photo.php:62
+#: ../rotate_photo.php:63
 msgid "Manipulate again?"
 msgstr ""
 
-#: ../rotate_photo.php:64
+#: ../rotate_photo.php:65
 msgid "How do you want to manipulate this photo?"
 msgstr "이 사진을 어떻게 처리하시겠습니까?"
 
-#: ../rotate_photo.php:69
+#: ../rotate_photo.php:70
 msgid "Rotate"
 msgstr "회전"
 
-#: ../rotate_photo.php:71
+#: ../rotate_photo.php:72
 msgid "Counter-Clockwise"
 msgstr "반시계방향"
 
-#: ../rotate_photo.php:77
+#: ../rotate_photo.php:78
 msgid "Clockwise"
 msgstr "시계방향"
 
-#: ../rotate_photo.php:78
+#: ../rotate_photo.php:79
 msgid "Flip"
 msgstr "반사"
 
-#: ../save_photos.php:56
+#: ../save_photos.php:51
 msgid "Processing and Saving Photos"
 msgstr "사진 처리 저장중"
 
-#: ../save_photos.php:67
+#: ../save_photos.php:62
 msgid "Fetching Urls..."
 msgstr "Url 가져오기중..."
 
-#: ../save_photos.php:83
+#: ../save_photos.php:79
 #, php-format
 msgid "Processing %s as a local directory."
 msgstr "로컬 디렉토리처럼 %s 처리중."
 
-#: ../save_photos.php:152
+#: ../save_photos.php:148
 #, php-format
 msgid "Could not open url: %s"
 msgstr "url을 열 수 없습니다: %s"
 
-#: ../save_photos.php:181
+#: ../save_photos.php:177
 #, fuzzy, php-format
 msgid "Parsing %s for images..."
 msgstr "이미지 %d 처리중..."
 
-#: ../save_photos.php:246
+#: ../save_photos.php:242
 #, php-format
 msgid "Found %d images"
 msgstr "%d 이미지 발견"
 
-#: ../save_photos.php:253
+#: ../save_photos.php:250
 msgid "Processing status..."
 msgstr "진행상태..."
 
-#: ../save_photos.php:362
+#: ../save_photos.php:357
 msgid "No images uploaded!"
 msgstr "업로드된 이미지가 없습니다!"
 
-#: ../save_photos.php:412
+#: ../save_photos.php:408
 #, php-format
 msgid "%d meta file(s) found.  These files contain information about the images, such as titles and descriptions."
 msgstr ""
 
-#: ../save_photos.php:443
+#: ../save_photos.php:439
 msgid "Add Files"
 msgstr "모든 필드"
 
-#: ../search.php:59
+#: ../search.php:57
 msgid "Search Again"
 msgstr "다시 검색"
 
-#: ../search.php:72 ../search.php:292 ../slideshow.php:199
-#: ../slideshow.php:214 ../view_album.php:142 ../view_photo.php:177
+#: ../search.php:70 ../search.php:290 ../slideshow.php:197
+#: ../slideshow.php:212 ../view_album.php:140 ../view_photo.php:174
 msgid "Gallery"
 msgstr "갤러리"
 
-#: ../search.php:96
+#: ../search.php:94
 #, php-format
 msgid "Albums containing %s"
 msgstr "%s 포함된 앨범"
 
-#: ../search.php:151
+#: ../search.php:149
 msgid "No Album Matches"
 msgstr "일치하는 앨범이 없습니다."
 
-#: ../search.php:158
+#: ../search.php:156
 #, php-format
 msgid "Photos containing %s"
 msgstr "%s 포함된 사진"
 
-#: ../search.php:177
+#: ../search.php:175
 #, fuzzy
 msgid "Caption:"
 msgstr "제목"
 
-#: ../search.php:193
+#: ../search.php:191
 msgid "Matching Comments"
 msgstr "일치하는 코멘트"
 
-#: ../search.php:231
+#: ../search.php:229
 msgid "From Album"
 msgstr "앨범명"
 
-#: ../search.php:236 ../view_photo_properties.php:111
+#: ../search.php:234 ../view_photo_properties.php:112
 msgid "KEYWORDS"
 msgstr "키워드"
 
-#: ../search.php:249
+#: ../search.php:247
 msgid "No Photo Matches"
 msgstr "일치하는 사진이 없습니다"
 
-#: ../search.php:254
+#: ../search.php:252
 #, php-format
 msgid "Some albums not searched as they require upgrading to the latest version of %s first"
 msgstr "일부 앨범이 %s의 최근 버전으로 업그레이가 되지 않아 검색이 되지 않습니다. 먼저 업그레이드 하세요."
 
-#: ../search.php:257
+#: ../search.php:255
 msgid "upgrade all albums"
 msgstr "모든 앨범 업그레이드"
 
-#: ../search.php:278
+#: ../search.php:276
 msgid "Search the Gallery's Album and Photo<br> titles, descriptions and comments"
 msgstr "갤러리 앨범과 사진의<br>제목, 설명, 코멘트를 검색합니다."
 
-#: ../search.php:284
+#: ../search.php:282
 msgid "Go"
 msgstr "검색"
 
-#: ../slideshow.php:93
+#: ../slideshow.php:91
 msgid "Fullscreen applet"
 msgstr ""
 
-#: ../slideshow.php:96
+#: ../slideshow.php:94
 msgid "Modern browsers"
 msgstr ""
 
-#: ../slideshow.php:99
+#: ../slideshow.php:97
 msgid "Compatible but limited"
 msgstr ""
 
-#: ../slideshow.php:238
+#: ../slideshow.php:236
 msgid "Slide Show"
 msgstr "슬라이드 쇼"
 
-#: ../sort_album.php:38 ../sort_album.php:59
+#: ../sort_album.php:36 ../sort_album.php:59
 msgid "Sort Album"
 msgstr "앨범 정렬"
 
@@ -2812,602 +2788,431 @@ msgstr "내림차순"
 msgid "Sort"
 msgstr "정렬"
 
-#: ../tools/find_orphans.php:188 ../tools/find_orphans.php:198
-msgid "Find Orphans"
-msgstr ""
-
-#: ../tools/find_orphans.php:203
+#: ../tools/find_orphans.php:117
 #, fuzzy
-msgid "Orphaned Albums:"
+msgid "Orphaned Albums"
 msgstr "앨범 업그레이드"
 
-#: ../tools/find_orphans.php:204
-msgid "Orphaned Albums will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there."
+#: ../tools/find_orphans.php:124
+msgid "Orphans will be re-attached to their parent albums, if at all possible.  If the parent album is missing, the orphan will be attached to the Gallery Root, and it can be moved to a new location from there."
 msgstr ""
 
-#: ../tools/find_orphans.php:208
-#, fuzzy
-msgid "Parent Album"
-msgstr "부모 앨범을 선택하세요"
-
-#: ../tools/find_orphans.php:210
+#: ../tools/find_orphans.php:126
 #, fuzzy
 msgid "Orphaned Album"
 msgstr "앨범 업그레이드"
 
-#: ../tools/find_orphans.php:217
+#: ../tools/find_orphans.php:126
+#, fuzzy
+msgid "Parent Album"
+msgstr "부모 앨범을 선택하세요"
+
+#: ../tools/find_orphans.php:130
 #, fuzzy
 msgid "Gallery Root"
 msgstr "갤러리"
 
-#: ../tools/find_orphans.php:231
-#, fuzzy
-msgid "Re-Attach Orphaned Albums!"
-msgstr "앨범 업그레이드"
-
-#: ../tools/find_orphans.php:238
-#, fuzzy
-msgid "Orphaned Files:"
-msgstr "앨범 업그레이드"
-
-#: ../tools/find_orphans.php:241
-msgid "Orphaned files will be deleted from the disk.  Orphaned files should never exist - if they do, they are the result of a failed upload attempt, or other more serious issue such as the photos database being overwritten with bad information."
+#: ../tools/find_orphans.php:136
+msgid "Correct Them!"
 msgstr ""
 
-#: ../tools/find_orphans.php:245
-#, fuzzy
-msgid "Album directory"
-msgstr "URL 또는 디렉토리 승인"
-
-#: ../tools/find_orphans.php:247
-#, fuzzy
-msgid "Orphaned file"
-msgstr "앨범 업그레이드"
-
-#: ../tools/find_orphans.php:270
-#, fuzzy
-msgid "Delete Orphaned Files!"
-msgstr "앨범 업그레이드"
-
-#: ../tools/find_orphans.php:276
-msgid "No Orphans Found"
-msgstr ""
-
-#: ../tools/find_orphans.php:277
-#, fuzzy
-msgid "There are no orphaned elements in this Gallery."
-msgstr "%s 호출에서 알 수 없는 실패가 있습니다!"
-
-#: ../tools/find_orphans.php:281
-#, php-format
-msgid "Orphan %s Repaired"
-msgstr ""
-
-#: ../tools/find_orphans.php:281
-#, fuzzy
-msgid "Albums"
-msgstr "앨범"
-
-#: ../tools/find_orphans.php:282
-#, fuzzy
-msgid "Files"
-msgstr "파일"
-
-#: ../tools/find_orphans.php:287 ../tools/despam-comments.php:55
+#: ../tools/find_orphans.php:142 ../tools/find_orphans.php:149
 #, fuzzy
 msgid "Return to Gallery"
 msgstr "갤러리 들어가기"
 
-#: ../tools/despam-comments.php:54
+#: ../tools/find_orphans.php:146
 #, fuzzy
-msgid "Find and remove comment spam"
-msgstr "코멘트 보기"
+msgid "There are no orphaned albums in this Gallery."
+msgstr "%s 호출에서 알 수 없는 실패가 있습니다!"
 
-#: ../tools/despam-comments.php:99
-#, fuzzy
-msgid "Delete Comments"
-msgstr "코멘트 삭제"
-
-#: ../tools/despam-comments.php:101 ../tools/despam-comments.php:240
-#: ../tools/despam-comments.php:251 ../tools/despam-comments.php:323
-#, fuzzy
-msgid "No action taken!"
-msgstr "제목 없음"
-
-#: ../tools/despam-comments.php:125 ../tools/despam-comments.php:129
-#, fuzzy, php-format
-msgid "Deleted %d spam comments"
-msgstr "코멘트 삭제"
-
-#: ../tools/despam-comments.php:175
-#, php-format
-msgid "Scanned %d albums, %d photos, %d comments in %2.2f seconds"
-msgstr ""
-
-#: ../tools/despam-comments.php:181
-#, fuzzy
-msgid "No spam comments"
-msgstr "코멘트 추가"
-
-#: ../tools/despam-comments.php:186 ../tools/despam-comments.php:337
-#, fuzzy
-msgid "Entry"
-msgstr "비어있음"
-
-#: ../tools/despam-comments.php:190
-#, fuzzy
-msgid "Location"
-msgstr "사용설명서"
-
-#: ../tools/despam-comments.php:194
-#, fuzzy
-msgid "Commenter"
-msgstr "생성"
-
-#: ../tools/despam-comments.php:198
-#, fuzzy
-msgid "Comment"
-msgstr "생성"
-
-#: ../tools/despam-comments.php:211
-#, fuzzy
-msgid "Delete Checked Comments"
-msgstr "코멘트 삭제"
-
-#: ../tools/despam-comments.php:238
-msgid "Delete from blacklist"
-msgstr ""
-
-#: ../tools/despam-comments.php:255 ../tools/despam-comments.php:302
-msgid "Error saving blacklist!"
-msgstr ""
-
-#: ../tools/despam-comments.php:257
-msgid "Removed from blacklist"
-msgstr ""
-
-#: ../tools/despam-comments.php:305
-msgid "Added to blacklist"
-msgstr ""
-
-#: ../tools/despam-comments.php:314
-msgid "Duplicates (not added)"
-msgstr ""
-
-#: ../tools/despam-comments.php:330
-#, fuzzy
-msgid "Current blacklist"
-msgstr "현 위치"
-
-#: ../tools/despam-comments.php:332
-msgid "Your blacklist is empty.  You must add new entries to your blacklist for it to be useful."
-msgstr ""
-
-#: ../tools/despam-comments.php:347 ../tools/despam-comments.php:364
-msgid "Update Blacklist"
-msgstr ""
-
-#: ../tools/despam-comments.php:354
-msgid "Enter new blacklist entries"
-msgstr ""
-
-#: ../tools/despam-comments.php:355
-msgid "Useful blacklists: <ul> "
-msgstr ""
-
-#: ../tools/despam-comments.php:360
-msgid "You can just cut and paste these blacklists into the text box, or add new entries of your own."
-msgstr ""
-
-#: ../tools/despam-comments.php:386
-#, fuzzy
-msgid "Options"
-msgstr "제목"
-
-#: ../tools/despam-comments.php:389
-#, fuzzy
-msgid "Find blacklisted comments"
-msgstr "코멘트 삭제"
-
-#: ../tools/despam-comments.php:390
-msgid "View/Edit blacklist"
-msgstr ""
-
-#: ../tools/despam-comments.php:391
-msgid "Add blacklist entries"
-msgstr ""
-
-#: ../upgrade_album.php:89
+#: ../upgrade_album.php:86
 msgid "Progress"
 msgstr "진행과정"
 
-#: ../upgrade_album.php:121 ../upgrade_album.php:125
+#: ../upgrade_album.php:118 ../upgrade_album.php:123
 msgid "Upgrade Albums"
 msgstr "앨범 업그레이드"
 
-#: ../upgrade_album.php:129
+#: ../upgrade_album.php:126
 msgid "The following albums in your gallery were created with an older version of the software and are out of date."
 msgstr "다음 앨범은 구 버전에서 생성된 것입니다."
 
-#: ../upgrade_album.php:131 ../upgrade_users.php:42
+#: ../upgrade_album.php:128 ../upgrade_users.php:45
 msgid "This is not a problem!"
 msgstr "이건 문제가 아닙니다!"
 
-#: ../upgrade_album.php:133
+#: ../upgrade_album.php:130
 msgid "We can upgrade them.  This may take some time for large albums but we'll try to keep you informed as we proceed."
 msgstr "업그레이드 할 수 있습니다. 용량이 큰 앨범의 경우 약간의 시간이 소요되지만 진행 과정을 알려드리겠습니다."
 
-#: ../upgrade_album.php:135
+#: ../upgrade_album.php:132
 msgid "None of your photos will be harmed in any way by this process."
 msgstr "이 과정에서 어떤 식으로든 사진에 손상이 가는 일은 없습니다."
 
-#: ../upgrade_album.php:137 ../upgrade_users.php:45
+#: ../upgrade_album.php:134 ../upgrade_users.php:48
 msgid "Rest assured, that if this process takes a long time now, it's going to make your gallery run more efficiently in the future."
 msgstr "시간이 좀 걸리기는 하지만 일단 이 과정을 거치면 갤러리가 더욱 효과적으로 동작하게 됩니다."
 
-#: ../upgrade_album.php:163
+#: ../upgrade_album.php:160
 msgid "All albums are up to date."
 msgstr "모든 앨범이 최신입니다."
 
-#: ../upgrade_album.php:168
+#: ../upgrade_album.php:165
 #, fuzzy, php-format
 msgid "The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."
 msgstr "다음 앨범의 업그레이드가 필요합니다. 원하는 앨범 옆에 있는 업그레이드 링크를 클릭하여 개별적으로 하거나 %s한꺼번에 업그레이드%s할 수 있습니다."
 
-#: ../upgrade_album.php:169
+#: ../upgrade_album.php:166
 msgid "upgrade them all at once"
 msgstr "모두 한번에 업그레이드"
 
-#: ../upgrade_album.php:177
+#: ../upgrade_album.php:174
 msgid "upgrade"
 msgstr "업그레이드"
 
-#: ../upgrade_album.php:179
+#: ../upgrade_album.php:176
 msgid "items"
 msgstr "아이템"
 
-#: ../upgrade_users.php:35 ../upgrade_users.php:39
+#: ../upgrade_users.php:35 ../upgrade_users.php:41
 msgid "Upgrading Users"
 msgstr "회원 업그레이드"
 
-#: ../upgrade_users.php:41
+#: ../upgrade_users.php:44
 msgid "The user database in your gallery was created with an older version of the software and is out of date."
 msgstr "당신의 갤러리에 있는 사용자 데이터베이스는 이전 버전에서 생성된 것입니다."
 
-#: ../upgrade_users.php:43
+#: ../upgrade_users.php:46
 msgid "We will upgrade it.  This may take some time."
 msgstr "우리는 그것을 업그레이드할 겁니다. 약간의 시간이 소요됩니다."
 
-#: ../upgrade_users.php:44
+#: ../upgrade_users.php:47
 msgid "Your data will not be harmed in any way by this process."
 msgstr "이 과정으로 당신의 데이터가 손상되는 일은 없습니다."
 
-#: ../upgrade_users.php:47
+#: ../upgrade_users.php:50
 msgid "If you get an error, and only some users are upgraded, try refreshing the page to upgrade remaining users."
 msgstr "에러가 있고, 일부 사용자만 업그레이드되었으면, 남아있는 사용자들을 업그레이드 하기 위해 페이지를 새로 고침하세요."
 
-#: ../upgrade_users.php:55
+#: ../upgrade_users.php:58
 msgid "There was a problem upgrading users.  Please check messages above, and try again"
 msgstr "업그레이드중 문제가 발생했습니다. 위 메시지 내용을 확인하시고 다시 시도하세요"
 
-#: ../upgrade_users.php:56
+#: ../upgrade_users.php:59
 msgid "Retry"
 msgstr "다시"
 
-#: ../upgrade_users.php:60
+#: ../upgrade_users.php:63
 msgid "Users upgraded successfully."
 msgstr "회원이 성공적으로 업그레이드 되었습니다."
 
-#: ../user_preferences.php:44
-#, fuzzy
-msgid "You are not allowed to change your username."
-msgstr "이 설문에 투표한 적이 없습니다."
-
-#: ../user_preferences.php:50
+#: ../user_preferences.php:42
 msgid "Incorrect password"
 msgstr "틀린 비밀번호"
 
-#: ../user_preferences.php:56
+#: ../user_preferences.php:48
 msgid "You must provide your old password to change it."
 msgstr "비밀번호를 변경하기 위해 반드시 이전 비밀번호를 준비해야 합니다."
 
-#: ../user_preferences.php:110 ../user_preferences.php:114
+#: ../user_preferences.php:102 ../user_preferences.php:108
 msgid "Change User Preferences"
 msgstr "회원 설정 변경"
 
-#: ../user_preferences.php:117
+#: ../user_preferences.php:111
 msgid "If you want to change your password, you must provide your old password and then enter the new one twice."
 msgstr "암호를 변경하시려면 이전 비밀번호를 입력하고, 새 비밀번호를 두 번 입력하세요."
 
-#: ../user_preferences.php:118
+#: ../user_preferences.php:112
 msgid "You can change your username to any combination of letters and digits."
 msgstr "아이디는 문자와 숫자의 조합으로 된 것으로 변경할 수 있습니다."
 
-#: ../util.php:95
+#: ../util.php:39
 msgid "Empty"
 msgstr "비어있음"
 
-#: ../util.php:99
+#: ../util.php:43
 #, php-format
 msgid "edit %s"
 msgstr "수정 %s"
 
-#: ../util.php:117
-msgid "No Caption"
-msgstr "제목 없음"
-
-#: ../util.php:121
+#: ../util.php:65
 msgid "edit"
 msgstr "수정"
 
-#: ../util.php:178
+#: ../util.php:122
 #, fuzzy
 msgid "Add your comment"
 msgstr "코멘트 추가"
 
-#: ../util.php:181
+#: ../util.php:125
 #, fuzzy
 msgid "Commenter:"
 msgstr "생성"
 
-#: ../util.php:198
+#: ../util.php:142
 #, fuzzy
 msgid "Message:"
 msgstr "에러 메세지:"
 
-#: ../util.php:202
+#: ../util.php:146
 #, fuzzy
 msgid "Post"
 msgstr "사진"
 
-#: ../util.php:209
+#: ../util.php:153
 msgid "Error:"
 msgstr "에러:"
 
-#: ../util.php:294
+#: ../util.php:234
 msgid "Executing:"
 msgstr ""
 
-#: ../util.php:301
+#: ../util.php:241
 msgid "Results:"
 msgstr "결과:"
 
-#: ../util.php:305
+#: ../util.php:245
 msgid "none"
 msgstr "없음"
 
-#: ../util.php:310
+#: ../util.php:250
 #, fuzzy
 msgid "Debug messages:"
 msgstr "에러 메세지:"
 
-#: ../util.php:321
+#: ../util.php:261
 #, php-format
 msgid "Status: %s (expected %s)"
 msgstr "상태: %s (기대 %s)"
 
-#: ../util.php:333
+#: ../util.php:273
 #, fuzzy, php-format
 msgid "The file %s does not exist ?!"
 msgstr "%s 파일은 존재하지 않습니다."
 
-#: ../util.php:345
+#: ../util.php:283
 #, php-format
 msgid "PHP's %s unable to determine dimensions."
 msgstr "PHP's %s 가 디멘션을 결정할 수 없습니다."
 
-#: ../util.php:365 ../util.php:669 ../util.php:924 ../util.php:970
-#: ../util.php:2462
+#: ../util.php:303 ../util.php:605 ../util.php:860 ../util.php:906
+#: ../util.php:2393
 msgid "You have no graphics package configured for use!"
 msgstr "사용할 수 있는 그래픽 패키지가 없습니다!"
 
-#: ../util.php:446 ../util.php:465
+#: ../util.php:384 ../util.php:403
 msgid "Not closing this window because debug mode is on"
 msgstr "디버그모드가 켜져 있어서 이 창을 닫을 수 업습니다."
 
-#: ../util.php:510
+#: ../util.php:448
 msgid "No resizing required"
 msgstr ""
 
-#: ../util.php:537
+#: ../util.php:475
 #, php-format
 msgid "target file size %d kbytes"
 msgstr "목표 파일사이지는 %d kbytes 입니다."
 
-#: ../util.php:543 ../util.php:573
+#: ../util.php:481 ../util.php:511
 #, fuzzy, php-format
 msgid "-> file size %d kbytes"
 msgstr "- 파일크기 %d kbytes"
 
-#: ../util.php:544
+#: ../util.php:482
 #, php-format
 msgid "trying quality %d%%"
 msgstr "품질 %d%%로 시도중"
 
-#: ../util.php:574
+#: ../util.php:512
 msgid "Done."
 msgstr "완료"
 
-#: ../util.php:673
+#: ../util.php:609
 #, fuzzy
 msgid "No watermark name specified!"
 msgstr "앨범 정의 안됨!"
 
-#: ../util.php:989
+#: ../util.php:925
 #, php-format
 msgid "Call to %s failed in %s for file %s!"
 msgstr ""
 
-#: ../util.php:995
+#: ../util.php:931
 #, php-format
 msgid "File %s type %d."
 msgstr ""
 
-#: ../util.php:1038 ../util.php:1061
+#: ../util.php:946
+#, php-format
+msgid "There was an unknown failure in the %s call!"
+msgstr "%s 호출에서 알 수 없는 실패가 있습니다!"
+
+#: ../util.php:970 ../util.php:993
 #, php-format
 msgid "Unknown file type: %s"
 msgstr "모르는 파일형식 : %s"
 
-#: ../util.php:1643
+#: ../util.php:1559
 #, php-format
 msgid "Can't write to %s."
 msgstr "%s에 쓸 수 없습니다."
 
-#: ../util.php:1650
+#: ../util.php:1566
 #, php-format
 msgid "Can't read %s."
 msgstr "%s를 읽을 수 없습니다."
 
-#: ../util.php:1763
+#: ../util.php:1679
 msgid "Select Album"
 msgstr "앨범 선택"
 
-#: ../util.php:1769
+#: ../util.php:1685
 msgid "Top Level"
 msgstr "상위 레벨"
 
-#: ../util.php:1790 ../util.php:1841
+#: ../util.php:1706 ../util.php:1757
 msgid "current location"
 msgstr "현 위치"
 
-#: ../util.php:1844
+#: ../util.php:1760
 msgid "self"
 msgstr "self"
 
-#: ../util.php:1909
+#: ../util.php:1856
 #, php-format
 msgid "IN UTIL ITEMCAPTUREDATE = %s"
 msgstr ""
 
-#: ../util.php:1954
+#: ../util.php:1900
 #, php-format
 msgid "Could not open lock file (%s)!"
 msgstr "lock파일 (%s)을 열 수 없습니다!"
 
-#: ../util.php:1959
+#: ../util.php:1905
 #, php-format
 msgid "Could not acquire lock (%s)!"
 msgstr "lock (%s)를 구할 수 없습니다!"
 
-#: ../util.php:2043
+#: ../util.php:1989
 #, fuzzy, php-format
 msgid "1 hit"
 msgid_plural "%d hits"
 msgstr[0] "1 조회"
 
-#: ../util.php:2048
+#: ../util.php:1994
 msgid "Sub-albums"
 msgstr "하위-앨범"
 
-#: ../util.php:2087
+#: ../util.php:2033
 #, php-format
 msgid "Skipping %s (ZIP support not enabled)"
 msgstr "건너뛰기중 %s (ZIP 지원이 가능하지 않습니다.)"
 
-#: ../util.php:2230
+#: ../util.php:2178
 #, php-format
 msgid "Adding %s"
 msgstr "추가중 %s"
 
-#: ../util.php:2264
+#: ../util.php:2196
 #, php-format
 msgid "Need help?  Look in the  %s%s FAQ%s"
 msgstr "도움이 필요하세요?  %s%s FAQ%s를 보시기 바랍니다."
 
-#: ../util.php:2270
+#: ../util.php:2202
 #, php-format
 msgid "Skipping %s (can't handle %s format)"
 msgstr "건너뛰기 %s (%s 형식은 취급할 수 없습니다)"
 
-#: ../util.php:2420
+#: ../util.php:2352
 msgid "documentation"
 msgstr "사용설명서"
 
-#: ../util.php:2447
+#: ../util.php:2378
 msgid "Unable to preserve EXIF data (jhead not installed)"
 msgstr "EXIF 데이터를 보존할 수 없습니다.(jhead 설치 안됨)"
 
-#: ../util.php:2479
+#: ../util.php:2403
 #, php-format
 msgid "Generated by %s v%s"
 msgstr "Generated by %s v%s"
 
-#: ../util.php:2481
+#: ../util.php:2405
 #, php-format
 msgid "Powered by %s v%s"
 msgstr "Powered by %s v%s"
 
-#: ../util.php:2531
+#: ../util.php:2455
 #, fuzzy, php-format
 msgid "Skipping invalid email address %s"
 msgstr "올바른 이메일 주소를 지정하셔야 합니다."
 
-#: ../util.php:2596
+#: ../util.php:2521
 #, fuzzy, php-format
 msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
 msgstr "주의: 웹사이트 %s에서 자동 생성된 이메일 메세지가 전송된 것입니다. 받으시는데 에러가 있다면, 이 메세지를 무시하세요."
 
-#: ../util.php:2598
+#: ../util.php:2523
 #, fuzzy, php-format
 msgid "Report abuse to %s"
 msgstr "%s로 돌아가기"
 
-#: ../util.php:2614
+#: ../util.php:2539
 #, fuzzy
 msgid "Email not sent as it is disabled for this gallery"
 msgstr "올바른 주소가 아니므로 %s에게 이메일을 전송할 수 없습니다."
 
-#: ../util.php:2618
+#: ../util.php:2543
 #, php-format
 msgid "Email not sent as no address provided"
 msgstr "주소가 없어 이메일을 전송할 수 없습니다."
 
-#: ../util.php:2623
+#: ../util.php:2548
 #, php-format
 msgid "Email not sent to %s as it is not a valid address"
 msgstr "올바른 주소가 아니므로 %s에게 이메일을 전송할 수 없습니다."
 
-#: ../util.php:2638
+#: ../util.php:2563
 #, php-format
 msgid "Sender address %s is invalid, using %s."
 msgstr ""
 
-#: ../util.php:2779 ../util.php:2784
+#: ../util.php:2588 ../util.php:2593
 msgid "not shown"
 msgstr ""
 
-#: ../util.php:2788
+#: ../util.php:2597
 msgid "Message"
 msgstr ""
 
-#: ../util.php:2792
+#: ../util.php:2601
 msgid "Email sent"
 msgstr "이메일 전송"
 
-#: ../util.php:2794
+#: ../util.php:2603
 #, fuzzy
 msgid "Email not sent"
 msgstr "이메일 전송"
 
-#: ../util.php:2808
+#: ../util.php:2617
 #, php-format
 msgid "Last comment %s."
 msgstr "마지막 코멘트 %s."
 
-#: ../util.php:2820
+#: ../util.php:2629
 msgid "FAILED"
 msgstr "실패함"
 
-#: ../util.php:2829
+#: ../util.php:2638
 msgid "Email activity"
 msgstr "이메일 활동성"
 
-#: ../util.php:2847
+#: ../util.php:2656
 #, php-format
 msgid "Cannot open logfile: %s"
 msgstr "로그파일을 열 수 없습니다: %s"
 
-#: ../util.php:2854
+#: ../util.php:2663
 #, fuzzy, php-format
 msgid ""
 "Hi !!FULLNAME!!,  \n"
@@ -3427,460 +3232,395 @@ msgstr ""
 "\n"
 "Gallery @ %s 관리자."
 
-#: ../util.php:2863 ../util.php:2865
+#: ../util.php:2672 ../util.php:2674
 msgid "gallery title"
 msgstr "갤러리 제목"
 
-#: ../util.php:2864
+#: ../util.php:2673
 msgid "gallery URL"
 msgstr "갤러리 URL"
 
-#: ../util.php:2891
-msgid "No Skin"
+#: ../util.php:2700
+msgid "<dt>None</dt><dd>The original look and feel.</dd>"
 msgstr ""
 
-#: ../util.php:2892
-#, php-format
-msgid "<dt>%s</dt><dd>The original look and feel.</dd>"
-msgstr ""
-
-#: ../util.php:2925 ../util.php:2928
-msgid "unknown"
-msgstr ""
-
-#: ../util.php:2931
-#, fuzzy
-msgid "Version"
-msgstr "권한"
-
-#: ../util.php:2933
-#, fuzzy
-msgid "Last Update"
-msgstr "마지막 페이지"
-
-#: ../util.php:2953 ../util.php:2958
+#: ../util.php:2747 ../util.php:2752
 #, fuzzy
 msgid "Dots"
 msgstr "투표"
 
-#: ../util.php:2954 ../util.php:2959
+#: ../util.php:2748 ../util.php:2753
 msgid "Solid"
 msgstr ""
 
-#: ../util.php:2957
+#: ../util.php:2751
 msgid "No frames"
 msgstr "틀 없음"
 
-#: ../util.php:2958
+#: ../util.php:2752
 msgid "Just a simple dashed border around the thumb."
 msgstr "미리보기 주위에 간단한 점선을 그립니다."
 
-#: ../util.php:2959
+#: ../util.php:2753
 msgid "Just a simple solid border around the thumb."
 msgstr "미리보기 주위에 간단한 실선을 그립니다."
 
-#: ../util.php:2980
+#: ../util.php:2774
 #, php-format
 msgid "Skipping %s."
 msgstr "%s 건너뛰기중..."
 
-#: ../util.php:2986
+#: ../util.php:2780
 #, fuzzy, php-format
 msgid "Can't open %s"
 msgstr "%s를 읽을 수 없습니다."
 
-#: ../util.php:3101 ../util.php:3120
+#: ../util.php:2881 ../util.php:2900
 #, fuzzy
 msgid "Not valid yet"
 msgstr "잘못된 회원"
 
-#: ../util.php:3362
+#: ../util.php:3144
 #, fuzzy
 msgid "EXIF Data"
 msgstr "추가할 EXIF자료 "
 
-#: ../view_album.php:127 ../view_photo.php:155
+#: ../view_album.php:125 ../view_photo.php:152
 msgid "navigate UP"
 msgstr ""
 
-#: ../view_album.php:270
+#: ../view_album.php:267
 #, fuzzy, php-format
 msgid "1 sub-album"
 msgid_plural "%d sub-albums"
 msgstr[0] "1 하위 앨범"
 
-#: ../view_album.php:270
+#: ../view_album.php:267
 msgid "No albums"
 msgstr "앨범 없음"
 
-#: ../view_album.php:272
+#: ../view_album.php:269
 msgid "0 pages"
 msgstr "0페이지"
 
-#: ../view_album.php:275
+#: ../view_album.php:272
 #, php-format
 msgid "%s and %s in this album on %s"
 msgstr "이 앨범에 %s과 %s가 있습니다.(%s)"
 
-#: ../view_album.php:278
+#: ../view_album.php:275
 #, php-format
 msgid "%s and %s in this album"
 msgstr "이 앨범에 %s과 %s가 있습니다."
 
-#: ../view_album.php:281
+#: ../view_album.php:278
 #, php-format
 msgid "%s in this album on %s"
 msgstr "이 앨범에 %s가 있습니다.(%s)"
 
-#: ../view_album.php:284
+#: ../view_album.php:281
 #, php-format
 msgid "%s in this album"
 msgstr "이 앨범에 %s"
 
-#: ../view_album.php:291
+#: ../view_album.php:288
 #, php-format
 msgid "%s are hidden"
 msgstr "%s가 숨김"
 
-#: ../view_album.php:293
+#: ../view_album.php:290
 #, php-format
 msgid "%s is hidden"
 msgstr "%s가 숨김"
 
-#: ../view_album.php:303
+#: ../view_album.php:300
 msgid "add photos"
 msgstr "복수사진 추가"
 
-#: ../view_album.php:316
+#: ../view_album.php:313
 msgid "new nested album"
 msgstr "하위 앨범 추가"
 
-#: ../view_album.php:322
+#: ../view_album.php:319
 msgid "custom fields"
 msgstr "사용자정의 필드"
 
-#: ../view_album.php:336
+#: ../view_album.php:333
 msgid "sort items"
 msgstr "항목 정렬"
 
-#: ../view_album.php:343
+#: ../view_album.php:340
 msgid "resize all"
 msgstr "전부 크기조정"
 
-#: ../view_album.php:351
+#: ../view_album.php:348
 msgid "rebuild thumbs"
 msgstr "썸네일 재생성"
 
-#: ../view_album.php:370
+#: ../view_album.php:367
 msgid "poll properties"
 msgstr "설문 등록정보"
 
-#: ../view_album.php:376
+#: ../view_album.php:373
 msgid "poll results"
 msgstr "설문 결과"
 
-#: ../view_album.php:382
+#: ../view_album.php:379
 msgid "poll reset"
 msgstr "설문 초기화"
 
-#: ../view_album.php:388
+#: ../view_album.php:385
 msgid "view comments"
 msgstr "코멘트 보기"
 
-#: ../view_album.php:396
+#: ../view_album.php:393
 #, fuzzy
 msgid "watermark album"
 msgstr "앨범명"
 
-#: ../view_album.php:461
+#: ../view_album.php:458
 msgid "admin options"
 msgstr "관리자 옵션"
 
-#: ../view_album.php:557
+#: ../view_album.php:552
 msgid "You have no votes recorded for this poll."
 msgstr "이 설문에 투표한 적이 없습니다."
 
-#: ../view_album.php:563
+#: ../view_album.php:558
 msgid "Your current choices are"
 msgstr "당신의 현재 선택은"
 
-#: ../view_album.php:606
+#: ../view_album.php:600
 #, fuzzy
 msgid "See full poll results"
 msgstr "설문 결과"
 
-#: ../view_album.php:630
+#: ../view_album.php:622
 msgid ", "
 msgstr ","
 
-#: ../view_album.php:632
+#: ../view_album.php:624
 msgid " or "
 msgstr " 또는 "
 
-#: ../view_album.php:637
+#: ../view_album.php:629
 #, php-format
 msgid "To vote for an image, click on %s."
 msgstr "이미지에 대해 투표하시려면, %s를 클릭하세요."
 
-#: ../view_album.php:638
+#: ../view_album.php:630
 #, php-format
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "투표가 기록되려면 반드시 %s를 클릭하셔야 합니다."
 
-#: ../view_album.php:643
+#: ../view_album.php:635
 #, php-format
 msgid "You have a total of %s and can change them if you wish."
 msgstr "총 %s를 가지고 있으며, 원하신다면 변경할 수 있습니다."
 
-#: ../view_album.php:644
+#: ../view_album.php:636
 #, fuzzy, php-format
 msgid "1 vote"
 msgid_plural "%d votes"
 msgstr[0] "1 투표"
 
-#: ../view_album.php:649
+#: ../view_album.php:641
 msgid "You can change your choices if you wish."
 msgstr "원하신다면 선택을 변경할 수 있습니다."
 
-#: ../view_album.php:811 ../view_album.php:812
+#: ../view_album.php:815 ../view_album.php:816
 #, php-format
 msgid "%dkB"
 msgstr ""
 
-#: ../view_album.php:872
-#, fuzzy
-msgid "highlight"
-msgstr "하이라이트 없음"
-
-#: ../view_album.php:878
+#: ../view_album.php:892
 msgid "No description"
 msgstr "설명 없음"
 
-#: ../view_album.php:886
+#: ../view_album.php:900
 msgid "Changed: "
 msgstr "변경일자: "
 
-#: ../view_album.php:889
+#: ../view_album.php:903
 msgid "Contains: "
 msgstr "내용: "
 
-#: ../view_album.php:889
+#: ../view_album.php:903
 #, fuzzy, php-format
 msgid "1 item"
 msgid_plural "%d items"
 msgstr[0] "1 아이템"
 
-#: ../view_album.php:905 ../view_album.php:929
+#: ../view_album.php:918 ../view_album.php:941
 msgid "Viewed:"
 msgstr "조회:"
 
-#: ../view_album.php:945
+#: ../view_album.php:957
 msgid "Movie"
 msgstr "영화"
 
-#: ../view_album.php:949
+#: ../view_album.php:961
 msgid "Photo"
 msgstr "사진"
 
-#: ../view_album.php:971 ../view_album.php:1007
+#: ../view_album.php:983 ../view_album.php:1019
 msgid "Edit Thumbnail"
 msgstr "썸네일 수정"
 
-#: ../view_album.php:972 ../view_album.php:1008
+#: ../view_album.php:984 ../view_album.php:1020
 #, fuzzy, php-format
 msgid "Rotate/Flip %s"
 msgstr "회전/반사"
 
-#: ../view_album.php:981 ../view_album.php:1044 ../view_album.php:1049
+#: ../view_album.php:993 ../view_album.php:1056 ../view_album.php:1061
 #, fuzzy, php-format
 msgid "Delete %s"
 msgstr "삭제"
 
-#: ../view_album.php:986
+#: ../view_album.php:998
 msgid "Edit Title"
 msgstr "제목 수정"
 
-#: ../view_album.php:990
+#: ../view_album.php:1002
 msgid "Edit Description"
 msgstr "설명 수정"
 
-#: ../view_album.php:1017
+#: ../view_album.php:1029
 #, fuzzy, php-format
 msgid "Highlight %s"
 msgstr "하이라이트"
 
-#: ../view_album.php:1021
+#: ../view_album.php:1033
 msgid "Reset Counter"
 msgstr "카운터 초기화"
 
-#: ../view_album.php:1026
+#: ../view_album.php:1038
 #, fuzzy, php-format
 msgid "Move %s"
 msgstr "이동"
 
-#: ../view_album.php:1027
+#: ../view_album.php:1039
 #, fuzzy, php-format
 msgid "Reorder %s"
 msgstr "재정렬"
 
-#: ../view_album.php:1029
+#: ../view_album.php:1041
 #, fuzzy, php-format
 msgid "Copy %s"
 msgstr "복사"
 
-#: ../view_album.php:1036
+#: ../view_album.php:1048
 #, fuzzy, php-format
 msgid "Show %s"
 msgstr "보이기"
 
-#: ../view_album.php:1038
+#: ../view_album.php:1050
 #, fuzzy, php-format
 msgid "Hide %s"
 msgstr "숨기기"
 
-#: ../view_album.php:1055
+#: ../view_album.php:1067
 msgid "Permissions"
 msgstr "권한"
 
-#: ../view_album.php:1060 ../watermark_album.php:95 ../watermark_album.php:100
+#: ../view_album.php:1072 ../watermark_album.php:77 ../watermark_album.php:83
 #, fuzzy
 msgid "Watermark Album"
 msgstr "앨범명"
 
-#: ../view_album.php:1065
+#: ../view_album.php:1077
 #, fuzzy
 msgid "View Comments"
 msgstr "코멘트 보기"
 
-#: ../view_album.php:1111
+#: ../view_album.php:1126
 msgid "Hey! Add some photos."
 msgstr "사진을 추가해 주세요."
 
-#: ../view_album.php:1113
+#: ../view_album.php:1128
 msgid "This album is empty."
 msgstr "이 앨범은 비었습니다."
 
-#: ../view_album.php:1155 ../view_photo.php:658
+#: ../view_album.php:1170 ../view_photo.php:639
 #, fuzzy
 msgid "Email me when:"
 msgstr "이메일 전송"
 
-#: ../view_album.php:1156 ../view_photo.php:659
+#: ../view_album.php:1171 ../view_photo.php:640
 msgid "Comments are added"
 msgstr ""
 
-#: ../view_album.php:1159
+#: ../view_album.php:1174
 msgid "Other changes are made"
 msgstr ""
 
-#: ../view_comments.php:114
+#: ../view_comments.php:115
 msgid "Comments for this Album"
 msgstr "이 앨범을 위한 코멘트"
 
-#: ../view_comments.php:116
+#: ../view_comments.php:117
 msgid "return to album"
 msgstr "앨범으로 돌아가기"
 
-#: ../view_comments.php:130
+#: ../view_comments.php:131
 #, fuzzy
 msgid "Sorry.  This album does not allow comments."
 msgstr "죄송합니다. 이 앨범은 공개 코멘트를 허용하지 않습니다."
 
-#: ../view_photo.php:312
+#: ../view_photo.php:309
 msgid "resize photo"
 msgstr "사진 크기조정"
 
-#: ../view_photo.php:336
+#: ../view_photo.php:333
 msgid "delete photo"
 msgstr "사진 삭제"
 
-#: ../view_photo.php:351
+#: ../view_photo.php:348
 msgid "View Images"
 msgstr "이미지 조회"
 
-#: ../view_photo.php:355 ../view_photo.php:357
+#: ../view_photo.php:352 ../view_photo.php:354
 msgid "normal"
 msgstr "보통"
 
-#: ../view_photo.php:355 ../view_photo.php:357
+#: ../view_photo.php:352 ../view_photo.php:354
 msgid "full"
 msgstr "full"
 
-#: ../view_photo.php:368
+#: ../view_photo.php:365
 msgid "photo properties"
 msgstr "사진 등록정보"
 
-#: ../view_photo.php:413
+#: ../view_photo.php:409
 #, fuzzy
 msgid "Select service"
 msgstr "회원 삭제"
 
-#: ../view_photo.php:435 ../view_photo.php:453
+#: ../view_photo.php:429 ../view_photo.php:445
 #, php-format
 msgid "print this photo with %s"
 msgstr "%s에서 이 사진 출력"
 
-#: ../view_photo_properties.php:40 ../view_photo_properties.php:47
+#: ../view_photo_properties.php:38 ../view_photo_properties.php:48
 msgid "Photo Properties"
 msgstr "사진 등록정보"
 
-#: ../view_photo_properties.php:122
+#: ../view_photo_properties.php:123
 msgid "Reload EXIF Data From File"
 msgstr "파일에서 EXIF데이터 리로드"
 
-#: ../view_photo_properties.php:125
+#: ../view_photo_properties.php:126
 msgid "(if the data is current, this will not appear to do anything)"
 msgstr "(데이터가 현재값이면 아무것도 나타나지 않습니다)"
 
-#: ../watermark_album.php:49 ../watermark_album.php:53
+#: ../watermark_album.php:44
 msgid "Watermarking album."
 msgstr ""
 
-#: ../watermark_album.php:104
+#: ../watermark_album.php:87
 #, fuzzy
 msgid "No items to watermark."
 msgstr "투표 없음."
-
-#, fuzzy
-#~ msgid "Images"
-#~ msgstr "이미지"
-
-#~ msgid "Apply to nested Albums"
-#~ msgstr "하위 앨범까지 적용"
-
-#, fuzzy
-#~ msgid "You are no allowed to perform this action !"
-#~ msgstr "이 설문에 투표한 적이 없습니다."
-
-#~ msgid "Do you really want to delete this Album?"
-#~ msgstr "이 앨범을 정말 삭제하시겠습니까?"
-
-#~ msgid "Rebuilding Thumbnails"
-#~ msgstr "썸네일 재구성"
-
-#, fuzzy
-#~ msgid "Leave blank if no caption is specified."
-#~ msgstr "만약 제목이 없으면 파일명을 제목으로 사용합니다."
-
-#, fuzzy
-#~ msgid "Use file creation date stamp as caption if no caption is specified."
-#~ msgstr "만약 제목이 없으면 파일명을 제목으로 사용합니다."
-
-#~ msgid "Set photo captions with original filenames."
-#~ msgstr "원본 파일명으로 사진 제목 설정."
-
-#, fuzzy
-#~ msgid "Set photo captions with file creation times."
-#~ msgstr "원본 파일명으로 사진 제목 설정."
-
-#~ msgid "You must specify a username"
-#~ msgstr "아이디를 지정하셔야 합니다."
-
-#~ msgid "You must specify a password"
-#~ msgstr "비밀번호를 지정하셔야 합니다."
-
-#~ msgid "There was an unknown failure in the %s call!"
-#~ msgstr "%s 호출에서 알 수 없는 실패가 있습니다!"
 
 #, fuzzy
 #~ msgid "Invalid file type; %s !"
@@ -3912,6 +3652,9 @@ msgstr "투표 없음."
 #~ msgid "Edit"
 #~ msgstr "수정"
 
+#~ msgid "description"
+#~ msgstr "설명"
+
 #~ msgid "pages"
 #~ msgstr "페이지"
 
@@ -3941,6 +3684,9 @@ msgstr "투표 없음."
 
 #~ msgid "albums"
 #~ msgstr "앨범"
+
+#~ msgid "images"
+#~ msgstr "이미지"
 
 #~ msgid "no items"
 #~ msgstr "아이템 없음"

@@ -22,14 +22,16 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($reorder, $index, $newAlbum, $newIndex) = getRequestVar(array('reorder', 'index', 'newAlbum', 'newIndex'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
+}
+
+if (!isset($reorder)) {
+	$reorder = 0;
 }
 
 doctype();
@@ -39,9 +41,8 @@ doctype();
   <title><?php echo _("Move Album") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Move Album") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
 <?php
 /* Read the album list */
 $albumDB = new AlbumDB(FALSE);
@@ -86,16 +87,19 @@ if ($gallery->session->albumName && isset($index)) {
 	} else {
 		$numAlbums = $albumDB->numAlbums($gallery->user);
 ?>
+
+<center>
+<p class="popuphead"><?php echo _("Move Album") ?></p>
+
+<div class="popup">
 <?php echo _("Select the new location of album") ?> <?php echo $gallery->album->fields["title"] ?>:
 
 <?php
    
 echo '<p>' .  $gallery->album->getHighlightTag() . '</p>';
 
-if (!empty($reorder)) { // Reorder, intra-album move
-	echo makeFormIntro("move_album.php", 
-		array("name" => "theform"),
-		array("type" => "popup")); 
+if ($reorder) { // Reorder, intra-album move
+	echo makeFormIntro("move_album.php", array("name" => "theform")); 
 ?>
 <input type="hidden" name="index" value="<?php echo $index ?>">
 <select name="newIndex">
@@ -116,14 +120,11 @@ for ($i = 1; $i <= $numAlbums; $i++) {
 <p>
 <?php
 }
-if (empty($reorder)) { // Reorder, trans-album move
+if (!$reorder) { // Reorder, trans-album move
 	echo _("Nest within another Album:") 
 ?>
 
-<?php echo makeFormIntro("move_album.php", 
-	array("name" => "move_to_album_form"),
-	array("type" => "popup"));
-?>
+<?php echo makeFormIntro("move_album.php", array("name" => "move_to_album_form")); ?>
 <input type="hidden" name="index" value="<?php echo $index ?>">
 <select name="newAlbum">
 <?php
@@ -137,6 +138,8 @@ printAlbumOptionList(0,1)
 </form>
 <?php
 } // End Reorder
+echo "</div>";
+echo "</center>";
 	}
 } else {
 	echo gallery_error(_("no album / index specified"));
@@ -149,7 +152,7 @@ printAlbumOptionList(0,1)
 document.theform.newIndex.focus();
 //-->
 </script>
-</div>
+
 
 <?php print gallery_validation_link("move_album.php", true, array('index' => $index)); ?>
 </body>

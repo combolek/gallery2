@@ -22,14 +22,14 @@
 ?>
 <?php
 
-	require_once(dirname(__FILE__) . '/init.php');
+	require(dirname(__FILE__) . '/init.php');
 	require(dirname(__FILE__) . '/functions.inc');
 
 session_start();
 
 // Pull the $count variable in also
-foreach($_SESSION as $key => $value) {
-	$$key =& $_SESSION[$key];
+foreach($HTTP_SESSION_VARS as $key => $value) {
+	$$key =& $HTTP_SESSION_VARS[$key];
 }
 session_register("count");
 
@@ -76,7 +76,7 @@ $count++;
 		</tr>
 		<tr>
 			<td class="shortdesc"><?php echo _("Server IP address") ?></td>
-			<td class="desc"><?php echo $_SERVER["SERVER_ADDR"] ?></td>
+			<td class="desc"><?php echo $HTTP_SERVER_VARS["SERVER_ADDR"] ?></td>
 		</tr>
 		</table>
 		</td>

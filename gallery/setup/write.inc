@@ -40,7 +40,7 @@ $outfile = GALLERY_CONFDIR . '/config.php';
 @copy("gpl.txt", $outfile);
 
 if ($fd = @fs_fopen($outfile, "a")) {
-	$data = $gallery->session->configData;
+	$data = urldecode($data);
 
 	fwrite($fd, $data);
 	fclose($fd);
@@ -84,6 +84,9 @@ if ($fd = @fs_fopen($outfile, "w")) {
 	fwrite($fd, "# Note: still under development, so format may change.\n");
 	fwrite($fd, "# If you edit this file, make a backup before runnng the Config. Wizard.\n\n");
 	fclose($fd);
+} else {
+	fail($outfile);	
+	return;
 }
 
 /*
@@ -100,6 +103,9 @@ if (isset($GALLERY_PHP_VALUE_OK)) {
 			}
 		}
 		fclose($fd);
+	} else {
+		fail($outfile);	
+		return;
 	}
 }
 
@@ -121,6 +127,9 @@ if ($GALLERY_REWRITE_OK) {
 			}
 		}
 		fclose($fd);
+	} else {
+		fail($outfile);
+		return;
 	}
 }
 
@@ -131,10 +140,13 @@ if ($GALLERY_REWRITE_OK) {
 if ($fd = @fs_fopen($outfile, "a")) {
        	fwrite($fd, "$end_string\n");
        	fclose($fd);
+} else {
+       	fail($outfile);	
+	return;
 }
 
 /*
- * Write the preserved data back to the .htaccess file
+ * Write the preserved data back to the .htaccess file 
  */
 
 if ($fd = @fs_fopen($outfile, "a")) {
@@ -142,6 +154,9 @@ if ($fd = @fs_fopen($outfile, "a")) {
 	       	fwrite($fd, $line);
        	}
        	fclose($fd);
+} else {
+       	fail($outfile);	
+	return;
 }
 /*
  * Don't require UserDB before we've written and included config.php or it will
@@ -155,12 +170,12 @@ $userDB = new Gallery_UserDB();
 $userDB->version = $gallery->user_version;
 $admin = $userDB->getOrCreateUser("admin");
 
-if (strlen($gallery->session->configForm->editPassword[2]) > 0) {
-	$message = sprintf(_("The password for user %s was changed."), '<b>admin</b>');
-	$admin->setPassword($gallery->session->configForm->editPassword[2]);
-
-	if (!$admin->isAdmin()) {
-		$message = sprintf(_("An account called %s has been created for you with the password you specified."),"<b>admin</b>");
+if (strlen($editPassword[2]) > 0) {
+	$message=sprintf(_("The password for user %s was changed."), '<b>admin</b>');
+	$admin->setPassword($editPassword[2]);
+	
+	if (! $admin->isAdmin()) {
+		$message=sprintf(_("An account called %s has been created for you with the password you specified."),"<b>admin</b>");
 		$admin->setIsAdmin(true);
 		if (!$admin->getFullName()) {
 			$admin->setFullName("Administrator");
@@ -182,15 +197,13 @@ if (strlen($gallery->session->configForm->editPassword[2]) > 0) {
 <?php
 if (getOS() != OS_WINDOWS) {
 	if (!empty($message))
-		$message .= "<br><br>";
-	else
-		$message = "";
-	$message .= _("We highly suggest that you run 'secure.sh', or chmod your .htaccess and config.php to 644 for increased security.");
+		$message .="<br><br>";
+	$message.= _("We highly suggest that you run 'secure.sh', or chmod your .htaccess and config.php to 644 for increased security.");
 }
 
 // Inform the user that their gallery is not secure until they remove the 'resetadmin' file
 if (fs_file_exists(GALLERY_SETUPDIR . "/resetadmin")) {
-	if (!empty($message)) $message .= "<br><br>";
+	if (!empty($message)) $message .="<br><br>";
 	$message .= '<span class="attention">'
 			. _("Note") 
 			. ':<br>'
@@ -209,7 +222,7 @@ if (isset($message)) {
 <?php 
 	echo _("You can reconfigure Gallery at any time by re-running this configuration wizard.");
 	echo '<br>';
-	echo _("It will save your data so you won't have to enter it all again!");
+	echo _("It will save your data so you won't have to enter it all again!"); 
 	echo '<br>';
 	echo '<span class="emphasis">';
 	echo sprintf(_("Please subscribe to the %s mailing list. This is a very low volume mailing list that will keep you abreast of important changes in %s.  This is where we announce new versions, important bug fixes and any security issues and their resolution."),  
@@ -227,10 +240,6 @@ if (isset($message)) {
 </html>
 
 <?php
-// Clear the session config data
-unset($gallery->session->configForm);
-unset($gallery->session->configData);
-
 function fail($file) {
 ?>
 	<title><?php echo _("Failure") ?>!</title>

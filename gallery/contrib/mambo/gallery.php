@@ -37,7 +37,7 @@ foreach ($param as $curr) {
 }
 
 if (!realpath($MOS_GALLERY_PARAMS['path'])) {
-	echo "Security Violation";
+	echo _("Security Violation");
 	exit;
 } else {
 	if (! defined("MOS_GALLERY_PARAMS_PATH")) {

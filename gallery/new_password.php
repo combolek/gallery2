@@ -22,10 +22,7 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($hash, $uname, $save, $new_password1, $new_password2) = getRequestVar(array('hash', 'uname', 'save', 'new_password1', 'new_password2'));
-list($fullname, $email, $defaultLanguage) = getRequestVar(array('fullname', 'email', 'defaultLanguage'));
+require(dirname(__FILE__) . '/init.php');
 
 $error_string="";
 if (!isset($hash)) {
@@ -93,9 +90,12 @@ doctype();
   <title><?php echo _("Make New Password") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Make New Password") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<span class="popuphead"><?php echo _("Make New Password") ?></span>
+<br>
+<br>
 <?php 
 if ($error_string) {
        	echo gallery_error($error_string);
@@ -132,6 +132,6 @@ $defaultLanguage = $tmpUser->getDefaultLanguage();
 document.usermodify_form.new_password1.focus();
 //--> 
 </script>
-</div>
+
 </body>
 </html>

@@ -21,12 +21,12 @@
  */
 ?>
 <?php
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 if (empty($gallery->session->username)) {
     /* Get the cached version if possible */
+    if (!empty($HTTP_GET_VAR['gallery_nocache'])) {
 	$cache_file = "cache.html";
-	if (!getRequestVar('gallery_nocache') && fs_file_exists($cache_file)) {
 	$cache_now = time();
 	$cache_stat = @stat("cache.html");
 	if ($cache_now - $cache_stat[9] < (20 * 60)) {
@@ -101,18 +101,14 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 
 	/* prefetching/navigation */
   if ($navigator['page'] > 1) { ?>
-  <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>">
-  <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>">
-  <link rel="prev" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']-1)) ?>">
-<?php }
+      <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
+      <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
+      <link rel="prev" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']-1)) ?>" />
+  <?php }
   if ($navigator['page'] < $maxPages) { ?>
-  <link rel="next" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']+1)) ?>">
-  <link rel="last" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $maxPages)) ?>">
-<?php }
-	if ($gallery->app->rssEnabled == "yes") {
-?>
-  <link rel="alternate" title="<?php echo sprintf(_("%s RSS"), $gallery->app->galleryTitle) ?>" href="<?php echo $gallery->app->photoAlbumURL . "/rss.php" ?>" type="application/rss+xml">
-<?php } ?>
+      <link rel="next" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $navigator['page']+1)) ?>" />
+      <link rel="last" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => $maxPages)) ?>" />
+  <?php } ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
 <?php }
@@ -130,8 +126,7 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 		echo '<td valign="middle" align="right">';
 		echo makeFormIntro('search.php', array(
 							'name'		=> 'search_form',
-							'method'	=> 'post',
-							'style'		=> 'margin-bottom: 0px;'));
+							'method'	=> 'post'));
 		echo '<span class="search">'. _("Search") .': </span>';
 		echo '<input style="font-size:10px;" type="text" name="searchstring" value="" size="25">';
 		echo '</form></td>';
@@ -184,9 +179,8 @@ if ($gallery->user->isAdmin()) {
 	if ($doc) {
 		$adminCommands .= "$doc ";
 	}
-	$adminCommands .= '<a class="admin" style="white-space:nowrap;" href="' . $gallery->app->photoAlbumURL . '/setup/index.php">[' . _("configuration wizard") .']</a> ';
-	$adminCommands .= '<a class="admin" style="white-space:nowrap;" href="' . makeGalleryUrl('tools/find_orphans.php') . '">[' . _("find orphans") .']</a> ';
-	$adminCommands .= '<a class="admin" style="white-space:nowrap;" href="' . makeGalleryUrl('tools/despam-comments.php') . '">[' . _("find comment spam") .']</a> ';
+	$adminCommands .= '<a style="white-space:nowrap;" href="' . $gallery->app->photoAlbumURL . '/setup/index.php">[' . _("configuration wizard") .']</a> ';
+	$adminCommands .= '<a style="white-space:nowrap;" href="' . makeGalleryUrl('tools/find_orphans.php') . '">[' . _("find orphans") .']</a> ';
 }
 
 if ($gallery->user->canCreateAlbums() && !$gallery->session->offline) { 
@@ -300,7 +294,7 @@ for ($i = $start; $i <= $end; $i++) {
   </tr>
   <tr>
   <!-- Begin Image Cell -->
-  <td align="center" valign="top">
+  <td align="center" valign="middle">
 
 <?php
       $gallery->html_wrap['borderColor'] = $borderColor;
@@ -435,7 +429,7 @@ if($gallery->app->comments_enabled == 'yes') {
 <?php 
 if ($displayCommentLegend) { 
 	//display legend for comments
-	echo '<p><span class="commentIndication">*</span>';
+	echo '<p><span class="error">*</span>';
 	echo '<span class="fineprint">'. _("Comments available for this item.") .'</span></p>';
 } 
 ?>

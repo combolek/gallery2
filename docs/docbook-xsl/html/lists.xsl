@@ -678,14 +678,7 @@
                 |processing-instruction()[not(preceding-sibling::step)]"/>
 
   <div class="{name(.)}">
-    <xsl:call-template name="anchor">
-      <xsl:with-param name="conditional">
-        <xsl:choose>
-	  <xsl:when test="title">0</xsl:when>
-	  <xsl:otherwise>1</xsl:otherwise>
-	</xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="anchor"/>
 
     <xsl:if test="title and $placement = 'before'">
       <xsl:call-template name="formal.object.heading"/>
@@ -791,9 +784,7 @@
 </xsl:template>
 
 <xsl:template match="segmentedlist/title">
-  <div class="title">
-    <strong><span class="title"><xsl:apply-templates/></span></strong>
-  </div>
+  <p><b><xsl:apply-templates/></b></p>
 </xsl:template>
 
 <xsl:template match="segtitle">
@@ -804,10 +795,7 @@
 </xsl:template>
 
 <xsl:template match="seglistitem">
-  <div class="seglistitem">
-    <xsl:call-template name="anchor"/>
-    <xsl:apply-templates/>
-  </div>
+  <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="seg">
@@ -821,16 +809,14 @@
      you'll get something odd...maybe an error
   -->
 
-  <div class="seg">
-    <strong>
-      <span class="segtitle">
-        <xsl:apply-templates select="$segtitles[$segnum=position()]"
-                             mode="segtitle-in-seg"/>
-        <xsl:text>: </xsl:text>
-      </span>
-    </strong>
+  <p>
+    <b>
+      <xsl:apply-templates select="$segtitles[$segnum=position()]"
+                           mode="segtitle-in-seg"/>
+      <xsl:text>: </xsl:text>
+    </b>
     <xsl:apply-templates/>
-  </div>
+  </p>
 </xsl:template>
 
 <xsl:template match="segmentedlist" mode="seglist-table">
@@ -864,7 +850,7 @@
       </xsl:attribute>
     </xsl:if>
     <thead>
-      <tr class="segtitle">
+      <tr>
         <xsl:call-template name="tr.attributes">
           <xsl:with-param name="row" select="segtitle[1]"/>
           <xsl:with-param name="rownum" select="1"/>
@@ -887,7 +873,7 @@
     <xsl:number from="segmentedlist" count="seglistitem"/>
   </xsl:variable>
 
-  <tr class="seglistitem">
+  <tr>
     <xsl:call-template name="tr.attributes">
       <xsl:with-param name="rownum" select="$seglinum + 1"/>
     </xsl:call-template>
@@ -896,16 +882,7 @@
 </xsl:template>
 
 <xsl:template match="seg" mode="seglist-table">
-  <td class="seg"><xsl:apply-templates/></td>
-</xsl:template>
-
-<xsl:template match="seg[1]" mode="seglist-table">
-  <td class="seg">
-    <xsl:call-template name="anchor">
-      <xsl:with-param name="node" select="ancestor::seglistitem"/>
-    </xsl:call-template>
-    <xsl:apply-templates/>
-  </td>
+  <td><xsl:apply-templates/></td>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -916,27 +893,14 @@
     <xsl:if test="title">
       <xsl:call-template name="formal.object.heading"/>
     </xsl:if>
-
-    <!-- Preserve order of PIs and comments -->
-    <xsl:apply-templates 
-         select="*[not(self::callout or self::title or self::titleabbrev)]
-                   |comment()[not(preceding-sibling::callout)]
-		   |processing-instruction()[not(preceding-sibling::callout)]"/>
-
     <xsl:choose>
       <xsl:when test="$callout.list.table != 0">
         <table border="0" summary="Callout list">
-	  <xsl:apply-templates select="callout
-			        |comment()[preceding-sibling::calllout]
-				|processing-instruction()[preceding-sibling::callout]"/>
-	</table>
+          <xsl:apply-templates/>
+        </table>
       </xsl:when>
       <xsl:otherwise>
-	<dl compact="compact">
-	  <xsl:apply-templates select="callout
-			        |comment()[preceding-sibling::calllout]
-				|processing-instruction()[preceding-sibling::callout]"/>
-	</dl>
+        <dl compact="compact"><xsl:apply-templates/></dl>
       </xsl:otherwise>
     </xsl:choose>
   </div>
@@ -974,31 +938,6 @@
         </xsl:call-template>
       </dt>
       <dd><xsl:apply-templates/></dd>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<xsl:template match="callout/simpara" priority="2">
-  <!-- If a callout contains only a single simpara, don't output
-       the <p> wrapper; this has the effect of creating an li
-       with simple text content. -->
-  <xsl:choose>
-    <xsl:when test="not(preceding-sibling::*)
-                    and not (following-sibling::*)">
-      <xsl:call-template name="anchor"/>
-      <xsl:apply-templates/>
-    </xsl:when>
-    <xsl:otherwise>
-      <p>
-        <xsl:if test="@role and $para.propagates.style != 0">
-          <xsl:attribute name="class">
-            <xsl:value-of select="@role"/>
-          </xsl:attribute>
-        </xsl:if>
-
-        <xsl:call-template name="anchor"/>
-        <xsl:apply-templates/>
-      </p>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

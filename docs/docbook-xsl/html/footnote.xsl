@@ -65,9 +65,6 @@
 
 <xsl:template match="footnote" mode="footnote.number">
   <xsl:choose>
-    <xsl:when test="string-length(@label) != 0">
-      <xsl:value-of select="@label"/>
-    </xsl:when>
     <xsl:when test="ancestor::tgroup">
       <xsl:variable name="tfnum">
         <xsl:number level="any" from="table|informaltable" format="1"/>
@@ -84,7 +81,7 @@
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="pfoot" select="preceding::footnote[not(@label)]"/>
+      <xsl:variable name="pfoot" select="preceding::footnote"/>
       <xsl:variable name="ptfoot" select="preceding::tgroup//footnote"/>
       <xsl:variable name="fnum" select="count($pfoot) - count($ptfoot) + 1"/>
 

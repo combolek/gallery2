@@ -63,7 +63,6 @@
 <xsl:param name="callout.unicode.start.character" select="10102"/>
 <xsl:param name="callouts.extension" select="'1'"/>
 <xsl:param name="chapter.autolabel" select="1"/>
-<xsl:param name="collect.xref.targets" select="'no'"/>
 <xsl:param name="column.count.back" select="1"/>
 <xsl:param name="column.count.body" select="1"/>
 <xsl:param name="column.count.front" select="1"/>
@@ -81,8 +80,6 @@
   <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">0.2em</xsl:attribute>
 </xsl:attribute-set>
-<xsl:param name="component.label.includes.part.label" select="0"/>
-<xsl:attribute-set name="component.title.properties"/>
 <xsl:param name="current.docid" select="''"/> 
 <xsl:param name="default.float.class" select="'before'"/>
 <xsl:param name="default.image.width" select="''"/>
@@ -113,18 +110,12 @@
   </xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="footer.rule" select="1"/>
-<xsl:param name="footer.column.widths" select="'1 1 1'"/>
 <xsl:param name="footers.on.blank.pages" select="1"/>
 <xsl:param name="footnote.font.size">
  <xsl:value-of select="$body.font.master * 0.8"/><xsl:text>pt</xsl:text>
 </xsl:param>
 <xsl:param name="footnote.number.format" select="'1'"/>
 <xsl:param name="footnote.number.symbols" select="''"/>
-<xsl:attribute-set name="footnote.sep.leader.properties">
-  <xsl:attribute name="color">black</xsl:attribute>
-  <xsl:attribute name="leader-pattern">rule</xsl:attribute>
-  <xsl:attribute name="leader-length">1in</xsl:attribute>
-</xsl:attribute-set>
 <xsl:param name="fop.extensions" select="0"/>
 <xsl:attribute-set name="formal.object.properties">
   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
@@ -197,15 +188,9 @@ set       toc,title
   </xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="header.rule" select="1"/>
-<xsl:param name="header.column.widths" select="'1 1 1'"/>
 <xsl:param name="headers.on.blank.pages" select="1"/>
 <xsl:param name="hyphenate">true</xsl:param>
 <xsl:param name="ignore.image.scaling" select="0"/>
-<xsl:param name="index.on.role" select="0"/>
-<xsl:param name="index.on.type" select="0"/>
-<xsl:attribute-set name="informalequation.properties" use-attribute-sets="informal.object.properties"/>
-<xsl:attribute-set name="informalexample.properties" use-attribute-sets="informal.object.properties"/>
-<xsl:attribute-set name="informalfigure.properties" use-attribute-sets="informal.object.properties"/>
 <xsl:attribute-set name="informal.object.properties">
   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
@@ -214,7 +199,6 @@ set       toc,title
   <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">2em</xsl:attribute>
 </xsl:attribute-set>
-<xsl:attribute-set name="informaltable.properties" use-attribute-sets="informal.object.properties"/>
 <xsl:attribute-set name="index.preferred.page.properties">
   <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
@@ -255,7 +239,6 @@ set       toc,title
 </xsl:attribute-set>
 <xsl:attribute-set name="monospace.verbatim.properties" use-attribute-sets="verbatim.properties monospace.properties">
   <xsl:attribute name="text-align">start</xsl:attribute>
-  <xsl:attribute name="wrap-option">no-wrap</xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="nominal.table.width" select="'6in'"/>
 <xsl:attribute-set name="normal.para.spacing">
@@ -263,15 +246,7 @@ set       toc,title
   <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
 </xsl:attribute-set>
-<xsl:param name="olink.doctitle" select="no"/> 
-<xsl:param name="olink.base.uri" select="''"/> 
-<xsl:param name="olink.debug" select="0"/>
-<xsl:attribute-set name="olink.properties">
-</xsl:attribute-set>
-<xsl:param name="olink.lang.fallback.sequence" select="''"/> 
-<xsl:param name="prefer.internal.olink" select="0"/>
-<xsl:param name="insert.olink.page.number">no</xsl:param>
-<xsl:param name="insert.olink.pdf.frag" select="0"/>
+<xsl:param name="olink.doctitle" select="0"/> 
 <xsl:param name="page.height">
   <xsl:choose>
     <xsl:when test="$page.orientation = 'portrait'">
@@ -500,14 +475,12 @@ set       toc,title
     <xsl:value-of select="$line-height"/>
   </xsl:attribute>
   <xsl:attribute name="font-selection-strategy">character-by-character</xsl:attribute>
-  <xsl:attribute name="line-height-shift-adjustment">disregard-shifts</xsl:attribute>
 </xsl:attribute-set>
 <xsl:param name="rootid" select="''"/>
 <xsl:param name="runinhead.default.title.end.punct" select="'.'"/>
 <xsl:param name="runinhead.title.end.punct" select="'.!?:'"/>
 <xsl:param name="sans.font.family" select="'sans-serif'"/>
 <xsl:param name="section.autolabel" select="0"/>
-<xsl:param name="section.autolabel.max.depth" select="8"/>
 <xsl:param name="section.label.includes.component.label" select="0"/>
 <xsl:attribute-set name="section.title.level1.properties">
   <xsl:attribute name="font-size">
@@ -618,13 +591,7 @@ set       toc,title
 <xsl:param name="table.frame.border.thickness" select="'0.5pt'"/>
 <xsl:attribute-set name="table.properties" use-attribute-sets="formal.object.properties"/>
 <xsl:param name="tablecolumns.extension" select="'1'"/>
-<xsl:attribute-set name="table.table.properties">
-  <xsl:attribute name="border-before-width.conditionality">retain</xsl:attribute>
-  <xsl:attribute name="border-collapse">collapse</xsl:attribute>
-</xsl:attribute-set>
 <xsl:param name="target.database.document" select="''"/>
-<xsl:param name="targets.filename" select="'target.db'"/>
-<xsl:param name="textdata.default.encoding" select="''"/>
 <xsl:param name="tex.math.delims" select="'1'"/>
 <xsl:param name="tex.math.in.alt" select="''"/>
 <xsl:param name="textinsert.extension" select="'1'"/>

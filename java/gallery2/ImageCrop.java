@@ -24,7 +24,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -48,9 +47,6 @@ public class ImageCrop extends Applet {
     private float mImageScale;
     private String mStatus;
     private Dimension mCropRatio = new Dimension(4, 3);
-    private Cursor resizeCursor = new Cursor(Cursor.SE_RESIZE_CURSOR);
-    private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
-    private Cursor moveCursor = new Cursor(Cursor.MOVE_CURSOR);
 
     /**
      * Get the crop orientation
@@ -505,18 +501,6 @@ public class ImageCrop extends Applet {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-
-		Point mouseNow = e.getPoint();
-	    	mouseNow.x -= mImageRect.x;
-	    	mouseNow.y -= mImageRect.y;		
-		
-		if (mResizeHandleRect.contains(mouseNow)) {
-			setCursor(resizeCursor);
-		}else if(mCropRect.contains(mouseNow)){
-			setCursor(moveCursor);
-		}else{
-			setCursor(normalCursor);
-		}
 	}
     }
 }

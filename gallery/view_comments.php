@@ -25,10 +25,10 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
-if (!$gallery->user->canViewComments($gallery->album)
+if (!$gallery->user->isAdmin() && !$gallery->user->isOwnerOfAlbum($gallery->album)
 	&& (! isset($gallery->app->comments_overview_for_all) || $gallery->app->comments_overview_for_all != "yes")) {
 	header("Location: " . makeAlbumHeaderUrl());
 	return;
@@ -48,29 +48,35 @@ if (empty($gallery->session->viewedAlbum[$albumName]) &&
 } 
 
 
-
 $bordercolor = $gallery->album->fields["bordercolor"];
 
-#-- breadcrumb text ---
-$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" '.
-		'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+$breadCount = 0;
+$breadtext = array();
+$pAlbum = $gallery->album;
+do {
+  if (!strcmp($pAlbum->fields["returnto"], "no")) {
+    break;
+  }
+  $pAlbumName = $pAlbum->fields['parentAlbumName'];
+  if ($pAlbumName && (!$gallery->session->offline
+      || $gallery->session->offlineAlbums[$pAlbumName])) {
+    $pAlbum = new Album();
+    $pAlbum->load($pAlbumName);
+    $breadtext[$breadCount] = _("Album") .": <a class=\"bread\" href=\"" . makeGalleryUrl("view_comments.php", array("set_albumName" => $pAlbumName)) .
+      "\">" . $pAlbum->fields['title'] . "</a>";
+  }
+  $breadCount++;
+} while ($pAlbumName);
 
-if ($gallery->album->fields['returnto'] != 'no') {
-	$breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
-		$gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
-	foreach ($gallery->album->getParentAlbums() as $name => $title) {
-		$breadcrumb["text"][] = _("Album") .": <a class=\"bread\" href=\"" . makeAlbumUrl($name) . "\">" .
-			$title. "&nbsp;" . $upArrowURL . "</a>";
-	}
+//-- we built the array backwards, so reverse it now ---
+for ($i = count($breadtext) - 1; $i >= 0; $i--) {
+	$breadcrumb["text"][] = $breadtext[$i];
 }
-
 $breadcrumb["bordercolor"] = $bordercolor;
 $breadcrumb["top"] = true;
 $breadcrumb["bottom"] = true;
 
-if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
-?>
+if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?></title>
@@ -102,31 +108,8 @@ if ($gallery->album->fields["textcolor"]) {
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">
+<span class="popup">
 <?php } 
-
-/* User wants to delete comments */
-list($index, $comment_index) = getRequestVar(array('index', 'comment_index'));
-if (!empty($comment_index)) {
-	$saveMsg = "";
-	/* First we reverse the index array, as we want to delete backwards */
-	foreach(array_reverse($comment_index, true) as $com_index => $trash) {
-		$comment=$gallery->album->getComment($index, $com_index);
-		/* maybe user reloaded page, this prevents an errormessage */
-		if (!isset($comment)) {
-			continue;
-		}
-		if (isDebugging()) {
-			echo "\n<br>". sprintf(_("Deleting comment %d from item with index: %d"), $com_index, $index);
-		}
-		$saveMsg = array(i18n("Comment \"%s\" by %s deleted from %s"),
-			$comment->getCommentText(),
-			$comment->getName(),
-			makeAlbumURL($gallery->album->fields["name"], $gallery->album->getPhotoId($index))
-			);
-		$gallery->album->deleteComment($index, $com_index);
-		$gallery->album->save($saveMsg);
-	}
-}
 
 includeHtmlWrap("album.header");
 $adminText = "<span class=\"admin\">". _("Comments for this Album") ."</span>";
@@ -145,9 +128,7 @@ includeLayout('navtableend.inc');
 ?><br><?php
 
 if (!$gallery->album->fields["perms"]['canAddComments']) {
-    ?></span><br><b>
-	<span class="error"><?php echo _("Sorry.  This album does not allow comments.") ?></span>
-	<span class="popup"><br><br></b><?php
+    ?></span><br><b><span class="error"><?php echo _("Sorry.  This album does not allow comments.") ?></span><span class="popup"><br><br></b><?php
 } else {
     $numPhotos = $gallery->album->numPhotos(1);
     $commentbox["bordercolor"] = $bordercolor;
@@ -177,7 +158,6 @@ if (!$gallery->album->fields["perms"]['canAddComments']) {
             if($comments > 0)
             {
 		includeLayout('commentboxtop.inc');
-
                 for($j = 1; $j <= $comments; $j++)
                 {
                     $comment = $gallery->album->getComment($index, $j);
@@ -202,6 +182,7 @@ includeHtmlWrap("album.footer");
 
 <?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 
+</span>
 </body>
 </html>
 <?php } ?>

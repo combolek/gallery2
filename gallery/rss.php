@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 // Set defaults, if RSS has not been setup via config wizard
 if (!isset($gallery->app->rssEnabled)) {
@@ -58,6 +58,10 @@ function bestDate($album) {
 	else {
 		return $album->fields['last_mod_time'];
 	}
+}
+
+function removeUnprintable($string) {
+	return preg_replace("/[^[:print:]]/", "", $string);
 }
 
 function getThumbs($album) {
@@ -125,7 +129,7 @@ foreach ($albumDB->albumList as $album) {
 		"link" => makeAlbumUrl($album->fields["name"]),
 		"guid" => array($album->fields['guid'], array("isPermaLink" => "false")),
 		"!date" => bestDate($album),
-		"title" => htmlspecialchars($album->fields["title"]));
+		"title" => htmlspecialchars(removeUnprintable($album->fields["title"])));
 
 	// DATE TAGS
 
@@ -192,22 +196,22 @@ foreach ($albumDB->albumList as $album) {
 			$album->load($album->fields["name"], TRUE);
 		}
 		
-		$albumInfo["description"]  = $album->fields["description"] . '<p />';
+		$albumInfo["description"]  = removeUnprintable($album->fields["description"]) . '<p />';
 		$albumInfo["description"] .= getThumbs($album);
 	} elseif ($gallery->app->rssMode == "thumbs-with-captions") {
 		if (!$album->transient->photosloaded) {
 			$album->load($album->fields["name"], TRUE);
 		}
 
-		$albumInfo["description"]  = $album->fields["description"] . '<p />';
+		$albumInfo["description"]  = removeUnprintable($album->fields["description"]) . '<p />';
 		$albumInfo["description"] .= getThumbsAndCaptions($album);
 	} elseif ($gallery->app->rssMode == "highlight" && isset($highlight)) {
 		$url = makeAlbumUrl($album->fields["name"]);
 		$imgtag = $highlight->thumbnail->getTag($base, 0, 0, 'border=0');
 		$albumInfo["description"]  = "<a href=\"$url\">$imgtag</a><br>";
-		$albumInfo["description"] .= $album->fields["description"];
+		$albumInfo["description"] .= removeUnprintable($album->fields["description"]);      
 	} else { # mode = "basic"
-		$albumInfo["description"] = $album->fields["description"];
+		$albumInfo["description"] = removeUnprintable($album->fields["description"]);
 	}
 
 	$albumInfo["description"] = htmlspecialchars($albumInfo["description"]);
@@ -257,7 +261,7 @@ echo '<' . '?xml version="1.0" encoding="' . $gallery->locale . '"?' . '>';
 		<link><?php echo $gallery->app->photoAlbumURL ?></link>
 		<description><?php echo htmlspecialchars($description) ?></description>
 <?php if (isset($gallery->app->default_language)) { ?>
-		<language><?php echo ereg_replace("_", "-", $gallery->app->default_language) ?></language>
+		<language><?php echo preg_replace("/_/", "-", $gallery->app->default_language) ?></language>
 <?php } ?>
 		<lastBuildDate><?php echo date("r"); ?></lastBuildDate>
 <?php if (isset($gallery->app->adminEmail)) { ?>

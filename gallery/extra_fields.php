@@ -24,13 +24,11 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($apply, $extra_fields, $num_user_fields) = getRequestVar(array('apply', 'extra_fields', 'num_user_fields'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
@@ -79,13 +77,15 @@ doctype();
   <title><?php echo _("Configure Custom Fields") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Configure Custom Fields") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Configure Custom Fields") ?></p>
+
 <p>
-<?php echo makeFormIntro("extra_fields.php", 
-		array("name" => "theform", "method" => "POST"),
-		array("type" => "popup")); 
+<?php echo makeFormIntro("extra_fields.php", array(
+				"name" => "theform", 
+				"method" => "POST")); 
 
 	$num_user_fields=sizeof($gallery->album->getExtraFields()) - num_special_fields($gallery->album->getExtraFields());
 ?>
@@ -141,7 +141,7 @@ $i=0;
 foreach ($extra_fields as $value) {
 	if (in_array($value, array_keys(automaticFieldsList())))
 		continue;
-	if (!strcmp($value, "Title") || !strcmp($value, "AltText")) {
+	if (!strcmp($value, "Title") or !strcmp($value, "AltText")) {
 		continue;
 	}
 	print "\n<tr>";
@@ -152,6 +152,7 @@ foreach ($extra_fields as $value) {
 }
 
 function num_special_fields($extra_fields) {
+	global $special_fields;
 
 	$num_special_fields=0;
 	foreach (array_keys(automaticFieldsList()) as $special_field) {
@@ -159,18 +160,16 @@ function num_special_fields($extra_fields) {
 			$num_special_fields++;
 	}
 
-	foreach (array("Title", "AltText") as $named_field) {
-		if (in_array($named_field, $extra_fields)) {
-			$num_special_fields++;
-		}
+	if (in_array("Title", $extra_fields) || in_array("AltText", $extra_fields)) {
+		$num_special_fields++;
 	}
-
+ 
 	return $num_special_fields;  
 }
 ?>
 </table>
 <p>
-	<input type="checkbox" name="setNested" value="1"><?php echo _("Apply values to nested albums.") ?>.
+	<input type="checkbox" name="setNested" value="1"><?php echo _("Apply to nested Albums") ?>.
 </p>
 <p>
 	<input type="submit" name="apply" value="<?php echo _("Apply") ?>">
@@ -178,8 +177,8 @@ function num_special_fields($extra_fields) {
 	<input type="button" name="close" value="<?php echo _("Close") ?>" onclick='parent.close()'>
 </p>
 </form>
-</div>
-<?php print gallery_validation_link("extra_fields.php"); ?>
+</center>
 
+<?php print gallery_validation_link("extra_fields.php"); ?>
 </body>
 </html>

@@ -30,11 +30,7 @@
 	
 	require (dirname(__FILE__) . '/functions.inc');
 	require (dirname(__FILE__) . '/config_data.inc');
-	require (GALLERY_BASE . '/js/sectionTabs.js.php');
-
-	list($preserve, $go_next, $go_back, $next_page, $back_page, $this_page, $go_defaults, $refresh) =
-	  getRequestVar(array('preserve', 'go_next', 'go_back', 'next_page', 'back_page', 'this_page', 'go_defaults', 'refresh'));
-
+	require (dirname(dirname(__FILE__)) . '/js/sectionTabs.js.php');
 ?>
 <?php doctype(); ?>
 <html>
@@ -91,47 +87,43 @@
 configLogin(basename(__FILE__));
 
 
-if (isset($go_defaults) || isset($refresh)) {
+if (isset ($go_defaults)) {
 	$setup_page = $this_page;
-} else if (isset($go_next)) {
+} else if (isset ($go_next)) {
 	$setup_page = $next_page;
-} else if (isset($go_back)) {
+} else if (isset ($go_back)) {
 	$setup_page = $back_page;
 }	
-
-/* Array-ize the preserve list */
-if (!empty($preserve)) {
-	$tmp = explode(" ", urldecode($preserve));
-	$preserve = array();
-	foreach ($tmp as $key) {
-		$preserve[$key] = 1;
-		if (($gallery->session->configForm->$key = getRequestVar($key)) === NULL) {
-			$gallery->session->configForm->$key = "";
-			continue;
-		}
-	}
-        $preserve = array();
-} else {
-	$preserve = array();
-}
 
 /* Cache passwords in order to prevent them from being erased.
  * Otherwise, we'll lose the passwords if someone revisits Step 2
  * and forgets to re-enter them. */
-if (isset($gallery->session->configForm->editPassword) && (!empty($gallery->session->configForm->editPassword[0]) || !empty($gallery->session->configForm->editPassword[1]))) {
-	$gallery->session->configForm->editPassword[2] = $gallery->session->configForm->editPassword[0];
-	$gallery->session->configForm->editPassword[3] = $gallery->session->configForm->editPassword[1];
-	$_REQUEST['editPassword'] = $gallery->session->configForm->editPassword;
+
+if (isset($editPassword) && (!empty($editPassword[0]) || !empty($editPassword[1]))) {
+	$editPassword[2] = $editPassword[0];
+	$editPassword[3] = $editPassword[1];
 }
-if (isset($gallery->session->configForm->smtpPassword) && (!empty($gallery->session->configForm->smtpPassword[0]) || !empty($gallery->session->configForm->smtpPassword[1]))) {
-	$gallery->session->configForm->smtpPassword[2] = $gallery->session->configForm->smtpPassword[0];
-	$gallery->session->configForm->smtpPassword[3] = $gallery->session->configForm->smtpPassword[1];
-	$_REQUEST['smtpPassword'] = $gallery->session->configForm->smtpPassword;
+
+/* Array-ize the preserve list */
+if (isset($preserve)) {
+	$tmp = explode(" ", urldecode($preserve));
+	$preserve = array();
+	foreach ($tmp as $key) {
+		$preserve[$key] = 1;
+	}
+} else {
+	$preserve=array();
+}
+foreach (array_keys($preserve) as $key) {
+	if (!isset($$key)) {
+		continue;
+	}
+	$$key = array_urldecode($$key);
 }
 
 ?>
 
-<form method="post" action="index.php" name="config" enctype="application/x-www-form-urlencoded">
+<form method="post" action="index.php" name="config">
 <?php
 if (!isset($setup_page)) {
 	$setup_page = "check";
@@ -180,7 +172,7 @@ function embed_hidden($key) {
 
 foreach ($preserve as $key => $val) {
 	if ($key && !isset($onThisPage[$key])) {
-		$gallery->session->configForm->$key = $$key;
+		print embed_hidden($key);
 	}
 }
 

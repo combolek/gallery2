@@ -37,6 +37,21 @@
 <xsl:template match="bibliography/subtitle"></xsl:template>
 <xsl:template match="bibliography/titleabbrev"></xsl:template>
 
+<xsl:template match="bibliography/title" mode="component.title.mode">
+  <h2 class="title">
+    <xsl:call-template name="anchor">
+      <xsl:with-param name="node" select=".."/>
+    </xsl:call-template>
+    <xsl:apply-templates/>
+  </h2>
+</xsl:template>
+
+<xsl:template match="bibliography/subtitle" mode="component.title.mode">
+  <h3>
+    <i><xsl:apply-templates/></i>
+  </h3>
+</xsl:template>
+
 <!-- ==================================================================== -->
 
 <xsl:template match="bibliodiv">
@@ -56,25 +71,6 @@
 
 <!-- ==================================================================== -->
 
-<xsl:template match="bibliolist">
-  <div class="{name(.)}">
-    <xsl:call-template name="anchor"/>
-    <xsl:if test="blockinfo/title|title">
-      <xsl:call-template name="formal.object.heading"/>
-    </xsl:if>
-    <xsl:apply-templates select="*[not(self::blockinfo)
-			           and not(self::title)
-				   and not(self::titleabbrev)
-			           and not(self::biblioentry)
-				   and not(self::bibliomixed)]"/>
-    <dl>
-      <xsl:apply-templates select="biblioentry|bibliomixed"/>
-    </dl>
-  </div>
-</xsl:template>
-
-<!-- ==================================================================== -->
-
 <xsl:template match="biblioentry">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
@@ -82,7 +78,7 @@
 
   <xsl:choose>
     <xsl:when test="string(.) = ''">
-      <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
+      <xsl:variable name="bib" select="document($bibliography.collection)"/>
       <xsl:variable name="entry" select="$bib/bibliography/*[@id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
@@ -127,7 +123,7 @@
 
   <xsl:choose>
     <xsl:when test="string(.) = ''">
-      <xsl:variable name="bib" select="document($bibliography.collection,.)"/>
+      <xsl:variable name="bib" select="document($bibliography.collection)"/>
       <xsl:variable name="entry" select="$bib/bibliography/*[@id=$id][1]"/>
       <xsl:choose>
         <xsl:when test="$entry">
@@ -238,7 +234,7 @@
   </span>
 </xsl:template>
 
-<xsl:template match="artheader|articleinfo|info" mode="bibliography.mode">
+<xsl:template match="artheader|articleinfo" mode="bibliography.mode">
   <span class="{name(.)}">
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
@@ -259,7 +255,7 @@
   </span>
 </xsl:template>
 
-<xsl:template match="authorblurb|personblurb" mode="bibliography.mode">
+<xsl:template match="authorblurb" mode="bibliography.mode">
   <!-- suppressed -->
 </xsl:template>
 
@@ -446,13 +442,6 @@
 <!-- ================================================== -->
 
 <xsl:template match="corpauthor" mode="bibliography.mode">
-  <span class="{name(.)}">
-    <xsl:apply-templates mode="bibliography.mode"/>
-    <xsl:value-of select="$biblioentry.item.separator"/>
-  </span>
-</xsl:template>
-
-<xsl:template match="corpcredit" mode="bibliography.mode">
   <span class="{name(.)}">
     <xsl:apply-templates mode="bibliography.mode"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
@@ -744,7 +733,7 @@
   </span>
 </xsl:template>
 
-<xsl:template match="authorblurb|personblurb" mode="bibliomixed.mode">
+<xsl:template match="authorblurb" mode="bibliomixed.mode">
   <span class="{name(.)}">
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>
@@ -852,12 +841,6 @@
 </xsl:template>
 
 <xsl:template match="corpauthor" mode="bibliomixed.mode">
-  <span class="{name(.)}">
-    <xsl:apply-templates mode="bibliomixed.mode"/>
-  </span>
-</xsl:template>
-
-<xsl:template match="corpcredit" mode="bibliomixed.mode">
   <span class="{name(.)}">
     <xsl:apply-templates mode="bibliomixed.mode"/>
   </span>

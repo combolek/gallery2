@@ -22,20 +22,18 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($formaction, $guid) = getRequestVar(array('formaction', 'guid'));
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canDeleteAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 doctype();
 echo "\n<html>";
 
-if (!empty($formaction) && $formaction == 'delete') {
+if (!empty($action) && $action == 'delete') {
 	if ($guid == $gallery->album->fields['guid']) {
 		$gallery->album->delete();
 	}
@@ -49,20 +47,21 @@ if ($gallery->album) {
   <title><?php echo _("Delete Album") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Delete Album") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<center>
+<p class="popuphead"><?php echo _("Delete Album") ?></p>
+
+<div class="popup">
 <?php echo _("Do you really want to delete this album?") ?>
 <br>
 <b><?php echo $gallery->album->fields["title"] ?></b>
 <p>
-<?php echo makeFormIntro("delete_album.php", 
-	array('name' => 'deletealbum_form', 'onsubmit' => 'deletealbum_form.deleteButton.disabled = true;'),
- 	array("type" => "popup"));
-?>
+<?php echo makeFormIntro("delete_album.php", array('name' => 'deletealbum_form', 
+						'onsubmit' => 'deletealbum_form.delete.disabled = true;')); ?>
 <input type="hidden" name="guid" value="<?php echo $gallery->album->fields['guid']; ?>">
-<input type="hidden" name="formaction" value="">
-<input type="submit" name="deleteButton" value="<?php echo _("Delete") ?>" onclick="deletealbum_form.formaction.value='delete'">
+<input type="hidden" name="action" value="">
+<input type="submit" name="delete" value="<?php echo _("Delete") ?>" onclick="deletealbum_form.action.value='delete'">
 <input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
 </form>
 <p>
@@ -74,8 +73,9 @@ if ($gallery->album) {
 	echo gallery_error(_("no album specified"));
 }
 ?>
-</div>
 
+</div>
+</center>
 <?php print gallery_validation_link("delete_album.php"); ?>
 </body>
 </html>

@@ -22,11 +22,9 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
-list($uname, $password, $langid, $lcid, $cmd) = getRequestVar(array('uname', 'password', 'langid', 'lcid', 'cmd'));
-
-if (isset($_SERVER["HTTPS"] ) && stristr($_SERVER["HTTPS"], "on")) {
+if (isset($HTTP_SERVER_VARS["HTTPS"] ) && stristr($HTTP_SERVER_VARS["HTTPS"], "on")) {
     $proto = "https";
 } else {
     $proto = "http";
@@ -44,7 +42,7 @@ if(empty($cmd)){
   $lines[] = '"displayname"="' . $gallery->app->galleryTitle . '"';
   $lines[] = '"description"="' . sprintf(_("Publish Your Photos and Movies to %s."),  $gallery->app->galleryTitle) . '"';
   $lines[] = '"href"="' . makeGalleryUrl("publish_xp.php", array("cmd" => "publish")) . '"';
-  $lines[] = '"icon"="' . $proto . '://' . $_SERVER['SERVER_NAME'] . '/favicon.ico"';
+  $lines[] = '"icon"="' . $proto . '://' . $HTTP_SERVER_VARS['SERVER_NAME'] . '/favicon.ico"';
   print join("\r\n", $lines);
   print "\r\n";
   exit;

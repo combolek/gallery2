@@ -22,17 +22,15 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 // Hack check
 if (!$gallery->user->canWriteToAlbum($gallery->album)) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;
 }
 
 $albumDB = new AlbumDB(FALSE); // read album database
-
-list($index, $startPhoto, $endPhoto, $newAlbum) = getRequestVar(array('index', 'startPhoto', 'endPhoto', 'newAlbum'));
 
 doctype();
 ?>
@@ -41,9 +39,11 @@ doctype();
   <title><?php echo _("Copy Photo") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Copy Photo") ?></div>
-<div class="popup" align="center">
+<body dir="<?php echo $gallery->direction ?>">
+
+<p class="popuphead" align="center"><?php echo _("Copy Photo") ?></p>
+
+<center>
 <?php
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
@@ -131,12 +131,9 @@ if ($gallery->session->albumName && isset($index)) {
 ?>
 <p>
 <?php echo _("Copy a range of photos to a new album:") ?><br>
-<i>(<?php echo _("To copy just one photo, make First and Last the same.") ?>)</i><br>
-<i>(<?php echo _("Nested albums in this range will be ignored.") ?>)</i>
-<?php echo makeFormIntro("copy_photo.php", 
-	array("name" => "copy_to_album_form"),
-	array("type" => "popup"));
-?>
+<i>(<?php echo _("To copy just one photo, make First and Last the same") ?>)</i><br>
+<i>(<?php echo _("Nested albums in this range will be ignored") ?>)</i>
+<?php echo makeFormIntro("copy_photo.php", array("name" => "copy_to_album_form")); ?>
 <input type=hidden name="index" value="<?php echo $index ?>">
 
 <?php
@@ -201,7 +198,8 @@ for ($i = 1; $i <= $numPhotos; $i++) {
 	echo gallery_error(_("no album / index specified"));
 }
 ?>
-</div>
+</center>
+
 <?php print gallery_validation_link("copy_photo.php", true, array('index' => $index)); ?>
 </body>
 </html>

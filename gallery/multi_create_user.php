@@ -25,10 +25,10 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin() || $gallery->app->multiple_create != "yes") {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
@@ -36,15 +36,14 @@ $errorCount=0;
 if (isset($create))
 {
 	doctype();
-?>
+	?>
 <html>
 <head>
   <title><?php echo _("Create Multiple Users") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Create Multiple Users") ?></div>
-<div class="popup" align="cemter">
+<body dir="<?php echo $gallery->direction ?>">
+
 <?php
 	if (empty($membersfile_name)) {
 		$gErrors["membersfile"] = _("No file selected.");
@@ -56,21 +55,12 @@ if (isset($create))
 		       	$errorCount++;
 	       	}
 	}
-
 	if (!$errorCount) {
-		$users=@file($membersfile);
-		if (sizeof($users) == 0) {
-			$gErrors["membersfile"] =
-			sprintf(_("Upload went fine, but the file is not readable, please make sure %s is accessable for your webserver. (Also check openbasedir restrictions.)"), 
-				dirname($membersfile));
-			$errorCount++;
-		}
-	}
-	if (!$errorCount) {
+		$users=file($membersfile);
 		// Simple test to see if it's a windows file
-		if (sizeof($users) == 1 and ereg("\r\n", $users[0]))
+		if (sizeof($users)==1 and ereg("", $users[0]))
 		{
-			$users=explode("\r\n", $users[0]);
+			$users=explode("", $users[0]);
 		}
 		unlink($membersfile);
 		$total_added=0;
@@ -133,16 +123,21 @@ if (isset($create))
 	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
 } else {
 	doctype();
-} 
+}
 ?>
+
 <html>
 <head>
   <title><?php echo _("Create Multiple Users") ?></title>
   <?php common_header(); ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<div class="popuphead"><?php echo _("Create Users") ?></div>
-<div class="popup" align="center">
+
+
+<center>
+<span class="popuphead"><?php echo _("Create Users") ?></span>
+<br>
+<br>
 <?php echo _("Create multiple new users from a file.") ?>
 <p>
 <?php
@@ -167,9 +162,8 @@ echo makeFormIntro("multi_create_user.php", array(
 
 <?php include(dirname(__FILE__) . '/html/userData.inc'); ?>
 
-<br>
-	<input type="submit" name="create" value="<?php echo _("Create") ?>">
-	<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
+<input type="submit" name="create" value="<?php echo _("Create") ?>">
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
 
 </center>
@@ -186,6 +180,6 @@ echo _("The strings !!USERNAME!!, !!FULLNAME!! and !!PASSWORD!! will be substitu
 <p>
 
 </ul>
-</div>
+
 </body>
 </html>

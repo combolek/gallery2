@@ -73,8 +73,14 @@ class AlbumItem {
 
 	function setItemCaptureDate($itemCaptureDate="") {
 		global $gallery;
-		/* Before 1.4.5-cvs-b106 this was an associative array */
-
+		/*$itemCaptureDate should be passed in as an associative array with the following elements:
+	 	$itemCaptureDate["hours"]
+		$itemCaptureDate["minutes"]
+		$itemCaptureDate["seconds"]
+		$itemCaptureDate["mon"]
+		$itemCaptureDate["mday"]
+		$itemCaptureDate["year"]
+		*/ 
 		if (!$itemCaptureDate) {	
 			// we want to attempt to set the $itemCaptureDate from the information that
 			// is available to us.  First, look in the exif data if it is a jpeg file.  If that
@@ -135,11 +141,7 @@ class AlbumItem {
 	}
 
 	function getComment($commentIndex) {
-		if (!empty($this->comments)) {
-			return $this->comments[$commentIndex-1];
-		} else {
-			return null;
-		}
+		return $this->comments[$commentIndex-1];
 	}
 
 	function integrityCheck($dir) {
@@ -195,22 +197,6 @@ class AlbumItem {
 			}
 		}
 		
-
-		// Use TimeStamp for capture Date instead of assoziative Array
-
-		if ($this->version < 32) {
-		if (isset($this->itemCaptureDate)) {
-                                $this->itemCaptureDate = mktime(
-                                        $this->itemCaptureDate['hours'],
-                                        $this->itemCaptureDate['minutes'],
-                                        $this->itemCaptureDate['seconds'],
-                                        $this->itemCaptureDate['mon'],
-                                        $this->itemCaptureDate['mday'],
-                                        $this->itemCaptureDate['year']
-                                        );
-                        }
-                }
-
 		if ($this->image) {
 			if ($this->image->integrityCheck($dir)) {
 				$changed = 1;
@@ -480,21 +466,13 @@ class AlbumItem {
 		return 1;
 	}
 
-        function watermark($dir, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0, $wmSelect=0) {
+        function watermark($dir, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0) {
                 global $gallery;
                 $type = $this->image->type;
 		if (isMovie($type))
 		{
 			// currently there is no watermarking support for movies
 			return (0);
-		}
-		if ($wmSelect < 0)
-		{
-			$wmSelect = 0;
-		}
-		else if ($wmSelect > 2)
-		{
-			$wmSelect = 2;
 		}
                 $name = $this->image->name;
 		$oldpreviews = glob($dir . "/$name.preview*.$type");
@@ -523,20 +501,12 @@ class AlbumItem {
                                 $this->preview = $high;
 			}
 		} else {
-			// $wmSelect of 0=both Sized and Full
-			if ($wmSelect != 1) { // 1=Only Sized Photos
-                		$retval = watermark_image("$dir/$name.$type", "$dir/$name.$type",
+                	$retval = watermark_image("$dir/$name.$type", "$dir/$name.$type",
                                           $gallery->app->watermarkDir."/$wmName",
                                           $gallery->app->watermarkDir."/$wmAlphaName",
                                           $wmAlign, $wmAlignX, $wmAlignY);
-			}
-                	if ($wmSelect != 2) { // 2=Only Full Photos
-                	    if (($wmSelect == 1) && !$this->isResized()) {
-				// If watermarking only resized images, and image is not resized
-				// Call resize as if the full image is resized
-				$pathToResized = $dir . "/" . $this->image->name . "." . $this->image->type;
-				$this->resize($dir, "", 0, $pathToResized);
-			    }
+                	if ($retval) {
+
                 	    if ($this->isResized()) {
                         	$retval = watermark_image("$dir/$name.sized.$type", "$dir/$name.sized.$type",
                                                   $gallery->app->watermarkDir."/$wmName",
@@ -635,7 +605,7 @@ class AlbumItem {
 		} elseif (!empty($this->caption)) {
 			return $this->caption;
 		} else {
-			return "";
+			return _("No Caption");
 		}
 	}
 

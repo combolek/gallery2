@@ -294,7 +294,6 @@ class AlbumDB {
 	}
 
 	function numAccessibleItems($user) {
-		global $gallery;
 		$numPhotos = $numAlbums = $numTopAlbums = 0;
 		foreach ($this->albumList as $album) {
 			if ($user->canReadAlbum($album)) {

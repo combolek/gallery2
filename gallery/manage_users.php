@@ -22,29 +22,26 @@
 ?>
 <?php
 
-require_once(dirname(__FILE__) . '/init.php');
-
-list($create, $bulkcreate, $modify, $delete, $unames) =
-                getRequestVar(array('create', 'bulkcreate', 'modify', 'delete', 'unames'));
+require(dirname(__FILE__) . '/init.php');
 
 if (!$gallery->user->isAdmin()) {
-	echo _("You are not allowed to perform this action!");
+	echo _("You are no allowed to perform this action !");
 	exit;	
 }
 
-if (!empty($create)) {
+if (isset($create)) {
 	header("Location: " . makeGalleryHeaderUrl("create_user.php"));
 }
-if (!empty($bulk_create)) {
+if (isset($bulk_create)) {
 	header("Location: " . makeGalleryHeaderUrl("multi_create_user.php"));
 }
 
-if ( (isset($modify) || isset($delete)) && ! isset($unames)) {
+if ( (isset($modify) || isset($delete)) && ! isset($uname)) {
 	$error=_("Please select a user");
 } elseif (isset($modify)) {
-	header("Location: " . makeGalleryHeaderUrl("modify_user.php", array('uname' => $unames[0])));
+	header("Location: " . makeGalleryHeaderUrl("modify_user.php", array("uname" => $uname)));
 } elseif (isset($delete)) {
-	header("Location: " . makeGalleryHeaderUrl("delete_user.php", array('unames' => $unames)));
+	header("Location: " . makeGalleryHeaderUrl("delete_user.php", array("uname" => $uname)));
 }
 
 $displayUsers = array();
@@ -64,41 +61,46 @@ doctype();
   <title><?php echo _("Manage Users") ?></title>
   <?php common_header(); ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Manage Users") ?></div>
-<div class="popup" align="center">
-<?php 
-if (isset($error)) {
-	echo gallery_error($error);
-}
+<body dir="<?php echo $gallery->direction ?>">
 
-echo makeFormIntro("manage_users.php", array(
+<center>
+<p class="popuphead"><?php echo _("Manage Users") ?></p>
+<?php 
+	if (isset($error)) {
+		echo gallery_error($error);
+	}
+?>
+<div class="popup">	
+<?php echo makeFormIntro("manage_users.php", array(
 			"name" => "manageusers_form", 
 			"method" => "POST"));
+?>
+<?php echo _("You can create, modify and delete users here.") ?>
+<p>
 
-echo _("You can create, modify and delete users here.");
-echo "\n<p>";
-
+<?php
 if (!$displayUsers) {
 	print "<i>". _("There are no users!  Create one.") ."</i>";
 } else {
-	echo '<select name="unames[]" size="15" multiple>';
-	foreach ($displayUsers as $name) {
-		print "\t<option value=\"$name\">$name</option>\n";
-	}
-	echo "\n</select>";
-}	
-
-echo "\n</p>";
-echo _("To select multiple users (only recognized for deletion), hold down the Control (PC) or Command (Mac) key while clicking.");
 ?>
+
+<select name="uname" size="15">
+
+<?php
+	foreach ($displayUsers as $name) {
+		print "<option value=\"$name\"> $name";
+	}
+}
+?>
+
+</select>
 
 <p>
 <input type="submit" name="create" value="<?php echo _("Create") ?>"> 
 <?php if ($gallery->app->multiple_create == "yes") { ?>
 	<input type="submit" name="bulk_create" value="<?php echo _("Bulk Create") ?>"> 
-<?php }
-if (count($displayUsers)) { ?>
+<?php } ?>
+<?php if (count($displayUsers)) { ?>
 <input type="submit" name="modify" value="<?php echo _("Modify") ?>">
 <input type="submit" name="delete" value="<?php echo _("Delete") ?>">
 <?php } ?>
@@ -106,7 +108,7 @@ if (count($displayUsers)) { ?>
 </form>
 
 </div>
+</center>
 <?php print gallery_validation_link("manage_users.php"); ?>
-</div>
 </body>
 </html>

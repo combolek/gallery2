@@ -89,8 +89,6 @@ to be incomplete. Don't forget to read the source, too :-)</para>
 &generate.toc;
 &generate.index;
 &make.index.markup;
-&index.on.type;
-&index.on.role;
 &index.preferred.page.properties;
 &xep.index.item.properties;
 &toc.section.depth;
@@ -125,7 +123,6 @@ generate.section.toc.level;
 &linenumbering.width;
 &tablecolumns.extension;
 &textinsert.extension;
-&textdata.default.encoding;
 &use.extensions;
 </reference>
 
@@ -135,10 +132,8 @@ generate.section.toc.level;
 &part.autolabel;
 &preface.autolabel;
 &section.autolabel;
-&section.autolabel.max.depth;
 &section.label.includes.component.label;
 &label.from.part;
-&component.label.includes.part.label;
 </reference>
 
 <reference><title>XSLT Processing</title>
@@ -172,23 +167,13 @@ generate.section.toc.level;
 &table.cell.border.thickness;
 &table.cell.border.style;
 &table.cell.border.color;
-&table.table.properties;
 </reference>
 
 <reference><title>Linking</title>
-&current.docid;
-&collect.xref.targets;
-&insert.olink.page.number;
-&insert.olink.pdf.frag;
-&olink.base.uri;
-&olink.debug;
-&olink.doctitle;
-&olink.lang.fallback.sequence;
-&olink.properties;
-&prefer.internal.olink;
 &target.database.document;
-&targets.filename;
 &use.local.olink.style;
+&current.docid;
+&olink.doctitle;
 </reference>
 
 <reference><title>QAndASet</title>
@@ -239,7 +224,6 @@ generate.section.toc.level;
 &table.footnote.number.format;
 &footnote.number.symbols;
 &table.footnote.number.symbols;
-&footnote.sep.leader.properties;
 &xref.with.number.and.title;
 &superscript.properties;
 &subscript.properties;
@@ -365,8 +349,6 @@ zero by default, so this is simply the page-master region-left.
 &footers.on.blank.pages;
 &header.rule;
 &footer.rule;
-&header.column.widths;
-&footer.column.widths;
 &header.content.properties;
 &footer.content.properties;
 &marker.section.level;
@@ -404,7 +386,6 @@ zero by default, so this is simply the page-master region-left.
 &verbatim.properties;
 &monospace.verbatim.properties;
 &sidebar.properties;
-&component.title.properties;
 &section.title.properties;
 &section.title.level1.properties;
 &section.title.level2.properties;
@@ -423,10 +404,6 @@ zero by default, so this is simply the page-master region-left.
 &example.properties;
 &equation.properties;
 &table.properties;
-&informalfigure.properties;
-&informalexample.properties;
-&informalequation.properties;
-&informaltable.properties;
 &procedure.properties;
 &root.properties;
 &qanda.title.properties;
@@ -534,7 +511,6 @@ around all these parameters.</para>
 <src:fragref linkend="callout.unicode.start.character.frag"/>
 <src:fragref linkend="callouts.extension.frag"/>
 <src:fragref linkend="chapter.autolabel.frag"/>
-<src:fragref linkend="collect.xref.targets.frag"/>
 <src:fragref linkend="column.count.back.frag"/>
 <src:fragref linkend="column.count.body.frag"/>
 <src:fragref linkend="column.count.front.frag"/>
@@ -548,8 +524,6 @@ around all these parameters.</para>
 <src:fragref linkend="column.gap.lot.frag"/>
 <src:fragref linkend="column.gap.titlepage.frag"/>
 <src:fragref linkend="compact.list.item.spacing.frag"/>
-<src:fragref linkend="component.label.includes.part.label.frag"/>
-<src:fragref linkend="component.title.properties.frag"/>
 <src:fragref linkend="current.docid.frag"/>
 <src:fragref linkend="default.float.class.frag"/>
 <src:fragref linkend="default.image.width.frag"/>
@@ -567,12 +541,10 @@ around all these parameters.</para>
 <src:fragref linkend="firstterm.only.link.frag"/>
 <src:fragref linkend="footer.content.properties.frag"/>
 <src:fragref linkend="footer.rule.frag"/>
-<src:fragref linkend="footer.column.widths.frag"/>
 <src:fragref linkend="footers.on.blank.pages.frag"/>
 <src:fragref linkend="footnote.font.size.frag"/>
 <src:fragref linkend="footnote.number.format.frag"/>
 <src:fragref linkend="footnote.number.symbols.frag"/>
-<src:fragref linkend="footnote.sep.leader.properties.frag"/>
 <src:fragref linkend="fop.extensions.frag"/>
 <src:fragref linkend="formal.object.properties.frag"/>
 <src:fragref linkend="formal.procedures.frag"/>
@@ -594,17 +566,10 @@ around all these parameters.</para>
 <src:fragref linkend="graphic.default.extension.frag"/>
 <src:fragref linkend="header.content.properties.frag"/>
 <src:fragref linkend="header.rule.frag"/>
-<src:fragref linkend="header.column.widths.frag"/>
 <src:fragref linkend="headers.on.blank.pages.frag"/>
 <src:fragref linkend="hyphenate.frag"/>
 <src:fragref linkend="ignore.image.scaling.frag"/>
-<src:fragref linkend="index.on.role.frag"/>
-<src:fragref linkend="index.on.type.frag"/>
-<src:fragref linkend="informalequation.properties.frag"/>
-<src:fragref linkend="informalexample.properties.frag"/>
-<src:fragref linkend="informalfigure.properties.frag"/>
 <src:fragref linkend="informal.object.properties.frag"/>
-<src:fragref linkend="informaltable.properties.frag"/>
 <src:fragref linkend="index.preferred.page.properties.frag"/>
 <src:fragref linkend="insert.xref.page.number.frag"/>
 <src:fragref linkend="l10n.gentext.default.language.frag"/>
@@ -630,13 +595,6 @@ around all these parameters.</para>
 <src:fragref linkend="nominal.table.width.frag"/>
 <src:fragref linkend="normal.para.spacing.frag"/>
 <src:fragref linkend="olink.doctitle.frag"/>
-<src:fragref linkend="olink.base.uri.frag"/>
-<src:fragref linkend="olink.debug.frag"/>
-<src:fragref linkend="olink.properties.frag"/>
-<src:fragref linkend="olink.lang.fallback.sequence.frag"/>
-<src:fragref linkend="prefer.internal.olink.frag"/>
-<src:fragref linkend="insert.olink.page.number.frag"/>
-<src:fragref linkend="insert.olink.pdf.frag.frag"/>
 <src:fragref linkend="page.height.frag"/>
 <src:fragref linkend="page.height.portrait.frag"/>
 <src:fragref linkend="page.margin.bottom.frag"/>
@@ -692,7 +650,6 @@ around all these parameters.</para>
 <src:fragref linkend="runinhead.title.end.punct.frag"/>
 <src:fragref linkend="sans.font.family.frag"/>
 <src:fragref linkend="section.autolabel.frag"/>
-<src:fragref linkend="section.autolabel.max.depth.frag"/>
 <src:fragref linkend="section.label.includes.component.label.frag"/>
 <src:fragref linkend="section.title.level1.properties.frag"/>
 <src:fragref linkend="section.title.level2.properties.frag"/>
@@ -727,10 +684,7 @@ around all these parameters.</para>
 <src:fragref linkend="table.frame.border.thickness.frag"/>
 <src:fragref linkend="table.properties.frag"/>
 <src:fragref linkend="tablecolumns.extension.frag"/>
-<src:fragref linkend="table.table.properties.frag"/>
 <src:fragref linkend="target.database.document.frag"/>
-<src:fragref linkend="targets.filename.frag"/>
-<src:fragref linkend="textdata.default.encoding.frag"/>
 <src:fragref linkend="tex.math.delims.frag"/>
 <src:fragref linkend="tex.math.in.alt.frag"/>
 <src:fragref linkend="textinsert.extension.frag"/>
