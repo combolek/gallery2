@@ -307,9 +307,9 @@ class ItemEditImageController extends GalleryController {
 class ItemEditImageView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -329,6 +329,7 @@ class ItemEditImageView extends GalleryView {
 	    /* First time around, load the form with item data */
 	    $form['scale']['size'] = '';
 	    $form['preserveOriginal'] = 1;
+	    $form['formName'] = 'ItemEditImage';
 	}
 
 	/* Check to see if we have a preferred source */
@@ -342,20 +343,13 @@ class ItemEditImageView extends GalleryView {
 	} else {
 	    $hasPreferredSource = true;
 	}
-							     
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('hasPreferredSource', $hasPreferredSource);
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('controller', 'core:ItemEditImage');
-	list($ret, $html) = $template->render('ItemEditImage.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	$ItemEditImage = array();
+	$ItemEditImage['hasPreferredSource'] = $hasPreferredSource;
+							     
+	$template->setVariable('ItemEditImage', $ItemEditImage);
+	$template->setVariable('controller', 'core:ItemEditImage');
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemEditImage.tpl');
     }
 }
 ?>

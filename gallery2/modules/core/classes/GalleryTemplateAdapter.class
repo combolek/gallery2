@@ -351,19 +351,19 @@ function main($params, $content, &$smarty) {
     $context = $this->_getContext($params, $smarty);
     $_header = array_pop($this->_content["header"]);
     if (empty($_header)) {
-        $_header = "";
+        $_header = ""; //array("name" => "main", "params" => array(), "content" => "");
     } else {
         $_header = $_header[0];
     }
     $_footer = array_pop($this->_content["footer"]);
     if (empty($_footer)) {
-        $_footer = "";
+        $_footer = ""; // array("name" => "main", "params" => array(), "content" => "");
     } else {
         $_footer = $_footer[0];
     }
     $_pathbar = array_pop($this->_content["pathbar"]);
     if (empty($_pathbar)) {
-        $_pathbar = "";
+        $_pathbar =""; //  array("name" => "main", "params" => array(), "content" => "");
     } else {
         $_pathbar = $_pathbar[0];
     }
@@ -487,13 +487,13 @@ function bannerbox($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "bannerbox", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_description = array_pop($this->_content["description"]);
     if (empty($_description)) {
-        $_description = "";
+        $_description = ""; // array("name" => "bannerbox", "params" => array(), "content" => "");
     } else {
         $_description = $_description[0];
     }
@@ -575,7 +575,7 @@ function listingbox($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "listingbox", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
@@ -608,19 +608,19 @@ function detailedbox($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "detailedbox", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_description = array_pop($this->_content["description"]);
     if (empty($_description)) {
-        $_description = "";
+        $_description = ""; // array("name" => "detailedbox", "params" => array(), "content" => "");
     } else {
         $_description = $_description[0];
     }
     $_body = array_pop($this->_content["body"]);
     if (empty($_body)) {
-        $_body = "";
+        $_body = ""; // array("name" => "detailedbox", "params" => array(), "content" => "");
     } else {
         $_body = $_body[0];
     }
@@ -652,14 +652,14 @@ function tabbedbox($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "tabbedbox", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_item = array_pop($this->_content["item"]);
     $_body = array_pop($this->_content["body"]);
     if (empty($_body)) {
-        $_body = "";
+        $_body = ""; // array("name" => "detailedbox", "params" => array(), "content" => "");
     } else {
         $_body = $_body[0];
     }
@@ -690,13 +690,13 @@ function simplebox($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "simplebox", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_body = array_pop($this->_content["body"]);
     if (empty($_body)) {
-        $_body = "";
+        $_body = ""; // array("name" => "detailedbox", "params" => array(), "content" => "");
     } else {
         $_body = $_body[0];
     }
@@ -727,7 +727,7 @@ function widget1box($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = ""; // array("name" => "widget1box", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
@@ -759,7 +759,7 @@ function widget2box($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = array("name" => "widget2box", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
@@ -791,13 +791,13 @@ function widget1($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = array("name" => "widget1", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_body = array_pop($this->_content["body"]);
     if (empty($_body)) {
-        $_body = "";
+        $_body = ""; // array("name" => "widget1", "params" => array(), "content" => "");
     } else {
         $_body = $_body[0];
     }
@@ -825,19 +825,19 @@ function widget2($params, $content, &$smarty) {
     }
     $_title = array_pop($this->_content["title"]);
     if (empty($_title)) {
-        $_title = "";
+        $_title = array("name" => "widget2", "params" => array(), "content" => "");
     } else {
         $_title = $_title[0];
     }
     $_description = array_pop($this->_content["description"]);
     if (empty($_description)) {
-        $_description = "";
+        $_description = array("name" => "widget2", "params" => array(), "content" => "");
     } else {
         $_description = $_description[0];
     }
     $_body = array_pop($this->_content["body"]);
     if (empty($_body)) {
-        $_body = "";
+        $_body = ""; // array("name" => "widget2", "params" => array(), "content" => "");
     } else {
         $_body = $_body[0];
     }

@@ -353,7 +353,8 @@ function blockTag($tagName, $tagInfo) {
 	    case '':
 		printf('    if (empty($_%s)) {', $childName);
 		print "\n";
-		printf('        $_%s = "";', $childName);
+		printf('        $_%s = array("name" => "%s", "params" => array(), "content" => "");', $childName, $tagName);
+		//printf('        $_%s = "";', $childName, $tagName);
 		print "\n";
 		printf('    } else {', $childName);
 		print "\n";

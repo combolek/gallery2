@@ -43,7 +43,6 @@ class AddCommentController extends GalleryController {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
-	$return = GalleryUtilities::getFormVariables('return.');
 
 	/* Make sure we have permission to add a comment */
 	$ret = GalleryUserHelper::assertHasItemPermission($itemId, 'comment.add');
@@ -82,8 +81,9 @@ class AddCommentController extends GalleryController {
 	    }
 	} 
 
-	/* Redirect back to the item */
-	$results['redirect'] = $return;
+	/* XXX: Where should we go?  Return functionality is still missing */
+	$results['redirect'] = array('view' => 'core:ShowItem',
+				     'itemId' => $itemId);
 
 	return array(GalleryStatus::success(), $results);
     }
@@ -99,30 +99,9 @@ class AddCommentController extends GalleryController {
 class AddCommentView extends GalleryView {
 
     /**
-     * @see GalleryView::renderHead()
+     * @see GalleryView::loadTemplate
      */
-    function renderHead() {
-	global $gallery;
-
-	/* Load our item */
-	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	/* Render the HTML head */
-	$template = $this->_getTemplate();
-	list($ret, $html) = $template->render('AddCommentHead.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
-	return array(GalleryStatus::success(), $html);
-    }
-    
-    /**
-     * @see GalleryView::renderBody()
-     */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	/* Load our item */
@@ -137,39 +116,19 @@ class AddCommentView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	
-	/* Get its thumbnail */
-	list ($ret, $thumbnailTable) = 
-		GalleryDerivativeHelper::fetchThumbnailsByItemIds(array($item->getId()));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	
-	if (!empty($thumbnailTable)) {
-	    $thumbnail = $thumbnailTable[$item->getId()];
-	    $template->setVariable('thumbnail', $thumbnail->getMemberData());
-	}
-	
-	$return = GalleryUtilities::getFormVariables('return.');
-
 	list ($ret, $user) = $gallery->getActiveUser();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$template->setVariable('return', $return);
-	$template->setVariable('user', $user->getMemberData());
-	$template->setVariable('host', GalleryUtilities::getRemoteHostAddress());
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('controller', 'comment:AddComment');
-	list($ret, $html) = $template->render('AddComment.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$AddComment = array();
+	$AddComment['user'] = $user->getMemberData();
+	$AddComment['host'] = GalleryUtilities::getRemoteHostAddress();
 	
-	return array(GalleryStatus::success(), $html);
+	$template->setVariable('AddComment', $AddComment);
+	$template->setVariable('controller', 'comment:AddComment');
+	
+	return array(GalleryStatus::success(), '', 'modules/comment/templates/AddComment.tpl');
     }
 }
 ?>

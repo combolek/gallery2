@@ -3,9 +3,11 @@
     {gallery->input type="hidden" name="form.formName"}ItemMakeHighlight{/gallery->input}
     {gallery->input type="hidden" name="itemId"}{$item.id}{/gallery->input}
     
-    {gallery->maintitle1}
-      {gallery->text text="Use as parent's thumbnail?"}
-    {/gallery->maintitle1}
+    {gallery->bannerbox}
+      {gallery->title}
+	{gallery->text text="Use as parent's thumbnail?"}
+      {/gallery->title}
+    {/gallery->bannerbox}
 
     {gallery->detailedbox}
       {gallery->description}

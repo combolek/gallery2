@@ -973,7 +973,5 @@ class GalleryTheme {
     function warningFontColor($context, $content) {
         trigger_error("Undefined theme function: warningFontColor", E_USER_ERROR);
     }
-
 }
-
 ?>

@@ -134,7 +134,7 @@ class CommentModule extends GalleryModule {
 	    
 	    $ret = GalleryPermissionSetMap::registerPermission($this->getName(),
 							       'comment.viewIp',
-							       $gallery->i18n('[comment] View commenter\'s IP address'));
+							       $gallery->i18n('[comment] View IP addresses'));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }

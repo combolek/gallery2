@@ -74,9 +74,11 @@
     {gallery->input type="hidden" name="form.formName"}ItemMove{/gallery->input}
     {gallery->input type="hidden" name="itemId"}{$item.id}{/gallery->input}
     
-    {gallery->maintitle1}
-      {gallery->text text="Move an Item"}
-    {/gallery->maintitle1}
+    {gallery->bannerbox}
+      {gallery->title}
+	{gallery->text text="Move an Item"}
+      {/gallery->title}
+    {/gallery->bannerbox}
     
     {gallery->detailedbox}
       {gallery->title}

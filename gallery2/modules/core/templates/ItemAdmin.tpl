@@ -1,7 +1,7 @@
-{gallery->form action_controller="$controller"}
+{gallery->form action_controller="$controller" enctype=$enctype}
   {gallery->input type="hidden" name="form.formName"}{$form.formName}{/gallery->input}
   {gallery->input type="hidden" name="itemId"}{$ItemAdmin.item.id}{/gallery->input}
-
+  
   {gallery->main}
     {gallery->pathbar}
       {foreach from=$ItemAdmin.parents item=parent}

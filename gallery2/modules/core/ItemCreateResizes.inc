@@ -221,9 +221,9 @@ class ItemCreateResizesController extends GalleryController {
 class ItemCreateResizesView extends GalleryView {
 
     /**
-     *
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form, $status) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -317,19 +317,12 @@ class ItemCreateResizesView extends GalleryView {
 	    }
 
 	}
-							     
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('status', $status);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('controller', 'core:ItemCreateResizes');
-	list($ret,$html) = $template->render('ItemCreateResizes.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
 
-	return array(GalleryStatus::success(), $html);
+	$ItemCreateResizes = array();
+							     
+	$template->setVariable('ItemCreateResizes', $ItemCreateResizes);
+	$template->setVariable('controller', 'core:ItemCreateResizes');
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemCreateResizes.tpl');
     }
 }
 ?>

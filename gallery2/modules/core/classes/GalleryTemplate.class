@@ -102,6 +102,17 @@ class GalleryTemplate {
     }
 
     /**
+     * Return true if the given variable is set
+     *
+     * @param string the key
+     * @return boolean true or false 
+     */
+    function hasVariable($key) {
+	$templateVars = $this->_smarty->get_template_vars();
+	return isset($templateVars[$key]);
+    }
+
+    /**
      * Assign a template key/value pair
      *
      * @param string the key

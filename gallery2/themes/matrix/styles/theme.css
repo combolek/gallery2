@@ -305,24 +305,34 @@ table td {
 }
 
 .tabbedbox {  
+  width: 100%;
   margin-left: 12px;
 }
 
-.tabbedboxset {  
+.tabbedbox_tabset {  
+  width: 100%;
+  padding: 0px 0px 0px 0px;
+  border-right: 1px solid #ddd;
+}
+
+.tabbedbox_tabset_inner {  
+  width: 100%;
   border-collapse: collapse;
   border-spacing: 0px;
 }
 
-.tabbedboxtab { 
+.tabbedbox_tab { 
   font-size: 81%;
   font-weight: bold;
   background-color: #eee;
+  padding: 0px 0px 0px 8px;
 }
 
-.tabbedboxselectedtab { 
+.tabbedbox_selectedtab { 
   font-size: 81%;
   font-weight: bold;
   background-color: #ccc;
+  padding: 0px 0px 0px 4px;
 }
 
 .thumbnail {

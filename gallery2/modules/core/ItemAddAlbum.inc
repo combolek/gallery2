@@ -145,9 +145,9 @@ class ItemAddAlbumController extends GalleryController {
 class ItemAddAlbumView extends GalleryView {
 
     /**
-     * @see GalleryView::renderBody
+     * @see GalleryView::loadTemplate
      */
-    function renderBody($form) {
+    function loadTemplate(&$template, &$form) {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
@@ -177,26 +177,13 @@ class ItemAddAlbumView extends GalleryView {
 	    $form['formName'] = 'ItemAddAlbum';
 	}
 
-	/* Load the parents */
-	list ($ret, $parents) = $item->fetchParents();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	/* Including myself */
-	$parents[] = $item->getMemberData();
-	
-	/* Render the HTML body */
-	$template = $this->_getTemplate();
-	$template->setVariable('form', $form);
-	$template->setVariable('item', $item->getMemberData());
-	$template->setVariable('parents', $parents);
-	$template->setVariable('controller', 'core:ItemAddAlbum');
-	list($ret, $html) = $template->render('ItemAddAlbum.tpl');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), $html);
-	}
+	$ItemAddAlbum = array();
 
-	return array(GalleryStatus::success(), $html);
+	/* Render the HTML body */
+	$template->setVariable('ItemAddAlbum', $ItemAddAlbum);
+	$template->setVariable('controller', 'core:ItemAddAlbum');
+
+	return array(GalleryStatus::success(), '', 'modules/core/templates/ItemAddAlbum.tpl');
     }
 }
 ?>

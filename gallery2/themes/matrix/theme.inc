@@ -346,7 +346,24 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function tabbedbox($context, $title, $item_array, $body) {
-        trigger_error("Undefined theme function: tabbedbox", E_USER_ERROR);
+	$buf = '<table class="tabbedbox">';
+	if (!empty($title)) {
+	    $buf .= '<tr> <td class="tabbedbox_title"> ' . $title['content'] . '</td> </tr> ';
+	}
+
+	$buf .= '<tr> <td class="tabbedbox_tabset"> <table class="tabbedbox_tabset_inner"> <tr>';
+	foreach ($item_array as $item) {
+	    if ($item['params']['selected'] == 'true') {
+		$buf .= '<td class="tabbedbox_tab">' . $item['content'] . '</td>';
+	    } else {
+		$buf .= '<td class="tabbedbox_selectedtab">' . $item['content'] . '</td>';
+	    }
+	}
+	$buf .= '</tr> </table> </td> </tr>';
+
+	$buf .= '<tr> <td class="tabbedbox_body"> ' . $body['content'] . '</td> </tr> ';
+	$buf .= '</table>';
+	return $buf;
     }
 
     /**
@@ -362,9 +379,7 @@ class MatrixTheme extends GalleryTheme {
 	    $buf .= '<tr> <td class="simplebox_title"> ' . $title['content'] . '</td> </tr> ';
 	}
 
-	if (!empty($body)) {
-	    $buf .= '<tr> <td class="simplebox_body"> ' . $body['content'] . '</td> </tr> ';
-	}
+	$buf .= '<tr> <td class="simplebox_body"> ' . $body['content'] . '</td> </tr> ';
 	$buf .= '</table>';
 	return $buf;
     }
@@ -393,7 +408,7 @@ class MatrixTheme extends GalleryTheme {
      * @return string HTML content
      */
     function widget2box($context, $title, $widget2_array) {
-	$buf = '<table class="widget2box"> <tr> <td> ' . $title . ' </td> </tr> ';
+	$buf = '<table class="widget2box"> <tr> <td> ' . $title['content'] . ' </td> </tr> ';
 	for ($i = 0; $i < sizeof($widget2_array); $i++) {
 	    $buf .= $widget2_array[$i]['content'];
 	}
