@@ -27,7 +27,7 @@ function editField($album, $field, $edit) {
 	if (!strcmp($buf, "")) {
 		$buf = "<i>&lt;Empty&gt;</i>";
 	}
-	if ($user->canChangeText($album)) {
+	if ($user->canChangeTextOfAlbum($album)) {
 		$url = "$app->photoAlbumURL/edit_field.php?set_albumName={$album->fields[name]}&field=$field";
 		$buf .= "<span class=editlink>";
 		$buf .= "<a href=" . popup($url) . ">[edit $field]</a>";
@@ -40,7 +40,7 @@ function editCaption($album, $index, $edit) {
 	global $app, $user;
 
 	$buf = $album->getCaption($index);
-	if ($user->canChangeText($album)) {
+	if ($user->canChangeTextOfAlbum($album)) {
 		if (!strcmp($buf, "")) {
 			$buf = "<i>&lt;No Caption&gt;</i>";
 		}
@@ -260,3 +260,22 @@ function drawSelect($name, $array, $selected, $size) {
 
 	return $buf;
 }
+
+function correctNobody($array) {
+	global $userDB;
+	$nobody = $userDB->getNobody();
+
+	if (count($array) > 1) {
+		unset($array[$nobody->getUid()]);
+	}
+}
+
+function correctEverybody($array) {
+	global $userDB;
+	$everybody = $userDB->getEverybody();
+
+	if ($array[$everybody->getUid()]) {
+		$array = array($everybody->getUid() => $everybody->getUsername());
+	}
+}
+
