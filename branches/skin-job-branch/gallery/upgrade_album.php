@@ -108,7 +108,9 @@ function find_albums(&$results, $album="") {
 		for ($j = 1; $j <= $count; $j++) {
 			$name = $album->isAlbumName($j);
 			if ($name) {
-				find_albums($results, $albumDB->getAlbumByName($name));
+				$tmpAlbum = new Album();
+				$tmpAlbum->load($name);
+				find_albums($results, $tmpAlbum);
 			}
 		}
 	} else {
