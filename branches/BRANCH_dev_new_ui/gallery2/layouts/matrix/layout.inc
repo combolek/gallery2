@@ -509,7 +509,7 @@ class MatrixLayout extends GalleryLayout {
 	global $gallery;
 
 	if ($item->getParentId() == null) {
-	    return array(GalleryStatus::success(), array(), 0, 0);
+	    return array(GalleryStatus::success(), array(), array(), 0, 0);
 	}
 
 	/*

@@ -279,7 +279,7 @@ class CoreModule extends GalleryModule {
 			       'permissions.file' => '0644',
 			       'upload.localServer.dirs' => '',
 			       'exec.expectedStatus' => '0',
-			       'default.orderBy' => 'id',
+			       'default.orderBy' => '',
 			       'default.orderDirection' => '1',
 			       'default.layout' => 'matrix',
 			       'default.theme' => 'matrix',
