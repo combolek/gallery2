@@ -1,0 +1,271 @@
+<?php
+/*
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2002 Bharat Mediratta
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+/**
+ * MySql specific Database schema management class
+ *
+ * This class is used to manage the database schema used by Gallery
+ *
+ * @version $Id$
+ * @package DatabaseSchema
+ * @author Bharat Mediratta <bharat@menalto.com>
+ */
+class MySqlDatabaseSchema extends DatabaseSchema {
+
+    /**
+     * The database connection
+     *
+     * @var object ADOdb database connection
+     */
+    var $_db;
+
+    /**
+     * Constructor
+     *
+     * @param object ADOdb database connection
+     */
+    function MySqlDatabaseSchema($databaseConnection) {
+	$this->_db = $databaseConnection;
+    }
+
+    /**
+     * Create the database.
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function createDatabase($databaseName) {
+	$query = "CREATE DATABASE $databaseName";
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+    }
+
+    /**
+     * Drop a database.
+     *
+     * Use this very carefully!
+     *
+     * Note that the database connection must not be attached to a specific
+     * database for this to work.
+     *
+     * @param string the name of the database
+     * @return int a status code
+     */
+    function dropDatabase($databaseName) {
+	$query = "DROP DATABASE $databaseName";
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+    }
+
+    /**
+     * Create a new schema.
+     *
+     * @param string the name of the database to create
+     * @return int a status code
+     */
+    function createSchema() {
+
+	/* Get our class meta information */
+	$metaInfo = new GalleryClassMetaInfo();
+
+	/*
+	 * Generate the schema table
+	 */
+	$schemaTableMembers =
+		array('tableName' => array('type' => (STORAGE_TYPE_STRING |
+						      STORAGE_MODIFIER_MEDIUM),
+					   'class' => 'schema'),
+		      'major' => array('type' => STORAGE_TYPE_INTEGER,
+				       'class' => 'schema'),
+		      'minor' => array('type' => STORAGE_TYPE_INTEGER,
+				       'class' => 'schema'));
+	$schemaTableInfo = array('version' => array('major' => 1,
+						    'minor' => 0),
+				 'members' => $schemaTableMembers);
+		
+	$ret = $this->_createTable('schema', $schemaTableInfo);
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+
+	/*
+	 * Generate the lock table
+	 */
+	$lockTableMembers =
+		array('id' => array('type' => STORAGE_TYPE_INTEGER,
+				    'class' => 'lock'),
+		      'lock' => array('type' => STORAGE_TYPE_INTEGER,
+				      'class' => 'lock'));
+	$lockTableInfo = array('version' => array('major' => 1,
+						  'minor' => 0),
+			       'members' => $lockTableMembers);
+
+	$ret = $this->_createTable('lock', $lockTableInfo);
+	if ($ret & ERROR) {
+	    return $ret;
+	}
+	
+	/* Generate a table for each class */
+	foreach ($metaInfo->listClasses() as $tableName) {
+	    $tableInfo = $metaInfo->describeClass($tableName);
+	    $ret = $this->_createTable($tableName, $tableInfo);
+	    if ($ret & ERROR) {
+		return $ret;
+	    }
+	}
+    }
+
+    function _createTable($tableName, $tableInfo) {
+	$fullTableName = DATABASE_TABLE_PREFIX . $tableName;
+
+	$clause = '';
+	$primaryKey = '';
+
+	foreach ($tableInfo['members'] as $columnName => $columnInfo) {
+	    $type = $columnInfo['type'];
+	    $targetTable = $columnInfo['class'];
+
+	    /**
+	     * Skip any columns that are targetted at a different table,
+	     * *except* the id column, which must be in all tables.
+	     */
+	    if (strcasecmp($targetTable, $tableName) && !($type & STORAGE_MODIFIER_ID)) {
+		continue;
+	    }
+
+	    /**
+	     * If this is not the first entry in the clause, put in a separator
+	     */
+	    if (!empty($clause)) {
+		$clause .= ', ';
+	    }
+
+	    /**
+	     * Lead off with the column name, suitably escaped.
+	     */
+	    $clause .= "`$columnName`";
+
+	    /**
+	     * Now generate the correct type designation.
+	     */
+	    if ($type & STORAGE_TYPE_INTEGER) {
+		$clause .= ' int(11)';
+	    } else if ($type & STORAGE_TYPE_STRING) {
+		if ($type & STORAGE_MODIFIER_SMALL) {
+		    $size = 32;
+		} else if ($type & STORAGE_MODIFIER_MEDIUM) {
+		    $size = 128;
+		} else {
+		    $size = 255;
+		}
+		
+		$clause .= ' varchar(' . $size . ')';
+	    } else if ($type & STORAGE_TYPE_TEXT) {
+		$clause .= ' text';
+	    } else if ($type & STORAGE_TYPE_BOOLEAN) {
+		$clause .= ' int(1)';
+	    } else if ($type & STORAGE_TYPE_TIMESTAMP) {
+		$clause .= ' datetime';
+	    } else if ($type & STORAGE_TYPE_LIST) {
+		/* can't handle this yet.  remove the column name and separator */
+		print "WARNING!  ignoring LIST $columnName\n";
+		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
+		continue;
+	    } else if ($type & STORAGE_TYPE_MAP) {
+		/* can't handle this yet.  remove the column name and separator */
+		print "WARNING!  ignoring MAP $columnName\n";
+		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
+		continue;
+	    } else {
+		/* can't handle this yet.  remove the column name and separator */
+		print "ERROR!  UNKNOWN type for $columnName\n";
+		$clause = substr($clause, 0, max(strlen($clause)-(4+strlen($columnName)), 0));
+		continue;
+	    }
+
+	    if ($type & STORAGE_MODIFIER_REQUIRED) {
+		$clause .= ' NOT NULL';
+	    }
+
+	    if ($type & STORAGE_MODIFIER_ID) {
+		$primaryKey = $columnName;
+	    }
+	}
+
+	if (!empty($primaryKey)) {
+	    $clause .= ", PRIMARY KEY ($primaryKey)";
+	}
+
+	$query = "CREATE TABLE $fullTableName ($clause) Type=MyISAM";
+	$recordSet = $this->_db->Execute($query);
+	
+	/* Check the results */
+	if (!$recordSet) {
+	    return ERROR | ERROR_DATABASE_FAILURE;
+	}
+	
+	/*
+	 * Populate the schema table with exactly one row for this table
+	 * unless this *is* the schema table.
+	 */
+	$schemaTable = DATABASE_TABLE_PREFIX . 'schema';
+	if (strcmp($fullTableName, $schemaTable)) {
+	    $query = "DELETE FROM $schemaTable WHERE tableName=?";
+	    $data = array($fullTableName);
+	    $recordSet = $this->_db->Execute($query, $data);
+	
+	    /* Check the results */
+	    if (!$recordSet) {
+		return ERROR | ERROR_DATABASE_FAILURE;
+	    }
+
+	    $query = "INSERT INTO $schemaTable (tableName, major, minor) " .
+		    "VALUES(?, ?, ?)";
+	    $data = array($fullTableName,
+			  $tableInfo['version']['major'],
+			  $tableInfo['version']['minor']);
+	
+	    $recordSet = $this->_db->Execute($query, $data);
+	
+	    /* Check the results */
+	    if (!$recordSet) {
+		return ERROR | ERROR_DATABASE_FAILURE;
+	    }
+	}
+    }
+
+    /**
+     * Update the schema to the current version
+     */
+    function updateSchema() {
+    }
+}
+?>
