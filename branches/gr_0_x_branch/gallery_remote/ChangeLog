@@ -1,0 +1,44 @@
+2002-08-06  Pierre-Luc Paour <gallery@paour.com> (0.4-b2)
+	
+	* Fixed bug 523219: protocol is no longer needed in gallery URL
+	* Fixed thumbnail loading when using the options menu to enable or disable thumbnails
+
+2002-07-30  Pierre-Luc Paour <gallery@paour.com> (0.4-b1)
+	
+	* Renewed development of Gallery Remote!
+	
+	* Added:
+		- preview window (enabled/disabled by showpreview property)
+		- thumbnails in the list (enabled disabled by showthumbnails property)
+		- asynchronous loading of preview and thumbnails
+		- saving of most preferences (window positions/sizes)
+		- selectable thumbnails size (thumbnailwidth, thumbnailheight
+		properties)
+		- reorderable list (buttons and left-right arrows)
+		- deletable list (button and delete/backspace)
+		- options menu (contributed by Dolan Halbrook)
+		- disabling Drag&Drop while uploading; reorganized top frame (Dolan Halbrook)
+
+2001-11-21  Chris Smith <chris@jacko.com> (0.3)
+	
+	* v0.3 ships!
+
+2001-11-20  Chris Smith <chris@jacko.com> (0.3-b2)
+	
+	* App now remembers the last used Gallery URL, username and password.
+	
+	* Bug fixes: 
+		- Trailing slash no longer required on Gallery URL.
+		- Fixed race condtion where if login took too long the ui 
+		  thread would think that the upload was done and reset the
+		  file list before the upload thread got a chance to upload.
+		- Fetching Albums more than once will no longer append to the 
+		  existing list.
+
+2001-11-14  Chris Smith <chris@jacko.com> (0.3-b1)
+
+	* Renamed package and main class from GalleryUp to GalleryRemote.
+
+2001-11-12  Chris Smith <chris@jacko.com> (0.2)
+
+	* v0.2 - The first release of Gallery Remote.
