@@ -123,8 +123,9 @@ $thumbSize = $gallery->app->default["thumb_size"];
 $pixelImage = "<img src=\"" . getImagePath('pixel_trans.gif') . "\" width=\"1\" height=\"1\" alt=\"\">";
 
 $bordercolor = $gallery->album->fields["bordercolor"];
+?>
 
-if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
 <html> 
 <head>
   <title><?php echo $gallery->app->galleryTitle ?> :: <?php echo $gallery->album->fields["title"] ?> :: <?php echo _("Captionator") ?></title>
@@ -156,8 +157,9 @@ if ($gallery->album->fields["textcolor"]) {
 </head>
 
 <body dir="<?php echo $gallery->direction ?>">
-<?php }
+<?php } ?>
 
+<?php 
 includeHtmlWrap("album.header");
 
 #-- if borders are off, just make them the bgcolor ----

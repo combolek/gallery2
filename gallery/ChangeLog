@@ -1,50 +1,7 @@
-2004-01-24  Bharat Mediratta  <bharat@menalto.com> 1.4.3-cvs-b4
-
-	* Fixed remote security exploit in init.php and setup/init.php where
-	  one extract() call can be used to overwrite the input for a
-	  subsequent extract() call letting users overwrite GALLERY_BASEDIR
-
-2004-01-23 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b3
-
-	* New: added contrib folder with subfolder phpBB2 with documentation
-	       and files for phpBB2.
-
-	* New: Added g1-icon.gif
-
-	* Bugfix: When not embedded and mod_rewrite was on, makeGalleryUrl was broken.
-
-	* New: lib folder.
-
-	* Change: extracted all language related functions from util.php
-		  into lib/lang.php and include them in util.php.
-
-2004-01-23 Jens Tkotz <jens@peino.de> 1.4.3-cvs-b2
-
-        * New: implemented Code for Gallery phpBB2 integration.
-
-	  - Gallery is now ready to be integrated in phpBB2 (2.0.6), but unfortunately
-	    you have to modify phpBB2 code and put a new file in your phpBB2 installation.
-	    See documentation in the contrib folder.
-
-	  - Detecttion if we are in phpBB2 ($GALLERY_EMBEDDED_INSIDE_TYPE = 'phpBB2';)
-
-	  - new classes for phpBB2 users.
-
-	  - rewrite of fitToWindow.
-		
-
-2004-01-22  Joan McGalliard  <gallery@joanhenge.plus.com> 1.4.3-cvs-b1
-
-        * This is the beginning of development on v1.4.3.
-
-===============================================================================
-    v1.4.2 release branch created
-===============================================================================
-
 2004-01-21 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b78
 	
-	* Change: Added possibility for LARGE borders, bigger images and MORE 
-	  pages in edit album properties.
+	* Change: Added possibility for LARGE bordes, bigger Images and MORE pages
+		  in edit album properties.
 
 2004-01-21 Jens Tkotz <jens@peino.de> 1.4.2-cvs-b77
 	

@@ -82,15 +82,14 @@ else {
 	$left="right";
 	$right="left";
 }
-if (!$GALLERY_EMBEDDED_INSIDE) {
-	doctype();
 ?>
+<?php if (!$GALLERY_EMBEDDED_INSIDE) { ?>
+<?php doctype() ?>
 <html>
 <head>
   <title><?php echo $gallery->app->galleryTitle ?></title>
-  <?php 
-	echo getStyleSheetLink();
-	/* prefetching/navigation */
+  <?php echo getStyleSheetLink() ?>
+  <?php /* prefetching/navigation */
   if ($navigator['page'] > 1) { ?>
       <link rel="top" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
       <link rel="first" href="<?php echo makeGalleryUrl('albums.php', array('set_albumListPage' => 1)) ?>" />
@@ -102,17 +101,15 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
   <?php } ?>
 </head>
 <body dir="<?php echo $gallery->direction ?>">
-<?php }
-	includeHtmlWrap("gallery.header");
-	if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
-?>
-<table width="100%" border="0" cellspacing="0">
-<tr>
+<?php } ?>
 <?php
-	if ($GALLERY_EMBEDDED_INSIDE =='phpBB2') {
-		echo '<td class="nav"><a href="index.php">'. sprintf($lang['Forum_Index'], $board_config['sitename']) . '</a></td>';
-}
+includeHtmlWrap("gallery.header");
 ?>
+<?php
+if (!$gallery->session->offline && !strcmp($gallery->app->showSearchEngine, "yes")) {
+?>
+<table width="100%" border=0 cellspacing=0>
+<tr>
 <td valign="middle" align="right">
 <?php echo makeFormIntro("search.php"); ?>
 <span class="search"> <?php echo _("Search") ?>: </span>
@@ -145,9 +142,7 @@ else if ($numAccess != $numAlbums) {
 $adminText .= "</span>";
 $adminCommands = "<span class=\"admin\">";
 
-if ($gallery->user->isLoggedIn() && !$gallery->session->offline && 
-	! ($GALLERY_EMBEDDED_INSIDE_TYPE == 'phpBB2' && $gallery->user->uid == -1)) {
-
+if ($gallery->user->isLoggedIn() && !$gallery->session->offline) {
 	$displayName = $gallery->user->getFullname();
 	if (empty($displayName)) {
 		$displayName = $gallery->user->getUsername();
