@@ -236,7 +236,7 @@ set       toc,title
 <xsl:param name="punct.honorific" select="'.'"/>
 <xsl:param name="qanda.defaultlabel">number</xsl:param>
 <xsl:param name="qanda.inherit.numeration" select="1"/>
-<xsl:param name="qandadiv.autolabel" select="1"/>
+<xsl:param name="qandadiv.autolabel" select="0"/>
 <xsl:param name="refentry.generate.name" select="1"/>
 <xsl:param name="refentry.generate.title" select="0"/>
 <xsl:param name="refentry.separator" select="'1'"/>

@@ -281,7 +281,7 @@
 
 <xsl:template name="process.qanda.toc">
   <dl>
-    <xsl:apply-templates select="qandadiv" mode="qandatoc.mode"/>
+  <!--  <xsl:apply-templates select="qandadiv" mode="qandatoc.mode"/> -->
     <xsl:apply-templates select="qandaentry" mode="qandatoc.mode"/>
   </dl>
 </xsl:template>
