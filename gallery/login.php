@@ -28,7 +28,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 }
 ?>
 <? require($GALLERY_BASEDIR . "init.php"); ?>
-
 <?
 if ($cancel) {
 	header("Location: $return");
