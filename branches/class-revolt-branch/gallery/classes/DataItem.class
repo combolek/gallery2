@@ -186,7 +186,7 @@ class DataItem extends GalleryItem {
     function setPreferredSource($value) {
         assert('isset($value)');
         $this->_preferredSource = $value;
-        $this->modifyPersistentMember('preferredSource');
+        $this->setModifiedFlag('preferredSource', MEMBER_MODIFIED);
     }
     
     /**
@@ -208,7 +208,7 @@ class DataItem extends GalleryItem {
     function setSource($value) {
         assert('isset($value)');
         $this->_source = $value;
-        $this->modifyPersistentMember('source');
+        $this->setModifiedFlag('source', MEMBER_MODIFIED);
     }
     
     /**

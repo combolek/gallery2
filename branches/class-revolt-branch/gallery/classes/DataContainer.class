@@ -353,7 +353,7 @@ class DataContainer extends GalleryNucleus {
     function setCacheIsCurrent($value) {
         assert('isset($value)');
         $this->_cacheIsCurrent = $value;
-        $this->modifyPersistentMember('cacheIsCurrent');
+        $this->setModifiedFlag('cacheIsCurrent', MEMBER_MODIFIED);
     }
     
     /**
@@ -375,7 +375,7 @@ class DataContainer extends GalleryNucleus {
     function setDataFileName($value) {
         assert('isset($value)');
         $this->_dataFileName = $value;
-        $this->modifyPersistentMember('dataFileName');
+        $this->setModifiedFlag('dataFileName', MEMBER_MODIFIED);
     }
     
     /**
@@ -389,6 +389,23 @@ class DataContainer extends GalleryNucleus {
     }
     
     /**
+     * Get a reference to the derivativeChildren object
+     * 
+     * @access public
+     * @return object GalleryMap the derivativeChildren instance
+     */
+    function &getDerivativeChildren() {
+        if (!($this->getLoadedFlag('derivativeChildren'))) {
+            global $gallery;
+            $storage = $gallery->getStorage();
+            $this->_derivativeChildren = new GalleryMap();
+            $this->_derivativeChildren->setParentInfo($this, 'derivativeChildren');
+            $storage->loadMember($this, 'derivativeChildren', $this->_derivativeChildren);
+        }
+        return $this->_derivativeChildren;
+    }
+    
+    /**
      * Set the value of derivativeCommands
      * 
      * @param string the new value for derivativeCommands
@@ -397,7 +414,7 @@ class DataContainer extends GalleryNucleus {
     function setDerivativeCommands($value) {
         assert('isset($value)');
         $this->_derivativeCommands = $value;
-        $this->modifyPersistentMember('derivativeCommands');
+        $this->setModifiedFlag('derivativeCommands', MEMBER_MODIFIED);
     }
     
     /**
@@ -419,7 +436,7 @@ class DataContainer extends GalleryNucleus {
     function setDerivativeSource($value) {
         assert('isset($value)');
         $this->_derivativeSource = $value;
-        $this->modifyPersistentMember('derivativeSource');
+        $this->setModifiedFlag('derivativeSource', MEMBER_MODIFIED);
     }
     
     /**
@@ -441,7 +458,7 @@ class DataContainer extends GalleryNucleus {
     function setIsDerivative($value) {
         assert('isset($value)');
         $this->_isDerivative = $value;
-        $this->modifyPersistentMember('isDerivative');
+        $this->setModifiedFlag('isDerivative', MEMBER_MODIFIED);
     }
     
     /**

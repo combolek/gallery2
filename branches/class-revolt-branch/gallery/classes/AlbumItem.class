@@ -500,7 +500,7 @@ class AlbumItem extends GalleryItem {
     function setAllowPrinting($value) {
         assert('isset($value)');
         $this->_allowPrinting = $value;
-        $this->modifyPersistentMember('allowPrinting');
+        $this->setModifiedFlag('allowPrinting', MEMBER_MODIFIED);
     }
     
     /**
@@ -522,7 +522,7 @@ class AlbumItem extends GalleryItem {
     function setBackgroundColor($value) {
         assert('isset($value)');
         $this->_backgroundColor = $value;
-        $this->modifyPersistentMember('backgroundColor');
+        $this->setModifiedFlag('backgroundColor', MEMBER_MODIFIED);
     }
     
     /**
@@ -544,7 +544,7 @@ class AlbumItem extends GalleryItem {
     function setBackgroundColor2($value) {
         assert('isset($value)');
         $this->_backgroundColor2 = $value;
-        $this->modifyPersistentMember('backgroundColor2');
+        $this->setModifiedFlag('backgroundColor2', MEMBER_MODIFIED);
     }
     
     /**
@@ -566,7 +566,7 @@ class AlbumItem extends GalleryItem {
     function setBorder($value) {
         assert('isset($value)');
         $this->_border = $value;
-        $this->modifyPersistentMember('border');
+        $this->setModifiedFlag('border', MEMBER_MODIFIED);
     }
     
     /**
@@ -588,7 +588,7 @@ class AlbumItem extends GalleryItem {
     function setBorderColor($value) {
         assert('isset($value)');
         $this->_borderColor = $value;
-        $this->modifyPersistentMember('borderColor');
+        $this->setModifiedFlag('borderColor', MEMBER_MODIFIED);
     }
     
     /**
@@ -610,7 +610,7 @@ class AlbumItem extends GalleryItem {
     function setColumns($value) {
         assert('isset($value)');
         $this->_columns = $value;
-        $this->modifyPersistentMember('columns');
+        $this->setModifiedFlag('columns', MEMBER_MODIFIED);
     }
     
     /**
@@ -632,7 +632,7 @@ class AlbumItem extends GalleryItem {
     function setDisplayViewCount($value) {
         assert('isset($value)');
         $this->_displayViewCount = $value;
-        $this->modifyPersistentMember('displayViewCount');
+        $this->setModifiedFlag('displayViewCount', MEMBER_MODIFIED);
     }
     
     /**
@@ -654,7 +654,7 @@ class AlbumItem extends GalleryItem {
     function setFont($value) {
         assert('isset($value)');
         $this->_font = $value;
-        $this->modifyPersistentMember('font');
+        $this->setModifiedFlag('font', MEMBER_MODIFIED);
     }
     
     /**
@@ -676,7 +676,7 @@ class AlbumItem extends GalleryItem {
     function setHtmlFooter($value) {
         assert('isset($value)');
         $this->_htmlFooter = $value;
-        $this->modifyPersistentMember('htmlFooter');
+        $this->setModifiedFlag('htmlFooter', MEMBER_MODIFIED);
     }
     
     /**
@@ -698,7 +698,7 @@ class AlbumItem extends GalleryItem {
     function setHtmlHeader($value) {
         assert('isset($value)');
         $this->_htmlHeader = $value;
-        $this->modifyPersistentMember('htmlHeader');
+        $this->setModifiedFlag('htmlHeader', MEMBER_MODIFIED);
     }
     
     /**
@@ -720,7 +720,7 @@ class AlbumItem extends GalleryItem {
     function setLayout($value) {
         assert('isset($value)');
         $this->_layout = $value;
-        $this->modifyPersistentMember('layout');
+        $this->setModifiedFlag('layout', MEMBER_MODIFIED);
     }
     
     /**
@@ -742,7 +742,7 @@ class AlbumItem extends GalleryItem {
     function setLinkColor($value) {
         assert('isset($value)');
         $this->_linkColor = $value;
-        $this->modifyPersistentMember('linkColor');
+        $this->setModifiedFlag('linkColor', MEMBER_MODIFIED);
     }
     
     /**
@@ -764,7 +764,7 @@ class AlbumItem extends GalleryItem {
     function setResizeSize($value) {
         assert('isset($value)');
         $this->_resizeSize = $value;
-        $this->modifyPersistentMember('resizeSize');
+        $this->setModifiedFlag('resizeSize', MEMBER_MODIFIED);
     }
     
     /**
@@ -786,7 +786,7 @@ class AlbumItem extends GalleryItem {
     function setRows($value) {
         assert('isset($value)');
         $this->_rows = $value;
-        $this->modifyPersistentMember('rows');
+        $this->setModifiedFlag('rows', MEMBER_MODIFIED);
     }
     
     /**
@@ -808,7 +808,7 @@ class AlbumItem extends GalleryItem {
     function setShowBreadCrumb($value) {
         assert('isset($value)');
         $this->_showBreadCrumb = $value;
-        $this->modifyPersistentMember('showBreadCrumb');
+        $this->setModifiedFlag('showBreadCrumb', MEMBER_MODIFIED);
     }
     
     /**
@@ -830,7 +830,7 @@ class AlbumItem extends GalleryItem {
     function setSortDirection($value) {
         assert('isset($value)');
         $this->_sortDirection = $value;
-        $this->modifyPersistentMember('sortDirection');
+        $this->setModifiedFlag('sortDirection', MEMBER_MODIFIED);
     }
     
     /**
@@ -852,7 +852,7 @@ class AlbumItem extends GalleryItem {
     function setSortProperty($value) {
         assert('isset($value)');
         $this->_sortProperty = $value;
-        $this->modifyPersistentMember('sortProperty');
+        $this->setModifiedFlag('sortProperty', MEMBER_MODIFIED);
     }
     
     /**
@@ -874,7 +874,7 @@ class AlbumItem extends GalleryItem {
     function setTextColor($value) {
         assert('isset($value)');
         $this->_textColor = $value;
-        $this->modifyPersistentMember('textColor');
+        $this->setModifiedFlag('textColor', MEMBER_MODIFIED);
     }
     
     /**
@@ -896,7 +896,7 @@ class AlbumItem extends GalleryItem {
     function setThumbSize($value) {
         assert('isset($value)');
         $this->_thumbSize = $value;
-        $this->modifyPersistentMember('thumbSize');
+        $this->setModifiedFlag('thumbSize', MEMBER_MODIFIED);
     }
     
     /**
@@ -918,7 +918,7 @@ class AlbumItem extends GalleryItem {
     function setViewExtendedData($value) {
         assert('isset($value)');
         $this->_viewExtendedData = $value;
-        $this->modifyPersistentMember('viewExtendedData');
+        $this->setModifiedFlag('viewExtendedData', MEMBER_MODIFIED);
     }
     
     /**
