@@ -57,10 +57,6 @@ if (count($GLO['toolbox']['commands']) > 0) {
 }
 $xtpl_blocks->parse("toolbox");
 
-$GLO['divider'] = $xtpl_blocks->text("divider");
-$GLO['blockNavigation'] = $xtpl_blocks->text("navigator");
-$GLO['blockTools'] = $xtpl_blocks->text("toolbox");
-$GLO['blockBreadcrumb'] = $xtpl_blocks->text("breadcrumb");
 
 if ($GLO['publicComments']) {
 	foreach ($GLO['publicComments'] as $comment) {
@@ -72,30 +68,20 @@ if ($GLO['publicComments']) {
 }
 
 //-------------------------------------------------------------------
-//-- The gallerywide headers and footers ---
-
-//-- modify page title here as the title tag is in global template ---
-$GLO['pagetitle'] = $GLO['gallery']['title'] . " :: " .
-                    $GLO['album']['title'] . " :: " . 
-                    $GLO['item']['id'];
-
-$xtpl_hf = getLayoutXTemplate("xtpl/header_footer.xtpl");
-$xtpl_hf->assign('GLO', $GLO);
-
-if (!$GALLERY_EMBEDDED_INSIDE) {
-    $xtpl_hf->parse("header.not_embedded_inside");
-    $xtpl_hf->parse("footer.not_embedded_inside");
-}
-$xtpl_hf->parse("header");
-$xtpl_hf->parse("footer");
-$GLO['header'] = $xtpl_hf->text("header");
-$GLO['footer'] = $xtpl_hf->text("footer");
-//-------------------------------------------------------------------
 //-- Finally do the main template ---
 //--   Note: only parse the header/footer if we are not embedded.
 
 $xtpl = getLayoutXTemplate("xtpl/view_item.xtpl");
 $xtpl->assign('GLO', $GLO);
+
+$xtpl->assign('blockDivider', $xtpl_blocks->text("divider"));
+$xtpl->assign('blockNavigation', $xtpl_blocks->text("navigator"));
+$xtpl->assign('blockTools', $xtpl_blocks->text("toolbox"));
+$xtpl->assign('blockBreadcrumb', $xtpl_blocks->text("breadcrumb"));
+if ($GLO['publicComments']) {
+	$xtpl->assign('blockPublicComments', $xtpl_blocks->text("comments"));
+}
+
 $xtpl->parse("view_item");
 $xtpl->out("view_item");
 

@@ -4,11 +4,11 @@
 <table border="0" width="{GLO.image.tableWidth}" cellpadding="0"  cellspacing="0">
   <tr>
 	<td>
-    {GLO.divider}
-    {GLO.blockBreadcrumb}
-    {GLO.divider}
-    {GLO.blockNavigation}
-    {GLO.divider}
+    {blockDivider}
+    {blockBreadcrumb}
+    {blockDivider}
+    {blockNavigation}
+    {blockDivider}
 	</td>
   </tr>
 
@@ -39,7 +39,7 @@
       </tr>
       <tr>
         <td colspan="3" align="center">
-        {GLO.blockPublicComments}
+        {blockPublicComments}
         </td>
       </tr>
 
@@ -50,11 +50,11 @@
   </tr>
   <tr>
     <td>
-    {GLO.divider}
-    {GLO.blockTools}
-    {GLO.divider}
-	{GLO.blockNavigation}
-    {GLO.divider}
+    {blockDivider}
+    {blockTools}
+    {blockDivider}
+	{blockNavigation}
+    {blockDivider}
 	</td>
   </tr>
 

@@ -57,22 +57,9 @@ if (count($GLO['toolbox']['commands']) > 0) {
 }
 $xtpl_blocks->parse("toolbox");
 
-//-------------------------------------------------------------------
-//-- The gallerywide headers and footers ---
-
 //-- modify page title here as the title tag is in global template ---
 $GLO['pagetitle'] = $GLO['gallery']['title'] . " :: " .
                     $GLO['album']['title']; 
-
-$xtpl_hf = getLayoutXTemplate("xtpl/header_footer.xtpl");
-$xtpl_hf->assign('GLO', $GLO);
-
-if (!$GALLERY_EMBEDDED_INSIDE) {
-    $xtpl_hf->parse("header.not_embedded_inside");
-    $xtpl_hf->parse("footer.not_embedded_inside");
-}
-$xtpl_hf->parse("header");
-$xtpl_hf->parse("footer");
 
 //-------------------------------------------------------------------
 //-- Finally do the main template ---
@@ -84,8 +71,6 @@ $xtpl->assign('blockDivider', $xtpl_blocks->text("divider"));
 $xtpl->assign('blockNavigation', $xtpl_blocks->text("navigator"));
 $xtpl->assign('blockTools', $xtpl_blocks->text("toolbox"));
 $xtpl->assign('blockBreadcrumb', $xtpl_blocks->text("breadcrumb"));
-$xtpl->assign('header', $xtpl_hf->text("header"));
-$xtpl->assign('footer', $xtpl_hf->text("footer"));
 
 //-- construct the items section ---
 $index=0;
