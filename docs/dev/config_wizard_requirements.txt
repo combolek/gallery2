@@ -3,38 +3,72 @@ GALLERY CONFIG WIZARD REQUIREMENTS
 $Id$
 ----------------------------------
 
-1. Overview.
+0. Overview.
 
-The config wizard will be most users first interaction with Gallery.
+The config wizard will be most users' first interaction with Gallery.
 At this point, many users will not be convinced that they even want to
 use Gallery, so if they hit even a simple roadblock they may give up
 and go elsewhere.  So it's very important that the config wizard
 provide as much (or as little) explanation of what's happening as
 necessary to make the user's experience enjoyable.
 
-Wizards that I have used recently that I appreciated:
+Setup wizards that we will want to emulate to some extent:
  * IMP
  * SquirrelMail
-
-It's a good idea to install the above packages and accustom yourself
-to the way that their wizards work, as they'll provide ideas for how
-to make a successful wizard of our own. 
 
 Also note that it's not necessary to maintain the same config API in
 v2.0 as we had in v1.2.  It's better to think outside the box and come
 up with a new set of variable names that are cleanly and logically
 grouped so that we are clean moving forward.  We have 3,000 users
-behind us and 300,000 ahead of us.
+behind us and 300,000 ahead of us. 
 
-2. Welcome stage.
+
+1. Download and configure
+
+To prevent race conditions (and more than one user configuring Gallery
+at a given time), the configure.sh and configure.bat file will ask for
+a password token that will be required for successfully entering the
+config wizard. The URL will be part of the initial setup.php request
+(as http://localhost/gallery/setup.php?password) that is echoed by
+these scripts. BTW: I'd love to have "comprehensible" verbage for
+describing this to the user running configure.sh.
+
+REVISIT (2001-11-27 21:31 mrm): I'm thinking I will let "no password"
+be default for configure.bat - and let the .sh script first check for
+something automated and secure, like md5 or some such, so I don't have
+to ask the user for a passwd.
+
+The shell script will also see if wget is available, and ask the user
+if it can try to fetch the image toolkit binaries (if they aren't in
+the path) and stuff them someplace "standard" to Gallery. Remind users
+about proper settings for http_proxy and the like. To be really sexy,
+if we see that the thing is a Debian box, ask the user to apt-get
+install ImageMagick as root (rather than have a local,
+Gallery-specific installation that isn't package-managed).
+
+If the shell script doesn't do this, the user's flow will be
+
+* download gallery.tgz
+* untar
+* read README
+* run configure.sh
+* get a browser pointing at .../setup/start.php?328924
+
+and then find out that they need three more tools (say, jhead,
+IMagick, and some movie tool).
+
+
+2. Welcome
 
 The first stage of the wizard should welcome you to the product and
 describe what's going to happen.  It should provide a link to Gallery
 resources on the net that the user can turn to if there are any
 problems during the installation.
 
-QUESTION - do we need to display the license here? Are we distributing
-under PHP or GPL (We can't live in PEAR if we aren't in GPL).
+REVISIT: do we need to display the license here? Are we distributing
+under PHP or GPL (We may not be able to live in PEAR if we don't use
+the PHP license).
+
 
 3. System Check.
 
@@ -50,8 +84,8 @@ from outside contributors).  The core modules:
 
  * You're using a supported version of PHP
 
- * You have one or more supported Graphics toolkits installed (optional)
-   - Check the version of the toolkit
+ * You have one or more supported Graphics toolkits installed
+   - Check the version of the toolkit (XXX >? !=?)
    - Check for jhead (technically, this should be part of the toolkit
      or part of PHP)
 
@@ -61,6 +95,7 @@ Each module should be able to:
  * Be optional (warning errors) or mandatory (fatal errors)
  * Return an informative success, warning or error message as
    appropriate. Errors must point to an appropriate FAQ section.
+
 
 4. System configuration
 
