@@ -761,7 +761,167 @@
    <title>
     Entities
    </title>
-   <para>&nbsp;
+   <para>
+    An entity in Gallery is an atomic chunk of data that can be loaded
+    from and saved to the database and has its own internal behaviour.
+    Each entity has its own unique id, creation timestamp,
+    modification timestamp, serial number and entity type.  All
+    entities are subclasses of GalleryEntity.  You never create an
+    instance of GalleryEntity itself; it's an abstract class even
+    though PHP doesn't explicitly support abstract classes.  When you
+    want a new instance of an entity you should create it using the
+    GalleryFactory (described below).
+   </para>
+   <para>
+    There are a variety of different types of entities that server
+    different purposes.  In the Gallery object model we take advantage
+    of inheritance to create subclasses of entities that contain only
+    the data and behaviour that we need.  For example, groups and
+    users do not have a parent/child relationship with other entities
+    so they directly subclass GalleryEntity.  Everything else in the
+    system has a parent/child relationship so we have a new entity
+    type called GalleryChildEntity that subclasses GalleryEntity and
+    contains a <emphasis>parentId</emphasis> member.  Read the UML
+    diagram to see exactly how the various entities are related.
+   </para>
+   <para>
+    Gallery data is arranged in a tree starting with a single
+    GalleryAlbumItem as the root.  The root album contains other
+    GalleryItems which are either GalleryAlbumItems or
+    GalleryDataItems.  GalleryDataItems are the manageable data types
+    such as GalleryPhotoItem or GalleryMovieItem instances.  Modules
+    can introduce new item types by creating entities that extend
+    GalleryDataItem and registering them with the GalleryFactory.
+   </para>
+   <para>
+    GalleryEntities contain contents that have special embedded
+    metadata in them.  We use this metadata to describe the entity in
+    such a way that our automated tools can automatically generate
+    interface classes and SQL table definitions for the entity.  This
+    saves a considerable amount of time writing code by hand.  Read
+    the "Code Generation" section for more details on how this works.
+   </para>
+   <para>
+    You create a new GalleryEntity by first getting an instance of it
+    from the GalleryFactory:
+    <programlisting>
+     list ($ret, $user) = GalleryFactory::newInstance('GalleryEntity', 'GalleryUser');
+     if ($ret->isError()) { 
+         return array($ret->wrap(__FILE__, __LINE__), null); 
+     }
+
+     if (!isset($user)) {
+         return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);      
+     }
+    </programlisting>
+    Note a couple of things about the above code.  First, we know that
+    we want to create a GalleryUser, and that GalleryUser extends
+    GalleryEntity.  This allows us to make the specific factory call
+    telling it to give us an instance of the GalleryUser class.  Now
+    the nice thing is that we don't actually care what GalleryUser we
+    get back as long as we get back something that fulfills the
+    GalleryUser API.  This is necessary since later on when we embed
+    Gallery inside another system we'll change the factory method to
+    return (for example) an instance of PostNukeGalleryUser and our
+    application logic will still function properly.
+   </para>
+   <para>
+    The other thing to note is that we don't actually know for sure
+    that we received back an instance of the class.  We may have asked
+    for a class type that is not registered, so not only do we have to
+    check for (and handle) an error code, but we have to handle the
+    situation where no object was returned.  Now in the case of
+    GalleryUser it's pretty unlikely that we won't have an
+    implementation handy, but it's still a good pattern to check so
+    that we can meet our reliability goal.
+   </para>
+   <para>
+    It's not always going to be the case that we know exactly what
+    type of entity we want, especially when we're creating new
+    GalleryItem types.  Typically, we want to create a GalleryItem
+    based on the mime type of the file the user just uploaded.  This
+    is when the factory code really shines, since we can allow modules
+    to create their own GalleryDataItem entities and register them
+    with the factory so that we can simply do this:
+    <programlisting>
+     list ($ret, $newItem) = GalleryItemHelper::newItemByMimeType($mimeType); 
+     if ($ret->isError()) { 
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+    </programlisting>
+    Note that in this example, we're going to get back a GalleryItem
+    but we have no idea what the actual implementation is.  In the
+    core module, we map some mime types to GalleryPhotoItem, some to
+    GalleryMovieItem and the rest to GalleryUnknownItem.  But there
+    may be a new module in the system that has created a
+    FlashMovieItem type and registered it with the
+    <emphasis>application/x-shockwave-flash</emphasis> mime type, and
+    we might be getting one of those entities back if the user
+    uploaded a flash movie.  We don't know, and we don't care as long
+    as the entity returned is a GalleryItem.
+   </para>
+   <para>
+    You must write lock a GalleryEntity before you modify or delete
+    it.  However, you do not have to write lock it before creating the
+    entity, since nothing else can modify it before you create it.
+    However, you should read lock the parent to make sure that it does
+    not get modified while you're creating entities inside it.Entity
+    creation looks like this (without locking; see the locking section
+    for examples with locking also).
+    <programlisting>
+     // use the factory to get a new instance of GalleryUser, as shown above
+     // then call create.
+     $ret = $user->create("jdoe");
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+
+     $user->setEmail("jdoe@jdoe.com");
+
+     // Now we have a well formed instance of GalleryUser in memory so save
+     // it to the database:
+     $ret = $user->save();
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+    </programlisting>
+    Modifying or deleting entities requires you to lock and refresh
+    the item before you change or delete it.
+    <programlisting>
+     // Let's assume $user is a loaded GalleryUser entity.  First we lock it:
+     list ($ret, $lockId) = $gallery->acquireWriteLock($user->getId());
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+
+     // Then we refresh the user in case somebody modified it in the window between
+     // when we loaded it and when we acquired the lock
+     $ret = $user->refresh();
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+
+     // Then modify the item
+     $user->setEmail("jdoe@jdoe.com");
+
+     // Now save it:
+     $ret = $user->save();
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+
+     // And then release our write lock
+     list ($ret, $lockId) = $gallery->releaseLocks($lockId);
+     if ($ret->isError()) {
+         return $ret->wrap(__FILE__, __LINE__);
+     }
+    </programlisting>
+    Deleting is the same as saving, except that you use the delete()
+    method on the entity instead of save().  And you can also use the
+    <programlisting>$gallery->deleteEntityById()</programlisting>
+    convenience method instead since that handles all the locking
+    issues and doesn't require you to actually load the entity just so
+    that you can delete it.
    </para>
   </sect3>
   <sect3>
@@ -944,7 +1104,7 @@
   </sect3>
   <sect3>
    <title>
-    Generated Code
+    Code Generation
    </title>
    <para>&nbsp;
    </para>
