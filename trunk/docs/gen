@@ -12,7 +12,7 @@ case $1 in
 		fi
 
 		cd $DIST/html
-		xsltproc ../../docbook-xsl/html/chunk.xsl ../../manual.xml
+		xsltproc --param galleryweb 0 ../../docbook-xsl/html/chunkfast.xsl ../../manual.xml
 
 
 		cp -Rf ../../images .
@@ -28,7 +28,7 @@ case $1 in
 			mkdir -p $DIST/bightml;
 		fi
 
-		xsltproc docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
+		xsltproc --param galleryweb 0 docbook-xsl/html/docbook.xsl manual.xml > $DIST/bightml/index.html
 
 		cp -Rf images $DIST/bightml
 		rm -rf $DIST/bightml/CVS
@@ -44,7 +44,7 @@ case $1 in
 		fi
 
 		cd $DIST/galleryweb
-		xsltproc ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
+		xsltproc --param galleryweb 1 ../../docbook-xsl/html/galleryweb.xsl ../../manual.xml
 
 
 		cp -Rf ../../images .
