@@ -89,6 +89,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 	private static int[] capabilities7;
 	private static int[] capabilities9;
 	private static int[] capabilities13;
+	private static int[] capabilities14;
 
 
 	/* -------------------------------------------------------------------------
@@ -128,6 +129,10 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 								  CAPA_FETCH_HIERARCHICAL, CAPA_ALBUM_INFO, CAPA_NEW_ALBUM, CAPA_FETCH_ALBUMS_PRUNE,
 								  CAPA_FORCE_FILENAME, CAPA_MOVE_ALBUM, CAPA_FETCH_ALBUM_IMAGES,
 								  CAPA_FETCH_ALBUMS_TOO, CAPA_FETCH_NON_WRITEABLE_ALBUMS};
+		capabilities14 = new int[]{CAPA_UPLOAD_FILES, CAPA_FETCH_ALBUMS, CAPA_UPLOAD_CAPTION,
+								  CAPA_FETCH_HIERARCHICAL, CAPA_ALBUM_INFO, CAPA_NEW_ALBUM, CAPA_FETCH_ALBUMS_PRUNE,
+								  CAPA_FORCE_FILENAME, CAPA_MOVE_ALBUM, CAPA_FETCH_ALBUM_IMAGES,
+								  CAPA_FETCH_ALBUMS_TOO, CAPA_FETCH_NON_WRITEABLE_ALBUMS, CAPA_FETCH_HONORS_HIDDEN};
 
 		// the algorithm for search needs the ints to be sorted.
 		Arrays.sort(capabilities);
@@ -137,6 +142,7 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		Arrays.sort(capabilities7);
 		Arrays.sort(capabilities9);
 		Arrays.sort(capabilities13);
+		Arrays.sort(capabilities14);
 	}
 
 
@@ -498,7 +504,9 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 		}
 
 		private void handleCapabilities() {
-			if (serverMinorVersion >= 13) {
+			if (serverMinorVersion >= 14) {
+				capabilities = capabilities14;
+			} else if (serverMinorVersion >= 13) {
 				capabilities = capabilities13;
 			} else if (serverMinorVersion >= 9) {
 				capabilities = capabilities9;
@@ -1155,10 +1163,15 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 						} else {
 							Picture picture = new Picture();
 							picture.setOnline(true);
-							picture.setUrlFull(new URL(baseUrl + p.getProperty("image.name." + i)));
-							width = p.getIntProperty("image.raw_width." + i, 0);
-							height = p.getIntProperty("image.raw_height." + i, 0);
-							picture.setSizeFull(new Dimension(width, height));
+
+							String rawName = p.getProperty("image.name." + i);
+							if (rawName != null) {
+								picture.setUrlFull(new URL(baseUrl + rawName));
+								width = p.getIntProperty("image.raw_width." + i, 0);
+								height = p.getIntProperty("image.raw_height." + i, 0);
+								picture.setSizeFull(new Dimension(width, height));
+								picture.setFileSize(p.getIntProperty("image.raw_filesize." + i));
+							}
 
 							String resizedName = p.getProperty("image.resizedName." + i);
 							if (resizedName != null) {
@@ -1173,7 +1186,6 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 							height = p.getIntProperty("image.thumb_height." + i);
 							picture.setSizeThumbnail(new Dimension(width, height));
 
-							picture.setFileSize(p.getIntProperty("image.raw_filesize." + i));
 							picture.setCaption(p.getProperty("image.caption." + i));
 
 							if (extraFields != null) {
@@ -1187,10 +1199,15 @@ public class GalleryComm2 extends GalleryComm implements GalleryComm2Consts,
 								}
 							}
 
+							picture.setHidden(p.getBooleanProperty("image.hidden." + i));
+
 							picture.setAlbumOnServer(a);
 							picture.setIndexOnServer(i - 1);
 
-							newPictures.add(picture);
+							if (!picture.isHidden() && !(rawName == null && resizedName == null)) {
+								// don't add the picture if the current user can't get access to it
+								newPictures.add(picture);
+							}
 						}
 					}
 				} else {

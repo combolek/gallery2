@@ -439,7 +439,7 @@ public class Album extends Picture implements ListModel, Serializable {
 		this.name = removeOffendingChars(name);
 	}
 
-	static final String offendingChars = "\\/*?\"\'&<>|.+# ";
+	static final String offendingChars = "\\/*?\"\'&<>|.+# ()";
 
 	static String removeOffendingChars(String in) {
 		StringBuffer out = new StringBuffer();

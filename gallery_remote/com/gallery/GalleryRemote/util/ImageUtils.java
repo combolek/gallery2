@@ -399,8 +399,8 @@ public class ImageUtils {
 		}
 
 		if (full) {
-			u = p.getUrlFull();
-			d = p.getSizeFull();
+			u = p.safeGetUrlFull();
+			d = p.safeGetSizeFull();
 		} else {
 			u = p.getUrlResized();
 			d = p.getSizeResized();
@@ -418,7 +418,7 @@ public class ImageUtils {
 		String filename = name + "." + ext;
 
 		return new LocalInfo(name, ext, filename,
-				deterministicTempFile("server", "." + ext, tmpDir, p.getAlbumOnServer().getName() + name + d));
+				deterministicTempFile("server", "." + ext, tmpDir, p.getAlbumOnServer().getName() + name + d), u, d);
 	}
 
 	static class LocalInfo {
@@ -426,12 +426,16 @@ public class ImageUtils {
 		String ext;
 		String filename;
 		File file;
+		URL url;
+		Dimension size;
 
-		public LocalInfo(String name, String ext, String filename, File file) {
+		public LocalInfo(String name, String ext, String filename, File file, URL url, Dimension size) {
 			this.name = name;
 			this.ext = ext;
 			this.filename = filename;
 			this.file = file;
+			this.url = url;
+			this.size = size;
 		}
 	}
 
@@ -448,18 +452,18 @@ public class ImageUtils {
 
 			if ((d.width > p.getSizeResized().width || d.height > p.getSizeResized().height
 					|| fullInfo.file.exists()) && ! GalleryRemote._().properties.getBooleanProperty(PreferenceNames.SLIDESHOW_LOWREZ)) {
-				pictureUrl = p.getUrlFull();
+				pictureUrl = fullInfo.url;
 				//pictureDimension = p.getSizeFull();
 				f = fullInfo.file;
 				filename = fullInfo.filename;
 			} else {
-				pictureUrl = p.getUrlResized();
+				pictureUrl = resizedInfo.url;
 				//pictureDimension = p.getSizeResized();
 				f = resizedInfo.file;
 				filename = resizedInfo.filename;
 			}
 		} else {
-			pictureUrl = p.getUrlFull();
+			pictureUrl = fullInfo.url;
 			//pictureDimension = p.getSizeFull();
 			f = fullInfo.file;
 			filename = fullInfo.filename;

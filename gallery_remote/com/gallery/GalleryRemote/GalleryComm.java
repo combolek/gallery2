@@ -170,7 +170,7 @@ public abstract class GalleryComm implements PreferenceNames {
 			String proxyUsername = null;
 			String proxyPassword = null;
 
-			if (proxyList != null) {
+			if (proxyList != null && proxyList.length() != 0) {
 				try {
 					proxyList = proxyList.toUpperCase();
 					Log.log(Log.LEVEL_TRACE, MODULE, "Plugin Proxy Config List Property:"+proxyList);
