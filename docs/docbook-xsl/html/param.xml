@@ -3440,6 +3440,7 @@ example before
 equation before
 table before
 procedure before
+task before
 &lt;/xsl:param&gt;
 </programlisting>
 </refsynopsisdiv>
@@ -4178,6 +4179,157 @@ that you may have trouble using those symbols for footnotes.</para>
 </refsect1>
 </refentry>
 
+<refentry id="xref.label-page.separator">
+<refmeta>
+<refentrytitle>xref.label-page.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.label-page.separator</refname>
+<refpurpose>Punctuation or space separating label from page number in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.label-page.separator.frag">&lt;xsl:param name="xref.label-page.separator"&gt;&lt;xsl:text&gt; &lt;/xsl:text&gt;&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both label and page
+but no title,
+then the value of this parameter is inserted between
+label and page number in the output.  
+If a title is included, then other separators are used.
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="xref.label-title.separator">
+<refmeta>
+<refentrytitle>xref.label-title.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.label-title.separator</refname>
+<refpurpose>Punctuation or space separating label from title in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.label-title.separator.frag">&lt;xsl:param name="xref.label-title.separator"&gt;: &lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both label and title,
+then the value of this parameter is inserted between
+label and title in the output.  
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="xref.title-page.separator">
+<refmeta>
+<refentrytitle>xref.title-page.separator</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>xref.title-page.separator</refname>
+<refpurpose>Punctuation or space separating title from page number in xref</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="xref.title-page.separator.frag">&lt;xsl:param name="xref.title-page.separator"&gt;&lt;xsl:text&gt; &lt;/xsl:text&gt;&lt;/xsl:param&gt;</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>
+This parameter allows you to control the punctuation of certain
+types of generated cross reference text.
+When cross reference text is generated for an 
+<sgmltag class="element">xref</sgmltag> or 
+<sgmltag class="element">olink</sgmltag> element
+using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+that makes use of the <literal moreinfo="none">select:</literal> feature,
+and the selected components include both title and page number,
+then the value of this parameter is inserted between
+title and page number in the output.  
+</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="insert.xref.page.number">
+<refmeta>
+<refentrytitle>insert.xref.page.number</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>insert.xref.page.number</refname>
+<refpurpose>Turns page numbers in xrefs on and off</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="insert.xref.page.number.frag">
+&lt;xsl:param name="insert.xref.page.number"&gt;no&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The value of this parameter determines if
+cross references (<sgmltag>xref</sgmltag>s) in
+printed output will
+include page number citations.
+It has three possible values.
+</para>
+<variablelist>
+<varlistentry>
+<term>no</term>
+<listitem><para>No page number references will be generated.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>yes</term>
+<listitem><para>Page number references will be generated
+for all <sgmltag>xref</sgmltag> elements.
+The style of page reference may be changed
+if an <sgmltag class="attribute">xrefstyle</sgmltag>
+attribute is used.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term>maybe</term>
+<listitem><para>Page number references will not be generated
+for an <sgmltag>xref</sgmltag> element unless 
+it has an
+<sgmltag class="attribute">xrefstyle</sgmltag>
+attribute whose value specifies a page reference.
+</para></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+</refentry>
+
 </reference>
 
 <reference><title>Graphics</title>
@@ -4897,6 +5049,31 @@ is system dependent.)</para>
       is non-zero).</para>
 
   </refsect1>
+</refentry>
+
+<refentry id="manifest.in.base.dir">
+<refmeta>
+<refentrytitle>manifest.in.base.dir</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>manifest.in.base.dir</refname>
+<refpurpose>Should be manifest file written in $base.dir?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="manifest.in.base.dir.frag">
+&lt;xsl:param name="manifest.in.base.dir" select="0"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If non-zero manifest file and project files for HTML Help and
+Eclipse Help are written into <parameter moreinfo="none">base.dir</parameter> instead
+of current directory.</para>
+
+</refsect1>
 </refentry>
 
 <refentry id="chunk.toc">
@@ -5721,6 +5898,30 @@ your document and you also hide root element in ToC. E.g.:</para>
 </refsect1>
 </refentry>
 
+<refentry id="htmlhelp.display.progress">
+<refmeta>
+<refentrytitle>htmlhelp.display.progress</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.display.progress</refname>
+<refpurpose>Display compile progress?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.display.progress.frag">
+&lt;xsl:param name="htmlhelp.display.progress" select="1"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>You can swith off display of compile progress by setting this
+parameter to 0.</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="htmlhelp.hhp">
 <refmeta>
 <refentrytitle>htmlhelp.hhp</refentrytitle>
@@ -5837,6 +6038,54 @@ store appropriate part of project file into this parameter.</para>
 
 <para>Name of default window. If empty no [WINDOWS] section will be
 added to project file.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="htmlhelp.hhp.windows'">
+<refmeta>
+<refentrytitle>htmlhelp.hhp.windows</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.hhp.windows</refname>
+<refpurpose>Definition of additional windows</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.hhp.windows.frag">
+&lt;xsl:param name="htmlhelp.hhp.windows"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Content of this parameter is placed at the end of [WINDOWS]
+section of project file. You can use it for defining your own
+addtional windows.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="htmlhelp.enhanced.decompilation">
+<refmeta>
+<refentrytitle>htmlhelp.enhanced.decompilation</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.enhanced.decompilation</refname>
+<refpurpose>Allow enhanced decompilation of CHM?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.enhanced.decompilation.frag">
+&lt;xsl:param name="htmlhelp.enhanced.decompilation" select="0"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>When set to 1 this parameter enables enhanced decompilation of CHM.</para>
 
 </refsect1>
 </refentry>
@@ -6038,6 +6287,29 @@ must create binary TOC if you want to add Prev/Next buttons to toolbar
 </refsect1>
 </refentry>
 
+<refentry id="htmlhelp.hhc.width">
+<refmeta>
+<refentrytitle>htmlhelp.hhc.width</refentrytitle>
+<refmiscinfo role="type">integer</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.hhc.width</refname>
+<refpurpose>Width of navigation (ToC) pane</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.hhc.width.frag">
+&lt;xsl:param name="htmlhelp.hhc.width"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This parameter specifies width of ToC pane in pixels.</para>
+
+</refsect1>
+</refentry>
+
 <refentry id="htmlhelp.title">
 <refmeta>
 <refentrytitle>htmlhelp.title</refentrytitle>
@@ -6082,6 +6354,30 @@ HTML Help. If empty, title will be automatically taken from document.</para>
 
 <para>If you want application menu in your HTML Help file, turn this
 parameter to 1.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="htmlhelp.show.toolbar.text'">
+<refmeta>
+<refentrytitle>htmlhelp.show.toolbar.text</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.show.toolbar.text</refname>
+<refpurpose>Show text under toolbar buttons?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.show.toolbar.text.frag">
+&lt;xsl:param name="htmlhelp.show.toolbar.text" select="1"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>You can switch off display of texts under toolbar buttons by
+setting this parameter to 0.</para>
 
 </refsect1>
 </refentry>
@@ -6585,6 +6881,56 @@ parameter to 1.</para>
 </refsect1>
 </refentry>
 
+<refentry id="htmlhelp.remember.window.position">
+<refmeta>
+<refentrytitle>htmlhelp.remember.window.position</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.remember.window.position</refname>
+<refpurpose>Remember help window position?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.remember.window.position.frag">
+&lt;xsl:param name="htmlhelp.remember.window.position" select="0"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>To remember help window position between starts set this
+parameter to 1.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="htmlhelp.window.geometry">
+<refmeta>
+<refentrytitle>htmlhelp.window.geometry</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>htmlhelp.window.geometry</refname>
+<refpurpose>Set initial geometry of help window</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="htmlhelp.window.geometry.frag">
+&lt;xsl:param name="htmlhelp.window.geometry"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This parameter specifies initial position of help
+window. E.g.</para>
+
+<programlisting format="linespecific">&lt;xsl:param name="htmlhelp.window.geometry"&gt;[160,64,992,704]&lt;/xsl:param&gt;</programlisting>
+
+</refsect1>
+</refentry>
+
 <refentry id="htmlhelp.use.hhk">
 <refmeta>
 <refentrytitle>htmlhelp.use.hhk</refentrytitle>
@@ -6631,6 +6977,103 @@ new features.</para>
 don't need to regenerate all HTML files, you can set this parameter to
 1. This setting will not process whole document, only project files
 (hhp, hhc, hhk,...) will be generated.</para>
+
+</refsect1>
+</refentry>
+
+</reference>
+
+<reference><title>Eclipse Help Platform</title>
+<refentry id="eclipse.autolabel">
+<refmeta>
+<refentrytitle>eclipse.autolabel</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>eclipse.autolabel</refname>
+<refpurpose>Should tree-like ToC use autonumbering feature?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="eclipse.autolabel.frag">
+&lt;xsl:param name="eclipse.autolabel" select="0"&gt;&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If you want to include chapter and section numbers into ToC in
+the left panel, set this parameter to 1.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="eclipse.plugin.name">
+<refmeta>
+<refentrytitle>eclipse.plugin.name</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>eclipse.plugin.name</refname>
+<refpurpose>Eclipse Help plugin name</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="eclipse.plugin.name.frag">
+&lt;xsl:param name="eclipse.plugin.name"&gt;DocBook Online Help Sample&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Eclipse Help plugin name.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="eclipse.plugin.id">
+<refmeta>
+<refentrytitle>eclipse.plugin.id</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>eclipse.plugin.id</refname>
+<refpurpose>Eclipse Help plugin id</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="eclipse.plugin.id.frag">
+&lt;xsl:param name="eclipse.plugin.id"&gt;com.example.help&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Eclipse Help plugin id. You should change this id to something
+unique for each help.</para>
+
+</refsect1>
+</refentry>
+
+<refentry id="eclipse.plugin.provider">
+<refmeta>
+<refentrytitle>eclipse.plugin.provider</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>eclipse.plugin.provider</refname>
+<refpurpose>Eclipse Help plugin provider name</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<programlisting id="eclipse.plugin.provider.frag">
+&lt;xsl:param name="eclipse.plugin.provider"&gt;Example provider&lt;/xsl:param&gt;
+</programlisting>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Eclipse Help plugin provider name.</para>
 
 </refsect1>
 </refentry>
@@ -6807,6 +7250,10 @@ around all these parameters.</para>
 &lt;src:fragref linkend="ebnf.table.border.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ebnf.assignment.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ebnf.statement.terminator.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="eclipse.autolabel.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="eclipse.plugin.name.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="eclipse.plugin.id.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="eclipse.plugin.provider.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="emphasis.propagates.style.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="entry.propagates.style.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="firstterm.only.link.frag"&gt;&lt;/src:fragref&gt;
@@ -6865,7 +7312,9 @@ around all these parameters.</para>
 &lt;src:fragref linkend="htmlhelp.button.zoom.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.chm.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.default.topic.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.display.progress.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.encoding.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.enhanced.decompilation.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.enumerate.images.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.force.map.and.alias.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhc.binary.frag"&gt;&lt;/src:fragref&gt;
@@ -6873,17 +7322,22 @@ around all these parameters.</para>
 &lt;src:fragref linkend="htmlhelp.hhc.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhc.section.depth.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhc.show.root.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.hhc.width.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhk.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhp.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhp.tail.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.hhp.window.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.hhp.windows.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.map.file.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.only.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.remember.window.position.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.show.advanced.search.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.show.favorities.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.show.menu.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.show.toolbar.text.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.title.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="htmlhelp.use.hhk.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="htmlhelp.window.geometry.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="ignore.image.scaling.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="inherit.keywords.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="l10n.gentext.default.language.frag"&gt;&lt;/src:fragref&gt;
@@ -6900,6 +7354,7 @@ around all these parameters.</para>
 &lt;src:fragref linkend="make.valid.html.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="make.year.ranges.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="manifest.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="manifest.in.base.dir.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="manual.toc.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="menuchoice.menu.separator.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="menuchoice.separator.frag"&gt;&lt;/src:fragref&gt;
@@ -6992,6 +7447,10 @@ around all these parameters.</para>
 &lt;src:fragref linkend="use.svg.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="variablelist.as.table.frag"&gt;&lt;/src:fragref&gt;
 &lt;src:fragref linkend="xref.with.number.and.title.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.label-title.separator.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.label-page.separator.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="xref.title-page.separator.frag"&gt;&lt;/src:fragref&gt;
+&lt;src:fragref linkend="insert.xref.page.number.frag"&gt;&lt;/src:fragref&gt;
 
 &lt;/xsl:stylesheet&gt;
 </programlisting>

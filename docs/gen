@@ -159,7 +159,7 @@ case $1 in
 
 		gendate
 
-		fop -q -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf || exit 1
+		fop -xsl docbook-xsl/fo/docbook.xsl -xml manual.xml -pdf $DIST/pdf/manual.pdf || exit 1
 
 		rm -f manual.fo
 		;;

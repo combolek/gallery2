@@ -1,6 +1,181 @@
+2003-12-15  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* chunk-common.xsl: Fix ugly performance problem in footer.navigation (thanks again Guillaume du Bourguet)
+
+2003-12-12  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* inline.xsl: Fix bug [ 841586 ] id-attibute in firstterm prohibits link to glossary.
+
+2003-12-09  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* autotoc.xsl: Omit setindex from TOC if $generate.index = 0
+
+2003-12-05  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* table.xsl: Now colwidth="*" treated as colwidth="1*" for tablecolumns extension.
+
+2003-12-01  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* lists.xsl: Processing of listitems now processes and preserves order of comments and PIs.
+
+2003-11-30  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* autoidx.xsl, changebars.xsl, chunk-code.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunkfast.xsl, chunktoc.xsl, html-rtf.xsl, htmltbl.xsl, maketoc.xsl, manifest.xsl, oldchunker.xsl, onechunk.xsl, profile-chunk.xsl, profile-onechunk.xsl, task.xsl: 
+	Added CVS $Id$ comments.
+
+2003-11-29  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* Makefile.param, param.ent, param.xweb: Added new HTML Help parameters from patches by W. Borgert
+
+2003-11-25  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* chunk-common.xsl: Experimental fix for some xref linking issues in cases where dbhtml 'dir' is used.
+
+2003-11-24  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* chunk-common.xsl: Fix ugly performance problem with chunking (thanks Guillaume du Bourguet)
+
+	* glossary.xsl: Fix bugs in formatting of glosslist
+
+2003-11-23  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* inline.xsl: Support code inline
+
+2003-11-02  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* chunk-common.xsl: Moved call to user.head.content to just before </head>
+	to give the user the last word.
+
+2003-10-23  <uid50791@users.sourceforge.net>
+
+	* chunk-code.xsl: Remove index from Next and Previous when
+	$generate.index = 0.
+
+2003-10-03  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* lists.xsl: Support stepalternatives
+
+2003-09-28  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* index.xsl: Handle indexdiv/title properly
+
+	* lists.xsl: Bug #779655: fix PIs and comments in segmented lists
+
+2003-09-27  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* block.xsl, qandaset.xsl: Bug #687783: attempt rudimentary support for blockinfo
+
+2003-09-23  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* Makefile.param, html.xsl, manifest.xsl, param.ent, param.xweb: 
+	Added new parameter manifest.in.base.dir which can be used to place manifest file and also project files for HTML Help and Eclipse Help into base.dir. This improvement also fixes bug (feature) #662955.
+
+2003-08-29  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* autotoc.xsl: Fixed bug in new toc.line template.
+
+	* chunker.xsl: No change, just new timestamp so html2xhtml.xsl will
+	update it when generate the xhtml version.
+
+2003-08-29  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* inline.xsl: Rudimentary support for @dir
+
+2003-08-27  Norman Walsh <nwalsh@users.sourceforge.net>
+
+	* docbook.xsl, formal.xsl, htmltbl.xsl, table.xsl: Reorganize code for consistency with FO; check for obviously broken tables
+
+	* docbook.xsl, task.xsl: Support task
+
+	* formal.xsl, table.xsl: Support HTML tables
+
+	* inline.xsl: Support uri
+
+	* verbatim.xsl: Support startinglinenumber and continuation on verbatim environments
+
+2003-08-07  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* callout.xsl: Fixed callout numbering bug when <co> inside an inline.
+
+2003-08-04  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* qandaset.xsl: Fixed logic for turning on qandaset/qandadiv TOCs with
+	generate.toc param or dbhtml toc PI.
+
+2003-08-01  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* titlepage.xsl: Moved email in "author" template to appear after the
+	affiliation.
+
+2003-07-31  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* Makefile.param, param.xweb: Added missing parameter
+
+2003-07-31  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* qandaset.xsl: Fixed extraneous dot when defaultlabel=qanda.
+
+	* qandaset.xsl: Removed extraneous dot from question in autotoc mode as well
+	when defaultlabel=qanda.
+
+2003-07-25  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* param.ent: Added insert.xref.page.number with value of zero to
+	ensure that xrefstyle attributes don't try to generate
+	a page number reference for HTML output.  This parameter
+	does not show up in the HTML doc because it is not
+	to be changed.
+
+	* param.ent, param.xweb: Added xref.label-title.separator, xref.label-page.separator,
+	and xref.title-page.separator parameters to support the
+	xrefstyle select: feature.
+
+2003-07-22  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* Makefile.param, param.ent, param.xweb: Added support for Eclipse Help Platform
+
+	* html.xsl: Moving template to place where it can be reused
+
+2003-07-21  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* autotoc.xsl: Added a toc.line template to handle formatting of each
+	line in a TOC, similar to that in the FO side.
+	Makes customizing HTML toc easier.
+
+2003-07-17  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* graphics.xsl: Image depth calculation was using nominal.image.width
+	when it should have been using nominal.image.depth.
+
+2003-07-10  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* lists.xsl: Added no-op templates for list titleabbrev elements.
+
+2003-07-08  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* maketoc.xsl: Handle refentry with mode="toc" here since refentry mode="toc"
+	in autotoc.xsl does not use subtoc. This fixes bug #743612.
+
+2003-06-25  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* block.xsl: Process formalpara/title to variable so can test for last
+	char of any generated text.
+
+2003-06-23  Robert Stayton <bobstayton@users.sourceforge.net>
+
+	* refentry.xsl: Added param conditional="0" to call to 'anchor' template
+	for refsections, so those sections are
+	valid targets for indexterm links as expected by autoidx.xsl.
+
+2003-06-23  Jirka Kosek <kosek@users.sourceforge.net>
+
+	* titlepage.xsl: DocBook 4.2 allows e-mail address inside author element and now is this feature supported also by stylesheets. Not sure whether this solution is the best, but it works.
+
 2003-06-22  Robert Stayton <bobstayton@users.sourceforge.net>
 
 	* docbook.xsl, param.ent, param.xweb: Added draft.mode parameter.
+
+	* graphics.xsl: Fix bug #733406: ignore.image.scaling misses contentwidth.
 
 2003-06-22  Norman Walsh <nwalsh@users.sourceforge.net>
 
@@ -50,10 +225,10 @@
 
 2003-05-07  Robert Stayton <bobstayton@users.sourceforge.net>
 
+	* admon.xsl: admon.textlabel turned off still outputs a note's title child.
+
 	* admon.xsl: Added admon.textlabel parameter to enable turning off
 	the text label such as Note, Warning.
-
-	* admon.xsl: admon.textlabel turned off still outputs a note's title child.
 
 	* param.ent, param.xweb: Fixed name bug in admon.textlabel.
 
@@ -127,12 +302,12 @@
 
 2003-02-04  Robert Stayton <bobstayton@users.sourceforge.net>
 
+	* lists.xsl: Added support for elements between variablelist and first
+	varlistentry since DocBook 4.2 supports that now.
+
 	* lists.xsl: Exempted titleabbrev from preamble processing in lists,
 	and fixed variablelist preamble code to use the same syntax
 	as the other lists.
-
-	* lists.xsl: Added support for elements between variablelist and first
-	varlistentry since DocBook 4.2 supports that now.
 
 2003-01-30  Robert Stayton <bobstayton@users.sourceforge.net>
 
@@ -163,9 +338,9 @@
 
 	* glossary.xsl: Support glossentry.show.acronym
 
-	* param.ent, param.xweb: Added {table.}footnote.number.{format,symbols}, entry.propagates.style, and glossentry.show.acronym
-
 	* param.ent, param.xweb: Support xref.with.number.and.title
+
+	* param.ent, param.xweb: Added {table.}footnote.number.{format,symbols}, entry.propagates.style, and glossentry.show.acronym
 
 	* sections.xsl: Don't force a ToC for refentrys
 
@@ -393,17 +568,17 @@
 
 	* chunk-common.xsl: Call system.head.content in html.head
 
-	* docbook.xsl: Address Bug #610660: Added system.head.content so that stylesheets can output things before the users css.stylesheet (for example). Also added a title parameter to head.content
-
 	* docbook.xsl: Add context to error message about a missing template
+
+	* docbook.xsl: Address Bug #610660: Added system.head.content so that stylesheets can output things before the users css.stylesheet (for example). Also added a title parameter to head.content
 
 	* graphics.xsl: Call the *.head.content templates when writing out long description chunks
 
 	* synop.xsl: Bug #605150: process arg correctly even when it's in a group
 
-	* titlepage.xsl: Bug #607725: make sure legalnoticelink is correct even when chunking to a different html.dir
-
 	* titlepage.xsl: Call the *.head.content templates when writing out legalnotice chunks
+
+	* titlepage.xsl: Bug #607725: make sure legalnoticelink is correct even when chunking to a different html.dir
 
 2002-09-18  Norman Walsh <nwalsh@users.sourceforge.net>
 
@@ -520,9 +695,9 @@
 
 2002-07-08  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* autoidx.xsl: Bug #574841: trim leading and trailing whitespace from primary/secondary/tertiary index terms
-
 	* autoidx.xsl: Bug #574840: fix bug where some symbol index terms got lost
+
+	* autoidx.xsl: Bug #574841: trim leading and trailing whitespace from primary/secondary/tertiary index terms
 
 	* graphics.xsl: Work-around bug in xsltproc: explicitly cast scale to a number() before comparing it to 1.0
 
@@ -642,9 +817,9 @@
 
 2002-06-13  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile.param: New features. A lot of new features. For HTML Help.
-
 	* Makefile.param: Added parameter for disabling HTML output when testing various HTML Help features.
+
+	* Makefile.param: New features. A lot of new features. For HTML Help.
 
 2002-06-13  Norman Walsh <nwalsh@users.sourceforge.net>
 
@@ -664,9 +839,9 @@
 
 2002-06-13  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* param.ent: New features. A lot of new features. For HTML Help.
-
 	* param.ent: Added parameter for disabling HTML output when testing various HTML Help features.
+
+	* param.ent: New features. A lot of new features. For HTML Help.
 
 2002-06-13  Norman Walsh <nwalsh@users.sourceforge.net>
 
@@ -674,9 +849,9 @@
 
 2002-06-13  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* param.xweb: New features. A lot of new features. For HTML Help.
-
 	* param.xweb: Added parameter for disabling HTML output when testing various HTML Help features.
+
+	* param.xweb: New features. A lot of new features. For HTML Help.
 
 2002-06-12  Jirka Kosek <kosek@users.sourceforge.net>
 
@@ -692,9 +867,9 @@
 
 	* graphics.xsl, param.ent, param.xweb: Made new parameters public
 
-	* html-rtf.xsl: When unwrapping; don't produce empty elements if there's no need
-
 	* html-rtf.xsl: Fix list of block elements and support xhtml
+
+	* html-rtf.xsl: When unwrapping; don't produce empty elements if there's no need
 
 	* xref.xsl: Experimental support for xrefstyle
 
@@ -1074,9 +1249,9 @@
 
 2001-11-28  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* param.xweb: Added punct.honorific parameter
-
 	* param.xweb: Support formatting segmented lists as tables
+
+	* param.xweb: Added punct.honorific parameter
 
 2001-11-28  Jirka Kosek <kosek@users.sourceforge.net>
 
@@ -1245,9 +1420,9 @@
 
 	* chunk-common.xsl: Feature request #439053: support generate.legalnotice.link
 
-	* xref.xsl: Bug #462830: allow %p in templates
-
 	* xref.xsl: Bug #463033: allow xref to list items (in orderedlists) and varlistentrys
+
+	* xref.xsl: Bug #462830: allow %p in templates
 
 2001-09-09  Norman Walsh <nwalsh@users.sourceforge.net>
 
@@ -1353,9 +1528,9 @@
 
 	* chunk.xsl: Remove extension namespace declarations; they aren't actually used in this module
 
-	* chunker.xsl: Make exsl:document the first choice
-
 	* chunker.xsl: Fix EXSLT namespace name for exsl:document element
+
+	* chunker.xsl: Make exsl:document the first choice
 
 	* chunker.xsl, oldchunker.xsl, param.xsl: Move declaration for default.encoding and saxon.character.representation from param.xsl to (old)chunker.xsl so that chunker.xsl can be used by any stylesheet (indepedent of docbook.xsl). Maybe this should get moved to lib...
 

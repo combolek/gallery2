@@ -15,6 +15,50 @@
 
 <!-- ==================================================================== -->
 
+<xsl:param name="body.fontset">
+  <xsl:value-of select="$body.font.family"/>
+  <xsl:if test="$body.font.family != ''
+                and $symbol.font.family  != ''">,</xsl:if>
+    <xsl:value-of select="$symbol.font.family"/>
+</xsl:param>
+
+<xsl:param name="title.fontset">
+  <xsl:value-of select="$title.font.family"/>
+  <xsl:if test="$title.font.family != ''
+                and $symbol.font.family  != ''">,</xsl:if>
+    <xsl:value-of select="$symbol.font.family"/>
+</xsl:param>
+
+<!-- PassiveTeX can't handle the math expression for
+     title.margin.left being negative, so ignore it.
+     margin-left="{$page.margin.outer} - {$title.margin.left}"
+-->
+<xsl:param name="margin.left.outer">
+  <xsl:choose>
+    <xsl:when test="$passivetex.extensions != 0">
+      <xsl:value-of select="$page.margin.outer"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$page.margin.outer"/>
+      <xsl:text> - </xsl:text>
+      <xsl:value-of select="$title.margin.left"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
+
+<xsl:param name="margin.left.inner">
+  <xsl:choose>
+    <xsl:when test="$passivetex.extensions != 0">
+      <xsl:value-of select="$page.margin.inner"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$page.margin.inner"/>
+      <xsl:text> - </xsl:text>
+      <xsl:value-of select="$title.margin.left"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:param>
+
 <xsl:template name="setup.pagemasters">
   <fo:layout-master-set>
     <!-- blank pages -->
@@ -23,7 +67,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.outer}"
+                           margin-left="{$margin.left.outer}"
                            margin-right="{$page.margin.inner}">
       <fo:region-body display-align="center"
                       margin-bottom="{$body.margin.bottom}"
@@ -46,7 +90,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -66,7 +110,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -86,8 +130,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$margin.left.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.titlepage}"
@@ -107,7 +151,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -119,7 +163,7 @@
                         display-align="before"/>
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
-                        display-align="after"/>
+                       display-align="after"/>
     </fo:simple-page-master>
 
     <fo:simple-page-master master-name="lot-odd"
@@ -127,7 +171,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -147,8 +191,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$margin.left.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.lot}"
@@ -168,7 +212,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -188,7 +232,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -208,8 +252,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$margin.left.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.front}"
@@ -229,7 +273,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -249,7 +293,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -269,8 +313,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$margin.left.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.body}"
@@ -290,7 +334,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -310,7 +354,7 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-left="{$page.margin.inner}"
+                           margin-left="{$margin.left.inner}"
                            margin-right="{$page.margin.outer}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
@@ -330,8 +374,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$margin.left.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.back}"
@@ -391,8 +435,8 @@
                            page-height="{$page.height}"
                            margin-top="{$page.margin.top}"
                            margin-bottom="{$page.margin.bottom}"
-                           margin-right="{$page.margin.inner}"
-                           margin-left="{$page.margin.outer}">
+                           margin-left="{$page.margin.outer}"
+                           margin-right="{$page.margin.inner}">
       <fo:region-body margin-bottom="{$body.margin.bottom}"
                       margin-top="{$body.margin.top}"
                       column-gap="{$column.gap.index}"
@@ -413,12 +457,11 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.outer}"
+                             margin-left="{$margin.left.outer}"
                              margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -444,14 +487,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -476,14 +518,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -508,14 +549,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-right="{$page.margin.inner}"
-                             margin-left="{$page.margin.outer}">
+                             margin-left="{$margin.left.outer}"
+                             margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -541,14 +581,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -573,14 +612,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -605,14 +643,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-right="{$page.margin.inner}"
-                             margin-left="{$page.margin.outer}">
+                             margin-left="{$margin.left.outer}"
+                             margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -638,14 +675,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -670,14 +706,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -702,14 +737,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-right="{$page.margin.inner}"
-                             margin-left="{$page.margin.outer}">
+                             margin-left="{$margin.left.outer}"
+                             margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -735,14 +769,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -767,14 +800,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -799,14 +831,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-right="{$page.margin.inner}"
-                             margin-left="{$page.margin.outer}">
+                             margin-left="{$margin.left.outer}"
+                             margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -832,14 +863,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -864,14 +894,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-left="{$page.margin.inner}"
+                             margin-left="{$margin.left.inner}"
                              margin-right="{$page.margin.outer}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -896,14 +925,13 @@
                              page-height="{$page.height}"
                              margin-top="{$page.margin.top}"
                              margin-bottom="{$page.margin.bottom}"
-                             margin-right="{$page.margin.inner}"
-                             margin-left="{$page.margin.outer}">
+                             margin-left="{$margin.left.outer}"
+                             margin-right="{$page.margin.inner}">
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -935,8 +963,7 @@
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -967,8 +994,7 @@
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -999,8 +1025,7 @@
                         margin-top="{$body.margin.top}"
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
-          <xsl:if test="$draft.watermark.image != ''
-                        and $fop.extensions = 0">
+          <xsl:if test="$draft.watermark.image != ''">
             <xsl:attribute name="background-image">
               <xsl:call-template name="fo-external-image">
                 <xsl:with-param name="filename" select="$draft.watermark.image"/>
@@ -1367,6 +1392,12 @@
   <!-- default is a single table style for all headers -->
   <!-- Customize it for different page classes or sequence location -->
 
+  <xsl:choose>
+      <xsl:when test="$pageclass = 'index'">
+          <xsl:attribute name="margin-left">0pt</xsl:attribute>
+      </xsl:when>
+  </xsl:choose>
+
   <xsl:variable name="candidate">
     <fo:table table-layout="fixed" width="100%">
       <xsl:call-template name="head.sep.rule">
@@ -1593,6 +1624,12 @@
   <xsl:param name="pageclass" select="''"/>
   <xsl:param name="sequence" select="''"/>
   <xsl:param name="gentext-key" select="''"/>
+
+  <xsl:choose>
+      <xsl:when test="$pageclass = 'index'">
+          <xsl:attribute name="margin-left">0pt</xsl:attribute>
+      </xsl:when>
+  </xsl:choose>
 
   <!-- default is a single table style for all footers -->
   <!-- Customize it for different page classes or sequence location -->

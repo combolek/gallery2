@@ -4,7 +4,18 @@
                 exclude-result-prefixes="doc"
                 version='1.0'>
 
-<!-- ============================================================ -->
+<!-- ********************************************************************
+     $Id$
+     ********************************************************************
+
+     This file is part of the XSL DocBook Stylesheet distribution.
+     See ../README or http://nwalsh.com/docbook/xsl/ for copyright
+     and other information.
+
+     ******************************************************************** -->
+
+<!-- ==================================================================== -->
+
 <!-- title markup -->
 
 <doc:mode mode="title.markup" xmlns="">
@@ -50,6 +61,20 @@ title of the element. This does not include the label.
 </xsl:template>
 
 <xsl:template match="title" mode="title.markup">
+  <xsl:param name="allow-anchors" select="0"/>
+
+  <xsl:choose>
+    <xsl:when test="$allow-anchors != 0">
+      <xsl:apply-templates/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates mode="no.anchor.mode"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- only occurs in HTML Tables! -->
+<xsl:template match="caption" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
 
   <xsl:choose>
@@ -322,9 +347,16 @@ title of the element. This does not include the label.
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="figure|table|example|equation" mode="title.markup">
+<xsl:template match="figure|example|equation" mode="title.markup">
   <xsl:param name="allow-anchors" select="0"/>
   <xsl:apply-templates select="title" mode="title.markup">
+    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="table" mode="title.markup">
+  <xsl:param name="allow-anchors" select="0"/>
+  <xsl:apply-templates select="title|caption" mode="title.markup">
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:apply-templates>
 </xsl:template>

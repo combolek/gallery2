@@ -64,7 +64,7 @@
 </xsl:template>
 
 <xsl:template name="article.titlepage">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="{$title.fontset}">
     <fo:block text-align="center">
     <xsl:call-template name="article.titlepage.before.recto"/>
     <xsl:call-template name="article.titlepage.recto"/>
@@ -140,7 +140,7 @@
 </xsl:template>
 
 <xsl:template match="legalnotice" mode="article.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="article.titlepage.recto.style" text-align="start" margin-left="0.5in" margin-right="0.5in" font-family="{$body.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="article.titlepage.recto.style" text-align="start" margin-left="0.5in" margin-right="0.5in" font-family="{$body.fontset}">
 <xsl:apply-templates select="." mode="article.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -164,7 +164,7 @@
 </xsl:template>
 
 <xsl:template match="abstract" mode="article.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="article.titlepage.recto.style" space-before="0.5em" text-align="start" margin-left="0.5in" margin-right="0.5in" font-family="{$body.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="article.titlepage.recto.style" space-before="0.5em" text-align="start" margin-left="0.5in" margin-right="0.5in" font-family="{$body.fontset}">
 <xsl:apply-templates select="." mode="article.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -240,7 +240,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="set.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="set.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="set.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="division.title">
 <xsl:with-param name="node" select="ancestor-or-self::set[1]"/>
 </xsl:call-template>
@@ -248,7 +248,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="set.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="set.titlepage.recto.style" font-family="{$title.font.family}" text-align="center">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="set.titlepage.recto.style" font-family="{$title.fontset}" text-align="center">
 <xsl:apply-templates select="." mode="set.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -399,7 +399,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="book.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="division.title">
 <xsl:with-param name="node" select="ancestor-or-self::book[1]"/>
 </xsl:call-template>
@@ -407,7 +407,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="book.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="20.736pt" space-before="15.552pt" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.recto.style" text-align="center" font-size="20.736pt" space-before="15.552pt" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="book.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -431,7 +431,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="book.titlepage.verso.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.verso.style" font-size="14.4pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="book.titlepage.verso.style" font-size="14.4pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="book.verso.title">
 </xsl:call-template>
 </fo:block>
@@ -552,7 +552,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="part.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="part.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="part.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="division.title">
 <xsl:with-param name="node" select="ancestor-or-self::part[1]"/>
 </xsl:call-template>
@@ -560,7 +560,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="part.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="part.titlepage.recto.style" text-align="center" font-size="20.736pt" space-before="15.552pt" font-weight="bold" font-style="italic" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="part.titlepage.recto.style" text-align="center" font-size="20.736pt" space-before="15.552pt" font-weight="bold" font-style="italic" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="part.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -653,13 +653,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="partintro.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="partintro.titlepage.recto.style" text-align="center" font-size="24.8832pt" font-weight="bold" space-before="1em" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="partintro.titlepage.recto.style" text-align="center" font-size="24.8832pt" font-weight="bold" space-before="1em" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="partintro.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="partintro.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="partintro.titlepage.recto.style" text-align="center" font-size="14.4pt" font-weight="bold" font-style="italic" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="partintro.titlepage.recto.style" text-align="center" font-size="14.4pt" font-weight="bold" font-style="italic" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="partintro.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -818,7 +818,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="reference.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="reference.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="reference.titlepage.recto.style" text-align="center" font-size="24.8832pt" space-before="18.6624pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="division.title">
 <xsl:with-param name="node" select="ancestor-or-self::reference[1]"/>
 </xsl:call-template>
@@ -826,7 +826,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="reference.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="reference.titlepage.recto.style" font-family="{$title.font.family}" text-align="center">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="reference.titlepage.recto.style" font-family="{$title.fontset}" text-align="center">
 <xsl:apply-templates select="." mode="reference.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -951,7 +951,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="refsynopsisdiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsynopsisdiv.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsynopsisdiv.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="refsynopsisdiv.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1010,7 +1010,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="refsection.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsection.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsection.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="refsection.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1069,7 +1069,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="refsect1.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect1.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect1.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="refsect1.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1128,7 +1128,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="refsect2.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect2.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect2.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="refsect2.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1187,13 +1187,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="refsect3.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect3.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="refsect3.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="refsect3.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="dedication.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="dedication.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="dedication.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::dedication[1]"/>
 </xsl:call-template></fo:block>
@@ -1250,13 +1250,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="dedication.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="dedication.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="dedication.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="dedication.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="preface.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="preface.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="preface.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::preface[1]"/>
 </xsl:call-template></fo:block>
@@ -1335,7 +1335,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="preface.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="preface.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="preface.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="preface.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1468,7 +1468,7 @@
 </xsl:template>
 
 <xsl:template name="chapter.titlepage">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" font-family="{$title.fontset}">
     <fo:block margin-left="{$title.margin.left}">
     <xsl:call-template name="chapter.titlepage.before.recto"/>
     <xsl:call-template name="chapter.titlepage.recto"/>
@@ -1661,7 +1661,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="appendix.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-weight="bold" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::appendix[1]"/>
 </xsl:call-template>
@@ -1669,7 +1669,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="appendix.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="appendix.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1811,13 +1811,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="section.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="section.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="section.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="section.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="section.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="section.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="section.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="section.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -1959,13 +1959,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="sect1.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect1.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect1.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect1.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="sect1.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect1.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect1.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect1.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2107,13 +2107,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="sect2.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect2.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect2.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect2.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="sect2.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect2.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect2.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect2.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2255,13 +2255,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="sect3.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect3.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect3.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect3.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="sect3.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect3.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect3.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect3.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2403,13 +2403,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="sect4.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect4.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect4.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect4.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="sect4.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect4.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect4.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect4.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2551,13 +2551,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="sect5.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect5.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect5.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect5.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="sect5.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect5.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="sect5.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="sect5.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2716,13 +2716,13 @@
 </xsl:template>
 
 <xsl:template match="title" mode="simplesect.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="simplesect.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="simplesect.titlepage.recto.style" margin-left="{$title.margin.left}" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="simplesect.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template match="subtitle" mode="simplesect.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="simplesect.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="simplesect.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="simplesect.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2794,7 +2794,7 @@
 </xsl:template>
 
 <xsl:template name="bibliography.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliography.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliography.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::bibliography[1]"/>
 </xsl:call-template></fo:block>
@@ -2851,7 +2851,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="bibliography.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliography.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliography.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="bibliography.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -2922,7 +2922,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="bibliodiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliodiv.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="20.736pt" font-family="{$title.font.family}" font-weight="bold">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliodiv.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="20.736pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::bibliodiv[1]"/>
 </xsl:call-template>
@@ -2930,13 +2930,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="bibliodiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliodiv.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="bibliodiv.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="bibliodiv.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="glossary.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossary.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossary.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::glossary[1]"/>
 </xsl:call-template></fo:block>
@@ -2993,7 +2993,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="glossary.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossary.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossary.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="glossary.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -3064,7 +3064,7 @@
 </xsl:template>
 
 <xsl:template match="title" mode="glossdiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossdiv.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="20.736pt" font-family="{$title.font.family}" font-weight="bold">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossdiv.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="20.736pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::glossdiv[1]"/>
 </xsl:call-template>
@@ -3072,13 +3072,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="glossdiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossdiv.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="glossdiv.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="glossdiv.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="index.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="index.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="index.titlepage.recto.style" margin-left="0pt" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::index[1]"/>
 <xsl:with-param name="pagewide" select="1"/>
@@ -3136,7 +3136,7 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="index.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="index.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="index.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="index.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
@@ -3199,13 +3199,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="indexdiv.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="indexdiv.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="indexdiv.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="indexdiv.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="setindex.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="setindex.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="setindex.titlepage.recto.style" margin-left="0pt" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::setindex[1]"/>
 <xsl:with-param name="pagewide" select="1"/>
@@ -3263,13 +3263,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="setindex.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="setindex.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="setindex.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="setindex.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="colophon.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="colophon.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.font.family}" font-weight="bold">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="colophon.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="24.8832pt" font-family="{$title.fontset}" font-weight="bold">
 <xsl:call-template name="component.title">
 <xsl:with-param name="node" select="ancestor-or-self::colophon[1]"/>
 </xsl:call-template></fo:block>
@@ -3326,13 +3326,13 @@
 </xsl:template>
 
 <xsl:template match="subtitle" mode="colophon.titlepage.recto.auto.mode">
-<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="colophon.titlepage.recto.style" font-family="{$title.font.family}">
+<fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="colophon.titlepage.recto.style" font-family="{$title.fontset}">
 <xsl:apply-templates select="." mode="colophon.titlepage.recto.mode"/>
 </fo:block>
 </xsl:template>
 
 <xsl:template name="table.of.contents.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="table.of.contents.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="table.of.contents.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'TableofContents'"/>
 </xsl:call-template></fo:block>
@@ -3377,7 +3377,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.tables.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.tables.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.tables.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofTables'"/>
 </xsl:call-template></fo:block>
@@ -3422,7 +3422,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.figures.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.figures.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.figures.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofFigures'"/>
 </xsl:call-template></fo:block>
@@ -3467,7 +3467,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.examples.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.examples.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.examples.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofExamples'"/>
 </xsl:call-template></fo:block>
@@ -3512,7 +3512,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.equations.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.equations.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.equations.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofEquations'"/>
 </xsl:call-template></fo:block>
@@ -3557,7 +3557,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.procedures.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.procedures.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.procedures.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofProcedures'"/>
 </xsl:call-template></fo:block>
@@ -3602,7 +3602,7 @@
 </xsl:template>
 
 <xsl:template name="list.of.unknowns.titlepage.recto">
-  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.unknowns.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
+  <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="list.of.unknowns.titlepage.recto.style" space-before.minimum="1em" space-before.optimum="1.5em" space-before.maximum="2em" space-after="0.5em" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.fontset}">
 <xsl:call-template name="gentext">
 <xsl:with-param name="key" select="'ListofUnknown'"/>
 </xsl:call-template></fo:block>

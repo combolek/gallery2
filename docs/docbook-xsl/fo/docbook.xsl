@@ -41,6 +41,7 @@
 <xsl:include href="xref.xsl"/>
 <xsl:include href="formal.xsl"/>
 <xsl:include href="table.xsl"/>
+<xsl:include href="htmltbl.xsl"/>
 <xsl:include href="sections.xsl"/>
 <xsl:include href="inline.xsl"/>
 <xsl:include href="footnote.xsl"/>
@@ -58,6 +59,7 @@
 <xsl:include href="biblio.xsl"/>
 <xsl:include href="glossary.xsl"/>
 <xsl:include href="block.xsl"/>
+<xsl:include href="task.xsl"/>
 <xsl:include href="qandaset.xsl"/>
 <xsl:include href="synop.xsl"/>
 <xsl:include href="titlepage.xsl"/>
@@ -100,10 +102,21 @@
   </fo:block>
 </xsl:template>
 
-<xsl:template match="/">
-  <xsl:call-template name="root.messages"/>
+<!-- Update this list if new root elements supported -->
+<xsl:variable name="root.elements" select="' appendix article bibliography book chapter colophon dedication glossary index part preface refentry reference sect1 section set setindex '"/>
 
+<xsl:template match="/">
   <xsl:variable name="document.element" select="*[1]"/>
+
+  <xsl:if test="not(contains( $root.elements, concat(' ', local-name($document.element), ' ')))">
+      <xsl:message terminate="yes">
+ERROR: Document root element for FO output 
+must be one of the following elements:
+  <xsl:value-of select="$root.elements"/>
+      </xsl:message>
+  </xsl:if>
+
+  <xsl:call-template name="root.messages"/>
 
   <xsl:variable name="title">
     <xsl:choose>
