@@ -39,7 +39,7 @@ require($GALLERY_BASEDIR . 'init.php'); ?>
   <title><?php echo _("Photo Properties") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <?php
 if ($gallery->session->albumName && $index) {
@@ -117,7 +117,7 @@ PS:	Rasmus has fixed this bug in later versions of PHP (yay Rasmus)
 		$sizeOfTable = $sizeOfExif / 2;
 		$i = 1;
 		$column = 1;
-		echo ("<table width=\"100%\">\n");
+		echo ("<table width=100%>\n");
 		echo ("<tr valign=top>\n");
 		echo ("<td>\n");
 		while (list($key, $value) = each ($myExif)) {
@@ -132,13 +132,9 @@ PS:	Rasmus has fixed this bug in later versions of PHP (yay Rasmus)
 		echo ("</td>\n</table><br>");
 	}
 
-	echo _("File Upload Date") .":&nbsp;&nbsp; " . 
-		strftime($gallery->app->dateTimeString , 
-				$gallery->album->getUploadDate($index)) 
-		. "<br>";
+	echo _("File Upload Date") .":&nbsp;&nbsp; " . strftime("%c" , $gallery->album->getUploadDate($index)) . "<br>";
 	$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
-	echo _("Item Capture Date") . ":&nbsp;&nbsp; " . 
-		strftime($gallery->app->dateTimeString, 
+	echo _("Item Capture Date") . ":&nbsp;&nbsp; " . strftime("%c", 
 			mktime($itemCaptureDate['hours'], 
 				$itemCaptureDate['minutes'],
 				$itemCaptureDate['seconds'], 
@@ -153,12 +149,12 @@ PS:	Rasmus has fixed this bug in later versions of PHP (yay Rasmus)
 	if ($gallery->user->canWriteToAlbum($gallery->album) &&
 	    !strcmp($gallery->app->cacheExif, "yes")) {
 		echo "<br>";
-		echo "<a href=\"" .
+		echo "<a href=" .
 			makeGalleryUrl("view_photo_properties.php",
 					array("reloadExifFromFile" => 1,
 						"set_albumName" => $gallery->session->albumName,
 						"index" => $index)) .
-			"\">[". _("Reload EXIF Data From File") ."]</a>";
+			">[". _("Reload EXIF Data From File") ."]</a>";
 		echo "<br>";
 		echo "<span class=fineprint>";
 		echo _("(if the data is current, this will not appear to do anything)");

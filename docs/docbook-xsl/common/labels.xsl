@@ -72,7 +72,6 @@ element label.</para>
 </xsl:template>
 
 <xsl:template match="chapter" mode="label.markup">
- <xsl:variable name="tmp-label">
   <xsl:choose>
     <xsl:when test="@label">
       <xsl:value-of select="@label"/>
@@ -88,9 +87,6 @@ element label.</para>
       </xsl:choose>
     </xsl:when>
   </xsl:choose>
- </xsl:variable>
- 
- <xsl:value-of select="$tmp-label - $toc-offset"/>
 </xsl:template>
 
 <xsl:template match="appendix" mode="label.markup">

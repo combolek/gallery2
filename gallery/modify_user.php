@@ -78,6 +78,7 @@ if (isset($save)) {
 			$tmpUser->setPassword($new_password1);
 		}
 		$tmpUser->save();
+
 		if (!strcmp($old_uname, $gallery->session->username)) {
 			$gallery->session->username = $uname;
 		}
@@ -118,7 +119,7 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
   <title><?php echo _("Modify User") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Modify User") ?></span>
@@ -131,7 +132,7 @@ $isAdmin = $tmpUser->isAdmin() ? 1 : 0;
 				array("name" => "usermodify_form", 
 					"method" => "POST")); ?>
 
-<input type="hidden" name="old_uname" value="<?php echo $uname ?>">
+<input type=hidden name=old_uname value=<?php echo $uname ?>>
 
 <p>
 

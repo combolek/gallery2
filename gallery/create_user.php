@@ -66,7 +66,7 @@ if (isset($create)) {
 		$tmpUser->save();
 		header("Location: manage_users.php");
 	}
-} else if (isset($cancel)) {
+} else if (!strcmp($submit, _("Cancel"))) {
 	header("Location: manage_users.php");
 }
 
@@ -79,7 +79,7 @@ $canCreate = 1;
   <title><?php echo _("Create User") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 
 <center>
 <span class="popuphead"><?php echo _("Create User") ?></span>
@@ -89,10 +89,9 @@ $canCreate = 1;
 <p>
 
 
-<?php echo makeFormIntro("create_user.php", array(
-				"name" => "usercreate_form", 
-				"method" => "POST"));
-?>
+<?php echo makeFormIntro("create_user.php", 
+			array("name" => "usercreate_form", 
+				"method" => "POST")); ?>
 <p>
 
 <?php include($GALLERY_BASEDIR . "html/userData.inc"); ?>

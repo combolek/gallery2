@@ -28,9 +28,6 @@ if (!empty($HTTP_GET_VARS["GALLERY_BASEDIR"]) ||
 	print _("Security violation") ."\n";
 	exit;
 }
-if (!isset($GALLERY_BASEDIR)) {
-	$GALLERY_BASEDIR = "./";
-}
 ?>
 <?php
 /*
@@ -42,9 +39,6 @@ if (!isset($GALLERY_BASEDIR)) {
  * Since init.php will also include this file under some circumstances, 
  * we want to keep track to see  if we're in an include loop.  If so, return.
  */
-if (!isset($UPGRADE_LOOP)) {
-	$UPGRADE_LOOP=0;
-}
 $UPGRADE_LOOP++;
 if ($UPGRADE_LOOP == 2) {
 	return;
@@ -136,28 +130,28 @@ function find_albums(&$results, $album="") {
   <title><?php echo _("Upgrade Albums") ?></title>
   <?php echo getStyleSheetLink() ?>
 </head>
-<body dir="<?php echo $gallery->direction ?>">
+<body dir=<?php echo $gallery->direction ?>>
 <center>
 <span class="title">
 <?php echo _("Upgrade Albums") ?>
 </span>
 </center>
 <p>
-<?php echo _("The following albums in your gallery were created with an older version of the software and are out of date.") ?>  
+<?php echo _("The following albums in your Gallery were created with an older version of the software and are out of date.") ?>  
 <?php echo _("This is not a problem!") ?>  
 <?php echo _("We can upgrade them.  This may take some time for large albums but we'll try to keep you informed as we proceed.") ?>  
 <?php echo _("None of your photos will be harmed in any way by this process.") ?>  
-<?php echo _("Rest assured, that if this process takes a long time now, it's going to make your gallery run more efficiently in the future.") ?>  
+<?php echo _("Rest assured, that if this process takes a long time now, it's going to make your Gallery run more efficiently in the future.") ?>  
 
 <p>
 
 <?php
-if (isset($upgrade_albumname)) {
+if ($upgrade_albumname) {
 	$album = new Album();
 	$album->load($upgrade_albumname);
 }
 
-if (isset($album) && $album->versionOutOfDate()) {
+if ($album && $album->versionOutOfDate()) {
 	process(array($album));
 	reload_button();
 	end_file();
@@ -167,7 +161,7 @@ if (isset($album) && $album->versionOutOfDate()) {
 $ood = array();
 find_albums($ood);
 
-if (isset($upgradeall) && sizeof($ood)) {
+if ($upgradeall && sizeof($ood)) {
 	process($ood);
 	reload_button();
 	end_file();
@@ -181,8 +175,8 @@ if (!$ood) {
 	close_button();
 } else {
 ?>
-<?php echo sprintf(_("The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %s."),
-		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1)) . '">' . _("upgrade them all at once") . '</a>') ?>
+<?php echo sprintf(_("The following albums need to be upgraded.  You can process them individually by clicking the upgrade link next to the album that you desire, or you can just %supgrade them all at once%s"),
+		'<a href="' . makeGalleryUrl("upgrade_album.php", array("upgradeall" => 1)) . '">', '</a>') ?>
 <ul>
 <?php
 	foreach ($ood as $album) {
