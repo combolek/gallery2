@@ -6,7 +6,7 @@ require ('common.php');
 eval (interceptHeader());
 OpenTable();
 
-$action = $_GET['action'] ? $_GET['action'] : $_POST['action'];
+$action =& $_REQUEST['action'];
 
 $olddir = getcwd();
 chdir ('modules/GalleryDocs');
