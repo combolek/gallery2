@@ -120,7 +120,11 @@
     Search for <filename>cmd.exe</filename> on your system.  It should be in
     the <filename>C:\windows\system32</filename> or <filename>C:\winnt\system32</filename>
     folder.  Make sure the <literal>IUSR_[machinename]</literal> account has read
-    and execute permissions to it.
+    and execute permissions to it. Another possible solution may be to copy cmd.exe 
+    for your <filename>c:\windows\system32\</filename> folder to the same folder 
+    <filename>php.exe</filename> resides in. The problem might not just be permissions, 
+    but the ability to run <filename>cmd.exe</filename> from it's default location via IIS. 
+
    </para>
   </listitem>
   <listitem>
