@@ -50,6 +50,7 @@ class ItemEditItemController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+	$status = array();
 	if (isset($form['action']['undo'])) {
 
 	    /* Redirect back to the same view to reset the form */
@@ -103,6 +104,7 @@ class ItemEditItemController extends GalleryController {
 		    $redirectParams['view'] = 'core:ItemAdmin';
 		    $redirectParams['subView'] = 'core:ItemEditItem';
 		    $redirectParams['itemId'] = $itemId;
+		    $status['saved'] = 1;
 		}
 
 		$ret = $gallery->releaseLocks($lockId);
@@ -114,6 +116,7 @@ class ItemEditItemController extends GalleryController {
 
 	if (!empty($redirectParams)) {
 	    $results['redirect'] = $redirectParams;
+	    $results['status'] = $status;
 	} else {
 	    if (empty($results['view'])) {
 		$results['view'] = 'core:ItemAdmin';

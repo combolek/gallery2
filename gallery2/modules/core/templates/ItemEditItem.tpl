@@ -4,6 +4,18 @@
   {/gallery->title}
 {/gallery->bannerbox}
 
+{if isset($status)}
+  {gallery->detailedbox}
+    {gallery->body}
+      {gallery->status}
+	{if isset($status.saved)}
+	  {gallery->text text="Settings saved successfully."}
+	{/if}
+      {/gallery->status}
+    {/gallery->body}
+  {/gallery->detailedbox}
+{/if}
+
 {gallery->detailedbox}
   {gallery->body}
     {gallery->widget2box}
