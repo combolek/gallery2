@@ -30,9 +30,9 @@
   the documentation in a slightly different way.
   <screen>
    export CVS_RSH=ssh
-   cvs -d:ext:[yourusername]@cvs.sourceforge.net:/cvsroot/gallery login
-   <emphasis>CVS will ask you for your password here</emphasis>
    cvs -d:ext:[yourusername]@cvs.sourceforge.net:/cvsroot/gallery co docs
+   <emphasis>CVS will ask you for your password here and the docs will
+   be checked out.</emphasis>
   </screen>
   You can now make changes to the documentation, as described in the next
   sections.
