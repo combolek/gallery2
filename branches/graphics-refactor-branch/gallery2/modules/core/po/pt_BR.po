@@ -60,9 +60,6 @@ msgstr "A&ccedil;&atilde;o"
 msgid "Actions"
 msgstr "A&ccedil;&otilde;es"
 
-msgid "Activate a toolkit here"
-msgstr "Ative um toolkit aqui"
-
 msgid "Active"
 msgstr "Ativo"
 
@@ -161,13 +158,6 @@ msgstr "Altera o dono do &Aacute;lbum para:"
 
 msgid "Change"
 msgstr "Altera"
-
-msgid ""
-"Choose a graphics toolkit to use.  You can only choose from the list of "
-"currently active toolkits."
-msgstr ""
-"Escolha um toolkit gr&aacute;fico para usar. Voc&ecirc; s&oacute; pode "
-"escolher da lista dos toolkits atualmenta ativos"
 
 msgid "Clear"
 msgstr "Apagar"
@@ -410,9 +400,6 @@ msgstr "Par&acirc;metros gerais"
 msgid "General"
 msgstr "Geral"
 
-msgid "Graphics Toolkit"
-msgstr "Toolkits gr&aacute;ficos"
-
 #, c-format
 msgid "Group '%s' already exists"
 msgstr "Grupo '%s' j&aacute; existe"
@@ -573,9 +560,6 @@ msgstr "Novos arquivos"
 
 msgid "Next >>"
 msgstr "Pr&oacute;ximo >>"
-
-msgid "No Graphics toolkits detected!"
-msgstr "Nenhum toolkit gr&aacute;fico detectado!"
 
 msgid "No Thumbnail"
 msgstr "Sem miniatura"
@@ -827,9 +811,6 @@ msgstr "Miniaturas"
 msgid "Title"
 msgstr "T&iacute;tulo"
 
-msgid "Toolkit"
-msgstr "Toolkit"
-
 msgid "Total"
 msgstr "Total"
 
@@ -989,14 +970,17 @@ msgstr "[core] Adicionar sub-album"
 msgid "[core] Add sub-item"
 msgstr "[core] Adicionar sub-item"
 
+#, fuzzy
 msgid "[core] Change item permissions"
 msgstr "[core] Alterar permiss&otilde;es do item"
 
+#, fuzzy
 msgid "[core] Change item properties"
 msgstr "[core] Alterar propriedades do item"
 
+#, fuzzy
 msgid "[core] Change item text"
-msgstr "[core] Alterar texto do item"
+msgstr "[core] Mover item"
 
 msgid "[core] Delete item"
 msgstr "[core] Apagar item"
@@ -1136,11 +1120,43 @@ msgstr[0] "Envia um arquivo diretamente do seu computador."
 msgstr[1] "Envia at&eacute; %d arquivos diretamente do seu computador."
 
 #, fuzzy
-#~ msgid "Remove %s"
+#~ msgid "core.changeText"
+#~ msgstr "[core] Alterar texto do item"
+
+#, fuzzy
+#~ msgid "core.delete"
+#~ msgstr "apagar"
+
+#, fuzzy
+#~ msgid "core.move"
 #~ msgstr "Remover"
 
-#~ msgid "delete"
-#~ msgstr "apagar"
+#, fuzzy
+#~ msgid "core.view"
+#~ msgstr "para sempre"
+
+#~ msgid "Activate a toolkit here"
+#~ msgstr "Ative um toolkit aqui"
+
+#~ msgid ""
+#~ "Choose a graphics toolkit to use.  You can only choose from the list of "
+#~ "currently active toolkits."
+#~ msgstr ""
+#~ "Escolha um toolkit gr&aacute;fico para usar. Voc&ecirc; s&oacute; pode "
+#~ "escolher da lista dos toolkits atualmenta ativos"
+
+#~ msgid "Graphics Toolkit"
+#~ msgstr "Toolkits gr&aacute;ficos"
+
+#~ msgid "No Graphics toolkits detected!"
+#~ msgstr "Nenhum toolkit gr&aacute;fico detectado!"
+
+#~ msgid "Toolkit"
+#~ msgstr "Toolkit"
+
+#, fuzzy
+#~ msgid "Remove %s"
+#~ msgstr "Remover"
 
 #~ msgid "Count"
 #~ msgstr "Quantidade"

@@ -61,9 +61,6 @@ msgstr "Funksjon"
 msgid "Actions"
 msgstr "Funksjon"
 
-msgid "Activate a toolkit here"
-msgstr ""
-
 #, fuzzy
 msgid "Active"
 msgstr "aktiviser"
@@ -162,14 +159,6 @@ msgstr ""
 #, fuzzy
 msgid "Change"
 msgstr "Avbryt"
-
-#, fuzzy
-msgid ""
-"Choose a graphics toolkit to use.  You can only choose from the list of "
-"currently active toolkits."
-msgstr ""
-"Velg grafikkverkt&oslash;y. Du kan kun velge fra listen med tilgjengelige "
-"verkt&oslash;y"
 
 msgid "Clear"
 msgstr "Nullstill"
@@ -398,9 +387,6 @@ msgstr "Gallery Instillinger"
 msgid "General"
 msgstr "Generell"
 
-msgid "Graphics Toolkit"
-msgstr "Grafikk Verkt&oslash;y"
-
 #, c-format
 msgid "Group '%s' already exists"
 msgstr ""
@@ -553,10 +539,6 @@ msgstr "Nye Filer"
 
 msgid "Next >>"
 msgstr "Neste >>"
-
-#, fuzzy
-msgid "No Graphics toolkits detected!"
-msgstr "Grafikk Verkt&oslash;y"
 
 msgid "No Thumbnail"
 msgstr ""
@@ -798,9 +780,6 @@ msgstr ""
 msgid "Title"
 msgstr "Tittel"
 
-msgid "Toolkit"
-msgstr "Verkt&oslash;y"
-
 msgid "Total"
 msgstr "Totalt"
 
@@ -964,8 +943,9 @@ msgstr "Navnet inneholder ugyldige tegn. Vennligst velg et annet."
 msgid "[core] Add sub-album"
 msgstr ""
 
+#, fuzzy
 msgid "[core] Add sub-item"
-msgstr ""
+msgstr "Slette"
 
 #, fuzzy
 msgid "[core] Change item permissions"
@@ -975,22 +955,25 @@ msgstr "Filsystem Rettigheter"
 msgid "[core] Change item properties"
 msgstr "Generelle Objekt Attributter"
 
+#, fuzzy
 msgid "[core] Change item text"
-msgstr ""
+msgstr "Slette"
 
 #, fuzzy
 msgid "[core] Delete item"
 msgstr "Slette"
 
+#, fuzzy
 msgid "[core] Move item"
-msgstr ""
+msgstr "Slette"
 
 #, fuzzy
 msgid "[core] View all versions"
 msgstr "En bedre beskrivelse av dette objektet"
 
+#, fuzzy
 msgid "[core] View item"
-msgstr ""
+msgstr "Slette"
 
 #, fuzzy
 msgid "[core] View original version"
@@ -1124,12 +1107,38 @@ msgstr[0] ""
 msgstr[1] ""
 
 #, fuzzy
-#~ msgid "Remove %s"
+#~ msgid "core.delete"
+#~ msgstr "Slette"
+
+#, fuzzy
+#~ msgid "core.move"
 #~ msgstr "Fjerne"
 
 #, fuzzy
-#~ msgid "delete"
-#~ msgstr "Slette"
+#~ msgid "core.view"
+#~ msgstr "alltid"
+
+#, fuzzy
+#~ msgid ""
+#~ "Choose a graphics toolkit to use.  You can only choose from the list of "
+#~ "currently active toolkits."
+#~ msgstr ""
+#~ "Velg grafikkverkt&oslash;y. Du kan kun velge fra listen med tilgjengelige "
+#~ "verkt&oslash;y"
+
+#~ msgid "Graphics Toolkit"
+#~ msgstr "Grafikk Verkt&oslash;y"
+
+#, fuzzy
+#~ msgid "No Graphics toolkits detected!"
+#~ msgstr "Grafikk Verkt&oslash;y"
+
+#~ msgid "Toolkit"
+#~ msgstr "Verkt&oslash;y"
+
+#, fuzzy
+#~ msgid "Remove %s"
+#~ msgstr "Fjerne"
 
 #~ msgid "Count"
 #~ msgstr "Antall"

@@ -60,9 +60,6 @@ msgstr "Acciones"
 msgid "Actions"
 msgstr "Acciones"
 
-msgid "Activate a toolkit here"
-msgstr ""
-
 #, fuzzy
 msgid "Active"
 msgstr "Acciones"
@@ -156,15 +153,6 @@ msgstr ""
 
 msgid "Change"
 msgstr ""
-
-#, fuzzy
-msgid ""
-"Choose a graphics toolkit to use.  You can only choose from the list of "
-"currently active toolkits."
-msgstr ""
-"Elija una caja de herramientas de los gr&aacute;ficos para utilizar. Usted "
-"puede elegir solamente de la lista de cajas deherramientas actualmente "
-"activas"
 
 msgid "Clear"
 msgstr ""
@@ -389,9 +377,6 @@ msgstr "Administraci&oacute;n Del Sitio De la Galer&iacute;a"
 msgid "General"
 msgstr ""
 
-msgid "Graphics Toolkit"
-msgstr ""
-
 #, c-format
 msgid "Group '%s' already exists"
 msgstr ""
@@ -533,9 +518,6 @@ msgid "New files"
 msgstr ""
 
 msgid "Next >>"
-msgstr ""
-
-msgid "No Graphics toolkits detected!"
 msgstr ""
 
 msgid "No Thumbnail"
@@ -757,9 +739,6 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-msgid "Toolkit"
-msgstr ""
-
 msgid "Total"
 msgstr ""
 
@@ -915,8 +894,9 @@ msgstr ""
 msgid "[core] Change item permissions"
 msgstr ""
 
+#, fuzzy
 msgid "[core] Change item properties"
-msgstr ""
+msgstr "Administraci&oacute;n Del Sitio De la Galer&iacute;a"
 
 msgid "[core] Change item text"
 msgstr ""
@@ -1058,3 +1038,12 @@ msgid "Upload a file directly from your computer."
 msgid_plural "Upload up to %d files directly from your computer."
 msgstr[0] ""
 msgstr[1] ""
+
+#, fuzzy
+#~ msgid ""
+#~ "Choose a graphics toolkit to use.  You can only choose from the list of "
+#~ "currently active toolkits."
+#~ msgstr ""
+#~ "Elija una caja de herramientas de los gr&aacute;ficos para utilizar. "
+#~ "Usted puede elegir solamente de la lista de cajas deherramientas "
+#~ "actualmente activas"
