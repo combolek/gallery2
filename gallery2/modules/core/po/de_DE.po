@@ -60,9 +60,6 @@ msgstr "Aktion"
 msgid "Actions"
 msgstr "Aktionen"
 
-msgid "Activate a toolkit here"
-msgstr "Aktiviere hier ein Werkzeugkasten"
-
 msgid "Active"
 msgstr "Aktiv"
 
@@ -160,13 +157,6 @@ msgstr "Albumbesitzer &auml;ndern in:"
 
 msgid "Change"
 msgstr "&Auml;ndern"
-
-msgid ""
-"Choose a graphics toolkit to use.  You can only choose from the list of "
-"currently active toolkits."
-msgstr ""
-"Suche den Werkzeugsatz f&uuml;r Graphiken aus, der verwendet werden soll. Du "
-"kannst nur zwischen den aktuell aktiven Werkzeugs&auml;tze ausw&auml;hlen"
 
 msgid "Clear"
 msgstr "l&ouml;schen"
@@ -406,9 +396,6 @@ msgstr "Allgemeine Einstellungen"
 msgid "General"
 msgstr "Allgemein"
 
-msgid "Graphics Toolkit"
-msgstr "Werkzeugsatz f&uuml;r Graphiken"
-
 #, c-format
 msgid "Group '%s' already exists"
 msgstr "Gruppe '%s' existiert schon"
@@ -568,9 +555,6 @@ msgstr "Neue Dateien"
 
 msgid "Next >>"
 msgstr "N&auml;chstes >>"
-
-msgid "No Graphics toolkits detected!"
-msgstr "Kein Werkzeugsatz f&uuml;r Graphiken gefunden!"
 
 msgid "No Thumbnail"
 msgstr "Kein Thumbnail"
@@ -818,9 +802,6 @@ msgstr "Thumbnails"
 msgid "Title"
 msgstr "Titel"
 
-msgid "Toolkit"
-msgstr "Werkzeugsatz"
-
 msgid "Total"
 msgstr "Gesamt"
 
@@ -979,14 +960,17 @@ msgstr "[core] F&uuml;gen Unter-Album hinzu"
 msgid "[core] Add sub-item"
 msgstr "[core] F&uuml;ge Unter-Element hinzu"
 
+#, fuzzy
 msgid "[core] Change item permissions"
 msgstr "[core] &Auml;ndere Elementberechtigungen"
 
+#, fuzzy
 msgid "[core] Change item properties"
 msgstr "[core] &Auml;ndere Elementeigenschaften"
 
+#, fuzzy
 msgid "[core] Change item text"
-msgstr "[core] &Auml;ndere Elementtext"
+msgstr "[core] Bewege Element"
 
 msgid "[core] Delete item"
 msgstr "[core] L&ouml;sche Element"
@@ -1126,11 +1110,44 @@ msgstr[0] "Lade eine Datei direkt von deinem Computer hoch."
 msgstr[1] "Lade bis zu %d Dateien direkt von deinem Computer hoch."
 
 #, fuzzy
-#~ msgid "Remove %s"
+#~ msgid "core.changeText"
+#~ msgstr "[core] &Auml;ndere Elementtext"
+
+#, fuzzy
+#~ msgid "core.delete"
+#~ msgstr "l&ouml;schen"
+
+#, fuzzy
+#~ msgid "core.move"
 #~ msgstr "Entfernen"
 
-#~ msgid "delete"
-#~ msgstr "l&ouml;schen"
+#, fuzzy
+#~ msgid "core.view"
+#~ msgstr "ewig"
+
+#~ msgid "Activate a toolkit here"
+#~ msgstr "Aktiviere hier ein Werkzeugkasten"
+
+#~ msgid ""
+#~ "Choose a graphics toolkit to use.  You can only choose from the list of "
+#~ "currently active toolkits."
+#~ msgstr ""
+#~ "Suche den Werkzeugsatz f&uuml;r Graphiken aus, der verwendet werden soll. "
+#~ "Du kannst nur zwischen den aktuell aktiven Werkzeugs&auml;tze ausw&auml;"
+#~ "hlen"
+
+#~ msgid "Graphics Toolkit"
+#~ msgstr "Werkzeugsatz f&uuml;r Graphiken"
+
+#~ msgid "No Graphics toolkits detected!"
+#~ msgstr "Kein Werkzeugsatz f&uuml;r Graphiken gefunden!"
+
+#~ msgid "Toolkit"
+#~ msgstr "Werkzeugsatz"
+
+#, fuzzy
+#~ msgid "Remove %s"
+#~ msgstr "Entfernen"
 
 #~ msgid "Count"
 #~ msgstr "Anzahl"

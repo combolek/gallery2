@@ -26,6 +26,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #, c-format
 msgid "%d day"
@@ -59,10 +60,6 @@ msgstr "アクション"
 #, fuzzy
 msgid "Actions"
 msgstr "アクション"
-
-#, fuzzy
-msgid "Activate a toolkit here"
-msgstr "ここでツールキットを有効化"
 
 #, fuzzy
 msgid "Active"
@@ -162,13 +159,6 @@ msgstr "アルバム所有者変更:"
 
 msgid "Change"
 msgstr "変更"
-
-msgid ""
-"Choose a graphics toolkit to use.  You can only choose from the list of "
-"currently active toolkits."
-msgstr ""
-"使用するグラフィックツールキットを選択してください。現在利用できるリストの中"
-"から選んでください。"
 
 msgid "Clear"
 msgstr "消去"
@@ -406,9 +396,6 @@ msgstr "全般の設定"
 msgid "General"
 msgstr "全般"
 
-msgid "Graphics Toolkit"
-msgstr "グラフィックツールキット"
-
 #, c-format
 msgid "Group '%s' already exists"
 msgstr "グループ '%s' は既に存在しています"
@@ -562,9 +549,6 @@ msgstr "新しいファイル"
 
 msgid "Next >>"
 msgstr "次 >>"
-
-msgid "No Graphics toolkits detected!"
-msgstr "グラフィック ツールキットが検出されませんでした。"
 
 msgid "No Thumbnail"
 msgstr "サムネイルなし"
@@ -804,9 +788,6 @@ msgstr "サムネイル"
 msgid "Title"
 msgstr "タイトル"
 
-msgid "Toolkit"
-msgstr "ツールキット"
-
 msgid "Total"
 msgstr "総計"
 
@@ -971,14 +952,17 @@ msgstr "[core] サブアルバム追加"
 msgid "[core] Add sub-item"
 msgstr "[core] サブアイテム追加"
 
+#, fuzzy
 msgid "[core] Change item permissions"
 msgstr "[core] アイテムパーミッション変更"
 
+#, fuzzy
 msgid "[core] Change item properties"
 msgstr "[core] アイテムプロパティ変更"
 
+#, fuzzy
 msgid "[core] Change item text"
-msgstr "[core] アイテムテキスト変更"
+msgstr "[core] アイテム移動"
 
 msgid "[core] Delete item"
 msgstr "[core] アイテム削除"
@@ -1121,8 +1105,41 @@ msgstr[0] "あなたのコンピュータから直接ファイルをアップロードしてください。"
 msgstr[1] ""
 "あなたのコンピュータから%dファイルまでを直接アップロードしてください。"
 
-#~ msgid "delete"
+#, fuzzy
+#~ msgid "core.changeText"
+#~ msgstr "[core] アイテムテキスト変更"
+
+#, fuzzy
+#~ msgid "core.delete"
 #~ msgstr "削除"
+
+#, fuzzy
+#~ msgid "core.move"
+#~ msgstr "削除"
+
+#, fuzzy
+#~ msgid "core.view"
+#~ msgstr "永久"
+
+#, fuzzy
+#~ msgid "Activate a toolkit here"
+#~ msgstr "ここでツールキットを有効化"
+
+#~ msgid ""
+#~ "Choose a graphics toolkit to use.  You can only choose from the list of "
+#~ "currently active toolkits."
+#~ msgstr ""
+#~ "使用するグラフィックツールキットを選択してください。現在利用できるリストの"
+#~ "中から選んでください。"
+
+#~ msgid "Graphics Toolkit"
+#~ msgstr "グラフィックツールキット"
+
+#~ msgid "No Graphics toolkits detected!"
+#~ msgstr "グラフィック ツールキットが検出されませんでした。"
+
+#~ msgid "Toolkit"
+#~ msgstr "ツールキット"
 
 #~ msgid "Count"
 #~ msgstr "カウント"
