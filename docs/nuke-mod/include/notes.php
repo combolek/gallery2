@@ -200,7 +200,7 @@ if (is_array ($extraFields)) {
 <table bgcolor="#cfcfcf" width="100%">
  <tr>
   <th>
-   Email Address<br/>
+   Email Address or Name<br/>
    (will be spam proofed)
   </th>
   <td>
