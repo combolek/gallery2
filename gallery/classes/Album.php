@@ -335,47 +335,80 @@ class Album {
 		return date("M d, Y", $time);
 	}
 
-	function getPerm($permName) {
-		$perms = $this->fields["perms"];
-		return $perms[$permName];
+	function getPerm($permName, $uid) {
+		$perm = $this->fields["perms"][$permName];
+		return ($perm[$uid] != null);
 	}
 
-	function canRead($user) {
-		$perms = $this->getPerm("canRead");
-		return ($perms[$user->getUid()] != null);
+	function setPerm($permName, $uid, $bool) {
+		if ($bool) {
+			$this->fields["perms"][$permName][$uid] = 1;
+		} else {
+			unset($this->fields["perms"][$permName][$uid]);
+		}
 	}
 
-	function canWrite($user) {
-		$perms = $this->getPerm("canWrite");
-		return ($perms[$user->getUid()] != null);
+	// ------------- 
+	function canRead($uid) {
+		return $this->getPerm("canRead", $uid);
 	}
 
-	function canDelete($user) {
-		$perms = $this->getPerm("canDelete");
-		return ($perms[$user->getUid()] != null);
+	function setRead($uid, $bool) {
+		$this->setPerm("canRead", $uid, $bool);
 	}
 
-	function canDeleteFrom($user) {
-		$perms = $this->getPerm("canDeleteFrom");
-		return ($perms[$user->getUid()] != null);
+	// ------------- 
+	function canWrite($uid) {
+		return $this->getPerm("canWrite", $uid);
 	}
 
-	function canAddTo($user) {
-		$perms = $this->getPerm("canAddTo");
-		return ($perms[$user->getUid()] != null);
+	function setWrite($uid, $bool) {
+		$this->setPerm("canWrite", $uid, $bool);
 	}
 
-	function canChangeText($user) {
-		$perms = $this->getPerm("canChangeText");
-		return ($perms[$user->getUid()] != null);
+	// ------------- 
+	function canDelete($uid) {
+		return $this->getPerm("canDelete", $uid);
 	}
 
-	function getOwner() {
-		return $this->getPerm("owner");
+	function setDelete($uid, $bool) {
+		$this->setPerm("canDelete", $uid, $bool);
 	}
 
-	function setOwner($user) {
-		$this->setPerm("owner", $user);
+	// ------------- 
+	function canDeleteFrom($uid) {
+		return $this->getPerm("canDeleteFrom", $uid);
+	}
+
+	function setDeleteFrom($uid, $bool) {
+		$this->setPerm("canDeleteFrom", $uid, $bool);
+	}
+
+	// ------------- 
+	function canAddTo($uid) {
+		return $this->getPerm("canAddTo", $uid);
+	}
+
+	function setAddTo($uid, $bool) {
+		$this->setPerm("canAddTo", $uid, $bool);
+	}
+
+	// ------------- 
+	function canChangeText($uid) {
+		return $this->getPerm("canChangeText", $uid);
+	}
+
+	function setChangeText($uid, $bool) {
+		$this->setPerm("canChangeText", $uid, $bool);
+	}
+
+	// ------------- 
+	function isOwner($uid) {
+		return $this->getPerm("owner", $uid);
+	}
+
+	function setOwner($uid, $bool) {
+		$this->setPerm("owner", $uid, $bool);
 	}
 }
 
