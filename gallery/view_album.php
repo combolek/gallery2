@@ -138,7 +138,10 @@ do {
 
 //-- we built the array backwards, so reverse it now ---
 //-- XXX we have to zero-index this array to make it work ---
-$breadLevels = array_reverse($breadLevels, false);
+for ($i = count($breadLevels) - 1; $i >= 0; $i--) {
+    $reversedLevels[] = $breadLevels[$i];
+}
+$breadLevels = $reversedLevels;
 
 //-- XXX - I think we should add current page to breadcrumb ---
 //$breadCount++;
