@@ -1,7 +1,7 @@
 ; =============================================================================
 ;
 ; Gallery - a web based photo album viewer and editor 
-; Copyright (C) 2000-2005 Bharat Mediratta 
+; Copyright (C) 2000-2004 Bharat Mediratta 
 ;  
 ; This program is free software; you can redistribute it and/or modify 
 ; it under the terms of the GNU General Public License as published by 
@@ -36,8 +36,6 @@
 (setq auto-mode-alist
       (append '(
 		("\\.php$" . php-mode)
-		("\\.class$" . php-mode)
-		("\\.inc$" . php-mode)
 		)
 	      auto-mode-alist))
 
@@ -61,13 +59,12 @@
 			(knr-argdecl-intro     . 5)
 			(substatement-open     . +)
 			(label                 . 0)
-			(arglist-intro         . +)
-			(arglist-cont          . 0)
+			(arglist-intro         . c-lineup-arglist-intro-after-paren)
+			(arglist-cont          . c-lineup-arglist-intro-after-paren)
 			(arglist-close         . c-lineup-arglist)
 			(statement-case-open   . +)
-			(statement-cont        . +)
+			(statement-cont        . ++)
 			(access-label          . 0)
-			(arglist-cont-nonempty . c-lineup-arglist-intro-after-paren)
 			))
     ; (c-echo-syntactic-information-p . t)     ; turn this on to get debug info
     )
@@ -81,7 +78,7 @@
 (defun my-c-mode-common-hook ()
   (c-add-style "php-gallery" php-gallery-style t)
   (turn-on-auto-fill)                 ; turn on auto-fill by default
-  (setq fill-column 98)
+  (setq fill-column 79)
   (setq comment-column 50)            ; set default comment column
   (define-key c-mode-map "\C-m" 'newline-and-indent)
   )
