@@ -1594,6 +1594,24 @@ print getcwd ();
       </para>
      </answer>
     </qandaentry>
+
+    <qandaentry id="gallery1-install.faq.c.41">
+     <question>
+      <para>
+       Why is my Gallery blue?!
+      </para>
+     </question>
+     <answer>
+      <para>
+       As of Gallery 1.5, the CSS system has changed.  There is a <filename>base.css</filename>
+       which is loaded anytime.  Then, there is <filename>screen.css</filename> which is loaded when
+       you use a skin (or the default) and your gallery is not embedded in another program.
+       Finally, there is <filename>embedded.css</filename> which loads when your gallery is embedded
+       in another program.  To change the color of your gallery, you can edit the appropriate CSS
+       file or select a skin in the configuration wizard.
+      </para>
+     </answer>
+    </qandaentry>
     
    </qandadiv>
   
