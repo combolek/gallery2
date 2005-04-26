@@ -395,7 +395,7 @@ set_albumName=<replaceable>album-name</replaceable>
 albums_too=<replaceable>yes/no</replaceable> <productnumber>[since 2.13]</productnumber></programlisting>
         <itemizedlist spacing="compact">
           <listitem>
-            <para>If <varname>set_albumName</varname> empty, the root albums are listed. Of course, this only works if <varname>albums_too</varname> is also used <productnumber>[since 2.13]</productnumber></para>
+            <para>If <varname>set_albumName</varname> empty, the root albums are listed. Of course, this only works in G1 if <varname>albums_too</varname> is also used, since no pictures are in the root album. In G2, it can be used without <varname>albums_too</varname> <productnumber>[since 2.13]</productnumber></para>
           </listitem>
         </itemizedlist>
       </sect4>
