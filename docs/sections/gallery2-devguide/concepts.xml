@@ -56,10 +56,10 @@
   </para>
   <para>
    G2 uses a system called phpunit to do unit testing and at the time
-   of this writing has about 600 tests covering almost all of the core
-   feature set.  If you want to see what the test suite looks like,
-   install G2 and browse to gallery2/lib/tools/phpunit/index.php.  All the
-   tests should be green, at all times.
+   of this writing has about 1300 tests covering all of the features
+   in the product.  If you want to see what the test suite looks like,
+   install G2 and browse to gallery2/lib/tools/phpunit/index.php.  All
+   the tests should be green, at all times.
   </para>
   <para>
    Test Driven Development is not our idea. It stems from a
