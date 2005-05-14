@@ -56,11 +56,11 @@ ADD OR EDIT WHATEVER YOU WANT, AS LONG AS IT'S NOT A DRASTIC CHANGE
        The CVS binaries are a prerequisite. You can get them from cvshome.org.
        To download the initial copy of the source run these commands:
        <screen>
-        % cvs -d:pserver:anonymous@cvs.Gallery.sourceforge.net:/cvsroot/gallery login
+        % cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/gallery login
        </screen>
        When it asks for a password just hit enter.
        <screen>
-        % cvs -z3 -d:pserver:anonymous@cvs.Gallery.sourceforge.net:/cvsroot/gallery co gallery
+        % cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/gallery co gallery
        </screen>
        Once you have a version of Gallery that you've downloaded via CVS all you
        have to do is:
