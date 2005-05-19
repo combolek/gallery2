@@ -28,8 +28,11 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.ImageProducer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.io.IOException;
 
 public class ImageCrop extends Applet {
     private static final int LANDSCAPE = 0;
@@ -148,21 +151,27 @@ public class ImageCrop extends Applet {
 	    return;
 	}
 
+	//-- set up the UI ---
+	setStatus("Loading image...");
+	setBackground(Color.white);
+	setLayout(null);
+
 	try {
-	    mImage = getImage(new URL(getCodeBase(), imageUrlString));
-	    setStatus("Loading image...");
+	    URLConnection conn = new URL(getCodeBase(), imageUrlString).openConnection();
+	    //-- Set http referer so G2 hotlink protection won't block request
+	    conn.setRequestProperty("Referer", getCodeBase().toString());
+	    mImage = this.createImage((ImageProducer)conn.getContent());
 	} catch (MalformedURLException e) {
 	    setStatus("Invalid URL: " + imageUrlString);
+	    return;
+	} catch (IOException e) {
+	    setStatus("Error loading image: " + imageUrlString);
 	    return;
 	}
 
 	//-- start loading the mImage resource. when it's done, updateImage()
 	//-- will notice and finish initialization.
 	this.prepareImage(mImage, this);
-
-	//-- finally set up the UI ---
-	setBackground(Color.white);
-	setLayout(null);
 
 	MyMouseListener mouseListener = new MyMouseListener();
 	addMouseListener(mouseListener);
@@ -189,11 +198,11 @@ public class ImageCrop extends Applet {
      * @see Applet#paint
      */
     public void paint(Graphics g) {
-	if(mOffscreenImage == null) {
+	if (mOffscreenImage == null) {
 	    mOffscreenImage = createImage(getSize().width, getSize().height);
 	}
 	Graphics og = mOffscreenImage.getGraphics();
-	og.setClip(0,0,getSize().width, getSize().height);
+	og.setClip(0, 0, getSize().width, getSize().height);
 
 	//-- the background ---
 	og.setColor(Color.black);
@@ -319,8 +328,7 @@ public class ImageCrop extends Applet {
 		mCropTooSmall = true;
 	    } else if ((mCropOrientation == PORTRAIT) && (mCropRect.height < mCropToSize)) {
 		mCropTooSmall = true;
-	    }
-	    else {
+	    } else {
 		mCropTooSmall = false;
 	    }
 	}
@@ -337,7 +345,7 @@ public class ImageCrop extends Applet {
 	    cropRatioSlope = (float)getCropRatio().width/(float)getCropRatio().height;
 	    break;
 	}
-	    
+
 	float cropRectSlope = (float)mCropRect.height/(float)mCropRect.width;
 	if (cropRectSlope > cropRatioSlope) {
 	    int adjustedHeight = (int)Math.ceil((float)(mCropRect.width)*cropRatioSlope);
@@ -507,15 +515,15 @@ public class ImageCrop extends Applet {
 	public void mouseMoved(MouseEvent e) {
 
 		Point mouseNow = e.getPoint();
-	    	mouseNow.x -= mImageRect.x;
-	    	mouseNow.y -= mImageRect.y;		
-		
+		mouseNow.x -= mImageRect.x;
+		mouseNow.y -= mImageRect.y;
+
 		if (mResizeHandleRect.contains(mouseNow)) {
-			setCursor(resizeCursor);
-		}else if(mCropRect.contains(mouseNow)){
-			setCursor(moveCursor);
-		}else{
-			setCursor(normalCursor);
+		    setCursor(resizeCursor);
+		} else if (mCropRect.contains(mouseNow)) {
+		    setCursor(moveCursor);
+		} else {
+		    setCursor(normalCursor);
 		}
 	}
     }
