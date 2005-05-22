@@ -1028,9 +1028,18 @@ $FULL_ONLY_MODE = 2;
     sample of how SQL code should look. Note where the lines break, the capitalization, and the use
     of brackets. Examples:
     <screen>
-    SELECT field1 AS something, field2, field3
-    FROM table a, table b
-    WHERE (this = that) AND (this2 = that2)
+    SELECT
+      field1 AS something, field2, field3
+    FROM
+      table a, table b
+    WHERE
+      (this = that)
+      AND
+      (this2 = that2)
+      AND
+      (foo = ?
+       AND
+       bar = ?)
     </screen>
    </para>
   </sect3>
