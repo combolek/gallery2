@@ -1023,23 +1023,31 @@ $FULL_ONLY_MODE = 2;
   <sect3 id="gallery2-devguide.coding-standards.miscellaneous.sql-code-layout">
    <title>SQL Code Layout</title>
    <para>
-    Since we'll all be using different editor settings, don't try to do anything complex like
-    aligning columns in SQL code. Do, however, break statements onto their own lines. Here's a
-    sample of how SQL code should look. Note where the lines break, the capitalization, and the use
-    of brackets. Examples:
+    Capitalize the SQL keywords and put major keywords on their own lines.  Don't put variables
+    into your SQL, use markers instead.  Use 2 column indentation.  Put the entire query into a
+    single multiline string where possible.
     <screen>
+    // <emphasis role="bold">GOOD!</emphasis>.  This is an example of Gallery 2 SQL statements.
+    // In Gallery 2 we use an abstraction for table and column names so the syntax is slightly different
+    // than it is with regular SQL statements.
+    $query = '
     SELECT
-      field1 AS something, field2, field3
+      [GalleryEntity::creationTimestamp],
+      [GalleryEntity::modificationTimestamp]
     FROM
-      table a, table b
+      [GalleryEntity]
     WHERE
-      (this = that)
+      [GalleryEntity::id] = ?
       AND
-      (this2 = that2)
-      AND
-      (foo = ?
-       AND
-       bar = ?)
+      ([GalleryEntity::modificationTimestamp] > ?
+       OR
+       [GalleryEntity::creationTimestamp] > ?)
+    ';
+
+    // <emphasis role="bold">BAD!</emphasis>.  This example embeds a variable inside the query
+    // which is prone to SQL injection exploits, and puts the whole statement on a single line
+    // which is harder to parse visually.
+    $query = "SELECT field1 FROM table a WHERE columnA = '$value'";
     </screen>
    </para>
   </sect3>
