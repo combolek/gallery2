@@ -789,7 +789,8 @@ echo ini_get("disable_functions");
     <qandaentry id="gallery1-install.faq.c.15">
      <question>
       <para>
-       Why do I get this error: <literal>Warning: fopen(".../albums/team/album.dat.lock","a+")</literal>?
+       Why do I get this error: <literal>Warning: fopen(".../albums/team/album.dat.lock","a+")</literal>
+       or <literal>Your Userfile is not writeable</literal>?
       </para>
      </question>
      <answer>
