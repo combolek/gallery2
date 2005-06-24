@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="ISO-8859-1"?> 
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- $Id$ -->
 
 <sect1 id="gallery2-devguide.coding-standards">
  <title>Coding Standards</title>
- 
+
  <sect2 id="gallery2-devguide.coding-standards.introduction">
   <title>Introduction</title>
   <para>
@@ -82,17 +82,17 @@
   </para>
   <screen>
 function myFunction() {
-    // 4 spaces
+    /* 4 spaces */
     code;
     code;
 
     if (indentAnotherLevel) {
-        // 8 spaces, or 1 tab
+        /* 8 spaces, or 1 tab */
         moreCode;
         moreCode;
 
         if (indentAnotherLevel) {
-            // 12 spaces, or 1 tab and 4 spaces
+            /* 12 spaces, or 1 tab and 4 spaces */
             moreCode;
             moreCode;
         }
@@ -173,11 +173,11 @@ function myFunction() {
     Following are two examples of breaking an arithmetic expression. The first is preferred, since
     the break occurs outside the parenthesized expression, which is at a higher level.
     <screen>
-    <lineannotation>// <emphasis role="bold">PREFER</emphasis></lineannotation>
-    longName1 = longName2 * (longName3 + longName4 - longName5) 
+    <lineannotation>/* <emphasis role="bold">PREFER</emphasis> */</lineannotation>
+    longName1 = longName2 * (longName3 + longName4 - longName5)
         + 4 * longname6;
 
-    <lineannotation>// <emphasis role="bold">AVOID</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">AVOID</emphasis> */</lineannotation>
     longName1 = longName2 * (longName3 + longName4
         - longName5) + 4 * longname6;
     </screen>
@@ -191,13 +191,13 @@ function myFunction() {
     that follows, so we indent them 8 columns, as we do when indenting
     wrapping if-clauses (see below).
     <screen>
-    <lineannotation>// <emphasis role="bold">CONVENTIONAL INDENTATION</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">CONVENTIONAL INDENTATION</emphasis> */</lineannotation>
     function someFunction($anArg, $anotherArg, $yetAnotherArg,
 		          $andStillAnother) {
         codeHere;
     }
 
-    <lineannotation>// <emphasis role="bold">INDENT 8 COLUMNS TO AVOID VERY DEEP INDENTS</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">INDENT 8 COLUMNS TO AVOID VERY DEEP INDENTS</emphasis> */</lineannotation>
     function superExtraHorkingLongMethodName($anArg, $anArg, $anArg,
             $anotherArg, $yetAnotherArg, $yetMoreArg, $anArg, $anArg
             $andStillAnother) {
@@ -209,21 +209,21 @@ function myFunction() {
     to differentiate the predicate of the if-clause from its
     condition.  For example:
     <screen>
-    <lineannotation>// <emphasis role="bold">DON'T USE THIS INDENTATION</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">DON'T USE THIS INDENTATION</emphasis> */</lineannotation>
     if ((condition1 &amp;&amp; condition2)
         || (condition3 &amp;&amp; condition4)
-        ||!(condition5 &amp;&amp; condition6)) { <lineannotation>// <emphasis role="bold">BAD WRAPS</emphasis></lineannotation>
-        doSomethingAboutIt();            <lineannotation>// <emphasis role="bold">MAKE THIS LINE EASY TO MISS</emphasis></lineannotation>
+        ||!(condition5 &amp;&amp; condition6)) { <lineannotation>/* <emphasis role="bold">BAD WRAPS</emphasis> */</lineannotation>
+        doSomethingAboutIt();            <lineannotation>/* <emphasis role="bold">MAKE THIS LINE EASY TO MISS</emphasis> */</lineannotation>
     }
 
-    <lineannotation>// <emphasis role="bold">USE THIS INDENTATION INSTEAD</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">USE THIS INDENTATION INSTEAD</emphasis> */</lineannotation>
     if ((condition1 &amp;&amp; condition2)
             || (condition3 &amp;&amp; condition4)
             ||!(condition5 &amp;&amp; condition6)) {
         doSomethingAboutIt();
     }
 
-    <lineannotation>// <emphasis role="bold">OR USE THIS</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">OR USE THIS</emphasis> */</lineannotation>
     if ((condition1 &amp;&amp; condition2) || (condition3 &amp;&amp; condition4)
             ||!(condition5 &amp;&amp; condition6)) {
         doSomethingAboutIt();
@@ -233,10 +233,10 @@ function myFunction() {
     to format ternary expressions:
     <screen>
     $alpha = (aLongBooleanExpression) ? $beta : $gamma;
-          
+
     $alpha = (aLongBooleanExpression) ? $beta
                                       : $gamma;
-          
+
     $alpha = (aLongBooleanExpression)
              ? $beta
              : $gamma;
@@ -426,9 +426,9 @@ $FULL_ONLY_MODE = 2;
    <para>
     Each line should contain at most one statement. Example:
     <screen>
-    $argv++;                <lineannotation>// <emphasis role="bold">Correct</emphasis></lineannotation>
-    $argc--;                <lineannotation>// <emphasis role="bold">Correct</emphasis></lineannotation>
-    $argv++; $argc--;       <lineannotation>// <emphasis role="bold">AVOID!</emphasis></lineannotation>
+    $argv++;                <lineannotation>/* <emphasis role="bold">Correct</emphasis> */</lineannotation>
+    $argc--;                <lineannotation>/* <emphasis role="bold">Correct</emphasis> */</lineannotation>
+    $argv++; $argc--;       <lineannotation>/* <emphasis role="bold">AVOID!</emphasis> */</lineannotation>
     </screen>
    </para>
   </sect3>
@@ -450,9 +450,9 @@ $FULL_ONLY_MODE = 2;
    <para>
     Each line should contain at most one statement. Example:
     <screen>
-    $argv++;                <lineannotation>// <emphasis role="bold">Correct</emphasis></lineannotation>
-    $argc--;                <lineannotation>// <emphasis role="bold">Correct</emphasis></lineannotation>
-    $argv++; $argc--;       <lineannotation>// <emphasis role="bold">AVOID!</emphasis></lineannotation>
+    $argv++;                <lineannotation>/* <emphasis role="bold">Correct</emphasis> */</lineannotation>
+    $argc--;                <lineannotation>/* <emphasis role="bold">Correct</emphasis> */</lineannotation>
+    $argv++; $argc--;       <lineannotation>/* <emphasis role="bold">AVOID!</emphasis> */</lineannotation>
     </screen>
    </para>
   </sect3>
@@ -473,7 +473,7 @@ $FULL_ONLY_MODE = 2;
   <sect3 id="gallery2-devguide.coding-standards.statements.if-else">
    <title>"<function>if</function>", "<function>if else</function>", "<function>if else-if else</function>" Statements</title>
    <para>
-    The <function>if-else</function> class of statements should have the following form: 
+    The <function>if-else</function> class of statements should have the following form:
     <screen>
     if (condition) {
         statements;
@@ -496,7 +496,7 @@ $FULL_ONLY_MODE = 2;
     Note: <function>if</function> statements always use braces <varname>{}</varname>. Avoid the
     following error-prone form:
     <screen>
-    if (condition) <lineannotation>// <emphasis role="bold">AVOID! THIS OMITS THE BRACES {}!</emphasis></lineannotation>
+    if (condition) <lineannotation>/* <emphasis role="bold">AVOID! THIS OMITS THE BRACES {}!</emphasis> */</lineannotation>
         statement;
     </screen>
    </para>
@@ -529,7 +529,7 @@ $FULL_ONLY_MODE = 2;
     while (condition) {
         statements;
     }
-    </screen>      
+    </screen>
     An empty <function>while</function> statement should have the following form:
     <screen>
     while (condition);
@@ -542,7 +542,7 @@ $FULL_ONLY_MODE = 2;
     A <function>do-while</function> statement should have the following form:
     <screen>
     do {
-        statements; 
+        statements;
     } while (condition);
     </screen>
    </para>
@@ -569,7 +569,7 @@ $FULL_ONLY_MODE = 2;
         statements;
         break;
     }
-    </screen>      
+    </screen>
     Every time a case falls through (doesn't include a <function>break</function> statement), add a
     comment where the <function>break</function> statement would normally be. This is shown in the
     preceding code example with the <computeroutput>/* falls through */</computeroutput>
@@ -644,7 +644,7 @@ $FULL_ONLY_MODE = 2;
     The expressions in a for statement should be separated by blank spaces. Example:
     <screen>
     for (expr1; expr2; expr3)
-    </screen>   
+    </screen>
     Casts should be followed by a blank space. Examples:
     <screen>
     myFunction((int) $a, (int) $b);
@@ -655,15 +655,35 @@ $FULL_ONLY_MODE = 2;
  <sect2 id="gallery2-devguide.coding-standards.comments">
   <title>Comments</title>
   <para>
-   If you change code and/or write new code you should add appropriate comments. This applies to
-   whole files (so called modules when we talk about procedural code, or classes when talking OO),
-   function/method definitions, included files and important variables.
+   All code should be well commented.  Good comments explain why a
+   code is written in a particular way.  You don't need to explain how
+   it works -- that much we can figure out from reading the code.  The
+   reasoning behind your choices is the interesting part.
+   <screen>
+     /* This is a good single line comment */
+
+     /*
+      * This is a good block comment.  Note how the
+      * Open and closing comment tokens are on their own lines.
+      */
+
+     // Bad -- no // style comments please.
+
+     /* Bad block comments should have the open and closing
+      * comment on their own line
+      */
+
+     /* Worse.  Block comments should have the open and closing
+      * comment on their own line */
+    </screen>
   </para>
   <para>
-   C style comments (<computeroutput>/* */</computeroutput>) and standard C++ comments
-   (<computeroutput>//</computeroutput>) are both fine.  Use of Perl/shell style comments
-   (<computeroutput>#</computeroutput>) is discouraged. Multiple line C style comments should see
-   the asterisks aligned in a column (including the first line).
+   We prefer C-style block comments (<computeroutput>/*
+   */</computeroutput>).  USe of Perl/shell style comments
+   (<computeroutput>#</computeroutput>) and C++ single line comments
+   (<computeroutput>//</computeroutput>) are not allowed.  Multiple
+   line C style comments should see the asterisks aligned in a column
+   (including the first line).
   </para>
   <para>
    In addition, commenting any tricky, obscure, or otherwise not-immediately-obvious code is clearly
@@ -811,7 +831,7 @@ $FULL_ONLY_MODE = 2;
     <screen>
     &lt;?
      /*
-      * Gallery - a web based photo album viewer and editor 
+      * Gallery - a web based photo album viewer and editor
       * Copyright (C) 2000-2004 Bharat Mediratta
       *
       * This program is free software; you can redistribute it and/or modify
@@ -820,7 +840,7 @@ $FULL_ONLY_MODE = 2;
       * your option) any later version.
       *
       * This program is distributed in the hope that it will be useful, but
-      * WITHOUT ANY WARRANTY; without even the implied warranty of 
+      * WITHOUT ANY WARRANTY; without even the implied warranty of
       * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
       * General Public License for more details.
       *
@@ -862,13 +882,13 @@ $FULL_ONLY_MODE = 2;
      </para>
     </listitem>
    </itemizedlist>
-   <para>   
+   <para>
     Keep in mind that you may not get back to this code for a while. You may not even be the one to
     fix the thing, so the more information that you provide while it's still fresh in your mind, the
     better. Potential solutions or workarounds are great, and may prove invaluable to whomever gets
     around to addressing the issue.
    </para>
-   <para> 
+   <para>
     If the comment isn't clear it may be ignored and eventually deleted.
    </para>
    <para>
@@ -898,9 +918,9 @@ $FULL_ONLY_MODE = 2;
     confusion. Note that this is only when we're using a literal, not when we're using a
     variable. Examples:
     <screen>
-    $foo = $assoc_array[blah];   <lineannotation>// <emphasis role="bold">WRONG</emphasis></lineannotation>
+    $foo = $assoc_array[blah];   <lineannotation>/* <emphasis role="bold">WRONG</emphasis> */</lineannotation>
 
-    $foo = $assoc_array['blah']; <lineannotation>// <emphasis role="bold">RIGHT</emphasis></lineannotation>
+    $foo = $assoc_array['blah']; <lineannotation>/* <emphasis role="bold">RIGHT</emphasis> */</lineannotation>
     </screen>
    </para>
   </sect3>
@@ -918,11 +938,11 @@ $FULL_ONLY_MODE = 2;
     strings will not work with single-quoted strings. Be careful, and feel free to break this
     guideline if it's making your code harder to read.  Examples:
     <screen>
-      <lineannotation>// <emphasis role="bold">WRONG</emphasis></lineannotation>
+      <lineannotation>/* <emphasis role="bold">WRONG</emphasis> */</lineannotation>
       $str = "This is a really long string with no variables for the parser to find.";
       do_stuff("$str");
 
-      <lineannotation>// <emphasis role="bold">RIGHT</emphasis></lineannotation>
+      <lineannotation>/* <emphasis role="bold">RIGHT</emphasis> */</lineannotation>
       $str = 'This is a really long string with no variables for the parser to find.';
       do_stuff($str);
     </screen>
@@ -961,10 +981,10 @@ $FULL_ONLY_MODE = 2;
     errors can be avoided by using the built-in <function>isset()</function> function to check
     whether a variable has been set. Examples:
     <screen>
-    <lineannotation>// <emphasis role="bold">old way</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">old way</emphasis> */</lineannotation>
     if ($forum) ...
 
-    <lineannotation>// <emphasis role="bold">new way</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">new way</emphasis> */</lineannotation>
     if (isset($forum)) ...
     </screen>
    </para>
@@ -992,11 +1012,11 @@ $FULL_ONLY_MODE = 2;
     should not be used as part of an expression. They can, however, be used on their own line. Using
     them in expressions is just not worth the headaches when debugging. Examples:
     <screen>
-    <lineannotation>// <emphasis role="bold">WRONG</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">WRONG</emphasis> */</lineannotation>
     $array[++$i] = $j;
     $array[$i++] = $k;
 
-    <lineannotation>// <emphasis role="bold">RIGHT</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">RIGHT</emphasis> */</lineannotation>
     $i++;
     $array[$i] = $j;
 
@@ -1012,10 +1032,10 @@ $FULL_ONLY_MODE = 2;
     make it obvious by using brackets to force the precedence of an equation so you know what it
     does.
     <screen>
-    <lineannotation>// <emphasis role="bold">what's the result? who knows.</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">what's the result? who knows.</emphasis> */</lineannotation>
     $bool = ($i &lt; 7 &amp;&amp; $j &gt; 8 || $k == 4);
 
-    <lineannotation>// <emphasis role="bold">now you can be certain what I'm doing here.</emphasis></lineannotation>
+    <lineannotation>/* <emphasis role="bold">now you can be certain what I'm doing here.</emphasis> */</lineannotation>
     $bool = (($i &lt; 7) &amp;&amp; (($j &lt; 8) || ($k == 4)))
     </screen>
    </para>
@@ -1027,9 +1047,11 @@ $FULL_ONLY_MODE = 2;
     into your SQL, use markers instead.  Use 2 column indentation.  Put the entire query into a
     single multiline string where possible.
     <screen>
-    // <emphasis role="bold">GOOD!</emphasis>.  This is an example of Gallery 2 SQL statements.
-    // In Gallery 2 we use an abstraction for table and column names so the syntax is slightly different
-    // than it is with regular SQL statements.
+    /*
+     * <emphasis role="bold">GOOD!</emphasis>  This is an example of Gallery 2 SQL statements.
+     * In Gallery 2 we use an abstraction for table and column names so the syntax is slightly different
+     * than it is with regular SQL statements.
+     */
     $query = '
     SELECT
       [GalleryEntity::creationTimestamp],
@@ -1044,9 +1066,11 @@ $FULL_ONLY_MODE = 2;
        [GalleryEntity::creationTimestamp] > ?)
     ';
 
-    // <emphasis role="bold">BAD!</emphasis>.  This example embeds a variable inside the query
-    // which is prone to SQL injection exploits, and puts the whole statement on a single line
-    // which is harder to parse visually.
+    /*
+     * <emphasis role="bold">BAD!</emphasis>  This example embeds a variable inside the query
+     * which is prone to SQL injection exploits, and puts the whole statement on a single line
+     * which is harder to parse visually.
+     */
     $query = "SELECT field1 FROM table a WHERE columnA = '$value'";
     </screen>
    </para>
