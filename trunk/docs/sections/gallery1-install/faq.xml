@@ -572,20 +572,6 @@ echo ini_get("disable_functions");
      </answer>
     </qandaentry>
     
-    <qandaentry id="gallery1-install.faq.c.8a">
-     <question>
-      <para>
-       When I open Gallery inside Mambo, i get "Gallery seems to be inside Mambo, but we couldn't get the necessary info."
-       (no window pops up).  What's wrong?
-      </para>
-     </question>
-     <answer>
-      <para>
-       The reason is described in FAQ C.8 in the second part.
-      </para>
-     </answer>
-    </qandaentry>
-    
     <qandaentry id="gallery1-install.faq.c.9">
      <question>
       <para>
@@ -1624,6 +1610,19 @@ print getcwd ();
        Finally, there is <filename>embedded.css</filename> which loads when your gallery is embedded
        in another program.  To change the color of your gallery, you can edit the appropriate CSS
        file or select a skin in the configuration wizard.
+      </para>
+     </answer>
+    </qandaentry>
+        <qandaentry id="gallery1-install.faq.c.42">
+     <question>
+      <para>
+       When I open Gallery inside Mambo, i get "Gallery seems to be inside Mambo, but we couldn't get the necessary info."
+       What am i or my visitors doing wrong?
+      </para>
+     </question>
+     <answer>
+      <para>
+       The reason is described in FAQ C.8 in the second part.
       </para>
      </answer>
     </qandaentry>
