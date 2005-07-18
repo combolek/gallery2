@@ -5,15 +5,18 @@ JAR ?= ${JAVA_HOME}/bin/jar
 JAVA_VERSION = `JAVA_HOME=${JAVA_HOME} ${JAVA} -version 2>&1`
 EXPECTED_JAVA_VERSION = java version "1.1.8"
 
-all: check-jdk118 build/classes build/Metamorphose.jar
+all: check-jdk118 build/Metamorphose.jar
 
 build/classes:
-	mkdir -p build/classes
+	mkdir -p build/classes/META-INF
 
-build/Metamorphose.jar: Metamorphose.class
-	(cd build/classes && JAVA_HOME=${JAVA_HOME} ${JAR} cvf ../Metamorphose.jar *)
+build/Metamorphose.jar: Metamorphose.class build/classes/META-INF/Copyright
+	(cd build/classes && JAVA_HOME=${JAVA_HOME} ${JAR} cvf ../Metamorphose.jar META-INF/Copyright *.class)
 
-Metamorphose.class: Metamorphose.java Panorama.java Picture.java Scroller.java
+build/classes/META-INF/Copyright:
+	cp -p Copyright build/classes/META-INF
+
+Metamorphose.class: build/classes Metamorphose.java Panorama.java Picture.java Scroller.java
 	JAVA_HOME=${JAVA_HOME} ${JAVAC} -d build/classes *.java
 
 clean:
