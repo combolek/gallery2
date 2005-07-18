@@ -106,5 +106,4 @@ public class Picture
     return false;
     }
   
-  
   }

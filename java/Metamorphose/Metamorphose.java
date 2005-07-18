@@ -387,5 +387,4 @@ public class Metamorphose extends Applet implements Runnable
       }
     }
   
-  
   }
