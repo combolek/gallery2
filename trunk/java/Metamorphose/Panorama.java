@@ -261,5 +261,4 @@ public class Panorama extends Canvas implements Runnable
       }
     }
   
-  
   }
