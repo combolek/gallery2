@@ -348,13 +348,16 @@ public class Metamorphose extends Applet implements Runnable
     // load and return an image
     try
       {
-      Image image = getImage (getCodeBase (), name.trim ());
+      java.net.URLConnection conn = new java.net.URL(getCodeBase(), name.trim()).openConnection();
+      //-- Set http referer so G2 hotlink protection won't block request
+      conn.setRequestProperty("Referer", getCodeBase().toString());
+      Image image = this.createImage((java.awt.image.ImageProducer)conn.getContent());
       tracker.addImage  (image, identifier);
       tracker.waitForID (identifier);
       if (!tracker.isErrorID (identifier))
         return image;
       }
-    catch (Exception exception) {}
+    catch (Exception exception) { exception.printStackTrace(); }
 
     return null;
     }
