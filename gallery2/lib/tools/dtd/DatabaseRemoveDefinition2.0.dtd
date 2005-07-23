@@ -1,5 +1,0 @@
-<!ELEMENT remove ( table-name, schema ) >
-
-<!ELEMENT schema ( schema-major, schema-minor ) >
-
-<!ELEMENT table-name ( #PCDATA ) >
