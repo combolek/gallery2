@@ -493,14 +493,17 @@ class AlbumItem {
         function watermark($dir, $wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, $preview=0, $previewSize=0, $wmSelect=0) {
                 global $gallery;
                 $type = $this->image->type;
-		if (isMovie($type) || $this->isAlbum()) {
+		if (isMovie($type) || $this->isAlbum())
+		{
 			// currently there is no watermarking support for movies
 			return (0);
 		}
-		if ($wmSelect < 0) {
+		if ($wmSelect < 0)
+		{
 			$wmSelect = 0;
 		}
-		else if ($wmSelect > 2) {
+		else if ($wmSelect > 2)
+		{
 			$wmSelect = 2;
 		}
                 $name = $this->image->name;
@@ -649,8 +652,6 @@ class AlbumItem {
 	}
 
 	function getThumbnailTag($dir, $size=0, $attrs="") {
-		// Prevent non-integer data from being passed
-		$size = (int)$size;
 
 		if ($this->thumbnail) {
 			return $this->thumbnail->getTag($dir, 0, $size, $attrs, $this->getAlttext());
@@ -660,8 +661,6 @@ class AlbumItem {
 	}
 
 	function getHighlightTag($dir, $size=0, $attrs='', $alttext='') {
-		// Prevent non-integer data from being passed
-		$size = (int)$size;
 
 		if (is_object($this->highlightImage)) {
 			if (!isset($alttext)) {
@@ -674,9 +673,9 @@ class AlbumItem {
 		}
 	}
 
-	function getPhotoTag($dir, $full=0, $attrs) {
+	function getPhotoTag($dir, $full=0) {
 		if ($this->image) {
-			return $this->image->getTag($dir, $full, '', $attrs, $this->getAlttext());
+			return $this->image->getTag($dir, $full, '', '', $this->getAlttext());
 		} else {
 			return "about:blank";
 		}

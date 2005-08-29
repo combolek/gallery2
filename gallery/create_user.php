@@ -24,18 +24,17 @@
 
 require_once(dirname(__FILE__) . '/init.php');
 
-list($uname, $new_password1, $new_password2, $fullname, $email, $defaultLanguage) =
-    getRequestVar(array('uname', 'new_password1', 'new_password2', 'fullname', 'email', 'defaultLanguage'));
-
-list($formaction, $canCreate, $canChangeOwnPw, $isAdmin, $send_email, $dismiss) = 
-    getRequestVar(array('formaction', 'canCreate', 'canChangeOwnPw', 'isAdmin', 'send_email', 'dismiss'));
+list($formaction, $uname, $new_password1, $new_password2, $fullname, $canCreate, 
+     $email, $defaultLanguage, $send_email) = 
+	getRequestVar(array('formaction', 'uname', 'new_password1', 'new_password2', 'fullname', 
+			    'canCreate', 'email', 'defaultLanguage', 'send_email'));
 
 if (!$gallery->user->isAdmin()) {
 	echo _("You are not allowed to perform this action!");
 	exit;	
 }
 
-$errorCount = 0;
+$errorCount=0;
 if (!empty($formaction) && $formaction == 'create') {
 	$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
 	if ($gErrors["uname"]) {
@@ -55,7 +54,7 @@ if (!empty($formaction) && $formaction == 'create') {
 
 	if (!$errorCount) {
 		doctype();
-?>
+		?>
 <html>
 <head>
   <title><?php echo _("Create User") ?></title>
@@ -70,30 +69,23 @@ if (!empty($formaction) && $formaction == 'create') {
 		$tmpUser->setPassword($new_password1);
 		$tmpUser->setFullname($fullname);
 		$tmpUser->setCanCreateAlbums($canCreate);
-		$tmpUser->setCanChangeOwnPw($canChangeOwnPw);
-		$tmpUser->setIsAdmin($isAdmin);
 		$tmpUser->setEmail($email);
 		$tmpUser->origEmail=$email;
 		$tmpUser->setDefaultLanguage($defaultLanguage);
 		$tmpUser->version = $gallery->user_version;
 		$tmpUser->log("register");
 		$tmpUser->save();
-
-		echo infoLine(sprintf(_("User %s created"), $uname), 'success');
-
+		print sprintf(_("User %s created"), $uname) . "<br><br>";
 		if (!empty($send_email)) {
-			$values = array('password' => $new_password1, 
-					'username' => $uname, 
-					'fullname' => $fullname, 
-					'newpasswordlink' => $tmpUser->genRecoverPasswordHash());
-		
-			$msg = resolveWelcomeMsg($values);
-
-			echo "\n<p><pre>". wordwrap($msg,80) ."\n</pre></p>";
-
-		       	$logmsg = sprintf(_("New user '%s' has been registered by %s.  Gallery has sent a notification email to %s."),
+		       	$msg = ereg_replace("!!PASSWORD!!", $new_password1,
+				ereg_replace("!!USERNAME!!", $uname,
+				       	ereg_replace("!!FULLNAME!!", $fullname,
+					       	ereg_replace("!!NEWPASSWORDLINK!!", 
+							$tmpUser->genRecoverPasswordHash(),
+							welcome_email()))));
+		       	$logmsg = sprintf(_("%s has registered by %s.  Email has been sent to %s."),
 				       	$uname, $gallery->user->getUsername(), $email);
-		       	$logmsg2  = sprintf("New user '%s' has been registered by %s.  Gallery has sent a notification email to %s.",
+		       	$logmsg2  = sprintf("%s has registered by %s.  Email has been sent to %s.",
 				       	$uname, $gallery->user->getUsername(), $email);
 		       	if ($logmsg != $logmsg2) {
 			       	$logmsg .= " <<<<>>>>> $logmsg2";
@@ -107,10 +99,9 @@ if (!empty($formaction) && $formaction == 'create') {
 		       	}
 	       	} 
 	?>
-	<br><br>
+	<br>
 	<form>
-		<input type="submit" name="moreuser" value="<?php echo _("Create another user") ?>">
-		<input type="submit" name="dismiss" value="<?php echo _("Back to usermanagement") ?>">
+		<input type="submit" name="dismiss" value="<?php echo _("Dismiss") ?>">
 	</form>
 	</div>
 </body>
@@ -132,7 +123,8 @@ doctype();
 <div class="popuphead"><?php echo _("Create User") ?></div>
 <div class="popup" align="center">
 <?php
-$canCreate = 0;
+$canCreate = 1;
+$canCreateChoices = array(1 => _("yes"), 0 => _("no"));
 
 $allowChange["uname"] = true;
 $allowChange["email"] = true;
@@ -141,13 +133,11 @@ $allowChange["old_password"] = false;
 $allowChange["fullname"] = true;
 $allowChange["send_email"] = true;
 $allowChange["create_albums"] = true;
-$allowChange["canChangeOwnPw"] = true;
 $allowChange["default_language"] = true;
 $allowChange["member_file"] = false;
-$allowChange["admin"] = true;
 
-echo _("Create a new user here.");
 ?>
+<?php echo _("Create a new user here.") ?>
 <br>
 
 <?php echo makeFormIntro("create_user.php", array(
@@ -163,7 +153,7 @@ echo _("Create a new user here.");
 
 <input type="hidden" name="formaction" value="">
 <input type="submit" name="create" value="<?php echo _("Create") ?>" onclick="usercreate_form.formaction.value='create'">
-<input type="submit" name="cancel" value="<?php echo _("Back to usermanagement") ?>" onclick="usercreate_form.formaction.value='cancel'">
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>" onclick="usercreate_form.formaction.value='cancel'">
 </form>
 </div>
 

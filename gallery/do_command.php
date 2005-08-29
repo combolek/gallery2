@@ -32,14 +32,9 @@ list($index, $cmd, $return, $parentName, $rebuild_type, $albumName) =
  * to ensure security.  Don't check for http:// or https:// because
  * for all we know, someone put their album URL on a gopher server...
  */
-$gUrl = makeGalleryUrl();
-$gUrlStripped = substr($gUrl, 0, strrpos($gUrl, '/'));
 if (!empty($return) && $return[0] != '/' && strstr($return, '://') !== false) {
-    if (
-      strncmp($return, $gUrlStripped, strlen($gUrlStripped)) != 0 &&
-      strncmp($return, $gallery->app->photoAlbumURL, strlen($gallery->app->photoAlbumURL)) != 0 &&
-      strncmp($return, $gallery->app->albumDirURL, strlen($gallery->app->albumDirURL)) != 0
-      ) {
+    if (strncmp($return, $gallery->app->photoAlbumURL, strlen($gallery->app->photoAlbumURL)) != 0 &&
+	    strncmp($return, $gallery->app->albumDirURL, strlen($gallery->app->albumDirURL)) != 0) {
 	die(_('Attempted security breach.'));
     }
 }	
@@ -115,12 +110,6 @@ switch ($cmd) {
 		$gallery->session->username = "";
 		$gallery->session->language = "";
 		destroyGallerySession();
-
-		// Prevent the 'you have to be logged in' error message
-		// when the user logs out of a protected album
-		createGallerySession();
-		$gallery->session->gRedirDone = true;
-
 		if (!ereg("^http|^{$gallery->app->photoAlbumURL}", $return)) {
 			$return = makeGalleryHeaderUrl($return);
 		}
@@ -185,11 +174,7 @@ switch ($cmd) {
 				$parentName = null;
 			}
 			createNewAlbum($parentName);
-			if(!headers_sent()) { 
-			    header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
-			} else {
-			    $backUrl = makeAlbumUrl($gallery->session->albumName);
-			}
+			header("Location: " . makeAlbumHeaderUrl($gallery->session->albumName));
 		} else {
 		        header("Location: " . makeAlbumHeaderUrl());
 		}
@@ -238,11 +223,7 @@ switch ($cmd) {
 
 	<div align="center">
 	<form>
-<?php if (isset($backUrl)) :?>
-		<input type="button" value="<?php echo _("Dismiss") ?>" onclick="document.location='<?php echo $backUrl; ?>'">
-<?php else : ?>
-		<input type="button" value="<?php echo _("Dismiss") ?>" onclick="parent.close()">
-<?php endif ?>
+		<input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'>
 	</form>
 	</div>
 </div>

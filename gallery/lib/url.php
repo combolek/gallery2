@@ -1,66 +1,22 @@
 <?php
 
-/**
- * Functions that provide possibility to create and modify URLS
- *
- * @package	urls
- */
-
-/**
- * Define Constants for Gallery pathes.
- */
-function setGalleryPaths() {
-	if (defined('GALLERY_BASE')) {
-		return;
-	}
-
-	$currentFile = __FILE__;
-	if ( $currentFile == '/usr/share/gallery/lib/url.php') {
-		/* We assum Gallery runs on as Debian Package */
-		define ("GALLERY_CONFDIR", "/etc/gallery");
-		define ("GALLERY_SETUPDIR", "/var/lib/gallery/setup");
-	} else {
-		define ("GALLERY_CONFDIR", dirname(dirname(__FILE__)));
-		define ("GALLERY_SETUPDIR", dirname(dirname(__FILE__)) . "/setup");
-	}
-
-	define ("GALLERY_BASE", dirname(dirname(__FILE__)));
-}
-
-/**
- *
- */
-function getGalleryBaseUrl() {
-    global $gallery;
-
-    if (isset($gallery->app) && isset($gallery->app->photoAlbumURL)) {
-        $base = $gallery->app->photoAlbumURL;
-    }
-    elseif(where_i_am() == 'config') {
-        $base = '..';
-    } elseif (defined('GALLERY_URL')) {
-        $base = GALLERY_URL;
-    } else {
-        $base = '.';
-    }
-
-    return $base;
-}
-/**
+/*
  * Any URL that you want to use can either be accessed directly
  * in the case of a standalone Gallery, or indirectly if we're
  * mbedded in another app such as Nuke.  makeGalleryUrl() will
  * always create the appropriate URL for you.
  *
- * @param	string	$target	File with a relative path to the gallery base
- *				(eg, "album_permissions.php")
+ * Usage:  makeGalleryUrl(target, args [optional])
  *
- * @param	array	$args	Optional array containg additional Urlargs.
- *				(eg, array("index" => 1, "set_albumName" => "foo"))
- * @return	string
+ * target is a file with a relative path to the gallery base
+ *        (eg, "album_permissions.php")
+ *
+ * args   are extra key/value pairs used to send data
+ *        (eg, array("index" => 1, "set_albumName" => "foo"))
  */
 
-function makeGalleryUrl($target = '', $args = array()) {
+function makeGalleryUrl($target, $args=array()) {
+
 	global $gallery;
 	global $GALLERY_EMBEDDED_INSIDE;
 	global $GALLERY_EMBEDDED_INSIDE_TYPE;
@@ -76,20 +32,7 @@ function makeGalleryUrl($target = '', $args = array()) {
 	/* Needed for CPGNuke */
 	global $mainindex;
 
-	$url = '';
-	$prefix = '';
-	$isSetupUrl = (stristr($target,"setup")) ? true : false;
-
-	$gUrl = parse_url($gallery->app->photoAlbumURL);
-	$urlprefix = $gUrl['scheme'] .'://'. $gUrl['host'];
-	
-	/* make sure the urlprefix doesnt end with a / */
-	$urlprefix = ereg_replace("\/$", "", $urlprefix);
-	
-	/* Add the folder to the url when *Nuke is not direct in the main folder */
-	$addpath = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/'));
-
-	if( isset($GALLERY_EMBEDDED_INSIDE) && !$isSetupUrl && where_i_am() != 'config') {
+	if( isset($GALLERY_EMBEDDED_INSIDE)) {
 		switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 			case 'phpBB2':
 				$cookiename = $board_config['cookie_name'];
@@ -103,6 +46,7 @@ function makeGalleryUrl($target = '', $args = array()) {
 				}
 
 			case 'phpnuke':
+			case 'postnuke':
 			case 'nsnnuke':
 				$args["op"] = "modload";
 				$args["name"] = "$GALLERY_MODULENAME";
@@ -113,28 +57,9 @@ function makeGalleryUrl($target = '', $args = array()) {
 				 * view_album.php can append a filename to the resulting URL.
 				 */
 				$args["include"] = $target;
-				$url = $urlprefix . $addpath .'/modules.php';
+				$target = "modules.php";
 			break;
 
-			case 'postnuke':
-				if (substr(_PN_VERSION_NUM, 0, 7) < "0.7.6.0") {
-					$args["op"] = "modload";
-					$args["file"] = "index";
-
-					$url = $urlprefix . $addpath . '/modules.php';
-				}
-				else {
-					$url = $urlprefix . pnGetBaseURI()."/index.php";
-				}
-				
-				$args["name"] = "$GALLERY_MODULENAME";
-				/*
-				 * include *must* be last so that the JavaScript code in
-				 * view_album.php can append a filename to the resulting URL.
-				 */
-				$args["include"] = $target;
-			break;
-							
 			case 'mambo':
 				$args['option'] = $GALLERY_MODULENAME;
 				$args['Itemid'] = $MOS_GALLERY_PARAMS['itemid'];
@@ -146,12 +71,12 @@ function makeGalleryUrl($target = '', $args = array()) {
 				*/
 				if ((isset($args['type']) && $args['type'] == 'popup') ||
 					(!empty($args['gallery_popup']))) {
-					$target = 'index.php';
+					$target= $gallery->app->photoAlbumURL . "/index.php";
 				} else {
 					if (!empty($gallery->session->mambo->mosRoot)) {
-						$url = $urlprefix . $gallery->session->mambo->mosRoot . 'index.php';
+						$target = $gallery->session->mambo->mosRoot . "index.php";
 					} else {
-						$url ='index.php';
+						$target = 'index.php';
 					}
 				}
 			break;
@@ -165,19 +90,20 @@ function makeGalleryUrl($target = '', $args = array()) {
 				 * view_album.php can append a filename to the resulting URL.
 				 */
 				$args["include"] = $target;
-				$url = $urlprefix . "/$mainindex";
+				$target = $mainindex;
 			break;
 
-			// Maybe something went wrong, we do nothing as URL we be build later.
+			// Maybe something went wrong, then we assume we are like standalone.
 			default:
-			break;
+				$target = $gallery->app->photoAlbumURL . "/" . $target;
 		}
 	}
-
-	if (empty($url)) {       
-	    $url = getGalleryBaseUrl() ."/$target";
+	else {
+		$prefix = isset($gallery->app->photoAlbumURL) ? $gallery->app->photoAlbumURL . "/" : "";
+		$target = $prefix . $target;
 	}
-
+       
+	$url = $target;
 	if ($args) {
 		$i = 0;
 		foreach ($args as $key => $value) {
@@ -258,34 +184,6 @@ function addUrlArg($url, $arg) {
 	} else {
 		return "$url?$arg";
 	}
-}
-
-/**
- * @param	string	$name		Name of Image
- * @param	string	$skinname	Optional Name skin, if file is not found, fallback to default location
- * @return	string	$retUrl		Complete URL to the Image
- */
-function getImagePath($name, $skinname = '') {
-    global $gallery;
-    $retUrl = '';
-
-    if (!$skinname) {
-	$skinname = $gallery->app->skinname;
-    }
-
-    /* We cant use makeGalleryUrl() here, as Gallery could be embedded. */
-    $base = getGalleryBaseUrl();
-    $defaultname = "$base/images/$name";
-    $fullname = dirname(dirname(__FILE__)) . "/skins/$skinname/images/$name";
-    $fullURL = "$base/skins/$skinname/images/$name";
-
-    if (fs_file_exists($fullname) && !broken_link($fullname)) {
-	$retUrl = $fullURL;
-    } else {
-	$retUrl = $defaultname;
-    }
-
-    return $retUrl;
 }
 
 ?>

@@ -36,8 +36,6 @@ $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : null;
 $mop = isset($_REQUEST['mop']) ? $_REQUEST['mop'] : null;
 $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : null;
 $include = isset($_REQUEST['include']) ? $_REQUEST['include'] : null;
-$postnuke = defined('_PN_VERSION_ID') ? true : false;
-$phpnuke = isset($GLOBALS['nukeurl']) ? true : false;
 
 /*
  * Detect PHP-Nuke, Postnuke, phpBB2 or Mambo and react accordingly.
@@ -45,12 +43,8 @@ $phpnuke = isset($GLOBALS['nukeurl']) ? true : false;
  * config.php * Therefore we have to detect GeeLog in init.php.
  */
 
-if ($postnuke ||
-    $phpnuke ||
-    !strcmp($op, "modload") || 
-    !strcmp($mop, "modload") || 
-    isset($option) || 
-    isset($name)) {
+if (!strcmp($op, "modload") || !strcmp($mop, "modload") || isset($option) || isset($name)) {
+
 	/* 
 	 * Change this variable if your Gallery module has a different
 	 * name in the Nuke or phpBB2 modules directory.
@@ -58,7 +52,7 @@ if ($postnuke ||
 
 	if (isset($name)) {
 		$GALLERY_MODULENAME = $name;
-		define ('GALLERY_URL',"modules/$GALLERY_MODULENAME");
+		define ('GALLERY_URL',"modules/$GALLERY_MODULENAME/");
 	}
 	
 	if (isset($option)) {
@@ -71,7 +65,7 @@ if ($postnuke ||
 		$GALLERY_EMBEDDED_INSIDE='phpBB2';
 		$GALLERY_EMBEDDED_INSIDE_TYPE = 'phpBB2';
 	}
-	elseif ($postnuke) {
+	elseif (isset($GLOBALS['pnconfig']) && function_exists('authorised')) {
 		$GALLERY_EMBEDDED_INSIDE='nuke';
 		$GALLERY_EMBEDDED_INSIDE_TYPE = 'postnuke';
 	}
@@ -114,7 +108,6 @@ if ($postnuke ||
 		       "delete_photo.php",
 		       "delete_user.php",
 		       "do_command.php",
-		       "ecard_form.php",
 		       "edit_appearance.php",
 		       "edit_caption.php",
 		       "edit_field.php",
@@ -124,7 +117,6 @@ if ($postnuke ||
 		       "gallery_remote.php",
 		       "gallery_remote2.php",
 		       "highlight_photo.php",
-		       "lib/colorpicker.php",
 		       "login.php",
 		       "manage_users.php",
 		       "modify_user.php",
@@ -137,7 +129,6 @@ if ($postnuke ||
 		       "progress_uploading.php",
 		       "publish_xp.php",
 		       "publish_xp_docs.php",
-		       "rearrange.php",
 		       "register.php",
 		       "rename_album.php",
 		       "reset_votes.php",
@@ -151,7 +142,6 @@ if ($postnuke ||
 		       "slideshow_low.php",
 		       "sort_album.php",
 		       "stats-wizard.php",
-		       "stamp_preview.php",
 		       "stats.php",
 		       "tools/find_orphans.php",
 		       "tools/despam-comments.php",

@@ -38,35 +38,39 @@ $err = "";
 doctype();
 echo "\n<html>";	
 if (isset($save)) {
-    // Only allow dates which mktime() will operate on.  
-    // 1970-2037 (Windows and some UNIXes) -- 1970-2069 (Some UNIXes)
-    // Two digit values between 0-69 mapping to 2000-2069 and 70-99 to 1970-1999 
-    if ((($capture_year < 2070) && ($capture_year > 1969)) || ($capture_year < 100)) { 
-	$gallery->album->setCaption($index, $data);
-	$gallery->album->setKeywords($index, $keywords);
-	$dateArray["year"] = $capture_year;	
-	$dateArray["mon"] = $capture_mon;
-	$dateArray["mday"] = $capture_mday;
-	$dateArray["hours"] = $capture_hours;
-	$dateArray["minutes"] = $capture_minutes;
-	$dateArray["seconds"] = $capture_seconds;
+	// Only allow dates which mktime() will operate on.  
+	// 1970-2037 (Windows and some UNIXes) -- 1970-2069 (Some UNIXes)
+	// Two digit values between 0-69 mapping to 2000-2069 and 70-99 to 1970-1999 
+	if ((($capture_year < 2070) && ($capture_year > 1969)) || ($capture_year < 100)) { 
+		$gallery->album->setCaption($index, stripslashes($data));
+		$gallery->album->setKeywords($index, stripslashes($keywords));
+		$dateArray["year"] = $capture_year;	
+		$dateArray["mon"] = $capture_mon;
+		$dateArray["mday"] = $capture_mday;
+		$dateArray["hours"] = $capture_hours;
+		$dateArray["minutes"] = $capture_minutes;
+		$dateArray["seconds"] = $capture_seconds;
 
-	$timestamp = mktime($capture_hours, $capture_minutes, $capture_seconds, $capture_mon, $capture_mday, $capture_year);
-	$gallery->album->setItemCaptureDate($index, $timestamp);
-	if (isset($extra_fields)) {
-	    foreach ($extra_fields as $field => $value){
-		$gallery->album->setExtraField($index, $field, trim($value));
-	    }
+		$timestamp=mktime($capture_hours, $capture_minutes, $capture_seconds, $capture_mon, $capture_mday, $capture_year);
+		$gallery->album->setItemCaptureDate($index, $timestamp);
+		if (isset($extra_fields)) {
+			foreach ($extra_fields as $field => $value)
+			{
+				if (get_magic_quotes_gpc()) {
+					$value=stripslashes($value);    
+				}
+				$gallery->album->setExtraField($index, $field, trim($value));
+			}
+		}
+		$gallery->album->save(array(i18n("Captions and/or custom fields modified for %s"), 
+					makeAlbumURL($gallery->album->fields["name"], $gallery->album->getPhotoId($index))));
+		dismissAndReload();
+		if (!isDebugging()) {
+			return;
+		}
+	} else {
+		$err = _("Year must be between 1000 and 3000");
 	}
-	$gallery->album->save(array(i18n("Captions and/or custom fields modified for %s"), 
-	    makeAlbumURL($gallery->album->fields["name"], $gallery->album->getPhotoId($index))));
-	dismissAndReload();
-	if (!isDebugging()) {
-	    return;
-	}
-    } else {
-	$err = _("Year must be between 1969 and 2070");
-    }
 }
 ?>
 <head>
@@ -123,8 +127,8 @@ foreach ($gallery->album->getExtraFields() as $field)
 
 <?php
 // get the itemCaptureDate
-if (!empty($err)) {
-	echo "\n<p>". gallery_error($err) . "</p>";
+if (isset($error)) {
+	echo "\n<p>". gallery_error($error_text) . "</p>";
 }
 $itemCaptureDate = $gallery->album->getItemCaptureDate($index);
 

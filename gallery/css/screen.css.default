@@ -1,11 +1,11 @@
-/* 
-   This is the style sheet used when Gallery running standalone and
-   'no skin' is selected.
+/* This is the style sheet used when Gallery is embedded into
+   another product, like PHP-Nuke, and when it's running 
+   standalone.
 
    If you would like to customize the styles please create 
    copy of this file called 
 
-   "screen.css" (same name without ".default")
+     "embedded_style.css" (same name without ".default")
 
    If that file is found in this directory it will be 
    used instead of this one.
@@ -34,8 +34,8 @@ img {
 }
 
 td,p { 
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px; 
+	  font-family: Verdana, Arial, Helvetica, sans-serif;
+	  font-size: 10px; 
 }
 
 a {
@@ -50,20 +50,8 @@ a:hover {
     color: yellow;
 }
 
-.popup a:hover {
-    color: #4E2192;
-}
-
-.popup td {
-    color: #000000;
-}
-
-.popup td.tab-hi {
-    color: #FFFFFF;
-}
-    
-textarea:focus, input:focus {
-    background-color: #FFFFDA;
+textarea:focus, input:focus, select:focus {
+	background-color: #FFFFDA;
 }
 
 /* 
@@ -106,20 +94,10 @@ textarea:focus, input:focus {
 	  font-size: 10px; 
 	}
 .pcaption  /* modifies background for caption text to reside - view_photo*/
-{
-     font-size: 10px; 
-}
+	{
+	  font-size: 10px; 
+	}
 
-.customFieldsTable {
-}
-
-.customFieldsTableCaption {
-    font-size: 11px;
-    color: #000000;
-    font-weight: bold;
-    text-decoration: underline;
-}
-  
 .vafloat /* float for view album - text */
  	{
  	   float: none;
@@ -187,45 +165,34 @@ textarea:focus, input:focus {
 	}
 .navtableborderbegin
 	{
-	  border:1px solid #FFFFFF;
+	  border:1px solid #000000;
 	}
 .navtableborderend
 	{
-	  border:1px solid #FFFFFF;
+	  border:1px solid #000000;
 	  border-top-width:0px;
 	}
 .bordertop
 	{
-	  border:1px solid #FFFFFF;
+	  border:1px solid #000000;
 	  border-right-width:0px;
 	  border-bottom-width:0px;
 	  border-left-width:0px;
 	}
 .borderright
 	{
-	  border:1px solid #FFFFFF;
+	  border:1px solid #000000;
 	  border-top-width:0px;
 	  border-bottom-width:0px;
 	  border-left-width:0px;
 	}
-
 .borderleft
 	{
-	  border:1px solid #FFFFFF;
+	  border:1px solid #000000;
 	  border-top-width:0px;
 	  border-bottom-width:0px;
 	  border-right-width:0px;
 	}
-
-
-.borderleft-popup {
-    border:1px solid #000000;
-    border-top-width:0px;
-    border-bottom-width:0px;
-    border-right-width:0px;
-    padding-left: 5px;
-}
-
 .fineprint                      /* used for fine print */
 	{
 	  font-size: 10px;
@@ -241,9 +208,8 @@ textarea:focus, input:focus {
 	  font-size: 10px;
 	}
 .modnavbox  /* main navigation bar next and previous */
-{
-}
-
+	{
+	}
 .admin                          /* used in admin bars */
 	{ 
 	  font-size: 10px; 
@@ -284,36 +250,40 @@ textarea:focus, input:focus {
 
 
 .popupbody  /* controls the background of popup. */ 
-{
-    color: #000;
-}
+	 {
+	   color: #000;
+	 }
 	
-.popuphead, .separator  /* controls the title and background */ 
-{
-    text-align:center;
-    font-size: 14px; font-weight: bold;
-    line-height: 150%;
-    color: #FFFFFF;
-    background-color: #6274CB;
-    padding-left: 5px;
-    border-top: 1px solid #FFF; border-left: 1px solid #FFF; border-right: 1px solid #FFF;
-}
+.popuphead  /* controls the title and background */ 
+	 {
+	   text-align:center;
+	   font-size: 14px;
+	   font-weight: bold;
+	   line-height: 150%;
+	   color: #FFF;
+	   padding-left: 5px;
+	   border-top: 1px solid #FFF;
+	   border-left: 1px solid #FFF;
+	   border-right: 1px solid #FFF;
+	   background-color: #6274CB;
+ 	}
 
 .popup /* controls the main text and message body */
-{
-    font-size: 12px;
-    font-weight: normal;
-    color: #202020;
-    padding: 5px;
-    border: 1px solid #FFF;
-    background-color: #F0F0F0;
-    margin-bottom: 10px;  
-}
+	 {
+	   text-align:center;
+	   font-size: 12px;
+	   font-weight: none;
+	   color: #202020;
+	   padding: 5px;
+	   border: 1px solid #FFF;
+	   background-color: #F0F0F0;
+	   margin-bottom: 10px;  
+	 }
 
 .popupform /* controls form textarea */
 	 {
 	   font-size: 12px;
-	   font-weight: normal;
+	   font-weight: none;
 	   line-height: 120%;
 	   color: #202020;
 	   padding: 2px;
@@ -321,20 +291,10 @@ textarea:focus, input:focus {
 	   background-color: #C0C0C0;
 	 }
 
-td.columnheader {
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffffff;
-    padding-left: 5px;
-    padding: 2px;
-    border: 1px solid #FFF;
-    background-color: #6274CB;
-}
-
 /* CSS ID for the add photos popup */
 
 #container {
-    padding: 2px;
+    adding: 2px;
 }
 
 #tabnav {
@@ -378,46 +338,9 @@ td.columnheader {
 }
 
 #tabnav a:hover {
-    color: #444;
+    color: #444
 }
 
-/* Following two classes are used in stats-wizard */
-.blockcell {
-}
-
-caption {
-    color: #6274CB;
-}
-
-/* ---- */
-
-.infoline_success {
-    color: #00BF00;
-    text-align:center;
-    font-size: 12px;
-    border: 1px solid ;
-    padding: 2px;
-    margin: 2px;
-}
-
-.infoline_error {
-    text-align:center;
-    font-size: 12px;
-    border: 1px solid red;
-    padding: 2px;
-    margin: 2px;
-}
-
-.infoline_notice {
-    color: #BF0000;
-    text-align: left;
-    font-size: 12px;
-    border: 1px solid #BF0000;
-    padding: 2px;
-    margin: 2px;
-}
-
-/* Adminbar */
 
 #adminbox {
     background-color: #6274CB; 
@@ -466,3 +389,4 @@ caption {
    border-left: 1px solid #224;
    padding: 1px;
 */
+}

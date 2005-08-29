@@ -40,7 +40,7 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 ?>
 <html>
 <head>
-<title><?php echo $gallery->app->galleryTitle ?>::<?php echo _("Gallery statistics - Wizard") ?></title>
+<title><?php echo $gallery->app->galleryTitle ?></title>
 <?php 
 	common_header() ;
 ?>
@@ -48,26 +48,8 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <body dir="<?php echo $gallery->direction ?>" onLoad="updateUrl()">
 <?php  
 }
-
-    includeHtmlWrap("gallery.header");
-
-    $adminbox['text'] ='<span class="head">'. _("Gallery statistics - Wizard") .'</span>';
-    $adminCommands = '[<a href="'. makeGalleryUrl("admin-page.php") .'">'. _("return to admin page") .'</a>] ';
-    $adminCommands .= '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>] ';
-
-    $adminbox["commands"] = $adminCommands;
-    $adminbox["bordercolor"] = $gallery->app->default["bordercolor"];
-    $breadcrumb['text'][] = languageSelector();
-
-    includeLayout('navtablebegin.inc');
-    includeLayout('adminbox.inc');
-    includeLayout('navtablemiddle.inc');
-    includeLayout('breadcrumb.inc');
-    includeLayout('navtableend.inc');
-
-?>
-<div class="popup" align="center">
-<?php
+	$stats_title = " - " . _("Wizard");
+        includeHtmlWrap("stats.header");
 /* note: the script is below as the header of the environment needs to loaded before. */
 ?>
 <script type="text/javascript">
@@ -83,24 +65,24 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 		value = false;
 		/* special case */
 		if ((document.stats_form.elements[i].name == 'cols' || document.stats_form.elements[i].name == 'rows') &&
-			document.stats_form.showGrid.checked == false) {
+			document.stats_form.sgr.checked == false) {
 			continue;
 		}
 		switch(document.stats_form.elements[i].type) {
 			case 'submit':
-			    continue;
+				continue;
 			break;
 			
 			case 'checkbox':
-			    if(document.stats_form.elements[i].checked) {
-				value = 1;
-			    }
+				if(document.stats_form.elements[i].checked) {
+					value = 1;
+				}
 			break;
 
 			case 'radio':
-			    if (document.stats_form.elements[i].checked) {
-				value = document.stats_form.elements[i].value;
-			    }
+				if (document.stats_form.elements[i].checked) {
+					value = document.stats_form.elements[i].value;
+				}
 			break;
 			
 			default:
@@ -114,6 +96,8 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 	document.url_form.stats_url.value = url;
 }
 </script>
+
+<div style="text-align:right">[<a href="<?php echo makeAlbumUrl(); ?>"><?php echo _("return to gallery"); ?></a>]</div>
 
 <?php
 	echo makeFormIntro("stats.php", array("name" => "stats_form", 
@@ -143,16 +127,12 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 	echo "\n". '<input type="submit" name="submitbutton" value="'. _("Show statistics") . '">';
 	echo "\n</form>";
 
-	echo "\n". '<div align="left">';
 	echo _("Maybe your want to use your OWN statistics somewhere .. Just copy and paste the url from this textbox.");
 	echo "\n<br>". '<form name="url_form" action="#">';
 	echo "\n". '<input type=text" name="stats_url" size="150" value="" readonly';
-	echo "\"</div>";
 	echo "\n</form>";
 
-?>
-</div>
-<?php
+
 includeHtmlWrap("stats.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>

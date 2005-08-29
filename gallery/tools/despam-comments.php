@@ -50,23 +50,22 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <body dir="<?php echo $gallery->direction ?>">
 <?php  
 }
-    includeHtmlWrap("gallery.header");
-    $adminbox['text'] ='<span class="head">'. _("Find and remove comment spam") .'</span>';
-    $adminCommands = '[<a href="'. makeGalleryUrl("admin-page.php") .'">'. _("return to admin page") .'</a>] ';
-    $adminCommands .= '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>] ';
+        includeHtmlWrap("gallery.header");
 
-    $adminbox["commands"] = $adminCommands;
-    $adminbox["bordercolor"] = $gallery->app->default["bordercolor"];
-    $breadcrumb['text'][] = languageSelector();
-
-    includeLayout('navtablebegin.inc');
-    includeLayout('adminbox.inc');
-    includeLayout('navtablemiddle.inc');
-    includeLayout('breadcrumb.inc');
-    includeLayout('navtableend.inc');
 ?>
-<div class="popup">
-<table width="100%">
+<p align="center" class="popuphead"><?php echo _("Find and remove comment spam") ?></p>
+<?php
+
+$adminCommands = '[<a href="'. makeGalleryUrl("admin-page.php") .'">'. _("return to admin page") .'</a>] ';
+$adminCommands .= '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>] ';
+
+$adminbox["commands"] = $adminCommands;
+$adminbox["bordercolor"] = $gallery->app->default["bordercolor"];
+includeLayout('adminbox.inc');
+includeLayout('ml_pulldown.inc');
+
+?>
+<table width="100%" class="albumdesc">
 <tr>
 <?php
 echo '<td style="vertical-align:top; white-space:nowrap; width:280px;">';
@@ -75,7 +74,7 @@ echo "</td>";
 
 $g1_mode=getRequestVar('g1_mode');
 
-echo '<td class="borderleft-popup">';
+echo "<td>";
 switch($g1_mode) {
 	case 'deleteComments':
 		deleteComments();
@@ -104,17 +103,17 @@ switch($g1_mode) {
 	default:
 	break;
 }
-echo "</td></tr>";
+echo "</td>";
+echo '<div style="clear:left">';
 ?>
 </table>
-</div>
-<?php
-  includeHtmlWrap("gallery.footer");
-if (!$GALLERY_EMBEDDED_INSIDE) {
-?>
+<br>
+<hr>
+<?php includeHtmlWrap("gallery.footer"); ?>
+</div> 
 </body>
 </html>
-<?php }
+<?php
 
 /* Everything below is a utility function */
 function deleteComments() {
@@ -203,7 +202,7 @@ function findBlacklistedComments() {
     if (empty($list)) {
 	printf("<h3>%s</h3>", _("No spam comments."));
     } else {
-	print makeFormIntro("tools/despam-comments.php", array("name" => "deleteComments", "method" => "POST"));
+	print makeFormIntro("tools/despam-comments.php", array("method" => "POST"));
 	print "\n<table>";
 	printf("\n\t<tr> <th> %s </th> <th>%s</th> </tr>",
 	       _("Entry"), _("Delete"));
@@ -335,36 +334,26 @@ function updateBlacklist() {
 }
 
 function viewBlacklist() {
-    $blacklist = loadBlacklist();
-    printf("<h3>%s (%d) </h3>", _("Current blacklist"), sizeof($blacklist['entries']));
-    if (empty($blacklist['entries'])) {
-	print _("Your blacklist is empty.  You must add new entries to your blacklist for it to be useful.");
-    } else {
-        echo insertFormJS('updateBlacklistForm');
-
-	print makeFormIntro("tools/despam-comments.php", array('name' => 'updateBlacklistForm', 'method' => 'POST'));
-	$blacklistTable = new galleryTable();
-        $blacklistTable->setAttrs(array('align' => 'center', 'width' => '60%'));
-	$blacklistTable->setHeaders(array(_("Entry"), _("Delete")));
-	$blacklistTable->setColumnCount(2);
-
-	foreach ($blacklist['entries'] as $key => $regex) {
-            $blacklistTable->addElement(array(
-                'content' => wordwrap($regex, 80, "<br>", true)));
-
-            $blacklistTable->addElement(array(
-                'content' => '<input type="checkbox" name="delete[]" value="'. $key .'%s">',
-		'cellArgs' => array('align' => 'center')));
-	}
-        $blacklistTable->addElement(array(
-            'content' => insertFormJSLinks('delete[]'),
-	    'cellArgs' => array('colspan' => 2, 'align' => 'center')));
-
-	echo $blacklistTable->render();
-
-	print "\n<input type=\"hidden\" name=\"g1_mode\" value=\"editBlacklist\">";
-	printf("\n<input type=\"submit\" value=\"%s\">", _("Update Blacklist"));
-	print "\n</form>";
+	$blacklist = loadBlacklist();
+	printf("<h3>%s (%d) </h3>", _("Current blacklist"), sizeof($blacklist['entries']));
+	if (empty($blacklist['entries'])) {
+		print _("Your blacklist is empty.  You must add new entries to your blacklist for it to be useful.");
+	} else {
+		print makeFormIntro("tools/despam-comments.php", array("method" => "POST"));
+		print "\n<table align=\"center\" width=\"60%\">";
+		printf("\n\t<tr><th>%s</th><th>%s</th></tr>", ("Entry"), _("Delete"));
+		$i = 0;
+		foreach ($blacklist['entries'] as $key => $regex) {
+			$i++;
+			print "\n\t<tr>";
+			printf("<td>%s</td>", wordwrap($regex, 80, "<br>", true));
+			printf("<td align=\"center\"><input type=\"checkbox\" name=\"delete[]\" value=\"%s\"></td>", $key);
+			print "</tr>";
+		}
+		print "\n</table><br>";
+		print "\n<input type=\"hidden\" name=\"g1_mode\" value=\"editBlacklist\">";
+		printf("\n<input type=\"submit\" value=\"%s\">", _("Update Blacklist"));
+		print "\n</form>";
     }
 }
 
@@ -391,13 +380,14 @@ function offerOptions() {
                 "addBlacklistEntries" => _("Add blacklist entries")
 	);
 
-	echo _("Options");
-	echo "\n<ol>";
+	printf("\n<div style=\"padding-right:5px; border-right: 1px solid #000000;\">%s", _("Options"));
+	print "\n<ol>";
 	foreach ($options as $key => $text) {
 		printf("\n\t<li><a href=\"%s\">%s</a></li>",
 			makeGalleryUrl('tools/despam-comments.php', array('g1_mode' => $key)),
 			$text);
 	}
-	echo "\n</ol>";
+	print "\n</ol>";
+	print "\n</div>";
 }
 ?>

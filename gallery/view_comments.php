@@ -47,6 +47,8 @@ if (empty($gallery->session->viewedAlbum[$albumName]) &&
 	$gallery->album->incrementClicks();
 } 
 
+
+
 $bordercolor = $gallery->album->fields["bordercolor"];
 
 #-- breadcrumb text ---
@@ -164,7 +166,7 @@ if (!$gallery->album->fields["perms"]['canAddComments']) {
 	        }
 	}
         elseif (!$gallery->album->isHidden($i) || $gallery->user->isAdmin() ||  
-		$gallery->user->isOwnerOfAlbum($gallery->album) || $gallery->album->isItemOwner($gallery->user, $i)) {
+		$gallery->user->isOwnerOfAlbum($gallery->album) || $gallery->album->isItemOwner($i)) {
 		$comments = $gallery->album->numComments($i);
 		if($comments > 0) {
 			includeLayout('commentboxtop.inc');
@@ -185,7 +187,7 @@ includeLayout('navtablebegin.inc');
 includeLayout('breadcrumb.inc');
 includeLayout('navtableend.inc');
 
-echo languageSelector();
+includeLayout('ml_pulldown.inc');
 $validation_file = 'view_comments.php';
 $validation_args = array('set_albumName' => $gallery->session->albumName);
 includeHtmlWrap("general.footer");

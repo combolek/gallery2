@@ -19,73 +19,66 @@
  *
  * $Id$
  */
+?>
+<?php
 
-/**
- * @package Utils
- */
-
-/**
- * First include some necessary files
- */
 require_once(dirname(__FILE__) . '/nls.php');
 require_once(dirname(__FILE__) . '/lib/url.php');
 require_once(dirname(__FILE__) . '/lib/popup.php');
-require_once(dirname(__FILE__) . '/classes/Mail/htmlMimeMail.php');
-require_once(dirname(__FILE__) . '/classes/HTML/table.php');
-require_once(dirname(__FILE__) . '/lib/valchecks.php');
-require_once(dirname(__FILE__) . '/lib/messages.php');
 
 function getRequestVar($str) {
-    if (!is_array($str)) {
-	if (!isset($_REQUEST[$str])) {
-	    return null;
+	if (!is_array($str)) {
+		if (!isset($_REQUEST[$str])) {
+			return null;
+		}
+		$ret = &$_REQUEST[$str];
+		if (get_magic_quotes_gpc() && !is_array($ret)) {
+			$ret = stripslashes($ret);
+		}	
 	}
-	$ret = &$_REQUEST[$str];
-	if (get_magic_quotes_gpc() && !is_array($ret)) {
-	    $ret = stripslashes($ret);
-	}	
-    }
-    else {
-	foreach ($str as $reqvar) {
-	    $ret[] = getRequestVar($reqvar);
+	else {
+		foreach ($str as $reqvar) {
+			$ret[] = getRequestVar($reqvar);
+		}
 	}
-    }
-    return $ret;
+	
+	return $ret;
 }
 
 function getFilesVar($str) {
-    if (!is_array($str)) {
-	if (!isset($_FILES[$str])) {
-	    return null;
+	if (!is_array($str)) {
+		if (!isset($_FILES[$str])) {
+			return null;
+		}
+		$ret = &$_FILES[$str];
+		if (get_magic_quotes_gpc()) {
+			$ret = stripslashes($ret);
+		}
 	}
-	$ret = &$_FILES[$str];
-    }
-    else {
-	foreach ($str as $reqvar) {
-	    $ret[] = getFilesVar($reqvar);
+	else {
+		foreach ($str as $reqvar) {
+			$ret[] = getFilesVar($reqvar);
+		}
 	}
-    }
-    return $ret;
+	return $ret;
 }
 
 function getEnvVar($str) {
-    if (!is_array($str)) {
-	if (!isset($_ENV[$str])) {
-	    return null;
+	if (!is_array($str)) {
+		if (!isset($_ENV[$str])) {
+			return null;
+		}
+		$ret = &$_ENV[$str];
+		if (get_magic_quotes_gpc()) {
+			$ret = stripslashes($ret);
+		}
 	}
-	$ret = &$_ENV[$str];
-    }
-    else {
-	foreach ($str as $reqvar) {
-	    $ret[] = getEnvVar($reqvar);
+	else {
+		foreach ($str as $reqvar) {
+			$ret[] = getEnvVar($reqvar);
+		}
 	}
-    }
-    return $ret;
-}
-
-function stripslashes_deep($value) {
-    $value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
-    return $value;
+	return $ret;
 }
 
 function editField($album, $field, $link=null) {
@@ -137,21 +130,46 @@ function editCaption($album, $index) {
 }
 
 function viewComments($index, $addComments, $page_url, $newestFirst = false, $addType = '', $album=false) {
-	global $gallery;
+        global $gallery;
 	global $commentdraw;
 	global $i;
 	global $commenter_name;
 
-	$html = '';
-
-	/*
+	// get number of comments to use as counter for display loop
+	$numComments = $gallery->album->numComments($index);
 	$borderColor = $gallery->app->default["bordercolor"];
 	$commentdraw["bordercolor"] = $borderColor;
-	*/
-	echo showComments($index, $album, $newestFirst);
 
+	if ($newestFirst) {
+		for ($i = $numComments; $i >0 ; $i--) {
+			// get comments in this loop and then use layout/commentdraw.inc to display
+			$comment = $gallery->album->getComment($index, $i);
+			$commentdraw["comment"] = $comment->getCommentText();
+			$commentdraw["IPNumber"] = $comment->getIPNumber();
+			$commentdraw["datePosted"] = $comment->getDatePosted();
+			$commentdraw["name"] = $comment->getName();
+			$commentdraw["UID"] = $comment->getUID();
+			$commentdraw["index"] = $index;
+			$commentdraw["albumName"] = $album;
+			includeLayout('commentdraw.inc');
+		}
+	} else {
+		for ($i =1; $i<= $numComments; $i++) {
+			// get comments in this loop and then use layout/commentdraw.inc to display
+			$comment = $gallery->album->getComment($index, $i);
+			$commentdraw["comment"] = $comment->getCommentText();
+			$commentdraw["IPNumber"] = $comment->getIPNumber();
+			$commentdraw["datePosted"] = $comment->getDatePosted();
+			$commentdraw["name"] = $comment->getName();
+			$commentdraw["UID"] = $comment->getUID();
+			$commentdraw["index"] = $index;
+			$commentdraw["albumName"] = $album;
+			includeLayout('commentdraw.inc');
+		}
+	}
+	
 	if ($addComments) {
-		/* Default is the popup link.
+		/* Default is the popup link. 
 		** addType given through function call overrides default.
 		*/
 		if (empty($addType)) {
@@ -164,19 +182,20 @@ function viewComments($index, $addComments, $page_url, $newestFirst = false, $ad
 		}
 		else {
 			$id = $gallery->album->getPhotoId($index);
-			$url = "add_comment.php?set_albumName={$gallery->album->fields['name']}&id=$id";
-			echo "\n" .'<div align="center" class="editlink">' .
-			  popup_link('[' . _("add comment") . ']', $url, 0) .
-			  '</div><br>';
+		       	$url = "add_comment.php?set_albumName={$gallery->album->fields['name']}&id=$id";
+	       		echo "\n" .'<div align="center" class="editlink">' .
+				popup_link('[' . _("add comment") . ']', $url, 0) .
+				'</div><br>';
 		}
-	}
+       	}
+
 }
 
-function drawCommentAddForm($commenter_name = '', $cols = 50) {
+function drawCommentAddForm($commenter_name='', $cols=50) {
 	global $gallery;
 	if ($gallery->user->isLoggedIn() ) {
 		if (empty($commenter_name) || $gallery->app->comments_anonymous == 'no') {
-			$commenter_name = user_name_string($gallery->user->getUID(), $gallery->app->comments_display_name);
+			$commenter_name=user_name_string($gallery->user->getUID(), $gallery->app->comments_display_name);
 		}
 	}
 ?>
@@ -188,17 +207,16 @@ function drawCommentAddForm($commenter_name = '', $cols = 50) {
 	<td class="commentboxhead"><?php echo _("Commenter:") ?></td>
 	<td class="commentboxhead">
 <?php
-
-if (!$gallery->user->isLoggedIn() ) {
-	echo "<input name=\"commenter_name\" value=\"". $commenter_name ."\" size=\"30\">";
-} else {
-	if ($gallery->app->comments_anonymous == 'yes') {
-		echo '<input name="commenter_name" value="'.$commenter_name.'" size="30">';
-	} else {
-		echo $commenter_name;
-		echo '<input type="hidden" name="commenter_name" value="'. $commenter_name .'" size="30">';
-	}
-}
+			if (!$gallery->user->isLoggedIn() ) {
+				echo "<input name=\"commenter_name\" value=\"". $commenter_name ."\" size=\"30\">";
+			} else {
+				if ($gallery->app->comments_anonymous == 'yes') {
+					echo '<input name="commenter_name" value="'.$commenter_name.'" size="30">';
+				} else {
+					echo $commenter_name;
+					echo '<input type="hidden" name="commenter_name" value="'. $commenter_name .'" size="30">';
+				}
+			}
 ?>
 </td>
 </tr>
@@ -256,6 +274,11 @@ function isBlacklistedComment(&$comment, $existingComment = true) {
 	return false;
 }
 
+
+function gallery_error($message) {
+	return '<span class="error">'. _("Error:") . " $message</span>\n";
+}
+
 function gallery_syslog($message) {
 	global $gallery;
 	if (isset($gallery->app->useSyslog) && $gallery->app->useSyslog == "yes") {
@@ -274,8 +297,8 @@ function exec_internal($cmd) {
 	$results=array();
 	
 	if (isDebugging()) {
-	    debugMessage(sprintf(_("Executing: %s"), $cmd), __FILE__, __LINE__);
-	    $debugfile = tempnam($gallery->app->tmpDir, "dbg");
+		print "\n<br><b>". _("Executing:") ."<ul>$cmd</ul></b>";
+		$debugfile = tempnam($gallery->app->tmpDir, "dbg");
 	}
 
 	fs_exec($cmd, $results, $status, $debugfile);
@@ -309,27 +332,31 @@ function exec_internal($cmd) {
 }
 
 function exec_wrapper($cmd) {
-    global $gallery;
+	global $gallery;
 
-    list($results, $status) = exec_internal($cmd);
+	list($results, $status) = exec_internal($cmd);
 
-    if ($status == $gallery->app->expectedExecStatus) {
-	return true;
-    } else {
-	if ($results) {
-	    echo gallery_error(join("<br>", $results));
+	if ($status == $gallery->app->expectedExecStatus) {
+		return 0;
+	} else {
+		if ($results) {
+			echo gallery_error(join("<br>", $results));
+		}
+		return 1;
 	}
-        return false;
-    }
 }
 
 function getDimensions($file, $regs=false) {
     global $gallery;				
 
-    debugMessage(sprintf(_("Getting Dimension of file: %s"), $file), __FILE__, __LINE__,2);
+    if (isDebugging()) {
+        processingMsg(sprintf(_("Getting Dimension of file: %s"), $file));
+    }
 
     if (! fs_file_exists($file)) {
-        debugMessage(_("The file does not exist ?!"), __FILE__, __LINE__);
+        if (isDebugging()) {
+            processingMsg(_("The file does not exist ?!"));
+        }
         return array(0, 0);
     }
     if ($regs === false) {
@@ -339,8 +366,9 @@ function getDimensions($file, $regs=false) {
     if (($regs[0] > 1) && ($regs[1] > 1)) {
         return array($regs[0], $regs[1]);
     }
-
-    debugMessage(sprintf(_("PHP's %s unable to determine dimensions."), "getimagesize()"), __FILE__, __LINE__);
+    elseif (isDebugging()) {
+        processingMsg(sprintf(_("PHP's %s unable to determine dimensions."), "getimagesize()"));
+    }
 		
     /* Just in case php can't determine dimensions. */
     switch($gallery->app->graphics) {
@@ -354,8 +382,10 @@ function getDimensions($file, $regs=false) {
         break;
         
 	default:
-	    echo debugMessage(_("You have no graphics package configured for use!"));
-	    return array(0,0);
+            if (isDebugging()) {
+                processingMsg(_("You have no graphics package configured for use!"));
+                return array(0, 0);
+            }
         break;
     }
 
@@ -377,7 +407,9 @@ function getDimensions($file, $regs=false) {
         }
     }
 
-    debugMessage(_("Unable to determine image dimensions!"), __FILE__, __LINE__);
+    if (isDebugging()) {
+        processingMsg(_("Unable to determine image dimensions!"));
+    }
     
     return array(0, 0);
 }
@@ -387,7 +419,7 @@ function acceptableFormat($tag) {
 }
 
 function acceptableFormatRegexp() {
-	return "(?:" . join("|", acceptableFormatList()) . ")";
+	return "(" . join("|", acceptableFormatList()) . ")";
 }
 
 function acceptableMovieList() {
@@ -469,16 +501,17 @@ function dismissAndLoad($url) {
 }
 
 function dismiss() {
-    echo("<BODY onLoad='parent.close()'>");
+	echo("<BODY onLoad='parent.close()'>");
 }
 
 function my_flush() {
-    print str_repeat(" ", 4096);	// force a flush
+	print str_repeat(" ", 4096);	// force a flush
 }
 
-function resize_image($src, $dest, $target = 0, $target_fs = 0, $keepProfiles = 0) {
-
-    debugMessage(sprintf(_("Resizing Image: %s"), $src), __FILE__, __LINE__);
+function resize_image($src, $dest, $target=0, $target_fs=0, $keepProfiles=0) {
+    if (isDebugging()) {
+        processingMsg(sprintf(_("Resizing Image: %s"), $src));
+    }
 
     /*
      *  Valid return codes:
@@ -486,16 +519,16 @@ function resize_image($src, $dest, $target = 0, $target_fs = 0, $keepProfiles = 
      *  1:  File resized, process normally
      *  2:  Existing resized file should be removed
     */
-    global $gallery;				
+	global $gallery;				
 
-    if (!strcmp($src,$dest)) {
-	$useTemp = true;
-	$out = "$dest.tmp";
-    }
-    else {
-	$out = $dest;
-	$useTemp = false;
-    }
+	if (!strcmp($src,$dest)) {
+		$useTemp = true;
+		$out = "$dest.tmp";
+	}
+	else {
+		$out = $dest;
+		$useTemp = false;
+	}
 
 	$regs = getimagesize($src);
 	if ($regs[2] !== 2 && $regs[2] !== 3) {
@@ -670,7 +703,8 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
          }
          break;
       default:
-         echo debugMessage(_("You have no graphics package configured for use!"));
+         if (isDebugging())
+            echo "<br> ". _("You have no graphics package configured for use!") ."<br>";
          return 0;
       }
    } else {
@@ -762,20 +796,25 @@ function watermark_image($src, $dest, $wmName, $wmAlphaName, $wmAlign, $wmAlignX
    $wmAlignY = floor($wmAlignY);
 
    // Build command lines arguements
-   switch($gallery->app->graphics) {
-	case "ImageMagick":
-	    $args = "-geometry +$wmAlignX+$wmAlignY $overlayFile $src $out";
-	    break;
-	case "NetPBM":
-	    $args  = "-yoff=$wmAlignY -xoff=$wmAlignX ";
-	    if ($alphaFile) {
-		$args .= "-alpha=$alphaFile ";
-	    }
-	    $args .= $overlayFile;
-	    break;
-    }
-
-    debugMessage("args = $args", __FILE__, __LINE__);    
+   switch($gallery->app->graphics)
+   {
+   case "ImageMagick":
+      $args = "-geometry +".$wmAlignX."+"."$wmAlignY $overlayFile $src $out";
+      break;
+   case "NetPBM":
+      $args  = "-yoff=$wmAlignY ";
+      $args .= "-xoff=$wmAlignX ";
+      if ($alphaFile)
+      {
+         $args .= "-alpha=$alphaFile ";
+      }
+      $args .= $overlayFile;
+      break;
+   }
+    
+   if (isDebugging()) {
+   	print "args = $args<br/>";
+   }
 
    // Execute
    switch($gallery->app->graphics)
@@ -981,24 +1020,35 @@ function cut_image($src, $dest, $x, $y, $width, $height) {
 }
 
 function valid_image($file) {
-    if (($type = getimagesize($file)) == FALSE) {
-        debugMessage(sprintf(_("Call to %s failed in %s for file %s!"), 'getimagesize()', 'valid_image()', $file), __FILE__, __LINE__);
+	if (($type = getimagesize($file)) == FALSE) {
+		if (isDebugging()) {
+			echo "<br>". sprintf(_("Call to %s failed in %s for file %s!"), 'getimagesize()', 'valid_image()', $file) ."<br>";
+		}
+		return 0;
+	}
+
+	if (isDebugging()) {
+		echo "<br>". sprintf(_("File %s type %d."), $file, $type[2]) ."<br>";
+	}
+	switch($type[2])
+	{
+		case 1: // GIF
+		case 2: // JPEG
+		case 3: // PNG
+			return 1;
+			break;
+		default:
+			return 0;
+			break;
+	}
+
+/* Code is unreachable.
+** Commenting out till someone finds a solution
+** Jens Tkotz, 17.08.2004 
+	if (isDebugging())
+		echo "<br>". sprintf(_("There was an unknown failure in the %s call!"), 'valid_image()') ."<br>";
 	return 0;
-    }
-
-    debugMessage(sprintf(_("File %s type %d."), $file, $type[2]), __FILE__, __LINE__);
-
-    switch($type[2]) {
-	case 1: // GIF
-	case 2: // JPEG
-	case 3: // PNG
-	    return 1;
-	    break;
-
-	default:
-	    return 0;
-	break;
-    }
+*/
 }
 
 function toPnmCmd($file) {
@@ -1069,23 +1119,46 @@ function ImCmd($cmd, $args = "") {
 	return $cmd;
 }
 
+function getImagePath($name, $skinname='') {
+	global $gallery;
+
+	if (!$skinname) {
+		$skinname = $gallery->app->skinname;
+	}
+
+	if (isset($gallery->app->photoAlbumURL)) {
+		$base = $gallery->app->photoAlbumURL;
+	} else {
+		$base = '.';
+	}
+
+	$defaultname = $base . "/images/$name";
+	$fullname = dirname(__FILE__) . "/skins/$skinname/images/$name";
+	$fullURL = $base . "/skins/$skinname/images/$name";
+
+	if (fs_file_exists($fullname) && !broken_link($fullname)) {
+		return "$fullURL";
+	} else {
+		return "$defaultname";
+	}
+}
+
 function includeLayout($name, $skinname='') {
-    global $gallery;
 
-    if (!$skinname) {
-        $skinname = $gallery->app->skinname;
-    }
+	global $gallery;
 
-    $defaultname = dirname(__FILE__) . "/layout/$name";
-    $fullname = dirname(__FILE__) . "/skins/$skinname/layout/$name";
+	if (!$skinname) {
+                $skinname = $gallery->app->skinname;
+        }
 
-    if (fs_file_exists($fullname) && !broken_link($fullname)) {
-	include ($fullname);
-    } elseif (fs_file_exists($defaultname) && !broken_link($defaultname)) {
-	include ($defaultname);
-    } else {
-	echo gallery_error(sprintf(_("Problem including file %s"), $name));
-    }
+	$defaultname = dirname(__FILE__) . "/layout/$name";
+	$fullname = dirname(__FILE__) . "/skins/$skinname/layout/$name";
+
+	if (fs_file_exists($fullname) && !broken_link($fullname)) {
+		include ($fullname);
+	} else {
+		include ($defaultname);
+	}
 }
 
 function includeHtmlWrap($name, $skinname='', $adds='') {
@@ -1119,44 +1192,44 @@ function includeHtmlWrap($name, $skinname='', $adds='') {
 	return 1;
 }
 
-/**
- * Wrapper around _getStyleSheetLink, its defines which stylesheet link is generated.
- * @return	string	$styleSheetLinks	The generated HTML <LINK> to load the stylesheets. Empty when already loaded.
- */
-function getStyleSheetLink() {
-    global $GALLERY_EMBEDDED_INSIDE;
-    global $GALLERY_OK;
+function getGalleryBase() {
+    global $gallery;
 
-    static $styleSheetSet;
-
-    $styleSheetLinks = '';
-    
-    if(! $styleSheetSet) {
-	if (isset($GALLERY_OK) && $GALLERY_OK == false) {
-	    $styleSheetLinks = _getStyleSheetLink("config");
-	} else {
-	    $styleSheetLinks = _getStyleSheetLink("base");
-
-	    if ($GALLERY_EMBEDDED_INSIDE) {
-		$styleSheetLinks .= _getStyleSheetLink("embedded_style");
-	    } else {
-		$styleSheetLinks .= _getStyleSheetLink("screen");
-	    }
-	}
+    if (! defined("GALLERY_URL")) define ("GALLERY_URL","");
 	
-	$styleSheetSet = true;
+    if (isset($gallery->app) && isset($gallery->app->photoAlbumURL)) {
+	$base = $gallery->app->photoAlbumURL;
+    } elseif (stristr($_SERVER['REQUEST_URI'],"setup")) {
+	$base = '..';
+    } elseif (GALLERY_URL== "") {
+	$base = '.';
+    } else {
+	$base = GALLERY_URL;
     }
 
-    return $styleSheetLinks;
+    return $base;
 }
 
-/**
- * Generates a HTML <link> to a css file.
- *
- * @param	string	$filename	Name of css file.
- * @param	string	$skinname	Optional skinname, if omitted and not embedded, default skin is used.
- * @return	string
- */
+function getStyleSheetLink() {
+	global $GALLERY_EMBEDDED_INSIDE;
+	global $GALLERY_OK;
+
+	$styleSheetLinks = '';
+	if (isset($GALLERY_OK) && $GALLERY_OK == false) {
+		return _getStyleSheetLink("config");
+	}
+
+	$styleSheetLinks = _getStyleSheetLink("base");
+
+	if ($GALLERY_EMBEDDED_INSIDE) {
+		$styleSheetLinks .= "\n" . _getStyleSheetLink("embedded_style");
+	} else {
+		$styleSheetLinks .= "\n". _getStyleSheetLink("screen");
+	}
+
+	return $styleSheetLinks;
+}
+
 function _getStyleSheetLink($filename, $skinname='') {
     global $gallery;
     global $GALLERY_EMBEDDED_INSIDE;
@@ -1172,19 +1245,32 @@ function _getStyleSheetLink($filename, $skinname='') {
     $sheetdefaultname = "css/$filename.css";
     $sheetdefaultpath = dirname(__FILE__) . '/' . $sheetdefaultname;
 
+    $base = getGalleryBase();
+
     if (fs_file_exists($sheetpath) && !broken_link($sheetpath)) {
-	$file = $sheetname;
+	$url = "$base/$sheetname";
     } elseif (fs_file_exists($sheetdefaultpath) && !broken_link($sheetdefaultpath)) {
-	$file = $sheetdefaultname;
+	$url = "$base/$sheetdefaultname";
     } elseif (fs_file_exists($sheetdefaultdomainname) && !broken_link($sheetdefaultdomainname)) {
-	$file = $sheetdefaultdomainname;
+	$url = "$base/$sheetdefaultdomainname";
     } else {
-	$file = $sheetdefaultname. '.default';
+	$url = "$base/${sheetdefaultname}.default";
     }
 
-    $url = getGalleryBaseUrl() ."/$file";
+    return '  <link rel="stylesheet" type="text/css" href="' .$url . '">';
+}
 
-    return "\n". '  <link rel="stylesheet" type="text/css" href="' .$url . '">';
+function errorRow($key) {
+	global $gErrors;
+
+	if (isset($gErrors[$key])) {
+		$error = $gErrors[$key];
+	} else {
+		$error = NULL;
+	}
+	if ($error) {	
+		include(dirname(__FILE__) . "/html/errorRow.inc");
+	}
 }
 
 function drawApplet($width, $height, $code, $archive, $album, $defaults, $overrides, $configFile, $errorMsg) {
@@ -1354,20 +1440,20 @@ function gallerySanityCheck() {
 	       	return NULL;
        	}
 
-	setGalleryPaths();
+	getGalleryPaths();
 
 	if (!fs_file_exists(GALLERY_CONFDIR . "/config.php") ||
                 broken_link(GALLERY_CONFDIR . "config.php") ||
                 !$gallery->app) {
-		$GALLERY_OK = false;
+		$GALLERY_OK=false;
 		return "unconfigured.php";
 	}
 
 	if ($gallery->app->config_version != $gallery->config_version) {
-		$GALLERY_OK = false;
+		$GALLERY_OK=false;
 		return "reconfigure.php";
 	}
-	$GALLERY_OK = true;
+	$GALLERY_OK=true;
 	return NULL;
 }
 
@@ -1427,28 +1513,14 @@ function preprocessImage($dir, $file) {
 	return 1;
 }
 
-/**
- * This function checks wether we are debugging with a given level.
- * If no level is given, it just returns wether we are debugging or not.
- * Debug is indicated by a debuglevel greater then 0
- */
-function isDebugging($level = NULL) {
+function isDebugging() {
 	global $gallery;
-
-	if (isset($gallery->app->debuglevel)) {
-		if($gallery->app->debuglevel > 0) {
-			if(isset($level) && $gallery->app->debuglevel < $level) {
-				return false;
-			}
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
+	if (!isset($gallery) || 
+	    !isset($gallery->app) || 
+	    !isset($gallery->app->debug)) {
 		return false;
 	}
+	return !strcmp($gallery->app->debug, "yes");
 }
 
 function getNextPhoto($idx, $album=NULL) {
@@ -1804,7 +1876,7 @@ function safe_serialize($obj, $file) {
 		/* Acquire an advisory lock */
 		$lockfd = fs_fopen("$file.lock", "a+");
 		if (!$lockfd) {
-			echo gallery_error(sprintf(_("Could not open lock file (%s) for writing!"),
+			echo gallery_error(sprintf(_("Could not open lock file (%s)!"),
 						"$file.lock"));
 			return 0;
 		}
@@ -1914,45 +1986,6 @@ function printChildren($albumName,$depth=0) {
 			}
 		}
 	}
-}
-
-function printMicroChildren($albumName,$depth=0) {
-        global $gallery;
-        $printedHeader = 0;
-        $myAlbum = new Album();
-        $myAlbum->load($albumName);
-        $numPhotos = $myAlbum->numPhotos(1);
-
-        if ($depth >= $gallery->app->albumTreeDepth) {
-                return;
-        }
-        for ($i=1; $i <= $numPhotos; $i++) {
-                //set_time_limit($gallery->app->timeLimit);
-                if ($myAlbum->isAlbum($i) && !$myAlbum->isHidden($i)) {
-                        $myName = $myAlbum->getAlbumName($i, false);
-                        $nestedAlbum = new Album();
-                        $nestedAlbum->load($myName);
-                        if ($gallery->user->canReadAlbum($nestedAlbum)) {
-				if (strstr($nestedAlbum->gethighlightTag(), "img") === false) { continue; }
-                                $val2 = $nestedAlbum->fields['title'];
-                                if (!strcmp($nestedAlbum->fields['display_clicks'], 'yes')
-                                        && !$gallery->session->offline) {
-				    $val3 = "(" . pluralize_n2(ngettext("1 hit", "%d hits", $nestedAlbum->getClicks()), $nestedAlbum->getClicks()) . ")";
-                                } else {
-                                    $val3 = "";
-                                }
-				if ($depth==0 && !$printedHeader++) {
-					echo "<br /><br /><strong>". _("Sub-albums") .":</strong><br />";
-				}
-                                echo "<a href=\"";
-                                echo makeAlbumUrl($myName);
-                                echo "\">" . $nestedAlbum->getHighlightTag($gallery->app->default["nav_thumbs_size"],
-				  "class=\"nav_micro_img\"","$val2 $val3") . "</a>&nbsp";
-                                printMicroChildren($myName, $depth+1);
-                        }
-                }
-        }
-
 }
 
 /* this function left in place to support patches that use it, but please use
@@ -2103,228 +2136,227 @@ function extractFileFromArchive($archive, $ext, $file) {
 }
 
 function processNewImage($file, $ext, $name, $caption, $setCaption="", $extra_fields=array(), $wmName="", $wmAlign=0, $wmAlignX=0, $wmAlignY=0, $wmSelect=0) {
-    global $gallery;
-    global $temp_files;
-
-    /* Begin of code for the case the uploade file is an archive */
-    if (acceptableArchive($ext)) {
-	$tool = canHandleArchive($ext);
-	if (empty($tool)) {
-	    processingMsg(sprintf(_("Skipping %s (%s support not enabled)"), $name, $ext));
-	    return;
-	}
-
-	/* Figure out what files inside the archive we can handle.
-	** Put all Filenames into $files.
-	*/
-	$files = getArchiveFileNames($file, $ext);
-
-	/* Get meta data */
-
-	$image_info = array();
-	foreach ($files as $pic_path) {
-	    $pic = basename($pic_path);
-	    $tag = ereg_replace(".*\.([^\.]*)$", "\\1", $pic);
-	    $tag = strtolower($tag);
-	    if (!strcmp($tag, "csv")) {
-		extractFileFromArchive($file, $ext, $pic_path);
-		$image_info = array_merge($image_info, parse_csv($gallery->app->tmpDir . "/$pic",";"));
-	    }
-	}
-
-	debugMessage(printMetaData($image_info), __FILE__, __LINE__);
-
-	/* Now process all valid files we found */
-	foreach ($files as $pic_path) {
-	    $pic = basename($pic_path);
-	    $tag = getExtension($pic);
-	    if (acceptableFormat($tag) || acceptableArchive($tag)) {
-		extractFileFromArchive($file, $ext, $pic_path);
-
-		/* Now process the metadates. */
-		$extra_fields = array();
-
-		/* Find in meta data array */
-		$firstRow = 1;
-		$fileNameKey = "File Name";
-		
-		/* $captionMetaFields will store the names (in order of priority to set caption to) */
-		$captionMetaFields = array("Caption", "Title", "Description", "Persons");
-		foreach ( $image_info as $info ) {
-		    if ($firstRow) {
-			/* Find the name of the file name field */
-			foreach (array_keys($info) as $currKey) {
-			    if (eregi("^\"?file\ ?name\"?$", $currKey)) {
-				$fileNameKey = $currKey;
-			    }
-			}
-		        $firstRow = 0;
-		    }
-		
-		    if ($info[$fileNameKey] == $pic) {
-		        /* Loop through fields */
-		    	foreach ($captionMetaFields as $field) {
-			    /* If caption isn't populated and current field is */
-			    if (!strlen($caption) && strlen($info[$field])) {
-			    	$caption = $info[$field];
-			    }
-			}
-		
-		    $extra_fields = $info;
-	    	}
-	    }
-	    /* Don't use the second argument for $cmd_pic_path, because it is already quoted. */
-	
-	    processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY, $wmSelect);
-	    fs_unlink($gallery->app->tmpDir . "/$pic");
-	}
-    }
-} else {
-	/* Its a single file */
-	/* remove %20 and the like from name */
-	$name = urldecode($name);
-
-	/* parse out original filename without extension */
-	$originalFilename = eregi_replace(".$ext$", "", $name);
-
-	/* replace multiple non-word characters with a single "_" */
-	$mangledFilename = ereg_replace("[^[:alnum:]]", "_", $originalFilename);
-
-	/* Get rid of extra underscores */
-	    $mangledFilename = ereg_replace("_+", "_", $mangledFilename);
-	    $mangledFilename = ereg_replace("(^_|_$)", "", $mangledFilename);
-	    if (empty($mangledFilename)) {
-		$mangledFilename = $gallery->album->newPhotoName();
-	}
-	
-	/* 
-	** need to prevent users from using original filenames that are purely numeric.
-	** Purely numeric filenames mess up the rewriterules that we use for mod_rewrite 
-	** specifically:
-	** RewriteRule ^([^\.\?/]+)/([0-9]+)$	/~jpk/gallery/view_photo.php?set_albumName=$1&index=$2	[QSA]
-	*/
-	
-	if (ereg("^([0-9]+)$", $mangledFilename)) {
-	    $mangledFilename .= "_G";
-	}
-	
-	set_time_limit($gallery->app->timeLimit);
-	if (acceptableFormat($ext)) {
-	    /*
-	    ** Move the uploaded image to our temporary directory
-	    ** using move_uploaded_file so that we work around
-	    ** issues with the open_basedir restriction.
-	    */
-	    if (function_exists('move_uploaded_file')) {
-		$newFile = tempnam($gallery->app->tmpDir, "gallery");
-		if (move_uploaded_file($file, $newFile)) {
-		    $file = $newFile;
+	global $gallery;
+	global $temp_files;
+	if (acceptableArchive($ext)) {
+		$tool=canHandleArchive($ext);
+		if (empty($tool)) {
+			processingMsg(sprintf(_("Skipping %s (%s support not enabled)"), $name, $ext));
+			return;
 		}
-				
-		/* Make sure we remove this file when we're done */
-		$temp_files[$newFile] = 1;
-	    }
-		    
-	    echo "\n<h3>******". sprintf(_("Adding %s"), $name) ."*****</h3>";
 
-	    /* What should the caption be, if no caption was given by user ?
-	    ** See captionOptions.inc.php for options
-	    */
-			
-	    if (isset($gallery->app->dateTimeString)) {
-		$dateTimeFormat = $gallery->app->dateTimeString;
-	    } else {
-		$dateTimeFormat = "%D %T";
-	    }
-	
-	    if (empty($caption)) {
-		switch ($setCaption) {
-		    case 1:
-			/* Use filename */
-			$caption = strtr($originalFilename, '_', ' ');
-			break;
-		    case 2:
-			/* Use file cration date */
-			$caption = strftime($dateTimeFormat, filectime($file));
-			break;
-		    case 3:
-			/* Use capture date */
-			$caption = strftime($dateTimeFormat, getItemCaptureDate($file));
-			break;
+		/* Figure out what files we can handle.
+		** Put all Filenames into $files.
+		*/
+		$files=getArchiveFileNames($file, $ext);
+
+		/* Get meta data */
+
+		$image_info = array();
+		foreach ($files as $pic_path) {
+			$pic = basename($pic_path);
+			$tag = ereg_replace(".*\.([^\.]*)$", "\\1", $pic);
+			$tag = strtolower($tag);
+			if (!strcmp($tag, "csv")) {
+				extractFileFromArchive($file, $ext, $pic_path);
+				$image_info = array_merge($image_info, parse_csv($gallery->app->tmpDir . "/$pic",";"));
+			}
 		}
-	    }
-	
-	    if (!$extra_fields) {
-		$extra_fields = array();
-	    }
 
-	    /* After all the preprocessing, NOW ADD THE element */		
-	    $err = $gallery->album->addPhoto($file, $ext, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid, NULL, $wmName, $wmAlign, $wmAlignX, $wmAlignY, $wmSelect);
-	    if ($err) {
-		processingMsg(gallery_error($err));
-		processingMsg("<b>". sprintf(_("Need help?  Look in the  %s%s FAQ%s"),
-			'<a href="http://gallery.sourceforge.net/faq.php" target=_new>', Gallery(), '</a>') .
-			"</b>");
-	    }
+		if ($gallery->app->debug == "yes") {
+		printMetaData($image_info);
+		}
+
+		foreach ($files as $pic_path) {
+			$pic = basename($pic_path);
+			$tag = getExtension($pic);
+			if (acceptableFormat($tag) || acceptableArchive($tag)) {
+				extractFileFromArchive($file, $ext, $pic_path);
+
+				/* Now process the metadates. */
+
+				$extra_fields = array();
+				// Find in meta data array
+				$firstRow = 1;
+				$fileNameKey = "File Name";
+				// $captionMetaFields will store the names (in order of priority to set caption to)
+				$captionMetaFields = array("Caption", "Title", "Description", "Persons");
+				foreach ( $image_info as $info ) {
+					if ($firstRow) {
+					// Find the name of the file name field
+						foreach (array_keys($info) as $currKey) {
+							if (eregi("^\"?file\ ?name\"?$", $currKey)) {
+							$fileNameKey = $currKey;
+						}
+					}
+					$firstRow = 0;
+					}
+					if ($info[$fileNameKey] == $pic) {
+						// Loop through fields
+						foreach ($captionMetaFields as $field) {
+						// If caption isn't populated and current field is
+						if (!strlen($caption) && strlen($info[$field])) {
+							$caption = $info[$field];
+						}
+					}
+					$extra_fields = $info;
+					}
+				}
+
+				/*
+				** Don't use the second argument for $cmd_pic_path, because it is already quoted.
+				*/
+				processNewImage($gallery->app->tmpDir . "/$pic", $tag, $pic, $caption, $setCaption, $extra_fields, $wmName, $wmAlign, $wmAlignX, $wmAlignY, $wmSelect);
+				fs_unlink($gallery->app->tmpDir . "/$pic");
+			}
+		}
 	} else {
-	    processingMsg(sprintf(_("Skipping %s (can't handle %s format)"), $name, $ext));
+		// remove %20 and the like from name
+		$name = urldecode($name);
+		// parse out original filename without extension
+		$originalFilename = eregi_replace(".$ext$", "", $name);
+		// replace multiple non-word characters with a single "_"
+		$mangledFilename = ereg_replace("[^[:alnum:]]", "_", $originalFilename);
+
+		/* Get rid of extra underscores */
+		$mangledFilename = ereg_replace("_+", "_", $mangledFilename);
+		$mangledFilename = ereg_replace("(^_|_$)", "", $mangledFilename);
+		if (empty($mangledFilename)) {
+			$mangledFilename = $gallery->album->newPhotoName();
+		}
+	
+		/* 
+		need to prevent users from using original filenames that are purely numeric.
+		Purely numeric filenames mess up the rewriterules that we use for mod_rewrite
+		specifically:
+		RewriteRule ^([^\.\?/]+)/([0-9]+)$	/~jpk/gallery/view_photo.php?set_albumName=$1&index=$2	[QSA]
+		*/
+	
+		if (ereg("^([0-9]+)$", $mangledFilename)) {
+			$mangledFilename .= "_G";
+		}
+	
+		set_time_limit($gallery->app->timeLimit);
+		if (acceptableFormat($ext)) {
+
+		        /*
+			 * Move the uploaded image to our temporary directory
+			 * using move_uploaded_file so that we work around
+			 * issues with the open_basedir restriction.
+			 */
+			if (function_exists('move_uploaded_file')) {
+			        $newFile = tempnam($gallery->app->tmpDir, "gallery");
+				if (move_uploaded_file($file, $newFile)) {
+				    $file = $newFile;
+				}
+				
+				/* Make sure we remove this file when we're done */
+				$temp_files[$newFile]=1;
+			}
+		    
+			echo "\n<h3>******". sprintf(_("Adding %s"), $name) ."*****</h3>";
+
+			/* What should the caption be, if no caption was given by user ?
+			** See captionOptions.inc.php for options
+			*/
+			
+			if (isset($gallery->app->dateTimeString)) {
+				$dateTimeFormat = $gallery->app->dateTimeString;
+			} else {
+				$dateTimeFormat = "%D %T";
+			}
+			if ($caption == "") {
+				switch ($setCaption) {
+					case 1:
+					/* Use filename */
+						$caption = strtr($originalFilename, '_', ' ');
+						break;
+					case 2:
+					/* Use file cration date */
+						$caption = strftime($dateTimeFormat, filectime($file));
+						break;
+					case 3:
+					/* Use capture date */
+						$caption = strftime($dateTimeFormat, getItemCaptureDate($file));
+						break;
+				}
+			}
+	
+			if (!$extra_fields) {
+			    $extra_fields=array();
+			}
+			$err = $gallery->album->addPhoto($file, $ext, $mangledFilename, $caption, "", $extra_fields, $gallery->user->uid, NULL, $wmName, $wmAlign, $wmAlignX, $wmAlignY, $wmSelect);
+			if ($err) {
+				processingMsg(gallery_error($err));
+				processingMsg("<b>". sprintf(_("Need help?  Look in the  %s%s FAQ%s"),
+				    '<a href="http://gallery.sourceforge.net/faq.php" target=_new>', 
+				    Gallery(),
+				    '</a>')."</b>");
+			}
+		} else {
+			processingMsg(sprintf(_("Skipping %s (can't handle %s format)"), $name, $ext));
+		}
 	}
-    }
 }
 
-function createNewAlbum( $parentName, $newAlbumName = '', $newAlbumTitle = '', $newAlbumDesc = '') {
-	global $gallery;
+function processingMsg($buf) {
+    echo "\n<br>$buf";
+    my_flush();
+}
 
-	// get parent album name
-	$albumDB = new AlbumDB(FALSE);
+function createNewAlbum( $parentName, $newAlbumName="", $newAlbumTitle="", $newAlbumDesc="") {
+        global $gallery;
 
-	// set new album name from param or default
+        // get parent album name
+        $albumDB = new AlbumDB(FALSE);
+
+        // set new album name from param or default
 	$gallery->session->albumName = $albumDB->newAlbumName($newAlbumName);
 
-	$gallery->album = new Album();
+        $gallery->album = new Album();
 	$gallery->album->fields["name"] = $gallery->session->albumName;
 
 	// guid is not created during new Album() as a performance optimization
 	// it only needs to be created when an album is created or modified by adding or deleting photos
 	$gallery->album->fields['guid'] = genGUID();
 
-	// set title and description
-	if (!empty($newAlbumTitle)) {
-		$gallery->album->fields["title"] = $newAlbumTitle;
-	}
-	if (!empty($newAlbumDesc)) {
-		$gallery->album->fields["description"] = $newAlbumDesc;
-	}
+        // set title and description
+        if (!empty($newAlbumTitle)) {
+                $gallery->album->fields["title"] = $newAlbumTitle;
+        }
+        if (!empty($newAlbumDesc)) {
+                $gallery->album->fields["description"] = $newAlbumDesc;
+        }
 
-	$gallery->album->setOwner($gallery->user->getUid());
+        $gallery->album->setOwner($gallery->user->getUid());
 
-	/* if this is a nested album, set nested parameters */
-	if (!empty($parentName)) {
-		$gallery->album->fields['parentAlbumName'] = $parentName;
-		$parentAlbum = $albumDB->getAlbumByName($parentName);
-		$parentAlbum->addNestedAlbum($gallery->session->albumName);
-		$parentAlbum->save(array(i18n("Album \"{$gallery->album->fields['name']}\" created as a sub-album of \"$parentName\".")));
-		// Set default values in nested album to match settings of parent.
-		$gallery->album->fields["perms"]           = $parentAlbum->fields["perms"];
-		$gallery->album->fields['extra_fields']    = $parentAlbum->fields['extra_fields'];
-		$gallery->album->fields["bgcolor"]         = $parentAlbum->fields["bgcolor"];
-		$gallery->album->fields["textcolor"]       = $parentAlbum->fields["textcolor"];
-		$gallery->album->fields["linkcolor"]       = $parentAlbum->fields["linkcolor"];
+        /* if this is a nested album, set nested parameters */
+        if (!empty($parentName)) {
+                $gallery->album->fields['parentAlbumName'] = $parentName;
+                $parentAlbum = $albumDB->getAlbumByName($parentName);
+                $parentAlbum->addNestedAlbum($gallery->session->albumName);
+                $parentAlbum->save(array(i18n("Album \"{$gallery->album->fields['name']}\" created as a sub-album of \"$parentName\".")));
+                // Set default values in nested album to match settings of parent.
+                $gallery->album->fields["perms"]           = $parentAlbum->fields["perms"];
+		$gallery->album->fields['extra_fields']    = $parentAlbum->fields['extra_fields'];		
+                $gallery->album->fields["bgcolor"]         = $parentAlbum->fields["bgcolor"];
+                $gallery->album->fields["textcolor"]       = $parentAlbum->fields["textcolor"];
+                $gallery->album->fields["linkcolor"]       = $parentAlbum->fields["linkcolor"];
 		$gallery->album->fields['background']      = $parentAlbum->fields['background'];
-		$gallery->album->fields["font"]            = $parentAlbum->fields["font"];
-		$gallery->album->fields["border"]          = $parentAlbum->fields["border"];
-		$gallery->album->fields["bordercolor"]     = $parentAlbum->fields["bordercolor"];
-		$gallery->album->fields["thumb_size"]      = $parentAlbum->fields["thumb_size"];
-		$gallery->album->fields["resize_size"]     = $parentAlbum->fields["resize_size"];
-		$gallery->album->fields["resize_file_size"]     = $parentAlbum->fields["resize_file_size"];
+                $gallery->album->fields["font"]            = $parentAlbum->fields["font"];
+                $gallery->album->fields["border"]          = $parentAlbum->fields["border"];
+                $gallery->album->fields["bordercolor"]     = $parentAlbum->fields["bordercolor"];
+                $gallery->album->fields["thumb_size"]      = $parentAlbum->fields["thumb_size"];
+                $gallery->album->fields["resize_size"]     = $parentAlbum->fields["resize_size"];
+                $gallery->album->fields["resize_file_size"]     = $parentAlbum->fields["resize_file_size"];
 		$gallery->album->fields['max_size']        = $parentAlbum->fields['max_size'];
 		$gallery->album->fields['max_file_size']   = $parentAlbum->fields['max_file_size'];
 		$gallery->album->fields['returnto']        = $parentAlbum->fields['returnto'];
-		$gallery->album->fields["rows"]            = $parentAlbum->fields["rows"];
-		$gallery->album->fields["cols"]            = $parentAlbum->fields["cols"];
-		$gallery->album->fields["fit_to_window"]   = $parentAlbum->fields["fit_to_window"];
-		$gallery->album->fields["use_fullOnly"]    = $parentAlbum->fields["use_fullOnly"];
-		$gallery->album->fields["print_photos"]    = $parentAlbum->fields["print_photos"];
+                $gallery->album->fields["rows"]            = $parentAlbum->fields["rows"];
+                $gallery->album->fields["cols"]            = $parentAlbum->fields["cols"];
+                $gallery->album->fields["fit_to_window"]   = $parentAlbum->fields["fit_to_window"];
+                $gallery->album->fields["use_fullOnly"]    = $parentAlbum->fields["use_fullOnly"];
+                $gallery->album->fields["print_photos"]    = $parentAlbum->fields["print_photos"];
 		$gallery->album->fields['slideshow_type']  = $parentAlbum->fields['slideshow_type'];
 		$gallery->album->fields['slideshow_recursive'] = $parentAlbum->fields['slideshow_recursive'];
 		$gallery->album->fields['slideshow_length'] = $parentAlbum->fields['slideshow_length'];
@@ -2332,30 +2364,30 @@ function createNewAlbum( $parentName, $newAlbumName = '', $newAlbumTitle = '', $
 		$gallery->album->fields['album_frame']    = $parentAlbum->fields['album_frame'];
 		$gallery->album->fields['thumb_frame']    = $parentAlbum->fields['thumb_frame'];
 		$gallery->album->fields['image_frame']    = $parentAlbum->fields['image_frame'];
-		$gallery->album->fields["use_exif"]        = $parentAlbum->fields["use_exif"];
-		$gallery->album->fields["display_clicks"]  = $parentAlbum->fields["display_clicks"];
+                $gallery->album->fields["use_exif"]        = $parentAlbum->fields["use_exif"];
+                $gallery->album->fields["display_clicks"]  = $parentAlbum->fields["display_clicks"];
 		$gallery->album->fields["item_owner_display"] = $parentAlbum->fields["item_owner_display"];
 		$gallery->album->fields["item_owner_modify"]  = $parentAlbum->fields["item_owner_modify"];
 		$gallery->album->fields["item_owner_delete"]  = $parentAlbum->fields["item_owner_delete"];
 		$gallery->album->fields["add_to_beginning"]   = $parentAlbum->fields["add_to_beginning"];
 		$gallery->album->fields['showDimensions']  = $parentAlbum->fields['showDimensions'];
+		
+                $returnVal = $gallery->album->save(array(i18n("Album \"{$gallery->album->fields['name']}\" created as a sub-album of \"$parentName\".")));
+        } else {
+        	$gallery->album->save(array(i18n("Root album \"{$gallery->album->fields['name']}\" created.")));
+                /*
+                 * Get a new albumDB because our old copy is not up to
+                 * date after we created a new album
+                 */
+                $albumDB = new AlbumDB(FALSE);
 
-		$returnVal = $gallery->album->save(array(i18n("Album \"{$gallery->album->fields['name']}\" created as a sub-album of \"$parentName\".")));
-	} else {
-		$gallery->album->save(array(i18n("Root album \"{$gallery->album->fields['name']}\" created.")));
-		/*
-		* Get a new albumDB because our old copy is not up to
-		* date after we created a new album
-		*/
-		$albumDB = new AlbumDB(FALSE);
+                /* move the album to the top if not a nested album*/
+                $numAlbums = $albumDB->numAlbums($gallery->user);
+                $albumDB->moveAlbum($gallery->user, $numAlbums, 1);
+                $returnVal = $albumDB->save();
+        }
 
-		/* move the album to the top if not a nested album*/
-		$numAlbums = $albumDB->numAlbums($gallery->user);
-		$albumDB->moveAlbum($gallery->user, $numAlbums, 1);
-		$returnVal = $albumDB->save();
-	}
-
-	if (!empty($returnVal)) {
+        if (!empty($returnVal)) {
 		return $gallery->session->albumName;
 	} else {
 		return 0;
@@ -2387,8 +2419,13 @@ function vd($x, $string="") {
 	print "</pre>\n";
 }       
 
+/* returns the offical name of the gallery */
+function Gallery() {
+	return "Gallery";
+}
+
 /*returns a link to the docs, if present, or NULL */
-function galleryDocs() {
+function galleryDocs($class='') {
 	global $gallery;
 
 	if (fs_file_exists(dirname(__FILE__) .'/docs/index.html')) {
@@ -2459,24 +2496,39 @@ function compress_image($src, $out, $target, $quality, $keepProfiles=false) {
 			}
 
 			/* Preserve comment, EXIF data if a JPEG if $keepProfiles is set. */
-
-			$sizeCmd = '';
-			$geometryCmd = '';
-			if ($target) {
-			    $sizeCmd = "-size ${target}x${target} ";
-			    $geometryCmd = "-geometry ${target}x${target} ";
-			}
-
 			exec_wrapper(ImCmd('convert',
-			   $srcFile .
-			   " -quality $quality $sizeCmd $keepProfiles -coalesce $geometryCmd $outFile"
-			));
-
+					  "-quality $quality "
+					. ($target ? "-size ${target}x${target} " : '')
+					. $keepProfiles
+					. ' -coalesce ' /* Better support for animated GIFs */
+					. $srcFile
+					. ($target ? " -geometry ${target}x${target} " : ' ')
+					/* '-deconstruct' turns animated images back into the separate pieces which were merged using
+					'-coalesce', but causes problems with some images, so we don't want to use it. */
+					. $outFile));
 			break;
 		default:
-		    echo debugMessage(_("You have no graphics package configured for use!"));
-		break;
+			if (isDebugging()) {
+				echo "<br>" . _("You have no graphics package configured for use!")."<br>";
+			}
+			break;
 			
+	}
+}
+
+function poweredBy () {
+	global $gallery;
+	$link = '<a href="'.$gallery->url.'" target="_blank">'.Gallery().'</a>';
+	if (isDebugging() || $gallery->app->devMode == "yes" || $gallery->user->isAdmin()) {
+		$version = $gallery->version;
+	} else {
+		$version = "1<!-- {$gallery->version} -->";
+	}
+
+	if ($gallery->session->offline) {
+		return sprintf(_("Generated by %s v%s"), $link, $version);
+	} else {
+		return sprintf(_("Powered by %s v%s"), $link, $version);
 	}
 }
 
@@ -2497,7 +2549,46 @@ function getOS () {
 	}
 }
 
-function generate_password($len = 10) {
+/*
+** The functions checks if the given email(s) is(are) in a valid format.
+** 
+** if $multiples is true, look to see if it's a list of comma separated addresses.
+**
+** Return email(s) when email(s) is(are) correct, else false.
+*/
+
+function gallery_validate_email($email, $multiples=false)
+{
+       	if (eregi('^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,4}$', $email)) {
+	       	return $email;
+	} elseif (!$multiples) {
+	       	return false;
+	} else {
+		$email = ereg_replace('([[:space:]]+)', '', $email);
+		$emails = array_filter(explode(',', $email));
+		$size  = sizeof($emails);
+		if ($size < 1) {
+			return false;
+		} else {
+			$email="";
+			$join="";
+		       	foreach ($emails as $email) {
+			       	if (gallery_validate_email($email)) {
+				       	$email .= "$join$email";
+				       	$join=", ";
+			       	} else {
+					if (isDebugging()) {
+						print sprintf(_("Skipping invalid email address %s"), $email);
+					}
+			       	}
+		       	}
+			return $email;
+	       	}
+	}
+}
+
+function generate_password($len = 10)
+{
 	$result = '';
 	$alpha  = 'abcdefghijklmnopqrstuvwxyz' .
 			  '0123456789' .
@@ -2521,7 +2612,8 @@ function generate_password($len = 10) {
 	return $result;
 }
 
-function pretty_password($pass, $print, $pre = '    ') {
+function pretty_password($pass, $print, $pre = '    ')
+{
 	$idx = -1;
 	$len = strlen($pass);
 
@@ -2549,16 +2641,246 @@ function pretty_password($pass, $print, $pre = '    ') {
 	return "$result\n";
 }
 
-function logMessage ($msg, $logfile) {
-	
-	if ($fd = fs_fopen($logfile, "a")) {
-		fwrite($fd, strftime("%Y/%m/%d %H:%M.%S: $msg\n"));
-		fclose($fd);
-	}
-	elseif (isDebugging()) {
-		print sprintf(_("Cannot open logfile: %s"), $logfile);
+function emailDisclaimer() {
+	global $gallery;
+	$msg = sprintf(_("Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."),$gallery->app->photoAlbumURL).
+	     "  \r\n".
+	     sprintf(_("Report abuse to %s"),$gallery->app->adminEmail);
+	$msg2 = sprintf("Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message.  \r\nReport abuse to %s",
+		$gallery->app->photoAlbumURL, $gallery->app->adminEmail);
+	if ($msg != $msg2) {
+		return "[$msg\r\n$msg2]\r\n\r\n";
+	} else {
+		return "[$msg]\r\n\r\n";
 	}
 }
+
+
+
+function gallery_mail($to, $subject, $msg, $logmsg, $hide_recipients = false, $from = NULL) {
+	global $gallery;
+
+	$headers ='';	
+	$additional_headers = '';
+
+	if ($gallery->app->emailOn == "no") {
+		echo "\n<br>". gallery_error(_("Email not sent as it is disabled for this gallery"));
+		return false;
+	}
+
+	if (empty($to)) {
+		echo "\n<br>". gallery_error(sprintf(_("Email not sent as no address provided"),
+				       	"<i>" . $to . "</i>"));
+		return false;
+	}
+
+       	if (!gallery_validate_email($to, true)) {
+		echo "\n<br>". gallery_error(sprintf(_("Email not sent to %s as it is not a valid address"),
+				       	"<i>" . $to . "</i>"));
+		return false;
+	}
+
+	if ($hide_recipients) {
+		$bcc=$to;
+		$to="";
+		$join=",";
+	} else {
+		$bcc="";
+		$join="";
+	}
+
+	if (!gallery_validate_email($from)) {
+		if (isDebugging() && $from) {
+			echo "\n<br>". gallery_error( sprintf(_("Sender address %s is invalid, using %s."),
+				       	$from, $gallery->app->senderEmail));
+	       	}
+		$from = $gallery->app->senderEmail;
+		$reply_to = $gallery->app->adminEmail;
+	} else {
+		$reply_to = $from;
+	}
+
+	if (isset($gallery->app->email_notification) &&
+			in_array("bcc", $gallery->app->email_notification)) {
+		$bcc .= $join . $gallery->app->adminEmail;
+	}
+
+	/* Minimum Headers according to RFC 822 A.3.1. */
+	$headers  = "Date: ". date("r") ."\r\n";
+	$headers  .= "From: ". $gallery->app->galleryTitle ." ". _("Administrator") . " <$from>\r\n";
+	
+	/* Additional headers */
+	$additional_headers = "Reply-To: <$reply_to>\r\n";
+	$additional_headers .= "X-GalleryRequestIP: " . $_SERVER['REMOTE_ADDR'] . "\r\n";
+	$additional_headers .= "MIME-Version: 1.0\r\n";
+	$additional_headers .= "Content-type: text/plain; charset=\"". $gallery->charset ."\"\r\n";
+
+	if ($bcc) {
+		$additional_headers .= "Bcc: " . $bcc . "\r\n";
+	}
+
+	if (get_magic_quotes_gpc()) {
+		$msg = stripslashes($msg);
+	}
+
+	$msg = unhtmlentities($msg);
+	$subject = unhtmlentities($gallery->app->emailSubjPrefix . " " . $subject);
+
+	// Ensure that there are no bare linefeeds by replacing "\r" or "\n"
+	// (but not the individual components of "\r\n") with "\r\n"
+	$msg = preg_replace("/([^\r])?\n|\r([^\n])?/", "\\1\r\n\\2", $msg);
+
+	if ($gallery->app->useOtherSMTP != "yes") {
+		$result = mail($to, $subject, emailDisclaimer() . $msg, $headers . $additional_headers);
+	} else {
+		$result = gallery_smtp($to, $bcc, $subject, $msg, $headers . $additional_headers);
+	}
+
+	// Commented to prevent accidental disclosure of passwords via debug screens
+	// Remove the "false &&" to enable for testing purposes
+	if (false && isDebugging()) {
+		print "<table>";
+		print "<tr><td valign=\"top\">To:</td><td valign=\"top\">&lt;" .
+			_("not shown") . "&gt;</td></tr>";
+		print "<tr><td valign=\"top\">Subject:</td><td valign=\"top\">$subject</td></tr>";
+		print "<tr><td valign=\"top\">";
+		print str_replace(":", ":</td><td valign=\"top\">", 
+				ereg_replace(":[^:\n]*\n", ":&lt;" . 
+					_("not shown") . 
+					"&gt;</td></tr><tr><td valign=\"top\">",
+					$additional_headers));
+		print "</td></tr>";
+		print '<tr><td valign="top">' . _("Message") . 
+			':</td><td valign="top">'. str_replace("\n", "<br>", $msg). '</td></tr>';
+		print "</table>";
+	       	if ($result) {
+			print _("Email sent")."<br>";
+		} else {
+			echo gallery_error(_("Email not sent"));
+	       	}
+	}
+	emailLogMessage($logmsg, $result);
+	return $result;
+}
+
+function gallery_smtp($to, $bcc, $subject, $msg, $additional_headers) {
+	global $gallery;
+
+	$lb = "\r\n";                                   // linebreak
+	$hdr = explode($lb, $additional_headers);       // header fields
+	$result = 0;
+
+	$bdy = emailDisclaimer() . $msg;
+	if (!empty($bdy)) {
+		$bdy = ereg_replace("^\.", "..", $bdy);
+		$bdy = explode($lb, $bdy);
+	}
+
+	// build the array for the SMTP dialog. Line content is
+	// array((string)command, (string)success code, (string)debug error message)
+	if (!empty($gallery->app->smtpUserName)) { // SMTP authentication methode AUTH LOGIN, use extended HELO "EHLO"
+	    $smtp = array(
+		// call the server and tell the name of your local host
+		array("EHLO " . $gallery->app->smtpFromHost . $lb, "220,250", "HELO error: "),
+		// request to auth
+		array("AUTH LOGIN" . $lb, "334", "AUTH error:"),
+		// username
+		array(base64_encode($gallery->app->smtpUserName) . $lb, "334", "AUTHENTICATION error : "),
+		// password
+		array(base64_encode($gallery->app->smtpPassword) . $lb, "235", "AUTHENTICATION error : "));
+	}
+	else { // no authentication, use standard HELO
+	    $smtp = array(
+		// call the server and tell the name of your local host
+		array("HELO " . $gallery->app->smtpFromHost . $lb, "220,250", "HELO error: "));
+	}
+
+	// envelop
+	if ($to == "") {
+		$bcc_array = explode(", ",$bcc);
+		foreach ($bcc_array as $bccto) {
+			if ($bccto != "") {
+				$smtp[] = array("MAIL FROM: " . '<' . $from . '>' . $lb, "250", "MAIL FROM error: ");
+				$smtp[] = array("RCPT TO: " . '<' . $bccto . '>' . $lb, "250", "RCPT TO:" . '<' . $bccto . '>' . " error: ");
+				// begin data
+				$smtp[] = array("DATA" . $lb, "354", "DATA error: ");
+				// header
+				$smtp[] = array("Subject: " . $subject . $lb, "", "");
+				$smtp[] = array("To: <$bccto>" . $lb, "", "");
+				foreach ($hdr as $h) {
+					if (!empty($h)) {
+						$smtp[] = array($h . $lb, "", "");
+					}
+				}
+				// end header, begin the body
+				$smtp[] = array($lb,"","");
+				if ($bdy) {
+					foreach ($bdy as $b) {
+						$smtp[] = array($b . $lb, "", "");
+					}
+				}
+				// end of messageO5B
+				$smtp[] = array($lb . "." . $lb, "250", "DATA(end) error: ");
+			}
+		}
+	} else {
+		$smtp[] = array("MAIL FROM: " . '<' . $from . '>' . $lb, "250", "MAIL FROM error: ");
+		$smtp[] = array("RCPT TO: " . '<' . $to . '>' . $lb, "250", "RCPT TO:" . $to . " error: ");
+		// begin data
+		$smtp[] = array("DATA" . $lb, "354", "DATA error: ");
+		// header
+		$smtp[] = array("Subject: " . $subject . $lb, "", "");
+		$smtp[] = array("To: <$to>" . $lb, "", "");
+		foreach ($hdr as $h) {
+			if (!empty($h)) {
+				$smtp[] = array($h . $lb, "", "");
+			}
+		}
+		// end header, begin the body
+		$smtp[] = array($lb, "", "");
+		if ($bdy) {
+			foreach ($bdy as $b) {
+				$smtp[] = array($b . $lb, "", "");
+			}
+		}
+		// end of message
+		$smtp[] = array($lb . "." . $lb, "250", "DATA(end)error: ");
+	}
+	$smtp[] = array("QUIT" . $lb, "221", "QUIT error: ");
+
+	// open socket
+	$fp = @fsockopen($gallery->app->smtpHost, $gallery->app->smtpPort);
+	if (!$fp){
+		 echo "<b>Error:</b> Cannot connect to " . $gallery->app->smtpHost . "<br>";
+		 $result = 1;
+	}
+	$banner = @fgets($fp, 1024);
+	// perform the SMTP dialog with all lines of the list
+	foreach ($smtp as $req){
+	    // send request
+	    @fputs($fp, $req[0]);
+	    // get available server messages and stop on errors
+	    if ($req[1]) {
+		while ($result = @fgets($fp, 1024)){
+			if (substr($result,3,1) == " ") {
+				break;
+			}
+		};
+		if (!strstr($req[1], substr($result, 0, 3))) {
+			if (isDebugging()) {
+				echo "$req[2] . $result<br>";
+			}
+			$result = 1;
+		}
+	    }
+       }
+       @fgets($fp, 1024);
+       // close socket
+       @fclose($fp);
+
+	return $result;
+}
+
 
 /* Formats a nice string to print below an item with comments */
 function lastCommentString($lastCommentDate, &$displayCommentLegend) {
@@ -2576,90 +2898,158 @@ function lastCommentString($lastCommentDate, &$displayCommentLegend) {
 	return $ret;
 }
 
-function available_skins($description_only = false) {
+function emailLogMessage($logmsg, $result) {
 	global $gallery;
-	$version ='';
-	$last_update ='';
-	$possibleSkins = array();
-
-	if (isset($gallery->app->photoAlbumURL)) {
-		$base_url = $gallery->app->photoAlbumURL;
+	if (!$result) {
+		$logmsg = _("FAILED")."/FAILED: $logmsg";
 	}
-	else {
-		$base_url = "..";
+	if (isset($gallery->app->email_notification) &&
+			in_array("logfile", $gallery->app->email_notification)) {
+		$logfile=$gallery->app->userDir."/email.log";
+		logMessage($logmsg, $logfile);
 	}
-
-	$dir = dirname(__FILE__) . '/skins';
-	$opts['none'] = 'No Skin';
-	$descriptions="<dl>";
-	$name = "<a href \"#\" onClick=\"document.config.skinname.options[0].selected=true; return false;\">". _("No Skin") ."</a>";
-	$descriptions .= sprintf (_('<dt>%s</dt><dd>The original look and feel.</dd>'), $name);
-	$skincount = 0;
-
-	if (fs_is_dir($dir) && is_readable($dir) && $fd = fs_opendir($dir)) {
-		while ($file = readdir($fd)) {
-			$subdir="$dir/$file/css";
-			$skincss="$subdir/screen.css";
-			if (fs_is_dir($subdir) && fs_file_exists($skincss)) {
-				$possibleSkins[] = $file;
-			}
+	if (isset($gallery->app->email_notification) &&
+			in_array("email", $gallery->app->email_notification)) {
+		$subject = _("Email activity");
+		if ($subject != "Email activity") {
+			$subject .= "/Email activity";
 		}
+		$subject .= ": ".  $gallery->app->galleryTitle;
 
-		sort($possibleSkins);
-		foreach($possibleSkins as $file) {
-			$subdir="$dir/$file/css";
-			$skininc="$dir/$file/style.def";
-			$name="";
-			$description="";
-			$skincss="$subdir/screen.css";
-			$skincount++;
-
-			if (fs_file_exists($skininc)) {
-				require($skininc);
-			}
-
-			if (empty($name)) {
-				$name = $file;
-			}
-
-			$opts[$file]=$name;
-			if (fs_file_exists("$dir/$file/images/screenshot.jpg")) {
-				$screenshot = $base_url . "/skins/$file/images/screenshot.jpg";
-			} elseif (fs_file_exists("$dir/$file/images/screenshot.gif")) {
-				$screenshot = $base_url . "/skins/$file/images/screenshot.gif";
-			} else {
-				$screenshot = "";
-			}
-
-			if ($screenshot) {
-				$name = popup_link($name, $screenshot, 1, false,
-				500, 800, '', 'document.config.skinname.options['. $skincount. '].selected=true; ');
-			}
-
-			$descriptions.="\n<dt style=\"margin-top:5px;\">$name";
-			if (!isset ($version)) {
-				$version = _("unknown");
-			}
-
-			if (!isset($last_update)) {
-				$last_update = _("unknown");
-			}
-
-			$descriptions .= '<span style="margin-left:10px; font-size:x-small">';
-			$descriptions .= _("Version") .": $version";
-			$descriptions .= "&nbsp;&nbsp;&nbsp;";
-			$descriptions .= _("Last Update") . ": $last_update</span></dt>";
-			$descriptions .= "<dd style=\"font-weight:bold; background-color:white;\">$description<br></dd>";
-		}
-
-		$descriptions .="\n</dl>";
-
-		if ($description_only) {
-			return $descriptions;
+		if ($gallery->app->useOtherSMTP != "yes") {
+			mail($gallery->app->adminEmail, 
+				$subject,
+				emailDisclaimer().$logmsg,
+				"From: " . $gallery->app->senderEmail . "\r\n");
 		} else {
-			return $opts;
+			gallery_smtp($gallery->app->adminEmail, "", 
+				$subject, $logmsg, 
+				"From: " . $gallery->app->senderEmail . "\r\n");
 		}
 	}
+}
+function logMessage ($msg, $logfile) {
+	
+	if ($fd = fs_fopen($logfile, "a")) {
+		fwrite($fd, strftime("%Y/%m/%d %H:%M.%S: $msg\n"));
+		fclose($fd);
+	}
+	elseif (isDebugging()) {
+		print sprintf(_("Cannot open logfile: %s"), $logfile);
+	}
+}
+
+function welcome_email($show_default=false) {
+	global $gallery;
+
+	$default=_("Hi !!FULLNAME!!,  
+
+Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:
+
+!!NEWPASSWORDLINK!!
+
+Gallery @ %s Administrator.");
+	if ($show_default) {
+		return sprintf($default, 
+		       	"<b><nobr>&lt;" . _("gallery title") . "&gt;</nobr></b>", 
+		       	"<b><nobr>&lt;" . _("gallery URL") . "&gt;</nobr></b>", 
+		       	"<b><nobr>&lt;" . _("gallery title") . "&gt;</nobr></b>");
+	} elseif (empty($gallery->app->emailGreeting)) {
+		return sprintf($default, 
+			$gallery->app->galleryTitle,
+			$gallery->app->photoAlbumURL,
+			$gallery->app->galleryTitle);
+	} else {
+		return $gallery->app->emailGreeting;
+	}
+
+}
+
+function available_skins($description_only=false) {
+
+    global $gallery;
+    $version ='';
+    $last_update ='';
+    $possibleSkins = array();
+
+    if (isset($gallery->app->photoAlbumURL)) {
+        $base_url = $gallery->app->photoAlbumURL;
+    }
+    else {
+	$base_url = "..";
+    }
+
+    $dir = dirname(__FILE__) . '/skins';
+    $opts['none'] = 'No Skin';
+    $descriptions="<dl>";
+    $name = "<a href \"#\" onClick=\"document.config.skinname.options[0].selected=true; return false;\">". _("No Skin") ."</a>";
+    $descriptions .= sprintf (_('<dt>%s</dt><dd>The original look and feel.</dd>'), $name);
+    $skincount = 0;
+
+    if (fs_is_dir($dir) && is_readable($dir) && $fd = fs_opendir($dir)) {
+ 	while ($file = readdir($fd)) {
+	    $subdir="$dir/$file/css";
+	    $skincss="$subdir/screen.css";
+	    if (fs_is_dir($subdir) && fs_file_exists($skincss)) {
+		$possibleSkins[] = $file;
+	    }
+	}
+	
+	sort($possibleSkins);
+	foreach($possibleSkins as $file) {
+	    $subdir="$dir/$file/css";
+	    $skininc="$dir/$file/style.def";
+	    $name="";
+	    $description="";
+	    $skincss="$subdir/screen.css";
+	    $skincount++;
+			
+	    if (fs_file_exists($skininc)) {
+		require($skininc);
+	    }
+	
+	    if (empty($name)) {
+		$name = $file;
+	    }
+				
+	    $opts[$file]=$name;
+	    if (fs_file_exists("$dir/$file/images/screenshot.jpg")) {
+		$screenshot = $base_url . "/skins/$file/images/screenshot.jpg";
+	    } elseif (fs_file_exists("$dir/$file/images/screenshot.gif")) {
+		$screenshot = $base_url . "/skins/$file/images/screenshot.gif";
+	    } else {
+		$screenshot = "";
+	    }
+				
+	    if ($screenshot) {
+		$name = popup_link($name, $screenshot, 1, false,
+			500, 800, '', 'document.config.skinname.options['. $skincount. '].selected=true; ');
+	    }
+
+	    $descriptions.="\n<dt style=\"margin-top:5px;\">$name";
+	    if (!isset ($version)) {
+		$version = _("unknown");
+	    }
+				
+	    if (!isset($last_update)) {
+		$last_update = _("unknown");
+	    }
+				
+	    $descriptions .= '<span style="margin-left:10px; font-size:x-small">';
+	    $descriptions .= _("Version") .": $version";
+	    $descriptions .= "&nbsp;&nbsp;&nbsp;";
+	    $descriptions .= _("Last Update") . ": $last_update</span></dt>";
+	    $descriptions .= "<dd style=\"font-weight:bold; background-color:white;\">$description<br></dd>";
+	}
+
+	$descriptions .="\n</dl>";
+ 
+	if ($description_only) {
+	    return $descriptions;
+	} else {
+	    return $opts;
+	}
+    }
 }
 
 function available_frames($description_only=false) {
@@ -2778,70 +3168,53 @@ function doctype() {
 	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' . "\n";
 }
 
-function common_header($adds = array()) {
-    $metaTagAdds = array();
-    if(isset($adds['metaTags'])) {
-	$metaTagAdds = $adds['metaTags'];
-    }
+function common_header() {
 
 // Do some meta tags
-    metatags($metaTagAdds);
-
+	metatags();
+	
 // Import CSS Style_sheet
-    echo getStyleSheetLink();
-	
+	echo getStyleSheetLink();
+
 // Set the Gallery Icon 
-    echo "\n  <link rel=\"shortcut icon\" href=\"". makeGalleryUrl('images/favicon.ico') . "\">\n";
+	echo "\n  <link rel=\"shortcut icon\" href=\"". makeGalleryUrl('images/favicon.ico') . "\">\n";
 }
 
-function metatags($adds = array()) {
-    global $gallery;
+function metatags() {
+	global $gallery;
 
-    echo '<meta http-equiv="content-style-type" content="text/css">';
-    echo "\n  ". '<meta http-equiv="content-type" content="Mime-Type; charset='. $gallery->charset .'">';
-    echo "\n  ". '<meta name="content-language" content="' . str_replace ("_","-",$gallery->language) . '">';
+	echo '<meta http-equiv="content-style-type" content="text/css">';
+	echo "\n  ". '<meta http-equiv="content-type" content="Mime-Type; charset='. $gallery->charset .'">';
+	echo "\n  ". '<meta name="content-language" content="' . str_replace ("_","-",$gallery->language) . '">';
+	echo "\n\n";
+}
 
-    if(!empty($adds)) {
-	foreach ($adds as $name => $content) {
-	    echo "\n  ". '<meta name="'. $name .'" content="'. $content .'">';
+// uses makeGalleryURL
+function gallery_validation_link($file, $valid=true, $args='') {
+	global $gallery;
+	if ($gallery->app->devMode == "no") {
+		return "";
 	}
-    } 
-    echo "\n";
-}
 
-/**
- * Generates a link to w3c validator
- * 
- * @param	string	$file	file to validate, relative to gallery dir
- * @param	boolean	$valid	true/false wether we know the result ;)
- * @param	array	$arg	optional array with urlargs
- * @return	string	$link	HTML hyperlink
- */
-function gallery_validation_link($file, $valid=true, $args = array()) {
-    global $gallery;
-
-    if (isset($gallery->app->devMode) && $gallery->app->devMode == "no") {
-	return '';
-    }
-
-    $args['PHPSESSID'] = session_id();
-    $url = makeGalleryURL($file, $args);
-
-    if (!empty($file) && isset($gallery->app->photoAlbumURL)) {
-	$uri = urlencode(eregi_replace("&amp;", "&", $url));
-    }
-    else {
-	$uri = 'referer&amp;PHPSESSID='. $args['PHPSESSID'];
-    }
-
-    $link = '<a href="http://validator.w3.org/check?uri='. $uri .'">'.
-	'<img border="0" src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a>';
+	if (!isset($args)) {
+		$args=array();
+	}
 	
-    if (!$valid) {
-	$link .= _("Not valid yet");
-    }
+	$args['PHPSESSID']=session_id();
 
-    return $link;
+	if (!empty($file)) {
+		$uri = urlencode(eregi_replace("&amp;", "&", makeGalleryURL($file, $args)));
+	 }
+	else {
+		$uri = 'referer&amp;PHPSESSID='. $args['PHPSESSID'];
+	}
+	$link='<a href="http://validator.w3.org/check?uri='. $uri .'">'.
+		'<img border="0" src="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01!" height="31" width="88"></a>';
+	if (!$valid) {
+		$link .= _("Not valid yet");
+	}
+
+	return $link;
 }
 
 // uses makeAlbumURL
@@ -2862,20 +3235,16 @@ function album_validation_link($album, $photo='', $valid=true) {
 	return $link;
 }
 
-/**
- * @return string	$location	Location where Gallery assmes the user. Can be 'core' or 'config'
- */
 function where_i_am() {
-    global $GALLERY_OK;
+	global $GALLERY_OK;
 
-    if (!stristr($_SERVER['REQUEST_URI'],'setup') || $GALLERY_OK) {
-	$location = 'core';
-    } else {
-	$location = 'config';
-    }
-    return $location;
+	if ($GALLERY_OK == true && strpos($_SERVER['REQUEST_URI'],"setup") == 0) {
+		return "core";
+	} else {
+		return "config";
+	}
+
 }
-
 function user_name_string($uid, $format='!!FULLNAME!! (!!USERNAME!!)') {
        	global $gallery;
        	if ($uid) {
@@ -2996,9 +3365,31 @@ function key_strip_slashes (&$arr) {
     }
 }
 
+/*
+** Define Constants for Gallery pathes.
+*/ 
+function getGalleryPaths() {
+	if (defined('GALLERY_BASE')) {
+		return;
+	}
+
+	$currentFile = __FILE__;
+	if ( $currentFile == '/usr/share/gallery/util.php') {
+		/* Gallery runs on as Debian Package */
+		define ("GALLERY_CONFDIR", "/etc/gallery");
+		define ("GALLERY_SETUPDIR", "/var/lib/gallery/setup");
+	} else {
+		define ("GALLERY_CONFDIR", dirname(__FILE__));
+		define ("GALLERY_SETUPDIR", dirname(__FILE__) . "/setup");
+	}
+
+	define ("GALLERY_BASE", dirname(__FILE__));
+}
+
 function showOwner($owner) {
-    global $GALLERY_EMBEDDED_INSIDE_TYPE;
-    global $_CONF;				/* Needed for GeekLog */
+
+global $GALLERY_EMBEDDED_INSIDE_TYPE;
+global $_CONF;				/* Needed for GeekLog */
 
 	switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
 		case 'GeekLog':
@@ -3018,48 +3409,47 @@ function showOwner($owner) {
 }
 
 function getExtraFieldsValues($index, $extra_fields, $full) {
-    global $gallery;
-    $photo = $gallery->album->getPhoto($index);
-    $automaticFields = automaticFieldsList();
+	global $gallery;
+	$photo = $gallery->album->getPhoto($index);
+	$automaticFields = automaticFieldsList();
 
-    $table = array();
+	$table=array();
 
-    foreach ($extra_fields as $key) {
-	if (isset($automaticFields[$key]) && $key != 'EXIF') {
-            if ($key == 'Upload Date') {
-		$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , $gallery->album->getUploadDate($index));
-	    }
+	foreach ($extra_fields as $key) {
+        	if (isset($automaticFields[$key]) && $key != 'EXIF') {
+                	if ($key == 'Upload Date') {
+                        	$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , $gallery->album->getUploadDate($index));
+			}
 
-	    if ($key == 'Capture Date') {
-		$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
-		$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , $itemCaptureDate);
-	    }
+			if ($key == 'Capture Date') {
+				$itemCaptureDate = $gallery->album->getItemCaptureDate($index);
+				$table[$automaticFields[$key]] = strftime($gallery->app->dateTimeString , $itemCaptureDate);
+			}
 
-	    if ($key == 'Dimensions') {
-		$dimensions = $photo->getDimensions($full);
-		$table[$automaticFields[$key]] = $dimensions[0]." x ".$dimensions[1]." (". ((int) $photo->getFileSize($full) >> 10) ."k)";
-	    }
+			if ($key == 'Dimensions') {
+				$dimensions=$photo->getDimensions($full);
+				$table[$automaticFields[$key]] = $dimensions[0]." x ".$dimensions[1]." (". ((int) $photo->getFileSize($full) >> 10) ."k)";
+			}
+		}
+		else {
+        	        $value=$gallery->album->getExtraField($index, $key);
+                	if ($value) {
+                        	$table[$key] = str_replace("\n", "<br>", $value);
+	                }
+        	}
 	}
-	else {
-	    $value = $gallery->album->getExtraField($index, $key);
-            if (!empty($value)) {
-		/* Might be look strange, but $key could be in translateableFields() */
-                $table[_($key)] = str_replace("\n", "<br>", $value);
-	    }
-        }
-    }
-    return $table;
+	return $table;
 }
 
-/**
- * This function displays tables with the Fields of an Photo
- * @param	integer	$index				Fields of this photo are displayed.
- * @param	array	$extra_fields		You need to give the extrafields ; hint: use getExtraFields()
- * @param	boolean	$withExtraFields	if true, then the extra fields are displayed
- * @param 	boolean	$withExif			if true, then the EXIF Data are displayed
- * @param	mixed	$full				Needed for getting dimensions of the photo
- * @param	boolean	$forceRefresh		Needed for getting EXIF Data
- */
+/*
+** This function displays tables with the Fields of an Photo
+** $index		=> Fields of this photo are displayed.
+** $extra_fields	=> You need to give the extrafields ; hint: use getExtraFields()
+** $withExtraFields	=> if true, then the extra fields are displayed
+** $withExif		=> if true, then the EXIF Data are displayed
+** $full		=> Needed for getting dimensions of the photo
+** $forceRefresh	=> Needed for getting EXIF Data
+*/
 function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withExif=true, $full=NULL, $forceRefresh=0) {
 	global $gallery;
 
@@ -3067,22 +3457,23 @@ function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withE
 
 	// if we have extra fiels and we want to show them, then get the values
 	if (isset($extra_fields) && $withExtraFields) {
-		$CF = getExtraFieldsValues($index, $extra_fields, $full);
-		if (!empty($CF)) {
-			$tables = array('' => $CF);
+		$CF=getExtraFieldsValues($index, $extra_fields, $full);
+		if ($CF) {
+			$tables = array("" => $CF);
 		}
 	}
 
-	if ($withExif && (isset($gallery->app->use_exif) || isset($gallery->app->exiftags)) &&
-	(eregi("jpe?g\$", $photo->image->type))) {
+	
+	if ($withExif && (isset($gallery->app->use_exif) || isset($gallery->app->exiftags)) && 
+			(eregi("jpe?g\$", $photo->image->type))) {
 		$myExif = $gallery->album->getExif($index, isset($forceRefresh));
 		if (!empty($myExif) && !isset($myExif['Error'])) {
-			// get rid of file name at beginnin
-			array_shift($myExif);
-
+			// following line commented out because we were losing
+			// comments from the Exif array.  This is probably due
+			// to differences in versions of jhead.
+			// array_pop($myExif); // get rid of empty element at end
+			array_shift($myExif); // get rid of file name at beginning
 			$tables[_("EXIF Data")]  = $myExif;
-		} elseif (isset($myExif['status']) && $myExif['status'] == 1) {
-			echo '<p class="warning">'. _("Display of EXIF data enabled, but no data found.") .'</p>';
 		}
 	}
 
@@ -3091,16 +3482,41 @@ function displayPhotoFields($index, $extra_fields, $withExtraFields=true, $withE
 	}
 
 	foreach ($tables as $caption => $fields) {
-		$customFieldsTable = new galleryTable();
-		$customFieldsTable->setAttrs(array('class' => 'customFieldsTable'));
-		$customFieldsTable->setCaption($caption, 'customFieldsTableCaption');
+		echo "\n". '<table border="0" align="center" class="pcaption">';
+		echo "\n". '<tr><th colspan="3" align="center">'. $caption .'</th></tr>';
 
-		foreach ($fields as $key => $value) {
-			$customFieldsTable->addElement(array('content' => $key));
-			$customFieldsTable->addElement(array('content' => ':'));
-			$customFieldsTable->addElement(array('content' => $value));
-		}
-		echo $customFieldsTable->render();
+	        $i=0;
+	        foreach ($fields as $key => $value) {
+        	        $i++;
+			echo "\n<tr>";
+                	echo "\n\t<td valign=\"top\"><b>$key</b></td>";
+	                echo "\n\t<td valign=\"top\">:</td>";
+        	        echo "\n\t<td>$value</td>";
+	        	echo "\n</tr>";
+        	}
+		echo "\n</table>";
+	}
+}
+
+function emailComments($id, $comment_text, $commenter_name) {
+	global $gallery;
+
+	$to = implode(", ", $gallery->album->getEmailMeList('comments', $id));
+	if (strlen($to) > 0) {
+		$text="";
+		$text.= sprintf("A comment has been added to %s by %s in album %s.",
+			makeAlbumUrl($gallery->session->albumName, $id),
+			$commenter_name,
+			makeAlbumUrl($gallery->session->albumName));
+		$text.= "\n\n"."****BEGIN COMMENT****"."\n";
+		$text.= str_replace("\r", "\n", str_replace("\r\n", "\n", $comment_text));
+		$text.= "\n"."****END COMMENT****"."\n\n";
+		$text .= "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when comments are added\" is unchecked in both the photo and album page (You'll need to login first).";
+		$subject=sprintf("New comment for %s", $id);
+		$logmsg=sprintf("New comment for %s.", makeAlbumUrl($gallery->session->albumName, $id));
+		gallery_mail($to, $subject, $text, $logmsg, true);
+	} elseif (isDebugging()) {
+		print _("No email sent as no valid email addresses were found");
 	}
 }
 
@@ -3204,7 +3620,8 @@ function recursiveCount (&$arr) {
 		}
 	}
 
-	return $count;
+return $count;
+
 }
 
 /*
@@ -3232,211 +3649,57 @@ function getParentAlbums($childAlbum, $addChild=false) {
 	return $parentNameArray;
 }
 
-function getIconText($iconName = '', $altText = '', $overrideMode = '', $useBrackets = true) {
+function getIconText($iconName='', $altText='') {
 	global $gallery;
 	$text = $altText;
 
-	if (!empty($overrideMode)) {
-		$iconMode = $overrideMode;
-	} elseif (isset($gallery->app->useIcons)) {
-		$iconMode = $gallery->app->useIcons;
-	} else {
-		$iconMode = 'no';
-	}
-
-	if ($iconMode != "no" && $iconName != '') {
-		if ($iconMode == 'both') {
+	if (isset($gallery->app->useIcons) && $gallery->app->useIcons != "no") {
+		if ($gallery->app->useIcons == 'both') {
 			$altText = '';
 		}
-
-		if (file_exists(dirname(__FILE__) .'/images/icons/'. $iconName)) {
+		if(file_exists(dirname(__FILE__) .'/images/icons/'. $iconName)) {
 			$imgSrc = $gallery->app->photoAlbumURL .'/images/icons/'. $iconName;
 			$linkText = '<img src="'. $imgSrc .'" title="'. $altText .'" alt="'. $altText. '" style="border: none;">';
 
-			if ($iconMode == "both") {
+			if ($gallery->app->useIcons == "both") {
 				$linkText .= "<br>$text";
 			}
 		}
 	}
 
 	if (empty($linkText)) {
-		if($useBrackets) {
-			$linkText = '['. $text . ']';
-		} else {
-			$linkText = $text;
-		}
+		$linkText = '['. $text . ']';
 	}
 
 	return $linkText;
 }
 
-function makeIconMenu($iconElements, $align = 'left', $closeTable = true, $linebreak = false) {
-	global $gallery;
-
-	if (empty($iconElements)) {
-		return "";
-	}
-
-	// For rtl/ltr stuff
-	if ($gallery->direction == 'rtl') {
-		$align = ($align == 'left') ? 'right' : 'left';
-	}
-
-	$html = "\n". '<table id="menu" align="'. $align .'"><tr>';
-	$i = 0;
-	foreach ($iconElements as $element) {
-		$i++;
-		if (stristr($element,'</a>')) {
-			$html .= "\n\t". '<td>'. $element .'</td>';
-		} else {
-			$html .= "\n\t". '<td class="noLink">'. $element .'</td>';
-		}
-		if($i > sizeof($iconElements)/2 && $linebreak) {
-			$html .= "\n</tr>\n</tr>";
-			$i=0;
-		}
-	}
-
-	if ($closeTable == true) {
-		$html .= "</tr>\n</table>";
-	}
-
-	return $html;
-}
-
-/* Ecard Function begin */ 
-function get_ecard_template($template_name) {
+function makeIconMenu($iconElements, $closeTable = true) {
     global $gallery;
 
-    $error = false;
-    $file_data = "";
-    $fpread = @fopen(dirname(__FILE__) . '/includes/ecard/templates/'. $template_name, 'r');
-    if (!$fpread) {
-        $error = true;
+    if (empty($iconElements)) {
+	return "";
+    }
+
+// For rtl/ltr stuff
+    if ($gallery->direction == 'ltr') {
+	$align ='right';
     } else {
-        while(! feof($fpread) ) {
-            $file_data .= fgets($fpread, 4096);
-        }
-        fclose($fpread);
-      }
-    return array($error,$file_data);
-}
+	$align ='left';
+    }
 
-function parse_ecard_template($ecard,$ecard_data) {
-    global $gallery;
-
-    $ecard_data = preg_replace ("/<%ecard_sender_email%>/", $ecard["email_sender"], $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_sender_name%>/", $ecard["name_sender"], $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_image_name%>/", $ecard["image_name"], $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_message%>/", preg_replace ("/\r?\n/", "<BR>\n", htmlspecialchars($ecard["message"])), $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_reciepient_email%>/", $ecard["email_recepient"], $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_reciepient_name%>/", $ecard["name_recepient"], $ecard_data);
-    $ecard_data = preg_replace ("/<%ecard_stamp%>/", $ecard["stamp"], $ecard_data);
-
-
-    $imagePath = $gallery->app->albumDir . str_replace ($gallery->app->albumDirURL, '', $ecard["image_name"]);
-    list ($width, $height) = getDimensions(urldecode($imagePath));
-    $widthReplace = ($width < 200) ? 'width="500"' : '';
-    $ecard_data = preg_replace ("/<%ecard_width%>/", $widthReplace, $ecard_data);
-	
-    return $ecard_data;
-  }
-
-  function send_ecard($ecard,$ecard_HTML_data,$ecard_PLAIN_data) {
-  	$ecard_mail = new htmlMimeMail();
-  	$ecard_image = $ecard_mail->getFile($ecard["image_name"]);
-
-  	if (preg_match_all("/(<IMG.*SRC=\")(.*)(\".*>)/Uim", $ecard_HTML_data, $matchArray)) {
-  		for ($i=0; $i<count($matchArray[0]); ++$i) {
-  			$ecard_image = $ecard_mail->getFile($matchArray[2][$i]);
-  		}
-  	}
-  	$ecard_mail->setHtml($ecard_HTML_data, $ecard_PLAIN_data,'./');
-  	$ecard_mail->setFrom($ecard["name_sender"].'<'.$ecard["email_sender"].'>');
-  	if (empty($ecard['subject'])) {
-  		$ecard['subject'] = sprintf(_("%s sent you an E-C@rd."), $ecard["name_sender"]);
-  	}
-  	$ecard_mail->setSubject($ecard['subject']);
-  	$ecard_mail->setReturnPath($ecard["email_sender"]);
-
-  	$result = $ecard_mail->send(array($ecard["email_recepient"]));
-
-  	return $result;
-  }
-  
-/**
- * This function is taken from
- * http://www.phpinsider.com/smarty-forum/viewtopic.php?t=1079
- *
- * @param	array	$data		The array that is going to be sorted.
- * @param	string	$sortby		Field which the array is sorted by
- * @param	string	$order		Either 'asc' or 'desc'
- * @param	boolean	$caseSensitive
- * @param	boolean	$keepIndexes	if set to true, then uasort instead of usort is used.
- */
-function array_sort_by_fields(&$data, $sortby, $order = 'asc', $caseSensitive = true, $keepIndexes = false) {
-	static $sort_funcs = array();
-	static $code;
-
-	$order = ($order == 'asc') ? 1 : -1;
-
-	if (empty($sort_funcs[$sortby])) {
-		if ($caseSensitive) {
-			$code = "
-	    if( \$a['$sortby'] == \$b['$sortby'] ) { 
-	        return 0;
-	    };
-	    if ( \$a['$sortby'] > \$b['$sortby'] ) {
-	        return $order;
-	    } else {
-	        return -1 * $order;
-	    }";
-		}
-		else {
-			$code = "
-	    if(strtoupper(\$a['$sortby']) == strtoupper(\$b['$sortby'])) { 
-	        return 0;
-	    };
-	    if (strtoupper(\$a['$sortby']) > strtoupper(\$b['$sortby'])) {
-	        return $order;
-	    } else {
-	        return -1 * $order;
-	    }";
-		}
-
-		$sort_func = $sort_funcs[$sortby] = create_function('$a, $b', $code);
+    $html = "\n". '<table id="menu" align="'. $align .'"><tr>';
+    foreach ($iconElements as $element) {
+	if (stristr($element,'</a>')) {
+	    $html .= "\n\t". '<td>'.  $element .'</td>';
 	} else {
-		$sort_func = $sort_funcs[$sortby];
+	    $html .= "\n\t". '<td class="noLink">'. $element .'</td>';
 	}
+    }
 
-	debugMessage($code, __FILE__, __LINE__,3);
-
-	if($keepIndexes) {
-		uasort($data, $sort_func);
-	} else {
-		usort($data, $sort_func);
-	}
-}
-
-/**
- * @param	string	Optional former searchh string
- * @param	string	Optional alignment
- * @return	string	HTML code that contains a form for entering the searchstring
- * @author	Jens Tkotz
- */
-function addSearchForm($formerSearchString = '', $align = '') {
-    $html = '';
-
-    $html .= makeFormIntro('search.php', array(
-    	'name'     => 'search_form',
-    	'method'   => 'post',
-    	'style'    => "text-align: $align",
-    	'class'   => 'search')
-    );
-                
-    $html .= "\t". _("Search:");
-    $html .= '<input class="searchform" type="text" name="searchstring" value="'. $formerSearchString .'" size="25">';
-    $html .= "\n</form>\n";
+    if ($closeTable == true) {
+	$html .= "</tr></table>";
+    }
 
     return $html;
 }
@@ -3444,7 +3707,4 @@ function addSearchForm($formerSearchString = '', $align = '') {
 require_once(dirname(__FILE__) . '/lib/lang.php');
 require_once(dirname(__FILE__) . '/lib/Form.php');
 require_once(dirname(__FILE__) . '/lib/voting.php');
-require_once(dirname(__FILE__) . '/lib/albumItem.php');
-require_once(dirname(__FILE__) . '/lib/mail.php');
-
 ?>

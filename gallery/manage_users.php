@@ -69,7 +69,7 @@ doctype();
 <div class="popup" align="center">
 <?php 
 if (isset($error)) {
-	echo infoline(gallery_error($error),'error');
+	echo gallery_error($error);
 }
 
 echo makeFormIntro("manage_users.php", array(
@@ -94,7 +94,7 @@ echo _("To select multiple users (only recognized for deletion), hold down the C
 ?>
 
 <p>
-<input type="submit" name="create" value="<?php echo _("Create new user") ?>">
+<input type="submit" name="create" value="<?php echo _("Create") ?>"> 
 <?php if ($gallery->app->multiple_create == "yes") { ?>
 	<input type="submit" name="bulk_create" value="<?php echo _("Bulk Create") ?>"> 
 <?php }

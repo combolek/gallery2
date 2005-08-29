@@ -20,18 +20,12 @@
 
 */ 
 
-body { 
-    margin:20px;
-    color:#000000;
-    background-image: url(../images/simplex-bkg.gif);
-}
+body		{ margin:20px; color:#000000;
+		  background-image: url(../images/simplex-bkg.gif);
+		}
 
-textarea:focus, input:focus {
-    background-color: #FFFFDA;
-}
-
-img {
-    border: none;
+textarea:focus, input:focus, select:focus {
+		  background-color: #FFFFDA;
 }
 
 p#bottom	{ width: 500px; }

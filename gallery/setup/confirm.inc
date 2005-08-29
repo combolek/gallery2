@@ -37,7 +37,7 @@ $docs = galleryDocs() ? '<a href="'. galleryDocs() .'">'. _("documentation") .'<
 
 $error = 0;
 $viewheader = "";
-$outfile_list = array("config.php" => false, ".htaccess" => true);
+$outfile_list=array("config.php" => false, ".htaccess" => true);
 foreach ($outfile_list as $outfile => $optional) {
 	if (!fs_file_exists(GALLERY_CONFDIR . "/$outfile") && !$optional) {
 		$error++;
@@ -403,7 +403,6 @@ if (isset($warn_about_open_basedir)) {
 
 $gallery->session->configData .= "\n";
 $gallery->session->configData .= "/* Defaults */\n";
-//print_r($gallery->session->configForm);
 foreach ($defaults as $key => $val) {
 	if (isset($val["type"]) && 
 			($val["type"] == "block_start" || 
@@ -428,15 +427,17 @@ foreach ($defaults as $key => $val) {
 		if (is_array($gallery->session->configForm->$key)) {
 			foreach ($gallery->session->configForm->$key as $sub_key => $sub_value) {
 				if (is_array ($sub_value)) {
-					/* Poll configuration */
-					foreach ($sub_value as $sub_sub_key => $sub_sub_value) {
-						$string="\$gallery->app->default[\"$key\"][$sub_key][\"$sub_sub_key\"] = \"$sub_sub_value\";\n";
+					foreach ($sub_value as $sub_sub_key
+							=> $sub_sub_value) {
+						/* print_photos needs a quoted $sub_key */
+						if ($key === "print_photos") {
+							$string="\$gallery->app->default[\"$key\"][\"$sub_key\"][\"$sub_sub_key\"] = \"$sub_sub_value\";\n";
+						} else {
+							$string="\$gallery->app->default[\"$key\"][$sub_key][\"$sub_sub_key\"] = \"$sub_sub_value\";\n";
+						}
 						$gallery->session->configData .= $string;
 					}
-				} else {
-					$string = "\$gallery->app->default[\"$key\"][] = \"$sub_value\";\n";
-					$gallery->session->configData .= $string;
-				} 
+				}
 			}
 		} else {
 			$gallery->session->configData .= defaults($key, $gallery->session->configForm->$key);

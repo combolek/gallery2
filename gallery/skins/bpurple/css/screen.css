@@ -27,7 +27,7 @@ A:visited { color: #404040; text-decoration: none; }
 A:active { color: #404040; }
 A:hover	{ color: #C0C0C0; }
 
-textarea:focus {
+textarea:focus, select:focus {
     background-color: #FFFFFF;
 }
 
@@ -414,7 +414,7 @@ a.modcaption:hover {
 .popup /* controls the main text and message body */
 {
     text-align:center;
-    font-size: 12px; font-weight: normal;
+    font-size: 12px; font-weight: none;
     color: #202020;
     padding: 5px;
     border: 1px solid #000000;

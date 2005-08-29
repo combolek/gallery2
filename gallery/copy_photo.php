@@ -48,7 +48,7 @@ doctype();
 if ($gallery->session->albumName && isset($index)) {
 	$numPhotos = $gallery->album->numPhotos(1);
 
-        if (!empty($newAlbum)) {	// we are copying from one album to another
+        if (isset($newAlbum)) {	// we are copying from one album to another
             	$postAlbum = $albumDB->getAlbumByName($newAlbum);
 		if (!$postAlbum) {
 			echo gallery_error(sprintf(_("Invalid album selected: %s"),
@@ -67,9 +67,9 @@ if ($gallery->session->albumName && isset($index)) {
 						$myphoto = $gallery->album->getPhoto($index);
 						$myname = $myphoto->image->name;
 						$myresized = $myphoto->image->resizedName;
-						$mytype = $myphoto->image->type;
-						$myfile = "$mydir/$myname.$mytype";
-						$myhidden = $myphoto->isHidden();
+						$mytype=$myphoto->image->type;
+						$myfile="$mydir/$myname.$mytype";
+						$myhidden=$myphoto->isHidden();
 						if (($postAlbum->fields["thumb_size"] == $gallery->album->fields["thumb_size"]) &&
 						    (!$myphoto->isMovie())) {
 							$pathToThumb="$mydir/$myname.thumb.$mytype";
@@ -78,27 +78,22 @@ if ($gallery->session->albumName && isset($index)) {
 							echo "- ". _("Creating Thumbnail") ."<br>";
 							my_flush();
 						}
-						$photo = $gallery->album->getPhoto($index);
+						$photo=$gallery->album->getPhoto($index);
 
-						$id = $gallery->album->getPhotoId($index);
+						$id=$gallery->album->getPhotoId($index);
+
 
 						$err = $postAlbum->addPhoto($myfile, $mytype, $myname, 
 								$gallery->album->getCaption($index), 
 								$pathToThumb, $photo->extraFields, 
 								$gallery->album->getItemOwner($index));
-
 						if (!$err) {
-							if ($postAlbum->getAddToBeginning()) {
-							    $newPhotoIndex = 1;
-							} else {					
-							    $newPhotoIndex = $postAlbum->numPhotos(1);
-							}
+							$newPhotoIndex = $postAlbum->numPhotos(1);
 
 							// Save additional item settings... currently:
 							//  $clicks $keywords $comments $uploadDate $itemCaptureDate;
 							$newphoto = $postAlbum->getPhoto($newPhotoIndex);
 							$oldphoto = $gallery->album->getPhoto($index);
-
 							$newphoto->clicks = $oldphoto->clicks;
 							$newphoto->keywords = $oldphoto->keywords;
 							$newphoto->comments = $oldphoto->comments;
@@ -127,9 +122,7 @@ if ($gallery->session->albumName && isset($index)) {
 		       	return;
 	       	} //end if ($gallery->album != $postAlbum)
 	} //end if (isset($newAlbum))
-	elseif (isset($newAlbum) && $newAlbum == 0) {
-		echo gallery_error(_("Please select the album where you want to copy the photo(s) to."));
-	}
+
 	if ($gallery->album->isAlbum($index)) {
 		echo gallery_error(sprintf(_("Can't copy album #%d"), $index));
 		return;

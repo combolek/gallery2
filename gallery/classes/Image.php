@@ -156,9 +156,6 @@ class Image {
 	function getTag($dir, $full=0, $size=0, $attrs="",$alttext="") {
 		global $gallery;
 
-		// Prevent non-integer data
-		$size = (int)$size;
-
 		$name = $this->getName($dir);
 		$alttext = unhtmlentities(strip_tags($alttext));
 
@@ -178,20 +175,17 @@ class Image {
 			$size_val = "width=\"$this->width\" height=\"$this->height\"";
 		}
 
-		$fullImage = urlencode($this->name) .".$this->type";
-		$resizedImage = urlencode($this->resizedName) .".$this->type";
-
 		if ($this->resizedName && $size == 0) {
 			if ($full) {
-				return "<img src=\"$dir/$fullImage\" " .
+				return "<img src=\"$dir/$this->name.$this->type\" " .
 					"width=\"$this->raw_width\" height=\"$this->raw_height\" $attrs alt=\"$alttext\" title=\"$alttext\">";
 			} else {
-				return "<img src=\"$dir/$resizedImage\" " .
+				return "<img src=\"$dir/$this->resizedName.$this->type\" " .
 					"width=\"$this->width\" height=\"$this->height\" " .
 					"$attrs alt=\"$alttext\" title=\"$alttext\">";
 			}
 		} else {
-			return "<img src=\"$dir/$fullImage\" $size_val $attrs alt=\"$alttext\" title=\"$alttext\" name=\"photo_j\">";
+			return "<img src=\"$dir/$this->name.$this->type\" $size_val $attrs alt=\"$alttext\" title=\"$alttext\" name=\"photo_j\">";
 		}
 	}
 

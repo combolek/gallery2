@@ -8,7 +8,7 @@ global $navigator, $adminbox, $adminText;
 if(!includeTemplate('breadcrumb.tpl')) {
 	// If the border color is not passed in, we do a black/white combo
 	
-	if (isset($breadcrumb["bordercolor"])) {
+	if ($breadcrumb["bordercolor"]) {
 		$borderIn = $breadcrumb["bordercolor"];
 	} else {
 		$borderIn = "#FFFFFF";
@@ -42,10 +42,8 @@ if(!includeTemplate('breadcrumb.tpl')) {
 		
 	<td class="bread" height="18" align="right">
 	<?php
-	if (isset($breadcrumb['text'])) {
-	foreach($breadcrumb["text"] as $nr => $text) {
-	    echo "\t\t$text\n";
-	}
+	for ($i = 0; isset($breadcrumb["text"][$i]); $i++) {
+		echo "\t\t&nbsp;".$breadcrumb["text"][$i]."&nbsp;\n";
 	}
 	?>
 	</td> 

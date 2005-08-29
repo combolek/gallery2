@@ -514,12 +514,12 @@ function slideshow_controlPanel() {
 			);
 
 	if ($loop) {
-		$checked = ($defaultLoop) ? 'checked' : '';
-		$iconElements[] = $loopIconText;
+		$checked = ($defaultLoop) ? "checked" : "";
+		$iconElements[] = $loopIconText .':';
 		$iconElements[] = '<input type="checkbox" name="loopCheck"'. $checked .'onclick="toggleLoop();">';
 	} 
 
-	echo makeIconMenu($iconElements, 'right', false);
+	echo makeIconMenu($iconElements, false);
 ?>
     <td class="noLink"><script type="text/javascript">
     <!--

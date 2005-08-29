@@ -73,7 +73,7 @@ doctype();
 
 <?php echo makeFormIntro("login.php", array("name" => "login_form", "method" => "POST")); ?>
 <?php echo _("Logging in gives you greater permission to view, create, modify and delete albums.") ?>
-
+<p>
 <table align="center">
 <?php if (isset($error)) { ?>
 <tr>
@@ -91,9 +91,11 @@ doctype();
 </tr>
 </table>
 
-<p align="center">
+<p>
+<div align="center">
 	<input type="submit" name="login" value="<?php echo _("Login") ?>">
 	<input type="button" name="cancel" value="<?php echo _("Cancel") ?>" onclick='parent.close()'>
+</div>
 </p>
 </form>
 </div>
@@ -106,53 +108,53 @@ if (isset($gallery->app->emailOn) && $gallery->app->emailOn == 'yes') {
     echo makeFormIntro("login.php", array("name" => "forgot_form", "method" => "POST"));
 
     if (!empty($forgot)) {
-    	$tmpUser = $gallery->userDB->getUserByUsername($username);
-    	if ($tmpUser) {
-    		$wait_time=15;
-    		if ($tmpUser->lastAction ==  "new_password_request" &&
-    		time() - $tmpUser->lastActionDate < $wait_time * 60) {
-    			echo gallery_error(sprintf(_("The last request for a password was less than %d minutes ago.  Please check for previous email, or wait before trying again."), $wait_time));
-
-    		} else if (check_email($tmpUser->getEmail())) {
-    			if (gallery_mail( $tmpUser->email,
-    			  _("New password request"),
-    			  sprintf(_("Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "), $username, $gallery->app->galleryTitle, $gallery->app->photoAlbumURL) . "\n\n" .
-    			  sprintf(_("Click to reset your password: %s"),
-    			  $tmpUser->genRecoverPasswordHash()) . "\n",
-    			  sprintf(_("New password request %s"), $username))) {
-    				$tmpUser->log("new_password_request");
-    				$tmpUser->save();
+       	$tmpUser = $gallery->userDB->getUserByUsername($username);
+       	if ($tmpUser) {
+		$wait_time=15;
+		if ($tmpUser->lastAction ==  "new_password_request" && 
+			time() - $tmpUser->lastActionDate < $wait_time * 60) {
+		       	echo gallery_error(sprintf(_("The last request for a password was less than %d minutes ago.  Please check for previous email, or wait before trying again."), $wait_time));
+			
+		} else if (gallery_validate_email($tmpUser->getEmail())) {
+		       	if (gallery_mail( $tmpUser->email,
+				_("New password request"),
+			       	sprintf(_("Someone requested a new password for user %s from Gallery '%s' on %s. You can create a password by visiting the link below. If you didn't request a password, please ignore this mail. "), $username, $gallery->app->galleryTitle, $gallery->app->photoAlbumURL) . "\n\n" .
+			      	sprintf(_("Click to reset your password: %s"),
+				       	$tmpUser->genRecoverPasswordHash()) . "\n",
+				sprintf(_("New password request %s"), $username))) {
+			       	$tmpUser->log("new_password_request");
+			       	$tmpUser->save();
 			       	echo sprintf(_("An email has been sent to the address stored for %s.  Follow the instructions to change your password.  If you do not receive this email, please contact the Gallery administrators."),$username)  ?> 
 					<br><br>
 			       	<form> <input type="button" value="<?php echo _("Dismiss") ?>" onclick='parent.close()'> </form>
 				<?php
-    			}
-    			else {
-    				echo gallery_error(sprintf(_("Email could not be sent.  Please contact %s administrators for a new password"),$gallery->app->galleryTitle ));
-    			}
-    			return;
-    		}
-    		else {
-    			echo gallery_error(sprintf(_("There is no valid email for this account.  Please contact %s administrators for a new password"),$gallery->app->galleryTitle ));
-    		}
-    	}
-    	else {
-    		echo gallery_error(_("Not a valid username"));
-    	}
-    }
+		       	} else {
+			       	echo gallery_error(sprintf(_("Email could not be sent.  Please contact %s administrators for a new password"),$gallery->app->galleryTitle ));
+		       	}
+		       	return;
+	       	} else {
+		       	echo gallery_error(sprintf(_("There is no valid email for this account.  Please contact %s administrators for a new password"),$gallery->app->galleryTitle ));
+	       	}
+       	} else {
+	       	echo gallery_error(_("Not a valid username"));
+	}
+    } 
 ?>
 
+<p>
 <table align="center">
 <tr>
 	<td><?php echo _("Username") ?></td>
 	<td><input type="text" name="username"  class="popupform" value="<?php echo $username ?>"></td>
 </tr>
 </table>
+</p>
 
-<p align="center"><input type="submit" name="forgot" value="<?php echo _("Send me my password") ?>"></p>
+<p>
+<div align="center"><input type="submit" name="forgot" value="<?php echo _("Send me my password") ?>"></div>
 </form>
-</div>
 
+</div>
 <?php } /* End if-email-on */ ?>
 
 <script language="javascript1.2" type="text/JavaScript">

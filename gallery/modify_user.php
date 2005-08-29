@@ -24,96 +24,82 @@
 
 require_once(dirname(__FILE__) . '/init.php');
 
-list($save, $old_uname, $uname, $new_password1, $new_password2, $fullname, $dismiss) = 
-    getRequestVar(array('save', 'old_uname', 'uname', 'new_password1', 'new_password2', 'fullname', 'dismiss'));
+list($save, $old_uname, $uname, $new_password1, $new_password2, $fullname, $cancel) = 
+	getRequestVar(array('save', 'old_uname', 'uname', 'new_password1', 'new_password2', 'fullname', 'cancel'));
 
-list($email, $defaultLanguage, $canCreate, $canChangeOwnPw, $isAdmin) = 
-    getRequestVar(array('email', 'defaultLanguage', 'canCreate','canChangeOwnPw', 'isAdmin'));
+list($email, $defaultLanguage, $canCreate, $isAdmin) = 
+	getRequestVar(array('email', 'defaultLanguage', 'canCreate', 'isAdmin'));
 
 if (!$gallery->user->isAdmin()) {
-    echo _("You are not allowed to perform this action!");
-    exit;	
+	echo _("You are not allowed to perform this action!");
+	exit;	
 }
-
-$errorCount = 0;
-$msg = '';
-$infoLineType = '';
-
-/* User pressed "save" Button
-** If (changed) user name is valid and password match,
-** then load former user as temp user and overwrite with new values
-** If one modified itself, changes current user.
-*/
-if (!empty($save)) {
-   if (strcmp($old_uname, $uname)) {
-	$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
-	    if ($gErrors["uname"]) {
-		$errorCount++;
-		$uname = $old_uname;
-	    }
-    }
-
-    if ($new_password1 || $new_password2) {
-	if (strcmp($new_password1, $new_password2)) {
-	    $gErrors["new_password2"] = _("Passwords do not match!");
-	    $errorCount++;
-	} else {
-	    $gErrors["new_password1"] = $gallery->userDB->validPassword($new_password1);
-	    if ($gErrors["new_password1"]) {
-		$errorCount++;
-	    }
+$errorCount=0;
+if (isset($save)) {
+	if (strcmp($old_uname, $uname)) {
+		$gErrors["uname"] = $gallery->userDB->validNewUserName($uname);
+		if ($gErrors["uname"]) {
+			$errorCount++;
+			$uname=$old_uname;
+		}
 	}
-    }
 
-    if (!$errorCount) {
-	$tmpUser = $gallery->userDB->getUserByUsername($old_uname);
-	$tmpUser->setUsername($uname);
-	$tmpUser->setFullname($fullname);
-	$tmpUser->setEmail($email);
-	$tmpUser->setDefaultLanguage($defaultLanguage);
-	$tmpUser->setCanCreateAlbums($canCreate);
-	$tmpUser->setCanChangeOwnPw($canChangeOwnPw);
-	$tmpUser->setIsAdmin($isAdmin);
+	if ($new_password1 || $new_password2) {
+		if (strcmp($new_password1, $new_password2)) {
+			$gErrors["new_password2"] = _("Passwords do not match!");
+			$errorCount++;
+		} else {
+			$gErrors["new_password1"] = 
+				$gallery->userDB->validPassword($new_password1);
+			if ($gErrors["new_password1"]) {
+				$errorCount++;
+			}
+		}
+	}
 
-	// If a new password was entered, use it.  Otherwise leave
-	// it the same.
-	if ($new_password1) {
-	    $tmpUser->setPassword($new_password1);
+	if (!$errorCount) {
+		$tmpUser = $gallery->userDB->getUserByUsername($old_uname);
+		$tmpUser->setUsername($uname);
+		$tmpUser->setFullname($fullname);
+		$tmpUser->setEmail($email);
+		$tmpUser->setDefaultLanguage($defaultLanguage);
+		if (isset($canCreate)) {
+			$tmpUser->setCanCreateAlbums($canCreate);
+		}
+		if (isset($isAdmin)) {
+			$tmpUser->setIsAdmin($isAdmin);
+		}
+
+		// If a new password was entered, use it.  Otherwise leave
+		// it the same.
+		if ($new_password1) {
+			$tmpUser->setPassword($new_password1);
+		}
+		$tmpUser->save();
+		if (!strcmp($old_uname, $gallery->session->username)) {
+			$gallery->session->username = $uname;
+		}
+
+		header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
 	}
-	
-	$tmpUser->save();
-	if (!strcmp($old_uname, $gallery->session->username)) {
-	    $gallery->session->username = $uname;
-	}
-	$msg = _("User information succesfully updated.");
-        $infoLineType = 'success';
-    }
-    else {
-	$msg = gallery_error(_("User information was not succesfully updated !!"));
-	$infoLineType = 'error';
-    }
-} else if (isset($dismiss)) {
-    header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
+} else if (isset($cancel)) {
+	header("Location: " . makeGalleryHeaderUrl("manage_users.php"));
 }
-
 
 $tmpUser = $gallery->userDB->getUserByUsername($uname);
-
 if (!$tmpUser) {
-    echo gallery_error(_("Invalid user") ." <i>$uname</i>");
-    exit;
+	echo gallery_error(_("Invalid user") ." <i>$uname</i>");
+	exit;
 }
 
 if ($tmpUser->isAdmin()) {
-    $allowChange["create_albums"] = false;
-    $allowChange["canChangeOwnPw"] = false;
+	$allowChange["create_albums"] = false;
 } else {
-    $allowChange["create_albums"] = true;
-    $allowChange["canChangeOwnPw"] = true;
+	$allowChange["create_albums"] = true;
 }
 
 if (!strcmp($tmpUser->getUsername(), $gallery->user->getUsername())) {
-    $allowChange["admin"] = true;
+	$allowChange["admin"] = true;
 }
 
 $fullname = $tmpUser->getFullname();
@@ -122,20 +108,23 @@ $defaultLanguage = $tmpUser->getDefaultLanguage();
 
 $allowChange["uname"] = true;
 $allowChange["email"] = true;
+$allowChange["password"] = true;
 $allowChange["fullname"] = true;
 $allowChange["admin"] = true;
 $allowChange["default_language"] = true;
 $allowChange["send_email"] = false;
-$allowChange["member_file"] = false;
-$allowChange["password"] = true;
 $allowChange["old_password"] = false;
+$allowChange["old_password"] = false;
+$allowChange["member_file"] = false;
 
+$canCreateChoices = array(1 => _("yes"), 0 => _("no"));
 $canCreate = $tmpUser->canCreateAlbums() ? 1 : 0;
-$isAdmin = $tmpUser->isAdmin() ? 1 : 0;
-$canChangeOwnPw = $tmpUser->canChangeOwnPw() ? 1: 0;
 
-doctype(); 
+$isAdminChoices = array(1 => _("yes"), 0 => _("no"));
+$isAdmin = $tmpUser->isAdmin() ? 1 : 0;
+
 ?>
+<?php doctype(); ?>
 <html>
 <head>
   <title><?php echo _("Modify User") ?></title>
@@ -144,10 +133,8 @@ doctype();
 <body dir="<?php echo $gallery->direction ?>" class="popupbody">
 <div class="popuphead"><?php echo _("Modify User") ?></div>
 <div class="popup" align="center">
-<?php 
-	echo infoLine($msg, $infoLineType);
-	echo _("You can change any information about the user using this form.") 
-?>
+<?php echo _("You can change any information about the user using this form.") ?>
+
 <br>
 
 <?php echo makeFormIntro("modify_user.php", 
@@ -162,8 +149,7 @@ doctype();
 
 <br>
 <input type="submit" name="save" value="<?php echo _("Save") ?>">
-<input type="submit" name="dismiss" value="<?php echo _("Back to usermanagement") ?>">
-<input type="button" value="<?php echo _("Done") ?>" onclick='parent.close()'>
+<input type="submit" name="cancel" value="<?php echo _("Cancel") ?>">
 </form>
 </div>
 

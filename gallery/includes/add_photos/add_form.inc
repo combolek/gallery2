@@ -24,8 +24,12 @@
 
 list($boxes, $metaboxes) = getRequestVar(array('boxes','metaboxes'));
 
-list($boxes_status, $boxes, $boxes_msg) = isValidInteger($boxes, false, 5);
-list($metaboxes_status, $metaboxes, $metaboxes_msg) = isValidInteger($metaboxes, false, 0);
+if (!isset($boxes)) {
+    $boxes = 5;
+}
+if (!isset($metaboxes)) {
+    $metaboxes = 0 ;
+}
  
 echo "\n\t<p>";
 echo _("Click the <b>Browse</b> button to locate a photo to upload.");
@@ -45,7 +49,15 @@ echo makeFormIntro("add_photos.php", array("name" => "count_form", "method" => "
 <table>
 <tr>
 	<td><?php echo _("1. Select the number of files you want to upload:") ?></td>
-	<td><input type="text" size="2" maxlength="2" name="boxes" value="<?php echo $boxes; ?>" onChange="javascript:document.count_form.submit(); return false;"></td>
+	<td><select name="boxes" onChange="javascript:document.count_form.submit(); return false;">
+<?php 
+for ($i = 1; $i <= 10;  $i++) {
+    $selected=($i == $boxes) ? 'selected' : '';
+    echo "\t\t\t<option $selected value=\"$i\">$i</option>\n";
+}
+?>
+	  </select>
+	</td>
 </tr>
 <tr>
     <td><?php
@@ -53,7 +65,15 @@ echo '<b>'. _("Optional:") .'</b> ';
 echo _("Select the number of meta data files you want to upload:");
 ?>
     </td>
-    <td><input type="text" size="2" maxlength="2" name="metaboxes" value="<?php echo $metaboxes; ?>" onChange="javascript:document.count_form.submit(); return false;"></td>
+    <td><select name="metaboxes" onChange="javascript:document.count_form.submit(); return false;">
+<?php 
+for ($i = 0  ; $i <= 10;  $i++) {
+    $selected=($i == $metaboxes) ? 'selected' : '';
+    echo "\t\t\t<option $selected value=\"$i\">$i</option>\n";
+}
+?>
+    </select>
+    </td>
 </tr>
 </table>
 

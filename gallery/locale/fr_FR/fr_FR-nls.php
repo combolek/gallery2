@@ -18,36 +18,35 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  * $Id$
+ *
+ * Version: 1.5
  */
- 
-/**
- * @version	1.5.1
- * @package	Languagepack
- * @subpackage	French
- */
-
 /**
  * NLS (National Language System) array.
  *
  * The basic idea and values was taken from then Horde Framework (http://horde.org)
- * The original filename was horde/config/nls.php.dist.
- * The modifications to fit it for Gallery were made by Jens Tkotz.
+ * The original filename was horde/config/nls.php.
+ * The modifications to fit it for Gallery were made by Jens Tkotz 
  * (jens@peino.de)
+ *
  */
 
-/**
- * Native languagename
- */
-	$nls['language']['fr_FR'] =		'Fran&#231;ais';
 
 /**
- * Aliases for languages with different browser and gettext codes
- */
-	$nls['alias']['fr'] =			'fr_FR';
+ ** Native languagename
+ **/
+	$nls['language']['fr_FR'] = 'Fran&#231;ais'; // French
 
 /**
- * Aliases for languages which we substitte or send by NUKE, GeekLog or Mambo
- */
+ ** Alias for languages with different browser and gettext codes
+ **/
+
+	$nls['alias']['fr'] = 'fr_FR';
+
+/**
+ ** Aliases for languages which we substitte or send by NUKE or GeekLog
+ **/
+
 	$nls['alias']['french'] =		'fr_FR' ;
 	$nls['alias']['fra'] =			'fr_FR' ;
 	$nls['alias']['fr_BE'] = 		'fr_FR' ;
@@ -57,14 +56,14 @@
 	$nls['alias']['fr_FR.ISO8859-1'] =	'fr_FR' ;
 	$nls['alias']['french_france'] =	'fr_FR' ;
 
-/**
- * phpNuke
- */
-	$nls['phpnuke']['fr_FR'] =		'french';
 
 /**
- * postNuke
- */
-	$nls['postnuke']['fr_FR'] =		'fra';
+ ** phpNuke
+ **/
+	$nls['phpnuke']['fr_FR'] = 'french';
 
+/**
+ ** postNuke
+ **/
+	$nls['postnuke']['fr_FR'] = 'fra';
 ?>

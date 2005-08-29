@@ -76,6 +76,7 @@ $stats['types'] = array (
 				 'linktext' => _("random images"))
 );
 
+
 $stats['options'] = array (
 	'sca'		=> array('type' => 'checkbox',
 				 'default' => 'checked',
@@ -117,7 +118,7 @@ $stats['options'] = array (
 );
 	
 $stats['layout'] = array(
-	'reverse'	=> array('type' => 'checkbox',
+	'rev'		=> array('type' => 'checkbox',
 				 'default' => '',
 				 'text' => _("Reverses sort order - see above")),
 	'tsz'		=> array('type' => 'text',
@@ -129,15 +130,15 @@ $stats['layout'] = array(
 	'total'		=> array('type' => 'text',
 				 'default' => '-1',
 				 'text' => _("Controls the maximum number of photos listed, -1 for all")),
-	'showGrid'		=> array('type' => 'checkbox',
-				 'default' => '',
-				 'text' => _("Use Grid Layout")),
-	'rows'		=> array('type' => 'text',
-				 'default' => (isset($gallery->app->default["rows"])) ? $gallery->app->default["rows"] : 3,
-				 'text' => _("Controls the number of rows to display in grid mode")),
-	'cols'		=> array('type' => 'text',
-				 'default' => (isset($gallery->app->default["cols"])) ? $gallery->app->default["cols"] : 3,
-				 'text' => _("Controls the number of columns to display in grid mode")),
+//	'sgr'		=> array('type' => 'checkbox',
+//				 'default' => '',
+//				 'text' => _("Use Grid Layout")),
+//	'rows'		=> array('type' => 'text',
+//				 'default' => (isset($gallery->app->default["rows"])) ? $gallery->app->default["rows"] : 3,
+//				 'text' => _("Controls the number of rows to display in grid mode")),
+//	'cols'		=> array('type' => 'text',
+//				 'default' => (isset($gallery->app->default["cols"])) ? $gallery->app->default["cols"] : 3,
+//				 'text' => _("Controls the number of columns to display in grid mode")),
 	'addLinksPos'	=> array('type' => 'select',
 				 'options' => array ('abovecomments'	=> _("Above the comments"), 
 						     'oncaptionline'	=> _("In the caption line"),
@@ -156,6 +157,9 @@ $stats['filter'] = array(
 				 'default' => '',
 				 'text' => _("Filter by day")),
 );
+
+
+
 
 function generateStatsLinks() {
     global $gallery;
@@ -229,5 +233,6 @@ function defaultStatsUrl($type='') {
 
 	return $msStatsUrl;
 }
+
 
 ?>

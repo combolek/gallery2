@@ -37,131 +37,117 @@ class Album {
 	var $transient;
 
 	function Album() {
-	    global $gallery;
+		global $gallery;
 
-	    $this->fields["title"] = _("Untitled");
-	    $this->fields["description"] = "";
-	    $this->fields["summary"]="";
-	    $this->fields["nextname"] = "aaa";
-	    $this->fields["bgcolor"] = "";
-	    $this->fields["textcolor"] = "";
-	    $this->fields["linkcolor"] = "";
-	    $this->fields["background"] = "";
-	    $this->fields["font"] = $gallery->app->default["font"];
-	    $this->fields["border"] = $gallery->app->default["border"];
-	    $this->fields["bordercolor"] = $gallery->app->default["bordercolor"];
-	    $this->fields["returnto"] = $gallery->app->default["returnto"];
-	    $this->fields["thumb_size"] = $gallery->app->default["thumb_size"];
-	    $this->fields["resize_size"] = $gallery->app->default["resize_size"];
-	    $this->fields["resize_file_size"] = $gallery->app->default["resize_file_size"];
-	    $this->fields['max_size'] = $gallery->app->default['max_size'];
-	    $this->fields['max_file_size'] = $gallery->app->default['max_file_size'];
-	    $this->fields["rows"] = $gallery->app->default["rows"];
-	    $this->fields["cols"] = $gallery->app->default["cols"];
-	    $this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
-	    $this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
-	    if (isset($gallery->app->default['print_photos'])) {
-		$this->fields["print_photos"] = $gallery->app->default["print_photos"];
-	    }
-	
-	    $this->fields["guid"] = 0;
-	    if (isset($gallery->app->use_exif)) {
-		$this->fields["use_exif"] = "yes";
-	    } else {
-		$this->fields["use_exif"] = "no";
-	    }
-
-	    $standardPerm = ($gallery->app->default['defaultPerms']) ? $gallery->app->default['defaultPerms'] : "everybody";
-
-	    switch($standardPerm) {
-	    	case 'nobody':
-		    $UserToPerm = $gallery->userDB->getNobody();
-		    break;
-		
-		case 'loggedin':
-		    $UserToPerm = $gallery->userDB->getLoggedIn();
-		    break;
-
-		case 'everybody':
-		default:
-		    $UserToPerm= $gallery->userDB->getEverybody();
-		    break;
-	    }
-
-	    $this->setPerm("canRead", $UserToPerm->getUid(), 1);
-	    $this->setPerm("canViewFullImages", $UserToPerm->getUid(), 1);
-	    $this->setPerm("canViewComments", $UserToPerm->getUid(), 1);
-	    $this->setPerm("canAddComments", $UserToPerm->getUid(), 1);		
-		
-	    $this->fields["parentAlbumName"] = 0;
-	    $this->fields["clicks"] = 0;
-	    $this->fields["clicks_date"] = time();
-	    $this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
-	    $this->fields["serial_number"] = 0;
-	    $this->fields["extra_fields"] = split(",", trim($gallery->app->default["extra_fields"]));
-	    foreach ($this->fields["extra_fields"] as $key => $value) {
-	    	$value = trim($value);
-	    	if ($value == "") {
-		    unset($this->fields["extra_fields"][$key]);
-		} else {
-		    $this->fields["extra_fields"][$key] = $value;
+		$this->fields["title"] = _("Untitled");
+		$this->fields["description"] = "";
+		$this->fields["summary"]="";
+		$this->fields["nextname"] = "aaa";
+		$this->fields["bgcolor"] = "";
+		$this->fields["textcolor"] = "";
+		$this->fields["linkcolor"] = "";
+		$this->fields["background"] = "";
+		$this->fields["font"] = $gallery->app->default["font"];
+		$this->fields["border"] = $gallery->app->default["border"];
+		$this->fields["bordercolor"] = $gallery->app->default["bordercolor"];
+		$this->fields["returnto"] = $gallery->app->default["returnto"];
+		$this->fields["thumb_size"] = $gallery->app->default["thumb_size"];
+		$this->fields["resize_size"] = $gallery->app->default["resize_size"];
+		$this->fields["resize_file_size"] = $gallery->app->default["resize_file_size"];
+		$this->fields['max_size'] = $gallery->app->default['max_size'];
+		$this->fields['max_file_size'] = $gallery->app->default['max_file_size'];
+		$this->fields["rows"] = $gallery->app->default["rows"];
+		$this->fields["cols"] = $gallery->app->default["cols"];
+		$this->fields["fit_to_window"] = $gallery->app->default["fit_to_window"];
+		$this->fields["use_fullOnly"] = $gallery->app->default["use_fullOnly"];
+		if (isset($gallery->app->default['print_photos'])) {
+			$this->fields["print_photos"] = $gallery->app->default["print_photos"];
 		}
-	    }
-		
-	    $this->fields["cached_photo_count"] = 0;
-	    $this->fields["photos_separate"] = FALSE;
-	    $this->transient->photosloaded = TRUE; 
-		
-	    $this->fields["item_owner_display"] = $gallery->app->default["item_owner_display"];
-	    $this->fields["item_owner_modify"] = $gallery->app->default["item_owner_modify"];
-	    $this->fields["item_owner_delete"] = $gallery->app->default["item_owner_delete"];
-	    $this->fields["add_to_beginning"] = $gallery->app->default["add_to_beginning"];
-	    $this->fields["last_quality"] = $gallery->app->jpegImageQuality;
+		$this->fields["guid"] = 0;
+		if (isset($gallery->app->use_exif)) {
+			$this->fields["use_exif"] = "yes";
+		} else {
+			$this->fields["use_exif"] = "no";
+		}
 
-	    // MICRO-THUMB NAV Variables
-	    $this->fields["nav_thumbs"] = $gallery->app->default["nav_thumbs"];
-	    $this->fields["nav_thumbs_style"] = $gallery->app->default["nav_thumbs_style"];
-	    $this->fields["nav_thumbs_first_last"] = $gallery->app->default["nav_thumbs_first_last"];
-	    $this->fields["nav_thumbs_prev_shown"] = $gallery->app->default["nav_thumbs_prev_shown"];
-	    $this->fields["nav_thumbs_next_shown"] = $gallery->app->default["nav_thumbs_next_shown"];
-	    $this->fields["nav_thumbs_location"] = $gallery->app->default["nav_thumbs_location"];
-	    $this->fields["nav_thumbs_size"] = $gallery->app->default["nav_thumbs_size"];
-	    $this->fields["nav_thumbs_current_bonus"] = $gallery->app->default["nav_thumbs_current_bonus"];
+		$everybody = $gallery->userDB->getEverybody();
+		$loggedin = $gallery->userDB->getLoggedIn();
+		switch(isset($gallery->app->default['defaultPerms']) ? $gallery->app->default['defaultPerms'] : "everybody") {
+			case 'loggedin':
+				$this->setPerm("canRead", $loggedin->getUid(), 1);
+				$this->setPerm("canViewFullImages", $loggedin->getUid(), 1);
+				$this->setPerm("canViewComments", $loggedin->getUid(), 1);
+				$this->setPerm("canAddComments", $loggedin->getUid(), 1);
+				break;
 
-            /* VOTING Variables */
-            $this->fields["poll_type"]=$gallery->app->default["poll_type"]; // none, rank or critique
-            $this->fields["poll_scale"]=$gallery->app->default["poll_scale"]; // num of choices to offer voter
-            $this->fields["votes"]=array(); // holds all the votes by UID or session ID
-            $this->fields["poll_nv_pairs"]= $gallery->app->default["poll_nv_pairs"];
+			default:
+				$this->setPerm("canRead", $everybody->getUid(), 1);
+				$this->setPerm("canViewFullImages", $everybody->getUid(), 1);
+				$this->setPerm("canViewComments", $everybody->getUid(), 1);
+				$this->setPerm("canAddComments", $everybody->getUid(), 1);
+				break;
+		}
+		
+		$this->fields["parentAlbumName"] = 0;
+		$this->fields["clicks"] = 0;
+		$this->fields["clicks_date"] = time();
+		$this->fields["display_clicks"] = $gallery->app->default["display_clicks"];
+		$this->fields["serial_number"] = 0;
+		$this->fields["extra_fields"] =
+		    split(",", trim($gallery->app->default["extra_fields"]));
+		foreach ($this->fields["extra_fields"] as $key => $value) {
+			$value=trim($value);
+			if ($value == "") {
+				unset($this->fields["extra_fields"][$key]);
+			} else {
+				$this->fields["extra_fields"][$key]=$value;
+			}
+
+		}
+		$this->fields["cached_photo_count"] = 0;
+		$this->fields["photos_separate"] = FALSE;
+		$this->transient->photosloaded = TRUE; 
+		
+		$this->fields["item_owner_display"] = $gallery->app->default["item_owner_display"];
+		$this->fields["item_owner_modify"] = $gallery->app->default["item_owner_modify"];
+		$this->fields["item_owner_delete"] = $gallery->app->default["item_owner_delete"];
+		$this->fields["add_to_beginning"] = $gallery->app->default["add_to_beginning"];
+		$this->fields["last_quality"] = $gallery->app->jpegImageQuality;
+
+
+               // VOTING Variables
+               $this->fields["poll_type"]=$gallery->app->default["poll_type"]; // none, rank or critique
+               $this->fields["poll_scale"]=$gallery->app->default["poll_scale"]; // num of choices to offer voter
+               $this->fields["votes"]=array(); // holds all the votes by UID or session ID
+               $this->fields["poll_nv_pairs"]= $gallery->app->default["poll_nv_pairs"];
                        // allows admin to explicitly set display value and
                        // points for all voting options.  EG "Excellent" -> 4
                        // points; "Good" -> 3 points etc etc
-            $this->fields["poll_hint"]=$gallery->app->default["poll_hint"];
+               $this->fields["poll_hint"]=$gallery->app->default["poll_hint"];
                        // This is displayed above the voting options
                        // for each image.
-            $this->fields["poll_show_results"]=$gallery->app->default["poll_show_results"];
+               $this->fields["poll_show_results"]=$gallery->app->default["poll_show_results"];
                        // The results graph and breakdown will be displayed
                        // if this is yes.  Note that this should eventually
                        // be part of permissions
-            $this->fields["poll_num_results"]=$gallery->app->default["poll_num_results"]; 
+               $this->fields["poll_num_results"]=$gallery->app->default["poll_num_results"]; 
 	       		// number of lines of graph to show on the album page
-	    $this->fields["voter_class"]=$gallery->app->default["voter_class"];
+	       $this->fields["voter_class"]=$gallery->app->default["voter_class"];
                         // Nobody, Everybody, Logged in
 	       // end of VOTING variables
 
-	    $this->fields["slideshow_type"]=$gallery->app->default["slideshow_type"];
-	    $this->fields["slideshow_length"]=$gallery->app->default["slideshow_length"];
-	    $this->fields["slideshow_recursive"]=$gallery->app->default["slideshow_recursive"];
-	    $this->fields["slideshow_loop"]=$gallery->app->default["slideshow_loop"];
-	    $this->fields["album_frame"]=$gallery->app->default["album_frame"];
-	    $this->fields["thumb_frame"]=$gallery->app->default["thumb_frame"];
-	    $this->fields["image_frame"]=$gallery->app->default["image_frame"];
-	    $this->fields["showDimensions"] = $gallery->app->default["showDimensions"];
-	    $this->fields["email_me"] = array();
-	    $this->fields["ecards"] = $gallery->app->default["ecards"];
+	       $this->fields["slideshow_type"]=$gallery->app->default["slideshow_type"];
+	       $this->fields["slideshow_length"]=$gallery->app->default["slideshow_length"];
+	       $this->fields["slideshow_recursive"]=$gallery->app->default["slideshow_recursive"];
+	       $this->fields["slideshow_loop"]=$gallery->app->default["slideshow_loop"];
+	       $this->fields["album_frame"]=$gallery->app->default["album_frame"];
+	       $this->fields["thumb_frame"]=$gallery->app->default["thumb_frame"];
+	       $this->fields["image_frame"]=$gallery->app->default["image_frame"];
+	       $this->fields["showDimensions"] = $gallery->app->default["showDimensions"];
+	       $this->fields["email_me"] = array();
 
-	    // Seed new albums with the appropriate version.
-	   $this->version = $gallery->album_version;
+	       // Seed new albums with the appropriate version.
+	       $this->version = $gallery->album_version;
        	}
 
 	function isRoot() {
@@ -210,14 +196,13 @@ class Album {
 		return $album;	
 	}
 
-	function &getParentAlbum($loadphotos = TRUE) {
-	    $ret = NULL;
-	    if ($this->fields['parentAlbumName']) {
-		$parentAlbum = new Album();
-		$parentAlbum->load($this->fields['parentAlbumName'], $loadphotos);
-		$ret = $parentAlbum;
-	    }
-	    return $ret;
+	function &getParentAlbum($loadphotos=TRUE) {
+		if ($this->fields['parentAlbumName']) {
+			$parentAlbum = new Album();
+			$parentAlbum->load($this->fields['parentAlbumName'], $loadphotos);
+			return $parentAlbum;
+		}
+		return null;
 	}
 
 	/*
@@ -343,14 +328,6 @@ class Album {
 				"image_frame",
 				"showDimensions",
 				"background",
-				"nav_thumbs",
-				"nav_thumbs_style",
-				"nav_thumbs_first_last",
-				"nav_thumbs_prev_shown",
-				"nav_thumbs_next_shown",
-				"nav_thumbs_location",
-				"nav_thumbs_size",
-				"nav_thumbs_current_bonus"
 				);
 		foreach ($check as $field) {
 			if (!isset($this->fields[$field]) && isset($gallery->app->default[$field])) {
@@ -394,17 +371,25 @@ class Album {
 				$changed = 1;
 			}
 		}
-
-		/* upgrade photo print services to new (1.5.1) format */
 		if ($this->version < 20) {
-		    if ($this->fields['print_photos'] == 'none') {
-			$this->fields['print_photos'] = array();
-		    } else {
-			$this->fields['print_photos'] = array($this->fields['print_photos']);
-		    }
-		    $changed = true;
+			/* upgrade photo print services to new format */
+			switch ($this->fields['print_photos']) {
+			case 'fotokasten':
+			case 'photoaccess':
+				$this->fields['print_photos'] = array($this->fields['print_photos'] => array('checked' => true));
+				break;
+			case 'shutterfly':
+				$this->fields['print_photos'] = array('shutterfly' => array('checked' => true));
+				break;
+			case 'shutterfly without donation':
+				$this->fields['print_photos'] = array('shutterfly' => array('checked' => true));
+				break;
+			default:
+				$this->fields['print_photos'] = array();
+				break;
+			}
+			$changed = true;
 		}
-
 		if ($this->version < 23) {
 			if ($this->fields['public_comments'] == 'yes') {
 			       	$everybody = $gallery->userDB->getEverybody();
@@ -490,32 +475,11 @@ class Album {
 		}
 
 		if ($this->version < 34) {
-			if (isset($this->fields['print_photos']['ezprints'])) {
-				if (isset($this->fields['print_photos']['ezprints']['checked'])) {
-				    $this->fields['print_photos']['shutterfly']['checked'] = 'checked';
-				}
-				unset($this->fields['print_photos']['ezprints']);
-				$changed = 1;
+			if (isset($this->fields['print_photos']['ezprints']['checked'])) {
+			    $this->fields['print_photos']['shutterfly']['checked'] = 'checked';
 			}
-		}
-		// In gallery 1.5.1 the Structure for print services was 'de-suck-ified' (quoted B.M.W.)
-		if ($this->version < 35) {
-		    $tempArray = array();
-		    if(!empty($this->fields['print_photos'])) {
-			foreach ($this->fields['print_photos'] as $service => $trash) {
-			    $tempArray[] = $service;
-			}
-			$this->fields['print_photos'] = $tempArray;
-		    }
-		   $changed = true;
-		}
-
-		// Added field for ecards
-		if ($this->version < 36) {
-		    if(!isset($this->fields['ecards'])) {
-			$this->fields['ecards'] = null;
-		    }
-		    $changed = true;
+			unset($this->fields['print_photos']['ezprints']);
+			$changed = 1;
 		}
 
 		/* Special case for EXIF :-( */
@@ -897,7 +861,7 @@ class Album {
 	    recipient.  You will note that we don't currently translate these 
 	    messages.
 	 */
-	function save($msg = array(), $resetModDate = 1) {
+	function save($msg=array(), $resetModDate=1) {
 		global $gallery;
 		$dir = $this->getAlbumDir();
 		$success = FALSE;
@@ -951,19 +915,19 @@ class Album {
 
 		    /* Create the new album serial file */
 		    if (!empty($this->updateSerial)) {
-		    	$serial = "$dir/serial." . $this->fields["serial_number"]. ".dat";
-		    	if ($fd = fs_fopen($serial, "w")) {
-		    		/* This space intentionally left blank */
-		    		fwrite($fd, trim($this->tsilb));
-		    		fclose($fd);
-		    	}
+			$serial = "$dir/serial." . $this->fields["serial_number"]. ".dat";
+			if ($fd = fs_fopen($serial, "w")) {
+			    /* This space intentionally left blank */
+			    fwrite($fd, trim($this->tsilb));
+			    fclose($fd);
+			}
 
-		    	/* Update the master serial file */
-		    	if ($fd = fs_fopen($gallery->app->albumDir . "/serial.dat", "w")) {
-		    		fwrite($fd, time() . "\n");
-		    		fclose($fd);
-		    	}
-		    	$this->updateSerial = 0;
+			/* Update the master serial file */
+			if ($fd = fs_fopen($gallery->app->albumDir . "/serial.dat", "w")) {
+			    fwrite($fd, time() . "\n");
+			    fclose($fd);
+			}
+			$this->updateSerial = 0;
 		    }
 		}
 		if ($gallery->app->emailOn == 'yes' && $success && $msg) { // send email
@@ -972,24 +936,25 @@ class Album {
 				vd($msg);
 				return $success;
 			}
-		    $to = $this->getEmailMeList('other');
-			$msg_str = call_user_func_array('sprintf', $msg);
-			if (!empty($to)) {
-				$text = sprintf(_("A change has been made to Album: %s by %s (IP %s).  The change is: %s"),
-					'<a href="'. makeAlbumHeaderUrl($this->fields['name']) .'">'. $this->fields['name'] .'</a>',
-					user_name_string($gallery->user->getUID(),
-					$gallery->app->comments_display_name),
-					$_SERVER['REMOTE_ADDR'],
-					$msg_str);
-
-				$text .= "\n\n". _("If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first).");
-				$subject = sprintf(_("Changes to Album: %s"), $this->fields['name']);
-				$logmsg = sprintf("Change to %s: %s.", makeAlbumHeaderUrl($this->fields['name']), $msg_str);
-				gallery_mail($to, $subject, $text, $logmsg, true);
+		       	$to = implode(", ", $this->getEmailMeList('other'));
+			$msg_str=call_user_func_array('sprintf', $msg);
+		       	if (strlen($to) > 0) {
+			       	$text = sprintf("A change has been made to %s by %s (IP %s).  The change is: %s",
+					       	makeAlbumUrl($this->fields['name']),
+						user_name_string($gallery->user->getUID(),
+							$gallery->app->comments_display_name),
+						$_SERVER['REMOTE_ADDR'],
+					       	$msg_str);
+			       	$text .= "\n\n". "If you no longer wish to receive emails about this image, follow the links above and ensure that \"Email me when other changes are made\" is unchecked (You'll need to login first).";
+			       	$subject=sprintf("Changes to %s", $this->fields['name']);
+			       	$logmsg=sprintf("Change to %s: %s.",
+						       	makeAlbumUrl($this->fields['name']),
+						       	$msg_str);
+			       	gallery_mail($to, $subject, $text, $logmsg, true);
 
 			} else if (isDebugging()) {
-			       	print "\n<br>". _("Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found");
-		    }
+			       	print "\n<br>". _("No email sent as no valid email addresses were found");
+		       	}
 		}
 		return $success;
 	}
@@ -1252,7 +1217,7 @@ class Album {
 		if (isImage($tag) && strlen($wmName)) {
 			processingMsg("- ". _("Watermarking Image"));
 			$photo->watermark($this->getAlbumDir(),
-				$wmName, '', $wmAlign, $wmAlignX, $wmAlignY, 0, 0, $wmSelect); 
+				$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY, 0, 0, $wmSelect); 
 		}
 
 		$this->fields['guid'] = genGUID();
@@ -1421,12 +1386,12 @@ class Album {
 		}
 	}
 
-	function getPhotoTag($index, $full, $attrs) {
+	function getPhotoTag($index, $full) {
 		$photo = $this->getPhoto($index);
 		if ($photo->isMovie()) {
 			return $photo->getThumbnailTag($this->getAlbumDirURL("thumb"));
 		} else {
-			return $photo->getPhotoTag($this->getAlbumDirURL("full"), $full, $attrs);
+			return $photo->getPhotoTag($this->getAlbumDirURL("full"), $full);
 		}
 	}
 
@@ -1681,14 +1646,14 @@ class Album {
 		$photo->deleteComment($comment_index);
 	}
 
-	function getKeyWords($index) {
+	function getKeywords($index) {
 		$photo = $this->getPhoto($index);
-		return $photo->getKeyWords();
+		return $photo->getKeywords();
 	}
 
 	function setKeyWords($index, $keywords) {
 		$photo = &$this->getPhoto($index);
-		$photo->setKeyWords($keywords);
+		$photo->setKeywords($keywords);
         }
 
 	function rotatePhoto($index, $direction, $clearexifrotate=false) {
@@ -1729,8 +1694,7 @@ class Album {
 				// Watermarking of movies not supported
 			} else {
 				$photo->watermark($this->getAlbumDir(),
-						$wmName, $wmAlphaName,
-						$wmAlign, $wmAlignX, $wmAlignY,
+						$wmName, $wmAlphaName, $wmAlign, $wmAlignX, $wmAlignY,
 						0, 0, // Not a preview
 					 	$wmSelect);
 			}
@@ -1789,27 +1753,6 @@ class Album {
 		/* Pull photo out */
 		$photo = array_splice($this->photos, $index-1, 1);
 		array_splice($this->photos, $newIndex, 0, $photo);
-	}
-
-	function rearrangePhotos($newOrder) {
-		// safety check.. no repeats, all valid 1-based indices
-		$check = array();
-	 	$count = count($this->photos);
- 		foreach ($newOrder as $index) {
-		if ($index < 1 || $index > $count || isset($check[$index]))
-			return;
-			$check[$index] = 1;
-		}
-		// build new list..
-		$newList = array();
-		for ($i=$j=0; $i < $count; $i++) {
-			if (in_array($i+1, $newOrder)) {
-				$newList[$i] = $this->photos[$newOrder[$j++]-1];
-			} else {
-				$newList[$i] = $this->photos[$i];
-			}
-		}
-		$this->photos = $newList;
 	}
 
 	function isMovie($id) {
@@ -1937,8 +1880,8 @@ class Album {
 		if ($status != 0) {
 		    // An error occurred.
 		    return array("junk1" => "",
-				 "Error" => sprintf(_("Error getting EXIF data. Expected Status 0, got %s."),$status),
-				 "status" => $status);
+				 "Error" => sprintf(_("Error %s getting EXIF data"),$status),
+				 "junk2" => "");
 		}
 
 		if ($needToSave) {
@@ -1994,14 +1937,6 @@ class Album {
 				$nestedAlbum->fields['album_frame']    = $this->fields['album_frame'];
 				$nestedAlbum->fields['thumb_frame']    = $this->fields['thumb_frame'];
 				$nestedAlbum->fields['image_frame']    = $this->fields['image_frame'];
-				$nestedAlbum->fields["nav_thumbs"] = $this->fields["nav_thumbs"];
-				$nestedAlbum->fields["nav_thumbs_style"] = $this->fields["nav_thumbs_style"];
-				$nestedAlbum->fields["nav_thumbs_first_last"] = $this->fields["nav_thumbs_first_last"];
-				$nestedAlbum->fields["nav_thumbs_prev_shown"] = $this->fields["nav_thumbs_prev_shown"];
-				$nestedAlbum->fields["nav_thumbs_next_shown"] = $this->fields["nav_thumbs_next_shown"];
-				$nestedAlbum->fields["nav_thumbs_location"] = $this->fields["nav_thumbs_location"];
-				$nestedAlbum->fields["nav_thumbs_size"] = $this->fields["nav_thumbs_size"];
-				$nestedAlbum->fields["nav_thumbs_current_bonus"] = $this->fields["nav_thumbs_current_bonus"];
 				$nestedAlbum->fields["use_exif"] = $this->fields["use_exif"];
 				$nestedAlbum->fields["display_clicks"] = $this->fields["display_clicks"];
 				$nestedAlbum->fields["item_owner_display"] = $this->fields["item_owner_display"];
@@ -2009,15 +1944,7 @@ class Album {
 				$nestedAlbum->fields["item_owner_delete"] = $this->fields["item_owner_delete"];
 				$nestedAlbum->fields["add_to_beginning"] = $this->fields["add_to_beginning"];
 				$nestedAlbum->fields["showDimensions"] = $this->fields["showDimensions"];
-				$nestedAlbum->fields["ecards"] = $this->fields["ecards"];
-				$nestedAlbum->fields["email_me"] = array(); 
-				$nestedAlbum->fields["poll_type"] = $this->fields["poll_type"];
-				$nestedAlbum->fields["poll_scale"] = $this->fields["poll_scale"];
-				$nestedAlbum->fields["poll_nv_pairs"] = $this->fields["poll_nv_pairs"];
-				$nestedAlbum->fields["poll_hint"] = $this->fields["poll_hint"];
-				$nestedAlbum->fields["poll_show_results"] = $this->fields["poll_show_results"];
-				$nestedAlbum->fields["poll_num_results"] = $this->fields["poll_num_results"];
-				$nestedAlbum->fields["voter_class"] = $this->fields["voter_class"];
+				$nestedAlbum->fields["email_me"] = array();
 				$nestedAlbum->save();
 				$nestedAlbum->setNestedProperties();
 			}
@@ -2120,6 +2047,7 @@ class Album {
 			}
 		}
 
+		
 		return false;
 	}
 
@@ -2310,7 +2238,7 @@ class Album {
 		if ($all) {
 			return $this->fields["extra_fields"];
 		} else {
-			$return = array();
+			$return=array();
 			foreach($this->fields["extra_fields"] as $value) {
 				if ($value != 'AltText') {
 					$return[]=$value;
@@ -2321,14 +2249,13 @@ class Album {
 	}
 
 	function setExtraFields($extra_fields) {
-		$this->fields["extra_fields"] = $extra_fields;
+		$this->fields["extra_fields"]=$extra_fields;
 	}
-
-	function getExtraField($index, $field) {
+	function getExtraField($index, $field)
+	{
 		$photo = $this->getPhoto($index);
 		return $photo->getExtraField($field);
 	}
-
 	function setExtraField($index, $field, $value)
 	{
 		$photo = &$this->getPhoto($index);
@@ -2389,7 +2316,7 @@ class Album {
 		$everybody = $gallery->userDB->getEverybody();
 		$everybodyUid = $everybody->getUid();
 
-                $user = $gallery->userDB->getUserByUid($this->getItemOwner($index));
+                $user=$gallery->userDB->getUserByUid($this->getItemOwner($index));
 
 		if ( !$user) {
 			return "";
@@ -2398,13 +2325,14 @@ class Album {
 			return "";
 		}
 
-		$fullName = $user->getFullname();	
+		$fullName=$user->getFullname();	
 		if (empty($fullName)) {
 			return ' - '. $user->getUsername();
 		} else {
 			return ' - '. $user->getFullname() .' ('. $user->getUsername() .')';
 		}
         }
+
 
 
        /*
@@ -2592,58 +2520,45 @@ class Album {
 			return false;
 		}
 	}
-
-	/**
-	 * Returns a list of emails of all people who wants to be informed.
-	 * @param	string	$type	The type of action the user wants to be informed on
-	 * @param 	integer	$id		Optional id, this is for testing on an album item.
-	 * @return	string	$emails
-	 */
-	function getEmailMeList($type, $id = null) {
+	function getEmailMeList($type, $id=null) {
 		global $gallery;
-		$emails = array();
-		$uids = array();
 
-		/* First check if someone assigned to "type" for this album */
 		if (isset($this->fields['email_me'][$type])) {
-			$uids = array_keys($this->fields['email_me'][$type]);
+			$uids=array_keys($this->fields['email_me'][$type]);
+		} else {
+			$uids=array();
 		}
-		
-		/* Then check wether THE admin wants to be informed (set in config)
-		 * Someone may have remove this user, then this setting in config is senseless. 
-		 */
-		$admin = $gallery->userDB->getUserByUsername('admin');
+		$admin=$gallery->userDB->getUserByUsername('admin');
 		if ($admin) {
-			if ($type == 'comments' && $gallery->app->adminCommentsEmail == 'yes') {
-				$uids[] = $admin->getUid();
-			} else if ($type == 'other' && $gallery->app->adminOtherChangesEmail == 'yes') {
-				$uids[] = $admin->getUid();
+			if ($type == 'comments' && $gallery->app->adminCommentsEmail == "yes") {
+				$uids[]=$admin->getUid();
+			} else if ($type == 'other' && $gallery->app->adminOtherChangesEmail == "yes") {
+				$uids[]=$admin->getUid();
 			}
 		}
-		
-		/* We are checking on a photo, get those emails */
+
 		if ($id) {
-			$index = $this->getPhotoIndex($id);
-			$photo = $this->getPhoto($index);
+			$index=$this->getPhotoIndex($id);
+			$photo=$this->getPhoto($index);
 			if ($photo) {
-				$uids = array_merge($uids, $photo->getEmailMeListUid($type));
+			       	$uids=array_merge($uids,
+					$photo->getEmailMeListUid($type));
 			}
 		}
-		
-		foreach ($uids as $uid) {
-			$user = $gallery->userDB->getUserByUid($uid);
+		$result=array();
+	       	foreach ($uids as $uid) {
+		       	$user=$gallery->userDB->getUserByUid($uid);
 			if ($user->isPseudo()) {
 				continue;
 			}
-			
-			if (check_email($user->getEmail())) {
-				$emails[] = $user->getEmail();
-			} else if (isDebugging()) {
-				echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."),
-					$user->getUsername(), $uid, $user->getEmail()));
-			}
-		}
-		return array_unique($emails);
+		       	if (gallery_validate_email($user->getEmail())) {
+			       	$result[]=$user->getEmail();
+		       	} else if (isDebugging()) {
+				echo gallery_error( sprintf(_("Email problem: skipping %s (UID %s) because email address %s is not valid."), 
+							$user->getUsername(), $uid, $user->getEmail()));
+		       	}
+	       	}
+		return array_unique($result);
 	}
 	
 	function setEmailMe($type, $user, $id=null) {

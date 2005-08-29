@@ -19,11 +19,8 @@
  *
  * $Id$
  */
-
-/**
- * @package Filesystem_unix
- */
-
+?>
+<?php
 function fs_copy($source, $dest) {
 	$umask = umask(0113);
 	$results = copy($source, $dest);
@@ -84,17 +81,8 @@ function fs_is_readable($filename) {
 	return @is_readable($filename);
 }
 
-function fs_is_writable($filename) {
-	return @is_writable($filename);
-}
-
 function fs_opendir($path) {
-    if (@opendir($path)) {
 	return opendir($path);
-    }
-    else {
-	echo gallery_error(sprintf(_("Gallery was not able to open dir: %s. <br>Please check permissions and existence"), $path));
-    }
 }
 
 function fs_rename($oldname, $newname) {

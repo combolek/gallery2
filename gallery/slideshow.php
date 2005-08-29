@@ -91,7 +91,7 @@ $fullSizeIconText = getIconText('window_fullscreen.gif', _("full size"));
 $forwardIconText = getIconText('1rightarrow.gif', _("forward direction"));
 $backwardIconText = getIconText('1leftarrow.gif', _("reverse direction"));
 $delayIconText = getIcontext('history.gif', _("Delay"));
-$loopIconText =  getIcontext('reload.gif', _("Loop:"));
+$loopIconText =  getIcontext('reload.gif', _("Loop"));
 
 // in offline mode, only high is available, because it's the only
 // one where the photos can be spidered...
@@ -177,21 +177,22 @@ if ( (is_ie && !is_ie4up) || (is_opera && !is_opera5up) || (is_nav && !is_nav6up
 	slideshow_body();
 
 $imageDir = $gallery->app->photoAlbumURL."/images";
+$upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" '.
+		'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
 
 #-- breadcrumb text ---
 $upArrowURL = '<img src="' . getImagePath('nav_home.gif') . '" width="13" height="11" '.
-  'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
+                'alt="' . _("navigate UP") .'" title="' . _("navigate UP") .'" border="0">';
 
-if (isset($gallery->album)) {
+if (isset($gallery->album) && $gallery->album->fields['returnto'] != 'no') {
     foreach ($gallery->album->getParentAlbums(true) as $navAlbum) {
-	$breadcrumb["text"][] = $navAlbum['prefixText'] .': <a class="bread" href="'. $navAlbum['url'] . '">'.
-	  $navAlbum['title'] . "&nbsp;" . $upArrowURL . "</a>";
+        $breadcrumb["text"][] = $navAlbum['prefixText'] .': <a class="bread" href="'. $navAlbum['url'] . '">'.
+          $navAlbum['title'] . "&nbsp;" . $upArrowURL . "</a>";
     }
-}
-else {
-    /* We're on mainpage */
-    $breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
-      $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
+} else {
+        /* We're on mainpage */
+        $breadcrumb["text"][]= _("Gallery") .": <a class=\"bread\" href=\"" . makeGalleryUrl("albums.php") . "\">" .
+          $gallery->app->galleryTitle . "&nbsp;" . $upArrowURL . "</a>";
 }
 
 $breadcrumb["bordercolor"] = $borderColor;
@@ -230,7 +231,7 @@ echo "\n<br>";
 
 slideshow_image();
 
-echo languageSelector();
+includeLayout('ml_pulldown.inc');
 includeHtmlWrap("slideshow.footer");
 
 if (!$GALLERY_EMBEDDED_INSIDE) { ?>

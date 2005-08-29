@@ -29,11 +29,9 @@ if (stristr (__FILE__, '/var/lib/gallery/setup')) {
 	require (dirname(dirname(__FILE__)) . '/util.php');
 }
 
+
 /* define the constants */
-setGalleryPaths();
-if (!isset($gallery->app->photoAlbumURL)) {
-    define ('GALLERY_URL','..');
-}
+getGalleryPaths();
 
 if (getOS() == OS_WINDOWS) {
 	require(GALLERY_BASE . '/platform/fs_win32.php');
@@ -41,9 +39,9 @@ if (getOS() == OS_WINDOWS) {
 	require(GALLERY_BASE . '/platform/fs_unix.php');
 }
       
-@include (GALLERY_BASE . '/config.php');
-require (GALLERY_BASE . '/Version.php');
-require(GALLERY_BASE . "/session.php");
+	@include (GALLERY_BASE . '/config.php');
+	require (GALLERY_BASE . '/Version.php');
+	require(GALLERY_BASE . "/session.php");
 
 // We can't set devMode until after config.php is loaded
 if (isset($gallery->app->devMode) && $gallery->app->devMode == "yes") {
@@ -53,10 +51,10 @@ if (isset($gallery->app->devMode) && $gallery->app->devMode == "yes") {
 }
 
 /* Set Language etc. */
-    initLanguage();
+	initLanguage();
 
 /* We do this to get the config stylesheet */
-    $GALLERY_OK = false;
+	$GALLERY_OK=false;
 
 /* 
  * Turn off magic quotes runtime as they interfere with saving and

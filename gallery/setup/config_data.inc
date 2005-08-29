@@ -22,9 +22,7 @@
 ?>
 <?php
 
-require_once(GALLERY_BASE . '/includes/stats/stats.inc.php');
-require_once(GALLERY_BASE . '/includes/definitions/services.php');
-
+require_once(dirname(dirname(__FILE__)) . '/includes/stats/stats.inc.php');
 $stats_choices = array();
 foreach ($stats['types'] as $key => $trash) {
 	if(!empty($stats['types'][$key]['linktext'])) {
@@ -87,10 +85,6 @@ $common_messages["getting-imagemagick"] =
 			'<br><span class="emphasis">' . _("Note:"). '</span> ' .
 			_("The site also has binaries available for assorted operating systems.  If you can't get it working, try leaving the ImageMagick path blank and using NetPBM instead.");
 
-$common_messages["fail-imagemagick-partial"] =
-			_("I've found part of ImageMagick , but some critical components are missing (see below).") . "  " .
-			$common_messages["getting-imagemagick"];
-						
 $common_messages["open-basedir-active"] =
 	'<span class="emphasis">' . _("Note:"). '</span>'.
 	sprintf(_("Your PHP installation is configured with the %s restriction.   This may make it difficult for Gallery to detect and verify your binaries, even if you've already successfully used the Config. Wizard in the past.  Don't worry too much if this page gives warnings; your settings will still be saved properly."),
@@ -191,9 +185,6 @@ $checklist = array(
 		'func' => "check_graphics_im",
 		'fail-imagemagick' => _("I can't find ImageMagick.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to ImageMagick by hand on the following page.  If it's not installed, you must install it.  ") .
 			$common_messages["getting-imagemagick"],
-		'fail-imagemagick-partial' => 
-			$common_messages["fail-imagemagick-partial"] .
-			"<p><b> " . _("If ImageMagick is installed and Gallery isn't finding it automatically that's OK&#8212;you can specify the path to ImageMagick by hand on the following page.") ." </b>",
 		'open-basedir-note' => $common_messages["open-basedir-active"]
 	),
 	'exif' => array(
@@ -489,12 +480,6 @@ $constants =  array_merge(
 				1000 => _("Complete Tree")),
 		'value' => 1000,
 	),
-	'microTree' => array(
-		'prompt' => _("Replace album tree with micro thumbs"),
-		'desc' => _("If you have set album tree to anything but off, this will display micro thumbs of the sub albums instead of the album tree."),
-		'choices' => array('yes' => _("yes"), 'no' => _("no")),
-		'value' => "no"
-	),
 	'highlight_size' => array(
 		'prompt' => _("Highlight size"),
 		'desc' => _("The target size (in pixels) of thumbnails shown in the Gallery page (highlight images)."),
@@ -747,10 +732,21 @@ $constants = array_merge($constants,
 	),
 	'emailGreeting' => array(
 		'prompt' => _("Welcome email message text"),
-	       	'desc' => placeholderDescription(),
+	       	'desc' => _("This email will be sent when new accounts are created.") . "<p>" .
+	       		sprintf(_("%s, %s and %s will be replaced by the fullname, user name and password of the newly created user."),
+				"<i>!!FULLNAME!!</i>",
+				"<i>!!USERNAME!!</i>",
+				"<i>!!PASSWORD!!</i>") . "<p>" .
+			sprintf(_("%s will be replaced by a link the new user can click on to create a new password"),
+				"<i>!!NEWPASSWORDLINK!!</i>") . "<p>" .
+			_("Leave this field blank to get the default message that can be translated into other languages.  The default message is:") . 
+			'<table><tr><td width="20%"></td><td width="60%"><tt>' .
+			str_replace("\n", "<br>", welcome_email(true)) . 
+			'</tt></td><td width="20%"></td></tr></table>',
 		'optional' => 1,
 		'type' => "textarea",
 		'value' => "",
+
 		'attrs' => array('cols' => 50, 'rows' => 11)),
 	'selfReg' => array(
 		'prompt' => _("Allow visitors to self register."),
@@ -774,13 +770,13 @@ $constants = array_merge($constants,
 		'value' => "no"
 	),
 	'adminCommentsEmail' => array(
-		'desc' => _("This allows the &quot;admin&quot; account to get email whenever a comment is added to any album"),
+		'desc' => _("This is allows the &quot;admin&quot; account to get email whenever a comment is added to any album"),
 		'prompt' => _("Admin comment email"),
 		'choices' => array('yes' => _("yes"), 'no' => _("no")),
 		'value' => "no"
 		),
 	'adminOtherChangesEmail' => array(
-		'desc' => _("This allows the &quot;admin&quot; account to get email whenever a change is made to any album"),
+		'desc' => _("This is allows the &quot;admin&quot; account to get email whenever a change is made to any album"),
 		'prompt' => _("Admin Other Changes email"),
 		'choices' => array('yes' => _("yes"), 'no' => _("no")),
 		'value' => "no"
@@ -952,21 +948,22 @@ $constants = array_merge($constants,
 			'value' => "!!FULLNAME!! (!!USERNAME!!)",
 			),
 	'comments_addType' => array(
-			'prompt' => _("Add comments inside the photo page"),
+			'prompt' => _("Add Comments inside the photo page"),
 			'desc' => _("Do you want to have the possibility to add comments inside the view photo page, or do you prefer a link to a popup"),
 			'choices' => array ('popup' => _("Popup"), 'inside' => _("Inside")),
 			'value' => "popup"
 			),
 	'comments_length' => array(
-			'prompt' => _("Maximum length of comments"),
+			'prompt' => _("Maximum length of Comments"),
 			'desc' => _("Enter a suitable value for the maximum length of comments to prevent abuse. Gallery limits comments to no more than 1000 characters.  This value will be used if less than 1000."),
 			'type' => "text",
 			'must-be-integer' => 1,
 			'value' => 300
 	),
 	'comments_overview_for_all' => array(
-			'prompt' => _("Can every permitted user see a comments overview"),
-			'desc' => _("Do you want to allow every user who is allowed to view comments (set in permission) to see a complete overview of all comments of an Album? Set this to &quot;no&quot; if only admin and owners can use this feature."),
+			'prompt' => _("Can everybody see a Comments overview"),
+			'desc' => _("Do you want to allow everybody to see a complete overview of all Comments of an Album. Set this to &quot;no&quot; if only admin and owners can use this feature."),
+			'type' => "text",
 			'choices' => array('yes' => _("yes"), 'no' => _("no")),
 		       	'value' => "no",
 	),
@@ -1106,11 +1103,11 @@ $constants = array_merge($constants,
 			'<br><span class="attention">'.
 			_("Be aware that settings changed on this tab may have severe performance or security consequences and do so at your own risk.") .
 			'<span>'),
-	'debuglevel' => array(
-		'prompt' => _("Debug Level"),
-		'desc' => _("Turn debug on so that you can diagnose problems?") .'<br><span class="emphasis">'. _("Note: Dont leave this option on in production systems! Else you might show users more information about your Gallery and system than you want!") . '</span>',
-		'choices' => array(0 => _("No Debug"), 1 => _("Normal"), 2 => _("High (former Debug 'on')")),
-		'value' => 0,
+	'debug' => array(
+		'prompt' => _("Debug mode"),
+		'desc' => _("Turn debug mode on so that you can diagnose problems?") .'<br><span class="emphasis">'. _("Note: Dont leave this option on in production systems! Else you might show users more information about your Gallery and system than you want!") . '</span>',
+		'choices' => array('yes' => _("yes"), 'no' => _("no")),
+		'value' => "no",
 	),
 	'skipRegisterGlobals' => array(
 		'prompt' => _('Disable register_globals check'),
@@ -1314,7 +1311,8 @@ $defaults = array(
 
 		// <a href="http://www.w3.org/TR/REC-html40/types.html#h-6.5">W3.org</a>',
  		'value' => "black",
-		'type' => 'colorpicker'
+		'type' => "text",
+		'attrs' => array('size' => 10),
 	),
 	'border' => array(
 		'prompt' => _("Border width"),
@@ -1350,7 +1348,7 @@ $defaults = array(
 		'prompt' => _("Resized image size"),
 		'desc' => _("When large images are added to an album, an intermediate version will automatically be generated at this size."),
 		'value' => 640,
-		'choices' => array(0 => _("off"), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024)
+		'choices' => array('off' => _("off"), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024)
 	),
 	'resize_file_size' => array(
 		'prompt' => _("Resized JPEG/PNG images file size"),
@@ -1366,7 +1364,7 @@ $defaults = array(
 			'<br><span class="attention>'. _("Warning:") .'</span> '. 
 			_("Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."),
 		'value' => 'off',
-		'choices' => array(0 => _('off'), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024, 1280 => sprintf(_('%d (%d MPix)'), 1280, 1), 1600 => sprintf(_('%d (%d MPix)'), 1600, 2), 2048 => sprintf(_('%d (%d MPix)'), 2048, 3))
+		'choices' => array('off' => _('off'), 400 => 400, 500 => 500, 600 => 600, 640 => 640, 700 => 700, 800 => 800, 1024 => 1024, 1280 => sprintf(_('%d (%d MPix)'), 1280, 1), 1600 => sprintf(_('%d (%d MPix)'), 1600, 2), 2048 => sprintf(_('%d (%d MPix)'), 2048, 3))
 	),
 	'max_file_size' => array(
 		'prompt' => _('Maximum JPEG/PNG image file size'),
@@ -1413,8 +1411,27 @@ $defaults = array(
 	'print_photos' => array(
 		'prompt' => _("Printing Services"),
  		'desc' => _("Allow visitors to print photos directly from the album.  Fotoserve is based in the United Kindom and Fotokasten is a print service based in Germany so they are good for the European market. EZ Prints, PhotoWorks and Shutterfly are based in the United States. mPUSH is a service that allows you to send photos to cellular phones worldwide. All services will give a small donation to the Gallery project for every print you make. Using these services is a great way for you to help support this free software."),
-		'multiple_choices' => makeMultipleChoiceContent($services),
-/* old .. needs to be fixed */
+		'type' => 'print_services',
+		'services' => array(
+			'photoaccess' => array(
+				'name'    => 'PhotoWorks',
+				'url'     => 'http://www.photoworks.com/'),
+			'shutterfly'  => array(
+				'name'    => 'Shutterfly',
+				'url'     => 'http://www.shutterfly.com/',
+			),
+			'fotoserve'  => array(
+				'name'    => 'Fotoserve.com',
+				'url'     => 'http://www.fotoserve.com/',
+			),
+			'fotokasten'  => array(
+				'name'    => 'Fotokasten',
+				'url'     => 'http://www.fotokasten.de/'),    
+			'mpush'       => array(
+				'name'    => 'mPUSH',
+				'url'	  => 'http://www.mpush.cc/',
+				'desc'    => _("mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."),),
+		),
 		'value' => array(
 			'fotokasten' => array(
 				'checked' => true),
@@ -1437,13 +1454,6 @@ $defaults = array(
 		'value' => 'gallery',
 		'type' => 'text',
 	),
-	'ecards' => array(
-                'prompt' => _("Enable Ecards ?"),
-                'desc' => _("Set this to 'yes' to allow users to send a picure as eCard via eMail") . '<br>'.
-			'<span class="attention">' . _("This option requires the Email feature to be enabled.") . '</span>',
-                'choices' => array("yes" => _("yes"), "no" => _("no")),
-                'value' => 'no'
-        ),
 	'returnto' => array(
 		'prompt' => _("Gallery Link"),
 		'desc' => _("Display a link navigation from your album to the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."),
@@ -1453,11 +1463,7 @@ $defaults = array(
 	'defaultPerms' => array(
 		'prompt' => _("Default Album Permissions"),
 		'desc' => _("Defines the default set of permissions for an album.  Specifically, who can see the album, and view its photos."),
-		'choices' => array(
-				'everybody' => _("Everybody"), 
-				'loggedin' => _("Logged-In Users"),
-				'nobody' => _("Nobody")
-		),
+		'choices' => array('everybody' => _("Everybody"), 'loggedin' => _("Logged-In Users")),
 		'value' => "everybody",
 	),
 	'group4_end' => array (
@@ -1601,17 +1607,17 @@ $defaults = array(
 			'horizontal' => _("Horizontal"), 
 			'vertical' => _("Vertical"))) ,
 	'poll_nv_pairs' => array(
-		'prompt' => _("Vote words and values"), 
-		'desc' => _("This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."),
-		'value' => array (
-			array('name' => _("Excellent"), 'value' => 5),
-			array('name' => _("Very Good"), 'value' => 4),
-			array('name' => _("Good"), 'value' => 3),
-			array('name' => _("Average"), 'value' => 2), 
-			array('name' => _("Poor"), 'value' => 1)),
-		'type' => "nv_pairs",
-		'verify-func' => "check_poll_nv_pairs",
-		'size' => 9),
+			'prompt' => _("Vote words and values"), 
+			'desc' => _("This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."),
+			'value' => array (
+				array('name' => _("Excellent"), 'value' => 5),
+				array('name' => _("Very Good"), 'value' => 4),
+				array('name' => _("Good"), 'value' => 3),
+				array('name' => _("Average"), 'value' => 2), 
+				array('name' => _("Poor"), 'value' => 1)),
+			'type' => "nv_pairs",
+			'verify-func' => "check_poll_nv_pairs",
+			'size' => 9),
 	'group7_end' => array (
 		'type' => 'group_end',
 	),
@@ -1623,34 +1629,34 @@ $defaults = array(
 		'desc' => _("These settings do not apply to the low tech slideshow.")
 	),
 	'slideshow_type' => array(
-	      	'prompt' => _("Slideshow Type"),
-	       	'desc' => "<dl>"
-			. "<dt>" . _("Off") ."</dt>"
-			. "<dd>" . _("No slideshow link will appear.") . "</dd>"
-			. "<dt>" . _("Ordered") . "</dt>"
-			. "<dd>" . _("Images will display in the same order as they appear in the Gallery.") . "</dd>"
-			. "<dt>" . _("Random") . "</dt>"
-			. "<dd>" . _("Images will appear in a random order.") . "</dd>"
-			. "</dl>",
-	      	'choices' => array(
-		       	'off' => _("Off"),
-		       	'ordered' => _("Ordered"),
-		       	'random' => _("Random"),
+		       	'prompt' => _("Slideshow Type"),
+		       	'desc' => "<dl>"
+				. "<dt>" . _("Off") ."</dt>"
+				. "<dd>" . _("No slideshow link will appear.") . "</dd>"
+				. "<dt>" . _("Ordered") . "</dt>"
+				. "<dd>" . _("Images will display in the same order as they appear in the Gallery.") . "</dd>"
+				. "<dt>" . _("Random") . "</dt>"
+				. "<dd>" . _("Images will appear in a random order.") . "</dd>"
+				. "</dl>",
+		       	'choices' => array(
+			       	'off' => _("Off"),
+			       	'ordered' => _("Ordered"),
+			       	'random' => _("Random"),
+				),
+		       	'value' => "ordered",
 			),
-	       	'value' => "ordered",
-	),
 	'slideshow_recursive' => array(
 		'prompt' => _("Recursive slideshow"),
 		'desc' => sprintf(_("Set to %s if you want to include images in sub albums as part of the slideshow."), "<b>"._("yes")."</b>"),
 		'choices' => array('yes' => _("yes"), 'no' => _("no")),
 		'value' => "no"
-	),
+			),
 	'slideshow_loop' => array(
 		'prompt' => _("Allow slideshow to loop"),
 		'desc' => sprintf(_("This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."), "<b>"._("no")."</b>"),
 		'choices' => array('yes' => _("yes"), 'no' => _("no")),
 		'value' => "yes"
-	),
+			),
 	'slideshow_length' => array(
 		'prompt' => _("Slideshow length"),
 		'desc' => _("Number of images to display in slideshow.  Set to 0 or blank to display all images.  Set to a number if slideshow is random and you want to display only a selection of the images."),
@@ -1660,76 +1666,6 @@ $defaults = array(
 		'attrs' => array('size' => 5)
 	),
 	'group8_end' => array (
-		'type' => 'group_end',
-	),
-	'group_MicroNav_Start' => array (
-		'type' => 'group_start',
-		'name' => 'group_photoMicroNav',
-		'default' => 'none',
-		'title' => _("Micro Thumb Photo Navigation"),
-		'desc' => _("These settings apply to the micro-thumb photo navigation system.  The micro thumbs are only visible when viewing individual images.")
-	),
-	'nav_thumbs' => array(
-		'prompt' => _("Micro Thumb Photo Navigation"),
-		'desc' => _("Uses micro-thumbnails for photo navigation. This creates a navigation panel with tiny thumbnails of the images around the photo you are viewing.  You can also choose both to display the micro thumb navigation system AND the old style navigation system."),
-		'value' => "no",
-		'choices' => array('yes' => _("yes"), 'no' => _("no"), 'both' => _("both"))
-	),
-	'nav_thumbs_style' => array(
-		'prompt' => _("Micro Thumb Photo Navigation"),
-                        'desc' => "<dl>"
-                                . "<dt>" . _("Fixed") ."</dt>"
-                                . "<dd>" . _("Displays prev+next groups of thumbs, changing only to display next group of thumbs.") . "</dd>"
-                                . "<dt>" . _("Dynamic") . "</dt>"
-                                . "<dd>" . _("Displays previos & next images, with current image between.") . "</dd>"
-                                . "</dl>",
-		'value' => "fixed",
-		'choices' => array('fixed' => _("Fixed"), 'dynamic' => _("Dynamic"))
-	),
-	'nav_thumbs_first_last' => array(
-		'prompt' => _("Show Micro Thumb for First/Last"),
-		'desc' => _("This allows you to turn on and off the display of the first and last micro-thumb.  Since these two images are always the same, some might find that it is not very useful and would rather display more next/previous thumbs."),
-		'value' => "no",
-		'choices' => array('yes' => _("yes"), 'no' => _("no"))
-	),
-	'nav_thumbs_prev_shown' => array(
-		'prompt' => _("Number of Previous Micro Thumbs"),
-		'desc' => _("This is the number of previous micro thumbs on the screen at a time.  You might prefer to show fewer previous micro thumbs and more next micro thumbs."),
-		'value' => "no",
-		'choices' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4,
-				5 => 5, 6 => 6, 6 => 6, 7 => 7,
-				8 => 8, 9 => 9, 10 => 10)
-	),
-	'nav_thumbs_next_shown' => array(
-		'prompt' => _("Number of Next Micro Thumbs"),
-		'desc' => _("This is the number of next micro thumbs on the screen at a time.  You might prefer to show fewer previous micro thumbs and more next micro thumbs."),
-		'value' => "no",
-		'choices' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4,
-				5 => 5, 6 => 6, 6 => 6, 7 => 7,
-				8 => 8, 9 => 9, 10 => 10)
-	),
-	'nav_thumbs_location' => array(
-		'prompt' => _("Location of Micro Thumb Navigation"),
-		'desc' => _("Displays the micro-thumb navigation bar at the Top, Bottom or Both of the photo viewing page.  Since the micro thumb navigation system is larger than the original navigation system, you may want to display it at only the top or bottom to conserve space usage."),
-		'value' => "top",
-		'choices' => array(
-			'top' => _("Top"), 
-			'both' => _("Both"), 
-			'bottom' => _("Bottom"))
-	),
-	'nav_thumbs_size' => array(
-		'prompt' => _("Height of Micro Thumbs"),
-		'desc' => _("The size of micro thumbnails will determine how clear the images are as well as how much room they take up.  This value is the height and is in pixels.  45 is a reasonable value for viewing at 1024x768."),
-		'value' => '45',
-		'type' => 'text'
-	),
-	'nav_thumbs_current_bonus' => array(
-		'prompt' => _("Bonus to Current Micro Thumb's Size"),
-		'desc' => _("This is the bonus in pixels to the size of the current micro-thumb.  This creates a nice look and a value of 10-15 is reasonable.  Zero (0) and negative numbers (-10) are also valid here.  Zero (0) will result in the current thumb being of identical size to all the other micro thumbs and a negative value will result in a smaller micro thumb."),
-		'value' => '15',
-		'type' => 'text'
-	),
-	'group_MicroNav_End' => array (
 		'type' => 'group_end',
 	),
 	'group_frames' => array (

@@ -29,7 +29,7 @@ if (!isset($gallery->version)) {
 
 // Security check
 if (!$gallery->user->isAdmin()) {
-	header('Location: ' . makeAlbumHeaderUrl());
+	header("Location: " . makeAlbumHeaderUrl());
 	exit;
 }
 
@@ -63,14 +63,18 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 			 'longtext' => _("Manage your users."));
 }
 
-array_sort_by_fields($adminOptions, 'text', 'asc');
+function cmp ($a, $b) {
+   return strcmp($a["text"], $b["text"]);
+}
+
+usort($adminOptions, "cmp");
 
 if (!$GALLERY_EMBEDDED_INSIDE) {
     doctype();
 ?>
 <html>
 <head>
-<title><?php echo $gallery->app->galleryTitle; ?>::<?php echo _("Admin options") ?></title>
+<title><?php echo $gallery->app->galleryTitle ?></title>
 <?php 
 	common_header() ;
 ?>
@@ -78,23 +82,25 @@ if (!$GALLERY_EMBEDDED_INSIDE) {
 <body dir="<?php echo $gallery->direction ?>">
 <?php  
 }
+        
+includeHtmlWrap("gallery.header");
 
-includeHtmlWrap('gallery.header');
-
-$adminbox['text'] ='<span class="head">'. _("Admin options") .'</span>';
-$adminbox['commands'] = '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>]';
-$breadcrumb['text'][] = languageSelector();
+$borderColor = $gallery->app->default["bordercolor"];
+$navigator["fullWidth"] = 100;
+$navigator["widthUnits"] = "%";
+$adminbox["text"] ='<span class="head">'. _("Admin options") .'</span>';
+$adminbox["commands"] = '[<a href="'. makeAlbumUrl() .'">'. _("return to gallery") .'</a>]';
 
 includeLayout('navtablebegin.inc');
 includeLayout('adminbox.inc');
 includeLayout('navtablemiddle.inc');
 includeLayout('breadcrumb.inc');
 includeLayout('navtableend.inc');
+includeLayout('ml_pulldown.inc');
 
 if(!empty($adminOptions)) {
 	echo "\n" .'<table style="width:80%; margin:10px; margin-bottom:50px">';
 	foreach ($adminOptions as $option) {
-
 		echo "\n<tr>";
 		if (isset($option['url'])) {
 			$link = '<a class="admin" href="'. $option['url'] .'">'. $option['text'] .'</a>';

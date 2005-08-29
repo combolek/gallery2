@@ -35,6 +35,7 @@ if (!getRequestVar('cmd')) {
 	exit;
 }
 
+
 /*
  * Set content type
  */
@@ -43,7 +44,7 @@ header("Content-type: text/plain");
 /*
  * Start buffering output
  */
-//if(!isDebugging()) {
+//if($gallery->app->debug == "no") {
 //	@ob_start();
 //}
 
@@ -79,6 +80,8 @@ $GR_STAT['NO_CREATE_ALBUM_PERMISSION']	= 501;
 $GR_STAT['CREATE_ALBUM_FAILED']			= 502;
 $GR_STAT['MOVE_ALBUM_FAILED']	= 503;
 $GR_STAT['ROTATE_IMAGE_FAILED'] = 504;
+
+
 
 
 $response = new Properties();
@@ -333,6 +336,9 @@ function gr_album_properties( &$gallery, &$response ) {
 	global $GR_STAT;
 
 	$resize_dimension = $gallery->album->fields['resize_size'];
+	if ($resize_dimension == 'off') {
+		$resize_dimension = 0;
+	}
 
 	$response->setProperty( 'auto_resize', $resize_dimension );
 
@@ -358,6 +364,12 @@ function gr_album_properties( &$gallery, &$response ) {
 function gr_new_album( &$gallery, &$response, &$newAlbumName, &$newAlbumTitle, &$newAlbumDesc ) {
 
 	global $GR_STAT;
+
+	if(get_magic_quotes_gpc()) {
+		$newAlbumName = stripslashes($newAlbumName);
+		$newAlbumTitle = stripslashes($newAlbumTitle);
+		$newAlbumDesc = stripslashes($newAlbumDesc);
+	}
 
 	if(isset($gallery->album) && isset($gallery->album->fields["name"])) {
 		$canAddAlbum = $gallery->user->canCreateSubAlbum($gallery->album);
@@ -440,7 +452,7 @@ function gr_fetch_album_images( &$gallery, &$response, $albums_too ) {
 					$response->setProperty( 'image.capturedate.hours.'.$tmpImageNum, $albumItemObj->itemCaptureDate['hours'] );
 					$response->setProperty( 'image.capturedate.minutes.'.$tmpImageNum, $albumItemObj->itemCaptureDate['minutes'] );
 					$response->setProperty( 'image.capturedate.seconds.'.$tmpImageNum, $albumItemObj->itemCaptureDate['seconds'] );
-					$response->setProperty( 'image.hidden.'.$tmpImageNum, $albumItemObj->isHidden()? "yes":"no" );
+					$response->setProperty( 'image.hidden.'.$tmpImageNum, $albumItemObj->isHidden()?"yes":"no" );
 				} else {
 					if ($albums_too) {
 						if (! isset($albumDB)) {
@@ -453,7 +465,7 @@ function gr_fetch_album_images( &$gallery, &$response, $albums_too ) {
 							$tmpImageNum++;
 
 							$response->setProperty( 'album.name.'.$tmpImageNum, $albumItemObj->getAlbumName() );
-							$response->setProperty( 'album.hidden.'.$tmpImageNum, $myAlbum->isHiddenRecurse() ? 'yes':'no' );
+							$response->setProperty( 'album.hidden.'.$tmpImageNum, $myAlbum->isHiddenRecurse()?'yes':'no' );
 						}
 					}
 				}
@@ -653,6 +665,8 @@ function gr_rotate_image( &$gallery, &$response ) {
 }
 */
 
+
+
 function check_proto_version( &$response ) {
 	global $protocol_version, $GR_STAT, $GR_VER;
 
@@ -753,8 +767,8 @@ function add_album( &$myAlbum, &$album_index, $parent_index, &$response ){
 	$response->setProperty( "album.title.$album_index", $albumTitle );
 	$response->setProperty( "album.summary.$album_index", $myAlbum->fields['summary'] );
 	$response->setProperty( "album.parent.$album_index", $parent_index );
-	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] );
-	$response->setProperty( "album.max_size.$album_index", $myAlbum->fields['max_size'] );
+	$response->setProperty( "album.resize_size.$album_index", $myAlbum->fields['resize_size'] == 'off' ? 0 : $myAlbum->fields['resize_size'] );
+	$response->setProperty( "album.max_size.$album_index", $myAlbum->fields['max_size'] == 'off' ? 0 : $myAlbum->fields['max_size'] );
 	$response->setProperty( "album.thumb_size.$album_index", $myAlbum->fields['thumb_size'] );
 
 	// write permissions
@@ -823,7 +837,9 @@ function processFile($file, $tag, $name, $setCaption="") {
     } else {
         // remove %20 and the like from name
         $name = urldecode($name);
-
+	if (get_magic_quotes_gpc()) {
+		$name = stripslashes($name);
+	}
         // parse out original filename without extension
         $originalFilename = eregi_replace(".$tag$", "", $name);
         // replace multiple non-word characters with a single "_"
@@ -864,6 +880,9 @@ function processFile($file, $tag, $name, $setCaption="") {
 		    }
 
             if ($setCaption) {
+		if (get_magic_quotes_gpc()) {
+			$setCaption = stripslashes($setCaption);
+		}
                 $caption = $setCaption;
             } else {
                 $caption = "";
@@ -876,17 +895,23 @@ function processFile($file, $tag, $name, $setCaption="") {
 				//echo "Looking for extra field $fieldname\n";
 
 				// The way it should be done now
-				$value = getRequestVar("extrafield.".$field);
+				$value = isset($_POST[("extrafield.".$field)]) ? $_POST[("extrafield.".$field)] : '';
 				//echo "Got extra field $field = $value\n";
-				if (!empty($value)) {
+				if ($value) {
+					if (get_magic_quotes_gpc()) {
+						$value = stripslashes($value);
+					}
 					//echo "Setting field $field\n";
 					$myExtraFields[$field] = $value;
 				}
 
 				// Deprecated
-				$value = getRequestVar("extrafield_".$field);
+				$value = isset($_POST[("extrafield_".$field)]) ? $_POST[("extrafield_".$field)] : '';
 				//echo "Got extra field $field = $value\n";
-				if (!empty($value)) {
+				if ($value) {
+					if (get_magic_quotes_gpc()) {
+						$value = stripslashes($value);
+					}
 					//echo "Setting field $field\n";
 					$myExtraFields[$field] = $value;
 				}

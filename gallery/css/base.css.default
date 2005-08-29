@@ -8,7 +8,7 @@
    If that file is found in this directory it will be 
    used instead of this one.
 
-   Some of the styles below are overridden by specific 
+   Some of the styles below are overriden by specific 
    album properties.
 
    $Id$
@@ -16,7 +16,7 @@
 
 
 /* 
-   default text styles - background and colors overridden by
+   default text styles - background and colors overriden by
    album 'bgcolor', 'background', and 'textcolor' properties.
 */
 
@@ -29,7 +29,6 @@ img {
 
 td,p { 
 }
-^
 
 a {
     text-decoration: none;
@@ -41,8 +40,8 @@ a:hover {
     color: yellow;
 }
 
-textarea:focus, input:focus {
-    background-color: #FFFFDA;
+textarea:focus, input:focus, select:focus {
+	background-color: #FFFFDA;
 }
 
 form {
@@ -52,14 +51,11 @@ form {
 /* 
    text styles 
 */
-
-/* album titles on main page */
-.title { 
-    font-size: 14px; 
-    font-weight: bold; 
-    white-space: nowrap;
-}
-
+.title                          /* album titles on main page */
+	{ 
+	  font-size: 14px; 
+	  font-weight: bold; 
+	}
 .mod_title			/* album title -- Text is controlled by .title */
 	{
 	  border:1px solid #000000;
@@ -67,13 +63,13 @@ form {
 	  border-bottom-width:0px;
 	  border-left-width:0px;
 	}
-.mod_title_bg   /* album title hightlight Text is controlled by .title */
+.mod_title_bg   /* album title hightlight Text is controled by .title */
 	{
 	}
-.mod_title_right  /* album title hightlight  Text is controlled by .title*/
+.mod_title_right  /* album title hightlight  Text is controled by .title*/
 	{
 	}
-.mod_title_left  /* album title hightlight  Text is controlled by .title */
+.mod_title_left  /* album title hightlight  Text is controled by .title */
 	{
 	}
 .albumdesc  /*album description includes all text and background*/
@@ -92,20 +88,9 @@ form {
 	  font-size: 10px; 
 	}
 .pcaption  /* modifies background for caption text to reside - view_photo*/
-{
-     font-size: 10px;
-}
-
-.customFieldsTable {
-     border: none;
-     font-size: 10px;
-     margin-bottom: 0px;
-     padding: 0px;
-}
-
-.customFieldsTableCaption {
-    padding-top:15px;
-}
+	{
+	  font-size: 10px; 
+	}
 
 .vafloat /* float for view album - text */
  	{
@@ -124,12 +109,11 @@ form {
         margin-top:10px;
         width:80%;
 	}
-
-.commentIndication {
-    color: red;
-    font-size: 12px;
-}
-
+.commentIndication 
+	{
+	   color: red;
+	   font-size: 12px;
+	}
 .error                          /* all error text */
 { 
       color: red; 
@@ -156,34 +140,27 @@ a.error:hover {
 	{
 	}
 
-/* Page headers */
-.head { 
-    font-size: 16px; 
-    font-weight: bold; 
-    white-space: nowrap;
-}
-
-.mod_headliner  /* Gallery & Album titles. Text is controlled by .head */
+.head                           /* page headers */
+	{ 
+	  font-size: 16px; 
+	  font-weight: bold; 
+	}
+.mod_headliner  /* Gallery & Album titles. Text is controled by .head */
 	{
 	}
-.mod_toplight_bg  /* Gallery & Album titles. Text is controlled by .head */
+.mod_toplight_bg  /* Gallery & Album titles. Text is controled by .head */
 	{
 	}
-.mod_toplight_right  /* Gallery & Album titles. Text is controlled by .head*/
+.mod_toplight_right  /* Gallery & Album titles. Text is controled by .head*/
 	{
 	}
-.mod_toplight_left  /* Gallery & Album titles. Text is controlled by .head */
+.mod_toplight_left  /* Gallery & Album titles. Text is controled by .head */
 	{
 	}
 .bread                          /* used in breadcrumb bars */
 	{ 
 	  font-size: 10px; 
 	}
-
-.topNavbar {
-    margin-bottom: 10px;
-}
-
 .nav                            /* used in navigation bars */
 	{ 
 	  font-size: 12px; 
@@ -197,31 +174,6 @@ a.error:hover {
 	  border:1px solid #000000;
 	  border-top-width:0px;
 	}
-.nav_micro_first_img {
-	border: 1px solid black;
-/*
-	border-left: 2px solid blue;
-	border-top: 2px solid blue;
-	border-bottom: 2px solid blue;
-*/
-}
-.nav_micro_last_img {
-	border: 1px solid black;
-/*
-	border-right: 2px solid blue;
-	border-top: 2px solid blue;
-	border-bottom: 2px solid blue;
-*/
-}
-
-.nav_micro_current_img {
-	border: 2px solid red;
-}
-
-.nav_micro_img {
-	border: 1px solid black;
-}
-
 .bordertop
 	{
 	  border:1px solid #000000;
@@ -229,7 +181,6 @@ a.error:hover {
 	  border-bottom-width:0px;
 	  border-left-width:0px;
 	}
-
 .borderright
 	{
 	  border:1px solid #000000;
@@ -237,7 +188,6 @@ a.error:hover {
 	  border-bottom-width:0px;
 	  border-left-width:0px;
 	}
-
 .borderleft
 	{
 	  border:1px solid #000000;
@@ -273,19 +223,16 @@ a.error:hover {
 	  font-size: 10px; 
 	  font-weight: bold; 
 	}
-
 .search                          /* used in search text */
 	{ 
 	  font-size: 10px; 
 	  font-weight: bold; 
 	}
-
 .searchform /* defines form for search */
 	{
 	  font-size: 10px; 
-	  font-weight: bold;
+	  font-weight: bold; 
 	}
-
 .leftspacer  /* amount of space to the left of the header and titles */
 	{
 	  width: 0px;
@@ -305,39 +252,34 @@ a.error:hover {
 
 
 .popupbody  /* controls the background of popup. */ 
-{
-}
+	 {
+	   color: #000;
+	 }
 	
 .popuphead  /* controls the title and background */ 
-{
-    text-align:center;
-    font-size: 14px; font-weight: bold;
-    line-height: 150%;
-}
+	 {
+	   text-align:center;
+	   font-size: 14px;
+	   font-weight: bold;
+	   line-height: 150%;
+ 	}
 
 .popup /* controls the main text and message body */
-{
-    font-size: 12px; font-weight: normal;
-    padding: 5px;
-    margin-bottom: 10px;
-}
+	 {
+	   text-align:center;
+	   font-size: 12px;
+	   font-weight: none;
+	   padding: 5px;
+	   margin-bottom: 10px;  
+	 }
 
 .popupform /* controls form textarea */
-{
-    font-size: 12px; font-weight: normal;
-    line-height: 120%;
-    padding: 2px;
-}
-
-.popup a:hover {
-}
-
-.popup td {
-}
-
-.popup td.tab-hi {
-    color: #FFFFFF;
-}
+	 {
+	   font-size: 12px;
+	   font-weight: none;
+	   line-height: 120%;
+	   padding: 2px;
+	 }
 
 /* CSS ID for the add photos popup */
 
@@ -360,31 +302,31 @@ a.error:hover {
 }
 	
 #tabnav a:link, #tabnav a:visited {
-    float: left;
-    font-size: 11px;
-    line-height: 14px;
-    font-weight: bold;
-    padding: 2px 5px 2px 5px;
-    margin-right: 4px;
-    text-decoration: none;
-    color: #666;
-    border: 1px solid #000000;
-    -Moz-Border-Radius-TopLeft: 20px;
-    -Moz-Border-Radius-TopRight: 20px;
+	float: left;
+	font-size: 11px;
+	line-height: 14px;
+	font-weight: bold;
+	padding: 2px 5px 2px 5px;
+	margin-right: 4px;
+	text-decoration: none;
+	color: #666;
+	border-width:1px;
+	border-style: solid; border-color: #000000;
+	-Moz-Border-Radius-TopLeft: 20px;
+	-Moz-Border-Radius-TopRight: 20px;
 }
 
 #tabnav a:link.active, #tabnav a:visited.active {
-    background-color: #FCFCF3;
-    color: #000000;
-    padding:2px 5px 2px 5px; font-size:12px;
-    margin-right: 4px;
-    border: 1px solid #000000;
-    -Moz-Border-Radius-TopLeft: 20px;
-    -Moz-Border-Radius-TopRight: 20px;
+	background-color: #FCFCF3 ; padding:2px 5px 2px 5px; font-size:12px;
+	margin-right: 4px;
+	border-style: solid; border-color: #000000;
+	-Moz-Border-Radius-TopLeft: 20px;
+	-Moz-Border-Radius-TopRight: 20px;
+	color:#000000;
 }
 
 #tabnav a:hover {
-    color: #444;
+	color: #444
 }
 
 #adminbox {
@@ -419,20 +361,11 @@ a.error:hover {
    text-align:center;
 }
 
-.iconLink {
-    display: block;
-    font-size: 10px;
-    text-align:center;
-    float: right;
-    margin: 3px;
-}
-
 #menu a:hover {
 }
 
 .noLink {
     font-size: 10px;
-    text-align:center;
 }
 
 /* Used on Adminpage */
@@ -442,72 +375,13 @@ td.adm_options {
     padding: 5px;
 }
 
-/* Following two classes are used in stats-wizard */
+/* Following two claes areu sed in stats-wizard */
  .blockcell { 
     vertical-align: top; 
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #000000 
 }
         
 caption {
     font-weight:bold; 
-    margin-bottom: 5px;
-}
-
-.tab {
-    border:1px solid black;
-    background-color:white;
-    color: #000000;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
-    cursor: pointer;
-    text-align:center;
-    padding:5px;
-    margin-left:10px;
-
-    text-decoration:underline;
-    font-weight:bold;
-}
-
-.tab-hi {
-    border:1px solid black;
-    background-color: #6274CB; color: #000000;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
-    cursor: pointer;
-    text-align:center;
-    padding:5px;
-    margin-left:10px;
-
-    text-decoration:underline;
-    font-weight:bold;
-}
-
-/* Outdated, will be removed soon */
-.tab-text { 
-    text-decoration:underline; 
-    font-weight:bold;
-}
-
-.littlered { 
-    font-size: 10px;
-    color:red;
-    vertical-align:top;
-}
-
-td.tabspacer {
-    border-bottom-width: 1px;
-    border-bottom-style:solid;
-    border-color: black;
-}
-
-.MLForm {
-    margin: 0px; 
-    margin-bottom: 2px;
-    padding: 0px;
-    text-align: right;
-}
-
-.languageSelector {
-    vertical-align: top;
-    padding: 0px; margin: 0px;
+    margin-bottom: 5px
 }

@@ -325,13 +325,14 @@ if ($gallery->user->canViewFullImages($gallery->album)) {
 				array('onchange' => 'reset_timer()', 'class' => 'adminform')
 			);
 
+
 if ($loop) {
-    $checked = ($defaultLoop) ? 'checked' : '';
-    $iconElements[] = $loopIconText;
+    $checked = ($defaultLoop) ? "checked" : "";
+    $iconElements[] = $loopIconText.':';
     $iconElements[] = '<input type="checkbox" name="loopCheck"'. $checked .'onclick="toggleLoop();">';
 }
 
-    echo makeIconMenu($iconElements, 'right');
+    echo makeIconMenu($iconElements);
 ?>
 </form>
 <?php

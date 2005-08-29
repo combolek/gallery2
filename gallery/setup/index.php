@@ -20,19 +20,15 @@
  * $Id$
  */
 ?>
-<?php
-    /**
-     * @package setup
-     */
-?>
 <?php 
+
 	/* 
 	** Its important to have this as first position.
 	** Otherwise constants are not defined.
 	*/
 	require (dirname(__FILE__) . '/init.php');
 	
-	require (GALLERY_BASE . '/lib/setup.php');
+	require (dirname(__FILE__) . '/functions.inc');
 	require (dirname(__FILE__) . '/config_data.inc');
 	require (GALLERY_BASE . '/js/sectionTabs.js.php');
 

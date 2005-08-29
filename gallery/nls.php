@@ -28,10 +28,12 @@
  * The modifications to fit it for Gallery were made by Jens Tkotz 
  * (jens@peino.de)
  *
- * @package	Language
  */
 
-/* Defaults */
+/**
+ ** Defaults
+ **/
+
 	$nls['language']['en_US'] =	'English (US)';
 
 	$nls['postnuke']['en_US'] =     'eng';
@@ -40,14 +42,20 @@
 	$nls['phpnuke']['en_US']  =     'english';
 	$nls['alias']['english']  =     'en_US';
 
-	$nls['alias']['en']  =     'en_US';
-
-/* Charset*/
+/** 
+ ** Charset
+ **/
+	
 	$nls['default']['charset'] = 	'ISO-8859-1';
-
-/* Direction */
+/**
+ ** Direction
+ **/
+	
 	$nls['default']['direction'] =	'ltr';
 
-/* Alignment */
+/**
+ ** Alignment
+ **/
+	
 	$nls['default']['alignment'] =	'left';
 ?>
