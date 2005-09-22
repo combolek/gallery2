@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2005-03-20 16:24+0100\n"
 "Last-Translator: Allan Beaufour <allan AT beaufour DOT dk>\n"
 "Language-Team:  <da@li.org>\n"
@@ -38,6 +38,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: KBabel 1.10\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+#, fuzzy
+msgid "Gold Frame"
+msgstr "Fulde navn"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr ""
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
@@ -46,17 +55,10 @@ msgstr ""
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr ""
 
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr ""
-
 #: ../html_wrap/frames/polaroid/frame.def:3
+#, fuzzy
 msgid "Polaroid"
-msgstr ""
+msgstr "Ubrudt"
 
 #: ../html_wrap/frames/polaroid/frame.def:4
 msgid "A photo with a large white frame, extra wide at the bottom edge"
@@ -70,21 +72,20 @@ msgstr ""
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-#, fuzzy
-msgid "Gold Frame"
-msgstr "Fulde navn"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr ""
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -106,8 +107,9 @@ msgid "A textured wooden frame"
 msgstr ""
 
 #: ../lib/setup.php:147
+#, fuzzy
 msgid "Please retype your password here"
-msgstr ""
+msgstr "Indtast venligst brugernavn og kodeord."
 
 #: ../lib/setup.php:161 ../lib/setup.php:1106
 #, fuzzy
@@ -1883,8 +1885,9 @@ msgid "When logged in, comments will automatically use format described below, u
 msgstr ""
 
 #: ../setup/config_data.inc:949
+#, fuzzy
 msgid "Format for commenter names"
-msgstr ""
+msgstr "Datostrengsformat."
 
 #: ../setup/config_data.inc:950
 msgid "Commenter names of logged in users can be displayed in a variety of different ways"
@@ -2008,8 +2011,9 @@ msgid "For every selected item Gallery will create a link on the mainpage. The s
 msgstr ""
 
 #: ../setup/config_data.inc:1032
+#, fuzzy
 msgid "View cache"
-msgstr ""
+msgstr "Kommentarcache"
 
 #: ../setup/config_data.inc:1033 ../setup/config_data.inc:1044
 #: ../setup/config_data.inc:1055 ../setup/config_data.inc:1066
@@ -2026,20 +2030,23 @@ msgid "Comment cache"
 msgstr "Kommentarcache"
 
 #: ../setup/config_data.inc:1048
+#, fuzzy
 msgid "Comment cache expiration"
-msgstr ""
+msgstr "Kommentarcache"
 
 #: ../setup/config_data.inc:1054
+#, fuzzy
 msgid "Date cache"
-msgstr ""
+msgstr "Kommentarcache"
 
 #: ../setup/config_data.inc:1059
 msgid "Date cache expiration"
 msgstr ""
 
 #: ../setup/config_data.inc:1065
+#, fuzzy
 msgid "Vote cache"
-msgstr ""
+msgstr "Kommentarcache"
 
 #: ../setup/config_data.inc:1070
 msgid "Vote cache expiration"
@@ -2272,8 +2279,9 @@ msgid "This value is the maximum number of albums that the RSS feed will display
 msgstr ""
 
 #: ../setup/config_data.inc:1232
+#, fuzzy
 msgid "Visible Albums Only"
-msgstr ""
+msgstr "Vis kun synlige albummer"
 
 #: ../setup/config_data.inc:1233
 msgid "Specifies whether hidden albums should be included in the RSS feed.  This is not advised unless you are the only Gallery user.  Other users could become very upset if their hidden images become displayed to the public."
@@ -2760,9 +2768,9 @@ msgid "Set to %s if you want to include images in sub albums as part of the slid
 msgstr ""
 
 #: ../setup/config_data.inc:1650
-#, php-format
+#, fuzzy, php-format
 msgid "This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
-msgstr ""
+msgstr "Denne indstilling tillader besøgende at lade fremvisningen gentage sig indtil de lukker vinduet eller går til en anden side.  Sæt dette til %s hvis du vil spare båndbredde."
 
 #: ../setup/config_data.inc:1669 ../setup/config_data.inc:1673
 #: ../setup/config_data.inc:1679
@@ -2861,9 +2869,9 @@ msgid "Frames"
 msgstr "Fulde navn"
 
 #: ../setup/config_data.inc:1740
-#, php-format
+#, fuzzy, php-format
 msgid "Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"
-msgstr ""
+msgstr "På hovesiden vil hvert billede der repræsenterer et album have en ramme om sig.  Du kan vælge mellem følgende udseender:"
 
 #: ../setup/config_data.inc:1744
 #, fuzzy
@@ -3179,9 +3187,9 @@ msgid "This page is for %s upgrades that have problems."
 msgstr ""
 
 #: ../setup/diagnostics.php:104
-#, php-format
+#, fuzzy, php-format
 msgid "This allows you to check you have the correct version of all your %s files."
-msgstr ""
+msgstr "Undersøger om du har de nyeste version af alle Gallery filerne."
 
 #: ../setup/frame_test.php:29 ../setup/index.php:45
 msgid "Gallery Configuration"
@@ -3392,6 +3400,18 @@ msgstr "Du mangler enten %s eller %s"
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Gennemse indstillinger"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Filen %s eksisterer ikke."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "Din PHP installation er konfigureret med restriktioner for %s. Dette kan gøre det vanskelig for Gallery at detektere dine filer, selv om du allerede har kørt konfigurationshjælperen med succes. Du behøver ikke at bekymre dig om at denne side giver advarsler; dine valg vil stadig blive gemt."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Obs"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "Hvis du får problemer kan du søge hjælp på %sGallery hjælpesiden%s."

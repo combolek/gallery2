@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2003-11-25 13:13+0100\n"
 "Last-Translator: Coyot <coyot AT i DOT love DOT pinknet DOT cz>\n"
 "Language-Team: CZ_Czech <coyot AT i DOT love DOT pinknet DOT cz>\n"
@@ -36,20 +36,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+#, fuzzy
+msgid "Gold Frame"
+msgstr "Rámeèky"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr ""
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
 
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/polaroid/frame.def:3
@@ -68,21 +69,20 @@ msgstr ""
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-#, fuzzy
-msgid "Gold Frame"
-msgstr "Rámeèky"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr ""
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -3419,6 +3419,18 @@ msgstr "Chybí vám buï %s  nebo %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Zobraz nastavení"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Soubor %s neexistuje."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "<b>Poznámka:</b> Vaše instalace PHP je nastavena s omezením %s. Gallery tak mùže mít potíže s hledáním a ovìøováním komponent i pøesto, že jste již døíve úspìšnì provedli konfiguraci pomocí prùvodce. Varování na této stránce ignorujte, vaše nastavení bude uloženo správnì."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Poznámka"
 
 #, fuzzy
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."

@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2004-08-04 23:10+0600\n"
 "Last-Translator: Yuri Gural <yurigural AT inbox DOT ru>\n"
 "Language-Team: Yuri Gural <yurigural AT inbox DOT ru>\n"
@@ -35,6 +35,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Золотая рамка"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Причудливая золотая рамка"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Записная книжка со спиралью"
@@ -42,14 +50,6 @@ msgstr "Записная книжка со спиралью"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "Белая затененная рамка с записной книжкой соединенной спиралью слевой стороны"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Тени"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "Тени с PNG прозрачностью, падающие справо-вниз. Установленная прозрачность должна работать с большинством фонов, кроме черного."
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -67,14 +67,6 @@ msgstr "Полароиды"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "Стопка фотографий с большой белой рамкой и дополнительным широким краем внизу"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Золотая рамка"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Причудливая золотая рамка"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -82,6 +74,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Тени"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "Тени с PNG прозрачностью, падающие справо-вниз. Установленная прозрачность должна работать с большинством фонов, кроме черного."
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -3534,6 +3534,19 @@ msgstr "У вас отсутствует %s или %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Просмотреть настройки"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Файл %s не существует."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "<b>Примечание:</b> Ваша установка PHP сконфигурирована с %s ограничением. Это может затруднить обнаружение и проверку ваших исполняемых файлов для галереи, даже если вы уже успешно использовали мастер конфигурации раньше. Не беспокойтесь если увидите это предупрежедение, ваши параметры сохранены правильно."
+
+#
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Примечание"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "Если вы испытываете проблемы, вы можете найти подсказку на %sстранице помощи галереи%s."

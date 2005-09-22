@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2004-08-06 08:02+0100\n"
 "Last-Translator: Marjan Laznik <marjan AT slo-foto DOT com>\n"
 "Language-Team: Slovenian <mesni AT burek DOT uni DOT cc>\n"
@@ -38,20 +38,20 @@ msgstr ""
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Zlati okvir"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr ""
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
 
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/polaroid/frame.def:3
@@ -70,20 +70,20 @@ msgstr ""
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Zlati okvir"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr ""
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -3404,6 +3404,10 @@ msgstr ""
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Nastavitve nazaj"
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Brez okvirjev"
 
 #~ msgid "Gallery needs Reconfiguration"
 #~ msgstr "Galerijo je potrebno ponovno konfigurirati"

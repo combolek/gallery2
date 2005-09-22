@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2003-09-03 16:55+09:00\n"
 "Last-Translator: Dmytro Kovalov <kov AT tokyo DOT email DOT ne DOT jp>\n"
 "Language-Team: Ukrainian\n"
@@ -35,20 +35,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+#, fuzzy
+msgid "Gold Frame"
+msgstr "Повне ╕м'я"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr ""
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
 
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/polaroid/frame.def:3
@@ -67,21 +68,20 @@ msgstr ""
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-#, fuzzy
-msgid "Gold Frame"
-msgstr "Повне ╕м'я"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr ""
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -3455,6 +3455,14 @@ msgstr ""
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Файлу %s не ╕сну╓."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Прим╕тка"
 
 #, fuzzy
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."

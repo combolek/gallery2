@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-16 14:39+0200\n"
+"POT-Creation-Date: 2005-08-08 15:52+0200\n"
 "PO-Revision-Date: 2005-09-02 16:27+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera AT gmail DOT com>\n"
 "Language-Team: Italian <Italian <gallery-devel@lists.sourceforge.net>>\n"
@@ -38,6 +38,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.3\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Cornice dorata"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Una fantasiosa cornice dorata"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Blocco note a Spirale"
@@ -45,14 +53,6 @@ msgstr "Blocco note a Spirale"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "Un riquadro bianco ombreggiato con un blocco note a spirale sul lato sinistro"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Ombre"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "Ombre trasparenti tramite PNG in basso a destra. La trasparenza funziona sulla maggior parte degli sfondi, eccetto il nero."
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -70,14 +70,6 @@ msgstr "Polaroids"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "Foto ammucchiate con grandi cornici bianche, pi&ugrave; larghe sul lato inferiore"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Cornice dorata"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Una fantasiosa cornice dorata"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr "Francobollo"
@@ -85,6 +77,14 @@ msgstr "Francobollo"
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Ombre"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "Ombre trasparenti tramite PNG in basso a destra. La trasparenza funziona sulla maggior parte degli sfondi, eccetto il nero."
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -2736,7 +2736,8 @@ msgstr "Usa micro anteprime per la navigazione tra le foto. Questo crea un panne
 msgid "both"
 msgstr "entrambi"
 
-#: ../setup/config_data.inc:1681 ../setup/config_data.inc:1687
+#: ../setup/config_data.inc:1681
+#: ../setup/config_data.inc:1687
 msgid "Fixed"
 msgstr "Fissa"
 

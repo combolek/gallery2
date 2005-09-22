@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2004-04-07 09:49+0200\n"
 "Last-Translator: Olli Salo <osalo AT orssi DOT jyu DOT fi>\n"
 "Language-Team: Finnish <osalo AT orssi DOT jyu DOT fi>\n"
@@ -36,20 +36,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Kultainen kehys"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Upea kultainen kehys"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
 
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Varjot"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/polaroid/frame.def:3
@@ -68,20 +68,20 @@ msgstr "Polaroid-reunukset"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Kultainen kehys"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Upea kultainen kehys"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Varjot"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -1677,8 +1677,9 @@ msgid "This allows the &quot;admin&quot; account to get email whenever a change 
 msgstr ""
 
 #: ../setup/config_data.inc:784
+#, fuzzy
 msgid "Admin Other Changes email"
-msgstr ""
+msgstr "Admin kommentointiosoite"
 
 #: ../setup/config_data.inc:790
 msgid "Admin notification of email activity"
@@ -1725,8 +1726,9 @@ msgid "The full hostname of the server you are sending the mail from (The Server
 msgstr ""
 
 #: ../setup/config_data.inc:825
+#, fuzzy
 msgid "SMTP Port"
-msgstr ""
+msgstr "Salasana"
 
 #: ../setup/config_data.inc:826
 msgid "The port on the SMTP server you are connecting to."
@@ -2021,8 +2023,9 @@ msgid "For every selected item Gallery will create a link on the mainpage. The s
 msgstr ""
 
 #: ../setup/config_data.inc:1032
+#, fuzzy
 msgid "View cache"
-msgstr ""
+msgstr "Äänestys on avoinna"
 
 #: ../setup/config_data.inc:1033 ../setup/config_data.inc:1044
 #: ../setup/config_data.inc:1055 ../setup/config_data.inc:1066
@@ -2040,12 +2043,14 @@ msgid "Comment cache"
 msgstr "Kommentit"
 
 #: ../setup/config_data.inc:1048
+#, fuzzy
 msgid "Comment cache expiration"
-msgstr ""
+msgstr "Kommentit"
 
 #: ../setup/config_data.inc:1054
+#, fuzzy
 msgid "Date cache"
-msgstr ""
+msgstr "Äänestys on avoinna"
 
 #: ../setup/config_data.inc:1059
 msgid "Date cache expiration"
@@ -2057,12 +2062,14 @@ msgid "Vote cache"
 msgstr "Äänestys on avoinna"
 
 #: ../setup/config_data.inc:1070
+#, fuzzy
 msgid "Vote cache expiration"
-msgstr ""
+msgstr "Äänestys on avoinna"
 
 #: ../setup/config_data.inc:1076
+#, fuzzy
 msgid "Rating cache"
-msgstr ""
+msgstr "Äänestys on avoinna"
 
 #: ../setup/config_data.inc:1081
 msgid "Rating cache expiration"
@@ -2291,8 +2298,9 @@ msgid "Specifies whether hidden albums should be included in the RSS feed.  This
 msgstr ""
 
 #: ../setup/config_data.inc:1235
+#, fuzzy
 msgid "Display Visible Albums Only"
-msgstr ""
+msgstr "N&auml;yt&auml; piilotetut albumit"
 
 #: ../setup/config_data.inc:1236
 msgid "Display Hidden Albums"
@@ -3181,8 +3189,9 @@ msgid "Dots"
 msgstr "Pisteitä"
 
 #: ../setup/frame_test.php:62
+#, fuzzy
 msgid "Just a simple dashed border around the thumb."
-msgstr ""
+msgstr "Vain yksinkertainen, kiinteä reunus esikatselukuvan ympärillä."
 
 #: ../setup/frame_test.php:63
 msgid "Solid"
@@ -3372,6 +3381,18 @@ msgstr "Sinulta puuttuu joko %s tai %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Tarkastele asetuksia"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Tiedostos %s ei ole olemassa."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "<b>Huomaa:</b> www-palvelimesi rajoitus %s on p&auml;&auml;ll&auml;. T&auml;m&auml; vaikeuttaa Gallerian mahdollisuutta varmistaa bin&auml;&auml;rien olemassaolo jopa tilanteissa, joissa olet aiemmin kyennyt onnistuneesti k&auml;ytt&auml;m&auml;&auml;n asennusvelhoa. &Auml;l&auml; kuitenkaan huolehdi t&auml;st&auml; turhan paljon: asetuksesi tallennetaan kuitenkin huolellisesti."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Huomio"
 
 #, fuzzy
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."

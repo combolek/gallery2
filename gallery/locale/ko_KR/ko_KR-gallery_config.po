@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2005-03-18 17:58+0900\n"
 "Last-Translator: The Darkness <xgate32 AT hotmail DOT com>\n"
 "Language-Team: Gallery Korean Translation <xgate32 AT hotmail DOT com>\n"
@@ -38,6 +38,14 @@ msgstr ""
 "X-Poedit-Language: Korean\n"
 "X-Poedit-Country: KOREA, REPUBLIC OF\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Gold Frame"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "금장식 테두리"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Spiral Notebook"
@@ -45,14 +53,6 @@ msgstr "Spiral Notebook"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "왼쪽이 묶여진 공책으로 된 흰 그림자 테두리"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Shadows"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "오른쪽 아래로 떨어지는 PNG 투명 그림자. 적당한 투명도로 검정을 제외한 대다수의 배경에 대해 어울립니다."
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -70,14 +70,6 @@ msgstr "Polaroids"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "아래 경계에서부터 매우 넓고, 큰 흰색 테두리로 된 사진들"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Gold Frame"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "금장식 테두리"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -85,6 +77,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Shadows"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "오른쪽 아래로 떨어지는 PNG 투명 그림자. 적당한 투명도로 검정을 제외한 대다수의 배경에 대해 어울립니다."
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -3342,6 +3342,18 @@ msgstr "%s 또는 %s이 빠져 있습니다."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "리뷰 세팅"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "%s 파일은 존재하지 않습니다."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "현재 웹서버에 %s 제한이 설정되어 있습니다. 이전에 설정 마법사로 성공적으로 수행되었다 하더라도 갤러리가 바이너리를 찾고 검사하는데 어려움을 겪을 수도 있습니다. 이 페이지에서 경고가 있더라도 크게 걱정할 필요는 없습니다. 당신의 세팅은 적절하게 저장될 것입니다."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "주의"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "문제가 있으시다면, %s갤러리 도움말 페이지%s 에서 도움말을 찾을 수 있습니다."

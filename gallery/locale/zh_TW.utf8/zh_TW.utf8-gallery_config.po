@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2005-05-17 20:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: Traditional Chinese <gallery-translations AT lists DOT sourceforge DOT net>\n"
@@ -35,6 +35,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "金質框"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "華麗金質框"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "螺旋記事本"
@@ -42,14 +50,6 @@ msgstr "螺旋記事本"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "在左側有白影框和螺旋記事本"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "陰影"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "PNG透明影子在右邊和下面.除了黑色背景.適度的透明可以用在所有背景"
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -67,14 +67,6 @@ msgstr "拍立得集"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "大白框圍繞一疊相片.在下邊特別長"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "金質框"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "華麗金質框"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -82,6 +74,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "陰影"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "PNG透明影子在右邊和下面.除了黑色背景.適度的透明可以用在所有背景"
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -3342,6 +3342,18 @@ msgstr "您不是沒有 %s 就是沒有 %s. "
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "重新瀏覽設定"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "檔案 %s 並不存在. "
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "您的PHP安裝設定受到 %s 的限制, 即使您已執行過設定精靈, 仍會導致 Gallery 檢測您的可執行檔時有某種程度的困難. 您可以不用太過於擔心這個警告, 您的設定還是會完整的儲存. "
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "注意"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "如果您碰到任何問題, 應該先在 %sGallery Help Page%s 上尋找答案. "

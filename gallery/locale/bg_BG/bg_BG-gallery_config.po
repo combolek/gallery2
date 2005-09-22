@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2005-05-23 11:55-0500\n"
 "Last-Translator: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
 "Language-Team: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
@@ -35,6 +35,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Златна Рамка"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Луксозна златна рамка"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Тетрадка"
@@ -42,14 +50,6 @@ msgstr "Тетрадка"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "Бяла рамка със сянка и вид на тетрадка"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Сенки"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "Прозрачни PNG сенки падащи наляво и надолу. С тази прозрачност ще работят с повечето фонове."
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -67,14 +67,6 @@ msgstr "Полароиди"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "Купчина снимки с голяма бяла рамка, резширена в долната част"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Златна Рамка"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Луксозна златна рамка"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -82,6 +74,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Сенки"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "Прозрачни PNG сенки падащи наляво и надолу. С тази прозрачност ще работят с повечето фонове."
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -2290,8 +2290,9 @@ msgid "(Advanced) If users complain about their RSS readers corrupting the chann
 msgstr "(Advanced) Ако потребителите се оплакват, че RSS програмите им развалят миниятюрните изображения, включете тази настройка. Ако я включите, RSS трансмисията ви няма да бъде виждана като RSS 2.0. "
 
 #: ../setup/config_data.inc:1256
+#, fuzzy
 msgid "Use Photo Tag"
-msgstr ""
+msgstr "Да използваме ли голяма снимка"
 
 #: ../setup/config_data.inc:1257
 msgid "(Advanced) Turning this off will cause two RSS extensions which allow for images representing items to be removed from the feed.  Leaving this enabled should cause no problems - disabling it is a personal preference."
@@ -3342,6 +3343,18 @@ msgstr "Липсва ви или %s или %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Преглеждане на Настройките"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Файла %s не съществува."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "'PHP' инсталацията ви е конфигурирана с ограничението %s. Това може да попречи на Галерията да намери и провери необходимите файлове, дори и да сте минавали през Конфигуратора преди. Не се безпокойте прекалено много, ако тази страница ви покаже предупреждения; настройките ви независимо от това ще бъдат записани правилно. "
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Внимание"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "Ако имате проблеми, можете да намерите помощ на %sСтраницата за Помощ на Галерията%s."

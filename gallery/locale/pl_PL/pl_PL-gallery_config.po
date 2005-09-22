@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2005-05-17 18:18+0100\n"
 "Last-Translator: Damian Szewczyk <dszewczyk AT wirion DOT pl>\n"
 "Language-Team: nocnyMark <kaytek AT daw DOT pl>\n"
@@ -37,6 +37,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Z³ota Ramka"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Ozdobna z³ota ramka"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Spiralny zeszyt"
@@ -44,14 +52,6 @@ msgstr "Spiralny zeszyt"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "Cieniowana na bia³o ramka ze spiralnym zeszytem ³±cz±cym po lewej stronie"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Cienie"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "Przezroczyste cienie PNG opadaj±ce na prawo i na dó³. W³a¶ciwa przezroczysto¶æ, wiêc powinna dzia³aæ na wiêkszo¶ci te³ oprócz czarnych. "
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -69,14 +69,6 @@ msgstr "Polaroid"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "Stos zdjêæ z du¿± bia³± ramk±, ekstra szerok± na dolnym krawêdzi"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Z³ota Ramka"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Ozdobna z³ota ramka"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -84,6 +76,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Cienie"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "Przezroczyste cienie PNG opadaj±ce na prawo i na dó³. W³a¶ciwa przezroczysto¶æ, wiêc powinna dzia³aæ na wiêkszo¶ci te³ oprócz czarnych. "
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -3348,6 +3348,18 @@ msgstr "Zagubione %s lub %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Zobacz ustawienia"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Plik %s nie istnieje."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "<b>Uwaga:</b> Twoja instalacja PHP jest skonfigurowana z restrykcjami %s. To mo¿e spowodowaæ, i¿ Galeria bêdzie mia³a k³opoty ze znalezieniem i sprawdzeniem twoich binarek, nawet je¶li ju¿ uda³o Ci siê pomy¶lnie u¿yæ Kreatora Konfiguracji w przesz³o¶ci. Nie martw siê je¿eli ta strona zwraca b³êdy; Twoje ustawienia bêd± zapisane poprawnie."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Uwaga"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "Je¿eli napotkasz jakie¶ problemy, powiniene¶ przejrzeæ pomoc na %sStronie Pomocy Galerii%s."

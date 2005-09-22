@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2004-02-12 23:54-0000\n"
 "Last-Translator: Sergi <sergi34 AT lleida DOT org>\n"
 "Language-Team: catalan <sergi34 AT megacceso DOT com>\n"
@@ -35,20 +35,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr ""
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr ""
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr ""
 
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr ""
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/polaroid/frame.def:3
@@ -67,20 +67,20 @@ msgstr ""
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr ""
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr ""
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr ""
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
 
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
 msgstr ""
 
 #: ../html_wrap/frames/simple_book/frame.def:3
@@ -109,8 +109,9 @@ msgid "Name"
 msgstr ""
 
 #: ../lib/setup.php:162 ../lib/setup.php:1106
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "Fallada!"
 
 #: ../lib/setup.php:200 ../lib/setup.php:243
 msgid "No content"
@@ -341,8 +342,9 @@ msgid "OK"
 msgstr ""
 
 #: ../lib/setup.php:1326
+#, fuzzy
 msgid "Valid admin email address given."
-msgstr ""
+msgstr "La teva direcció de correu:"
 
 #: ../lib/setup.php:1333
 #, fuzzy
@@ -355,8 +357,9 @@ msgid "%s is not a valid email address."
 msgstr "Has d'utilitzar una direcció de correu vàlida"
 
 #: ../lib/setup.php:1350
+#, fuzzy
 msgid "Valid sender email address given."
-msgstr ""
+msgstr "La teva direcció de correu:"
 
 #: ../lib/setup.php:1352
 #, fuzzy
@@ -1105,8 +1108,9 @@ msgid "The name of your Gallery.  E.g. <i>My Cool Photos</i>"
 msgstr ""
 
 #: ../setup/config_data.inc:263
+#, fuzzy
 msgid "Gallery"
-msgstr ""
+msgstr "Pàgina d'Ajuda de Gallery"
 
 #: ../setup/config_data.inc:269
 msgid "Use Icons ?"
@@ -1538,8 +1542,9 @@ msgid "This format string will be used to display %s in %s.  It is recommended t
 msgstr ""
 
 #: ../setup/config_data.inc:676
+#, fuzzy
 msgid "date without time"
-msgstr ""
+msgstr "editar llegendes"
 
 #: ../setup/config_data.inc:677 ../setup/config_data.inc:687
 msgid "http://www.php.net/manual/en/function.strftime.php"
@@ -1746,8 +1751,9 @@ msgid "Password for sending email through smtp server. NOTE: This password is st
 msgstr ""
 
 #: ../setup/config_data.inc:859
+#, fuzzy
 msgid "Gallery wide slideshow"
-msgstr ""
+msgstr "Pàgina d'Ajuda de Gallery"
 
 #: ../setup/config_data.inc:860
 msgid "Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources."
@@ -1944,8 +1950,9 @@ msgid "Watermarking is not possible in this installation !"
 msgstr ""
 
 #: ../setup/config_data.inc:986
+#, fuzzy
 msgid "Watermark directory"
-msgstr ""
+msgstr "Alerta"
 
 #: ../setup/config_data.inc:987
 #, php-format
@@ -2489,8 +2496,9 @@ msgid "Set this to 'yes' to allow users to send a picure as eCard via eMail"
 msgstr ""
 
 #: ../setup/config_data.inc:1448
+#, fuzzy
 msgid "Gallery Link"
-msgstr ""
+msgstr "Pàgina d'Ajuda de Gallery"
 
 #: ../setup/config_data.inc:1449
 msgid "Display a link navigation from your album to the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."
@@ -2891,8 +2899,9 @@ msgid "it's optional"
 msgstr "editar llegendes"
 
 #: ../setup/confirm.inc:183
+#, fuzzy
 msgid "optional"
-msgstr ""
+msgstr "editar llegendes"
 
 #: ../setup/confirm.inc:203
 #, php-format
@@ -3127,8 +3136,9 @@ msgid "Check Sessions"
 msgstr "Comprova %s"
 
 #: ../setup/diagnostics.php:83
+#, fuzzy
 msgid "This page runs a very simple test on your PHP session configuration."
-msgstr ""
+msgstr "Hi ha errors en la configuració que podrien provocar el mal funcionament de Gallery."
 
 #: ../setup/diagnostics.php:84
 msgid "Gallery requires that your PHP installation is configured with proper session support."
@@ -3258,12 +3268,14 @@ msgid "Cancel"
 msgstr ""
 
 #: ../setup/session_test.php:45
+#, fuzzy
 msgid "Gallery Session Test"
-msgstr ""
+msgstr "Pàgina de Diagnòstics de Gallery"
 
 #: ../setup/session_test.php:50
+#, fuzzy
 msgid "Session Test"
-msgstr ""
+msgstr "Comprova %s"
 
 #: ../setup/session_test.php:53
 msgid "If sessions are configured properly in your PHP installation, then you should see a session id below."
@@ -3295,8 +3307,9 @@ msgid "Page views in this session"
 msgstr ""
 
 #: ../setup/session_test.php:76
+#, fuzzy
 msgid "Server IP address"
-msgstr ""
+msgstr "La teva direcció de correu:"
 
 #: ../setup/session_test.php:86
 msgid "Start over"
@@ -3372,6 +3385,14 @@ msgid "Review Settings"
 msgstr ""
 
 #, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "L'arxiu %s no existeix."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "<b>Nota:</b> La instal·lació del PHP està configurada amb la restricció %s. Això pot dificultar a Gallery detectar i verificar els binaris, encara que hagis utilitzat correctament l'Assistent de Configuració anteriorment. No et preocupis massa si aquesta pàgina mostra errors; la teva configuració serà guardada igualment."
+
+#, fuzzy
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "Si esperimentes problemes, pots trobar ajuda a les %s Pàgines d'Ajuda de Gallery%s."
 
@@ -3408,10 +3429,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "with donation"
-#~ msgstr "editar llegendes"
-
-#, fuzzy
-#~ msgid "without donation"
 #~ msgstr "editar llegendes"
 
 #~ msgid "Gallery in Configuration Mode"

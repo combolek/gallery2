@@ -13,11 +13,8 @@
 		<para>Anyway... this means that ImageMagick and jpegtran (both open-source
  			packages) need to be set up and Gallery Remote has to be configured to
  			use them. This depends on the platform you're running...</para>
-        <para>Newer versions of ImageMagick can yield substancial improvements
-            in the time it takes to load images into GR, often speeding that up by a factor
-            of 2.</para>
 
-        <sect3 id="gallery-remote.problems.bundled.win">
+		<sect3 id="gallery-remote.problems.bundled.win">
 			<title>Windows</title>
 			<para>The Windows installer for Gallery Remote includes both ImageMagick and
 				jpegtran, so you shouldn't have to do anything to set them up.</para>
@@ -30,9 +27,7 @@
  				(or <filename>C:\WINNT\system32</filename> on older NT-based systems).
 				</para>
 			<para>If that doesn't work, you should <ulink url="http://www.imagemagick.org/">download the full version of
-				ImageMagick</ulink> and install it. Gallery Remote (1.4.2-b24 and later) should automatically
-                locate ImageMagick (if the reg.exe utility is available, which is the case on W2k anx XP).
-                If it doesn't find it automatically, you need to edit the Gallery
+				ImageMagick</ulink> and install it. Then you need to edit the Gallery
 				Remote configuration file <filename>imagemagick/im.properties</filename>
 				(inside the Gallery Remote installation directory) and change the
 				value of <varname>imConvertPath</varname> to point to the convert.exe
@@ -51,7 +46,7 @@
 				<filename>/sw/bin/convert</filename> to <filename>/usr/local/bin</filename> or
 				edit the file <filename>im.properties</filename> in <filename>Gallery Remote.app/Contents/Resource/Java/img.jar</filename>
 				to change <varname>imConvertPath</varname> to the real path for the <filename>convert</filename> executable.
-            </para>
+ </para>
 		</sect3>
 
 		<sect3 id="gallery-remote.problems.bundled.linux">

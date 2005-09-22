@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.1\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2005-09-13 11:46+0200\n"
+"POT-Creation-Date: 2005-09-13 11:21+0200\n"
 "PO-Revision-Date: 2004-05-17 00:39+0100\n"
 "Last-Translator: Edwin Mons <intosi at users.sourceforge.net>\n"
 "Language-Team: <gallery-translations@lists.sourceforge.net>\n"
@@ -37,6 +37,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: ../html_wrap/frames/golden/frame.def:4
+msgid "Gold Frame"
+msgstr "Gouden frame"
+
+#: ../html_wrap/frames/golden/frame.def:5
+msgid "A fancy golden frame"
+msgstr "Een chique gouden rand"
+
 #: ../html_wrap/frames/notebook/frame.def:5
 msgid "Spiral Notebook"
 msgstr "Spiraalmap"
@@ -44,14 +52,6 @@ msgstr "Spiraalmap"
 #: ../html_wrap/frames/notebook/frame.def:6
 msgid "A white shadowed frame with spiral notebook binding on the left side"
 msgstr "Een rand met witte schaduw met een spiraal-binding aan de linker kant"
-
-#: ../html_wrap/frames/shadows/frame.def:3
-msgid "Shadows"
-msgstr "Shaduwen"
-
-#: ../html_wrap/frames/shadows/frame.def:4
-msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
-msgstr "Transparante PNG schaduwen aan de rechter- en onderkant.  Echte transparantie, dus het zou moeten werken met elke achtergrond, behalve zwart."
 
 #: ../html_wrap/frames/polaroid/frame.def:3
 msgid "Polaroid"
@@ -69,14 +69,6 @@ msgstr "Polaroids"
 msgid "A stack of photos with a large white frame, extra wide at the bottom edge"
 msgstr "Een stapeltje foto's met een grote witte rand, extra breed aan de onderrand"
 
-#: ../html_wrap/frames/golden/frame.def:4
-msgid "Gold Frame"
-msgstr "Gouden frame"
-
-#: ../html_wrap/frames/golden/frame.def:5
-msgid "A fancy golden frame"
-msgstr "Een chique gouden rand"
-
 #: ../html_wrap/frames/postage_stamp/frame.def:2
 msgid "Postage Stamp"
 msgstr ""
@@ -84,6 +76,14 @@ msgstr ""
 #: ../html_wrap/frames/postage_stamp/frame.def:3
 msgid "A simple postage stamp effect."
 msgstr ""
+
+#: ../html_wrap/frames/shadows/frame.def:3
+msgid "Shadows"
+msgstr "Shaduwen"
+
+#: ../html_wrap/frames/shadows/frame.def:4
+msgid "PNG transparent shadows falling to the right and below. Proper transparency, so should work against most backgrounds, except black."
+msgstr "Transparante PNG schaduwen aan de rechter- en onderkant.  Echte transparantie, dus het zou moeten werken met elke achtergrond, behalve zwart."
 
 #: ../html_wrap/frames/simple_book/frame.def:3
 msgid "Original Style"
@@ -3345,6 +3345,18 @@ msgstr "U mist of %s of %s."
 #: ../setup/write.inc:252
 msgid "Review Settings"
 msgstr "Controleer instellingen"
+
+#, fuzzy
+#~ msgid "Find file \"%s\" does not exist or is not readable"
+#~ msgstr "Bestand %s bestaat niet."
+
+#, fuzzy
+#~ msgid "<b>Note:</b> Your webserver is configured with  the %sopen_basedir%s restriction.  This may make it difficult for Gallery to detect and verify your binaries, even if they exist and function properly.  If you know that the paths you entered are correct, you must click the \"force\" button.  We detected the following error(s):"
+#~ msgstr "Uw PHP is geconfigureerd met de %s restricties. Dit kan het moeilijk maken voor Gallery om uw binaries te detecteren en te verifiëren, zelfs als u in het verleden de Config Wizard al succesvol hebt doorlopen. Maak u niet te veel zorgen als deze pagina waarschuwingen geeft; uw instellingen zullen correct worden opgeslagen."
+
+#, fuzzy
+#~ msgid "Notes"
+#~ msgstr "Opmerking"
 
 #~ msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
 #~ msgstr "In geval van problemen, kan je hulp zoeken op de %s Gallery Help pagina%s."
