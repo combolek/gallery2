@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: NetPBM 1.0\n"
 "POT-Creation-Date: 2003-09-21 22:56+0900\n"
-"PO-Revision-Date: 2005-09-12 17:25+0900\n"
-"Last-Translator: Kennichi Uehara <ken.w3m+nospam@gmail.com>>\n"
+"PO-Revision-Date: 2003-09-28 13:56-0700\n"
+"Last-Translator: Kennichi Uehara <ken_w3m@yahoo.co.jp>\n"
 "Language-Team: Japanese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Convert to a JPEG"
-msgstr "JPEGに変換"
+msgstr ""
 
 msgid "target width"
 msgstr "目標の幅"
@@ -59,14 +59,16 @@ msgstr ""
 msgid "top edge %"
 msgstr ""
 
+#, fuzzy
 msgid "width %"
-msgstr "幅 %"
+msgstr "幅"
 
+#, fuzzy
 msgid "height %"
-msgstr "高さ %"
+msgstr "高さ"
 
 msgid "Crop the image"
-msgstr "画像のトリミング"
+msgstr ""
 
 msgid "overlay path"
 msgstr ""
@@ -92,8 +94,9 @@ msgstr ""
 msgid "Overlay source image with a second one"
 msgstr ""
 
+#, fuzzy
 msgid "target size in kb"
-msgstr "目標のサイズ (kB)"
+msgstr "目標のサイズ"
 
 #, fuzzy
 msgid "Reduce image quality to reach target file size"
@@ -106,16 +109,16 @@ msgid " or "
 msgstr ""
 
 msgid "File does not exist"
-msgstr "ファイルが存在しません"
+msgstr ""
 
 msgid "NetPBM"
 msgstr "NetPBM"
 
 msgid "NetPBM Graphics Toolkit"
-msgstr "NetPBM グラフィックツールキット"
+msgstr ""
 
 msgid "Graphics Toolkits"
-msgstr "グラフィックツールキット"
+msgstr ""
 
 msgid "NetPBM Settings"
 msgstr "NetPBM 設定"
@@ -138,7 +141,7 @@ msgstr ""
 "いでしょう。)"
 
 msgid "NetPBM Directory:"
-msgstr "NetPBM ディレクトリ:"
+msgstr ""
 
 msgid "You must enter a path to your NetPBM binaries"
 msgstr "NetPBMバイナリのパスを入力しなければなりません"
@@ -153,8 +156,9 @@ msgstr ""
 msgid "The path you entered isn't a valid path."
 msgstr "入力されたパスは有効なパスではありません。"
 
+#, fuzzy
 msgid "JPEG Quality:"
-msgstr "JPEG画質:"
+msgstr "JPEG画質"
 
 msgid ""
 "NetPBM will lose embedded EXIF data if you modify the original image, unless "
@@ -165,10 +169,11 @@ msgid ""
 msgstr ""
 
 msgid "jhead Directory:"
-msgstr "jhead ディレクトリ:"
+msgstr ""
 
+#, fuzzy
 msgid "You should enter a path to the optional jhead binary"
-msgstr "オプションのjheadバイナリのパスを入力することをすすめます"
+msgstr "NetPBMバイナリのパスを入力しなければなりません"
 
 msgid "Save Settings"
 msgstr "設定を保存"
@@ -180,7 +185,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 msgid "Reset"
-msgstr "リセット"
+msgstr ""
 
 msgid "NetPBM binary test results"
 msgstr "NetPBM バイナリテスト結果"
@@ -192,7 +197,7 @@ msgid "Pass/Fail"
 msgstr "テスト結果"
 
 msgid "Passed"
-msgstr "合格"
+msgstr "通過"
 
 msgid "Failed"
 msgstr "失敗"
@@ -221,24 +226,3 @@ msgid ""
 "read through this carefully you may discover the reason why your NetPBM "
 "binaries failed the tests."
 msgstr ""
-
-#~ msgid "PNM to JPEG converter"
-#~ msgstr "PNM to JPEG コンバータ"
-
-#, fuzzy
-#~ msgid "NetPBM Path"
-#~ msgstr "NetPBM"
-
-#, fuzzy
-#~ msgid "Path to jhead"
-#~ msgstr "NetPBMのパス:"
-
-#, fuzzy
-#~ msgid "Composite the image"
-#~ msgstr "画像の回転"
-
-#~ msgid "Path to NetPBM:"
-#~ msgstr "NetPBMのパス:"
-
-#~ msgid "Defaults"
-#~ msgstr "デフォルト"

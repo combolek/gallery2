@@ -4,17 +4,17 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
@@ -35,13 +35,13 @@
  * it by hand, as your changes will be lost next time this file is
  * rebuilt.  If you want to add more getters/setters, you should add
  * them in the core class.  If you want to change the format of this
- * file, then you should edit lib/tools/bin/interface.tpl.
+ * file, then you should edit the XSL template.
  *
  * @package GalleryCore
  * @subpackage Classes
  */
 class GalleryUser extends GalleryUser_core {
-
+  
     /**
      * Return meta information about the members of this class
      *
@@ -49,11 +49,16 @@ class GalleryUser extends GalleryUser_core {
      */
     function getPersistentMemberInfo() {
 	$meta = parent::getPersistentMemberInfo();
-        $meta['members']['userName'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
-        $meta['members']['fullName'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
-        $meta['members']['hashedPassword'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
-        $meta['members']['email'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
-        $meta['members']['language'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+	$meta['members']['userName'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+    
+	$meta['members']['fullName'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+    
+	$meta['members']['hashedPassword'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+    
+	$meta['members']['email'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+    
+	$meta['members']['language'] = array('class' => 'GalleryUser', 'type' => STORAGE_TYPE_STRING);
+    
 	return $meta;
     }
 
@@ -63,7 +68,7 @@ class GalleryUser extends GalleryUser_core {
      * @return array memberName => memberValue
      */
     function getMemberData() {
-        $data = parent::getMemberData();
+	$data = parent::getMemberData();
         $data['userName'] = isset($this->_userName) ? $this->_userName : null;
         $data['fullName'] = isset($this->_fullName) ? $this->_fullName : null;
         $data['hashedPassword'] = isset($this->_hashedPassword) ? $this->_hashedPassword : null;
@@ -82,21 +87,23 @@ class GalleryUser extends GalleryUser_core {
 	return 'GalleryUser';
     }
 
-    /**
+    /** 
      * Return the path to the PHP file for this class, relative to the gallery2 dir
-     *
+     * 
      * @return string path
-     */
-    function getClassFile() {
-        return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/GalleryUser.class';
+     */ 
+    function getClassFile() { 
+        return 'modules/' .  
+            basename(dirname(dirname(dirname(__FILE__)))) .  
+            '/classes/GalleryUser.class'; 
     }
-
+    
     /**
      * Get the value of userName
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getUserName() {
+    function getuserName() {
 	if (!isset($this->_userName)) {
 	    return null;
 	}
@@ -106,9 +113,9 @@ class GalleryUser extends GalleryUser_core {
     /**
      * Set the value of userName
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setUserName($value) {
+    function setuserName($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 32);
@@ -120,13 +127,13 @@ class GalleryUser extends GalleryUser_core {
 	    $this->_userName = $value;
 	}
     }
-
+  
     /**
      * Get the value of fullName
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getFullName() {
+    function getfullName() {
 	if (!isset($this->_fullName)) {
 	    return null;
 	}
@@ -136,9 +143,9 @@ class GalleryUser extends GalleryUser_core {
     /**
      * Set the value of fullName
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setFullName($value) {
+    function setfullName($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -150,13 +157,13 @@ class GalleryUser extends GalleryUser_core {
 	    $this->_fullName = $value;
 	}
     }
-
+  
     /**
      * Get the value of hashedPassword
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getHashedPassword() {
+    function gethashedPassword() {
 	if (!isset($this->_hashedPassword)) {
 	    return null;
 	}
@@ -166,9 +173,9 @@ class GalleryUser extends GalleryUser_core {
     /**
      * Set the value of hashedPassword
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setHashedPassword($value) {
+    function sethashedPassword($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -180,13 +187,13 @@ class GalleryUser extends GalleryUser_core {
 	    $this->_hashedPassword = $value;
 	}
     }
-
+  
     /**
      * Get the value of email
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getEmail() {
+    function getemail() {
 	if (!isset($this->_email)) {
 	    return null;
 	}
@@ -196,9 +203,9 @@ class GalleryUser extends GalleryUser_core {
     /**
      * Set the value of email
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setEmail($value) {
+    function setemail($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -210,13 +217,13 @@ class GalleryUser extends GalleryUser_core {
 	    $this->_email = $value;
 	}
     }
-
+  
     /**
      * Get the value of language
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getLanguage() {
+    function getlanguage() {
 	if (!isset($this->_language)) {
 	    return null;
 	}
@@ -226,9 +233,9 @@ class GalleryUser extends GalleryUser_core {
     /**
      * Set the value of language
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setLanguage($value) {
+    function setlanguage($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -240,6 +247,6 @@ class GalleryUser extends GalleryUser_core {
 	    $this->_language = $value;
 	}
     }
- 
+  
 }
 ?>

@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: ImageMagick 1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-06 05:18+0200\n"
+"PO-Revision-Date: 2005-06-03 17:09+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
@@ -38,136 +38,143 @@ msgstr ""
 "X-Poedit-Country: TURKEY\n"
 
 msgid "Convert to"
-msgstr "Dönüştür"
+msgstr ""
 
 msgid "target width"
-msgstr "hedef genişlik"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(opsiyonel), hedef yükseklik, varsayılan olarak genişlikle aynı"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Resmi hedef boyuta ayarla, görünüm oranını muhafaza et"
+msgstr ""
 
 msgid "target height"
-msgstr "hedef yükseklik"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "Resmi hedef boyutlarda yeniden oluştur"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "dönüş derecesi"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "Resmi döndür"
+msgstr ""
 
 msgid "left edge %"
-msgstr "sol kenar %"
+msgstr ""
 
 msgid "top edge %"
-msgstr "üst kenar %"
+msgstr ""
 
 msgid "width %"
-msgstr "genişlik %"
+msgstr ""
 
 msgid "height %"
-msgstr "yükseklik %"
+msgstr ""
 
 msgid "Crop the image"
-msgstr "Resmi tıraşla"
+msgstr ""
 
 msgid "overlay path"
-msgstr "kapla klasör yolu"
+msgstr ""
 
 msgid "overlay mime type"
-msgstr "kaplama mime türü"
+msgstr ""
 
 msgid "overlay width"
-msgstr "kaplama genişliği"
+msgstr ""
 
 msgid "overlay height"
-msgstr "kaplama yüksekliği"
+msgstr ""
 
 msgid "alignment type"
-msgstr "hizanlanma türü"
+msgstr ""
 
 msgid "alignment x %"
-msgstr "hiza x %"
+msgstr ""
 
 msgid "alignment y %"
-msgstr "hiza y %"
+msgstr ""
 
 msgid "Overlay source image with a second one"
-msgstr "Kaplama kaynak resmi ikincisi ile "
+msgstr ""
 
 msgid "page number"
-msgstr "sayfa numarası"
+msgstr ""
 
 msgid "Select a single page from a multi-page file"
-msgstr "Çoklu-sayfadan tek bir sayfa seç"
+msgstr ""
 
 msgid "target size in kb"
-msgstr "kb olarak hedef boyut"
+msgstr ""
 
 msgid "Reduce image quality to reach target file size"
-msgstr "Resim kalitesini azaltarak hedef dosya boyutan ulaş"
+msgstr ""
 
 msgid "Get the width and height of the image"
-msgstr "Resmin yükseklik ve genişliğini al"
+msgstr ""
 
 msgid "Get the number of pages"
-msgstr "Sayfa sayısını al"
+msgstr ""
 
 msgid "Get the colorspace of the image"
-msgstr "Resmin renkdokusunu al"
+msgstr ""
 
 msgid "File does not exist"
 msgstr "Dosya mevcut değil"
 
 msgid "Problem executing binary:"
-msgstr "Binary yürütmesinde problem:"
+msgstr ""
 
 msgid "Binary output:"
-msgstr "Binary çıktısı:"
+msgstr ""
 
 msgid "ImageMagick"
-msgstr "ImageMagick"
+msgstr ""
 
 msgid "ImageMagick / GraphicsMagick Graphics Toolkit"
-msgstr "ImageMagick / GraphicsMagick Grafik Araçları"
+msgstr ""
 
 msgid "Graphics Toolkits"
-msgstr "Grafik Araçları"
+msgstr ""
 
 msgid "ImageMagick Settings"
-msgstr "ImageMagick Ayarları"
+msgstr ""
 
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi"
 
-msgid "ImageMagick is a graphics toolkit that can be used to process images that you upload to Gallery.  You must install the ImageMagick binaries on your server, then enter the path to them in the text box below.  If you're on a Unix machine, don't forget to make the binaries executable (<i>chmod 755 *</i> in the ImageMagick directory should do it)"
-msgstr "ImageMagick bir grafik aracıdır. Galeriye gönderdiğiniz resimleri işlemenize yarar. ImageMagick binarylerini serverınıza kurmalısınız, ardından aşağıda bulunan yazı kutusuna klasör yolunu girmelisiniz. Eğer Unix makinada iseniz, binarylerin kullanılabilir olduğundan emin olun (<i>chmod 755 *</i> ImageMagick klasöründe yapmalısınız)"
+msgid ""
+"ImageMagick is a graphics toolkit that can be used to process images that "
+"you upload to Gallery.  You must install the ImageMagick binaries on your "
+"server, then enter the path to them in the text box below.  If you're on a "
+"Unix machine, don't forget to make the binaries executable (<i>chmod 755 *</"
+"i> in the ImageMagick directory should do it)"
+msgstr ""
 
 msgid "Directory to ImageMagick/GraphicsMagick binaries:"
-msgstr "ImageMagick/GraphicsMagick binaryleri klasör yolu:"
+msgstr ""
 
 msgid "You must enter a path to your ImageMagick binaries"
-msgstr "ImageMagick binarylerine klasör yolu girmelisiniz"
+msgstr ""
 
 msgid "The path you entered is not a valid directory or is not accessible."
-msgstr "Girmiş olduğunuz klasör yolu geçerli bir klasör yolu veya erişilebilir değil."
+msgstr ""
 
-msgid "The path you entered doesn't contain valid ImageMagick binaries. Use the 'test' button to check where the error is."
-msgstr "Girmiş olduğunu klasör yolu, geçerli ImageMagick binarylerini içermiyor. 'test' düğmesini kullanarak, hatanın nereden kaynaklandığını kontrol edebilirsiniz."
+msgid ""
+"The path you entered doesn't contain valid ImageMagick binaries. Use the "
+"'test' button to check where the error is."
+msgstr ""
 
 msgid "The path you entered isn't a valid path."
-msgstr "Girmiş olduğunuz klasör yolu geçersiz."
+msgstr ""
 
 msgid "JPEG Quality:"
 msgstr "JPEG Kalitesi:"
 
 msgid "CMYK JPEG Support:"
-msgstr "CMYK JPEG Desteği:"
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Ayarları Kaydet"
@@ -182,16 +189,16 @@ msgid "Reset"
 msgstr "Sıfırla"
 
 msgid "ImageMagick binary test results"
-msgstr "ImageMagick binary test sonuçları"
+msgstr ""
 
 msgid "Binary Name"
-msgstr "Binary Adı"
+msgstr ""
 
 msgid "Pass/Fail"
-msgstr "Başarılı / Başarısız"
+msgstr ""
 
 msgid "Passed"
-msgstr "Başarılı"
+msgstr ""
 
 msgid "Failed"
 msgstr "Başarısız"
@@ -203,17 +210,19 @@ msgid "Version"
 msgstr "Versiyon"
 
 msgid "Supported MIME Types"
-msgstr "Desteklenen MIME Türleri"
+msgstr ""
 
 msgid "The ImageMagick module can support files with the following MIME types:"
-msgstr "ImageMagick modülü bu MIME türlerindeki dosyalarını destekler:"
+msgstr ""
 
 #, c-format
 msgid "Debug output (%d failed test)"
 msgid_plural "Debug output (%d failed tests)"
-msgstr[0] "Debug çıktısı (%d test başarısız)"
-msgstr[1] "Debug çıktısı (%d testler başarısız)"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "We gathered this debug output while testing your ImageMagick binaries.  If you read through this carefully you may discover the reason why your ImageMagick binaries failed the tests."
-msgstr "ImageMagick binarylerinizi kontrol ederken bu debug çıktılarını biraraya getirdik. Eğer dikkatlice okur iseniz, ImageMagick binarylerinin testlerde niçin başarısız olduklarını bulma şansına sahipsiniz."
-
+msgid ""
+"We gathered this debug output while testing your ImageMagick binaries.  If "
+"you read through this carefully you may discover the reason why your "
+"ImageMagick binaries failed the tests."
+msgstr ""

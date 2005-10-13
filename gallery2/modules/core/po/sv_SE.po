@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-09-27 13:00+0100\n"
+"PO-Revision-Date: 2005-06-13 13:00+0100\n"
 "Last-Translator: Hampus Nygren <hampus@friendlyfire.net>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgid "forever"
 msgstr "evigt"
 
 msgid "No Markup"
-msgstr "Ingen Markering"
+msgstr "Ingen markering"
 
 msgid "BBCode"
 msgstr "BBCode"
@@ -162,10 +162,10 @@ msgid "All Users"
 msgstr "Alla Anv&auml;ndare"
 
 msgid "Detecting broken derivatives"
-msgstr "Uppt&auml;cker brutna l&auml;nkar"
+msgstr ""
 
 msgid "Clearing fast-download cache"
-msgstr "T&ouml;mmer cache f&auml;r snabb-nerladdning"
+msgstr ""
 
 msgid "Site Admins"
 msgstr "Siteadministrat&ouml;rer"
@@ -183,16 +183,16 @@ msgid "This is the main page of your Gallery"
 msgstr "Detta &auml;r huvudsidan p&aring; ditt galleri"
 
 msgid "Detecting broken derivatives, loading "
-msgstr "Uppt&auml;cker brutna l&auml;nkar, laddar "
+msgstr ""
 
 msgid "Detecting broken derivatives "
-msgstr "Uppt&auml;cker brutna l&auml;nkar "
+msgstr ""
 
 msgid "Detecting broken derivatives, "
-msgstr "Uppt&auml;cker brutna l&auml;nkar, "
+msgstr ""
 
 msgid "Detecting broken derivatives, saving "
-msgstr "Uppt&auml;cker brutna l&auml;nkar, sparar "
+msgstr ""
 
 msgid "add items"
 msgstr "l&auml;gg till objekt"
@@ -304,11 +304,12 @@ msgstr "Foto 7x5"
 msgid "Photo 10x8"
 msgstr "Foto 10x8"
 
+#, fuzzy
 msgid "Fullscreen 4x3"
-msgstr "Fullsk&auml;rm 4x3"
+msgstr "Sk&auml;rm 4x3"
 
 msgid "Widescreen 16x9"
-msgstr "Widescreen 16x9"
+msgstr ""
 
 msgid "CinemaScope 2.35x1"
 msgstr "CinemaScope 2.35x1"
@@ -340,8 +341,9 @@ msgstr "Skalade foto framg&aring;ngsrikt"
 msgid "Modify Photo"
 msgstr "Bearbeta Foto"
 
+#, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Sparade temainst&auml;llningar framg&aring;ngsrikt"
+msgstr "Sparade utseendeinst&auml;llningar framg&aring;ngsrikt"
 
 msgid "Theme"
 msgstr "Tema"
@@ -384,18 +386,19 @@ msgstr "&Aring;terh&auml;tning av L&ouml;senord"
 msgid "Build all thumbnails/resizes"
 msgstr "Skapa samtliga miniatyrbilder/storleks&auml;ndringar"
 
+#, fuzzy
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and "
 "rebuild broken ones."
 msgstr ""
 "Se till att tillh&ouml;rande datafiler (miniatyrbilder etc.) har blivit "
-"skapade och &aring;terskapa f&ouml;rst&ouml;rda."
+"skapade"
 
 msgid "Build All Thumbnails/Resizes"
 msgstr "Skapa Samtliga Miniatyrbilder/Storleks&auml;ndringar"
 
 msgid "Debug output for failed items:"
-msgstr "Debugutskrift f&ouml;r misslyckade objekt:"
+msgstr ""
 
 #, c-format
 msgid "Processing image %d of %d"
@@ -405,13 +408,13 @@ msgstr "Bearbetar bild %d av %d"
 msgid "Checked %d items"
 msgstr "Markerade %d filer"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d items built"
-msgstr "%d objekt skapade"
+msgstr "l&auml;gg till objekt"
 
 #, c-format
 msgid "%d items failed"
-msgstr "%d objekt misslyckade"
+msgstr ""
 
 msgid "Delete database cache"
 msgstr "T&ouml;m databascache"
@@ -537,7 +540,7 @@ msgid "View Count"
 msgstr "Visningsr&auml;knare"
 
 msgid "Random"
-msgstr "Slumpm&auml;ssig"
+msgstr ""
 
 msgid "&laquo; no presort &raquo;"
 msgstr "&laquo; ingen f&ouml;sortering &raquo;"
@@ -556,16 +559,16 @@ msgstr "Fallande"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
-"Validering avaktiverad till dess du satt allowSessionAccess i config.php"
 
 msgid "This page is valid XHTML 1.0"
 msgstr "Denna sida &auml;r validerad XHTML 1.0"
 
+#, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Donera till Galleryprojektet"
+msgstr "Tillbaka till Galleriet"
 
 msgid "G2.0: Unpossible!"
-msgstr "G2.0: Unpossible!"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -573,7 +576,7 @@ msgstr "Ber&auml;knad &aring;terst&aring;ende tid: %d:%02d"
 
 #, c-format
 msgid "Memory used: %s, total: %s"
-msgstr "Minne anv&auml;nt: %s totalt: %s "
+msgstr ""
 
 msgid "Rows per album page"
 msgstr "Rader per albumsida"
@@ -594,13 +597,13 @@ msgid "Number of items to show per page"
 msgstr "Antal object att visa per sida"
 
 msgid "Blocks to show in the sidebar"
-msgstr "Block att visa i sidan"
+msgstr ""
 
 msgid "Blocks to show on album pages"
-msgstr "Block att visa p&aring; albumsidorna"
+msgstr ""
 
 msgid "Blocks to show on photo pages"
-msgstr "Block att visa p&aring; fotosidorna"
+msgstr ""
 
 msgid "View Samples"
 msgstr "Visa Prover"
@@ -615,17 +618,17 @@ msgid "Photo Frame"
 msgstr "Fotoram"
 
 msgid "Color Pack"
-msgstr "F&auml;rgpaket"
+msgstr ""
 
 msgid "You must enter a number greater than 0"
 msgstr "Du m&aring;ste skriva in ett nummer st&ouml;rre &auml;n 0"
 
 msgid "Format: [module.BlockName param=value] ..."
-msgstr "Format: [modul.BlockNamn parameter=v&auml;rde] ..."
+msgstr ""
 
 #, c-format
 msgid "%dx%d"
-msgstr "%dx%d"
+msgstr ""
 
 msgid "Audio"
 msgstr "Ljud"
@@ -656,12 +659,6 @@ msgstr "Ok&auml;nd"
 
 msgid "unknown"
 msgstr "ok&auml;nd"
-
-#, c-format
-msgid ""
-"Invalid return URL! The requested URL %s tried to insert a redirection to %s "
-"which is not a part of this Gallery."
-msgstr ""
 
 msgid "Back"
 msgstr "Tillbaka"
@@ -768,17 +765,21 @@ msgstr "Gallery 2 k&auml;rnmodul"
 msgid "Add Items"
 msgstr "L&auml;gg till Objekt"
 
+#, fuzzy
 msgid "Edit Album"
-msgstr "Redigera Album"
+msgstr "L&auml;gg till Album"
 
+#, fuzzy
 msgid "Edit Photo"
-msgstr "Redigera Foto"
+msgstr "Bearbeta Foto"
 
+#, fuzzy
 msgid "Edit Movie"
-msgstr "Redigera Film"
+msgstr "Film"
 
+#, fuzzy
 msgid "Create Link"
-msgstr "Skapa L&auml;nk"
+msgstr "skapa l&auml;nk"
 
 msgid "Add Album"
 msgstr "L&auml;gg till Album"
@@ -786,26 +787,33 @@ msgstr "L&auml;gg till Album"
 msgid "Edit Permissions"
 msgstr "Redigera R&auml;ttigheter"
 
+#, fuzzy
 msgid "View Permissions"
-msgstr "Visa R&auml;ttigheter"
+msgstr "R&auml;ttigheter"
 
+#, fuzzy
 msgid "Delete Album"
-msgstr "Ta Bort Album"
+msgstr "Ta Bort En Grupp"
 
+#, fuzzy
 msgid "Delete Photo"
-msgstr "Ta Bort Foto"
+msgstr "Ta Bort %s"
 
+#, fuzzy
 msgid "Delete Movie"
-msgstr "Ta Bort Film"
+msgstr "Ta Bort %s"
 
+#, fuzzy
 msgid "Move Album"
-msgstr "Flytta Album"
+msgstr "Omsortera Album"
 
+#, fuzzy
 msgid "Move Photo"
-msgstr "Flytta Foto"
+msgstr "Bearbetat foto"
 
+#, fuzzy
 msgid "Move Movie"
-msgstr "Flytta Film"
+msgstr "Filmstorlek"
 
 msgid "Edit Captions"
 msgstr "Redigera Rubriker"
@@ -831,8 +839,9 @@ msgstr "Logga ut"
 msgid "Modules"
 msgstr "Moduler"
 
+#, fuzzy
 msgid "Themes"
-msgstr "Teman"
+msgstr "Tema"
 
 msgid "Display"
 msgstr "Visa"
@@ -858,14 +867,17 @@ msgstr "Kontoinst&auml;llningar"
 msgid "Change Password"
 msgstr "&Auml;ndra l&ouml;senord"
 
+#, fuzzy
 msgid "Link Album"
-msgstr "L&auml;nka Album"
+msgstr "Album"
 
+#, fuzzy
 msgid "Link Photo"
-msgstr "L&auml;nka Foto"
+msgstr "Foto"
 
+#, fuzzy
 msgid "Link Movie"
-msgstr "L&auml;nka Film"
+msgstr "Film"
 
 #, c-format
 msgid "Edit %s"
@@ -898,34 +910,34 @@ msgstr "Tog bort lokal uppladdningskatalog framg&aring;ngsrikt"
 msgid "Test email sent successfully"
 msgstr "E-postmeddelande f&ouml;r test skickades frag&aring;ngsrikt"
 
+#, fuzzy
 msgid "There was a problem processing your request, see below for details."
-msgstr ""
-"Ett problem uppstod vid bearbetningen av din f&ouml;rfr&aring;gan,  se nedan "
-"f&ouml;r detaljer"
+msgstr "Ett problem uppstod vid bearbetningen av din f&ouml;rfr&aring;gan"
 
+#, fuzzy
 msgid "Error sending test email, see below for details."
 msgstr ""
-"Fel uppstod n&auml; E-postmeddelande f&ouml;r test skickades, se nedan "
+"Fel uppstod n&auml; E-postmeddelande f&ouml;r test skulle skickas, se nedan "
 "f&ouml;r detaljer"
 
 msgid "Language Settings"
 msgstr "Spr&aring;kinst&auml;llningar"
 
+#, fuzzy
 msgid ""
 "Select language defaults for Gallery. Individual users can override this "
 "setting in their personal preferences or via the language selector block if "
 "available."
 msgstr ""
 "V&auml;lj f&ouml;rvalt spr&aring;k f&ouml;r Gallery.  Individuella anv&auml;"
-"ndare kan skriva &ouml;ver denna inst&auml;llning i sina personliga "
-"inst&auml;llningar eller via spr&aring;v&auml;ljaren om den &auml;r "
-"tillg&auml;nglig"
+"ndare kan skriva &ouml;ver denna inst&auml;llning i deras personliga "
+"inst&auml;llningar eller via spr&aring;v&auml;ljaren om aktiverad nedan"
 
 msgid "Default language"
 msgstr "F&ouml;rvalt spr&aring;k"
 
 msgid "gettext"
-msgstr "gettext"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -935,8 +947,9 @@ msgstr ""
 "Din webserver har inte support f&ouml;r lokalisering. V&auml;nligen "
 "instruera din systemadministrat&ouml;r av omkonfigurera PHP med %s aktiverad."
 
+#, fuzzy
 msgid "Date Formats"
-msgstr "Datumformat"
+msgstr "Datum:"
 
 #, c-format
 msgid ""
@@ -945,23 +958,28 @@ msgid ""
 "tokens varies according to the active language."
 msgstr ""
 
+#, fuzzy
 msgid "Style"
-msgstr "Stil"
+msgstr "Skala"
 
 msgid "Format"
-msgstr "Format"
+msgstr ""
 
+#, fuzzy
 msgid "Sample"
-msgstr "Prov"
+msgstr "Skala"
 
+#, fuzzy
 msgid "Date"
-msgstr "Datum"
+msgstr "Datum:"
 
+#, fuzzy
 msgid "Time"
-msgstr "Tid"
+msgstr "Tid:"
 
+#, fuzzy
 msgid "Date/Time"
-msgstr "Datum/Tid"
+msgstr "%s Datum och Tid"
 
 msgid "Filesystem Permissions"
 msgstr "Filsystemr&auml;ttigheter"
@@ -1064,6 +1082,7 @@ msgstr "Markera"
 msgid "Email"
 msgstr "E-post"
 
+#, fuzzy
 msgid ""
 "By default Gallery uses PHP's built in mail function to send email which "
 "requires no configuration.  To use a smtp/mail server enter the information "
@@ -1073,8 +1092,7 @@ msgstr ""
 "I vanliga fall s&aring; anv&auml;nder sig Gallery av PHP:s inbyggda E-"
 "postfunktion f&auml;r att skicka E-post, denna beh&ouml;ver ingen "
 "konfiguration. F&auml;r att anv&auml;nda SMTP/E-post server fyll i "
-"informationen nedan. Ange autentisering om servern kr&auml;er det. Port "
-"efter servernamnet &auml;r inte standardport anv&auml;nds."
+"informationen nedan. Ange autentisering om servern kr&auml;er det."
 
 msgid "Server"
 msgstr "Server"
@@ -1086,7 +1104,7 @@ msgid "Password"
 msgstr "L&ouml;senord"
 
 msgid "SMTP From Address"
-msgstr "SMTP Avs&auml;andande E-postadress"
+msgstr "Avs&auml;andande E-postadress"
 
 msgid "Invalid email address"
 msgstr "Ogiltig E-postadress"
@@ -1106,7 +1124,7 @@ msgid "Email Test Error"
 msgstr "E-post Testfel"
 
 msgid "Cookies"
-msgstr "Cookies"
+msgstr ""
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), "
@@ -1149,7 +1167,7 @@ msgid "Invalid cookie path"
 msgstr "Ogiltig cookie-s&ouml;kv&auml;g"
 
 msgid "Domain"
-msgstr "Dom&auml;n"
+msgstr "Dom&auml;"
 
 msgid "Invalid cookie domain"
 msgstr "Ogiltig cookie-dom&auml;n"
@@ -1598,53 +1616,59 @@ msgstr ""
 msgid "Uninstall"
 msgstr "Avinstallera"
 
+#, fuzzy
 msgid "Gallery Themes"
-msgstr "Galleryteman"
+msgstr "Galleri %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully activated theme %s"
-msgstr "Aktiverade framg&aring;ngsrikt tema %s"
+msgstr "Aktiverade framg&aring;ngsrikt modul %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deactivated theme %s"
-msgstr "Avaktiverade framg&aring;ngsrikt tema %s"
+msgstr "Avaktiverade framg&aring;ngsrikt modul %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed theme %s"
-msgstr "Installerade framg&aring;ngsrikt tema %s"
+msgstr "Installerade framg&aring;ngsrikt modul %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr "Avinstallerade framg&aring;ngsrikt tema %s"
+msgstr "Avinstallerade framg&aring;ngsrikt modul %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully upgraded theme %s"
-msgstr "Uppgraderade framg&aring;ngsrikt tema %s"
+msgstr "Uppgraderade framg&aring;ngsrikt modul %s"
 
 msgid "Successfully saved default album settings"
 msgstr "Sparade framg&aring;ngsrikt f&ouml;rvalda albuminst&auml;llningar"
 
+#, fuzzy
 msgid "Restored theme settings"
-msgstr "&Aring;terskapade temainst&auml;llningar"
+msgstr "&Aring;terskapade utseendeinst&auml;llningar"
 
+#, fuzzy
 msgid "All Themes"
-msgstr "Alla Teman"
+msgstr "Tema"
 
 msgid "Defaults"
 msgstr "F&ouml;rvalda v&auml;rden"
 
+#, fuzzy
 msgid "Theme Name"
-msgstr "Temanamn"
+msgstr "Tema"
 
+#, fuzzy
 msgid "Status: Incompatible Theme (Inactive)"
-msgstr "Status: Inkompatibelt Tema (Inaktiv)"
+msgstr "Status: Inkompatibel modul (Inaktiv)"
 
+#, fuzzy
 msgid "Incompatible theme!"
-msgstr "Inkompatibelt tema!"
+msgstr "Inkompatibel modul!"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Theme API Required: %s (available: %s)"
-msgstr "Tema-API Beg&auml;rd : %s (tillg&uml;nglig: %s)"
+msgstr "K&auml;rn-API Beg&auml;rd : %s (tillg&uml;nglig: %s)"
 
 msgid "(default)"
 msgstr "(f&ouml;rvalda v&auml;rden)"
@@ -1668,43 +1692,48 @@ msgstr "F&ouml;rvalt tema"
 msgid "New albums"
 msgstr "Nya album"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%s Theme Settings"
-msgstr "%s Temainst&auml;llningar"
+msgstr "Anv&auml;nd dessa inst&auml;llningar"
 
+#, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the "
 "album level."
 msgstr ""
 "Dessa &auml;r de globala inst&auml;llningar f&ouml;r utseendet.  Dessa kan "
-"&aring;tsidos&auml;ttas p&aring; albumniv&aring;."
+"skrivas &ouml;ver vid albumniv&aring;."
 
 msgid "Available"
-msgstr "Tillg&auml;nglig"
+msgstr ""
 
 msgid "Choose a block"
-msgstr "V&auml;lj ett block"
+msgstr ""
 
+#, fuzzy
 msgid "Selected"
-msgstr "Vald"
+msgstr "Ta bort"
 
 msgid "Remove"
 msgstr "Ta bort"
 
+#, fuzzy
 msgid "Move Up"
-msgstr "Flytta Upp"
+msgstr "Flytta"
 
+#, fuzzy
 msgid "Move Down"
-msgstr "Flytta Ner"
+msgstr "Flytta %s"
 
 msgid "Parameter"
-msgstr "Parameter"
+msgstr ""
 
 msgid "Value"
 msgstr "V&auml;rde"
 
+#, fuzzy
 msgid "There are no settings for this theme"
-msgstr "Det finns inga inst&auml;llningar f&ouml;r detta tema"
+msgstr "Det finns inga inst&auml;llningar f&ouml;r detta utseende"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime "
@@ -1740,7 +1769,7 @@ msgstr "Skapade anv&auml;ndare '%s'"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Anpassade anv&auml;ndare '%s'"
+msgstr "Anpassad anv&auml;ndare '%s'"
 
 #, c-format
 msgid "There is %d user in the system."
@@ -1839,7 +1868,7 @@ msgid "An error has occurred."
 msgstr "Ett fel har uppst&aring;tt"
 
 msgid "Back to the Gallery"
-msgstr "Tillbaka till Gallery"
+msgstr "Tillbaka till Galleriet"
 
 msgid "Error Detail"
 msgstr "Feldetalj"
@@ -1902,7 +1931,7 @@ msgid "Create"
 msgstr "Skapa"
 
 msgid "Upload Complete"
-msgstr "Uppladdning Slutf&ouml;rd"
+msgstr "Uppladdning slutf&ouml;rd"
 
 #, c-format
 msgid "Successfully added %d file."
@@ -1922,7 +1951,7 @@ msgid "Failed to add %s"
 msgstr "Misslyckades att l&auml;gga till %s"
 
 msgid "Add more files"
-msgstr "L&auml;gg till fler filer"
+msgstr "L&auml;gg till Filer"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser "
@@ -1966,7 +1995,7 @@ msgstr ""
 "till&aring;ta st&ouml;rre uppladdningar"
 
 msgid "More.."
-msgstr "Mer.."
+msgstr "Mer..."
 
 msgid "Set item titles from:"
 msgstr "S&auml;tt item titel fr&aring;n:"
@@ -2138,7 +2167,7 @@ msgid "Options"
 msgstr "Alternativ"
 
 msgid "Link an Item"
-msgstr "L&auml;nka ett Objekt"
+msgstr "L&auml;nka Ett Objekt"
 
 #, c-format
 msgid "Successfully linked %d item"
@@ -2160,7 +2189,7 @@ msgid "(page %d of %d)"
 msgstr "(sidan %d av %d)"
 
 msgid "No sources chosen"
-msgstr "Inga ursprungsplatser valda"
+msgstr "Ingen ursprungsplats vald"
 
 msgid "Check All"
 msgstr "Markera alla"
@@ -2215,14 +2244,12 @@ msgstr "V&auml;lj objekt du vill ta bort"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr ""
-"Objekt valda h&auml;r kommer att vara forts&auml;tta att vara valda vid "
-"flytt mellan sidor."
 
 #, c-format
 msgid "One item selected on other pages."
 msgid_plural "%d items selected on other pages."
-msgstr[0] "Ett objekt valt p&aring; andra sidor."
-msgstr[1] "%d objekt valda p&aring; andra sidor."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "(data)"
 msgstr "(information)"
@@ -2268,11 +2295,12 @@ msgstr ""
 "Detta st&auml;ller in f&ouml;rvald sorteringsordning f&ouml;r albumet.  "
 "Detta g&auml;ller att aktuella objekt, samt alla objekt som l&auml;ggs till."
 
+#, fuzzy
 msgid ""
 "Choose a theme for this album. (The way the album is arranged on the page)"
 msgstr ""
-"V&auml;lj ett tema f&ouml;r detta album. (S&auml;ttet som albumet &auml;r "
-"ordnat p&aring; sidan.)"
+"V&auml;lj ett utseende f&ouml;r detta album. (S&auml;ttet som albumet &auml;"
+"r ordnat p&aring; sidan.)"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
 msgstr ""
@@ -2347,11 +2375,12 @@ msgstr ""
 msgid "Height"
 msgstr "H&ouml;jd"
 
+#, fuzzy
 msgid "There were errors saving some items"
-msgstr "Det blev fel n&auml;r vissa objekt sparades"
+msgstr "Det finns inga inst&auml;llningar f&ouml;r detta utseende"
 
 msgid "There were errors saving all items"
-msgstr "Det blev fel n&auml;r samtliga objekt sparades"
+msgstr ""
 
 msgid "Successfully saved all items"
 msgstr "Sparade framg&aring;ngsrikt samtliga objekt"
@@ -2547,6 +2576,7 @@ msgstr ""
 msgid "Scale"
 msgstr "Skala"
 
+#, fuzzy
 msgid ""
 "Shrink or enlarge the original photo.  When Gallery scales a photo, it "
 "maintains the same aspect ratio (height to width) of the original photo to "
@@ -2556,7 +2586,7 @@ msgstr ""
 "F&ouml;rminska eller f&ouml;rstora originalfotot.  N&auml;r Gallery &auml;"
 "ndrar ett foto skalenligt s&aring; beh&aring;lls samma bildf&ouml;rh&aring;"
 "llanden (h&ouml;jd till bredd) som p&aring; originalfotot f&ouml;r att "
-"undvika f&ouml;rvr&auml;ngning.  Ditt foto kommer att &auml;ndras skalenligt "
+"undvika f&ouml;rvr&auml;ngning.  Fotot kommer att &auml;ndras skalenligt "
 "tils den st&ouml;rsta sidan har samma v&auml;rde som du skriver in h&auml;r."
 
 msgid ""
@@ -2615,14 +2645,14 @@ msgstr ""
 msgid "Restore original"
 msgstr "&Aring;terst&auml;ll original"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This album is configured to use the <b>%s</b> theme. These settings only "
 "apply to the theme for this album."
 msgstr ""
-"Detta album &auml;r konfigurerat f&ouml;r att anv&auml;nda temat <b>%s</b>.  "
-"Dessa inst&auml;llningar verkst&auml;lls endast p&aring; temat f&ouml;r "
-"detta album."
+"Detta album &auml;r konfigurerat f&ouml;r att anv&auml;nda <b>%s</b> "
+"utseendet.  Dessa inst&auml;llningar verkst&auml;lls endast p&aring; "
+"utseendet f&ouml;r detta album."
 
 msgid "Setting"
 msgstr "Inst&auml;llning"
@@ -2706,17 +2736,21 @@ msgstr "R&auml;ttigheter"
 msgid "Owner changed successfully"
 msgstr "&Auml;gare &auml;ndrad framg&aring;ngsrikt"
 
+#, fuzzy
 msgid "Group permission added successfully"
-msgstr "Gruppr&auml;ttigheter lades till framg&aring;ngsrikt"
+msgstr "Kontoinst&auml;llningar sparades framg&aring;ngsrikt"
 
+#, fuzzy
 msgid "User permission added successfully"
-msgstr "Anv&auml;darnst&auml;llningar lades till framg&aring;ngsrikt"
+msgstr "Inst&auml;llningar sparades framg&aring;ngsrikt"
 
+#, fuzzy
 msgid "Group permission removed successfully"
-msgstr "Gruppinst&auml;llningar togs bort framg&aring;ngsrik"
+msgstr "Kontoinst&auml;llningar sparades framg&aring;ngsrikt"
 
+#, fuzzy
 msgid "User permission removed successfully"
-msgstr "Anv&auml;darnst&auml;llningar togs bort framg&aring;ngsrikt"
+msgstr "Visningsr&auml;knare nollst&auml;lldes frag&aring;ngsrikt"
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's "
@@ -2882,53 +2916,44 @@ msgstr "url"
 msgid "image"
 msgstr "bild"
 
+#, fuzzy
 msgid "Configuration Error: Missing Theme"
-msgstr "Konfigurationsfel: Tema saknas"
+msgstr "Konfigurationsfel: Utseende saknas"
 
 msgid "Missing Theme"
-msgstr "Tema Saknas"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This album is configured to use the %s theme, but it is either inactive or "
 "not installed."
 msgstr ""
-"Detta album &auml;r konfigurerat f&ouml;r att anv&auml;nda temat %s, men det "
-"&auml;r antingen inaktivt eller inte installerat"
+"Detta album &auml;r konfigurerat f&ouml;r att anv&auml;nda %s utseendet, men "
+"utseendet &auml;r antingen inaktivt eller inte installerat"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "To fix this problem you can %sinstall or activate this theme%s or select "
 "another default theme."
-msgstr ""
-"F&ouml;r att ordna detta problem kan du %sinstallera eller aktivera detta "
-"tema%s eller v&auml;lja ett annat f&ouml;rvalt tema."
+msgstr "F&ouml;r att ordna detta problem kan du antingen %s eller %s."
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "To fix this problem you can %slogin as a site administrator%s and then %"
 "sinstall or activate this theme%s or select another default theme."
-msgstr ""
-"F&ouml;r att ordna detta problem kan du %slogga in som siteadministrat&ouml;r"
-"%s och sedan %sinstallera eller aktivera detta tema%s eller v&auml;lja ett "
-"annat f&ouml;rvalt tema."
+msgstr "F&ouml;r att ordna detta problem kan du antingen %s eller %s."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %"
 "sinstall or activate this theme%s."
 msgstr ""
-"F&ouml;r att ordna detta problem kan du antingen %sv&auml;lja ett nytt tema "
-"f&ouml;r detta album%s eller %sinstallera eller aktivera detta tema%s"
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %"
 "slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
-"F&ouml;r att ordna detta problem kan du antingen %sv&auml;lja ett nytt tema "
-"f&ouml;r detta album%s eller %slogga in som siteadministrat&ouml;r%s och "
-"sedan %sinstallera eller aktivera detta tema%s"
 
 #, c-format
 msgid ""
@@ -2936,9 +2961,6 @@ msgid ""
 "for this album%s or %slogin as a site administrator%s and then %sinstall or "
 "activate this theme%s."
 msgstr ""
-"F&ouml;r att ordna detta problem kan du antingen %slogga in%s och sedan %"
-"sv&auml;lja ett nytt tema f&ouml;r detta album%s eller %slogga in som "
-"siteadministrat&ouml;r%s och sedan %sinstallera eller aktivera detta tema%s"
 
 msgid "Admin Options"
 msgstr "Administrat&ouml;rsalternativ"
@@ -2953,10 +2975,6 @@ msgid ""
 "You must enter your current password to prove that it's you, then enter your "
 "new password twice to make sure that you didn't make a mistake."
 msgstr ""
-"Du m&aring;ste fylla i ditt nuvarande l&ouml;senord f&ouml;r att bevisa att "
-"det &ouml;r du, sedan fylla i ditt nya l&ouml;senord tv&aring; g&aring;nger "
-"f&ouml;r att vara s&auml;ker p&aring; att du inte g&ouml;r n&aring;gra "
-"misstag."
 
 msgid "Current Password"
 msgstr "Nuvarnade l&ouml;senord"
@@ -3017,7 +3035,6 @@ msgstr ""
 
 msgid "Your recovery request has been sent!"
 msgstr ""
-"Din f&ouml;rfr&aring;gand f&ouml;r &aring;terhauml;mtning har blivit skickad!"
 
 msgid ""
 "Note that if the account does not have an email address, you may not receive "
@@ -3049,7 +3066,7 @@ msgstr ""
 
 #, c-format
 msgid "%s"
-msgstr "%s"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3060,22 +3077,18 @@ msgstr ""
 
 msgid "Once you've uploaded the file, click refresh to continue."
 msgstr ""
-"N&auml;r du laddat upp filen, klicka ladda om f&ouml;r att forts&auml;tta"
 
 msgid "Emergency Administrator Password Reset"
 msgstr ""
-"N&ouml;dfalls&aring;terst&auml;llning av Administrat&ouml;rsl&ouml;senord"
 
 msgid ""
 "This page can be used by a system administrator to securely reset the "
 "password on any account."
 msgstr ""
-"Denna sidan kan anv&auml;ndas av systemadministrat&ouml;ren f&ouml;r att "
-"p&aring; ett s&auml;kert s&auml;tt nollst&auml;lla l&ouml;senordet f&ouml;r "
-"vilket konto som helst."
 
+#, fuzzy
 msgid "Authorization Confirmed"
-msgstr "Tillst&aring;nd Bekr&auml;ftad"
+msgstr "Till&aring;telse saknas"
 
 msgid ""
 "Your authorization has been confirmed.  Please enter your new password "
@@ -3083,43 +3096,42 @@ msgid ""
 msgstr ""
 
 msgid "Recover Password for Username"
-msgstr "&Aring;terh&auml;mta L&ouml;senord f&ouml;r Anv&auml;ndare"
-
-msgid "You must enter a username to recover the password for."
 msgstr ""
-"Du m&aring;ste skriva in ett anv&auml;ndrnamnet som &aring;terh&auml;mtning "
-"skall g&ouml;ras f&ouml;r"
 
+#, fuzzy
+msgid "You must enter a username to recover the password for."
+msgstr "Du m&aring;ste skriva in ett nytt l&ouml;senord"
+
+#, fuzzy
 msgid "The username you entered does not exist."
-msgstr "Anv&auml;ndarnamnet du skrev in existerar inte"
+msgstr "Anv&auml;ndarnamnet du skrev in &auml;r inte giltigt"
 
+#, fuzzy
 msgid "Authorization Incorrect"
-msgstr "Tillst&aring;nd Felaktigt"
+msgstr "Till&aring;telse saknas"
 
 msgid "Recovery Instructions"
-msgstr "&Aring;terh&auml;mtningsinstruktioner"
+msgstr ""
 
+#, fuzzy
 msgid "AuthFile Missing"
-msgstr "AuthFile Saknas"
+msgstr "Till&aring;telse saknas"
 
 msgid "AuthFile Unreadable"
-msgstr "AuthFile Ol&auml;sbar"
+msgstr ""
 
 #, c-format
 msgid ""
 "Your %s file is not readable. Please give Gallery read permissions on the "
 "file."
 msgstr ""
-"Din %s fil &auml;r inte l&auml;sbar. V&auml;nligen ge Gallery r&auml;"
-"ttigheter till filen."
 
+#, fuzzy
 msgid "Refresh"
-msgstr "Ladda om"
+msgstr "f&ouml;re"
 
 msgid "This page will allow you to reset the password on your account."
 msgstr ""
-"Denna sidan till&aring;ter dig att nollst&auml;lla l&ouml;senordet p&aring; "
-"ditt konto."
 
 #, c-format
 msgid ""
@@ -3174,42 +3186,45 @@ msgstr ""
 msgid "Thank you!"
 msgstr "Tack!"
 
+#, fuzzy
 msgid "guest"
-msgstr "g&auml;st"
+msgstr "G&auml;st"
 
 #, c-format
 msgid "display mode: %s"
-msgstr "visningsl&auml;ge: %s"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Date: %s"
-msgstr "Datum: %s"
+msgstr "Datum:"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Owner: %s"
-msgstr "&Auml;gare: %s"
+msgstr "&Auml;gare"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "(Storlek: %d objekt)"
-msgstr[1] "(Storlek: %d objekt)"
+msgstr[0] "(%d objekt)"
+msgstr[1] "(%d objekt)"
 
-#, c-format
+#, fuzzy, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "(totalt %d objekt)"
-msgstr[1] "(totalt %d objekt)"
+msgstr[0] "(%d objekt)"
+msgstr[1] "(%d objekt)"
 
 #, c-format
 msgid "Views: %d"
-msgstr "Visningar: %d"
+msgstr ""
 
+#, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "&laquo; ablumfunktioner &raquo;"
+msgstr "&laquo; Ingen &raquo;"
 
+#, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "&laquo; objektfunktioner &raquo;"
+msgstr "&laquo; Ingen &raquo;"
 
 msgid "Go"
 msgstr "G&aring;"
@@ -3218,49 +3233,56 @@ msgid "Navigation"
 msgstr "Navigering"
 
 msgid "next"
-msgstr "n&auml;sta"
+msgstr ""
 
+#, fuzzy
 msgid "last"
-msgstr "sista"
+msgstr "lista"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Page %d of %d"
-msgstr "Sida %d av %d"
+msgstr "(sidan %d av %d)"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d of %d"
-msgstr "(%d av %d)"
+msgstr "(sidan %d av %d)"
 
+#, fuzzy
 msgid "first"
-msgstr "f&ouml;rsta"
+msgstr "lista"
 
+#, fuzzy
 msgid "previous"
-msgstr "f&ouml;reg&aring;ende"
+msgstr "F&ouml;reg&aring;ende Sida"
 
 msgid "Page:"
-msgstr "Sida:"
+msgstr ""
 
 #, c-format
 msgid "%d. %s"
 msgstr "%d. %s"
 
+#, fuzzy
 msgid "Size: "
-msgstr "Storlek:  "
+msgstr "Storlek"
 
 msgid "Full size: "
-msgstr "Full storlek: "
+msgstr ""
 
+#, fuzzy
 msgid "Language selector"
-msgstr "Spr&aring;kv&auml;ljare"
+msgstr "Spr&aring;kv&auml;ljare i sidmenyn"
 
+#, fuzzy
 msgid "Item actions"
-msgstr "Objektfunktioner"
+msgstr "redigera rubriker"
 
 msgid "Use dropdown menu"
-msgstr "Anv&auml;nd rullgardinsmeny"
+msgstr ""
 
+#, fuzzy
 msgid "Login block"
-msgstr "Block f&ouml;r login"
+msgstr "Logga in"
 
 msgid "Links to album/photo peers"
 msgstr ""
@@ -3274,8 +3296,60 @@ msgstr "Modul f&ouml;r unittest"
 msgid "[test] A permission"
 msgstr "[test] En r&auml;ttighet"
 
+#, fuzzy
 msgid "[test] A second permission"
-msgstr "[test] En andra r&auml;ttighet"
+msgstr "[test] En r&auml;ttighet"
 
+#, fuzzy
 msgid "Unit test theme"
-msgstr "Tema f&ouml;r unittest"
+msgstr "Modul f&ouml;r unittest"
+
+#~ msgid "add album"
+#~ msgstr "l&auml;gg till album"
+
+#~ msgid "edit permissions"
+#~ msgstr "redigera r&auml;ttigheter"
+
+#, fuzzy
+#~ msgid "view permissions"
+#~ msgstr "redigera r&auml;ttigheter"
+
+#~ msgid "login"
+#~ msgstr "inloggning"
+
+#~ msgid "and then"
+#~ msgstr "och sen"
+
+#, fuzzy
+#~ msgid "choose a new theme for this album"
+#~ msgstr "v&auml;lj ett nytt utseende f&ouml;r detta album"
+
+#~ msgid "login as a site administrator"
+#~ msgstr "logga in som siteadministrat&ouml;r"
+
+#, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "installera eller aktivera detta utseende"
+
+#~ msgid "To fix this problem you can either %s or %s."
+#~ msgstr "F&ouml;r att ordna detta problem kan du antingen %s eller %s."
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV 16x9"
+
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "Tog framg&aring;ngsrikt bort katalogen: /cache/entity"
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "Tog framg&aring;ngsrikt katalogen: /cache/module"
+
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "Tog framg&aring;ngsrikt katalogen: /cache/module"
+
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "Of&ouml;rm&ouml;gen att ta bort katalogen: /cache/layout"
+
+#~ msgid "Missing Layout"
+#~ msgstr "Utseende saknas"

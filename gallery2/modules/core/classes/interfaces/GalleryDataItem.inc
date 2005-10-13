@@ -4,17 +4,17 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
@@ -35,13 +35,13 @@
  * it by hand, as your changes will be lost next time this file is
  * rebuilt.  If you want to add more getters/setters, you should add
  * them in the core class.  If you want to change the format of this
- * file, then you should edit lib/tools/bin/interface.tpl.
+ * file, then you should edit the XSL template.
  *
  * @package GalleryCore
  * @subpackage Classes
  */
 class GalleryDataItem extends GalleryDataItem_core {
-
+  
     /**
      * Return meta information about the members of this class
      *
@@ -49,8 +49,10 @@ class GalleryDataItem extends GalleryDataItem_core {
      */
     function getPersistentMemberInfo() {
 	$meta = parent::getPersistentMemberInfo();
-        $meta['members']['mimeType'] = array('class' => 'GalleryDataItem', 'type' => STORAGE_TYPE_STRING);
-        $meta['members']['size'] = array('class' => 'GalleryDataItem', 'type' => STORAGE_TYPE_INTEGER);
+	$meta['members']['mimeType'] = array('class' => 'GalleryDataItem', 'type' => STORAGE_TYPE_STRING);
+    
+	$meta['members']['size'] = array('class' => 'GalleryDataItem', 'type' => STORAGE_TYPE_INTEGER);
+    
 	return $meta;
     }
 
@@ -60,17 +62,17 @@ class GalleryDataItem extends GalleryDataItem_core {
      * @return array memberName => memberValue
      */
     function getMemberData() {
-        $data = parent::getMemberData();
-        if (isset($this->_linkedEntity)) {
+	$data = parent::getMemberData();if (isset($this->_linkedEntity)) {
             $data['mimeType'] = isset($this->_linkedEntity->_mimeType) ? $this->_linkedEntity->_mimeType : null;
 	} else {
             $data['mimeType'] = isset($this->_mimeType) ? $this->_mimeType : null;
         }
-        if (isset($this->_linkedEntity)) {
+	if (isset($this->_linkedEntity)) {
             $data['size'] = isset($this->_linkedEntity->_size) ? $this->_linkedEntity->_size : null;
 	} else {
             $data['size'] = isset($this->_size) ? $this->_size : null;
         }
+	
 	return $data;
     }
   
@@ -84,25 +86,28 @@ class GalleryDataItem extends GalleryDataItem_core {
 	return 'GalleryDataItem';
     }
 
-    /**
+    /** 
      * Return the path to the PHP file for this class, relative to the gallery2 dir
-     *
+     * 
      * @return string path
-     */
-    function getClassFile() {
-        return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/GalleryDataItem.class';
+     */ 
+    function getClassFile() { 
+        return 'modules/' .  
+            basename(dirname(dirname(dirname(__FILE__)))) .  
+            '/classes/GalleryDataItem.class'; 
     }
-
+    
     /**
      * Get the value of mimeType
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getMimeType() {
+    function getmimeType() {
 	$linkedEntity = $this->getLinkedEntity();
 	if (isset($linkedEntity)) {
-	    return $linkedEntity->getMimeType();
+	    return $linkedEntity->getmimeType();
 	}
+	
 	if (!isset($this->_mimeType)) {
 	    return null;
 	}
@@ -112,9 +117,9 @@ class GalleryDataItem extends GalleryDataItem_core {
     /**
      * Set the value of mimeType
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setMimeType($value) {
+    function setmimeType($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -126,17 +131,18 @@ class GalleryDataItem extends GalleryDataItem_core {
 	    $this->_mimeType = $value;
 	}
     }
-
+  
     /**
      * Get the value of size
      *
-     * @return integer the value
+     * @return INTEGER the value
      */
-    function getSize() {
+    function getsize() {
 	$linkedEntity = $this->getLinkedEntity();
 	if (isset($linkedEntity)) {
-	    return $linkedEntity->getSize();
+	    return $linkedEntity->getsize();
 	}
+	
 	if (!isset($this->_size)) {
 	    return null;
 	}
@@ -146,16 +152,17 @@ class GalleryDataItem extends GalleryDataItem_core {
     /**
      * Set the value of size
      *
-     * @param integer the value
+     * @param INTEGER the value
      */
-    function setSize($value) {
-        /* Type cast the incoming value to be an integer */
-        if ($value != null) {
-            $value = (int)$value;
-        }
-
+    function setsize($value) {
+	/* Type cast the incoming value to be an integer */
+	if ($value != null) {
+	    $value = (int)$value;
+	}
+        
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
+      
 	$orig = isset($this->_size) ? $this->_size : null;
 
         /* Only take action if the value actually changes */
@@ -164,6 +171,6 @@ class GalleryDataItem extends GalleryDataItem_core {
 	    $this->_size = $value;
 	}
     }
- 
+  
 }
 ?>

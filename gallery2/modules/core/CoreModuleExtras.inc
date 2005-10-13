@@ -147,7 +147,7 @@ class CoreModuleExtras {
 	    }
 
 	    $gallery->debug('Activate Matrix theme');
-	    list ($ret, $ignored) = $theme->activate(false);
+	    list ($ret, $ignored) = $theme->activate();
 	    if ($ret->isError()) {
 		$gallery->debug(sprintf('Error: Failed to activate matrix theme, this is ' .
 				'the error stack trace; %s', $ret->getAsText()));
@@ -1116,7 +1116,7 @@ class CoreModuleExtras {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
-			list ($ret, $ignored) = $theme->activate(false);
+			list ($ret, $ignored) = $theme->activate();
 			if ($ret->isError() &&
 			    !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			    /*
@@ -1206,20 +1206,6 @@ class CoreModuleExtras {
 	    /* 2.0 Release! */
 
 	case '1.0.0':
-	case '1.0.0.1':
-	    /* Schema only upgrade */
-
-	case '1.0.1':
-	    /* And image/wmf mime type */
-	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('wmf');
-	    if ($ret->isSuccess() && $mimeType == 'application/unknown') {
-		$ret = GalleryCoreApi::addMimeType('wmf', 'image/wmf', false);
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-
-	case '1.0.2':
 	    /* Security fix */
 
 	case 'end of upgrade path':
@@ -1391,9 +1377,6 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 	case '0.9.36':
 	case '0.9.37':
 	case '1.0.0':
-	case '1.0.0.1':
-	case '1.0.1':
-	case '1.0.2':
 
 	case 'end of upgrade path':
 	    /*

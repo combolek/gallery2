@@ -69,7 +69,7 @@ function app_setcookie() {
   var d = new Date(), c = slide_order + ';' + (slide_delay/1000) + ';' + sidebar_on + ';' +
     album_detailson + ';' + album_itemlinkson + ';' + text_on + ';';
   d.setTime(d.getTime() + 90*24*60*60*1000); // 90 day cookie
-  document.cookie = 'G2_hybrid=' + escape(c) + ';path=' + cookie_path + ';expires=' + d.toUTCString();
+  document.cookie = 'G2_hybrid=' + escape(c) + ';expires=' + d.toUTCString();
 }
 function app_getcookie() {
   var c = getcookie('G2_hybrid'), i,j,v,n,it=1,r=-1;
@@ -80,9 +80,9 @@ function app_getcookie() {
       switch (it++) {
 	case 1: ui_select('slide_order', n); slide_setorder(n); break;
 	case 2: ui_select('slide_delay', n); slide_setdelay(n); break;
-	case 3: if (n) sidebar_onoff(); break;
+	case 3: if (!n) sidebar_onoff(); break;
 	case 4: if (!n) album_detailsonoff(); break;
-	case 5: if (n) album_itemlinksonoff(); break;
+	case 5: if (!n) album_itemlinksonoff(); break;
 	case 6: if (n) text_onoff(); break;
       }
     }
@@ -105,8 +105,6 @@ function app_onkeypress(event) {
     case 63235: keyCode=39; break;  case 63277: keyCode=34; break;
   }
   /* Album view: space = start slideshow
-   *             ctrl-right/left = show/hide sidebar
-   *             ctrl-up/down = show/hide item links
    * Image view: space = start/pause slideshow
    *             escape = return to album view
    *             left/right = next/prev image
@@ -118,24 +116,10 @@ function app_onkeypress(event) {
    */
   if (keyCode==32) slide_onoff();
   else if (keyCode==27) { if (popup_on) popup_vis(0); else if (image_on) image_vis(0); }
-  if (keyCode < 33 || keyCode > 40) return;
+  if (!image_on || keyCode < 33 || keyCode > 40) return;
   if (event.shiftKey) keyCode += 100;
   if (event.ctrlKey) keyCode += 200;
-  if (!image_on) switch (keyCode) {
-    case 239: //Ctrl-Right
-      if (!sidebar_on) sidebar_onoff();
-      break;
-    case 237: //Ctrl-Left
-      if (sidebar_on) sidebar_onoff();
-      break;
-    case 238: //Ctrl-Up
-      if (!album_itemlinkson) album_itemlinksonoff();
-      break;
-    case 240: //Ctrl-Down
-      if (album_itemlinkson) album_itemlinksonoff();
-      break;
-  }
-  else switch (keyCode) {
+  switch (keyCode) {
     case 37: //Left
       if (image_zoomon) { imagearea.scrollLeft -= 20; break; }
     case 137: //Shift-Left
@@ -179,7 +163,7 @@ function app_onkeydown() {
 
 //Class album :: gsContent(album_titlebar(album_tools,album_desc,album_info),gsAlbumContent)
 var album_detailson=1, // Details are visible
-    album_itemlinkson=0, // Item links are visible
+    album_itemlinkson=1, // Item links are visible
     album_fixedtitle=0; // Using fixed position for album_titlebar
 function album_detailsonoff() {
   ui_vis('album_info', (album_detailson = album_detailson?0:1));
@@ -192,7 +176,7 @@ function album_itemlinksonoff() {
   album_itemlinkson = album_itemlinkson?0:1;
   for (var i = 0; i < imgs.length; i++)
     if (imgs[i].className == 'popup_button')
-      imgs[i].style.display = album_itemlinkson ? 'inline' : 'none';
+      imgs[i].style.visibility = album_itemlinkson ? 'visible' : 'hidden';
   ui_sethtml('lnk_link', album_itemlinkson ? album_hidelinks : album_showlinks);
 }
 function album_setfixedtitle() {
@@ -210,7 +194,7 @@ function album_setmargin() {
 }
 
 //Class sidebar :: div sidebar
-var sidebar_on=0; // Sidebar is visible
+var sidebar_on=1; // Sidebar is visible
 function sidebar_onoff() {
   ui_vis('sidebar_max', sidebar_on, 1);
   ui_vis('sidebar_min', (sidebar_on = sidebar_on?0:1), 1);
@@ -224,8 +208,7 @@ var image_on=0, // Image is visible
     image_cache = new Image, // For precaching an image
     image_iscached = new Array(data_count), // Track precached images
     imagearea, imagediv, textdiv, // Containers
-    text_on=0, // Description text is visible
-    text_empty=0; // Description text is empty
+    text_on=0; // Description text is visible
 function image_setsize() {
   imagearea.style.height = (app_wh - textdiv.offsetHeight) + 'px';
 }
@@ -251,7 +234,6 @@ function image_show(i) {
   slide_reset();
   image_index = i;
   ui_sethtml('title', document.getElementById('title_'+image_index).innerHTML);
-  ui_sethtml('date', document.getElementById('date_'+image_index).innerHTML);
   image_setsize();
   if (data_iw[i] < 0) {
     imagediv.innerHTML = '<iframe style="width:100%;height:' + (imagearea.offsetHeight - 4)
@@ -310,8 +292,7 @@ function image_precache(i) {
   }
 }
 function image_loaded() {
-  var i = slide_nextindex(); if (i < 0 || image_iscached[i]) i = slide_previndex();
-  if (i >= 0) image_precache(i);
+  var i = slide_nextindex(); if (i >= 0) image_precache(i);
   slide_go(i);
 }
 function image_next() {
@@ -326,15 +307,10 @@ function image_setbuttons() {
   ui_vis('next_off', i < 0, 1);
   ui_vis('prev_img', j >= 0, 1);
   ui_vis('prev_off', j < 0, 1);
-  text_empty = document.getElementById('text_'+image_index).innerHTML ?0:1;
-  if (!text_on) {
-    ui_vis('text_on', !text_empty, 1);
-    ui_vis('text_none', text_empty, 1);
-  }
 }
 function text_onoff() {
   if ((text_on = text_on?0:1) && data_count > 0) text_fill();
-  ui_vis(text_empty ? 'text_none' : 'text_on', !text_on, 1);
+  ui_vis('text_on', !text_on, 1);
   ui_vis('text_off', text_on, 1);
   ui_vis('text', text_on);
   if (image_on) { image_setsize(); image_fit(); }
@@ -390,7 +366,6 @@ function slide_fillrandom(lockfirst) {
   }
 }
 function slide_setbuttons() {
-  if (!data_count) return;
   ui_vis('slide_poz', slide_on, 1);
   ui_vis('slide_fwd', (!slide_on && slide_order > 0), 1);
   ui_vis('slide__fwd', (slide_order > 0), 1);

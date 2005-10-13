@@ -4,17 +4,17 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
@@ -35,13 +35,13 @@
  * it by hand, as your changes will be lost next time this file is
  * rebuilt.  If you want to add more getters/setters, you should add
  * them in the core class.  If you want to change the format of this
- * file, then you should edit lib/tools/bin/interface.tpl.
+ * file, then you should edit the XSL template.
  *
  * @package GalleryCore
  * @subpackage Classes
  */
 class GalleryGroup extends GalleryGroup_core {
-
+  
     /**
      * Return meta information about the members of this class
      *
@@ -49,8 +49,10 @@ class GalleryGroup extends GalleryGroup_core {
      */
     function getPersistentMemberInfo() {
 	$meta = parent::getPersistentMemberInfo();
-        $meta['members']['groupType'] = array('class' => 'GalleryGroup', 'type' => STORAGE_TYPE_INTEGER);
-        $meta['members']['groupName'] = array('class' => 'GalleryGroup', 'type' => STORAGE_TYPE_STRING);
+	$meta['members']['groupType'] = array('class' => 'GalleryGroup', 'type' => STORAGE_TYPE_INTEGER);
+    
+	$meta['members']['groupName'] = array('class' => 'GalleryGroup', 'type' => STORAGE_TYPE_STRING);
+    
 	return $meta;
     }
 
@@ -60,7 +62,7 @@ class GalleryGroup extends GalleryGroup_core {
      * @return array memberName => memberValue
      */
     function getMemberData() {
-        $data = parent::getMemberData();
+	$data = parent::getMemberData();
         $data['groupType'] = isset($this->_groupType) ? $this->_groupType : null;
         $data['groupName'] = isset($this->_groupName) ? $this->_groupName : null;
 	return $data;
@@ -76,21 +78,23 @@ class GalleryGroup extends GalleryGroup_core {
 	return 'GalleryGroup';
     }
 
-    /**
+    /** 
      * Return the path to the PHP file for this class, relative to the gallery2 dir
-     *
+     * 
      * @return string path
-     */
-    function getClassFile() {
-        return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/GalleryGroup.class';
+     */ 
+    function getClassFile() { 
+        return 'modules/' .  
+            basename(dirname(dirname(dirname(__FILE__)))) .  
+            '/classes/GalleryGroup.class'; 
     }
-
+    
     /**
      * Get the value of groupType
      *
-     * @return integer the value
+     * @return INTEGER the value
      */
-    function getGroupType() {
+    function getgroupType() {
 	if (!isset($this->_groupType)) {
 	    return null;
 	}
@@ -100,16 +104,17 @@ class GalleryGroup extends GalleryGroup_core {
     /**
      * Set the value of groupType
      *
-     * @param integer the value
+     * @param INTEGER the value
      */
-    function setGroupType($value) {
-        /* Type cast the incoming value to be an integer */
-        if ($value != null) {
-            $value = (int)$value;
-        }
-
+    function setgroupType($value) {
+	/* Type cast the incoming value to be an integer */
+	if ($value != null) {
+	    $value = (int)$value;
+	}
+        
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
+      
 	$orig = isset($this->_groupType) ? $this->_groupType : null;
 
         /* Only take action if the value actually changes */
@@ -118,13 +123,13 @@ class GalleryGroup extends GalleryGroup_core {
 	    $this->_groupType = $value;
 	}
     }
-
+  
     /**
      * Get the value of groupName
      *
-     * @return string the value
+     * @return STRING the value
      */
-    function getGroupName() {
+    function getgroupName() {
 	if (!isset($this->_groupName)) {
 	    return null;
 	}
@@ -134,9 +139,9 @@ class GalleryGroup extends GalleryGroup_core {
     /**
      * Set the value of groupName
      *
-     * @param string the value
+     * @param STRING the value
      */
-    function setGroupName($value) {
+    function setgroupName($value) {
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
         $value = $this->_truncateString($value, 128);
@@ -148,6 +153,6 @@ class GalleryGroup extends GalleryGroup_core {
 	    $this->_groupName = $value;
 	}
     }
- 
+  
 }
 ?>

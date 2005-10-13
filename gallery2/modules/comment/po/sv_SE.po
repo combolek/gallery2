@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Comment 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-09-28 16:01+0100\n"
+"PO-Revision-Date: 2005-06-10 16:01+0100\n"
 "Last-Translator: Hampus Nygren <hampus@friendlyfire.net>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -127,25 +127,26 @@ msgstr "redigera"
 msgid "delete"
 msgstr "ta bort"
 
+#, fuzzy
 msgid "show full"
-msgstr "visa hela"
+msgstr "hela"
 
 msgid "show summary"
-msgstr "visa summering"
+msgstr ""
 
 #, c-format
 msgid "Posted by %s on %s (%s)"
-msgstr "Inlagd av %s den %s (%s)"
+msgstr "Inlaggd av %s den %s (%s)"
 
 #, c-format
 msgid "Posted by %s on %s"
-msgstr "Inlagd av %s den %s"
+msgstr "Inlaggd av %s den %s"
 
 msgid "Comment change confirmation"
 msgstr "Kommentator&auml;ndrings konfirmation"
 
 msgid "Comment added successfully"
-msgstr "Kommentar inlagd framg&aring;ngsrikt"
+msgstr "Kommentar inlaggd framg&aring;ngsrikt"
 
 msgid "Comment deleted successfully"
 msgstr "Kommentar borttagen framg&aring;ngsrikt"
@@ -174,8 +175,9 @@ msgstr "Du m&aring;ste skriva in ett anv&auml;ndarnamn."
 msgid "The username you entered is invalid."
 msgstr "Anv&auml;ndarnamnet du skrev in &auml;r ogiltigt."
 
+#, fuzzy
 msgid "Host"
-msgstr "V&auml;rd"
+msgstr "G&auml;st: "
 
 msgid "Date"
 msgstr "Datum"
@@ -205,42 +207,46 @@ msgstr "Senaste kommentarer"
 msgid "(view all %d comments)"
 msgstr "(visa alla %d kommentarer)"
 
+#, fuzzy
 msgid "Show comments"
-msgstr "Visa kommentarer"
+msgstr "visa kommentarer"
 
+#, fuzzy
 msgid "Number of comments"
-msgstr "Antal kommentarer"
+msgstr "S&ouml;k kommentarer"
 
 msgid "1"
-msgstr "1"
+msgstr ""
 
 msgid "2"
-msgstr "2"
+msgstr ""
 
 msgid "3"
-msgstr "3"
+msgstr ""
 
 msgid "4"
-msgstr "4"
+msgstr ""
 
 msgid "5"
-msgstr "5"
+msgstr ""
 
 msgid "10"
-msgstr "10"
+msgstr ""
 
 msgid "20"
-msgstr "20"
+msgstr ""
 
 msgid "30"
-msgstr "30"
+msgstr ""
 
 msgid "50"
-msgstr "50"
+msgstr ""
 
 msgid "100"
-msgstr "100"
+msgstr ""
 
 msgid "999"
-msgstr "999"
+msgstr ""
 
+#~ msgid "[comment] Search comments"
+#~ msgstr "[Kommentar] S&ouml;k kommentarer"

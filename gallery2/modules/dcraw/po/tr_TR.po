@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Dcraw 1.0\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-06 08:05+0200\n"
+"PO-Revision-Date: 2005-06-03 17:30+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
@@ -38,19 +38,19 @@ msgid "Convert to a PPM"
 msgstr "PPM ye çevir"
 
 msgid "Get the width and height of the image"
-msgstr "Resmin genişlik ve yüksekliğini al"
+msgstr ""
 
 msgid "Binary output:"
-msgstr "Binary çıktısı:"
+msgstr ""
 
 msgid "Dcraw"
-msgstr "Dcraw"
+msgstr ""
 
 msgid "Graphics toolkit for processing images in raw format"
-msgstr "Raw biçimindeki resim dosyalarını işlemek için Grafik Aracı"
+msgstr ""
 
 msgid "Graphics Toolkits"
-msgstr "Grafik Araçları"
+msgstr ""
 
 msgid "Convert to PPM"
 msgstr "PPM ye çevir"
@@ -61,26 +61,33 @@ msgstr "Dcraw Ayarları"
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla gösterildi"
 
-msgid "Dcraw is a graphics toolkit that can be used to process RAW images produced by high end digital cameras.   You must install the Dcraw binary on your server, then enter the path to it in the text box below.  If you're on a Unix machine, don't forget to make the binary executable (<i>chmod 755 dcraw</i> should do it)."
+msgid ""
+"Dcraw is a graphics toolkit that can be used to process RAW images produced "
+"by high end digital cameras.   You must install the Dcraw binary on your "
+"server, then enter the path to it in the text box below.  If you're on a "
+"Unix machine, don't forget to make the binary executable (<i>chmod 755 "
+"dcraw</i> should do it)."
 msgstr ""
 
 msgid "<b>Note</b>: Gallery supports Dcraw v5.40 and more recent."
-msgstr "<b>Not</b>: Galeri, Dcraw v5.40 ya da daha yeni bir versiyonu destekler."
+msgstr ""
 
 msgid "Path to dcraw binary:"
-msgstr "Dctaw binary'sine klasör yolu:"
+msgstr ""
 
 msgid "You must enter the path to your Dcraw binary."
-msgstr "Dcdraw binary'sine klasör yolu girmelisiniz."
+msgstr ""
 
 msgid "The path you entered is not a valid Dcraw binary or is not accessible."
-msgstr "Girmiş olduğunu Dcraw binary klasör yolu geçersiz ya da erişim kısıtlı."
+msgstr ""
 
-msgid "The path you entered isn't a valid Dcraw binary.  Use the 'test' button to check where the error is."
-msgstr "Girmiş olduğunu Dcraw binary klasör yolu geçersiz. 'test' tuşunu kullanarak hatanın nereden kaynaklandığını bulabilirsiniz."
+msgid ""
+"The path you entered isn't a valid Dcraw binary.  Use the 'test' button to "
+"check where the error is."
+msgstr ""
 
 msgid "The path you entered isn't valid."
-msgstr "Girmiş olduğunu klasör yolu geçersiz."
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Ayarları Kaydet"
@@ -95,19 +102,19 @@ msgid "Reset"
 msgstr "Sıfırla"
 
 msgid "Dcraw binary test results"
-msgstr "Dcraw binary test sonuçları"
+msgstr ""
 
 msgid "Binary Name"
-msgstr "Binary Adı"
+msgstr ""
 
 msgid "Pass/Fail"
 msgstr "Başarılı/Başarısız"
 
 msgid "Passed"
-msgstr "Başarılı"
+msgstr ""
 
 msgid "Failed"
-msgstr "Başarısız"
+msgstr ""
 
 msgid "Error messages:"
 msgstr "Hata Mesajları:"
@@ -115,9 +122,11 @@ msgstr "Hata Mesajları:"
 #, c-format
 msgid "Debug output (%d failed test)"
 msgid_plural "Debug output (%d failed tests)"
-msgstr[0] "Debug çıktısı (%d test başarısız)"
-msgstr[1] "Debug çıktısı (%d test başarısız)"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "We gathered this debug output while testing your Dcraw binaries.  If you read through this carefully you may discover the reason why your Dcraw binaries failed the tests."
+msgid ""
+"We gathered this debug output while testing your Dcraw binaries.  If you "
+"read through this carefully you may discover the reason why your Dcraw "
+"binaries failed the tests."
 msgstr ""
-

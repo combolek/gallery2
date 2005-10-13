@@ -51,6 +51,9 @@ class GalleryUserHelper_simple {
 	    return GalleryStatus::success();
 	}
 
+	/* Use the active user id */
+	$userId = $gallery->getActiveUserId();
+
 	list ($ret, $hasPermission) =
 	    GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
 	if ($ret->isError()) {
@@ -83,9 +86,7 @@ class GalleryUserHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	/* Only use the permission cache from the session data for the activeUser */
-	if ($userId == $gallery->getActiveUserId() &&
-	        GalleryDataCache::hasPermission($itemId, $permission)) {
+	if (GalleryDataCache::hasPermission($itemId, $permission)) {
 	    return array(GalleryStatus::success(), true);
 	}
 

@@ -131,27 +131,13 @@ function _GalleryMain($embedded=false) {
 
     $main = array();
     $urlGenerator =& $gallery->getUrlGenerator();
-    $ret = $urlGenerator->initNavigation();
-    if ($ret->isError()) {
-	return array($ret->wrap(__FILE__, __LINE__), null);
-    }
-    
+    $urlGenerator->initNavigation();
+
     /* Figure out the target view/controller */
     list($viewName, $controllerName) = GalleryUtilities::getRequestVariables('view', 'controller');
 
-    $gallery->debug("controller $controllerName, view $viewName");
-    /*
-     * In mode.embed.only, allow certain requests still to interact with G2 directly
-     * Allow core.DownloadItem and imageframe.CSS views (security -> empty(controllerName) check)
-     * Allow GalleryRemote (GR, upload applet, slideshowapplet) interactions too
-     * TODO: Move this somewhere else, e.g. as a view/controller property ->isAllowedInEmbedOnly()
-     */
     if (!$embedded && $gallery->getConfig('mode.embed.only') &&
-	    (!empty($controllerName) ||
-	        !in_array($viewName, array('core.DownloadItem', 'core:DownloadItem',
-					   'imageframe.CSS', 'imageframe:CSS'))) &&
-	    (!empty($viewName) || !in_array($controllerName, array('remote.GalleryRemote',
-								   'remote:GalleryRemote')))) {
+	    $viewName != 'core.DownloadItem' && $viewName != 'imageframe.CSS') {
 	/* Lock out direct access when embed-only is set */
 	return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
     }
@@ -327,7 +313,6 @@ function _GalleryMain($embedded=false) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $data = $theme->splitHtml($html, $results);
-	    $data['themeData'] =& $template->getVariableByReference('theme');
 	    $data['isDone'] = false;
 	} else {
 	    $ret = $template->display($templatePath);

@@ -4,17 +4,17 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
@@ -35,13 +35,13 @@
  * it by hand, as your changes will be lost next time this file is
  * rebuilt.  If you want to add more getters/setters, you should add
  * them in the core class.  If you want to change the format of this
- * file, then you should edit lib/tools/bin/interface.tpl.
+ * file, then you should edit the XSL template.
  *
  * @package GalleryCore
  * @subpackage Classes
  */
 class GalleryChildEntity extends GalleryChildEntity_core {
-
+  
     /**
      * Return meta information about the members of this class
      *
@@ -49,7 +49,8 @@ class GalleryChildEntity extends GalleryChildEntity_core {
      */
     function getPersistentMemberInfo() {
 	$meta = parent::getPersistentMemberInfo();
-        $meta['members']['parentId'] = array('class' => 'GalleryChildEntity', 'type' => STORAGE_TYPE_INTEGER);
+	$meta['members']['parentId'] = array('class' => 'GalleryChildEntity', 'type' => STORAGE_TYPE_INTEGER);
+    
 	return $meta;
     }
 
@@ -59,7 +60,7 @@ class GalleryChildEntity extends GalleryChildEntity_core {
      * @return array memberName => memberValue
      */
     function getMemberData() {
-        $data = parent::getMemberData();
+	$data = parent::getMemberData();
         $data['parentId'] = isset($this->_parentId) ? $this->_parentId : null;
 	return $data;
     }
@@ -74,21 +75,23 @@ class GalleryChildEntity extends GalleryChildEntity_core {
 	return 'GalleryChildEntity';
     }
 
-    /**
+    /** 
      * Return the path to the PHP file for this class, relative to the gallery2 dir
-     *
+     * 
      * @return string path
-     */
-    function getClassFile() {
-        return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/GalleryChildEntity.class';
+     */ 
+    function getClassFile() { 
+        return 'modules/' .  
+            basename(dirname(dirname(dirname(__FILE__)))) .  
+            '/classes/GalleryChildEntity.class'; 
     }
-
+    
     /**
      * Get the value of parentId
      *
-     * @return integer the value
+     * @return INTEGER the value
      */
-    function getParentId() {
+    function getparentId() {
 	if (!isset($this->_parentId)) {
 	    return null;
 	}
@@ -98,16 +101,17 @@ class GalleryChildEntity extends GalleryChildEntity_core {
     /**
      * Set the value of parentId
      *
-     * @param integer the value
+     * @param INTEGER the value
      */
-    function setParentId($value) {
-        /* Type cast the incoming value to be an integer */
-        if ($value != null) {
-            $value = (int)$value;
-        }
-
+    function setparentId($value) {
+	/* Type cast the incoming value to be an integer */
+	if ($value != null) {
+	    $value = (int)$value;
+	}
+        
 	/* Convert unset values to null, to avoid generating warnings. */
 	$value = isset($value) ? $value : null;
+      
 	$orig = isset($this->_parentId) ? $this->_parentId : null;
 
         /* Only take action if the value actually changes */
@@ -116,6 +120,6 @@ class GalleryChildEntity extends GalleryChildEntity_core {
 	    $this->_parentId = $value;
 	}
     }
- 
+  
 }
 ?>

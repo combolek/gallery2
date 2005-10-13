@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Image Block 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-09-26 17:04+0100\n"
+"PO-Revision-Date: 2005-06-10 17:04+0100\n"
 "Last-Translator: Hampus Nygren <hampus@friendlyfire.net>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -97,11 +97,13 @@ msgstr "&Auml;gare: %s"
 msgid "Prevent this album from being displayed in the Image Block"
 msgstr "F&ouml;rhindra att detta album visas i Bildblocket"
 
+#, fuzzy
 msgid "Apply ImageBlock settings to sub-albums"
-msgstr "Applicera BildBlock-inst&auml;llningar p&aring; underliggande album"
+msgstr "Applicera p&aring; underliggande album"
 
+#, fuzzy
 msgid "Image Block Settings"
-msgstr "BildBlock-inst&auml;llningar"
+msgstr "Bildblocks-administrat&ouml;r"
 
 msgid "Settings saved successfully"
 msgstr "Inst&auml;llningar sparades framg&aring;ngsrikt"
@@ -110,7 +112,7 @@ msgid "Show"
 msgstr "Visa"
 
 msgid "Heading"
-msgstr "&Ouml;verskrift"
+msgstr ""
 
 msgid "Title"
 msgstr "Titel"
@@ -170,10 +172,8 @@ msgid ""
 "block type"
 msgstr ""
 
-msgid ""
-"Scale images to this maximum size. If maxSize exceeds the thumbnail "
-"dimensions, you must also specify g2_show=fullSize"
-msgstr ""
+msgid "Scale images to this maximum size"
+msgstr "Skala bilder till denna maximala storleken"
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr ""
@@ -188,16 +188,12 @@ msgid ""
 "If a parameter marked with * is omitted then the site default defined above "
 "is used."
 msgstr ""
-"Om en parameter markerad med * &auml;r utel&auml;mnad s&aring; anv&auml;nds "
-"sitens f&ouml;rvalda v&auml;rde."
 
 #, c-format
 msgid ""
 "Image frames require CSS to be displayed correctly. Include the following in "
 "the %s section to support image frames."
 msgstr ""
-"Bildramar kr&auml;ver CSS f&auml;r att visas korrekt. Inkludera det f&ouml;"
-"ljande i %s-sektionen f&ouml;r att st&ouml;dja bildramar."
 
 #, c-format
 msgid ""
@@ -207,61 +203,72 @@ msgid ""
 msgstr ""
 
 msgid "Image type"
-msgstr "Bildtyp"
+msgstr ""
 
+#, fuzzy
 msgid "Random image"
-msgstr "Slumpm&auml;ssig bild"
+msgstr "Slumpm&auml;ssig Bild"
 
+#, fuzzy
 msgid "Recent image"
 msgstr "Senaste Bild"
 
+#, fuzzy
 msgid "Viewed image"
-msgstr "Visad Bild"
+msgstr "Mest Visade Bild"
 
+#, fuzzy
 msgid "Random album"
-msgstr "Slumpm&auml;ssigt album"
+msgstr "Slumpm&auml;ssigt Album"
 
+#, fuzzy
 msgid "Recent album"
-msgstr "Senaste album"
+msgstr "Senaste Album"
 
+#, fuzzy
 msgid "Viewed album"
-msgstr "Visade Album"
+msgstr "Mest Visade Album"
 
 msgid "Daily image"
-msgstr "Dagsbild"
+msgstr ""
 
 msgid "Weekly image"
-msgstr "Veckobild"
+msgstr ""
 
 msgid "Monthly image"
-msgstr "M&aring;nadsbild"
+msgstr ""
 
 msgid "Daily album"
-msgstr "Dagsalbum"
+msgstr ""
 
 msgid "Weekly album"
-msgstr "Veckoalbum"
+msgstr ""
 
 msgid "Monthly album"
-msgstr "M&aring;nadsalbum"
+msgstr ""
 
 msgid "Use default settings"
-msgstr "Anv&auml;nd "
+msgstr ""
 
 msgid "Show heading"
-msgstr "Visa &ouml;verskrift"
+msgstr ""
 
 msgid "Show title"
-msgstr "Visa titel"
+msgstr ""
 
+#, fuzzy
 msgid "Show date"
-msgstr "Visa datum"
+msgstr "Visa"
 
+#, fuzzy
 msgid "Show view count"
-msgstr "Visa Visningsr&auml;knare"
+msgstr "Visa R&auml;knare"
 
 msgid "Show owner"
-msgstr "Visa &auml;gare"
+msgstr ""
 
-#~ msgid "Scale images to this maximum size"
-#~ msgstr "Skala bilder till denna maximala storleken"
+#~ msgid "Random/Popular"
+#~ msgstr "Slumpm&auml;ssig/Popul&auml;r"
+
+#~ msgid "Image Blocks"
+#~ msgstr "Bildblock"
