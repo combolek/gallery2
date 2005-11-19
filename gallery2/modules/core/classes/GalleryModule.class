@@ -83,8 +83,8 @@ class GalleryModule extends GalleryPlugin {
     function getApiVersion() {
 	/*
 	 * TODO for the next major version bump:
-	 *   - Remove GalleryModule::loadItemDetails()
-	 *   - Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
+	 *   + DONE: Remove GalleryModule::loadItemDetails()
+	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
 	 *   - Consider removing isRecommendedDuringInstall() since
 	 *     we now have 4 different types of installs
 	 *   - Fix DatabaseStorageExtras::_parseSqlTemplate so that it no longer
@@ -531,22 +531,6 @@ class GalleryModule extends GalleryPlugin {
      */
     function getItemSummaries($items, $permissions, &$template) {
 	return array(GalleryStatus::success(), array());
-    }
-
-    /**
-     * TODO: remove this obsolete api.
-     * Return module-specific details content about the item. This is localized
-     * content specific to a given item.  You can use this to return in-depth
-     * item content.  In theory it should be more detailed than the item summaries.
-     *
-     * @param object GalleryTemplate a template
-     * @param object GalleryItem
-     * @param array of item permissions
-     * @return array object GalleryStatus a status code
-     *               string path to template file to include
-     */
-    function loadItemDetails(&$template, $item, $permissions) {
-	return array(GalleryStatus::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__), null);
     }
 
     /**
