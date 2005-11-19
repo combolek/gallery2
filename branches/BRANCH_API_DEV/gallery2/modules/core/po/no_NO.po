@@ -1,0 +1,3632 @@
+# $Id$
+#
+# Gallery - a web based photo album viewer and editor
+# Copyright (C) 2000-2005 Bharat Mediratta
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery: Core 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-01 23:38+0100\n"
+"PO-Revision-Date: 2005-10-24 13:54+0100\n"
+"Last-Translator: Sverre M. Vikan <sverre AT urven DOT net>\n"
+"Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Gallery Email Test"
+msgstr "Gallery e-posttest"
+
+msgid "&laquo; None &raquo;"
+msgstr "&laquo;Ingen&raquo;"
+
+msgid "forever"
+msgstr "evig"
+
+msgid "No Markup"
+msgstr "Ingen formattering"
+
+msgid "BBCode"
+msgstr "BBCode"
+
+msgid "Raw HTML"
+msgstr "Ren HTML"
+
+msgid "Database"
+msgstr "Database"
+
+msgid "File"
+msgstr "Fil"
+
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minutt"
+msgstr[1] "%d minutter"
+
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d time"
+msgstr[1] "%d timer"
+
+#, c-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%dag"
+msgstr[1] "%d dager"
+
+#, c-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d uke"
+msgstr[1] "%d uker"
+
+msgid "<none>"
+msgstr "<ingen>"
+
+msgid "install"
+msgstr "installere"
+
+msgid "upgrade"
+msgstr "oppgradere"
+
+msgid "configure"
+msgstr "konfigurere"
+
+msgid "activate"
+msgstr "aktivere"
+
+msgid "uninstall"
+msgstr "avinstallasjon"
+
+msgid "deactivate"
+msgstr "deaktivere"
+
+#, fuzzy
+msgid "Performing Maintenance Tasks"
+msgstr "Systemvedlikehold"
+
+#, c-format
+msgid "Downloading %s"
+msgstr ""
+
+#, fuzzy
+msgid "Done."
+msgstr "Ferdig"
+
+#, fuzzy
+msgid "Upgrade"
+msgstr "oppgradere"
+
+msgid "Download"
+msgstr ""
+
+msgid "Inherit settings from parent album"
+msgstr "Arve innstillinger fra forelder-album"
+
+msgid "Use these settings"
+msgstr "Bruk disse innstillingene"
+
+msgid "key"
+msgstr "tast"
+
+msgid "All access"
+msgstr "Tilgang til alt"
+
+msgid "[core] View item"
+msgstr "[core] Vis objekt"
+
+msgid "[core] View resized version(s)"
+msgstr "[core] Vis skalert(e) versjon(er)"
+
+msgid "[core] View original version"
+msgstr "[core] Vis orginal versjon"
+
+msgid "[core] View all versions"
+msgstr "[core] Vis alle versjoner"
+
+msgid "[core] Add sub-album"
+msgstr "[core] Legg til underkatalog"
+
+msgid "[core] Add sub-item"
+msgstr "[core] Legg til underobjekt"
+
+msgid "[core] Edit item"
+msgstr "[core] Rediger objekt"
+
+msgid "[core] Change item permissions"
+msgstr "[core] Endre objekttilganger"
+
+msgid "[core] Delete item"
+msgstr "[core] Slett objekt"
+
+msgid "Upgrading permissions"
+msgstr "Oppgraderer tilganger"
+
+msgid "Deleting old permission tables"
+msgstr "Sletter gamle tilgangstabellerr"
+
+msgid "Registered Users"
+msgstr "Registrerte brukere"
+
+msgid "All Users"
+msgstr "Alle brukere"
+
+msgid "Detecting broken derivatives"
+msgstr "Gjenkjenner brutte avledninger"
+
+msgid "Clearing fast-download cache"
+msgstr "T&oslash;mmer hurtiglager for rask nedlasting"
+
+msgid "Site Admins"
+msgstr "Nettstedadministratorer"
+
+msgid "Everybody"
+msgstr "Alle"
+
+msgid "Guest"
+msgstr "Gjest"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "This is the main page of your Gallery"
+msgstr "Dette er ditt galleris hovedside"
+
+msgid "Detecting broken derivatives, loading "
+msgstr "Gjenkjenner brutte avledninger, laster "
+
+msgid "Detecting broken derivatives "
+msgstr "Gjenkjenner brutte avledninger "
+
+msgid "Detecting broken derivatives, "
+msgstr "Gjenkjenner brutte avledninger, "
+
+msgid "Detecting broken derivatives, saving "
+msgstr "Gjenkjenner brutte avledninger, lagrer "
+
+msgid "add items"
+msgstr "tilf&oslash;y objekter"
+
+msgid "Album created successfully."
+msgstr "Album opprettet."
+
+msgid "add sub-album"
+msgstr "tilf&oslash;y underalbum"
+
+msgid "add items confirmation"
+msgstr "bekreftelse av tilf&oslash;yelse av objekter"
+
+msgid "Base filename"
+msgstr "Basefilnavn"
+
+msgid "Caption"
+msgstr "Bildetekst"
+
+msgid "Blank"
+msgstr "Blank"
+
+msgid "From Web Browser"
+msgstr "Fra nettleser"
+
+#, c-format
+msgid "%d megabyte"
+msgid_plural "%d megabytes"
+msgstr[0] "%d megabyte"
+msgstr[1] "%d megabyte"
+
+#, c-format
+msgid "%d kilobytes"
+msgid_plural "%d kilobytes"
+msgstr[0] "%d kilobyte"
+msgstr[1] "%d kilobyte"
+
+msgid "From Local Server"
+msgstr "Fra lokal server"
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "From Web Page"
+msgstr "Fra nettside"
+
+msgid "Gallery Item Administration"
+msgstr "Administrasjon av galleriobjekt"
+
+msgid "create link"
+msgstr "opprett kobling"
+
+msgid "link an item"
+msgstr "koble et objekt"
+
+msgid "delete an item"
+msgstr "slett et objekt"
+
+msgid "delete confirmation"
+msgstr "bekreftelse av sletting"
+
+#, c-format
+msgid "delete %s"
+msgstr "slett %s"
+
+#, c-format
+msgid "edit %s"
+msgstr "rediger %s"
+
+msgid "Settings saved successfully."
+msgstr "Innstillingene er lagret"
+
+msgid "&laquo; default theme &raquo;"
+msgstr "&laquo;standardtema&raquo;"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Changes saved successfully"
+msgstr "Endringene ble lagret"
+
+msgid "Animation Size"
+msgstr "Animasjonsst&oslash;rrelse"
+
+msgid "edit captions"
+msgstr "reidger bildetekster"
+
+msgid "General"
+msgstr "Generelt"
+
+msgid "Movie Size"
+msgstr "Filmst&oslash;rrelse"
+
+msgid "Thumbnail cropped successfully"
+msgstr "Miniatyr ble beskj&aelig;rt"
+
+msgid "Thumbnail reset successfully"
+msgstr "Miniatyr ble nullstilt"
+
+msgid "Photo 5x3"
+msgstr "Foto 5x3"
+
+msgid "Photo 6x4"
+msgstr "Foto 6x4"
+
+msgid "Photo 7x5"
+msgstr "Foto 7x5"
+
+msgid "Photo 10x8"
+msgstr "Foto 10x8"
+
+msgid "Fullscreen 4x3"
+msgstr "Fullskjerm 4x3"
+
+msgid "Widescreen 16x9"
+msgstr "Bredskjerm 16x9"
+
+msgid "CinemaScope 2.35x1"
+msgstr "CinemaScope 2.35x1"
+
+msgid "Square 1x1"
+msgstr "Kvadrat 1x1"
+
+msgid "As Image"
+msgstr "Som bilde"
+
+msgid "Landscape"
+msgstr "Landskap"
+
+msgid "Portrait"
+msgstr "Portrett"
+
+msgid "Crop Thumbnail"
+msgstr "Beskj&aelig;r miniatyr"
+
+msgid "Reverted rotate and scale changes successfully"
+msgstr "Rotasjons- og skaleringsendringene ble tilbakestilt"
+
+msgid "Rotated photo successfully"
+msgstr "Foto ble rotert"
+
+msgid "Scaled photo successfully"
+msgstr "Foto ble skalert"
+
+msgid "Modify Photo"
+msgstr "Modifisere foto"
+
+msgid "Successfully saved theme settings"
+msgstr "Temainnstillinger lagret"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "make highlight"
+msgstr "lag visningsbilde"
+
+msgid "move item"
+msgstr "flytt objekt"
+
+#, c-format
+msgid "move %s"
+msgstr "flytt %s"
+
+#, c-format
+msgid "edit %s permissions"
+msgstr "endre tilganger for %s"
+
+msgid "reorder items"
+msgstr "legg objekter i rekkef&oslash;lge igjen"
+
+msgid "Maintenance"
+msgstr "Vedlikehold"
+
+msgid "Gallery Site Administration"
+msgstr "Galleryadministrasjon"
+
+msgid "site admin"
+msgstr "nettstedadministrator"
+
+msgid "Gallery User Administration"
+msgstr "Brukeradministrasjon for gallery"
+
+msgid "change password"
+msgstr "endre passord"
+
+msgid "your account"
+msgstr "din konto"
+
+msgid "Password Recovery"
+msgstr "Passordgjenoppretting"
+
+msgid "Build all thumbnails/resizes"
+msgstr "Lag alle miniatyrer/skalerte bilder"
+
+msgid ""
+"Ensure data files for all derivatives (thumbnails, etc) have been built and "
+"rebuild broken ones."
+msgstr ""
+"Forsikre om at datafiler for alle avledninger (miniatyrer, osv) er laget og "
+"lag brutte p&aring; nytt."
+
+msgid "Build All Thumbnails/Resizes"
+msgstr "Lag alle miniatyrer/skalerte versjoner"
+
+msgid "Debug output for failed items:"
+msgstr "Feils&oslash;kingsresultat for feilede objekter:"
+
+#, c-format
+msgid "Processing image %d of %d"
+msgstr "Behandler bilde %d av %d"
+
+#, c-format
+msgid "Checked %d items"
+msgstr "%d objekter merket"
+
+#, c-format
+msgid "%d items built"
+msgstr "%d objekter laget"
+
+#, c-format
+msgid "%d items failed"
+msgstr "%d objekter feilet"
+
+msgid "Delete database cache"
+msgstr "Slett hurtiglager for databasen"
+
+msgid ""
+"Gallery stores commonly used database information on disk for increased "
+"performance.  If you modify the database directly, you should run this task "
+"to clean out the cache and force Gallery to reload the information from the "
+"database."
+msgstr ""
+"Gallery lagrer ofte brukt databaseinformasjon p&aring; disk for &aring; "
+"&oslash;ke ytelsen.  Du b&oslash;r kj&oslash;re denne oppgaven for &aring; "
+"rense hurtiglageret og tvinge Gallery til &aring; laste informasjonen fra "
+"databasen om du endrer databasen direkte."
+
+#, c-format
+msgid "Successfully deleted directory: %s"
+msgstr "Slettet katalog: %s"
+
+#, c-format
+msgid "Unable to delete directory: %s"
+msgstr "Kunne ikke slette katalog: %s"
+
+msgid "Delete template cache"
+msgstr "Slett hurtiglager for mal"
+
+msgid ""
+"Gallery compiles template files and saves them for increased performance.  "
+"If you're experiencing problems that say <i>Smarty error</i> then you might "
+"try running this task.  Also run this if you remove a local/*.tpl file so "
+"Smarty will switch back to the default tpl file."
+msgstr ""
+"Gallery kompilerer malfiler og lagrer de for &oslash;kt ytelse.  Om du "
+"opplever problemer som sier <i>Smarty error</i> kan du fors&oslash;ke "
+"&aring; kj&oslash;re denne oppgaven.  Kj&oslash;r ogs&aring; denne oppgaven "
+"om du fjerner en local/*.tpl-fil, slik at Smarty veksler tilbake til "
+"standard tpl-fil."
+
+msgid "Template cache deleted successfully"
+msgstr "Hurtiglager for mal slettet"
+
+msgid "some text to be spit out in different languages"
+msgstr "noe tekst som skal spyttes ut i forskjellige spr&aring;k"
+
+msgid "You did it right!"
+msgstr "Du gjorde det riktig!"
+
+msgid "album"
+msgstr "album"
+
+msgid "Animation"
+msgstr "Animasjon"
+
+msgid "animation"
+msgstr "animasjon"
+
+msgid "Gallery Core"
+msgstr "Gallerykjerne"
+
+msgid "Gallery Core Module"
+msgstr "Kjernemodul for Gallery"
+
+msgid "Search descriptions"
+msgstr "S&oslash;k i beskrivelser"
+
+msgid "Search keywords"
+msgstr "S&oslash;k i n&oslash;kkelord"
+
+msgid "Search summaries"
+msgstr "S&oslash;k i sammendrag"
+
+msgid "Search titles"
+msgstr "S&oslash;k i titler"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Keywords"
+msgstr "N&oslash;kkelord"
+
+msgid "Summary"
+msgstr "Sammendrag"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "Owner"
+msgstr "Eier"
+
+msgid "Group"
+msgstr "Gruppe"
+
+msgid "group"
+msgstr "gruppe"
+
+msgid "Other"
+msgstr "Annet"
+
+msgid "Movie"
+msgstr "Film"
+
+msgid "movie"
+msgstr "film"
+
+msgid "photo"
+msgstr "foto"
+
+#, fuzzy
+msgid "download"
+msgstr "ned"
+
+#, fuzzy
+msgid "Plugins directory does not exist."
+msgstr "Brukeren '%s' eksisterer ikke."
+
+#, c-format
+msgid ""
+"Couldn't create plugin directory '%s' in '%s', make sure the web server has "
+"write permissions in it."
+msgstr ""
+
+#, c-format
+msgid "Couldn't create repository cache path '%s'."
+msgstr ""
+
+#, c-format
+msgid ""
+"Couldn't create cache directory '%s' in '%s', make sure the web server has "
+"write permissions in it."
+msgstr ""
+
+#, c-format
+msgid "Error downloading package from '%s'."
+msgstr ""
+
+#, c-format
+msgid "Error downloading index from '%s'."
+msgstr ""
+
+#, c-format
+msgid "Error downloading index hash from '%s'."
+msgstr ""
+
+msgid "Index integrity check failed."
+msgstr ""
+
+msgid "&laquo; default sort order &raquo;"
+msgstr "&laquo;standard sorteringsrekkef&oslash;lge&raquo;"
+
+msgid "Manual sort order"
+msgstr "Manuell sorteringsrekkef&oslash;lge"
+
+msgid "Origination Date"
+msgstr "Opprinnelsesdato"
+
+msgid "Creation Date"
+msgstr "Opprettelsesdato"
+
+msgid "Last Changed Date"
+msgstr "Dato for siste endring"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "View Count"
+msgstr "Visningsteller"
+
+msgid "Random"
+msgstr "Tilfeldig"
+
+msgid "&laquo; no presort &raquo;"
+msgstr "&laquo;ingen forsortering&raquo;"
+
+msgid "Albums First"
+msgstr "Album f&oslash;rst"
+
+msgid "Most Viewed First"
+msgstr "Mest vist f&oslash;rst"
+
+msgid "Ascending"
+msgstr "Stigende"
+
+msgid "Descending"
+msgstr "Synkende"
+
+msgid "Validation disabled until you set allowSessionAccess in config.php"
+msgstr ""
+"Gyldighetssjekk er deaktivert inntil du setter allowSessionAccess i config."
+"php"
+
+msgid "This page is valid XHTML 1.0"
+msgstr "Denne siden er gyldig XHTML 1.0"
+
+msgid "Donate to the Gallery project"
+msgstr "Donere til Gallery-prosjektet"
+
+msgid "G2.0: Unpossible!"
+msgstr "G2.0: ikke mulig!"
+
+#, c-format
+msgid "Estimated time remaining: %d:%02d"
+msgstr "Antatt gjenst&aring;ende tid: %d:%02d"
+
+#, c-format
+msgid "Memory used: %s, total: %s"
+msgstr "Brukt minne: %s, total: %s"
+
+msgid "Rows per album page"
+msgstr "Rader per albumside"
+
+msgid "Columns per album page"
+msgstr "S&oslash;yler per albumside"
+
+msgid "Show image owners"
+msgstr "Vis bildeeiere"
+
+msgid "Show album owners"
+msgstr "Vis albumeiere"
+
+msgid "Show micro navigation thumbnails"
+msgstr "Vis mikro navigasjonsminiatyrer"
+
+msgid "Number of items to show per page"
+msgstr "Antall objekter som skal vises per side"
+
+msgid "Blocks to show in the sidebar"
+msgstr "Blokker som skal vises i sidestolpen"
+
+msgid "Blocks to show on album pages"
+msgstr "Blokker som skal vises p&aring; albumsider"
+
+msgid "Blocks to show on photo pages"
+msgstr "Blokker som skal vises p&aring; fotosider"
+
+msgid "View Samples"
+msgstr "Vis utvalg"
+
+msgid "Album Frame"
+msgstr "Albumramme"
+
+msgid "Item Frame"
+msgstr "Objektramme"
+
+msgid "Photo Frame"
+msgstr "Bilderamme"
+
+msgid "Color Pack"
+msgstr "Fargepakke"
+
+msgid "You must enter a number greater than 0"
+msgstr "Du m&aring; skrive inn et tall st&oslash;rre enn 0"
+
+msgid "Format: [module.BlockName param=value] ..."
+msgstr "Format: [modul.BlokkNavn param=verdi] ..."
+
+#, c-format
+msgid "%dx%d"
+msgstr "%dx%d"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid "audio"
+msgstr "audio"
+
+msgid "Archive"
+msgstr "Arkiv"
+
+msgid "archive"
+msgstr "arkiv"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "Spreadsheet"
+msgstr "Regneark"
+
+msgid "spreadsheet"
+msgstr "regneark"
+
+msgid "Unknown"
+msgstr "Ukjent"
+
+msgid "unknown"
+msgstr "ukjent"
+
+#, c-format
+msgid ""
+"Invalid return URL! The requested URL %s tried to insert a redirection to %s "
+"which is not a part of this Gallery."
+msgstr ""
+
+msgid "Back"
+msgstr "Tilbake"
+
+#, c-format
+msgid "Back to %s"
+msgstr "Tilbake til %s"
+
+msgid "User"
+msgstr "Bruker"
+
+msgid "user"
+msgstr "bruker"
+
+msgid "Optimize database"
+msgstr "Optimalisere databasen"
+
+msgid ""
+"Improve the performance of your database.  Results will vary depending on "
+"which database you're using, but this routine maintenance will make your "
+"Gallery run faster.  Especially useful after adding or deleting many items."
+msgstr ""
+"Øk din databases ytelse.  Resultatene avhenger av hvilken database du "
+"bruker, men denne vedlikeholdsrutinen vil gj&oslash;re ditt galleri raskere, "
+"og er spesielt nyttig etter at du har tilf&oslash;yd eller slettet mange "
+"objekter."
+
+msgid "Database optimized successfully"
+msgstr "Database optimalisert"
+
+msgid "Reset view counts"
+msgstr "Nullstille visningsteller"
+
+msgid ""
+"Reset number of views to zero for all albums and items.  This task flushes "
+"the database cache as well."
+msgstr ""
+"Nullstille visninger for alle album og objekter.  Denne oppgaven t&oslash;"
+"mmer databasens hurtiglager ogs&aring;."
+
+msgid "View counts reset successfully"
+msgstr "Visningsteller nullstilt"
+
+msgid "Refresh capture dates"
+msgstr "Oppdatere datoer for fotograferinger"
+
+msgid ""
+"Update capture date stored in Gallery for all items with an available date "
+"in the original data file (usually from EXIF data)."
+msgstr ""
+"Oppdatere dato lagret i Gallery for fotografering, for alle objekter med en "
+"tilgjengelig dato i den originale datafilen (vanligvis fra EXIF-data)."
+
+msgid "Processing..."
+msgstr "Behandler..."
+
+msgid "Refresh Capture Dates"
+msgstr "Oppdatere datoer for fotograferinger"
+
+#, c-format
+msgid "Processing item %d of %d"
+msgstr "Behandler objekt %d av %d"
+
+#, c-format
+msgid "Updated %d of %d items"
+msgstr "Oppdaterte %d av %d objekter"
+
+msgid "System information"
+msgstr "Systeminformasjon"
+
+msgid "Get system details; useful for copy/paste into G2 support forum."
+msgstr ""
+"Hente systemdetaljer; nyttig for &aring; kopiere/lime inn p&aring; G2s "
+"st&oslash;tteforum."
+
+msgid "core"
+msgstr "kjerne"
+
+msgid "Gallery version"
+msgstr "Gallery versjon"
+
+msgid "PHP version"
+msgstr "PHP versjon"
+
+msgid "Webserver"
+msgstr "Nettjener"
+
+msgid "Toolkits"
+msgstr "Verkt&oslash;ykasser"
+
+msgid "Operating system"
+msgstr "Operativsystem"
+
+msgid "Browser"
+msgstr "Nettleser"
+
+msgid "Core"
+msgstr "Kjerne"
+
+msgid "Gallery 2 Core Module"
+msgstr "Gallery 2 kjernemodul"
+
+msgid "Add Items"
+msgstr "Tilf&oslash;y objekter"
+
+msgid "Edit Album"
+msgstr "Redgere album"
+
+msgid "Edit Photo"
+msgstr "Redigere foto"
+
+msgid "Edit Movie"
+msgstr "Redigere film"
+
+msgid "Create Link"
+msgstr "Opprett lenke"
+
+msgid "Add Album"
+msgstr "Tilf&oslash;ye album"
+
+msgid "Edit Permissions"
+msgstr "Redigere tilganger"
+
+msgid "View Permissions"
+msgstr "Vis tilganger"
+
+msgid "Delete Album"
+msgstr "Slette album"
+
+msgid "Delete Photo"
+msgstr "Slette foto"
+
+msgid "Delete Movie"
+msgstr "Slette film"
+
+msgid "Move Album"
+msgstr "Flytte album"
+
+msgid "Move Photo"
+msgstr "Flytte foto"
+
+msgid "Move Movie"
+msgstr "Flytte film"
+
+msgid "Edit Captions"
+msgstr "Redigere bildetekster"
+
+msgid "Make Highlight"
+msgstr "Lage visningsbilde"
+
+msgid "Reorder Items"
+msgstr "Endre objektrekkef&oslash;lge"
+
+msgid "Site Admin"
+msgstr "Nettstedadministrasjon"
+
+msgid "Login"
+msgstr "Innlogging"
+
+msgid "Your Account"
+msgstr "Din konto"
+
+msgid "Logout"
+msgstr "Logg ut"
+
+msgid "Modules"
+msgstr "Moduler"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "Tema"
+
+msgid "Display"
+msgstr "Vis"
+
+msgid "Users"
+msgstr "Brukere"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Toolkit Priority"
+msgstr "Verkt&oslash;ykasseprioritet"
+
+msgid "Graphics Toolkits"
+msgstr "Grafiske verkt&oslash;y"
+
+msgid "Account Settings"
+msgstr "Kontoinstillinger"
+
+msgid "Change Password"
+msgstr "Endre passord"
+
+msgid "Link Album"
+msgstr "Lag en lenke til album"
+
+msgid "Link Photo"
+msgstr "Lag en lenke til foto"
+
+msgid "Link Movie"
+msgstr "Lag en lenke til film"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Rediger %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Slett %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Flytt %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "Link %s"
+
+msgid "General Settings"
+msgstr "Generelle innstillinger"
+
+msgid "Settings saved successfully"
+msgstr "Innstillingene ble lagret"
+
+msgid "Added local upload directory successfully"
+msgstr "Vellykket tilf&oslash;yelse av lokal opplastningskatalog"
+
+msgid "Removed local upload directory successfully"
+msgstr "Vellykket fjerning av lokal opplastingskatalog"
+
+msgid "Test email sent successfully"
+msgstr "Test-e-post sent"
+
+msgid "There was a problem processing your request, see below for details."
+msgstr ""
+"Det oppstod et problem under behandling av din foresp&oslash;rsel. Se under "
+"for detaljer."
+
+msgid "Error sending test email, see below for details."
+msgstr "\"Feil ved sending av test-e-post. Se under for detaljer."
+
+msgid "Language Settings"
+msgstr "Spr&aring;kinnstillinger"
+
+msgid ""
+"Select language defaults for Gallery. Individual users can override this "
+"setting in their personal preferences or via the language selector block if "
+"available."
+msgstr ""
+"Velg standardspr&aring;k for Gallery. Enkeltbrukere kan overkj&oslash;re "
+"denne innstillingen i deres personlige innstillinger, eller via spr&aring;"
+"kvelgerblokken, om den er tilgjegelig"
+
+msgid "Default language"
+msgstr "Standardspr&aring;k"
+
+msgid "gettext"
+msgstr "gettext"
+
+#, c-format
+msgid ""
+"Your webserver does not support localization.  Please instruct your system "
+"administrator to reconfigure PHP with the %s option enabled."
+msgstr ""
+"Den nettjener st&oslash;tter ikke lokaltiplassing.  Vennligst instruer din "
+"systemadministrator om &aring; sette opp PHP med %s-innstillingen aktivert."
+
+msgid "Date Formats"
+msgstr "Datoformater"
+
+#, c-format
+msgid ""
+"Specify how dates and times are displayed by Gallery.  See %sphp.net%s for "
+"details of how to enter a format string.  Note that the display of some "
+"tokens varies according to the active language."
+msgstr ""
+"Velg hvordan datoer og tider skal vises i Gallery.  Se %sphp.net%s for "
+"detaljer om hvordan angi en formatstreng.  Merk at visningen av enkelte "
+"symboler varierer etter det aktive spr&aring;ket."
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Sample"
+msgstr "Utvalg"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Time"
+msgstr "Tid"
+
+msgid "Date/Time"
+msgstr "Dato/tid"
+
+msgid "Filesystem Permissions"
+msgstr "Filsystemtilganger"
+
+msgid ""
+"Specify the default permissions for files and directories that Gallery "
+"creates. This doesn't apply to files/directories that Gallery has already "
+"created."
+msgstr ""
+"Spesifiser standardtilganger for de filer og kataloger Gallery oppretter. "
+"Dette p&aring;virker ikke filer/kataloger som allerede er opprettet."
+
+msgid "New directories"
+msgstr "Nye kataloger"
+
+msgid "New files"
+msgstr "Nye filer"
+
+msgid "Local Server Upload Paths"
+msgstr "Sti til den lokale serverens opplastingssted"
+
+msgid ""
+"Specify the legal directories on the local server where a user can store "
+"files and then upload them into Gallery using the <i>Upload from Local "
+"Server</i> feature.  The paths you enter here and all the files and "
+"directories under those paths will be available to any Gallery user who has "
+"upload privileges, so you should limit this to directories that won't "
+"contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
+msgstr ""
+"Spesifiser de kataloger p&aring; den lokale serveren der en bruker kan lagre "
+"filer for &aring; laste de inn i Gallery ved hjelp av funksjonen <i>Last opp "
+"fra lokal server</i>.  Stiene du skriver inn her, og alle filer og kataloger "
+"under disse stiene, vil bli tilgjengelige for alle Gallery-brukere med rett "
+"til &aring; laste opp filer, s&aring; du b&oslash;r begrense dette til "
+"kataloger som ikke inneholder sensitive data (f.eks. /tmp eller /usr/ftp/"
+"incoming)"
+
+msgid "Path"
+msgstr "Sti"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "remove"
+msgstr "fjern"
+
+msgid "Add"
+msgstr "Tilf&oslash;y"
+
+msgid "You must enter a directory to add."
+msgstr "Du m&aring; oppgi en katalog som skal tilf&oslash;yes."
+
+msgid "open_basedir documentation"
+msgstr "open_basedir-dokumentasjon"
+
+#, c-format
+msgid ""
+"Your webserver is configured to prevent you from accessing that directory.  "
+"Please refer to the %s and consult your webserver administrator."
+msgstr ""
+"Din webserver er satt opp til &aring; nekte deg tilgang den katalogen.  "
+"Vennligst referer til %s og snakk med systemansvarlig for din webserver."
+
+msgid "The webserver does not have permissions to read that directory."
+msgstr "Webserveren har ikke leserettigheter den katalogen"
+
+msgid "The path you specified is not a valid directory."
+msgstr "Stien du skrev inn er ikke en gyldig katalog."
+
+msgid "Session Settings"
+msgstr "Øktinnstillinger"
+
+msgid "Session Lifetime"
+msgstr "Øktens levetid"
+
+msgid "Inactivity Timeout"
+msgstr "Tidsavbrudd grunnet inaktivitet"
+
+msgid "Embedded Markup"
+msgstr "Innebygd formattering"
+
+msgid ""
+"What kind of markup should we allow in user-entered fields?  For security "
+"reasons we do not recommend that you allow raw HTML.  BBCode is a special "
+"kind of markup that is secure and allows for simple text formatting like "
+"bold, italics, lists, images and urls."
+msgstr ""
+"Hvilken formattering skal v&aelig;re tillatt i brukerangitte felt?  Av "
+"sikkerhetsmessige &aring;rsaker anbefaler vi ikke at du tillater ren HTML.  "
+"BBCode er en sikker form for formattering som tillater enkel "
+"tekstformattering som fet skrift, kursiv, lister, bilder og webadresser."
+
+msgid "Markup"
+msgstr "Formattering"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid ""
+"By default Gallery uses PHP's built in mail function to send email which "
+"requires no configuration.  To use a smtp/mail server enter the information "
+"below, including authentication information if required.  Optionally add :"
+"port after the server name to use a non-default port."
+msgstr ""
+"Gallery bruker PHPs innebygde e-postfunksjon, som ikke beh&oslash;ver noen "
+"innstillinger, som standard for &aring; sende e-post.  Angi informasjon "
+"nedenfor for &aring; bruke en smtp/e-posttjener, inkludert "
+"autentiseringsinformasjon om n&oslash;dvendig.  Tilf&oslash;y :port etter "
+"tjenernavnet for &aring; bruke annen port enn standard."
+
+msgid "Server"
+msgstr "Tjener"
+
+msgid "Username"
+msgstr "Brukernavn"
+
+msgid "Password"
+msgstr "Passord"
+
+msgid "SMTP From Address"
+msgstr "SMTP fra adresse"
+
+msgid "Invalid email address"
+msgstr "Ugyldig e-postadresse"
+
+msgid ""
+"Send a test email to verify your settings are correct (whether using PHP "
+"mail or SMTP settings above).  Below enter a recipient email address for a "
+"test message."
+msgstr ""
+"Send en test-e-post for &aring; bekrefte at dine innstillinger er riktige "
+"(b&aring;de om du bruker PHP mail eller SMTP-innstillingene over).  Angi en "
+"mottaksadrese nedenfor for en testmelding."
+
+msgid "Send Email"
+msgstr "Send e-post"
+
+msgid "Email Test Error"
+msgstr "Feil med e-post-test"
+
+msgid "Cookies"
+msgstr "Informasjonskapsler"
+
+msgid ""
+"When Gallery is embedded in another application (portal, CMS, forum, etc.), "
+"then you have the choice between two options. Everyone else does not have to "
+"care about the cookie settings. Read on for more details."
+msgstr ""
+"Du har valget mellom to muligheter n&aring;r Gallery er innebygd i et annet "
+"program (portal, CMS, osv).  Alle andre beh&oslash;ver ikke bry seg om "
+"innstillingene for informasjonskapsler. Les videre for flere detaljer."
+
+msgid ""
+"If your Gallery is embedded and you leave the following fields empty, then "
+"all DownloadItem links (the URLs of the images and other items) in the "
+"embedded Gallery have <b>an appended GALLERYSID string</b> in the URL which "
+"is <b>a minor security risk</b> when your Gallery users start copy'n'pasting "
+"image URLs in forums, guestbooks, etc. The alternative is to set the "
+"<b>cookie path</b>. Gallery will then <b>not append the GALLERYSID to the "
+"embedded DownloadItem URLs</b>. E.g. when Gallery is reachable at http://www."
+"example.com/application/gallery2/ and the embedding application is at http://"
+"www.example.com/application/, then you have to compare the path /application/"
+"gallery2/ with /application/. The cookie path is the part of the paths that "
+"is equal, in this case it is '/application/'. Most often it is just '/'."
+msgstr ""
+"Om ditt galleri er innebygd og du etterlater de f&oslash;lgende feltene "
+"tomme, s&aring; vil alle LastNedObjekt-lenkene (nettadressene til bildene og "
+"andre objekter) i det innebygde galleriet ha <b>tilf&oslash;yd GALLERYSID-"
+"streng</b> i nettadressen, og dette er en <b>mindre sikkerhetsrisiko</b> "
+"n&aring;r dine brukere kopierer og limer inn nettadresser til bilder i "
+"forum, gjesteb&oslash;ker, osv. Alternativet er &aring; sette "
+"<b>informasjonskapselstien</b>. Gallery vil da <b>ikke tilf&oslash;ye "
+"GALLERYSID til nettadressene til LastNedObjekt</b>. F.eks. n&aring;r Gallery "
+"er tilgjengelig p&aring; http://www.eksempel.com/program/gallery2/ og det "
+"innebyggende programmet er p&aring; http://www.eksempel.com/program, vil du "
+"m&aring;tte sammenligne stien /program/gallery2/ med /program/. "
+"Informasjonskapselstien er den delen av stiene som er like; i dette "
+"tilfellet er det '/program/'. Som oftest er det bare '/'."
+
+msgid ""
+"The <b>cookie domain</b> is also only needed for embedded Gallery installs "
+"and only if you want to get rid of the GALLERYSID string in the embedded "
+"DownloadItem URLs. <b>In most cases, the cookie domain can be left blank.</"
+"b> Set it only, if Gallery and the embedding application are only reachable "
+"with <b>different subdomains</b>. E.g. when Gallery is at http://photos."
+"example.com/ and the application is at http://www.example.com/, then you "
+"have to set the cookie domain example.com (the part of the host string that "
+"is common to both, Gallery and the embedding application)."
+msgstr ""
+"<b>Informasjonskapseldomenet</b> beh&oslash;ves ogs&aring; bare for "
+"innebygde Gallery-installasjoner, og bare om du &oslash;nsker &aring; bli "
+"kvitt GALLERYSID-strengen fra nettadressene til LastNedObjekt. "
+"<b>Informasjonskapseldomenet kan etterlates tomt i de fleste tilfellene</b>. "
+"Bruk det kun om Gallery og det innebyggende programmet bare er tilgjengelige "
+"p&aring; <b>forskjellige subdomere</b>. F.eks. n&aring;r Gallery er p&aring; "
+"http://bilder.eksempel.com og programmet er p&aring; http://www.eksempel."
+"com/ m&aring; du sette inromasjonskapseldomenet til eksempel.com (den delen "
+"av strengen som er lik for begge, Gallery og det innebyggende programmet)."
+
+msgid ""
+"Once you change the cookie settings, <b>all registered users</b> of your "
+"Gallery will <b>have to clear their browser cookie cache</b>. If they do "
+"not, they will experience login / logout / lost session problems."
+msgstr ""
+"<b>Alle registrerte brukere</b> av ditt galleri <b>er n&oslash;dt til "
+"&aring; t&oslash;mme deres nettlesers hurtiglager for informasjonskapsler</"
+"b> n&aring;r du endrer innstillingene for informasjonskapsler. De vil "
+"oppleve innloggings- / utloggings- / tapt &oslash;kt-problemer om de ikke "
+"gj&oslash;r det."
+
+msgid "Invalid cookie path"
+msgstr "Ugyldig informasjonskapslelsti"
+
+msgid "Domain"
+msgstr "Domene"
+
+msgid "Invalid cookie domain"
+msgstr "Ugyldig informasjonskapselsti"
+
+msgid "Locking System"
+msgstr "L&aring;sesystem"
+
+msgid ""
+"Gallery uses a system of locks to prevent simultaneous changes from "
+"interfering with each other.  There are two types of locking, each with its "
+"advantages and disadvantages.  <b>File</b> based locking is fast and "
+"efficient, but won't work on NFS filesystems and will be unreliable on "
+"Windows.  <b>Database</b> locking is slower but is more reliable.  If you "
+"are unsure which to choose, we recommend using file locking.  If you're "
+"getting many lock timeouts, you can try switching to database locking "
+"instead.  It's ok to switch back and forth."
+msgstr ""
+"Gallery bruker et system med l&aring;ser for &aring; forhindre samtidige "
+"endringer fra &aring; forstyrre hverandre.  Det er to typer l&aring;sing, "
+"hver med sine fordeler og ulemper.  <b>Filbasert</b> l&aring;sing er raskt "
+"og effektivt, men vil ikke fungere p&aring; NFS-filsystemer og vil v&aelig;"
+"re uleselig i Windows.  <b>Databasebasert</b> l&aring;sing er tregere, men "
+"er mer p&aring;litelig. Om du er usikker p&aring; hva du skal velge "
+"anbefaler vi filbasert l&aring;sing.  Du kan fors&oslash;ke &aring; bytte "
+"til databasebasert l&aring;sing om du f&aring;r mange tidsavbrudd for "
+"l&aring;sing.  Det funker fint &aring; veksle frem og tilbake."
+
+msgid "Lock system"
+msgstr "L&aring;sesystem"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Reset"
+msgstr "Nullstille"
+
+msgid "Create A New Group"
+msgstr "Opprett ny gruppe"
+
+msgid "Group Name"
+msgstr "Gruppenavn"
+
+msgid "(required)"
+msgstr "(p&aring;krevd)"
+
+msgid "You must enter a group name"
+msgstr "Du m&aring; skrive inn et gruppenavn"
+
+#, c-format
+msgid "Group '%s' already exists"
+msgstr "Gruppen '%s' eksisterer allerede"
+
+msgid "Create Group"
+msgstr "Opprett gruppe"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Create A New User"
+msgstr "Opprett ny bruker"
+
+msgid "You must enter a username"
+msgstr "Du m&aring; skrive inn et brukernavn"
+
+#, c-format
+msgid "Username '%s' already exists"
+msgstr "Brukernavnet '%s' eksisterer allerede"
+
+msgid "Full Name"
+msgstr "Fullt navn"
+
+msgid "Email Address"
+msgstr "E-postadresse"
+
+msgid "You must enter an email address"
+msgstr "Du m&aring; skrive inn en epostadresse"
+
+msgid "Language"
+msgstr "Spr&aring;k"
+
+msgid "You must enter a password"
+msgstr "Du m&aring; skrive inn et passord"
+
+msgid "Verify Password"
+msgstr "Bekreft passord"
+
+msgid "You must enter the password a second time"
+msgstr "Du m&aring; skrive inn passordet p&aring; nytt"
+
+msgid "The passwords you entered did not match"
+msgstr "Passordene du skrev inn samsvarer ikke"
+
+msgid "Create User"
+msgstr "Opprett bruker"
+
+msgid "Delete A Group"
+msgstr "Slett en gruppe"
+
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#, c-format
+msgid "This will completely remove %s from Gallery.  There is no undo!"
+msgstr ""
+"Dette vil fjerne %s fra Gallery fullstendig. Det er ikke mulig &aring; angre."
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Delete a User"
+msgstr "Slett en bruker"
+
+#, c-format
+msgid "User %s is the owner of %s items."
+msgstr "Bruker %s eier elementene %s."
+
+#, c-format
+msgid "Delete user <strong>%s</strong> and..."
+msgstr "Slett bruker <strong>%s</strong> og ..."
+
+#, c-format
+msgid "Assign a new owner for all items of %s"
+msgstr "Gi alle objekter i %s ny eier."
+
+#, c-format
+msgid ""
+"Delete all items of %s and assign a new owner for all remaining non empty "
+"albums"
+msgstr ""
+"Slett alle objekter i %s og gi alle gjenv&aelig;rende ikke-tomme album ny "
+"eier"
+
+msgid "New owner (leaving blank means one of the Site Admins):"
+msgstr "Ny eier (tomt felt betyr en av administratorene)"
+
+#, c-format
+msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
+msgstr ""
+"Brukeren '%s' finnes ikke! Kan ikke tilordne elementer til en bruker som "
+"ikke finnes."
+
+msgid "The new owner must be a different user than the user we are deleting!"
+msgstr "Den nye brukeren m&aring; v&aelig;re en annen enn den vi sletter!"
+
+msgid "The new owner cannot be a Guest / Anonymous user!"
+msgstr "Den nye eieren kan ikke v&aelig;re Gjest / Anonym!"
+
+#, c-format
+msgid ""
+"This will completely remove <strong>%s</strong> from Gallery.  There is no "
+"undo!"
+msgstr ""
+"Dette vil fjerne <strong>%s</strong> fra Gallery fullstendig. Det er ikke "
+"mulig &aring; angre."
+
+msgid "Edit a group"
+msgstr "Rediger en gruppe"
+
+#, c-format
+msgid "Edit Members of Group '%s'"
+msgstr "Rediger medlemmer i gruppen '%s'"
+
+#, c-format
+msgid "Added user '%s' to group '%s'"
+msgstr "La brukeren '%s' til gruppen '%s'"
+
+#, c-format
+msgid "Removed user '%s' from group '%s'"
+msgid_plural "Removed %s users from group '%s'"
+msgstr[0] "Fjernet '%s' bruker fra gruppen '%s'"
+msgstr[1] "Fjernet '%s' brukere fra gruppen '%s'"
+
+#, c-format
+msgid "This group contains %d user"
+msgid_plural "This group contains %d users"
+msgstr[0] "Denne gruppen inneholder %d bruker"
+msgstr[1] "Denne gruppen inneholder %d brukere"
+
+msgid "Members"
+msgstr "Medlemmer"
+
+msgid "&laquo; first"
+msgstr "&laquo;f&oslash;rste"
+
+msgid "&laquo; back"
+msgstr "&laquo;tilbake"
+
+#, c-format
+msgid "Viewing page %d of %d"
+msgstr "Viser side %d av %d"
+
+msgid "next &raquo;"
+msgstr "neste&raquo;"
+
+msgid "last &raquo;"
+msgstr "siste&raquo;"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Fjern"
+
+#, c-format
+msgid "%d user matches your filter"
+msgid_plural "%d users match your filter"
+msgstr[0] "%d bruker matcher ditt filter"
+msgstr[1] "%d brukere matcher ditt filter"
+
+msgid "Remove selected"
+msgstr "Fjern valgte"
+
+msgid "You must select a user to remove."
+msgstr "Du m&aring; velge en bruker &aring; slette."
+
+msgid "You can't remove yourself from this group."
+msgstr "Du kan ikke fjerne deg selv fra denne gruppen."
+
+msgid "Add Member"
+msgstr "Tilf&oslash;y medlem"
+
+msgid "You must enter a username."
+msgstr "Du m&aring; skrive inn et brukernavn."
+
+#, c-format
+msgid "User '%s' does not exist."
+msgstr "Brukeren '%s' eksisterer ikke."
+
+msgid "This user already is in this group."
+msgstr "Brukeren er allerede i denne gruppen."
+
+msgid "Done"
+msgstr "Ferdig"
+
+msgid "Edit a user"
+msgstr "Rediger en bruker"
+
+msgid "That username is already in use"
+msgstr "Brukernavnet er allerede i bruk"
+
+msgid "You must enter a new username"
+msgstr "Du m&aring; skrive inn et nytt brukernavn"
+
+msgid "E-mail Address"
+msgstr "E-postadresse"
+
+msgid "(suggested)"
+msgstr "(foresl&aring;tt)"
+
+msgid "Group Management"
+msgstr "Gruppebehandling"
+
+#, c-format
+msgid "Removed group '%s'"
+msgstr "Fjernet gruppen '%s'"
+
+#, c-format
+msgid "Created group '%s'"
+msgstr "Opprettet gruppen '%s'"
+
+#, c-format
+msgid "Modified group '%s'"
+msgstr "Endret gruppen '%s'"
+
+#, c-format
+msgid "There is %d group in the system."
+msgid_plural "There are %d total groups in the system."
+msgstr[0] "Det er %d gruppe i systemet."
+msgstr[1] "Det er %d grupper i systemet."
+
+msgid "Edit Group"
+msgstr "Rediger gruppe"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Add/Remove Users"
+msgstr "Tilf&oslash;y/fjern brukere"
+
+#, c-format
+msgid "Group '%s' does not exist."
+msgstr "Gruppen '%s' eksisterer ikke."
+
+msgid "You cannot delete that group"
+msgstr "Du kan ikke fjerne den gruppen"
+
+msgid "You cannot edit that group's users"
+msgstr "Du kan ikke redigere den gruppens brukere"
+
+msgid "Edit Group (by list)"
+msgstr "Endre gruppe (listeform)"
+
+msgid "edit"
+msgstr "rediger"
+
+msgid "delete"
+msgstr "fjern"
+
+msgid "members"
+msgstr "medlemmer"
+
+#, c-format
+msgid "%d group matches your filter"
+msgid_plural "%d groups match your filter"
+msgstr[0] "%d gruppe passer ditt filter"
+msgstr[1] "%d grupper passer ditt filter"
+
+msgid "System Maintenance"
+msgstr "Systemvedlikehold"
+
+#, c-format
+msgid "Completed %s task successfully."
+msgstr "Fullf&oslash;rte oppgave %s."
+
+#, c-format
+msgid "The %s task failed to complete successfully."
+msgstr "Oppgave %s ble ikke gjennomf&oslash;rt."
+
+msgid "Task name"
+msgstr "Oppgavenavn"
+
+msgid "Last run"
+msgstr "Sist kj&oslash;rt"
+
+msgid "Success/Fail"
+msgstr "Vellykket/Feilet"
+
+msgid "Not run yet"
+msgstr "Ikke kj&oslash;rt enda"
+
+msgid "Success"
+msgstr "Vellykket"
+
+msgid "Failed"
+msgstr "Feilet"
+
+msgid "run now"
+msgstr "kj&oslash;r n&aring;"
+
+msgid "Last Run Details:"
+msgstr "Detaljer for siste kj&oslash;ring:"
+
+msgid "Gallery Modules"
+msgstr "Gallerymoduler"
+
+#, c-format
+msgid "Successfully installed and auto-configured module %s"
+msgstr "Vellykket installasjon og automatisk konfigurering av %s"
+
+#, c-format
+msgid "Successfully installed module %s"
+msgstr "Vellykket installasjon av %s"
+
+#, c-format
+msgid "Successfully configured module %s"
+msgstr "Satte opp modul %s"
+
+#, c-format
+msgid "Successfully upgraded module %s"
+msgstr "Vellykket oppgradering av %s"
+
+#, c-format
+msgid "Successfully activated module %s"
+msgstr "Vellykket aktivering av %s"
+
+#, c-format
+msgid "Successfully deactivated module %s"
+msgstr "Vellykket deaktivering av %s"
+
+#, c-format
+msgid "Successfully uninstalled module %s"
+msgstr "Vellykket avinstallasjon av %s"
+
+msgid ""
+"Gallery features come as separate modules.  You can download and install "
+"modules to add more features to your Gallery, or you can disable features if "
+"you don't want to use them.  In order to use a feature, you must install, "
+"configure (if necessary) and activate it.  If you don't wish to use a "
+"feature, you can deactivate it."
+msgstr ""
+"Funksjonene i Gallery kommer som separate moduler.  Du kan laste ned og "
+"installere moduler for &aring; legge til flere funksjoner i Gallery, eller "
+"du kan deaktivere funksjoner om du ikke &oslash;nsker &aring; bruke de.  For "
+"&aring; benytte en funksjon m&aring; du installere, konfigurere (om n&oslash;"
+"dvendig) og aktivere den."
+
+msgid "Module Name"
+msgstr "Modulnavn"
+
+msgid "Version"
+msgstr "Versjon"
+
+msgid "Installed"
+msgstr "Installert"
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "Status: Not Installed"
+msgstr "Status: ikke innstallert"
+
+msgid "Status: Active"
+msgstr "Status: Aktiv"
+
+msgid "Status: Inactive"
+msgstr "Status: Inaktiv"
+
+msgid "Status: Upgrade Required (Inactive)"
+msgstr "Status: Oppgradering n&oslash;dvendig (Inaktiv)"
+
+msgid "Status: Incompatible Module (Inactive)"
+msgstr "Status: Ikke-kompatibel modul (Inaktiv)"
+
+msgid "Incompatible module!"
+msgstr "Ikke-kompatibel modul!"
+
+#, c-format
+msgid "Core API Required: %s (available: %s)"
+msgstr "Kjerne-API p&aring;krevd: %s (tilgjengelig: %s)"
+
+#, c-format
+msgid "Module API Required: %s (available: %s)"
+msgstr "Modul-API p&aring;krevd: %s (tilgjengelig: %s) "
+
+msgid "Confirm module uninstall"
+msgstr "Bekreft avinstallasjon av modul"
+
+#, c-format
+msgid "Do you really want to uninstall the %s module?"
+msgstr "Vil du virkelig avinstallere %s?"
+
+#, fuzzy
+msgid ""
+"This will also remove any permissions and clean up any data created by this "
+"module."
+msgstr ""
+"Dette vil ogs&aring; fjerne alle tilganger og rydde opp i alle midlertidige "
+"data laget av denne modulen."
+
+msgid "Uninstall"
+msgstr "Avinstallere"
+
+msgid ""
+"Please make sure that your internet connection is set up properly or try "
+"again later."
+msgstr ""
+
+msgid "The repository index has been successfully updated."
+msgstr ""
+
+msgid "All plugins are already up-to-date."
+msgstr ""
+
+msgid "Common Tasks"
+msgstr ""
+
+msgid "Warning: Experimental feature!"
+msgstr ""
+
+msgid ""
+"The repository features are currently experimental, and no actual repository "
+"has been set up yet, so none of these features will work at this time."
+msgstr ""
+
+msgid "Update Index"
+msgstr ""
+
+msgid ""
+"The Gallery repository contains the latest modules and themes extensively "
+"tested by the Gallery team. The repository index contains information about "
+"available plugins, such as the latest versions, available languages and "
+"compatibility. The index must be synchronized periodically with the Gallery "
+"server so you are informed about any available updates. No personal "
+"information is sent to the Gallery server during updating. On slower "
+"connections the process might take a minute or two."
+msgstr ""
+
+msgid "As of the last update on"
+msgstr ""
+
+#, c-format
+msgid ""
+", the repository contains %s modules and %s themes. Its contents can be "
+"viewed on the Modules and Themes tabs."
+msgstr ""
+
+msgid ""
+"The index has never been updated. Click on the Update button to see what "
+"updates are available."
+msgstr ""
+
+#, fuzzy
+msgid "Update"
+msgstr "Dato"
+
+#, fuzzy
+msgid "Upgrade Gallery"
+msgstr "Gallery"
+
+msgid ""
+"A new version of Gallery is available, but it cannot be upgraded through "
+"this interface. Upgrading it might make some of your current plugins stop "
+"working, but others that rely on the features of the new version may become "
+"available. Here are the recommended steps for upgrading:"
+msgstr ""
+
+msgid "Review plugin compatibility (on the Themes and Modules tabs)"
+msgstr ""
+
+#, c-format
+msgid "<a href=\"%s\">Download</a> Gallery core"
+msgstr ""
+
+#, c-format
+msgid ""
+"Read the <a href=\"%s\">upgrade instructions</a> and perform the upgrade"
+msgstr ""
+
+#, fuzzy
+msgid "Gallery Up-To-Date"
+msgstr "Gallerykjerne"
+
+msgid ""
+"Gallery cannot be upgraded through this interface. When a new version "
+"becomes available, upgrade instructions will be presented here."
+msgstr ""
+
+msgid "Upgrade All Plugins"
+msgstr ""
+
+msgid ""
+"Gallery can automatically upgrade your themes and modules to the latest "
+"available versions. No new plugins will be downloaded."
+msgstr ""
+
+#, fuzzy
+msgid "Upgrade All"
+msgstr "oppgradere"
+
+msgid ""
+"Once the repository index has been downloaded, a list of available plugins "
+"will be presented. It can be downloaded by clicking on the Update button on "
+"the Common Tasks tab."
+msgstr ""
+
+msgid ""
+"The following plugins are available. Click on the action beside the plugin "
+"you're interested in to see what's available in the repository."
+msgstr ""
+
+msgid "Incompatible plugins are marked with an exclamation icon."
+msgstr ""
+
+msgid ""
+"A new core module version is available. There may be plugins that are "
+"incompatible with the installed core module, which are not shown here."
+msgstr ""
+
+msgid "You can view a"
+msgstr ""
+
+msgid ""
+"of plugins, including incompatible ones, which are marked with a red icon."
+msgstr ""
+
+msgid "Theme Name"
+msgstr "Temanavn"
+
+#, fuzzy
+msgid "Latest"
+msgstr "siste"
+
+#, fuzzy
+msgid "Incompatible Plugin"
+msgstr "Ikke-kompatibel modul!"
+
+#, fuzzy
+msgid "Incompatible plugin!"
+msgstr "Ikke-kompatibel modul!"
+
+#, fuzzy, c-format
+msgid "Plugin API Required: %s (available: %s)"
+msgstr "Modul-API p&aring;krevd: %s (tilgjengelig: %s) "
+
+msgid "No packages have been selected."
+msgstr ""
+
+#, fuzzy
+msgid "Base Files"
+msgstr "Basefilnavn"
+
+msgid ""
+"The base files required for the theme to work and the English (US) "
+"translation will be downloaded."
+msgstr ""
+
+msgid "Upgrade Base Files"
+msgstr ""
+
+msgid "You can upgrade the base module files."
+msgstr ""
+
+msgid "Upgrade base files"
+msgstr ""
+
+msgid "Base Files Up-To-Date"
+msgstr ""
+
+msgid "This plugin's base files are up-to-date."
+msgstr ""
+
+msgid "Updated Translations"
+msgstr ""
+
+msgid ""
+"Below is a list of translations that have been updated since they were last "
+"downloaded. Select the ones you want to download."
+msgstr ""
+
+msgid "Additional Languages"
+msgstr ""
+
+msgid ""
+"Below is a list of languages this plugin has been translated to. Select the "
+"ones you want included in addition to the ones already downloaded."
+msgstr ""
+
+#, fuzzy
+msgid "Unit Tests"
+msgstr "Testtema for enhet"
+
+msgid ""
+"This plugin has unit tests available for download, which are useful for "
+"Gallery developers. All of the module's features are available without the "
+"tests."
+msgstr ""
+
+msgid "Download unit tests"
+msgstr ""
+
+#, fuzzy
+msgid "Gallery Repository Setup"
+msgstr "Gallery versjon"
+
+msgid "Warning: `$errorMessage`"
+msgstr ""
+
+msgid ""
+"In order to download plugins from the Gallery repository, a special "
+"directory needs to be created where Gallery will store the data."
+msgstr ""
+
+#, c-format
+msgid ""
+"Under your Gallery base directory, create a directory called '%s' and allow "
+"the web server to write into it by appropriately setting the permissions."
+msgstr ""
+
+msgid "Instructions for Unix-type platforms:"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "$ cd %s"
+msgstr "%d. %s"
+
+#, c-format
+msgid "$ mkdir %s"
+msgstr ""
+
+#, c-format
+msgid "$ chmod 777 %s"
+msgstr ""
+
+msgid ""
+"Refreshing this page will take you to the Repository if the directory has "
+"been successfully created."
+msgstr ""
+
+msgid "Gallery Themes"
+msgstr "Gallerytema"
+
+#, c-format
+msgid "Successfully activated theme %s"
+msgstr "Aktiverte tema %s"
+
+#, c-format
+msgid "Successfully deactivated theme %s"
+msgstr "Deaktiverte tema %s"
+
+#, c-format
+msgid "Successfully installed theme %s"
+msgstr "Installerte tma %s"
+
+#, c-format
+msgid "Successfully uninstalled theme %s"
+msgstr "Avinnstallerte tema %s"
+
+#, c-format
+msgid "Successfully upgraded theme %s"
+msgstr "Oppgraderte tema %s"
+
+msgid "Successfully saved default album settings"
+msgstr "Vellykket lagring av standard albuminnstillinger"
+
+msgid "Restored theme settings"
+msgstr "Gjenopprettet temainnstillinger"
+
+msgid "All Themes"
+msgstr "Alle tema"
+
+msgid "Defaults"
+msgstr "Standarder"
+
+msgid "Status: Incompatible Theme (Inactive)"
+msgstr "Status: tema ikke kompatibelt (ikke i bruk)"
+
+msgid "Incompatible theme!"
+msgstr "Tema ikke kompatibelt!"
+
+#, c-format
+msgid "Theme API Required: %s (available: %s)"
+msgstr "N&oslash;dvendig API for tema: %s (tilgjengelig: %s)"
+
+msgid "(default)"
+msgstr "(standard)"
+
+msgid ""
+"These are default display settings for albums in your gallery.  They can be "
+"overridden in each album."
+msgstr ""
+"Dette er standardinnstillingene for album i ditt galleri.  De kan overstyres "
+"i hvert album."
+
+msgid "Default sort order"
+msgstr "Standard sorteringsrekkef&oslash;lge"
+
+msgid "with"
+msgstr "med"
+
+msgid "Default theme"
+msgstr "Standardtema"
+
+msgid "New albums"
+msgstr "Nye album"
+
+#, c-format
+msgid "%s Theme Settings"
+msgstr "Temainnstillinger for %s"
+
+msgid ""
+"These are the global settings for the theme.  They can be overridden at the "
+"album level."
+msgstr ""
+"Dette er de globale innstillingene for tema.  De kan overkj&oslash;res "
+"p&aring; albumniv&aring;."
+
+msgid "Available"
+msgstr "Tilgjengelige"
+
+msgid "Choose a block"
+msgstr "Velg en blokk"
+
+msgid "Selected"
+msgstr "Valgt"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Move Up"
+msgstr "Flytt opp"
+
+msgid "Move Down"
+msgstr "Flytt ned"
+
+msgid "Parameter"
+msgstr "Parameter"
+
+msgid "Value"
+msgstr "Verdi"
+
+msgid "There are no settings for this theme"
+msgstr "Det er ingen innstillinger for dette temaet"
+
+msgid ""
+"The toolkits shown below have some overlap in supported operations and mime "
+"types.  Rank the toolkits here to determine which will perform these "
+"operations."
+msgstr ""
+"Verkt&oslash;yene vist nedenfor overlapper hverandre i st&oslash;ttede "
+"operasjoner og MIME-typer.  Ranger verkt&oslash;yene her for &aring; "
+"avgj&oslash;re hvilket verkt&oslash;y som skal utf&oslash;re disse "
+"operasjonene."
+
+msgid "Toolkit"
+msgstr "Verkt&oslash;y"
+
+msgid "Order"
+msgstr "Rekkef&oslash;lge"
+
+msgid "up"
+msgstr "opp"
+
+msgid "down"
+msgstr "ned"
+
+msgid "User Management"
+msgstr "Brukerbehandling"
+
+#, c-format
+msgid "Removed user '%s'"
+msgstr "Fjernet bruker '%s'"
+
+#, c-format
+msgid "Created user '%s'"
+msgstr "Opprettet bruker '%s'"
+
+#, c-format
+msgid "Modified user '%s'"
+msgstr "Endret bruker '%s'"
+
+#, c-format
+msgid "There is %d user in the system."
+msgid_plural "There are %d total users in the system."
+msgstr[0] "Det er %d bruker i systemet."
+msgstr[1] "Det er %d brukere i systemet."
+
+msgid "Edit User"
+msgstr "Rediger bruker"
+
+msgid "You cannot delete yourself!"
+msgstr "Du kan ikke slette seg selv!"
+
+msgid "You cannot delete the special guest user."
+msgstr "Du kan ikke fjerne gjeste-brukeren."
+
+msgid "Edit User (by list)"
+msgstr "Rediger bruker (listeform)"
+
+msgid "Thumbnails"
+msgstr "Miniatyrer"
+
+msgid ""
+"Gallery can create thumbnails at upload time, or create them the first time "
+"you want to see the thumbnail itself.  Either way, it will create the "
+"thumbnail once and save it, but if you create them at upload time it makes "
+"viewing albums for the first time go faster at the expense of a longer "
+"upload time."
+msgstr ""
+"Gallery kan opprette miniatyrer mens opplasting p&aring;g&aring;r eller "
+"opprette de f&oslash;rste gangen du &oslash;nsker &aring; vise miniatyen.  "
+"Gallery vil uansett lage miniatyren &eacute;n gang og lagre det, men hvis du "
+"velger &aring; opprette det mens opplasting p&aring;g&aring;r vil det "
+"g&aring; fortere &aring; vise albumene f&oslash;rste gangen, mot at det tar "
+"noe lengere tid &aring; laste opp."
+
+msgid "Create thumbnails now"
+msgstr "Opprett miniatyrer n&aring;"
+
+msgid "This is a test email from Gallery2"
+msgstr "Dette er en test-e-post fra Gallery2"
+
+msgid "Edit Conflict!"
+msgstr "Redigeringskonflikt!"
+
+msgid "Security Violation"
+msgstr "Sikkerhetsovertredelse"
+
+msgid "Database Error"
+msgstr "Databasefeil"
+
+msgid "Error"
+msgstr "Feil"
+
+msgid ""
+"Your change cannot be completed because somebody else has made a conflicting "
+"change to the same item.  Use the back button in your browser to go back to "
+"the page you were on, then <b>reload that page</b> and try your change again."
+msgstr ""
+"Din endring kan ikke fullf&oslash;res fordi noen andre har gjort en endring "
+"som er i konflikt med din.  Bruk Tilbake-knappen i din nettleser for &aring; "
+"g&aring; tilbake til siden du var p&aring;, <b>oppdat&eacute;r siden</b> og "
+"fors&oslash;k &aring; gj&oslash;re din endring igjen."
+
+msgid "Go back and try again"
+msgstr "G&aring; tilbake og fors&oslash;k igjen"
+
+msgid ""
+"Alternatively, you can return to the main Gallery page and resume browsing."
+msgstr ""
+"Alternativt kan du returnere til til hovedsiden av Gallery og gjenoppta "
+"surfingen der."
+
+msgid "The action you attempted is not permitted."
+msgstr "Handlingen du fors&oslash;kte er ikke tillatt."
+
+msgid "An error has occurred while interacting with the database."
+msgstr "Det har oppst&aring;tt en feil under kommunikasjon med databasen."
+
+msgid ""
+"The exact nature of database errors is not captured unless Gallery debug "
+"mode is enabled in config.php.  Before seeking support for this error please "
+"enable buffered debug output and retry the operation.  Look near the bottom "
+"of the lengthy debug output to find error details."
+msgstr ""
+"Den n&oslash;yaktig &aring;rsaken til databasefeil er ikke loggf&oslash;rt "
+"med mindre feils&oslash;kingsmodus er aktivert i config.php.  Vennligst "
+"aktiv&eacute;r mellomlagret feils&oslash;kingsresultat og fors&oslash;k "
+"operasjonen igjen f&oslash;r du s&oslash;ker brukerst&oslash;tte for denne "
+"feilen.  Se nederst i det lange feils&oslash;kingsresultatet for &aring; "
+"finne detaljer om feilen."
+
+msgid "An error has occurred."
+msgstr "En feil har oppst&aring;tt."
+
+msgid "Back to the Gallery"
+msgstr "Tilbake til galleriet"
+
+msgid "Error Detail"
+msgstr "Feildetalj"
+
+msgid "System Information"
+msgstr "Systeminformasjon"
+
+msgid ""
+"You don't have any Graphics Toolkit activated that can handle JPEG images.  "
+"If you add images, you will probably not have any thumbnails."
+msgstr ""
+"Du har ikke et aktivt grafikkverkt&oslash;y som kan behandle JPEG-bilder.  "
+"Du vil sannsynligvis ikke f&aring; miniatyrer om du legger til bilder."
+
+#, c-format
+msgid ""
+"Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
+msgstr ""
+"Bes&oslash;k <a href=\"%s\">Modulsiden</a> for &aring; aktivere et "
+"grafikkverkt&oslash;y."
+
+msgid "Add Sub-Album"
+msgstr "Tilf&oslash;y underalbum"
+
+msgid ""
+"The name of this album on your hard disk.  It must be unique in this album.  "
+"Only use alphanumeric characters, underscores or dashes.  You will be able "
+"to rename it later."
+msgstr ""
+"Navnet p&aring; dette albumet p&aring; din harddisk.  Det m&aring; v&aelig;"
+"re unikt i dette albumet.  Bruk kun alfanumeriske tegn, understreker eller "
+"bindestreker.  Du kan endre navnet senere."
+
+msgid "Your name contains invalid characters.  Please enter another."
+msgstr "Navnet ditt inneholder ugyldige tegn.  Vennligst angi nytt navn."
+
+msgid "You must enter a name for this album."
+msgstr "Du m&aring; angi et navn for dette albumet."
+
+msgid "The name you entered is already in use.  Please enter another."
+msgstr "Navnet du oppga er allerede i bruk.  Vennligts angi et annet."
+
+msgid "This is the album title."
+msgstr "Dette er albumtittelen."
+
+msgid "This is the album summary."
+msgstr "Dette er albumsammendraget."
+
+msgid "Keywords are not visible, but are searchable."
+msgstr "N&oslash;kkelord er ikke synlige, men er s&oslash;kbare."
+
+msgid "This is the long description of the album."
+msgstr "Dette er albumets lange beskrivelse."
+
+msgid "Create"
+msgstr "Opprett"
+
+msgid "Upload Complete"
+msgstr "Opplasting fullf&oslash;rt"
+
+#, c-format
+msgid "Successfully added %d file."
+msgid_plural "Successfully added %d files."
+msgstr[0] "La til %d fil."
+msgstr[1] "La til %d filer."
+
+msgid "No files added."
+msgstr "Ingen filer lagt til."
+
+#, c-format
+msgid "Added %s"
+msgstr "La til %s"
+
+#, c-format
+msgid "Failed to add %s"
+msgstr "Tilf&oslash;yelse av %s feilet"
+
+msgid "Add more files"
+msgstr "Legg til flere filer"
+
+msgid ""
+"Your webserver is configured to disallow file uploads from your web browser "
+"at this time.  Please contact your system administrator for assistance."
+msgstr ""
+"Din nettjener er satt opp til &aring; nekte opplastinger av filer fra din "
+"nettleser p&aring; n&aring;v&aelig;rende tidspunkt.  Vennligst kontakt din "
+"systemadministrator for assistanse."
+
+msgid "Upload files directly from your computer."
+msgstr "Last opp filer direkte fra din datamaskin."
+
+msgid ""
+"Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Oppgi full sti til filen og valgfri bildetekst i boksene nedenfor."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  If you want to upload "
+"more than that, you must upload the files separately, use a different upload "
+"format, or ask your system administrator to allow larger uploads."
+msgstr ""
+"<b>Merknad:</b> Du kan last opp inntil %s om gangen.  Om du &oslash;nsker "
+"&aring; laste opp mer enn det m&aring; du laste opp filene hver for seg, "
+"bruke et annet opplastingsformat eller be din systemadministrator om &aring; "
+"tillate st&oslash;rre opplastinger."
+
+#, c-format
+msgid ""
+"<b>Note:</b> You can upload up to %s at one time.  No individual file may be "
+"larger than %s. If you want to upload more than that, you must upload the "
+"files separately, use a different upload format, or ask your system "
+"administrator to allow larger uploads."
+msgstr ""
+"<b>Merknad:</b> Du kan laste opp inntil %s om gangen.  Ingen enkeltfil kan "
+"v&aelig;re st&oslash;rre enn %s. Om du &oslash;nsker &aring; laste opp mer "
+"enn det m&aring; du laste opp filene hver for seg, bruke et annet "
+"opplastingsformat eller be din systemadministrator om &aring; tillate "
+"st&oslash;rre opplastinger."
+
+msgid "More.."
+msgstr "Mer..."
+
+msgid "Set item titles from:"
+msgstr "Angi objekttitler fra:"
+
+msgid "Assign caption to:"
+msgstr "Tilordne bildetekst til:"
+
+msgid ""
+"Transfer files that are already on your server into your Gallery.  The files "
+"must already have been uploaded to your server some other way (like FTP) and "
+"must be placed in a directory where they are accessibly by any element on "
+"the server.  If you're on Unix this means that the files and the directory "
+"the files are in should have modes of at least 755."
+msgstr ""
+"Overf&oslash;r filer som allerede finnes p&aring; din tjener til ditt "
+"galleri.  Filene m&aring; allerede v&aelig;re lastet opp til din tjener "
+"p&aring; annet vis (som via FTP) og m&aring; v&aelig;re plasserte i en "
+"katalog der de er tilgjengelige for ethvert objekt p&aring; tjeneren.  Dette "
+"betyr at filene og katalogen filene ligger i m&aring; ha minst tilstand 755 "
+"om du bruker Unix."
+
+msgid ""
+"For security purposes, you can't use this feature until the Gallery Site "
+"Administrator configures a set of legal upload directories."
+msgstr ""
+"Av sikkerhetsmessige hensyn kan du ikke bruke denne delen av programmet "
+"inntil administratoren av Gallery setter opp gyldige opplastingskataloger."
+
+msgid "Server Path"
+msgstr "Tjenersti"
+
+msgid "You must enter a directory."
+msgstr "Du m&aring; angi en katalog."
+
+msgid ""
+"The directory you entered is invalid.  Make sure that the directory is "
+"readable by all users."
+msgstr ""
+"Katalogen du skrev inn er ugyldig.  Kontroll&eacute;r at katalogen er lesbar "
+"for alle brukere."
+
+msgid ""
+"The directory you entered is illegal.  It must be a sub directory of one of "
+"the directories listed below."
+msgstr ""
+"Katalogen du skrev inn er ugyldig.  Den m&aring; v&aelig;re en underkatalog "
+"av katalogene som er listet under."
+
+msgid "An item with the same name already exists."
+msgstr "Et objekt med samme navn eksisterer allerede."
+
+msgid "Legal Directories"
+msgstr "Gyldige kataloger"
+
+msgid "modify"
+msgstr "endre"
+
+msgid "Recent Directories"
+msgstr "Nylig brukte kataloger"
+
+msgid "Find Files"
+msgstr "Finn filer"
+
+#, c-format
+msgid "Directory: %s"
+msgstr "Katalog: %s"
+
+msgid "File name"
+msgstr "Filnavn"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Size"
+msgstr "St&oslash;rrelse"
+
+msgid "Use Symlink"
+msgstr "Bruk symbolsk lenke"
+
+#, c-format
+msgid "%d byte"
+msgid_plural "%d bytes"
+msgstr[0] "%d byte"
+msgstr[1] "%d byte"
+
+msgid "Parent Directory"
+msgstr "Over-katalog"
+
+msgid "Directory"
+msgstr "Katalog"
+
+msgid "(Un)check all known types"
+msgstr "(De)aktivere alle kjente typer"
+
+msgid "(Un)check symlinks"
+msgstr "(De)aktivere symlinker"
+
+msgid "for selected items"
+msgstr "for valgte elementer"
+
+msgid "Copy base filenames to:"
+msgstr "Kopiere basefilnavn til:"
+
+msgid "Add Files"
+msgstr "Tilf&oslash;y filer"
+
+msgid "Start Over"
+msgstr "Start p&aring; nytt"
+
+msgid ""
+"Import files into Gallery from another website.  Enter a URL below to a web "
+"page anywhere on the net and Gallery will allow you to upload any media "
+"files that it finds on that page.  Note that if you're entering a URL to a "
+"directory, you should end the URL with a trailing slash (eg, http://example."
+"com/directory/). "
+msgstr ""
+"Importere filer til Gallery fra en annen nettside.  Skriv inn en nettadresse "
+"til en side p&aring; Internett, og Gallery vil la deg &aring; laste opp alle "
+"mediefiler den finner p&aring; siden.  Merk at hvis du skriver inn "
+"nettadressen til en katalog, m&aring; den slutte med en skr&aring;strek. "
+"(eks. http://eksempel.no/katalog/)."
+
+msgid "URL"
+msgstr "Nettadresse"
+
+msgid "You must enter a URL to a web page"
+msgstr "Du m&aring; angi en nettadresse til en nettside"
+
+msgid "The URL entered must begin with http://"
+msgstr "Den inntastede nettadressen m&aring; begynne med http://"
+
+msgid "The web page you specified is unavailable"
+msgstr "Nettsiden du anga er utilgjengelig"
+
+msgid "Nothing to add found from this URL"
+msgstr "Fant ingenting &aring; tilf&oslash;ye p&aring; denne nettadressen"
+
+msgid "Nothing added since no items were selected"
+msgstr "Ingenting ble lagt til ettersom ingen objekter ble valgt"
+
+msgid "Recent URLs"
+msgstr "Nylig brukte nettadresser"
+
+#, c-format
+msgid "URL: %s"
+msgstr "Nettadresse: %s"
+
+msgid "change"
+msgstr "endre"
+
+#, c-format
+msgid "%d url found"
+msgid_plural "%d urls found"
+msgstr[0] "%d nettadresse funnet"
+msgstr[1] "%d nettadresser funnet"
+
+msgid "(Un)check all"
+msgstr "(De)aktivere alt"
+
+msgid "Add URLs"
+msgstr "Tilf&oslash;y nettadresser"
+
+msgid "No Thumbnail"
+msgstr "Ingen miniatyr"
+
+msgid "Options"
+msgstr "Innstillinger"
+
+msgid "Link an Item"
+msgstr "Lag en lenke til et objekt"
+
+#, c-format
+msgid "Successfully linked %d item"
+msgid_plural "Successfully linked %d items"
+msgstr[0] "Lenket %d objekt"
+msgstr[1] "Lenket %d objekter"
+
+msgid "This album contains no items to link."
+msgstr "Dette altbumet inneholder ingen elementer &aring; lenke til."
+
+msgid "Source"
+msgstr "Kilde"
+
+msgid "Choose the items you want to link"
+msgstr "Velg de objektene du &oslash;nsker &aring; lenke"
+
+#, c-format
+msgid "(page %d of %d)"
+msgstr "(side %d av %d)"
+
+msgid "No sources chosen"
+msgstr "Ingen kilder valgt"
+
+msgid "Check All"
+msgstr "Markere alle"
+
+msgid "Check None"
+msgstr "Ikke markere noen"
+
+msgid "Invert"
+msgstr "Invertere"
+
+msgid "Previous Page"
+msgstr "Forrige side"
+
+msgid "Next Page"
+msgstr "Neste side"
+
+msgid "Destination"
+msgstr "M&aring;l"
+
+msgid "Choose a new album for the link"
+msgstr "Velg nytt album for lenken"
+
+msgid "No destination chosen"
+msgstr "Intet m&aring;l valgt"
+
+msgid "Link"
+msgstr "Lenke"
+
+msgid "Successfully linked"
+msgstr "Vellykket lenking"
+
+msgid "Choose a destination album"
+msgstr "Velg et m&aring;lalbum"
+
+msgid "Delete Items"
+msgstr "Slett objekter"
+
+msgid "No items were selected for deletion"
+msgstr "Ingen objekter ble valgt for sletting"
+
+#, c-format
+msgid "Successfully deleted %d item"
+msgid_plural "Successfully deleted %d items"
+msgstr[0] "Slettet %d element"
+msgstr[1] "Slettet %d elementer"
+
+msgid "This album contains no items to delete"
+msgstr "Dette albumet inneholder ingen objekter som kan slettes"
+
+msgid "Choose the items you want to delete"
+msgstr "Velg de objektene du &oslash;nsker &aring; slette"
+
+msgid "Items selected here will remain selected when moving between pages."
+msgstr ""
+"Objekter valgt her vil fortsette &aring; v&aelig;re valgt mens du flytter "
+"deg mellom sider."
+
+#, c-format
+msgid "One item selected on other pages."
+msgid_plural "%d items selected on other pages."
+msgstr[0] "Ett object valgt p&aring; en anen side."
+msgstr[1] "%d objekter valgt p&aring; andre sider."
+
+msgid "(data)"
+msgstr "(data)"
+
+#, c-format
+msgid "(album containing %d item)"
+msgid_plural "(album containing %d items)"
+msgstr[0] "(album inneholder %d element)"
+msgstr[1] "(album inneholder %d elementer)"
+
+msgid "(empty album)"
+msgstr "(tomt album)"
+
+msgid "Deletion Complete"
+msgstr "Sletting utf&oslash;rt"
+
+msgid "Item successfully deleted"
+msgstr "Objektet ble slettet"
+
+#, c-format
+msgid "Are you sure you want to delete this %s?"
+msgstr "Er du sikker p&aring; at du vil slette %s?"
+
+#, c-format
+msgid "It contains %d item."
+msgid_plural "It contains %d items."
+msgstr[0] "Det inneholder %d fil."
+msgstr[1] "Det inneholder %d filer."
+
+msgid "There is no undo!"
+msgstr "Det finnes ingen angrefunksjon!"
+
+msgid "There was a problem processing your request."
+msgstr "Det oppstod et problem under behandling av din foresp&oslash;rsel."
+
+msgid "Sort order"
+msgstr "Sorteringsrekkef&oslash;lge"
+
+msgid ""
+"This sets the sort order for the album.  This applies to all current items, "
+"and any newly added items."
+msgstr ""
+"Dette setter sorteringsrekkef&oslash;lgen for albumet.  Dette gjelder alle "
+"gjeldende objekter og nylig tilf&oslash;yde objekter."
+
+msgid ""
+"Choose a theme for this album. (The way the album is arranged on the page)"
+msgstr ""
+"Velg et tema for dette albumet (hvordan albumet er arrangert p&aring; siden)."
+
+msgid " Every item requires a thumbnail. Set the default size in pixels here."
+msgstr ""
+" Hvert objekt krever en miniatyr. Sett standardst&oslash;rrelse i "
+"bildepunkter her."
+
+msgid "You must enter a number (greater than zero)"
+msgstr "Du m&aring; angi et tall (st&oslash;rre enn null)"
+
+msgid "Resized Images"
+msgstr "Skalerte bilder"
+
+msgid ""
+"Each item in your album can have multiple sizes. Define the default sizes "
+"here."
+msgstr ""
+"Hvert objekt i albumet ditt kan ha flere st&oslash;rrelser. Angi "
+"standardst&oslash;rrelsene her."
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Target Size (pixels)"
+msgstr "M&aring;lst&oslash;rrelse (bildepunkter)"
+
+msgid "You must enter a valid size"
+msgstr "Du m&aring; angi en gyldig st&oslash;rrelse"
+
+msgid "Recreate thumbnails and resizes"
+msgstr "Lag miniatyrer og skalerte st&oslash;rrelser p&aring; nytt"
+
+msgid ""
+"The thumbnail and resized image settings are for all new items. To apply "
+"these settings to all the items in your album, check the appropriate box."
+msgstr ""
+"Innstillingene for miniatyrer og skalerte bilder gjelder nye objekter. Kryss "
+"av i rett boks for &aring; bruke disse innstillingene p&aring; alle objekter "
+"i ditt album."
+
+msgid "Recreate thumbnails"
+msgstr "Lag miniatyrer p&aring; nytt"
+
+msgid "Recreate resized images"
+msgstr "Skalere bilder p&aring; nytt"
+
+msgid ""
+"In order for Gallery to properly display this animation, it has to know the "
+"animation's width and height.  If you have installed a graphics toolkit that "
+"can handle animation types, then these values may already be set.  If not, "
+"they may be set to 0.  If you do not enter the correct values here, the "
+"animation may appear distorted when viewed in your web browser.  Note that "
+"changing these values does <b>not</b> change the animation itself so "
+"experimenting won't cause harm."
+msgstr ""
+"Gallery m&aring; vite animasjonens h&oslash;yde og bredde for &aring; vise "
+"animasjonen ordentlig.  Disse verdiene kan allerede v&aelig;re angitt om du "
+"har et verkt&oslash;y som kan behandle animasjoner installert.  De kan "
+"settes til 0 om ikke verkt&oslash;y er installert.  Animasjonen kan virke "
+"forvrengt i din nettleser om du ikke angir korrekte verdier her.  Merk at "
+"&aring; endre disse verdiene <b>ikke</b> endrer animasjonen i seg selv, "
+"s&aring; eksperimentering vil ikke gj&oslash;re skade."
+
+msgid "Width"
+msgstr "Bredde"
+
+msgid "You must enter a value greater than or equal to 0"
+msgstr "Du m&aring; angi verdi st&oslash;rre enn eller lik 0"
+
+msgid "Height"
+msgstr "H&oslash;yde"
+
+msgid "There were errors saving some items"
+msgstr "Feil oppstod under lagring av enkelte objekter"
+
+msgid "There were errors saving all items"
+msgstr "Feil oppstod under lagring av alle objekter"
+
+msgid "Successfully saved all items"
+msgstr "Alle objekter lagret"
+
+msgid "This album contains no items"
+msgstr "Dette altbumet inneholder ingen objekter"
+
+msgid "Saved successfully."
+msgstr "Lagret"
+
+msgid ""
+"This item was modified by somebody else at the same time.  Your changes were "
+"lost."
+msgstr ""
+"Dette objektet ble endret av noen andre samtidig.  Dine endringer er borte."
+
+msgid "You do not have permissions to modify this item."
+msgstr "Du har ikke tilgang til &aring; endre dette elementet."
+
+msgid "Save and Done"
+msgstr "Lagre og avslutt"
+
+#, c-format
+msgid "Save and Edit Previous %s"
+msgstr "Lagre og redigere forrige %s"
+
+#, c-format
+msgid "Save and Edit Next %s"
+msgstr "Lagre og redigere neste %s"
+
+msgid ""
+"The name of this item on your hard disk.  It must be unique in this album.  "
+"Only use alphanumeric characters, underscores or dashes."
+msgstr ""
+"Dette objektets navn p&aring; din harddisk.  Det m&aring; v&aelig;re unikt "
+"for dette albumet.  Bruk bare alfanumeriske tegn, understreker eller "
+"bindestreker."
+
+msgid "Your name contains invalid characters.  Please choose another."
+msgstr "Navnet ditt inneholder ugyldige tegn.  Vennligst velg et annet."
+
+msgid "You must enter a name for this item."
+msgstr "Du m&aring; angi et navn for dette objektet."
+
+msgid "The name you entered is already in use.  Please choose another."
+msgstr "Navnet du anga er allerede i bruk.  Vennligst velg et annet."
+
+msgid "The title of this item."
+msgstr "Dette albumets tittel."
+
+msgid "The root album must have a title."
+msgstr "Rotalbumet m&aring; ha en tittel."
+
+msgid "The summary of this item."
+msgstr "Dette objektets sammendrag."
+
+msgid "This is the long description of the item."
+msgstr "Dette er den lange beskrivelsen av objektet."
+
+#, c-format
+msgid "%s Date and Time"
+msgstr "%s dato og tid"
+
+msgid "Set the date and time when this image was captured."
+msgstr "Angi dato og tid for n&aring;r dette bildet ble tatt."
+
+msgid "Set the date and time to be displayed for this item."
+msgstr "Angi dato og tid som skal vises for dette objektet."
+
+#, c-format
+msgid "Set the date and time to be displayed for this %s."
+msgstr "Angi dato og tid som skal vises for dette %s."
+
+msgid "Date:"
+msgstr "Dato:"
+
+msgid "Time:"
+msgstr "Tid:"
+
+msgid ""
+"Use the original capture date and time from file information (e.g. Exif tag):"
+msgstr "Bruke den orginale datoen og tiden fra filen (f.eks Exif-tagg):"
+
+msgid "You must enter a valid date and time"
+msgstr "Du m&aring; angi gyldig dato og tid"
+
+msgid "Thumbnail"
+msgstr "Miniatyr"
+
+msgid ""
+"Set the size of the thumbnail.  The largest side of the thumbnail will be no "
+"larger than this value. Leave this field blank if you don't want a thumbnail."
+msgstr ""
+"Angi miniatyrst&oslash;rrelsen. Den lengste siden av miniatyren vil ikke "
+"overstige denne verdien. La dette feltet st&aring; tomt om du ikke &oslash;"
+"nsker miniatyr."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of item, so we "
+"cannot create or modify a thumbnail."
+msgstr ""
+"Vi kan ikke opprette eller endre en miniatyr fordi det ikke er installert "
+"noe verkt&oslash;y som kan behandle denne typen objekt."
+
+msgid ""
+"In order for Gallery to properly display this movie, it has to know the "
+"movie's width and height.  If you have installed a graphics toolkit that can "
+"handle movie types, then these values may already be set.  If not, they may "
+"be set to 0.  If you do not enter the correct values here, the movie may "
+"appear distorted when viewed in your web browser.  Note that changing these "
+"values do <b>not</b> change the movie itself so experimentation won't cause "
+"harm."
+msgstr ""
+"Gallery m&aring; vite denne filmens h&oslash;yde og bredde for &aring;vise "
+"den.  Disse verdiene kan allerede v&aelig;re gitt om du har et verkt&oslash;"
+"y som kan behandle filmer installert.  Verdiene kan settes til 0 om ikke "
+"verkt&oslash;y er installert.  Filmen kan virke forvrengt n&aring;r den "
+"vises i en nettleser om ikke disse verdiene er korrekte.  Merk at &aring; "
+"endre disse verdiene <b>ikke</b> endrer selve filmen, s&aring; "
+"eksperimentering gj&oslash;r ingen skade."
+
+msgid "Resized Photos"
+msgstr "Skalerte bilder"
+
+msgid ""
+"These sizes are alternate resized versions of the original you would like to "
+"have available for viewing."
+msgstr ""
+"Disse st&oslash;rrelsene er alternative, skalerte versjoner av originalen."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so "
+"we cannot create or modify resized versions."
+msgstr ""
+"Vi kan ikke opprette eller endre skalerte versjoner fordi det ikke er "
+"installert noe verkt&oslash;y som st&oslash;tter denne typen bilder."
+
+msgid ""
+"You can select which part of the photo will be used for the thumbnail.  This "
+"will have no effect on the resized or original versions of the image."
+msgstr ""
+"Du kan velge hvilken del av bildet som skal brukes som miniatyr.  Dette vil "
+"ikke ha noen effekt p&aring; det skalerte eller den originale versjonen av "
+"bildet."
+
+msgid "Aspect Ratio: "
+msgstr "St&oslash;rrelsesforhold:"
+
+msgid "Crop"
+msgstr "Beskj&aelig;re"
+
+msgid "Reset to default"
+msgstr "Tilbakestill til standard"
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so "
+"we cannot crop the thumbnail."
+msgstr ""
+"Vi kan ikke beskj&aelig;re bildet fordi det ikke er installert noe "
+"verkt&oslash;y som st&oslash;tter denne typen foto."
+
+msgid "Rotate"
+msgstr "Rotere"
+
+msgid "You can only rotate the photo in 90 degree increments."
+msgstr "Du kan bare rotere bildet 90 grader av gangen."
+
+msgid "CC 90&deg;"
+msgstr "CC 90&deg;"
+
+msgid "180&deg;"
+msgstr "180&deg;"
+
+msgid "C 90&deg;"
+msgstr "C 90&deg;"
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so "
+"we cannot rotate it."
+msgstr ""
+"Vi kan ikke rotere dette bildet fordi det ikke er installert noe "
+"verkt&oslash;y som st&oslash;tter denne typen foto."
+
+msgid "Scale"
+msgstr "Skalere"
+
+msgid ""
+"Shrink or enlarge the original photo.  When Gallery scales a photo, it "
+"maintains the same aspect ratio (height to width) of the original photo to "
+"avoid distortion.  Your photo will be scaled until it fits inside a bounding "
+"box with the size you enter here."
+msgstr ""
+"Forminske eller forst&oslash;rre det originale fotoet.  Gallery "
+"opprettholder samme st&oslash;rrelsesforhold mellom h&oslash;yde og bredde "
+"som det originale fotoet n&aring;r det skalerer for &aring; unng&aring; "
+"forvrengning.  Ditt foto vil bli skalert slik at det passer i en "
+"avgrensingsboks med st&oslash;rrelsen du angir her."
+
+msgid ""
+"There are no graphics toolkits enabled that support this type of photo, so "
+"we cannot scale it."
+msgstr ""
+"Vi kan ikke skalere dette fotoet fordi det ikke er installert noe "
+"verkt&oslash;y som st&oslash;ter denne typen foto."
+
+msgid "You must enter a size"
+msgstr "Du m&aring; angi en st&oslash;rrelse"
+
+msgid "Preserve Original"
+msgstr "Opprettholde orginal"
+
+msgid ""
+"Gallery does not modify your original photo when rotating and scaling. "
+"Instead, it duplicates your photo and works with copies.  This requires a "
+"little extra disk space but prevents your original from getting damaged.  "
+"Disabling this option will cause any actions (rotating, scaling, etc) to "
+"modify the original."
+msgstr ""
+"Gallery endrer ikke ditt originale foto n&aring;r det roteres eller "
+"skaleres, men kopierer det og jobber med kopier.  Dette krever litt ekstra "
+"diskplass, men forhindrer at originalen skades.  Å deaktivere denne "
+"innstillingen gj&oslash;r at enhver handling (rotering, skalering, osv) "
+"endrer originalen."
+
+msgid "This is a link to another photo, so you cannot change the original"
+msgstr ""
+"Du kan ikke endre originalen fordi dette er en lenke til et annet bilde"
+
+msgid "There are links to this photo, so you cannot change the original"
+msgstr "Du kan ikke endre originalen fordi det finnes lenker til dette fotoet"
+
+msgid "Preserve Original Photo"
+msgstr "Oppretthold orginalfoto"
+
+msgid "Modified Photo"
+msgstr "Endret foto"
+
+msgid ""
+"You are using a copy of the original photo that has been scaled or rotated.  "
+"The original photo is still available, but is no longer being used.  Any "
+"changes you make will be applied to the copy instead."
+msgstr ""
+"Du bruker en skalert eller rotert kopi av originalfotoet.  Det originale "
+"fotoet er fremdeles tilgjengelig, men er ikke lengre i bruk.  Alle "
+"endringene du gj&oslash;r blir utf&oslash;rt p&aring; kopien."
+
+msgid "Restore original"
+msgstr "Gjenopprett orginal"
+
+#, c-format
+msgid ""
+"This album is configured to use the <b>%s</b> theme. These settings only "
+"apply to the theme for this album."
+msgstr ""
+"Dette albumet er satt opp til &aring; bruke temaet <b>%s</b>. Disse "
+"innstillingene gjelder bare for temaet for dette albumet."
+
+msgid "Setting"
+msgstr "Innstilling"
+
+msgid "Use Global"
+msgstr "Bruk global"
+
+msgid "Album Highlight"
+msgstr "Visningsbilde for album"
+
+msgid ""
+"You can make this item the thumbnail for its parent or any ancestor album."
+msgstr ""
+"Du kan gj&oslash;re dette objektet til miniatyr for dets forelder- eller "
+"ethvert stamforelderalbum."
+
+msgid "Highlight for:"
+msgstr "Visningsbilde for:"
+
+msgid "Highlight"
+msgstr "Visningsbilde"
+
+msgid "Move an Item"
+msgstr "Flytt et objekt"
+
+#, c-format
+msgid "Successfully moved %d item"
+msgid_plural "Successfully moved %d items"
+msgstr[0] "Flyttet %d element"
+msgstr[1] "Flyttet %d elementer"
+
+msgid "This album contains no items to move."
+msgstr "Dette altbumet inneholder ingen flyttbare objekter."
+
+msgid "Choose the items you want to move"
+msgstr "Velg de objektene du &oslash;nsker &aring; flytte"
+
+msgid ""
+"The destination you chose does not accept sub-albums, so all sub-albums have "
+"been deselected."
+msgstr ""
+"Alle underalbum er avmerket fordi bestemmelsestedet du valgte ikke godtar "
+"underkataloger."
+
+msgid ""
+"The destination you chose only accepts sub-albums, so all non-albums have "
+"been deselected."
+msgstr ""
+"Alle objekter som ikke er album er avmerket fordi bestemmelsestedet du "
+"valgte bare godtar underkataloger."
+
+msgid "You are not allowed to move this item away from here."
+msgstr "Du har ikke tillatelse til &aring; flytte dette objektet herfra."
+
+msgid "You are not allowed to move an album to the chosen destination."
+msgstr ""
+"Du har ikke tillatelse til &aring; flytte et album til den valgte m&aring;"
+"lkatalogen."
+
+msgid "You are not allowed to move an item to the chosen destination."
+msgstr ""
+"Du har ikke tillatelse til &aring; flytte et objekt til den valgte m&aring;"
+"lkatalogen."
+
+msgid "You cannot move an album into its own subtree."
+msgstr "Du kan ikke flytte et album inn i sine egne underkataloger."
+
+msgid "Choose a new album for them"
+msgstr "Velg et nytt album for de"
+
+msgid "You don't have the permission to add items in this album"
+msgstr ""
+"Du har ikke tillatelse til &aring; tilf&oslash;ye objekter i dette albumet."
+
+msgid "Move"
+msgstr "Flytt"
+
+msgid "Successfully moved"
+msgstr "Flyttet"
+
+msgid "Permissions"
+msgstr "Tilganger"
+
+msgid "Owner changed successfully"
+msgstr "Eier endret"
+
+msgid "Group permission added successfully"
+msgstr "Gruppetilgang tilf&oslash;yd"
+
+msgid "User permission added successfully"
+msgstr "Brukertilgang tilf&oslash;yd"
+
+msgid "Group permission removed successfully"
+msgstr "Gruppetilgang fjernet"
+
+msgid "User permission removed successfully"
+msgstr "Brukertilgang fjernet"
+
+msgid ""
+"Each item has its own independent set of permissions.  Changing the parent's "
+"permissions has no effect on the permissions of the child.  This allows you "
+"to restrict access to the parent of this item, but still grant full access "
+"to this item, or vice versa.  The most efficient way to use this permission "
+"system is to create groups and assign permissions to them.  Then if you want "
+"to grant permissions to a specific user, you can add (or remove) the user "
+"from the appropriate group."
+msgstr ""
+"Hvert objekt har sitt eget sett med rettigheter.  Å endre en forelders "
+"tilganger har ingen effekt p&aring; underoppf&oslash;ringen.  Dette "
+"gj&oslash;r at du kan begrense tilgangen til objektes forelder, men "
+"fremdeles gi full tilgang til underoppf&oslash;ringen, eller omvendt.  Den "
+"mest effektive m&aring;ten &aring; bruke dette rettighetssystemet er &aring; "
+"opprette grupper og angi tilganger til de.  Du kan da tilf&oslash;ye (eller "
+"fjerne) en bruker til en passende gruppe om du &oslash;nsker &aring; gi en "
+"bestemt bruker tilgang."
+
+#, c-format
+msgid "This item is owned by user: %s"
+msgstr "Dette elementet eies av: %s"
+
+#, c-format
+msgid "This item is owned by user: %s (%s)"
+msgstr "Dette objektet eies av: %s (%s)"
+
+msgid "New owner"
+msgstr "Ny eier"
+
+msgid "Change"
+msgstr "Endre"
+
+msgid "Apply new owner to sub-items"
+msgstr "Legg til ny eier til underalbum"
+
+msgid "You must enter a user name"
+msgstr "Du m&aring; angi et brukernavn"
+
+msgid "The user name you entered is invalid"
+msgstr "Brukernavet du anga er ugyldig"
+
+msgid "Apply changes"
+msgstr "Utf&oslash;r endringer"
+
+msgid ""
+"This item has sub-items.  The changes you make here can be applied to just "
+"this item, or you can apply them to all sub-items.  Note that applying "
+"changes to sub-items will merge your change into the existing permissions of "
+"the sub-items and may be very time consuming if you have many sub-items.  "
+"It's more efficient to grant permissions to groups and then add and remove "
+"users from groups whenever possible. Changes are applied to sub-items by "
+"default."
+msgstr ""
+"Dette objektet har underobjekter.  Endringene du gj&oslash;r her kan gjelde "
+"bare dette albumet, eller for alle underobjekter.  Merk at &aring; legge til "
+"endringer til underobjekter vil flette din endring inn i de eksisterende "
+"tilganger for underobjektene og kan bruke veldig lang tid om du har mange "
+"underobjekter.  Det er mere effektivt &aring; gi tilganger til grupper og "
+"s&aring; tilf&oslash;ye eller fjerne brukere fra grupper n&aring;r det er "
+"mulig. Endringer blir utf&oslash;rt p&aring; underalbum som standard."
+
+msgid "Apply to sub-items"
+msgstr "Bruk p&aring; underobjekter"
+
+msgid "Group Permissions"
+msgstr "Gruppetilganger"
+
+msgid "Group name"
+msgstr "Gruppenavn"
+
+msgid "Permission"
+msgstr "Tilgang"
+
+msgid "New Group Permission"
+msgstr "Ny gruppetilgang"
+
+msgid "Add Permission"
+msgstr "Tilf&oslash;y tilganger"
+
+msgid "The permission you chose is invalid"
+msgstr "Tilgangen du valgte er ugyldig"
+
+msgid "The group name you entered is invalid"
+msgstr "Gruppenavnet du anga er ugyldig"
+
+msgid "Group already has this permission (check sub-permissions)"
+msgstr "Gruppen har allerede denne tilgangen (sjekk undertilganger)"
+
+msgid "User Permissions"
+msgstr "Brukertilganger"
+
+msgid "User name"
+msgstr "Brukernavn"
+
+msgid "New User Permission"
+msgstr "Ny brukertilgang"
+
+msgid "The user already has this permission (check sub-permissions)"
+msgstr "Brukeren har allerede denne tilgangen (sjekk undertilganger)"
+
+msgid "Reorder Album"
+msgstr "Reorganisere album"
+
+msgid ""
+"This album has an automatic sort order specified, so you cannot change the "
+"order of items manually.  You must remove the automatic sort order to "
+"continue."
+msgstr ""
+"Du kan ikke manuelt endre objektrekkef&oslash;lgen fordi dette albumet har "
+"en automatisk sorteringsrekkef&oslash;lge.  Du m&aring; fjerne den "
+"automatiske sorteringsrekkef&oslash;lgen for &aring; fortsette."
+
+msgid "Change the order of the items in this album."
+msgstr "Endre objektrekkef&oslash;lgen i dette albumet."
+
+msgid "Move this item"
+msgstr "Flytt dette objektet"
+
+msgid "before"
+msgstr "tidligere"
+
+msgid "after"
+msgstr "etter"
+
+msgid "Reorder"
+msgstr "Reorganiser"
+
+msgid "Continue..."
+msgstr "Fortsette..."
+
+msgid "Site is temporarily down for maintenance."
+msgstr ""
+
+#, fuzzy
+msgid "Admin Login"
+msgstr "Administratorinnstillinger"
+
+msgid "Enter a URL"
+msgstr "Skriv inn en nettadresse"
+
+msgid "Enter some text describing the URL"
+msgstr "Angi en tekst som beskriver nettadressenen"
+
+msgid "Enter an image URL"
+msgstr "Angi en nettadresse til et bilde"
+
+msgid "B"
+msgstr "B"
+
+msgid "i"
+msgstr "i"
+
+msgid "list"
+msgstr "liste"
+
+msgid "bullet"
+msgstr "punkt"
+
+msgid "url"
+msgstr "nettadresse"
+
+msgid "image"
+msgstr "bilde"
+
+msgid "Configuration Error: Missing Theme"
+msgstr "Innstillingsfeil: tema mangler"
+
+msgid "Missing Theme"
+msgstr "Tema mangler"
+
+#, c-format
+msgid ""
+"This album is configured to use the %s theme, but it is either inactive or "
+"not installed."
+msgstr ""
+"Dette albumet er satt opp til &aring; bruke temaet%s, men det er enten "
+"deaktivert eller ikke installert."
+
+#, c-format
+msgid ""
+"To fix this problem you can %sinstall or activate this theme%s or select "
+"another default theme."
+msgstr ""
+"For &aring; reparere dette problemet kan du %sinstallere eller aktivere "
+"dette temaet%s eller velge et annet standardtema."
+
+#, c-format
+msgid ""
+"To fix this problem you can %slogin as a site administrator%s and then %"
+"sinstall or activate this theme%s or select another default theme."
+msgstr ""
+"Du kan %slogge inn som nettstedadministrator%s og s&aring; %sinstallere "
+"eller aktivere dette temaet%s eller velge et annet tema for &aring; reparere "
+"dette problemet."
+
+#, c-format
+msgid ""
+"To fix this problem you can either %schoose a new theme for this album%s or %"
+"sinstall or activate this theme%s."
+msgstr ""
+"Du kan enten %svelge et nytt tema for dette albumet%s eller %sinstallere "
+"eller aktivere dette temaet%s for &aring; reparere dette problemet."
+
+#, c-format
+msgid ""
+"To fix this problem you can either %schoose a new theme for this album%s or %"
+"slogin as a site administrator%s and then %sinstall or activate this theme%s."
+msgstr ""
+"Du kan enten %svelge et nytt tema for dette albumet%s eller %slogge inn som "
+"nettstedadministrator%s og s&aring; %sinstallere eller aktivere dette temaet%"
+"s for &aring; reparere dette problemet."
+
+#, c-format
+msgid ""
+"To fix this problem you can either %slogin%s and then %schoose a new theme "
+"for this album%s or %slogin as a site administrator%s and then %sinstall or "
+"activate this theme%s."
+msgstr ""
+"Du kan enten %slogge inn%s og s&aring; %svelge et nytt tema for dette albumet"
+"%s eller %slogge inn som nettstedadministrator%s og s&aring; %sinstallere "
+"eller aktivere dette temaet%s for &aring; reparere dette problemet."
+
+msgid "Admin Options"
+msgstr "Administratorinnstillinger"
+
+msgid "User Options"
+msgstr "Brukerinnstillinger"
+
+msgid "Password changed successfully"
+msgstr "Passord endret"
+
+msgid ""
+"You must enter your current password to prove that it's you, then enter your "
+"new password twice to make sure that you didn't make a mistake."
+msgstr ""
+"Du m&aring; agi ditt gjeldende passord for &aring; bevise at det er deg, "
+"s&aring; m&aring; du angi ditt nye passord to ganger for &aring; forsikre om "
+"at du ikke gjorde en feil."
+
+msgid "Current Password"
+msgstr "Gjeldende passord"
+
+msgid "You must enter your current password"
+msgstr "Du m&aring; angi gjeldende passord"
+
+msgid "Incorrect password"
+msgstr "Feil passord"
+
+msgid "New Password"
+msgstr "Nytt passord"
+
+msgid "You must enter a new password"
+msgstr "Du m&aring; angi nytt passord"
+
+msgid "Verify New Password"
+msgstr "Verifisere nytt passord"
+
+msgid "You must enter your new password again!"
+msgstr "Du m&aring; angi ditt nye passord igjen!"
+
+msgid "Login to your account"
+msgstr "Innlogging til din konto"
+
+msgid "Your password has been recovered, please login."
+msgstr "Passordet ditt er gjenopprettet. Vennligst logg inn."
+
+msgid "Your login information is incorrect.  Please try again."
+msgstr "Din innloggingsinformasjon er feil.  Vennligst fors&oslash;k igjen."
+
+#, c-format
+msgid ""
+"Lost or forgotten passwords can be retrieved using the <a href=\"%s"
+"\">recover password</a> page"
+msgstr ""
+"Tapte eller glemte passord kan hentes ved hjelp av siden <a href=\"%s"
+"\">gjenopprett passord</a>"
+
+#, c-format
+msgid "Welcome, %s!"
+msgstr ""
+
+msgid "Account settings saved successfully"
+msgstr "Kontoinnstillinger lagret"
+
+msgid "Recover a lost or forgotten password"
+msgstr "Gjenopprett et tapt eller glemt passord"
+
+msgid ""
+"Recovering your password requires that your user account has an email "
+"address assigned, and that you have access to the listed email address.  A "
+"confirmation will be emailed to you containing a URL which you must visit to "
+"set a new password for your account.  To prevent abuse, password recovery "
+"requests can not be attempted more than once in a 20 minute period.  A "
+"recovery confirmation is valid for seven days.  If it is not used during "
+"that time, it will be purged from the system and a new request will have to "
+"be made."
+msgstr ""
+"Å gjenopprette passordet krever at din brukerkonto har en e-postadresse, og "
+"at du har tilgang til den e-postadressen.  En bekreftelse vil bli sendt deg "
+"inneholdende en nettadresse som du m&aring; bes&oslash;ke for &aring; sette "
+"et nytt passord for din konto.  Passordgjenopprettingsforesp&oslash;rsler "
+"kan ikke gj&oslash;res oftere enn &eacute;n gang per 20 minutter for &aring; "
+"forhindre misbruk.  En gjenopprettingsbekreftelse er gyldig i syv dager.  "
+"Den vil slettes fra systemet, og en ny foresp&oslash;rsel m&aring; sendes om "
+"den ikke benyttes innen den tid."
+
+msgid "Your recovery request has been sent!"
+msgstr "Din foresp&oslash;rsel om gjenoppretting er sent!"
+
+msgid ""
+"Note that if the account does not have an email address, you may not receive "
+"the email and you should contact your system administrator for help."
+msgstr ""
+"Merk at det kan v&aelig;re du ikke mottar e-posten at at du b&oslash;r "
+"kontakte din systemadministrator om kontoen ikke har en e-postadresse."
+
+#, c-format
+msgid ""
+"Administrators can use the %sEmergency Password Recovery%s page to recover "
+"the admin account if they fail to receive recovery email due to server "
+"problems, or lack of a working email address."
+msgstr ""
+"Administratorer kan bruke %sn&oslash;dpassordgjenoppretting%s for &aring; "
+"gjenopprette administratorkontoen om de ikke mottar gjenopprettings-e-posten "
+"grunnet tjenerproblemer, eller manglende, gyldig e-postadresse."
+
+msgid "Recover"
+msgstr "Gjenopprette"
+
+#, c-format
+msgid ""
+"In order to proceed with the password reset, we have to verify that you are "
+"who you claim.  The best way to be sure is to ask you to make a tiny change "
+"in the Gallery directory which will prove that you have the right "
+"permissions.  So, we're going to ask that you create a new text file called %"
+"s in your gallery2 directory. It must contain the following randomly "
+"generated characters:"
+msgstr ""
+"Vi m&aring; bekrefte at du er den du p&aring;st&aring;r du er for &aring; "
+"fortsette med nullstillingen av passordet.  Den beste m&aring;ten &aring; "
+"v&aelig;re sikker p&aring; er &aring; be deg endre en liten ting i Gallery-"
+"katalogen, noe som vil bevise at du har de rette tilganger.  Vi vil be deg "
+"opprette en ny tekstfil kalt %s i Gallery2-katalogen. Den m&aring; inneholde "
+"f&oslash;lgende, tilfeldig genererte tegn:"
+
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#, c-format
+msgid ""
+"As a convenience to you, we've prepared a %scorrect version of login.txt%s "
+"for you.  Download that and copy it into your install directory and you're "
+"all set."
+msgstr ""
+"Vi har forberedt en %skorrekt versjon av login.txt%s til deg.  Last den ned "
+"og kopier den til installasjonskatalogen."
+
+msgid "Once you've uploaded the file, click refresh to continue."
+msgstr ""
+"Trykk oppdatere for &aring; fortsette etter at du har lastet opp filen."
+
+msgid "Emergency Administrator Password Reset"
+msgstr "N&oslash;dnullstilling av administratorpassord"
+
+msgid ""
+"This page can be used by a system administrator to securely reset the "
+"password on any account."
+msgstr ""
+"Denne siden kan brukes av en systemadministrator til &aring; nullstille "
+"passordet p&aring; enhver konto."
+
+msgid "Authorization Confirmed"
+msgstr "Godkjennelse bekreftet"
+
+msgid ""
+"Your authorization has been confirmed.  Please enter your new password "
+"below.  After setting your new password you will be taken to the login page."
+msgstr ""
+"Din autorisasjon er bekreftet.  Vennligst angi ditt nye passord nedenfor.  "
+"Du vil bli f&oslash;rt til innloggingssiden etter at du har satt ditt nye "
+"passord."
+
+msgid "Recover Password for Username"
+msgstr "Gjenopprette passord for brukernavn"
+
+msgid "You must enter a username to recover the password for."
+msgstr "Du m&aring; angi et brukernavn &aring; gjenopprette passordet for."
+
+msgid "The username you entered does not exist."
+msgstr "Brukernavet du oppga er ugyldig"
+
+msgid "Authorization Incorrect"
+msgstr "Godkjennelse ugyldig"
+
+msgid "Recovery Instructions"
+msgstr "Instruksjoner for gjenoppretting"
+
+msgid "AuthFile Missing"
+msgstr "AuthFil mangler"
+
+msgid "AuthFile Unreadable"
+msgstr "AuthFil er ulsebar"
+
+#, c-format
+msgid ""
+"Your %s file is not readable. Please give Gallery read permissions on the "
+"file."
+msgstr ""
+"Filen %s er ikke lesbar. Vennligst gi Gallery leserettigheter for filen."
+
+msgid "Refresh"
+msgstr "Oppdatere"
+
+msgid "This page will allow you to reset the password on your account."
+msgstr ""
+"Denne siden vil tillate deg &aring; nullstille passordet for din konto."
+
+#, c-format
+msgid ""
+"There is no request which matches the username and authorization provided. "
+"Request a new authorization from the <a href=\"%s\">lost password page</a>"
+msgstr ""
+"Det er ingen foresp&oslash;rsel som passer brukernavnet og autorisasjonen "
+"oppgitt. Foresp&oslash;r en ny autorisasjon fra siden <a href=\"%s\">tapt "
+"passord</a>"
+
+#, c-format
+msgid ""
+"The request you are trying to access has expired.  Request a new "
+"authorization from the <a href=\"%s\">lost password page</a>."
+msgstr ""
+"Foresp&oslash;rselen du fors&oslash;ker &aring; hente har utl&oslash;pt.  "
+"Foresp&oslash;r ny autorisasjon fra siden <a href=\"%s\">tapt passord</a>."
+
+msgid "Authorization missing"
+msgstr "Godkjennelse mangler"
+
+msgid "Username missing"
+msgstr "Brukernavn mangler"
+
+msgid "Submit"
+msgstr "Send"
+
+#, c-format
+msgid "Hello %s,"
+msgstr "Hei %s,"
+
+#, c-format
+msgid ""
+"You receive this email because a password recovery for %s was requested by %"
+"s at %s"
+msgstr ""
+"Du mottar denne e-posten fordi passordgjenoppretting for %s ble forespurt av "
+"%s %s"
+
+#, c-format
+msgid "Your username is: %s"
+msgstr "Dit brukernavn: %s"
+
+msgid ""
+"To finish the password recovery process please click the following link and "
+"enter the required information:"
+msgstr ""
+"Vennligst trykk p&aring; f&oslash;lgende lenke og angi n&oslash;dvendig "
+"informasjon for &aring; avslutte passordgjenopprettingsprosedyren:"
+
+msgid "If you did not request this recovery email, you may safely ignore it."
+msgstr ""
+"Du kan trygt se bort fra denne gjenopprettings-e-posten om du ikke ba om den."
+
+msgid "Thank you!"
+msgstr "Takk!"
+
+msgid "guest"
+msgstr "gjest"
+
+#, c-format
+msgid "display mode: %s"
+msgstr "visningsmodus: %s"
+
+#, c-format
+msgid "Date: %s"
+msgstr "Dato: %s"
+
+#, c-format
+msgid "Owner: %s"
+msgstr "Eier: %s"
+
+#, c-format
+msgid "Size: %d item"
+msgid_plural "Size: %d items"
+msgstr[0] "St&oslash;rrelse: %d objekt"
+msgstr[1] "St&oslash;rrelse: %d objekter"
+
+#, c-format
+msgid "(%d item total)"
+msgid_plural "(%d items total)"
+msgstr[0] "(%d objekter totalt)"
+msgstr[1] "(%d objekter totalt)"
+
+#, c-format
+msgid "Views: %d"
+msgstr "Visninger: %d"
+
+msgid "&laquo; album actions &raquo;"
+msgstr "&laquo;albumhandlinger&raquo;"
+
+msgid "&laquo; item actions &raquo;"
+msgstr "&laquo;objekthandlinger&raquo;"
+
+msgid "Go"
+msgstr "G&aring;"
+
+msgid "Navigation"
+msgstr "Navigasjon"
+
+msgid "next"
+msgstr "neste"
+
+msgid "last"
+msgstr "siste"
+
+#, c-format
+msgid "Page %d of %d"
+msgstr "Side %d av %d"
+
+#, c-format
+msgid "%d of %d"
+msgstr "%d av %d"
+
+msgid "first"
+msgstr "f&oslash;rste"
+
+msgid "previous"
+msgstr "Forrige"
+
+msgid "Page:"
+msgstr "Side:"
+
+#, c-format
+msgid "%d. %s"
+msgstr "%d. %s"
+
+msgid "Size: "
+msgstr "St&oslash;rrelse: "
+
+msgid "Full size: "
+msgstr "Full st&oslash;rrelse: "
+
+msgid "Language selector"
+msgstr "Sprkvelger"
+
+msgid "Item actions"
+msgstr "Objekthandlinger"
+
+msgid "Use dropdown menu"
+msgstr "Bruk rullegardinmeny"
+
+msgid "Login block"
+msgstr "Innloggingsblokk"
+
+msgid "Links to album/photo peers"
+msgstr "Lenker til album-/fototjenere"
+
+msgid "Unable to delete directory: /templates_c"
+msgstr "Kunne ikke slette katalog: /templates_c"
+
+msgid "Unit test module"
+msgstr "Testmodul for enhet"
+
+msgid "[test] A permission"
+msgstr "[test] En tilgang"
+
+msgid "[test] A second permission"
+msgstr "[test] En andre tilgang"
+
+msgid "Unit test theme"
+msgstr "Testtema for enhet"
+
+#, fuzzy
+#~ msgid "add album"
+#~ msgstr "legg til underkatalog"
+
+#~ msgid "edit permissions"
+#~ msgstr "endre tilganger"
+
+#, fuzzy
+#~ msgid "view permissions"
+#~ msgstr "endre tilganger"
+
+#, fuzzy
+#~ msgid "login"
+#~ msgstr "P&aring;logging"
+
+#, fuzzy
+#~ msgid "choose a new theme for this album"
+#~ msgstr "Velg et nytt album for gjenstanden"
+
+#, fuzzy
+#~ msgid "login as a site administrator"
+#~ msgstr "Nettstedsadministrasjon"
+
+#, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "Aktiviering av layout %s vellykket"
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV 16x9"
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "Sletting av %d element vellykket"
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "Sletting av %d element vellykket"
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "Sletting av %d element vellykket"
+
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "Sletting av %d element vellykket"
+
+#, fuzzy
+#~ msgid "Missing Layout"
+#~ msgstr "Layout"
