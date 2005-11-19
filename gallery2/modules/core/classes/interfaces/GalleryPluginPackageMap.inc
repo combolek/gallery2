@@ -4,20 +4,20 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
  * @package GalleryCore
@@ -35,13 +35,13 @@
  * it by hand, as your changes will be lost next time this file is
  * rebuilt.  If you want to add more getters/setters, you should add
  * them in the core class.  If you want to change the format of this
- * file, then you should edit the XSL template.
+ * file, then you should edit lib/tools/bin/interface.tpl.
  *
  * @package GalleryCore
  * @subpackage Classes
  */
 class GalleryPluginPackageMap extends GalleryPluginPackageMap_core {
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -52,19 +52,17 @@ class GalleryPluginPackageMap extends GalleryPluginPackageMap_core {
 	return 'GalleryPluginPackageMap';
     }
 
-    /** 
-     * Return the path to the PHP file for this class, relative to the gallery2 dir
-     * 
-     * @return string path
-     */ 
-    function getClassFile() { 
-        return 'modules/' .  
-            basename(dirname(dirname(dirname(__FILE__)))) .  
-            '/classes/GalleryPluginPackageMap.class'; 
-    }
-    
     /**
-     * Get meta information about this class' map 
+     * Return the path to the PHP file for this class, relative to the gallery2 dir
+     *
+     * @return string path
+     */
+    function getClassFile() {
+        return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/GalleryPluginPackageMap.class';
+    }
+
+    /**
+     * Get meta information about this class' map
      *
      * @return array map member => type
      */
@@ -75,7 +73,7 @@ class GalleryPluginPackageMap extends GalleryPluginPackageMap_core {
 	$info['members']['packageName'] = STORAGE_TYPE_STRING;
 	$info['members']['packageVersion'] = STORAGE_TYPE_STRING;
 	$info['members']['packageBuild'] = STORAGE_TYPE_STRING;
-	return $info; 
+	return $info;
     }
 
     /**
@@ -87,7 +85,7 @@ class GalleryPluginPackageMap extends GalleryPluginPackageMap_core {
      */
     function addMapEntry($data) {
 	global $gallery;
-        foreach (array('pluginType', 'pluginId', 'packageName', 'packageVersion', 'packageBuild', ) as $key) {
+        foreach (array('pluginType', 'pluginId', 'packageName', 'packageVersion', 'packageBuild') as $key) {
 	    if (!array_key_exists($key, $data)) {
 	        return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                                             'Missing parameter: ' . $key);
@@ -163,6 +161,6 @@ class GalleryPluginPackageMap extends GalleryPluginPackageMap_core {
 	}
 	return GalleryStatus::success();
     }
-  
+ 
 }
 ?>
