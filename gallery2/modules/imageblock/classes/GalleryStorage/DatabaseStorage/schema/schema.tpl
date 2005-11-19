@@ -1,5 +1,5 @@
 ## mysql
-# A_ImageBlockCacheMap_1_0
+# A_ImageBlockCacheMap_1.0
 ALTER TABLE DB_TABLE_PREFIXImageBlockCacheMap
   DROP INDEX DB_COLUMN_PREFIXuserId,
   ADD INDEX DB_TABLE_PREFIXImageBlockCacheMap_1627(DB_COLUMN_PREFIXuserId, DB_COLUMN_PREFIXitemType);
@@ -36,7 +36,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('ImageBlockDisabledMap', 1, 0);
 
 ## postgres
-# A_ImageBlockCacheMap_1_0
+# A_ImageBlockCacheMap_1.0
 DROP INDEX DB_TABLE_PREFIXImageBlockCacheMap_1627;
 
 CREATE INDEX DB_TABLE_PREFIXImageBlockCacheMap_1627 ON DB_TABLE_PREFIXImageBlockCacheMap(DB_COLUMN_PREFIXuserId, DB_COLUMN_PREFIXitemType);
@@ -75,7 +75,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('ImageBlockDisabledMap', 1, 0);
 
 ## oracle
-# A_ImageBlockCacheMap_1_0
+# A_ImageBlockCacheMap_1.0
 DROP INDEX DB_TABLE_PREFIXImageBlockCacheMap_1627;
 
 CREATE INDEX DB_TABLE_PREFIXImageBlockCacheMap_1627 ON DB_TABLE_PREFIXImageBlockCacheMap(DB_COLUMN_PREFIXuserId, DB_COLUMN_PREFIXitemType);
@@ -117,7 +117,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('ImageBlockDisabledMap', 1, 0);
 
 ## db2
-# A_ImageBlockCacheMap_1_0
+# A_ImageBlockCacheMap_1.0
 DROP INDEX DB_TABLE_PREFIXImage6d_1627;
 
 CREATE INDEX DB_TABLE_PREFIXImage6d_1627 ON DB_TABLE_PREFIXImageBlockCacheMap(DB_COLUMN_PREFIXuserId, DB_COLUMN_PREFIXitemType);

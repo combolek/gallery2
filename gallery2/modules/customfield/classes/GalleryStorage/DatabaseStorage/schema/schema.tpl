@@ -1,5 +1,5 @@
 ## mysql
-# A_CustomFieldMap_1_0
+# A_CustomFieldMap_1.0
 ALTER TABLE DB_TABLE_PREFIXCustomFieldMap
   DROP INDEX DB_COLUMN_PREFIXitemId,
   ADD INDEX DB_TABLE_PREFIXCustomFieldMap_75985(DB_COLUMN_PREFIXitemId);
@@ -25,7 +25,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('CustomFieldMap', 1, 1);
 
 ## postgres
-# A_CustomFieldMap_1_0
+# A_CustomFieldMap_1.0
 DROP INDEX DB_TABLE_PREFIXCustomFieldMap_75985;
 
 CREATE INDEX DB_TABLE_PREFIXCustomFieldMap_75985 ON DB_TABLE_PREFIXCustomFieldMap(DB_COLUMN_PREFIXitemId);
@@ -52,7 +52,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('CustomFieldMap', 1, 1);
 
 ## oracle
-# A_CustomFieldMap_1_0
+# A_CustomFieldMap_1.0
 DROP INDEX DB_TABLE_PREFIXCustomFieldMap_75985;
 
 CREATE INDEX DB_TABLE_PREFIXCustomFieldMap_75985 ON DB_TABLE_PREFIXCustomFieldMap(DB_COLUMN_PREFIXitemId);
@@ -80,7 +80,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('CustomFieldMap', 1, 1);
 
 ## db2
-# A_CustomFieldMap_1_0
+# A_CustomFieldMap_1.0
 DROP INDEX DB_TABLE_PREFIXCusto6d_75985;
 
 CREATE INDEX DB_TABLE_PREFIXCusto6d_75985 ON DB_TABLE_PREFIXCustomFieldMap(DB_COLUMN_PREFIXitemId);

@@ -1,5 +1,5 @@
 ## mysql
-# A_GalleryComment_1_0
+# A_GalleryComment_1.0
 ALTER TABLE DB_TABLE_PREFIXComment
   DROP INDEX DB_COLUMN_PREFIXdate,
   ADD INDEX DB_TABLE_PREFIXComment_95610(DB_COLUMN_PREFIXdate);
@@ -27,7 +27,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('Comment', 1, 1);
 
 ## postgres
-# A_GalleryComment_1_0
+# A_GalleryComment_1.0
 DROP INDEX DB_TABLE_PREFIXComment_95610;
 
 CREATE INDEX DB_TABLE_PREFIXComment_95610 ON DB_TABLE_PREFIXComment(DB_COLUMN_PREFIXdate);
@@ -57,7 +57,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('Comment', 1, 1);
 
 ## oracle
-# A_GalleryComment_1_0
+# A_GalleryComment_1.0
 DROP INDEX DB_TABLE_PREFIXComment_95610;
 
 CREATE INDEX DB_TABLE_PREFIXComment_95610 ON DB_TABLE_PREFIXComment(DB_COLUMN_PREFIXdate);
@@ -90,7 +90,7 @@ INSERT INTO DB_TABLE_PREFIXSchema (
 ) VALUES('Comment', 1, 1);
 
 ## db2
-# A_GalleryComment_1_0
+# A_GalleryComment_1.0
 DROP INDEX DB_TABLE_PREFIXComme6d_95610;
 
 CREATE INDEX DB_TABLE_PREFIXComme6d_95610 ON DB_TABLE_PREFIXComment(DB_COLUMN_PREFIXdate);
