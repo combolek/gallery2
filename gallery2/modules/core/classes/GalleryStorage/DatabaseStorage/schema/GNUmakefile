@@ -18,7 +18,7 @@ dbxml:
 	php -f $(TOOLDIR)/bin/generate-dbxml.php
 
 sql:
-	php -f $(TOOLDIR)/bin/generate-sql.php tmp/classxml
+	php -f $(TOOLDIR)/bin/generate-sql.php
 
 clean:
 	rm -rf tmp
