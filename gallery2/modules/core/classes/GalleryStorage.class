@@ -401,10 +401,9 @@ class GalleryStorage {
      * Perform any cleanup necessary after installing or upgrading the given module.
      *
      * @param string module id
-     * @param array (optional) of (classname => old schema version)
      * @return object GalleryStatus a status code
      */
-    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
+    function configureStoreCleanup($moduleId) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret->isError()) {
@@ -414,7 +413,7 @@ class GalleryStorage {
 	    }
 	}
 
-	$ret = $this->_impl->configureStoreCleanup($moduleId, $upgradeInfo);
+	$ret = $this->_impl->configureStoreCleanup($moduleId);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

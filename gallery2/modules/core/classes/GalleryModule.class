@@ -87,14 +87,14 @@ class GalleryModule extends GalleryPlugin {
 	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
 	 *   - Consider removing isRecommendedDuringInstall() since
 	 *     we now have 4 different types of installs
-	 *   - Fix DatabaseStorageExtras::_parseSqlTemplate so that it no longer
+	 *   + DONE: Fix DatabaseStorageExtras::_parseSqlTemplate so that it no longer
 	 *     accepts database files of the old form (A|R)_Table_#_# but requires
 	 *     the new form (A|R)_Table_#.# instead
 	 *   - Flatten classes/GalleryStorage/DatabaseStorage/schema under
 	 *     GalleryStorage; we're no longer going to seriously attempt to do
 	 *     any other kind of storage besides DatabaseStorage.  Roll as much
 	 *     functionality as possible up into GalleryStorage.class
-	 *   - Uncomment new code in GallerySession::_shouldSaveSession that
+	 *   + DONE: Uncomment new code in GallerySession::_shouldSaveSession that
 	 *     will require modules not to call translate() from contructors
 	 *   - Combine userId/groupId columns in all our various tables into one
 	 *     column (entityId?)
@@ -197,6 +197,19 @@ class GalleryModule extends GalleryPlugin {
 		if ($gallery->getDebug()) {
 		    $gallery->debug(sprintf('Error: Failed to upgrade the %s module, this ' .
 					    'is the error stack trace: %s', $this->getId(),
+					    $ret->getAsText()));
+		}
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    if ($gallery->getDebug()) {
+		$gallery->debug(sprintf('ConfigureStoreCleanup for %s module', $this->getId()));
+	    }
+	    $ret = $storage->configureStoreCleanup($this->getId());
+	    if ($ret->isError()) {
+		if ($gallery->getDebug()) {
+		    $gallery->debug(sprintf('Error: Failed to clean up the persistent store, ' .
+					   'this is the error stack trace: %s',
 					    $ret->getAsText()));
 		}
 		return $ret->wrap(__FILE__, __LINE__);

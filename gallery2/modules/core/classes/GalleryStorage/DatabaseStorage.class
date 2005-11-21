@@ -544,9 +544,9 @@ class DatabaseStorage /* implements GalleryStorage */ {
     /**
      * @see GalleryStorage::configureStoreCleanup
      */
-    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
+    function configureStoreCleanup($moduleId) {
 	$extras =& $this->_getExtras();
-	return $extras->configureStoreCleanup($moduleId, $upgradeInfo);
+	return $extras->configureStoreCleanup($moduleId);
     }
 
     /**

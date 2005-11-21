@@ -209,18 +209,11 @@ class MySqlGenerator extends BaseGenerator {
 	    break;
 
 	case 'CHANGE':
-	    /* table-name, schema-from, schema-to, (add, alter, remove, split)+ */
+	    /* table-name, schema-from, schema-to, (add, alter, remove)+ */
 	    if (count($child) > 3) {
-		$count = 0;
+		$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "\n";
 		for ($i = 3; $i < count($child); $i++) {
-		    if ($child[$i]['name'] == 'SPLIT') {
-			/* Label remaining sql as R_ so it will execute after upgrade code */
-			$output .= ";\n\n# R" . substr($node['base'], 1) . "\n";
-			$count = 0;
-			continue;
-		    } else if (!$count++) {
-			$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $child[0]['content'] . "\n";
-		    } else {
+		    if ($i > 3) {
 			$output .= ",\n";
 		    }
 		    $output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
@@ -379,14 +372,9 @@ class PostgresGenerator extends BaseGenerator {
 	$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
 	switch($node['name']) {
 	case 'CHANGE':
-	    /* table-name, schema-from, schema-to, (add, alter, remove, split)+ */
+	    /* table-name, schema-from, schema-to, (add, alter, remove)+ */
 	    for ($i = 3; $i < count($child); $i++) {
-		if ($child[$i]['name'] == 'SPLIT') {
-		    /* Label remaining sql as R_ so it will execute after upgrade code */
-		    $output .= "# R" . substr($node['base'], 1) . "\n";
-		} else {
-		    $output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
-		}
+		$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 	    }
 	    $output .= $this->generateSchemaUpdate($child);
 	    break;
@@ -620,19 +608,11 @@ class OracleGenerator extends BaseGenerator {
 	$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
 	switch($node['name']) {
 	case 'CHANGE':
-	    /* table-name, schema-from, schema-to, (add, alter, remove, split)+ */
+	    /* table-name, schema-from, schema-to, (add, alter, remove)+ */
 	    $alters = $others = '';
 	    for ($i = 3; $i < count($child); $i++) {
-		if ($child[$i]['name'] == 'SPLIT') {
-		    if ($alters) {
-			$output .= 'ALTER TABLE DB_TABLE_PREFIX' . $node['child'][0]['content'];
-			$output .= "\n" . $alters . ";\n\n";
-		    }
-		    /* Label remaining sql as R_ so it will execute after upgrade code */
-		    $output .= $others . "# R" . substr($node['base'], 1) . "\n";
-		    $alters = $others = '';
-		} else if (!$this->isIndex($child[$i]['child'][0]) ||
-			   $this->isPrimaryKey($child[$i]['child'][0])) {
+		if (!$this->isIndex($child[$i]['child'][0]) ||
+			$this->isPrimaryKey($child[$i]['child'][0])) {
 		    $alters .= $this->createSql($child[$i], $i, count($child) - 1, $node) . "\n";
 		} else {
 		    $others .= $this->createSql($child[$i], $i, count($child) - 1, $node) . ";\n\n";
@@ -935,14 +915,9 @@ class Db2Generator extends BaseGenerator {
 	$child = $node['child'] = isset($node['child']) ? $node['child'] : array();
 	switch($node['name']) {
 	case 'CHANGE':
-	    /* table-name, schema-from, schema-to, (add, alter, remove, split)+ */
+	    /* table-name, schema-from, schema-to, (add, alter, remove)+ */
 	    for ($i = 3; $i < count($child); $i++) {
-		if ($child[$i]['name'] == 'SPLIT') {
-		    /* Label remaining sql as R_ so it will execute after upgrade code */
-		    $output .= "# R" . substr($node['base'], 1) . "\n";
-		} else {
-		    $output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
-		}
+		$output .= $this->createSql($child[$i], $i, count($child) - 1, $node);
 	    }
 	    $output .= $this->generateSchemaUpdate($child);
 	    break;
