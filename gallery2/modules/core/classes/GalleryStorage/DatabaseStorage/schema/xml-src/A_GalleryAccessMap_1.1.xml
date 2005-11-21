@@ -6,24 +6,27 @@
   <table-name>AccessMap</table-name>
   <schema-from>
     <schema-major>1</schema-major>
-    <schema-minor>0</schema-minor>
+    <schema-minor>1</schema-minor>
   </schema-from>
   <schema-to>
     <schema-major>1</schema-major>
-    <schema-minor>1</schema-minor>
+    <schema-minor>2</schema-minor>
   </schema-to>
   <remove>
-    <key>
-      <column-name>accessListId</column-name>
-      <column-name>userId</column-name>
-      <column-name>groupId</column-name>
-    </key>
+    <column-name>userId</column-name>
+  </remove>
+  <remove>
+    <column-name>groupId</column-name>
   </remove>
   <add>
-    <column>
+    <key primary="true">
+      <column-name>accessListId</column-name>
       <column-name>userOrGroupId</column-name>
-      <column-type>INTEGER</column-type>
-      <not-null/>
-    </column>
+    </key>
+  </add>
+  <add>
+    <index>
+      <column-name>userOrGroupId</column-name>
+    </index>
   </add>
 </change>
