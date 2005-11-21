@@ -711,8 +711,7 @@ class PermissionTest extends GalleryTestCase {
 
 	$ret = GalleryAccessMap::addMapEntry(
 	    array('accessListId' => $newAclId[0],
-		  'userId' => $gallery->getActiveUserId(),
-		  'groupId' => 0,
+		  'userOrGroupId' => $gallery->getActiveUserId(),
 		  'permission' => $bits));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -731,8 +730,7 @@ class PermissionTest extends GalleryTestCase {
 
 	$ret = GalleryAccessMap::addMapEntry(
 	    array('accessListId' => $newAclId[1],
-		  'userId' => 0,
-		  'groupId' => $myGroupId,
+		  'userOrGroupId' => $myGroupId,
 		  'permission' => $bits));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -745,8 +743,7 @@ class PermissionTest extends GalleryTestCase {
 
 	$ret = GalleryAccessMap::addMapEntry(
 	    array('accessListId' => $newAclId[2],
-		  'userId' => 0,
-		  'groupId' => $newAclId[2],  /* reuse the acl id as a non-existent group id */
+		  'userOrGroupId' => $newAclId[2], /* reuse the acl id as a non-existent group id */
 		  'permission' => $bits));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -854,8 +851,7 @@ class PermissionTest extends GalleryTestCase {
 
 	$ret = GalleryAccessMap::addMapEntry(
 	    array('accessListId' => $unusedAclId,
-		  'userId' => $gallery->getActiveUserId(),
-		  'groupId' => 0,
+		  'userOrGroupId' => $gallery->getActiveUserId(),
 		  'permission' => $bits));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
