@@ -80,7 +80,13 @@ class ThumbnailModule extends GalleryModule {
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
+
 	    $storage =& $gallery->getStorage();
+	    $ret = $storage->configureStore($this->getId(), array('ThumbnailImage:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	    $query = '
 	    INSERT INTO [GalleryChildEntity] SELECT [ThumbnailImage::id], ' . $rootId . '
 	    FROM [ThumbnailImage]

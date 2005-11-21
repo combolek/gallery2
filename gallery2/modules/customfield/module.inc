@@ -48,6 +48,23 @@ class CustomFieldModule extends GalleryModule {
     }
 
     /**
+     * @see GalleryModule::upgrade()
+     */
+    function upgrade($currentVersion) {
+	global $gallery;
+
+	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
+	    $storage =& $gallery->getStorage();
+	    $ret = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	}
+
+	return GalleryStatus::success();
+    }
+
+    /**
      * @see GalleryModule::registerEventListeners()
      */
     function registerEventListeners() {

@@ -536,17 +536,17 @@ class DatabaseStorage /* implements GalleryStorage */ {
     /**
      * @see GalleryStorage::configureStore
      */
-    function configureStore($moduleId) {
+    function configureStore($moduleId, $upgradeInfo=array()) {
 	$extras =& $this->_getExtras();
-	return $extras->configureStore($moduleId);
+	return $extras->configureStore($moduleId, $upgradeInfo);
     }
 
     /**
      * @see GalleryStorage::configureStoreCleanup
      */
-    function configureStoreCleanup($moduleId) {
+    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
 	$extras =& $this->_getExtras();
-	return $extras->configureStoreCleanup($moduleId);
+	return $extras->configureStoreCleanup($moduleId, $upgradeInfo);
     }
 
     /**

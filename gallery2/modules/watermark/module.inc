@@ -72,6 +72,13 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 	    break;
 
+	case '0.3':
+	    $storage =& $gallery->getStorage();
+	    $ret = $storage->configureStore($this->getId(), array('WatermarkImage:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	case '0.8.1':
 	case '0.8.2':
 	case '0.8.3':
