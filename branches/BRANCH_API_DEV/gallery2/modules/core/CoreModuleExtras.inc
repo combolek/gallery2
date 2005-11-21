@@ -186,23 +186,20 @@ class CoreModuleExtras {
 				   GALLERY_PERMISSION_COMPOSITE,
 				   array('core.view', 'core.viewResizes', 'core.viewSource'));
 	    $permissions[] = array('addAlbumItem', $gallery->i18n('[core] Add sub-album'),
-				   GALLERY_PERMISSION_ITEM_ADMIN, array());
+				   0, array());
 	    $permissions[] = array('addDataItem', $gallery->i18n('[core] Add sub-item'),
-				   GALLERY_PERMISSION_ITEM_ADMIN, array());
-	    $permissions[] = array('edit', $gallery->i18n('[core] Edit item'),
-				   GALLERY_PERMISSION_ITEM_ADMIN, array());
+				   0, array());
+	    $permissions[] = array('edit', $gallery->i18n('[core] Edit item'), 0, array());
 	    $permissions[] = array('changePermissions',
-				   $gallery->i18n('[core] Change item permissions'),
-				   GALLERY_PERMISSION_ITEM_ADMIN, array());
-	    $permissions[] = array('delete', $gallery->i18n('[core] Delete item'),
-				   GALLERY_PERMISSION_ITEM_ADMIN, array());
+				   $gallery->i18n('[core] Change item permissions'), 0, array());
+	    $permissions[] = array('delete', $gallery->i18n('[core] Delete item'), 0, array());
 	    foreach ($permissions as $p) {
 		$ret = GalleryCoreApi::registerPermission(
 		    $module->getId(), 'core.' . $p[0], $p[1], $p[2], $p[3]);
 		if ($ret->isError()) {
 		    $gallery->debug(sprintf('Error: Failed to register a permission, ' .
-					       'this is the error stack trace: %s',
-					   $ret->getAsText()));
+					    'this is the error stack trace: %s',
+					    $ret->getAsText()));
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -420,12 +417,14 @@ class CoreModuleExtras {
 	      [GalleryPermissionMap::itemId] = ?
 	    ';
 
+	    /* Updated this query for core 1.0.10 to write to userOrGroupId column */
 	    $createAclQuery = '
 	    INSERT INTO
-	      [GalleryAccessMap] ([::accessListId], [::userId], [::groupId], [::permission])
+	      [GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
 	    SELECT
-	      ?, [GalleryPermissionMap::userId],
-	      [GalleryPermissionMap::groupId], [GalleryPermissionMap::permission]
+	      ?,
+	      MAX([GalleryPermissionMap::userId], [GalleryPermissionMap::groupId]),
+	      [GalleryPermissionMap::permission]
 	    FROM
 	      [GalleryPermissionMap]
 	    WHERE
@@ -1267,6 +1266,24 @@ class CoreModuleExtras {
 	case '1.0.8':
 	    /* Added new argument to GalleryUrlGenerator::generateUrl() */
 
+	case '1.0.9':
+	    /* Removed unused GALLERY_PERMISSION_ITEM_ADMIN permission flag */
+	    list ($ret, $flagModifier) =
+		$storage->getFunctionSql('BITAND', array('[::flags]', '?'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    $query = '
+	    UPDATE
+	      [GalleryPermissionSetMap]
+	    SET
+	      [::flags] = ' . $flagModifier . '
+	    ';
+	    $ret = $storage->execute($query, array(3));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	case 'end of upgrade path':
 	    /*
 	     * Leave this bogus case at the end of the legitimate case statements so that we
@@ -1461,6 +1478,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.6':
 	case '1.0.7':
 	case '1.0.8':
+	case '1.0.9':
 
 	case 'end of upgrade path':
 	    /*
