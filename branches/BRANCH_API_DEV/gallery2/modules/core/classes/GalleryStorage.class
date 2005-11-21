@@ -376,9 +376,11 @@ class GalleryStorage {
     /**
      * Configure the persistent store for this strategy, for the given module.
      *
+     * @param string module id
+     * @param array (optional) of (classname => old schema version)
      * @return object GalleryStatus a status code
      */
-    function configureStore($moduleId) {
+    function configureStore($moduleId, $upgradeInfo=array()) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret->isError()) {
@@ -388,7 +390,7 @@ class GalleryStorage {
 	    }
 	}
 
-	$ret = $this->_impl->configureStore($moduleId);
+	$ret = $this->_impl->configureStore($moduleId, $upgradeInfo);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -398,9 +400,11 @@ class GalleryStorage {
     /**
      * Perform any cleanup necessary after installing or upgrading the given module.
      *
+     * @param string module id
+     * @param array (optional) of (classname => old schema version)
      * @return object GalleryStatus a status code
      */
-    function configureStoreCleanup($moduleId) {
+    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret->isError()) {
@@ -410,7 +414,7 @@ class GalleryStorage {
 	    }
 	}
 
-	$ret = $this->_impl->configureStoreCleanup($moduleId);
+	$ret = $this->_impl->configureStoreCleanup($moduleId, $upgradeInfo);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

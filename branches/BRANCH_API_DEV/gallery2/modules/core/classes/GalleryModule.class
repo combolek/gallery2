@@ -202,19 +202,6 @@ class GalleryModule extends GalleryPlugin {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    if ($gallery->getDebug()) {
-		$gallery->debug(sprintf('ConfigureStoreCleanup for %s module', $this->getId()));
-	    }
-	    $ret = $storage->configureStoreCleanup($this->getId());
-	    if ($ret->isError()) {
-		if ($gallery->getDebug()) {
-		    $gallery->debug(sprintf('Error: Failed to clean up the persistent store, ' .
-					   'this is the error stack trace: %s',
-					    $ret->getAsText()));
-		}
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
 	    /*
 	     * Reactivate myself so that any activate based tasks like registering factory
 	     * implementations, toolkit operations, etc can happen.  Note that it's possible for

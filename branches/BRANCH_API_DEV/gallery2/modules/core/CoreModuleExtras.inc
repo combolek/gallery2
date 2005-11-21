@@ -273,10 +273,13 @@ class CoreModuleExtras {
 	case '0.8.3':
 	case '0.8.4':
 	case '0.8.5':
-	    /*
-	     * Copy the information from viewedSinceTimestamp to originationTimestamp
-	     * as both default to time()
-	     */
+	    /* Added GalleryItem::originationTimestamp */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryItem:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    /* Copy viewedSinceTimestamp to originationTimestamp as both default to time() */
 	    $query = '
 	    UPDATE
 	      [GalleryItem]
@@ -330,26 +333,27 @@ class CoreModuleExtras {
 	    /* We used to add layout versioning here.  Now that's been moved to the 0.9.29 block */
 
 	case '0.8.14':
-	    /* Added Entity::onLoadHandlers; default all values to null, so nothing to do */
+	    /* Added Entity::onLoadHandlers; default all values to null */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryEntity:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	case '0.8.15':
-	    $gallery->guaranteeTimeLimit(30);
-	    /* Removed GalleryItemPropertiesMap.. drop the table */
-	    /* R_GalleryItemPropertiesMap_1.0 now takes care of this:
-	    * $query = 'DROP TABLE [GalleryItemPropertiesMap]';
-	    * $ret = $storage->execute($query);
-	    * if ($ret->isError()) {
-	    *     return $ret->wrap(__FILE__, __LINE__);
-	    * }
-	    * $query = "DELETE FROM [Schema] WHERE [Schema::name] = 'ItemPropertiesMap'";
-	    * $ret = $storage->execute($query);
-	    * if ($ret->isError()) {
-	    *     return $ret->wrap(__FILE__, __LINE__);
-	    * }
-	    */
+	    /* Remove GalleryItemPropertiesMap */
+	    $ret = $storage->configureStoreCleanup($module->getId(),
+						   array('GalleryItemPropertiesMap:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	case '0.8.16':
 	    /* Schema updates: GalleryPluginMap, GalleryPluginParameterMap, GalleryGroup */
+	    $ret = $storage->configureStore($module->getId(),
+		array('GalleryPluginMap:1.0', 'GalleryPluginParameterMap:1.0', 'GalleryGroup:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	case '0.8.17':
 	    /* Beta 1! */
@@ -618,19 +622,12 @@ class CoreModuleExtras {
 		}
 	    }
 
-	    /* Removed GalleryPermissionsMap.  Drop the table */
-	    /* R_GalleryPermissionMap_1.0 now takes care of this:
-	    * $query = 'DROP TABLE [GalleryPermissionMap]';
-	    * $ret = $storage->execute($query);
-	    * if ($ret->isError()) {
-	    *     return $ret->wrap(__FILE__, __LINE__);
-	    * }
-	    * $query = "DELETE FROM [Schema] WHERE [Schema::name] = 'PermissionMap'";
-	    * $ret = $storage->execute($query);
-	    * if ($ret->isError()) {
-	    *     return $ret->wrap(__FILE__, __LINE__);
-	    * }
-	    */
+	    /* Remove GalleryPermissionMap */
+	    $ret = $storage->configureStoreCleanup($module->getId(),
+						   array('GalleryPermissionMap:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	case '0.9.6':
 	    /* Added GalleryMaintenance table */
@@ -809,7 +806,12 @@ class CoreModuleExtras {
 		}
 	    }
 	case '0.9.26':
-	    /* Added GalleryDerivative::isBroken; default all values to null, so nothing to do */
+	    /* Added GalleryDerivative::isBroken; default all values to null */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryDerivativeImage:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	case '0.9.27':
 	    /* Mark old broken derivatives as such with our new isBroken flag */
 	    /*
@@ -1036,6 +1038,11 @@ class CoreModuleExtras {
 
 	case '0.9.29':
 	    /* Ginormous layout and theme consolidation refactor */
+	    $ret = $storage->configureStore($module->getId(),
+					    array('GalleryPluginParameterMap:1.1'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	    $query = '
 	    UPDATE
@@ -1143,6 +1150,11 @@ class CoreModuleExtras {
 
 	case '0.9.30':
 	    /* Removed layout column from AlbumItem; matrix is only theme for now: set default */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryAlbumItem:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	    $ret = $module->setParameter('default.theme', 'matrix');
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -1220,6 +1232,11 @@ class CoreModuleExtras {
 	case '1.0.0':
 	case '1.0.0.1':
 	    /* Schema only upgrade */
+	    $ret = $storage->configureStore($module->getId(),
+					    array('GalleryPluginParameterMap:1.2'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
 	case '1.0.1':
 	    /* And image/wmf mime type */

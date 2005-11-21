@@ -1101,7 +1101,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
     /**
      * @see GalleryStorage::configureStore
      */
-    function configureStore($moduleId) {
+    function configureStore($moduleId, $upgradeInfo=array()) {
 	global $gallery;
 	$gallery->guaranteeTimeLimit(20);
 
@@ -1111,7 +1111,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 
 	$ret = $this->_ds->_guaranteeTransaction();
 	if ($ret->isError()) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $moduleSql) = $this->_getModuleSql($moduleId);
@@ -1146,9 +1146,9 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	    /* Create our sequences now */
 	    foreach (array(DATABASE_SEQUENCE_LOCK, DATABASE_SEQUENCE_ID) as $sequenceId) {
 		$this->_ds->_traceStart();
-		$recordSet = $this->_ds->_db->CreateSequence($this->_ds->_tablePrefix . $sequenceId);
+		$result = $this->_ds->_db->CreateSequence($this->_ds->_tablePrefix . $sequenceId);
 		$this->_ds->_traceStop();
-		if (empty($recordSet)) {
+		if (empty($result)) {
 		    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 		}
 	    }
@@ -1164,7 +1164,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	 * Now take care of the rest of the tables.  If the table doesn't
 	 * exist, apply the current table definition.  If it already exists,
 	 * check to see if there is an upgrade available for the given table
-	 * version.  If so, apply it.
+	 * version that we should apply based on $upgradeInfo.
 	 */
 	foreach ($moduleSql['table'] as $rawTableName => $sql) {
 	    $gallery->guaranteeTimeLimit(20);
@@ -1191,8 +1191,9 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 		    }
 
 		    /* If we locate an appropriate upgrade, apply it. */
-		    list ($major,  $minor) = $tableVersions[$tableNameInSchema];
-		    if (!empty($moduleSql['alter'][$rawTableName][$major][$minor])) {
+		    list ($major, $minor) = $tableVersions[$tableNameInSchema];
+		    if (!empty($moduleSql['alter'][$rawTableName][$major][$minor]) &&
+			    in_array("$rawTableName:$major.$minor", $upgradeInfo)) {
 			$sql = $moduleSql['alter'][$rawTableName][$major][$minor];
 			$ret = $this->_executeSql($sql);
 			if ($ret->isError()) {
@@ -1218,7 +1219,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
     /**
      * @see GalleryStorage::configureStoreCleanup
      */
-    function configureStoreCleanup($moduleId) {
+    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
 	global $gallery;
 
 	if (empty($this->_ds->_db)) {
@@ -1256,7 +1257,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Now locate any existing tables that should be deleted and drop them. */
+	/* Now locate any existing tables that should be removed or altered. */
 	foreach (array_keys($moduleSql['remove']) as $rawTableName) {
 	    if ($rawTableName == 'Schema') {
 		continue;
@@ -1277,8 +1278,9 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 		    }
 		} else {
 		    $gallery->guaranteeTimeLimit(20);
-		    list ($major,  $minor) = $tableVersions[$tableNameInSchema];
-		    if (!empty($moduleSql['remove'][$rawTableName][$major][$minor])) {
+		    list ($major, $minor) = $tableVersions[$tableNameInSchema];
+		    if (!empty($moduleSql['remove'][$rawTableName][$major][$minor]) &&
+			    in_array("$rawTableName:$major.$minor", $upgradeInfo)) {
 			$ret = $this->_executeSql(
 			    $moduleSql['remove'][$rawTableName][$major][$minor]);
 			if ($ret->isError()) {
