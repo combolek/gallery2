@@ -340,12 +340,7 @@ class CoreModuleExtras {
 	    }
 
 	case '0.8.15':
-	    /* Remove GalleryItemPropertiesMap */
-	    $ret = $storage->configureStoreCleanup($module->getId(),
-						   array('GalleryItemPropertiesMap:1.0'));
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
+	    /* Removed GalleryItemPropertiesMap */
 
 	case '0.8.16':
 	    /* Schema updates: GalleryPluginMap, GalleryPluginParameterMap, GalleryGroup */
@@ -622,12 +617,7 @@ class CoreModuleExtras {
 		}
 	    }
 
-	    /* Remove GalleryPermissionMap */
-	    $ret = $storage->configureStoreCleanup($module->getId(),
-						   array('GalleryPermissionMap:1.0'));
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
+	    /* Removed GalleryPermissionMap */
 
 	case '0.9.6':
 	    /* Added GalleryMaintenance table */

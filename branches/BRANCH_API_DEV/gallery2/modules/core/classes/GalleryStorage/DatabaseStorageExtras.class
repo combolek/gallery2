@@ -1219,7 +1219,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
     /**
      * @see GalleryStorage::configureStoreCleanup
      */
-    function configureStoreCleanup($moduleId, $upgradeInfo=array()) {
+    function configureStoreCleanup($moduleId) {
 	global $gallery;
 
 	if (empty($this->_ds->_db)) {
@@ -1228,7 +1228,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 
 	$ret = $this->_ds->_guaranteeTransaction();
 	if ($ret->isError()) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $moduleSql) = $this->_getModuleSql($moduleId);
@@ -1257,7 +1257,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Now locate any existing tables that should be removed or altered. */
+	/* Now locate any existing tables that should be removed and drop them. */
 	foreach (array_keys($moduleSql['remove']) as $rawTableName) {
 	    if ($rawTableName == 'Schema') {
 		continue;
@@ -1279,8 +1279,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 		} else {
 		    $gallery->guaranteeTimeLimit(20);
 		    list ($major, $minor) = $tableVersions[$tableNameInSchema];
-		    if (!empty($moduleSql['remove'][$rawTableName][$major][$minor]) &&
-			    in_array("$rawTableName:$major.$minor", $upgradeInfo)) {
+		    if (!empty($moduleSql['remove'][$rawTableName][$major][$minor])) {
 			$ret = $this->_executeSql(
 			    $moduleSql['remove'][$rawTableName][$major][$minor]);
 			if ($ret->isError()) {
