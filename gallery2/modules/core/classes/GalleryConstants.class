@@ -166,11 +166,6 @@ define('GALLERY_PERMISSION_ALL_ACCESS', 0x00000001);
  */
 define('GALLERY_PERMISSION_COMPOSITE',  0x00000002);
 
-/**
- * This permission is for item administration
- */
-define('GALLERY_PERMISSION_ITEM_ADMIN', 0x00000004);
-
 /*
  * ****************************************
  *           Lock constants
