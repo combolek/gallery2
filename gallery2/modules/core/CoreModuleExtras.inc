@@ -1274,7 +1274,31 @@ class CoreModuleExtras {
 	    /* Added new argument to GalleryUrlGenerator::generateUrl() */
 
 	case '1.0.9':
-	    /* Removed unused GALLERY_PERMISSION_ITEM_ADMIN permission flag */
+	    /*
+	     * Combine AccessMap userId/groupId into single userOrGroupId,
+	     * and remove unused GALLERY_PERMISSION_ITEM_ADMIN permission flag
+	     */
+	    $ret = $storage->configureStore($module->getId(), array('GalleryAccessMap:1.0'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $query = '
+	    UPDATE
+	      [GalleryAccessMap]
+	    SET
+	      [::userOrGroupId] = [::userId] + [::groupId]
+	    ';
+	    $ret = $storage->execute($query, array());
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $ret = $storage->configureStore($module->getId(), array('GalleryAccessMap:1.1'));
+	    if ($ret->isError()) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
 	    list ($ret, $flagModifier) =
 		$storage->getFunctionSql('BITAND', array('[::flags]', '?'));
 	    if ($ret->isError()) {

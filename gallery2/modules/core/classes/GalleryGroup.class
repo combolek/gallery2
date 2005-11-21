@@ -148,7 +148,7 @@ class GalleryGroup_core extends GalleryEntity {
 
 	/* Delete all permissions from the permissions map table */
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
-	$ret = GalleryAccessMap::removeMapEntry(array('groupId' => $this->getId()));
+	$ret = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $this->getId()));
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

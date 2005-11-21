@@ -66,9 +66,9 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	$ret = array();
 	foreach ($this->_userIds as $userId) {
 	    $ret[] = GalleryUserGroupMap::removeMapEntry(array('userId' => $userId));
-	    $ret[] = GalleryAccessMap::removeMapEntry(array('userId' => $userId));
+	    $ret[] = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $userId));
 	}
-	for ($i = 0; $i < sizeof($ret); $i++) {
+	for ($i = 0; $i < count($ret); $i++) {
 	    if ($ret[$i]->isError()) {
 		$this->failWithStatus($ret[$i]->wrap(__FILE__, __LINE__));
 	    }
@@ -543,20 +543,15 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	}
 	$this->assert(count($groupIds) == 0, 'Not all group memberships were removed');
 
-	/*
-	 * Verify all permission maps for this user are gone.  We can't use the standard
-	 * API method here because it counts on the user being in at least *1* group.
-	 * So roll our own SQL.  We'd prefer to use an API method if there was one, but
-	 * it doesn't make sense to build one just for a test case.
-	 */
+	/* Verify all permission maps for this user are gone */
 	$query = '
-        SELECT
-          COUNT([GalleryAccessSubscriberMap::itemId])
-        FROM
-          [GalleryAccessMap],[GalleryAccessSubscriberMap]
-        WHERE
-          [GalleryAccessMap::userId] = ?
-        ';
+	SELECT
+	  COUNT([GalleryAccessMap::accessListId])
+	FROM
+	  [GalleryAccessMap]
+	WHERE
+	  [GalleryAccessMap::userOrGroupId] = ?
+	';
 	list($ret, $searchResults) = $gallery->search($query, array($userId));
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);

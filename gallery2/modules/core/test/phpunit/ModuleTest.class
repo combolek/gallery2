@@ -393,25 +393,23 @@ class ModuleTest extends GalleryTestCase {
 	}
 
 	$groupIds = array_keys($groupIds);
-	$groupIdMarkers = GalleryUtilities::makeMarkers($groupIds);
+	$userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
 	$query = '
 	SELECT
 	  BIT_OR([GalleryAccessMap::permission])
 	FROM
-	  [GalleryAccessMap],[GalleryAccessSubscriberMap]
+	  [GalleryAccessMap], [GalleryAccessSubscriberMap]
 	WHERE
 	  [GalleryAccessSubscriberMap::itemId] = ?
-	AND
-	[GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
 	  AND
-	  ([GalleryAccessMap::userId] = ?
-	    OR
-	   [GalleryAccessMap::groupId] IN (' . $groupIdMarkers . '))
+	  [GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
+	  AND
+	  [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
 	';
 
 	$data = array($itemId, $userId);
-	array_splice($data, sizeof($data), 0, $groupIds);
+	array_splice($data, count($data), 0, $groupIds);
 
 	list($ret, $searchResults) = $gallery->search($query, $data);
 	if ($ret->isError()) {

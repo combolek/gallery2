@@ -52,7 +52,7 @@ class GalleryPermissionHelper_simple {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $groupIds = array_keys($groupIds);
-	    $groupIdMarkers = GalleryUtilities::makeMarkers($groupIds);
+	    $userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
 	    list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permission);
 	    if ($ret->isError()) {
@@ -66,18 +66,16 @@ class GalleryPermissionHelper_simple {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    $query = sprintf('
+	    $query = '
 	    SELECT DISTINCT
 	      [GalleryAccessMap::accessListId]
 	    FROM
 	      [GalleryAccessMap]
 	    WHERE
-	      ([GalleryAccessMap::userId] = ?
-	      OR
-	      [GalleryAccessMap::groupId] IN (%s))
+	      [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
 	      AND
 	      ' . $bitAndPermission . ' = ?
-	    ', $groupIdMarkers);
+	    ';
 
 	    $storage =& $gallery->getStorage();
 
