@@ -1276,9 +1276,11 @@ class CoreModuleExtras {
 	case '1.0.9':
 	    /*
 	     * Combine AccessMap userId/groupId into single userOrGroupId,
-	     * and remove unused GALLERY_PERMISSION_ITEM_ADMIN permission flag
+	     * and remove unused GALLERY_PERMISSION_ITEM_ADMIN permission flag.
+	     * Also increase size of GalleryUser::email column.
 	     */
-	    $ret = $storage->configureStore($module->getId(), array('GalleryAccessMap:1.0'));
+	    $ret = $storage->configureStore($module->getId(),
+	    				    array('GalleryAccessMap:1.0', 'GalleryUser:1.0'));
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
