@@ -40,21 +40,6 @@ class RemoteModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall()
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure()
-     */
-    function autoConfigure() {
-	/* We don't require any special configuration */
-	return array(GalleryStatus::success(), true);
-    }
-
-    /**
      * @see GalleryModule::upgrade()
      */
     function upgrade($currentVersion) {

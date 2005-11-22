@@ -57,19 +57,5 @@ class ColorPackModule extends GalleryModule {
 
 	return GalleryStatus::success();
     }
-
-    /**
-     * @see GalleryModule::isRecommendedDuringInstall()
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure()
-     */
-    function autoConfigure() {
-	return array(GalleryStatus::success(), true);
-    }
 }
 ?>

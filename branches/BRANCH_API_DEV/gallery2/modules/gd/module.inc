@@ -189,13 +189,6 @@ class GdModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return true;
-    }
-
-    /**
      * @see GalleryModule::autoConfigure
      */
     function autoConfigure() {
@@ -204,11 +197,7 @@ class GdModule extends GalleryModule {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
-	if (!$needsConfiguration) {
-	    return array(GalleryStatus::success(), true);
-	}
-
-	return array(GalleryStatus::success(), false);
+	return array(GalleryStatus::success(), !$needsConfiguration);
     }
 
     /**

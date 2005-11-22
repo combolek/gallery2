@@ -102,13 +102,6 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall()
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
      * @see GalleryModule::autoConfigure()
      */
     function autoConfigure() {
