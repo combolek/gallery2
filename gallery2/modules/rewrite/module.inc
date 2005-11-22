@@ -117,13 +117,6 @@ class RewriteModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return true;
-    }
-
-    /**
      * @see GalleryModule::autoConfigure
      */
     function autoConfigure() {

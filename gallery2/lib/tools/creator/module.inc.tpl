@@ -48,14 +48,6 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
     {rdelim}
 
     /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {ldelim}
-	/* We don't require any special configuration */
-	return array(GalleryStatus::success(), true);
-    {rdelim}
-
-    /**
      * @see GalleryModule::getItemLinks()
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {ldelim}

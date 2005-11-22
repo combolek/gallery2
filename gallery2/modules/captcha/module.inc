@@ -61,13 +61,6 @@ class CaptchaModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall()
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
      * @see GalleryModule::upgrade()
      */
     function upgrade($currentVersion) {

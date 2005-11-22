@@ -88,15 +88,6 @@ class RegisterModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	/* We don't require any special configuration */
-	return array(GalleryStatus::success(), true);
-    }
-
-
-    /**
      * @see GalleryModule::getSystemLinks
      */
     function getSystemLinks() {

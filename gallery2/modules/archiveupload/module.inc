@@ -83,13 +83,6 @@ class ArchiveUploadModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return true;
-    }
-
-    /**
      * @see GalleryModule::autoConfigure
      */
     function autoConfigure() {
@@ -120,7 +113,6 @@ class ArchiveUploadModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration()
      */
     function needsConfiguration() {
-	/* This module requires all fields to be filled out before it can be activated. */
 	foreach (array('unzipPath') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
 	    if ($ret->isError()) {

@@ -61,13 +61,6 @@ class ZipCartModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
      * @see GalleryModule::needsConfiguration
      */
     function needsConfiguration() {

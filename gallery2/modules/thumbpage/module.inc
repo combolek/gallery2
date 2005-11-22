@@ -75,20 +75,6 @@ class ThumbPageModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	return array(GalleryStatus::success(), true);
-    }
-
-    /**
      * @see GalleryModule::activate()
      */
     function activate($postActivationEvent=true) {

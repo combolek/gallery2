@@ -51,10 +51,14 @@ class NokiaUploadModule extends GalleryModule {
     }
 
     /**
-     * @see GalleryModule::isRecommendedDuringInstall
+     * @see GalleryModule::autoConfigure
      */
-    function isRecommendedDuringInstall() {
-	return false;
+    function autoConfigure() {
+	list ($ret, $needsConfiguration) = $this->needsConfiguration();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(GalleryStatus::success(), !$needsConfiguration);
     }
 
     /**

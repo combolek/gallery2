@@ -42,23 +42,9 @@ class SearchModule extends GalleryModule {
 	$this->setDescription($gallery->i18n('Search your Gallery'));
 	$this->setVersion('1.0.0');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
+	$this->setCallbacks('');
 	$this->setRequiredCoreApi(array(6, 0));
 	$this->setRequiredModuleApi(array(2, 0));
-    }
-
-    /**
-     * @see GalleryModule::isRecommendedDuringInstall
-     */
-    function isRecommendedDuringInstall() {
-	return true;
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	/* We don't require any special configuration */
-	return array(GalleryStatus::success(), true);
     }
 }
 ?>

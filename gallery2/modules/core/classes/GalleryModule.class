@@ -85,8 +85,9 @@ class GalleryModule extends GalleryPlugin {
 	 * TODO for the next major version bump:
 	 *   + DONE: Remove GalleryModule::loadItemDetails()
 	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
-	 *   - Remove isRecommendedDuringInstall() since we now have
-	 *     4 different types of installs (installer default to all checked)
+	 *   + DONE: Remove isRecommendedDuringInstall() since we now have
+	 *     4 different types of installs (installer default to all checked),
+	 *     and change autoConfigure to return true by default.
 	 *   + DONE: Fix DatabaseStorageExtras::parseSqlTemplate so that it no longer
 	 *     accepts database files of the old form (A|R)_Table_#_# but requires
 	 *     the new form (A|R)_Table_#.# instead
@@ -403,19 +404,6 @@ class GalleryModule extends GalleryPlugin {
     }
 
     /**
-     * Is this module recommended to be installed/activated during the installer?
-     *
-     * Default is false which is a security measure. Only recommend modules
-     * that by default do not expose any sensitive data. For example, the
-     * debug module shouldn't be recommended because it can show filesystem
-     * paths. Also don't recommend installing modules that might change some
-     * default gallery behaviour (e.g. the squarethumbs module)
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
      * Allow this module to autoconfigure itself.  It should only autoconfigure if it is
      * marked as needing configuration (see GalleryModule::needsConfiguration) and it should
      * do its best to choose a reasonable configuration.  Return true upon success,
@@ -426,8 +414,8 @@ class GalleryModule extends GalleryPlugin {
      *               boolean
      */
     function autoConfigure() {
-	/* By default we can't auto configure */
-	return array(GalleryStatus::success(), false);
+	/* By default we dont't need any configuration */
+	return array(GalleryStatus::success(), true);
     }
 
     /**

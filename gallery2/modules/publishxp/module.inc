@@ -50,42 +50,14 @@ class PublishXpModule extends GalleryModule {
     /**
      * Registers the item add operation with Gallery.
      *
-     * @return GalleryStatus the status indicating if the registrations was done.
      * @see GalleryModule::performFactoryRegistrations
      */
     function performFactoryRegistrations() {
-	/* Register our item add plugins */
 	GalleryCoreApi::registerFactoryImplementation(
-	    'ItemAddPlugin',
-	    'ItemAddPublishXp',
-	    'ItemAddPublishXp',
-	    'modules/publishxp/ItemAddPublishXp.inc',
-	    'publishxp',
-	    null);
+	    'ItemAddPlugin', 'ItemAddPublishXp', 'ItemAddPublishXp',
+	    'modules/publishxp/ItemAddPublishXp.inc', 'publishxp', null);
+
 	return GalleryStatus::success();
-    }
-
-    /**
-     * Returns true that this is recommended during installation.
-     *
-     * @return GalleryStatus the status indicating recommended during installation.
-     * @see GalleryModule::isRecommendedDuringInstall()
-     */
-    function isRecommendedDuringInstall() {
-	return false;
-    }
-
-    /**
-     * Configures the module for use.
-     *
-     * There is no configuration needed for this module.
-     *
-     * @return array the status indicating that this was configured.
-     * @see GalleryModule::autoConfigure()
-     */
-    function autoConfigure() {
-	/* We don't require any special configuration */
-	return array(GalleryStatus::success(), true);
     }
 }
 ?>
