@@ -639,12 +639,12 @@ class GalleryPermissionHelper_advanced {
 		[GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
 	    SELECT
 		?,
-		[GalleryAccessMap::userOrGroupId],
-		[GalleryAccessMap::permission]
+		[GalleryAccessMap=1::userOrGroupId],
+		[GalleryAccessMap=1::permission]
 	    FROM
-		[GalleryAccessMap]
+		[GalleryAccessMap=1]
 	    WHERE
-		[GalleryAccessMap::accessListId] = ?
+		[GalleryAccessMap=1::accessListId] = ?
 	    ';
 
 	    $ret = $storage->execute($query, array($newAccessListId, $oldAccessListId));
