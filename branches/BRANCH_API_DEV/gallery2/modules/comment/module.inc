@@ -76,7 +76,7 @@ class CommentModule extends GalleryModule {
 		$ret = GalleryCoreApi::registerPermission($this->getId(),
 							  'comment.' . $p[0],
 							  $p[1], $p[2], $p[3]);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	     }
@@ -84,7 +84,7 @@ class CommentModule extends GalleryModule {
 	    foreach (array('comments.show' => 10, 'comments.captcha' => 0, 'comments.latest' => 1)
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -100,14 +100,14 @@ class CommentModule extends GalleryModule {
 		'modules/core/classes/GalleryPermissionSetMap.class');
 	    $ret = GalleryPermissionSetMap::removeMapEntry(
 		array('module' => 'comment', 'permission' => 'comment.search'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.0':
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('GalleryComment:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -119,7 +119,7 @@ class CommentModule extends GalleryModule {
 	    foreach (array('comments.show' => 10, 'comments.captcha' => 0, 'comments.latest' => 1)
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -132,11 +132,11 @@ class CommentModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -155,18 +155,18 @@ class CommentModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'GalleryComment', 'GalleryComment',
 	    'modules/comment/classes/GalleryComment.class', 'comment', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySearchInterface_1_0', 'GalleryCommentSearch', 'comment',
 	    'modules/comment/classes/GalleryCommentSearch.class', 'comment', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -181,7 +181,7 @@ class CommentModule extends GalleryModule {
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	list ($ret, $showAll) = $this->getParameter('comments.latest');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$links = array();
@@ -204,7 +204,7 @@ class CommentModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**
@@ -218,7 +218,7 @@ class CommentModule extends GalleryModule {
 
 	GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	list ($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -235,7 +235,7 @@ class CommentModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $summaries);
+	return array(null, $summaries);
     }
 
     /**
@@ -244,7 +244,7 @@ class CommentModule extends GalleryModule {
     function getItemAdminViews($item) {
 	$views = array();
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -258,14 +258,14 @@ class CommentModule extends GalleryModule {
 
 	}
 
-	return array(GalleryStatus::success(), $views);
+	return array(null, $views);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => 'Comments',
 				 'view' => 'comment.CommentSiteAdmin')));
     }

@@ -172,10 +172,10 @@ class ThumbnailImage_core extends GalleryChildEntity {
 
 	/* Validate the input file */
 	if (empty($inputFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 	if (!$platform->file_exists($inputFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/* Uniquify name */
@@ -183,7 +183,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	    $targetName = basename($inputFileName);
 	}
 	list ($ret, $list) = ThumbnailHelper::fetchThumbnails(true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while (in_array($targetName, $list)) {
@@ -192,7 +192,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 
 	/* No parent by default; create a root ChildEntity */
 	$ret = parent::createRoot();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -205,23 +205,23 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	$dir = $this->getThumbnailDir();
 	list ($success) = GalleryUtilities::guaranteeDirExists($dir);
 	if (!$success) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	$newFileName = $this->getThumbnailDir() . $targetName;
 	if (!$platform->copy($inputFileName, $newFileName)) {
-	    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	}
 	$this->setSize($platform->filesize($newFileName));
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $newFileName);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -229,7 +229,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	    $this->setHeight($dimensions[1]);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -243,7 +243,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 
 	/* Delete myself */
 	$ret = parent::delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -251,10 +251,10 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	$path = $this->getThumbnailDir() . $this->getFileName();
 	$platform = $gallery->getPlatform();
 	if (!$platform->unlink($path)) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__, "Could not delete $path");
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, "Could not delete $path");
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -263,7 +263,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
      * @return array(object GalleryStatus a status code, string path)
      */
     function fetchPath() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     $this->getThumbnailDir() . $this->getFileName());
     }
 

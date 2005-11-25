@@ -64,12 +64,12 @@ class StorageTest extends GalleryTestCase {
 	 * second id is bigger than the first.
 	 */
 	list ($ret, $id1) = $storage->getUniqueId();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $id2) = $storage->getUniqueId();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

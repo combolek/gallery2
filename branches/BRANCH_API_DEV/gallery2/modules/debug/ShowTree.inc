@@ -43,7 +43,7 @@ class ShowTreeView extends GalleryView {
 
 	/* Make sure we have permission */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -54,7 +54,7 @@ class ShowTreeView extends GalleryView {
 	    } else {
 		list ($ret, $entityId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -62,20 +62,20 @@ class ShowTreeView extends GalleryView {
 
 	/* Get the parent ids leading up to this entity */
 	list ($ret, $parentIds) = GalleryCoreApi::fetchParentSequence($entityId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load everything at once */
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get all of this entity's children */
 	if ($entity->getCanContainChildren()) {
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($entity);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
@@ -86,7 +86,7 @@ class ShowTreeView extends GalleryView {
 	    /* Load everything at once */
 	    list ($ret, $entityObjects) =
 		GalleryCoreApi::loadEntitiesById(array_merge($parentIds, $childIds));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -108,12 +108,12 @@ class ShowTreeView extends GalleryView {
 	$template->setVariable('ShowTree', $ShowTree);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'debug');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Gallery Debug'));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/debug/templates/ShowTree.tpl'));
     }
 }

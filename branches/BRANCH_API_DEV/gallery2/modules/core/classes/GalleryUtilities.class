@@ -1152,7 +1152,7 @@ class GalleryUtilities {
 	    $pseudoFileName = $entity->getPathComponent();
 	} else if (GalleryUtilities::isA($entity, 'GalleryDerivative')) {
 	    list ($ret, $parentEntity) = GalleryCoreApi::loadEntitiesById($entity->getParentId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -1162,7 +1162,7 @@ class GalleryUtilities {
 			$parentEntity->getMimeType() != $entity->getMimeType()) {
 		    list ($ret, $extensions) =
 			GalleryCoreApi::convertMimeToExtensions($entity->getMimeType());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if (!empty($extensions)) {
@@ -1178,7 +1178,7 @@ class GalleryUtilities {
 		}
 	    }
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 		     isset($pseudoFileName) ? $pseudoFileName : 'unknown');
     }
 

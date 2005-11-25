@@ -43,7 +43,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret->isError()) {
+	if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -86,7 +86,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'request');
 
 	list ($ret, $status) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'status');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$status = unserialize($status);
@@ -107,7 +107,7 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'request');
 
 	list ($ret, $status) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'status');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$status = unserialize($status);

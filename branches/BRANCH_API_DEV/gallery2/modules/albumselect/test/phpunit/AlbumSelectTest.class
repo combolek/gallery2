@@ -45,13 +45,13 @@ class AlbumSelectTest extends GalleryTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'albumselect');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'albumselect');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -59,7 +59,7 @@ class AlbumSelectTest extends GalleryTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId(),
 	    array('title' => 'zzzzzzzz', 'summary' => 'zzzzzzzz',
 		  'orderBy' => 'summary', 'orderDirection' => 'asc'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -68,19 +68,19 @@ class AlbumSelectTest extends GalleryTestCase {
 	/* Manual order: 1,2,3  Title order: 3,2,1  Summary order: 2,3,1 */
 	list ($ret, $this->_subalbum[1]) = $this->_createRandomAlbum($this->_album->getId(),
 	    array('title' => 'zzzz', 'summary' => 'zzzz'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_subalbum[2]) = $this->_createRandomAlbum($this->_album->getId(),
 	    array('title' => 'mmmm', 'summary' => 'aaaa'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_subalbum[3]) = $this->_createRandomAlbum($this->_album->getId(),
 	    array('title' => 'aaaa', 'summary' => 'mmmm'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -89,7 +89,7 @@ class AlbumSelectTest extends GalleryTestCase {
     function testAlbumSelectManualSort() {
 	global $gallery;
 	$ret = $this->_module->setParameter('sort', 'manual');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -121,7 +121,7 @@ class AlbumSelectTest extends GalleryTestCase {
     function testAlbumSelectSortByTitle() {
 	global $gallery;
 	$ret = $this->_module->setParameter('sort', 'title');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -161,7 +161,7 @@ class AlbumSelectTest extends GalleryTestCase {
     function testAlbumSelectSortByAlbum() {
 	global $gallery;
 	$ret = $this->_module->setParameter('sort', 'album');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

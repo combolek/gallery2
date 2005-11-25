@@ -51,11 +51,11 @@ class ImageFrameModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ImageFrameInterface_1_1', 'ImageFrameImpl', 'ImageFrame',
 	    'modules/imageframe/classes/ImageFrameImpl.class', 'imageframe', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

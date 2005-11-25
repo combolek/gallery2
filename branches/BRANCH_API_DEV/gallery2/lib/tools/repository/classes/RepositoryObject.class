@@ -110,12 +110,12 @@ class RepositoryObject {
 
 	$platform = $gallery->getPlatform();
 	if (!$platform->is_dir($outputDir)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
 		'Output directory [%s] does not exist.', $outputDir));
 	}
 
 	$this->_outputDir = $platform->realpath($outputDir) . '/';
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -145,21 +145,21 @@ class RepositoryObject {
 		$templatePath = 'lib/tools/repository/templates/' . $this->_templateFile;
 
 		list($ret, $contents) = $this->_template->fetch('gallery:' . $templatePath);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    /* Write contents to disk. */
 	    if (false === $platform->file_put_contents($outputFilePath, $contents)) {
-		return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					    "Error writing to $outputFilePath");
 	    }
 	    $fileWritten = true;
 	}
 	$this->_wasFileWritten = isset($fileWritten);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**

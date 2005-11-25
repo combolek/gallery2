@@ -43,17 +43,17 @@ class ShowAllCommentsView extends GalleryView {
 	GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.view');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $showCount) =
 	    GalleryCoreApi::getPluginParameter('module', 'comment', 'comments.show');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$page = GalleryUtilities::getRequestVariables('page');
@@ -63,7 +63,7 @@ class ShowAllCommentsView extends GalleryView {
 
 	list ($ret, $comments, $count) = GalleryCommentHelper::fetchAllComments(
 	    $item->getId(), $showCount, ($page - 1) * $showCount, ORDER_DESCENDING);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -80,7 +80,7 @@ class ShowAllCommentsView extends GalleryView {
 	if (!empty($commenters)) {
 	    list ($ret, $commentersList) =
 		GalleryCoreApi::loadEntitiesById(array_keys($commenters));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -92,25 +92,25 @@ class ShowAllCommentsView extends GalleryView {
 	if (!empty($itemIds)) {
 	    $itemIds = array_keys($itemIds);
 	    $ret = GalleryCoreApi::studyPermissions($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($itemList as $it) {
 		$items[$it->getId()] = $it->getMemberData();
 	    }
 	    list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	foreach ($comments as $comment) {
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($comment['parentId']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach (array('delete' => 'comment.delete',
@@ -150,7 +150,7 @@ class ShowAllCommentsView extends GalleryView {
 	    'navigator' => $navigator));
 	$template->style('modules/comment/comment.css');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/comment/templates/ShowAllComments.tpl'));
     }
 
@@ -159,11 +159,11 @@ class ShowAllCommentsView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'comment');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('show comments'));
+	return array(null, $module->translate('show comments'));
     }
 }
 ?>

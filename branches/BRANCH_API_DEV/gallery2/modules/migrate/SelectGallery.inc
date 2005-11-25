@@ -46,7 +46,7 @@ class SelectGalleryController extends GalleryController {
 
 	// Verify that active user is an admin
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -91,7 +91,7 @@ class SelectGalleryController extends GalleryController {
 	} else if (isset($form['action']['deleteMap'])) {
 	    GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
 	    $ret = G1MigrateMap::removeAllMapEntries();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -109,7 +109,7 @@ class SelectGalleryController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -138,7 +138,7 @@ class SelectGalleryView extends GalleryView {
 	}
 
 	list ($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -151,7 +151,7 @@ class SelectGalleryView extends GalleryView {
 	}
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -162,7 +162,7 @@ class SelectGalleryView extends GalleryView {
 
 	$template->setVariable('controller', 'migrate.SelectGallery');
 	$template->setVariable('SelectGallery', $SelectGallery);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/migrate/templates/SelectGallery.tpl'));
     }
 }

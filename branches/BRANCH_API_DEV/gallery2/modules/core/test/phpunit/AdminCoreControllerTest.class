@@ -41,7 +41,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -94,7 +94,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	$valueMap['smtp.password'] = base64_encode($valueMap['smtp.password']);
 	foreach ($valueMap as $key => $expectedValue) {
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -135,7 +135,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	foreach ($tests as $testCase) {
 	    /* Set the cookie path manually to a known value to check later if it was changed */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', '/bad/');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -165,7 +165,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Check if the correct value was stored */
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 									 'cookie.path');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $expPath = $testCase['saved'] ? $testCase['ep'] : '/bad/';
@@ -207,7 +207,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	foreach ($tests as $testCase) {
 	    /* Set the cookie domain manually to a known value to check later if it was changed */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.domain', 'bad');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -238,7 +238,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Check if the correct value was stored */
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 									 'cookie.domain');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $expPath = $testCase['saved'] ? $testCase['ep'] : 'bad';
@@ -282,19 +282,19 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.2', 'b');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.3');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.4');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -309,7 +309,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(dirname(__FILE__), $param['uploadLocalServer.dir.3'], 'new dir');
@@ -461,11 +461,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	$saveDir = $platform->getcwd();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.2');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -485,7 +485,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	$platform->chdir($saveDir);
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
@@ -552,11 +552,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.2');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -581,7 +581,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    $results);
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
@@ -593,23 +593,23 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][removeUploadLocalServerDir]', 1);
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.2', 'x');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.3', 'b');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.4', 'c');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.5');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -624,7 +624,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);

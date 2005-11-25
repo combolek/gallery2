@@ -45,20 +45,20 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	/* Save original activeRules */
 	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Use empty table by default */
 	$ret = RewriteMap::setActiveRules(array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret->isError()) {
+	if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -68,7 +68,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		 as $param => $value) {
 	    /* Set test value */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $param, $value);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -83,7 +83,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -133,7 +133,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		array('pattern' => 'admin/',
 		      'match' => 'core.SiteAdmin')));
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -152,7 +152,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	$activeRules = array();
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -175,7 +175,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	$activeRules = array();
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -198,7 +198,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	$activeRules = array();
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -223,7 +223,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	$activeRules = array();
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -244,7 +244,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	$activeRules = array();
 	list($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals($activeRules, $savedRules);
@@ -267,14 +267,14 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $embeddedLocation) =
 	    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedLocation');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals('/gallery2/', $embeddedLocation, 'embedded location');
 
 	list ($ret, $embeddedHtaccess) =
 	    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedHtaccess');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals(dirname(__FILE__), $embeddedHtaccess, 'embedded htaccess');
@@ -299,14 +299,14 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $embeddedLocation) =
 		GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedLocation');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals('', $embeddedLocation, 'embedded location');
 
 	list ($ret, $embeddedHtaccess) =
 	    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedHtaccess');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->assertEquals('', $embeddedLocation, 'embedded htaccess');
@@ -329,7 +329,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $accessList) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'accessList');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$accessList = unserialize($accessList);

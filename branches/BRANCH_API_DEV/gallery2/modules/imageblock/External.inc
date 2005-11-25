@@ -82,7 +82,7 @@ class ExternalView extends GalleryView {
 	}
 
 	$ret = ImageBlockHelper::loadImageBlocks($template, $params);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -91,13 +91,13 @@ class ExternalView extends GalleryView {
 
 	    list ($ret, $imageframe) =
 		GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (isset($imageframe)) {
 		$ret = $imageframe->init($template, $frameIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -111,7 +111,7 @@ class ExternalView extends GalleryView {
 	    $template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

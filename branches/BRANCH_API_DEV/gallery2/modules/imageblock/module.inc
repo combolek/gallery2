@@ -64,20 +64,20 @@ class ImageBlockModule extends GalleryModule {
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('show' => 'heading|title|date|views', 'albumFrame' => '', 'itemFrame' => '')
 		as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -86,12 +86,12 @@ class ImageBlockModule extends GalleryModule {
 	/* Remove the blocks parameter if necessary, we forgot to remove it in beta 4 */
 	if (isset($params['blocks'])) {
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'imageblock', 'blocks');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -101,18 +101,18 @@ class ImageBlockModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	   'ItemEditOption', 'ImageBlockOption', 'ImageBlockOption',
 	   'modules/imageblock/ImageBlockOption.inc', 'imageblock', array('ItemEditAlbum'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Image Block'),
 				 'view' => 'imageblock.ImageBlockSiteAdmin')));
     }

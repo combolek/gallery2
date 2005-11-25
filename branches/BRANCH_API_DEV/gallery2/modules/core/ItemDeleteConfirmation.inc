@@ -41,7 +41,7 @@ class ItemDeleteConfirmationView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/ItemDeleteConfirmation.tpl'));
     }
 
@@ -50,11 +50,11 @@ class ItemDeleteConfirmationView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $core->translate('delete confirmation'));
+	return array(null, $core->translate('delete confirmation'));
     }
 }
 ?>

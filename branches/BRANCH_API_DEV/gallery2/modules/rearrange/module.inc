@@ -63,7 +63,7 @@ class RearrangeModule extends GalleryModule {
 	     * permissions.
 	     */
 	    list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -81,7 +81,7 @@ class RearrangeModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**
@@ -90,15 +90,15 @@ class RearrangeModule extends GalleryModule {
     function getItemAdminViews($item) {
 	$views = array();
 	if (!$item->getCanContainChildren()) {
-	    return array(GalleryStatus::success(), $views);
+	    return array(null, $views);
 	}
 
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
@@ -108,7 +108,7 @@ class RearrangeModule extends GalleryModule {
 			     'view' => 'rearrange.RearrangeItems');
 	}
 
-	return array(GalleryStatus::success(), $views);
+	return array(null, $views);
     }
 }
 ?>

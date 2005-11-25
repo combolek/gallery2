@@ -54,7 +54,7 @@ class SlideshowAppletModule extends GalleryModule {
 			      'itemId' => $itemId));
 	    }
 	}
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**
@@ -80,7 +80,7 @@ class SlideshowAppletModule extends GalleryModule {
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Slideshow Applet'),
 				 'view' => 'slideshowapplet.SlideshowAppletSiteAdmin')));
     }

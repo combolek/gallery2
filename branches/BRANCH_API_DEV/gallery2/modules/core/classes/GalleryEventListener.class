@@ -41,7 +41,7 @@ class GalleryEventListener {
      *               mixed data to send back to event source, or null
      */
     function handleEvent($event) {
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 }
 ?>

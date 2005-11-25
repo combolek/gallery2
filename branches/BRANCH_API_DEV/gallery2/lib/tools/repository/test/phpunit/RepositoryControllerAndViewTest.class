@@ -45,7 +45,7 @@ class RepositoryControllerTest extends GalleryTestCase {
 
 	$controller = new RepositoryController();
 	$ret = $controller->showView('testShowViewTemplate', '');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 

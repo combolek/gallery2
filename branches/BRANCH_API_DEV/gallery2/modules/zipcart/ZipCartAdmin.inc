@@ -38,7 +38,7 @@ class ZipCartAdminController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -79,16 +79,16 @@ class ZipCartAdminController extends GalleryController {
 
 	if (isset($form['action']['save']) && empty($error)) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'zipcart', 'path', $form['path']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'zipcart');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $isActive) = $module->isActive();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -117,7 +117,7 @@ class ZipCartAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -135,7 +135,7 @@ class ZipCartAdminView extends GalleryView {
 	    $form['formName'] = 'ZipCartAdmin';
 	    list ($ret, $form['path']) =
 		    GalleryCoreApi::getPluginParameter('module', 'zipcart', 'path');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -145,11 +145,11 @@ class ZipCartAdminView extends GalleryView {
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'zipcart');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -161,7 +161,7 @@ class ZipCartAdminView extends GalleryView {
 
 	$template->setVariable('ZipCartAdmin', $ZipCartAdmin);
 	$template->setVariable('controller', 'zipcart.ZipCartAdmin');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/zipcart/templates/ZipCartAdmin.tpl'));
     }
 }

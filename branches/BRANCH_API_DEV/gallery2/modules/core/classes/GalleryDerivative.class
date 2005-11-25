@@ -206,7 +206,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	/* TODO: just fetch the ids, instead of the entire entities */
 	list ($ret, $derivativesTable) =
 	    GalleryCoreApi::fetchDerivativesBySourceIds(array($this->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -222,7 +222,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		 * ignore the MISSING_OBJECT error since we only care that it's
 		 * gone.
 		 */
-		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -230,7 +230,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	/* Delete myself */
 	$ret = parent::delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -240,7 +240,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	GalleryDataCache::removeFromDisk(
 	    array('type' => 'derivative-meta', 'itemId' => $this->getId()));
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -252,14 +252,14 @@ class GalleryDerivative_core extends GalleryChildEntity {
     function create($parentId) {
 
 	$ret = parent::create($parentId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setDerivativeOrder(0);
 	$this->setIsBroken(false);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -274,7 +274,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	/* Save myself */
 	$ret = parent::save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -282,19 +282,19 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    /* Expire myself */
 	    if ($expire) {
 		$ret = $this->expireCache();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    /* Expire anything that depends on me */
 	    $ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($this->getId()));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -312,7 +312,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	$ret = $this->_rebuildCache();
 
-	if ($ret->isError()) {
+	if ($ret) {
 	    /*
 	     * Something went wrong with the toolkit
 	     * Mark the derivative as broken for later repair attempts
@@ -327,28 +327,28 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	     * Figure out our target path
 	     */
 	    list($ret, $destPath) = $this->fetchPath();
-	    if ($ret->isSuccess()) {
+	    if (!$ret) {
 		/* Copy the broken derivative placeholder */
 		$platform = $gallery->getPlatform();
 		if ($platform->copy($this->getBrokenDerivativePath(), $destPath)) {
 		    /* Get the mime type of the placeholder */
 		    list ($ret, $mimeType) =
 			GalleryCoreApi::getMimeType($this->getBrokenDerivativePath());
-		    if ($ret->isSuccess()) {
+		    if (!$ret) {
 			$this->setMimeType($mimeType);
 			if ($platform->file_exists($destPath)) {
 			    $size = $platform->filesize($destPath);
 			    $this->setDerivativeSize($size);
-			    $status = GalleryStatus::success();
+			    $status = null;
 			} else {
 			    $status =
-				GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
+				GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 			}
 		    } else {
 			$status = $ret->wrap(__FILE__, __LINE__);
 		    }
 		} else {
-		    $status = GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
+		    $status = GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 		}
 	    } else {
 		$status = $ret->wrap(__FILE__, __LINE__);
@@ -359,14 +359,14 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	     * called if we sent an error as a return value
 	     */
 	    $ret = $this->save(false);
-	    if ($status->isError()) {
+	    if ($status) {
 		return $status->wrap(__FILE__, __LINE__);
-	    } elseif ($ret->isError()) {
+	    } else if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Pretend the operation was successful */
-	    $ret = GalleryStatus::success();
+	    $ret = null;
 	} elseif ($this->getIsBroken()) {
 	    $this->setIsBroken(false);
 	}
@@ -386,7 +386,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	/* Figure out our target path */
 	list($ret, $destPath) = $this->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -394,27 +394,27 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	GalleryUtilities::guaranteeDirExists(dirname($destPath));
 
 	list ($ret, $source, $operations) = $this->fetchFinalOperations();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (GalleryUtilities::isA($source, 'GalleryDerivative')) {
 	    list ($ret, $rebuild) =
 		GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($source->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($rebuild) {
 		/* Fetch the updated version back from our entity cache */
 		list ($ret, $source) = GalleryCoreApi::loadEntitiesById($source->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    list ($ret, $sourcePath) = $source->fetchPath();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
@@ -425,7 +425,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    } else {
 		list($ret, $sourcePath) = $source->fetchPath();
 	    }
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -452,12 +452,12 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    /* Get the appropriate toolkit */
 	    list ($ret, $toolkit, $nextMimeType) =
 		GalleryCoreApi::getToolkitByOperation($mimeType, $operationName);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!isset($toolkit)) {
-		return GalleryStatus::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
 					    "$operationName $mimeType");
 	    }
 
@@ -471,7 +471,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		list ($nextOperationName) = explode('|', $operations[$i+1]);
 		list ($ret, $nextToolkit) =
 		    GalleryCoreApi::getToolkitByOperation($nextMimeType, $nextOperationName);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$context['next.toolkit'] = isset($nextToolkit) ? $nextToolkit : null;
@@ -482,7 +482,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    list ($ret, $outputMimeType, $context) = $toolkit->performOperation(
 		$mimeType, $operationName, $sourcePath, $destPath,
 		explode(',', $operationArgs), $context);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -508,7 +508,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		      'mimeType' => $this->getMimeType(),
 		      'parentId' => $this->getParentId());
 	list ($ret, $data['pseudoFileName']) = GalleryUtilities::getPseudoFileName($this);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -517,11 +517,11 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	$this->deleteFastDownloadFile();
 	$ret = $this->createFastDownloadFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -551,13 +551,13 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	/* Disable this for unit tests, for now */
 	if (!$runEvenInUnitTest && class_exists('GalleryTestCase')) {
-	    return GalleryStatus::success();
+	    return null;
 	}
 
 	/* Make sure this derivative is publicly viewable */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -577,14 +577,14 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    break;
 	}
 
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($requiredPermission) {
 	    list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
 		array($this->getParentId()), $anonymousUserId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $hasPermission = isset($permissions[$this->getParentId()][$requiredPermission]);
@@ -593,7 +593,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	if ($hasPermission) {
 	    /* Write the fast download file */
 	    list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($this);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -616,7 +616,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    $platform->atomicWrite($fastDownloadFilePath, $buf);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -632,7 +632,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
     function fetchFinalOperations() {
 	/* Load the source */
 	list($ret, $source) = GalleryCoreApi::loadEntitiesById($this->getDerivativeSourceId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -653,7 +653,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    while (GalleryUtilities::isA($sources[0], 'GalleryDerivative')) {
 		list ($ret, $tmp) =
 		    GalleryCoreApi::loadEntitiesById($sources[0]->getDerivativeSourceId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -687,7 +687,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		foreach (explode(';', $sources[$i]->getDerivativeOperations()) as $newOperation) {
 		    list ($ret, $operations) =
 			GalleryCoreApi::mergeDerivativeOperations($operations, $newOperation);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
@@ -704,7 +704,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    foreach (explode(';', $postFilters) as $newOperation) {
 		list ($ret, $operations) =
 		    GalleryCoreApi::mergeDerivativeOperations($operations, $newOperation);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
@@ -712,7 +712,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    $operations = explode(';', $operations);
 	}
 
-	return array(GalleryStatus::success(), $source, $operations);
+	return array(null, $source, $operations);
     }
 
     /**
@@ -729,12 +729,12 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	$platform = $gallery->getPlatform();
 
 	list($ret, $path) = $this->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	$bool = $platform->file_exists($path);
-	return array(GalleryStatus::success(), $bool);
+	return array(null, $bool);
     }
 
     /**
@@ -748,7 +748,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	$platform = $gallery->getPlatform();
 
 	list($ret, $path) = $this->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -758,7 +758,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	$this->deleteFastDownloadFile();
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -773,7 +773,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	$cacheFile = GalleryDataCache::getCachePath(array('type' => 'derivative',
 							  'itemId' => $this->getId()));
-	return array(GalleryStatus::success(), $cacheFile);
+	return array(null, $cacheFile);
     }
 
     /**

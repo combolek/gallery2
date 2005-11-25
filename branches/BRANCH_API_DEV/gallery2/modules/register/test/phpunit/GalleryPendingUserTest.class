@@ -48,7 +48,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
     	global $gallery;
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'register');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -61,7 +61,7 @@ class GalleryPendingUserTest extends GalleryTestCase {
 
 	/* Create a new pending user */
 	list ($ret, $user) = $this->_createRandomPendingUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -69,45 +69,45 @@ class GalleryPendingUserTest extends GalleryTestCase {
 
 	/* Verify it */
 	$ret = $this->_verifyEntity($user);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Delete it */
 	$ret = $this->_deleteAndVerifyEntity($user->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _createRandomPendingUser() {
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($user)) {
-	    return array( GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    return array( GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	$username = 'testuser_' . rand(1000, 1000000);
 
 	$ret = $user->create($username);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $user->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($username);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array( GalleryStatus::success(), $user);
+	return array( null, $user);
     }
 }
 ?>

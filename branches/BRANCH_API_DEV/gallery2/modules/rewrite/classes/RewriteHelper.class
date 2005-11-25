@@ -69,12 +69,12 @@ class RewriteHelper {
 
 	list ($ret, $Htaccess['galleryDirectory']) =
 		GalleryCoreApi::getPluginParameter('module', 'rewrite', 'galleryLocation');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $status) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'status');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$status = unserialize($status);
@@ -87,7 +87,7 @@ class RewriteHelper {
 	    $Htaccess['baseFile'] = $urlGenerator->_baseFile;
 	    list ($ret, $Htaccess['directory']) =
 		    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedLocation');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -103,11 +103,11 @@ class RewriteHelper {
 	$template = new GalleryTemplate(dirname(__FILE__) . '/../templates');
 	$template->setVariable('Htaccess', $Htaccess);
 	list ($ret, $content) = $template->fetch('Htaccess.tpl', 'modules_rewrite');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $content);
+	return array(null, $content);
     }
 
     /**
@@ -120,14 +120,14 @@ class RewriteHelper {
 	if ($embedded) {
 	    list ($ret, $path) =
 		    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'embeddedHtaccess');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    return array(GalleryStatus::success(), $path . '/.htaccess');
+	    return array(null, $path . '/.htaccess');
 	}
 
-	return array(GalleryStatus::success(), GALLERY_CONFIG_DIR . '/.htaccess');
+	return array(null, GALLERY_CONFIG_DIR . '/.htaccess');
     }
 
     /**
@@ -141,28 +141,28 @@ class RewriteHelper {
 	$platform = $gallery->getPlatform();
 
 	list ($ret, $file) = RewriteHelper::getHtaccessPath($embedded);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($platform->file_exists($file)) {
 	    /* Can't read the .htaccess file */
 	    if (!$platform->is_readable($file)) {
-		return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_CANT_READ);
+		return array(null, REWRITE_STATUS_HTACCESS_CANT_READ);
 	    }
 
 	    /* Can't write the .htaccess file */
 	    if (!$platform->is_writeable($file)) {
-		return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_CANT_WRITE);
+		return array(null, REWRITE_STATUS_HTACCESS_CANT_WRITE);
 	    }
 	} else {
 	    /* If we have write access to the directory we can create the file */
 	    if (!$platform->is_writeable(dirname($file))) {
-		return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_MISSING);
+		return array(null, REWRITE_STATUS_HTACCESS_MISSING);
 	    }
 	}
 
-	return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_READY);
+	return array(null, REWRITE_STATUS_HTACCESS_READY);
     }
 
     /**
@@ -179,27 +179,27 @@ class RewriteHelper {
 	$platform = $gallery->getPlatform();
 
 	list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list($ret, $code, $rewriteRules) = RewriteHelper::parseActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($code != REWRITE_STATUS_OK) {
-	    return array(GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__), null);
 	}
 	list ($ret, $galleryHtaccess) = RewriteHelper::getTemplate($rewriteRules, true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $embeddedPath) = RewriteHelper::getHtaccessPath(true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$platform->is_readable($embeddedPath)) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_CANT_READ);
+	    return array(null, REWRITE_STATUS_HTACCESS_CANT_READ);
 	}
 
 	$embeddedHtaccess = implode('', $platform->file($embeddedPath));
@@ -208,20 +208,20 @@ class RewriteHelper {
 	if (!preg_match(
 		'/\# BEGIN Url Rewrite section(.+)\# END Url Rewrite section/s',
 		$embeddedHtaccess, $embeddedSection)) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_MISMATCH);
+	    return array(null, REWRITE_STATUS_HTACCESS_MISMATCH);
 	}
 
 	if (!preg_match(
 		'/\# BEGIN Url Rewrite section(.+)\# END Url Rewrite section/s',
 		$galleryHtaccess, $gallerySection)) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_MISMATCH);
+	    return array(null, REWRITE_STATUS_HTACCESS_MISMATCH);
 	}
 
 	if ($embeddedSection[1] != $gallerySection[1]) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_MISMATCH);
+	    return array(null, REWRITE_STATUS_HTACCESS_MISMATCH);
 	}
 
-	return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	return array(null, REWRITE_STATUS_OK);
     }
 
     /**
@@ -235,21 +235,21 @@ class RewriteHelper {
 	$platform = $gallery->getPlatform();
 
 	list ($ret, $file) = RewriteHelper::getHtaccessPath($embedded);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$htaccess = '';
 	if (is_array($rewriteRules)) {
 	    list ($ret, $htaccess) = RewriteHelper::getTemplate($rewriteRules, $embedded);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	if ($platform->file_exists($file)) {
 	    if (!$platform->is_readable($file)) {
-		return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_CANT_READ);
+		return array(null, REWRITE_STATUS_HTACCESS_CANT_READ);
 	    }
 
 	    $oldHtaccess = implode('', $platform->file($file));
@@ -271,10 +271,10 @@ class RewriteHelper {
 	    $platform->fwrite($fd, $newHtaccess);
 	    $platform->fclose($fd);
 	} else {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_HTACCESS_CANT_WRITE);
+	    return array(null, REWRITE_STATUS_HTACCESS_CANT_WRITE);
 	}
 
-	return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	return array(null, REWRITE_STATUS_OK);
     }
 
     /**
@@ -292,17 +292,17 @@ class RewriteHelper {
 	$urlGenerator =& $gallery->getUrlGenerator();
 
 	list ($ret, $status) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'status');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	/* autoConfigure may be called from upgrader before 'status' is set: */
 	$status = !empty($status) ? unserialize($status) : array();
 	if (isset($status['forced'])) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	    return array(null, REWRITE_STATUS_OK);
 	}
 
 	if ($gallery->getConfig('galleryBaseUrl')) {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_MULTISITE);
+	    return array(null, REWRITE_STATUS_MULTISITE);
 	}
 	$baseUrl = $gallery->getConfig('galleryBaseUrl');
 	if (empty($baseUrl)) {
@@ -332,11 +332,11 @@ class RewriteHelper {
 	if ($headers == 'HTTP/1.1 200 OK' && $body == "PASS_REWRITE\n") {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'status',
 		serialize(array('needOptions' => false)));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	    return array(null, REWRITE_STATUS_OK);
 	}
 
 	/*
@@ -349,11 +349,11 @@ class RewriteHelper {
 	if ($headers == 'HTTP/1.1 200 OK' && $body == "PASS_REWRITE\n") {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'status',
 		serialize(array('needOptions' => true)));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	    return array(null, REWRITE_STATUS_OK);
 	}
 
 	/*
@@ -361,10 +361,10 @@ class RewriteHelper {
 	 * the user directions to edit the custom .htaccess file and then test again.
 	 */
 	if ($target == 'custom') {
-	    return array(GalleryStatus::success(), REWRITE_STATUS_APACHE_UNABLE_TO_TEST);
+	    return array(null, REWRITE_STATUS_APACHE_UNABLE_TO_TEST);
 	}
 
-	return array(GalleryStatus::success(), REWRITE_STATUS_APACHE_NO_MOD_REWRITE);
+	return array(null, REWRITE_STATUS_APACHE_NO_MOD_REWRITE);
     }
 
     /**
@@ -376,7 +376,7 @@ class RewriteHelper {
      */
     function parseActiveRules($activeRules, $rewriteModule=null) {
 	list ($ret, $accessList) = RewriteHelper::getAccessList();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$rewriteRules = array();
@@ -386,7 +386,7 @@ class RewriteHelper {
 		$module = $rewriteModule;
 	    } else {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			/*
 			 * Add CONFIGURATION_REQUIRED code to more gracefully abort upgrade
@@ -446,17 +446,17 @@ class RewriteHelper {
 			$activeRules[$moduleId][$ruleId]['pattern']);
 		list ($ret, $code) = RewriteHelper::_parseRule($urlPattern, $keywords,
 			$queryString, $rewriteRules, $settings);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if ($code != REWRITE_STATUS_OK) {
-		    return array(GalleryStatus::success(), $code, null);
+		    return array(null, $code, null);
 		}
 	    }
 	}
 
 	usort($rewriteRules, array('RewriteHelper', '_sortRules'));
-	return array(GalleryStatus::success(), REWRITE_STATUS_OK, $rewriteRules);
+	return array(null, REWRITE_STATUS_OK, $rewriteRules);
     }
 
     /**
@@ -467,7 +467,7 @@ class RewriteHelper {
      */
     function getAccessList() {
 	list ($ret, $allow) = GalleryCoreApi::getPluginParameter('module', 'rewrite', 'accessList');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$allow = array_merge(array(GalleryUtilities::getServerVar('SERVER_NAME')),
@@ -478,7 +478,7 @@ class RewriteHelper {
 	    $accessList[] = '%{HTTP_REFERER} !://' . preg_quote($host) . '/ [NC]';
 	}
 
-	return array(GalleryStatus::success(), $accessList);
+	return array(null, $accessList);
     }
 
     /**
@@ -541,17 +541,17 @@ class RewriteHelper {
 	    if ($keyword == '_path_') {
 		list ($ret, $code) = RewriteHelper::_parseRule(str_replace('%_path_%', '%path%',
 			$urlPattern), $keywords, $queryString, $rewriteRules, $settings);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($code != REWRITE_STATUS_OK) {
-		    return array(GalleryStatus::success(), $code);
+		    return array(null, $code);
 		}
 		$urlPattern = str_replace('%_path_%/', '', $urlPattern);
 		$urlPattern = str_replace('%_path_%', '', $urlPattern);
 	    } else {
 		if (!isset($keywords[$keyword]['pattern'])) {
-		    return array(GalleryStatus::success(), REWRITE_STATUS_BAD_KEYWORD);
+		    return array(null, REWRITE_STATUS_BAD_KEYWORD);
 		}
 
 		$urlPattern = str_replace('%' . $keyword . '%',
@@ -576,7 +576,7 @@ class RewriteHelper {
 		    'settings' => $settings);
 	}
 
-	return array(GalleryStatus::success(), REWRITE_STATUS_OK);
+	return array(null, REWRITE_STATUS_OK);
     }
 }
 ?>

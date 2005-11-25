@@ -55,7 +55,7 @@ class DebugModule extends GalleryModule {
 
 	/* This doesn't obey the acting user id.  That's acceptable for a debug link */
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -71,7 +71,7 @@ class DebugModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 }
 ?>

@@ -42,13 +42,13 @@ class CoreCallbacks {
 	    }
 
 	    list ($ret, $language) = $gallery->getActiveLanguageCode();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $block['core']['LanguageSelector'] =
 		array('list' => $languageList, 'language' => $language);
-	    return GalleryStatus::success();
+	    return null;
 
 	case 'ShouldShowEmergencyEditItemLink':
 	    $block['core']['ShouldShowEmergencyEditItemLink'] = false;
@@ -68,7 +68,7 @@ class CoreCallbacks {
 		    }
 		}
 	    }
-	    return GalleryStatus::success();
+	    return null;
 
 	case 'LoadPeers':
 	    $item = $params['item'];
@@ -76,18 +76,18 @@ class CoreCallbacks {
 	    if ($item['parentId'] > 0) {
 		list ($ret, $canViewParent) = GalleryCoreApi::hasItemPermission(
 		    $item['parentId'], 'core.view', $theme['actingUserId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    if ($canViewParent) {
 		list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $peerIds) =
 		    GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		foreach ($peerIds as $i => $id) {
@@ -120,12 +120,12 @@ class CoreCallbacks {
 		}
 
 		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (!empty($params['loadThumbnails'])) {
 		    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($peerMap);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
@@ -145,10 +145,10 @@ class CoreCallbacks {
 		$block['core']['LoadPeers'] =
 		    array('peers' => array(), 'peerCount' => 0);
 	    }
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

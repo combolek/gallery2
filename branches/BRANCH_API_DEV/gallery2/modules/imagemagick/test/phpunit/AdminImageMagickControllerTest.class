@@ -42,13 +42,13 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'imagemagick');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_cmykSupport) =
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'cmykSupport');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -69,7 +69,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	 * try to reactivate the module due to path change.
 	 */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -88,9 +88,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the settings went in properly */
-	$this->assertEquals(array(GalleryStatus::success(), $path),
+	$this->assertEquals(array(null, $path),
 			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
-	$this->assertEquals(array(GalleryStatus::success(), '12'),
+	$this->assertEquals(array(null, '12'),
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
 	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
     }
@@ -208,7 +208,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	 * try to reactivate the module due to path change.
 	 */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -228,9 +228,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the settings went in properly */
-	$this->assertEquals(array(GalleryStatus::success(), $path),
+	$this->assertEquals(array(null, $path),
 			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
-	$this->assertEquals(array(GalleryStatus::success(), '80'),
+	$this->assertEquals(array(null, '80'),
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
 	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
     }

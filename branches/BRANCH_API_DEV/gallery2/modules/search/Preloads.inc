@@ -31,10 +31,10 @@ class SearchPreloads {
 	switch($preload) {
 	case 'SearchBlock':
 	    $template->javascript('modules/search/SearchBlock.js');
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

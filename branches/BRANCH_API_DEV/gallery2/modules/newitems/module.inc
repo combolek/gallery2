@@ -56,13 +56,13 @@ class NewItemsModule extends GalleryModule {
 			   'days.updated' => '7' )
 		     as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -72,11 +72,11 @@ class NewItemsModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySortInterface_1_1', 'NewItemsSortOrder', 'NewItems',
 	    'modules/newitems/classes/NewItemsSortOrder.class', 'newitems', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -85,33 +85,33 @@ class NewItemsModule extends GalleryModule {
     function deactivate($postDeactivationEvent=true) {
 	GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
 	list ($ret, $count) = NewItemsHelper::fetchAlbumCount();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $default) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($count > 0 || strpos($default, 'NewItems') !== false) {
 	    /* Can't deactivate if NewItems sort is in use */
-	    return array(GalleryStatus::success(),
+	    return array(null,
 			 array('view' => 'core.SiteAdmin',
 			       'subView' => 'newitems.NewItemsSiteAdmin'));
 	}
 
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('New Items'),
 				 'view' => 'newitems.NewItemsSiteAdmin')));
     }
@@ -121,7 +121,7 @@ class NewItemsModule extends GalleryModule {
      */
     function getItemSummaries($items, $permissions) {
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'newitems');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$time = time();
@@ -142,7 +142,7 @@ class NewItemsModule extends GalleryModule {
 		    . $updatedString . '</span>';
 	    }
 	}
-	return array(GalleryStatus::success(), $summaries);
+	return array(null, $summaries);
     }
 }
 ?>

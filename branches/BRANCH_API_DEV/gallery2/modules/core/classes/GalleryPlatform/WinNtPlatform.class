@@ -107,7 +107,7 @@ class WinNtPlatform extends GalleryPlatform {
 
 	list ($ret, $expected) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
-	if ($ret->isError()) {
+	if ($ret) {
 	    if ($gallery->getDebug()) {
 		$gallery->debug('Unable to look up core.exec.expectedStatus param');
 	    }

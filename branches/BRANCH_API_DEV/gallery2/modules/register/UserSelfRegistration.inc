@@ -79,7 +79,7 @@ class UserSelfRegistrationController extends GalleryController {
 		/* Get all the login plugins */
 		list ($ret, $pluginInstances) =
 		    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -87,7 +87,7 @@ class UserSelfRegistrationController extends GalleryController {
 		    list ($ret, $pluginInstances[$pluginId]) =
 			GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 							       $pluginId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -96,7 +96,7 @@ class UserSelfRegistrationController extends GalleryController {
 	    /* Let each plugin do its verification */
 	    foreach ($pluginInstances as $pluginId => $plugin) {
 		list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -114,17 +114,17 @@ class UserSelfRegistrationController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $user) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryPendingUser');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($user)) {
-		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $user->create($form['userName']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -137,7 +137,7 @@ class UserSelfRegistrationController extends GalleryController {
 		    $user->changePassword($form['password1']);
 
 		    $ret = $user->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -145,14 +145,14 @@ class UserSelfRegistrationController extends GalleryController {
 		    /* otherwise create the "real" user right now */
 		    list($ret, $params) =
 			GalleryCoreApi::fetchAllPluginParameters('module', 'register');
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    if ($params['confirmation'] == 'email') {
 			/* send confirmation email */
 			$ret = GalleryPendingUserHelper::sendConfirmationEmail($user);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$status['registeredUser'] = $form['userName'];
@@ -160,7 +160,7 @@ class UserSelfRegistrationController extends GalleryController {
 		    } else if ($params['confirmation'] == 'auto') {
 			/* turn the pending user into a real user right now */
 			$ret = GalleryPendingUserHelper::createGalleryUser($user);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$status['activatedUser'] = $form['userName'];
@@ -170,7 +170,7 @@ class UserSelfRegistrationController extends GalleryController {
 
 		    if ($params['emailadmins']) {
 			$ret = GalleryPendingUserHelper::sendAdminEmail($user);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -191,7 +191,7 @@ class UserSelfRegistrationController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -234,7 +234,7 @@ class UserSelfRegistrationView extends GalleryView {
 	/* Get all the login plugins */
 	list ($ret, $allPluginIds) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -243,13 +243,13 @@ class UserSelfRegistrationView extends GalleryView {
 	foreach (array_keys($allPluginIds) as $pluginId) {
 	    list ($ret, $plugin) =
 		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $data['file'], $data['l10Domain']) =
 		$plugin->loadTemplate($template, $form, 'HIGH');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -261,7 +261,7 @@ class UserSelfRegistrationView extends GalleryView {
 	$template->setVariable('UserSelfRegistration', $UserSelfRegistration);
 	$template->setVariable('controller', 'register.UserSelfRegistration');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/register/templates/UserSelfRegistration.tpl'));
     }
 }

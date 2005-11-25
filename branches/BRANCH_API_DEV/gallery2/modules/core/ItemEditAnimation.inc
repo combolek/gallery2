@@ -61,12 +61,12 @@ class ItemEditAnimation extends ItemEditPlugin {
 
 	    if (empty($error)) {
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		list ($ret, $item) = $item->refresh();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
@@ -75,19 +75,19 @@ class ItemEditAnimation extends ItemEditPlugin {
 		$item->setHeight($form['height']);
 		$item->setSerialNumber($form['serialNumber']);
 		$ret = $item->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -95,7 +95,7 @@ class ItemEditAnimation extends ItemEditPlugin {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -114,7 +114,7 @@ class ItemEditAnimation extends ItemEditPlugin {
 	$ItemEditAnimation = array();
 	$template->setVariable('ItemEditAnimation', $ItemEditAnimation);
 	$template->setVariable('controller', 'core.ItemEditAnimation');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/core/templates/ItemEditAnimation.tpl', 'modules_core');
     }
 
@@ -130,11 +130,11 @@ class ItemEditAnimation extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Animation Size'));
+	return array(null, $module->translate('Animation Size'));
     }
 }
 ?>

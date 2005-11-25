@@ -198,16 +198,16 @@ class GalleryTemplate {
 	$this->_smarty->template_dir = $this->_templateDir;
 
 	$ret = $this->_initCompiledTemplateDir();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
 	list($ret, $html) = $this->_smarty->fetch($templateName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $html);
+	return array(null, $html);
     }
 
     /**
@@ -220,16 +220,16 @@ class GalleryTemplate {
 	$this->_smarty->template_dir = $this->_templateDir;
 
 	$ret = $this->_initCompiledTemplateDir();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_smarty->compile_dir = $this->_compiledTemplateDir;
 
 	list ($ret, $junk) = $this->_smarty->fetch($templateName, null, null, true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -249,25 +249,25 @@ class GalleryTemplate {
 	/* Make a unique subdirectory for compiled templates for this templates dir */
 	$dir = $this->_compiledTemplateDir;
 	if ($platform->file_exists($dir) && !$platform->is_dir($dir)) {
-	    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	}
 
 	$templateVersionFile = $dir . '/v_' . TEMPLATE_DATA_VERSION;
 	if (!$platform->file_exists($dir)) {
 	    list ($success) = GalleryUtilities::guaranteeDirExists($dir);
 	    if (!$success) {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    "Unable to mkdir($dir)");
 	    }
 	    if ($fd = $platform->fopen($templateVersionFile, 'w')) {
 		$platform->fclose($fd);
 	    } else {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    sprintf('Unable to write to %s', $templateVersionFile));
 	    }
 	} else {
 	    if (!$platform->is_writeable($dir)) {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	    }
 
 	    $rebuild = false;
@@ -278,14 +278,14 @@ class GalleryTemplate {
 	    if ($rebuild) {
 		/* Get rid of the current dir and start again. */
 		if (!$platform->recursiveRmDir($dir)) {
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to remove dir $dir");
 		}
 		$this->_initCompiledTemplateDir();
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**

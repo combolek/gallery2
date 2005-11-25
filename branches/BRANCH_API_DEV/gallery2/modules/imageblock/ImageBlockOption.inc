@@ -59,17 +59,17 @@ class ImageBlockOption extends ItemEditOption {
 	}
 
 	list ($ret, $currentlyDisabled) = ImageBlockHelper::getDisabledFlag($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if ($setDisabled != $currentlyDisabled) {
 	    $ret = ImageBlockHelper::setDisabledFlag($item, $setRecursive, $setDisabled);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
-	return array(GalleryStatus::success(), $error, $warning);
+	return array(null, $error, $warning);
     }
 
     /**
@@ -79,11 +79,11 @@ class ImageBlockOption extends ItemEditOption {
 	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 	list($ret, $form['ImageBlockOption']['setDisabled']) =
 	    ImageBlockHelper::getDisabledFlag($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/imageblock/templates/ImageBlockOption.tpl',
 		     'modules_imageblock');
     }
@@ -92,7 +92,7 @@ class ImageBlockOption extends ItemEditOption {
      * @see ItemEditOption::isSupported
      */
     function isAppropriate($item, $thumbnail) {
-	return array(GalleryStatus::success(), GalleryUtilities::isA($item, 'GalleryAlbumItem'));
+	return array(null, GalleryUtilities::isA($item, 'GalleryAlbumItem'));
     }
 }
 ?>

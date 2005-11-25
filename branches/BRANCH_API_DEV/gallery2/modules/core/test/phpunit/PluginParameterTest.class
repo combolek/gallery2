@@ -43,7 +43,7 @@ class PluginParameterTest extends GalleryTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_parentAlbum) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    $this->failWithStatus($ret);
 	}
@@ -53,7 +53,7 @@ class PluginParameterTest extends GalleryTestCase {
 
     function tearDown() {
 	$ret = GalleryCoreApi::removeAllPluginParameters('module', 'unitTestModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 
@@ -66,12 +66,12 @@ class PluginParameterTest extends GalleryTestCase {
 	$value = 'testValue';
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', $key, $value);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -81,7 +81,7 @@ class PluginParameterTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 
 	list ($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -95,13 +95,13 @@ class PluginParameterTest extends GalleryTestCase {
 
 	for ($i = 0; $i < 3; $i++) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', $key, "${value}-$i");
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	list ($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -115,13 +115,13 @@ class PluginParameterTest extends GalleryTestCase {
 
 	for ($i = 0; $i < 3; $i++) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', "${key}-$i", "${value}-$i");
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	list ($ret, $newValues) = GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -137,14 +137,14 @@ class PluginParameterTest extends GalleryTestCase {
 
 	for ($i = 0; $i < 3; $i++) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', $key, "${value}-$i", $i);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
 	for ($i = 0; $i < 3; $i++) {
 	    list ($ret, $newValue) = GalleryCoreApi::getPluginParameter('module', 'unitTestModule', $key, $i);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -155,22 +155,22 @@ class PluginParameterTest extends GalleryTestCase {
 
     function testCleanupAfterDeleteEntity() {
 	list ($ret, $album) = $this->_createRandomAlbum($this->_parentAlbum->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule', 'foo', 'bar', $album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'unitTestModule', $album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -184,14 +184,14 @@ class PluginParameterTest extends GalleryTestCase {
 	    /* Set test parameters */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'unitTestModule',
 						      'foo1', $val, $item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    /* Verify that parameters were set */
 	    list ($ret, $param) =
 		    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);
@@ -200,7 +200,7 @@ class PluginParameterTest extends GalleryTestCase {
 	/* Remove all 'foo1' => 'bar' pairs */
 	$ret = GalleryCoreApi::removePluginParameterByValue('module', 'unitTestModule',
 							    'foo1', 'bar');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -209,7 +209,7 @@ class PluginParameterTest extends GalleryTestCase {
 	foreach ($afterArray as $item => $val) {
 	    list ($ret, $param) =
 		    GalleryCoreApi::getPluginParameter('module', 'unitTestModule', 'foo1', $item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($param, $val, 'Parameter "foo1" (' . $item . ') should be ' . $val);

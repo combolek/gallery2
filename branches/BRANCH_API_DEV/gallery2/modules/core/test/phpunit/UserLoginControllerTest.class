@@ -49,7 +49,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 	/* Create a new user */
 	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -58,7 +58,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$this->_saveSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -290,7 +290,7 @@ class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
     }
 
     function performValidation(&$form) {
-	return array(GalleryStatus::success(), $this->_errors, $this->_continue);
+	return array(null, $this->_errors, $this->_continue);
     }
 }
 

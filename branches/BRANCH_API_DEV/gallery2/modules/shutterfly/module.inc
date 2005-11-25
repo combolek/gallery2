@@ -57,7 +57,7 @@ class ShutterflyModule extends GalleryModule {
 	    $currentVersion = '1.0.0';
 	}
 	list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -66,14 +66,14 @@ class ShutterflyModule extends GalleryModule {
 	    /* Register our permission */
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'shutterfly.print',
 						      $gallery->i18n('[shutterfly] Print'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* Give everybody print permission by default */
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
@@ -81,13 +81,13 @@ class ShutterflyModule extends GalleryModule {
 	case '1.0.0':
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'shutterfly.print',
 						      $gallery->i18n('[shutterfly] Print'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -95,11 +95,11 @@ class ShutterflyModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -109,11 +109,11 @@ class ShutterflyModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CartPluginInterface_1_0', 'ShutterflyCartPlugin', 'shutterfly',
 	    'modules/shutterfly/classes/ShutterflyCartPlugin.class', 'shutterfly', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -134,7 +134,7 @@ class ShutterflyModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 }
 ?>

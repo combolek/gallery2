@@ -41,12 +41,12 @@ class MaintenanceModeView extends GalleryView {
 	$theme['useFullScreen'] = true;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Maintenance'));
-	return array(GalleryStatus::success(),
+	return array(null,
 	    array('body' => 'modules/core/templates/MaintenanceMode.tpl'));
     }
 
@@ -55,10 +55,10 @@ class MaintenanceModeView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $module->translate('Maintenance'));
+	return array(null, $module->translate('Maintenance'));
     }
 }
 ?>

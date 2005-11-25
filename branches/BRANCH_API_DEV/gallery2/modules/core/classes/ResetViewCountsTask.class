@@ -67,17 +67,17 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 	';
 
 	$ret = $storage->execute($resetCount);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$ret = $storage->execute($resetDate, array(time()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -85,11 +85,11 @@ class ResetViewCountsTask extends FlushDatabaseCacheTask {
 
 	/* Call parent::run() to flush cache */
 	list ($ret, $success, $subDetails) = parent::run();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	return array(GalleryStatus::success(), $success, array_merge($details, $subDetails));
+	return array(null, $success, array_merge($details, $subDetails));
     }
 }
 ?>

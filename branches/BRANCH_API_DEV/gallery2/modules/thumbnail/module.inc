@@ -67,7 +67,7 @@ class ThumbnailModule extends GalleryModule {
 	    /* Initial install */
 	    list ($success) = GalleryUtilities::guaranteeDirExists($thumbnailDir);
 	    if (!$success) {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    "Unable to create directory: $thumbnailDir");
 	    }
 	    break;
@@ -77,13 +77,13 @@ class ThumbnailModule extends GalleryModule {
 	    /* Assign parent to existing ThumbnailImage entities */
 	    list ($ret, $rootId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('ThumbnailImage:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -92,7 +92,7 @@ class ThumbnailModule extends GalleryModule {
 	    FROM [ThumbnailImage]
 	    ';
 	    $ret = $storage->execute($query);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -107,13 +107,13 @@ class ThumbnailModule extends GalleryModule {
 	    $oldDir = $gallery->getConfig('data.gallery.base') . 'thumbnail' . $slash;
 	    if ($platform->is_dir($oldDir)) {
 		if (!$platform->rename($oldDir, $thumbnailDir)) {
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to move $oldDir to $thumbnailDir");
 		}
 	    } else {
 		list ($success) = GalleryUtilities::guaranteeDirExists($thumbnailDir);
 		if (!$success) {
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to create $thumbnailDir");
 		}
 	    }
@@ -123,7 +123,7 @@ class ThumbnailModule extends GalleryModule {
 	    /* Now allow thumbnail for root album; remove parent for mime type thumbnails */
 	    list ($ret, $rootId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $query = '
@@ -137,7 +137,7 @@ class ThumbnailModule extends GalleryModule {
 	      [GalleryChildEntity::parentId] = ?
 	    ';
 	    list ($ret, $results) = $gallery->search($query, array($rootId));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ids = array();
@@ -148,26 +148,26 @@ class ThumbnailModule extends GalleryModule {
 	    GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 	    if (!empty($ids)) {
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $thumbs) = GalleryCoreApi::loadEntitiesById($ids);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		foreach ($thumbs as $thumb) {
 		    $thumb->setParentId(0);
 		    $ret = $thumb->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -189,11 +189,11 @@ class ThumbnailModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -203,25 +203,25 @@ class ThumbnailModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'ThumbnailImage', 'ThumbnailImage',
 	    'modules/thumbnail/classes/ThumbnailImage.class', 'thumbnail', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ThumbnailToolkit', 'Thumbnail',
 	    'modules/thumbnail/classes/ThumbnailToolkit.class', 'thumbnail', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'CustomThumbnailOption', 'CustomThumbnailOption',
 	    'modules/thumbnail/CustomThumbnailOption.inc', 'thumbnail', array('ItemEditItem'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -247,21 +247,21 @@ class ThumbnailModule extends GalleryModule {
 
 	/* Register toolkit operation for any mime type settings already in the database */
 	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($mimeTypeMap)) {
 	    $ret = GalleryCoreApi::registerToolkitOperation('Thumbnail',
 				   array_keys($mimeTypeMap), 'convert-to-image/jpeg', array(),
 				   $gallery->i18n('Convert to a JPEG'), 'image/jpeg', 50);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* Set some defaults if not already supported */
 	list ($ret, $toolkitMime) = ThumbnailHelper::fetchToolkitSupport();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$itemId = array();
@@ -279,12 +279,12 @@ class ThumbnailModule extends GalleryModule {
 			    $mimeImage, dirname(__FILE__) . '/images/' . $mimeImage, 'image/jpeg',
 			    array('width' => 400, 'height' => 352),
 			    new ThumbnailImage());
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else {
 			$ret = ThumbnailHelper::updateItem($itemId[$mimeImage], $mime);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -293,11 +293,11 @@ class ThumbnailModule extends GalleryModule {
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -307,17 +307,17 @@ class ThumbnailModule extends GalleryModule {
 	global $gallery;
 
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Unregister all of our properties and operations */
 	$ret = GalleryCoreApi::unregisterToolkit('Thumbnail');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -335,7 +335,7 @@ class ThumbnailModule extends GalleryModule {
 	   AND [GalleryChildEntity::parentId] > 0
 	';
 	list ($ret, $searchResults) = $gallery->search($query);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while ($result = $searchResults->nextResult()) {
@@ -343,29 +343,29 @@ class ThumbnailModule extends GalleryModule {
 	}
 	while (!empty($itemIds)) {
 	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($items as $item) {
 		$ret = ThumbnailHelper::restoreThumbnail($item);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
 	$ret = parent::uninstall();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Thumbnails'),
 				 'view' => 'thumbnail.ThumbnailSiteAdmin')));
     }
@@ -383,21 +383,21 @@ class ThumbnailModule extends GalleryModule {
 		$entity->getDerivativeSourceId() != $entity->getParentId()) {
 	    list ($ret, $source) =
 		GalleryCoreApi::loadEntitiesById($entity->getDerivativeSourceId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    /* Already gone.. ok! */
-		    return array(GalleryStatus::success(), null);
+		    return array(null, null);
 		}
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (GalleryUtilities::isA($source, 'ThumbnailImage')) {
 		$ret = GalleryCoreApi::deleteEntityById($source->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 }
 ?>

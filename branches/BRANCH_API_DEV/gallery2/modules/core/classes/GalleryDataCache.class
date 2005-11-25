@@ -334,7 +334,7 @@ class GalleryDataCache {
      */
     function removeFromDisk($pathInfo) {
 	if (!GalleryDataCache::isFileCachingEnabled()) {
-	    return GalleryStatus::success();
+	    return null;
 	}
 
 	global $gallery;
@@ -354,7 +354,7 @@ class GalleryDataCache {
 	} else {
 	    if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
 		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 

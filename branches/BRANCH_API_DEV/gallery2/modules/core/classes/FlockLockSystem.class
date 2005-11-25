@@ -67,11 +67,11 @@ class FlockLockSystem extends GalleryLockSystem {
 	}
 
 	list ($ret, $lockId) = $this->_acquireLock($ids, $timeout, LOCK_READ);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $lockId);
+	return array(null, $lockId);
     }
 
     /**
@@ -96,11 +96,11 @@ class FlockLockSystem extends GalleryLockSystem {
 	}
 
 	list ($ret, $lockId) = $this->_acquireLock($ids, $timeout, LOCK_WRITE);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $lockId);
+	return array(null, $lockId);
     }
 
     /**
@@ -147,7 +147,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	    unset($this->_locks[$lockId]);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -172,7 +172,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	    unset($this->_locks[$lockId]);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -189,14 +189,14 @@ class FlockLockSystem extends GalleryLockSystem {
 		list ($fd, $lockFile) = $lockInfo;
 		$count = $platform->fwrite($fd, '.');
 		if ($count == 0) {
-		    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 						$lockFile);
 		}
 		$platform->fflush($fd);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -257,7 +257,7 @@ class FlockLockSystem extends GalleryLockSystem {
 			@$platform->unlink($lockFile);
 		    }
 		}
-		return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						  $lockFile), null);
 	    }
 	}
@@ -304,7 +304,7 @@ class FlockLockSystem extends GalleryLockSystem {
 			    }
 			}
 		    }
-		    return array(GalleryStatus::error(ERROR_LOCK_TIMEOUT, __FILE__, __LINE__,
+		    return array(GalleryCoreApi::error(ERROR_LOCK_TIMEOUT, __FILE__, __LINE__,
 			array_reduce($notLocked,
 			    create_function('$v,$w', 'return empty($v) ? $w[1] : "$v $w[1]";'))),
 			null);
@@ -320,7 +320,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	$this->_locks[$lockId] = array('type' => $lockType,
 				       'ids' => $ids,
 				       'lockInfo' => $locked);
-	return array(GalleryStatus::success(), $lockId);
+	return array(null, $lockId);
     }
 
 

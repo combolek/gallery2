@@ -51,11 +51,11 @@ class ColorPackModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ColorPackInterface_1_0', 'ColorPackImpl', 'ColorPack',
 	    'modules/colorpack/classes/ColorPackImpl.class', 'colorpack', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

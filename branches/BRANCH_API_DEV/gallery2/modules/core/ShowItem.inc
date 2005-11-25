@@ -46,7 +46,7 @@ class ShowItemController extends GalleryController {
 	    $session->put('theme.guestPreviewMode', $guestPreviewMode ? 1 : 0);
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('return' => 1,
 			   'status' => array(),
 			   'error' => array()));
@@ -68,36 +68,36 @@ class ShowItemView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Make sure we have permission to view this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.view');
-	if ($ret->isError()) {
+	if ($ret) {
 	    if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 		list ($ret2, $anonymousId) = GalleryCoreApi::getPluginParameter(
 		    'module', 'core', 'id.anonymousUser');
-		if ($ret2->isError()) {
+		if ($ret2) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($gallery->getActiveUserId() == $anonymousId) {
 		    /* Redirect to login view */
-		    return array(GalleryStatus::success(),
+		    return array(null,
 				 array('redirect' => GalleryCapabilities::get('loginRedirect')));
 		}
 		/* Try to redirect to root */
 		list ($ret2, $rootId) = GalleryCoreApi::getPluginParameter(
 		    'module', 'core', 'id.rootAlbum');
-		if ($ret2->isError()) {
+		if ($ret2) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($item->getId() == $rootId) {
 		    /* No permission on root album; redirect to login view */
-		    return array(GalleryStatus::success(),
+		    return array(null,
 				 array('redirect' => GalleryCapabilities::get('loginRedirect')));
 		}
-		return array(GalleryStatus::success(), array('redirect' =>
+		return array(null, array('redirect' =>
 		    array('view' => 'core.ShowItem', 'itemId' => $rootId)));
 	    }
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -105,11 +105,11 @@ class ShowItemView extends GalleryView {
 
 	/* Increment the view count */
 	$ret = GalleryCoreApi::incrementItemViewCount($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 
     /**
@@ -119,12 +119,12 @@ class ShowItemView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$typeName = $item->itemTypeName(true);
-	return array(GalleryStatus::success(), $typeName[1]);
+	return array(null, $typeName[1]);
     }
 }
 ?>

@@ -51,7 +51,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	 * able to properly deal with deactivated plugins.
 	 */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe', true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -71,7 +71,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	}
 	asort($frames);
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array_merge(array('none' => $module->translate('None')), $frames));
     }
 
@@ -94,7 +94,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	$data =& $template->getVariableByReference('ImageFrameData');
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$urlGenerator =& $gallery->getUrlGenerator();
@@ -138,7 +138,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	}
 	$data['idList'] = implode('|', array_keys($data['data']));
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -161,7 +161,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
 	if (isset($itemId)) {
 	    $params['itemId'] = $itemId;
 	}
-	return array(GalleryStatus::success(), $urlGenerator->generateUrl($params));
+	return array(null, $urlGenerator->generateUrl($params));
     }
 }
 ?>

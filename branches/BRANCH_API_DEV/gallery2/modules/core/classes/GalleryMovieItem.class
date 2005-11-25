@@ -136,16 +136,16 @@ class GalleryMovieItem_core extends GalleryDataItem {
 
 	/* Validate the input filename */
 	if (empty($videoFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($videoFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/* Create our data item */
 	$ret = parent::create($parentId, $videoFileName, $mimeType, $targetName, $symlink);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -159,16 +159,16 @@ class GalleryMovieItem_core extends GalleryDataItem {
 
 	/* Detect our dimensions, if possible */
 	$ret = $this->rescan();
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* Cleanup our datafile on failure */
 	    list ($ret2, $path) = $this->fetchPath();
-	    if ($ret2->isSuccess()) {
+	    if (!$ret2) {
 		@$platform->unlink($path);
 	    }
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -178,26 +178,26 @@ class GalleryMovieItem_core extends GalleryDataItem {
 	global $gallery;
 
 	$ret = parent::rescan();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$mimeType = $this->getMimeType();
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) =
 		$toolkit->getProperty($mimeType, 'dimensions-and-duration', $path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 
 		/*
 		 * If we can't get the dimensions, it's probably a bad movie.
@@ -212,7 +212,7 @@ class GalleryMovieItem_core extends GalleryDataItem {
 	    $this->setDuration(round($dimensions[2]));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -222,7 +222,7 @@ class GalleryMovieItem_core extends GalleryDataItem {
 	global $gallery;
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret->isError()) {
+	    if (! $ret) {
 		return array($core->translate('Movie'), $core->translate('movie'));
 	    }
 	}

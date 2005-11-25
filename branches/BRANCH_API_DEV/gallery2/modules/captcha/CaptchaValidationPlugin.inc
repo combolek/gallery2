@@ -58,7 +58,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	    $success = true;
 	}
 
-	return array(GalleryStatus::success(), $error, $success);
+	return array(null, $error, $success);
     }
 
     /**
@@ -84,7 +84,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 		 */
 		list ($ret, $failedAttemptThreshold) =
 		    GalleryCoreApi::getPluginParameter('module', 'captcha', 'failedAttemptThreshold');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		
@@ -109,7 +109,7 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 		break;
 	default:
 		/* Bad Parameter */
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), 
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), 
 			     null, null);
 	}
 
@@ -124,12 +124,12 @@ class CaptchaValidationPlugin extends GalleryValidationPlugin {
 	    $code = substr($rcode, 2, 6);
 	    $session->put('captcha.key', $code);
 
-	    return array(GalleryStatus::success(),
+	    return array(null,
 			 'modules/captcha/templates/CaptchaValidationPlugin.tpl',
 			 'modules_captcha');
 	} else {
 	    /* They haven't failed enough to require the captcha yet */
-	    return array(GalleryStatus::success(), null, null);
+	    return array(null, null, null);
 	}
     }
 }

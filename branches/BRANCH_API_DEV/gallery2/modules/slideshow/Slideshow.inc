@@ -46,14 +46,14 @@ class SlideshowView extends GalleryView {
 	} else {
 	    /* Build slideshow for an album */
 	    list ($ret, $item) = $this->_getItem();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!$item->getCanContainChildren()) {
 		/* Photo: do slideshow of parent album, start at this photo */
 		$startId = $item->getId();
 		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -62,7 +62,7 @@ class SlideshowView extends GalleryView {
 
 	list ($ret, $itemList, $start) =
 	    $this->buildSlideshow($item, $startId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -75,7 +75,7 @@ class SlideshowView extends GalleryView {
 	$SlideShow['start'] = $start;
 	$template->setVariable('SlideShow', $SlideShow);
 	$template->head('modules/slideshow/templates/Header.tpl');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/slideshow/templates/Slideshow.tpl'));
     }
 
@@ -96,7 +96,7 @@ class SlideshowView extends GalleryView {
 	    );                      /* 5:  >1280x1024 */
 	    list ($ret, $this->exifExtractor) =
 		GalleryCoreApi::newFactoryInstance('ExifInterface_1_0');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $this->init = 1;
@@ -105,7 +105,7 @@ class SlideshowView extends GalleryView {
 	    $childIds = $item;
 	} else {
 	    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
@@ -114,26 +114,26 @@ class SlideshowView extends GalleryView {
 	if (!empty($childIds)) {
 	    $gallery->guaranteeTimeLimit(30);
 	    $ret = GalleryCoreApi::studyPermissions($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $preferredFullImages) =
 		GalleryCoreApi::fetchPreferredsByItemIds($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $resizedImages) =
 		GalleryCoreApi::fetchResizesByItemIds($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    /* If an Exif extractor is available try to get capture dates */
@@ -141,7 +141,7 @@ class SlideshowView extends GalleryView {
 	    if (isset($this->exifExtractor)) {
 		list ($ret, $exif) =
 		    $this->exifExtractor->getMetaData($childIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
@@ -164,7 +164,7 @@ class SlideshowView extends GalleryView {
 		if ($recursive) {
 		    list ($ret, $sublist) =
 			$this->buildSlideshow($child, null, $recursive);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $itemList = array_merge($itemList, $sublist);
@@ -174,7 +174,7 @@ class SlideshowView extends GalleryView {
 
 		list ($ret, $permissions) =
 		    GalleryCoreApi::getPermissions($childId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -208,7 +208,7 @@ class SlideshowView extends GalleryView {
 			if (!($image->getWidth() && $image->getHeight())) {
 			    list ($ret, $image) =
 				GalleryCoreApi::rebuildDerivativeCache($image->getId());
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 			}
@@ -250,7 +250,7 @@ class SlideshowView extends GalleryView {
 		}
 	    }
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 		     $itemList, isset($start) ? $start : 0);
     }
 }

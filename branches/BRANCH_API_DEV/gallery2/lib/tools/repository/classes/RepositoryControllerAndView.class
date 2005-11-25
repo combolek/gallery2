@@ -69,7 +69,7 @@
 
 	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($viewFile)) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					"Invalid path: $viewFile");
 	}
 
@@ -80,12 +80,12 @@
 
 	/* Send template to the browser. */
 	list($ret, $templateContents) = $this->_template->fetch('gallery:' . $viewFileRelative);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	print $templateContents;
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

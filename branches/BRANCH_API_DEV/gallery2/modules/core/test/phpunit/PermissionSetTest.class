@@ -45,14 +45,14 @@ class PermissionSetTest extends GalleryTestCase {
 	$ret = GalleryCoreApi::registerPermission('testModule',
 						  'test.test1',
 						  'regular permission');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::registerPermission('testModule',
 						  'test.test2',
 						  'another regular permission');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -61,7 +61,7 @@ class PermissionSetTest extends GalleryTestCase {
 						  'composite permission',
 						  GALLERY_PERMISSION_COMPOSITE,
 						  array('test.test1', 'test.test2'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -69,14 +69,14 @@ class PermissionSetTest extends GalleryTestCase {
 						  'test.test4',
 						  'all access permission',
 						  GALLERY_PERMISSION_ALL_ACCESS);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::registerPermission('testModule',
 						  'test.test5',
 						  'another regular permission');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -85,14 +85,14 @@ class PermissionSetTest extends GalleryTestCase {
 						  'overlap composite permission',
 						  GALLERY_PERMISSION_COMPOSITE,
 						  array('test.test1', 'test.test5'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::unregisterModulePermissions('testModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -137,12 +137,12 @@ class PermissionSetTest extends GalleryTestCase {
      */
     function testConvertRoundTrip1() {
 	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array('test.test1'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -158,12 +158,12 @@ class PermissionSetTest extends GalleryTestCase {
      */
     function testConvertRoundTrip2() {
 	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(array('test.test3'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -184,12 +184,12 @@ class PermissionSetTest extends GalleryTestCase {
 	    GalleryCoreApi::convertPermissionIdsToBits(array('test.test1',
 							    'test.test2',
 							    'test.test5'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -216,12 +216,12 @@ class PermissionSetTest extends GalleryTestCase {
 	    GalleryCoreApi::convertPermissionIdsToBits(array('test.test1',
 							    'test.test2',
 							    'test.test5'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits, true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -240,12 +240,12 @@ class PermissionSetTest extends GalleryTestCase {
 							    'test.test2',
 							    'test.test5',
 							    'core.all'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $ids) = GalleryCoreApi::convertPermissionBitsToIds($bits, true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

@@ -147,7 +147,7 @@ class GalleryPlugin {
 	}
 	list ($ret, $content) =
 	    $translator->translateDomain($this->getPluginType() . 's_' . $this->getId(), $params);
-	if ($ret->isError()) {
+	if ($ret) {
 	    if ($gallery->getDebug()) {
 		$gallery->debug($ret->getAsHtml());
 	    }
@@ -177,7 +177,7 @@ class GalleryPlugin {
 	}
 	
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -191,7 +191,7 @@ class GalleryPlugin {
 						       'pluginId' => $pluginId,
 						       'active' => 1));
 	}
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -212,7 +212,7 @@ class GalleryPlugin {
 	    $event->setData(array('pluginType' => $this->getPluginType(),
 				  'pluginId' => $this->getId()));
 	    list ($ret) = GalleryCoreApi::postEvent($event);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -222,7 +222,7 @@ class GalleryPlugin {
 				    $pluginId));
 	}
 
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 
     /**
@@ -242,7 +242,7 @@ class GalleryPlugin {
 	$ret = GalleryPluginMap::updateMapEntry(array('pluginType' => $pluginType,
 						      'pluginId' => $pluginId),
 						array('active' => 0));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -255,12 +255,12 @@ class GalleryPlugin {
 
 	if ($postDeactivationEvent) {
 	    $ret = $this->_postDeactivationEvent();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 
     /**
@@ -280,7 +280,7 @@ class GalleryPlugin {
 	}
 	
 	list ($ret, $isActive) = $this->isActive();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$isActive) {
@@ -288,7 +288,7 @@ class GalleryPlugin {
 		$gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, plugin is ' .
 					'not active, nothing to do', $this->getId()));
 	    }	    
-	    return array(GalleryStatus::success(), null);
+	    return array(null, null);
 	}
 
 	if ($gallery->getDebug()) {
@@ -297,11 +297,11 @@ class GalleryPlugin {
 	}
 	
 	list ($ret, $redirect) = $this->deactivate(false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($redirect)) {
-	    return array(GalleryStatus::success(), $redirect);
+	    return array(null, $redirect);
 	}
 
 	if ($gallery->getDebug()) {
@@ -310,7 +310,7 @@ class GalleryPlugin {
 	}
 	
 	list ($ret, $redirect) = $this->activate(false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* Try to send the deactivation event before failing completely. */
 	    $this->_postDeactivationEvent();
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -319,7 +319,7 @@ class GalleryPlugin {
 	if (!empty($redirect)) {
 	    /* Try to send the deactivation event before returning the redirect. */
 	    $this->_postDeactivationEvent();
-	    return array(GalleryStatus::success(), $redirect);
+	    return array(null, $redirect);
 	}
 
 	if ($gallery->getDebug()) {
@@ -327,7 +327,7 @@ class GalleryPlugin {
 				    'reactivated', $this->getId()));
 	}
 	
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 
     /**
@@ -341,11 +341,11 @@ class GalleryPlugin {
 	$event->setData(array('pluginType' => $this->getPluginType(),
 			      'pluginId' => $this->getId()));
 	list ($ret) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -358,7 +358,7 @@ class GalleryPlugin {
 
 	/* Remove this plugin */
 	$ret = GalleryCoreApi::removePlugin($this->getPluginType(), $this->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -374,11 +374,11 @@ class GalleryPlugin {
 	$event->setData(array('pluginType' => $this->getPluginType(),
 			      'pluginId' => $this->getId()));
 	list ($ret) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -391,7 +391,7 @@ class GalleryPlugin {
      * @return object GalleryStatus a status code
      */
     function installOrUpgrade() {
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -404,17 +404,17 @@ class GalleryPlugin {
 	global $gallery;
 
 	list($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($this->getPluginType());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($pluginStatus[$this->getId()])) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 			      sprintf("No such %s: %s", $this->getPluginType(), $this->getId())),
 			 null);
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     empty($pluginStatus[$this->getId()]['active']) ? false : true);
     }
 
@@ -429,11 +429,11 @@ class GalleryPlugin {
     function getParameter($parameterName, $itemId=0) {
 	list ($ret, $value) = GalleryCoreApi::getPluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $itemId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $value);
+	return array(null, $value);
     }
 
     /**
@@ -447,11 +447,11 @@ class GalleryPlugin {
     function setParameter($parameterName, $parameterValue, $itemId=0) {
 	$ret = GalleryCoreApi::setPluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $parameterValue, $itemId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -464,11 +464,11 @@ class GalleryPlugin {
     function removeParameter($parameterName, $itemId=0) {
 	$ret = GalleryCoreApi::removePluginParameter(
 	    $this->getPluginType(), $this->getId(), $parameterName, $itemId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -491,13 +491,13 @@ class GalleryPlugin {
 	foreach ($order as $id) {
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 		$this->getPluginType(), $this->getId(), $id);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $results = array_merge($results, $params);
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -515,7 +515,7 @@ class GalleryPlugin {
      * @access protected
      */
     function upgrade($currentVersion) {
-	return GalleryStatus::success();
+	return null;
     }
 
     /* Getters and setters below */

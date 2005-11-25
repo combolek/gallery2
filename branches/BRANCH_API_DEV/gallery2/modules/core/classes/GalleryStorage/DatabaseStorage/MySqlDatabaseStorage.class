@@ -141,7 +141,7 @@ class MySqlDatabaseStorage extends DatabaseStorage {
 	    return array(GalleryStatus::ERROR_UNIMPLEMENTED(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $sql);
+	return array(null, $sql);
     }
 
     /**

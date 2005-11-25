@@ -43,7 +43,7 @@ class AdminCreateGroupController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -63,17 +63,17 @@ class AdminCreateGroupController extends GalleryController {
 	     */
 	    if (!empty($form['groupName'])) {
 		list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($group)) {
-		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $group->create($form['groupName']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -82,7 +82,7 @@ class AdminCreateGroupController extends GalleryController {
 		    $error[] = 'form[error][groupName][exists]';
 		} else {
 		    $ret = $group->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -106,7 +106,7 @@ class AdminCreateGroupController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -125,7 +125,7 @@ class AdminCreateGroupView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -140,7 +140,7 @@ class AdminCreateGroupView extends GalleryView {
 	$template->setVariable('AdminCreateGroup', $AdminCreateGroup);
 	$template->setVariable('controller', 'core.AdminCreateGroup');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/AdminCreateGroup.tpl'));
     }
 }

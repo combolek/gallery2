@@ -45,7 +45,7 @@ class GalleryValidationPlugin {
      *               boolean true/false should we continue trying to log in?
      */
     function performValidation(&$form) {
-	return array(GalleryStatus::success(), array(), true);
+	return array(null, array(), true);
     }
 
     /**
@@ -57,7 +57,7 @@ class GalleryValidationPlugin {
      *               string localization domain for the template file
      */
     function loadTemplate(&$template, &$form, $securityLevel) {
-	return array(GalleryStatus::success(), null, null);
+	return array(null, null, null);
     }
 }
 ?>

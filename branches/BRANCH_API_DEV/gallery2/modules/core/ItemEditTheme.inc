@@ -42,11 +42,11 @@ class ItemEditTheme extends ItemEditPlugin {
 	global $gallery;
 
 	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -55,13 +55,13 @@ class ItemEditTheme extends ItemEditPlugin {
 
 	if ($theme->isAdvancedSettings()) {
 	    list ($ret, $error, $status) = $theme->handleSettingsRequest($form, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -71,7 +71,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	    if (empty($validationErrors)) {
 		/* Get the item settings */
 		list ($ret, $settings) = $theme->getSettings($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -86,7 +86,7 @@ class ItemEditTheme extends ItemEditPlugin {
 		    $key = $setting['key'];
 		    if (!empty($form['useGlobal'][$key])) {
 			$ret = $theme->removeParameter($key, $item->getId());
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    } else {
@@ -103,7 +103,7 @@ class ItemEditTheme extends ItemEditPlugin {
 
 			if ($setting['value'] != $value) {
 			    $ret = $theme->setParameter($key, $value, $item->getId());
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 			}
@@ -125,7 +125,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	     */
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -136,17 +136,17 @@ class ItemEditTheme extends ItemEditPlugin {
 	$ItemEditTheme = array();
 
 	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if ($theme->isAdvancedSettings()) {
 	    list ($ret, $tpl) = $theme->loadSettingsTemplate($template, $form, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ItemEditTheme['customTemplate'] = $tpl;
@@ -154,14 +154,14 @@ class ItemEditTheme extends ItemEditPlugin {
 
 	/* Get the per-item settings (global + item) */
 	list ($ret, $settings) = $theme->getSettings($item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Fetch the global-only params */
 	list ($ret, $globalParams) =
 	GalleryCoreApi::fetchAllPluginParameters('theme', $theme->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -180,7 +180,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	/* Fetch the item-only params */
 	list ($ret, $itemParams) =
 	    GalleryCoreApi::fetchAllPluginParameters('theme', $theme->getId(), $item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -206,7 +206,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	$ItemEditTheme['globalParams'] = $globalParams;
 
 	list ($ret, $ItemEditTheme['availableBlocks']) = $this->loadAvailableBlocks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -216,7 +216,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	$template->javascript('lib/javascript/BlockSelectWidget.js');
 	$template->setVariable('ItemEditTheme', $ItemEditTheme);
 	$template->setVariable('controller', 'core.ItemEditTheme');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/core/templates/ItemEditTheme.tpl', 'modules_core');
     }
 
@@ -232,11 +232,11 @@ class ItemEditTheme extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Theme'));
+	return array(null, $module->translate('Theme'));
     }
 
     /**
@@ -249,11 +249,11 @@ class ItemEditTheme extends ItemEditPlugin {
 	 */
 	GalleryCoreApi::relativeRequireOnce('modules/core/AdminThemes.inc');
 	list ($ret, $blocks) = AdminThemesView::loadAvailableBlocks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $blocks);
+	return array(null, $blocks);
     }
 }
 ?>

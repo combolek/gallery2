@@ -41,7 +41,7 @@ class AdminEditUserController extends GalleryController {
      */
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -51,7 +51,7 @@ class AdminEditUserController extends GalleryController {
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -60,7 +60,7 @@ class AdminEditUserController extends GalleryController {
 	 */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$isAnonymous = ($userId == $anonymousUserId);
@@ -91,7 +91,7 @@ class AdminEditUserController extends GalleryController {
 
 	    if (!empty($form['userName'])) {
 		list ($ret, $tmpUser) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -123,12 +123,12 @@ class AdminEditUserController extends GalleryController {
 	     */
 	    if (empty($error)) {
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $user) = $user->refresh();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -143,12 +143,12 @@ class AdminEditUserController extends GalleryController {
 		}
 
 		$ret = $user->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -168,7 +168,7 @@ class AdminEditUserController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -188,13 +188,13 @@ class AdminEditUserView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -210,7 +210,7 @@ class AdminEditUserView extends GalleryView {
 	/* Email is not required for the anonymous user */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$show['email'] = ($userId != $anonymousUserId);
@@ -220,7 +220,7 @@ class AdminEditUserView extends GalleryView {
 	if ($show['language']) {
 	    /* Set up our language selection list */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -244,7 +244,7 @@ class AdminEditUserView extends GalleryView {
 
 	$template->setVariable('AdminEditUser', $AdminEditUser);
 	$template->setVariable('controller', 'core.AdminEditUser');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/AdminEditUser.tpl'));
     }
 }

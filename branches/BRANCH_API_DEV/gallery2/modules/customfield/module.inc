@@ -56,12 +56,12 @@ class CustomFieldModule extends GalleryModule {
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -76,7 +76,7 @@ class CustomFieldModule extends GalleryModule {
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Custom Fields'),
 				 'view' => 'customfield.CustomFieldSiteAdmin')));
     }
@@ -90,7 +90,7 @@ class CustomFieldModule extends GalleryModule {
 	$summaries = array();
 
 	list ($ret, $data) = CustomFieldHelper::fetchFieldValues($items, 'summary');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -103,7 +103,7 @@ class CustomFieldModule extends GalleryModule {
 		$summaries[$itemId] = implode("<br/>\n", $list);
 	    }
 	}
-	return array(GalleryStatus::success(), $summaries);
+	return array(null, $summaries);
     }
 
     /**
@@ -114,7 +114,7 @@ class CustomFieldModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'CustomFieldItemEdit', 'CustomFieldItemEdit',
 	    'modules/customfield/CustomFieldItemEdit.inc', 'customfield', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -122,7 +122,7 @@ class CustomFieldModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CustomFieldInterface_1_0', 'CustomFieldHelper', 'CustomField',
 	    'modules/customfield/classes/CustomFieldHelper.class', 'customfield', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -130,11 +130,11 @@ class CustomFieldModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySearchInterface_1_0', 'CustomFieldSearch', 'CustomField',
 	    'modules/customfield/classes/CustomFieldSearch.class', 'customfield', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

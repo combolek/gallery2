@@ -46,7 +46,7 @@ class TranslatorTest extends GalleryTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_languageCode) = $gallery->getActiveLanguageCode();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -55,7 +55,7 @@ class TranslatorTest extends GalleryTestCase {
     function tearDown() {
 	global $gallery;
 	$ret = $gallery->setActiveLanguageCode($this->_languageCode);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -120,7 +120,7 @@ class TranslatorTest extends GalleryTestCase {
 	/* Singular text data */
 	list ($ret, $results) =
 	    $translator->translateDomain($domain, array('text' => 'Description'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($translator->canTranslate()) {
@@ -133,7 +133,7 @@ class TranslatorTest extends GalleryTestCase {
 	$translator->init('fr_FR');
 	list ($ret, $results) =
 	    $translator->translateDomain($domain, array('text' => 'Create'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($translator->canTranslate()) {
@@ -157,7 +157,7 @@ class TranslatorTest extends GalleryTestCase {
 					       'many' => '%d users match your filter',
 					       'count' => 1,
 					       'arg1' => 1));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($translator->canTranslate()) {
@@ -173,7 +173,7 @@ class TranslatorTest extends GalleryTestCase {
 					       'many' => '%d users match your filter',
 					       'count' => 2,
 					       'arg1' => 2));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($translator->canTranslate()) {
@@ -198,7 +198,7 @@ class TranslatorTest extends GalleryTestCase {
 	/* Singular text data */
 	list ($ret, $results) =
 	    $translator->translateDomain($domain, array('text' => 'Album'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($translator->canTranslate()) {

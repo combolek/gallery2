@@ -43,7 +43,7 @@ class AdminDeleteUserQuotaController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -52,7 +52,7 @@ class AdminDeleteUserQuotaController extends GalleryController {
 	$error = array();
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($form['action']['cancel'])) {
@@ -68,13 +68,13 @@ class AdminDeleteUserQuotaController extends GalleryController {
 
 	    list ($ret, $quotaExists, $userQuota) =
 	        GalleryQuotasHelper::fetchUserQuota($user->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($quotaExists) {
 		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $user->getId()));
-                if ($ret->isError()) {
+                if ($ret) {
                     return array($ret->wrap(__FILE__, __LINE__), null);
                 }
 
@@ -94,7 +94,7 @@ class AdminDeleteUserQuotaController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -113,19 +113,19 @@ class AdminDeleteUserQuotaView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $quotaExists, $userQuota) =
 	    GalleryQuotasHelper::fetchUserQuota($user->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -138,7 +138,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 	$AdminDeleteUserQuota = array();
 	list ($ret, $AdminDeleteUserQuota['quotaSize'], $AdminDeleteUserQuota['quotaUnit']) =
 	    GalleryQuotasHelper::humanReadableFromKilobytes($userQuota['quota']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminDeleteUserQuota['user'] = $user->getMemberData();
@@ -147,7 +147,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 	$template->setVariable('AdminDeleteUserQuota', $AdminDeleteUserQuota);
 	$template->setVariable('controller', 'quotas.AdminDeleteUserQuota');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/quotas/templates/AdminDeleteUserQuota.tpl'));
     }
 }

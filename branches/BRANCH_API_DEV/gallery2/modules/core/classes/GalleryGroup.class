@@ -112,24 +112,24 @@ class GalleryGroup_core extends GalleryEntity {
 	list($ret, $results) =
 	    $gallery->search($query, array($groupName),
 			     array('limit' => array('count' => 1)));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$result = $results->nextResult();
 	if ($result[0] > 0) {
-	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	$ret = parent::create();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setGroupName($groupName);
 	$this->setGroupType($groupType);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -142,23 +142,23 @@ class GalleryGroup_core extends GalleryEntity {
      */
     function delete() {
 	$ret = GalleryCoreApi::removeAllUsersFromGroup($this->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete all permissions from the permissions map table */
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
 	$ret = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $this->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = parent::delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -167,7 +167,7 @@ class GalleryGroup_core extends GalleryEntity {
     function itemTypeName($localized = true) {
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret->isError()) {
+	    if (! $ret) {
 		return array($core->translate('Group'), $core->translate('group'));
 	    }
 	}

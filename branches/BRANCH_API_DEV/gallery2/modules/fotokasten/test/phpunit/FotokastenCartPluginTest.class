@@ -48,7 +48,7 @@ class FotokastenCartPluginTest extends GalleryTestCase {
 	$cartItemIds = array(123 => 1, 456 => 2, 789 => 1);
 
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('controller' => 'fotokasten.PrintPhotos', 'return' => 1),

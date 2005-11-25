@@ -53,19 +53,19 @@ class ArchiveUploadModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'archiveupload');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('unzipPath' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -75,11 +75,11 @@ class ArchiveUploadModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ArchiveExtractToolkit', 'ArchiveUpload',
 	    'modules/archiveupload/classes/ArchiveExtractToolkit.class', 'archiveupload', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -87,26 +87,26 @@ class ArchiveUploadModule extends GalleryModule {
      */
     function autoConfigure() {
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
-	    return array(GalleryStatus::success(), true);
+	    return array(null, true);
 	}
 
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/archiveupload/classes/ArchiveUploadHelper.class');
 	$unzipPath = ArchiveUploadHelper::findUnzipBinary();
 	if (empty($unzipPath)) {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 
 	$this->setParameter('unzipPath', $unzipPath);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
-	return array(GalleryStatus::success(), true);
+	return array(null, true);
     }
 
     /**
@@ -115,16 +115,16 @@ class ArchiveUploadModule extends GalleryModule {
     function needsConfiguration() {
 	foreach (array('unzipPath') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {
-		return array(GalleryStatus::success(), true);
+		return array(null, true);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
@@ -136,16 +136,16 @@ class ArchiveUploadModule extends GalleryModule {
 							'extract',
 							array(),
 							'extract files from an archive');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -153,24 +153,24 @@ class ArchiveUploadModule extends GalleryModule {
      */
     function deactivate($postDeactivationEvent=true) {
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Unregister all of our properties and operations */
 	$ret = GalleryCoreApi::unregisterToolkit('ArchiveUpload');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Archive'),
 				 'view' => 'archiveupload.ArchiveUploadSiteAdmin')));
     }

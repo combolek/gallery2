@@ -43,27 +43,27 @@ class GalleryEntityHelper_medium {
      */
     function deleteEntityById($id) {
 	if (empty($id)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 	$lockIds = array();
 
 	/* Don't write lock it if it's already locked somewhere else */
 	if (!GalleryCoreApi::isWriteLocked($id)) {
 	    list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($id);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	list ($ret, $entity) = GalleryEntityHelper_simple::loadEntitiesById($id);
-	if ($ret->isError()) {
+	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (GalleryUtilities::isA($entity, 'GalleryChildEntity')) {
 	    list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLockParents($id);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -71,7 +71,7 @@ class GalleryEntityHelper_medium {
 
 	/* If this item has links to it, make one of those links the master */
 	list ($ret, $linkedIds) = GalleryEntityHelper_medium::fetchEntitiesLinkedTo($id);
-	if ($ret->isError()) {
+	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -79,26 +79,26 @@ class GalleryEntityHelper_medium {
 	if (!empty($linkedIds)) {
 	    /* Lock all of the linked items */
 	    list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($linkedIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Make the first link the master, and point the rest at it */
 	    list ($ret, $linkedEntities) = GalleryEntityHelper_simple::loadEntitiesById($linkedIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $linkedEntities[0]->detachLink();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $linkedEntities[0]->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -106,7 +106,7 @@ class GalleryEntityHelper_medium {
 		$linkedEntities[$i]->setLinkId($linkedEntities[0]->getId());
 		$linkedEntities[$i]->setLinkedEntity($linkedEntities[0]);
 		$ret = $linkedEntities[$i]->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockIds);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -114,24 +114,24 @@ class GalleryEntityHelper_medium {
 
 	    /* Remap any derivatives sourced from old-master to new-master */
 	    $ret = GalleryCoreApi::remapSourceIds($id, $linkedEntities[0]->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	$ret = $entity->delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -157,7 +157,7 @@ class GalleryEntityHelper_medium {
 	';
 	$storage =& $gallery->getStorage();
 	list ($ret, $searchResults) = $gallery->search($query, array($targetId));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -166,7 +166,7 @@ class GalleryEntityHelper_medium {
 	    $linkedIds[] = $result[0];
 	}
 
-	return array(GalleryStatus::success(), $linkedIds);
+	return array(null, $linkedIds);
     }
 
     /**
@@ -184,7 +184,7 @@ class GalleryEntityHelper_medium {
 	$i = 0;
 	foreach ($handlerIds as $handlerId) {
 	    list ($ret, $results) = $gallery->search($query, array("%|$handlerId|%"));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -194,28 +194,28 @@ class GalleryEntityHelper_medium {
 		}
 		$id = (int)$result[0];
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($id);
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$entity->removeOnLoadHandler($handlerId);
 		$ret = $entity->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -227,25 +227,25 @@ class GalleryEntityHelper_medium {
      */
     function updateModificationTimestamp($entityId) {
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($entityId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($entityId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$entity->setModificationTimestamp(time());
 	$ret = $entity->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::releaseLocks($lockId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

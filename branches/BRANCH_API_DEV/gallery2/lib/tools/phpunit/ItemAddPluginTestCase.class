@@ -51,7 +51,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 
 	list ($ret, $this->_plugin) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemAddPlugin', $pluginName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if (!isset($this->_plugin)) {
@@ -59,7 +59,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 	}
 
 	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', $moduleName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -84,7 +84,7 @@ class ItemAddPluginTestCase extends GalleryTestCase {
 				      join(' | ', GalleryStatus::getErrorCodeConstants($errorCode)),
 				      join(' | ', GalleryStatus::getErrorCodeConstants($ret->getErrorCode()))));
 	    }
-	} else if ($ret->isError()) {
+	} else if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	} else {
 	    /* Check to make sure we got back everything we want */

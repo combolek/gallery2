@@ -43,7 +43,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::registerToolkitOperation('TestToolkitPriority',
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 30);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority');
@@ -51,7 +51,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 	$ret = GalleryCoreApi::registerToolkitOperation('TestToolkitPriority2',
 		array('test/type'), 'test-operation', array(),
 		'test-description', 'test/outputType', 27);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('TestToolkitPriority2');
@@ -83,7 +83,7 @@ class AdminToolkitPriorityControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

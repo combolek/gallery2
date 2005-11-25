@@ -46,7 +46,7 @@ class ModifyCartController extends GalleryController {
      */
     function handleRequest($form) {
 	list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -76,7 +76,7 @@ class ModifyCartController extends GalleryController {
 
 		/* Update the cart values */
 		$ret = CartHelper::setCartItemCounts($cartItemIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['cartModified'] = 1;
@@ -85,7 +85,7 @@ class ModifyCartController extends GalleryController {
 	    case 'emptyCart':
 		/* Empty the cart */
 		$ret = CartHelper::setCartItemCounts(array());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['cartModified'] = 1;
@@ -98,7 +98,7 @@ class ModifyCartController extends GalleryController {
 		list ($ret, $cartPlugin) =
 		    GalleryCoreApi::newFactoryInstanceById('CartPluginInterface_1_0',
 							   $form['pluginId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -108,7 +108,7 @@ class ModifyCartController extends GalleryController {
 
 		/* Pass in only the types the plugin supports */
 		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById(array_keys($cartItemIds));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -124,7 +124,7 @@ class ModifyCartController extends GalleryController {
 		}
 
 		list ($ret, $redirect) = $cartPlugin->fulfillCart($fulfillmentCart);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -135,7 +135,7 @@ class ModifyCartController extends GalleryController {
 
 		/* Save the modified cart */
 		$ret = CartHelper::setCartItemCounts($cartItemIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -157,7 +157,7 @@ class ModifyCartController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 ?>

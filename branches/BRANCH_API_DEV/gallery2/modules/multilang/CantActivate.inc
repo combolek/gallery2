@@ -45,7 +45,7 @@ class CantActivateController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -69,7 +69,7 @@ class CantActivateView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'multilang.CantActivate');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/multilang/templates/CantActivate.tpl'));
     }
 }

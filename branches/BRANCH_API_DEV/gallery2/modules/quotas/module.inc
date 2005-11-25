@@ -54,12 +54,12 @@ class QuotasModule extends GalleryModule {
 	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.1', '<')) {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('QuotasMap:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -73,7 +73,7 @@ class QuotasModule extends GalleryModule {
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Quotas'),
 				 'view' => 'quotas.AdminQuotas')));
     }
@@ -85,11 +85,11 @@ class QuotasModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddOption', 'DiskQuotaOption', 'DiskQuotaOption',
 	    'modules/quotas/DiskQuotaOption.inc', 'quotas', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -113,27 +113,27 @@ class QuotasModule extends GalleryModule {
 		if (GalleryUtilities::isA($entity, 'GalleryGroup')) {
 		    list ($ret, $quotaExists, $groupQuota) =
 			GalleryQuotasHelper::fetchGroupQuota($entity->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		/* If its a user, find if a user quota exists, if so delete it */
 		} else if (GalleryUtilities::isA($entity, 'GalleryUser')) {
 		    list ($ret, $quotaExists, $userQuota) =
 			GalleryQuotasHelper::fetchUserQuota($entity->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		   }
 		}
 
 		if ($quotaExists) {
 		    $ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $entity->getId()));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), $result);
+	return array(null, $result);
     }
 
 }

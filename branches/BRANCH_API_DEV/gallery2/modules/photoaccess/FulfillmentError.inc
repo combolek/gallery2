@@ -40,12 +40,12 @@ class FulfillmentErrorView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'photoaccess');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('PhotoAccess Fulfillment Error'));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/photoaccess/templates/FulfillmentError.tpl'));
     }
 }

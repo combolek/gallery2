@@ -53,14 +53,14 @@ class ImageMagickModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imagemagick');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('path' => '', 'jpegQuality' => '75', 'cmykSupport' => 'none',
 		       'versionOk' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -71,24 +71,24 @@ class ImageMagickModule extends GalleryModule {
 		'modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 	    list ($ret, $version, $vulnerable) =
 		ImageMagickToolkitHelper::discoverVersion($params['path']);
-	    if ($ret->isSuccess() && !$vulnerable) {
+	    if (!$ret && !$vulnerable) {
 		$ret = $this->setParameter('versionOk', '1');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else {
 		list ($ret, $isActive) = $this->isActive();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if ($isActive) {
 		    /* Force upgrade from site admin to see vulnerable-version warning */
-		    return GalleryStatus::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__);
+		    return GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -99,11 +99,11 @@ class ImageMagickModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ImageMagickToolkit', 'ImageMagick',
 	    'modules/imagemagick/classes/ImageMagickToolkit.class', 'imagemagick', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -117,18 +117,18 @@ class ImageMagickModule extends GalleryModule {
 	/* Find out what operations and properties we have available to us */
 	list ($ret, $results) =
 	    ImageMagickToolkitHelper::getOperationsAndProperties();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('ImageMagick');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $priority++;
@@ -142,24 +142,24 @@ class ImageMagickModule extends GalleryModule {
 							    $info['params'],
 							    $info['description'],
 							    $outputMimeType, $priority);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* Check CMYK colorspace support */
 	list ($ret, $cmykSupport) = $this->getParameter('cmykSupport');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($results['properties']['colorspace']) && $cmykSupport != 'none') {
 	    $ret = $this->setParameter('cmykSupport', $cmykSupport = 'none');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (isset($results['properties']['colorspace']) && $cmykSupport == 'none') {
 	    $ret = $this->setParameter('cmykSupport', $cmykSupport = 'off');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -174,23 +174,23 @@ class ImageMagickModule extends GalleryModule {
 							   $property,
 							   $info['type'],
 							   $info['description']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* Save some platform specific ImageMagick parameters */
 	$ret = ImageMagickToolkitHelper::savePlatformParameters();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -203,16 +203,16 @@ class ImageMagickModule extends GalleryModule {
 	 * be after the deactivation is done.
 	 */
 	$ret = GalleryCoreApi::unregisterToolkit('ImageMagick');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -222,16 +222,16 @@ class ImageMagickModule extends GalleryModule {
 	/* This module requires all fields to be filled out before it can be activated. */
 	foreach (array('path', 'jpegQuality', 'cmykSupport', 'versionOk') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {
-		return array(GalleryStatus::success(), true);
+		return array(null, true);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
@@ -241,12 +241,12 @@ class ImageMagickModule extends GalleryModule {
 	global $gallery;
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	if (!$needsConfiguration) {
-	    return array(GalleryStatus::success(), true);
+	    return array(null, true);
 	}
 
 	/* Try a bunch of likely seeming paths to see if any of them work. */
@@ -295,7 +295,7 @@ class ImageMagickModule extends GalleryModule {
 	    $paths[] = '/bin/';
 	    $paths[] = '/sw/bin/';
 	} else {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 
 	/* Load any classes we require */
@@ -305,7 +305,7 @@ class ImageMagickModule extends GalleryModule {
 	/* Now try each path in turn to see which ones work */
 	foreach ($paths as $path) {
 	    list ($ret, $testResults) = ImageMagickToolkitHelper::testBinaries($path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		/* This path failed.  Continue with the next one */
 		continue;
 	    }
@@ -321,34 +321,34 @@ class ImageMagickModule extends GalleryModule {
 	    if ($failCount == 0) {
 		/* We have a winner */
 		$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 
 		/* Force admin to visit site admin to view warning for vulnerable version */
 		list ($ret, $version, $vulnerable) =
 		    ImageMagickToolkitHelper::discoverVersion($path);
-		if ($ret->isSuccess() && !$vulnerable) {
+		if (!$ret && !$vulnerable) {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick',
 							      'versionOk', '1');
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), false);
 		    }
 		} else {
 		    $vulnerable = true;
 		}
-		return array(GalleryStatus::success(), !$vulnerable);
+		return array(null, !$vulnerable);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('ImageMagick'),
 				 'view' => 'imagemagick.AdminImageMagick')));
     }

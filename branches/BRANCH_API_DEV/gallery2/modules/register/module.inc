@@ -57,13 +57,13 @@ class RegisterModule extends GalleryModule {
 			   'from' => 'webmaster@' . GalleryUtilities::getServerVar('SERVER_NAME'))
 			 as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -73,11 +73,11 @@ class RegisterModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'GalleryPendingUser', 'GalleryPendingUser',
 	    'modules/register/classes/GalleryPendingUser.class', 'register', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -96,7 +96,7 @@ class RegisterModule extends GalleryModule {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -109,7 +109,7 @@ class RegisterModule extends GalleryModule {
 				  'return' => 1));
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**
@@ -121,7 +121,7 @@ class RegisterModule extends GalleryModule {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -131,14 +131,14 @@ class RegisterModule extends GalleryModule {
 			     'view' => 'register.UserSelfRegistration');
 	}
 
-	return array(GalleryStatus::success(), $views);
+	return array(null, $views);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Registration'),
 				 'view' => 'register.AdminSelfRegistration')));
     }

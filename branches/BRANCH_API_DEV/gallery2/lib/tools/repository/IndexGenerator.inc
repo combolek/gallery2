@@ -49,12 +49,12 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 	$repositoryDir = $gallery->getConfig('repository.path');
 
 	$ret = $index->init($repositoryDir);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $pluginCounts) = $index->generate();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -65,11 +65,11 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 			  'controller' => 'RepositoryManager', 'action' => 'browse')));
 
 	$ret = $this->showView('IndexGenerationResults', $viewData);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

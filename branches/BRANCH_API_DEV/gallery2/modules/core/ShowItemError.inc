@@ -42,7 +42,7 @@ class ShowItemErrorView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -51,7 +51,7 @@ class ShowItemErrorView extends GalleryView {
 	switch ($problem) {
 	case 'missingTheme':
 	    list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -62,12 +62,12 @@ class ShowItemErrorView extends GalleryView {
 	    }
 
 	    list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -76,7 +76,7 @@ class ShowItemErrorView extends GalleryView {
 					 'themeId' => $themeId,
 					 'canEdit' => $canEdit,
 					 'isAdmin' => $isAdmin));
-	    return array(GalleryStatus::success(),
+	    return array(null,
 			 array('body' => 'modules/core/templates/ShowItemError.tpl'));
 
 	default:
@@ -84,7 +84,7 @@ class ShowItemErrorView extends GalleryView {
 	     * We know of no other problems!   Returning an empty result will
 	     * throw up a security violation page.
 	     */
-	    return array(GalleryStatus::success(), array());
+	    return array(null, array());
 	}
     }
 }

@@ -61,7 +61,7 @@ class AlbumSelectModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -69,7 +69,7 @@ class AlbumSelectModule extends GalleryModule {
 	foreach (array('show', 'type') as $param) {
 	    if (isset($params[$param])) {
 		$ret = $this->removeParameter($param);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -80,14 +80,14 @@ class AlbumSelectModule extends GalleryModule {
 		       'treeExpandCollapse' => 0, 'treeCloseSameLevel' => 0) as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else if ($key == 'sort' && ($params[$key] == '0' || $params[$key] == '1')) {
 		/* v0.9.4 changed 'sort' param from 0/1 to manual/title */
 		$value = ($params[$key] == 1) ? 'title' : 'manual';
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -99,14 +99,14 @@ class AlbumSelectModule extends GalleryModule {
 		array('type' => 'module-data', 'module' => 'albumselect'));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Album Select'),
 				 'view' => 'albumselect.AlbumSelectSiteAdmin')));
     }
@@ -122,7 +122,7 @@ class AlbumSelectModule extends GalleryModule {
 		array('type' => 'module-data', 'module' => 'albumselect'));
 	} else if ($event->getEventName() == 'Gallery::ItemOrder') {
 	    list ($ret, $sort) = $this->getParameter('sort');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($sort == 'manual') {
@@ -135,7 +135,7 @@ class AlbumSelectModule extends GalleryModule {
 		    && ($entity->getModifiedFlag('orderBy') & MEMBER_MODIFIED
 			|| $entity->getModifiedFlag('orderDirection') & MEMBER_MODIFIED)) {
 		list ($ret, $sort) = $this->getParameter('sort');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($sort == 'album') {
@@ -145,7 +145,7 @@ class AlbumSelectModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 }
 ?>

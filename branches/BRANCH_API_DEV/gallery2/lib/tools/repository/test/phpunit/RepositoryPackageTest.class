@@ -96,7 +96,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 	/* Send data to template. */
 	$this->_package->_descriptor = $testDescriptor;
 	$ret = $this->_package->writeSinglePackageToDisk('package1');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 
@@ -137,7 +137,7 @@ class RepositoryPackageTest extends GalleryTestCase {
 
 	/* Send data to template. */
 	list ($ret, $packagesWritten) = $this->_package->writeAllPackagesToDisk();
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 

@@ -43,13 +43,13 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	$status = null;
 	$error = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['action']['save'])) {
 	    list ($ret, $duration) = $this->_getDuration($item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if ($form['offset'] > $duration || $form['offset'] < 0) {
@@ -60,7 +60,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	if (isset($form['action']['save']) && empty($error)) {
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb = array_shift($thumbnails);
@@ -75,23 +75,23 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 		$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb->setDerivativeOperations($operations);
 	    $ret = $thumb->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $status = $module->translate('Changes saved successfully');
 	} /* else $form['action']['reset']) */
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -107,12 +107,12 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	    }
 	}
 	list ($ret, $duration) = $this->_getDuration($item);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$form['duration'] = sprintf('%.3f', $duration);
 	$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/thumbpage/templates/Offset.tpl', 'modules_thumbpage');
     }
 
@@ -123,7 +123,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
 	    list ($ret, $mimeTypes) =
 		GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'movieTypes');
-	    if ($ret->isSuccess()) {
+	    if (!$ret) {
 		$list = explode('|', $mimeTypes);
 		return in_array($item->getMimeType(), $list);
 	    }
@@ -136,10 +136,10 @@ class ItemEditThumbOffset extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $module->translate('Thumbnail'));
+	return array(null, $module->translate('Thumbnail'));
     }
 
     /**
@@ -152,23 +152,23 @@ class ItemEditThumbOffset extends ItemEditPlugin {
      */
     function _getDuration(&$item) {
 	list ($ret, $path) = $item->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'dimensions-and-duration');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($toolkit)) {
-	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
 	}
 	list ($ret, $result) = $toolkit->getProperty(
 	    $item->getMimeType(), 'dimensions-and-duration', $path);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $result[2]);
+	return array(null, $result[2]);
     }
 }
 ?>

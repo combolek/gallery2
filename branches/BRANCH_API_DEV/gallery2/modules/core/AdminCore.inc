@@ -42,12 +42,12 @@ class AdminCoreController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -148,7 +148,7 @@ class AdminCoreController extends GalleryController {
 		if (empty($param['uploadLocalServer.dir.' . $i])) {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'core', 'uploadLocalServer.dir.' . $i, $path);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $status['addedDir'] = 1;
@@ -160,13 +160,13 @@ class AdminCoreController extends GalleryController {
 			!empty($param['uploadLocalServer.dir.' . $i]); $i++) {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
 			'uploadLocalServer.dir.' . ($i - 1), $param['uploadLocalServer.dir.' . $i]);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$ret = GalleryCoreApi::removePluginParameter('module', 'core',
 							     'uploadLocalServer.dir.' . ($i - 1));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['removedDir'] = 1;
@@ -181,7 +181,7 @@ class AdminCoreController extends GalleryController {
 		$error[] = 'form[emailTestError][invalidTo]';
 	    } else {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -212,7 +212,7 @@ class AdminCoreController extends GalleryController {
 		if (isset($form[$outer][$inner])) {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'core', $key, $form[$outer][$inner]);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -220,7 +220,7 @@ class AdminCoreController extends GalleryController {
 	    if (isset($form['smtp']['password'])) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.password',
 							  base64_encode($form['smtp']['password']));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -240,7 +240,7 @@ class AdminCoreController extends GalleryController {
 	    ob_end_clean();
 	    $debugSnippet = $gallery->stopRecordingDebugSnippet();
 
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$status['emailTestError'] = $ret->getAsHtml();
 		$status['emailTestDebug'] = $output . $debugSnippet;
 	    } else {
@@ -257,7 +257,7 @@ class AdminCoreController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -276,7 +276,7 @@ class AdminCoreView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -303,7 +303,7 @@ class AdminCoreView extends GalleryView {
 
 		list ($ret, $value) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', $key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -318,13 +318,13 @@ class AdminCoreView extends GalleryView {
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get the list of legal local server dirs */
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$localServerDirList = array();
@@ -406,7 +406,7 @@ class AdminCoreView extends GalleryView {
 				'flock' => $module->translate('File'));
 
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -420,7 +420,7 @@ class AdminCoreView extends GalleryView {
 	$template->setVariable('AdminCore', $AdminCore);
 	$template->javascript('lib/javascript/BlockToggle.js');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/AdminCore.tpl'));
     }
 }

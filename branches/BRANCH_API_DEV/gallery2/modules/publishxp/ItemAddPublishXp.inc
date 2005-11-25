@@ -36,7 +36,7 @@ class ItemAddPublishXp extends ItemAddPlugin {
      * @see ItemAddPlugin::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item) {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/publishxp/templates/ItemAddPublishXp.tpl', 'modules_publishxp');
     }
 
@@ -45,10 +45,10 @@ class ItemAddPublishXp extends ItemAddPlugin {
      */
     function getTitle() {
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'publishxp');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $module->translate('Windows XP'));
+	return array(null, $module->translate('Windows XP'));
     }
 }
 ?>

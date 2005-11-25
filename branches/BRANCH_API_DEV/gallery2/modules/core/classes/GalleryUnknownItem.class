@@ -75,14 +75,14 @@ class GalleryUnknownItem_core extends GalleryDataItem {
     function create($parentId, $inputFileName, $mimeType, $targetName=null, $symlink=false) {
 	/* Create our data item */
 	$ret = parent::create($parentId, $inputFileName, $mimeType, $targetName, $symlink);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* We're linkable */
 	$this->setIsLinkable(true);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -109,7 +109,7 @@ class GalleryUnknownItem_core extends GalleryDataItem {
 	$core = null;
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$core = null;
 	    }
 	}

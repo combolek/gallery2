@@ -55,18 +55,18 @@ class CustomFieldItemAdminController extends GalleryController {
 	    if ($adminMode == 2) {
 		/* Copy in global settings */
 		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = CustomFieldHelper::saveParameters($globalParam, $itemId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		/* Mark setId on existing field values */
 		list ($ret, $searchResults) = $gallery->search(
 		    'SELECT [ChildEntity::id] FROM [ChildEntity] WHERE [ChildEntity::parentId]=?',
 		    array($itemId));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$idList = array($itemId);
@@ -75,7 +75,7 @@ class CustomFieldItemAdminController extends GalleryController {
 		}
 		$ret = CustomFieldMap::updateMapEntry( array('itemId' => $idList),
 						       array('setId' => $itemId) );
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -89,7 +89,7 @@ class CustomFieldItemAdminController extends GalleryController {
 		}
 		/* Clear setId for existing field values that can be retained */
 		list ($ret, $globalParam) = CustomFieldHelper::loadParameters();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach (array('common' => 0, 'album' => 1, 'photo' => 2) as $set => $setType) {
@@ -105,13 +105,13 @@ class CustomFieldItemAdminController extends GalleryController {
 			$match['setType'] = $setType;
 		    }
 		    $ret = CustomFieldMap::updateMapEntry($match, array('setId' => 0));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		/* Remove remaining field values */
 		$ret = CustomFieldMap::removeMapEntry(array('setId' => $itemId));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -128,7 +128,7 @@ class CustomFieldItemAdminController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
 }

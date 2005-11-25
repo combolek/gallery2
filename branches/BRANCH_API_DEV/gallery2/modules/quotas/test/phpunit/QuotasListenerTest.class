@@ -56,21 +56,21 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	/* Create a container album for any data items we create */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Create a dummy user */
 	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Create dummy group */
 	list ($ret, $this->_group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -80,12 +80,12 @@ class QuotasListenerTest extends GalleryTestCase {
 	foreach (array('allUsersGroup', 'everybodyGroup') as $groupName) {
 	    list ($ret, $groupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.' . $groupName);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    list ($ret, $hasQuota, $quota) = GalleryQuotasHelper::fetchGroupQuota($groupId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -99,19 +99,19 @@ class QuotasListenerTest extends GalleryTestCase {
     function tearDown() {
 
     	$ret = GalleryCoreApi::deleteEntityById($this->_album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return array($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($this->_user->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return array($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($this->_group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return array($ret->wrap(__FILE__, __LINE__));
 	}
@@ -119,7 +119,7 @@ class QuotasListenerTest extends GalleryTestCase {
 	foreach ($this->_saveQuota as $groupId => $quota) {
 	    $ret = QuotasMap::addMapEntry(
 		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
@@ -135,7 +135,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $userQuotaInfo) = 
 	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}    
 	$this->assert($quotaExists == false, 'Quota should not exist for this user');
@@ -147,7 +147,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $userQuotaInfo) = 
 	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists == true, 'Quota should exist for this user');
@@ -159,7 +159,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $userQuotaInfo) = 
 	    GalleryQuotasHelper::fetchUserQuota($userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}    
 	$this->assert($quotaExists == false, 'Quota should not exist for this user');
@@ -169,7 +169,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $groupQuotaInfo) = 
 	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}    
 	$this->assert($quotaExists == false, 'Quota should not exist for this group');
@@ -181,7 +181,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $groupQuotaInfo) = 
 	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists == true, 'Quota should exist for this group');
@@ -193,7 +193,7 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	list ($ret, $quotaExists, $groupQuotaInfo) = 
 	    GalleryQuotasHelper::fetchGroupQuota($groupId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists == false, 'Quota should not exist for this group');
@@ -201,14 +201,14 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	/* Create a dummy user */
 	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Create dummy group */
 	list ($ret, $this->_group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -216,14 +216,14 @@ class QuotasListenerTest extends GalleryTestCase {
 
     function _removeMapEntry($remove) {
 	$ret = QuotasMap::removeMapEntry($remove);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _addMapEntry($add) {
 	$ret = QuotasMap::addMapEntry($add);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -231,7 +231,7 @@ class QuotasListenerTest extends GalleryTestCase {
     function _deleteEntity($entity) {
 	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($entity->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

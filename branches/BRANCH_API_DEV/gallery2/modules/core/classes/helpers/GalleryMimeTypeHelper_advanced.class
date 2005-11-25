@@ -216,7 +216,7 @@ class GalleryMimeTypeHelper_advanced {
 
 	/* Start with a clean slate */
 	$ret = GalleryMimeTypeMap::removeAllMapEntries();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -224,13 +224,13 @@ class GalleryMimeTypeHelper_advanced {
 	    $mimeTypeMap = array('extension' => $ext, 'mimeType' => $mime,
 		'viewable' => (int) isset($viewableMimeTypes[$mime]));
 	    $ret = GalleryMimeTypeMap::addMapEntry($mimeTypeMap);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	GalleryMimeTypeHelper_simple::_deleteCache();
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -242,11 +242,11 @@ class GalleryMimeTypeHelper_advanced {
      */
     function removeMimeType($mimeMatch) {
 	$ret = GalleryMimeTypeMap::removeMapEntry($mimeMatch);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	GalleryMimeTypeHelper_simple::_deleteCache();
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -273,23 +273,23 @@ class GalleryMimeTypeHelper_advanced {
 	';
 	list ($ret, $results) =
 	    $gallery->search($query, array($extension), array('limit' => array('count' => 1)));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($results->resultCount() > 0) {
-	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	/* Insert the record */
 	$ret = GalleryMimeTypeMap::addMapEntry(array(
 	    'extension' => $extension, 'mimeType' => $mimeType, 'viewable' => $viewable ? 1 : 0));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	GalleryMimeTypeHelper_simple::_deleteCache();
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

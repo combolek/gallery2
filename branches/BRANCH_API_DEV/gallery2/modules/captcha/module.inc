@@ -53,11 +53,11 @@ class CaptchaModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryValidationPlugin', 'CaptchaValidationPlugin', 'CaptchaValidationPlugin',
 	    'modules/captcha/CaptchaValidationPlugin.inc', 'captcha', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -91,11 +91,11 @@ class CaptchaModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -104,10 +104,10 @@ class CaptchaModule extends GalleryModule {
     function autoConfigure() {
 	/* We need to perform a test before activating */
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), !$needsConfiguration);
+	return array(null, !$needsConfiguration);
     }
 
     /**
@@ -118,9 +118,9 @@ class CaptchaModule extends GalleryModule {
 	$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
 	if (count($gdReport['fail']) > 0) {
-	    return array(GalleryStatus::success(), true);
+	    return array(null, true);
 	} else {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
     }
 
@@ -130,23 +130,23 @@ class CaptchaModule extends GalleryModule {
     function activate($postActivationEvent=true) {
 	/* Set some reasonable defaults */
 	$ret = $this->setParameter('failedAttemptThreshold', 3);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Captcha'),
 				 'view' => 'captcha.CaptchaSiteAdmin')));
     }

@@ -48,7 +48,7 @@ class ErrorPageView extends GalleryView {
 	$ErrorPage = array();
 
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	$ErrorPage['isAdmin'] = ($ret->isSuccess() && $isAdmin);
+	$ErrorPage['isAdmin'] = (!$ret && $isAdmin);
 	$ErrorPage['stackTrace'] = $this->_error->getAsHtml($isAdmin);
 
 	/* Landing page for errors.. */
@@ -75,7 +75,7 @@ class ErrorPageView extends GalleryView {
 		$ErrorPage['dbVersion'] = @$storage->_impl->getVersion();
 
 		list ($ret, $list) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
-		if ($ret->isSuccess()) {
+		if (!$ret) {
 		    $toolkitList = array();
 		    foreach ($list as $tmp) {
 			$toolkitList = array_merge($toolkitList, $tmp);
@@ -93,7 +93,7 @@ class ErrorPageView extends GalleryView {
 	$template->javascript($urlGenerator->generateUrl(
 				  array('href' => 'lib/javascript/BlockToggle.js')));
 	$template->setVariable('ErrorPage', $ErrorPage);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/ErrorPage.tpl'));
     }
 }

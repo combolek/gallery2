@@ -45,12 +45,12 @@ class GalleryMimeTypeHelper_simple {
      */
     function convertExtensionToMime($extension) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$extension = strtolower($extension);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     isset($mimeData['by-extension'][$extension])
 			 ? $mimeData['by-extension'][$extension] : 'application/unknown');
     }
@@ -65,12 +65,12 @@ class GalleryMimeTypeHelper_simple {
      */
     function convertMimeToExtensions($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$mimeType = strtolower($mimeType);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     isset($mimeData['by-mimetype'][$mimeType])
 			 ? $mimeData['by-mimetype'][$mimeType]['exts'] : array());
     }
@@ -88,10 +88,10 @@ class GalleryMimeTypeHelper_simple {
     function getMimeType($filename) {
 	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 	list ($ret, $mimeType) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $mimeType);
+	return array(null, $mimeType);
     }
 
     /**
@@ -103,11 +103,11 @@ class GalleryMimeTypeHelper_simple {
      */
     function isViewableMimeType($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     isset($mimeData['by-mimetype'][$mimeType])
 			 ? $mimeData['by-mimetype'][$mimeType]['viewable'] : false);
     }
@@ -148,7 +148,7 @@ class GalleryMimeTypeHelper_simple {
 		    [GalleryMimeTypeMap::extension] DESC
 		';
 		list ($ret, $searchResults) = $gallery->search($query);
-		if ($ret->isError()) {
+		if ($ret) {
 		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
@@ -167,7 +167,7 @@ class GalleryMimeTypeHelper_simple {
 		GalleryDataCache::putToDisk($cacheParams, $mimeData);
 	    }
 	}
-	$ret = array(GalleryStatus::success(), &$mimeData);
+	$ret = array(null, &$mimeData);
 	return $ret;
     }
 

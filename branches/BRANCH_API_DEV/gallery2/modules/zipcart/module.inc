@@ -53,11 +53,11 @@ class ZipCartModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CartPluginInterface_1_0', 'ZipCartPlugin', 'zipcart',
 	    'modules/zipcart/classes/ZipCartPlugin.class', 'zipcart', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -65,11 +65,11 @@ class ZipCartModule extends GalleryModule {
      */
     function needsConfiguration() {
 	list ($ret, $value) = $this->getParameter('path');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), empty($value));
+	return array(null, empty($value));
     }
 
     /**
@@ -79,11 +79,11 @@ class ZipCartModule extends GalleryModule {
 	global $gallery;
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
-	    return array(GalleryStatus::success(), true);
+	    return array(null, true);
 	}
 
 	/* Try a bunch of likely seeming paths to see if any of them work. */
@@ -127,7 +127,7 @@ class ZipCartModule extends GalleryModule {
 	    $paths[] = '/bin/zip';
 	    $paths[] = '/sw/bin/zip';
 	} else {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 
 	/* Now try each path in turn to see which ones work */
@@ -135,21 +135,21 @@ class ZipCartModule extends GalleryModule {
 	    if ($platform->is_executable($path)) {
 		/* We have a winner */
 		$ret = $this->setParameter('path', $path);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
-		return array(GalleryStatus::success(), true);
+		return array(null, true);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Zip Download'),
 				 'view' => 'zipcart.ZipCartAdmin')));
     }

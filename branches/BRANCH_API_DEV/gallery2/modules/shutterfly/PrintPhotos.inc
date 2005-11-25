@@ -58,44 +58,44 @@ class PrintPhotosView extends GalleryView {
 	    $session->remove('shutterfly.cart');
 	}
 	if (empty($cartItemIds) || empty($returnUrl)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Load the necessary item data */
 	$itemIds = array_keys($cartItemIds);
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::studyPermissions($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -105,12 +105,12 @@ class PrintPhotosView extends GalleryView {
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $publicPermissions) =
 		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -158,7 +158,7 @@ class PrintPhotosView extends GalleryView {
 		 * can reuse it for multiple print requests (and just bump timeout each time).
 		 */
 		$ret = $sfSession->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -210,7 +210,7 @@ class PrintPhotosView extends GalleryView {
 						    'entries' => $entries));
 	$template->display('gallery:modules/shutterfly/templates/PrintPhotos.tpl');
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

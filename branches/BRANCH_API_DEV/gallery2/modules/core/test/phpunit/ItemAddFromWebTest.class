@@ -51,7 +51,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 
 	list ($ret, $this->_album) =
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -59,7 +59,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockIds) = GalleryCoreApi::acquireReadLock($this->_album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -73,7 +73,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	$gallery->setPlatform($this->_savePlatform);
 
 	$ret = GalleryCoreApi::releaseLocks($this->_lockIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -119,14 +119,14 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	$this->assert(isset($results[1]['addedFiles'][4]['id']), 'id 5');
 
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_album);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$i = 0;
 	foreach ($ids as $id) {
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $base = $basenames[$i];

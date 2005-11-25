@@ -46,7 +46,7 @@ class GalleryLockSystem {
      * @static
      */
     function acquireReadLock($ids, $timeout=10) {
-	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -72,7 +72,7 @@ class GalleryLockSystem {
      * @abstract
      */
     function acquireWriteLock($ids, $timeout=10) {
-	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -95,7 +95,7 @@ class GalleryLockSystem {
      * @abstract
      */
     function releaseLocks($lockIds) {
-	return GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 
     /**
@@ -104,7 +104,7 @@ class GalleryLockSystem {
      * @abstract
      */
     function releaseAllLocks() {
-	return GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 
     /**
@@ -115,7 +115,7 @@ class GalleryLockSystem {
      * @abstract
      */
     function refreshLocks($freshUntil) {
-	return GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__);
     }
 
     /**

@@ -57,7 +57,7 @@ class RemoteStorageCapabilitiesView extends GalleryView {
 	if (empty($capabilities)) {
 	    $reply = NOKIAUPLOAD_ERR_UNKNOWN . "\r\n";
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$reply .= "Couldn't retrieve settings.\r\n";
 	    } else {
 		$reply .= $module->translate("Couldn't retrieve settings.") . "\r\n";
@@ -71,7 +71,7 @@ class RemoteStorageCapabilitiesView extends GalleryView {
 	header('Content-Length: ' . strlen($reply));
 	print $reply;
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

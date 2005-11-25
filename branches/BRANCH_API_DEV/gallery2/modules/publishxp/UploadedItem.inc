@@ -36,7 +36,7 @@ class UploadedItemView extends GalleryView {
      * @see GalleryView::loadTemplate()
      */
     function loadTemplate(&$template, &$form) {
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 }
 ?>

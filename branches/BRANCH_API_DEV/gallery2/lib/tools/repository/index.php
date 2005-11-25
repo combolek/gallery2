@@ -29,12 +29,12 @@ require_once('../../../init.inc');
 
 function RepositoryToolsMain() {
     $ret = GalleryInitFirstPass();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $ret = GalleryInitSecondPass();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
@@ -55,7 +55,7 @@ function RepositoryToolsMain() {
 		   $repositoryPath . '/themes') as $path) {
 	if (!$platform->file_exists($path)) {
 	    if (!$platform->mkdir($path)) {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    "Unable to create directory: $path");
 	    }
 	}
@@ -86,20 +86,20 @@ function RepositoryToolsMain() {
 
     /* Call a controller method. */
     if (!method_exists($controller, $methodName)) {
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 				    "Method [$methodName] does not exist in $controllerClassName");
     }
 
     $ret = $controller->$methodName();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
-    return GalleryStatus::success();
+    return null;
 }
 
 $ret = RepositoryToolsMain();
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     print $gallery->getDebugBuffer();
@@ -107,7 +107,7 @@ if ($ret->isError()) {
 }
 
 list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;

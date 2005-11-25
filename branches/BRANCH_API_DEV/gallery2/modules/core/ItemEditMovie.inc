@@ -62,12 +62,12 @@ class ItemEditMovie extends ItemEditPlugin {
 
 	    if (empty($error)) {
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		list ($ret, $item) = $item->refresh();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
@@ -76,19 +76,19 @@ class ItemEditMovie extends ItemEditPlugin {
 		$item->setHeight($form['height']);
 		$item->setSerialNumber($form['serialNumber']);
 		$ret = $item->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -96,7 +96,7 @@ class ItemEditMovie extends ItemEditPlugin {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -116,7 +116,7 @@ class ItemEditMovie extends ItemEditPlugin {
 
 	$template->setVariable('ItemEditMovie', $ItemEditMovie);
 	$template->setVariable('controller', 'core.ItemEditMovie');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/core/templates/ItemEditMovie.tpl', 'modules_core');
     }
 
@@ -132,11 +132,11 @@ class ItemEditMovie extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Movie Size'));
+	return array(null, $module->translate('Movie Size'));
     }
 }
 ?>

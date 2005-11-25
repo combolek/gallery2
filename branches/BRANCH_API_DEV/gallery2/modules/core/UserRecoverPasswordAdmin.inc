@@ -75,30 +75,30 @@ class UserRecoverPasswordAdminController extends GalleryController {
 		 * or, possibly, the recovery of any administrator account.
 		 */
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__, 'Unable to load admin user'), null);
 		}
 
 		if (isset($user)) {
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    list ($ret, $user) = $user->refresh();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $user->changePassword($form['password1']);
 
 		    $ret = $user->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -136,7 +136,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -192,7 +192,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
 	$UserRecoverPasswordAdmin['status'] = $status;
 	$template->setVariable('UserRecoverPasswordAdmin', $UserRecoverPasswordAdmin);
 	$template->setVariable('controller', 'core.UserRecoverPasswordAdmin');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/UserRecoverPasswordAdmin.tpl'));
     }
 

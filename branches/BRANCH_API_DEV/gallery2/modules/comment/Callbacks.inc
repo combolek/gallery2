@@ -34,18 +34,18 @@ class CommentCallbacks {
 	case 'LoadComments':
 	    $itemId = $params['itemId'];
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchPermissionsForItems(array($itemId), $userId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!isset($permissions[$itemId]['comment.view'])) {
-		return GalleryStatus::success();
+		return null;
 	    }
 
 	    $viewMax = $params['show'];
@@ -53,13 +53,13 @@ class CommentCallbacks {
 	    GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	    list ($ret, $comments) =
 		GalleryCommentHelper::fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $counts) =
 		GalleryCommentHelper::fetchCommentCounts(array($item->getId()));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -79,7 +79,7 @@ class CommentCallbacks {
 		if (sizeof($commenters) > 0) {
 		    list ($ret, $commentersList) =
 			GalleryCoreApi::loadEntitiesById(array_keys($commenters));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
@@ -92,7 +92,7 @@ class CommentCallbacks {
 	    }
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -113,10 +113,10 @@ class CommentCallbacks {
 	    $block =& $smarty->_tpl_vars['block'];
 	    $block['comment']['LoadComments'] = $LoadComments;
 
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>
