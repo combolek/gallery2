@@ -628,28 +628,40 @@ class GalleryPermissionHelper_advanced {
 	global $gallery;
 
 	$storage =& $gallery->getStorage();
-	list ($ret, $newAccessListId) = $storage->getUniqueId();
+	list($ret, $newAccessListId) = $storage->getUniqueId();
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($oldAccessListId)) {
 	    $query = '
-	    INSERT INTO
-		[GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
-	    SELECT
-		?,
-		[GalleryAccessMap=1::userOrGroupId],
-		[GalleryAccessMap=1::permission]
-	    FROM
-		[GalleryAccessMap=1]
-	    WHERE
-		[GalleryAccessMap=1::accessListId] = ?
-	    ';
+            SELECT
+                [GalleryAccessMap::userOrGroupId],
+                [GalleryAccessMap::permission]
+            FROM
+                [GalleryAccessMap]
+            WHERE
+                [GalleryAccessMap::accessListId] = ?
+            ';
+	    $data = array($oldAccessListId);
 
-	    $ret = $storage->execute($query, array($newAccessListId, $oldAccessListId));
+	    list($ret, $searchResults) = $gallery->search($query, $data);
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    /*
+	     * TODO: Replace this with an INSERT INTO..SELECT FROM when we stop supporting
+	     * MySQL 3.x since it can't handle subselects from the same table.
+	     */
+	    while ($result = $searchResults->nextResult()) {
+		$permission = $storage->convertBitsToInt($result[1]);
+		$ret = GalleryAccessMap::addMapEntry(array('userOrGroupId' => (int)$result[0],
+							   'permission' => $permission,
+							   'accessListId' => (int)$newAccessListId));
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 	    }
 	}
 
