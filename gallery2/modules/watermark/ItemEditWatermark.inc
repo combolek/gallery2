@@ -46,7 +46,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	$error = array();
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -59,7 +59,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	    if (empty($error)) {
 		list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($form['watermarkId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -73,7 +73,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 			      $form['whichDerivative']['resize']),
 			  DERIVATIVE_TYPE_IMAGE_THUMBNAIL => isset(
 			      $form['whichDerivative']['thumbnail'])));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$status = $module->translate('Watermark applied successfully');
@@ -81,7 +81,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	} else if (isset($form['action']['remove'])) {
 	    list ($ret, $derivativeTable) =
 		GalleryCoreApi::fetchDerivativesByItemIds(array($item->getId()));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -95,13 +95,13 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 		/* Lock them all */
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		foreach ($derivatives as $derivative) {
 		    list ($ret, $derivative) = $derivative->refresh();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -114,33 +114,33 @@ class ItemEditWatermark extends ItemEditPlugin {
 		    }
 
 		    $ret = $derivative->save(true);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 
 	    if (isset($preferred)) {
 		list ($ret, $preferred) = $preferred->refresh();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		if ($preferred->hasNoOperations()) {
 		    $ret = GalleryCoreApi::remapSourceIds(
 			$preferred->getId(), $preferred->getDerivativeSourceId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $ret = GalleryCoreApi::deleteEntityById($preferred->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
@@ -148,7 +148,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	    $status = $module->translate('Watermark removed successfully');
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -161,14 +161,14 @@ class ItemEditWatermark extends ItemEditPlugin {
 	$ItemEditWatermark['showApplet'] = $thumbnail != null;
 
 	list ($ret, $ItemEditWatermark['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Load up all watermarks */
 	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -232,7 +232,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	/* Grab the smallest derivative that's greater than 400px on a side */
 	list ($ret, $derivatives) =
 	    GalleryCoreApi::fetchDerivativesByItemIds(array($item->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$smallestSize = null;
@@ -256,7 +256,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	$template->setVariable('ItemEditWatermark', $ItemEditWatermark);
 	$template->setVariable('controller', 'core.ItemEditWatermark');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/watermark/templates/ItemEditWatermark.tpl', 'modules_watermark');
     }
 
@@ -271,7 +271,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByOperation($item->getMimeType(), 'composite');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return false; /* Swallow the error for now */
 	}
 	if (isset($toolkit)) {
@@ -281,7 +281,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	/* Ok we have no composite for the item .. but maybe we do for its preferred? */
 	list ($ret, $preferredTable) =
 	    GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return false; /* Swallow the error for now */
 	}
 
@@ -289,7 +289,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	    $preferred = $preferredTable[$item->getId()];
 	    list ($ret, $toolkit) =
 		GalleryCoreApi::getToolkitByOperation($preferred->getMimeType(), 'composite');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return false; /* Swallow the error for now */
 	    }
 	    if (isset($toolkit)) {
@@ -305,11 +305,11 @@ class ItemEditWatermark extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'watermark');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Watermark'));
+	return array(null, $module->translate('Watermark'));
     }
 }
 ?>

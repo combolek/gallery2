@@ -45,7 +45,7 @@ class LoginController extends GalleryController {
 	$results['status'] = ImageUploadHelper::doLogin();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -90,7 +90,7 @@ class LoginView extends GalleryView {
 	    }
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$reply[] = "Login failed.\r\n";
 	    } else {
 		$reply[] = $module->translate('Login failed.') . "\r\n";
@@ -103,7 +103,7 @@ class LoginView extends GalleryView {
 	header('Content-Length: ' . strlen($reply));
 	print $reply;
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

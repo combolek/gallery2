@@ -79,19 +79,19 @@ class GalleryRepositoryIndex {
 	list ($wasDownloaded, $indexContents) = $this->_utilities->downloadFile($indexUrl);
 	if (!$wasDownloaded) {
 	    $errorMessage = $gallery->i18n('Error downloading index from \'%s\'.');
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					sprintf($errorMessage, $indexUrl));
 	}
 
 	list ($wasDownloaded, $indexHash) = $this->_utilities->downloadFile($indexHashUrl);
 	if (!$wasDownloaded) {
 	    $errorMessage = $gallery->i18n('Error downloading index hash from \'%s\'.');
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					sprintf($errorMessage, $indexHashUrl));
 	}
 
 	if (md5($indexContents) != $indexHash) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					$gallery->i18n('Index integrity check failed.'));
 	}
 
@@ -99,7 +99,7 @@ class GalleryRepositoryIndex {
 	$indexPath = $this->getLocalPath();
 	$platform = $gallery->getPlatform();
 	if (false === $platform->file_put_contents($indexPath, $indexContents)) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					'Error writing index to the filesystem.');
 	}
 
@@ -107,10 +107,10 @@ class GalleryRepositoryIndex {
 	GalleryCoreApi::setPluginParameter('module', 'core', 'repository.updatetime', time());
 
 	$ret = $this->unserializeIndex($indexContents);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -124,7 +124,7 @@ class GalleryRepositoryIndex {
      */
     function getMetaData() {
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null);
 	}
@@ -132,16 +132,16 @@ class GalleryRepositoryIndex {
 	/* Get timestamp. */
 	list ($ret, $timestamp) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'repository.updatetime');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($timestamp)) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Timestamp not found.'),
 			 null);
 	}
 
-	return array(GalleryStatus::success(), array('timestamp' => $timestamp,
+	return array(null, array('timestamp' => $timestamp,
 	    'moduleCount' => count($this->_index['modules']),
 	    'themeCount' => count($this->_index['themes'])));
     }
@@ -167,15 +167,15 @@ class GalleryRepositoryIndex {
 
 	$platform = $gallery->getPlatform();
 	if (false === ($index = $platform->file_get_contents($this->getLocalPath()))) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
 					'Error reading index [%s]', $this->getLocalPath()));
 	}
 
 	$ret = $this->unserializeIndex($index);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -185,11 +185,11 @@ class GalleryRepositoryIndex {
      */
     function unserializeIndex(&$index) {
 	if (false === ($this->_index = unserialize($index))) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 						  "Error unserializing index [$index]");
 	}
 	$this->_isLoaded = true;
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -202,17 +202,17 @@ class GalleryRepositoryIndex {
      */
     function getPluginHeader($pluginType, $pluginId) {
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null);
 	}
 
 	if (!isset($this->_index[$pluginType . 's'][$pluginId]['header'])) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      "No header found for [$pluginId] [$pluginType]"),
 			 null);
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 	    $this->_index[$pluginType . 's'][$pluginId]['header']);
     }
 
@@ -229,13 +229,13 @@ class GalleryRepositoryIndex {
      */
     function getAvailableLanguagesInPlugin($pluginType, $pluginId) {
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null);
 	}
 
 	list ($ret, $isAvailable) = $this->_utilities->isPluginAvailable($pluginType, $pluginId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -246,7 +246,7 @@ class GalleryRepositoryIndex {
 	if ($isAvailable) {
 	    list ($ret, $revision) =
 		$this->_utilities->getLanguageBaseRevision($pluginType, $pluginId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
@@ -254,13 +254,13 @@ class GalleryRepositoryIndex {
 	}
 
 	if (!isset($this->_index[$pluginType . 's'][$pluginId]['languages'][$revision])) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
 					      'Revision not found in index [%s] [%s] [%s]',
 					      $pluginType, $pluginId, $revision)),
 			 null);
 	}
 	$languages = $this->_index[$pluginType . 's'][$pluginId]['languages'][$revision];
-	return array(GalleryStatus::success(), $languages);
+	return array(null, $languages);
     }
 
     /**
@@ -287,14 +287,14 @@ class GalleryRepositoryIndex {
 	global $gallery;
 
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null);
 	}
 
 	/* Make sure description exists in current language. */
 	list ($ret, $language) = $gallery->getActiveLanguageCode();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -305,12 +305,12 @@ class GalleryRepositoryIndex {
 		
 	if (!isset($this->_index[$pluginType . 's'][$pluginId]
 		['descriptions'][$language]['name'])) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      "Name attribute missing from meta data [$language]"),
 		    null);
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 	    $this->_index[$pluginType . 's'][$pluginId]['descriptions'][$language]['name']);
     }
 
@@ -324,17 +324,17 @@ class GalleryRepositoryIndex {
      */
     function getDescriptorUrl($pluginType, $pluginId) {
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null);
 	}
 
 	list ($ret, $header) = $this->getPluginHeader($pluginType, $pluginId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), sprintf('%ss/%s-%s-%s.descriptor',
+	return array(null, sprintf('%ss/%s-%s-%s.descriptor',
 	    $pluginType, $pluginId, $header['version'], $header['buildTimestamp']));
     }
 
@@ -350,7 +350,7 @@ class GalleryRepositoryIndex {
     function getPackageUrl($pluginType, $pluginId, $package) {
 	list ($ret, $version, $build) =
 	    $this->getPackageVersionAndBuild($pluginType, $pluginId, $package);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -362,7 +362,7 @@ class GalleryRepositoryIndex {
 		'%ss/%s-%s-%s-%s.package', $pluginType, $pluginId, $version, $build, $package);
 	}
 
-	return array(GalleryStatus::success(), $packageUrl);
+	return array(null, $packageUrl);
     }
 
     /**
@@ -379,20 +379,20 @@ class GalleryRepositoryIndex {
      */
     function getPackageVersionAndBuild($pluginType, $pluginId, $package) {
 	if (!$this->_isLoaded) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					      'Index must be loaded.'),
 		    null, null);
 	}
 
 	list ($ret, $header) = $this->getPluginHeader($pluginType, $pluginId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (preg_match('/^lang-(.._..)$/', $package, $languageCode)) {
 	    list ($ret, $isAvailable) =
 		$this->_utilities->isPluginAvailable($pluginType, $pluginId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $languageCode = $languageCode[1];
@@ -402,7 +402,7 @@ class GalleryRepositoryIndex {
 		/* Get local strings revision. */
 		list ($ret, $baseRevision) =
 		    $this->_utilities->getLanguageBaseRevision($pluginType, $pluginId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    } else {
@@ -418,7 +418,7 @@ class GalleryRepositoryIndex {
 	    $build = $header['buildTimestamp'];
 	}
 
-	return array(GalleryStatus::success(), $version, $build);
+	return array(null, $version, $build);
     }
 
     /**
@@ -455,14 +455,14 @@ class GalleryRepositoryIndex {
 		/* If plugin is locally available, get its version. */
 		list ($ret, $isPluginAvailable) =
 		    $this->_utilities->isPluginAvailable($pluginType, $pluginId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($isPluginAvailable) {
 		    list ($ret, $version) =
 			$this->_utilities->getPluginVersion($pluginType, $pluginId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $pluginList[$pluginType][$pluginId]['localVersion'] = $version;
@@ -470,7 +470,7 @@ class GalleryRepositoryIndex {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $pluginList);
+	return array(null, $pluginList);
     }
 
     /**

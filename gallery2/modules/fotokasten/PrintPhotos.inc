@@ -81,44 +81,44 @@ class PrintPhotosController extends GalleryController {
 	    $session->remove('fotokasten.cart');
 	}
 	if (empty($cartItemIds)) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Load the necessary item data */
 	$itemIds = array_keys($cartItemIds);
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = GalleryCoreApi::studyPermissions($itemIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* We want to know which are viewable to guests */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	/* Assemble all our data */
@@ -127,12 +127,12 @@ class PrintPhotosController extends GalleryController {
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $publicPermissions) =
 		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -180,7 +180,7 @@ class PrintPhotosController extends GalleryController {
 		 * can reuse it for multiple print requests (and just bump timeout each time).
 		 */
 		$ret = $foSession->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -210,26 +210,26 @@ class PrintPhotosController extends GalleryController {
 
 	/* get fotokasten session */
 	$ret = $this->getFotokastenSession();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* transfer cart to fotokasten */
 	list ($ret, $referer) = $this->sendFotokastenCart($basket);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* add language parameter */
 	if (strpos($referer, '?') && !strpos($referer, 'language=')) {
 	    list ($ret, $language) = $gallery->getActiveLanguageCode();
-	    if ($ret->isSuccess() && !empty($language)) {
+	    if (!$ret && !empty($language)) {
 		$referer = $urlGenerator->appendParamsToUrl(
 		    $referer, array('language' => substr($language, 0, 2)), false);
 	    }
 	}
 
-	return array(GalleryStatus::success(), array(
+	return array(null, array(
 		     'redirect' => array('href' => $referer), /* redirect to shopping basket */
 		     'status' => array(),
 		     'error' => array()));
@@ -245,7 +245,7 @@ class PrintPhotosController extends GalleryController {
 	$endpoint = $session->get('fotokasten.endpoint');
 	if (!empty($endpoint)) {
 	    $this->server['endpoint'] = $endpoint;
-	    return GalleryStatus::success();
+	    return null;
 	}
 
 	/* initialize soap server */
@@ -258,12 +258,12 @@ class PrintPhotosController extends GalleryController {
 	if ($return = $soap->call($this->method_session, $method_params,
 				  $this->server['methodNamespace'], $this->server['soapaction'])) {
 	    if ($soap->fault) {
-		return GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
 		    "FAULT: Code {$soap->faultcode} :: String {$soap->faultstring}");
 	    } else if ($return['error_code'] != 0 ) {
 		$gallery->debug_r($soap->request);
 		$gallery->debug_r($return);
-		return GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
 					    $return['error_code']);
 	    }
 	    /* this endpoint has to be used for all further requests */
@@ -273,11 +273,11 @@ class PrintPhotosController extends GalleryController {
 	    $gallery->debug_r($soap->debug_str);
 	    $gallery->debug_r($soap->request);
 	    $gallery->debug_r($soap->response);
-	    return GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__, $soap->getError());
+	    return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__, $soap->getError());
 	}
 
 	unset($soap);
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -298,12 +298,12 @@ class PrintPhotosController extends GalleryController {
 	if ($return = $soap->call($this->method_basket, $method_params,
 				  $this->server['methodNamespace'], $this->server['soapaction'])) {
 	    if ($soap->fault) {
-		return array(GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
 		    "FAULT: Code {$soap->faultcode} :: String {$soap->faultstring}"), null);
 	    } else if ($return['error_code'] != 0) {
 		$gallery->debug_r($soap->request);
 		$gallery->debug_r($return);
-		return array(GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
 						  $return['error_code']), null);
 	    }
 	    /* Link for user Browser to show shopping basket */
@@ -312,12 +312,12 @@ class PrintPhotosController extends GalleryController {
 	    $gallery->debug_r($soap->debug_str);
 	    $gallery->debug_r($soap->request);
 	    $gallery->debug_r($soap->response);
-	    return array(GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__,
 					      $soap->getError()), null);
 	}
 
 	unset($soap);
-	return array(GalleryStatus::success(), $referer);
+	return array(null, $referer);
     }
 }
 ?>

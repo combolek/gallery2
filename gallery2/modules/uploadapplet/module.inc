@@ -46,11 +46,11 @@ class UploadAppletModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddPlugin', 'ItemAddUploadApplet', 'ItemAddUploadApplet',
 	    'modules/uploadapplet/ItemAddUploadApplet.inc', 'uploadapplet', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

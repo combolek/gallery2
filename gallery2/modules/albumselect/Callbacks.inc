@@ -37,13 +37,13 @@ class AlbumSelectCallbacks {
 	    }
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Try to load it from the cache */
 	    list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $cachePathInfo = array('type' => 'module-data',
@@ -61,11 +61,11 @@ class AlbumSelectCallbacks {
 		}
 		list ($ret, $rootAlbumId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$titles = array('root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()));
@@ -80,7 +80,7 @@ class AlbumSelectCallbacks {
 
 		if ($params['sort'] != 'album') {
 		    list ($ret, $tree) = GalleryCoreApi::fetchAlbumTree(null, null, $userId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			if ($ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 			    $tree = null;
 			} else {
@@ -88,12 +88,12 @@ class AlbumSelectCallbacks {
 			}
 		    }
 		    if (empty($tree)) {
-			return GalleryStatus::success();
+			return null;
 		    }
 
 		    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(
 			GalleryUtilities::arrayKeysRecursive($tree));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    foreach ($items as $item) {
@@ -117,18 +117,18 @@ class AlbumSelectCallbacks {
 		} else {
 		    list ($ret, $canView) =
 			GalleryCoreApi::hasItemPermission($rootAlbumId, 'core.view', $userId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    if ($canView) {
 			$ret = $this->_buildTree($rootAlbum, $treeList, $titles, $nodeId,
 						 $userId, 0, 0, $callbackParams);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
 		    }
 		    if (empty($treeList)) {
-			return GalleryStatus::success();
+			return null;
 		    }
 		}
 		GalleryDataCache::putToDisk($cachePathInfo,
@@ -145,10 +145,10 @@ class AlbumSelectCallbacks {
 		$block['albumselect']['LoadAlbumData'][$type]['albumTreeName'] = $albumTreeName;
 	    }
 
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 
     /**
@@ -182,12 +182,12 @@ class AlbumSelectCallbacks {
 			$parentNode, $depth, &$callbackParams) {
 	list ($ret, $subAlbumIds) =
 	    GalleryCoreApi::fetchChildAlbumItemIds($album, null, null, $userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!empty($subAlbumIds)) {
 	    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($subAlbums as $subAlbum) {
@@ -210,12 +210,12 @@ class AlbumSelectCallbacks {
 		$ret = $this->_buildTree($subAlbum, $treeList, $titles,
 					 $nodeId, $userId, $nodeId, $depth + 1,
 					 $callbackParams);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
-	return GalleryStatus::success();
+	return null;
     }
 }
 

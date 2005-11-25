@@ -221,7 +221,7 @@ class DatabaseSetupStep extends InstallStep {
 		/* Drop all Gallery database tables listed in the schema table */
 		$this->_captureStart();
 		$ret = $this->_cleanDatabase();
-		if ($ret->isError()) {
+		if ($ret) {
 		    $ret = $ret->wrap(__FILE__, __LINE__);
 		    global $gallery;
 		    $templateData['errors'][] =
@@ -483,7 +483,7 @@ class DatabaseSetupStep extends InstallStep {
 		if ($this->_loadG2Api(3)) {
 		    list ($ret, $version) =
 			GalleryCoreApi::getPluginParameter('module', 'core', '_version');
-		    if ($ret->isSuccess() && !empty($version)) {
+		    if (!$ret && !empty($version)) {
 			$dbVersion = $version;
 		    }
 		}
@@ -554,7 +554,7 @@ class DatabaseSetupStep extends InstallStep {
 	    /* Init paths etc., used for the clean DB function */
 	    require_once(dirname(__FILE__) . '/../../init.inc');
 	    $ret = GalleryInitFirstPass(array('noDatabase' => true));
-	    $success = $ret->isSuccess();
+	    $success = !$ret;
 
 	    GalleryDataCache::setFileCachingEnabled(false);
 	    GalleryDataCache::reset();
@@ -624,16 +624,16 @@ class DatabaseSetupStep extends InstallStep {
 	$storage->_db->debug = true;
 	$gallery->setDebug('immediate');
 	$ret = $storage->cleanStore();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $storage->commitTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

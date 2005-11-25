@@ -49,13 +49,13 @@ class IconsModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'icons');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('iconpack' => '') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -68,7 +68,7 @@ class IconsModule extends GalleryModule {
 	switch ($currentVersion) {
 	case '0':
 	    $ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
@@ -79,7 +79,7 @@ class IconsModule extends GalleryModule {
 	    if (isset($params['iconpack']) && $params['iconpack'] == 'paularmstrongdesigns.com') {
 		/* Removed ".com" from paularmstrongdesigns.com dir, IIS 5.1 didn't like it */
 		$ret = $this->setParameter('iconpack', 'paularmstrongdesigns');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -92,11 +92,11 @@ class IconsModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -106,18 +106,18 @@ class IconsModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'IconsInterface_1_0', 'IconsImpl', 'Icons',
 	    'modules/icons/classes/IconsImpl.class', 'icons', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Icons'),
 				 'view' => 'icons.IconsSiteAdmin')));
     }

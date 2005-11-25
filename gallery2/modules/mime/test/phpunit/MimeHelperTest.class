@@ -43,7 +43,7 @@ class MimeHelperTest extends GalleryTestCase {
 	parent::setUp();
 
 	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -51,7 +51,7 @@ class MimeHelperTest extends GalleryTestCase {
 
     function tearDown() {
 	$ret = GalleryCoreApi::removeMimeType(array('mimeType' =>'test/test'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -60,7 +60,7 @@ class MimeHelperTest extends GalleryTestCase {
 
     function testMimeTypeMap() {
 	list ($ret, $typeMap) = MimeHelper::getMimeTypeMap();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('xxx'), $typeMap['ext']['test/test'], 'Extensions');

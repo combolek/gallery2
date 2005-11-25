@@ -67,7 +67,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Initial install */
 	    list ($success) = GalleryUtilities::guaranteeDirExists($watermarkDir);
 	    if (!$success) {
-		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    "Unable to create directory: $watermarkDir");
 	    }
 	    break;
@@ -75,7 +75,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	case '0.3':
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('WatermarkImage:1.0'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -93,13 +93,13 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    $oldDir = $gallery->getConfig('data.gallery.base') . 'watermark' . $slash;
 	    if ($platform->is_dir($oldDir)) {
 		if (!$platform->rename($oldDir, $watermarkDir)) {
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to move $oldDir to $watermarkDir");
 		}
 	    } else {
 		list ($success) = GalleryUtilities::guaranteeDirExists($watermarkDir);
 		if (!$success) {
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to create $watermarkDir");
 		}
 	    }
@@ -118,7 +118,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    while (true) {
 		list ($ret, $searchResults) =
 		    $gallery->search($query, array(), array('limit' => array('count' => 50)));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -132,12 +132,12 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		}
 
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($ids);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $derivatives) = GalleryCoreApi::loadEntitiesById($ids);
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -149,14 +149,14 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 				    $derivative->getPostFilterOperations()));
 
 		    $ret = $derivative->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lock);
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -178,11 +178,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -198,21 +198,21 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	FROM [WatermarkImage]
 	';
 	list ($ret, $searchResults) = $gallery->search($query);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while ($result = $searchResults->nextResult()) {
 	    list ($ret) = WatermarkHelper::deleteWatermarkImageById($result[0], true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	$ret = parent::uninstall();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -222,25 +222,25 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'WatermarkImage', 'WatermarkImage',
 	    'modules/watermark/classes/WatermarkImage.class', 'watermark', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'ItemEditWatermark', 'ItemEditWatermark',
 	    'modules/watermark/ItemEditWatermark.inc', 'watermark', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddOption', 'WatermarkOption', 'WatermarkOption',
 	    'modules/watermark/WatermarkOption.inc', 'watermark', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -254,7 +254,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Watermarks'),
 				 'view' => 'watermark.WatermarkSiteAdmin')));
     }
@@ -267,7 +267,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -277,7 +277,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 			     'view' => 'watermark.UserWatermarks');
 	}
 
-	return array(GalleryStatus::success(), $views);
+	return array(null, $views);
     }
 
     /**
@@ -294,19 +294,19 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		    'modules/watermark/classes/WatermarkHelper.class');
 		list ($ret, $watermarkIds) =
 		    WatermarkHelper::fetchWatermarkIdsByOwnerId($entity->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		foreach ($watermarkIds as $id) {
 		    list ($ret) = WatermarkHelper::deleteWatermarkImageById($id, true);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 
     /**

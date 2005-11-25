@@ -111,7 +111,7 @@ class GalleryStorage {
     function loadEntities($ids) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -119,10 +119,10 @@ class GalleryStorage {
 	}
 
 	list ($ret, $entities) = $this->_impl->loadEntities($ids);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $entities);
+	return array(null, $entities);
     }
 
     /**
@@ -135,7 +135,7 @@ class GalleryStorage {
     function saveEntity(&$object) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -143,10 +143,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->saveEntity($object);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -159,7 +159,7 @@ class GalleryStorage {
     function deleteEntity($object) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -167,10 +167,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->deleteEntity($object);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -183,7 +183,7 @@ class GalleryStorage {
     function newEntity(&$object) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -191,10 +191,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->newEntity($object);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -210,7 +210,7 @@ class GalleryStorage {
     function refreshEntity($object) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -218,10 +218,10 @@ class GalleryStorage {
 	}
 
 	list ($ret, $entity) = $this->_impl->refreshEntity($object);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $entity);
+	return array(null, $entity);
     }
 
     /**
@@ -238,7 +238,7 @@ class GalleryStorage {
     function search($query, $data=array(), $optional=array()) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -246,10 +246,10 @@ class GalleryStorage {
 	}
 
 	list ($ret, $results) = $this->_impl->search($query, $data, $optional);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -263,7 +263,7 @@ class GalleryStorage {
     function execute($statement, $data=array()) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -271,10 +271,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->execute($statement, $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -287,7 +287,7 @@ class GalleryStorage {
     function addMapEntry($map, $entry) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -295,10 +295,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->addMapEntry($map, $entry);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -311,7 +311,7 @@ class GalleryStorage {
     function removeMapEntry($map, $match) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -319,10 +319,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->removeMapEntry($map, $match);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -334,7 +334,7 @@ class GalleryStorage {
     function removeAllMapEntries($map) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -342,10 +342,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->removeAllMapEntries($map);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -359,7 +359,7 @@ class GalleryStorage {
     function updateMapEntry($map, $match, $change) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -367,10 +367,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->updateMapEntry($map, $match, $change);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -383,7 +383,7 @@ class GalleryStorage {
     function configureStore($moduleId, $upgradeInfo=array()) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -391,10 +391,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->configureStore($moduleId, $upgradeInfo);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -406,7 +406,7 @@ class GalleryStorage {
     function configureStoreCleanup($moduleId) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -414,10 +414,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->configureStoreCleanup($moduleId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -428,7 +428,7 @@ class GalleryStorage {
     function unconfigureStore($moduleId) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -436,10 +436,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->unconfigureStore($moduleId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -450,7 +450,7 @@ class GalleryStorage {
     function cleanStore() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -458,10 +458,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->cleanStore();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -472,7 +472,7 @@ class GalleryStorage {
     function beginTransaction() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -480,10 +480,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->beginTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -494,7 +494,7 @@ class GalleryStorage {
     function commitTransaction() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -502,10 +502,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->commitTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -516,7 +516,7 @@ class GalleryStorage {
     function rollbackTransaction() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -524,10 +524,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->rollbackTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -538,19 +538,19 @@ class GalleryStorage {
      */
     function checkPoint() {
 	if (!$this->_isInitialized) {
-	    return GalleryStatus::success();
+	    return null;
 	}
 
 	$ret = $this->_impl->commitTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret;
 	}
 
-	$ret = GalleryStatus::success();
-	if ($ret->isError()) {
+	$ret = null;
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -565,7 +565,7 @@ class GalleryStorage {
     function acquireReadLock($entityIds, $timeout) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -573,11 +573,11 @@ class GalleryStorage {
 	}
 
 	list ($ret, $lock) = $this->_impl->acquireReadLock($entityIds, $timeout);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $lock);
+	return array(null, $lock);
     }
 
     /**
@@ -592,7 +592,7 @@ class GalleryStorage {
     function acquireWriteLock($entityIds, $timeout) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -600,11 +600,11 @@ class GalleryStorage {
 	}
 
 	list ($ret, $lock) = $this->_impl->acquireWriteLock($entityIds, $timeout);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $lock);
+	return array(null, $lock);
     }
 
     /**
@@ -618,7 +618,7 @@ class GalleryStorage {
     function refreshLocks($lockIds, $freshUntil) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -626,10 +626,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->refreshLocks($lockIds, $freshUntil);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -641,7 +641,7 @@ class GalleryStorage {
     function releaseLocks($lockIds) {
  	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -649,10 +649,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->releaseLocks($lockIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -664,7 +664,7 @@ class GalleryStorage {
     function getUniqueId() {
  	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -672,10 +672,10 @@ class GalleryStorage {
 	}
 
 	list ($ret, $id) = $this->_impl->getUniqueId();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $id);
+	return array(null, $id);
     }
 
     /**
@@ -731,7 +731,7 @@ class GalleryStorage {
     function isInstalled() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    } else {
 		$this->_isInitialized = true;
@@ -739,10 +739,10 @@ class GalleryStorage {
 	}
 
 	list ($ret, $isInstalled) = $this->_impl->isInstalled();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $isInstalled);
+	return array(null, $isInstalled);
     }
 
     /**
@@ -766,7 +766,7 @@ class GalleryStorage {
 	foreach ($matches[1] as $match) {
 	    $classes['[' . $match . ']'] = 1;
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array_keys($classes));
     }
 
@@ -778,7 +778,7 @@ class GalleryStorage {
     function optimize() {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    } else {
 		$this->_isInitialized = true;
@@ -786,10 +786,10 @@ class GalleryStorage {
 	}
 
 	$ret = $this->_impl->optimize();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

@@ -34,12 +34,12 @@ class SlideshowAppletView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshowapplet');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -47,7 +47,7 @@ class SlideshowAppletView extends GalleryView {
 
 	/* Build slideshow for an album.. */
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -55,7 +55,7 @@ class SlideshowAppletView extends GalleryView {
 	    /* Photo: do slideshow of parent album, start at this photo */
 	    $startId = $item->getId();
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($item->getParentId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -74,7 +74,7 @@ class SlideshowAppletView extends GalleryView {
 	     */
 	    $SlideshowApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
 	    list ($ret, $cookiePath) = $urlGenerator->getCookiePath(true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $SlideshowApplet['NoProtocolError'] = 0;
@@ -95,7 +95,7 @@ class SlideshowAppletView extends GalleryView {
 	    }
 
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $SlideshowApplet['defaults'] = $params;
@@ -104,7 +104,7 @@ class SlideshowAppletView extends GalleryView {
 	$form['formName'] = '';
 	$template->setVariable('controller', '');
 	$template->setVariable('SlideshowApplet', $SlideshowApplet);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/slideshowapplet/templates/SlideshowApplet.tpl'));
     }
 
@@ -113,11 +113,11 @@ class SlideshowAppletView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'slideshowapplet');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('slideshow (fullscreen)'));
+	return array(null, $module->translate('slideshow (fullscreen)'));
     }
 }
 ?>

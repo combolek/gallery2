@@ -72,7 +72,7 @@ class RedirectController extends GalleryController {
 	    }
 
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0], $path[1]);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -80,19 +80,19 @@ class RedirectController extends GalleryController {
 		switch ($derivative) {
 		case DERIVATIVE_TYPE_IMAGE_PREFERRED:
 		    list ($ret, $data) = GalleryCoreApi::fetchPreferredsByItemIds(array($id));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_RESIZE:
 		    list ($ret, $data) = GalleryCoreApi::fetchResizesByItemIds(array($id));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
 		    list ($ret, $data) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
@@ -107,7 +107,7 @@ class RedirectController extends GalleryController {
 	    }
 	} else {
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0]);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -143,7 +143,7 @@ class RedirectController extends GalleryController {
 	    $results['redirect']['page'] = $page;
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -158,12 +158,12 @@ class RedirectView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	header('Content-type: text/plain');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('html' => 'modules/migrate/templates/Htaccess.tpl'));
     }
 }

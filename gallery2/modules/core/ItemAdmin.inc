@@ -45,13 +45,13 @@ class ItemAdminView extends GalleryView {
 	/* Figure out the item we're referring to */
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Find its thumbnail */
 	list ($ret, $thumbnailTable) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($thumbnailTable)) {
@@ -63,7 +63,7 @@ class ItemAdminView extends GalleryView {
 
 	/* Load the module list */
 	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -77,7 +77,7 @@ class ItemAdminView extends GalleryView {
 	    /* Get the selected module's admin view */
 	    if (in_array('getItemAdminViews', explode('|', $status['callbacks']))) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			continue;
 		    }
@@ -85,7 +85,7 @@ class ItemAdminView extends GalleryView {
 		}
 
 		list ($ret, $moduleViews) = $module->getItemAdminViews($item);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -97,7 +97,7 @@ class ItemAdminView extends GalleryView {
 
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if ($subViewName == 'core.ItemAdmin') {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Turn sub view choices into url params */
@@ -128,7 +128,7 @@ class ItemAdminView extends GalleryView {
 	}
 
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -137,7 +137,7 @@ class ItemAdminView extends GalleryView {
 
 	/* Load the item's parents */
 	list ($ret, $parents) = GalleryCoreApi::fetchParents($item, 'core.view');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	for ($i = 0; $i < sizeof($parents); $i++) {
@@ -145,12 +145,12 @@ class ItemAdminView extends GalleryView {
 	}
 
 	list ($ret, $results) = $subView->loadTemplate($template, $form);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -163,19 +163,19 @@ class ItemAdminView extends GalleryView {
 
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get the links for navigating back to where we came from */
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -197,7 +197,7 @@ class ItemAdminView extends GalleryView {
 
 	$template->setVariable('ItemAdmin', $ItemAdmin);
 	$template->title($module->translate('Gallery Item Administration'));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/ItemAdmin.tpl'));
     }
 
@@ -215,16 +215,16 @@ class ItemAdminView extends GalleryView {
 	    $subViewName = 'core.ItemEdit';
 	}
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $description) = $subView->getViewDescription();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $description);
+	return array(null, $description);
     }
 }
 ?>

@@ -53,7 +53,7 @@ class StatusTemplate {
 	include(dirname(__FILE__) . '/templates/MainPage.html');
 	flush();
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**

@@ -86,7 +86,7 @@ class UserLoginController extends GalleryController {
 		    /* Get all the login plugins */
 		    list ($ret, $pluginInstances) =
 			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -94,7 +94,7 @@ class UserLoginController extends GalleryController {
 			list ($ret, $pluginInstances[$pluginId]) =
 			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 								   $pluginId);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -103,7 +103,7 @@ class UserLoginController extends GalleryController {
 		/* Let each plugin do its verification */
 		foreach ($pluginInstances as $pluginId => $plugin) {
 		    list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -117,7 +117,7 @@ class UserLoginController extends GalleryController {
 
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
-		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -127,7 +127,7 @@ class UserLoginController extends GalleryController {
 		    $event = GalleryCoreApi::newEvent('Gallery::Login');
 		    $event->setEntity($user);
 		    list ($ret, $redirect) = GalleryCoreApi::postEvent($event);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -156,7 +156,7 @@ class UserLoginController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
 }
@@ -186,7 +186,7 @@ class UserLoginView extends GalleryView {
 	/* Get all the login plugins */
 	list ($ret, $allPluginIds) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -195,13 +195,13 @@ class UserLoginView extends GalleryView {
 	foreach (array_keys($allPluginIds) as $pluginId) {
 	    list ($ret, $plugin) =
 		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $data['file'], $data['l10Domain']) =
 		$plugin->loadTemplate($template, $form, 'MEDIUM');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -212,7 +212,7 @@ class UserLoginView extends GalleryView {
 
 	$template->setVariable('UserLogin', $UserLogin);
 	$template->setVariable('controller', 'core.UserLogin');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/UserLogin.tpl'));
     }
 }

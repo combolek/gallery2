@@ -39,7 +39,7 @@ class ConfigureController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -58,7 +58,7 @@ class ConfigureController extends GalleryController {
 
 		/* Create group for the mobile users. */
 		list ($ret, $groupId) = ImageUploadHelper::createMobileUserGroup($form['group']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_COLLISION) {
 			$error[] = 'form[error][group][duplicate]';
 		    } else {
@@ -69,11 +69,11 @@ class ConfigureController extends GalleryController {
 		if (empty($error)) {
 		    list ($ret, $albumId) =
 			ImageUploadHelper::createUploadAlbum($form['album'], $form['parent']);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $ret = ImageUploadHelper::setAlbumPermissions($albumId, $groupId);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -92,7 +92,7 @@ class ConfigureController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -109,7 +109,7 @@ class ConfigureView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -123,11 +123,11 @@ class ConfigureView extends GalleryView {
 
 	list ($ret, $albumIds) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$albumTree = GalleryUtilities::createAlbumTree($albums);
@@ -136,7 +136,7 @@ class ConfigureView extends GalleryView {
 	$template->setVariable('NokiaUploadConfigure', $Configure);
 	$template->setVariable('controller', 'nokiaupload.Configure');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/nokiaupload/templates/Configure.tpl'));
     }
 }

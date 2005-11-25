@@ -59,7 +59,7 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 	$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -81,7 +81,7 @@ class FlushDatabaseCacheTask extends MaintenanceTask {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $success, $details);
+	return array(null, $success, $details);
     }
 }
 ?>

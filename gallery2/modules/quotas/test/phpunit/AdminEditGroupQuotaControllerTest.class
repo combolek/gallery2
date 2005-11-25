@@ -49,7 +49,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
     function testCancel() {
 	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -67,7 +67,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
     function testUndo() {
 	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -87,7 +87,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
     function testEditGroupQuota() {
 	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -108,7 +108,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists, 'Quota does not exist');
@@ -127,7 +127,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	/* Create a group for our tests */
 	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -165,7 +165,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
     function testEditGroupQuotaNonExistantQuota() {
 	/* Create a group, but no quota for it */
 	list ($ret, $group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -194,21 +194,21 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
     function _createGroupQuota($groupId, $quota) {
 	$ret = QuotasMap::addMapEntry(array('userOrGroupId' => $groupId,
 					    'quotaSize' => $quota));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteEntity($entity) {
 	$ret = GalleryCoreApi::deleteEntityById($entity->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteGroupQuota($groupId) {
 	$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $groupId));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

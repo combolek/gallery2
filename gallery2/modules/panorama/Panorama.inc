@@ -39,20 +39,20 @@ class PanoramaView extends GalleryView {
 	GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $image) = PanoramaHelper::fetchViewableImages(array($item));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($image)) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	$image = $image[$item->getId()];
 
 	list ($ret, $viewWidth) = GalleryCoreApi::getPluginParameter('module', 'panorama', 'width');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -62,7 +62,7 @@ class PanoramaView extends GalleryView {
 						'serialNumber' => $image->getSerialNumber()), true);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'panorama');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -74,7 +74,7 @@ class PanoramaView extends GalleryView {
 
 	$template->setVariable('Panorama', $Panorama);
 	$template->title($module->translate('Panorama'));
-	return array(GalleryStatus::success(),
+	return array(null,
 	    array('body' => 'modules/panorama/templates/Panorama.tpl'));
     }
 }

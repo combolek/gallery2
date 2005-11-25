@@ -77,7 +77,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
      */
     function cleanStore() {
 	$ret = parent::cleanStore();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -86,7 +86,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	 * aggregate function.
 	 */
 	list ($ret, $tmpDb) = $this->_getConnection(true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -96,10 +96,10 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	$this->_traceStop();
 
 	if (empty($recordSet)) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -120,7 +120,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	     * aggregate function.
 	     */
 	    list ($ret, $tmpDb) = $this->_getConnection(true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -140,11 +140,11 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	}
 
 	$ret = parent::configureStore($moduleId); 	 
-	if ($ret->isError()) { 	 
+	if ($ret) { 	 
 	    return $ret->wrap(__FILE__, __LINE__); 	 
 	} 	 
 
-	return GalleryStatus::success(); 	 
+	return null; 	 
      } 	 
   	 
     /**
@@ -212,7 +212,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	    return array(GalleryStatus::ERROR_UNIMPLEMENTED(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $sql);
+	return array(null, $sql);
     }
 
     /**

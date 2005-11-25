@@ -43,7 +43,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -52,7 +52,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 	$error = array();
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($form['action']['cancel'])) {
@@ -68,13 +68,13 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 
 	    list ($ret, $quotaExists, $groupQuota) =
 	        GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($quotaExists) {
 		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $group->getId()));
-                if ($ret->isError()) {
+                if ($ret) {
                     return array($ret->wrap(__FILE__, __LINE__), null);
                 }
 
@@ -94,7 +94,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -113,19 +113,19 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -138,7 +138,7 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 	$AdminDeleteGroupQuota = array();
 	list ($ret, $AdminDeleteGroupQuota['quotaSize'], $AdminDeleteGroupQuota['quotaUnit']) =
 	    GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminDeleteGroupQuota['group'] = $group->getMemberData();
@@ -147,7 +147,7 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 	$template->setVariable('AdminDeleteGroupQuota', $AdminDeleteGroupQuota);
 	$template->setVariable('controller', 'quotas.AdminDeleteGroupQuota');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/quotas/templates/AdminDeleteGroupQuota.tpl'));
     }
 }

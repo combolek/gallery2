@@ -61,18 +61,18 @@ class SizeLimitModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'SizeLimitOption', 'SizeLimitOption',
 	    'modules/sizelimit/SizeLimitOption.inc', 'sizelimit', array('ItemEditAlbum'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddOption', 'SetSizeOption', 'SetSizeOption',
 	    'modules/sizelimit/SetSizeOption.inc', 'sizelimit', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -90,19 +90,19 @@ class SizeLimitModule extends GalleryModule {
 		$parentId = $album->getParentId();
 		list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 		    'module', 'sizelimit', $parentId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($params as $param => $value) {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 			$param, $value, $album->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 }
 ?>

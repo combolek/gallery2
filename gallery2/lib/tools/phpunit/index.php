@@ -17,12 +17,12 @@ require_once('MockTemplateAdapter.class');
 
 function PhpUnitGalleryMain(&$testSuite, $filter) {
     $ret = GalleryInitFirstPass();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $ret = GalleryInitSecondPass();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
@@ -39,12 +39,12 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
      */
     $storage =& $gallery->getStorage();
     $ret = $storage->commitTransaction();
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
     list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-    if ($ret->isError()) {
+    if ($ret) {
 	print $ret->getAsHtml();
 	return;
     }
@@ -55,7 +55,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 	 * Load the test cases for every active module.
 	 */
 	list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -86,7 +86,7 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
     GalleryCoreApi::registerEventListener('GalleryEntity::save', $counter);
     GalleryCoreApi::registerEventListener('GalleryEntity::delete', $counter);
 
-    return GalleryStatus::success();
+    return null;
 }
 
 function loadTests($moduleId, $testDir, $filter) {
@@ -168,7 +168,7 @@ if (isset($_GET['filter'])) {
 }
 $testSuite = new TestSuite();
 $ret = PhpUnitGalleryMain($testSuite, $filter);
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     print $gallery->getDebugBuffer();
@@ -176,7 +176,7 @@ if ($ret->isError()) {
 }
 
 list ($ret, $moduleStatusList) = GalleryCoreApi::fetchPluginStatus('module');
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
@@ -189,7 +189,7 @@ if (!$session->isUsingCookies()) {
 }
 
 list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
@@ -221,7 +221,7 @@ include(dirname(__FILE__) . '/index.tpl');
 
 /* Compact any ACLs that were created during this test run */
 $ret = GalleryCoreApi::compactAccessLists();
-if ($ret->isError()) {
+if ($ret) {
     $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
@@ -229,7 +229,7 @@ if ($ret->isError()) {
 
 $storage =& $gallery->getStorage();
 $ret = $storage->commitTransaction();
-if ($ret->isError()) {
+if ($ret) {
     return $ret->wrap(__FILE__, __LINE__);
 }
 ?>

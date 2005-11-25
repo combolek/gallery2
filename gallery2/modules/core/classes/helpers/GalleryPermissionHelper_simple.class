@@ -48,21 +48,21 @@ class GalleryPermissionHelper_simple {
 	$cacheKey = "GalleryPermissionHelper::fetchAccessListIds($permission, $userId)";
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $groupIds = array_keys($groupIds);
 	    $userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
 	    list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permission);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $storage =& $gallery->getStorage();
 	    list ($ret, $bitAndPermission) =
 		$storage->getFunctionSql('BITAND', array('[GalleryAccessMap::permission]', '?'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -85,7 +85,7 @@ class GalleryPermissionHelper_simple {
 	    $data[] = $storage->convertIntToBits($bits);
 
 	    list ($ret, $results) = $gallery->search($query, $data);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -98,7 +98,7 @@ class GalleryPermissionHelper_simple {
 	    $aclIds = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(GalleryStatus::success(), $aclIds);
+	return array(null, $aclIds);
     }
 
     /**
@@ -125,21 +125,21 @@ class GalleryPermissionHelper_simple {
 	}
 
 	list ($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = 0;
 	foreach ($permissionIds as $id) {
 	    if (!isset($allPermissions[$id])) {
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  "Unknown permission id: $id"),
 			     null);
 	    }
 	    $results |= $allPermissions[$id]['bits'];
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -173,7 +173,7 @@ class GalleryPermissionHelper_simple {
 	    ';
 
 	    list($ret, $searchResults) = $gallery->search($query);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -189,13 +189,13 @@ class GalleryPermissionHelper_simple {
 		$bits = $storage->convertBitsToInt($result[3]);
 
 		if (!isset($translator)) {
-		    return array(GalleryStatus::error(ERROR_UNKNOWN, '', 0), null);
+		    return array(GalleryCoreApi::error(ERROR_UNKNOWN, '', 0), null);
 		}
 
 		list ($ret, $description) =
 		    $translator->translateDomain('modules_' . $result[0],
 						 array('text' => $result[2]));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -209,7 +209,7 @@ class GalleryPermissionHelper_simple {
 	} else {
 	    $permissions = GalleryDataCache::get($cacheKey);
 	}
-	return array(GalleryStatus::success(), $permissions);
+	return array(null, $permissions);
     }
 }
 ?>

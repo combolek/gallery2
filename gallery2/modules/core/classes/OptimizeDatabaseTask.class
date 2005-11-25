@@ -59,18 +59,18 @@ class OptimizeDatabaseTask extends MaintenanceTask {
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->optimize();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$details = array($module->translate('Database optimized successfully'));
 
-	return array(GalleryStatus::success(), true, $details);
+	return array(null, true, $details);
     }
 }
 ?>

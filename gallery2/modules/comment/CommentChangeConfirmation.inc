@@ -44,7 +44,7 @@ class CommentChangeConfirmationView extends GalleryView {
 
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -57,7 +57,7 @@ class CommentChangeConfirmationView extends GalleryView {
 	$template->setVariable('CommentChangeConfirmation', $CommentChangeConfirmation);
 	$template->setVariable('controller', 'comment.CommentChangeConfirmation');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/comment/templates/CommentChangeConfirmation.tpl'));
     }
 }

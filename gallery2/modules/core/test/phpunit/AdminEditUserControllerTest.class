@@ -41,14 +41,14 @@ class AdminEditUserControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_user[0]) = $this->_createUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_user[0]);
 
 	list ($ret, $this->_user[1]) = $this->_createUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

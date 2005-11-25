@@ -52,20 +52,20 @@ class NetPbmModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'netpbm');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('path' => '', 'jpegQuality' => '75', 'pnmtojpeg' => 'pnmtojpeg',
 		       'bmptopnm' => 'bmptopnm', 'pnmcomp' => 'pnmcomp') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -76,11 +76,11 @@ class NetPbmModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'NetPbmToolkit', 'NetPBM',
 	    'modules/netpbm/classes/NetPbmToolkit.class', 'netpbm', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -90,11 +90,11 @@ class NetPbmModule extends GalleryModule {
 	global $gallery;
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
-	    return array(GalleryStatus::success(), true);
+	    return array(null, true);
 	}
 
 	/* Try a bunch of likely seeming paths to see if any of them work. */
@@ -145,7 +145,7 @@ class NetPbmModule extends GalleryModule {
 	    $paths[] = '/bin/';
 	    $paths[] = '/sw/bin/';
 	} else {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 
 	/* Load any classes we require */
@@ -159,18 +159,18 @@ class NetPbmModule extends GalleryModule {
 	    }
 
 	    list ($ret, $testResults, $mimeTypes) = NetPbmToolkitHelper::testBinaries($path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), false);
 	    }
 
 	    /* Take the first path found with at least jpeg support */
 	    if (in_array('image/jpeg', $mimeTypes)) {
 		$ret = $this->setParameter('path', $path);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 		$ret = NetPbmToolkitHelper::saveParameters($testResults);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 		$success = true;
@@ -183,13 +183,13 @@ class NetPbmModule extends GalleryModule {
 		continue;
 	    }
 	    list ($ret, $testResults) = NetPbmToolkitHelper::testJhead($path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), false);
 	    }
 	    foreach ($testResults as $testResult) {
 		if ($testResult['success'] && ($testResult['name'] == 'jhead')) {
 		    $ret = $this->setParameter('jheadPath', $path);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), false);
 		    }
 		    break 2;
@@ -197,7 +197,7 @@ class NetPbmModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $success);
+	return array(null, $success);
     }
 
     /**
@@ -209,18 +209,18 @@ class NetPbmModule extends GalleryModule {
 
 	/* Find out what operations and properties we have available to us */
 	list ($ret, $results) = NetPbmToolkitHelper::getOperationsAndProperties(true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('NetPBM');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $priority++;
@@ -234,7 +234,7 @@ class NetPbmModule extends GalleryModule {
 							   $info['params'],
 							   $info['description'],
 							   $outputMimeType, $priority);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -245,17 +245,17 @@ class NetPbmModule extends GalleryModule {
 							  $property,
 							  $info['type'],
 							  $info['description']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -268,16 +268,16 @@ class NetPbmModule extends GalleryModule {
 	 * be after the deactivation is done.
 	 */
 	$ret = GalleryCoreApi::unregisterToolkit('NetPBM');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -287,23 +287,23 @@ class NetPbmModule extends GalleryModule {
 	/* This module requires all fields to be filled out before it can be activated. */
 	foreach (array('path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {
-		return array(GalleryStatus::success(), true);
+		return array(null, true);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('NetPBM'),
 				 'view' => 'netpbm.AdminNetPbm')));
     }

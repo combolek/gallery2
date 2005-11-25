@@ -66,7 +66,7 @@ class GalleryPluginHelper_simple {
 		break;
 
 	    default:
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  "pluginType = $pluginType"), null);
 	    }
 
@@ -97,11 +97,11 @@ class GalleryPluginHelper_simple {
 			list ($ret, $plugin) =
 			    GalleryPluginHelper_simple::loadPlugin($pluginType, $pluginId,
 								   $ignoreVersionMismatch, $depth + 1);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else {
-			return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+			return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						      $pluginBaseDir . $pluginFile), null);
 		    }
 		}
@@ -109,7 +109,7 @@ class GalleryPluginHelper_simple {
 		GalleryCoreApi::relativeRequireOnce($pluginFile);
 
 		if (!class_exists($pluginClass)) {
-		    return array(GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+		    return array(GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 						      "Class $pluginClass does not exist"), null);
 		}
 	    }
@@ -132,7 +132,7 @@ class GalleryPluginHelper_simple {
 
 	    /* Verify that the versions match */
 	    list ($ret, $status) = GalleryPluginHelper_simple::fetchPluginStatus($pluginType);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -147,7 +147,7 @@ class GalleryPluginHelper_simple {
 
 		    /* Try to deactivate the plugin */
 		    list ($ret, $redirectInfo) = $plugin->deactivate();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -168,7 +168,7 @@ class GalleryPluginHelper_simple {
 		    }
 
 		    /*  Return a handleable error */
-		    return array(GalleryStatus::error(ERROR_PLUGIN_VERSION_MISMATCH,
+		    return array(GalleryCoreApi::error(ERROR_PLUGIN_VERSION_MISMATCH,
 						      __FILE__, __LINE__,
 				     sprintf('[%s] db: (v: %s core api: %s, %s api: %s) '.
 					     'code: (v: %s core api: %s, %s api: %s) ',
@@ -194,7 +194,7 @@ class GalleryPluginHelper_simple {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $plugin);
+	return array(null, $plugin);
     }
 
     /**
@@ -241,15 +241,15 @@ class GalleryPluginHelper_simple {
 
 	list ($ret, $params) =
 	    GalleryPluginHelper_simple::fetchAllParameters($pluginType, $pluginId, $itemId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Return the value, or null if the param doesn't exist */
 	if (!isset($params[$parameterName])) {
-	    return array(GalleryStatus::success(), null);
+	    return array(null, null);
 	} else {
-	    return array(GalleryStatus::success(), $params[$parameterName]);
+	    return array(null, $params[$parameterName]);
 	}
     }
 
@@ -266,7 +266,7 @@ class GalleryPluginHelper_simple {
     function fetchAllParameters($pluginType, $pluginId, $itemId=0) {
 	global $gallery;
 	if (empty($pluginType) || empty($pluginId)) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      sprintf("Missing pluginType [%s] or pluginId [%s]",
 						      $pluginType,
 						      $pluginId)),
@@ -300,7 +300,7 @@ class GalleryPluginHelper_simple {
 
 		list ($ret, $searchResults) =
 		    $gallery->search($query, array($pluginType, $pluginId, $itemId));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -319,7 +319,7 @@ class GalleryPluginHelper_simple {
 	    $data = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(GalleryStatus::success(), $data);
+	return array(null, $data);
     }
 
     /**
@@ -345,7 +345,7 @@ class GalleryPluginHelper_simple {
 	    }
 	    if (!isset($plugins)) {
 		list ($ret, $plugins) = GalleryPluginHelper_simple::fetchPluginList($pluginType);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -368,7 +368,7 @@ class GalleryPluginHelper_simple {
 		    break;
 
 		default:
-		    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						      sprintf("Wrong pluginType [%s]",
 							      $pluginType)),
 				 null);
@@ -399,7 +399,7 @@ class GalleryPluginHelper_simple {
 				    list ($ret, $plugins[$pluginId][$paramName]) =
 					GalleryPluginHelper_simple::getParameter(
 					    $pluginType, $pluginId, '_' . $paramName);
-				    if ($ret->isError()) {
+				    if ($ret) {
 					return array($ret->wrap(__FILE__, __LINE__), null);
 				    }
 
@@ -449,7 +449,7 @@ class GalleryPluginHelper_simple {
 	    $plugins = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(GalleryStatus::success(), $plugins);
+	return array(null, $plugins);
     }
 
     /**
@@ -464,7 +464,7 @@ class GalleryPluginHelper_simple {
 	global $gallery;
 
 	if (empty($pluginType)) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      "Missing plugin type"),
 			 null);
 	}
@@ -482,7 +482,7 @@ class GalleryPluginHelper_simple {
 	    ';
 
 	    list ($ret, $searchResults) = $gallery->search($query, array($pluginType));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -495,7 +495,7 @@ class GalleryPluginHelper_simple {
 	    $data = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(GalleryStatus::success(), $data);
+	return array(null, $data);
     }
 
     /**

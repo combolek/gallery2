@@ -58,18 +58,18 @@ class ExifModule extends GalleryModule {
 	    /* Initial install */
 	    GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
 	    $ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Import IPTC keywords into item keywords, see comment below for reason. */
 	    $ret = $this->setParameter('addOption', IPTC_ITEM_KEYWORDS);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
@@ -77,7 +77,7 @@ class ExifModule extends GalleryModule {
 	    case '0.8.2':
 	    case '0.8.3':
 		$ret = $this->setParameter('addOption', '0');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -97,21 +97,21 @@ class ExifModule extends GalleryModule {
 		 */
 		GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list($ret, $addOption) = $this->getParameter('addOption');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$ret = $this->setParameter('addOption', $addOption | IPTC_ITEM_KEYWORDS);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -136,12 +136,12 @@ class ExifModule extends GalleryModule {
 		break;
 
 	    default:
-		return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+		return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					    sprintf('Unknown module version %s', $currentVersion));
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -151,25 +151,25 @@ class ExifModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ExifInterface_1_0', 'ExifExtractor', 'Exif',
 	    'modules/exif/classes/ExifExtractor.class', 'exif', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ExifToolkit', 'Exif',
 	    'modules/exif/classes/ExifToolkit.class', 'exif', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemAddOption',
 	    'ExifDescriptionOption', 'ExifDescriptionOption',
 	    'modules/exif/ExifDescriptionOption.inc', 'exif', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -184,16 +184,16 @@ class ExifModule extends GalleryModule {
 		'originationTimestamp',
 		'int',
 		$gallery->i18n('Get the origination timestamp'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $redirect);
+	return array(null, $redirect);
     }
 
     /**
@@ -202,7 +202,7 @@ class ExifModule extends GalleryModule {
     function getSiteAdminViews() {
 	global $gallery;
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('EXIF/IPTC'),
 				 'view' => 'exif.AdminExif')));
     }

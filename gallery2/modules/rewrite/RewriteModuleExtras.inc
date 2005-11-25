@@ -41,7 +41,7 @@ class RewriteModuleExtras {
 			   'accessList' => serialize(array()))
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -53,7 +53,7 @@ class RewriteModuleExtras {
 	    foreach (array('prefixes' => '', 'views' => '')
 		    as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -62,14 +62,14 @@ class RewriteModuleExtras {
 	    $prefixMap = array();
 	    list ($ret, $views) =
 		    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'views');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $views = explode('|', $views);
 
 	    list ($ret, $prefixes) =
 		    GalleryCoreApi::getPluginParameter('module', 'rewrite', 'prefixes');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $prefixes = explode('|', $prefixes);
@@ -83,17 +83,17 @@ class RewriteModuleExtras {
 	    foreach (array('prefixMap' => serialize($prefixMap))
 		    as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = $module->removeParameter('views');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $module->removeParameter('prefixes');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -109,7 +109,7 @@ class RewriteModuleExtras {
 			   'rewriteBase' => '')
 		    as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -120,7 +120,7 @@ class RewriteModuleExtras {
 			   'step' => 1)
 		    as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -130,7 +130,7 @@ class RewriteModuleExtras {
 	case '0.1.8':
 	    foreach (array('rewriteLocation', 'rewriteBase') as $key) {
 		$ret = $module->removeParameter($key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -141,7 +141,7 @@ class RewriteModuleExtras {
 	case '0.8.1':
 	    foreach (array('prefixMap', 'usePrefixes') as $key) {
 		$ret = $module->removeParameter($key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -151,7 +151,7 @@ class RewriteModuleExtras {
 	     * the user reconfigure and reactivate.
 	     */
 	    list ($ret, $unused) = $module->deactivate();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -165,13 +165,13 @@ class RewriteModuleExtras {
 			   'embeddedHtaccess' => '')
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    list ($ret, $code) = $module->autoConfigure();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -180,7 +180,7 @@ class RewriteModuleExtras {
 	    foreach (array('accessList' => serialize(array()))
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -189,7 +189,7 @@ class RewriteModuleExtras {
 	    /* Update view names in match strings to new . separator; core.ShowItem, etc */
 	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 	    list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($activeRules as $moduleId => $rules) {
@@ -201,7 +201,7 @@ class RewriteModuleExtras {
 		}
 	    }
 	    $ret = RewriteMap::setActiveRules($activeRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -212,7 +212,7 @@ class RewriteModuleExtras {
 	case '0.9.10':
 	    foreach (array('needOptions') as $key) {
 		$ret = $module->removeParameter($key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -220,7 +220,7 @@ class RewriteModuleExtras {
 	    foreach (array('status' => serialize(array()))
 		     as $key => $value) {
 		$ret = $module->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -242,11 +242,11 @@ class RewriteModuleExtras {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -254,7 +254,7 @@ class RewriteModuleExtras {
      */
     function handleDeactivatePlugin($module, $pluginId) {
 	list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -267,7 +267,7 @@ class RewriteModuleExtras {
 		    serialize(array(
 			'pattern' => $activeRules[$pluginId][$ruleId]['pattern'],
 			'ruleId' => $ruleId)));
-	        if ($ret->isError()) {
+	        if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 	        }
 	    }
@@ -275,12 +275,12 @@ class RewriteModuleExtras {
 
 	    list($ret, $code, $rewriteRules) =
 		RewriteHelper::parseActiveRules($activeRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* We're just removing so anything but status OK would be an unknown error */
 	    if ($code != REWRITE_STATUS_OK) {
-		return GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__);
 	    }
 
 	    /*
@@ -288,23 +288,23 @@ class RewriteModuleExtras {
 	     * atleast we won't generate the short URLs as long as the DB is updated.
 	     */
 	    list($ret, $code) = RewriteHelper::writeFile($rewriteRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (GalleryUtilities::isEmbedded()) {
 		list($ret, $code) = RewriteHelper::writeFile($rewriteRules, true);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = RewriteMap::setActiveRules($activeRules);
-    	    if ($ret->isError()) {
+    	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -313,20 +313,20 @@ class RewriteModuleExtras {
     function handleActivatePlugin($module, $pluginId) {
 	/* Get saved patterns */
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $pluginId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$rules = $plugin->getRewriteRules();
 
 	list ($ret, $params) = $module->fetchParameters();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Build the dupe-list and get current rules active */
 	if (isset($params['history.' . $pluginId . '.0'])) {
 	    list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -340,7 +340,7 @@ class RewriteModuleExtras {
 
 	for ($i = 0; isset($params['history.' . $pluginId . '.' . $i]); $i++) {
 	    $ret = $module->removeParameter('history.' . $pluginId . '.' . $i);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -359,37 +359,37 @@ class RewriteModuleExtras {
 	/* If we added new rules - update active rules and the .htaccess file. */
 	if (isset($activeRules[$pluginId])) {
 	    list($ret, $code, $rewriteRules) = RewriteHelper::parseActiveRules($activeRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($code != REWRITE_STATUS_OK) {
-		return GalleryStatus::success();
+		return null;
 	    }
 
 	    list($ret, $code) = RewriteHelper::writeFile($rewriteRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if ($code != REWRITE_STATUS_OK) {
-		return GalleryStatus::success();
+		return null;
 	    }
 	    if (GalleryUtilities::isEmbedded()) {
 		list($ret, $code) = RewriteHelper::writeFile($rewriteRules, true);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if ($code != REWRITE_STATUS_OK) {
-		    return GalleryStatus::success();
+		    return null;
 		}
 	    }
 
 	    $ret = RewriteMap::setActiveRules($activeRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -397,18 +397,18 @@ class RewriteModuleExtras {
      */
     function handleUninstallPlugin($module, $pluginId) {
 	list ($ret, $params) = $module->fetchParameters();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	for ($i = 0; isset($params['history.' . $pluginId . '.' . $i]); $i++) {
 	    $ret = $module->removeParameter('history.' . $pluginId . '.' . $i);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

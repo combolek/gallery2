@@ -47,7 +47,7 @@ class ControllerTest extends GalleryTestCase {
     function testLoadControllerSuccess() {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) = GalleryController::loadController('core.ItemEdit');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($controller));
@@ -57,7 +57,7 @@ class ControllerTest extends GalleryTestCase {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) =
 	    GalleryController::loadController('controllertest.SomeRandomController');
-	if ($ret->isError() && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+	if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 	    // this is what we expect
 	} else {
 	    $this->assert(false, 'The controller of a deactivated module should not load.');
@@ -70,7 +70,7 @@ class ControllerTest extends GalleryTestCase {
 	 * because we're an admin.
 	 */
 	list ($ret, $controller) = GalleryController::loadController('controllertest.ConfigView');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(isset($controller));
@@ -85,7 +85,7 @@ class ControllerTest extends GalleryTestCase {
  */
 class ControllerTestModule {
     function isActive() {
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     function getConfigurationView() {

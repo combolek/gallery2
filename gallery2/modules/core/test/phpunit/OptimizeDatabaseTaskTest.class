@@ -54,12 +54,12 @@ class OptimizeDatabaseTaskTest extends GalleryTestCase {
 	$gallery->_storage =& $mockStorage;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $this->_task->run();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -76,7 +76,7 @@ class OptimizeDatabaseTaskTestStorage {
     
     function optimize() {
 	$this->_optimizeWasCalled = true;
-	return GalleryStatus::success();
+	return null;
     }
 
     function optimizeWasCalled() {

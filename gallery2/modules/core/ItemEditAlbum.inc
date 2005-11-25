@@ -70,7 +70,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	    if (empty($error)) {
 		/* Delete existing derivative preferences */
 		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -78,7 +78,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		$ret = GalleryCoreApi::addDerivativePreference(0, $item->getId(),
 		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 		    'thumbnail|' . $form['thumbnail']['size']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -91,7 +91,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    $ret = GalleryCoreApi::addDerivativePreference($i, $item->getId(),
 			DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
 			$form['resizes'][$i]['width'] . ',' . $form['resizes'][$i]['height']);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
@@ -100,7 +100,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if (isset($form['recreateThumbnails']) || isset($form['recreateResizes']) ) {
 		    /* Get the child id => child types */
 		    list ($ret, $childIds) = GalleryCoreApi::fetchChildItemIds($item);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -108,7 +108,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    if (!empty($childIds)) {
 			/* Load the children */
 			list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    }
@@ -120,7 +120,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if (isset($form['recreateThumbnails'])) {
 		    /* Load the thumbnail of the children */
 		    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -134,19 +134,19 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 			    /* Load the source of the thumbnail */
 			    list($ret, $source) = GalleryCoreApi::loadEntitiesById($sourceId);
-			    if ($ret->isError() && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+			    if ($ret && $ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 				/* Someone deleted the source image, we can do
 				   nothing but delete the thumbnail */
 				list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 				$ret = $thumbnail->delete();
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 				continue;
-			    } else if ($ret->isError()) {
+			    } else if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 
@@ -165,19 +165,19 @@ class ItemEditAlbum extends ItemEditPlugin {
 			    }
 
 			    list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($child);
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 
 			    list ($ret, $thumbnail) =
 				GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative',
 									 $source->getEntityType());
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 
 			    $ret = $thumbnail->create($child->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null, null);
 			    }
 
@@ -185,14 +185,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 			}
 
 			if ($thumbnail == null) {
-			    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null, null);
+			    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null, null);
 			}
 
 			/* Change the thumbnail */
 			list ($ret, $operation, $outputMimeType) =
 			    GalleryCoreApi::makeSupportedViewableOperationSequence(
 				$source->getMimeType(), $operation);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
@@ -203,16 +203,16 @@ class ItemEditAlbum extends ItemEditPlugin {
 			    $thumbnail->expireCache();
 			    if ($thumbnail->isModified()) {
 				list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 				$ret = GalleryCoreApi::estimateDerivativeDimensions($thumbnail, $source);
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 
 				$ret = $thumbnail->save();
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 			    }
@@ -228,7 +228,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if (isset($form['recreateResizes'])) {
 		    /* Get and delete all current resizes */
 		    list ($ret, $resizesTable) = GalleryCoreApi::fetchResizesByItemIds($childIds);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    foreach ($resizesTable as $resizes) {
@@ -244,14 +244,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 			}
 
 			list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($child);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
 			/* Make sure that we have a toolkit before adding back the resizes */
 			list ($ret, $toolkit, $outputMimeType) =
 			    GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'scale');
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
@@ -272,17 +272,17 @@ class ItemEditAlbum extends ItemEditPlugin {
 				list ($ret, $derivative) =
 				    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative',
 									     $source->getEntityType());
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 
 				if (!isset($derivative)) {
-				    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+				    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 						 null, null);
 				}
 
 				$ret = $derivative->create($child->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 
@@ -292,12 +292,12 @@ class ItemEditAlbum extends ItemEditPlugin {
 				    $form['resizes'][$i]['width'] . ',' . $form['resizes'][$i]['height']);
 
 				$ret = GalleryCoreApi::estimateDerivativeDimensions($derivative, $source);
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 
 				$ret = $derivative->save();
-				if ($ret->isError()) {
+				if ($ret) {
 				    return array($ret->wrap(__FILE__, __LINE__), null, null);
 				}
 			    }
@@ -306,7 +306,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -323,24 +323,24 @@ class ItemEditAlbum extends ItemEditPlugin {
 		$item->setSerialNumber($form['serialNumber']);
 
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$ret = $item->save();
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -348,7 +348,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -373,7 +373,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 	    /* Load up the data for the resizes table */
 	    list ($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -424,7 +424,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -432,13 +432,13 @@ class ItemEditAlbum extends ItemEditPlugin {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySortInterface_1_1.class');
 	list ($ret, $orderByList, $presortList, $orderDirectionList) =
 	    GallerySortInterface_1_1::getAllSortOrders();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	/* Set up our theme selection list */
 	list ($ret, $themeStatusList) = GalleryCoreApi::fetchPluginStatus('theme');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$themeList = array('' => $module->translate('&laquo; default theme &raquo;'));
@@ -448,7 +448,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	    }
 
 	    list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $themeList[$themeId] = $theme->translate($theme->getName());
@@ -461,7 +461,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 
 	$template->setVariable('ItemEditAlbum', $ItemEditAlbum);
 	$template->setVariable('controller', 'core.ItemEditAlbum');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/core/templates/ItemEditAlbum.tpl', 'modules_core');
     }
 
@@ -477,11 +477,11 @@ class ItemEditAlbum extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Album'));
+	return array(null, $module->translate('Album'));
     }
 }
 ?>

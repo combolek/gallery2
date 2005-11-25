@@ -45,7 +45,7 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
 
 	/* Create a group for quota testing */
 	list ($ret, $this->_group) = $this->_createRandomGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_group);
@@ -114,14 +114,14 @@ class AdminDeleteGroupQuotaControllerTest extends GalleryControllerTestCase {
     function _createUserOrGroupQuota($userOrGroupId, $quota) {
 	$ret = QuotasMap::addMapEntry(array('userOrGroupId' => $userOrGroupId,
 					    'quotaSize' => $quota));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteUserOrGroupQuota($userOrGroupId) {
 	$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $userOrGroupId));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

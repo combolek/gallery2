@@ -89,7 +89,7 @@ class ExifPropertiesMap_core {
         ORDER BY
           [ExifPropertiesMap::sequence] ASC';
 	list ($ret, $searchResults) = $gallery->search($query, array($viewMode));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -98,7 +98,7 @@ class ExifPropertiesMap_core {
 	    $data[] = $result[0];
 	}
 
-	return array(GalleryStatus::success(), $data);
+	return array(null, $data);
     }
 
     /**
@@ -113,7 +113,7 @@ class ExifPropertiesMap_core {
 
 	/* Remove all old map entries */
 	$ret = ExifPropertiesMap::removeMapEntry(array('viewMode' => $viewMode));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -121,12 +121,12 @@ class ExifPropertiesMap_core {
 	    $ret = ExifPropertiesMap::addMapEntry(array('property' => $properties[$i],
 							'viewMode' => $viewMode,
 							'sequence' => $i));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 

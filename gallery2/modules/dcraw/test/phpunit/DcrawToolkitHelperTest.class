@@ -57,7 +57,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder v5.62')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -72,7 +72,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder "dcraw" v6.35')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -87,7 +87,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder "dcraw" v7.17')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -102,7 +102,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder "dcraw" v7.73')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -116,7 +116,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder "dcraw" v7.17')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -129,7 +129,7 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 	$this->_platform->setReply('is_file', array('/path/to'), 0);
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to');
-	$this->assert($ret->isError() && $ret->getErrorCode() & ERROR_BAD_PATH);
+	$this->assert($ret && $ret->getErrorCode() & ERROR_BAD_PATH);
 	$this->assertEquals($testArray, null);
     }
 
@@ -140,12 +140,12 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 				   array(0, array(), array('Raw Photo Decoder "dcraw" v4.0')));
 
 	list ($ret, $testArray, $version) = DcrawToolkitHelper::testBinary('/path/to/dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

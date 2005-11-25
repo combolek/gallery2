@@ -48,28 +48,28 @@ class UserAlbumController extends GalleryController {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($userId == $anonymousUserId) {
-	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $albumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'useralbum', 'albumId', $userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $createMode) =
 	    GalleryCoreApi::getPluginParameter('module', 'useralbum', 'create');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($albumId)) {
 	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
-	    if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -77,18 +77,18 @@ class UserAlbumController extends GalleryController {
 	if (!isset($album) && $createMode == 'access') {
 	    /* If userId matches active user then create the user album */
 	    if ($userId != $activeUserId) {
-		return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+		return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	    }
 	    GalleryCoreApi::relativeRequireOnce('modules/useralbum/classes/UserAlbumHelper.class');
 
 	    $ret = UserAlbumHelper::createUserAlbum($gallery->getActiveUser());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $albumId) =
 		GalleryCoreApi::getPluginParameter('module', 'useralbum', 'albumId', $userId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -98,7 +98,7 @@ class UserAlbumController extends GalleryController {
 			 'status' => array(),
 			 'error' => array());
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 ?>

@@ -53,7 +53,7 @@ class PanoramaDerivativeImage_core extends GalleryDerivativeImage {
 	global $gallery;
 
 	list ($ret, $viewWidth) = GalleryCoreApi::getPluginParameter('module', 'panorama', 'width');
-	if ($ret->isError() || $this->getWidth() < $viewWidth) {
+	if ($ret || $this->getWidth() < $viewWidth) {
 	    return parent::render($format, $item, $params);
 	}
 

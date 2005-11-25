@@ -49,7 +49,7 @@ class UnixPlatform extends GalleryPlatform {
 	if (!isset($this->_beNice)) {
 	    list ($ret, $this->_beNice) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'exec.beNice');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug('Unable to look up core.exec.beNice param');
 		}
@@ -98,7 +98,7 @@ class UnixPlatform extends GalleryPlatform {
 	if (!isset($this->_execExpectedStatus)) {
 	    list ($ret, $this->_execExpectedStatus) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'exec.expectedStatus');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug('Unable to look up core.exec.expectedStatus param');
 		}

@@ -126,7 +126,7 @@ class PluginTest extends GalleryTestCase {
 	    $gallery->setPlatform($platform);
 
 	    list ($ret, $pluginIds) = GalleryCoreApi::getAllPluginIds($type);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($expectedIds, $pluginIds, "$type ids do not match");

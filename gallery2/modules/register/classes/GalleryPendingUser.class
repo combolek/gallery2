@@ -172,13 +172,13 @@ class GalleryPendingUser_core extends GalleryEntity {
 	list($ret, $results) =
 	    $gallery->search($query, array($userName),
 			     array('limit' => array('count' => 1)));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$result = $results->nextResult();
 	if ($result[0] > 0) {
-	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	// then check for a collision in the real user table
@@ -195,24 +195,24 @@ class GalleryPendingUser_core extends GalleryEntity {
 	list($ret, $results) =
 	    $gallery->search($query, array($userName),
 			     array('limit' => array('count' => 1)));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$result = $results->nextResult();
 	if ($result[0] > 0) {
-	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	// okay, we don't have any collisions, so go on
 	$ret = parent::create();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setUserName($userName);
 	$this->setRegistrationKey('G' . rand(100000,999999) . '2');
-	return GalleryStatus::success();
+	return null;
     }
 
     /**

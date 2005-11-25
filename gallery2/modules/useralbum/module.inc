@@ -59,11 +59,11 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
      */
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('view' => 'everybody', 'fullSize' => '1', 'targetLocation' => $rootId,
@@ -71,20 +71,20 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 		as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('User Albums'),
 				 'view' => 'useralbum.UserAlbumSiteAdmin')));
     }
@@ -97,7 +97,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	$links = array();
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'useralbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -107,14 +107,14 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 
 	    list ($ret, $anonymousUserId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($userId != $anonymousUserId) {
 		list ($ret, $albumId) =
 		    GalleryCoreApi::getPluginParameter('module', 'useralbum', 'albumId', $userId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -126,7 +126,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**
@@ -146,7 +146,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	    if (GalleryUtilities::isA($user, 'GalleryUser') &&
 		    $user->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
 		list ($ret, $createMode) = $this->getParameter('create');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($createMode == 'immediate') {
@@ -154,7 +154,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 						'modules/useralbum/classes/UserAlbumHelper.class');
 
 		    $ret = UserAlbumHelper::createUserAlbum($user);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -170,19 +170,19 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 
 	    list ($ret, $targetId) = $this->getParameter('targetLocation');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($entity->getId() == $targetId) {
 		list ($ret, $rootId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = $this->setParameter('targetLocation', $rootId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
@@ -192,7 +192,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 		 */
 		$ret = GalleryCoreApi::removePluginParameterByValue('module', 'useralbum',
 								    'albumId', $entity->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -201,7 +201,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	case 'Gallery::Login':
 	    /* Check if redirect is enabled.. */
 	    list ($ret, $loginRedirect) = $this->getParameter('loginRedirect');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($loginRedirect)) {
@@ -210,7 +210,7 @@ class UserAlbumModule extends GalleryModule /* and GalleryEventListener */ {
 	    }
 	    break;
 	}
-	return array(GalleryStatus::success(), $result);
+	return array(null, $result);
     }
 }
 ?>

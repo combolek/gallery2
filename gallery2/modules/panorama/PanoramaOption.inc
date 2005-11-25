@@ -42,21 +42,21 @@ class PanoramaOption extends ItemEditOption {
     function isAppropriate($item, $thumbnail) {
 	if (!GalleryUtilities::isExactlyA($item, 'GalleryPhotoItem') &&
 		!GalleryUtilities::isExactlyA($item, 'PanoramaPhotoItem')) {
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');
-	if ($ret->isError() || !$param['itemType']) {
-	    return array(GalleryStatus::success(), false);
+	if ($ret || !$param['itemType']) {
+	    return array(null, false);
 	}
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret->isError()) {
-	    return array(GalleryStatus::success(), false);
+	if ($ret) {
+	    return array(null, false);
 	}
 	$width = empty($preferred)
 	    ? $item->getWidth() : $preferred[$item->getId()]->getWidth();
 	$mimeType = empty($preferred)
 	    ? $item->getMimeType() : $preferred[$item->getId()]->getMimeType();
-	return array(GalleryStatus::success(), $width > $param['width'] &&
+	return array(null, $width > $param['width'] &&
 		     ($mimeType == 'image/jpeg' || $mimeType == 'image/gif'));
     }
 
@@ -65,13 +65,13 @@ class PanoramaOption extends ItemEditOption {
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$form['PanoramaOption']['isPanorama'] = empty($preferred)
 	    ? GalleryUtilities::isA($item, 'PanoramaPhotoItem')
 	    : GalleryUtilities::isA($preferred[$item->getId()], 'PanoramaDerivativeImage');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/panorama/templates/PanoramaOption.tpl',
 		     'modules_panorama');
     }
@@ -85,18 +85,18 @@ class PanoramaOption extends ItemEditOption {
 	$isPanorama = isset($form['PanoramaOption']['isPanorama']) &&
 	    $form['PanoramaOption']['isPanorama'];
 	$ret = PanoramaHelper::assignEntityType($item, $isPanorama);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($preferred) && GalleryUtilities::isA($preferred, 'GalleryDerivativeImage')) {
 	    $ret = PanoramaHelper::assignEntityType($preferred, $isPanorama);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
-	return array(GalleryStatus::success(), array(), array());
+	return array(null, array(), array());
     }
 }
 ?>

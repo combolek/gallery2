@@ -93,7 +93,7 @@ class MainTest extends GalleryTestCase {
 	GalleryUtilities::putRequestVariable('controller', 'core.FooController');
 
 	list ($ret, $g2Data) = _GalleryMain(false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
@@ -114,7 +114,7 @@ class MainTest extends GalleryTestCase {
 	$gallery->setConfig('mode.maintenance', $expectedUrl = '/maintenance.html');
 
 	list ($ret, $g2Data) = _GalleryMain(false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
@@ -147,7 +147,7 @@ class MainTest extends GalleryTestCase {
 	$base = 'http://www.example.com/';
 	$session =& $gallery->getSession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$sessionId = $session->getId();

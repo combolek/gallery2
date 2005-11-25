@@ -47,7 +47,7 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
 
 	/* Create a user to add a quota to */
 	list ($ret, $this->_user) = $this->_createRandomUser();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_user);
@@ -149,14 +149,14 @@ class AdminCreateUserQuotaControllerTest extends GalleryControllerTestCase {
     function _createUserQuota($userId, $quota) {
 	$ret = QuotasMap::addMapEntry(array('userOrGroupId' => $userId,
 					    'quotaSize' => $quota));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteUserQuota($userId) {
 	$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $userId));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

@@ -52,27 +52,27 @@ class MembersModule extends GalleryModule {
 	if (!isset($currentVersion)) {
 	    list ($ret, $viewSelectedGroupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    foreach (array('canViewMembersModule' => $viewSelectedGroupId,
 			   'canViewEmailAddress' => 0) as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Members'),
 				 'view' => 'members.AdminMembers')));
     }

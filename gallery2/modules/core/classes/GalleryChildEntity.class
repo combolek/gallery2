@@ -80,18 +80,18 @@ class GalleryChildEntity_core extends GalleryEntity {
 	global $gallery;
 
 	if (empty($parentId)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$ret = parent::create();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set the parent id */
 	$this->setParentId($parentId);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -101,14 +101,14 @@ class GalleryChildEntity_core extends GalleryEntity {
 	global $gallery;
 
 	$ret = parent::createLink($entity);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set the parent id */
 	$this->setParentId($parentId);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -121,13 +121,13 @@ class GalleryChildEntity_core extends GalleryEntity {
 	global $gallery;
 
 	if (empty($newParentId)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Set the new parent id */
 	$this->setParentId($newParentId);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -138,14 +138,14 @@ class GalleryChildEntity_core extends GalleryEntity {
      */
     function createRoot() {
 	$ret = parent::create();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* No parent for root */
 	$this->setParentId(0);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -160,14 +160,14 @@ class GalleryChildEntity_core extends GalleryEntity {
 	$parentId = $this->getParentId();
 	if (isset($parentId)) {
 	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($this->getParentId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    $parent = null;
 	}
 
-	return array(GalleryStatus::success(), $parent);
+	return array(null, $parent);
     }
 }
 

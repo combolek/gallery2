@@ -44,7 +44,7 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 
 	/* Make sure logged in user is an administrator. */
 	list ($ret, $data['isSiteAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return;
 	}
@@ -60,10 +60,10 @@ class MainPageControllerAndView extends RepositoryControllerAndView {
 	    'controller' => 'RepositoryManager', 'action' => 'browse'));
 
 	$ret = $this->showView('MainPage', $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

@@ -38,7 +38,7 @@ class ExternalCSSController extends GalleryController {
      */
     function handleRequest($form) {
 	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($imageframe)) {
@@ -48,7 +48,7 @@ class ExternalCSSController extends GalleryController {
 		foreach (array('albumFrame', 'itemFrame') as $key) {
 		    list ($ret, $frame) =
 			GalleryCoreApi::getPluginParameter('module', 'imageblock', $key);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if (!empty($frame)) {
@@ -60,7 +60,7 @@ class ExternalCSSController extends GalleryController {
 		}
 	    }
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('delegate' => array('view' =>
 				empty($frames) ? 'imageblock.ExternalCSS' : 'imageframe.CSS'),
 			   'status' => array(), 'error' => array()));
@@ -79,7 +79,7 @@ class ExternalCSSView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	header('Content-type: text/css');
 	header('Expires: ' . GalleryUtilities::getHttpDate(time() + 2592000));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('html' => 'modules/imageblock/templates/NoCSS.tpl'));
     }
 }

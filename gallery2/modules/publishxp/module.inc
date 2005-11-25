@@ -57,7 +57,7 @@ class PublishXpModule extends GalleryModule {
 	    'ItemAddPlugin', 'ItemAddPublishXp', 'ItemAddPublishXp',
 	    'modules/publishxp/ItemAddPublishXp.inc', 'publishxp', null);
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

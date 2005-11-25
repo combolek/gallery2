@@ -114,17 +114,17 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 
 	/* Validate the input filename */
 	if (empty($imageFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($imageFileName)) {
-	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__, $imageFileName);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, $imageFileName);
 	}
 
 	/* Create our data item */
 	$ret = parent::create($parentId, $imageFileName,
 			      $mimeType, $targetName, $symlink);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -137,16 +137,16 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 
 	/* Detect our dimensions, if possible */
 	$ret = $this->rescan();
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* Cleanup our datafile on failure */
 	    list ($ret2, $path) = $this->fetchPath();
-	    if ($ret2->isSuccess()) {
+	    if (!$ret2) {
 		@$platform->unlink($path);
 	    }
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -154,24 +154,24 @@ class GalleryPhotoItem_core extends GalleryDataItem {
      */
     function rescan() {
 	$ret = parent::rescan();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$mimeType = $this->getMimeType();
 
 	/* Check for CMYK colorspace and alter mime type if detected */
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'colorspace');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (isset($toolkit)) {
 	    list ($ret, $colorspace) = $toolkit->getProperty($mimeType, 'colorspace', $path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE); /* See BAD_DATA_TYPE comment below */
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -182,13 +182,13 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 	}
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $path);
-	    if ($ret->isError()) {
+	    if ($ret) {
 
 		/*
 		 * If we can't get the dimensions, it may be a bad image
@@ -202,7 +202,7 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 	    $this->setHeight($dimensions[1]);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -211,7 +211,7 @@ class GalleryPhotoItem_core extends GalleryDataItem {
     function itemTypeName($localized = true) {
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret->isError()) {
+	    if (! $ret) {
 		return array($core->translate('Photo'), $core->translate('photo'));
 	    }
 	}

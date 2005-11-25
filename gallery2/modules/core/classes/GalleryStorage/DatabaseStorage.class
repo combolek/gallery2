@@ -209,11 +209,11 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	global $gallery;
 
 	list ($ret, $this->_db) = $this->_getConnection();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -230,7 +230,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	$db =& ADONewConnection($this->getAdoDbType());
 	$this->_traceStop();
 	if (empty($db)) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
 	}
 
 	/* Turn on debugging in the database connection if Gallery is in debug mode */
@@ -251,7 +251,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	$this->_traceStop();
 
 	if (!$ret) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
 	}
 
 	if ($gallery->isProfiling('sql')) {
@@ -260,7 +260,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	    $this->_traceStop();
 	}
 
-	return array(GalleryStatus::success(), $db);
+	return array(null, $db);
     }
 
     /**
@@ -268,7 +268,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
      */
     function search($query, $data=array(), $optional=array()) {
 	if (empty($this->_db)) {
-	    return array(GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__), null);
 	}
 
 	$query = $this->_translateQuery($query);
@@ -299,10 +299,10 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	}
 
 	if ($recordSet) {
-	    return array(GalleryStatus::success(),
+	    return array(null,
 			 new DatabaseSearchResults($recordSet));
 	} else {
-	    return array(GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
 	}
     }
 
@@ -452,7 +452,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
      */
     function updateMapEntry($mapName, $match, $change) {
 	$ret = $this->_guaranteeTransaction();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret;
 	}
 
@@ -513,7 +513,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	}
 
 	if (sizeof($set) == 0 || sizeof($where) == 0) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$query = 'UPDATE ' . $tableName . ' ';
@@ -527,10 +527,10 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	$recordSet = $this->_db->Execute($query, $data);
 	$this->_traceStop();
 	if (!$recordSet) {
-	    return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -570,7 +570,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
      */
     function beginTransaction() {
 	if (empty($this->_db)) {
-	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
 	}
 
 	if ($this->_isTransactional) {
@@ -579,11 +579,11 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	    $this->_traceStop();
 
 	    if (!$ok) {
-		return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -591,7 +591,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
      */
     function commitTransaction() {
 	if (empty($this->_db)) {
-	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
 	}
 
 	if ($this->_isTransactional && $this->_db->transCnt > 0) {
@@ -600,11 +600,11 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	    $this->_traceStop();
 
 	    if (!$ok) {
-		return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -613,12 +613,12 @@ class DatabaseStorage /* implements GalleryStorage */ {
     function _guaranteeTransaction() {
 	if ($this->_isTransactional && !$this->_db->transCnt) {
 	    $ret = $this->beginTransaction();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret;
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -626,7 +626,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
      */
     function rollbackTransaction() {
 	if (empty($this->_db)) {
-	    return GalleryStatus::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_STORAGE_CONNECTION, __FILE__, __LINE__);
 	}
 
 	if ($this->_isTransactional && $this->_db->transCnt > 0) {
@@ -635,11 +635,11 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	    $this->_traceStop();
 
 	    if (!$ok) {
-		return GalleryStatus::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -713,7 +713,7 @@ class DatabaseStorage /* implements GalleryStorage */ {
 		$query = str_replace("[${class}]", "$table", $query);
 	    } else {
 		list ($ret, $as) = $this->getFunctionSql('AS', array());
-		if ($ret->isError()) {
+		if ($ret) {
 		    /* TODO: propagate this back up as a GalleryStatus */
 		    return 'QUERY ERROR';
 		}
@@ -807,18 +807,18 @@ class DatabaseStorage /* implements GalleryStorage */ {
 	    } else {
 		list ($ret, $entity) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', $entityName);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    if (!isset($entity)) {
-		return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
 						  $entityName), null);
 	    }
 	    $this->_entityInfoCache[$entityName] = $entity->getPersistentMemberInfo();
 	}
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     $this->_entityInfoCache[$entityName]);
     }
 

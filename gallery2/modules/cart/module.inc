@@ -55,7 +55,7 @@ class CartModule extends GalleryModule {
 	    $currentVersion = '0';
 	}
 	list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -64,13 +64,13 @@ class CartModule extends GalleryModule {
 	    /* Register our permission */
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'cart.add',
 						      $gallery->i18n('[cart] Add to cart'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* Give everybody cart permission by default */
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'], 'cart.add', true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
@@ -89,7 +89,7 @@ class CartModule extends GalleryModule {
 	      DROP TABLE [CartMap]
 	    ';
 	    $ret = $storage->execute($query);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $query = '
@@ -97,7 +97,7 @@ class CartModule extends GalleryModule {
 	      WHERE [Schema::name] = \'CartMap\'
 	    ';
 	    $ret = $storage->execute($query);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -113,13 +113,13 @@ class CartModule extends GalleryModule {
 	    /* Register our permission */
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'cart.add',
 						      $gallery->i18n('[cart] Add to cart'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* Give everybody cart permission by default */
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'], 'cart.add', true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -127,11 +127,11 @@ class CartModule extends GalleryModule {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -152,7 +152,7 @@ class CartModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 }
 ?>

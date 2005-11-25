@@ -61,11 +61,11 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	if (GalleryUtilities::isA($item, 'GalleryItem')) {
 	    GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
 	    $ret = G1MigrateMap::removeMapEntry(array('itemId' => $item->_id));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 
     /**
@@ -73,7 +73,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
      */
     function getSiteAdminViews() {
 	global $gallery;
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('Gallery 1'),
 				 'view' => 'migrate.SelectGallery')));
     }

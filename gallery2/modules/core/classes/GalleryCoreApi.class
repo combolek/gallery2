@@ -2509,7 +2509,7 @@ class GalleryCoreApi {
 
     /**
      * Returns an array of directories that can contain plugins.
-     * 
+     *
      * This function should only be used in special circumstances,
      * for example when a list of all plugins needs to be made.
      * Currently it returns gallery2/ and gallery2/plugins/.
@@ -2527,7 +2527,7 @@ class GalleryCoreApi {
      * even the core module. Use this function to get the base directory of a
      * module. Possible base directories are usually gallery2/ and gallery2/plugins.
      * The complete list can be read with GalleryCoreApi::getPluginBaseDirs().
-     * 
+     *
      * @param string 'module' or 'theme'
      * @param string the plugin ID
      * @param bool force index to be reread from the filesystem
@@ -2538,10 +2538,10 @@ class GalleryCoreApi {
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class', true);
 	return GalleryPluginHelper_simple::getPluginBaseDir($pluginType, $pluginId, $clearCache);
     }
-    
+
     /**
      * Indicates whether the specified plugin is in the default plugin directory.
-     * 
+     *
      * Sometimes it's useful to know just whether a plugin is in its default
      * directory or not, without actually getting any information about its path.
      * It is used for rewriting URLs in the UrlGenerator.
@@ -2564,7 +2564,7 @@ class GalleryCoreApi {
 
     /**
      * Like requireOnce, but use a path relative from the gallery2 directory.
-     * 
+     *
      * It will detect the base directory of the specified file and load it from there. Setting
      * the second argument to true skips this check and assumes that the file is relative to
      * the gallery2 directory.
@@ -2616,6 +2616,22 @@ class GalleryCoreApi {
     function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers='') {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/MailHelper_simple.class');
 	return MailHelper_simple::sendTemplatedEmail($file, $data, $from, $to, $subject, $headers);
+    }
+
+    /**
+     * Return an error status
+     *
+     * @return object GalleryStatus an error status
+     * @static
+     */
+    function error($errorCode, $fileName, $lineNumber, $errorMessage=null) {
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStatus.class');
+	$status =
+	    new GalleryStatus(GALLERY_ERROR | $errorCode, $fileName, $lineNumber, $errorMessage);
+	if (function_exists('debug_backtrace')) {
+	    $status->setStackTrace(debug_backtrace());
+	}
+	return $status;
     }
 }
 ?>

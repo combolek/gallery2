@@ -43,7 +43,7 @@ class ChangeLanguageController extends GalleryController {
 
 	$language = GalleryUtilities::getRequestVariables('language');
 	$ret = $gallery->setActiveLanguageCode($language);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -51,7 +51,7 @@ class ChangeLanguageController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 ?>

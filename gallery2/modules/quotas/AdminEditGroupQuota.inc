@@ -43,7 +43,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -53,7 +53,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -85,12 +85,12 @@ class AdminEditGroupQuotaController extends GalleryController {
 		    } else if ($form['quotaUnit'] == 'GB') {
 			$quotaSize = round($form['quotaSize'] * 1024.00 * 1024.00);
 		    } else {
-			return array(GalleryStatus::error(ERROR_MISSING_VALUE, __FILE__, __LINE__),
+			return array(GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__),
 			     	     null);
 		    }
 		    if ($quotaSize <= 2147483647) {
 			if (!isset($group)) {
-			    return array(GalleryStatus::error(ERROR_MISSING_OBJECT,
+			    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT,
 			    				      __FILE__,
 			    				      __LINE__),
 					 null);
@@ -98,7 +98,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 
 			list ($ret, $quotaExists, $groupQuota) =
 			    GalleryQuotasHelper::fetchGroupQuota($group->getId());
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			if ($quotaExists) {
@@ -108,7 +108,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 			        QuotasMap::updateMapEntry($match,
 							  array('userOrGroupId' => $group->getId(),
 								'quotaSize' => $quotaSize));
-			    if ($ret->isError()) {
+			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
 
@@ -144,7 +144,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -163,13 +163,13 @@ class AdminEditGroupQuotaView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -178,7 +178,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -190,14 +190,14 @@ class AdminEditGroupQuotaView extends GalleryView {
 	$form['groupName'] = $group->getGroupName();
 	list ($ret, $form['quotaSize'], $form['quotaUnit']) =
 	    GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$AdminEditGroupQuota = array();
 	$AdminEditGroupQuota['groupId'] = $group->getId();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminEditGroupQuota['quotaUnitChoices'] = array('KB' => $module->translate('KB'),
@@ -206,7 +206,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 	$template->setVariable('AdminEditGroupQuota', $AdminEditGroupQuota);
 	$template->setVariable('controller', 'quotas.AdminEditGroupQuota');
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/quotas/templates/AdminEditGroupQuota.tpl'));
     }
 }

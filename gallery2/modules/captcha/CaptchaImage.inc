@@ -62,7 +62,7 @@ class CaptchaImageView extends GalleryView {
 	ImageJPEG($image, '', 75);
 	ImageDestroy($image);
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

@@ -162,11 +162,11 @@ class GalleryTemplateAdapter {
 	if (empty($vars['return'])) {
 	    $currentView = $gallery->getCurrentView();
 	    list ($ret, $view) = GalleryView::loadView($currentView);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$viewDescription = '';
 	    } else {
 		list ($ret, $viewDescription) = $view->getViewDescription();
-		if ($ret->isError()) {
+		if ($ret) {
 		    $viewDescription = '';
 		}
 	    }
@@ -214,7 +214,7 @@ class GalleryTemplateAdapter {
 	    if (!isset($defaultFormat)) {
 		$defaultFormat = array('date' => '%x', 'time' => '%X', 'datetime' => '%c');
 		list ($ret, $core) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-		if ($ret->isSuccess()) {
+		if (!$ret) {
 		    $defaultFormat = array('date' => $core['format.date'],
 					   'time' => $core['format.time'],
 					   'datetime' => $core['format.datetime']);
@@ -243,7 +243,7 @@ class GalleryTemplateAdapter {
 	}
 	$translator =& $gallery->getTranslator();
 	list ($ret, $text) = $translator->translateDomain($domain, $params);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->getAsHtml();
 	    return "[Translation error]";
 	}
@@ -276,13 +276,13 @@ class GalleryTemplateAdapter {
     function image($params, &$smarty) {
 	/* Ask the entity to render itself in HTML */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['item']['id']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* TODO: is there a more graceful way to handle this? */
 	    return '[Render error: missing item]';
 	}
 
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($params['image']['id']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* TODO: is there a more graceful way to handle this? */
 	    return '[Render error: missing entity]';
 	}
@@ -451,7 +451,7 @@ class GalleryTemplateAdapter {
 		/* Append item type for a few subViews, with fallback class without type */
 		list ($ret, $item) =
 		    GalleryCoreApi::loadEntitiesById($params['urlParams']['itemId']);
-		if ($ret->isSuccess()) {
+		if (!$ret) {
 		    $type = $item->itemTypeName(false);
 		    $fallbackLinkId = $linkId;
 		    $linkId .= '-' . $type[1];
@@ -509,19 +509,19 @@ class GalleryTemplateAdapter {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($params['type'] == 'gallery2' || $params['type'] == 'donate') {
 	    list ($ret, $adminGroupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return;
 	    }
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInGroup(
 		$smarty->_tpl_vars['theme']['actingUserId'], $adminGroupId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return;
 	    }
 	    GalleryCoreApi::relativeRequireOnce('modules/core/module.inc');
@@ -658,7 +658,7 @@ class GalleryTemplateAdapter {
 	$class = empty($params['class']) ? '' : ' ' . $params['class'];
 
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* What can we do here? */
 	    return '[error fetching blocks]';
 	}
@@ -724,7 +724,7 @@ class GalleryTemplateAdapter {
 	$className = "${module}Callbacks";
 	$class = new $className;
 	$ret = $class->callback($params, $smarty, $file, $userId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    /* What can we do with this error? */
 	    global $gallery;
 	    $gallery->debug("Error performing $params[type] callback");
@@ -791,7 +791,7 @@ class GalleryTemplateAdapter {
 	static $coreModule;
 	if (!isset($coreModule)) {
 	    list ($ret, $coreModule) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -840,7 +840,7 @@ class GalleryTemplateAdapter {
 	       'updateProgressBar("%s", "%s", "%s", "%s", "%s");</script>',
 	       $title, $description, $percentComplete, $timeRemaining, $memoryInfo);
 	flush();
-	return GalleryStatus::success();
+	return null;
     }
 
     function resetProgressBarStats() {

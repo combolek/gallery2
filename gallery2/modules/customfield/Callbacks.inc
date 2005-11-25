@@ -34,11 +34,11 @@ class CustomFieldCallbacks {
 	switch ($callback) {
 	case 'LoadCustomFields':
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($item), 'detail');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -46,10 +46,10 @@ class CustomFieldCallbacks {
 	    $block['customfield']['LoadCustomFields']['fields'] = 
 		isset($fields[$item->getId()]) ? $fields[$item->getId()] : array();
 
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

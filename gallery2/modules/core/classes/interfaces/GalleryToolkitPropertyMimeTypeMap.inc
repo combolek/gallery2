@@ -85,17 +85,17 @@ class GalleryToolkitPropertyMimeTypeMap extends GalleryToolkitPropertyMimeTypeMa
 	global $gallery;
         foreach (array('propertyName', 'toolkitId', 'mimeType') as $key) {
 	    if (!array_key_exists($key, $data)) {
-	        return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	        return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                                             'Missing parameter: ' . $key);
 	    }
         }
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->addMapEntry('GalleryToolkitPropertyMimeTypeMap', $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -109,15 +109,15 @@ class GalleryToolkitPropertyMimeTypeMap extends GalleryToolkitPropertyMimeTypeMa
 	global $gallery;
 
 	if (sizeof($data) == 0) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeMapEntry('GalleryToolkitPropertyMimeTypeMap', $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -131,10 +131,10 @@ class GalleryToolkitPropertyMimeTypeMap extends GalleryToolkitPropertyMimeTypeMa
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeAllMapEntries('GalleryToolkitPropertyMimeTypeMap');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -149,15 +149,15 @@ class GalleryToolkitPropertyMimeTypeMap extends GalleryToolkitPropertyMimeTypeMa
 	global $gallery;
 
 	if (sizeof($match) == 0 || sizeof($change) == 0) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->updateMapEntry('GalleryToolkitPropertyMimeTypeMap', $match, $change);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
  
 }

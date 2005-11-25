@@ -45,7 +45,7 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
 	$ItemAddGalleryRemote = array();
 	$template->setVariable('ItemAddGalleryRemote', $ItemAddGalleryRemote);
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/remote/templates/ItemAddGalleryRemote.tpl',
 		     'modules_remote');
     }
@@ -55,11 +55,11 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'remote');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Gallery Remote'));
+	return array(null, $module->translate('Gallery Remote'));
     }
 
     /**
@@ -67,11 +67,11 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
      */
     function isAppropriate() {
 	list ($ret, $showItemAdd) = GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $showItemAdd);
+	return array(null, $showItemAdd);
     }
 }
 ?>

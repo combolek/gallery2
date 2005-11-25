@@ -45,10 +45,10 @@ class FotokastenCartPlugin extends CartPluginInterface_1_0 {
      */
     function getActionDisplayName() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'fotokasten');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $module->translate('Print with Fotokasten'));
+	return array(null, $module->translate('Print with Fotokasten'));
     }
 
     /**
@@ -59,7 +59,7 @@ class FotokastenCartPlugin extends CartPluginInterface_1_0 {
 	$session =& $gallery->getSession();
 	$session->put('fotokasten.cart', $cartItemIds);
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('controller' => 'fotokasten.PrintPhotos', 'return' => 1));
     }
 }

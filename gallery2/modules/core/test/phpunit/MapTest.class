@@ -48,20 +48,20 @@ class MapTest extends GalleryTestCase {
 	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test'));
 	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expect error for missing key');
-	if ($ret->isError() && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
+	if ($ret && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => null));
-	$this->assert($ret->isSuccess(), 'should succeed with null value');
-	if ($ret->isError()) {
+	$this->assert(!$ret, 'should succeed with null value');
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -76,28 +76,28 @@ class MapTest extends GalleryTestCase {
 	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => 'test'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryToolkitOperationMap::updateMapEntry(
 	    array('name' => $name, 'outputMimeType' => 'test'),
 	    array('description' => null));
-	$this->assert($ret->isSuccess(), 'should succeed setting null value');
-	if ($ret->isError()) {
+	$this->assert(!$ret, 'should succeed setting null value');
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryToolkitOperationMap::updateMapEntry(
 	    array('name' => $name, 'description' => null),
 	    array('parametersCrc' => 'changed'));
-	$this->assert($ret->isSuccess(), 'should succeed matching null value');
-	if ($ret->isError()) {
+	$this->assert(!$ret, 'should succeed matching null value');
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

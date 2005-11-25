@@ -64,7 +64,7 @@ class RepositoryTestTemplate {
     }
 
     function fetch($template) {
-	return array(GalleryStatus::success(), $this->_templateContents);
+	return array(null, $this->_templateContents);
     }
 }
 ?>

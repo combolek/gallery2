@@ -45,7 +45,7 @@ class SessionTest extends GalleryTestCase {
 	$this->_savedSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -81,7 +81,7 @@ class SessionTest extends GalleryTestCase {
 	$session->put($key, $value);
 
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -101,7 +101,7 @@ class SessionTest extends GalleryTestCase {
 	$ret = $session->save();
 
 	/* Save and reset */
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryDataCache::reset();
@@ -115,7 +115,7 @@ class SessionTest extends GalleryTestCase {
 
 	/* Save and reset */
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryDataCache::reset();
@@ -135,7 +135,7 @@ class SessionTest extends GalleryTestCase {
 
 	/* Save and reset */
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryDataCache::reset();
@@ -162,7 +162,7 @@ class SessionTest extends GalleryTestCase {
 
 	/* Save and reset */
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryDataCache::reset();
@@ -184,7 +184,7 @@ class SessionTest extends GalleryTestCase {
 	}
 	/* Save and reset */
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	GalleryDataCache::reset();
@@ -321,7 +321,7 @@ class SessionTest extends GalleryTestCase {
 
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -338,27 +338,27 @@ class SessionTest extends GalleryTestCase {
 	$session =& $gallery->getSession();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'session.lifetime', '3600');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
 						  'session.inactivityTimeout', '1800');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $lifetime) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'session.lifetime');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $inactivityTimeout) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'session.inactivityTimeout');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('3600', $lifetime, 'lifetime assertion failed');
@@ -387,7 +387,7 @@ class SessionTest extends GalleryTestCase {
 
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -408,7 +408,7 @@ class SessionTest extends GalleryTestCase {
 
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -431,7 +431,7 @@ class SessionTest extends GalleryTestCase {
 
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -466,7 +466,7 @@ class SessionTest extends GalleryTestCase {
 	$this->assertEquals(array('i' => 'a'), $session->getStatus($statusId));
 
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -478,7 +478,7 @@ class SessionTest extends GalleryTestCase {
 	$otherStatusId = $session->putStatus(array('j' => 'b'));
 
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -522,7 +522,7 @@ class SessionTest extends GalleryTestCase {
 	$this->assertEquals(array('i' => 'a'), $session->getStatus($statusId));
 
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -645,12 +645,12 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $session->put('my-key', 'my-value');
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -659,12 +659,12 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assert($session->get('my-key'), 'verify ' . $type);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($session->getSessionId(), 'TESTSID', 'session id changed!');
@@ -674,12 +674,12 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '6.7.9.9';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assert($session->get('my-key'), 'verify ' . $type);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($session->getSessionId(), 'TESTSID', 'session id changed!');
@@ -689,12 +689,12 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assert($session->get('my-key'), 'verify ' . $type);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($session->getSessionId(), 'TESTSID', 'session id changed!');
@@ -704,12 +704,12 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '3.5.7.9';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(null, $session->get('my-key'), 'different ip ' . $type);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assert($session->getSessionId() != 'TESTSID');
@@ -719,17 +719,17 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals('my-value', $session->get('my-key'), 'original ip ' . $type);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $session->reset();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
@@ -741,7 +741,7 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
 	    $session = new GallerySession();
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $sessionUrl = 'http://example.com/gallery2/main.php?'
@@ -756,7 +756,7 @@ class SessionTest extends GalleryTestCase {
 	    $value = md5(date('c') . $session->getSessionId());
 	    $session->put($key, $value);
 	    $ret = $session->save();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -768,7 +768,7 @@ class SessionTest extends GalleryTestCase {
 
 	    /* Regenerate the session */
 	    $ret = $session->regenerate();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -796,7 +796,7 @@ class SessionTest extends GalleryTestCase {
 	$_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -852,7 +852,7 @@ class SessionTest extends GalleryTestCase {
 	    $session = new GallerySession();
 	    /* The init call should actually send or not send a cookie */
 	    $ret = $session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -885,7 +885,7 @@ class SessionTest extends GalleryTestCase {
 		if (isset($cookie)) {
 		    /* Cookie path should be set */
 		    list ($ret, $expected) = $urlGenerator->getCookiePath();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
 		    $this->assertEquals(1, preg_match('{path=' . $expected . '(?:[,;].*)?$}i', $cookie),
@@ -915,20 +915,20 @@ class SessionTest extends GalleryTestCase {
     function testSessionCookieDomain() {
 	/* First check if the configured value is taken if available */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.domain', 'bad');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Check if the correct value was stored */
 	list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 								     'cookie.domain');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('bad', $realValue, 'could not set plugin parameter cookie.domain');
 	/* Now do the actual check */
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('bad', $session->getCookieDomain(),
@@ -936,13 +936,13 @@ class SessionTest extends GalleryTestCase {
 
 	/* Now reset the cookie domain configuration parameter */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.domain', '');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Check if the correct value was stored */
 	list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 								     'cookie.domain');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('', $realValue, 'could not reset plugin parameter cookie.domain');
@@ -950,7 +950,7 @@ class SessionTest extends GalleryTestCase {
 	/* Now check if it returns an empty string if no cookie domain is configured */
 	$session = new GallerySession();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('', $session->getCookieDomain(), 'default cookie domain does not work');
@@ -1010,14 +1010,14 @@ class SessionTest extends GalleryTestCase {
 
 	$session->put('test', 'value');
 	$ret = $session->save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('view', 'core.DownloadItem');
 	GalleryDataCache::reset();
 	$ret = $session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

@@ -86,17 +86,17 @@ class GalleryToolkitOperationParameterMap extends GalleryToolkitOperationParamet
 	global $gallery;
         foreach (array('operationName', 'position', 'type', 'description') as $key) {
 	    if (!array_key_exists($key, $data)) {
-	        return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	        return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                                             'Missing parameter: ' . $key);
 	    }
         }
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->addMapEntry('GalleryToolkitOperationParameterMap', $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -110,15 +110,15 @@ class GalleryToolkitOperationParameterMap extends GalleryToolkitOperationParamet
 	global $gallery;
 
 	if (sizeof($data) == 0) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeMapEntry('GalleryToolkitOperationParameterMap', $data);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -132,10 +132,10 @@ class GalleryToolkitOperationParameterMap extends GalleryToolkitOperationParamet
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeAllMapEntries('GalleryToolkitOperationParameterMap');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -150,15 +150,15 @@ class GalleryToolkitOperationParameterMap extends GalleryToolkitOperationParamet
 	global $gallery;
 
 	if (sizeof($match) == 0 || sizeof($change) == 0) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->updateMapEntry('GalleryToolkitOperationParameterMap', $match, $change);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
  
 }

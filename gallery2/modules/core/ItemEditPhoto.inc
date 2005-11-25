@@ -68,21 +68,21 @@ class ItemEditPhoto extends ItemEditPlugin {
 		/* Get and delete all current resizes */
 		list ($ret, $resizesTable) =
 		    GalleryCoreApi::fetchResizesByItemIds(array($item->getId()));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		foreach ($resizesTable as $resizes) {
 		    foreach ($resizes as $resize) {
 			$postFilter = $resize->getPostFilterOperations();
 			$ret = GalleryCoreApi::deleteEntityById($resize->getId());
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    }
 		}
 
 		list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -91,7 +91,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 		 */
 		list ($ret, $toolkit, $outputMimeType) =
 		    GalleryCoreApi::getToolkitByOperation($source->getMimeType(), 'scale');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -105,17 +105,17 @@ class ItemEditPhoto extends ItemEditPlugin {
 			list ($ret, $derivative) =
 			    GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative',
 								     $source->getEntityType());
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
 			if (!isset($derivative)) {
-			    return array(GalleryStatus::error(ERROR_MISSING_OBJECT,
+			    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT,
 							      __FILE__, __LINE__), null, null);
 			}
 
 			$ret = $derivative->create($item->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
@@ -125,7 +125,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 			list ($ret, $newOperations, $newOutputMimeType) =
 			    GalleryCoreApi::makeSupportedViewableOperationSequence(
 				$outputMimeType, $operations);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
@@ -143,7 +143,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 			}
 
 			$ret = $derivative->save();
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    }
@@ -151,14 +151,14 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 		/* Figure out where to redirect upon success */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$status = $module->translate('Changes saved successfully');
 	    }
 	}
 
-	return array(GalleryStatus::success(), $error, $status);
+	return array(null, $error, $status);
     }
 
     /**
@@ -173,7 +173,7 @@ class ItemEditPhoto extends ItemEditPlugin {
 
 	    /* Load the resizes */
 	    list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($item->getId()));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -217,14 +217,14 @@ class ItemEditPhoto extends ItemEditPlugin {
 	/* Figure out what options we can provide */
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByOperation($item->getMimeType(), 'scale');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$ItemEditPhoto['editSizes']['can']['createResizes'] = isset($toolkit);
 
 	$template->setVariable('ItemEditPhoto', $ItemEditPhoto);
 	$template->setVariable('controller', 'core.ItemEditPhoto');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/core/templates/ItemEditPhoto.tpl', 'modules_core');
     }
 
@@ -240,11 +240,11 @@ class ItemEditPhoto extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('Photo'));
+	return array(null, $module->translate('Photo'));
     }
 }
 ?>

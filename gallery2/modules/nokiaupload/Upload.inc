@@ -45,7 +45,7 @@ class UploadController extends GalleryController {
 	$results['status'] = ImageUploadHelper::doUpload();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -81,7 +81,7 @@ class UploadView extends GalleryView {
 	    $reply .= 'Free=' . $status['spaceleft'] . "\r\n";
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$reply .= "Upload failed.\r\n";
 	    } else {
 		$reply .= $module->translate('Upload failed.') . "\r\n";
@@ -93,7 +93,7 @@ class UploadView extends GalleryView {
 	header('Content-Length: ' . strlen($reply));
 	print $reply;
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

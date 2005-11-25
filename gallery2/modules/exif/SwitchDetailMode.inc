@@ -56,7 +56,7 @@ class SwitchDetailModeController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
 }

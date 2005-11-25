@@ -85,7 +85,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	foreach ($testCases as $case) {
 	    list ($ret, $relation) = $utilities->compareVersions($case['version1'],
 	        $case['version2'], $case['build1'], $case['build2']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assert($relation == $case['relation'], sprintf(
@@ -122,7 +122,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	foreach ($testCases as $case => $result) {
 	    list ($ret, $timestamp) = $utilities->extractTimestamp($case);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($result, $timestamp, "Testcase: $case");
@@ -138,7 +138,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	foreach ($testCases as $case => $result) {
 	    list ($ret, $revision) = $utilities->extractRevision($case);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($result, $revision, "Testcase: $case");
@@ -163,7 +163,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    $platform->setReply('fclose', array($fileName), true);
 
 	    list ($ret, $bytes) = $utilities->getFirstBytesFromFile($fileName, $bytes);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($bytes, $result, "Unexpected file data returned for $bytes bytes.");
@@ -180,7 +180,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	foreach ($testCases as $case => $result) {
 	    list ($ret, $description) = $utilities->getLanguageDescription($case);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($result, $description, "Testcase: $case");
@@ -203,7 +203,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $revision) = $utilities->getLanguageBaseRevision('module', 'testModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('1.23', $revision, 'Incorrect revision returned.');
@@ -233,7 +233,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    $utilities = new GalleryRepositoryUtilities();
 	    list ($ret, $isAvailable) =
 		$utilities->isPluginAvailable($case['pluginType'], $case['pluginId']);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
 	    $this->assertEquals($case['isAvailable'], $isAvailable);
@@ -344,7 +344,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $packages) = $utilities->getPluginPackages('module', 'testModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals(array('package1' => array('version' => '1.23',
@@ -381,7 +381,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	$utilities = new GalleryRepositoryUtilities();
 	list ($ret, $version) = $utilities->getPluginVersion('module', 'testModule');
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
 	$this->assertEquals('someVersion', $version);

@@ -52,11 +52,11 @@ class RewriteModule extends GalleryModule {
     function upgrade($currentVersion) {
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/RewriteModuleExtras.inc');
 	$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -65,24 +65,24 @@ class RewriteModule extends GalleryModule {
     function uninstall() {
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list($ret, $code) = RewriteHelper::writeFile(null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (GalleryUtilities::isEmbedded()) {
 	    list($ret, $code) = RewriteHelper::writeFile(null, true);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	/* Dont check $code, atleast we tried to remove the G2 content from the .htaccess file */
 	$ret = parent::uninstall();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -92,18 +92,18 @@ class RewriteModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 		'GalleryUrlGenerator', 'RewriteUrlGenerator', 'RewriteUrlGenerator',
 		'modules/rewrite/classes/RewriteUrlGenerator.class', 'rewrite', null, 2);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 		'MaintenanceTask', 'RewriteCheckConflictTask', 'RewriteCheckConflictTask',
 		'modules/rewrite/classes/RewriteCheckConflictTask.class', 'rewrite', null, 2);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -130,26 +130,26 @@ class RewriteModule extends GalleryModule {
 	     * We can't autoconfigure from installer in a multisite install because
 	     * the current url is for the primary site, not the site being installed.
 	     */
-	    return array(GalleryStatus::success(), false);
+	    return array(null, false);
 	}
 	$baseUrlComponents = parse_url(preg_replace('{(install|upgrade)/index\.php.*}', '',
 						    $urlGenerator->getCurrentUrlDir(true)));
 	$ret = $this->setParameter('galleryLocation', $baseUrlComponents['path']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $rewriteStatus) = RewriteHelper::checkModRewrite();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $fileStatus) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $rewriteStatus == REWRITE_STATUS_OK &&
+	return array(null, $rewriteStatus == REWRITE_STATUS_OK &&
 		$fileStatus == REWRITE_STATUS_HTACCESS_READY);
     }
 
@@ -159,10 +159,10 @@ class RewriteModule extends GalleryModule {
     function needsConfiguration() {
 	/* Just try to autoConfigure; if it succeeds then we don't need configuration */
 	list ($ret, $configured) = $this->autoConfigure();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), !$configured);
+	return array(null, !$configured);
     }
 
     /**
@@ -170,19 +170,19 @@ class RewriteModule extends GalleryModule {
      */
     function activate($postActivationEvent=true) {
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
-	    return array(GalleryStatus::success(), $redirect);
+	    return array(null, $redirect);
 	}
 
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 
 	list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($activeRules)) {
@@ -196,36 +196,36 @@ class RewriteModule extends GalleryModule {
 				  ));
 
 	    $ret = RewriteMap::setActiveRules($activeRules);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list($ret, $code, $rewriteRules) = RewriteHelper::parseActiveRules($activeRules, $this);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($code != REWRITE_STATUS_OK) {
-	    return array(GalleryStatus::error(ERROR_UNKNOWN, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__), null);
 	}
 
 	list($ret, $code) = RewriteHelper::writeFile($rewriteRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($code != REWRITE_STATUS_OK) {
-	    return array(GalleryStatus::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
+	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
 		    null);
 	}
 
-	return array(GalleryStatus::success(), array());
+	return array(null, array());
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		    array(array('name' => $this->translate('URL Rewrite'),
 			    'view' => 'rewrite.AdminRewrite')));
     }
@@ -320,7 +320,7 @@ class RewriteModule extends GalleryModule {
 	    }
 	}
 
-	return array(GalleryStatus::success(), null);
+	return array(null, null);
     }
 }
 

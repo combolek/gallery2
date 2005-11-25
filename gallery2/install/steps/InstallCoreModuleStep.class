@@ -43,7 +43,7 @@ class InstallCoreModuleStep extends InstallStep {
 	$gallery->debug('Init first pass');
 	$ret = GalleryInitFirstPass(array('noDatabase' => true,
 					  'activeLanguage' => $_SESSION['language']));
-	if ($ret->isError()) {
+	if ($ret) {
 	    $gallery->debug(sprintf('Error: Unable to initialize our Gallery data, this is the ' .
 				    'error stack trace: %s', $ret->getAsText()));
 	    $templateData['errors'][] = _('Unable to initialize our Gallery data');
@@ -81,7 +81,7 @@ class InstallCoreModuleStep extends InstallStep {
 	     */
 	    $storage =& $gallery->getStorage();
 	    list ($ret, $isInstalled) = $storage->isInstalled();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$gallery->debug(sprintf('Error: Unable to communicate with the database, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		$templateData['errors'][] = _('Unable to communicate with the database');
@@ -93,7 +93,7 @@ class InstallCoreModuleStep extends InstallStep {
 	    $gallery->debug('Load core module');
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 	    $this->resetL10Domain();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$gallery->debug(sprintf('Error: Unable to load the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		$templateData['errors'][] = _('Unable to load the core module');
@@ -117,7 +117,7 @@ class InstallCoreModuleStep extends InstallStep {
 	    if (!$isInstalled) {
 		$gallery->debug('Install core module now!');
 		$ret = $core->installOrUpgrade(true);
-		if ($ret->isError()) {
+		if ($ret) {
 		    $this->resetL10Domain();
 		    $gallery->debug(sprintf('Error: Unable to install the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
@@ -130,7 +130,7 @@ class InstallCoreModuleStep extends InstallStep {
 		$gallery->debug('Activate core module');
 		list ($ret, $ignored) = $core->activate(false);
 		$this->resetL10Domain();
-		if ($ret->isError()) {
+		if ($ret) {
 		    $gallery->debug(sprintf('Error: Unable to activate the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		    $templateData['errors'][] = _('Unable to activate the core module');
@@ -141,7 +141,7 @@ class InstallCoreModuleStep extends InstallStep {
 
 		$gallery->debug('Commit transaction');
 		$ret = $storage->commitTransaction();
-		if ($ret->isError()) {
+		if ($ret) {
 		    $gallery->debug(sprintf('Error: Unable to commit database transaction, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		    $templateData['errors'][] = _('Unable to commit database transaction');

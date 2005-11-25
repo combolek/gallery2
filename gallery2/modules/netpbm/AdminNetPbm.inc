@@ -43,7 +43,7 @@ class AdminNetPbmController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -67,7 +67,7 @@ class AdminNetPbmController extends GalleryController {
 
 		list ($ret, $testResults, $mimeTypes) =
 		    NetPbmToolkitHelper::testBinaries($form['path']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][path][badPath]';
 		    } else {
@@ -82,7 +82,7 @@ class AdminNetPbmController extends GalleryController {
 	    if (!empty($form['jheadPath'])) {
 		list ($ret, $jheadTests, $jheadMimeTypes) =
 		    NetPbmToolkitHelper::testJhead($form['jheadPath']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$error[] = 'form[error][jheadPath][badPath]';
 		    } else {
@@ -102,14 +102,14 @@ class AdminNetPbmController extends GalleryController {
 	    if (empty($error)) {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'path', $form['path']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Set the image quality */
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'jpegQuality', $form['jpegQuality']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -117,22 +117,22 @@ class AdminNetPbmController extends GalleryController {
 		$jheadPath = isset($form['jheadPath']) ? $form['jheadPath'] : '';
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'netpbm', 'jheadPath', $jheadPath);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Save binaries to use for this netpbm path */
 		$ret = NetPbmToolkitHelper::saveParameters($testResults);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -162,7 +162,7 @@ class AdminNetPbmController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -184,7 +184,7 @@ class AdminNetPbmView extends GalleryView {
 	    foreach (array('path', 'jpegQuality', 'jheadPath') as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'netpbm', $key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -219,7 +219,7 @@ class AdminNetPbmView extends GalleryView {
 		list ($ret, $tests, $mimeTypes) = NetPbmToolkitHelper::testBinaries($form['path']);
 		$debugSnippet = $gallery->stopRecordingDebugSnippet();
 
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$form['error']['path']['badPath'] = 1;
 		    } else {
@@ -239,7 +239,7 @@ class AdminNetPbmView extends GalleryView {
 		list ($ret, $jheadTests, $jheadMimeTypes) =
 		    NetPbmToolkitHelper::testJhead($form['jheadPath']);
 		$debugSnippet .= $gallery->stopRecordingDebugSnippet();
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_BAD_PATH) {
 			$form['error']['jheadPath']['badPath'] = 1;
 		    } else {
@@ -255,11 +255,11 @@ class AdminNetPbmView extends GalleryView {
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'netpbm');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -277,7 +277,7 @@ class AdminNetPbmView extends GalleryView {
 
 	$template->setVariable('AdminNetPbm', $AdminNetPbm);
 	$template->setVariable('controller', 'netpbm.AdminNetPbm');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/netpbm/templates/AdminNetPbm.tpl'));
     }
 }

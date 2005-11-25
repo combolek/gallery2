@@ -690,11 +690,11 @@ class GalleryPlatform {
 	 * webserver doesn't execute it.
 	 */
 	list ($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
-	if ($ret->isError() && $gallery->getDebug()) {
+	if ($ret && $gallery->getDebug()) {
 	    $gallery->debug('Error: convertExtensionToMime in ' .
 	    'GalleryPlatform::legalizePathComponent');
 	}
-	if (($ret->isError() || $tmp == 'application/unknown') && !empty($extension)) {
+	if (($ret || $tmp == 'application/unknown') && !empty($extension)) {
 	    $fileBase = $fileBase . '_' . $extension;
 	    $extension = null;
 	}
@@ -1037,7 +1037,7 @@ class GalleryPlatform {
 
 	$config = array();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret->isSuccess()) {
+	if (!$ret) {
 	    foreach ($params as $key => $value) {
 		if (strncmp($key, 'smtp.', 5) == 0) {
 		    $config[$key] = $value;
@@ -1048,10 +1048,10 @@ class GalleryPlatform {
 	if (!empty($config['smtp.host'])) {
 	    GalleryCoreApi::relativeRequireOnce('lib/smtp/smtp.php');
 	    $ret = smtpmail($config, $to, $subject, $body, $headers);
-	    if ($ret->isError() && $gallery->getDebug()) {
+	    if ($ret && $gallery->getDebug()) {
 		$gallery->debug("smtpmail error: " . $ret->getAsText());
 	    }
-	    return $ret->isSuccess();
+	    return !$ret;
 	} else if (isset($headers)) {
 	    return mail($to, $subject, $body, $headers);
 	} else {
@@ -1147,7 +1147,7 @@ class GalleryPlatform {
 	    $this->_filePerms = 0644;
 	    list ($ret, $filePerms) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
-	    if ($ret->isSuccess() && !empty($filePerms)) {
+	    if (!$ret && !empty($filePerms)) {
 		$this->_filePerms = octdec($filePerms);
 	    }
 	    $this->_umask = 0777 - $this->_filePerms;

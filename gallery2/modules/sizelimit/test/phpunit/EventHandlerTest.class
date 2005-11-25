@@ -40,7 +40,7 @@ class EventHandlerTest extends GalleryTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -53,23 +53,23 @@ class EventHandlerTest extends GalleryTestCase {
 	    as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 		$key, $value, $this->_album->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
-        if ($ret->isError()) {
+        if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 
 	GalleryCoreApi::relativeRequireOnce('modules/sizelimit/module.inc');
 	list($ret, $data) = SizeLimitModule::handleEvent($event);
-        if ($ret->isError()) {
+        if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-        if ($ret->isError()) {
+        if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 	$this->assertEquals(array('width' => 768, 'height' => 1024, 'size' => 1000,

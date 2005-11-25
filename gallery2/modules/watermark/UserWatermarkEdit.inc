@@ -39,10 +39,10 @@ class UserWatermarkEditController extends GalleryController {
     function handleRequest($form) {
 	list ($ret, $results) = WatermarkHelper::handleEditRequest($form,
 	    'core.UserAdmin', 'watermark.UserWatermarks', 'watermark.UserWatermarkEdit');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -57,10 +57,10 @@ class UserWatermarkEditView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	$ret = WatermarkHelper::loadEditTemplate($template, $form, 'UserWatermarkEdit');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/watermark/templates/UserWatermarkEdit.tpl'));
     }
 }

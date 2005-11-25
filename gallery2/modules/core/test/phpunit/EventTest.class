@@ -52,7 +52,7 @@ class EventTest extends GalleryTestCase {
 	$event->setEntity("bogus entity");
 	$event->setData('some data');
 	list ($ret, $result) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -70,7 +70,7 @@ class EventTest extends GalleryTestCase {
 	$event->setEntity("bogus entity");
 	$event->setData('send result');
 	list ($ret, $result) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -92,7 +92,7 @@ class EventTestEventListener extends GalleryEventListener {
 	$data = $event->getData();
 	$result = ($data == 'send result') ? 'result' : null;
 
-	return array(GalleryStatus::success(), $result);
+	return array(null, $result);
     }
 
     function getEvent() {

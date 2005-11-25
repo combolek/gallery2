@@ -56,14 +56,14 @@ class NewAlbumController extends GalleryController {
 		list($ret, $newAlbum) = GalleryCoreApi::createAlbum(
                     $form['parentId'], $form['pathComponent'], $form['title'],
 		    $form['summary'], $form['description'], null);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (empty($error)) {
 		    /* Give the creator all permissions on the new album */
 		    $ret = GalleryCoreApi::addUserPermission(
 			$newAlbum->getId(), $newAlbum->getOwnerId(), 'core.all', false);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $redirect['view'] = 'publishxp.SelectAlbum';
@@ -79,7 +79,7 @@ class NewAlbumController extends GalleryController {
 	}
 	$results['status'] = $status;
 	$results['error'] = $error;
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -105,7 +105,7 @@ class NewAlbumView extends GalleryView {
 	    $form['formName'] = 'NewAlbum';
 	    $parentId = GalleryUtilities::getRequestVariables('parentId');
 	    if (empty($parentId)) {
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    $form['parentId'] = $parentId;
@@ -117,18 +117,18 @@ class NewAlbumView extends GalleryView {
 	}
 
 	$ret = GalleryCoreApi::assertHasItemPermission($form['parentId'], 'core.addAlbumItem');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load the item's parents */
 	list($ret, $parents) = GalleryCoreApi::fetchParents($parent, 'core.view');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	for ($i = 0; $i < sizeof($parents); $i ++) {
@@ -147,7 +147,7 @@ class NewAlbumView extends GalleryView {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['useFullScreen'] = true;
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/publishxp/templates/NewAlbum.tpl'));
     }
 }

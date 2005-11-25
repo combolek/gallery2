@@ -45,7 +45,7 @@ class RewriteMapTest extends GalleryTestCase {
 
 	/* Save original activeRules */
 	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -55,7 +55,7 @@ class RewriteMapTest extends GalleryTestCase {
     	global $gallery;
 
 	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     	parent::tearDown();
@@ -70,11 +70,11 @@ class RewriteMapTest extends GalleryTestCase {
 		array('pattern' => '%path%')));
 
 	$ret = RewriteMap::setActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $savedRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -93,11 +93,11 @@ class RewriteMapTest extends GalleryTestCase {
 		'core.DownloadItem' => 'd/%itemId%-%serialNumber%/%fileName%');
 
 	$ret = RewriteMap::setActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($ret, $shortUrls) = RewriteMap::getShortUrls();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 

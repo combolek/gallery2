@@ -39,7 +39,7 @@ class DiskQuotaOption extends ItemAddOption {
      * @see ItemAddOption::isAppropriate
      */
     function isAppropriate() {
-        return array(GalleryStatus::success(), true);
+        return array(null, true);
     }
 
     /**
@@ -55,7 +55,7 @@ class DiskQuotaOption extends ItemAddOption {
 	/* user's disk quota in KB */
         list ($ret, $quotaExists, $userDiskQuota) =
             GalleryQuotasHelper::getUserDiskQuota($gallery->getActiveUserId());
-        if ($ret->isError()) {
+        if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
         }
 
@@ -66,7 +66,7 @@ class DiskQuotaOption extends ItemAddOption {
 		$excludedIds[] = $items[$j]->getId();
 	    }
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'quotas');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    for ($i = 0; $i < count($items); $i++) {
@@ -81,7 +81,7 @@ class DiskQuotaOption extends ItemAddOption {
 		/* user's disk usage in Bytes */
 		list ($ret, $userDiskUsage) = GalleryQuotasHelper::getUserDiskUsage(
 		    $gallery->getActiveUserId(), $excludedIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -91,7 +91,7 @@ class DiskQuotaOption extends ItemAddOption {
 		if ($userDiskUsage > $userDiskQuota) {
 		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) =
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $warnings[$i][] = $module->translate(
@@ -104,12 +104,12 @@ class DiskQuotaOption extends ItemAddOption {
 		} else {
 		    list ($ret, $userDiskQuotaHumanReadable, $userDiskQuotaHumanReadableUnit) = 
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskQuota);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    list ($ret, $userDiskUsageHumanReadable, $userDiskUsageHumanReadableUnit) = 
 			GalleryQuotasHelper::humanReadableFromKilobytes($userDiskUsage);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -122,7 +122,7 @@ class DiskQuotaOption extends ItemAddOption {
 		}
 	    }
         }
-	return array(GalleryStatus::success(), $errors, $warnings);
+	return array(null, $errors, $warnings);
     }
 
 }

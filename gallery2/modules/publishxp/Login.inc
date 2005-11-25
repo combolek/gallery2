@@ -48,7 +48,7 @@ class LoginController extends GalleryController {
 
 	    if (empty($error)) {
 		list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($user) && $user->isCorrectPassword($form['password'])) {
@@ -57,7 +57,7 @@ class LoginController extends GalleryController {
 		    $event = GalleryCoreApi::newEvent('Gallery::Login');
 		    $event->setEntity($user);
 		    list ($ret, $ignoreTheRedirect) = GalleryCoreApi::postEvent($event);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -76,7 +76,7 @@ class LoginController extends GalleryController {
 	}
 	$results['status'] = array();
 	$results['error'] = $error;
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -103,13 +103,13 @@ class LoginView extends GalleryView {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($gallery->getActiveUserId() != $anonymousUserId) {
 	    /* No need to log in */
-	    return array(GalleryStatus::success(),
+	    return array(null,
 			 array('redirect' => array('view' => 'publishxp.SelectAlbum')));
 	}
 
@@ -120,7 +120,7 @@ class LoginView extends GalleryView {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['useFullScreen'] = true;
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/publishxp/templates/Login.tpl'));
     }
 }

@@ -106,7 +106,7 @@ class DownloadView extends GalleryView {
 	    header('Location: ' . str_replace('&amp;', '&', $url));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

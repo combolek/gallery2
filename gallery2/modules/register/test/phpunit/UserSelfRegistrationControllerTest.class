@@ -45,13 +45,13 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'register');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailadmins', '0');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -68,7 +68,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
     function testRegisterWithAutomaticActivation() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -91,7 +91,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	/* the newly registered user is a real user by now */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(GalleryUtilities::isA($user, 'GalleryUser'), true);
@@ -102,7 +102,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
     function testRegisterWithEMailActivation() {
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -130,7 +130,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	/* make sure the pending user exists */
 	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
@@ -140,7 +140,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	/* Make sure emails sent out don't include text like &amp; */
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -170,7 +170,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	/* make sure the pending user exists */
 	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
@@ -240,7 +240,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$userName = 'user-selfreg' . rand();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'admin');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -273,7 +273,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results, 'Create duplicate');
 
 	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
@@ -283,7 +283,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$userName = 'user-selfreg' . rand();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -317,7 +317,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	/* find userid */
 	list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_markForCleanup($user);
@@ -390,7 +390,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
      */
     function testPlugins3() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -419,7 +419,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
 	/* find userid */
 	list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_markForCleanup($user);
@@ -497,7 +497,7 @@ class UserSelfRegistrationControllerTestPlugin extends GalleryValidationPlugin {
     }
 
     function performValidation(&$form) {
-	return array(GalleryStatus::success(), $this->_errors, $this->_continue);
+	return array(null, $this->_errors, $this->_continue);
     }
 }
 

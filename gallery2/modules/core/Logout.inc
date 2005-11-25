@@ -52,13 +52,13 @@ class LogoutController extends GalleryController {
 	$event = GalleryCoreApi::newEvent('Gallery::Logout');
 	$event->setEntity($gallery->getActiveUser());
 	list ($ret) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$session =& $gallery->getSession();
 	$ret = $session->reset();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -69,7 +69,7 @@ class LogoutController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 ?>

@@ -50,7 +50,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 
 	$gallery->_platform = new ArchiveExtractToolkitTestPlatform();
 	$ret = $gallery->_platform->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -66,7 +66,7 @@ class ArchiveExtractToolkitTest extends GalleryTestCase {
 					      'testPerformOperation1.zip',
 					      'testPerformOperation2.dir',
 					      array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($results, 'application/zip');
@@ -84,10 +84,10 @@ class ArchiveExtractToolkitTestPlatform {
     function init() {
 	list ($ret, $this->_unzipPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'archiveupload', 'unzipPath');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return GalleryStatus::success();
+	return null;
     }
 
     function exec($cmd) {

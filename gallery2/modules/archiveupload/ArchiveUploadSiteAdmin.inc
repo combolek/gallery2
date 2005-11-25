@@ -38,7 +38,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -74,16 +74,16 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 	    if (empty($error) && isset($form['action']['save'])) {
 		$ret = GalleryCoreApi::setPluginParameter(
 				       'module', 'archiveupload', 'unzipPath', $form['unzipPath']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $isActive) = $module->isActive();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -111,7 +111,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -130,18 +130,18 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 	    foreach (array('unzipPath') as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'archiveupload', $key);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'archiveupload');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$form['isConfigure'] = !$isActive;
@@ -163,7 +163,7 @@ class ArchiveUploadSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'archiveupload.ArchiveUploadSiteAdmin');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/archiveupload/templates/ArchiveUploadSiteAdmin.tpl'));
     }
 }

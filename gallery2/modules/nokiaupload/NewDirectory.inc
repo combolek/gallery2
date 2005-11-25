@@ -45,7 +45,7 @@ class NewDirectoryController extends GalleryController {
 	$results['status'] = ImageUploadHelper::createNewDirectory();
 	$results['error'] = array();
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -85,7 +85,7 @@ class NewDirectoryView extends GalleryView {
 	    $reply .= 'Did=' . $status['id'] . "\r\n";
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$reply .= "Album creation failed.\r\n";
 	    } else {
 		$reply .= $module->translate('Album creation failed.') . "\r\n";
@@ -97,7 +97,7 @@ class NewDirectoryView extends GalleryView {
 	header('Content-Length: '.strlen($reply));
 	print $reply;
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 ?>

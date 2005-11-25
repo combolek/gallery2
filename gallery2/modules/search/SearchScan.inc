@@ -52,7 +52,7 @@ class SearchScanController extends GalleryController {
 
 	    list ($ret, $slideshow) =
 		GalleryCoreApi::newFactoryInstance('SlideshowInterface_1_0');
-	    if ($ret->isError() || !isset($slideshow)) {
+	    if ($ret || !isset($slideshow)) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -60,14 +60,14 @@ class SearchScanController extends GalleryController {
 		'modules/search/classes/GallerySearchInterface_1_0.class');
 	    list ($ret, $ids) =
 		GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($ids as $id => $className) {
 		list ($ret, $searchInstances[$id]) =
 		    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -77,7 +77,7 @@ class SearchScanController extends GalleryController {
 		    list ($ret, $resultSet) =
 			$instance->search($form['options'][$id],
 			    SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']));
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($resultSet['results'] as $result) {
@@ -90,7 +90,7 @@ class SearchScanController extends GalleryController {
 	    $itemIds = array_keys($itemIds);
 
 	    list ($ret, $results['delegate']) = $slideshow->getLinkData($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (isset($form['action']['showAll'])) {
@@ -101,7 +101,7 @@ class SearchScanController extends GalleryController {
 
 	$results['status'] = array();
 	$results['error'] = array();
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -125,14 +125,14 @@ class SearchScanView extends GalleryView {
 	    'modules/search/classes/GallerySearchInterface_1_0.class');
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($ids as $id => $className) {
 	    list ($ret, $searchInstances[$id]) =
 		GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -140,7 +140,7 @@ class SearchScanView extends GalleryView {
 	/* Load the search info for each module */
 	foreach ($searchInstances as $id => $instance) {
 	    list ($ret, $modules[$id]) = $instance->getSearchModuleInfo();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -174,7 +174,7 @@ class SearchScanView extends GalleryView {
 			    $instance->search($form['options'][$id],
 				SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']),
 				0, $scanSize);
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -197,7 +197,7 @@ class SearchScanView extends GalleryView {
 
 		/* Fetch items */
 		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($itemList as $item) {
@@ -207,7 +207,7 @@ class SearchScanView extends GalleryView {
 		/* Fetch thumbnails */
 		list ($ret, $thumbnailList) =
 		    GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($thumbnailList as $thumbnail) {
@@ -223,18 +223,18 @@ class SearchScanView extends GalleryView {
 
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('SlideshowInterface_1_0');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$slideshowAvailable = !empty($ids);
 
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -249,12 +249,12 @@ class SearchScanView extends GalleryView {
 	    'rootAlbum' => $rootAlbum->getMemberData()));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Gallery Search'));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/search/templates/SearchScan.tpl'));
     }
 }

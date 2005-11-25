@@ -29,7 +29,7 @@ class AlbumSelectPreloads {
 	static $loaded;
 
 	if (!empty($loaded[$preload])) {
-	    return GalleryStatus::success();
+	    return null;
 	}
 
 	$loaded[$preload] = 1;
@@ -37,14 +37,14 @@ class AlbumSelectPreloads {
 	case 'AlbumTree':
 	    $template->style('modules/albumselect/dtree.css');
 	    $template->javascript('modules/albumselect/dtree.js');
-	    return GalleryStatus::success();
+	    return null;
 
 	case 'AlbumSelect':
 	    /* Nothing to do */
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

@@ -47,7 +47,7 @@ class GalleryEntityHelper_simple {
 	$gallery->guaranteeTimeLimit(5);
 
 	if (empty($ids)) {
-	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (is_array($ids)) {
@@ -80,7 +80,7 @@ class GalleryEntityHelper_simple {
 
 	    /* Load the entities from our persistent store */
 	    list ($ret, $missing) = $storage->loadEntities($missing);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -96,7 +96,7 @@ class GalleryEntityHelper_simple {
 	/* Let each entity do its post-load procedure */
 	foreach ($onLoad as $id) {
 	    $ret = $cached[$id]->onLoad();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    GalleryDataCache::put("GalleryEntityHelper::loadEntitiesById($id)", $cached[$id]);
@@ -112,7 +112,7 @@ class GalleryEntityHelper_simple {
 	    $results = $results[0];
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -130,20 +130,20 @@ class GalleryEntityHelper_simple {
 	$query = 'SELECT [ExternalIdMap::entityId] FROM [ExternalIdMap] ' .
 		 'WHERE [ExternalIdMap::externalId] = ? AND [ExternalIdMap::entityType] = ?';
 	list ($ret, $results) = $gallery->search($query, array($externalId, $entityType));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!($result = $results->nextResult())) {
-	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
 					      "$externalId $entityType"), null);
 	}
 
 	list ($ret, $entity) = GalleryEntityHelper_simple::loadEntitiesById($result[0]);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $entity);
+	return array(null, $entity);
     }
 }
 ?>

@@ -45,7 +45,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 	for ($i = 0; $i < 3; $i++) {
 	    list ($ret, $this->_item[$i]) = $this->_createRandomDataItem($this->_getRootId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -57,7 +57,7 @@ class FastDownloadTest extends GalleryTestCase {
 		list ($ret, $this->_derivatives[$i][]) =
 		    $this->_createDerivative($this->_item[$i], $this->_item[$i]->getId(),
 					     $derivativeType);
-		if ($ret->isError()) {
+		if ($ret) {
 		    print $ret->getAsHtml();
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
@@ -70,7 +70,7 @@ class FastDownloadTest extends GalleryTestCase {
 	 * matters for permissions
 	 */
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -79,7 +79,7 @@ class FastDownloadTest extends GalleryTestCase {
 	list ($ret, $this->_derivatives[3][]) =
 	    $this->_createDerivative($this->_album, $this->_item[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -95,18 +95,18 @@ class FastDownloadTest extends GalleryTestCase {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
 	$ret = GalleryCoreApi::addUserPermission(
             $this->_item[0]->getId(), $anonymousUserId, 'core.view', false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_derivatives[0][0]->createFastDownloadFile(true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -129,13 +129,13 @@ class FastDownloadTest extends GalleryTestCase {
 	
 	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits(
             array('core.view', 'core.viewResizes', 'core.viewSource'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $adminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
@@ -149,7 +149,7 @@ class FastDownloadTest extends GalleryTestCase {
 	$gallery->setPlatform($platform);
 	
 	list ($ret, $response) = GalleryItemHelper_medium::handleEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -162,7 +162,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
@@ -174,7 +174,7 @@ class FastDownloadTest extends GalleryTestCase {
 	
 	list ($ret, $everybodyGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -202,7 +202,7 @@ class FastDownloadTest extends GalleryTestCase {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	
@@ -221,11 +221,11 @@ class FastDownloadTest extends GalleryTestCase {
 	}
 	
 	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permissions);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $bits2) = GalleryCoreApi::convertPermissionIdsToBits($permissions2);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 		
@@ -241,7 +241,7 @@ class FastDownloadTest extends GalleryTestCase {
 	$gallery->setPlatform($platform);
 	
 	list ($ret, $response) = GalleryItemHelper_medium::handleEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

@@ -50,7 +50,7 @@ class MimeModule extends GalleryModule {
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array(array('name' => $this->translate('MIME Types'),
 				 'view' => 'mime.MimeAdmin')));
     }

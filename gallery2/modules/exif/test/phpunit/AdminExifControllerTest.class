@@ -47,31 +47,31 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
 	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 	list ($ret, $this->_save['summary']) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $this->_save['detailed']) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'exif');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -81,13 +81,13 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $this->_save['summary']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $this->_save['detailed']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -110,7 +110,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're there */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -134,7 +134,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're gone */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -172,7 +172,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Verify the new positions */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -213,7 +213,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Verify the new positions */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -241,7 +241,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
     function testResetSummary() {
 	/* Remove all properties */
 	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -255,7 +255,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're all back again */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -281,7 +281,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're there */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -305,7 +305,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're gone */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -344,7 +344,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Verify the new positions */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -386,7 +386,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Verify the new positions */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -412,7 +412,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
     function testResetDetailed() {
 	/* Remove all properties */
 	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -426,7 +426,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
 	/* Make sure they're all back again */
 	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -451,19 +451,19 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	list ($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals(EXIF_ITEM_DESCRIPTION, (int)$addOption);
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'exif', 'addOption', 0);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -483,7 +483,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	list ($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

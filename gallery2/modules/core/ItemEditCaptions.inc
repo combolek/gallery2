@@ -47,18 +47,18 @@ class ItemEditCaptionsController extends GalleryController {
 	    $ids = array_keys($form['items']);
 
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* We'll check permissions one at a time below, but precache them now */
 	    $ret = GalleryCoreApi::studyPermissions($ids);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -67,7 +67,7 @@ class ItemEditCaptionsController extends GalleryController {
 	    foreach ($items as $item) {
 		/* Make sure we have permission to edit this item */
 		list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -80,7 +80,7 @@ class ItemEditCaptionsController extends GalleryController {
 			$item->setDescription($form['items'][$id]['description']);
 
 			$ret = $item->save();
-			if ($ret->isError()) {
+			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$status[$id]['saved'] = 1;
@@ -96,7 +96,7 @@ class ItemEditCaptionsController extends GalleryController {
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -130,7 +130,7 @@ class ItemEditCaptionsController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -156,13 +156,13 @@ class ItemEditCaptionsView extends GalleryView {
 	    $form['numPerPage'] = 9;
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $childIds) =
 		GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.edit');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -180,11 +180,11 @@ class ItemEditCaptionsView extends GalleryView {
 	    if (empty($page) && !empty($albumPage)) {
 		/* Still no page.  Determine which page we're on from albumPage */
 		list ($ret, $theme) = $this->loadThemeForItem($item);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $params) = $theme->fetchParameters($itemId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$albumPageSize = $theme->getPageSize($params);
@@ -200,13 +200,13 @@ class ItemEditCaptionsView extends GalleryView {
 	    $childIds = array_slice($childIds, $start, $form['numPerPage']);
 
 	    list ($ret, $childItems) = GalleryCoreApi::loadEntitiesById($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get child thumbnails */
 	    list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($childIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -219,7 +219,7 @@ class ItemEditCaptionsView extends GalleryView {
 		    $thumbnail = $thumbnails[$child->getId()];
 		    list ($ret, $thumbnail) =
 			GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $form['items'][$child->getId()]['thumbnail'] = $thumbnail->getMemberData();
@@ -237,7 +237,7 @@ class ItemEditCaptionsView extends GalleryView {
 	$template->setVariable('controller', 'core.ItemEditCaptions');
 	$template->setVariable('ItemEditCaptions', $ItemEditCaptions);
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/core/templates/ItemEditCaptions.tpl'));
 
     }
@@ -247,11 +247,11 @@ class ItemEditCaptionsView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $core->translate('edit captions'));
+	return array(null, $core->translate('edit captions'));
     }
 }
 ?>

@@ -45,7 +45,7 @@ class ShowItemControllerTest extends GalleryControllerTestCase {
 	$this->_saveSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

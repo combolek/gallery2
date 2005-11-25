@@ -42,7 +42,7 @@ class SlideshowImpl extends SlideshowInterface_1_0 {
      * @see SlideshowInterface_1_0::getLinkData()
      */
     function getLinkData($itemIds) {
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array( 'view' => 'slideshow.Slideshow',
 			    'itemList' => implode('|', $itemIds) ));
     }

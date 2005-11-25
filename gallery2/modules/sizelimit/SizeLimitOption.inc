@@ -39,7 +39,7 @@ class SizeLimitOption extends ItemEditOption {
      * @see ItemEditOption::isAppropriate
      */
     function isAppropriate($item, $thumbnail) {
-	return array(GalleryStatus::success(), true);
+	return array(null, true);
     }
 
     /**
@@ -53,7 +53,7 @@ class SizeLimitOption extends ItemEditOption {
 	$SizeLimitOption = array();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	/* if there aren't any - assume 'no limits' */
@@ -80,7 +80,7 @@ class SizeLimitOption extends ItemEditOption {
 	    (isset($params['keepOriginal']) && $params['keepOriginal'] == 1);
 
 	$template->setVariable('SizeLimitOption', $SizeLimitOption);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/sizelimit/templates/SizeLimitOption.tpl',
 		     'modules_sizelimit');
     }
@@ -98,17 +98,17 @@ class SizeLimitOption extends ItemEditOption {
 	    /* delete parameter from plugin table */
 	    $ret = GalleryCoreApi::removePluginParameter(
 		'module', 'sizelimit', 'height', $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter(
 		'module', 'sizelimit', 'width', $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter(
 		'module', 'sizelimit', 'keepOriginal', $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    break;
@@ -130,12 +130,12 @@ class SizeLimitOption extends ItemEditOption {
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter(
 		'module', 'sizelimit', 'height', $height, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter(
 		'module', 'sizelimit', 'width', $width, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $setOriginal = true;
@@ -147,12 +147,12 @@ class SizeLimitOption extends ItemEditOption {
 	    /* delete parameter from plugin table */
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'sizelimit',
 		'size', $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'sizelimit',
 		'keepOriginal', $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    break;
@@ -168,7 +168,7 @@ class SizeLimitOption extends ItemEditOption {
 	    $filesize = $form['SizeLimitOption']['filesize'];
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit', 'size',
 						      $filesize, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $setOriginal = true;
@@ -178,28 +178,28 @@ class SizeLimitOption extends ItemEditOption {
 	if ($setOriginal) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit', 'keepOriginal',
 		isset($form['SizeLimitOption']['keepOriginal']) ? 1 : 0, $item->getId());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 	if (empty($error) && isset($form['SizeLimitOption']['applyToDescendents'])) {
 	    list ($ret, $error, $warning) = $this->_applyToDescendents($form, $item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $templateAdapter =& $gallery->getTemplateAdapter();
 	    $ret = $templateAdapter->updateProgressBar($module->translate('Resize complete'), '', 1);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
-	return array(GalleryStatus::success(), $error, $warning);
+	return array(null, $error, $warning);
     }
 
     /**
@@ -224,7 +224,7 @@ class SizeLimitOption extends ItemEditOption {
 	}
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'sizelimit');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -237,12 +237,12 @@ class SizeLimitOption extends ItemEditOption {
 	 */
 	list ($ret, $descendentIds) =
 	    GalleryCoreApi::fetchDescendentItemIds($album, null, null, 'core.edit');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$ret = $templateAdapter->updateProgressBar($module->translate('Resize Status'), '', 0);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -259,7 +259,7 @@ class SizeLimitOption extends ItemEditOption {
 	    $gallery->guaranteeTimeLimit(60);
 
 	    list ($ret, $descendents) = GalleryCoreApi::loadEntitiesById($chunk);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    foreach ($descendents as $item) {
@@ -267,7 +267,7 @@ class SizeLimitOption extends ItemEditOption {
 		$ret = $templateAdapter->updateProgressBar(
 		    $module->translate('Resizing photo'), $item->getTitle(),
 		    $numberOfItemsResized / $totalItems);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		if (!GalleryUtilities::isExactlyA($item, 'GalleryPhotoItem')) {
@@ -282,7 +282,7 @@ class SizeLimitOption extends ItemEditOption {
 			$ret = SizeLimitHelper::buildDerivativeWithLimits(
 						$item, 'scale', $dimensions);
 		    }
-		    if ($ret->isError()) {
+		    if ($ret) {
 			if ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE) {
 			    $warnings[] = $module->translate(
 				array('text' => 'WARNING: Cannot resize mime type %s',
@@ -300,7 +300,7 @@ class SizeLimitOption extends ItemEditOption {
 			$ret = SizeLimitHelper::buildDerivativeWithLimits(
 						$item, 'compress', $filesize);
 		    }
-		    if ($ret->isError()) {
+		    if ($ret) {
 			if ($ret->getErrorCode() & ERROR_UNSUPPORTED_FILE_TYPE) {
 			    $warnings[] = $module->translate(
 				array('text' => 'WARNING: Cannot compress mime type %s',
@@ -312,7 +312,7 @@ class SizeLimitOption extends ItemEditOption {
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), $errors, $warnings);
+	return array(null, $errors, $warnings);
     }
 
 

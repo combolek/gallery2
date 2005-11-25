@@ -35,7 +35,7 @@ class CartCallbacks {
 	    /* The cart contents' count */
 	    GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartHelper.class');
 	    list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -49,10 +49,10 @@ class CartCallbacks {
 	    $block['cart']['ShowCart']['unique'] = $unique;
 	    $block['cart']['ShowCart']['total'] = $total;
 
-	    return GalleryStatus::success();
+	    return null;
 	}
 
-	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

@@ -45,7 +45,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 	list ($ret, $dirPerms) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -55,12 +55,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 	$task = new FlushTemplatesTask();
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -81,12 +81,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 	$task = new FlushTemplatesTask();
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

@@ -128,16 +128,16 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 	$ret = ExifPropertiesMap::setProperties($viewMode, $properties);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -151,7 +151,7 @@ class ExifHelper {
     function addDefaultIptcProperties($viewMode) {
 	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 	list($ret, $properties) = ExifPropertiesMap::getProperties($viewMode);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -168,15 +168,15 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$ret = ExifPropertiesMap::setProperties($viewMode, $properties);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -223,7 +223,7 @@ class ExifHelper {
 
 	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
-	    return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					      "Missing $path"),
 			 null);
 	}
@@ -237,7 +237,7 @@ class ExifHelper {
 	    ob_end_clean();
 	    $gallery->debug(str_replace("\0", '', $buf));
 	}
-	return array(GalleryStatus::success(), $result);
+	return array(null, $result);
     }
 
     /**
@@ -255,7 +255,7 @@ class ExifHelper {
 	$rawExifData = array();
 	ExifHelper::_fetchRawExifData($path, $rawExifData);
 	list ($ret, $iptcObj) = ExifHelper::getIptcObject($path);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -264,7 +264,7 @@ class ExifHelper {
 	$results = array();
 	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 	list ($ret, $properties) = ExifPropertiesMap::getProperties($viewMode);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($properties as $property) {
@@ -284,7 +284,7 @@ class ExifHelper {
 	    }
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -343,7 +343,7 @@ class ExifHelper {
 		}
 		list ($ret, $format) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
-		if ($ret->isError() || empty($format)) {
+		if ($ret || empty($format)) {
 		    $format = '$x $X';
 		}
 		$platform = $gallery->getPlatform();

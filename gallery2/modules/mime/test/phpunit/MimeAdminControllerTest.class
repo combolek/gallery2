@@ -36,7 +36,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = GalleryCoreApi::addMimeType('xxx', 'test/test', false);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -44,7 +44,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	$ret = GalleryCoreApi::removeMimeType(array('mimeType' => 'test/test'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -60,7 +60,7 @@ class MimeAdminControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results, 'Delete');
 	list ($ret, $extensions) = GalleryCoreApi::convertMimeToExtensions('test/test');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$this->assertEquals(array(), $extensions, 'Delete results');

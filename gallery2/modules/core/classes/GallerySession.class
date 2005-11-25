@@ -170,7 +170,7 @@ class GallerySession {
 	 * necessary
 	 */
 	list ($ret, $valid) = $this->_isSessionValid();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!$valid) {
@@ -184,7 +184,7 @@ class GallerySession {
 
 	    /* Load session state */
 	    $ret = $this->_loadSessionData();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -235,12 +235,12 @@ class GallerySession {
 	     */
 	    list ($ret, $this->_cookieDomain) = GalleryCoreApi::getPluginParameter('module', 'core',
 										   'cookie.domain');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $urlGenerator =& $gallery->getUrlGenerator();
 	    list ($ret, $this->_cookiePath) = $urlGenerator->getCookiePath();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -259,7 +259,7 @@ class GallerySession {
 
 		list ($ret, $sessionLifetime) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'session.lifetime');
-		if ($ret->isError()) {
+		if ($ret) {
 		    if ($ret->getErrorCode() & ERROR_STORAGE_FAILURE) {
 			/*
 			 * During installation it's possible that the database isn't around yet.
@@ -360,7 +360,7 @@ class GallerySession {
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -372,7 +372,7 @@ class GallerySession {
 	    $this->_sessionId = md5(microtime() . rand(1, 32767));
 
 	    $ret = $this->_loadSessionData();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* Ensure we don't randomly pick an id already in use.. */
@@ -415,13 +415,13 @@ class GallerySession {
 	    /* Perform garbage collection 1% of the time. */
 	    if ($dieRoll == 1) {
 		$ret = $this->_expireSessions();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -448,11 +448,11 @@ class GallerySession {
 	$this->_cookieDomain = null;
 
 	$ret = $this->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -496,7 +496,7 @@ class GallerySession {
 	    $this->put('core.navigation', $navigation);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -511,13 +511,13 @@ class GallerySession {
 
 	list ($ret, $sessionInactivityTimeout) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'session.inactivityTimeout');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $lifetime) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'session.lifetime');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -528,7 +528,7 @@ class GallerySession {
 	$sessionsDir = $gallery->getConfig('data.gallery.sessions');
 	$dir = $platform->opendir($sessionsDir, 'r');
 	if (!$dir) {
-	    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					"Can't access session dir");
 	}
 
@@ -545,7 +545,7 @@ class GallerySession {
 	}
 	$platform->closedir($dir);
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -660,13 +660,13 @@ class GallerySession {
 	    if ($platform->file_exists($sessionFile)) {
 		list ($ret, $lifetime) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'session.lifetime');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		list ($ret, $inactivityTimeout) =
 		    GalleryCoreApi::getPluginParameter('module', 'core',
 						       'session.inactivityTimeout');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$lifetimeCutoff = time() - $lifetime;
@@ -676,14 +676,14 @@ class GallerySession {
 		    /* The session has timed out, remove it */
 		    $platform->unlink($sessionFile);
 		} else {
-		    return array(GalleryStatus::success(), true);
+		    return array(null, true);
 		}
 	    } else {
-		return array(GalleryStatus::success(), true);
+		return array(null, true);
 	    }
 	}
 
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     /**
@@ -714,7 +714,7 @@ class GallerySession {
 	    $this->_emptySessionData();
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -965,13 +965,13 @@ class GallerySession {
 	    if (!empty($controller)) {
 		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
 		list ($ret, $controller) = GalleryController::loadController($controller);
-		if ($ret->isSuccess() && !$controller->shouldSaveSession()) {
+		if (!$ret && !$controller->shouldSaveSession()) {
 		    $flag = false;
 		}
 	    } else if (!empty($view)) {
 		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
 		list ($ret, $view) = GalleryView::loadView($view);
-		if ($ret->isSuccess() && !$view->shouldSaveSession()) {
+		if (!$ret && !$view->shouldSaveSession()) {
 		    $flag = false;
 		}
 	    }

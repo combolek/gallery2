@@ -56,7 +56,7 @@ class OptionsController extends GalleryController {
 	}
 	$results['status'] = array();
 	$results['error'] = array();
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -89,7 +89,7 @@ class OptionsView extends GalleryView {
 	    }
 
 	    if (empty($form['albumId'])) {
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 	}
 
@@ -99,14 +99,14 @@ class OptionsView extends GalleryView {
 	    $optionInstances = $this->_optionInstances;
 	} else {
 	    list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* Now let all options load their template data */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId']);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -114,7 +114,7 @@ class OptionsView extends GalleryView {
 	foreach ($optionInstances as $option) {
 	    list ($ret, $entry['file'], $entry['l10Domain']) =
 		$option->loadTemplate($template, $form, $item);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($entry['file'])) {
@@ -129,7 +129,7 @@ class OptionsView extends GalleryView {
 	$theme =& $template->getVariableByReference('theme');
 	$theme['useFullScreen'] = true;
 
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/publishxp/templates/Options.tpl'));
     }
 }

@@ -37,7 +37,7 @@ class SlideshowAppletSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -52,14 +52,14 @@ class SlideshowAppletSiteAdminController extends GalleryController {
 		$key = 'slideshowRecursive';
 		$ret = GalleryCoreApi::setPluginParameter('module', 'slideshowapplet', $key,
 		    (isset($form[$key]) && $form[$key]) ? 1 : 0);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$key = 'slideshowMaxPictures';
 		$ret = GalleryCoreApi::setPluginParameter('module', 'slideshowapplet', $key,
 		    $form[$key]);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -74,7 +74,7 @@ class SlideshowAppletSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -97,7 +97,7 @@ class SlideshowAppletSiteAdminView extends GalleryView {
 	if ($form['formName'] != 'SlideshowAppletSiteAdmin') {
 	    $form['formName'] = 'SlideshowAppletSiteAdmin';
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($params as $key => $value) {
@@ -106,7 +106,7 @@ class SlideshowAppletSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'slideshowapplet.SlideshowAppletSiteAdmin');
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/slideshowapplet/templates/SlideshowAppletSiteAdmin.tpl'));
     }
 }

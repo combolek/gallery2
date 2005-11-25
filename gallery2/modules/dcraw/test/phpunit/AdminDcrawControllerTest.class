@@ -43,7 +43,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'dcraw');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -59,7 +59,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 
     function _getParam($param) {
 	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'dcraw', $param);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    return 'FAILED';
 	}

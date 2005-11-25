@@ -86,7 +86,7 @@ require_once(dirname(__FILE__) . '/../init.inc');
 $storageConfig = @$gallery->getConfig('storage.config');
 if (!empty($storageConfig)) {
     $ret = GalleryInitFirstPass(array('debug' => 'buffered', 'noDatabase' => 1));
-    if ($ret->isError()) {
+    if ($ret) {
 	print $ret->getAsHtml();
 	return;
     }
@@ -117,7 +117,7 @@ if (!empty($storageConfig)) {
     /* Check to see if we have a database.  If we don't, then go to the installer */
     $storage =& $gallery->getStorage();
     list ($ret, $isInstalled) = $storage->isInstalled();
-    if ($ret->isError() || !$isInstalled) {
+    if ($ret || !$isInstalled) {
 	$error = true;
     }
 } else {
@@ -202,26 +202,26 @@ function selectAdminUser() {
 
     list ($ret, $siteAdminGroupId) =
 	GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
     list ($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
     if (empty($adminUserInfo)) {
-	return GalleryStatus::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
+	return GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
     }
     $adminUserInfo = array_keys($adminUserInfo);
     list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($adminUserInfo[0]);
-    if ($ret->isError()) {
+    if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $gallery->setActiveUser($adminUser);
     $session =& $gallery->getSession();
     $session->put('isUpgrade', true);
-    return GalleryStatus::success();
+    return null;
 }
 
 /**

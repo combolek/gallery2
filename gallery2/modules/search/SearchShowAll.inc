@@ -51,7 +51,7 @@ class SearchShowAllController extends GalleryController {
 
 	$results['status'] = array();
 	$results['error'] = array();
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -120,17 +120,17 @@ class SearchShowAllView extends GalleryView {
 		list ($ret, $searchInstance) =
 		    GalleryCoreApi::newFactoryInstanceById('GallerySearchInterface_1_0',
 							   $form['moduleId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($searchInstance)) {
-		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		list ($ret, $moduleInfo) = $searchInstance->getSearchModuleInfo();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -140,7 +140,7 @@ class SearchShowAllView extends GalleryView {
 			    SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']),
 			    ($form['page']-1) * $pageSize,
 			    $pageSize);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -160,7 +160,7 @@ class SearchShowAllView extends GalleryView {
 		if (!empty($itemIds)) {
 		    /* Fetch items */
 		    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($itemList as $item) {
@@ -170,7 +170,7 @@ class SearchShowAllView extends GalleryView {
 		    /* Fetch thumbnails */
 		    list ($ret, $thumbnailList) =
 			GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-		    if ($ret->isError()) {
+		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($thumbnailList as $thumbnail) {
@@ -184,11 +184,11 @@ class SearchShowAllView extends GalleryView {
 
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -204,12 +204,12 @@ class SearchShowAllView extends GalleryView {
 	    'rootAlbum' => $rootAlbum->getMemberData()));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->title($module->translate('Gallery Search'));
-	return array(GalleryStatus::success(),
+	return array(null,
 		     array('body' => 'modules/search/templates/SearchShowAll.tpl'));
     }
 }

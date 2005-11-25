@@ -50,7 +50,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	/* Core cookie.path for emmbedded DownloadItem test */
 	foreach (array('rewrite', 'core') as $pluginId) {
 	    $ret = $this->_markPluginParametersForCleanup('module', $pluginId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -60,7 +60,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		 as $param => $value) {
 	    /* Set test value */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', $param, $value);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -68,7 +68,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
 	/* Save original activeRules */
 	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -83,7 +83,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		array('pattern' => 't/%path%.test', 'match' => 'php.Unit|test.suffixExt'),
 		array('pattern' => '%path%/test.html', 'match' => 'php.Unit|test.suffixPath')));
 	$ret = RewriteMap::setActiveRules($testRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -91,7 +91,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$this->_savedSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -110,7 +110,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$gallery->_urlGenerator = $this->_savedUrlGenerator;
 
 	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -167,7 +167,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
 	/* Setup.. */
 	list ($ret, $testAlbum) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($testAlbum);
@@ -175,22 +175,22 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	    $testAlbum->getId(),
 	    'application/unknown',
 	    array('pathComponent' => 'foo# bar&.dat'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $derivative) =
 	    $this->_createDerivative($testItem, $testItem->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $testAlbumPath) = $testAlbum->fetchLogicalPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $testItemPath) = $testItem->fetchLogicalPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$testItemPath = str_replace('%2F', '/', urlencode($testItemPath));
@@ -212,13 +212,13 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 				'Could not change embed mode');
 	    /* Change also the cookie.path */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $cookiePath);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    /* Check if the correct value was stored */
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 									 'cookie.path');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($cookiePath, $realValue, 'Could not set the cookie path');
@@ -247,7 +247,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		/* Let the session know of the new cookie.path value */
 		$session = new GallerySession();
 		$ret = $session->init();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 		$gallery->_session = $session;

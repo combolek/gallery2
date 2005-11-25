@@ -80,7 +80,7 @@ class LogoutTestSession {
 
     function reset() {
 	$this->_resetCallCount++;
-	return GalleryStatus::success();
+	return null;
     }
 
     function isUsingCookies() {

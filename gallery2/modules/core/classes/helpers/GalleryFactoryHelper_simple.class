@@ -98,7 +98,7 @@ class GalleryFactoryHelper_simple {
                   [GalleryFactoryMap::orderWeight] ASC
                 ';
 		list ($ret, $searchResults) = $gallery->search($query);
-		if ($ret->isError()) {
+		if ($ret) {
 		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
@@ -119,7 +119,7 @@ class GalleryFactoryHelper_simple {
 	    }
 	}
 
-	$ret = array(GalleryStatus::success(), &$registry);
+	$ret = array(null, &$registry);
 	return $ret;
     }
 
@@ -134,7 +134,7 @@ class GalleryFactoryHelper_simple {
      */
     function newInstanceByHint($classType, $hints) {
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!is_array($hints)) {
@@ -150,17 +150,17 @@ class GalleryFactoryHelper_simple {
 	    }
 	}
 	if (!isset($classNames)) {
-	    return array(GalleryStatus::success(), null);
+	    return array(null, null);
 	}
 
 	/* Right now we just use the first available hint */
 	$className = $classNames[0];
 	list ($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $instance);
+	return array(null, $instance);
     }
 
     /**
@@ -176,7 +176,7 @@ class GalleryFactoryHelper_simple {
 	global $gallery;
 
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -185,7 +185,7 @@ class GalleryFactoryHelper_simple {
 		if ($gallery->getDebug()) {
 		    $gallery->debug("Unimplemented: $classType");
 		}
-		return array(GalleryStatus::success(), null);
+		return array(null, null);
 	    }
 	    $classNames = array_keys($registry['implementations'][$classType]);
 	    $className = $classNames[0];
@@ -195,7 +195,7 @@ class GalleryFactoryHelper_simple {
 	    if ($gallery->getDebug()) {
 		$gallery->debug("Unimplemented: $classType, $className");
 	    }
-	    return array(GalleryStatus::success(), null);
+	    return array(null, null);
 	}
 
 	if (!class_exists($className)) {
@@ -205,7 +205,7 @@ class GalleryFactoryHelper_simple {
 	    if (!$platform->file_exists(
 		GalleryCoreApi::getPluginBaseDir(
 		'module', $registry['pluginIds'][$classType][$className]) . $relativePath)) {
-		return array(GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 						  "Invalid path: $relativePath"),
 			     null);
 	    }
@@ -213,13 +213,13 @@ class GalleryFactoryHelper_simple {
 	    GalleryCoreApi::relativeRequireOnce($relativePath);
 
 	    if (!class_exists($className)) {
-		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  "Missing class: $className"),
 			     null);
 	    }
 	}
 
-	return array(GalleryStatus::success(), new $className);
+	return array(null, new $className);
     }
 }
 ?>

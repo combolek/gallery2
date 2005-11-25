@@ -46,7 +46,7 @@ class EmbedTest extends GalleryTestCase {
 	$this->_savedSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -158,7 +158,7 @@ class EmbedTest extends GalleryTestCase {
 	$secondCacheKey = 'GalleryEmbed::initSecondPass';
 	/* Init a first time */
 	$ret = GalleryEmbed::init(array('embedUri' => 'index.php?mod=g2', 'embedPath' => '/cms/'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Check if we get the the urls that it should generate (sanity check) */
@@ -177,7 +177,7 @@ class EmbedTest extends GalleryTestCase {
 	 * again, i.e. the generated urls should be the same as before.
 	 */
 	$ret = GalleryEmbed::init(array('embedUri' => 'index.php?mod=g2', 'embedPath' => '/cms2nd/'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	global $gallery;
@@ -206,7 +206,7 @@ class EmbedTest extends GalleryTestCase {
 	$firstCacheKey = 'GalleryEmbed::initFirstPass';
 	$secondCacheKey = 'GalleryEmbed::initSecondPass';
 	$ret = GalleryEmbed::init();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Both, init first pass and second pass should have been called */
@@ -223,7 +223,7 @@ class EmbedTest extends GalleryTestCase {
 
 	/* we set fullInit = false, only InitFirstPass should be called */
 	$ret = GalleryEmbed::init(array('fullInit' => false));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Verify */
@@ -239,7 +239,7 @@ class EmbedTest extends GalleryTestCase {
 		      'GDC reset did not delete GalleryEmbed:initSecondPass key.');
 	/* we set fullInit = true, both should be called */
 	$ret = GalleryEmbed::init(array('fullInit' => true));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Verify */
@@ -265,12 +265,12 @@ class EmbedTest extends GalleryTestCase {
 	    $ret = GalleryEmbed::createUser($activeUserId[$i],
 					    array('username' => 'test_' . rand(),
 						  'language' => 'en_GB'));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    list ($ret, $user[$i]) = GalleryCoreApi::loadEntityByExternalId($activeUserId[$i],
 									    'GalleryUser');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_markForCleanup($user[$i]);
@@ -298,7 +298,7 @@ class EmbedTest extends GalleryTestCase {
 	/* Call the function under test */
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser($activeUserId[0]);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($user[0]->getId(), $session->get('core.id.activeUser'),
@@ -313,7 +313,7 @@ class EmbedTest extends GalleryTestCase {
 	/* Check that the session changes correctly if the activeUserId is different */
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser($activeUserId[1]);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($user[1]->getId(), $session->get('core.id.activeUser'),
@@ -328,7 +328,7 @@ class EmbedTest extends GalleryTestCase {
 	/* Check that the session changes to an anonymous session if the activeUserId is '' */
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser('');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(null, $session->get('core.id.activeUser'),
@@ -342,7 +342,7 @@ class EmbedTest extends GalleryTestCase {
 	/* Also check the special case of guest user id '' */
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser('');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(null, $session->get('core.id.activeUser'),
@@ -357,7 +357,7 @@ class EmbedTest extends GalleryTestCase {
 	/* And login again */
 	$sessionId = $session->getId();
 	$ret = GalleryEmbed::checkActiveUser($activeUserId[0]);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($user[0]->getId(), $session->get('core.id.activeUser'),

@@ -47,7 +47,7 @@ function smarty_modifier_markup($text) {
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($ret, $defaultMarkupType) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		/* This code is used by the UI -- we can't return an error. Choose something safe */
 		$defaultMarkupType = 'none';
 	    }

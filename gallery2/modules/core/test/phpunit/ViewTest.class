@@ -48,14 +48,14 @@ class ViewTest extends GalleryTestCase {
     function testLoadViewSuccess() {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
 	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testLoadViewFail() {
 	list ($ret, $view) = GalleryView::loadView('viewtest.SomeRandomView');
-	if ($ret->isError() && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
+	if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {
 	    /* this is what we expect */
 	} else {
 	    $this->assert(false, 'The view of a deactivated module should not load.');
@@ -68,7 +68,7 @@ class ViewTest extends GalleryTestCase {
 	 * because we're an admin.
 	 */
 	list ($ret, $view) = GalleryView::loadView('viewtest.ViewTestConfig');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -76,7 +76,7 @@ class ViewTest extends GalleryTestCase {
 
 class ViewTestModule {
     function isActive() {
-	return array(GalleryStatus::success(), false);
+	return array(null, false);
     }
 
     function getConfigurationView() {

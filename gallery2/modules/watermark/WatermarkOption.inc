@@ -42,7 +42,7 @@ class WatermarkOption extends ItemAddOption {
 	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -58,7 +58,7 @@ class WatermarkOption extends ItemAddOption {
 	$WatermarkOption['watermarks'] = $watermarks;
 	$WatermarkOption['currentId'] = $currentId;
 	$template->setVariable('WatermarkOption', $WatermarkOption);
-	return array(GalleryStatus::success(),
+	return array(null,
 		     'modules/watermark/templates/WatermarkOption.tpl',
 		     'modules_watermark');
     }
@@ -71,11 +71,11 @@ class WatermarkOption extends ItemAddOption {
 
 	/* Only appropriate if we've got some watermarks to show */
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), !empty($watermarks));
+	return array(null, !empty($watermarks));
     }
 
     /**
@@ -90,7 +90,7 @@ class WatermarkOption extends ItemAddOption {
 		GalleryUtilities::isA($items[$i], 'GalleryPhotoItem')) {
 		list ($ret, $watermark) =
 		    GalleryCoreApi::loadEntitiesById($form['WatermarkOption']['watermarkId']);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$watermarkArray = 
@@ -101,12 +101,12 @@ class WatermarkOption extends ItemAddOption {
 						      $watermark->getXPercentage(),
 						      $watermark->getYPercentage(),
 						      $watermarkArray);
-	    	if ($ret->isError()) {
+	    	if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 	}
-	return array(GalleryStatus::success(), $errors, $warnings);
+	return array(null, $errors, $warnings);
     }
 }
 ?>

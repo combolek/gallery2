@@ -44,7 +44,7 @@ class SetupRewriteController extends GalleryController {
 	$platform = $gallery->getPlatform();
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -57,7 +57,7 @@ class SetupRewriteController extends GalleryController {
 	    if (isset($form['force']['test1'])) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 		    'status', serialize(array('needOptions' => false, 'forced' => 1)));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -65,7 +65,7 @@ class SetupRewriteController extends GalleryController {
 	    if (isset($form['force']['test2'])) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 		    'status', serialize(array('needOptions' => true, 'forced' => 1)));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -76,7 +76,7 @@ class SetupRewriteController extends GalleryController {
 	    if (isset($form['force']['test1'])) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 		    'status', serialize(array('needOptions' => false, 'forced' => 1)));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -84,7 +84,7 @@ class SetupRewriteController extends GalleryController {
 	    if (isset($form['force']['test2'])) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite',
 		    'status', serialize(array('needOptions' => true, 'forced' => 1)));
-		if ($ret->isError()) {
+		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -102,7 +102,7 @@ class SetupRewriteController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 }
 
@@ -148,15 +148,15 @@ class SetupRewriteView extends GalleryView {
 		$target . '/Rewrite.txt'));
 
 	list ($ret, $SetupRewrite['htaccessPath']) = RewriteHelper::getHtaccessPath();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $SetupRewrite['htaccessCode']) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $SetupRewrite['apacheCode']) = RewriteHelper::checkModRewrite();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -164,7 +164,7 @@ class SetupRewriteView extends GalleryView {
 	$template->setVariable('controller', 'rewrite.SetupRewrite');
 
 	$template->javascript('lib/javascript/BlockToggle.js');
-	return array(GalleryStatus::success(),
+	return array(null,
 		array('body' => 'modules/rewrite/templates/SetupRewrite.tpl'));
     }
 }

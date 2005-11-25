@@ -221,11 +221,11 @@ class Gallery {
     function search($query, $data=array(), $options=array()) {
 	$storage =& $this->getStorage();
 	list ($ret, $results) = $storage->search($query, $data, $options);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     }
 
     /**
@@ -318,12 +318,12 @@ class Gallery {
 	if (empty($this->_session)) {
 	    $this->_session = new GallerySession();
 	    $ret = $this->_session->init();
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -382,7 +382,7 @@ class Gallery {
 	if (!isset($this->_lockSystem)) {
 	    list ($ret, $which) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		$ret = array($ret->wrap(__FILE__, __LINE__), null);
 		return $ret;
 	    }
@@ -399,12 +399,12 @@ class Gallery {
 		break;
 
 	    default:
-		$ret = array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 		return $ret;
 	    }
 	}
 
-	$ret = array(GalleryStatus::success(), &$this->_lockSystem);
+	$ret = array(null, &$this->_lockSystem);
 	return $ret;
     }
 
@@ -520,19 +520,19 @@ class Gallery {
 	    $language = null;
 	    if (!$dontUseDatabase) {
 		list ($ret, $language) = $this->getActiveLanguageCode();
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $this->_translator = new GalleryTranslator();
 	    $ret = $this->_translator->init($language);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -548,12 +548,12 @@ class Gallery {
 	if (empty($language)) {
 	    list ($ret, $language) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
-	return array(GalleryStatus::success(), $language);
+	return array(null, $language);
     }
 
     /**
@@ -565,7 +565,7 @@ class Gallery {
     function setActiveLanguageCode($language) {
 	$session =& $this->getSession();
 	$session->put('core.language', $language);
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -893,7 +893,7 @@ class Gallery {
 		    } else if (!GalleryUtilities::isA($ret, 'GalleryStatus')) {
 			$ret = null;
 		    }
-		    if (isset($ret) && $ret->isError()) {
+		    if (isset($ret) && $ret) {
 			$this->debug('Error from shutdown action:');
 			$this->debug_r($action);
 			$this->debug_r($ret);

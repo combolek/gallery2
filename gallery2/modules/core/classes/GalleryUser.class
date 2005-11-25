@@ -157,22 +157,22 @@ class GalleryUser_core extends GalleryEntity {
 	    $gallery->search($query, array($userName),
 			     array('limit' => array('count' => 1)));
 
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$result = $results->nextResult();
 	if ($result[0] > 0) {
-	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	$ret = parent::create();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setUserName($userName);
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -223,7 +223,7 @@ class GalleryUser_core extends GalleryEntity {
 	}
 
 	$ret = parent::save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -232,18 +232,18 @@ class GalleryUser_core extends GalleryEntity {
 	    foreach (array('id.allUserGroup', 'id.everybodyGroup') as $groupKey) {
 		list($ret, $groupId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', $groupKey);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = GalleryCoreApi::addUserToGroup($this->getId(), $groupId);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -260,7 +260,7 @@ class GalleryUser_core extends GalleryEntity {
 	global $gallery;
 	$activeUserId = $gallery->getActiveUserId();
 	if ($activeUserId == $this->getId()) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/*
@@ -273,7 +273,7 @@ class GalleryUser_core extends GalleryEntity {
 	 */
 	/* Check if activeUser is Site Admin, if not, get any of the Site Admins */
 	list($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if ($isAdmin) {
@@ -281,50 +281,50 @@ class GalleryUser_core extends GalleryEntity {
 	} else {
 	    list ($ret, $siteAdminGroupId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $adminUsers) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 2);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (empty($adminUsers)) {
-		return GalleryStatus::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
 	    }
 	    $adminUsers = array_keys($adminUsers);
 	    if ($adminUsers[0] == $this->getId() && count($adminUsers) == 1) {
 		/* Block attempt to delete the only site admin */
-		return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+		return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	    }
 	    $newOwnerId = $adminUsers[0] != $this->getId() ? $adminUsers[0] : $adminUsers[1];
 	}
 
 	/* Now remap the owner of all of his items */
 	$ret = GalleryCoreApi::remapOwnerId($this->getId(), $newOwnerId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete all of his permissions from the permissions map table */
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
 	$ret = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $this->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* And remove him from all groups he was a member of */
 	$ret = GalleryCoreApi::removeUserFromAllGroups($this->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* And finally delete the user from the database */
 	$ret = parent::delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -334,7 +334,7 @@ class GalleryUser_core extends GalleryEntity {
 	global $gallery;
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret->isError()) {
+	    if (! $ret) {
 		return array($core->translate('User'), $core->translate('user'));
 	    }
 	}

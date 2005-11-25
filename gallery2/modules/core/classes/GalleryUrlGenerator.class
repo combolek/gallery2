@@ -415,9 +415,9 @@ class GalleryUrlGenerator {
 	/* Swap in the actual url for the 'return' placeholder */
 	if (isset($params['return'])) {
 	    list ($ret, $view) = GalleryView::loadView($currentView);
-	    if ($ret->isSuccess()) {
+	    if (!$ret) {
 		list ($ret, $viewDescription) = $view->getViewDescription();
-		if ($ret->isSuccess()) {
+		if (!$ret) {
 		    $params['returnName'] = $viewDescription;
 		}
 	    }
@@ -505,7 +505,7 @@ class GalleryUrlGenerator {
 	    /* Return the configured path is it is set */
 	    list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'core',
 								    'cookie.path');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (empty($path)) {
@@ -517,7 +517,7 @@ class GalleryUrlGenerator {
 	    $this->_cookiePath[$forceG2Base] = $path;
 	}
 
-	return array(GalleryStatus::success(), $this->_cookiePath[$forceG2Base]);
+	return array(null, $this->_cookiePath[$forceG2Base]);
     }
 
     /**
@@ -565,7 +565,7 @@ class GalleryUrlGenerator {
 		    preg_match('{^\s*\.\./}', $normReturnUrl) ||
 		    strpos($normReturnUrl, '/../') !== false) {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$message = sprintf(
@@ -573,7 +573,7 @@ class GalleryUrlGenerator {
 				       'insert a redirection to %s which is not a part of '.
 				       'this Gallery.'),
 		    GalleryUrlGenerator::makeUrl($this->getCurrentRequestUri()), $returnUrl);
-		return GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
+		return GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
 
 	    }
 
@@ -597,7 +597,7 @@ class GalleryUrlGenerator {
 	    }
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -679,11 +679,11 @@ class GalleryUrlGenerator {
     function getNavigationLinks($depth = null) {
 	global $gallery;
 	if (empty($this->_navId)) {
-	    return array(GalleryStatus::success(), array());
+	    return array(null, array());
 	}
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -710,7 +710,7 @@ class GalleryUrlGenerator {
 	    $url = GalleryUrlGenerator::appendParamsToUrl($url, $params);
 	    $links[] = array('url' => $url, 'name' => $name);
 	}
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**

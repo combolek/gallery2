@@ -37,19 +37,19 @@ class SampleView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	list ($ret, $imageframe) =
 	    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($imageframe)) {
-	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $list) = $imageframe->getImageFrameList();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $imageframe->init($template, array_keys($list));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -57,15 +57,15 @@ class SampleView extends GalleryView {
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	if (!empty($itemId)) {
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $thumbnail) = GalleryCoreApi::fetchThumbnailsByItemIds(array($itemId));
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($canSee && isset($thumbnail[$itemId])) {
@@ -78,13 +78,13 @@ class SampleView extends GalleryView {
 	$theme['useFullScreen'] = true;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->setVariable('ImageFrameSample', $ImageFrameSample);
 	$template->title($module->translate('Image Frame Samples'));
-	return array(GalleryStatus::success(),
+	return array(null,
 	    array('body' => 'modules/imageframe/templates/SampleBody.tpl'));
     }
 
@@ -93,10 +93,10 @@ class SampleView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $module->translate('Image Frame Samples'));
+	return array(null, $module->translate('Image Frame Samples'));
     }
 }
 ?>

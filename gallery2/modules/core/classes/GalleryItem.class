@@ -196,20 +196,20 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	global $gallery;
 
 	if (!isset($path) || !isset($parentId)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$parent->getCanContainChildren()) {
-	    return GalleryStatus::error(ERROR_ILLEGAL_CHILD, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_ILLEGAL_CHILD, __FILE__, __LINE__);
 	}
 
 	$ret = parent::create($parentId, $path);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -225,7 +225,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	/* Origination timestamp defaults to now */
 	$this->setOriginationTimestamp(time());
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -241,7 +241,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	global $gallery;
 
 	$ret = parent::createRoot();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -254,7 +254,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	/* Origination timestamp defaults to now */
 	$this->setOriginationTimestamp(time());
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -264,17 +264,17 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	global $gallery;
 
 	$ret = parent::createLink($entity, $parentId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$parent->getCanContainChildren()) {
-	    return GalleryStatus::error(ERROR_ILLEGAL_CHILD, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_ILLEGAL_CHILD, __FILE__, __LINE__);
 	}
 
 	/* Record the owner */
@@ -293,7 +293,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	$this->setTitle($entity->getTitle());
 	$this->setOriginationTimestamp($entity->getOriginationTimestamp());
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -318,7 +318,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	';
 	list ($ret, $searchResults) =
 	    $gallery->search($query, array($this->getId()));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -331,20 +331,20 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	     * parent/child query each time.  Easier to just ignore the MISSING_OBJECT error
 	     * since we only care that it's gone.
 	     */
-	    if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	/* Delete myself */
 	$ret = parent::delete();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove all my attributes */
 	$ret = GalleryCoreApi::removeItemAttributes($this->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret2->wrap(__FILE__, __LINE__);
 	}
 
@@ -352,7 +352,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	    $event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 	    $event->setData(array('userId' => null, 'itemId' => $this->getParentId()));
 	    list ($ret) = GalleryCoreApi::postEvent($event);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -361,7 +361,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 					array($this->getParentId()));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -374,7 +374,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
     function move($newParentId) {
 	$parentId = $this->getParentId();
 	$ret = parent::move($newParentId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -382,11 +382,11 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 	$event->setData(array('userId' => null, 'itemId' =>
 	    empty($parentId) ? $this->getParentId() : array($parentId, $this->getParentId())));
 	list ($ret) = GalleryCoreApi::postEvent($event);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -407,20 +407,20 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 
 	/* Save myself */
 	$ret = parent::save();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($newItem) {
 	    if ($this->getParentId()) {
 		$ret = GalleryCoreApi::copyPermissions($this->getId(), $this->getParentId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $parentSequence) =
 		    GalleryCoreApi::fetchParentSequence($this->getParentId());
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$parentSequence[] = $this->getParentId();
@@ -430,7 +430,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 
 	    /* Create an empty attribute entry */
 	    $ret = GalleryCoreApi::createItemAttributes($this->getId(), $parentSequence);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -438,7 +438,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 		$event = GalleryCoreApi::newEvent('Gallery::ViewableTreeChange');
 		$event->setData(array('userId' => null, 'itemId' => $this->getParentId()));
 		list ($ret) = GalleryCoreApi::postEvent($event);
-		if ($ret->isError()) {
+		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -453,7 +453,7 @@ class GalleryItem_core extends GalleryFileSystemEntity {
 					array($oldParentId));
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 }
 

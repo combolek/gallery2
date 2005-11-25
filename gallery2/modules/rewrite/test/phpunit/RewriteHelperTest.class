@@ -45,7 +45,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	/* Save original activeRules and use mock rules */
 	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -54,13 +54,13 @@ class RewriteHelperTest extends GalleryTestCase {
 		      'match' => 'core.ShowItem'),
 		array('pattern' => 'd/%itemId%-%serialNumber%/%fileName%',
 		      'match' => 'core.DownloadItem'))));
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-	if ($ret->isError()) {
+	if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -75,7 +75,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
     function tearDown() {
 	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -87,7 +87,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	/* Make sure we pass if it's all good to write. */
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -95,7 +95,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	/* Make sure we're ok if there's already a Gallery section. */
 	list ($ret, $expected) = RewriteHelper::getTemplate(array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$expected = explode("\n", $expected);
@@ -106,7 +106,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	$this->_platform->setPreviousContent($expected);
 
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_READY, $code, 'existing gallery section');
@@ -117,7 +117,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	/* Make sure we pass if it's all good to write. */
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -130,7 +130,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	/* Make sure we fail if it's not writeable. */
 	$this->_platform->setIsWriteable(false);
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'cant write');
@@ -138,7 +138,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	/* Make sure we fail if it's not readable */
 	$this->_platform->setIsReadable(false);
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'cant read');
@@ -146,7 +146,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	/* Make sure we fail if it's there's no file */
 	$this->_platform->setFileExists(false);
 	list ($ret, $code) = RewriteHelper::checkFile();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_MISSING, $code, 'cant read');
@@ -155,7 +155,7 @@ class RewriteHelperTest extends GalleryTestCase {
     function testCheckOutOfSync() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'embeddedHtaccess',
 	    'phpunit/embedded');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -167,7 +167,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	$this->_platform->setEmbeddedPreviousContent($existingFile);
 
 	list ($ret, $code) = RewriteHelper::checkSync();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_MISMATCH, $code);
@@ -178,20 +178,20 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'embeddedHtaccess',
 	    'phpunit/embedded');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $activeRules) = RewriteMap::getActiveRules();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list($ret, $code, $rewriteRules) = RewriteHelper::parseActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $existingFile) = RewriteHelper::getTemplate($rewriteRules, true);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$existingFile = explode("\n", $existingFile);
@@ -201,7 +201,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	$this->_platform->setEmbeddedPreviousContent($existingFile);
 
 	list ($ret, $code) = RewriteHelper::checkSync();
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $code);
@@ -223,7 +223,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	    $this->_platform->setPreviousContent($existingFile);
 
 	    list ($ret, $code) = RewriteHelper::writeFile(array());
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(REWRITE_STATUS_OK, $code, "cant write ($os)");
@@ -247,7 +247,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	$expected = "Bogus info before section\nBogus info after section\n";
 	$this->_platform->setPreviousContent($existingFile);
 	list ($ret, $code) = RewriteHelper::writeFile(null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_OK, $code, 'cant write');
@@ -260,7 +260,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	/* Make sure we fail if it's not writeable. */
 	$this->_platform->setIsWriteable(false);
 	list ($ret, $code) = RewriteHelper::writeFile(array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_WRITE, $code, 'cant write');
@@ -268,7 +268,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	/* Make sure we fail if it's not readable */
 	$this->_platform->setIsReadable(false);
 	list ($ret, $code) = RewriteHelper::writeFile(array());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(REWRITE_STATUS_HTACCESS_CANT_READ, $code, 'cant read');
@@ -276,7 +276,7 @@ class RewriteHelperTest extends GalleryTestCase {
 
     function testGetHtaccessPath() {
 	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	$this->assertEquals(array(GalleryStatus::success(),
+	$this->assertEquals(array(null,
 			$pluginBaseDirs['base'] . '.htaccess'),
 		RewriteHelper::getHtaccessPath());
     }
@@ -308,7 +308,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		      'settings' => array('flags' => 'QSA,L')));
 
 	list ($ret, $code, $result) = RewriteHelper::parseActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -322,7 +322,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		      'match' => 'core.ShowItem')));
 
 	list ($ret, $code, $result) = RewriteHelper::parseActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -340,7 +340,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		      'settings' => array('flags' => 'QSA,L')));
 
 	list ($ret, $code, $result) = RewriteHelper::parseActiveRules($activeRules);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 

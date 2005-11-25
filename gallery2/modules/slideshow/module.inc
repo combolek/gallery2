@@ -51,11 +51,11 @@ class SlideshowModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'SlideshowInterface_1_0', 'SlideshowImpl', 'Slideshow',
 	    'modules/slideshow/classes/SlideshowImpl.class', 'slideshow', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
+	return null;
     }
 
     /**
@@ -73,7 +73,7 @@ class SlideshowModule extends GalleryModule {
 			      'itemId' => $itemId));
 	    }
 	}
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     }
 
     /**

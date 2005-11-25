@@ -42,10 +42,10 @@ class ExifDescriptionOption extends ItemAddOption {
      */
     function isAppropriate() {
 	list ($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(GalleryStatus::success(), $addOption > 0);
+	return array(null, $addOption > 0);
     }
 
     /**
@@ -59,7 +59,7 @@ class ExifDescriptionOption extends ItemAddOption {
 
 	list ($ret, $addOption) =
 	    GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -77,7 +77,7 @@ class ExifDescriptionOption extends ItemAddOption {
 		$itemIds[] = $item->getId();
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemIds);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -94,7 +94,7 @@ class ExifDescriptionOption extends ItemAddOption {
 			      'IPTC/Keywords',
 			      )
 			);
-		if ($ret->isError()) {
+		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
@@ -134,7 +134,7 @@ class ExifDescriptionOption extends ItemAddOption {
 
 		if ($mustSave) {
 		    $ret = $currentItems[$i]->save();
-		    if ($ret->isError()) {
+		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
@@ -142,12 +142,12 @@ class ExifDescriptionOption extends ItemAddOption {
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret->isError()) {
+	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} while (!empty($itemsInBatches));
 
-	return array(GalleryStatus::success(), $errors, $warnings);
+	return array(null, $errors, $warnings);
     }
 }
 ?>

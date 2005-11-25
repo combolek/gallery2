@@ -43,14 +43,14 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -59,25 +59,25 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	    $this->_album->getId(), 'image/test',
 	    array('onLoadHandlers' => '|WebCam|'),
 	    __FILE__, 'GalleryPhotoItem');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam',
 	    'imageUrl', 'http://test.com/test.jpg', $this->_item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'webcam');
-	if ($ret->isError()) {
+	if ($ret) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam', 'duration', '-100');
-	if ($ret->isError()) {
+	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -93,7 +93,7 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	$gallery->setPlatform($this->_savePlatform);
 
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
-	if ($ret->isError()) {
+	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -157,7 +157,7 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 
     function testRefresh() {
 	list ($ret, $refresh) = GalleryCoreApi::loadEntitiesById($this->_item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* If refreshed successfully then our fake filesize should be set */
@@ -169,20 +169,20 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ItemAddWebCamTestToolkit', 'ItemAddWebCamTestToolkit',
 	    'modules/webcam/test/phpunit/ItemAddWebCamTest.class', 'webcamTest', null);
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markToolkitForCleanup('ItemAddWebCamTestToolkit');
 
 	$ret = GalleryCoreApi::registerToolkitProperty('ItemAddWebCamTestToolkit',
 	    array('image/test'), 'dimensions', 'int,int', 'Get the dimensions');
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Now we have a toolkit to get image/test dimensions, but it will fail */
 	list ($ret, $refresh) = GalleryCoreApi::loadEntitiesById($this->_item->getId());
-	if ($ret->isError()) {
+	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* If refreshed successfully then our fake filesize should be set */
