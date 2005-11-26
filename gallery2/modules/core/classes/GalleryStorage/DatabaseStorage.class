@@ -791,38 +791,6 @@ class DatabaseStorage /* implements GalleryStorage */ {
     }
 
     /**
-     * Describe all the members of a entity
-     *
-     * @param string a class name
-     * @access protected
-     * @return array object GalleryStatus a status code
-     *               member => info associative array
-     */
-    function _describeEntityMembers($entityName) {
-	global $gallery;
-
-	if (empty($this->_entityInfoCache[$entityName])) {
-	    if (class_exists($entityName)) {
-		$entity = new $entityName();
-	    } else {
-		list ($ret, $entity) =
-		    GalleryCoreApi::newFactoryInstance('GalleryEntity', $entityName);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-	    }
-	    if (!isset($entity)) {
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
-						  $entityName), null);
-	    }
-	    $this->_entityInfoCache[$entityName] = $entity->getPersistentMemberInfo();
-	}
-
-	return array(null,
-		     $this->_entityInfoCache[$entityName]);
-    }
-
-    /**
      * Describe all the members of a map
      *
      * @param string a class name
