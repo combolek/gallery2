@@ -88,7 +88,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	/*
 	 * Get our member info for this class
 	 */
-	list ($ret, $memberInfo) = $this->_ds->_describeEntityMembers($entity->getEntityType());
+	list ($ret, $memberInfo) = $this->_describeEntityMembers($entity->getEntityType());
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -271,8 +271,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	/*
 	 * Get our persistent and member info for this class
 	 */
-	list ($ret, $memberInfo) =
-	    $this->_ds->_describeEntityMembers($entity->getEntityType());
+	list ($ret, $memberInfo) = $this->_describeEntityMembers($entity->getEntityType());
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -342,7 +341,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	    $targetIds = array_keys($targetIdHash);
 
 	    /* Get our member info for this class */
-	    list ($ret, $memberInfo) = $this->_ds->_describeEntityMembers($className);
+	    list ($ret, $memberInfo) = $this->_describeEntityMembers($className);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -939,7 +938,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	list ($tableName, $unused) = $this->_ds->_translateTableName($mapName);
 	$data = array();
 	$where = array();
-	
+
 	foreach ($mapInfo['members'] as $memberName => $memberType) {
 	    if (array_key_exists($memberName, $match)) {
 		if (GalleryUtilities::isA($match[$memberName], 'DatabaseSqlFragment')) {
@@ -1454,7 +1453,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					"File $fileName does not exist");
 	}
-	
+
 	if (($buffer = $platform->file_get_contents($fileName)) === false) {
 	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					"Unable to read file $fileName");
@@ -1464,7 +1463,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
+
 	return null;
     }
 
@@ -1740,6 +1739,37 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	}
 
 	return array(null, $results);
+    }
+
+    /**
+     * Describe all the members of a entity
+     *
+     * @param string a class name
+     * @access protected
+     * @return array object GalleryStatus a status code
+     *               member => info associative array
+     */
+    function _describeEntityMembers($entityName) {
+	global $gallery;
+
+	if (empty($this->_ds->_entityInfoCache[$entityName])) {
+	    if (class_exists($entityName)) {
+		$entity = new $entityName();
+	    } else {
+		list ($ret, $entity) =
+		    GalleryCoreApi::newFactoryInstance('GalleryEntity', $entityName);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+	    }
+	    if (!isset($entity)) {
+		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
+						  $entityName), null);
+	    }
+	    $this->_ds->_entityInfoCache[$entityName] = $entity->getPersistentMemberInfo();
+	}
+
+	return array(null, $this->_ds->_entityInfoCache[$entityName]);
     }
 }
 ?>
