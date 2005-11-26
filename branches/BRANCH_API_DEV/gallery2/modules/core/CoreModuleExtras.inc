@@ -416,7 +416,7 @@ class CoreModuleExtras {
 	      [GalleryPermissionMap::itemId] = ?
 	    ';
 
-	    /* Updated this query for core 1.0.10 to write to userOrGroupId column */
+	    /* Updated this query for core 1.0.11 to write to userOrGroupId column */
 	    $createAclQuery = '
 	    INSERT INTO
 	      [GalleryAccessMap] ([::accessListId], [::userOrGroupId], [::permission])
@@ -1221,6 +1221,7 @@ class CoreModuleExtras {
 
 	case '1.0.0':
 	case '1.0.0.1':
+	case '1.0.0.2':
 	    /* Schema only upgrade */
 	    $ret = $storage->configureStore($module->getId(),
 					    array('GalleryPluginParameterMap:1.2'));
@@ -1274,6 +1275,9 @@ class CoreModuleExtras {
 	    /* Added new argument to GalleryUrlGenerator::generateUrl() */
 
 	case '1.0.9':
+	    /* Security fix in zipcart */
+
+	case '1.0.10':
 	    /*
 	     * Combine AccessMap userId/groupId into single userOrGroupId,
 	     * and remove unused GALLERY_PERMISSION_ITEM_ADMIN permission flag.
@@ -1487,6 +1491,7 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 	case '0.9.37':
 	case '1.0.0':
 	case '1.0.0.1':
+	case '1.0.0.2':
 	case '1.0.1':
 	case '1.0.2':
 	case '1.0.3':
@@ -1512,6 +1517,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.7':
 	case '1.0.8':
 	case '1.0.9':
+	case '1.0.10':
 
 	case 'end of upgrade path':
 	    /*
