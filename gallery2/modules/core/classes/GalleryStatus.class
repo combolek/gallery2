@@ -400,7 +400,6 @@ class GalleryStatus {
 	    } else if (isset($traceEntry['class'])) {
 		$buf .= " ($traceEntry[function]) ";
 	    }
-	    $buf .= '</li>';
 	}
 	$buf .= '</ul>';
 
@@ -477,8 +476,7 @@ class GalleryStatus {
 	$trace = array();
 	if (!class_exists('GalleryTestCase')) {
 	    $platform = $gallery->getPlatform();
-	    $base = $platform->realpath(dirname(__FILE__) . '/../../../') .
-		$platform->getDirectorySeparator();
+	    $base = $platform->realpath(dirname(__FILE__) . '/../../../') . '/';
 	} else {
 	    $base = '';
 	}

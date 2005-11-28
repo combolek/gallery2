@@ -21,18 +21,14 @@
 # Christian Wallin <crille@swipnet.se>, 2002,2003,2004.
 # Mikael Gustafsson <mikael.gustafsson@lecando.com>, 2003,2004.
 # Peter Liversten <skansberget@telia.com>, 2003,2004.
-# Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Cart 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-09-28 15:53+0100\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-03-03 15:53+0100\n"
+"Last-Translator: Peter Liversten <skansberget@telia.com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,59 +38,61 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "View Your Cart"
-msgstr "Visa Din Varukorg"
+msgstr "Visa din varukorg"
 
 msgid "view cart"
-msgstr "visa varukorg"
+msgstr "Visa varukorg"
 
+#, fuzzy
 msgid "Cart"
-msgstr "Varukorg"
+msgstr "Visa varukorg"
 
 msgid "Shopping Cart Module"
 msgstr "Varukorgsmodul"
 
 msgid "Commerce"
-msgstr "Handel"
+msgstr ""
 
+#, fuzzy
 msgid "Add Album To Cart"
-msgstr "Lägg Album Till Varukorg"
+msgstr "l&auml;gg %s till varukorg"
 
+#, fuzzy
 msgid "Add Photo To Cart"
-msgstr "Lägg Foto Till Varukorg"
+msgstr "l&auml;gg %s till varukorg"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Add %s To Cart"
-msgstr "Lägg %s Till Varukorg"
+msgstr "l&auml;gg %s till varukorg"
 
 msgid "Items Currently in Your Cart"
-msgstr "Nuvarande Objekt i Din Varukorg"
+msgstr "Nuvarande objekt i din varukorg"
 
 msgid "&laquo; cart actions &raquo;"
-msgstr "&laquo; varukorgsfuntioners &raquo;"
+msgstr ""
 
 msgid "Update Quantities"
-msgstr "Uppdatera Antal"
+msgstr "Uppdatera inneh&aring;ll"
 
 msgid "Empty Cart"
-msgstr "Töm Varukorg"
+msgstr "T&ouml;m Varukorg"
 
 msgid "Go"
-msgstr "Gå"
+msgstr "G&aring;"
 
 msgid "Cart updated successfully"
-msgstr "Varukorg uppdaterad framgångsrikt"
+msgstr "Varukorg uppdaterad framg&aring;ngsrikt"
 
 msgid "Your cart is empty."
-msgstr "Din varukorg är tom."
+msgstr "Din varukorg &auml;r tom."
 
 msgid ""
 "To add items, browse the gallery and select 'Add to cart' from the item's "
 "action menu."
-msgstr "För att lägga till objekt, bläddra i galleriet och "
-"välj 'Lägg Till Varukorg' från objektets funktionsmeny"
+msgstr ""
 
 msgid "Quantity"
-msgstr "Antal"
+msgstr "Inneh&aring;ll"
 
 msgid "Item"
 msgstr "Objekt"
@@ -115,7 +113,7 @@ msgid "Summary:"
 msgstr "Summering:"
 
 msgid "Your Cart"
-msgstr "Din Varukorg"
+msgstr "Din varukorg"
 
 #, c-format
 msgid "You have %d item in your cart"
@@ -124,7 +122,8 @@ msgstr[0] "Du har %d objekt i din varukorg"
 msgstr[1] "Du har %d objekt i din varukorg"
 
 msgid "View Cart"
-msgstr "Visa Varukorg"
+msgstr "Visa varukorg"
 
+#, fuzzy
 msgid "Shopping Cart Info"
-msgstr "Information för Varukorgsmodulen"
+msgstr "Varukorgsmodul"

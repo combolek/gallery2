@@ -60,8 +60,7 @@ if (GalleryUtilities::isEmbedded()) {
 	$path = GalleryDataCache::getCachePath(
 	    array('type' => 'fast-download', 'itemId' => $itemId));
 	/* We don't have a platform yet so we have to use the raw file_exists */
-	/* Disable fast-download in maintenance mode.. admins still get via core.DownloadItem */
-	if (file_exists($path) && !$gallery->getConfig('mode.maintenance')) {
+	if (file_exists($path)) {
 	    include($path);
 	    if (GalleryFastDownload()) {
 		return;
@@ -116,9 +115,7 @@ function GalleryMain($embedded=false) {
 	    'Not automatically redirecting you to the next page because we\'re in debug mode<br/>';
 	printf('<a href="%s">Continue to the next page</a>', $g2Data['redirectUrl']);
 	print '<hr/>';
-	print "<pre>";
 	print $gallery->getDebugBuffer();
-	print "</pre>";
     }
 
     return $g2Data;
@@ -134,14 +131,16 @@ function _GalleryMain($embedded=false) {
 
     $main = array();
     $urlGenerator =& $gallery->getUrlGenerator();
-    $ret = $urlGenerator->initNavigation();
-    if ($ret->isError()) {
-	return array($ret->wrap(__FILE__, __LINE__), null);
-    }
+    $urlGenerator->initNavigation();
 
     /* Figure out the target view/controller */
     list($viewName, $controllerName) = GalleryUtilities::getRequestVariables('view', 'controller');
-    $gallery->debug("controller $controllerName, view $viewName");
+
+    if (!$embedded && $gallery->getConfig('mode.embed.only') &&
+	    $viewName != 'core.DownloadItem' && $viewName != 'imageframe.CSS') {
+	/* Lock out direct access when embed-only is set */
+	return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+    }
 
     /* Check if core module needs upgrading */
     list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
@@ -150,16 +149,7 @@ function _GalleryMain($embedded=false) {
     }
     $installedVersions = $core->getInstalledVersions();
     if ($installedVersions['core'] != $core->getVersion()) {
-	if ($redirectUrl = @$gallery->getConfig('mode.maintenance')) {
-	    /* Maintenance mode -- redirect if given url, else simple message */
-	    if ($redirectUrl === true) {
-		print $core->translate('Site is temporarily down for maintenance.');
-		exit;
-	    }
-	} else {
-	    $gallery->debug('Redirect to the upgrade wizard, core module version is out of date');
-	    $redirectUrl = $urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php';
-	}
+	$redirectUrl = $urlGenerator->getCurrentUrlDir(true) . 'upgrade/index.php';
 	return array(GalleryStatus::success(), _GalleryMain_doRedirect($redirectUrl));
     }
 
@@ -175,25 +165,6 @@ function _GalleryMain($embedded=false) {
 	list ($ret, $controller) = GalleryController::loadController($controllerName);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	if (!$embedded && $gallery->getConfig('mode.embed.only') &&
-		!$controller->isAllowedInEmbedOnly()) {
-	    /* Lock out direct access when embed-only is set */
-	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
-	}
-	if ($gallery->getConfig('mode.maintenance') && !$controller->isAllowedInMaintenance()) {
-	    /* Maintenance mode - allow admins, else redirect to given or standard url */
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    if (!$isAdmin) {
-		if (($redirectUrl = $gallery->getConfig('mode.maintenance')) === true) {
-		    $redirectUrl =
-			$urlGenerator->generateUrl(array('view' => 'core.MaintenanceMode'));
-		}
-		return array(GalleryStatus::success(), _GalleryMain_doRedirect($redirectUrl));
-	    }
 	}
 
 	/* Get our form and return variables */
@@ -292,27 +263,6 @@ function _GalleryMain($embedded=false) {
     if ($ret->isError()) {
 	return array($ret->wrap(__FILE__, __LINE__), null);
     }
-    if ($gallery->getConfig('mode.maintenance') && !$view->isAllowedInMaintenance()) {
-	/* Maintenance mode - allow admins, else redirect to given url or show standard view */
-	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	if (!$isAdmin) {
-	    if (($redirectUrl = $gallery->getConfig('mode.maintenance')) !== true) {
-		return array(GalleryStatus::success(), _GalleryMain_doRedirect($redirectUrl));
-	    }
-	    $viewName = 'core.MaintenanceMode';
-	    list ($ret, $view) = GalleryView::loadView($viewName);
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
-    }
-    if (!$embedded && $gallery->getConfig('mode.embed.only') && !$view->isAllowedInEmbedOnly()) {
-	/* Lock out direct access when embed-only is set */
-	return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
-    }
 
     /* Initialize our container for template data */
     $gallery->setCurrentView($viewName);
@@ -357,30 +307,19 @@ function _GalleryMain($embedded=false) {
 	$template->setVariable('l10Domain', $theme->getL10Domain());
 	$template->setVariable('isEmbedded', $embedded);
 
-	$templateAdapter =& $gallery->getTemplateAdapter();
-
-	if ($viewName == 'core.ProgressBar') {
-	    /* Render progress bar pages immediately so that the user sees the bar moving */
+	if ($embedded) {
+	    list ($ret, $html) = $template->fetch($templatePath);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    $data = $theme->splitHtml($html, $results);
+	    $data['isDone'] = false;
+	} else {
 	    $ret = $template->display($templatePath);
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $data['isDone'] = true;
-	} else {
-	    list ($ret, $html) = $template->fetch($templatePath);
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    $html = preg_replace('/^\s+/m', '', $html);
-
-	    if ($embedded) {
-		$data = $theme->splitHtml($html, $results);
-		$data['themeData'] =& $template->getVariableByReference('theme');
-		$data['isDone'] = false;
-	    } else {
-		print $html;
-		$data['isDone'] = true;
-	    }
 	}
     }
 

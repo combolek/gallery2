@@ -69,9 +69,9 @@ class GallerySession {
     var $_isUsingCookies = false;
 
     /**
-     * The serialized session data as loaded from file
+     * The session data as loaded from file
      *
-     * @var string $_loadedSessionData;
+     * @var array $_loadedSessionData;
      * @access private
      */
     var $_loadedSessionData;
@@ -165,6 +165,7 @@ class GallerySession {
 	    }
 	}
 
+
 	/*
 	 * If we don't have a session id at this point, create one. And expire the session if
 	 * necessary
@@ -174,7 +175,15 @@ class GallerySession {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!$valid) {
-	    $this->initEmpty();
+	    do {
+		$this->_sessionId = md5(microtime() . rand(1, 32767));
+
+		$ret = $this->_loadSessionData();
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		/* Ensure we don't randomly pick an id already in use.. */
+	    } while (!empty($this->_sessionData));
 	} else {
 	    /*
 	     * Sanitize the session id (which may have come from user input) to
@@ -189,18 +198,16 @@ class GallerySession {
 	    }
 	}
 
-	$forceResendCookie = $forceSessionSave = false;
+	$forceResendCookie = false;
+	$forceSessionSave = false;
 
 	/* Verify the remote address to avoid casual session hijacking */
 	$currentRemoteIdentifier = $this->_getRemoteIdentifier();
 
-	if (!isset($this->_remoteIdentifier)) {
-	    /* Initialize remoteIdentifier if not yet set (via initEmpty(true)) */
-	    $this->_remoteIdentifier = $currentRemoteIdentifier;
-	    $forceSessionSave = true;
-	} else if ($this->_compareIdentifiers($this->_remoteIdentifier,
-					      $currentRemoteIdentifier) == 0) {
-	    /* If we upgrade, allowSessionAccess could be missing */
+	if (!isset($this->_remoteIdentifier) ||
+	    $this->_compareIdentifiers($this->_remoteIdentifier,
+				       $currentRemoteIdentifier) == 0) {
+	    /* If we upgrade, allowSessionAccess could not be missing */
 	    $allowFrom = @$gallery->getConfig('allowSessionAccess');
 	    if (!$allowFrom || $currentRemoteIdentifier[0] != $allowFrom) {
 		if ($gallery->getDebug()) {
@@ -214,20 +221,22 @@ class GallerySession {
 		 * our data to prevent hijacking.
 		 */
 		$this->_remoteIdentifier = $currentRemoteIdentifier;
-		$this->initEmpty();
-		$forceResendCookie = $forceSessionSave = true;
+		$this->_emptySessionData();
+		$this->_sessionId = md5(microtime() . rand(1, 32767));
+		$forceResendCookie = true;
+		$forceSessionSave = true;
 	    }
-	}
-
-	if ($forceSessionSave) {
-	    /* Ensure next save() call will actually save */
-	    $this->_shouldSaveSession(true);
-	    $this->_loadedSessionData = '';
 	}
 
 	/* Don't save session / send cookie for DownloadItem, CSS, migrate.Redirect requests .. */
 	if ($this->_shouldSaveSession()) {
 	    /* It's not one of the special cases; create session / send cookie if necessary */
+	    if ($forceSessionSave) {
+		$ret = $this->save();
+		if ($ret->isError()) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
 
 	    /*
 	     * As part of the cookie management, we are forced to append the SID to all DownloadItem
@@ -361,25 +370,6 @@ class GallerySession {
 	}
 
 	return GalleryStatus::success();
-    }
-
-    /**
-     * Set a new/unused sessionid.
-     * @param boolean (optional) if true don't initialize remoteIdentifier
-     */
-    function initEmpty($emptyRemoteId=false) {
-	do {
-	    $this->_sessionId = md5(microtime() . rand(1, 32767));
-
-	    $ret = $this->_loadSessionData();
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    /* Ensure we don't randomly pick an id already in use.. */
-	} while (!empty($this->_sessionData));
-	if ($emptyRemoteId) {
-	    $this->_remoteIdentifier = null;
-	}
     }
 
     /**
@@ -724,7 +714,7 @@ class GallerySession {
      */
     function _emptySessionData() {
 	$this->_sessionData = array();
-	$this->_loadedSessionData = '';
+	$this->_loadedSessionData = array();
 	$this->_creationTime = time();
 	$this->_remoteIdentifier = $this->_getRemoteIdentifier();
     }
@@ -760,8 +750,10 @@ class GallerySession {
 	$score = 0;
 	if (is_array($a) && is_array($b)) {
 	    for ($i = 0; $i < sizeof($a); $i++) {
-		if (sizeof($b) > $i && $a[$i] == $b[$i]) {
-		    $score++;
+		if (sizeof($b) > $i) {
+		    if ($a[$i] == $b[$i]) {
+			$score++;
+		    }
 		}
 	    }
 	}
@@ -928,14 +920,6 @@ class GallerySession {
     }
 
     /**
-     * Return the Unix timestamp from when this session was created.
-     * @return int the creation time
-     */
-    function getCreationTime() {
-	return $this->_creationTime;
-    }
-
-    /**
      * Check if we should create and save a session for this request
      *
      * Don't save session in core.DownloadItem, migrate.Redirect, ... requests
@@ -950,50 +934,27 @@ class GallerySession {
      *         And if we stored the session, it would result in *a lot* unneeded sessions,
      *         e.g. for migrate redirects or hotlinked images.
      *
-     * @param boolean (optional) cache the given value
      * @return boolean true if the session should be saved, else false
      * @access private
      */
-    function _shouldSaveSession($forceValue=null) {
-	static $cacheKey = 'GallerySession::_shouldSaveSession';
-	if (isset($forceValue)) {
-	    GalleryDataCache::put($cacheKey, $forceValue);
-	} else if (!GalleryDataCache::containsKey($cacheKey)) {
-	    $flag = true; /* Default to true */
-	    list ($view, $controller) =
-		GalleryUtilities::getRequestVariables('view', 'controller');
+    function _shouldSaveSession() {
+	/* Default to true */
+	$ret = true;
 
-	    /* old code still in use for now: */
-	    /* Check if the current request's view or controller is in the exclude list */
-	    if (!empty($view) && in_array($view, array('core.DownloadItem',
-						       'core:DownloadItem', 'imageframe.CSS'))) {
-		$flag = false;
-	    } else if (!empty($controller) && in_array($controller, array('migrate.Redirect',
-									  'migrate:Redirect'))) {
-		$flag = false;
-	    }
+	list ($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
-	    /* TODO: use this code instead with next major version bump of module api..
-	    if (!empty($controller)) {
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
-		list ($ret, $controller) = GalleryController::loadController($controller);
-		if ($ret->isSuccess() && !$controller->shouldSaveSession()) {
-		    $flag = false;
-		}
-	    }
-	    if (!empty($view)) {
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
-		list ($ret, $view) = GalleryView::loadView($view);
-		if ($ret->isSuccess() && !$view->shouldSaveSession()) {
-		    $flag = false;
-		}
-	    }
-	     */
-
-	    GalleryDataCache::put($cacheKey, $flag);
+	/* Check if the current request's view or controller is in the exlude list */
+	if (!empty($view) && in_array($view, array('core.DownloadItem',
+						   'core:DownloadItem', 'imageframe.CSS'))) {
+	    /* view is in the exclude list */
+	    $ret = false;
+	} elseif (!empty($controller) && in_array($controller, array('migrate.Redirect',
+								     'migrate:Redirect'))) {
+	    /* controller is in the exclude list */
+	    $ret = false;
 	}
 
-	return GalleryDataCache::get($cacheKey);
+	return $ret;
     }
 }
 

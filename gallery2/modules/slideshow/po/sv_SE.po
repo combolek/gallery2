@@ -21,18 +21,14 @@
 # Christian Wallin <crille@swipnet.se>, 2002-2005.
 # Mikael Gustafsson <mikael.gustafsson@lecando.com>, 2003-2005.
 # Peter Liversten <skansberget@telia.com>, 2003-2005.
-# Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Slideshow 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-29 12:40+0200\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-03-03 16:04+0100\n"
+"Last-Translator: Peter Liversten <skansberget@telia.com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,30 +43,31 @@ msgstr "Bildspel"
 msgid "Display"
 msgstr "Visa"
 
+#, fuzzy
 msgid "View Slideshow"
-msgstr "Visa Bildspel"
+msgstr "visa bildspel"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
-msgstr "Sökväg till ett objekt (t.ex. /album/image.jpg.html)"
+msgstr ""
 
 #, c-format
 msgid "Slideshow for %s"
-msgstr "Bildspel för %s"
+msgstr "Bildspel f&ouml;r %s"
 
 msgid "Blend"
-msgstr "Sammansmältning"
+msgstr "Sammansm&auml;ltning"
 
 msgid "Blinds"
-msgstr "Persiennränder"
+msgstr "Persiennr&auml;nder"
 
 msgid "Checkerboard"
-msgstr "Rutbräde"
+msgstr "Rutbr&auml;de"
 
 msgid "Diagonal"
 msgstr "Diagonal"
 
 msgid "Doors"
-msgstr "Dörrar"
+msgstr "D&ouml;rrar"
 
 msgid "Gradient"
 msgstr "Svep"
@@ -82,7 +79,7 @@ msgid "Pinwheel"
 msgstr "Ekerhjul"
 
 msgid "Pixelate"
-msgstr "Pixlar"
+msgstr "Pixelar"
 
 msgid "Radial"
 msgstr "Klocka"
@@ -94,7 +91,7 @@ msgid "Slide"
 msgstr "Dia"
 
 msgid "Snow"
-msgstr "Snö"
+msgstr "Sn&ouml;"
 
 msgid "Spiral"
 msgstr "Spirale"
@@ -103,7 +100,7 @@ msgid "Stretch"
 msgstr "Dragning"
 
 msgid "RANDOM"
-msgstr "SLUMPMÄSSIGT"
+msgstr "SLUMPM&Auml;SSIGT"
 
 msgid "This album has no photos to show in a slideshow."
 msgstr "Detta album har inga foton att visa i ett bildspel."
@@ -116,7 +113,7 @@ msgid "Date: %s"
 msgstr "Datum: %s"
 
 msgid "Hide More Info"
-msgstr "Göm mer information"
+msgstr "G&ouml;m mer information"
 
 msgid "Show More Info"
 msgstr "Visa mer information"
@@ -140,7 +137,7 @@ msgid "Back One Image"
 msgstr "Backa en bild"
 
 msgid "delay: "
-msgstr "fördröj: "
+msgstr "f&ouml;rdr&ouml;j: "
 
 msgid "1 seconds"
 msgstr "1 sekund"
@@ -164,13 +161,13 @@ msgid "direction: "
 msgstr "riktning: "
 
 msgid "forward"
-msgstr "framåt"
+msgstr "fram&aring;t"
 
 msgid "reverse"
-msgstr "bakåt"
+msgstr "bak&aring;t"
 
 msgid "random"
-msgstr "slumpmässigt"
+msgstr "slumpm&auml;ssigt"
 
 msgid "max size: "
 msgstr "maximal storlek: "
@@ -191,8 +188,10 @@ msgid "1280x1280"
 msgstr "1280x1280"
 
 msgid "no limit"
-msgstr "ingen begränsning"
+msgstr "ingen begr&auml;nsning"
 
 msgid "fade: "
 msgstr "tona: "
 
+#~ msgid "view slideshow"
+#~ msgstr "visa bildspel"

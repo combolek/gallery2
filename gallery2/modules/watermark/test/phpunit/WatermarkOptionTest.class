@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Watermark
+ * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -30,7 +30,7 @@ GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemAddOptionTestCase.cla
 
 /**
  * WatermarkOption tests
- * @package Watermark
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class WatermarkOptionTest extends ItemAddOptionTestCase {
@@ -89,8 +89,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 	/* Create a watermark */
 	$this->_watermark = new WatermarkImage();
-	$ret = $this->_watermark->create(GalleryCoreApi::getPluginBaseDir('module', 'core')
-					 . 'modules/core/test/data/test1.gif',
+	$ret = $this->_watermark->create(dirname(__FILE__) . '/../../../core/test/data/test1.gif',
 					 'image/gif',
 					 'phpunit_' . rand() . '.gif');
 	if ($ret->isError()) {

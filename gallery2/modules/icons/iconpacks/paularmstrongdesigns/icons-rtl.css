@@ -23,11 +23,9 @@ li.giSelected {
 .gbLink-core_AdminMaintenance {
   background: url(site_maintenance.gif) right center no-repeat;
 }
-.gbLink-comment_AddComment,
-.gbLink-comment_CommentSiteAdmin {
+.gbLink-comment_AddComment {
   background: url(add_comment.gif) right center no-repeat;
 }
-.gbLink-comment_ShowAllComments,
 .gbLink-core_ItemAdmin-comment_ShowComments {
   background: url(view_comment.gif) right center no-repeat;
 }
@@ -76,13 +74,17 @@ li.giSelected {
 .gbLink-core_ItemAdmin-core_ItemMove {
   background: url(move_photo.gif) right center no-repeat;
 }
-.gbLink-shutterfly_PrintPhotos,
-.gbLink-photoaccess_PrintPhoto,
-.gbLink-fotokasten_PrintPhotos {
+.gbLink-photoaccess_PrintPhoto {
+  background: url(print.gif) right center no-repeat;
+}
+.gbLink-shutterfly_PrintPhotos {
   background: url(print.gif) right center no-repeat;
 }
 .gbLink-debug_ShowTree {
   background: url(debug_tree.gif) right center no-repeat;
+}
+.gbLink-core_ItemAdmin-comment_ShowComments {
+  background: url(view_comment.gif) right center no-repeat;
 }
 .gbLink-core_ItemAdmin-core_ItemAddAlbum {
   background: url(add_sub-album.gif) right center no-repeat;

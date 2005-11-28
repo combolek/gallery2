@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Gallery: ImageMagick 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:52+0000\n"
-"PO-Revision-Date: 2005-10-10 18:38+0100\n"
+"PO-Revision-Date: 2005-09-02 17:11+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +141,7 @@ msgstr "Configurazione ImageMagick"
 msgid "Settings saved successfully"
 msgstr "Configurazione salvata con successo"
 
+#, fuzzy
 msgid ""
 "ImageMagick is a graphics toolkit that can be used to process images that "
 "you upload to Gallery.  You must install the ImageMagick binaries on your "
@@ -150,7 +151,7 @@ msgid ""
 msgstr ""
 "ImageMagick &egrave; un set di strumenti grafici utile per elaborare "
 "immagini caricate in Gallery. Devi installare i binari di ImageMagick nella "
-"tuo server, poi inserire il loro path nella casella di testo qui sotto. Se "
+"tua macchina, poi inserire il loro path nella casella di testo qui sotto. Se "
 "sei su una macchina Unix, non dimenticare di rendere eseguibili i binari "
 "(<i>chmod 755 *</i> nella directory di ImageMagick dovrebbe bastare)"
 
@@ -178,15 +179,7 @@ msgstr "Il path che hai inserito non &egrave; un path valido."
 msgid "JPEG Quality:"
 msgstr "Qualit&agrave; JPEG:"
 
-msgid ""
-"ImageMagick can detect non-webviewable color spaces like CMYK and create a "
-"webviewable copy of such images. Only activate this option if you actually "
-"add CMYK based JPEG or TIFF images since the color space detection slows "
-"down the add item process a little bit."
-msgstr ""
-
-#, fuzzy
-msgid "CMYK Support:"
+msgid "CMYK JPEG Support:"
 msgstr "Supporto per CMYK JPEG:"
 
 msgid "Save Settings"
@@ -221,15 +214,6 @@ msgstr "Messaggi di errore:"
 
 msgid "Version"
 msgstr "Versione"
-
-#, c-format
-msgid ""
-"Warning: This version of %s has a %sknown vulnerability%s that can be "
-"exploited to cause infinite loops. You may wish to upgrade."
-msgstr ""
-
-msgid "Use this version anyway"
-msgstr ""
 
 msgid "Supported MIME Types"
 msgstr "Tipi MIME supportati"

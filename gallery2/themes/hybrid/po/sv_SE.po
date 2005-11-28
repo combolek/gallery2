@@ -21,16 +21,13 @@
 # Peter Liversten <skansberget@telia.com>            
 # Hampus Nygren <hampus@friendlyfire.net> 
 #
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Hybrid Theme 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-29 13:25+0200\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-06-10 10:15+0100\n"
+"Last-Translator: Hampus Nygren <hampus@friendlyfire.net> \n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,13 +38,13 @@ msgstr ""
 
 #, c-format
 msgid "Owner: %s"
-msgstr "Ägare: %s"
+msgstr "&Auml;gare: %s"
 
 #, c-format
 msgid "Viewed: %d time"
 msgid_plural "Viewed: %d times"
-msgstr[0] "Visad: %d gång"
-msgstr[1] "Visad: %d gånger"
+msgstr[0] "Visad: %d g&aring;ng"
+msgstr[1] "Visad: %d g&aring;nger"
 
 msgid "Date: "
 msgstr "Datum: "
@@ -56,38 +53,32 @@ msgid "Keywords: "
 msgstr "Nyckelord: "
 
 msgid "Error!"
-msgstr "Fel!"
+msgstr ""
 
+#, fuzzy
 msgid "Show Details"
-msgstr "Visa detaljer"
+msgstr "visa detaljer"
 
+#, fuzzy
 msgid "Hide Details"
-msgstr "Dölj detaljer"
+msgstr "d&ouml;jl detaljer"
 
+#, fuzzy
 msgid "Show Item Links"
-msgstr "Visa objektlänkar"
+msgstr "visa objektl&auml;nkar"
 
+#, fuzzy
 msgid "Hide Item Links"
-msgstr "Dölj objektlänkar"
+msgstr "d&ouml;lj objektl&auml;nkar"
 
 msgid "Item Details"
 msgstr "Objekt Detaljer"
-
-msgid ""
-"Album view:\\n| space = start slideshow\\n| ctrl-right/left = show/hide "
-"sidebar\\n| ctrl-up/down = show/hide item links\\nImage view:\\n| space = "
-"start/pause slideshow\\n| escape = return to album view\\n| left/right = "
-"next/prev image\\n| up/down = show hide description text\\n| page up/down = "
-"scroll description text\\n| ctrl-up/down = select full/fit size\\nArrow keys "
-"scroll image in full size; use shift-arrows for funcs above\\nItem Details "
-"showing:\\n| escape = close popup"
-msgstr ""
 
 msgid "Show text"
 msgstr "Visa text"
 
 msgid "Hide text"
-msgstr "Göm text"
+msgstr "G&ouml; text"
 
 msgid "Back to Album View"
 msgstr "Tillbaka till Albumvyn"
@@ -105,55 +96,52 @@ msgid "Fit Size"
 msgstr "Annpassad Storlek"
 
 msgid "No Previous Image"
-msgstr "Ingen Föregående Bild"
+msgstr "Ingen F&ouml;reg&aring;ende Bild"
 
 msgid "Previous Image"
-msgstr "Föregående Bild"
+msgstr "F&ouml;reg&aring;ende Bild"
 
 msgid "No Next Image"
-msgstr "Ingen Nästa Bild"
+msgstr "Ingen N&auml;sta Bild"
 
 msgid "Next Image"
-msgstr "Nästa Bild"
+msgstr "N&auml;sta Bild"
 
+#, fuzzy
 msgid "Hide sidebar"
-msgstr "Dölj sidmenyn"
+msgstr "D&ouml;lj sidmenyn"
 
+#, fuzzy
 msgid "Show sidebar"
 msgstr "Visa sidmenyn"
-
-msgid "Warning: This site requires javascript"
-msgstr ""
 
 msgid "no thumbnail"
 msgstr "ingen miniatyrbild"
 
 msgid "Item Actions"
-msgstr "Objekt Händelser"
+msgstr "Objekt H&auml;ndelser"
 
 msgid "Continue..."
-msgstr "Fortsätt"
+msgstr ""
 
 msgid "Navigation"
-msgstr "Navigation"
+msgstr ""
 
 msgid "Display Options"
 msgstr "Visningsalternativ"
 
-msgid "Keyboard Controls"
+msgid "View"
 msgstr ""
 
-msgid "View"
-msgstr "Visa"
-
 msgid "guest"
-msgstr "gäst"
+msgstr ""
 
 msgid "Slideshow Options"
 msgstr "Bildspelsalternativ"
 
+#, fuzzy
 msgid "Delay"
-msgstr "fördröjning"
+msgstr "f&ouml;rdr&ouml;jning"
 
 msgid "3 seconds"
 msgstr "3 sekunder"
@@ -173,59 +161,21 @@ msgstr "15 sekunder"
 msgid "20 seconds"
 msgstr "20 sekunder"
 
+#, fuzzy
 msgid "Direction"
 msgstr "riktning"
 
 msgid "forward"
-msgstr "framåt"
+msgstr "fram&aring;t"
 
 msgid "reverse"
-msgstr "bakåt"
+msgstr "bak&aring;t"
 
 msgid "random"
-msgstr "slumpmässig"
+msgstr "slumpm&auml;ssig"
 
 msgid "Hybrid"
 msgstr ""
 
 msgid "Combined album/image/slideshow dynamic view"
 msgstr "Kombinerad album/bild/bildspel dynamisk visning"
-
-msgid "Show text with thumbnails"
-msgstr "Visa text med tumnaglar"
-
-msgid "Show dates for albums"
-msgstr "Visa datum för album"
-
-msgid "Show dates with thumbnails"
-msgstr "Visa datum med tumnaglarna"
-
-msgid "Show dates in image view"
-msgstr "Visa datum vid bild visning"
-
-msgid "Show album sizes"
-msgstr "Visa album storlek"
-
-msgid "Show view counts"
-msgstr "Visa räknare för antalet visningar"
-
-msgid "Mouseover on thumbnails"
-msgstr "'Mus över' tumnaglar"
-
-msgid "None"
-msgstr "Inget"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "Date"
-msgstr "Datum"
-
-msgid "Date/Time"
-msgstr "Datum/Tid"
-
-msgid "Title (Date)"
-msgstr "Titel (Datum)"
-
-msgid "Title (Date/Time)"
-msgstr "Title (Datum/Tid)"

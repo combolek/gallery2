@@ -3,10 +3,10 @@
 //================================================================================================
 //================================================================================================
 /*
-	Exifer 1.5
+	Exifer 1.4
 	Extracts EXIF information from digital photos.
 	
-	Copyright © 2005 Jake Olefsky
+	Copyright © 2003 Jake Olefsky
 	http://www.offsky.com/software/exif/index.php
 	jake@olefsky.com
 	
@@ -38,10 +38,6 @@
 				Olympus C2040Z 
 				Olympus C960
 				Canon Ixus
-				Canon EOS 300D
-				Canon Digital Rebel
-				Canon EOS 10D
-				Canon PowerShot G2
 				FujiFilm DX 10
 				FujiFilm MX-1200
 				FujiFilm FinePix2400
@@ -53,11 +49,9 @@
 				Kodak DC210
 				Kodak DC240
 				Kodak DC4800
-				Kodak DX3215
 				Ricoh RDC-5300 
 				Sanyo VPC-G250
 				Sanyo VPC-SX550
-				Epson 3100z
 				
 	If you improve this script or test it with a camera not on my list, please email me a copy of
 	the improvement so everyone can benefit from it.  Thanks! 
@@ -94,6 +88,7 @@
 			+Fixed a bug with parsing some Olympus MakerNote tags
 			+Tested with several more cameras
 			
+			
 	1.3		Jun 15, 2003
 	
 			+Fixed Canon MakerNote support for some models
@@ -111,28 +106,11 @@
 			+Fixed the calculation and display of ShutterSpeedValue, ApertureValue and MaxApertureValue 
 			+Fixed a bug with the GPS code
 			+Tested with several more cameras
-			
-	1.5		Feb 18, 2005
-	
-			+It now gracefully deals with a passed in file that cannot be found.
-			+Fixed a GPS bug for the parsing of Altitude and other signed rational numbers
-			+Defined more values for Canon cameras.
-			+Added "bulb" detection for ShutterSpeed
-			+Made script loading a little faster and less memory intensive.
-			+Bug fixes
-			+Better error reporting
-			+Graceful failure for files with corrupt exif info.
-			+QuickTime (including iPhoto) messes up the Makernote tag for certain photos (no workaround yet)
-			+Now reads exif information when the jpeg markers are out of order
-			+Gives raw data output for IPTC, COM and APP2 fields which are sometimes set by other applications
-			+Improvements to Nikon Makernote parsing
 */
 //================================================================================================
 //================================================================================================
 //================================================================================================
 
-
-	
 
 //================================================================================================
 //================================================================================================
@@ -172,7 +150,6 @@ function lookup_tag($tag) {
 		case "0131": $tag = "Software";break;						//text string up to 999 bytes long
 		case "0132": $tag = "DateTime";break;						//YYYY:MM:DD HH:MM:SS
 		case "013b": $tag = "Artist";break;							//text string up to 999 bytes long
-		case "013c": $tag = "HostComputer";break;					//text string
 		case "013e": $tag = "WhitePoint";break;						//two positive rational numbers
 		case "013f": $tag = "PrimaryChromaticities";break;			//six positive rational numbers
 		case "0211": $tag = "YCbCrCoefficients";break;				//three positive rational numbers
@@ -232,7 +209,7 @@ function lookup_tag($tag) {
 		case "a402": $tag = "ExposureMode";break;					//values 0-2
 		case "a403": $tag = "WhiteBalance";break;					//values 0 or 1
 		case "a404": $tag = "DigitalZoomRatio";break;				//positive rational number
-		case "a405": $tag = "FocalLengthIn35mmFilm";break;				//??
+		case "a405": $tag = "FocalLengthIn35mmFilm";break;			// G2-addition
 		case "a406": $tag = "SceneCaptureMode";break;				//values 0-3
 		case "a407": $tag = "GainControl";break;					//values 0-4
 		case "a408": $tag = "Contrast";break;						//values 0-2
@@ -361,7 +338,7 @@ function formatData($type,$tag,$intel,$data) {
 		} else if($tag=="829d") { //FNumber
 			$data="f ".$data;
 		} else if($tag=="9204") { //ExposureBiasValue
-			$data=$data." EV";
+			$data= sprintf("%.2f", $data) . " EV";
 		} else if($tag=="9205" || $tag=="9202") { //ApertureValue and MaxApertureValue
 			//ApertureValue is given in the APEX Mode. Many thanks to Matthieu Froment for this code
 			//The formula is : Aperture = 2*log2(FNumber) <=> FNumber = e((Aperture.ln(2))/2)
@@ -369,7 +346,7 @@ function formatData($type,$tag,$intel,$data) {
 			$data = round($data, 1);//Focal is given with a precision of 1 digit.
 			$data="f ".$data; 
 		} else if($tag=="920a") { //FocalLength
-			$data=$data." mm";
+			$data = sprintf("%.2f", $data) . " mm";
 		} else if($tag=="9201") { //ShutterSpeedValue
 			// The ShutterSpeedValue is given in the APEX mode. Many thanks to Matthieu Froment for this code
 			// The formula is : Shutter = - log2(exposureTime) (Appendix C of EXIF spec.)
@@ -377,17 +354,16 @@ function formatData($type,$tag,$intel,$data) {
 			// So final formula is : exposure = exp(-ln(2).shutter)
 			// The formula can be developed : exposure = 1/(exp(ln(2).shutter))
 			$data = exp($data * log(2)); 
-			if ($data > 1) $data = floor($data);  //Drop the decimal.
-			if ($data > 0) {
-				$data = 1/$data; //Final calculation. We now have a floating number. Transform it in a pretty number
-				$n=0;$d=0;
-				ConvertToFraction($data, $n, $d); 
-				if ($n>=1 && $d==1) $data = $n." sec"; //To avoid exposure times style 3/1 sec.
-				else $data = $n."/".$d." sec";
-			} else {
-				$data = "Bulb";
-			}
-		} 
+			if ($data > 1) $data = floor($data);  //Do not take care of what is behind the coma.
+			if ($data > 0) $data = 1/$data; //Final calculation. We now have a floating number. Transform it in a pretty number
+			$n=0;$d=0;
+			ConvertToFraction($data, $n, $d); 
+			if ($data == 0) $data = "N/A";
+			else if ($n>=1 && $d==1) $data = $n." sec"; //To avoid exposure times style 3/1 sec.
+			else $data = $n."/".$d." sec";
+		} else if($tag=="a20e" || $tag=="a20f") { //FocalPlaneXResolution and FocalPlaneYResolution
+			$data= sprintf("%.2f", $data);
+		}
 		
 	} else if($type=="USHORT" || $type=="SSHORT" || $type=="ULONG" || $type=="SLONG" || $type=="FLOAT" || $type=="DOUBLE") {
 		$data = bin2hex($data);
@@ -522,9 +498,10 @@ function formatData($type,$tag,$intel,$data) {
 			$data	= str_replace("06","B",$data);
 			$data	= str_replace("00","",$data);
 		}
-		if($tag=="9286") { //UserComment
-			$data	= rtrim($data);
+		if($tag=="9286") {	//UserComment
+			$data = preg_replace('/\0$/', '', $data);
 		}
+
 	} else {
 		$data = bin2hex($data);
 		if($intel==1) $data = intel2Moto($data);
@@ -540,16 +517,11 @@ function formatData($type,$tag,$intel,$data) {
 //================================================================================================
 function read_entry(&$result,$in,$seek,$intel,$ifd_name,$globalOffset) {
 	
-	if(feof($in)) { //test to make sure we can still read.
-		$result['Errors'] = $result['Errors']+1;
-		return;
-	}
-	
 	//2 byte tag
 	$tag = bin2hex(fread( $in, 2 ));
 	if($intel==1) $tag = intel2Moto($tag);
 	$tag_name = lookup_tag($tag);
-	
+
 	//2 byte datatype
 	$type = bin2hex(fread( $in, 2 ));
 	if($intel==1) $type = intel2Moto($type);
@@ -565,18 +537,15 @@ function read_entry(&$result,$in,$seek,$intel,$ifd_name,$globalOffset) {
 	
 	if($bytesofdata<=4) { 	//if datatype is 4 bytes or less, its the value
 		$data = $value;
-	} else if($bytesofdata<100000) {				//otherwise its a pointer to the value, so lets go get it
+	} else {				//otherwise its a pointer to the value, so lets go get it
 		$value = bin2hex($value);
 		if($intel==1) $value = intel2Moto($value);
 		$v = fseek($seek,$globalOffset+hexdec($value));  //offsets are from TIFF header which is 12 bytes from the start of the file
 		if($v==0) {
 			$data = fread($seek, $bytesofdata);
 		} else if($v==-1) {
-			$result['Errors'] = $result['Errors']+1;
+			$result['Errors'] = $result['Errors']++;
 		}
-	} else { //bytesofdata was too big, so the exif had an error
-		$result['Errors'] = $result['Errors']+1;
-		return;
 	}
 	if($tag_name=="MakerNote") { //if its a maker tag, we need to parse this specially
 		$make = $result['IFD0']['Make'];
@@ -584,33 +553,34 @@ function read_entry(&$result,$in,$seek,$intel,$ifd_name,$globalOffset) {
 		if($result['VerboseOutput']==1) {
 			$result[$ifd_name]['MakerNote']['RawData'] = $data;
 		}
-		if(eregi("NIKON",$make)) {
-			require_once(dirname(__FILE__) . '/makers/nikon.inc');
+
+		if($make=="NIKON\0") {
+		        require_once(dirname(__FILE__) . '/makers/nikon.inc');
 			parseNikon($data,$result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else if(eregi("OLYMPUS",$make)) {
-			require_once(dirname(__FILE__) . '/makers/olympus.inc');
+		        require_once(dirname(__FILE__) . '/makers/olympus.inc');
 			parseOlympus($data,$result,$seek,$globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else if(eregi("Canon",$make)) {
-			require_once(dirname(__FILE__) . '/makers/canon.inc');
+		        require_once(dirname(__FILE__) . '/makers/canon.inc');
 			parseCanon($data,$result,$seek,$globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else if(eregi("FUJIFILM",$make)) {
-			require_once(dirname(__FILE__) . '/makers/fujifilm.inc');
+		        require_once(dirname(__FILE__) . '/makers/fujifilm.inc');
 			parseFujifilm($data,$result);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else if(eregi("SANYO",$make)) {
-			require_once(dirname(__FILE__) . '/makers/sanyo.inc');
+		        require_once(dirname(__FILE__) . '/makers/sanyo.inc');
 			parseSanyo($data,$result,$seek,$globalOffset);
 			$result[$ifd_name]['KnownMaker'] = 1;
 		} else {
 			$result[$ifd_name]['KnownMaker'] = 0;
 		}
 	} else if($tag_name=="GPSInfoOffset") {
-		require_once(dirname(__FILE__) . '/makers/gps.inc');
 		$formated_data = formatData($type,$tag,$intel,$data);
 		$result[$ifd_name]['GPSInfo'] = $formated_data;
+		require_once(dirname(__FILE__) . '/makers/gps.inc');
 		parseGPS($data,$result,$formated_data,$seek,$globalOffset);
 	} else {
 		//Format the data depending on the type and tag
@@ -638,18 +608,14 @@ function read_entry(&$result,$in,$seek,$intel,$ifd_name,$globalOffset) {
 // http://www.ba.wakwak.com/~tsuruzoh/Computer/Digicams/exif-e.html
 // http://www.w3.org/Graphics/JPEG/jfif.txt
 // http://exif.org/
-// http://www.ozhiker.com/electronics/pjmt/library/list_contents.php4
-// http://www.ozhiker.com/electronics/pjmt/jpeg_info/makernotes.html
-// http://pel.sourceforge.net/
-// http://us2.php.net/manual/en/function.exif-read-data.php
 //================================================================================================
 //================================================================================================
 function read_exif_data_raw($path,$verbose) {
 	
 	if($path=='' || $path=='none') return;
 	
-	$in = @fopen($path, "rb"); //the b is for windows machines to open in binary mode
-	$seek = @fopen($path, "rb"); //There may be an elegant way to do this with one file handle.
+	$in = fopen($path, "rb"); //the b is for windows machines to open in binary mode
+	$seek = fopen($path, "rb"); //There may be an elegant way to do this with one file handle.
 	
 	$globalOffset = 0;
 	
@@ -657,12 +623,6 @@ function read_exif_data_raw($path,$verbose) {
 	
 	$result['VerboseOutput'] = $verbose;
 	$result['Errors'] = 0;
-	
-	if(!$in || !$seek) {	//if the path was invalid, this error will catch it
-		$result['Errors'] = 1;
-		$result['Error'][$result['Errors']] = "The file could not be found.";
-		return $result;
-	}
 	
 	//First 2 bytes of JPEG are 0xFFD8 
 	$data = bin2hex(fread( $in, 2 ));
@@ -675,80 +635,42 @@ function read_exif_data_raw($path,$verbose) {
 		return $result;
 	}	
 	
-	$result['ValidIPTCData'] = 0;
-	$result['ValidJFIFData'] = 0;
-	$result['ValidEXIFData'] = 0;
-	$result['ValidAPP2Data'] = 0;
-	$result['ValidCOMData'] = 0;
 	
 	//Next 2 bytes are MARKER tag (0xFFE#)
 	$data = bin2hex(fread( $in, 2 ));
-	$size = bin2hex(fread( $in, 2 ));
-	
-	//LOOP THROUGH MARKERS TILL YOU GET TO FFE1	(exif marker)
-	while(!feof($in) && $data!="ffe1" && $data!="ffc0" && $data!="ffd9") {
-		if($data=="ffe0") { //JFIF Marker
-			$result['ValidJFIFData'] = 1;
-			$result['JFIF']['Size'] = hexdec($size);
-			
-			if(hexdec($size)-2 > 0) {
-				$data = fread( $in, hexdec($size)-2);
-				$result['JFIF']['Data'] = $data;
-			} 
-			
-			$result['JFIF']['Identifier'] = substr($data,0,5);;
-			$result['JFIF']['ExtensionCode'] =  bin2hex(substr($data,6,1));
-			
-			$globalOffset+=hexdec($size)+2;
-			
-		} else if($data=="ffed") {	//IPTC Marker
-			$result['ValidIPTCData'] = 1;
-			$result['IPTC']['Size'] = hexdec($size);
-			
-			if(hexdec($size)-2 > 0) {
-				$data = fread( $in, hexdec($size)-2);
-				$result['IPTC']['Data'] = $data ;
-			} 
-			$globalOffset+=hexdec($size)+2;
-			
-		} else if($data=="ffe2") {	//EXIF extension Marker
-			$result['ValidAPP2Data'] = 1;
-			$result['APP2']['Size'] = hexdec($size);
-			
-			if(hexdec($size)-2 > 0) {
-				$data = fread( $in, hexdec($size)-2);
-				$result['APP2']['Data'] = $data ;
-			} 
-			$globalOffset+=hexdec($size)+2;
-			
-		} else if($data=="fffe") {	//COM extension Marker
-			$result['ValidCOMData'] = 1;
-			$result['COM']['Size'] = hexdec($size);
-			
-			if(hexdec($size)-2 > 0) {
-				$data = fread( $in, hexdec($size)-2);
-				$result['COM']['Data'] = $data ;
-			} 
-			$globalOffset+=hexdec($size)+2;
-			
-		} else if($data=="ffe1") {
-			$result['ValidEXIFData'] = 1;
-		}
-	
-		$data = bin2hex(fread( $in, 2 ));
+	if($data=="ffe0") {
+		$result['ValidJFIFData'] = 1;
 		$size = bin2hex(fread( $in, 2 ));
+		$result['JFIF']['Size'] = hexdec($size);
+		$ident = fread( $in, 5 );
+		$result['JFIF']['Identifier'] = $ident;
+		$code = fread( $in, 1 );
+		$result['JFIF']['ExtensionCode'] =  bin2hex($code);
+
+		if (hexdec($size)-8 > 0) {
+		    $data = fread( $in, hexdec($size)-8 );
+		} else {
+		    $data = null;
+		}
+		$result['JFIF']['Data'] = $data;
+		$globalOffset+=hexdec($size)+2;
+		
+		$data = bin2hex(fread( $in, 2 ));
+	} else {
+		$result['ValidJFIFData'] = 0;
 	}
-	//END MARKER LOOP
 	
 	if($data=="ffe1") {
 		$result['ValidEXIFData'] = 1;
 	} else {
+		$result['ValidEXIFData'] = 0;
 		fclose($in);
 		fclose($seek);
 		return $result;
 	}
 	
 	//Size of APP1 
+	$size = bin2hex(fread( $in, 2 ));
 	$result['APP1Size'] = hexdec($size);
 	
 	//Start of APP1 block starts with "Exif" header (6 bytes)
@@ -762,9 +684,6 @@ function read_exif_data_raw($path,$verbose) {
 	} else if($header==="MM") {
 		$intel=0;
 		$result['Endien'] = "Motorola";
-	} else {
-		$intel=1; //not sure what the default should be, but this seems reasonable
-		$result['Endien'] = "Unknown";
 	}
 	
 	//2 bytes of 0x002a
@@ -772,16 +691,17 @@ function read_exif_data_raw($path,$verbose) {
 	
 	//Then 4 bytes of offset to IFD0 (usually 8 which includes all 8 bytes of TIFF header)
 	$offset = bin2hex(fread( $in, 4 ));
-	if($intel==1) $offset = intel2Moto($offset);
+
+	if(!isset($intel) || $intel==1) $offset = intel2Moto($offset);
 	
 	// Check for extremely large values here
 	if(hexdec($offset) > 100000) {
-	    $result['ValidEXIFData'] = 0;
+	        $result['ValidEXIFData'] = 0;
 		fclose($in);
 		fclose($seek);
 		return $result;
 	}
-
+	
 	if(hexdec($offset)>8) $unknown = fread( $in, hexdec($offset)-8); //fixed this bug in 1.3
 	
 	//add 12 to the offset to account for TIFF header
@@ -791,16 +711,10 @@ function read_exif_data_raw($path,$verbose) {
 	//===========================================================Start of IFD0
 	$num = bin2hex(fread( $in, 2 ));
 	if($intel==1) $num = intel2Moto($num);
-	$num = hexdec($num);
-	$result['IFD0NumTags'] = $num;
+	$result['IFD0NumTags'] = hexdec($num);
 	
-	if($num<1000) { //1000 entries is too much and is probably an error.
-		for($i=0;$i<$num;$i++) {
-			read_entry($result,$in,$seek,$intel,"IFD0",$globalOffset);
-		}
-	} else {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Illegal size for IFD0";
+	for($i=0;$i<hexdec($num);$i++) {
+		read_entry($result,$in,$seek,$intel,"IFD0",$globalOffset);
 	}
 	
 	//store offset to IFD1
@@ -819,23 +733,16 @@ function read_exif_data_raw($path,$verbose) {
 	$ExitOffset = $result['IFD0']['ExifOffset'];
 	$v = fseek($in,$globalOffset+$ExitOffset);
 	if($v==-1) {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Couldnt Find SubIFD";
+		$result['Errors'] = $result['Errors']++;
 	}
 	
 	//===========================================================Start of SubIFD
 	$num = bin2hex(fread( $in, 2 ));
 	if($intel==1) $num = intel2Moto($num);
-	$num = hexdec($num);
-	$result['SubIFDNumTags'] = $num;
+	$result['SubIFDNumTags'] = hexdec($num);
 	
-	if($num<1000) { //1000 entries is too much and is probably an error.
-		for($i=0;$i<$num;$i++) {
-			read_entry($result,$in,$seek,$intel,"SubIFD",$globalOffset);
-		}
-	} else {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Illegal size for SubIFD";
+	for($i=0;$i<hexdec($num);$i++) {
+		read_entry($result,$in,$seek,$intel,"SubIFD",$globalOffset);
 	}
 	
 	//Check for IFD1
@@ -847,31 +754,25 @@ function read_exif_data_raw($path,$verbose) {
 	//seek to IFD1
 	$v = fseek($in,$globalOffset+$result['IFD1Offset']);
 	if($v==-1) {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Couldnt Find IFD1";
+		$result['Errors'] = $result['Errors']++;
 	}
 	
 	//===========================================================Start of IFD1
 	$num = bin2hex(fread( $in, 2 ));
 	if($intel==1) $num = intel2Moto($num);
-	$num = hexdec($num);
-	$result['IFD1NumTags'] = $num;
+	$result['IFD1NumTags'] = hexdec($num);
 	
-	if($num<1000) { //1000 entries is too much and is probably an error.
-		for($i=0;$i<$num;$i++) {
-			read_entry($result,$in,$seek,$intel,"IFD1",$globalOffset);
-		}
-	} else {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Illegal size for IFD1";
+	for($i=0;$i<hexdec($num);$i++) {
+		read_entry($result,$in,$seek,$intel,"IFD1",$globalOffset);
 	}
+	
 	//if verbose output is on, stick in the thumbnail raw data	
 	if($result['VerboseOutput']==1 && $result['IFD1']['JpegIFOffset']>0 && $result['IFD1']['JpegIFByteCount']>0) {
 			$v = fseek($seek,$globalOffset+$result['IFD1']['JpegIFOffset']);
 			if($v==0) {
 				$data = fread($seek, $result['IFD1']['JpegIFByteCount']);
 			} else if($v==-1) {
-				$result['Errors'] = $result['Errors']+1;
+				$result['Errors'] = $result['Errors']++;
 			}
 			$result['IFD1']["ThumbnailData"] = $data;
 	} 
@@ -886,24 +787,27 @@ function read_exif_data_raw($path,$verbose) {
 	//seek to InteroperabilityIFD
 	$v = fseek($in,$globalOffset+$result['SubIFD']['ExifInteroperabilityOffset']);
 	if($v==-1) {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Couldnt Find InteroperabilityIFD";
+		$result['Errors'] = $result['Errors']++;
 	}
 	
 	//===========================================================Start of InteroperabilityIFD
 	$num = bin2hex(fread( $in, 2 ));
-	if($intel==1) $num = intel2Moto($num);
-	$num = hexdec($num);
-	$result['InteroperabilityIFDNumTags'] = $num;
+
+        // For some reason, intel2Moto returns a really large number with some photos. 
+        // If it's too large, don't do the conversion 
+        if ($intel==1) { 
+            if (intel2Moto($num) < 100) { 
+                $num = intel2Moto($num); 
+            } 
+        } 
+
+	$result['InteroperabilityIFDNumTags'] = hexdec($num);
 	
-	if($num<1000) { //1000 entries is too much and is probably an error.
-		for($i=0;$i<$num;$i++) {
-			read_entry($result,$in,$seek,$intel,"InteroperabilityIFD",$globalOffset);
-		}
-	} else {
-		$result['Errors'] = $result['Errors']+1;
-		$result['Error'][$result['Errors']] = "Illegal size for InteroperabilityIFD";
+	
+	for($i=0;$i<hexdec($num);$i++) {
+		read_entry($result,$in,$seek,$intel,"InteroperabilityIFD",$globalOffset);
 	}
+
 	fclose($in);
 	fclose($seek);
 	return $result;

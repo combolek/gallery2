@@ -99,10 +99,6 @@ class OracleDatabaseStorage extends DatabaseStorage {
 	    $sql = 'BITAND(' . $args[0] . ',' . $args[1] . ')';
 	    break;
 
-	case 'BIT_OR':
-	    $sql = 'BIT_OR(' . $args[0] . ')';
-            break;
-	    
 	case 'AS':
 	    $sql = '';
 	    break;
@@ -129,10 +125,6 @@ class OracleDatabaseStorage extends DatabaseStorage {
 		$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 	    }
 	    $sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
-	    break;
-
-	case 'LIKE':
-	    $sql = $args[0] . ' LIKE ' . $args[1];
 	    break;
 
 	default:
@@ -180,7 +172,8 @@ class OracleDatabaseStorage extends DatabaseStorage {
     function configureStore($moduleId) {
 	if ($moduleId == 'core') {
 	    /* Install our custom aggregate function */
-	    $ret = $this->_executeSqlFile(dirname(__FILE__) . '/CreateBitOr.sql');
+	    $ret = $this->_executeSqlFile(
+		dirname(__FILE__) . '/schema/platform/oracle/CreateBitOr_sql');
 
 	    /*
 	     * Ignore errors here, since we'll get them every time we try to

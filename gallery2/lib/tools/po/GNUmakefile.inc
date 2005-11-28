@@ -21,19 +21,13 @@ TYPE_DIR = $(shell dirname $(MODULE_DIR))
 APPLICATION ?= $(shell basename $(TYPE_DIR))_$(shell basename $(MODULE_DIR))
 
 ifdef QUIET
-    MSGFMT_FLAGS =
+MSGFMT_FLAGS =
 else
-    MSGFMT_FLAGS = -v
+MSGFMT_FLAGS = -v
 endif
 
 MSGFMT = msgfmt $(MSGFMT_FLAGS) -c -o
 MSGFMTSOL = msgfmt $(MSGFMT_FLAGS) -o
-
-ifdef PO
-    UPDATEFILES = $(PO)
-else
-    UPDATEFILES = *
-endif
 
 all: update install
 
@@ -57,15 +51,14 @@ messages.po:
 clean:
 	@$(RM) messages.po
 
-update: $(UPDATEFILES).po
+update: *.po
 
 install:
 	@if test "${OSTYPE}" = "solaris"; then \
 		echo "You'll probably get some warnings on Solaris. This is normal."; \
 	fi; \
 	FAIL=0; \
-	echo "Updating ${UPDATEFILES}"; \
-	for LOCALE in `ls ${UPDATEFILES}.po | sed 's/\.[^.]*$$//g'`; do \
+	for LOCALE in `ls *.po | sed 's/\.[^.]*$$//g'`; do \
 		if test $${LOCALE}.po = "messages.po"; then \
 			continue; \
 		fi; \

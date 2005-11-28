@@ -26,12 +26,12 @@
  */
 class AlbumSelectCallbacks {
 
-    function callback($callbackParams, &$smarty, $callback, $userId) {
+    function callback($params, &$smarty, $callback, $userId) {
 	global $gallery;
 	static $idCount = '';
 	switch($callback) {
 	case 'LoadAlbumData':
-	    if (isset($callbackParams['albumTree']) && $callbackParams['albumTree']) {
+	    if (isset($params['albumTree']) && $params['albumTree']) {
 		/* Set unique name for javascript object */
 		$albumTreeName = 'albumTree' . $idCount++;
 	    }
@@ -48,17 +48,10 @@ class AlbumSelectCallbacks {
 	    }
 	    $cachePathInfo = array('type' => 'module-data',
 				   'module' => 'albumselect',
-				   'itemId' => $userId . '_' . $languageCode .
-				   '_' . substr(md5(serialize($callbackParams)), 0, 5));
+				   'itemId' => $userId . '_' . $languageCode);
 	    list ($treeList, $titles) = GalleryDataCache::getFromDisk($cachePathInfo);
+
 	    if (!isset($titles) || !isset($treeList)) {
-		if (isset($callbackParams['stripTitles'])) {
-		    GalleryCoreApi::relativeRequireOnce('lib/smarty_plugins/modifier.markup.php');
-		}
-		if (isset($callbackParams['truncateTitles'])) {
-		    GalleryCoreApi::relativeRequireOnce(
-			'lib/smarty_plugins/modifier.entitytruncate.php');
-		}
 		list ($ret, $rootAlbumId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 		if ($ret->isError()) {
@@ -69,13 +62,6 @@ class AlbumSelectCallbacks {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$titles = array('root' => preg_replace('/\r\n/', ' ', $rootAlbum->getTitle()));
-		if (isset($callbackParams['stripTitles'])) {
-		    $titles['root'] = smarty_modifier_markup($titles['root'], 'strip');
-		}
-		if (isset($callbackParams['truncateTitles'])) {
-		    $titles['root'] = smarty_modifier_entitytruncate(
-			$titles['root'], $callbackParams['truncateTitles']);
-		}
 		$treeList = array();
 
 		if ($params['sort'] != 'album') {
@@ -98,22 +84,14 @@ class AlbumSelectCallbacks {
 		    }
 		    foreach ($items as $item) {
 			$title = $item->getTitle() ? $item->getTitle() : $item->getPathComponent();
-			$title = preg_replace('/\r\n/', ' ', $title);
-			if (isset($callbackParams['stripTitles'])) {
-			    $title = smarty_modifier_markup($title, 'strip');
-			}
-			if (isset($callbackParams['truncateTitles'])) {
-			    $title = smarty_modifier_entitytruncate(
-				$title, $callbackParams['truncateTitles']);
-			}
-			$titles[$item->getId()] = $title;
+			$titles[$item->getId()] = preg_replace('/\r\n/', ' ', $title);
 		    }
 
 		    $sorter = ($params['sort'] == 'title') ?
 			new AlbumSelectTreeSorter($titles) : null;
 		    $nodeId = 0;
-		    $this->_parseTree($tree, $treeList, $sorter, $nodeId,
-				      0, 0, $callbackParams, $titles);
+		    $this->_parseTree($tree, $treeList, $sorter, $nodeId);
+
 		} else {
 		    list ($ret, $canView) =
 			GalleryCoreApi::hasItemPermission($rootAlbumId, 'core.view', $userId);
@@ -121,8 +99,7 @@ class AlbumSelectCallbacks {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    if ($canView) {
-			$ret = $this->_buildTree($rootAlbum, $treeList, $titles, $nodeId,
-						 $userId, 0, 0, $callbackParams);
+			$ret = $this->_buildTree($rootAlbum, $treeList, $titles, $nodeId, $userId);
 			if ($ret->isError()) {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
@@ -136,13 +113,12 @@ class AlbumSelectCallbacks {
 	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
-	    $type = isset($callbackParams['albumTree']) ? 'albumTree' : 'albumSelect';
-	    $block['albumselect']['LoadAlbumData'][$type] = array(
+	    $block['albumselect']['LoadAlbumData'] = array(
 		'tree' => $treeList,
 		'titles' => $titles,
 		'params' => $params);
 	    if (isset($albumTreeName)) {
-		$block['albumselect']['LoadAlbumData'][$type]['albumTreeName'] = $albumTreeName;
+		$block['albumselect']['LoadAlbumData']['albumTreeName'] = $albumTreeName;
 	    }
 
 	    return GalleryStatus::success();
@@ -155,20 +131,15 @@ class AlbumSelectCallbacks {
      * Build template data for subalbum tree (manual and title sorting)
      * @access private
      */
-    function _parseTree($tree, &$treeList, &$sorter, &$nodeId, $parentNode, $depth,
-			&$callbackParams, &$titles) {
+    function _parseTree($tree, &$treeList, &$sorter, &$nodeId, $parentNode=0, $depth=0) {
 	if (isset($sorter)) {
 	    uksort($tree, array($sorter, 'sort'));
 	}
 	foreach ($tree as $id => $list) {
 	    $treeList[] = array('id' => $id, 'nodeId' => ++$nodeId,
 				'parentNode' => $parentNode, 'depth' => $depth);
-	    if (isset($callbackParams['createTextTree'])) {
-		$titles[$id] = str_repeat('-- ', $depth) . $titles[$id];
-	    }
 	    if (!empty($list)) {
-		$this->_parseTree($list, $treeList, $sorter, $nodeId, $nodeId, $depth + 1,
-				  $callbackParams, $titles);
+		$this->_parseTree($list, $treeList, $sorter, $nodeId, $nodeId, $depth + 1);
 	    }
 	}
     }
@@ -178,8 +149,7 @@ class AlbumSelectCallbacks {
      * @return object GalleryStatus a status code
      * @access private
      */
-    function _buildTree($album, &$treeList, &$titles, &$nodeId, $userId,
-			$parentNode, $depth, &$callbackParams) {
+    function _buildTree($album, &$treeList, &$titles, &$nodeId, $userId, $parentNode=0, $depth=0) {
 	list ($ret, $subAlbumIds) =
 	    GalleryCoreApi::fetchChildAlbumItemIds($album, null, null, $userId);
 	if ($ret->isError()) {
@@ -195,21 +165,9 @@ class AlbumSelectCallbacks {
 				    'parentNode' => $parentNode, 'depth' => $depth);
 		$title = $subAlbum->getTitle() ? $subAlbum->getTitle()
 					       : $subAlbum->getPathComponent();
-		$subAlbumId = $subAlbum->getId();
-		$titles[$subAlbumId] = preg_replace('/\r\n/', ' ', $title);
-		if (isset($callbackParams['stripTitles'])) {
-		    $titles[$subAlbumId] = smarty_modifier_markup($titles[$subAlbumId], 'strip');
-		}
-		if (isset($callbackParams['truncateTitles'])) {
-		    $titles[$subAlbumId] = smarty_modifier_entitytruncate(
-			$titles[$subAlbumId], $callbackParams['truncateTitles']);
-		}
-		if (isset($callbackParams['createTextTree'])) {
-		    $titles[$subAlbumId] = str_repeat('--' , $depth) . $titles[$subAlbumId];
-		}
+		$titles[$subAlbum->getId()] = preg_replace('/\r\n/', ' ', $title);
 		$ret = $this->_buildTree($subAlbum, $treeList, $titles,
-					 $nodeId, $userId, $nodeId, $depth + 1,
-					 $callbackParams);
+					 $nodeId, $userId, $nodeId, $depth + 1);
 		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -228,7 +186,7 @@ class AlbumSelectTreeSorter {
 	$this->_titles =& $titles;
     }
     function sort($a, $b) {
-	return strcasecmp($this->_titles[$a], $this->_titles[$b]);
+	return strcmp($this->_titles[$a], $this->_titles[$b]);
     }
 }
 ?>

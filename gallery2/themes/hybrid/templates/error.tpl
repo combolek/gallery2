@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{g->theme url="theme.css"}"/>
   </head>
   <body class="gallery">
-    <div {g->mainDivAttributes}>
+    <div id="gallery" {g->mainDivAttributes}>
       {include file=$theme.errorTemplate}
     </div>
 

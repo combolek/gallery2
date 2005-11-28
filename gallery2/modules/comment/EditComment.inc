@@ -88,7 +88,7 @@ class EditCommentController extends GalleryController {
 		} else {
 		    $longDate = strtotime($form['date']);
 		}
-		if ($longDate == -1 || $longDate === false) {
+		if ($longDate == -1) {
 		    $error[] = 'form[error][date][invalid]';
 		}
 	    }
@@ -157,7 +157,7 @@ class EditCommentController extends GalleryController {
 		} else {
 		    $longDate = strtotime($form['date']);
 		}
-		if ($longDate == -1 || $longDate === false) {
+		if ($longDate == -1) {
 		    $error[] = 'form[error][date][invalid]';
 		}
 	    }

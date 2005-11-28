@@ -24,13 +24,11 @@ GetOptions('make-binary!' => \$OPTS{'MAKE_BINARY'},
 	   'pattern=s' => \$OPTS{'PATTERN'},
 	   'dry-run!' => \$OPTS{'DRY_RUN'},
 	   'verbose|v!' => \$OPTS{'VERBOSE'},
-	   'remove-obsolete!' => \$OPTS{'REMOVE_OBSOLETE'},
-	   'po=s' => \$OPTS{'PO'});	   
+	   'remove-obsolete!' => \$OPTS{'REMOVE_OBSOLETE'});
 
 my %PO_DIRS = ();
 my %MO_FILES = ();
 my @failures = ();
-my @warnings = ();
 
 my $curdir = cwd();
 my $basedir = cwd();
@@ -45,17 +43,12 @@ foreach my $poDir (keys(%PO_DIRS)) {
   unless ($OPTS{'DRY_RUN'}) {
     if (-f "$poDir/GNUmakefile") {
       chdir $poDir;
-      if (!$OPTS{'PO'} || -f "$OPTS{PO}.po") {
-	my_system("$MAKE $TARGET clean QUIET=0 PO=$OPTS{'PO'} 2>&1")
-	  and print "FAIL!\n"
-	    and push(@failures, $poDir);
-      } else {
-	print "Missing $OPTS{PO}.po!\n";
-	push(@warnings, $poDir);
-      }
+      my_system("$MAKE $TARGET clean QUIET=1 2>&1")
+	and print "FAIL!\n"
+	  and push(@failures, $poDir);
     } else {
       print "Missing GNUmakefile!\n";
-      push(@warnings, $poDir);
+      push(@failures, $poDir);
     }
   }
 }
@@ -77,13 +70,6 @@ sub my_system {
   system($cmd);
 }
 
-if (@warnings) {
-  print "\n\n";
-  print scalar(@warnings) . " warnings\n";
-  foreach (@warnings) {
-    print "\t$_\n";
-  }
-}
 if (@failures) {
   print "\n\n";
   print scalar(@failures) . " failures\n";

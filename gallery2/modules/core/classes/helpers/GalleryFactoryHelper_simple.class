@@ -90,8 +90,7 @@ class GalleryFactoryHelper_simple {
                   [GalleryFactoryMap::className],
                   [GalleryFactoryMap::implId],
                   [GalleryFactoryMap::implPath],
-                  [GalleryFactoryMap::hints],
-                  [GalleryFactoryMap::implModuleId]
+                  [GalleryFactoryMap::hints]
                 FROM
                   [GalleryFactoryMap]
                 ORDER BY
@@ -106,7 +105,6 @@ class GalleryFactoryHelper_simple {
 		while ($result = $searchResults->nextResult()) {
 		    $registry['implementations'][$result[0]][$result[1]] = $result[3];
 		    $registry['ids'][$result[0]][$result[2]] = $result[1];
-		    $registry['pluginIds'][$result[0]][$result[1]] = $result[5];
 
 		    $hints = unserialize($result[4]);
 		    if (isset($hints)) {
@@ -202,9 +200,7 @@ class GalleryFactoryHelper_simple {
 	    $relativePath = $registry['implementations'][$classType][$className];
 
 	    $platform = $gallery->getPlatform();
-	    if (!$platform->file_exists(
-		GalleryCoreApi::getPluginBaseDir(
-		'module', $registry['pluginIds'][$classType][$className]) . $relativePath)) {
+	    if (!$platform->file_exists(dirname(__FILE__) . '/../../../../' . $relativePath)) {
 		return array(GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 						  "Invalid path: $relativePath"),
 			     null);

@@ -37,28 +37,14 @@
 class DownloadItemView extends GalleryView {
 
     /**
-     * @see GalleryView::isImmediate()
+     * @see GalleryView::isImmediate
      */
     function isImmediate() {
 	return true;
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly()
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::shouldSaveSession()
-     */
-    function shouldSaveSession() {
-	return false;
-    }
-
-    /**
-     * @see GalleryView::renderImmediate()
+     * @see GalleryView::renderImmediate
      */
     function renderImmediate($status, $error) {
 	/* Figure out which item we're talking about */
@@ -141,9 +127,9 @@ class DownloadItemView extends GalleryView {
 	header('Content-type: ' . $data['mimeType']);
 	header('Content-Disposition: inline; filename="' . $data['pseudoFileName'] . '"');
 	$stats = $platform->stat($data['derivativePath']);
-	if ($stats[7] > 0) {
-	    header('Content-length: ' . $stats[7]);
-	}
+ 	if ($stats[7] > 0) {
+ 	    header('Content-length: ' . $stats[7]);
+ 	}
 	header('Last-Modified: ' . GalleryUtilities::getHttpDate($stats[9]));
 	header('Expires: Sun, 17 Jan 2038 12:00:00 GMT');
 
@@ -164,6 +150,8 @@ class DownloadItemView extends GalleryView {
 	    }
 	    $platform->fclose($fd);
 	}
+
+	
 
 	return GalleryStatus::success();
     }

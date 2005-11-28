@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Cart
+ * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -75,34 +75,7 @@ class CartHelperTest extends GalleryTestCase {
     }
 
     function testAddItemsToCart() {
-	/* Create test data */
-	global $gallery;
-	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_markForCleanup($album);
-
-	$ret = GalleryCoreApi::removeItemPermissions($album->getId());
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$ret = GalleryCoreApi::addUserPermission(
-	    $album->getId(), $gallery->getActiveUserId(), 'core.all');
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	list ($ret, $item) = $this->_createRandomDataItem($album->getId());
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	list ($ret, $item2) = $this->_createRandomDataItem($album->getId());
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	/* Add items to cart */
-	$ret = CartHelper::addItemsToCart(array($item->getId(), $item2->getId()));
+	$ret = CartHelper::addItemsToCart(array(4, 5));
 	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -115,8 +88,8 @@ class CartHelperTest extends GalleryTestCase {
 
 	$this->assertEquals(array(1 => 3,
 				  2 => 3,
-				  $item->getId() => 1,
-				  $item2->getId() => 1),
+				  4 => 1,
+				  5 => 1),
 			    $newCartItemCounts);
     }
 

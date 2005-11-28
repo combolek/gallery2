@@ -57,7 +57,7 @@ function doclick(idx) {
   } else {
     var a = document.getElementById('item_'+sel);
     a.getElementsByTagName('*')[0].style.borderColor = 'black';
-    a.parentNode.style.backgroundColor = 'transparent';
+    a.parentNode.style.backgroundColor = 'white';
     if (idx != sel) {
       var dir = (sel < idx) ? 1 : -1, tt, ti, i, b;
       ti = list[sel];
@@ -84,7 +84,7 @@ function doclick(idx) {
 
 <div class="gbBlock">
   <p class="giDescription">
-    {g->text text="Change the order of the items in this album.%s Click an item to move, then click the new location." arg1="<br/>"}
+    {g->text text="Change the order of the items in this album."}
   </p>
 
   {if $RearrangeItems.columns > 0}

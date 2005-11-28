@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Remote
+ * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -29,7 +29,7 @@
 /**
  * This ItemAdd plugin adds items uploaded from the web browser.
  *
- * @package Remote
+ * @package GalleryCore
  * @subpackage UserInterface
  */
 class ItemAddGalleryRemote extends ItemAddPlugin {

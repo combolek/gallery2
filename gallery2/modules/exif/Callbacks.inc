@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Exif
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class ExifCallbacks {
     /**
      */
@@ -39,9 +34,9 @@ class ExifCallbacks {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    /* We only work on JPEG/raw data items */
+	    /* We only work on JPEG data items */
 	    if (!GalleryUtilities::isA($item, 'GalleryDataItem') ||
-		!preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())) {
+		!preg_match('{^image/p?jpeg(-cmyk)?$}', $item->getMimeType())) {
 		return GalleryStatus::success();
 	    }
 

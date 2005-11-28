@@ -273,16 +273,6 @@ class GalleryItemHelper_advanced {
 	    return array(GalleryStatus::success(), array());
 	}
 
-	list ($ret, $like) =
-	    $storage->getFunctionSql(
-		'LIKE',
-		array('[GalleryItemAttributesMap=2::parentSequence]',
-		      $concat)
-		);
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	$accessListMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 	$query = sprintf('
@@ -301,14 +291,14 @@ class GalleryItemHelper_advanced {
         WHERE
           [GalleryItemAttributesMap=1::itemId] IN (%s)
           AND
-          %s
+          [GalleryItemAttributesMap=2::parentSequence] LIKE %s
           AND
           [GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
           AND
           [GalleryAccessSubscriberMap::accessListId] IN (%s)
         GROUP BY
           [GalleryItemAttributesMap=1::itemId]
-        ', $itemIdMarkers, $like, $accessListMarkers);
+        ', $itemIdMarkers, $concat, $accessListMarkers);
 
 	$data = array_merge($itemIds, $aclIds);
 

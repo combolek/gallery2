@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Watermark
+ * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  */

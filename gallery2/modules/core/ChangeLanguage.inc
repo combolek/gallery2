@@ -22,7 +22,7 @@
 
 /**
  * @version $Revision$ $Date$
- * @package GalleryCore
+ * @package Core
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -30,7 +30,7 @@
 /**
  * This controller handles changing the language in the current session
  *
- * @package GalleryCore
+ * @package Core
  * @subpackage UserInterface
  */
 class ChangeLanguageController extends GalleryController {

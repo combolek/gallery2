@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
 "POT-Creation-Date: 2005-05-23 02:14+0200\n"
-"PO-Revision-Date: 2005-10-06 08:15+0200\n"
+"PO-Revision-Date: 2005-08-13 05:56+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
@@ -101,25 +101,6 @@ msgstr ""
 
 msgid "Other"
 msgstr "Diğer"
-
-#, fuzzy
-msgid "Performing Maintenance Tasks"
-msgstr "Sistem Bakımı"
-
-#, c-format
-msgid "Downloading %s"
-msgstr ""
-
-#, fuzzy
-msgid "Done."
-msgstr "Tamalandı"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "güncelle"
-
-msgid "Download"
-msgstr ""
 
 msgid "Inherit settings from parent album"
 msgstr ""
@@ -241,8 +222,9 @@ msgid_plural "%d kilobytes"
 msgstr[0] "%d kilobyte"
 msgstr[1] "%d kilobyte"
 
+#, fuzzy
 msgid "From Local Server"
-msgstr "Lokal Server'dan"
+msgstr "Add From Your Server"
 
 msgid "Photo"
 msgstr "Foto"
@@ -297,8 +279,9 @@ msgstr "Genel"
 msgid "Movie Size"
 msgstr "Film Boyutu"
 
+#, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "Thumbnail başarıyla tıraşlandı"
+msgstr "User '%s' has been modified successfully."
 
 msgid "Thumbnail reset successfully"
 msgstr "Thumbnaillar başarıyla sıfırlandı"
@@ -337,15 +320,17 @@ msgstr ""
 msgid "Portrait"
 msgstr "Portre"
 
+#, fuzzy
 msgid "Crop Thumbnail"
-msgstr "Thumbnail'ı tıraşla"
+msgstr "No Thumbnail"
 
 #, fuzzy
 msgid "Reverted rotate and scale changes successfully"
 msgstr "User '%s' has been modified successfully."
 
+#, fuzzy
 msgid "Rotated photo successfully"
-msgstr "Foto başarıyla döndürüldü"
+msgstr "User '%s' has been modified successfully."
 
 #, fuzzy
 msgid "Scaled photo successfully"
@@ -354,8 +339,9 @@ msgstr "User '%s' has been modified successfully."
 msgid "Modify Photo"
 msgstr "Fotoyu Modifiye Et"
 
+#, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Tema ayarları başarıyla kaydedildi"
+msgstr "Layout ayarları başarıyla kaydedildi"
 
 msgid "Theme"
 msgstr "Tema"
@@ -411,17 +397,17 @@ msgstr "Thumbnails"
 msgid "Debug output for failed items:"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Processing image %d of %d"
-msgstr "Resim işleniyor %d / %d"
+msgstr "Viewing page %d of %d"
 
 #, fuzzy, c-format
 msgid "Checked %d items"
 msgstr "add item"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d items built"
-msgstr "%d öge yapılandırıldı"
+msgstr "öge ekle"
 
 #, c-format
 msgid "%d items failed"
@@ -445,8 +431,9 @@ msgstr "Klasör başarıyla silindi: %s"
 msgid "Unable to delete directory: %s"
 msgstr "Klasör silinmiyor: %s"
 
+#, fuzzy
 msgid "Delete template cache"
-msgstr "Template önbelleğini sil"
+msgstr "Delete Item"
 
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  "
@@ -455,8 +442,9 @@ msgid ""
 "Smarty will switch back to the default tpl file."
 msgstr ""
 
+#, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "Template önbelleği başarıyla silindi"
+msgstr "User '%s' has been modified successfully."
 
 msgid "some text to be spit out in different languages"
 msgstr ""
@@ -522,46 +510,8 @@ msgid "photo"
 msgstr "foto"
 
 #, fuzzy
-msgid "download"
-msgstr "aşşağı"
-
-#, fuzzy
-msgid "Plugins directory does not exist."
-msgstr "'%s' adlı bir kullanıcı yok."
-
-#, c-format
-msgid ""
-"Couldn't create plugin directory '%s' in '%s', make sure the web server has "
-"write permissions in it."
-msgstr ""
-
-#, c-format
-msgid "Couldn't create repository cache path '%s'."
-msgstr ""
-
-#, c-format
-msgid ""
-"Couldn't create cache directory '%s' in '%s', make sure the web server has "
-"write permissions in it."
-msgstr ""
-
-#, c-format
-msgid "Error downloading package from '%s'."
-msgstr ""
-
-#, c-format
-msgid "Error downloading index from '%s'."
-msgstr ""
-
-#, c-format
-msgid "Error downloading index hash from '%s'."
-msgstr ""
-
-msgid "Index integrity check failed."
-msgstr ""
-
 msgid "&laquo; default sort order &raquo;"
-msgstr "&laquo; varsayılan sıralama &raquo;"
+msgstr "* No Sort Order *"
 
 msgid "Manual sort order"
 msgstr "Manuel sıraya diz"
@@ -607,10 +557,11 @@ msgstr ""
 msgid "This page is valid XHTML 1.0"
 msgstr ""
 
+#, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Galeri Projesine Bağış Yap"
+msgstr "Galeriye Dön"
 
-msgid "G2RC2: kthxbye"
+msgid "G2.0: Unpossible!"
 msgstr ""
 
 #, c-format
@@ -619,7 +570,7 @@ msgstr ""
 
 #, c-format
 msgid "Memory used: %s, total: %s"
-msgstr "Bellek kullanım: %s, toplam: %s"
+msgstr ""
 
 msgid "Rows per album page"
 msgstr ""
@@ -661,7 +612,7 @@ msgid "Photo Frame"
 msgstr "Foto Çerçevesi"
 
 msgid "Color Pack"
-msgstr "Renk Paketi"
+msgstr ""
 
 msgid "You must enter a number greater than 0"
 msgstr "0'dan büyük bir numara girmelisiniz"
@@ -704,12 +655,6 @@ msgstr "Bilinmeyen"
 msgid "unknown"
 msgstr "bilinmeyen"
 
-#, c-format
-msgid ""
-"Invalid return URL! The requested URL %s tried to insert a redirection to %s "
-"which is not a part of this Gallery."
-msgstr ""
-
 msgid "Back"
 msgstr "Geri"
 
@@ -747,7 +692,7 @@ msgid "View counts reset successfully"
 msgstr "Sayaç görüntülemesi başarıyla sıfırlandı"
 
 msgid "Refresh capture dates"
-msgstr "Yakalama tarihlerini yenile"
+msgstr ""
 
 msgid ""
 "Update capture date stored in Gallery for all items with an available date "
@@ -869,9 +814,6 @@ msgstr "Çıkış"
 msgid "Modules"
 msgstr "Modüller"
 
-msgid "Repository"
-msgstr ""
-
 msgid "Themes"
 msgstr "Temalar"
 
@@ -975,8 +917,9 @@ msgid ""
 "administrator to reconfigure PHP with the %s option enabled."
 msgstr ""
 
+#, fuzzy
 msgid "Date Formats"
-msgstr "Tarih Biçimi"
+msgstr "Tarih: %s"
 
 #, c-format
 msgid ""
@@ -985,23 +928,28 @@ msgid ""
 "tokens varies according to the active language."
 msgstr ""
 
+#, fuzzy
 msgid "Style"
-msgstr "Stil"
+msgstr "Başlık"
 
 msgid "Format"
-msgstr "Biçim"
+msgstr ""
 
+#, fuzzy
 msgid "Sample"
-msgstr "Örnek"
+msgstr "Örnekleri Görüntüle"
 
+#, fuzzy
 msgid "Date"
-msgstr "Tarih"
+msgstr "Tarih:"
 
+#, fuzzy
 msgid "Time"
-msgstr "Zaman"
+msgstr "Saat: "
 
+#, fuzzy
 msgid "Date/Time"
-msgstr "Tarih/Saat"
+msgstr "%s Tarih ve Saat"
 
 msgid "Filesystem Permissions"
 msgstr "Dosyasistemi İzinleri"
@@ -1023,7 +971,7 @@ msgid "New files"
 msgstr "Yeni Dosyalar"
 
 msgid "Local Server Upload Paths"
-msgstr "Local Server Yükleme Klasör Yolları"
+msgstr ""
 
 msgid ""
 "Specify the legal directories on the local server where a user can store "
@@ -1035,7 +983,7 @@ msgid ""
 msgstr ""
 
 msgid "Path"
-msgstr "Klasör Yolu"
+msgstr ""
 
 msgid "Action"
 msgstr "Hareket"
@@ -1164,7 +1112,7 @@ msgid ""
 msgstr ""
 
 msgid "Invalid cookie path"
-msgstr "Geçersiz çerez klasör yolu"
+msgstr ""
 
 msgid "Domain"
 msgstr "Alanadı"
@@ -1276,7 +1224,7 @@ msgstr "Kullanıcı %s, %s ögenin sahibi."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
-msgstr "<strong>%s</strong> kullanıcısını sil ve..."
+msgstr ""
 
 #, c-format
 msgid "Assign a new owner for all items of %s"
@@ -1587,233 +1535,6 @@ msgstr ""
 msgid "Uninstall"
 msgstr "Kaldır"
 
-msgid ""
-"Please make sure that your internet connection is set up properly or try "
-"again later."
-msgstr ""
-
-msgid "The repository index has been successfully updated."
-msgstr ""
-
-msgid "All plugins are already up-to-date."
-msgstr ""
-
-msgid "Common Tasks"
-msgstr ""
-
-msgid "Update Index"
-msgstr ""
-
-msgid ""
-"The Gallery repository contains the latest modules and themes extensively "
-"tested by the Gallery team. The repository index contains information about "
-"available plugins, such as the latest versions, available languages and "
-"compatibility. The index must be synchronized periodically with the Gallery "
-"server so you are informed about any available updates. No personal "
-"information is sent to the Gallery server during updating. On slower "
-"connections the process might take a minute or two."
-msgstr ""
-
-msgid "As of the last update on"
-msgstr ""
-
-#, c-format
-msgid ""
-", the repository contains %s modules and %s themes. Its contents can be "
-"viewed on the Modules and Themes tabs."
-msgstr ""
-
-msgid ""
-"The index has never been updated. Click on the Update button to see what "
-"updates are available."
-msgstr ""
-
-#, fuzzy
-msgid "Update"
-msgstr "Tarih"
-
-#, fuzzy
-msgid "Upgrade Gallery"
-msgstr "Galeri"
-
-msgid ""
-"A new version of Gallery is available, but it cannot be upgraded through "
-"this interface. Upgrading it might make some of your current plugins stop "
-"working, but others that rely on the features of the new version may become "
-"available. Here are the recommended steps for upgrading:"
-msgstr ""
-
-msgid "Review plugin compatibility (on the Themes and Modules tabs)"
-msgstr ""
-
-#, c-format
-msgid "<a href=\"%s\">Download</a> Gallery core"
-msgstr ""
-
-#, c-format
-msgid ""
-"Read the <a href=\"%s\">upgrade instructions</a> and perform the upgrade"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Up-To-Date"
-msgstr "Galeri Çekirdeği"
-
-msgid ""
-"Gallery cannot be upgraded through this interface. When a new version "
-"becomes available, upgrade instructions will be presented here."
-msgstr ""
-
-msgid "Upgrade All Plugins"
-msgstr ""
-
-msgid ""
-"Gallery can automatically upgrade your themes and modules to the latest "
-"available versions. No new plugins will be downloaded."
-msgstr ""
-
-#, fuzzy
-msgid "Upgrade All"
-msgstr "güncelle"
-
-msgid ""
-"Once the repository index has been downloaded, a list of available plugins "
-"will be presented. It can be downloaded by clicking on the Update button on "
-"the Common Tasks tab."
-msgstr ""
-
-msgid ""
-"The following plugins are available. Click on the action beside the plugin "
-"you're interested in to see what's available in the repository."
-msgstr ""
-
-msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr ""
-
-msgid ""
-"A new core module version is available. There may be plugins that are "
-"incompatible with the installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid ""
-"of plugins, including incompatible ones, which are marked with a red icon."
-msgstr ""
-
-msgid "Theme Name"
-msgstr "Tema Adı"
-
-#, fuzzy
-msgid "Latest"
-msgstr "son"
-
-#, fuzzy
-msgid "Incompatible Plugin"
-msgstr "Uyumsuz modül!"
-
-#, fuzzy
-msgid "Incompatible plugin!"
-msgstr "Uyumsuz modül!"
-
-#, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
-
-msgid "No packages have been selected."
-msgstr ""
-
-#, fuzzy
-msgid "Base Files"
-msgstr "Temel dosyaadı"
-
-msgid ""
-"The base files required for the theme to work and the English (US) "
-"translation will be downloaded."
-msgstr ""
-
-msgid "Upgrade Base Files"
-msgstr ""
-
-msgid "You can upgrade the base module files."
-msgstr ""
-
-msgid "Upgrade base files"
-msgstr ""
-
-msgid "Base Files Up-To-Date"
-msgstr ""
-
-msgid "This plugin's base files are up-to-date."
-msgstr ""
-
-msgid "Updated Translations"
-msgstr ""
-
-msgid ""
-"Below is a list of translations that have been updated since they were last "
-"downloaded. Select the ones you want to download."
-msgstr ""
-
-msgid "Additional Languages"
-msgstr ""
-
-msgid ""
-"Below is a list of languages this plugin has been translated to. Select the "
-"ones you want included in addition to the ones already downloaded."
-msgstr ""
-
-msgid "Unit Tests"
-msgstr ""
-
-msgid ""
-"This plugin has unit tests available for download, which are useful for "
-"Gallery developers. All of the module's features are available without the "
-"tests."
-msgstr ""
-
-msgid "Download unit tests"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Repository Setup"
-msgstr "Galeri Versiyonu"
-
-msgid "Warning: `$errorMessage`"
-msgstr ""
-
-msgid ""
-"In order to download plugins from the Gallery repository, a special "
-"directory needs to be created where Gallery will store the data."
-msgstr ""
-
-#, c-format
-msgid ""
-"Under your Gallery base directory, create a directory called '%s' and allow "
-"the web server to write into it by appropriately setting the permissions."
-msgstr ""
-
-msgid "Instructions for Unix-type platforms:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "$ cd %s"
-msgstr "%d. %s"
-
-#, c-format
-msgid "$ mkdir %s"
-msgstr ""
-
-#, c-format
-msgid "$ chmod 777 %s"
-msgstr ""
-
-msgid ""
-"Refreshing this page will take you to the Repository if the directory has "
-"been successfully created."
-msgstr ""
-
 msgid "Gallery Themes"
 msgstr "Galeri Temaları"
 
@@ -1848,6 +1569,9 @@ msgstr "Tüm Temalar"
 
 msgid "Defaults"
 msgstr "Varsayılanlar"
+
+msgid "Theme Name"
+msgstr "Tema Adı"
 
 msgid "Status: Incompatible Theme (Inactive)"
 msgstr "Durum: Uyumsuz Tema (Aktif Değil)"
@@ -1928,8 +1652,9 @@ msgstr ""
 msgid "Toolkit"
 msgstr "Araç"
 
+#, fuzzy
 msgid "Order"
-msgstr "Sırala"
+msgstr "Remove"
 
 msgid "up"
 msgstr "yukarı"
@@ -2168,7 +1893,7 @@ msgid ""
 msgstr ""
 
 msgid "Server Path"
-msgstr "Server Klasör Yolu"
+msgstr ""
 
 msgid "You must enter a directory."
 msgstr "Klasör girmelisiniz."
@@ -2629,7 +2354,7 @@ msgid "Aspect Ratio: "
 msgstr ""
 
 msgid "Crop"
-msgstr "Tıraşla"
+msgstr ""
 
 msgid "Reset to default"
 msgstr "Varsayılanlara sıfırla"
@@ -2685,7 +2410,7 @@ msgid "You must enter a size"
 msgstr "Boyut girmelisiniz"
 
 msgid "Preserve Original"
-msgstr "Orjinali Koru"
+msgstr ""
 
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. "
@@ -3312,5 +3037,5 @@ msgstr "[test] İkinci izin"
 msgid "Unit test theme"
 msgstr ""
 
-#~ msgid "G2.0: Unpossible!"
-#~ msgstr "G2.0: Unpossible!"
+#~ msgid "G2RC1: +5 Insightful"
+#~ msgstr "G2RC1: +5 Insightful"

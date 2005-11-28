@@ -21,16 +21,13 @@
 # Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # Douglas Cau <douglas@cau.se>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Rewrite 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-29 12:30+0200\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-06-16 01:00+0200\n"
+"Last-Translator: Douglas Cau <douglas@cau.se>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,9 +36,6 @@ msgstr ""
 "X-Poedit-Country: SWEDEN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "404 File Not Found"
-msgstr "404 Filen Hittades Inte"
-
 msgid "Check short style URLs for filesystem conflicts"
 msgstr "Kontrolera korta URLer för konflikt med existerande filer"
 
@@ -49,8 +43,6 @@ msgid ""
 "This will go through all your Gallery items and check if the short style URL "
 "links to an existing file or directory on your webserver."
 msgstr ""
-"Detta kommer att gå igenom alla dina Galleryobjekt och kontrollerar korta "
-"URL:er länkar till existerande filer eller kataloger på din webserver."
 
 msgid "Processing..."
 msgstr "Bearbetar..."
@@ -86,13 +78,15 @@ msgstr "Ladda Ner Object"
 
 msgid "Ensures browsers do not use cached version when image has changed"
 msgstr ""
-"Se till att webläsaren inte anväder en sparad version när bilden har bytts"
 
 msgid "Item file name (eg, image.jpg)"
 msgstr "Objektets filnamn (t.ex: image.jpg)"
 
 msgid "Site Admin"
-msgstr "Site Admin"
+msgstr ""
+
+msgid "404 File Not Found"
+msgstr "404 Filen Hittades Inte"
 
 msgid "Block hotlinked items"
 msgstr "Hindra hårdlänkade objekt"
@@ -101,19 +95,19 @@ msgid "URL Rewrite Administration"
 msgstr "URL Rewrite Administration"
 
 msgid "Successfully saved URL styles"
-msgstr "Sparade URL-stiler framgångsrikt"
+msgstr "Sparade URL-mönstren framg�ngsrikt"
 
 msgid "Successfully saved the configuration"
-msgstr "Sparade konfigurationen framgångsrikt"
+msgstr "Sparde konfigurationen framg�ngsrikt"
 
 msgid "An error occured while trying to save your settings:"
 msgstr "Ett fel uppstod när dina inställningar skulle sparas:"
 
 msgid "Cannot write to the Gallery .htaccess file"
-msgstr "Kan inte skriva till .htaccess-filen för Gallery"
+msgstr "Kan inte skriva till Gallery .htaccess-filen"
 
 msgid "Cannot write to the embedded .htaccess file"
-msgstr "Kan inte skriva till den inbäddade .htaccess-filen"
+msgstr "Kan inte skriva till den inb�ddade .htaccess-filen"
 
 msgid "Duplicate URL patterns."
 msgstr "Likadana URL-mönster"
@@ -128,7 +122,7 @@ msgid "Rules"
 msgstr "Regler"
 
 msgid "Setup"
-msgstr "Installation"
+msgstr "Inställningar"
 
 msgid "Test"
 msgstr "Testa"
@@ -185,12 +179,12 @@ msgid ""
 "something other than Gallery itself. Hosts in the list below will be treated "
 "as friendly referers."
 msgstr ""
-"Vissa regler används bara om referensen (sidan som har länkat till objektet) "
+"Vissa regler avnänds bara om referensen (sidan som har länkat till objektet) "
 "är något annat än Gallery självt. Adresser i listan kommer att behandlas som "
 "godkända referenser."
 
 msgid "Embedded Setup"
-msgstr "Inbäddad Installation"
+msgstr "Inb�ddad Installation"
 
 msgid ""
 "For URL Rewrite to work in an embedded environment you need to set up an "
@@ -219,11 +213,11 @@ msgid ""
 "In order for this Gallery module to work you need %s enabled with your "
 "Apache server."
 msgstr ""
-"För att denna Gallery modul ska fungera behöver du %s aktiverat med din "
+"För att denna Gallery modul ska fungera beh�ver du %s aktiverat med din "
 "Apache server."
 
 msgid "Success"
-msgstr "Ok"
+msgstr "OK"
 
 msgid "Warning"
 msgstr "Varning"
@@ -254,8 +248,9 @@ msgstr ""
 msgid "Error"
 msgstr "Fel"
 
+#, fuzzy
 msgid "Please create a file in your Gallery directory named .htaccess"
-msgstr "Vänligen skapa en fil i Gallery katalogen som heter .htaccess"
+msgstr "Skapa en fil i Gallery katalogen som heter .htaccess"
 
 msgid "Please make sure Gallery can read the existing .htaccess file"
 msgstr "Kontrollera att Gallery kan läsa den befintliga .htaccess-filen"
@@ -266,15 +261,17 @@ msgstr "Kontrollera att Gallery kan skriva till den befintliga .htaccess-filen"
 msgid "Test .htaccess File Again"
 msgstr "Testa .htaccess-filen Igen"
 
+#, fuzzy
 msgid "Embedded .htaccess file"
-msgstr "Inbäddad .htaccess-fil"
+msgstr "Testar den inbäddade .htaccess-filen för Gallery"
 
 msgid ""
 "You need a <b>.htaccess</b> file in the embedded access point directory."
 msgstr ""
 
+#, fuzzy
 msgid "Embedded .htaccess file is up to date"
-msgstr "Den Inbäddade .htaccess-filen är uppdaterad."
+msgstr ".htaccess-filen existerar inte."
 
 msgid ""
 "This checks if the content in your embedded .htaccess file is equal to the "
@@ -286,20 +283,18 @@ msgid ""
 "be sufficient."
 msgstr ""
 
+#, fuzzy
 msgid "Test .htaccess Files Again"
-msgstr "Testa .htaccess-filerna Igen"
+msgstr "Testa .htaccess-filen Igen"
 
 msgid "Error: 404 File Not Found"
 msgstr "Fel: 404 Filen Hittades Inte"
-
-msgid "The page you requested does not exist"
-msgstr ""
 
 msgid "URL Rewrite System Checks"
 msgstr "URL Rewrite System Kontroll"
 
 msgid "Custom Gallery directory test setup"
-msgstr "Skräddarsydd Gallery katalog testinstallation"
+msgstr "Egen Gallery katalog inställningar"
 
 msgid ""
 "Gallery tries to test mod_rewrite in action. For this to work you need to "
@@ -312,30 +307,28 @@ msgid "Line 6:"
 msgstr "Linje 6:"
 
 msgid "Multisite setup"
-msgstr "Multisiteinstallation"
+msgstr ""
 
+#, fuzzy
 msgid ""
 "Gallery tries to test mod_rewrite in action. This does not work with "
 "multisite since Gallery lacks the complete codebase."
 msgstr ""
-"Gallery försöker testa mod_rewrite i arbete. Detta fungerar inte med "
-"multisiteinstallation eftersom Gallery saknar komplett kodbas."
+"Gallery försöker testa mod_rewrite i arbete. För att detta ska fungera "
+"behöver du ändra nedanstående filer enligt:"
 
 msgid ""
 "The tests below will only show if mod_rewrite works for your Gallery "
 "codebase. If you experience broken links chances are that mod_rewrite does "
 "not work."
 msgstr ""
-"Testen nedan kommer endast att visas om mod_rewrite fungerar för din Gallery-"
-"kodbas. Om du får brutna länkar finns det en risk att mod_write inte "
-"fungerar."
 
 msgid ""
 "For whatever reason, Gallery did not detect a working mod_rewrite setup. If "
 "you are confident that mod_rewrite does work you may override the automatic "
 "detection. Please, run these two tests to see for yourself."
 msgstr ""
-"Av någon anledning kunde Gallery inte påvisa ett fungerande mod_rewrite. Du "
+"Av någon anledning kunde Gallery inte p�visa ett fungerande mod_rewrite. Du "
 "kan testa själv om du är säker på att mod_rewrite bör fungera. Kör följande "
 "tester för att manuellt påvisa mod_rewrite."
 
@@ -352,14 +345,14 @@ msgid ""
 "If one of the two tests gives you a page with the text PASS_REWRITE you are "
 "good to go."
 msgstr ""
-"Om något av ovanstående test ger dig en sida med texten PASS_REWRITE så "
-"fungerar mod_rewrite som den ska."
+"Om något av åvanstående test ger dig en sida med texten PASS_REWRITE så "
+"fungerar mod_rewrite som det ska."
 
 msgid "Done"
 msgstr "Klart"
 
 msgid "Troubleshooting"
-msgstr "Felsökning"
+msgstr "Fels�kning"
 
 msgid "How can I check if mod_rewrite is loaded?"
 msgstr "Hur kan jag kontrollera att mod_rewrite är laddad?"
@@ -370,7 +363,7 @@ msgid ""
 "Modules. You should see mod_rewrite in the list if it's loaded."
 msgstr ""
 "Gå till <a href=\"%s\">Gallery phpinfo sidan</a> och leta efter Loaded "
-"Modules. Du bör se mod_rewrite i listan om modulen är laddad."
+"Modules. Du b�r se mod_rewrite i listan om modulen är laddad."
 
 msgid ""
 "I know mod_rewrite is loaded, why is Gallery telling me it's not working?"
@@ -383,15 +376,15 @@ msgid ""
 "AllowOverride rights. Gallery needs to be able to override FileInfo and "
 "Options. Put this at the end of your Apache configuration:"
 msgstr ""
-"Om du är serveradministratör kontrollera att Gallery-katalogen har korrekta "
-"AllowOverride rättigheter. Gallery behöver FileInfo och Options. Lägg till "
-"följande i slutet av konfigurationsfil för Apache:"
+"Om du är serveradministrat�ren kontrollera att Gallery katalogen har "
+"korrekta AllowOverride rättigheter. Gallery behäver FileInfo och Options. "
+"Lägg till följande i slutet av din Apache konfigurationsfil:"
 
 msgid ""
 "My Gallery is password protected using Apache mod_auth. I know mod_rewrite "
 "works, why doesnt Gallery detect this?"
 msgstr ""
-"Mitt Gallery är lösenordsskyddat med Apache mod_auth. Jag vet att "
+"Mitt Gallery är l�senordsskyddat med Apache mod_auth. Jag vet att "
 "mod_rewrite fungerar, varför kan inte Gallery påvisa detta?"
 
 msgid ""
@@ -402,4 +395,42 @@ msgid ""
 msgstr ""
 
 msgid "Unit test module"
-msgstr "Modul för enhetstest"
+msgstr ""
+
+#~ msgid "Item version to download (original/sized/thumb)"
+#~ msgstr "Version av objekt att ladda ner (orginal/storleksjusterad/miniatyr)"
+
+#~ msgid "Testing your Webserver"
+#~ msgstr "Testar din webbserver"
+
+#~ msgid "Apache mod_rewrite is working properly."
+#~ msgstr "Apache mod_rewrite fungerar tillfredsställande."
+
+#~ msgid "Apache mod_rewrite is not installed or not enabled."
+#~ msgstr "Apache mod_rewrite är inte installerad eller inte aktiverad."
+
+#~ msgid ""
+#~ "We are unable to properly test whether mod_rewrite is properly installed."
+#~ msgstr "Vi kan inte testa om mod_rewrite är korrekt installerad."
+
+#~ msgid "Testing Gallery .htaccess file"
+#~ msgstr "Testar Gallery:s .htaccess-fil"
+
+#~ msgid "Gallery can write to the .htaccess file"
+#~ msgstr "Gallery kan skriva till .htaccess-filen"
+
+#~ msgid "Cannot write to the .htaccess file."
+#~ msgstr "Kan inte skriva till .htaccess-filen."
+
+#~ msgid "Cannot read the .htaccess file."
+#~ msgstr "Kan inte läsa .htaccess-filen."
+
+#~ msgid "Test .htaccess Again"
+#~ msgstr "Testa .htaccess-filen Igen"
+
+#~ msgid "Gallery can write to the embedded .htaccess version."
+#~ msgstr ""
+#~ "Galleriet kan skriva till den inbäddade versionen av .htaccess-filen."
+
+#~ msgid "Can not read the .htaccess file."
+#~ msgstr "Kan inte läsa .htaccess-filen."

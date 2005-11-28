@@ -275,9 +275,8 @@ class RewriteHelperTest extends GalleryTestCase {
     }
 
     function testGetHtaccessPath() {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
 	$this->assertEquals(array(GalleryStatus::success(),
-			$pluginBaseDirs['base'] . '.htaccess'),
+			dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess'),
 		RewriteHelper::getHtaccessPath());
     }
 
@@ -304,7 +303,7 @@ class RewriteHelperTest extends GalleryTestCase {
 		      'queryString' => 'g2_view=core.ShowItem&g2_path=%1',
 		      'settings' => array('flags' => 'QSA,L')),
 		array('urlPattern' => '([^?]+)',
-		      'queryString' => 'g2_view=rewrite.FileNotFound',
+		      'queryString' => 'g2_view=rewrite.FileNotFound&g2_path=%1',
 		      'settings' => array('flags' => 'QSA,L')));
 
 	list ($ret, $code, $result) = RewriteHelper::parseActiveRules($activeRules);

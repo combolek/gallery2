@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Registration 1.0\n"
 "POT-Creation-Date: 2004-11-27 20:32+0100\n"
-"PO-Revision-Date: 2004-10-30 00:00+0100\n"
+"PO-Revision-Date: 2004-07-29 00:00+0100\n"
 "Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -60,22 +60,7 @@ msgid "New user registration"
 msgstr "Enregistrement d'un nouvel utilisateur"
 
 msgid "Register"
-msgstr "S'enregistrer"
-
-msgid "New user registration:"
-msgstr "Enregistrement d'un nouvel utilisateur&nbsp;:"
-
-#, c-format
-msgid "    Username: %s"
-msgstr "Nom d'utilisateur&nbsp;: %s"
-
-#, c-format
-msgid "   Full name: %s"
-msgstr "Nom complet&nbsp;: %s"
-
-#, c-format
-msgid "       Email: %s"
-msgstr "Email&nbsp;: %s"
+msgstr "Enregistrer"
 
 msgid "Registration Settings"
 msgstr "Paramètres d'enregistrement"
@@ -192,33 +177,6 @@ msgid "You can now login to your account with your username and password."
 msgstr ""
 "Vous pouvez maintenant vous connecter à votre compte à l'aide de votre "
 "identifiant et mot de passe."
-
-#, c-format
-msgid "Hello %s,"
-msgstr "Bonjour %s,"
-
-#, c-format
-msgid "You receive this email because you have registered at %s"
-msgstr "Vous avez reçu ce message car vous vous êtes enregistrés à %s"
-
-#, c-format
-msgid "Your username is: %s"
-msgstr "Votre nom d'utilisateur est&nbsp;: %s"
-
-msgid "To finish the registration process please click the following link:"
-msgstr "Pour compléter la procédure d'enregistrement, veuillez cliquer sur le "
-"lien suivant&nbsp;:"
-
-msgid ""
-"If you did not register at this site then please ignore this email.  The "
-"registration will not become valid and you will not receive any further "
-"emails.  Sorry for the inconvenience."
-msgstr "Si vous ne vous êtes pas enregistrés sur ce site, alors veuillez "
-"ignorer ce message. L'enregistrement ne sera pas validé et vous ne recevrez "
-"plus d'autres messages. Nous sommes désolés de la gêne occasionnée."
-
-msgid "Thank you!"
-msgstr "Merci&nbsp;!"
 
 msgid "Registration successful"
 msgstr "Enregistrement réalisé avec succès"

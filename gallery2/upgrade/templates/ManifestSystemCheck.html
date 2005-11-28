@@ -33,7 +33,6 @@
 
   <?php if (!empty($manifest['modified'])): ?>
   <span id="ManifestSystemCheck_modified_toggle" onclick="BlockToggle('ManifestSystemCheck_modified', 'ManifestSystemCheck_modified_toggle_indicator')">
-
     <span id="ManifestSystemCheck_modified_toggle_indicator" class="showHideToggle">+</span>
     <b>
       <?php printf(_("Modified files (%d)"), count($manifest['modified'])) ?>

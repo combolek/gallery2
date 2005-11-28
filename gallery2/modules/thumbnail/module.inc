@@ -40,11 +40,11 @@ class ThumbnailModule extends GalleryModule {
 	$this->setId('thumbnail');
 	$this->setName($gallery->i18n('Thumbnail Manager'));
 	$this->setDescription($gallery->i18n('Set default thumbnails for non-image items'));
-	$this->setVersion('1.0.3'); /* Update upgrade() function below too */
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setVersion('1.0.0'); /* Update upgrade() function below too */
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
 	$this->setRequiredCoreApi(array(6, 0));
-	$this->setRequiredModuleApi(array(2, 4));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -171,9 +171,6 @@ class ThumbnailModule extends GalleryModule {
 	case '0.9.6':
 	case '0.9.7':
 	case '0.9.8':
-	case '1.0.0':
-	case '1.0.1':
-	case '1.0.2':
 
 	case 'end of upgrade path':
 	    /*
@@ -216,13 +213,6 @@ class ThumbnailModule extends GalleryModule {
 	}
 
 	return GalleryStatus::success();
-    }
-
-    /**
-     * @see GalleryModule::getModuleEntityTypes()
-     */
-    function getModuleEntityTypes() {
-	return array('ThumbnailImage');
     }
 
     /**
@@ -327,47 +317,6 @@ class ThumbnailModule extends GalleryModule {
 	}
 
 	return array(GalleryStatus::success(), $redirect);
-    }
-
-    /**
-     * @see GalleryModule::uninstall()
-     */
-    function uninstall() {
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
-	global $gallery;
-
-	/* Remove custom thumbnails from items */
-	$query = '
-	SELECT [GalleryChildEntity::parentId]
-	  FROM [GalleryChildEntity], [ThumbnailImage]
-	 WHERE [GalleryChildEntity::id] = [ThumbnailImage::id]
-	   AND [GalleryChildEntity::parentId] > 0
-	';
-	list ($ret, $searchResults) = $gallery->search($query);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	while ($result = $searchResults->nextResult()) {
-	    $itemIds[] = $result[0];
-	}
-	while (!empty($itemIds)) {
-	    list ($ret, $items) = GalleryCoreApi::loadEntitiesById(array_splice($itemIds, 0, 100));
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    foreach ($items as $item) {
-		$ret = ThumbnailHelper::restoreThumbnail($item);
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-	}
-
-	$ret = parent::uninstall();
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	return GalleryStatus::success();
     }
 
     /**

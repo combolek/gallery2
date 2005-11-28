@@ -1,22 +1,12 @@
 <?php
 require_once(dirname(__FILE__) . '/security.inc');
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<?php
-/* Tell other scripts we passed security.inc ok */
-define('G2_SUPPORT', true);
-if (!empty($_SERVER['QUERY_STRING'])) {
-    foreach (array('phpinfo', 'cache', 'gd') as $script) {
-	if (isset($_GET[$script])) {
-	    include(dirname(__FILE__) . '/' . $script . '.php');
-	}
-    }
-    return;
-}
 ?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <title>Gallery Support</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="support.css"/>
     <style>
       p { padding-left: 10px; margin-top: 2px; }
       h3 { margin-bottom: 2px; }
@@ -32,11 +22,11 @@ if (!empty($_SERVER['QUERY_STRING'])) {
         problems with your Gallery installation
       </h2>
 
-      <h3> <a href="index.php?phpinfo">PHP Info</a> </h3>
+      <h3> <a href="phpinfo.php">PHP Info</a> </h3>
       <p> PHP configuration information </p>
-      <h3> <a href="index.php?cache">Cache Maintenance</a> </h3>
+      <h3> <a href="cache.php">Cache Maintenance</a> </h3>
       <p> Delete files from the Gallery data cache </p>
-      <h3> <a href="index.php?gd">GD</a> </h3>
+      <h3> <a href="gd.php">GD</a> </h3>
       <p> Information about your GD configuration </p>
   </body>
 </html>

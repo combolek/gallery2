@@ -380,7 +380,7 @@ class ConfirmImportController extends GalleryController {
 	 * handled.
 	 */
 	$i = $numberOfItemsImported = 0;
-	while ($albumfields && $i < pow(count($form['sourceAlbums']), 2) && !connection_aborted()) {
+	while ($albumfields && $i < count($form['sourceAlbums'])^2 && !connection_aborted()) {
 	    $gallery->guaranteeTimeLimit(30);
 	    $album = array_shift($albumfields);
 
@@ -1238,9 +1238,7 @@ class ConfirmImportController extends GalleryController {
 						      'unknown' :
 						      $importComment->IPNumber);
 				    if ($commenterId == $guestUserId) {
-					$comment->setSubject(
-					    GalleryCoreApi::convertToUtf8($importComment->name,
-									  $sourceEncoding));
+					$comment->setSubject($importComment->name);
 				    } else {
 					$comment->setSubject('');
 				    }

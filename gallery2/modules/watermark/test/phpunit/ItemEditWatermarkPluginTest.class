@@ -21,14 +21,14 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Watermark
+ * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
- * Watermark ItemEditPlugin tests
- * @package Watermark
+ * ItemEditPhoto controller tests
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
@@ -83,9 +83,8 @@ class ItemEditWatermarkPluginTest extends ItemEditPluginTestCase {
 	/* Create a watermark */
 	$this->_watermark = new WatermarkImage();
 	$ret = $this->_watermark->create(
-	    GalleryCoreApi::getPluginBaseDir('module', 'core')
-		. 'modules/core/test/data/test1.gif', 'image/gif',
-		'phpunit_' . rand() . '.gif');
+	    dirname(__FILE__) . '/../../../core/test/data/test1.gif', 'image/gif',
+	    'phpunit_' . rand() . '.gif');
 	if ($ret->isError()) {
 	    return $this->failWithStatus(__FILE__, __LINE__);
 	}

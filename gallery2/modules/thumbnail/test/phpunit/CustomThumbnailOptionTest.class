@@ -49,7 +49,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	  'GalleryToolkit', 'CustomThumbnailOptionTestToolkit', 'CustomThumbnailOptionTestToolkit',
-	  'modules/thumbnail/test/phpunit/CustomThumbnailOptionTest.class', 'thumbnail', null);
+	  'modules/thumbnail/test/phpunit/CustomThumbnailOptionTest.class', 'thumbnailTest', null);
 	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -59,19 +59,6 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::registerToolkitOperation('CustomThumbnailOptionTestToolkit',
 		array('image/test'), 'thumbnail',
 		array(array('type' => 'int', 'description' => 'foo'),
-		      array('type' => 'int', 'description' => 'foo')), 'test-description');
-	if ($ret->isError()) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$ret = GalleryCoreApi::registerToolkitOperation('CustomThumbnailOptionTestToolkit',
-		array('image/test'), 'composite',
-		array(array('type' => 'string', 'description' => 'foo'),
-		      array('type' => 'string', 'description' => 'foo'),
-		      array('type' => 'int', 'description' => 'foo'),
-		      array('type' => 'int', 'description' => 'foo'),
-		      array('type' => 'string', 'description' => 'foo'),
-		      array('type' => 'int', 'description' => 'foo'),
 		      array('type' => 'int', 'description' => 'foo')), 'test-description');
 	if ($ret->isError()) {
 	    print $ret->getAsHtml();
@@ -101,8 +88,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 
 	list ($ret, $this->_derivative) =
 	    $this->_createDerivative($this->_image, $this->_image->getId(),
-		DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'rotate|90;crop|20,20,50,50;thumbnail|200;' .
-		'composite|path/test.png,image/png,20,20,top-left,0,0;unknownop|10', 'image/test');
+		DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200', 'image/test');
 	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -113,8 +99,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.gif'),
 		      'type' => array(1 => 'image/gif'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.gif'));
 
 	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_item);
 	$this->assertEquals(array('form[CustomThumbnailOption][error][imageMime]'), $error);
@@ -126,8 +111,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'image/jpeg'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $this->_item);
 	$this->assertEquals(array(array(), array()), $result);
@@ -172,8 +156,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'image/jpeg'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $this->_item);
 	$this->assertEquals(array(array(), array()), $result);
@@ -220,8 +203,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'image/jpeg'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $this->_image);
 	$this->assertEquals(array(array(), array()), $result);
@@ -241,9 +223,6 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$thumbnail = array_shift($thumbnails);
 	$this->assertEquals($thumbnailImage->getId(),
 			    $thumbnail->getDerivativeSourceId(), 'source');
-	$this->assertEquals('thumbnail|200;composite|path/test.png,image/png,20,20,top-left,0,0',
-			    $thumbnail->getDerivativeOperations(),
-			    'operations should keep thumbnail,composite and drop others');
 
 	/* Remove custom thumbnail.. */
 	$form = array('CustomThumbnailOption' => array('delete' => '1'));
@@ -263,15 +242,9 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	}
 	$this->assertEquals(array($this->_image->getId()),
 			    array_keys($thumbnails), 'got derivative');
-	if (!empty($thumbnails)) {
-	    $thumbnail = array_shift($thumbnails);
-	    $this->assertEquals($this->_image->getId(),
-			        $thumbnail->getDerivativeSourceId(), 'got source');
-	    $this->assertEquals(
-		'thumbnail|200;composite|path/test.png,image/png,20,20,top-left,0,0',
-		$thumbnail->getDerivativeOperations(),
-		'operations should keep thumbnail,composite and drop others');
-	}
+	$thumbnail = array_shift($thumbnails);
+	$this->assertEquals($this->_image->getId(),
+			    $thumbnail->getDerivativeSourceId(), 'got source');
     }
 
     function testAlbumHighlight() {
@@ -279,8 +252,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'application/unknown'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $this->_album);
 	$this->assertEquals(array(array(), array()), $result);
@@ -337,8 +309,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'image/jpeg'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $album);
 	$this->assertEquals(array(array(), array()), $result);
@@ -382,8 +353,7 @@ class CustomThumbnailOptionTest extends ItemEditOptionTestCase {
 	$form = array('name' => array(1 => 'test.jpg'),
 		      'type' => array(1 => 'image/jpeg'),
 		      'tmp_name' => array(1 =>
-			    GalleryCoreApi::getPluginBaseDir('module', 'core')
-				. 'modules/core/test/data/test1.jpg'));
+			    dirname(__FILE__) . '/../../../core/test/data/test1.jpg'));
 
 	$result = $this->_handleRequestAfterEdit($form, $this->_album);
 	$this->assertEquals(array(array(), array()), $result);

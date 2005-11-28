@@ -125,13 +125,12 @@ class GalleryTemplateAdapter {
 	}
 
 	$forceSessionId = isset($params['forceSessionId']) ? $params['forceSessionId'] : null;
-	$forceFullUrl = isset($params['forceFullUrl']) ? true : false;
 	if (isset($params['forceDirect'])) {
 	    $hrefParams['forceDirect'] = $params['forceDirect'];
 	}
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$url = $urlGenerator->generateUrl($hrefParams, $forceSessionId, null, $forceFullUrl);
+	$url = $urlGenerator->generateUrl($hrefParams, $forceSessionId);
 
 	if (!empty($params['forJavascript'])) {
 	    $url = str_replace('&amp;', '&', $url);
@@ -583,7 +582,7 @@ class GalleryTemplateAdapter {
 	    break;
 
 	case 'gallery2-version':
-	    return ''; /* sprintf(
+	    return sprintf(
 		'<a href="%s"><img src="%s" alt="%s" title="%s" ' .
 		'style="border-style: none" width="80" height="15"/></a>',
 		$urlGenerator->generateUrl(
@@ -591,7 +590,7 @@ class GalleryTemplateAdapter {
 		$urlGenerator->generateUrl(
 		    array('href' => 'modules/core/data/g2-unpossible.png')),
 		$core->translate('G2.0: Unpossible!'),
-		$core->translate('G2.0: Unpossible!')); */
+		$core->translate('G2.0: Unpossible!'));
 	}
     }
 
@@ -602,6 +601,8 @@ class GalleryTemplateAdapter {
 
 	$buf = '';
 	if ($debug == 'buffered' || $profiling) {
+	    $translator = $gallery->getTranslator();
+
 	    /* don't worry about localizing this -- it's only debug output */
 	    $buf .= '<div id="gpDebug"> <h3> Debug Output </h3>';
 	    if ($debug == 'buffered') {
@@ -613,11 +614,6 @@ class GalleryTemplateAdapter {
 		$buf .= '<span>' . $storage->getProfilingHtml() . '</span>';
 	    }
 	    $buf .= '</div>';
-	}
-	if ($debug) {
-	    /* Smarty debug console */
-	    GalleryCoreApi::relativeRequireOnce('lib/smarty/plugins/function.debug.php');
-	    $buf .= smarty_function_debug($params, $smarty);
 	}
 	return $buf;
     }
@@ -768,26 +764,6 @@ class GalleryTemplateAdapter {
 		$ret = $ret[0];
 	    }
 	}
-    }
-
-    /**
-     * Use GalleryUtilities::shrinkDimensionsToFit to scale template vars to new target size.
-     *
-     * @param array args; should contain widthVar, heightVar, maxSize keys
-     */
-    function shrinkDimensions($params, &$smarty) {
-	if (!isset($params['widthVar']) || !isset($params['heightVar']) ||
-		!isset($params['maxSize'])) {
-	    return;
-	}
-	$widthVar = $params['widthVar'];
-	$heightVar = $params['heightVar'];
-	if (!isset($smarty->_tpl_vars[$widthVar]) || !isset($smarty->_tpl_vars[$heightVar])) {
-	    return;
-	}
-	list ($smarty->_tpl_vars[$widthVar], $smarty->_tpl_vars[$heightVar]) =
-	    GalleryUtilities::shrinkDimensionsToFit(
-		$smarty->_tpl_vars[$widthVar], $smarty->_tpl_vars[$heightVar], $params['maxSize']);
     }
 
     function updateProgressBar($title, $description, $percentComplete) {

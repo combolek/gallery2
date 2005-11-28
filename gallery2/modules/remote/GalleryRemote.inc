@@ -61,13 +61,6 @@ class GalleryRemoteController extends GalleryController {
     }
 
     /**
-     * @see GalleryController::isAllowedInEmbedOnly()
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
      * @see GalleryController::handleRequest()
      */
     function handleRequest($form) {
@@ -121,13 +114,6 @@ class GalleryRemoteController extends GalleryController {
 
 	    case 'album-properties':
 		$ret = $this->albumProperties($form, $response);
-		if ($ret->isError()) {
-		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
-		}
-		break;
-
-	    case 'increment-view-count':
-		$ret = $this->incrementViewCount($form, $response);
 		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
@@ -428,7 +414,6 @@ class GalleryRemoteController extends GalleryController {
 
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Add photo successful.');
-	$response->setProperty('item_name', $newItem->getId());
 
 	return GalleryStatus::success();
     }
@@ -718,37 +703,6 @@ class GalleryRemoteController extends GalleryController {
 
 	return GalleryStatus::success();
     }
-
-    /**
-     * Increment view count
-     *
-     * @param form array key value pairs from Gallery Remote
-     * @param object GalleryRemoteProperties a reference to our response object
-     * @return object GalleryStatus a status code
-     */
-    function incrementViewCount($form, &$response) {
-	global $gallery;
-	$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
-
-	if (empty($form['itemId'])) {
-	    $response->setProperty('status', $grStatusCodes['MISSING_ARGUMENTS']);
-	    $response->setProperty('status_text', 'increment-view-count failed.');
-	    return GalleryStatus::success();
-	}
-
-	$itemId = $form['itemId'];
-
-	/* Increment the view count */
-	$ret = GalleryCoreApi::incrementItemViewCount($itemId);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$response->setProperty('status', $grStatusCodes['SUCCESS']);
-	$response->setProperty('status_text', 'increment-view-count successful.');
-
-	return GalleryStatus::success();
-    }
 }
 
 /**
@@ -767,18 +721,11 @@ class GalleryRemoteView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly()
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
      * @see GalleryView::isImmediate()
      */
     function renderImmediate($status, $error) {
 	if (!headers_sent()) {
-	    header("Content-type: text/plain; charset=UTF-8");
+	    header("Content-type: text/plain");
 	}
 
 	if (isset($status['controllerError'])) {

@@ -85,18 +85,6 @@ class CoreModuleExtras {
 	switch ($currentVersion) {
 	case '0':
 	    $gallery->debug('Install core module');
-	    /*
-	     * Checkpoint (commit configurStore transaction)
-	     * Later in the installation code, we create the root album and therefore need
-	     * locking. Locks are acquired with a non-transactional db connection. So before we
-	     * can query the db with a second connection, the INSERT id into SequenceLock needs to
-	     * be committed. Related g2 bug id: 1235284.
-	     */
-	    $ret = $storage->checkPoint();
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
 	    if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 		$flockType = 'database';
 	    } else {
@@ -116,7 +104,6 @@ class CoreModuleExtras {
 	    foreach (array('permissions.directory' => '0755',
 			   'permissions.file' => '0644',
 			   'exec.expectedStatus' => '0',
-			   'exec.beNice' => '0',
 			   'default.orderBy' => 'orderWeight',
 			   'default.orderDirection' => '1',
 			   'default.theme' => 'matrix',
@@ -129,7 +116,7 @@ class CoreModuleExtras {
 			   'lock.system' => $flockType,
 			   'format.date' => '%x',
 			   'format.time' => '%X',
-			   'format.datetime' => '%c',
+			   'format.datetime' => '%c'
 			   ) as $key => $value) {
 		if (!isset($param[$key])) {
 		    $ret = $module->setParameter($key, $value);
@@ -160,7 +147,7 @@ class CoreModuleExtras {
 	    }
 
 	    $gallery->debug('Activate Matrix theme');
-	    list ($ret, $ignored) = $theme->activate(false);
+	    list ($ret, $ignored) = $theme->activate();
 	    if ($ret->isError()) {
 		$gallery->debug(sprintf('Error: Failed to activate matrix theme, this is ' .
 				'the error stack trace; %s', $ret->getAsText()));
@@ -1129,7 +1116,7 @@ class CoreModuleExtras {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
 
-			list ($ret, $ignored) = $theme->activate(false);
+			list ($ret, $ignored) = $theme->activate();
 			if ($ret->isError() &&
 			    !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 			    /*
@@ -1219,56 +1206,9 @@ class CoreModuleExtras {
 	    /* 2.0 Release! */
 
 	case '1.0.0':
-	case '1.0.0.1':
-	case '1.0.0.2':
-	    /* Schema only upgrade */
-
-	case '1.0.1':
-	    /* And image/wmf mime type */
-	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime('wmf');
-	    if ($ret->isSuccess() && $mimeType == 'application/unknown') {
-		$ret = GalleryCoreApi::addMimeType('wmf', 'image/wmf', false);
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-
-	case '1.0.2':
 	    /* Security fix */
 
-	case '1.0.3':
-	    /* Consolidated .sql files into schema.tpl */
-
-	case '1.0.4':
-	    /* Added maintenance mode */
-
-	case '1.0.5':
-	    /* Remove plugins directory from g2data. */
-	    $pluginDirectory = $gallery->getConfig('data.gallery.base') . 'plugins';
-	    $pluginDirectories = array($pluginDirectory . '/modules',
-				       $pluginDirectory . '/themes',
-				       $pluginDirectory);
-
-	    foreach ($pluginDirectories as $pluginDirectory) {
-		if (@$platform->file_exists($pluginDirectory)) {
-		    /* We're not interested in whether it succeeded or not. */
-		    @$platform->recursiveRmDir($pluginDirectory);
-		}
-	    }
-
-	case '1.0.6':
-	    /* Add PluginPackageMap table */
-
-	case '1.0.7':
-	    $ret = GalleryCoreApi::setPluginParameter('modules', 'core', 'exec.beNice', '0');
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	case '1.0.8':
-	    /* Added new argument to GalleryUrlGenerator::generateUrl() */
-
-	case '1.0.9':
+	case '1.0.0.1':
 	    /* Security fix in zipcart */
 
 	case 'end of upgrade path':
@@ -1441,32 +1381,6 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 	case '0.9.37':
 	case '1.0.0':
 	case '1.0.0.1':
-	case '1.0.0.2':
-	case '1.0.1':
-	case '1.0.2':
-	case '1.0.3':
-
-	case '1.0.4':
-	    $configChanges[] = array('remove' => array(), 'add' => array(
-'
-/*
- * Maintenance mode.  You can disable access to the site for anyone but
- * site administrators by setting this this flag.  Set value below to:
- *  true (without quotes) - to use a basic notification page; themed
- *    view with admin login link when codebase is up to date, but a
- *    plain unstyled page when codebase has been updated but upgrader
- *    has not yet been run.
- *  url (with quotes) - provide a url where requests are redirected in
- *    either case described above.  Example: \'/maintenance.html\'
- */
-$gallery->setConfig(\'mode.maintenance\', false);
-'));
-
-	case '1.0.5':
-	case '1.0.6':
-	case '1.0.7':
-	case '1.0.8':
-	case '1.0.9':
 
 	case 'end of upgrade path':
 	    /*

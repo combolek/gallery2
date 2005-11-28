@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-25 16:49+0200\n"
-"PO-Revision-Date: 2005-10-13 10:36+0100\n"
+"PO-Revision-Date: 2005-09-07 17:26+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -42,12 +42,6 @@ msgstr "&laquo; Nessuno &raquo;"
 
 msgid "forever"
 msgstr "per sempre"
-
-msgid "High Priority (Me first!)"
-msgstr ""
-
-msgid "Low Priority (I want to share!)"
-msgstr ""
 
 msgid "No Markup"
 msgstr "Nessun Markup"
@@ -109,24 +103,8 @@ msgstr "disinstalla"
 msgid "deactivate"
 msgstr "disattiva"
 
-#, fuzzy
-msgid "Performing Maintenance Tasks"
-msgstr "Manutenzione Sistema"
-
-#, c-format
-msgid "Downloading %s"
-msgstr ""
-
-#, fuzzy
-msgid "Done."
-msgstr "Fatto"
-
-#, fuzzy
-msgid "Upgrade"
-msgstr "aggiorna"
-
-msgid "Download"
-msgstr ""
+msgid "Other"
+msgstr "Altro"
 
 msgid "Inherit settings from parent album"
 msgstr "Eredita configurazione da album genitore"
@@ -258,7 +236,7 @@ msgid "From Web Page"
 msgstr "Da una Pagina Web"
 
 msgid "Gallery Item Administration"
-msgstr "Amministrazione Oggetto di Gallery"
+msgstr "Amministratore Oggetto di Gallery"
 
 msgid "create link"
 msgstr "crea link"
@@ -380,9 +358,6 @@ msgstr "modifica permessi di %s"
 
 msgid "reorder items"
 msgstr "riordina oggetti"
-
-msgid "Maintenance"
-msgstr "Manutenzione"
 
 msgid "Gallery Site Administration"
 msgstr "Amministrazione Sito Gallery"
@@ -527,9 +502,6 @@ msgstr "Gruppo"
 msgid "group"
 msgstr "gruppo"
 
-msgid "Other"
-msgstr "Altro"
-
 msgid "Movie"
 msgstr "Filmato"
 
@@ -538,45 +510,6 @@ msgstr "filmato"
 
 msgid "photo"
 msgstr "foto"
-
-#, fuzzy
-msgid "download"
-msgstr "gi&ugrave;"
-
-#, fuzzy
-msgid "Plugins directory does not exist."
-msgstr "L'utente '%s' non esiste."
-
-#, c-format
-msgid ""
-"Couldn't create plugin directory '%s' in '%s', make sure the web server has "
-"write permissions in it."
-msgstr ""
-
-#, c-format
-msgid "Couldn't create repository cache path '%s'."
-msgstr ""
-
-#, c-format
-msgid ""
-"Couldn't create cache directory '%s' in '%s', make sure the web server has "
-"write permissions in it."
-msgstr ""
-
-#, c-format
-msgid "Error downloading package from '%s'."
-msgstr ""
-
-#, c-format
-msgid "Error downloading index from '%s'."
-msgstr ""
-
-#, c-format
-msgid "Error downloading index hash from '%s'."
-msgstr ""
-
-msgid "Index integrity check failed."
-msgstr ""
 
 msgid "&laquo; default sort order &raquo;"
 msgstr "&laquo; nessun ordinamento &raquo;"
@@ -629,7 +562,7 @@ msgid "Donate to the Gallery project"
 msgstr "Fai una donazione al Gallery project"
 
 msgid "G2.0: Unpossible!"
-msgstr "G2.0: Unpossible!"
+msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
@@ -720,14 +653,6 @@ msgstr "Sconosciuto"
 
 msgid "unknown"
 msgstr "sconosciuto"
-
-#, c-format
-msgid ""
-"Invalid return URL! The requested URL %s tried to insert a redirection to %s "
-"which is not a part of this Gallery."
-msgstr ""
-"URL di ritorno non valida! L'URL %s richiesta ha provato a inserire una "
-"redirezione verso %s che non &egrave; parte di questa Gallery."
 
 msgid "Back"
 msgstr "Indietro"
@@ -897,9 +822,6 @@ msgstr "Disconnetti"
 msgid "Modules"
 msgstr "Moduli"
 
-msgid "Repository"
-msgstr ""
-
 msgid "Themes"
 msgstr "Temi"
 
@@ -911,6 +833,9 @@ msgstr "Utenti"
 
 msgid "Groups"
 msgstr "Gruppi"
+
+msgid "Maintenance"
+msgstr "Manutenzione"
 
 msgid "Toolkit Priority"
 msgstr "Priorit&agrave; Strumenti"
@@ -1277,22 +1202,6 @@ msgstr ""
 msgid "Lock system"
 msgstr "Sistema di lock"
 
-msgid "Helper Processes"
-msgstr ""
-
-msgid ""
-"Some Gallery modules will use programs on your server to do image "
-"processing, archiving and other operations.  These programs can be very "
-"compute intensive and can impact the overall performance of a shared web "
-"server.  You can make these programs run at a lower priority so that they "
-"play nice.  If you're in a shared hosting environment and your web host is "
-"complaining, try setting your priority low."
-msgstr ""
-
-#, fuzzy
-msgid "Priority"
-msgstr "Priorit&agrave; Strumenti"
-
 msgid "Save"
 msgstr "Salva"
 
@@ -1388,11 +1297,10 @@ msgstr "Elimina l'utente <strong>%s</strong> e..."
 msgid "Assign a new owner for all items of %s"
 msgstr "Assegna un nuovo proprietario a tutti gli oggetti di %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Delete all items of %s and assign a new owner for all remaining non empty "
-"albums. Items that %s doesn't have permission to delete will also be "
-"reassigned to a new owner."
+"albums"
 msgstr ""
 "Elimina tutti gli oggetti di %s e assegna un nuovo proprietario ai restanti "
 "album non vuoti"
@@ -1698,252 +1606,15 @@ msgstr "Conferma la disinstallazione del modulo"
 msgid "Do you really want to uninstall the %s module?"
 msgstr "Sei sicuro di voler disinstallare il modulo %s?"
 
-#, fuzzy
 msgid ""
-"This will also remove any permissions and clean up any data created by this "
-"module."
+"This will also remove any permissions and clean up any temporary data "
+"created by this module."
 msgstr ""
 "Questo rimuover&agrave; anche tutti i permessi ed eliminer&agrave; ogni dato "
 "temporaneo creato da questo modulo."
 
 msgid "Uninstall"
 msgstr "Disinstalla"
-
-msgid ""
-"Please make sure that your internet connection is set up properly or try "
-"again later."
-msgstr ""
-
-msgid "The repository index has been successfully updated."
-msgstr ""
-
-msgid "All plugins are already up-to-date."
-msgstr ""
-
-msgid "Common Tasks"
-msgstr ""
-
-msgid "Warning: Experimental feature!"
-msgstr ""
-
-msgid ""
-"The repository features are currently experimental, and no actual repository "
-"has been set up yet, so none of these features will work at this time."
-msgstr ""
-
-msgid "Update Index"
-msgstr ""
-
-msgid ""
-"The Gallery repository contains the latest modules and themes extensively "
-"tested by the Gallery team. The repository index contains information about "
-"available plugins, such as the latest versions, available languages and "
-"compatibility. The index must be synchronized periodically with the Gallery "
-"server so you are informed about any available updates. No personal "
-"information is sent to the Gallery server during updating. On slower "
-"connections the process might take a minute or two."
-msgstr ""
-
-msgid "As of the last update on"
-msgstr ""
-
-#, c-format
-msgid ""
-", the repository contains %s modules and %s themes. Its contents can be "
-"viewed on the Modules and Themes tabs."
-msgstr ""
-
-msgid ""
-"The index has never been updated. Click on the Update button to see what "
-"updates are available."
-msgstr ""
-
-#, fuzzy
-msgid "Update"
-msgstr "Data"
-
-#, fuzzy
-msgid "Upgrade Gallery"
-msgstr "Gallery"
-
-msgid ""
-"A new version of Gallery is available, but it cannot be upgraded through "
-"this interface. Upgrading it might make some of your current plugins stop "
-"working, but others that rely on the features of the new version may become "
-"available. Here are the recommended steps for upgrading:"
-msgstr ""
-
-msgid "Review plugin compatibility (on the Themes and Modules tabs)"
-msgstr ""
-
-#, c-format
-msgid "<a href=\"%s\">Download</a> Gallery core"
-msgstr ""
-
-#, c-format
-msgid ""
-"Read the <a href=\"%s\">upgrade instructions</a> and perform the upgrade"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Up-To-Date"
-msgstr "Core di Gallery"
-
-msgid ""
-"Gallery cannot be upgraded through this interface. When a new version "
-"becomes available, upgrade instructions will be presented here."
-msgstr ""
-
-msgid "Upgrade All Plugins"
-msgstr ""
-
-msgid ""
-"Gallery can automatically upgrade your themes and modules to the latest "
-"available versions. No new plugins will be downloaded."
-msgstr ""
-
-#, fuzzy
-msgid "Upgrade All"
-msgstr "aggiorna"
-
-msgid ""
-"Once the repository index has been downloaded, a list of available plugins "
-"will be presented. It can be downloaded by clicking on the Update button on "
-"the Common Tasks tab."
-msgstr ""
-
-msgid ""
-"The following plugins are available. Click on the action beside the plugin "
-"you're interested in to see what's available in the repository."
-msgstr ""
-
-msgid "Incompatible plugins are marked with an exclamation icon."
-msgstr ""
-
-msgid ""
-"A new core module version is available. There may be plugins that are "
-"incompatible with the installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid ""
-"of plugins, including incompatible ones, which are marked with a red icon."
-msgstr ""
-
-msgid "Theme Name"
-msgstr "Nome Tema"
-
-#, fuzzy
-msgid "Latest"
-msgstr "ultimo"
-
-#, fuzzy
-msgid "Incompatible Plugin"
-msgstr "Modulo incompatibile!"
-
-#, fuzzy
-msgid "Incompatible plugin!"
-msgstr "Modulo incompatibile!"
-
-#, fuzzy, c-format
-msgid "Plugin API Required: %s (available: %s)"
-msgstr "Module API Richiesta: %s (disponibile: %s)"
-
-msgid "No packages have been selected."
-msgstr ""
-
-#, fuzzy
-msgid "Base Files"
-msgstr "Nome del file base"
-
-msgid ""
-"The base files required for the theme to work and the English (US) "
-"translation will be downloaded."
-msgstr ""
-
-msgid "Upgrade Base Files"
-msgstr ""
-
-msgid "You can upgrade the base module files."
-msgstr ""
-
-msgid "Upgrade base files"
-msgstr ""
-
-msgid "Base Files Up-To-Date"
-msgstr ""
-
-msgid "This plugin's base files are up-to-date."
-msgstr ""
-
-msgid "Updated Translations"
-msgstr ""
-
-msgid ""
-"Below is a list of translations that have been updated since they were last "
-"downloaded. Select the ones you want to download."
-msgstr ""
-
-msgid "Additional Languages"
-msgstr ""
-
-msgid ""
-"Below is a list of languages this plugin has been translated to. Select the "
-"ones you want included in addition to the ones already downloaded."
-msgstr ""
-
-#, fuzzy
-msgid "Unit Tests"
-msgstr "Unit&agrave; di test tema"
-
-msgid ""
-"This plugin has unit tests available for download, which are useful for "
-"Gallery developers. All of the module's features are available without the "
-"tests."
-msgstr ""
-
-msgid "Download unit tests"
-msgstr ""
-
-#, fuzzy
-msgid "Gallery Repository Setup"
-msgstr "Versione di Gallery"
-
-msgid "Warning: `$errorMessage`"
-msgstr ""
-
-msgid ""
-"In order to download plugins from the Gallery repository, a special "
-"directory needs to be created where Gallery will store the data."
-msgstr ""
-
-#, c-format
-msgid ""
-"Under your Gallery base directory, create a directory called '%s' and allow "
-"the web server to write into it by appropriately setting the permissions."
-msgstr ""
-
-msgid "Instructions for Unix-type platforms:"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "$ cd %s"
-msgstr "%d. %s"
-
-#, c-format
-msgid "$ mkdir %s"
-msgstr ""
-
-#, c-format
-msgid "$ chmod 777 %s"
-msgstr ""
-
-msgid ""
-"Refreshing this page will take you to the Repository if the directory has "
-"been successfully created."
-msgstr ""
 
 msgid "Gallery Themes"
 msgstr "Temi di Gallery"
@@ -1979,6 +1650,9 @@ msgstr "Tutti i Temi"
 
 msgid "Defaults"
 msgstr "Valori Predefiniti"
+
+msgid "Theme Name"
+msgstr "Nome Tema"
 
 msgid "Status: Incompatible Theme (Inactive)"
 msgstr "Stato: Tema Incompatibile (Non Attivo)"
@@ -2677,9 +2351,11 @@ msgstr "Devi inserire un valore maggiore o uguale a 0"
 msgid "Height"
 msgstr "Altezza"
 
+#, fuzzy
 msgid "There were errors saving some items"
 msgstr "Ci sono stati errori nel salvataggio di alcuni oggetti"
 
+#, fuzzy
 msgid "There were errors saving all items"
 msgstr "Ci sono stati errori nel salvataggio di tutti gli oggetti"
 
@@ -3179,13 +2855,6 @@ msgstr "Riordina"
 msgid "Continue..."
 msgstr "Continua..."
 
-msgid "Site is temporarily down for maintenance."
-msgstr ""
-
-#, fuzzy
-msgid "Admin Login"
-msgstr "Opzioni Amministrazione"
-
 msgid "Enter a URL"
 msgstr "Inserisci un URL"
 
@@ -3323,10 +2992,6 @@ msgid ""
 msgstr ""
 "Le password perdute o dimenticate possono essere richieste usando la pagina "
 "<a href=\"%s\">recupera password</a>"
-
-#, c-format
-msgid "Welcome, %s!"
-msgstr ""
 
 msgid "Account settings saved successfully"
 msgstr "Configurazione account salvata con successo"
@@ -3627,3 +3292,57 @@ msgstr "[test] Una seconda autorizzazione"
 
 msgid "Unit test theme"
 msgstr "Unit&agrave; di test tema"
+
+#~ msgid "G2RC2: kthxbye"
+#~ msgstr "G2RC2: kthxbye"
+
+#, fuzzy
+#~ msgid "add album"
+#~ msgstr "aggiungi sotto-album"
+
+#~ msgid "edit permissions"
+#~ msgstr "modifica permessi"
+
+#, fuzzy
+#~ msgid "view permissions"
+#~ msgstr "modifica permessi"
+
+#~ msgid "login"
+#~ msgstr "login"
+
+#~ msgid "and then"
+#~ msgstr "e poi"
+
+#, fuzzy
+#~ msgid "choose a new theme for this album"
+#~ msgstr "seleziona un nuovo layout per questo album"
+
+#~ msgid "login as a site administrator"
+#~ msgstr "entra come amministratore"
+
+#, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "Installa o attiva questo layout"
+
+#~ msgid "To fix this problem you can either %s or %s."
+#~ msgstr "Per risolvere questo problema puoi %s oppure %s."
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV 16x9"
+
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "Directory /cache/entity eliminata con successo"
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "Directory /cache/module eliminata con successo."
+
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "Directory /cache/module eliminata con successo."
+
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "Impossibile eliminare la directory: /cache/layout"
+
+#~ msgid "Missing Layout"
+#~ msgstr "Layout Mancante"

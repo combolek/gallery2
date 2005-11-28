@@ -51,13 +51,8 @@ class MultisiteStep extends InstallStep {
 		$galleryStub->setConfig('isMultisite', false);
 		require_once($baseDir . '/modules/core/classes/GalleryUrlGenerator.class');
 		$uri = preg_replace('{\?.*}', '', GalleryUrlGenerator::getCurrentRequestUri());
-		$uri .= '?step=' . ($this->getStepNumber() + 1);
-		/* Cookieless browsing (see index.php), 'session.use_trans_sid' won't help here */
-		$sid = SID;
-		if (!empty($sid)) {
-		    $uri .= sprintf('&%s=%s', session_name(), session_id());
-		}
-		header('Location: ' . GalleryUrlGenerator::makeUrl($uri));
+		header('Location: ' .
+		    GalleryUrlGenerator::makeUrl($uri . '?step=' . ($this->getStepNumber() + 1)));
 		return false;
 	    }
 	}
@@ -128,8 +123,7 @@ class MultisiteStep extends InstallStep {
 	if (!$out = @fopen("$dir/index.php", 'w')) {
 	    return false;
 	}
-	fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(__FILE__));\nrequire('" .
-		     $galleryDir . "index.php');\n?>\n");
+	fwrite($out, "<?php\nrequire('" . $galleryDir . "index.php');\n?>\n");
 	fclose($out);
 	if (!is_dir("$dir/upgrade") && !mkdir("$dir/upgrade", 0755)) {
 	    return false;
@@ -140,13 +134,6 @@ class MultisiteStep extends InstallStep {
 	fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(__FILE__)));\nrequire('" .
 		     $galleryDir . 'upgrade' . DIRECTORY_SEPARATOR . "index.php');\n?>\n");
 	fclose($out);
-	/* lib/support/index.php is optional; ignore errors */
-	if ($out = @fopen("$dir/lib/support/index.php", 'w')) {
-	    fwrite($out, "<?php\ndefine('GALLERY_CONFIG_DIR', dirname(dirname(dirname(__FILE__)" .
-		")));\nrequire('" . $galleryDir . 'lib' . DIRECTORY_SEPARATOR . 'support' .
-		DIRECTORY_SEPARATOR . "index.php');\n?>\n");
-	    fclose($out);
-	}
 	return true;
     }
 

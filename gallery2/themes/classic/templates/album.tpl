@@ -80,7 +80,7 @@
                   {if isset($theme.params.$frameType) && isset($child.thumbnail)}
 		    {g->container type="imageframe.ImageFrame"
 			          frame=$theme.params.$frameType
-				  width=$child.thumbnail.width height=$child.thumbnail.height}
+			          uniqueId=$child.id}
 		      <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}">
 			{g->image id="%ID%" item=$child image=$child.thumbnail class="%CLASS% giThumbnail"}
 		      </a>
@@ -114,8 +114,8 @@
                 </p>
                 {/if}
 
-                {if ($child.canContainChildren && $theme.params.showAlbumOwner) ||
-                    (!$child.canContainChildren && $theme.params.showImageOwner)}
+                {if ($theme.item.canContainChildren && $theme.params.showAlbumOwner) ||
+                    (!$theme.item.canContainChildren && $theme.params.showImageOwner)}
                 {assign var="showOwner" value=true}
                 {else}
                 {assign var="showOwner" value=false}

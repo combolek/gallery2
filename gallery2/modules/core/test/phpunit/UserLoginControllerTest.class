@@ -280,7 +280,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 /**
  * Mock ValidationPlugin
  */
-class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
+class UserLoginControllerTestPlugin extends ValidationPlugin {
     function setContinue($continue) {
 	$this->_continue = $continue;
     }

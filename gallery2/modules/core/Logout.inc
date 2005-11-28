@@ -37,14 +37,7 @@
 class LogoutController extends GalleryController {
 
     /**
-     * @see GalleryController::isAllowedInMaintenance()
-     */
-    function isAllowedInMaintenance() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest() {
 	global $gallery;

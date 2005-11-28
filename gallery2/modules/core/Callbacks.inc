@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package GalleryCore
+ * @package Core
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 class CoreCallbacks {
@@ -99,7 +99,6 @@ class CoreCallbacks {
 	    }
 	    if (isset($peerItemIndex)) {
 		$windowSize = isset($params['windowSize']) ? $params['windowSize'] : 6;
-		$addEnds = isset($params['addEnds']) ? $params['addEnds'] : true;
 		$peerLast = count($peerIds) - 1;
 		$peerNeighborStart = max($peerItemIndex - (int)($windowSize/2), 0);
 		$peerNeighborEnd = min($peerItemIndex + (int)($windowSize/2), $peerLast);
@@ -109,20 +108,20 @@ class CoreCallbacks {
 		} else if ($peerNeighborEnd == $peerLast) {
 		    $peerNeighborStart = max($peerLast - $windowSize, 0);
 		}
-		if ($peerNeighborStart > 0 && $addEnds) {
+		if ($peerNeighborStart > 0) {
 		    $peerMap[0] = $peerIds[0];
 		}
 		for ($i = $peerNeighborStart; $i <= $peerNeighborEnd; $i++) {
 		    $peerMap[$i] = $peerIds[$i];
 		}
-		if ($peerNeighborEnd < $peerLast && $addEnds) {
+		if ($peerNeighborEnd < $peerLast) {
 		    $peerMap[$peerLast] = $peerIds[$peerLast];
 		}
 
 		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
+                if ($ret->isError()) {
+                    return $ret->wrap(__FILE__, __LINE__);
+                }
 		if (!empty($params['loadThumbnails'])) {
 		    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($peerMap);
 		    if ($ret->isError()) {

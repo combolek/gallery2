@@ -322,18 +322,13 @@ class GalleryUrlGenerator {
     /**
      * Return a valid Gallery URL.
      *
-     * TODO: move 'href' and 'forceDirect' out of the $params variable since they wind up
-     *       sitting on top of any similarly named cgi arg that a module may want to use.
-     *       Convert all other params into an array like $options so that we don't balloon
-     *       the api (and roll forceSessionId, baseUrl, etc into $options).
-     *
      * @param array key/value pairs to be included in the URL
      *  special 'href' key specifies path to append to G2 base url instead of a query param
      *  special 'forceDirect' key specifies to generate from G2 site url even if embedded
      * @param boolean (optional) set to true/false to force the session id to be in/not in the url
      *  by default it is included when cookies are not in use (for href urls, default=not included)
      */
-    function generateUrl($params=array(), $forceSessionId=null, $baseUrl=null, $forceFullUrl=false) {
+    function generateUrl($params=array(), $forceSessionId=null, $baseUrl=null) {
 	global $gallery;
 	$currentView = $gallery->getCurrentView();
 
@@ -367,24 +362,13 @@ class GalleryUrlGenerator {
 	    } elseif(strlen($href) && $href{0} == '/') {
 		/* Absolute URL path */
 		$url = GalleryUrlGenerator::makeUrl($href);
-	    } else if (strpos($href, '/') !== false) {
+	    } else {
 		/* Check for local override */
 		$override = sprintf('%s/local/%s', dirname($href), basename($href));
 		$platform = $gallery->getPlatform();
 		if ($platform->file_exists(dirname(__FILE__) . '/../../../' . $override)) {
 		    $href = $override;
 		}
-		/* Rewrite URL if theme is in plugins directory */
-		$pluginRelativeBaseDir = '';
-		$pluginData = explode('/', $href);
-		$pluginId = $pluginData[1];
-		$pluginType = $pluginData[0];
-		if ((($pluginType == 'modules') || $pluginType == 'themes')
-			&& !GalleryCoreApi::isPluginInDefaultLocation($pluginType, $pluginId)) {
-		    $pluginRelativeBaseDir = $gallery->getConfig('plugins.dirname') . '/';
-		}
-		$url .= $pluginRelativeBaseDir . $href;
-	    } else {
 		$url .= $href;
 	    }
 	} else if ((isset($params['view']) && $params['view'] == 'core.DownloadItem') ||
@@ -454,26 +438,6 @@ class GalleryUrlGenerator {
 	    $url .= ((strpos($url, '?') === false) ? '?' : '&amp;') . $embedSessionString;
 	}
 
-	/*
-	 * Elide as much of the common url as we can to save space.  This will not cover all the
-	 * cases, since other url generators could be subclassing this, but it should be
-	 * relatively safe because it's only removing substrings that match exactly.  If rewrite
-	 * is on, then we have to use a server relative path since we may be at a url like
-	 * /v/foo/bar so if we try for a pure relative path then we'll wind up using /v/foo/bar as
-	 * the base for relative urls.
-	 *
-	 * Note: don't be fooled if $this->_baseFile shows up in the query string!
-	 */
-	if (!$forceFullUrl) {
-	    $currentUri = $this->getCurrentRequestUri();
-	    $pos = strpos($currentUri, $this->_baseFile);
-	    if ($pos === false ||
-		    (($qPos = strpos($currentUri, '?')) !== false && $pos > $qPos )) {
-		$url = str_replace($this->makeUrl('/'), '/', $url);
-	    } else {
-		$url = str_replace($this->getCurrentUrlDir(), '', $url);
-	    }
-	}
 	return $url;
     }
 
@@ -533,7 +497,7 @@ class GalleryUrlGenerator {
      * and the requestVariables, but before we start generating URLs with
      * generateUrl().  Currently it's called from _GalleryMain().
      *
-     * @return object Gallery status
+     * @access private
      */
     function initNavigation() {
 	global $gallery;
@@ -541,42 +505,6 @@ class GalleryUrlGenerator {
 	list ($returnUrl, $returnName, $navId, $fromNavId) =
 	    GalleryUtilities::getRequestVariables('return', 'returnName', 'navId', 'fromNavId');
 	if (!empty($returnUrl)) {
-	    /*
-	     * Check for phishing attacks, don't allow return URLs to other sites or to other
-	     * paths. Therefore first get the validPath, e.g. '/gallery2/'
-	     * Do not allow ../ to break out of the path
-	     * Allow all URLs that don't start with a protocol and neither with '/', e.g.
-	     * v/albumname but also www.EVIL.com is fine, since it's interpreted as a relative url
-	     */
-	    $validPath =  '/' . str_replace(GalleryUrlGenerator::makeUrl(''), '',
-					    $this->getCurrentUrlDir());
-	    /*
-	     * We check for ../ and /../ patterns and on windows \../ would also break out, 
-	     * normalize to URL / *nix style paths to check fewer cases
-	     */
-	    $normReturnUrl = str_replace("\\", '/', $returnUrl);
-	    if ((strpos($returnUrl, $this->_baseFile) !== 0 &&
-		    strpos($normReturnUrl, $validPath) !== 0 &&
-		    strpos($returnUrl, $this->getCurrentUrlDir()) !== 0 &&
-		    !( !preg_match('{^\s*\w*://}i', $normReturnUrl) &&
-		          preg_match('{^\s*[^/\s]}i', $normReturnUrl)
-		       )
-		 ) ||
-		    preg_match('{^\s*\.\./}', $normReturnUrl) ||
-		    strpos($normReturnUrl, '/../') !== false) {
-		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-		$message = sprintf(
-		    $module->translate('Invalid return URL! The requested URL %s tried to ' .
-				       'insert a redirection to %s which is not a part of '.
-				       'this Gallery.'),
-		    GalleryUrlGenerator::makeUrl($this->getCurrentRequestUri()), $returnUrl);
-		return GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__, $message);
-
-	    }
-
 	    /* Branch a new navigation */
 	    $navData = array('returnUrl' => $returnUrl,
 			     'returnName' => $returnName);
@@ -596,8 +524,6 @@ class GalleryUrlGenerator {
 		$this->_navId = $navId;
 	    }
 	}
-
-	return GalleryStatus::success();
     }
 
     /**

@@ -353,8 +353,7 @@ class AdminRewriteControllerTestPlatform extends GalleryPlatform {
     }
 
     function file_exists($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return true;
 	}
 
@@ -362,8 +361,7 @@ class AdminRewriteControllerTestPlatform extends GalleryPlatform {
     }
 
     function is_readable($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return true;
 	}
 
@@ -373,8 +371,7 @@ class AdminRewriteControllerTestPlatform extends GalleryPlatform {
     function is_writeable($file) {
 	$isWriteable = GalleryUtilities::getRequestVariables('isWriteable');
 
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return $isWriteable;
 	}
 
@@ -382,8 +379,7 @@ class AdminRewriteControllerTestPlatform extends GalleryPlatform {
     }
 
     function file($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    $results = array();
 	} else {
 	    $results = parent::file($file);
@@ -393,8 +389,7 @@ class AdminRewriteControllerTestPlatform extends GalleryPlatform {
     }
 
     function fopen($file, $mode, $useIncludePath=null, $zcontext=null) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    $isWriteable = GalleryUtilities::getRequestVariables('isWriteable');
 	    if ($isWriteable) {
 		$this->_test->_fileContent = '';

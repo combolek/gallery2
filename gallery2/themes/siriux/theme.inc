@@ -42,18 +42,18 @@ class SiriuxTheme extends GalleryTheme {
 	$this->setId('siriux');
 	$this->setName($gallery->i18n('Siriux'));
 	$this->setDescription($gallery->i18n('Siriux.net Gallery theme'));
-	$this->setVersion('1.0.1');
+	$this->setVersion('1.0.0');
 	$this->setRequiredCoreApi(array(6, 5));
-	$this->setRequiredThemeApi(array(2, 2));
+	$this->setRequiredThemeApi(array(2, 0));
 	$this->setStandardSettings(
-	    array('perPage' => 9,
+	    array('showImageOwner' => 0,
+		  'perPage' => 9,
 		  'contentWidth' => 700,
 		  'albumBlocks' => serialize(array(
 			array('comment.ViewComments', array()))),
 		  'photoBlocks' => serialize(array(
 			array('exif.ExifInfo', array()),
-			array('comment.ViewComments', array()))),
-		  'contentWidth' => 700));
+			array('comment.ViewComments', array())))));
     }
 
     /**
@@ -180,17 +180,23 @@ class SiriuxTheme extends GalleryTheme {
      * @see GalleryTheme::getSettings()
      */
     function getSettings($itemId=null) {
-	list ($ret, $settings, $params) = parent::getSettings($itemId);
+	list ($ret, $settings) = parent::getSettings($itemId);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $params) = $this->fetchParameters($itemId);
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our custom settings */
+	$params = array_merge(array('contentWidth' => 700), $params);
 	$settings[] = array('key' => 'contentWidth',
-			    'name' => $this->translate('Width of page content in pixels'),
-			    'type' => 'text-field',
-			    'typeParams' => array('size' => 2),
-			    'value' => $params['contentWidth']);
+	                    'name' => $this->translate('Width of page content in pixels'),
+	                    'type' => 'text-field',
+	                    'typeParams' => array('size' => 2),
+	                    'value' => $params['contentWidth']);
 
 	return array(GalleryStatus::success(), $settings);
     }

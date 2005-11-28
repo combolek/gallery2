@@ -23,16 +23,13 @@
 # Peter Liversten <skansberget@telia.com>, 2003-2005.
 # Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Classic Theme 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-10-29 13:20+0200\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-06-10 10:16+0100\n"
+"Last-Translator: Hampus Nygren <hampus@friendlyfire.net>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,10 +39,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "This album is empty."
-msgstr "Detta album är tomt."
+msgstr "Detta album &auml;r tomt."
 
 msgid "Add a photo!"
-msgstr "Lägg till ett fotografi"
+msgstr ""
 
 msgid "no thumbnail"
 msgstr "ingen miniatyrbild"
@@ -55,39 +52,40 @@ msgid "Album: %s"
 msgstr "Album: %s"
 
 msgid "Subalbums:"
-msgstr "Underalbum"
+msgstr ""
 
 msgid "Error!"
-msgstr "Fel!"
+msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
 msgstr "Ladda ned detta %s"
 
 msgid "There is nothing to view for this item."
-msgstr "Det finns ingenting att visa för detta objekt."
+msgstr "Det finns ingenting att visa f&ouml;r detta objekt."
 
 #, c-format
 msgid "Download %s in original format"
-msgstr "Ladda ner %s i orginal formatet"
+msgstr ""
 
 msgid "Continue..."
-msgstr "Fortsätt..."
+msgstr ""
 
 msgid "Classic"
-msgstr "Classic"
+msgstr ""
 
+#, fuzzy
 msgid "Classic Gallery2 root album look and feel"
-msgstr "Klassiskt Gallery2 utseende och känsla"
+msgstr "Klassisk Gallery2 utseende och k&auml;nsla"
 
 msgid "Show subalbum links"
-msgstr "Visa länkar till underalbum"
+msgstr ""
 
 msgid "Depth of subalbums links (0=no limit)"
-msgstr "Djup för länkar till underalbum (0=ingen begränsning)"
+msgstr ""
 
 msgid "Show subalbums by sort order of each album (affects performance)"
-msgstr "Visa underalbum i albumens sorteringsordning (påverkar prestanda)"
+msgstr ""
 
 msgid "You must enter a number"
-msgstr "Du måste ange ett nummer"
+msgstr ""

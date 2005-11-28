@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Installer 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-07-06 23:48+0200\n"
-"PO-Revision-Date: 2005-11-27 00:00+0200\n"
+"PO-Revision-Date: 2005-08-24 00:00+0200\n"
 "Last-Translator: Arnaud MOURONVAL <ArnaudMouronval@yahoo.com>\n"
 "Language-Team: French <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -100,9 +100,6 @@ msgstr "Paramétrage de la base de données"
 
 msgid "You must have the MySQL PHP module installed"
 msgstr "Le module PHP MySQL doit être installé"
-
-msgid "You must have the ODBC module installed"
-msgstr "Le module PHP ODBC doit être installé"
 
 msgid "You must have the PostgreSQL PHP module installed"
 msgstr "Le module PHP PostgreSQL doit être installé"
@@ -234,10 +231,6 @@ msgstr "PostgreSQL v6.x (peu testé)"
 msgid "Oracle (9i and newer)"
 msgstr "Oracle (9i et plus récent)"
 
-msgid "(EXPERIMENTAL!) IBM DB2 for Unix/Windows, v8.2.2 and newer"
-msgstr ""
-"(Expérimental&nbsp;!) IBM DB2 pour Unix/Windows, v8.2.2 et plus récentes"
-
 msgid "Unknown DB type or no known tables information."
 msgstr ""
 "Type de base de données inconnu ou aucune information sur les tables connues."
@@ -248,8 +241,19 @@ msgstr ""
 "Impossible de trouver un préfixe de table similaire à \"%s\" et inutilisé."
 
 #, c-format
-msgid "Could not open schema file: \"%s\"."
-msgstr "Impossible d'ouvrir le fichier de schéma&nbsp;: \"%s\"."
+msgid "SQL test file \"%s\" not found."
+msgstr "Fichier de test SQL \"%s\" non trouvé."
+
+#, c-format
+msgid "Could not open SQL test file \"%s\"."
+msgstr "Impossible d'ouvrir le fichier de test SQL \"%s\"."
+
+msgid ""
+"Check the returned error message and README.html for missing privileges and "
+"clean up the database."
+msgstr ""
+"Consultez le message d'erreur retourné et le fichier README.html pour "
+"déterminer les privilèges manquants et pour nettoyer la base de données."
 
 msgid ""
 "Failed to create a DB test sequence.Check the returned error message and "
@@ -266,16 +270,6 @@ msgstr ""
 "La séquence de test de la base de données a échoué.Consultez le message "
 "d'erreur retourné et le fichier README.html pour déterminer les privilèges "
 "manquants et pour nettoyer la base de données."
-
-msgid "Missing SQL statements"
-msgstr "Instructions SQL manquantes"
-
-msgid ""
-"Check the returned error message and README.html for missing privileges and "
-"clean up the database."
-msgstr ""
-"Consultez le message d'erreur retourné et le fichier README.html pour "
-"déterminer les privilèges manquants et pour nettoyer la base de données."
 
 msgid "Finished"
 msgstr "Fin"
@@ -306,10 +300,6 @@ msgstr "Le module &laquo;Core&raquo; n'est que partiellement installé"
 
 msgid "Install More Modules"
 msgstr "Installation des modules supplémentaires"
-
-#, fuzzy
-msgid "Unable to initialize our Gallery session"
-msgstr "Impossible d'initialiser les données de Gallery"
 
 msgid "Unable to get the module list"
 msgstr "Impossible d'obtenir la liste des modules"
@@ -384,17 +374,6 @@ msgstr ""
 
 msgid "Safe Mode"
 msgstr "Mode Safe"
-
-msgid "Regular expressions"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Error: Your PHP is configured without support for %sPerl Compatible Regular "
-"Expressions%s. You must enable these functions before Gallery will run."
-msgstr ""
-"Erreur&nbsp;: votre installation de PHP est configurée avec l'option Safe "
-"Mode. Vous devez désactiver cette option pour que Gallery fonctionne."
 
 msgid "exec() allowed"
 msgstr "Autorisation de la commande exec()"
@@ -487,28 +466,6 @@ msgstr ""
 "taille des POST à %sb (paramètre <b>post_max_size</b> dans php.ini). Vous "
 "devez augmenter cette limite si vous désirez pouvoir télécharger des "
 "fichiers plus gros."
-
-msgid "Translation support"
-msgstr ""
-
-#, c-format
-msgid ""
-"Your webserver does not support localization. To enable support for "
-"additional languages please instruct your system administrator to "
-"reconfigure PHP with the %sgettext%s option enabled."
-msgstr ""
-
-#, c-format
-msgid ""
-"Your PHP is missing the function %sbind_textdomain_codeset%s. This means "
-"Gallery may display extended characters for some languages incorrectly."
-msgstr ""
-
-#, c-format
-msgid ""
-"Your PHP is missing the function %sdngettext%s. This means Gallery will be "
-"unable to translate plural forms."
-msgstr ""
 
 msgid "Zend compatibility mode"
 msgstr "Mode compatible avec Zend"
@@ -790,9 +747,9 @@ msgid ""
 "Congratulations! Your Gallery 2 install is complete! See... that wasn't so "
 "hard, was it? Now it's time to upload some photos!"
 msgstr ""
-"Félicitations&nbsp! Votre installation de Gallery 2 est maintenant terminée. "
-"Vous voyez, celà n'était finalement pas si compliqué&nbsp! C'est maintenant "
-"le moment d'y télécharger vos premières photos&nbsp;!"
+"Félicitations&nbsp! Votre installation de Gallery 2 est maintenant "
+"terminée. Vous voyez, celà n'était finalement pas si compliqué&nbsp! C'est "
+"maintenant le moment d'y télécharger vos premières photos&nbsp;!"
 
 msgid "Go to my Gallery!"
 msgstr "Se rendre dans Gallery&nbsp;!"
@@ -963,9 +920,6 @@ msgstr "Activer d'autres modules"
 msgid "Continue to Step %d&raquo;"
 msgstr "Continuer à l'étape %d&raquo;"
 
-msgid "Debug Output"
-msgstr ""
-
 msgid "Welcome to the Gallery Installer"
 msgstr "Bienvenue sur l'installeur de Gallery"
 
@@ -1073,16 +1027,14 @@ msgstr ""
 
 msgid ""
 "All multisites are installed from this central code repository (codebase)."
-msgstr ""
-"Tous les multi-sites sont installés à partir de cette installation du code "
-"de Gallery."
+msgstr "Tous les multi-sites sont installés à partir de cette installation "
+"du code de Gallery."
 
 msgid ""
 "Enter the directory for the new multisite below. The path must be different "
 "from this codebase installation's path:"
-msgstr ""
-"Saisissez ci-dessous le répertoire du nouveau multi-site. Le chemin doit "
-"être différent de celui de cette installation du code&nbsp;:"
+msgstr "Saisissez ci-dessous le répertoire du nouveau multi-site. Le chemin "
+"doit être différent de celui de cette installation du code&nbsp;:"
 
 msgid "You must enter a directory"
 msgstr "Vous devez indiquer un répertoire"

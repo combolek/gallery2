@@ -62,12 +62,8 @@
     </td>
   {if $form.cmykSupport!="none"}
   </tr><tr>
-    <td colspan=2>
-      {g->text text="ImageMagick can detect non-webviewable color spaces like CMYK and create a webviewable copy of such images. Only activate this option if you actually add CMYK based JPEG or TIFF images since the color space detection slows down the add item process a little bit."}
-    </td>
-  </tr><tr>
     <td>
-      {g->text text="CMYK Support:"}
+      {g->text text="CMYK JPEG Support:"}
     </td><td>
       <input type="checkbox"{if $form.cmykSupport=="on"} checked="checked"{/if}
        onclick="document.getElementById('cmykSupport').value = this.checked ? 'on' : 'off'"/>
@@ -128,26 +124,15 @@
   {/foreach}
   </table>
 </div>
-{/if}
 
-{if $AdminImageMagick.mimeTypes || !empty($form.error.version.vulnerable)}
+{if $AdminImageMagick.mimeTypes}
 <div class="gbBlock">
-  <h3> {g->text text="Version"} </h3>
+  <div class="giTitle"> {g->text text="Version"} </div>
   <p class="giDescription">
     {$AdminImageMagick.version.0} {$AdminImageMagick.version.1}
   </p>
-  {if !empty($form.error.version.vulnerable)}
-  <p class="giWarning">
-    {g->text text="Warning: This version of %s has a %sknown vulnerability%s that can be exploited to cause infinite loops. You may wish to upgrade." arg1=$AdminImageMagick.version.0 arg2="<a href=\"http://nvd.nist.gov/nvd.cfm?cvename=CVE-2005-1739\">" arg3="</a>"}
-  </p>
-  <input type="checkbox" id="cbForceSave" name="{g->formVar var="form[forceSave]"}"/>
-  <label for="cbForceSave">
-    {g->text text="Use this version anyway"}
-  </label>
-  {/if}
 
-  {if $AdminImageMagick.mimeTypes}
-  <h4> {g->text text="Supported MIME Types"} </h4>
+  <div class="giTitle"> {g->text text="Supported MIME Types"} </div>
   <p class="giDescription">
     {g->text text="The ImageMagick module can support files with the following MIME types:"}
   </p>
@@ -156,7 +141,6 @@
     {$mimeType}<br />
   {/foreach}
   </p>
-  {/if}
 </div>
 {/if}
 
@@ -177,4 +161,5 @@
     {$AdminImageMagick.debugSnippet}
   </pre>
 </div>
+{/if}
 {/if}

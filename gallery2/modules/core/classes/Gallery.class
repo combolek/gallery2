@@ -308,7 +308,10 @@ class Gallery {
     }
 
     /**
-     * Initialize session.
+     * Get the Gallery session object.
+     *
+     * Return a reference to the unique Gallery session object.  Any changes
+     * made to this object will be saved in the session.
      *
      * @access public
      * @return object GalleryStatus a status code
@@ -324,16 +327,6 @@ class Gallery {
 	}
 
 	return GalleryStatus::success();
-    }
-
-    /**
-     * Initialize an empty session.
-     *
-     * @access public
-     */
-    function initEmptySession() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
-	$this->_session = new GallerySession();
     }
 
     /**
@@ -444,6 +437,7 @@ class Gallery {
     function &getStorage() {
 	if (!isset($this->_storage)) {
 	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStorage.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySearchResults.class');
 	    $this->_storage = new GalleryStorage();
 	}
 

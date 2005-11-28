@@ -350,7 +350,7 @@ class AdminExifController extends GalleryController {
 /**
  * This view will prompt for general Gallery settings
  *
- * @package Exif
+ * @package GalleryCore
  * @subpackage UserInterface
  */
 class AdminExifView extends GalleryView {

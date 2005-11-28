@@ -61,9 +61,10 @@ class ExifExtractor extends ExifInterface_1_0 {
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    /* Only look at JPEG/raw DataItems.. */
+	    /* Only look at JPEG DataItems.. */
 	    if (!GalleryUtilities::isA($item, 'GalleryDataItem') ||
-		    !preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())) {
+		    ($item->getMimeType() != 'image/jpeg' &&
+		     $item->getMimeType() != 'image/pjpeg')) {
 		continue;
 	    }
 	    list($ret, $path) = $item->fetchPath();
@@ -83,11 +84,10 @@ class ExifExtractor extends ExifInterface_1_0 {
 		}
 		for ($i = 1; $i < count($keyData); $i++) {
 		    $value = ExifHelper::getExifValue($rawExifData, explode('.', $keyData[$i]));
-		    if (!isset($value)) {
+		    if (! isset($value)) {
 			$value = ExifHelper::getIptcValue($iptcObj, explode('.', $keyData[$i]));
 		    }
 		    if (isset($value)) {
-			$value = ExifHelper::postProcessValue($property, $value);
 			$data[$itemId][$property] =
 			    array('title' => $keyData[0], 'value' => $value);
 			break;

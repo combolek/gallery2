@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Image Block 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-21 15:51+0000\n"
-"PO-Revision-Date: 2005-10-13 11:19+0100\n"
+"PO-Revision-Date: 2005-09-05 16:47+0100\n"
 "Last-Translator: Ermanno Baschiera <ebaschiera@gmail.com>\n"
 "Language-Team: Italian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgid "Image Block"
 msgstr "Blocco Immagine"
 
 msgid "Random, Most Recent or Most Viewed Photo or Album"
-msgstr "Foto o Album Casuali, Pi&ugrave; Recenti oppure Pi&ugrave; Visitati"
+msgstr "Casuale, Pi&ugrave; Recente oppure Foto o Album pi&ugrave; visitati"
 
 msgid "Blocks"
 msgstr "Blocchi"
@@ -136,7 +136,7 @@ msgid "Reset"
 msgstr "Reset"
 
 msgid "External Image Block"
-msgstr "Image Block Esterno"
+msgstr "Blocco Immagine Esterno"
 
 msgid "Use a PHP block like the one shown below to include an image block in a PHP page outside of Gallery."
 msgstr "Usa un blocco PHP come quello mostrato qui sotto per includere un blocco immagine in una pagina PHP al di fuori di Gallery."
@@ -150,8 +150,8 @@ msgstr "Lista separata da pipe(|) di elementi presi tra questi: titolo, data, vi
 msgid "Limit the item selection to the subtree of the gallery under the album with the given id; or the id of the item to display when used with specificItem block type"
 msgstr "Limita la selezione degli oggetti al sottoalbero della galleria sotto l'album con l'id indicato; oppure l'id dell'oggetto da visualizzare con il tipo di blocco specificItem"
 
-msgid "Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must also specify g2_show=fullSize"
-msgstr "Riscala le immagini a questa dimensione massima. Se maxSize oltrepassa le dimensioni delle anteprime, devi specificare anche g2_show=fullSize"
+msgid "Scale images to this maximum size"
+msgstr "Riscala l'immagine fino a questa dimensione massima"
 
 msgid "Add a link target (for example, to open links in a new browser window)"
 msgstr "Aggiungi un link target (ad esempio, per aprire i link in una nuova finestra del browser)"
@@ -229,4 +229,9 @@ msgstr "Visualizza contatore visite"
 
 msgid "Show owner"
 msgstr "Visualizza proprietario"
+
+#~ msgid "Random/Popular"
+#~ msgstr "Casuale/Famoso"
+#~ msgid "Image Blocks"
+#~ msgstr "Blocchi Immagine"
 

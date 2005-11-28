@@ -100,33 +100,6 @@ class GalleryView {
     }
 
     /**
-     * Does this view allow access to non-admins when site is in maintenance mode?
-     *
-     * @return boolean true if access always allowed
-     */
-    function isAllowedInMaintenance() {
-	return false;
-    }
-
-    /**
-     * Does this view allow direct access even in embed-only mode?
-     *
-     * @return boolean true if access always allowed
-     */
-    function isAllowedInEmbedOnly() {
-	return false;
-    }
-
-    /**
-     * Should session be saved and session cookie sent when this view is accessed?
-     *
-     * @return boolean true to enable session
-     */
-    function shouldSaveSession() {
-	return true;
-    }
-
-    /**
      * Load a view
      *
      * Be very security conscious about checking the inputs for possible
@@ -175,7 +148,7 @@ class GalleryView {
 
 	$viewClassName = $class . 'View';
 	if (!class_exists($viewClassName)) {
-	    $moduleBaseDir = GalleryCoreApi::getPluginBaseDir('module', $module);
+	    $moduleBaseDir = dirname(__FILE__) . '/../../../';
 	    $moduleDir = 'modules/' . $module . '/';
 	    $fileName = $moduleDir . $class . '.inc';
 

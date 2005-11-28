@@ -28,7 +28,6 @@ class DatabaseSetupStep extends InstallStep {
     function loadTemplateData(&$templateData) {
 	global $galleryStub;
 
-	$firstConfig = false;
 	if (empty($this->_config)) {
 	    $this->_config = $galleryStub->getConfig('storage.config');
 	    if (empty($this->_config)) {
@@ -40,7 +39,6 @@ class DatabaseSetupStep extends InstallStep {
 		$this->_config['database'] = 'gallery2';
 		$this->_config['tablePrefix'] = 'g2_';
 		$this->_config['columnPrefix'] = 'g_';
-		$firstConfig = true;
 	    }
 	}
 
@@ -54,29 +52,22 @@ class DatabaseSetupStep extends InstallStep {
 	switch ($this->_config['type']) {
 	    case 'mysql':
 	    case 'mysqlt':
-		if (!$firstConfig && !function_exists('mysql_connect')) {
+		if (!function_exists('mysql_connect')) {
 		    $templateData['error']['phpDbMissing'] =
 			_('You must have the MySQL PHP module installed');
 		}
 		$dbPlatformType = 'mysql';
 		break;
-	    case 'db2':
-		if (!$firstConfig && !function_exists('odbc_connect')) {
-		    $templateData['error']['phpDbMissing'] =
-			_('You must have the ODBC module installed');
-		}
-		$dbPlatformType = 'db2';
-		break;
 	    case 'postgres7':
 	    case 'postgres':
-		if (!$firstConfig && !function_exists('pg_connect')) {
+		if (!function_exists('pg_connect')) {
 		    $templateData['error']['phpDbMissing'] =
 			_('You must have the PostgreSQL PHP module installed');
 		}
 		$dbPlatformType = 'postgres';
 		break;
 	    case 'oci8po':
-		if (!$firstConfig && !function_exists('OCIPLogon')) {
+		if (!function_exists('OCIPLogon')) {
 		    $templateData['error']['phpDbMissing'] =
 			_('You must have the Oracle OCI8 PHP module installed');
 		}
@@ -270,8 +261,7 @@ class DatabaseSetupStep extends InstallStep {
 			   'mysqlt' => _('MySQL with Transactions (v3.23.34a and newer)'),
 			   'postgres7' => _('PostgreSQL v7.x'),
 			   'postgres' => _('PostgreSQL v6.x (not well tested)'),
-			   'oci8po' => _('Oracle (9i and newer)'),
-			   'db2' => _('(EXPERIMENTAL!) IBM DB2 for Unix/Windows, v8.2.2 and newer'))
+			   'oci8po' => _('Oracle (9i and newer)'))
 		     as $key => $value) {
 		$templateData['dbList'][$key] = $value;
 	    }
@@ -318,26 +308,25 @@ class DatabaseSetupStep extends InstallStep {
      * @param: array (string tableName)
      * @return array (boolean success, string errors)
      */
-    function _testPrivileges($dbType, $metatables) {
-	global $gallery;
-
-	if (!is_array($metatables) || empty($dbType)) {
+    function _testPrivileges($platform, $metatables) {
+	if (!is_array($metatables) || empty($platform)) {
 	    return array(false, _('Unknown DB type or no known tables information.'));
 	}
+	/*
+	 * The test script executes an InstallerTest_sql script from the core module.
+	 * It tries to create, alter and drop a table, and create and drop index.
+	 * Because our .xml transforms (MySQL.xsl,...) always updates the Schema table for all
+	 * table create, alter, drops, we use here a test table which also has the name and the
+	 * structure of the Schema table, just with another tablePrefix.
+	 */
 
 	/*
-	 * Execute T_InstallerTest_1.sql through T_InstallerTest_4.sql.  These create, alter and
-	 * drop a table, and create and drop index.  Because our .xml transforms (MySQL.xsl,...)
-	 * always updates the Schema table for all table create, alter, drops, we use here a test
-	 * table which also has the name and the structure of the Schema table, just with another
-	 * tablePrefix.
-	 *
 	 * Set an unused tablePrefix such that we can play with create/drop table in an
 	 * unused database "namespace". Try a few prefices, don't try to drop!
 	 */
 	$ok = false;
 	for ($i = 0; $i < 10; $i++) {
-	    $tablePrefix = 'gtst' . $i;
+	    $tablePrefix = 'g2dbtest' . $i . '_';
 	    if (!in_array($tablePrefix . 'Schema', $metatables) &&
 		    !in_array($tablePrefix . 'schema', $metatables)) {
 		$ok = true;
@@ -350,25 +339,58 @@ class DatabaseSetupStep extends InstallStep {
 	}
 
 	/* Load the Test SQL code */
-	require_once(dirname(__FILE__) .
-		     '/../../modules/core/classes/GalleryStorage/DatabaseStorageExtras.class');
-	/* GalleryPlatform is not available at this point */
-	$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/' .
-	    'DatabaseStorage/schema/schema.tpl';
-	if (!($fd = fopen($schemaTpl, 'rb'))) {
-	    return array(false, sprintf(_('Could not open schema file: "%s".'), $schemaTpl));
-	}
-	$fileSize = filesize($schemaTpl);
-	$sqlData = $fileSize == 0 ? '' : fread($fd, $fileSize);
-	fclose($fd);
-	$sqlData = explode("\n", $sqlData);
-	$moduleSql = DatabaseStorageExtras::parseSqlTemplate($sqlData, $dbType);
+	$slash = DIRECTORY_SEPARATOR;
+	$fileName = dirname(__FILE__) . $slash . '..' . $slash . '..' . $slash .
+	    'modules' . $slash . 'core' . $slash . 'classes' . $slash .
+	    'GalleryStorage' . $slash . 'DatabaseStorage' . $slash . 'schema' .
+	    $slash . 'platform' . $slash . $platform . $slash . 'InstallerTest_sql';
 
-	for ($i = 1; $i <= 4; $i++) {
-	    list ($success, $errorMessage) =
-		$this->_executeSql($moduleSql['test']['InstallerTest'][$i], $tablePrefix);
-	    if (!$success) {
-		return array(false, $errorMessage);
+	/* GalleryPlatform not available at this point */
+	if (!file_exists($fileName)) {
+	    return array(false, sprintf(_('SQL test file "%s" not found.'), $fileName));
+	}
+	/* The following code is copied from $platform->file_get_contents() */
+	if (!($fd = fopen($fileName, 'rb'))) {
+	    return array(false, sprintf(_('Could not open SQL test file "%s".'), $fileName));
+	}
+	$fileSize = filesize($fileName);
+	$buffer = $fileSize == 0 ? '' : fread($fd, $fileSize);
+	fclose($fd);
+
+	/*
+	 * Split the file where semicolons are followed by a blank line..
+	 * PL/SQL blocks will have other semicolons, so we can't split on every one.
+	 * But first, remove that last semicolon such that all statements have no semicolon
+	 * (required for oracle)
+	 */
+	if ($pos = strrpos($buffer, ';')) {
+	    $buffer = substr($buffer, 0, $pos);
+	}
+	$statements = preg_split('/; *\r?\n *\r?\n/s', $buffer);
+	/*
+	 * Execute the last statement before the second last
+	 * The last is DELETE FROM schema where g_name = 'Schema';
+	 * The second last is DROP TABLE schema;
+	 * So they have to be reversed to check for the DELETE privilege
+	 */
+	$dropStatement = $statements[sizeof($statements)-2];
+	$statements[sizeof($statements)-2] = $statements[sizeof($statements)-1];
+	$statements[sizeof($statements)-1] = $dropStatement;
+
+	/* Execute the rest */
+	foreach ($statements as $query) {
+	    $query = trim($query);
+	    if (!empty($query)) {
+		$query = str_replace('DB_TABLE_PREFIX', $tablePrefix, $query);
+		$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
+		/* For mysql, another replacement is required */
+		$query = str_replace('DB_TABLE_TYPE', 'MyISAM', $query);
+
+		$result = $this->_db->Execute($query);
+		if (empty($result)) {
+		    return array(false, _('Check the returned error message and README.html ' .
+				 'for missing privileges and clean up the database.'));
+		}
 	    }
 	}
 
@@ -385,46 +407,6 @@ class DatabaseSetupStep extends InstallStep {
 	    return array(false, _('Test failed to drop a DB test sequence.' .
 			 'Check the returned error message and README.html ' .
 			 'for missing privileges and clean up the database.'));
-	}
-
-	return array(true, null);
-    }
-
-    /**
-     * Execute a series of SQL statements
-     *
-     * @param the path to the file
-     * @param the table prefix to use
-     * @return array(boolean success, string error message)
-     */
-    function _executeSql($buffer, $tablePrefix) {
-	if (empty($buffer)) {
-	    return array(false, _('Missing SQL statements'));
-	}
-	/*
-	 * Split the file where semicolons are followed by a blank line..
-	 * PL/SQL blocks will have other semicolons, so we can't split on every one.
-	 * But first, remove that last semicolon such that all statements have no semicolon
-	 * (required for oracle)
-	 */
-	if ($pos = strrpos($buffer, ';')) {
-	    $buffer = substr($buffer, 0, $pos);
-	}
-	$statements = preg_split('/; *\r?\n *\r?\n/s', $buffer);
-	foreach ($statements as $query) {
-	    $query = trim($query);
-	    if (!empty($query)) {
-		$query = str_replace('DB_TABLE_PREFIX', $tablePrefix, $query);
-		$query = str_replace('DB_COLUMN_PREFIX', $this->_config['columnPrefix'], $query);
-		/* For mysql, another replacement is required */
-		$query = str_replace('DB_TABLE_TYPE', 'MyISAM', $query);
-
-		$result = $this->_db->Execute($query);
-		if (empty($result)) {
-		    return array(false, _('Check the returned error message and README.html ' .
-				 'for missing privileges and clean up the database.'));
-		}
-	    }
 	}
 
 	return array(true, null);
@@ -526,8 +508,6 @@ class DatabaseSetupStep extends InstallStep {
 	    $GLOBALS['gallery'] =& new Gallery();
 	    $GLOBALS['gallery']->setConfig('data.gallery.base',
 					   $galleryStub->getConfig('data.gallery.base'));
-	    $GLOBALS['gallery']->setConfig('plugins.dirname',
-					   $galleryStub->getConfig('plugins.dirname'));
 	}
 	global $gallery;
 
@@ -553,7 +533,7 @@ class DatabaseSetupStep extends InstallStep {
 	    $gallery->setProfile(false);
 	    /* Init paths etc., used for the clean DB function */
 	    require_once(dirname(__FILE__) . '/../../init.inc');
-	    $ret = GalleryInitFirstPass(array('noDatabase' => true));
+	    $ret = GalleryInitFirstPass();
 	    $success = $ret->isSuccess();
 
 	    GalleryDataCache::setFileCachingEnabled(false);

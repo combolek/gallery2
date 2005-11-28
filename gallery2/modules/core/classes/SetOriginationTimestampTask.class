@@ -58,6 +58,7 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 	global $gallery;
 	$templateAdapter =& $gallery->getTemplateAdapter();
 
+
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
@@ -81,7 +82,6 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 	$toolkitMap = array();
 	$total = $results->resultCount();
 	while ($result = $results->nextResult()) {
-	    $gallery->guaranteeTimeLimit(90);
 	    /* Grab 5 items at a time */
 	    $ids = array($result[0]);
 	    for ($j = 0; $j < 4 && ($result = $results->nextResult()); $j++) {

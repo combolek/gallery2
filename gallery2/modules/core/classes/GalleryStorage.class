@@ -65,6 +65,8 @@ class GalleryStorage {
 	$base = '/GalleryStorage/';
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes' . $base . 'DatabaseStorage.class');
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes' . $base . 'DatabaseSearchResults.class');
 
 	$config = $gallery->getConfig('storage.config');
 	switch ($config['type']) {
@@ -73,11 +75,6 @@ class GalleryStorage {
 	    GalleryCoreApi::relativeRequireOnce(
 		'modules/core/classes' . $base . 'DatabaseStorage/PostgreSqlDatabaseStorage.class');
 	    $this->_impl = new PostgreSqlDatabaseStorage($config);
-	    break;
-	case 'db2':
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/core/classes' . $base . 'DatabaseStorage/Db2DatabaseStorage.class');
-	    $this->_impl = new Db2DatabaseStorage($config);
 	    break;
 
 	default:
@@ -280,7 +277,7 @@ class GalleryStorage {
     /**
      * Add a new entry to a map
      *
-     * @param string the map we're working on
+     * @param object the map we're working on
      * @param array an associative array of data about the entry
      * @return object GalleryStatus a status code
      */
@@ -302,13 +299,13 @@ class GalleryStorage {
     }
 
     /**
-     * Remove entries from a map
+     * Remove an entry from a map
      *
-     * @param string the map we're working on
-     * @param array an associative array of data about the entries to match
+     * @param object the map we're working on
+     * @param array an associative array of data about the entry
      * @return object GalleryStatus a status code
      */
-    function removeMapEntry($map, $match) {
+    function removeMapEntry($map, $entry) {
 	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret->isError()) {
@@ -318,7 +315,7 @@ class GalleryStorage {
 	    }
 	}
 
-	$ret = $this->_impl->removeMapEntry($map, $match);
+	$ret = $this->_impl->removeMapEntry($map, $entry);
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -328,7 +325,7 @@ class GalleryStorage {
     /**
      * Remove ALL entries from a map.. use with caution!
      *
-     * @param string the map we're working on
+     * @param object the map we're working on
      * @return object GalleryStatus a status code
      */
     function removeAllMapEntries($map) {
@@ -349,10 +346,9 @@ class GalleryStorage {
     }
 
     /**
-     * Update entries in this map
+     * Update an entry in this map
      *
-     * @param string the map we're working on
-     * @param array the entries to match
+     * @param array the entry to match
      * @param array the values to change
      * @return object GalleryStatus a status code
      */
@@ -630,9 +626,11 @@ class GalleryStorage {
     }
 
     /**
-     * Release the given locks.
+     * Internal function to release a lock by id.  Outsiders should use
+     * releaseLock()
      *
-     * @param array int the lock ids
+     * @access private
+     * @param int the lock id
      * @return object GalleryStatus a status code
      */
     function releaseLocks($lockIds) {

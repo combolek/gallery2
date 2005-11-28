@@ -37,15 +37,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	$template = new StatusTemplate();
 	$template->renderHeader(true);
 
-	$ret = selectAdminUser();
-	if ($ret->isError()) {
-	    $templateData['errors'][] = _('Unable to initialize Gallery session');
-	    $templateData['stackTrace'] .= $ret->getAsHtml();
-	    unset($_REQUEST['module']);
-	    unset($_REQUEST['theme']);
-	}
-
-	if (isset($_REQUEST['module']) && is_array($_REQUEST['module'])) {
+	if (isset($_REQUEST['module'])) {
 	    $totalPlugins += ($totalModules = count($_REQUEST['module']));
 	    foreach (array_keys($_REQUEST['module']) as $moduleId) {
 		$currentModule++;
@@ -85,7 +77,7 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    }
 	}
 
-	if (isset($_REQUEST['theme']) && is_array($_REQUEST['theme'])) {
+	if (isset($_REQUEST['theme'])) {
 	    $totalPlugins += ($totalThemes = count($_REQUEST['theme']));
 	    foreach (array_keys($_REQUEST['theme']) as $themeId) {
 		$currentTheme++;
@@ -118,14 +110,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		$templateData['upgradedTheme'][$themeId] = $theme->getName();
 	    }
 	}
-
-	if (isset($_REQUEST['module']) || isset($_REQUEST['theme'])) {
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->commitTransaction();
-	    if ($ret->isError()) {
-		$templateData['errors'][] = _('Unable to commit database transaction');
-		$templateData['stackTrace'] .= $ret->getAsHtml();
-	    }
+	$storage =& $gallery->getStorage();
+	$ret = $storage->commitTransaction();
+	if ($ret->isError()) {
+	    $templateData['errors'][] = _('Unable to commit database transaction');
+	    $templateData['stackTrace'] .= $ret->getAsHtml();
 	}
 	$templateData['bodyFile'] = 'UpgradeOtherModulesSuccess.html';
 	$templateData['anyUpgradeable'] = false;

@@ -221,8 +221,7 @@ class GalleryAnimationItem_core extends GalleryDataItem {
 	    $urlGenerator =& $gallery->getUrlGenerator();
 	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
 						    'itemId' => $this->getId(),
-						    'serialNumber' => $this->getSerialNumber()),
-					      null, null, !empty($params['forceFullUrl']));
+						    'serialNumber' => $this->getSerialNumber()));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 	    switch($this->getMimeType()) {

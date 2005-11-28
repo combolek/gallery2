@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: Gallery: Archiveupload 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-02-01 08:11+0100\n"
-"PO-Revision-Date: 2005-10-06 08:20+0200\n"
+"PO-Revision-Date: 2005-06-03 20:13+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
@@ -41,10 +41,10 @@ msgid "Archive Upload"
 msgstr "Arşiv Göndeme"
 
 msgid "Extract items from uploaded zip files"
-msgstr "Yüklenen zip dosyalarından ögeleri al"
+msgstr ""
 
 msgid "Import"
-msgstr "Dışalım"
+msgstr ""
 
 msgid "Archive"
 msgstr "Arşiv"
@@ -55,24 +55,29 @@ msgstr "Arşiv Gönderme Ayarları"
 msgid "Settings saved successfully"
 msgstr "Ayarlar başarıyla kaydedildi"
 
-msgid "This module will enable extraction of individual files from a zip archive to add each item to Gallery.  You must locate or install an unzip binary on your server, then enter the path to it in the text box below.  If you're on a Unix machine, don't forget to make the binary executable (<i>chmod 755 unzip</i> in the right directory should do it)"
+msgid ""
+"This module will enable extraction of individual files from a zip archive to "
+"add each item to Gallery.  You must locate or install an unzip binary on "
+"your server, then enter the path to it in the text box below.  If you're on "
+"a Unix machine, don't forget to make the binary executable (<i>chmod 755 "
+"unzip</i> in the right directory should do it)"
 msgstr ""
 
 msgid "Path to unzip:"
-msgstr "Unzip klasör yolu:"
+msgstr ""
 
 msgid "You must enter a path to your unzip binary"
-msgstr "Unzip binary'nize klasör yolu girmelisiniz"
+msgstr ""
 
 msgid "The path you entered doesn't contain a valid unzip binary."
-msgstr "Girmiş olduğunuz klasör yolu geçerli bir unzip binary içermiyor."
+msgstr ""
 
 msgid "The path you entered isn't a valid path to an unzip binary."
-msgstr "Girmiş olduğunuz klasör yolu geçerli bir unzip binary klasör yolu değil."
+msgstr ""
 
 #, c-format
 msgid "The unzip binary is not executable.  To fix it, run <b>chmod 755 %s</b>"
-msgstr "Unzip binary kullanılabilir değil. Düzeltmek için, <b>chmod 755 %s</b> çalıştırın."
+msgstr ""
 
 msgid "Save Settings"
 msgstr "Ayarları Kaydet"
@@ -87,10 +92,10 @@ msgid "Reset"
 msgstr "Sıfırla"
 
 msgid "unzip binary test results"
-msgstr "unzip binary test sonuçları"
+msgstr ""
 
 msgid "Binary Name"
-msgstr "Binary Adı"
+msgstr ""
 
 msgid "Pass/Fail"
 msgstr "Başarılı/Başarısız"
@@ -103,4 +108,3 @@ msgstr "Başarısız"
 
 msgid "Error messages:"
 msgstr "Hata mesajları:"
-

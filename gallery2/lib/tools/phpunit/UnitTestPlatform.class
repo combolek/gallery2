@@ -58,22 +58,16 @@ class UnitTestPlatform {
      * Specify inputs and outputs for a function
      *
      * @param string the function name
-     * @param mixed input values; any key starting with 'fuzzy' will use value as regexp
+     * @param mixed input values
      * @param mixed output values
-     * @param boolean true if this platform call is optional
      */
-    function setReply($function, $inputs, $outputs, $optional=false) {
-	$_GET['UnitTestPlatform']['replies'][] = array($function, $inputs, $outputs, $optional);
+    function setReply($function, $inputs, $outputs) {
+	$_GET['UnitTestPlatform']['replies'][] = array($function, $inputs, $outputs);
     }
 
     function isComplete() {
-	foreach ($_GET['UnitTestPlatform']['replies'] as $reply) {
-	    if (!$reply[3]) { /* ignore optional replies */
-		$incomplete = true;
-		break;
-	    }
-	}
-	return empty($incomplete) && !$_GET['UnitTestPlatform']['errorCount'];
+	return empty($_GET['UnitTestPlatform']['replies']) &&
+	       !$_GET['UnitTestPlatform']['errorCount'];
     }
 
     function getRemaining() {
@@ -82,13 +76,9 @@ class UnitTestPlatform {
     }
 
     function _makeReply($function, $request) {
-	while ($expected = array_shift($_GET['UnitTestPlatform']['replies'])) {
-	    if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
-		return $expected[2];
-	    }
-	    if (!$expected[3]) {
-		break; /* Not optional -- error */
-	    }
+	$expected = array_shift($_GET['UnitTestPlatform']['replies']);
+	if ($expected[0] == $function && $this->_parametersMatch($expected[1], $request)) {
+	    return $expected[2];
 	}
 
 	$_GET['UnitTestPlatform']['errorCount']++;
@@ -97,9 +87,6 @@ class UnitTestPlatform {
 	       $function, UnitTestPlatform::sprint_r($request));
 	printf("Expected:<br/>\nFunction: %s<br/>\nRequest: <pre>%s</pre><br/>\n",
 	       $expected[0], UnitTestPlatform::sprint_r($expected[1]));
-	$ret = GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
-				    'Unhandled reply in UnitTestPlatform');
-	print $ret->getAsHtml();
     }
 
     function _parametersMatch($expected, $actual) {
@@ -282,10 +269,6 @@ class UnitTestPlatform {
 
     function fwrite($handle, $string, $length=null) {
 	return $this->_makeReply('fwrite', array($handle, $string, $length));
-    }
-
-    function file_put_contents($path, $contents) {
-	return $this->_makeReply('file_put_contents', array($path, $contents));
     }
 
     function fclose($handle) {

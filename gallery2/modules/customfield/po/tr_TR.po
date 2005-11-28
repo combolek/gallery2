@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Custom Fields 1.0\n"
 "POT-Creation-Date: 2004-09-06 00:20-0800\n"
-"PO-Revision-Date: 2005-10-06 03:56+0200\n"
+"PO-Revision-Date: 2005-06-03 17:32+0200\n"
 "Last-Translator: Goker ISIK <admin@ansolon.com>\n"
 "Language-Team: Turkish <admin@ansolon.com>\n"
 "MIME-Version: 1.0\n"
@@ -39,58 +39,61 @@ msgid "Display settings saved successfully"
 msgstr "Görüntüleme ayarları başarıyla kaydedildi"
 
 msgid "New field added successfully"
-msgstr "Yeni alan başarıyla eklendi"
+msgstr ""
 
 msgid "Field moved successfully"
-msgstr "Alan başarıyla taşındı"
+msgstr ""
 
 msgid "Field removed successfully"
-msgstr "Alan başarıyla kaldırıldı"
+msgstr ""
 
 msgid "Picklist updated successfully"
-msgstr "Seçilmişliste başarıyla güncellendi."
+msgstr ""
 
 msgid "Field name already in use"
-msgstr "Alan adı zaten kullanılıyor"
+msgstr ""
 
 msgid "Changes saved successfully"
-msgstr "Değişiklikler başarıyla kaydedildi"
+msgstr ""
 
 msgid "Custom Fields"
-msgstr "İsteğe Bağlı Alanlar"
+msgstr ""
 
 msgid "Common Fields"
-msgstr "Genel Alanlar"
+msgstr ""
 
 msgid "Album Fields"
-msgstr "Albüm Alanları"
+msgstr ""
 
 msgid "Photo Fields"
-msgstr "Foto Alanları"
+msgstr ""
 
 msgid "Custom Fields Module"
-msgstr "İsteğe Bağlı Alanlar Modülü"
+msgstr ""
 
 msgid "Search custom fields"
-msgstr "İsteğe bağlı alanları ara"
+msgstr ""
 
 msgid "Create custom data fields for Gallery items"
-msgstr "Galeri ögeleri için isteğe bağlı veri alanları yaratın"
+msgstr ""
 
 msgid "Extra Data"
-msgstr "Ekstra Veri"
+msgstr ""
 
 msgid "Field name cannot be empty"
-msgstr "Alan adı boş olamaz"
+msgstr ""
 
 msgid "Display"
 msgstr "Görüntüle"
 
-msgid "Set the display order and visibility of the fields below. Summary fields are typically displayed with thumbnails in an album view. Detail fields are usually shown when viewing the specific item."
-msgstr "Aşağıda bulunan alanların sıralamasını ve görünebilirliğini belirleyin. Özet Alanları albüm görüntülenirken thumbnaillar ile birlikte gösterilir. Ayrıntı alanları genellikle bir ögeyi tam olarak görüntülerken gösterilir."
+msgid ""
+"Set the display order and visibility of the fields below. Summary fields are "
+"typically displayed with thumbnails in an album view. Detail fields are "
+"usually shown when viewing the specific item."
+msgstr ""
 
 msgid "Field"
-msgstr "Alan"
+msgstr ""
 
 msgid "Summary"
 msgstr "Özet"
@@ -99,7 +102,7 @@ msgid "Detail"
 msgstr "Detaylar"
 
 msgid "Order"
-msgstr "Sırala"
+msgstr ""
 
 msgid "up"
 msgstr "yukarı"
@@ -117,80 +120,99 @@ msgid "Add/Remove"
 msgstr "Ekle/Kaldır"
 
 msgid "Save any changes above before using the controls below."
-msgstr "Aşağıdaki yönetim bölümünü kullanmadan önce yukarıdaki değişiklikleri kaydedin."
+msgstr ""
 
 msgid "Add"
 msgstr "Ekle"
 
 msgid "Field:"
-msgstr "Alan:"
+msgstr ""
 
 msgid "Action:"
-msgstr "Hareket:"
+msgstr ""
 
 msgid "Remove"
 msgstr "Kaldır"
 
 msgid "Move to Album"
-msgstr "Albüme Taşı"
+msgstr ""
 
 msgid "Move to Photo"
-msgstr "Fotoya Taşı"
+msgstr ""
 
 msgid "Move to Common"
-msgstr "Genele Taşı"
+msgstr ""
 
 msgid "Go"
-msgstr "Git"
+msgstr ""
 
 msgid "Picklist Values"
-msgstr "Seçilmişliste Değerleri"
+msgstr ""
 
-msgid "Custom fields allow freeform text entry by default. Enter values below to restrict field values to a specific list of choices. Enter one choice per line. Remove all choices to return to freeform text. Note that existing field values will not be changed or deleted when a picklist is added."
-msgstr "İsteğe bağlı alanlar varsayılan olarak serbest form yazı alanı atamanızı sağlar. Seçtiğiniz özel listeyi aşağıda bulunan kısıtlı alana değer girerek yaratın. Her satır için bir seçenek girin. Tüm seçenekleri kaldırarak serbest form yazı biçimine geri dönebilirsiniz. Varolan alan değerleri eğer Seçilmişliste Değerlerine eklendi ise değiştirilemez ve kaldırılamaz."
+msgid ""
+"Custom fields allow freeform text entry by default. Enter values below to "
+"restrict field values to a specific list of choices. Enter one choice per "
+"line. Remove all choices to return to freeform text. Note that existing "
+"field values will not be changed or deleted when a picklist is added."
+msgstr ""
 
 msgid "Choices:"
 msgstr "Seçenekler:"
 
 msgid "Add a custom field above to enable this section."
-msgstr "Yukarıya isteğe bağlı alan ekleyerek bu bölümü aktif duruma getirin."
+msgstr ""
 
-msgid "These are album-specific custom field settings. Common fields are available on all items; Album and Photo fields can be assigned only to items of the appropriate type."
-msgstr "Bunlar albüme özel isteğe bağlı alan ayarları. Genel alanlar tüm ögeler için mevcut; Albüm ve Foto alanları sadece ögelere mahsus şekilde atanabilir."
+msgid ""
+"These are album-specific custom field settings. Common fields are available "
+"on all items; Album and Photo fields can be assigned only to items of the "
+"appropriate type."
+msgstr ""
 
 msgid "Edit custom field values for this album"
 msgstr ""
 
-msgid "WARNING: Values for all fields that do not also exist in the global settings will be deleted for this album and its items!"
+msgid ""
+"WARNING: Values for all fields that do not also exist in the global settings "
+"will be deleted for this album and its items!"
 msgstr ""
 
 msgid "Revert to global custom field settings for this album"
 msgstr ""
 
 msgid "WARNING: Values for this custom field in this album will be deleted!"
-msgstr "UYARI: İsteğe bağlı alandaki değerler, bu albüm için silinecek!"
+msgstr ""
 
-msgid "WARNING: Values for this custom field on non-photo items in this album will be deleted!"
-msgstr "UYARI: Foto olmayan ögelerdeki isteğe bağlı alan değerleri, bu albüm için silinecek!"
+msgid ""
+"WARNING: Values for this custom field on non-photo items in this album will "
+"be deleted!"
+msgstr ""
 
 msgid "Override global custom field settings for this album"
-msgstr "Global isteğe bağlı alan ayarlarının üstüne yaz"
+msgstr ""
 
 msgid "Edit custom field settings for this album"
-msgstr "Bu albüm için isteğe bağlı alan ayarlarını düzenle"
+msgstr ""
 
 msgid "No Value"
-msgstr "Değer Yok"
+msgstr ""
 
-msgid "These are the global settings for custom fields. They can be overridden at the album level. Common fields are available on all Gallery items; Album and Photo fields can be assigned only to items of the appropriate type."
-msgstr "Bunlar isteğe bağlı alanlar için global ayarlardır. Bu ayarlar albüm seviyesinde geçersiz bırakılabilir. Genel alan değerleri her Galeri ögesi için mevcuttur; Albüm ve Foto alanları sadece ögelere mahsus şekilde atanabilir."
+msgid ""
+"These are the global settings for custom fields. They can be overridden at "
+"the album level. Common fields are available on all Gallery items; Album and "
+"Photo fields can be assigned only to items of the appropriate type."
+msgstr ""
 
-msgid "WARNING: All values for this custom field will be deleted! (Except in albums with album-specific settings)"
-msgstr "UYARI: İsteğe bağlı alandaki tüm değerler silinecek! (Albüm özel ayarlarına sahip albümler hariç)"
+msgid ""
+"WARNING: All values for this custom field will be deleted! (Except in albums "
+"with album-specific settings)"
+msgstr ""
 
-msgid "WARNING: Values for this custom field on non-album items will be deleted! (Except in albums with album-specific settings)"
-msgstr "UYARI: Foto olmayan ögelerdeki isteğe bağlı alan değerleri silinecek! (Albüm özel ayarlarına sahip albümler hariç)"
+msgid ""
+"WARNING: Values for this custom field on non-album items will be deleted! "
+"(Except in albums with album-specific settings)"
+msgstr ""
 
-msgid "WARNING: Values for this custom field on non-photo items will be deleted! (Except in albums with album-specific settings)"
-msgstr "UYARI: Foto olmayan ögelerdeki isteğe bağlı alan değerleri silinecek! (Albüm özel ayarlarına sahip albümler hariç)"
-
+msgid ""
+"WARNING: Values for this custom field on non-photo items will be deleted! "
+"(Except in albums with album-specific settings)"
+msgstr ""

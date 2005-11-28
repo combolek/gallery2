@@ -175,11 +175,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	    $args = str_replace('?', 'B?', $args);
 	    $sql = $args[0] . ' & ' . $args[1];
 	    break;
-	    
-	case 'BIT_OR':
-	    $sql = 'BIT_OR(' . $args[0] . ')';
-            break;
-	    
+
 	case 'UNIX_TIMESTAMP':
 	    $sql = 'date_part(\'epoch\', ' . $args[0] . ')';
 	    break;
@@ -206,10 +202,6 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 		$sql[] = 'WHEN ' . array_shift($args) . ' THEN ' . array_shift($args);
 	    }
 	    $sql = 'CASE ' . implode(' ', $sql) . ' ELSE ' . $args[0] . ' END';
-	    break;
-
-	case 'LIKE':
-	    $sql = $args[0] . ' LIKE ' . $args[1];
 	    break;
 
 	default:

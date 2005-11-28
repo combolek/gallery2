@@ -63,17 +63,10 @@ class GalleryPermissionHelper_medium {
 	$groupIds = array_keys($groupIds);
 	$groupIdMarkers = GalleryUtilities::makeMarkers($groupIds);
 
-	$storage =& $gallery->getStorage();
-	list ($ret, $bitOr) = $storage->getFunctionSql('BIT_OR',
-						       array('[GalleryAccessMap::permission]'));
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
 	$query = '
 	SELECT
 	    [GalleryAccessSubscriberMap::itemId],
-	    ' . $bitOr . '
+	    BIT_OR([GalleryAccessMap::permission])
 	FROM
 	    [GalleryAccessMap], [GalleryAccessSubscriberMap]
 	WHERE
@@ -117,10 +110,7 @@ class GalleryPermissionHelper_medium {
 		/* $result[0] = itemId */
 		/* $permission['id'] = the permission name for that bit */
 		$permTable[$result[0]][$permission['id']] = 1;
-		/* Only cache permissions in the session for the activeUser */
-		if ($userId == $gallery->getActiveUserId()) {
-		    GalleryDataCache::cachePermissions($result[0], $permission['id']);
-		}
+		GalleryDataCache::cachePermissions($result[0], $permission['id']);
 	    }
 	}
 

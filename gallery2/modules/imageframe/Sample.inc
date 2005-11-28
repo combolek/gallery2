@@ -64,18 +64,11 @@ class SampleView extends GalleryView {
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    list ($ret, $canSee) = GalleryCoreApi::hasItemPermission($itemId, 'core.view');
-	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    if ($canSee && isset($thumbnail[$itemId])) {
+	    if (isset($thumbnail[$itemId])) {
 		$ImageFrameSample['item'] = $item->getMemberData();
 		$ImageFrameSample['thumb'] = $thumbnail[$itemId]->getMemberData();
 	    }
 	}
-
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
 	if ($ret->isError()) {
@@ -86,17 +79,6 @@ class SampleView extends GalleryView {
 	$template->title($module->translate('Image Frame Samples'));
 	return array(GalleryStatus::success(),
 	    array('body' => 'modules/imageframe/templates/SampleBody.tpl'));
-    }
-
-    /**
-     * @see GalleryView::getViewDescription
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	return array(GalleryStatus::success(), $module->translate('Image Frame Samples'));
     }
 }
 ?>

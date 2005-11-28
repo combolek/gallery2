@@ -28,6 +28,11 @@
  */
 
 /**
+ * require necessary classes
+ */
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+
+/**
  * This controller will handle an user logging in to Gallery
  *
  * @package GalleryCore
@@ -56,14 +61,7 @@ class UserLoginController extends GalleryController {
     }
 
     /**
-     * @see GalleryController::isAllowedInMaintenance()
-     */
-    function isAllowedInMaintenance() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -85,15 +83,14 @@ class UserLoginController extends GalleryController {
 		} else {
 		    /* Get all the login plugins */
 		    list ($ret, $pluginInstances) =
-			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+			GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
 		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
 			list ($ret, $pluginInstances[$pluginId]) =
-			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
-								   $pluginId);
+			    GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
 			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
@@ -185,7 +182,7 @@ class UserLoginView extends GalleryView {
 
 	/* Get all the login plugins */
 	list ($ret, $allPluginIds) =
-	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
+	    GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
 	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -194,7 +191,7 @@ class UserLoginView extends GalleryView {
 	$UserLogin['plugins'] = array();
 	foreach (array_keys($allPluginIds) as $pluginId) {
 	    list ($ret, $plugin) =
-		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
+		GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
 	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }

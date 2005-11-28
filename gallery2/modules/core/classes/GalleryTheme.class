@@ -73,7 +73,7 @@ class GalleryTheme extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(2, 2);
+	return array(2, 1);
     }
 
     /**
@@ -98,24 +98,23 @@ class GalleryTheme extends GalleryPlugin {
      *   type:        single-select, multiple-select, text-field
      *   choices:     [only valid for single-select, multiple-select type]
      *                array of:
-     *                   keys:   unique identifier within this set of choices
-     *                   values: localized displayable text string
+     *                   key:     a unique identifier within this set of choices
+     *                   display: a localized displayable text string
      *   value:       the current value for this setting
      *
      * @param int optional itemId
      * @return array object GalleryStatus a status code
      *               settings array
-     *               params array (useful for a theme overriding this function)
      */
     function getSettings($itemId=null) {
 	list ($ret, $params) = $this->fetchParameters($itemId);
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/**
@@ -199,7 +198,7 @@ class GalleryTheme extends GalleryPlugin {
 	/* ImageFrame settings, if available */
 	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($imageframe) &&
@@ -208,11 +207,11 @@ class GalleryTheme extends GalleryPlugin {
 	     isset($params['photoFrame']))) {
 	    list ($ret, $list) = $imageframe->getImageFrameList();
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $sampleUrl) = $imageframe->getSampleUrl($itemId);
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $sample = ' (<a href="' . $sampleUrl . '">'
 		    . $core->translate('View Samples') . '</a>)';
@@ -245,13 +244,13 @@ class GalleryTheme extends GalleryPlugin {
 	/* ColorPack setting, if available */
 	list ($ret, $colorpack) = GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0');
 	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (isset($colorpack) && isset($params['colorpack'])) {
 	    list ($ret, $list) = $colorpack->getColorPacks();
 	    if ($ret->isError()) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $settings[] = array('key' => 'colorpack',
 				'name' => $core->translate('Color Pack'),
@@ -260,7 +259,7 @@ class GalleryTheme extends GalleryPlugin {
 				'value' => $params['colorpack']);
 	}
 
-	return array(GalleryStatus::success(), $settings, $params);
+	return array(GalleryStatus::success(), $settings);
     }
 
     /**
@@ -1279,6 +1278,8 @@ class GalleryTheme extends GalleryPlugin {
 	 */
 	if (isset($load['systemLinks'])
 		|| isset($load['itemLinks']) || isset($load['itemSummaries'])) {
+	    $urlGenerator =& $gallery->getUrlGenerator();
+
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchPermissionsForItems($allItemIds, $theme['actingUserId']);
 	    if ($ret->isError()) {
@@ -1372,8 +1373,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (isset($itemSummaries) && isset($callbacks['getItemSummaries'])) {
-		    list ($ret, $content) =
-			$module->getItemSummaries($childItems, $permissions, $template);
+		    list ($ret, $content) = $module->getItemSummaries($childItems, $permissions);
 		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }

@@ -257,7 +257,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$this->assertEquals(
-	    'modules/core/test/phpunit/UtilitiesTest.class',
+	    'http://example.com/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
 	    GalleryUtilities::convertPathToUrl($file), 'test');
 
 	/* Simulate embedded (request uri doesn't reference g2 install dir) */
@@ -278,7 +278,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$this->assertEquals(
-	    'modules/core/test/phpunit/UtilitiesTest.class',
+	    'http://example.com/g2test/modules/core/test/phpunit/UtilitiesTest.class',
 	    GalleryUtilities::convertPathToUrl($file), 'alias');
     }
 
@@ -627,7 +627,6 @@ class UtilitiesTest extends GalleryTestCase {
 	$data['google'][] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
 	$data['google'][] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
 	$data['google'][] = 'Mediapartners-Google/2.1 (+http://www.googlebot.com/bot.html)';
-	$data['google'][] = 'gsa-crawler (Enterprise; GID-01083; search-admin@example.com)';
 
 	$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
 	    . 'http://help.yahoo.com/help/us/shop/merchant/)';

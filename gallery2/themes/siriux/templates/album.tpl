@@ -16,7 +16,7 @@
     {foreach from=$theme.children item=child}
 
 	{* Year separator *}
-	{if $theme.params.groupByYear && $child.canContainChildren}
+	{if $theme.params.groupByYear}
 	  {capture name=year}{g->date format="%Y" timestamp=$child.originationTimestamp}{/capture}
 	  {if $smarty.capture.year != $currentYear}
 	    <h3 style="clear: both;">{$smarty.capture.year}</h3>

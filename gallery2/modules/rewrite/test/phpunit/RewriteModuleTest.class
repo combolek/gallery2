@@ -369,7 +369,7 @@ class RewriteModuleTest extends GalleryTestCase {
 /**
  * Mock module for this test
  *
- * @package Rewrite
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class RewriteModuleTestModule extends GalleryModule {
@@ -406,8 +406,7 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
     }
 
     function file_exists($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return true;
 	} else if (strpos($file, 'modules/rewritemoduletest/module.inc') !== false) {
 	    return true;
@@ -417,8 +416,7 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
     }
 
     function is_readable($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return true;
 	}
 
@@ -426,8 +424,7 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
     }
 
     function is_writeable($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    return $this->_isWriteable;
 	}
 
@@ -435,8 +432,7 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
     }
 
     function file($file) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    $results = array();
 	} else {
 	    $results = parent::file($file);
@@ -445,8 +441,7 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
     }
 
     function fopen($file, $mode, $useIncludePath=null, $zcontext=null) {
-	$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
-	if ($file == $pluginBaseDirs['base'] . '.htaccess') {
+	if ($file == dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/.htaccess') {
 	    if ($this->_isWriteable) {
 		$this->_fileContent = '';
 		return '.htaccess';
@@ -512,10 +507,6 @@ class RewriteModuleTestPlatform extends GalleryPlatform {
 	}
 
 	return parent::closedir($handle);
-    }
-
-    function recursiveRmdir($path) {
-	return true;
     }
 }
 

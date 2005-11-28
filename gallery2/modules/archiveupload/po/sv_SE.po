@@ -20,16 +20,13 @@
 # Swedish translation
 # Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Archiveupload 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-02-11 03:09-0800\n"
-"PO-Revision-Date: 2005-09-26 20:00+0100\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-06-10 20:00+0100\n"
+"Last-Translator: Hampus Nygren <hampus@friendlyfire.net>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,22 +36,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Archive Upload"
-msgstr "Uppladdning av Arkiv"
+msgstr ""
 
 msgid "Extract items from uploaded zip files"
-msgstr "Extrahera objekt fr&aring;n uppladdade zipfiler"
+msgstr ""
 
 msgid "Import"
-msgstr "Importera"
+msgstr ""
 
 msgid "Archive"
-msgstr "Arkiv"
+msgstr ""
 
 msgid "Archive Upload Settings"
-msgstr "Inställningar För Arkivuppladdningar"
+msgstr ""
 
 msgid "Settings saved successfully"
-msgstr "Inställningarna sparades framgångsrikt"
+msgstr ""
 
 msgid ""
 "This module will enable extraction of individual files from a zip archive to "
@@ -62,58 +59,50 @@ msgid ""
 "your server, then enter the path to it in the text box below.  If you're on "
 "a Unix machine, don't forget to make the binary executable (<i>chmod 755 "
 "unzip</i> in the right directory should do it)"
-msgstr "Denna modulen möjliggör extrahering av individuella filer "
-"från ziparkiv för att lägga till varje objekt till Gallery. "
-"Du måste lokalisera och installera en unzipbinär på din "
-"server, sedan fylla i sökvägen i textrutan nedan. Om du "
-"använder en Unix-maskin, glöm inte att göra binären "
-"exekveringsbar (<i>chmod 755 unzip</i> i rätt katalog)"
+msgstr ""
 
 msgid "Path to unzip:"
-msgstr "Sökväg till unzip:"
+msgstr ""
 
 msgid "You must enter a path to your unzip binary"
-msgstr "Du måste fylla i rätt sökväg till unzip-binären"
+msgstr ""
 
 msgid "The path you entered doesn't contain a valid unzip binary."
-msgstr "Sökvägen som du fyllt i innehåller inte en fungerande "
-"unzip-binär"
+msgstr ""
 
 msgid "The path you entered isn't a valid path to an unzip binary."
-msgstr "Sökvägen som du fyllt i år inte en giltig "
-"sökväg till en unzip-binär"
+msgstr ""
 
 #, c-format
 msgid "The unzip binary is not executable.  To fix it, run <b>chmod 755 %s</b>"
-msgstr "Unzip-binären är inte exekverbar. För att ordna det, "
-"kör <b>chmod 755 %s</b>"
+msgstr ""
 
 msgid "Save Settings"
-msgstr "Spara Inställningar"
+msgstr ""
 
 msgid "Test Settings"
-msgstr "Testa Inställningar"
+msgstr ""
 
 msgid "Cancel"
-msgstr "Ångra"
+msgstr ""
 
 msgid "Reset"
-msgstr "Återställ"
+msgstr ""
 
 msgid "unzip binary test results"
-msgstr "testresultat för unzip-binär"
+msgstr ""
 
 msgid "Binary Name"
-msgstr "Binärnamn"
+msgstr ""
 
 msgid "Pass/Fail"
-msgstr "Godkänna/Underkänna"
+msgstr ""
 
 msgid "Passed"
-msgstr "Godkändes"
+msgstr ""
 
 msgid "Failed"
-msgstr "Underkändes"
+msgstr ""
 
 msgid "Error messages:"
-msgstr "Felmeddelanden:"
+msgstr ""

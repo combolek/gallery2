@@ -43,7 +43,7 @@ class PrintPhotosView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::renderImmedate()
+     * @see GalleryView::loadTemplate()
      */
     function renderImmediate($status, $error) {
 	global $gallery;
@@ -88,17 +88,6 @@ class PrintPhotosView extends GalleryView {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* We want to know which are viewable to guests */
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
 	/* Assemble all our data */
 	$i = 1;
 	$entries = array();
@@ -108,19 +97,9 @@ class PrintPhotosView extends GalleryView {
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    list ($ret, $publicPermissions) =
-		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
 
-	    if (!isset($permissions['shutterfly.print'])) {
-		/* Skip any cart items for which we don't have print permission */
-		continue;
-	    }
 	    if (isset($permissions['core.viewSource'])) {
 		$source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-		$needSession = !isset($publicPermissions['core.viewSource']);
 	    } else if (isset($permissions['core.viewResizes']) && !empty($resizes[$itemId])) {
 		$maxSize = null;
 		foreach ($resizes[$itemId] as $resize) {
@@ -130,53 +109,21 @@ class PrintPhotosView extends GalleryView {
 			$maxSize = $size;
 		    }
 		}
-		$needSession = !isset($publicPermissions['core.viewResizes']);
 	    } else if (isset($thumbnails[$itemId])) {
 		$source = $thumbnails[$itemId];
-		$needSession = !isset($publicPermissions['core.view']);
 	    } else {
 		continue;
 	    }
 
-	    if ($needSession && !isset($sfSession)) {
-		/*
-		 * Get G2 session for shutterfly to access non-public images.
-		 * We can't use this session because hijack protection will prevent access
-		 * plus the current user could logout before shutterfly retrieves the images.
-		 * Create a new session with the rights of current user for shutterfly to use.
-		 */
-		$sfSession = new GallerySession();
-		$sfSession->initEmpty(true);
-		$sfSession->put('core.id.activeUser', $gallery->getActiveUserId());
-		/*
-		 * TODO: Would like to enforce a particular session timeout to ensure this
-		 * session lasts long enough for shutterfly to retrieve the images.  With
-		 * current file based sessions this would require modifying ctime of files
-		 * which we can't do.  Maybe if sessions move to the database we'll be able
-		 * to guarantee session lifetime.
-		 * When we can do this, maybe also store the sessionid in this session so we
-		 * can reuse it for multiple print requests (and just bump timeout each time).
-		 */
-		$ret = $sfSession->save();
-		if ($ret->isError()) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-	    $sessionParam =
-		$needSession ? array($sfSession->getKey() => $sfSession->getId()) : array();
-
 	    $entry = array('item' => $item->getMemberData());
 	    $entry['imageUrl'] = $urlGenerator->generateUrl(
-		array_merge(array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
-			    $sessionParam),
-		false, null, true);
+		array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
+		true);
 
 	    if (isset($thumbnails[$itemId])) {
 		$entry['thumbUrl'] = $urlGenerator->generateUrl(
-		    array_merge(array('view' => 'core.DownloadItem',
-				      'itemId' => $thumbnails[$itemId]->getId()),
-				$sessionParam),
-		    false, null, true);
+		    array('view' => 'core.DownloadItem', 'itemId' => $thumbnails[$itemId]->getId()),
+		    true);
 		$entry['thumbWidth'] = $thumbnails[$itemId]->getWidth();
 		$entry['thumbHeight'] = $thumbnails[$itemId]->getHeight();
 	    }
@@ -198,9 +145,7 @@ class PrintPhotosView extends GalleryView {
 	 * render a form and submit it.. here we set our own cookie that will be
 	 * checked to ensure we submit our form only once.
 	 */
-	if (!headers_sent() /* Should only skip cookie in unit test */) {
-	    setcookie('G2_shutterfly', '1');
-	}
+	setcookie('G2_shutterfly', '1');
 
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));

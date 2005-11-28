@@ -21,18 +21,14 @@
 # Christian Wallin <crille@swipnet.se>, 2002-2005.
 # Mikael Gustafsson <mikael.gustafsson@lecando.com>, 2003-2005.
 # Peter Liversten <skansberget@telia.com>, 2003-2005.
-# Hampus Nygren <hampus@friendlyfire.net>, 2005.
 # 
-# Changed the translation from html to UTF-8
-# Anders Lindquist <andersl@saaf.se>, 2005
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Migrate 1.0\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
 "POT-Creation-Date: 2003-10-01 15:46+0900\n"
-"PO-Revision-Date: 2005-10-29 11:20+0200\n"
-"Last-Translator: Anders Lindquist <andersl@saaf.se>\n"
+"PO-Revision-Date: 2005-03-03 15:56+0100\n"
+"Last-Translator: Peter Liversten <skansberget@telia.com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,81 +37,82 @@ msgstr ""
 "X-Poedit-Country: SWEDEN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, fuzzy
 msgid "Importing Users"
-msgstr "Importerar Användare"
+msgstr "Importera anv&auml;ndare"
 
+#, fuzzy
 msgid "Importing Photos"
-msgstr "Importerar Foton"
+msgstr "Importera anv&auml;ndare"
 
 msgid "Creating thumbnails"
-msgstr "Skapar miniatyrbilder"
+msgstr ""
 
 #, c-format
 msgid "%sTitle%s was truncated for %sitem %d%s."
-msgstr "%sTitel%s blev trunkerad för %sobjekt %d%s"
+msgstr ""
 
 #, c-format
 msgid "%sSummary%s was truncated for %sitem %d%s."
-msgstr "%sSummering%s blev trunkerad för %sobject %d%s"
+msgstr ""
 
+#, fuzzy
 msgid "Set:"
-msgstr "Uppsättning:"
+msgstr "Markera"
 
 msgid "Truncated:"
-msgstr "Trunkerad:"
+msgstr ""
 
 #, c-format
 msgid "Thumbnail %d of %d"
-msgstr "Miniatyrbild %d av %d"
+msgstr ""
 
+#, fuzzy
 msgid "Migration"
-msgstr "Migrering"
+msgstr "Flytta album"
 
 msgid "Migrate your Gallery 1 albums to Gallery 2"
-msgstr "Migrera dina Gallery 1 album till Gallery 2"
+msgstr "Flytta dina Gallery 1 album till Gallery 2"
 
 msgid "Import"
 msgstr "Importera"
 
 msgid "Gallery 1"
-msgstr "Gallery 1"
+msgstr ""
 
 msgid "G1-&gt;G2 Mapping"
-msgstr "G1-&gt;G2 Koppling"
+msgstr ""
 
 msgid "G1 path"
-msgstr "G1-sökväg"
+msgstr ""
 
 #, c-format
 msgid ""
 "G1 URL redirect. Use only if G2 is installed where G1 used to be and you "
 "have run a G1 import with the URL redirect option selected. Otherwise follow "
 "instructions in %sMigrate Site Admin%s."
-msgstr "G1 URL ompekning. Använd endast om G2 är installerad där "
-"G1 förut var installerad och du måste köra en G1-import med URL "
-"ompekning vald. Följ annars instruktionerna i %sMigrering av "
-"Siteadministratör%s."
+msgstr ""
 
 msgid "Select Albums and Users"
-msgstr "Markera Album och Användare"
+msgstr "Markera album och anv&auml;ndare"
 
 msgid "You must choose something to import!"
-msgstr "Du måste välja någonting att importera!"
+msgstr "Du m&aring;ste v&auml;lja n&aring;gonting att importera!"
 
 msgid "You must specify a custom field name"
-msgstr "Du måste specificera namnet på ett specialfält"
+msgstr ""
 
 msgid "Import Users"
-msgstr "Importera användare"
+msgstr "Importera anv&auml;ndare"
 
 msgid "Select the users to migrate"
-msgstr "Markera användarna att flytta"
+msgstr "Markera anv&auml;ndarna att flytta"
 
 msgid "Check All"
 msgstr "Kontrollera alla"
 
 msgid "Clear All"
-msgstr "Töm alla"
+msgstr "T&ouml;m alla"
 
 msgid "Invert Selection"
 msgstr "Invertera markering"
@@ -124,14 +121,14 @@ msgid "Select"
 msgstr "Markera"
 
 msgid "Username"
-msgstr "Användarnamn"
+msgstr "Anv&auml;ndarnamn"
 
 msgid "No available users"
-msgstr "Inga tillgängliga användare"
+msgstr "Inga tillg&auml;ngliga anv&auml;ndare"
 
 msgid "These users are already in your gallery, and will not be imported:"
 msgstr ""
-"Dessa användare finns redan i ditt Gallery och kommer inte att "
+"Dessa anv&auml;ndare finns redan i ditt Gallery och kommer inte att "
 "importeras:"
 
 msgid "Import Albums"
@@ -141,7 +138,7 @@ msgid "Select the albums to migrate"
 msgstr "Markera albumen att flytta"
 
 msgid "Source:"
-msgstr "Källa:"
+msgstr "K&auml;lla:"
 
 #, c-format
 msgid "%s (%s)"
@@ -151,31 +148,26 @@ msgid "Destination:"
 msgstr "Destination:"
 
 msgid "Character Encoding of Source Text:"
-msgstr "Avkodning av Orginaltext"
+msgstr ""
 
 msgid "URL Redirection"
-msgstr "URL Ompekning"
+msgstr ""
 
 msgid "Record G1->G2 mappings during import"
-msgstr "Registrera G1->G2 koppling under importen"
+msgstr ""
 
 msgid "Thumbnail generation"
-msgstr "Generering av miniatyrbilder"
+msgstr ""
 
 msgid ""
 "Normally Gallery will generate thumbnails the first time you look at them, "
 "then save them for subsequent views.  If you check this box, we'll create "
 "the thumbnails at migration time.  Migration will take longer but the first "
 "time you view an album will go much faster."
-msgstr "Normalt så genererar Gallery miniatyrbilder första "
-"gången du tittar på dem, och sedan sparar dem för "
-"efterföljande visningar. Om du klickar i denna ruta så skapas "
-"miniatyrbilder vid migreringstillfället. Migreringen kommer att ta "
-"längre tid men första gången albumet visas kommer att "
-"gå mycket snabbare."
+msgstr ""
 
 msgid "Item captions"
-msgstr "Objektrukriker"
+msgstr ""
 
 msgid ""
 "Gallery 2 has the following fields for all items and albums: title, summary "
@@ -183,69 +175,66 @@ msgid ""
 "G1 albums already have these three items (though the names of summary and "
 "description are reversed). G1 items have only a filename and caption. For "
 "items imported into G2:"
-msgstr "Gallery 2 har följande fält för samtliga objekt och "
-"album: titel, summerande text som visas med miniatyrbilder och beskrivande "
-"text som visas i objekt och albumvyn. Album i G1 har redan dessa tre objekt "
-"(även om namnen på summering och beskrivning är omvända). "
-"Objekt i G1 har endast filnamn och rubrik. För objekt importade till G2:"
+msgstr ""
 
 msgid "Set title from:"
-msgstr "Sätt titel från:"
+msgstr ""
 
 msgid "Base filename"
-msgstr "Basfilnamn"
+msgstr ""
 
 msgid "Caption"
-msgstr "Rubrik"
+msgstr ""
 
 msgid "Custom Field:"
-msgstr "Specialfält:"
+msgstr ""
 
 msgid "Enter a custom field name"
-msgstr "Fyll i ett specialfältsnamn"
+msgstr ""
 
 msgid "Blank"
-msgstr "Tom"
+msgstr ""
 
 msgid "Set summary from:"
-msgstr "Sätt summering fr&aing;n:"
+msgstr ""
 
+#, fuzzy
 msgid "Set description from:"
-msgstr "Sätt beskrivning fr&aing;n:"
+msgstr "Beskrivning"
 
 msgid "Default to same as summary if custom field not set"
-msgstr "Fall tillbaka på samma som summering om specialfält inte "
-"är satt"
+msgstr ""
 
 msgid "Custom fields"
-msgstr "Specialfält"
+msgstr ""
 
 msgid ""
 "Custom fields will not be imported.  Activate Custom Fields module to enable "
 "this option."
-msgstr "Specialfält kommer inte att bli importerade. Aktivera modulen "
-"för specialfält för att möjliggöra denna funktion."
+msgstr ""
 
+#, fuzzy
 msgid "Import custom fields"
-msgstr "Importera specialfält"
+msgstr "Importera anv&auml;ndare"
 
 msgid ""
 "Do not create Gallery 2 custom fields for fields selected above for title, "
 "summary or description"
-msgstr "Skapa inte Gallery 2 specialfält för fält valda ovan för "
-"titel, summering eller beskrivning"
+msgstr ""
 
+#, fuzzy
 msgid "Prepare Import"
-msgstr "Förbered Importering"
+msgstr "Importera"
 
 msgid "Confirm Migration"
 msgstr "Konfirmera flyttning"
 
 msgid "Users to import:"
-msgstr "Användare att importera:"
+msgstr "Anv&auml;ndare att importera:"
 
+#, fuzzy
 msgid "Albums to import:"
-msgstr "Album att importera:"
+msgstr "Album att importera"
 
 msgid "Album Name"
 msgstr "Albumnamn"
@@ -258,16 +247,16 @@ msgstr "Albumnoteringar"
 
 msgid "An album already exists with this name.  This album will be renamed."
 msgstr ""
-"Ett album finns redan med det namnet.  Detta album kommer att döpas om."
+"Ett album finns redan med det namnet.  Detta album kommer att d&ouml;pas om."
 
 #, c-format
 msgid "This album has an illegal name and will be renamed to <i>%s</i>"
 msgstr ""
-"Detta album har ett ogiltigt namn och kommer att döpas om till <i>%s<i> "
+"Detta album har ett ogiltigt namn och kommer att d&ouml;pas om till <i>%s<i> "
 
 #, c-format
 msgid "This album's owner (%s) hasn't been imported."
-msgstr "Detta albums ägare (%s) har inte blivit importerad"
+msgstr "Detta albums &auml;gare (%s) har inte blivit importerad"
 
 #, c-format
 msgid "Import %s now."
@@ -277,7 +266,7 @@ msgid ""
 "Top level albums and albums whose parents are not selected will be imported "
 "into this album:"
 msgstr ""
-"Huvudalbum och album som inte har några valda överliggande kommer "
+"Huvudalbum och album som inte har n&aring;gra valda &ouml;verliggande kommer "
 "att importeras till detta album:"
 
 #, c-format
@@ -290,44 +279,43 @@ msgstr "Beskrivning: %s"
 
 msgid ""
 "Your Gallery 1 will be converted from this character encoding into UTF-8:"
-msgstr "Ditt Gallery 1 kommer att bli konverterat frän denna textkodningen till UTF-8:"
+msgstr ""
 
 #, c-format
 msgid "Encoding: %s"
-msgstr "Avkodning: %s"
+msgstr ""
 
 msgid "G1->G2 mappings will be recorded for use in URL Redirection"
-msgstr "G1->G2 kopplingar kommer att registreras för använding vid URL Ompekning"
+msgstr ""
 
 msgid "Thumbnails will be generated during migration"
-msgstr "Miniatyrbilder kommer att genereras under migrationen"
+msgstr ""
 
 msgid "Item fields will be imported from:"
-msgstr "Objektfält kommer att bli importerade från:"
+msgstr ""
 
 msgid "Title"
 msgstr "Titel"
 
 msgid "Custom field:"
-msgstr "Specialfält:"
+msgstr ""
 
 msgid "Summary"
-msgstr "Summering"
+msgstr ""
 
 msgid "Description"
 msgstr "Beskrivning"
 
 msgid "(Default to summary value if not set)"
-msgstr "(Fall tillbaka på summmeringsvärdet om inte satt)"
+msgstr ""
 
 msgid "Custom fields will be imported"
-msgstr "Specialfät kommer att bli importerade"
+msgstr ""
 
 msgid ""
 "Custom fields imported into item fields above will not be duplicated as "
 "custom fields"
-msgstr "Specialfält importerade till objektfält ovan kommer inte "
-"att duplicerade som specialfält"
+msgstr ""
 
 msgid "Cancel"
 msgstr "Avbryt"
@@ -338,11 +326,11 @@ msgstr "Importera komplett"
 #, c-format
 msgid "Successfully imported %d user."
 msgid_plural "Successfully imported %d users."
-msgstr[0] "Importerade framgångsrikt %d användare."
-msgstr[1] "Importerade framgångsrikt %d användare."
+msgstr[0] "Importerade framg&aring;ngsrikt %d anv&auml;ndare."
+msgstr[1] "Importerade framg&aring;ngsrikt %d anv&auml;ndare."
 
 msgid "No users imported."
-msgstr "Inga användare importerade."
+msgstr "Inga anv&auml;ndare importerade."
 
 #, c-format
 msgid "Imported %s"
@@ -351,8 +339,8 @@ msgstr "Importerade %s"
 #, c-format
 msgid "Error while importing %d user."
 msgid_plural "Errors while importing %d users."
-msgstr[0] "Felmeddelande vid importering av %d användare."
-msgstr[1] "Felmeddelande vid importering av %d användare."
+msgstr[0] "Felmeddelande vid importering av %d anv&auml;ndare."
+msgstr[1] "Felmeddelande vid importering av %d anv&auml;ndare."
 
 #, c-format
 msgid "Error importing %s"
@@ -361,8 +349,8 @@ msgstr "Felmeddelande vid importering %s"
 #, c-format
 msgid "Successfully imported %d album."
 msgid_plural "Successfully imported %d albums."
-msgstr[0] "Importerade framgångsrikt %d album."
-msgstr[1] "Importerade framgångsrikt %d album."
+msgstr[0] "Importerade framg&aring;ngsrikt %d album."
+msgstr[1] "Importerade framg&aring;ngsrikt %d album."
 
 msgid "No albums imported."
 msgstr "Inga album importerade."
@@ -377,11 +365,11 @@ msgid "Import more data"
 msgstr "Importera mer information"
 
 msgid "To enable URL Redirection under Apache webserver:"
-msgstr "För att aktivera URL Ompekning i Apache webserver:"
+msgstr ""
 
 #, c-format
 msgid "Ensure the %s Apache module is enabled."
-msgstr "Säkerställ att Apache modul %s är aktiverad."
+msgstr ""
 
 msgid ""
 "Edit or create a file called <tt>.htaccess</tt> in your Gallery1 directory "
@@ -390,98 +378,104 @@ msgid ""
 "installed in the path where G1 used to be. However, if you also use the G2 "
 "URL Rewrite module then activate the G1 redirect rule in that module instead "
 "of using the block shown below."
-msgstr "Redigera eller skapa en fil som heter <tt>.htaccess</tt> i din katalog "
-"för Gallery1 och lägg till texten som visas nedan i filen. Ta bort "
-"G1 omskrivningsregler från en existerande fil. Ompekningar kommer "
-"också att fungera i katalogen för Gallery2 om Gallery2 är "
-"installarat på samma ställa som G1 var installerat. Emellertid, om "
-"du även använder G2:s modul för URL Omskrivning så "
-"aktivera G1:s ompekningsregel i den modulen istället för att "
-"använda blocket nedan."
+msgstr ""
 
 msgid ""
 "Add the same <tt>.htaccess</tt> block in the Gallery1 albums directory if "
 "you also wish to redirect links to image files and album directories. Note "
 "that these redirects are not active until the G1 images are actually removed "
 "or moved. Omit the !-f line shown below to redirect anyway."
-msgstr "Lägg till samma <tt>.htaccess</tt>-block i albumkatalogerna för "
-"Gallery1 om du även vill att peka om länkar til bilder och albumkataloger. "
-"Notera att dessa ompekningar inte är aktiva förrän bilderna i G1 "
-"i själva verket är borttagna eller flyttade. Utelämnaa raden med "
-"!-f som visas nedan för att peka om ändå"
+msgstr ""
 
 msgid ""
 "If G2 is installed in the path where G1 used to exist, you will need to "
 "remove the G1 file \"gallery_remote2.php\" file before you can use Gallery "
 "Remote to upload images to G2."
-msgstr "Om G2 är installerat i sökvägen där G1 var installerat "
-"så måste du ta bort filen \"gallery_remote2.php\" från G1 innan "
-"du kan använda Gallery Remote för att ladda upp bilder till G2"
+msgstr ""
 
 msgid "Download .htaccess file"
-msgstr "Ladda ner .htaccess-fil"
+msgstr ""
 
+#, fuzzy
 msgid "Import from Gallery 1"
-msgstr "Importera fr&aing;n Gallery 1"
+msgstr "Importera komplett"
 
 msgid ""
 "Copy all or part of an existing Gallery 1 installation into your Gallery 2.  "
 "It won't modify your Gallery 1 data in any way."
-msgstr "Kopiera alla eller delar av en existerande Gallery 1 installation till "
-"din Gallery 2. Det kommer inte att förändra din Gallery 1-data på "
-"något sätt."
+msgstr ""
 
 #, c-format
 msgid ""
 "You don't have any Graphics Toolkit activated to handle JPEG images.  If you "
 "import now, you will not have any thumbnails.  Visit the <a href=\"%s"
 "\">Modules</a> page to activate a Graphics Toolkit."
-msgstr "Du har inte något Grafikverktyg aktiverat för att hantera "
-"JPEG-bilder. Om du importerar nu kommer du inte ha några miniatyrbilder. "
-"Besök <a href=\"%s\">Modulsidan</a> och aktivera ett grafiskt verktyg."
+msgstr ""
 
+#, fuzzy
 msgid "Path to Gallery 1 albums directory"
-msgstr "Sökväg till albumkatalog för Gallery 1"
+msgstr "Flytta dina Gallery 1 album till Gallery 2"
 
 msgid "Example: /var/www/albums"
-msgstr "Exempel: /var/www/albums"
+msgstr ""
 
 msgid "You did not enter a path."
-msgstr "Du skrev inte in någon sökväg."
+msgstr "Du skrev inte in n&aring;gon s&ouml;kv&auml;g."
 
 msgid "The path that you entered is invalid."
-msgstr "Sökvägen du skrev in är inte giltig."
+msgstr "S&ouml;kv&auml;gen du skrev in &auml;r inte giltig."
 
 msgid ""
 "<b>Note:</b> Before you import any data you should make sure your Gallery 1 "
 "is installed correctly by adding a photo through the Gallery 1 web "
 "interface.  Make sure you resolve any errors you see there first."
-msgstr "<b>Notera:</b> Innan du kan importera data bör du "
-"säkerställa att Gallery 1 är korrekt installerat genom att "
-"lägga till ett foto genom webgränssnittet för Gallery 1. Se "
-"till att du rättar fel som ser där först."
+msgstr ""
 
+#, fuzzy
 msgid "Recently Used Paths"
-msgstr "Senast Använda Sökvägar"
+msgstr "Senaste s&ouml;kv&auml;gar:"
 
 msgid "Gallery can redirect old Gallery1 URLs to the new Gallery2 pages."
-msgstr "Gallery kan peka om gamla Gallery1 URL:er till nya Gallery2-sidor."
+msgstr ""
 
 #, c-format
 msgid "There is one G1->G2 map entry"
 msgid_plural "There are %d G1->G2 map entries"
-msgstr[0] "Det finns en G1->G2 koppling"
-msgstr[1] "Det finns %d G1->G2 kopplingar"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "Deleting map entries will cause old G1 URLs to produce HTTP Not Found errors "
 "instead of redirecting to G2 pages.  Delete all entries?"
-msgstr "Ta bort kopplingar kommer orsaka att gamla G1-URL:er blir HTTP Sidan "
-"Hittades inte-fel instället för att pekas om till G2-sidor. Ta bort "
-"kopplingarna?"
+msgstr ""
 
 msgid "Delete All"
 msgstr "Ta bort alla"
 
 msgid "Map entries deleted successfully"
-msgstr "Kopplingar borttagna framgåsrikt"
+msgstr ""
+
+#~ msgid ""
+#~ "This module is unfinished.  It should not harm your Gallery 1 data, but "
+#~ "use it at your own risk."
+#~ msgstr ""
+#~ "Denna modul &auml;r inte klar.  Den b&ouml;r inte skada ditt Gallery 1, "
+#~ "men anv&auml;nd den p&aring; egen risk."
+
+#~ msgid ""
+#~ "This process will copy data from an existing Gallery 1 installation.  It "
+#~ "won't modify your Gallery 1 data in any way.  You must enter the path to "
+#~ "your Gallery 1 <i>albums</i> directory.  If you enter the wrong path, "
+#~ "we'll let you know so it's safe to experiment.  Example: <i>/path/to/"
+#~ "albums</i>"
+#~ msgstr ""
+#~ "Denna process kommer att kopiera information fr&aring;n en existerande "
+#~ "Gallery 1 installation.  Den modifierar inte din Gallery 1 installation "
+#~ "p&aring; n&aring;got s&auml;tt.  Du m&aring;ste skriva in s&ouml;kv&auml;"
+#~ "gen till din Gallery 1 <i>album</i> katalog.  Om du skriver in fel s&ouml;"
+#~ "kv&auml;g s&aring; f&aring;r du meddelande om det, s&aring; det &auml;r "
+#~ "s&auml;kert att exprimentera.  Exempel: <i>/s&ouml;kv&auml;g/till/album</"
+#~ "i>"
+
+#~ msgid "Path"
+#~ msgstr "S&ouml;kv&auml;g"

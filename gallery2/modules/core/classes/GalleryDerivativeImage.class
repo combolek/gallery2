@@ -208,8 +208,7 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
 	    $urlGenerator =& $gallery->getUrlGenerator();
 	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
 						    'itemId' => $this->getId(),
-						    'serialNumber' => $this->getSerialNumber()),
-					      null, null, !empty($params['forceFullUrl']));
+						    'serialNumber' => $this->getSerialNumber()));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 
@@ -225,18 +224,14 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
 		$sizeStr = sprintf(' width="%s" height="%s"', $width, $height);
 	    }
 	    if (!isset($params['alt'])) {
-		$params['alt'] =
-		    $item->getTitle() ? GalleryUtilities::markup($item->getTitle(), 'strip')
-				      : $item->getPathComponent();
+		$params['alt'] = $item->getTitle() ? $item->getTitle() : $item->getPathComponent();
 	    }
 	    if (!isset($params['longdesc'])) {
-		$params['longdesc'] = preg_replace('/[\r\n]+/', ' ',
-		    GalleryUtilities::markup($item->getDescription(), 'strip'));
+		$params['longdesc'] = preg_replace('/[\r\n]+/', ' ', $item->getDescription());
 	    }
 
 	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
 	    unset($params['fallback']);
-	    unset($params['forceFullUrl']);
 	    foreach ($params as $attr => $value) {
 		if (isset($value)) {
 		    $html .= " $attr=\"$value\"";

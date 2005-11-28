@@ -341,10 +341,10 @@ class ThumbnailHelper {
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    /* Make sure operations contains only thumbnail and composite */
+	    /* Make sure operations just contains thumbnail|{size} */
 	    $derivative->setDerivativeOperations(
-		rtrim(preg_replace('/(^|;)((?!thumbnail\||composite\|).*?(;|$))+/', '$1',
-				   $derivative->getDerivativeOperations()), ';'));
+		preg_replace('/^(?:.*;)?(thumbnail\|\d+)(?:;.*)?$/', '$1',
+			     $derivative->getDerivativeOperations()));
 	} else {
 	    list ($ret, $derivative) =
 		GalleryCoreApi::newFactoryInstanceByHint('GalleryDerivative', 'ThumbnailImage');
@@ -418,9 +418,9 @@ class ThumbnailHelper {
 	    return GalleryStatus::success();
 	}
 
-	/* Make sure operations contains only thumbnail and composite */
-	$operations = rtrim(preg_replace('/(^|;)((?!thumbnail\||composite\|).*?(;|$))+/', '$1',
-					 $derivative->getDerivativeOperations()), ';');
+	/* Make sure operations just contains thumbnail|{size} */
+	$operations = preg_replace('/^(?:.*;)?(thumbnail\|\d+)(?:;.*)?$/', '$1',
+				   $derivative->getDerivativeOperations());
 
 	list ($ret, $source) = GalleryCoreApi::fetchPreferredSource($item);
 	if ($ret->isError()) {

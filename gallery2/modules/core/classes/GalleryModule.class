@@ -41,7 +41,7 @@ class GalleryModule extends GalleryPlugin {
      * The module group (optional)
      * Used to better organize site admin pages
      *
-     * @var array('group'=>group, 'groupLabel'=>label) _group
+     * @var array('group'=>group, 'groupLabel'=>localized label) _group
      * @access private
      */
     var $_group;
@@ -81,45 +81,8 @@ class GalleryModule extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	/*
-	 * TODO for the next major version bump:
-	 *   - Remove GalleryModule::loadItemDetails()
-	 *   - Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
-	 *   - Consider removing isRecommendedDuringInstall() since
-	 *     we now have 4 different types of installs
-	 *   - Fix DatabaseStorageExtras::_parseSqlTemplate so that it no longer
-	 *     accepts database files of the old form (A|R)_Table_#_# but requires
-	 *     the new form (A|R)_Table_#.# instead
-	 *   - Flatten classes/GalleryStorage/DatabaseStorage/schema under
-	 *     GalleryStorage; we're no longer going to seriously attempt to do
-	 *     any other kind of storage besides DatabaseStorage.  Roll as much
-	 *     functionality as possible up into GalleryStorage.class
-	 *   - Uncomment new code in GallerySession::_shouldSaveSession that
-	 *     will require modules not to call translate() from contructors
-	 *   - Combine userId/groupId columns in all our various tables into one
-	 *     column (entityId?)
-	 *   - Allow getItemSummaries to return a file to include, instead of
-	 *     just HTML so that item summaries can be integrated into the master
-	 *     template.
-	 *   - Change GalleryUrlGenerator to take an $options array instead of
-	 *     a series of optional params so that we can avoid future API changes
-	 *     if we add a new generation option.
-	 *   - Add a GalleryStatus object return for GalleryUrlGenerator::init
-	 *   - Move from returning GalleryStatus::success() to returning null
-	 *     on success so that we can avoid thousands of calls to success()
-	 *     and isError() on every request (and avoid loading GalleryStatus at all
-	 *     unless we need it.
-	 *   - Rename save to _save in GalleryEntity child classes,
-	 *     GalleryEntity::save calls $this->_save then sends event (ensure event last)
-	 *   - Change Arguments to GalleryUrlGenerator::init to init($baseUri, $embedUri,
-	 *     $embedSessionString) since GalleryEmbed params will be changed too
-	 *     And add optional forceG2Base to various UrlGen methods
-	 *   - Remove unused GALLERY_PERMISSION_ITEM_ADMIN flag.  There's a patch
-	 *     for it here:  http://tinyurl.com/9l9wz
-	 *     others may depend on this constant, so we have to do it with an API
-	 *     change.
-	 */
-	return array(2, 4);
+	/* TODO: Remove loadItemDetails on next major version bump */
+	return array(2, 0);
     }
 
     /**
@@ -282,8 +245,8 @@ class GalleryModule extends GalleryPlugin {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Delete entities for types registered by this module */
-	$ret = $this->_deleteModuleEntities();
+	/* Remove factory implementations */
+	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -301,36 +264,6 @@ class GalleryModule extends GalleryPlugin {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return GalleryStatus::success();
-    }
-
-    /**
-     * Delete all entities with a type registered by this module.
-     * @return object GalleryStatus a status code
-     * @access private
-     */
-    function _deleteModuleEntities() {
-	global $gallery;
-	$types = $this->getModuleEntityTypes();
-	if (empty($types)) {
-	    return GalleryStatus::success();
-	}
-
-	$query = '
-	SELECT [GalleryEntity::id]
-	  FROM [GalleryEntity]
-	 WHERE [GalleryEntity::entityType] IN (' . GalleryUtilities::makeMarkers($types) . ')
-	';
-	list ($ret, $searchResults) = $gallery->search($query, $types);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryCoreApi::deleteEntityById($result[0]);
-	    if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
 	return GalleryStatus::success();
     }
 
@@ -441,7 +374,7 @@ class GalleryModule extends GalleryPlugin {
      *
      * @return array object GalleryStatus a status code
      *               array( array('name' => name, 'view' => view,
-     *                 [optional: 'group' => group, 'groupLabel' => localized label]), ...)
+     *                 [optional: 'group' => group, 'groupLabel' => label]), ...)
      */
     function getSiteAdminViews() {
 	return array(GalleryStatus::success(), array());
@@ -525,11 +458,10 @@ class GalleryModule extends GalleryPlugin {
      *
      * @param array object GalleryItem
      * @param array id => array(permission => 1, ...) of item permissions
-     * @param object GalleryTemplate the master template instance
      * @return array object GalleryStatus a status code
      *               string HTML content
      */
-    function getItemSummaries($items, $permissions, &$template) {
+    function getItemSummaries($items, $permissions) {
 	return array(GalleryStatus::success(), array());
     }
 
@@ -571,16 +503,6 @@ class GalleryModule extends GalleryPlugin {
     }
 
     /**
-     * Get names of all GalleryEntity types this module may register.
-     * Entities of these types will be deleted upon module uninstall.
-     *
-     * @return array of class names
-     */
-    function getModuleEntityTypes() {
-	return array();
-    }
-
-    /**
      * Returns a set of short URL rules. Array structure:
      *
      * $rule['match']       An array of view => viewName, subView => subViewName to match
@@ -608,16 +530,7 @@ class GalleryModule extends GalleryPlugin {
     }
 
     function getGroup() {
-	if (empty($this->_group)) {
-	    $groupLabel = 'Other';
-	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret->isSuccess()) {
-		$groupLabel = $core->translate('Other');
-	    }
-	    return array('group' => 'other', 'groupLabel' => $groupLabel);
-	}
-	return array('group' => $this->_group['group'],
-		     'groupLabel' => $this->translate($this->_group['groupLabel']));
+	return $this->_group;
     }
 
     function getCallbacks() {

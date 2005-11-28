@@ -29,7 +29,7 @@
 /**
  * This module sets size limit for the picture
  *
- * @package SizeLimit
+ * @package
  */
 class SizeLimitModule extends GalleryModule {
 
@@ -40,7 +40,7 @@ class SizeLimitModule extends GalleryModule {
 	$this->setName($gallery->i18n('Size Limit'));
 	$this->setDescription($gallery->i18n('Define picture size limit'));
 	$this->setVersion('1.0.0');
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('registerEventListeners');
 	$this->setRequiredCoreApi(array(6, 0));
 	$this->setRequiredModuleApi(array(2, 0));

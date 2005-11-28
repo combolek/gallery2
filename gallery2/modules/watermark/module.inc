@@ -40,11 +40,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('watermark');
 	$this->setName($gallery->i18n('Watermark'));
 	$this->setDescription($gallery->i18n('Watermark your images'));
-	$this->setVersion('1.0.2'); /* Update upgrade() too */
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setVersion('1.0.0'); /* Update upgrade() too */
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getUserAdminViews');
 	$this->setRequiredCoreApi(array(6, 0));
-	$this->setRequiredModuleApi(array(2, 4));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -160,8 +160,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	case '0.9.5':
 	case '0.9.6':
 	case '0.9.7':
-	case '1.0.0':
-	case '1.0.1':
 
 	case 'end of upgrade path':
 	    /*
@@ -175,36 +173,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return GalleryStatus::success();
-    }
-
-    /**
-     * @see GalleryModule::uninstall()
-     */
-    function uninstall() {
-	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
-
-	/* Delete all watermarks and remove uses of them */
-	$query = '
-	SELECT [WatermarkImage::id]
-	FROM [WatermarkImage]
-	';
-	list ($ret, $searchResults) = $gallery->search($query);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	while ($result = $searchResults->nextResult()) {
-	    list ($ret) = WatermarkHelper::deleteWatermarkImageById($result[0], true);
-	    if ($ret->isError()) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	$ret = parent::uninstall();
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
 	return GalleryStatus::success();
     }
 

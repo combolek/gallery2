@@ -68,10 +68,7 @@ foreach ($stepOrder as $stepName) {
     require("steps/$className.class");
 }
 
-if (@ini_get('session.save_handler') != 'files') {
-    @ini_set('session.save_handler','files');
-    session_start();
-} else if (!ini_get('session.auto_start')) {
+if (!ini_get('session.auto_start')) {
     session_start();
 }
 
@@ -94,10 +91,6 @@ if (!empty($storageConfig)) {
 	return;
     }
 
-    /* We want to avoid using the cache */
-    GalleryDataCache::setFileCachingEnabled(false);
-    GalleryDataCache::setMemoryCachingEnabled(false);
-
     $translator = $gallery->getTranslator();
     if (!$translator->canTranslate()) {
 	unset($translator);
@@ -113,10 +106,14 @@ if (!empty($storageConfig)) {
 	    bind_textdomain_codeset('gallery2_upgrade', 'UTF-8');
 	}
     }
-
+    
+    /* We want to avoid using the cache */
+    GalleryDataCache::setFileCachingEnabled(false);
+    GalleryDataCache::setMemoryCachingEnabled(false);
+    
     /* Preallocate at least 5 minutes for the upgrade */
     $gallery->guaranteeTimeLimit(300);
-
+    
     /* Check to see if we have a database.  If we don't, then go to the installer */
     $storage =& $gallery->getStorage();
     list ($ret, $isInstalled) = $storage->isInstalled();
@@ -191,40 +188,31 @@ if ($currentStep->processRequest()) {
     $templateData['errors'] = array();
     $currentStep->loadTemplateData($templateData);
 
-    /* Render the output */
+    /* Fetch our page into a variable */
+    ob_start();
     $template = new StatusTemplate();
     $template->renderHeaderBodyAndFooter($templateData);
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    /* Add session ids if we don't have cookies */
+    $html = addSessionIdToUrls($html);
+    print $html;
 }
 
 /**
- * Find admin user and set as active user
- * @return object GalleryStatus a status code
+ * Add the session id to our url, if necessary
  */
-function selectAdminUser() {
-    global $gallery;
-
-    list ($ret, $siteAdminGroupId) =
-	GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-    if ($ret->isError()) {
-	return $ret->wrap(__FILE__, __LINE__);
+function addSessionIdToUrls($html) {
+    /*
+     * SID is empty if we have a session cookie.
+     * If session.use_trans_sid is on then it will add the session id.
+     */
+    $sid = SID;
+    if (!empty($sid) && !ini_get('session.use_trans_sid')) {
+	$html = preg_replace('/href="(.*\?.*)"/', 'href="$1&amp;' . $sid . '"', $html);
     }
-    list ($ret, $adminUserInfo) = GalleryCoreApi::fetchUsersForGroup($siteAdminGroupId, 1);
-    if ($ret->isError()) {
-	return $ret->wrap(__FILE__, __LINE__);
-    }
-    if (empty($adminUserInfo)) {
-	return GalleryStatus::error(ERROR_MISSING_VALUE, __FILE__, __LINE__);
-    }
-    $adminUserInfo = array_keys($adminUserInfo);
-    list ($ret, $adminUser) = GalleryCoreApi::loadEntitiesById($adminUserInfo[0]);
-    if ($ret->isError()) {
-	return $ret->wrap(__FILE__, __LINE__);
-    }
-
-    $gallery->setActiveUser($adminUser);
-    $session =& $gallery->getSession();
-    $session->put('isUpgrade', true);
-    return GalleryStatus::success();
+    return $html;
 }
 
 /**
@@ -238,20 +226,7 @@ function generateUrl($uri, $print=true) {
 	if (!empty($baseUrl)) {
 	     $uri = $baseUrl . 'upgrade/' . $uri;
 	}
-    } else if (!strncmp($uri, 'index.php', 9)) {
-	/*
-	 * Cookieless browsing: SID is empty if we have a session cookie.
-	 * If session.use_trans_sid is on then it will add the session id.
-	 */
-	$sid = SID;
-	if (!empty($sid) && !ini_get('session.use_trans_sid')) {
-	    $uri .= !strpos($uri, '?') ? '?' : '&amp;';
-	    $uri .= $sid;
-	}
     }
-
-    
-    
     if ($print) {
 	print $uri;
     }

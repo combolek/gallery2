@@ -74,7 +74,7 @@ class ThemeTest extends GalleryTestCase {
 	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
+    	
 	$ret = GalleryCoreApi::removePlugin('theme', 'ThemeTest');
 	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -304,7 +304,7 @@ class ThemeTestTheme extends GalleryTheme {
 /**
  * Test platform for this test
  *
- * @package GalleryCore
+ * @package Core
  * @subpackage PHPUnit
  */
 class ThemeTestPlatform extends GalleryPlatform {
@@ -354,10 +354,6 @@ class ThemeTestPlatform extends GalleryPlatform {
 	}
 
 	return parent::file_exists($file);
-    }
-
-    function recursiveRmdir($path) {
-	return true;
     }
 }
 ?>

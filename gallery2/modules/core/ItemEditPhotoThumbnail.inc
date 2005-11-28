@@ -273,8 +273,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	     */
 	    $urlGenerator =& $gallery->getUrlGenerator();
 	    $url = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
-						    'itemId' => $source->getId()),
-					      true, null, true);
+						    'itemId' => $source->getId()), true);
 
 	    $ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase'] =
 		GalleryUtilities::convertPathToUrl(dirname(__FILE__)) . '/plugins';

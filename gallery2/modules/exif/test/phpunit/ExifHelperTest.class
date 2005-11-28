@@ -88,33 +88,22 @@ class ExifHelperTest extends GalleryTestCase {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
-	list ($ret, $this->_saveFormat) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
-	if ($ret->isError()) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
     }
 
     /**
      * @see GalleryTestCase::tearDown()
      */
     function tearDown() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
-						  'format.datetime', $this->_saveFormat);
-	if ($ret->isError()) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
 	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $this->_save['summary']);
 	if ($ret->isError()) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $this->_save['detailed']);
 	if ($ret->isError()) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();
@@ -184,10 +173,9 @@ class ExifHelperTest extends GalleryTestCase {
     function testGetExifKeys() {
 	/* There are a bajillion keys.  Do a quick sanity check */
 	$exifKeys = ExifHelper::getExifKeys();
-	$this->assertEquals(197, sizeof($exifKeys));
+	$this->assertEquals(166, sizeof($exifKeys));
 	$this->assert(isset($exifKeys['ImageType']));
 	$this->assert(isset($exifKeys['IPTC/Keywords']));
-	$this->assert(isset($exifKeys['GPS/Latitude']));
     }
 
     /**
@@ -425,11 +413,6 @@ class ExifHelperTest extends GalleryTestCase {
     function testPostProcessKeys() {
 	global $gallery;
 	$platform = $gallery->getPlatform();
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'format.datetime', '%x %X');
-	if ($ret->isError()) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
 
 	$this->assertEquals(
 	    '1/400 sec', ExifHelper::postProcessValue('ShutterSpeedValue', '25/10000 sec'));

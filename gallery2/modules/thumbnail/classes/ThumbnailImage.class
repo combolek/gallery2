@@ -293,8 +293,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	    $urlGenerator =& $gallery->getUrlGenerator();
 	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
 						    'itemId' => $this->getId(),
-						    'serialNumber' => $this->getSerialNumber()),
-					      null, null, !empty($params['forceFullUrl']));
+						    'serialNumber' => $this->getSerialNumber()));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 
@@ -313,7 +312,6 @@ class ThumbnailImage_core extends GalleryChildEntity {
 
 	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
 	    unset($params['fallback']);
-	    unset($params['forceFullUrl']);
 	    foreach ($params as $attr => $value) {
 		if (isset($value)) {
 		    $html .= " $attr=\"$value\"";

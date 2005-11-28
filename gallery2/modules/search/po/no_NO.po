@@ -22,15 +22,13 @@ msgstr ""
 "Project-Id-Version: Gallery: Search 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-10 11:05+0100\n"
-"PO-Revision-Date: 2005-11-01 19:03+0100\n"
-"Last-Translator: Robin Smidsrød <robin@smidsrod.no>\n"
+"PO-Revision-Date: 2005-01-10 00:00+0100\n"
+"Last-Translator: Frode Tviberg <frode.tviberg@tviberg.no>\n"
 "Language-Team: Norwegian <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Norwegian Bokmal\n"
-"X-Poedit-Country: NORWAY\n"
 
 msgid "Gallery Search"
 msgstr "Gallery s&oslash;k"
@@ -39,49 +37,50 @@ msgid "Search"
 msgstr "S&oslash;k"
 
 msgid "Search your Gallery"
-msgstr "S&oslash;k i ditt galleri"
+msgstr "S&oslash;k i ditt Gallery"
 
 msgid "Gallery"
 msgstr "Gallery"
 
 msgid "Search the Gallery"
-msgstr "S&oslash;k i galleriet"
+msgstr "S&oslash;k i hele Gallery"
 
 msgid "You must enter some text to search for!"
-msgstr "Du m&aring; skrive inn tekst &aring; s&oslash;ke etter!"
+msgstr "Du m&aring; skrive inn noe tekst &aring; s&oslash;ke etter!"
 
 msgid "Check All"
 msgstr "Kryss av alle"
 
 msgid "Uncheck All"
-msgstr "Avkryss alle"
+msgstr "Ta vekk kryssene"
 
 msgid "Invert"
-msgstr "Invertér"
+msgstr "Inverter"
 
 #, c-format
 msgid "Results %d - %d"
-msgstr "Resultater %d - %d"
+msgstr "Resultat %d - %d"
 
 #, c-format
 msgid "Show all %d"
 msgstr "Vis alle %d"
 
 msgid "No thumbnail"
-msgstr "Intet miniatyrbilde"
+msgstr "Inget miniatyrbilde"
 
 msgid "No results found for"
-msgstr "Ingen resultater funnet til"
+msgstr "Ingen resultater for"
 
 msgid "View these results in a slideshow"
-msgstr "Se resultatene i bildevisning"
+msgstr "Se resultatene i et"
 
 #, c-format
 msgid "%s Search Results for "
-msgstr "%s s&oslash;keresultater for "
+msgstr "%s S&oslash;ke resultater for "
 
+#, fuzzy
 msgid "Search All Modules"
-msgstr "S&oslash;k i alle moduler"
+msgstr "S&oslash;k i alle modulene"
 
 #, c-format
 msgid "Results %d - %d of %d, Page %d of %d"
@@ -93,15 +92,16 @@ msgstr "Tilbake"
 msgid "Next &raquo;"
 msgstr "Neste"
 
+msgid "Please enter keywords to search."
+msgstr "Vennligst skriv inn s&oslash;keord"
+
 #, fuzzy
-msgid "Please enter a search term."
-msgstr "Vennligst skriv inn s&oslash;keord."
-
 msgid "Advanced Search"
-msgstr "Avansert s&oslash;k"
+msgstr "avansert s&oslash;k"
 
+#, fuzzy
 msgid "Search box"
 msgstr "S&oslash;k"
 
 msgid "Show advanced link"
-msgstr "Vis avansert lenke"
+msgstr ""

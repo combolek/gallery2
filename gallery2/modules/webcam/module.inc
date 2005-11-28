@@ -33,7 +33,7 @@ class WebCamModule extends GalleryModule {
 	$this->setName($gallery->i18n('WebCam'));
 	$this->setDescription($gallery->i18n('Support periodically updated images like a webcam'));
 	$this->setVersion('1.0.0'); /* Update upgrade() function below too */
-	$this->setGroup('import', $gallery->i18n('Import'));
+	$this->setGroup('import', $this->translate('Import'));
 	$this->setCallbacks('getSiteAdminViews');
 	$this->setRequiredCoreApi(array(6, 0));
 	$this->setRequiredModuleApi(array(2, 0));
@@ -171,9 +171,9 @@ class WebCamModule extends GalleryModule {
      * Check age and refresh from external source if needed..
      */
     function onLoad(&$item, $duringUpgrade) {
+	static $loop = array();
 	$old = false;
 	$id = $item->getId();
-	$loop = GalleryDataCache::containsKey("webcam:load-$id");
 	/* We don't want to refresh the external source during an upgrade */
 	if ($duringUpgrade) {
 	    return GalleryStatus::success();
@@ -182,13 +182,13 @@ class WebCamModule extends GalleryModule {
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	if (time() - $item->getModificationTimestamp() > $duration && !$loop) {
+	if (time() - $item->getModificationTimestamp() > $duration && !isset($loop[$id])) {
 	    /* Lock and refresh to ensure another request didn't just update image.. */
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($id);
 	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    GalleryDataCache::put("webcam:load-$id", true);
+	    $loop[$id] = true;
 	    list ($ret, $refresh) = $item->refresh();
 	    if ($ret->isError()) {
 		GalleryCoreApi::releaseLocks($lockId);
@@ -219,12 +219,6 @@ class WebCamModule extends GalleryModule {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
-		/* Backup previous file */
-		$ret = $platform->copy($path, $tmpFile . '.bak');
-		if (!$ret) {
-		    GalleryCoreApi::releaseLocks($lockId);
-		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
-		}
 		$ret = $platform->copy($tmpFile, $path);
 		if (!$ret) {
 		    GalleryCoreApi::releaseLocks($lockId);
@@ -232,26 +226,20 @@ class WebCamModule extends GalleryModule {
 		}
 		$ret = $item->rescan();
 		if ($ret->isError()) {
-		    if (!($ret->getErrorCode() & ERROR_BAD_DATA_TYPE)) {
-			GalleryCoreApi::releaseLocks($lockId);
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-		    /* Problem with new file (maybe html response, not data file); rollback */
-		    $platform->copy($tmpFile . '.bak', $path);
-		} else {
-		    $item->setOriginationTimestamp(time());
-		    $ret = $item->save();
-		    if ($ret->isError()) {
-			GalleryCoreApi::releaseLocks($lockId);
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-		    $ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($id));
-		    if ($ret->isError()) {
-			GalleryCoreApi::releaseLocks($lockId);
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
+		    GalleryCoreApi::releaseLocks($lockId);
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
-		@$platform->unlink($tmpFile . '.bak');
+		$item->setOriginationTimestamp(time());
+		$ret = $item->save();
+		if ($ret->isError()) {
+		    GalleryCoreApi::releaseLocks($lockId);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($id));
+		if ($ret->isError()) {
+		    GalleryCoreApi::releaseLocks($lockId);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
 	    }
 	    @$platform->unlink($tmpFile);
 	}

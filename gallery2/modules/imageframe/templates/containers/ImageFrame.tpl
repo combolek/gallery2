@@ -9,9 +9,6 @@
 {/if}
 {counter name="ImageFrame_counter" assign="IF_count"}
 {assign var="objectId" value="IFid`$IF_count`"}
-{if isset($maxSize) && isset($width) && isset($height)}
-  {g->shrinkDimensions widthVar="width" heightVar="height" maxSize=$maxSize}
-{/if}
 {if !isset($data) || $data.type=='style'}
   {$content|replace:"%ID%":$objectId|replace:"%CLASS%":"ImageFrame_`$frame`"}
 {elseif $data.type=='image'}
@@ -22,32 +19,30 @@
     <td class="TL"></td>
     {if $data.wHL}<td class="TTL"></td>{/if}
     <td class="TT"{if $data.wHL or $data.wHR}
-     style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
+     style="width:expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px')"
     {/if}><div class="H"></div></td>
     {if $data.wHR}<td class="TTR"></td>{/if}
     <td class="TR"></td>
     </tr>
   {/if}
   <tr>
-  {capture name="LL"}
-    <td class="LL"{if $data.hVT or $data.hVB}
-     style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
-    {/if}><div class="V">&nbsp;</div></td>
-  {/capture}
-  {capture name="RR"}
-    <td class="RR"{if $data.hVT or $data.hVB}
-     style="height:{if isset($height)}{$height-$data.hVT-$data.hVB}px{else}expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px'){/if}"
-    {/if}><div class="V">&nbsp;</div></td>
-  {/capture}
-  {if $data.hVT}<td class="LLT"></td>{else}{$smarty.capture.LL}{/if}
+  {if $data.hVT}<td class="LLT"></td>{else}<td class="LL"{if $data.hVT or $data.hVB}
+   style="height:expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px')"
+   {/if}><div class="V">&nbsp;</div></td>{/if}
   <td rowspan="{$data.rowspan}" colspan="{$data.colspan}" class="IMG"
   >{$content|replace:"%ID%":$objectId|replace:"%CLASS%":"ImageFrame_image"}</td>
-  {if $data.hVT}<td class="RRT"></td>{else}{$smarty.capture.RR}{/if}
+  {if $data.hVT}<td class="RRT"></td>{else}<td class="RR"{if $data.hVT or $data.hVB}
+   style="height:expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px')"
+   {/if}><div class="V">&nbsp;</div></td>{/if}
   </tr>
   {if $data.hVT}
     <tr>
-      {$smarty.capture.LL}
-      {$smarty.capture.RR}
+    <td class="LL"{if $data.hVT or $data.hVB}
+     style="height:expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px')"
+    {/if}><div class="V">&nbsp;</div></td>
+    <td class="RR"{if $data.hVT or $data.hVB}
+     style="height:expression((document.getElementById('{$objectId}').height-{$data.hVT+$data.hVB})+'px')"
+    {/if}><div class="V">&nbsp;</div></td>
     </tr>
   {/if}
   {if $data.hVB}
@@ -62,7 +57,7 @@
     <td class="BL"></td>
     {if $data.wHL}<td class="BBL"></td>{/if}
     <td class="BB"{if $data.wHL or $data.wHR}
-     style="width:{if isset($width)}{$width-$data.wHL-$data.wHR}px{else}expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px'){/if}"
+     style="width:expression((document.getElementById('{$objectId}').width-{$data.wHL+$data.wHR})+'px')"
     {/if}><div class="H"></div></td>
     {if $data.wHR}<td class="BBR"></td>{/if}
     <td class="BR"></td>

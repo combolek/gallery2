@@ -353,14 +353,13 @@ class GalleryPermissionHelper_advanced {
 			if ($ret->isError()) {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
-			$removeEventDataForAcl[$oldAclId] = $currentBits & $deltaBits;
 		    }
 		}
 
 		$oldToNewAclMapping[$oldAclId] = $newAclId;
 	    }
 
-	    if ($newAclId = $oldToNewAclMapping[$oldAclId]) {
+	    if ($newAclId) {
 		$itemsToBeRemapped[$oldAclId][] = $targetItemId;
 
 		if (count($itemsToBeRemapped[$oldAclId]) >= 200) {
@@ -375,7 +374,7 @@ class GalleryPermissionHelper_advanced {
 
 		if ($changeType == 'remove') {
 		    /* Keep track of all items with removed permissions for the postEvent call */
-		    $removeEventData[$targetItemId] = $removeEventDataForAcl[$oldAclId];
+		    $removeEventData[$targetItemId] = $currentBits & ~$newBits;
 		}
 	    }
 	}
@@ -1081,12 +1080,6 @@ class GalleryPermissionHelper_advanced {
 	$data[] = $storage->convertIntToBits($allBits);
 
 	list ($results, $searchResults) = $gallery->search($query, $data);
-	if ($ret->isError()) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	/* Now remove any rows left with g_permission = 0 */
-	$ret = GalleryAccessMap::removeMapEntry(array('permission' => 0));
 	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
