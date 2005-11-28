@@ -794,6 +794,83 @@ class DerivativeTest extends GalleryTestCase {
             GalleryCoreApi::removeDerivativeOperation(
 		'composite', 'test|1,2,3,4;composite|a,b;test|4,5,6'));
     }
+    
+    function testDerivativePreferences() {
+	for ($i = 0; $i < 3; $i++) {
+	    list ($ret, $album[$i]) = $this->_createRandomAlbum($this->_root->getId());
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $albumId[$i] = $album[$i]->getId();
+	    $ret = GalleryCoreApi::removeDerivativePreferencesForItem($albumId[$i]);
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	}
+
+	/* Add a thumbnail preference for single album*/
+	$ret = GalleryCoreApi::addDerivativePreference(0, $albumId[0],
+	    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|123');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	
+	list($ret, $prefs) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId[0]);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals(array('order' => 0,
+				  'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				  'derivativeOperations' => 'thumbnail|123'),
+			    $prefs[0], 'Single prefs');
+	
+	/* Add a resize preference for multiple albums*/
+	$ret = GalleryCoreApi::addDerivativePreference(0, $albumId,
+	    DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|654');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	
+	list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId[0]);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	usort($preferences, "DerivativeTestCmp");
+	$this->assertEquals(array(array('order' => 0,
+					'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+					'derivativeOperations' => 'thumbnail|123'),
+			    	  array('order' => 0,
+					'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
+					'derivativeOperations' => 'scale|654')),
+			    $preferences, 'Multiple prefs - 0');
+	
+	list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId[1]);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals(array('order' => 0,
+				  'derivativeType' => DERIVATIVE_TYPE_IMAGE_RESIZE,
+				  'derivativeOperations' => 'scale|654'),
+			    $preferences[0], 'Multiple prefs - 1');
+	
+	/* remove preference for one item and specific derivative type */
+	$result = GalleryCoreApi::removeDerivativePreferenceForItemType($albumId[0], 
+	    DERIVATIVE_TYPE_IMAGE_RESIZE);
+	/* and check that it's gone, but the other type remains */
+	list($ret, $preferences) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId[0]);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals(array(array('order' => 0,
+				  'derivativeType' => DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+				  'derivativeOperations' => 'thumbnail|123')),
+			    $preferences, 'Remove prefs');
+	
+    }
+}
+
+function DerivativeTestCmp($a, $b) {
+    return $a['derivativeType'] - $b['derivativeType'];
 }
 
 /**

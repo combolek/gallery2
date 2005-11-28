@@ -74,6 +74,14 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
+                $changeTypes = array();
+                if (isset($form['changeInDescendents'])) {
+                    list ($ret, $subAlbumIds) =
+                        GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+                    if ($ret) {
+                        return array($ret->wrap(__FILE__, __LINE__), null, null);
+                    }
+                }
 		/* Add the thumbnail size back in */
 		$ret = GalleryCoreApi::addDerivativePreference(0, $item->getId(),
 		    DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
@@ -81,6 +89,9 @@ class ItemEditAlbum extends ItemEditPlugin {
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
+                if (isset($form['changeInDescendents']['thumbnail'])) {
+                    $changeTypes[] = DERIVATIVE_TYPE_IMAGE_THUMBNAIL;
+                }
 
 		/* Add the resize-sizes back in */
 		for ($i = 0; $i < sizeof($form['resizes']); $i++) {
@@ -95,6 +106,41 @@ class ItemEditAlbum extends ItemEditPlugin {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
+                if (isset($form['changeInDescendents']['resizes'])) {
+                    $changeTypes[] = DERIVATIVE_TYPE_IMAGE_RESIZE;
+                }
+                
+                /* Use appropriate settings in descendent albums */
+                if (!empty($changeTypes)) {
+                   $ret = GalleryCoreApi::removeDerivativePreferenceForItemType(
+                        $subAlbumIds, $changeTypes);
+                    if ($ret) {
+                        return array($ret->wrap(__FILE__, __LINE__), null, null);
+                    }
+                    if (isset($form['changeInDescendents']['thumbnail'])) {
+                        $ret = GalleryCoreApi::addDerivativePreference(0, $subAlbumIds,
+                            DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+                            'thumbnail|' . $form['thumbnail']['size']);
+                        if ($ret) {
+                            return array($ret->wrap(__FILE__, __LINE__), null, null);
+                        }
+                    }
+                    if (isset($form['changeInDescendents']['resizes'])) {
+                        for ($i = 0; $i < sizeof($form['resizes']); $i++) {
+                            if (empty($form['resizes'][$i]['active'])) {
+                                continue;
+                            }
+        
+                            $ret = GalleryCoreApi::addDerivativePreference($i, $subAlbumIds,
+                                DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|' .
+                                $form['resizes'][$i]['width'] . ',' . 
+                                $form['resizes'][$i]['height']);
+                            if ($ret) {
+                                return array($ret->wrap(__FILE__, __LINE__), null, null);
+                            }
+                        }
+                    }
+                }
 
 		/* Load the children if we might need them */
 		if (isset($form['recreateThumbnails']) || isset($form['recreateResizes']) ) {
@@ -338,6 +384,44 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
+                /* for sort order and theme we need to load subalbums */
+                if (!empty($subAlbumIds) && (isset($form['changeInDescendents']['sort']) ||
+                isset($form['changeInDescendents']['theme']))) {
+		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($subAlbumIds);
+		    if ($ret) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    }
+        
+                    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
+                    if ($ret) {
+                        return array($ret->wrap(__FILE__, __LINE__), null, null);
+                    }
+                    foreach($subAlbums as $album) {
+                        if (isset($form['changeInDescendents']['sort'])) {
+                            if (!empty($form['presort'])) {
+                                $album->setOrderBy($form['presort'] . '|' . $form['orderBy']);
+                            } else {
+                                $album->setOrderBy($form['orderBy']);
+                            }
+                            if (isset($form['orderDirection'])) {
+                                $album->setOrderDirection($form['orderDirection']);
+                            }
+                        }
+                        if (isset($form['changeInDescendents']['theme'])) {
+                            $album->setTheme($form['theme']);
+                        }
+                        $ret = $album->save();
+                        if ($ret) {
+                            GalleryCoreApi::releaseLocks($lockId);
+                            return array($ret->wrap(__FILE__, __LINE__), null, null);
+                        }        
+                    }
+		    $ret = GalleryCoreApi::releaseLocks($lockId);
+		    if ($ret) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    }
+                }
+                        
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {

@@ -85,15 +85,15 @@ require_once(dirname(__FILE__) . '/../init.inc');
 /* Check if config.php is ok */
 $storageConfig = @$gallery->getConfig('storage.config');
 if (!empty($storageConfig)) {
+    /* We want to avoid using the cache */
+    GalleryDataCache::setFileCachingEnabled(false);
+    GalleryDataCache::setMemoryCachingEnabled(false);
+
     $ret = GalleryInitFirstPass(array('debug' => 'buffered', 'noDatabase' => 1));
     if ($ret) {
 	print $ret->getAsHtml();
 	return;
     }
-
-    /* We want to avoid using the cache */
-    GalleryDataCache::setFileCachingEnabled(false);
-    GalleryDataCache::setMemoryCachingEnabled(false);
 
     $translator = $gallery->getTranslator();
     if (!$translator->canTranslate()) {

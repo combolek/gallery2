@@ -126,6 +126,15 @@ class TemplateAdapterTest extends GalleryTestCase {
 	$this->assertEquals(array(array('foo' => 'bar'), null, null, false),
 			    $this->_mockUrlGenerator->_calls[0]);
     }
+    
+    function testChangeInDescendents() {
+	$test = array('module' => 'pirate', 'text' => 'ninja', 'l10Domain' => 'en_US');
+	$this->_setupMockAdapter();
+	$result = GalleryTemplateAdapter::changeInDescendents($test, $this->_mockSmarty);
+	$this->assertEquals('<input type="checkbox" id="pirate_ChangeInDescendents"	' .
+	    'name="g2_form[changeInDescendents][pirate]"/>  <label ' .
+	    'for="pirate_ChangeInDescendents"> ninja</label>', $result);
+    }
 }
 
 class TemplateAdapterMockSmarty {

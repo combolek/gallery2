@@ -116,6 +116,10 @@ class GalleryModule extends GalleryPlugin {
 	 *     And add optional forceG2Base to various UrlGen methods
 	 *   + DONE: Remove unused GALLERY_PERMISSION_ITEM_ADMIN flag.  There's a patch
 	 *     for it here:  http://tinyurl.com/9l9wz
+	 *   + DONE: Add GalleryCoreApi::removeDerivativePreferenceForItemType() to
+	 *     remove preferences for specific item/Derivative type combination
+	 *   + DONE: Add GalleryCoreApi::fetchDescendentAlbumItemIds() to fetch all
+	 *     descendent subalbums of current album (subject to permission limitations)
 	 */
 	return array(2, 4);
     }

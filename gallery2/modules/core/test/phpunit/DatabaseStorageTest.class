@@ -136,6 +136,6 @@ class DatabaseStorageTest extends GalleryTestCase {
 				  'alter' => array(),
 				  'remove' => array(),
 				  'test' => array()), $results);
-    }
+    }    
 }
 ?>
