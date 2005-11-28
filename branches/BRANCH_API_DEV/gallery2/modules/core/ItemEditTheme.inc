@@ -75,6 +75,17 @@ class ItemEditTheme extends ItemEditPlugin {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
+                if (isset($form['changeInDescendents'])) {
+                    list ($ret, $subAlbumIds) =
+                        GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+                    if ($ret) {
+                        return array($ret->wrap(__FILE__, __LINE__), null, null);
+                    }
+                    array_unshift($subAlbumIds, $item->getId());
+                } else {
+                    $subAlbumIds = array($item->getId());
+                }
+
 		/*
 		 * Any settings that are marked as "use global" should be removed from this item.
 		 * Others should be updated in the database.  Note that we set the parameter even
@@ -85,7 +96,7 @@ class ItemEditTheme extends ItemEditPlugin {
 		foreach ($settings as $setting) {
 		    $key = $setting['key'];
 		    if (!empty($form['useGlobal'][$key])) {
-			$ret = $theme->removeParameter($key, $item->getId());
+                        $ret = $theme->removeParameter($key, $subAlbumIds);
 			if ($ret) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
@@ -101,11 +112,9 @@ class ItemEditTheme extends ItemEditPlugin {
 				$setting['typeParams']['packType'], $value);
 			}
 
-			if ($setting['value'] != $value) {
-			    $ret = $theme->setParameter($key, $value, $item->getId());
-			    if ($ret) {
-				return array($ret->wrap(__FILE__, __LINE__), null, null);
-			    }
+                        $ret = $theme->setParameter($key, $value, $subAlbumIds);
+			if ($ret) {
+			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    }
 		}

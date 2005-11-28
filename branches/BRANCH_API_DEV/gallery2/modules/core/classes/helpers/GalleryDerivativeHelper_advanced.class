@@ -306,6 +306,12 @@ class GalleryDerivativeHelper_advanced {
     function addPreference($order, $itemId, $derivativeType, $derivativeOperations) {
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
+        /* allow for adding same set of preferences to multiple items */
+        if (is_array($itemId)) {
+            $order = array_fill(0, sizeof($itemId), $order);
+            $derivativeType = array_fill(0, sizeof($itemId), $derivativeType);
+            $derivativeOperations = array_fill(0, sizeof($itemId), $derivativeOperations);
+        }
 	$ret = GalleryDerivativePreferencesMap::addMapEntry(
 	    array('order' => $order,
 		  'itemId' => $itemId,
@@ -329,6 +335,26 @@ class GalleryDerivativeHelper_advanced {
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
 	$ret = GalleryDerivativePreferencesMap::removeMapEntry(array('itemId' => $itemId));
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return null;
+    }
+
+    /**
+     * Remove derivative preference for a given item/type combination
+     *
+     * @param int the item id
+     * @param int derivative type id
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function removePreferenceForItemType($itemId, $derivativeType) {
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
+	$ret = GalleryDerivativePreferencesMap::removeMapEntry(
+            array('itemId' => $itemId, 'derivativeType' => $derivativeType));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

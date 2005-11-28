@@ -346,5 +346,31 @@ class ChildTest extends GalleryTestCase {
         }
         $this->assertEquals(array(), $childIds, 'no permissions');
      }
+     
+    function testDescendentAlbumItemIds() {
+        list ($ret, $items['ignore1']) = $this->_createRandomDataItem($this->_root->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        list ($ret, $items['ignore2']) = $this->_createRandomDataItem($this->_child[0]->getId());
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+	list ($ret, $items['album']) = $this->_createRandomAlbum($this->_child[1]->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+        $itemIds = array($this->_child[0]->getId(), $this->_child[1]->getId(),
+	    $items['album']->getId());
+
+	/* this should bring back all sub albums and ignore non-albums */
+        list ($ret, $childIds) = GalleryCoreApi::fetchDescendentAlbumItemIds($this->_root);
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }
+        sort($childIds);
+        $this->assertEquals($itemIds, $childIds, 'descendents');
+    }
+
 }
 ?>

@@ -93,21 +93,34 @@ class SizeLimitOption extends ItemEditOption {
 
 	$error = $warning = array();
 	$setOriginal = false;
+	if (empty($error) && isset($form['changeInDescendents']['sizelimit'])) {
+            /* TODO: We only need subalbums Items that we can administer */
+            list ($ret, $subAlbumIds) =
+                GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+            if ($ret) {
+                return array($ret->wrap(__FILE__, __LINE__), null, null);
+            }
+            array_unshift($subAlbumIds, $item->getId());
+        } else {
+            $subAlbumIds = array($item->getId());
+        }
+        
+        foreach ($subAlbumIds as $id) {
 	switch ($form['SizeLimitOption']['dimensionChoice']) {
 	case 'unlimited':
 	    /* delete parameter from plugin table */
 	    $ret = GalleryCoreApi::removePluginParameter(
-		'module', 'sizelimit', 'height', $item->getId());
+                'module', 'sizelimit', 'height', $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter(
-		'module', 'sizelimit', 'width', $item->getId());
+                'module', 'sizelimit', 'width', $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter(
-		'module', 'sizelimit', 'keepOriginal', $item->getId());
+                    'module', 'sizelimit', 'keepOriginal', $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
@@ -129,12 +142,12 @@ class SizeLimitOption extends ItemEditOption {
 		$width = $form['SizeLimitOption']['dimensions']['width'] = $height;;
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter(
-		'module', 'sizelimit', 'height', $height, $item->getId());
+                    'module', 'sizelimit', 'height', $height, $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter(
-		'module', 'sizelimit', 'width', $width, $item->getId());
+                    'module', 'sizelimit', 'width', $width, $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
@@ -146,12 +159,12 @@ class SizeLimitOption extends ItemEditOption {
 	case 'unlimited':
 	    /* delete parameter from plugin table */
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'sizelimit',
-		'size', $item->getId());
+                    'size', $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'sizelimit',
-		'keepOriginal', $item->getId());
+                    'keepOriginal', $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
@@ -167,7 +180,7 @@ class SizeLimitOption extends ItemEditOption {
 	    /* figure out x and y and set them... */
 	    $filesize = $form['SizeLimitOption']['filesize'];
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit', 'size',
-						      $filesize, $item->getId());
+                                                          $filesize, $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
@@ -177,11 +190,12 @@ class SizeLimitOption extends ItemEditOption {
 
 	if ($setOriginal) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit', 'keepOriginal',
-		isset($form['SizeLimitOption']['keepOriginal']) ? 1 : 0, $item->getId());
+                    isset($form['SizeLimitOption']['keepOriginal']) ? 1 : 0, $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
+        }
 	if (empty($error) && isset($form['SizeLimitOption']['applyToDescendents'])) {
 	    list ($ret, $error, $warning) = $this->_applyToDescendents($form, $item);
 	    if ($ret) {
@@ -314,7 +328,6 @@ class SizeLimitOption extends ItemEditOption {
 	}
 	return array(null, $errors, $warnings);
     }
-
 
     /**
      * @see ItemEditOption::requiresProgressBar()

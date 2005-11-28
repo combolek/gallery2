@@ -207,11 +207,11 @@ class GalleryPluginHelper_medium {
      * @param string the type of the plugin
      * @param string the id of the plugin
      * @param string the name of the parameter
-     * @param integer the id of item (or null for a global setting)
+     * @param integer or array - the id(s) of item(s) (or null for a global setting)
      * @return object GalleryStatus a status code
      * @static
      */
-    function removeParameter($pluginType, $pluginId, $parameterName, $itemId=0) {
+    function removeParameter($pluginType, $pluginId, $parameterName, $itemIds=0) {
 	global $gallery;
 
 	if (empty($pluginType) || empty($pluginId) || empty($parameterName)) {
@@ -219,11 +219,14 @@ class GalleryPluginHelper_medium {
 	}
 
 	/* Convert null to 0, just in case */
-	if ($itemId == null) {
-	    $itemId = 0;
+	if ($itemIds == null) {
+	    $itemIds = array(0);
+	} elseif (!is_array($itemIds)) {
+            $itemIds = array($itemIds);
 	}
 
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
+        foreach ($itemIds as $itemId) {
 	$ret = GalleryPluginParameterMap::removeMapEntry(array('pluginType' => $pluginType,
 							       'pluginId' => $pluginId,
 							       'itemId' => $itemId,
@@ -238,6 +241,7 @@ class GalleryPluginHelper_medium {
 	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
 					       'itemId' => $itemId,
 					       'id' => $pluginId));
+        }
 
 	return null;
     }
@@ -344,34 +348,37 @@ class GalleryPluginHelper_medium {
         GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
 	list ($ret, $params) =
-	    GalleryPluginHelper_simple::fetchAllParameters($pluginType, $pluginId, $itemId);
+	    GalleryPluginHelper_simple::_fetchAllParameters($pluginType, $pluginId, $itemId);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	if (!array_key_exists($parameterName, $params)) {
+        if (!is_array($itemId)) $itemId = array($itemId);
+        foreach($itemId as $id) {
+            if (!isset($params[$id]) || !array_key_exists($parameterName, $params[$id])) {
 	    $ret = GalleryPluginHelper_medium::_addParameter($pluginType,
 							     $pluginId,
 							     $parameterName,
 							     $parameterValue,
-							     $itemId);
+                                                                 $id);
 	} else {
 	    $ret = GalleryPluginHelper_medium::_updateParameter($pluginType,
 								$pluginId,
 								$parameterName,
 								$parameterValue,
-								$itemId);
+                                                                    $id);
 	}
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Invalidate our cache */
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
+            $cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $id)";
 	GalleryDataCache::remove($cacheKey);
 	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
-					       'itemId' => $itemId,
+                                                   'itemId' => $id,
 					       'id' => $pluginId));
+        }
 
 	if ($gallery->getDebug()) {
 	    $gallery->debug(sprintf('Plugin parameter %s for %s plugin set successfully',

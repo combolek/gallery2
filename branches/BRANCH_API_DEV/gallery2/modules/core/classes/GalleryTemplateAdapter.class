@@ -256,6 +256,35 @@ class GalleryTemplateAdapter {
     }
 
     /**
+     * Return a checkbox asking whether to chenge the value in descendents
+     * Useful when we are trying to change a value recursively
+     *
+     * @param array key => value attributes
+     * @return HTML content
+     */
+    function changeInDescendents($params, &$smarty) {
+	global $gallery;
+
+	if (isset($params['l10Domain'])) {
+	    $domain = $params['l10Domain'];
+	} else {
+	    $domain = $smarty->_tpl_vars['l10Domain'];
+	}
+	$translator =& $gallery->getTranslator();
+	list ($ret, $text) = $translator->translateDomain($domain, $params);
+	if ($ret) {
+	    return '[Translation error]';
+	}
+        
+        return '<input type="checkbox" id="' . $params['module'] . 
+            '_ChangeInDescendents"	name="' .
+            GalleryUtilities::prefixFormVariable(
+                'form[changeInDescendents][' . $params['module'] . ']' ) .
+            '"/>  <label for="' . $params['module'] . '_ChangeInDescendents"> ' . 
+            $text . '</label>';
+    }
+
+    /**
      * Return a transformed element name, useful when we're trying to use
      * Javascript to access a form element.
      *

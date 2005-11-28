@@ -34,8 +34,31 @@
  */
 class StorageTest extends GalleryTestCase {
 
+    var $_db;		/* backup of ADODB object */
+    var $_results;	/* results from the generated query */
+    
     function StorageTest($methodName) {
 	$this->GalleryTestCase($methodName);
+    }
+    
+    function setUp() {
+	global $gallery;
+	
+	parent::setUp();
+	
+	$storage =& $gallery->getStorage();
+	$impl =& $storage->_impl;
+	$this->_db = $impl->_db;
+	$impl->_db = new StorageTestDB($this);
+    }
+    
+    function tearDown() {
+	global $gallery;
+	
+	$storage =& $gallery->getStorage();
+	$impl =& $storage->_impl;
+	$impl->_db = $this->_db;
+	parent::tearDown();
     }
 
     function testTranslateQuery() {
@@ -76,6 +99,52 @@ class StorageTest extends GalleryTestCase {
 	$this->assert(is_int($id1), 'Id1 is not an int');
 	$this->assert(is_int($id2), 'Id2 is not an int');
 	$this->assert($id2 > $id1);
+    }
+    
+    function testAddMap() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	$impl =& $storage->_impl;
+	$storageExtras = $impl->_getExtras();
+	$storageExtras->addMapEntry('GalleryStorageTestMap', 
+	    array('itemId' => 0, 'testColumn' => 'foo'));
+	$this->assertEquals('INSERT INTO g2_StorageTestMap (g_itemId, g_testColumn) VALUES (?,?)',
+	    $this->_results, 'addMap');
+    }
+    
+    function testAddMapArray() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	$impl =& $storage->_impl;
+	$storageExtras = $impl->_getExtras();
+	$storageExtras->addMapEntry('GalleryStorageTestMap', 
+	    array('itemId' =>array(1, 2, 3), 'testColumn' => array('foo', 'foo', 'foo')));
+	$this->assertEquals(
+	    'INSERT INTO g2_StorageTestMap (g_itemId, g_testColumn) VALUES (?,?), (?,?), (?,?)',
+	    $this->_results, 'addMap');
+    }
+}
+
+class GalleryStorageTestMap {
+    function getMapInfo() {
+	return array('members' => array('itemId' => 1, 'testColumn' => 2));
+    }
+}
+
+class StorageTestDB {
+    var $_testCase;
+    
+    function StorageTestDB($testCase) {
+	$this->_testCase = $testCase;
+    }
+    
+    function execute($query, $data) {
+	$this->_testCase->_results = $query;
+	return null;
+    }
+    
+    function GenID($val) {
+	return $this->_testCase->_db->GenID($val);
     }
 }
 ?>

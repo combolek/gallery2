@@ -400,18 +400,17 @@ class GalleryChildEntityHelper_simple {
     }
 
     /**
-     * Return the ids of the descendents of this entity that are visible to the given user.
+     * Helper function for getting descendent ids.
      *
      * @param object GalleryItem an item
-     * @param int where to start
-     * @param int how many to return
-     * @param string what permission is required for the item
-     * @return array object GalleryStatus a status code
-     *               array integer ids
-     * @access public
-     * @static
+     * @param int an offset into the child item list (null for no offset)
+     * @param int a count of how many child items to return (null for unlimited)
+     * @param string a class to restrict children to (eg 'GalleryAlbumItem')
+     * @param string a required permission (defaults to 'core.view')
+     *
+     * @access private
      */
-    function fetchDescendentItemIds($item, $offset, $count, $requiredPermission) {
+    function _fetchDescendentItemIds($item, $offset, $count, $class, $requiredPermission) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 
@@ -449,9 +448,11 @@ class GalleryChildEntityHelper_simple {
 	    SELECT
 	      [GalleryItemAttributesMap::itemId]
 	    FROM
-	      [GalleryItemAttributesMap], [GalleryAccessSubscriberMap]
+	      [GalleryItemAttributesMap], [GalleryAccessSubscriberMap], [' . $class . ']
 	    WHERE
 	      [GalleryItemAttributesMap::parentSequence] LIKE ?
+	     AND
+              [GalleryItemAttributesMap::itemId] = [' . $class . '::id]
 	     AND
 	     [GalleryAccessSubscriberMap::itemId] = [GalleryItemAttributesMap::itemId]
 	     AND
@@ -463,9 +464,11 @@ class GalleryChildEntityHelper_simple {
 	    SELECT
 	      [GalleryItemAttributesMap::itemId]
 	    FROM
-	      [GalleryItemAttributesMap]
+	      [GalleryItemAttributesMap], [' . $class . ']
 	    WHERE
 	      [GalleryItemAttributesMap::parentSequence] LIKE ?
+             AND
+              [GalleryItemAttributesMap::itemId] = [' . $class . '::id]
 	    ';
 	}
 
@@ -485,6 +488,48 @@ class GalleryChildEntityHelper_simple {
 	return array(null, $ids);
     }
 
+    /**
+     * Return the ids of the descendents of this entity that are visible to the given user.
+     *
+     * @param object GalleryItem an item
+     * @param int where to start
+     * @param int how many to return
+     * @param string what permission is required for the item
+     * @return array object GalleryStatus a status code
+     *               array integer ids
+     * @access public
+     * @static
+     */
+    function fetchDescendentItemIds($item, $offset, $count, $requiredPermission) {
+	list ($ret, $ids) = GalleryChildEntityHelper_simple::_fetchDescendentItemIds(
+	    $item, $offset, $count, 'GalleryItem', $requiredPermission);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(null, $ids);
+    }
+
+    /**
+     * Return the ids of the album descendents of this entity that are visible to the given user.
+     *
+     * @param object GalleryItem an item
+     * @param int where to start
+     * @param int how many to return
+     * @param string what permission is required for the item
+     * @return array object GalleryStatus a status code
+     *               array integer ids
+     * @access public
+     * @static
+     */
+    function fetchDescendentAlbumItemIds($item, $offset, $count, $requiredPermission) {
+	list ($ret, $ids) = GalleryChildEntityHelper_simple::_fetchDescendentItemIds(
+	    $item, $offset, $count, 'GalleryAlbumItem', $requiredPermission);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(null, $ids);
+    }
+    
     /**
      * If we want to sort, which storage info we need?
      *
