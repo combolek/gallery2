@@ -54,7 +54,7 @@ class GalleryCoreApi {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(6, 10);
+	return array(6, 11);
     }
 
     /**
