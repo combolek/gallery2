@@ -398,10 +398,10 @@ class ModuleTest extends GalleryTestCase {
 	$storage =& $gallery->getStorage();
 	list ($ret, $bitOr) = $storage->getFunctionSql('BIT_OR',
 						       array('[GalleryAccessMap::permission]'));
-	if ($ret->isError()) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	
+
 	$query = '
 	SELECT
 	  ' . $bitOr . '
