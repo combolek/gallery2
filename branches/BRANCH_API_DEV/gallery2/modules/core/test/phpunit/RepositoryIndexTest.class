@@ -66,6 +66,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	global $gallery;
 	$gallery->_translator = $this->_galleryTranslator;
 	$gallery->_storage =& $this->_galleryStorage;
+	GalleryDataCache::reset();
 
 	parent::tearDown();
     }
@@ -214,7 +215,8 @@ class RepositoryIndexTest extends GalleryTestCase {
     }
 
     function testGetMetaData() {
-	$this->_testStorage->setSearchResults(array(array('repository.updatetime', 'updatetime')));
+	$this->_testStorage->setSearchResults(
+	    array(array(0, 'repository.updatetime', 'updatetime')));
 
 	/*
 	 * Clear the database cache for fetchAllPluginParameters
