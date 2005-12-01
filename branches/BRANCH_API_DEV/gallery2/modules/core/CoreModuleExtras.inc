@@ -122,7 +122,6 @@ class CoreModuleExtras {
 			   'default.theme' => 'matrix',
 			   'default.language' => GalleryTranslator::getLanguageCodeFromRequest(),
 			   'default.newAlbumsUseDefaults' => 'false',
-			   'language.selector' => 'none',
 			   'session.lifetime' => 25 * 365 * 86400, /* 25 years */
 			   'session.inactivityTimeout' => 14 * 86400, /* two weeks */
 			   'misc.markup' => 'bbcode',
@@ -130,6 +129,7 @@ class CoreModuleExtras {
 			   'format.date' => '%x',
 			   'format.time' => '%X',
 			   'format.datetime' => '%c',
+			   'repository.updateTime' => '0',
 			   ) as $key => $value) {
 		if (!isset($param[$key])) {
 		    $ret = $module->setParameter($key, $value);
@@ -354,7 +354,7 @@ class CoreModuleExtras {
 	    /* Beta 1! */
 
 	case '0.9.0':
-	    $ret = GalleryCoreApi::removePluginParameter('modules', 'core', 'misc.useShortUrls');
+	    $ret = $module->removeParameter('misc.useShortUrls');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -771,7 +771,7 @@ class CoreModuleExtras {
 	case '0.9.23':
 	    /* Session cookie change, revert the last change and try something new */
 	    foreach (array('cookie.path', 'cookie.domain') as $parameterName) {
-		$ret = GalleryCoreApi::setPluginParameter('modules', 'core', $parameterName, '');
+		$ret = $module->setParameter($parameterName, '');
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -1266,14 +1266,12 @@ class CoreModuleExtras {
 	    /* Add PluginPackageMap table */
 
 	case '1.0.7':
-	    $ret = GalleryCoreApi::setPluginParameter('modules', 'core', 'exec.beNice', '0');
+	    $ret = $module->setParameter('exec.beNice', '0');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.8':
-	    /* Added new argument to GalleryUrlGenerator::generateUrl() */
-
 	case '1.0.9':
 	    /* Security fix in zipcart */
 
@@ -1317,6 +1315,37 @@ class CoreModuleExtras {
 	      [::flags] = ' . $flagModifier . '
 	    ';
 	    $ret = $storage->execute($query, array(3));
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	case '1.0.11':
+	    /* Several previous upgrades used 'modules' instead of 'module' with plugin params */
+	    list ($ret, $coreParams) = $module->fetchParameters();
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    foreach (array('misc.useShortUrls', 'language.selector') as $key) {
+		if (isset($coreParams[$key])) {
+		    $ret = $module->removeParameter('misc.useShortUrls');
+		    if ($ret) {
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+	    }
+	    foreach (array('cookie.path' => '', 'cookie.domain' => '',
+			   'exec.beNice' => '0', 'repository.updateTime' => '0')
+		     as $key => $value) {
+		if (!isset($coreParams[$key])) {
+		    $ret = $module->setParameter($key, $value);
+		    if ($ret) {
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+	    }
+	    GalleryCoreApi::relativeRequireOnce(
+		'modules/core/classes/GalleryPluginParameterMap.class');
+	    $ret = GalleryPluginParameterMap::removeMapEntry(array('pluginType' => 'modules'));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -1518,6 +1547,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.8':
 	case '1.0.9':
 	case '1.0.10':
+	case '1.0.11':
 
 	case 'end of upgrade path':
 	    /*
