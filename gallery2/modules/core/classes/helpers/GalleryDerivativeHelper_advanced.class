@@ -297,7 +297,7 @@ class GalleryDerivativeHelper_advanced {
      * Add a derivative preference to a given item
      *
      * @param int the position of this preference
-     * @param int the item id
+     * @param mixed int item id or array of item ids
      * @param int the derivative type (eg, DERIVATIVE_TYPE_IMAGE_THUMBNAIL)
      * @param string the derivative operations (eg, 'thumbnail|200')
      * @return object GalleryStatus a status code
@@ -306,12 +306,18 @@ class GalleryDerivativeHelper_advanced {
     function addPreference($order, $itemId, $derivativeType, $derivativeOperations) {
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
-        /* allow for adding same set of preferences to multiple items */
-        if (is_array($itemId)) {
-            $order = array_fill(0, sizeof($itemId), $order);
-            $derivativeType = array_fill(0, sizeof($itemId), $derivativeType);
-            $derivativeOperations = array_fill(0, sizeof($itemId), $derivativeOperations);
-        }
+	if (is_array($itemId)) {
+	    /* Allow for adding same set of preferences to multiple items */
+	    $order = array($order);
+	    $derivativeType = array($derivativeType);
+	    $derivativeOperations = array($derivativeOperations);
+	    /* TODO: use array_fill when we require php 4.2+ */
+	    for ($i = 1; $i < count($itemId); $i++) {
+		$order[] = $order[0];
+		$derivativeType[] = $derivativeType[0];
+		$derivativeOperations[] = $derivativeOperations[0];
+	    }
+	}
 	$ret = GalleryDerivativePreferencesMap::addMapEntry(
 	    array('order' => $order,
 		  'itemId' => $itemId,
@@ -321,7 +327,7 @@ class GalleryDerivativeHelper_advanced {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-    	return null;
+	return null;
     }
 
     /**
@@ -354,7 +360,7 @@ class GalleryDerivativeHelper_advanced {
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
 	$ret = GalleryDerivativePreferencesMap::removeMapEntry(
-            array('itemId' => $itemId, 'derivativeType' => $derivativeType));
+	    array('itemId' => $itemId, 'derivativeType' => $derivativeType));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
