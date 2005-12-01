@@ -258,7 +258,7 @@ class GalleryPluginHelper_simple {
      *
      * @param string the type of the plugin
      * @param string the id of the plugin
-     * @param integer the id of item (or null for a global setting)
+     * @param integer the id of item (or null/zero for a global setting)
      * @return array object GalleryStatus a status code
      *               array (parameterName => parameterValue)
      * @static
@@ -268,24 +268,25 @@ class GalleryPluginHelper_simple {
 	if ($itemId == null) {
 	    $itemId = 0;
 	}
-	list ($ret, $params) = GalleryPluginHelper_simple::_fetchAllParameters($pluginType, $pluginId, $itemId);
+	list ($ret, $params) =
+	    GalleryPluginHelper_simple::_fetchAllParameters($pluginType, $pluginId, $itemId);
 	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($params[$itemId])) {
 	    $params = $params[$itemId];
 	}
-	return array($ret, $params);
+	return array(null, $params);
     }
-    
+
     /**
      * Get all the parameters for this plugin
      *
      * @param string the type of the plugin
      * @param string the id of the plugin
-     * @param integer the id of item (or null for a global setting)
+     * @param mixed int id of item (or null/zero for a global setting) or array of ids
      * @return array object GalleryStatus a status code
-     *               array (parameterName => parameterValue)
+     *               array (itemId/zero => array(parameterName => parameterValue), ..)
      * @static
      */
     function _fetchAllParameters($pluginType, $pluginId, $itemId) {
@@ -293,8 +294,7 @@ class GalleryPluginHelper_simple {
 	if (empty($pluginType) || empty($pluginId)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      sprintf("Missing pluginType [%s] or pluginId [%s]",
-						      $pluginType,
-						      $pluginId)),
+						      $pluginType, $pluginId)),
 			 null);
 	}
 
@@ -303,23 +303,31 @@ class GalleryPluginHelper_simple {
 	    $itemId = 0;
 	}
 
-        if (is_array($itemId)) {
-            $whereId =  'IN (' . str_repeat('?, ', sizeof($itemId) - 1) . '?)';
-            array_unshift($itemId, $pluginType, $pluginId);
-        } else {
-	    $cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
-            if (GalleryDataCache::containsKey($cacheKey)) {
-                return array(null, GalleryDataCache::get($cacheKey));
-            }
-	    $cacheData =& GalleryDataCache::getFromDisk(array('type' => $pluginType,
-                'itemId' => $itemId, 'id' => $pluginId));
-            if (isset($cacheData)) {
+	/* Check cache */
+	$data = $queryIds = array();
+	$itemIds = is_array($itemId) ? $itemId : array($itemId);
+	$cacheBase = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, ";
+	foreach ($itemIds as $itemId) {
+	    $cacheKey = $cacheBase . $itemId . ')';
+	    if (GalleryDataCache::containsKey($cacheKey)) {
+		$data[$itemId] = GalleryDataCache::get($cacheKey);
+		continue;
+	    }
+	    $cacheData =& GalleryDataCache::getFromDisk(
+		array('type' => $pluginType, 'itemId' => $itemId, 'id' => $pluginId));
+	    if (isset($cacheData)) {
 		$data[$itemId] = $cacheData;
-                return array(null, $data);
-            }
-            $whereId = '= ?';
-            $itemId = array($pluginType, $pluginId, $itemId);
-        }
+		GalleryDataCache::put($cacheKey, $cacheData);
+		continue;
+	    }
+	    $queryIds[] = $itemId;
+	}
+	if (empty($queryIds)) {
+	    return array(null, $data);
+	}
+
+	$whereId = count($queryIds) > 1 ? 'IN (' . GalleryUtilities::makeMarkers($queryIds) . ')'
+					: '= ?';
 	$query = '
 	  SELECT
 	    [GalleryPluginParameterMap::itemId],
@@ -333,23 +341,24 @@ class GalleryPluginHelper_simple {
 	    [GalleryPluginParameterMap::pluginId] = ?
 	    AND
 	    [GalleryPluginParameterMap::itemId] ' . $whereId;
+	array_unshift($queryIds, $pluginType, $pluginId);
 
-	list ($ret, $searchResults) =
-	    $gallery->search($query, $itemId);
+	list ($ret, $searchResults) = $gallery->search($query, $queryIds);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$data = array();
 	while ($result = $searchResults->nextResult()) {
 	    $data[$result[0]][$result[1]] = $result[2];
+	}
+
+	foreach (array_slice($queryIds, 2) as $itemId) {
 	    GalleryDataCache::putToDisk(array('type' => $pluginType,
-					  'itemId' => $result[0],
+					      'itemId' => $itemId,
 					      'id' => $pluginId),
-				    $data[$result[0]]);
-	    $cacheKey = 'GalleryPluginHelper::fetchAllParameters(' .
-		$pluginType . ',' . $pluginId . ',' . $result[0] . ')';
-	    GalleryDataCache::put($cacheKey, $data[$result[0]]);
+					$data[$itemId]);
+	    $cacheKey = $cacheBase . $itemId . ')';
+	    GalleryDataCache::put($cacheKey, $data[$itemId]);
 	}
 
 	return array(null, $data);
@@ -605,7 +614,7 @@ class GalleryPluginHelper_simple {
 	if (!isset($pluginIndex[$pluginType]) || $clearCache) {
 	    global $gallery;
 	    $pluginDataDir =
-	        dirname(__FILE__) . '/../../../../' . $gallery->getConfig('plugins.dirname');
+		dirname(__FILE__) . '/../../../../' . $gallery->getConfig('plugins.dirname');
 	    $pluginIndexFile = sprintf('%s/index.%ss', $pluginDataDir, $pluginType);
 
 	    /*
