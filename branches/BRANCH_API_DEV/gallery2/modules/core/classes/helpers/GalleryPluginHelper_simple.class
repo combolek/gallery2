@@ -273,10 +273,7 @@ class GalleryPluginHelper_simple {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if (!empty($params[$itemId])) {
-	    $params = $params[$itemId];
-	}
-	return array(null, $params);
+	return array(null, $params[$itemId]);
     }
 
     /**
@@ -353,12 +350,14 @@ class GalleryPluginHelper_simple {
 	}
 
 	foreach (array_slice($queryIds, 2) as $itemId) {
+	    if (!isset($data[$itemId])) {
+		$data[$itemId] = array();
+	    }
 	    GalleryDataCache::putToDisk(array('type' => $pluginType,
 					      'itemId' => $itemId,
 					      'id' => $pluginId),
 					$data[$itemId]);
-	    $cacheKey = $cacheBase . $itemId . ')';
-	    GalleryDataCache::put($cacheKey, $data[$itemId]);
+	    GalleryDataCache::put($cacheBase . $itemId . ')', $data[$itemId]);
 	}
 
 	return array(null, $data);
