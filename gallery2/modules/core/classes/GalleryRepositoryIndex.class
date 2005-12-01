@@ -104,7 +104,11 @@ class GalleryRepositoryIndex {
 	}
 
 	/* Save update time and unserialize the index. */
-	GalleryCoreApi::setPluginParameter('module', 'core', 'repository.updatetime', time());
+	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
+						  'repository.updateTime', time());
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	$ret = $this->unserializeIndex($indexContents);
 	if ($ret) {
@@ -131,19 +135,14 @@ class GalleryRepositoryIndex {
 
 	/* Get timestamp. */
 	list ($ret, $timestamp) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'repository.updatetime');
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'repository.updateTime');
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	if (empty($timestamp)) {
-	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
-					      'Timestamp not found.'),
-			 null);
-	}
 
 	return array(null, array('timestamp' => $timestamp,
-	    'moduleCount' => count($this->_index['modules']),
-	    'themeCount' => count($this->_index['themes'])));
+				 'moduleCount' => count($this->_index['modules']),
+				 'themeCount' => count($this->_index['themes'])));
     }
 
     /**
