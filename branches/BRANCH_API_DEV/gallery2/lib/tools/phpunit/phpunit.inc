@@ -512,6 +512,7 @@ class TestResult {
   var $fFailures = array();
   var $fErrors = array();
   var $fRunTests = 0;
+  var $fUnskippedTests = 0;
   var $fStop = false;
 
   function TestResult() { }
@@ -548,6 +549,7 @@ class TestResult {
     $this->_startTest($test);
     
     if (!$test->wasSkipped()) {
+	$this->fUnskippedTests++;
 	$test->runBare();
     }
 
@@ -566,7 +568,7 @@ class TestResult {
   }
 
   function countTests() {
-    return $this->fRunTests;
+    return $this->fUnskippedTests;
   }
 
   function shouldStop() {
