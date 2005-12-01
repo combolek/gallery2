@@ -36,28 +36,29 @@ class StorageTest extends GalleryTestCase {
 
     var $_db;		/* backup of ADODB object */
     var $_results;	/* results from the generated query */
-    
+
     function StorageTest($methodName) {
 	$this->GalleryTestCase($methodName);
     }
-    
+
     function setUp() {
 	global $gallery;
-	
+
 	parent::setUp();
-	
+
 	$storage =& $gallery->getStorage();
 	$impl =& $storage->_impl;
 	$this->_db = $impl->_db;
 	$impl->_db = new StorageTestDB($this);
     }
-    
+
     function tearDown() {
 	global $gallery;
-	
+
 	$storage =& $gallery->getStorage();
 	$impl =& $storage->_impl;
 	$impl->_db = $this->_db;
+
 	parent::tearDown();
     }
 
@@ -100,27 +101,30 @@ class StorageTest extends GalleryTestCase {
 	$this->assert(is_int($id2), 'Id2 is not an int');
 	$this->assert($id2 > $id1);
     }
-    
+
     function testAddMap() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 	$impl =& $storage->_impl;
 	$storageExtras = $impl->_getExtras();
-	$storageExtras->addMapEntry('GalleryStorageTestMap', 
+	$storageExtras->addMapEntry('GalleryStorageTestMap',
 	    array('itemId' => 0, 'testColumn' => 'foo'));
-	$this->assertEquals('INSERT INTO g2_StorageTestMap (g_itemId, g_testColumn) VALUES (?,?)',
+	$this->assertEquals(
+	    sprintf('INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?)',
+		    $impl->_tablePrefix, $impl->_columnPrefix, $impl->_columnPrefix),
 	    $this->_results, 'addMap');
     }
-    
+
     function testAddMapArray() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 	$impl =& $storage->_impl;
 	$storageExtras = $impl->_getExtras();
-	$storageExtras->addMapEntry('GalleryStorageTestMap', 
+	$storageExtras->addMapEntry('GalleryStorageTestMap',
 	    array('itemId' =>array(1, 2, 3), 'testColumn' => array('foo', 'foo', 'foo')));
-	$this->assertEquals(
-	    'INSERT INTO g2_StorageTestMap (g_itemId, g_testColumn) VALUES (?,?), (?,?), (?,?)',
+	$this->assertEquals(sprintf(
+		'INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?), (?,?), (?,?)',
+		$impl->_tablePrefix, $impl->_columnPrefix, $impl->_columnPrefix),
 	    $this->_results, 'addMap');
     }
 }
@@ -133,16 +137,17 @@ class GalleryStorageTestMap {
 
 class StorageTestDB {
     var $_testCase;
-    
-    function StorageTestDB($testCase) {
-	$this->_testCase = $testCase;
+    var $transCnt = 1; /* Pretend we're already in a transaction */
+
+    function StorageTestDB(&$testCase) {
+	$this->_testCase =& $testCase;
     }
-    
+
     function execute($query, $data) {
 	$this->_testCase->_results = $query;
 	return null;
     }
-    
+
     function GenID($val) {
 	return $this->_testCase->_db->GenID($val);
     }
