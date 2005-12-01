@@ -89,13 +89,10 @@ class ErrorPageView extends GalleryView {
 	    $ErrorPage['version'] = $installedVersions['gallery'];
 	}
 
-	$urlGenerator =& $gallery->getUrlGenerator();
-	$template->javascript($urlGenerator->generateUrl(
-				  array('href' => 'lib/javascript/BlockToggle.js')));
+	$template->javascript('lib/javascript/BlockToggle.js');
 	$template->setVariable('ErrorPage', $ErrorPage);
 	return array(null,
 		     array('body' => 'modules/core/templates/ErrorPage.tpl'));
     }
 }
-
 ?>
