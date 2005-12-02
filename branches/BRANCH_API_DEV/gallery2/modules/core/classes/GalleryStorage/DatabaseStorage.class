@@ -28,7 +28,7 @@
 /**
  * Require the ADOdb libraries
  */
-GalleryCoreApi::relativeRequireOnce('lib/adodb/adodb.inc.php');
+GalleryCoreApi::relativeRequireOnce('lib/adodb/adodb.inc.php', true);
 GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/GalleryStorage/DatabaseStorage/ErrorHandler.inc');
 

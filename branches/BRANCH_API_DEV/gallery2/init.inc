@@ -38,28 +38,22 @@ function GalleryInitFirstPass($params=array()) {
     assert_options(ASSERT_WARNING, 1);
     assert_options(ASSERT_BAIL, 1);
 
-    /* Figure out the Gallery base directory here, from our filename. */
-    $galleryBase = dirname(__FILE__) . '/';
-
-    /* This needs to be set before the first relativeRequireOnce call. */
-    $gallery->setConfig('plugins.dirname', 'plugins');
-
     /* Load all the core Gallery classes */
-    $classDir = dirname(__FILE__) . '/modules/core/classes/';
-    require_once($classDir . 'GalleryCoreApi.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryConstants.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUtilities.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryCapabilities.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryModule.class');
+    $galleryBase = dirname(__FILE__) . '/';
+    require_once($galleryBase . 'modules/core/classes/GalleryCoreApi.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryConstants.class', true);
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUtilities.class', true);
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryCapabilities.class', true);
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class', true);
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryModule.class', true);
 
     if (!strncasecmp(PHP_OS, 'win', 3)) {
 	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+	    'modules/core/classes/GalleryPlatform/WinNtPlatform.class', true);
 	$platform = new WinNtPlatform();
     } else {
 	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryPlatform/UnixPlatform.class');
+	    'modules/core/classes/GalleryPlatform/UnixPlatform.class', true);
 	$platform = new UnixPlatform();
     }
 
@@ -77,6 +71,12 @@ function GalleryInitFirstPass($params=array()) {
 	$gallery->setConfig('data.gallery.base', $dataBase);
     }
 
+    /* Init for downloadable plugins */
+    $gallery->setConfig('plugins.dirname', 'plugins');
+    $gallery->setConfig('repository.url', 'http://gallery.menalto.com/repository/gallery2/');
+    $gallery->setConfig('repository.cache', sprintf('%splugins_data%smodules%score%srepository%s',
+	$dataBase, $slash, $slash, $slash, $slash));
+
     /* Set our various data paths */
     $gallery->setConfig('data.gallery.cache', $dataBase . 'cache' . $slash);
     $gallery->setConfig('data.gallery.albums', $dataBase . 'albums' . $slash);
@@ -88,12 +88,9 @@ function GalleryInitFirstPass($params=array()) {
 	$dataBase . 'smarty' . $slash . 'templates_c' . $slash);
     $gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
     $gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
-    $gallery->setConfig('repository.url', 'http://gallery.menalto.com/repository/gallery2/');
-    $gallery->setConfig('repository.cache', sprintf('%s%s%smodules%score%srepository%s',
-	$dataBase, 'plugins_data', $slash, $slash, $slash, $slash));
     $platform->_calculateUmaskAndFilePerms(); /* Init platform umask */
 
-    /* Configure our url Generator */
+    /* Configure our url generator */
     if (!isset($params['noDatabase'])) {
 	/*
 	 * Swallow error to prevent GalleryFactoryHelper_loadRegistry
@@ -106,7 +103,7 @@ function GalleryInitFirstPass($params=array()) {
 	}
     }
     if (!isset($urlGenerator)) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class');
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
 	$urlGenerator = new GalleryUrlGenerator();
     }
     $urlGenerator->init(
@@ -119,7 +116,7 @@ function GalleryInitFirstPass($params=array()) {
     /* Initialize our session */
     if (!isset($params['noDatabase'])) {
 	if (isset($params['gallerySessionId'])) {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class', true);
 	    GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
 	}
 	$ret = $gallery->initSession();
@@ -132,7 +129,7 @@ function GalleryInitFirstPass($params=array()) {
 
     /* Initialize our translator */
     if (isset($params['activeLanguage'])) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class');
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class', true);
 	list ($language) = GalleryTranslator::getSupportedLanguageCode($params['activeLanguage']);
 	$gallery->setActiveLanguageCode($language);
     }

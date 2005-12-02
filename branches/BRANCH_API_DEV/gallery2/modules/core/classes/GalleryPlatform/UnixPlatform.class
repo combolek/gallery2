@@ -28,7 +28,7 @@
 /**
  * Load required class
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform.class', true);
 
 /**
  * An Unix version of the GalleryPlatform class
