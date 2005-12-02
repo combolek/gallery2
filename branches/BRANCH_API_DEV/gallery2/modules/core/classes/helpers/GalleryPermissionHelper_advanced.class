@@ -493,7 +493,7 @@ class GalleryPermissionHelper_advanced {
 	    [GalleryGroup::id],
 	    [GalleryAccessMap::permission]
 	FROM
-	    [GalleryAccessMap], [GalleryAccessSubscriberMap]
+	    [GalleryAccessSubscriberMap], [GalleryAccessMap]
 	    LEFT JOIN [GalleryGroup] ON
 	      [GalleryAccessMap::userOrGroupId] = [GalleryGroup::id]
 	WHERE
