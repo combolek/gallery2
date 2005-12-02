@@ -84,7 +84,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	foreach ($testCases as $case) {
 	    list ($ret, $relation) = $utilities->compareVersions($case['version1'],
-	        $case['version2'], $case['build1'], $case['build2']);
+		$case['version2'], $case['build1'], $case['build2']);
 	    if ($ret) {
 		$this->failWithStatus($ret);
 	    }
@@ -190,11 +190,14 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
     function testGetLanguageBaseRevision() {
 	global $gallery;
 
-	$stringsPath = sprintf('%smodules/testModule/po/strings.raw',
-		GalleryCoreApi::getPluginBaseDir('module', 'testModule'));
+	$stringsPath = sprintf('%stestPlugins/testModule/po/strings.raw',
+		GalleryCoreApi::getPluginBaseDir('testPlugin', 'testModule'));
 	$stringsContents = ',v 1.23 2005';
 
 	$platform = new UnitTestPlatform();
+	$platform->setReply('file_exists', array('fuzzy' => '{config.php$}'), true);
+	$platform->setReply('file_exists', array('fuzzy' => '{index.testPlugins$}'), true);
+	$platform->setReply('file', array('fuzzy' => '{index.testPlugins$}', false), array());
 	$platform->setReply('file_exists', array($stringsPath), true);
 	$platform->setReply('fopen', array($stringsPath, 'r', 0), 'handle');
 	$platform->setReply('fread', array('handle', 128), $stringsContents);
@@ -202,7 +205,7 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	$gallery->setPlatform($platform);
 
 	$utilities = new GalleryRepositoryUtilities();
-	list ($ret, $revision) = $utilities->getLanguageBaseRevision('module', 'testModule');
+	list ($ret, $revision) = $utilities->getLanguageBaseRevision('testPlugin', 'testModule');
 	if ($ret) {
 	    $this->failWithStatus($ret);
 	}
@@ -280,8 +283,8 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 	    $providedApis = is_null($case['providedApis'])
 			     ? null
 			     : array('core' => explode('.', $case['providedApis']['core']),
-			     	     'module' => explode('.', $case['providedApis']['module']),
-			     	     'theme' => explode('.', $case['providedApis']['theme']));
+				     'module' => explode('.', $case['providedApis']['module']),
+				     'theme' => explode('.', $case['providedApis']['theme']));
 
 	    $isCompatible = $utilities->isPluginCompatible($case['pluginType'],
 		explode('.', $case['requiredCoreApi']), explode('.', $case['requiredPluginApi']),
@@ -323,10 +326,10 @@ class RepositoryUtilitiesTest extends GalleryTestCase {
 
 	foreach ($testCases as $case) {
 	    $providedApis = is_null($case['providedApis'])
-	    		     ? null
-	    		     : array('core' => explode('.', $case['providedApis']['core']),
-	    		     	     'module' => explode('.', $case['providedApis']['module']),
-	    		     	     'theme' => explode('.', $case['providedApis']['theme']));
+			     ? null
+			     : array('core' => explode('.', $case['providedApis']['core']),
+				     'module' => explode('.', $case['providedApis']['module']),
+				     'theme' => explode('.', $case['providedApis']['theme']));
 
 	    list ($providedCoreApi, $providedPluginApi) =
 		$utilities->getProvidedApis($case['pluginType'], $providedApis);

@@ -368,22 +368,21 @@ class GalleryUrlGenerator {
 		/* Absolute URL path */
 		$url = GalleryUrlGenerator::makeUrl($href);
 	    } else if ($pos > 0) {
+		/* Rewrite URL if theme is in plugins directory */
+		$pluginData = explode('/', $href, 3);
+		$pluginType = substr($pluginData[0], 0, -1);
+		$pluginId = $pluginData[1];
+		if (($pluginType == 'module' || $pluginType == 'theme')
+			&& !GalleryCoreApi::isPluginInDefaultLocation($pluginType, $pluginId)) {
+		    $href = $gallery->getConfig('plugins.dirname') . '/' . $href;
+		}
 		/* Check for local override */
 		$override = sprintf('%s/local/%s', dirname($href), basename($href));
 		$platform = $gallery->getPlatform();
 		if ($platform->file_exists(dirname(__FILE__) . '/../../../' . $override)) {
 		    $href = $override;
 		}
-		/* Rewrite URL if theme is in plugins directory */
-		$pluginRelativeBaseDir = '';
-		$pluginData = explode('/', $href);
-		$pluginId = $pluginData[1];
-		$pluginType = $pluginData[0];
-		if ((($pluginType == 'modules') || $pluginType == 'themes')
-			&& !GalleryCoreApi::isPluginInDefaultLocation($pluginType, $pluginId)) {
-		    $pluginRelativeBaseDir = $gallery->getConfig('plugins.dirname') . '/';
-		}
-		$url .= $pluginRelativeBaseDir . $href;
+		$url .= $href;
 	    } else {
 		$url .= $href;
 	    }

@@ -597,10 +597,6 @@ class GalleryPluginHelper_simple {
      * directory or not, without actually getting any information about its path.
      * It is used for rewriting URLs in the UrlGenerator.
      *
-     * We don't use GalleryPlatform in this function, because it is too low-level
-     * and there are significant problems with making it work here. One of the
-     * problems is that it breaks dozens of tests that rely on a mock platform.
-     *
      * @param string 'module' or 'theme'
      * @param string the plugin ID
      * @param bool force index to be reread from the filesystem
@@ -612,19 +608,21 @@ class GalleryPluginHelper_simple {
 	/* Don't we need to know if the index file has changed to keep the cache updated? */
 	if (!isset($pluginIndex[$pluginType]) || $clearCache) {
 	    global $gallery;
+	    $platform = $gallery->getPlatform();
 	    $pluginDataDir =
 		dirname(__FILE__) . '/../../../../' . $gallery->getConfig('plugins.dirname');
 	    $pluginIndexFile = sprintf('%s/index.%ss', $pluginDataDir, $pluginType);
+	    $pluginIndex[$pluginType] = array();
 
 	    /*
 	     * If the config file doesn't exist, install is in progress. In that
 	     * case we assume that all plugins are in their default directories.
 	     */
-	    if (!file_exists(dirname(__FILE__) . '/../../../../config.php')
-		    || !file_exists($pluginIndexFile)) {
+	    if (!$platform->file_exists(dirname(__FILE__) . '/../../../../config.php')
+		    || !$platform->file_exists($pluginIndexFile)) {
 		return true;
 	    }
-	    $dataDirPluginList = file($pluginIndexFile);
+	    $dataDirPluginList = $platform->file($pluginIndexFile);
 
 	    foreach($dataDirPluginList as $line) {
 		$pluginIndex[$pluginType][rtrim($line)] = 1;
