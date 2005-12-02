@@ -394,12 +394,12 @@ class AdminRepositoryControllerTestRepository {
 }
 
 class AdminRepositoryControllerTestUrlGenerator {
-    function generateUrl($args) {
+    function generateUrl($params=array(), $options=array()) {
 	$buf = array();
-	foreach ($args as $key => $value) {
+	foreach ($params as $key => $value) {
 	    $buf[] = "$key=$value";
 	}
-	return join(',', $buf);
+	return implode(',', $buf);
     }
 }
 ?>

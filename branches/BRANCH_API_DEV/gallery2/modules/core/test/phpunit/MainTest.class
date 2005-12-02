@@ -99,8 +99,8 @@ class MainTest extends GalleryTestCase {
 	$headers = $phpVm->headers_sent() ? $_REQUEST['phpVmHeaders'] : array();
 	if (isset($headers['Location'])) {
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $expectedUrl = str_replace('&amp;', '&',
-		$urlGenerator->generateUrl(array('view' => 'core.MaintenanceMode')));
+	    $expectedUrl = $urlGenerator->generateUrl(array('view' => 'core.MaintenanceMode'),
+						      array('htmlEntities' => false));
 	    $this->assertEquals($expectedUrl, trim($headers['Location']), 'wrong redirect url');
 	} else {
 	    $this->assert(false, 'should have redirected');

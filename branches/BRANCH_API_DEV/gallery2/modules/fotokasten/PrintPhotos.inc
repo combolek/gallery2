@@ -189,20 +189,21 @@ class PrintPhotosController extends GalleryController {
 
 	    /* attributes of the photo: url, thumbnail_url, height and width */
 	    $basket_item = array(
-		'photo_url' => str_replace('&amp;', '&', $urlGenerator->generateUrl(
+		'photo_url' => $urlGenerator->generateUrl(
 		    array_merge(array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
 				$sessionParam),
-		    false, null, true)),
+		    array('forceSessionId' => false, 'forceFullUrl' => true,
+			  'htmlEntities' => false)),
 		'height'        => $source->getHeight(),
 		'width'         => $source->getWidth()
 	    );
 	    if (isset($thumbnails[$itemId])) {
-		$basket_item['thumbnail_url'] =
-		    str_replace('&amp;', '&', $urlGenerator->generateUrl(
-			array_merge(array('view' => 'core.DownloadItem',
-					  'itemId' => $thumbnails[$itemId]->getId()),
-				    $sessionParam),
-			false, null, true));
+		$basket_item['thumbnail_url'] = $urlGenerator->generateUrl(
+		    array_merge(array('view' => 'core.DownloadItem',
+				      'itemId' => $thumbnails[$itemId]->getId()),
+				$sessionParam),
+		    array('forceSessionId' => false, 'forceFullUrl' => true,
+			  'htmlEntities' => false));
 	    }
 
 	    $basket["item" . ++$i] = $basket_item;
@@ -224,8 +225,7 @@ class PrintPhotosController extends GalleryController {
 	if (strpos($referer, '?') && !strpos($referer, 'language=')) {
 	    list ($ret, $language) = $gallery->getActiveLanguageCode();
 	    if (!$ret && !empty($language)) {
-		$referer = $urlGenerator->appendParamsToUrl(
-		    $referer, array('language' => substr($language, 0, 2)), false);
+		$referer .= '&language=' . substr($language, 0, 2);
 	    }
 	}
 

@@ -1911,16 +1911,16 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 }
 
 class ConfirmImportControllerTestUrlGenerator {
-    function generateUrl($args) {
+    function generateUrl($params=array(), $options=array()) {
 	$buf = array();
-	foreach ($args as $key => $value) {
+	foreach ($params as $key => $value) {
 	    if ($key == 'statusId') {
 		$this->_statusId = $value;
 		$value = 'STATUSID';
 	    }
 	    $buf[] = "$key=$value";
 	}
-	return join(',', $buf);
+	return implode(',', $buf);
     }
 
     function getStatusId() {

@@ -322,7 +322,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 			$uGC['relativeG2Path'];
 
 		    /* Session id not in the url */
-		    $actualUrl = $this->_urlGenerator->generateUrl($params, false);
+		    $actualUrl = $this->_urlGenerator->generateUrl($params,
+						       array('forceSessionId' => false));
 		    if ($params['view'] == 'core.DownloadItem' && $embedded && empty($cookiePath)) {
 			/* embedded DownloadItem urls go to the G2 directly, a very special case */
 			$this->assertEquals($expectedUrlWithSessionId, $actualUrl,
@@ -335,7 +336,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		    }
 
 		    /* Session id in the url */
-		    $actualUrl = $this->_urlGenerator->generateUrl($params, true);
+		    $actualUrl = $this->_urlGenerator->generateUrl($params,
+		    				       array('forceSessionId' => true));
 		    $this->assertEquals($expectedUrlWithSessionId, $actualUrl, 'With session id. ' .
 					$debugInfo);
 		}
@@ -352,10 +354,10 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
     }
 
     function testBaseUrl() {
-	$url = $this->_urlGenerator->generateUrl(array('view' => 'core.ShowItem'), null,
-	    'phpunit');
+	$url = $this->_urlGenerator->generateUrl(array('view' => 'core.ShowItem'),
+						 array('baseUrl' => 'phpunit'));
 
-	$this->assert(strpos($url, 'phpunit_test.php') !== false, $url);
+	$this->assert(strpos($url, 'phpunit_test.php') === false, $url);
     }
 
     function testNavigationId() {
@@ -364,7 +366,8 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$this->_urlGenerator->_navId = '456';
 
 	$actualUrl = $this->_urlGenerator->generateUrl(
-	    array('view' => 'php.Unit', 'subView' => 'test.subView', 'itemId' => 123), false);
+	    array('view' => 'php.Unit', 'subView' => 'test.subView', 'itemId' => 123),
+	    array('forceSessionId' => false));
 	$this->assertEquals('/gallery2/phpunitsub/123?g2_navId=456', $actualUrl);
     }
 

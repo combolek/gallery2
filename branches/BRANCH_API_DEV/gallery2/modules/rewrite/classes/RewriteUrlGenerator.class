@@ -128,7 +128,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	foreach ($urlVariables as $key => $value) {
 	    $params[substr($key, strlen(GALLERY_FORM_VARIABLE_PREFIX))] = $value;
 	}
-	$url = $this->generateUrl($params, null, null, true);
+	$url = $this->generateUrl($params, array('forceFullUrl' => true));
 
 	return $url;
     }
@@ -136,9 +136,9 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
     /**
      * @see GalleryUrlGenerator::generateUrl
      */
-    function generateUrl($params=array(), $forceSessionId=null, $baseUrl=null, $forceFullUrl=null) {
+    function generateUrl($params=array(), $options=array()) {
 	if ($this->_error) {
-	    return parent::generateUrl($params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+	    return parent::generateUrl($params, $options);
 	}
 
 	if (isset($params['view'])) {
@@ -150,7 +150,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 
 	/* Build the short style URL */
 	if (isset($index) && isset($this->_shortUrls[$index])
-		&& !isset($params['href']) && empty($baseUrl)) {
+		&& !isset($params['href']) && empty($options['baseUrl'])) {
 	    /* Navigation */
 	    global $gallery;
 	    $currentView = $gallery->getCurrentView();
@@ -165,7 +165,7 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 
 	    /* Check if we are forced to append the session id in embedded G2 */
 	    if ($this->embedForceSessionId($params)) {
-		$forceSessionId = true;
+		$options['forceSessionId'] = true;
 	    }
 
 	    $url = $this->_shortUrls[$index];
@@ -178,13 +178,11 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 		case 'path':
 		    if ((!isset($entity) && !$this->_loadEntity($itemId, $entity)) ||
 			    !GalleryUtilities::isA($entity, 'GalleryFileSystemEntity')) {
-			return parent::generateUrl(
-			    $params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+			return parent::generateUrl($params, $options);
 		    }
 		    list ($ret, $path) = $entity->fetchLogicalPath();
 		    if ($ret) {
-			return parent::generateUrl(
-			    $params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+			return parent::generateUrl($params, $options);
 		    }
 
 		    if (substr($url, -6) != '%path%') {
@@ -206,20 +204,18 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 
 		case 'fileName':
 		    if (!isset($entity) && !$this->_loadEntity($itemId, $entity)) {
-			return parent::generateUrl($params, $forceSessionId, $forceFullUrl);
+			return parent::generateUrl($params, $options);
 		    }
 		    list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($entity);
 		    if ($ret) {
-			return parent::generateUrl(
-			    $params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+			return parent::generateUrl($params, $options);
 		    }
 		    $url = str_replace('%fileName%', urlencode($pseudoFileName), $url);
 		    break;
 
 		case 'serialNumber':
 		    if (!isset($entity) && !$this->_loadEntity($itemId, $entity)) {
-			return parent::generateUrl(
-			    $params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+			return parent::generateUrl($params, $options);
 		    }
 		    $url = str_replace('%serialNumber%', $entity->getSerialNumber(), $url);
 		    unset($params['serialNumber']);
@@ -238,11 +234,11 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 		$url = $this->_baseFile;
 	    }
 
-	    return parent::generateUrl(
-		$params, $forceSessionId, $this->getCurrentUrlDir() . $url, $forceFullUrl);
+	    $options['baseUrl'] = $this->getCurrentUrlDir() . $url;
+	    return parent::generateUrl($params, $options);
 	}
 
-	return parent::generateUrl($params, $forceSessionId, $baseUrl=null, $forceFullUrl);
+	return parent::generateUrl($params, $options);
     }
 
     /**

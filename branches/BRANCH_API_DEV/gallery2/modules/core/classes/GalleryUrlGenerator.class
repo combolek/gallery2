@@ -322,31 +322,31 @@ class GalleryUrlGenerator {
     /**
      * Return a valid Gallery URL.
      *
-     * TODO: move 'href' and 'forceDirect' out of the $params variable since they wind up
-     *       sitting on top of any similarly named cgi arg that a module may want to use.
-     *       Convert all other params into an array like $options so that we don't balloon
-     *       the api (and roll forceSessionId, baseUrl, etc into $options).
-     *
-     * @param array key/value pairs to be included in the URL
-     *  special 'href' key specifies path to append to G2 base url instead of a query param
-     *  special 'forceDirect' key specifies to generate from G2 site url even if embedded
-     * @param boolean (optional) set to true/false to force the session id to be in/not in the url
-     *  by default it is included when cookies are not in use (for href urls, default=not included)
+     * @param array (optional) key/value pairs to be included in the URL
+     *    special 'href' key specifies path to append to G2 base url instead of a query param
+     *    %CURRENT_URL% token in a parameter value will be replaced with current url
+     * @param array (optional) additional url generation options:
+     *    'baseUrl' => string; to override the default baseUrl
+     *    'forceDirect' => true; to generate from G2 site url even if embedded
+     *    'forceFullUrl' => true; to generate absolute url instead of relative path url
+     *    'forceSessionId' => boolean; to force session id to be in/not in the url; by default
+     *        it is included when cookies are not in use (for href urls, default=not included)
+     *    'htmlEntities' => false; to use & parameter separator instead of &amp;
      */
-    function generateUrl($params=array(), $forceSessionId=null, $baseUrl=null, $forceFullUrl=false) {
+    function generateUrl($params=array(), $options=array()) {
 	global $gallery;
 	$currentView = $gallery->getCurrentView();
 
 	/*
 	 * For non-absolute 'href' urls always use G2 base url
 	 * (direct to G2 codebase location, even if multisite or embedded),
-	 * For 'core.DownloadItem' urls or if 'forceDirect' param given, use G2 site url
+	 * For 'core.DownloadItem' urls or if 'forceDirect' option given, use G2 site url
 	 * (direct to main.php in directory for active config.php, even if embedded)
 	 * Otherwise use application url
 	 * (embed url; same as G2 site url if not embedded)
 	 */
-	if (isset($baseUrl)) {
-	    $url = $baseUrl;
+	if (isset($options['baseUrl'])) {
+	    $url = $options['baseUrl'];
 	    $appSession = true;
 	} else if (isset($params['href'])) {
 	    $url = $gallery->getConfig('galleryBaseUrl');
@@ -354,20 +354,20 @@ class GalleryUrlGenerator {
 		$url = $this->getCurrentUrlDir(true);
 	    }
 
-	    $href = $params['href'];
-	    unset($params['href']);
-	    if (!isset($forceSessionId)) {
+	    if (!isset($options['forceSessionId'])) {
 		/* Default to not including session id in href urls */
-		$forceSessionId = false;
+		$options['forceSessionId'] = false;
 	    }
 
+	    $href = $params['href'];
+	    unset($params['href']);
 	    if (preg_match('{^[a-z]+://}', $href)) {
 		/* Absolute URL */
 		$url = $href;
-	    } elseif(strlen($href) && $href{0} == '/') {
+	    } else if (($pos = strpos($href, '/')) === 0) {
 		/* Absolute URL path */
 		$url = GalleryUrlGenerator::makeUrl($href);
-	    } else if (strpos($href, '/') !== false) {
+	    } else if ($pos > 0) {
 		/* Check for local override */
 		$override = sprintf('%s/local/%s', dirname($href), basename($href));
 		$platform = $gallery->getPlatform();
@@ -388,11 +388,11 @@ class GalleryUrlGenerator {
 		$url .= $href;
 	    }
 	} else if ((isset($params['view']) && $params['view'] == 'core.DownloadItem') ||
-		   isset($params['forceDirect'])) {
+		   !empty($options['forceDirect'])) {
 	    $url = $this->getCurrentUrlDir(true) . GALLERY_MAIN_PHP;
 	    /* Check if we are forced to append the session id in embedded G2 */
 	    if ($this->embedForceSessionId($params)) {
-		$forceSessionId = true;
+		$options['forceSessionId'] = true;
 	    }
 	} else {
 	    $url = $this->_isBaseFullUrl ? $this->_baseFile
@@ -402,9 +402,10 @@ class GalleryUrlGenerator {
 	}
 
 	/* Decide whether to include session id in the url */
-	if ($session =& $gallery->getSession() &&
-		( (!isset($forceSessionId) && !$session->isUsingCookies()) ||
-		 (isset($forceSessionId) && $forceSessionId === true))) {
+	if (    (isset($options['forceSessionId']) &&
+		 $options['forceSessionId'] === true && $session =& $gallery->getSession()) ||
+		(!isset($options['forceSessionId']) &&
+		 $session =& $gallery->getSession() && !$session->isUsingCookies()) ) {
 	    if (!empty($this->_embedSessionString) && isset($appSession)) {
 		$embedSessionString = $this->_embedSessionString;
 	    } else {
@@ -429,7 +430,7 @@ class GalleryUrlGenerator {
 
 	/* Navigation */
 	$targetView = isset($params['view']) ? $params['view'] : '';
-	if (!empty($this->_navId) && !isset($params['forceDirect']) &&
+	if (!empty($this->_navId) && empty($options['forceDirect']) &&
 	    (empty($currentView) || $currentView == $targetView || !empty($params['controller']))) {
 	    /*
 	     * We are moving around in the same view or we are redirecting to a controller,
@@ -437,7 +438,6 @@ class GalleryUrlGenerator {
 	     */
 	    $params['navId'] = $this->_navId;
 	}
-	unset($params['forceDirect']);
 
 	/* Replace any known tokens */
 	foreach (array_keys($params) as $key) {
@@ -464,7 +464,7 @@ class GalleryUrlGenerator {
 	 *
 	 * Note: don't be fooled if $this->_baseFile shows up in the query string!
 	 */
-	if (!$forceFullUrl) {
+	if (empty($options['forceFullUrl'])) {
 	    $currentUri = $this->getCurrentRequestUri();
 	    $pos = strpos($currentUri, $this->_baseFile);
 	    if ($pos === false ||
@@ -474,6 +474,11 @@ class GalleryUrlGenerator {
 		$url = str_replace($this->getCurrentUrlDir(), '', $url);
 	    }
 	}
+
+	if (isset($options['htmlEntities']) && !$options['htmlEntities']) {
+	    $url = str_replace('&amp;', '&', $url);
+	}
+
 	return $url;
     }
 

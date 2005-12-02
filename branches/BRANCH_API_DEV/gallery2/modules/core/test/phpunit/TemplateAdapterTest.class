@@ -115,7 +115,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	$this->_templateAdapter->url(array('arg1' => 'foo=bar',
 				    'forceFullUrl' => 'anything'), $this->_mockSmarty);
 
-	$this->assertEquals(array(array('foo' => 'bar'), null, null, true),
+	$this->assertEquals(array(array('foo' => 'bar'), array('forceFullUrl' => true)),
 			    $this->_mockUrlGenerator->_calls[0]);
     }
 
@@ -123,7 +123,7 @@ class TemplateAdapterTest extends GalleryTestCase {
 	$this->_setupMockAdapter();
 	$this->_templateAdapter->url(array('arg1' => 'foo=bar'), $this->_mockSmarty);
 
-	$this->assertEquals(array(array('foo' => 'bar'), null, null, false),
+	$this->assertEquals(array(array('foo' => 'bar'), array()),
 			    $this->_mockUrlGenerator->_calls[0]);
     }
     
@@ -141,8 +141,8 @@ class TemplateAdapterMockSmarty {
 }
 
 class TemplateAdapterMockUrlGenerator {
-    function generateUrl($hrefParams, $forceSessionId, $baseUrl, $forceFullUrl) {
-	$this->_calls[] = array($hrefParams, $forceSessionId, $baseUrl, $forceFullUrl);
+    function generateUrl($params=array(), $options=array()) {
+	$this->_calls[] = array($params, $options);
     }
 }
 ?>

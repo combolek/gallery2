@@ -140,12 +140,10 @@ class SetupRewriteView extends GalleryView {
 	} else {
 	    $target = 'custom';
 	}
-	$SetupRewrite['test1'] = $urlGenerator->generateUrl(
-	    array('href' => 'modules/rewrite/data/mod_rewrite_no_options/'.
-		$target . '/Rewrite.txt'));
-	$SetupRewrite['test2'] = $urlGenerator->generateUrl(
-	    array('href' => 'modules/rewrite/data/mod_rewrite/'.
-		$target . '/Rewrite.txt'));
+	$SetupRewrite['test1'] = $urlGenerator->generateUrl(array('href' =>
+	    'modules/rewrite/data/mod_rewrite_no_options/' . $target . '/Rewrite.txt'));
+	$SetupRewrite['test2'] = $urlGenerator->generateUrl(array('href' =>
+	    'modules/rewrite/data/mod_rewrite/' . $target . '/Rewrite.txt'));
 
 	list ($ret, $SetupRewrite['htaccessPath']) = RewriteHelper::getHtaccessPath();
 	if ($ret) {

@@ -60,10 +60,10 @@ class PanoramaDerivativeImage_core extends GalleryDerivativeImage {
 	switch($format) {
 	case 'HTML':
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
-						    'itemId' => $this->getId(),
-						    'serialNumber' => $this->getSerialNumber()),
-					      null, null, !empty($params['forceFullUrl']));
+	    $src = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
+		      'serialNumber' => $this->getSerialNumber()),
+		array('forceFullUrl' => !empty($params['forceFullUrl'])));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 	    $baseUrl = GalleryUtilities::convertPathToUrl(dirname(dirname(__FILE__)));
