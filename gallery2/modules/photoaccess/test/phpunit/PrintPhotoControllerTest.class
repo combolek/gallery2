@@ -219,12 +219,12 @@ class PrintPhotoControllerTest extends GalleryControllerTestCase {
  * @subpackage PHPUnit
  */
 class PrintPhotoControllerTestUrlGenerator {
-    function generateUrl($params) {
+    function generateUrl($params=array(), $options=array()) {
 	$lines = array();
 	foreach ($params as $key => $value) {
 	    $lines[] = "$key=$value";
 	}
-	return join("/", $lines);
+	return implode('/', $lines);
     }
 }
 ?>

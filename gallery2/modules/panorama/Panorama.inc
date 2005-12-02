@@ -57,9 +57,10 @@ class PanoramaView extends GalleryView {
 	}
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
-						'itemId' => $image->getId(),
-						'serialNumber' => $image->getSerialNumber()), true);
+	$src = $urlGenerator->generateUrl(
+	    array('view' => 'core.DownloadItem', 'itemId' => $image->getId(),
+		  'serialNumber' => $image->getSerialNumber()),
+	    array('forceSessionId' => true, 'forceFullUrl' => true));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'panorama');
 	if ($ret) {

@@ -225,12 +225,12 @@ class PhotoAccessCartPluginTest extends GalleryTestCase {
  * @subpackage PHPUnit
  */
 class PhotoAccessCartPluginTestUrlGenerator {
-    function generateUrl($params) {
+    function generateUrl($params=array(), $options=array()) {
 	$lines = array();
 	foreach ($params as $key => $value) {
 	    $lines[] = "$key=$value";
 	}
-	return join("/", $lines);
+	return implode('/', $lines);
     }
 }
 ?>

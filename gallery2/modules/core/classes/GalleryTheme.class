@@ -697,7 +697,7 @@ class GalleryTheme extends GalleryPlugin {
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$theme['themeUrl'] =
-	    $urlGenerator->generateUrl(array('href' => 'themes/' . $this->getId()), false);
+	    $urlGenerator->generateUrl(array('href' => 'themes/' . $this->getId()));
 
 	/* By default we're not in preview mode, and are the active user */
 	$theme['guestPreviewMode'] = 0;

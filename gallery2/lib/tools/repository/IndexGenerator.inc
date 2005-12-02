@@ -61,8 +61,8 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 	$viewData = array('moduleCount' => $pluginCounts['modules'],
 			  'themeCount' => $pluginCounts['themes'],
 			  'outputDir' => $repositoryDir,
-			  'browseRepositoryLink' => $urlGenerator->generateUrl(array(
-			  'controller' => 'RepositoryManager', 'action' => 'browse')));
+			  'browseRepositoryLink' => $urlGenerator->generateUrl(
+			      array('controller' => 'RepositoryManager', 'action' => 'browse')));
 
 	$ret = $this->showView('IndexGenerationResults', $viewData);
 	if ($ret) {

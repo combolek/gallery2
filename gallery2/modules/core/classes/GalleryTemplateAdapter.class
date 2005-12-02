@@ -107,37 +107,24 @@ class GalleryTemplateAdapter {
     function url($params, &$smarty) {
 	global $gallery;
 
-	if (isset($params['href'])) {
-	    $hrefParams = array('href' => $params['href']);
-	} else if (isset($params['params'])) {
+	if (isset($params['params'])) {
 	    /* Allow the user to pass in bulk params */
 	    $hrefParams = $params['params'];
 	} else {
-	    $hrefParams = array();
-
 	    /* Search for args and add them to the params */
-	    $i = 1;
-	    while (isset($params['arg' . $i])) {
-		list ($key, $value) = explode('=', $params['arg' . $i]);
+	    $hrefParams = array();
+	    for ($i = 1; ($arg = "arg$i") && isset($params[$arg]); $i++) {
+		list ($key, $value) = explode('=', $params[$arg], 2);
 		$hrefParams[$key] = $value;
-		$i++;
+		unset($params[$arg]);
 	    }
 	}
-
-	$forceSessionId = isset($params['forceSessionId']) ? $params['forceSessionId'] : null;
-	$forceFullUrl = isset($params['forceFullUrl']) ? true : false;
-	if (isset($params['forceDirect'])) {
-	    $hrefParams['forceDirect'] = $params['forceDirect'];
+	if (isset($params['href'])) {
+	    $hrefParams['href'] = $params['href'];
 	}
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$url = $urlGenerator->generateUrl($hrefParams, $forceSessionId, null, $forceFullUrl);
-
-	if (!empty($params['forJavascript'])) {
-	    $url = str_replace('&amp;', '&', $url);
-	}
-
-	return $url;
+	return $urlGenerator->generateUrl($hrefParams, $params);
     }
 
     /**
@@ -576,9 +563,9 @@ class GalleryTemplateAdapter {
 		    $core->translate(
 			'Validation disabled until you set allowSessionAccess in config.php'));
 	    }
-	    return '<a href="' . $validationUri . '"><img ' .
-		'src="' . $urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')) . '" ' .
-		'alt="' . $core->translate('This page is valid XHTML 1.0') . '" ' .
+	    return '<a href="' . $validationUri . '"><img src="' .
+		$urlGenerator->generateUrl(array('href' => 'images/xhtml10.png')) .
+		'" alt="' . $core->translate('This page is valid XHTML 1.0') . '" ' .
 		'style="border-style: none" width="80" height="15"/></a>';
 
 	case 'gallery2':
@@ -589,10 +576,9 @@ class GalleryTemplateAdapter {
 	    }
 	    $version = $core->translate(
 		array('text' => "Gallery %s", 'arg1' => $installedVersions['gallery']));
-	    return '<a href="http://gallery.sourceforge.net">' .
-		'<img src="' . $urlGenerator->generateUrl(array('href' => 'images/gallery.gif')) .
-		'" ' .
-		'alt="' . $version . '" '.
+	    return '<a href="http://gallery.sourceforge.net"><img src="' .
+		$urlGenerator->generateUrl(array('href' => 'images/gallery.gif')) .
+		'" alt="' . $version . '" '.
 		'title="' . $version . '" ' .
 		'style="border-style: none" width="80" height="15"/></a>';
 
@@ -604,8 +590,7 @@ class GalleryTemplateAdapter {
 		    $urlGenerator->generateUrl(
 			array('href' => 'http://gallery.sourceforge.net/donate.php?donate_tag=' .
 			      $installedVersions['gallery'])),
-		    $urlGenerator->generateUrl(
-			array('href' => 'modules/core/data/donate.png')),
+		    $urlGenerator->generateUrl(array('href' => 'modules/core/data/donate.png')),
 		    $core->translate('Donate to the Gallery project'),
 		    $core->translate('Donate to the Gallery project'));
 	    }

@@ -272,9 +272,9 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	     * session with it, effectively logging out the user.
 	     */
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $url = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
-						    'itemId' => $source->getId()),
-					      true, null, true);
+	    $url = $urlGenerator->generateUrl(
+		array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
+		array('forceSessionId' => true, 'forceFullUrl' => true));
 
 	    $ItemEditPhotoThumbnail['editThumbnail']['appletCodeBase'] =
 		GalleryUtilities::convertPathToUrl(dirname(__FILE__)) . '/plugins';

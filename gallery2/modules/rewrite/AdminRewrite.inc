@@ -378,8 +378,8 @@ class AdminRewriteView extends GalleryView {
 	    break;
 
 	case 'test':
-	    $baseUrl = parse_url($urlGenerator->generateUrl(
-		array('href' => 'modules/rewrite/data/'), false));
+	    $baseUrl = parse_url(
+		$urlGenerator->generateUrl(array('href' => 'modules/rewrite/data/')));
 	    $AdminRewrite['customFile'] = dirname(__FILE__) . '/data/mod_rewrite/custom/.htaccess';
 	    $AdminRewrite['customLine'] = 'RewriteBase ' . $baseUrl['path'] . 'mod_rewrite/custom/';
 	    $AdminRewrite['customFileNoOptions'] = dirname(__FILE__) .
