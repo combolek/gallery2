@@ -106,11 +106,14 @@ function GalleryInitFirstPass($params=array()) {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
 	$urlGenerator = new GalleryUrlGenerator();
     }
-    $urlGenerator->init(
+    $ret = $urlGenerator->init(
 	isset($params['embedUri']) ? $params['embedUri'] : null,
 	isset($params['embedPath']) ? $params['embedPath'] : null,
 	isset($params['relativeG2Path']) ? $params['relativeG2Path'] : null,
 	isset($params['embedSessionString']) ? $params['embedSessionString'] : null);
+    if ($ret) {
+	return $ret->wrap(__FILE__, __LINE__);
+    }
     $gallery->setUrlGenerator($urlGenerator);
 
     /* Initialize our session */

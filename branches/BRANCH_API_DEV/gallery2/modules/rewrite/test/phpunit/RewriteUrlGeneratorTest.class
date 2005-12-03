@@ -99,7 +99,11 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$this->_savedUrlGenerator = $gallery->_urlGenerator;
 
 	$this->_urlGenerator = new RewriteUrlGenerator();
-	$this->_urlGenerator->init('phpunit_test.php');
+	$ret = $this->_urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$gallery->setUrlGenerator($this->_urlGenerator);
     }
 
@@ -142,7 +146,10 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
     function testGetCurrentShortUrl() {
 	$urlGenerator = new RewriteUrlGenerator();
-	$urlGenerator->init('phpunit_test.php');
+	$ret = $urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$this->assertEquals(false, $urlGenerator->_error, 'init error');
 
 	$this->assertEquals('http://example.com/gallery2/phpunit_test.php',
@@ -241,8 +248,11 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 
 		/* Let the url generator know of the new cookie.path value */
 		$this->_urlGenerator = new RewriteUrlGenerator();
-		$this->_urlGenerator->init('phpunit_test.php', $uGC['embedPath'],
-					   $uGC['relativeG2Path']);
+		$ret = $this->_urlGenerator->init('phpunit_test.php', $uGC['embedPath'],
+						  $uGC['relativeG2Path']);
+		if ($ret) {
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		}
 		$gallery->setUrlGenerator($this->_urlGenerator);
 		/* Let the session know of the new cookie.path value */
 		$session = new GallerySession();

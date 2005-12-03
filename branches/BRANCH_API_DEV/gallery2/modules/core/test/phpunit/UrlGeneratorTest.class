@@ -58,7 +58,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 	}
 
 	$this->_urlGenerator = new GalleryUrlGenerator();
-	$this->_urlGenerator->init('phpunit_test.php');
+	$ret = $this->_urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
     }
 
     function tearDown() {
@@ -119,8 +123,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Simulate embbeded with full url as embedUri */
 	$_SERVER['REQUEST_URI'] = '/cms/otherpage?foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('http://example.com/cms/phpunit_test.php?module=gallery2',
-			    null, '../gallery2/');
+	$ret = $urlGenerator->init('http://example.com/cms/phpunit_test.php?module=gallery2',
+				    null, '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('/cms/phpunit_test.php?module=gallery2&amp;' .
 	    implode('&amp;', $values), $urlGenerator->generateUrl($params),
@@ -129,7 +136,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Simulate embedded, the "old" way, parsing the url for baseFile */
 	$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('phpunit_test.php?module=gallery2&amp;' .
 	    implode('&amp;', $values), $urlGenerator->generateUrl($params),
@@ -138,7 +148,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Simulate embedded, the "new" way, defining the uri path explicitely */
 	$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', '/cms', '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', '/cms', '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('phpunit_test.php?module=gallery2&amp;' .
 	    implode('&amp;', $values), $urlGenerator->generateUrl($params),
@@ -146,8 +159,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 	/* Simulate cookieless embedded */
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2',
-			    null, '../gallery2/', 'CMSSID=123456');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2',
+				    null, '../gallery2/', 'CMSSID=123456');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('phpunit_test.php?module=gallery2&amp;' .
 	    implode('&amp;', $values) . '&amp;CMSSID=123456',
@@ -182,7 +198,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Define an embedded request environment */
 	$_SERVER['REQUEST_URI'] = '/cms/otherpage?foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', '/cms/', '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', '/cms/', '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$gallery->setUrlGenerator($urlGenerator);
 	/* Let the session know of the new cookie.path value */
 	$session = new GallerySession();
@@ -224,7 +243,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Define an embedded request environment */
 	$_SERVER['REQUEST_URI'] = '/cms/otherpage?foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/cms/', '../gallery2/');
+	$ret = $urlGenerator->init('/cms/phpunit_test.php?module=gallery2', '/cms/', '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$gallery->setUrlGenerator($urlGenerator);
 	/* Let the session know of the new cookie.path value */
 	$session = new GallerySession();
@@ -260,7 +282,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	$gallery->_session = null;
 
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php');
+	$ret = $urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('phpunit_test.php?g2_view=foo',
 			    $urlGenerator->generateUrl(array('view' => 'foo')));
@@ -289,7 +314,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Simulate embedded */
 	$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('http://example.com/gallery2/test/test.css',
 	    $urlGenerator->generateUrl(array('href' => 'test/test.css')),
@@ -297,7 +325,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 
 	/* Embedded, trailing slash omitted */
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals('http://example.com/gallery2/test/test.css',
 	    $urlGenerator->generateUrl(array('href' => 'test/test.css')),
@@ -421,13 +452,19 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Simulate embedded.. */
 	$_SERVER['REQUEST_URI'] = '/phpunit_test.php?module=gallery2&foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', null, 'gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', null, 'gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$this->assertEquals('http://example.com/', $urlGenerator->getCurrentUrlDir());
 	$this->assertEquals('http://example.com/gallery2/', $urlGenerator->getCurrentUrlDir(true));
 
 	$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?module=gallery2&foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php?module=gallery2', null, '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$this->assertEquals('http://example.com/cms/', $urlGenerator->getCurrentUrlDir());
 	$this->assertEquals('http://example.com/gallery2/', $urlGenerator->getCurrentUrlDir(true));
     }
@@ -491,7 +528,10 @@ class UrlGeneratorTest extends GalleryTestCase {
     function testBaseFileWithQMark() {
 	global $gallery;
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php?test=on');
+	$ret = $urlGenerator->init('phpunit_test.php?test=on');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?test=on&foo=bar';
 
 	$params['a'] = 123;
@@ -751,7 +791,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	/* Now do the actual check */
 	$_SERVER['REQUEST_URI'] = '/cms/phpunit_test.php?a=b';
 	$urlGenerator = new GalleryUrlGenerator();
-	$urlGenerator->init('phpunit_test.php', '/cms/', '../gallery2/');
+	$ret = $urlGenerator->init('phpunit_test.php', '/cms/', '../gallery2/');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	list ($ret, $path) = $urlGenerator->getCookiePath();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -821,7 +864,10 @@ class UrlGeneratorTest extends GalleryTestCase {
 	foreach ($tests as $testCase) {
 	    $_SERVER['REQUEST_URI'] = $testCase['uri'];
 	    $urlGenerator = new GalleryUrlGenerator();
-	    $urlGenerator->init($testCase['base'], null, $testCase['relativeG2Path']);
+	    $ret = $urlGenerator->init($testCase['base'], null, $testCase['relativeG2Path']);
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
 	    list ($ret, $path) = $urlGenerator->getCookiePath($testCase['force']);
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

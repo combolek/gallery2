@@ -64,7 +64,11 @@ class MainTest extends GalleryTestCase {
 	$_SERVER['HTTP_HOST'] = 'example.com';
 	$_SERVER['SERVER_PORT'] = 80;
 	$this->_urlGenerator = new GalleryUrlGenerator();
-	$this->_urlGenerator->init('phpunit_test.php');
+	$ret = $this->_urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$GLOBALS['gallery']->setUrlGenerator($this->_urlGenerator);
 	$GLOBALS['gallery']->_session = new GallerySession();
     }
