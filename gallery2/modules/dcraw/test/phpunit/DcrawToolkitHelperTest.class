@@ -39,8 +39,16 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-
 	parent::setUp();
+
+	/* Make sure translate calls during test won't generate any platform calls */
+	list ($ret, $this->_module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->_module->translate('Binary output:');
+
 	$this->_platform = new UnitTestPlatform();
 	$gallery->setPlatform($this->_platform);
     }
@@ -144,16 +152,11 @@ class DcrawToolkitHelperTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'dcraw');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$this->assertEquals(array(array('name' => 'dcraw',
-					'success' => false,
-					'message' => array($module->translate('Binary output:'),
-							   'Raw Photo Decoder "dcraw" v4.0'))),
-			    $testArray);
+	$this->assertEquals(
+	    array(array('name' => 'dcraw', 'success' => false,
+			'message' => array($this->_module->translate('Binary output:'),
+					   'Raw Photo Decoder "dcraw" v4.0'))),
+	    $testArray);
     }
 }
 ?>
