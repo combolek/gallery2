@@ -128,5 +128,9 @@ class FlushTemplatesTaskTestPlatform {
     function recursiveRmdir($dir) {
 	return $this->_addCall("recursiveRmdir($dir)");
     }
+
+    function realpath($path) {
+	return $path;
+    }
 }
 ?>
