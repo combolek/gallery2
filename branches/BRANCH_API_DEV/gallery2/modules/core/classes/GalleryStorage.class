@@ -639,7 +639,7 @@ class GalleryStorage {
      * @return object GalleryStatus a status code
      */
     function releaseLocks($lockIds) {
- 	if (!$this->_isInitialized) {
+	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -662,7 +662,7 @@ class GalleryStorage {
      *               int an id
      */
     function getUniqueId() {
- 	if (!$this->_isInitialized) {
+	if (!$this->_isInitialized) {
 	    $ret = $this->_impl->init();
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
@@ -759,7 +759,7 @@ class GalleryStorage {
      *               array strings table names
      */
     function extractClasses($query) {
-    	$regexp = '/\[([^:]*)::[^\]]*\]/';
+	$regexp = '/\[([^:]*)::[^\]]*\]/';
 	$classes = array();
 
 	preg_match_all($regexp, $query, $matches, PREG_PATTERN_ORDER);
