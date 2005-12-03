@@ -61,12 +61,16 @@ class RewriteHelperTest extends GalleryTestCase {
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
 	if ($ret) {
-		print $ret->getAsHtml();
-		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$urlGenerator = new RewriteUrlGenerator();
-	$urlGenerator->init('phpunit_test.php');
+	$ret = $urlGenerator->init('phpunit_test.php');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$this->_platform = new RewriteHelperTestPlatform();
 	$this->_platform->init($this);
 	$gallery->setPlatform($this->_platform);

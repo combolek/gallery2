@@ -63,8 +63,10 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 
 	list($ret, $this->_shortUrls) = RewriteMap::getShortUrls();
 	if ($ret) {
-	    $this->_error = true;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
+
+	return null;
     }
 
     /**

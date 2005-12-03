@@ -96,10 +96,7 @@ function passwordIsCorrect() {
 
 function savePasswordCookie() {
     global $gallery;
-    require_once(dirname(__FILE__) . '/../../modules/core/classes/GalleryUrlGenerator.class');
 
-    $urlGenerator = new GalleryUrlGenerator();
-    $urlGenerator->init('lib/tools');
     header(sprintf('Set-Cookie: g2Setup=%s',
 		   md5($gallery->getConfig('setup.password'))));
 }

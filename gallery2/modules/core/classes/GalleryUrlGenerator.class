@@ -244,6 +244,8 @@ class GalleryUrlGenerator {
 		$this->_relativeG2Path{strlen($this->_relativeG2Path) - 1} != '/') {
 	    $this->_relativeG2Path .= '/';
 	}
+
+	return null;
     }
 
     /**

@@ -63,7 +63,10 @@ function RepositoryToolsMain() {
 
     /* Configure our url Generator for repository mode. */
     $urlGenerator = new GalleryUrlGenerator();
-    $urlGenerator->init('lib/tools/repository');
+    $ret = $urlGenerator->init('lib/tools/repository');
+    if ($ret) {
+	return $ret->wrap(__FILE__, __LINE__);
+    }
     $gallery->setUrlGenerator($urlGenerator);
 
     /* Load controller. */

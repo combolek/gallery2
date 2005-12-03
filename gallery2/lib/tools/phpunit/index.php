@@ -30,7 +30,10 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 
     /* Configure out url Generator for phpunit mode. */
     $urlGenerator = new GalleryUrlGenerator();
-    $urlGenerator->init('lib/tools/phpunit/');
+    $ret = $urlGenerator->init('lib/tools/phpunit/');
+    if ($ret) {
+	return $ret->wrap(__FILE__, __LINE__);
+    }
     $gallery->setUrlGenerator($urlGenerator);
 
     /*
