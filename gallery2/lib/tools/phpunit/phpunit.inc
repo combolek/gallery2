@@ -721,6 +721,8 @@ class PrettyTestResult extends TestResult {
 
   function _startTest($test) {
       if ($test->wasSkipped()) {
+	  global $compactView;
+	  if (isset($compactView)) return;
 	  $style = ' style="text-decoration: line-through;"';
       } else {
 	  $style = '';
@@ -735,11 +737,20 @@ class PrettyTestResult extends TestResult {
        : " class=\"Pass\">OK";
 
     if ($test->wasSkipped()) {
+	global $compactView;
+	if (isset($compactView)) return;
 	$outcome = ' class="Skipped">SKIP';
 	$elapsed = '0.0000';
     } else {
+	global $testOneByOne;
 	$elapsed = sprintf("%2.4f", $test->elapsed());
 	$this->_totalElapsed += $elapsed;
+	if (isset($testOneByOne) && !$test->failed()) {
+	    $i = substr($_GET['filter'], strrpos($_GET['filter'], '-') + 1) + 1;
+	    $x = substr($_GET['filter'], 0, strrpos($_GET['filter'], ':') + 1);
+	    print '<meta http-equiv="refresh" content="0; index.php?filter=' .
+		  "$x$i-$i" . '&amp;onebyone=true"/>';
+	}
     }
     printf("<TD$outcome</TD><TD>$elapsed</TD></TR>");
     flush();

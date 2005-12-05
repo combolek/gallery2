@@ -126,25 +126,31 @@ function loadTests($moduleId, $testDir, $filter) {
 define('FILTER_MAX', 1000000);
 if (isset($_GET['filter'])) {
     $filter = trim($_GET['filter']);
+    if (substr($filter, -5) == ':1by1') {
+	$testOneByOne = $compactView = true;
+	$_GET['filter'] = $filter = substr($filter, 0, -3) . '-1';
+    } else if (!empty($_GET['onebyone'])) {
+	$testOneByOne = $compactView = true;
+    }
     $range = array();
     $skip = explode(',', $filter);
     foreach ($skip as $tempSkip) {
 	if (preg_match('/(\d+)-(\d+)/', $tempSkip, $matches)) {
-            if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX &&
-            	$matches[2] >= 1 && $matches[2] <= FILTER_MAX) {
-                $range[] = array($matches[1], $matches[2]);
-                $filter = trim(preg_replace('/:?\d+-\d+,?/', '', $filter, 1));
-            }
+	    if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX &&
+		$matches[2] >= 1 && $matches[2] <= FILTER_MAX) {
+		$range[] = array($matches[1], $matches[2]);
+		$filter = trim(preg_replace('/:?\d+-\d+,?/', '', $filter, 1));
+	    }
 	} else if (preg_match('/(\d+)-/', $filter, $matches)) {
-            if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX) {
-            	$range[] = array($matches[1], FILTER_MAX);
-            	$filter = trim(preg_replace('/:?\d+-,?/', '', $filter, 1));
+	    if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX) {
+		$range[] = array($matches[1], FILTER_MAX);
+		$filter = trim(preg_replace('/:?\d+-,?/', '', $filter, 1));
 	    }
 	} else if (preg_match('/-(\d+)/', $filter, $matches)) {
 	    if ($matches[1] >= 1 && $matches[1] <= FILTER_MAX) {
-            	$range[] = array(1, $matches[1]);
-                $filter = preg_replace('/:?-\d+,?/', '', $filter, 1);
-            }
+		$range[] = array(1, $matches[1]);
+		$filter = preg_replace('/:?-\d+,?/', '', $filter, 1);
+	    }
 	}
     }
     $displayFilter = $filter;
@@ -152,16 +158,16 @@ if (isset($_GET['filter'])) {
 	$range[] = array(1, FILTER_MAX);
     }
     for ($j=0; $j < count($range); $j++) {
-        if ($j == 0 && $j == (count($range)-1)) {
-            if ($range[$j][0] != 1 || $range[$j][1] != FILTER_MAX) {
-                $displayFilter .= sprintf(':%d-%d', $range[$j][0], $range[$j][1]);
+	if ($j == 0 && $j == (count($range)-1)) {
+	    if ($range[$j][0] != 1 || $range[$j][1] != FILTER_MAX) {
+		$displayFilter .= sprintf(':%d-%d', $range[$j][0], $range[$j][1]);
 	    }
 	} else if ($j == 0) {
-            $displayFilter .= sprintf(':%d-%d,', $range[$j][0], $range[$j][1]);
-        } else if ($j == (count($range)-1)) {
-            $displayFilter .= sprintf('%d-%d', $range[$j][0], $range[$j][1]);
+	    $displayFilter .= sprintf(':%d-%d,', $range[$j][0], $range[$j][1]);
+	} else if ($j == (count($range)-1)) {
+	    $displayFilter .= sprintf('%d-%d', $range[$j][0], $range[$j][1]);
 	} else {
-            $displayFilter .= sprintf('%d-%d,', $range[$j][0], $range[$j][1]);
+	    $displayFilter .= sprintf('%d-%d,', $range[$j][0], $range[$j][1]);
 	}
     }
 } else {
