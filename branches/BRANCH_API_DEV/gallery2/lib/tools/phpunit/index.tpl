@@ -7,6 +7,7 @@
     </STYLE>
   </head>
   <body>
+  <?php if (!isset($compactView)): ?>
     <script type="text/javascript" language="javascript">
       function setFilter(value) {
         document.forms[0].filter.value=value;
@@ -128,6 +129,7 @@
           module/class/test name(s) encapsulated in parenthesis and separated with bars, this will
           exclude the matching tests. Use ":#-#" to restrict which matching tests are actually run.
           You can also specify multiple spans with ":#-#,#-#,#-#".
+	  Append ":1by1" to run tests one-per-request; automatic refresh stops when a test fails.
 
           <ul id="filter_examples_list">
             <li>
@@ -162,6 +164,9 @@
             </li>
             <li>
               <a href="javascript:setFilter('comment:-3,4-')">comment:-3,4-</a>
+            </li>
+            <li>
+              <a href="javascript:setFilter('core:1by1)">core:1by1</a>
             </li>
           </ul>
         </div>
@@ -210,11 +215,12 @@
         <?php endforeach; ?>
       </table>
     </div>
+  <?php endif; /* compactView */ ?>
 
-    <?php
+  <?php
     $result = new PrettyTestResult();
     $testSuite->run($result, $range);
     $result->report();
-    ?>
+  ?>
   </body>
 </html>
