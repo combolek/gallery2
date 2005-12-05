@@ -348,16 +348,12 @@ class UnitTestPlatform {
 	return $this->_makeReply('getcwd', array());
     }
 
-    function setFilePermissions($file) {
-	return $this->_makeReply('setFilePermissions', array($file));
-    }
-    
-    function chmod($obj) {
-    return $this->_makeReply('chmod', array($obj));
+    function chmod($path, $mode=null) {
+	return $this->_makeReply('chmod', array($path, $mode));
     }
 
     function recursiveFixDirPermissions($path) {
-    return $this->_makeReply('recursiveFixDirPermissions', array($path));
+	return $this->_makeReply('recursiveFixDirPermissions', array($path));
     }
-
 }
+?>

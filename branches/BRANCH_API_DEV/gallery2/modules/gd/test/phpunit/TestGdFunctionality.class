@@ -173,7 +173,7 @@ class TestGdFunctionality {
 	return true;
     }
 
-    function setFilePermissions($file) {
+    function chmod($file) {
 	/* ignore this for now */
     }
 
