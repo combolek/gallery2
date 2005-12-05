@@ -75,6 +75,11 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			 null, null);
 	}
+   /* Fix directory permissions that were created with file permissions (umask) by unzip */
+    if (!$platform->recursiveFixDirPermissions($destFilename)) {
+        return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
+             null, null);       
+    }    
 
 	return array(null, $mimeType, $context);
     }
