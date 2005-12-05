@@ -88,7 +88,6 @@ function GalleryInitFirstPass($params=array()) {
 	$dataBase . 'smarty' . $slash . 'templates_c' . $slash);
     $gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
     $gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
-    $platform->_calculateUmaskAndFilePerms(); /* Init platform umask */
 
     /* Configure our url generator */
     if (!isset($params['noDatabase'])) {
