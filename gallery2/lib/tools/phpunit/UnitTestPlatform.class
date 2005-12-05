@@ -351,4 +351,13 @@ class UnitTestPlatform {
     function setFilePermissions($file) {
 	return $this->_makeReply('setFilePermissions', array($file));
     }
+    
+    function chmod($obj) {
+    return $this->_makeReply('chmod', array($obj));
+    }
+
+    function recursiveFixDirPermissions($path) {
+    return $this->_makeReply('recursiveFixDirPermissions', array($path));
+    }
+
 }
