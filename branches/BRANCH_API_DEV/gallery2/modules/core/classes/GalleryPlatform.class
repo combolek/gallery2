@@ -1223,6 +1223,7 @@ class GalleryPlatform {
     function resetPlatform() {
 	unset($this->_umask);
 	unset($this->_filePerms);
+	unset($this->_dirPerms);
     }
 }
 ?>
