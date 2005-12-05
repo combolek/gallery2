@@ -21,15 +21,15 @@
 */
 /**
  * @version $Revision$ $Date$
- * @package SlideshowApplet
+ * @package UploadApplet
  * @author Pierre-Luc Paour <paour@users.sf.net>
  */
 
 /**
- * @package SlideshowApplet
+ * @package UploadApplet
  * @subpackage UserInterface
  */
-class SlideshowAppletSiteAdminController extends GalleryController {
+class UploadAppletSiteAdminController extends GalleryController {
 
     /**
      * @see GalleryController::handleRequest
@@ -87,10 +87,11 @@ class SlideshowAppletSiteAdminController extends GalleryController {
 	    }
 	}
 
+
 	/* Figure out where to redirect upon success */
 	$method = empty($error) ? 'redirect' : 'delegate';
 	$results[$method]['view'] = 'core.SiteAdmin';
-	$results[$method]['subView'] = 'slideshowapplet.SlideshowAppletSiteAdmin';
+	$results[$method]['subView'] = 'uploadapplet.UploadAppletSiteAdmin';
 	$results['status'] = $status;
 	$results['error'] = $error;
 
@@ -109,8 +110,8 @@ class SlideshowAppletSiteAdminController extends GalleryController {
     }
 
     function getVariables($type) {
-	list ($ret, $variables) = GalleryCoreApi::getPluginParameter('module', 'slideshowapplet',
-		'slideshow' . $type . 'Variables');
+	list ($ret, $variables) = GalleryCoreApi::getPluginParameter('module', 'uploadapplet',
+		'upload' . $type . 'Variables');
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -132,30 +133,30 @@ class SlideshowAppletSiteAdminController extends GalleryController {
     function setVariables($type, $variables) {
 	$params = $this->implode_with_key($variables, '=', '|');
 
-	return GalleryCoreApi::setPluginParameter('module', 'slideshowapplet',
-		'slideshow' . $type . 'Variables', $params);
+	return GalleryCoreApi::setPluginParameter('module', 'uploadapplet',
+		'upload' . $type . 'Variables', $params);
     }
 }
 
 /**
- * @package SlideshowApplet
+ * @package UploadApplet
  * @subpackage UserInterface
  */
-class SlideshowAppletSiteAdminView extends GalleryView {
+class UploadAppletSiteAdminView extends GalleryView {
 
     /**
-     * @see GalleryView::loadTemplate
-     */
+    * @see GalleryView::loadTemplate
+    */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$AdminSlideshowApplet = array();
+	$AdminUploadApplet = array();
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
+	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -163,7 +164,7 @@ class SlideshowAppletSiteAdminView extends GalleryView {
 	    $form[$key] = $value;
 	}
 
-	foreach (array('slideshowdefaultVariables', 'slideshowoverrideVariables') as $key) {
+	foreach (array('uploaddefaultVariables', 'uploadoverrideVariables') as $key) {
 	    if (!empty($form[$key])) {
 		$variablesArray = explode('|', $form[$key]);
 		$variables = array();
@@ -175,10 +176,10 @@ class SlideshowAppletSiteAdminView extends GalleryView {
 	}
 
 	$template->javascript('lib/javascript/BlockToggle.js');
-	$template->setVariable('AdminSlideshowApplet', $AdminSlideshowApplet);
-	$template->setVariable('controller', 'slideshowapplet.SlideshowAppletSiteAdmin');
+	$template->setVariable('AdminUploadApplet', $AdminUploadApplet);
+	$template->setVariable('controller', 'uploadapplet.UploadAppletSiteAdmin');
 	return array(null,
-	     array('body' => 'modules/slideshowapplet/templates/SlideshowAppletSiteAdmin.tpl'));
+		     array('body' => 'modules/uploadapplet/templates/UploadAppletSiteAdmin.tpl'));
     }
 }
 ?>

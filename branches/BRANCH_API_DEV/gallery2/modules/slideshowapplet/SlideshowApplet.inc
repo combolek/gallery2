@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package slideshowapplet
+ * @package SlideshowApplet
  * @author Pierre-Luc Paour <gallery@paour.com>
  */
 
@@ -83,30 +83,30 @@ class SlideshowAppletView extends GalleryView {
 	    $SlideshowApplet['cookieDomain'] = $session->getCookieDomain();
 	    $SlideshowApplet['cookiePath'] = $cookiePath;
 	    $SlideshowApplet['album'] = $item->getId();
-
 	    $SlideshowApplet['userAgent'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 	    $SlideshowApplet['galleryVersion'] = 2;
 	    $SlideshowApplet['code'] = 'com.gallery.GalleryRemote.GRAppletSlideshow';
 
 	    if (isset($startId)) {
-	    	/* format the start_from as album_picture, that's what GR expects */
-	    	$SlideshowApplet['extra']['gr_slideshow_start_from'] = $item->getId().'_'.$startId;
+		/* format the start_from as album_picture, that's what GR expects */
+		$SlideshowApplet['extra']['gr_slideshow_start_from'] = $item->getId().'_'.$startId;
 	    }
 
-	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
+	    list ($ret, $params) =
+		GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-		foreach (array('default', 'override') as $type) {
-			$SlideshowApplet[$type] = array();
-			if (!empty($params["slideshow${type}Variables"])) {
-				$variablesArray = explode('|', $params["slideshow${type}Variables"]);
-				foreach ($variablesArray as $variable) {
-					list($name, $value) = explode('=', $variable);
-					$SlideshowApplet[$type][$name] = $value;
-				}
-			}
+	    foreach (array('default', 'override') as $type) {
+		$SlideshowApplet[$type] = array();
+		if (!empty($params['slideshow' . $type . 'Variables'])) {
+		    $variablesArray = explode('|', $params['slideshow' . $type . 'Variables']);
+		    foreach ($variablesArray as $variable) {
+			list($name, $value) = explode('=', $variable);
+			$SlideshowApplet[$type][$name] = $value;
+		    }
 		}
+	    }
 	}
 
 	$form['formName'] = '';
