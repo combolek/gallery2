@@ -1148,14 +1148,74 @@ class GalleryPlatform {
 	    list ($ret, $filePerms) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
 	    if (!$ret && !empty($filePerms)) {
-		$this->_filePerms = octdec($filePerms);
+		  $this->_filePerms = octdec($filePerms);
 	    }
+        list ($ret, $dirPerms) =
+            GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
+        if (!$ret && !empty($dirPerms)) {
+            $this->_dirPerms = octdec($dirPerms);
+        }        
 	    $this->_umask = 0777 - $this->_filePerms;
 	}
-
 	return $this->_umask;
     }
 
+    /**
+     * Set file/directory permissions according to preferences
+     * @param string directory path
+     * @return boolean true on success
+     */
+    function chmod($obj) {
+    if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
+        $this->_calculateUmaskAndFilePerms();
+    }
+    if ($this->is_file($obj)) {
+        return chmod($obj, $this->_filePerms);
+    } else {
+        return chmod($obj, $this->_dirPerms);
+    }
+    }    
+    
+    /**
+     * Fixes the directory permissions (as e.g. unzip creates them with file permissions because of 
+     * the umask)
+     *
+     * @param string $path the directory which should be fixed
+     * @return boolean true if all went well, false if there was an error.
+     */
+    function recursiveFixDirPermissions($path) {
+    global $gallery;
+    $slash = $this->getDirectorySeparator();
+    if ($this->is_file($path)) {
+        return true;
+    } else {
+        if (!$this->chmod($path)) {
+         return false;
+        }
+     }
+    $dir = $this->opendir($path);
+    if (!$dir) {
+        return false;
+    }
+    while ($file = $this->readdir($dir)) {
+        if (!$file) {
+        return false;
+        }
+        if (($file != '.') && ($file != '..')) {
+        $fullPath = $path . $slash . $file;
+        if($this->is_file($fullPath)) {
+            return true;
+        } else {
+            if (!$this->recursiveFixDirPermissions($fullPath)) {
+            return false;
+            }
+        }
+        }
+    }
+    $this->closedir($dir);
+    return true;
+    }
+ 
     /**
      * Format a local time/date according to locale settings.
      * Converts any text output from strftime tokens to UTF-8.
