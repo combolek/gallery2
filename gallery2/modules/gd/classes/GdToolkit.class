@@ -546,7 +546,7 @@ class GdToolkit extends GalleryToolkit {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	$gd->setFilePermissions($filename);
+	$gd->chmod($filename);
 	return null;
     }
 

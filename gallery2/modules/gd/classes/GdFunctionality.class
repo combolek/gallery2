@@ -103,10 +103,10 @@ class GdFunctionality {
      * @param string file path
      * @return boolean true on success
      */
-    function setFilePermissions($file) {
+    function chmod($file) {
 	global $gallery;
 	$platform = $gallery->getPlatform();
-	return $platform->setFilePermissions($file);
+	return $platform->chmod($file);
     }
 
     /**

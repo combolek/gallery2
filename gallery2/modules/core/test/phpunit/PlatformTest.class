@@ -228,7 +228,7 @@ class PlatformTest extends GalleryTestCase {
 	if (GalleryUtilities::isA($this->_platform, 'UnixPlatform')) {
 	    /*
 	     * Make sure files are written with correct permissions by
-	     * exec, copy, symlink, atomicWrite; test setFilePermissions
+	     * exec, copy, symlink, atomicWrite; test chmod
 	     */
 	    list ($ret, $param) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
@@ -240,7 +240,7 @@ class PlatformTest extends GalleryTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_platform->_calculateUmaskAndFilePerms();
+	    $this->_platform->_loadPermissionPreferences();
 
 	    $this->_permissionTest(0600, 1, array('exec', 'copy', 'atomicWrite', 'symlink'));
 
@@ -249,7 +249,7 @@ class PlatformTest extends GalleryTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_platform->_calculateUmaskAndFilePerms();
+	    $this->_platform->_loadPermissionPreferences();
 
 	    $this->_permissionTest(0664, 2, array('copy', 'symlink', 'exec', 'atomicWrite'));
 
@@ -259,15 +259,15 @@ class PlatformTest extends GalleryTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_platform->_calculateUmaskAndFilePerms();
-	    $this->_permissionTest(0612, 3, array('setFilePermissions'));
+	    $this->_platform->_loadPermissionPreferences();
+	    $this->_permissionTest(0612, 3, array('chmod'));
 
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', $param);
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_platform->_calculateUmaskAndFilePerms();
+	    $this->_platform->_loadPermissionPreferences();
 	}
     }
 
@@ -307,9 +307,8 @@ class PlatformTest extends GalleryTestCase {
 		$stat = $this->_platform->stat($this->_destFile);
 		break;
 
-	    case 'setFilePermissions':
-		$this->assert($this->_platform->setFilePermissions($this->_destFile),
-			      "setFilePermissions $testNumber");
+	    case 'chmod':
+		$this->assert($this->_platform->chmod($this->_destFile), "chmod $testNumber");
 		$stat = $this->_platform->stat($this->_destFile);
 	    }
 

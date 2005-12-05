@@ -53,6 +53,11 @@ class GalleryCoreApi {
      *
      * @return array major number, minor number
      */
+     /* TODO: major version bump..
+      * + DONE: GalleryStatus::success() -> null, GalleryStatus::error -> GalleryCoreApi::error
+      * + DONE: remove GalleryPlatform::setFilePermissions,
+      *         add ::chmod, ::recursiveFixDirPermissions
+      */
     function getApiVersion() {
 	return array(6, 11);
     }
