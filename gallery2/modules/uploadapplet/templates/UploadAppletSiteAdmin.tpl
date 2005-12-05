@@ -5,7 +5,7 @@
  * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
-  <h2> {g->text text="Slideshow Applet Settings"} </h2>
+  <h2> {g->text text="Upload Applet Settings"} </h2>
 </div>
 
 <input type="hidden" name="{g->formVar var="form[variable][type]"}" />
@@ -17,7 +17,7 @@
   <p>{g->text text="These variables provide default values for applets users execute on
     your site. Users will be able to override these defaults by making changes in the
     user interface of the applets, or by changing their local defaults file."}</p>
-{if empty($form.slideshowdefaultVariables)}
+{if empty($form.uploaddefaultVariables)}
   <p>{g->text text="You have no default variables"}</p>
 {else}
 
@@ -26,14 +26,14 @@
       <th> {g->text text="Variable"} </th>
       <th> {g->text text="Action"} </th>
     </tr>
-    {foreach from=$form.slideshowdefaultVariables item=variable}
-	  <tr class="{cycle values="gbEven,gbOdd"}">
-	    <td>{$variable}</td>
-	    <td><a href="{g->url arg1="controller=slideshowapplet.SlideshowAppletSiteAdmin"
-	       arg2="form[action][delete]=1" arg3="form[delete][variable]=`$variable`"
-		   arg4="form[variable][type]=default" arg5="mode=variables"}">
-		   {g->text text="Delete"}</a></td>
-	  </tr>
+    {foreach from=$form.uploaddefaultVariables item=variable}
+      <tr class="{cycle values="gbEven,gbOdd"}">
+	<td>{$variable}</td>
+	<td><a href="{g->url arg1="controller=uploadapplet.UploadAppletSiteAdmin"
+	   arg2="form[action][delete]=1" arg3="form[delete][variable]=`$variable`"
+	   arg4="form[variable][type]=default" arg5="mode=variables"}">
+	   {g->text text="Delete"}</a></td>
+      </tr>
     {/foreach}
   </table>
 {/if}
@@ -63,7 +63,7 @@
   <h3>{g->text text="Overrides"}</h3>
   <p>{g->text text="These variables override any other values for applets users execute on
     your site. Users will not be able to change these values."}</p>
-{if empty($form.slideshowoverrideVariables)}
+{if empty($form.uploadoverrideVariables)}
   <p>{g->text text="You have no override variables"}</p>
 {else}
 
@@ -72,14 +72,14 @@
       <th> {g->text text="Variable"} </th>
       <th> {g->text text="Action"} </th>
     </tr>
-    {foreach from=$form.slideshowoverrideVariables item=variable}
-	  <tr class="{cycle values="gbEven,gbOdd"}">
-	    <td>{$variable}</td>
-	    <td><a href="{g->url arg1="controller=slideshowapplet.SlideshowAppletSiteAdmin"
-	       arg2="form[action][delete]=1" arg3="form[delete][variable]=`$variable`"
-		   arg4="form[variable][type]=override" arg5="mode=variables"}">
-		   {g->text text="Delete"}</a></td>
-	  </tr>
+    {foreach from=$form.uploadoverrideVariables item=variable}
+      <tr class="{cycle values="gbEven,gbOdd"}">
+	<td>{$variable}</td>
+	<td><a href="{g->url arg1="controller=uploadapplet.UploadAppletSiteAdmin"
+	   arg2="form[action][delete]=1" arg3="form[delete][variable]=`$variable`"
+	   arg4="form[variable][type]=override" arg5="mode=variables"}">
+	   {g->text text="Delete"}</a></td>
+      </tr>
     {/foreach}
   </table>
 {/if}
@@ -109,19 +109,19 @@
 </td><td>
 <div class="gbBlock">
   <h3>{g->text text="Help"}</h3>
-  <p>{g->text text="Here are a selection of variables that affect slideshows."}</p>
+  <p>{g->text text="Here are a selection of variables that affect uploads."}</p>
   <table class="gbDataTable">
     <tr><th>{g->text text="variable"}</th><th>{g->text text="values"}</th><th>{g->text text="help"}</th></tr>
-	<tr class="gbEven"><td>slideshowMaxPictures</td><td>100</td><td>{g->text text="maximum number of pictures shown in one go"}</td>
-	<tr class="gbOdd"><td>slideshowRecursive</td><td>true/false</td><td>{g->text text="does slideshow display pictures inside sub-albums?"}</td>
-	<tr class="gbEven"><td>slideshowLowRez</td><td>true/false</td><td>{g->text text="if true, will prevent the slideshow from downloading the full-resolution pictures"}</td>
-	<tr class="gbOdd"><td>slideshowLoop</td><td>true/false</td><td>{g->text text="does slideshow loop when it gets to the end?"}</td>
-	<tr class="gbEven"><td>slideshowNoStretch</td><td>true/false</td><td>{g->text text="if true, pictures smaller than the screen won't be stretched"}</td>
-	<tr class="gbOdd"><td>slideshowPreloadAll</td><td>true/false</td><td>{g->text text="if true, the slideshow will download pictures before they're needed, which can speed up, but also may waste bandwidth"}</td>
-	<tr class="gbEven"><td>slideshowColor</td><td>0,0,0</td><td>{g->text text="color or the slideshow background"}</td>
-	<tr class="gbOdd"><td>slideshowFontSize</td><td>30</td><td>{g->text text="size of text overlay"}</td>
-	<tr class="gbEven"><td>slideshowFontName</td><td>arial</td><td>{g->text text="font of text overlay"}</td>
-	<tr class="gbOdd"><td>slideshowRandom</td><td>true/false</td><td>{g->text text="should the pictures be shown in random order?"}</td>
+    <tr class="gbEven"><td>resizeBeforeUpload</td><td>true/false</td><td>{g->text text="instructs the applet to resize pictures before uploading to the album; by default, resizes to the album's intermediate image size"}</td>
+    <tr class="gbOdd"><td>resizeTo1</td><td>600</td><td>{g->text text="dimension the images will be resized to; this overrides album settings"}</td>
+    <tr class="gbEven"><td>setCaptionsNone</td><td>true/false</td><td>{g->text text="no automatic captions"}</td>
+    <tr class="gbOdd"><td>setCaptionsWithFilenames</td><td>true/false</td><td>{g->text text="use filenames for captions"}</td>
+    <tr class="gbEven"><td>captionStripExtension</td><td>true/false</td><td>{g->text text="if using the filename for captions, strip the extension"}</td>
+    <tr class="gbOdd"><td>setCaptionsWithMetadataComment</td><td>true/false</td><td>{g->text text="use EXIF extension for caption"}</td>
+    <tr class="gbEven"><td>useJavaResize</td><td>true/false</td><td>{g->text text="set to false if you want to avoid losing EXIF data when the image is resized and ImageMagick is not found"}</td>
+    <tr class="gbOdd"><td>suppressWarningIM</td><td>true/false</td><td>{g->text text="if true, the applet will not complain if it can't find ImageMagick"}</td>
+    <tr class="gbEven"><td>suppressWarningJpegtran</td><td>true/false</td><td>{g->text text="if true, the applet will not complain if it can't find Jpegtran"}</td>
+    <tr class="gbOdd"><td>im.jpegQuality</td><td>0-99</td><td>{g->text text="quality of JPEG compression when resizing with ImageMagick"}</td>
   </table>
   <p><a href="http://cvs.sourceforge.net/viewcvs.py/*checkout*/gallery/gallery_remote/defaults.properties" target="other">
   	{g->text text="Complete list of variables"}</a></p>

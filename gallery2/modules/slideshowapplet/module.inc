@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package uploadapplet
+ * @package SlideshowApplet
  * @author Pierre-Luc Paour <paour@users.sourceforge.net>
  */
 
@@ -52,7 +52,6 @@ class SlideshowAppletModule extends GalleryModule {
 	}
 
 	if (!isset($params['slideshowdefaultVariables'])) {
-	    $gallery->debug("<br/>no default");
 	    /* upgrade or install */
 	    if (isset($params['slideshowRecursive']) && isset($params['slideshowMaxPictures'])) {
 		/* definitely upgrade */
@@ -73,7 +72,6 @@ class SlideshowAppletModule extends GalleryModule {
 		/* install */
 		$newDefault = 'slideshowRecursive=false|slideshowMaxPictures=0';
 	    }
-	    $gallery->debug("<br/>new default: $newDefault");
 	    $ret = $this->setParameter('slideshowdefaultVariables', $newDefault);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -81,7 +79,6 @@ class SlideshowAppletModule extends GalleryModule {
 	}
 
 	if (!isset($params['slideshowoverrideVariables'])) {
-	    $gallery->debug("<br/>no override");
 	    $ret = $this->setParameter('slideshowoverrideVariables', 'toSysOut=true');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -102,8 +99,8 @@ class SlideshowAppletModule extends GalleryModule {
 		$links[$itemId][] =
 		    array('text' => $this->translate('View Slideshow (Fullscreen)'),
 			  'params' => array(
-			      'view' => 'slideshowapplet.SlideshowApplet',
-			      'itemId' => $itemId));
+			  'view' => 'slideshowapplet.SlideshowApplet',
+			  'itemId' => $itemId));
 	    }
 	}
 	return array(null, $links);
@@ -120,7 +117,7 @@ class SlideshowAppletModule extends GalleryModule {
 	$rule['match'] = array('view' => 'slideshowapplet.SlideshowApplet');
 	$rule['pattern'] = 'v/%path%/slideshowapplet.html';
 	$rule['keywords'] = array(
-	    'path' => array(
+		'path' => array(
 		'pattern' => '([^?]+)',
 		'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
 	$rules[] = $rule;
