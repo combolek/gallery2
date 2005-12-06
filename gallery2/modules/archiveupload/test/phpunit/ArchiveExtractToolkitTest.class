@@ -123,5 +123,14 @@ class ArchiveExtractToolkitTestPlatform {
     function realpath($path) {
 	return $path;
     }
+
+    function recursiveFixDirPermissions($path) {
+	switch($path) {
+	case 'testPerformOperation2.dir':
+	    return true;
+	}
+
+	return false;
+    }
 }
 ?>
