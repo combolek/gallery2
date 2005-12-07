@@ -210,7 +210,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	$this->assertEquals($comparePath . '_001', $newPath);
 
 	/* Make sure that the file was moved */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->assert($platform->file_exists($newPath));
     }
 
@@ -340,7 +340,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	}
 
 	/* Verify that the new path is correct */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$targetPath = sprintf(
 	    '%s%s%s_001%s', dirname($targetPath), $slash, basename($targetPath), $slash);
@@ -368,7 +368,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	global $gallery;
 
 	/* Get some stats on the file before we try moving */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	list ($ret, $originalPath) = $this->_item[0]->fetchPath();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -405,7 +405,7 @@ class ItemEditItemPluginTest extends ItemEditPluginTestCase {
 	global $gallery;
 
 	/* Get some stats on the file before we try moving */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	list ($ret, $originalPath) = $this->_album[0]->fetchPath();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -629,7 +629,7 @@ class ItemEditItemPluginTestToolkit extends GalleryToolkit {
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($sourceFilename != $destFilename) {
 	    $platform->copy($sourceFilename, $destFilename);

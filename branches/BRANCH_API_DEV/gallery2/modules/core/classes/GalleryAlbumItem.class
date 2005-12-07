@@ -222,8 +222,7 @@ class GalleryAlbumItem_core extends GalleryItem {
      */
     function _createDir($albumDir) {
 	global $gallery;
-
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list($ret, $perm) = GalleryCoreApi::getPluginParameter(
 	    'module', 'core', 'permissions.directory');
@@ -285,7 +284,7 @@ class GalleryAlbumItem_core extends GalleryItem {
 	}
 
 	/* Remove my directory and everything in it */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($platform->file_exists($path)) {
 	    if (!$platform->recursiveRmdir($path)) {
@@ -323,7 +322,7 @@ class GalleryAlbumItem_core extends GalleryItem {
 	    }
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/*
 	 * Get the current path

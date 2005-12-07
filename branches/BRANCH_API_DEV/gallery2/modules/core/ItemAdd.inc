@@ -190,7 +190,7 @@ class ItemAddController extends GalleryController {
      */
     function _extractAndAddFiles($archiveItem, $toolkit) {
 	global $gallery;
-	$this->_platform = $gallery->getPlatform();
+	$this->_platform =& $gallery->getPlatform();
 
 	list ($ret, $file) = $archiveItem->fetchPath();
 	if ($ret) {

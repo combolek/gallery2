@@ -61,7 +61,7 @@ class ItemAddAlbumController extends GalleryController {
 	    /*
 	     * Validate the input data.
 	     */
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 
 	    if (empty($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][missing]';

@@ -389,7 +389,7 @@ class GallerySession {
      */
     function save() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dieRoll = rand(1, 100);
 
 	if ($this->_shouldSaveSession()) {
@@ -431,7 +431,7 @@ class GallerySession {
      */
     function reset() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$sessionFile = $gallery->getConfig('data.gallery.sessions') . $this->_sessionId;
 	if ($platform->file_exists($sessionFile)) {
 	    $platform->unlink($sessionFile);
@@ -524,7 +524,7 @@ class GallerySession {
 	$inactiveCutoff = time() - $sessionInactivityTimeout;
 	$lifetimeCutoff = time() - $lifetime;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$sessionsDir = $gallery->getConfig('data.gallery.sessions');
 	$dir = $platform->opendir($sessionsDir, 'r');
 	if (!$dir) {
@@ -652,7 +652,7 @@ class GallerySession {
      */
     function _isSessionValid() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if (!empty($this->_sessionId)) {
 	    /* Check if the session has expired */
@@ -694,8 +694,7 @@ class GallerySession {
      */
     function _loadSessionData() {
 	global $gallery;
-
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$sessionFile = $gallery->getConfig('data.gallery.sessions') . $this->_sessionId;
 
 	$valid = false;

@@ -272,7 +272,7 @@ class GalleryStatus {
 	$codes = $this->getErrorCodeConstants($this->_errorCode);
 	$trace = array();
 	if (!class_exists('GalleryTestCase')) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $base = $platform->realpath(dirname(__FILE__) . '/../../../') .
 		$platform->getDirectorySeparator();
 	} else {

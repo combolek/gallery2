@@ -52,8 +52,8 @@ class MailHelperTest extends GalleryTestCase {
 
     function testSendTemplatedEmail() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
-	$gallery->_platform = new MailHelperDummyPlatform($platform);
+	$platform =& $gallery->getPlatform();
+	$gallery->setPlatform($dummyPlatform = new MailHelperDummyPlatform($platform));
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', '');
 	if ($ret) {
@@ -73,7 +73,7 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(), 'Blank From');
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(), 'Blank From');
 
 	/* Set the from address and update the test data */
 	$from = 'mailhelpertest@test.com';
@@ -85,7 +85,7 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(), 'Function From');
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(), 'Function From');
 
 	/* Test that the from header is retrieved from the core.smtp.from field */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.from', $from);
@@ -98,7 +98,7 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(), 'smtp.from');
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(), 'smtp.from');
 
 	/* Set the from address and update the test data */
 	$from = 'mailhelpertest2@test.com';
@@ -110,7 +110,7 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(),
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(),
 			    'function over smtp.from');
 
 	/* Specify content-type */
@@ -123,7 +123,7 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(),
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(),
 			    'Specify content-type');
 
 	/* Extended character in subject */
@@ -136,15 +136,15 @@ class MailHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($expectedData, $gallery->_platform->getMailData(),
+	$this->assertEquals($expectedData, $dummyPlatform->getMailData(),
 			    'Specify content-type');
     }
 
     function testSendTemplatedEmailMultiRecipient() {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
-	$gallery->_platform = $dummyPlatform = new MailHelperDummyPlatform($platform);
+	$platform =& $gallery->getPlatform();
+	$gallery->setPlatform($dummyPlatform = new MailHelperDummyPlatform($platform));
 
 	$emailData = array(
 	    'to' => 'mailhelpertest@test.com',

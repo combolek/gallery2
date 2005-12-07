@@ -88,7 +88,7 @@ class ConfirmImportController extends GalleryController {
 	$storage = $gallery->getStorage();
 	$templateAdapter =& $gallery->getTemplateAdapter();
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	$finishedAlbums = $albumPosition = $hiddenAlbums = array();
@@ -1524,7 +1524,7 @@ class ConfirmImportView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$illegalAlbumNames = $existingAlbums = $titles = array();
 	$albumValidOwner = $albumOwnerUserName = $albumOwnerUid = $albumfields = array();
 	if (!isset($form['sourceAlbums'])) {

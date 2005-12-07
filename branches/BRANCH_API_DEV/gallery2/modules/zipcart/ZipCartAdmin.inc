@@ -50,7 +50,7 @@ class ZipCartAdminController extends GalleryController {
 		$error[] = 'form[error][path][missing]';
 	    }
 	    if (empty($error)) {
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		if (!$platform->isRestrictedByOpenBaseDir($form['path'])) {
 		    if (!$platform->is_executable($form['path'])) {
 			$error[] = 'form[error][path][badPath]';

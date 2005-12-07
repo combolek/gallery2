@@ -58,7 +58,7 @@ class GdFunctionality {
      */
     function tempnam($tmpDir, $prefix) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->tempnam($tmpDir, $prefix);
     }
 
@@ -70,7 +70,7 @@ class GdFunctionality {
      */
     function copy($src, $dest) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->copy($src, $dest);
     }
 
@@ -82,7 +82,7 @@ class GdFunctionality {
      */
     function unlink($file) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->unlink($file);
     }
 
@@ -94,7 +94,7 @@ class GdFunctionality {
      */
     function filesize($file) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->filesize($file);
     }
 
@@ -105,7 +105,7 @@ class GdFunctionality {
      */
     function chmod($file) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->chmod($file);
     }
 
@@ -154,7 +154,7 @@ class GdFunctionality {
      */
     function getImageSize($filename) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	return $platform->getImageSize($filename);
     }
 
@@ -212,7 +212,7 @@ class GdFunctionality {
      */
     function isValidFile($filename) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->file_exists($filename)
 	      || !$platform->is_file($filename)
 	      || !$platform->is_readable($filename)) {

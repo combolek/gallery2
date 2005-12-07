@@ -50,7 +50,7 @@ class AdminGdControllerTest extends GalleryControllerTestCase {
 
     function testSaveGoodPath() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	/* Use valid inputs */

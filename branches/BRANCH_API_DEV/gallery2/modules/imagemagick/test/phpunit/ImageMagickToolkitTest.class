@@ -66,16 +66,10 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	$this->_environments = $imEnvironment;
     }
 
-    /**
-     *
-     */
     function setUp() {
 	global $gallery;
 
 	parent::setUp();
-
-	$gallery->_platform =& new ImageMagickToolkitTestPlatform($gallery->getPlatform(),
-								  $this->_files);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'imagemagick');
 	if ($ret) {
@@ -92,6 +86,10 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	    }
 	}
 
+	$this->_platform = new ImageMagickToolkitTestPlatform($gallery->getPlatform(),
+							      $this->_files);
+	$gallery->setPlatform($this->_platform);
+
 	/* Get a toolkit to work with */
 	$this->_toolkit =& new ImageMagickToolkit();
     }
@@ -103,8 +101,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * @access private
      */
     function _setEnvironment($environment) {
-	global $gallery;
-
 	$environment['path'] = '/' . $environment['name'] . $environment['version'] . '/';
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick',
@@ -115,7 +111,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	}
 
 	$this->_currentEnvironment = $environment;
-	$gallery->_platform->setEnvironment($environment);
+	$this->_platform->setEnvironment($environment);
 
 	$ret = ImageMagickToolkitHelper::savePlatformParameters();
 	if ($ret) {
@@ -290,7 +286,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 	    /* Test compress */
 	    $this->_files['compressMe.jpg']['size'] = 250 << 10;
-	    $gallery->_platform->_counter = 2;
+	    $this->_platform->_counter = 2;
 	    $ret = $this->_testOperation('image/jpeg', 'compress',
 					 'compressMe.jpg', 'compressed.jpg',
 					 array(150),
@@ -320,7 +316,6 @@ class ImageMagickToolkitTest extends GalleryTestCase {
     }
 
     function testPngQuality() {
-	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'jpegQuality', 94);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -351,8 +346,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * serves as a good test for our sequences.
      */
     function testOperationSequence() {
-	global $gallery;
-	$gallery->_platform->_copyOk = true;
+	$this->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -409,8 +403,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * single operation.
      */
     function testOperationSequenceCropAndGeometrySeparate() {
-	global $gallery;
-	$gallery->_platform->_copyOk = true;
+	$this->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -466,8 +459,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * for subsequent operations..
      */
     function testOperationSequenceSizeChange() {
-	global $gallery;
-	$gallery->_platform->_copyOk = true;
+	$this->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -539,8 +531,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
     /* Ensure queued operations handle change of mime type correctly */
     function testOperationSequenceMimeChange() {
-	global $gallery;
-	$gallery->_platform->_copyOk = true;
+	$this->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);

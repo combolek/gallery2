@@ -53,7 +53,7 @@ class ThumbnailModule extends GalleryModule {
     function upgrade($currentVersion) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$thumbnailDir = $gallery->getConfig('data.gallery.plugins_data') . 'modules' .
 	    $slash . 'thumbnail' . $slash;

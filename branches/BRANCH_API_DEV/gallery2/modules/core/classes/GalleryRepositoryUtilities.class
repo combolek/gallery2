@@ -43,7 +43,7 @@ class GalleryRepositoryUtilities {
      *
      * @param string to exract timestamp from
      * @return array object GalleryStatus a status code
-     * 		     string timestamp
+     *               string timestamp
      */
     function extractTimestamp($string) {
 	if (preg_match('/(\d{4})\/(\d{2})\/(\d{2}) (\d{2}):(\d{2}):(\d{2})/', $string, $date)) {
@@ -81,7 +81,7 @@ class GalleryRepositoryUtilities {
      *
      * @param string to exract revision from
      * @return array object GalleryStatus a status code
-     * 		     string revision
+     *               string revision
      */
     function extractRevision($string) {
 	if (preg_match('/.*,v ([\d.]+) \d.*/U', $string, $revision)) {
@@ -160,7 +160,7 @@ class GalleryRepositoryUtilities {
 	$revision2 = explode('.', $revision2);
 
 	$subRevisions = count($revision1) > count($revision2) ? count($revision1)
-				 			      : count($revision2);
+							      : count($revision2);
 	for ($i = 0; $i < $subRevisions; $i ++) {
 	    if (!isset($revision2[$i])) {
 		$relation = 'newer';
@@ -184,12 +184,12 @@ class GalleryRepositoryUtilities {
      * @param string file path
      * @param int bytes to read
      * @return array object GalleryStatus a status code
-     * 		     string first line from file
+     *               string first line from file
      */
     function getFirstBytesFromFile($path, $bytes) {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-	$platform = $gallery->getPlatform();
 	if ($file = $platform->fopen($path, 'r')) {
 	    $data = $platform->fread($file, $bytes);
 	    $platform->fclose($file);
@@ -213,7 +213,7 @@ class GalleryRepositoryUtilities {
 	global $gallery;
 
 	/* Make sure that strings.raw exists where we expect it. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$pluginBaseDir = GalleryCoreApi::getPluginBaseDir($pluginType, $pluginId, true);
 	$pluginLanguageBasePath =
 	    sprintf('%s%ss/%s/po/strings.raw', $pluginBaseDir, $pluginType, $pluginId);
@@ -329,7 +329,7 @@ class GalleryRepositoryUtilities {
 
 	if (empty($pluginType) || empty($pluginId)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-			 		 "Missing plugin type [$pluginType] and/or ID [$pluginId]"),
+					 "Missing plugin type [$pluginType] and/or ID [$pluginId]"),
 			 null);
 	}
 

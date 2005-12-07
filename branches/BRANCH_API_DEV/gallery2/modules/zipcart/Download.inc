@@ -45,7 +45,7 @@ class DownloadView extends GalleryView {
      */
     function renderImmediate($status, $error) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$phpVm = $gallery->getPhpVm();
 
 	$file = GalleryUtilities::getRequestVariables('file');

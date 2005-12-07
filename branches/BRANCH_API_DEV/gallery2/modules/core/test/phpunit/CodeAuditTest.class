@@ -40,7 +40,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 	$this->CodeAuditTestCase($methodName);
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$this->_exception['endphp'] = array();
 
@@ -200,8 +200,9 @@ class CodeAuditTest extends CodeAuditTestCase {
 		$returnTable[$currentFunction][] = preg_replace('/^return\s+/', '', $return);
 	    }
 
-	    /* Check that Session and UrlGenerator are always accessed by-reference */
-	    if (preg_match_all('/= *\$gallery->get(Session|UrlGenerator)/', $lines[$i], $matches)) {
+	    /* Check that Session, UrlGenerator and Platform are always accessed by-reference */
+	    if (preg_match_all('/= *\$gallery->get(Session|UrlGenerator|Platform)/',
+			       $lines[$i], $matches)) {
 		foreach (array_unique($matches[1]) as $item) {
 		    $this->_errorCount++;
 		    $this->assert(false,

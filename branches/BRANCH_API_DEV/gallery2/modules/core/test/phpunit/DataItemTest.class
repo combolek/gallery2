@@ -68,7 +68,7 @@ class DataItemTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	for ($i = 0; $i < 3; $i++) {
 	    $entity[$i] = new GalleryDataItem();
@@ -167,7 +167,7 @@ class DataItemTest extends GalleryTestCase {
 
 	$this->assertEquals($basePath . 'valid_path_001.txt', $newPath, 'full path mismatch');
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->assert($platform->file_exists($newPath), "$newPath does not exist");
 	$this->assert($platform->is_file($newPath), "$newPath is not a file");
 
@@ -194,7 +194,7 @@ class DataItemTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$canSymlink = $platform->isSymlinkSupported();
 
 	$entity = new GalleryDataItem();

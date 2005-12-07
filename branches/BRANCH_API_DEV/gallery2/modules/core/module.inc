@@ -37,7 +37,7 @@ class CoreModule extends GalleryModule {
 
 	$this->setId('core');
 	$this->setName($gallery->i18n('Core'));
-	$this->setGalleryVersion('2.0.2+');
+	$this->setGalleryVersion('2.0.2++');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
 	$this->setVersion('1.0.12');
@@ -524,7 +524,7 @@ class CoreModule extends GalleryModule {
 	static $versions;
 
 	if (!isset($versions)) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $versionFile = $gallery->getConfig('data.gallery.base') . 'versions.dat';
 
 	    $moduleVersion = null;

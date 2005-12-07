@@ -368,7 +368,7 @@ class Gallery {
      * @access public
      * @return object GalleryPlatform the Gallery platform object
      */
-    function getPlatform() {
+    function &getPlatform() {
 	return $this->_platform;
     }
 

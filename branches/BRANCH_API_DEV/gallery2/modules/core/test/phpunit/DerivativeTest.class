@@ -308,7 +308,7 @@ class DerivativeTest extends GalleryTestCase {
 			    'Incorrect broken derivative mime type');
 	/* Check file size of broken derivative placeholder */
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->file_exists($derivative->getBrokenDerivativePath())) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -385,7 +385,7 @@ class DerivativeTest extends GalleryTestCase {
 	    GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($derivative->getId(), true);
 	/* Ret should be ERROR_PLATFORM_FAILURE */
 	$gallery->setPlatform($platform);
-	$this->assert(ERROR_PLATFORM_FAILURE & $ret->getErrorCode(),
+	$this->assert(isset($ret) && (ERROR_PLATFORM_FAILURE & $ret->getErrorCode()),
 		      'we expect a platform failure');
 	$this->assert(!isset($$derivativeRet),
 		      'GalleryDerivativeHelper_advanced::rebuildCache() did not return null');
@@ -913,7 +913,7 @@ class DerivativeTestToolkit extends GalleryToolkit {
 	$ops[] = array($mimeType, $operationName, $sourceFilename, $destFilename, $parameters);
 
 	if ($sourceFilename != $destFilename) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $platform->copy($sourceFilename, $destFilename);
 	}
 	return array(null, $mimeType, $context);

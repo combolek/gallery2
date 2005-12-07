@@ -730,7 +730,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 	 * if theme blah lives in the downloaded plugins dir and not the base G2 dir.
 	 */
 	global $gallery;
-	$savePlatform = $gallery->getPlatform();
+	$savePlatform =& $gallery->getPlatform();
 	$dirname = $gallery->getConfig('plugins.dirname');
 
 	$platform = new UnitTestPlatform();

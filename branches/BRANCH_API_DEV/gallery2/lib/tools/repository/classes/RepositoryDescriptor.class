@@ -140,7 +140,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	$this->_data['descriptions'] = $descriptions;
 
 	/* Get file meta data. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$pluginBaseDir = GalleryCoreApi::getPluginBaseDir($pluginType, $this->_pluginId);
 	$this->_pluginDir = $platform->realpath(
 	    sprintf('%s%ss/%s', $pluginBaseDir, $pluginType, $this->_pluginId)) . '/';
@@ -159,7 +159,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	/* Create available languages meta data. */
 	foreach ($this->_data['files'] as $fileName => $fileMetaData) {
 	    if (preg_match('/po\/(.._..)\.po$/U', $fileName, $languageCode)) {
-	    	$languageCode = $languageCode[1];
+		$languageCode = $languageCode[1];
 
 		/* Get revision number from po file. */
 		list ($ret, $tag) =
@@ -198,7 +198,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	global $gallery;
 	$relativePath = substr($path, strlen($pluginDir));
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->is_dir($path) && $dir = $platform->opendir($path)) {
 	    /* Ignore plugin base directory */
 	    if (strlen($relativePath)) {
@@ -212,7 +212,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		    $ret = $this->getFileMetaData(
 			$platform->realpath($path) . '/' . $file, $data, $pluginDir);
 		    if ($ret) {
-		        return $ret->wrap(__FILE__, __LINE__);
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 
 		}
@@ -340,7 +340,7 @@ class RepositoryDescriptor extends RepositoryObject {
     function calculateBuildTimestamp($pluginDir) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->chdir($pluginDir)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      "Couldn't change to [$pluginDir]"),

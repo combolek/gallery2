@@ -47,8 +47,8 @@ class UtilitiesTest extends GalleryTestCase {
 	    $_SERVER['HTTP_COOKIE'] : null;
 
 	$this->_mkdir = array();
-	$this->_savePlatform = $gallery->getPlatform();
-	$gallery->_platform = new UtilitiesTestPlatform($this);
+	$this->_savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new UtilitiesTestPlatform($this));
     }
 
     function tearDown() {
@@ -434,7 +434,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$this->assert(GalleryUtilities::isPathInList('/foo/bar',
 						     array('/link', '/bar')), 'symlink path');
 
-	$gallery->_platform = new UtilitiesTestWinPlatform();
+	$gallery->setPlatform(new UtilitiesTestWinPlatform());
 	$this->assert(GalleryUtilities::isPathInList('c:\foo\bar',
 						     array('d:\\', 'C:\Foo')), 'test 7');
     }
@@ -528,7 +528,7 @@ class UtilitiesTest extends GalleryTestCase {
 
     function testGetFile() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$_FILES[GalleryUtilities::prefixFormVariable('userfile')] =
 	    array('name' => 'testfile.txt',
@@ -1206,7 +1206,7 @@ class UtilitiesTest extends GalleryTestCase {
 
     function testGetPseudoFileName() {
 	global $gallery;
-	$gallery->_platform = $this->_savePlatform;
+	$gallery->setPlatform($this->_savePlatform);
 
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {

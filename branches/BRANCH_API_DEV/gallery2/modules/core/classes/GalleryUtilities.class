@@ -465,7 +465,7 @@ class GalleryUtilities {
      */
     function convertPathToUrl($path) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dirbase = $platform->realpath(dirname(__FILE__) . '/../../..') . '/';
 
 	/*
@@ -978,7 +978,7 @@ class GalleryUtilities {
      */
     function isPathInList($path, $list) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$path = $platform->realpath($path) . $slash;
 	$compare = GalleryUtilities::isA($platform, 'WinNtPlatform') ? 'strncasecmp' : 'strncmp';
@@ -1029,7 +1029,7 @@ class GalleryUtilities {
      */
     function guaranteeDirExists($dir) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->file_exists($dir)) {
 	    return array($platform->is_dir($dir), array());
 	}

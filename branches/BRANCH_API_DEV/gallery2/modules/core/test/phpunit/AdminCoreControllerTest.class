@@ -457,7 +457,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     function testAddUploadLocalServerDirRelativePath() {
 	/* Relative path should be converted to absolute (with realpath) */
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$saveDir = $platform->getcwd();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
@@ -673,7 +673,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
     function testEmailTestSuccess() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 	    $gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(true));
 	} else {
@@ -693,7 +693,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
     function testEmailTestFailure() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 	    $gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(false));
 	} else {

@@ -587,7 +587,7 @@ class DatabaseSetupStep extends InstallStep {
 
 	/* Make sure that all the required paths exist. */
 	$baseDir = $gallery->getConfig('data.gallery.base');
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($baseDir{strlen($baseDir)-1} != $platform->getDirectorySeparator()) {
 	    $baseDir .= $platform->getDirectorySeparator();

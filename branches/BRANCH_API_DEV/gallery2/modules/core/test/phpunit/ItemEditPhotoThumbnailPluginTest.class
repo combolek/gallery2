@@ -303,14 +303,14 @@ class ItemEditPhotoThumbnailPluginTestToolkit extends GalleryToolkit {
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($sourceFilename != $destFilename) {
 	    $platform->copy($sourceFilename, $destFilename);
 	}
 
 	$fd = $platform->fopen($destFilename, 'a');
-	fwrite($fd, $operationName);
+	$platform->fwrite($fd, $operationName);
 	$platform->fclose($fd);
 
 	return array(null, $mimeType, $context);

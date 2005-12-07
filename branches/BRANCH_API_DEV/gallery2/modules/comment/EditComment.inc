@@ -206,7 +206,7 @@ class EditCommentView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();

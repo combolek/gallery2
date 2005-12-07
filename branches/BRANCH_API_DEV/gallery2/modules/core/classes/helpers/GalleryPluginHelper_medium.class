@@ -150,7 +150,7 @@ class GalleryPluginHelper_medium {
 	    break;
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	foreach(GalleryCoreApi::getPluginBaseDirs() as $pluginsBaseDir) {
 	    if ($dir = $platform->opendir($pluginsBaseDir . $pluginsDir)) {
 		while (($file = $platform->readdir($dir)) != false) {

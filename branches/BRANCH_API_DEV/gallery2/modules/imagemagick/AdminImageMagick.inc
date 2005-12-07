@@ -54,7 +54,7 @@ class AdminImageMagickController extends GalleryController {
 		$error[] = 'form[error][path][missing]';
 	    } else {
 		/* Set the path.  Guarantee that it's got a trailing slash. */
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
 		$form['path'] = trim($form['path']);
 		if (!empty($form['path'])) {
@@ -194,6 +194,7 @@ class AdminImageMagickView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
 	/* Load our default values if we didn't just come from this form. */
 	if ($form['formName'] != 'AdminImageMagick') {
@@ -208,7 +209,6 @@ class AdminImageMagickView extends GalleryView {
 	}
 
 	/* Guarantee that the path has a trailing slash. */
-	$platform = $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$form['path'] = trim($form['path']);
 	if (!empty($form['path'])) {
@@ -222,7 +222,6 @@ class AdminImageMagickView extends GalleryView {
 	    $jpegQualityList[] = $i;
 	}
 
-	$platform = $gallery->getPlatform();
 	$tests = $mimeTypes = $version = array();
 	$debugSnippet = '';
 	$failCount = 0;

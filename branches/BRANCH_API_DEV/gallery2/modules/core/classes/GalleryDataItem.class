@@ -117,7 +117,7 @@ class GalleryDataItem_core extends GalleryItem {
      */
     function create($parentId, $inputFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Validate the input file */
 	if (empty($inputFileName)) {
@@ -203,7 +203,7 @@ class GalleryDataItem_core extends GalleryItem {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	list ($ret, $sourcePath) = $linkedEntity->fetchPath();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -253,7 +253,7 @@ class GalleryDataItem_core extends GalleryItem {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if ($platform->file_exists($path) && !$platform->unlink($path)) {
 		return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					    "Could not delete $path");
@@ -270,8 +270,7 @@ class GalleryDataItem_core extends GalleryItem {
      */
     function rescan() {
 	global $gallery;
-
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list($ret, $path) = $this->fetchPath();
 	if ($ret) {
@@ -305,7 +304,7 @@ class GalleryDataItem_core extends GalleryItem {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 
 	/*

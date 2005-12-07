@@ -195,7 +195,7 @@ class GalleryTemplateAdapter {
     function date($params, &$smarty) {
 	global $gallery;
 	static $defaultFormat;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if (empty($params['format'])) {
 	    if (!isset($defaultFormat)) {

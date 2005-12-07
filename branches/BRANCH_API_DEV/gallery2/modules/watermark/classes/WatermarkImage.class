@@ -238,7 +238,7 @@ class WatermarkImage_core extends GalleryEntity {
     function create($inputFileName, $mimeType, $targetName=null) {
 	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dir = $this->getWatermarkDir();
 	if (empty($targetName)) {
 	    $targetName = basename($inputFileName);
@@ -335,9 +335,10 @@ class WatermarkImage_core extends GalleryEntity {
 
 	/* Delete our source file */
 	$path = $this->getWatermarkDir() . $this->getFileName();
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->unlink($path)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, "Could not delete $path");
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+					 "Could not delete $path");
 	}
 
 	return null;
@@ -360,7 +361,7 @@ class WatermarkImage_core extends GalleryEntity {
      */
     function getWatermarkDir() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	return $gallery->getConfig('data.gallery.plugins_data') . 'modules/watermark' . $slash;
     }

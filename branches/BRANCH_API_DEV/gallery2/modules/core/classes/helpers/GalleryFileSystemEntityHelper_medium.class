@@ -92,7 +92,7 @@ class GalleryFileSystemEntityHelper_medium {
      */
     function getLegalPathComponent($pathComponent, $parentId, $selfId=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Make sure our path component uses legal characters */
 	$pathComponent = $platform->legalizePathComponent(trim($pathComponent));

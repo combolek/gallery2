@@ -37,10 +37,8 @@ class NewAlbumController extends GalleryController {
      */
     function handleRequest(&$form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
-	$results = array();
-	$error = array();
-	$status = array();
+	$platform =& $gallery->getPlatform();
+	$results = $error = $status = array();
 
 	if (isset($form['action']['newAlbum'])) {
 	    /* Now check the value of name and title */

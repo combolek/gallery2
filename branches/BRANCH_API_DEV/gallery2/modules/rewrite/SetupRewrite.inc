@@ -40,9 +40,6 @@ class SetupRewriteController extends GalleryController {
      * @see GalleryController::handleRequest()
      */
     function handleRequest(&$form) {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

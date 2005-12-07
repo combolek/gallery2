@@ -59,7 +59,7 @@ class ZipCartPlugin extends CartPluginInterface_1_0 {
      */
     function fulfillCart($cartItemIds) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$zipBase = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'zip_');
 	$zipDir = $zipBase . '.dir';

@@ -55,7 +55,7 @@ class ArchiveUploadSiteAdminController extends GalleryController {
 		    ArchiveUploadHelper::testBinary($form['unzipPath']);
 		if (!$valid && $errorType == 'badPath') {
 		    /* Maybe a directory was entered.. try adding /unzip */
-		    $platform = $gallery->getPlatform();
+		    $platform =& $gallery->getPlatform();
 		    $slash = $platform->getDirectorySeparator();
 		    $retryPath = $form['unzipPath'];
 		    if ($retryPath{strlen($retryPath)-1} != $slash) {

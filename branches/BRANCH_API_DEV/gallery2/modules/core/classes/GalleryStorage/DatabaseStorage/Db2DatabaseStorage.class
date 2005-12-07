@@ -143,7 +143,7 @@ class Db2DatabaseStorage extends DatabaseStorage {
 	     */
 
 	    /* 1. Create a temporary file to hold the SQL */
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $fileName = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'db2_');
 
 	    $slash = $platform->getDirectorySeparator();

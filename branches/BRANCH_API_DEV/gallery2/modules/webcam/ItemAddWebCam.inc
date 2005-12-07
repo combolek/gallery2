@@ -43,7 +43,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 	    /* Delegate back to the same view */
 	} else if (isset($form['action']['addWebCam'])) {
 	    /* fetch url, create item, set WebCam handler, save params */
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
 	    $tmpFile = $platform->tempnam($tmpDir, 'webcam');
 	    $url = GalleryUtilities::htmlEntityDecode($form['imageUrl']);

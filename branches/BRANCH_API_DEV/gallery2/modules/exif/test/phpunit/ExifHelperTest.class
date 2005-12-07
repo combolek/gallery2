@@ -424,7 +424,7 @@ class ExifHelperTest extends GalleryTestCase {
      */
     function testPostProcessKeys() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'format.datetime', '%x %X');
 	if ($ret) {

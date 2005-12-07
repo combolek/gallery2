@@ -40,19 +40,18 @@ class Gallery1DataParserTest extends GalleryControllerTestCase {
 
     function setUp() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+
+	parent::setUp();
+
+	$platform =& $gallery->getPlatform();
+	$slash = $this->_slash = $platform->getDirectorySeparator();
 	$this->_albumsDir = dirname(__FILE__) . $slash . '..' . $slash . 'data' .
 	    $slash . 'albums' . $slash;
-	parent::setUp();
     }
 
     function testGetFieldsFromAlbum() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
         list ($ret, $albumFields) = Gallery1DataParser::loadAlbumFields(
-	    $this->_albumsDir . 'album01' . $slash);
+	    $this->_albumsDir . 'album01' . $this->_slash);
         if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }

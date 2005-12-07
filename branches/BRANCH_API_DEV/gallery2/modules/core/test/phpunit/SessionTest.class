@@ -527,9 +527,9 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	/* Assert that the session was not saved */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$sessionFile = $gallery->getConfig('data.gallery.sessions') . $session->getId();
-	$this->assert(!file_exists($sessionFile), 'session file should not exist');
+	$this->assert(!$platform->file_exists($sessionFile), 'session file should not exist');
     }
 
     function testBasicNavigation() {

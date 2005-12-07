@@ -63,8 +63,8 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->_savePlatform = $gallery->getPlatform();
-	$gallery->_platform = new AdminFfmpegControllerTestPlatform();
+	$this->_savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new AdminFfmpegControllerTestPlatform());
     }
 
     function testSaveGoodPath() {
@@ -212,7 +212,7 @@ class AdminFfmpegControllerTest extends GalleryControllerTestCase {
 
     function testAddRemoveWatermark() {
 	global $gallery;
-	$gallery->_platform = $this->_savePlatform;
+	$gallery->setPlatform($this->_savePlatform);
 
 	$ret = $this->_saveThumbnailOps();
 	if ($ret) {

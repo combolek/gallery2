@@ -181,7 +181,7 @@ class NetPbmToolkitHelper {
      */
     function testJhead($jheadPath) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	/*
 	 * If the path is restricted by open_basedir, then verify that it's legal.
 	 * Else just hope that it's valid and use it.
@@ -227,7 +227,7 @@ class NetPbmToolkitHelper {
      */
     function testBinaries($netPbmPath) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$isRestrictedPath = $platform->isRestrictedByOpenBaseDir($netPbmPath);
 	/*
 	 * If the path is not restricted by open_basedir, then verify that it's legal.

@@ -76,7 +76,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
     function testAddWatermark() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$dataFile = GalleryCoreApi::getPluginBaseDir('module', 'core')
 	    . 'modules/core/test/data/test1.gif';
@@ -213,7 +213,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
     function testAddMaliciousFile() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$dataFile = GalleryCoreApi::getPluginBaseDir('module', 'core')
 	    . 'modules/core/test/data/test1.gif';
@@ -259,7 +259,7 @@ class UserWatermarksControllerTest extends GalleryControllerTestCase {
 
     function testAddWatermarkSameFilenameAsOtherUser() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Start with admin user.. */
 	$gallery->setActiveUser($this->_saveUser);

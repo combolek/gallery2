@@ -419,7 +419,7 @@ class GalleryTranslator {
 			 null);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (function_exists('dgettext')) {
 	    if (isset($domain) && !isset($this->_boundDomains[$domain])) {
 		list ($componentType, $componentName) = split('_', $domain);

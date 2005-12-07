@@ -57,7 +57,7 @@ class SelectGalleryControllerTest extends GalleryControllerTestCase {
      */
     function testGoodAlbumsPath() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	$albumsPath = dirname(__FILE__) . '/../data/albums';

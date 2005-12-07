@@ -81,7 +81,7 @@ class GalleryPluginHelper_simple {
 		GalleryCoreApi::relativeRequireOnce(
 		    sprintf('modules/core/classes/%s.class', $pluginSuperClass));
 
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		if (!$platform->file_exists($pluginBaseDir . $pluginFile)) {
 		    /*
 		     * If we have a bad path, it may be because our cached plugin list is out of
@@ -390,7 +390,7 @@ class GalleryPluginHelper_simple {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 
 		$pluginBaseDirs = GalleryCoreApi::getPluginBaseDirs();
 		$pluginBaseIndexFile = sprintf(
@@ -608,7 +608,7 @@ class GalleryPluginHelper_simple {
 	/* Don't we need to know if the index file has changed to keep the cache updated? */
 	if (!isset($pluginIndex[$pluginType]) || $clearCache) {
 	    global $gallery;
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $pluginDataDir =
 		dirname(__FILE__) . '/../../../../' . $gallery->getConfig('plugins.dirname');
 	    $pluginIndexFile = sprintf('%s/index.%ss', $pluginDataDir, $pluginType);

@@ -367,7 +367,7 @@ class AdminRepositoryView extends GalleryView {
 	    /* Make sure the plugins directory is properly set up. */
 	    list ($isSetUp, $errorMessage) = GalleryRepository::createPluginsDirectory();
 	    if (!$isSetUp) {
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 
 		$redirect['view'] = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepositorySetup';

@@ -53,7 +53,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
     function upgrade($currentVersion) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$watermarkDir =
 	    $gallery->getConfig('data.gallery.plugins_data') . 'modules/watermark' . $slash;

@@ -114,7 +114,7 @@ class RepositoryPackage extends RepositoryObject {
 	}
 
 	/* File creation code. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	foreach ($this->_descriptor->getFilesInPackage($packageType) as $file) {
 	    $pluginFilePath = $this->_descriptor->getPluginDir() . $file;
 	    if (false === ($fileContents = $platform->file_get_contents($pluginFilePath))) {

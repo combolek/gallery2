@@ -123,7 +123,7 @@ class AdminCoreController extends GalleryController {
 	    if (empty($path)) {
 		$error[] = 'form[error][uploadLocalServer][newDir][missing]';
 	    } else {
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$splitPath = $platform->splitPath($realPath);
 		if (!preg_match('{[\\/]}', $splitPath[0]) || in_array('..', $splitPath)) {
 		    /* Use realpath value if path is relative or has .. */
@@ -332,7 +332,7 @@ class AdminCoreView extends GalleryView {
 	    $localServerDirList[$i] = $param['uploadLocalServer.dir.' . $i];
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$translator =& $gallery->getTranslator();
 	$AdminCore = $can = array();
 

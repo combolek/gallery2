@@ -179,7 +179,7 @@ class GalleryView {
 	    $moduleDir = 'modules/' . $module . '/';
 	    $fileName = $moduleDir . $class . '.inc';
 
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if (!$platform->file_exists($moduleBaseDir . $fileName)) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  $moduleBaseDir . $fileName), null);

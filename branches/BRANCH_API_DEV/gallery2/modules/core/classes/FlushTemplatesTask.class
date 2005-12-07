@@ -55,7 +55,7 @@ class FlushTemplatesTask extends MaintenanceTask {
      */
     function run() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dir = $gallery->getConfig('data.smarty.templates_c');
 	$success = true;
 

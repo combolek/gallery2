@@ -102,9 +102,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 
     /* change dimensions, keep original */
     function testKeepOriginal() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-
 	foreach (array('width' => 768, 'height' => 1024)
 	    as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
@@ -144,9 +141,6 @@ class SizeLimitHelperTest extends GalleryTestCase {
 
     /* change size, replace original */
     function testNoOriginal() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-
 	$ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 	    'size', 1000, $this->_album->getId());
 	if ($ret) {
@@ -266,7 +260,7 @@ class SizeLimitHelperTestToolkit extends GalleryToolkit {
 	/* Our 'mime type' has to support dimensions */
 	switch($propertyName) {
 	case 'dimensions':
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $results = $platform->getimagesize($file);
 	    break;
 

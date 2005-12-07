@@ -53,15 +53,14 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$gallery->setPlatform(
-	    new AdminImageMagickControllerTestPlatform($gallery->getPlatform(), $this));
+	$platform =& $gallery->getPlatform();
+	$gallery->setPlatform(new AdminImageMagickControllerTestPlatform($platform, $this));
 	$this->_ranIdentify = 0;
+	$this->_slash = $platform->getDirectorySeparator();
     }
 
     function testSaveGoodPath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	$path = $slash . 'validPath' . $slash;
 
 	/*
@@ -118,9 +117,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveTestErrorPath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -138,9 +135,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveBadPath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -158,9 +153,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveMissingPath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -178,9 +171,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveVulnerablePath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -198,9 +189,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testForceSaveGoodPath() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	$path = $slash . 'vulnerablePath' . $slash;
 
 	/*

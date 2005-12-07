@@ -43,7 +43,7 @@ class UserRecoverPasswordAdminController extends GalleryController {
      */
     function handleRequest($form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$session =& $gallery->getSession();
 
 	$status = $error = $results = array();
@@ -154,7 +154,7 @@ class UserRecoverPasswordAdminView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$session =& $gallery->getSession();
 
 	$status = $error = array();

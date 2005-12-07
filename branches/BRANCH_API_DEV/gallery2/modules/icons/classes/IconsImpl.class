@@ -43,7 +43,7 @@ class IconsImpl extends IconsInterface_1_0 {
      */
     function getIconPacks() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/*
 	 * Load the plugin even if it's deactivated since we only need it for translation, and

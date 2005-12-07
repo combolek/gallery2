@@ -49,8 +49,8 @@ class NetPbmToolkitTest extends GalleryTestCase {
 
 	parent::setUp();
 
-	$gallery->_platform = new NetPbmToolkitTestPlatform($gallery->getPlatform());
-	$ret = $gallery->_platform->init();
+	$this->_platform = new NetPbmToolkitTestPlatform($gallery->getPlatform());
+	$ret = $this->_platform->init();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -75,13 +75,13 @@ class NetPbmToolkitTest extends GalleryTestCase {
 	    }
 	}
 
+	$gallery->setPlatform($this->_platform);
+
 	/* Get a toolkit to work with */
 	$this->_toolkit = new NetPbmToolkit();
     }
 
     function testPerformOperations() {
-	global $gallery;
-
 	list ($ret, $mimeType) =
 	    $this->_toolkit->performOperation('image/gif', 'thumbnail',
 					      'testPerformOperations1.gif',
@@ -170,7 +170,7 @@ class NetPbmToolkitTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$gallery->_platform->_counter = 2;
+	$this->_platform->_counter = 2;
 	list ($ret, $mimeType) = $this->_toolkit->performOperation(
 	    'image/jpeg', 'compress',
 	    'testPerformOperations14.jpg',
@@ -600,7 +600,6 @@ class NetPbmToolkitTestPlatform {
     }
 
     function init() {
-	global $gallery;
 	list ($ret, $this->_netPbmPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 	if ($ret) {
@@ -918,7 +917,6 @@ class NetPbmToolkitTestPlatform {
     }
 
     function is_dir($path) {
-	global $gallery;
 	list ($ret, $netPbmPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 	if ($ret) {
 	    print $ret->getAsHtml();

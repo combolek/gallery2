@@ -180,6 +180,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_adminGroupId = (int)$this->_adminGroupId;
+
+	$platform =& $gallery->getPlatform();
+	$this->_slash = $platform->getDirectorySeparator();
     }
 
     function tearDown() {
@@ -265,9 +268,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
     }
 
     function testImportUserSuccessful() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	GalleryUtilities::putRequestVariable('form[migrateUser][1057837154_228147420]', 1);
@@ -298,9 +299,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	}
     }
     function testImportMissingUserFullname() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	GalleryUtilities::putRequestVariable('form[migrateUser][1111214688_22997786]', 1);
@@ -335,9 +334,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
     function testImportUserFailure() {
 	/* Try importing user with username 'admin' which should fail */
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	GalleryUtilities::putRequestVariable('form[migrateUser][1054014347_1233740678]', 1);
@@ -376,9 +373,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
     }
 
     function testImportAlbumSuccessful() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	GalleryUtilities::putRequestVariable('form[sourceAlbums][album03]', 1);
@@ -815,9 +810,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
     }
 
     function testImportAlbumAndGenerateThumbnailsNoMarkup() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	GalleryUtilities::putRequestVariable('form[sourceAlbums][album04]', 1);
@@ -922,9 +915,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
 
     function testG1MigrateMap() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
 	/* Verify that controller accepts urlencoded album names: */
@@ -1075,9 +1066,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
     function testImportAlbumPermissionsHtmlMarkup() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
-
+	$slash = $this->_slash;
 
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
@@ -1252,10 +1241,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
     }
 
     function testImportAlbumPermissions2() {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
-
+	$slash = $this->_slash;
 
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
@@ -1338,14 +1324,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
     function testImportno_NO() {
 	if (!(function_exists('iconv')
-	    || function_exists('mb_convert_encoding')
-	      || function_exists('recode_string'))) {
+		|| function_exists('mb_convert_encoding')
+		|| function_exists('recode_string'))) {
 	    return;
 	}
 
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
@@ -1482,14 +1466,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
     function testImportfr_FR() {
 	if (!(function_exists('iconv')
-	    || function_exists('mb_convert_encoding')
-	      || function_exists('recode_string'))) {
+		|| function_exists('mb_convert_encoding')
+		|| function_exists('recode_string'))) {
 	    return;
 	}
 
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);
@@ -1625,14 +1607,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 
     function testImportKOI_8() {
 	if (!(function_exists('iconv')
-	    || function_exists('mb_convert_encoding')
-	      || function_exists('recode_string'))) {
+		|| function_exists('mb_convert_encoding')
+		|| function_exists('recode_string'))) {
 	    return;
 	}
 
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$slash = $platform->getDirectorySeparator();
+	$slash = $this->_slash;
 
 	GalleryUtilities::putRequestVariable('albumsPath',
 	    dirname(__FILE__) . $slash . '..' . $slash . 'data' . $slash . 'albums' . $slash);

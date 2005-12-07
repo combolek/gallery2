@@ -1059,7 +1059,7 @@ class ItemTest extends GalleryTestCase {
 
     function testDeletingLinks() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Create a target item */
 	list ($ret, $item) = $this->_createRandomDataItem($this->_album->getId());
@@ -1516,7 +1516,7 @@ class ItemTest extends GalleryTestCase {
 
     function testSymlinkTwice() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->isSymlinkSupported()) {
 	    /* Skip this test if symlink is not supported */
 	    return;

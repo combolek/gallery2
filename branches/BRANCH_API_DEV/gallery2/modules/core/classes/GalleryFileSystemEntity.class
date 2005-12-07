@@ -269,7 +269,7 @@ class GalleryFileSystemEntity_core extends GalleryChildEntity {
 
 	if (!$this->isLinked()) {
 	    $newPath = $newParentPath . $newPathComponent;
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if (!$platform->rename($currentPath, $newPath)) {
 		return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					    "rename $currentPath to $newPath");
@@ -423,7 +423,7 @@ class GalleryFileSystemEntity_core extends GalleryChildEntity {
 	 * Logical path is slash (/) delimited.  Convert that to the platform's actual
 	 * directory separator.
 	 */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->getDirectorySeparator() != '/') {
 	    $logicalPath = str_replace('/', $platform->getDirectorySeparator(), $logicalPath);
 	}

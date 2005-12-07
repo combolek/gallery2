@@ -94,7 +94,7 @@ class MailHelper_simple {
 	    $headers = "Content-Type: text/plain; charset=\"utf-8\"\r\n" . $headers;
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	foreach(explode(',', $to) as $mailTo) {
 	    $success = $platform->mail($mailTo, $subject, $emailText, $headers);
 	    if (!$success) {

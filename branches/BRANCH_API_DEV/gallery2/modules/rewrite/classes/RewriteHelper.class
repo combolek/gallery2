@@ -138,7 +138,7 @@ class RewriteHelper {
      */
     function checkFile($embedded=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $file) = RewriteHelper::getHtaccessPath($embedded);
 	if ($ret) {
@@ -176,7 +176,7 @@ class RewriteHelper {
     function checkSync() {
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $activeRules) = RewriteMap::getActiveRules();
 	if ($ret) {
@@ -232,7 +232,7 @@ class RewriteHelper {
      */
     function writeFile($rewriteRules, $embedded=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $file) = RewriteHelper::getHtaccessPath($embedded);
 	if ($ret) {

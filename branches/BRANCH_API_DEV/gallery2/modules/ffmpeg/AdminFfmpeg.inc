@@ -55,7 +55,7 @@ class AdminFfmpegController extends GalleryController {
 	    } else {
 
 		/* Verify the path */
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
 		if (!$platform->isRestrictedByOpenBaseDir($form['path'])) {
 		    if ($platform->file_exists($form['path']) && $platform->is_dir($form['path'])) {
@@ -267,9 +267,8 @@ class AdminFfmpegView extends GalleryView {
 	    }
 	}
 
-	$platform = $gallery->getPlatform();
-	$tests = array();
-	$mimeTypes = array();
+	$platform =& $gallery->getPlatform();
+	$tests = $mimeTypes = array();
 	$debugSnippet = '';
 	$failCount = 0;
 	if (isset($form['action']['test'])) {

@@ -132,7 +132,7 @@ class GalleryMovieItem_core extends GalleryDataItem {
      */
     function create($parentId, $videoFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($videoFileName)) {

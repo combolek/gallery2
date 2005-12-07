@@ -129,7 +129,7 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	$this->_MB = $this->_module->translate('MB');
 	$this->_GB = $this->_module->translate('GB');
 
-	$this->_platform = $gallery->getPlatform();
+	$this->_platform =& $gallery->getPlatform();
 
 	/*
 	 * We'll be running shutdown actions in these tests, but we don't want to update

@@ -40,7 +40,7 @@ class ItemAddFromServer extends ItemAddPlugin {
      */
     function handleRequest($form, &$item) {
 	global $gallery;
-	$this->_platform = $gallery->getPlatform();
+	$this->_platform =& $gallery->getPlatform();
 	$this->_dirSep = $this->_platform->getDirectorySeparator();
 
 	$status = array();
@@ -331,7 +331,7 @@ class ItemAddFromServer extends ItemAddPlugin {
 	}
 
 	/* Look up the platform type */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
   
 	if (isset($form['action']['startOver'])) {
