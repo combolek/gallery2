@@ -160,7 +160,7 @@ class ItemAddAlbumControllerTest extends GalleryControllerTestCase {
 
     function testAddAlbumWithSpaces() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$name = ' testalbum-' . rand() . ' ';
 	GalleryUtilities::putRequestVariable('itemId', $this->_parentAlbum->getId());

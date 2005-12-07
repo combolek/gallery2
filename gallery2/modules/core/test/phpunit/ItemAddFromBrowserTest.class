@@ -65,7 +65,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
     function testAddChildrenFromBrowser() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
@@ -155,7 +155,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
     function testAddUnknownChildFromBrowser() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
@@ -200,7 +200,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
     function testAddWithEmptyTitle() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);
@@ -240,7 +240,7 @@ class ItemAddFromBrowserTest extends ItemAddPluginTestCase {
 
     function testAddWithSpaces() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$name = basename(__FILE__);
 	GalleryUtilities::putRequestVariable('form[action][addFromBrowser]', 1);

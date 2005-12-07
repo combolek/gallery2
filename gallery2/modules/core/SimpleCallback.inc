@@ -105,7 +105,7 @@ class SimpleCallbackView extends GalleryView {
 
     function _getAllImmediateSubdirs($path) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* $path is UTF-8, we need it in the system charset for filesystem interactions */
 	$path = GalleryCoreApi::convertFromUtf8($path);
@@ -141,7 +141,7 @@ class SimpleCallbackView extends GalleryView {
 
     function _getAllFiles($path) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* $path is UTF-8, we need it in the system charset for filesystem interactions */
 	$path = GalleryCoreApi::convertFromUtf8($path);

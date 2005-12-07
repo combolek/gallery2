@@ -64,7 +64,7 @@ class ItemAddFromWebTest extends ItemAddPluginTestCase {
 	}
 
 	global $gallery;
-	$this->_savePlatform = $gallery->getPlatform();
+	$this->_savePlatform =& $gallery->getPlatform();
 	$gallery->setPlatform(new ItemAddFromWebTestPlatform($this));
     }
 

@@ -72,7 +72,7 @@ class CSSView extends GalleryView {
 		    ($when = strtotime($headers['If-Modified-Since'])) > 0) {
 		/* Check date on frame.inc files to determine if we should resend the CSS */
 		global $gallery;
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		foreach ($frameList as $frameId) {
 		    $inc = dirname(__FILE__) . "/frames/$frameId/frame.inc";
 		    if ($platform->file_exists($inc) && ($stat = $platform->stat($inc)) &&

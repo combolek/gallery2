@@ -190,7 +190,7 @@ class ExifHelper {
 	global $gallery;
 	GalleryCoreApi::relativeRequireOnce('modules/exif/lib/exifer/exif.inc');
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
 	    $rawExifData = null;
 	    return;
@@ -220,8 +220,8 @@ class ExifHelper {
      */
     function getIptcObject($path) {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
 	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					      "Missing $path"),
@@ -346,7 +346,7 @@ class ExifHelper {
 		if ($ret || empty($format)) {
 		    $format = '$x $X';
 		}
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$value = $platform->strftime($format, $time);
 	    }
 	    break;

@@ -82,8 +82,8 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->_savePlatform = $gallery->getPlatform();
-	$gallery->setPlatform(new ItemAddWebCamTestPlatform());
+	$this->_savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform($this->_platform = new ItemAddWebCamTestPlatform());
     }
 
     function tearDown() {
@@ -122,8 +122,7 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
     }
 
     function testAddWebCamAltHeader() {
-	global $gallery;
-	$gallery->_platform->_contentType = 'Content-type';
+	$this->_platform->_contentType = 'Content-type';
 
 	GalleryUtilities::putRequestVariable('form[action][addWebCam]', 1);
 	GalleryUtilities::putRequestVariable('form[imageUrl]', 'http://test.com/testimage');

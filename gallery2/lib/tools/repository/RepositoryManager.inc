@@ -89,13 +89,13 @@ class RepositoryManagerControllerAndView extends RepositoryControllerAndView {
 
 	if (empty($pluginId) || empty($pluginType)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-	    				sprintf('pluginId [%s] and/or pluginType [%s] not set.',
-	    					$pluginId, $pluginType));
+					sprintf('pluginId [%s] and/or pluginType [%s] not set.',
+						$pluginId, $pluginType));
 	}
 
 	/* Remove 'pluginId-*' files from 'repository/pluginType'. */
 	$removedFiles = array();
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$repositoryPluginDir = $gallery->getConfig('repository.path') . $pluginType . '/';
 	if ($dir = $platform->opendir($repositoryPluginDir)) {
 	    while (false !== ($file = readdir($dir))) {

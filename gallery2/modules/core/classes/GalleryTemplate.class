@@ -244,7 +244,7 @@ class GalleryTemplate {
      */
     function _initCompiledTemplateDir() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Make a unique subdirectory for compiled templates for this templates dir */
 	$dir = $this->_compiledTemplateDir;
@@ -310,7 +310,7 @@ class GalleryTemplate {
 	$smarty->error_reporting = error_reporting();
 
 	/* We have our own plugins */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$smarty->plugins_dir[] = dirname(__FILE__) . '/../../../lib/smarty_plugins';
 
@@ -377,7 +377,7 @@ class GalleryTemplate {
     */
     function resourceGetTimestamp($templateName, &$templateTimestamp, &$smarty) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$templateName = GalleryTemplate::_getActualTemplateName(
 	    GalleryTemplate::resourceGetTemplateBaseDir($templateName, $smarty) . $templateName);
@@ -403,7 +403,7 @@ class GalleryTemplate {
      */
     function _getActualTemplateName($templateName) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Check for override:  local/file.ext */
 	$localTemplateName = dirname($templateName) . '/local/' . basename($templateName);

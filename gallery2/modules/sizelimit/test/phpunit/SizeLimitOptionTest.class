@@ -180,7 +180,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 	$form['SizeLimitOption']['sizeChoice'] = 'explicit';
 	$form['SizeLimitOption']['filesize'] = 2000;
@@ -382,7 +382,7 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 	/* Our 'mime type' has to support dimensions */
 	switch($propertyName) {
 	case 'dimensions':
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $results = $platform->getimagesize($file);
 	    break;
 

@@ -40,10 +40,9 @@ class TemplateAuditTest extends CodeAuditTestCase {
     function TemplateAuditTest($methodName) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
-
 	$this->CodeAuditTestCase($methodName);
 
+	$platform =& $gallery->getPlatform();
 	$this->_lineEnding = $platform->getLineEnding();
 
 	$this->_revisionPattern = ' \* \$Revision(:.+)?\$';

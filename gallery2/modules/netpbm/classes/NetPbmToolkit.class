@@ -75,7 +75,7 @@ class NetPbmToolkit extends GalleryToolkit {
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Check context for any operations that have been queued up.. */
 	$outputMimeType = $mimeType;
@@ -453,7 +453,7 @@ class NetPbmToolkit extends GalleryToolkit {
     function _deleteTempFiles(&$context) {
 	if (!empty($context['netpbm.tmp'])) {
 	    global $gallery;
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    foreach ($context['netpbm.tmp'] as $tmpFile) {
 		if ($platform->file_exists($tmpFile)) {
 		    @$platform->unlink($tmpFile);
@@ -473,7 +473,7 @@ class NetPbmToolkit extends GalleryToolkit {
 	 * Run it through PHP first, it's faster and more portable.  If it runs
 	 * afoul of open_basedir it'll return false and we can try NetPBM.
 	 */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$results = $platform->getimagesize($filename);
 	if (($results != false) &&
 	    (($results[0] > 1) && ($results[1] > 1))) {
@@ -526,7 +526,7 @@ class NetPbmToolkit extends GalleryToolkit {
     function _transformImage($mimeType, $command, $sourceFilename, $destFilename, $outputMimeType,
 			     $preserveMetaData=true, $jpegQuality=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Figure out our convert-to-pnm command */
 	list ($ret, $convertToPnmCmd) = $this->_convertToPnmCmd($mimeType, $sourceFilename);
@@ -735,7 +735,7 @@ class NetPbmToolkit extends GalleryToolkit {
 	global $gallery;
 
 	$cmdArray = $this->_extractCommands($cmdArray);
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($success, $stdout, $stderr) = $platform->exec($cmdArray);
 	if (!$success) {
@@ -754,7 +754,7 @@ class NetPbmToolkit extends GalleryToolkit {
      */
     function _pnmCmd($cmd) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $netPbmPath) = GalleryCoreApi::getPluginParameter('module', 'netpbm', 'path');
 	if ($ret) {

@@ -72,7 +72,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$ret = $platform->unlink(
 	    $gallery->getConfig('data.gallery.base') . '/unittest.jpg');
 	if (!$ret) {
@@ -101,8 +101,8 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	$this->assertEquals(GALLERY_ERROR | ERROR_UNSUPPORTED_OPERATION, $ret->getErrorCode(),
 			    'Error expected for bad operation');
 
-	$platform = $gallery->getPlatform();
-	$gallery->_platform = new DummyPlatform();
+	$platform =& $gallery->getPlatform();
+	$gallery->setPlatform(new ThumbnailToolkitTestDummyPlatform());
 
 	list ($ret, $outputMimeType) = $this->_toolkit->performOperation(
 	    'test/fakemime', 'convert-to-image/jpeg',
@@ -111,7 +111,7 @@ class ThumbnailToolkitTest extends GalleryTestCase {
 	$this->assertEquals(GALLERY_ERROR | ERROR_PLATFORM_FAILURE, $ret->getErrorCode(),
 			    'Error expected for bad destination file');
 
-	$gallery->_platform = $platform;
+	$gallery->setPlatform($platform);
 
 	list ($ret, $outputMimeType) = $this->_toolkit->performOperation(
 	    'test/fakemime', 'convert-to-image/jpeg',
@@ -125,9 +125,9 @@ class ThumbnailToolkitTest extends GalleryTestCase {
  * @package Thumbnail
  * @subpackage PHPUnit
  */
-class DummyPlatform {
+class ThumbnailToolkitTestDummyPlatform {
     function copy($source, $dest) {
-	// Simulate copy failure..
+	/* Simulate copy failure.. */
 	return false;
     }
     function getDirectorySeparator() {

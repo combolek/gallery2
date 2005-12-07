@@ -712,7 +712,7 @@ class GalleryTheme extends GalleryPlugin {
 	$theme['params'] = $params;
 
 	/* Unserialize our blocks and preload them if necessary */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$g2Base = dirname(dirname(dirname(dirname(__FILE__))));
 
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');

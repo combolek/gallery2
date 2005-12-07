@@ -329,7 +329,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	    list($ret, $destPath) = $this->fetchPath();
 	    if (!$ret) {
 		/* Copy the broken derivative placeholder */
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		if ($platform->copy($this->getBrokenDerivativePath(), $destPath)) {
 		    /* Get the mime type of the placeholder */
 		    list ($ret, $mimeType) =
@@ -492,7 +492,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	}
 
 	/* Get the size of the file */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->file_exists($destPath)) {
 	    $size = $platform->filesize($destPath);
 	} else {
@@ -532,7 +532,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 
 	$fastDownloadFilePath = GalleryDataCache::getCachePath(
 	    array('type' => 'fast-download', 'itemId' => $this->getId()));
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->file_exists($fastDownloadFilePath)) {
 	    $platform->unlink($fastDownloadFilePath);
 	}
@@ -601,7 +601,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
 		array('type' => 'derivative', 'itemId' => $this->getId()));
 	    $relativePath = GalleryDataCache::getCachePath(
 		array('type' => 'derivative-relative', 'itemId' => $this->getId()));
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $stats = $platform->stat($fullPath);
 	    $contentLength = $stats[7];
 	    $lastModified = GalleryUtilities::getHttpDate($stats[9]);
@@ -726,7 +726,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
      */
     function isCacheCurrent() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list($ret, $path) = $this->fetchPath();
 	if ($ret) {
@@ -745,7 +745,7 @@ class GalleryDerivative_core extends GalleryChildEntity {
      */
     function expireCache() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list($ret, $path) = $this->fetchPath();
 	if ($ret) {

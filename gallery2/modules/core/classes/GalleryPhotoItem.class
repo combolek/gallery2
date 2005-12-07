@@ -110,7 +110,7 @@ class GalleryPhotoItem_core extends GalleryDataItem {
      */
     function create($parentId, $imageFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($imageFileName)) {

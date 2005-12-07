@@ -44,7 +44,7 @@ class SelectGalleryController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	// Verify that active user is an admin
+	/* Verify that active user is an admin */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -57,7 +57,7 @@ class SelectGalleryController extends GalleryController {
 	    if (empty($form['albumsPath'])) {
 		$error[] = 'form[error][albumsPath][missing]';
 	    } else {
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
 		$tmp = trim($form['albumsPath']);
 		if ($tmp[strlen($tmp)-1] != $slash) {

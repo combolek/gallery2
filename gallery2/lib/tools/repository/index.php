@@ -19,7 +19,7 @@
  *
  * $Id$
  */
- 
+
  /**
  * @package RepositoryTools
  */
@@ -74,7 +74,7 @@ function RepositoryToolsMain() {
     $methodName = GalleryUtilities::getRequestVariables('action');
     $controllerPath = sprintf('%s/%s.inc', dirname(__FILE__), $controllerName);
 
-    $platform = $gallery->getPlatform();
+    $platform =& $gallery->getPlatform();
     if (!$platform->file_exists($controllerPath)) {
 	/* Set default controller. */
 	$controllerName = 'MainPage';

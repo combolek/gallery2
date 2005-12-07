@@ -160,7 +160,7 @@ class GalleryController {
 	    $moduleBaseDir = GalleryCoreApi::getPluginBaseDir('module', $module);
 	    $fileName = 'modules/' . $module . '/' . $class . '.inc';
 
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if (!$platform->file_exists($moduleBaseDir . $fileName)) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }

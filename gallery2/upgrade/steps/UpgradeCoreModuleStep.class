@@ -63,7 +63,7 @@ class UpgradeCoreModuleStep extends UpgradeStep {
 
 	$templateData['isConfigUpgradeRequired'] =
 	    CoreModuleExtras::isConfigUpgradeRequired($versions['core']);
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
 	$templateData['isConfigWriteable'] = $platform->is_writeable($configFilePath);
 	$templateData['canChmod'] = strncasecmp(PHP_OS, 'win', 3);

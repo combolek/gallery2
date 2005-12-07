@@ -540,13 +540,13 @@ class ItemEditRotateAndScalePhotoPluginTestToolkit extends GalleryToolkit {
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($sourceFilename != $destFilename) {
 	    $platform->copy($sourceFilename, $destFilename);
 	}
 
 	$fd = $platform->fopen($destFilename, 'a');
-	fwrite($fd, $operationName);
+	$platform->fwrite($fd, $operationName);
 	$platform->fclose($fd);
 	/* Clear cache to ensure new filesize will be seen */
 	$platform->clearstatcache();

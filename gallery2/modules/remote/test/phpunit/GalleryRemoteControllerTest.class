@@ -233,8 +233,8 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 
     function testAddItem() {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-	$platform = $gallery->getPlatform();
 	GalleryUtilities::putRequestVariable('form[cmd]', 'add-item');
 	GalleryUtilities::putRequestVariable('form[set_albumName]', $this->_rootAlbum->getId());
 	GalleryUtilities::putRequestVariable('form[caption]', 'this is a caption');
@@ -275,8 +275,8 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
 
     function testAddItemWithOption() {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
-	$platform = $gallery->getPlatform();
 	GalleryUtilities::putRequestVariable('form[cmd]', 'add-item');
 	GalleryUtilities::putRequestVariable('form[set_albumName]', $this->_rootAlbum->getId());
 	GalleryUtilities::putRequestVariable('form[caption]', 'this is a caption');
@@ -326,9 +326,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testNewAlbum() {
-	global $gallery;
-
-	$platform = $gallery->getPlatform();
 	GalleryUtilities::putRequestVariable('form[cmd]', 'new-album');
 	GalleryUtilities::putRequestVariable('form[set_albumName]', $this->_rootAlbum->getId());
 	GalleryUtilities::putRequestVariable('form[newAlbumName]', 'name'.rand());
@@ -355,8 +352,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testFetchAlbumImagesEmpty() {
-	global $gallery;
-
 	GalleryUtilities::putRequestVariable('form[cmd]', 'fetch-album-images');
 	GalleryUtilities::putRequestVariable('form[set_albumName]', $this->_rootAlbum->getId());
 	$results = $this->handleRequest();
@@ -372,8 +367,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testFetchAlbumImages() {
-	global $gallery;
-
 	/* Create some images */
 	$parentId = $this->_rootAlbum->getId();
 	for ($i = 0; $i < 2; $i++) {
@@ -403,8 +396,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testFetchAlbumImagesAlbumsToo() {
-	global $gallery;
-
 	/* Create some images */
 	$parentId = $this->_rootAlbum->getId();
 	for ($i = 0; $i < 2; $i++) {
@@ -440,8 +431,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testIncrementViewCount() {
-	global $gallery;
-
 	/* Create some images */
 	$parentId = $this->_rootAlbum->getId();
 
@@ -490,9 +479,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testNoop() {
-	global $gallery;
-
-	$platform = $gallery->getPlatform();
 	GalleryUtilities::putRequestVariable('form[cmd]', 'no-op');
 
 	$results = $this->handleRequest();
@@ -505,8 +491,6 @@ class GalleryRemoteControllerTest extends GalleryControllerTestCase {
     }
 
     function testAlbumProperties() {
-	global $gallery;
-
 	/* Set the preferences */
 	$ret = GalleryCoreApi::addDerivativePreference(
 		1, $this->_rootAlbum->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|640,640');

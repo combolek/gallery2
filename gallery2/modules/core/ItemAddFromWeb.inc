@@ -49,7 +49,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	} else if (isset($form['action']['addFromWebPage']) && empty($form['webPageUrls'])) {
 	    GalleryUtilities::putRequestVariable('form[error][webPage][nothingSelected]', 1);
 	} else if (isset($form['action']['addFromWebPage'])) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    foreach (array_keys($form['webPageUrls']) as $url) {
 		/* Copy the file locally */
 		$tmpDir = $gallery->getConfig('data.gallery.tmp');

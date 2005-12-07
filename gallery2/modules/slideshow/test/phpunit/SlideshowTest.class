@@ -618,7 +618,7 @@ class SlideshowToolkit extends GalleryToolkit {
 	/* Just copy file and return dummy mime type */
 	global $gallery;
 	if ($sourceFilename != $destFilename) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if (!$platform->copy($sourceFilename, $destFilename)) {
 		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			     null, null);

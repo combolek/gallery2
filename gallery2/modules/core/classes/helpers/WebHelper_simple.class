@@ -62,7 +62,7 @@ class WebHelper_simple {
 	    return array(false, null, null, null);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$fd = @$platform->fsockopen($components['host'], $port, $errno, $errstr, 1);
 	if (empty($fd)) {
 	    $gallery->debug("Error $errno: '$errstr' retrieving $url");
@@ -204,7 +204,7 @@ class WebHelper_simple {
 	    return array(null, null, null, null);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$fd = @$platform->fsockopen($components['host'], $port, $errno, $errstr, 1);
 	if (empty($fd)) {
 	    $gallery->debug("Error $errno: '$errstr' retrieving $url");
@@ -329,7 +329,7 @@ class WebHelper_simple {
 	    $components['path'] = '/';
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$fd = @$platform->fsockopen($components['host'], $port, $errno, $errstr, 1);
 	if (empty($fd)) {
 	    $gallery->debug("Error $errno: '$errstr' retrieving $url");

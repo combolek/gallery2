@@ -87,7 +87,7 @@ class ZipCartModule extends GalleryModule {
 	}
 
 	/* Try a bunch of likely seeming paths to see if any of them work. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	/*

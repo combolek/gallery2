@@ -547,7 +547,7 @@ class AlbumTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	for ($i = 0; $i < 3; $i++) {
@@ -644,11 +644,10 @@ class AlbumTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$this->assertEquals($basePath . 'test_001' . $slash, $newPath, 'full path mismatch');
 
-	$platform = $gallery->getPlatform();
 	$this->assert($platform->file_exists($newPath), "$newPath does not exist");
 	$this->assert($platform->is_dir($newPath), "$newPath is not a file");
 
@@ -884,7 +883,7 @@ class AlbumTest extends GalleryTestCase {
 	 * Verify that the path in the database matches the path on disk, since we're expecting
 	 * that the whitespace will get trimmed on both sides.
 	 */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->assert($platform->file_exists($path), 'Path doesn\'t exist');
     }
 
@@ -932,7 +931,7 @@ class AlbumTest extends GalleryTestCase {
 	 * Verify that the path in the database matches the path on disk, since we're expecting
 	 * that the whitespace will get trimmed on both sides.
 	 */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->assert($platform->file_exists($path), 'Path doesn\'t exist');
 
 	$this->assertEquals(trim($newAlbumName), basename($path));
@@ -960,7 +959,7 @@ class AlbumTestToolkit extends GalleryToolkit {
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
 	if ($sourceFilename != $destFilename) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $platform->copy($sourceFilename, $destFilename);
 	}
 	return array(null, $mimeType, $context);

@@ -118,7 +118,7 @@ class DownloadItemView extends GalleryView {
 
     function _sendFile($data) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Make sure we have permission */
 	$permission = 'core.viewSource';

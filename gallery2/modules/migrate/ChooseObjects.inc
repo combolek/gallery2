@@ -164,7 +164,7 @@ class ChooseObjectsView extends GalleryView {
 		$possibleEncodingMatch = $encodingName;
 	    }
 	}
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	$albumsPath = GalleryUtilities::getRequestVariables('albumsPath');

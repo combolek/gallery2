@@ -120,7 +120,6 @@ class PrintPhotosControllerTest extends GalleryControllerTestCase {
 
 	/* Remove session created for print service, if any */
 	if (isset($this->_printSID)) {
-	    $platform = $gallery->getPlatform();
 	    $testSession = new GallerySession();
 	    $testSession->_sessionId = $this->_printSID;
 	    $testSession->reset();

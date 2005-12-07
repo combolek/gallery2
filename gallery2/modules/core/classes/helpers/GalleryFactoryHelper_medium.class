@@ -163,7 +163,7 @@ class GalleryFactoryHelper_medium {
     function registerImplementation($classType, $className, $implId, $implPath,
 				    $implModuleId, $hints, $orderWeight) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$baseDir = GalleryCoreApi::getPluginBaseDir('module', $implModuleId);
 	if (!$platform->file_exists($baseDir . $implPath)) {

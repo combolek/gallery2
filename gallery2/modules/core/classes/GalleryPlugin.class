@@ -363,7 +363,7 @@ class GalleryPlugin {
 	}
 
 	/* Remove data directory for this plugin */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dataDir = $gallery->getConfig('data.gallery.plugins_data') . $this->getPluginType() .
 		   's' . $platform->getDirectorySeparator() . $this->getId();
 	if ($platform->is_dir($dataDir)) {

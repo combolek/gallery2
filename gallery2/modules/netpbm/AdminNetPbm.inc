@@ -47,8 +47,7 @@ class AdminNetPbmController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = array();
-	$error = array();
+	$status = $error = array();
 	if (isset($form['action']['save'])) {
 
 	    if (empty($form['path'])) {
@@ -56,7 +55,7 @@ class AdminNetPbmController extends GalleryController {
 	    } else {
 
 		/* Set the path.  Guarantee that it's got a trailing slash. */
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
 		$form['path'] = trim($form['path']);
 		if (!empty($form['path'])) {
@@ -177,7 +176,7 @@ class AdminNetPbmView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Load our default values if we didn't just come from this form. */
 	if ($form['formName'] != 'AdminNetPbm') {
@@ -192,7 +191,6 @@ class AdminNetPbmView extends GalleryView {
 	}
 
 	/* Guarantee that the path and jheadPath have a trailing slash. */
-	$platform = $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	foreach (array('path', 'jheadPath') as $key) {
 	    $form[$key] = trim($form[$key]);

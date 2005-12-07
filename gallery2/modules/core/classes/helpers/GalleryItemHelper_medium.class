@@ -177,8 +177,6 @@ class GalleryItemHelper_medium /* extends GalleryEventListener */ {
 			    $description, $mimeType, $albumId, $symlink=false) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
-
 	/*
 	 * Assume that we've got a working mime type, go ahead and
 	 * get an appropriate GalleryDataItem from the GalleryFactory.

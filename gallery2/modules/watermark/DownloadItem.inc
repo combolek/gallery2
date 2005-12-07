@@ -111,7 +111,7 @@ class DownloadItemView extends GalleryView {
 	    }
 	    if (isset($watermark) && GalleryUtilities::isA($watermark, 'WatermarkImage')) {
 		global $gallery;
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$tmpFile = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'wmk_');
 		list ($ret, $mimeType) = $toolkit->performOperation(
 		    $mimeType, 'composite', $path, $tmpFile,
@@ -144,7 +144,7 @@ class DownloadItemView extends GalleryView {
 
     function _sendFile($data) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Make sure we have permission */
 	$permission = 'core.viewSource';

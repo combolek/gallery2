@@ -67,7 +67,7 @@
 	$viewFileRelative = $gallery->getConfig('repository.templates') . $view . '.tpl';
 	$viewFile = dirname(__FILE__) . '/../../../../' . $viewFileRelative;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->file_exists($viewFile)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					"Invalid path: $viewFile");

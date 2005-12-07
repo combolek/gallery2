@@ -70,7 +70,7 @@ class CoreModuleExtras {
 	    }
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/**
 	 * README: How to update the block below.
@@ -1582,7 +1582,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
      */
     function performConfigUpgrade($currentVersion) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	$configFilePath = GALLERY_CONFIG_DIR . '/config.php';
 	$configContents = implode('', $platform->file($configFilePath));

@@ -143,7 +143,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change dimensions, don't keep original */
     function testChangeDimNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	foreach (array('width' => 768, 'height' => 1024, 'keepOriginal' => 0) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
@@ -176,7 +176,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change dimensions on multiple items, don't keep originals */
     function testMultipleChangeDimNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	foreach (array('width' => 768, 'height' => 1024, 'keepOriginal' => 0) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit', $key, $value,
 						      $this->_album->getId());
@@ -310,7 +310,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change size, don't keep original */
     function testChangeSizeNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	foreach (array('size' => 1000, 'keepOriginal' => 0) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
@@ -344,7 +344,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change size on multiple items, don't keep originals */
     function testMultipleChangeSizeNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	foreach (array('size' => 1000, 'keepOriginal' => 0) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
@@ -479,7 +479,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change dimensions AND size, keep original */
     function testChangeBothKeepOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 	foreach (array('width' => 768, 'height' => 1024, 'size' => 1000, 'keepOriginal' => 1)
 	    as $key => $value) {
@@ -571,7 +571,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change dimensions AND size, don't keep original */
     function testChangeBothNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 	foreach (array('width' => 768, 'height' => 1024, 'size' => 1000, 'keepOriginal' => 0)
 		as $key => $value) {
@@ -605,7 +605,7 @@ class SetSizeOptionTest extends ItemAddOptionTestCase {
     /* change dimensions AND size on multiple items, don't keep originals */
     function testMultipleChangeBothNoOriginal() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$this->_expectResizeCompress = array_merge($this->_expectResize, $this->_expectCompress);
 	foreach (array('width' => 768, 'height' => 1024, 'size' => 1000, 'keepOriginal' => 0)
 		as $key => $value) {
@@ -826,7 +826,7 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 	/* Our 'mime type' has to support dimensions */
 	switch($propertyName) {
 	case 'dimensions':
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $results = $platform->getimagesize($file);
 	    break;
 

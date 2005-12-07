@@ -147,7 +147,6 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	/* Clean up */
 	$session->remove('shutterfly.cart');
 	if (!empty($matches[1]) && $matches[1][0] != $session->getId()) {
-	    $platform = $gallery->getPlatform();
 	    $testSession = new GallerySession();
 	    $testSession->_sessionId = $matches[1][0];
 	    $testSession->reset();

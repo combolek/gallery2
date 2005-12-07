@@ -83,7 +83,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$gallery->_platform = $this->_symlinkAllowedPlatform;
+	$gallery->setPlatform($this->_symlinkAllowedPlatform);
     }
 
     function tearDown() {
@@ -208,9 +208,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		'return strcmp($b[\'fileName\'], $a[\'fileName\']);');
 
 	if ($symlinkSupported) {
-	    $gallery->_platform = $this->_symlinkAllowedPlatform;
+	    $gallery->setPlatform($this->_symlinkAllowedPlatform);
 	} else {
-	    $gallery->_platform = $this->_symlinkDisallowedPlatform;
+	    $gallery->setPlatform($this->_symlinkDisallowedPlatform);
 	}
 
 	/* Use valid inputs */
@@ -225,7 +225,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    GalleryUtilities::putRequestVariable('form[set][description]', 1);
 	}
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data';
 	$fileKeys = array();
@@ -281,7 +281,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	     * we're setting the mock platform back to the one that
 	     * supports symlink for consistency.
 	     */
-	    $gallery->_platform = $this->_symlinkAllowedPlatform;
+	    $gallery->setPlatform($this->_symlinkAllowedPlatform);
 	    return;
 	}
 	$this->assertEquals(array(), $results[0]);
@@ -364,7 +364,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
      */
     function testAddFromServerFilenameToFields() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data';
 
@@ -415,7 +415,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function testAddFromServerMalformedInput() {
 	/* Test that manually constructed input can't get outside our approved dirs */
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep;
 
@@ -432,7 +432,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function testAddFromServerEntityDir() {
 	/* Test that characters in dirname that get entitized still work ok */
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data' . $dirSep;
 
@@ -460,11 +460,8 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
  */
 class ItemAddFromServerTestPlatform extends GalleryPlatform {
     function ItemAddFromServerTestPlatform($delegate, $symlinkSupported) {
-	global $gallery;
-	$platform = $gallery->getPlatform();
-	$dirSep = $this->_dirSep = $platform->getDirectorySeparator();
-
 	$this->_delegate = $delegate;
+	$dirSep = $this->_dirSep = $delegate->getDirectorySeparator();
 	$this->_symlinkSupported = $symlinkSupported;
 	$this->_baseDir = dirname(dirname(__FILE__)) . "{$dirSep}data{$dirSep}";
 	$this->_baseDirRecursive = dirname(dirname(__FILE__)) .

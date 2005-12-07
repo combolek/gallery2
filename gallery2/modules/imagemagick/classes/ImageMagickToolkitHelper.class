@@ -201,7 +201,7 @@ class ImageMagickToolkitHelper {
      */
     function getCommand($cmd, $imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($imageMagickPath == null) {
 	    list ($ret, $imageMagickPath) =
@@ -242,7 +242,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverMimeTypes($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
 
@@ -349,7 +349,7 @@ class ImageMagickToolkitHelper {
      */
     function testBinaries($imageMagickPath) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
 
@@ -547,7 +547,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverBinary($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if (empty($imageMagickPath)) {
 	    list ($ret, $imageMagickPath) =
@@ -579,7 +579,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverVersion($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $command) = ImageMagickToolkitHelper::getCommand('identify', $imageMagickPath);
 	if ($ret) {
@@ -612,7 +612,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverCompositeCmd($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $binary) = ImageMagickToolkitHelper::discoverBinary($imageMagickPath);
 	if ($ret) {
@@ -657,7 +657,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverRemoveMetaDataSwitch($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
 
@@ -699,7 +699,7 @@ class ImageMagickToolkitHelper {
      */
     function discoverColorspaceSupport($imageMagickPath=null) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$dataPath = dirname(dirname(__FILE__)) . "${slash}data${slash}";
 

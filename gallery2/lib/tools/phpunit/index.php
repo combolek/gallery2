@@ -96,7 +96,7 @@ function loadTests($moduleId, $testDir, $filter) {
     global $gallery;
     $moduleArray = array();
 
-    $platform = $gallery->getPlatform();
+    $platform =& $gallery->getPlatform();
     if ($platform->file_exists($testDir) &&
 	$platform->is_dir($testDir) &&
 	$dir = $platform->opendir($testDir)) {
@@ -112,14 +112,14 @@ function loadTests($moduleId, $testDir, $filter) {
 		require_once($testDir . '/' . $file);
 			$className = $matches[1];
 		if (class_exists($className) &&
-		        GalleryUtilities::isA(new $className(null), 'GalleryTestCase')) {
+			GalleryUtilities::isA(new $className(null), 'GalleryTestCase')) {
 		    $moduleArray[$className] = new TestSuite($className, $moduleId, $filterRegexp);
 		}
 	    }
 	}
 	$platform->closedir($dir);
     }
-    
+
     return $moduleArray;
 }
 

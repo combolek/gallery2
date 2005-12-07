@@ -380,7 +380,7 @@ class GalleryUrlGenerator {
 		}
 		/* Check for local override */
 		$override = sprintf('%s/local/%s', dirname($href), basename($href));
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		if ($platform->file_exists(dirname(__FILE__) . '/../../../' . $override)) {
 		    $href = $override;
 		}

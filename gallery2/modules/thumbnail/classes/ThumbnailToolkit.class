@@ -53,7 +53,7 @@ class ThumbnailToolkit extends GalleryToolkit {
 			      $destFilename, $parameters, $context=array()) {
 	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $mimeTypeMap) = ThumbnailHelper::fetchMimeTypeMap();
 	if ($ret) {

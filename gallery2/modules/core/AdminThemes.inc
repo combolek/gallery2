@@ -531,7 +531,7 @@ class AdminThemesView extends GalleryView {
      */
     function loadAvailableBlocks() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
 	if ($ret) {

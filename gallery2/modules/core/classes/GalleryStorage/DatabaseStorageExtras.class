@@ -1078,7 +1078,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
     function _getModuleSql($moduleId) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$sqlFile = sprintf(
 	    '%smodules/' . $moduleId . '/classes/GalleryStorage/DatabaseStorage/schema/schema.tpl',
 	    GalleryCoreApi::getPluginBaseDir('module', $moduleId));
@@ -1507,7 +1507,7 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
      */
     function executeSqlFile($fileName) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if (!$platform->file_exists($fileName)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,

@@ -119,7 +119,7 @@ class FfmpegToolkitHelper {
      */
     function testBinary($ffmpegPath) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/*
 	 * If the path is not restricted by open_basedir, then verify that it's

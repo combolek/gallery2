@@ -185,7 +185,7 @@ class WebCamModule extends GalleryModule {
 	}
 	if ($old) {
 	    global $gallery;
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
 	    $tmpFile = $platform->tempnam($tmpDir, 'webcam');
 	    list ($ret, $url) = $this->getParameter('imageUrl', $id);

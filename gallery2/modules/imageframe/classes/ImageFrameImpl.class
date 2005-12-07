@@ -43,7 +43,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
      */
     function getImageFrameList() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/*
 	 * Load the plugin even if it's deactivated since we only need it for translation, and
@@ -80,7 +80,7 @@ class ImageFrameImpl extends ImageFrameInterface_1_1 {
      */
     function init(&$template, $frameIds) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	static $simpleFrames;
 	if (!$template->hasVariable('ImageFrameData')) {
 	    $simpleFrames = array(

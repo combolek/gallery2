@@ -59,7 +59,7 @@ class ItemEditItem extends ItemEditPlugin {
 	    $isRootAlbum = $item->getId() == $rootAlbumId;
 
 	    /* Validate the input data. */
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 
 	    foreach(array('title','summary','keywords','description') as $key) {
 		if (!empty($form[$key])) {
@@ -273,7 +273,7 @@ class ItemEditItem extends ItemEditPlugin {
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if ($form['formName'] != 'ItemEditItem') {
 	    /* First time around, load the form with item data */

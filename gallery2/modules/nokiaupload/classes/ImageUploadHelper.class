@@ -231,7 +231,7 @@ class ImageUploadHelper {
 
 	/* Validate album name. */
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$albumName = $albumNameOriginal;
 	if (empty($albumName)) {
 	    $gallery->debug('ERROR: Album name missing.');
@@ -244,7 +244,8 @@ class ImageUploadHelper {
 	list ($ret, $instance) =
 	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
 	if ($ret || !isset($instance)) {
-	    $gallery->debug("ERROR: GalleryCoreApi::newFactoryInstance failed.\n" . $ret->getAsText());
+	    $gallery->debug("ERROR: GalleryCoreApi::newFactoryInstance failed.\n"
+			    . $ret->getAsText());
 	    return $status;
 	}
 

@@ -52,7 +52,7 @@ class FfmpegModule extends GalleryModule {
      */
     function upgrade($currentVersion) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'ffmpeg');
 	if ($ret) {
@@ -124,7 +124,7 @@ class FfmpegModule extends GalleryModule {
 	}
 
 	/* Try a bunch of likely seeming paths to see if any of them work. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 
 	/*

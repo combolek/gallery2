@@ -108,7 +108,7 @@ class RepositoryObject {
     function setOutputDir($outputDir) {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->is_dir($outputDir)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
 		'Output directory [%s] does not exist.', $outputDir));
@@ -135,7 +135,7 @@ class RepositoryObject {
 
 	$outputFilePath = $this->_outputDir . $this->_fileName;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!($platform->file_exists($outputFilePath) && !$overwriteFile)) {
 	    if ($this->_template->hasVariable('contents')) {
 		/* Skip template processing. */

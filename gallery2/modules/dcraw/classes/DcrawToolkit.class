@@ -66,7 +66,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    }
 
 	    if (isset($toolkit)) {
-		$platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
 		$tempfile = $platform->tempnam($gallery->getConfig('data.gallery.tmp'), 'dcrw_');
 		list ($ret, $outputMimeType, $context) = $this->performOperation(
 		    'image/x-dcraw', 'convert-to-image/x-portable-pixmap', $sourceFilename,
@@ -116,7 +116,7 @@ class DcrawToolkit extends GalleryToolkit {
 	    }
 
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    $tmpFilename = $platform->tempnam($tmpDir, 'dcraw_');
 	    if (empty($tmpFilename)) {
 		/* This can happen if the $tmpDir path is bad */
@@ -124,7 +124,8 @@ class DcrawToolkit extends GalleryToolkit {
 			     null, null);
 	    }
 
-	    list ($ret, $version) = GalleryCoreApi::getPluginParameter('module', 'dcraw', 'version');
+	    list ($ret, $version) =
+		GalleryCoreApi::getPluginParameter('module', 'dcraw', 'version');
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }

@@ -117,8 +117,8 @@ class FileSystemTest extends GalleryTestCase {
 
     function testFetchPath() {
 	global $gallery;
-	$originalPlatform = $gallery->getPlatform();
-	$gallery->_platform = new FileSystemTestPlatform('/');
+	$originalPlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new FileSystemTestPlatform('/'));
 	$originalAlbumsDir = $gallery->getConfig('data.gallery.albums');
 	$gallery->setConfig('data.gallery.albums', '');
 
@@ -132,7 +132,7 @@ class FileSystemTest extends GalleryTestCase {
 				    $this->_albums[1]->getPathComponent()),
 			    $path);
 
-	$gallery->_platform = new FileSystemTestPlatform('\\');
+	$gallery->setPlatform(new FileSystemTestPlatform('\\'));
 
 	list ($ret, $path) = $this->_albums[1]->fetchPath();
 	if ($ret) {
@@ -144,7 +144,7 @@ class FileSystemTest extends GalleryTestCase {
 				    $this->_albums[1]->getPathComponent()),
 			    $path);
 
-	$gallery->_platform = $originalPlatform;
+	$gallery->setPlatform($originalPlatform);
 	$gallery->setConfig('data.gallery.albums', $originalAlbumsDir);
     }
 
@@ -238,37 +238,37 @@ class FileSystemTest extends GalleryTestCase {
     function testMoveRenameCall() {
 	global $gallery;
 	/* Use a windows alike mock platfrom */
-	$originalPlatform = $gallery->getPlatform();
-	$gallery->_platform = new FileSystemTestPlatformForRename('\\');
+	$originalPlatform =& $gallery->getPlatform();
 	/* Acquire the write locks */
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($this->_albums[0]->getId(),
 								      $this->_albums[1]->getId(),
 								      $this->_albums[2]->getId()));
 	if ($ret) {
-	    $gallery->_platform = $originalPlatform;
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	/* Execute the move command, success expected*/
+	$gallery->setPlatform(new FileSystemTestPlatformForRename('\\'));
+
+	/* Execute the move command, success expected */
 	$ret = $this->_albums[2]->move($this->_albums[0]->getId());
 	if ($ret) {
-	    $gallery->_platform = $originalPlatform;
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	/* Now change the mock platform to a unix alike system */
-	$gallery->_platform = new FileSystemTestPlatformForRename('/');
-	/* And move again album 1 (back, but all virtual move command), success expected */
-	$ret = $this->_albums[2]->move($this->_albums[1]->getId());
-	if ($ret) {
-	    $gallery->_platform = $originalPlatform;
+	    $gallery->setPlatform($originalPlatform);
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$gallery->_platform = $originalPlatform;
+	/* Now change the mock platform to a unix like system */
+	$gallery->setPlatform(new FileSystemTestPlatformForRename('/'));
+	/* And move again album 1 (back, but all virtual move command), success expected */
+	$ret = $this->_albums[2]->move($this->_albums[1]->getId());
+	if ($ret) {
+	    $gallery->setPlatform($originalPlatform);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$gallery->setPlatform($originalPlatform);
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$gallery->_platform = $originalPlatform;
     }
 
     function testGetLegalPathComponent() {

@@ -168,7 +168,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
     function create($inputFileName, $mimeType, $targetName=null) {
 	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Validate the input file */
 	if (empty($inputFileName)) {
@@ -201,7 +201,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
 	$this->setWidth(0);
 	$this->setHeight(0);
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$dir = $this->getThumbnailDir();
 	list ($success) = GalleryUtilities::guaranteeDirExists($dir);
 	if (!$success) {
@@ -249,9 +249,10 @@ class ThumbnailImage_core extends GalleryChildEntity {
 
 	/* Delete our source file */
 	$path = $this->getThumbnailDir() . $this->getFileName();
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (!$platform->unlink($path)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, "Could not delete $path");
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+					 "Could not delete $path");
 	}
 
 	return null;
@@ -274,7 +275,7 @@ class ThumbnailImage_core extends GalleryChildEntity {
      */
     function getThumbnailDir() {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	return $gallery->getConfig('data.gallery.plugins_data') .
 	    'modules' . $slash . 'thumbnail' . $slash;

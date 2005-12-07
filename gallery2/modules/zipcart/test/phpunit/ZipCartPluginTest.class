@@ -119,7 +119,7 @@ class ZipCartPluginTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->_savePlatform = $gallery->getPlatform();
+	$this->_savePlatform =& $gallery->getPlatform();
 	$gallery->setPlatform(new ZipCartPluginTestPlatform($this->_savePlatform));
     }
 
@@ -190,7 +190,7 @@ class ZipCartPluginTest extends GalleryTestCase {
 	$this->assertEquals(array('view' => 'zipcart.Download',
 				  'file' => basename($gallery->_zipCartTempnam)),
 			    $urlParams);
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	@$platform->unlink($gallery->_zipCartTempnam);
 	$slash = $platform->getDirectorySeparator();
 	$path = $this->_album->getPathComponent();
@@ -328,7 +328,7 @@ class ZipCartToolkit extends GalleryToolkit {
 	/* Just copy file and return same mime type */
 	global $gallery;
 	if ($sourceFilename != $destFilename) {
-	    $platform = $gallery->getPlatform();
+	    $platform =& $gallery->getPlatform();
 	    if (!$platform->copy($sourceFilename, $destFilename)) {
 		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
 			     null, null);

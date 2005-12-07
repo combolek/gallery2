@@ -305,7 +305,7 @@ class SystemChecksStep extends UpgradeStep {
 	global $gallery;
 
 	$storagePath = $gallery->getConfig('data.gallery.base');
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if (empty($storagePath)) {
 	    return false;
 	} else if ($storagePath{strlen($storagePath)-1} != $platform->getDirectorySeparator()) {
@@ -338,8 +338,7 @@ class SystemChecksStep extends UpgradeStep {
      */
     function _checkStorageSubDirectory($dirname, &$tested, $max) {
 	global $gallery;
-
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	if (!($fd = $platform->opendir($dirname))) {
 	    return false;

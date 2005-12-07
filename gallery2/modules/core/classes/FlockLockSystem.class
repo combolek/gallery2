@@ -127,7 +127,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	}
 
 	/* Release all locks by closing the files */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$gallery->guaranteeTimeLimit(count($lockIds));
 	foreach ($lockIds as $lockId) {
 	    if (empty($lockId)) {
@@ -156,7 +156,7 @@ class FlockLockSystem extends GalleryLockSystem {
     function releaseAllLocks() {
 	global $gallery;
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$gallery->guaranteeTimeLimit(count($this->_locks));
 	foreach ($this->_locks as $lockId => $lock) {
 	    foreach ($lock['lockInfo'] as $lockInfo) {
@@ -182,7 +182,7 @@ class FlockLockSystem extends GalleryLockSystem {
 	global $gallery;
 
 	/* Flush one byte to each lock file to update its timestamp */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	foreach ($this->_locks as $lockId => $lock) {
 	    foreach ($lock['lockInfo'] as $lockInfo) {
@@ -235,7 +235,7 @@ class FlockLockSystem extends GalleryLockSystem {
     function _acquireLock($ids, $timeout, $lockType) {
 	global $gallery;
 	$cutoffTime = time() + $timeout;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Get a file handle (which is actually a lock handle) for all the files first */
 	$notLocked = array();

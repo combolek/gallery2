@@ -191,7 +191,7 @@ class GalleryRepository {
 		if ($relation == 'older') {
 		    $upgradeInfo['upgradeableLanguages']['codes'][] = $language;
 		    $upgradeInfo['upgradeableLanguages']['names'][] = $languageDescription;
-	        }
+		}
 	    }
 	}
 
@@ -438,7 +438,7 @@ class GalleryRepository {
 	global $gallery;
 
 	/* Check if plugins directory exists. */
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	$pluginsDirectory = $platform->realpath(
 	    dirname(__FILE__) . '/../../../' . $gallery->getConfig('plugins.dirname'));
 	if (!@$platform->is_dir($pluginsDirectory)) {
@@ -543,7 +543,7 @@ class GalleryRepository {
 	$pluginIndexPath = sprintf(
 	    '%sindex.%ss', $gallery->getConfig('data.gallery.plugins'), $pluginType);
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	if ($platform->file_exists($pluginIndexPath)) {
 	    if (false === ($indexContents = $platform->file_get_contents($pluginIndexPath))) {
 		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
@@ -576,6 +576,7 @@ class GalleryRepository {
      */
     function downloadAndUnpack($pluginType, $pluginId, $packageName, $relativePackageUrl) {
 	global $gallery;
+	$platform =& $gallery->getPlatform();
 
 	/* Download package from the Gallery server. */
 	$packageUrl = $gallery->getConfig('repository.url') . $relativePackageUrl;
@@ -591,7 +592,6 @@ class GalleryRepository {
 	/* Make sure output directory exists. */
 	$pluginOutputDir = sprintf('%s%ss/%s/',
 	    $gallery->getConfig('data.gallery.plugins'), $pluginType, $pluginId);
-	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($pluginOutputDir)
 		&& !$platform->mkdir($pluginOutputDir)) {
 	    $ret = GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
@@ -602,7 +602,6 @@ class GalleryRepository {
 
 	/* Write package to the local repository cache directory. */
 	$absolutePackagePath = $gallery->getConfig('repository.cache') . $relativePackageUrl;
-	$platform = $gallery->getPlatform();
 	if (false === $platform->file_put_contents($absolutePackagePath, $packageContents)) {
 	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
 					      'Error writing package [%s]', $absolutePackagePath)),
@@ -639,7 +638,7 @@ class GalleryRepository {
 	$pluginOutputDir = sprintf('%s%ss/%s/',
 	    $gallery->getConfig('data.gallery.plugins'), $pluginType, $pluginId);
 
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 	foreach ($descriptor['contents']['files'] as $filePath => $metaData) {
 	    foreach ($metaData['packages'] as $descriptorPackage) {
 		if ($descriptorPackage == $packageName) {

@@ -115,7 +115,7 @@ class GalleryAnimationItem_core extends GalleryDataItem {
      */
     function create($parentId, $animationFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($animationFileName)) {

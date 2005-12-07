@@ -115,8 +115,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password1]', 'password');
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform = $gallery->getPlatform();
-	$gallery->_platform = new RegisterDummyPlatform($savePlatform, $this);
+	$savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
@@ -126,7 +126,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results,
 	    'Failed to register user with email activation');
 
-	$gallery->_platform = $savePlatform;
+	$gallery->setPlatform($savePlatform);
 
 	/* make sure the pending user exists */
 	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
@@ -155,8 +155,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password1]', 'password');
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform = $gallery->getPlatform();
-	$gallery->_platform = new RegisterDummyPlatform($savePlatform, $this);
+	$savePlatform =& $gallery->getPlatform();
+	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
@@ -166,7 +166,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results,
 	    'Failed to register user with email activation');
 
-	$gallery->_platform = $savePlatform;
+	$gallery->setPlatform($savePlatform);
 
 	/* make sure the pending user exists */
 	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
