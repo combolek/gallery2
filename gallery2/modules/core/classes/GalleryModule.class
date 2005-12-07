@@ -106,13 +106,14 @@ class GalleryModule extends GalleryPlugin {
 	 *     if we add a new generation option.
 	 *       Changes how php code calls generateUrl; for g->url it only changes
 	 *       forJavascript=true to htmlEntities=false.
-	 *   - Add a GalleryStatus object return for GalleryUrlGenerator::init
-	 *   - DONE: Move from returning null to returning null
+	 *   + DONE: Add a GalleryStatus object return for GalleryUrlGenerator::init
+	 *   + DONE: Move from returning GalleryStatus::success() to returning null
 	 *     on success so that we can avoid thousands of calls to success()
 	 *     and isError() on every request (and avoid loading GalleryStatus at all
 	 *     unless we need it.
 	 *   - Rename save to _save in GalleryEntity child classes,
 	 *     GalleryEntity::save calls $this->_save then sends event (ensure event last)
+	 *   - Entity/Map class/interface refactor (may affect above item^)
 	 *   - Change Arguments to GalleryUrlGenerator::init to init($baseUri, $embedUri,
 	 *     $embedSessionString) since GalleryEmbed params will be changed too
 	 *     And add optional forceG2Base to various UrlGen methods
