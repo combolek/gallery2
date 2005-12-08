@@ -76,7 +76,6 @@ class GalleryFactoryHelper_simple {
 	static $registry;
 	$registry =& GalleryFactoryHelper_simple::_getSingleton();
 	if (empty($registry)) {
-	    $storage =& $gallery->getStorage();
 	    $cacheParams = array('type' => 'module',
 				 'itemId' => 'GalleryFactoryHelper_loadRegistry',
 				 'id' => '_all');
