@@ -205,7 +205,6 @@ class AdminThemesController extends GalleryController {
 		foreach (array('default.orderBy',
 			       'default.orderDirection',
 			       'default.theme',
-			       'default.theme',
 			       'default.newAlbumsUseDefaults')
 			 as $key) {
 		    list ($outer, $inner) = explode('.', $key);
