@@ -135,6 +135,20 @@ class OracleDatabaseStorage extends DatabaseStorage {
 	    $sql = $args[0] . ' LIKE ' . $args[1];
 	    break;
 
+	case 'MULTI_INSERT':
+	    /* 
+	     * 0 - table name
+	     * 1 - array of column names
+	     * 2 - number of rows
+	     */
+	    $markers = GalleryUtilities::makeMarkers(sizeof($args[1]));
+	    $rowList = rtrim(str_repeat('SELECT ' . $markers . ' UNION ALL ', $args[2]), 
+			     'UNION ALL ');
+	    $sql = 'INSERT INTO ' . $args[0] . ' (';
+	    $sql .= join(', ', $args[1]);
+	    $sql .= ') ' . $rowList;
+	    break;
+
 	default:
 	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__,
 					      $functionName . ' ' . implode(' ', $args)), null);
