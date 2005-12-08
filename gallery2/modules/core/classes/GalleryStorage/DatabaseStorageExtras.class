@@ -948,7 +948,6 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
 	foreach ($mapInfo['members'] as $memberName => $memberType) {
 	    $columns[$memberName] = $this->_ds->_translateColumnName($memberName);
         }
-	$markers = GalleryUtilities::makeMarkers(sizeof($columns));
         
         /* Now we transpose the entry matrix */
         $rows = sizeof($entry[$memberName]);
@@ -966,12 +965,13 @@ class DatabaseStorageExtras /* the other half of DatabaseStorage */ {
                 }
                 $data[] = $value;
             }
-            $row[] = '(' . $markers . ')';
 	}
 
-	$query = 'INSERT INTO ' . $tableName . ' (';
-	$query .= join(', ', $columns);
-	$query .= ') VALUES ' . join(', ', $row);
+	list($ret, $query) = $this->_ds->getFunctionSql('MULTI_INSERT',
+	    array($tableName, $columns, $rows));
+	if ($ret) {
+	    return $ret;
+	}
 
 	$this->_ds->_traceStart();
 	$recordSet = $this->_ds->_db->Execute($query, $data);
