@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */ 
+ */
 
 /**
  * @version $Revision: 1.7 $ $Date: 2005/10/07 02:53:13 $
@@ -27,7 +27,7 @@
  */
 
 /**
- * This class provides an API for parsing Picasa 2 data files 
+ * This class provides an API for parsing Picasa 2 data files
  *
  * @package Picasa
  * @subpackage Picasa2DataParser
@@ -36,7 +36,7 @@
 class Picasa2DataParser {
 
     /**
-     * Check whether the given directory contains an index.xml file 
+     * Check whether the given directory contains an index.xml file
      * (to be extended later)
      *
      * @param string the picasa export path
@@ -44,7 +44,7 @@ class Picasa2DataParser {
      */
     function isValidPicasaXmlPath($path) {
         global $gallery;
-        $platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
         if (($platform->file_exists($path . 'index.xml'))
                 && ($platform->is_readable($path . 'index.xml'))) {
             return true;
@@ -61,10 +61,10 @@ class Picasa2DataParser {
      */
     function getRawXmlFromPicasaPath($picasaXmlPath) {
         global $gallery;
-        
+
         $picasaXmlFile = $picasaXmlPath . 'index.xml';
         /* check for file */
-        $platform = $gallery->getPlatform();
+	$platform =& $gallery->getPlatform();
         if (!$platform->file_exists($picasaXmlFile) || !$platform->is_readable($picasaXmlFile)) {
             return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                 'Missing or not readable file: ' . $picasaXmlFile), null);
@@ -74,10 +74,10 @@ class Picasa2DataParser {
             return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                 'Error reading XML File: ' . $picasaXmlFile), null);
         }
-        
+
         return array(null, $rawXml);
-    } 
-    
+    }
+
     /**
      *  getXmlArray - an abstraction layer on xml_parse_into_struct that returns a
      *  nice nested array. based on dudus at onet dot pl's:
@@ -87,7 +87,7 @@ class Picasa2DataParser {
      *  @return array a nested php array containing xml data.
      */
     function getXmlArray($rawXml) {
-        
+
         /* Workaround earlier Picasa versions */
         if (substr(trim($rawXml),0,5) != '<?xml') {
             $rawXml = '<?xml version="1.0" encoding="iso-8859-1"?>' . $rawXml;
@@ -132,14 +132,14 @@ class Picasa2DataParser {
             }
             while($startLevel < $xLevel) {
                 $phpStmt .= '[$level[' . $startLevel . ']]';
-                if ((isset($multiKey[$level[$startLevel]][$startLevel])) && 
+                if ((isset($multiKey[$level[$startLevel]][$startLevel])) &&
                         ($multiKey[$level[$startLevel]][$startLevel])) {
                     $phpStmt .= '[' . ($multiKey[$level[$startLevel]][$startLevel]-1) . ']';
                 }
                 $startLevel++;
             }
             $add = '';
-            if ((isset($multiKey[$xTag][$xLevel])) && ($multiKey[$xTag][$xLevel]) && 
+            if ((isset($multiKey[$xTag][$xLevel])) && ($multiKey[$xTag][$xLevel]) &&
                     (($xType == 'open') || ($xType == 'complete'))) {
                 if (!isset($multiKey2[$xTag][$xLevel])) {
                     $multiKey2[$xTag][$xLevel] = 0;
@@ -148,10 +148,10 @@ class Picasa2DataParser {
                 }
                 $add = '[' . $multiKey2[$xTag][$xLevel] . ']';
             }
-            if ((isset($xmlElem['value'])) && (trim($xmlElem['value']) != '') && 
+            if ((isset($xmlElem['value'])) && (trim($xmlElem['value']) != '') &&
                     (!array_key_exists('attributes', $xmlElem))) {
                 if ($xType == 'open') {
-                    $phpStmtMain = $phpStmt . '[$xType]' . $add . 
+                    $phpStmtMain = $phpStmt . '[$xType]' . $add .
                         '[\'content\'] = $xmlElem[\'value\'];';
                 } else {
                     $phpStmtMain = $phpStmt . '[$xTag]' . $add . ' = trim($xmlElem[\'value\']);';
@@ -160,12 +160,12 @@ class Picasa2DataParser {
             }
             if (array_key_exists('attributes', $xmlElem)) {
                 if (isset($xmlElem['value'])) {
-                    $phpStmtMain = $phpStmt . '[$xTag]' . $add . 
+                    $phpStmtMain = $phpStmt . '[$xTag]' . $add .
                         '[\'content\'] = $xmlElem[\'value\'];';
                     eval($phpStmtMain);
-                } 
+                }
                 foreach ($xmlElem['attributes'] as $key => $value) {
-                    $phpStmtAtt = $phpStmt . '[$xTag]' . $add . 
+                    $phpStmtAtt = $phpStmt . '[$xTag]' . $add .
                         '[\'attributes\'][$key] = $value;';
                     eval($phpStmtAtt);
                 }
@@ -185,22 +185,22 @@ class Picasa2DataParser {
      * @return array a status code and an album/image array
      */
     function getAlbumFromArray($picasaXmlArray) {
-        
+
         $imageArray = $picasaXmlArray;
-        
+
         if (isset($imageArray['album']['albumName'])) {
             $albumArray['albumName'] = trim($imageArray['album']['albumName']);
         } else {
              return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
                         'No albumName in Picasa export.'), null);
         }
-        
+
         if (isset($imageArray['album']['albumCaption'])) {
             $albumArray['albumCaption'] = trim($imageArray['album']['albumCaption']);
         } else {
             $albumArray['albumCaption'] = '';
         }
-        
+
         $imageArray = $imageArray['album']['images']['image'];
         /* Problem if there is no array */
         if (!isset($imageArray[0])) {
@@ -219,7 +219,7 @@ class Picasa2DataParser {
         }
         return array(null, $albumArray);
     }
-    
+
     /**
      * Get the nested album and picture array from the Picasa export path.
      *
@@ -227,22 +227,22 @@ class Picasa2DataParser {
      * @return array a status code and an album/image array
      */
     function getAlbum($picasaXmlPath) {
-        list($ret, $rawXml) = Picasa2DataParser::getRawXmlFromPicasaPath($picasaXmlPath);
-        if ($ret) {
-            return $ret->wrap(__FILE__, __LINE__);
-        }
-        
-        list($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($rawXml);
-        if ($ret) {
-            return $ret->wrap(__FILE__, __LINE__);
-        }
-        
-        list($ret, $albumArray) = Picasa2DataParser::getAlbumFromArray($picasaXmlArray);
-        if ($ret) {
-            return $ret->wrap(__FILE__, __LINE__);
-        }
-        return array(null, $albumArray);
+	list($ret, $rawXml) = Picasa2DataParser::getRawXmlFromPicasaPath($picasaXmlPath);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($rawXml);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list($ret, $albumArray) = Picasa2DataParser::getAlbumFromArray($picasaXmlArray);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	return array(null, $albumArray);
     }
-    
+
 }
 ?>
