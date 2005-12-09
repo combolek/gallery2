@@ -234,7 +234,6 @@ class Gallery {
      * The active user is the user who is logged on in this session.
      *
      * @param object GalleryUser the current user
-     * @access public
      */
     function setActiveUser($user) {
 	$this->_activeUser = $user;
@@ -259,7 +258,6 @@ class Gallery {
      * The active user is the user who is logged on in this
      * session.
      *
-     * @access public
      * @return int the id of the current User.
      */
     function getActiveUserId() {
@@ -289,7 +287,6 @@ class Gallery {
      *
      * @param string the key name
      * @param mixed the value
-     * @access public
      */
     function setConfig($key, $value) {
 	assert('!empty($key)');
@@ -299,7 +296,6 @@ class Gallery {
     /**
      * Get a value from the Gallery configuration settings
      *
-     * @access public
      * @return mixed an arbitrary value
      */
     function getConfig($key) {
@@ -310,7 +306,6 @@ class Gallery {
     /**
      * Initialize session.
      *
-     * @access public
      * @return object GalleryStatus a status code
      */
     function initSession() {
@@ -329,7 +324,6 @@ class Gallery {
     /**
      * Initialize an empty session.
      *
-     * @access public
      */
     function initEmptySession() {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
@@ -342,7 +336,6 @@ class Gallery {
      * Return a reference to the unique Gallery session object.  Any changes
      * made to this object will be saved in the session.
      *
-     * @access public
      * @return object GallerySession a session instance
      */
     function &getSession() {
@@ -352,7 +345,6 @@ class Gallery {
     /**
      * Set the Gallery platform object.
      *
-     * @access public
      * @param object GalleryPlatform the Gallery platform object
      */
     function setPlatform(&$platform) {
@@ -365,7 +357,6 @@ class Gallery {
      *
      * Return a copy of the unique Gallery platform object.
      *
-     * @access public
      * @return object GalleryPlatform the Gallery platform object
      */
     function &getPlatform() {
@@ -438,13 +429,48 @@ class Gallery {
     /**
      * Return an instance of the GalleryStorage class
      *
-     * @access public
      * @return object GalleryStorage a storage instance
      */
     function &getStorage() {
 	if (!isset($this->_storage)) {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStorage.class');
-	    $this->_storage = new GalleryStorage();
+	    $config = $this->getConfig('storage.config');
+	    switch ($config['type']) {
+	    case 'mysql':
+	    case 'mysqlt':
+		GalleryCoreApi::relativeRequireOnce(
+			'modules/core/classes/GalleryStorage/MySqlStorage.class', true);
+		$this->_storage = new MySqlStorage($config);
+		break;
+
+	    case 'postgres':
+	    case 'postgres7':
+		GalleryCoreApi::relativeRequireOnce(
+			'modules/core/classes/GalleryStorage/PostgreSqlStorage.class', true);
+		$this->_storage = new PostgreSqlStorage($config);
+		break;
+
+	    case 'db2':
+		GalleryCoreApi::relativeRequireOnce(
+			'modules/core/classes/GalleryStorage/Db2Storage.class', true);
+		$this->_storage = new Db2Storage($config);
+		break;
+
+	    case 'oci8':
+	    case 'oci805':
+	    case 'oci8po':
+	    case 'oracle':
+		GalleryCoreApi::relativeRequireOnce(
+			'modules/core/classes/GalleryStorage/OracleStorage.class', true);
+		$this->_storage = new OracleStorage($config);
+		break;
+
+	    default:
+		$this->debug('Unknown storage type');
+		$this->debug_r($config);
+		GalleryCoreApi::relativeRequireOnce(
+			'modules/core/classes/GalleryStorage.class', true);
+		$this->_storage = new GalleryStorage($config);
+	    }
 	}
 
 	return $this->_storage;
@@ -453,7 +479,6 @@ class Gallery {
     /**
      * Check if GalleryStorage has been instantiated
      *
-     * @access public
      * @return boolean
      */
     function isStorageInitialized() {

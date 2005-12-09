@@ -294,7 +294,7 @@ class GalleryItemAttributesHelper_advanced {
      */
     function updateParentSequence($oldParentSequence, $newParentSequence) {
 	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryStorage/DatabaseSqlFragment.class');
+	    'modules/core/classes/GalleryStorage/GallerySqlFragment.class');
 	global $gallery;
 
 	$oldParentSequence = join('/', $oldParentSequence) . '/';
@@ -314,9 +314,9 @@ class GalleryItemAttributesHelper_advanced {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
 	$ret = GalleryItemAttributesMap::updateMapEntry(
 	     array('parentSequence' =>
-			new DatabaseSqlFragment('LIKE ?', $oldParentSequence . '%')),
+			new GallerySqlFragment('LIKE ?', $oldParentSequence . '%')),
 	     array('parentSequence' =>
-			new DatabaseSqlFragment('=' . $newSequenceSql, $newParentSequence)));
+			new GallerySqlFragment('=' . $newSequenceSql, $newParentSequence)));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

@@ -43,38 +43,34 @@ class StorageTest extends GalleryTestCase {
 
     function setUp() {
 	global $gallery;
-
 	parent::setUp();
 
 	$storage =& $gallery->getStorage();
-	$impl =& $storage->_impl;
-	$this->_db = $impl->_db;
-	$impl->_db = new StorageTestDB($this);
+	$this->_db = $storage->_db;
+	$storage->_db = new StorageTestDB($this);
     }
 
     function tearDown() {
 	global $gallery;
 
 	$storage =& $gallery->getStorage();
-	$impl =& $storage->_impl;
-	$impl->_db = $this->_db;
+	$storage->_db = $this->_db;
 
 	parent::tearDown();
     }
 
     function testTranslateQuery() {
 	/*
-	 * Ensure DatabaseStorage::_translateQuery() can handle table and column names
+	 * Ensure GalleryStorage::_translateQuery() can handle table and column names
 	 * with underscore character..
 	 */
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	$impl =& $storage->_impl;
 
 	$this->assertEquals(
-	    'SELECT ' . $impl->_tablePrefix . 'Test_table.' . $impl->_columnPrefix .
-	    'Test_column FROM ' . $impl->_tablePrefix . 'Test_table',
-	    $impl->_translateQuery(
+	    'SELECT ' . $storage->_tablePrefix . 'Test_table.' . $storage->_columnPrefix .
+	    'Test_column FROM ' . $storage->_tablePrefix . 'Test_table',
+	    $storage->_translateQuery(
 		'SELECT [Test_table::Test_column] FROM [Test_table]')
 	);
     }
@@ -105,26 +101,22 @@ class StorageTest extends GalleryTestCase {
     function testAddMap() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	$impl =& $storage->_impl;
-	$storageExtras = $impl->_getExtras();
-	$storageExtras->addMapEntry('GalleryStorageTestMap',
+	$storage->addMapEntry('GalleryStorageTestMap',
 	    array('itemId' => 0, 'testColumn' => 'foo'));
 	$this->assertEquals(
 	    sprintf('INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?)',
-		    $impl->_tablePrefix, $impl->_columnPrefix, $impl->_columnPrefix),
+		    $storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
 	    $this->_results, 'addMap');
     }
 
     function testAddMapArray() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	$impl =& $storage->_impl;
-	$storageExtras = $impl->_getExtras();
-	$storageExtras->addMapEntry('GalleryStorageTestMap',
+	$storage->addMapEntry('GalleryStorageTestMap',
 	    array('itemId' =>array(1, 2, 3), 'testColumn' => array('foo', 'foo', 'foo')));
 	$this->assertEquals(sprintf(
 		'INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?), (?,?), (?,?)',
-		$impl->_tablePrefix, $impl->_columnPrefix, $impl->_columnPrefix),
+		$storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
 	    $this->_results, 'addMap');
     }
 }

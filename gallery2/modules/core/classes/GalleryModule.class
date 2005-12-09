@@ -91,7 +91,7 @@ class GalleryModule extends GalleryPlugin {
 	 *   + DONE: Fix DatabaseStorageExtras::parseSqlTemplate so that it no longer
 	 *     accepts database files of the old form (A|R)_Table_#_# but requires
 	 *     the new form (A|R)_Table_#.# instead
-	 *   - Flatten classes/GalleryStorage/DatabaseStorage/schema under
+	 *   + DONE: Flatten classes/GalleryStorage/DatabaseStorage/schema under
 	 *     GalleryStorage; we're no longer going to seriously attempt to do
 	 *     any other kind of storage besides DatabaseStorage.  Roll as much
 	 *     functionality as possible up into GalleryStorage.class

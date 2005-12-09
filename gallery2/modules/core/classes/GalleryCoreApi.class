@@ -58,6 +58,7 @@ class GalleryCoreApi {
       * + DONE: remove GalleryPlatform::setFilePermissions,
       *         add ::chmod, ::recursiveFixDirPermissions
       * + DONE: GalleryPlatform now always retrieved by reference
+      * + DONE: renamed DatabaseSqlFragment to GallerySqlFragment
       */
     function getApiVersion() {
 	return array(6, 11);
@@ -383,6 +384,7 @@ class GalleryCoreApi {
      * @param string the plugin id
      * @param string the parameter name
      * @param string the value
+     * @param string optional item id
      * @return object GalleryStatus a status code
      * @static
      */
@@ -767,7 +769,7 @@ class GalleryCoreApi {
      * @param string the id of the module
      * @param string the id of the permission
      * @param string the non-localized description of the permission
-     * @param int flags (of the GALLERY_PERMISSION_XXX variety)
+     * @param int flags (of the GALLERY_PERMISSION_XYZ variety)
      * @param array ids of other permissions that compose this one
      * @return object GalleryStatus a status code
      * @static

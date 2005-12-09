@@ -771,7 +771,7 @@ class GalleryPermissionHelper_advanced {
      * @param string the id of the module
      * @param string the id of the permission
      * @param string the non-localized description of the permission
-     * @param int flags (of the GALLERY_PERMISSION_XXX variety)
+     * @param int flags (of the GALLERY_PERMISSION_XYZ variety)
      * @param array ids of other permissions that compose this one
      * @return object GalleryStatus a status code
      * @static
