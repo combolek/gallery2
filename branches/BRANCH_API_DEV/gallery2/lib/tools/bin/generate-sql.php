@@ -871,8 +871,8 @@ class OracleGenerator extends BaseGenerator {
  *
  *  DB2 currently limits the length of table names to 30 characters, and index names to 18
  *  characters.  We don't have to worry about the 30 character table name problem because we force
- *  table names to be shorter than this in DatabaseStorage (and it's very important that the table
- *  names we choose here match up with the ones that DatabseStorage expects).  However we have
+ *  table names to be shorter than this in GalleryStorage (and it's very important that the table
+ *  names we choose here match up with the ones that GalleryStorage expects).  However we have
  *  (and need) no such provision for indexes because this is the only place where we define index
  *  names.
  *
