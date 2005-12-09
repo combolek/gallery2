@@ -75,6 +75,7 @@ class GalleryCoreApi {
       *       Changes how php code calls generateUrl; for g->url it only changes
       *       forJavascript=true to htmlEntities=false.
       *   + DONE: Add a GalleryStatus object return for GalleryUrlGenerator::init
+      *   + DONE: Renamed GallerySession::_getRemoteIdentifier to getRemoteIdentifier (now public)
       */
     function getApiVersion() {
 	return array(6, 11);
