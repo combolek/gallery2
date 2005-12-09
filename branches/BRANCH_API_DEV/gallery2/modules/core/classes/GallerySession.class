@@ -192,7 +192,7 @@ class GallerySession {
 	$forceResendCookie = $forceSessionSave = false;
 
 	/* Verify the remote address to avoid casual session hijacking */
-	$currentRemoteIdentifier = $this->_getRemoteIdentifier();
+	$currentRemoteIdentifier = $this->getRemoteIdentifier();
 
 	if (!isset($this->_remoteIdentifier)) {
 	    /* Initialize remoteIdentifier if not yet set (via initEmpty(true)) */
@@ -725,7 +725,7 @@ class GallerySession {
 	$this->_sessionData = array();
 	$this->_loadedSessionData = '';
 	$this->_creationTime = time();
-	$this->_remoteIdentifier = $this->_getRemoteIdentifier();
+	$this->_remoteIdentifier = $this->getRemoteIdentifier();
     }
 
     /**
@@ -735,9 +735,8 @@ class GallerySession {
      * will cause all existing sessions to be discarded.
      *
      * @return array
-     * @access private
      */
-    function _getRemoteIdentifier() {
+    function getRemoteIdentifier() {
 	$httpUserAgent = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 	return array(GalleryUtilities::getRemoteHostAddress(),
 		     isset($httpUserAgent) ? md5($httpUserAgent) : null);

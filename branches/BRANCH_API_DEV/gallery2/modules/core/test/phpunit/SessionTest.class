@@ -381,7 +381,7 @@ class SessionTest extends GalleryTestCase {
 	/* At this point the session data is loaded */
 	$platform->setReply('file_exists', array($sessionFile), true);
 	$platform->setReply('file_get_contents', array($sessionFile),
-			    serialize(array($creationTime, $session->_getRemoteIdentifier(),
+			    serialize(array($creationTime, $session->getRemoteIdentifier(),
 					    array('session' => 'data'))));
 	$gallery->setPlatform($platform);
 
