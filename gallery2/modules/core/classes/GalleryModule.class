@@ -84,10 +84,10 @@ class GalleryModule extends GalleryPlugin {
 	/*
 	 * TODO for the next major version bump:
 	 *   + DONE: Remove GalleryModule::loadItemDetails()
-	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
 	 *   + DONE: Remove isRecommendedDuringInstall() since we now have
 	 *     4 different types of installs (installer default to all checked),
 	 *     and change autoConfigure to return true by default.
+	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
 	 *   + DONE: Fix DatabaseStorageExtras::parseSqlTemplate so that it no longer
 	 *     accepts database files of the old form (A|R)_Table_#_# but requires
 	 *     the new form (A|R)_Table_#.# instead
@@ -97,32 +97,15 @@ class GalleryModule extends GalleryPlugin {
 	 *     functionality as possible up into GalleryStorage.class
 	 *   + DONE: Uncomment new code in GallerySession::_shouldSaveSession that
 	 *     will require modules not to call translate() from contructors
-	 *   + DONE: Combine userId/groupId columns in GalleryAccessMap into one column
 	 *   + SKIP: Allow getItemSummaries to return a file to include, instead of
 	 *     just HTML so that item summaries can be integrated into the master
 	 *     template. ==> getItemSummaries can just call $template->fetch
-	 *   + DONE: Change GalleryUrlGenerator to take an $options array instead of
-	 *     a series of optional params so that we can avoid future API changes
-	 *     if we add a new generation option.
-	 *       Changes how php code calls generateUrl; for g->url it only changes
-	 *       forJavascript=true to htmlEntities=false.
-	 *   + DONE: Add a GalleryStatus object return for GalleryUrlGenerator::init
-	 *   + DONE: Move from returning GalleryStatus::success() to returning null
-	 *     on success so that we can avoid thousands of calls to success()
-	 *     and isError() on every request (and avoid loading GalleryStatus at all
-	 *     unless we need it.
 	 *   - Rename save to _save in GalleryEntity child classes,
 	 *     GalleryEntity::save calls $this->_save then sends event (ensure event last)
 	 *   - Entity/Map class/interface refactor (may affect above item^)
 	 *   - Change Arguments to GalleryUrlGenerator::init to init($baseUri, $embedUri,
 	 *     $embedSessionString) since GalleryEmbed params will be changed too
 	 *     And add optional forceG2Base to various UrlGen methods
-	 *   + DONE: Remove unused GALLERY_PERMISSION_ITEM_ADMIN flag.  There's a patch
-	 *     for it here:  http://tinyurl.com/9l9wz
-	 *   + DONE: Add GalleryCoreApi::removeDerivativePreferenceForItemType() to
-	 *     remove preferences for specific item/Derivative type combination
-	 *   + DONE: Add GalleryCoreApi::fetchDescendentAlbumItemIds() to fetch all
-	 *     descendent subalbums of current album (subject to permission limitations)
 	 */
 	return array(2, 4);
     }
