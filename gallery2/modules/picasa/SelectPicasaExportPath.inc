@@ -18,13 +18,13 @@
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/ 
+*/
 
 /**
 * @version $Revision$ $Date$
 * @package Picasa
 * @subpackage UserInterface
-* @author Waldemar Schlackow <gallery@schlackow.de> based on the migrate module by 
+* @author Waldemar Schlackow <gallery@schlackow.de> based on the migrate module by
 * Jesse Mullan <jmullan@visi.com>
 */
 
@@ -40,23 +40,22 @@ class SelectPicasaExportPathController extends GalleryController {
      * @see GalleryController::handleRequest()
      */
     function handleRequest($form) {
-        
+
         global $gallery;
-        
+
         /* Verify that active user is an admin */
         $ret = GalleryCoreApi::assertUserIsSiteAdministrator();
         if ($ret) {
             return array($ret->wrap(__FILE__, __LINE__), null);
         }
 
-        $error = array();
-        $status = array();
-        
+	$error = $status = array();
+
         if (isset($form['action']['select'])) {
             if (empty($form['picasaXmlPath'])) {
                 $error[] = 'form[error][picasaXmlPath][missing]';
             } else {
-                $platform = $gallery->getPlatform();
+		$platform =& $gallery->getPlatform();
                 $slash = $platform->getDirectorySeparator();
                 $tmp = trim($form['picasaXmlPath']);
                 if ($tmp[strlen($tmp)-1] != $slash) {
@@ -96,31 +95,30 @@ class SelectPicasaExportPathController extends GalleryController {
 
         return array(null, $results);
     }
-    
 }
 
 /**
  * @version $Revision$ $Date$
  * @package Picasa
  * @subpackage UserInterface
- */ 
+ */
 class SelectPicasaExportPathView extends GalleryView {
     /**
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-        
+
         global $gallery;
         if ($form['formName'] != 'SelectPicasaExportPath') {
             $form['formName'] = 'SelectPicasaExportPath';
             $form['picasaXmlPath'] = '';
             $form['destinationAlbumId'] = '';
         }
-        
+
         /* Load our recent paths from the session */
         $session =& $gallery->getSession();
         $recentPaths = $session->get('picasa.view.SelectPicasaExportPath.recentPaths');
-        
+
         if (empty($recentPaths)) {
             $recentPaths = array();
         }
@@ -138,7 +136,7 @@ class SelectPicasaExportPathView extends GalleryView {
             }
         }
         /* Get ids of all all albums where we can add new album items */
-        list ($ret, $albumIds) = 
+        list ($ret, $albumIds) =
             GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
         if ($ret) {
             return array($ret->wrap(__FILE__, __LINE__), null);
@@ -149,13 +147,13 @@ class SelectPicasaExportPathView extends GalleryView {
         if ($ret) {
             return array($ret->wrap(__FILE__, __LINE__), null);
         }
-        $albumTree = GalleryUtilities::createAlbumTree($albums);                
-    
+        $albumTree = GalleryUtilities::createAlbumTree($albums);
+
         $SelectPicasaExportPath = array();
         $SelectPicasaExportPath['recentPaths'] = $recentPaths;
         $SelectPicasaExportPath['hasToolkit'] = $hasToolkit;
         $SelectPicasaExportPath['g2AlbumTree'] = $albumTree;
-    
+
         $template->setVariable('controller', 'picasa.SelectPicasaExportPath');
         $template->setVariable('SelectPicasaExportPath', $SelectPicasaExportPath);
         return array(null,

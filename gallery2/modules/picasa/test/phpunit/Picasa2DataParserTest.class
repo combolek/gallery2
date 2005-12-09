@@ -4,17 +4,17 @@
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -37,13 +37,6 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         $this->GalleryTestCase($methodName);
     }
 
-    function setUp() {
-        global $gallery;
-        $platform = $gallery->getPlatform();
-        $slash = $platform->getDirectorySeparator();
-        parent::setUp();
-    }
-    
     /**
      * Test whether a wrong XML without a version gives the right error
      */
@@ -56,7 +49,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         }*/
         $this->assertEquals ($ret->_errorMessage, 'Error parsing XML.');
     }
-    
+
     /**
      * Test an XML without a closing tag
      */
@@ -64,12 +57,12 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         /*No XML version*/
         $testRawXml = '<?xml version="1.0" encoding="utf-8" ?>'.
             '<album><albumName>GalleryTest'.
-            '<albumItemCount>2</albumItemCount></album></albumName>';        
+            '<albumItemCount>2</albumItemCount></album></albumName>';
         list ($ret, $picasaXmlArray) = Picasa2DataParser::getXmlArray($testRawXml);
         $expected = array ('album' => array ('open' => array ('content' => 'GalleryTest'),
             'albumName' => array ('albumItemCount' => '2')));
         $this->assertEquals ($expected, $picasaXmlArray);
-    }    
+    }
 
     /**
      * Test whether the XML-File is parsed correctly
@@ -110,7 +103,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
-        $expected = array('album' => 
+        $expected = array('album' =>
             array(
                 'albumName' => 'GalleryTest',
                 'albumItemCount' => '2',
@@ -144,13 +137,13 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         );
         $this->assertEquals ($expected, $picasaXmlArray);
     }
-    
+
     /**
      * Test whether a picasa export is parsed correctly into a PHP array
      */
     function testGetAlbumFromArray() {
-    
-        $testPicasaXmlArray = array('album' => 
+
+        $testPicasaXmlArray = array('album' =>
             array(
                 'albumName' => 'GalleryTest',
                 'albumItemCount' => '2',
@@ -189,7 +182,7 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
         $expected = array (
             'albumName' => 'GalleryTest',
             'albumCaption' => 'This is a test',
-            'images' => 
+            'images' =>
                 array (
                     0 => array (
                         'path' => 'images/ajipankachile5.jpg',
@@ -203,6 +196,6 @@ class Picasa2DataParserTest extends GalleryControllerTestCase {
                 ),
             );
         $this->assertEquals ($expected, $albumArray);
-    }   
+    }
 }
 ?>
