@@ -25,8 +25,10 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStorage.class', true);
+
 /**
- * PostgreSQL extension of the DatabaseStorage class.
+ * PostgreSQL extension of the GalleryStorage class.
  *
  * This object implements the hooks for saving and restoring objects in a
  * PostgreSQL database.
@@ -34,7 +36,7 @@
  * @package GalleryCore
  * @subpackage Storage
  */
-class PostgreSqlDatabaseStorage extends DatabaseStorage {
+class PostgreSqlStorage extends GalleryStorage {
 
     /**
      * The type of postgres database (postgres or postgrest)
@@ -48,8 +50,8 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
      * Constructor
      *
      */
-    function PostgreSqlDatabaseStorage($config) {
-	$this->DatabaseStorage($config);
+    function PostgreSqlStorage($config) {
+	$this->GalleryStorage($config);
 	$this->_postgresType = $config['type'];
 	$this->_isTransactional = true;
     }
@@ -73,7 +75,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
     }
 
     /**
-     * @see DatabaseStorage::cleanStore
+     * @see GalleryStorage::cleanStore
      */
     function cleanStore() {
 	$ret = parent::cleanStore();
@@ -103,7 +105,7 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
     }
 
     /**
-     * @see DatabaseStorage::configureStore 	 
+     * @see GalleryStorage::configureStore 	 
      */ 	 
     function configureStore($moduleId) { 	 
 	if ($moduleId == 'core') { 	 
@@ -245,11 +247,10 @@ class PostgreSqlDatabaseStorage extends DatabaseStorage {
 	return null;
     }
 
-
     /**
-     * @see DatabaseStorage::getOptimizeStatement
+     * @see GalleryStorage::_getOptimizeStatement
      */
-    function getOptimizeStatement() {
+    function _getOptimizeStatement() {
 	return 'VACUUM ANALYZE VERBOSE %s';
     }
 }

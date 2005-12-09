@@ -25,8 +25,10 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStorage.class', true);
+
 /**
- * MySQL extension of the DatabaseStorage class.
+ * MySQL extension of the GalleryStorage class.
  *
  * This object implements the hooks for saving and restoring objects in a
  * MySQL database.
@@ -34,7 +36,7 @@
  * @package GalleryCore
  * @subpackage Storage
  */
-class MySqlDatabaseStorage extends DatabaseStorage {
+class MySqlStorage extends GalleryStorage {
 
     /**
      * The type of mysql database (mysql or mysqlt)
@@ -47,8 +49,8 @@ class MySqlDatabaseStorage extends DatabaseStorage {
     /**
      * Constructor
      */
-    function MySqlDatabaseStorage($config) {
-	$this->DatabaseStorage($config);
+    function MySqlStorage($config) {
+	$this->GalleryStorage($config);
 	$this->_mysqlType = $config['type'];
 	if ($this->_mysqlType == 'mysqlt') {
 	    $this->_isTransactional = true;
@@ -74,9 +76,9 @@ class MySqlDatabaseStorage extends DatabaseStorage {
     }
 
     /**
-     * @see DatabaseStorage::getSqlReplacements
+     * @see GalleryStorage::_getSqlReplacements
      */
-    function getSqlReplacements() {
+    function _getSqlReplacements() {
 
 	/* Use InnoDB for transactional tables */
 	if ($this->_isTransactional) {
@@ -163,20 +165,6 @@ class MySqlDatabaseStorage extends DatabaseStorage {
     }
 	
     /**
-     * @see GalleryStorage::convertIntToBits
-     */
-    function convertIntToBits($intVal) {
-	return $intVal;
-    }
-
-    /**
-     * @see GalleryStorage::convertIntToBits
-     */
-    function convertBitsToInt($bitsVal) {
-	return $bitsVal;
-    }
-
-    /**
      * Get database version.
      * @return string version
      */
@@ -185,9 +173,9 @@ class MySqlDatabaseStorage extends DatabaseStorage {
     }
 
     /**
-     * @see DatabaseStorage::getOptimizeStatement
+     * @see GalleryStorage::_getOptimizeStatement
      */
-    function getOptimizeStatement() {
+    function _getOptimizeStatement() {
 	return 'OPTIMIZE TABLE %s';
     }
 }

@@ -46,8 +46,7 @@ class CodeAuditTest extends CodeAuditTestCase {
 
 	$this->_exceptions['preamble'] =
 	    '{(:?/TestCase/|blocks/blocks.inc|(:?install|upgrade)/index.php|' .
-	    'DatabaseStorage/ErrorHandler.inc|Php41IllegalFunctions.inc|GdFunctionMatrix.inc|' .
-	    'frame.inc|iconpack.inc)}';
+	    'Php41IllegalFunctions.inc|GdFunctionMatrix.inc|frame.inc|iconpack.inc)}';
 
 	$this->_exception['superglobals'] = array(
 	    'FILES' => array(

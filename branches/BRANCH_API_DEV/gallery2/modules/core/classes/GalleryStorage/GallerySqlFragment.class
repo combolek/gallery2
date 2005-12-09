@@ -31,7 +31,7 @@
  * @package GalleryCore
  * @subpackage Storage
  */
-class DatabaseSqlFragment {
+class GallerySqlFragment {
 
     /**
      * Internal sql fragment
@@ -56,7 +56,7 @@ class DatabaseSqlFragment {
      * @param string values.. variable number of parameters must match
      *                        number of ? markers in sql fragment
      */
-    function DatabaseSqlFragment($fragment, $values) {
+    function GallerySqlFragment($fragment, $values) {
 	$this->_values = func_get_args();
 	$this->_fragment = array_shift($this->_values);
     }
