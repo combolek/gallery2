@@ -54,11 +54,27 @@ class GalleryCoreApi {
      * @return array major number, minor number
      */
      /* TODO: major version bump..
-      * + DONE: GalleryStatus::success() -> null, GalleryStatus::error -> GalleryCoreApi::error
-      * + DONE: remove GalleryPlatform::setFilePermissions,
-      *         add ::chmod, ::recursiveFixDirPermissions
-      * + DONE: GalleryPlatform now always retrieved by reference
-      * + DONE: renamed DatabaseSqlFragment to GallerySqlFragment
+      *   + DONE: Add GalleryCoreApi::removeDerivativePreferenceForItemType() to
+      *     remove preferences for specific item/Derivative type combination
+      *   + DONE: Add GalleryCoreApi::fetchDescendentAlbumItemIds() to fetch all
+      *     descendent subalbums of current album (subject to permission limitations)
+      *   + DONE: Remove unused GALLERY_PERMISSION_ITEM_ADMIN flag.  There's a patch
+      *     for it here:  http://tinyurl.com/9l9wz
+      *   + DONE: Combine userId/groupId columns in GalleryAccessMap into one column
+      *   + DONE: Move from returning GalleryStatus::success() to returning null
+      *     on success so that we can avoid thousands of calls to success()
+      *     and isError() on every request (and avoid loading GalleryStatus at all
+      *     unless we need it.  (adds GalleryCoreApi::error)
+      *   + DONE: remove GalleryPlatform::setFilePermissions,
+      *           add ::chmod, ::recursiveFixDirPermissions
+      *   + DONE: GalleryPlatform now always retrieved by reference
+      *   + DONE: renamed DatabaseSqlFragment to GallerySqlFragment
+      *   + DONE: Change GalleryUrlGenerator to take an $options array instead of
+      *     a series of optional params so that we can avoid future API changes
+      *     if we add a new generation option.
+      *       Changes how php code calls generateUrl; for g->url it only changes
+      *       forJavascript=true to htmlEntities=false.
+      *   + DONE: Add a GalleryStatus object return for GalleryUrlGenerator::init
       */
     function getApiVersion() {
 	return array(6, 11);
