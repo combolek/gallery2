@@ -79,7 +79,7 @@ class GalleryMovieItem extends GalleryMovieItem_core {
         }
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -212,6 +212,6 @@ class GalleryMovieItem extends GalleryMovieItem_core {
 	    $this->_duration = $value;
 	}
     }
- 
+
 }
 ?>

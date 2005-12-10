@@ -1,0 +1,23 @@
+RXP ?= $(shell which rxp 2>/dev/null)
+XMLLINT ?= $(shell which xmllint 2>/dev/null)
+
+all:
+	if [ -f Maps.xml ]; then $(MAKE) -$(MAKEFLAGS) Maps.inc; fi
+	if [ -f interfaces/GNUmakefile ]; then cd interfaces && $(MAKE) -$(MAKEFLAGS); fi
+	if [ -f GalleryStorage/GNUmakefile ]; then cd GalleryStorage && $(MAKE) -$(MAKEFLAGS); fi
+
+%:
+	if [ -f interfaces/GNUmakefile ]; then cd interfaces && $(MAKE) -$(MAKEFLAGS) $@; fi
+	if [ -f GalleryStorage/GNUmakefile ]; then cd GalleryStorage && $(MAKE) -$(MAKEFLAGS) $@; fi
+
+Maps.inc: Maps.xml ../../../lib/tools/bin/maps.tpl
+	@if [ -x "$(XMLLINT)" ]; then \
+		xmllint --valid --noout Maps.xml; \
+	elif [ -x "$(RXP)" ]; then \
+		for xmlfile in $(XMLFILES); do \
+			rxp -sV Maps.xml; \
+		done \
+	else \
+		echo "No available XML validators (need xmllint or rxp)"; \
+	fi
+	php ../../../lib/tools/bin/generate-maps.php

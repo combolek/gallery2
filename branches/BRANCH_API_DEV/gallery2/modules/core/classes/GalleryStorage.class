@@ -154,14 +154,6 @@ class GalleryStorage {
     var $_entityInfoCache;
 
     /**
-     * A cache of member info that we've discovered about various maps
-     *
-     * @var array $_mapInfoCache
-     * @access protected
-     */
-    var $_mapInfoCache;
-
-    /**
      * Whether or not we should use persistent database connections
      *
      * @var array $_usePersistentConnections
@@ -180,7 +172,7 @@ class GalleryStorage {
 	$this->_hostname = $config['hostname'];
 	$this->_database = $config['database'];
 	$this->_isTransactional = false;
-	$this->_entityInfoCache = $this->_mapInfoCache = array();
+	$this->_entityInfoCache = array();
 
 	/* We use persistent connections if the value is left out, or if it's non empty. */
 	$this->_usePersistentConnections = !isset($config['usePersistentConnections'])
@@ -459,7 +451,7 @@ class GalleryStorage {
     }
 
     /**
-     * Update entries in this map
+     * Update entries in a map
      *
      * @param string the map we're working on
      * @param array the entries to match
@@ -483,7 +475,7 @@ class GalleryStorage {
 	list ($tableName, $unused) = $this->_translateTableName($mapName);
 	$data = $set = $where = $wheredata = array();
 
-	foreach ($mapInfo['members'] as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberType) {
 	    if (array_key_exists($memberName, $match)) {
 		if (GalleryUtilities::isA($match[$memberName], 'GallerySqlFragment')) {
 		    $where[] = $this->_translateColumnName($memberName) . ' ' .
@@ -938,12 +930,49 @@ class GalleryStorage {
      * @access protected
      */
     function _describeMapMembers($mapName) {
-	if (empty($this->_mapInfoCache[$mapName])) {
-	    eval("\$info = $mapName::getMapInfo();");
-	    $this->_mapInfoCache[$mapName] = $info;
+	global $gallery;
+
+	/* Note: keep these cache keys in sync with _clearMapMemberCache() */
+	$cacheKey = "GalleryPermissionHelper::describeMapMembers()";
+	if (!GalleryDataCache::containsKey($cacheKey)) {
+	    $cacheParams = array('type' => 'module',
+				 'itemId' => 'GalleryStorage__describeMapMembers',
+				 'id' => '_all');
+
+	    $mapInfo = GalleryDataCache::getFromDisk($cacheParams);
+	    if (!isset($mapInfo)) {
+		/*
+		 * Note: this may load maps info for modules that are inactive, but it may cause
+		 * problems for us to try to calculate which modules are activated, since that
+		 * itself can require a map lookup.
+		 *
+		 * Also, don't use GalleryPlatform here because it can cause
+		 * difficult-to-eliminate issues in the testing code when we use mock platforms.
+		 * Once we have an abstraction layer around GalleryCoreApi we can use the platform
+		 * here.
+		 */
+		$mapInfo = array();
+		$modulesDir = dirname(__FILE__) . "/../..";
+		$dh = opendir($modulesDir);
+		if (!$dh) {
+		    return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null);
+		}
+
+		while (($module = readdir($dh)) !== false) {
+		    $mapsFile = "$modulesDir/$module/classes/Maps.inc";
+		    if (file_exists($mapsFile)) {
+			include($mapsFile);
+		    }
+		}
+		closedir($dh);
+	    }
+	    GalleryDataCache::putToDisk($cacheParams, $mapInfo);
+	    GalleryDataCache::put($cacheKey, $mapInfo);
+	} else {
+	    $mapInfo = GalleryDataCache::get($cacheKey);
 	}
 
-	return $this->_mapInfoCache[$mapName];
+	return $mapInfo[$mapName];
     }
 
     /**

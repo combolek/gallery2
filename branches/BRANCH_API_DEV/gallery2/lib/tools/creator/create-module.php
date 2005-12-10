@@ -118,7 +118,6 @@ fclose($fd);
  * Create our map
  */
 mkdir($modulePath . '/classes');
-mkdir($modulePath . '/classes/interfaces');
 mkdir($modulePath . '/classes/GalleryStorage');
 mkdir($modulePath . '/classes/GalleryStorage/DatabaseStorage');
 mkdir($modulePath . '/classes/GalleryStorage/DatabaseStorage/schema');
@@ -128,17 +127,12 @@ $fd = safe_fopen("$modulePath/classes/GNUmakefile");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/GNUmakefile.tpl'));
 fclose($fd);
 
-$smarty->assign('makefileType', 'interfaces');
-$fd = safe_fopen("$modulePath/classes/interfaces/GNUmakefile");
-fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/GNUmakefile.tpl'));
-fclose($fd);
-
 $smarty->assign('makefileType', 'schema');
 $fd = safe_fopen("$modulePath/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/GNUmakefile.tpl'));
 fclose($fd);
 
-$fd = safe_fopen("$modulePath/classes/${ucModuleId}Map.class");
+$fd = safe_fopen("$modulePath/classes/Maps.xml");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/map.tpl'));
 fclose($fd);
 

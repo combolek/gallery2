@@ -65,7 +65,7 @@ class GalleryDerivativeImage extends GalleryDerivativeImage_core {
         $data['height'] = isset($this->_height) ? $this->_height : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -152,6 +152,6 @@ class GalleryDerivativeImage extends GalleryDerivativeImage_core {
 	    $this->_height = $value;
 	}
     }
- 
+
 }
 ?>

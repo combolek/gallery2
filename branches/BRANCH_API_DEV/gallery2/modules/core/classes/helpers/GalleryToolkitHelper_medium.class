@@ -92,14 +92,6 @@ class GalleryToolkitHelper_medium {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Require any classes that we're going to need */
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationParameterMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMimeTypeMap.class');
-
 	if ($searchResults->resultCount() > 0) {
 	    $result = $searchResults->nextResult();
 	    if ($result[0] != $crc || $result[1] != $outputMimeType) {
@@ -122,7 +114,8 @@ class GalleryToolkitHelper_medium {
 	     * The operation doesn't already exist: create it.  First, add it
 	     * to the operation map
 	     */
-	    $ret = GalleryToolkitOperationMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryToolkitOperationMap',
 		array('name' => $operationName,
 		      'parametersCrc' => $crc,
 		      'outputMimeType' => $outputMimeType,
@@ -134,7 +127,8 @@ class GalleryToolkitHelper_medium {
 	    /* Add all of its parameters also */
 	    for ($i = 0; $i < sizeof($parameterTypesArray); $i++) {
 		$parameterType = $parameterTypesArray[$i];
-		$ret = GalleryToolkitOperationParameterMap::addMapEntry(
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryToolkitOperationParameterMap',
 		    array('operationName' => $operationName,
 			  'position' => $i,
 			  'type' => $parameterType['type'],
@@ -147,7 +141,8 @@ class GalleryToolkitHelper_medium {
 
 	/* Associate all the mime types */
 	foreach ($mimeTypes as $mimeType) {
-	    $ret = GalleryToolkitOperationMimeTypeMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryToolkitOperationMimeTypeMap',
 		array('operationName' => $operationName,
 		      'toolkitId' => $toolkitId,
 		      'mimeType' => $mimeType,
@@ -198,11 +193,6 @@ class GalleryToolkitHelper_medium {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Require any classes that we're going to need */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkitPropertyMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitPropertyMimeTypeMap.class');
-
 	if ($searchResults->resultCount() > 0) {
 	    $result = $searchResults->nextResult();
 	    if ($result[0] != $type) {
@@ -218,9 +208,11 @@ class GalleryToolkitHelper_medium {
 	     * The property doesn't already exist: create it.  First, add it
 	     * to the property map
 	     */
-	    $ret = GalleryToolkitPropertyMap::addMapEntry(array('name' => $propertyName,
-								'type' => $type,
-								'description' => $description));
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryToolkitPropertyMap',
+		array('name' => $propertyName,
+		      'type' => $type,
+		      'description' => $description));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -228,7 +220,8 @@ class GalleryToolkitHelper_medium {
 
 	/* Associate our mime types */
 	foreach ($mimeTypes as $mimeType) {
-	    $ret = GalleryToolkitPropertyMimeTypeMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryToolkitPropertyMimeTypeMap',
 		array('propertyName' => $propertyName,
 		      'toolkitId' => $toolkitId,
 		      'mimeType' => $mimeType));
@@ -250,19 +243,11 @@ class GalleryToolkitHelper_medium {
      * @static
      */
     function unregisterOperation($toolkitId, $operationName, $mimeTypes=array()) {
-	/* Require any classes that we're going to need */
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationParameterMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMimeTypeMap.class');
-
 	$entry = array('toolkitId' => $toolkitId, 'operationName' => $operationName);
 	if (!empty($mimeTypes)) {
 	    $entry['mimeType'] = $mimeTypes;
 	}
-	$ret = GalleryToolkitOperationMimeTypeMap::removeMapEntry($entry);
+	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMimeTypeMap', $entry);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -285,19 +270,9 @@ class GalleryToolkitHelper_medium {
     function unregisterToolkit($toolkitId) {
 	global $gallery;
 
-	/* Require any classes that we're going to need */
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationParameterMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMimeTypeMap.class');
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkitPropertyMap.class');
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitPropertyMimeTypeMap.class');
-
 	/* Remove our toolkit/operation mappings */
-	$ret = GalleryToolkitOperationMimeTypeMap::removeMapEntry(array('toolkitId' => $toolkitId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryToolkitOperationMimeTypeMap', array('toolkitId' => $toolkitId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -321,20 +296,22 @@ class GalleryToolkitHelper_medium {
 	}
 
 	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $result[0]));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryToolkitOperationMap', array('name' => $result[0]));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    $ret = GalleryToolkitOperationParameterMap::removeMapEntry(
-		array('operationName' => $result[0]));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryToolkitOperationParameterMap', array('operationName' => $result[0]));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	/* Remove our toolkit/property mappings */
-	$ret = GalleryToolkitPropertyMimeTypeMap::removeMapEntry(array('toolkitId' => $toolkitId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryToolkitPropertyMimeTypeMap', array('toolkitId' => $toolkitId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -358,7 +335,8 @@ class GalleryToolkitHelper_medium {
 	}
 
 	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryToolkitPropertyMap::removeMapEntry(array('name' => $result[0]));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryToolkitPropertyMap', array('name' => $result[0]));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }

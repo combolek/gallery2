@@ -80,8 +80,8 @@ class ArchiveExtractToolkit extends GalleryToolkit {
 	/* Fix directory permissions that were affected by file permissions umask during unzip */
 	if (!$platform->recursiveFixDirPermissions($destFilename)) {
 	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__),
-			 null, null);       
-	}    
+			 null, null);
+	}
 
 	return array(null, $mimeType, $context);
     }

@@ -96,9 +96,8 @@ class CommentModule extends GalleryModule {
 	     * As this is a composite permission we can simply remove its entry in the
 	     * PermissionSet table and not touch any item permissions.
 	     */
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/core/classes/GalleryPermissionSetMap.class');
-	    $ret = GalleryPermissionSetMap::removeMapEntry(
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryPermissionSetMap',
 		array('module' => 'comment', 'permission' => 'comment.search'));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);

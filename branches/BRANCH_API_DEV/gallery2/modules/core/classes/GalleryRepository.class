@@ -25,7 +25,6 @@
  * @author Jozef Selesi <selesi at gmail dot com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginPackageMap.class');
 GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRepositoryIndex.class');
 GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
 
@@ -411,15 +410,18 @@ class GalleryRepository {
 	$existsInDatabase = $searchResults->resultCount() > 0;
 
 	/* Add or update package data. */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginPackageMap.class');
 	if ($existsInDatabase) {
-	    $ret = GalleryPluginPackageMap::updateMapEntry(array('pluginType' => $pluginType,
-		'pluginId' => $pluginId, 'packageName' => $packageName),
+	    $ret = GalleryCoreApi::updateMapEntry(
+		'GalleryPluginPackageMap',
+		array('pluginType' => $pluginType,
+		      'pluginId' => $pluginId, 'packageName' => $packageName),
 		array('packageVersion' => $packageVersion, 'packageBuild' => $packageBuild));
 	} else {
-	    $ret = GalleryPluginPackageMap::addMapEntry(array('pluginType' => $pluginType,
-		'pluginId' => $pluginId, 'packageName' => $packageName,
-		'packageVersion' => $packageVersion, 'packageBuild' => $packageBuild));
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryPluginPackageMap',
+		array('pluginType' => $pluginType,
+		      'pluginId' => $pluginId, 'packageName' => $packageName,
+		      'packageVersion' => $packageVersion, 'packageBuild' => $packageBuild));
 	}
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);

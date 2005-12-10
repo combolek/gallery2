@@ -83,6 +83,11 @@ foreach (glob('tmp/*.xml') as $xmlFile) {
 	$schema[1] = 0;
     }
 
+    if ($isMap) {
+	/* We no longer generate map interface files */
+	continue;
+    }
+
     $members = array();
     foreach ($membersBase as $child) {
 	if ($child['name'] == 'MEMBER') {

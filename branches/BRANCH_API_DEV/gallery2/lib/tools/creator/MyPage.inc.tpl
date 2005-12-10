@@ -48,12 +48,14 @@ class MyPageController extends GalleryController {ldelim}
 	$error = array();
 	if (isset($form['action']['save'])) {ldelim}
 	    GalleryCoreApi::relativeRequireOnce('modules/{$moduleId}/classes/{$mapName}.class');
-	    $ret = {$mapName}::removeMapEntry(array('itemId' => $itemId));
+	    $ret = GalleryCoreApi::removeMapEntry('{$mapName}', array('itemId' => $itemId));
 	    if ($ret->isError()) {ldelim}
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}
 
-	    $ret = {$mapName}::addMapEntry(array('itemId' => $itemId, 'itemValue' => $form['value']));
+	    $ret = GalleryCoreApi::addMapEntry(
+                '{$mapName}',
+                array('itemId' => $itemId, 'itemValue' => $form['value']));
 	    if ($ret->isError()) {ldelim}
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}

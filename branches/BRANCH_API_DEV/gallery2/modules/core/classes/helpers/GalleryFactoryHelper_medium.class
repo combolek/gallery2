@@ -115,8 +115,8 @@ class GalleryFactoryHelper_medium {
      * @static
      */
     function unregisterImplementationsByModuleId($moduleId) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryFactoryMap.class');
-	$ret = GalleryFactoryMap::removeMapEntry(array('implModuleId' => $moduleId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryFactoryMap', array('implModuleId' => $moduleId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -135,9 +135,9 @@ class GalleryFactoryHelper_medium {
      * @static
      */
     function unregisterImplementation($classType, $implId) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryFactoryMap.class');
-	$ret = GalleryFactoryMap::removeMapEntry(array('classType' => $classType,
-						       'implId' => $implId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryFactoryMap',
+	    array('classType' => $classType, 'implId' => $implId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -180,14 +180,15 @@ class GalleryFactoryHelper_medium {
 	    }
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryFactoryMap.class');
-	$ret = GalleryFactoryMap::addMapEntry(array('classType' => $classType,
-						    'className' => $className,
-						    'implId' => $implId,
-						    'implPath' => $implPath,
-						    'implModuleId' => $implModuleId,
-						    'orderWeight' => $orderWeight,
-						    'hints' => serialize($hints)));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryFactoryMap',
+	    array('classType' => $classType,
+		  'className' => $className,
+		  'implId' => $implId,
+		  'implPath' => $implPath,
+		  'implModuleId' => $implModuleId,
+		  'orderWeight' => $orderWeight,
+		  'hints' => serialize($hints)));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

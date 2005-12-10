@@ -628,8 +628,7 @@ class CoreModuleExtras {
 	     * is transient so just delete it. Added FlushTemplatesTask, FlushDatabaseCacheTask
 	     */
 	    $gallery->guaranteeTimeLimit(30);
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMaintenanceMap.class');
-	    $ret = GalleryMaintenanceMap::removeAllMapEntries();
+	    $ret = GalleryCoreApi::removeAllMapEntries('GalleryMaintenanceMap');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -1343,9 +1342,8 @@ class CoreModuleExtras {
 		    }
 		}
 	    }
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/core/classes/GalleryPluginParameterMap.class');
-	    $ret = GalleryPluginParameterMap::removeMapEntry(array('pluginType' => 'modules'));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryPluginParameterMap', array('pluginType' => 'modules'));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }

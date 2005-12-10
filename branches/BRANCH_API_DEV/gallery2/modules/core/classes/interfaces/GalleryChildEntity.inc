@@ -63,7 +63,7 @@ class GalleryChildEntity extends GalleryChildEntity_core {
         $data['parentId'] = isset($this->_parentId) ? $this->_parentId : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -116,6 +116,6 @@ class GalleryChildEntity extends GalleryChildEntity_core {
 	    $this->_parentId = $value;
 	}
     }
- 
+
 }
 ?>

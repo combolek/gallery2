@@ -41,7 +41,6 @@
  * @subpackage Classes
  */
 class {$className} extends {$className}_core {ldelim}
-{if !$isMap}
 
 {if !empty($members)}
     /**
@@ -78,7 +77,6 @@ class {$className} extends {$className}_core {ldelim}
 	return $data;
     {rdelim}
 {/if} {* !empty($members) *}
-{/if} {* !$isMap *}
 
     /**
      * Return the name of this class with the proper mix of uppercase and
@@ -98,107 +96,6 @@ class {$className} extends {$className}_core {ldelim}
     function getClassFile() {ldelim}
         return 'modules/' . basename(dirname(dirname(dirname(__FILE__)))) . '/classes/{$className}.class';
     {rdelim}
-{if $isMap}
-
-    /**
-     * Get meta information about this class' map
-     *
-     * @return array map member => type
-     */
-    function getMapInfo() {ldelim}
-	$info = array();
-{foreach from=$members item=member}
-	$info['members']['{$member.name}'] = STORAGE_TYPE_{$member.type};
-{/foreach}
-	return $info;
-    {rdelim}
-
-    /**
-     * Add an entry to this map
-     *
-     * @param array an associative array of the entry data
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function addMapEntry($data) {ldelim}
-	global $gallery;
-        foreach (array({foreach name=members from=$members item=member}'{$member.name}'{if !$smarty.foreach.members.last}, {/if}{/foreach}) as $key) {ldelim}
-	    if (!array_key_exists($key, $data)) {ldelim}
-	        return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-                                            'Missing parameter: ' . $key);
-	    {rdelim}
-        {rdelim}
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->addMapEntry('{$className}', $data);
-	if ($ret->isError()) {ldelim}
-	    return $ret->wrap(__FILE__, __LINE__);
-	{rdelim}
-	return GalleryStatus::success();
-    {rdelim}
-
-    /**
-     * Remove an entry from this map
-     *
-     * @param array an associative array of the entry data to match and remove
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function removeMapEntry($data) {ldelim}
-	global $gallery;
-
-	if (sizeof($data) == 0) {ldelim}
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
-	{rdelim}
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->removeMapEntry('{$className}', $data);
-	if ($ret->isError()) {ldelim}
-	    return $ret->wrap(__FILE__, __LINE__);
-	{rdelim}
-	return GalleryStatus::success();
-    {rdelim}
-
-    /**
-     * Remove ALL entries from this map.. use with caution!
-     *
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function removeAllMapEntries() {ldelim}
-	global $gallery;
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->removeAllMapEntries('{$className}');
-	if ($ret->isError()) {ldelim}
-	    return $ret->wrap(__FILE__, __LINE__);
-	{rdelim}
-	return GalleryStatus::success();
-    {rdelim}
-
-    /**
-     * Update an entry in this map
-     *
-     * @param array the entry to match
-     * @param array the values to change
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function updateMapEntry($match, $change) {ldelim}
-	global $gallery;
-
-	if (sizeof($match) == 0 || sizeof($change) == 0) {ldelim}
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
-	{rdelim}
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->updateMapEntry('{$className}', $match, $change);
-	if ($ret->isError()) {ldelim}
-	    return $ret->wrap(__FILE__, __LINE__);
-	{rdelim}
-	return GalleryStatus::success();
-    {rdelim}
-{else}
 {foreach from=$members item=member}
 
     /**
@@ -260,7 +157,6 @@ class {$className} extends {$className}_core {ldelim}
 	{rdelim}
     {rdelim}
 {/foreach}
-{/if} {* if $isMap *}
 
 {rdelim}
 ?>

@@ -27,7 +27,6 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRecoverPasswordMap.class');
 GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
 
@@ -151,7 +150,8 @@ class UserRecoverPasswordController extends GalleryController {
 		     */
 		    if (!empty($lastRequest)) {
 			if (($lastRequest + (20 * 60)) < time()) {
-			    $ret = GalleryRecoverPasswordMap::updateMapEntry(
+			    $ret = GalleryCoreApi::updateMapEntry(
+				'GalleryRecoverPasswordMap',
 				array('userName' => $user->getUserName()),
 				array('authString' => $authString,
 				      'requestExpires' => $requestExpires));
@@ -162,7 +162,8 @@ class UserRecoverPasswordController extends GalleryController {
 			 * Add the map entry before sending email to the user -
 			 * We don't want to send them mail if the data never gets into the DB
 			 */
-			$ret = GalleryRecoverPasswordMap::addMapEntry(
+			$ret = GalleryCoreApi::addMapEntry(
+			    'GalleryRecoverPasswordMap',
 			    array('userName' => $form['userName'],
 				  'authString' => $authString,
 				  'requestExpires' => $requestExpires));

@@ -65,7 +65,7 @@ class GalleryGroup extends GalleryGroup_core {
         $data['groupName'] = isset($this->_groupName) ? $this->_groupName : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -148,6 +148,6 @@ class GalleryGroup extends GalleryGroup_core {
 	    $this->_groupName = $value;
 	}
     }
- 
+
 }
 ?>

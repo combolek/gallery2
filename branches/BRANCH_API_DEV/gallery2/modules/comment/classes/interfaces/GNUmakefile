@@ -1,5 +1,3 @@
-GALLERYDIR=../../../..
-XSLFILE=$(GALLERYDIR)/modules/core/classes/interfaces/ClassCode.xsl
 PACKAGE=Comment
+include ../../../../lib/tools/bin/GNUmakefile.interfaces
 
-include $(GALLERYDIR)/modules/core/classes/interfaces/GNUmakefile

@@ -351,10 +351,9 @@ class DatabaseSetupStep extends InstallStep {
 
 	/* Load the Test SQL code */
 	require_once(dirname(__FILE__) .
-		     '/../../modules/core/classes/GalleryStorage/DatabaseStorageExtras.class');
+		     '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class');
 	/* GalleryPlatform is not available at this point */
-	$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/' .
-	    'DatabaseStorage/schema/schema.tpl';
+	$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/schema.tpl';
 	if (!($fd = fopen($schemaTpl, 'rb'))) {
 	    return array(false, sprintf(_('Could not open schema file: "%s".'), $schemaTpl));
 	}
@@ -362,7 +361,7 @@ class DatabaseSetupStep extends InstallStep {
 	$sqlData = $fileSize == 0 ? '' : fread($fd, $fileSize);
 	fclose($fd);
 	$sqlData = explode("\n", $sqlData);
-	$moduleSql = DatabaseStorageExtras::parseSqlTemplate($sqlData, $dbType);
+	$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $dbType);
 
 	for ($i = 1; $i <= 4; $i++) {
 	    list ($success, $errorMessage) =
@@ -628,7 +627,6 @@ class DatabaseSetupStep extends InstallStep {
 	global $gallery;
 
 	$storage =& $gallery->getStorage();
-	$storage->_db->debug = true;
 	$gallery->setDebug('immediate');
 	$ret = $storage->cleanStore();
 	if ($ret) {

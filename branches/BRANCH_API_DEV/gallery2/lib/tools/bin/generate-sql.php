@@ -30,7 +30,12 @@ require_once(dirname(__FILE__) . '/XmlParser.inc');
 $output = '';
 foreach (array('mysql', 'postgres', 'oracle', 'db2') as $db) {
     $output .= '## ' . $db . "\n";
-    foreach (glob('tmp/dbxml/*.xml') as $xmlFile) {
+    $xmlFiles = glob('tmp/dbxml/*.xml');
+    if (empty($xmlFiles)) {
+	continue;
+    }
+
+    foreach ($xmlFiles as $xmlFile) {
 	$p =& new XmlParser();
 	$root = $p->parse($xmlFile);
 

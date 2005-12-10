@@ -27,8 +27,6 @@
 
 GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessSubscriberMap.class');
 
 /**
  * The central registry for all permissions in the system
@@ -304,13 +302,15 @@ class GalleryPermissionHelper_advanced {
 			$newBits = $currentBits | $deltaBits;
 			if (empty($currentBits)) {
 			    /* Add a new entry in our map to reflect this change. */
-			    $ret = GalleryAccessMap::addMapEntry(
+			    $ret = GalleryCoreApi::addMapEntry(
+				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
 				      'userOrGroupId' => $userOrGroupId,
 				      'permission' => $newBits));
 			} else {
 			    /* Update the current entry in our map to reflect this change. */
-			    $ret = GalleryAccessMap::updateMapEntry(
+			    $ret = GalleryCoreApi::updateMapEntry(
+				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
 				      'userOrGroupId' => $userOrGroupId),
 				array('permission' => $newBits));
@@ -337,12 +337,14 @@ class GalleryPermissionHelper_advanced {
 
 			if ($newBits == 0) {
 			    /* Remove the map entry; there are no bits left! */
-			    $ret = GalleryAccessMap::removeMapEntry(
+			    $ret = GalleryCoreApi::removeMapEntry(
+				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
 				      'userOrGroupId' => $userOrGroupId));
 			} else {
 			    /* Update the current entry in our map to reflect this change. */
-			    $ret = GalleryAccessMap::updateMapEntry(
+			    $ret = GalleryCoreApi::updateMapEntry(
+				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
 				      'userOrGroupId' => $userOrGroupId),
 				array('permission' => $newBits));
@@ -361,7 +363,8 @@ class GalleryPermissionHelper_advanced {
 		$itemsToBeRemapped[$oldAclId][] = $targetItemId;
 
 		if (count($itemsToBeRemapped[$oldAclId]) >= 200) {
-		    $ret = GalleryAccessSubscriberMap::updateMapEntry(
+		    $ret = GalleryCoreApi::updateMapEntry(
+			'GalleryAccessSubscriberMap',
 			array('itemId' => $itemsToBeRemapped[$oldAclId]),
 			array('accessListId' => $newAclId));
 		    if ($ret) {
@@ -379,7 +382,8 @@ class GalleryPermissionHelper_advanced {
 
 	foreach (array_keys($itemsToBeRemapped) as $oldAclId) {
 	    if ($oldToNewAclMapping[$oldAclId] && !empty($itemsToBeRemapped[$oldAclId])) {
-		$ret = GalleryAccessSubscriberMap::updateMapEntry(
+		$ret = GalleryCoreApi::updateMapEntry(
+		    'GalleryAccessSubscriberMap',
 		    array('itemId' => $itemsToBeRemapped[$oldAclId]),
 		    array('accessListId' => $oldToNewAclMapping[$oldAclId]));
 		if ($ret) {
@@ -430,7 +434,8 @@ class GalleryPermissionHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	$ret = GalleryAccessSubscriberMap::updateMapEntry(
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryAccessSubscriberMap',
 	    array('itemId' => $itemId),
 	    array('accessListId' => 0));
 	if ($ret) {
@@ -656,9 +661,11 @@ class GalleryPermissionHelper_advanced {
 	     */
 	    while ($result = $searchResults->nextResult()) {
 		$permission = $storage->convertBitsToInt($result[1]);
-		$ret = GalleryAccessMap::addMapEntry(array('userOrGroupId' => (int)$result[0],
-							   'permission' => $permission,
-							   'accessListId' => (int)$newAccessListId));
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryAccessMap',
+		    array('userOrGroupId' => (int)$result[0],
+			  'permission' => $permission,
+			  'accessListId' => (int)$newAccessListId));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -695,7 +702,8 @@ class GalleryPermissionHelper_advanced {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$ret = GalleryAccessSubscriberMap::updateMapEntry(
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryAccessSubscriberMap',
 	    array('itemId' => $toId), array('accessListId' => $accessListId));
 	if ($ret) {
 	    GalleryCoreApi::releaseLocks($lockId);
@@ -923,8 +931,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/* Remove the permission from the permission set */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPermissionSetMap.class');
-	$ret = GalleryPermissionSetMap::removeMapEntry(array('module' => $moduleId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPermissionSetMap', array('module' => $moduleId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -1001,8 +1009,8 @@ class GalleryPermissionHelper_advanced {
 	$permissions[$data['permission']] = $data;
 	GalleryDataCache::put($cacheKey, $permissions);
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPermissionSetMap.class');
-	$ret = GalleryPermissionSetMap::addMapEntry($data);
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryPermissionSetMap', $data);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -1055,7 +1063,7 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/* Now remove any rows left with g_permission = 0 */
-	$ret = GalleryAccessMap::removeMapEntry(array('permission' => 0));
+	$ret = GalleryCoreApi::removeMapEntry('GalleryAccessMap', array('permission' => 0));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -1192,14 +1200,17 @@ class GalleryPermissionHelper_advanced {
 	    }
 
 	    $master = array_shift($aclIds);
-	    $ret = GalleryAccessSubscriberMap::updateMapEntry(
-		array('accessListId' => $aclIds), array('accessListId' => $master));
+	    $ret = GalleryCoreApi::updateMapEntry(
+		'GalleryAccessSubscriberMap',
+		array('accessListId' => $aclIds),
+		array('accessListId' => $master));
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    $ret = GalleryAccessMap::removeMapEntry(array('accessListId' => $aclIds));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryAccessMap', array('accessListId' => $aclIds));
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
 		return $ret->wrap(__FILE__, __LINE__);
@@ -1228,7 +1239,8 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	if (!empty($unusedAclIds)) {
-	    $ret = GalleryAccessMap::removeMapEntry(array('accessListId' => $unusedAclIds));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryAccessMap', array('accessListId' => $unusedAclIds));
 	    if ($ret) {
 		GalleryCoreApi::releaseLocks($lockId);
 		return $ret->wrap(__FILE__, __LINE__);

@@ -57,8 +57,8 @@ class GalleryUserGroupHelper_medium {
 	}
 
 	/* Add a new entry in our groups table to represent this relationship. */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUserGroupMap.class');
-	$ret = GalleryUserGroupMap::addMapEntry(array('userId' => $userId, 'groupId' => $groupId));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryUserGroupMap', array('userId' => $userId, 'groupId' => $groupId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -88,8 +88,8 @@ class GalleryUserGroupHelper_medium {
 	}
 
 	/* Remove this relationship from our groups table. */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUserGroupMap.class');
-	$ret = GalleryUserGroupMap::removeMapEntry(array('userId' => $userId, 'groupId' => $groupId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryUserGroupMap', array('userId' => $userId, 'groupId' => $groupId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -119,8 +119,7 @@ class GalleryUserGroupHelper_medium {
 	}
 
 	/* Remove this relationship from our groups table. */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUserGroupMap.class');
-	$ret = GalleryUserGroupMap::removeMapEntry(array('userId' => $userId));
+	$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array('userId' => $userId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -149,8 +148,7 @@ class GalleryUserGroupHelper_medium {
 	}
 
 	/* Remove this relationship from our groups table. */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUserGroupMap.class');
-	$ret = GalleryUserGroupMap::removeMapEntry(array('groupId' => $groupId));
+	$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array('groupId' => $groupId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
