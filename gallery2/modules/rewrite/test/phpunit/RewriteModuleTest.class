@@ -75,14 +75,14 @@ class RewriteModuleTest extends GalleryTestCase {
 	}
 
 	/* Save original activeRules */
-	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
+	list ($ret, $this->_saveActiveRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Use empty table by default */
-	$ret = RewriteMap::setActiveRules(array());
+	$ret = RewriteHelper::setActiveRules(array());
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -95,7 +95,7 @@ class RewriteModuleTest extends GalleryTestCase {
     }
 
     function tearDown() {
-	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
+	$ret = RewriteHelper::setActiveRules($this->_saveActiveRules);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -132,7 +132,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($history), 'empty history (activate)');
 
 	/* Make sure the history rule was activated */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -146,7 +146,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($redirect), 'deactivate redirect');
 
 	/* Make sure the rule has been removed */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -176,7 +176,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($history), 'empty history (uninstall)');
 
 	/* Make sure the active rules are still empty */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -192,7 +192,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($redirect), '2nd activate redirect');
 
 	/* Make sure no rules were activated */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -232,7 +232,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$expectedRules['rewrite'][0] = array(
 	    'pattern' => 'phpunit/dummy/%itemId%.html',
 	    'match' => 'core.ShowItem');
-	$ret = RewriteMap::setActiveRules($expectedRules);
+	$ret = RewriteHelper::setActiveRules($expectedRules);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -254,7 +254,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($history), 'empty history (activate)');
 
 	/* Make sure the rules were not changed */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -276,7 +276,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	$this->assert(empty($history), 'empty history (dectivate)');
 
 	/* Make sure the rules still were not changed */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -316,14 +316,14 @@ class RewriteModuleTest extends GalleryTestCase {
 	}
 	$this->assert(empty($history), 'empty history (activate)');
 
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array(), $activeRules, 'active rules (activate)');
 
 	/* Force activeRules to test deactivate handler */
-	$ret = RewriteMap::setActiveRules($this->_activeRules);
+	$ret = RewriteHelper::setActiveRules($this->_activeRules);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -336,7 +336,7 @@ class RewriteModuleTest extends GalleryTestCase {
 	}
 
 	/* Make sure the rule has been removed */
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

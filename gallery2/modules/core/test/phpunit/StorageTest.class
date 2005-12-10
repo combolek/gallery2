@@ -101,10 +101,16 @@ class StorageTest extends GalleryTestCase {
     function testAddMap() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	$storage->addMapEntry('GalleryStorageTestMap',
-	    array('itemId' => 0, 'testColumn' => 'foo'));
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$storage->addMapEntry(
+	    'GalleryUserGroupMap',
+	    array('userId' => 0, 'groupId' => 1));
 	$this->assertEquals(
-	    sprintf('INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?)',
+	    sprintf('INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?)',
 		    $storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
 	    $this->_results, 'addMap');
     }
@@ -112,18 +118,19 @@ class StorageTest extends GalleryTestCase {
     function testAddMapArray() {
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	$storage->addMapEntry('GalleryStorageTestMap',
-	    array('itemId' =>array(1, 2, 3), 'testColumn' => array('foo', 'foo', 'foo')));
-	$this->assertEquals(sprintf(
-		'INSERT INTO %sStorageTestMap (%sitemId, %stestColumn) VALUES (?,?), (?,?), (?,?)',
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$storage->addMapEntry(
+	    'GalleryUserGroupMap',
+	    array('userId' =>array(1, 2, 3), 'groupId' => array(4, 5, 6)));
+	$this->assertEquals(
+	    sprintf(
+		'INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?), (?,?), (?,?)',
 		$storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
 	    $this->_results, 'addMap');
-    }
-}
-
-class GalleryStorageTestMap {
-    function getMapInfo() {
-	return array('members' => array('itemId' => 1, 'testColumn' => 2));
     }
 }
 

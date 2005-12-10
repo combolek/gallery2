@@ -105,7 +105,6 @@ class QuotasModule extends GalleryModule {
 
 	    if (GalleryUtilities::isA($entity, 'GalleryGroup') ||
 		GalleryUtilities::isA($entity, 'GalleryUser')) {
-		GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 		GalleryCoreApi::relativeRequireOnce(
 		    'modules/quotas/classes/GalleryQuotasHelper.class');
 
@@ -126,7 +125,8 @@ class QuotasModule extends GalleryModule {
 		}
 
 		if ($quotaExists) {
-		    $ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $entity->getId()));
+		    $ret = GalleryCoreApi::removeMapEntry(
+			'QuotasMap', array('userOrGroupId' => $entity->getId()));
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }

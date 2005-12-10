@@ -168,8 +168,8 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
     function handleEvent($event) {
 	$entity = $event->getEntity();
 	if (GalleryUtilities::isA($entity, 'GalleryItem')) {
-	    GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangItemMap.class');
-	    $ret = MultiLangItemMap::removeMapEntry(array('itemId' => $entity->getId()));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'MultiLangItemMap', array('itemId' => $entity->getId()));
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }

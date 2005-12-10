@@ -65,13 +65,13 @@ class ExifHelperTest extends GalleryTestCase {
     function setUp() {
 	parent::setUp();
 
-	list ($ret, $this->_save['summary']) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $this->_save['summary']) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $this->_save['detailed']) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $this->_save['detailed']) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -107,12 +107,12 @@ class ExifHelperTest extends GalleryTestCase {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $this->_save['summary']);
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, $this->_save['summary']);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $this->_save['detailed']);
+	$ret = ExifHelper::setProperties(EXIF_DETAILED, $this->_save['detailed']);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -163,7 +163,7 @@ class ExifHelperTest extends GalleryTestCase {
      * Make sure that we sanitize EXIF data as if it were any other input data
      */
     function testGetExifDataWithEmbeddedScript() {
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, array('Copyright'));
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, array('Copyright'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -404,7 +404,7 @@ class ExifHelperTest extends GalleryTestCase {
      * Make sure that we sanitize IPTC data as if it were any other input data
      */
     function testGetIptcDataWithEmbeddedScript() {
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, array('IPTC/Keywords'));
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, array('IPTC/Keywords'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -474,7 +474,7 @@ class ExifHelperTest extends GalleryTestCase {
      * Test adding default summary IPTC properties, as used on upgrade.
      */
     function testAddDefaultIptcPropertiesSummary() {
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -482,11 +482,11 @@ class ExifHelperTest extends GalleryTestCase {
 	/* Remove all IPTC values. */
 	array_splice($properties, array_search('IPTC/Caption', $properties), 1);
 	array_splice($properties, array_search('IPTC/CopyrightNotice', $properties), 1);
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -501,7 +501,7 @@ class ExifHelperTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -515,7 +515,7 @@ class ExifHelperTest extends GalleryTestCase {
      * Test adding default detailed IPTC properties, as used on upgrade.
      */
     function testAddDefaultIptcPropertiesDetailed() {
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -525,11 +525,11 @@ class ExifHelperTest extends GalleryTestCase {
 	array_splice($properties, array_search('IPTC/CopyrightNotice', $properties), 1);
 	array_splice($properties, array_search('IPTC/Keywords', $properties), 1);
 
-	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+	$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -545,7 +545,7 @@ class ExifHelperTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

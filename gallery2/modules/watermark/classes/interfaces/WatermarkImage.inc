@@ -85,7 +85,7 @@ class WatermarkImage extends WatermarkImage_core {
         $data['yPercentage'] = isset($this->_yPercentage) ? $this->_yPercentage : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -486,6 +486,6 @@ class WatermarkImage extends WatermarkImage_core {
 	    $this->_yPercentage = $value;
 	}
     }
- 
+
 }
 ?>

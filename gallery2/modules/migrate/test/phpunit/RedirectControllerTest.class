@@ -26,8 +26,6 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
-
 /**
  * Redirect controller tests
  * @package Migrate
@@ -65,12 +63,14 @@ class RedirectControllerTest extends GalleryControllerTestCase {
 	$this->_itemName = 'testitem-' . rand();
 
 	/* Add map entries.. */
-	$ret = G1MigrateMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap',
 	    array('itemId' => $this->_albumId, 'g1album' => $this->_albumName, 'g1item' => null));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = G1MigrateMap::addMapEntry(array('itemId' => $this->_itemId,
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap', array('itemId' => $this->_itemId,
 	    'g1album' => $this->_albumName, 'g1item' => $this->_itemName));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -80,7 +80,8 @@ class RedirectControllerTest extends GalleryControllerTestCase {
     }
 
     function tearDown() {
-	$ret = G1MigrateMap::removeMapEntry(array('g1album' => $this->_albumName));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'G1MigrateMap', array('g1album' => $this->_albumName));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

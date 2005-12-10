@@ -73,7 +73,7 @@ class ThumbnailImage extends ThumbnailImage_core {
         $data['itemMimeTypes'] = isset($this->_itemMimeTypes) ? $this->_itemMimeTypes : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -284,6 +284,6 @@ class ThumbnailImage extends ThumbnailImage_core {
 	    $this->_itemMimeTypes = $value;
 	}
     }
- 
+
 }
 ?>

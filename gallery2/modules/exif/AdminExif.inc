@@ -32,7 +32,6 @@
  * Required classes
  */
 GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 
 /**
  * This controller will handle the setting of Exif module options
@@ -56,7 +55,7 @@ class AdminExifController extends GalleryController {
 	$error = array();
 	$status = array();
 	if (isset($form['action']['availableToSummary'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -70,7 +69,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -83,7 +82,7 @@ class AdminExifController extends GalleryController {
 	    }
 
 	} else if (isset($form['action']['availableToDetailed'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -97,7 +96,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -109,7 +108,7 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][available][missing]';
 	    }
 	} else if (isset($form['action']['removeFromSummary'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -125,7 +124,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $newProperties);
+		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $newProperties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -146,7 +145,7 @@ class AdminExifController extends GalleryController {
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'exif.AdminExif';
 	} else if (isset($form['action']['removeFromDetailed'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -162,7 +161,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $newProperties);
+		$ret = ExifHelper::setProperties(EXIF_DETAILED, $newProperties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -182,7 +181,7 @@ class AdminExifController extends GalleryController {
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'exif.AdminExif';
 	} else if (isset($form['action']['moveUpSummary'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -205,7 +204,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -217,7 +216,7 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][summary][missing]';
 	    }
 	} else if (isset($form['action']['moveDownSummary'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -240,7 +239,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -252,7 +251,7 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][summary][missing]';
 	    }
 	} else if (isset($form['action']['moveUpDetailed'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -275,7 +274,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -287,7 +286,7 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][detailed][missing]';
 	    }
 	} else if (isset($form['action']['moveDownDetailed'])) {
-	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -310,7 +309,7 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -391,7 +390,7 @@ class AdminExifView extends GalleryView {
 
 	/* Prepare the summary list */
 	$summaryList = array();
-	list ($ret, $tmp) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -401,7 +400,7 @@ class AdminExifView extends GalleryView {
 
 	/* Prepare the detailed list */
 	$detailedList = array();
-	list ($ret, $tmp) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}

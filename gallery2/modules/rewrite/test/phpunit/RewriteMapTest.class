@@ -44,7 +44,7 @@ class RewriteMapTest extends GalleryTestCase {
     	parent::setUp();
 
 	/* Save original activeRules */
-	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
+	list ($ret, $this->_saveActiveRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -54,7 +54,7 @@ class RewriteMapTest extends GalleryTestCase {
     function tearDown() {
     	global $gallery;
 
-	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
+	$ret = RewriteHelper::setActiveRules($this->_saveActiveRules);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -69,11 +69,11 @@ class RewriteMapTest extends GalleryTestCase {
 		      'match' => 'core.DownloadItem'),
 		array('pattern' => '%path%')));
 
-	$ret = RewriteMap::setActiveRules($activeRules);
+	$ret = RewriteHelper::setActiveRules($activeRules);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	list ($ret, $savedRules) = RewriteMap::getActiveRules();
+	list ($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -92,11 +92,11 @@ class RewriteMapTest extends GalleryTestCase {
 		'core.ShowItem' => 'v/%path%',
 		'core.DownloadItem' => 'd/%itemId%-%serialNumber%/%fileName%');
 
-	$ret = RewriteMap::setActiveRules($activeRules);
+	$ret = RewriteHelper::setActiveRules($activeRules);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	list ($ret, $shortUrls) = RewriteMap::getShortUrls();
+	list ($ret, $shortUrls) = RewriteHelper::getShortUrls();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

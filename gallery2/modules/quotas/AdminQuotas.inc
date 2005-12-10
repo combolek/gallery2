@@ -70,7 +70,6 @@ class AdminQuotasController extends GalleryController {
 	    }
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 	if (isset($form['action']['group']['createFromText'])) {

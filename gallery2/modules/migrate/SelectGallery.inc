@@ -89,8 +89,7 @@ class SelectGalleryController extends GalleryController {
 		$redirect['albumsPath'] = $form['albumsPath'];
 	    }
 	} else if (isset($form['action']['deleteMap'])) {
-	    GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
-	    $ret = G1MigrateMap::removeAllMapEntries();
+	    $ret = GalleryCoreApi::removeAllMapEntries('G1MigrateMap');
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }

@@ -27,7 +27,6 @@
  */
 
 GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
 
 /**
  * ConfirmImport controller tests
@@ -82,9 +81,11 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	}
 
 	// Add map entry for $g1MapHandlerAlbum
-	$ret = G1MigrateMap::addMapEntry(array('itemId' => $g1MapHandlerAlbum->getId(),
-					'g1album' => $g1MapHandlerAlbum->getPathComponent(),
-					'g1item' => NULL));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap',
+	    array('itemId' => $g1MapHandlerAlbum->getId(),
+		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
+		  'g1item' => NULL));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -96,9 +97,11 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	}
 
 	// Add map entry for $g1MapHandlerItem
-	$ret = G1MigrateMap::addMapEntry(array('itemId' => $g1MapHandlerItem->getId(),
-					'g1album' => $g1MapHandlerAlbum->getPathComponent(),
-					'g1item' => $g1MapHandlerItem->getPathComponent()));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap',
+	    array('itemId' => $g1MapHandlerItem->getId(),
+		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
+		  'g1item' => $g1MapHandlerItem->getPathComponent()));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

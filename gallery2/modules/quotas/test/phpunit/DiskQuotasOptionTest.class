@@ -29,7 +29,6 @@
 
 GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 
 /**
  * Quotas tests
@@ -107,7 +106,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	    }
 	    if ($hasQuota) {
 		$this->_saveQuota[$groupId] = $quota;
-		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $groupId));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'QuotasMap', array('userOrGroupId' => $groupId));
 		if ($ret) {
 		    print $ret->getAsHtml();
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -141,8 +141,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 
     function tearDown() {
 	foreach ($this->_saveQuota as $groupId => $quota) {
-	    $ret = QuotasMap::addMapEntry(
-		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
+	    $ret = GalleryCoreApi::addMapEntry(
+		'QuotasMap', array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
 		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -180,7 +180,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
     }
 
     function testUserMBQuotaAddOneOk() {
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '2000'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -201,7 +202,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
     function testUserKBQuotaAddOneFail() {
 	global $gallery;
 
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '5'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -228,7 +230,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
     function testUserQuotaAddTwo() {
 	global $gallery;
 
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '15'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -266,7 +269,8 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
     }
 
     function testGroupGBQuota() {
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2000000'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -287,12 +291,14 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 
     function testGroupQuotas() {
 	/* Should use higher of assigned group quotas */
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '5'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '500'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -315,17 +321,20 @@ class DiskQuotasOptionTest extends ItemAddOptionTestCase {
 	global $gallery;
 
 	/* Should always use user quota and ignore group quota(s) */
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_user->getId(), 'quotaSize' => '6'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group->getId(), 'quotaSize' => '2'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = QuotasMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap',
 	    array('userOrGroupId' => $this->_group2->getId(), 'quotaSize' => '200'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

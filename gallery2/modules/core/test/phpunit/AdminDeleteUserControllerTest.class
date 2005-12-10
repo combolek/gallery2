@@ -65,8 +65,10 @@ class AdminDeleteUserControllerTest extends GalleryControllerTestCase {
 	/* Remove all user mappings in case of error */
 	$ret = array();
 	foreach ($this->_userIds as $userId) {
-	    $ret[] = GalleryUserGroupMap::removeMapEntry(array('userId' => $userId));
-	    $ret[] = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $userId));
+	    $ret[] = GalleryCoreApi::removeMapEntry(
+		'GalleryUserGroupMap', array('userId' => $userId));
+	    $ret[] = GalleryCoreApi::removeMapEntry(
+		'GalleryAccessMap', array('userOrGroupId' => $userId));
 	}
 	for ($i = 0; $i < count($ret); $i++) {
 	    if ($ret[$i]) {

@@ -32,11 +32,6 @@
 GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
- * Map class
- */
-GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
-
-/**
  * AdminEditGroupQuota controller tests
  * @package Quotas
  * @subpackage PHPUnit
@@ -192,8 +187,8 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
     }
 
     function _createGroupQuota($groupId, $quota) {
-	$ret = QuotasMap::addMapEntry(array('userOrGroupId' => $groupId,
-					    'quotaSize' => $quota));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'QuotasMap', array('userOrGroupId' => $groupId, 'quotaSize' => $quota));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -207,7 +202,7 @@ class AdminEditGroupQuotaControllerTest extends GalleryControllerTestCase {
     }
 
     function _deleteGroupQuota($groupId) {
-	$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $groupId));
+	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', array('userOrGroupId' => $groupId));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

@@ -76,8 +76,6 @@ class MultiLangHelper {
      * @static
      */
     function setItemData($item, $language, $title=null, $summary=null, $description=null) {
-	GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangItemMap.class');
-
 	$itemId = $item->getId();
 	list ($ret, $data) = MultiLangHelper::getItemData($itemId);
 	if ($ret) {
@@ -87,8 +85,9 @@ class MultiLangHelper {
 	if (empty($title) && empty($summary) && empty($description)) {
 	    /* Remove data for this item/language (if there is any to remove) */
 	    if (isset($data[$language])) {
-		$ret = MultiLangItemMap::removeMapEntry(
-					 array('itemId' => $itemId, 'language' => $language));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'MultiLangItemMap',
+		    array('itemId' => $itemId, 'language' => $language));
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -113,14 +112,16 @@ class MultiLangHelper {
 	} else {
 	    /* Update or insert new data */
 	    if (isset($data[$language])) {
-		$ret = MultiLangItemMap::updateMapEntry(
+		$ret = GalleryCoreApi::updateMapEntry(
+		    'MultiLangItemMap',
 		    array('itemId' => $itemId, 'language' => $language),
 		    array('title' => $title, 'summary' => $summary, 'description' => $description));
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else {
-		$ret = MultiLangItemMap::addMapEntry(
+		$ret = GalleryCoreApi::addMapEntry(
+		    'MultiLangItemMap',
 		    array('itemId' => $itemId, 'language' => $language,
 			  'title' => $title, 'summary' => $summary, 'description' => $description));
 		if ($ret) {
