@@ -44,12 +44,12 @@ class RewriteHelperTest extends GalleryTestCase {
 	parent::setUp();
 
 	/* Save original activeRules and use mock rules */
-	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
+	list ($ret, $this->_saveActiveRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = RewriteMap::setActiveRules(array('rewrite' => array(
+	$ret = RewriteHelper::setActiveRules(array('rewrite' => array(
 		array('pattern' => 'v/%path%',
 		      'match' => 'core.ShowItem'),
 		array('pattern' => 'd/%itemId%-%serialNumber%/%fileName%',
@@ -78,7 +78,7 @@ class RewriteHelperTest extends GalleryTestCase {
     }
 
     function tearDown() {
-	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
+	$ret = RewriteHelper::setActiveRules($this->_saveActiveRules);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -186,7 +186,7 @@ class RewriteHelperTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

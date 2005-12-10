@@ -39,20 +39,19 @@ class MapTest extends GalleryTestCase {
     }
 
     function testAddNull() {
-	// Ensure addMapEntry() method will accept null input values..
+	/* Ensure addMapEntry() method will accept null input values.. */
 
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMap.class');
 	$name = 'test-' . rand();
-
-	$ret = GalleryToolkitOperationMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryToolkitOperationMap',
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test'));
 	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expect error for missing key');
 	if ($ret && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryToolkitOperationMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryToolkitOperationMap',
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => null));
 	$this->assert(!$ret, 'should succeed with null value');
@@ -60,27 +59,25 @@ class MapTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
+	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testUpdateNull() {
-	// Ensure updateMapEntry() method will accept null input values..
-
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryToolkitOperationMap.class');
+	/* Ensure updateMapEntry() method will accept null input values.. */
 	$name = 'test-' . rand();
-
-	$ret = GalleryToolkitOperationMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryToolkitOperationMap',
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => 'test'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryToolkitOperationMap::updateMapEntry(
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryToolkitOperationMap',
 	    array('name' => $name, 'outputMimeType' => 'test'),
 	    array('description' => null));
 	$this->assert(!$ret, 'should succeed setting null value');
@@ -88,7 +85,8 @@ class MapTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryToolkitOperationMap::updateMapEntry(
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryToolkitOperationMap',
 	    array('name' => $name, 'description' => null),
 	    array('parametersCrc' => 'changed'));
 	$this->assert(!$ret, 'should succeed matching null value');
@@ -96,7 +94,7 @@ class MapTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
+	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

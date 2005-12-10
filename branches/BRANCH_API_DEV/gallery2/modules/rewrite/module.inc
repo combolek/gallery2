@@ -179,9 +179,8 @@ class RewriteModule extends GalleryModule {
 	}
 
 	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
-	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -195,7 +194,7 @@ class RewriteModule extends GalleryModule {
 				             'match' => 'core.SiteAdmin')
 				  ));
 
-	    $ret = RewriteMap::setActiveRules($activeRules);
+	    $ret = RewriteHelper::setActiveRules($activeRules);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -302,7 +301,6 @@ class RewriteModule extends GalleryModule {
 	$data = $event->getData();
 	if ($data['pluginType'] == 'module' && $data['pluginId'] != 'rewrite') {
 	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
-	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/RewriteModuleExtras.inc');
 
 	    switch ($event->getEventName()) {

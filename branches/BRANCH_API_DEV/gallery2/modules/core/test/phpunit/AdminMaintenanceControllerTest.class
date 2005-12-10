@@ -26,7 +26,6 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMaintenanceMap.class');
 GalleryCoreApi::relativeRequireOnce('modules/core/AdminMaintenance.inc');
 
 /**
@@ -76,7 +75,8 @@ class AdminMaintenanceControllerTest extends GalleryControllerTestCase {
 	foreach (array('AdminMaintenanceControllerTestTaskFail',
 		       'AdminMaintenanceControllerTestTaskSuccess',
 		       'AdminMaintenanceControllerTestTaskProgressBar') as $taskId) {
-	    $ret = GalleryMaintenanceMap::removeMapEntry(array('taskId' => $taskId));
+	    $ret = GalleryCoreApi::removeMapEntry(
+		'GalleryMaintenanceMap', array('taskId' => $taskId));
 	    if ($ret) {
 		/* Don't return early here, give the loop a chance to try to clear all tasks */
 		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));

@@ -70,7 +70,6 @@ class AdminCreateUserQuotaController extends GalleryController {
 	        array_key_exists('quotaUnit', $form)) {
 		if (!empty($form['quotaSize']) && is_numeric($form['quotaSize']) &&
 		    $form['quotaSize'] >= 0 && !empty($form['quotaSize'])) {
-		    GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 		    GalleryCoreApi::relativeRequireOnce(
 			'modules/quotas/classes/GalleryQuotasHelper.class');
 		    $form['quotaSize'] = round((float)$form['quotaSize'], 2);
@@ -97,8 +96,10 @@ class AdminCreateUserQuotaController extends GalleryController {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			if (!$quotaExists) {
-			    $ret = QuotasMap::addMapEntry(array('userOrGroupId' => $user->getId(),
-							        'quotaSize' => $quotaSize));
+			    $ret = GalleryCoreApi::addMapEntry(
+				'QuotasMap',
+				array('userOrGroupId' => $user->getId(),
+				      'quotaSize' => $quotaSize));
 			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }

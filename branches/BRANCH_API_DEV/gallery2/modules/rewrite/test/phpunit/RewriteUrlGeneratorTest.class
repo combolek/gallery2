@@ -67,7 +67,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	}
 
 	/* Save original activeRules */
-	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
+	list ($ret, $this->_saveActiveRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -82,7 +82,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 		array('pattern' => 'phpunitsub/%itemId%', 'match' => 'php.Unit|test.subView'),
 		array('pattern' => 't/%path%.test', 'match' => 'php.Unit|test.suffixExt'),
 		array('pattern' => '%path%/test.html', 'match' => 'php.Unit|test.suffixPath')));
-	$ret = RewriteMap::setActiveRules($testRules);
+	$ret = RewriteHelper::setActiveRules($testRules);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -113,7 +113,7 @@ class RewriteUrlGeneratorTest extends GalleryTestCase {
 	$gallery->_session = $this->_savedSession;
 	$gallery->_urlGenerator = $this->_savedUrlGenerator;
 
-	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
+	$ret = RewriteHelper::setActiveRules($this->_saveActiveRules);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

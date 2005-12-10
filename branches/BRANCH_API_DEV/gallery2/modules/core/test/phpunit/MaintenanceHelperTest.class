@@ -27,7 +27,6 @@
  */
 
 GalleryCoreApi::relativeRequireOnce('modules/core/AdminMaintenance.inc');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMaintenanceMap.class');
 GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
 
 /**
@@ -57,13 +56,14 @@ class MaintenanceHelperTest extends GalleryTestCase {
     }
 
     function tearDown() {
-	$ret = GalleryMaintenanceMap::removeMapEntry(
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryMaintenanceMap',
 	    array('taskId' => 'MaintenanceHelperTestTask'));
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	
+
 	parent::tearDown();
     }
 
@@ -115,7 +115,7 @@ class MaintenanceHelperTestTask extends MaintenanceTask {
 		     'description' => 'MaintenanceHelperTestTask description',
 		     'l10Domain' => 'modules_core');
     }
-    
+
     function run() {
 	return array(null, false, array('fail details'));
     }

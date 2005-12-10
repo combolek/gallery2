@@ -1,0 +1,32 @@
+<!DOCTYPE maps SYSTEM "../../../lib/tools/dtd/MapsDefinition2.0.dtd">
+<maps>
+  <map>
+    <map-name>RewriteMap</map-name>
+    <schema>
+      <schema-major>1</schema-major>
+      <schema-minor>0</schema-minor>
+    </schema>
+    <member>
+      <member-name>pattern</member-name>
+      <member-type>STRING</member-type>
+      <member-size>LARGE</member-size>
+      <primary/>
+    </member>
+    <member>
+      <member-name>module</member-name>
+      <member-type>STRING</member-type>
+      <member-size>SMALL</member-size>
+      <required/>
+    </member>
+    <member>
+      <member-name>ruleId</member-name>
+      <member-type>INTEGER</member-type>
+      <required/>
+    </member>
+    <member>
+      <member-name>match</member-name>
+      <member-type>STRING</member-type>
+      <member-size>MEDIUM</member-size>
+    </member>
+  </map>
+</maps>

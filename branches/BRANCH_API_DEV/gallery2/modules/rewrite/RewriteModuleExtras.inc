@@ -187,8 +187,7 @@ class RewriteModuleExtras {
 
 	case '0.9.5':
 	    /* Update view names in match strings to new . separator; core.ShowItem, etc */
-	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
-	    list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	    list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -200,7 +199,7 @@ class RewriteModuleExtras {
 		    }
 		}
 	    }
-	    $ret = RewriteMap::setActiveRules($activeRules);
+	    $ret = RewriteHelper::setActiveRules($activeRules);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -253,7 +252,7 @@ class RewriteModuleExtras {
      * @see GalleryModule::handleEvent
      */
     function handleDeactivatePlugin($module, $pluginId) {
-	list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -298,7 +297,7 @@ class RewriteModuleExtras {
 		}
 	    }
 
-	    $ret = RewriteMap::setActiveRules($activeRules);
+	    $ret = RewriteHelper::setActiveRules($activeRules);
     	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -325,7 +324,7 @@ class RewriteModuleExtras {
 
 	/* Build the dupe-list and get current rules active */
 	if (isset($params['history.' . $pluginId . '.0'])) {
-	    list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	    list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -383,7 +382,7 @@ class RewriteModuleExtras {
 		}
 	    }
 
-	    $ret = RewriteMap::setActiveRules($activeRules);
+	    $ret = RewriteHelper::setActiveRules($activeRules);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }

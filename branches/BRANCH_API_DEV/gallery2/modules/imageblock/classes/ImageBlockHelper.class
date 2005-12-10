@@ -554,16 +554,15 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	     * Event sends array('userId'=>id or array of ids or null,
 	     *                   'itemId'=>id or array of ids or null)
 	     */
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/imageblock/classes/ImageBlockCacheMap.class');
 	    $param = $event->getData();
 	    if (!empty($param['userId'])) {
-		$ret = ImageBlockCacheMap::removeMapEntry(array('userId' => $param['userId']));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'ImageBlockCacheMap', array('userId' => $param['userId']));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
-		$ret = ImageBlockCacheMap::removeAllMapEntries();
+		$ret = GalleryCoreApi::removeAllMapEntries('ImageBlockCacheMap');
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -581,15 +580,13 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		break;
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/imageblock/classes/ImageBlockDisabledMap.class');
-
 	    list ($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($entity->getId());
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($disabledFlag)) {
-		$ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $entity->getId()));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'ImageBlockDisabledMap', array('itemId' => $entity->getId()));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -615,8 +612,6 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		break;
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/imageblock/classes/ImageBlockDisabledMap.class');
 	    $parentId = $entity->getParentId();
 
 	    list ($ret, $parentDisabledFlag) = ImageBlockHelper::getDisabledFlag($parentId);
@@ -635,13 +630,15 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		/* Disable flag is managed (GUI) on album level, reflect this here */
 		if (!empty($parentDisabledFlag) && empty($disabledFlag)) {
 		    /* New parent has disabled flag, item hasn't. Change it. */
-		    $ret = ImageBlockDisabledMap::addMapEntry(array('itemId' => $entity->getId()));
+		    $ret = GalleryCoreApi::addMapEntry(
+			'ImageBlockDisabledMap', array('itemId' => $entity->getId()));
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else if (empty($parentDisabledFlag) && !empty($disabledFlag)) {
 		    /* New parent doesn't have disabled flag, remove it from the item */
-		    $ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $entity->getId()));
+		    $ret = GalleryCoreApi::removeMapEntry(
+			'ImageBlockDisabledMap', array('itemId' => $entity->getId()));
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -654,7 +651,8 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 		 * A new album cannot have sub items and setDisabledFlag doesn't work for items
 		 * that are not yet in the persistent store (database), thus use addMapEntry()
 		 */
-		$ret = ImageBlockDisabledMap::addMapEntry(array('itemId' => $entity->getId()));
+		$ret = GalleryCoreApi::addMapEntry(
+		    'ImageBlockDisabledMap', array('itemId' => $entity->getId()));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -675,8 +673,6 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
      */
     function setDisabledFlag($parentAlbum, $recursive, $disabled) {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/imageblock/classes/ImageBlockDisabledMap.class');
 
 	$parentAlbumId = $parentAlbum->getId();
 	$childIds = array();
@@ -729,12 +725,14 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 
 	foreach ($childIds as $itemId) {
 	    if ($disabled) {
-		$ret = ImageBlockDisabledMap::addMapEntry(array('itemId' => $itemId));
+		$ret = GalleryCoreApi::addMapEntry(
+		    'ImageBlockDisabledMap', array('itemId' => $itemId));
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    } else {
-		$ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $itemId));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'ImageBlockDisabledMap', array('itemId' => $itemId));
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -753,9 +751,6 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
      */
     function getDisabledFlag($itemId) {
 	global $gallery;
-
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/imageblock/classes/ImageBlockDisabledMap.class');
 	$query = '
 		SELECT
 		    [ImageBlockDisabledMap::itemId]

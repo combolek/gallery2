@@ -73,7 +73,7 @@ class GalleryPendingUser extends GalleryPendingUser_core {
         $data['registrationKey'] = isset($this->_registrationKey) ? $this->_registrationKey : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -272,6 +272,6 @@ class GalleryPendingUser extends GalleryPendingUser_core {
 	    $this->_registrationKey = $value;
 	}
     }
- 
+
 }
 ?>

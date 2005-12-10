@@ -26,8 +26,6 @@
  * @author Jesse Mullan <jmullan@visi.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
-
 /**
  * @package Migrate
  * @subpackage UserInterface
@@ -1462,8 +1460,9 @@ class ConfirmImportController extends GalleryController {
      * @author Joseph Elwell <jelwell@yahoo.com>
      */
     function createG1ToG2Mapping($itemId, $g1AlbumName, $g1ItemName=null) {
-	$ret = G1MigrateMap::addMapEntry(
-		array('itemId' => $itemId, 'g1album' => $g1AlbumName, 'g1item' => $g1ItemName) );
+	$ret = GalleryCoreApi::addMapEntry(
+	    'G1MigrateMap',
+	    array('itemId' => $itemId, 'g1album' => $g1AlbumName, 'g1item' => $g1ItemName) );
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

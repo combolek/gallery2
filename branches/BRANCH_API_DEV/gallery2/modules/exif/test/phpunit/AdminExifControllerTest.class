@@ -26,6 +26,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  * @author Georg Rehfeld <rehfeld@georg-rehfeld.de>
  */
+GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
  * AdminExif controller tests
@@ -44,15 +45,13 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 	parent::setUp();
 
-	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
-	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
-	list ($ret, $this->_save['summary']) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $this->_save['summary']) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $this->_save['detailed']) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $this->_save['detailed']) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -80,13 +79,13 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
     function tearDown() {
 	global $gallery;
 
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $this->_save['summary']);
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, $this->_save['summary']);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $this->_save['detailed']);
+	$ret = ExifHelper::setProperties(EXIF_DETAILED, $this->_save['detailed']);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -109,7 +108,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're there */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -133,7 +132,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're gone */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -171,7 +170,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the new positions */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -212,7 +211,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the new positions */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -240,7 +239,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
     function testResetSummary() {
 	/* Remove all properties */
-	$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, array());
+	$ret = ExifHelper::setProperties(EXIF_SUMMARY, array());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -254,7 +253,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're all back again */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -280,7 +279,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're there */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -304,7 +303,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're gone */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -343,7 +342,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the new positions */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -385,7 +384,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the new positions */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -411,7 +410,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 
     function testResetDetailed() {
 	/* Remove all properties */
-	$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, array());
+	$ret = ExifHelper::setProperties(EXIF_DETAILED, array());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -425,7 +424,7 @@ class AdminExifControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Make sure they're all back again */
-	list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

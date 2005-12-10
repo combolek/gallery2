@@ -32,11 +32,6 @@
 GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
- * Map class
- */
-GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
-
-/**
  * Test Quotas functionality
  *
  * @package Quotas
@@ -94,7 +89,8 @@ class QuotasHelperTest extends GalleryTestCase {
 	    }
 	    if ($hasQuota) {
 		$this->_saveQuota[$groupId] = $quota;
-		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $groupId));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'QuotasMap', array('userOrGroupId' => $groupId));
 		if ($ret) {
 		    print $ret->getAsHtml();
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -105,7 +101,8 @@ class QuotasHelperTest extends GalleryTestCase {
 
     function tearDown() {
 	foreach ($this->_saveQuota as $groupId => $quota) {
-	    $ret = QuotasMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'QuotasMap',
 		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
 		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -426,21 +423,20 @@ class QuotasHelperTest extends GalleryTestCase {
     }
 
     function _removeMapEntry($remove) {
-	$ret = QuotasMap::removeMapEntry($remove);
+	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', $remove);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _addMapEntry($add) {
-	$ret = QuotasMap::addMapEntry($add);
+	$ret = GalleryCoreApi::addMapEntry('QuotasMap', $add);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteEntity($entity) {
-	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($entity->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

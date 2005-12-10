@@ -29,7 +29,6 @@
  * Required class
  */
 GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 
 /**
  * @package Rewrite
@@ -122,7 +121,7 @@ class AdminRewriteController extends GalleryController {
 		}
 
 		if (empty($error)) {
-		    $ret = RewriteMap::setActiveRules($activeRules);
+		    $ret = RewriteHelper::setActiveRules($activeRules);
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -196,7 +195,7 @@ class AdminRewriteController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
-		list ($ret, $activeRules) = RewriteMap::getActiveRules();
+		list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -293,7 +292,7 @@ class AdminRewriteView extends GalleryView {
 
 	switch ($AdminRewrite['mode']) {
 	case 'rules':
-	    list ($ret, $activeRules) = RewriteMap::getActiveRules();
+	    list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }

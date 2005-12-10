@@ -74,7 +74,6 @@ class AdminEditGroupQuotaController extends GalleryController {
 	        array_key_exists('quotaUnit', $form)) {
 		if (!empty($form['quotaSize']) && is_numeric($form['quotaSize']) &&
 		    $form['quotaSize'] >= 0 && !empty($form['quotaSize'])) {
-		    GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 		    GalleryCoreApi::relativeRequireOnce(
 			'modules/quotas/classes/GalleryQuotasHelper.class');
 		    $form['quotaSize'] = round((float)$form['quotaSize'], 2);
@@ -104,10 +103,11 @@ class AdminEditGroupQuotaController extends GalleryController {
 			if ($quotaExists) {
 			    $match = array('userOrGroupId' => $groupQuota['id'],
 					   'quotaSize' => $groupQuota['quota']);
-			    $ret =
-			        QuotasMap::updateMapEntry($match,
-							  array('userOrGroupId' => $group->getId(),
-								'quotaSize' => $quotaSize));
+			    $ret = GalleryCoreApi::updateMapEntry(
+				'QuotasMap',
+				$match,
+				array('userOrGroupId' => $group->getId(),
+				      'quotaSize' => $quotaSize));
 			    if ($ret) {
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
@@ -173,7 +173,6 @@ class AdminEditGroupQuotaView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
 	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 	list ($ret, $quotaExists, $groupQuota) =

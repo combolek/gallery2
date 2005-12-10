@@ -32,11 +32,6 @@
 GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
- * Map class
- */
-GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
-
-/**
  * Test Quotas Listener functionality
  *
  * @package Quotas
@@ -91,7 +86,8 @@ class QuotasListenerTest extends GalleryTestCase {
 	    }
 	    if ($hasQuota) {
 		$this->_saveQuota[$groupId] = $quota;
-		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $groupId));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'QuotasMap', array('userOrGroupId' => $groupId));
 	    }
 	}
     }
@@ -117,7 +113,8 @@ class QuotasListenerTest extends GalleryTestCase {
 	}
 
 	foreach ($this->_saveQuota as $groupId => $quota) {
-	    $ret = QuotasMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'QuotasMap',
 		array('userOrGroupId' => $groupId, 'quotaSize' => $quota['quota']));
 	    if ($ret) {
 		$this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -133,65 +130,65 @@ class QuotasListenerTest extends GalleryTestCase {
 
 	$userId = $this->_user->getId();
 
-	list ($ret, $quotaExists, $userQuotaInfo) = 
+	list ($ret, $quotaExists, $userQuotaInfo) =
 	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}    
+	}
 	$this->assert($quotaExists == false, 'Quota should not exist for this user');
-	$this->assert(empty($userQuotaInfo), 'User should have no quota information'); 
-    
-	/* add a quota of 86 KB to this user */  
+	$this->assert(empty($userQuotaInfo), 'User should have no quota information');
+
+	/* add a quota of 86 KB to this user */
 	$this->_addMapEntry(array('userOrGroupId' => $this->_user->getId(),
 				  'quotaSize' => 86));
 
-	list ($ret, $quotaExists, $userQuotaInfo) = 
+	list ($ret, $quotaExists, $userQuotaInfo) =
 	    GalleryQuotasHelper::fetchUserQuota($this->_user->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists == true, 'Quota should exist for this user');
-	$this->assertEquals(array('id' => $this->_user->getId(), 'quota' => 86, 
+	$this->assertEquals(array('id' => $this->_user->getId(), 'quota' => 86,
 				  'name' =>$this->_user->getUserName()),
-			    $userQuotaInfo, 
-			    'User should have quota information'); 
+			    $userQuotaInfo,
+			    'User should have quota information');
 	$this->_deleteEntity($this->_user);
 
-	list ($ret, $quotaExists, $userQuotaInfo) = 
+	list ($ret, $quotaExists, $userQuotaInfo) =
 	    GalleryQuotasHelper::fetchUserQuota($userId);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}    
+	}
 	$this->assert($quotaExists == false, 'Quota should not exist for this user');
 	$this->assert(empty($userQuotaInfo), 'User should have no quota information');
 
 	$groupId = $this->_group->getId();
 
-	list ($ret, $quotaExists, $groupQuotaInfo) = 
+	list ($ret, $quotaExists, $groupQuotaInfo) =
 	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}    
+	}
 	$this->assert($quotaExists == false, 'Quota should not exist for this group');
-	$this->assert(empty($groupQuotaInfo), 'Group should have no quota information'); 
+	$this->assert(empty($groupQuotaInfo), 'Group should have no quota information');
 
-	/* add a quota of 47KB for this group */  
+	/* add a quota of 47KB for this group */
 	$this->_addMapEntry(array('userOrGroupId' => $this->_group->getId(),
 				  'quotaSize' => 47));
 
-	list ($ret, $quotaExists, $groupQuotaInfo) = 
+	list ($ret, $quotaExists, $groupQuotaInfo) =
 	    GalleryQuotasHelper::fetchGroupQuota($this->_group->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($quotaExists == true, 'Quota should exist for this group');
-	$this->assertEquals(array('id' => $this->_group->getId(), 'quota' => 47, 
+	$this->assertEquals(array('id' => $this->_group->getId(), 'quota' => 47,
 				  'name' =>$this->_group->getGroupName()),
-			    $groupQuotaInfo, 
+			    $groupQuotaInfo,
 			    'Group should have quota information');
-	$this->_deleteEntity($this->_group); 
+	$this->_deleteEntity($this->_group);
 
-	list ($ret, $quotaExists, $groupQuotaInfo) = 
+	list ($ret, $quotaExists, $groupQuotaInfo) =
 	    GalleryQuotasHelper::fetchGroupQuota($groupId);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -215,21 +212,20 @@ class QuotasListenerTest extends GalleryTestCase {
     }
 
     function _removeMapEntry($remove) {
-	$ret = QuotasMap::removeMapEntry($remove);
+	$ret = GalleryCoreApi::removeMapEntry('QuotasMap', $remove);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _addMapEntry($add) {
-	$ret = QuotasMap::addMapEntry($add);
+	$ret = GalleryCoreApi::addMapEntry('QuotasMap', $add);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function _deleteEntity($entity) {
-	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($entity->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

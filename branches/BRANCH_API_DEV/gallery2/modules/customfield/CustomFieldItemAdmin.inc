@@ -27,7 +27,6 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldMap.class');
 GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
@@ -73,8 +72,10 @@ class CustomFieldItemAdminController extends GalleryController {
 		while ($rec = $searchResults->nextResult()) {
 		    $idList[] = $rec[0];
 		}
-		$ret = CustomFieldMap::updateMapEntry( array('itemId' => $idList),
-						       array('setId' => $itemId) );
+		$ret = GalleryCoreApi::updateMapEntry(
+		    'CustomFieldMap',
+		    array('itemId' => $idList),
+		    array('setId' => $itemId) );
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -104,13 +105,15 @@ class CustomFieldItemAdminController extends GalleryController {
 		    if ($setType > 0) {
 			$match['setType'] = $setType;
 		    }
-		    $ret = CustomFieldMap::updateMapEntry($match, array('setId' => 0));
+		    $ret = GalleryCoreApi::updateMapEntry(
+			'CustomFieldMap', $match, array('setId' => 0));
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		/* Remove remaining field values */
-		$ret = CustomFieldMap::removeMapEntry(array('setId' => $itemId));
+		$ret = GalleryCoreApi::removeMapEntry(
+		    'CustomFieldMap', array('setId' => $itemId));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}

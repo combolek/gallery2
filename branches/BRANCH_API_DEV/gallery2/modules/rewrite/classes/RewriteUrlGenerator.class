@@ -26,10 +26,9 @@
  */
 
 /**
- * Required class
+ * Required classes
  */
 GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class');
-GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteMap.class');
 
 /**
  * Url Generator
@@ -61,7 +60,8 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
     function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
 	parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
 
-	list($ret, $this->_shortUrls) = RewriteMap::getShortUrls();
+	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
+	list($ret, $this->_shortUrls) = RewriteHelper::getShortUrls();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

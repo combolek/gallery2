@@ -44,14 +44,14 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
     	parent::setUp();
 
 	/* Save original activeRules */
-	list ($ret, $this->_saveActiveRules) = RewriteMap::getActiveRules();
+	list ($ret, $this->_saveActiveRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Use empty table by default */
-	$ret = RewriteMap::setActiveRules(array());
+	$ret = RewriteHelper::setActiveRules(array());
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -82,7 +82,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
     }
 
     function tearDown() {
-	$ret = RewriteMap::setActiveRules($this->_saveActiveRules);
+	$ret = RewriteHelper::setActiveRules($this->_saveActiveRules);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -132,7 +132,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 		array('pattern' => '.'),
 		array('pattern' => 'admin/',
 		      'match' => 'core.SiteAdmin')));
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -151,7 +151,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	$activeRules = array();
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -174,7 +174,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'bad keyword');
 
 	$activeRules = array();
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -197,7 +197,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'dupe');
 
 	$activeRules = array();
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -222,7 +222,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'bad file');
 
 	$activeRules = array();
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -243,7 +243,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'empty pattern');
 
 	$activeRules = array();
-	list($ret, $savedRules) = RewriteMap::getActiveRules();
+	list($ret, $savedRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

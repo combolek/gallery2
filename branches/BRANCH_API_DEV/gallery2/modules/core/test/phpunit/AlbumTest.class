@@ -816,8 +816,8 @@ class AlbumTest extends GalleryTestCase {
 	$this->_markForCleanup($user);
 
 	/* Delete all acls for this user */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
-	$ret = GalleryAccessMap::removeMapEntry(array('userOrGroupId' => $user->getId()));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryAccessMap', array('userOrGroupId' => $user->getId()));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
