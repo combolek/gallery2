@@ -31,8 +31,6 @@
  * @package GalleryCore
  * @subpackage Classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMimeTypeMap.class');
-
 class GalleryMimeTypeHelper_simple {
 
     /**

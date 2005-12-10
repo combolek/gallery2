@@ -63,7 +63,7 @@ class GalleryFileSystemEntity extends GalleryFileSystemEntity_core {
         $data['pathComponent'] = isset($this->_pathComponent) ? $this->_pathComponent : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -112,6 +112,6 @@ class GalleryFileSystemEntity extends GalleryFileSystemEntity_core {
 	    $this->_pathComponent = $value;
 	}
     }
- 
+
 }
 ?>

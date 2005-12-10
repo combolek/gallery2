@@ -77,7 +77,7 @@ class GalleryDerivative extends GalleryDerivative_core {
         $data['isBroken'] = isset($this->_isBroken) ? $this->_isBroken : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -354,6 +354,6 @@ class GalleryDerivative extends GalleryDerivative_core {
 	    $this->_isBroken = $value;
 	}
     }
- 
+
 }
 ?>

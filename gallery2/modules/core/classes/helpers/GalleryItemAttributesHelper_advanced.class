@@ -171,9 +171,10 @@ class GalleryItemAttributesHelper_advanced {
      * @static
      */
     function setViewCount($itemId, $count) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::updateMapEntry(array('itemId' => $itemId),
-							array('viewCount' => $count));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('itemId' => $itemId),
+	    array('viewCount' => $count));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -196,9 +197,10 @@ class GalleryItemAttributesHelper_advanced {
 	    $parentSequence = join('/', $parentSequence) . '/';
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::updateMapEntry(array('itemId' => $itemId),
-							array('parentSequence' => $parentSequence));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('itemId' => $itemId),
+	    array('parentSequence' => $parentSequence));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -219,11 +221,12 @@ class GalleryItemAttributesHelper_advanced {
 	} else {
 	    $parentSequence = join('/', $parentSequence) . '/';
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::addMapEntry(array('itemId' => $itemId,
-							   'viewCount' => 0,
-							   'orderWeight' => 0,
-							   'parentSequence' => $parentSequence));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('itemId' => $itemId,
+		  'viewCount' => 0,
+		  'orderWeight' => 0,
+		  'parentSequence' => $parentSequence));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -238,8 +241,8 @@ class GalleryItemAttributesHelper_advanced {
      * @static
      */
     function removeItemAttributes($itemId) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::removeMapEntry(array('itemId' => $itemId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryItemAttributesMap', array('itemId' => $itemId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -255,9 +258,10 @@ class GalleryItemAttributesHelper_advanced {
      * @static
      */
     function setOrderWeight($itemId, $orderWeight) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::updateMapEntry(array('itemId' => $itemId),
-							array('orderWeight' => $orderWeight));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('itemId' => $itemId),
+	    array('orderWeight' => $orderWeight));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -311,12 +315,12 @@ class GalleryItemAttributesHelper_advanced {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-	$ret = GalleryItemAttributesMap::updateMapEntry(
-	     array('parentSequence' =>
-			new GallerySqlFragment('LIKE ?', $oldParentSequence . '%')),
-	     array('parentSequence' =>
-			new GallerySqlFragment('=' . $newSequenceSql, $newParentSequence)));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('parentSequence' =>
+		  new GallerySqlFragment('LIKE ?', $oldParentSequence . '%')),
+	    array('parentSequence' =>
+		  new GallerySqlFragment('=' . $newSequenceSql, $newParentSequence)));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

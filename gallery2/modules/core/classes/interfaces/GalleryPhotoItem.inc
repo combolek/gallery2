@@ -73,7 +73,7 @@ class GalleryPhotoItem extends GalleryPhotoItem_core {
         }
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -168,6 +168,6 @@ class GalleryPhotoItem extends GalleryPhotoItem_core {
 	    $this->_height = $value;
 	}
     }
- 
+
 }
 ?>

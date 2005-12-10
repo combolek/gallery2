@@ -77,7 +77,7 @@ class GalleryItem extends GalleryItem_core {
         $data['originationTimestamp'] = isset($this->_originationTimestamp) ? $this->_originationTimestamp : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -349,6 +349,6 @@ class GalleryItem extends GalleryItem_core {
 	    $this->_originationTimestamp = $value;
 	}
     }
- 
+
 }
 ?>

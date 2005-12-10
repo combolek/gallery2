@@ -67,7 +67,7 @@ class GalleryAlbumItem extends GalleryAlbumItem_core {
         $data['orderDirection'] = isset($this->_orderDirection) ? $this->_orderDirection : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -176,6 +176,6 @@ class GalleryAlbumItem extends GalleryAlbumItem_core {
 	    $this->_orderDirection = $value;
 	}
     }
- 
+
 }
 ?>

@@ -210,7 +210,7 @@ System and Gallery information:
     PHP disable_functions:\t" . ini_get('disable_functions') . "
     PHP zend.ze1_compatibility_mode:\t" . ini_get('zend.ze1_compatibility_mode') . "
     Webserver:\t" . GalleryUtilities::getServerVar('SERVER_SOFTWARE') . "
-    Database:\t" . $storage->_impl->getAdoDbType() . " " . @$storage->_impl->getVersion() . "
+    Database:\t" . $storage->getAdoDbType() . " " . @$storage->getVersion() . "
     Operating system:\t" . php_uname() . "
     Browser:\t " . GalleryUtilities::getServerVar('HTTP_USER_AGENT') . "
 --------------------------------------------------------\n\n

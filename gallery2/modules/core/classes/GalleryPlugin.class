@@ -168,28 +168,31 @@ class GalleryPlugin {
      */
     function activate($postActivationEvent=true) {
 	global $gallery;
-	
+
 	$pluginType = $this->getPluginType();
 	$pluginId = $this->getId();
 
 	if ($gallery->getDebug()) {
 	    $gallery->debug(sprintf('GalleryPlugin::activate %s plugin', $pluginId));
 	}
-	
+
 	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pluginType);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginMap.class');
 	if (isset($pluginStatus[$pluginId]['active'])) {
-	    $ret = GalleryPluginMap::updateMapEntry(array('pluginType' => $pluginType,
-							  'pluginId' => $pluginId),
-						    array('active' => 1));
+	    $ret = GalleryCoreApi::updateMapEntry(
+		'GalleryPluginMap',
+		array('pluginType' => $pluginType,
+		      'pluginId' => $pluginId),
+		array('active' => 1));
 	} else {
-	    $ret = GalleryPluginMap::addMapEntry(array('pluginType' => $pluginType,
-						       'pluginId' => $pluginId,
-						       'active' => 1));
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryPluginMap',
+		array('pluginType' => $pluginType,
+		      'pluginId' => $pluginId,
+		      'active' => 1));
 	}
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -207,7 +210,7 @@ class GalleryPlugin {
 	    if ($gallery->getDebug()) {
 		$gallery->debug('GalleryPlugin::activate post activation event');
 	    }
-	    
+
 	    $event = GalleryCoreApi::newEvent('Gallery::ActivatePlugin');
 	    $event->setData(array('pluginType' => $this->getPluginType(),
 				  'pluginId' => $this->getId()));
@@ -238,10 +241,11 @@ class GalleryPlugin {
 	$pluginType = $this->getPluginType();
 	$pluginId = $this->getId();
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginMap.class');
-	$ret = GalleryPluginMap::updateMapEntry(array('pluginType' => $pluginType,
-						      'pluginId' => $pluginId),
-						array('active' => 0));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryPluginMap',
+	    array('pluginType' => $pluginType,
+		  'pluginId' => $pluginId),
+	    array('active' => 0));
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -274,11 +278,11 @@ class GalleryPlugin {
      */
     function reactivate() {
 	global $gallery;
-	
+
 	if ($gallery->getDebug()) {
 	    $gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin', $this->getId()));
 	}
-	
+
 	list ($ret, $isActive) = $this->isActive();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -287,7 +291,7 @@ class GalleryPlugin {
 	    if ($gallery->getDebug()) {
 		$gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, plugin is ' .
 					'not active, nothing to do', $this->getId()));
-	    }	    
+	    }
 	    return array(null, null);
 	}
 
@@ -295,7 +299,7 @@ class GalleryPlugin {
 	    $gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, deactivate',
 				    $this->getId()));
 	}
-	
+
 	list ($ret, $redirect) = $this->deactivate(false);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -308,7 +312,7 @@ class GalleryPlugin {
 	    $gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, activate again',
 				    $this->getId()));
 	}
-	
+
 	list ($ret, $redirect) = $this->activate(false);
 	if ($ret) {
 	    /* Try to send the deactivation event before failing completely. */
@@ -326,7 +330,7 @@ class GalleryPlugin {
 	    $gallery->debug(sprintf('GalleryPlugin::reactivate %s plugin, successfully ' .
 				    'reactivated', $this->getId()));
 	}
-	
+
 	return array(null, array());
     }
 

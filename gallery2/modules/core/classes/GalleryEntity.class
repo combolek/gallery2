@@ -266,9 +266,8 @@ class GalleryEntity_core extends GalleryPersistent {
 	}
 
 	if ($this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-	    GalleryCoreApi::relativeRequireOnce(
-		'modules/core/classes/GalleryAccessSubscriberMap.class');
-	    $ret = GalleryAccessSubscriberMap::addMapEntry(
+	    $ret = GalleryCoreApi::addMapEntry(
+		'GalleryAccessSubscriberMap',
 		array('itemId' => $this->getId(), 'accessListId' => 0));
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -370,9 +369,8 @@ class GalleryEntity_core extends GalleryPersistent {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryAccessSubscriberMap.class');
-	$ret = GalleryAccessSubscriberMap::removeMapEntry(array('itemId' => $this->getId()));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryAccessSubscriberMap', array('itemId' => $this->getId()));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

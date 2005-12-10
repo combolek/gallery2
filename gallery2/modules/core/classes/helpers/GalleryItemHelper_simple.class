@@ -167,7 +167,6 @@ class GalleryItemHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDescendentCountsMap.class');
 	$query = sprintf('
          SELECT
            [GalleryDescendentCountsMap::itemId], [GalleryDescendentCountsMap::descendentCount]
@@ -210,7 +209,8 @@ class GalleryItemHelper_simple {
 
 	    /* Update the cache */
 	    foreach ($results as $itemId => $count) {
-		$ret = GalleryDescendentCountsMap::addMapEntry(
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryDescendentCountsMap',
 		    array('userId' => $userId, 'itemId' => $itemId, 'descendentCount' => $count));
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);

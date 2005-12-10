@@ -110,9 +110,8 @@ class GalleryPluginHelper_medium {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginMap.class');
-	$ret = GalleryPluginMap::removeMapEntry(array('pluginType' => $pluginType,
-						      'pluginId' => $pluginId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginMap', array('pluginType' => $pluginType, 'pluginId' => $pluginId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -184,8 +183,8 @@ class GalleryPluginHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
-	$ret = GalleryPluginParameterMap::removeMapEntry(array('itemId' => $itemId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginParameterMap', array('itemId' => $itemId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -225,12 +224,13 @@ class GalleryPluginHelper_medium {
             $itemIds = array($itemIds);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
         foreach ($itemIds as $itemId) {
-	$ret = GalleryPluginParameterMap::removeMapEntry(array('pluginType' => $pluginType,
-							       'pluginId' => $pluginId,
-							       'itemId' => $itemId,
-							       'parameterName' => $parameterName));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginParameterMap',
+	    array('pluginType' => $pluginType,
+		  'pluginId' => $pluginId,
+		  'itemId' => $itemId,
+		  'parameterName' => $parameterName));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -264,12 +264,12 @@ class GalleryPluginHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
-	$ret = GalleryPluginParameterMap::removeMapEntry(
-						array('pluginType' => $pluginType,
-						      'pluginId' => $pluginId,
-						      'parameterName' => $parameterName,
-						      'parameterValue' => $parameterValue));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginParameterMap',
+	    array('pluginType' => $pluginType,
+		  'pluginId' => $pluginId,
+		  'parameterName' => $parameterName,
+		  'parameterValue' => $parameterValue));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -296,9 +296,9 @@ class GalleryPluginHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
-	$ret = GalleryPluginParameterMap::removeMapEntry(array('pluginType' => $pluginType,
-							       'pluginId' => $pluginId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryPluginParameterMap',
+	    array('pluginType' => $pluginType, 'pluginId' => $pluginId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -330,7 +330,7 @@ class GalleryPluginHelper_medium {
 	if ($gallery->getDebug()) {
 	    $gallery->debug(sprintf('setParameter %s for %s plugin', $parameterName, $pluginId));
 	}
-	
+
 	if (empty($pluginType) || empty($pluginId) || empty($parameterName)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
@@ -384,7 +384,7 @@ class GalleryPluginHelper_medium {
 	    $gallery->debug(sprintf('Plugin parameter %s for %s plugin set successfully',
 				    $parameterName, $pluginId));
 	}
-	
+
 	return null;
     }
 
@@ -410,8 +410,8 @@ class GalleryPluginHelper_medium {
 	    $itemId = 0;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
-	$ret = GalleryPluginParameterMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryPluginParameterMap',
 	    array('pluginType' => $pluginType,
 		  'pluginId' => $pluginId,
 		  'itemId' => $itemId,
@@ -449,8 +449,8 @@ class GalleryPluginHelper_medium {
 	    $itemId = 0;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPluginParameterMap.class');
-	$ret = GalleryPluginParameterMap::updateMapEntry(
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryPluginParameterMap',
 	    array('pluginType' => $pluginType,
 		  'pluginId' => $pluginId,
 		  'itemId' => $itemId,

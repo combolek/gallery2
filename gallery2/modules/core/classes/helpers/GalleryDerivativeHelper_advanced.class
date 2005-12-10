@@ -279,8 +279,6 @@ class GalleryDerivativeHelper_advanced {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
 	foreach ($preferences as $preference) {
 	    $ret = GalleryCoreApi::addDerivativePreference(
 		$preference['order'], $targetId, $preference['derivativeType'],
@@ -304,8 +302,6 @@ class GalleryDerivativeHelper_advanced {
      * @static
      */
     function addPreference($order, $itemId, $derivativeType, $derivativeOperations) {
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
 	if (is_array($itemId)) {
 	    /* Allow for adding same set of preferences to multiple items */
 	    $order = array($order);
@@ -318,7 +314,8 @@ class GalleryDerivativeHelper_advanced {
 		$derivativeOperations[] = $derivativeOperations[0];
 	    }
 	}
-	$ret = GalleryDerivativePreferencesMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryDerivativePreferencesMap',
 	    array('order' => $order,
 		  'itemId' => $itemId,
 		  'derivativeType' => $derivativeType,
@@ -338,9 +335,8 @@ class GalleryDerivativeHelper_advanced {
      * @static
      */
     function removePreferencesForItem($itemId) {
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
-	$ret = GalleryDerivativePreferencesMap::removeMapEntry(array('itemId' => $itemId));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryDerivativePreferencesMap', array('itemId' => $itemId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -357,9 +353,8 @@ class GalleryDerivativeHelper_advanced {
      * @static
      */
     function removePreferenceForItemType($itemId, $derivativeType) {
-	GalleryCoreApi::relativeRequireOnce(
-	    'modules/core/classes/GalleryDerivativePreferencesMap.class');
-	$ret = GalleryDerivativePreferencesMap::removeMapEntry(
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryDerivativePreferencesMap',
 	    array('itemId' => $itemId, 'derivativeType' => $derivativeType));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);

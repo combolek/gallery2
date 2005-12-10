@@ -1102,10 +1102,10 @@ class GalleryCoreApi {
      */
     function removeDerivativePreferenceForItemType($itemId, $derivativeType) {
 	GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/GalleryDerivativeHelper_advanced.class');
-	return GalleryDerivativeHelper_advanced::removePreferenceForItemType($itemId, 
+	return GalleryDerivativeHelper_advanced::removePreferenceForItemType($itemId,
                                                                              $derivativeType);
     }
-     
+
     /**
      * Remove all derivative preferences for a given item
      *
@@ -2689,6 +2689,88 @@ class GalleryCoreApi {
 	    $status->setStackTrace(debug_backtrace());
 	}
 	return $status;
+    }
+
+    /**
+     * Update entries in a map
+     *
+     * @param string the map we're working on
+     * @param array the entries to match
+     * @param array the values to change
+     * @return object GalleryStatus a status code
+     */
+    function updateMapEntry($mapName, $match, $change) {
+	global $gallery;
+
+	if (sizeof($match) == 0 || sizeof($change) == 0) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	}
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->updateMapEntry($mapName, $match, $change);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	return null;
+    }
+
+    /**
+     * Remove entries from a map
+     *
+     * @param string the map we're working on
+     * @param array an associative array of data about the entries to match
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function removeMapEntry($mapName, $data) {
+	global $gallery;
+
+	if (sizeof($data) == 0) {
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	}
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->removeMapEntry($mapName, $data);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	return null;
+    }
+
+    /**
+     * Add a new entry to a map
+     *
+     * @param string the map we're working on
+     * @param array an associative array of the entry data
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function addMapEntry($mapName, $data) {
+	global $gallery;
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->addMapEntry($mapName, $data);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	return null;
+    }
+
+    /**
+     * Remove ALL entries from this map.. use with caution!
+     *
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function removeAllMapEntries($mapName) {
+	global $gallery;
+
+	$storage =& $gallery->getStorage();
+	$ret = $storage->removeAllMapEntries($mapName);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	return null;
     }
 }
 ?>

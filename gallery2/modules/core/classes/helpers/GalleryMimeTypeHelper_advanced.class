@@ -31,7 +31,6 @@
  * @package GalleryCore
  * @subpackage Classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMimeTypeMap.class');
 GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/helpers/GalleryMimeTypeHelper_simple.class');
 
@@ -215,7 +214,7 @@ class GalleryMimeTypeHelper_advanced {
 	    'image/gif' => 1, 'image/png' => 1);
 
 	/* Start with a clean slate */
-	$ret = GalleryMimeTypeMap::removeAllMapEntries();
+	$ret = GalleryCoreApi::removeAllMapEntries('GalleryMimeTypeMap');
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -223,7 +222,7 @@ class GalleryMimeTypeHelper_advanced {
 	foreach ($mimeTypes as $ext => $mime) {
 	    $mimeTypeMap = array('extension' => $ext, 'mimeType' => $mime,
 		'viewable' => (int) isset($viewableMimeTypes[$mime]));
-	    $ret = GalleryMimeTypeMap::addMapEntry($mimeTypeMap);
+	    $ret = GalleryCoreApi::addMapEntry('GalleryMimeTypeMap', $mimeTypeMap);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -241,7 +240,7 @@ class GalleryMimeTypeHelper_advanced {
      * @return object GalleryStatus a status code
      */
     function removeMimeType($mimeMatch) {
-	$ret = GalleryMimeTypeMap::removeMapEntry($mimeMatch);
+	$ret = GalleryCoreApi::removeMapEntry('GalleryMimeTypeMap', $mimeMatch);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -282,8 +281,10 @@ class GalleryMimeTypeHelper_advanced {
 	}
 
 	/* Insert the record */
-	$ret = GalleryMimeTypeMap::addMapEntry(array(
-	    'extension' => $extension, 'mimeType' => $mimeType, 'viewable' => $viewable ? 1 : 0));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryMimeTypeMap',
+	    array('extension' => $extension, 'mimeType' => $mimeType,
+		  'viewable' => $viewable ? 1 : 0));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

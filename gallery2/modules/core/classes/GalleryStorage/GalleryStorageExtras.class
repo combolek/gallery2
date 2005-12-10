@@ -873,7 +873,12 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	$mapInfo = $this->_gs->_describeMapMembers($mapName);
 	list ($tableName) = $this->_gs->_translateTableName($mapName);
 	$data = $columns = array();
-	foreach ($mapInfo['members'] as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberType) {
+ 	    if (!array_key_exists($memberName, $entry)) {
+ 		return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+ 					     'Missing parameter: ' . $memberName);
+ 	    }
+
 	    if (is_array($entry[$memberName])) {
 		return $this->_addMapEntries($mapInfo, $tableName, $entry);
 	    }
@@ -920,7 +925,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
      */
     function _addMapEntries($mapInfo, $tableName, $entry) {
 	$columns = array();
-	foreach ($mapInfo['members'] as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberType) {
 	    $columns[$memberName] = $this->_gs->_translateColumnName($memberName);
 	}
 
@@ -928,7 +933,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	$rows = count($entry[$memberName]);
 	$data = array();
 	for ($ind = 0; $ind < $rows; $ind++) {
-	    foreach ($mapInfo['members'] as $memberName => $memberType) {
+	    foreach ($mapInfo as $memberName => $memberType) {
 		$value = $entry[$memberName][$ind];
 
 		if ($memberType & STORAGE_TYPE_BIT) {
@@ -969,7 +974,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	list ($tableName, $unused) = $this->_gs->_translateTableName($mapName);
 	$data = $where = array();
 
-	foreach ($mapInfo['members'] as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberType) {
 	    if (array_key_exists($memberName, $match)) {
 		if (GalleryUtilities::isA($match[$memberName], 'GallerySqlFragment')) {
 		    $where[] = $this->_gs->_translateColumnName($memberName) . ' '
@@ -1125,6 +1130,8 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
     function configureStore($moduleId, $upgradeInfo=array()) {
 	global $gallery;
 	$gallery->guaranteeTimeLimit(20);
+
+	$this->_clearMapMemberCache();
 
 	$ret = $this->_dbInit(true);
 	if ($ret) {
@@ -1785,6 +1792,17 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	}
 
 	return array(null, $this->_gs->_entityInfoCache[$entityName]);
+    }
+
+    /**
+     * Clear out the map cache, which we should do any time that we add or remove a table.
+     */
+    function _clearMapMemberCache() {
+	/* Note: keep these cache keys in sync with _describeMapMembers() */
+	GalleryDataCache::remove("GalleryPermissionHelper::describeMapMembers()");
+	GalleryDataCache::removeFromDisk(array('type' => 'module',
+					       'itemId' => 'GalleryStorage__describeMapMembers',
+					       'id' => '_all'));
     }
 }
 ?>

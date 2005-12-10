@@ -47,11 +47,9 @@ class GalleryItemHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/*
-	 * Remove this relationship from our groups table.
-	 */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
-	$ret = GalleryItemPropertiesMap::removeMapEntry(
+	/* Remove this relationship from our groups table. */
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryItemPropertiesMap',
 	    array('itemId' => $itemId, 'key' => $key));
 
 	if ($ret) {
@@ -75,17 +73,16 @@ class GalleryItemHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/*
-	 * Remove this item/key from the map, and add the new one.
-	 */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
-	$ret = GalleryItemPropertiesMap::removeMapEntry(
+	/* Remove this item/key from the map, and add the new one. */
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryItemPropertiesMap',
 	    array('itemId' => $itemId, 'key' => $key));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$ret = GalleryItemPropertiesMap::addMapEntry(
+	$ret = GalleryCoreApi::addMapEntry(
+	    'GalleryItemPropertiesMap',
 	    array('itemId' => $itemId, 'key' => $key, 'value' => $value));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -107,11 +104,9 @@ class GalleryItemHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/*
-	 * Remove this relationship from our groups table.
-	 */
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
-	$ret = GalleryItemPropertiesMap::removeMapEntry(
+	/* Remove this relationship from our groups table. */
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'GalleryItemPropertiesMap',
 	    array('itemId' => $itemId));
 
 	if ($ret) {

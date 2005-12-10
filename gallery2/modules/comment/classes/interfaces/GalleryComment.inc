@@ -71,7 +71,7 @@ class GalleryComment extends GalleryComment_core {
         $data['date'] = isset($this->_date) ? $this->_date : null;
 	return $data;
     }
-  
+ 
     /**
      * Return the name of this class with the proper mix of uppercase and
      * lowercase (get_class() always returns lowercase)
@@ -247,6 +247,6 @@ class GalleryComment extends GalleryComment_core {
 	    $this->_date = $value;
 	}
     }
- 
+
 }
 ?>

@@ -307,9 +307,10 @@ class GalleryEmbed {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/ExternalIdMap.class');
-	$ret = ExternalIdMap::addMapEntry(array('externalId' => $extUserId,
-			      'entityType' => 'GalleryUser', 'entityId' => $user->getId()));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => $extUserId,
+		  'entityType' => 'GalleryUser', 'entityId' => $user->getId()));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -403,9 +404,9 @@ class GalleryEmbed {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/ExternalIdMap.class');
-	$ret = ExternalIdMap::removeMapEntry(
-			      array('externalId' => $extUserId, 'entityType' => 'GalleryUser'));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => $extUserId, 'entityType' => 'GalleryUser'));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -440,9 +441,10 @@ class GalleryEmbed {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/ExternalIdMap.class');
-	$ret = ExternalIdMap::addMapEntry(array('externalId' => $extGroupId,
-			      'entityType' => 'GalleryGroup', 'entityId' => $group->getId()));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => $extGroupId,
+		  'entityType' => 'GalleryGroup', 'entityId' => $group->getId()));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -465,9 +467,8 @@ class GalleryEmbed {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/ExternalIdMap.class');
-	$ret = ExternalIdMap::removeMapEntry(
-			      array('externalId' => $extGroupId, 'entityType' => 'GalleryGroup'));
+	$ret = GalleryCoreApi::removeMapEntry(
+	    'ExternalIdMap', array('externalId' => $extGroupId, 'entityType' => 'GalleryGroup'));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -779,10 +780,11 @@ class GalleryEmbed {
      * @static
      */
     function addExternalIdMapEntry($externalId, $entityId, $entityType) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/ExternalIdMap.class');
-	$ret = ExternalIdMap::addMapEntry(array('externalId' => $externalId,
-						'entityType' => $entityType,
-						'entityId' => $entityId));
+	$ret = GalleryCoreApi::addMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => $externalId,
+		  'entityType' => $entityType,
+		  'entityId' => $entityId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

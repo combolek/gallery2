@@ -27,7 +27,6 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRecoverPasswordMap.class');
 GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
 
@@ -115,8 +114,9 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 
 			$status['passwordRecovered'] = 1;
 		    }
-		    $ret = GalleryRecoverPasswordMap::removeMapEntry(
-			    array('userName' => $user->getUserName()));
+		    $ret = GalleryCoreApi::removeMapEntry(
+			'GalleryRecoverPasswordMap',
+			array('userName' => $user->getUserName()));
 		    if ($ret) {
 			return array($ret, null);
 		    }

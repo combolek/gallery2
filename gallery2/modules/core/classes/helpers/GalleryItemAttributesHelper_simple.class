@@ -26,11 +26,6 @@
  */
 
 /**
- * Required classes
- */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemAttributesMap.class');
-
-/**
  *
  * @package GalleryCore
  * @subpackage Helpers
@@ -66,8 +61,10 @@ class GalleryItemAttributesHelper_simple {
 	GalleryCoreApi::relativeRequireOnce(
 	    'modules/core/classes/GalleryStorage/GallerySqlFragment.class');
 	$func = '= [GalleryItemAttributesMap::viewCount] + ?';
-	$ret = GalleryItemAttributesMap::updateMapEntry(array('itemId' => $itemId),
-		array('viewCount' => new GallerySqlFragment($func, $step)));
+	$ret = GalleryCoreApi::updateMapEntry(
+	    'GalleryItemAttributesMap',
+	    array('itemId' => $itemId),
+	    array('viewCount' => new GallerySqlFragment($func, $step)));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
