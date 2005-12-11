@@ -27,7 +27,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>  
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * Implement ValidationPlugin to present the HTML for the captcha image

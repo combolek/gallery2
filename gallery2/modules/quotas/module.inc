@@ -105,7 +105,7 @@ class QuotasModule extends GalleryModule {
 
 	    if (GalleryUtilities::isA($entity, 'GalleryGroup') ||
 		GalleryUtilities::isA($entity, 'GalleryUser')) {
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 		    'modules/quotas/classes/GalleryQuotasHelper.class');
 
 		/* If its a group, find if a group quota exists, if so delete it */

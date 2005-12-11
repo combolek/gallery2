@@ -26,8 +26,8 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/Callbacks.inc');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySmarty.class');
+GalleryCoreApi::requireOnce('modules/core/Callbacks.inc');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
 
 /**
  * Test module callbacks

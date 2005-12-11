@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/archiveupload/classes/ArchiveExtractToolkit.class');
+GalleryCoreApi::requireOnce('modules/archiveupload/classes/ArchiveExtractToolkit.class');
 
 /**
  * Test ArchiveExtractToolkit functionality

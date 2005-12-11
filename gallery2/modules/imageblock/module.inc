@@ -48,7 +48,7 @@ class ImageBlockModule extends GalleryModule {
      * @see GalleryModule::registerEventListeners()
      */
     function registerEventListeners() {
-	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 	$listener = new ImageBlockHelper();
 	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $listener);
 	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener, true);

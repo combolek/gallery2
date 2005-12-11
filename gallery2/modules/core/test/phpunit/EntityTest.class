@@ -239,7 +239,7 @@ class EntityTest extends GalleryTestCase {
 	$listener = new EntityTestEventListener($this);
 	GalleryCoreApi::registerEventListener('GalleryEntity::save', $listener);
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEntity.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 	$entity = new GalleryEntity();
 	$entity->create();
 	$ret = $entity->save(false);
@@ -321,7 +321,7 @@ class EntityTestOnLoadHandler {
 }
 
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEventListener.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
 
 /**
  * Dummy event listener

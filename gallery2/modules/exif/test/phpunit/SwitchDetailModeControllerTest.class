@@ -26,8 +26,8 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySmarty.class');
-GalleryCoreApi::relativeRequireOnce('modules/exif/Callbacks.inc');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+GalleryCoreApi::requireOnce('modules/exif/Callbacks.inc');
 
 /**
  * SwitchDetailMode controller tests

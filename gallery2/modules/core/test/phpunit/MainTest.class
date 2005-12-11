@@ -220,9 +220,9 @@ class MainTestPhpVm extends GalleryPhpVm {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 class FooViewView extends GalleryView { }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 class FooControllerController extends GalleryController { }
 ?>

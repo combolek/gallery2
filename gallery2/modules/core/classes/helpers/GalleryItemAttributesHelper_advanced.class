@@ -277,7 +277,7 @@ class GalleryItemAttributesHelper_advanced {
      * @static
      */
     function fetchViewCount($itemId) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryItemAttributesHelper_medium.class');
 	list ($ret, $viewCounts) =
 	    GalleryItemAttributesHelper_medium::fetchViewCounts(array($itemId));
@@ -297,7 +297,7 @@ class GalleryItemAttributesHelper_advanced {
      * @static
      */
     function updateParentSequence($oldParentSequence, $newParentSequence) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/GalleryStorage/GallerySqlFragment.class');
 	global $gallery;
 

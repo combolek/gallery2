@@ -179,8 +179,8 @@ class PhotoAccessCartPluginTest extends GalleryTestCase {
 
     function testFulfillCart() {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce(
 	    'modules/photoaccess/classes/PhotoAccessCartPlugin.class');
 
 	/* Create our cart */

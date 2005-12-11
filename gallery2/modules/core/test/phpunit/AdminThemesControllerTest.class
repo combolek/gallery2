@@ -25,7 +25,7 @@
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTheme.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTheme.class');
 
 /**
  * AdminThemes controller tests

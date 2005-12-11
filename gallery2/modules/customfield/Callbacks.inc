@@ -29,7 +29,7 @@ class CustomFieldCallbacks {
      */
     function callback($params, &$smarty, $callback, $userId=null) {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
+	GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 	switch ($callback) {
 	case 'LoadCustomFields':

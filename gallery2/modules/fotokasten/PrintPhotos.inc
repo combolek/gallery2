@@ -25,7 +25,7 @@
  * @author Ioana Ciocanescu <service@fotokasten.de>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/fotokasten/lib/nusoap.inc');
+GalleryCoreApi::requireOnce('modules/fotokasten/lib/nusoap.inc');
 
 /**
  * This controller sends data to fotokasten.de

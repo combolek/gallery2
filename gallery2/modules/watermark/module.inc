@@ -190,7 +190,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
      */
     function uninstall() {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 	/* Delete all watermarks and remove uses of them */
 	$query = '
@@ -290,7 +290,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($event->getEventName() == 'GalleryEntity::delete') {
 	    $entity = $event->getEntity();
 	    if (GalleryUtilities::isA($entity, 'GalleryUser')) {
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 		    'modules/watermark/classes/WatermarkHelper.class');
 		list ($ret, $watermarkIds) =
 		    WatermarkHelper::fetchWatermarkIdsByOwnerId($entity->getId());

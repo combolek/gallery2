@@ -309,7 +309,7 @@ class Gallery {
      * @return object GalleryStatus a status code
      */
     function initSession() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
 	if (empty($this->_session)) {
 	    $this->_session = new GallerySession();
 	    $ret = $this->_session->init();
@@ -326,7 +326,7 @@ class Gallery {
      *
      */
     function initEmptySession() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
 	$this->_session = new GallerySession();
     }
 
@@ -380,12 +380,12 @@ class Gallery {
 
 	    switch($which) {
 	    case 'flock':
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/FlockLockSystem.class');
+		GalleryCoreApi::requireOnce('modules/core/classes/FlockLockSystem.class');
 		$this->_lockSystem = new FlockLockSystem();
 		break;
 
 	    case 'database':
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/DatabaseLockSystem.class');
+		GalleryCoreApi::requireOnce('modules/core/classes/DatabaseLockSystem.class');
 		$this->_lockSystem = new DatabaseLockSystem();
 		break;
 
@@ -437,20 +437,20 @@ class Gallery {
 	    switch ($config['type']) {
 	    case 'mysql':
 	    case 'mysqlt':
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/MySqlStorage.class', true);
 		$this->_storage = new MySqlStorage($config);
 		break;
 
 	    case 'postgres':
 	    case 'postgres7':
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/PostgreSqlStorage.class', true);
 		$this->_storage = new PostgreSqlStorage($config);
 		break;
 
 	    case 'db2':
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/Db2Storage.class', true);
 		$this->_storage = new Db2Storage($config);
 		break;
@@ -459,7 +459,7 @@ class Gallery {
 	    case 'oci805':
 	    case 'oci8po':
 	    case 'oracle':
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/OracleStorage.class', true);
 		$this->_storage = new OracleStorage($config);
 		break;
@@ -467,7 +467,7 @@ class Gallery {
 	    default:
 		$this->debug('Unknown storage type');
 		$this->debug_r($config);
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage.class', true);
 		$this->_storage = new GalleryStorage($config);
 	    }
@@ -540,7 +540,7 @@ class Gallery {
     function initTranslator($dontUseDatabase=false) {
 	if (empty($this->_translator)) {
 	    /* Load the translator class */
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class');
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
 
 	    $language = null;
 	    if (!$dontUseDatabase) {
@@ -803,7 +803,7 @@ class Gallery {
      */
     function &getTemplateAdapter() {
 	if (!isset($this->_templateAdapter)) {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplateAdapter.class');
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplateAdapter.class');
 	    $this->_templateAdapter = new GalleryTemplateAdapter();
 	}
 
@@ -934,7 +934,7 @@ class Gallery {
      */
     function getPhpVm() {
 	if (!isset($this->_phpVm)) {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPhpVm.class');
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 	    $this->_phpVm = new GalleryPhpVm();
 	}
 	return $this->_phpVm;

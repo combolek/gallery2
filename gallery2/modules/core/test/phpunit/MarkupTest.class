@@ -30,7 +30,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('lib/smarty_plugins/modifier.markup.php');
+GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 
 /**
  * Test Markup functionality

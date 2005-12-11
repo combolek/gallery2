@@ -94,7 +94,7 @@ class OptionsView extends GalleryView {
 	}
 
 	/* Get all the add options */
-	GalleryCoreApi::relativeRequireOnce('modules/core/ItemAdd.inc');
+	GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
 	if (isset($this->_optionInstances)) {
 	    $optionInstances = $this->_optionInstances;
 	} else {

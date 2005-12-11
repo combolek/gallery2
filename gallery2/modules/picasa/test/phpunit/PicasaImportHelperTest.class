@@ -26,7 +26,7 @@
  * @author Waldemar Schlackow <gallery@schlackow.de>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/PicasaImportHelper.class');
+GalleryCoreApi::requireOnce('modules/picasa/classes/PicasaImportHelper.class');
 
 /**
  * PicasaImportHelper tests

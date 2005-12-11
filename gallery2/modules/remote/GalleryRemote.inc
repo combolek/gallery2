@@ -29,8 +29,8 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/remote/classes/GalleryRemoteProperties.class');
-GalleryCoreApi::relativeRequireOnce('modules/remote/classes/GalleryRemoteConstants.class');
+GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteProperties.class');
+GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteConstants.class');
 
 /**
  * This controller fields requests from Gallery Remote and perform any required changes
@@ -403,7 +403,7 @@ class GalleryRemoteController extends GalleryController {
 	if (isset($this->_optionInstances)) {
 	    $optionInstances = $this->_optionInstances;
 	} else {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/ItemAdd.inc');
+	    GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
 	    list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);

@@ -200,7 +200,7 @@ class ConfirmImportController extends GalleryController {
 	$itemsCreated = array();
 
 	/* Get list of userids in advance */
-	GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/Gallery1DataParser.class');
+	GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
 	list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);

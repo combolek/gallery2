@@ -42,7 +42,7 @@ class SearchUtilitiesTest extends GalleryTestCase {
     function testSanitizeSearchCriteria() {
 	global $gallery;
 
-	GalleryCoreApi::relativeRequireOnce('modules/search/classes/SearchUtilities.class');
+	GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
 	$this->assertEquals('%%foo%%bar%%', SearchUtilities::sanitizeSearchCriteria('%foo%bar%'));
     }

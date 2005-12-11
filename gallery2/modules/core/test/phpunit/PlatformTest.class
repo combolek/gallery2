@@ -685,7 +685,7 @@ class PlatformTestPhpVm extends GalleryPhpVm {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
 class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;
@@ -702,7 +702,7 @@ class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class PlatformTestOpenBaseDirWinNtPlatform extends WinNtPlatform {
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;

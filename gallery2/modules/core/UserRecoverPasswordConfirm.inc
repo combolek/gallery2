@@ -27,7 +27,7 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::relativeRequireOnce(
+GalleryCoreApi::requireOnce(
     'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
 
 /**

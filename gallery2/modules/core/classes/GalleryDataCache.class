@@ -317,7 +317,7 @@ class GalleryDataCache {
 	    $marker = strcspn($buf, '|');
 	    foreach (explode(',', substr($buf, 0, $marker)) as $classFile) {
 		if ($classFile) {
-		    GalleryCoreApi::relativeRequireOnce($classFile);
+		    GalleryCoreApi::requireOnce($classFile);
 		}
 	    }
 	    $data = unserialize(substr($buf, $marker+1));

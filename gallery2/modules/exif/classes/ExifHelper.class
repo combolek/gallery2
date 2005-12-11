@@ -186,7 +186,7 @@ class ExifHelper {
      */
     function _fetchRawExifData($path, &$rawExifData) {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/exif/lib/exifer/exif.inc');
+	GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
 
 	$platform =& $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
@@ -225,7 +225,7 @@ class ExifHelper {
 					      "Missing $path"),
 			 null);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/exif/lib/JPEG/JPEG.inc');
+	GalleryCoreApi::requireOnce('modules/exif/lib/JPEG/JPEG.inc');
 	$result = new JPEG($path);
 	if ($gallery->getDebug()) {
 	    /* Capture old-school print_r() to support older PHP */

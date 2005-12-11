@@ -102,7 +102,7 @@ class UserWatermarksController extends GalleryController {
 	    $results['delegate']['view'] = 'core.UserAdmin';
 	    $results['delegate']['subView'] = 'watermark.UserWatermarks';
 	} else if (isset($form['action']['delete']) && isset($form['delete']['watermarkId'])) {
-	    GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+	    GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 	    list ($ret, $wasDeleted) =
 		WatermarkHelper::deleteWatermarkImageById($form['delete']['watermarkId']);
@@ -140,7 +140,7 @@ class UserWatermarksView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');

@@ -28,7 +28,7 @@
 /**
  * Required class
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 /**
  * Status codes

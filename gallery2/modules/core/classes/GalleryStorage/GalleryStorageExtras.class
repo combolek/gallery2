@@ -870,7 +870,10 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$mapInfo = $this->_gs->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->_gs->_describeMapMembers($mapName);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 	list ($tableName) = $this->_gs->_translateTableName($mapName);
 	$data = $columns = array();
 	foreach ($mapInfo as $memberName => $memberType) {
@@ -970,7 +973,10 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$mapInfo = $this->_gs->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->_gs->_describeMapMembers($mapName);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 	list ($tableName, $unused) = $this->_gs->_translateTableName($mapName);
 	$data = $where = array();
 

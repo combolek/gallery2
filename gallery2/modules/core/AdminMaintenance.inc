@@ -27,7 +27,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
+GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
 
 /**
  * This controller will send the user to the chosen subView in the AdminMaintenance

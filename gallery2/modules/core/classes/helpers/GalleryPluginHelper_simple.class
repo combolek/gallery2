@@ -78,7 +78,7 @@ class GalleryPluginHelper_simple {
 		$pluginBaseDir = GalleryCoreApi::getPluginBaseDir($pluginType, $pluginId);
 		$pluginFile = sprintf('%ss/%s/%s.inc', $pluginType, $pluginId, $pluginType);
 
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 		    sprintf('modules/core/classes/%s.class', $pluginSuperClass));
 
 		$platform =& $gallery->getPlatform();
@@ -106,7 +106,7 @@ class GalleryPluginHelper_simple {
 		    }
 		}
 
-		GalleryCoreApi::relativeRequireOnce($pluginFile);
+		GalleryCoreApi::requireOnce($pluginFile);
 
 		if (!class_exists($pluginClass)) {
 		    return array(GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,

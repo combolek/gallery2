@@ -961,13 +961,13 @@ class GallerySession {
 	    list ($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 
 	    if (!empty($controller)) {
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 		list ($ret, $controller) = GalleryController::loadController($controller);
 		if (!$ret && !$controller->shouldSaveSession()) {
 		    $flag = false;
 		}
 	    } else if (!empty($view)) {
-		GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
+		GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 		list ($ret, $view) = GalleryView::loadView($view);
 		if (!$ret && !$view->shouldSaveSession()) {
 		    $flag = false;

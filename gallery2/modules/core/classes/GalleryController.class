@@ -165,7 +165,7 @@ class GalleryController {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce($fileName);
+	    GalleryCoreApi::requireOnce($fileName);
 
 	    if (!class_exists($controllerClassName)) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,

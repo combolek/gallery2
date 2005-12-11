@@ -145,7 +145,7 @@ class GalleryPermissionHelper_medium {
 	if (GalleryDataCache::containsKey($cacheKey)) {
 	    $results = GalleryDataCache::get($cacheKey);
 	} else {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 
 	    list ($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();

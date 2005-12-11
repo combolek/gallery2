@@ -26,7 +26,7 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
  * ConfirmImport controller tests

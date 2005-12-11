@@ -145,7 +145,7 @@ class ThumbnailModule extends GalleryModule {
 		$ids[] = $result[0];
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailImage.class');
+	    GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 	    if (!empty($ids)) {
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($ids);
 		if ($ret) {
@@ -242,7 +242,7 @@ class ThumbnailModule extends GalleryModule {
      * @see GalleryModule::activate()
      */
     function activate($postActivationEvent=true) {
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 	global $gallery;
 
 	/* Register toolkit operation for any mime type settings already in the database */
@@ -265,7 +265,7 @@ class ThumbnailModule extends GalleryModule {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$itemId = array();
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailImage.class');
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailImage.class');
 	foreach (array(
 	    'G2audio.jpg' => array('audio/mpeg', 'audio/x-wav', 'audio/x-aiff',
 				   'audio/midi', 'audio/basic', 'audio/x-ms-wma'),
@@ -324,7 +324,7 @@ class ThumbnailModule extends GalleryModule {
      * @see GalleryModule::uninstall()
      */
     function uninstall() {
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 	global $gallery;
 
 	/* Remove custom thumbnails from items */

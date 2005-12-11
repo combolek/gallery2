@@ -541,8 +541,8 @@ function ItemEditAlbumPluginTestCmp($a, $b) {
     return $a['derivativeType'] - $b['derivativeType'];
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDataItem.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Mock data item

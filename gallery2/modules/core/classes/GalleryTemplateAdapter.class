@@ -540,7 +540,7 @@ class GalleryTemplateAdapter {
 	    if ($ret) {
 		return;
 	    }
-	    GalleryCoreApi::relativeRequireOnce('modules/core/module.inc');
+	    GalleryCoreApi::requireOnce('modules/core/module.inc');
 	    $installedVersions = CoreModule::getInstalledVersions();
 	}
 
@@ -630,7 +630,7 @@ class GalleryTemplateAdapter {
 	}
 	if ($debug) {
 	    /* Smarty debug console */
-	    GalleryCoreApi::relativeRequireOnce('lib/smarty/plugins/function.debug.php');
+	    GalleryCoreApi::requireOnce('lib/smarty/plugins/function.debug.php');
 	    $buf .= smarty_function_debug($params, $smarty);
 	}
 	return $buf;
@@ -735,7 +735,7 @@ class GalleryTemplateAdapter {
      */
     function callback($params, &$smarty) {
 	list ($module, $file) = explode('.', $params['type']);
-	GalleryCoreApi::relativeRequireOnce("modules/$module/Callbacks.inc");
+	GalleryCoreApi::requireOnce("modules/$module/Callbacks.inc");
 
 	$userId = $smarty->_tpl_vars['theme']['actingUserId'];
 	$className = "${module}Callbacks";

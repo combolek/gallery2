@@ -26,7 +26,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangHelper.class');
+GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
 
 /**
  * MultiLangItemEdit controller tests

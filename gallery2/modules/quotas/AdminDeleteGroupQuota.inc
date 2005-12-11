@@ -63,7 +63,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 
 	} else if (isset($form['action']['delete'])) {
 
-	    GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	    GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 	    list ($ret, $quotaExists, $groupQuota) =
 	        GalleryQuotasHelper::fetchGroupQuota($group->getId());
@@ -116,7 +116,7 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
 	if ($ret) {

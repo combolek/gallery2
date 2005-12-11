@@ -27,8 +27,8 @@
 * @author Waldemar Schlackow <gallery@schlackow.de> based on code by Bharat Mediratta
 */
 
-GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/Picasa2DataParser.class');
-GalleryCoreApi::relativeRequireOnce('modules/picasa/test/phpunit/MockLockSystem.class');
+GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
+GalleryCoreApi::requireOnce('modules/picasa/test/phpunit/MockLockSystem.class');
 
 /**
  * ConfirmPicasaImport controller tests

@@ -26,8 +26,8 @@
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/register/classes/GalleryPendingUserHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * UserSelfRegistration controller tests

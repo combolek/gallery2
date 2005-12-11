@@ -28,7 +28,7 @@ class ImageBlockCallbacks {
     /**
      */
     function callback($params, &$smarty, $callback, $userId=null) {
-	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 
 	switch($callback) {
 	case 'LoadImageBlock':

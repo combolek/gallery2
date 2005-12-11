@@ -67,7 +67,7 @@ class CaptchaConfigAdminView extends GalleryView {
 	    $form['formName'] = 'CaptchaConfigAdmin';
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/captcha/classes/CaptchaHelper.class');
+	GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
 	$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
 	$CaptchaConfigAdmin = array();

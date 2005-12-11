@@ -40,7 +40,7 @@ function RepositoryToolsMain() {
 
     global $gallery;
 
-    GalleryCoreApi::relativeRequireOnce(
+    GalleryCoreApi::requireOnce(
 	'lib/tools/repository/classes/RepositoryControllerAndView.class');
 
     /* Set repository configuration data. */

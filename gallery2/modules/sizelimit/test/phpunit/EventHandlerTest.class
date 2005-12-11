@@ -62,7 +62,7 @@ class EventHandlerTest extends GalleryTestCase {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
         }
 
-	GalleryCoreApi::relativeRequireOnce('modules/sizelimit/module.inc');
+	GalleryCoreApi::requireOnce('modules/sizelimit/module.inc');
 	list($ret, $data) = SizeLimitModule::handleEvent($event);
         if ($ret) {
             return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

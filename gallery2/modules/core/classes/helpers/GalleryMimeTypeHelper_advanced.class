@@ -31,7 +31,7 @@
  * @package GalleryCore
  * @subpackage Classes
  */
-GalleryCoreApi::relativeRequireOnce(
+GalleryCoreApi::requireOnce(
     'modules/core/classes/helpers/GalleryMimeTypeHelper_simple.class');
 
 class GalleryMimeTypeHelper_advanced {

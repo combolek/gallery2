@@ -26,8 +26,8 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySmarty.class');
-GalleryCoreApi::relativeRequireOnce('modules/albumselect/Callbacks.inc');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySmarty.class');
+GalleryCoreApi::requireOnce('modules/albumselect/Callbacks.inc');
 
 /**
  * Test AlbumSelect functionality

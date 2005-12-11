@@ -27,7 +27,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/FlushDatabaseCacheTask.class');
+GalleryCoreApi::requireOnce('modules/core/classes/FlushDatabaseCacheTask.class');
 
 /**
  * This is a MaintenanceTask that will reset the view counts for all albums/items.

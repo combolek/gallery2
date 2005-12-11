@@ -41,7 +41,7 @@ class MembersProfileView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	GalleryCoreApi::relativeRequireOnce('modules/members/classes/GalleryMembersHelper.class');
+	GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
 	list ($ret, $result) =
 	    GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
 	if ($ret) {

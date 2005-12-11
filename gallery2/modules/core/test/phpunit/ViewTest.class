@@ -26,8 +26,8 @@
  * @author Ernesto Baschny <ernst@baschny.de>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
+GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 /**
  * Test GalleryView functionality
  *
@@ -46,7 +46,7 @@ class ViewTest extends GalleryTestCase {
     }
 
     function testLoadViewSuccess() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));

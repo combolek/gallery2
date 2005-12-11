@@ -35,7 +35,7 @@ class MembersCallbacks {
 	switch($callback) {
 	case 'LoadMembers':
 	    /* The "Members List" link */
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/members/classes/GalleryMembersHelper.class');
 	    list ($ret, $block['members']['LoadMembers']['canViewList']) =
 		GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());

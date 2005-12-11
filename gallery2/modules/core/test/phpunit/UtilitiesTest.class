@@ -1391,7 +1391,7 @@ class UtilitiesTestPlatform {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class UtilitiesTestWinPlatform extends WinNtPlatform {
     function realpath($file) {
 	/* These are used in testIsPathInList */

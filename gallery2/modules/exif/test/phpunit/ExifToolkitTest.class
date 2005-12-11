@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifToolkit.class');
+GalleryCoreApi::requireOnce('modules/exif/classes/ExifToolkit.class');
 
 /**
  * Test ExifToolkit functionality

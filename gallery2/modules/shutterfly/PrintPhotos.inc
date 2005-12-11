@@ -202,7 +202,7 @@ class PrintPhotosView extends GalleryView {
 	    setcookie('G2_shutterfly', '1');
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
 	$template->setVariable('l10Domain', 'modules_shutterfly');
 	$template->setVariable('PrintPhotos', array('returnUrl' => $returnUrl,

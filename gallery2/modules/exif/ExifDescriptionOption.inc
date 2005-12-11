@@ -54,8 +54,8 @@ class ExifDescriptionOption extends ItemAddOption {
     function handleRequestAfterAdd($form, $items) {
 	$errors = array();
 	$warnings = array();
-	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifExtractor.class');
-	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
+	GalleryCoreApi::requireOnce('modules/exif/classes/ExifExtractor.class');
+	GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 	list ($ret, $addOption) =
 	    GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');

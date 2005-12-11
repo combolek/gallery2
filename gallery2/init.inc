@@ -41,18 +41,18 @@ function GalleryInitFirstPass($params=array()) {
     /* Load all the core Gallery classes */
     $galleryBase = dirname(__FILE__) . '/';
     require_once($galleryBase . 'modules/core/classes/GalleryCoreApi.class');
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryConstants.class', true);
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUtilities.class', true);
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryCapabilities.class', true);
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class', true);
-    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryModule.class', true);
+    GalleryCoreApi::requireOnce('modules/core/classes/GalleryConstants.class', true);
+    GalleryCoreApi::requireOnce('modules/core/classes/GalleryUtilities.class', true);
+    GalleryCoreApi::requireOnce('modules/core/classes/GalleryCapabilities.class', true);
+    GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class', true);
+    GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class', true);
 
     if (!strncasecmp(PHP_OS, 'win', 3)) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/GalleryPlatform/WinNtPlatform.class', true);
 	$platform = new WinNtPlatform();
     } else {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/GalleryPlatform/UnixPlatform.class', true);
 	$platform = new UnixPlatform();
     }
@@ -102,7 +102,7 @@ function GalleryInitFirstPass($params=array()) {
 	}
     }
     if (!isset($urlGenerator)) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
 	$urlGenerator = new GalleryUrlGenerator();
     }
     $ret = $urlGenerator->init(
@@ -118,7 +118,7 @@ function GalleryInitFirstPass($params=array()) {
     /* Initialize our session */
     if (!isset($params['noDatabase'])) {
 	if (isset($params['gallerySessionId'])) {
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class', true);
+	    GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class', true);
 	    GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
 	}
 	$ret = $gallery->initSession();
@@ -131,7 +131,7 @@ function GalleryInitFirstPass($params=array()) {
 
     /* Initialize our translator */
     if (isset($params['activeLanguage'])) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class', true);
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class', true);
 	list ($language) = GalleryTranslator::getSupportedLanguageCode($params['activeLanguage']);
 	$gallery->setActiveLanguageCode($language);
     }

@@ -48,7 +48,7 @@ class MailHelper_simple {
     function sendTemplatedEmail($file, $data, $from, $to, $subject, $headers='') {
 	global $gallery;
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
 
 	/* Set the smarty variables from the data array */

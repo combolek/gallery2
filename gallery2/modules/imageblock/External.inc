@@ -52,7 +52,7 @@ class ExternalView extends GalleryView {
      * @see GalleryView::loadTemplate()
      */
     function renderImmediate($status, $error) {
-	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 	global $gallery;
 	$SlideShow = array();
 	$startId = null;
@@ -74,7 +74,7 @@ class ExternalView extends GalleryView {
 	    }
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	if (isset($this->_template)) {
 	    $template =& $this->_template;
 	} else {

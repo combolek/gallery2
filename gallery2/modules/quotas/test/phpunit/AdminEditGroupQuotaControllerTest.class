@@ -29,7 +29,7 @@
 /**
  * Helper class
  */
-GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 /**
  * AdminEditGroupQuota controller tests

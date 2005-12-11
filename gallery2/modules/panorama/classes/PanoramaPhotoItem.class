@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPhotoItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhotoItem.class');
 
 /**
  * An extension of GalleryPhotoItem to render in panorama mode
@@ -86,5 +86,5 @@ class PanoramaPhotoItem_core extends GalleryPhotoItem {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/interfaces/PanoramaPhotoItem.inc');
+GalleryCoreApi::requireOnce('modules/panorama/classes/interfaces/PanoramaPhotoItem.inc');
 ?>

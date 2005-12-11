@@ -68,7 +68,7 @@ class CustomFieldModule extends GalleryModule {
      * @see GalleryModule::registerEventListeners()
      */
     function registerEventListeners() {
-	GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
+	GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', new CustomFieldHelper());
     }
 
@@ -85,8 +85,8 @@ class CustomFieldModule extends GalleryModule {
      * @see GalleryModule::getItemSummaries()
      */
     function getItemSummaries($items, $permissions) {
-	GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
-	GalleryCoreApi::relativeRequireOnce('lib/smarty_plugins/modifier.markup.php');
+	GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
+	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 	$summaries = array();
 
 	list ($ret, $data) = CustomFieldHelper::fetchFieldValues($items, 'summary');

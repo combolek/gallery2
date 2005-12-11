@@ -25,7 +25,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryLockSystem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
 
 /**
  * Flock() based locking.  This is fairly efficient, but it will not work on NFS

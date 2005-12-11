@@ -25,7 +25,7 @@
  * @author 
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStorage.class', true);
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryStorage.class', true);
 
 /**
  * IBM DB2 UDB (for Linux/UNIX/Windows) extension of the GalleryStorage class.

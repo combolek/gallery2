@@ -55,7 +55,7 @@ class CoreModule extends GalleryModule {
      * @see GalleryModule::registerEventListeners();
      */
     function registerEventListeners() {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryItemHelper_medium.class');
 	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange',
 					      new GalleryItemHelper_medium());
@@ -488,7 +488,7 @@ class CoreModule extends GalleryModule {
      * make sense to load it every single time.
      */
     function upgrade($currentVersion, $statusMonitor) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/CoreModuleExtras.inc');
+	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -545,7 +545,7 @@ class CoreModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations()
      */
     function performFactoryRegistrations() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/CoreModuleExtras.inc');
+	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::performFactoryRegistrations($this);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);

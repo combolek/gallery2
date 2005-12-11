@@ -47,7 +47,7 @@ class MyPageController extends GalleryController {ldelim}
 	$status = array();
 	$error = array();
 	if (isset($form['action']['save'])) {ldelim}
-	    GalleryCoreApi::relativeRequireOnce('modules/{$moduleId}/classes/{$mapName}.class');
+	    GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/{$mapName}.class');
 	    $ret = GalleryCoreApi::removeMapEntry('{$mapName}', array('itemId' => $itemId));
 	    if ($ret->isError()) {ldelim}
 	        return array($ret->wrap(__FILE__, __LINE__), null);
@@ -95,7 +95,7 @@ class MyPageView extends GalleryView {ldelim}
 
 	$MyPage = array();
 	$MyPage['item'] = $item->getMemberData();
-	GalleryCoreApi::relativeRequireOnce('modules/{$moduleId}/classes/MyPageHelper.class');
+	GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/MyPageHelper.class');
 	list ($ret, $MyPage['value']) = MyPageHelper::getItemValue($item->getId());
 	if ($ret->isError()) {ldelim}
 	    return array($ret->wrap(__FILE__, __LINE__), null);

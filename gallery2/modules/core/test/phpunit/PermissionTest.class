@@ -1038,7 +1038,7 @@ class PermissionTest extends GalleryTestCase {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEventListener.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
 
 /**
  * Dummy event listener

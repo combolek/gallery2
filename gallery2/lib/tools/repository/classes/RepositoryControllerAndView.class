@@ -45,7 +45,7 @@
      * Initializes the Smarty template system.
      */
     function init() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$this->_template = new GalleryTemplate(dirname(__FILE__) . '/../../../..');
 
 	/* Set the translation domain */

@@ -209,7 +209,7 @@ class GalleryFactoryHelper_simple {
 			     null);
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce($relativePath);
+	    GalleryCoreApi::requireOnce($relativePath);
 
 	    if (!class_exists($className)) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,

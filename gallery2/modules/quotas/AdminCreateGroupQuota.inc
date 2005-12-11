@@ -69,7 +69,7 @@ class AdminCreateGroupQuotaController extends GalleryController {
 	        array_key_exists('quotaUnit', $form)) {
 		if (!empty($form['quotaSize']) && is_numeric($form['quotaSize']) &&
 		    $form['quotaSize'] >= 0 && !empty($form['quotaSize'])) {
-		    GalleryCoreApi::relativeRequireOnce(
+		    GalleryCoreApi::requireOnce(
 			'modules/quotas/classes/GalleryQuotasHelper.class');
 		    $form['quotaSize'] = round((float)$form['quotaSize'], 2);
 		    if ($form['quotaUnit'] == 'KB') {

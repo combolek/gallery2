@@ -50,7 +50,7 @@ class RewriteModule extends GalleryModule {
      * @see GalleryModule::upgrade
      */
     function upgrade($currentVersion) {
-	GalleryCoreApi::relativeRequireOnce('modules/rewrite/RewriteModuleExtras.inc');
+	GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
 	$ret = RewriteModuleExtras::upgrade($this, $currentVersion);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -63,7 +63,7 @@ class RewriteModule extends GalleryModule {
      * @see GalleryModule::uninstall
      */
     function uninstall() {
-	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
+	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 	list($ret, $code) = RewriteHelper::writeFile(null);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -122,7 +122,7 @@ class RewriteModule extends GalleryModule {
     function autoConfigure() {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
-	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
+	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 
 	if (strpos($urlGenerator->getCurrentUrlDir(true), 'install/index.php') !== false &&
 		$gallery->getConfig('galleryBaseUrl')) {
@@ -178,7 +178,7 @@ class RewriteModule extends GalleryModule {
 	    return array(null, $redirect);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
+	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 
 	list ($ret, $activeRules) = RewriteHelper::getActiveRules();
 	if ($ret) {
@@ -300,8 +300,8 @@ class RewriteModule extends GalleryModule {
     function handleEvent($event) {
 	$data = $event->getData();
 	if ($data['pluginType'] == 'module' && $data['pluginId'] != 'rewrite') {
-	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
-	    GalleryCoreApi::relativeRequireOnce('modules/rewrite/RewriteModuleExtras.inc');
+	    GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
+	    GalleryCoreApi::requireOnce('modules/rewrite/RewriteModuleExtras.inc');
 
 	    switch ($event->getEventName()) {
 	    case 'Gallery::ActivatePlugin':

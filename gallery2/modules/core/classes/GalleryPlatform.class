@@ -1044,7 +1044,7 @@ class GalleryPlatform {
 	}
 
 	if (!empty($config['smtp.host'])) {
-	    GalleryCoreApi::relativeRequireOnce('lib/smtp/smtp.php');
+	    GalleryCoreApi::requireOnce('lib/smtp/smtp.php');
 	    $ret = smtpmail($config, $to, $subject, $body, $headers);
 	    if ($ret && $gallery->getDebug()) {
 		$gallery->debug("smtpmail error: " . $ret->getAsText());

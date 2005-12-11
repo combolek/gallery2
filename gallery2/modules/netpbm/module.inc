@@ -149,7 +149,7 @@ class NetPbmModule extends GalleryModule {
 	}
 
 	/* Load any classes we require */
-	GalleryCoreApi::relativeRequireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
+	GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
 
 	/* Now try each path in turn to see which ones work */
 	$success = false;
@@ -205,7 +205,7 @@ class NetPbmModule extends GalleryModule {
      */
     function activate($postActivationEvent=true) {
 	/* Load any classes we require */
-	GalleryCoreApi::relativeRequireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
+	GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
 
 	/* Find out what operations and properties we have available to us */
 	list ($ret, $results) = NetPbmToolkitHelper::getOperationsAndProperties(true);

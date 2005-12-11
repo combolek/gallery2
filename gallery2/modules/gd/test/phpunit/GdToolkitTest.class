@@ -29,9 +29,9 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdToolkitHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdToolkit.class');
-GalleryCoreApi::relativeRequireOnce('modules/gd/test/phpunit/TestGdFunctionality.class');
+GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkit.class');
+GalleryCoreApi::requireOnce('modules/gd/test/phpunit/TestGdFunctionality.class');
 
 /**
  * Test GdToolkit functionality

@@ -29,7 +29,7 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
+GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 /**
  * PanoramaSiteAdmin controller tests

@@ -28,7 +28,7 @@
 /**
  * Required class
  */
-GalleryCoreApi::relativeRequireOnce('modules/rewrite/classes/RewriteHelper.class');
+GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
 
 /**
  * @package Rewrite

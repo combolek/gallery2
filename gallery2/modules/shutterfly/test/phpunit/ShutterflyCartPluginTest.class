@@ -105,8 +105,8 @@ class ShutterflyCartPluginTest extends GalleryTestCase {
 	    $cartItemIds[$this->_items[$i]->getId()] = $i+1;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce(
 	    'modules/shutterfly/classes/ShutterflyCartPlugin.class');
 	$cartPlugin = new ShutterflyCartPlugin();
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);

@@ -33,7 +33,7 @@ class CartCallbacks {
 	switch($callback) {
 	case 'LoadCart':
 	    /* The cart contents' count */
-	    GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartHelper.class');
+	    GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 	    list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);

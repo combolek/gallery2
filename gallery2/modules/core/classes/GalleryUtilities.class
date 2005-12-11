@@ -922,7 +922,7 @@ class GalleryUtilities {
      * @return string resulting text
      */
     function markup($text, $markupType=null) {
-	GalleryCoreApi::relativeRequireOnce('lib/smarty_plugins/modifier.markup.php');
+	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
 	return smarty_modifier_markup($text, $markupType);
     }
 

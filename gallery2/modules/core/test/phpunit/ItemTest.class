@@ -1584,7 +1584,7 @@ class ItemTestToolkit extends GalleryToolkit {
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMovieItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryMovieItem.class');
 
 /**
  * Test movie item

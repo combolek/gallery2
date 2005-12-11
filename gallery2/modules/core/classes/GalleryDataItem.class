@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
 
 /**
  * A subclass of GalleryItem for items containing actual data

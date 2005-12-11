@@ -26,7 +26,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/icons/classes/IconsImpl.class');
+GalleryCoreApi::requireOnce('modules/icons/classes/IconsImpl.class');
 
 /**
  * Iconpack tests

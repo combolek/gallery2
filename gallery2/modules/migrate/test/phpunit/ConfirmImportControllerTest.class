@@ -26,7 +26,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
  * ConfirmImport controller tests
@@ -637,7 +637,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			    'item 0');
 
 	if ($importCustomFields) {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/customfield/classes/CustomFieldHelper.class');
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
 	    if ($ret) {
@@ -1760,7 +1760,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 			    );
 
 	if ($importCustomFields) {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/customfield/classes/CustomFieldHelper.class');
 	    list ($ret, $fields) = CustomFieldHelper::fetchFieldValues(array($testItem), 'detail');
 	    if ($ret) {

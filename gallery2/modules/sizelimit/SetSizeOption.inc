@@ -33,7 +33,7 @@
  * @package SizeLimit
  * @subpackage UserInterface
  */
-GalleryCoreApi::relativeRequireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
+GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 class SetSizeOption extends ItemAddOption {
 
