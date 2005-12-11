@@ -59,8 +59,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		$url = GalleryUtilities::htmlEntityDecode($url);
 		list ($successfullyCopied, $response, $headers) =
 		    GalleryCoreApi::fetchWebFile($url, $tmpFile);
-
-		if ($successfullyCopied && strpos($response, '404 Not Found') === false) {
+		if ($successfullyCopied) {
 		    /* Add it */
 		    list ($ret, $mimeType, $fileName) = $this->_getMimeType($url, $headers, true);
 		    if ($ret) {
@@ -120,9 +119,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		}
 	    }
 	    if (empty($form['error'])) {
-		list ($buffer, $response, $headers, $actualUrl) =
+		list ($successful, $buffer, $response, $headers, $actualUrl) =
 		    GalleryCoreApi::fetchWebPage($form['webPage']);
-		if (empty($buffer) || strpos($response, '404 Not Found') !== false) {
+		if (empty($buffer) || !$successful) {
 		    $form['error']['webPage']['unavailable'] = 1;
 		}
 	    }

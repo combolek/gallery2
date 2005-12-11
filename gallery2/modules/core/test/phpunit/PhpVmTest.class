@@ -98,7 +98,8 @@ class PhpVmTest extends GalleryTestCase {
 	$url = $urlGenerator->getCurrentUrl();
 	/* Strip of the /lib/tools/test/ part to get a valid G2 request uri */
 	$url = preg_replace('|^(.*/)lib/tools/.*$|', '$1', $url);
-	list ($body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
+	list ($success, $body, $response, $headers) = GalleryCoreApi::fetchWebPage($url);
+	$this->assert($success, 'Could not retrieve G2 page');
 	$this->assertEquals($response, 'HTTP/1.1 200 OK', 'Could not retrieve G2 page');
 	$this->assertEquals(true, isset($headers['Set-Cookie']), 'Set-Cookie header not set');
 	if (isset($headers['Set-Cookie'])) {

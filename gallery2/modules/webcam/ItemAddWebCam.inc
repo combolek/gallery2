@@ -50,7 +50,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 
 	    list ($successfullyCopied, $response, $headers) =
 		GalleryCoreApi::fetchWebFile($url, $tmpFile);
-	    if (!$successfullyCopied || strpos($response, '404 Not Found') !== false) {
+	    if (!$successfullyCopied) {
 		$error[] = 'form[error][imageUrl][unavailable]';
 	    }
 
