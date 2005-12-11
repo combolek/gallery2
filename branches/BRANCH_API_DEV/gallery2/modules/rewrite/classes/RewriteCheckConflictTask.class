@@ -27,7 +27,7 @@
  * @author Douglas Cau <douglas@cau.se>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/AdminMaintenance.inc');
+GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
 
 /**
  * This is a MaintenanceTask that will check the short style URL for a

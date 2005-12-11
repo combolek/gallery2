@@ -28,7 +28,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
+GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
 /**
  * @package ImageMagick

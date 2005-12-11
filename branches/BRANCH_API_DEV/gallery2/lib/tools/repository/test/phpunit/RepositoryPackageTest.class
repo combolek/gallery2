@@ -25,9 +25,9 @@
  * @author Jozef Selesi <selesi at gmail dot com>
  */
 
-GalleryCoreApi::relativeRequireOnce('lib/tools/repository/classes/RepositoryObject.class');
-GalleryCoreApi::relativeRequireOnce('lib/tools/repository/classes/RepositoryPackage.class');
-GalleryCoreApi::relativeRequireOnce(
+GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryObject.class');
+GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryPackage.class');
+GalleryCoreApi::requireOnce(
     'lib/tools/repository/test/phpunit/RepositoryTestTemplate.class');
 
 /**

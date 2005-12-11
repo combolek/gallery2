@@ -264,7 +264,7 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 /**
  * Required by our test toolkit
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUnknownItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryUnknownItem.class');
 
 class ItemEditPhotoThumbnailTestItem extends GalleryUnknownItem {
     function setWidth($width) {
@@ -287,7 +287,7 @@ class ItemEditPhotoThumbnailTestItem extends GalleryUnknownItem {
 /**
  * Required by our test toolkit
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Test toolkitk

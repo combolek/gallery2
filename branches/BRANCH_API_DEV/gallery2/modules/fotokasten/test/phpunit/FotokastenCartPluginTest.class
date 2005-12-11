@@ -41,8 +41,8 @@ class FotokastenCartPluginTest extends GalleryTestCase {
     function testFulfillCart() {
 	global $gallery;
 
-	GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce(
 	    'modules/fotokasten/classes/FotokastenCartPlugin.class');
 	$cartPlugin = new FotokastenCartPlugin();
 	$cartItemIds = array(123 => 1, 456 => 2, 789 => 1);

@@ -163,7 +163,7 @@ class AdminSelfRegistrationControllerTest extends GalleryControllerTestCase {
     }
 
     function testHelperMethods() {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/register/classes/GalleryPendingUserHelper.class');
 	list ($ret, $count) = GalleryPendingUserHelper::fetchUserCount();
 	if ($ret) {

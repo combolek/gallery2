@@ -109,7 +109,7 @@ class DcrawModule extends GalleryModule {
 	}
 
 	/* Detect the version of the binary (it may have changed since last activation) */
-	GalleryCoreApi::relativeRequireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
+	GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 	list ($ret, $path) = $this->getParameter('path');
 	if ($ret) {
@@ -237,7 +237,7 @@ class DcrawModule extends GalleryModule {
 	}
 
 	/* Load any classes we require */
-	GalleryCoreApi::relativeRequireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
+	GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 	/* Now try each path in turn to see which ones work */
 	foreach ($paths as $path) {

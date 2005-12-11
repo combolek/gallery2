@@ -152,7 +152,7 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	 */
 	list ($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 	if ($view != 'core.ItemAdmin' && empty($controller) && !$duringUpgrade) {
-	    GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangHelper.class');
+	    GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
 	    $ret = MultiLangHelper::onLoad($entity);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);

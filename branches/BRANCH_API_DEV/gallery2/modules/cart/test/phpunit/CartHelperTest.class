@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartHelper.class');
+GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
  * Test Cart functionality

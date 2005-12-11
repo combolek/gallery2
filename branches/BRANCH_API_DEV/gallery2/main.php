@@ -171,7 +171,7 @@ function _GalleryMain($embedded=false) {
     /* Load and run the appropriate controller */
     $results = array();
     if (!empty($controllerName)) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) = GalleryController::loadController($controllerName);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -332,7 +332,7 @@ function _GalleryMain($embedded=false) {
 	}
 	$data['isDone'] = true;
     } else {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(__FILE__));
 	list ($ret, $results, $theme) = $view->doLoadTemplate($template, $embedded);
 	if ($ret) {
@@ -467,7 +467,7 @@ function _GalleryMain_errorHandler($error, $g2Data=null, $initOk=true) {
 
     if (!$failsafe) {
 	$dummyForm = array();
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(__FILE__));
 	$view->setError($error);
 	list ($ret, $results) = $view->loadTemplate($template, $dummyForm);

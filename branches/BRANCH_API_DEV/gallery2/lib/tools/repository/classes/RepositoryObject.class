@@ -20,8 +20,8 @@
  * $Id$
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 
 /**
  * An abstract class for repository objects - descriptors, packages and indexes.

@@ -93,7 +93,7 @@ class GalleryBbcodeMarkupParser {
     var $_bbcode;
 
     function GalleryBbcodeMarkupParser() {
-	GalleryCoreApi::relativeRequireOnce('lib/bbcode/bbcode.class');
+	GalleryCoreApi::requireOnce('lib/bbcode/bbcode.class');
 
 	$this->_bbcode = new GalleryBbcode();
 

@@ -189,8 +189,8 @@ class GalleryView {
 	     * We bundle view and controller classes together, so we need the controller
 	     * superclass to load the view
 	     */
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
-	    GalleryCoreApi::relativeRequireOnce($fileName);
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
+	    GalleryCoreApi::requireOnce($fileName);
 
 	    if (!class_exists($viewClassName)) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,

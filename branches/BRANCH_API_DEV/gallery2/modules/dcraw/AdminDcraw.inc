@@ -28,7 +28,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
+GalleryCoreApi::requireOnce('modules/dcraw/classes/DcrawToolkitHelper.class');
 
 /**
  * @package Dcraw

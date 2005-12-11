@@ -74,7 +74,7 @@ class AdminEditGroupQuotaController extends GalleryController {
 	        array_key_exists('quotaUnit', $form)) {
 		if (!empty($form['quotaSize']) && is_numeric($form['quotaSize']) &&
 		    $form['quotaSize'] >= 0 && !empty($form['quotaSize'])) {
-		    GalleryCoreApi::relativeRequireOnce(
+		    GalleryCoreApi::requireOnce(
 			'modules/quotas/classes/GalleryQuotasHelper.class');
 		    $form['quotaSize'] = round((float)$form['quotaSize'], 2);
 		    if ($form['quotaUnit'] == 'KB') {
@@ -173,7 +173,7 @@ class AdminEditGroupQuotaView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());

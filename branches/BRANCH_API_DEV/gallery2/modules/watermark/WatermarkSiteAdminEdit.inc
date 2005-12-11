@@ -25,7 +25,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 /**
  * @package Watermark

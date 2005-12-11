@@ -63,7 +63,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
-		GalleryCoreApi::relativeRequireOnce(
+		GalleryCoreApi::requireOnce(
 		    'modules/watermark/classes/WatermarkHelper.class');
 		$ret = WatermarkHelper::watermarkItem(
 		    $watermark, $item, $form['xPercent'], $form['yPercent'],
@@ -166,7 +166,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 	}
 
 	/* Load up all watermarks */
-	GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
 	list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);

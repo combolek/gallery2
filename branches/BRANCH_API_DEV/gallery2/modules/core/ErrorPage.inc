@@ -84,7 +84,7 @@ class ErrorPageView extends GalleryView {
 		}
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce('modules/core/module.inc');
+	    GalleryCoreApi::requireOnce('modules/core/module.inc');
 	    $installedVersions = CoreModule::getInstalledVersions();
 	    $ErrorPage['version'] = $installedVersions['gallery'];
 	}

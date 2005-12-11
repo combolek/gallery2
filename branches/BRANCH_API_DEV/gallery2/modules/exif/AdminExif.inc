@@ -31,7 +31,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
+GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 /**
  * This controller will handle the setting of Exif module options

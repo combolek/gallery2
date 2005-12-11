@@ -142,7 +142,7 @@ class CommentModule extends GalleryModule {
      * @see GalleryModule::registerEventListeners()
      */
     function registerEventListeners() {
-	GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	$listener = new GalleryCommentHelper();
 	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $listener, true);
     }
@@ -215,7 +215,7 @@ class CommentModule extends GalleryModule {
 	    $ids[] = $item->getId();
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	list ($ret, $commentCounts) = GalleryCommentHelper::fetchCommentCounts($ids);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

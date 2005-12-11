@@ -50,7 +50,7 @@ class CommentCallbacks {
 
 	    $viewMax = $params['show'];
 
-	    GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	    GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	    list ($ret, $comments) =
 		GalleryCommentHelper::fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
 	    if ($ret) {

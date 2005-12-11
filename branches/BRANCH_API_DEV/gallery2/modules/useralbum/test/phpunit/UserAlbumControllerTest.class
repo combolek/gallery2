@@ -68,7 +68,7 @@ class UserAlbumControllerTest extends GalleryControllerTestCase {
 	}
 	$this->_markForCleanup($this->_userWithAlbum);
 
-	GalleryCoreApi::relativeRequireOnce('modules/useralbum/classes/UserAlbumHelper.class');
+	GalleryCoreApi::requireOnce('modules/useralbum/classes/UserAlbumHelper.class');
 	$ret = UserAlbumHelper::createUserAlbum($this->_userWithAlbum);
 	if ($ret) {
 	    print $ret->getAsHtml();

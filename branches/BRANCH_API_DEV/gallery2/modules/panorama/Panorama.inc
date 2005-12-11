@@ -36,7 +36,7 @@ class PanoramaView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
+	GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {

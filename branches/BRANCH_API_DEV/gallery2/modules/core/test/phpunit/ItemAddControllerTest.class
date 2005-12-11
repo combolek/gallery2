@@ -307,7 +307,7 @@ class ItemAddTestOption extends ItemAddOption {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Test toolkit

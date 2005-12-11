@@ -28,7 +28,7 @@
 * Jesse Mullan <jmullan@visi.com>
 */
 
-GalleryCoreApi::requireOnce(dirname(__FILE__) . '/classes/Picasa2DataParser.class');
+GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
 
 /**
  * @version $Revision$ $Date$

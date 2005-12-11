@@ -31,9 +31,9 @@
  * a photo to an album and create a derivative, the factory won't try to go off
  * and load these classes (which lightens the load on our dummy toolkit)
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPhotoItem.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAlbumItem.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDerivativeImage.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhotoItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryAlbumItem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivativeImage.class');
 
 /**
  * ItemAddFromWeb plugin test

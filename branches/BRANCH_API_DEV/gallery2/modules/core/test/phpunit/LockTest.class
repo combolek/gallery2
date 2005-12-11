@@ -26,8 +26,8 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/DatabaseLockSystem.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/FlockLockSystem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/DatabaseLockSystem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/FlockLockSystem.class');
 
 /**
  * Test Lock functionality

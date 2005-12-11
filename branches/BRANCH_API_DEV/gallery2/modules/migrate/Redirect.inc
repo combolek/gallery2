@@ -46,7 +46,7 @@ class RedirectController extends GalleryController {
     * @see GalleryController::handleRequest()
     */
     function handleRequest($form) {
-	GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
+	GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 	global $gallery;
 
 	$path = GalleryUtilities::getRequestVariables('path');

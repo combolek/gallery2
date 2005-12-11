@@ -29,8 +29,8 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
-GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkImage.class');
+GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
 
 /**
  * UserWatermarks controller tests

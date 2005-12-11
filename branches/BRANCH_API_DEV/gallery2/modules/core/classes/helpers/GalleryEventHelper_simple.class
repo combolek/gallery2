@@ -52,7 +52,7 @@ class GalleryEventHelper_simple {
      * @static
      */
     function newEvent($eventName) {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEvent.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryEvent.class');
 	$event = new GalleryEvent();
 	$event->setEventName($eventName);
 	return $event;

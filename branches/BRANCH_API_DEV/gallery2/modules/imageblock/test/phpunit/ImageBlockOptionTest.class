@@ -29,7 +29,7 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
+GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
 
 /**
  * ImageBlockOption tests

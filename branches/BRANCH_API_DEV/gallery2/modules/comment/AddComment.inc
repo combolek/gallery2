@@ -52,7 +52,7 @@ class AddCommentController extends GalleryController {
 
 	$redirect = $status = $error = array();
 	if (isset($form['action']['add'])) {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/comment/classes/GalleryCommentHelper.class');
 
 	    if (empty($form['subject'])) {
@@ -173,7 +173,7 @@ class AddCommentView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();

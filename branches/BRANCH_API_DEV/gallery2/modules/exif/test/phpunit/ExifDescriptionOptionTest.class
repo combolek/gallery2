@@ -27,8 +27,8 @@
  * @author Georg Rehfeld <rehfeld@georg-rehfeld.de>
  */
 
-GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
-//GalleryCoreApi::relativeRequireOnce('modules/exif/ExifDescriptionOption.inc');
+GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
+//GalleryCoreApi::requireOnce('modules/exif/ExifDescriptionOption.inc');
 
 /**
  * ExifDescriptionOption tests
@@ -46,7 +46,7 @@ class ExifDescriptionOptionTest extends ItemAddOptionTestCase {
     function setUp() {
 	global $gallery;
 	parent::setUp();
-	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
+	GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {

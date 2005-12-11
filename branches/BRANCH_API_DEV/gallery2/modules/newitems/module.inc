@@ -83,7 +83,7 @@ class NewItemsModule extends GalleryModule {
      * @see GalleryModule::deactivate()
      */
     function deactivate($postDeactivationEvent=true) {
-	GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
+	GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 	list ($ret, $count) = NewItemsHelper::fetchAlbumCount();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

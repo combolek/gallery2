@@ -40,12 +40,12 @@ class ControllerTest extends GalleryTestCase {
 
     function setUp() {
 	parent::setUp();
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
 	GalleryPluginHelper_medium::setPluginInstance('module', 'controllertest', new ControllerTestModule());
     }
 
     function testLoadControllerSuccess() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) = GalleryController::loadController('core.ItemEdit');
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -54,7 +54,7 @@ class ControllerTest extends GalleryTestCase {
     }
 
     function testLoadControllerFail() {
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
 	list ($ret, $controller) =
 	    GalleryController::loadController('controllertest.SomeRandomController');
 	if ($ret && $ret->getErrorCode() & ERROR_PERMISSION_DENIED) {

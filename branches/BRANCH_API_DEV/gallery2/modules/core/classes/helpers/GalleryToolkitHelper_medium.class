@@ -707,7 +707,7 @@ class GalleryToolkitHelper_medium {
 		    $toolkit->estimateDimensions($derivative, $source);
 		} else {
 		    /* Fall back on the best-guess behaviour */
-		    GalleryCoreApi::relativeRequireOnce(
+		    GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryToolkit.class');
 		    GalleryToolkit::estimateDimensions($derivative, $source);
 		}

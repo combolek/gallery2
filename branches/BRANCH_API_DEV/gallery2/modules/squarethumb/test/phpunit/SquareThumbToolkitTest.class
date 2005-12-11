@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/squarethumb/classes/SquareThumbToolkit.class');
+GalleryCoreApi::requireOnce('modules/squarethumb/classes/SquareThumbToolkit.class');
 
 /**
  * Test SquareThumbToolkit functionality
@@ -416,8 +416,8 @@ class SquareThumbTestToolkit extends GalleryToolkit {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
 
 /**
  * Test platforms

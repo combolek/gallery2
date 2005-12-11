@@ -25,7 +25,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySortInterface_1_1.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GallerySortInterface_1_1.class');
 
 /**
  * Sort with new items shown first, followed by other items sorted by view count.

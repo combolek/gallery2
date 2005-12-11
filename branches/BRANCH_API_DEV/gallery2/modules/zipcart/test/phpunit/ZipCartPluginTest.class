@@ -179,8 +179,8 @@ class ZipCartPluginTest extends GalleryTestCase {
 	    $cartItemIds[$this->_items[$i]->getId()] = 1;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
-	GalleryCoreApi::relativeRequireOnce('modules/zipcart/classes/ZipCartPlugin.class');
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce('modules/zipcart/classes/ZipCartPlugin.class');
 	$cartPlugin = new ZipCartPlugin();
 	list ($ret, $urlParams) = $cartPlugin->fulfillCart($cartItemIds);
 	if ($ret) {
@@ -315,7 +315,7 @@ class ZipCartPluginTestPlatform {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * Test toolkit

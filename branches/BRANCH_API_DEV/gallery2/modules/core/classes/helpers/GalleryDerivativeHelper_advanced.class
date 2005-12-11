@@ -46,7 +46,7 @@ class GalleryDerivativeHelper_advanced {
      * @static
      */
     function fetchDerivativesBySourceIds($ids, $types=array()) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryDerivativeHelper_medium.class');
 	list ($ret, $results) =
 		GalleryDerivativeHelper_medium::_loadDerivatives(null, $ids, $types);
@@ -66,7 +66,7 @@ class GalleryDerivativeHelper_advanced {
      * @static
      */
     function fetchDerivativesByItemIds($ids) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryDerivativeHelper_medium.class');
 	if (empty($ids)) {
 	    return array(null, array());

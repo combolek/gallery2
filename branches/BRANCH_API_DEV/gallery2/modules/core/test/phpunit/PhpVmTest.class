@@ -26,7 +26,7 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPhpVm.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhpVm.class');
 
 /**
  * Test the GalleryPhpVm.  These are passthrough functions so all we do is perform a smoke test to

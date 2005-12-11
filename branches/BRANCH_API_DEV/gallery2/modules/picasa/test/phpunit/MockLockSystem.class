@@ -25,7 +25,7 @@
  * @author Waldemar Schlackow <waldemar@opencodes.org>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryLockSystem.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryLockSystem.class');
 
 /**
  * This is a mock LockSystem to get rid of the pain of Flock platform calls in unit tests

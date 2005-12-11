@@ -30,7 +30,7 @@
  */
 define('CUSTOM_FIELD_SESSION_KEY', 'customfield.adminMode.itemId');
 
-GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldInterface_1_0.class');
+GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldInterface_1_0.class');
 
 /**
  * A helper class for the Custom Field module.

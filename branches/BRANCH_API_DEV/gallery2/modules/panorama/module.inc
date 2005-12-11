@@ -108,7 +108,7 @@ class PanoramaModule extends GalleryModule {
      * @see GalleryModule::deactivate()
      */
     function deactivate($postDeactivationEvent=true) {
-	GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
+	GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 	list ($ret, $count) = PanoramaHelper::fetchItemCount();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -147,7 +147,7 @@ class PanoramaModule extends GalleryModule {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($param['itemLink']) {
-	    GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
+	    GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	    /*
 	     * This won't obey the acting user id, but that's ok because it's only used to

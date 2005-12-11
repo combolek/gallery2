@@ -24,7 +24,7 @@
  * @author Jozef Selesi <selesi at gmail dot com>
  */
 
-GalleryCoreApi::relativeRequireOnce(
+GalleryCoreApi::requireOnce(
     'lib/tools/repository/classes/RepositoryControllerAndView.class');
 
 /**

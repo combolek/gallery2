@@ -256,7 +256,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	 * For now, delegate to AdminThemes::loadAvailableBlocks.  At some point
 	 * in the future we can make this a utility  method.
 	 */
-	GalleryCoreApi::relativeRequireOnce('modules/core/AdminThemes.inc');
+	GalleryCoreApi::requireOnce('modules/core/AdminThemes.inc');
 	list ($ret, $blocks) = AdminThemesView::loadAvailableBlocks();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);

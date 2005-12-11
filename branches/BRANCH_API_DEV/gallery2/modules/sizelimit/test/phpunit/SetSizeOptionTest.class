@@ -26,7 +26,7 @@
  * @author Felix Rabinovich <felix@rabinovich.org>
  */
 
-GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
+GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 
 /**
  * SizeLimitOption tests

@@ -81,7 +81,7 @@ class MimeAdminView extends GalleryView {
 	if ($form['formName'] != 'MimeAdmin') {
 	    $form['formName'] = 'MimeAdmin';
 	}
-        GalleryCoreApi::relativeRequireOnce('modules/mime/classes/MimeHelper.class');
+        GalleryCoreApi::requireOnce('modules/mime/classes/MimeHelper.class');
         list ($ret, $typeMap) = MimeHelper::getMimeTypeMap();
         if ($ret) {
             return array($ret->wrap(__FILE__, __LINE__), null);

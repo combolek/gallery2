@@ -130,7 +130,7 @@ class UploadItemsController extends GalleryController {
 	    if (isset($this->_optionInstances)) {
 		$optionInstances = $this->_optionInstances;
 	    } else {
-		GalleryCoreApi::relativeRequireOnce('modules/core/ItemAdd.inc');
+		GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
 		list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);

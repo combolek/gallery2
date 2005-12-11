@@ -27,7 +27,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
+GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
  * This controller handles moving between admin modes in the Item Edit plugin,

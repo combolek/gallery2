@@ -39,8 +39,8 @@ class ItemAddFromPicasa extends ItemAddPlugin {
      */
     function handleRequest($form, &$item) {
         global $gallery;
-        GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/Picasa2DataParser.class');
-        GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/PicasaImportHelper.class');
+        GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
+        GalleryCoreApi::requireOnce('modules/picasa/classes/PicasaImportHelper.class');
 	$platform =& $gallery->getPlatform();
 	$status = $error = array();
         if (empty($form['name']['picasaZipPath'])) {

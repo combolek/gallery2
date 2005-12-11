@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
+GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
 
 /**
  * AddComment controller tests
@@ -265,7 +265,7 @@ class AddCommentControllerTest extends GalleryControllerTestCase {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
 class AddCommentTestValidation extends GalleryValidationPlugin {
     function performValidation(&$form) {
 	return array(null,

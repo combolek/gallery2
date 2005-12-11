@@ -26,7 +26,7 @@
  * @author Felix Rabinovich <felix@rabinovich.org>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
+GalleryCoreApi::requireOnce('modules/sizelimit/classes/SizeLimitHelper.class');
 
 /**
  * SizeLimitHelper tests. Test the areas that are not covered by AddPhotoOption

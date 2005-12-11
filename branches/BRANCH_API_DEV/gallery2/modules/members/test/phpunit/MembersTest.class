@@ -29,7 +29,7 @@
 /**
  * Helper class
  */
-GalleryCoreApi::relativeRequireOnce('modules/members/classes/GalleryMembersHelper.class');
+GalleryCoreApi::requireOnce('modules/members/classes/GalleryMembersHelper.class');
 
 /**
  * Test Members List/Profile functionality

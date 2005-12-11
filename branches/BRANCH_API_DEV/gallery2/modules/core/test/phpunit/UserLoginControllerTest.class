@@ -29,7 +29,7 @@
 /**
  * require necessary classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * UserLogin controller tests

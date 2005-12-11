@@ -28,7 +28,7 @@
 /**
  * Required class
  */
-GalleryCoreApi::relativeRequireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
+GalleryCoreApi::requireOnce('modules/netpbm/classes/NetPbmToolkitHelper.class');
 
 /**
  * @package NetPbm

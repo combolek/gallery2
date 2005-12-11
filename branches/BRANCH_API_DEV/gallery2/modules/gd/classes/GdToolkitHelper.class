@@ -394,7 +394,7 @@ class GdToolkitHelper {
     function &getGdFunctionality() {
 	static $gdFunctionality;
 	if (!isset($gdFunctionality)) {
-	    GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdFunctionality.class');
+	    GalleryCoreApi::requireOnce('modules/gd/classes/GdFunctionality.class');
 	    $gdFunctionality =& new GdFunctionality();
 	}
 	return $gdFunctionality;

@@ -26,7 +26,7 @@
  */
 
 /* Require the ADOdb libraries */
-GalleryCoreApi::relativeRequireOnce('lib/adodb/adodb.inc.php', true);
+GalleryCoreApi::requireOnce('lib/adodb/adodb.inc.php', true);
 
 /*
  * This will let ADODB know which error handler function we want to use.
@@ -236,7 +236,7 @@ class GalleryStorage {
      */
     function &_getExtras() {
 	if (!isset($this->_extras)) {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/GalleryStorage/GalleryStorageExtras.class', true);
 	    $this->_extras =& new GalleryStorageExtras($this);
 	}
@@ -471,7 +471,10 @@ class GalleryStorage {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$mapInfo = $this->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->_describeMapMembers($mapName);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 	list ($tableName, $unused) = $this->_translateTableName($mapName);
 	$data = $set = $where = $wheredata = array();
 
@@ -926,7 +929,8 @@ class GalleryStorage {
      * Describe all the members of a map
      *
      * @param string a class name
-     * @return array member name => member type
+     * @return array GalleryStatus a status code,
+     *               array member name => member type
      * @access protected
      */
     function _describeMapMembers($mapName) {
@@ -972,7 +976,7 @@ class GalleryStorage {
 	    $mapInfo = GalleryDataCache::get($cacheKey);
 	}
 
-	return $mapInfo[$mapName];
+	return array(null, $mapInfo[$mapName]);
     }
 
     /**

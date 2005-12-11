@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::relativeRequireOnce('modules/colorpack/classes/ColorPackInterface_1_0.class');
+GalleryCoreApi::requireOnce('modules/colorpack/classes/ColorPackInterface_1_0.class');
 
 /**
  * Implementation of the ColorPackInterface for including colorpack css

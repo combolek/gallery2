@@ -112,7 +112,7 @@ class CoreModuleExtras {
 	    $gallery->debug(sprintf('Locktype %s selected', $flockType));
 	    /* Initial install.  Make sure all our module parameters are set. */
 	    $gallery->debug('Set core module parameters');
-	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class');
+	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
 	    foreach (array('permissions.directory' => '0755',
 			   'permissions.file' => '0644',
 			   'exec.expectedStatus' => '0',
@@ -223,7 +223,7 @@ class CoreModuleExtras {
 	    }
 
 	    $gallery->debug('Initialize MIME types');
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class');
 	    $ret = GalleryMimeTypeHelper_advanced::initializeMimeTypes();
 	    if ($ret) {
@@ -370,7 +370,7 @@ class CoreModuleExtras {
 
 	case '0.9.4':
 	    $gallery->guaranteeTimeLimit(30);
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class');
 	    $ret = GalleryMimeTypeHelper_advanced::initializeMimeTypes();
 	    if ($ret) {
@@ -1631,7 +1631,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryGroup.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
 	$group = new GalleryGroup();
 
 	$groupName = $module->translate('Registered Users');
@@ -1672,7 +1672,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryGroup.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
 	$group = new GalleryGroup();
 
 	$groupName = $module->translate('Site Admins');
@@ -1713,7 +1713,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryGroup.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryGroup.class');
 	$group = new GalleryGroup();
 
 	$groupName = $module->translate('Everybody');
@@ -1754,7 +1754,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUser.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
 	$user = new GalleryUser();
 
 	$userName = 'guest';
@@ -1812,7 +1812,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUser.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUser.class');
 	$user = new GalleryUser();
 
 	/*
@@ -1867,7 +1867,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAlbumItem.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryAlbumItem.class');
 	$album = new GalleryAlbumItem();
 
 	$ret = $album->createRoot();
@@ -1930,7 +1930,7 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	    return null;
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEntity.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
 	$lock = new GalleryEntity();
 	$lock->create();
 	$ret = $lock->save(false);

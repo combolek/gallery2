@@ -29,8 +29,8 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/Gallery1DataParser.class');
-GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
+GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
  * @version $Revision$ $Date$

@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartHelper.class');
+GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
 
 /**
  * This view will allow users to view their individual carts
@@ -76,7 +76,7 @@ class ViewCartView extends GalleryView {
 	$ViewCart['rootAlbum'] = $rootAlbum->getMemberData();
 
 	/* Find all our cart plugins */
-	GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
+	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('CartPluginInterface_1_0');
 	if ($ret) {

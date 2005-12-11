@@ -114,7 +114,7 @@ class CaptchaModule extends GalleryModule {
      * @see GalleryModule::needsConfiguration()
      */
     function needsConfiguration() {
-	GalleryCoreApi::relativeRequireOnce('modules/captcha/classes/CaptchaHelper.class');
+	GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
 	$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
 	if (count($gdReport['fail']) > 0) {

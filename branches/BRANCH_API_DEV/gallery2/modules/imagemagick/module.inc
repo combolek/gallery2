@@ -67,7 +67,7 @@ class ImageMagickModule extends GalleryModule {
 	}
 
 	if (!empty($params['path']) && empty($params['versionOk'])) {
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 	    list ($ret, $version, $vulnerable) =
 		ImageMagickToolkitHelper::discoverVersion($params['path']);
@@ -111,7 +111,7 @@ class ImageMagickModule extends GalleryModule {
      */
     function activate($postActivationEvent=true) {
 	/* Load any classes we require */
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
 	/* Find out what operations and properties we have available to us */
@@ -299,7 +299,7 @@ class ImageMagickModule extends GalleryModule {
 	}
 
 	/* Load any classes we require */
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/imagemagick/classes/ImageMagickToolkitHelper.class');
 
 	/* Now try each path in turn to see which ones work */

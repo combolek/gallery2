@@ -438,7 +438,7 @@ class AdminThemesView extends GalleryView {
 	    );
 
 	    /* Set up our sort order selection list */
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/GallerySortInterface_1_1.class');
 	    list ($ret, $orderByList, $presortList, $orderDirectionList) =
 		GallerySortInterface_1_1::getAllSortOrders(false);

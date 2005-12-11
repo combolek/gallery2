@@ -25,7 +25,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::relativeRequireOnce(
+GalleryCoreApi::requireOnce(
     'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 
 /**
@@ -519,7 +519,7 @@ class GalleryPermissionHelper_advanced {
 	$data = array();
 	while ($result = $searchResults->nextResult()) {
 	    $permissions = $storage->convertBitsToInt($result[2]);
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
 	    list ($ret, $permissions) =
 		GalleryPermissionHelper_medium::convertBitsToIds($permissions, $compress);
@@ -792,7 +792,7 @@ class GalleryPermissionHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 	list ($ret, $permissionTable) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 	if ($ret) {
@@ -856,7 +856,7 @@ class GalleryPermissionHelper_advanced {
      * @static
      */
     function getPermissionIds($flags=0) {
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 	list ($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 	if ($ret) {
@@ -889,7 +889,7 @@ class GalleryPermissionHelper_advanced {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
 	list ($ret, $ids) = GalleryPermissionHelper_medium::convertBitsToIds($bits);
 	if ($ret) {
@@ -910,7 +910,7 @@ class GalleryPermissionHelper_advanced {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 	list ($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
 	if ($ret) {

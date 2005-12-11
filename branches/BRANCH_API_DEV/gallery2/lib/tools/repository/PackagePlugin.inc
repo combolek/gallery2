@@ -20,9 +20,9 @@
  * $Id$
  */
 
-GalleryCoreApi::relativeRequireOnce('lib/tools/repository/classes/RepositoryObject.class');
-GalleryCoreApi::relativeRequireOnce('lib/tools/repository/classes/RepositoryDescriptor.class');
-GalleryCoreApi::relativeRequireOnce('lib/tools/repository/classes/RepositoryPackage.class');
+GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryObject.class');
+GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryDescriptor.class');
+GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryPackage.class');
 
 /**
  * Controller for the plugin packaging page.

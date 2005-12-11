@@ -35,7 +35,7 @@ class ThumbnailSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
@@ -125,7 +125,7 @@ class ThumbnailSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	GalleryCoreApi::relativeRequireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
+	GalleryCoreApi::requireOnce('modules/thumbnail/classes/ThumbnailHelper.class');
 
 	if ($form['formName'] != 'ThumbnailSiteAdmin') {
 	    $form['formName'] = 'ThumbnailSiteAdmin';

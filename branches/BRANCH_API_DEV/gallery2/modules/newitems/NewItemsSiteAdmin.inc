@@ -75,7 +75,7 @@ class NewItemsSiteAdminController extends GalleryController {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
-	    GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
+	    GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 	    $ret = NewItemsHelper::resetNewItemSorts();
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
@@ -104,7 +104,7 @@ class NewItemsSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
+	GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
 	if ($form['formName'] != 'NewItemsSiteAdmin') {
 	    $form['formName'] = 'NewItemsSiteAdmin';
 	    foreach (array('days.new', 'days.updated') as $key) {

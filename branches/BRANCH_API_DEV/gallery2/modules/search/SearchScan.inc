@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/search/classes/SearchUtilities.class');
+GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
 
 /**
  * @package Search
@@ -56,7 +56,7 @@ class SearchScanController extends GalleryController {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    GalleryCoreApi::relativeRequireOnce(
+	    GalleryCoreApi::requireOnce(
 		'modules/search/classes/GallerySearchInterface_1_0.class');
 	    list ($ret, $ids) =
 		GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
@@ -121,7 +121,7 @@ class SearchScanView extends GalleryView {
 	$scanSize = 3;
 
 	/* Find all the modules that support the Search interface */
-	GalleryCoreApi::relativeRequireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/search/classes/GallerySearchInterface_1_0.class');
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');

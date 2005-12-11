@@ -96,7 +96,7 @@ class CSSView extends GalleryView {
 	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
 	}
 
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
 	$template->setVariable('l10Domain', 'modules_imageframe');
 

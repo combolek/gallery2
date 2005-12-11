@@ -345,7 +345,7 @@ class GalleryPluginHelper_medium {
 	 * we don't have an existing parameter by that name.  Otherwise, it's
 	 * an update.
 	 */
-        GalleryCoreApi::relativeRequireOnce(
+        GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
 	list ($ret, $params) =
 	    GalleryPluginHelper_simple::_fetchAllParameters($pluginType, $pluginId, $itemId);

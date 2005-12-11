@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPersistent.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPersistent.class');
 
 /**
  * A GalleryEntity is a stateful representation of an entity in the persistent

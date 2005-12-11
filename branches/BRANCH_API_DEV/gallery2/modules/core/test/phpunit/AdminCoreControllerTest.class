@@ -718,8 +718,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     }
 }
 
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class AdminCoreControllerTestUnixPlatform extends UnixPlatform {
     function AdminCoreControllerTestUnixPlatform($succeed) {
 	$this->_succeed = $succeed;

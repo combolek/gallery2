@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEventListener.class');
+GalleryCoreApi::requireOnce('modules/core/classes/GalleryEventListener.class');
 
 /**
  * Test Event functionality

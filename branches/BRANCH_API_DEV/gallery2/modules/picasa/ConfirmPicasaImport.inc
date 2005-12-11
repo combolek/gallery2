@@ -26,7 +26,7 @@
 * @author Waldemar Schlackow <waldemar@opencodes.org> based on the migrate module by Jesse Mullan
 */
 
-GalleryCoreApi::relativeRequireOnce ('modules/picasa/classes/Picasa2DataParser.class');
+GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
 
 /**
  * @package Picasa
@@ -130,8 +130,8 @@ class ConfirmPicasaImportController extends GalleryController {
          * single album and there is no concept of subalbums)
          */
 
-        GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/Picasa2DataParser.class');
-        GalleryCoreApi::relativeRequireOnce('modules/picasa/classes/PicasaImportHelper.class');
+        GalleryCoreApi::requireOnce('modules/picasa/classes/Picasa2DataParser.class');
+        GalleryCoreApi::requireOnce('modules/picasa/classes/PicasaImportHelper.class');
 
         list($ret, $picasaAlbum) = Picasa2DataParser::getAlbum($picasaXmlPath);
         if ($ret) {
