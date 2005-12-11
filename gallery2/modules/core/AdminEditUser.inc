@@ -45,9 +45,7 @@ class AdminEditUserController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results = array();
-	$status = array();
-	$error = array();
+	$results = $status = $error = array();
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
@@ -138,7 +136,8 @@ class AdminEditUserController extends GalleryController {
 		    $user->setEmail($form['email']);
 		    $user->setLanguage($form['language']);
 		    if (!empty($form['password1'])) {
-			$user->changePassword($form['password1']);
+			$user->changePassword(
+			    GalleryUtilities::htmlEntityDecode($form['password1']));
 		    }
 		}
 
