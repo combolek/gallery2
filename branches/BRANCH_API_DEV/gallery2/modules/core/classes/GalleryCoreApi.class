@@ -76,6 +76,8 @@ class GalleryCoreApi {
       *       forJavascript=true to htmlEntities=false.
       *   + DONE: Add a GalleryStatus object return for GalleryUrlGenerator::init
       *   + DONE: Renamed GallerySession::_getRemoteIdentifier to getRemoteIdentifier (now public)
+      *   + DONE: Added a $succes return value to fetchWebPage to allow us to check for
+      *       failed requests (error 404, etc) here and share that with the caller
       */
     function getApiVersion() {
 	return array(6, 11);
@@ -2604,6 +2606,7 @@ class GalleryCoreApi {
      * @param string the url
      * @param string the output file
      * @return array(boolean success, http response, headers, url)
+     *  the url is the final url retrieved after redirects
      */
     function fetchWebFile($url, $outputFile) {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/WebHelper_simple.class');
@@ -2617,7 +2620,8 @@ class GalleryCoreApi {
      *
      * @param string the url
      * @param array (optional) extra headers to pass to the server
-     * @return array(body, http response, headers, url)
+     * @return array(boolean success, string body, http response, headers, url)
+     *	the url is the final url retrieved after redirects
      */
     function fetchWebPage($url, $extraHeaders=array()) {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/WebHelper_simple.class');

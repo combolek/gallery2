@@ -420,8 +420,9 @@ class GalleryRepositoryUtilities {
      *		     string file contents
      */
     function downloadFile($url) {
-	list ($contents, $response, $headers, $actualUrl) = GalleryCoreApi::fetchWebPage($url);
-	if (empty($contents) || strpos($response, '404 Not Found') !== false) {
+	list ($successful, $contents, $response, $headers, $actualUrl) = 
+	    GalleryCoreApi::fetchWebPage($url);
+	if (empty($contents) || !$successful) {
 	    return array(false, null);
 	}
 	return array(true, $contents);

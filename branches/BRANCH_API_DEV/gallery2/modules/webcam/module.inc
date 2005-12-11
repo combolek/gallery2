@@ -196,7 +196,7 @@ class WebCamModule extends GalleryModule {
 
 	    list ($successfullyCopied, $response, $headers) =
 		GalleryCoreApi::fetchWebFile($url, $tmpFile);
-	    if (!$successfullyCopied || strpos($response, '404 Not Found') !== false) {
+	    if (!$successfullyCopied) {
 		/* Can't get the current image.. just keep what we have now */
 	    } else {
 		list ($ret, $path) = $item->fetchPath();
