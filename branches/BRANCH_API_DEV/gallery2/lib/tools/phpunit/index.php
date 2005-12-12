@@ -171,7 +171,7 @@ if (isset($_GET['filter'])) {
 	}
     }
 } else {
-    $filter = null;
+    $filter = 'match_nothing';
     $displayFilter = null;
     $range = array(array(1, FILTER_MAX));
 }
