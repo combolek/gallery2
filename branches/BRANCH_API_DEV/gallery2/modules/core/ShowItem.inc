@@ -113,6 +113,18 @@ class ShowItemView extends GalleryView {
     }
 
     /**
+     * @see GalleryView::_getItem()
+     */
+    function _getItem() {
+	list ($ret, $item, $wasSpecified) = parent::_getItem();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+	/* Always return wasSpecified==true no itemId param still uses root album theme/params */
+	return array(null, $item, true);
+    }
+
+    /**
      * @see GalleryView::getViewDescription()
      */
     function getViewDescription() {

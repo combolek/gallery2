@@ -41,7 +41,7 @@ class ShowItemErrorView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	global $gallery;
 
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item, $wasSpecified) = $this->_getItem();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -50,20 +50,31 @@ class ShowItemErrorView extends GalleryView {
 
 	switch ($problem) {
 	case 'missingTheme':
-	    list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
+	    if ($wasSpecified) {
+		list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 
-	    if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
-		$targetId = $item->getParentId();
+		if (GalleryUtilities::isA($item, 'GalleryDataItem')) {
+		    $targetId = $item->getParentId();
+		} else {
+		    $targetId = $item->getId();
+		}
+
+		list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 	    } else {
-		$targetId = $item->getId();
-	    }
+		list ($ret, $themeId) =
+		    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
 
-	    list ($ret, $canEdit) = GalleryCoreApi::hasItemPermission($targetId, 'core.edit');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		$targetId = null;
+		$canEdit = false;
 	    }
 
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();

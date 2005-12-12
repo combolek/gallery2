@@ -243,14 +243,15 @@ class GalleryView {
 
 	/* -------------------------------------------------- */
 	/* Load up the theme. */
-	list ($ret, $item) = $this->_getItem();
+	list ($ret, $item, $wasSpecified) = $this->_getItem();
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	list ($ret, $theme) = GalleryView::loadThemeForItem($item);
+	list ($ret, $theme) = $this->loadThemeForItem($wasSpecified ? $item : null);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    /* Ignore errors here so fallback theme can be used */
+	    $gallery->debug_r($ret);
 	}
 
 	if (!isset($theme)) {
@@ -267,11 +268,11 @@ class GalleryView {
 		break;
 
 	    default:
-		return array(null,
-			     array('redirect' => array('view' => 'core.ShowItemError',
-						       'problem' => 'missingTheme',
-						       'itemId' => $item->getId())),
-			     null);
+		$redirect = array('view' => 'core.ShowItemError', 'problem' => 'missingTheme');
+		if ($wasSpecified) {
+		    $redirect['itemId'] = $item->getId();
+		}
+		return array(null, array('redirect' => $redirect), null);
 	    }
 	}
 
@@ -281,7 +282,7 @@ class GalleryView {
 	} else {
 	    $targetId = $item->getId();
 	}
-	list ($ret, $params) = $theme->fetchParameters($targetId);
+	list ($ret, $params) = $theme->fetchParameters($wasSpecified ? $targetId : null);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
@@ -356,11 +357,13 @@ class GalleryView {
      *
      * @return array object GalleryStatus a status code
      *               object GalleryItem an item
+     *               boolean true if item was specified, false if default was used
      */
     function _getItem() {
 	global $gallery;
 	list ($itemId, $path) = GalleryUtilities::getRequestVariables('itemId', 'path');
 	$itemId = (int)$itemId;
+	$wasSpecified = true;
 
 	/* Check for path param if no itemId given */
 	if (empty($itemId) && !empty($path)) {
@@ -370,44 +373,41 @@ class GalleryView {
 
 	    list ($ret, $itemId) = GalleryCoreApi::fetchItemIdByPath($path);
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    GalleryUtilities::putRequestVariable('itemId', $itemId);
 	}
 
 	/* If we still don't have an itemId, default to the root album */
 	if (empty($itemId)) {
+	    $wasSpecified = false;
 	    list ($ret, $itemId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
 	/* Load the item */
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	return array(null, $item);
+	return array(null, $item, $wasSpecified);
     }
 
     /**
      * Get the theme for this item by finding the theme id for the nearest album.
      *
+     * @param GalleryItem (optional) item (omit or pass null to load default theme)
      * @return array object GalleryStatus a status code
      *               object GalleryTheme a theme instance
      */
     function loadThemeForItem($item=null) {
 	if (!isset($item)) {
-	    list ($ret, $item) = GalleryView::_getItem();
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
-
-	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    $nearestAlbum = null;
+	} else if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $nearestAlbum = $item;
 	} else {
 	    list ($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId());
@@ -432,7 +432,7 @@ class GalleryView {
 
 	$validTheme = false;
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-	if ($ret && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($theme)) {

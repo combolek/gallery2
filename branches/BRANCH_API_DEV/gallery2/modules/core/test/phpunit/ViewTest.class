@@ -28,6 +28,7 @@
 
 GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryPluginHelper_medium.class');
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
+
 /**
  * Test GalleryView functionality
  *
@@ -46,7 +47,6 @@ class ViewTest extends GalleryTestCase {
     }
 
     function testLoadViewSuccess() {
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class');
 	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -71,6 +71,71 @@ class ViewTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
+    }
+
+    function testGetItem() {
+	list ($ret, $view) = GalleryView::loadView('core.ShowItemError');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->_markForCleanup($album);
+
+	GalleryUtilities::putRequestVariable('itemId', $album->getId());
+	GalleryUtilities::removeRequestVariable('path');
+
+	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert($wasSpecified, 'itemId specified');
+	$this->assertEquals($album->getId(), $item->getId(), 'itemId');
+
+	GalleryUtilities::putRequestVariable('itemId', $this->_getRootId());
+	GalleryUtilities::putRequestVariable('path', '/' . $album->getPathComponent());
+
+	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert($wasSpecified, 'itemId/path specified');
+	$this->assertEquals($this->_getRootId(), $item->getId(), 'itemId overrides path');
+
+	GalleryUtilities::removeRequestVariable('itemId');
+
+	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert($wasSpecified, 'path specified');
+	$this->assertEquals($album->getId(), $item->getId(), 'path');
+
+	GalleryUtilities::removeRequestVariable('itemId');
+	GalleryUtilities::removeRequestVariable('path');
+
+	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert(!$wasSpecified, 'not specified');
+	$this->assertEquals($this->_getRootId(), $item->getId(), 'root album by default');
+
+	/* ShowItem view returns wasSpecified==true even when root album selected by default */
+	list ($ret, $view) = GalleryView::loadView('core.ShowItem');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $item, $wasSpecified) = $view->_getItem();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert($wasSpecified, 'ShowItem specified');
+	$this->assertEquals($this->_getRootId(), $item->getId(), 'ShowItem root album by default');
     }
 }
 
