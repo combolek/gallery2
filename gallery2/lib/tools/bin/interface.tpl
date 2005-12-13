@@ -160,4 +160,3 @@ class {$className} extends {$className}_core {ldelim}
 
 {rdelim}
 ?>
-
