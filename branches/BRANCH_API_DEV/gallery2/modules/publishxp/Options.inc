@@ -125,12 +125,9 @@ class OptionsView extends GalleryView {
 	$template->setVariable('Options', $Options);
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	/* Tell the theme that we want the full screen */
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	return array(null,
-		     array('body' => 'modules/publishxp/templates/Options.tpl'));
+		     array('body' => 'modules/publishxp/templates/Options.tpl',
+			   'useFullScreen' => true));
     }
 }
 ?>

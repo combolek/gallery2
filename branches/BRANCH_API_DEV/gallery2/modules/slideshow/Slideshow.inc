@@ -66,17 +66,15 @@ class SlideshowView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Tell the theme that we want the full screen */
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	$SlideShow['itemList'] = $itemList;
 	$SlideShow['count'] = count($itemList);
 	$SlideShow['start'] = $start;
 	$template->setVariable('SlideShow', $SlideShow);
 	$template->head('modules/slideshow/templates/Header.tpl');
+
 	return array(null,
-		     array('body' => 'modules/slideshow/templates/Slideshow.tpl'));
+		     array('body' => 'modules/slideshow/templates/Slideshow.tpl',
+			   'useFullScreen' => true));
     }
 
     /**

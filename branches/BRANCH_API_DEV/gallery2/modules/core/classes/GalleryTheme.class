@@ -672,28 +672,17 @@ class GalleryTheme extends GalleryPlugin {
     /**
      * Load the template with data from this view.
      *
-     * @param array object GalleryTemplate the template instance
+     * @param object GalleryView the view
+     * @param object GalleryTemplate the template instance
      * @param object GalleryItem the item to display
      * @param array theme parameters
      * @param array results from the view
      * @return array object GalleryStatus a status code
      *               array ('body' => string template or 'redirect' => array)
      */
-    function loadTemplate($view, &$template, $item, $params) {
+    function loadTemplate($view, &$template, $item, $params, $viewResults) {
 	global $gallery;
-
 	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = false;
-
-	$form =& $template->getVariableByReference('form');
-	list ($ret, $viewResults) = $view->loadTemplate($template, $form);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	if (isset($viewResults['redirect'])) {
-	    return array(null, $viewResults);
-	}
 
 	$urlGenerator =& $gallery->getUrlGenerator();
 	$theme['themeUrl'] =
@@ -710,15 +699,11 @@ class GalleryTheme extends GalleryPlugin {
 	}
 
 	$theme['params'] = $params;
+	$theme['useFullScreen'] = !empty($viewResults['useFullScreen']);
 
 	/* Unserialize our blocks and preload them if necessary */
 	$platform =& $gallery->getPlatform();
 	$g2Base = dirname(dirname(dirname(dirname(__FILE__))));
-
-	list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
 
 	foreach (array('sidebarBlocks', 'albumBlocks', 'photoBlocks') as $blockKey) {
 	    if (!isset($theme['params'][$blockKey])) {
@@ -730,6 +715,14 @@ class GalleryTheme extends GalleryPlugin {
 	    $seen = array();
 	    foreach ($theme['params'][$blockKey] as $block) {
 		$seen[$block[0]][] = $block[1];
+	    }
+
+	    if (!empty($seen) && !isset($pluginStatus)) {
+		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus('module');
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
 	    }
 
 	    foreach ($seen as $key => $blockParams) {
@@ -752,6 +745,29 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	}
 
+	if ($this->getId() == 'fallbackTheme') {
+	    /* If theme failed to load then we're done */
+	    $theme['isFallback'] = true;
+	    return array(null, $viewResults);
+	}
+
+	if (!GalleryCapabilities::can('showSidebarBlocks') && !empty($params['sidebarBlocks'])) {
+	    $extractedSidebarBlocks = $theme['params']['sidebarBlocks'];
+	    $theme['params']['sidebarBlocks'] = array();
+	}
+
+	/* Load icon pack if available */
+	list ($ret, $iconpack) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	if (isset($iconpack)) {
+	    $ret = $iconpack->init($template);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
 	/* Load color pack if the theme supports them (and they're available) */
 	if (!empty($params['colorpack'])) {
 	    list ($ret, $colorpack) = GalleryCoreApi::newFactoryInstance('ColorPackInterface_1_0');
@@ -766,25 +782,12 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	}
 
-	if ($this->getId() == 'fallbackTheme') {
-	    /* If theme failed to load then we're done */
-	    $theme['isFallback'] = true;
-	    return array(null, $viewResults);
-	}
-
-	if (!GalleryCapabilities::can('showSidebarBlocks') && !empty($params['sidebarBlocks'])) {
-	    $extractedSidebarBlocks = $theme['params']['sidebarBlocks'];
-	    $theme['params']['sidebarBlocks'] = array();
-	}
-
 	/*
 	 * Figure out what type of view we've got.  This is lame and not very OO.  We should
 	 * create a view hierarchy that lets them implement their own showPage() method.
 	 */
-	switch (strtolower(get_class($view))) {
-	case 'useradminview':
-	case 'siteadminview':
-	case 'itemadminview':
+	switch ($view->getViewType()) {
+	case VIEW_TYPE_ADMIN:
 	    $theme['pageType'] = 'admin';
 	    $theme['adminTemplate'] = $viewResults['body'];
 	    $theme['adminL10Domain'] = $view->getL10Domain();
@@ -795,7 +798,7 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	    break;
 
-	case 'showitemview':
+	case VIEW_TYPE_SHOW_ITEM:
 	    $session =& $gallery->getSession();
 
 	    if ($session->get('theme.guestPreviewMode')) {
@@ -942,7 +945,7 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	    break;
 
-	case 'progressbarview':
+	case VIEW_TYPE_PROGRESS_BAR:
 	    /* We only use this for progressbar views (for now) */
 	    $theme['pageType'] = 'progressbar';
 	    list ($ret, $result) = $this->showProgressBarPage($template, $item, $params);
@@ -951,7 +954,7 @@ class GalleryTheme extends GalleryPlugin {
 	    }
 	    break;
 
-	default: /* module view */
+	default: /* VIEW_TYPE_MODULE */
 	    $theme['pageType'] = 'module';
 	    $theme['moduleTemplate'] = $viewResults['body'];
 	    $theme['moduleL10Domain'] = $view->getL10Domain();

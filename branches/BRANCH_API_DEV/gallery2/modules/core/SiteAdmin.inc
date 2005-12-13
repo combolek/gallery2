@@ -214,6 +214,13 @@ class SiteAdminView extends GalleryView {
 	return array(null, $core->translate('site admin'));
     }
 
+    /**
+     * @see GalleryView::getViewType()
+     */
+    function getViewType() {
+	return VIEW_TYPE_ADMIN;
+    }
+
     function groupSort($a, $b) {
 	static $groupOrder;
 	if (!isset($groupOrder)) {

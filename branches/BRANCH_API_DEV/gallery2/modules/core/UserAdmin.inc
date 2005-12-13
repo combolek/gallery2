@@ -182,5 +182,12 @@ class UserAdminView extends GalleryView {
 
 	return array(null, $description);
     }
+
+    /**
+     * @see GalleryView::getViewType()
+     */
+    function getViewType() {
+	return VIEW_TYPE_ADMIN;
+    }
 }
 ?>

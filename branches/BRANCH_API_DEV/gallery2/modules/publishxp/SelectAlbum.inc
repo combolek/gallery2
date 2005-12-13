@@ -135,12 +135,9 @@ class SelectAlbumView extends GalleryView {
 	$template->setVariable('controller', 'publishxp.SelectAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	/* Tell the theme that we want the full screen */
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	return array(null,
-		     array('body' => 'modules/publishxp/templates/SelectAlbum.tpl'));
+		     array('body' => 'modules/publishxp/templates/SelectAlbum.tpl',
+			   'useFullScreen' => true));
     }
 }
 ?>
