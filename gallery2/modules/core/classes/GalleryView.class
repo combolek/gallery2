@@ -127,6 +127,15 @@ class GalleryView {
     }
 
     /**
+     * Type of view.
+     *
+     * @return view type contant
+     */
+    function getViewType() {
+	return VIEW_TYPE_MODULE;
+    }
+
+    /**
      * Load a view
      *
      * Be very security conscious about checking the inputs for possible
@@ -242,6 +251,24 @@ class GalleryView {
 	$template->setVariable('status', $status);
 
 	/* -------------------------------------------------- */
+	/* Standard user info available for every view */
+	$user = $gallery->getActiveUser();
+	$user = $user->getMemberData();
+	list ($ret, $guestId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	$user['isGuest'] = ($user['id'] == $guestId);
+	$user['isRegisteredUser'] = !$user['isGuest'];
+	list ($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
+	if ($ret) {
+	    $user['isAdmin'] = false;
+	}
+	$template->setVariable('user', $user);
+
+	/* -------------------------------------------------- */
 	/* Load up the theme. */
 	list ($ret, $item, $wasSpecified) = $this->_getItem();
 	if ($ret) {
@@ -259,15 +286,10 @@ class GalleryView {
 	     * Need to be able to show error page, login and site admin even if we have
 	     * no theme!  (In case our default theme is incompatible with current APIs)
 	     */
-	    switch (strtolower(get_class($this))) {
-	    case 'showitemerrorview':
-	    case 'useradminview':
-	    case 'siteadminview':
+	    if ($this->getViewType() == VIEW_TYPE_ADMIN) {
 		$theme = new GalleryTheme();
 		$theme->setId('fallbackTheme');
-		break;
-
-	    default:
+	    } else {
 		$redirect = array('view' => 'core.ShowItemError', 'problem' => 'missingTheme');
 		if ($wasSpecified) {
 		    $redirect['itemId'] = $item->getId();
@@ -291,42 +313,20 @@ class GalleryView {
 	$templateAdapter->setTheme($theme);
 
 	/* -------------------------------------------------- */
-	/* Standard user info available for every view */
-	$user = $gallery->getActiveUser();
-	$user = $user->getMemberData();
-	list ($ret, $guestId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	/* Let the view and theme load up template data */
+	list ($ret, $results) = $this->loadTemplate($template, $form);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+	if (isset($results['redirect']) || isset($results['redirectUrl'])) {
+	    return array(null, $results, $theme);
+	}
+
+	list ($ret, $results) = $theme->loadTemplate($this, $template, $item, $params, $results);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	$user['isGuest'] = ($user['id'] == $guestId);
-	$user['isRegisteredUser'] = !$user['isGuest'];
-	list ($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    $user['isAdmin'] = false;
-	}
-	$template->setVariable('user', $user);
-
-	/* -------------------------------------------------- */
-	/* Delegate to the theme to draw this view */
-	list ($ret, $results) = $theme->loadTemplate($this, $template, $item, $params);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-
-	/* -------------------------------------------------- */
-	/* Check for icon pack */
-	list ($ret, $iconPack) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-	if (isset($iconPack)) {
-	    $ret = $iconPack->init($template);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-	}
 	return array(null, $results, $theme);
     }
 

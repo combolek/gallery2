@@ -184,6 +184,32 @@ define('LOCK_WRITE', 2);
 
 /*
  * ****************************************
+ *           View types
+ * ****************************************
+ */
+
+/**
+ * Module view
+ */
+define('VIEW_TYPE_MODULE', 1);
+
+/**
+ * ShowItem view
+ */
+define('VIEW_TYPE_SHOW_ITEM', 2);
+
+/**
+ * Administration view
+ */
+define('VIEW_TYPE_ADMIN', 3);
+
+/**
+ * Progress bar
+ */
+define('VIEW_TYPE_PROGRESS_BAR', 4);
+
+/*
+ * ****************************************
  *           Status code bitflags
  * ****************************************
  */

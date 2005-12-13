@@ -138,5 +138,12 @@ class ShowItemView extends GalleryView {
 	$typeName = $item->itemTypeName(true);
 	return array(null, $typeName[1]);
     }
+
+    /**
+     * @see GalleryView::getViewType()
+     */
+    function getViewType() {
+	return VIEW_TYPE_SHOW_ITEM;
+    }
 }
 ?>

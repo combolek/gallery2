@@ -37,9 +37,6 @@ class MaintenanceModeView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -47,7 +44,8 @@ class MaintenanceModeView extends GalleryView {
 
 	$template->title($module->translate('Maintenance'));
 	return array(null,
-	    array('body' => 'modules/core/templates/MaintenanceMode.tpl'));
+		     array('body' => 'modules/core/templates/MaintenanceMode.tpl',
+			   'useFullScreen' => true));
     }
 
     /**

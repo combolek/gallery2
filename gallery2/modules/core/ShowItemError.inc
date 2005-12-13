@@ -98,5 +98,12 @@ class ShowItemErrorView extends GalleryView {
 	    return array(null, array());
 	}
     }
+
+    /**
+     * @see GalleryView::getViewType()
+     */
+    function getViewType() {
+	return VIEW_TYPE_ADMIN;
+    }
 }
 ?>

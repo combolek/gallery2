@@ -217,12 +217,9 @@ class UploadItemsView extends GalleryView {
 	$template->setVariable('UploadItems', $UploadItems);
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	/* Tell the theme that we want the full screen */
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	return array(null,
-		     array('body' => 'modules/publishxp/templates/UploadItems.tpl'));
+		     array('body' => 'modules/publishxp/templates/UploadItems.tpl',
+			   'useFullScreen' => true));
     }
 }
 ?>

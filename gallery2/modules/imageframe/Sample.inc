@@ -74,9 +74,6 @@ class SampleView extends GalleryView {
 	    }
 	}
 
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'imageframe');
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -85,7 +82,8 @@ class SampleView extends GalleryView {
 	$template->setVariable('ImageFrameSample', $ImageFrameSample);
 	$template->title($module->translate('Image Frame Samples'));
 	return array(null,
-	    array('body' => 'modules/imageframe/templates/SampleBody.tpl'));
+		     array('body' => 'modules/imageframe/templates/SampleBody.tpl',
+			   'useFullScreen' => true));
     }
 
     /**

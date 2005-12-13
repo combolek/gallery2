@@ -35,5 +35,11 @@
  * @subpackage UserInterface
  */
 class ProgressBarView extends GalleryView {
+    /**
+     * @see GalleryView::getViewType()
+     */
+    function getViewType() {
+	return VIEW_TYPE_PROGRESS_BAR;
+    }
 }
 ?>

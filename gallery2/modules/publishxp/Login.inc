@@ -35,8 +35,7 @@ class LoginController extends GalleryController {
      */
     function handleRequest($form) {
 	global $gallery;
-	$results = array();
-	$error = array();
+	$results = $error = array();
 	if (isset($form['action']['login'])) {
 	    if (empty($form['userName'])) {
 		$error[] = 'form[error][userName][missing]';
@@ -116,12 +115,9 @@ class LoginView extends GalleryView {
 	$template->setVariable('controller', 'publishxp.Login');
 	$template->head('modules/publishxp/templates/Head.tpl');
 
-	/* Tell the theme that we want the full screen */
-	$theme =& $template->getVariableByReference('theme');
-	$theme['useFullScreen'] = true;
-
 	return array(null,
-		     array('body' => 'modules/publishxp/templates/Login.tpl'));
+		     array('body' => 'modules/publishxp/templates/Login.tpl',
+			   'useFullScreen' => true));
     }
 }
 ?>

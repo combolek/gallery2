@@ -334,7 +334,7 @@ function _GalleryMain($embedded=false) {
     } else {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
 	$template = new GalleryTemplate(dirname(__FILE__));
-	list ($ret, $results, $theme) = $view->doLoadTemplate($template, $embedded);
+	list ($ret, $results, $theme) = $view->doLoadTemplate($template);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -356,8 +356,6 @@ function _GalleryMain($embedded=false) {
 	$templatePath = 'gallery:' . $results['body'];
 	$template->setVariable('l10Domain', $theme->getL10Domain());
 	$template->setVariable('isEmbedded', $embedded);
-
-	$templateAdapter =& $gallery->getTemplateAdapter();
 
 	if ($viewName == 'core.ProgressBar') {
 	    /* Render progress bar pages immediately so that the user sees the bar moving */
