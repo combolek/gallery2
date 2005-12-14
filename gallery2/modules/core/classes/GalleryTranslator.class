@@ -259,15 +259,35 @@ class GalleryTranslator {
      * Initialize the translator with the specified language code hint
      *
      * @param string the language code hint (eg. 'en_US' or 'zh_CN')
-     * @return object GalleryStatus a status code
+     * @param boolean [optional] true if we should not use the database
+     * @return array object GalleryStatus a status code
+     *               string language code
      */
-    function init($languageCode=null) {
-	if (empty($languageCode)) {
-	    $languageCode = GalleryTranslator::getLanguageCodeFromRequest();
+    function init($languageCode=null, $dontUseDatabase=false) {
+	if (empty($languageCode) && !$dontUseDatabase) {
+	    list ($ret, $useBrowserPref) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'language.useBrowserPref');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    
+	    If ($useBrowserPref) {
+		/* Check the user-agent's preferences */
+		$languageCode = GalleryTranslator::getLanguageCodeFromRequest();
+	    }
+	
+	    if (empty($languageCode)) {
+		/* Use the site-wide default language */
+		list ($ret, $languageCode) =
+		    GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+	    }
 	}
 
 	list ($languageCode, $data) = GalleryTranslator::getSupportedLanguageCode($languageCode);
-
+	
 	/* If we're using gettext, try to bind to a language */
 	if (function_exists('dgettext')) {
 	    $this->_isRightToLeft = isset($data['right-to-left']);
@@ -285,10 +305,10 @@ class GalleryTranslator {
 	if (!headers_sent()) {
 	    header('Content-Type: text/html; charset=UTF-8');
 	}
-
-	return null;
+	
+	return array(null, $languageCode);
     }
-
+    
     /**
      * Attempt to set the requested locale.
      * Try fallbacks and character sets if needed to find a valid locale.
@@ -381,8 +401,7 @@ class GalleryTranslator {
 	    }
 	}
 
-	/* Fall back to English (US) */
-	return 'en_US';
+	return null;
     }
 
     /**

@@ -72,7 +72,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'smtp.from' => 'gallery@example.com',
 			  'format.date' => 'x16',
 			  'format.time' => 'x17',
-			  'format.datetime' => 'x18');
+			  'format.datetime' => 'x18',
+			  'language.useBrowserPref' => '1');
 
 	/* Change the defaults to something meaningless */
 	foreach ($valueMap as $key => $value) {
@@ -115,6 +116,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.orderDirection' => 'IGNORED',
 			  'default.theme' => 'IGNORED',
 			  'default.language' => 'IGNORED',
+			  'language.useBrowserPref' => 'IGNORED',
 			  'session.lifetime' => 'IGNORED',
 			  'session.inactivityTimeout' => 'IGNORED',
 			  'misc.markup' => 'IGNORED',
@@ -187,6 +189,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.orderDirection' => 'IGNORED',
 			  'default.theme' => 'IGNORED',
 			  'default.language' => 'IGNORED',
+			  'language.useBrowserPref' => 'IGNORED',
 			  'session.lifetime' => 'IGNORED',
 			  'session.inactivityTimeout' => 'IGNORED',
 			  'misc.markup' => 'IGNORED',
@@ -272,7 +275,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.language' => 'x8',
 			  'session.lifetime' => 'x9',
 			  'session.inactivityTimeout' => 'x10',
-			  'misc.markup' => 'x11');
+			  'misc.markup' => 'x11',
+			  'language.useBrowserPref' => '0');
 	foreach ($valueMap as $key => $value) {
 	    list ($outer, $inner) = explode('.', $key);
 	    GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
