@@ -114,6 +114,12 @@ class AdminCoreController extends GalleryController {
 		    $form['cookie']['domain'] = '';
 		}
 	    }
+
+	    if (empty($form['language']['useBrowserPref'])) {
+		$form['language']['useBrowserPref'] = '0';
+	    } else {
+		$form['language']['useBrowserPref'] = '1';
+	    }
 	}
 
 	if (isset($form['action']['addUploadLocalServerDir'])) {
@@ -196,6 +202,7 @@ class AdminCoreController extends GalleryController {
 			   'default.orderDirection',
 			   'default.theme',
 			   'default.language',
+			   'language.useBrowserPref',
 			   'session.lifetime',
 			   'session.inactivityTimeout',
 			   'misc.markup',
@@ -287,6 +294,7 @@ class AdminCoreView extends GalleryView {
 			   'exec.beNice',
 			   'exec.expectedStatus',
 			   'default.language',
+			   'language.useBrowserPref',
 			   'session.lifetime',
 			   'session.inactivityTimeout',
 			   'misc.markup',
@@ -340,8 +348,7 @@ class AdminCoreView extends GalleryView {
 	    $can['translate'] = true;
 
 	    /* Set up our language selection list */
-	    $AdminCore['languageList'] = array('' => $module->translate('&laquo; None &raquo;'));
-
+	    $AdminCore['languageList'] = array();
 	    $supportedLanguages = $translator->getSupportedLanguages();
 	    foreach ($supportedLanguages as $language => $countryList) {
 		foreach ($countryList as $country => $languageData) {

@@ -530,11 +530,11 @@ class Gallery {
     function &getTranslator() {
 	return $this->_translator;
     }
-
+    
     /**
      * Initialize our GalleryTranslator
      *
-     * @param boolean true if we should not use the database
+     * @param boolean [optional] true if we should not use the database
      * @return object GalleryStatus a status code
      */
     function initTranslator($dontUseDatabase=false) {
@@ -542,16 +542,19 @@ class Gallery {
 	    /* Load the translator class */
 	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class');
 
-	    $language = null;
-	    if (!$dontUseDatabase) {
-		list ($ret, $language) = $this->getActiveLanguageCode();
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
+	    /* Do we already have an activeLanguage for this session? */
+	    list ($ret, $language) = $this->getActiveLanguageCode();
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+
 	    }
 
 	    $this->_translator = new GalleryTranslator();
-	    $ret = $this->_translator->init($language);
+	    list ($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    $ret = $this->setActiveLanguageCode($languageCode);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -570,14 +573,6 @@ class Gallery {
 	$session =& $this->getSession();
 	$language = $session->get('core.language');
 
-	if (empty($language)) {
-	    list ($ret, $language) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'default.language');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
-
 	return array(null, $language);
     }
 
@@ -589,7 +584,10 @@ class Gallery {
      */
     function setActiveLanguageCode($language) {
 	$session =& $this->getSession();
-	$session->put('core.language', $language);
+	if (!empty($session)) {
+	    $session->put('core.language', $language);
+	}
+	
 	return null;
     }
 

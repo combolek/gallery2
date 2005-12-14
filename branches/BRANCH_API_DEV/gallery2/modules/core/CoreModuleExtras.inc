@@ -121,6 +121,7 @@ class CoreModuleExtras {
 			   'default.orderDirection' => '1',
 			   'default.theme' => 'matrix',
 			   'default.language' => GalleryTranslator::getLanguageCodeFromRequest(),
+			   'language.useBrowserPref' => '0',
 			   'default.newAlbumsUseDefaults' => 'false',
 			   'session.lifetime' => 25 * 365 * 86400, /* 25 years */
 			   'session.inactivityTimeout' => 14 * 86400, /* two weeks */
@@ -1344,6 +1345,25 @@ class CoreModuleExtras {
 	    }
 	    $ret = GalleryCoreApi::removeMapEntry(
 		'GalleryPluginParameterMap', array('pluginType' => 'modules'));
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	case '1.0.12':
+	    /* Add param 'language.useBrowserPref' */
+	    list ($ret, $langCode) = $module->getParameter('default.language');
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    $useBrowserPref = '0';
+	    if (empty($langCode)) {
+		$useBrowserPref = '1';
+		$ret = $module->setParameter('default.language', 'en_US');
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
+	    $ret = $module->setParameter('language.useBrowserPref', $useBrowserPref);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }

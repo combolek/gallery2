@@ -57,6 +57,7 @@ class LanguageTest extends GalleryControllerTestCase {
 	parent::tearDown();
     }
 
+    
     function testGetActiveLanguageCode() {
 	global $gallery;
 	$session =& $gallery->getSession();
@@ -66,7 +67,7 @@ class LanguageTest extends GalleryControllerTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($this->_siteLanguage, $language, 'default language');
+	$this->assertEquals(null, $language, 'not set');
 
 	$user = new GalleryUser();
 	$user->setId('testId');
