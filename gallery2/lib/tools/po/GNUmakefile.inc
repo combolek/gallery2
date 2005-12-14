@@ -51,8 +51,10 @@ messages.po:
 
 %.po: messages.po
 	@perl $(TOOLDIR)/po/premerge-messages.pl $@ messages.po > messages.tmp
-	@-msgmerge --quiet --update $@ messages.tmp  # ignore errors here, we'll catch them on the msgfmt command
-	@$(RM) messages.tmp
+	@# ignore errors from msgmerge, we'll catch them on the msgfmt command:
+	@-if [ -s messages.tmp ]; then msgmerge --quiet --update $@ messages.tmp; \
+	  elif [ -z "$(NOCREATE)" ]; then cp messages.po $@; fi
+	@$(RM) messages.po messages.tmp
 
 clean:
 	@$(RM) messages.po
@@ -72,7 +74,8 @@ install:
 		if test -z "$${QUIET}"; then echo $${LOCALE}; fi; \
 		if $(TOOLDIR)/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
 			if test "${OSTYPE}" = "solaris"; then \
-				if {MSGFMTSOL} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo $${LOCALE}.po; then \
+				if {MSGFMTSOL} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo \
+						$${LOCALE}.po; then \
 					if test ! -z "$${QUIET}"; then \
 						echo -n '.'; \
 					fi \
@@ -81,7 +84,8 @@ install:
 					FAIL=1; \
 				fi \
 			else \
-				if ${MSGFMT} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo $${LOCALE}.po; then \
+				if ${MSGFMT} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo \
+						$${LOCALE}.po; then \
 					if test ! -z "$${QUIET}"; then \
 						echo -n '.'; \
 					fi \

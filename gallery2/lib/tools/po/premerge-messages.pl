@@ -12,7 +12,7 @@ my $ref_pot = shift;
 
 my @header;
 my $saving = 0;
-open(FD, "<$def_po") || die;
+open(FD, "<$def_po") or exit;
 while (<FD>) {
   chomp;
   if (/^\"Project-Id-Version/) {
