@@ -29,11 +29,8 @@ endif
 MSGFMT = msgfmt $(MSGFMT_FLAGS) -c -o
 MSGFMTSOL = msgfmt $(MSGFMT_FLAGS) -o
 
-ifdef PO
-    UPDATEFILES = $(PO)
-else
-    UPDATEFILES = *
-endif
+PO ?= *
+COMPENDIUM = $(shell echo $@ | perl -ne 'chomp; print "-C $$_" if (s/^(..)_..\.po/$$1.po/ and -s)')
 
 all: update install
 
@@ -52,22 +49,23 @@ messages.po:
 %.po: messages.po
 	@perl $(TOOLDIR)/po/premerge-messages.pl $@ messages.po > messages.tmp
 	@# ignore errors from msgmerge, we'll catch them on the msgfmt command:
-	@-if [ -s messages.tmp ]; then msgmerge --quiet --update $@ messages.tmp; \
+	@-if [ -s messages.tmp ]; then \
+	    msgmerge --quiet --width=89 $(COMPENDIUM) --update $@ messages.tmp; \
 	  elif [ -z "$(NOCREATE)" ]; then cp messages.po $@; fi
-	@$(RM) messages.po messages.tmp
+	@$(RM) messages.tmp
 
 clean:
 	@$(RM) messages.po
 
-update: $(UPDATEFILES).po
+update: $(PO).po
 
 install:
 	@if test "${OSTYPE}" = "solaris"; then \
 		echo "You'll probably get some warnings on Solaris. This is normal."; \
 	fi; \
 	FAIL=0; \
-	echo "Updating ${UPDATEFILES}"; \
-	for LOCALE in `ls ${UPDATEFILES}.po | sed 's/\.[^.]*$$//g'`; do \
+	echo "Updating ${PO}"; \
+	for LOCALE in `ls ${PO}.po | sed 's/\.[^.]*$$//g'`; do \
 		if test $${LOCALE}.po = "messages.po"; then \
 			continue; \
 		fi; \
