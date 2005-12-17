@@ -571,8 +571,13 @@ class Gallery {
      */
     function getActiveLanguageCode() {
 	$session =& $this->getSession();
-	$language = $session->get('core.language');
-
+	/* During installation, we don't have a session yet */
+	if (!empty($session)) {
+	    $language = $session->get('core.language');
+	} else {
+	    $language = '';
+	}
+	
 	return array(null, $language);
     }
 
@@ -584,6 +589,7 @@ class Gallery {
      */
     function setActiveLanguageCode($language) {
 	$session =& $this->getSession();
+	/* During installation, we don't have a session yet */
 	if (!empty($session)) {
 	    $session->put('core.language', $language);
 	}
