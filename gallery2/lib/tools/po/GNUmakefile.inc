@@ -30,7 +30,8 @@ MSGFMT = msgfmt $(MSGFMT_FLAGS) -c -o
 MSGFMTSOL = msgfmt $(MSGFMT_FLAGS) -o
 
 PO ?= *
-COMPENDIUM = $(shell echo $@ | perl -ne 'chomp; print "-C $$_" if (s/^(..)_..\.po/$$1.po/ and -s)')
+LANGPO = $(shell echo $@ | perl -ne 'chomp; print if (s/^(..)_..\.po/$$1.po/ and -s)')
+COMPENDIUM = $(shell echo $@ | perl -ne 'chomp; print if (s/^(..)_..\.po/-C $$1.po/ and -s)')
 
 all: update install
 
@@ -51,7 +52,11 @@ messages.po:
 	@# ignore errors from msgmerge, we'll catch them on the msgfmt command:
 	@-if [ -s messages.tmp ]; then \
 	    msgmerge --quiet --width=89 $(COMPENDIUM) --update $@ messages.tmp; \
-	  elif [ -z "$(NOCREATE)" ]; then cp messages.po $@; fi
+	  elif [ -z "$(NOCREATE)" ]; then \
+	    if [ -n "$(LANGPO)" ]; then \
+	      perl $(TOOLDIR)/po/premerge-messages.pl -2 messages.po $(LANGPO) > $@; \
+	    else cp messages.po $@; fi; \
+	  fi
 	@$(RM) messages.tmp
 
 clean:
