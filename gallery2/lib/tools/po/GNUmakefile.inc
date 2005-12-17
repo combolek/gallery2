@@ -76,10 +76,11 @@ install:
 		fi; \
 		if test -z "$${QUIET}"; then echo $${LOCALE}; fi; \
 		if $(TOOLDIR)/po/shtool mkdir -p ../locale/$${LOCALE}/LC_MESSAGES; then \
+			php -f $(TOOLDIR)/po/trim-po.php $${LOCALE}.po > tmp.po; \
 			if test "${OSTYPE}" = "solaris"; then \
 				if {MSGFMTSOL} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo \
-						$${LOCALE}.po; then \
-					if test ! -z "$${QUIET}"; then \
+						tmp.po; then \
+					if test -n "$${QUIET}"; then \
 						echo -n '.'; \
 					fi \
 				else \
@@ -88,8 +89,8 @@ install:
 				fi \
 			else \
 				if ${MSGFMT} ../locale/$${LOCALE}/LC_MESSAGES/${APPLICATION}.mo \
-						$${LOCALE}.po; then \
-					if test ! -z "$${QUIET}"; then \
+						tmp.po; then \
+					if test -n "$${QUIET}"; then \
 						echo -n '.'; \
 					fi \
 				else \
@@ -97,8 +98,10 @@ install:
 					FAIL=1; \
 				fi \
 			fi; \
+			$(RM) tmp.po; \
 		else \
 			echo "Could not create locale directory for $${LOCALE}."; \
+			FAIL=1; \
 		fi; \
 		if test -z "$${QUIET}"; then echo; fi; \
 	done; \
