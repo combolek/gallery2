@@ -8,6 +8,9 @@ $path = $argv[1];
 $langpath = preg_replace('{(..)_..\.po$}', '$1.po', $path);
 if ($langpath == $path || !file_exists($langpath)) {
     readfile($path);
+    if ($langpath != $path) {
+	fwrite(STDERR, "\nWarning: $path without $langpath\n");
+    }
     exit;
 }
 
