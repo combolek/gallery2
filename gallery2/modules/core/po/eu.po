@@ -1,39 +1,42 @@
 # $Id$
-# 
+#
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# Piarres Beobide <pi@beobide.net>, 2005.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
-"PO-Revision-Date: 2003-06-25 15:57+0100\n"
-"Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
-"Language-Team: British <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-10-31 14:44+0100\n"
+"PO-Revision-Date: 2005-11-21 21:00+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: librezale.org <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: KBabel 1.10.2\n"
 
-#, fuzzy
 msgid "Gallery Email Test"
-msgstr "Gallery"
+msgstr "Gallery ePosta Proba"
 
 msgid "forever"
-msgstr "forever"
+msgstr "betiko"
 
 msgid "High Priority (Me first!)"
 msgstr ""
@@ -42,69 +45,68 @@ msgid "Low Priority (I want to share!)"
 msgstr ""
 
 msgid "No Markup"
-msgstr ""
+msgstr "Ez Markaketa"
 
 msgid "BBCode"
-msgstr ""
+msgstr "BBCode"
 
 msgid "Raw HTML"
-msgstr ""
+msgstr "Formaturik gabeko HTML"
 
 msgid "Database"
-msgstr ""
+msgstr "Datu-basea"
 
-#, fuzzy
 msgid "File"
-msgstr "File: "
+msgstr "Fitxategia"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "minutu %d"
+msgstr[1] "%d minutu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d hour"
-msgstr[1] "%d hour"
+msgstr[0] "ordu %d"
+msgstr[1] "%d ordu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "%d day"
-msgstr[1] "%d day"
+msgstr[0] "egun %d"
+msgstr[1] "%d egun"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "%d week"
-msgstr[1] "%d week"
+msgstr[0] "aste %d"
+msgstr[1] "%d aste"
 
 msgid "<none>"
-msgstr "<none>"
+msgstr "<bat ere ez>"
 
 msgid "install"
-msgstr "install"
+msgstr "instalatu"
 
 msgid "upgrade"
-msgstr ""
+msgstr "bertsio-berritu"
 
 msgid "configure"
-msgstr "configure"
+msgstr "konfiguratu"
 
 msgid "activate"
-msgstr "activate"
+msgstr "gaitu"
 
-#, fuzzy
 msgid "uninstall"
-msgstr "install"
+msgstr "desinstalatu"
 
 msgid "deactivate"
-msgstr "deactivate"
+msgstr "ezgaitu"
 
+#, fuzzy
 msgid "Performing Maintenance Tasks"
-msgstr ""
+msgstr "Sistema Mantenua"
 
 #, c-format
 msgid "Downloading %s"
@@ -112,474 +114,431 @@ msgstr ""
 
 #, fuzzy
 msgid "Done."
-msgstr "Done"
+msgstr "Eginda"
 
+#, fuzzy
 msgid "Upgrade"
-msgstr ""
+msgstr "bertsio-berritu"
 
 msgid "Download"
 msgstr ""
 
 msgid "Inherit settings from parent album"
-msgstr ""
+msgstr "Erabili  direktorio gurasoaren baimenak"
 
-#, fuzzy
 msgid "Use these settings"
-msgstr "Album Settings"
+msgstr "Ezarpen hauek erabili"
 
 msgid "key"
-msgstr "key"
+msgstr "gakoa"
 
 msgid "All access"
-msgstr "All access"
+msgstr "Sarrera Denak"
 
 msgid "[core] View item"
-msgstr "[core] View item"
+msgstr "[muina] Ikusi elementua"
 
 msgid "[core] View resized version(s)"
-msgstr "[core] View resized version(s)"
+msgstr "[muina] Ikusi tamainaz aldaturiko bertsioa(k)"
 
 msgid "[core] View original version"
-msgstr "[core] View original version"
+msgstr "[muina] Ikusi jatorrizko bertsioa"
 
 msgid "[core] View all versions"
-msgstr "[core] View all versions"
+msgstr "[muina]Ikusi bertsio guztiak"
 
 msgid "[core] Add sub-album"
-msgstr "[core] Add sub-album"
+msgstr "[muina] Azpi-albuma gehitu"
 
 msgid "[core] Add sub-item"
-msgstr "[core] Add sub-item"
+msgstr "[muina] Azpi-elementua gehitu"
 
-#, fuzzy
 msgid "[core] Edit item"
-msgstr "[core] View item"
+msgstr "[muina] Elementua editatu"
 
 msgid "[core] Change item permissions"
-msgstr "[core] Change item permissions"
+msgstr "[muina] Elementu baimenak aldatu"
 
 msgid "[core] Delete item"
-msgstr "[core] Delete item"
+msgstr "[muina] Elementua ezabatu"
 
-#, fuzzy
 msgid "Upgrading permissions"
-msgstr "permissions"
+msgstr "Baimenak eguneratzen"
 
-#, fuzzy
 msgid "Deleting old permission tables"
-msgstr "permissions"
+msgstr "Baimen taula zaharrak ezabatzen"
 
-#, fuzzy
 msgid "Registered Users"
-msgstr "Edit a user"
+msgstr "Erregistratutako Erabiltzaileak"
 
-#, fuzzy
 msgid "All Users"
-msgstr "Users"
+msgstr "Erabiltzaile guztiak"
 
 msgid "Detecting broken derivatives"
-msgstr ""
+msgstr "Hautsitako eratorriak atzematen"
 
 msgid "Clearing fast-download cache"
-msgstr ""
+msgstr "Deskarga-azkar katxea garbitzen"
 
-#, fuzzy
 msgid "Site Admins"
-msgstr "site admin"
+msgstr "Gune Kudeatzaileak"
 
 msgid "Everybody"
-msgstr ""
+msgstr "Denak"
 
 msgid "Guest"
-msgstr ""
+msgstr "Gonbidatua"
 
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "Galeria"
 
-#, fuzzy
 msgid "This is the main page of your Gallery"
-msgstr "This is the top of your Gallery"
+msgstr "Hau zure galeriaren orrialde nagusia da"
 
 msgid "Detecting broken derivatives, loading "
-msgstr ""
+msgstr "Hautsitako eratorriak atzematen, kargatzen "
 
 msgid "Detecting broken derivatives "
-msgstr ""
+msgstr "Hautsitako eratorriak atzematen "
 
 msgid "Detecting broken derivatives, "
-msgstr ""
+msgstr "Hautsitako eratorriak atzematen, "
 
 msgid "Detecting broken derivatives, saving "
-msgstr ""
+msgstr "Hautsitako eratorriak atzematen, gordetzen "
 
-#, fuzzy
 msgid "add items"
-msgstr "add item"
+msgstr "elementuak gehitu"
 
-#, fuzzy
 msgid "Album created successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Albuma egoki sortu da."
 
-#, fuzzy
 msgid "add sub-album"
-msgstr "add album"
+msgstr "azpi-albuma gehitu"
 
-#, fuzzy
 msgid "add items confirmation"
-msgstr "Destination"
+msgstr "elementu berrespena gehitu"
 
-#, fuzzy
 msgid "Base filename"
-msgstr "Full name"
+msgstr "Oinarri fitxategi-izena"
 
-#, fuzzy
 msgid "Caption"
-msgstr "Caption: "
+msgstr "Epigrafea"
 
-#, fuzzy
 msgid "Blank"
-msgstr "<< Back"
+msgstr "Hutsa"
 
 msgid "From Web Browser"
-msgstr ""
+msgstr "Web Nabigatzailetik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "megabyte %d"
+msgstr[1] "%d megabyte"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "kilobyte %d"
+msgstr[1] "%d kilobyte"
 
-#, fuzzy
 msgid "From Local Server"
-msgstr "Add From Your Server"
+msgstr "Zerbitzari Lokaletik"
 
 msgid "Photo"
-msgstr ""
+msgstr "Argazkia"
 
 msgid "From Web Page"
-msgstr ""
+msgstr "Web orrialdetik"
 
 msgid "Gallery Item Administration"
-msgstr "Gallery Item Administration"
+msgstr "Galeria elementu kudeaketa"
 
 msgid "create link"
-msgstr ""
+msgstr "lotura sortu"
 
-#, fuzzy
 msgid "link an item"
-msgstr "Move an Item"
+msgstr "elementua lotu"
 
-#, fuzzy
 msgid "delete an item"
-msgstr "delete item"
+msgstr "elementua ezabatu"
 
-#, fuzzy
 msgid "delete confirmation"
-msgstr "delete item"
+msgstr "ezabatze berrespena"
 
-#, fuzzy, c-format
+#, c-format
 msgid "delete %s"
-msgstr "Delete a user"
+msgstr "%s ezabatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s"
-msgstr "Edit a user"
+msgstr "%s editatu"
 
 msgid "Settings saved successfully."
-msgstr ""
+msgstr "Ezarpenak behar bezala gorde dira."
 
-#, fuzzy
 msgid "&laquo; default theme &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; lehenetsitako gaia &raquo;"
 
-#, fuzzy
 msgid "Album"
-msgstr "Add Album"
+msgstr "Albuma"
 
-#, fuzzy
 msgid "Changes saved successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Aldaketak behar bezala gorde dira"
 
-#, fuzzy
 msgid "Animation Size"
-msgstr "Action"
+msgstr "Animazio Tamaina"
 
-#, fuzzy
 msgid "edit captions"
-msgstr "Actions"
+msgstr "epigrafeak editatu"
 
 msgid "General"
-msgstr "General"
+msgstr "Orokorra"
 
-#, fuzzy
 msgid "Movie Size"
-msgstr "Available Settings"
+msgstr "Pelikula Tamaina"
 
-#, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Argazkia behar bezala zatiturik"
 
-#, fuzzy
 msgid "Thumbnail reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Argazkitxoa behar bezala berezarri da"
 
 msgid "Photo 5x3"
-msgstr ""
+msgstr "5x3 Argazki"
 
 msgid "Photo 6x4"
-msgstr ""
+msgstr "6x4 Argazki"
 
 msgid "Photo 7x5"
-msgstr ""
+msgstr "7x5 Argazki"
 
 msgid "Photo 10x8"
-msgstr ""
+msgstr "10x8 Argazki"
 
 msgid "Fullscreen 4x3"
-msgstr ""
+msgstr "4x3 Pantaila osoa"
 
 msgid "Widescreen 16x9"
-msgstr ""
+msgstr "16x9 Zabalera"
 
 msgid "CinemaScope 2.35x1"
-msgstr ""
+msgstr "CinemaScope 2.35x1"
 
 msgid "Square 1x1"
-msgstr ""
+msgstr "1x1 Karratua"
 
-#, fuzzy
 msgid "As Image"
-msgstr "Edit Image"
+msgstr "Irudia bezala"
 
 msgid "Landscape"
-msgstr ""
+msgstr "Horizontala"
 
 msgid "Portrait"
-msgstr ""
+msgstr "Bertikala"
 
-#, fuzzy
 msgid "Crop Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Argazkitxoa Ebaki"
 
-#, fuzzy
 msgid "Reverted rotate and scale changes successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Irudi biratze eta eskalatze lehengora behar bezala itzuli da"
 
-#, fuzzy
 msgid "Rotated photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Argazkita behar bezala biratu da"
 
-#, fuzzy
 msgid "Scaled photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Argazkia behar bezala eskalatu da"
 
-#, fuzzy
 msgid "Modify Photo"
-msgstr "Modified Image"
+msgstr "Argazkia Eraldatu"
 
-#, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Album Settings"
+msgstr "Gai ezarpenak behar bezala gor dira"
 
 msgid "Theme"
-msgstr "Theme"
+msgstr "Gaia"
 
 msgid "make highlight"
-msgstr "make highlight"
+msgstr "nabarmendu"
 
 msgid "move item"
-msgstr "move item"
+msgstr "elementua mugitu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "move %s"
-msgstr "Move"
+msgstr "%s mugitu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s permissions"
-msgstr "permissions"
+msgstr "%s baimenak editatu"
 
-#, fuzzy
 msgid "reorder items"
-msgstr "move item"
+msgstr "elementuak berordenatu"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Mantenua"
 
 msgid "Gallery Site Administration"
-msgstr "Gallery Site Administration"
+msgstr "Gallery Gune Kudeaketa"
 
 msgid "site admin"
-msgstr "site admin"
+msgstr "gune kudeaketa"
 
-#, fuzzy
 msgid "Gallery User Administration"
-msgstr "Gallery Item Administration"
+msgstr "Gallery Erabiltzaile Kudeaketa"
 
-#, fuzzy
 msgid "change password"
-msgstr "Password"
+msgstr "pasahitza aldatu"
 
 msgid "your account"
-msgstr ""
+msgstr "zure kontua"
 
-#, fuzzy
 msgid "Password Recovery"
-msgstr "Password"
+msgstr "Pasahitz Berreskuratzea"
 
-#, fuzzy
 msgid "Build all thumbnails/resizes"
-msgstr "Thumbnails"
+msgstr "Argazkitxo/tamaina ezberdin guztiak sortu"
 
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
 msgstr ""
+"Ziurtatu eratorri guztien datu fitxategiak /argazkitxo, etab.) sortuak izan direla eta "
+"hondaturikoak birsortu."
 
-#, fuzzy
 msgid "Build All Thumbnails/Resizes"
-msgstr "Thumbnails"
+msgstr "Argazkitxo/Tamaina aldaketa guztiak sortu"
 
 msgid "Debug output for failed items:"
-msgstr ""
+msgstr "Huts egin duten elementuen arazpen irteera:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing image %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d irudia prozesatzen %d iruditik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Checked %d items"
-msgstr "add item"
+msgstr "%d elementu egiazturik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d items built"
-msgstr "add item"
+msgstr "%d elementu eginak"
 
 #, c-format
 msgid "%d items failed"
-msgstr ""
+msgstr "%d elementuk huts egin dute"
 
 msgid "Delete database cache"
-msgstr ""
+msgstr "Datu-base katxea ezabatu"
 
 msgid ""
 "Gallery stores commonly used database information on disk for increased performance.  If you "
 "modify the database directly, you should run this task to clean out the cache and force "
 "Gallery to reload the information from the database."
 msgstr ""
+"Gallery-k performatzia hobetzeko gehien erabilitako datu-base informazioa diskan gordetzen "
+"du.  Zuk datu-basea zuzenean eraldatu ezkero ataza hau abiarazi behar duzu katxea garbitu "
+"eta Gallery informazioa datu-basetik irakurtzea behartzeko."
 
 #, c-format
 msgid "Successfully deleted directory: %s"
-msgstr ""
+msgstr "Direktorioa behar bezala ezabtu da: %s"
 
 #, c-format
 msgid "Unable to delete directory: %s"
-msgstr ""
+msgstr "Ezin da direktorioa ezabatu: %s"
+
+msgid "Delete template cache"
+msgstr "Ezabatu Txantilloi katxea"
 
 #, fuzzy
-msgid "Delete template cache"
-msgstr "Delete Item"
-
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
 "experiencing problems that say <i>Smarty error</i> then you might try running this task.  "
 "Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl "
 "file."
 msgstr ""
+"Galleryk txantilloi fitxategiak konpilatu eta gorde egiten ditu performantzia hobetzeko.  "
+"Zuk <i>Abiadura erroreak</i> ematen duten arazoak izan ezkero. Hau abiarazi ere zuk local/*.."
+"tpl fitxategia ezabatu baduzu, honek lehenetsiriko tpl fitxategia berrezarriko bait du."
 
-#, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Txantilloi katxea behar bezala ezabatu da"
 
 msgid "some text to be spit out in different languages"
-msgstr ""
+msgstr "zenbait testu hizkuntza ezberdinetan banatu behar dira"
 
 msgid "You did it right!"
-msgstr ""
+msgstr "Egoki egin duzu!"
 
-#, fuzzy
 msgid "album"
-msgstr "(album)"
+msgstr "album"
 
-#, fuzzy
 msgid "Animation"
-msgstr "Action"
+msgstr "Animazioa"
 
-#, fuzzy
 msgid "animation"
-msgstr "Action"
+msgstr "animazioa"
 
-#, fuzzy
 msgid "Gallery Core"
-msgstr "Gallery"
+msgstr "Gallery Muina"
 
-#, fuzzy
 msgid "Gallery Core Module"
-msgstr "Gallery"
+msgstr "Gallery Muin Modulua"
 
-#, fuzzy
 msgid "Search descriptions"
-msgstr "Description"
+msgstr "Bilatu deskribapenetan"
 
-#, fuzzy
 msgid "Search keywords"
-msgstr "Keywords"
+msgstr "Bilatu Hitz-gakoaetan"
 
 msgid "Search summaries"
-msgstr ""
+msgstr "Bilatu laburpenetan"
 
-#, fuzzy
 msgid "Search titles"
-msgstr "deactivate"
+msgstr "Bilatu Tituluetan"
 
 msgid "Description"
-msgstr "Description"
+msgstr "Deskribapenak"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Hitz-gakoak"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Laburpena"
 
 msgid "Title"
-msgstr "Title"
+msgstr "Titulua"
 
 msgid "Owner"
-msgstr "Owner"
+msgstr "Jabea"
 
-#, fuzzy
 msgid "Group"
-msgstr "Groups"
+msgstr "Taldea"
 
-#, fuzzy
 msgid "group"
-msgstr "Groups"
+msgstr "taldea"
 
 msgid "Other"
-msgstr ""
+msgstr "Bestelakoak"
 
-#, fuzzy
 msgid "Movie"
-msgstr "Move"
+msgstr "Pelikula"
 
-#, fuzzy
 msgid "movie"
-msgstr "Move"
+msgstr "pelikula"
 
 msgid "photo"
-msgstr ""
+msgstr "argazkia"
 
+#, fuzzy
 msgid "download"
-msgstr ""
+msgstr "behera"
 
 #, fuzzy
 msgid "Plugins directory does not exist."
-msgstr "User '%s' does not exist."
+msgstr "%s erabiltzailerik ez dago."
 
 #, c-format
 msgid ""
@@ -612,161 +571,146 @@ msgstr ""
 msgid "Index integrity check failed."
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; default sort order &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; lehenetsi ordena &raquo;"
 
-#, fuzzy
 msgid "Manual sort order"
-msgstr "Album sort order:"
+msgstr "Eskuz ordenatu"
 
-#, fuzzy
 msgid "Origination Date"
-msgstr "Creation Date"
+msgstr "Jatorrizko Data"
 
 msgid "Creation Date"
-msgstr "Creation Date"
+msgstr "Sortze Data"
 
 msgid "Last Changed Date"
-msgstr "Last Changed Date"
+msgstr "Azkena Aldaketa Data"
 
 msgid "Name"
-msgstr "Name"
+msgstr "Izena"
 
 msgid "View Count"
-msgstr ""
+msgstr "Ikuste Kopurua"
 
 msgid "Random"
-msgstr ""
+msgstr "Ausazkoa"
 
-#, fuzzy
 msgid "&laquo; no presort &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; aurres-sailkapenik ez&raquo;"
 
-#, fuzzy
 msgid "Albums First"
-msgstr "Album Settings"
+msgstr "Albumak Lehenik"
 
 msgid "Most Viewed First"
-msgstr ""
+msgstr "Gehien Ikusiak Lehenik"
 
 msgid "Ascending"
-msgstr "Ascending"
+msgstr "Gorantz"
 
 msgid "Descending"
-msgstr "Descending"
+msgstr "Beherantz"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
-msgstr ""
+msgstr "Egiaztapena ezgaiturik config.php fitxategian allowSessionAccess  ezarri arte"
 
 msgid "This page is valid XHTML 1.0"
-msgstr ""
+msgstr "Orrialde hau XHTML 1.0 baliozkoa da"
 
-#, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Browse Gallery"
+msgstr "Gallery proiektuari dohaintza egin"
 
 msgid "G2.0: Unpossible!"
-msgstr ""
+msgstr "G2.0: Ezinezkoa!"
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
-msgstr ""
+msgstr "Falta den denbora: %d:%02d"
 
 #, c-format
 msgid "Memory used: %s, total: %s"
-msgstr ""
+msgstr "Erabilitako memoria: %s, guztira: %s"
 
 msgid "Rows per album page"
-msgstr ""
+msgstr "Album orri bakoitzeko lerroak"
 
 msgid "Columns per album page"
-msgstr ""
+msgstr "Album orri bakoitzeko zutabeak"
 
 msgid "Show image owners"
-msgstr ""
+msgstr "Erakutsi irudi jabeak"
 
 msgid "Show album owners"
-msgstr ""
+msgstr "Erakutsi album jabeak"
 
 msgid "Show micro navigation thumbnails"
-msgstr ""
+msgstr "Mikro-nabigatze argazkitxoak bistarazi"
 
 msgid "Number of items to show per page"
-msgstr ""
+msgstr "Orri bakoitzeko erakutsiko diren elementu kopurua"
 
 msgid "Blocks to show in the sidebar"
-msgstr ""
+msgstr "Alboko barran erakutsiko diren blokeak"
 
 msgid "Blocks to show on album pages"
-msgstr ""
+msgstr "Album orrialdetan erakutsiko diren blokeak"
 
 msgid "Blocks to show on photo pages"
-msgstr ""
+msgstr "Argazki orrialdetan erakutsiko diren blokeak"
 
 msgid "View Samples"
-msgstr ""
+msgstr "AdibideakIkusi"
 
-#, fuzzy
 msgid "Album Frame"
-msgstr "Album Settings"
+msgstr "Album Markoa"
 
-#, fuzzy
 msgid "Item Frame"
-msgstr "Items to move"
+msgstr "Elementu Markoa"
 
 msgid "Photo Frame"
-msgstr ""
+msgstr "Argazki Markoa"
 
 msgid "Color Pack"
-msgstr ""
+msgstr "Kolore Paketea"
 
-#, fuzzy
 msgid "You must enter a number greater than 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "0 baino zenbaki handiago bat idatzi behar duzu"
 
 msgid "Format: [module.BlockName param=value] ..."
-msgstr ""
+msgstr "Formatua: [modulua.BlokeIzena param=balioa] ..."
 
 #, c-format
 msgid "%dx%d"
-msgstr ""
+msgstr "%dx%d"
 
-#, fuzzy
 msgid "Audio"
-msgstr "Undo"
+msgstr "Audioa"
 
-#, fuzzy
 msgid "audio"
-msgstr "Undo"
+msgstr "audioa"
 
-#, fuzzy
 msgid "Archive"
-msgstr "Active"
+msgstr "Fixtategia"
 
-#, fuzzy
 msgid "archive"
-msgstr "activate"
+msgstr "fitxategia"
 
 msgid "Document"
-msgstr ""
+msgstr "Dokumentua"
 
 msgid "document"
-msgstr ""
+msgstr "dokumentua"
 
-#, fuzzy
 msgid "Spreadsheet"
-msgstr "Reset"
+msgstr "Kalkulu-orria"
 
-#, fuzzy
 msgid "spreadsheet"
-msgstr "Reset"
+msgstr "kalkulu-orria"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Ezezaguna"
 
 msgid "unknown"
-msgstr ""
+msgstr "ezezaguna"
 
 #, c-format
 msgid ""
@@ -774,278 +718,246 @@ msgid ""
 "part of this Gallery."
 msgstr ""
 
-#, fuzzy
 msgid "Back"
-msgstr "<< Back"
+msgstr "Atzera"
 
 #, c-format
 msgid "Back to %s"
-msgstr ""
+msgstr "%s-ra Atzera"
 
-#, fuzzy
 msgid "User"
-msgstr "Users"
+msgstr "Erabiltzailea"
 
-#, fuzzy
 msgid "user"
-msgstr "Users"
+msgstr "erabiltzailea"
 
 msgid "Optimize database"
-msgstr ""
+msgstr "Datu-basea Optimizatu"
 
 msgid ""
 "Improve the performance of your database.  Results will vary depending on which database "
 "you're using, but this routine maintenance will make your Gallery run faster.  Especially "
 "useful after adding or deleting many items."
 msgstr ""
+"Zure datu-basearen performantzia hobetu.  Emaitzak erabiltzen ari datu-basearen arabera alda "
+"daitezke, baina mantenu oihutar honek zur eGaleria azkarrago ibiltzea egin dezake. Elementu "
+"asko ezabatu edo gehitzerakoan batezere erabilgarria."
 
-#, fuzzy
 msgid "Database optimized successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Datu-basea behar bezala optimizatu da"
 
 msgid "Reset view counts"
-msgstr ""
+msgstr "Berrezarri ukste kontuak"
 
 msgid ""
 "Reset number of views to zero for all albums and items.  This task flushes the database "
 "cache as well."
 msgstr ""
+"Album eta elementu guztien ikuspen kontua zerora berezarri.  Ataza honek datu-base katxea "
+"ere garboitzen du."
 
-#, fuzzy
 msgid "View counts reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Ikuste kopuruak behar bezala ezabatu dira"
 
 msgid "Refresh capture dates"
-msgstr ""
+msgstr "Jasotze datak Freskatu "
 
 msgid ""
 "Update capture date stored in Gallery for all items with an available date in the original "
 "data file (usually from EXIF data)."
 msgstr ""
+"Eguneratu eskuratze Galerian gorderiko data jatorrizko datu fitxategian data duten elementu "
+"guztientzat (normalean EXIF datuetik)."
 
 msgid "Processing..."
-msgstr ""
+msgstr "Prozesatzen..."
 
 msgid "Refresh Capture Dates"
-msgstr ""
+msgstr "Jasotze Datak Freskatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing item %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d elementua prozesatzen %d-tik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Updated %d of %d items"
-msgstr "Viewing page %d of %d"
+msgstr "%d elementu eguneraturik %d elementutatik"
 
-#, fuzzy
 msgid "System information"
-msgstr "Destination"
+msgstr "Sistema informazioa"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
-msgstr ""
+msgstr "Sistema xehetasunak eskuratu; G2 laguntza foroan kopiatu/itsasi egiteko erabilgarria."
 
-#, fuzzy
 msgid "core"
-msgstr "configure"
+msgstr "muina"
 
-#, fuzzy
 msgid "Gallery version"
-msgstr "Gallery"
+msgstr "Gallery bertsioa"
 
-#, fuzzy
 msgid "PHP version"
-msgstr "Version"
+msgstr "PHP bertsioa"
 
-#, fuzzy
 msgid "Webserver"
-msgstr "Remove"
+msgstr "Web zerbitzaria"
 
 msgid "Toolkits"
-msgstr ""
+msgstr "Tresna-jokoak"
 
 msgid "Operating system"
-msgstr ""
+msgstr "Sistema eragilea"
 
-#, fuzzy
 msgid "Browser"
-msgstr "Browse Gallery"
+msgstr "Nabigatzailea"
 
-#, fuzzy
 msgid "Core"
-msgstr "configure"
+msgstr "Muina"
 
-#, fuzzy
 msgid "Gallery 2 Core Module"
-msgstr "Gallery"
+msgstr "Gallery 2 Muin Modulua"
 
 msgid "Add Items"
-msgstr "Add Items"
+msgstr "Elementuak Gehitu"
 
-#, fuzzy
 msgid "Edit Album"
-msgstr "Add an Album"
+msgstr "Albuma Editatu"
 
-#, fuzzy
 msgid "Edit Photo"
-msgstr "Modified Image"
+msgstr "Argazkia Editatu"
 
-#, fuzzy
 msgid "Edit Movie"
-msgstr "Move"
+msgstr "Pelikula Editatu"
 
-#, fuzzy
 msgid "Create Link"
-msgstr "Create"
+msgstr "Lotura Sortu"
 
-#, fuzzy
 msgid "Add Album"
-msgstr "Add an Album"
+msgstr "Albuma Gehitu"
 
-#, fuzzy
 msgid "Edit Permissions"
-msgstr "Permissions"
+msgstr "Baimenak Editatu"
 
-#, fuzzy
 msgid "View Permissions"
-msgstr "Permissions"
+msgstr "Baimenak Ikusi"
 
-#, fuzzy
 msgid "Delete Album"
-msgstr "Delete a group"
+msgstr "Albuma Ezabatu"
 
-#, fuzzy
 msgid "Delete Photo"
-msgstr "Delete a user"
+msgstr "Argazkia Ezabatu"
 
-#, fuzzy
 msgid "Delete Movie"
-msgstr "Delete a user"
+msgstr "Pelikula Ezabatu"
 
-#, fuzzy
 msgid "Move Album"
-msgstr "Add Album"
+msgstr "Albuma lekuz aldatu"
 
-#, fuzzy
 msgid "Move Photo"
-msgstr "Modified Image"
+msgstr "Argazkia lekuz aldatu"
 
-#, fuzzy
 msgid "Move Movie"
-msgstr "Available Settings"
+msgstr "Pelikula Lekuz aldatu"
 
-#, fuzzy
 msgid "Edit Captions"
-msgstr "Gallery Site Administration"
+msgstr "Epigrafeak Editatu"
 
 msgid "Make Highlight"
-msgstr "Make Highlight"
+msgstr "Nabarmendu"
 
-#, fuzzy
 msgid "Reorder Items"
-msgstr "move item"
+msgstr "Elementuak berriz ordenatu"
 
-#, fuzzy
 msgid "Site Admin"
-msgstr "site admin"
+msgstr "Gune Kudeaketa"
 
 msgid "Login"
-msgstr "Login"
+msgstr "Saioa hasi"
 
 msgid "Your Account"
-msgstr ""
+msgstr "Zure Kontua"
 
-#, fuzzy
 msgid "Logout"
-msgstr "logout"
+msgstr "Saioa amaitu"
 
 msgid "Modules"
-msgstr "Modules"
+msgstr "Moduluak"
 
 msgid "Repository"
 msgstr ""
 
-#, fuzzy
 msgid "Themes"
-msgstr "Theme"
+msgstr "Gaiak"
 
 msgid "Display"
-msgstr ""
+msgstr "Bistaratu"
 
 msgid "Users"
-msgstr "Users"
+msgstr "Erabiltzaileak"
 
 msgid "Groups"
-msgstr "Groups"
+msgstr "Taldeak"
 
 msgid "Toolkit Priority"
-msgstr ""
+msgstr "Tresna-joko lehentasuna"
 
 msgid "Graphics Toolkits"
-msgstr ""
+msgstr "Tresna-joko Grafikoak"
 
-#, fuzzy
 msgid "Account Settings"
-msgstr "Album Settings"
+msgstr "Kontu ezarpenak"
 
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
+msgstr "Aldatu pasahitza"
 
-#, fuzzy
 msgid "Link Album"
-msgstr "Add Album"
+msgstr "Albuma lotura egin"
 
-#, fuzzy
 msgid "Link Photo"
-msgstr "Modified Image"
+msgstr "Argazkia lotura egin"
 
-#, fuzzy
 msgid "Link Movie"
-msgstr "Move"
+msgstr "Pelikularen lotura egin"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Edit %s"
-msgstr "Edit a user"
+msgstr "%s editatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %s"
-msgstr "Delete a user"
+msgstr "%s ezabatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Move %s"
-msgstr "Move"
+msgstr "%s lekuz aldatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Link %s"
-msgstr "Login"
+msgstr "%s lotura egin"
 
 msgid "General Settings"
-msgstr "General Settings"
+msgstr "Ezarpen orokorrak"
 
 msgid "Settings saved successfully"
-msgstr ""
+msgstr "Ezarpenak behar bezala gorde dira"
 
-#, fuzzy
 msgid "Added local upload directory successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Igoera direktorio lokala behar bezala gehitu da"
 
-#, fuzzy
 msgid "Removed local upload directory successfully"
-msgstr "Revert to original"
+msgstr "Igoera direktorio lokala behar bezala ezabatu da"
+
+msgid "Test email sent successfully"
+msgstr "Testu eposta behar bezala bidali da"
 
 #, fuzzy
-msgid "Test email sent successfully"
-msgstr "User '%s' has been modified successfully."
-
 msgid "There was a problem processing your request, see below for details."
-msgstr ""
+msgstr "Errore bat gertatu da zure eskakizuna prozesatzerakoan, xehetasun gehiago behean."
 
 msgid "Error sending test email, see below for details."
-msgstr ""
+msgstr "Huts proba eposta bidaltzerakoan, ikusi xehetasunak behean."
 
-#, fuzzy
 msgid "Language Settings"
-msgstr "Language settings"
+msgstr "Hizkuntza Ezarpenak"
 
 #, fuzzy
 msgid ""
@@ -1054,27 +966,28 @@ msgid ""
 "automatically detect the language preference of each user if the browser preference check is "
 "enabled."
 msgstr ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences."
+"Galeriaren lehenetsiriko hizkuntza ezarri. Banakako erabiltzaileek ezarpen hau gainidatzi "
+"ditzakete ezarpen pertsonaletan erabilgarri egon ezkero hizkuntza aukeratzailearen bidez."
 
 msgid "Default language"
-msgstr "Default language"
+msgstr "Lehenetsiriko hizkuntza"
 
 msgid "Check Browser Preference"
 msgstr ""
 
 msgid "gettext"
-msgstr ""
+msgstr "gettext"
 
 #, c-format
 msgid ""
 "Your webserver does not support localization.  Please instruct your system administrator to "
 "reconfigure PHP with the %s option enabled."
 msgstr ""
+"Zure web zerbitzariak ez du lokalizazio hau onartzen. Mesedez eskatu sistema kudeatzaileari %"
+"s aukera gaituaz PHP berkonfiguratzeko"
 
-#, fuzzy
 msgid "Date Formats"
-msgstr "Delete a user"
+msgstr "Data Formatuak"
 
 #, c-format
 msgid ""
@@ -1082,48 +995,46 @@ msgid ""
 "enter a format string.  Note that the display of some tokens varies according to the active "
 "language."
 msgstr ""
+"Galeriak data eta orduak nola bistaraziko dituen ezarri.  Begiratu %sphp.net%s formatu katea "
+"nola idatzi behar den buruzko xehetasunentzat.  Kontutan izan zenbait ikur bistaratzea "
+"gaiturik dagoen hizkuntzaren arabera alda daitezkeela."
 
-#, fuzzy
 msgid "Style"
-msgstr "Scale"
+msgstr "Estiloa"
 
 msgid "Format"
-msgstr ""
+msgstr "Formatua"
 
-#, fuzzy
 msgid "Sample"
-msgstr "Scale"
+msgstr "Adibidea"
 
-#, fuzzy
 msgid "Date"
-msgstr "Delete a user"
+msgstr "Data"
 
-#, fuzzy
 msgid "Time"
-msgstr "move item"
+msgstr "Ordua"
 
 msgid "Date/Time"
-msgstr ""
+msgstr "Data/Ordua"
 
 msgid "Filesystem Permissions"
-msgstr "Filesystem Permissions"
+msgstr "Fitxategi-sistema Baimenak"
 
-#, fuzzy
 msgid ""
 "Specify the default permissions for files and directories that Gallery creates. This doesn't "
 "apply to files/directories that Gallery has already created."
 msgstr ""
-"Here you can specify the default permissions for files and directories that Gallery creates. "
-"This doesn't apply to files/directories that Gallery has already created."
+"Galeriak sortzen dituen fitxategi eta direktorioen lehenetsiriko baimenak ezarri. Hauek ez "
+"dira ezarriko galeriak dagoeneko sortutako fitxategi/direktorioentzat."
 
 msgid "New directories"
-msgstr "New directories"
+msgstr "Direktorio berriak"
 
 msgid "New files"
-msgstr "New files"
+msgstr "Fitxategi berriak"
 
 msgid "Local Server Upload Paths"
-msgstr ""
+msgstr "Zerbitzari Lokal Igoera Bidea"
 
 msgid ""
 "Specify the legal directories on the local server where a user can store files and then "
@@ -1132,63 +1043,71 @@ msgid ""
 "Gallery user who has upload privileges, so you should limit this to directories that won't "
 "contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
 msgstr ""
+"<i>Zerbitzari lokaletik igo> aukera erabiliaz igotzeko argazkiak gordetzeko erabiloko den "
+"Zerbizari lokaleko direkotrio legala ezarri.  Hemen emandako bideak eta bere fitxategi eta "
+"azpidirektorioek fitxategiak igotzeko baimena duen edozein erabiltzailerentzat eskuragarriak "
+"izan behar dira, beraz datu sensiblerik ez duen direkotorio batetan ezarri beharko zenuke "
+"(Adib /tmp edo /usr/ftp/incoming)"
 
 msgid "Path"
-msgstr ""
+msgstr "Bidea"
 
 msgid "Action"
-msgstr "Action"
+msgstr "Ekintza"
 
-#, fuzzy
 msgid "remove"
-msgstr "Remove"
+msgstr "ezabatu"
 
 msgid "Add"
-msgstr "Add"
+msgstr "Gehitu"
 
-#, fuzzy
 msgid "You must enter a directory to add."
-msgstr "You must enter a size"
+msgstr "Gehitzeko direktorioa bat idatzi behar duzu."
 
 msgid "open_basedir documentation"
-msgstr ""
+msgstr "open_basedir dokumentazioa"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Your webserver is configured to prevent you from accessing that directory.  Please refer to "
 "the %s and consult your webserver administrator."
 msgstr ""
+"Zure web zernitzaria direktorio honetara sartzen ez usteko konfiguraturik dago.  Joan %s-ra "
+"eta zure web zerbiztari kudeatzailearekin."
 
 msgid "The webserver does not have permissions to read that directory."
-msgstr ""
+msgstr " Web zerbitzariak ez du direktorio hau irakurtzeko baimenik."
 
 msgid "The path you specified is not a valid directory."
-msgstr ""
+msgstr "Emandako bidea ez da baliozko direktorio bat."
 
 msgid "Session Settings"
-msgstr "Session Settings"
+msgstr "Saio Ezarpenak"
 
-#, fuzzy
 msgid "Session Lifetime"
-msgstr "Session Settings"
+msgstr "Saio iraungitzea"
 
 msgid "Inactivity Timeout"
-msgstr "Inactivity Timeout"
+msgstr "Denbora-muga"
 
 msgid "Embedded Markup"
-msgstr ""
+msgstr "Barneratutako markatzea"
 
 msgid ""
 "What kind of markup should we allow in user-entered fields?  For security reasons we do not "
 "recommend that you allow raw HTML.  BBCode is a special kind of markup that is secure and "
 "allows for simple text formatting like bold, italics, lists, images and urls."
 msgstr ""
+"Zein marka mota onartuko dira erabiltzaileak sarturiko eremuetan?  Seguratsun arrazoiak "
+"direla eta ez da HTML onartzea gomendatzen.  BBCode segurua den eta testu formateatze "
+"sinplea (lodia, italikoa, zerrendak, irudiak, url-akm etab...) onartzen duen marka mota "
+"berezi bat da."
 
 msgid "Markup"
-msgstr ""
+msgstr "Markaketa"
 
 msgid "Email"
-msgstr ""
+msgstr "ePosta"
 
 msgid ""
 "By default Gallery uses PHP's built in mail function to send email which requires no "
@@ -1196,44 +1115,50 @@ msgid ""
 "authentication information if required.  Optionally add :port after the server name to use a "
 "non-default port."
 msgstr ""
+"Lehenespen bezala Gallery-k konfiguraziorik behar ez duen PHP-ko mail funtzioa erabiltzen "
+"du.  smtp/posta zerbitzari bat erabili nahi izan ezkero idatzi beharrezko datuak, egiaztapen "
+"datuak ere beharrezko badira, beherago.  Aukeran ataka gehitu dezakezu izenaren ondoren "
+"lehenetsiriko ataka ez erabililtzeko."
 
-#, fuzzy
 msgid "Server"
-msgstr "Remove"
+msgstr "Zerbitzaria"
 
 msgid "Username"
-msgstr "Username"
+msgstr "Erabiltzaile-izena"
 
 msgid "Password"
-msgstr "Password"
+msgstr "Pasahitza"
 
-#, fuzzy
 msgid "SMTP From Address"
-msgstr "Email address"
+msgstr "SMTP Nork Helbidea"
 
-#, fuzzy
 msgid "Invalid email address"
-msgstr "Email address"
+msgstr "Helbide elektronikoa ez da baliozkoa"
 
 msgid ""
 "Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
 "settings above).  Below enter a recipient email address for a test message."
 msgstr ""
+"Zure ezarpenak egokiak direla egiaztatzeko eposta bat bidali (PHP mail edo SMTP ezarpenak "
+"erabiliaz). Mezua bidaliko den posta helbidea idatzi beherago"
 
 msgid "Send Email"
-msgstr ""
+msgstr "eposta bidali"
 
 msgid "Email Test Error"
-msgstr ""
+msgstr "ePosta proba errorea"
 
 msgid "Cookies"
-msgstr ""
+msgstr "Cookie-ak"
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
 "the choice between two options. Everyone else does not have to care about the cookie "
 "settings. Read on for more details."
 msgstr ""
+"Gallery beste aplikazio batetan barneratzena (protala, CMS, foroa, etab) bi aukeren artean "
+"hautatu behar duzu. Besteak cookie ezarpenetaz ez dira arduratu behar. Hemen irakurri "
+"argibide gehiagorako."
 
 msgid ""
 "If your Gallery is embedded and you leave the following fields empty, then all DownloadItem "
@@ -1247,7 +1172,18 @@ msgid ""
 "part of the paths that is equal, in this case it is '/application/'. Most often it is just "
 "'/'."
 msgstr ""
+"Zure Galeria beste aplikazio batetan barneratuta badago eta zuk eremu hauek ez bete "
+"ezkerobarneratutako aplikazioaren ElementuDeskarga lotura guztiak (irudi eta beste "
+"elementuen URL-ak) erabiltzaileak irudi URL-ak foro, bisita liburu eta antzekoetan sartu "
+"ezkero <b>segurtasun zulo txiki bat</b> den <b>GALLERYSID kate bat barneratuko dute</b>. "
+"Beste modua <b>Cookie bidea</b> ezartzea da. Gallery-k orduan <b>ez du GALLERYSID gehituko "
+"barneratutako aplikazioaren ElementuDeskargetara</b>. Adib. Gallery http://www.adibide.com/"
+"aplikazioa/gallery2 bidez eskura badaiteke eta barneratze aplikazioa http://www.adibide.com/"
+"aplikazioa/ denean, /aplikazioa/gallery2 eta /aplikazioa/ parekatu behar dituzu. Cookie "
+"bidea berdina den bide zatia da, kasu honetan '/aplikazioa/'. BEste batzuetan '/' oizan "
+"daiteke."
 
+#, fuzzy
 msgid ""
 "The <b>cookie domain</b> is also only needed for embedded Gallery installs and only if you "
 "want to get rid of the GALLERYSID string in the embedded DownloadItem URLs. <b>In most "
@@ -1257,24 +1193,34 @@ msgid ""
 "to set the cookie domain example.com (the part of the host string that is common to both, "
 "Gallery and the embedding application)."
 msgstr ""
+"<b>Cookie domeinua</b> beste aplikazio batetan barneratutako Gallery instalazioetan behar da "
+"eta bakarrik barneratutako ElementuDeskarga loturetan GALLERYSID agertzea ez baduzu nahi."
+"<b>kasu gehienetan, cookie domeinua hutsik utz dezakzu.</b> Ezarri bakarrik gallery eta "
+"berau barneratutako aplikazioa <b>azpidomeinu ezberdinen</b> bidez eskuratu badaitezke. "
+"Adib. galeria http:/argazkiak.adibide.com-en badago eta barneratutako aplikazioa http://www."
+"adibide.com/ bidean badago cookie domeinua adibide.com bezala ezarri ebhar duzu (Gallery eta "
+"barneratze aplikazioen bideetan berdina dena).."
 
 msgid ""
 "Once you change the cookie settings, <b>all registered users</b> of your Gallery will "
 "<b>have to clear their browser cookie cache</b>. If they do not, they will experience "
 "login / logout / lost session problems."
 msgstr ""
+"Cookie ezarpenak aldatu dituzunean, Galeriako <b>hapidedun guztiek</b> bere "
+"<b>nabigatzaileko cookie katxea ezabatu</b> behar dute. Ez ezabatu ezkero saio hasiera / "
+"amaiera/ galera arazoak izan ditzakete."
 
 msgid "Invalid cookie path"
-msgstr ""
+msgstr "Cookie bide baliogabea"
 
 msgid "Domain"
-msgstr ""
+msgstr "Domeinua"
 
 msgid "Invalid cookie domain"
-msgstr ""
+msgstr "Cookie domeinu baliogabea"
 
 msgid "Locking System"
-msgstr ""
+msgstr "Blokeo Sistema"
 
 msgid ""
 "Gallery uses a system of locks to prevent simultaneous changes from interfering with each "
@@ -1285,9 +1231,16 @@ msgid ""
 "timeouts, you can try switching to database locking instead.  It's ok to switch back and "
 "forth."
 msgstr ""
+"Gallery elkarren artean jotzen duten aldaketak ekiditzeko blokeo sistema bat erabiltzen du.  "
+"Bi blokeo mota daude, bakoitza bere abantaia eta arazoekin.  <b>Fitxategian</b> "
+"oinarritutako blokeoa azkar eta egokia da baina ez du NFS fitxategi sistemetan futzionatzen "
+"eta ezinda Windowspean erabili.  <b>Datu-base</b> geldoago baina fidagarriagoa da.  Zein "
+"aukeratu ez badakizu, fitxategi blokeoa erabiltzea gomendatzen da.  Denboraz-kanpo ugari "
+"jaso ezkero, datu-base blokeoa erabiltzen saia zaitezke. Batetik bestera arazo gabe alda "
+"daiteke."
 
 msgid "Lock system"
-msgstr ""
+msgstr "Blokeo sistema"
 
 msgid "Helper Processes"
 msgstr ""
@@ -1300,371 +1253,345 @@ msgid ""
 "complaining, try setting your priority low."
 msgstr ""
 
+#, fuzzy
 msgid "Priority"
-msgstr ""
+msgstr "Tresna-joko lehentasuna"
 
 msgid "Save"
-msgstr "Save"
+msgstr "Gorde"
 
-#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Berrezarri"
 
-#, fuzzy
 msgid "Create A New Group"
-msgstr "Create a new group"
+msgstr "Talde Berri Bat Sortu"
 
 msgid "Group Name"
-msgstr "Group Name"
+msgstr "Taldearen izena"
 
-#, fuzzy
 msgid "(required)"
-msgstr "[required]"
+msgstr "(beharrezkoa)"
 
 msgid "You must enter a group name"
-msgstr "You must enter a group name"
+msgstr "Talde izen bat idatzi behar duzu"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Group '%s' already exists"
+msgstr "%s taldea badago dagoeneko"
 
 msgid "Create Group"
-msgstr "Create Group"
+msgstr "Taldea Sortu"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Utzi"
 
-#, fuzzy
 msgid "Create A New User"
-msgstr "Create a new user"
+msgstr "Erabiltzaile berri bat sortu"
 
 msgid "You must enter a username"
-msgstr "You must enter a username"
+msgstr "Erabiltzaile izen bat idatzi behar duzu"
 
 #, c-format
 msgid "Username '%s' already exists"
-msgstr "Username '%s' already exists"
+msgstr "%s Erabiltzaile-izena badago dagoeneko"
 
-#, fuzzy
 msgid "Full Name"
-msgstr "Full name"
+msgstr "Izen osoa"
 
-#, fuzzy
 msgid "Email Address"
-msgstr "Email address"
+msgstr "ePosta Helbidea"
 
 msgid "You must enter an email address"
-msgstr "You must enter an email address"
+msgstr "Baliozo eposta helbide bat idatzi behar duzu"
 
 msgid "Language"
-msgstr "Language"
+msgstr "Hizkuntza"
 
 msgid "You must enter a password"
-msgstr "You must enter a password"
+msgstr "Psahitz bat idatzi behar duzu"
 
-#, fuzzy
 msgid "Verify Password"
-msgstr "Verify password"
+msgstr "Pasahitza Egiaztatu"
 
 msgid "You must enter the password a second time"
-msgstr "You must enter the password a second time"
+msgstr "Pasahitza bigarren aldi batez idatzi behar duzu"
 
 msgid "The passwords you entered did not match"
-msgstr "The passwords you entered did not match"
+msgstr "Sartutako bi psahitzak ez datoz bat"
 
 msgid "Create User"
-msgstr "Create User"
+msgstr "Erabiltzailea Sortu"
 
-#, fuzzy
 msgid "Delete A Group"
-msgstr "Delete a group"
+msgstr "Taldea Bat Ezabatu"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Ziur zaude?"
 
 #, c-format
 msgid "This will completely remove %s from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Honek %s galeriatik guztiz ezabatuko du.  Hau ezin da desegin!"
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Ezabatu"
 
-#, fuzzy
 msgid "Delete a User"
-msgstr "Delete a user"
+msgstr "Erabiltzaile Bat Ezabatu "
 
-#, fuzzy, c-format
+#, c-format
 msgid "User %s is the owner of %s items."
-msgstr "A longer description of this item."
+msgstr "%s erabiltzailea %s elementuren jabea da."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
-msgstr ""
+msgstr "<strong> %s</strong>  erabiltzailea ezabatu eta..."
 
 #, c-format
 msgid "Assign a new owner for all items of %s"
-msgstr ""
+msgstr "%s-ren elementu guztiei jabe berria ezarri"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Delete all items of %s and assign a new owner for all remaining non empty albums. Items that "
 "%s doesn't have permission to delete will also be reassigned to a new owner."
 msgstr ""
+"%s-ren elementu guztiak ezabatu eta geratzen diiren hutsak ez dauden albumi jabe berria "
+"ezarri"
 
 msgid "New owner (leaving blank means one of the Site Admins):"
-msgstr ""
+msgstr "JAbe berria (hutsik utzi ezkero sistema kudeatzaileetako bat  izango da):"
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
-msgstr ""
+msgstr "'%s' erabiltzailerik ez dago. Ezin da ez dagoen erabiltzaile beti elementurik ezarri"
 
 msgid "The new owner must be a different user than the user we are deleting!"
-msgstr ""
+msgstr "Jabe berria ezabatzen ari garen honetatik ezberdina izan behar da!"
 
 msgid "The new owner cannot be a Guest / Anonymous user!"
-msgstr ""
+msgstr "Jabe berria ezin da erabiltzaile gonbidatu/izengabea izan!"
 
 #, c-format
 msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Honek <strong>%s</strong> galeriatik guztiz ezabatuko du. Hau ezin da desegin!"
 
 msgid "Edit a group"
-msgstr "Edit a group"
+msgstr "Talde bat ediatatu"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
-msgstr ""
+msgstr "'%s' Taldeko Partaideak Editatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Added user '%s' to group '%s'"
-msgstr "Added user '%s' to group"
+msgstr "'%s' erabiltzailea '%s' taldera gehiturik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Removed user '%s' from group '%s'"
 msgid_plural "Removed %s users from group '%s'"
-msgstr[0] "Removed user '%s' from group"
-msgstr[1] "Removed user '%s' from group"
+msgstr[0] "'%s' erabiltzailea '%s' taldetik ezabaturik"
+msgstr[1] "'%s' erabiltzaile '%s' taldetik ezabaturik"
 
 #, c-format
 msgid "This group contains %d user"
 msgid_plural "This group contains %d users"
-msgstr[0] "This group contains %d user"
-msgstr[1] "This group contains %d users"
+msgstr[0] "taldea hau daukana e erabiltzailea"
+msgstr[1] "taldea hau daukana e erabiltzailea"
 
-#, fuzzy
 msgid "Members"
-msgstr "Add Items"
+msgstr "Kideak"
 
 msgid "&laquo; first"
-msgstr ""
+msgstr "&laquo; lehenengoa"
 
 msgid "&laquo; back"
-msgstr ""
+msgstr "&laquo; atzera"
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d orria ikusten %d orrialdetatik"
 
 msgid "next &raquo;"
-msgstr ""
+msgstr "hurrengoa &raquo;"
 
 msgid "last &raquo;"
-msgstr ""
+msgstr "azkena &raquo;"
 
-#, fuzzy
 msgid "Filter"
-msgstr "Filter:"
+msgstr "Iragazkia"
 
 msgid "Clear"
-msgstr "Clear"
+msgstr "Garbitu"
 
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d user matches your filter"
-msgstr[1] "%d users match your filter"
+msgstr[0] "erabiltzaile %d zure iragazkiaren parekoa da"
+msgstr[1] "%d  erabiltzaile zure iragazkiaren parekoa dira"
 
-#, fuzzy
 msgid "Remove selected"
-msgstr "move item"
+msgstr "Hautatutakoa ezabatu"
 
 msgid "You must select a user to remove."
-msgstr "You must select a user to remove."
+msgstr "Ezabatzeko erabiltzaile bat aukeratu behar duzu"
 
-#, fuzzy
 msgid "You can't remove yourself from this group."
-msgstr "You cannot add or delete users from this group"
+msgstr "Ezin duzu zure burua talde honetatik ezabatu."
 
-#, fuzzy
 msgid "Add Member"
-msgstr "Add Items"
+msgstr "Kidea Gehitu"
 
 msgid "You must enter a username."
-msgstr "You must enter a username."
+msgstr "Erabiltzaile-izena idatzi behar duzu."
 
 #, c-format
 msgid "User '%s' does not exist."
-msgstr "User '%s' does not exist."
+msgstr "%s erabiltzailerik ez dago."
 
-#, fuzzy
 msgid "This user already is in this group."
-msgstr "Username '%s' already exists"
+msgstr "Erabiltzaile hau dagoeneko talde honen kide da."
 
 msgid "Done"
-msgstr "Done"
+msgstr "Eginda"
 
 msgid "Edit a user"
-msgstr "Edit a user"
+msgstr "Erabiltzailea editatu"
 
-#, fuzzy
 msgid "That username is already in use"
-msgstr "Username '%s' already exists"
+msgstr "ERabiltzaile-izena dagoeneko erabilia dago"
 
-#, fuzzy
 msgid "You must enter a new username"
-msgstr "You must enter a username"
+msgstr "Erabiltzaile-izen berri bat idatzi behar duzu"
 
-#, fuzzy
 msgid "E-mail Address"
-msgstr "Email address"
+msgstr "eposta Helbidea"
 
 msgid "(suggested)"
-msgstr ""
+msgstr "(gomendaturik)"
 
 msgid "Group Management"
-msgstr "Group Management"
+msgstr "Talde Kudeaketa"
 
 #, c-format
 msgid "Removed group '%s'"
-msgstr "Removed group '%s'"
+msgstr "'%s' taldea ezabaturik"
 
 #, c-format
 msgid "Created group '%s'"
-msgstr "Created group '%s'"
+msgstr "%s taldea sorturik"
 
 #, c-format
 msgid "Modified group '%s'"
-msgstr "Modified group '%s'"
+msgstr "'%s' taldea eraldaturik"
 
 #, c-format
 msgid "There is %d group in the system."
 msgid_plural "There are %d total groups in the system."
-msgstr[0] "There is %d group in the system."
-msgstr[1] "There are %d total groups in the system."
+msgstr[0] "da e taldea in."
+msgstr[1] "da e taldea in."
 
-#, fuzzy
 msgid "Edit Group"
-msgstr "Edit a group"
+msgstr "Taldea Ediatatu"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Editatu"
 
 msgid "Add/Remove Users"
-msgstr "Add/Remove Users"
+msgstr "Erabiltzaileak Gehitu/Kendu"
 
 #, c-format
 msgid "Group '%s' does not exist."
-msgstr "Group '%s' does not exist."
+msgstr "'%s' talderik ez dago."
 
-#, fuzzy
 msgid "You cannot delete that group"
-msgstr "You cannot delete the Site Admins group"
+msgstr "Ezin duzu talde hau ezabatu"
 
-#, fuzzy
 msgid "You cannot edit that group's users"
-msgstr "You cannot delete the anonymous user!"
+msgstr "Ezin duzu erabiltzaile talde hau editatu"
 
-#, fuzzy
 msgid "Edit Group (by list)"
-msgstr "Editing Group '%s'"
+msgstr "Taldea Editatu (Zerrendatik)"
 
-#, fuzzy
 msgid "edit"
-msgstr "Edit"
+msgstr "editatu"
 
-#, fuzzy
 msgid "delete"
-msgstr "Delete"
+msgstr "ezabatu"
 
-#, fuzzy
 msgid "members"
-msgstr "move item"
+msgstr "kideak"
 
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d group matches your filter"
-msgstr[1] "%d groups match your filter"
+msgstr[0] "talde %d zure iragazkiaren pareko da"
+msgstr[1] "%d  talde zure iragazkiaren pareko dira"
 
 msgid "System Maintenance"
-msgstr ""
+msgstr "Sistema Mantenua"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Completed %s task successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "%s ataza behar bezala amaitu da."
 
-#, fuzzy, c-format
+#, c-format
 msgid "The %s task failed to complete successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "%s atazak huts egin du."
 
-#, fuzzy
 msgid "Task name"
-msgstr "User name"
+msgstr "Ataza izena"
 
 msgid "Last run"
-msgstr ""
+msgstr "Azkenez abiarazia"
 
 msgid "Success/Fail"
-msgstr ""
+msgstr "Lortua/Huts"
 
-#, fuzzy
 msgid "Not run yet"
-msgstr "Not implemented yet"
+msgstr "Abiarazi gabe"
 
 msgid "Success"
-msgstr ""
+msgstr "Behar bezala egin da"
 
-#, fuzzy
 msgid "Failed"
-msgstr "File: "
+msgstr "Huts egin du"
 
 msgid "run now"
-msgstr ""
+msgstr "orain abiarazi"
 
 msgid "Last Run Details:"
-msgstr ""
+msgstr "Azken Abiarazte Xehetasunak:"
 
-#, fuzzy
 msgid "Gallery Modules"
-msgstr "Gallery"
+msgstr "Gallery Moduluak"
 
 #, c-format
 msgid "Successfully installed and auto-configured module %s"
-msgstr ""
+msgstr "%s modulua behar bezala instaltu eta auto-konfiguratu da"
 
 #, c-format
 msgid "Successfully installed module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala instalatuta da"
 
 #, c-format
 msgid "Successfully configured module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala konfiguratu da"
 
 #, c-format
 msgid "Successfully upgraded module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala eguneratu da"
 
 #, c-format
 msgid "Successfully activated module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala gaitu da"
 
 #, c-format
 msgid "Successfully deactivated module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala ezgaitu da"
 
 #, c-format
 msgid "Successfully uninstalled module %s"
-msgstr ""
+msgstr "%s Modulua behar bezala desinstalatu da"
 
 msgid ""
 "Gallery features come as separate modules.  You can download and install modules to add more "
@@ -1672,61 +1599,64 @@ msgid ""
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
+"Gallery ezaugarriak modulu ezberdinak bezala banatzen dira.  Zuk zure galeriari ezaugarriak "
+"gehitzeko moduluak deskargatu eta instaltu ditzakezu, edo ezaugarriak ezgaitu ditzakezu "
+"erabili nahi ez izan ezkero.  Ezaugarri bat behar bezala erabilzteko berau instalatu, "
+"konfiguratu (beharrezkoa bada) eta gaitu egin behar duzu.  Ezaugarri bat ez erabili nahi "
+"izan ezkero berau ezgaitu egin dezakezu."
 
 msgid "Module Name"
-msgstr "Module Name"
+msgstr "Modulu Izena"
 
 msgid "Version"
-msgstr "Version"
+msgstr "Bertsioa"
 
-#, fuzzy
 msgid "Installed"
-msgstr "install"
+msgstr "Instalaturik"
 
 msgid "Actions"
-msgstr "Actions"
+msgstr "Ekintzak"
 
-#, fuzzy
 msgid "Status: Not Installed"
-msgstr "install"
+msgstr "Egoera: Ez indatalatua"
 
-#, fuzzy
 msgid "Status: Active"
-msgstr "Active"
+msgstr "Egoera: Gaiturik"
 
 msgid "Status: Inactive"
-msgstr ""
+msgstr "Egoera Ezgaiturik"
 
 msgid "Status: Upgrade Required (Inactive)"
-msgstr ""
+msgstr "Egoera: Bertsio-berritzea Beharrezkoa (ezgaiturik)"
 
 msgid "Status: Incompatible Module (Inactive)"
-msgstr ""
+msgstr "Egoera: Modulu bateraezina (ezgaiturik)"
 
 msgid "Incompatible module!"
-msgstr ""
+msgstr "Moduu baterezina!"
 
 #, c-format
 msgid "Core API Required: %s (available: %s)"
-msgstr ""
+msgstr "Miun API-a beharrezkoa: %s (%s eskuragarri)"
 
 #, c-format
 msgid "Module API Required: %s (available: %s)"
-msgstr ""
+msgstr "Modulu API-a beharrezkoa: %s (%s eskuragarri)"
 
 msgid "Confirm module uninstall"
-msgstr ""
+msgstr "Berretsi Modulu desinstalazioa"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to uninstall the %s module?"
-msgstr "Do you really want to delete user '%s'?"
-
-msgid "This will also remove any permissions and clean up any data created by this module."
-msgstr ""
+msgstr "Benetan %s modulua desinstalatu nahi duzula?"
 
 #, fuzzy
+msgid "This will also remove any permissions and clean up any data created by this module."
+msgstr ""
+"Honek modulu honek sortutako edozein aldirako datu garbitu eta baimenak ezabatuko ditu."
+
 msgid "Uninstall"
-msgstr "install"
+msgstr "Desinstalatu"
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
@@ -1776,11 +1706,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Update"
-msgstr "Delete a user"
+msgstr "Data"
 
 #, fuzzy
 msgid "Upgrade Gallery"
-msgstr "Gallery"
+msgstr "Galeria"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -1802,7 +1732,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Up-To-Date"
-msgstr "Gallery"
+msgstr "Gallery Muina"
 
 msgid ""
 "Gallery cannot be upgraded through this interface. When a new version becomes available, "
@@ -1817,8 +1747,9 @@ msgid ""
 "No new plugins will be downloaded."
 msgstr ""
 
+#, fuzzy
 msgid "Upgrade All"
-msgstr ""
+msgstr "bertsio-berritu"
 
 msgid ""
 "Once the repository index has been downloaded, a list of available plugins will be "
@@ -1844,30 +1775,31 @@ msgstr ""
 msgid "of plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
-#, fuzzy
 msgid "Theme Name"
-msgstr "Theme"
+msgstr "Gai izena"
 
 #, fuzzy
 msgid "Latest"
-msgstr "Delete a user"
+msgstr "azkena"
 
+#, fuzzy
 msgid "Incompatible Plugin"
-msgstr ""
+msgstr "Moduu baterezina!"
 
+#, fuzzy
 msgid "Incompatible plugin!"
-msgstr ""
+msgstr "Moduu baterezina!"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
+msgstr "Modulu API-a beharrezkoa: %s (%s eskuragarri)"
 
 msgid "No packages have been selected."
 msgstr ""
 
 #, fuzzy
 msgid "Base Files"
-msgstr "Full name"
+msgstr "Oinarri fitxategi-izena"
 
 msgid ""
 "The base files required for the theme to work and the English (US) translation will be "
@@ -1905,8 +1837,9 @@ msgid ""
 "included in addition to the ones already downloaded."
 msgstr ""
 
+#, fuzzy
 msgid "Unit Tests"
-msgstr ""
+msgstr "Unitate prba gaia"
 
 msgid ""
 "This plugin has unit tests available for download, which are useful for Gallery developers. "
@@ -1918,7 +1851,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Repository Setup"
-msgstr "Gallery"
+msgstr "Gallery bertsioa"
 
 msgid "Warning: `$errorMessage`"
 msgstr ""
@@ -1939,7 +1872,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "$ cd %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
 #, c-format
 msgid "$ mkdir %s"
@@ -1954,173 +1887,162 @@ msgid ""
 "created."
 msgstr ""
 
-#, fuzzy
 msgid "Gallery Themes"
-msgstr "Gallery"
+msgstr "Gallery Gaiak"
 
 #, c-format
 msgid "Successfully activated theme %s"
-msgstr ""
+msgstr "%s gaia behar bezala gaitu da"
 
 #, c-format
 msgid "Successfully deactivated theme %s"
-msgstr ""
+msgstr "%s gaia behar bezala ezgaitu da"
 
 #, c-format
 msgid "Successfully installed theme %s"
-msgstr ""
+msgstr "%s gaia behar bezala instalatu da"
 
 #, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr ""
+msgstr "%s gaia behar bezala desinstalatu da"
 
 #, c-format
 msgid "Successfully upgraded theme %s"
-msgstr ""
+msgstr "%s gaia behar bezala eguneratu da"
 
 msgid "Successfully saved default album settings"
-msgstr ""
+msgstr "Lehenetsiriko album ezarpenak behar bezala gorde dira"
 
-#, fuzzy
 msgid "Restored theme settings"
-msgstr "Album Settings"
+msgstr "Gai ezarpenak berreskuraturik"
 
-#, fuzzy
 msgid "All Themes"
-msgstr "Theme"
+msgstr "Gai Guztiak"
 
 msgid "Defaults"
-msgstr "Defaults"
+msgstr "Lehenetsiak"
 
 msgid "Status: Incompatible Theme (Inactive)"
-msgstr ""
+msgstr "Egoera: Gai bateraezina (ezgaiturik)"
 
 msgid "Incompatible theme!"
-msgstr ""
+msgstr "Gai bateraezina!"
 
 #, c-format
 msgid "Theme API Required: %s (available: %s)"
-msgstr ""
+msgstr "Gai API-a beharrezkoa: %s (%s eskuragarri)"
 
-#, fuzzy
 msgid "(default)"
-msgstr "Defaults"
+msgstr "(lehenetsia)"
 
-#, fuzzy
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Hauek zure galeriako album-en lehenetsiriko bistaraze ezarpenak dira.  Album bakoitzean "
+"gainidatzi daitezke."
 
-#, fuzzy
 msgid "Default sort order"
-msgstr "Album sort order:"
+msgstr "Ordena lehenetsia"
 
 msgid "with"
-msgstr ""
+msgstr "honekin"
 
 msgid "Default theme"
-msgstr "Default theme"
+msgstr "Gai Lehenetsia"
 
-#, fuzzy
 msgid "New albums"
-msgstr "edit album"
+msgstr "Album Berriak"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s Theme Settings"
-msgstr "Album Settings"
+msgstr "%s Gai Ezarpenak"
 
-#, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr "Hauek gaiaren ezarpen orkorrak dira. Ezarpen hauek album mailara gainidatzi daitezke."
 
 msgid "Available"
-msgstr ""
+msgstr "Erabilgarri"
 
 msgid "Choose a block"
-msgstr ""
+msgstr "Bloke bat hautatu"
 
-#, fuzzy
 msgid "Selected"
-msgstr "Delete"
+msgstr "Hautatuta"
 
 msgid "Remove"
-msgstr "Remove"
+msgstr "Kendu"
 
-#, fuzzy
 msgid "Move Up"
-msgstr "Move"
+msgstr "Eraman gora"
 
-#, fuzzy
 msgid "Move Down"
-msgstr "Move"
+msgstr "Eraman behera"
 
 msgid "Parameter"
-msgstr ""
+msgstr "Parametroa"
 
-#, fuzzy
 msgid "Value"
-msgstr "Scale"
+msgstr "Balioa"
 
 msgid "There are no settings for this theme"
-msgstr ""
+msgstr "Ez dago ezarpenik gai honentzat"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
 "toolkits here to determine which will perform these operations."
 msgstr ""
+"Beheko tresna-jokoek batek baino gehiago kudea ditzaketen mime mota eta ekintzak daude.  "
+"Tresna-jokoak sailkatu lehenengo zein erabili nahi duzn ezartzeko."
 
 msgid "Toolkit"
-msgstr ""
+msgstr "Tresna-jokoa"
 
-#, fuzzy
 msgid "Order"
-msgstr "Remove"
+msgstr "Ordena"
 
 msgid "up"
-msgstr ""
+msgstr "gora"
 
 msgid "down"
-msgstr ""
+msgstr "behera"
 
 msgid "User Management"
-msgstr "User Management"
+msgstr "Erabiltzaile Kudeaketa"
 
 #, c-format
 msgid "Removed user '%s'"
-msgstr "Removed user '%s'"
+msgstr "'%s' erabiltzailea ezabaturik"
 
 #, c-format
 msgid "Created user '%s'"
-msgstr "Created user '%s'"
+msgstr "'%s' erabiltzailea sorturik"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Modified user '%s'"
+msgstr "'%s' erabiltzailea eraldaturik"
 
 #, c-format
 msgid "There is %d user in the system."
 msgid_plural "There are %d total users in the system."
-msgstr[0] "There is %d user in the system."
-msgstr[1] "There are %d users in total in the system."
+msgstr[0] "Erabiltzaile %d dago sisteman"
+msgstr[1] "Guztira %d erabiltzaile daude sisteman."
 
-#, fuzzy
 msgid "Edit User"
-msgstr "Edit a user"
+msgstr "Erabiltzailea editatu"
 
 msgid "You cannot delete yourself!"
-msgstr "You cannot delete yourself!"
+msgstr "Ezin duzu zured burua ezabatu!"
 
-#, fuzzy
 msgid "You cannot delete the special guest user."
-msgstr "You cannot delete the anonymous user!"
+msgstr "Ezin duzu gonbidatu erabiltzaile ebrezia ezabatu."
 
 msgid "Edit User (by list)"
-msgstr ""
+msgstr "Editatu Erabiltzailea (zerrendatik)"
 
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr "Argazkitxoak"
 
 msgid ""
 "Gallery can create thumbnails at upload time, or create them the first time you want to see "
@@ -2128,148 +2050,153 @@ msgid ""
 "create them at upload time it makes viewing albums for the first time go faster at the "
 "expense of a longer upload time."
 msgstr ""
+"Galllery-k argazkitxoak argazkiak igotzekoan edo argazkitxoa bistarazi behar duen lehen "
+"aldian sor ditzake.  Bi moduetara argazkitxoa bein sortu eta gorde egingo da, baina "
+"argazkitxoak ikusten diren lehenengo aldian sortzea erabaki ezkero geldotasuna nabari "
+"dezakezu albuma bistaratzeko lehen aldian igotze abiadura handiago baten truke."
 
-#, fuzzy
 msgid "Create thumbnails now"
-msgstr "Recreate thumbnails"
+msgstr "Sortu argazkitxoak orain"
 
-#, fuzzy
 msgid "This is a test email from Gallery2"
-msgstr "This is the top of your Gallery"
+msgstr "Hau Gallery 2-ren proba eposta bat da"
 
 msgid "Edit Conflict!"
-msgstr ""
+msgstr "Elkarjotzea Editatu!"
 
-#, fuzzy
 msgid "Security Violation"
-msgstr "Security Violation!"
+msgstr "Segurtasun Haustura"
 
 msgid "Database Error"
-msgstr ""
+msgstr "Datu-basearen errorea"
 
 msgid "Error"
-msgstr "Error"
+msgstr "Errorea"
 
 msgid ""
 "Your change cannot be completed because somebody else has made a conflicting change to the "
 "same item.  Use the back button in your browser to go back to the page you were on, then "
 "<b>reload that page</b> and try your change again."
 msgstr ""
+"Zure aldaketak ezin dira burutu aldi berean beste batek zure aldaketekin elkar jotzen duten "
+"aldaketak egin bait ditu,  Nabigatzailearen atzera botoiari jo, <b>orria freskatu</b> eta "
+"saiatu zaite berriro."
 
 msgid "Go back and try again"
-msgstr ""
+msgstr "Joan atzera eta berriz saiatu"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
-msgstr ""
+msgstr "Bestela. galeria orrialdera itzuli eta nabegatzen jarraitu dezakezu."
 
 msgid "The action you attempted is not permitted."
-msgstr ""
+msgstr "Zu saiatutako ekintza ez da onartzen."
 
 msgid "An error has occurred while interacting with the database."
-msgstr ""
+msgstr "Errore bat gertatu da datu-basearekin erlazionatzerakoan"
 
 msgid ""
 "The exact nature of database errors is not captured unless Gallery debug mode is enabled in "
 "config.php.  Before seeking support for this error please enable buffered debug output and "
 "retry the operation.  Look near the bottom of the lengthy debug output to find error details."
 msgstr ""
+"Datu-base errorea ez da godea izan config.php fitxategian Gallery arazpen modua gaiturik ez "
+"badago.  Errore honentzat laguntza bilatu aurretik, mesedez hilaraturiko arazpen irteera "
+"gaitu eta ekinzta egiten berriz saiatu. Arazpen irteeraren amaiera aldera ebgiratu "
+"errorearen xehetasunak aurkitzeko."
 
 msgid "An error has occurred."
-msgstr ""
+msgstr "Errore bat gertatu da."
 
-#, fuzzy
 msgid "Back to the Gallery"
-msgstr "Browse Gallery"
+msgstr "Galeriara berriz Joan"
 
 msgid "Error Detail"
-msgstr ""
+msgstr "Errorea Xehetasunak"
 
-#, fuzzy
 msgid "System Information"
-msgstr "Destination"
+msgstr "Sistema informazioa"
 
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
+"Ez duzu JPEG irudiak kudea ditzaken tresna-jokorik gaiturik.  Irudiak gehitu ezkero "
+"ziurrenik ez duzu argazkitxorik ikusiko."
 
 #, c-format
 msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
-msgstr ""
+msgstr "Joan <a href=\"%s\">Moduluak</a> orrialdera tresna-sorta grafiko bat gaitzeko."
 
-#, fuzzy
 msgid "Add Sub-Album"
-msgstr "Add Album"
+msgstr "Gehitu Azpi-Albuma"
 
-#, fuzzy
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes.  You will be able to rename it later."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Diska gogorreko album honen izena.  Album honetan bakarra izan behar du..  Alphazenbakizko "
+"karaktereak, azpimarratua eta marratxoa bakarrik erabili.  Nahi izan ezkero beranduago "
+"berrizendatu ahal izango duzu."
 
 msgid "Your name contains invalid characters.  Please enter another."
-msgstr "Your name contains invalid characters.  Please enter another."
+msgstr "Zure izenak karaktere baliogabeak ditu.  Mesedez beste bat aukeratu."
 
 msgid "You must enter a name for this album."
-msgstr "You must enter a name for this album."
+msgstr "Album honentzat izen bat idatzi behar duzu."
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "The name you entered is already in use.  Please enter another."
+msgstr "Zuk emandako izena dagoeneko erabilia dago.  Mesedez, beste bat aukeratu."
 
 msgid "This is the album title."
-msgstr ""
+msgstr "Hau album izenburua da."
 
 msgid "This is the album summary."
-msgstr ""
+msgstr "Hau album laburpena da."
 
 msgid "Keywords are not visible, but are searchable."
-msgstr ""
+msgstr "Gako-hitzak ez daude ikusgain, baina bilagarriak dira."
 
-#, fuzzy
 msgid "This is the long description of the album."
-msgstr "A longer description of this item."
+msgstr "Hau albumaren deskribapen luzea da."
 
 msgid "Create"
-msgstr "Create"
+msgstr "Sortu"
 
 msgid "Upload Complete"
-msgstr ""
+msgstr "Igoera burutua"
 
 #, c-format
 msgid "Successfully added %d file."
 msgid_plural "Successfully added %d files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fitxategi %d behar bezala gehitu da."
+msgstr[1] "%d fitxategi behar bezala gehitu dira."
 
 msgid "No files added."
-msgstr ""
+msgstr "Ez da fitxategirik gehitu."
 
 #, c-format
 msgid "Added %s"
-msgstr ""
+msgstr "%s gehiturik"
 
 #, c-format
 msgid "Failed to add %s"
-msgstr ""
+msgstr "Huts %s gehitzerakoan"
 
-#, fuzzy
 msgid "Add more files"
-msgstr "Add Items"
+msgstr "Fitxategi gehiago gehitu"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
 "Please contact your system administrator for assistance."
 msgstr ""
+"Zure web zerbitzaria momentuz ez du web nabigatzailetik fitxategirik igotzea onartzeko "
+"konfiguraturik.  Gune kudeatzailearekin harremanetan ipini laguntza jasotzeko."
 
-#, fuzzy
 msgid "Upload files directly from your computer."
-msgstr "Upload a file directly from your computer."
+msgstr "Fitxategiak zuzenean zure ordenagailutik igo."
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Idatzi fixtategira bide osoa eta aukeran epigrafe beheko kutxan."
 
 #, c-format
 msgid ""
@@ -2277,6 +2204,9 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
+"<b>Oharra:</b> Aldi batetan %s igo ditzakezu.  Hau baino gehiago igo nahi ezkero fitxategiak "
+"banaturik igom beste igoera formatu bat aukeratu edo sistema kudeatzaileari igoera handigoak "
+"onartzea eskatu beharko duzu."
 
 #, c-format
 msgid ""
@@ -2284,17 +2214,19 @@ msgid ""
 "If you want to upload more than that, you must upload the files separately, use a different "
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
+"<b>Oharra:</b> Aldi batetan %s igo ditzakezu.  Banakako fitxategiak ezin dira %s baino "
+"handiagoak izan.  Hau baino gehiago igo nahi ezkero fitxategiak banaturik igom beste igoera "
+"formatu bat aukeratu edo sistema kudeatzaileari igoera handigoak onartzea eskatu beharko "
+"duzu."
 
-#, fuzzy
 msgid "More.."
-msgstr "Move"
+msgstr "Gehiago..."
 
 msgid "Set item titles from:"
-msgstr ""
+msgstr "Ezarri elementu tituluak hemendik:"
 
-#, fuzzy
 msgid "Assign caption to:"
-msgstr "Gallery Site Administration"
+msgstr "Ezarri epigafeak hemen:"
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
@@ -2302,97 +2234,97 @@ msgid ""
 "directory where they are accessibly by any element on the server.  If you're on Unix this "
 "means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
+"Transferitutako fixtategiak dagoeneko zure zerbiztarian Gallery barnean daude.  Fixtategiak "
+"zerbiztarira beste era batetara (FTP kasu) igo dira eta zerbiztariko edozein elementurentzat "
+"eskuragarri diren direktorio batetan kokatu ebhar dira. Unix sistema batetan bazaude honek "
+"fixtategiek beinztat 755 baimenak izan behar dituztela esan nahi du."
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
 "configures a set of legal upload directories."
 msgstr ""
+"Segurtasun arrazoiak direla eta, ezin duzu ezaugarri bat erabili Galleria Kudeatzaileak "
+"legeko igoera direktorio bat ezarri arte."
 
 msgid "Server Path"
-msgstr ""
+msgstr "Zerbitzaria Bidea"
 
-#, fuzzy
 msgid "You must enter a directory."
-msgstr "You must enter a size"
+msgstr "Direktorio bat idatzi behar duzu."
 
 msgid ""
 "The directory you entered is invalid.  Make sure that the directory is readable by all users."
 msgstr ""
+"Emandako direktorioa baliogabea da. Ziurtatu direktorioa erabiltzaile guztiek irakur "
+"dezaketela"
 
 msgid ""
 "The directory you entered is illegal.  It must be a sub directory of one of the directories "
 "listed below."
 msgstr ""
+"Emandako direktorioa legez kanpokoa da. Behean zerrendaturiko direktorioen azpi-direktorio "
+"bat izan behar da."
 
 msgid "An item with the same name already exists."
-msgstr ""
+msgstr "Izen horretako elementu bat badago dagoeneko."
 
-#, fuzzy
 msgid "Legal Directories"
-msgstr "New directories"
+msgstr "Direktorio Legalak"
 
 msgid "modify"
-msgstr ""
+msgstr "eraldatu"
 
-#, fuzzy
 msgid "Recent Directories"
-msgstr "New directories"
+msgstr "Azkenetariko Direktorioak"
 
-#, fuzzy
 msgid "Find Files"
-msgstr "Add Items"
+msgstr "Fitxategiak Bilatu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Directory: %s"
-msgstr "New directories"
+msgstr "Direktorioa: %s"
 
-#, fuzzy
 msgid "File name"
-msgstr "Full name"
+msgstr "Fitxategi-izena"
 
 msgid "Type"
-msgstr ""
+msgstr "Mota"
 
 msgid "Size"
-msgstr ""
+msgstr "Tamaina"
 
 msgid "Use Symlink"
-msgstr ""
+msgstr "Lotura sinbolikoak erabili"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "byte %d"
+msgstr[1] "%d byte"
 
-#, fuzzy
 msgid "Parent Directory"
-msgstr "New directories"
+msgstr "Direktorio gurasoa"
 
-#, fuzzy
 msgid "Directory"
-msgstr "New directories"
+msgstr "Direktorioa"
 
 msgid "(Un)check all known types"
-msgstr ""
+msgstr "(des)markatu mota ezagun guztiak"
 
 msgid "(Un)check symlinks"
-msgstr ""
+msgstr "Loturaa sinbolikoak (des)markatu"
 
-#, fuzzy
 msgid "for selected items"
-msgstr "[core] Delete item"
+msgstr "hautatutako elementuentzat"
 
 msgid "Copy base filenames to:"
-msgstr ""
+msgstr "Kopiatu oinarri fitxategi izenak hona:"
 
-#, fuzzy
 msgid "Add Files"
-msgstr "Add Items"
+msgstr "Fitxategiak gehitu"
 
-#, fuzzy
 msgid "Start Over"
-msgstr "Sort order"
+msgstr "Hemen hasi"
 
 msgid ""
 "Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
@@ -2400,149 +2332,142 @@ msgid ""
 "Note that if you're entering a URL to a directory, you should end the URL with a trailing "
 "slash (eg, http://example.com/directory/). "
 msgstr ""
+"Irudiak Gallery-ra beste webgune batetatik inportatu.  Behean webgune baten URL idatzi eta "
+"Gallery-khor arkitzen duen edozein irudi/filma galeriara igotzeko auekra emango dizu.  "
+"Kontutan izan direktorio baten URL idatzi ezkero, bidea barra ('/') batez amaitu behar "
+"duzua. (Adibidez http://adibide.com/direktorioa/)."
 
 msgid "URL"
-msgstr ""
+msgstr "URL-a"
 
-#, fuzzy
 msgid "You must enter a URL to a web page"
-msgstr "You must enter a user name"
+msgstr "Web orrialde baten URL-a idatzi behar duzu"
 
 msgid "The URL entered must begin with http://"
-msgstr ""
+msgstr "URL-a http://-rekin hasi behar da"
 
-#, fuzzy
 msgid "The web page you specified is unavailable"
-msgstr "The user name you entered is invalid"
+msgstr "ezarritako web orrialdea ez dago eskuragarri"
 
 msgid "Nothing to add found from this URL"
-msgstr ""
+msgstr "Ez da ezer aurkitu URL horretan"
 
 msgid "Nothing added since no items were selected"
-msgstr ""
+msgstr "Ezer ez gehiturik ez bait dago hautaturiko elementurik"
 
 msgid "Recent URLs"
-msgstr ""
+msgstr "Azkenetariko URL-ak"
 
 #, c-format
 msgid "URL: %s"
-msgstr ""
+msgstr "URL-a: %s"
 
-#, fuzzy
 msgid "change"
-msgstr "Change"
+msgstr "eraldatu"
 
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "url %d aurkiturik"
+msgstr[1] "%d url aurkiturik"
 
 msgid "(Un)check all"
-msgstr ""
+msgstr "(des)markatu denak"
 
 msgid "Add URLs"
-msgstr ""
+msgstr "Gehitu URL-ak"
 
 msgid "No Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Argazkitxorik Ez"
 
-#, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr "Aukerak"
 
-#, fuzzy
 msgid "Link an Item"
-msgstr "Move an Item"
+msgstr "Elementua lotu"
 
 #, c-format
 msgid "Successfully linked %d item"
 msgid_plural "Successfully linked %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ondo egin da e elementu"
+msgstr[1] "Ondo egin da e elementu"
 
 msgid "This album contains no items to link."
-msgstr ""
+msgstr "Album honek ez du lotzeko elementurik."
 
 msgid "Source"
-msgstr ""
+msgstr "Jaotorria"
 
-#, fuzzy
 msgid "Choose the items you want to link"
-msgstr "Choose the items you want to move"
+msgstr "Hautatu lotu nahi dituzun elementuak"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(page %d of %d)"
-msgstr "Viewing page %d of %d"
+msgstr "(%d %d orrialdetatik)"
 
-#, fuzzy
 msgid "No sources chosen"
-msgstr "No destination chosen"
+msgstr "Ez da jatorririk hautatu"
 
 msgid "Check All"
-msgstr ""
+msgstr "Markatu Denak"
 
 msgid "Check None"
-msgstr ""
+msgstr "Ez Markatu bat ere ez"
 
 msgid "Invert"
-msgstr ""
+msgstr "Alderantzikatu"
 
 msgid "Previous Page"
-msgstr ""
+msgstr "Aurreko Orrialdea"
 
-#, fuzzy
 msgid "Next Page"
-msgstr "Last >|"
+msgstr "Hurrengo Orrialdea"
 
 msgid "Destination"
-msgstr "Destination"
+msgstr "Helburua"
 
 msgid "Choose a new album for the link"
-msgstr ""
+msgstr "Hautatu loturarentzat album berri bat"
 
 msgid "No destination chosen"
-msgstr "No destination chosen"
+msgstr "Ez da helbururik hautatu"
 
-#, fuzzy
 msgid "Link"
-msgstr "Login"
+msgstr "Lotura"
 
 msgid "Successfully linked"
-msgstr ""
+msgstr "Lotura behar bezala sortu da"
 
-#, fuzzy
 msgid "Choose a destination album"
-msgstr "Choose the destination of the selected items"
+msgstr "Aukeratu helburu album bat"
 
-#, fuzzy
 msgid "Delete Items"
-msgstr "Delete Item"
+msgstr "Elementuak Ezabatu"
 
 msgid "No items were selected for deletion"
-msgstr ""
+msgstr "Ez da elementurik aukeratu ezabatzeko"
 
 #, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Elementu %d behar bezala ezabatu da"
+msgstr[1] "%d elementu behar bezala ezabatu dira"
 
 msgid "This album contains no items to delete"
-msgstr ""
+msgstr "Album ho9nek ez du elementurik ezabatzeko"
+
+msgid "Choose the items you want to delete"
+msgstr "Aukeratu ezabatu nahi dituzun elementuak"
 
 #, fuzzy
-msgid "Choose the items you want to delete"
-msgstr "Choose the items you want to move"
-
 msgid "Items selected here will remain selected when moving between pages."
-msgstr ""
+msgstr "Hemen hautaturiko elementuak hautaturik jarraituko dute orrietan zehar mugitzerkoan."
 
 #, c-format
 msgid "One item selected on other pages."
 msgid_plural "%d items selected on other pages."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bat elementu hautatutakoa - bestelakoa."
+msgstr[1] "Bat elementu hautatutakoa - bestelakoa."
 
 msgid "(data)"
 msgstr "(data)"
@@ -2550,81 +2475,85 @@ msgstr "(data)"
 #, c-format
 msgid "(album containing %d item)"
 msgid_plural "(album containing %d items)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(albumak elementu %d du"
+msgstr[1] "(albumak %d elementu ditu"
 
-#, fuzzy
 msgid "(empty album)"
-msgstr "(album)"
+msgstr "(album hutsa)"
 
 msgid "Deletion Complete"
-msgstr ""
+msgstr "Ezabaketa Buruturik"
 
 msgid "Item successfully deleted"
-msgstr ""
+msgstr "Elementua behar bezala ezabatu da"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Do you really want to delete this item?"
+msgstr "Ziur zaude %s ezabatu nahi duzula?"
 
 #, c-format
 msgid "It contains %d item."
 msgid_plural "It contains %d items."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "berauk elementu %d du"
+msgstr[1] "berauk %d elementu ditu"
 
 msgid "There is no undo!"
-msgstr ""
+msgstr "Hau ezin da desegin!"
 
 msgid "There was a problem processing your request."
-msgstr ""
+msgstr "Zure eskaera prozesatzerakoan errore bat gertatu da."
 
 msgid "Sort order"
-msgstr "Sort order"
+msgstr "Sailkapen ordena"
 
 msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
 "added items."
 msgstr ""
+"Honek albumen sailkapen ordena ezartzen du.  Honek dauden elementu guztietan eta hemendik "
+"aurrera gehitzen direnetan eragingo du."
 
 msgid "Choose a theme for this album. (The way the album is arranged on the page)"
-msgstr ""
+msgstr "Aukeratu gai bat album honentzat. (orrialdean album-a bistaraziko den modua"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr ""
+msgstr " Elementu bakoitzak argazkitxo bat behar du. Ezarri lehenetsiriko tamaina pixel-etan."
 
 msgid "You must enter a number (greater than zero)"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Zenbaki bat idatzi behar duzu (zero baino handiagoa)"
 
 msgid "Resized Images"
-msgstr "Resized Images"
+msgstr "Irudiak Tamainaz Aldatu"
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
 msgstr ""
+"Zure album-eko elementu bakoitzak tamaina anitz izan ditzake. Lehenetsiriko tamainak hemen "
+"ezarri."
 
 msgid "Active"
-msgstr "Active"
+msgstr "Gaiturik"
 
-#, fuzzy
 msgid "Target Size (pixels)"
-msgstr "Target Size (in pixels)"
+msgstr "Helburu Tamaiana (pixel)"
 
 msgid "You must enter a valid size"
-msgstr "You must enter a valid size"
+msgstr "Baliozko tamaina bat idatzi behar duzu"
 
 msgid "Recreate thumbnails and resizes"
-msgstr "Recreate thumbnails and resizes"
+msgstr "Argazkitxo eta Tamaina aldatuak berriz sortu"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
 "all the items in your album, check the appropriate box."
 msgstr ""
+"Argazkitxo eta tamaina aldatutako irudi ezarpenak elementu berrientzat dira. Ezarpen hauek "
+"album-eko elemetu guztiei ezarri nahi ezkero, hautatu dagokion aukera."
 
 msgid "Recreate thumbnails"
-msgstr "Recreate thumbnails"
+msgstr "Argazkitxoa berriz sortu"
 
 msgid "Recreate resized images"
-msgstr "Recreate resized images"
+msgstr "Taimanaz aldaturiko irudiak berriz sortu"
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -2634,127 +2563,125 @@ msgid ""
 "browser.  Note that changing these values does <b>not</b> change the animation itself so "
 "experimenting won't cause harm."
 msgstr ""
+"Galleryk animazio hau behar bezala bistaratzeko, animazioaren zabalera eta altuera ezagutu "
+"behar ditu.  Animazioak kudea ditzakeen tresna-joko grafiko bat instalaturik baduzu, balio "
+"hauek ezarririk egongo dira.  Bestela 0 bezala ezarririk egongo dira.  Ez badituzu balio "
+"zuzenak ezartzen animazioa eraldaturik ager daiteke web nabigatzailean bistaratzean.  "
+"Kontutan izan balio hauek aldatzeak <b>ez</b> duela animazioa bera aldatzen beraz balio "
+"ezberdinak probatzea ez da arriskutsua."
 
 msgid "Width"
-msgstr ""
+msgstr "Zabalera"
 
-#, fuzzy
 msgid "You must enter a value greater than or equal to 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "0 edo handiagoa den balio bat idatzi behar duzu"
 
 msgid "Height"
-msgstr ""
+msgstr "Altuera"
 
 msgid "There were errors saving some items"
-msgstr ""
+msgstr "Erroreak gertatu dira zenbait elementu gordetzerakoan"
 
 msgid "There were errors saving all items"
-msgstr ""
+msgstr "Erroreak gertatu dira elementu guztiak gordetzerakoan"
 
 msgid "Successfully saved all items"
-msgstr ""
+msgstr "Elementu guztiak behar bezala gorde dira"
 
-#, fuzzy
 msgid "This album contains no items"
-msgstr "This group contains %d user"
+msgstr "Album honek ez du elementurik"
 
-#, fuzzy
 msgid "Saved successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Behat bezala gorderik."
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
 msgstr ""
+"Elementu hau aldi berean beste pertsona batek eraldatu du.  Zure aldaketak galdu egingo dira"
 
-#, fuzzy
 msgid "You do not have permissions to modify this item."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Ez duzu elementu hau eraldatzeko baimenik"
 
-#, fuzzy
 msgid "Save and Done"
-msgstr "Save Changes"
+msgstr "Gorde eta Eginda"
 
 #, c-format
 msgid "Save and Edit Previous %s"
-msgstr ""
+msgstr "Gorde eta Aurreko %s Editatu"
 
 #, c-format
 msgid "Save and Edit Next %s"
-msgstr ""
+msgstr "Gorde eta Hurrengo %s Editatu"
 
-#, fuzzy
 msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Elementuaren zure diskako izena. Bakrra izan behar da album honetan. Alphazenbakizko "
+"karaktereas azpimarratuak eta marratxoa bakarrik erabili."
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Your name contains invalid characters.  Please choose another."
+msgstr "Emandako izenak karaktere baliogabeak ditu.  Beste bat aukeratu mesedez."
 
 msgid "You must enter a name for this item."
-msgstr "You must enter a name for this item."
+msgstr "Elementu honentzt izenbat idatzi behar duzu"
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "The name you entered is already in use.  Please choose another."
+msgstr "Emandako izena dagoeneko erabilia dago. Aukeratu beste izen bat mesedez."
 
-#, fuzzy
 msgid "The title of this item."
-msgstr "Editing this item"
+msgstr "Elementu honen titulua."
 
 msgid "The root album must have a title."
-msgstr ""
+msgstr "Erro albumak titulu bat izan behar du."
 
-#, fuzzy
 msgid "The summary of this item."
-msgstr "Editing this item"
+msgstr "Elementu honen laburpena."
 
-#, fuzzy
 msgid "This is the long description of the item."
-msgstr "A longer description of this item."
+msgstr "Elementu honen deskribapen luzea."
 
 #, c-format
 msgid "%s Date and Time"
-msgstr ""
+msgstr "%s Data eta Ordua"
 
 msgid "Set the date and time when this image was captured."
-msgstr ""
+msgstr "Irudia jaso zeneko data eta ordua ezarri."
 
 msgid "Set the date and time to be displayed for this item."
-msgstr ""
+msgstr "Elementu honentzat bistaraziko den data eta ordua ezarri."
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
+msgstr "%s honentza erakutsiko dirne data eta ordua ezarri."
 
 msgid "Date:"
-msgstr ""
+msgstr "Data:"
 
-#, fuzzy
 msgid "Time:"
-msgstr "move item"
+msgstr "Ordua:"
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
-msgstr ""
+msgstr "Fixtategi informaziotik jatorrizko data eta ordua erabili (adib. EXIF marka)"
 
-#, fuzzy
 msgid "You must enter a valid date and time"
-msgstr "You must enter a valid size"
+msgstr "Baliozko data eta ordua idatzi behar dituzu."
 
-#, fuzzy
 msgid "Thumbnail"
-msgstr "Thumbnails"
+msgstr "Argazkitxoa"
 
 msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
 "this value. Leave this field blank if you don't want a thumbnail."
 msgstr ""
+"Argazkitxo tamaina ezarri.  Argazkitxoaren alde luzeena ez da hau baino handiagoa izango.  "
+"Utzi eremu hau hutsik argazkitxorik ez erabili nahi ezkero."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
+"Ez dago elemntu mota hau onartzen duen trsna-sprta grafikorik instalaturik, beraz ezingo da "
+"argazkitxoa sortu edo eraldatu."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2764,88 +2691,98 @@ msgid ""
 "changing these values do <b>not</b> change the movie itself so experimentation won't cause "
 "harm."
 msgstr ""
+"Galleryk filma hau behar bezala bistaratzeko, filmaaren zabalera eta altuera ezagutu behar "
+"ditu.  Filmak kudea ditzakeen tresna-joko grafiko bat instalaturik baduzu, balio hauek "
+"ezarririk egongo dira.  Bestela 0 bezala ezarririk egongo dira.  Ez badituzu balio zuzenak "
+"ezartzen filma eraldaturik ager daiteke web nabigatzailean bistaratzean.  Kontutan izan "
+"balio hauek aldatzeak <b>ez</b> duela filma bera aldatzen beraz balio ezberdinak probatzea "
+"ez da arriskutsua."
 
-#, fuzzy
 msgid "Resized Photos"
-msgstr "Resized Images"
+msgstr "Tamainaz aldaturiko argazkiak"
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
 "for viewing."
 msgstr ""
+"Tamaina hauek ikusteko aukeran egongo diren jatorrizkoaren tamaina aldaketa ezberdinak dira."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
 "or modify resized versions."
 msgstr ""
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin dira "
+"rmaina aldatuko bertsioak sortu ez eraldatu."
 
 msgid ""
 "You can select which part of the photo will be used for the thumbnail.  This will have no "
 "effect on the resized or original versions of the image."
 msgstr ""
+"Argazkitxoan jatorrizko argazkiaren zein zati ikusiko den hautatu dezakezu.  Honek ez die "
+"jatorrizk-irudiaren tamaina aldaketei eragingo."
 
 msgid "Aspect Ratio: "
-msgstr ""
+msgstr "Itxura Erlazioa: "
 
 msgid "Crop"
-msgstr ""
+msgstr "Ebaki"
 
 msgid "Reset to default"
-msgstr ""
+msgstr "Berrezarri lehenetsia"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
 "the thumbnail."
 msgstr ""
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin "
+"argazkitxoa ebaki."
 
 msgid "Rotate"
-msgstr "Rotate"
+msgstr "Biratu"
 
-#, fuzzy
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "You can only rotate the image in 90 degree increments."
+msgstr "Argazkiari 90 graduko biratzeak bakarrik egin daitezke."
 
-#, fuzzy
 msgid "CC 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "Ezk 90&deg;"
 
-#, fuzzy
 msgid "180&deg;"
-msgstr "Flip 180&deg;"
+msgstr "180&deg;"
 
-#, fuzzy
 msgid "C 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "Esk 90&deg;"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
 "it."
 msgstr ""
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin da "
+"berau biratu."
 
 msgid "Scale"
-msgstr "Scale"
+msgstr "Eskala"
 
-#, fuzzy
 msgid ""
 "Shrink or enlarge the original photo.  When Gallery scales a photo, it maintains the same "
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Shrink or enlarge the original image.  When Gallery scales an image, it maintains the same "
-"aspect ratio (height to width) of the original image to avoid distortion.  The value you "
-"enter below forms a bounding box in pixels.  Gallery will scale the image until it is as "
-"large as possible while still fitting inside the box."
+"Jatorrizko irudia txikitu edo handitu.  Gallery-k argazki bat eskalatzerakoan itxura "
+"erlazioa (altuera eta zabalera) mantenduz egiten du distortsioak ekiditzeko.  Argazkia hemen "
+"idatzitako tamainako kutxa batetan sartzeko eskaltu egingo da."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
+"Ez dago argazki mota hau onartzen duen tresna-joko grafikorik instalaturik, beraz ezin da "
+"berau tamainaz aldatu."
 
 msgid "You must enter a size"
-msgstr "You must enter a size"
+msgstr "Tamaina bat idatzi behar duzu"
 
 msgid "Preserve Original"
-msgstr "Preserve Original"
+msgstr "Jatorrizkoa Mantendu"
 
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. Instead, it "
@@ -2853,139 +2790,133 @@ msgid ""
 "prevents your original from getting damaged.  Disabling this option will cause any actions "
 "(rotating, scaling, etc) to modify the original."
 msgstr ""
+"Galleryk ez du jatorrizko argazkia eraldatzen biratu edo eskalatzean. Horren ordez argazkia "
+"bikoiztu eta kopian egiten ditu aldaketak.  Honek disko leku gehiago behar du baina "
+"jatorrizko argazkiak hondatze aukerak ekiditzen ditu.  Aukera hau ezgaitzeak edozein "
+"ekintzak (biratu, eskaltu, etab) jatorrizko irudia eraldatzea egingo du."
 
 msgid "This is a link to another photo, so you cannot change the original"
-msgstr ""
+msgstr "Hau beste argazki batetara lotura bat da, beraz ezin duzu jatorrizkoa aldatu"
 
 msgid "There are links to this photo, so you cannot change the original"
-msgstr ""
+msgstr "Hemen argazki honetara loturak daude, beraz ezin duzu jatorrizkoa aldatu"
 
-#, fuzzy
 msgid "Preserve Original Photo"
-msgstr "Preserve Original"
+msgstr "Jatorrizko Argazkia Mantendu"
 
-#, fuzzy
 msgid "Modified Photo"
-msgstr "Modified Image"
+msgstr "Eraldaturiko Argazkia"
 
-#, fuzzy
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"You are using a copy of the original image that has been scaled or rotated.  The original "
-"image is still available, but is no longer being used.  Any changes you make will be applied "
-"to the copy instead."
+"Biratua edo eskalatua izan den jatorrizko argazkiaren kopia bat erabiltzen ari zara.  "
+"Jatorrizko argazkia eskuragarria da baina ez da luzaroago erabiliko.  Horren ordez egiten "
+"duzun edozein aldaekta kopia batetan egingo da."
 
-#, fuzzy
 msgid "Restore original"
-msgstr "Revert to original"
+msgstr "Jatorrizkoa berreskuratu"
 
 #, c-format
 msgid ""
 "This album is configured to use the <b>%s</b> theme. These settings only apply to the theme "
 "for this album."
 msgstr ""
+"Album hau <b>%s</b> gaia erabiltzeko konfiguraturik dago. Ezarpen hauek album honetako "
+"gaiera bakarrik ezarriko dira."
 
-#, fuzzy
 msgid "Setting"
-msgstr "Gallery Settings"
+msgstr "Ezarpenak"
 
 msgid "Use Global"
-msgstr ""
+msgstr "Erabili orokorra"
 
 msgid ""
 "Note: to set the same theme for all subalbums, check the appropriate box in <b>Album</b> tab"
 msgstr ""
 
-#, fuzzy
 msgid "Album Highlight"
-msgstr "Make Highlight"
+msgstr "Albuma Nabarmendu"
 
-#, fuzzy
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Do you want to make this item the highlight of its parent album?"
+msgstr "Elementu hau bere guraso edo edozein aurreko album-en argazkitxoa egin dezakezu."
 
-#, fuzzy
 msgid "Highlight for:"
-msgstr "Make Highlight"
+msgstr "Nabarmendu hau:"
 
-#, fuzzy
 msgid "Highlight"
-msgstr "Make Highlight"
+msgstr "Nabarmendu"
 
 msgid "Move an Item"
-msgstr "Move an Item"
+msgstr "Elementu bat lekuz aldatu"
 
 #, c-format
 msgid "Successfully moved %d item"
 msgid_plural "Successfully moved %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "elementu %d behar bezala mugitu da"
+msgstr[1] "%d elementu behar bezala mugitu dira"
 
 msgid "This album contains no items to move."
-msgstr ""
+msgstr "Album honek ez du mugitzeko elementurik."
 
 msgid "Choose the items you want to move"
-msgstr "Choose the items you want to move"
+msgstr "Aukeratu mugitu nahi dituzun elementuak"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
-"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
+"Zuk aukeratutako kokalekuak ez ditu azpi-albumak onartzen, beraz azpi-album guztiak "
+"hautaketatik kanpora gelditu dira."
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
+"Zuk aukeratutako kokalekuak azpi-albumak bakarrik onartzen ditu, beraz album ez diren "
+"guztiak hautaketatik kanpora gelditu dira."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "You are not allowed to move this item away from here."
+msgstr "Ez duzu elementu hau hemendik mugitzeko baimenik."
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "You are not allowed to move an album to the chosen destination."
+msgstr "Ez duzu album hau aukeratutako kokalekura mugitzeko baimenik."
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "You are not allowed to move an item to the chosen destination."
+msgstr "Ez duzu elementu hau aukeratutako kokalekura mugitzeko baimenik."
 
 msgid "You cannot move an album into its own subtree."
-msgstr "You cannot move an album into its own subtree."
+msgstr "Ezin duzu albun bat bere azpi-zuhaitz barnean ipini."
 
 msgid "Choose a new album for them"
-msgstr ""
+msgstr "Aukeratu album berri bat beroientzat"
 
 msgid "You don't have the permission to add items in this album"
-msgstr "You don't have the permission to add items in this album"
+msgstr "Ez duzu album honetara elementurik gehitzeko baimenik"
 
 msgid "Move"
-msgstr "Move"
+msgstr "Lekuz aldatu"
 
 msgid "Successfully moved"
-msgstr ""
+msgstr "Egoki mugitu da"
 
 msgid "Permissions"
-msgstr "Permissions"
+msgstr "Baimenak"
 
-#, fuzzy
 msgid "Owner changed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Jabea behar bezala aldatu da"
 
-#, fuzzy
 msgid "Group permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Talde baimenak behar bezala gehitu dira"
 
-#, fuzzy
 msgid "User permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Erabiltzaile baimenak behar bezala gehitu dira"
 
-#, fuzzy
 msgid "Group permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Talde baimenak behar bezala ezabatu dira"
 
-#, fuzzy
 msgid "User permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Erabiltzaile baimenak behar bezala ezabatu dira"
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -2995,41 +2926,38 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Each item has its own independent set of permissions.  Changing the parent's permissions has "
-"no effect on the permissions of the child.  This allows you to restrict access to the parent "
-"of this item, but still grant full access to this item, or vice versa.  The most efficient "
-"way to use this permission system is to create groups and assign permissions to them.  Then "
-"if you want to grant permissions to a specific user, you can add (or remove) the user from "
-"the appropriate group."
+"Elementu bakoitzak bere baimenak ditu. Gurasoaren baimeank aldatzeak ez du bere azpiko "
+"elementuetan eragingo.  Honek elementu honen gurasora sarrera iragazi baina elementu honen "
+"sarrera irekia uzteko aukera, edo alderantzizkoa,  ematen dizu.  Baimenak erabiltzeko era "
+"egokiena taldeak sortu eta baimenak taldeei ezartzea da.  Orduan erabiltzaile bati baimen "
+"berezi bat emateko aski duzu berau talde egokian gehitu edo ezabatzerarekin."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "This item is owned by user: %s"
+msgstr "Erabiltzaile hau da elementu honen jabe: %s"
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "This item is owned by user: %s (%s)"
+msgstr "Erabiltzaile hau da elementu honen jabe: %s (%s)"
 
 msgid "New owner"
-msgstr ""
+msgstr "Jabe berria"
 
 msgid "Change"
-msgstr "Change"
+msgstr "Aldatu"
 
-#, fuzzy
 msgid "Apply new owner to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Aplikatu jabe berria azpi-elementuei"
 
 msgid "You must enter a user name"
-msgstr "You must enter a user name"
+msgstr "Erabiltzaile izen bat eman behar duzu"
 
 msgid "The user name you entered is invalid"
-msgstr "The user name you entered is invalid"
+msgstr "Emandako erabiltzaile izena baliogabea da"
 
 msgid "Apply changes"
-msgstr "Apply changes"
+msgstr "Aldaketak Aplikatu"
 
-#, fuzzy
 msgid ""
 "This item has sub-items.  The changes you make here can be applied to just this item, or you "
 "can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
@@ -3037,240 +2965,234 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"This item has sub-items.  The changes you make here can be applied to just this item, or you "
-"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
-"change into the existing permissions of the sub-items and may be very time consuming if you "
-"have many of sub-items.  It's more efficient to grant permissions to groups and then add and "
-"remove users from groups whenever possible."
+"Elementu honek azpi-elementuak ditu.  Hemen egiten dituzun aldaketak soilik elementu honi "
+"edo bere azpi-elementuei ere eragin diezakete.  Kontutan izan azpi-elemtuei aldaketak "
+"ezartzean hauen baimentan eragin dezaleela eta honek denbora luzea tardatu dezakela azpi-"
+"elementu ugari izan ezkero.  Praktikoagoa da baimenak taldeei egoztea eta gero "
+"erabiltzaileak taldeei geitu edo hauetatik ezabatzea behar denean. Aldaketak lehenespen "
+"bezala azpi-elemetuei ere ezarriko zaizkie."
 
 msgid "Apply to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Ezarri azpi-elementuei"
 
 msgid "Group Permissions"
-msgstr "Group Permissions"
+msgstr "Taldea Baimenak"
 
-#, fuzzy
 msgid "Group name"
-msgstr "Group name:"
+msgstr "Taldea izena"
 
 msgid "Permission"
-msgstr "Permission"
+msgstr "Baimenak"
 
-#, fuzzy
 msgid "New Group Permission"
-msgstr "Group Permissions"
+msgstr "Talde Berri Baimenak"
 
 msgid "Add Permission"
-msgstr "Add Permission"
+msgstr "Baimena Gehitu"
 
 msgid "The permission you chose is invalid"
-msgstr "The permission you chose is invalid"
+msgstr "Huk hautatutako baimena baliogabea da"
 
 msgid "The group name you entered is invalid"
-msgstr "The group name you entered is invalid"
+msgstr "Emandako talde izena baliogabea da"
 
-#, fuzzy
 msgid "Group already has this permission (check sub-permissions)"
-msgstr ""
-"Group already has this permission (maybe it's included in one of the permissions the group "
-"already has)"
+msgstr "Taldeak dagoeneko baimen hori du (Azpi-baimenak arakatu)"
 
 msgid "User Permissions"
-msgstr "User Permissions"
+msgstr "Erabiltzaile Baimenak"
 
 msgid "User name"
-msgstr "User name"
+msgstr "Erabiltzaile-izena"
 
-#, fuzzy
 msgid "New User Permission"
-msgstr "User Permissions"
+msgstr "Erabiltzaile Berri Baimenak"
 
-#, fuzzy
 msgid "The user already has this permission (check sub-permissions)"
-msgstr ""
-"The user already has this permission (maybe it's included in one of the permissions the user "
-"already has)"
+msgstr "Erabiltzaileak dagoeneko baimen hori du (Azpi-baimenak arakatu)"
 
-#, fuzzy
 msgid "Reorder Album"
-msgstr "Add Album"
+msgstr "Albuma berrordenatu"
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
+"Album honek ordenatze automatikoa ezarririk du, beraz ezin duzu gauzen ordena eskuz aldatu.  "
+"Ordenatze automatikoa ezgaitu behar duzu aurrera jarraitzeko."
 
-#, fuzzy
 msgid "Change the order of the items in this album."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Album honetako elementuen ordena aldatu"
 
-#, fuzzy
 msgid "Move this item"
-msgstr "move item"
+msgstr "Lekuz aldatu elementu hau"
 
-#, fuzzy
 msgid "before"
-msgstr "Remove"
+msgstr "lehenago"
 
 msgid "after"
-msgstr ""
+msgstr "geroago"
 
-#, fuzzy
 msgid "Reorder"
-msgstr "Remove"
+msgstr "Ordenatu"
 
 msgid "Continue..."
-msgstr ""
+msgstr "Jarraitu..."
 
 msgid "Site is temporarily down for maintenance."
 msgstr ""
 
 #, fuzzy
 msgid "Admin Login"
-msgstr "Actions"
+msgstr "Kudeaketa Aukerak"
 
 msgid "Enter a URL"
-msgstr ""
+msgstr "Sartu URL bat"
 
 msgid "Enter some text describing the URL"
-msgstr ""
+msgstr "URL-a deskribatzen duen testu bat idatzi"
 
 msgid "Enter an image URL"
-msgstr ""
+msgstr "Sartu irudi URL bat"
 
 msgid "B"
-msgstr ""
+msgstr "B"
 
 msgid "i"
-msgstr ""
+msgstr "i"
 
 msgid "list"
-msgstr ""
+msgstr "zerrenda"
 
 msgid "bullet"
-msgstr ""
+msgstr "bulet"
 
 msgid "url"
-msgstr ""
+msgstr "url-a"
 
-#, fuzzy
 msgid "image"
-msgstr "move item"
+msgstr "irudia"
 
 msgid "Configuration Error: Missing Theme"
-msgstr ""
+msgstr "Konfigurazioa Errorea: Gaia falta da"
 
 msgid "Missing Theme"
-msgstr ""
+msgstr "Gaia falta da"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This page is configured to use the %s theme, but it is either inactive or not installed."
 msgstr ""
+"Album hau %s gaia erabiltzeko konfiguraturik dago, baina instalatu gabe edo ezgaiturik dago."
 
 #, c-format
 msgid ""
 "This album is configured to use the %s theme, but it is either inactive or not installed."
 msgstr ""
+"Album hau %s gaia erabiltzeko konfiguraturik dago, baina instalatu gabe edo ezgaiturik dago."
 
 #, c-format
 msgid ""
 "To fix this problem you can %sinstall or activate this theme%s or select another default "
 "theme."
 msgstr ""
+"Arazo hau konpontzeko %sinstalatu edo gaitu gai%s hau edo beste gai lehenetsi bat erabili"
 
 #, c-format
 msgid ""
 "To fix this problem you can %slogin as a site administrator%s and then %sinstall or activate "
 "this theme%s or select another default theme."
 msgstr ""
+"Arazo hau konpontzeko %sgune kudeatzaile%s bezala saioa hasi eta %sgai hau instalatu edo "
+"gaitu%s edo beste gai lehenetsi bat ezarri."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %sinstall or "
 "activate this theme%s."
 msgstr ""
+"Arazo hau konpontzeko %salbum honetzat gai berri bat hautatu%s edo %sgai hau instalatu edo "
+"gaitu%s dezakezu."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %schoose a new theme for this album%s or %slogin as a "
 "site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
+"Arazo hau konpontzeko %salbum honetzat gai berri bat hautatu%s edo %sgune kudeatzaile%s "
+"bezala saioa hasi eta %sgai hau instalatu edo gaitu%s egin behar duzu."
 
 #, c-format
 msgid ""
 "To fix this problem you can either %slogin%s and then %schoose a new theme for this album%s "
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
+"Arazo hau konpontzeko %sgune kudeatzaile%s bezala saioa hasi eta %salbum honetzat gai berri "
+"bat hautatu%s edo %sgune kudeatzaile%s bezala saioa hasi eta %sgai hau instalatu edo gaitu%s "
+"egin behar duzu."
 
-#, fuzzy
 msgid "Admin Options"
-msgstr "Actions"
+msgstr "Kudeaketa Aukerak"
 
-#, fuzzy
 msgid "User Options"
-msgstr "User Permissions"
+msgstr "Erabiltzailearen aukerak"
 
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Pasahitza ondo aldatu da"
 
+#, fuzzy
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
+"Zure pasahitza sartu behar duzu zu zarela probatzeko, gero pasahitz berria bi aldiz idatzi "
+"behar duzu nahaspilatzen ez zarela ziurtatzeko."
 
-#, fuzzy
 msgid "Current Password"
-msgstr "Password"
+msgstr "Unekoa Pasahitza"
 
-#, fuzzy
 msgid "You must enter your current password"
-msgstr "You must enter a password"
+msgstr "Zure pasahitza idatzu behar duzu"
 
-#, fuzzy
 msgid "Incorrect password"
-msgstr "Password"
+msgstr "Okerreko pasahitza"
 
-#, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr "Pasahitz Berria"
 
-#, fuzzy
 msgid "You must enter a new password"
-msgstr "You must enter a password"
+msgstr "PAsahitz berria idatzi behar duzu"
 
-#, fuzzy
 msgid "Verify New Password"
-msgstr "Verify password"
+msgstr "Pasahitz Berria Berretsi"
 
-#, fuzzy
 msgid "You must enter your new password again!"
-msgstr "You must enter a password"
+msgstr "Zure pasahitza berriz sartu behar duzu!"
 
 msgid "Login to your account"
-msgstr ""
+msgstr "Zure kontuaz saioa hasi"
 
 msgid "Your password has been recovered, please login."
-msgstr ""
+msgstr "Zure pasahitza berreskuratua izan da, mesedez saioa hasi."
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Your login information is incorrect.  Please try again."
+msgstr "Zure saio datuak okerrak dira.  Saiatu berriro."
 
 #, c-format
 msgid ""
 "Lost or forgotten passwords can be retrieved using the <a href=\"%s\">recover password</a> "
 "page"
-msgstr ""
+msgstr "Galdu or<a href=\"%s\"></a>"
 
 #, c-format
 msgid "Welcome, %s!"
 msgstr ""
 
 msgid "Account settings saved successfully"
-msgstr ""
+msgstr "Kontu ezarpenak behar bezala gorde dira"
 
 msgid "Recover a lost or forgotten password"
-msgstr ""
+msgstr "Galdu edo ahaztutako pasahitza berreskuratu"
 
 msgid ""
 "Recovering your password requires that your user account has an email address assigned, and "
@@ -3280,14 +3202,22 @@ msgid ""
 "period.  A recovery confirmation is valid for seven days.  If it is not used during that "
 "time, it will be purged from the system and a new request will have to be made."
 msgstr ""
+"Pasahitza berreskuratzeak zure kontuak posta helbide bat ezarririk izatea eta zuk posta hori "
+"eskuaratzeko aukera izatea behar du.  Berrespena bat bidaliko zaizu zure konturako pasahitz "
+"berri bat ezartzeko ireki beharko duzun URL helbide batekin.  Gehikeriak ekiditzeko pashitz "
+"berreskuraketa bat baino gehiago ez da onartuko 20 minuko aldiro.  Pasahitz berreskuratze "
+"berrespenak zazpi egunetarako baliozkoa izango da. Denbora honetan erabiltzen ez bada, berau "
+"sistematik ezabatua izango da eta eskaera berri bat egin beharko da berreskuratzea lortzeko."
 
 msgid "Your recovery request has been sent!"
-msgstr ""
+msgstr "Zure pasahitz berreskuratzea bidalia izan da!"
 
 msgid ""
 "Note that if the account does not have an email address, you may not receive the email and "
 "you should contact your system administrator for help."
 msgstr ""
+"Ohartu kontu batek posta helbiderik ez badu, ezingo duzu mezurik jaso eta ezingo duzu gune "
+"kudeatzailearekin harremanetan jarri laguntza eske."
 
 #, c-format
 msgid ""
@@ -3295,10 +3225,12 @@ msgid ""
 "if they fail to receive recovery email due to server problems, or lack of a working email "
 "address."
 msgstr ""
+"Kudeatzaileak %sLarrialdiko Pasahitz Berreskuraketa%s orria erabili dezake kudeatzaile "
+"kontua berreskuratzeko, okerreko eposta sistema edo zerbitzari arazoak direla eta "
+"berreskuratze mezua jasotzean arazoak izango balitu."
 
-#, fuzzy
 msgid "Recover"
-msgstr "Remove"
+msgstr "Berreskuratzea"
 
 #, c-format
 msgid ""
@@ -3308,250 +3240,231 @@ msgid ""
 "new text file called %s in your gallery2 directory. It must contain the following randomly "
 "generated characters:"
 msgstr ""
+"Pasahitz berrezarpenarekin aurrera jarraitzeko, esaten duzuna zarela ziurtatu behar dugu.  "
+"Erarik errazena zuk beharrezko baimenak dituzula ziurtatzen duen aldaketa txiki bat egitea "
+"da.  Beraz Gallery direktorioan %s izeneko testu fitxategi bat sortu beharko duzu, barnean "
+"ausaz sorturiko karaktere hauek eduki behar ditu:"
 
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #, c-format
 msgid ""
 "As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  "
 "Download that and copy it into your install directory and you're all set."
 msgstr ""
+"Laguntzearren %slogin.txt fitxategiaren bertsio zuzena%s prestatu dugu. Deskarga eta kopiatu "
+"ezazu instalazio direktorioan."
 
 msgid "Once you've uploaded the file, click refresh to continue."
-msgstr ""
+msgstr "Bein fitxategia igo duzula, freskatu klikatu aurrera jarraitzeko."
 
 msgid "Emergency Administrator Password Reset"
-msgstr ""
+msgstr "Larrialditarako Kudeatzaile Pasahitz Berezarketa"
 
 msgid ""
 "This page can be used by a system administrator to securely reset the password on any "
 "account."
-msgstr ""
+msgstr "Sistema kudeatzaileak orri honen bitartez edozein kontuko pasahitza berezarri dezake."
 
 msgid "Authorization Confirmed"
-msgstr ""
+msgstr "Baimena Berretsirik"
 
 msgid ""
 "Your authorization has been confirmed.  Please enter your new password below.  After setting "
 "your new password you will be taken to the login page."
 msgstr ""
+"Zure egiatapena berretsi egin da.  Mesedez idatzi zure pasahitz berria behean.  Pasahitz "
+"berria ezarri ondore saio hasiera orrira joan beharko zinateke."
 
 msgid "Recover Password for Username"
-msgstr ""
+msgstr "Berreskuratu Pasahitza erabiltzaile batentzat"
 
-#, fuzzy
 msgid "You must enter a username to recover the password for."
-msgstr "You must enter the password a second time"
+msgstr "Erabiltzaile izen bat idatzi behar duzu horren pasahitza berreskuratzeko."
 
-#, fuzzy
 msgid "The username you entered does not exist."
-msgstr "The user name you entered is invalid"
+msgstr "Zuk emandako erabiltzailea ez da existitzen."
 
 msgid "Authorization Incorrect"
-msgstr ""
+msgstr "Okerreko Egiaztapena"
 
 msgid "Recovery Instructions"
-msgstr ""
+msgstr "Berreskuratze argibideak"
 
 msgid "AuthFile Missing"
-msgstr ""
+msgstr "Egiaztapen Fitxategia falta da"
 
 msgid "AuthFile Unreadable"
-msgstr ""
+msgstr "Egiaztapen Fitxategia ezin da irakurri"
 
 #, c-format
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
 msgstr ""
+"Zure %s fitxategia ezin da irakurri. Mesedez eman Galley-ei berau irakurtzerko baimena."
 
-#, fuzzy
 msgid "Refresh"
-msgstr "Remove"
+msgstr "Freskatu"
 
 msgid "This page will allow you to reset the password on your account."
-msgstr ""
+msgstr "Orrialde honek zure pasahitza berezartzeko aukera ematen dizu."
 
 #, c-format
 msgid ""
 "There is no request which matches the username and authorization provided. Request a new "
 "authorization from the <a href=\"%s\">lost password page</a>"
 msgstr ""
+"Ez dago emandako erabiltzaile eta pashitzarekin abt datorren eskaerarik. Eskaera berri bat "
+"egin ezazu <a href=\"%s\">galdutako pasahitz orrialdean</a>"
 
 #, c-format
 msgid ""
 "The request you are trying to access has expired.  Request a new authorization from the <a "
 "href=\"%s\">lost password page</a>."
 msgstr ""
+"Zu egindako eskakizuna iraungita dago. Autorizazio berri bat eskatu  <a href=\"%s\">pasahitz "
+"galdu orrialdean </a>."
 
 msgid "Authorization missing"
-msgstr ""
+msgstr "Baimena falta da"
 
-#, fuzzy
 msgid "Username missing"
-msgstr "User Permissions"
+msgstr "Erabiltzaile-izena falta da"
 
 msgid "Submit"
-msgstr ""
+msgstr "Bidali"
 
 #, c-format
 msgid "Hello %s,"
-msgstr ""
+msgstr "Kaixo %s,"
 
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
-msgstr ""
+msgstr "eposta hau %s-ren pasahitz berreskuraketa bat eskatu bait du. %s-ek %s-an"
 
 #, c-format
 msgid "Your username is: %s"
-msgstr ""
+msgstr "Zure erabiltzaile izena: %s"
 
 msgid ""
 "To finish the password recovery process please click the following link and enter the "
 "required information:"
 msgstr ""
+"Pasahitz berreskuraketa prozesua amaitzeko mesedez, klikatu hurrengo lotura eta eskatzen den "
+"infomazioa eman:"
 
 msgid "If you did not request this recovery email, you may safely ignore it."
-msgstr ""
+msgstr "Ez baduzu berreskuraketa eposta hau eskatu, berau alde batetara utzi dezakezu."
 
 msgid "Thank you!"
-msgstr ""
+msgstr "Mila esker!"
 
 msgid "guest"
-msgstr ""
+msgstr "gonbidatua"
 
 #, c-format
 msgid "display mode: %s"
-msgstr ""
+msgstr "bistaratze modua: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Delete a user"
+msgstr "Data: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Owner: %s"
-msgstr "Owner"
+msgstr "Jabea: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "Tamaina: elementu %d"
+msgstr[1] "Tamaina: %d elementu"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "(elementu %d guztira)"
+msgstr[1] "(%d elementu guztira)"
 
 #, c-format
 msgid "Views: %d"
-msgstr ""
+msgstr "Ikustaldiak: %d"
 
-#, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; album ekintzak &raquo;"
 
-#, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; elementu ekintzak &raquo;"
 
 msgid "Go"
-msgstr ""
+msgstr "Joan"
 
 msgid "Navigation"
-msgstr ""
+msgstr "Nabigazioa"
 
 msgid "next"
-msgstr ""
+msgstr "hurrengoa"
 
 msgid "last"
-msgstr ""
+msgstr "azkena"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d %d orritik"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d / %d"
 
-#, fuzzy
 msgid "first"
-msgstr "|< First"
+msgstr "lehenengoa"
 
 msgid "previous"
-msgstr ""
+msgstr "aurrekoa"
 
 msgid "Page:"
-msgstr ""
+msgstr "Orrialdea:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d. %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
-#, fuzzy
 msgid "Size: "
-msgstr "Edit Sizes"
+msgstr "Tamaina: "
 
 msgid "Full size: "
-msgstr ""
+msgstr "Tamaina osoa:"
 
-#, fuzzy
 msgid "Language selector"
-msgstr "Language settings"
+msgstr "Hizkuntza hautatzailea"
 
-#, fuzzy
 msgid "Item actions"
-msgstr "Item Permissions"
+msgstr "Elementu ekintzak"
 
 msgid "Use dropdown menu"
-msgstr ""
+msgstr "Goitibeherako menua erabili"
 
-#, fuzzy
 msgid "Login block"
-msgstr "Login"
+msgstr "Saio-hasiera blokea"
 
 msgid "Links to album/photo peers"
-msgstr ""
+msgstr "Ondoko album/argazkietara loturak"
 
 msgid "Unit test module"
-msgstr ""
+msgstr "Unitate proba modulua"
 
-#, fuzzy
 msgid "[test] A permission"
-msgstr "permissions"
+msgstr "[Proba] A baimena"
 
-#, fuzzy
 msgid "[test] A second permission"
-msgstr "permissions"
+msgstr "[Proba] A bigarren baimena"
 
 msgid "Unit test theme"
-msgstr ""
+msgstr "Unitate prba gaia"
 
-#, fuzzy
-#~ msgid "add album"
-#~ msgstr "add album"
+#~ msgid "&laquo; None &raquo;"
+#~ msgstr "&laquo; Bat ere ez&raquo;"
 
-#, fuzzy
-#~ msgid "edit permissions"
-#~ msgstr "permissions"
-
-#, fuzzy
-#~ msgid "view permissions"
-#~ msgstr "permissions"
-
-#~ msgid "login"
-#~ msgstr "login"
-
-#, fuzzy
-#~ msgid "choose a new theme for this album"
-#~ msgstr "You must enter a name for this album."
-
-#, fuzzy
-#~ msgid "login as a site administrator"
-#~ msgstr "Gallery Site Administration"
-
-#, fuzzy
-#~ msgid "Missing Layout"
-#~ msgstr "Layout"
+#~ msgid "Unable to delete directory: /templates_c"
+#~ msgstr "Ezinda direktorioa ezabatu: /templates_c"

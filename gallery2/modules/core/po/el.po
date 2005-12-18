@@ -16,24 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
-"PO-Revision-Date: 2003-06-25 15:57+0100\n"
-"Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
-"Language-Team: British <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2003-03-06 16:30+0200\n"
+"PO-Revision-Date: 2003-03-06 16:30+0200\n"
+"Last-Translator: Nikos Batsis <nickthegreek@yahoo.com>\n"
+"Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, fuzzy
 msgid "Gallery Email Test"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 msgid "forever"
-msgstr "forever"
+msgstr ""
 
 msgid "High Priority (Me first!)"
 msgstr ""
@@ -55,53 +56,52 @@ msgstr ""
 
 #, fuzzy
 msgid "File"
-msgstr "File: "
+msgstr "Αρχείο: "
 
 #, fuzzy, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, fuzzy, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d hour"
-msgstr[1] "%d hour"
+msgstr[0] "%d Ώρα"
+msgstr[1] "%d Ώρα"
 
 #, fuzzy, c-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "%d day"
-msgstr[1] "%d day"
+msgstr[0] "%d Ημέρα"
+msgstr[1] "%d Ημέρα"
 
 #, fuzzy, c-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "%d week"
-msgstr[1] "%d week"
+msgstr[0] "%d Εβδομάδα"
+msgstr[1] "%d Εβδομάδα"
 
 msgid "<none>"
-msgstr "<none>"
+msgstr ""
 
 msgid "install"
-msgstr "install"
+msgstr ""
 
 msgid "upgrade"
 msgstr ""
 
 msgid "configure"
-msgstr "configure"
+msgstr ""
 
 msgid "activate"
-msgstr "activate"
+msgstr ""
 
-#, fuzzy
 msgid "uninstall"
-msgstr "install"
+msgstr ""
 
 msgid "deactivate"
-msgstr "deactivate"
+msgstr ""
 
 msgid "Performing Maintenance Tasks"
 msgstr ""
@@ -112,7 +112,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Done."
-msgstr "Done"
+msgstr "Επιτυχία"
 
 msgid "Upgrade"
 msgstr ""
@@ -125,57 +125,56 @@ msgstr ""
 
 #, fuzzy
 msgid "Use these settings"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 msgid "key"
-msgstr "key"
+msgstr ""
 
 msgid "All access"
-msgstr "All access"
+msgstr "Πλήρες Πρόσβαση"
 
 msgid "[core] View item"
-msgstr "[core] View item"
+msgstr ""
 
 msgid "[core] View resized version(s)"
-msgstr "[core] View resized version(s)"
+msgstr ""
 
 msgid "[core] View original version"
-msgstr "[core] View original version"
+msgstr ""
 
 msgid "[core] View all versions"
-msgstr "[core] View all versions"
+msgstr ""
 
 msgid "[core] Add sub-album"
-msgstr "[core] Add sub-album"
+msgstr ""
 
 msgid "[core] Add sub-item"
-msgstr "[core] Add sub-item"
+msgstr ""
 
-#, fuzzy
 msgid "[core] Edit item"
-msgstr "[core] View item"
+msgstr ""
 
 msgid "[core] Change item permissions"
-msgstr "[core] Change item permissions"
+msgstr ""
 
 msgid "[core] Delete item"
-msgstr "[core] Delete item"
+msgstr ""
 
 #, fuzzy
 msgid "Upgrading permissions"
-msgstr "permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
 #, fuzzy
 msgid "Deleting old permission tables"
-msgstr "permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
 #, fuzzy
 msgid "Registered Users"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
 #, fuzzy
 msgid "All Users"
-msgstr "Users"
+msgstr "Πλήρες Πρόσβαση"
 
 msgid "Detecting broken derivatives"
 msgstr ""
@@ -185,7 +184,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Site Admins"
-msgstr "site admin"
+msgstr "Διαχείρηση της Γκαλλερύ"
 
 msgid "Everybody"
 msgstr ""
@@ -194,11 +193,10 @@ msgid "Guest"
 msgstr ""
 
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
-#, fuzzy
 msgid "This is the main page of your Gallery"
-msgstr "This is the top of your Gallery"
+msgstr ""
 
 msgid "Detecting broken derivatives, loading "
 msgstr ""
@@ -214,31 +212,31 @@ msgstr ""
 
 #, fuzzy
 msgid "add items"
-msgstr "add item"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, fuzzy
 msgid "Album created successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "add sub-album"
-msgstr "add album"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "add items confirmation"
-msgstr "Destination"
+msgstr "Προορισμός"
 
 #, fuzzy
 msgid "Base filename"
-msgstr "Full name"
+msgstr "Πλήρες Όνομα"
 
 #, fuzzy
 msgid "Caption"
-msgstr "Caption: "
+msgstr "Περιγραφή: "
 
 #, fuzzy
 msgid "Blank"
-msgstr "<< Back"
+msgstr "<< Πίσω"
 
 msgid "From Web Browser"
 msgstr ""
@@ -246,18 +244,18 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, fuzzy, c-format
 msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, fuzzy
 msgid "From Local Server"
-msgstr "Add From Your Server"
+msgstr "Προσθέστε αρχεία που βρίσκονται στο Διακομιστή"
 
 msgid "Photo"
 msgstr ""
@@ -266,68 +264,69 @@ msgid "From Web Page"
 msgstr ""
 
 msgid "Gallery Item Administration"
-msgstr "Gallery Item Administration"
+msgstr "Διαχείρηση Αντκειμένου Γκαλλερύ"
 
 msgid "create link"
 msgstr ""
 
 #, fuzzy
 msgid "link an item"
-msgstr "Move an Item"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, fuzzy
 msgid "delete an item"
-msgstr "delete item"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "delete confirmation"
-msgstr "delete item"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy, c-format
 msgid "delete %s"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy, c-format
 msgid "edit %s"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
+#, fuzzy
 msgid "Settings saved successfully."
-msgstr ""
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "&laquo; default theme &raquo;"
-msgstr "* No Sort Order *"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 #, fuzzy
 msgid "Album"
-msgstr "Add Album"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "Changes saved successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Animation Size"
-msgstr "Action"
+msgstr "Ενέργεια"
 
 #, fuzzy
 msgid "edit captions"
-msgstr "Actions"
+msgstr "Ενέργειες"
 
 msgid "General"
-msgstr "General"
+msgstr "Γενικά"
 
 #, fuzzy
 msgid "Movie Size"
-msgstr "Available Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 #, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Thumbnail reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "Photo 5x3"
 msgstr ""
@@ -355,7 +354,7 @@ msgstr ""
 
 #, fuzzy
 msgid "As Image"
-msgstr "Edit Image"
+msgstr "Επεξεργασία Εικόνας"
 
 msgid "Landscape"
 msgstr ""
@@ -363,102 +362,97 @@ msgstr ""
 msgid "Portrait"
 msgstr ""
 
-#, fuzzy
 msgid "Crop Thumbnail"
-msgstr "No Thumbnail"
+msgstr ""
 
 #, fuzzy
 msgid "Reverted rotate and scale changes successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Rotated photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Scaled photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Modify Photo"
-msgstr "Modified Image"
+msgstr "Επεξεργασία Εικόνας"
 
 #, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Album Settings"
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
 msgid "Theme"
-msgstr "Theme"
+msgstr ""
 
 msgid "make highlight"
-msgstr "make highlight"
+msgstr ""
 
+#, fuzzy
 msgid "move item"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, fuzzy, c-format
 msgid "move %s"
-msgstr "Move"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, fuzzy, c-format
 msgid "edit %s permissions"
-msgstr "permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
-#, fuzzy
 msgid "reorder items"
-msgstr "move item"
+msgstr ""
 
 msgid "Maintenance"
 msgstr ""
 
 msgid "Gallery Site Administration"
-msgstr "Gallery Site Administration"
+msgstr "Διαχείρηση της Γκαλλερύ"
 
 msgid "site admin"
-msgstr "site admin"
+msgstr ""
 
 #, fuzzy
 msgid "Gallery User Administration"
-msgstr "Gallery Item Administration"
+msgstr "Διαχείρηση Αντκειμένου Γκαλλερύ"
 
-#, fuzzy
 msgid "change password"
-msgstr "Password"
+msgstr ""
 
 msgid "your account"
 msgstr ""
 
-#, fuzzy
 msgid "Password Recovery"
-msgstr "Password"
+msgstr ""
 
-#, fuzzy
 msgid "Build all thumbnails/resizes"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
 msgstr ""
 
-#, fuzzy
 msgid "Build All Thumbnails/Resizes"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid "Debug output for failed items:"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing image %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "Checked %d items"
-msgstr "add item"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, fuzzy, c-format
 msgid "%d items built"
-msgstr "add item"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, c-format
 msgid "%d items failed"
@@ -473,9 +467,9 @@ msgid ""
 "Gallery to reload the information from the database."
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deleted directory: %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
 #, c-format
 msgid "Unable to delete directory: %s"
@@ -483,7 +477,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Delete template cache"
-msgstr "Delete Item"
+msgstr "Διαγραφή Αντικειμένου"
 
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
@@ -494,7 +488,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "some text to be spit out in different languages"
 msgstr ""
@@ -504,72 +498,69 @@ msgstr ""
 
 #, fuzzy
 msgid "album"
-msgstr "(album)"
+msgstr "Λεύκομα"
 
 #, fuzzy
 msgid "Animation"
-msgstr "Action"
+msgstr "Ενέργεια"
 
 #, fuzzy
 msgid "animation"
-msgstr "Action"
+msgstr "Ενέργεια"
 
 #, fuzzy
 msgid "Gallery Core"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 #, fuzzy
 msgid "Gallery Core Module"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 #, fuzzy
 msgid "Search descriptions"
-msgstr "Description"
+msgstr "Περιγραφή"
 
-#, fuzzy
 msgid "Search keywords"
-msgstr "Keywords"
+msgstr ""
 
 msgid "Search summaries"
 msgstr ""
 
-#, fuzzy
 msgid "Search titles"
-msgstr "deactivate"
+msgstr ""
 
 msgid "Description"
-msgstr "Description"
+msgstr "Περιγραφή"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr ""
 
 msgid "Summary"
-msgstr "Summary"
+msgstr ""
 
 msgid "Title"
-msgstr "Title"
+msgstr ""
 
 msgid "Owner"
-msgstr "Owner"
+msgstr ""
 
 #, fuzzy
 msgid "Group"
-msgstr "Groups"
+msgstr "Ομάδες"
 
 #, fuzzy
 msgid "group"
-msgstr "Groups"
+msgstr "Ομάδες"
 
 msgid "Other"
 msgstr ""
 
-#, fuzzy
 msgid "Movie"
-msgstr "Move"
+msgstr ""
 
 #, fuzzy
 msgid "movie"
-msgstr "Move"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 msgid "photo"
 msgstr ""
@@ -579,7 +570,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Plugins directory does not exist."
-msgstr "User '%s' does not exist."
+msgstr "Η Ομάδα '%s' δεν υπάρχει."
 
 #, c-format
 msgid ""
@@ -614,24 +605,25 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; default sort order &raquo;"
-msgstr "* No Sort Order *"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 #, fuzzy
 msgid "Manual sort order"
-msgstr "Album sort order:"
+msgstr "Ταξινόμιση Λευκόματος:"
 
 #, fuzzy
 msgid "Origination Date"
-msgstr "Creation Date"
+msgstr "Ημερομηνία Δημιουργίας"
 
 msgid "Creation Date"
-msgstr "Creation Date"
+msgstr "Ημερομηνία Δημιουργίας"
 
 msgid "Last Changed Date"
-msgstr "Last Changed Date"
+msgstr ""
 
+#, fuzzy
 msgid "Name"
-msgstr "Name"
+msgstr "Πλήρες Όνομα"
 
 msgid "View Count"
 msgstr ""
@@ -641,20 +633,20 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; no presort &raquo;"
-msgstr "* No Sort Order *"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 #, fuzzy
 msgid "Albums First"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 msgid "Most Viewed First"
 msgstr ""
 
 msgid "Ascending"
-msgstr "Ascending"
+msgstr "Αύξουσα"
 
 msgid "Descending"
-msgstr "Descending"
+msgstr "Φθίνουσα"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
@@ -664,7 +656,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Browse Gallery"
+msgstr "Περιήγηση"
 
 msgid "G2.0: Unpossible!"
 msgstr ""
@@ -709,11 +701,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Album Frame"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
-#, fuzzy
 msgid "Item Frame"
-msgstr "Items to move"
+msgstr ""
 
 msgid "Photo Frame"
 msgstr ""
@@ -723,7 +714,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a number greater than 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Format: [module.BlockName param=value] ..."
 msgstr ""
@@ -732,21 +723,19 @@ msgstr ""
 msgid "%dx%d"
 msgstr ""
 
-#, fuzzy
 msgid "Audio"
-msgstr "Undo"
+msgstr ""
 
-#, fuzzy
 msgid "audio"
-msgstr "Undo"
+msgstr ""
 
 #, fuzzy
 msgid "Archive"
-msgstr "Active"
+msgstr "Ενεργό"
 
 #, fuzzy
 msgid "archive"
-msgstr "activate"
+msgstr "Ενεργό"
 
 msgid "Document"
 msgstr ""
@@ -754,13 +743,11 @@ msgstr ""
 msgid "document"
 msgstr ""
 
-#, fuzzy
 msgid "Spreadsheet"
-msgstr "Reset"
+msgstr ""
 
-#, fuzzy
 msgid "spreadsheet"
-msgstr "Reset"
+msgstr ""
 
 msgid "Unknown"
 msgstr ""
@@ -776,7 +763,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Back"
-msgstr "<< Back"
+msgstr "<< Πίσω"
 
 #, c-format
 msgid "Back to %s"
@@ -784,11 +771,11 @@ msgstr ""
 
 #, fuzzy
 msgid "User"
-msgstr "Users"
+msgstr "Πλήρες Πρόσβαση"
 
 #, fuzzy
 msgid "user"
-msgstr "Users"
+msgstr "Επεξεργασία Χρήστη"
 
 msgid "Optimize database"
 msgstr ""
@@ -801,7 +788,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Database optimized successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "Reset view counts"
 msgstr ""
@@ -813,7 +800,7 @@ msgstr ""
 
 #, fuzzy
 msgid "View counts reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "Refresh capture dates"
 msgstr ""
@@ -829,213 +816,212 @@ msgstr ""
 msgid "Refresh Capture Dates"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing item %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Updated %d of %d items"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
 #, fuzzy
 msgid "System information"
-msgstr "Destination"
+msgstr "Προορισμός"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
 msgstr ""
 
-#, fuzzy
 msgid "core"
-msgstr "configure"
+msgstr ""
 
 #, fuzzy
 msgid "Gallery version"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 #, fuzzy
 msgid "PHP version"
-msgstr "Version"
+msgstr "Δώστε δικαιώματα"
 
 #, fuzzy
 msgid "Webserver"
-msgstr "Remove"
+msgstr "Προσθήκη Λευκόματος"
 
+#, fuzzy
 msgid "Toolkits"
-msgstr ""
+msgstr "Εργαλειοθήκη Γραφικών"
 
 msgid "Operating system"
 msgstr ""
 
 #, fuzzy
 msgid "Browser"
-msgstr "Browse Gallery"
+msgstr "Περιήγηση"
 
 #, fuzzy
 msgid "Core"
-msgstr "configure"
+msgstr "Δημιουργία"
 
 #, fuzzy
 msgid "Gallery 2 Core Module"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 msgid "Add Items"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, fuzzy
 msgid "Edit Album"
-msgstr "Add an Album"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "Edit Photo"
-msgstr "Modified Image"
+msgstr "Επεξεργασία Εικόνας"
 
 #, fuzzy
 msgid "Edit Movie"
-msgstr "Move"
+msgstr "Επεξεργασία Χρήστη"
 
 #, fuzzy
 msgid "Create Link"
-msgstr "Create"
+msgstr "Δημιουργία"
 
 #, fuzzy
 msgid "Add Album"
-msgstr "Add an Album"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "Edit Permissions"
-msgstr "Permissions"
+msgstr "Δώστε δικαιώματα"
 
 #, fuzzy
 msgid "View Permissions"
-msgstr "Permissions"
+msgstr "Δώστε δικαιώματα"
 
 #, fuzzy
 msgid "Delete Album"
-msgstr "Delete a group"
+msgstr "Διαγραφή Ομάδας"
 
 #, fuzzy
 msgid "Delete Photo"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "Delete Movie"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "Move Album"
-msgstr "Add Album"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "Move Photo"
-msgstr "Modified Image"
+msgstr "Επεξεργασία Εικόνας"
 
 #, fuzzy
 msgid "Move Movie"
-msgstr "Available Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 #, fuzzy
 msgid "Edit Captions"
-msgstr "Gallery Site Administration"
+msgstr "Διαχείρηση της Γκαλλερύ"
 
 msgid "Make Highlight"
-msgstr "Make Highlight"
+msgstr ""
 
 #, fuzzy
 msgid "Reorder Items"
-msgstr "move item"
+msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 msgid "Site Admin"
-msgstr "site admin"
+msgstr "Διαχείρηση της Γκαλλερύ"
 
 msgid "Login"
-msgstr "Login"
+msgstr ""
 
 msgid "Your Account"
 msgstr ""
 
-#, fuzzy
 msgid "Logout"
-msgstr "logout"
+msgstr ""
 
 msgid "Modules"
-msgstr "Modules"
+msgstr ""
 
 msgid "Repository"
 msgstr ""
 
 #, fuzzy
 msgid "Themes"
-msgstr "Theme"
+msgstr "Προσθέστε Φωτογραφίες"
 
 msgid "Display"
 msgstr ""
 
 msgid "Users"
-msgstr "Users"
+msgstr ""
 
 msgid "Groups"
-msgstr "Groups"
+msgstr "Ομάδες"
 
 msgid "Toolkit Priority"
 msgstr ""
 
+#, fuzzy
 msgid "Graphics Toolkits"
-msgstr ""
+msgstr "Εργαλειοθήκη Γραφικών"
 
 #, fuzzy
 msgid "Account Settings"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
-
-#, fuzzy
-msgid "Link Album"
-msgstr "Add Album"
-
-#, fuzzy
-msgid "Link Photo"
-msgstr "Modified Image"
-
-#, fuzzy
-msgid "Link Movie"
-msgstr "Move"
-
-#, fuzzy, c-format
-msgid "Edit %s"
-msgstr "Edit a user"
-
-#, fuzzy, c-format
-msgid "Delete %s"
-msgstr "Delete a user"
-
-#, fuzzy, c-format
-msgid "Move %s"
-msgstr "Move"
-
-#, fuzzy, c-format
-msgid "Link %s"
-msgstr "Login"
-
-msgid "General Settings"
-msgstr "General Settings"
-
-msgid "Settings saved successfully"
 msgstr ""
 
 #, fuzzy
+msgid "Link Album"
+msgstr "Προσθήκη Λευκόματος"
+
+#, fuzzy
+msgid "Link Photo"
+msgstr "Επεξεργασία Εικόνας"
+
+msgid "Link Movie"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Edit %s"
+msgstr "Επεξεργασία Χρήστη"
+
+#, fuzzy, c-format
+msgid "Delete %s"
+msgstr "Διαγραφή Χρήστη"
+
+#, fuzzy, c-format
+msgid "Move %s"
+msgstr "Επεξεργασία Αντικειμένου"
+
+#, c-format
+msgid "Link %s"
+msgstr ""
+
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#, fuzzy
+msgid "Settings saved successfully"
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
+
+#, fuzzy
 msgid "Added local upload directory successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Removed local upload directory successfully"
-msgstr "Revert to original"
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Test email sent successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "There was a problem processing your request, see below for details."
 msgstr ""
@@ -1045,20 +1031,17 @@ msgstr ""
 
 #, fuzzy
 msgid "Language Settings"
-msgstr "Language settings"
+msgstr "Διαθέσιμες Επιλογές"
 
-#, fuzzy
 msgid ""
 "Select language defaults for Gallery. Individual users can override this setting in their "
 "personal preferences or via the language selector block if available. Gallery will try to "
 "automatically detect the language preference of each user if the browser preference check is "
 "enabled."
 msgstr ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences."
 
 msgid "Default language"
-msgstr "Default language"
+msgstr "Προεπιλεγμένη Γλώσσα"
 
 msgid "Check Browser Preference"
 msgstr ""
@@ -1074,7 +1057,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Date Formats"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, c-format
 msgid ""
@@ -1083,30 +1066,29 @@ msgid ""
 "language."
 msgstr ""
 
-#, fuzzy
 msgid "Style"
-msgstr "Scale"
+msgstr ""
 
 msgid "Format"
 msgstr ""
 
 #, fuzzy
 msgid "Sample"
-msgstr "Scale"
+msgstr "Πλήρες Όνομα"
 
 #, fuzzy
 msgid "Date"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "Time"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 msgid "Date/Time"
 msgstr ""
 
 msgid "Filesystem Permissions"
-msgstr "Filesystem Permissions"
+msgstr "Δικαιώματα Αρχείου Συστήματος"
 
 #, fuzzy
 msgid ""
@@ -1117,10 +1099,11 @@ msgstr ""
 "This doesn't apply to files/directories that Gallery has already created."
 
 msgid "New directories"
-msgstr "New directories"
+msgstr ""
 
+#, fuzzy
 msgid "New files"
-msgstr "New files"
+msgstr "Προσθέστε Φωτογραφίες"
 
 msgid "Local Server Upload Paths"
 msgstr ""
@@ -1137,18 +1120,17 @@ msgid "Path"
 msgstr ""
 
 msgid "Action"
-msgstr "Action"
+msgstr "Ενέργεια"
 
-#, fuzzy
 msgid "remove"
-msgstr "Remove"
+msgstr ""
 
 msgid "Add"
-msgstr "Add"
+msgstr "Προσθήκη"
 
 #, fuzzy
 msgid "You must enter a directory to add."
-msgstr "You must enter a size"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "open_basedir documentation"
 msgstr ""
@@ -1165,15 +1147,16 @@ msgstr ""
 msgid "The path you specified is not a valid directory."
 msgstr ""
 
+#, fuzzy
 msgid "Session Settings"
-msgstr "Session Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 #, fuzzy
 msgid "Session Lifetime"
-msgstr "Session Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 msgid "Inactivity Timeout"
-msgstr "Inactivity Timeout"
+msgstr "Τάιμ ’ουτ Αδράνειας"
 
 msgid "Embedded Markup"
 msgstr ""
@@ -1199,13 +1182,13 @@ msgstr ""
 
 #, fuzzy
 msgid "Server"
-msgstr "Remove"
+msgstr "Προσθήκη Λευκόματος"
 
 msgid "Username"
-msgstr "Username"
+msgstr ""
 
 msgid "Password"
-msgstr "Password"
+msgstr ""
 
 #, fuzzy
 msgid "SMTP From Address"
@@ -1226,8 +1209,9 @@ msgstr ""
 msgid "Email Test Error"
 msgstr ""
 
+#, fuzzy
 msgid "Cookies"
-msgstr ""
+msgstr "Εργαλειοθήκη Γραφικών"
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
@@ -1304,80 +1288,84 @@ msgid "Priority"
 msgstr ""
 
 msgid "Save"
-msgstr "Save"
+msgstr ""
 
-#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #, fuzzy
 msgid "Create A New Group"
-msgstr "Create a new group"
+msgstr "Δημιουργία Νέας Ομάδας"
 
 msgid "Group Name"
-msgstr "Group Name"
+msgstr "Όνομα Ομάδας"
+
+msgid "(required)"
+msgstr ""
 
 #, fuzzy
-msgid "(required)"
-msgstr "[required]"
-
 msgid "You must enter a group name"
-msgstr "You must enter a group name"
+msgstr "Διαγραφή Χρήστη"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Group '%s' already exists"
+msgstr "Η ομάδα '%s' υπάρχει ήδη"
 
 msgid "Create Group"
-msgstr "Create Group"
+msgstr "Δημιουργία Ομάδας"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Ακυρο"
 
 #, fuzzy
 msgid "Create A New User"
-msgstr "Create a new user"
+msgstr "Δημιουργία Νέου Χρήστη"
 
+#, fuzzy
 msgid "You must enter a username"
-msgstr "You must enter a username"
+msgstr "Διαγραφή Χρήστη"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Username '%s' already exists"
-msgstr "Username '%s' already exists"
+msgstr "Η ομάδα '%s' υπάρχει ήδη"
 
 #, fuzzy
 msgid "Full Name"
-msgstr "Full name"
+msgstr "Πλήρες Όνομα"
 
 #, fuzzy
 msgid "Email Address"
 msgstr "Email address"
 
+#, fuzzy
 msgid "You must enter an email address"
-msgstr "You must enter an email address"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Language"
-msgstr "Language"
-
-msgid "You must enter a password"
-msgstr "You must enter a password"
+msgstr ""
 
 #, fuzzy
-msgid "Verify Password"
-msgstr "Verify password"
+msgid "You must enter a password"
+msgstr "Διαγραφή Χρήστη"
 
+msgid "Verify Password"
+msgstr ""
+
+#, fuzzy
 msgid "You must enter the password a second time"
-msgstr "You must enter the password a second time"
+msgstr ""
+"Βάλτε δύο φορές τον νέο κωδικό για να γίνει αλλαγή κωδικού, ή αφήστε κενό  το πεδίο για να "
+"παραμείνει ο παλιός κωδικός"
 
 msgid "The passwords you entered did not match"
-msgstr "The passwords you entered did not match"
+msgstr ""
 
 msgid "Create User"
-msgstr "Create User"
+msgstr "Δημιουργία Χρήστη"
 
 #, fuzzy
 msgid "Delete A Group"
-msgstr "Delete a group"
+msgstr "Διαγραφή Ομάδας"
 
 msgid "Are you sure?"
 msgstr ""
@@ -1387,15 +1375,15 @@ msgid "This will completely remove %s from Gallery.  There is no undo!"
 msgstr ""
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Διαγραφή"
 
 #, fuzzy
 msgid "Delete a User"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy, c-format
 msgid "User %s is the owner of %s items."
-msgstr "A longer description of this item."
+msgstr "Μακροσκελής Περιγραφή Φωτογραφίας."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
@@ -1429,7 +1417,7 @@ msgid "This will completely remove <strong>%s</strong> from Gallery.  There is n
 msgstr ""
 
 msgid "Edit a group"
-msgstr "Edit a group"
+msgstr "Επεξεργασία Ομάδας"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
@@ -1437,23 +1425,23 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Added user '%s' to group '%s'"
-msgstr "Added user '%s' to group"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, fuzzy, c-format
 msgid "Removed user '%s' from group '%s'"
 msgid_plural "Removed %s users from group '%s'"
-msgstr[0] "Removed user '%s' from group"
-msgstr[1] "Removed user '%s' from group"
+msgstr[0] "Προσθαφαίρεση  Χρηστών"
+msgstr[1] "Προσθαφαίρεση  Χρηστών"
 
 #, c-format
 msgid "This group contains %d user"
 msgid_plural "This group contains %d users"
-msgstr[0] "This group contains %d user"
-msgstr[1] "This group contains %d users"
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy
 msgid "Members"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
 msgid "&laquo; first"
 msgstr ""
@@ -1463,7 +1451,7 @@ msgstr ""
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
 msgid "next &raquo;"
 msgstr ""
@@ -1473,56 +1461,58 @@ msgstr ""
 
 #, fuzzy
 msgid "Filter"
-msgstr "Filter:"
+msgstr "Φίλτρο:"
 
 msgid "Clear"
-msgstr "Clear"
+msgstr "Καθαρισμός"
 
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d user matches your filter"
-msgstr[1] "%d users match your filter"
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy
 msgid "Remove selected"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
+#, fuzzy
 msgid "You must select a user to remove."
-msgstr "You must select a user to remove."
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "You can't remove yourself from this group."
-msgstr "You cannot add or delete users from this group"
+msgstr "Διαγραφή Ομάδας"
 
 #, fuzzy
 msgid "Add Member"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
+#, fuzzy
 msgid "You must enter a username."
-msgstr "You must enter a username."
+msgstr "Διαγραφή Χρήστη"
 
-#, c-format
+#, fuzzy, c-format
 msgid "User '%s' does not exist."
-msgstr "User '%s' does not exist."
+msgstr "Η Ομάδα '%s' δεν υπάρχει."
 
 #, fuzzy
 msgid "This user already is in this group."
-msgstr "Username '%s' already exists"
+msgstr "Η ομάδα '%s' υπάρχει ήδη"
 
 msgid "Done"
-msgstr "Done"
+msgstr "Επιτυχία"
 
 msgid "Edit a user"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
 #, fuzzy
 msgid "That username is already in use"
-msgstr "Username '%s' already exists"
+msgstr "Η ομάδα '%s' υπάρχει ήδη"
 
 #, fuzzy
 msgid "You must enter a new username"
-msgstr "You must enter a username"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "E-mail Address"
@@ -1532,84 +1522,83 @@ msgid "(suggested)"
 msgstr ""
 
 msgid "Group Management"
-msgstr "Group Management"
+msgstr "Διαχείριση Ομάδων"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Removed group '%s'"
-msgstr "Removed group '%s'"
+msgstr "Προσθαφαίρεση  Χρηστών Ομάδας"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Created group '%s'"
-msgstr "Created group '%s'"
+msgstr "Δημιουργία Ομάδας"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Modified group '%s'"
-msgstr "Modified group '%s'"
+msgstr "Επεξεργασία ομάδας '%s'"
 
 #, c-format
 msgid "There is %d group in the system."
 msgid_plural "There are %d total groups in the system."
-msgstr[0] "There is %d group in the system."
-msgstr[1] "There are %d total groups in the system."
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy
 msgid "Edit Group"
-msgstr "Edit a group"
+msgstr "Επεξεργασία Ομάδας"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Επεξεργασία"
 
 msgid "Add/Remove Users"
-msgstr "Add/Remove Users"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, c-format
 msgid "Group '%s' does not exist."
-msgstr "Group '%s' does not exist."
+msgstr "Η Ομάδα '%s' δεν υπάρχει."
 
 #, fuzzy
 msgid "You cannot delete that group"
-msgstr "You cannot delete the Site Admins group"
+msgstr "Διαγραφή Ομάδας"
 
-#, fuzzy
 msgid "You cannot edit that group's users"
-msgstr "You cannot delete the anonymous user!"
+msgstr ""
 
 #, fuzzy
 msgid "Edit Group (by list)"
-msgstr "Editing Group '%s'"
+msgstr "Επεξεργασία ομάδας '%s'"
 
 #, fuzzy
 msgid "edit"
-msgstr "Edit"
+msgstr "Επεξεργασία"
 
 #, fuzzy
 msgid "delete"
-msgstr "Delete"
+msgstr "Διαγραφή"
 
 #, fuzzy
 msgid "members"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d group matches your filter"
-msgstr[1] "%d groups match your filter"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "System Maintenance"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Completed %s task successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Task name"
-msgstr "User name"
+msgstr "Πλήρες Όνομα"
 
 msgid "Last run"
 msgstr ""
@@ -1617,16 +1606,15 @@ msgstr ""
 msgid "Success/Fail"
 msgstr ""
 
-#, fuzzy
 msgid "Not run yet"
-msgstr "Not implemented yet"
+msgstr ""
 
 msgid "Success"
 msgstr ""
 
 #, fuzzy
 msgid "Failed"
-msgstr "File: "
+msgstr "Αρχείο: "
 
 msgid "run now"
 msgstr ""
@@ -1636,7 +1624,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Modules"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 #, c-format
 msgid "Successfully installed and auto-configured module %s"
@@ -1646,9 +1634,9 @@ msgstr ""
 msgid "Successfully installed module %s"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully configured module %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
 #, c-format
 msgid "Successfully upgraded module %s"
@@ -1673,26 +1661,25 @@ msgid ""
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
 
+#, fuzzy
 msgid "Module Name"
-msgstr "Module Name"
+msgstr "Πλήρες Όνομα"
 
 msgid "Version"
-msgstr "Version"
+msgstr ""
 
-#, fuzzy
 msgid "Installed"
-msgstr "install"
+msgstr ""
 
 msgid "Actions"
-msgstr "Actions"
+msgstr "Ενέργειες"
 
-#, fuzzy
 msgid "Status: Not Installed"
-msgstr "install"
+msgstr ""
 
 #, fuzzy
 msgid "Status: Active"
-msgstr "Active"
+msgstr "Ενεργό"
 
 msgid "Status: Inactive"
 msgstr ""
@@ -1719,14 +1706,13 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Do you really want to uninstall the %s module?"
-msgstr "Do you really want to delete user '%s'?"
+msgstr "Θέλετε οπωσδήποτε να διαγράψετε τον χρήστη '%s'?"
 
 msgid "This will also remove any permissions and clean up any data created by this module."
 msgstr ""
 
-#, fuzzy
 msgid "Uninstall"
-msgstr "install"
+msgstr ""
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
@@ -1776,11 +1762,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Update"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 msgid "Upgrade Gallery"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -1802,7 +1788,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Up-To-Date"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 msgid ""
 "Gallery cannot be upgraded through this interface. When a new version becomes available, "
@@ -1844,13 +1830,12 @@ msgstr ""
 msgid "of plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
-#, fuzzy
 msgid "Theme Name"
-msgstr "Theme"
+msgstr ""
 
 #, fuzzy
 msgid "Latest"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Incompatible Plugin"
 msgstr ""
@@ -1867,7 +1852,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Base Files"
-msgstr "Full name"
+msgstr "Πλήρες Όνομα"
 
 msgid ""
 "The base files required for the theme to work and the English (US) translation will be "
@@ -1918,7 +1903,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Repository Setup"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
 msgid "Warning: `$errorMessage`"
 msgstr ""
@@ -1939,7 +1924,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "$ cd %s"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
 #, c-format
 msgid "$ mkdir %s"
@@ -1956,41 +1941,41 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Themes"
-msgstr "Gallery"
+msgstr "Γκαλλερύ"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully activated theme %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deactivated theme %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed theme %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully upgraded theme %s"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
 msgid "Successfully saved default album settings"
 msgstr ""
 
 #, fuzzy
 msgid "Restored theme settings"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
 #, fuzzy
 msgid "All Themes"
-msgstr "Theme"
+msgstr "Πλήρες Πρόσβαση"
 
 msgid "Defaults"
-msgstr "Defaults"
+msgstr "Προεπιλογές"
 
 msgid "Status: Incompatible Theme (Inactive)"
 msgstr ""
@@ -2004,36 +1989,34 @@ msgstr ""
 
 #, fuzzy
 msgid "(default)"
-msgstr "Defaults"
+msgstr "Προεπιλογές"
 
-#, fuzzy
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
 
 #, fuzzy
 msgid "Default sort order"
-msgstr "Album sort order:"
+msgstr "Ταξινόμιση Λευκόματος:"
 
 msgid "with"
 msgstr ""
 
 msgid "Default theme"
-msgstr "Default theme"
+msgstr "Προεπιλεγμένο Θέμα"
 
 #, fuzzy
 msgid "New albums"
-msgstr "edit album"
+msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy, c-format
 msgid "%s Theme Settings"
-msgstr "Album Settings"
+msgstr "Ρυθμίσεις Λευκόματος"
 
-#, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
 
 msgid "Available"
 msgstr ""
@@ -2043,25 +2026,25 @@ msgstr ""
 
 #, fuzzy
 msgid "Selected"
-msgstr "Delete"
+msgstr "Διαγραφή"
 
+#, fuzzy
 msgid "Remove"
-msgstr "Remove"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, fuzzy
 msgid "Move Up"
-msgstr "Move"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, fuzzy
 msgid "Move Down"
-msgstr "Move"
+msgstr "Επεξεργασία Αντικειμένου"
 
 msgid "Parameter"
 msgstr ""
 
-#, fuzzy
 msgid "Value"
-msgstr "Scale"
+msgstr ""
 
 msgid "There are no settings for this theme"
 msgstr ""
@@ -2071,12 +2054,13 @@ msgid ""
 "toolkits here to determine which will perform these operations."
 msgstr ""
 
+#, fuzzy
 msgid "Toolkit"
-msgstr ""
+msgstr "Εργαλειοθήκη Γραφικών"
 
 #, fuzzy
 msgid "Order"
-msgstr "Remove"
+msgstr "Προσθήκη Λευκόματος"
 
 msgid "up"
 msgstr ""
@@ -2084,43 +2068,43 @@ msgstr ""
 msgid "down"
 msgstr ""
 
+#, fuzzy
 msgid "User Management"
-msgstr "User Management"
+msgstr "Διαχείριση Ομάδων"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Removed user '%s'"
-msgstr "Removed user '%s'"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Created user '%s'"
-msgstr "Created user '%s'"
+msgstr "Δημιουργία Χρήστη"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Modified user '%s'"
-msgstr "Modified user '%s'"
+msgstr "Επεξεργασία ομάδας '%s'"
 
 #, c-format
 msgid "There is %d user in the system."
 msgid_plural "There are %d total users in the system."
-msgstr[0] "There is %d user in the system."
-msgstr[1] "There are %d users in total in the system."
+msgstr[0] ""
+msgstr[1] ""
 
 #, fuzzy
 msgid "Edit User"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
 msgid "You cannot delete yourself!"
-msgstr "You cannot delete yourself!"
+msgstr ""
 
-#, fuzzy
 msgid "You cannot delete the special guest user."
-msgstr "You cannot delete the anonymous user!"
+msgstr ""
 
 msgid "Edit User (by list)"
 msgstr ""
 
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid ""
 "Gallery can create thumbnails at upload time, or create them the first time you want to see "
@@ -2129,26 +2113,23 @@ msgid ""
 "expense of a longer upload time."
 msgstr ""
 
-#, fuzzy
 msgid "Create thumbnails now"
-msgstr "Recreate thumbnails"
+msgstr ""
 
-#, fuzzy
 msgid "This is a test email from Gallery2"
-msgstr "This is the top of your Gallery"
+msgstr ""
 
 msgid "Edit Conflict!"
 msgstr ""
 
-#, fuzzy
 msgid "Security Violation"
-msgstr "Security Violation!"
+msgstr ""
 
 msgid "Database Error"
 msgstr ""
 
 msgid "Error"
-msgstr "Error"
+msgstr "Λάθος"
 
 msgid ""
 "Your change cannot be completed because somebody else has made a conflicting change to the "
@@ -2179,14 +2160,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Back to the Gallery"
-msgstr "Browse Gallery"
+msgstr "Περιήγηση"
 
 msgid "Error Detail"
 msgstr ""
 
 #, fuzzy
 msgid "System Information"
-msgstr "Destination"
+msgstr "Προορισμός"
 
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
@@ -2199,25 +2180,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Add Sub-Album"
-msgstr "Add Album"
+msgstr "Προσθήκη Λευκόματος"
 
-#, fuzzy
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes.  You will be able to rename it later."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
 
 msgid "Your name contains invalid characters.  Please enter another."
-msgstr "Your name contains invalid characters.  Please enter another."
+msgstr ""
 
+#, fuzzy
 msgid "You must enter a name for this album."
-msgstr "You must enter a name for this album."
+msgstr "Διαγραφή Χρήστη"
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "The name you entered is already in use.  Please enter another."
+msgstr ""
 
 msgid "This is the album title."
 msgstr ""
@@ -2230,10 +2208,10 @@ msgstr ""
 
 #, fuzzy
 msgid "This is the long description of the album."
-msgstr "A longer description of this item."
+msgstr "Μακροσκελής Περιγραφή Φωτογραφίας."
 
 msgid "Create"
-msgstr "Create"
+msgstr "Δημιουργία"
 
 msgid "Upload Complete"
 msgstr ""
@@ -2257,7 +2235,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Add more files"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
@@ -2266,7 +2244,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Upload files directly from your computer."
-msgstr "Upload a file directly from your computer."
+msgstr "Προσθέστε τοπικά αρχεία"
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
 msgstr "Enter the full path to the file and an optional caption in the boxes below."
@@ -2285,16 +2263,15 @@ msgid ""
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
 
-#, fuzzy
 msgid "More.."
-msgstr "Move"
+msgstr ""
 
 msgid "Set item titles from:"
 msgstr ""
 
 #, fuzzy
 msgid "Assign caption to:"
-msgstr "Gallery Site Administration"
+msgstr "Διαχείρηση της Γκαλλερύ"
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
@@ -2313,7 +2290,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a directory."
-msgstr "You must enter a size"
+msgstr "Διαγραφή Χρήστη"
 
 msgid ""
 "The directory you entered is invalid.  Make sure that the directory is readable by all users."
@@ -2327,28 +2304,26 @@ msgstr ""
 msgid "An item with the same name already exists."
 msgstr ""
 
-#, fuzzy
 msgid "Legal Directories"
-msgstr "New directories"
+msgstr ""
 
 msgid "modify"
 msgstr ""
 
-#, fuzzy
 msgid "Recent Directories"
-msgstr "New directories"
+msgstr ""
 
 #, fuzzy
 msgid "Find Files"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, fuzzy, c-format
 msgid "Directory: %s"
-msgstr "New directories"
+msgstr "Λάθος"
 
 #, fuzzy
 msgid "File name"
-msgstr "Full name"
+msgstr "Πλήρες Όνομα"
 
 msgid "Type"
 msgstr ""
@@ -2362,16 +2337,16 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, fuzzy
 msgid "Parent Directory"
-msgstr "New directories"
+msgstr "Λάθος"
 
 #, fuzzy
 msgid "Directory"
-msgstr "New directories"
+msgstr "Λάθος"
 
 msgid "(Un)check all known types"
 msgstr ""
@@ -2381,18 +2356,18 @@ msgstr ""
 
 #, fuzzy
 msgid "for selected items"
-msgstr "[core] Delete item"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Copy base filenames to:"
 msgstr ""
 
 #, fuzzy
 msgid "Add Files"
-msgstr "Add Items"
+msgstr "Προσθέστε Φωτογραφίες"
 
 #, fuzzy
 msgid "Start Over"
-msgstr "Sort order"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 msgid ""
 "Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
@@ -2406,14 +2381,13 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a URL to a web page"
-msgstr "You must enter a user name"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "The URL entered must begin with http://"
 msgstr ""
 
-#, fuzzy
 msgid "The web page you specified is unavailable"
-msgstr "The user name you entered is invalid"
+msgstr ""
 
 msgid "Nothing to add found from this URL"
 msgstr ""
@@ -2430,7 +2404,7 @@ msgstr ""
 
 #, fuzzy
 msgid "change"
-msgstr "Change"
+msgstr "Αλλαγή"
 
 #, c-format
 msgid "%d url found"
@@ -2445,15 +2419,15 @@ msgid "Add URLs"
 msgstr ""
 
 msgid "No Thumbnail"
-msgstr "No Thumbnail"
+msgstr ""
 
 #, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr "Ενέργειες"
 
 #, fuzzy
 msgid "Link an Item"
-msgstr "Move an Item"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, c-format
 msgid "Successfully linked %d item"
@@ -2469,15 +2443,15 @@ msgstr ""
 
 #, fuzzy
 msgid "Choose the items you want to link"
-msgstr "Choose the items you want to move"
+msgstr "Επιλέξτε τα αντικείμενα που θέλετε να μεταφέρετε"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(page %d of %d)"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
 #, fuzzy
 msgid "No sources chosen"
-msgstr "No destination chosen"
+msgstr "Προορισμός"
 
 msgid "Check All"
 msgstr ""
@@ -2493,31 +2467,31 @@ msgstr ""
 
 #, fuzzy
 msgid "Next Page"
-msgstr "Last >|"
+msgstr "Επεξεργασία Εικόνας"
 
 msgid "Destination"
-msgstr "Destination"
+msgstr "Προορισμός"
 
 msgid "Choose a new album for the link"
 msgstr ""
 
-msgid "No destination chosen"
-msgstr "No destination chosen"
-
 #, fuzzy
+msgid "No destination chosen"
+msgstr "Προορισμός"
+
 msgid "Link"
-msgstr "Login"
+msgstr ""
 
 msgid "Successfully linked"
 msgstr ""
 
 #, fuzzy
 msgid "Choose a destination album"
-msgstr "Choose the destination of the selected items"
+msgstr "Επιλέξτε προορισμό των επιλεγμένων αντικειμένων"
 
 #, fuzzy
 msgid "Delete Items"
-msgstr "Delete Item"
+msgstr "Διαγραφή Αντικειμένου"
 
 msgid "No items were selected for deletion"
 msgstr ""
@@ -2533,7 +2507,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Choose the items you want to delete"
-msgstr "Choose the items you want to move"
+msgstr "Επιλέξτε τα αντικείμενα που θέλετε να μεταφέρετε"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr ""
@@ -2545,7 +2519,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(data)"
-msgstr "(data)"
+msgstr ""
 
 #, c-format
 msgid "(album containing %d item)"
@@ -2555,17 +2529,18 @@ msgstr[1] ""
 
 #, fuzzy
 msgid "(empty album)"
-msgstr "(album)"
+msgstr "Λεύκομα"
 
 msgid "Deletion Complete"
 msgstr ""
 
+#, fuzzy
 msgid "Item successfully deleted"
-msgstr ""
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
 
 #, fuzzy, c-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Do you really want to delete this item?"
+msgstr "Θέλετε οπωσδήποτε να διαγράψετε αυτό το αντικείμενο;"
 
 #, c-format
 msgid "It contains %d item."
@@ -2579,8 +2554,9 @@ msgstr ""
 msgid "There was a problem processing your request."
 msgstr ""
 
+#, fuzzy
 msgid "Sort order"
-msgstr "Sort order"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
@@ -2593,27 +2569,28 @@ msgstr ""
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
 msgstr ""
 
+#, fuzzy
 msgid "You must enter a number (greater than zero)"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Resized Images"
-msgstr "Resized Images"
+msgstr ""
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
 msgstr ""
 
 msgid "Active"
-msgstr "Active"
+msgstr "Ενεργό"
+
+msgid "Target Size (pixels)"
+msgstr ""
 
 #, fuzzy
-msgid "Target Size (pixels)"
-msgstr "Target Size (in pixels)"
-
 msgid "You must enter a valid size"
-msgstr "You must enter a valid size"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Recreate thumbnails and resizes"
-msgstr "Recreate thumbnails and resizes"
+msgstr ""
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2621,10 +2598,10 @@ msgid ""
 msgstr ""
 
 msgid "Recreate thumbnails"
-msgstr "Recreate thumbnails"
+msgstr ""
 
 msgid "Recreate resized images"
-msgstr "Recreate resized images"
+msgstr ""
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -2640,7 +2617,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a value greater than or equal to 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Height"
 msgstr ""
@@ -2651,27 +2628,25 @@ msgstr ""
 msgid "There were errors saving all items"
 msgstr ""
 
+#, fuzzy
 msgid "Successfully saved all items"
+msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
+
+msgid "This album contains no items"
 msgstr ""
 
 #, fuzzy
-msgid "This album contains no items"
-msgstr "This group contains %d user"
-
-#, fuzzy
 msgid "Saved successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
 msgstr ""
 
-#, fuzzy
 msgid "You do not have permissions to modify this item."
-msgstr "You don't have the permission to add items in this album"
+msgstr ""
 
-#, fuzzy
 msgid "Save and Done"
-msgstr "Save Changes"
+msgstr ""
 
 #, c-format
 msgid "Save and Edit Previous %s"
@@ -2681,38 +2656,35 @@ msgstr ""
 msgid "Save and Edit Next %s"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Your name contains invalid characters.  Please choose another."
+msgstr ""
 
+#, fuzzy
 msgid "You must enter a name for this item."
-msgstr "You must enter a name for this item."
+msgstr "Διαγραφή Χρήστη"
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "The name you entered is already in use.  Please choose another."
+msgstr ""
 
 #, fuzzy
 msgid "The title of this item."
-msgstr "Editing this item"
+msgstr "Επεξεργασία Αντικειμένου"
 
 msgid "The root album must have a title."
 msgstr ""
 
 #, fuzzy
 msgid "The summary of this item."
-msgstr "Editing this item"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, fuzzy
 msgid "This is the long description of the item."
-msgstr "A longer description of this item."
+msgstr "Μακροσκελής Περιγραφή Φωτογραφίας."
 
 #, c-format
 msgid "%s Date and Time"
@@ -2733,18 +2705,17 @@ msgstr ""
 
 #, fuzzy
 msgid "Time:"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
 msgstr ""
 
 #, fuzzy
 msgid "You must enter a valid date and time"
-msgstr "You must enter a valid size"
+msgstr "Διαγραφή Χρήστη"
 
-#, fuzzy
 msgid "Thumbnail"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
@@ -2765,9 +2736,8 @@ msgid ""
 "harm."
 msgstr ""
 
-#, fuzzy
 msgid "Resized Photos"
-msgstr "Resized Images"
+msgstr ""
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
@@ -2799,23 +2769,22 @@ msgid ""
 msgstr ""
 
 msgid "Rotate"
-msgstr "Rotate"
+msgstr ""
 
-#, fuzzy
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "You can only rotate the image in 90 degree increments."
+msgstr ""
 
 #, fuzzy
 msgid "CC 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "90&deg Δεξιόστροφα;"
 
 #, fuzzy
 msgid "180&deg;"
-msgstr "Flip 180&deg;"
+msgstr "Περιστροφή 180&deg;"
 
 #, fuzzy
 msgid "C 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "90&deg Δεξιόστροφα;"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
@@ -2823,29 +2792,25 @@ msgid ""
 msgstr ""
 
 msgid "Scale"
-msgstr "Scale"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "Shrink or enlarge the original photo.  When Gallery scales a photo, it maintains the same "
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Shrink or enlarge the original image.  When Gallery scales an image, it maintains the same "
-"aspect ratio (height to width) of the original image to avoid distortion.  The value you "
-"enter below forms a bounding box in pixels.  Gallery will scale the image until it is as "
-"large as possible while still fitting inside the box."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
 
+#, fuzzy
 msgid "You must enter a size"
-msgstr "You must enter a size"
+msgstr "Διαγραφή Χρήστη"
 
 msgid "Preserve Original"
-msgstr "Preserve Original"
+msgstr ""
 
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. Instead, it "
@@ -2860,27 +2825,21 @@ msgstr ""
 msgid "There are links to this photo, so you cannot change the original"
 msgstr ""
 
-#, fuzzy
 msgid "Preserve Original Photo"
-msgstr "Preserve Original"
+msgstr ""
 
 #, fuzzy
 msgid "Modified Photo"
-msgstr "Modified Image"
+msgstr "Επεξεργασία Εικόνας"
 
-#, fuzzy
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"You are using a copy of the original image that has been scaled or rotated.  The original "
-"image is still available, but is no longer being used.  Any changes you make will be applied "
-"to the copy instead."
 
-#, fuzzy
 msgid "Restore original"
-msgstr "Revert to original"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2890,7 +2849,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Setting"
-msgstr "Gallery Settings"
+msgstr "Ρυθμίσεις Γκαλλερύ"
 
 msgid "Use Global"
 msgstr ""
@@ -2899,24 +2858,22 @@ msgid ""
 "Note: to set the same theme for all subalbums, check the appropriate box in <b>Album</b> tab"
 msgstr ""
 
-#, fuzzy
 msgid "Album Highlight"
-msgstr "Make Highlight"
+msgstr ""
 
 #, fuzzy
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Do you want to make this item the highlight of its parent album?"
+msgstr "Θέλετε αυτή η Φωτογραφία να γίνει το εικονίδιο αυτού του λευκόματος;"
 
-#, fuzzy
 msgid "Highlight for:"
-msgstr "Make Highlight"
+msgstr ""
+
+msgid "Highlight"
+msgstr ""
 
 #, fuzzy
-msgid "Highlight"
-msgstr "Make Highlight"
-
 msgid "Move an Item"
-msgstr "Move an Item"
+msgstr "Επεξεργασία Αντικειμένου"
 
 #, c-format
 msgid "Successfully moved %d item"
@@ -2928,64 +2885,62 @@ msgid "This album contains no items to move."
 msgstr ""
 
 msgid "Choose the items you want to move"
-msgstr "Choose the items you want to move"
+msgstr "Επιλέξτε τα αντικείμενα που θέλετε να μεταφέρετε"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
-"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "You are not allowed to move this item away from here."
+msgstr ""
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "You are not allowed to move an album to the chosen destination."
+msgstr ""
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "You are not allowed to move an item to the chosen destination."
+msgstr ""
 
 msgid "You cannot move an album into its own subtree."
-msgstr "You cannot move an album into its own subtree."
+msgstr ""
 
 msgid "Choose a new album for them"
 msgstr ""
 
 msgid "You don't have the permission to add items in this album"
-msgstr "You don't have the permission to add items in this album"
+msgstr ""
 
 msgid "Move"
-msgstr "Move"
+msgstr ""
 
 msgid "Successfully moved"
 msgstr ""
 
 msgid "Permissions"
-msgstr "Permissions"
+msgstr ""
 
 #, fuzzy
 msgid "Owner changed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Group permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Οι αλλγές στην Ομάδα '%s' έγιναν με επιτυχία"
 
 #, fuzzy
 msgid "User permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 #, fuzzy
 msgid "Group permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Οι αλλγές στην Ομάδα '%s' έγιναν με επιτυχία"
 
 #, fuzzy
 msgid "User permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -3004,32 +2959,32 @@ msgstr ""
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "This item is owned by user: %s"
+msgstr ""
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "This item is owned by user: %s (%s)"
+msgstr ""
 
 msgid "New owner"
 msgstr ""
 
 msgid "Change"
-msgstr "Change"
+msgstr "Αλλαγή"
 
 #, fuzzy
 msgid "Apply new owner to sub-items"
-msgstr "Apply to sub-items"
-
-msgid "You must enter a user name"
-msgstr "You must enter a user name"
-
-msgid "The user name you entered is invalid"
-msgstr "The user name you entered is invalid"
-
-msgid "Apply changes"
-msgstr "Apply changes"
+msgstr "Εφαρμογή σε όλα"
 
 #, fuzzy
+msgid "You must enter a user name"
+msgstr "Διαγραφή Χρήστη"
+
+msgid "The user name you entered is invalid"
+msgstr ""
+
+msgid "Apply changes"
+msgstr "Αποθήκευση Αλλαγών"
+
 msgid ""
 "This item has sub-items.  The changes you make here can be applied to just this item, or you "
 "can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
@@ -3037,37 +2992,33 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"This item has sub-items.  The changes you make here can be applied to just this item, or you "
-"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
-"change into the existing permissions of the sub-items and may be very time consuming if you "
-"have many of sub-items.  It's more efficient to grant permissions to groups and then add and "
-"remove users from groups whenever possible."
 
 msgid "Apply to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Εφαρμογή σε όλα"
 
 msgid "Group Permissions"
-msgstr "Group Permissions"
+msgstr "Δικαιώματα Ομάδας"
 
 #, fuzzy
 msgid "Group name"
-msgstr "Group name:"
+msgstr "Όνομα Ομάδας: "
 
+#, fuzzy
 msgid "Permission"
-msgstr "Permission"
+msgstr "Δώστε δικαιώματα"
 
 #, fuzzy
 msgid "New Group Permission"
-msgstr "Group Permissions"
+msgstr "Δικαιώματα Ομάδας"
 
 msgid "Add Permission"
-msgstr "Add Permission"
+msgstr "Δώστε δικαιώματα"
 
 msgid "The permission you chose is invalid"
-msgstr "The permission you chose is invalid"
+msgstr ""
 
 msgid "The group name you entered is invalid"
-msgstr "The group name you entered is invalid"
+msgstr ""
 
 #, fuzzy
 msgid "Group already has this permission (check sub-permissions)"
@@ -3075,49 +3026,46 @@ msgstr ""
 "Group already has this permission (maybe it's included in one of the permissions the group "
 "already has)"
 
+#, fuzzy
 msgid "User Permissions"
-msgstr "User Permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
+#, fuzzy
 msgid "User name"
-msgstr "User name"
+msgstr "Πλήρες Όνομα"
 
 #, fuzzy
 msgid "New User Permission"
-msgstr "User Permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
-#, fuzzy
 msgid "The user already has this permission (check sub-permissions)"
 msgstr ""
-"The user already has this permission (maybe it's included in one of the permissions the user "
-"already has)"
 
 #, fuzzy
 msgid "Reorder Album"
-msgstr "Add Album"
+msgstr "Προσθήκη Λευκόματος"
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
 
-#, fuzzy
 msgid "Change the order of the items in this album."
-msgstr "You don't have the permission to add items in this album"
+msgstr ""
 
 #, fuzzy
 msgid "Move this item"
-msgstr "move item"
+msgstr "Επεξεργασία Αντικειμένου"
 
-#, fuzzy
 msgid "before"
-msgstr "Remove"
+msgstr ""
 
 msgid "after"
 msgstr ""
 
 #, fuzzy
 msgid "Reorder"
-msgstr "Remove"
+msgstr "Προσθήκη Λευκόματος"
 
 msgid "Continue..."
 msgstr ""
@@ -3127,7 +3075,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Admin Login"
-msgstr "Actions"
+msgstr "Ενέργειες"
 
 msgid "Enter a URL"
 msgstr ""
@@ -3155,7 +3103,7 @@ msgstr ""
 
 #, fuzzy
 msgid "image"
-msgstr "move item"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 msgid "Configuration Error: Missing Theme"
 msgstr ""
@@ -3205,47 +3153,48 @@ msgstr ""
 
 #, fuzzy
 msgid "Admin Options"
-msgstr "Actions"
+msgstr "Ενέργειες"
 
 #, fuzzy
 msgid "User Options"
-msgstr "User Permissions"
+msgstr "Περιγραφή"
 
+#, fuzzy
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
 
-#, fuzzy
 msgid "Current Password"
-msgstr "Password"
+msgstr ""
 
 #, fuzzy
 msgid "You must enter your current password"
-msgstr "You must enter a password"
+msgstr ""
+"Βάλτε δύο φορές τον νέο κωδικό για να γίνει αλλαγή κωδικού, ή αφήστε κενό  το πεδίο για να "
+"παραμείνει ο παλιός κωδικός"
 
-#, fuzzy
 msgid "Incorrect password"
-msgstr "Password"
+msgstr ""
 
-#, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr ""
 
 #, fuzzy
 msgid "You must enter a new password"
-msgstr "You must enter a password"
+msgstr "Διαγραφή Χρήστη"
 
-#, fuzzy
 msgid "Verify New Password"
-msgstr "Verify password"
+msgstr ""
 
 #, fuzzy
 msgid "You must enter your new password again!"
-msgstr "You must enter a password"
+msgstr ""
+"Βάλτε δύο φορές τον νέο κωδικό για να γίνει αλλαγή κωδικού, ή αφήστε κενό  το πεδίο για να "
+"παραμείνει ο παλιός κωδικός"
 
 msgid "Login to your account"
 msgstr ""
@@ -3254,7 +3203,7 @@ msgid "Your password has been recovered, please login."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Your login information is incorrect.  Please try again."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3266,8 +3215,9 @@ msgstr ""
 msgid "Welcome, %s!"
 msgstr ""
 
+#, fuzzy
 msgid "Account settings saved successfully"
-msgstr ""
+msgstr "Η Ομάδα '%s' Δημιουργήθηκε με επιτυχία"
 
 msgid "Recover a lost or forgotten password"
 msgstr ""
@@ -3298,7 +3248,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Recover"
-msgstr "Remove"
+msgstr "Προσθαφαίρεση  Χρηστών"
 
 #, c-format
 msgid ""
@@ -3343,11 +3293,13 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a username to recover the password for."
-msgstr "You must enter the password a second time"
+msgstr ""
+"Βάλτε δύο φορές τον νέο κωδικό για να γίνει αλλαγή κωδικού, ή αφήστε κενό  το πεδίο για να "
+"παραμείνει ο παλιός κωδικός"
 
 #, fuzzy
 msgid "The username you entered does not exist."
-msgstr "The user name you entered is invalid"
+msgstr "Η Ομάδα '%s' δεν υπάρχει."
 
 msgid "Authorization Incorrect"
 msgstr ""
@@ -3365,9 +3317,8 @@ msgstr ""
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
 msgstr ""
 
-#, fuzzy
 msgid "Refresh"
-msgstr "Remove"
+msgstr ""
 
 msgid "This page will allow you to reset the password on your account."
 msgstr ""
@@ -3389,7 +3340,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Username missing"
-msgstr "User Permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
 msgid "Submit"
 msgstr ""
@@ -3426,23 +3377,23 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Date: %s"
-msgstr "Delete a user"
+msgstr "Διαγραφή Χρήστη"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Owner: %s"
-msgstr "Owner"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, fuzzy, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Λεπτό"
+msgstr[1] "%d Λεπτό"
 
 #, c-format
 msgid "Views: %d"
@@ -3450,11 +3401,11 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 #, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "* Χωρίς Ταξινόμιση *"
 
 msgid "Go"
 msgstr ""
@@ -3468,17 +3419,16 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
-#, fuzzy
 msgid "first"
-msgstr "|< First"
+msgstr ""
 
 msgid "previous"
 msgstr ""
@@ -3488,29 +3438,28 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "%d. %s"
-msgstr "Edit a user"
+msgstr "Επεξεργασία Χρήστη"
 
 #, fuzzy
 msgid "Size: "
-msgstr "Edit Sizes"
+msgstr "Επεξεργασία Μεγέθους"
 
 msgid "Full size: "
 msgstr ""
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Language settings"
+msgstr "Διαθέσιμες Επιλογές"
 
 #, fuzzy
 msgid "Item actions"
-msgstr "Item Permissions"
+msgstr "Ενέργειες"
 
 msgid "Use dropdown menu"
 msgstr ""
 
-#, fuzzy
 msgid "Login block"
-msgstr "Login"
+msgstr ""
 
 msgid "Links to album/photo peers"
 msgstr ""
@@ -3520,38 +3469,39 @@ msgstr ""
 
 #, fuzzy
 msgid "[test] A permission"
-msgstr "permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
 #, fuzzy
 msgid "[test] A second permission"
-msgstr "permissions"
+msgstr "Δικαιώματα Αντικειμένου"
 
 msgid "Unit test theme"
 msgstr ""
 
 #, fuzzy
 #~ msgid "add album"
-#~ msgstr "add album"
+#~ msgstr "Προσθήκη Λευκόματος"
 
 #, fuzzy
 #~ msgid "edit permissions"
-#~ msgstr "permissions"
+#~ msgstr "Δικαιώματα Αντικειμένου"
 
 #, fuzzy
 #~ msgid "view permissions"
-#~ msgstr "permissions"
-
-#~ msgid "login"
-#~ msgstr "login"
+#~ msgstr "Δικαιώματα Αντικειμένου"
 
 #, fuzzy
 #~ msgid "choose a new theme for this album"
-#~ msgstr "You must enter a name for this album."
+#~ msgstr "Διαγραφή Χρήστη"
 
 #, fuzzy
 #~ msgid "login as a site administrator"
-#~ msgstr "Gallery Site Administration"
+#~ msgstr "Διαχείρηση της Γκαλλερύ"
 
 #, fuzzy
-#~ msgid "Missing Layout"
-#~ msgstr "Layout"
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
+
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "Η Ομάδα '%s' Διαγράφηκε με επιτυχία"
