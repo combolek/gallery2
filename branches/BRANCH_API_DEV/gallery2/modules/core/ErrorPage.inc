@@ -71,8 +71,8 @@ class ErrorPageView extends GalleryView {
 	    $ErrorPage['browser'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 	    if ($gallery->isStorageInitialized()) {
 		$storage =& $gallery->getStorage();
-		$ErrorPage['dbType'] = $storage->_impl->getAdoDbType();
-		$ErrorPage['dbVersion'] = @$storage->_impl->getVersion();
+		$ErrorPage['dbType'] = $storage->getAdoDbType();
+		$ErrorPage['dbVersion'] = @$storage->getVersion();
 
 		list ($ret, $list) = GalleryCoreApi::getToolkitOperationMimeTypes('thumbnail');
 		if (!$ret) {
