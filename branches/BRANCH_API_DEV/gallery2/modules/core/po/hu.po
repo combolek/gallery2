@@ -2,38 +2,39 @@
 # 
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# , fuzzy
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
-"PO-Revision-Date: 2003-06-25 15:57+0100\n"
-"Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
-"Language-Team: British <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-23 11:29+0100\n"
+"PO-Revision-Date: 2005-03-24 18:49+0100\n"
+"Last-Translator: Gergely Dömsödi <doome@uhulinux.hu>\n"
+"Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #, fuzzy
 msgid "Gallery Email Test"
-msgstr "Gallery"
+msgstr "Galéria modulok"
 
 msgid "forever"
-msgstr "forever"
+msgstr "örökké"
 
 msgid "High Priority (Me first!)"
 msgstr ""
@@ -45,63 +46,61 @@ msgid "No Markup"
 msgstr ""
 
 msgid "BBCode"
-msgstr ""
+msgstr "BBCode"
 
 msgid "Raw HTML"
-msgstr ""
+msgstr "Nyers HTML"
 
 msgid "Database"
-msgstr ""
+msgstr "Adatbázis"
 
-#, fuzzy
 msgid "File"
-msgstr "File: "
+msgstr "Fájl"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d perc"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d hour"
-msgstr[1] "%d hour"
+msgstr[0] "%d óra"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "%d day"
-msgstr[1] "%d day"
+msgstr[0] "%d nap"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "%d week"
-msgstr[1] "%d week"
+msgstr[0] "%d hét"
 
 msgid "<none>"
-msgstr "<none>"
+msgstr "<nincs>"
 
 msgid "install"
-msgstr "install"
+msgstr "telepítés"
 
 msgid "upgrade"
-msgstr ""
+msgstr "frissítés"
 
 msgid "configure"
-msgstr "configure"
+msgstr "beállítás"
 
 msgid "activate"
-msgstr "activate"
+msgstr "aktiválás"
 
-#, fuzzy
 msgid "uninstall"
-msgstr "install"
+msgstr "eltávolít"
 
 msgid "deactivate"
-msgstr "deactivate"
+msgstr "deaktiválás"
 
 msgid "Performing Maintenance Tasks"
 msgstr ""
@@ -112,70 +111,67 @@ msgstr ""
 
 #, fuzzy
 msgid "Done."
-msgstr "Done"
+msgstr "Kész"
 
+#, fuzzy
 msgid "Upgrade"
-msgstr ""
+msgstr "frissítés"
 
 msgid "Download"
 msgstr ""
 
 msgid "Inherit settings from parent album"
-msgstr ""
+msgstr "Beállítások öröklése a szülőalbumtól"
 
-#, fuzzy
 msgid "Use these settings"
-msgstr "Album Settings"
+msgstr "Ezen beállítások használata"
 
 msgid "key"
-msgstr "key"
+msgstr "kulcs"
 
 msgid "All access"
-msgstr "All access"
+msgstr "Minden hozzáférés"
 
 msgid "[core] View item"
-msgstr "[core] View item"
+msgstr "[core] Elem megtekintése"
 
 msgid "[core] View resized version(s)"
-msgstr "[core] View resized version(s)"
+msgstr "[core] Átméretezett verziók megtekintése"
 
 msgid "[core] View original version"
-msgstr "[core] View original version"
+msgstr "[core] Eredeti verzió megtekintése"
 
 msgid "[core] View all versions"
-msgstr "[core] View all versions"
+msgstr "[core] Mindegyik verzió megtekintése"
 
 msgid "[core] Add sub-album"
-msgstr "[core] Add sub-album"
+msgstr "[core] Al-album hozzáadása"
 
 msgid "[core] Add sub-item"
-msgstr "[core] Add sub-item"
+msgstr "[core] Al-elem hozzáadása"
 
-#, fuzzy
 msgid "[core] Edit item"
-msgstr "[core] View item"
+msgstr "[core] Elem szerkesztése"
 
 msgid "[core] Change item permissions"
-msgstr "[core] Change item permissions"
+msgstr "[core] Elem jogainak megváltoztatása"
 
 msgid "[core] Delete item"
-msgstr "[core] Delete item"
+msgstr "[core] Elem törlése"
 
 #, fuzzy
 msgid "Upgrading permissions"
-msgstr "permissions"
+msgstr "jogok szerkesztése"
 
 #, fuzzy
 msgid "Deleting old permission tables"
-msgstr "permissions"
+msgstr "%s jogainak szerkesztése"
 
-#, fuzzy
 msgid "Registered Users"
-msgstr "Edit a user"
+msgstr ""
 
-#, fuzzy
 msgid "All Users"
-msgstr "Users"
+msgstr "Minden felhasználó"
 
 msgid "Detecting broken derivatives"
 msgstr ""
@@ -183,22 +179,21 @@ msgstr ""
 msgid "Clearing fast-download cache"
 msgstr ""
 
-#, fuzzy
 msgid "Site Admins"
-msgstr "site admin"
+msgstr "Oldal adminisztrátorok"
 
 msgid "Everybody"
-msgstr ""
+msgstr "Mindenki"
 
 msgid "Guest"
-msgstr ""
+msgstr "Vendég"
 
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "Galéria"
 
 #, fuzzy
 msgid "This is the main page of your Gallery"
-msgstr "This is the top of your Gallery"
+msgstr "Ez a Galéria gyökere"
 
 msgid "Detecting broken derivatives, loading "
 msgstr ""
@@ -212,253 +207,225 @@ msgstr ""
 msgid "Detecting broken derivatives, saving "
 msgstr ""
 
-#, fuzzy
 msgid "add items"
-msgstr "add item"
+msgstr "elemek hozzáadása"
 
-#, fuzzy
 msgid "Album created successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Album sikeresen létrehozva"
 
-#, fuzzy
 msgid "add sub-album"
-msgstr "add album"
+msgstr "al-album hozzáadása"
 
-#, fuzzy
 msgid "add items confirmation"
-msgstr "Destination"
+msgstr "elemek hozzáadásának megerősítése"
 
-#, fuzzy
 msgid "Base filename"
-msgstr "Full name"
+msgstr "Alap fájlnév"
 
-#, fuzzy
 msgid "Caption"
-msgstr "Caption: "
+msgstr "Felirat"
 
-#, fuzzy
 msgid "Blank"
-msgstr "<< Back"
+msgstr "Üres"
 
 msgid "From Web Browser"
-msgstr ""
+msgstr "Webböngészőből"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d megabájt"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d Kbájt"
 
-#, fuzzy
 msgid "From Local Server"
-msgstr "Add From Your Server"
+msgstr "Helyi szerverről"
 
 msgid "Photo"
-msgstr ""
+msgstr "Fénykép"
 
 msgid "From Web Page"
-msgstr ""
+msgstr "Weboldalról"
 
 msgid "Gallery Item Administration"
-msgstr "Gallery Item Administration"
+msgstr "Galéria elem adminisztáció"
 
 msgid "create link"
-msgstr ""
+msgstr "link létrehozása"
 
-#, fuzzy
 msgid "link an item"
-msgstr "Move an Item"
+msgstr "egy elem linkelése"
 
-#, fuzzy
 msgid "delete an item"
-msgstr "delete item"
+msgstr "egy elem törlése"
 
-#, fuzzy
 msgid "delete confirmation"
-msgstr "delete item"
+msgstr "törlés megerősítése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "delete %s"
-msgstr "Delete a user"
+msgstr "%s törlése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s"
-msgstr "Edit a user"
+msgstr "%s szerkesztése"
 
 msgid "Settings saved successfully."
-msgstr ""
+msgstr "Beállítások sikeresen elmentve"
 
-#, fuzzy
 msgid "&laquo; default theme &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo;·alapértelmezett téma·&raquo;"
 
-#, fuzzy
 msgid "Album"
-msgstr "Add Album"
+msgstr "Album"
 
-#, fuzzy
 msgid "Changes saved successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Változtatások elmentve"
 
-#, fuzzy
 msgid "Animation Size"
-msgstr "Action"
+msgstr "Animáció méret"
 
-#, fuzzy
 msgid "edit captions"
-msgstr "Actions"
+msgstr "feliratok szerkesztése"
 
 msgid "General"
-msgstr "General"
+msgstr "Általános"
 
-#, fuzzy
 msgid "Movie Size"
-msgstr "Available Settings"
+msgstr "Film mérete"
 
-#, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép vágása sikeres"
 
-#, fuzzy
 msgid "Thumbnail reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép sikeresen visszaállítva"
 
 msgid "Photo 5x3"
-msgstr ""
+msgstr "5x3-as fénykép"
 
 msgid "Photo 6x4"
-msgstr ""
+msgstr "6x4-es fénykép"
 
 msgid "Photo 7x5"
-msgstr ""
+msgstr "7x5-ös fénykép"
 
 msgid "Photo 10x8"
-msgstr ""
+msgstr "10x8-as fénykép"
 
+#, fuzzy
 msgid "Fullscreen 4x3"
-msgstr ""
+msgstr "4x3-as képernyő"
 
 msgid "Widescreen 16x9"
 msgstr ""
 
 msgid "CinemaScope 2.35x1"
-msgstr ""
+msgstr "CinemaScope·2.35x1"
 
 msgid "Square 1x1"
-msgstr ""
+msgstr "1x1-es négyzet"
 
-#, fuzzy
 msgid "As Image"
-msgstr "Edit Image"
+msgstr "Képként"
 
 msgid "Landscape"
-msgstr ""
+msgstr "Fekvő"
 
 msgid "Portrait"
-msgstr ""
+msgstr "Álló"
 
-#, fuzzy
 msgid "Crop Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Előnézeti kép kivágása"
 
-#, fuzzy
 msgid "Reverted rotate and scale changes successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Forgatási és nagyítási beállítások sikeresen visszaállítva"
 
-#, fuzzy
 msgid "Rotated photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Fényképek sikeresen elforgatva"
 
-#, fuzzy
 msgid "Scaled photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Nagyítás sikeres"
 
-#, fuzzy
 msgid "Modify Photo"
-msgstr "Modified Image"
+msgstr "Fénykép módosítása"
 
 #, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Album Settings"
+msgstr "Elrendezésbeállítások sikeresen elmentve"
 
 msgid "Theme"
-msgstr "Theme"
+msgstr "Téma"
 
 msgid "make highlight"
-msgstr "make highlight"
+msgstr "kijelölés"
 
 msgid "move item"
-msgstr "move item"
+msgstr "elem mozgatása"
 
-#, fuzzy, c-format
+#, c-format
 msgid "move %s"
-msgstr "Move"
+msgstr "%s mozgatása"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s permissions"
-msgstr "permissions"
+msgstr "%s jogainak szerkesztése"
 
-#, fuzzy
 msgid "reorder items"
-msgstr "move item"
+msgstr "elemek újrarendezése"
 
 msgid "Maintenance"
 msgstr ""
 
 msgid "Gallery Site Administration"
-msgstr "Gallery Site Administration"
+msgstr "Galéria oldal adminisztráció"
 
 msgid "site admin"
-msgstr "site admin"
+msgstr "adminisztrátor"
 
-#, fuzzy
 msgid "Gallery User Administration"
-msgstr "Gallery Item Administration"
+msgstr "Galéria felhasználói adminisztráció"
 
-#, fuzzy
 msgid "change password"
-msgstr "Password"
+msgstr "jelszó megváltoztatása"
 
 msgid "your account"
-msgstr ""
+msgstr "az Ön fiókja"
 
 #, fuzzy
 msgid "Password Recovery"
-msgstr "Password"
+msgstr "Jelszó"
 
 #, fuzzy
 msgid "Build all thumbnails/resizes"
-msgstr "Thumbnails"
+msgstr "Előnézeti·és·átméretezett·képek·újragyártása"
 
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
 msgstr ""
 
-#, fuzzy
 msgid "Build All Thumbnails/Resizes"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid "Debug output for failed items:"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Processing image %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Oldal: %d / %d"
 
 #, fuzzy, c-format
 msgid "Checked %d items"
-msgstr "add item"
+msgstr "elemek hozzáadása"
 
 #, fuzzy, c-format
 msgid "%d items built"
-msgstr "add item"
+msgstr "elemek hozzáadása"
 
 #, c-format
 msgid "%d items failed"
@@ -473,9 +440,10 @@ msgid ""
 "Gallery to reload the information from the database."
 msgstr ""
 
-#, c-format
+# c-format
+#, fuzzy, c-format
 msgid "Successfully deleted directory: %s"
-msgstr ""
+msgstr "%d elem sikeresen törölve"
 
 #, c-format
 msgid "Unable to delete directory: %s"
@@ -483,7 +451,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Delete template cache"
-msgstr "Delete Item"
+msgstr "Elem törlése"
 
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
@@ -494,7 +462,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Album sikeresen létrehozva"
 
 msgid "some text to be spit out in different languages"
 msgstr ""
@@ -502,84 +470,73 @@ msgstr ""
 msgid "You did it right!"
 msgstr ""
 
-#, fuzzy
 msgid "album"
-msgstr "(album)"
+msgstr "album"
 
-#, fuzzy
 msgid "Animation"
-msgstr "Action"
+msgstr "Animáció"
 
-#, fuzzy
 msgid "animation"
-msgstr "Action"
+msgstr "animáció"
 
-#, fuzzy
 msgid "Gallery Core"
-msgstr "Gallery"
+msgstr "Gallery Core"
 
-#, fuzzy
 msgid "Gallery Core Module"
-msgstr "Gallery"
+msgstr "Gallery Core Modul"
 
-#, fuzzy
 msgid "Search descriptions"
-msgstr "Description"
+msgstr "Leírások keresése"
 
-#, fuzzy
 msgid "Search keywords"
-msgstr "Keywords"
+msgstr "Kulcsszavak keresése"
 
 msgid "Search summaries"
-msgstr ""
+msgstr "Rövid leírások keresése"
 
-#, fuzzy
 msgid "Search titles"
-msgstr "deactivate"
+msgstr "Címek keresése"
 
 msgid "Description"
-msgstr "Description"
+msgstr "Leírás"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Kulcsszavak"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Rövid leírás"
 
 msgid "Title"
-msgstr "Title"
+msgstr "Cím"
 
 msgid "Owner"
-msgstr "Owner"
+msgstr "Tulaj"
 
-#, fuzzy
 msgid "Group"
-msgstr "Groups"
+msgstr "Csoport"
 
-#, fuzzy
 msgid "group"
-msgstr "Groups"
+msgstr "csoport"
 
 msgid "Other"
-msgstr ""
+msgstr "Más"
 
-#, fuzzy
 msgid "Movie"
-msgstr "Move"
+msgstr "Film"
 
-#, fuzzy
 msgid "movie"
-msgstr "Move"
+msgstr "film"
 
 msgid "photo"
-msgstr ""
+msgstr "fénykép"
 
+#, fuzzy
 msgid "download"
-msgstr ""
+msgstr "le"
 
 #, fuzzy
 msgid "Plugins directory does not exist."
-msgstr "User '%s' does not exist."
+msgstr "'%s' felhasználó nem létezik."
 
 #, c-format
 msgid ""
@@ -612,59 +569,54 @@ msgstr ""
 msgid "Index integrity check failed."
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; default sort order &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo;·alapértelmezett rendezés·&raquo;"
 
-#, fuzzy
 msgid "Manual sort order"
-msgstr "Album sort order:"
+msgstr "Kézi elrendezés"
 
-#, fuzzy
 msgid "Origination Date"
-msgstr "Creation Date"
+msgstr "Eredeti dátum"
 
 msgid "Creation Date"
-msgstr "Creation Date"
+msgstr "Létrehozás dátuma"
 
 msgid "Last Changed Date"
-msgstr "Last Changed Date"
+msgstr "Utoljára módosítva"
 
 msgid "Name"
-msgstr "Name"
+msgstr "Név"
 
 msgid "View Count"
-msgstr ""
+msgstr "Nézettségszámláló"
 
 msgid "Random"
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; no presort &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo;·nincs előrendezés·&raquo;"
 
-#, fuzzy
 msgid "Albums First"
-msgstr "Album Settings"
+msgstr "Előbb az albumok"
 
 msgid "Most Viewed First"
-msgstr ""
+msgstr "Legtöbbet nézett előre"
 
 msgid "Ascending"
-msgstr "Ascending"
+msgstr "Növekvő"
 
 msgid "Descending"
-msgstr "Descending"
+msgstr "Csökkenő"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
 msgid "This page is valid XHTML 1.0"
-msgstr ""
+msgstr "Az oldal helyes XHTML 1.0"
 
 #, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Browse Gallery"
+msgstr "Vissza a Galériába"
 
 msgid "G2.0: Unpossible!"
 msgstr ""
@@ -709,21 +661,20 @@ msgstr ""
 
 #, fuzzy
 msgid "Album Frame"
-msgstr "Album Settings"
+msgstr "Előbb az albumok"
+
+msgid "Item Frame"
+msgstr ""
 
 #, fuzzy
-msgid "Item Frame"
-msgstr "Items to move"
-
 msgid "Photo Frame"
-msgstr ""
+msgstr "Fénykép"
 
 msgid "Color Pack"
 msgstr ""
 
-#, fuzzy
 msgid "You must enter a number greater than 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Adjon meg egy 0-nál nagyobb számot"
 
 msgid "Format: [module.BlockName param=value] ..."
 msgstr ""
@@ -732,41 +683,35 @@ msgstr ""
 msgid "%dx%d"
 msgstr ""
 
-#, fuzzy
 msgid "Audio"
-msgstr "Undo"
+msgstr "Hang"
 
-#, fuzzy
 msgid "audio"
-msgstr "Undo"
+msgstr "hang"
 
-#, fuzzy
 msgid "Archive"
-msgstr "Active"
+msgstr "Archívum"
 
-#, fuzzy
 msgid "archive"
-msgstr "activate"
+msgstr "archívum"
 
 msgid "Document"
-msgstr ""
+msgstr "Dokumentum"
 
 msgid "document"
-msgstr ""
+msgstr "dokumentum"
 
-#, fuzzy
 msgid "Spreadsheet"
-msgstr "Reset"
+msgstr "Táblázat"
 
-#, fuzzy
 msgid "spreadsheet"
-msgstr "Reset"
+msgstr ""
 
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 msgid "unknown"
-msgstr ""
+msgstr "ismeretlen"
 
 #, c-format
 msgid ""
@@ -774,21 +719,18 @@ msgid ""
 "part of this Gallery."
 msgstr ""
 
-#, fuzzy
 msgid "Back"
-msgstr "<< Back"
+msgstr "Vissza"
 
 #, c-format
 msgid "Back to %s"
-msgstr ""
+msgstr "Vissza ide: %s"
 
-#, fuzzy
 msgid "User"
-msgstr "Users"
+msgstr "Felhasználó"
 
-#, fuzzy
 msgid "user"
-msgstr "Users"
+msgstr "felhasználó"
 
 msgid "Optimize database"
 msgstr ""
@@ -801,7 +743,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Database optimized successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Fényképek sikeresen elforgatva"
 
 msgid "Reset view counts"
 msgstr ""
@@ -813,7 +755,7 @@ msgstr ""
 
 #, fuzzy
 msgid "View counts reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép sikeresen visszaállítva"
 
 msgid "Refresh capture dates"
 msgstr ""
@@ -831,221 +773,207 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Processing item %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Oldal: %d / %d"
 
 #, fuzzy, c-format
 msgid "Updated %d of %d items"
-msgstr "Viewing page %d of %d"
+msgstr "(oldal %d/%d)"
 
 #, fuzzy
 msgid "System information"
-msgstr "Destination"
+msgstr "Rendszerinformáció"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
 msgstr ""
 
 #, fuzzy
 msgid "core"
-msgstr "configure"
+msgstr "beállítás"
 
-#, fuzzy
 msgid "Gallery version"
-msgstr "Gallery"
+msgstr "Galéria verzió"
 
-#, fuzzy
 msgid "PHP version"
-msgstr "Version"
+msgstr "PHP verzió"
 
-#, fuzzy
 msgid "Webserver"
-msgstr "Remove"
+msgstr "Webszerver"
 
 msgid "Toolkits"
-msgstr ""
+msgstr "Eszköztárak"
 
 msgid "Operating system"
-msgstr ""
+msgstr "Operációs rendszer"
 
-#, fuzzy
 msgid "Browser"
-msgstr "Browse Gallery"
+msgstr "Böngésző"
 
 #, fuzzy
 msgid "Core"
-msgstr "configure"
+msgstr "beállítás"
 
-#, fuzzy
 msgid "Gallery 2 Core Module"
-msgstr "Gallery"
+msgstr "Gallery 2 Core modul"
 
 msgid "Add Items"
-msgstr "Add Items"
+msgstr "Elemek hozzáadása"
 
 #, fuzzy
 msgid "Edit Album"
-msgstr "Add an Album"
+msgstr "Al-album hozzáadása"
 
 #, fuzzy
 msgid "Edit Photo"
-msgstr "Modified Image"
+msgstr "Fénykép módosítása"
 
 #, fuzzy
 msgid "Edit Movie"
-msgstr "Move"
+msgstr "Film"
 
 #, fuzzy
 msgid "Create Link"
-msgstr "Create"
+msgstr "link létrehozása"
 
 #, fuzzy
 msgid "Add Album"
-msgstr "Add an Album"
+msgstr "Al-album hozzáadása"
 
-#, fuzzy
 msgid "Edit Permissions"
-msgstr "Permissions"
+msgstr "Jogok szerkesztése"
 
 #, fuzzy
 msgid "View Permissions"
-msgstr "Permissions"
+msgstr "Jogok"
 
 #, fuzzy
 msgid "Delete Album"
-msgstr "Delete a group"
+msgstr "Csoport törlése"
 
 #, fuzzy
 msgid "Delete Photo"
-msgstr "Delete a user"
+msgstr "%s törlése"
 
 #, fuzzy
 msgid "Delete Movie"
-msgstr "Delete a user"
+msgstr "%s törlése"
 
 #, fuzzy
 msgid "Move Album"
-msgstr "Add Album"
+msgstr "Album újrarendezése"
 
 #, fuzzy
 msgid "Move Photo"
-msgstr "Modified Image"
+msgstr "Módosított fénykép"
 
 #, fuzzy
 msgid "Move Movie"
-msgstr "Available Settings"
+msgstr "Film mérete"
 
-#, fuzzy
 msgid "Edit Captions"
-msgstr "Gallery Site Administration"
+msgstr "Feliratok szerkesztése"
 
 msgid "Make Highlight"
-msgstr "Make Highlight"
+msgstr "Megjelölés"
 
-#, fuzzy
 msgid "Reorder Items"
-msgstr "move item"
+msgstr "Elemek újrarendezése"
 
-#, fuzzy
 msgid "Site Admin"
-msgstr "site admin"
+msgstr "Oldal adminisztrátor"
 
 msgid "Login"
-msgstr "Login"
+msgstr "Belépés"
 
 msgid "Your Account"
-msgstr ""
+msgstr "Az Ön fiókja"
 
-#, fuzzy
 msgid "Logout"
-msgstr "logout"
+msgstr "Kilépés"
 
 msgid "Modules"
-msgstr "Modules"
+msgstr "Modulok"
 
 msgid "Repository"
 msgstr ""
 
 #, fuzzy
 msgid "Themes"
-msgstr "Theme"
+msgstr "Téma"
 
 msgid "Display"
-msgstr ""
+msgstr "Megjelenítés"
 
 msgid "Users"
-msgstr "Users"
+msgstr "Felhasználók"
 
 msgid "Groups"
-msgstr "Groups"
+msgstr "Csoportok"
 
 msgid "Toolkit Priority"
-msgstr ""
+msgstr "Kezelőkészlt prioritása"
 
 msgid "Graphics Toolkits"
-msgstr ""
+msgstr "Grafikus eszköztár"
 
-#, fuzzy
 msgid "Account Settings"
-msgstr "Album Settings"
+msgstr "Felhasználói beállítások"
 
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
+msgstr "Jelszóváltoztatás"
 
 #, fuzzy
 msgid "Link Album"
-msgstr "Add Album"
+msgstr "Album"
 
 #, fuzzy
 msgid "Link Photo"
-msgstr "Modified Image"
+msgstr "Fénykép"
 
 #, fuzzy
 msgid "Link Movie"
-msgstr "Move"
+msgstr "Film"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Edit %s"
-msgstr "Edit a user"
+msgstr "%s szerkesztése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %s"
-msgstr "Delete a user"
+msgstr "%s törlése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Move %s"
-msgstr "Move"
+msgstr "%s mozgatása"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Link %s"
-msgstr "Login"
+msgstr "Link %s"
 
 msgid "General Settings"
-msgstr "General Settings"
+msgstr "Általános beállítások"
 
 msgid "Settings saved successfully"
-msgstr ""
+msgstr "Beállítások sikeresen elmentve"
 
-#, fuzzy
 msgid "Added local upload directory successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Helyi feltöltési könyvtár sikeresen hozzáadva"
 
-#, fuzzy
 msgid "Removed local upload directory successfully"
-msgstr "Revert to original"
+msgstr "Helyi feltöltőkönyvtár sikeresen törölve"
 
 #, fuzzy
 msgid "Test email sent successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép sikeresen visszaállítva"
 
+#, fuzzy
 msgid "There was a problem processing your request, see below for details."
-msgstr ""
+msgstr "Hiba történt a kérés feldolgozása közben."
 
 msgid "Error sending test email, see below for details."
 msgstr ""
 
-#, fuzzy
 msgid "Language Settings"
-msgstr "Language settings"
+msgstr "Nyelvi beállítások"
 
 #, fuzzy
 msgid ""
@@ -1054,11 +982,12 @@ msgid ""
 "automatically detect the language preference of each user if the browser preference check is "
 "enabled."
 msgstr ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences."
+"Válassza ki a Galária alapértelmezett nyelvét. A felhasználók felülbírálhatjákezt a "
+"beállítást a saját nyelvi beállításaikkal, vagy a nyelvbeállítóval, amit alább kell "
+"aktiválni."
 
 msgid "Default language"
-msgstr "Default language"
+msgstr "Alapértelmezett nyelv"
 
 msgid "Check Browser Preference"
 msgstr ""
@@ -1066,15 +995,17 @@ msgstr ""
 msgid "gettext"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Your webserver does not support localization.  Please instruct your system administrator to "
 "reconfigure PHP with the %s option enabled."
 msgstr ""
+"A webszerver nem támogatja többnyelvűsítést. Kérem kérje meg a rendszergazdát, hogy állítsa "
+"be a PHP-t a <a href=\"http://php.net/gettext\">gettext</a> opció bekapcsolásával."
 
 #, fuzzy
 msgid "Date Formats"
-msgstr "Delete a user"
+msgstr "Dátum:"
 
 #, c-format
 msgid ""
@@ -1085,45 +1016,45 @@ msgstr ""
 
 #, fuzzy
 msgid "Style"
-msgstr "Scale"
+msgstr "Nagyítás"
 
 msgid "Format"
 msgstr ""
 
 #, fuzzy
 msgid "Sample"
-msgstr "Scale"
+msgstr "Nagyítás"
 
 #, fuzzy
 msgid "Date"
-msgstr "Delete a user"
+msgstr "Dátum:"
 
 #, fuzzy
 msgid "Time"
-msgstr "move item"
-
-msgid "Date/Time"
-msgstr ""
-
-msgid "Filesystem Permissions"
-msgstr "Filesystem Permissions"
+msgstr "Idő: "
 
 #, fuzzy
+msgid "Date/Time"
+msgstr "%s dátum és idő"
+
+msgid "Filesystem Permissions"
+msgstr "Fájlrendszer jogosultságok"
+
 msgid ""
 "Specify the default permissions for files and directories that Gallery creates. This doesn't "
 "apply to files/directories that Gallery has already created."
 msgstr ""
-"Here you can specify the default permissions for files and directories that Gallery creates. "
-"This doesn't apply to files/directories that Gallery has already created."
+"Állítsa be a Galéria által létrehozott könyvtárak és fájlok alapértelmezett jogait. Ez nem "
+"vonatkozik azokra a fájlokra/könyvtárakra, amiket a Galéria már létrehozott."
 
 msgid "New directories"
-msgstr "New directories"
+msgstr "Új könyvtárak"
 
 msgid "New files"
-msgstr "New files"
+msgstr "Új fájlok"
 
 msgid "Local Server Upload Paths"
-msgstr ""
+msgstr "Helyi szerver feltöltési útvonal"
 
 msgid ""
 "Specify the legal directories on the local server where a user can store files and then "
@@ -1132,26 +1063,29 @@ msgid ""
 "Gallery user who has upload privileges, so you should limit this to directories that won't "
 "contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
 msgstr ""
+"Adja meg az érvényes könyvtárakat a helyi szerveren, ahová a felhasználófájlokat tehet, "
+"ahonnan feltölti a Galériába a <i>Feltöltés a helyi szerverről</i> funkcióval. Az itt "
+"megadott útvonalak, és az alatta levő fájlok elérhetőek lesznek bármelyik Galéria "
+"felhasználónak, akinek van feltöltési joga, tehát olyan könyvtárakat adjon meg, amik nem "
+"tartalmaznak érzékeny adatokat (pl. /tmp vagy /usr/ftp/incoming)"
 
 msgid "Path"
-msgstr ""
+msgstr "Útvonal"
 
 msgid "Action"
-msgstr "Action"
+msgstr "Művelet"
 
-#, fuzzy
 msgid "remove"
-msgstr "Remove"
+msgstr "törlés"
 
 msgid "Add"
-msgstr "Add"
+msgstr "Hozzáadás"
 
-#, fuzzy
 msgid "You must enter a directory to add."
-msgstr "You must enter a size"
+msgstr "Adja meg a hozzáadandó könyvtárat."
 
 msgid "open_basedir documentation"
-msgstr ""
+msgstr "open_basedir dokumentáció"
 
 #, c-format
 msgid ""
@@ -1160,20 +1094,19 @@ msgid ""
 msgstr ""
 
 msgid "The webserver does not have permissions to read that directory."
-msgstr ""
+msgstr "A webszervernek nincs jogosultsága a könyvtár olvasásának."
 
 msgid "The path you specified is not a valid directory."
-msgstr ""
+msgstr "A beírt útvonal nem egy könyvtár"
 
 msgid "Session Settings"
-msgstr "Session Settings"
+msgstr "Kapcsolat beállítások"
 
-#, fuzzy
 msgid "Session Lifetime"
-msgstr "Session Settings"
+msgstr "Kapcsolat élettartama"
 
 msgid "Inactivity Timeout"
-msgstr "Inactivity Timeout"
+msgstr "Inaktivitási időtullépés"
 
 msgid "Embedded Markup"
 msgstr ""
@@ -1188,46 +1121,49 @@ msgid "Markup"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
+#, fuzzy
 msgid ""
 "By default Gallery uses PHP's built in mail function to send email which requires no "
 "configuration.  To use a smtp/mail server enter the information below, including "
 "authentication information if required.  Optionally add :port after the server name to use a "
 "non-default port."
 msgstr ""
+"Alapértelmezettként a Galéria a PHP beépített e-mail küldő függvényeit használja,ami nem "
+"igényel beállítást. Bejelentkezést igénylő SMTP szerver használatához töltse ki a lejjebb "
+"található mezőket."
 
-#, fuzzy
 msgid "Server"
-msgstr "Remove"
+msgstr "Szerver"
 
 msgid "Username"
-msgstr "Username"
+msgstr "Felhasználónév"
 
 msgid "Password"
-msgstr "Password"
+msgstr "Jelszó"
 
-#, fuzzy
 msgid "SMTP From Address"
-msgstr "Email address"
+msgstr "SMTP küldő cím"
 
-#, fuzzy
 msgid "Invalid email address"
-msgstr "Email address"
+msgstr "Hibás emailcím"
 
 msgid ""
 "Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
 "settings above).  Below enter a recipient email address for a test message."
 msgstr ""
 
+#, fuzzy
 msgid "Send Email"
-msgstr ""
+msgstr "E-mail"
 
 msgid "Email Test Error"
 msgstr ""
 
+#, fuzzy
 msgid "Cookies"
-msgstr ""
+msgstr "Eszköztárak"
 
 msgid ""
 "When Gallery is embedded in another application (portal, CMS, forum, etc.), then you have "
@@ -1274,7 +1210,7 @@ msgid "Invalid cookie domain"
 msgstr ""
 
 msgid "Locking System"
-msgstr ""
+msgstr "Rendszer zárolása folyamatban"
 
 msgid ""
 "Gallery uses a system of locks to prevent simultaneous changes from interfering with each "
@@ -1285,9 +1221,16 @@ msgid ""
 "timeouts, you can try switching to database locking instead.  It's ok to switch back and "
 "forth."
 msgstr ""
+"A Galéria egy zárolási rendszert használ a párhuzamos változtatások megelőzésére.Kétféle "
+"zárolás közül választhatunk, mindegyiknek megvan az előnye és hátránya.A <b>fájl</b> alapú "
+"zárolás gyors, és hatásos, viszont nem működik NFS fájlrendszeren,és Windowson "
+"megbízhatatlan. Az <b>adatbázis</b> alapú zárolás lassabb, de megbízhatóbb.Amennyiben "
+"bizonytalan a választásban, mi a fájlalapú zárolást javasoljuk. Ha sok zárolási "
+"időtullépéssel találkozunk, megpróbálkozhat az adatbázis alapú zárolással. Nincs gond az oda-"
+"vissza váltással."
 
 msgid "Lock system"
-msgstr ""
+msgstr "Rendszer zárolása"
 
 msgid "Helper Processes"
 msgstr ""
@@ -1300,110 +1243,102 @@ msgid ""
 "complaining, try setting your priority low."
 msgstr ""
 
+#, fuzzy
 msgid "Priority"
-msgstr ""
+msgstr "Kezelőkészlt prioritása"
 
 msgid "Save"
-msgstr "Save"
+msgstr "Mentés"
 
-#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Visszaállítás"
 
-#, fuzzy
 msgid "Create A New Group"
-msgstr "Create a new group"
+msgstr "Új csoport létrehozása"
 
 msgid "Group Name"
-msgstr "Group Name"
+msgstr "Csoportnév"
 
-#, fuzzy
 msgid "(required)"
-msgstr "[required]"
+msgstr "(szükséges)"
 
 msgid "You must enter a group name"
-msgstr "You must enter a group name"
+msgstr "Adjon meg egy csoportnevet"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Group '%s' already exists"
+msgstr "Már létezik a '%s' csoport"
 
 msgid "Create Group"
-msgstr "Create Group"
+msgstr "Csoport létrehozása"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Mégsem"
 
-#, fuzzy
 msgid "Create A New User"
-msgstr "Create a new user"
+msgstr "Új felhasználó létrehozása"
 
 msgid "You must enter a username"
-msgstr "You must enter a username"
+msgstr "Adjon meg egy felhasználónevet"
 
 #, c-format
 msgid "Username '%s' already exists"
-msgstr "Username '%s' already exists"
+msgstr "'%s' felhasználónév már létezik"
 
-#, fuzzy
 msgid "Full Name"
-msgstr "Full name"
+msgstr "Teljes név"
 
-#, fuzzy
 msgid "Email Address"
-msgstr "Email address"
+msgstr "E-mail cím"
 
 msgid "You must enter an email address"
-msgstr "You must enter an email address"
+msgstr "Adjon meg egy e-mail címet"
 
 msgid "Language"
-msgstr "Language"
+msgstr "Nyelv"
 
 msgid "You must enter a password"
-msgstr "You must enter a password"
+msgstr "Adjon meg egy jelszót"
 
-#, fuzzy
 msgid "Verify Password"
-msgstr "Verify password"
+msgstr "Jelszó ellenörzése"
 
 msgid "You must enter the password a second time"
-msgstr "You must enter the password a second time"
+msgstr "Adja meg másodszor a jelszót"
 
 msgid "The passwords you entered did not match"
-msgstr "The passwords you entered did not match"
+msgstr "A beírt jelszavak különböznek"
 
 msgid "Create User"
-msgstr "Create User"
+msgstr "Felhasználó létrehozása"
 
-#, fuzzy
 msgid "Delete A Group"
-msgstr "Delete a group"
+msgstr "Csoport törlése"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Biztosan?"
 
 #, c-format
 msgid "This will completely remove %s from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Ez teljesen törli %s-t a Galériából. Nincs visszaút!"
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Törlés"
 
-#, fuzzy
 msgid "Delete a User"
-msgstr "Delete a user"
+msgstr "Felhasználó törlése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "User %s is the owner of %s items."
-msgstr "A longer description of this item."
+msgstr "A %s felhasználó %s elem tulajdonosa."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
-msgstr ""
+msgstr "<strong>%s</strong> felhasználó törlése és ..."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Assign a new owner for all items of %s"
-msgstr ""
+msgstr "%s minden eleméhez új tulaj rendelése."
 
 #, c-format
 msgid ""
@@ -1412,204 +1347,189 @@ msgid ""
 msgstr ""
 
 msgid "New owner (leaving blank means one of the Site Admins):"
-msgstr ""
+msgstr "Új tulaj (üresen az Adminisztrátor)"
 
 #, c-format
 msgid "User '%s' does not exist! Cannot assign items to a nonexistent user."
-msgstr ""
+msgstr "'%s' felhasználó nem létezik! Nem lehet elemeket rendelni nem létező felhasználókhoz."
 
 msgid "The new owner must be a different user than the user we are deleting!"
-msgstr ""
+msgstr "Az új tulajnak másnak kell lennie, mint akit épp törlünk!"
 
 msgid "The new owner cannot be a Guest / Anonymous user!"
-msgstr ""
+msgstr "Az új tulaj nem lehet Vendég / Anonymous felhasználó!"
 
 #, c-format
 msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
 msgstr ""
+"Ezzel véglegesen eltávolítja a <strong>%s</strong>-t a Galériából. Nincs lehetőség a "
+"visszavonásra!"
 
 msgid "Edit a group"
-msgstr "Edit a group"
+msgstr "Csoport szerkesztése"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
-msgstr ""
+msgstr "Tagok szerkesztése a '%s' csoportban"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Added user '%s' to group '%s'"
-msgstr "Added user '%s' to group"
+msgstr "'%s' felhasználó a '%s' csoportba sikeresen felvéve"
 
 #, fuzzy, c-format
 msgid "Removed user '%s' from group '%s'"
 msgid_plural "Removed %s users from group '%s'"
-msgstr[0] "Removed user '%s' from group"
-msgstr[1] "Removed user '%s' from group"
+msgstr[0] "'%s' felhasználó kiszedve a '%s' csoportból"
 
 #, c-format
 msgid "This group contains %d user"
 msgid_plural "This group contains %d users"
-msgstr[0] "This group contains %d user"
-msgstr[1] "This group contains %d users"
+msgstr[0] "Ez a csoport %d felhasználót tartalmaz"
 
-#, fuzzy
 msgid "Members"
-msgstr "Add Items"
+msgstr "Tagok"
 
 msgid "&laquo; first"
-msgstr ""
+msgstr "&laquo;·első"
 
 msgid "&laquo; back"
-msgstr ""
+msgstr "&laquo;·vissza"
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Oldal: %d / %d"
 
 msgid "next &raquo;"
-msgstr ""
+msgstr "következő &raquo;"
 
 msgid "last &raquo;"
-msgstr ""
+msgstr "utolsó &raquo;"
 
 #, fuzzy
 msgid "Filter"
-msgstr "Filter:"
+msgstr "Szűrő:"
 
 msgid "Clear"
-msgstr "Clear"
+msgstr "Törlés"
 
+# c-format
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d user matches your filter"
-msgstr[1] "%d users match your filter"
+msgstr[0] "%d felhasználó illik a keresésre"
 
-#, fuzzy
 msgid "Remove selected"
-msgstr "move item"
+msgstr "Kijelöltek törlése"
 
 msgid "You must select a user to remove."
-msgstr "You must select a user to remove."
+msgstr "Válassza ki a törlendő felhasználót"
 
-#, fuzzy
 msgid "You can't remove yourself from this group."
-msgstr "You cannot add or delete users from this group"
+msgstr "Nem veheti ki magát ebből a csoportból."
 
-#, fuzzy
 msgid "Add Member"
-msgstr "Add Items"
+msgstr "Tagok hozzáadása"
 
 msgid "You must enter a username."
-msgstr "You must enter a username."
+msgstr "Adjon meg egy felhasználónevet."
 
 #, c-format
 msgid "User '%s' does not exist."
-msgstr "User '%s' does not exist."
+msgstr "'%s' felhasználó nem létezik."
 
-#, fuzzy
 msgid "This user already is in this group."
-msgstr "Username '%s' already exists"
+msgstr "A felhasználó már tagja ennek a csoportnak."
 
 msgid "Done"
-msgstr "Done"
+msgstr "Kész"
 
 msgid "Edit a user"
-msgstr "Edit a user"
+msgstr "Felhasználó szerkesztése"
 
-#, fuzzy
 msgid "That username is already in use"
-msgstr "Username '%s' already exists"
+msgstr "A felhasználónév már használatban van"
 
-#, fuzzy
 msgid "You must enter a new username"
-msgstr "You must enter a username"
+msgstr "Adjon meg felhasználónevet"
 
-#, fuzzy
 msgid "E-mail Address"
-msgstr "Email address"
+msgstr "E-mail cím"
 
 msgid "(suggested)"
-msgstr ""
+msgstr "(ajánlott)"
 
 msgid "Group Management"
-msgstr "Group Management"
+msgstr "Csoport beállítások"
 
 #, c-format
 msgid "Removed group '%s'"
-msgstr "Removed group '%s'"
+msgstr "'%s' csoport törölve"
 
 #, c-format
 msgid "Created group '%s'"
-msgstr "Created group '%s'"
+msgstr "'%s' csoport létrehozva"
 
 #, c-format
 msgid "Modified group '%s'"
-msgstr "Modified group '%s'"
+msgstr "'%s' csoport módosítva"
 
+# c-format
 #, c-format
 msgid "There is %d group in the system."
 msgid_plural "There are %d total groups in the system."
-msgstr[0] "There is %d group in the system."
-msgstr[1] "There are %d total groups in the system."
+msgstr[0] "%d csoport van a rendszerben"
 
-#, fuzzy
 msgid "Edit Group"
-msgstr "Edit a group"
+msgstr "Csoport szerkesztése"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Szerkesztés"
 
 msgid "Add/Remove Users"
-msgstr "Add/Remove Users"
+msgstr "Felhasználók hozzáadása/eltávolítása"
 
 #, c-format
 msgid "Group '%s' does not exist."
-msgstr "Group '%s' does not exist."
+msgstr "Nem létezik a '%s' csoport"
 
-#, fuzzy
 msgid "You cannot delete that group"
-msgstr "You cannot delete the Site Admins group"
+msgstr "Nem törölheti ezt a csoportot"
 
-#, fuzzy
 msgid "You cannot edit that group's users"
-msgstr "You cannot delete the anonymous user!"
+msgstr "Nem szerkesztheti a csoport felhasználóit"
 
-#, fuzzy
 msgid "Edit Group (by list)"
-msgstr "Editing Group '%s'"
+msgstr "Csoport szerkesztése (lista)"
 
-#, fuzzy
 msgid "edit"
-msgstr "Edit"
+msgstr "szerkesztés"
 
-#, fuzzy
 msgid "delete"
-msgstr "Delete"
+msgstr "törlés"
 
-#, fuzzy
 msgid "members"
-msgstr "move item"
+msgstr "tagok"
 
+# c-format
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d group matches your filter"
-msgstr[1] "%d groups match your filter"
+msgstr[0] "%d csoport illik a szűrőre"
 
 msgid "System Maintenance"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Completed %s task successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Fényképek sikeresen elforgatva"
 
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép vágása sikeres"
 
 #, fuzzy
 msgid "Task name"
-msgstr "User name"
+msgstr "Felhasználónév"
 
 msgid "Last run"
 msgstr ""
@@ -1617,54 +1537,54 @@ msgstr ""
 msgid "Success/Fail"
 msgstr ""
 
-#, fuzzy
 msgid "Not run yet"
-msgstr "Not implemented yet"
-
-msgid "Success"
 msgstr ""
+
+#, fuzzy
+msgid "Success"
+msgstr "Forrás"
 
 #, fuzzy
 msgid "Failed"
-msgstr "File: "
+msgstr "Fájl"
 
+#, fuzzy
 msgid "run now"
-msgstr ""
+msgstr "ismeretlen"
 
 msgid "Last Run Details:"
 msgstr ""
 
-#, fuzzy
 msgid "Gallery Modules"
-msgstr "Gallery"
+msgstr "Galéria modulok"
 
 #, c-format
 msgid "Successfully installed and auto-configured module %s"
-msgstr ""
+msgstr "%s modul sikeresen telepítve és beállítva"
 
 #, c-format
 msgid "Successfully installed module %s"
-msgstr ""
+msgstr "%s modul sikeresen telepítve"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully configured module %s"
-msgstr ""
+msgstr "%s modul sikeresen frissítve"
 
 #, c-format
 msgid "Successfully upgraded module %s"
-msgstr ""
+msgstr "%s modul sikeresen frissítve"
 
 #, c-format
 msgid "Successfully activated module %s"
-msgstr ""
+msgstr "%s modul sikeresen aktiválva"
 
 #, c-format
 msgid "Successfully deactivated module %s"
-msgstr ""
+msgstr "%s modul sikeresen kikapcsolva"
 
 #, c-format
 msgid "Successfully uninstalled module %s"
-msgstr ""
+msgstr "%s modul sikeresen eltávolítva"
 
 msgid ""
 "Gallery features come as separate modules.  You can download and install modules to add more "
@@ -1672,61 +1592,62 @@ msgid ""
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
+"A Galéria lehetőségei különböző modulok formájában jönnek. Ilyen modulok külön "
+"letölthetőekés telepíthetőek, ha új lehetőségeket szeretnénk hozzáadni, vagy törölhetőek ha "
+"valamitmár nem használunk. Az ilyen lehetőségek használatához telepíteni kell a modult majd "
+"aktíválni (esetleg beállítani)."
 
 msgid "Module Name"
-msgstr "Module Name"
+msgstr "Modulnév"
 
 msgid "Version"
-msgstr "Version"
+msgstr "Verzió"
 
-#, fuzzy
 msgid "Installed"
-msgstr "install"
+msgstr "Telepítve"
 
 msgid "Actions"
-msgstr "Actions"
+msgstr "Műveletek"
 
-#, fuzzy
 msgid "Status: Not Installed"
-msgstr "install"
+msgstr "Állapot: nem telepített"
 
-#, fuzzy
 msgid "Status: Active"
-msgstr "Active"
+msgstr "Állapot: aktív"
 
 msgid "Status: Inactive"
-msgstr ""
+msgstr "Állapot: inaktív"
 
 msgid "Status: Upgrade Required (Inactive)"
-msgstr ""
+msgstr "Állapot: frissíteni kell (inaktív)"
 
 msgid "Status: Incompatible Module (Inactive)"
-msgstr ""
+msgstr "Állapot: nem kompatibilis modul (inaktív)"
 
 msgid "Incompatible module!"
-msgstr ""
+msgstr "Inkompatibilis modul!"
 
 #, c-format
 msgid "Core API Required: %s (available: %s)"
-msgstr ""
+msgstr "Szükséges Core API: %s (jelenleg %s)"
 
 #, c-format
 msgid "Module API Required: %s (available: %s)"
-msgstr ""
+msgstr "Szükséges modul API: %s (jelenleg %s)"
 
 msgid "Confirm module uninstall"
-msgstr ""
+msgstr "Modul leszedésének megerősítése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to uninstall the %s module?"
-msgstr "Do you really want to delete user '%s'?"
-
-msgid "This will also remove any permissions and clean up any data created by this module."
-msgstr ""
+msgstr "Biztosan leszedi a %s modult?"
 
 #, fuzzy
+msgid "This will also remove any permissions and clean up any data created by this module."
+msgstr "Ezzel eltávolít minden jogosultságot, és átmeneti fájlt, amit ez a modul hozott létre"
+
 msgid "Uninstall"
-msgstr "install"
+msgstr "Eltávolítás"
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
@@ -1776,11 +1697,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Update"
-msgstr "Delete a user"
+msgstr "Dátum:"
 
 #, fuzzy
 msgid "Upgrade Gallery"
-msgstr "Gallery"
+msgstr "Galéria"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -1802,7 +1723,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Up-To-Date"
-msgstr "Gallery"
+msgstr "Gallery Core"
 
 msgid ""
 "Gallery cannot be upgraded through this interface. When a new version becomes available, "
@@ -1817,8 +1738,9 @@ msgid ""
 "No new plugins will be downloaded."
 msgstr ""
 
+#, fuzzy
 msgid "Upgrade All"
-msgstr ""
+msgstr "frissítés"
 
 msgid ""
 "Once the repository index has been downloaded, a list of available plugins will be "
@@ -1846,28 +1768,30 @@ msgstr ""
 
 #, fuzzy
 msgid "Theme Name"
-msgstr "Theme"
+msgstr "Téma"
 
 #, fuzzy
 msgid "Latest"
-msgstr "Delete a user"
+msgstr "lista"
 
+#, fuzzy
 msgid "Incompatible Plugin"
-msgstr ""
+msgstr "Inkompatibilis modul!"
 
+#, fuzzy
 msgid "Incompatible plugin!"
-msgstr ""
+msgstr "Inkompatibilis modul!"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Plugin API Required: %s (available: %s)"
-msgstr ""
+msgstr "Szükséges modul API: %s (jelenleg %s)"
 
 msgid "No packages have been selected."
 msgstr ""
 
 #, fuzzy
 msgid "Base Files"
-msgstr "Full name"
+msgstr "Alap fájlnév"
 
 msgid ""
 "The base files required for the theme to work and the English (US) translation will be "
@@ -1918,7 +1842,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Repository Setup"
-msgstr "Gallery"
+msgstr "Galéria verzió"
 
 msgid "Warning: `$errorMessage`"
 msgstr ""
@@ -1939,7 +1863,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "$ cd %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
 #, c-format
 msgid "$ mkdir %s"
@@ -1956,84 +1880,86 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Themes"
-msgstr "Gallery"
+msgstr "Galéria %s"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully activated theme %s"
-msgstr ""
+msgstr "%s modul sikeresen aktiválva"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deactivated theme %s"
-msgstr ""
+msgstr "%s modul sikeresen kikapcsolva"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed theme %s"
-msgstr ""
+msgstr "%s modul sikeresen telepítve"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr ""
+msgstr "%s modul sikeresen eltávolítva"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully upgraded theme %s"
-msgstr ""
+msgstr "%s modul sikeresen frissítve"
 
 msgid "Successfully saved default album settings"
-msgstr ""
+msgstr "Alapértelmezett albumbeállítások sikeresen elmentve"
 
 #, fuzzy
 msgid "Restored theme settings"
-msgstr "Album Settings"
+msgstr "Elrendezésbeállítások visszaállítva"
 
 #, fuzzy
 msgid "All Themes"
-msgstr "Theme"
+msgstr "Téma"
 
 msgid "Defaults"
-msgstr "Defaults"
+msgstr "Alapértelmezettek"
 
+#, fuzzy
 msgid "Status: Incompatible Theme (Inactive)"
-msgstr ""
+msgstr "Állapot: nem kompatibilis modul (inaktív)"
 
+#, fuzzy
 msgid "Incompatible theme!"
-msgstr ""
+msgstr "Inkompatibilis modul!"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Theme API Required: %s (available: %s)"
-msgstr ""
+msgstr "Szükséges Core API: %s (jelenleg %s)"
 
-#, fuzzy
 msgid "(default)"
-msgstr "Defaults"
+msgstr "(alapértelmezett)"
 
-#, fuzzy
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Ez az albumokhoz tartozó alapértelmezett beállítás. A beállítások albumonként "
+"felülbírálhatóak."
 
-#, fuzzy
 msgid "Default sort order"
-msgstr "Album sort order:"
+msgstr "Alapértelmezett rendezés"
 
 msgid "with"
-msgstr ""
+msgstr "szélesség"
 
 msgid "Default theme"
-msgstr "Default theme"
+msgstr "Alapértelmezett téma"
 
-#, fuzzy
 msgid "New albums"
-msgstr "edit album"
+msgstr "Új albumok"
 
 #, fuzzy, c-format
 msgid "%s Theme Settings"
-msgstr "Album Settings"
+msgstr "Ezen beállítások használata"
 
 #, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Ez a galéria felületének alaprtelmezett beállítása. A beállítások albumonként "
+"felülbírálhatóak."
 
 msgid "Available"
 msgstr ""
@@ -2043,28 +1969,28 @@ msgstr ""
 
 #, fuzzy
 msgid "Selected"
-msgstr "Delete"
+msgstr "Törlés"
 
 msgid "Remove"
-msgstr "Remove"
+msgstr "Törlés"
 
 #, fuzzy
 msgid "Move Up"
-msgstr "Move"
+msgstr "Mozgatás"
 
 #, fuzzy
 msgid "Move Down"
-msgstr "Move"
+msgstr "%s mozgatása"
 
 msgid "Parameter"
 msgstr ""
 
-#, fuzzy
 msgid "Value"
-msgstr "Scale"
+msgstr "Érték"
 
+#, fuzzy
 msgid "There are no settings for this theme"
-msgstr ""
+msgstr "Ennek az elrendezésnek nincsenek beállításai"
 
 msgid ""
 "The toolkits shown below have some overlap in supported operations and mime types.  Rank the "
@@ -2072,55 +1998,51 @@ msgid ""
 msgstr ""
 
 msgid "Toolkit"
-msgstr ""
+msgstr "Eszköztár"
 
-#, fuzzy
 msgid "Order"
-msgstr "Remove"
+msgstr "Megrendelés"
 
 msgid "up"
-msgstr ""
+msgstr "fel"
 
 msgid "down"
-msgstr ""
+msgstr "le"
 
 msgid "User Management"
-msgstr "User Management"
+msgstr "Felhasználó menedzsment"
 
 #, c-format
 msgid "Removed user '%s'"
-msgstr "Removed user '%s'"
+msgstr "'%s' felhasználó törölve"
 
 #, c-format
 msgid "Created user '%s'"
-msgstr "Created user '%s'"
+msgstr "'%s' felhasználó létrehozva"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Modified user '%s'"
+msgstr "'%s' felhasználó modosítva"
 
 #, c-format
 msgid "There is %d user in the system."
 msgid_plural "There are %d total users in the system."
-msgstr[0] "There is %d user in the system."
-msgstr[1] "There are %d users in total in the system."
+msgstr[0] "%d felhasználó van a rendszerben"
 
-#, fuzzy
 msgid "Edit User"
-msgstr "Edit a user"
+msgstr "Felhasználó szerkesztése"
 
 msgid "You cannot delete yourself!"
-msgstr "You cannot delete yourself!"
+msgstr "Nem törölheti magát!"
 
-#, fuzzy
 msgid "You cannot delete the special guest user."
-msgstr "You cannot delete the anonymous user!"
+msgstr "Nem törölheti ezt a speciális vendégfelhasználót."
 
 msgid "Edit User (by list)"
-msgstr ""
+msgstr "Felhasználó szerkesztése (lista)"
 
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr "Előnézeti képek"
 
 msgid ""
 "Gallery can create thumbnails at upload time, or create them the first time you want to see "
@@ -2128,27 +2050,29 @@ msgid ""
 "create them at upload time it makes viewing albums for the first time go faster at the "
 "expense of a longer upload time."
 msgstr ""
+"A Galéria létre tudja hozni az előnézeti képeket vagy feltöltési időben, vagy amikorelőször "
+"meg szeretnénk tekinteni. Bármelyiket is választjuk, egyszer gyártja le és menti el az "
+"előnézeti képeket, de ha feltöltési időben gyártja le, az albumok megnézése első "
+"alkalommalgyorsabb lesz, viszont hosszabb lesz a feltöltési idő."
 
-#, fuzzy
 msgid "Create thumbnails now"
-msgstr "Recreate thumbnails"
+msgstr "Előnézeti képek létrehozása most"
 
 #, fuzzy
 msgid "This is a test email from Gallery2"
-msgstr "This is the top of your Gallery"
+msgstr "Ez a Galéria gyökere"
 
 msgid "Edit Conflict!"
 msgstr ""
 
-#, fuzzy
 msgid "Security Violation"
-msgstr "Security Violation!"
+msgstr "Biztonsági hiba"
 
 msgid "Database Error"
-msgstr ""
+msgstr "Adatbázis hiba"
 
 msgid "Error"
-msgstr "Error"
+msgstr "Hiba"
 
 msgid ""
 "Your change cannot be completed because somebody else has made a conflicting change to the "
@@ -2157,16 +2081,16 @@ msgid ""
 msgstr ""
 
 msgid "Go back and try again"
-msgstr ""
+msgstr "Vissza, és újra"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
-msgstr ""
+msgstr "Egyébiránt, visszatérhet a Galéria főoldalára és folytathatja a böngészést."
 
 msgid "The action you attempted is not permitted."
-msgstr ""
+msgstr "A kért művelethez nincs jogosultsága"
 
 msgid "An error has occurred while interacting with the database."
-msgstr ""
+msgstr "Hiba történt az adatbázishoz való kapcsolódás közben."
 
 msgid ""
 "The exact nature of database errors is not captured unless Gallery debug mode is enabled in "
@@ -2175,101 +2099,97 @@ msgid ""
 msgstr ""
 
 msgid "An error has occurred."
-msgstr ""
+msgstr "Hiba történt."
 
-#, fuzzy
 msgid "Back to the Gallery"
-msgstr "Browse Gallery"
+msgstr "Vissza a Galériába"
 
 msgid "Error Detail"
-msgstr ""
+msgstr "Hiba részletei"
 
-#, fuzzy
 msgid "System Information"
-msgstr "Destination"
+msgstr "Rendszerinformáció"
 
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
 "images, you will probably not have any thumbnails."
 msgstr ""
+"Nincs semmilyen grafikus kezelőeszköz installálva JPEG formátumhoz.Ha képeket ad hozzá, nem "
+"fog tudni előnézeti képeket készíteni."
 
 #, c-format
 msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
-#, fuzzy
 msgid "Add Sub-Album"
-msgstr "Add Album"
+msgstr "Al-album hozzáadása"
 
-#, fuzzy
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes.  You will be able to rename it later."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Az album neve a merevlemezen. Egyedinek kell lennie ezen albumon belül. Csak alfanumerikus "
+"karaktereket, alsovonást, és vesszőt tartaltamazhat. Későbbmég átnevezheti."
 
 msgid "Your name contains invalid characters.  Please enter another."
-msgstr "Your name contains invalid characters.  Please enter another."
+msgstr "A megadott név hibás karaktereket tartalmaz. Kérem adjon meg másikat."
 
 msgid "You must enter a name for this album."
-msgstr "You must enter a name for this album."
+msgstr "Adja meg az album nevét."
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "The name you entered is already in use.  Please enter another."
+msgstr "A beírt név már használatban van. Kérem adjon meg másikat."
 
 msgid "This is the album title."
-msgstr ""
+msgstr "Ez az album címe"
 
 msgid "This is the album summary."
-msgstr ""
+msgstr "Ez az album rövid leírása."
 
 msgid "Keywords are not visible, but are searchable."
-msgstr ""
+msgstr "A kulcsszavak nem láthatóak, de kereshetőek"
 
-#, fuzzy
 msgid "This is the long description of the album."
-msgstr "A longer description of this item."
+msgstr "Ez az album hosszabb leírása."
 
 msgid "Create"
-msgstr "Create"
+msgstr "Létrehozás"
 
 msgid "Upload Complete"
-msgstr ""
+msgstr "Feltöltés sikeres"
 
+# c-format
 #, c-format
 msgid "Successfully added %d file."
 msgid_plural "Successfully added %d files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fájl sikeresen hozzáadva."
 
 msgid "No files added."
-msgstr ""
+msgstr "Nem adtam hozzá fájlt"
 
 #, c-format
 msgid "Added %s"
-msgstr ""
+msgstr "%s hozzáadva"
 
 #, c-format
 msgid "Failed to add %s"
 msgstr ""
 
-#, fuzzy
 msgid "Add more files"
-msgstr "Add Items"
+msgstr "Mégtöbb fájl hozzáadása"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
 "Please contact your system administrator for assistance."
 msgstr ""
+"A webszerver nem engedélyezi a fájlfeltöltéseket az Ön böngészőjéből. Kérjen segítséget a "
+"rendszergazdától."
 
-#, fuzzy
 msgid "Upload files directly from your computer."
-msgstr "Upload a file directly from your computer."
+msgstr "Fájlok feltöltése közvetlenül a számítógépéről"
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Adja meg a fájl teljes elérésí útját, és esetleg feliratot az alábbi mezőkbe"
 
 #, c-format
 msgid ""
@@ -2277,6 +2197,9 @@ msgid ""
 "must upload the files separately, use a different upload format, or ask your system "
 "administrator to allow larger uploads."
 msgstr ""
+"<b> Megjegyzés: </b> Egyszerre %s-t tud feltölteni. Ha ennél többet szeretne,vagy külön-"
+"külön töltse fel a fájlokat, vagy használjon más feltöltési formátumot,esetleg kérje meg a "
+"rendszergazdát, hogy engedélyezze a nagyobb felöltéseket."
 
 #, c-format
 msgid ""
@@ -2284,17 +2207,19 @@ msgid ""
 "If you want to upload more than that, you must upload the files separately, use a different "
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
+"<b> Megjegyzés: </b> Egyszerre %s-t tud feltölteni. Egyik fájl sem haladhatja meg a%s "
+"méretet.Ha ennél többet szeretne, vagy külön-külön töltse fel a fájlokat, vagy használjon "
+"más feltöltési formátumot, esetleg kérje meg a rendszergazdát, hogy engedélyezze a nagyobb "
+"felöltéseket."
 
-#, fuzzy
 msgid "More.."
-msgstr "Move"
+msgstr "Több.."
 
 msgid "Set item titles from:"
-msgstr ""
+msgstr "Elem címének beállítása innen:"
 
-#, fuzzy
 msgid "Assign caption to:"
-msgstr "Gallery Site Administration"
+msgstr "Felirat hozzárendelése ehhey: "
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
@@ -2302,97 +2227,97 @@ msgid ""
 "directory where they are accessibly by any element on the server.  If you're on Unix this "
 "means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
+"Képek áthelyezése a Galériába a szerverről. A fájloknak mar a szerveren kell lenniük "
+"(például FTP-vel feltöltve) egy olyan könyvtárban, amit bármilyen program elérhet. Ha ön egy "
+"Unix szervert használ, akkor ez azt jelenti, hogy a fájloknak és könyvtáraknak legalább 755-"
+"ös joggal kell rendelkezniük."
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
 "configures a set of legal upload directories."
 msgstr ""
+"Biztonsági okok miatt ez a lehetőség addig nem használható, amíg az Adminisztrátor nem állít "
+"be helyes feltöltési könyvtárakat."
 
 msgid "Server Path"
-msgstr ""
+msgstr "Szerver útvonal"
 
-#, fuzzy
 msgid "You must enter a directory."
-msgstr "You must enter a size"
+msgstr "Adjon meg egy könyvtárat."
 
 msgid ""
 "The directory you entered is invalid.  Make sure that the directory is readable by all users."
 msgstr ""
+"A megadott könyvtár érvénytelen. Győződjön meg róla, hogy a könyvtárminden felhasználó "
+"számára olvasható."
 
 msgid ""
 "The directory you entered is illegal.  It must be a sub directory of one of the directories "
 "listed below."
 msgstr ""
+"A megadott könyvtár érvénytelen. Egy a listában megjelent könyvtár alkönyvtáránakkellene "
+"lennie."
 
 msgid "An item with the same name already exists."
-msgstr ""
+msgstr "Egy ilyen nevű elem már létezik."
 
-#, fuzzy
 msgid "Legal Directories"
-msgstr "New directories"
+msgstr "Érvényes könyvtárak"
 
 msgid "modify"
-msgstr ""
+msgstr "módosítás"
 
-#, fuzzy
 msgid "Recent Directories"
-msgstr "New directories"
+msgstr "Friss könyvtárak"
 
-#, fuzzy
 msgid "Find Files"
-msgstr "Add Items"
+msgstr "Fájlok keresése"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Directory: %s"
-msgstr "New directories"
+msgstr "Könyvtár: %s"
 
-#, fuzzy
 msgid "File name"
-msgstr "Full name"
+msgstr "Fájlnév"
 
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 msgid "Size"
-msgstr ""
+msgstr "Méret"
 
 msgid "Use Symlink"
-msgstr ""
+msgstr "Szimbolikus link használata"
 
-#, fuzzy, c-format
+# c-format
+#, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d bájt"
 
-#, fuzzy
 msgid "Parent Directory"
-msgstr "New directories"
+msgstr "Szülőkönyvtár"
 
-#, fuzzy
 msgid "Directory"
-msgstr "New directories"
+msgstr "Könyvtár"
 
 msgid "(Un)check all known types"
-msgstr ""
+msgstr "Minden ismert típus ki/bekapcsolása"
 
 msgid "(Un)check symlinks"
-msgstr ""
+msgstr "Linkek ki/bekapcsolása"
 
-#, fuzzy
 msgid "for selected items"
-msgstr "[core] Delete item"
+msgstr "a kiválasztott elemekre"
 
 msgid "Copy base filenames to:"
-msgstr ""
+msgstr "Fáljok másolása ide:"
 
-#, fuzzy
 msgid "Add Files"
-msgstr "Add Items"
+msgstr "Fájlok hozzáadása"
 
-#, fuzzy
 msgid "Start Over"
-msgstr "Sort order"
+msgstr "Újrakezdés"
 
 msgid ""
 "Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
@@ -2400,140 +2325,134 @@ msgid ""
 "Note that if you're entering a URL to a directory, you should end the URL with a trailing "
 "slash (eg, http://example.com/directory/). "
 msgstr ""
+"Fájlok importálása a galériába egy másik weboldalról. Írjon be egy bármilyen weboldalra "
+"mutató URL-t, és a galéria letölt róla bármilyen média fájlt, amit ott talál. Hakönyvtárra "
+"mutató URL-t ad meg, ügyeljen arra hogy az URL-nek lezáró '/'-el kell végződnie.(http://"
+"example.com/konyvtar/)"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#, fuzzy
 msgid "You must enter a URL to a web page"
-msgstr "You must enter a user name"
+msgstr "Adjon meg egy weboldalra mutató URLt"
 
 msgid "The URL entered must begin with http://"
-msgstr ""
+msgstr "A beírt URL-nek http:// -el kell kezdődnie"
 
-#, fuzzy
 msgid "The web page you specified is unavailable"
-msgstr "The user name you entered is invalid"
+msgstr "A megadott weboldal nem elérhető"
 
 msgid "Nothing to add found from this URL"
 msgstr ""
 
 msgid "Nothing added since no items were selected"
-msgstr ""
+msgstr "Nem adtunk hozzá semmit, mivel nincs elem kiválasztva"
 
 msgid "Recent URLs"
-msgstr ""
+msgstr "Friss URL-ek"
 
 #, c-format
 msgid "URL: %s"
-msgstr ""
+msgstr "URL: %s"
 
-#, fuzzy
 msgid "change"
-msgstr "Change"
+msgstr "változtatás"
 
+# c-format
 #, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d urlt nem találtam"
 
 msgid "(Un)check all"
-msgstr ""
+msgstr "Mind ki/bekapcsol"
 
 msgid "Add URLs"
-msgstr ""
+msgstr "URLek hozzáadása"
 
 msgid "No Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Nincs előnézet"
 
-#, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr "Opciók"
 
-#, fuzzy
 msgid "Link an Item"
-msgstr "Move an Item"
+msgstr "Elem linkelése"
 
+# c-format
 #, c-format
 msgid "Successfully linked %d item"
 msgid_plural "Successfully linked %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elem sikeresen linkelve"
 
 msgid "This album contains no items to link."
-msgstr ""
+msgstr "Az az album nem tartalmaz linkelhető elemeket."
 
 msgid "Source"
-msgstr ""
+msgstr "Forrás"
 
-#, fuzzy
 msgid "Choose the items you want to link"
-msgstr "Choose the items you want to move"
+msgstr "Válassza ki a linkelni kívánt elemeket"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(page %d of %d)"
-msgstr "Viewing page %d of %d"
+msgstr "(oldal %d/%d)"
 
 #, fuzzy
 msgid "No sources chosen"
-msgstr "No destination chosen"
+msgstr "Nincs cél kiválasztva"
 
 msgid "Check All"
-msgstr ""
+msgstr "Mindet kijelöl"
 
 msgid "Check None"
-msgstr ""
+msgstr "Kijelölés megszüntetése"
 
 msgid "Invert"
-msgstr ""
+msgstr "Megfordítás"
 
 msgid "Previous Page"
-msgstr ""
+msgstr "Előző oldal"
 
-#, fuzzy
 msgid "Next Page"
-msgstr "Last >|"
+msgstr "Következő oldal"
 
 msgid "Destination"
-msgstr "Destination"
+msgstr "Cél"
 
 msgid "Choose a new album for the link"
-msgstr ""
+msgstr "Új album választás a linkhez"
 
 msgid "No destination chosen"
-msgstr "No destination chosen"
+msgstr "Nincs cél kiválasztva"
 
-#, fuzzy
 msgid "Link"
-msgstr "Login"
+msgstr "Link"
 
 msgid "Successfully linked"
-msgstr ""
+msgstr "Linkelés sikeres"
 
-#, fuzzy
 msgid "Choose a destination album"
-msgstr "Choose the destination of the selected items"
+msgstr "Válasszon célalbumot"
 
 #, fuzzy
 msgid "Delete Items"
-msgstr "Delete Item"
+msgstr "Elem törlése"
 
 msgid "No items were selected for deletion"
-msgstr ""
+msgstr "Nem jelölt ki elemet törlésre"
 
+# c-format
 #, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elem sikeresen törölve"
 
 msgid "This album contains no items to delete"
-msgstr ""
+msgstr "Ez az album nem tartalmaz törölhető elemeket"
 
-#, fuzzy
 msgid "Choose the items you want to delete"
-msgstr "Choose the items you want to move"
+msgstr "Válassza ki a törölni kívánt elemeket"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr ""
@@ -2545,87 +2464,92 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(data)"
-msgstr "(data)"
+msgstr "(adat)"
 
+# c-format
 #, c-format
 msgid "(album containing %d item)"
 msgid_plural "(album containing %d items)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(%d elemet tartalmazó album)"
 
-#, fuzzy
 msgid "(empty album)"
-msgstr "(album)"
+msgstr "(üres album)"
 
 msgid "Deletion Complete"
-msgstr ""
+msgstr "Törlés sikeres"
 
 msgid "Item successfully deleted"
-msgstr ""
+msgstr "Elem sikeresen törölve"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Do you really want to delete this item?"
+msgstr "Biztosan törölni szeretné ezt az %s?"
 
+# c-format
 #, c-format
 msgid "It contains %d item."
 msgid_plural "It contains %d items."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elemet tartalmaz."
 
 msgid "There is no undo!"
-msgstr ""
+msgstr "Nincs mit visszavonni!"
 
 msgid "There was a problem processing your request."
-msgstr ""
+msgstr "Hiba történt a kérés feldolgozása közben."
 
 msgid "Sort order"
-msgstr "Sort order"
+msgstr "Rendezés"
 
 msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
 "added items."
 msgstr ""
+"Ezzel állítható az album rendezése. Alkalmazódik minden jelenlegi elemre, és a jövőben "
+"hozzáadottakra is."
 
+#, fuzzy
 msgid "Choose a theme for this album. (The way the album is arranged on the page)"
-msgstr ""
+msgstr "Válasszon elrendezést az albumnak. (ahogy az album az oldalon legyen rendezve)"
 
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr ""
+msgstr "Minden elemnek kell előnézet. Állítsa be az alap méretet itt (pixelben)."
 
 msgid "You must enter a number (greater than zero)"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Adjon meg egy számot (nagyobb mint 0)"
 
 msgid "Resized Images"
-msgstr "Resized Images"
+msgstr "Átméretezett képek"
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
 msgstr ""
+"Minden albumbéli elemnek több mérete lehet. Állítsa be itt az alapértelmezett méreteket."
 
 msgid "Active"
-msgstr "Active"
+msgstr "Aktív"
 
-#, fuzzy
 msgid "Target Size (pixels)"
-msgstr "Target Size (in pixels)"
+msgstr "Célméret (pixelben)"
 
 msgid "You must enter a valid size"
-msgstr "You must enter a valid size"
+msgstr "Adjon meg egy helyes méretet"
 
 msgid "Recreate thumbnails and resizes"
-msgstr "Recreate thumbnails and resizes"
+msgstr "Előnézeti·és·átméretezett·képek·újragyártása"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
 "all the items in your album, check the appropriate box."
 msgstr ""
+"Az előnézeti- és átméretezett képekhez tartozó beállítások.A az összes képhez tartozó "
+"előnézeti- és átméretezett kép újragyártásához jelölje be a kivánt funkciókat."
 
 msgid "Recreate thumbnails"
-msgstr "Recreate thumbnails"
+msgstr "Előnézeti·képek·újragyártása"
 
 msgid "Recreate resized images"
-msgstr "Recreate resized images"
+msgstr "Átméretezett képek újragyártása"
 
+#, fuzzy
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
 "width and height.  If you have installed a graphics toolkit that can handle animation types, "
@@ -2634,127 +2558,128 @@ msgid ""
 "browser.  Note that changing these values does <b>not</b> change the animation itself so "
 "experimenting won't cause harm."
 msgstr ""
+"Ahhoz, hogy a galéria helyesen jelenítse meg az animációt, tudnia kell a szélességét és "
+"amagasságát. Ha feltette az animációt lekezelő grafikus eszköztárat, akkor ezek a "
+"beállítások márjók. Ha nem, állíthatja 0-ra. Amennyiben nem állítja be itt az értékeket, "
+"előfordulhat, hogyeltorzulva jelenik meg a webböngészőben. Megjegyezzük, hogy ha itt "
+"megváltoztat valamit, akkoraz magára az animációra <b>nincs</b> hatással, tehát nyugodtan "
+"kísérletezhet."
 
 msgid "Width"
-msgstr ""
+msgstr "Szélesség"
 
-#, fuzzy
 msgid "You must enter a value greater than or equal to 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Adjon meg egy 0-nál nem kisebb számot."
 
 msgid "Height"
-msgstr ""
+msgstr "Magasság"
 
+#, fuzzy
 msgid "There were errors saving some items"
-msgstr ""
+msgstr "Hiba történt néhány elem mentése közben"
 
+#, fuzzy
 msgid "There were errors saving all items"
-msgstr ""
+msgstr "Hiba történt az összes kép mentése közben"
 
 msgid "Successfully saved all items"
-msgstr ""
+msgstr "Minden elem sikeresen elmentve"
 
-#, fuzzy
 msgid "This album contains no items"
-msgstr "This group contains %d user"
+msgstr "Ez az album nem tartalmaz elemeket"
 
-#, fuzzy
 msgid "Saved successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Sikeresen elmentve."
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
-msgstr ""
+msgstr "Ezt az elemet valaki más módosította. Az Ön módosításai elvesztek."
 
-#, fuzzy
 msgid "You do not have permissions to modify this item."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Nincs jogosultsága ezen elem módosítására"
 
-#, fuzzy
 msgid "Save and Done"
-msgstr "Save Changes"
+msgstr "Mentés"
 
 #, c-format
 msgid "Save and Edit Previous %s"
-msgstr ""
+msgstr "Mentés és előző szerkesztése %s"
 
 #, c-format
 msgid "Save and Edit Next %s"
-msgstr ""
+msgstr "Mentés és következő szerkesztése %s"
 
-#, fuzzy
 msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Az elem neve a merevlemezen. Ebben az albumban egyedinek kell lennie. Csak alfanumerikus "
+"karatkert, alsóvonást, és vesszőt tartalmazhat."
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Your name contains invalid characters.  Please choose another."
+msgstr "A megadott név hibás karaktereket tartalmaz. Kérem válasszon másikat."
 
 msgid "You must enter a name for this item."
-msgstr "You must enter a name for this item."
+msgstr "Adja meg az elem nevét."
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "The name you entered is already in use.  Please choose another."
+msgstr "A beírt név már használatban van. Kérem válasszon másikat."
 
-#, fuzzy
 msgid "The title of this item."
-msgstr "Editing this item"
+msgstr "Ezen elem címe."
 
 msgid "The root album must have a title."
-msgstr ""
+msgstr "A gyökér albumnak kell cím."
 
-#, fuzzy
 msgid "The summary of this item."
-msgstr "Editing this item"
+msgstr "Az elem rövid leírása"
 
-#, fuzzy
 msgid "This is the long description of the item."
-msgstr "A longer description of this item."
+msgstr "Ez az elem hosszabb leírása"
 
 #, c-format
 msgid "%s Date and Time"
-msgstr ""
+msgstr "%s dátum és idő"
 
 msgid "Set the date and time when this image was captured."
-msgstr ""
+msgstr "Kép  létrehozási idejének beállítása"
 
 msgid "Set the date and time to be displayed for this item."
-msgstr ""
+msgstr "Elem kijelzendő dátumának és idejánek beállítása"
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
+msgstr "Mutatott dátum és idő beállítása ennek az elemnek: %s."
 
 msgid "Date:"
-msgstr ""
+msgstr "Dátum:"
 
-#, fuzzy
 msgid "Time:"
-msgstr "move item"
+msgstr "Idő: "
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
 msgstr ""
+"Az eredeti felvétel készítési idejének használata a fájlinformációkból (pl. Exif adat):"
 
-#, fuzzy
 msgid "You must enter a valid date and time"
-msgstr "You must enter a valid size"
+msgstr "Adjon meg egy helyes dátumot és időt"
 
-#, fuzzy
 msgid "Thumbnail"
-msgstr "Thumbnails"
+msgstr "Előnézeti kép"
 
 msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
 "this value. Leave this field blank if you don't want a thumbnail."
 msgstr ""
+"Előnézeti kép méretének beállítása. Az előnézeti kép legnagyobb oldalának mérete nem "
+"lesznagyobb, mint az itt beállított érték. Hagyja üresen, ha nem szeretne előnézeti képet."
 
+#, fuzzy
 msgid ""
 "There are no graphics toolkits enabled that support this type of item, so we cannot create "
 "or modify a thumbnail."
 msgstr ""
+"Ehhez a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem készíthet, vagy "
+"modosíthat előnézeti képeket."
 
 msgid ""
 "In order for Gallery to properly display this movie, it has to know the movie's width and "
@@ -2764,20 +2689,27 @@ msgid ""
 "changing these values do <b>not</b> change the movie itself so experimentation won't cause "
 "harm."
 msgstr ""
+"Ahhoz, hogy a galéria helyesen jelenítse meg az filmet, tudnia kell a szélességét és "
+"amagasságát. Ha feltette az animációt lekezelő grafikus eszköztárat, akkor ezek a "
+"beállítások márjók. Ha nem, állíthatja 0-ra. Amennyiben nem állítja be itt az értékeket, "
+"előfordulhat, hogyeltorzulva jelenik meg a webböngészőben. Megjegyezzük, hogy ha itt "
+"megváltoztat valamit, akkoraz magára az animációra <b>nincs</b> hatással, tehát nyugodtan "
+"kísérletezhet."
 
-#, fuzzy
 msgid "Resized Photos"
-msgstr "Resized Images"
+msgstr "Átméretezett fotók"
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
 "for viewing."
-msgstr ""
+msgstr "Ez a méret az eredeti kép átméretezett verziójának mérete."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
 "or modify resized versions."
 msgstr ""
+"Ehhez a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem készíthet, vagy "
+"modosíthat atméretezett képeket."
 
 msgid ""
 "You can select which part of the photo will be used for the thumbnail.  This will have no "
@@ -2785,67 +2717,67 @@ msgid ""
 msgstr ""
 
 msgid "Aspect Ratio: "
-msgstr ""
+msgstr "Méretarány"
 
 msgid "Crop"
-msgstr ""
+msgstr "Kivágás"
 
 msgid "Reset to default"
-msgstr ""
+msgstr "Visszaállítás alapértelmezettre"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot crop "
 "the thumbnail."
 msgstr ""
+"Ehhez a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem a képlevágás funkció nem "
+"működik."
 
 msgid "Rotate"
-msgstr "Rotate"
+msgstr "Elforgatás"
 
-#, fuzzy
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "You can only rotate the image in 90 degree increments."
+msgstr "Csak 90 fokos szögekben fordítható el a fénykép."
 
-#, fuzzy
 msgid "CC 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "ÓE·90&deg;"
 
-#, fuzzy
 msgid "180&deg;"
-msgstr "Flip 180&deg;"
+msgstr "180&deg;"
 
-#, fuzzy
 msgid "C 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "Ó 90&deg;"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
 "it."
 msgstr ""
+"Ehhez a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem a képek forgatása "
+"funkció nem működik."
 
 msgid "Scale"
-msgstr "Scale"
+msgstr "Nagyítás"
 
-#, fuzzy
 msgid ""
 "Shrink or enlarge the original photo.  When Gallery scales a photo, it maintains the same "
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Shrink or enlarge the original image.  When Gallery scales an image, it maintains the same "
-"aspect ratio (height to width) of the original image to avoid distortion.  The value you "
-"enter below forms a bounding box in pixels.  Gallery will scale the image until it is as "
-"large as possible while still fitting inside the box."
+"Az eredeti fénykép nagyítása/kicsinyítése. Amikor a Galéria nagyít egy fényképet,megtartja a "
+"méretarányt, hogy ne torzuljon a kép. A kép addig lesz nagyítva, amig az beleféregy akkora "
+"dobozba, aminek a méretét itt megadja."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
 "it."
 msgstr ""
+"Ehhez a formátumhoz nincs grafikus kezelőkészlet telepítve, így nem a képek átméretezése "
+"funkció nem működik."
 
 msgid "You must enter a size"
-msgstr "You must enter a size"
+msgstr "Adjon meg egy méretet"
 
 msgid "Preserve Original"
-msgstr "Preserve Original"
+msgstr "Eredeti megtartása"
 
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. Instead, it "
@@ -2853,47 +2785,45 @@ msgid ""
 "prevents your original from getting damaged.  Disabling this option will cause any actions "
 "(rotating, scaling, etc) to modify the original."
 msgstr ""
+"A Galéria nem módosítja az eredeti fényképet ha azt nagyítod, vagy forgato.Ehelyett "
+"duplikálja a képet, és a másolattal dolgozik. Ez egy kis extra helyet igényel,viszont megvéd "
+"az eredeti kép sérülésétől. Ezen opció kikapcsolásával a módosításokaz eredeti képet fogják "
+"érinteni."
 
 msgid "This is a link to another photo, so you cannot change the original"
-msgstr ""
+msgstr "Ez egy másik fényképre mutató link, így az eredeti nem módosítható"
 
 msgid "There are links to this photo, so you cannot change the original"
-msgstr ""
+msgstr "Mutatnak linkek erre a fényképre, így az eredeti nem változtatható"
 
-#, fuzzy
 msgid "Preserve Original Photo"
-msgstr "Preserve Original"
+msgstr "Eredeti fénykép megtartása"
 
-#, fuzzy
 msgid "Modified Photo"
-msgstr "Modified Image"
+msgstr "Módosított fénykép"
 
-#, fuzzy
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"You are using a copy of the original image that has been scaled or rotated.  The original "
-"image is still available, but is no longer being used.  Any changes you make will be applied "
-"to the copy instead."
 
-#, fuzzy
 msgid "Restore original"
-msgstr "Revert to original"
+msgstr "Eredeti visszaállítása"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This album is configured to use the <b>%s</b> theme. These settings only apply to the theme "
 "for this album."
 msgstr ""
+"Ez az album a <b>%s</b> felületet használja. Itt csak az ehhez az albumhoz tartozó "
+"beállításokat tudja módosítani."
 
-#, fuzzy
 msgid "Setting"
-msgstr "Gallery Settings"
+msgstr "Beállítás"
 
 msgid "Use Global"
-msgstr ""
+msgstr "Globális használata"
 
 msgid ""
 "Note: to set the same theme for all subalbums, check the appropriate box in <b>Album</b> tab"
@@ -2901,91 +2831,92 @@ msgstr ""
 
 #, fuzzy
 msgid "Album Highlight"
-msgstr "Make Highlight"
+msgstr "Megjelölés"
 
 #, fuzzy
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Do you want to make this item the highlight of its parent album?"
+msgstr "Ez az elem lehet a szülőalbum előnézeti képe."
 
 #, fuzzy
 msgid "Highlight for:"
-msgstr "Make Highlight"
+msgstr "Megjelölés"
 
 #, fuzzy
 msgid "Highlight"
-msgstr "Make Highlight"
+msgstr "Megjelölés"
 
 msgid "Move an Item"
-msgstr "Move an Item"
+msgstr "Egy elem mozgatása"
 
+# c-format
 #, c-format
 msgid "Successfully moved %d item"
 msgid_plural "Successfully moved %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d elem sikeresen mozgatva"
 
 msgid "This album contains no items to move."
-msgstr ""
+msgstr "Ez az album nem tartalmaz mozgatható elemeket."
 
 msgid "Choose the items you want to move"
-msgstr "Choose the items you want to move"
+msgstr "Válassza ki a mozgatni kívánt elemeket"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
-"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
+"Az itt kiválasztott cél nem fogad el al-albumokat, így minden al-album kijelölését "
+"megszüntettem."
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
+"Az itt kiválasztott cél csak al-albumokat fogad el, így minden nem albumot kijelöltését "
+"megszüntettem."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "You are not allowed to move this item away from here."
+msgstr "Nem mozgathat el innen elemet."
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "You are not allowed to move an album to the chosen destination."
+msgstr "Az elem mozgatása nem engedélyezett a kiválaszott helyre."
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "You are not allowed to move an item to the chosen destination."
+msgstr "Nem mozgathat elemet a kiválasztott helyre."
 
 msgid "You cannot move an album into its own subtree."
-msgstr "You cannot move an album into its own subtree."
+msgstr "Az albumot nem mozgatja át saját maga alá."
 
 msgid "Choose a new album for them"
-msgstr ""
+msgstr "Új album választás nekik"
 
 msgid "You don't have the permission to add items in this album"
-msgstr "You don't have the permission to add items in this album"
+msgstr "Nincs jogosultsága elemek hozzáadására az albumba"
 
 msgid "Move"
-msgstr "Move"
+msgstr "Mozgatás"
 
 msgid "Successfully moved"
-msgstr ""
+msgstr "Mozgatás sikeres"
 
 msgid "Permissions"
-msgstr "Permissions"
+msgstr "Jogok"
 
-#, fuzzy
 msgid "Owner changed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Tulaj sikeresen megváltoztatva"
 
 #, fuzzy
 msgid "Group permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Felhasználói beállítások sikeresen elmentve"
 
 #, fuzzy
 msgid "User permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Beállítások sikeresen elmentve"
 
 #, fuzzy
 msgid "Group permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Felhasználói beállítások sikeresen elmentve"
 
 #, fuzzy
 msgid "User permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Előnézeti kép sikeresen visszaállítva"
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -2995,39 +2926,38 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Each item has its own independent set of permissions.  Changing the parent's permissions has "
-"no effect on the permissions of the child.  This allows you to restrict access to the parent "
-"of this item, but still grant full access to this item, or vice versa.  The most efficient "
-"way to use this permission system is to create groups and assign permissions to them.  Then "
-"if you want to grant permissions to a specific user, you can add (or remove) the user from "
-"the appropriate group."
+"Minden elemnek saját független jogai vannak. A szülő jogainak megváltoztatásanincs hatással "
+"a gyerek jogaira. Így a szülő jogai korlátozhatóak úgy, hogy közben a gyermekreteljes jogot "
+"adunk, és fordítva. A leghatékonyabban úgy használhatjuk ezt a jogrendszert, ha létrehozunk "
+"csoportokat, és jogokat adunk nekik. Később, ha szeretnénk jogot adni egy felhasználónak,"
+"hozzáadhatjuk a kiválasztott csoporthoz."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "This item is owned by user: %s"
+msgstr "Ezen elem tulajdonosa: %s"
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "This item is owned by user: %s (%s)"
+msgstr "Ezen elem tulaja %s (%s)"
 
 msgid "New owner"
-msgstr ""
+msgstr "Új tulaj"
 
 msgid "Change"
-msgstr "Change"
+msgstr "Változtat"
 
 #, fuzzy
 msgid "Apply new owner to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Alkalmazás alelemekre"
 
 msgid "You must enter a user name"
-msgstr "You must enter a user name"
+msgstr "Adjon meg egy felhasználónevet"
 
 msgid "The user name you entered is invalid"
-msgstr "The user name you entered is invalid"
+msgstr "A megadott felhasználónév nem megfelelő"
 
 msgid "Apply changes"
-msgstr "Apply changes"
+msgstr "Változtatások alkalmazása"
 
 #, fuzzy
 msgid ""
@@ -3037,141 +2967,133 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"This item has sub-items.  The changes you make here can be applied to just this item, or you "
-"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
-"change into the existing permissions of the sub-items and may be very time consuming if you "
-"have many of sub-items.  It's more efficient to grant permissions to groups and then add and "
-"remove users from groups whenever possible."
+"Ennek az albumnak vannak al-elemi. Az itt eszközölt beállítások csak erre az elemre "
+"érvényesek vagy az osszes al-elemre. Ha az összes al-elemre érvényesíti a beállításokat, "
+"akkor azok jogai is elvesznek, es az al-elemek számától függően ez nagyon időigényes lehet. "
+"Ebben az esetben sokkal hatékonyabb a csoportok alkalmazása. A változások alapértelmezésben "
+"az al-elemekre is érvényesek lesznek."
 
 msgid "Apply to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Alkalmazás alelemekre"
 
 msgid "Group Permissions"
-msgstr "Group Permissions"
+msgstr "Csoportjogok"
 
-#, fuzzy
 msgid "Group name"
-msgstr "Group name:"
+msgstr "Csoportnév"
 
 msgid "Permission"
-msgstr "Permission"
+msgstr "Jog"
 
-#, fuzzy
 msgid "New Group Permission"
-msgstr "Group Permissions"
+msgstr "Új csoport jog"
 
 msgid "Add Permission"
-msgstr "Add Permission"
+msgstr "Jogok hozzáadása"
 
 msgid "The permission you chose is invalid"
-msgstr "The permission you chose is invalid"
+msgstr "A választott jog nem megfelelő"
 
 msgid "The group name you entered is invalid"
-msgstr "The group name you entered is invalid"
+msgstr "A beírt csoportnév nem megfelelő"
 
-#, fuzzy
 msgid "Group already has this permission (check sub-permissions)"
-msgstr ""
-"Group already has this permission (maybe it's included in one of the permissions the group "
-"already has)"
+msgstr "Ennek a csoportnak már van ilyen joga (ellenőrizze az aljogokat)"
 
 msgid "User Permissions"
-msgstr "User Permissions"
+msgstr "Felhasználói jogok"
 
 msgid "User name"
-msgstr "User name"
+msgstr "Felhasználónév"
 
-#, fuzzy
 msgid "New User Permission"
-msgstr "User Permissions"
+msgstr "Új felhasználói jog"
 
-#, fuzzy
 msgid "The user already has this permission (check sub-permissions)"
-msgstr ""
-"The user already has this permission (maybe it's included in one of the permissions the user "
-"already has)"
+msgstr "A felhasználónak már van ilyen joga (ellenőrizze az aljogokat)"
 
-#, fuzzy
 msgid "Reorder Album"
-msgstr "Add Album"
+msgstr "Album újrarendezése"
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
+"Ez az album automatikus rendezésre van állítva. Ha mégis szeretné kézzel rendezni, akkor "
+"előbb kapcsolja ki az automatikus rendezést."
 
-#, fuzzy
 msgid "Change the order of the items in this album."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Elemek elrendezésének megváltoztatása az albumokban"
 
-#, fuzzy
 msgid "Move this item"
-msgstr "move item"
+msgstr "Ezen elem mozgatása"
 
-#, fuzzy
 msgid "before"
-msgstr "Remove"
+msgstr "elé"
 
 msgid "after"
-msgstr ""
+msgstr "utána"
 
-#, fuzzy
 msgid "Reorder"
-msgstr "Remove"
+msgstr "Újrarendezés"
 
 msgid "Continue..."
-msgstr ""
+msgstr "Folytat..."
 
 msgid "Site is temporarily down for maintenance."
 msgstr ""
 
 #, fuzzy
 msgid "Admin Login"
-msgstr "Actions"
+msgstr "Adminisztrátori opciók"
 
 msgid "Enter a URL"
-msgstr ""
+msgstr "Adjon meg egy URL-t"
 
 msgid "Enter some text describing the URL"
-msgstr ""
+msgstr "Adja meg az URL leírását"
 
 msgid "Enter an image URL"
-msgstr ""
+msgstr "Adjon meg egy kép URL-t"
 
 msgid "B"
-msgstr ""
+msgstr "B"
 
 msgid "i"
-msgstr ""
+msgstr "i"
 
 msgid "list"
-msgstr ""
+msgstr "lista"
 
 msgid "bullet"
 msgstr ""
 
 msgid "url"
-msgstr ""
+msgstr "url"
+
+msgid "image"
+msgstr "kép"
 
 #, fuzzy
-msgid "image"
-msgstr "move item"
-
 msgid "Configuration Error: Missing Theme"
-msgstr ""
+msgstr "Beállítási hiba: hiányzó elrendezés"
 
 msgid "Missing Theme"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This page is configured to use the %s theme, but it is either inactive or not installed."
 msgstr ""
+"Ez az album a %s felület használatára van beállítva, de ez a felület inaktív, vagy nincs "
+"telepítve."
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "This album is configured to use the %s theme, but it is either inactive or not installed."
 msgstr ""
+"Ez az album a %s felület használatára van beállítva, de ez a felület inaktív, vagy nincs "
+"telepítve."
 
 #, c-format
 msgid ""
@@ -3203,58 +3125,51 @@ msgid ""
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
 
-#, fuzzy
 msgid "Admin Options"
-msgstr "Actions"
+msgstr "Adminisztrátori opciók"
 
-#, fuzzy
 msgid "User Options"
-msgstr "User Permissions"
+msgstr "Felhasználói beállítások"
 
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Jelszó sikeresen megváltoztatva"
 
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
+"Adja meg a jelenlegi jelszavát, hogy ellenőrizzük, hogy Ön az, majd írja be kétszeraz új "
+"jelszót."
 
-#, fuzzy
 msgid "Current Password"
-msgstr "Password"
+msgstr "Jelenlegi jelszó"
 
-#, fuzzy
 msgid "You must enter your current password"
-msgstr "You must enter a password"
+msgstr "Adja meg a jelenlegi jelszavát"
 
-#, fuzzy
 msgid "Incorrect password"
-msgstr "Password"
+msgstr "Hibás jelszó"
 
-#, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr "Új jelszó"
 
-#, fuzzy
 msgid "You must enter a new password"
-msgstr "You must enter a password"
+msgstr "Adjon meg egy új jelszót"
 
-#, fuzzy
 msgid "Verify New Password"
-msgstr "Verify password"
+msgstr "Új jelszó ellenörzése"
 
-#, fuzzy
 msgid "You must enter your new password again!"
-msgstr "You must enter a password"
+msgstr "Adja meg az új jelszavát mégegyszer!"
 
 msgid "Login to your account"
-msgstr ""
+msgstr "Lépjen be a fiókjába"
 
 msgid "Your password has been recovered, please login."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Your login information is incorrect.  Please try again."
+msgstr "A belépési információk hibásak. Kérem próbálkozzon újra."
 
 #, c-format
 msgid ""
@@ -3267,7 +3182,7 @@ msgid "Welcome, %s!"
 msgstr ""
 
 msgid "Account settings saved successfully"
-msgstr ""
+msgstr "Felhasználói beállítások sikeresen elmentve"
 
 msgid "Recover a lost or forgotten password"
 msgstr ""
@@ -3298,7 +3213,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Recover"
-msgstr "Remove"
+msgstr "Törlés"
 
 #, c-format
 msgid ""
@@ -3343,11 +3258,11 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a username to recover the password for."
-msgstr "You must enter the password a second time"
+msgstr "Adjon meg egy új jelszót"
 
 #, fuzzy
 msgid "The username you entered does not exist."
-msgstr "The user name you entered is invalid"
+msgstr "A megadott felhasználónév nem megfelelő"
 
 msgid "Authorization Incorrect"
 msgstr ""
@@ -3367,7 +3282,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Refresh"
-msgstr "Remove"
+msgstr "elé"
 
 msgid "This page will allow you to reset the password on your account."
 msgstr ""
@@ -3389,7 +3304,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Username missing"
-msgstr "User Permissions"
+msgstr "Felhasználói jogok"
 
 msgid "Submit"
 msgstr ""
@@ -3417,8 +3332,9 @@ msgstr ""
 msgid "Thank you!"
 msgstr ""
 
+#, fuzzy
 msgid "guest"
-msgstr ""
+msgstr "Vendég"
 
 #, c-format
 msgid "display mode: %s"
@@ -3426,23 +3342,23 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Date: %s"
-msgstr "Delete a user"
+msgstr "Dátum:"
 
 #, fuzzy, c-format
 msgid "Owner: %s"
-msgstr "Owner"
+msgstr "Tulaj"
 
+# c-format
 #, fuzzy, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "(%d elem)"
 
+# c-format
 #, fuzzy, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "(%d elem)"
 
 #, c-format
 msgid "Views: %d"
@@ -3450,67 +3366,69 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo;·Nincs·&raquo;"
 
 #, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo;·Nincs·&raquo;"
 
 msgid "Go"
-msgstr ""
+msgstr "Mehet"
 
 msgid "Navigation"
-msgstr ""
+msgstr "Navigáció"
 
 msgid "next"
 msgstr ""
 
+#, fuzzy
 msgid "last"
-msgstr ""
+msgstr "lista"
 
 #, fuzzy, c-format
 msgid "Page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "(oldal %d/%d)"
 
 #, fuzzy, c-format
 msgid "%d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "(oldal %d/%d)"
 
 #, fuzzy
 msgid "first"
-msgstr "|< First"
+msgstr "lista"
 
+#, fuzzy
 msgid "previous"
-msgstr ""
+msgstr "Előző oldal"
 
 msgid "Page:"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d. %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
 #, fuzzy
 msgid "Size: "
-msgstr "Edit Sizes"
+msgstr "Méret"
 
 msgid "Full size: "
 msgstr ""
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Language settings"
+msgstr "Nyelvválasztó az oldalpanelen"
 
 #, fuzzy
 msgid "Item actions"
-msgstr "Item Permissions"
+msgstr "feliratok szerkesztése"
 
 msgid "Use dropdown menu"
 msgstr ""
 
 #, fuzzy
 msgid "Login block"
-msgstr "Login"
+msgstr "Belépés"
 
 msgid "Links to album/photo peers"
 msgstr ""
@@ -3518,40 +3436,69 @@ msgstr ""
 msgid "Unit test module"
 msgstr ""
 
-#, fuzzy
 msgid "[test] A permission"
-msgstr "permissions"
+msgstr "[test] Jogok"
 
 #, fuzzy
 msgid "[test] A second permission"
-msgstr "permissions"
+msgstr "[test] Jogok"
 
 msgid "Unit test theme"
 msgstr ""
 
-#, fuzzy
-#~ msgid "add album"
-#~ msgstr "add album"
+#~ msgid "&laquo; None &raquo;"
+#~ msgstr "&laquo;·Nincs·&raquo;"
 
 #, fuzzy
+#~ msgid "add album"
+#~ msgstr "al-album hozzáadása"
+
 #~ msgid "edit permissions"
-#~ msgstr "permissions"
+#~ msgstr "jogok szerkesztése"
 
 #, fuzzy
 #~ msgid "view permissions"
-#~ msgstr "permissions"
+#~ msgstr "jogok szerkesztése"
 
 #~ msgid "login"
-#~ msgstr "login"
+#~ msgstr "belépés"
+
+#~ msgid "and then"
+#~ msgstr "és utána"
 
 #, fuzzy
 #~ msgid "choose a new theme for this album"
-#~ msgstr "You must enter a name for this album."
+#~ msgstr "új elrendezés választása az albumnak"
 
-#, fuzzy
 #~ msgid "login as a site administrator"
-#~ msgstr "Gallery Site Administration"
+#~ msgstr "lépjen be adminisztrátorként"
 
 #, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "az elrendezés telepítése vagy aktiválása"
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV 16x9"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "%d elem sikeresen törölve"
+
+# c-format
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "%d elem sikeresen törölve"
+
 #~ msgid "Missing Layout"
-#~ msgstr "Layout"
+#~ msgstr "Hiányzó elrendezés"

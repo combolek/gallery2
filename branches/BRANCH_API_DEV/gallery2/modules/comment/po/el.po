@@ -20,142 +20,154 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Comment 1.0\n"
-"POT-Creation-Date: 2005-03-28 14:00+0800\n"
-"PO-Revision-Date: 2005-03-31 14:00+0800\n"
-"Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
-"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2003-03-06 16:30+0200\n"
+"PO-Revision-Date: 2003-03-06 16:30+0200\n"
+"Last-Translator: Nikos Batsis <nickthegreek@yahoo.com>\n"
+"Language-Team: Greek <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#, fuzzy
 msgid "Add Comment"
-msgstr "添加评论"
+msgstr "Προσθέστε σχόλιο"
 
 msgid "add comment"
-msgstr "添加评论"
+msgstr "Προσθέστε Σχόλιο"
 
+#, fuzzy
 msgid "show comments"
-msgstr "显示评论"
+msgstr "Σχόλια"
 
 msgid "Comments"
-msgstr "评论"
+msgstr "Σχόλια"
 
+#, fuzzy
 msgid "Comment Module"
-msgstr "评论模块"
+msgstr "Σχόλιο: "
 
+#, fuzzy
 msgid "Search comments"
-msgstr "搜索评论"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "Subject"
-msgstr "主题"
+msgstr ""
 
+#, fuzzy
 msgid "Comment"
-msgstr "评论"
+msgstr "Σχόλιο:"
 
+#, fuzzy
 msgid "Commenter"
-msgstr "评论者"
+msgstr "Σχολιαστής:"
 
+#, fuzzy
 msgid "User commenting system"
-msgstr "用户评论系统"
+msgstr "Σχόλια"
 
 msgid "Extra Data"
-msgstr "额外数据"
+msgstr ""
 
 msgid "[comment] Add comments"
-msgstr "[评论] 添加评论"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "[comment] Edit comments"
-msgstr "[评论] 编辑评论"
+msgstr "[comment] Edit comments"
 
 msgid "[comment] Delete comments"
-msgstr "[评论] 删除评论"
+msgstr "[comment] Διαγραφή σχολίων"
 
+#, fuzzy
 msgid "[comment] View comments"
-msgstr "[评论] 查看评论"
+msgstr "[comment] Edit comments"
 
 msgid "[comment] All access"
-msgstr "[评论] 完全存取权限"
+msgstr "[comment] All access"
 
 #, fuzzy
 msgid "View Latest Comments"
-msgstr "查看评论"
+msgstr "Σχόλια"
 
+#, fuzzy
 msgid "View Comments"
-msgstr "查看评论"
+msgstr "Σχόλια"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Comments: %d"
-msgstr "评论: %d"
+msgstr "Σχόλιο: "
 
+#, fuzzy
 msgid "Comment Preview"
-msgstr "评论预览"
+msgstr "Σχόλιο: "
 
 msgid "Posted by"
-msgstr "发表者"
+msgstr ""
 
 #, c-format
 msgid "%s (%s)"
-msgstr "%s (%s)"
+msgstr ""
 
 msgid "(required)"
-msgstr "(必填项)"
-
-msgid "You must enter a subject!"
-msgstr "您必须输入一个主题！"
-
-msgid "You must enter a comment!"
-msgstr "您必须输入一条评论！"
-
-msgid "Preview"
-msgstr "预览"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Cancel"
-msgstr "取消"
-
-msgid "edit"
-msgstr "编辑"
-
-msgid "delete"
-msgstr "删除"
+msgstr ""
 
 #, fuzzy
+msgid "You must enter a subject!"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
+
+#, fuzzy
+msgid "You must enter a comment!"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
+
+#, fuzzy
+msgid "Preview"
+msgstr "Σχόλιο: "
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+msgid "Cancel"
+msgstr "Ακυρο"
+
+msgid "edit"
+msgstr "Επεξεργασία"
+
+msgid "delete"
+msgstr "Διαγραφή"
+
 msgid "show full"
-msgstr "完全"
+msgstr ""
 
 msgid "show summary"
 msgstr ""
 
 #, c-format
 msgid "Posted by %s on %s (%s)"
-msgstr "由 %s 发表于 %s (%s)"
+msgstr ""
 
 #, c-format
 msgid "Posted by %s on %s"
-msgstr "由 %s 发表于 %s"
+msgstr ""
 
 msgid "Comment change confirmation"
-msgstr "评论更改确认"
+msgstr ""
 
 msgid "Comment added successfully"
-msgstr "评论添加成功"
+msgstr ""
 
+#, fuzzy
 msgid "Comment deleted successfully"
-msgstr "评论删除成功"
+msgstr "[comment] Διαγραφή σχολίων"
 
 msgid "Comment modified successfully"
-msgstr "评论修改成功"
+msgstr ""
 
 #, fuzzy
 msgid "Comments Settings"
-msgstr "评论"
+msgstr "Σχόλια"
 
 #, fuzzy
 msgid "Settings saved successfully"
-msgstr "评论添加成功"
+msgstr "[comment] Διαγραφή σχολίων"
 
 msgid "Show link for Latest Comments:"
 msgstr ""
@@ -176,68 +188,73 @@ msgid "Reset"
 msgstr ""
 
 msgid "Delete this comment?"
-msgstr "删除此评论？"
+msgstr "Διαγραφή αυτού του σχολίου;"
 
 msgid "Are you sure?"
-msgstr "您确定吗？"
+msgstr ""
 
+#, fuzzy
 msgid "Delete this comment?  There is no undo!"
-msgstr "删除此评论？此操作无法恢复！"
+msgstr "Διαγραφή αυτού του σχολίου;"
 
 msgid "Delete"
-msgstr "删除"
+msgstr "Διαγραφή"
 
 msgid "Edit comment"
-msgstr "编辑评论"
+msgstr "Επεξεργασία σχολίου"
 
 msgid "You must enter a username."
-msgstr "您必须输入一个用户名。"
+msgstr "Πρέπει να βάλετε όνομα χρήστη."
 
 msgid "The username you entered is invalid."
-msgstr "您输入的用户名无效。"
+msgstr "Το όνομα χρήστη που βάλατε είναι άκυρο."
 
+#, fuzzy
 msgid "Host"
-msgstr "主机地址"
+msgstr "Host: "
 
+#, fuzzy
 msgid "Date"
-msgstr "日期"
+msgstr "Ημερομηνία:"
 
 msgid "The date you entered is invalid."
-msgstr "您输入的日期无效。"
+msgstr "Η υπερομηνία που βάλατε είναι άκυρη."
 
 msgid "You must enter a date"
-msgstr "您必须输入日期"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
+#, fuzzy
 msgid "You must enter a subject"
-msgstr "您必须输入一个主题"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
+#, fuzzy
 msgid "You must enter a comment"
-msgstr "您必须输入一条评论"
+msgstr "Πρέπει να βάλετε μια ημερομηνία"
 
 #, fuzzy
 msgid "Latest Comments"
-msgstr "查看评论"
+msgstr "Σχόλια"
 
 msgid "Comment changed successfully"
-msgstr "评论更改成功"
+msgstr ""
 
 msgid "There are no comments for this item"
-msgstr "此项目没有评论"
+msgstr "Δεν υπάρχουν σχόλια για τη φωτογραφία"
 
 msgid "Recent comments"
-msgstr "最近评论"
+msgstr "Πρόσφατα Σχόλια"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr "(查看所有 %d 条评论)"
+msgstr "Δείτε και τα %d σχόλια"
 
 #, fuzzy
 msgid "Show comments"
-msgstr "显示评论"
+msgstr "Σχόλια"
 
 #, fuzzy
 msgid "Number of comments"
-msgstr "搜索评论"
+msgstr "[comment] Προσθέστε σχόλια"
 
 msgid "1"
 msgstr ""
@@ -272,5 +289,6 @@ msgstr ""
 msgid "999"
 msgstr ""
 
+#, fuzzy
 #~ msgid "[comment] Search comments"
-#~ msgstr "[评论] 搜索评论"
+#~ msgstr "[comment] Προσθέστε σχόλια"

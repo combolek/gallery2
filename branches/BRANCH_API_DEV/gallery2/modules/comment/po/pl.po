@@ -20,142 +20,142 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Comment 1.0\n"
-"POT-Creation-Date: 2005-03-28 14:00+0800\n"
-"PO-Revision-Date: 2005-03-31 14:00+0800\n"
-"Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
-"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2003-05-10 11:47+0200\n"
+"PO-Revision-Date: 2005-08-14 08:39+0100\n"
+"Last-Translator: Sebastian Marek <sebastian@thornet.net>\n"
+"Language-Team: Polish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
 
 msgid "Add Comment"
-msgstr "添加评论"
+msgstr "Dodaj komentarz"
 
 msgid "add comment"
-msgstr "添加评论"
+msgstr "Dodaj komentarz"
 
 msgid "show comments"
-msgstr "显示评论"
+msgstr "obejrzyj komentarze"
 
 msgid "Comments"
-msgstr "评论"
+msgstr "Komentarze"
 
 msgid "Comment Module"
-msgstr "评论模块"
+msgstr "Moduł komentarza"
 
 msgid "Search comments"
-msgstr "搜索评论"
+msgstr "Szukaj komentarze"
 
 msgid "Subject"
-msgstr "主题"
+msgstr "Temat"
 
 msgid "Comment"
-msgstr "评论"
+msgstr "Komentarz"
 
 msgid "Commenter"
-msgstr "评论者"
+msgstr "Komentator"
 
 msgid "User commenting system"
-msgstr "用户评论系统"
+msgstr "Komentarze użytkownika"
 
 msgid "Extra Data"
-msgstr "额外数据"
+msgstr "Dodatkowe dane"
 
 msgid "[comment] Add comments"
-msgstr "[评论] 添加评论"
+msgstr "[komentarz] Dodaj komentarze"
 
 msgid "[comment] Edit comments"
-msgstr "[评论] 编辑评论"
+msgstr "[komentarz] Edytuj komentarze"
 
 msgid "[comment] Delete comments"
-msgstr "[评论] 删除评论"
+msgstr "[komentarz] Kasuj komentarze"
 
 msgid "[comment] View comments"
-msgstr "[评论] 查看评论"
+msgstr "[komentarz] Obejrzyj komentarze"
 
 msgid "[comment] All access"
-msgstr "[评论] 完全存取权限"
+msgstr "[komentarz] Pełny dostęp"
 
 #, fuzzy
 msgid "View Latest Comments"
-msgstr "查看评论"
+msgstr "Obejrzyj komentarze"
 
 msgid "View Comments"
-msgstr "查看评论"
+msgstr "Obejrzyj komentarze"
 
 #, c-format
 msgid "Comments: %d"
-msgstr "评论: %d"
+msgstr "Komentarze: %d"
 
 msgid "Comment Preview"
-msgstr "评论预览"
+msgstr "Podgląd komentarza"
 
 msgid "Posted by"
-msgstr "发表者"
+msgstr "Przesłany przez"
 
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
 msgid "(required)"
-msgstr "(必填项)"
+msgstr "(wymagany)"
 
 msgid "You must enter a subject!"
-msgstr "您必须输入一个主题！"
+msgstr "Musisz wprowadzić temat!"
 
 msgid "You must enter a comment!"
-msgstr "您必须输入一条评论！"
+msgstr "Musisz wprowadzić komentarz!"
 
 msgid "Preview"
-msgstr "预览"
+msgstr "Podgląd"
 
 msgid "Save"
-msgstr "保存"
+msgstr "Zachowaj"
 
 msgid "Cancel"
-msgstr "取消"
+msgstr "Anuluj"
 
 msgid "edit"
-msgstr "编辑"
+msgstr "edytuj"
 
 msgid "delete"
-msgstr "删除"
+msgstr "kasuj"
 
-#, fuzzy
 msgid "show full"
-msgstr "完全"
+msgstr ""
 
 msgid "show summary"
-msgstr ""
+msgstr "pokaż podsumowanie"
 
 #, c-format
 msgid "Posted by %s on %s (%s)"
-msgstr "由 %s 发表于 %s (%s)"
+msgstr "Przesłany przez %s na %s (%s)"
 
 #, c-format
 msgid "Posted by %s on %s"
-msgstr "由 %s 发表于 %s"
+msgstr "Przesłany przez %s na %s"
 
 msgid "Comment change confirmation"
-msgstr "评论更改确认"
+msgstr "Potwierdzenie zmiany komentarza"
 
 msgid "Comment added successfully"
-msgstr "评论添加成功"
+msgstr "Kometarz został dodany"
 
 msgid "Comment deleted successfully"
-msgstr "评论删除成功"
+msgstr "Komentarz został skaowany"
 
 msgid "Comment modified successfully"
-msgstr "评论修改成功"
+msgstr "Komentarz został zmodyfikowany."
 
 #, fuzzy
 msgid "Comments Settings"
-msgstr "评论"
+msgstr "Komentarze"
 
 #, fuzzy
 msgid "Settings saved successfully"
-msgstr "评论添加成功"
+msgstr "Kometarz został dodany"
 
 msgid "Show link for Latest Comments:"
 msgstr ""
@@ -176,101 +176,99 @@ msgid "Reset"
 msgstr ""
 
 msgid "Delete this comment?"
-msgstr "删除此评论？"
+msgstr "Skasować ten komentarz?"
 
 msgid "Are you sure?"
-msgstr "您确定吗？"
+msgstr "Czy jesteś pewien?"
 
 msgid "Delete this comment?  There is no undo!"
-msgstr "删除此评论？此操作无法恢复！"
+msgstr "Skasować ten komentarz? Nie ma odwrotu!"
 
 msgid "Delete"
-msgstr "删除"
+msgstr "Kasuj"
 
 msgid "Edit comment"
-msgstr "编辑评论"
+msgstr "Edytuj komentarz"
 
 msgid "You must enter a username."
-msgstr "您必须输入一个用户名。"
+msgstr "Musisz wprowadzić nazwę użytkownika."
 
 msgid "The username you entered is invalid."
-msgstr "您输入的用户名无效。"
+msgstr "Wprowadzona nazwa użytkownika jest nieprawidłowa."
 
 msgid "Host"
-msgstr "主机地址"
+msgstr "Host"
 
 msgid "Date"
-msgstr "日期"
+msgstr "Data"
 
 msgid "The date you entered is invalid."
-msgstr "您输入的日期无效。"
+msgstr "Wprowadzona data jest nieprawidłowa."
 
 msgid "You must enter a date"
-msgstr "您必须输入日期"
+msgstr "Musisz wprowadzić datę"
 
 msgid "You must enter a subject"
-msgstr "您必须输入一个主题"
+msgstr "Musisz wprowadzić temat"
 
 msgid "You must enter a comment"
-msgstr "您必须输入一条评论"
+msgstr "Musisz wprowadzić komentarz"
 
 #, fuzzy
 msgid "Latest Comments"
-msgstr "查看评论"
+msgstr "Obejrzyj komentarze"
 
 msgid "Comment changed successfully"
-msgstr "评论更改成功"
+msgstr "Komentarz został zmieniony"
 
 msgid "There are no comments for this item"
-msgstr "此项目没有评论"
+msgstr "Nie ma komentarzy do tej pozycji"
 
 msgid "Recent comments"
-msgstr "最近评论"
+msgstr "Ostatnie komentarze"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr "(查看所有 %d 条评论)"
+msgstr "(zobacz wszystkie komentarze %d)"
 
-#, fuzzy
 msgid "Show comments"
-msgstr "显示评论"
+msgstr "Obejrzyj komentarze"
 
-#, fuzzy
 msgid "Number of comments"
-msgstr "搜索评论"
+msgstr "Ilość komentarzy"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "2"
-msgstr ""
+msgstr "2"
 
 msgid "3"
-msgstr ""
+msgstr "3"
 
 msgid "4"
-msgstr ""
+msgstr "4"
 
 msgid "5"
-msgstr ""
+msgstr "5"
 
 msgid "10"
-msgstr ""
+msgstr "10"
 
 msgid "20"
-msgstr ""
+msgstr "20"
 
 msgid "30"
-msgstr ""
+msgstr "30"
 
 msgid "50"
-msgstr ""
+msgstr "50"
 
 msgid "100"
-msgstr ""
+msgstr "100"
 
 msgid "999"
-msgstr ""
+msgstr "999"
 
 #~ msgid "[comment] Search comments"
-#~ msgstr "[评论] 搜索评论"
+#~ msgstr "[komentarz] Szukaj komentarze"

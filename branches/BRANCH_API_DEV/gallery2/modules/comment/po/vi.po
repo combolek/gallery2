@@ -1,161 +1,159 @@
 # $Id$
-# 
+#
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Comment 1.0\n"
-"POT-Creation-Date: 2005-03-28 14:00+0800\n"
-"PO-Revision-Date: 2005-03-31 14:00+0800\n"
-"Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
-"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2005-05-07 19:36-0400\n"
+"PO-Revision-Date: 2005-08-02 12:31+0100\n"
+"Last-Translator: Trung Dong Huynh <trungdong@donggiang.com>\n"
+"Language-Team: Vietnamese <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 msgid "Add Comment"
-msgstr "添加评论"
+msgstr "Thêm bình luận"
 
 msgid "add comment"
-msgstr "添加评论"
+msgstr "thêm bình luận"
 
 msgid "show comments"
-msgstr "显示评论"
+msgstr "hiển thị bình luận"
 
 msgid "Comments"
-msgstr "评论"
+msgstr "Bình luận"
 
 msgid "Comment Module"
-msgstr "评论模块"
+msgstr "Module Bình luận"
 
 msgid "Search comments"
-msgstr "搜索评论"
+msgstr "Tìm trong các bình luận"
 
 msgid "Subject"
-msgstr "主题"
+msgstr "Chủ đề"
 
 msgid "Comment"
-msgstr "评论"
+msgstr "Bình luận"
 
 msgid "Commenter"
-msgstr "评论者"
+msgstr "Người bình luận"
 
 msgid "User commenting system"
-msgstr "用户评论系统"
+msgstr "Hệ thống bình luận"
 
 msgid "Extra Data"
-msgstr "额外数据"
+msgstr "Dữ liệu thêm"
 
 msgid "[comment] Add comments"
-msgstr "[评论] 添加评论"
+msgstr "[bình luận] Thêm bình luận"
 
 msgid "[comment] Edit comments"
-msgstr "[评论] 编辑评论"
+msgstr "[bình luận] Chỉnh sửa bình luận"
 
 msgid "[comment] Delete comments"
-msgstr "[评论] 删除评论"
+msgstr "[bình luận] Xóa bình luận"
 
 msgid "[comment] View comments"
-msgstr "[评论] 查看评论"
+msgstr "[bình luận] Xem bình luận"
 
 msgid "[comment] All access"
-msgstr "[评论] 完全存取权限"
+msgstr "[bình luận] Toàn quyền"
 
 #, fuzzy
 msgid "View Latest Comments"
-msgstr "查看评论"
+msgstr "Xem bình luận"
 
 msgid "View Comments"
-msgstr "查看评论"
+msgstr "Xem bình luận"
 
 #, c-format
 msgid "Comments: %d"
-msgstr "评论: %d"
+msgstr "Bình luận: %d"
 
 msgid "Comment Preview"
-msgstr "评论预览"
+msgstr "Xem thử bình luận"
 
 msgid "Posted by"
-msgstr "发表者"
+msgstr "Gửi bởi"
 
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
 msgid "(required)"
-msgstr "(必填项)"
+msgstr "(cần có)"
 
 msgid "You must enter a subject!"
-msgstr "您必须输入一个主题！"
+msgstr "Bạn phải điền một chủ đề vào!"
 
 msgid "You must enter a comment!"
-msgstr "您必须输入一条评论！"
+msgstr "Bạn phải nhập vào bình luận của bạn!"
 
 msgid "Preview"
-msgstr "预览"
+msgstr "Xem thử"
 
 msgid "Save"
-msgstr "保存"
+msgstr "Lưu"
 
 msgid "Cancel"
-msgstr "取消"
+msgstr "Hủy bỏ"
 
 msgid "edit"
-msgstr "编辑"
+msgstr "chỉnh sửa"
 
 msgid "delete"
-msgstr "删除"
+msgstr "xóa"
 
-#, fuzzy
 msgid "show full"
-msgstr "完全"
+msgstr "hiện đầy đủ"
 
 msgid "show summary"
-msgstr ""
+msgstr "hiện tóm tắt"
 
 #, c-format
 msgid "Posted by %s on %s (%s)"
-msgstr "由 %s 发表于 %s (%s)"
+msgstr "Gửi bởi %s vào %s (%s)"
 
 #, c-format
 msgid "Posted by %s on %s"
-msgstr "由 %s 发表于 %s"
+msgstr "Gửi bởi %s vào %s"
 
 msgid "Comment change confirmation"
-msgstr "评论更改确认"
+msgstr "Xác nhận thay đổi bình luận"
 
 msgid "Comment added successfully"
-msgstr "评论添加成功"
+msgstr "Đã thêm bình luận"
 
 msgid "Comment deleted successfully"
-msgstr "评论删除成功"
+msgstr "Bình luận đã được xóa"
 
 msgid "Comment modified successfully"
-msgstr "评论修改成功"
+msgstr "Bình luận đã được hiệu chỉnh"
 
 #, fuzzy
 msgid "Comments Settings"
-msgstr "评论"
+msgstr "Bình luận"
 
 #, fuzzy
 msgid "Settings saved successfully"
-msgstr "评论添加成功"
+msgstr "Đã thêm bình luận"
 
 msgid "Show link for Latest Comments:"
 msgstr ""
@@ -176,101 +174,99 @@ msgid "Reset"
 msgstr ""
 
 msgid "Delete this comment?"
-msgstr "删除此评论？"
+msgstr "Xóa bình luận này?"
 
 msgid "Are you sure?"
-msgstr "您确定吗？"
+msgstr "Bạn có chắc chưa?"
 
 msgid "Delete this comment?  There is no undo!"
-msgstr "删除此评论？此操作无法恢复！"
+msgstr "Xóa bình luận này? Sẽ không phục hồi được!"
 
 msgid "Delete"
-msgstr "删除"
+msgstr "Xóa"
 
 msgid "Edit comment"
-msgstr "编辑评论"
+msgstr "Chỉnh sửa bình luận"
 
 msgid "You must enter a username."
-msgstr "您必须输入一个用户名。"
+msgstr "Bạn phải điền tên thành viên vào."
 
 msgid "The username you entered is invalid."
-msgstr "您输入的用户名无效。"
+msgstr "Tên thành viên bạn vừa nhập vào không hợp lệ."
 
 msgid "Host"
-msgstr "主机地址"
+msgstr "Máy"
 
 msgid "Date"
-msgstr "日期"
+msgstr "Ngày"
 
 msgid "The date you entered is invalid."
-msgstr "您输入的日期无效。"
+msgstr "Ngày bạn vừa nhập vào không hợp lệ."
 
 msgid "You must enter a date"
-msgstr "您必须输入日期"
+msgstr "Bạn phải nhập một ngày hợp lệ"
 
 msgid "You must enter a subject"
-msgstr "您必须输入一个主题"
+msgstr "Bạn phải điền một chủ đề vào"
 
 msgid "You must enter a comment"
-msgstr "您必须输入一条评论"
+msgstr "Bạn phải nhập vào bình luận của bạn"
 
 #, fuzzy
 msgid "Latest Comments"
-msgstr "查看评论"
+msgstr "Xem bình luận"
 
 msgid "Comment changed successfully"
-msgstr "评论更改成功"
+msgstr "Bình luận đã được thay đổi"
 
 msgid "There are no comments for this item"
-msgstr "此项目没有评论"
+msgstr "Đối tượng này không có bình luận nào"
 
 msgid "Recent comments"
-msgstr "最近评论"
+msgstr "Những bình luận gần đây"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr "(查看所有 %d 条评论)"
+msgstr "(xem tất cả %d lời bình luận)"
 
-#, fuzzy
 msgid "Show comments"
-msgstr "显示评论"
+msgstr "Hiển thị bình luận"
 
-#, fuzzy
 msgid "Number of comments"
-msgstr "搜索评论"
+msgstr "Số bình luận"
 
 msgid "1"
-msgstr ""
+msgstr "1"
 
 msgid "2"
-msgstr ""
+msgstr "2"
 
 msgid "3"
-msgstr ""
+msgstr "3"
 
 msgid "4"
-msgstr ""
+msgstr "4"
 
 msgid "5"
-msgstr ""
+msgstr "5"
 
 msgid "10"
-msgstr ""
+msgstr "10"
 
 msgid "20"
-msgstr ""
+msgstr "20"
 
 msgid "30"
-msgstr ""
+msgstr "30"
 
 msgid "50"
-msgstr ""
+msgstr "50"
 
 msgid "100"
-msgstr ""
+msgstr "100"
 
 msgid "999"
-msgstr ""
+msgstr "999"
 
 #~ msgid "[comment] Search comments"
-#~ msgstr "[评论] 搜索评论"
+#~ msgstr "[bình luận] Tìm kiếm bình luận"

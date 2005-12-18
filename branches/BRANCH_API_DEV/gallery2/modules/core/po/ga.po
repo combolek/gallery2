@@ -16,24 +16,44 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+# 
+# IRISH PLURAL FORMS (20s system, ordinal non-measurement common nouns)
+# 
+# Group       Numbers             Example
+# 
+# msgstr[0]   0                   Níl aon pheictiúr
+# msgstr[1]   1                   Tá peictiúr amháin
+# msgstr[2]   20,21,40,41,        Tá 20 peictiúr
+#             60,61,...
+# msgstr[3]    7, 8, 9,10,        Tá 9 bpeictiúr (eclipsis)
+#             17,18,19,
+#             27,28,29,30,
+#             37,38,...
+# msgstr[4]       2, 3, 4, 5, 6   Tá 5 pheictiúr (lenition)
+#             11,12,13,14,15,16
+#                22,23,24,25,26
+#             31,32,33,34,...
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
-"PO-Revision-Date: 2003-06-25 15:57+0100\n"
-"Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
-"Language-Team: British <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2003-05-30 17:11-0700\n"
+"PO-Revision-Date: 2003-09-24 22:04-0700\n"
+"Last-Translator: Beckett Madden-Woods <beckett@beckettmw.com>\n"
+"Language-Team: Irish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=5; plural=n==0 ? 0 : ( n==1 ? 1 : ( n%20<2 ? 2 : ( (n-1)%10>5 ? 3 : "
+"4 )));\n"
 
 #, fuzzy
 msgid "Gallery Email Test"
-msgstr "Gallery"
+msgstr "Modúil an Ghailearaí"
 
 msgid "forever"
-msgstr "forever"
+msgstr "go deo"
 
 msgid "High Priority (Me first!)"
 msgstr ""
@@ -53,55 +73,66 @@ msgstr ""
 msgid "Database"
 msgstr ""
 
-#, fuzzy
 msgid "File"
-msgstr "File: "
+msgstr "Comhad"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid nóiméad"
+msgstr[1] "nóiméad amháin"
+msgstr[2] "%d nóiméid"
+msgstr[3] "%d nóiméid"
+msgstr[4] "%d nóiméid"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d hour"
-msgstr[1] "%d hour"
+msgstr[0] "náid uair"
+msgstr[1] "uair amháin"
+msgstr[2] "%d uaire"
+msgstr[3] "%d uaire"
+msgstr[4] "%d uaire"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "%d day"
-msgstr[1] "%d day"
+msgstr[0] "náid lá"
+msgstr[1] "lá amháin"
+msgstr[2] "%d laethanta"
+msgstr[3] "%d laethanta"
+msgstr[4] "%d laethanta"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "%d week"
-msgstr[1] "%d week"
+msgstr[0] "náid seachtain"
+msgstr[1] "seachtain amháin"
+msgstr[2] "%d seachtainí"
+msgstr[3] "%d seachtainí"
+msgstr[4] "%d seachtainí"
 
 msgid "<none>"
-msgstr "<none>"
+msgstr "<aon cheann>"
 
 msgid "install"
-msgstr "install"
+msgstr "suiteáil"
 
 msgid "upgrade"
 msgstr ""
 
 msgid "configure"
-msgstr "configure"
+msgstr "roghnaigh"
 
 msgid "activate"
-msgstr "activate"
+msgstr "tosaigh"
 
 #, fuzzy
 msgid "uninstall"
-msgstr "install"
+msgstr "suiteáil"
 
 msgid "deactivate"
-msgstr "deactivate"
+msgstr "stop"
 
 msgid "Performing Maintenance Tasks"
 msgstr ""
@@ -112,7 +143,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Done."
-msgstr "Done"
+msgstr "Críochnaithe"
 
 msgid "Upgrade"
 msgstr ""
@@ -125,57 +156,56 @@ msgstr ""
 
 #, fuzzy
 msgid "Use these settings"
-msgstr "Album Settings"
+msgstr "Roghanna an Chuntais"
 
 msgid "key"
-msgstr "key"
+msgstr "eochair"
 
 msgid "All access"
-msgstr "All access"
+msgstr "Smacht iomlán"
 
 msgid "[core] View item"
-msgstr "[core] View item"
+msgstr "[croí] Taispeáin míreanna"
 
 msgid "[core] View resized version(s)"
-msgstr "[core] View resized version(s)"
+msgstr "[croí] Taispeáin leagan(acha) laghdaithe"
 
 msgid "[core] View original version"
-msgstr "[core] View original version"
+msgstr "[croí] Taispeáin leagan bunúsach"
 
 msgid "[core] View all versions"
-msgstr "[core] View all versions"
+msgstr "[croí] Taispeáin uile leaganacha"
 
 msgid "[core] Add sub-album"
-msgstr "[core] Add sub-album"
+msgstr "[croí] Cuir fo-albaim"
 
 msgid "[core] Add sub-item"
-msgstr "[core] Add sub-item"
+msgstr "[croí] Cuir fo-mhíreanna"
 
-#, fuzzy
 msgid "[core] Edit item"
-msgstr "[core] View item"
+msgstr "[croí] Athraigh míreanna"
 
 msgid "[core] Change item permissions"
-msgstr "[core] Change item permissions"
+msgstr "[croí] Athraigh ceadanna na míreanna"
 
 msgid "[core] Delete item"
-msgstr "[core] Delete item"
+msgstr "[croí] Scrios míreanna"
 
 #, fuzzy
 msgid "Upgrading permissions"
-msgstr "permissions"
+msgstr "ceadeanna"
 
 #, fuzzy
 msgid "Deleting old permission tables"
-msgstr "permissions"
+msgstr "ceadeanna"
 
 #, fuzzy
 msgid "Registered Users"
-msgstr "Edit a user"
+msgstr "athraigh úsáideora"
 
 #, fuzzy
 msgid "All Users"
-msgstr "Users"
+msgstr "Úsáideora"
 
 msgid "Detecting broken derivatives"
 msgstr ""
@@ -185,20 +215,20 @@ msgstr ""
 
 #, fuzzy
 msgid "Site Admins"
-msgstr "site admin"
+msgstr "Riarachán an Ghailearaí"
 
 msgid "Everybody"
 msgstr ""
 
 msgid "Guest"
-msgstr ""
+msgstr "Cuairteoir"
 
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "Gailearaí"
 
 #, fuzzy
 msgid "This is the main page of your Gallery"
-msgstr "This is the top of your Gallery"
+msgstr "Seo é barr do Ghailearaí"
 
 msgid "Detecting broken derivatives, loading "
 msgstr ""
@@ -214,132 +244,137 @@ msgstr ""
 
 #, fuzzy
 msgid "add items"
-msgstr "add item"
+msgstr "cuir míreanna ann"
 
-#, fuzzy
 msgid "Album created successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 #, fuzzy
 msgid "add sub-album"
-msgstr "add album"
+msgstr "cuir albam ann"
 
 #, fuzzy
 msgid "add items confirmation"
-msgstr "Destination"
+msgstr "Ceann cúrsa"
 
 #, fuzzy
 msgid "Base filename"
-msgstr "Full name"
+msgstr "Ainm Chomhaid"
 
-#, fuzzy
 msgid "Caption"
-msgstr "Caption: "
+msgstr "Ceannteideal"
 
-#, fuzzy
 msgid "Blank"
-msgstr "<< Back"
+msgstr ""
 
 msgid "From Web Browser"
-msgstr ""
+msgstr "Cuir as do líonléitheoir"
 
 #, fuzzy, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid ochtán"
+msgstr[1] "ochtán amháin"
+msgstr[2] "%d ochtáin"
+msgstr[3] "%d ochtáin"
+msgstr[4] "%d ochtáin"
 
 #, fuzzy, c-format
 msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid ochtán"
+msgstr[1] "ochtán amháin"
+msgstr[2] "%d ochtáin"
+msgstr[3] "%d ochtáin"
+msgstr[4] "%d ochtáin"
 
-#, fuzzy
 msgid "From Local Server"
-msgstr "Add From Your Server"
+msgstr "Cuir as do dáileoir áitiúil"
 
 msgid "Photo"
-msgstr ""
+msgstr "Grianghraf"
 
 msgid "From Web Page"
-msgstr ""
+msgstr "Cuir as clár cinn eile"
 
 msgid "Gallery Item Administration"
-msgstr "Gallery Item Administration"
+msgstr "Riarachán Mír an Ghailearaí"
 
 msgid "create link"
 msgstr ""
 
 #, fuzzy
 msgid "link an item"
-msgstr "Move an Item"
+msgstr "Bogadh Mír"
 
 #, fuzzy
 msgid "delete an item"
-msgstr "delete item"
+msgstr "scrios an mhír seo"
 
 #, fuzzy
 msgid "delete confirmation"
-msgstr "delete item"
+msgstr "scrios an mhír seo"
 
 #, fuzzy, c-format
 msgid "delete %s"
-msgstr "Delete a user"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy, c-format
 msgid "edit %s"
-msgstr "Edit a user"
+msgstr "Athraigh Úsáideoir"
 
 msgid "Settings saved successfully."
-msgstr ""
+msgstr "Roghanna sábháilte go rathúil."
 
 #, fuzzy
 msgid "&laquo; default theme &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; Aon cheann &raquo;"
 
-#, fuzzy
 msgid "Album"
-msgstr "Add Album"
+msgstr "Albam"
 
 #, fuzzy
 msgid "Changes saved successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Athruithe sábháilte go rathúil."
 
 #, fuzzy
 msgid "Animation Size"
-msgstr "Action"
+msgstr "Aicsean"
 
 #, fuzzy
 msgid "edit captions"
-msgstr "Actions"
+msgstr "Roghanna Riaracháin"
 
 msgid "General"
-msgstr "General"
+msgstr "Ginearálta"
 
 #, fuzzy
 msgid "Movie Size"
-msgstr "Available Settings"
+msgstr "Roghanna an Chuntais"
 
 #, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 #, fuzzy
 msgid "Thumbnail reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
+#, fuzzy
 msgid "Photo 5x3"
-msgstr ""
+msgstr "Grianghraf"
 
+#, fuzzy
 msgid "Photo 6x4"
-msgstr ""
+msgstr "Grianghraf"
 
+#, fuzzy
 msgid "Photo 7x5"
-msgstr ""
+msgstr "Grianghraf"
 
+#, fuzzy
 msgid "Photo 10x8"
-msgstr ""
+msgstr "Grianghraf"
 
 msgid "Fullscreen 4x3"
 msgstr ""
@@ -355,7 +390,7 @@ msgstr ""
 
 #, fuzzy
 msgid "As Image"
-msgstr "Edit Image"
+msgstr "Athraigh Íomhá"
 
 msgid "Landscape"
 msgstr ""
@@ -365,76 +400,75 @@ msgstr ""
 
 #, fuzzy
 msgid "Crop Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Níl pictiúrín ann"
 
 #, fuzzy
 msgid "Reverted rotate and scale changes successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Íomhá rothlaithe go rathúil"
 
 #, fuzzy
 msgid "Rotated photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Íomhá rothlaithe go rathúil"
 
 #, fuzzy
 msgid "Scaled photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Íomhá laghdaithe go rathúil"
 
 #, fuzzy
 msgid "Modify Photo"
-msgstr "Modified Image"
+msgstr "Íomhá Mhodhnaithe"
 
 #, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Album Settings"
+msgstr "Ní raibh aon chomhad curtha."
 
 msgid "Theme"
-msgstr "Theme"
+msgstr "Téama"
 
 msgid "make highlight"
-msgstr "make highlight"
+msgstr "déan an mhír seo an gealán"
 
 msgid "move item"
-msgstr "move item"
+msgstr "bogadh míreanna"
 
 #, fuzzy, c-format
 msgid "move %s"
-msgstr "Move"
+msgstr "Bogadh"
 
 #, fuzzy, c-format
 msgid "edit %s permissions"
-msgstr "permissions"
+msgstr "ceadeanna"
 
-#, fuzzy
 msgid "reorder items"
-msgstr "move item"
+msgstr "athshórtáil na míreanna"
 
 msgid "Maintenance"
 msgstr ""
 
 msgid "Gallery Site Administration"
-msgstr "Gallery Site Administration"
+msgstr "Riarachán an Ghailearaí"
 
 msgid "site admin"
-msgstr "site admin"
+msgstr "riarachán"
 
-#, fuzzy
 msgid "Gallery User Administration"
-msgstr "Gallery Item Administration"
+msgstr "Riarachán Úsáideora an Ghailearaí"
 
 #, fuzzy
 msgid "change password"
-msgstr "Password"
+msgstr "Athraigh focal faire"
 
+#, fuzzy
 msgid "your account"
-msgstr ""
+msgstr "Do chuntas"
 
 #, fuzzy
 msgid "Password Recovery"
-msgstr "Password"
+msgstr "Focal Faire"
 
 #, fuzzy
 msgid "Build all thumbnails/resizes"
-msgstr "Thumbnails"
+msgstr "Pictiúrín"
 
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
@@ -443,22 +477,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Build All Thumbnails/Resizes"
-msgstr "Thumbnails"
+msgstr "Pictiúrín"
 
 msgid "Debug output for failed items:"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Processing image %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy, c-format
 msgid "Checked %d items"
-msgstr "add item"
+msgstr "cuir míreanna ann"
 
 #, fuzzy, c-format
 msgid "%d items built"
-msgstr "add item"
+msgstr "cuir míreanna ann"
 
 #, c-format
 msgid "%d items failed"
@@ -473,9 +507,9 @@ msgid ""
 "Gallery to reload the information from the database."
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deleted directory: %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 #, c-format
 msgid "Unable to delete directory: %s"
@@ -483,7 +517,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Delete template cache"
-msgstr "Delete Item"
+msgstr "Scrios an mhír seo"
 
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
@@ -494,7 +528,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 msgid "some text to be spit out in different languages"
 msgstr ""
@@ -504,82 +538,77 @@ msgstr ""
 
 #, fuzzy
 msgid "album"
-msgstr "(album)"
+msgstr "(albam)"
 
 #, fuzzy
 msgid "Animation"
-msgstr "Action"
+msgstr "Aicsean"
 
 #, fuzzy
 msgid "animation"
-msgstr "Action"
+msgstr "Aicsean"
 
-#, fuzzy
 msgid "Gallery Core"
-msgstr "Gallery"
+msgstr "Croí an Ghailearaí"
 
-#, fuzzy
 msgid "Gallery Core Module"
-msgstr "Gallery"
+msgstr "Modúil Chroí an Ghailearaí"
 
-#, fuzzy
 msgid "Search descriptions"
-msgstr "Description"
+msgstr "Cuardaigh cuir síos"
 
-#, fuzzy
 msgid "Search keywords"
-msgstr "Keywords"
+msgstr "Cuardaigh eocharfhocail"
 
 msgid "Search summaries"
-msgstr ""
+msgstr "Cuardaigh achoimrithe"
 
-#, fuzzy
 msgid "Search titles"
-msgstr "deactivate"
+msgstr "Cuardaigh teidil"
 
 msgid "Description"
-msgstr "Description"
+msgstr "Cur síos"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Eocharfhocail"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Achoimre"
 
 msgid "Title"
-msgstr "Title"
+msgstr "Teideal"
 
 msgid "Owner"
-msgstr "Owner"
+msgstr "Úinéir"
 
 #, fuzzy
 msgid "Group"
-msgstr "Groups"
+msgstr "Grúpaí"
 
 #, fuzzy
 msgid "group"
-msgstr "Groups"
+msgstr "Grúpaí"
 
 msgid "Other"
 msgstr ""
 
-#, fuzzy
 msgid "Movie"
-msgstr "Move"
+msgstr "Scannán"
 
 #, fuzzy
 msgid "movie"
-msgstr "Move"
+msgstr "Scannán"
 
+#, fuzzy
 msgid "photo"
-msgstr ""
+msgstr "Grianghraf"
 
 msgid "download"
 msgstr ""
 
 #, fuzzy
 msgid "Plugins directory does not exist."
-msgstr "User '%s' does not exist."
+msgstr "Níl úsáideoir '%s' ar bith ann."
 
 #, c-format
 msgid ""
@@ -614,24 +643,24 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; default sort order &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; Níl ord ag an sórt &raquo;"
 
 #, fuzzy
 msgid "Manual sort order"
-msgstr "Album sort order:"
+msgstr "Ord shóirt loicthe"
 
 #, fuzzy
 msgid "Origination Date"
-msgstr "Creation Date"
+msgstr "Dáta Cruthaithe"
 
 msgid "Creation Date"
-msgstr "Creation Date"
+msgstr "Dáta Cruthaithe"
 
 msgid "Last Changed Date"
-msgstr "Last Changed Date"
+msgstr "Dáta an Athraithe Is Deireanach"
 
 msgid "Name"
-msgstr "Name"
+msgstr "Ainm"
 
 msgid "View Count"
 msgstr ""
@@ -641,30 +670,31 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; no presort &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; Aon cheann &raquo;"
 
 #, fuzzy
 msgid "Albums First"
-msgstr "Album Settings"
+msgstr "Roghanna an Albaim"
 
 msgid "Most Viewed First"
 msgstr ""
 
 msgid "Ascending"
-msgstr "Ascending"
+msgstr "Ardaithe"
 
 msgid "Descending"
-msgstr "Descending"
+msgstr "Íoslaithe"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
+#, fuzzy
 msgid "This page is valid XHTML 1.0"
-msgstr ""
+msgstr "Tá an leathanach seo bailí mar HTML 4.01"
 
 #, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Browse Gallery"
+msgstr "Téigh ar ais go dtí an Mhír"
 
 msgid "G2.0: Unpossible!"
 msgstr ""
@@ -709,21 +739,21 @@ msgstr ""
 
 #, fuzzy
 msgid "Album Frame"
-msgstr "Album Settings"
+msgstr "Roghanna an Albaim"
+
+msgid "Item Frame"
+msgstr ""
 
 #, fuzzy
-msgid "Item Frame"
-msgstr "Items to move"
-
 msgid "Photo Frame"
-msgstr ""
+msgstr "Grianghraf"
 
 msgid "Color Pack"
 msgstr ""
 
 #, fuzzy
 msgid "You must enter a number greater than 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Caithfidh tú uimhir a iontráil (níos mó ná a náid)"
 
 msgid "Format: [module.BlockName param=value] ..."
 msgstr ""
@@ -734,19 +764,19 @@ msgstr ""
 
 #, fuzzy
 msgid "Audio"
-msgstr "Undo"
+msgstr "ceallaigh"
 
 #, fuzzy
 msgid "audio"
-msgstr "Undo"
+msgstr "ceallaigh"
 
 #, fuzzy
 msgid "Archive"
-msgstr "Active"
+msgstr "Gníomhach"
 
 #, fuzzy
 msgid "archive"
-msgstr "activate"
+msgstr "tosaigh"
 
 msgid "Document"
 msgstr ""
@@ -756,17 +786,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Spreadsheet"
-msgstr "Reset"
+msgstr "athshocraigh"
 
 #, fuzzy
 msgid "spreadsheet"
-msgstr "Reset"
+msgstr "athshocraigh"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Anaithnid"
 
+#, fuzzy
 msgid "unknown"
-msgstr ""
+msgstr "Anaithnid"
 
 #, c-format
 msgid ""
@@ -774,9 +805,8 @@ msgid ""
 "part of this Gallery."
 msgstr ""
 
-#, fuzzy
 msgid "Back"
-msgstr "<< Back"
+msgstr ""
 
 #, c-format
 msgid "Back to %s"
@@ -784,11 +814,11 @@ msgstr ""
 
 #, fuzzy
 msgid "User"
-msgstr "Users"
+msgstr "Úsáideora"
 
 #, fuzzy
 msgid "user"
-msgstr "Users"
+msgstr "Úsáideora"
 
 msgid "Optimize database"
 msgstr ""
@@ -801,7 +831,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Database optimized successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Íomhá rothlaithe go rathúil"
 
 msgid "Reset view counts"
 msgstr ""
@@ -813,7 +843,7 @@ msgstr ""
 
 #, fuzzy
 msgid "View counts reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 msgid "Refresh capture dates"
 msgstr ""
@@ -831,34 +861,34 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Processing item %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy, c-format
 msgid "Updated %d of %d items"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy
 msgid "System information"
-msgstr "Destination"
+msgstr "Ceann cúrsa"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
 msgstr ""
 
 #, fuzzy
 msgid "core"
-msgstr "configure"
+msgstr "roghnaigh"
 
 #, fuzzy
 msgid "Gallery version"
-msgstr "Gallery"
+msgstr "Gailearaí"
 
 #, fuzzy
 msgid "PHP version"
-msgstr "Version"
+msgstr "Leagan"
 
 #, fuzzy
 msgid "Webserver"
-msgstr "Remove"
+msgstr "Comhadlann an dáileoir"
 
 msgid "Toolkits"
 msgstr ""
@@ -868,114 +898,112 @@ msgstr ""
 
 #, fuzzy
 msgid "Browser"
-msgstr "Browse Gallery"
+msgstr "Cuairt an Gailearaí"
 
 #, fuzzy
 msgid "Core"
-msgstr "configure"
+msgstr "roghnaigh"
 
 #, fuzzy
 msgid "Gallery 2 Core Module"
-msgstr "Gallery"
+msgstr "Modúil Chroí an Ghailearaí"
 
 msgid "Add Items"
-msgstr "Add Items"
+msgstr "Cuir Míreanna"
 
 #, fuzzy
 msgid "Edit Album"
-msgstr "Add an Album"
+msgstr "Cuir Albam"
 
 #, fuzzy
 msgid "Edit Photo"
-msgstr "Modified Image"
+msgstr "Íomhá Mhodhnaithe"
 
 #, fuzzy
 msgid "Edit Movie"
-msgstr "Move"
+msgstr "Scannán"
 
 #, fuzzy
 msgid "Create Link"
-msgstr "Create"
+msgstr "Cuir"
 
 #, fuzzy
 msgid "Add Album"
-msgstr "Add an Album"
+msgstr "Cuir Albam"
 
 #, fuzzy
 msgid "Edit Permissions"
-msgstr "Permissions"
+msgstr "Ceadanna"
 
 #, fuzzy
 msgid "View Permissions"
-msgstr "Permissions"
+msgstr "Ceadanna"
 
 #, fuzzy
 msgid "Delete Album"
-msgstr "Delete a group"
+msgstr "Scrios grúpa"
 
 #, fuzzy
 msgid "Delete Photo"
-msgstr "Delete a user"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy
 msgid "Delete Movie"
-msgstr "Delete a user"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy
 msgid "Move Album"
-msgstr "Add Album"
+msgstr "Athshórtáil an tAlbam"
 
 #, fuzzy
 msgid "Move Photo"
-msgstr "Modified Image"
+msgstr "Íomhá Mhodhnaithe"
 
 #, fuzzy
 msgid "Move Movie"
-msgstr "Available Settings"
+msgstr "Roghanna an Chuntais"
 
 #, fuzzy
 msgid "Edit Captions"
-msgstr "Gallery Site Administration"
+msgstr "Riarachán an Ghailearaí"
 
 msgid "Make Highlight"
-msgstr "Make Highlight"
+msgstr "Cuir Íomhá Ghealáin"
 
-#, fuzzy
 msgid "Reorder Items"
-msgstr "move item"
+msgstr "Athshórtáil na Míreanna"
 
 #, fuzzy
 msgid "Site Admin"
-msgstr "site admin"
+msgstr "Riarachán an Ghailearaí"
 
 msgid "Login"
-msgstr "Login"
+msgstr "Log Ann"
 
 msgid "Your Account"
-msgstr ""
+msgstr "Do Chuntas"
 
-#, fuzzy
 msgid "Logout"
-msgstr "logout"
+msgstr "Log As"
 
 msgid "Modules"
-msgstr "Modules"
+msgstr "Modúil"
 
 msgid "Repository"
 msgstr ""
 
 #, fuzzy
 msgid "Themes"
-msgstr "Theme"
+msgstr "Téama"
 
 msgid "Display"
 msgstr ""
 
 msgid "Users"
-msgstr "Users"
+msgstr "Úsáideora"
 
 msgid "Groups"
-msgstr "Groups"
+msgstr "Grúpaí"
 
 msgid "Toolkit Priority"
 msgstr ""
@@ -983,59 +1011,57 @@ msgstr ""
 msgid "Graphics Toolkits"
 msgstr ""
 
-#, fuzzy
 msgid "Account Settings"
-msgstr "Album Settings"
+msgstr "Roghanna an Chuntais"
 
-#, fuzzy
 msgid "Change Password"
-msgstr "Password"
+msgstr "Athraigh focal faire"
 
 #, fuzzy
 msgid "Link Album"
-msgstr "Add Album"
+msgstr "Albam"
 
 #, fuzzy
 msgid "Link Photo"
-msgstr "Modified Image"
+msgstr "Grianghraf"
 
 #, fuzzy
 msgid "Link Movie"
-msgstr "Move"
+msgstr "Scannán"
 
 #, fuzzy, c-format
 msgid "Edit %s"
-msgstr "Edit a user"
+msgstr "Athraigh Úsáideoir"
 
 #, fuzzy, c-format
 msgid "Delete %s"
-msgstr "Delete a user"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy, c-format
 msgid "Move %s"
-msgstr "Move"
+msgstr "Bogadh"
 
 #, fuzzy, c-format
 msgid "Link %s"
-msgstr "Login"
+msgstr "Log Ann"
 
 msgid "General Settings"
-msgstr "General Settings"
+msgstr "Roghanna Ginearálta"
 
 msgid "Settings saved successfully"
-msgstr ""
+msgstr "Roghanna sábháilte go rathúil"
 
 #, fuzzy
 msgid "Added local upload directory successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Comhadlann áitiúil d'uaslodáil curtha go rathúil"
 
 #, fuzzy
 msgid "Removed local upload directory successfully"
-msgstr "Revert to original"
+msgstr "Comhadlann áitiúil d'uaslodáil scriosta go rathúil"
 
 #, fuzzy
 msgid "Test email sent successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 msgid "There was a problem processing your request, see below for details."
 msgstr ""
@@ -1045,7 +1071,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Language Settings"
-msgstr "Language settings"
+msgstr "Roghanna na teanga"
 
 #, fuzzy
 msgid ""
@@ -1054,11 +1080,11 @@ msgid ""
 "automatically detect the language preference of each user if the browser preference check is "
 "enabled."
 msgstr ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences."
+"Togh an teanga loicthe don Gailearaí. Is féidir an rogha seo ó gach uile úsáideoir a athrú "
+"sna roghanna pearsanta."
 
 msgid "Default language"
-msgstr "Default language"
+msgstr "Teanga loicthe"
 
 msgid "Check Browser Preference"
 msgstr ""
@@ -1074,7 +1100,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Date Formats"
-msgstr "Delete a user"
+msgstr "i ndiaidh"
 
 #, c-format
 msgid ""
@@ -1085,45 +1111,44 @@ msgstr ""
 
 #, fuzzy
 msgid "Style"
-msgstr "Scale"
+msgstr "Laghdaigh"
 
 msgid "Format"
 msgstr ""
 
 #, fuzzy
 msgid "Sample"
-msgstr "Scale"
+msgstr "Laghdaigh"
 
 #, fuzzy
 msgid "Date"
-msgstr "Delete a user"
+msgstr "i ndiaidh"
 
 #, fuzzy
 msgid "Time"
-msgstr "move item"
+msgstr "bogadh míreanna"
 
 msgid "Date/Time"
 msgstr ""
 
 msgid "Filesystem Permissions"
-msgstr "Filesystem Permissions"
+msgstr "Ceadanna an Comhad-spás"
 
-#, fuzzy
 msgid ""
 "Specify the default permissions for files and directories that Gallery creates. This doesn't "
 "apply to files/directories that Gallery has already created."
 msgstr ""
-"Here you can specify the default permissions for files and directories that Gallery creates. "
-"This doesn't apply to files/directories that Gallery has already created."
+"Togh na ceadanna loicthe do chomhaid agus do chomhadlanna a chuireann Gailearaí ann. Ní "
+"rachaidh na ceadanna seo i bhfeidhm na comhaid/comhadlanna curtha chéana féin."
 
 msgid "New directories"
-msgstr "New directories"
+msgstr "Comhadlanna nua"
 
 msgid "New files"
-msgstr "New files"
+msgstr "Comhaid nua"
 
 msgid "Local Server Upload Paths"
-msgstr ""
+msgstr "Comhadlanna áitiúil d'uaslodáil"
 
 msgid ""
 "Specify the legal directories on the local server where a user can store files and then "
@@ -1132,23 +1157,26 @@ msgid ""
 "Gallery user who has upload privileges, so you should limit this to directories that won't "
 "contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
 msgstr ""
+"Iontráil comhadlanna údaracha (ar an dáileoir áitiúil) ina bhféadann úsáideora comhaid a "
+"stóráil agus ansin a uaslodáil sa nGailearaí leis an bhfeidhmiú <i>Cuir as do dáileoir "
+"áitiúil</i>. Beidh na comhadlanna seo, agus gach uile comhad/comhadlann istigh, infhaighte "
+"go gach üsáideoir atá teacht uaslodáil aige. Mar sin, ní ceart duit comhadlanna íogaire a "
+"iontráil (mar shampla, beidh /tmp nó /usr/ftp/poiblí oiriúnach)."
 
 msgid "Path"
-msgstr ""
+msgstr "Comhadlann"
 
 msgid "Action"
-msgstr "Action"
+msgstr "Aicsean"
 
-#, fuzzy
 msgid "remove"
-msgstr "Remove"
+msgstr "scrios"
 
 msgid "Add"
-msgstr "Add"
+msgstr "Cuir"
 
-#, fuzzy
 msgid "You must enter a directory to add."
-msgstr "You must enter a size"
+msgstr "Caithfidh tú comhadlann a chur a iontráil."
 
 msgid "open_basedir documentation"
 msgstr ""
@@ -1166,14 +1194,14 @@ msgid "The path you specified is not a valid directory."
 msgstr ""
 
 msgid "Session Settings"
-msgstr "Session Settings"
+msgstr "Roghanna an Seisiún"
 
 #, fuzzy
 msgid "Session Lifetime"
-msgstr "Session Settings"
+msgstr "Roghanna an Seisiún"
 
 msgid "Inactivity Timeout"
-msgstr "Inactivity Timeout"
+msgstr "Tréimshe Neamhgníomhaíocht"
 
 msgid "Embedded Markup"
 msgstr ""
@@ -1199,21 +1227,21 @@ msgstr ""
 
 #, fuzzy
 msgid "Server"
-msgstr "Remove"
+msgstr "Comhadlann an dáileoir"
 
 msgid "Username"
-msgstr "Username"
+msgstr "Logainm"
 
 msgid "Password"
-msgstr "Password"
+msgstr "Focal Faire"
 
 #, fuzzy
 msgid "SMTP From Address"
-msgstr "Email address"
+msgstr "Ríomhsheoladh"
 
 #, fuzzy
 msgid "Invalid email address"
-msgstr "Email address"
+msgstr "Ríomhsheoladh"
 
 msgid ""
 "Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
@@ -1304,98 +1332,93 @@ msgid "Priority"
 msgstr ""
 
 msgid "Save"
-msgstr "Save"
+msgstr "Sábháil"
 
 #, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "athshocraigh"
 
-#, fuzzy
 msgid "Create A New Group"
-msgstr "Create a new group"
+msgstr "Cuir grúpa nua"
 
 msgid "Group Name"
-msgstr "Group Name"
+msgstr "Ainm an Ghrúpa"
 
 #, fuzzy
 msgid "(required)"
-msgstr "[required]"
+msgstr "teastáilte"
 
 msgid "You must enter a group name"
-msgstr "You must enter a group name"
+msgstr "Caithfidh tú ainm ghrúpa a iontráil"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Group '%s' already exists"
+msgstr "Tá grúpa '%s' ann cheana féin"
 
 msgid "Create Group"
-msgstr "Create Group"
+msgstr "Cuir Grúpa"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cealaigh"
 
-#, fuzzy
 msgid "Create A New User"
-msgstr "Create a new user"
+msgstr "Cuir úsáideoir nua"
 
 msgid "You must enter a username"
-msgstr "You must enter a username"
+msgstr "Caithfidh tú logainm a iontráil"
 
 #, c-format
 msgid "Username '%s' already exists"
-msgstr "Username '%s' already exists"
+msgstr "Tá logainm '%s' ag duine eile"
 
-#, fuzzy
 msgid "Full Name"
-msgstr "Full name"
+msgstr "Lánainm"
 
-#, fuzzy
 msgid "Email Address"
-msgstr "Email address"
+msgstr "Ríomhsheoladh"
 
 msgid "You must enter an email address"
-msgstr "You must enter an email address"
+msgstr "Caithfidh tú ríomhsheoladh a iontráil"
 
 msgid "Language"
-msgstr "Language"
+msgstr "Teanga"
 
 msgid "You must enter a password"
-msgstr "You must enter a password"
+msgstr "Caithfidh tú focal faire a iontráil"
 
-#, fuzzy
 msgid "Verify Password"
-msgstr "Verify password"
+msgstr "Deimhnigh do Focal Faire Arís"
 
 msgid "You must enter the password a second time"
-msgstr "You must enter the password a second time"
+msgstr "Caithfidh tú an focal faire faoi dhó a iontráil"
 
 msgid "The passwords you entered did not match"
-msgstr "The passwords you entered did not match"
+msgstr "Ní raibh na focail faire sin inchurtha lena chéile"
 
 msgid "Create User"
-msgstr "Create User"
+msgstr "Cuir Úsáideoir"
 
 #, fuzzy
 msgid "Delete A Group"
-msgstr "Delete a group"
+msgstr "Scrios grúpa"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "An bhfuil tú cinnte?"
 
-#, c-format
+#, fuzzy, c-format
 msgid "This will completely remove %s from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Beidn an mhír seo dhá scriosadh go buan as an ngailearaí. Níl \"ceallaigh\" ann!"
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Scrios"
 
 #, fuzzy
 msgid "Delete a User"
-msgstr "Delete a user"
+msgstr "Scrios úsáideoir"
 
 #, fuzzy, c-format
 msgid "User %s is the owner of %s items."
-msgstr "A longer description of this item."
+msgstr "Seo é cur síos fada an mír."
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
@@ -1424,12 +1447,12 @@ msgstr ""
 msgid "The new owner cannot be a Guest / Anonymous user!"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Beidh <b>%s</b> dhá scriosadh go buan as an ngailearaí. Níl \"ceallaigh\" ann!"
 
 msgid "Edit a group"
-msgstr "Edit a group"
+msgstr "Athraigh grúpa"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
@@ -1437,234 +1460,243 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Added user '%s' to group '%s'"
-msgstr "Added user '%s' to group"
+msgstr "Úsáideoir '%s' curtha leis an ngrúpa"
 
 #, fuzzy, c-format
 msgid "Removed user '%s' from group '%s'"
 msgid_plural "Removed %s users from group '%s'"
-msgstr[0] "Removed user '%s' from group"
-msgstr[1] "Removed user '%s' from group"
+msgstr[0] "Úsáideoir '%s' scriosta as an ngrúpa"
+msgstr[1] "Úsáideoir '%s' scriosta as an ngrúpa"
+msgstr[2] "Úsáideoir '%s' scriosta as an ngrúpa"
+msgstr[3] "Úsáideoir '%s' scriosta as an ngrúpa"
+msgstr[4] "Úsáideoir '%s' scriosta as an ngrúpa"
 
 #, c-format
 msgid "This group contains %d user"
 msgid_plural "This group contains %d users"
-msgstr[0] "This group contains %d user"
-msgstr[1] "This group contains %d users"
+msgstr[0] "Níl aon úsáideoir sa ngrúpa seo."
+msgstr[1] "Tá úsáideoir amháin sa ngrúpa seo."
+msgstr[2] "Tá %d úsáideoir sa ngrúpa seo."
+msgstr[3] "Tá %d n-úsáideoir sa ngrúpa seo."
+msgstr[4] "Tá %d úsáideoir sa ngrúpa seo."
 
 #, fuzzy
 msgid "Members"
-msgstr "Add Items"
+msgstr "Cuir Ball"
 
 msgid "&laquo; first"
-msgstr ""
+msgstr "&laquo; céad"
 
 msgid "&laquo; back"
-msgstr ""
+msgstr "&laquo; ar ais"
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 msgid "next &raquo;"
-msgstr ""
+msgstr "ar aghaidh &raquo;"
 
 msgid "last &raquo;"
-msgstr ""
+msgstr "déanach &raquo;"
 
 #, fuzzy
 msgid "Filter"
-msgstr "Filter:"
+msgstr "Scag:"
 
 msgid "Clear"
-msgstr "Clear"
+msgstr "Glan"
 
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d user matches your filter"
-msgstr[1] "%d users match your filter"
+msgstr[0] "Níl úsáideoir inchurtha leis do scagaire."
+msgstr[1] "Tá úsáideoir amháin inchurtha leis do scagaire."
+msgstr[2] "Tá %d úsáideoir inchurtha leis do scagaire."
+msgstr[3] "Tá %d n-úsáideoir inchurtha leis do scagaire."
+msgstr[4] "Tá %d úsáideoir inchurtha leis do scagaire."
 
 #, fuzzy
 msgid "Remove selected"
-msgstr "move item"
+msgstr "Scrios Ball"
 
 msgid "You must select a user to remove."
-msgstr "You must select a user to remove."
+msgstr "Caithfidh tú úsáideoir a scrios a toghadh."
 
 #, fuzzy
 msgid "You can't remove yourself from this group."
-msgstr "You cannot add or delete users from this group"
+msgstr "Scrios grúpa"
 
-#, fuzzy
 msgid "Add Member"
-msgstr "Add Items"
+msgstr "Cuir Ball"
 
 msgid "You must enter a username."
-msgstr "You must enter a username."
+msgstr "Caithfidh tú logainm a iontráil."
 
 #, c-format
 msgid "User '%s' does not exist."
-msgstr "User '%s' does not exist."
+msgstr "Níl úsáideoir '%s' ar bith ann."
 
 #, fuzzy
 msgid "This user already is in this group."
-msgstr "Username '%s' already exists"
+msgstr "Tá an logainm sin ag duine eile"
 
 msgid "Done"
-msgstr "Done"
+msgstr "Críochnaithe"
 
 msgid "Edit a user"
-msgstr "Edit a user"
+msgstr "Athraigh úsáideoir"
 
-#, fuzzy
 msgid "That username is already in use"
-msgstr "Username '%s' already exists"
+msgstr "Tá an logainm sin ag duine eile"
 
-#, fuzzy
 msgid "You must enter a new username"
-msgstr "You must enter a username"
+msgstr "Caithfidh tú logainm nua a iontráil"
 
 #, fuzzy
 msgid "E-mail Address"
-msgstr "Email address"
+msgstr "Ríomhsheoladh"
 
 msgid "(suggested)"
 msgstr ""
 
 msgid "Group Management"
-msgstr "Group Management"
+msgstr "Riarachán na nGrúpaí"
 
 #, c-format
 msgid "Removed group '%s'"
-msgstr "Removed group '%s'"
+msgstr "Grúpa '%s' scriosta"
 
 #, c-format
 msgid "Created group '%s'"
-msgstr "Created group '%s'"
+msgstr "Bhí grúpa '%s' curtha"
 
 #, c-format
 msgid "Modified group '%s'"
-msgstr "Modified group '%s'"
+msgstr "Grúpa '%s' modhnaithe"
 
 #, c-format
 msgid "There is %d group in the system."
 msgid_plural "There are %d total groups in the system."
-msgstr[0] "There is %d group in the system."
-msgstr[1] "There are %d total groups in the system."
+msgstr[0] "Níl aon ghrúpa sa gcóras."
+msgstr[1] "Tá grúpa amháin sa gcóras."
+msgstr[2] "Tá %d grúpa sa gcóras."
+msgstr[3] "Tá %d ngrúpa sa gcóras."
+msgstr[4] "Tá %d ghrúpa sa gcóras."
 
-#, fuzzy
 msgid "Edit Group"
-msgstr "Edit a group"
+msgstr "Athraigh Grúpa"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Athraigh"
 
 msgid "Add/Remove Users"
-msgstr "Add/Remove Users"
+msgstr "Cuir/Scrios Úsáideora an Ghrúpa"
 
 #, c-format
 msgid "Group '%s' does not exist."
-msgstr "Group '%s' does not exist."
+msgstr "Níl grúpa '%s' ar bith ann."
 
 #, fuzzy
 msgid "You cannot delete that group"
-msgstr "You cannot delete the Site Admins group"
+msgstr "Scrios grúpa"
 
-#, fuzzy
 msgid "You cannot edit that group's users"
-msgstr "You cannot delete the anonymous user!"
+msgstr ""
 
-#, fuzzy
 msgid "Edit Group (by list)"
-msgstr "Editing Group '%s'"
+msgstr "Athraigh Grúpa (faoi liosta)"
 
-#, fuzzy
 msgid "edit"
-msgstr "Edit"
+msgstr "athraigh"
 
-#, fuzzy
 msgid "delete"
-msgstr "Delete"
+msgstr "scrios"
 
 #, fuzzy
 msgid "members"
-msgstr "move item"
+msgstr "Scrios Ball"
 
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d group matches your filter"
-msgstr[1] "%d groups match your filter"
+msgstr[0] "Níl aon ghrúpa inchurtha leis do scagaire."
+msgstr[1] "Tá grúpa amháin inchurtha leis do scagaire."
+msgstr[2] "Tá %d grúpa inchurtha leis do scagaire."
+msgstr[3] "Tá %d ngrúpa inchurtha leis do scagaire."
+msgstr[4] "Tá %d ghrúpa inchurtha leis do scagaire."
 
 msgid "System Maintenance"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "Completed %s task successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Íomhá rothlaithe go rathúil"
 
 #, fuzzy, c-format
 msgid "The %s task failed to complete successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 #, fuzzy
 msgid "Task name"
-msgstr "User name"
+msgstr "Logainm"
 
+#, fuzzy
 msgid "Last run"
-msgstr ""
+msgstr "déanach &raquo;"
 
 msgid "Success/Fail"
 msgstr ""
 
 #, fuzzy
 msgid "Not run yet"
-msgstr "Not implemented yet"
+msgstr "Níl sé seo fós i bhfeidhm"
 
+#, fuzzy
 msgid "Success"
-msgstr ""
+msgstr "Bunábhar"
 
 #, fuzzy
 msgid "Failed"
-msgstr "File: "
+msgstr "Comhad"
 
+#, fuzzy
 msgid "run now"
-msgstr ""
+msgstr "Anaithnid"
 
 msgid "Last Run Details:"
 msgstr ""
 
-#, fuzzy
 msgid "Gallery Modules"
-msgstr "Gallery"
+msgstr "Modúil an Ghailearaí"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed and auto-configured module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully configured module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully upgraded module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully activated module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deactivated module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully uninstalled module %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 msgid ""
 "Gallery features come as separate modules.  You can download and install modules to add more "
@@ -1672,27 +1704,31 @@ msgid ""
 "order to use a feature, you must install, configure (if necessary) and activate it.  If you "
 "don't wish to use a feature, you can deactivate it."
 msgstr ""
+"Tá na feidhmeanna Ghailearaí pacáilte scartha óna chéile mar modúil. Is féidir leat modúil "
+"eile a íoslódáil agus a suiteáil, nó feidhmeanna a míchumasú, mura dteastaíonn uait iad a "
+"úsáid. Ionas feidhm go húsáid, caithfidh tú í a suiteáil, a roghnú (más riachtanach é), agus "
+"a tosú."
 
 msgid "Module Name"
-msgstr "Module Name"
+msgstr "Ainm an Mhodúl"
 
 msgid "Version"
-msgstr "Version"
+msgstr "Leagan"
 
 #, fuzzy
 msgid "Installed"
-msgstr "install"
+msgstr "suiteáil"
 
 msgid "Actions"
-msgstr "Actions"
+msgstr "Aicsin"
 
 #, fuzzy
 msgid "Status: Not Installed"
-msgstr "install"
+msgstr "suiteáil"
 
 #, fuzzy
 msgid "Status: Active"
-msgstr "Active"
+msgstr "Gníomhach"
 
 msgid "Status: Inactive"
 msgstr ""
@@ -1717,16 +1753,16 @@ msgstr ""
 msgid "Confirm module uninstall"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to uninstall the %s module?"
-msgstr "Do you really want to delete user '%s'?"
+msgstr ""
 
 msgid "This will also remove any permissions and clean up any data created by this module."
 msgstr ""
 
 #, fuzzy
 msgid "Uninstall"
-msgstr "install"
+msgstr "suiteáil"
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
@@ -1776,11 +1812,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Update"
-msgstr "Delete a user"
+msgstr "i ndiaidh"
 
 #, fuzzy
 msgid "Upgrade Gallery"
-msgstr "Gallery"
+msgstr "Gailearaí"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -1802,7 +1838,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Up-To-Date"
-msgstr "Gallery"
+msgstr "Croí an Ghailearaí"
 
 msgid ""
 "Gallery cannot be upgraded through this interface. When a new version becomes available, "
@@ -1846,11 +1882,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Theme Name"
-msgstr "Theme"
+msgstr "Téama"
 
 #, fuzzy
 msgid "Latest"
-msgstr "Delete a user"
+msgstr "i ndiaidh"
 
 msgid "Incompatible Plugin"
 msgstr ""
@@ -1867,7 +1903,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Base Files"
-msgstr "Full name"
+msgstr "Ainm Chomhaid"
 
 msgid ""
 "The base files required for the theme to work and the English (US) translation will be "
@@ -1918,7 +1954,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Repository Setup"
-msgstr "Gallery"
+msgstr "Gailearaí"
 
 msgid "Warning: `$errorMessage`"
 msgstr ""
@@ -1939,7 +1975,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "$ cd %s"
-msgstr "Edit a user"
+msgstr "Athraigh Úsáideoir"
 
 #, c-format
 msgid "$ mkdir %s"
@@ -1956,41 +1992,42 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Themes"
-msgstr "Gallery"
+msgstr "Gailearaí"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully activated theme %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deactivated theme %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully installed theme %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully upgraded theme %s"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
+#, fuzzy
 msgid "Successfully saved default album settings"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 #, fuzzy
 msgid "Restored theme settings"
-msgstr "Album Settings"
+msgstr "Roghanna an Chuntais"
 
 #, fuzzy
 msgid "All Themes"
-msgstr "Theme"
+msgstr "Téama"
 
 msgid "Defaults"
-msgstr "Defaults"
+msgstr "Luachanna"
 
 msgid "Status: Incompatible Theme (Inactive)"
 msgstr ""
@@ -2004,36 +2041,37 @@ msgstr ""
 
 #, fuzzy
 msgid "(default)"
-msgstr "Defaults"
+msgstr "Luachanna"
 
 #, fuzzy
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Seo iad na luachanna loicthe. Féadann siad athraithe i gach uile albam ina dhiaidh sin."
 
-#, fuzzy
 msgid "Default sort order"
-msgstr "Album sort order:"
+msgstr "Ord shóirt loicthe"
 
 msgid "with"
 msgstr ""
 
 msgid "Default theme"
-msgstr "Default theme"
+msgstr "Téama loicthe"
 
 #, fuzzy
 msgid "New albums"
-msgstr "edit album"
+msgstr "athraigh an t-albam seo"
 
 #, fuzzy, c-format
 msgid "%s Theme Settings"
-msgstr "Album Settings"
+msgstr "Roghanna an Chuntais"
 
 #, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Seo iad na luachanna loicthe. Féadann siad athraithe i gach uile albam ina dhiaidh sin."
 
 msgid "Available"
 msgstr ""
@@ -2043,25 +2081,25 @@ msgstr ""
 
 #, fuzzy
 msgid "Selected"
-msgstr "Delete"
+msgstr "Scrios"
 
 msgid "Remove"
-msgstr "Remove"
+msgstr "Scrios"
 
 #, fuzzy
 msgid "Move Up"
-msgstr "Move"
+msgstr "Bogadh"
 
 #, fuzzy
 msgid "Move Down"
-msgstr "Move"
+msgstr "Bogadh"
 
 msgid "Parameter"
 msgstr ""
 
 #, fuzzy
 msgid "Value"
-msgstr "Scale"
+msgstr "Laghdaigh"
 
 msgid "There are no settings for this theme"
 msgstr ""
@@ -2076,7 +2114,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Order"
-msgstr "Remove"
+msgstr "Athshórtáil"
 
 msgid "up"
 msgstr ""
@@ -2085,42 +2123,43 @@ msgid "down"
 msgstr ""
 
 msgid "User Management"
-msgstr "User Management"
+msgstr "Riarachán na hÚsáideor"
 
 #, c-format
 msgid "Removed user '%s'"
-msgstr "Removed user '%s'"
+msgstr "Úsáideoir '%s' scriosta"
 
 #, c-format
 msgid "Created user '%s'"
-msgstr "Created user '%s'"
+msgstr "Bhí úsáideoir '%s' curtha"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Modified user '%s'"
+msgstr "Úsáideoir '%s' modhnaithe"
 
 #, c-format
 msgid "There is %d user in the system."
 msgid_plural "There are %d total users in the system."
-msgstr[0] "There is %d user in the system."
-msgstr[1] "There are %d users in total in the system."
+msgstr[0] "Níl aon úsáideoir sa gcóras."
+msgstr[1] "Tá úsáideoir amháin sa gcóras."
+msgstr[2] "Tá %d úsáideoir sa gcóras."
+msgstr[3] "Tá %d n-úsáideoir sa gcóras."
+msgstr[4] "Tá %d úsáideoir sa gcóras."
 
-#, fuzzy
 msgid "Edit User"
-msgstr "Edit a user"
+msgstr "Athraigh Úsáideoir"
 
 msgid "You cannot delete yourself!"
-msgstr "You cannot delete yourself!"
-
-#, fuzzy
-msgid "You cannot delete the special guest user."
-msgstr "You cannot delete the anonymous user!"
-
-msgid "Edit User (by list)"
 msgstr ""
 
+msgid "You cannot delete the special guest user."
+msgstr ""
+
+msgid "Edit User (by list)"
+msgstr "Athraigh Úsáideoir (faoi liosta)"
+
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr "Pictiúrín"
 
 msgid ""
 "Gallery can create thumbnails at upload time, or create them the first time you want to see "
@@ -2131,24 +2170,23 @@ msgstr ""
 
 #, fuzzy
 msgid "Create thumbnails now"
-msgstr "Recreate thumbnails"
+msgstr "Athghin pictiúrín"
 
 #, fuzzy
 msgid "This is a test email from Gallery2"
-msgstr "This is the top of your Gallery"
+msgstr "Seo é barr do Ghailearaí"
 
 msgid "Edit Conflict!"
 msgstr ""
 
-#, fuzzy
 msgid "Security Violation"
-msgstr "Security Violation!"
+msgstr "Sárú Slándála"
 
 msgid "Database Error"
 msgstr ""
 
 msgid "Error"
-msgstr "Error"
+msgstr "Earráid"
 
 msgid ""
 "Your change cannot be completed because somebody else has made a conflicting change to the "
@@ -2163,7 +2201,7 @@ msgid "Alternatively, you can return to the main Gallery page and resume browsin
 msgstr ""
 
 msgid "The action you attempted is not permitted."
-msgstr ""
+msgstr "Níl an aicsean sin údarach."
 
 msgid "An error has occurred while interacting with the database."
 msgstr ""
@@ -2179,14 +2217,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Back to the Gallery"
-msgstr "Browse Gallery"
+msgstr "Téigh ar ais go dtí an Mhír"
 
 msgid "Error Detail"
 msgstr ""
 
 #, fuzzy
 msgid "System Information"
-msgstr "Destination"
+msgstr "Ceann cúrsa"
 
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
@@ -2199,65 +2237,64 @@ msgstr ""
 
 #, fuzzy
 msgid "Add Sub-Album"
-msgstr "Add Album"
+msgstr "Cuir Albam"
 
-#, fuzzy
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes.  You will be able to rename it later."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Ainm an albaim seo ar do chruadhiosca. Caithfidh sé uathúil don albam seo. Ná iontráil ach "
+"na carachtair aibítrí, uimhriúla, '_' agus '-'. Is féidir uait é a ath-ainmnigh níos déanaí."
 
 msgid "Your name contains invalid characters.  Please enter another."
-msgstr "Your name contains invalid characters.  Please enter another."
+msgstr "Tá carachtair neamhbhailí ag an logainm seo. Togh ceann eile, le do thoil."
 
 msgid "You must enter a name for this album."
-msgstr "You must enter a name for this album."
+msgstr "Caithfidh tú ainm don albam seo a iontráil."
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "The name you entered is already in use.  Please enter another."
+msgstr "Tá an logainm seo ag duine eile. Togh ainm eile, le do thoil."
 
 msgid "This is the album title."
-msgstr ""
+msgstr "Seo é teideal an albaim."
 
 msgid "This is the album summary."
-msgstr ""
+msgstr "Seo í achoimre an albaim."
 
 msgid "Keywords are not visible, but are searchable."
-msgstr ""
+msgstr "Ní bhíonn na heocharfhocail infheichte, ach bíonn siad incuardaithe."
 
-#, fuzzy
 msgid "This is the long description of the album."
-msgstr "A longer description of this item."
+msgstr "Seo é cur síos fada an albaim."
 
 msgid "Create"
-msgstr "Create"
+msgstr "Cuir"
 
 msgid "Upload Complete"
-msgstr ""
+msgstr "Uaslodáil Críochnaithe"
 
 #, c-format
 msgid "Successfully added %d file."
 msgid_plural "Successfully added %d files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ní raibh aon chomhad curtha."
+msgstr[1] "Bhí comhad amháin curtha go rathúil."
+msgstr[2] "Bhí %d comhad curtha go rathúil."
+msgstr[3] "Bhí %d gcomhad curtha go rathúil."
+msgstr[4] "Bhí %d chomhad curtha go rathúil."
 
 msgid "No files added."
-msgstr ""
+msgstr "Ní raibh aon comhad curtha."
 
 #, c-format
 msgid "Added %s"
-msgstr ""
+msgstr "%s curtha"
 
 #, c-format
 msgid "Failed to add %s"
 msgstr ""
 
-#, fuzzy
 msgid "Add more files"
-msgstr "Add Items"
+msgstr "Cuir comhaid breiseanna"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
@@ -2266,10 +2303,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Upload files directly from your computer."
-msgstr "Upload a file directly from your computer."
+msgstr "Ní chaith comhad anáirde go díreach as do ríomhaire."
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Enter the full path to the file and an optional caption in the boxes below."
+msgstr "Iontráil an bealach iomlán chun comhad, agus ceannteideal (roghnach) thíos sna boscaí."
 
 #, c-format
 msgid ""
@@ -2287,91 +2324,100 @@ msgstr ""
 
 #, fuzzy
 msgid "More.."
-msgstr "Move"
+msgstr "Bogadh"
 
 msgid "Set item titles from:"
 msgstr ""
 
 #, fuzzy
 msgid "Assign caption to:"
-msgstr "Gallery Site Administration"
+msgstr "Riarachán an Ghailearaí"
 
+#, fuzzy
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
 "have been uploaded to your server some other way (like FTP) and must be placed in a "
 "directory where they are accessibly by any element on the server.  If you're on Unix this "
 "means that the files and the directory the files are in should have modes of at least 755."
 msgstr ""
+"Aistrigh comhaid as do dáileoir i do Ghailearaí. Caithfidh na comhaid uaslodáilte ar do "
+"dáileoir cheana féin (i FTP, mar shampla) agus curtha i gcomhadlann infheichthe. Má bhíonn "
+"tú ar meaisín Unix, caithfidh ceadanna 755 (ar a laghad) ag na gcomhaid agus ag an "
+"gcomhadlann."
 
 msgid ""
 "For security purposes, you can't use this feature until the Gallery Site Administrator "
 "configures a set of legal upload directories."
 msgstr ""
+"Mar gheall ar chúiseanna slándálacha, ní bheidh an feidhmiú seo oibriú go gcuirfidh an "
+"Riarthóir an Ghailearaí foireann comhadlanna d'uaslodáil údaracha."
 
 msgid "Server Path"
-msgstr ""
+msgstr "Comhadlann an dáileoir"
 
-#, fuzzy
 msgid "You must enter a directory."
-msgstr "You must enter a size"
+msgstr "Caithfidh tú comhadlann a iontráil."
 
 msgid ""
 "The directory you entered is invalid.  Make sure that the directory is readable by all users."
 msgstr ""
+"Níl an comhadlann seo bailí. Deimhnigh go bhfuil an comhadlann infheicthe ag gach úsáideoir."
 
 msgid ""
 "The directory you entered is illegal.  It must be a sub directory of one of the directories "
 "listed below."
 msgstr ""
+"Níl an comhadlann seo údarach. Caithfidh sé fo-chomhadlann ceann a chomadlann ar an liosta "
+"thíos."
 
 msgid "An item with the same name already exists."
 msgstr ""
 
-#, fuzzy
 msgid "Legal Directories"
-msgstr "New directories"
+msgstr "Comhadlanna údaracha"
 
 msgid "modify"
-msgstr ""
+msgstr "modhnaigh"
 
 #, fuzzy
 msgid "Recent Directories"
-msgstr "New directories"
+msgstr "Comhadlanna údaracha"
 
-#, fuzzy
 msgid "Find Files"
-msgstr "Add Items"
+msgstr "Aimsigh comhaid"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Directory: %s"
-msgstr "New directories"
+msgstr "Comhadlann: %s"
 
-#, fuzzy
 msgid "File name"
-msgstr "Full name"
+msgstr "Ainm Chomhaid"
 
 msgid "Type"
-msgstr ""
+msgstr "Cineál"
 
 msgid "Size"
-msgstr ""
+msgstr "Méid"
 
 msgid "Use Symlink"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid ochtán"
+msgstr[1] "ochtán amháin"
+msgstr[2] "%d ochtáin"
+msgstr[3] "%d ochtáin"
+msgstr[4] "%d ochtáin"
 
 #, fuzzy
 msgid "Parent Directory"
-msgstr "New directories"
+msgstr "Comhadlann: %s"
 
 #, fuzzy
 msgid "Directory"
-msgstr "New directories"
+msgstr "Comhadlann: %s"
 
 msgid "(Un)check all known types"
 msgstr ""
@@ -2381,18 +2427,17 @@ msgstr ""
 
 #, fuzzy
 msgid "for selected items"
-msgstr "[core] Delete item"
+msgstr "[croí] Scrios míreanna"
 
 msgid "Copy base filenames to:"
 msgstr ""
 
-#, fuzzy
 msgid "Add Files"
-msgstr "Add Items"
+msgstr "Cuir Comhaid"
 
 #, fuzzy
 msgid "Start Over"
-msgstr "Sort order"
+msgstr "Ord sóirt"
 
 msgid ""
 "Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
@@ -2406,14 +2451,14 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a URL to a web page"
-msgstr "You must enter a user name"
+msgstr "Caithfidh tú logainm a iontráil"
 
 msgid "The URL entered must begin with http://"
 msgstr ""
 
 #, fuzzy
 msgid "The web page you specified is unavailable"
-msgstr "The user name you entered is invalid"
+msgstr "Níl an logainm seo bailí"
 
 msgid "Nothing to add found from this URL"
 msgstr ""
@@ -2428,56 +2473,61 @@ msgstr ""
 msgid "URL: %s"
 msgstr ""
 
-#, fuzzy
 msgid "change"
-msgstr "Change"
+msgstr "athraigh"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d url found"
 msgid_plural "%d urls found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "aon chomhad aimsithe"
+msgstr[1] "comhad amháin aimsithe"
+msgstr[2] "%d comhad aimsithe"
+msgstr[3] "%d gcomhad aimsithe"
+msgstr[4] "%d chomhad aimsithe"
 
 msgid "(Un)check all"
 msgstr ""
 
+#, fuzzy
 msgid "Add URLs"
-msgstr ""
+msgstr "%s curtha"
 
 msgid "No Thumbnail"
-msgstr "No Thumbnail"
+msgstr "Níl pictiúrín ann"
 
-#, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr "Roghanna"
 
 #, fuzzy
 msgid "Link an Item"
-msgstr "Move an Item"
+msgstr "Bogadh Mír"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully linked %d item"
 msgid_plural "Successfully linked %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ní raibh aon chomhad curtha."
+msgstr[1] "Bhí comhad amháin curtha go rathúil."
+msgstr[2] "Bhí %d comhad curtha go rathúil."
+msgstr[3] "Bhí %d gcomhad curtha go rathúil."
+msgstr[4] "Bhí %d chomhad curtha go rathúil."
 
 msgid "This album contains no items to link."
 msgstr ""
 
 msgid "Source"
-msgstr ""
+msgstr "Bunábhar"
 
 #, fuzzy
 msgid "Choose the items you want to link"
-msgstr "Choose the items you want to move"
+msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
 
 #, fuzzy, c-format
 msgid "(page %d of %d)"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy
 msgid "No sources chosen"
-msgstr "No destination chosen"
+msgstr "Ní raibh ceann cúrsa athrú"
 
 msgid "Check All"
 msgstr ""
@@ -2493,47 +2543,52 @@ msgstr ""
 
 #, fuzzy
 msgid "Next Page"
-msgstr "Last >|"
+msgstr "Athraigh Íomhá"
 
 msgid "Destination"
-msgstr "Destination"
+msgstr "Ceann cúrsa"
 
+#, fuzzy
 msgid "Choose a new album for the link"
-msgstr ""
+msgstr "Togh albam nua dhóibh"
 
 msgid "No destination chosen"
-msgstr "No destination chosen"
+msgstr "Ní raibh ceann cúrsa athrú"
 
 #, fuzzy
 msgid "Link"
-msgstr "Login"
+msgstr "Log Ann"
 
+#, fuzzy
 msgid "Successfully linked"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 #, fuzzy
 msgid "Choose a destination album"
-msgstr "Choose the destination of the selected items"
+msgstr "Togh albam nua dhóibh"
 
 #, fuzzy
 msgid "Delete Items"
-msgstr "Delete Item"
+msgstr "Scrios an mhír seo"
 
 msgid "No items were selected for deletion"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ní raibh aon chomhad curtha."
+msgstr[1] "Bhí comhad amháin curtha go rathúil."
+msgstr[2] "Bhí %d comhad curtha go rathúil."
+msgstr[3] "Bhí %d gcomhad curtha go rathúil."
+msgstr[4] "Bhí %d chomhad curtha go rathúil."
 
 msgid "This album contains no items to delete"
 msgstr ""
 
 #, fuzzy
 msgid "Choose the items you want to delete"
-msgstr "Choose the items you want to move"
+msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr ""
@@ -2545,7 +2600,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(data)"
-msgstr "(data)"
+msgstr "(sonraí)"
 
 #, c-format
 msgid "(album containing %d item)"
@@ -2555,17 +2610,19 @@ msgstr[1] ""
 
 #, fuzzy
 msgid "(empty album)"
-msgstr "(album)"
+msgstr "(albam)"
 
+#, fuzzy
 msgid "Deletion Complete"
-msgstr ""
+msgstr "Uaslodáil Críochnaithe"
 
+#, fuzzy
 msgid "Item successfully deleted"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 #, fuzzy, c-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Do you really want to delete this item?"
+msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
 
 #, c-format
 msgid "It contains %d item."
@@ -2580,51 +2637,56 @@ msgid "There was a problem processing your request."
 msgstr ""
 
 msgid "Sort order"
-msgstr "Sort order"
+msgstr "Ord sóirt"
 
+#, fuzzy
 msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
 "added items."
-msgstr ""
+msgstr "Is é an t-ord shóirt loicthe don albam seo. Rachaidh sé i bhfeidhm ar gach míre nua."
 
+#, fuzzy
 msgid "Choose a theme for this album. (The way the album is arranged on the page)"
-msgstr ""
+msgstr "Togh leagan amach (socrú agus suímh na rudaí an leathanaigh) don albam seo."
 
+#, fuzzy
 msgid " Every item requires a thumbnail. Set the default size in pixels here."
-msgstr ""
+msgstr "Tá pictiúrín teastáilte ag gach mír. Roghnaigh an luach loicthe (i bpicsil) anseo. "
 
 msgid "You must enter a number (greater than zero)"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Caithfidh tú uimhir a iontráil (níos mó ná a náid)"
 
 msgid "Resized Images"
-msgstr "Resized Images"
+msgstr "Íomhánna Laghduithe"
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
 msgstr ""
+"Bheadh ilméideannasa do gach mír i do chuid albam. Roghnaigh na loicméideanna thíos anseo."
 
 msgid "Active"
-msgstr "Active"
+msgstr "Gníomhach"
 
-#, fuzzy
 msgid "Target Size (pixels)"
-msgstr "Target Size (in pixels)"
+msgstr "Méid Sprioctha (picsil)"
 
 msgid "You must enter a valid size"
-msgstr "You must enter a valid size"
+msgstr "Caithfidh tú méid bailí a iontráil"
 
 msgid "Recreate thumbnails and resizes"
-msgstr "Recreate thumbnails and resizes"
+msgstr "Athghin pictiúrín agus íomhá laghduithe"
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
 "all the items in your album, check the appropriate box."
 msgstr ""
+"Tá na roghanna na bpictiúrín agus na n-íomhánna ag míreanna nua. Roghnaigh an bosca thíos, "
+"má theastaíonn uait na roghanna seo ag gach uile mír i d'albam."
 
 msgid "Recreate thumbnails"
-msgstr "Recreate thumbnails"
+msgstr "Athghin pictiúrín"
 
 msgid "Recreate resized images"
-msgstr "Recreate resized images"
+msgstr "Athghin íomhánna laghduithe"
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -2640,7 +2702,7 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a value greater than or equal to 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Caithfidh tú uimhir a iontráil (níos mó ná a náid)"
 
 msgid "Height"
 msgstr ""
@@ -2651,27 +2713,27 @@ msgstr ""
 msgid "There were errors saving all items"
 msgstr ""
 
+#, fuzzy
 msgid "Successfully saved all items"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 #, fuzzy
 msgid "This album contains no items"
-msgstr "This group contains %d user"
+msgstr "Níl aon úsáideoir sa ngrúpa seo."
 
 #, fuzzy
 msgid "Saved successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Roghanna sábháilte go rathúil."
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
 msgstr ""
 
 #, fuzzy
 msgid "You do not have permissions to modify this item."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Níl cead agat míreanna a chur leis an albam seo"
 
-#, fuzzy
 msgid "Save and Done"
-msgstr "Save Changes"
+msgstr ""
 
 #, c-format
 msgid "Save and Edit Previous %s"
@@ -2681,38 +2743,33 @@ msgstr ""
 msgid "Save and Edit Next %s"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Ainm an albaim seo ar do chruadhiosca. Caithfidh sé uathúil don albam seo. Ná iontráil ach "
+"na carachtair aibítrí, uimhriúla, '_' agus '-'."
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Your name contains invalid characters.  Please choose another."
+msgstr "Tá carachtair neamhbhailí ag an logainm seo. Togh ceann eile, le do thoil."
 
 msgid "You must enter a name for this item."
-msgstr "You must enter a name for this item."
+msgstr "Caithfidh tú ainm don mhír seo a iontráil."
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "The name you entered is already in use.  Please choose another."
+msgstr "Tá an logainm seo ag duine eile. Togh ainm eile, le do thoil."
 
-#, fuzzy
 msgid "The title of this item."
-msgstr "Editing this item"
+msgstr "An teideal an míre seo."
 
 msgid "The root album must have a title."
 msgstr ""
 
-#, fuzzy
 msgid "The summary of this item."
-msgstr "Editing this item"
+msgstr "An achoimre an míre seo."
 
-#, fuzzy
 msgid "This is the long description of the item."
-msgstr "A longer description of this item."
+msgstr "Seo é cur síos fada an mír."
 
 #, c-format
 msgid "%s Date and Time"
@@ -2728,23 +2785,24 @@ msgstr ""
 msgid "Set the date and time to be displayed for this %s."
 msgstr ""
 
+#, fuzzy
 msgid "Date:"
-msgstr ""
+msgstr "i ndiaidh"
 
 #, fuzzy
 msgid "Time:"
-msgstr "move item"
+msgstr "bogadh míreanna"
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
 msgstr ""
 
 #, fuzzy
 msgid "You must enter a valid date and time"
-msgstr "You must enter a valid size"
+msgstr "Caithfidh tú méid bailí a iontráil"
 
 #, fuzzy
 msgid "Thumbnail"
-msgstr "Thumbnails"
+msgstr "Pictiúrín"
 
 msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
@@ -2767,12 +2825,12 @@ msgstr ""
 
 #, fuzzy
 msgid "Resized Photos"
-msgstr "Resized Images"
+msgstr "Íomhánna Laghduithe"
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
 "for viewing."
-msgstr ""
+msgstr "Is iad na méideanna an míre a theastaíonn uait infheichte."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot create "
@@ -2799,23 +2857,20 @@ msgid ""
 msgstr ""
 
 msgid "Rotate"
-msgstr "Rotate"
+msgstr "Rothlaigh"
 
 #, fuzzy
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "You can only rotate the image in 90 degree increments."
+msgstr "Ní féidir uait an íomhá a rothnú ach i gcéimeanna 90&deg;."
 
-#, fuzzy
 msgid "CC 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "90&deg; dul tuathal"
 
-#, fuzzy
 msgid "180&deg;"
-msgstr "Flip 180&deg;"
+msgstr "180&deg;"
 
-#, fuzzy
 msgid "C 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "90&deg; ar deiseal"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
@@ -2823,7 +2878,7 @@ msgid ""
 msgstr ""
 
 msgid "Scale"
-msgstr "Scale"
+msgstr "Laghdaigh"
 
 #, fuzzy
 msgid ""
@@ -2831,10 +2886,10 @@ msgid ""
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Shrink or enlarge the original image.  When Gallery scales an image, it maintains the same "
-"aspect ratio (height to width) of the original image to avoid distortion.  The value you "
-"enter below forms a bounding box in pixels.  Gallery will scale the image until it is as "
-"large as possible while still fitting inside the box."
+"Laghdaigh nó méadaigh an íomhá bhunúsach: Nuair a bhíonns Gailearaí íomhá a laghdú, beidh sé "
+"an coibhneas toisí a choimeád, chun saobhadh a sheachaint. Beidh an luach thíos (i bpicsil) "
+"bosca theorainn a tharraingt. Beidh Gailearaí an íomhá a laghdú go rachaidh sí isteach sa "
+"mbosca."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
@@ -2842,17 +2897,22 @@ msgid ""
 msgstr ""
 
 msgid "You must enter a size"
-msgstr "You must enter a size"
+msgstr "Caithfidh tú méid a iontráil"
 
 msgid "Preserve Original"
-msgstr "Preserve Original"
+msgstr "Caomhnaigh an Bhunchóip"
 
+#, fuzzy
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. Instead, it "
 "duplicates your photo and works with copies.  This requires a little extra disk space but "
 "prevents your original from getting damaged.  Disabling this option will cause any actions "
 "(rotating, scaling, etc) to modify the original."
 msgstr ""
+"Ní modhnóidh Gallery d'íomhá bhunúsach nuair a rothlú agus a laghdú sé í. Ina áit, cruthóidh "
+"sé íomhá chóipeáilte lenar a modhnaigh. Beidh níos mó spás diosca úsáidte mar sin, ach beidh "
+"d'íomhá bhunúsach caomhnaithe. Mura mbeidh an rogha seo cumasaithe, beidh aicsin (cuir i "
+"gcás rothlaigh agus laghdaigh) an bunchóipse a modhnú."
 
 msgid "This is a link to another photo, so you cannot change the original"
 msgstr ""
@@ -2862,11 +2922,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Preserve Original Photo"
-msgstr "Preserve Original"
+msgstr "Caomhnaigh an Bhunchóip"
 
 #, fuzzy
 msgid "Modified Photo"
-msgstr "Modified Image"
+msgstr "Íomhá Mhodhnaithe"
 
 #, fuzzy
 msgid ""
@@ -2874,13 +2934,11 @@ msgid ""
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"You are using a copy of the original image that has been scaled or rotated.  The original "
-"image is still available, but is no longer being used.  Any changes you make will be applied "
-"to the copy instead."
+"Seo íomhá chóipeáilte a bhí laghdaithe nó rothlaithe. Tá an bhunchóip fós ann, ach níl sí "
+"fós úsáidte. Rachaidh na hathruithe i bhfeidhm ach ar an chóip."
 
-#, fuzzy
 msgid "Restore original"
-msgstr "Revert to original"
+msgstr "Athbhunaigh an bhunchóip"
 
 #, c-format
 msgid ""
@@ -2890,7 +2948,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Setting"
-msgstr "Gallery Settings"
+msgstr "Roghanna an Albaim"
 
 msgid "Use Global"
 msgstr ""
@@ -2901,91 +2959,94 @@ msgstr ""
 
 #, fuzzy
 msgid "Album Highlight"
-msgstr "Make Highlight"
+msgstr "Cuir Íomhá Ghealáin"
 
 #, fuzzy
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Do you want to make this item the highlight of its parent album?"
+msgstr "Is féidir uait an míre seo a úsáid don tuismitheoir í."
 
 #, fuzzy
 msgid "Highlight for:"
-msgstr "Make Highlight"
+msgstr "Cuir Íomhá Ghealáin"
 
 #, fuzzy
 msgid "Highlight"
-msgstr "Make Highlight"
+msgstr "Cuir Íomhá Ghealáin"
 
 msgid "Move an Item"
-msgstr "Move an Item"
+msgstr "Bogadh Mír"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Successfully moved %d item"
 msgid_plural "Successfully moved %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ní raibh aon chomhad curtha."
+msgstr[1] "Bhí comhad amháin curtha go rathúil."
+msgstr[2] "Bhí %d comhad curtha go rathúil."
+msgstr[3] "Bhí %d gcomhad curtha go rathúil."
+msgstr[4] "Bhí %d chomhad curtha go rathúil."
 
 msgid "This album contains no items to move."
 msgstr ""
 
 msgid "Choose the items you want to move"
-msgstr "Choose the items you want to move"
+msgstr "Roghnaigh na míreanna a theastaíonn uait a bhogadh"
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
-msgstr ""
-"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
+msgstr "Ní ghlacann an ceann cúrsa seo fo-albaim, agus mar sin bhí gach fo-albam curtha as."
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
+"Glacann an ceann cúrsa seo níl ach na fo-albaim, agus mar sin bhí gach do-albam curtha as."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "You are not allowed to move this item away from here."
+msgstr "Níl cead agat an mhír seo a bhogadh in áit eile."
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "You are not allowed to move an album to the chosen destination."
+msgstr "Níl cead agat albam a bhogadh ar an láthair tosaithe."
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "You are not allowed to move an item to the chosen destination."
+msgstr "Níl cead agat mír a bhogadh ar an láthair tosaithe."
 
 msgid "You cannot move an album into its own subtree."
-msgstr "You cannot move an album into its own subtree."
+msgstr "Ní féidir uait an t-albam i fo-chrann eisean féin a bhogadh."
 
 msgid "Choose a new album for them"
-msgstr ""
+msgstr "Togh albam nua dhóibh"
 
 msgid "You don't have the permission to add items in this album"
-msgstr "You don't have the permission to add items in this album"
+msgstr "Níl cead agat míreanna a chur leis an albam seo"
 
 msgid "Move"
-msgstr "Move"
+msgstr "Bogadh"
 
+#, fuzzy
 msgid "Successfully moved"
-msgstr ""
+msgstr "Ní raibh aon chomhad curtha."
 
 msgid "Permissions"
-msgstr "Permissions"
+msgstr "Ceadanna"
 
 #, fuzzy
 msgid "Owner changed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Focal faire athrú go rathúil"
 
 #, fuzzy
 msgid "Group permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Roghanna an chuntais sábháilte go rathúil"
 
 #, fuzzy
 msgid "User permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Roghanna sábháilte go rathúil"
 
 #, fuzzy
 msgid "Group permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Roghanna an chuntais sábháilte go rathúil"
 
 #, fuzzy
 msgid "User permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Albam curtha go rathúil."
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -2995,39 +3056,39 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Each item has its own independent set of permissions.  Changing the parent's permissions has "
-"no effect on the permissions of the child.  This allows you to restrict access to the parent "
-"of this item, but still grant full access to this item, or vice versa.  The most efficient "
-"way to use this permission system is to create groups and assign permissions to them.  Then "
-"if you want to grant permissions to a specific user, you can add (or remove) the user from "
-"the appropriate group."
+"Tá foireann ceadanna neamhspleách ag gach mír. Ní rachaidh na ceadanna an tuismitheora i "
+"bhfeidhm ar na ceadanna an leanbh. Mar sin, is féidir leat teacht a theorannú ar an "
+"dtuismitheoir an míre, ach mar sin féin, teacht iomlán a dheonú don míre féin, nó a mhalairt "
+"go cruinn. Is cuir grúpaí agus ceadanna a dáileadh orthu an úsáid is éifeachtach an chorás "
+"ceada seo. Ansin, má theastaíonn uait ceadanna a thabhairt don úsáideoir áirithe, is féidir "
+"leat an úsáideoir a chur leis an ngrúpa oiriúnaigh (nó a scriosadh as)."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "This item is owned by user: %s"
+msgstr "Tá an mhír seo ag úsáideoir: %s"
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "This item is owned by user: %s (%s)"
+msgstr "Tá an mhír seo ag úsáideoir: %s (%s)"
 
 msgid "New owner"
-msgstr ""
+msgstr "Úinéir nua"
 
 msgid "Change"
-msgstr "Change"
+msgstr "Athraigh"
 
 #, fuzzy
 msgid "Apply new owner to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Cuir le fo-míreanna"
 
 msgid "You must enter a user name"
-msgstr "You must enter a user name"
+msgstr "Caithfidh tú logainm a iontráil"
 
 msgid "The user name you entered is invalid"
-msgstr "The user name you entered is invalid"
+msgstr "Níl an logainm seo bailí"
 
 msgid "Apply changes"
-msgstr "Apply changes"
+msgstr "Cuir athruithe"
 
 #, fuzzy
 msgid ""
@@ -3037,87 +3098,77 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"This item has sub-items.  The changes you make here can be applied to just this item, or you "
-"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
-"change into the existing permissions of the sub-items and may be very time consuming if you "
-"have many of sub-items.  It's more efficient to grant permissions to groups and then add and "
-"remove users from groups whenever possible."
+"Tá fo-míreanna ag an míre seo. Is féidir uait na hathruithe seo leis an míre seo a chur, nó "
+"leis gach uile fo-mhír. Tábhachtach: má chuirfidh tú na hathruithe leis na fo-míreanna, "
+"beidh siad cumaisc lena gceadanna atá ann anois. B'fhéidir go mbeadh sé mearbhallach má "
+"bhíonn mórán fo-míreanna ann. Is cuir grúpaí agus ceadanna a dáildeadh orthu an úsáid is "
+"éifeachtach an chorás ceada seo. Ansin, má theastaíonn uait ceadanna a thabhairt don "
+"úsáideoir áirithe, is féidir leat an úsáideoir a chur leis an ngrúpa oiriúnaigh (nó a "
+"scriosadh as)."
 
 msgid "Apply to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Cuir le fo-míreanna"
 
 msgid "Group Permissions"
-msgstr "Group Permissions"
+msgstr "Ceadanna an Ghrúpa"
 
-#, fuzzy
 msgid "Group name"
-msgstr "Group name:"
+msgstr "Ainm an ghrúpa"
 
 msgid "Permission"
-msgstr "Permission"
+msgstr "Cead"
 
-#, fuzzy
 msgid "New Group Permission"
-msgstr "Group Permissions"
+msgstr "Cead nua an ghrúpa"
 
 msgid "Add Permission"
-msgstr "Add Permission"
+msgstr "Cuir Cead"
 
 msgid "The permission you chose is invalid"
-msgstr "The permission you chose is invalid"
+msgstr "Níl an cead seo bailí"
 
 msgid "The group name you entered is invalid"
-msgstr "The group name you entered is invalid"
+msgstr "Níl an t-ainm ghrúpa seo bailí"
 
-#, fuzzy
 msgid "Group already has this permission (check sub-permissions)"
-msgstr ""
-"Group already has this permission (maybe it's included in one of the permissions the group "
-"already has)"
+msgstr "Tá an cead seo ag an ngrúpa seo cheana féin (deimhnigh na fo-ceadanna)"
 
 msgid "User Permissions"
-msgstr "User Permissions"
+msgstr "Ceadanna Úsáideoire"
 
 msgid "User name"
-msgstr "User name"
+msgstr "Logainm"
 
-#, fuzzy
 msgid "New User Permission"
-msgstr "User Permissions"
+msgstr "Cead nua an úsáideoire"
 
-#, fuzzy
 msgid "The user already has this permission (check sub-permissions)"
-msgstr ""
-"The user already has this permission (maybe it's included in one of the permissions the user "
-"already has)"
+msgstr "Tá an cead seo ag an úsáideoir seo cheana féin (deimhnigh na fo-ceadanna)"
 
-#, fuzzy
 msgid "Reorder Album"
-msgstr "Add Album"
+msgstr "Athshórtáil an tAlbam"
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
+"Tá ord sóirt uathoibríoch ag an albam seo, agus mar sin ní féidir leat an t-ord míreanna a "
+"athrú go láimhe. Caitfidh tú an t-ord sóirt a chur as ar an gcéad."
 
-#, fuzzy
 msgid "Change the order of the items in this album."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Athraigh ord na míreanna san albam seo."
 
-#, fuzzy
 msgid "Move this item"
-msgstr "move item"
+msgstr "Bogadh an mhír seo"
 
-#, fuzzy
 msgid "before"
-msgstr "Remove"
+msgstr "roimh"
 
 msgid "after"
-msgstr ""
+msgstr "i ndiaidh"
 
-#, fuzzy
 msgid "Reorder"
-msgstr "Remove"
+msgstr "Athshórtáil"
 
 msgid "Continue..."
 msgstr ""
@@ -3127,7 +3178,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Admin Login"
-msgstr "Actions"
+msgstr "Roghanna Riaracháin"
 
 msgid "Enter a URL"
 msgstr ""
@@ -3155,7 +3206,7 @@ msgstr ""
 
 #, fuzzy
 msgid "image"
-msgstr "move item"
+msgstr "bogadh míreanna"
 
 msgid "Configuration Error: Missing Theme"
 msgstr ""
@@ -3203,16 +3254,14 @@ msgid ""
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
 
-#, fuzzy
 msgid "Admin Options"
-msgstr "Actions"
+msgstr "Roghanna Riaracháin"
 
-#, fuzzy
 msgid "User Options"
-msgstr "User Permissions"
+msgstr "Roghanna Úsáideoire"
 
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Focal faire athrú go rathúil"
 
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
@@ -3221,40 +3270,41 @@ msgstr ""
 
 #, fuzzy
 msgid "Current Password"
-msgstr "Password"
+msgstr "Athraigh focal faire"
 
 #, fuzzy
 msgid "You must enter your current password"
-msgstr "You must enter a password"
+msgstr "Caithfidh tú do focal faire a iontráil arís"
 
 #, fuzzy
 msgid "Incorrect password"
-msgstr "Password"
+msgstr "Athraigh focal faire"
 
 #, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr "Focal Faire"
 
 #, fuzzy
 msgid "You must enter a new password"
-msgstr "You must enter a password"
+msgstr "Caithfidh tú focal faire a iontráil"
 
 #, fuzzy
 msgid "Verify New Password"
-msgstr "Verify password"
+msgstr "Deimhnigh do Focal Faire Arís"
 
 #, fuzzy
 msgid "You must enter your new password again!"
-msgstr "You must enter a password"
+msgstr "Caithfidh tú do focal faire a iontráil arís"
 
+#, fuzzy
 msgid "Login to your account"
-msgstr ""
+msgstr "Logáil isteach go dtí do chuid cuntas"
 
 msgid "Your password has been recovered, please login."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Your login information is incorrect.  Please try again."
+msgstr "Níl do logainm nó do focal faire bailí. Déan iarracht ar logáil arís."
 
 #, c-format
 msgid ""
@@ -3267,7 +3317,7 @@ msgid "Welcome, %s!"
 msgstr ""
 
 msgid "Account settings saved successfully"
-msgstr ""
+msgstr "Roghanna an chuntais sábháilte go rathúil"
 
 msgid "Recover a lost or forgotten password"
 msgstr ""
@@ -3298,7 +3348,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Recover"
-msgstr "Remove"
+msgstr "Scrios"
 
 #, c-format
 msgid ""
@@ -3343,11 +3393,11 @@ msgstr ""
 
 #, fuzzy
 msgid "You must enter a username to recover the password for."
-msgstr "You must enter the password a second time"
+msgstr "Caithfidh tú focal faire nua faoi dhó a iontráil dhó a athrú."
 
 #, fuzzy
 msgid "The username you entered does not exist."
-msgstr "The user name you entered is invalid"
+msgstr "Níl an logainm seo bailí"
 
 msgid "Authorization Incorrect"
 msgstr ""
@@ -3367,7 +3417,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Refresh"
-msgstr "Remove"
+msgstr "roimh"
 
 msgid "This page will allow you to reset the password on your account."
 msgstr ""
@@ -3389,7 +3439,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Username missing"
-msgstr "User Permissions"
+msgstr "Ceadanna Úsáideoire"
 
 msgid "Submit"
 msgstr ""
@@ -3418,7 +3468,7 @@ msgid "Thank you!"
 msgstr ""
 
 msgid "guest"
-msgstr ""
+msgstr "cuairteoir"
 
 #, c-format
 msgid "display mode: %s"
@@ -3426,23 +3476,29 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Date: %s"
-msgstr "Delete a user"
+msgstr "i ndiaidh"
 
 #, fuzzy, c-format
 msgid "Owner: %s"
-msgstr "Owner"
+msgstr "Úinéir"
 
 #, fuzzy, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid nóiméad"
+msgstr[1] "nóiméad amháin"
+msgstr[2] "%d nóiméid"
+msgstr[3] "%d nóiméid"
+msgstr[4] "%d nóiméid"
 
 #, fuzzy, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "náid nóiméad"
+msgstr[1] "nóiméad amháin"
+msgstr[2] "%d nóiméid"
+msgstr[3] "%d nóiméid"
+msgstr[4] "%d nóiméid"
 
 #, c-format
 msgid "Views: %d"
@@ -3450,17 +3506,17 @@ msgstr ""
 
 #, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; Aon cheann &raquo;"
 
 #, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; Aon cheann &raquo;"
 
 msgid "Go"
 msgstr ""
 
 msgid "Navigation"
-msgstr ""
+msgstr "Stiúradh"
 
 msgid "next"
 msgstr ""
@@ -3470,15 +3526,14 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "Page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
 #, fuzzy, c-format
 msgid "%d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Ag féachaint leathanach %d as a %d"
 
-#, fuzzy
 msgid "first"
-msgstr "|< First"
+msgstr ""
 
 msgid "previous"
 msgstr ""
@@ -3488,29 +3543,29 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "%d. %s"
-msgstr "Edit a user"
+msgstr "Athraigh Úsáideoir"
 
 #, fuzzy
 msgid "Size: "
-msgstr "Edit Sizes"
+msgstr "Méid"
 
 msgid "Full size: "
 msgstr ""
 
 #, fuzzy
 msgid "Language selector"
-msgstr "Language settings"
+msgstr "Roghanna na teanga"
 
 #, fuzzy
 msgid "Item actions"
-msgstr "Item Permissions"
+msgstr "Roghanna Riaracháin"
 
 msgid "Use dropdown menu"
 msgstr ""
 
 #, fuzzy
 msgid "Login block"
-msgstr "Login"
+msgstr "Log Ann"
 
 msgid "Links to album/photo peers"
 msgstr ""
@@ -3520,38 +3575,62 @@ msgstr ""
 
 #, fuzzy
 msgid "[test] A permission"
-msgstr "permissions"
+msgstr "ceadeanna"
 
 #, fuzzy
 msgid "[test] A second permission"
-msgstr "permissions"
+msgstr "ceadeanna"
 
 msgid "Unit test theme"
 msgstr ""
 
+#~ msgid "&laquo; None &raquo;"
+#~ msgstr "&laquo; Aon cheann &raquo;"
+
 #, fuzzy
 #~ msgid "add album"
-#~ msgstr "add album"
+#~ msgstr "cuir albam ann"
 
 #, fuzzy
 #~ msgid "edit permissions"
-#~ msgstr "permissions"
+#~ msgstr "ceadeanna"
 
 #, fuzzy
 #~ msgid "view permissions"
-#~ msgstr "permissions"
+#~ msgstr "ceadeanna"
 
+#, fuzzy
 #~ msgid "login"
-#~ msgstr "login"
+#~ msgstr "Log Ann"
 
 #, fuzzy
 #~ msgid "choose a new theme for this album"
-#~ msgstr "You must enter a name for this album."
+#~ msgstr "Togh albam nua dhóibh"
 
 #, fuzzy
 #~ msgid "login as a site administrator"
-#~ msgstr "Gallery Site Administration"
+#~ msgstr "Riarachán an Ghailearaí"
+
+#, fuzzy
+#~ msgid "install or activate this theme"
+#~ msgstr "Ní raibh aon chomhad curtha."
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/entity"
+#~ msgstr "Ní raibh aon chomhad curtha."
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/theme"
+#~ msgstr "Ní raibh aon chomhad curtha."
+
+#, fuzzy
+#~ msgid "Successfully deleted directory: /cache/module"
+#~ msgstr "Ní raibh aon chomhad curtha."
+
+#, fuzzy
+#~ msgid "Unable to delete directory: /cache/theme"
+#~ msgstr "Ní raibh aon chomhad curtha."
 
 #, fuzzy
 #~ msgid "Missing Layout"
-#~ msgstr "Layout"
+#~ msgstr "Leagan amach"

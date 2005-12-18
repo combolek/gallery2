@@ -17,145 +17,158 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # 
+# UNFINISHED: Still needs checking how this translation fits in.
+#  -- Jussi Karppanen
+# 
+# msgid[0]�= "No apples"
+# msgid[1] = "One apple"
+# msgid[2] = "2,3,4,.. apples"
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Comment 1.0\n"
-"POT-Creation-Date: 2005-03-28 14:00+0800\n"
-"PO-Revision-Date: 2005-03-31 14:00+0800\n"
-"Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
-"Language-Team: Chinese Simplified <gallery-devel@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2003-05-16 09:40+0300\n"
+"PO-Revision-Date: 2003-09-22 09:10+0300\n"
+"Last-Translator: Jussi Karppanen <bitti@bitti.eu.org>\n"
+"Language-Team: Finnish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=n < 2 ? n : 2;\n"
 
 msgid "Add Comment"
-msgstr "添加评论"
+msgstr "Lisää kommentti"
 
 msgid "add comment"
-msgstr "添加评论"
+msgstr "lisää kommentti"
 
+#, fuzzy
 msgid "show comments"
-msgstr "显示评论"
+msgstr "Näytä kommentit"
 
 msgid "Comments"
-msgstr "评论"
+msgstr "Kommentti"
 
 msgid "Comment Module"
-msgstr "评论模块"
+msgstr "Kommenttimoduuli "
 
 msgid "Search comments"
-msgstr "搜索评论"
+msgstr "Etsi kommentteja"
 
 msgid "Subject"
-msgstr "主题"
+msgstr "Aihe"
 
 msgid "Comment"
-msgstr "评论"
+msgstr "Kommentti"
 
 msgid "Commenter"
-msgstr "评论者"
+msgstr "Kommentoija"
 
+#, fuzzy
 msgid "User commenting system"
-msgstr "用户评论系统"
+msgstr "Näytä kommentit"
 
 msgid "Extra Data"
-msgstr "额外数据"
+msgstr ""
 
 msgid "[comment] Add comments"
-msgstr "[评论] 添加评论"
+msgstr "[kommentti] Lisää kommentteja"
 
 msgid "[comment] Edit comments"
-msgstr "[评论] 编辑评论"
+msgstr "[kommentti] Muokkaa kommentteja"
 
 msgid "[comment] Delete comments"
-msgstr "[评论] 删除评论"
+msgstr "[kommentti] Poista kommentteja"
 
 msgid "[comment] View comments"
-msgstr "[评论] 查看评论"
+msgstr "[kommentti] Näytä kommenttit"
 
 msgid "[comment] All access"
-msgstr "[评论] 完全存取权限"
+msgstr "[kommentti] Täydet oikeudet"
 
 #, fuzzy
 msgid "View Latest Comments"
-msgstr "查看评论"
+msgstr "Näytä kommentit"
 
 msgid "View Comments"
-msgstr "查看评论"
+msgstr "Näytä kommentit"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Comments: %d"
-msgstr "评论: %d"
+msgstr "Kommentti: "
 
 msgid "Comment Preview"
-msgstr "评论预览"
+msgstr "Kommentin esikatselu "
 
 msgid "Posted by"
-msgstr "发表者"
+msgstr "Lähettänyt"
 
 #, c-format
 msgid "%s (%s)"
-msgstr "%s (%s)"
-
-msgid "(required)"
-msgstr "(必填项)"
-
-msgid "You must enter a subject!"
-msgstr "您必须输入一个主题！"
-
-msgid "You must enter a comment!"
-msgstr "您必须输入一条评论！"
-
-msgid "Preview"
-msgstr "预览"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Cancel"
-msgstr "取消"
-
-msgid "edit"
-msgstr "编辑"
-
-msgid "delete"
-msgstr "删除"
+msgstr "%s / %s"
 
 #, fuzzy
+msgid "(required)"
+msgstr "vaadittu"
+
+msgid "You must enter a subject!"
+msgstr "Sinun täytyy antaa aihe!"
+
+msgid "You must enter a comment!"
+msgstr "Unohdit kommentin!"
+
+#, fuzzy
+msgid "Preview"
+msgstr "esikatsele"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "edit"
+msgstr "muokkaa"
+
+msgid "delete"
+msgstr "poista"
+
 msgid "show full"
-msgstr "完全"
+msgstr ""
 
 msgid "show summary"
 msgstr ""
 
 #, c-format
 msgid "Posted by %s on %s (%s)"
-msgstr "由 %s 发表于 %s (%s)"
+msgstr "Lähettettäjä %s (%s) (%s)"
 
 #, c-format
 msgid "Posted by %s on %s"
-msgstr "由 %s 发表于 %s"
+msgstr "Lähettänyt %s (%s)"
 
 msgid "Comment change confirmation"
-msgstr "评论更改确认"
+msgstr "Kommentin vaihdon vahvistus"
 
+#, fuzzy
 msgid "Comment added successfully"
-msgstr "评论添加成功"
+msgstr "Kommentti lisätty"
 
+#, fuzzy
 msgid "Comment deleted successfully"
-msgstr "评论删除成功"
+msgstr "Kommentti poistettu"
 
+#, fuzzy
 msgid "Comment modified successfully"
-msgstr "评论修改成功"
+msgstr "Kommentti päivitetty"
 
 #, fuzzy
 msgid "Comments Settings"
-msgstr "评论"
+msgstr "Kommentti"
 
 #, fuzzy
 msgid "Settings saved successfully"
-msgstr "评论添加成功"
+msgstr "Kommentti lisätty"
 
 msgid "Show link for Latest Comments:"
 msgstr ""
@@ -176,68 +189,70 @@ msgid "Reset"
 msgstr ""
 
 msgid "Delete this comment?"
-msgstr "删除此评论？"
+msgstr "Poista kommentti?"
 
 msgid "Are you sure?"
-msgstr "您确定吗？"
+msgstr "Oletko varma?"
 
 msgid "Delete this comment?  There is no undo!"
-msgstr "删除此评论？此操作无法恢复！"
+msgstr "Poista kommentti peruuttamattomasti?"
 
 msgid "Delete"
-msgstr "删除"
+msgstr "Poista"
 
 msgid "Edit comment"
-msgstr "编辑评论"
+msgstr "Muokkaa kommenttia"
 
 msgid "You must enter a username."
-msgstr "您必须输入一个用户名。"
+msgstr "Syötä käyttäjänimi."
 
 msgid "The username you entered is invalid."
-msgstr "您输入的用户名无效。"
+msgstr "Syöttämäsi käyttäjänimi on viallinen."
 
+#, fuzzy
 msgid "Host"
-msgstr "主机地址"
+msgstr "Isäntä: "
 
+#, fuzzy
 msgid "Date"
-msgstr "日期"
+msgstr "Päiväys:"
 
 msgid "The date you entered is invalid."
-msgstr "您输入的日期无效。"
+msgstr "Syöttämäsi päiväys on viallinen."
 
 msgid "You must enter a date"
-msgstr "您必须输入日期"
+msgstr "Syötä päiväys"
 
 msgid "You must enter a subject"
-msgstr "您必须输入一个主题"
+msgstr "Sinun täytyy antaa aihe"
 
 msgid "You must enter a comment"
-msgstr "您必须输入一条评论"
+msgstr "Sinun täytyy antaa kommentti"
 
 #, fuzzy
 msgid "Latest Comments"
-msgstr "查看评论"
+msgstr "Näytä kommentit"
 
 msgid "Comment changed successfully"
-msgstr "评论更改成功"
+msgstr "Kommentti vaihdettu"
 
 msgid "There are no comments for this item"
-msgstr "此项目没有评论"
+msgstr "Ei kommentteja tälle kuvalle"
 
 msgid "Recent comments"
-msgstr "最近评论"
+msgstr "Uusimmat kommentit"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr "(查看所有 %d 条评论)"
+msgstr "(näytä kaikki %d kommenttia)"
 
 #, fuzzy
 msgid "Show comments"
-msgstr "显示评论"
+msgstr "Näytä kommentit"
 
 #, fuzzy
 msgid "Number of comments"
-msgstr "搜索评论"
+msgstr "Etsi kommentteja"
 
 msgid "1"
 msgstr ""
@@ -273,4 +288,4 @@ msgid "999"
 msgstr ""
 
 #~ msgid "[comment] Search comments"
-#~ msgstr "[评论] 搜索评论"
+#~ msgstr "[kommentti] Etsi kommentteja"

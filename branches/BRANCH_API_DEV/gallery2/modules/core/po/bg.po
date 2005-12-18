@@ -1,39 +1,46 @@
 # $Id$
-# 
+#
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Previous translators (as far as known, add yourself here, please):
+# 
+# # Bisser Dobrev <bdobrev AT comcast DOT net>, 2003-2005
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Core 1.0\n"
-"POT-Creation-Date: 2003-06-25 11:44+0100\n"
-"PO-Revision-Date: 2003-06-25 15:57+0100\n"
-"Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
-"Language-Team: British <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
+"POT-Creation-Date: 2003-02-11 03:09-0800\n"
+"PO-Revision-Date: 2005-08-13 11:42-0500\n"
+"Last-Translator: Bisser Dobrev <bdobrev@comcast.net>\n"
+"Language-Team: Bisser Dobrev <bdobrev AT comcast DOT net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CP1251\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Bulgarian\n"
+"X-Poedit-Country: BULGARIA\n"
 
-#, fuzzy
 msgid "Gallery Email Test"
-msgstr "Gallery"
+msgstr "Тест на E-mail системата"
 
 msgid "forever"
-msgstr "forever"
+msgstr "завинаги"
 
 msgid "High Priority (Me first!)"
 msgstr ""
@@ -51,57 +58,55 @@ msgid "Raw HTML"
 msgstr ""
 
 msgid "Database"
-msgstr ""
+msgstr "База Данни"
 
-#, fuzzy
 msgid "File"
-msgstr "File: "
+msgstr "Файл"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d минута"
+msgstr[1] "%d минути"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "%d hour"
-msgstr[1] "%d hour"
+msgstr[0] "%d час"
+msgstr[1] "%d часа"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "%d day"
-msgstr[1] "%d day"
+msgstr[0] "%d ден"
+msgstr[1] "%d дни"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "%d week"
-msgstr[1] "%d week"
+msgstr[0] "%d седмица"
+msgstr[1] "%d седмици"
 
 msgid "<none>"
-msgstr "<none>"
-
-msgid "install"
-msgstr "install"
-
-msgid "upgrade"
 msgstr ""
 
+msgid "install"
+msgstr "инсталиране"
+
+msgid "upgrade"
+msgstr "обновяване"
+
 msgid "configure"
-msgstr "configure"
+msgstr "конфигуриране"
 
 msgid "activate"
-msgstr "activate"
+msgstr "активиране"
 
-#, fuzzy
 msgid "uninstall"
-msgstr "install"
+msgstr "премахване"
 
 msgid "deactivate"
-msgstr "deactivate"
+msgstr "деактивиране"
 
 msgid "Performing Maintenance Tasks"
 msgstr ""
@@ -110,72 +115,66 @@ msgstr ""
 msgid "Downloading %s"
 msgstr ""
 
-#, fuzzy
 msgid "Done."
-msgstr "Done"
-
-msgid "Upgrade"
 msgstr ""
+
+#, fuzzy
+msgid "Upgrade"
+msgstr "обновяване"
 
 msgid "Download"
 msgstr ""
 
 msgid "Inherit settings from parent album"
-msgstr ""
+msgstr "Използват се настройките на по-горния албум"
 
-#, fuzzy
 msgid "Use these settings"
-msgstr "Album Settings"
+msgstr "Използват се следните настройки"
 
 msgid "key"
-msgstr "key"
+msgstr ""
 
 msgid "All access"
-msgstr "All access"
+msgstr ""
 
 msgid "[core] View item"
-msgstr "[core] View item"
+msgstr ""
 
 msgid "[core] View resized version(s)"
-msgstr "[core] View resized version(s)"
+msgstr ""
 
 msgid "[core] View original version"
-msgstr "[core] View original version"
+msgstr ""
 
 msgid "[core] View all versions"
-msgstr "[core] View all versions"
+msgstr ""
 
 msgid "[core] Add sub-album"
-msgstr "[core] Add sub-album"
+msgstr "[ядро] Добавяне на под-албум"
 
 msgid "[core] Add sub-item"
-msgstr "[core] Add sub-item"
+msgstr "[ядро] Добавяне на под-елемент"
 
-#, fuzzy
 msgid "[core] Edit item"
-msgstr "[core] View item"
+msgstr ""
 
 msgid "[core] Change item permissions"
-msgstr "[core] Change item permissions"
+msgstr ""
 
 msgid "[core] Delete item"
-msgstr "[core] Delete item"
+msgstr ""
 
-#, fuzzy
 msgid "Upgrading permissions"
-msgstr "permissions"
+msgstr "Обновяване на правата за достъп"
 
-#, fuzzy
 msgid "Deleting old permission tables"
-msgstr "permissions"
+msgstr ""
 
-#, fuzzy
 msgid "Registered Users"
-msgstr "Edit a user"
+msgstr "Регистрирани Потребители"
 
-#, fuzzy
 msgid "All Users"
-msgstr "Users"
+msgstr "Всички потребители"
 
 msgid "Detecting broken derivatives"
 msgstr ""
@@ -183,22 +182,20 @@ msgstr ""
 msgid "Clearing fast-download cache"
 msgstr ""
 
-#, fuzzy
 msgid "Site Admins"
-msgstr "site admin"
+msgstr "Администратори"
 
 msgid "Everybody"
-msgstr ""
+msgstr "Всички"
 
 msgid "Guest"
-msgstr ""
+msgstr "Гост"
 
 msgid "Gallery"
-msgstr "Gallery"
+msgstr "Галерия"
 
-#, fuzzy
 msgid "This is the main page of your Gallery"
-msgstr "This is the top of your Gallery"
+msgstr "Това е началната страница на вашата Галерия"
 
 msgid "Detecting broken derivatives, loading "
 msgstr ""
@@ -212,150 +209,130 @@ msgstr ""
 msgid "Detecting broken derivatives, saving "
 msgstr ""
 
-#, fuzzy
 msgid "add items"
-msgstr "add item"
+msgstr "добавете елементи"
 
-#, fuzzy
 msgid "Album created successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr "Албума е успешно създаден."
 
-#, fuzzy
 msgid "add sub-album"
-msgstr "add album"
+msgstr "добавете под-албум"
 
-#, fuzzy
 msgid "add items confirmation"
-msgstr "Destination"
+msgstr ""
 
-#, fuzzy
 msgid "Base filename"
-msgstr "Full name"
+msgstr ""
 
-#, fuzzy
 msgid "Caption"
-msgstr "Caption: "
+msgstr "Надпис"
 
-#, fuzzy
 msgid "Blank"
-msgstr "<< Back"
+msgstr ""
 
 msgid "From Web Browser"
-msgstr ""
+msgstr "Чрез Web Броузера"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d megabyte"
 msgid_plural "%d megabytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d мегабайт"
+msgstr[1] "%d мегабайта"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d kilobytes"
 msgid_plural "%d kilobytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "%d килобайт"
+msgstr[1] "%d килобайта"
 
-#, fuzzy
 msgid "From Local Server"
-msgstr "Add From Your Server"
+msgstr "От Локалния Сървър"
 
 msgid "Photo"
-msgstr ""
+msgstr "Снимка"
 
 msgid "From Web Page"
-msgstr ""
+msgstr "От Web Страница"
 
 msgid "Gallery Item Administration"
-msgstr "Gallery Item Administration"
+msgstr ""
 
 msgid "create link"
 msgstr ""
 
-#, fuzzy
 msgid "link an item"
-msgstr "Move an Item"
+msgstr ""
 
-#, fuzzy
 msgid "delete an item"
-msgstr "delete item"
+msgstr ""
 
-#, fuzzy
 msgid "delete confirmation"
-msgstr "delete item"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "delete %s"
-msgstr "Delete a user"
+msgstr "изтриите %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s"
-msgstr "Edit a user"
+msgstr "редактирайте %s"
 
 msgid "Settings saved successfully."
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; default theme &raquo;"
-msgstr "* No Sort Order *"
+msgstr ""
 
-#, fuzzy
 msgid "Album"
-msgstr "Add Album"
+msgstr "Албум"
 
-#, fuzzy
 msgid "Changes saved successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy
 msgid "Animation Size"
-msgstr "Action"
+msgstr "Големина на Анимацията"
 
-#, fuzzy
 msgid "edit captions"
-msgstr "Actions"
+msgstr "редактирайте надписите"
 
 msgid "General"
-msgstr "General"
+msgstr "Общи"
 
-#, fuzzy
 msgid "Movie Size"
-msgstr "Available Settings"
+msgstr "Големина на Филма"
 
-#, fuzzy
 msgid "Thumbnail cropped successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy
 msgid "Thumbnail reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
 msgid "Photo 5x3"
-msgstr ""
+msgstr "Снимка 5x3"
 
 msgid "Photo 6x4"
-msgstr ""
+msgstr "Снимка 6x4"
 
 msgid "Photo 7x5"
-msgstr ""
+msgstr "Снимка 7x5"
 
 msgid "Photo 10x8"
-msgstr ""
+msgstr "Снимка 10x8"
 
 msgid "Fullscreen 4x3"
-msgstr ""
+msgstr "Екран формат 4x3"
 
 msgid "Widescreen 16x9"
-msgstr ""
+msgstr "Екран формат 16x9"
 
 msgid "CinemaScope 2.35x1"
-msgstr ""
+msgstr "CinemaScope 2.35x1"
 
 msgid "Square 1x1"
-msgstr ""
+msgstr "Квадрат 1x1"
 
-#, fuzzy
 msgid "As Image"
-msgstr "Edit Image"
+msgstr ""
 
 msgid "Landscape"
 msgstr ""
@@ -363,109 +340,97 @@ msgstr ""
 msgid "Portrait"
 msgstr ""
 
-#, fuzzy
 msgid "Crop Thumbnail"
-msgstr "No Thumbnail"
+msgstr ""
 
-#, fuzzy
 msgid "Reverted rotate and scale changes successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy
 msgid "Rotated photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Снимката е успешно завъртяна"
 
-#, fuzzy
 msgid "Scaled photo successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy
 msgid "Modify Photo"
-msgstr "Modified Image"
+msgstr ""
 
-#, fuzzy
 msgid "Successfully saved theme settings"
-msgstr "Album Settings"
+msgstr "Настройките за стила са успешно записани"
 
 msgid "Theme"
-msgstr "Theme"
+msgstr "Стил"
 
 msgid "make highlight"
-msgstr "make highlight"
+msgstr "направете главна снимка"
 
 msgid "move item"
-msgstr "move item"
+msgstr "преместете елемента"
 
-#, fuzzy, c-format
+#, c-format
 msgid "move %s"
-msgstr "Move"
+msgstr "преместете %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "edit %s permissions"
-msgstr "permissions"
+msgstr "променете правата за достъп на %s"
 
-#, fuzzy
 msgid "reorder items"
-msgstr "move item"
+msgstr "пренаредете елементите (по-име)"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Поддръжка"
 
 msgid "Gallery Site Administration"
-msgstr "Gallery Site Administration"
-
-msgid "site admin"
-msgstr "site admin"
-
-#, fuzzy
-msgid "Gallery User Administration"
-msgstr "Gallery Item Administration"
-
-#, fuzzy
-msgid "change password"
-msgstr "Password"
-
-msgid "your account"
 msgstr ""
 
-#, fuzzy
-msgid "Password Recovery"
-msgstr "Password"
+msgid "site admin"
+msgstr "администрацията"
 
-#, fuzzy
+msgid "Gallery User Administration"
+msgstr ""
+
+msgid "change password"
+msgstr "смяна на парола"
+
+msgid "your account"
+msgstr "потребителски настройки"
+
+msgid "Password Recovery"
+msgstr ""
+
 msgid "Build all thumbnails/resizes"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid ""
 "Ensure data files for all derivatives (thumbnails, etc) have been built and rebuild broken "
 "ones."
 msgstr ""
 
-#, fuzzy
 msgid "Build All Thumbnails/Resizes"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid "Debug output for failed items:"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing image %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Oбработване на изображение %d от %d"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Checked %d items"
-msgstr "add item"
+msgstr "Проверени елементи: %d"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d items built"
-msgstr "add item"
+msgstr "Изградени елементи: %d"
 
 #, c-format
 msgid "%d items failed"
-msgstr ""
+msgstr "Неуспешно изградени: %d"
 
 msgid "Delete database cache"
-msgstr ""
+msgstr "Изтриите временните файлове на базата данни"
 
 msgid ""
 "Gallery stores commonly used database information on disk for increased performance.  If you "
@@ -481,9 +446,8 @@ msgstr ""
 msgid "Unable to delete directory: %s"
 msgstr ""
 
-#, fuzzy
 msgid "Delete template cache"
-msgstr "Delete Item"
+msgstr ""
 
 msgid ""
 "Gallery compiles template files and saves them for increased performance.  If you're "
@@ -492,94 +456,84 @@ msgid ""
 "file."
 msgstr ""
 
-#, fuzzy
 msgid "Template cache deleted successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
+# forget about this, is inside a comment, never used really
 msgid "some text to be spit out in different languages"
-msgstr ""
+msgstr "x"
 
+# forget about this, is inside a comment, never used really
 msgid "You did it right!"
+msgstr "x"
+
+msgid "album"
+msgstr "албума"
+
+msgid "Animation"
+msgstr "Анимация"
+
+msgid "animation"
+msgstr "анимация"
+
+msgid "Gallery Core"
+msgstr "Ядро на Галерията"
+
+msgid "Gallery Core Module"
+msgstr "Модул 'Ядро' на Галерията"
+
+msgid "Search descriptions"
 msgstr ""
 
-#, fuzzy
-msgid "album"
-msgstr "(album)"
-
-#, fuzzy
-msgid "Animation"
-msgstr "Action"
-
-#, fuzzy
-msgid "animation"
-msgstr "Action"
-
-#, fuzzy
-msgid "Gallery Core"
-msgstr "Gallery"
-
-#, fuzzy
-msgid "Gallery Core Module"
-msgstr "Gallery"
-
-#, fuzzy
-msgid "Search descriptions"
-msgstr "Description"
-
-#, fuzzy
 msgid "Search keywords"
-msgstr "Keywords"
+msgstr ""
 
 msgid "Search summaries"
 msgstr ""
 
-#, fuzzy
 msgid "Search titles"
-msgstr "deactivate"
+msgstr ""
 
 msgid "Description"
-msgstr "Description"
+msgstr "Описание"
 
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Ключови думи"
 
 msgid "Summary"
-msgstr "Summary"
+msgstr "Резюме"
 
 msgid "Title"
-msgstr "Title"
+msgstr "Заглавие"
 
 msgid "Owner"
-msgstr "Owner"
+msgstr "Собственик"
 
-#, fuzzy
 msgid "Group"
-msgstr "Groups"
+msgstr "Група"
 
-#, fuzzy
 msgid "group"
-msgstr "Groups"
+msgstr "група"
 
 msgid "Other"
 msgstr ""
 
-#, fuzzy
 msgid "Movie"
-msgstr "Move"
+msgstr "Филм"
 
-#, fuzzy
 msgid "movie"
-msgstr "Move"
+msgstr "филм"
 
 msgid "photo"
-msgstr ""
+msgstr "снимката"
 
+#, fuzzy
 msgid "download"
-msgstr ""
+msgstr "надолу"
 
 #, fuzzy
 msgid "Plugins directory does not exist."
-msgstr "User '%s' does not exist."
+msgstr "Групата '%s'  не съществува."
 
 #, c-format
 msgid ""
@@ -612,155 +566,141 @@ msgstr ""
 msgid "Index integrity check failed."
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; default sort order &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; презададен ред на сортиране &raquo;"
 
-#, fuzzy
 msgid "Manual sort order"
-msgstr "Album sort order:"
+msgstr "Ръчно сортиране"
 
-#, fuzzy
 msgid "Origination Date"
-msgstr "Creation Date"
+msgstr ""
 
 msgid "Creation Date"
-msgstr "Creation Date"
+msgstr "Дата на създаване"
 
 msgid "Last Changed Date"
-msgstr "Last Changed Date"
+msgstr "Дата на промяна"
 
 msgid "Name"
-msgstr "Name"
+msgstr "Име"
 
 msgid "View Count"
-msgstr ""
+msgstr "Брой прегледи"
 
 msgid "Random"
 msgstr ""
 
-#, fuzzy
 msgid "&laquo; no presort &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; без второ сортиране &raquo;"
 
-#, fuzzy
 msgid "Albums First"
-msgstr "Album Settings"
+msgstr "Първо Албумите"
 
 msgid "Most Viewed First"
-msgstr ""
+msgstr "Първо Най-гледаното"
 
 msgid "Ascending"
-msgstr "Ascending"
+msgstr "Възходящо"
 
 msgid "Descending"
-msgstr "Descending"
+msgstr "Низходящо"
 
 msgid "Validation disabled until you set allowSessionAccess in config.php"
 msgstr ""
 
 msgid "This page is valid XHTML 1.0"
-msgstr ""
+msgstr "Тази страница е валиден  XHTML 1.0"
 
 #, fuzzy
 msgid "Donate to the Gallery project"
-msgstr "Browse Gallery"
+msgstr "Назад към Галерията"
 
 msgid "G2.0: Unpossible!"
 msgstr ""
 
 #, c-format
 msgid "Estimated time remaining: %d:%02d"
-msgstr ""
+msgstr "Оставащо време: %d:%02d"
 
 #, c-format
 msgid "Memory used: %s, total: %s"
-msgstr ""
+msgstr "Памет в употреба:  %s, общо: %s"
 
 msgid "Rows per album page"
-msgstr ""
+msgstr "Брой редове на страница в албум"
 
 msgid "Columns per album page"
-msgstr ""
+msgstr "Брой колони на страница в албум"
 
 msgid "Show image owners"
-msgstr ""
+msgstr "Показване на притежателя на снимката"
 
 msgid "Show album owners"
-msgstr ""
+msgstr "Показване на притежателя на албума"
 
 msgid "Show micro navigation thumbnails"
-msgstr ""
+msgstr "Показване на микро-изображения за навигация"
 
 msgid "Number of items to show per page"
-msgstr ""
+msgstr "Брой елементи показани на страницата"
 
 msgid "Blocks to show in the sidebar"
-msgstr ""
+msgstr "Кои блокове да са показани отстрани"
 
 msgid "Blocks to show on album pages"
-msgstr ""
+msgstr "Кои блокове да са показани на страниците с албуми"
 
 msgid "Blocks to show on photo pages"
-msgstr ""
+msgstr "Кои блокове да са показани на страниците със снимки"
 
 msgid "View Samples"
-msgstr ""
+msgstr "Вижте примери"
 
-#, fuzzy
 msgid "Album Frame"
-msgstr "Album Settings"
+msgstr "Рамка на Албума"
 
-#, fuzzy
 msgid "Item Frame"
-msgstr "Items to move"
+msgstr "Рамка на Елемента"
 
 msgid "Photo Frame"
-msgstr ""
+msgstr "Рамка на Снимката"
 
 msgid "Color Pack"
-msgstr ""
+msgstr "Цветове"
 
-#, fuzzy
 msgid "You must enter a number greater than 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr "Трябва да въведете число по голямо от 0"
 
 msgid "Format: [module.BlockName param=value] ..."
-msgstr ""
+msgstr "Формат: [module.BlockName param=value] ..."
 
 #, c-format
 msgid "%dx%d"
-msgstr ""
+msgstr "%dx%d"
 
-#, fuzzy
 msgid "Audio"
-msgstr "Undo"
+msgstr "Аудио"
 
-#, fuzzy
 msgid "audio"
-msgstr "Undo"
+msgstr "аудио"
 
-#, fuzzy
 msgid "Archive"
-msgstr "Active"
+msgstr "Архив"
 
-#, fuzzy
 msgid "archive"
-msgstr "activate"
+msgstr "архив"
 
 msgid "Document"
-msgstr ""
+msgstr "Д"
 
 msgid "document"
 msgstr ""
 
-#, fuzzy
 msgid "Spreadsheet"
-msgstr "Reset"
+msgstr ""
 
-#, fuzzy
 msgid "spreadsheet"
-msgstr "Reset"
+msgstr ""
 
 msgid "Unknown"
 msgstr ""
@@ -774,21 +714,18 @@ msgid ""
 "part of this Gallery."
 msgstr ""
 
-#, fuzzy
 msgid "Back"
-msgstr "<< Back"
+msgstr "Назад"
 
 #, c-format
 msgid "Back to %s"
-msgstr ""
+msgstr "Назад към %s"
 
-#, fuzzy
 msgid "User"
-msgstr "Users"
+msgstr "Потребител"
 
-#, fuzzy
 msgid "user"
-msgstr "Users"
+msgstr "потребител"
 
 msgid "Optimize database"
 msgstr ""
@@ -799,9 +736,8 @@ msgid ""
 "useful after adding or deleting many items."
 msgstr ""
 
-#, fuzzy
 msgid "Database optimized successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
 msgid "Reset view counts"
 msgstr ""
@@ -811,9 +747,8 @@ msgid ""
 "cache as well."
 msgstr ""
 
-#, fuzzy
 msgid "View counts reset successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
 msgid "Refresh capture dates"
 msgstr ""
@@ -829,213 +764,179 @@ msgstr ""
 msgid "Refresh Capture Dates"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Processing item %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Updated %d of %d items"
-msgstr "Viewing page %d of %d"
+msgstr ""
 
-#, fuzzy
 msgid "System information"
-msgstr "Destination"
+msgstr "Информация за системата"
 
 msgid "Get system details; useful for copy/paste into G2 support forum."
 msgstr ""
 
-#, fuzzy
 msgid "core"
-msgstr "configure"
+msgstr "ядро"
 
-#, fuzzy
 msgid "Gallery version"
-msgstr "Gallery"
+msgstr "Версия на Галерията"
 
-#, fuzzy
 msgid "PHP version"
-msgstr "Version"
+msgstr "Версия на PHP"
 
-#, fuzzy
 msgid "Webserver"
-msgstr "Remove"
+msgstr "Web-сървър"
 
 msgid "Toolkits"
-msgstr ""
+msgstr "Помощни Програми"
 
 msgid "Operating system"
-msgstr ""
+msgstr "Операционна система"
 
-#, fuzzy
 msgid "Browser"
-msgstr "Browse Gallery"
+msgstr "Броузер"
 
-#, fuzzy
 msgid "Core"
-msgstr "configure"
+msgstr "Ядро на Галерията"
 
-#, fuzzy
 msgid "Gallery 2 Core Module"
-msgstr "Gallery"
+msgstr "Модул Ядро на Галерия v2"
 
 msgid "Add Items"
-msgstr "Add Items"
+msgstr "Добавете Елементи"
 
-#, fuzzy
 msgid "Edit Album"
-msgstr "Add an Album"
+msgstr "Редактирайте Албума"
 
-#, fuzzy
 msgid "Edit Photo"
-msgstr "Modified Image"
+msgstr "Редактирайте Снимката"
 
-#, fuzzy
 msgid "Edit Movie"
-msgstr "Move"
+msgstr "Редактирайте Филма"
 
-#, fuzzy
 msgid "Create Link"
-msgstr "Create"
+msgstr "Създайте линк"
 
-#, fuzzy
 msgid "Add Album"
-msgstr "Add an Album"
+msgstr "Добавете Албум"
 
-#, fuzzy
 msgid "Edit Permissions"
-msgstr "Permissions"
+msgstr "Променете Правата за Достъп"
 
-#, fuzzy
 msgid "View Permissions"
-msgstr "Permissions"
+msgstr "Вижте Правата за Достъп"
 
-#, fuzzy
 msgid "Delete Album"
-msgstr "Delete a group"
+msgstr "Изтриите Албума"
 
-#, fuzzy
 msgid "Delete Photo"
-msgstr "Delete a user"
+msgstr "Изтриите Снимката"
 
-#, fuzzy
 msgid "Delete Movie"
-msgstr "Delete a user"
+msgstr "Изтриите Филма"
 
-#, fuzzy
 msgid "Move Album"
-msgstr "Add Album"
+msgstr "Преместете Албума"
 
-#, fuzzy
 msgid "Move Photo"
-msgstr "Modified Image"
+msgstr "Преместете Снимката"
 
-#, fuzzy
 msgid "Move Movie"
-msgstr "Available Settings"
+msgstr "Преместете Филма"
 
-#, fuzzy
 msgid "Edit Captions"
-msgstr "Gallery Site Administration"
+msgstr "Редактирайте Надписите"
 
 msgid "Make Highlight"
-msgstr "Make Highlight"
-
-#, fuzzy
-msgid "Reorder Items"
-msgstr "move item"
-
-#, fuzzy
-msgid "Site Admin"
-msgstr "site admin"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Your Account"
 msgstr ""
 
-#, fuzzy
+msgid "Reorder Items"
+msgstr "Пренаредете Елементите (по име)"
+
+msgid "Site Admin"
+msgstr "Администрация"
+
+msgid "Login"
+msgstr "Вход"
+
+msgid "Your Account"
+msgstr "Вашите Настройки"
+
 msgid "Logout"
-msgstr "logout"
+msgstr "Изход"
 
 msgid "Modules"
-msgstr "Modules"
+msgstr "Модули"
 
 msgid "Repository"
 msgstr ""
 
-#, fuzzy
 msgid "Themes"
-msgstr "Theme"
+msgstr ""
 
 msgid "Display"
 msgstr ""
 
 msgid "Users"
-msgstr "Users"
+msgstr "Потребители"
 
 msgid "Groups"
-msgstr "Groups"
+msgstr "Групи"
 
 msgid "Toolkit Priority"
-msgstr ""
+msgstr "Приоритети"
 
 msgid "Graphics Toolkits"
+msgstr "Графични Програми"
+
+msgid "Account Settings"
+msgstr "Потребителски Настройки"
+
+msgid "Change Password"
+msgstr "Смяна на Парола"
+
+msgid "Link Album"
+msgstr "Свържете Албума"
+
+msgid "Link Photo"
 msgstr ""
 
-#, fuzzy
-msgid "Account Settings"
-msgstr "Album Settings"
-
-#, fuzzy
-msgid "Change Password"
-msgstr "Password"
-
-#, fuzzy
-msgid "Link Album"
-msgstr "Add Album"
-
-#, fuzzy
-msgid "Link Photo"
-msgstr "Modified Image"
-
-#, fuzzy
 msgid "Link Movie"
-msgstr "Move"
+msgstr "Свържете Филма"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Edit %s"
-msgstr "Edit a user"
+msgstr "Редактирайте %sа"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Delete %s"
-msgstr "Delete a user"
+msgstr "Изтриите %sа"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Move %s"
-msgstr "Move"
+msgstr "Преместете %sа"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Link %s"
-msgstr "Login"
+msgstr ""
 
 msgid "General Settings"
-msgstr "General Settings"
+msgstr "Общи Настройки"
 
 msgid "Settings saved successfully"
-msgstr ""
+msgstr "Настройките са успешно записани"
 
-#, fuzzy
 msgid "Added local upload directory successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Локална на сървъра директории за качване е успешно добавена"
 
-#, fuzzy
 msgid "Removed local upload directory successfully"
-msgstr "Revert to original"
+msgstr "Локална на сървъра директории за качване е успешно премахната"
 
-#, fuzzy
 msgid "Test email sent successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
 msgid "There was a problem processing your request, see below for details."
 msgstr ""
@@ -1043,9 +944,8 @@ msgstr ""
 msgid "Error sending test email, see below for details."
 msgstr ""
 
-#, fuzzy
 msgid "Language Settings"
-msgstr "Language settings"
+msgstr "Езикови настройки"
 
 #, fuzzy
 msgid ""
@@ -1054,11 +954,11 @@ msgid ""
 "automatically detect the language preference of each user if the browser preference check is "
 "enabled."
 msgstr ""
-"Select language defaults for Gallery. Individual users can override this setting in their "
-"personal preferences."
+"Изберете презададения език за Галерията. Отделните потребители могат по-късно да променят "
+"това във техните лични настройки или чрез меню, ако е активирано по-долу."
 
 msgid "Default language"
-msgstr "Default language"
+msgstr "Презададен език"
 
 msgid "Check Browser Preference"
 msgstr ""
@@ -1074,7 +974,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Date Formats"
-msgstr "Delete a user"
+msgstr "Дата: %s"
 
 #, c-format
 msgid ""
@@ -1085,45 +985,46 @@ msgstr ""
 
 #, fuzzy
 msgid "Style"
-msgstr "Scale"
+msgstr "Заглавие"
 
 msgid "Format"
 msgstr ""
 
 #, fuzzy
 msgid "Sample"
-msgstr "Scale"
+msgstr "Вижте примери"
 
 #, fuzzy
 msgid "Date"
-msgstr "Delete a user"
+msgstr "Дата:"
 
 #, fuzzy
 msgid "Time"
-msgstr "move item"
+msgstr "Час:"
 
+# %s is localized name of item at hand
+#, fuzzy
 msgid "Date/Time"
-msgstr ""
+msgstr "Дата и час за %s"
 
 msgid "Filesystem Permissions"
-msgstr "Filesystem Permissions"
+msgstr "Права за достъп до файловата система"
 
-#, fuzzy
 msgid ""
 "Specify the default permissions for files and directories that Gallery creates. This doesn't "
 "apply to files/directories that Gallery has already created."
 msgstr ""
-"Here you can specify the default permissions for files and directories that Gallery creates. "
-"This doesn't apply to files/directories that Gallery has already created."
+"Посочете презададените права за достъп за файловете и директориите които Галерията създава. "
+"Това не се отнася за файловете и директориите които Галерията вече е създала."
 
 msgid "New directories"
-msgstr "New directories"
+msgstr "Нови директории"
 
 msgid "New files"
-msgstr "New files"
+msgstr "Нови файлове"
 
 msgid "Local Server Upload Paths"
-msgstr ""
+msgstr "Пътеки към локални на сървъра директории за качване"
 
 msgid ""
 "Specify the legal directories on the local server where a user can store files and then "
@@ -1132,23 +1033,27 @@ msgid ""
 "Gallery user who has upload privileges, so you should limit this to directories that won't "
 "contain sensitive data (eg. /tmp or /usr/ftp/incoming)"
 msgstr ""
+"Посочете локални директории на сървъра, кадето потребителя може да съхранява файлове и след "
+"това да ги качва в Галерията използвайки функцията '<i>Качване от Локалния Сървър</i>'. "
+"Пътеките които въведете тук и всички файлове и директории под тях, ще бъдат на разположение "
+"за всеки потребител на Галерията който има привилегията 'Качване на файлове'. Поради това е "
+"добре да ограничите тези пътеки до директории които не съдържат важна информация (например /"
+"tmp или /usr/ftp/incoming)"
 
 msgid "Path"
-msgstr ""
+msgstr "Пътека към директорията"
 
 msgid "Action"
-msgstr "Action"
+msgstr "Действие"
 
-#, fuzzy
 msgid "remove"
-msgstr "Remove"
+msgstr "премахване"
 
 msgid "Add"
-msgstr "Add"
+msgstr "Добавете"
 
-#, fuzzy
 msgid "You must enter a directory to add."
-msgstr "You must enter a size"
+msgstr ""
 
 msgid "open_basedir documentation"
 msgstr ""
@@ -1166,14 +1071,13 @@ msgid "The path you specified is not a valid directory."
 msgstr ""
 
 msgid "Session Settings"
-msgstr "Session Settings"
+msgstr ""
 
-#, fuzzy
 msgid "Session Lifetime"
-msgstr "Session Settings"
+msgstr ""
 
 msgid "Inactivity Timeout"
-msgstr "Inactivity Timeout"
+msgstr ""
 
 msgid "Embedded Markup"
 msgstr ""
@@ -1188,7 +1092,7 @@ msgid "Markup"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 msgid ""
 "By default Gallery uses PHP's built in mail function to send email which requires no "
@@ -1197,23 +1101,20 @@ msgid ""
 "non-default port."
 msgstr ""
 
-#, fuzzy
 msgid "Server"
-msgstr "Remove"
+msgstr "Сървър"
 
 msgid "Username"
-msgstr "Username"
+msgstr "Потребител"
 
 msgid "Password"
-msgstr "Password"
+msgstr "Парола"
 
-#, fuzzy
 msgid "SMTP From Address"
-msgstr "Email address"
+msgstr ""
 
-#, fuzzy
 msgid "Invalid email address"
-msgstr "Email address"
+msgstr ""
 
 msgid ""
 "Send a test email to verify your settings are correct (whether using PHP mail or SMTP "
@@ -1300,107 +1201,100 @@ msgid ""
 "complaining, try setting your priority low."
 msgstr ""
 
+#, fuzzy
 msgid "Priority"
-msgstr ""
+msgstr "Приоритети"
 
 msgid "Save"
-msgstr "Save"
+msgstr "Запишете"
 
-#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Анулирайте"
 
-#, fuzzy
 msgid "Create A New Group"
-msgstr "Create a new group"
+msgstr "Създайте Нова Група"
 
 msgid "Group Name"
-msgstr "Group Name"
+msgstr "Група"
 
-#, fuzzy
 msgid "(required)"
-msgstr "[required]"
+msgstr "(необходимо)"
 
 msgid "You must enter a group name"
-msgstr "You must enter a group name"
+msgstr "Трябва да въведете име на групата"
 
 #, c-format
 msgid "Group '%s' already exists"
-msgstr "Group '%s' already exists"
+msgstr "Групата '%s' вече съществува"
 
 msgid "Create Group"
-msgstr "Create Group"
+msgstr "Създайте Група"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Отказ"
 
-#, fuzzy
 msgid "Create A New User"
-msgstr "Create a new user"
+msgstr "Създайте нов потребител"
 
 msgid "You must enter a username"
-msgstr "You must enter a username"
+msgstr "Трябва да въведете потребителско име"
 
 #, c-format
 msgid "Username '%s' already exists"
-msgstr "Username '%s' already exists"
+msgstr "Потребителя '%s' вече съществува"
 
-#, fuzzy
 msgid "Full Name"
-msgstr "Full name"
+msgstr "Пълно Име"
 
-#, fuzzy
 msgid "Email Address"
-msgstr "Email address"
+msgstr "E-mail адрес"
 
 msgid "You must enter an email address"
-msgstr "You must enter an email address"
+msgstr "Трябва да въведете e-mail адрес"
 
 msgid "Language"
-msgstr "Language"
+msgstr "Език"
 
 msgid "You must enter a password"
-msgstr "You must enter a password"
+msgstr "Трябва да въведете парола"
 
-#, fuzzy
 msgid "Verify Password"
-msgstr "Verify password"
+msgstr "Потвърдете Паролата"
 
 msgid "You must enter the password a second time"
-msgstr "You must enter the password a second time"
+msgstr "Трябва да въведете паролата втори път"
 
 msgid "The passwords you entered did not match"
-msgstr "The passwords you entered did not match"
+msgstr "Паролите които въведохте не съвпадат"
 
 msgid "Create User"
-msgstr "Create User"
+msgstr "Създайте този потребител"
 
-#, fuzzy
 msgid "Delete A Group"
-msgstr "Delete a group"
+msgstr "Изтриите Група"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "Сигурни ли сте?"
 
 #, c-format
 msgid "This will completely remove %s from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Това изцяло ще премахне %s от Галерията. Няма връщане назад!"
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Изтриите"
 
-#, fuzzy
 msgid "Delete a User"
-msgstr "Delete a user"
+msgstr "Изтриите потребител"
 
-#, fuzzy, c-format
+#, c-format
 msgid "User %s is the owner of %s items."
-msgstr "A longer description of this item."
+msgstr ""
 
 #, c-format
 msgid "Delete user <strong>%s</strong> and..."
 msgstr ""
 
+# %s is name of old owner
 #, c-format
 msgid "Assign a new owner for all items of %s"
 msgstr ""
@@ -1426,190 +1320,174 @@ msgstr ""
 
 #, c-format
 msgid "This will completely remove <strong>%s</strong> from Gallery.  There is no undo!"
-msgstr ""
+msgstr "Това ще премахне напълно <strong>%s</strong> от Галерията. Няма връщане назад!"
 
 msgid "Edit a group"
-msgstr "Edit a group"
+msgstr "Промяна на група"
 
 #, c-format
 msgid "Edit Members of Group '%s'"
-msgstr ""
+msgstr "Променете Потребителите в Групата '%s'"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Added user '%s' to group '%s'"
-msgstr "Added user '%s' to group"
+msgstr "Потребителя '%s' е добавен в групата '%s'"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Removed user '%s' from group '%s'"
 msgid_plural "Removed %s users from group '%s'"
-msgstr[0] "Removed user '%s' from group"
-msgstr[1] "Removed user '%s' from group"
+msgstr[0] "'%s' потребител е премахнат от групата  '%s'"
+msgstr[1] "%s потребители са премахнати от групата '%s'"
 
 #, c-format
 msgid "This group contains %d user"
 msgid_plural "This group contains %d users"
-msgstr[0] "This group contains %d user"
-msgstr[1] "This group contains %d users"
+msgstr[0] "Тази група съдържа %d потребител"
+msgstr[1] "Тази група съдържа %d потребители"
 
-#, fuzzy
 msgid "Members"
-msgstr "Add Items"
+msgstr "Потребители"
 
 msgid "&laquo; first"
-msgstr ""
+msgstr "&laquo; първа"
 
 msgid "&laquo; back"
-msgstr ""
+msgstr "&laquo; предишна"
 
 #, c-format
 msgid "Viewing page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "страница %d от %d"
 
 msgid "next &raquo;"
-msgstr ""
+msgstr "следваща &raquo;"
 
 msgid "last &raquo;"
+msgstr "последна &raquo;"
+
+msgid "Filter"
 msgstr ""
 
-#, fuzzy
-msgid "Filter"
-msgstr "Filter:"
-
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #, c-format
 msgid "%d user matches your filter"
 msgid_plural "%d users match your filter"
-msgstr[0] "%d user matches your filter"
-msgstr[1] "%d users match your filter"
+msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy
+# TODO: the msgid is too generic for such a specific translation
 msgid "Remove selected"
-msgstr "move item"
+msgstr ""
 
 msgid "You must select a user to remove."
-msgstr "You must select a user to remove."
+msgstr ""
 
-#, fuzzy
 msgid "You can't remove yourself from this group."
-msgstr "You cannot add or delete users from this group"
+msgstr ""
 
-#, fuzzy
 msgid "Add Member"
-msgstr "Add Items"
+msgstr ""
 
 msgid "You must enter a username."
-msgstr "You must enter a username."
+msgstr ""
 
 #, c-format
 msgid "User '%s' does not exist."
-msgstr "User '%s' does not exist."
-
-#, fuzzy
-msgid "This user already is in this group."
-msgstr "Username '%s' already exists"
-
-msgid "Done"
-msgstr "Done"
-
-msgid "Edit a user"
-msgstr "Edit a user"
-
-#, fuzzy
-msgid "That username is already in use"
-msgstr "Username '%s' already exists"
-
-#, fuzzy
-msgid "You must enter a new username"
-msgstr "You must enter a username"
-
-#, fuzzy
-msgid "E-mail Address"
-msgstr "Email address"
-
-msgid "(suggested)"
 msgstr ""
 
+msgid "This user already is in this group."
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Edit a user"
+msgstr ""
+
+msgid "That username is already in use"
+msgstr ""
+
+msgid "You must enter a new username"
+msgstr ""
+
+msgid "E-mail Address"
+msgstr "E-mail Адрес"
+
+msgid "(suggested)"
+msgstr "(препоръчително)"
+
 msgid "Group Management"
-msgstr "Group Management"
+msgstr "Управление на Групите"
 
 #, c-format
 msgid "Removed group '%s'"
-msgstr "Removed group '%s'"
+msgstr "Премахната е групата '%s'"
 
 #, c-format
 msgid "Created group '%s'"
-msgstr "Created group '%s'"
+msgstr "Създадена е групата '%s'"
 
 #, c-format
 msgid "Modified group '%s'"
-msgstr "Modified group '%s'"
+msgstr "Променена е групата '%s'"
 
 #, c-format
 msgid "There is %d group in the system."
 msgid_plural "There are %d total groups in the system."
-msgstr[0] "There is %d group in the system."
-msgstr[1] "There are %d total groups in the system."
+msgstr[0] "В момента има %d група в системата."
+msgstr[1] "В момента има %d групи в системата."
 
-#, fuzzy
 msgid "Edit Group"
-msgstr "Edit a group"
+msgstr "Променете Групата"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Променете"
 
 msgid "Add/Remove Users"
-msgstr "Add/Remove Users"
+msgstr "Добавете/Премахнете Потребители"
 
 #, c-format
 msgid "Group '%s' does not exist."
-msgstr "Group '%s' does not exist."
+msgstr "Групата '%s'  не съществува."
 
-#, fuzzy
 msgid "You cannot delete that group"
-msgstr "You cannot delete the Site Admins group"
+msgstr ""
 
-#, fuzzy
 msgid "You cannot edit that group's users"
-msgstr "You cannot delete the anonymous user!"
+msgstr ""
 
-#, fuzzy
 msgid "Edit Group (by list)"
-msgstr "Editing Group '%s'"
+msgstr "Променете Групата (по списък)"
 
-#, fuzzy
 msgid "edit"
-msgstr "Edit"
+msgstr "променете"
 
-#, fuzzy
 msgid "delete"
-msgstr "Delete"
+msgstr ""
 
-#, fuzzy
 msgid "members"
-msgstr "move item"
+msgstr ""
 
 #, c-format
 msgid "%d group matches your filter"
 msgid_plural "%d groups match your filter"
-msgstr[0] "%d group matches your filter"
-msgstr[1] "%d groups match your filter"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "System Maintenance"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Completed %s task successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "The %s task failed to complete successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
-#, fuzzy
 msgid "Task name"
-msgstr "User name"
+msgstr ""
 
 msgid "Last run"
 msgstr ""
@@ -1617,16 +1495,14 @@ msgstr ""
 msgid "Success/Fail"
 msgstr ""
 
-#, fuzzy
 msgid "Not run yet"
-msgstr "Not implemented yet"
+msgstr ""
 
 msgid "Success"
 msgstr ""
 
-#, fuzzy
 msgid "Failed"
-msgstr "File: "
+msgstr ""
 
 msgid "run now"
 msgstr ""
@@ -1634,37 +1510,36 @@ msgstr ""
 msgid "Last Run Details:"
 msgstr ""
 
-#, fuzzy
 msgid "Gallery Modules"
-msgstr "Gallery"
+msgstr "Модули на Галерията"
 
 #, c-format
 msgid "Successfully installed and auto-configured module %s"
-msgstr ""
+msgstr "Модула %s е успешно инсталиран и автоматично конфигуриран"
 
 #, c-format
 msgid "Successfully installed module %s"
-msgstr ""
+msgstr "Модула %s е успешно инсталиран"
 
 #, c-format
 msgid "Successfully configured module %s"
-msgstr ""
+msgstr "Модула %s е успешно конфигуриран"
 
 #, c-format
 msgid "Successfully upgraded module %s"
-msgstr ""
+msgstr "Модула %s е успешно обновен"
 
 #, c-format
 msgid "Successfully activated module %s"
-msgstr ""
+msgstr "Модула %s е успешно активиран"
 
 #, c-format
 msgid "Successfully deactivated module %s"
-msgstr ""
+msgstr "Модула %s е успешно деактивиран"
 
 #, c-format
 msgid "Successfully uninstalled module %s"
-msgstr ""
+msgstr "Модула %s е успешно премахнат"
 
 msgid ""
 "Gallery features come as separate modules.  You can download and install modules to add more "
@@ -1674,25 +1549,22 @@ msgid ""
 msgstr ""
 
 msgid "Module Name"
-msgstr "Module Name"
+msgstr "Име на Модула"
 
 msgid "Version"
-msgstr "Version"
+msgstr "Версия"
 
-#, fuzzy
 msgid "Installed"
-msgstr "install"
+msgstr "Инсталиран"
 
 msgid "Actions"
-msgstr "Actions"
+msgstr "Действия"
 
-#, fuzzy
 msgid "Status: Not Installed"
-msgstr "install"
+msgstr ""
 
-#, fuzzy
 msgid "Status: Active"
-msgstr "Active"
+msgstr ""
 
 msgid "Status: Inactive"
 msgstr ""
@@ -1715,18 +1587,20 @@ msgid "Module API Required: %s (available: %s)"
 msgstr ""
 
 msgid "Confirm module uninstall"
-msgstr ""
+msgstr "Потвърдете премахването на модула"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to uninstall the %s module?"
-msgstr "Do you really want to delete user '%s'?"
-
-msgid "This will also remove any permissions and clean up any data created by this module."
-msgstr ""
+msgstr "Наистина ли искате да премахнете модула %s?"
 
 #, fuzzy
+msgid "This will also remove any permissions and clean up any data created by this module."
+msgstr ""
+"Това също така ще премахне всички права за достъп и ще изчисти всички временни файлове "
+"създадени от този модул."
+
 msgid "Uninstall"
-msgstr "install"
+msgstr "Премахване"
 
 msgid "Please make sure that your internet connection is set up properly or try again later."
 msgstr ""
@@ -1776,11 +1650,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Update"
-msgstr "Delete a user"
+msgstr "Дата:"
 
 #, fuzzy
 msgid "Upgrade Gallery"
-msgstr "Gallery"
+msgstr "Галерия"
 
 msgid ""
 "A new version of Gallery is available, but it cannot be upgraded through this interface. "
@@ -1802,7 +1676,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Up-To-Date"
-msgstr "Gallery"
+msgstr "Ядро на Галерията"
 
 msgid ""
 "Gallery cannot be upgraded through this interface. When a new version becomes available, "
@@ -1817,8 +1691,9 @@ msgid ""
 "No new plugins will be downloaded."
 msgstr ""
 
+#, fuzzy
 msgid "Upgrade All"
-msgstr ""
+msgstr "обновяване"
 
 msgid ""
 "Once the repository index has been downloaded, a list of available plugins will be "
@@ -1844,13 +1719,12 @@ msgstr ""
 msgid "of plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
-#, fuzzy
 msgid "Theme Name"
-msgstr "Theme"
+msgstr "Име"
 
 #, fuzzy
 msgid "Latest"
-msgstr "Delete a user"
+msgstr "последна"
 
 msgid "Incompatible Plugin"
 msgstr ""
@@ -1867,7 +1741,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Base Files"
-msgstr "Full name"
+msgstr "Добавете Файлове"
 
 msgid ""
 "The base files required for the theme to work and the English (US) translation will be "
@@ -1918,7 +1792,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Gallery Repository Setup"
-msgstr "Gallery"
+msgstr "Версия на Галерията"
 
 msgid "Warning: `$errorMessage`"
 msgstr ""
@@ -1937,9 +1811,10 @@ msgstr ""
 msgid "Instructions for Unix-type platforms:"
 msgstr ""
 
+# sidebar.tpl: %d is number of item, %s is truncated title
 #, fuzzy, c-format
 msgid "$ cd %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
 #, c-format
 msgid "$ mkdir %s"
@@ -1954,43 +1829,40 @@ msgid ""
 "created."
 msgstr ""
 
-#, fuzzy
 msgid "Gallery Themes"
-msgstr "Gallery"
+msgstr "Стилове на Галерията"
 
 #, c-format
 msgid "Successfully activated theme %s"
-msgstr ""
+msgstr "Стила %s е успешно активиран"
 
 #, c-format
 msgid "Successfully deactivated theme %s"
-msgstr ""
+msgstr "Стила %s е успешно деактивиран"
 
 #, c-format
 msgid "Successfully installed theme %s"
-msgstr ""
+msgstr "Стила %s е успешно инсталиран"
 
 #, c-format
 msgid "Successfully uninstalled theme %s"
-msgstr ""
+msgstr "Стила %s е успешно премахнат"
 
 #, c-format
 msgid "Successfully upgraded theme %s"
-msgstr ""
+msgstr "Стила %s е успешно обновен"
 
 msgid "Successfully saved default album settings"
-msgstr ""
+msgstr "Презададените настройки на албума за успешно записани"
 
-#, fuzzy
 msgid "Restored theme settings"
-msgstr "Album Settings"
+msgstr "Настройките на стила са възстановени"
 
-#, fuzzy
 msgid "All Themes"
-msgstr "Theme"
+msgstr "Всички стилове"
 
 msgid "Defaults"
-msgstr "Defaults"
+msgstr "Презададени Настройки"
 
 msgid "Status: Incompatible Theme (Inactive)"
 msgstr ""
@@ -2002,38 +1874,37 @@ msgstr ""
 msgid "Theme API Required: %s (available: %s)"
 msgstr ""
 
-#, fuzzy
 msgid "(default)"
-msgstr "Defaults"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "These are default display settings for albums in your gallery.  They can be overridden in "
 "each album."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Това са презададените настройки за показване на албумите във галерията ви. Те могат да бъдат "
+"променени във всеки албум по-отделно."
 
-#, fuzzy
 msgid "Default sort order"
-msgstr "Album sort order:"
+msgstr "Презададен ред на сортиране"
 
 msgid "with"
-msgstr ""
+msgstr "с"
 
 msgid "Default theme"
-msgstr "Default theme"
+msgstr "Презададен стил"
 
-#, fuzzy
 msgid "New albums"
-msgstr "edit album"
+msgstr "Нови албуми"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s Theme Settings"
-msgstr "Album Settings"
+msgstr "Настройки за стила %s"
 
-#, fuzzy
 msgid ""
 "These are the global settings for the theme.  They can be overridden at the album level."
-msgstr "These are default values.  They can be overridden in each album."
+msgstr ""
+"Това са главните настройки за стиловете на Галерията. Те могат да бъдат променени и във "
+"всеки стил по-отделно."
 
 msgid "Available"
 msgstr ""
@@ -2041,27 +1912,23 @@ msgstr ""
 msgid "Choose a block"
 msgstr ""
 
-#, fuzzy
 msgid "Selected"
-msgstr "Delete"
-
-msgid "Remove"
-msgstr "Remove"
-
-#, fuzzy
-msgid "Move Up"
-msgstr "Move"
-
-#, fuzzy
-msgid "Move Down"
-msgstr "Move"
-
-msgid "Parameter"
 msgstr ""
 
-#, fuzzy
+msgid "Remove"
+msgstr "Премахнете"
+
+msgid "Move Up"
+msgstr "Преместете Нагоре"
+
+msgid "Move Down"
+msgstr "Преместете Надолу"
+
+msgid "Parameter"
+msgstr "Параметър"
+
 msgid "Value"
-msgstr "Scale"
+msgstr "Стойност"
 
 msgid "There are no settings for this theme"
 msgstr ""
@@ -2074,53 +1941,50 @@ msgstr ""
 msgid "Toolkit"
 msgstr ""
 
-#, fuzzy
 msgid "Order"
-msgstr "Remove"
+msgstr ""
 
 msgid "up"
-msgstr ""
+msgstr "нагоре"
 
 msgid "down"
-msgstr ""
+msgstr "надолу"
 
 msgid "User Management"
-msgstr "User Management"
+msgstr "Настройки за Потребителите"
 
 #, c-format
 msgid "Removed user '%s'"
-msgstr "Removed user '%s'"
+msgstr "Потребителя '%s' е премахнат"
 
 #, c-format
 msgid "Created user '%s'"
-msgstr "Created user '%s'"
+msgstr "Създаден е потребителя '%s'"
 
 #, c-format
 msgid "Modified user '%s'"
-msgstr "Modified user '%s'"
+msgstr "Променен е потребителя '%s'"
 
 #, c-format
 msgid "There is %d user in the system."
 msgid_plural "There are %d total users in the system."
-msgstr[0] "There is %d user in the system."
-msgstr[1] "There are %d users in total in the system."
+msgstr[0] "В системата има %d потребител."
+msgstr[1] "В системата има общо %d потребителя."
 
-#, fuzzy
 msgid "Edit User"
-msgstr "Edit a user"
+msgstr "Променете следния потребител"
 
 msgid "You cannot delete yourself!"
-msgstr "You cannot delete yourself!"
+msgstr "Не можете да се самоизтриете!"
 
-#, fuzzy
 msgid "You cannot delete the special guest user."
-msgstr "You cannot delete the anonymous user!"
+msgstr "Не можете да изтриете специалния потребител 'guest'."
 
 msgid "Edit User (by list)"
-msgstr ""
+msgstr "Променете следния потребител (по списък)"
 
 msgid "Thumbnails"
-msgstr "Thumbnails"
+msgstr ""
 
 msgid ""
 "Gallery can create thumbnails at upload time, or create them the first time you want to see "
@@ -2129,26 +1993,24 @@ msgid ""
 "expense of a longer upload time."
 msgstr ""
 
-#, fuzzy
 msgid "Create thumbnails now"
-msgstr "Recreate thumbnails"
+msgstr ""
 
-#, fuzzy
 msgid "This is a test email from Gallery2"
-msgstr "This is the top of your Gallery"
+msgstr ""
 
+# errorBody.tpl
 msgid "Edit Conflict!"
 msgstr ""
 
-#, fuzzy
 msgid "Security Violation"
-msgstr "Security Violation!"
+msgstr "Нарушение на Сигурността"
 
 msgid "Database Error"
-msgstr ""
+msgstr "Грешка в Базата Данни"
 
 msgid "Error"
-msgstr "Error"
+msgstr "Грешка"
 
 msgid ""
 "Your change cannot be completed because somebody else has made a conflicting change to the "
@@ -2157,7 +2019,7 @@ msgid ""
 msgstr ""
 
 msgid "Go back and try again"
-msgstr ""
+msgstr "Върнете се обратно и опитайте отново"
 
 msgid "Alternatively, you can return to the main Gallery page and resume browsing."
 msgstr ""
@@ -2177,16 +2039,14 @@ msgstr ""
 msgid "An error has occurred."
 msgstr ""
 
-#, fuzzy
 msgid "Back to the Gallery"
-msgstr "Browse Gallery"
+msgstr "Назад към Галерията"
 
 msgid "Error Detail"
-msgstr ""
+msgstr "Детайли на Грешката"
 
-#, fuzzy
 msgid "System Information"
-msgstr "Destination"
+msgstr "Информация за Системата"
 
 msgid ""
 "You don't have any Graphics Toolkit activated that can handle JPEG images.  If you add "
@@ -2197,43 +2057,39 @@ msgstr ""
 msgid "Visit the <a href=\"%s\">Modules</a> page to activate a Graphics Toolkit."
 msgstr ""
 
-#, fuzzy
 msgid "Add Sub-Album"
-msgstr "Add Album"
+msgstr "Добавете Под-Албум"
 
-#, fuzzy
 msgid ""
 "The name of this album on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes.  You will be able to rename it later."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Въведете тук името на под-албума, което трябва да е уникално за този албум. Използвайте само "
+"нормални букви и цифри, както също тирета и знаци за подчертано."
 
 msgid "Your name contains invalid characters.  Please enter another."
-msgstr "Your name contains invalid characters.  Please enter another."
+msgstr "Въведеното име съдърва невалидни знаци. Моля опитайте с друго."
 
 msgid "You must enter a name for this album."
-msgstr "You must enter a name for this album."
+msgstr "Трябва да въведете име за този албум."
 
 msgid "The name you entered is already in use.  Please enter another."
-msgstr "The name you entered is already in use.  Please enter another."
+msgstr "Въведеното име е вече в употреба. Моля опитайте с друго."
 
 msgid "This is the album title."
-msgstr ""
+msgstr "Това е заглавието на албума."
 
 msgid "This is the album summary."
-msgstr ""
+msgstr "Това е резюмето на албума."
 
 msgid "Keywords are not visible, but are searchable."
-msgstr ""
+msgstr "Ключовите думи са невидими, но по тях може да се търси."
 
-#, fuzzy
 msgid "This is the long description of the album."
-msgstr "A longer description of this item."
+msgstr "Това е дългото описание на албума."
 
 msgid "Create"
-msgstr "Create"
+msgstr "Създайте"
 
 msgid "Upload Complete"
 msgstr ""
@@ -2255,21 +2111,19 @@ msgstr ""
 msgid "Failed to add %s"
 msgstr ""
 
-#, fuzzy
 msgid "Add more files"
-msgstr "Add Items"
+msgstr "Добавете още файлове"
 
 msgid ""
 "Your webserver is configured to disallow file uploads from your web browser at this time.  "
 "Please contact your system administrator for assistance."
 msgstr ""
 
-#, fuzzy
 msgid "Upload files directly from your computer."
-msgstr "Upload a file directly from your computer."
+msgstr ""
 
 msgid "Enter the full path to the file and an optional caption in the boxes below."
-msgstr "Enter the full path to the file and an optional caption in the boxes below."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2285,16 +2139,14 @@ msgid ""
 "upload format, or ask your system administrator to allow larger uploads."
 msgstr ""
 
-#, fuzzy
 msgid "More.."
-msgstr "Move"
+msgstr ""
 
 msgid "Set item titles from:"
 msgstr ""
 
-#, fuzzy
 msgid "Assign caption to:"
-msgstr "Gallery Site Administration"
+msgstr ""
 
 msgid ""
 "Transfer files that are already on your server into your Gallery.  The files must already "
@@ -2311,9 +2163,8 @@ msgstr ""
 msgid "Server Path"
 msgstr ""
 
-#, fuzzy
 msgid "You must enter a directory."
-msgstr "You must enter a size"
+msgstr ""
 
 msgid ""
 "The directory you entered is invalid.  Make sure that the directory is readable by all users."
@@ -2327,51 +2178,45 @@ msgstr ""
 msgid "An item with the same name already exists."
 msgstr ""
 
-#, fuzzy
 msgid "Legal Directories"
-msgstr "New directories"
+msgstr ""
 
 msgid "modify"
 msgstr ""
 
-#, fuzzy
 msgid "Recent Directories"
-msgstr "New directories"
+msgstr ""
 
-#, fuzzy
 msgid "Find Files"
-msgstr "Add Items"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Directory: %s"
-msgstr "New directories"
+msgstr ""
 
-#, fuzzy
 msgid "File name"
-msgstr "Full name"
+msgstr ""
 
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 msgid "Size"
-msgstr ""
+msgstr "Големина"
 
 msgid "Use Symlink"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d byte"
 msgid_plural "%d bytes"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] ""
+msgstr[1] ""
 
-#, fuzzy
 msgid "Parent Directory"
-msgstr "New directories"
+msgstr ""
 
-#, fuzzy
 msgid "Directory"
-msgstr "New directories"
+msgstr ""
 
 msgid "(Un)check all known types"
 msgstr ""
@@ -2379,20 +2224,17 @@ msgstr ""
 msgid "(Un)check symlinks"
 msgstr ""
 
-#, fuzzy
 msgid "for selected items"
-msgstr "[core] Delete item"
+msgstr ""
 
 msgid "Copy base filenames to:"
 msgstr ""
 
-#, fuzzy
 msgid "Add Files"
-msgstr "Add Items"
+msgstr "Добавете Файлове"
 
-#, fuzzy
 msgid "Start Over"
-msgstr "Sort order"
+msgstr ""
 
 msgid ""
 "Import files into Gallery from another website.  Enter a URL below to a web page anywhere on "
@@ -2402,18 +2244,16 @@ msgid ""
 msgstr ""
 
 msgid "URL"
-msgstr ""
+msgstr "Адрес"
 
-#, fuzzy
 msgid "You must enter a URL to a web page"
-msgstr "You must enter a user name"
+msgstr ""
 
 msgid "The URL entered must begin with http://"
 msgstr ""
 
-#, fuzzy
 msgid "The web page you specified is unavailable"
-msgstr "The user name you entered is invalid"
+msgstr ""
 
 msgid "Nothing to add found from this URL"
 msgstr ""
@@ -2428,9 +2268,8 @@ msgstr ""
 msgid "URL: %s"
 msgstr ""
 
-#, fuzzy
 msgid "change"
-msgstr "Change"
+msgstr ""
 
 #, c-format
 msgid "%d url found"
@@ -2442,18 +2281,16 @@ msgid "(Un)check all"
 msgstr ""
 
 msgid "Add URLs"
-msgstr ""
+msgstr "Добавете Адреси"
 
 msgid "No Thumbnail"
-msgstr "No Thumbnail"
+msgstr ""
 
-#, fuzzy
 msgid "Options"
-msgstr "Actions"
+msgstr "Настройки"
 
-#, fuzzy
 msgid "Link an Item"
-msgstr "Move an Item"
+msgstr ""
 
 #, c-format
 msgid "Successfully linked %d item"
@@ -2467,17 +2304,15 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
-#, fuzzy
 msgid "Choose the items you want to link"
-msgstr "Choose the items you want to move"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "(page %d of %d)"
-msgstr "Viewing page %d of %d"
+msgstr "(страница %d от общо %d)"
 
-#, fuzzy
 msgid "No sources chosen"
-msgstr "No destination chosen"
+msgstr ""
 
 msgid "Check All"
 msgstr ""
@@ -2489,51 +2324,46 @@ msgid "Invert"
 msgstr ""
 
 msgid "Previous Page"
-msgstr ""
+msgstr "Предишна Страница"
 
-#, fuzzy
 msgid "Next Page"
-msgstr "Last >|"
+msgstr "Следваща Страница"
 
 msgid "Destination"
-msgstr "Destination"
+msgstr "Място на преместване"
 
 msgid "Choose a new album for the link"
 msgstr ""
 
 msgid "No destination chosen"
-msgstr "No destination chosen"
+msgstr "Не сте избрали място на преместване"
 
-#, fuzzy
 msgid "Link"
-msgstr "Login"
+msgstr ""
 
 msgid "Successfully linked"
 msgstr ""
 
-#, fuzzy
 msgid "Choose a destination album"
-msgstr "Choose the destination of the selected items"
+msgstr "Посочете каде искате да преместите албума"
 
-#, fuzzy
 msgid "Delete Items"
-msgstr "Delete Item"
+msgstr ""
 
 msgid "No items were selected for deletion"
-msgstr ""
+msgstr "Не са избрани елементи за изтриване"
 
 #, c-format
 msgid "Successfully deleted %d item"
 msgid_plural "Successfully deleted %d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d елемент е успешно изтрит"
+msgstr[1] "%d елемента са успешно изтрити"
 
 msgid "This album contains no items to delete"
-msgstr ""
+msgstr "Този албум няма елементи за изтриване"
 
-#, fuzzy
 msgid "Choose the items you want to delete"
-msgstr "Choose the items you want to move"
+msgstr ""
 
 msgid "Items selected here will remain selected when moving between pages."
 msgstr ""
@@ -2545,17 +2375,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "(data)"
-msgstr "(data)"
+msgstr ""
 
 #, c-format
 msgid "(album containing %d item)"
 msgid_plural "(album containing %d items)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(албум съдържащ %d елемент)"
+msgstr[1] "(албум съдържащ %d елемента)"
 
-#, fuzzy
 msgid "(empty album)"
-msgstr "(album)"
+msgstr "(празен албум)"
 
 msgid "Deletion Complete"
 msgstr ""
@@ -2563,9 +2392,9 @@ msgstr ""
 msgid "Item successfully deleted"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete this %s?"
-msgstr "Do you really want to delete this item?"
+msgstr ""
 
 #, c-format
 msgid "It contains %d item."
@@ -2580,7 +2409,7 @@ msgid "There was a problem processing your request."
 msgstr ""
 
 msgid "Sort order"
-msgstr "Sort order"
+msgstr ""
 
 msgid ""
 "This sets the sort order for the album.  This applies to all current items, and any newly "
@@ -2594,26 +2423,25 @@ msgid " Every item requires a thumbnail. Set the default size in pixels here."
 msgstr ""
 
 msgid "You must enter a number (greater than zero)"
-msgstr "You must enter a number (greater than zero)"
+msgstr ""
 
 msgid "Resized Images"
-msgstr "Resized Images"
+msgstr ""
 
 msgid "Each item in your album can have multiple sizes. Define the default sizes here."
 msgstr ""
 
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
-#, fuzzy
 msgid "Target Size (pixels)"
-msgstr "Target Size (in pixels)"
+msgstr ""
 
 msgid "You must enter a valid size"
-msgstr "You must enter a valid size"
+msgstr ""
 
 msgid "Recreate thumbnails and resizes"
-msgstr "Recreate thumbnails and resizes"
+msgstr ""
 
 msgid ""
 "The thumbnail and resized image settings are for all new items. To apply these settings to "
@@ -2621,10 +2449,10 @@ msgid ""
 msgstr ""
 
 msgid "Recreate thumbnails"
-msgstr "Recreate thumbnails"
+msgstr ""
 
 msgid "Recreate resized images"
-msgstr "Recreate resized images"
+msgstr ""
 
 msgid ""
 "In order for Gallery to properly display this animation, it has to know the animation's "
@@ -2636,14 +2464,13 @@ msgid ""
 msgstr ""
 
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
-#, fuzzy
 msgid "You must enter a value greater than or equal to 0"
-msgstr "You must enter a number (greater than zero)"
+msgstr ""
 
 msgid "Height"
-msgstr ""
+msgstr "Височина"
 
 msgid "There were errors saving some items"
 msgstr ""
@@ -2654,97 +2481,90 @@ msgstr ""
 msgid "Successfully saved all items"
 msgstr ""
 
-#, fuzzy
 msgid "This album contains no items"
-msgstr "This group contains %d user"
+msgstr "Този албум не съдържа елементи"
 
-#, fuzzy
+# was: Die Einstellungen wurden erfolgreich gespeichert.
+# But the msgid is too generic.
 msgid "Saved successfully."
-msgstr "User '%s' has been modified successfully."
+msgstr ""
 
 msgid "This item was modified by somebody else at the same time.  Your changes were lost."
 msgstr ""
 
-#, fuzzy
 msgid "You do not have permissions to modify this item."
-msgstr "You don't have the permission to add items in this album"
+msgstr ""
 
-#, fuzzy
 msgid "Save and Done"
-msgstr "Save Changes"
+msgstr ""
 
+# %s is number of items per page
 #, c-format
 msgid "Save and Edit Previous %s"
 msgstr ""
 
+# %s is number of items per page
 #, c-format
 msgid "Save and Edit Next %s"
 msgstr ""
 
-#, fuzzy
 msgid ""
 "The name of this item on your hard disk.  It must be unique in this album.  Only use "
 "alphanumeric characters, underscores or dashes."
 msgstr ""
-"The name represents the location of this item on your hard drive.  It is not visible "
-"anywhere, except possibly in the URL.  It must be unique in this album.  <b>Note:</b> You "
-"can only use alphanumeric characters, underscore (_) and hyphen (-) in your names."
+"Името на този елемент. Трябва да е уникално за този албум. Използвайте само букви и цифри, "
+"знак за подчертано и тире. "
 
 msgid "Your name contains invalid characters.  Please choose another."
-msgstr "Your name contains invalid characters.  Please choose another."
+msgstr "Името съдържа невалидни знаци. Моля изберете друго."
 
 msgid "You must enter a name for this item."
-msgstr "You must enter a name for this item."
+msgstr "Трябва да въведете име за този елемент."
 
 msgid "The name you entered is already in use.  Please choose another."
-msgstr "The name you entered is already in use.  Please choose another."
+msgstr "Името което въведохте вече е в употреба. Моля изберете друго. "
 
-#, fuzzy
 msgid "The title of this item."
-msgstr "Editing this item"
+msgstr "Заглавие на този елемент."
 
 msgid "The root album must have a title."
-msgstr ""
+msgstr "Главния албум трябва да има заглавие."
 
-#, fuzzy
 msgid "The summary of this item."
-msgstr "Editing this item"
+msgstr "Резюме на този елемент."
 
-#, fuzzy
 msgid "This is the long description of the item."
-msgstr "A longer description of this item."
+msgstr "Това е по-пълното описания на елемента."
 
+# %s is localized name of item at hand
 #, c-format
 msgid "%s Date and Time"
-msgstr ""
+msgstr "Дата и час за %s"
 
 msgid "Set the date and time when this image was captured."
-msgstr ""
+msgstr "Нагласете датата и часа когато снимката е заснета."
 
 msgid "Set the date and time to be displayed for this item."
-msgstr ""
+msgstr "Нагласете датата и часа които да са показани за този елемент."
 
 #, c-format
 msgid "Set the date and time to be displayed for this %s."
-msgstr ""
+msgstr "Нагласете датата и часа които да са показани за %s."
 
 msgid "Date:"
-msgstr ""
+msgstr "Дата:"
 
-#, fuzzy
 msgid "Time:"
-msgstr "move item"
+msgstr "Час:"
 
 msgid "Use the original capture date and time from file information (e.g. Exif tag):"
 msgstr ""
 
-#, fuzzy
 msgid "You must enter a valid date and time"
-msgstr "You must enter a valid size"
+msgstr "Трябва да въведете валидна дата и час"
 
-#, fuzzy
 msgid "Thumbnail"
-msgstr "Thumbnails"
+msgstr "Миниатюрно изображение"
 
 msgid ""
 "Set the size of the thumbnail.  The largest side of the thumbnail will be no larger than "
@@ -2765,9 +2585,8 @@ msgid ""
 "harm."
 msgstr ""
 
-#, fuzzy
 msgid "Resized Photos"
-msgstr "Resized Images"
+msgstr ""
 
 msgid ""
 "These sizes are alternate resized versions of the original you would like to have available "
@@ -2799,23 +2618,19 @@ msgid ""
 msgstr ""
 
 msgid "Rotate"
-msgstr "Rotate"
+msgstr "Завъртете"
 
-#, fuzzy
 msgid "You can only rotate the photo in 90 degree increments."
-msgstr "You can only rotate the image in 90 degree increments."
+msgstr "Можете да завъртате снимката само на по 90 градусови интервали."
 
-#, fuzzy
 msgid "CC 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "Обратно на часовниковата стрелка на 90&deg;"
 
-#, fuzzy
 msgid "180&deg;"
-msgstr "Flip 180&deg;"
+msgstr "На 180&deg;"
 
-#, fuzzy
 msgid "C 90&deg;"
-msgstr "Clockwise 90&deg;"
+msgstr "По часовниковата стрелка на 90&deg;"
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot rotate "
@@ -2823,18 +2638,13 @@ msgid ""
 msgstr ""
 
 msgid "Scale"
-msgstr "Scale"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "Shrink or enlarge the original photo.  When Gallery scales a photo, it maintains the same "
 "aspect ratio (height to width) of the original photo to avoid distortion.  Your photo will "
 "be scaled until it fits inside a bounding box with the size you enter here."
 msgstr ""
-"Shrink or enlarge the original image.  When Gallery scales an image, it maintains the same "
-"aspect ratio (height to width) of the original image to avoid distortion.  The value you "
-"enter below forms a bounding box in pixels.  Gallery will scale the image until it is as "
-"large as possible while still fitting inside the box."
 
 msgid ""
 "There are no graphics toolkits enabled that support this type of photo, so we cannot scale "
@@ -2842,10 +2652,10 @@ msgid ""
 msgstr ""
 
 msgid "You must enter a size"
-msgstr "You must enter a size"
+msgstr ""
 
 msgid "Preserve Original"
-msgstr "Preserve Original"
+msgstr ""
 
 msgid ""
 "Gallery does not modify your original photo when rotating and scaling. Instead, it "
@@ -2860,27 +2670,20 @@ msgstr ""
 msgid "There are links to this photo, so you cannot change the original"
 msgstr ""
 
-#, fuzzy
 msgid "Preserve Original Photo"
-msgstr "Preserve Original"
+msgstr ""
 
-#, fuzzy
 msgid "Modified Photo"
-msgstr "Modified Image"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "You are using a copy of the original photo that has been scaled or rotated.  The original "
 "photo is still available, but is no longer being used.  Any changes you make will be applied "
 "to the copy instead."
 msgstr ""
-"You are using a copy of the original image that has been scaled or rotated.  The original "
-"image is still available, but is no longer being used.  Any changes you make will be applied "
-"to the copy instead."
 
-#, fuzzy
 msgid "Restore original"
-msgstr "Revert to original"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2888,9 +2691,8 @@ msgid ""
 "for this album."
 msgstr ""
 
-#, fuzzy
 msgid "Setting"
-msgstr "Gallery Settings"
+msgstr ""
 
 msgid "Use Global"
 msgstr ""
@@ -2899,24 +2701,20 @@ msgid ""
 "Note: to set the same theme for all subalbums, check the appropriate box in <b>Album</b> tab"
 msgstr ""
 
-#, fuzzy
 msgid "Album Highlight"
-msgstr "Make Highlight"
+msgstr ""
 
-#, fuzzy
 msgid "You can make this item the thumbnail for its parent or any ancestor album."
-msgstr "Do you want to make this item the highlight of its parent album?"
+msgstr ""
 
-#, fuzzy
 msgid "Highlight for:"
-msgstr "Make Highlight"
+msgstr ""
 
-#, fuzzy
 msgid "Highlight"
-msgstr "Make Highlight"
+msgstr ""
 
 msgid "Move an Item"
-msgstr "Move an Item"
+msgstr ""
 
 #, c-format
 msgid "Successfully moved %d item"
@@ -2928,64 +2726,57 @@ msgid "This album contains no items to move."
 msgstr ""
 
 msgid "Choose the items you want to move"
-msgstr "Choose the items you want to move"
+msgstr ""
 
 msgid ""
 "The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 msgstr ""
-"The destination you chose does not accept sub-albums, so all sub-albums have been deselected."
 
 msgid ""
 "The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 msgstr ""
-"The destination you chose only accepts sub-albums, so all non-albums have been deselected."
 
 msgid "You are not allowed to move this item away from here."
-msgstr "You are not allowed to move this item away from here."
+msgstr ""
 
 msgid "You are not allowed to move an album to the chosen destination."
-msgstr "You are not allowed to move an album to the chosen destination."
+msgstr ""
 
 msgid "You are not allowed to move an item to the chosen destination."
-msgstr "You are not allowed to move an item to the chosen destination."
+msgstr ""
 
 msgid "You cannot move an album into its own subtree."
-msgstr "You cannot move an album into its own subtree."
+msgstr ""
 
 msgid "Choose a new album for them"
 msgstr ""
 
 msgid "You don't have the permission to add items in this album"
-msgstr "You don't have the permission to add items in this album"
+msgstr "Нямате права за добавяне на елементи в този албум"
 
 msgid "Move"
-msgstr "Move"
+msgstr "Преместете"
 
 msgid "Successfully moved"
-msgstr ""
+msgstr "Успешно преместено"
 
 msgid "Permissions"
-msgstr "Permissions"
+msgstr "Права за достъп"
 
-#, fuzzy
 msgid "Owner changed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Собственика е успешно променен"
 
-#, fuzzy
 msgid "Group permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Избрания групов достъп е успешно добавен"
 
-#, fuzzy
 msgid "User permission added successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Избрания потребителски достъп е успешно добавен"
 
-#, fuzzy
 msgid "Group permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Избрания групов достъп е успешно премахнат"
 
-#, fuzzy
 msgid "User permission removed successfully"
-msgstr "User '%s' has been modified successfully."
+msgstr "Избрания потребителски достъп е успешно премахнат"
 
 msgid ""
 "Each item has its own independent set of permissions.  Changing the parent's permissions has "
@@ -2995,41 +2786,39 @@ msgid ""
 "if you want to grant permissions to a specific user, you can add (or remove) the user from "
 "the appropriate group."
 msgstr ""
-"Each item has its own independent set of permissions.  Changing the parent's permissions has "
-"no effect on the permissions of the child.  This allows you to restrict access to the parent "
-"of this item, but still grant full access to this item, or vice versa.  The most efficient "
-"way to use this permission system is to create groups and assign permissions to them.  Then "
-"if you want to grant permissions to a specific user, you can add (or remove) the user from "
-"the appropriate group."
+"Всеки елемент има собствени права за достъп. Промяна на правата за досъп на по-горен елемент "
+"(например албум), не влияе на правата за достъп на елемента отдолу (например снимката). Това "
+"позволява да ограничите достъпа до по-горния елемент, но да позволите достъп до по-долния "
+"елемент, или обратно. Най-ефикасния начин да използвате системата за достъп е да създатете "
+"групи и да им определите права за достъп. След това ако искате да дадете права за достъп на "
+"някой потребител, можете да го добавите или премахнете от подходящата група."
 
 #, c-format
 msgid "This item is owned by user: %s"
-msgstr "This item is owned by user: %s"
+msgstr "Този елемент се притежава от %s"
 
 #, c-format
 msgid "This item is owned by user: %s (%s)"
-msgstr "This item is owned by user: %s (%s)"
+msgstr "Този елемент се притежава от %s (%s)"
 
 msgid "New owner"
-msgstr ""
+msgstr "Нов собственик"
 
 msgid "Change"
-msgstr "Change"
+msgstr "Променете"
 
-#, fuzzy
 msgid "Apply new owner to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Приложете новия собственик към под-елементите"
 
 msgid "You must enter a user name"
-msgstr "You must enter a user name"
+msgstr "Трябва да въведете потребител"
 
 msgid "The user name you entered is invalid"
-msgstr "The user name you entered is invalid"
+msgstr "Веведения потребител е невалиден"
 
 msgid "Apply changes"
-msgstr "Apply changes"
+msgstr "Приложете промените"
 
-#, fuzzy
 msgid ""
 "This item has sub-items.  The changes you make here can be applied to just this item, or you "
 "can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
@@ -3037,87 +2826,74 @@ msgid ""
 "have many sub-items.  It's more efficient to grant permissions to groups and then add and "
 "remove users from groups whenever possible. Changes are applied to sub-items by default."
 msgstr ""
-"This item has sub-items.  The changes you make here can be applied to just this item, or you "
-"can apply them to all sub-items.  Note that applying changes to sub-items will merge your "
-"change into the existing permissions of the sub-items and may be very time consuming if you "
-"have many of sub-items.  It's more efficient to grant permissions to groups and then add and "
-"remove users from groups whenever possible."
+"Този елемент има под-елементи. Промените направени тук, могат да бъдат приложени само към "
+"този елемент или към нето и всички негови под-елементи. Отбележете че прилагането на "
+"промените към под-елементите ще обедини сегашните ви промени със съществуващите права за "
+"достъп и това може да отнеме много време ако имате прекалено много под-елементи. По-"
+"ефективно е да дадете права за достъп на дадени групи и след това да добавяте или премахвате "
+"потребители от тези групи. Пренастроено е промените да се прилагат и към под-елементите."
 
 msgid "Apply to sub-items"
-msgstr "Apply to sub-items"
+msgstr "Приложете към под-елементите"
 
 msgid "Group Permissions"
-msgstr "Group Permissions"
+msgstr "Групови Права за Достъп"
 
-#, fuzzy
 msgid "Group name"
-msgstr "Group name:"
+msgstr "Група"
 
 msgid "Permission"
-msgstr "Permission"
+msgstr "Права за Достъп"
 
-#, fuzzy
 msgid "New Group Permission"
-msgstr "Group Permissions"
+msgstr "Нов Достъп за Група"
 
 msgid "Add Permission"
-msgstr "Add Permission"
+msgstr "Добавете Достъп"
 
 msgid "The permission you chose is invalid"
-msgstr "The permission you chose is invalid"
+msgstr ""
 
 msgid "The group name you entered is invalid"
-msgstr "The group name you entered is invalid"
+msgstr "Въведеното име на група е невалидно"
 
-#, fuzzy
 msgid "Group already has this permission (check sub-permissions)"
 msgstr ""
-"Group already has this permission (maybe it's included in one of the permissions the group "
-"already has)"
 
 msgid "User Permissions"
-msgstr "User Permissions"
+msgstr "Потребителски Права за Достъп"
 
 msgid "User name"
-msgstr "User name"
+msgstr "Потребител"
 
-#, fuzzy
 msgid "New User Permission"
-msgstr "User Permissions"
+msgstr "Нов Достъп за Потребител"
 
-#, fuzzy
 msgid "The user already has this permission (check sub-permissions)"
 msgstr ""
-"The user already has this permission (maybe it's included in one of the permissions the user "
-"already has)"
 
-#, fuzzy
 msgid "Reorder Album"
-msgstr "Add Album"
+msgstr "Пренаредете Елементите в Албума"
 
 msgid ""
 "This album has an automatic sort order specified, so you cannot change the order of items "
 "manually.  You must remove the automatic sort order to continue."
 msgstr ""
 
-#, fuzzy
 msgid "Change the order of the items in this album."
-msgstr "You don't have the permission to add items in this album"
+msgstr "Променете реда на елементите в този албум."
 
-#, fuzzy
 msgid "Move this item"
-msgstr "move item"
+msgstr ""
 
-#, fuzzy
 msgid "before"
-msgstr "Remove"
+msgstr ""
 
 msgid "after"
 msgstr ""
 
-#, fuzzy
 msgid "Reorder"
-msgstr "Remove"
+msgstr ""
 
 msgid "Continue..."
 msgstr ""
@@ -3127,7 +2903,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Admin Login"
-msgstr "Actions"
+msgstr "Административни Настройки"
 
 msgid "Enter a URL"
 msgstr ""
@@ -3138,9 +2914,11 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
+# means bold == Fett
 msgid "B"
 msgstr ""
 
+# means italic == kursiv
 msgid "i"
 msgstr ""
 
@@ -3153,9 +2931,8 @@ msgstr ""
 msgid "url"
 msgstr ""
 
-#, fuzzy
 msgid "image"
-msgstr "move item"
+msgstr "изображение"
 
 msgid "Configuration Error: Missing Theme"
 msgstr ""
@@ -3203,49 +2980,40 @@ msgid ""
 "or %slogin as a site administrator%s and then %sinstall or activate this theme%s."
 msgstr ""
 
-#, fuzzy
 msgid "Admin Options"
-msgstr "Actions"
+msgstr "Административни Настройки"
 
-#, fuzzy
 msgid "User Options"
-msgstr "User Permissions"
+msgstr "Потребителски Настройки"
 
 msgid "Password changed successfully"
-msgstr ""
+msgstr "Паролата е успешно сменена"
 
 msgid ""
 "You must enter your current password to prove that it's you, then enter your new password "
 "twice to make sure that you didn't make a mistake."
 msgstr ""
 
-#, fuzzy
 msgid "Current Password"
-msgstr "Password"
+msgstr "Сегашна Парола"
 
-#, fuzzy
 msgid "You must enter your current password"
-msgstr "You must enter a password"
+msgstr "Трябва да въвдете сегашна си парола"
 
-#, fuzzy
 msgid "Incorrect password"
-msgstr "Password"
+msgstr "Грешна Парола"
 
-#, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr "Нова Парола"
 
-#, fuzzy
 msgid "You must enter a new password"
-msgstr "You must enter a password"
+msgstr "Трябва да въведете нова парола"
 
-#, fuzzy
 msgid "Verify New Password"
-msgstr "Verify password"
+msgstr ""
 
-#, fuzzy
 msgid "You must enter your new password again!"
-msgstr "You must enter a password"
+msgstr ""
 
 msgid "Login to your account"
 msgstr ""
@@ -3254,7 +3022,7 @@ msgid "Your password has been recovered, please login."
 msgstr ""
 
 msgid "Your login information is incorrect.  Please try again."
-msgstr "Your login information is incorrect.  Please try again."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3296,9 +3064,8 @@ msgid ""
 "address."
 msgstr ""
 
-#, fuzzy
 msgid "Recover"
-msgstr "Remove"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -3311,7 +3078,7 @@ msgstr ""
 
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #, c-format
 msgid ""
@@ -3341,13 +3108,11 @@ msgstr ""
 msgid "Recover Password for Username"
 msgstr ""
 
-#, fuzzy
 msgid "You must enter a username to recover the password for."
-msgstr "You must enter the password a second time"
+msgstr ""
 
-#, fuzzy
 msgid "The username you entered does not exist."
-msgstr "The user name you entered is invalid"
+msgstr ""
 
 msgid "Authorization Incorrect"
 msgstr ""
@@ -3365,9 +3130,8 @@ msgstr ""
 msgid "Your %s file is not readable. Please give Gallery read permissions on the file."
 msgstr ""
 
-#, fuzzy
 msgid "Refresh"
-msgstr "Remove"
+msgstr ""
 
 msgid "This page will allow you to reset the password on your account."
 msgstr ""
@@ -3387,17 +3151,18 @@ msgstr ""
 msgid "Authorization missing"
 msgstr ""
 
-#, fuzzy
 msgid "Username missing"
-msgstr "User Permissions"
+msgstr ""
 
 msgid "Submit"
-msgstr ""
+msgstr "Въведете"
 
 #, c-format
 msgid "Hello %s,"
 msgstr ""
 
+# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
+# arg1 = baseUrl, arg2 = ip address, arg3 = date
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
 msgstr ""
@@ -3406,11 +3171,13 @@ msgstr ""
 msgid "Your username is: %s"
 msgstr ""
 
+# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
 msgid ""
 "To finish the password recovery process please click the following link and enter the "
 "required information:"
 msgstr ""
 
+# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
 msgid "If you did not request this recovery email, you may safely ignore it."
 msgstr ""
 
@@ -3418,99 +3185,93 @@ msgid "Thank you!"
 msgstr ""
 
 msgid "guest"
-msgstr ""
+msgstr "посетител"
 
 #, c-format
 msgid "display mode: %s"
-msgstr ""
+msgstr "показване като за: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Delete a user"
+msgstr "Дата: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Owner: %s"
-msgstr "Owner"
+msgstr "Притежател: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Size: %d item"
 msgid_plural "Size: %d items"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "Брой: %d елемент"
+msgstr[1] "Брой: %d елемента"
 
-#, fuzzy, c-format
+#, c-format
 msgid "(%d item total)"
 msgid_plural "(%d items total)"
-msgstr[0] "%d minute"
-msgstr[1] "%d minute"
+msgstr[0] "(общо %d елемент)"
+msgstr[1] "(общо %d елемента)"
 
 #, c-format
 msgid "Views: %d"
-msgstr ""
+msgstr "Прегледано: %d пъти"
 
-#, fuzzy
 msgid "&laquo; album actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; действия за албума &raquo;"
 
-#, fuzzy
 msgid "&laquo; item actions &raquo;"
-msgstr "* No Sort Order *"
+msgstr "&laquo; действия за елемента &raquo;"
 
 msgid "Go"
 msgstr ""
 
 msgid "Navigation"
-msgstr ""
+msgstr "Навигация"
 
 msgid "next"
-msgstr ""
+msgstr "следваща"
 
 msgid "last"
-msgstr ""
+msgstr "последна"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Page %d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "Страница %d от общо %d"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%d of %d"
-msgstr "Viewing page %d of %d"
+msgstr "%d от %d"
 
-#, fuzzy
 msgid "first"
-msgstr "|< First"
+msgstr "първа"
 
 msgid "previous"
-msgstr ""
+msgstr "предишна"
 
 msgid "Page:"
-msgstr ""
+msgstr "Страница:"
 
-#, fuzzy, c-format
+# sidebar.tpl: %d is number of item, %s is truncated title
+#, c-format
 msgid "%d. %s"
-msgstr "Edit a user"
+msgstr "%d. %s"
 
-#, fuzzy
 msgid "Size: "
-msgstr "Edit Sizes"
+msgstr ""
 
 msgid "Full size: "
 msgstr ""
 
-#, fuzzy
 msgid "Language selector"
-msgstr "Language settings"
+msgstr ""
 
-#, fuzzy
 msgid "Item actions"
-msgstr "Item Permissions"
+msgstr "Действия за елемента"
 
 msgid "Use dropdown menu"
 msgstr ""
 
-#, fuzzy
 msgid "Login block"
-msgstr "Login"
+msgstr ""
 
 msgid "Links to album/photo peers"
 msgstr ""
@@ -3518,40 +3279,29 @@ msgstr ""
 msgid "Unit test module"
 msgstr ""
 
-#, fuzzy
 msgid "[test] A permission"
-msgstr "permissions"
+msgstr ""
 
-#, fuzzy
 msgid "[test] A second permission"
-msgstr "permissions"
+msgstr ""
 
 msgid "Unit test theme"
 msgstr ""
 
-#, fuzzy
+#~ msgid "G2RC1: +5 Insightful"
+#~ msgstr "G2RC1: +5 Insightful"
+
+#~ msgid "HDTV 16x9"
+#~ msgstr "HDTV Екран 16x9"
+
 #~ msgid "add album"
-#~ msgstr "add album"
+#~ msgstr "добавете албум"
 
-#, fuzzy
 #~ msgid "edit permissions"
-#~ msgstr "permissions"
+#~ msgstr "променете правата за достъп"
 
-#, fuzzy
 #~ msgid "view permissions"
-#~ msgstr "permissions"
+#~ msgstr "вижте правата за достъп"
 
 #~ msgid "login"
-#~ msgstr "login"
-
-#, fuzzy
-#~ msgid "choose a new theme for this album"
-#~ msgstr "You must enter a name for this album."
-
-#, fuzzy
-#~ msgid "login as a site administrator"
-#~ msgstr "Gallery Site Administration"
-
-#, fuzzy
-#~ msgid "Missing Layout"
-#~ msgstr "Layout"
+#~ msgstr "вход"
