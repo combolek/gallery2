@@ -1,70 +1,76 @@
 # $Id$
-# 
+#
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+# Piarres Beobide <pi@beobide.net>, 2005.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Installer 1.0\n"
-"POT-Creation-Date: 2005-08-05 21:48-0400\n"
-"PO-Revision-Date: 2005-08-05 21:48-0400\n"
-"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
-"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-10-30 22:52+0100\n"
+"PO-Revision-Date: 2005-11-17 23:53+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: librezale.org <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "Unknown"
-msgstr "未知"
+msgstr "Ezezaguna"
 
 msgid "Admin User Setup"
-msgstr "管理員設定"
+msgstr "Kudeaketa Erabiltzaile Konfigurazioa"
 
 msgid "admin"
-msgstr "admin"
+msgstr "kudeatzailea"
 
 msgid "Gallery Administrator"
-msgstr "Gallery 系統管理員"
+msgstr "Galeria Kudeatzailea"
 
 msgid "Authenticate"
-msgstr "認證"
+msgstr "Egiaztatu"
 
 #, c-format
 msgid ""
 "<b>Error:</b> could not locate <b>login.txt</b>. Please place it in your <tt>%s/</tt> "
 "directory."
-msgstr "<b>錯誤：</b>找不到 <b>login.txt</b>。請把它放在你的 <tt>%s/<tt> 目錄中。"
+msgstr ""
+"<b> Errorea</b> ezin da <b>login.txt</b> kokatu.Ipini ezazu zure <tt> %s</tt> "
+"direktorioan."
 
 msgid ""
 "<b>Error:</b> your <b>login.txt</b> file is not readable. Please give Gallery read "
 "permissions on the file."
 msgstr ""
-"<b>錯誤：</b>無法讀取你的 <b>login.txt</b> 檔案。諘給 Gallery 讀取這個檔案的權限。"
+"<b> Errorea</b><b>login txt</b> fitxategia ezin da irakurri. Eman Gallery-ri fitxategi "
+"horren irakurketa baimena baimena."
 
 msgid ""
 "<b>Error:</b> your <b>login.txt</b> key does not match correctly. Please download a "
 "new authentication string from below and try again."
 msgstr ""
-"<b>錯誤：</b>你的 <b>login.txt</b> 解碼字串不符合。請從下面下載一個新的認證字串後再試一"
-"次。"
+"<b>Errorea:</b> zure <b>login.txt</b> gakoa ez da zuzena. Mesedez deskargatu "
+"egiaztapen gako berri bat behetik eta berriz saiatu."
 
 msgid "Create Config File"
-msgstr "產生設定檔案"
+msgstr "Konfigurazio Fitxategia Sortu"
 
 #, c-format
 msgid ""
@@ -72,62 +78,63 @@ msgid ""
 "directory.  Please change its permissions.  If you're on Unix you can do <i>chmod 666 "
 "config.php</i> to fix this."
 msgstr ""
-"無法寫入在你的 <tt>%s</tt> 目錄中的 config.php 檔案。如果你是使用 Unix 你可以用「chmod "
-"666 config.php」指令來修正。"
+"Ezin da zure <tt>%s</tt> direktorioko <b>config.php</b> fitxategia idatzi.   Aldatu "
+"fitxategi horren baimenak.  Unix bat erabiltzen ari bazara <i>chmod 666 config.php</i> "
+"egin dezakezu hau konpontzeko."
 
 #, c-format
 msgid "The config.php file does not exist in your %s directory"
-msgstr "你的 %s 目錄中沒有 config.php 檔案。"
+msgstr "config.php fitxategirik ez dago zure %s direktorioan"
 
 msgid ""
 "The config.php file exists but is not writeable.  If your server is Windows, you may "
 "have to disable file sharing for config.php and set its permissions manually."
 msgstr ""
-"無法寫入 config.php 檔案。如果你的伺服器是 Windows，你可能需要停止 config.php 的檔案分"
-"享然後手動設定它的存取權限。"
+"config.php fitxategia badago baina ezin da idatzi.  Zure zerbitzaria Windows bat "
+"baldin bada,  config.php fitxategiaren fitxategi partekaketa ezgaitu eta beharrezko "
+"baimenak eskuz ipini beharko dituzu."
 
 msgid "Database Setup"
-msgstr "資料庫設定"
+msgstr "Datu-base Konfigurazioa"
 
 msgid "You must have the MySQL PHP module installed"
-msgstr "你必需裝有 MySQL PHP 模組"
+msgstr "MySQL modulua instalaturik izan behar duzu."
 
-#, fuzzy
 msgid "You must have the ODBC module installed"
-msgstr "你必需裝有 MySQL PHP 模組"
+msgstr "ODBC modulua instalaturik izan behar duzu."
 
 msgid "You must have the PostgreSQL PHP module installed"
-msgstr "你必需裝有 PostgreSQL PHP 模組"
+msgstr "PostgreSQL PHP modulua instalaturik izan behar duzu."
 
 msgid "You must have the Oracle OCI8 PHP module installed"
-msgstr "你必需裝有 Oracle OCI8 PHP 模組"
+msgstr "Oracle OCI8 PHP modulua instalaturik izan behar duzu."
 
 #, c-format
 msgid "You must specify a column prefix (we recommend %s)"
-msgstr "你必需指定一個欄位字首（我們建議 %s）"
+msgstr "Zutabe aurrizki bat zehaztu behar duzu (%s gomendatzen dugu)"
 
 msgid "Use only letters, numbers and underscore in the column prefix"
-msgstr "欄位字首只能使用英文字母、數字和底線"
+msgstr "Hizkiak, zenbakiak eta azpimarratu bakarrik erabili zutabe aurrizkian."
 
 #, c-format
 msgid "You must specify a table prefix (we recommend %s)"
-msgstr "你必需指定一個表格字首（我們建議 %s）"
+msgstr "Taula aurrizki bat zehaztu behar duzu (%s gomendatzen dugu)"
 
 msgid "Use only letters, numbers and underscore in the table prefix"
-msgstr "表格字首只能使用英文字母、數字和底線"
+msgstr "Hizkiak, zenbakiak eta azpimarratu bakarrik erabili taula aurrizkian."
 
 #, c-format
 msgid "Unable to create a database connection of type %s"
-msgstr "無法產生%s類型的資料庫連接"
+msgstr "Ezin da %s motako datubase konexio bat sortu"
 
 msgid "Unable to connect to database with the information provided."
-msgstr "無法使用所提供的資訊連接資料庫。"
+msgstr "Hemandako argibideekin ezin da datubase batetara konexioa sortu."
 
 msgid "The database you specified does not exist.  Please create it."
-msgstr "仔所指定的資料庫並不存在。請先產生它。"
+msgstr "Zuk ezarritako datubasea ez dago.  Mesedez sortu ezazu."
 
 msgid "The database privileges test did not complete successfully."
-msgstr "資料庫權限測試並沒有成功地完成。"
+msgstr "Datubasearen baimen proba ez da guztiz arrakastasua izan."
 
 msgid ""
 "Gallery tables already exist in this database!  But there is no 'versions.dat' file in "
@@ -136,17 +143,19 @@ msgid ""
 "select a clean install, which will erase all data in the database and in the storage "
 "directory."
 msgstr ""
-"這個資料庫中已經有 Gallery 的表格！可是你的 G2 儲存目錄中沒有「versions.dat」檔案，所以"
-"我們判斷你的 G2 已經損壞。如果你認為你的 G2 應該還能使用，請產生一個有正確格式的 "
-"versions.dat 檔案。或選擇重新安裝，但這樣會清除所有資料庫和儲存目錄中的資料。"
+"Gallery taulak badaude dagoeneko datu-basean!  Baina G2 hondaturiko egoera bat dela "
+"dirudi ez bait dago 'versions.dat' fitxategirik zure G2 biltegiratze direktorioan. "
+"Gallery 2-k funtzionatu beharko lukeela uztez gero beharrezko "
 
 msgid ""
 "The G2 storage directory has a versions.dat file of an old install. But the Gallery "
 "database tables don't exist. Select a clean install to erase all data in the Gallery "
 "storage directory and advance to the next step."
 msgstr ""
-"這個 G2 儲存目錄中有一個從前一次安裝留下來的 versions.dat 檔案。可是資料庫中沒有"
-"Gallery 的表格。選擇重新安裝以清除所有儲存目錄中的資料並前住下一個步驟。"
+"G2 biltegiratze direktorioak inslazio zaharrago batetako versions..dat fitxategi bat "
+"dut. Baina Gallery datu-base taulak ez dira aurkitzen. Instalazio garbi bat egitea "
+"aukera ezazu biltegiratze direktorioko datu guztiak ezabatu eta hurrengo urratsera "
+"jarraitzeko."
 
 msgid ""
 "Gallery tables already exist in the database and there is a versions.dat file in the "
@@ -155,9 +164,11 @@ msgid ""
 "Select a clean install to erase all data in the database and in the storage directory "
 "and to advance to the next step."
 msgstr ""
-"這個資料庫中已經有 Gallery 的表格而且 G2 儲存目錄有一個 versions.dat 檔案。可是安裝的 "
-"Gallery 資料庫的版本和安裝在 Gallery 儲存目錄中的資料版本不符。選擇重新安裝以清除所有資"
-"料庫和儲存目錄中的資料並前住下一個步驟。"
+"Gallery taulak badaude dagoeneko datu-basean eta version.dat fitxategia aurkitu da "
+"Gallery biltegiratze direktorioan. Baina instalaturiko Gallery datu-base taulak ez "
+"dira Gallery biltegiratze direktorioan instalaturiko datuen bertsio berdinekoak. "
+"Aukeratu instalazio garbi bat datu-base eta biltegiratze direktorioko datu guztiak "
+"ezabatu eta hurrengo urratsera jarraitu."
 
 msgid ""
 "Gallery tables already exist in the database and the Gallery storage directory seems "
@@ -165,141 +176,151 @@ msgid ""
 "directory data or select a clean install to erase all existing data in the database "
 "and the storage directory."
 msgstr ""
-"這個資料庫中已經有 Gallery 的表格而且 G2 儲存目錄看來是完整的。請選擇繼續使用現有的資料"
-"庫表格和儲存目錄資料或重新安裝以清除所有資料庫和儲存目錄中的資料。"
+"Galeria datu-base taulak aurkitu dira eta galeria biltegiratze direkotrioa ondo "
+"dagoela dirudi. Edo dauden datu-base taula eta biltegiratze direktorioa berrerabiltzea "
+"edo instalazio garbi bat eginez datu guztiak ezabatzea hautatu dezakezu."
 
 msgid ""
 "Could not execute the required API to erase the storage directory. Please erase the "
 "Gallery storage directory manually."
-msgstr "無法執行清除儲存目錄所需的 API。請手動刪除 Gallery 儲存目錄。"
+msgstr ""
+"Ezin da biltegiratze direktorioa ezabatzeko beharrezkoa API-a abiarazi. Ezabatu ezazu "
+"biltegiratze direktorioa eskuz."
 
 msgid ""
 "Could not execute the required API to drop the Gallery database tables. Please clean "
 "the Gallery database manually."
-msgstr "無法執行移除 Gallery 資料庫表格所需的 API。請手動清理 Gallery 資料庫。"
+msgstr ""
+"Ezin da Gallery datu-base taulak garbitzeko beharrezko API-a abiarazi. Ezabatu ezazu "
+"Gallery datu-basea eskuz."
 
 msgid ""
 "Could not load the G2 API. Please erase the Gallery database tables and the storage "
 "directory manually."
-msgstr "無法載入 G2 API。請手動刪除 Gallery 資料庫表格和儲存目錄。"
+msgstr ""
+"Ezin da G2 API-a abiarazi. Ezabatu itzazu Gallery datu-basea eta biltegiratze "
+"direktorioa eskuz."
 
 msgid "MySQL (all versions)"
-msgstr "MySQL（所有版本）"
+msgstr "MySQL (bertsio denak)"
 
 msgid "MySQL with Transactions (v3.23.34a and newer)"
-msgstr "MySQL with Transactions（v3.23.34a 和更新版）"
+msgstr "MySQL transakzioduna (3.23.341 bertsio eta berriagoak)"
 
 msgid "PostgreSQL v7.x"
 msgstr "PostgreSQL v7.x"
 
 msgid "PostgreSQL v6.x (not well tested)"
-msgstr "PostgreSQL v6.x（並未充分測試）"
+msgstr "PostgreSQL v6.x (ez behar aina probatua)"
 
 msgid "Oracle (9i and newer)"
-msgstr "Oracle（9i 和更新版"
+msgstr "Oracle (9i eta berriagoak)"
 
+#, fuzzy
 msgid "(EXPERIMENTAL!) IBM DB2 (v8.2.2 and newer)"
-msgstr ""
+msgstr "(ESPERIMENTALA!) IBM DB2  Unix/Windows -rentzat, 8.2.2 eta berriagoak"
 
 msgid "Unknown DB type or no known tables information."
-msgstr "不明資料庫類型或沒有表格資訊。"
+msgstr "DB mota ezezaguna edo ez dira taula argibideak ezagutzen."
 
 #, c-format
 msgid "Could not find an unused table prefix similar to \"%s\"."
-msgstr "找不到類似「%s」的可用表格字首。"
+msgstr "Ezin da  \"%s\"-ren antzeko taula aurrizki erabili gabekorik aurkitu."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open schema file: \"%s\"."
-msgstr "無法打開 SQL 測試檔案「%s」。"
+msgstr "Ezin da eskema fitxategia aurkitu: \"%s\"."
 
 msgid ""
 "Failed to create a DB test sequence.Check the returned error message and README.html "
 "for missing privileges and clean up the database."
 msgstr ""
-"無法產生 DB 測試序列。檢查傳回的錯誤訊息和 README.html 有關缺少存取權限的資訊並清理資料"
-"庫。"
+"DB proba sekuentzia sortzerakoan huts egin du. Begiratu itzulitako errorea eta README."
+"html fitxategia baimen falta eta datu base garbitzeari buruzko argibide gehiagorako."
 
 msgid ""
 "Test failed to drop a DB test sequence.Check the returned error message and README."
 "html for missing privileges and clean up the database."
 msgstr ""
-"測試無法移除一個 DB 測試序列。檢查傳回的錯誤訊息和 README.html 有關缺少存取權限的資訊並"
-"清理資料庫。"
+"DB proba sekuentziak huts egin du. Begiratu itzulitako errore mezua eta README.html "
+"fitxategia baimen falta eta datu base garbitzeari buruzko argibide gehiagorako."
 
 msgid "Missing SQL statements"
-msgstr ""
+msgstr "SQL egoera-orria falta da"
 
 msgid ""
 "Check the returned error message and README.html for missing privileges and clean up "
 "the database."
-msgstr "檢查傳回的錯誤訊息和 README.html 有關缺少存取權限的資訊並清理資料庫。"
+msgstr ""
+"Markatu errorea mezua eta README errepikatu arte eta gora.Begiratu itzulitako errore "
+"mezua eta README.html baimen eza eta datu-base garbiketari buruz argibide gehiagorako."
 
 msgid "Finished"
-msgstr "完成"
+msgstr "Amaituta"
 
 msgid "Install Gallery Core"
-msgstr "安裝 Gallery 核心"
+msgstr "Instalatu Galeria Muina"
 
 msgid "Unable to initialize our Gallery data"
-msgstr "無法初始化我們的 Gallery 資料"
+msgstr "Ezin dira Gallery datuak abiarazi"
 
 msgid "Unable to communicate with the database"
-msgstr "無法和資料庫通訊"
+msgstr "Ezin da datu-baearekin konektatu"
 
 msgid "Unable to load the core module"
-msgstr "無法載入核心模組"
+msgstr "Ezin da muin modulua kargatu"
 
 msgid "Unable to install the core module"
-msgstr "無法安裝核心模組"
+msgstr "Ezin da muin modulua instalatu"
 
 msgid "Unable to activate the core module"
-msgstr "無法啟用核心模組"
+msgstr "Ezin da muin modulua aktibatu"
 
 msgid "Unable to commit database transaction"
-msgstr "無法送出資料庫異動"
+msgstr "Ezin da datu-base transakzioa egin"
 
 msgid "Core module is only partially installed."
-msgstr "核心模組安裝不完全。"
+msgstr "Muin moduluaz erdizka instalaturik dago."
 
 msgid "Install More Modules"
-msgstr "安裝其他模組"
+msgstr "Modulu gehiago instalatu"
 
 #, fuzzy
 msgid "Unable to initialize our Gallery session"
-msgstr "無法初始化我們的 Gallery 資料"
+msgstr "Ezin dira Gallery datuak abiarazi"
 
 msgid "Unable to get the module list"
-msgstr "無法取得模組列表"
+msgstr "Ezin da modulu zerrenda eskuratu"
 
 #, c-format
 msgid "Unable to load the %s module"
-msgstr "無法載入%s模組"
+msgstr "Ezin da %s modulua kargatu"
 
 #, c-format
 msgid "Unable to install the %s module"
-msgstr "無法安裝%s模組"
+msgstr "Ezin da %s modulua kargatu instalatu"
 
 #, c-format
 msgid "Unable to activate the %s module"
-msgstr "無法啟用%s模組"
+msgstr "Ezin da %s modulua kargatu aktibatu"
 
 msgid "Other"
-msgstr "其他"
+msgstr "Bestelakoak"
 
 msgid "Installation Type"
-msgstr "安裝類型"
+msgstr "Instalazioa Mota"
 
 msgid "Check Security"
-msgstr "安全檢查"
+msgstr "Segurtasuna Egiaztatu"
 
 msgid "Storage Setup"
-msgstr "儲存空間設定"
+msgstr "Biltegi Konfigurazioa"
 
 msgid "System Checks"
-msgstr "系統檢查"
+msgstr "Sistema Egiaztapenak"
 
 msgid "PHP version >= 4.1.0 or >= 5.0.4"
-msgstr "PHP 版本大於或等於 4.1.0 或大於或等於 5.0.4"
+msgstr "PHP bertsioa >= 4.1.0 edo >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -307,37 +328,39 @@ msgid ""
 "version %s installed. Contact your webserver administrator to request an upgrade, "
 "available at the %sPHP website%s."
 msgstr ""
-"錯誤：Gallery 2 需要 PHP 版本 4.1.0 以上或 5.0.4 以上。你安裝的 PHP 版本是 %s。請要求你"
-"的網頁伺服器管理員昇級。新的版本在 %sPHP 的網站上%s。"
+"Errorea PHP bertsioa or or or PHP bertsioa h instalatuta Kontaktua  -  bertsio-berritu "
+"erabilgarria h.Errorea: Galleery 2-rentzat beharrezkoa da PHP 4.1.0 edo berriago edo "
+"5.0.4 bertsio edo berriagoa. Instalaturik duzun PHP bertsioa %s da. Harremanetan ipini "
+"web zerbitzari kudeatzailearekin %sPHP website%s-n aurki dezaken eguneraketa eskatzeko."
 
 msgid "PHP Version"
-msgstr "PHP 版本"
+msgstr "PHP Bertsioa"
 
 msgid "FILE directive supported"
-msgstr "支援 FILE 指令"
+msgstr "FITXATEGI direktiba onartzen da"
 
 msgid ""
 "Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
 "request with your webserver administrator or in the Gallery forums."
 msgstr ""
-"錯誤：你的 PHP __FILE__ 指令工作不正常。請向你的網頁伺服器管理員或 Gallery 討論區要求技"
-"術支援。"
+"Errorea: PHP __FILE__ direktiba ez da behar bezala funtzionatzen ari da. Mesedez "
+"laguntza eskatu zerbitzari kudeatzaileari edo gallry foroan."
 
 msgid "FILE Directive"
-msgstr "FILE 指令"
+msgstr "FITXATEGI Direktiba"
 
 msgid "Safe mode disabled"
-msgstr "安全模式已關閉"
+msgstr "Modu segurua ezgaiturik"
 
 msgid ""
 "Error: Your version of PHP is configured with safe mode enabled.  You must disable "
 "safe mode before Gallery will run."
 msgstr ""
-"錯誤：你的 PHP 版本設定為使用安全模式（Safe Mode）。你必需關閉安全模式才能繼續執行 "
-"Gallery。"
+"Errorea: Zure PGP bertsio modu segurua gaiturik dulea konfiguraturik dago. Gallery "
+"abiarazi aurretik modu segurua ezgaitu behar duzu."
 
 msgid "Safe Mode"
-msgstr "安全模式"
+msgstr "Modu Segurua"
 
 msgid "Regular expressions"
 msgstr ""
@@ -347,11 +370,11 @@ msgid ""
 "Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions"
 "%s. You must enable these functions before Gallery will run."
 msgstr ""
-"錯誤：你的 PHP 版本設定為使用安全模式（Safe Mode）。你必需關閉安全模式才能繼續執行 "
-"Gallery。"
+"Errorea: Zure PGP bertsio modu segurua gaiturik dulea konfiguraturik dago. Gallery "
+"abiarazi aurretik modu segurua ezgaitu behar duzu."
 
 msgid "exec() allowed"
-msgstr "允許 exec()"
+msgstr "exec() onarturik"
 
 msgid ""
 "Warning: The exec() function is disabled in your php by the <b>disabled_functions</b> "
@@ -359,12 +382,13 @@ msgid ""
 "(e.g. ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will "
 "need to change it in the global php.ini."
 msgstr ""
-"警告：你的 PHP 中的 exec() 函數被 php.ini 中的 <b>disabled_functions</b> 關閉了。你將無"
-"法使用需要外部執行檔的模組（如 ImageMagick、NetPBM 或 Ffmpeg）。這個選項只能在伺服器端"
-"改變，所以你需要在全體共用的 php.ini 中改正。"
+"Abisua: Php exec() funtzioa php.ini fitxategiko <b>disabled_functions</b> parametroaz "
+"ezgaiturik dago. Ezingo da kanpo bitarrik behar duen modulurik erabili (adib, "
+"ImageMagick, NetPBM edo Ffmpeg). Hau zerbitzarian bakarrik ezarri daiteke, beraz php."
+"ini orokorra aldatu beharko zenuke"
 
 msgid "set_time_limit() allowed"
-msgstr "允許 set_time_limit()"
+msgstr "set_time_limit() onarturik"
 
 #, c-format
 msgid ""
@@ -374,15 +398,16 @@ msgid ""
 "seconds will fail (and in some cases just return a blank page) possibly leading to "
 "data corruption."
 msgstr ""
-"警告：你的 PHP 中的 set_time_limit() 函數被 php.ini 中的 <b>disabled_functions</b> 關閉"
-"了。Gallery 仍然可以在這個設定下執行，可是穩定度會有問題。任何功能執行超過 %d 秒鐘都會"
-"失敗（有時會傳回一個空白頁面）並可能導致資料損毀。"
+"Abisua: Php set_time_limit() funtzioa php.ini fitxategiko <b>disabled_functions</b> "
+"parametroaz ezgaiturik dago. Galriak ezarpen hauekin funtziona dezake, baina oso "
+"erabilera hurrian.  %d segundu baino gehiago tardatzen duen edozein ekintzek huts "
+"egingo du (eta batzuetan orri zuri bat itzuliko du) datu galera aukerak asko handituaz."
 
 msgid "Memory limit"
-msgstr "記憶空間限制"
+msgstr "Memoria muga"
 
 msgid "no limit"
-msgstr "沒有限制"
+msgstr "mugarik gabe"
 
 #, c-format
 msgid ""
@@ -390,22 +415,24 @@ msgid ""
 "parameter in php.ini). You should raise this limit to at least <b>%sMB</b> for proper "
 "Gallery operation."
 msgstr ""
-"警告：你的 PHP 設定成只能使用 %sb（在 php.ini 中的 <b>memory_limit</b> 參數）的記憶空"
-"間。你應該把這個限制提昇到至少 <b>%sMB</b>，Gallery 才能正常工作。"
+"Abisua: Zerbitzariko php memoria muga %sb-ra ezarririk du php.ini fitxategiko "
+"<b>memory_limit</b> parametroaz.  Muga hori beintzat <b>%sMB</b>-ra igo beharko zenuke "
+"Galeriak behar bezala funtziona dezan."
 
 msgid "File uploads allowed"
-msgstr "允許上傳檔案"
+msgstr "Fitxategi Igoera gaiturik"
 
 msgid ""
 "Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> "
 "parameter in php.ini). You will need to enable this option if you want to upload files "
 "to your Gallery with a web browser."
 msgstr ""
-"警告：你的 PHP 設定成禁止檔案上傳（在 php.ini 中的 <b>file_uploads</b> 參數）的記憶空"
-"間。你需要啟動這個選項才能用網頁瀏覽程式上傳檔案到 Gallery。"
+"Abisua: Zure php igoerarik ez onartzeko konfiguraturik dago (<b>file_uploads </b> "
+"parametroa php.ini fitxategian). Aukera hau gaitu beharko zenuke galeriara web "
+"nabigatzaile baten bidez fixtategiak igo ahal izateko."
 
 msgid "Maximum upload size"
-msgstr "最大上傳大小"
+msgstr "Gehienezkoa igoera tamaina"
 
 #, c-format
 msgid ""
@@ -413,11 +440,12 @@ msgid ""
 "(<b>upload_max_filesize</b> parameter in php.ini). You should rise this limit to allow "
 "uploading bigger files."
 msgstr ""
-"警告：你的 PHP 設定成上傳檔案最大為 %sb（在 php.ini 中的 <b>upload_max_filesize</b> 參"
-"數）。你應該提高這個限制以允許上傳更大的檔案。"
+"Abisua: zure PHP konfigurazioan gehienezko fitxategi tamaina igoera %sb-ra mugaturik "
+"dago (<b>post_max_size</b> parametroa php.ini fitxategian). Muga hau handiagotu "
+"beharko zenuke fitxategi handiagoak onartzeko."
 
 msgid "Maximum POST size"
-msgstr "最大 POST 大小"
+msgstr "Gehienezkoa MEZU tamaina"
 
 #, c-format
 msgid ""
@@ -425,8 +453,9 @@ msgid ""
 "(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow "
 "uploading bigger files."
 msgstr ""
-"警告：你的 PHP 設定成最大 POST 資料為 %sb（在 php.ini 中的 <b>post_max_size</b> 參"
-"數）。你應該提高這個限制以允許上傳更大的檔案。"
+"Abisua: zure PHP konfigurazioan gehienezko mezu datuak %sb-ra ezarririk dago "
+"(<b>post_max_size</b> parametroa php.ini fitxategian). Muga hau handitu beharko zenule "
+"fitxategi handiagoak igotzea onartzeko."
 
 msgid "Translation support"
 msgstr ""
@@ -451,7 +480,7 @@ msgid ""
 msgstr ""
 
 msgid "Zend compatibility mode"
-msgstr "Zend 相容模式"
+msgstr "Zend bateragarritasun modua"
 
 #, c-format
 msgid ""
@@ -460,79 +489,82 @@ msgid ""
 "then your PHP is ok.  If you get an error or no response then you must turn off "
 "ze1_compatibility_mode before proceeding."
 msgstr ""
-"警告：你的 PHP 設定使用可能使 PHP 當機的 Zend ze1_compatibility_mode 選項。請按<a href="
-"\"%s\">這裡</a>測試 PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一個錯誤訊息"
-"或完全沒有反應，你需要把 ze1_compatibility_mode關掉才能繼續。"
+"Abisua: Zure PHP Zend ze1_compatibility_mode-az konfiguraturik dago, honek php apur "
+"dezake.  <a href=\"%s\">Hemen </a> klikatu zure PHP instalazio probatzeko.  \"LORTUA\" "
+"ikusiz gero zure PHP-a ondo dago.  Errore bat jaso edo erantzunik jaso ezean jarraitu "
+"aurretik ze1_compatibility_mode ezgaitu beharko zenuke."
 
 msgid "Gallery file integrity"
-msgstr "Gallery 完整性"
+msgstr "Gallery fitxategi integritatea"
 
 msgid "Test skipped due to other errors."
-msgstr "因其他錯誤略過測試。"
+msgstr "Proba beste errore batzugatik alde batertara utzia"
 
 msgid "Manifest missing or inaccessible."
-msgstr "找不到或無法存取檔案清單"
+msgstr "MAnifestoa falta da edo ezin da eskuratu."
 
 msgid "Welcome"
-msgstr "歡迎"
+msgstr "Ongi etorri"
 
 msgid ""
 "Every Gallery will have at least one administrator user who has full access to view/"
 "modify everything. Please choose a username and password for your main administrator "
 "account. You can add additional users later."
 msgstr ""
-"每個 Gallery 都必需有至少一個可以查看和修改所有事項的管理用戶。請為你的主要管理員選擇一"
-"個用戶名稱和密碼。你可以稍後再增加其他的用戶。"
+"Galeria bakoitzak beintzat elementu guztiak ikusi/eraldatzeko baimena duen kudeatzaile "
+"bai izan behar du. HAutatu zure kudeaketa kontuarentzat erabiltzaile-izen eta pasahitz "
+"bat. Erabiltzaile gehiago beranduago gehitu ditzakezu"
 
 msgid "Admin username"
-msgstr "管理員用戶名稱"
+msgstr "Kudeatzaile izena"
 
 msgid "Please enter a valid user name"
-msgstr "請輸入一個有效的用戶名稱"
+msgstr "Mesedez sartu baliozko erabiltzaile izen bat"
 
 msgid "Password"
-msgstr "密碼"
+msgstr "Pasahitza"
 
 msgid "Setup password"
-msgstr "設定密碼"
+msgstr "Pasahitz Konfigurazioa"
 
 msgid "Please enter a password"
-msgstr "請輸入一個密碼"
+msgstr "Pasahitza idatz"
 
 msgid "(type again)"
-msgstr "（再輸入一次）"
+msgstr "(idatzi berriz)"
 
 msgid "Admin email address"
-msgstr "管理員電郵地址"
+msgstr "Kudeatzaile posta helbidea"
 
 msgid "Please enter a valid email address"
-msgstr "請輸入一個有效的電郵地址"
+msgstr "Idatzi baliozko posta helbide bat"
 
 msgid "Admin full name (optional)"
-msgstr "管理員全名（選填）"
+msgstr "Kudeatzaile izen osoa (aukeran)"
 
 msgid "Missing password!  Please enter the same password twice"
-msgstr "沒有密碼！請輸入同一個密碼兩次"
+msgstr "Pasahitza falta da!  MEsedez idatzi pasahitz berdina bi alditan"
 
 msgid "The passwords you entered do not match!  Please try again."
-msgstr "你輸入的密碼不相同！請再試一次。"
+msgstr "Idatzitako pasahitzak ez datoz bat!  MEsedez saiatu berriz."
 
 msgid ""
 "As you are reusing existing database tables, this is not a fresh install. This will "
 "only change the setup password, but not change the password of the site admin. To "
 "change the password of the site admin, choose the forgot password mechanism of Gallery."
 msgstr ""
-"你正在使用現有的資料庫表格，這不是一個全新安裝。這只會改變設定程式的密碼而不是網站管理"
-"員的密碼。要改變網站管理員的密碼，請選用 Gallery 中遺失密碼的功能。"
+"Bazeuden datu-base taulak erabiltzen ari zarenez hau ez da instalazio garbi bat. Honek "
+"konfigruazio pasahitza aldatuko du baina ez sistema kudeatzailearena. Gune kudeatzaile "
+"pasahitza aldatu nahiz gero hautatu Gallery-ren ahaztutako pasahitz atalera"
 
 msgid "Create"
-msgstr "產生"
+msgstr "Sortu"
 
 msgid "Save"
-msgstr "儲存"
+msgstr "Gorde"
 
 msgid "Admin user info entered successfully."
-msgstr "管理員用戶資料輸入成功。"
+msgstr "Kudeatzaile argibideak egoki gorde dira."
 
 #, c-format
 msgid ""
@@ -543,53 +575,59 @@ msgid ""
 "on your webserver (that's the same directory where main.php is located). It must "
 "contain the following randomly generated characters:"
 msgstr ""
-"在繼續安裝之前，我們必需確定你確實是你宣稱的身份。最好的方法是要求你在 Gallery 目錄中作"
-"一個小小的改變，這可以用來證明你有正確的權限。所以，我們要求你在你的網頁伺服器的 <tt>%"
-"s</tt> 目錄中產生一個叫 <strong>login.txt</strong> 的檔案。（那個目錄是 main.php 所在的"
-"同一個目錄）這個檔案的內容必需是下面隨機產生的文字："
+"Instalazioarekin aurrera jarraitu aurretik zu esaten duzuna zarela ziurtatu behar "
+"dugu. Hau lortzeko erarik errazena Gallery direktorioan baimenak emango dizkizun "
+"aldaketa txiki bat egitea da. Beraz zure web zerbitzariko <tt>%s</tt> direktorioan "
+"(main.php kokaturik dagoen direktorioa) <strong>login.txt</strong> izeneko fitxategi "
+"bat sortzea eskatuko dizugu. Berauk ausaz sorturiko karaktere bilduma hau eduki behar "
+"du:"
 
 #, c-format
 msgid ""
 "As a convenience to you, we've prepared a %scorrect version of login.txt%s for you.  "
 "Download that and copy it into your <tt>%s</tt> directory and you're all set."
 msgstr ""
-"為了你的方便，我們預先準備好了一份%s正確版本的 login.txt%s。下載這個檔案然後把它拷貝到"
-"你的 <tt>%s</tt> 目錄中就可以了。"
+"Laguntza eskaintzeko %slogin.txt fitxategi zuzena%s sortua izan da.  Aski duzu berau "
+"deskargatu eta <tt>%s</tt> direktorioan ipintzearekin."
 
 msgid "Once you've uploaded the file, click below to continue."
-msgstr "在你上傳這個檔案後，按下面繼續。"
+msgstr "Behin fitxategia igo duzunean, behean klik egin aurrera jarraitzeko."
 
 msgid "Authenticate Me"
-msgstr "確認我的身分"
+msgstr "Egiaztatu iezadazu"
 
 msgid "Authentication successful!"
-msgstr "認證成功"
+msgstr "Egiaztapen zuzena!"
 
 msgid "Erase data for a clean install"
-msgstr "清除資料以重新安裝"
+msgstr "Ezabatu datuak instalazio garbi batentzat"
 
 msgid ""
 "Are you really sure you want to delete all your data in your Gallery storage directory "
 "and all your data in your Gallery database?"
-msgstr "你確定要刪除所有在你的 Gallery 儲存目錄 和 Gallery 資料庫中的資料？"
+msgstr ""
+"Ziur al zaude Gallery biltegiratze direktorio eta Gallery datu-baseko datu guztiak "
+"ezabatu nahi dituzula?"
 
 msgid "There was an error erasing the db and storage directory data. Here's the error:"
-msgstr "清除資料庫和儲存空間時發生錯誤。錯誤如下："
+msgstr ""
+"Errore bat gertatu da datu-basea eta biltegiratze direktorioa ezabatzerakoan. Hemen "
+"errorea:"
 
 msgid "Cancel"
-msgstr "取消"
+msgstr "Utzi"
 
 msgid "Erase all data"
-msgstr "清除所有資料"
+msgstr "Datu guztiak ezabatu"
 
 msgid "Please fix this error and try again."
-msgstr "請修正這個錯誤後再試一次。"
+msgstr "Mesedez errore hau konpondu eta berriz saiatu."
 
 msgid "Try Again"
-msgstr "再試一次"
+msgstr "Saiatu berriro"
 
 msgid "Create a config file"
-msgstr "產生一個設定檔"
+msgstr "Konfigurazio fitxategi bat sortu"
 
 #, c-format
 msgid ""
@@ -598,9 +636,10 @@ msgid ""
 "all the information that it needs to operate.  After we create it, you can read "
 "through this file and make changes to it if you want."
 msgstr ""
-"現在我們需要把你提供的資料寫到一個在 <b>%s</b> 中叫 <b>config.php</b> 的檔案。這個檔案"
-"非常重要。它提供 Gallery 所有運作需要的資訊。在我們產生這個檔案後，你可以閱讀這個檔案並"
-"自己修改。"
+"Orain zuk emandako informazio guztia zure <b>%s</b> direktorioko <b>config.php</b> "
+"fixtategi batetan gorde behar da. Hau oso galeriak funtzionatu ahal izateko behar duen "
+"informazioa duen fitxategi oso garrantsitsua bat da. Sortu ondoren fitxategi hau "
+"irekurri eta nahi dituzun aldaketak egin ditzakezu."
 
 #, c-format
 msgid ""
@@ -611,16 +650,18 @@ msgid ""
 "permissions properly, you can proceed.  If there's a problem, we'll tell you what to "
 "fix."
 msgstr ""
-"在我們繼續之前，你必需先在你的 <b>%s</b> 目錄中產生一個叫「config.php」的檔案。你必需確"
-"定網頁伺服器可以寫到這個檔案。如果你在使用 Unix，試著使用「chmod 666 config.php」。在 "
-"Windows 上，你應該不必特別做什麼。在你產生了這個檔案並設定好存取權限之後，就可以繼續。"
-"如果發生了問題，我們會告訴你該修改什麼。"
+"Jarraitu aurretik <b>%s</b> direktorioan <i>config.php</i> izeneko fixtategi bat sortu "
+"behar duzu.  Web zerbitzaria fitxategi horretan idazteko gai dela ziurtatu behar "
+"duzu.  Unix makina batetan bazaude  <i>chmod 666 config.php</i> egiten saiatu.  "
+"Windowspean ez zenuke ezer bereizirik egin beharko.  Bein fitxategi hori sortu eta "
+"behar diren baimenak ezarri dituzula, aurrera jarraitu dezakezu.  Arazorik aurkitu "
+"ezkero nola konpondu esango dizugu."
 
 msgid "Create config file"
-msgstr "產生設定檔"
+msgstr "Konfigurazio fitxategia sortu"
 
 msgid "Config file created successfully."
-msgstr "設定檔產生成功"
+msgstr "Konfigurazio fitxategia egoki sortu da."
 
 msgid ""
 "We've written out all the information you provided into a file called <b>config.php</"
@@ -628,9 +669,10 @@ msgid ""
 "if you want.  Be careful, though -- if you make mistakes in that file then Gallery "
 "won't work properly!"
 msgstr ""
-"我們已經把你提供的所有資訊寫到在你的 Gallery 2 目錄中一個叫 <b>config.php</b> 的檔案"
-"中。你可以閱讀這個檔案並自己修改。不過請小心，如果你改錯了這個檔案，Gallery 會無法正常"
-"動作。"
+"Zuk emandako informazio guztia gallery2 direktorioko <b>config.php</b> izeneko "
+"fitxategian gordeko dira. Nahi izan ezkero fitxategi hori irakurri eta aldatu "
+"dezakezu.  Kontu izan, hala ere -- fitxategi honetan akatsik egin ezkero Gallery-k ez "
+"du behar bezala funtzionatuko eta!"
 
 msgid ""
 "Please select your database type and enter your database authentication information.  "
@@ -639,73 +681,77 @@ msgid ""
 "already has tables in it, the table and column prefixes will keep Gallery data from "
 "conflicting with what you already have."
 msgstr ""
-"請選擇你的資料庫類型並輸入你的資料庫認證資料。安裝程式並不會為你產生資料庫，所以你必需"
-"自己產生一個並在這裡輸入它的名稱。如果你要把 Gallery 安裝到一個已經有表格的現有資料庫"
-"中，表格和欄位的字首會避免和你現有的資料衝突。"
+"Mesedez zure datu-base mota hautaut eta egiaztapen informazioa idatzi.  "
+"Instalatzaileak ez du datu-basea sortuko beraz zuk datu-base bat eskuz sortu eta izena "
+"emen idatzi behar duzu.  Gaqllery dagoeneko taulak dituen datu-base batetan "
+"instalatzen ari bazara, taula eta zutabe aurrizkiek Gallery datuak dituzun besteetatik "
+"bereizirik mantentzen lagunduko du."
 
 msgid ""
 "This is a multisite installation. Remember that each multisite requires its own "
 "database tables. Either choose a different database or a different table prefix for "
 "each multisite!"
 msgstr ""
-"這是個多站台的安裝。請記住每個站都需要它自己的資料庫表格。你可以為個別站台選用不同的資"
-"料庫或不同的表格字首。"
+"Hau gine-anitzeko instalazio bat da. Gogoratu gune bakoitzak ere datu-base taulak "
+"behar dituela. Edo datu-base ezberdina edo taula aurrizki ezberdina aukeratu gune "
+"bakoitzarentzat."
 
 msgid "Database type:"
-msgstr "資料庫型式："
+msgstr "Datu-basea mota:"
 
 msgid "DB Hostname:"
-msgstr "資料庫主機名稱："
+msgstr "DB Ostalari-izena:"
 
 msgid "DB Username:"
-msgstr "資料庫用戶名稱："
+msgstr "DB Erabiltzaile-izena:"
 
 msgid "DB Password:"
-msgstr "資料庫密碼："
+msgstr "DB Pasahitza:"
 
 msgid "DB Name:"
-msgstr "資料庫名稱"
+msgstr "DB Izena:"
 
 msgid "Table Prefix:"
-msgstr "表格字首："
+msgstr "Taula Aurrizkia:"
 
 msgid "Column Prefix:"
-msgstr "欄位字首："
+msgstr "Zutabea Aurrizkia:"
 
 msgid "We received the following database related errors:"
-msgstr "我們收到下列資料庫相關的錯誤："
+msgstr "Datu-basearen inguruko errore hauek jaso dira:"
 
 msgid "Erase Data For A Clean Install"
-msgstr "清除資料以重新安裝"
+msgstr "Ezabatu Datuak Instalazio Garbi batetarako"
 
 msgid "Reuse Existing Tables"
-msgstr "使用現有表格"
+msgstr "Dauden taulak berrerabili"
 
 msgid "Database set up successfully."
-msgstr "資料庫設定成功"
+msgstr "Datu-basea egoki ezarri da."
 
 msgid "Finished!"
-msgstr "完成了！"
+msgstr "Amaiturik!"
 
 msgid ""
 "Congratulations! Your Gallery 2 install is complete! See... that wasn't so hard, was "
 "it? Now it's time to upload some photos!"
 msgstr ""
-"恭禧！你的 Gallery 2 安裝已經完成！看吧，沒有多難嘛，對不對？現在該放一些照片進去了！"
+"Zorionak! Gallery 2 instalazioa egoki amaitu da! Ikusten... ez zein ain zaila, edo "
+"bai? Orain  argazki batzu igotzeko unea da!"
 
 msgid "Go to my Gallery!"
-msgstr "前往我的 Gallery！"
+msgstr "Nire Galeriara joan!"
 
 #, c-format
 msgid ""
 "You may now go to your new Gallery.  Enter the URL in your browser for %smain.php%s in "
 "your %s directory."
 msgstr ""
-"你現在可以前往你的新 Gallery。在你的瀏覽程式中輸入在你的%s目錄中的 %smain.php%s 的網"
-"址。"
+"Orain zure galeriara joan nahiko duzu.  Nabigatzailean %s direktorioko %smain.php%s "
+"URL-a ipini ezazu."
 
 msgid "Installed Gallery Core successfully"
-msgstr "Gallery 核心模組安裝成功"
+msgstr "Gallery Muina egoki instalatu da"
 
 msgid ""
 "Congratulations, we've successfully installed the Gallery framework.  However, most of "
@@ -713,34 +759,38 @@ msgid ""
 "install and configure.  The next step will take you through the process of selecting "
 "modules to install so that you can tune Gallery to do exactly what you want."
 msgstr ""
-"恭禧，我們已經成功地安裝了 Gallery 的架構。不過絕大部分 Gallery 的功能來自你需要另外安"
-"裝和設定的模組。下一個步驟會指引會選擇要安裝的模組，這樣你可以把 Gallery 調成你想要的樣"
-"子。"
+"Zorionak, Gallery ingurunea behar bezala instalatu duzu.  Hala ere Gallery-ren "
+"ezaugarri erabilgarrienak orain instalatu eta konfiguratu ditzalkezun modulo "
+"gehigarrien bidez instalatzen dira.  Hurrengo hurratsak Gallery zehazki zuk nahi duzun "
+"portamoldea izan dezan moduluak instalatzeko aukera emango dizu."
 
 msgid "Error installing Gallery Core"
-msgstr "安裝 Gallery 核心時發生錯誤"
+msgstr "Errorea Gallery Muina instalatzerakoan"
 
 msgid "Something went wrong when we tried to install the core module.  What to do next?"
-msgstr "當我們試著昇級核心模組時發生了問題。要如何處理？"
+msgstr "Zerbait oker joan da muin modulua instalatzerakoan. Zer egin orain?"
 
 msgid ""
 "Go to the System Checks step of the installer and make sure all checks shows "
 "'Success'. A common issue is that the file integrity warning is ignored."
 msgstr ""
-"前往安裝程式的系統檢查步驟並確認所有的檢查都顯示「成功」。最常見的現象是忽略了整合性警"
-"告。"
+"Instalatzailearen Sistema Egiaztapen urratsera joan eta ziurtatu egiaztapen guztiek "
+"'lortua' dutela. Akats nahiko arrunt bat integritate abisuak alde batetara uztea da."
 
 msgid ""
 "If there are no warnings or failures in the System Checks step, empty your storage "
 "directory and delete the database tables and start the installation process a second "
 "time (redo all steps)."
 msgstr ""
-"如果在系統檢查步驟中沒有任何警告或失敗的訊息，清除你的儲存目錄並刪除資料庫表格然後再安"
-"裝一次（重覆所有步驟）。"
+"Sistema arakatze urratsean ez badaude abisu edo errorerik, zure biltegiratze "
+"direktorioa uztu, datu-base taulak ezabatu eta instalazioa bigarren aldi batez egin "
+"ezazu (urrats guztiak berregin)."
 
 #, c-format
 msgid "Please visit the %sG2 FAQ%s and read the %sKnown issues section of the Readme%s."
-msgstr "請前往 %sG2 常見問題解答%s並參考%s讀我檔案中已知問題的部分%s。"
+msgstr ""
+"Mesedez begiratu %sG2 FAQ%s (ingelesez) eta %s Readme fitxategiko Known issues section%"
+"s"
 
 #, c-format
 msgid ""
@@ -749,15 +799,16 @@ msgid ""
 "possible, just add a link to the install.log in the forum topic such that the support "
 "staff can analyze it if necessary."
 msgstr ""
-"如果問題仍然存在，請拷貝在 %s 中的安裝記錄，在 %sG2 支援論譠%s中發表一個新話題，把它附"
-"在話題中（如 install.log.zip），或者可以的話，留下指到 install.log 的真接鏈接。這樣支援"
-"人員在需要的時可以用來分析問題所在。"
+"Arazoak jarraitu ezkero, mesedez kopiatu %s-n aurki dezakezun instalazio erregistroa "
+"eta gehitu ezazu (install.log.zip bezala) %sG2 laguntza foroko%s gai berri batetan "
+"edo, posible balitz gehitu ezazu install.log fitxategira lotura bat laguntza taldeak "
+"behar ezkero begira dezan."
 
 msgid "Stack Trace:"
-msgstr "堆疊記錄："
+msgstr "Aztarna Pilaketa :"
 
 msgid "Installed Gallery Core successfully."
-msgstr "Gallery 核心模組安裝成功。"
+msgstr "Gallery Muina egoki instalaturik."
 
 msgid ""
 "We've successfully installed the core of Gallery.  Although everything will work at "
@@ -765,11 +816,12 @@ msgid ""
 "modules so that you can get the right set of features that you want for your Gallery "
 "installation."
 msgstr ""
-"我們已經成功地安裝了 Gallery 的核心。雖然現在所有功能都會正常動作，你還是應該繼續安裝程"
-"式並加入其他選用的模組。這樣你才能得到你想要的 Gallery 功能。"
+"Gallery muina behar bezala instalatu da.  Nahiz eta puntu honetan danak behar bezala "
+"funtzionatzen duen, instalatzailearekin jarraitu eta aukeran dauden moduluetako batzu "
+"instalatu beharko zenituzke erabili nahi dituzun ezaugarrien arabera."
 
 msgid "Install Other Modules"
-msgstr "安裝其他模組"
+msgstr "Modulu gehiago instalatu"
 
 msgid ""
 "The following modules can be automatically installed and activated for you.  You "
@@ -779,145 +831,153 @@ msgid ""
 "modules or deactivate any of the ones you choose here on the Site Administration page, "
 "so any decision you make here is not permanent."
 msgstr ""
-"下列的模組可自動為你安裝並設定。你需要安裝至少一個圖形工具，否則 Gallery 無法從你的圖片"
-"產生縮略圖。在大部分的系統上，自動安裝就可以正常工作。不過，有時它還是會失敗。你可以在"
-"這個網站管理頁面中啟用新的模組或停用你在這裡選用的模組。所以你在這裡做的任何決定都不是"
-"不能改變的。"
+"Hurrengo modulu hauek instalatu eta gaitu daitezke.  Beintzat tresna-joko grafiko bat "
+"instalatu beharko zenuke, bestela GAllery ez da zure irudietako argazkitxoak egiteko "
+"gai izango.  Sistema gehienetan instalazio automatikoak beharrezko osagaiak instlatuko "
+"ditu.  Hala ere kasu batzuetan huts egiten du.  Zuk beti izango duzu moduluak gaitu "
+"edo ezgaitzeko aukera bai hemen bai Gune Kudeaketa orrialdean, beraz hemen hartutako "
+"erabakiak beranduago alda daitezke."
 
 msgid ""
 "Some modules may fail to install automatically.  That's ok.  It typically means that "
 "they require some configuration, which you can do on the Site Adminstration page"
 msgstr ""
-"有些模組可能會無法自動安裝。沒有關係。這通常表示他們需要一些額外的設定。你可以在網站管"
-"理頁面中做這些設定。"
+"Zenbait moduluk huts egin dezakete instalatzerakoan. Hau ondo dago. Normalean modulu "
+"horrek Gune Kudeaketa horrian egin dezakezun konfigurazio batenbat beharko du."
 
 msgid "Name"
-msgstr "名稱"
+msgstr "Izena"
 
 msgid "Version"
-msgstr "版本"
+msgstr "Bertsioa"
 
 msgid "Description"
-msgstr "詳細描述"
+msgstr "Azalpena"
 
 msgid "(Incompatible with this Gallery version)"
-msgstr "（和這個版本的 Gallery 不相容）"
+msgstr "(Gallery bertsio honek batera ezina)"
 
 msgid "(un)check all"
-msgstr "全部勾選或全部不選"
+msgstr "(des)markatu denak"
 
 #, c-format
 msgid "Continue to Step %d Without Activating&raquo;"
-msgstr "不啟用、繼續到步驟 %d&raquo;"
+msgstr "Gaitu gabe %d urratsarekin jarraitu&raquo;"
 
 msgid "Activate Selected Modules"
-msgstr "啟用所選模組"
+msgstr "Hautatutako Moduluak Aktibatu"
 
 #, c-format
 msgid "Activated the <i>%s</i> module successfully"
-msgstr "%s模組啟用成功"
+msgstr "<i>%s</i> modulua egoki gaitu da"
 
 #, c-format
 msgid "The <i>%s</i> module was installed, but needs configuration to be activated"
-msgstr "「%s」模組已經安裝，可是需要進一步設定才能啟用。"
+msgstr ""
+"<i>%s</i>  modulua instalaturik dago, baina konfigurazioa behar du gaitu aurretik"
 
 msgid ""
 "After finishing this installation, login as Admin and browse to Site Admin. Go to the "
 "<i>Modules</i> view and configure the above listed modules."
 msgstr ""
-"在完成這個安裝後，請以管理員身分登入並前往網站管理。到「模組」顯示畫面並設定上列模組。"
+"Instalazioa amaizterakoan, Kudeatzaile bezala saio hasi eta Gune Kudeaketara joan. "
+"<i>Moduluak</i> atalera joan eta behen zerrendaturiko moduluak konfiguratu."
 
 msgid "Activate More Modules"
-msgstr "啟用其他 Gallery 模組"
+msgstr "Modulu Gehiago Aktibatu"
 
 #, c-format
 msgid "Continue to Step %d&raquo;"
-msgstr "繼續到步驟 %d&raquo;"
+msgstr "%d Urratsera jarraitu&raquo;"
 
 msgid "Debug Output"
 msgstr ""
 
 msgid "Welcome to the Gallery Installer"
-msgstr "歡迎使用 Gallery 安裝程式"
+msgstr "Ongi etorri Gallery instalatzailera"
 
 msgid "Install Steps"
-msgstr "安裝步驟"
+msgstr "Instalatu Urratsak"
 
 msgid "Installer Help"
-msgstr "安裝說明"
+msgstr "Instalazio Laguntza"
 
 msgid "Start Over"
-msgstr "重新開始"
+msgstr "Hasi"
 
 msgid "Redo this step"
-msgstr "重覆這個步驟"
+msgstr "Urrats hau Berregin"
 
 msgid "Installation Status"
-msgstr "安裝狀況"
+msgstr "Instalazioa Egoera"
 
 #, c-format
 msgid "Install %d%% complete"
-msgstr "安裝完成 %d%%"
+msgstr "%d%% instalazioa amaiturik"
 
 msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
-msgstr "Gallery：<strong>你的照片</strong>、<strong>你的網站</strong>"
+msgstr "Gallery: <strong>zure argazkiak</strong> <strong>zure webgunean</strong>"
 
 #, c-format
 msgid "Missing files (%d)"
-msgstr "缺少的檔案（%d）"
+msgstr "Falta dire fitxategiak (%d)"
 
 msgid ""
 "Note: You're running Gallery from CVS, so recently removed files may appear here.  It "
 "might be safe to ignore these."
 msgstr ""
-"注意：你正在執行由 CVS 中下載的 Gallery，所以有些最近移除的檔案可能會出現在這裡。可能可"
-"以安全的忽略它們。"
+"Oharra: Zu CVS-ko Gallery erabiltzen ari zara, beraz azken aldian ezabaturiko "
+"fitxategi batzu agertu daitezke.  Abisuari kasu ez egitea segurua izan daiteke."
 
 #, c-format
 msgid "Modified files (%d)"
-msgstr "修改過的檔案（%d）"
+msgstr "Aldatu diren fitxategiak (%d)"
 
 msgid ""
 "Note: You're running Gallery from CVS, so some modified files are to be expected.  You "
 "can probably ignore these, but to be safe you should make sure that you do 'cvs update "
 "-Pd' before continuing."
 msgstr ""
-"注意：你正在執行由 CVS 中下載的 Gallery，所以會有些修改過的檔案。你大概可以忽略這些檔"
-"案，可是為了安全起見，你最好先執行「cvs update -Pd」指令再繼續。"
+"Oharra: Zu CVS-ko erabiltzen ari zara, beraz zenbait fitxategi aldatua izana espero "
+"da.  Hauek alde batetara utzi ditzazkezu baina ziurtatu zaitez jarraitu aurretik 'cvs "
+"update -Pd' egiteaz."
 
 #, c-format
 msgid "Old files (%d)"
-msgstr "舊版的檔案（%d）"
+msgstr "Fitxategi zaharrak (%d)"
 
 msgid ""
 "These files are no longer part of Gallery. They probably won't cause any problems but "
 "it is a good idea to remove them to keep your install clean."
-msgstr "Gallery 已經不再使用這些檔案。它們大概不會造成任何問題可是最好還是把它們刪除。"
+msgstr ""
+"Fitxaegi hauek ez dira hemendik aurrera Gallery-ren zati.  Ziurrenik ez dute arazorik "
+"sortuko baina ideia ona izaten da ezabatzea instalazio garbi bat mantentzeko."
 
 msgid "Please select the installation type"
-msgstr "請選擇安裝類型"
+msgstr "Mesedez instalazio mota bat hautatu ezazu"
 
 msgid "Standard installation"
-msgstr "標準安裝"
+msgstr "Instalazio arrunta"
 
 #, c-format
 msgid ""
 "This is the default installation type. Choose this installation type if you want to "
 "install a new Gallery in the directory %s which will be accessible with the URL %s."
 msgstr ""
-"這是預設的安裝類型。如果你要在 %s 目錄中安裝一個全新的 Gallery，並可用 %s 網址存取的"
-"話，請選這個安裝類型。"
+"Hau da lehenetsiriko instalazio mota. Aukeratu instalazio mota hau %s direktorioan %s "
+"URL-an ikusiko den galeria berri bat instalatu nahi izan ezkero."
 
 msgid "Multisite installation"
-msgstr "多站台安裝"
+msgstr "Gune anitzeko instalazioa"
 
 msgid ""
 "Gallery can support multiple independent sites with a single installation of the code. "
 "Choose this installation type if you want to install a new Gallery on the same "
 "webserver but in a different path, subdomain or URL domain."
 msgstr ""
-"Gallery 可以用一份單獨的安裝來支援多個獨立的網站。如果你要在同一個網頁伺服器上的不同路"
-"徑、子網域或網址上安裝一個全新的 Gallery 的話，請選這個安裝類型。"
+"Gallery kodearen instalazio bakar batez banaturiko gune anitz onartzen ditu. Aukeratu "
+"instalazio mota hau Gallery berri bat zerbitzari berdinean baina beste bide, domeinu "
+"edo URL domeinu batetan instalatu nahi izan ezkero."
 
 #, c-format
 msgid ""
@@ -925,52 +985,64 @@ msgid ""
 "their own database and their own storage directory. For more information and "
 "explanations about Multisite installations, visit the %s page."
 msgstr ""
-"多站台並不共用相簿、照片、用戶、或其他任何項目。它們都需要自己的資料庫和自己的儲存目"
-"錄。前參閱 %s 頁面中有關多站台安裝的資訊和解釋。"
+"Gune anitzek ez dute beraien artean irudirik, erabiltzailerik ez beste ezer "
+"partekatzen.  Bakoitzak bere datu-base eta biltegiratze direktorio berezia behar "
+"ditu.  Gune-anitzeko instalazioari buruz informazi ego argibide gehiagorako jo %s "
+"orrialdera."
 
 msgid "All multisites are installed from this central code repository (codebase)."
-msgstr "所有的站台都是從這個中央程式庫（基礎程式）安裝出來。"
+msgstr ""
+"Gune-anitz guztiak kode errepositorio nagusi honetatik (iturburua) instalatuko dira."
 
 msgid ""
 "Enter the directory for the new multisite below. The path must be different from this "
 "codebase installation's path:"
-msgstr "在下面輸入新的站台的目錄。這個路徑不能和基礎程式安裝的路徑相同。"
+msgstr ""
+"Gune-anitz gune berriaren direktorioa idatzi behean. Bidea iturburu instalazio "
+"bidearen ezberdina izan behar da:"
 
 msgid "You must enter a directory"
-msgstr "你必需輸入一個目錄"
+msgstr "Direktorio bat idatzi behar duzu"
 
 msgid "The directory you entered does not exist"
-msgstr "你輸入的目錄不存在"
+msgstr "Emandako direktorioa ez da aurkitzen"
 
 msgid ""
 "The directory you entered is the codebase directory. If you want to install a Gallery "
 "in the codebase directory, select the standard installation type. If you want to "
 "install a multisite, choose another directory."
 msgstr ""
-"你所輸入的目錄是程式所在的目錄。如果你要把一個 Gallery 安裝到程式目錄中，請選擇標準安裝"
-"類型。如果你要安裝多站台，請選一個不同的目錄。"
+"Zuk emandako direktorioa iturburu direktorioa da. Galeria bat iturburu direktorioan "
+"instalatu nahi izan ezkero, hautatu instlazio estandar mota. Gune-anitzeko gune bat "
+"instalatu nahi ezkero beste direltorio bat aukeratu."
 
 msgid ""
 "The directory you entered is not accessible.  Change the permissions so that the "
 "webserver can read this directory."
-msgstr "無法存取你所輸入的目錄。請改變它的存取權限讓網頁伺服器可以讀取這個目錄。"
+msgstr ""
+"Ezin da emandako direktorioa irakurri. Aldatu iezazkiezu baimenak web zerbitzariak "
+"direktorio hau irakurtzea ahalmentzeko."
 
 msgid "Unable to create multisite files. Ensure the files listed below are writeable."
-msgstr "無法產生多站台檔案。請確定下列檔案可以寫入。"
+msgstr ""
+"Ezin dira gune-anitz fitxategiak sortu. Ziurtatu beheanzerrendaturiko fitxategiak "
+"idazgarriak direla."
 
 msgid ""
 "The directory must be writeable by your webserver/php user or contain the following "
 "writeable files:"
-msgstr "目錄必需可以讓你的網頁伺服器或 PHP 用戶寫入或含有下列可寫入的檔案："
+msgstr ""
+"Direktorioa zure web-zerbitzari/php erabiltzailearentzat idazgarria izan behar edo "
+"honako fitxategi idazgarri hauek izan behar ditu."
 
 msgid "Select Directory"
-msgstr "選擇目錄"
+msgstr "Hautatu direktorioa"
 
 msgid "Multisite directory setup successfully."
-msgstr "多站台目錄設定成功"
+msgstr "Gune-anitzeko direktorio ezarpena egoki egin da."
 
 msgid "Standard installation selected."
-msgstr "選擇標準安裝。"
+msgstr "Instalazio Estandarra hautaturik."
 
 #, c-format
 msgid ""
@@ -981,10 +1053,12 @@ msgid ""
 "file such that other users can't write to it.  Right now your config.php has modes of %"
 "s.  We suggest that you do this:"
 msgstr ""
-"我們要確定你的 Gallery 是安全的。這個安裝程式修改過的 config.php 檔案的權限允許其他用戶"
-"寫入。這是必要的，因為對 Unix 權限來說，這個安裝程式也算「其他用戶」。所以在結束之前，"
-"你需要把這個檔案的權限改成其他用戶無法寫入。現在你的 config.php 檔的模式為 %s。我們建議"
-"你這樣做："
+"Zure galeria segurua dela ziurtatu nahi dugu.  Instalatzaile honek baimenak editatu "
+"dizkion config.php fitxategia beste edonork aldatzeko baimenak ditu.  Hau unix sistema "
+"baimenetan instalatzailea \"beste pertsona bat\" bezala delako da.  Beraz amaitzean "
+"fitxategi honen baimenak aldatu beharko zenituzke beste erabiltzaileek fitxategia "
+"editatu ezin dezaten.  Orain zure config.php fixtategian %s moduan dago.  Hau egitea "
+"gomendatzen dizugu:"
 
 #, c-format
 msgid "chmod 644 %s"
@@ -996,9 +1070,11 @@ msgid ""
 "to write or delete files.  So before you finish, you should change the permissions on "
 "this directory such that other users can't write to it.  We suggest that you do this:"
 msgstr ""
-"我們要確定你的 Gallery 是安全的。含有這個安裝程式修改過的 config.php 檔案的目錄的權限允"
-"許其他用戶寫入或刪除檔案。所以在結束之前，你需要把這個目錄的權限改成其他用戶無法寫入。"
-"我們建議你這樣做："
+"Zure galeria segurua dela ziurtatu nahi dugu.  Instalatzaile honek beste edozeinek "
+"fitxategiak idatzi edo ezabatu ahal dezan baimenak editatu dizkio config.php "
+"fitxategia duen direktorioari.  Beraz amaitzean direktorio horren baimenak aldatu "
+"beharko zenituzke beste erabiltzaileek bertan idaztea ekiditzeko. Hau egitea "
+"gomendatzen dizugu:"
 
 #, c-format
 msgid "chmod 755 %s"
@@ -1007,13 +1083,15 @@ msgstr "chmod 755 %s"
 msgid ""
 "If you really want to continue, you can.  But we recommend that you take an extra "
 "moment to make sure that you're safe."
-msgstr "如果你真的要繼續，你還是可以。可是我們建議你多花一點時間來確定你是安全的。"
+msgstr ""
+"Benentan aurrera jarraitu nahi ezkero, egin dezakezu. Baina momentu batez zure "
+"seguratsuna arakatzea gomendatzen dizugu."
 
 msgid "Check Again"
-msgstr "再檢查一次"
+msgstr "Egiaztatu berriz"
 
 msgid "We've verified that your config.php is secure."
-msgstr "我們證實你的 config.php 檔案是安全的。"
+msgstr "Zure config.php segurua dela egiaztatu dugu."
 
 #, c-format
 msgid ""
@@ -1027,17 +1105,22 @@ msgid ""
 "user home directory, if possible. If you access your site via FTP, you might not have "
 "this option."
 msgstr ""
-"Gallery 需要把資料儲存在你的伺服器上的一個目錄中。它會用這個目錄來存放你的圖片和其他重"
-"要的資料。為了安全起見，我們建議你把這個目錄放在你的網站<b>之外</b>，這樣它就不能直接在"
-"網頁上瀏覽。這在如果你希望你的圖片只能透過 Gallery [%s] 存取的狀況下是很重要的。請注意"
-"下面提供的預設路徑是在網頁伺服器的範圍內。這是因為我們無法可靠地推測出一個在你的網站之"
-"外的目錄。如果可能的話，你應該把它改成一個安全的位置，像是一個在你的用戶根目錄下的目"
-"錄。如果你是使用 FTP 存取網站的話，你可能無法這麼做。"
+"Galeriak datuak zerbitzariko direktorio batetan gorde behar ditu. Direkotrio hori zure "
+"irudi eta informazio garratzitsua gordetzeko erabiliko da. Segurtasuna dela eta "
+"direktorio hori zure webgunetik <b>kanpora</b> ipintzea gomendatzen dugu web bidez "
+"zuzuenean agertu ez dedin. Hau beharrezoa da zuk irudiak Gallery [%s] bidez ikustea "
+"nahi baduzu. Kontutan izan behean eskeintzen de lehenetsiriko bideak berau "
+"webzerbitzari barnean ipiniko duela. Hau Gallery-k webgunetik kanpodagoen "
+"direktoriorik ezin sortu duelako da. Hau kokapen seguru batengatik aldatu beharko "
+"zenuke, zure direktorio pertsonal barnean, hau posible balitz. Zuk ftp bidezko sarrera "
+"izan ezkero agian ezin duzu hau egin."
 
 msgid ""
 "This is a multisite installation. Remember that each multisite requires its own "
 "storage directory."
-msgstr "這是一個多站台的安裝。請記住每個站台都需要自己的儲存目錄。"
+msgstr ""
+"Hau gune anitzeko instalazio bat da. Gogoratu gune anitzetako bakoitzak bere "
+"biltegiratze direktorioa behar duela."
 
 msgid ""
 "If you're using a modern browser, we'll try to autocomplete any path you enter here.  "
@@ -1045,18 +1128,19 @@ msgid ""
 "experimenting with paths in the text box below and see what completions it provides "
 "for you."
 msgstr ""
-"如果你正在使用的是最新的瀏覽程式，我們會試著自動完成你輸入的任何路徑。所以如果你無法找"
-"到指到你的 g2data 目錄的正確路徑，試著在下面的文字框中打一些可能的路徑，看看自動完成會"
-"不會找到它。"
+"Nabigatzaile moderno bat erabiltzen ari bazara, hemen sartzen duzun edozein bide "
+"betetzen saiatu gara.  Baina zure g2data direktorioaren bidea ezagutzeko arazorik izan "
+"ezkero, testu kutxan bideak sartuaz proba ezazu eta zein eratan betetzea eskeintzen "
+"zaizun begiratu"
 
 msgid "Directory path:"
-msgstr "目錄路徑："
+msgstr "Direktorio bidea:"
 
 msgid "The directory you entered is read only"
-msgstr "你輸入的目錄是唯讀的。"
+msgstr "Ezarritako direktorioa irakurketarako bakarrik da"
 
 msgid "There was an error creating the directory structure within the storage directory."
-msgstr "在儲存目錄中產生目錄結構時發生錯誤。"
+msgstr "Errore bat gertatu da biltegiratze direktorio barneko egitura sortzerakoan."
 
 msgid ""
 "In some web hosting environments, the paths that you see in the shell or via FTP are "
@@ -1064,17 +1148,18 @@ msgid ""
 "directory, you can try creating a PHP script called <b>dir.php</b> containing the "
 "following code in it and put it into your data directory."
 msgstr ""
-"在有些網站主機的環境下，你在指令列或 FTP 下看到的路徑和 PHP 看到的是不一樣的。要找出指"
-"到你的資料目錄的真正路徑，你可以試著產生一個包含下列程式碼，叫做 <b>dir.php</b> 的 PHP "
-"程式檔並把它放到你的資料目錄。"
+"Zenbait zerbitzari ingurunetan, shell bidez edo ftp bidez ikusten diren bideak ez dira "
+"php ingurneak ikusten dituen berdinak.  Zure datu direktorioari benetazko bidea jakin "
+"ahal izatelko, behean dagoen kodea duen <b>dir.php</b> PHP skript-a sortu eta zure "
+"datu direktorioan ipini ezazu."
 
 #, c-format
 msgid ""
 "then figure out the URL to dir.php and open it in your web browser (eg, %s).  This "
 "will tell you the exact path to enter here."
 msgstr ""
-"然後找出指到 dir.php 的網址並在你的網頁瀏覽程式中打開它（如 %s）。它會告訴你正確的路"
-"徑。"
+"orudan zure nabegadorean dir.php helbidera bidali (adib %s). Hau da zehazki hemen "
+"idatzi behar duzun bidea."
 
 msgid ""
 "<b>Note</b>: This requires that your data directory is web accessible, which we don't "
@@ -1082,12 +1167,13 @@ msgid ""
 "this way, we recommend that you move your data directory outside of your web "
 "accessible area and then update the path here accordingly."
 msgstr ""
-"<b>注意</b>：你的資料目錄必需可以透過網頁存取，我們不建議這樣做因為這等於規避了我們的圖"
-"像防火牆功能。當你用這個方法找出路徑後，我們建議你把資料目錄移到網頁可以存取的範圍之外"
-"並更正路徑設定。"
+"<b> Oharra</b>: Honek zure datu direktorioa web bidez eskuragarri izatea eskatzen du, "
+"hau irudi suebakia salto egin dezakelako ez da gomendatzen.  Bein bidea era honetara "
+"jakin duzula, datu direktorioa web bidez eskuragrri ez den leku batetara aldatzea eta "
+"orduan bidea hara mugitzea gomendatzen dugu."
 
 msgid "<b>Note</b>: Don't forget to delete dir.php when you're done!"
-msgstr "<b>注意</b>：不要忘了在完成後刪除 dir.php 檔案！"
+msgstr "<b>Oharra</b>: Amaitzean ez ahaztu dir.php ezabatzea!"
 
 msgid ""
 "Your webserver needs to be able to write to this directory. Permission systems vary "
@@ -1096,17 +1182,21 @@ msgid ""
 "system adminstrator to figure out how to make this as secure as possible. To get it "
 "working, you can follow these examples."
 msgstr ""
-"你的網頁伺服器必需能寫入這個目錄。在各個主機上的權限系統都不相同。你可以給這個目錄很鬆"
-"散的存取權限讓 Gallery 開始作用，可是如果你關心安全的問題，你應該資詢你的系統管理員有關"
-"如何可以使你的系統盡可能的安全。要讓它開始工作，你可以用下面的例子。"
+"Zure Web Zerbitzaria direktorio horretan idazteko gai izan behar da. Baimen sistemak "
+"aldatu egiten dira ostalari batzutatik besteetara. Galeria martxan edukitzeko baimen "
+"nahiko lasaiak ezarri ditzakezu, baina segurtasunagatik arduraturik bazaude zure "
+"sistema kudeatzailerarekin hitzegin ebharko zenuke hau ahalik eta seguruen bihurtzeko. "
+"Martxan jartzeko adibide hauek jarraitu ditzakezu."
 
 msgid ""
 "Note: these are only examples!  You may find that they don't work quite right on your "
 "system."
-msgstr "注意：這些只是範例！它們可能不適用於你的系統。"
+msgstr ""
+"Oharra: Hauek adibideak besterik ez dira! Zure sisteman behar bezala ez funtzionatzea "
+"gerta liteke."
 
 msgid "Unix (with shell access)"
-msgstr "Unix（指今列）"
+msgstr "Unix (shell sarrerarekin)"
 
 #, c-format
 msgid "mkdir %s"
@@ -1117,72 +1207,78 @@ msgid "chmod 777 %s"
 msgstr "chmod 777 %s"
 
 msgid "Unix (with ftp access)"
-msgstr "Unix（使用 FTP）"
+msgstr "Unix (ftp sarrerarekin)"
 
 msgid ""
 "Note that ftp servers and clients vary so these instructions may not work for you. "
 "Consult the manual for your FTP client or talk to a system administrator for help with "
 "this if you have problems"
 msgstr ""
-"請注意 FTP 伺服器和用戶端程式種類變化很多所以這些指令可能不適用於你的情況。如果發生問"
-"題，請參考你的FTP 用戶端程式手冊或詢問你的系統管理員。"
+"Kontutan izan ftp zerbitzari eta ebzero aginduak aldatu egin daitezkeela kasu "
+"batetatik bestera eta agian agindu hauel ez dira zure kasuan baliagarriak. Zure fTP "
+"bezeroaren manuala begira ezazu edo sistema kudeatzaileari galde iezaiozu arazorik "
+"izan ezkero"
 
 #, c-format
 msgid "cd %s"
 msgstr "cd %s"
 
 msgid "This is sometimes known as an <b>image firewall</b>."
-msgstr "這有時也叫一個<b>圖像防火牆</b>。"
+msgstr "Hau batzuetan <b>image firewall</b> bezala ezagutzen da."
 
 msgid "Storage directory set successfully."
-msgstr "儲存目錄設定成功。"
+msgstr "Biltegiratze direktorioa behar bezala ezarri da."
 
 msgid "Success"
-msgstr "成功"
+msgstr "Behar bezala egin da"
 
 msgid "Warning"
-msgstr "警告"
+msgstr "Abisua"
 
 msgid "Failed"
-msgstr "失敗"
+msgstr "Huts egin du"
 
 msgid ""
 "If you are using Apache, create a file named .htaccess in the main Gallery directory "
 "with the following content:"
 msgstr ""
-"如果你使用 Apache，在 Gallery 主目錄中產生一個叫 .htaccess 的檔案並加入下列內容："
+"Apache erabiltzen ari bazara, .htaccess izeneko fitxategi bat sortu ezazu Gallery "
+"direktorioan honako eduki honekin:"
 
 msgid "Version Check"
-msgstr "版本檢查"
+msgstr "Bertsio Proba"
 
 msgid ""
 "This is not a fresh install and the installed version does not match the new version."
-msgstr "這不是一個全新安裝而且已安裝的版本和新的版本不符合。"
+msgstr ""
+"Hau ez da instalazio garbi bat eta instalaturiko bertsioa ez da berriaren berdina."
 
 msgid "The installed version cannot be upgraded to the new version!"
-msgstr "已安裝的版本不能昇級到新的版本！"
+msgstr "Instalaturiko bertsioa ezin da bertsio berria eguneratu!"
 
 msgid ""
 "The installed version is older than the new version. You should run the upgrader and "
 "not the installer!"
-msgstr "已安裝的版本比新的版本舊。你應該要執行昇級程式而不是安裝程式！"
+msgstr ""
+"Instalaturiko bertsioa bertsio berri baina zaharragoa da. Eguneratzailea abiarazi "
+"beharko zenuke eta ez instalatzailea!"
 
 msgid "Currently installed"
-msgstr "目前安裝"
+msgstr "Instalaturik"
 
 msgid "New version"
-msgstr "新版本"
+msgstr "Bertsio berria"
 
 msgid "Go to the Upgrader!"
-msgstr "前往 Gallery 昇級程式！"
+msgstr "Joan Eguneratzailera!"
 
 #, c-format
 msgid ""
 "You should go now to the upgrader.  Enter the URL in your browser for %s/upgrade/index."
 "php%s in your %s directory."
 msgstr ""
-"你現在應該前往昇級程式。在你的瀏覽程式中輸入在你的%s目錄中的 %s/upgrade/index.php%s 的"
-"網址。"
+"Zu bertsio-berritzailera joan beharko zinateke. Idatzi zure %s direktorioako  %"
+"supgrade/index.php%s URL-a zure nabigatzailean."
 
 #, c-format
 msgid ""
@@ -1192,18 +1288,17 @@ msgid ""
 "can go back and make changes at any time. Please read the %sInstaller Help File%s "
 "before proceeding."
 msgstr ""
-"把 Gallery 2.0 安裝到你的系統中需要 %d 個步驟。這個安裝程式指引你走過這些步驟，並在需要"
-"額外步驟時提供協助。當一個步驟完成後，你還是可以在任何時候回去並更改設定。在繼續之前，"
-"請先閱讀%s安裝程式說明檔案%s。"
+"Gallery 2 zerbitzarian instalatzeko %d urrats bete behar dira. Instalatzaile honek 11 "
+"urrats horietan gidatu eta Gallery behar bezala martxan ipini arte beste urrats batzu "
+"egin behar direnean laguntza eskeiniko dizu. Urrats bat betetzean, edozein momentutan "
+"atzera jo eta nahi dituzun aldaketak egin ahal izango dituzu. Mesedez irakurri %"
+"sInstaller Help File%s (Ingelesez) jarraitu aurretik."
 
 msgid "Select Language:"
-msgstr "選擇語言："
+msgstr "Hizkuntza Hautatu:"
 
 msgid "Go"
-msgstr "開始"
+msgstr "Joan"
 
 msgid "Begin Installation&raquo;"
-msgstr "開始安裝&raquo;"
-
-#~ msgid "SQL test file \"%s\" not found."
-#~ msgstr "找不到 SQL 測試檔案「%s」。"
+msgstr "Instalazio hasi&raquo;"

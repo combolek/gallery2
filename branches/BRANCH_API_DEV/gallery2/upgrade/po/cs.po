@@ -1,57 +1,59 @@
 # $Id$
-# 
+#
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gallery: Upgrader 1.0\n"
-"POT-Creation-Date: 2005-08-03 23:11-0400\n"
-"PO-Revision-Date: 2005-08-03 23:11-0400\n"
-"Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
-"Language-Team: Chinese Traditional <gallery-devel@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-06-11 11:57+0200\n"
+"PO-Revision-Date: 2005-09-11 16:16+0200\n"
+"Last-Translator: Jan Korbel <jackc@teptin.net>\n"
+"Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 msgid "Unknown"
-msgstr "未知"
+msgstr "Neznámý"
 
 msgid "Authenticate"
-msgstr "認證"
+msgstr "Autentizace"
 
 msgid "<b>Error:</b> missing password."
-msgstr "<b>錯誤：<b>沒有密碼。"
+msgstr "<b>Chyba:</b> chybí heslo."
 
 msgid "<b>Error:</b> invalid password."
-msgstr "<b>錯誤：<b>無效的密碼。"
+msgstr "<b>Chyba:</b> špatné heslo."
 
 msgid "Empty Cache"
-msgstr "清除快取"
+msgstr "Výmaz cache"
 
 msgid "Finished"
-msgstr "完成"
+msgstr "Hotovo"
 
 msgid "System Checks"
-msgstr "系統檢查"
+msgstr "Kontrola systému"
 
 msgid "PHP version >= 4.1.0 or >= 5.0.4"
-msgstr "PHP 版本大於或等於 4.1.0 或大於或等於 5.0.4"
+msgstr "PHP verze >= 4.1.0 nebo >= 5.0.4"
 
 #, c-format
 msgid ""
@@ -59,36 +61,37 @@ msgid ""
 "%s installed. Contact your webserver administrator to request an upgrade, available at the %"
 "sPHP website%s."
 msgstr ""
-"錯誤：Gallery 2 需要 PHP 版本 4.1.0 以上或 5.0.4 以上。你安裝的 PHP 版本是 %s。請要求你的網頁"
-"伺服器管理員昇級。新的版本在 %sPHP 的網站上%s。"
+"Chyba: Galerie 2 vyžaduje PHP verze 4.1.0 a novější nebo 5.0.4 a novější. Vaše PHP je verze %"
+"s. Kontaktujte Vašeho správce a požádejte o aktualizaci, která je dostupná na %swebu PHP%s."
 
 msgid "PHP Version"
-msgstr "PHP 版本"
+msgstr "Verze PHP"
 
 msgid "FILE directive supported"
-msgstr "支援 FILE 指令"
+msgstr "Direktiva FILE je podporována"
 
 msgid ""
 "Error: your PHP __FILE__ directive is not functioning correctly. Please file a support "
 "request with your webserver administrator or in the Gallery forums."
 msgstr ""
-"錯誤：你的 PHP __FILE__ 指令工作不正常。請向你的網頁伺服器管理員或 Gallery 討論區要求技術支"
-"援。"
+"Chyba: PHP direktiva __FILE__ nefunguje správně. Prosím požádejte o podporu Vašeho "
+"administrátora nebo na fórech Galerie."
 
 msgid "FILE Directive"
-msgstr "FILE 指令"
+msgstr "Direktiva FILE"
 
 msgid "Safe mode disabled"
-msgstr "安全模式已關閉"
+msgstr "Safe mód je vypnutý"
 
 msgid ""
 "Error: Your version of PHP is configured with safe mode enabled.  You must disable safe mode "
 "before Gallery will run."
 msgstr ""
-"錯誤：你的 PHP 版本設定為使用安全模式（Safe Mode）。你必需關閉安全模式才能繼續執行 Gallery。"
+"Chyba: Vaše PHP je nakonfigurováno se zapnutým Safe módem. Pokud chcete používat Galerii, "
+"musíte ho vypnout."
 
 msgid "Safe Mode"
-msgstr "安全模式"
+msgstr "Safe mód"
 
 msgid "Regular expressions"
 msgstr ""
@@ -98,10 +101,11 @@ msgid ""
 "Error: Your PHP is configured without support for %sPerl Compatible Regular Expressions%s. "
 "You must enable these functions before Gallery will run."
 msgstr ""
-"錯誤：你的 PHP 版本設定為使用安全模式（Safe Mode）。你必需關閉安全模式才能繼續執行 Gallery。"
+"Chyba: Vaše PHP je nakonfigurováno se zapnutým Safe módem. Pokud chcete používat Galerii, "
+"musíte ho vypnout."
 
 msgid "exec() allowed"
-msgstr "允許 exec()"
+msgstr "Funkce exec() povolena"
 
 msgid ""
 "Warning: The exec() function is disabled in your php by the <b>disabled_functions</b> "
@@ -109,12 +113,13 @@ msgid ""
 "ImageMagick, NetPBM or Ffmpeg). This can only be set server-wide, so you will need to change "
 "it in the global php.ini."
 msgstr ""
-"警告：你的 PHP 中的 exec() 函數被 php.ini 中的 <b>disabled_functions</b> 關閉了。你將無法使用"
-"需要外部執行檔的模組（如 ImageMagick、NetPBM 或 Ffmpeg）。這個選項只能在伺服器端改變，所以你"
-"需要在全體共用的 php.ini 中改正。"
+"Varování: funkce exec() je ve vašem PHP vypnutá pomocí parametru <b>disabled_functions</b> v "
+"php.ini. Nebudete moci použít moduly, které volají externí programy (jako je ImageMagick, "
+"NetPBM nebo Ffmpeg). Toto nastavení může být provedeno pouze pro celý server v souboru php."
+"ini."
 
 msgid "set_time_limit() allowed"
-msgstr "允許 set_time_limit()"
+msgstr "Funkce set_time_limit() povolena"
 
 #, c-format
 msgid ""
@@ -123,37 +128,39 @@ msgid ""
 "reliably.  Any operation that takes longer than %d seconds will fail (and in some cases just "
 "return a blank page) possibly leading to data corruption."
 msgstr ""
-"警告：你的 PHP 中的 set_time_limit() 函數被 php.ini 中的 <b>disabled_functions</b> 關閉了。"
-"Gallery 仍然可以在這個設定下執行，可是穩定度會有問題。任何功能執行超過 %d 秒鐘都會失敗（有時"
-"會傳回一個空白頁面）並可能導致資料損毀。"
+"Varování: funkce set_time_limit() je ve vašem PHP vypnutá pomocí parametru "
+"<b>disabled_functions</b> v php.ini. Galerie může s tímto nastavením fungovat, ale nebude "
+"zaručena spolehlivost. Všechny operace, které budou trvat déle než %d sekund, pravděpodobně "
+"selžou (a v některých případech vrátí prázdnou stránku) a mohou poškodit data."
 
 msgid "Memory limit"
-msgstr "記憶空間限制"
+msgstr "Limit paměti"
 
 msgid "no limit"
-msgstr "沒有限制"
+msgstr "bez omezení"
 
 #, c-format
 msgid ""
 "Warning: Your PHP is configured to limit the memory to %sb (<b>memory_limit</b> parameter in "
 "php.ini). You should raise this limit to at least <b>%sMB</b> for proper Gallery operation."
 msgstr ""
-"警告：你的 PHP 設定成只能使用 %sb（在 php.ini 中的 <b>memory_limit</b> 參數）的記憶空間。你應"
-"該把這個限制提昇到至少 <b>%sMB</b>，Gallery 才能正常工作。"
+"Varování: ve Vašem PHP je nastaveno omezení paměti na %sB (parametr <b>memory_limit</b> v "
+"php.ini). Pro bezproblémovou funkci Galerie byste měli zvýšit tento limit alespoň na <b>%"
+"sMB</b>."
 
 msgid "File uploads allowed"
-msgstr "允許上傳檔案"
+msgstr "Upload souborů povolen"
 
 msgid ""
 "Warning: Your PHP is configured not to allow file uploads (<b>file_uploads</b> parameter in "
 "php.ini). You will need to enable this option if you want to upload files to your Gallery "
 "with a web browser."
 msgstr ""
-"警告：你的 PHP 設定成禁止檔案上傳（在 php.ini 中的 <b>file_uploads</b> 參數）的記憶空間。你需"
-"要啟動這個選項才能用網頁瀏覽程式上傳檔案到 Gallery。"
+"Varování: konfigurace Vašeho PHP nedovoluje upload souborů (parametr <b>file_uploads</b> v "
+"php.ini ). Pokud chcete do Galerie uploadovat soubory, musíte tuto možnost povolit."
 
 msgid "Maximum upload size"
-msgstr "最大上傳大小"
+msgstr "Maximální velikost uploadu"
 
 #, c-format
 msgid ""
@@ -161,11 +168,12 @@ msgid ""
 "(<b>upload_max_filesize</b> parameter in php.ini). You should rise this limit to allow "
 "uploading bigger files."
 msgstr ""
-"警告：你的 PHP 設定成上傳檔案最大為 %sb（在 php.ini 中的 <b>upload_max_filesize</b> 參數）。"
-"你應該提高這個限制以允許上傳更大的檔案。"
+"Varování: ve Vašem PHP je nastaveno omezení velikosti uploadu souborů na %sB (parametr "
+"<b>upload_max_filesize</b> v php.ini). Pro upload větších souborů byste měli tento limit "
+"zvýšit."
 
 msgid "Maximum POST size"
-msgstr "最大 POST 大小"
+msgstr "Maximální velikost POST požadavku"
 
 #, c-format
 msgid ""
@@ -173,8 +181,8 @@ msgid ""
 "(<b>post_max_size</b> parameter in php.ini). You should raise this limit to allow uploading "
 "bigger files."
 msgstr ""
-"警告：你的 PHP 設定成最大 POST 資料為 %sb（在 php.ini 中的 <b>post_max_size</b> 參數）。你應"
-"該提高這個限制以允許上傳更大的檔案。"
+"Varování: ve Vašem PHP je nastavena maximální velikost dat v POST požadavku na %sB (parametr "
+"<b>post_max_size</b> v php.ini). Pro upload větších souborů byste měli tento limit zvýšit."
 
 msgid "Translation support"
 msgstr ""
@@ -199,7 +207,7 @@ msgid ""
 msgstr ""
 
 msgid "Zend compatibility mode"
-msgstr "Zend 相容模式"
+msgstr "Kompatibilní mód Zendu"
 
 #, c-format
 msgid ""
@@ -208,252 +216,266 @@ msgid ""
 "PHP is ok.  If you get an error then you must turn off ze1_compatibility_mode before "
 "proceeding."
 msgstr ""
-"警告：你的 PHP 設定使用可能使 PHP 當機的 Zend ze1_compatibility_mode 選項。請按<a href=\"%s"
-"\">這裡</a>測試 PHP。如果你看到「SUCCESS」表示你的 PHP 正常。如果你得到一個錯誤訊息，你需要"
-"把 ze1_compatibility_mode關掉才能繼續。"
+"Varování: Vaše PHP je nakonfigurováno v Zend módu ze1_compatibility_mode, což může způsobit "
+"padání PHP. Pro otestování Vašeho PHP klikněte <a href=\"%s\">zde</a>. Pokud uvidíte úspěšný "
+"výsledek, Vaše PHP je v pořádku. Pokud uvidíte chybu nebo nedostanete odpověď, budete muset "
+"vypnout ze1_compatibility_mode."
 
 msgid "Storage Directory Permissions"
-msgstr "儲存目錄存取權限"
+msgstr "Oprávnění pro adresář úložište"
 
 msgid "Test skipped due to other errors."
-msgstr "因其他錯誤略過測試。"
+msgstr "Zkouška přeskočena z důvodu jiných chyb."
 
 #, c-format
 msgid ""
 "Error: Some files and or directories in your storage directory are not writeable by the "
 "webserver user. Run chown -R webserverUser %s OR run chmod -R 777 %s."
 msgstr ""
-"錯誤：在你的儲存目錄中的某些檔案或目錄無法被網頁伺服器用戶寫入。請執行 chown -R "
-"webserverUser %s 或執行 chmod -R 777 %s。"
+"Chyba: Některé soubory nebo podadresáře v adresáři úložište nejsou zapisovatelné uživatelem, "
+"pod kterým je spuštěn webserver. Spusťte 'chown -R uzivatel %s', případně 'chmod -R 777 %s'."
 
 msgid "Gallery file integrity"
-msgstr "Gallery 完整性"
+msgstr "Integrita souborů Galerie"
 
 msgid "Manifest missing or inaccessible."
-msgstr "找不到或無法存取檔案清單"
+msgstr "Chybějící nebo nedostupný soubor Manifest."
 
 msgid "Upgrade Core"
-msgstr "升級核心"
+msgstr "Aktualizace jádra"
 
 msgid "Upgrade Modules"
-msgstr "升級模組"
+msgstr "Aktualizace modulů"
 
 msgid "Unable to initialize Gallery session"
 msgstr ""
 
 #, c-format
 msgid "Unable to load the %s module"
-msgstr "無法載入%s模組"
+msgstr "Nelze nahrát modul %s"
 
 msgid "Upgrading modules"
-msgstr "正在升級模組"
+msgstr "Aktualizuji moduly"
 
 #, c-format
 msgid "%s module needs configuration"
-msgstr "%s模組需要設定"
+msgstr "Modul %s potřebuje nakonfigurovat"
 
 #, c-format
 msgid "Unable to upgrade the %s module"
-msgstr "無法昇級%s模組"
+msgstr "Nelze zaktualizovat modul %s"
 
 #, c-format
 msgid "Unable to load the %s theme"
-msgstr "無法載入%s佈景主題"
+msgstr "Nelze nahrát téma %s"
 
 msgid "Upgrading themes"
-msgstr "正在升級佈景主題"
+msgstr "Aktualizuji témata"
 
 #, c-format
 msgid "Unable to upgrade the %s theme"
-msgstr "無法昇級%s佈景主題"
+msgstr "Nelze zaktualizovat téma %s"
 
 msgid "Unable to commit database transaction"
-msgstr "無法送出資料庫異動"
+msgstr "Nelze commitnout transakce databáze"
 
 msgid "Unable to get the module list"
-msgstr "無法取得模組列表"
+msgstr "Nelze získat seznam modulů"
 
 msgid "Unable to get the theme list"
-msgstr "無法取得佈景主題列表"
+msgstr "Nelze získat seznam témat"
 
 msgid "Other"
-msgstr "其他"
+msgstr "Další"
 
 msgid "Themes"
-msgstr "佈景主題"
+msgstr "Témata"
 
 msgid "Welcome"
-msgstr "歡迎"
+msgstr "Vítejte"
 
 msgid ""
 "In order to proceed with the install, we have to verify that you are who you claim.  When "
 "you performed the install, you entered a password which went into your config.php.  Type "
 "that in now.  Refer to your config.php if you've forgotten what you entered."
 msgstr ""
-"為了繼續安裝的程序，我們必需確認你的身分。當你安裝時，config.php 存入了你輸入的一個密碼。請輸"
-"入那個密碼。如果不記得的話，可以查看 config.php。"
+"Pro pokračování v aktualizaci je potřeba ověřit Vaší identitu. Když jste instalovali tuto "
+"Galerii, zadávali jste heslo pro config.php. Prosím, zadejte ho i nyní. Pokud jste ho "
+"zapomněli, podívejte se do souboru config.php."
 
 msgid "Password:"
-msgstr "密碼："
+msgstr "Heslo:"
 
 msgid "Authenticate Me"
-msgstr "確認我的身分"
+msgstr "Autentizovat"
 
 msgid "Authentication successful!"
-msgstr "認證成功"
+msgstr "Autentizace úspěšná!"
 
 msgid "Delete Cache Directories"
-msgstr "刪除快取目錄"
+msgstr "Výmaz cache adresářů"
 
 msgid ""
 "Gallery creates temporary copies of some of your data on your hard drive.  This helps it to "
 "run faster.  But when you upgrade, some of these files might be out of date so it's a good "
 "idea to get rid of them now.  Gallery will create them again as it needs them."
 msgstr ""
-"Gallery 會在你的硬碟上產生一些暫存檔案。這有助放它的執行速度。可是在你昇級的時候，這些檔案中"
-"可能有一些會過期，所以最好現在把它們清除掉。Gallery 會在需要時重新產生這些檔案。"
+"Galerie vytváří na disku dočasné kopie některých dat, čímž urychluje některé operace. Při "
+"aktualizaci se mohou některé z těchto souborů stát zastaralými, takže je vhodné je nyní "
+"smazat. Galerie si je znovu vytvoří, až je bude potřebovat."
 
 msgid ""
 "We were unable to clean the following cache directories.  This is probably ok, but if you "
 "notice any weird behaviour, you should try to delete these directories yourself.  It's "
 "perfectly safe to get rid of them at any time."
 msgstr ""
-"我們無法清除下列的快取目錄。這應該不會造成問題，但是如果你發現任何不正常的地方，你可以試著自"
-"己刪除這些目錄。在任何時候，它們都可以很安全的刪除。"
+"Nelze vyčistit následující adresáře cache. Pravděpodobně je to v pořádku, ale pokud narazíte "
+"na nějaké divné chování, měli byste se pokusit tyto adresáře promazat."
 
 msgid ""
 "Even though there were errors, you can still continue.  Or, you can try deleting these "
 "directories yourself and then click the <b>Try Again</b> link below."
 msgstr ""
-"即使有錯誤發生，你還是可以繼續。或者，你可以試著自行刪除這些目錄然後按「再試一次」的鍵接。"
+"Přestože se vyskytly nějaké chyby, stále můžete pokračovat. Nebo se můžete pokusit smazat "
+"tyto adresáře ručně a pak kliknout na odkaz <b>Zkusit znovu</b>."
 
 msgid "Try Again"
-msgstr "再試一次"
+msgstr "Zkusit znovu"
 
 msgid "We have successfully cleaned out your cache directories."
-msgstr "我們成功地清除了你的快取目錄。"
+msgstr "Úspěšně jsme vymazali cache adresáře."
 
 msgid "Finished!"
-msgstr "完成了！"
+msgstr "Hotovo!"
 
 msgid ""
 "Congratulations! Your Gallery 2 upgrade is complete!  To upgrade any additional Gallery 2 "
 "modules you may use the Site Administrator interface."
-msgstr "恭禧！你的 Gallery 2 昇級已經完成！你可以使用網站管理員界面來昇級其他的 Gallery 模組。"
+msgstr ""
+"Gratulujeme! Aktualizace Vaší Galerie 2 je kompletní! Pro případnou aktualizaci nějakých "
+"dalších modulů použijte administrační panel."
 
 msgid "Go to my Gallery!"
-msgstr "前往我的 Gallery！"
+msgstr "Jdi na mojí Galerii!"
 
 msgid "Warning"
-msgstr "警告"
+msgstr "Varování"
 
 #, c-format
 msgid ""
 "Your config.php appears to use the old form of multisite support.  Please see the %sHelp File"
 "%s for instructions to update your configuration before proceeding."
 msgstr ""
-"你的 config.php 似乎是使用舊式的多站台支援。請參考%s說明檔案%s中的指示來昇級你的設定再繼續。"
+"Váš config.php zřejmě obsahuje starý formát zápisu pro podporu multisite. Prosím přečtěte si "
+"%sNápovědu%s pro další instrukce k aktualizaci konfigurace."
 
 msgid "Welcome to the Gallery Upgrader"
-msgstr "歡迎使用 Gallery 昇級程式"
+msgstr "Vítejte v aktualizaci Galerie"
 
 msgid "Redo this step"
-msgstr "重覆這個步驟"
+msgstr "Opakovat tento krok"
 
 #, c-format
 msgid "Continue to Step %d&raquo;"
-msgstr "繼續到步驟 %d&raquo;"
+msgstr "Pokračovat krokem %d&raquo;"
 
 msgid "Upgrade Status"
-msgstr "昇級狀況"
+msgstr "Stav aktualizace"
 
 #, c-format
 msgid "Upgrade %d%% complete"
-msgstr "昇級進度 %d%%"
+msgstr "Aktualizace z %d%% kompletní"
 
 msgid "Gallery: <strong>your photos</strong> on <strong>your website</strong>"
-msgstr "Gallery：<strong>你的照片</strong>、<strong>你的網站</strong>"
+msgstr "Galerie: <strong>Vaše fotografie</strong> na <strong>Vašem webu</strong>"
 
 #, c-format
 msgid "Missing files (%d)"
-msgstr "缺少的檔案（%d）"
+msgstr "Chybějící soubory (%d)"
 
 msgid ""
 "Note: You're running Gallery from CVS, so recently removed files may appear here.  It might "
 "be safe to ignore these."
 msgstr ""
-"注意：你正在執行由 CVS 中下載的 Gallery，所以有些最近移除的檔案可能會出現在這裡。可能可以安全"
-"的忽略它們。"
+"Poznámka: Toto je Galerie z CVS, takže se zde mohou vyskytnout nedávno odebrané soubory. "
+"Nejspíše lze bez problému ignorovat."
 
 #, c-format
 msgid "Modified files (%d)"
-msgstr "修改過的檔案（%d）"
+msgstr "Modifikované soubory (%d)"
 
 msgid ""
 "Note: You're running Gallery from CVS, so some modified files are to be expected.  You can "
 "probably ignore these, but to be safe you should make sure that you do <b>cvs update -Pd</b> "
 "before continuing."
 msgstr ""
-"注意：你正在執行由 CVS 中下載的 Gallery，所以會有些修改過的檔案。你大概可以忽略這些檔案，可是"
-"為了安全起見，你最好先執行「cvs update -Pd」指令再繼續。"
+"Poznámka: Toto je Galerie z CVS, která pravděpodobně obsahuje modifikované soubory. Nejspíše "
+"lze bez problému ignorovat, ale pokud si chcete být jisti že máte nejnovější verzi, můžete "
+"(než budete pokračovat) spustit 'cvs update -Pd'."
 
 #, c-format
 msgid "Old files (%d)"
-msgstr "舊版的檔案（%d）"
+msgstr "Staré soubory (%d)"
 
 msgid ""
 "These files are no longer part of Gallery. They probably won't cause any problems but it is "
 "a good idea to remove them to keep your install clean."
-msgstr "Gallery 已經不再使用這些檔案。它們大概不會造成任何問題可是最好還是把它們刪除。"
+msgstr ""
+"Tyto soubory už nejsou součástí Galerie. Pravděpodobně nemohou způsobit žádné problémy, ale "
+"asi by bylo nejlepší je odstranit a zachovat tak tuto instalaci čistou."
 
 msgid "Upgrade Steps"
-msgstr "昇級步驟"
+msgstr "Kroky aktualizace"
 
 msgid "Upgrader Help"
-msgstr "昇級程式說明"
+msgstr "README"
 
 msgid "Start Over"
-msgstr "重新開始"
+msgstr "Začít znovu"
 
 msgid "Missing or invalid config.php"
-msgstr "找不到或無效的 config.php"
+msgstr "Chybějící nebo špatný config.php"
 
 msgid "You tried to run the upgrade process but a valid config.php is missing."
-msgstr "你試著執行昇級程式可是找不到有效的 config.php。"
+msgstr "Snažíte se spustit aktualizaci, ale chybí validní soubor config.php."
 
 msgid ""
 "If you've lost your config.php file when replacing the Gallery 2 files in the preparation "
 "for this upgrade, please restore it and try again."
 msgstr ""
-"如果你在準備這個昇級手續時取代了 Gallery 2 的檔案因而失去了 config.php 檔案，請復原它再繼續。"
+"Pokud jste při nahrazování souborů Galerie 2 ztratili soubor config.php, obnovte ho a zkuste "
+"to znovu."
 
 msgid "If you actually want to run the Gallery 2 installer, please follow the link below."
-msgstr "如果你其實是要執行 Gallery 2 安裝程式，請跟隨下面的鏈接。"
+msgstr ""
+"Pokud ve skutečnosti chcete spustit instalátor Galerie 2, prosím následujte odkaz níže."
 
 msgid ""
 "If you want to upgrade from Gallery 1, you first need to install Gallery 2 and then use the "
 "import module to import your data from Gallery 1. Please follow the link below to install "
 "Gallery 2."
 msgstr ""
-"如果你要從 Gallery 1 昇級，你首先需要安裝 Gallery 2，然後使用引進模組來引進你的 Gallery 1 資"
-"料。請跟隨下面的鏈接安裝 Gallery 2。"
+"Pokud chcete aktualizovat Galerii z verze 1, musíte nejdříve nainstalovat verzi 2 a pak "
+"použít modul importu dat z Galerie verze 1. Pro instalaci Galerie 2 následujte odkaz níže."
 
 msgid "Go to the Gallery 2 Installer"
-msgstr "前往 Gallery 2 安裝程式"
+msgstr "Jít na instalátor Galerie 2"
 
 msgid "Success"
-msgstr "成功"
+msgstr "OK"
 
 msgid "Failed"
-msgstr "失敗"
+msgstr "Chyba"
 
 msgid ""
 "If you are using Apache, create a file named .htaccess in the main Gallery directory with "
 "the following content:"
-msgstr "如果你使用 Apache，在 Gallery 主目錄中產生一個叫 .htaccess 的檔案並加入下列內容："
+msgstr ""
+"Pokud používáte webový server Apache, vytvořte v hlavním adresáři Vaší Galerie soubor ."
+"htaccess s následujícím obsahem:"
 
 msgid "An error occurred while upgrading Gallery Core Module"
-msgstr "昇級 Gallery 核心模組時發生一個錯誤。"
+msgstr "Při aktualizaci modulu jádra došlo k chybě"
 
 #, c-format
 msgid ""
@@ -461,67 +483,69 @@ msgid ""
 "find some debug information.  Report this in the %sGallery Forums%s and we'll help you "
 "diagnose the problem."
 msgstr ""
-"當我們試著昇級核心模組時發生了問題。你可以在下面找到一些除錯的資訊。請在 %sGallery 論譠%s中報"
-"告這個錯誤，我們會幫你推測這個問題。"
+"Něco špatného se stalo při aktualizaci modulu jádra. Níže můžete najít nějaké ladící "
+"informace. Můžete je zkusit předhodit ve %sFóru Galerie%s a snad Vám pomůžeme zjistit kde je "
+"problém."
 
 msgid "Stack Trace:"
-msgstr "堆疊記錄："
+msgstr "Trasování zásobníku:"
 
 msgid "Debug Output:"
-msgstr "除蟲輸出："
+msgstr "Ladící výstup:"
 
 msgid "Upgrading the Gallery Core Module"
-msgstr "正在昇級 Gallery 核心模組"
+msgstr "Aktualizace modulu jádra Galerie"
 
 msgid ""
 "The Gallery Core Module is the heart of the Gallery application.  You can upgrade most other "
 "modules using the Site Administration interface, but this module must be handled separately "
 "in order for the upgrade to go smoothly."
 msgstr ""
-"Gallery 核心模組是 Gallery 應用程式的中心。你可以用網站管理界面來昇級大部分其他的模組，可是這"
-"個模組一定要分開處理才能使昇級的動作平順進行。"
+"Modul jádra Galerie je srdcem této aplikace. Většinu ostatních modulů můžete zaktualizovat v "
+"administračním rozhraní, ale tento modul je nutné aktualizovat zvlášť."
 
 msgid "Currently installed"
-msgstr "目前安裝"
+msgstr "Nainstalovaná verze"
 
 msgid "New version"
-msgstr "新版本"
+msgstr "Nová verze"
 
 msgid "Config.php upgrade"
-msgstr "Config.php 昇級"
+msgstr "Aktualizace config.php"
 
 msgid "Required"
-msgstr "（必要）"
+msgstr "Vyžadováno"
 
 #, c-format
 msgid "Unable to write to config.php in your %s directory.  Please change its permissions."
-msgstr "無法寫入在你的 %s 目錄中的 config.php 檔案。請更改它的存取權限。"
+msgstr "Nelze zapsat do souboru config.php v adresáři %s. Prosím změňte jeho oprávnění."
 
 msgid "You can do <i>chmod 666 config.php</i> to fix this."
-msgstr "你可以用「chmod 666 config.php」指令來修正這個錯誤。"
+msgstr "Pro opravu práv by mělo pomoci něco jako <i>chmod 666 config.php</i>."
 
 msgid ""
 "The installed version is newer than the version you are trying to upgrade to. You cannot "
 "downgrade G2. Please replace the gallery2 files with files from the currently installed "
 "version or later."
 msgstr ""
-"目前安裝的版本比你要昇級的版本還新。你不能把 G2 降級。請把 Gallery 2 的檔案換成目前安裝或更新"
-"的版本"
+"Nainstalovaná verze je novější než verze, na kterou se snažíte aktualizovat. Nelze snížit "
+"verzi G2. Prosím nahraďte soubory gallery2 nainstalovanou nebo novější verzí."
 
 msgid ""
 "Before you upgrade, we <b>strongly recommend</b> that you make a backup of your database!  "
 "If you fail to make a backup and something goes wrong, there is a strong possibility that we "
 "will not be able to help you recover your data!  Refer to the following examples:"
 msgstr ""
-"在你昇級之前，我們<b>強烈地建議</b>你先備份你的資料庫！如果你沒有備份而且發生了問題，很可能我"
-"們會無法協助你復原你的資料！請參考下面的範例："
+"Před aktualizací <b>důrazně doporučujeme</b> provést zálohu databáze! Pokud tuto zálohu "
+"neprovedete a při aktualizaci dojde k chybě, je velmi pravděpodobné, že Vám nebudeme moci "
+"pomoci obnovit data! Můžete použít následující příklady:"
 
 msgid "MySQL"
 msgstr "MySQL"
 
 #, c-format
 msgid "mysqldump -u%s -p<i>YourPassword</i> --opt %s > %s.sql"
-msgstr "mysqldump -u%s -p<i>你的密碼</i> --opt %s > %s.sql"
+msgstr "mysqldump -u%s -p<i>VašeHeslo</i> --opt %s > %s.sql"
 
 msgid "PostgreSQL"
 msgstr "PostgreSQL"
@@ -534,30 +558,33 @@ msgid ""
 "Once the upgrade has begun, please be patient.  If you cancel or reload the page, you may "
 "interfere with the upgrade process."
 msgstr ""
-"一旦昇級的動作開始後，請耐心等候。如果你取消或重新載入這個頁面，你可能會干擾昇級的程序。"
+"Jakmile aktualizace začne, buďte trpěliví. Pokud přerušíte nebo obnovíte načítání nějaké "
+"stránky, možná přerušíte proces aktualizace."
 
 msgid "Begin Upgrade"
-msgstr "開始昇級"
+msgstr "Začít aktualizaci"
 
 msgid "Recheck config.php"
-msgstr "再檢查 config.php"
+msgstr "Znovu zkontrolovat config.php"
 
 msgid "Upgraded Gallery Core Module successfully."
-msgstr "昇級 Gallery 核心模組成功。"
+msgstr "Modul jádra Galerie úspěšně zaktualizován."
 
 msgid "We've successfully upgraded the Gallery Core Module."
-msgstr "我們成功地昇級了 Gallery 核心模組。"
+msgstr "Úspěšně jsme zaktualizovali modul jádra Galerie."
 
 msgid ""
 "<b>Reminder</b>: Now check the permissions on config.php and make sure it is not globally "
 "writeable."
-msgstr "<b>提示</b>：請檢查 config.php 檔案的存取權限並確定它不是所有人都可寫入。"
+msgstr ""
+"<b>Nezapomeňte</b>: Nyní zkontrolujte oprávnění pro soubor config.php a ujistěte se, že není "
+"zapisovatelný pro všechny."
 
 msgid "Your Gallery Core Module is up to date!"
-msgstr "你的 Gallery 核心模組已經是最新版！"
+msgstr "Modul jádra Vaší Galerie je aktuální!"
 
 msgid "Upgrade Other Modules"
-msgstr "昇級其他模組"
+msgstr "Aktualizace dalších modulů"
 
 msgid ""
 "The following modules can be automatically upgraded for you.  If you choose not to upgrade "
@@ -565,59 +592,61 @@ msgid ""
 "deactivate them on the Site Administration page, or return to this page later so any "
 "decision you make here is not permanent."
 msgstr ""
-"下列的模組可以自動為你昇級。如果你選擇不要現在昇級它們，你可能會在你的 Gallery 中遭遇問題。你"
-"可以在網站管理頁面中昇級或停用這些模組，或稍後回到這個頁面。所以你在這裡做的任何決定都不是不"
-"能改變的。"
+"Následující moduly pro Vás mohou být automaticky zaktualizované. Pokud se nyní rozhodnete "
+"pro ponechání původních verzí, můžete narazit na různé problémy. Vždy ale můžete provést "
+"aktualizaci nebo deaktivaci modulů v administračním panelu, nebo se později můžete vrátit na "
+"tuto stránku, takže výběr zde provedený nemusí být trvalý."
 
 msgid "Missing Code"
-msgstr "找不到程式碼"
+msgstr "Chybějící soubory"
 
 msgid ""
 "The code for some plugins that were previously active can no longer be found. You must "
 "restore code for these plugins before this upgrade can continue. Code for the plugins must "
 "be the same version or newer than what was installed before."
 msgstr ""
-"找不到之前啟用的某些模組的程式碼。你必需修復這些模組才能繼續昇級的動作。這些模組的程式碼必需"
-"和原來安裝的版本相同或更新。"
+"Nelze nalézt kódy pluginů, které byly dříve aktivované. Před pokračováním procesu "
+"aktualizace musíte soubory těchto pluginů obnovit. Verze těchto pluginů musí být stejné nebo "
+"novější."
 
 msgid "Module"
-msgstr "模組"
+msgstr "Modul"
 
 msgid "Theme"
-msgstr "佈景主題"
+msgstr "Téma"
 
 msgid "Name"
-msgstr "名稱"
+msgstr "Jméno"
 
 msgid "Current"
-msgstr "目前"
+msgstr "Stávající"
 
 msgid "New"
-msgstr "新版"
+msgstr "Nová"
 
 msgid "Description"
-msgstr "詳細描述"
+msgstr "Popis"
 
 msgid "(un)check all"
-msgstr "全部勾選或全部不選"
+msgstr "(zrušit) výběr všech"
 
 #, c-format
 msgid "Skip Upgrade and Continue to Step %d&raquo;"
-msgstr "略過昇級並繼續到步驟 %d&raquo;"
+msgstr "Přeskočit aktualizaci a pokračovat krokem %d&raquo;"
 
 msgid "Upgrade Selected Modules"
-msgstr "昇級所選模組"
+msgstr "Aktualizovat vybrané moduly"
 
 #, c-format
 msgid "Upgraded the %s module successfully"
-msgstr "%s模組昇級成功"
+msgstr "Modul %s úspěšně zaktualizován"
 
 #, c-format
 msgid "Upgraded the %s theme successfully"
-msgstr "%s佈景主題昇級成功。"
+msgstr "Téma %s úspěšně zaktualizováno"
 
 msgid "Upgrade More Modules"
-msgstr "昇級其他 Gallery 模組"
+msgstr "Aktualizovat více modulů"
 
 #, c-format
 msgid ""
@@ -625,11 +654,12 @@ msgid ""
 "steps and provide assistance along the way if additional steps are required. Please read the "
 "%sHelp File%s before proceeding."
 msgstr ""
-"昇級到 Gallery 2.0 需要 %d 個步驟。這個昇級工具會帶你走過這些步驟並在需要額外步驟時提供協助。"
-"在繼續之前，請先閱讀%s說明檔案%s。"
+"Aktualizace Galerie 2.0 vyžaduje %d kroků. Tento aktualizační nástroj Vás těmito kroky "
+"provede, stejně jako případnými dalšími kroky, pokud budou potřeba. Před pokračováním si "
+"prosím přečtěte %sREADME%s."
 
 msgid "Select Language:"
-msgstr "選擇語言："
+msgstr "Vyberte jazyk:"
 
 msgid "Go"
-msgstr "開始"
+msgstr "Go"
