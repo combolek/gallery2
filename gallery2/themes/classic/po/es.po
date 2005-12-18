@@ -1,29 +1,29 @@
 # $Id$
-#
+# 
 # Gallery - a web based photo album viewer and editor
 # Copyright (C) 2000-2005 Bharat Mediratta
-#
+# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Siriux Theme 1.0\n"
-"POT-Creation-Date: 2003-06-05 16:56-0300\n"
-"PO-Revision-Date: 2003-06-05 17:20-0300\n"
-"Last-Translator: Alvaro Cortizo <alvaro@netpandora.com>\n"
-"Language-Team: Argentine Spanish <gallery-devel@lists.sourceforge.net>\n"
+"Project-Id-Version: Gallery: Classic Theme 1.0\n"
+"POT-Creation-Date: 2005-12-18 12:00-0800\n"
+"PO-Revision-Date: 2005-12-18 12:00-0800\n"
+"Last-Translator: \n"
+"Language-Team: Spanish <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,7 +39,10 @@ msgid "no thumbnail"
 msgstr "sin miniatura"
 
 #, c-format
-msgid "%d Images"
+msgid "Album: %s"
+msgstr "Album: %s"
+
+msgid "Subalbums:"
 msgstr ""
 
 msgid "Error!"
@@ -50,26 +53,28 @@ msgid "Download %s"
 msgstr "Descargar este %s"
 
 msgid "There is nothing to view for this item."
-msgstr ""
+msgstr "No hay nada que ver en este elemento."
 
 #, c-format
 msgid "Download %s in original format"
 msgstr ""
 
-#, c-format
-msgid "(%dx%d)"
-msgstr ""
-
 msgid "Continue..."
 msgstr ""
 
-msgid "Siriux"
+msgid "Classic"
 msgstr ""
 
-msgid "Siriux.net Gallery theme"
+msgid "Classic Gallery2 root album look and feel"
+msgstr "Look&amp;Feel cl&aacute;sico de Gallery 2"
+
+msgid "Show subalbum links"
 msgstr ""
 
-msgid "Width of page content in pixels"
+msgid "Depth of subalbums links (0=no limit)"
+msgstr ""
+
+msgid "Show subalbums by sort order of each album (affects performance)"
 msgstr ""
 
 msgid "You must enter a number"
