@@ -45,8 +45,9 @@ foreach my $poDir (keys(%PO_DIRS)) {
   unless ($OPTS{'DRY_RUN'}) {
     if (-f "$poDir/GNUmakefile") {
       chdir $poDir;
-      if (!$OPTS{'PO'} || (-f "$OPTS{PO}.po" && ($OPTS{'PO'} = 'PO=' . $OPTS{'PO'}))) {
-	my_system("$MAKE $TARGET clean QUIET=1 NOCREATE=1 $OPTS{'PO'} 2>&1")
+      my $poParam = '';
+      if (!$OPTS{'PO'} || (-f "$OPTS{PO}.po" && ($poParam = 'PO=' . $OPTS{'PO'}))) {
+	my_system("$MAKE $TARGET clean QUIET=1 NOCREATE=1 $poParam 2>&1")
 	  and print "FAIL!\n"
 	    and push(@failures, $poDir);
       } else {
