@@ -47,9 +47,17 @@ class GalleryTranslator {
     var $_boundDomains;
 
     /**
+     * Currently selected locale
+     *
+     * @var string $_languageCode
+     * @access private
+     */
+    var $_languageCode;
+
+    /**
      * Does the active language read right-to-left?
      *
-     * @var array $_isRightToLeft
+     * @var boolean $_isRightToLeft
      * @access private
      */
     var $_isRightToLeft;
@@ -126,7 +134,7 @@ class GalleryTranslator {
 	    $defaultCountry['de'] = 'DE';
 
 	    /* Spanish */
-	    $supportedLanguages['es']['ES']['description'] = 'Espa&#241;ol (ES)';
+	    $supportedLanguages['es']['ES']['description'] = 'Espa&#241;ol';
 	    $supportedLanguages['es']['MX']['description'] = 'Espa&#241;ol (MX)';
 	    $supportedLanguages['es']['AR']['description'] = 'Espa&#241;ol (AR)';
 	    $defaultCountry['es'] = 'ES';
@@ -177,7 +185,7 @@ class GalleryTranslator {
 
 	    /* Portuguese */
 	    $supportedLanguages['pt']['BR']['description'] = 'Portugu&#234;s Brasileiro';
-	    $supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s (PT)';
+	    $supportedLanguages['pt']['PT']['description'] = 'Portugu&#234;s';
 	    $defaultCountry['pt'] = 'BR';
 
 	    /* Slovenian */
@@ -270,12 +278,12 @@ class GalleryTranslator {
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    
-	    If ($useBrowserPref) {
+
+	    if ($useBrowserPref) {
 		/* Check the user-agent's preferences */
 		$languageCode = GalleryTranslator::getLanguageCodeFromRequest();
 	    }
-	
+
 	    if (empty($languageCode)) {
 		/* Use the site-wide default language */
 		list ($ret, $languageCode) =
@@ -287,7 +295,7 @@ class GalleryTranslator {
 	}
 
 	list ($languageCode, $data) = GalleryTranslator::getSupportedLanguageCode($languageCode);
-	
+
 	/* If we're using gettext, try to bind to a language */
 	if (function_exists('dgettext')) {
 	    $this->_isRightToLeft = isset($data['right-to-left']);
@@ -305,10 +313,11 @@ class GalleryTranslator {
 	if (!headers_sent()) {
 	    header('Content-Type: text/html; charset=UTF-8');
 	}
-	
+
+	$this->_languageCode = $languageCode;
 	return array(null, $languageCode);
     }
-    
+
     /**
      * Attempt to set the requested locale.
      * Try fallbacks and character sets if needed to find a valid locale.
@@ -438,14 +447,13 @@ class GalleryTranslator {
 			 null);
 	}
 
-	$platform =& $gallery->getPlatform();
-	if (function_exists('dgettext')) {
+	if (function_exists('dgettext') && $this->_languageCode != 'en_US') {
 	    if (isset($domain) && !isset($this->_boundDomains[$domain])) {
+		$platform =& $gallery->getPlatform();
 		list ($componentType, $componentName) = split('_', $domain);
 		$basePath = sprintf('%s/%s/%s/locale',
 				    $platform->realpath(dirname(__FILE__) . '/../../..'),
-				    $componentType,
-				    $componentName);
+				    $componentType, $componentName);
 		if ($gallery->getDebug()) {
 		    $gallery->debug("Binding text domain: $domain -> $basePath");
 		}
@@ -492,16 +500,17 @@ class GalleryTranslator {
 		$localized = GalleryCoreApi::convertToUtf8($localized);
 	    }
 	} else {
-	    /*
-	     * The server doesn't have gettext, so fake it using the source of
-	     * the message (which is almost definitely in US English)
-	     */
+	    /* en_US is selected or the server doesn't have gettext */
 	    if (isset($data['text'])) {
 		$localized = $data['text'];
 	    } else if ($data['count'] == 1) {
 		$localized = $data['one'];
 	    } else {
 		$localized = $data['many'];
+	    }
+	    /* Strip out comment text used to assist translators */
+	    if (substr($localized, -3) == '-->' && $i = strpos($localized, ' <!--')) {
+		$localized = substr($localized, 0, $i);
 	    }
 	}
 
