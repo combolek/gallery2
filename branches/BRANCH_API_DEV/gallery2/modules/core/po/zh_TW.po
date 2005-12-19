@@ -388,6 +388,130 @@ msgstr "你的帳戶"
 msgid "Password Recovery"
 msgstr "密碼重獲"
 
+msgid "Core"
+msgstr "核心"
+
+msgid "Gallery 2 Core Module"
+msgstr "Gallery2 核心模組"
+
+msgid "Add Items"
+msgstr "增加項目"
+
+msgid "Edit Album"
+msgstr "編輯相簿"
+
+msgid "Edit Photo"
+msgstr "編輯照片"
+
+msgid "Edit Movie"
+msgstr "編輯影片"
+
+msgid "Create Link"
+msgstr "產生鏈接"
+
+msgid "Add Album"
+msgstr "增加子相簿"
+
+msgid "Edit Permissions"
+msgstr "編輯權限"
+
+msgid "View Permissions"
+msgstr "查看權限"
+
+msgid "Delete Album"
+msgstr "刪除相簿"
+
+msgid "Delete Photo"
+msgstr "刪除照片"
+
+msgid "Delete Movie"
+msgstr "刪除影片"
+
+msgid "Move Album"
+msgstr "移動相簿"
+
+msgid "Move Photo"
+msgstr "移動照片"
+
+msgid "Move Movie"
+msgstr "移動影片"
+
+msgid "Edit Captions"
+msgstr "編輯說明"
+
+msgid "Make Highlight"
+msgstr "選為封面"
+
+msgid "Reorder Items"
+msgstr "重新排序項目"
+
+msgid "Site Admin"
+msgstr "網站管理"
+
+msgid "Login"
+msgstr "登入"
+
+msgid "Your Account"
+msgstr "你的帳戶"
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "Modules"
+msgstr "模組"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "佈景主題"
+
+msgid "Display"
+msgstr "顯示"
+
+msgid "Users"
+msgstr "用戶"
+
+msgid "Groups"
+msgstr "成員組"
+
+msgid "Toolkit Priority"
+msgstr "工具優先次序"
+
+msgid "Graphics Toolkits"
+msgstr "圖形工具"
+
+msgid "Account Settings"
+msgstr "帳戶設定"
+
+msgid "Change Password"
+msgstr "變更密碼"
+
+msgid "Link Album"
+msgstr "鏈接相簿"
+
+msgid "Link Photo"
+msgstr "鏈接照片"
+
+msgid "Link Movie"
+msgstr "鏈接影片"
+
+#, c-format
+msgid "Edit %s"
+msgstr "編輯%s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "刪除%s"
+
+#, c-format
+msgid "Move %s"
+msgstr "移動%s"
+
+#, c-format
+msgid "Link %s"
+msgstr "鏈接%s"
+
 msgid "Build all thumbnails/resizes"
 msgstr "建立所有縮略圖和縮放大小圖"
 
@@ -790,130 +914,6 @@ msgstr "作業系統"
 
 msgid "Browser"
 msgstr "瀏覽程式"
-
-msgid "Core"
-msgstr "核心"
-
-msgid "Gallery 2 Core Module"
-msgstr "Gallery2 核心模組"
-
-msgid "Add Items"
-msgstr "增加項目"
-
-msgid "Edit Album"
-msgstr "編輯相簿"
-
-msgid "Edit Photo"
-msgstr "編輯照片"
-
-msgid "Edit Movie"
-msgstr "編輯影片"
-
-msgid "Create Link"
-msgstr "產生鏈接"
-
-msgid "Add Album"
-msgstr "增加子相簿"
-
-msgid "Edit Permissions"
-msgstr "編輯權限"
-
-msgid "View Permissions"
-msgstr "查看權限"
-
-msgid "Delete Album"
-msgstr "刪除相簿"
-
-msgid "Delete Photo"
-msgstr "刪除照片"
-
-msgid "Delete Movie"
-msgstr "刪除影片"
-
-msgid "Move Album"
-msgstr "移動相簿"
-
-msgid "Move Photo"
-msgstr "移動照片"
-
-msgid "Move Movie"
-msgstr "移動影片"
-
-msgid "Edit Captions"
-msgstr "編輯說明"
-
-msgid "Make Highlight"
-msgstr "選為封面"
-
-msgid "Reorder Items"
-msgstr "重新排序項目"
-
-msgid "Site Admin"
-msgstr "網站管理"
-
-msgid "Login"
-msgstr "登入"
-
-msgid "Your Account"
-msgstr "你的帳戶"
-
-msgid "Logout"
-msgstr "退出"
-
-msgid "Modules"
-msgstr "模組"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr "佈景主題"
-
-msgid "Display"
-msgstr "顯示"
-
-msgid "Users"
-msgstr "用戶"
-
-msgid "Groups"
-msgstr "成員組"
-
-msgid "Toolkit Priority"
-msgstr "工具優先次序"
-
-msgid "Graphics Toolkits"
-msgstr "圖形工具"
-
-msgid "Account Settings"
-msgstr "帳戶設定"
-
-msgid "Change Password"
-msgstr "變更密碼"
-
-msgid "Link Album"
-msgstr "鏈接相簿"
-
-msgid "Link Photo"
-msgstr "鏈接照片"
-
-msgid "Link Movie"
-msgstr "鏈接影片"
-
-#, c-format
-msgid "Edit %s"
-msgstr "編輯%s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "刪除%s"
-
-#, c-format
-msgid "Move %s"
-msgstr "移動%s"
-
-#, c-format
-msgid "Link %s"
-msgstr "鏈接%s"
 
 msgid "General Settings"
 msgstr "一般設定"
@@ -1711,15 +1711,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -2930,10 +2926,10 @@ msgstr "輸入網址的一些文字描述"
 msgid "Enter an image URL"
 msgstr "輸入圖片網址"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "粗體"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "斜體"
 
 msgid "list"
@@ -3316,9 +3312,6 @@ msgstr "單元測試佈景主題"
 
 #~ msgid "&laquo; None &raquo;"
 #~ msgstr "&laquo; 無 &raquo;"
-
-#~ msgid "G2RC2: kthxbye"
-#~ msgstr "G2RC2: kthxbye"
 
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "無法刪除目錄：/templates_c"

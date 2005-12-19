@@ -396,6 +396,130 @@ msgstr "vaš nalog"
 msgid "Password Recovery"
 msgstr "Oporavak lozinke"
 
+msgid "Core"
+msgstr "Jezgro"
+
+msgid "Gallery 2 Core Module"
+msgstr "Modul sa jezgrom Galerije 2"
+
+msgid "Add Items"
+msgstr "Dodavanje objekata"
+
+msgid "Edit Album"
+msgstr "Izmena albuma"
+
+msgid "Edit Photo"
+msgstr "Izmena fotografije"
+
+msgid "Edit Movie"
+msgstr "Izmena filma"
+
+msgid "Create Link"
+msgstr "Pravljenje veze"
+
+msgid "Add Album"
+msgstr "Dodavanje albuma"
+
+msgid "Edit Permissions"
+msgstr "Izmena prava"
+
+msgid "View Permissions"
+msgstr "Pregled dozvola"
+
+msgid "Delete Album"
+msgstr "Brisanje albuma"
+
+msgid "Delete Photo"
+msgstr "Brisanje fotografije"
+
+msgid "Delete Movie"
+msgstr "Brisanje filma"
+
+msgid "Move Album"
+msgstr "Premeštanje albuma"
+
+msgid "Move Photo"
+msgstr "Premeštanje fotografije"
+
+msgid "Move Movie"
+msgstr "Premeštanje filma"
+
+msgid "Edit Captions"
+msgstr "Izmena natpisa"
+
+msgid "Make Highlight"
+msgstr "Postavi za naslovnu"
+
+msgid "Reorder Items"
+msgstr "Promena redosleda objekata"
+
+msgid "Site Admin"
+msgstr "Administracija"
+
+msgid "Login"
+msgstr "Prijava"
+
+msgid "Your Account"
+msgstr "Vaš nalog"
+
+msgid "Logout"
+msgstr "Odjava"
+
+msgid "Modules"
+msgstr "Moduli"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "Izgledi"
+
+msgid "Display"
+msgstr "Prikaz"
+
+msgid "Users"
+msgstr "Korisnici"
+
+msgid "Groups"
+msgstr "Grupe"
+
+msgid "Toolkit Priority"
+msgstr "Prioritet alatki"
+
+msgid "Graphics Toolkits"
+msgstr "Grafičke alatke"
+
+msgid "Account Settings"
+msgstr "Parametri naloga"
+
+msgid "Change Password"
+msgstr "Promena lozinke"
+
+msgid "Link Album"
+msgstr "Vezivanje albuma"
+
+msgid "Link Photo"
+msgstr "Vezivanje fotografije"
+
+msgid "Link Movie"
+msgstr "Vezivanje filma"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Izmena %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Brisanje %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Premeštanje %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "Veži %s"
+
 msgid "Build all thumbnails/resizes"
 msgstr "Napravi sve umanjene prikaze i promenjene veličine"
 
@@ -807,130 +931,6 @@ msgstr "Operativni sistem"
 
 msgid "Browser"
 msgstr "Čitač"
-
-msgid "Core"
-msgstr "Jezgro"
-
-msgid "Gallery 2 Core Module"
-msgstr "Modul sa jezgrom Galerije 2"
-
-msgid "Add Items"
-msgstr "Dodavanje objekata"
-
-msgid "Edit Album"
-msgstr "Izmena albuma"
-
-msgid "Edit Photo"
-msgstr "Izmena fotografije"
-
-msgid "Edit Movie"
-msgstr "Izmena filma"
-
-msgid "Create Link"
-msgstr "Pravljenje veze"
-
-msgid "Add Album"
-msgstr "Dodavanje albuma"
-
-msgid "Edit Permissions"
-msgstr "Izmena prava"
-
-msgid "View Permissions"
-msgstr "Pregled dozvola"
-
-msgid "Delete Album"
-msgstr "Brisanje albuma"
-
-msgid "Delete Photo"
-msgstr "Brisanje fotografije"
-
-msgid "Delete Movie"
-msgstr "Brisanje filma"
-
-msgid "Move Album"
-msgstr "Premeštanje albuma"
-
-msgid "Move Photo"
-msgstr "Premeštanje fotografije"
-
-msgid "Move Movie"
-msgstr "Premeštanje filma"
-
-msgid "Edit Captions"
-msgstr "Izmena natpisa"
-
-msgid "Make Highlight"
-msgstr "Postavi za naslovnu"
-
-msgid "Reorder Items"
-msgstr "Promena redosleda objekata"
-
-msgid "Site Admin"
-msgstr "Administracija"
-
-msgid "Login"
-msgstr "Prijava"
-
-msgid "Your Account"
-msgstr "Vaš nalog"
-
-msgid "Logout"
-msgstr "Odjava"
-
-msgid "Modules"
-msgstr "Moduli"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr "Izgledi"
-
-msgid "Display"
-msgstr "Prikaz"
-
-msgid "Users"
-msgstr "Korisnici"
-
-msgid "Groups"
-msgstr "Grupe"
-
-msgid "Toolkit Priority"
-msgstr "Prioritet alatki"
-
-msgid "Graphics Toolkits"
-msgstr "Grafičke alatke"
-
-msgid "Account Settings"
-msgstr "Parametri naloga"
-
-msgid "Change Password"
-msgstr "Promena lozinke"
-
-msgid "Link Album"
-msgstr "Vezivanje albuma"
-
-msgid "Link Photo"
-msgstr "Vezivanje fotografije"
-
-msgid "Link Movie"
-msgstr "Vezivanje filma"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Izmena %s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "Brisanje %s"
-
-#, c-format
-msgid "Move %s"
-msgstr "Premeštanje %s"
-
-#, c-format
-msgid "Link %s"
-msgstr "Veži %s"
 
 msgid "General Settings"
 msgstr "Opšti parametri"
@@ -1761,15 +1761,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -3050,10 +3046,10 @@ msgstr "Unesite tekst koji opisuje adresu"
 msgid "Enter an image URL"
 msgstr "Unesite adresu slike"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "P"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "k"
 
 msgid "list"
@@ -3460,9 +3456,6 @@ msgstr "Testni izgled"
 
 #~ msgid "&laquo; None &raquo;"
 #~ msgstr "&laquo; Ni jedan &raquo;"
-
-#~ msgid "G2RC2: kthxbye"
-#~ msgstr "G2RC2: kthxbye"
 
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "Direktorijum nije moguće obrisati: /templates_c"

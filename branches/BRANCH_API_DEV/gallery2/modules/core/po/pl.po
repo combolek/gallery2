@@ -409,6 +409,135 @@ msgstr "twoje konto"
 msgid "Password Recovery"
 msgstr "Odzyskaj hasło"
 
+msgid "Core"
+msgstr "Moduł główny"
+
+msgid "Gallery 2 Core Module"
+msgstr "Galeria 2 Moduł Główny"
+
+msgid "Add Items"
+msgstr "Dodaj pozycje"
+
+msgid "Edit Album"
+msgstr "Edytuj album"
+
+msgid "Edit Photo"
+msgstr "Edytuj zdjęcie"
+
+msgid "Edit Movie"
+msgstr "Edytuj film"
+
+#, fuzzy
+msgid "Create Link"
+msgstr "Utwórz"
+
+msgid "Add Album"
+msgstr "Dodaj album"
+
+msgid "Edit Permissions"
+msgstr "Edytuj uprawnienia"
+
+msgid "View Permissions"
+msgstr "Zobacz uprawnienia"
+
+msgid "Delete Album"
+msgstr "Usuń album"
+
+msgid "Delete Photo"
+msgstr "Usuń zdjęcie"
+
+msgid "Delete Movie"
+msgstr "Usuń film"
+
+msgid "Move Album"
+msgstr "Przenieś album"
+
+msgid "Move Photo"
+msgstr "Przenieś zdjęcie"
+
+msgid "Move Movie"
+msgstr "Przenieś film"
+
+#, fuzzy
+msgid "Edit Captions"
+msgstr "Edycja animacji"
+
+msgid "Make Highlight"
+msgstr "Utwórz reprezentację"
+
+msgid "Reorder Items"
+msgstr "Zmień uporządkowanie pozycji"
+
+msgid "Site Admin"
+msgstr "Administracja"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Your Account"
+msgstr "Twoje konto"
+
+msgid "Logout"
+msgstr "wyloguj się"
+
+msgid "Modules"
+msgstr "Moduły"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "Tematy"
+
+msgid "Display"
+msgstr "Wygląd"
+
+msgid "Users"
+msgstr "Użytkownicy"
+
+msgid "Groups"
+msgstr "Grupy"
+
+msgid "Toolkit Priority"
+msgstr ""
+
+msgid "Graphics Toolkits"
+msgstr "Narzędzia graficzne"
+
+msgid "Account Settings"
+msgstr "Ustawienia konta"
+
+msgid "Change Password"
+msgstr "Zmień hasło"
+
+#, fuzzy
+msgid "Link Album"
+msgstr "Album"
+
+#, fuzzy
+msgid "Link Photo"
+msgstr "Zdjęcie"
+
+#, fuzzy
+msgid "Link Movie"
+msgstr "Film"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Edytuj %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Usuń %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Przenieś %s"
+
+#, fuzzy, c-format
+msgid "Link %s"
+msgstr "Login"
+
 #, fuzzy
 msgid "Build all thumbnails/resizes"
 msgstr "Obrazki poglądowe"
@@ -818,135 +947,6 @@ msgstr "System operacyjny"
 
 msgid "Browser"
 msgstr "Przeglądarka"
-
-msgid "Core"
-msgstr "Moduł główny"
-
-msgid "Gallery 2 Core Module"
-msgstr "Galeria 2 Moduł Główny"
-
-msgid "Add Items"
-msgstr "Dodaj pozycje"
-
-msgid "Edit Album"
-msgstr "Edytuj album"
-
-msgid "Edit Photo"
-msgstr "Edytuj zdjęcie"
-
-msgid "Edit Movie"
-msgstr "Edytuj film"
-
-#, fuzzy
-msgid "Create Link"
-msgstr "Utwórz"
-
-msgid "Add Album"
-msgstr "Dodaj album"
-
-msgid "Edit Permissions"
-msgstr "Edytuj uprawnienia"
-
-msgid "View Permissions"
-msgstr "Zobacz uprawnienia"
-
-msgid "Delete Album"
-msgstr "Usuń album"
-
-msgid "Delete Photo"
-msgstr "Usuń zdjęcie"
-
-msgid "Delete Movie"
-msgstr "Usuń film"
-
-msgid "Move Album"
-msgstr "Przenieś album"
-
-msgid "Move Photo"
-msgstr "Przenieś zdjęcie"
-
-msgid "Move Movie"
-msgstr "Przenieś film"
-
-#, fuzzy
-msgid "Edit Captions"
-msgstr "Edycja animacji"
-
-msgid "Make Highlight"
-msgstr "Utwórz reprezentację"
-
-msgid "Reorder Items"
-msgstr "Zmień uporządkowanie pozycji"
-
-msgid "Site Admin"
-msgstr "Administracja"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Your Account"
-msgstr "Twoje konto"
-
-msgid "Logout"
-msgstr "wyloguj się"
-
-msgid "Modules"
-msgstr "Moduły"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr "Tematy"
-
-msgid "Display"
-msgstr "Wygląd"
-
-msgid "Users"
-msgstr "Użytkownicy"
-
-msgid "Groups"
-msgstr "Grupy"
-
-msgid "Toolkit Priority"
-msgstr ""
-
-msgid "Graphics Toolkits"
-msgstr "Narzędzia graficzne"
-
-msgid "Account Settings"
-msgstr "Ustawienia konta"
-
-msgid "Change Password"
-msgstr "Zmień hasło"
-
-#, fuzzy
-msgid "Link Album"
-msgstr "Album"
-
-#, fuzzy
-msgid "Link Photo"
-msgstr "Zdjęcie"
-
-#, fuzzy
-msgid "Link Movie"
-msgstr "Film"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Edytuj %s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "Usuń %s"
-
-#, c-format
-msgid "Move %s"
-msgstr "Przenieś %s"
-
-#, fuzzy, c-format
-msgid "Link %s"
-msgstr "Login"
 
 msgid "General Settings"
 msgstr "Ustawienia ogólne"
@@ -1750,15 +1750,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -3084,10 +3080,10 @@ msgstr "Wpisz opis do adresu URL"
 msgid "Enter an image URL"
 msgstr "Wpisz adres URL zdjęcia"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "pogrubienie"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "kursywa"
 
 msgid "list"
@@ -3484,9 +3480,6 @@ msgstr ""
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "Usunięcie katalogu  /templates_c nie powiodło się"
 
-#~ msgid "G2RC1: +5 Insightful"
-#~ msgstr "G2RC1: +5 Insightful"
-
 #, fuzzy
 #~ msgid "add album"
 #~ msgstr "dodaj sub-album"
@@ -3499,37 +3492,10 @@ msgstr ""
 #~ msgid "view permissions"
 #~ msgstr "uprawnienia"
 
-#~ msgid "login"
-#~ msgstr "zaloguj się"
-
-#, fuzzy
-#~ msgid "choose a new theme for this album"
-#~ msgstr "Wybierz nowy album dla nich"
-
-#, fuzzy
-#~ msgid "login as a site administrator"
-#~ msgstr "Administracja Galerii"
-
-#, fuzzy
-#~ msgid "install or activate this theme"
-#~ msgstr "Przeniesiono z sukcesem %d plik."
-
 #, fuzzy
 #~ msgid "Successfully deleted directory: /cache/entity"
 #~ msgstr "Przeniesiono z sukcesem %d plik."
 
 #, fuzzy
-#~ msgid "Successfully deleted directory: /cache/theme"
-#~ msgstr "Przeniesiono z sukcesem %d plik."
-
-#, fuzzy
-#~ msgid "Successfully deleted directory: /cache/module"
-#~ msgstr "Przeniesiono z sukcesem %d plik."
-
-#, fuzzy
 #~ msgid "Unable to delete directory: /cache/theme"
 #~ msgstr "Przeniesiono z sukcesem %d plik."
-
-#, fuzzy
-#~ msgid "Missing Layout"
-#~ msgstr "Układ"

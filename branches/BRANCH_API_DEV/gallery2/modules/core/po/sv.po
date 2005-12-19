@@ -406,6 +406,130 @@ msgstr "ditt konto"
 msgid "Password Recovery"
 msgstr "Återhämtning av Lösenord"
 
+msgid "Core"
+msgstr "Kärna"
+
+msgid "Gallery 2 Core Module"
+msgstr "Gallery 2 kärnmodul"
+
+msgid "Add Items"
+msgstr "Lägg till Objekt"
+
+msgid "Edit Album"
+msgstr "Redigera Album"
+
+msgid "Edit Photo"
+msgstr "Redigera Foto"
+
+msgid "Edit Movie"
+msgstr "Redigera Film"
+
+msgid "Create Link"
+msgstr "Skapa Länk"
+
+msgid "Add Album"
+msgstr "Lägg till Album"
+
+msgid "Edit Permissions"
+msgstr "Redigera Rättigheter"
+
+msgid "View Permissions"
+msgstr "Visa Rättigheter"
+
+msgid "Delete Album"
+msgstr "Ta Bort Album"
+
+msgid "Delete Photo"
+msgstr "Ta Bort Foto"
+
+msgid "Delete Movie"
+msgstr "Ta Bort Film"
+
+msgid "Move Album"
+msgstr "Flytta Album"
+
+msgid "Move Photo"
+msgstr "Flytta Foto"
+
+msgid "Move Movie"
+msgstr "Flytta Film"
+
+msgid "Edit Captions"
+msgstr "Redigera Rubriker"
+
+msgid "Make Highlight"
+msgstr "Gör till Förgrundsbild"
+
+msgid "Reorder Items"
+msgstr "Sortera Objekt"
+
+msgid "Site Admin"
+msgstr "Siteadministratör"
+
+msgid "Login"
+msgstr "Logga in"
+
+msgid "Your Account"
+msgstr "Ditt Konto"
+
+msgid "Logout"
+msgstr "Logga ut"
+
+msgid "Modules"
+msgstr "Moduler"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "Teman"
+
+msgid "Display"
+msgstr "Visa"
+
+msgid "Users"
+msgstr "Användare"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Toolkit Priority"
+msgstr "Verktygsprioritet"
+
+msgid "Graphics Toolkits"
+msgstr "Grafiska Verktyg"
+
+msgid "Account Settings"
+msgstr "Kontoinställningar"
+
+msgid "Change Password"
+msgstr "Ändra lösenord"
+
+msgid "Link Album"
+msgstr "Länka Album"
+
+msgid "Link Photo"
+msgstr "Länka Foto"
+
+msgid "Link Movie"
+msgstr "Länka Film"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Ta Bort %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Flytta %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "Länka %s"
+
 msgid "Build all thumbnails/resizes"
 msgstr "Skapa samtliga miniatyrbilder/storleksändringar"
 
@@ -821,130 +945,6 @@ msgstr "Operativsystem"
 
 msgid "Browser"
 msgstr "Webläsare"
-
-msgid "Core"
-msgstr "Kärna"
-
-msgid "Gallery 2 Core Module"
-msgstr "Gallery 2 kärnmodul"
-
-msgid "Add Items"
-msgstr "Lägg till Objekt"
-
-msgid "Edit Album"
-msgstr "Redigera Album"
-
-msgid "Edit Photo"
-msgstr "Redigera Foto"
-
-msgid "Edit Movie"
-msgstr "Redigera Film"
-
-msgid "Create Link"
-msgstr "Skapa Länk"
-
-msgid "Add Album"
-msgstr "Lägg till Album"
-
-msgid "Edit Permissions"
-msgstr "Redigera Rättigheter"
-
-msgid "View Permissions"
-msgstr "Visa Rättigheter"
-
-msgid "Delete Album"
-msgstr "Ta Bort Album"
-
-msgid "Delete Photo"
-msgstr "Ta Bort Foto"
-
-msgid "Delete Movie"
-msgstr "Ta Bort Film"
-
-msgid "Move Album"
-msgstr "Flytta Album"
-
-msgid "Move Photo"
-msgstr "Flytta Foto"
-
-msgid "Move Movie"
-msgstr "Flytta Film"
-
-msgid "Edit Captions"
-msgstr "Redigera Rubriker"
-
-msgid "Make Highlight"
-msgstr "Gör till Förgrundsbild"
-
-msgid "Reorder Items"
-msgstr "Sortera Objekt"
-
-msgid "Site Admin"
-msgstr "Siteadministratör"
-
-msgid "Login"
-msgstr "Logga in"
-
-msgid "Your Account"
-msgstr "Ditt Konto"
-
-msgid "Logout"
-msgstr "Logga ut"
-
-msgid "Modules"
-msgstr "Moduler"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr "Teman"
-
-msgid "Display"
-msgstr "Visa"
-
-msgid "Users"
-msgstr "Användare"
-
-msgid "Groups"
-msgstr "Grupper"
-
-msgid "Toolkit Priority"
-msgstr "Verktygsprioritet"
-
-msgid "Graphics Toolkits"
-msgstr "Grafiska Verktyg"
-
-msgid "Account Settings"
-msgstr "Kontoinställningar"
-
-msgid "Change Password"
-msgstr "Ändra lösenord"
-
-msgid "Link Album"
-msgstr "Länka Album"
-
-msgid "Link Photo"
-msgstr "Länka Foto"
-
-msgid "Link Movie"
-msgstr "Länka Film"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Redigera %s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "Ta Bort %s"
-
-#, c-format
-msgid "Move %s"
-msgstr "Flytta %s"
-
-#, c-format
-msgid "Link %s"
-msgstr "Länka %s"
 
 msgid "General Settings"
 msgstr "Generella Inställningar"
@@ -1790,15 +1790,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -3072,10 +3068,10 @@ msgstr "Skriv in text som beskriver webbadressen"
 msgid "Enter an image URL"
 msgstr "Skriv in en bild-webbadress"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3469,6 +3465,3 @@ msgstr "Tema för unittest"
 
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "Oförmögen att ta bort katalogen: /templates_c"
-
-#~ msgid "G2RC2: kthxbye"
-#~ msgstr "G2RC2: kthxbye"

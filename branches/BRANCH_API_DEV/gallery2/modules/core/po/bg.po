@@ -399,6 +399,130 @@ msgstr "потребителски настройки"
 msgid "Password Recovery"
 msgstr ""
 
+msgid "Core"
+msgstr "Ядро на Галерията"
+
+msgid "Gallery 2 Core Module"
+msgstr "Модул Ядро на Галерия v2"
+
+msgid "Add Items"
+msgstr "Добавете Елементи"
+
+msgid "Edit Album"
+msgstr "Редактирайте Албума"
+
+msgid "Edit Photo"
+msgstr "Редактирайте Снимката"
+
+msgid "Edit Movie"
+msgstr "Редактирайте Филма"
+
+msgid "Create Link"
+msgstr "Създайте линк"
+
+msgid "Add Album"
+msgstr "Добавете Албум"
+
+msgid "Edit Permissions"
+msgstr "Променете Правата за Достъп"
+
+msgid "View Permissions"
+msgstr "Вижте Правата за Достъп"
+
+msgid "Delete Album"
+msgstr "Изтриите Албума"
+
+msgid "Delete Photo"
+msgstr "Изтриите Снимката"
+
+msgid "Delete Movie"
+msgstr "Изтриите Филма"
+
+msgid "Move Album"
+msgstr "Преместете Албума"
+
+msgid "Move Photo"
+msgstr "Преместете Снимката"
+
+msgid "Move Movie"
+msgstr "Преместете Филма"
+
+msgid "Edit Captions"
+msgstr "Редактирайте Надписите"
+
+msgid "Make Highlight"
+msgstr ""
+
+msgid "Reorder Items"
+msgstr "Пренаредете Елементите (по име)"
+
+msgid "Site Admin"
+msgstr "Администрация"
+
+msgid "Login"
+msgstr "Вход"
+
+msgid "Your Account"
+msgstr "Вашите Настройки"
+
+msgid "Logout"
+msgstr "Изход"
+
+msgid "Modules"
+msgstr "Модули"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Users"
+msgstr "Потребители"
+
+msgid "Groups"
+msgstr "Групи"
+
+msgid "Toolkit Priority"
+msgstr "Приоритети"
+
+msgid "Graphics Toolkits"
+msgstr "Графични Програми"
+
+msgid "Account Settings"
+msgstr "Потребителски Настройки"
+
+msgid "Change Password"
+msgstr "Смяна на Парола"
+
+msgid "Link Album"
+msgstr "Свържете Албума"
+
+msgid "Link Photo"
+msgstr ""
+
+msgid "Link Movie"
+msgstr "Свържете Филма"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Редактирайте %sа"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Изтриите %sа"
+
+#, c-format
+msgid "Move %s"
+msgstr "Преместете %sа"
+
+#, c-format
+msgid "Link %s"
+msgstr ""
+
 msgid "Build all thumbnails/resizes"
 msgstr ""
 
@@ -799,130 +923,6 @@ msgstr "Операционна система"
 msgid "Browser"
 msgstr "Броузер"
 
-msgid "Core"
-msgstr "Ядро на Галерията"
-
-msgid "Gallery 2 Core Module"
-msgstr "Модул Ядро на Галерия v2"
-
-msgid "Add Items"
-msgstr "Добавете Елементи"
-
-msgid "Edit Album"
-msgstr "Редактирайте Албума"
-
-msgid "Edit Photo"
-msgstr "Редактирайте Снимката"
-
-msgid "Edit Movie"
-msgstr "Редактирайте Филма"
-
-msgid "Create Link"
-msgstr "Създайте линк"
-
-msgid "Add Album"
-msgstr "Добавете Албум"
-
-msgid "Edit Permissions"
-msgstr "Променете Правата за Достъп"
-
-msgid "View Permissions"
-msgstr "Вижте Правата за Достъп"
-
-msgid "Delete Album"
-msgstr "Изтриите Албума"
-
-msgid "Delete Photo"
-msgstr "Изтриите Снимката"
-
-msgid "Delete Movie"
-msgstr "Изтриите Филма"
-
-msgid "Move Album"
-msgstr "Преместете Албума"
-
-msgid "Move Photo"
-msgstr "Преместете Снимката"
-
-msgid "Move Movie"
-msgstr "Преместете Филма"
-
-msgid "Edit Captions"
-msgstr "Редактирайте Надписите"
-
-msgid "Make Highlight"
-msgstr ""
-
-msgid "Reorder Items"
-msgstr "Пренаредете Елементите (по име)"
-
-msgid "Site Admin"
-msgstr "Администрация"
-
-msgid "Login"
-msgstr "Вход"
-
-msgid "Your Account"
-msgstr "Вашите Настройки"
-
-msgid "Logout"
-msgstr "Изход"
-
-msgid "Modules"
-msgstr "Модули"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr ""
-
-msgid "Display"
-msgstr ""
-
-msgid "Users"
-msgstr "Потребители"
-
-msgid "Groups"
-msgstr "Групи"
-
-msgid "Toolkit Priority"
-msgstr "Приоритети"
-
-msgid "Graphics Toolkits"
-msgstr "Графични Програми"
-
-msgid "Account Settings"
-msgstr "Потребителски Настройки"
-
-msgid "Change Password"
-msgstr "Смяна на Парола"
-
-msgid "Link Album"
-msgstr "Свържете Албума"
-
-msgid "Link Photo"
-msgstr ""
-
-msgid "Link Movie"
-msgstr "Свържете Филма"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Редактирайте %sа"
-
-#, c-format
-msgid "Delete %s"
-msgstr "Изтриите %sа"
-
-#, c-format
-msgid "Move %s"
-msgstr "Преместете %sа"
-
-#, c-format
-msgid "Link %s"
-msgstr ""
-
 msgid "General Settings"
 msgstr "Общи Настройки"
 
@@ -1002,7 +1002,6 @@ msgstr "Дата:"
 msgid "Time"
 msgstr "Час:"
 
-# %s is localized name of item at hand
 #, fuzzy
 msgid "Date/Time"
 msgstr "Дата и час за %s"
@@ -1376,7 +1375,6 @@ msgid_plural "%d users match your filter"
 msgstr[0] ""
 msgstr[1] ""
 
-# TODO: the msgid is too generic for such a specific translation
 msgid "Remove selected"
 msgstr ""
 
@@ -1708,15 +1706,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -1811,10 +1805,9 @@ msgstr ""
 msgid "Instructions for Unix-type platforms:"
 msgstr ""
 
-# sidebar.tpl: %d is number of item, %s is truncated title
-#, fuzzy, c-format
+#, c-format
 msgid "$ cd %s"
-msgstr "%d. %s"
+msgstr ""
 
 #, c-format
 msgid "$ mkdir %s"
@@ -2484,8 +2477,6 @@ msgstr ""
 msgid "This album contains no items"
 msgstr "Този албум не съдържа елементи"
 
-# was: Die Einstellungen wurden erfolgreich gespeichert.
-# But the msgid is too generic.
 msgid "Saved successfully."
 msgstr ""
 
@@ -2914,13 +2905,11 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-# means bold == Fett
-msgid "B"
-msgstr ""
+msgid "B <!-- Button label for Bold -->"
+msgstr "B"
 
-# means italic == kursiv
-msgid "i"
-msgstr ""
+msgid "i <!-- Button label for italic -->"
+msgstr "i"
 
 msgid "list"
 msgstr ""
@@ -3161,8 +3150,7 @@ msgstr "Въведете"
 msgid "Hello %s,"
 msgstr ""
 
-# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
-# arg1 = baseUrl, arg2 = ip address, arg3 = date
+# used in email, arg1 = baseUrl, arg2 = ip address, arg3 = date
 #, c-format
 msgid "You receive this email because a password recovery for %s was requested by %s at %s"
 msgstr ""
@@ -3171,13 +3159,13 @@ msgstr ""
 msgid "Your username is: %s"
 msgstr ""
 
-# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
+# used in email
 msgid ""
 "To finish the password recovery process please click the following link and enter the "
 "required information:"
 msgstr ""
 
-# used in email, better use ASCII only (maybe ISO-8859-1 in europe)
+# used in email
 msgid "If you did not request this recovery email, you may safely ignore it."
 msgstr ""
 
@@ -3288,9 +3276,6 @@ msgstr ""
 msgid "Unit test theme"
 msgstr ""
 
-#~ msgid "G2RC1: +5 Insightful"
-#~ msgstr "G2RC1: +5 Insightful"
-
 #~ msgid "HDTV 16x9"
 #~ msgstr "HDTV Екран 16x9"
 
@@ -3302,6 +3287,3 @@ msgstr ""
 
 #~ msgid "view permissions"
 #~ msgstr "вижте правата за достъп"
-
-#~ msgid "login"
-#~ msgstr "вход"

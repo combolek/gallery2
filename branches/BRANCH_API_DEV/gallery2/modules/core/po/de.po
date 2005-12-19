@@ -405,6 +405,130 @@ msgstr "Ihr Konto"
 msgid "Password Recovery"
 msgstr "Passwort-Wiederherstellung"
 
+msgid "Core"
+msgstr "Kernfunktionen"
+
+msgid "Gallery 2 Core Module"
+msgstr "Gallery 2 Kernmodul"
+
+msgid "Add Items"
+msgstr "Elemente hinzufügen"
+
+msgid "Edit Album"
+msgstr "Album bearbeiten"
+
+msgid "Edit Photo"
+msgstr "Photo bearbeiten"
+
+msgid "Edit Movie"
+msgstr "Film bearbeiten"
+
+msgid "Create Link"
+msgstr "Verweis erzeugen"
+
+msgid "Add Album"
+msgstr "Album hinzufügen"
+
+msgid "Edit Permissions"
+msgstr "Berechtigungen ändern"
+
+msgid "View Permissions"
+msgstr "Berechtigungen anzeigen"
+
+msgid "Delete Album"
+msgstr "Album löschen"
+
+msgid "Delete Photo"
+msgstr "Photo löschen"
+
+msgid "Delete Movie"
+msgstr "Film löschen"
+
+msgid "Move Album"
+msgstr "Album verschieben"
+
+msgid "Move Photo"
+msgstr "Photo verschieben"
+
+msgid "Move Movie"
+msgstr "Film verschieben"
+
+msgid "Edit Captions"
+msgstr "Beschriftungen ändern"
+
+msgid "Make Highlight"
+msgstr "Als Titelbild auswählen"
+
+msgid "Reorder Items"
+msgstr "Elemente umordnen"
+
+msgid "Site Admin"
+msgstr "Site-Administration"
+
+msgid "Login"
+msgstr "Anmelden"
+
+msgid "Your Account"
+msgstr "Ihr Konto"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Modules"
+msgstr "Module"
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr "Motive"
+
+msgid "Display"
+msgstr "Anzeige"
+
+msgid "Users"
+msgstr "Benutzer"
+
+msgid "Groups"
+msgstr "Gruppen"
+
+msgid "Toolkit Priority"
+msgstr "Werkzeugpriorität"
+
+msgid "Graphics Toolkits"
+msgstr "Grafische Werkzeuge"
+
+msgid "Account Settings"
+msgstr "Kontoeinstellungen"
+
+msgid "Change Password"
+msgstr "Passwort ändern"
+
+msgid "Link Album"
+msgstr "Album verknüpfen"
+
+msgid "Link Photo"
+msgstr "Photo verknüpfen"
+
+msgid "Link Movie"
+msgstr "Film verknüpfen"
+
+#, c-format
+msgid "Edit %s"
+msgstr "%s ändern"
+
+#, c-format
+msgid "Delete %s"
+msgstr "%s löschen"
+
+#, c-format
+msgid "Move %s"
+msgstr "%s verschieben"
+
+#, c-format
+msgid "Link %s"
+msgstr "%s verknüpfen"
+
 msgid "Build all thumbnails/resizes"
 msgstr "Erzeuge alle Vorschaubilder/Zwischengrößen"
 
@@ -829,130 +953,6 @@ msgstr "Betriebssystem"
 msgid "Browser"
 msgstr "Browser"
 
-msgid "Core"
-msgstr "Kernfunktionen"
-
-msgid "Gallery 2 Core Module"
-msgstr "Gallery 2 Kernmodul"
-
-msgid "Add Items"
-msgstr "Elemente hinzufügen"
-
-msgid "Edit Album"
-msgstr "Album bearbeiten"
-
-msgid "Edit Photo"
-msgstr "Photo bearbeiten"
-
-msgid "Edit Movie"
-msgstr "Film bearbeiten"
-
-msgid "Create Link"
-msgstr "Verweis erzeugen"
-
-msgid "Add Album"
-msgstr "Album hinzufügen"
-
-msgid "Edit Permissions"
-msgstr "Berechtigungen ändern"
-
-msgid "View Permissions"
-msgstr "Berechtigungen anzeigen"
-
-msgid "Delete Album"
-msgstr "Album löschen"
-
-msgid "Delete Photo"
-msgstr "Photo löschen"
-
-msgid "Delete Movie"
-msgstr "Film löschen"
-
-msgid "Move Album"
-msgstr "Album verschieben"
-
-msgid "Move Photo"
-msgstr "Photo verschieben"
-
-msgid "Move Movie"
-msgstr "Film verschieben"
-
-msgid "Edit Captions"
-msgstr "Beschriftungen ändern"
-
-msgid "Make Highlight"
-msgstr "Als Titelbild auswählen"
-
-msgid "Reorder Items"
-msgstr "Elemente umordnen"
-
-msgid "Site Admin"
-msgstr "Site-Administration"
-
-msgid "Login"
-msgstr "Anmelden"
-
-msgid "Your Account"
-msgstr "Ihr Konto"
-
-msgid "Logout"
-msgstr "Abmelden"
-
-msgid "Modules"
-msgstr "Module"
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr "Motive"
-
-msgid "Display"
-msgstr "Anzeige"
-
-msgid "Users"
-msgstr "Benutzer"
-
-msgid "Groups"
-msgstr "Gruppen"
-
-msgid "Toolkit Priority"
-msgstr "Werkzeugpriorität"
-
-msgid "Graphics Toolkits"
-msgstr "Grafische Werkzeuge"
-
-msgid "Account Settings"
-msgstr "Kontoeinstellungen"
-
-msgid "Change Password"
-msgstr "Passwort ändern"
-
-msgid "Link Album"
-msgstr "Album verknüpfen"
-
-msgid "Link Photo"
-msgstr "Photo verknüpfen"
-
-msgid "Link Movie"
-msgstr "Film verknüpfen"
-
-#, c-format
-msgid "Edit %s"
-msgstr "%s ändern"
-
-#, c-format
-msgid "Delete %s"
-msgstr "%s löschen"
-
-#, c-format
-msgid "Move %s"
-msgstr "%s verschieben"
-
-#, c-format
-msgid "Link %s"
-msgstr "%s verknüpfen"
-
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -1033,7 +1033,6 @@ msgstr "Datum"
 msgid "Time"
 msgstr "Zeit"
 
-# %s is localized name of item at hand
 msgid "Date/Time"
 msgstr "Datum/Uhrzeit"
 
@@ -1804,15 +1803,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -3119,12 +3114,12 @@ msgstr "Geben Sie eine Beschreibung zu dieser URL ein"
 msgid "Enter an image URL"
 msgstr "Geben Sie eine URL zu einem Bild ein"
 
-# means bold == Fett
-msgid "B"
+# bold == Fett
+msgid "B <!-- Button label for Bold -->"
 msgstr "F"
 
-# means italic == kursiv
-msgid "i"
+# italic == kursiv
+msgid "i <!-- Button label for italic -->"
 msgstr "k"
 
 msgid "list"
@@ -3555,6 +3550,3 @@ msgstr "Unit Test Motiv"
 
 #~ msgid "Unable to delete directory: /templates_c"
 #~ msgstr "Konnte das Verzeichnis '/templates_c' nicht löschen"
-
-#~ msgid "G2RC2: kthxbye"
-#~ msgstr "G2RC2: kthxbye"

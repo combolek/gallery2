@@ -392,6 +392,130 @@ msgstr ""
 msgid "Password Recovery"
 msgstr ""
 
+msgid "Core"
+msgstr ""
+
+msgid "Gallery 2 Core Module"
+msgstr ""
+
+msgid "Add Items"
+msgstr ""
+
+msgid "Edit Album"
+msgstr ""
+
+msgid "Edit Photo"
+msgstr ""
+
+msgid "Edit Movie"
+msgstr ""
+
+msgid "Create Link"
+msgstr ""
+
+msgid "Add Album"
+msgstr ""
+
+msgid "Edit Permissions"
+msgstr ""
+
+msgid "View Permissions"
+msgstr ""
+
+msgid "Delete Album"
+msgstr ""
+
+msgid "Delete Photo"
+msgstr ""
+
+msgid "Delete Movie"
+msgstr ""
+
+msgid "Move Album"
+msgstr ""
+
+msgid "Move Photo"
+msgstr ""
+
+msgid "Move Movie"
+msgstr ""
+
+msgid "Edit Captions"
+msgstr ""
+
+msgid "Make Highlight"
+msgstr ""
+
+msgid "Reorder Items"
+msgstr ""
+
+msgid "Site Admin"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Your Account"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Modules"
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Themes"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Toolkit Priority"
+msgstr ""
+
+msgid "Graphics Toolkits"
+msgstr ""
+
+msgid "Account Settings"
+msgstr ""
+
+msgid "Change Password"
+msgstr ""
+
+msgid "Link Album"
+msgstr ""
+
+msgid "Link Photo"
+msgstr ""
+
+msgid "Link Movie"
+msgstr ""
+
+#, c-format
+msgid "Edit %s"
+msgstr ""
+
+#, c-format
+msgid "Delete %s"
+msgstr ""
+
+#, c-format
+msgid "Move %s"
+msgstr ""
+
+#, c-format
+msgid "Link %s"
+msgstr ""
+
 msgid "Build all thumbnails/resizes"
 msgstr ""
 
@@ -785,130 +909,6 @@ msgid "Operating system"
 msgstr ""
 
 msgid "Browser"
-msgstr ""
-
-msgid "Core"
-msgstr ""
-
-msgid "Gallery 2 Core Module"
-msgstr ""
-
-msgid "Add Items"
-msgstr ""
-
-msgid "Edit Album"
-msgstr ""
-
-msgid "Edit Photo"
-msgstr ""
-
-msgid "Edit Movie"
-msgstr ""
-
-msgid "Create Link"
-msgstr ""
-
-msgid "Add Album"
-msgstr ""
-
-msgid "Edit Permissions"
-msgstr ""
-
-msgid "View Permissions"
-msgstr ""
-
-msgid "Delete Album"
-msgstr ""
-
-msgid "Delete Photo"
-msgstr ""
-
-msgid "Delete Movie"
-msgstr ""
-
-msgid "Move Album"
-msgstr ""
-
-msgid "Move Photo"
-msgstr ""
-
-msgid "Move Movie"
-msgstr ""
-
-msgid "Edit Captions"
-msgstr ""
-
-msgid "Make Highlight"
-msgstr ""
-
-msgid "Reorder Items"
-msgstr ""
-
-msgid "Site Admin"
-msgstr ""
-
-msgid "Login"
-msgstr ""
-
-msgid "Your Account"
-msgstr ""
-
-msgid "Logout"
-msgstr ""
-
-msgid "Modules"
-msgstr ""
-
-msgid "Repository"
-msgstr ""
-
-msgid "Themes"
-msgstr ""
-
-msgid "Display"
-msgstr ""
-
-msgid "Users"
-msgstr ""
-
-msgid "Groups"
-msgstr ""
-
-msgid "Toolkit Priority"
-msgstr ""
-
-msgid "Graphics Toolkits"
-msgstr ""
-
-msgid "Account Settings"
-msgstr ""
-
-msgid "Change Password"
-msgstr ""
-
-msgid "Link Album"
-msgstr ""
-
-msgid "Link Photo"
-msgstr ""
-
-msgid "Link Movie"
-msgstr ""
-
-#, c-format
-msgid "Edit %s"
-msgstr ""
-
-#, c-format
-msgid "Delete %s"
-msgstr ""
-
-#, c-format
-msgid "Move %s"
-msgstr ""
-
-#, c-format
-msgid "Link %s"
 msgstr ""
 
 msgid "General Settings"
@@ -1668,15 +1668,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 msgid "Theme Name"
@@ -2843,11 +2839,11 @@ msgstr ""
 msgid "Enter an image URL"
 msgstr ""
 
-msgid "B"
-msgstr ""
+msgid "B <!-- Button label for Bold -->"
+msgstr "B"
 
-msgid "i"
-msgstr ""
+msgid "i <!-- Button label for italic -->"
+msgstr "i"
 
 msgid "list"
 msgstr ""
