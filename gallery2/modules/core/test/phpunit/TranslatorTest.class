@@ -105,7 +105,7 @@ class TranslatorTest extends GalleryTestCase {
 	    }
 	    $this->assertEquals($value, $actual, $param);
 	}
-	
+
 	/* Init with a null language code and a valid accept language */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de_DE';
 	$translator = new GalleryTranslator();
@@ -161,7 +161,7 @@ class TranslatorTest extends GalleryTestCase {
 	 */
 	$session =& $gallery->getSession();
 	$session->remove('core.language');
-	
+
 	foreach (array('language.useBrowserPref' => '1')
 		 as $param => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', $param, $value);
@@ -175,7 +175,7 @@ class TranslatorTest extends GalleryTestCase {
 	    }
 	    $this->assertEquals($value, $actual, $param);
 	}
-	
+
 	/* Init with a null language code and a valid accept language */
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
 	$gallery->_translator = null;
@@ -224,7 +224,7 @@ class TranslatorTest extends GalleryTestCase {
 	$session =& $gallery->getSession();
 	$session->remove('core.language');
 	$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'de';
-	
+
 	$gallery->_translator = null;
 	$ret = $gallery->initTranslator(true);
 	if ($ret) {
@@ -376,6 +376,21 @@ class TranslatorTest extends GalleryTestCase {
 	} else {
 	    $this->assertEquals('Album', $results);
 	}
+    }
+
+    function testComment() {
+	$translator = new GalleryTranslator();
+	list ($ret, $languageCode) = $translator->init('en_US');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $text) = $translator->translateDomain('modules_core',
+	    array('text' => 'test <!-- this is a comment to assist translators -->'));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('test', $text);
     }
 }
 ?>
