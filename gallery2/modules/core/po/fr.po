@@ -391,6 +391,130 @@ msgstr "votre compte"
 msgid "Password Recovery"
 msgstr "Récupération du mot de passe"
 
+msgid "Core"
+msgstr "Noyau"
+
+msgid "Gallery 2 Core Module"
+msgstr "Noyau Gallery 2"
+
+msgid "Add Items"
+msgstr "Ajouter des éléments"
+
+msgid "Edit Album"
+msgstr "Éditer l'album"
+
+msgid "Edit Photo"
+msgstr "Éditer la photo"
+
+msgid "Edit Movie"
+msgstr "Éditer le film"
+
+msgid "Create Link"
+msgstr "Créer un lien"
+
+msgid "Add Album"
+msgstr "Ajouter un album"
+
+msgid "Edit Permissions"
+msgstr "Éditer les permissions"
+
+msgid "View Permissions"
+msgstr "Voir les permissions"
+
+msgid "Delete Album"
+msgstr "Supprimer l'album"
+
+msgid "Delete Photo"
+msgstr "Supprimer la photo"
+
+msgid "Delete Movie"
+msgstr "Supprimer le film"
+
+msgid "Move Album"
+msgstr "Déplacer l'album"
+
+msgid "Move Photo"
+msgstr "Déplacer la photo"
+
+msgid "Move Movie"
+msgstr "Déplacer le film"
+
+msgid "Edit Captions"
+msgstr "Éditer les sous-titres"
+
+msgid "Make Highlight"
+msgstr "Mettre en vignette titre de l'album parent"
+
+msgid "Reorder Items"
+msgstr "Réorganiser les éléments"
+
+msgid "Site Admin"
+msgstr "Administration du site"
+
+msgid "Login"
+msgstr "Connexion"
+
+msgid "Your Account"
+msgstr "Votre compte"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Modules"
+msgstr "Modules"
+
+msgid "Repository"
+msgstr "Répertoire"
+
+msgid "Themes"
+msgstr "Thèmes"
+
+msgid "Display"
+msgstr "Affichage"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Toolkit Priority"
+msgstr "Priorité des boîtes à outils"
+
+msgid "Graphics Toolkits"
+msgstr "Boîtes à outils graphiques"
+
+msgid "Account Settings"
+msgstr "Paramètres du compte"
+
+msgid "Change Password"
+msgstr "Changer le mot de passe"
+
+msgid "Link Album"
+msgstr "Lier l'album"
+
+msgid "Link Photo"
+msgstr "Lier la photo"
+
+msgid "Link Movie"
+msgstr "Lier le film"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Éditer %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Supprimer %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "Déplacer %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "Lier %s"
+
 msgid "Build all thumbnails/resizes"
 msgstr "Créer toutes les vignettes et images redimensionnées"
 
@@ -810,130 +934,6 @@ msgstr "Système d'exploitation"
 
 msgid "Browser"
 msgstr "Navigateur Web"
-
-msgid "Core"
-msgstr "Noyau"
-
-msgid "Gallery 2 Core Module"
-msgstr "Noyau Gallery 2"
-
-msgid "Add Items"
-msgstr "Ajouter des éléments"
-
-msgid "Edit Album"
-msgstr "Éditer l'album"
-
-msgid "Edit Photo"
-msgstr "Éditer la photo"
-
-msgid "Edit Movie"
-msgstr "Éditer le film"
-
-msgid "Create Link"
-msgstr "Créer un lien"
-
-msgid "Add Album"
-msgstr "Ajouter un album"
-
-msgid "Edit Permissions"
-msgstr "Éditer les permissions"
-
-msgid "View Permissions"
-msgstr "Voir les permissions"
-
-msgid "Delete Album"
-msgstr "Supprimer l'album"
-
-msgid "Delete Photo"
-msgstr "Supprimer la photo"
-
-msgid "Delete Movie"
-msgstr "Supprimer le film"
-
-msgid "Move Album"
-msgstr "Déplacer l'album"
-
-msgid "Move Photo"
-msgstr "Déplacer la photo"
-
-msgid "Move Movie"
-msgstr "Déplacer le film"
-
-msgid "Edit Captions"
-msgstr "Éditer les sous-titres"
-
-msgid "Make Highlight"
-msgstr "Mettre en vignette titre de l'album parent"
-
-msgid "Reorder Items"
-msgstr "Réorganiser les éléments"
-
-msgid "Site Admin"
-msgstr "Administration du site"
-
-msgid "Login"
-msgstr "Connexion"
-
-msgid "Your Account"
-msgstr "Votre compte"
-
-msgid "Logout"
-msgstr "Déconnexion"
-
-msgid "Modules"
-msgstr "Modules"
-
-msgid "Repository"
-msgstr "Répertoire"
-
-msgid "Themes"
-msgstr "Thèmes"
-
-msgid "Display"
-msgstr "Affichage"
-
-msgid "Users"
-msgstr "Utilisateurs"
-
-msgid "Groups"
-msgstr "Groupes"
-
-msgid "Toolkit Priority"
-msgstr "Priorité des boîtes à outils"
-
-msgid "Graphics Toolkits"
-msgstr "Boîtes à outils graphiques"
-
-msgid "Account Settings"
-msgstr "Paramètres du compte"
-
-msgid "Change Password"
-msgstr "Changer le mot de passe"
-
-msgid "Link Album"
-msgstr "Lier l'album"
-
-msgid "Link Photo"
-msgstr "Lier la photo"
-
-msgid "Link Movie"
-msgstr "Lier le film"
-
-#, c-format
-msgid "Edit %s"
-msgstr "Éditer %s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "Supprimer %s"
-
-#, c-format
-msgid "Move %s"
-msgstr "Déplacer %s"
-
-#, c-format
-msgid "Link %s"
-msgstr "Lier %s"
 
 msgid "General Settings"
 msgstr "Paramètres généraux"
@@ -1800,18 +1800,14 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr "Les plugins incompatibles sont marqués avec une icône d'alerte."
 
+#, fuzzy, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 "Une nouvelle version du module noyau est disponible. Il se peut que des plugins soient "
 "incompatibles avec cette nouvelle version du noyau et ne soient pas affichés ici."
-
-msgid "You can view a"
-msgstr "Vous pouvez voir un"
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
-msgstr "de plugins "
 
 msgid "Theme Name"
 msgstr "Nom du thème"
@@ -3128,10 +3124,10 @@ msgstr "Saisir une description de l'URL"
 msgid "Enter an image URL"
 msgstr "Saisir l'URL d'une image"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "B"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "i"
 
 msgid "list"
@@ -3547,6 +3543,9 @@ msgstr "[test] Une seconde permission"
 
 msgid "Unit test theme"
 msgstr "Thème de tests unitaires"
+
+#~ msgid "You can view a"
+#~ msgstr "Vous pouvez voir un"
 
 #~ msgid "&laquo; None &raquo;"
 #~ msgstr "&laquo; Aucun &raquo;"

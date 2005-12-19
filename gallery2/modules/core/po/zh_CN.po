@@ -398,6 +398,147 @@ msgid "Password Recovery"
 msgstr "密码"
 
 #, fuzzy
+msgid "Core"
+msgstr "设置"
+
+msgid "Gallery 2 Core Module"
+msgstr "图库2核心模块"
+
+msgid "Add Items"
+msgstr "添加项目"
+
+#, fuzzy
+msgid "Edit Album"
+msgstr "添加子相册"
+
+#, fuzzy
+msgid "Edit Photo"
+msgstr "修改照片"
+
+#, fuzzy
+msgid "Edit Movie"
+msgstr "电影"
+
+#, fuzzy
+msgid "Create Link"
+msgstr "新建链接"
+
+#, fuzzy
+msgid "Add Album"
+msgstr "添加子相册"
+
+msgid "Edit Permissions"
+msgstr "编辑权限"
+
+#, fuzzy
+msgid "View Permissions"
+msgstr "权限"
+
+#, fuzzy
+msgid "Delete Album"
+msgstr "删除成员组"
+
+#, fuzzy
+msgid "Delete Photo"
+msgstr "删除 %s"
+
+#, fuzzy
+msgid "Delete Movie"
+msgstr "删除 %s"
+
+#, fuzzy
+msgid "Move Album"
+msgstr "重新排序相册"
+
+#, fuzzy
+msgid "Move Photo"
+msgstr "已修改照片"
+
+#, fuzzy
+msgid "Move Movie"
+msgstr "电影尺寸"
+
+msgid "Edit Captions"
+msgstr "编辑标题"
+
+msgid "Make Highlight"
+msgstr "标记为精华"
+
+msgid "Reorder Items"
+msgstr "重新排序项目"
+
+msgid "Site Admin"
+msgstr "网站管理"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Your Account"
+msgstr "您的帐户"
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "Modules"
+msgstr "模块"
+
+msgid "Repository"
+msgstr ""
+
+#, fuzzy
+msgid "Themes"
+msgstr "主题"
+
+msgid "Display"
+msgstr "显示"
+
+msgid "Users"
+msgstr "用户"
+
+msgid "Groups"
+msgstr "成员组"
+
+msgid "Toolkit Priority"
+msgstr "工具优先级"
+
+msgid "Graphics Toolkits"
+msgstr "图形工具"
+
+msgid "Account Settings"
+msgstr "帐户设置"
+
+msgid "Change Password"
+msgstr "变更密码"
+
+#, fuzzy
+msgid "Link Album"
+msgstr "相册"
+
+#, fuzzy
+msgid "Link Photo"
+msgstr "照片"
+
+#, fuzzy
+msgid "Link Movie"
+msgstr "电影"
+
+#, c-format
+msgid "Edit %s"
+msgstr "编辑 %s"
+
+#, c-format
+msgid "Delete %s"
+msgstr "删除 %s"
+
+#, c-format
+msgid "Move %s"
+msgstr "移动 %s"
+
+#, c-format
+msgid "Link %s"
+msgstr "链接 %s"
+
+#, fuzzy
 msgid "Build all thumbnails/resizes"
 msgstr "重建缩略图和变更尺寸的图片"
 
@@ -803,147 +944,6 @@ msgstr "操作系统"
 
 msgid "Browser"
 msgstr "浏览"
-
-#, fuzzy
-msgid "Core"
-msgstr "设置"
-
-msgid "Gallery 2 Core Module"
-msgstr "图库2核心模块"
-
-msgid "Add Items"
-msgstr "添加项目"
-
-#, fuzzy
-msgid "Edit Album"
-msgstr "添加子相册"
-
-#, fuzzy
-msgid "Edit Photo"
-msgstr "修改照片"
-
-#, fuzzy
-msgid "Edit Movie"
-msgstr "电影"
-
-#, fuzzy
-msgid "Create Link"
-msgstr "新建链接"
-
-#, fuzzy
-msgid "Add Album"
-msgstr "添加子相册"
-
-msgid "Edit Permissions"
-msgstr "编辑权限"
-
-#, fuzzy
-msgid "View Permissions"
-msgstr "权限"
-
-#, fuzzy
-msgid "Delete Album"
-msgstr "删除成员组"
-
-#, fuzzy
-msgid "Delete Photo"
-msgstr "删除 %s"
-
-#, fuzzy
-msgid "Delete Movie"
-msgstr "删除 %s"
-
-#, fuzzy
-msgid "Move Album"
-msgstr "重新排序相册"
-
-#, fuzzy
-msgid "Move Photo"
-msgstr "已修改照片"
-
-#, fuzzy
-msgid "Move Movie"
-msgstr "电影尺寸"
-
-msgid "Edit Captions"
-msgstr "编辑标题"
-
-msgid "Make Highlight"
-msgstr "标记为精华"
-
-msgid "Reorder Items"
-msgstr "重新排序项目"
-
-msgid "Site Admin"
-msgstr "网站管理"
-
-msgid "Login"
-msgstr "登录"
-
-msgid "Your Account"
-msgstr "您的帐户"
-
-msgid "Logout"
-msgstr "退出"
-
-msgid "Modules"
-msgstr "模块"
-
-msgid "Repository"
-msgstr ""
-
-#, fuzzy
-msgid "Themes"
-msgstr "主题"
-
-msgid "Display"
-msgstr "显示"
-
-msgid "Users"
-msgstr "用户"
-
-msgid "Groups"
-msgstr "成员组"
-
-msgid "Toolkit Priority"
-msgstr "工具优先级"
-
-msgid "Graphics Toolkits"
-msgstr "图形工具"
-
-msgid "Account Settings"
-msgstr "帐户设置"
-
-msgid "Change Password"
-msgstr "变更密码"
-
-#, fuzzy
-msgid "Link Album"
-msgstr "相册"
-
-#, fuzzy
-msgid "Link Photo"
-msgstr "照片"
-
-#, fuzzy
-msgid "Link Movie"
-msgstr "电影"
-
-#, c-format
-msgid "Edit %s"
-msgstr "编辑 %s"
-
-#, c-format
-msgid "Delete %s"
-msgstr "删除 %s"
-
-#, c-format
-msgid "Move %s"
-msgstr "移动 %s"
-
-#, c-format
-msgid "Link %s"
-msgstr "链接 %s"
 
 msgid "General Settings"
 msgstr "通用设置"
@@ -1741,15 +1741,11 @@ msgstr ""
 msgid "Incompatible plugins are marked with an exclamation icon."
 msgstr ""
 
+#, c-format
 msgid ""
 "A new core module version is available. There may be plugins that are incompatible with the "
-"installed core module, which are not shown here."
-msgstr ""
-
-msgid "You can view a"
-msgstr ""
-
-msgid "of plugins, including incompatible ones, which are marked with a red icon."
+"installed core module, which are not shown here. You can view a %scomplete list%s of "
+"plugins, including incompatible ones, which are marked with a red icon."
 msgstr ""
 
 #, fuzzy
@@ -2992,10 +2988,10 @@ msgstr "输入网址的一些文字描述"
 msgid "Enter an image URL"
 msgstr "输入图片网址"
 
-msgid "B"
+msgid "B <!-- Button label for Bold -->"
 msgstr "粗体"
 
-msgid "i"
+msgid "i <!-- Button label for italic -->"
 msgstr "斜体"
 
 msgid "list"
@@ -3391,26 +3387,6 @@ msgstr "单元测试模块"
 #~ msgid "view permissions"
 #~ msgstr "编辑权限"
 
-#~ msgid "login"
-#~ msgstr "登录"
-
-#~ msgid "and then"
-#~ msgstr "然后"
-
-#, fuzzy
-#~ msgid "choose a new theme for this album"
-#~ msgstr "为此相册选择一个新界面"
-
-#~ msgid "login as a site administrator"
-#~ msgstr "登录为网站管理员"
-
-#, fuzzy
-#~ msgid "install or activate this theme"
-#~ msgstr "安装并开启此界面"
-
-#~ msgid "To fix this problem you can either %s or %s."
-#~ msgstr "修正此问题请 %s 或 %s。"
-
 #~ msgid "HDTV 16x9"
 #~ msgstr "高清电视 HDTV 16比9"
 
@@ -3419,16 +3395,5 @@ msgstr "单元测试模块"
 #~ msgstr "成功删除 %d 个项目。"
 
 #, fuzzy
-#~ msgid "Successfully deleted directory: /cache/theme"
-#~ msgstr "成功删除 %d 个项目。"
-
-#, fuzzy
-#~ msgid "Successfully deleted directory: /cache/module"
-#~ msgstr "成功删除 %d 个项目。"
-
-#, fuzzy
 #~ msgid "Unable to delete directory: /cache/theme"
 #~ msgstr "成功删除 %d 个项目。"
-
-#~ msgid "Missing Layout"
-#~ msgstr "界面未设置"
