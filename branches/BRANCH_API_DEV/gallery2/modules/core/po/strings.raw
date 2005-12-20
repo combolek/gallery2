@@ -252,10 +252,6 @@ gettext("Delete template cache")
 gettext("Gallery compiles template files and saves them for increased performance.  If you're experiencing problems that say <i>Smarty error</i> then you might try running this task.  Also run this if you remove a local/*.tpl file so Smarty will switch back to the default tpl file.")
 gettext("Template cache deleted successfully") /* also in: test/phpunit/FlushTemplatesTaskTest.class */
 
-/* classes/Gallery.class */
-gettext("some text to be spit out in different languages") /* also in: classes/GalleryPlugin.class */
-gettext("You did it right!") /* also in: classes/GalleryPlugin.class */
-
 /* classes/GalleryAlbumItem.class */
 gettext("album")
 

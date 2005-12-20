@@ -104,15 +104,18 @@ class GalleryPlugin {
      * by using this function.
      *
      * E.g. instead of:
-     *   print 'some text to be spit out in different languages';
+     *   print 'TEST to be displayed in different languages';
      * use (in any modules subclass of GalleryPlugin):
-     *   print $this->translate('some text to be spit out in different languages');
+     *   print $this->translate('TEST to be displayed in different languages');
      * and you are all set for pure literals. The translation teams will receive that literal
      * string as a job to translate and will translate it (when the message is clear enough).
-     * At runtime the message is then printed localized.
+     * At runtime the message is then localized when printed.
+     * The input string can contain a hint to assist translators:
+     *   print $this->translate('TT <!-- abbreviation for Translation Test -->');
+     * The hint portion of the string will not be printed.
      *
      * But consider this case:
-     *   $message_to_be_localized = 'You did it right!';
+     *   $message_to_be_localized = 'TEST to be displayed in different languages';
      *   print $this->translate($message_to_be_localized);
      *
      * The translate() method is called in the right place for runtime handling, but there
@@ -123,7 +126,7 @@ class GalleryPlugin {
      *
      * The (noop) method Gallery::i18n() is there to resolve all such cases (including storing
      * the original string in, say, the database). Simply mark the candidates:
-     *   $message_to_be_localized = $gallery->i18n('You did it right!');
+     *   $message_to_be_localized = $gallery->i18n('TEST to be displayed in different languages');
      *   print $this->translate($message_to_be_localized);
      *
      * The i18n() method does nothing, but feeding translators with that new string.
