@@ -34,6 +34,9 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 $exts = '(class|php|inc|tpl|css|html)';
+/* These are in phpdoc and don't really need translations: */
+$skip = array('TEST to be displayed in different languages' => true,
+	      'TT <!-- abbreviation for Translation Test -->' => true);
 $idEmitted = false;
 $strings = array();
 foreach ($_SERVER['argv'] as $moduleDir) {
@@ -98,7 +101,7 @@ function find($dir) {
  * Grab all translatable strings in a file into $strings array
  */
 function extractStrings($filename) {
-    global $strings;
+    global $strings, $skip;
     $strings["\n/* $filename */"] = array();
     $startSize = count($strings);
     $localStrings = array();
@@ -122,6 +125,9 @@ function extractStrings($filename) {
 	    $cmd = sprintf('return %s;', $text);
 	    $text = eval($cmd);
 	    $text = str_replace('"', '\\"', $text);    /* escape double-quotes */
+	    if (isset($skip[$text])) {
+		continue;
+	    }
 	    $string = sprintf('gettext("%s")', $text);
 	    if (!isset($strings[$string])) {
 		$strings[$string] = array();
