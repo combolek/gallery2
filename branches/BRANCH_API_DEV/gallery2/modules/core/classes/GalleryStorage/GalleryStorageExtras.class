@@ -1088,6 +1088,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	$dbname = $tablename = null;
 	$record = false;
 	foreach ($sqlData as $line) {
+	    $line = rtrim($line);
 	    if (preg_match('/^## (.*)$/', $line, $matches)) {
 		$record = ($matches[1] == $dbType);
 		continue;

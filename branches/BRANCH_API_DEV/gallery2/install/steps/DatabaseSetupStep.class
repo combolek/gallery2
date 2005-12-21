@@ -354,13 +354,9 @@ class DatabaseSetupStep extends InstallStep {
 		     '/../../modules/core/classes/GalleryStorage/GalleryStorageExtras.class');
 	/* GalleryPlatform is not available at this point */
 	$schemaTpl = dirname(__FILE__) . '/../../modules/core/classes/GalleryStorage/schema.tpl';
-	if (!($fd = fopen($schemaTpl, 'rb'))) {
+	if (!($sqlData = file($schemaTpl))) {
 	    return array(false, sprintf(_('Could not open schema file: "%s".'), $schemaTpl));
 	}
-	$fileSize = filesize($schemaTpl);
-	$sqlData = $fileSize == 0 ? '' : fread($fd, $fileSize);
-	fclose($fd);
-	$sqlData = explode("\n", $sqlData);
 	$moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $dbType);
 
 	for ($i = 1; $i <= 4; $i++) {
