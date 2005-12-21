@@ -35,10 +35,8 @@ class ActivationWarningView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	global $gallery;
-
-	return array(GalleryStatus::success(),
-	     array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
+	return array(null,
+		     array('body' => 'modules/permalinks/templates/ActivationWarning.tpl'));
      }
 }
 ?>

@@ -47,10 +47,13 @@ class GalleryUserGroupHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
+	$userId = (int) $userId;
+	$groupId = (int) $groupId;
+
 	/* Is the user already in the group? */
 	list ($ret, $inGroup) = GalleryCoreApi::isUserInGroup($userId, $groupId);
 	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if ($inGroup) {
 	    return null;
@@ -87,6 +90,9 @@ class GalleryUserGroupHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
+	$userId = (int) $userId;
+	$groupId = (int) $groupId;
+
 	/* Remove this relationship from our groups table. */
 	$ret = GalleryCoreApi::removeMapEntry(
 	    'GalleryUserGroupMap', array('userId' => $userId, 'groupId' => $groupId));
@@ -118,6 +124,8 @@ class GalleryUserGroupHelper_medium {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
+	$userId = (int) $userId;
+
 	/* Remove this relationship from our groups table. */
 	$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array('userId' => $userId));
 	if ($ret) {
@@ -146,6 +154,8 @@ class GalleryUserGroupHelper_medium {
 	if (empty($groupId)) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
+
+	$groupId = (int) $groupId;
 
 	/* Remove this relationship from our groups table. */
 	$ret = GalleryCoreApi::removeMapEntry('GalleryUserGroupMap', array('groupId' => $groupId));
@@ -202,7 +212,7 @@ class GalleryUserGroupHelper_medium {
           AND
           [GalleryUserGroupMap::userId] = [GalleryUser::id]
 	';
-	$data[] = $groupId;
+	$data[] = (int) $groupId;
 	if (!empty($substring)) {
 	    $query .= '
 	      AND
@@ -263,7 +273,7 @@ class GalleryUserGroupHelper_medium {
             ';
 	    list ($ret, $searchResults) =
 		$gallery->search($query,
-				  array($userId),
+				  array((int) $userId),
 				  array('limit' => array('count' => $count,
 							 'offset' => $offset)));
 	    if ($ret) {
