@@ -1062,7 +1062,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    GalleryCoreApi::getPluginBaseDir('module', $moduleId), $moduleId);
 
 	if ($platform->file_exists($sqlFile)) {
-	    $sqlData = explode("\n", $platform->file_get_contents($sqlFile));
+	    $sqlData = $platform->file($sqlFile);
 	    $moduleSql = GalleryStorageExtras::parseSqlTemplate($sqlData, $this->_gs->getType());
 	} else {
 	    $moduleSql = array('table' => array(), 'alter' => array(),
