@@ -98,11 +98,11 @@ class PermalinksOption extends ItemEditOption {
     function isAppropriate($item, $thumbnail) {
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, GalleryUtilities::isA($item, 'GalleryItem') &&
-		$item->getId() != $rootId);
+	return array(null,
+		     GalleryUtilities::isA($item, 'GalleryItem') && $item->getId() != $rootId);
     }
 }
 ?>

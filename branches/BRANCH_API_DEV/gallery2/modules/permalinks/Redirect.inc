@@ -19,7 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 /**
  * @version $Revision$ $Date$
  * @package Permalinks
@@ -44,7 +43,7 @@ class RedirectController extends GalleryController {
     function handleRequest(&$form) {
 	$alias = GalleryUtilities::getRequestVariables('filename');
 	if (empty($alias)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	list ($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
