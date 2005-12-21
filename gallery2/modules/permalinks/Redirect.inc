@@ -27,9 +27,7 @@
  * @author Pierre-Luc Paour <gallery@paour.com>
  */
 
-GalleryCoreApi::relativeRequireOnce('modules/core/ShowItem.inc');
-GalleryCoreApi::relativeRequireOnce('modules/permalinks/classes/PermalinksMap.class');
-GalleryCoreApi::relativeRequireOnce('modules/permalinks/classes/helpers/PermalinksMapHelper.class');
+GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.class');
 
 /**
  * Perform the redirection
@@ -38,43 +36,29 @@ GalleryCoreApi::relativeRequireOnce('modules/permalinks/classes/helpers/Permalin
  * @subpackage UserInterface
  *
  */
-class RedirectController extends GalleryView {
+class RedirectController extends GalleryController {
 
     /**
-     * @see GalleryView::loadTemplate
+     * @see GalleryController::handleRequest
      */
     function handleRequest(&$form) {
-	global $gallery;
-
 	$alias = GalleryUtilities::getRequestVariables('filename');
 	if (empty($alias)) {
-	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
-	
-	list($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
-	if ($ret->isError()) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-	
-	GalleryUtilities::putRequestVariable('itemId', $itemId);
-	
-	$results = array('delegate' => array('view' => 'core.ShowItem'),
-					 'status' => array(),
-					 'error' => array());
-	
-	return array(GalleryStatus::success(), $results);
-    }
 
-    /**
-     * @see GalleryView::getViewDescription()
-     */
-    function getViewDescription() {
-	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'permalinks');
-	if ($ret->isError()) {
+	list ($ret, $itemId) = PermalinksMapHelper::fetchItemIdForAlias($alias);
+	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(GalleryStatus::success(), $module->translate('permalinks redirection'));
+	GalleryUtilities::putRequestVariable('itemId', $itemId);
+
+	$results = array('delegate' => array('view' => 'core.ShowItem'),
+			 'status' => array(),
+			 'error' => array());
+
+	return array(null, $results);
     }
 }
 ?>

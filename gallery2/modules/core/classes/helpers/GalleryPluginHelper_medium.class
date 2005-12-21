@@ -221,27 +221,27 @@ class GalleryPluginHelper_medium {
 	if ($itemIds == null) {
 	    $itemIds = array(0);
 	} elseif (!is_array($itemIds)) {
-            $itemIds = array($itemIds);
+	    $itemIds = array($itemIds);
 	}
 
-        foreach ($itemIds as $itemId) {
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryPluginParameterMap',
-	    array('pluginType' => $pluginType,
-		  'pluginId' => $pluginId,
-		  'itemId' => $itemId,
-		  'parameterName' => $parameterName));
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
+	foreach ($itemIds as $itemId) {
+	    $ret = GalleryCoreApi::removeMapEntry(
+		    'GalleryPluginParameterMap',
+		    array('pluginType' => $pluginType,
+			  'pluginId' => $pluginId,
+			  'itemId' => $itemId,
+			  'parameterName' => $parameterName));
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
-	/* Invalidate our cache */
-	$cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
-	GalleryDataCache::remove($cacheKey);
-	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
-					       'itemId' => $itemId,
-					       'id' => $pluginId));
-        }
+	    /* Invalidate our cache */
+	    $cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $itemId)";
+	    GalleryDataCache::remove($cacheKey);
+	    GalleryDataCache::removeFromDisk(array('type' => $pluginType,
+						   'itemId' => $itemId,
+						   'id' => $pluginId));
+	}
 
 	return null;
     }
@@ -345,7 +345,7 @@ class GalleryPluginHelper_medium {
 	 * we don't have an existing parameter by that name.  Otherwise, it's
 	 * an update.
 	 */
-        GalleryCoreApi::requireOnce(
+	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
 	list ($ret, $params) =
 	    GalleryPluginHelper_simple::_fetchAllParameters($pluginType, $pluginId, $itemId);
@@ -353,32 +353,29 @@ class GalleryPluginHelper_medium {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-        if (!is_array($itemId)) $itemId = array($itemId);
-        foreach($itemId as $id) {
-            if (!isset($params[$id]) || !array_key_exists($parameterName, $params[$id])) {
-	    $ret = GalleryPluginHelper_medium::_addParameter($pluginType,
-							     $pluginId,
-							     $parameterName,
-							     $parameterValue,
-                                                                 $id);
-	} else {
-	    $ret = GalleryPluginHelper_medium::_updateParameter($pluginType,
-								$pluginId,
-								$parameterName,
-								$parameterValue,
-                                                                    $id);
-	}
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
+	if (!is_array($itemId)) $itemId = array($itemId);
+	foreach($itemId as $id) {
+	    if (!isset($params[$id]) || !array_key_exists($parameterName, $params[$id])) {
+		$ret = GalleryPluginHelper_medium::_addParameter(
+			$pluginType, $pluginId, $parameterName, $parameterValue, $id);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    } else {
+		$ret = GalleryPluginHelper_medium::_updateParameter(
+			$pluginType, $pluginId, $parameterName, $parameterValue, $id);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+	    }
 
-	/* Invalidate our cache */
-            $cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $id)";
-	GalleryDataCache::remove($cacheKey);
-	GalleryDataCache::removeFromDisk(array('type' => $pluginType,
-                                                   'itemId' => $id,
-					       'id' => $pluginId));
-        }
+	    /* Invalidate our cache */
+	    $cacheKey = "GalleryPluginHelper::fetchAllParameters($pluginType, $pluginId, $id)";
+	    GalleryDataCache::remove($cacheKey);
+	    GalleryDataCache::removeFromDisk(array('type' => $pluginType,
+			'itemId' => $id,
+			'id' => $pluginId));
+	}
 
 	if ($gallery->getDebug()) {
 	    $gallery->debug(sprintf('Plugin parameter %s for %s plugin set successfully',
@@ -416,7 +413,7 @@ class GalleryPluginHelper_medium {
 		  'pluginId' => $pluginId,
 		  'itemId' => $itemId,
 		  'parameterName' => $parameterName,
-		  'parameterValue' => $parameterValue));
+		  'parameterValue' => (string)$parameterValue));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -455,7 +452,7 @@ class GalleryPluginHelper_medium {
 		  'pluginId' => $pluginId,
 		  'itemId' => $itemId,
 		  'parameterName' => $parameterName),
-	    array('parameterValue' => $parameterValue));
+	    array('parameterValue' => (string)$parameterValue));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
