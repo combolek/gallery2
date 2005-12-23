@@ -319,7 +319,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
     var $_previousContent = array();
 
     function init(&$test) {
-	$this->_test = $test;
+	$this->_test =& $test;
     }
 
     function file_exists($file) {
