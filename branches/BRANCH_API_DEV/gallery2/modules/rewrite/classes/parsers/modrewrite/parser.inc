@@ -173,7 +173,7 @@ class ModRewriteParser extends RewriteParser {
     function loadAdminParserTemplate(&$template, &$form) {
 	GalleryCoreApi::requireOnce(
 	    'modules/rewrite/classes/parsers/modrewrite/ModRewriteHelper.class');
-	return ModRewriteHelper::loadAdminRewriteTempalte($template, $form);
+	return ModRewriteHelper::loadAdminRewriteTemplate($template, $form);
     }
 
     /**
