@@ -141,7 +141,7 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 		}
 	    }
 	} else if ($event->getEventName() == 'Gallery::DeactivatePlugin' &&
-		   $data['pluginId'] = 'rewrite' && $data['pluginType'] == 'module') {
+		   $data['pluginId'] == 'rewrite' && $data['pluginType'] == 'module') {
 
 	    list ($ret, $isActive) = $this->isActive();
 	    if ($ret) {
