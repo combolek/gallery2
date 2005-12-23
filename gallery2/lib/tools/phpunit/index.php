@@ -123,14 +123,94 @@ function loadTests($moduleId, $testDir, $filter) {
     return $moduleArray;
 }
 
+class GalleryTestResult extends TestResult {
+    var $_totalElapsed = 0;
+    var $_testsFailed = 0;
+
+    function GalleryTestResult() {
+	$this->TestResult();
+    }
+
+    function report() {
+	/* report result of test run */
+	global $compactView;
+	$nRun = $this->countTests();
+	$nFailures = $this->failureCount();
+
+	if ($nFailures) print("</ol>\n");
+	if (!isset($compactView)) {
+	    print '<script type="text/javascript">';
+	    print 'function setTxt(i,t) { document.getElementById(i).firstChild.nodeValue=t; }';
+	    printf("setTxt('testTime','%2.4f');", $this->_totalElapsed);
+	    printf("setTxt('testCount','%s test%s');", $nRun, ($nRun == 1) ? '' : 's');
+	    printf("setTxt('testFailCount','%s test%s');",
+		    $this->_testsFailed, ($this->_testsFailed == 1) ? '' : 's');
+	    printf("setTxt('testErrorCount','%s error%s');",
+		    $nFailures, ($nFailures == 1) ? '' : 's');
+	    print "document.getElementById('testSummary').style.display='block';</script>\n";
+	}
+	if ($nFailures == 0)
+	    return;
+
+	$failures = $this->getFailures();
+	$newFilter = array();
+	foreach ($failures as $failure) {
+	    $newFilter[$failure->getClassName() . '.' . $failure->getTestName()] = 1;
+	}
+	printf('<script type="text/javascript">var failedTestFilter="(%s)$";</script>',
+		implode('|', array_keys($newFilter)));
+    }
+
+    function _endTest($test) {
+	$failure = $extra = '';
+	if ($test->wasSkipped()) {
+	    global $compactView;
+	    if (isset($compactView)) return;
+	    $class = 'Skipped';
+	    $text = 'r.cells[4].lastChild.nodeValue="SKIP";';
+	    $extra = 'r.className="skip";';
+	    $elapsed = '0.0000';
+	} else {
+	    $elapsed = sprintf("%2.4f", $test->elapsed());
+	    $this->_totalElapsed += $elapsed;
+	    if ($test->failed()) {
+		$class = 'Failure';
+		$text = 'r.cells[4].firstChild.style.display="inline";';
+		$failure = $this->_testsFailed++ ? '' : '<h2>Failure Details</h2><ol>';
+		$failure .= '<li><a name="fail' . $this->fRunTests . '">' . $test->classname()
+			  . '.' . $test->name() . "</a></li><ul>\n";
+		foreach ($test->getExceptions() as $exception) {
+		    $failure .= '<li>' . $exception->getMessage() . "</li>\n";
+		}
+		$failure .= "</ul>\n";
+	    } else {
+		$class = 'Pass';
+		$text = 'r.cells[4].lastChild.nodeValue="OK";';
+		global $testOneByOne;
+		if (isset($testOneByOne)) {
+		    $i = $testOneByOne + 1;
+		    $x = substr($_GET['filter'], 0, strrpos($_GET['filter'], ':') + 1);
+		    print '<meta http-equiv="refresh" content="0; index.php?filter=' .
+			"$x$i-$i" . '&amp;onebyone=true"/>';
+		}
+	    }
+	}
+	print '<script type="text/javascript">r=document.getElementById(\'testRow'
+		. $this->fRunTests . "');$extra";
+	print "r.cells[4].className='$class';$text";
+	print "r.cells[5].firstChild.nodeValue='$elapsed';</script>\n$failure";
+	flush();
+    }
+}
+
 define('FILTER_MAX', 1000000);
 if (isset($_GET['filter'])) {
     $filter = trim($_GET['filter']);
     if (substr($filter, -5) == ':1by1') {
-	$testOneByOne = $compactView = true;
+	$testOneByOne = $compactView = 1;
 	$_GET['filter'] = $filter = substr($filter, 0, -3) . '-1';
     } else if (!empty($_GET['onebyone'])) {
-	$testOneByOne = $compactView = true;
+	$testOneByOne = $compactView = (int)substr($filter, strrpos($filter, '-') + 1);
     }
     $range = array();
     $skip = explode(',', $filter);
