@@ -49,6 +49,14 @@ if (phpversion() >= '4') {
     function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	global $PHPUnit_testRunning;
 
+	if (error_reporting() == 0) {
+	    /*
+	     * The error should be suppressed ('@' was used,
+	     * see http://php.net/manual/en/language.operators.errorcontrol.php
+	     */
+	    return;
+	}
+
 	if ($errno == 2048) {
 	    /*
 	     * We're ignoring E_STRICT for now because of PHP 5's retarded inability
@@ -56,7 +64,7 @@ if (phpversion() >= '4') {
 	     */
 	    return;
 	}
-
+	
 	/*
 	 * http://us4.php.net/file_exists#47860
 	 * Older php versions generate stat warnings whenever a file_exists or
