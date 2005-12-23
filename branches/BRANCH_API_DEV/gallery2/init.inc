@@ -130,9 +130,11 @@ function GalleryInitFirstPass($params=array()) {
     }
 
     /* Initialize our translator */
-    if (isset($params['activeLanguage'])) {
+    $language = GalleryUtilities::getRequestVariables('language');
+    if (isset($params['activeLanguage']) || !empty($language)) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class', true);
-	list ($language) = GalleryTranslator::getSupportedLanguageCode($params['activeLanguage']);
+	list ($language) = GalleryTranslator::getSupportedLanguageCode(
+	    empty($language) ? $params['activeLanguage'] : $language);
 	$gallery->setActiveLanguageCode($language);
     }
     $ret = $gallery->initTranslator(isset($params['noDatabase']));

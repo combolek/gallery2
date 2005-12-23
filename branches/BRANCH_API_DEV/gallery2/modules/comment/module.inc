@@ -282,7 +282,7 @@ class CommentModule extends GalleryModule {
 	$rules[] = $rule;
 
 	$rule = array();
-	$rule['match'] = array('view' => 'comment.ShowComments');
+	$rule['match'] = array('view' => 'comment.ShowAllComments');
 	$rule['pattern'] = 'c/view/%itemId%.html';
 	$rule['comment'] = $this->translate('View Comments');
 	$rules[] = $rule;

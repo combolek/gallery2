@@ -85,10 +85,12 @@ class SlideshowModule extends GalleryModule {
 	$rule = array();
 	$rule['comment'] = $this->translate('View Slideshow');
 	$rule['match'] = array('view' => 'slideshow.Slideshow');
+	$rule['onLoad'] = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
 	$rule['pattern'] = 'v/%path%/slideshow.html';
         $rule['keywords'] = array(
             'path' => array(
                 'pattern' => '([^?]+)',
+		'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
                 'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
 	$rules[] = $rule;
 

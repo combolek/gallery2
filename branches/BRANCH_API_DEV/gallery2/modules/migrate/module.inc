@@ -88,6 +88,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	return array(
 	    array('comment' => $this->translate('G1-&gt;G2 Mapping'),
 		  'pattern' => '%path%',
+		  'parser' => 'preGallery',
 		  'keywords' => array('path' => array('pattern' => '([^?]+)',
 						      'help' => $this->translate('G1 path'))),
 		  'queryString' => array('controller' => 'migrate.Redirect'),

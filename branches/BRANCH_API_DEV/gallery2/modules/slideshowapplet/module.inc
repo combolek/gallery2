@@ -115,10 +115,12 @@ class SlideshowAppletModule extends GalleryModule {
 	$rule = array();
 	$rule['comment'] = $this->translate('View Slideshow (Fullscreen)');
 	$rule['match'] = array('view' => 'slideshowapplet.SlideshowApplet');
+	$rule['onLoad'] = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
 	$rule['pattern'] = 'v/%path%/slideshowapplet.html';
 	$rule['keywords'] = array(
-		'path' => array(
+	    'path' => array(
 		'pattern' => '([^?]+)',
+		'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
 		'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
 	$rules[] = $rule;
 

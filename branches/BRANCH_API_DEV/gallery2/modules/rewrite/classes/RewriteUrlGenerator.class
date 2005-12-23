@@ -26,12 +26,12 @@
  */
 
 /**
- * Required classes
+ * Required class
  */
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
 
 /**
- * Url Generator
+ * Generic Rewrite URL Generator class
  *
  * @package Rewrite
  * @subpackage Classes
@@ -55,56 +55,61 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
     var $_shortUrls = array();
 
     /**
+     * Base url when creating short urls.
+     *
+     * @var array index 0 => baseUrl, 1 => baseQueryString
+     * @access private
+     */
+    var $_baseUrl;
+
+    /**
      * @see GalleryUrlGenerator::init
      */
     function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
-	parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
-
-	GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteHelper.class');
-	list($ret, $this->_shortUrls) = RewriteHelper::getShortUrls();
+	$ret = parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+
+	list ($ret, $this->_shortUrls) = GalleryCoreApi::getPluginParameter(
+	    'module', 'rewrite', 'shortUrls');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	$this->_shortUrls = empty($this->_shortUrls) ? array() : unserialize($this->_shortUrls);
 
 	return null;
     }
 
     /**
-     * @see GalleryUrlGenerator::getCurrentUrl
+     * This function is called at the end of URL generator initialization. If an onLoad
+     * function is specified for the current view it loads the needed file and calls
+     * the function which should parse any request params that wasn't parsed by the
+     * rewrite parser (eg %path% to itemId).
+     *
+     * @return object GalleryStatus a status code
+     * @private
      */
-    function getCurrentUrl() {
-	if ($this->_error) {
-	    return parent::getCurrentUrl();
+    function _onLoad() {
+	list ($view, $subView) = GalleryUtilities::getRequestVariables('view', 'subView');
+	$match = $view;
+	if (!empty($subView)) {
+	    $match .= '|' . $subView;
 	}
 
-	if (empty($this->_currentUrl)) {
-	    if (GalleryUtilities::isEmbedded() && !empty($this->_embedPath)) {
-		$path = $this->_embedPath;
-	    } else {
-		$location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
-		list ($ret, $path) =
-			GalleryCoreApi::getPluginParameter('module', 'rewrite', $location);
-		if ($ret || empty($path)) {
-		    /*
-		     * We dont know where we're at. This could happen if rewrite was installed
-		     * in G2 standalone, and now is accessed as G2 embedded. Turn off short URLs
-		     * for the embedded mode and wait until the user has set it up corectly.
-		     */
-		    $this->_error = true;
-		    return parent::getCurrentUrl();
-		}
+	if (!empty($match) && isset($this->_shortUrls[$match]['onLoad'])) {
+	    GalleryCoreApi::requireOnce('modules/' .
+		    $this->_shortUrls[$match]['onLoad'][0] . '/classes/' .
+		    $this->_shortUrls[$match]['onLoad'][1] . '.class');
+	    $ret = call_user_func(array(
+		    $this->_shortUrls[$match]['onLoad'][1],
+		    $this->_shortUrls[$match]['onLoad'][2]));
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
-
-	    $tmp = $path . $this->_baseFile;
-	    $queryString = GalleryUtilities::getServerVar('QUERY_STRING');
-	    if (!empty($queryString)) {
-		$tmp .= '?' . GalleryUtilities::htmlEntityDecode($queryString);
-	    }
-
-	    $this->_currentUrl = $this->makeUrl($tmp);
 	}
 
-	return $this->_currentUrl;
+	return null;
     }
 
     /**
@@ -126,11 +131,11 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	 */
 	$params = array();
 	$urlVariables = GalleryUtilities::getUrlVariablesFiltered(
-			array('return', 'returnName', 'navId', 'fromNavId', 'path'));
+	    array('return', 'returnName', 'navId', 'fromNavId'));
 	foreach ($urlVariables as $key => $value) {
 	    $params[substr($key, strlen(GALLERY_FORM_VARIABLE_PREFIX))] = $value;
 	}
-	$url = $this->generateUrl($params, array('forceFullUrl' => true));
+	$url = $this->generateUrl($params);
 
 	return $url;
     }
@@ -139,129 +144,109 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
      * @see GalleryUrlGenerator::generateUrl
      */
     function generateUrl($params=array(), $options=array()) {
+	global $gallery;
+	$index = null;
 	if ($this->_error) {
 	    return parent::generateUrl($params, $options);
 	}
 
-	if (isset($params['view'])) {
+	/* Match by view + subview, or only view. */
+	if (isset($params['view']) && isset($params['subView']) &&
+		isset($this->_shortUrls[$params['view'] . '|' . $params['subView']])) {
+	    $index = $params['view'] . '|' . $params['subView'];
+	} else if (isset($params['view']) && isset($this->_shortUrls[$params['view']])) {
 	    $index = $params['view'];
-	    if (isset($params['subView'])) {
-		$index .= '|' . $params['subView'];
-	    }
 	}
 
 	/* Build the short style URL */
-	if (isset($index) && isset($this->_shortUrls[$index])
-		&& !isset($params['href']) && empty($options['baseUrl'])) {
-	    /* Navigation */
-	    global $gallery;
-	    $currentView = $gallery->getCurrentView();
-	    if (!empty($this->_navId) && (empty($currentView) ||
-		    $currentView == $params['view'] || !empty($params['controller']))) {
-		/*
-		 * We are moving around in the same view or we are redirecting to a controller,
-		 * who knows where it will redirect to.  Let's keep the navigation.
-		 */
-		$params['navId'] = $this->_navId;
-	    }
-
+	if (isset($index) && !isset($params['href'])) {
 	    /* Check if we are forced to append the session id in embedded G2 */
 	    if ($this->embedForceSessionId($params)) {
 		$options['forceSessionId'] = true;
 	    }
-
-	    $url = $this->_shortUrls[$index];
-	    $entity = null;
-	    $itemId = isset($params['itemId']) ? $params['itemId'] : null;
-
-	    preg_match_all('/%([a-z]+)%/i', $url, $regs);
-	    foreach ($regs[1] as $arg) {
-		switch ($arg) {
-		case 'path':
-		    if ((!isset($entity) && !$this->_loadEntity($itemId, $entity)) ||
-			    !GalleryUtilities::isA($entity, 'GalleryFileSystemEntity')) {
-			return parent::generateUrl($params, $options);
-		    }
-		    list ($ret, $path) = $entity->fetchLogicalPath();
-		    if ($ret) {
-			return parent::generateUrl($params, $options);
-		    }
-
-		    if (substr($url, -6) != '%path%') {
-			/* Trim / off end of path if rule has a suffix */
-			if ($path != '/') {
-			    $path = rtrim($path, '/');
-			} else {
-			    $url = str_replace('%path%/', '%path%', $url);
-			}
-		    } else if (!GalleryUtilities::isA($entity, 'GalleryAlbumItem')) {
-			/* Append .html suffix on non-album paths if rule has no suffix */
-			$path .= '.html';
-		    }
-		    /* urlencode except for path separators(/) */
-		    $url = str_replace('%path%',
-			str_replace('%2F', '/', urlencode(substr($path, 1))), $url);
-		    unset($params['itemId']);
-		    break;
-
-		case 'fileName':
-		    if (!isset($entity) && !$this->_loadEntity($itemId, $entity)) {
-			return parent::generateUrl($params, $options);
-		    }
-		    list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($entity);
-		    if ($ret) {
-			return parent::generateUrl($params, $options);
-		    }
-		    $url = str_replace('%fileName%', urlencode($pseudoFileName), $url);
-		    break;
-
-		case 'serialNumber':
-		    if (!isset($entity) && !$this->_loadEntity($itemId, $entity)) {
-			return parent::generateUrl($params, $options);
-		    }
-		    $url = str_replace('%serialNumber%', $entity->getSerialNumber(), $url);
-		    unset($params['serialNumber']);
-		    break;
-
-		default:
-		    $url = str_replace('%' . $arg . '%', urlencode($params[$arg]), $url);
-		    unset($params[$arg]);
-		}
+	    
+	    $trueParams = $params;
+	    /* Parse and replace all keywords */
+	    $url = $this->_shortUrls[$index]['pattern'];
+	    $functions = array();
+	    if (isset($this->_shortUrls[$index]['functions'])) {
+		$functions = $this->_shortUrls[$index]['functions'];
+	    }
+	    if (!$this->_parseShortUrl($url, $params, $functions)) {
+		return parent::generateUrl($trueParams, $options);
 	    }
 
 	    unset($params['view']);
-	    unset($params['subView']);
-
-	    if (empty($url)) {
-		$url = $this->_baseFile;
+	    if (strpos($index, '|') !== false) {
+		unset($params['subView']);
 	    }
-
-	    $options['baseUrl'] = $this->getCurrentUrlDir() . $url;
-	    return parent::generateUrl($params, $options);
+	    $options['baseUrl'] = $this->_baseUrl[0] . $url . $this->_baseUrl[1];
 	}
 
 	return parent::generateUrl($params, $options);
     }
 
     /**
+     * Substitute all keywords with values from url params or custom functions.
+     *
+     * @param string url to be parsed
+     * @param array of url parameters
+     * @param array of custom functions
      * @return boolean true on success
      * @access private
      */
-    function _loadEntity(&$itemId, &$entity) {
+    function _parseShortUrl(&$url, &$params, $functions) {
+	$entity = null;
+
+	preg_match_all('/%([a-z]+)%/i', $url, $regs);
+	foreach ($regs[1] as $arg) {
+	    if (isset($functions[$arg])) {
+		GalleryCoreApi::requireOnce('modules/' . $functions[$arg][0] .
+		    '/classes/' . $functions[$arg][1] . '.class');
+
+		$ret = call_user_func_array(
+		    array($functions[$arg][1], $functions[$arg][2]),
+		    array(&$url, &$params, &$entity));
+		if (!$ret) {
+		    return $ret;
+		}
+	    } else {
+		$url = str_replace('%' . $arg . '%', urlencode($params[$arg]), $url);
+
+		/* We cant unset the itemId until we have replaced all keywords. a keyword */
+		if ($arg != 'itemId') {
+		    unset($params[$arg]);
+		} else {
+		    $unsetItemId = 1;
+		}
+	    }
+	}
+
+	if (isset($unsetItemId)) {
+	    unset($params['itemId']);
+	}
+	return true;
+    }
+
+    /**
+     * @param int itemId of the entity to load
+     * @return object GalleryEntity
+     */
+    function loadEntity(&$itemId) {
 	/* Assume rootAlbum if itemId not specified */
 	if (empty($itemId)) {
 	    list ($ret, $itemId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	    if ($ret) {
-		return false;
+		return null;
 	    }
 	}
 
 	list ($ret, $entity) = GalleryCoreApi::loadEntitiesById($itemId);
 	if ($ret) {
-	    return false;
+	    return null;
 	}
-	return true;
+	return $entity;
     }
 }
 ?>

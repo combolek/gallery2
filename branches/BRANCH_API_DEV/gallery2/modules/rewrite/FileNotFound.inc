@@ -47,7 +47,16 @@ class FileNotFoundView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	header('HTTP/1.0 404 Not Found');
+	global $gallery;
+	$phpVm = $gallery->getPhpVm();
+	$urlGenerator =& $gallery->getUrlGenerator();
+
+	/* Don't use getCurrentUrl, it migh be staged by the url generator */
+	$path = GalleryUtilities::getServerVar('REQUEST_URI');
+	$path = $urlGenerator->makeUrl($path);
+	
+	$phpVm->header('HTTP/1.0 404 Not Found');
+	$template->setVariable('FileNotFound', $path);
 
     	return array(null,
 		array('body' => 'modules/rewrite/templates/FileNotFound.tpl'));

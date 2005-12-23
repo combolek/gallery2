@@ -1,0 +1,82 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2005 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+/**
+ * @package Rewrite
+ * @version $Revision$ $Date$
+ * @author Douglas Cau <douglas@cau.se>
+ */
+
+/**
+ * Required class
+ */
+GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
+
+/**
+ * URL Generator for IIS ISAPI_Rewrite parser.
+ *
+ * @package Rewrite
+ * @subpackage Parsers
+ */
+class IsapiRewriteUrlGenerator extends RewriteUrlGenerator {
+
+    /**
+     * @see GalleryUrlGenerator::init
+     */
+    function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
+	$ret = parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	$pathComponents = parse_url($this->getCurrentUrlDir());
+	$this->_baseUrl = array($pathComponents['path'], '');
+	$ret = $this->_onLoad();
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return null;
+    }
+
+    /**
+     * @see GalleryUrlGenerator::generateUrl
+     */
+    function generateUrl($params=array(), $options=array()) {
+	if ($this->_error) {
+	    return parent::generateUrl($params, $options);
+	}
+
+	/*
+	 * Since the baseFile is in the REQUEST_URI we need to make all relative URLs server
+	 * relative.
+	 */
+	$forceFullUrl = isset($options['forceFullUrl']) ? $options['forceFullUrl'] : false;
+	$options['forceFullUrl'] = true;
+	$url = parent::generateUrl($params, $options);
+	if (!$forceFullUrl){
+	    $url = str_replace($this->makeUrl('/'), '/', $url);
+	}
+
+	return $url;
+    }
+}
+?>
