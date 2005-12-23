@@ -51,17 +51,17 @@ class IsapiRewriteHelperTest extends GalleryTestCase {
 
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('phpunit.php');
-        if ($ret) {
-            print $ret->getAsHtml();
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$gallery->setUrlGenerator($urlGenerator);
 
-        $ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-        if ($ret) {
-            print $ret->getAsHtml();
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	/* Set up our environment */
 	foreach (array('isapirewrite.forced' => '0',
@@ -334,7 +334,7 @@ class IsapiRewriteHelperMockPlatform extends GalleryPlatform {
 
     function file($file) {
 	if (strpos($file, 'httpd.ini') !== false) {
-	    return array();
+	    return $passCodeAudit = array();
 	}
 
 	return parent::file($file);
