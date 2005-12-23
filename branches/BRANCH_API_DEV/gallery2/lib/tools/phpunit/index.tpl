@@ -12,8 +12,8 @@
       function setFilter(value) {
         document.forms[0].filter.value=value;
       }
-      function reRun(value) {
-        setFilter(value);
+      function reRun() {
+        setFilter(failedTestFilter);
         document.forms[0].submit();
       }
     </script>
@@ -117,9 +117,7 @@
           onclick="toggleFilterExamples()">
           Help/Examples
           <span id="filter_examples_toggle_indicator"
-            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">
-            +
-          </span>
+            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
         </span>
 
         <div id="help_and_examples" style="display: none">
@@ -173,9 +171,7 @@
       </form>
     </div>
 
-    <h2>
-      Modules
-    </h2>
+    <h2>Modules</h2>
 
     <div class="section" style="width: 100%">
       <?php
@@ -187,9 +183,8 @@
       }
       ?>
       <?php printf("%d active, %d total", $activeCount, sizeof($moduleStatusList)); ?>
-      <span onclick="toggleModulesListing()" id="modules_listing_toggle_indicator" style="border: solid #a6caf0; border-width: 1px; background: #eee">
-	+
-      </span>
+      <span onclick="toggleModulesListing()" id="modules_listing_toggle_indicator"
+            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
       <br/>
       <table cellspacing="1" cellpadding="1" border="0"
         width="800" align="center" class="details"
@@ -217,8 +212,36 @@
     </div>
   <?php endif; /* compactView */ ?>
 
+  <h2>Test Results</h2>
+
+  <table cellspacing="1" cellpadding="1" border="0" width="90%" align="CENTER" class="details">
+  <tr><th>#</th><th>Module</th><th>Class</th><th>Function</th><th>Success?</th><th>Time</th></tr>
+  <?php $i = 0;
+    foreach ($testSuite->fTests as $testClass):
+    foreach ($testClass->fTests as $test): $i++;
+    if (isset($testOneByOne) && $testOneByOne != $i) continue; ?>
+    <tr id="testRow<?php print $i ?>">
+    <td><?php print $i ?></td>
+    <td><?php print $test->getModuleId() ?></td>
+    <td><?php print $test->classname() ?></td>
+    <td><?php print $test->name() ?></td>
+    <td><a href="#fail<?php print $i ?>" style="display:none">FAIL</a>&nbsp;</td><td>&nbsp;</td>
+  </tr><?php endforeach; endforeach; ?>
+  </table>
+
+  <div id="testSummary" style="display:none">
+    <h2>Summary</h2>
+
+    <p><span id="testTime">&nbsp;</span> seconds elapsed</p>
+    <p><span id="testCount">&nbsp;</span> run</p>
+    <p><span id="testFailCount">&nbsp;</span> failed
+       with <span id="testErrorCount">&nbsp;</span></p>
+
+    <input type="button" onclick="reRun();" value="Re-run broken tests"/>
+  </div>
+
   <?php
-    $result = new PrettyTestResult();
+    $result = new GalleryTestResult();
     $testSuite->run($result, $range);
     $result->report();
   ?>
