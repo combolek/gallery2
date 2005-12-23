@@ -82,7 +82,7 @@ class SystemInfoTask extends MaintenanceTask {
 	    $core->translate('Webserver') . ' = ' .
 		GalleryUtilities::getServerVar('SERVER_SOFTWARE'),
 	    $core->translate('Database') . ' = ' .
-		$storage->_impl->getAdoDbType() . ' ' . @$storage->_impl->getVersion(),
+		$storage->getAdoDbType() . ' ' . @$storage->getVersion(),
 	    $core->translate('Toolkits') . ' = ' . $toolkitList,
 	    $core->translate('Operating system') . ' = ' . php_uname(),
 	    $core->translate('Browser') . ' = ' . GalleryUtilities::getServerVar('HTTP_USER_AGENT')
