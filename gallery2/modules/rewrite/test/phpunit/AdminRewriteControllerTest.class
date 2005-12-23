@@ -88,7 +88,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Activate the module */
-	list ($ret, $redirect) = $this->_module->activate();
+	list ($ret, $redirect) = $this->_module->activate(false);
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -96,7 +96,7 @@ class AdminRewriteControllerTest extends GalleryControllerTestCase {
     }
 
     function tearDown() {
-	list ($ret, $redirect) = $this->_module->deactivate();
+	list ($ret, $redirect) = $this->_module->deactivate(false);
 	if ($ret) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
