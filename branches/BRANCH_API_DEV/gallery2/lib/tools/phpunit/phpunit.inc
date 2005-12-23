@@ -49,14 +49,6 @@ if (phpversion() >= '4') {
     function PHPUnit_error_handler($errno, $errstr, $errfile, $errline) {
 	global $PHPUnit_testRunning;
 
-	if (error_reporting() == 0) {
-	    /*
-	     * The error should be suppressed ('@' was used,
-	     * see http://php.net/manual/en/language.operators.errorcontrol.php
-	     */
-	    return;
-	}
-
 	if ($errno == 2048) {
 	    /*
 	     * We're ignoring E_STRICT for now because of PHP 5's retarded inability
@@ -81,7 +73,7 @@ if (phpversion() >= '4') {
 	    $traceSource = debug_backtrace();
 	    array_shift($traceSource);
 	    foreach ($traceSource as $traceEntry) {
-		$buf = '<B>in</B> ' . $traceEntry['file'];
+		$buf = ' <B>in</B> ' . $traceEntry['file'];
 		if (isset($traceEntry['class']) && isset($traceEntry['function'])) {
 		    $buf .= " ($traceEntry[class]::$traceEntry[function]) ";
 		} else if (isset($traceEntry['class'])) {
