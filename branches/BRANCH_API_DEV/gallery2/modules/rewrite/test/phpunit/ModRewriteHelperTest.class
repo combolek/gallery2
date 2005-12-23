@@ -296,7 +296,7 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
     var $_previousContent = array();
 
     function init(&$test) {
-	$this->_test = $test;
+	$this->_test =& $test;
     }
 
     function fsockopen($target, $port, &$errno, &$errstr, $timeout) {

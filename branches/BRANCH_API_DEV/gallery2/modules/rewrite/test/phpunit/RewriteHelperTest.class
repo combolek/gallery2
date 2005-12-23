@@ -116,18 +116,19 @@ class RewriteHelperTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$parser->_testStatic = 1;
-	
+	$this->assertEquals('rewritehelpermock', $parser->getParserId(), 'parserId');
+
+        $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
+        if ($ret) {
+            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+        }	
+
+	/* Should still use the same parser (static check) */
 	list ($ret, $parser) = RewriteHelper::getRewriteParser();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals(1, $parser->_testStatic, 'static');
-	
-        $ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'parserId', '');
-        if ($ret) {
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	$this->assertEquals('rewritehelpermock', $parser->getParserId(), 'static');
 
         list ($ret, $parser) = RewriteHelper::getRewriteParser(true);
 	if ($ret && !($ret->getErrorCode() & ERROR_MISSING_VALUE)) {
