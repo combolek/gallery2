@@ -86,7 +86,6 @@ class ViewTest extends GalleryTestCase {
 	$this->_markForCleanup($album);
 
 	GalleryUtilities::putRequestVariable('itemId', $album->getId());
-	GalleryUtilities::removeRequestVariable('path');
 
 	list ($ret, $item, $wasSpecified) = $view->_getItem();
 	if ($ret) {
@@ -95,27 +94,7 @@ class ViewTest extends GalleryTestCase {
 	$this->assert($wasSpecified, 'itemId specified');
 	$this->assertEquals($album->getId(), $item->getId(), 'itemId');
 
-	GalleryUtilities::putRequestVariable('itemId', $this->_getRootId());
-	GalleryUtilities::putRequestVariable('path', '/' . $album->getPathComponent());
-
-	list ($ret, $item, $wasSpecified) = $view->_getItem();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert($wasSpecified, 'itemId/path specified');
-	$this->assertEquals($this->_getRootId(), $item->getId(), 'itemId overrides path');
-
 	GalleryUtilities::removeRequestVariable('itemId');
-
-	list ($ret, $item, $wasSpecified) = $view->_getItem();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert($wasSpecified, 'path specified');
-	$this->assertEquals($album->getId(), $item->getId(), 'path');
-
-	GalleryUtilities::removeRequestVariable('itemId');
-	GalleryUtilities::removeRequestVariable('path');
 
 	list ($ret, $item, $wasSpecified) = $view->_getItem();
 	if ($ret) {
