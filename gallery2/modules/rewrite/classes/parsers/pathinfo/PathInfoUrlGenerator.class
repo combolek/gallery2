@@ -1,0 +1,129 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2004 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+/**
+ * @package PathInfo
+ * @version $Revision$ $Date$
+ * @author Douglas Cau <douglas@cau.se>
+ **/
+
+/**
+ * Required class
+ */
+GalleryCoreApi::requireOnce('modules/rewrite/classes/RewriteUrlGenerator.class');
+
+/**
+ * URL Generator for PHP Path Info parser.
+ *
+ * @package Rewrite
+ * @subpackage Parsers
+ */
+class PathInfoUrlGenerator extends RewriteUrlGenerator {
+
+    /**
+     * @see GalleryUrlGenerator::init
+     */
+    function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
+	$ret = parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	if (substr($this->_baseFile, 0, 1) == '?') {
+	    $this->_baseFile = 'index.php' . $this->_baseFile;
+	}
+
+	$baseUrl = array($this->_baseFile, '');
+	if (strpos($this->_baseFile, '?') !== false) {
+	    $baseUrl = explode('?', $this->_baseFile);
+	    $baseUrl[1] = '?' . $baseUrl[1];
+	}
+
+	$baseUrl[0] .= '/';
+	$this->_baseUrl = $baseUrl;
+
+	list($ret, $parser) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
+	    'pathinfo.parser');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+	$parser = unserialize($parser);
+
+	/* Parse the PATH_INFO string */
+	if (($pathInfo = GalleryUtilities::getServerVar('PATH_INFO')) !=
+		GalleryUtilities::getServerVar('SCRIPT_NAME')) {
+	    if (($i = strpos($this->_baseUrl[0], '/')) !== false) {
+		$pathInfo = substr($pathInfo, strlen(substr($this->_baseUrl[0], $i)) -1);
+	    }
+
+	    if (isset($parser['static'][$pathInfo])) {
+		$queryString = $parser['static'][$pathInfo];
+	    } else {
+		$queryString = preg_replace($parser['dynamic.find'],
+		    $parser['dynamic.replace'], $pathInfo);
+	    }
+
+	    if (!empty($queryString) && $queryString{0} == 'Q') {
+		$queryString = explode('&', substr($queryString, 1));
+
+		foreach ($queryString as $arg) {
+		    $param = explode('=', $arg);
+		    GalleryUtilities::putRequestVariable($param[0], $param[1], false);
+		}
+	    }
+	}
+
+	$ret = $this->_onLoad();
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	/* Hack: When baseUrl and fullUrl are set baseUrl needs to be full path */
+	$this->_baseUrl[0] = str_replace($this->makeUrl('/'), '/', $this->getCurrentUrlDir()) .
+	    $this->_baseUrl[0];
+
+	return null;
+    }
+
+    /**
+     * @see GalleryUrlGenerator::generateUrl
+     */
+    function generateUrl($params=array(), $options=array()) {
+	if ($this->_error) {
+	    return parent::generateUrl($params, $options);
+	}
+
+	/*
+	 * Since the baseFile is in the REQUEST_URI we need to make all relative URLs server
+	 * relative.
+	 */
+	$forceFullUrl = isset($options['forceFullUrl']) ? $options['forceFullUrl'] : false;
+	$options['forceFullUrl'] = true;
+	$url = parent::generateUrl($params, $options);
+	if (!$forceFullUrl){
+	    $url = str_replace($this->makeUrl('/'), '/', $url);
+	}
+
+	return $url;
+    }
+}
+
+?>

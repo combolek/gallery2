@@ -1,0 +1,178 @@
+<?php
+/*
+ * $RCSfile$
+ *
+ * Gallery - a web based photo album viewer and editor
+ * Copyright (C) 2000-2005 Bharat Mediratta
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+/**
+ * @version $Revision$ $Date$
+ * @package Rewrite
+ * @subpackage PHPUnit
+ * @author Douglas Cau <douglas@cau.se>
+ */
+
+/**
+ * Path Info URL Generator tests
+ *
+ * @package Rewrite
+ * @subpackage PHPUnit
+ */
+GalleryCoreApi::requireOnce(
+    'modules/rewrite/classes/parsers/pathinfo/PathInfoUrlGenerator.class');
+GalleryCoreApi::requireOnce('modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class');
+class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
+
+    function PathInfoUrlGeneratorTest($methodName) {
+	$this->GalleryTestCase($methodName);
+    }
+
+    function setUp() {
+	global $gallery;
+	parent::setUp();
+
+	$parser = array(
+	    'static' => array('/static' => 'Qg2_view=php.Static'),
+	    'dynamic.find' => array('/\/p\/([a-z]{2})\/([^\?]+)/',
+				    '/\/p\/([0-9]+).html/'),
+	    'dynamic.replace' => array('Qg2_view=php.Dynamic&g2_language=$1&g2_path=$2',
+				       'Qg2_view=php.Dynamic2&g2_itemId=$1'));
+
+	/* Set up our environment */
+	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'pathinfo.parser',
+	    serialize($parser));
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$_SERVER['HTTP_HOST'] = 'example.com';
+	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
+	$_SERVER['SERVER_PORT'] = 80;
+
+	$ret = $this->_urlGeneratorInit('PathInfoUrlGenerator');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+    }
+
+    function testInit() {
+	/* Standard G2 init */
+	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=bar&bar=foo';
+	$urlGenerator = new PathInfoUrlGenerator();
+	$ret = $urlGenerator->init('phpunit_test.php?foo=bar&bar=foo');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assert(!$urlGenerator->_error);
+	$this->assertEquals(array('/gallery2/phpunit_test.php/', '?foo=bar&bar=foo'),
+	    $urlGenerator->_baseUrl);
+    }
+
+    function testInitEmbed() {
+	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php/cms?foo=bar&bar=foo';
+	/* Embedded init with pathinfo and querystring in the base file */
+	$urlGenerator = new PathInfoUrlGenerator();
+	$ret = $urlGenerator->init('phpunit_test.php/cms?foo=bar&bar=foo');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assert(!$urlGenerator->_error);
+	$this->assertEquals(array('/gallery2/phpunit_test.php/cms/','?foo=bar&bar=foo'),
+	    $urlGenerator->_baseUrl);
+    }
+
+    function testParsePathInfo() {
+	/* test = array(path info, array of expected request variables */
+	$basePath = array('', '/cms', '/cms/other');
+	$tests = array();
+
+	/* Test static path */
+	$tests[] = array('/static',
+			 array('view' => 'php.Static'));
+	/* Test dynamic path */
+	$tests[] = array('/p/en/bogus/file.jpg.html',
+			 array('view' => 'php.Dynamic',
+			       'language' => 'en',
+			       'path' => 'bogus/file.jpg.html'));
+
+	/* Test dynamic2 path */
+	$tests[] = array('/p/911.html',
+			 array('view' => 'php.Dynamic2',
+			       'itemId' => '911'));
+
+	foreach ($basePath as $path) {
+	    foreach ($tests as $test) {
+		list ($pathInfo, $expectedParams) = $test;
+		$_SERVER['PATH_INFO'] = $path . $pathInfo;
+		$urlGenerator = new PathInfoUrlGenerator();
+		$ret = $urlGenerator->init('phpunit_test.php' . $path . '?foo=bar');
+		if ($ret) {
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		}
+
+		foreach ($expectedParams as $param => $value) {
+		    $actualValue = GalleryUtilities::getRequestVariables($param);
+		    $this->assertEquals($value, $actualValue, $path . $pathInfo);
+		    GalleryUtilities::removeRequestVariable($param);
+		}
+	    }
+	}
+    }
+
+
+    function testShortUrls() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	$basePath = array('', '/cms', '/cms/other');
+	$tests = $this->_getShortUrlTests();
+
+	foreach ($basePath as $base) {
+	    $_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php' . $base;
+	    $urlGenerator = new PathInfoUrlGenerator();
+	    $ret = $urlGenerator->init('phpunit_test.php' . $base);
+	    $gallery->setUrlGenerator($urlGenerator);
+
+	    foreach ($tests as $test) {
+		list ($expectedUrlPath, $params) = $test;
+		if (substr($expectedUrlPath, 0, 16) == 'phpunit_test.php') {
+		    $expectedUrl = '/gallery2/phpunit_test.php' . $base .
+			substr($expectedUrlPath, 16);
+		} else {
+		    $expectedUrl = '/gallery2/phpunit_test.php' . $base . '/' . $expectedUrlPath;
+		}
+
+		$expectedUrlWithSessionId = GalleryUrlGenerator::appendParamsToUrl(
+		    $expectedUrl,
+		    array($session->getKey() => $session->getId()));
+
+		$actualUrl = $urlGenerator->generateUrl($params,
+		    array('forceSessionId' => true));
+		$this->assertEquals($expectedUrlWithSessionId, $actualUrl);
+
+		$actualUrl = $urlGenerator->generateUrl($params,
+		    array('forceSessionId' => false));
+		$this->assertEquals($expectedUrl, $actualUrl);
+	    }
+	}
+    }
+}
+?>

@@ -316,6 +316,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	return array(
 	    array( 'comment' => $this->translate('Watermark hotlinked images'),
 		   'pattern' => '.',
+		   'parser' => 'preGallery',
 		   'restrict' => array('view' => 'core.DownloadItem',
 				       'itemId' => '([0-9]+)'),
 		   'queryString' => array('view' => 'watermark.DownloadItem',

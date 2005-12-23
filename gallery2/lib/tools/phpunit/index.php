@@ -108,7 +108,7 @@ function loadTests($moduleId, $testDir, $filter) {
 	}
 
 	while (($file = $platform->readdir($dir)) != false) {
-	    if (preg_match('/(.*).class$/', $file, $matches)) {
+	    if (preg_match('/(.*Test).class$/', $file, $matches)) {
 		require_once($testDir . '/' . $file);
 			$className = $matches[1];
 		if (class_exists($className) &&
