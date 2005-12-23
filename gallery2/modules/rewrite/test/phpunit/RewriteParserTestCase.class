@@ -38,11 +38,11 @@ class RewriteParserTestCase extends GalleryTestCase {
 	global $gallery;
 	parent::setUp();
 
-        $ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-        if ($ret) {
-            print $ret->getAsHtml();
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	/* Set up our environment */
 	$activeRules['rewriteparsermock'][0] = 'bogus';
@@ -485,7 +485,7 @@ class RewriteParserMockPlatform extends GalleryPlatform {
 
     function file($file) {
 	if (strpos($file, '.htaccess') !== false || strpos($file, '\httpd.ini') !== false) {
-	    return array();
+	    return $passCodeAudit = array();
 	}
 
 	return parent::file($file);

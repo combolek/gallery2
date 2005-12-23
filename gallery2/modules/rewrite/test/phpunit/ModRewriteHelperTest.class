@@ -49,17 +49,17 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	$_SERVER['SERVER_PORT'] = 80;
 	$urlGenerator = new GalleryUrlGenerator();
 	$ret = $urlGenerator->init('phpunit.php');
-        if ($ret) {
-            print $ret->getAsHtml();
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$gallery->setUrlGenerator($urlGenerator);
 
-        $ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
-        if ($ret) {
-            print $ret->getAsHtml();
-            return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-        }
+	$ret = $this->_markPluginParametersForCleanup('module', 'rewrite');
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	/* Set up our environment */
 	foreach (array('modrewrite.status' => serialize(array('needOptions' => true)),
@@ -429,7 +429,7 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 
     function file($file) {
 	if (strpos($file, '.htaccess') !== false) {
-	    return array();
+	    return $passCodeAudit = array();
 	}
 
 	return parent::file($file);
