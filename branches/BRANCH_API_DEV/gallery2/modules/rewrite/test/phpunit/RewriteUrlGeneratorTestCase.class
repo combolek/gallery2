@@ -191,8 +191,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 
 		$tests = $this->_getShortUrlTests();
 		foreach ($tests as $test) {
-		    list ($expectedUrlPath, $params) = $test;
-		    if (!$embedded) {
+		    list ($expectedUrlPath, $params, $options) = $test;
+		    if (!$embedded ||
+			    (!empty($params['view']) && $params['view'] == 'core.DownloadItem') ||
+			    !empty($params['href']) || !empty($options['forceDirect'])) {
 			$expectedUrl = '/gallery2/';
 		    } elseif (empty($uGC['embedPath'])) {
 			$expectedUrl = '/cms/';
@@ -205,14 +207,22 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 			$expectedUrl,
 			array($session->getKey() => $session->getId()));
 
+		    $debugData = array();
+		    foreach ($options as $op => $val) {
+			$debugData[] = "option: $op => $val";
+		    }
+		    foreach ($params as $par => $val) {
+			$debugData[] = "param: $par => $val";
+		    }
 		    $debugInfo = 'embedded: ' . intval($embedded) . ', cookie.path: ' .
 			$cookiePath . ', embedPath: ' . $uGC['embedPath'] . ', relativeG2Path: ' .
-			$uGC['relativeG2Path'];
+			$uGC['relativeG2Path'] . ', ' . implode(', ', $debugData);
 
 		    /* Session id not in the url */
 		    $actualUrl = $this->_urlGenerator->generateUrl($params, 
 			array('forceSessionId' => false));
-		    if ($params['view'] == 'core.DownloadItem' && $embedded && empty($cookiePath)) {
+		    if ((!empty($params['view']) && $params['view'] == 'core.DownloadItem') &&
+			    $embedded && empty($cookiePath)) {
 			/* embedded DownloadItem urls go to the G2 directly, a very special case */
 			$this->assertEquals($expectedUrlWithSessionId, $actualUrl,
 					    'embedded DownloadItem link without configured ' .
@@ -282,21 +292,23 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	}
 	$testItemPath = str_replace('%2F', '/', urlencode($testItemPath));
 
-	/* array(expected path, params for generateUrl) */
+	/* array(expected path, params for generateUrl, options for generateUrl) */
 	$tests = array();
 	/* core.ShowItem on albums have the logical path */
 	$tests[] = array('v' . $testAlbumPath,
-			 array('view' => 'core.ShowItem', 'itemId' => $testAlbum->getId()));
+			 array('view' => 'core.ShowItem', 'itemId' => $testAlbum->getId()),
+			 array());
 	/* core.ShowItem on items have the logical path, file type and .html */
 	$tests[] = array('v' . $testItemPath . '.html',
-			 array('view' => 'core.ShowItem', 'itemId' => $testItem->getId()));
+			 array('view' => 'core.ShowItem', 'itemId' => $testItem->getId()),
+			 array());
 	/* core.ShowItem at the top level has no prefix */
 	$tests[] = array('phpunit_test.php?g2_view=core.ShowItem',
-			 array('view' => 'core.ShowItem'));
+			 array('view' => 'core.ShowItem'), array());
 	/* %path% for non-FileSystemEntity falls back to long url */
 	$tests[] = array(
 	    'phpunit_test.php?g2_view=core.ShowItem&amp;g2_itemId=' . $derivative->getId(),
-	    array('view' => 'core.ShowItem', 'itemId' => $derivative->getId()));
+	    array('view' => 'core.ShowItem', 'itemId' => $derivative->getId()), array());
 	/*
 	 * core.DownloadItem on items have the id, serial number,
 	 * path component and file type
@@ -305,25 +317,33 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 				 $testItem->getId(), $testItem->getSerialNumber(),
 				 urlencode($testItem->getPathComponent())),
 			 array('view' => 'core.DownloadItem',
-			       'itemId' => $testItem->getId()));
+			       'itemId' => $testItem->getId()), array());
 	/* php.Unit pattern withouth any keywords */
 	$tests[] = array('phpunit/',
-			 array('view' => 'php.Unit'));
+			 array('view' => 'php.Unit'), array());
 	/* path rule with extension suffix */
 	$tests[] = array('t' . rtrim($testAlbumPath, '/') . '.test',
 			 array('view' => 'php.Unit', 'subView' => 'test.suffixExt',
-			       'itemId' => $testAlbum->getId()));
+			       'itemId' => $testAlbum->getId()), array());
 	$tests[] = array('t' . $testItemPath . '.test',
 			 array('view' => 'php.Unit', 'subView' => 'test.suffixExt',
-			       'itemId' => $testItem->getId()));
+			       'itemId' => $testItem->getId()), array());
 	/* path rule with path suffix */
 	$tests[] = array(ltrim($testAlbumPath, '/') . 'test.html',
 			 array('view' => 'php.Unit', 'subView' => 'test.suffixPath',
-			       'itemId' => $testAlbum->getId()));
+			       'itemId' => $testAlbum->getId()), array());
 	$tests[] = array(ltrim($testItemPath, '/') . '/test.html',
 			 array('view' => 'php.Unit', 'subView' => 'test.suffixPath',
-				       'itemId' => $testItem->getId()));
-
+				       'itemId' => $testItem->getId()), array());
+	/* href URLs should go directly to G2 */
+	$tests[] = array('themes/foo/images/bar.jpg',
+			 array('href' => 'themes/foo/images/bar.jpg'), array());	
+	/* forceDirect should go directly to G2 */
+	$tests[] = array('v' . $testAlbumPath,
+			 array('view' => 'core.ShowItem', 'itemId' => $testAlbum->getId()),
+			 array('forceDirect' => true));
+	/* TODO: add separate href with full URL (http://) test */
+	
 	return $tests;
     }
 }

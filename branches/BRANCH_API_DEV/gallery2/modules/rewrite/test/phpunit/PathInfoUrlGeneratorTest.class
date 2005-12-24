@@ -152,8 +152,16 @@ class PathInfoUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	    $gallery->setUrlGenerator($urlGenerator);
 
 	    foreach ($tests as $test) {
-		list ($expectedUrlPath, $params) = $test;
-		if (substr($expectedUrlPath, 0, 16) == 'phpunit_test.php') {
+		list ($expectedUrlPath, $params, $options) = $test;
+		/*
+		 * FIXME: use RewriteUrlGeneratorTestCase::testShortUrls
+		 * or at least copy the whole code to improve test coverage
+		 * And what about embedded G2? The expectedUrl does certainly not
+		 * start with /gallery2/ in embedded G2.
+		 */
+		if (!empty($params['href'])) {
+		    $expectedUrl = '/gallery2/' . $expectedUrlPath;
+		} else if (substr($expectedUrlPath, 0, 16) == 'phpunit_test.php') {
 		    $expectedUrl = '/gallery2/phpunit_test.php' . $base .
 			substr($expectedUrlPath, 16);
 		} else {
