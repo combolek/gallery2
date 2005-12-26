@@ -85,12 +85,16 @@
      name="{g->formVar var="form[action][back]"}" value="{g->text text="Back"}"/>
 
     {if isset($TestResults.action)}
-        <input type="submit" class="inputTypeSubmit"
-         name="{g->formVar var="form[action][testParser]"}" value="{g->text text="Save"}"/>
+      <input type="submit" class="inputTypeSubmit"
+       name="{g->formVar var="form[action][testParser]"}" value="{g->text text="Save"}"/>
     {/if}
     {if !$SetupRewrite.needsConfiguration}
-        <input type="submit" class="inputTypeSubmit"
-         name="{g->formVar var="form[action][done]"}" value="{g->text text="Done"}"/>
+      <input type="submit" class="inputTypeSubmit"
+       name="{g->formVar var="form[action][done]"}" value="{g->text text="Done"}"/>
+    {/if}
+    {if isset($TestResults.refresh)}
+      <input type="submit" class="inputTypeSubmit"
+       name="{g->formVar var="form[action][refresh]"}" value="{g->text text="Test again"}"/>
     {/if}
     </div>
   {/if}

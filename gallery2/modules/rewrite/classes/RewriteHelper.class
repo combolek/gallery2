@@ -66,7 +66,8 @@ class RewriteHelper {
 	    }
 
 	    $path = 'modules/rewrite/classes/parsers/' . $rewriteParserId . '/parser.inc';
-	    if ($platform->file_exists($path)) {
+	    if ($platform->file_exists(GalleryCoreApi::getPluginBaseDir('module', 'rewrite') .
+		    $path)) {
 		GalleryCoreApi::requireOnce($path);
 	    }
 	    $class = $rewriteParserId . 'Parser';
