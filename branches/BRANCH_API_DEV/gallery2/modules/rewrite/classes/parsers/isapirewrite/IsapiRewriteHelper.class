@@ -425,6 +425,11 @@ class IsapiRewriteHelper {
 	    $TestResults['action'] = 1;
 	}
 
+	if ($TestResults['isapiInfo'] != REWRITE_STATUS_OK ||
+		$TestResults['httpdini'] != REWRITE_STATUS_OK) {
+	    $TestResults['refresh'] = 1;
+	}
+
 	$TestResults['template'] = 'modules/rewrite/templates/IsapiRewriteTestResults.tpl';
 	$template->setVariable('TestResults', $TestResults);
 

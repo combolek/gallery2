@@ -163,6 +163,17 @@ class SetupRewriteControllerTest extends GalleryControllerTestCase {
 			    $results, 'handleRequest');
     }
 
+    function testRefresh() {
+	GalleryUtilities::putRequestVariable('form[action][refresh]', 1);
+
+	$results = $this->handleRequest();
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'rewrite.SetupRewrite'),
+				  'error' => array(),
+				  'status' => array()),
+			    $results, 'handleRequest');
+    }
+
     function testTestParser1() {
 	GalleryUtilities::putRequestVariable('form[action][testParser]', 1);
 	GalleryUtilities::putRequestVariable('form[phpunit]', 1);

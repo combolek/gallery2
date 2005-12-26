@@ -580,6 +580,11 @@ class ModRewriteHelper {
 
 	if ($TestResults['gallery']['modRewrite'] != REWRITE_STATUS_OK) {
 	    $TestResults['action'] = 1;
+	    $TestResults['refresh'] = 1;
+	} else if ($TestResults['gallery']['htaccess'] != REWRITE_STATUS_OK ||
+		(isset($TestResults['embedded']) &&
+		$TestResults['embedded']['htaccess'] != REWRITE_STATUS_OK)) {
+	    $TestResults['refresh'] = 1;
 	}
 
     	$TestResults['template'] = 'modules/rewrite/templates/ModRewriteTestResults.tpl';
