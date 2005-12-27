@@ -177,8 +177,9 @@ class GalleryTestResult extends TestResult {
 		$class = 'Failure';
 		$text = 'r.cells[4].firstChild.style.display="inline";';
 		$failure = $this->_testsFailed++ ? '' : '<h2>Failure Details</h2><ol>';
-		$failure .= '<li><a name="fail' . $this->fRunTests . '">' . $test->classname()
-			  . '.' . $test->name() . "</a></li><ul>\n";
+		$failure .= '<li><a href="?filter=' . urlencode($test->name()). '" name="fail' .
+		    $this->fRunTests . '">' . $test->classname() . '.' . $test->name() .
+		    "</a></li><ul>\n";
 		foreach ($test->getExceptions() as $exception) {
 		    $failure .= '<li>' . $exception->getMessage() . "</li>\n";
 		}
