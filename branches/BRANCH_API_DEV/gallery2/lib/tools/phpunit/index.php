@@ -157,8 +157,9 @@ class GalleryTestResult extends TestResult {
 	foreach ($failures as $failure) {
 	    $newFilter[$failure->getClassName() . '.' . $failure->getTestName()] = 1;
 	}
-	printf('<script type="text/javascript">var failedTestFilter="(%s)$";</script>',
-		implode('|', array_keys($newFilter)));
+	printf('<script type="text/javascript">var failedTestFilter="(%s)$";%s</script>',
+		implode('|', array_keys($newFilter)),
+		"document.getElementById('runBrokenButton').style.display='block';");
     }
 
     function _endTest($test) {
