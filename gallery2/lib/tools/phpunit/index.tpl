@@ -237,7 +237,8 @@
     <p><span id="testFailCount">&nbsp;</span> failed
        with <span id="testErrorCount">&nbsp;</span></p>
 
-    <input type="button" onclick="reRun();" value="Re-run broken tests"/>
+    <input type="button" onclick="reRun();" value="Re-run broken tests"
+     id="runBrokenButton" style="display:none"/>
   </div>
 
   <?php
