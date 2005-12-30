@@ -78,6 +78,11 @@ class DownloadItemView extends GalleryView {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	/* Don't allow malicious URLs */
+	$fileName = GalleryUtilities::getRequestVariables('fileName');
+	if (!empty($fileName) && $fileName != $pseudoFileName) {
+	    return GalleryCoreApi::error(GALLERY_ERROR, __FILE__, __LINE__, 'malicious url');
+	}
 
 	/* Get the path to the file */
 	list ($ret, $path) = $item->fetchPath();

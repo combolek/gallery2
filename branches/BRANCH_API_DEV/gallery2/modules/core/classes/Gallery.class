@@ -868,6 +868,11 @@ class Gallery {
      * @return true if we transferred the file successfully
      */
     function fastDownload($relativePath, $filename, $lastModified, $mimeType, $contentLength) {
+	/* Pass malicious URLs down to core.DownloadItem */
+	$requestFileName = GalleryUtilities::getRequestVariables('fileName');
+	if (!empty($requestFileName) && $requestFileName != $filename) {
+	    return false;
+	}
 	/* Don't use GalleryPlatform here -- we're aiming for max speed */
 	/* TODO: benchmark what it would cost us to use GalleryPlatform */
 	$cacheBase = $this->getConfig('data.gallery.cache');

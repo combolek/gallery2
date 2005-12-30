@@ -123,6 +123,16 @@ class FastDownloadTest extends GalleryTestCase {
 	    $bytesWritten);
     }
 
+    function testMaliciousUrlComponent() {
+	global $gallery;
+
+	GalleryUtilities::putRequestVariable('fileName', 'bogus.jpg');
+	$ret = $gallery->fastDownload('/phpunit/cache', 'phpunit.jpg',
+	    'Thu, 01 Jan 1970 00:00:01 GMT', 'image/jpeg', 50);
+
+	$this->assert(!$ret, 'status');
+    }
+
     /* Fake event that removes permissions that don't affect the guest user */
     function testRemoveIrrelevantPermission() {
 	global $gallery;
