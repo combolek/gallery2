@@ -134,8 +134,8 @@ class ItemPermissionsController extends GalleryController {
 
 	    if (empty($error)) {
 		/* Don't add the permission if it already exists */
-		list ($ret, $hasIt) = GalleryCoreApi::hasPermission(
-		    $itemId, array($user->getId()), array(), array($permission));
+		list ($ret, $hasIt) =
+		    GalleryCoreApi::hasPermission($itemId, $user->getId(), $permission);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -188,8 +188,8 @@ class ItemPermissionsController extends GalleryController {
 
 	    if (empty($error)) {
 		/* Don't add the permission if it already exists */
-		list ($ret, $hasIt) = GalleryCoreApi::hasPermission(
-		    $itemId, array(), array($group->getId()), array($permission));
+		list ($ret, $hasIt) =
+		    GalleryCoreApi::hasPermission($itemId, $group->getId(), $permission);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}

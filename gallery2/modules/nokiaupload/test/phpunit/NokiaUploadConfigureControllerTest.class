@@ -148,8 +148,7 @@ class NokiaUploadConfigureControllerTest extends GalleryControllerTestCase {
 
 	$hasAddDataItem = false;
 	foreach ($perms as $perm) {
-	    if ($perm == array('userId' => 0, 'groupId' => $this->_groupId,
-			       'permission' => 'core.addDataItem')) {
+	    if ($perm == array('groupId' => $this->_groupId, 'permission' => 'core.addDataItem')) {
 		$hasDataItem = true;
 	    }
 	}

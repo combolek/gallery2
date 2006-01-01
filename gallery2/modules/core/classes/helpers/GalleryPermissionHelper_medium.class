@@ -59,9 +59,16 @@ class GalleryPermissionHelper_medium {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
 	$groupIds = array_keys($groupIds);
-	$userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
+	if ($userId == $gallery->getActiveUserId()) {
+	    /* Session based permissions */
+	    $session =& $gallery->getSession();
+	    $sessionEntityIds = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+	    if (!empty($sessionEntityIds)) {
+		$groupIds = array_merge($groupIds, $sessionEntityIds);
+	    }
+	}
+	$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
 	$storage =& $gallery->getStorage();
 	list ($ret, $bitOr) = $storage->getFunctionSql('BIT_OR',
@@ -81,7 +88,7 @@ class GalleryPermissionHelper_medium {
 	    AND
 	    [GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
 	    AND
-	    [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
+	    [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
 	GROUP BY
 	    [GalleryAccessSubscriberMap::itemId]
 	';
@@ -235,7 +242,8 @@ class GalleryPermissionHelper_medium {
      */
     function studyPermissions($itemIds, $userId=null) {
 
-	list ($ret, $permissionsTable) = GalleryCoreApi::fetchPermissionsForItems($itemIds, $userId);
+	list ($ret, $permissionsTable) =
+	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $userId);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}

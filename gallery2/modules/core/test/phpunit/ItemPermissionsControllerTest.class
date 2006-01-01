@@ -185,8 +185,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	}
 	foreach ($permissions as $permission) {
 	    if ($permission['groupId'] == $this->_group->getId()) {
-		$this->assertEquals(array('userId' => 0,
-					  'groupId' => $this->_group->getId(),
+		$this->assertEquals(array('groupId' => $this->_group->getId(),
 					  'permission' => 'core.edit'),
 				    $permission);
 		$count++;
@@ -250,9 +249,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    foreach ($permissions as $permission) {
-		if ($permission['groupId'] == $this->_group->getId()) {
-		    $this->assertEquals(array('userId' => 0,
-					      'groupId' => $this->_group->getId(),
+		if (isset($permission['groupId'])
+			&& $permission['groupId'] == $this->_group->getId()) {
+		    $this->assertEquals(array('groupId' => $this->_group->getId(),
 					      'permission' => 'core.edit'),
 					$permission);
 		    $count++;
@@ -377,7 +376,7 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($permissions as $permission) {
-	    if ($permission['groupId'] == $this->_group->getId()) {
+	    if (isset($permission['groupId']) && $permission['groupId'] == $this->_group->getId()) {
 		$this->assert(false, 'invalid group permission found');
 	    }
 	}
@@ -420,7 +419,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    foreach ($permissions as $permission) {
-		if ($permission['groupId'] == $this->_group->getId()) {
+		if (isset($permission['groupId'])
+			&& $permission['groupId'] == $this->_group->getId()) {
 		    $this->assert(false, 'invalid group permission found: ' .
 				  serialize($permission));
 		}
@@ -456,9 +456,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($permissions as $permission) {
-	    if ($permission['userId'] == $this->_user->getId()) {
+	    if (isset($permission['userId'])
+		    && $permission['userId'] == $this->_user->getId()) {
 		$this->assertEquals(array('userId' => $this->_user->getId(),
-					  'groupId' => 0,
 					  'permission' => 'core.edit'),
 				    $permission);
 		$count++;
@@ -521,9 +521,9 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    foreach ($permissions as $permission) {
-		if ($permission['userId'] == $this->_user->getId()) {
+		if (isset($permission['userId'])
+			&& $permission['userId'] == $this->_user->getId()) {
 		    $this->assertEquals(array('userId' => $this->_user->getId(),
-					      'groupId' => 0,
 					      'permission' => 'core.edit'),
 					$permission);
 		    $count++;
@@ -645,7 +645,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	foreach ($permissions as $permission) {
-	    if ($permission['userId'] == $this->_user->getId()) {
+	    if (isset($permission['userId'])
+		    && $permission['userId'] == $this->_user->getId()) {
 		$this->assert(false, 'invalid user permission found');
 	    }
 	}
@@ -690,7 +691,8 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    foreach ($permissions as $permission) {
-		if ($permission['userId'] == $this->_user->getId()) {
+		if (isset($permission['userId'])
+			&& $permission['userId'] == $this->_user->getId()) {
 		    $this->assert(false,
 				  'invalid user permission found: ' . serialize($permission));
 		}
@@ -810,12 +812,12 @@ class ItemPermissionsControllerTest extends GalleryControllerTestCase {
 	}
 	$foundEdit = $foundChange = false;
 	foreach ($permissions as $permission) {
-	    if ($permission['userId'] == $this->_user->getId() &&
-		    $permission['permission'] == 'core.edit') {
-		$foundEdit = true;
-	    } else if ($permission['userId'] == $this->_user->getId() &&
-		    $permission['permission'] == 'core.changePermissions') {
-		$foundChange = true;
+	    if (isset($permission['userId']) && $permission['userId'] == $this->_user->getId()) {
+		if ($permission['permission'] == 'core.edit') {
+		    $foundEdit = true;
+		} else if ($permission['permission'] == 'core.changePermissions') {
+		    $foundChange = true;
+		}
 	    }
 	}
 	$this->assert($foundEdit, 'user should have core.edit permission');

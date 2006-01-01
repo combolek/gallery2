@@ -78,6 +78,8 @@ class GalleryCoreApi {
       *   + DONE: Renamed GallerySession::_getRemoteIdentifier to getRemoteIdentifier (now public)
       *   + DONE: Added a $succes return value to fetchWebPage to allow us to check for
       *       failed requests (error 404, etc) here and share that with the caller
+      *   + DONE: changed params of hasPermission, changed return value of
+      *           fetchAllPermissionsForItem, added addEntityPermission/removeEntityPermission
       */
     function getApiVersion() {
 	return array(6, 11);
@@ -692,8 +694,10 @@ class GalleryCoreApi {
     /**
      * Add the given itemid, userid, permission mapping
      *
-     * @param int the id of the GalleryGroup
-     * @param array userid => permission
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryUser
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
@@ -705,10 +709,12 @@ class GalleryCoreApi {
     }
 
     /**
-     * Add the given itemid, userid, permission mapping
+     * Add the given itemid, groupid, permission mapping
      *
+     * @param int the id of the GalleryItem
      * @param int the id of the GalleryGroup
-     * @param array userid => permission
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
@@ -720,32 +726,73 @@ class GalleryCoreApi {
     }
 
     /**
+     * Add the given itemid, entityid, permission mapping
+     * (Session based permissions; permission is granted when this entityId is added to
+     *  GALLERY_PERMISSION_SESSION_KEY array in the session)
+     *
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryEntity
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function addEntityPermission($itemId, $entityId, $permission, $applyToChildren=false) {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
+	return GalleryPermissionHelper_advanced::addEntityPermission($itemId, $entityId,
+								     $permission, $applyToChildren);
+    }
+
+    /**
      * Remove the given itemid, userid, permission mapping
      *
-     * @param int the id of the GalleryGroup
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryUser
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function removeUserPermission($itemId, $userId, $permission, $applyToChildren=false) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
-	return GalleryPermissionHelper_advanced::removeUserPermission($itemId, $userId,
-								      $permission, $applyToChildren);
+	return GalleryPermissionHelper_advanced::removeUserPermission(
+		$itemId, $userId, $permission, $applyToChildren);
     }
 
     /**
-     * Remove the given itemid, userid, permission mapping
+     * Remove the given itemid, groupid, permission mapping
      *
+     * @param int the id of the GalleryItem
      * @param int the id of the GalleryGroup
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function removeGroupPermission($itemId, $groupId, $permission, $applyToChildren=false) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
-	return GalleryPermissionHelper_advanced::removeGroupPermission($itemId, $groupId,
-								       $permission,
-								       $applyToChildren);
+	return GalleryPermissionHelper_advanced::removeGroupPermission(
+		$itemId, $groupId, $permission, $applyToChildren);
+    }
+
+    /**
+     * Remove the given itemid, entityid, permission mapping
+     *
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryEntity
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function removeEntityPermission($itemId, $entityId, $permission, $applyToChildren=false) {
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
+	return GalleryPermissionHelper_advanced::removeEntityPermission(
+		$itemId, $entityId, $permission, $applyToChildren);
     }
 
     /**
@@ -767,8 +814,7 @@ class GalleryCoreApi {
      * @param int the id of the item
      * @param boolean should we compress the permission list?
      * @return array object GalleryStatus a status code
-     *               array array('userId' => ...,
-     *                           'groupId' => ...,
+     *               array array('userId' or 'groupId' or 'entityId' => ...,
      *                           'permission' => ...)
      * @static
      */
@@ -793,21 +839,20 @@ class GalleryCoreApi {
     }
 
     /**
-     * Does the user/group combo have all needed permissions for the target item?
+     * Are any or the given user/group ids directly granted all given permissions
+     * for the target item?
      *
      * @param int the id of the target item
-     * @param array int user ids
-     * @param array int group ids
-     * @param array string target permissions
+     * @param array of int entity ids (usually user or group ids) or a single id
+     * @param array of string permission ids or single permission id
      * @return array object GalleryStatus a status code
      *               boolean true if yes
      * @static
      */
-    function hasPermission($itemId, $userIds, $groupIds, $permission) {
+    function hasPermission($itemId, $entityIds, $permissions) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
-	return GalleryPermissionHelper_advanced::hasPermission($itemId, $userIds,
-							       $groupIds, $permission);
+	return GalleryPermissionHelper_advanced::hasPermission($itemId, $entityIds, $permissions);
     }
 
     /**

@@ -42,13 +42,13 @@ class GalleryPermissionHelper_advanced {
      * @param int the id of the GalleryItem
      * @param int the id of the GalleryUser
      * @param string the permission id
-     * @param whether or not this call applies to child items
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function addUserPermission($itemId, $userId, $permission, $applyToChildren=false) {
 	$ret = GalleryPermissionHelper_advanced::_changePermission(
-	    'add', $itemId, $userId, 0, $permission, $applyToChildren);
+	    'add', $itemId, $userId, $permission, $applyToChildren);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -69,13 +69,13 @@ class GalleryPermissionHelper_advanced {
      * @param int the id of the GalleryItem
      * @param int the id of the GalleryGroup
      * @param string the permission id
-     * @param whether or not this call applies to child items
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function addGroupPermission($itemId, $groupId, $permission, $applyToChildren=false) {
 	$ret = GalleryPermissionHelper_advanced::_changePermission(
-	    'add', $itemId, 0, $groupId, $permission, $applyToChildren);
+	    'add', $itemId, $groupId, $permission, $applyToChildren);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -103,7 +103,8 @@ class GalleryPermissionHelper_advanced {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	if ($group->getGroupType() != GROUP_ALL_USERS && $group->getGroupType() != GROUP_EVERYBODY) {
+	if ($group->getGroupType() != GROUP_ALL_USERS
+		&& $group->getGroupType() != GROUP_EVERYBODY) {
 	    list ($ret, $userData) = GalleryCoreApi::fetchUsersForGroup($groupId);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -122,18 +123,41 @@ class GalleryPermissionHelper_advanced {
     }
 
     /**
+     * Add the given itemid, entityid, permission mapping
+     * (Session based permissions; permission is granted when this entityId is added to
+     *  GALLERY_PERMISSION_SESSION_KEY array in the session)
+     *
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryEntity
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function addEntityPermission($itemId, $entityId, $permission, $applyToChildren=false) {
+	$ret = GalleryPermissionHelper_advanced::_changePermission(
+	    'add', $itemId, $entityId, $permission, $applyToChildren);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return null;
+    }
+
+    /**
      * Remove the given itemid, userid, permission mapping
      *
      * @param int the id of the GalleryItem
      * @param int the id of the GalleryUser
      * @param string the permission id
-     * @param whether or not this call applies to child items
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function removeUserPermission($itemId, $userId, $permission, $applyToChildren=false) {
 	$ret = GalleryPermissionHelper_advanced::_changePermission(
-	    'remove', $itemId, $userId, 0, $permission, $applyToChildren);
+	    'remove', $itemId, $userId, $permission, $applyToChildren,
+	    array('userId' => (int)$userId, 'groupId' => null));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -154,13 +178,14 @@ class GalleryPermissionHelper_advanced {
      * @param int the id of the GalleryItem
      * @param int the id of the GalleryGroup
      * @param string the permission id
-     * @param whether or not this call applies to child items
+     * @param boolean (optional) whether or not this call applies to child items
      * @return object GalleryStatus a status code
      * @static
      */
     function removeGroupPermission($itemId, $groupId, $permission, $applyToChildren=false) {
 	$ret = GalleryPermissionHelper_advanced::_changePermission(
-	    'remove', $itemId, 0, $groupId, $permission, $applyToChildren);
+	    'remove', $itemId, $groupId, $permission, $applyToChildren,
+	    array('userId' => null, 'groupId' => (int)$groupId));
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -174,30 +199,48 @@ class GalleryPermissionHelper_advanced {
     }
 
     /**
+     * Remove the given itemid, entityid, permission mapping
+     *
+     * @param int the id of the GalleryItem
+     * @param int the id of the GalleryEntity
+     * @param string the permission id
+     * @param boolean (optional) whether or not this call applies to child items
+     * @return object GalleryStatus a status code
+     * @static
+     */
+    function removeEntityPermission($itemId, $entityId, $permission, $applyToChildren=false) {
+	$ret = GalleryPermissionHelper_advanced::_changePermission(
+	    'remove', $itemId, $entityId, $permission, $applyToChildren);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
+	return null;
+    }
+
+    /**
      * Make the appropriate permission change.
      *
      * @param string the type of change ('add' or 'remove')
      * @param int the id of the GalleryItem
-     * @param int the id of the GalleryUser
-     * @param int the id of the GalleryGroup
+     * @param int the id of the GalleryEntity (usually GalleryUser or GalleryGroup)
      * @param int the permission id
      * @param whether or not this call applies to child items
+     * @param array (optional) base event data for Gallery::RemovePermission event
      * @return object GalleryStatus a status code
      * @access private
      * @static
      */
-    function _changePermission($changeType, $itemId, $userId, $groupId,
-			       $permission, $applyToChildren) {
+    function _changePermission($changeType, $itemId, $entityId,
+			       $permission, $applyToChildren, $removeEventIds=null) {
 	global $gallery;
-	$userOrGroupId = max($userId, $groupId);
-	if (empty($itemId) || empty($userOrGroupId) || empty($permission) ||
+	if (empty($itemId) || empty($entityId) || empty($permission) ||
 		($changeType != 'add' && $changeType != 'remove')) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
-	$itemId = (int) $itemId;
-	$userId = (int) $userId;
-	$groupId = (int) $groupId;
-	
+	$itemId = (int)$itemId;
+	$entityId = (int)$entityId;
+
 	$storage =& $gallery->getStorage();
 
 	list ($ret, $lockId) =
@@ -276,9 +319,7 @@ class GalleryPermissionHelper_advanced {
 	 * be moved to that new acl.  We could probably do this more efficiently with subselects
 	 * (can't use them until we raise the MySQL bar to 4.x) or temporary tables.
 	 */
-	$oldToNewAclMapping = array();
-	$itemsToBeRemapped = array();
-	$removeEventData = array();
+	$oldToNewAclMapping = $itemsToBeRemapped = $removeEventData = array();
 
 	while ($result = $searchResults->nextResult()) {
 	    list ($oldAclId, $targetItemId) = array((int)$result[0], (int)$result[1]);
@@ -286,7 +327,7 @@ class GalleryPermissionHelper_advanced {
 		/* Figure out what the current bits are */
 		list ($ret, $currentBits) =
 		    GalleryPermissionHelper_advanced::_fetchPermissionBitsForItem(
-			$targetItemId, $userOrGroupId);
+			$targetItemId, $entityId);
 		if ($ret) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -309,14 +350,14 @@ class GalleryPermissionHelper_advanced {
 			    $ret = GalleryCoreApi::addMapEntry(
 				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
-				      'userOrGroupId' => $userOrGroupId,
+				      'userOrGroupId' => $entityId,
 				      'permission' => $newBits));
 			} else {
 			    /* Update the current entry in our map to reflect this change. */
 			    $ret = GalleryCoreApi::updateMapEntry(
 				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
-				      'userOrGroupId' => $userOrGroupId),
+				      'userOrGroupId' => $entityId),
 				array('permission' => $newBits));
 			}
 			if ($ret) {
@@ -344,13 +385,13 @@ class GalleryPermissionHelper_advanced {
 			    $ret = GalleryCoreApi::removeMapEntry(
 				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
-				      'userOrGroupId' => $userOrGroupId));
+				      'userOrGroupId' => $entityId));
 			} else {
 			    /* Update the current entry in our map to reflect this change. */
 			    $ret = GalleryCoreApi::updateMapEntry(
 				'GalleryAccessMap',
 				array('accessListId' => $newAclId,
-				      'userOrGroupId' => $userOrGroupId),
+				      'userOrGroupId' => $entityId),
 				array('permission' => $newBits));
 			}
 			if ($ret) {
@@ -407,13 +448,11 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	/* Post a RemovePermission event for all affected items if necessary */
-	if (!empty($removeEventData)) {
+	if (!empty($removeEventIds) && !empty($removeEventData)) {
 	    /* user/groupId 0 has a special meaning in the RemovePermission event */
-	    $eventUserId = $userId < 1 ? null : $userId;
-	    $eventGroupId = $groupId < 1 ? null : $groupId;
+	    $removeEventIds['itemIdsAndBits'] = $removeEventData;
 	    $event = GalleryCoreApi::newEvent('Gallery::RemovePermission');
-	    $event->setData(array('userId' => $eventUserId, 'groupId' => $eventGroupId,
-				  'itemIdsAndBits' => $removeEventData));
+	    $event->setData($removeEventIds);
 	    list ($ret) = GalleryCoreApi::postEvent($event);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
@@ -484,8 +523,7 @@ class GalleryPermissionHelper_advanced {
      * @param int the id of the item
      * @param boolean should we compress the permission list?
      * @return array object GalleryStatus a status code
-     *               array array('userId' => ...,
-     *                           'groupId' => ...,
+     *               array array('userId' or 'groupId' or 'entityId' => ...,
      *                           'permission' => ...)
      * @static
      */
@@ -499,10 +537,13 @@ class GalleryPermissionHelper_advanced {
 	$query = '
 	SELECT
 	    [GalleryAccessMap::userOrGroupId],
+	    [GalleryUser::id],
 	    [GalleryGroup::id],
 	    [GalleryAccessMap::permission]
 	FROM
 	    [GalleryAccessSubscriberMap], [GalleryAccessMap]
+	    LEFT JOIN [GalleryUser] ON
+	      [GalleryAccessMap::userOrGroupId] = [GalleryUser::id]
 	    LEFT JOIN [GalleryGroup] ON
 	      [GalleryAccessMap::userOrGroupId] = [GalleryGroup::id]
 	WHERE
@@ -519,23 +560,21 @@ class GalleryPermissionHelper_advanced {
 	}
 
 	$storage =& $gallery->getStorage();
+	GalleryCoreApi::requireOnce(
+	    'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
 
 	$data = array();
 	while ($result = $searchResults->nextResult()) {
-	    $permissions = $storage->convertBitsToInt($result[2]);
-	    GalleryCoreApi::requireOnce(
-		'modules/core/classes/helpers/GalleryPermissionHelper_medium.class');
+	    $permissions = $storage->convertBitsToInt($result[3]);
 	    list ($ret, $permissions) =
 		GalleryPermissionHelper_medium::convertBitsToIds($permissions, $compress);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    $userId = empty($result[1]) ? (int)$result[0] : 0;
-	    $groupId = empty($result[1]) ? 0 : (int)$result[0];
+	    $idKey = !empty($result[1]) ? 'userId' : (!empty($result[2]) ? 'groupId' : 'entityId');
 	    foreach ($permissions as $permission) {
-		$data[] = array('userId' => $userId,
-				'groupId' => $groupId,
+		$data[] = array($idKey => (int)$result[0],
 				'permission' => $permission['id']);
 	    }
 	}
@@ -723,23 +762,23 @@ class GalleryPermissionHelper_advanced {
     }
 
     /**
-     * Does the user/group combo have all needed permissions for the target item?
+     * Are any or the given user/group ids directly granted all given permissions
+     * for the target item?
      *
      * @param int the id of the target item
-     * @param array int user ids
-     * @param array int group ids
-     * @param array string target permissions
+     * @param array of int entity ids (usually user or group ids) or a single id
+     * @param array of string permission ids or single permission id
      * @return array object GalleryStatus a status code
      *               boolean true if yes
      * @static
      */
-    function hasPermission($itemId, $userIds, $groupIds, $permission) {
+    function hasPermission($itemId, $entityIds, $permissions) {
 	global $gallery;
 
-	if (!isset($permission)) {
+	if (empty($permissions) || empty($entityIds)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
-	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permission);
+	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permissions);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -750,7 +789,11 @@ class GalleryPermissionHelper_advanced {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($userIds) + count($groupIds));
+
+	if (!is_array($entityIds)) {
+	    $entityIds = array($entityIds);
+	}
+	$entityIdMarkers = GalleryUtilities::makeMarkers(count($entityIds));
 
 	$query = '
 	SELECT
@@ -760,10 +803,10 @@ class GalleryPermissionHelper_advanced {
 	WHERE
 	  [GalleryAccessSubscriberMap::itemId] = ?
 	  AND [GalleryAccessMap::accessListId] = [GalleryAccessSubscriberMap::accessListId]
-	  AND [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
+	  AND [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
 	  AND (' . $andPermission . ' = ?)
 	';
-	$data = array_merge(array($itemId), $userIds, $groupIds);
+	$data = array_merge(array($itemId), $entityIds);
 	$data[] = $storage->convertIntToBits($bits);
 	$data[] = $storage->convertIntToBits($bits);
 

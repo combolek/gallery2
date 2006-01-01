@@ -74,7 +74,7 @@ class ItemAttributesTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals(array(array('userId' => 0, 'groupId' => $everybodyGroupId,
+	$this->assertEquals(array(array('groupId' => $everybodyGroupId,
 					'permission' => 'core.view')), $compressedPerms,
 			    'Failed to define initial permissions');
 

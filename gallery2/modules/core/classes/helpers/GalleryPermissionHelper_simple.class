@@ -52,7 +52,15 @@ class GalleryPermissionHelper_simple {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $groupIds = array_keys($groupIds);
-	    $userOrGroupIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
+	    if ($userId == $gallery->getActiveUserId()) {
+		/* Session based permissions */
+		$session =& $gallery->getSession();
+		$sessionEntityIds = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+		if (!empty($sessionEntityIds)) {
+		    $groupIds = array_merge($groupIds, $sessionEntityIds);
+		}
+	    }
+	    $entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
 	    list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits($permission);
 	    if ($ret) {
@@ -72,7 +80,7 @@ class GalleryPermissionHelper_simple {
 	    FROM
 	      [GalleryAccessMap]
 	    WHERE
-	      [GalleryAccessMap::userOrGroupId] IN (' . $userOrGroupIdMarkers . ')
+	      [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
 	      AND
 	      ' . $bitAndPermission . ' = ?
 	    ';
@@ -172,7 +180,7 @@ class GalleryPermissionHelper_simple {
 	      [GalleryPermissionSetMap]
 	    ';
 
-	    list($ret, $searchResults) = $gallery->search($query);
+	    list ($ret, $searchResults) = $gallery->search($query);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }

@@ -773,18 +773,18 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$expectedPermissions = $this->testComments
-	    ? array(array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	    ? array(array('groupId' => $this->_everybodyGroupId,
 			  'permission' => 'comment.add'),
-		    array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+		    array('groupId' => $this->_everybodyGroupId,
 			  'permission' => 'comment.view'))
 	    : array();
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
 				       'permission' => 'core.viewResizes');
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
 				       'permission' => 'core.viewSource');
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_adminGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_adminGroupId,
 				       'permission' => 'core.all');
-	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(), 'groupId' => 0,
+	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
 				       'permission' => 'core.all');
 
 	usort($expectedPermissions, array($this, '_sortByPermission'));
@@ -881,18 +881,18 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	 * verify view permissions on the migrated album and a child item
 	 */
 	$expectedPermissions = $this->testComments
-	    ? array(array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	    ? array(array('groupId' => $this->_everybodyGroupId,
 			  'permission' => 'comment.add'),
-		    array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+		    array('groupId' => $this->_everybodyGroupId,
 			  'permission' => 'comment.view'))
 	    : array();
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
 				       'permission' => 'core.viewResizes');
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_everybodyGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_everybodyGroupId,
 				       'permission' => 'core.viewSource');
-	$expectedPermissions[] = array('userId' => 0, 'groupId' => $this->_adminGroupId,
+	$expectedPermissions[] = array('groupId' => $this->_adminGroupId,
 				       'permission' => 'core.all');
-	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(), 'groupId' => 0,
+	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
 				       'permission' => 'core.all');
 
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($testAlbumId, true);
@@ -1137,9 +1137,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    }
 	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
-		if ($permission['userId'] > 0) {
+		if (isset($permission['userId'])) {
 		    $userPerms[$permission['userId']][$permission['permission']] = true;
-		} else {
+		} else if (isset($permission['groupId'])) {
 		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
 		}
 	    }
@@ -1300,13 +1300,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    }
 	    list ($ret, $permissions) =
 		    GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
-	    $userPerms = array();
-	    $groupPerms = array();
+	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
-		if ($permission['userId']>0) {
-		    $userPerms[$permission['userId']][$permission['permission']]=TRUE;
-		} else {
-		    $groupPerms[$permission['groupId']][$permission['permission']]=TRUE;
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
 		}
 	    }
 	    foreach ($permsToTest as $permToTest => $expected) {
@@ -1410,13 +1409,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
-	    $userPerms = array();
-	    $groupPerms = array();
+	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
-		if ($permission['userId']>0) {
-		    $userPerms[$permission['userId']][$permission['permission']]=TRUE;
-		} else {
-		    $groupPerms[$permission['groupId']][$permission['permission']]=TRUE;
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
 		}
 	    }
 	    foreach ($permsToTest as $permToTest => $expected) {
@@ -1552,13 +1550,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	    }
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
-	    $userPerms = array();
-	    $groupPerms = array();
+	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
-		if ($permission['userId']>0) {
-		    $userPerms[$permission['userId']][$permission['permission']]=TRUE;
-		} else {
-		    $groupPerms[$permission['groupId']][$permission['permission']]=TRUE;
+		if (isset($permission['userId'])) {
+		    $userPerms[$permission['userId']][$permission['permission']] = true;
+		} else if (isset($permission['groupId'])) {
+		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
 		}
 	    }
 	    foreach ($permsToTest as $permToTest => $expected) {
@@ -1700,9 +1697,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 		GalleryCoreApi::fetchAllPermissionsForItem($testAlbum->getId(), false);
 	    $userPerms = $groupPerms = array();
 	    foreach ($permissions as $permission) {
-		if ($permission['userId'] > 0) {
+		if (isset($permission['userId'])) {
 		    $userPerms[$permission['userId']][$permission['permission']] = true;
-		} else {
+		} else if (isset($permission['groupId'])) {
 		    $groupPerms[$permission['groupId']][$permission['permission']] = true;
 		}
 	    }
@@ -1882,10 +1879,12 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	if ($cmp = strcmp($a['permission'], $b['permission'])) {
 	    return $cmp;
 	}
-	if ($cmp = strcmp($a['userId'], $b['userId'])) {
+	list ($aKey, $aVal) = each($a);
+	list ($bKey, $bVal) = each($b);
+	if ($cmp = strcmp($aKey, $bKey)) {
 	    return $cmp;
 	}
-	return strcmp($a['userId'], $b['userId']);
+	return strcmp($aVal, $bVal);
     }
 }
 
