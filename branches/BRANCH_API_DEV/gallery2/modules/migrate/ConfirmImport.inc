@@ -1131,10 +1131,10 @@ class ConfirmImportController extends GalleryController {
 				    return $ret->wrap(__FILE__, __LINE__);
 				}
 				foreach ($itemPermissions as $itemPermission) {
-				    if ($itemPermission['permission'] == 'core.view' &&
-					    $itemPermission['userId'] != $newItem->getOwnerId() &&
-					    $itemPermission['groupId'] != $adminUsersGroupId) {
-					if ($itemPermission['userId'] > 0) {
+				    if ($itemPermission['permission'] == 'core.view') {
+					if (isset($itemPermission['userId'])
+						&& $itemPermission['userId']
+						   != $newItem->getOwnerId()) {
 					    $ret = GalleryCoreApi::removeUserPermission(
 						$newItem->getId(), $itemPermission['userId'],
 						'core.view', false);
@@ -1142,7 +1142,9 @@ class ConfirmImportController extends GalleryController {
 						GalleryCoreApi::releaseLocks($importLockIds);
 						return $ret->wrap(__FILE__, __LINE__);
 					    }
-					} else {
+					} else if (isset($itemPermission['groupId'])
+						&& $itemPermission['groupId']
+						   != $adminUsersGroupId) {
 					    $ret = GalleryCoreApi::removeGroupPermission(
 						$newItem->getId(), $itemPermission['groupId'],
 						'core.view', false);

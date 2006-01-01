@@ -607,7 +607,7 @@ class ItemTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assert(count($checkPermissions) == 0, 'could not reset item permissions');
+	$this->assertEquals(array(), $checkPermissions, 'could not reset item permissions');
 
 	/* Add indirect permissions to oldOwner by a group membership */
 	$ret = GalleryCoreApi::addGroupPermission(
@@ -666,13 +666,12 @@ class ItemTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$groupPermissions = array();
-	$userPermissions = array();
+	$groupPermissions = $userPermissions = array();
 	foreach ($permissions as $perm) {
-	    if ($perm['userId']>0) {
-		$userPermissions[$perm['userId']][$perm['permission']]=TRUE;
-	    } else {
-		$groupPermissions[$perm['groupId']][$perm['permission']]=TRUE;
+	    if (isset($perm['userId'])) {
+		$userPermissions[$perm['userId']][$perm['permission']] = true;
+	    } else if (isset($perm['groupId'])) {
+		$groupPermissions[$perm['groupId']][$perm['permission']] = true;
 	    }
 	}
 	/* Verify the new user has the right permissions */
