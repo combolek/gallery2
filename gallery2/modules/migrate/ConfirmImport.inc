@@ -1298,6 +1298,12 @@ class ConfirmImportController extends GalleryController {
 	    }
 	}
 
+	/* We just did a lot of permission wrangling; optimize our access lists */
+	$ret = GalleryCoreApi::compactAccessLists();
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
 	/* Checkpoint to ensure items are saved to the DB in case of a later failure */
 	$ret = $storage->checkPoint();
 	if ($ret) {
