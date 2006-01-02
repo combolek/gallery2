@@ -37,7 +37,7 @@ GalleryCoreApi::requireOnce('modules/permalinks/classes/PermalinksMapHelper.clas
  *
  */
 class PermalinksTest extends GalleryTestCase {
-    
+
     var $_aliasNamesToDelete;
 
     function PermalinksTest($methodName) {
@@ -49,7 +49,7 @@ class PermalinksTest extends GalleryTestCase {
 	parent::setUp();
 
 	$this->_aliasNamesToDelete = array();
-    
+
 	$ret = $this->_markPluginParametersForCleanup('module', 'permalinks');
 	if ($ret) {
 	    print $ret->getAsHtml();
@@ -76,7 +76,7 @@ class PermalinksTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	
+
 	$this->_aliasNamesToDelete[] = 'testAlias';
 
 	$ret =
@@ -87,10 +87,10 @@ class PermalinksTest extends GalleryTestCase {
 
 	$this->_aliasNamesToDelete[] = 'testAlias1';
     }
-    
+
     function tearDown() {
 	parent::tearDown();
-	
+
 	foreach ($this->_aliasNamesToDelete as $name) {
 	    $ret =
 		PermalinksMapHelper::deleteAlias($name);
@@ -196,8 +196,7 @@ class PermalinksTest extends GalleryTestCase {
 	}
 	$item->setMimeType('image/gif');
 
-	$ret =
-	    PermalinksMapHelper::createAlias('testAlias2', $item->getId());
+	$ret = PermalinksMapHelper::createAlias('testAlias2', $item->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -222,14 +221,14 @@ class PermalinksTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assert(empty($destId));
+	$this->assert(empty($destId), "DestId still there: $destId");
 
 	list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias($aliasesAlbum[0]);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assert(empty($destId));
+	$this->assert(empty($destId), "DestId still there: $destId");
     }
 }
 ?>

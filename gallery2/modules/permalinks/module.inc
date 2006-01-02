@@ -133,8 +133,8 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
-		foreach ($results as $id => $name) {
-		    $ret = PermalinksMapHelper::deleteAlias($id);
+		foreach ($results as $name) {
+		    $ret = PermalinksMapHelper::deleteAlias($name);
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
