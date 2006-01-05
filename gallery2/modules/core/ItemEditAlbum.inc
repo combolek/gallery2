@@ -368,7 +368,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Recreating resized images'), 'Preparing...', 0);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Get the child id => child types */
@@ -397,7 +397,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	    /* Get and delete all current resizes */
 	    list ($ret, $resizesTable) = GalleryCoreApi::fetchResizesByItemIds($currentChildIds);
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+                return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    
 	    foreach ($resizesTable as $resizes) {
@@ -494,7 +494,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Recreating resized images'), 'Complete', 1);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$redirect['view'] = 'core.ItemAdmin';
 	$redirect['subView'] = 'core.ItemEdit';
@@ -516,7 +516,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 	$ret = $templateAdapter->updateProgressBar(
 	    $module->translate('Rebuilding thumbnails...'), '', 0);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	
 	/* Get the child id => child types */
