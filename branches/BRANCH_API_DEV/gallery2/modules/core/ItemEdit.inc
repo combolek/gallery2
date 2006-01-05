@@ -77,20 +77,17 @@ class ItemEditController extends GalleryController {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = array();
-	$error = array();
-
 	/* Load the correct edit plugin */
 	list ($ret, $plugin) =
 	    GalleryCoreApi::newFactoryInstanceById('ItemEditPlugin', $editPlugin);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
 	if (!isset($plugin)) {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
+	$status = array();
 	list ($ret, $error, $status['editMessage'], $requiresProgressBar) =
 	    $plugin->handleRequest($form, $item, $preferred);
 	if ($ret) {
@@ -384,10 +381,12 @@ class ItemEditPlugin {
      * @param the item's preferred derivative, if there is one
      * @return array object GalleryStatus a status code
      *               array error messages
-     *               array warning messages
+     *               string localized status message
+     *               boolean true if progress bar is needed
      */
     function handleRequest($form, &$item, &$preferred) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null, null);
+	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
+		     null, null, null);
     }
 
     /**
