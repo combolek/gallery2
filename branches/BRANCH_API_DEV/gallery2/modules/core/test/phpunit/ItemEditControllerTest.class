@@ -167,7 +167,7 @@ class ItemEditControllerTestPluginSuccess {
 			 array('PREFERRED MISMATCH'), null);
 	}
 
-	return array(null, array(), 'success');
+	return array(null, array(), 'success', false);
     }
 }
 
@@ -179,7 +179,7 @@ class ItemEditControllerTestPluginSuccess {
  */
 class ItemEditControllerTestPluginFailAndWarn extends ItemEditPlugin {
     function handleRequest($form, &$item, &$preferred) {
-	return array(null, array('failed'), null);
+	return array(null, array('failed'), null, false);
     }
 }
 

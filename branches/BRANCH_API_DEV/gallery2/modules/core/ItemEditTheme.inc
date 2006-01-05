@@ -43,11 +43,11 @@ class ItemEditTheme extends ItemEditPlugin {
 
 	list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($item);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
 	$status = null;
@@ -56,13 +56,13 @@ class ItemEditTheme extends ItemEditPlugin {
 	if ($theme->isAdvancedSettings()) {
 	    list ($ret, $error, $status) = $theme->handleSettingsRequest($form, $item->getId());
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
 	if (isset($form['action']['save']) && empty($error)) {
@@ -72,14 +72,14 @@ class ItemEditTheme extends ItemEditPlugin {
 		/* Get the item settings */
 		list ($ret, $settings) = $theme->getSettings($item->getId());
 		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
                 if (isset($form['changeInDescendents'])) {
                     list ($ret, $subAlbumIds) =
                         GalleryCoreApi::fetchDescendentAlbumItemIds($item);
                     if ($ret) {
-                        return array($ret->wrap(__FILE__, __LINE__), null, null);
+                        return array($ret->wrap(__FILE__, __LINE__), null, null, null);
                     }
                     array_unshift($subAlbumIds, $item->getId());
                 } else {
@@ -98,7 +98,7 @@ class ItemEditTheme extends ItemEditPlugin {
 		    if (!empty($form['useGlobal'][$key])) {
                         $ret = $theme->removeParameter($key, $subAlbumIds);
 			if ($ret) {
-			    return array($ret->wrap(__FILE__, __LINE__), null, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 			}
 		    } else {
 			if ($setting['type'] == 'checkbox') {
@@ -114,7 +114,7 @@ class ItemEditTheme extends ItemEditPlugin {
 
                         $ret = $theme->setParameter($key, $value, $subAlbumIds);
 			if ($ret) {
-			    return array($ret->wrap(__FILE__, __LINE__), null, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 			}
 		    }
 		}
@@ -134,7 +134,7 @@ class ItemEditTheme extends ItemEditPlugin {
 	     */
 	}
 
-	return array(null, $error, $status);
+	return array(null, $error, $status, false);
     }
 
     /**
