@@ -91,10 +91,13 @@ class ItemEditController extends GalleryController {
 	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
-	list ($ret, $error, $status['editMessage']) =
+	list ($ret, $error, $status['editMessage'], $requiresProgressBar) =
 	    $plugin->handleRequest($form, $item, $preferred);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	if (!empty($requiresProgressBar)) {
+	    $results['delegate']['view'] = 'core.ProgressBar';
 	}
 
 	/* Now let each option process its data */

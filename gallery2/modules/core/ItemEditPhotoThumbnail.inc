@@ -50,7 +50,7 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    if (!empty($thumbnails)) {
@@ -63,17 +63,17 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 	    list ($ret, $source) =
 		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    list ($ret, $thumbnail) = $thumbnail->refresh();
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    if (empty($form['crop']['width'])) {
@@ -102,35 +102,35 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 							  true);
 
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    $thumbnail->setDerivativeOperations($operations);
 
 	    $ret = $thumbnail->save();
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lock);
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    /* Figure out where to redirect upon success */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    $status = $module->translate('Thumbnail cropped successfully');
 	} else if (isset($form['action']['reset']) && isset($thumbnail)) {
 	    list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    list ($ret, $thumbnail) = $thumbnail->refresh();
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    $operations = GalleryCoreApi::removeDerivativeOperation(
@@ -139,23 +139,23 @@ class ItemEditPhotoThumbnail extends ItemEditPlugin {
 
 	    $ret = $thumbnail->save();
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lock);
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 
 	    /* Figure out where to redirect upon success */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    $status = $module->translate('Thumbnail reset successfully');
 	}
 
-	return array(null, $error, $status);
+	return array(null, $error, $status, false);
     }
 
     /**

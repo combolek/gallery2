@@ -62,13 +62,13 @@ class ItemEditAnimation extends ItemEditPlugin {
 	    if (empty($error)) {
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($item->getId());
 		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		list ($ret, $item) = $item->refresh();
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$item->setWidth($form['width']);
@@ -77,25 +77,25 @@ class ItemEditAnimation extends ItemEditPlugin {
 		$ret = $item->save();
 		if ($ret) {
 		    GalleryCoreApi::releaseLocks($lock);
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
 		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 		}
 
 		$status = $module->translate('Changes saved successfully');
 	    }
 	}
 
-	return array(null, $error, $status);
+	return array(null, $error, $status, false);
     }
 
     /**

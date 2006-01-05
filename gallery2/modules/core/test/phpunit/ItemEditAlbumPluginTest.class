@@ -232,6 +232,7 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
     }
 
     function testSaveAndRecreate() {
+	global $gallery;
 
 	/* Create some children */
 	for ($i = 0; $i < 2; $i++) {
@@ -241,42 +242,66 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
+	}
 
-	    /* The first item has a thumbnail and a resize,
-	     * the second has a cropped thumbnail and a preferred */
-	    if ($i == 0) {
-		list ($ret, $ignore) = $this->_createDerivative($child[$i], $child[$i]->getId(),
-								DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-								'thumbnail|100',
-								'test/file');
-		if ($ret) {
-		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-		}
+	/* and subalbum with grandchildren */
+	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	list ($ret, $child[2]) = $this->_createRandomDataItem(
+	    $this->_childAlbum->getId(), 'test/file', array(),
+	    __FILE__, 'ItemEditAlbumPluginTestDataItem');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+        
+	list ($ret, $ignore) = $this->_createDerivative($child[0], $child[0]->getId(),
+							DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+							'thumbnail|100',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
-		list ($ret, $ignore) = $this->_createDerivative($child[$i], $child[$i]->getId(),
-								DERIVATIVE_TYPE_IMAGE_RESIZE,
-								'scale|100,100',
-								'test/file');
-		if ($ret) {
-		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-		}
-	    } else if ($i == 1) {
-		list ($ret, $ignore) = $this->_createDerivative($child[$i], $child[$i]->getId(),
-								DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-								'crop|0,0,50,50;thumbnail|100',
-								'test/file');
-		if ($ret) {
-		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-		}
+	list ($ret, $ignore) = $this->_createDerivative($child[0], $child[0]->getId(),
+							DERIVATIVE_TYPE_IMAGE_RESIZE,
+							'scale|100,100',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	    
+	list ($ret, $ignore) = $this->_createDerivative($child[1], $child[1]->getId(),
+							DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+							'crop|0,0,50,50;thumbnail|100',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
-		list ($ret, $ignore) = $this->_createDerivative($child[$i], $child[$i]->getId(),
-								DERIVATIVE_TYPE_IMAGE_PREFERRED,
-								'rotate|90',
-								'test/file');
-		if ($ret) {
-		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-		}
-	    }
+	list ($ret, $ignore) = $this->_createDerivative($child[1], $child[1]->getId(),
+							DERIVATIVE_TYPE_IMAGE_PREFERRED,
+							'rotate|90',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $ignore) = $this->_createDerivative($child[2], $child[2]->getId(),
+							DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+							'crop|0,0,80,80;thumbnail|150',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $ignore) = $this->_createDerivative($child[2], $child[2]->getId(),
+							DERIVATIVE_TYPE_IMAGE_PREFERRED,
+							'rotate|180',
+							'test/file');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Use valid inputs */
@@ -299,11 +324,23 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	GalleryUtilities::putRequestVariable('form[serialNumber]',
 					     $this->_album->getSerialNumber());
 
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
 				  $this->_translate('Settings saved successfully.')),
 			    $results);
+
+	/* Assert that we have 2 callbacks in the queue (recreate thumbnails and resies) */
+	$this->assertEquals(2, $mockAdapter->getCallbackCount());
+
+	/* Run the tasks */
+	$ret = $mockAdapter->runCallbacks();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	list ($ret, $this->_album) = $this->_album->refresh();
 	if ($ret) {
@@ -312,7 +349,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 
 	/* Verify the thumbnail and resizes on our children */
 	list ($ret, $thumbnails) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($child[0]->getId(), $child[1]->getId()));
+	    GalleryCoreApi::fetchThumbnailsByItemIds(array($child[0]->getId(), 
+		$child[1]->getId(), $child[2]->getId()));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -321,14 +359,17 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	    $thumbnails[$child[0]->getId()]->getDerivativeOperations());
 	$this->assertEquals('crop|0,0,50,50;thumbnail|123',
 	    $thumbnails[$child[1]->getId()]->getDerivativeOperations());
+	$this->assertEquals('crop|0,0,80,80;thumbnail|123',
+	    $thumbnails[$child[2]->getId()]->getDerivativeOperations());
 
 	list ($ret, $resizes) =
-	    GalleryCoreApi::fetchResizesByItemIds(array($child[0]->getId(), $child[1]->getId()));
+	    GalleryCoreApi::fetchResizesByItemIds(array($child[0]->getId(), 
+		$child[1]->getId(), $child[2]->getId()));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	for ($i = 0; $i < 2; $i++) {
+	for ($i = 0; $i < 3; $i++) {
 	    $this->assertEquals('scale|234,234',
 		$resizes[$child[$i]->getId()][0]->getDerivativeOperations(), "$i 0");
 	    $this->assertEquals('scale|345,543',
@@ -343,6 +384,8 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
      * that are larger (dimension wise) than the original.
      */
     function testRecreateResizesForSmallPhoto() {
+	global $gallery;
+	
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -401,11 +444,23 @@ class ItemEditAlbumPluginTest extends ItemEditPluginTestCase {
 	GalleryUtilities::putRequestVariable('form[serialNumber]',
 					     $this->_album->getSerialNumber());
 
+	$mockAdapter = new MockTemplateAdapter();
+	$gallery->_templateAdapter =& $mockAdapter;
+
 	/* Perform the request and verify that we succeeded */
 	$results = $this->handleRequest($this->_album, $this->_preferred);
 	$this->assertEquals(array(array(),
 				  $this->_translate('Settings saved successfully.')),
 			    $results);
+
+	/* Assert that we have 1 callback in the queue */
+	$this->assertEquals(1, $mockAdapter->getCallbackCount());
+
+	/* Run the tasks */
+	$ret = $mockAdapter->runCallbacks();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	/* Now verify that we didn't upsample our resizes */
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds(array($photo->getId()));
