@@ -46,34 +46,34 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	$error = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
 	if (isset($form['cfAdmin'])) {
 	    list ($ret, $adminStatus) = CustomFieldHelper::handleAdminAction($form, $item->getId());
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    foreach ($adminStatus as $key => $tmp) {
 		switch ($key) {
 		case 'saved':
-		    $status = $module->translate("Display settings saved successfully");
+		    $status = $module->translate('Display settings saved successfully');
 		    break;
 		case 'added':
-		    $status = $module->translate("New field added successfully");
+		    $status = $module->translate('New field added successfully');
 		    break;
 		case 'moved':
-		    $status = $module->translate("Field moved successfully");
+		    $status = $module->translate('Field moved successfully');
 		    break;
 		case 'removed':
-		    $status = $module->translate("Field removed successfully");
+		    $status = $module->translate('Field removed successfully');
 		    break;
 		case 'picklist':
-		    $status = $module->translate("Picklist updated successfully");
+		    $status = $module->translate('Picklist updated successfully');
 		    break;
 		case 'error':
 		    $status = '<div class="giError">' .
-			$module->translate("Field name already in use") . '</div>';
+			$module->translate('Field name already in use') . '</div>';
 		    break;
 		default:
 		    $status = $key;
@@ -82,16 +82,16 @@ class CustomFieldItemEdit extends ItemEditPlugin {
 	} else if (isset($form['action']['save'])) {
 	    $ret = CustomFieldHelper::saveFieldValues($item, $form['fields']);
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'customfield');
 	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	    }
 	    $status = $module->translate('Changes saved successfully');
 	}
 
-	return array(null, $error, $status);
+	return array(null, $error, $status, false);
     }
 
     /**
