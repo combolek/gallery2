@@ -105,7 +105,7 @@ class CoreCallbacks {
 		$peerNeighborEnd = min($peerItemIndex + (int)($windowSize/2), $peerLast);
 		/* If the window is pinned to one end, expand it to the entire windowSize */
 		if ($peerNeighborStart == 0) {
-		    $peerNeighborEnd = min($peerLast, $windowSize-1);
+		    $peerNeighborEnd = min($peerLast, $windowSize);
 		} else if ($peerNeighborEnd == $peerLast) {
 		    $peerNeighborStart = max($peerLast - $windowSize, 0);
 		}
