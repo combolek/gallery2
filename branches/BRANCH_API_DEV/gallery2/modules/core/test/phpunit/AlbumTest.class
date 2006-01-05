@@ -808,6 +808,7 @@ class AlbumTest extends GalleryTestCase {
 
     function testFetchAlbumTreeNoPermissions() {
 	global $gallery;
+	$session =& $gallery->getSession();
 
 	list ($ret, $user) = $this->_createRandomUser();
 	if ($ret) {
@@ -843,6 +844,9 @@ class AlbumTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
+
+	/* Clear any session permissions */
+	$session->remove(GALLERY_PERMISSION_SESSION_KEY);
 
 	$gallery->setActiveUser($user);
 
