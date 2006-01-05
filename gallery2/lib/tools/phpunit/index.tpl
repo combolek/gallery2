@@ -109,7 +109,11 @@
 	<input type="hidden" name="<?php echo $sessionKey?>" value="<?php echo $sessionId ?>"/>
 	<?php endif; ?>
 
-	<input style="margin-top: 0.3em; margin-bottom: 0.3em" type="text" name="filter" size="60" value="<?php echo $displayFilter ?>" />
+	<input type="text" name="filter" size="60" value="<?php echo $displayFilter ?>"
+	       id="filter" style="margin-top: 0.3em; margin-bottom: 0.3em"/>
+	<?php if (!isset($_GET['filter'])): ?>
+	  <script type="text/javascript"> document.getElementById('filter').focus(); </script>
+	<?php endif; ?>
 
 	<br/>
         <span id="filter_examples_toggle"
