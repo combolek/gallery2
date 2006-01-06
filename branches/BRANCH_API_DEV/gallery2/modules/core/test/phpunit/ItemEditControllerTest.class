@@ -156,7 +156,7 @@ class ItemEditControllerTestPluginSuccess {
 	list ($ret, $preferredTable) =
 	    GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
 	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
 	if ($preferred != null &&
@@ -164,7 +164,7 @@ class ItemEditControllerTestPluginSuccess {
 	     !is_object($preferredTable[$item->getId()]) ||
 	     $preferredTable[$item->getId()]->getId() != $preferred->getId())) {
 	    return array(GalleryCoreApi::error(ERROR_UNKNOWN, __FILE__, __LINE__),
-			 array('PREFERRED MISMATCH'), null);
+			 array('PREFERRED MISMATCH'), null, null);
 	}
 
 	return array(null, array(), 'success', false);
