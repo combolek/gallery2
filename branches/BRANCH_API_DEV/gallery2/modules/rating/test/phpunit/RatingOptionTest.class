@@ -94,46 +94,43 @@ class RatingOptionTest extends ItemEditOptionTestCase {
 	}
 	$this->assertEquals(0, (int)$enabled, 'Rating enabled.');
     }
-
-    function testEnabledReset() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 1,
-		$this->_album->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$form['action']['undo'] = 'Reset';
-
-	$result = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(array(), array()), $result, 'Reset failed.');
-
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
-		$this->_album->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assertEquals(1, (int)$enabled, 'Rating disabled.');
-    }
-
-    function testDisabledReset() {
+    
+    function testEnableInDescendents() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
 		$this->_album->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
-	$form['action']['undo'] = 'Reset';
-	$form['rating']['enabled'] = 'on';
-
-	$result = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(array(), array()), $result, 'Reset failed.');
-
-	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter('module', 'rating', 'enabled',
-		$this->_album->getId());
+	$form['rating']['enabled'] = 1;
+	$form['changeInDescendents']['rating'] = 1;
+        
+	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals(0, (int)$enabled, 'Rating enabled.');
+	$ret = GalleryCoreApi::setPluginParameter('module', 'rating', 'enabled', 0,
+		$this->_childAlbum->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+        
+	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
+	$this->assertEquals(array(), $error);
+	$this->assertEquals(array(), $warning);
+        
+	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+	    'module', 'rating', 'enabled', $this->_album->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals(1, (int)$enabled, 'Parent album');
+        
+	list ($ret, $enabled) = GalleryCoreApi::getPluginParameter(
+	    'module', 'rating', 'enabled', $this->_childAlbum->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals(1, (int)$enabled, 'Child album');        
     }
 }
 ?>
