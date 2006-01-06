@@ -253,7 +253,7 @@ class GalleryView {
 	/* -------------------------------------------------- */
 	/* Standard user info available for every view */
 	$user = $gallery->getActiveUser();
-	$user = $user->getMemberData();
+	$user = (array)$user;
 	list ($ret, $guestId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {

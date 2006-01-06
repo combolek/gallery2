@@ -72,7 +72,7 @@ class CommentCallbacks {
 		    $commenters[$comments[$i]->getCommenterId()] = 1;
 
 		    /* Extract the member data */
-		    $comments[$i] = $comments[$i]->getMemberData();
+		    $comments[$i] = (array)$comments[$i];
 		}
 
 		/* Load all the commenters */
@@ -85,7 +85,7 @@ class CommentCallbacks {
 		}
 
 		foreach ($commentersList as $commenter) {
-		    $commenters[$commenter->getId()] = $commenter->getMemberData();
+		    $commenters[$commenter->getId()] = (array)$commenter;
 		}
 	    } else {
 		$totalComments = 0;
@@ -107,7 +107,7 @@ class CommentCallbacks {
 	    $LoadComments['comments'] = $comments;
 	    $LoadComments['commenters'] = $commenters;
 	    $LoadComments['can'] = $can;
-	    $LoadComments['item'] = $item->getMemberData();
+	    $LoadComments['item'] = (array)$item;
 	    $LoadComments['totalComments'] = $totalComments;
 
 	    $block =& $smarty->_tpl_vars['block'];

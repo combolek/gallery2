@@ -158,13 +158,13 @@ class ItemMoveController extends GalleryController {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$status['moved']['count']++;
-			
+
 			$ret = $selectedItem->save();
 			if ($ret) {
 			    GalleryCoreApi::releaseLocks(array_merge($lockIds, $currentLockIds));
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
-			
+
 			if (GalleryUtilities::isA($selectedItem, 'GalleryDataItem')) {
 			    /* Update for derivative preferences of new parent */
 			    $ret = GalleryCoreApi::addExistingItemToAlbum($selectedItem, $newParentId);
@@ -180,7 +180,7 @@ class ItemMoveController extends GalleryController {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} while (!empty($selectedItems));
-		
+
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -326,7 +326,7 @@ class ItemMoveView extends GalleryView {
 	    /* Build our peers table */
 	    $peers = array();
 	    foreach ($peerItems as $peerItem) {
-		$peers[$peerItem->getId()] = $peerItem->getMemberData();
+		$peers[$peerItem->getId()] = (array)$peerItem;
 		if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
 		    $peerTypes['album'][$peerItem->getId()] = 1;
 		} else {
@@ -342,7 +342,7 @@ class ItemMoveView extends GalleryView {
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
-		    $peers[$peerItem->getId()]['thumbnail'] = $thumbnail->getMemberData();
+		    $peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 		}
 	    }
 

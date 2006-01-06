@@ -212,7 +212,11 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 		$gallery->debug('checking is modified');
 		/* Save the item, if it's modified */
-		if ($item->isModified()) {
+		list ($ret, $isModified) = $item->isModified();
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		}
+		if ($isModified) {
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null, null);

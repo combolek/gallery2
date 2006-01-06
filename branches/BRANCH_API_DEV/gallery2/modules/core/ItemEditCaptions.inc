@@ -212,7 +212,7 @@ class ItemEditCaptionsView extends GalleryView {
 
 	    /* build peers table */
 	    foreach ($childItems as $child) {
-		$form['items'][$child->getId()] = $child->getMemberData();
+		$form['items'][$child->getId()] = (array)$child;
 
 		/* While we're at it, attach the thumbnails */
 		if (isset($thumbnails[$child->getId()])) {
@@ -222,7 +222,7 @@ class ItemEditCaptionsView extends GalleryView {
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
-		    $form['items'][$child->getId()]['thumbnail'] = $thumbnail->getMemberData();
+		    $form['items'][$child->getId()]['thumbnail'] = (array)$thumbnail;
 		}
 	    }
 	}

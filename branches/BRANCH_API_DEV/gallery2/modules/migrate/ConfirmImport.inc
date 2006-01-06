@@ -1640,7 +1640,7 @@ class ConfirmImportView extends GalleryView {
 	$ConfirmImport['albumValidOwner'] = $albumValidOwner;
 	$ConfirmImport['albumOwnerUserName'] = $albumOwnerUserName;
 	$ConfirmImport['albumOwnerUid'] = $albumOwnerUid;
-	$ConfirmImport['targetAlbum'] = $targetAlbum->getMemberData();
+	$ConfirmImport['targetAlbum'] = (array)$targetAlbum;
 	$ConfirmImport['titles'] = $titles;
 	$template->setVariable('controller', 'migrate.ConfirmImport');
 	$template->setVariable('ConfirmImport', $ConfirmImport);

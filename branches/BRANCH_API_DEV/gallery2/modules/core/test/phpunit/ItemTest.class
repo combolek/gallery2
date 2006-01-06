@@ -1591,5 +1591,12 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryMovieItem.class');
  * @package GalleryCore
  * @subpackage PHPUnit
  */
-class ItemTestMovieItem extends GalleryMovieItem { }
+class ItemTestMovieItem extends GalleryMovieItem {
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'ItemTestMovieItem';
+    }
+}
 ?>

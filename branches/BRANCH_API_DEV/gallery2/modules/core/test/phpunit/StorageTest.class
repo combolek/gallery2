@@ -110,8 +110,11 @@ class StorageTest extends GalleryTestCase {
 	    'GalleryUserGroupMap',
 	    array('userId' => 0, 'groupId' => 1));
 	$this->assertEquals(
-	    sprintf('INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?)',
-		    $storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
+	    array(array(
+	        sprintf('INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?)',
+			$storage->_tablePrefix, $storage->_columnPrefix,
+			$storage->_columnPrefix),
+		array(0, 1))),
 	    $this->_results, 'addMap');
     }
 
@@ -126,11 +129,84 @@ class StorageTest extends GalleryTestCase {
 	$storage->addMapEntry(
 	    'GalleryUserGroupMap',
 	    array('userId' =>array(1, 2, 3), 'groupId' => array(4, 5, 6)));
+
+	list ($ret, $sql) = $storage->getFunctionSql(
+	    'MULTI_INSERT',
+	    array($storage->_tablePrefix . 'UserGroupMap',
+		  array($storage->_columnPrefix . 'userId',
+			$storage->_columnPrefix . 'groupId'), 3));
+
 	$this->assertEquals(
-	    sprintf(
-		'INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?), (?,?), (?,?)',
-		$storage->_tablePrefix, $storage->_columnPrefix, $storage->_columnPrefix),
-	    $this->_results, 'addMap');
+	    array(array($sql, array(1, 4, 2, 5, 3, 6))),
+	    $this->_results,
+	    'addMap');
+    }
+
+    function testSaveEntity() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	$entity = new GalleryChildEntity();
+	$ret = $entity->create(1234);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$ret = $storage->saveEntity($entity);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(
+	    array(
+		array(
+		    sprintf('INSERT INTO %1$sChildEntity (%2$sparentId, %2$sid) VALUES (?,?)',
+			    $storage->_tablePrefix, $storage->_columnPrefix),
+		    array(1234, $entity->id)
+		    ),
+		array(
+		    sprintf('INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
+			    '%2$sisLinkable, %2$slinkId, %2$smodificationTimestamp, ' .
+			    '%2$sserialNumber, %2$sentityType, %2$sonLoadHandlers) ' .
+			    'VALUES (?,?,?,?,?,?,?,?)',
+			    $storage->_tablePrefix, $storage->_columnPrefix),
+		    array($entity->id, $entity->creationTimestamp, 0, 0, 0, 1, 'GalleryChildEntity',
+			  NULL)
+		    ),
+		),
+	    $this->_results);
+    }
+
+    function testTruncateOnSave() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	$entity = new GalleryEntity();
+	$ret = $entity->create();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	/* onLoadHandlers is a medium string, which is 128 chars */
+	$entity->onLoadHandlers = str_repeat('x', 200);
+
+	$ret = $storage->saveEntity($entity);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(
+	    array(
+		array(
+		    sprintf('INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
+			    '%2$sisLinkable, %2$slinkId, %2$smodificationTimestamp, ' .
+			    '%2$sserialNumber, %2$sentityType, %2$sonLoadHandlers) ' .
+			    'VALUES (?,?,?,?,?,?,?,?)',
+			    $storage->_tablePrefix, $storage->_columnPrefix),
+		    array($entity->id, $entity->creationTimestamp, 0, 0, 0, 1, 'GalleryEntity',
+			  str_repeat('x', 128))
+		    )
+		),
+	    $this->_results);
     }
 }
 
@@ -143,8 +219,8 @@ class StorageTestDB {
     }
 
     function execute($query, $data) {
-	$this->_testCase->_results = $query;
-	return null;
+	$this->_testCase->_results[] = array($query, $data);
+	return 1;
     }
 
     function GenID($val) {

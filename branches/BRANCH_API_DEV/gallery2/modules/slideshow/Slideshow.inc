@@ -57,7 +57,7 @@ class SlideshowView extends GalleryView {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
-	    $SlideShow['item'] = $item->getMemberData();
+	    $SlideShow['item'] = (array)$item;
 	}
 
 	list ($ret, $itemList, $start) =
@@ -211,7 +211,7 @@ class SlideshowView extends GalleryView {
 			    }
 			}
 		    }
-		    $image = $images[$i] = $image->getMemberData();
+		    $image = $images[$i] = (array)$image;
 		    if (!isset($image['width']) || !isset($image['height'])) {
 			continue; /* Should not happen */
 		    }
@@ -240,7 +240,7 @@ class SlideshowView extends GalleryView {
 		if (!empty($images)) {
 		    $itemList[] = array(
 			'id' => $childId,
-			'data' => $child->getMemberData(),
+			'data' => (array)$child,
 			'sources' => $images,
 			'sizeClassMap' => $sizeClassMap,
 			'exif' => isset($exif[$childId])

@@ -48,12 +48,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryAlbumItem_core extends GalleryItem {
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryAlbumItem extends GalleryItem {
 
     /**
      * The theme to use for this item
@@ -64,10 +59,10 @@ class GalleryAlbumItem_core extends GalleryItem {
      * @g2   <member-size>SMALL</member-size>
      * @g2 </member>
      *
-     * @var string $_theme
-     * @access private
+     * @var string $theme
+     * @access public
      */
-    var $_theme;
+    var $theme;
 
     /**
      * Specify the name of the field that we're using to order children
@@ -78,10 +73,10 @@ class GalleryAlbumItem_core extends GalleryItem {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
      *
-     * @var int $_orderBy
-     * @access private
+     * @var int $orderBy
+     * @access public
      */
-    var $_orderBy;
+    var $orderBy;
 
     /**
      * Specify the order direction that we're applying to the orderBy field
@@ -92,16 +87,10 @@ class GalleryAlbumItem_core extends GalleryItem {
      * @g2   <member-size>SMALL</member-size>
      * @g2 </member>
      *
-     * @var int $_orderDirection
-     * @access private
+     * @var int $orderDirection
+     * @access public
      */
-    var $_orderDirection;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $orderDirection;
 
     /**
      * Create a new instance of this AlbumItem in the persistent store
@@ -433,7 +422,36 @@ class GalleryAlbumItem_core extends GalleryItem {
 	}
 	return array('Album', 'album');
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryAlbumItem.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryAlbumItem';
+    }
+
+    function getTheme() {
+	return $this->theme;
+    }
+
+    function setTheme($theme) {
+	$this->theme = $theme;
+    }
+
+    function getOrderBy() {
+	return $this->orderBy;
+    }
+
+    function setOrderBy($orderBy) {
+	$this->orderBy = $orderBy;
+    }
+
+    function getOrderDirection() {
+	return $this->orderDirection;
+    }
+
+    function setOrderDirection($orderDirection) {
+	$this->orderDirection = $orderDirection;
+    }
+}
 ?>

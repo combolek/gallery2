@@ -747,10 +747,10 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 					  "contenant des caract\xc3\xa8res accentu\xc3\xa9s.",
 					  1088916185
 					  ),
-				    array($comments[0]->_host,
-					  $comments[0]->_subject,
-					  $comments[0]->_comment,
-					  $comments[0]->_date
+				    array($comments[0]->getHost(),
+					  $comments[0]->getSubject(),
+					  $comments[0]->getComment(),
+					  $comments[0]->getDate()
 					 )
 				    );
 	    }

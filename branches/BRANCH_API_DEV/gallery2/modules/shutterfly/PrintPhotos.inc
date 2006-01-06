@@ -165,7 +165,7 @@ class PrintPhotosView extends GalleryView {
 	    $sessionParam =
 		$needSession ? array($sfSession->getKey() => $sfSession->getId()) : array();
 
-	    $entry = array('item' => $item->getMemberData());
+	    $entry = array('item' => (array)$item);
 	    $entry['imageUrl'] = $urlGenerator->generateUrl(
 		array_merge(array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
 			    $sessionParam),

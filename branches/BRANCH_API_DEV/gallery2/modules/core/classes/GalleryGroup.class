@@ -47,13 +47,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryGroup_core extends GalleryEntity {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryGroup extends GalleryEntity {
 
     /**
      * The group type
@@ -64,10 +58,10 @@ class GalleryGroup_core extends GalleryEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var int $_groupType
-     * @access private
+     * @var int $groupType
+     * @access public
      */
-    var $_groupType;
+    var $groupType;
 
     /**
      * The group name
@@ -79,16 +73,10 @@ class GalleryGroup_core extends GalleryEntity {
      * @g2   <unique/>
      * @g2 </member>
      *
-     * @var string $_groupName
-     * @access private
+     * @var string $groupName
+     * @access public
      */
-    var $_groupName;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $groupName;
 
     /**
      * Create a new instance of this GalleryGroup in the persistent store
@@ -173,7 +161,28 @@ class GalleryGroup_core extends GalleryEntity {
 	}
 	return array('Group', 'group');
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryGroup.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryGroup';
+    }
+
+    function getGroupType() {
+	return $this->groupType;
+    }
+
+    function setGroupType($groupType) {
+	$this->groupType = $groupType;
+    }
+
+    function getGroupName() {
+	return $this->groupName;
+    }
+
+    function setGroupName($groupName) {
+	$this->groupName = $groupName;
+    }
+}
 ?>

@@ -47,13 +47,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryMovieItem_core extends GalleryDataItem {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryMovieItem extends GalleryDataItem {
 
     /**
      * The width of this movie.
@@ -64,10 +58,10 @@ class GalleryMovieItem_core extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $_width
-     * @access private
+     * @var int $width
+     * @access public
      */
-    var $_width;
+    var $width;
 
     /**
      * The height of this movie.
@@ -78,10 +72,10 @@ class GalleryMovieItem_core extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $_height
-     * @access private
+     * @var int $height
+     * @access public
      */
-    var $_height;
+    var $height;
 
     /**
      * The duration of the movie in seconds
@@ -92,16 +86,10 @@ class GalleryMovieItem_core extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $_width
-     * @access private
+     * @var int $duration
+     * @access public
      */
-    var $_duration;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $duration;
 
     /**
      * @see GalleryDataItem::canBeViewedInline()
@@ -303,7 +291,36 @@ class GalleryMovieItem_core extends GalleryDataItem {
 	    return null;
 	}
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryMovieItem.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryMovieItem';
+    }
+
+    function getWidth() {
+	return $this->width;
+    }
+
+    function setWidth($width) {
+	$this->width = $width;
+    }
+
+    function getHeight() {
+	return $this->height;
+    }
+
+    function setHeight($height) {
+	$this->height = $height;
+    }
+
+    function getDuration() {
+	return $this->duration;
+    }
+
+    function setDuration($duration) {
+	$this->duration = $duration;
+    }
+}
 ?>

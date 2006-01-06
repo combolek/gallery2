@@ -59,7 +59,7 @@ class ShowCommentsView extends GalleryView {
 		$commenters[$comments[$i]->getCommenterId()] = 1;
 
 		/* Extract the member data */
-		$comments[$i] = $comments[$i]->getMemberData();
+		$comments[$i] = (array)$comments[$i];
 	    }
 
 	    /* Load all the commenters */
@@ -72,7 +72,7 @@ class ShowCommentsView extends GalleryView {
 	    }
 
 	    foreach ($commentersList as $commenter) {
-		$commenters[$commenter->getId()] = $commenter->getMemberData();
+		$commenters[$commenter->getId()] = (array)$commenter;
 	    }
 	}
 
@@ -92,7 +92,7 @@ class ShowCommentsView extends GalleryView {
 	    'comments' => $comments,
 	    'commenters' => $commenters,
 	    'can' => $can,
-	    'item' => $item->getMemberData()));
+	    'item' => (array)$item));
 
 	return array(null,
 		     array('body' => 'modules/comment/templates/ShowComments.tpl'));

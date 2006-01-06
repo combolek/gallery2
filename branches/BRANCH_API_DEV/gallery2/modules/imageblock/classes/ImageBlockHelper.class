@@ -304,9 +304,9 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 
 	    if (isset($image)) {
 		$itemData['title'] = $title;
-		$itemData['item'] = $item->getMemberData();
-		$itemData['owner'] = $owner->getMemberData();
-		$itemData['thumb'] = $image->getMemberData();
+		$itemData['item'] = (array)$item;
+		$itemData['owner'] = (array)$owner;
+		$itemData['thumb'] = (array)$image;
 		if (isset($forceItem)) {
 		    $itemData['forceItem'] = true;
 		}
@@ -605,8 +605,12 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	     * Newly Created or the parent has changed (item moved), continue
 	     * processing, otherwise break out.
 	     */
-	    if ( !(($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED) ||
-		    $entity->getModifiedFlag('parentId') !== MEMBER_UNMODIFIED) &&
+	    list ($ret, $parentIdIsModified) = $entity->isModified('parentId');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	    if (!(($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED) ||
+		   $parentIdIsModified) &&
 		    (GalleryUtilities::isA($entity, 'GalleryDataItem') ||
 		     GalleryUtilities::isA($entity, 'GalleryAlbumItem')))) {
 		break;

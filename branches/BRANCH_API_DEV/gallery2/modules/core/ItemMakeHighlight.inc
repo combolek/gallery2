@@ -106,7 +106,7 @@ class ItemMakeHighlightView extends GalleryView {
 
 	$parentList = array();
 	foreach (array_reverse($parents) as $parent) {
-	    $parentList[] = $parent->getMemberData();
+	    $parentList[] = (array)$parent;
 	}
 
 	/* Render the HTML body */

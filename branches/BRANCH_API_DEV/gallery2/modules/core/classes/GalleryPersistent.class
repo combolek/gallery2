@@ -26,16 +26,6 @@
  */
 
 /**
- * This member is unmodified
- */
-define('MEMBER_UNMODIFIED', 0x00000000);
-
-/**
- * This member is modified
- */
-define('MEMBER_MODIFIED', 0x00000001);
-
-/**
  * A class that contains information about the state of its members
  *
  * @package GalleryCore
@@ -65,85 +55,88 @@ class GalleryPersistent {
 	/*
 	 * Initialize our persistent info tracker
 	 */
-	$this->_persistentStatus = new stdClass();
-	$this->_persistentStatus->flags = 0;
-	$this->_persistentStatus->modified = array();
-	$this->_persistentStatus->originalValue = array();
-    }
-
-    /**
-     * Return type info about this class's persistent members.
-     *
-     * This class as no persistent members, so return an empty array.
-     * Subclasses will add data to the array.
-     */
-    function getPersistentMemberInfo() {
-	return array();
-    }
-
-    /**
-     * Get the data from this persistent object as an associative array
-     *
-     * @return array memberName => memberValue
-     */
-    function getMemberData() {
-	return array('_className' => get_class($this));
+	$this->_persistentStatus['flags'] = 0;
+	$this->_persistentStatus['originalValue'] = array();
     }
 
     /**
      * Have we modified any data in this class?
      *
-     * @return bool true if modified, false if not.
+     * @return array object GalleryStatus a status code
+     *               bool true if modified, false if not.
      */
-    function isModified() {
-	return !empty($this->_persistentStatus->modified);
-    }
-
-    /**
-     * Set the modified flag for a member
-     *
-     * @param string the name of the member
-     * @param mixed the new field value
-     */
-    function setModifiedFlag($name, $newValue) {
-	if (!array_key_exists($name, $this->_persistentStatus->originalValue)) {
-	    $method = 'get' . $name;
-	    $this->_persistentStatus->originalValue[$name] = $this->$method();
-	}
-
-	if ($this->_persistentStatus->originalValue[$name] === $newValue) {
-	    unset($this->_persistentStatus->modified[$name]);
+    function isModified($member=null) {
+	if ($member) {
+	    $existsInThis = array_key_exists($member, $this);
+	    if (array_key_exists($member, $this->_persistentStatus['originalValue']) !=
+		    $existsInThis) {
+		return array(null, true);
+	    } else {
+		$isModified = $existsInThis &&
+		    $this->_persistentStatus['originalValue'][$member] !== $this->$member;
+		return array(null, $isModified);
+	    }
 	} else {
-	    $this->_persistentStatus->modified[$name] = MEMBER_MODIFIED;
+	    global $gallery;
+	    $storage =& $gallery->getStorage();
+	    list ($ret, $data) = $storage->describeEntity($this->entityType);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $target = $this->entityType;
+	    while ($target) {
+		foreach (array_keys($data[$target]['members']) as $key) {
+		    $existsInThis = array_key_exists($key, $this);
+		    if (array_key_exists($key, $this->_persistentStatus['originalValue']) !=
+			    $existsInThis) {
+			return array(null, true);
+		    }
+		    if ($existsInThis &&
+			    $this->_persistentStatus['originalValue'][$key] != $this->$key) {
+			return array(null, true);
+		    }
+		}
+		$target = $data[$target]['parent'];
+	    }
+	    return array(null, false);
 	}
     }
 
     /**
-     * Get the modification flag for a member
+     * Return the original value of the given member.
+     * @return mixed the value, or null if it was not defined.
      */
-    function getModifiedFlag($name) {
-	if (empty($this->_persistentStatus->modified[$name])) {
-	    return MEMBER_UNMODIFIED;
-	} else {
-	    return $this->_persistentStatus->modified[$name];
+    function getOriginalValue($member) {
+	if (!isset($this->_persistentStatus['originalValue'][$member])) {
+	    return null;
 	}
-    }
-
-    /**
-     * Get a list of all the members that have been modified
-     *
-     * @return array string key names
-     */
-    function getModifiedKeys() {
-	return array_keys($this->_persistentStatus->modified);
+	return $this->_persistentStatus['originalValue'][$member];
     }
 
     /**
      * Reset all modification flags
+     * @return object GalleryStatus a status code
      */
     function clearModifiedFlags() {
-	$this->_persistentStatus->modified = array();
-	$this->_persistentStatus->originalValue = array();
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	list ($ret, $data) = $storage->describeEntity($this->entityType);
+	if ($ret) {
+	    return null;
+	}
+
+	$this->_persistentStatus['originalValue'] = array();
+	$target = $this->entityType;
+	while ($target) {
+	    foreach (array_keys($data[$target]['members']) as $member) {
+		$this->_persistentStatus['originalValue'][$member] =
+		    isset($this->$member) ? $this->$member : null;
+	    }
+	    $target = $data[$target]['parent'];
+	}
+
+	return null;
     }
 
     /**
@@ -155,7 +148,7 @@ class GalleryPersistent {
      * @param string a bit flag to set
      */
     function setPersistentFlag($flag) {
-	$this->_persistentStatus->flags |= $flag;
+	$this->_persistentStatus['flags'] |= $flag;
     }
 
     /**
@@ -167,7 +160,7 @@ class GalleryPersistent {
      * @param string a bit flag to clear
      */
     function clearPersistentFlag($flag) {
-	$this->_persistentStatus->flags &= ~$flag;
+	$this->_persistentStatus['flags'] &= ~$flag;
     }
 
     /**
@@ -180,22 +173,24 @@ class GalleryPersistent {
      * @return bool true if the bit is on, false otherwise
      */
     function testPersistentFlag($flag) {
-	return $this->_persistentStatus->flags & $flag;
+	return $this->_persistentStatus['flags'] & $flag;
     }
 
     /**
-     * Truncate a string to the given size.
+     * Return the relative path to the class for this entity
      *
-     * @param string the input string
-     * @param in the target max string size
-     * @return the truncated string
+     * @return array object GalleryStatus a status code
+     *               string a path like modules/core/classes/GalleryUser.class
      */
-    function _truncateString($input, $size) {
-	if ($input == '') {
-	    return $input;
+    function getClassFile() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	list ($ret, $data) = $storage->describeEntity($this->entityType);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
-	return GalleryUtilities::utf8Substring($input, 0, $size);
+	return array(
+	    null, "modules/{$data[$this->entityType]['module']}/classes/{$this->entityType}.class");
     }
 }
 ?>

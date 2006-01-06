@@ -47,13 +47,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryDataItem_core extends GalleryItem {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryDataItem extends GalleryItem {
 
     /**
      * The mime type of the data file
@@ -65,10 +59,10 @@ class GalleryDataItem_core extends GalleryItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var string $_mimeType
-     * @access private
+     * @var string $mimeType
+     * @access public
      */
-    var $_mimeType;
+    var $mimeType;
 
     /**
      * The byte size of the data file
@@ -79,16 +73,10 @@ class GalleryDataItem_core extends GalleryItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var string $_size
-     * @access private
+     * @var string $size
+     * @access public
      */
-    var $_size;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $size;
 
     /**
      * Data items that can be viewed inline (photos, movies, etc) should return
@@ -440,7 +428,28 @@ class GalleryDataItem_core extends GalleryItem {
     function render($format, $params) {
 	return null;
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryDataItem.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryDataItem';
+    }
+
+    function getMimeType() {
+	return $this->mimeType;
+    }
+
+    function setMimeType($mimeType) {
+	$this->mimeType = $mimeType;
+    }
+
+    function getSize() {
+	return $this->size;
+    }
+
+    function setSize($size) {
+	$this->size = $size;
+    }
+}
 ?>

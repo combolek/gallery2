@@ -227,7 +227,7 @@ class ItemDeleteView extends GalleryView {
 
 	    /* build peers table */
 	    foreach ($peerItems as $peerItem) {
-		$peers[$peerItem->getId()] = $peerItem->getMemberData();
+		$peers[$peerItem->getId()] = (array)$peerItem;
 		if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
 		    $peerTypes['album'][$peerItem->getId()] = 1;
 		} else {
@@ -244,7 +244,7 @@ class ItemDeleteView extends GalleryView {
 		    if ($ret) {
 			/* Ignore thumbnail errors so we can delete items with broken thumbnail */
 		    } else {
-			$peers[$peerItem->getId()]['thumbnail'] = $thumbnail->getMemberData();
+			$peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 		    }
 		}
 	    }

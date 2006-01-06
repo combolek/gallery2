@@ -162,7 +162,7 @@ class RearrangeItemsView extends GalleryView {
 	    $maxWidth = $maxHeight = 0;
 	    foreach ($childItems as $child) {
 		$childId = $child->getId();
-		$child = $child->getMemberData();
+		$child = (array)$child;
 		if (isset($thumbnails[$childId])) {
 		    $thumb = $thumbnails[$childId];
 		    if (!($thumb->getWidth() && $thumb->getHeight())) {
@@ -172,7 +172,7 @@ class RearrangeItemsView extends GalleryView {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
-		    $child['thumbnail'] = $thumb->getMemberData();
+		    $child['thumbnail'] = (array)$thumb;
 		    list ($w, $h) = GalleryUtilities::shrinkDimensionsToFit(
 			$thumb->getWidth(), $thumb->getHeight(), 100);
 		    $maxWidth = max($w, $maxWidth);

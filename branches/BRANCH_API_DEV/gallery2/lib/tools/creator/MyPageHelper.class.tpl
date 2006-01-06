@@ -56,7 +56,7 @@ class MyPageHelper {ldelim}
         ';
 
 	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
-	if ($ret->isError()) {ldelim}
+	if ($ret) {ldelim}
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
@@ -67,7 +67,7 @@ class MyPageHelper {ldelim}
 	    $data = '';
 	{rdelim}
 
-	return array(GalleryStatus::success(), $data);
+	return array(null, $data);
     {rdelim}
 {rdelim}
 ?>

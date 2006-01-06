@@ -1121,7 +1121,7 @@ class GalleryUtilities {
      */
     function _createDepthTree(&$map, $id, $depth=0) {
 	$data = array();
-	$data[] = array('depth' => $depth, 'data' => $map[$id]['instance']->getMemberData());
+	$data[] = array('depth' => $depth, 'data' => (array)$map[$id]['instance']);
 	if (isset($map[$id]['children'])) {
 	    foreach ($map[$id]['children'] as $childId) {
 		$data = array_merge($data,

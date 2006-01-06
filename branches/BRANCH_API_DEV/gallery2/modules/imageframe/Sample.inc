@@ -69,8 +69,8 @@ class SampleView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if ($canSee && isset($thumbnail[$itemId])) {
-		$ImageFrameSample['item'] = $item->getMemberData();
-		$ImageFrameSample['thumb'] = $thumbnail[$itemId]->getMemberData();
+		$ImageFrameSample['item'] = (array)$item;
+		$ImageFrameSample['thumb'] = (array)$thumbnail[$itemId];
 	    }
 	}
 

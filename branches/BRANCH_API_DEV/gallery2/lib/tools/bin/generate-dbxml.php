@@ -26,7 +26,7 @@ if (!empty($_SERVER['SERVER_NAME'])) {
 }
 
 require_once(dirname(__FILE__) . '/XmlParser.inc');
-require_once('../../../../lib/smarty/Smarty.class.php');
+require_once(dirname(__FILE__) . '/../../smarty/Smarty.class.php');
 
 if (!empty($_ENV['TMP'])) {
     $tmpdir = $_ENV['TMP'];
@@ -191,7 +191,10 @@ function generateMapDbXml() {
     foreach ($root[0]['child'] as $map) {
 	$origMapName = $map['child'][0]['content'];
 
-	/* NOTE!  Keep this in sync with the similar block in extractClassXml.pl */
+	/*
+	 * NOTE!  Keep this in sync with the similar block in extractClassXml.pl
+	 * and generate-entities.php
+	 */
 	$mapName = $origMapName;
 	$mapName = preg_replace('/^Gallery/', '', $mapName);
 	/* Shorten some table names to fit Oracle's 30 char name limit.. */

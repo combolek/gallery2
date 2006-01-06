@@ -44,7 +44,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivativeImage.class')
  * @package Panorama
  * @subpackage Classes
  */
-class PanoramaDerivativeImage_core extends GalleryDerivativeImage {
+class PanoramaDerivativeImage extends GalleryDerivativeImage {
 
     /**
      * @see GalleryDerivative::render
@@ -84,8 +84,12 @@ class PanoramaDerivativeImage_core extends GalleryDerivativeImage {
 	    return null;
 	}
     }
-}
 
-GalleryCoreApi::requireOnce(
-    'modules/panorama/classes/interfaces/PanoramaDerivativeImage.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'PanoramaDerivativeImage';
+    }
+}
 ?>

@@ -141,7 +141,7 @@ class AdminDeleteUserQuotaView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$AdminDeleteUserQuota['user'] = $user->getMemberData();
+	$AdminDeleteUserQuota['user'] = (array)$user;
 
 	/* Render the HTML body */
 	$template->setVariable('AdminDeleteUserQuota', $AdminDeleteUserQuota);

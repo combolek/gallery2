@@ -74,6 +74,7 @@ class PermalinksTest extends GalleryTestCase {
 	$ret =
 	    PermalinksMapHelper::createAlias('testAlias', $this->_item->getId());
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -82,6 +83,7 @@ class PermalinksTest extends GalleryTestCase {
 	$ret =
 	    PermalinksMapHelper::createAlias('testAlias1', $this->_album->getId());
 	if ($ret) {
+	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -92,9 +94,9 @@ class PermalinksTest extends GalleryTestCase {
 	parent::tearDown();
 
 	foreach ($this->_aliasNamesToDelete as $name) {
-	    $ret =
-		PermalinksMapHelper::deleteAlias($name);
+	    $ret = PermalinksMapHelper::deleteAlias($name);
 	    if ($ret) {
+		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
@@ -185,12 +187,11 @@ class PermalinksTest extends GalleryTestCase {
 	/* create album, this creates a permalink */
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
-	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $item) = $this->_createRandomDataItem($album->getId(),
-		'image/test', array(), __FILE__, 'GalleryPhotoItem');
+	list ($ret, $item) = $this->_createRandomDataItem(
+	    $album->getId(), 'image/test', array(), __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -207,7 +208,7 @@ class PermalinksTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(array($album->getPathComponent()), $aliasesAlbum);
+	$this->assertEquals(array($album->pathComponent), $aliasesAlbum);
 
 	/* Delete album: deletes sub-item and aliases */
 	$ret = GalleryCoreApi::deleteEntityById($album->getId());
@@ -221,14 +222,14 @@ class PermalinksTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assert(empty($destId), "DestId still there: $destId");
+	$this->assert(empty($destId), "1. Destid not empty ($destId)");
 
 	list($ret, $destId) = PermalinksMapHelper::fetchItemIdForAlias($aliasesAlbum[0]);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assert(empty($destId), "DestId still there: $destId");
+	$this->assert(empty($destId), "2. Destid not empty ($destId)");
     }
 }
 ?>

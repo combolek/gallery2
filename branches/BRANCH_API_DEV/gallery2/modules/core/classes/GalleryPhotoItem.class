@@ -46,13 +46,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryPhotoItem_core extends GalleryDataItem {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryPhotoItem extends GalleryDataItem {
 
     /**
      * The width of this image.
@@ -63,10 +57,10 @@ class GalleryPhotoItem_core extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $_width
-     * @access private
+     * @var int $width
+     * @access public
      */
-    var $_width;
+    var $width;
 
     /**
      * The height of this image.
@@ -77,16 +71,10 @@ class GalleryPhotoItem_core extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $_height
-     * @access private
+     * @var int $height
+     * @access public
      */
-    var $_height;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $height;
 
     /**
      * @see GalleryDataItem::canBeViewedInline()
@@ -267,7 +255,28 @@ class GalleryPhotoItem_core extends GalleryDataItem {
 	    return null;
 	}
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryPhotoItem.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryPhotoItem';
+    }
+
+    function getWidth() {
+	return $this->width;
+    }
+
+    function setWidth($width) {
+	$this->width = $width;
+    }
+
+    function getHeight() {
+	return $this->height;
+    }
+
+    function setHeight($height) {
+	$this->height = $height;
+    }
+}
 ?>

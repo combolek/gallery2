@@ -139,9 +139,9 @@ class DeleteCommentView extends GalleryView {
 	}
 
 	$DeleteComment = array();
-	$DeleteComment['comment'] = $comment->getMemberData();
-	$DeleteComment['commenter'] = $commenter->getMemberData();
-	$DeleteComment['item'] = $item->getMemberData();
+	$DeleteComment['comment'] = (array)$comment;
+	$DeleteComment['commenter'] = (array)$commenter;
+	$DeleteComment['item'] = (array)$item;
 	$DeleteComment['can'] = array('edit' => false, 'delete' => false);
 
 	$template->setVariable('DeleteComment', $DeleteComment);

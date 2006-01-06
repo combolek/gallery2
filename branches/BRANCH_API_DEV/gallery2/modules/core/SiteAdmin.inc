@@ -58,7 +58,7 @@ class SiteAdminView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$rootAlbumData = $rootAlbum->getMemberData();
+	$rootAlbumData = (array)$rootAlbum;
 
 	/* Load the module list */
 	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');

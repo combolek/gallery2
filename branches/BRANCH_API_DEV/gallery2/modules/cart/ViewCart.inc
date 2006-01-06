@@ -73,7 +73,7 @@ class ViewCartView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$ViewCart['rootAlbum'] = $rootAlbum->getMemberData();
+	$ViewCart['rootAlbum'] = (array)$rootAlbum;
 
 	/* Find all our cart plugins */
 	GalleryCoreApi::requireOnce('modules/cart/classes/CartPluginInterface_1_0.class');
@@ -107,7 +107,7 @@ class ViewCartView extends GalleryView {
 	$itemTypeNames = array();
 	if (!empty($cartItemIds)) {
 	    foreach ($itemList as $item) {
-		$items[$item->getId()] = $item->getMemberData();
+		$items[$item->getId()] = (array)$item;
 
 		/* TODO: This is a O(N^3) operation -- probably should be optimized */
 		foreach ($plugins as $pluginId => $pluginData) {
@@ -134,7 +134,7 @@ class ViewCartView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($thumbnailList as $thumbnail) {
-		$thumbnails[$thumbnail->getParentId()] = $thumbnail->getMemberData();
+		$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
 	    }
 	}
 

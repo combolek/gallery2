@@ -255,7 +255,7 @@ class AdminEditGroupUsersView extends GalleryView {
 	$AdminEditGroupUsers = array();
 	$AdminEditGroupUsers['totalUserCount'] = $totalUserCount;
 	$AdminEditGroupUsers['canRemove'] = $canRemove;
-	$AdminEditGroupUsers['group'] = $group->getMemberData();
+	$AdminEditGroupUsers['group'] = (array)$group;
 
 	/* Render the HTML body */
 	$template->setVariable('AdminEditGroupUsers', $AdminEditGroupUsers);

@@ -174,7 +174,7 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	if (!empty($watermarks)) {
 	    foreach (array_keys($watermarks) as $watermarkId) {
-		$watermarks[$watermarkId] = $watermarks[$watermarkId]->getMemberData();
+		$watermarks[$watermarkId] = (array)$watermarks[$watermarkId];
 	    }
 	}
 
@@ -250,9 +250,9 @@ class ItemEditWatermark extends ItemEditPlugin {
 
 	$ItemEditWatermark = array();
 	$ItemEditWatermark['watermarks'] = $watermarks;
-	$ItemEditWatermark['item'] = $item->getMemberData();
+	$ItemEditWatermark['item'] = (array)$item;
 	$ItemEditWatermark['derivative'] =
-	    isset($displayDerivative) ? $displayDerivative->getMemberData() : null;
+	    isset($displayDerivative) ? (array)$displayDerivative : null;
 
 	$template->setVariable('ItemEditWatermark', $ItemEditWatermark);
 	$template->setVariable('controller', 'core.ItemEditWatermark');

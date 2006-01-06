@@ -67,8 +67,8 @@ class PanoramaView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$Panorama['item'] = $item->getMemberData();
-	$Panorama['image'] = $image->getMemberData();
+	$Panorama['item'] = (array)$item;
+	$Panorama['image'] = (array)$image;
 	$Panorama['imageUrl'] = $src;
 	$Panorama['width'] = $viewWidth;
 	$Panorama['moduleUrl'] = GalleryUtilities::convertPathToUrl(dirname(__FILE__));

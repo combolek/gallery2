@@ -369,7 +369,7 @@ class ConfirmPicasaImportView extends GalleryView {
         $ConfirmPicasaImport['existingAlbums'] = $existingAlbums;
         $ConfirmPicasaImport['illegalAlbumNames'] = $illegalAlbumNames;
         $ConfirmPicasaImport['destinationAlbumId'] = $destinationAlbumId;
-        $ConfirmPicasaImport['targetAlbum'] = $targetAlbum->getMemberData();
+        $ConfirmPicasaImport['targetAlbum'] = (array)$targetAlbum;
         $template->setVariable('controller', 'picasa.ConfirmPicasaImport');
         $template->setVariable('ConfirmPicasaImport', $ConfirmPicasaImport);
 	return array(null,

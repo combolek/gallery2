@@ -802,6 +802,19 @@ class GalleryStorage {
     }
 
     /**
+     * Describe the members, classes and classFile of an entity
+     *
+     * @param string a class name
+     * @access protected
+     * @return array object GalleryStatus a status code
+     *               entity associative array
+     */
+    function describeEntity($entityName) {
+	$extras =& $this->_getExtras();
+	return $extras->describeEntity($entityName);
+    }
+
+    /**
      * Execute a given SQL file against the database.  Prefix table and column
      * names as necessary.  Split multiple commands in the file into separate
      * Execute() calls.
@@ -929,51 +942,74 @@ class GalleryStorage {
      * Describe all the members of a map
      *
      * @param string a class name
+     * @param boolean try all modules, not just active ones
      * @return array GalleryStatus a status code,
      *               array member name => member type
      * @access protected
      */
-    function _describeMapMembers($mapName) {
+    function _describeMapMembers($mapName, $tryAllModules=false) {
 	global $gallery;
 
 	/* Note: keep these cache keys in sync with _clearMapMemberCache() */
-	$cacheKey = "GalleryPermissionHelper::describeMapMembers()";
-	if (!GalleryDataCache::containsKey($cacheKey)) {
-	    $cacheParams = array('type' => 'module',
-				 'itemId' => 'GalleryStorage__describeMapMembers',
-				 'id' => '_all');
+	$cacheKey = "GalleryStorage::describeMapMembers()";
+	$cacheParams = array('type' => 'module',
+			     'itemId' => 'GalleryStorage__describeMapMembers',
+			     'id' => '_all');
 
-	    $mapInfo = GalleryDataCache::getFromDisk($cacheParams);
-	    if (!isset($mapInfo)) {
-		/*
-		 * Note: this may load maps info for modules that are inactive, but it may cause
-		 * problems for us to try to calculate which modules are activated, since that
-		 * itself can require a map lookup.
-		 *
-		 * Also, don't use GalleryPlatform here because it can cause
-		 * difficult-to-eliminate issues in the testing code when we use mock platforms.
-		 * Once we have an abstraction layer around GalleryCoreApi we can use the platform
-		 * here.
-		 */
-		$mapInfo = array();
-		$modulesDir = dirname(__FILE__) . "/../..";
-		$dh = opendir($modulesDir);
-		if (!$dh) {
-		    return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null);
-		}
-
-		while (($module = readdir($dh)) !== false) {
-		    $mapsFile = "$modulesDir/$module/classes/Maps.inc";
-		    if (file_exists($mapsFile)) {
-			include($mapsFile);
-		    }
-		}
-		closedir($dh);
+	/* We only cache the results for active modules */
+	if (!$tryAllModules) {
+	    if (!GalleryDataCache::containsKey($cacheKey)) {
+		$mapInfo = GalleryDataCache::getFromDisk($cacheParams);
+	    } else {
+		$mapInfo = GalleryDataCache::get($cacheKey);
 	    }
-	    GalleryDataCache::putToDisk($cacheParams, $mapInfo);
-	    GalleryDataCache::put($cacheKey, $mapInfo);
-	} else {
-	    $mapInfo = GalleryDataCache::get($cacheKey);
+	}
+
+	if (!isset($mapInfo)) {
+	    list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $mapInfo = array();
+	    foreach ($moduleStatus as $moduleId => $moduleInfo) {
+		if (!$tryAllModules && empty($moduleInfo['active'])) {
+		    continue;
+		}
+
+		/*
+		 * Don't use GalleryPlatform here because it can cause difficult-to-eliminate
+		 * issues in the testing code when we use mock platforms. Once we have an
+		 * abstraction layer around GalleryCoreApi we can change this.
+		 */
+		$moduleDir = GalleryCoreApi::getPluginBaseDir('module', $moduleId);
+		if ($ret) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		$mapsFile = "$moduleDir/modules/$moduleId/classes/Maps.inc";
+		if (file_exists($mapsFile)) {
+		    include($mapsFile);
+		}
+	    }
+
+	    if (!$tryAllModules) {
+		GalleryDataCache::putToDisk($cacheParams, $mapInfo);
+		GalleryDataCache::put($cacheKey, $mapInfo);
+	    }
+	}
+
+	if (!$tryAllModules && !isset($mapInfo[$mapName])) {
+	    list ($ret, $mapInfo[$mapName]) = $this->_describeMapMembers($mapName, true);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	if (!isset($mapInfo[$mapName])) {
+	    return array(GalleryCoreApi::error(ERROR_MISSING_VALUE, __FILE__, __LINE__,
+					       "Undefined map: $mapName"),
+			 null);
 	}
 
 	return array(null, $mapInfo[$mapName]);

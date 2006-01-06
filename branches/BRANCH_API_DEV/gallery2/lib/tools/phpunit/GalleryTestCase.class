@@ -442,8 +442,12 @@ class GalleryTestCase extends TestCase {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    /* Change some settings */
+	    $ret = $this->_verifyFields($album, array_keys($fields));
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
 
+	    /* Change some settings */
 	    foreach ($fields as $field => $value) {
 		$func = "set$field";
 		$album->$func($value);
@@ -520,8 +524,14 @@ class GalleryTestCase extends TestCase {
 	$item->setKeywords('These are some keywords');
 	$item->setDescription('This is a description');
 
-	foreach ($fields as $key => $value) {
-	    eval("\$item->set$key(\$value);");
+	$ret = $this->_verifyFields($item, array_keys($fields));
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	foreach ($fields as $field => $value) {
+	    $func = "set$field";
+	    $item->$func($value);
 	}
 
 	/* Save it */
@@ -683,6 +693,11 @@ class GalleryTestCase extends TestCase {
 	$derivative->setDerivativeSourceId($sourceId);
 	$derivative->setDerivativeOperations($operations);
 
+	$ret = $this->_verifyFields($derivative, array_keys($fields));
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	foreach ($fields as $field => $value) {
 	    $func = "set$field";
 	    $derivative->$func($value);
@@ -765,8 +780,14 @@ class GalleryTestCase extends TestCase {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	foreach ($fields as $key => $value) {
-	    eval("\$user->set$key(\$value);");
+	$ret = $this->_verifyFields($user, array_keys($fields));
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	foreach ($fields as $field => $value) {
+	    $func = "set$field";
+	    $user->$func($value);
 	}
 
 	$ret = $user->save();
@@ -860,6 +881,17 @@ class GalleryTestCase extends TestCase {
 	$buf = ob_get_contents();
 	ob_end_clean();
 	return $buf;
+    }
+
+    function _verifyFields($entity, $fields) {
+	$vars = get_class_vars(get_class($entity));
+	foreach ($fields as $field) {
+	    if (!array_key_exists($field, $vars)) {
+		return GalleryCoreApi::error(
+		    ERROR_BAD_PARAMETER, __FILE__, __LINE__, "Bad param $field");
+	    }
+	}
+	return null;
     }
 }
 ?>
