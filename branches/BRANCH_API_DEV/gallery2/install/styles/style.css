@@ -29,8 +29,6 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Gill Sans", Verdana, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
 p {
@@ -74,6 +72,8 @@ a:hover {
 
 #header img {
   margin-left: 14px;
+  float: left;
+  clear: none;
 }
 
 #navbar {
@@ -97,16 +97,22 @@ a:hover {
   padding: 3px;
 }
 
-#navbar td {
+#navbar td, #helpbar td {
   border-bottom: 1px solid #ecf2f8;
   padding: 8px 2px;
 }
 
-#navbar tr.help td {
+#helpbar {
+    float: right;
+    clear: none;
+    margin: 0 20px;
+}
+
+#helpbar tr.help td {
   padding-top: 22px;
 }
 
-#navbar .helpBox {
+#helpbar .helpBox {
   font-weight: bold;
   color: #eee;
   background-color: #ae0000;
@@ -154,6 +160,9 @@ a:hover {
 .error {
   font-weight: bold;
   color: #ae0000;
+  border: 2px solid #ae0000;
+  padding: 5px 5px 5px 45px;
+  background: url('../../install/images/ico_error.gif') 5px 50% no-repeat;
 }
 
 .warning {
@@ -163,9 +172,15 @@ a:hover {
 
 .success {
   font-size: 1.2em;
-  font-weight: 900;
+  font-weight: bold;
   color: #00ae00;
   margin-right: -0.15em;
+}
+
+div.success {
+  border: 2px solid #00ae00;
+  padding: 5px 5px 5px 45px;
+  background: url('../../install/images/ico_success.gif') 5px 50% no-repeat;
 }
 
 .go {
@@ -213,6 +228,7 @@ input, select {
 
 .navtext {
   padding-right: 4px !important;
+  color: #999;
 }
 
 .stack_trace {
@@ -270,11 +286,13 @@ input, select {
   line-height: 1.2em;
 }
 
-.systemChecks td.notice {
-  margin-left: 10px;
+.systemChecks td.notice, div.warning {
   border: 1px solid #999;
   padding: 5px;
   line-height: 1.3em;
+  border: 2px solid #fd6704;
+  padding: 5px 5px 5px 45px;
+  background: url('../../install/images/ico_warning.gif') 5px 5px no-repeat;
 }
 
 .showHideToggle {

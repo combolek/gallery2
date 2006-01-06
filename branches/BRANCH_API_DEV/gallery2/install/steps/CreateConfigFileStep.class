@@ -51,7 +51,7 @@ class CreateConfigFileStep extends InstallStep {
 	    if (!$freshInstall) {
 		/* We are reusing database tables, it's not a fresh install */
 		list ($versionStatus, $upgradeRecommended, $versions) = $this->_versionCheck();
-		if (!$versionStatus) {
+		if (!$versionStatus && file_exists($configFilePath)) {
 		    if ($upgradeRecommended) {
 			/*
 			 * Only write config.php, if it's empty. Else, the upgrader would
