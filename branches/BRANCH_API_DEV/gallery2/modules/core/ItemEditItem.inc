@@ -128,11 +128,7 @@ class ItemEditItem extends ItemEditPlugin {
 				     $form['thumbnail']['size'],
 				     $thumbnail->getDerivativeOperations()));
 
-		    list ($ret, $isModified) = $thumbnail->isModified();
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
-		    }
-		    if ($isModified) {
+		    if ($thumbnail->isModified()) {
 			list ($ret, $lockId) =
 			    GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 			if ($ret) {

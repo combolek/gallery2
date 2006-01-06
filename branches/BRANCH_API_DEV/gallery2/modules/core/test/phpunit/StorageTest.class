@@ -156,22 +156,19 @@ class StorageTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
+	/* Only some entity fields are set because we're not calling GalleryEntity::save() here */
 	$this->assertEquals(
 	    array(
 		array(
 		    sprintf('INSERT INTO %1$sChildEntity (%2$sparentId, %2$sid) VALUES (?,?)',
 			    $storage->_tablePrefix, $storage->_columnPrefix),
-		    array(1234, $entity->id)
-		    ),
+		    array(1234, $entity->id)),
 		array(
 		    sprintf('INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
-			    '%2$sisLinkable, %2$slinkId, %2$smodificationTimestamp, ' .
-			    '%2$sserialNumber, %2$sentityType, %2$sonLoadHandlers) ' .
-			    'VALUES (?,?,?,?,?,?,?,?)',
+			    '%2$sisLinkable, %2$sserialNumber, %2$sentityType) ' .
+			    'VALUES (?,?,?,?,?)',
 			    $storage->_tablePrefix, $storage->_columnPrefix),
-		    array($entity->id, $entity->creationTimestamp, 0, 0, 0, 1, 'GalleryChildEntity',
-			  NULL)
-		    ),
+		    array($entity->id, $entity->creationTimestamp, 0, 1, 'GalleryChildEntity')),
 		),
 	    $this->_results);
     }
@@ -194,15 +191,15 @@ class StorageTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
+	/* Only some entity fields are set because we're not calling GalleryEntity::save() here */
 	$this->assertEquals(
 	    array(
 		array(
 		    sprintf('INSERT INTO %1$sEntity (%2$sid, %2$screationTimestamp, ' .
-			    '%2$sisLinkable, %2$slinkId, %2$smodificationTimestamp, ' .
-			    '%2$sserialNumber, %2$sentityType, %2$sonLoadHandlers) ' .
-			    'VALUES (?,?,?,?,?,?,?,?)',
+			    '%2$sisLinkable, %2$sserialNumber, %2$sentityType, ' .
+			    '%2$sonLoadHandlers) VALUES (?,?,?,?,?,?)',
 			    $storage->_tablePrefix, $storage->_columnPrefix),
-		    array($entity->id, $entity->creationTimestamp, 0, 0, 0, 1, 'GalleryEntity',
+		    array($entity->id, $entity->creationTimestamp, 0, 1, 'GalleryEntity',
 			  str_repeat('x', 128))
 		    )
 		),

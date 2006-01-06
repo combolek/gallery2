@@ -131,16 +131,8 @@ class AlbumSelectModule extends GalleryModule {
 	    }
 	} else if ($event->getEventName() == 'GalleryEntity::save') {
 	    $entity = $event->getEntity();
-	    list ($ret, $orderByModified) = $entity->isModified('orderBy');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    list ($ret, $orderDirectionModified) = $entity->isModified('orderDirection');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
 	    if ($entity->getEntityType() == 'GalleryAlbumItem' &&
-		    ($orderByModified || $orderDirectionModified)) {
+		    ($entity->isModified('orderBy') || $entity->isModified('orderDirection'))) {
 		list ($ret, $sort) = $this->getParameter('sort');
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);

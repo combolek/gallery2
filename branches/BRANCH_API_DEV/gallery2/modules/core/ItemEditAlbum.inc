@@ -634,11 +634,7 @@ class ItemEditAlbum extends ItemEditPlugin {
 		    $thumbnail->setDerivativeOperations($operation);
 		    $thumbnail->expireCache();
 
-		    list ($ret, $isModified) = $thumbnail->isModified();
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-		    if ($isModified) {
+		    if ($thumbnail->isModified()) {
 			list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($thumbnail->getId());
 			if ($ret) {
 			    return $ret->wrap(__FILE__, __LINE__);

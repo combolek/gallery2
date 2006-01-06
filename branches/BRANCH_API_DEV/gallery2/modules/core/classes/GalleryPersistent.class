@@ -62,44 +62,19 @@ class GalleryPersistent {
     /**
      * Have we modified any data in this class?
      *
-     * @return array object GalleryStatus a status code
-     *               bool true if modified, false if not.
+     * @return array bool true if modified, false if not.
      */
     function isModified($member=null) {
 	if ($member) {
-	    $existsInThis = array_key_exists($member, $this);
-	    if (array_key_exists($member, $this->_persistentStatus['originalValue']) !=
-		    $existsInThis) {
-		return array(null, true);
-	    } else {
-		$isModified = $existsInThis &&
-		    $this->_persistentStatus['originalValue'][$member] !== $this->$member;
-		return array(null, $isModified);
-	    }
+	    return $this->_persistentStatus['originalValue'][$member] !== $this->$member;
 	} else {
-	    global $gallery;
-	    $storage =& $gallery->getStorage();
-	    list ($ret, $data) = $storage->describeEntity($this->entityType);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-
 	    $target = $this->entityType;
-	    while ($target) {
-		foreach (array_keys($data[$target]['members']) as $key) {
-		    $existsInThis = array_key_exists($key, $this);
-		    if (array_key_exists($key, $this->_persistentStatus['originalValue']) !=
-			    $existsInThis) {
-			return array(null, true);
-		    }
-		    if ($existsInThis &&
-			    $this->_persistentStatus['originalValue'][$key] != $this->$key) {
-			return array(null, true);
-		    }
+	    foreach (array_keys($this->_persistentStatus['originalValue']) as $key) {
+		if ($this->_persistentStatus['originalValue'][$key] != $this->$key) {
+		    return true;
 		}
-		$target = $data[$target]['parent'];
 	    }
-	    return array(null, false);
+	    return false;
 	}
     }
 
@@ -115,10 +90,13 @@ class GalleryPersistent {
     }
 
     /**
-     * Reset all modification flags
+     * Reset all original values to the current values in the entity (or
+     * null if so specified).
+     *
+     * @param bool reset all original values to null if true
      * @return object GalleryStatus a status code
      */
-    function clearModifiedFlags() {
+    function resetOriginalValues($resetToNull=false) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
 	list ($ret, $data) = $storage->describeEntity($this->entityType);
@@ -130,8 +108,12 @@ class GalleryPersistent {
 	$target = $this->entityType;
 	while ($target) {
 	    foreach (array_keys($data[$target]['members']) as $member) {
-		$this->_persistentStatus['originalValue'][$member] =
-		    isset($this->$member) ? $this->$member : null;
+		if ($resetToNull) {
+		    $this->_persistentStatus['originalValue'][$member] = null;
+		} else {
+		    $this->_persistentStatus['originalValue'][$member] =
+			isset($this->$member) ? $this->$member : null;
+		}
 	    }
 	    $target = $data[$target]['parent'];
 	}

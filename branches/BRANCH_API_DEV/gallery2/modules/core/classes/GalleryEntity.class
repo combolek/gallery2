@@ -216,6 +216,11 @@ class GalleryEntity extends GalleryPersistent {
 	$this->setIsLinkable(false);
 	$this->setOnLoadHandlers(null);
 
+	$ret = $this->resetOriginalValues(true);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
 	return null;
     }
 
@@ -252,6 +257,11 @@ class GalleryEntity extends GalleryPersistent {
 	$this->setLinkId($entity->getId());
 	$this->setLinkedEntity($entity);
 
+	$ret = $this->resetOriginalValues(true);
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
 	return null;
     }
 
@@ -287,11 +297,7 @@ class GalleryEntity extends GalleryPersistent {
 	    }
 	}
 
-	list ($ret, $isModified) = $this->isModified();
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	if ($isModified) {
+	if ($this->isModified()) {
 	    /* Change the modification date */
 	    $this->setModificationTimestamp(time());
 
@@ -305,10 +311,7 @@ class GalleryEntity extends GalleryPersistent {
 	    }
 
 	    $storage =& $gallery->getStorage();
-	    list ($ret, $changedEntityType) = $this->isModified('entityType');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
+	    $changedEntityType = $this->isModified('entityType');
 
 	    $ret = $storage->saveEntity($this);
 	    if ($ret) {

@@ -211,7 +211,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 			$entity->_persistentStatus['originalValue'][$callbacks[$i]] = $value;
 		    }
 
-		    $entity->clearModifiedFlags();
+		    $entity->resetOriginalValues();
 		    $entities[$entity->id] = $entity;
 		}
 
@@ -264,12 +264,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		list ($tableName, $unused) = $this->_gs->_translateTableName($target);
 
 		/* If the member is modified, record the new value in our table */
-		list ($ret, $isModified) = $entity->isModified($memberName);
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-
-		if ($isModified) {
+		if ($entity->isModified($memberName)) {
 		    $value = $entity->$memberName;
 
 		    /* Convert empty values to null */
@@ -421,7 +416,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	}
 
 	$entity->clearPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
-	$entity->clearModifiedFlags();
+	$entity->resetOriginalValues();
 	$ret = $entity->onSave();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
