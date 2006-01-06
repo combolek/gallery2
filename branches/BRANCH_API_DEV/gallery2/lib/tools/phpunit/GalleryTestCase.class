@@ -348,7 +348,11 @@ class GalleryTestCase extends TestCase {
 		    $counter->getCount()));
 
 	$session =& $gallery->getSession();
-	$this->assertEquals($this->_saveSID, $session->getId(), 'Session ID changed by test');
+	if (is_object($session)) {
+	    $this->assertEquals($this->_saveSID, $session->getId(), 'Session ID changed by test');
+	} else {
+	    $this->assert(false, 'Session is not an object anymore!');
+	}
 
 	$eventListener =& $this->getTestEventListener();
 	$eventListener->reset();
