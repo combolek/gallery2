@@ -40,13 +40,23 @@ class RatingItemEdit extends ItemEditOption {
     function handleRequestAfterEdit($form, &$item, &$preferred) {
 	global $gallery;
 
-	if (isset($form['action']['save'])) {
-
+	if (isset($form['changeInDescendents']['rating'])) {
+            list ($ret, $subAlbumIds) =
+                GalleryCoreApi::fetchDescendentAlbumItemIds($item);
+            if ($ret) {
+                return array($ret->wrap(__FILE__, __LINE__), null, null);
+            }
+            array_unshift($subAlbumIds, $item->getId());
+        } else {
+            $subAlbumIds = array($item->getId());
+        }
+        
+        foreach ($subAlbumIds as $id) {
 	    $ret = GalleryCoreApi::setPluginParameter('module',
 		    'rating',
 		    'enabled',
 		    (empty($form['rating']['enabled']) ? 0 : 1),
-		    $item->getId());
+		    $id);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
