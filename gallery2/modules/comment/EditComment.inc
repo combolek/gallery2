@@ -251,7 +251,7 @@ class EditCommentView extends GalleryView {
 	    $form['date'] = $platform->strftime('%D %T', $comment->getDate());
 	}
 
-	$EditComment['comment'] = $comment->getMemberData();
+	$EditComment['comment'] = (array)$comment;
 	$EditComment['itemId'] = $item->getId();
 
 	$template->setVariable('EditComment', $EditComment);

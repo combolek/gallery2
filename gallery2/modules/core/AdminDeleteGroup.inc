@@ -129,7 +129,7 @@ class AdminDeleteGroupView extends GalleryView {
 	}
 
 	$AdminDeleteGroup = array();
-	$AdminDeleteGroup['group'] = $group->getMemberData();
+	$AdminDeleteGroup['group'] = (array)$group;
 
 	/* Render the HTML body */
 	$template->setVariable('AdminDeleteGroup', $AdminDeleteGroup);

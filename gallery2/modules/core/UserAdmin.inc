@@ -125,7 +125,7 @@ class UserAdminView extends GalleryView {
 	$UserAdmin['subViewChoices'] = $subViewChoices;
 	$UserAdmin['subViewName'] = $subViewName;
 	$UserAdmin['isSiteAdmin'] = $isSiteAdmin;
-	$UserAdmin['rootAlbum'] = $rootAlbum->getMemberData();
+	$UserAdmin['rootAlbum'] = (array)$rootAlbum;
 
 	if (!empty($subViewName)) {
 	    list ($ret, $subView) = GalleryView::loadView($subViewName);

@@ -523,7 +523,7 @@ class WatermarkHelper {
 	    $form['whichDerivative']['resizes'] = $watermark->getApplyToResizes() ? 1 : null;
 	}
 
-	$template->setVariable($formName, array('watermark' => $watermark->getMemberData()));
+	$template->setVariable($formName, array('watermark' => (array)$watermark));
 	$template->setVariable('controller', "watermark.$formName");
 	return null;
     }

@@ -47,13 +47,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDerivative.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryDerivativeImage_core extends GalleryDerivative {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryDerivativeImage extends GalleryDerivative {
 
     /**
      * The width of the image.
@@ -63,10 +57,10 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
      * @g2   <member-type>INTEGER</member-type>
      * @g2 </member>
      *
-     * @var int $_width
-     * @access private
+     * @var int $width
+     * @access public
      */
-    var $_width;
+    var $width;
 
     /**
      * The height of the image.
@@ -76,16 +70,10 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
      * @g2   <member-type>INTEGER</member-type>
      * @g2 </member>
      *
-     * @var int $_height
-     * @access private
+     * @var int $height
+     * @access public
      */
-    var $_height;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $height;
 
     /**
      * @see GalleryDerivative::canBeViewedInline()
@@ -248,7 +236,28 @@ class GalleryDerivativeImage_core extends GalleryDerivative {
 	    return null;
 	}
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryDerivativeImage.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryDerivativeImage';
+    }
+
+    function getWidth() {
+	return $this->width;
+    }
+
+    function setWidth($width) {
+	$this->width = $width;
+    }
+
+    function getHeight() {
+	return $this->height;
+    }
+
+    function setHeight($height) {
+	$this->height = $height;
+    }
+}
 ?>

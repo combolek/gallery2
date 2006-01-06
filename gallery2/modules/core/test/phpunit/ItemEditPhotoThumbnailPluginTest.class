@@ -267,20 +267,30 @@ class ItemEditPhotoThumbnailPluginTest extends ItemEditPluginTestCase {
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryUnknownItem.class');
 
 class ItemEditPhotoThumbnailTestItem extends GalleryUnknownItem {
+    var $width;
+    var $height;
+
     function setWidth($width) {
-	$this->_width = $width;
+	$this->width = $width;
     }
 
     function getWidth() {
-	return $this->_width;
+	return $this->width;
     }
 
     function setHeight($height) {
-	$this->_height = $height;
+	$this->height = $height;
     }
 
     function getHeight() {
-	return $this->_height;
+	return $this->height;
+    }
+
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'ItemEditPhotoThumbnailTestItem';
     }
 }
 

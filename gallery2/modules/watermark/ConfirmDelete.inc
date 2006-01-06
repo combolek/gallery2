@@ -91,7 +91,7 @@ class ConfirmDeleteView extends GalleryView {
 	}
 
 	$template->setVariable('ConfirmDelete',
-			       array('item' => $item->getMemberData(),
+			       array('item' => (array)$item,
 				     'count' => count($itemIds)));
 	$template->setVariable('controller', 'watermark.ConfirmDelete');
 

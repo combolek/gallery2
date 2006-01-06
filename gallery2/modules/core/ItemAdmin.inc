@@ -58,7 +58,7 @@ class ItemAdminView extends GalleryView {
 	    $thumbnailData = null;
 	} else {
 	    $thumbnail = $thumbnailTable[$itemId];
-	    $thumbnailData = $thumbnail->getMemberData();
+	    $thumbnailData = (array)$thumbnail;
 	}
 
 	/* Load the module list */
@@ -141,7 +141,7 @@ class ItemAdminView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	for ($i = 0; $i < sizeof($parents); $i++) {
-	    $parents[$i] = $parents[$i]->getMemberData();
+	    $parents[$i] = (array)$parents[$i];
 	}
 
 	list ($ret, $results) = $subView->loadTemplate($template, $form);
@@ -181,7 +181,7 @@ class ItemAdminView extends GalleryView {
 
 	$ItemAdmin['navigationLinks'] = $navigationLinks;
 	$ItemAdmin['viewBodyFile'] = $results['body'];
-	$ItemAdmin['item'] = $item->getMemberData();
+	$ItemAdmin['item'] = (array)$item;
 	$ItemAdmin['parents'] = $parents;
 	$ItemAdmin['parent'] = 	empty($parents) ? null : $parents[sizeof($parents) - 1];
 	$ItemAdmin['itemType'] = $itemType;

@@ -69,7 +69,7 @@ class MembersListView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$MembersList['rootAlbum'] = $rootAlbum->getMemberData();
+	$MembersList['rootAlbum'] = (array)$rootAlbum;
 
 	if (!isset($form['list']['page']) || $form['list']['page'] < 1) {
 	    $form['list']['page'] = 1;
@@ -115,7 +115,7 @@ class MembersListView extends GalleryView {
 
 	$MembersList['users'] = array();
 	foreach ($users as $user) {
-	    $MembersList['users'][$user->getId()] = $user->getMemberData();
+	    $MembersList['users'][$user->getId()] = (array)$user;
 	}
 
 	$form['list']['totalUserCount'] = $totalUserCount;

@@ -47,7 +47,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryFileSystemEntity_core extends GalleryChildEntity {
+class GalleryFileSystemEntity extends GalleryChildEntity {
 
     /**
      * The path component of this item (eg. "image1").  This
@@ -62,17 +62,10 @@ class GalleryFileSystemEntity_core extends GalleryChildEntity {
      * @g2   <indexed/>
      * @g2 </member>
      *
-     * @var string $_pathComponent
-     * @access private
+     * @var string $pathComponent
+     * @access public
      */
-    var $_pathComponent;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
-
+    var $pathComponent;
 
     /**
      * Create a new instance of this FileSystemEntity in the persistent store
@@ -430,7 +423,20 @@ class GalleryFileSystemEntity_core extends GalleryChildEntity {
 
 	return array(null, $absolutePath . $logicalPath);
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryFileSystemEntity.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryFileSystemEntity';
+    }
+
+    function getPathComponent() {
+	return $this->pathComponent;
+    }
+
+    function setPathComponent($pathComponent) {
+	$this->pathComponent = $pathComponent;
+    }
+}
 ?>

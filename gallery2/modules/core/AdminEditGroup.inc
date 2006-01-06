@@ -162,7 +162,7 @@ class AdminEditGroupView extends GalleryView {
 	}
 
 	$AdminEditGroup = array();
-	$AdminEditGroup['group'] = $group->getMemberData();
+	$AdminEditGroup['group'] = (array)$group;
 	$template->setVariable('AdminEditGroup', $AdminEditGroup);
 	$template->setVariable('controller', 'core.AdminEditGroup');
 

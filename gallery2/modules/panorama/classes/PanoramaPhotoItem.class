@@ -44,7 +44,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryPhotoItem.class');
  * @package Panorama
  * @subpackage Classes
  */
-class PanoramaPhotoItem_core extends GalleryPhotoItem {
+class PanoramaPhotoItem extends GalleryPhotoItem {
 
     /**
      * @see GalleryDataItem::render
@@ -84,7 +84,12 @@ class PanoramaPhotoItem_core extends GalleryPhotoItem {
 	    return null;
 	}
     }
-}
 
-GalleryCoreApi::requireOnce('modules/panorama/classes/interfaces/PanoramaPhotoItem.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'PanoramaPhotoItem';
+    }
+}
 ?>

@@ -217,7 +217,7 @@ class AdminDeleteUserView extends GalleryView {
 	}
 
 	$AdminDeleteUser = array();
-	$AdminDeleteUser['user'] = $user->getMemberData();
+	$AdminDeleteUser['user'] = (array)$user;
 	/* Get all items / the item count of the oldUser */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
 	if ($ret) {

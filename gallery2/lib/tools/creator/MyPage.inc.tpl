@@ -47,16 +47,15 @@ class MyPageController extends GalleryController {ldelim}
 	$status = array();
 	$error = array();
 	if (isset($form['action']['save'])) {ldelim}
-	    GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/{$mapName}.class');
 	    $ret = GalleryCoreApi::removeMapEntry('{$mapName}', array('itemId' => $itemId));
-	    if ($ret->isError()) {ldelim}
+	    if ($ret) {ldelim}
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}
 
 	    $ret = GalleryCoreApi::addMapEntry(
                 '{$mapName}',
                 array('itemId' => $itemId, 'itemValue' => $form['value']));
-	    if ($ret->isError()) {ldelim}
+	    if ($ret) {ldelim}
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}
 
@@ -70,7 +69,7 @@ class MyPageController extends GalleryController {ldelim}
 	$results['error'] = $error;
 	$results['redirect'] = $redirect;
 
-	return array(GalleryStatus::success(), $results);
+	return array(null, $results);
     {rdelim}
 {rdelim}
 
@@ -89,22 +88,21 @@ class MyPageView extends GalleryView {ldelim}
     function loadTemplate(&$template, &$form) {ldelim}
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
-	if ($ret->isError()) {ldelim}
+	if ($ret) {ldelim}
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
 	$MyPage = array();
-	$MyPage['item'] = $item->getMemberData();
+	$MyPage['item'] = (array)$item;
 	GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/MyPageHelper.class');
 	list ($ret, $MyPage['value']) = MyPageHelper::getItemValue($item->getId());
-	if ($ret->isError()) {ldelim}
+	if ($ret) {ldelim}
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
 	$template->setVariable('MyPage', $MyPage);
 
-	return array(GalleryStatus::success(),
-		     array('body' => 'modules/{$moduleId}/templates/MyPage.tpl'));
+	return array(null, array('body' => 'modules/{$moduleId}/templates/MyPage.tpl'));
     {rdelim}
 {rdelim}
 ?>

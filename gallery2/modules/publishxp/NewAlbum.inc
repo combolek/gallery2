@@ -130,7 +130,7 @@ class NewAlbumView extends GalleryView {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	for ($i = 0; $i < sizeof($parents); $i ++) {
-	    $parents[$i] = $parents[$i]->getMemberData();
+	    $parents[$i] = (array)$parents[$i];
 	}
 	$parents[] = $parent->getMemberData();
 

@@ -743,7 +743,7 @@ class SetSizeOptionTestPlatform extends GalleryPlatform {
     function filesize($file) {
 	$size = GalleryUtilities::getRequestVariables('size_' . basename($file));
 	if ($size) {
-	    return $size;
+	    return (int)$size;
 	}
 	return 26031966;
     }
@@ -828,6 +828,7 @@ class SetSizeOptionTestToolkit extends GalleryToolkit {
 	case 'dimensions':
 	    $platform =& $gallery->getPlatform();
 	    $results = $platform->getimagesize($file);
+	    $results = array((int)$results[0], (int)$results[1]);
 	    break;
 
 	default:

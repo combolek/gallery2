@@ -1178,11 +1178,11 @@ class GalleryTheme extends GalleryPlugin {
 	 * --------------------------------------------------------------------------------------
 	 * Always load 'item' and 'children'
 	 */
-	$theme['item'] = $item->getMemberData();
+	$theme['item'] = (array)$item;
 	if (!isset($theme['children'])) {
 	    $theme['children'] = array();
 	    foreach ($childItems as $child) {
-		$tmp = $child->getMemberData();
+		$tmp = (array)$child;
 		$theme['children'][] = $tmp;
 	    }
 	}
@@ -1192,10 +1192,10 @@ class GalleryTheme extends GalleryPlugin {
 	 * 'owner'
 	 */
 	if (isset($load['owner'])) {
-	    $theme['item']['owner'] = $entities[$item->getOwnerId()]->getMemberData();
+	    $theme['item']['owner'] = (array)$entities[$item->getOwnerId()];
 	    for ($i = 0; $i < count($theme['children']); $i++) {
 		$theme['children'][$i]['owner'] =
-		    $entities[$theme['children'][$i]['ownerId']]->getMemberData();
+		    (array)$entities[$theme['children'][$i]['ownerId']];
 	    }
 	}
 
@@ -1268,7 +1268,7 @@ class GalleryTheme extends GalleryPlugin {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if ($canSee) {
-		    $theme['parents'][] = $entities[$id]->getMemberData();
+		    $theme['parents'][] = (array)$entities[$id];
 		}
 	    }
 	    $theme['parent'] = empty($theme['parents']) ? null :
@@ -1414,7 +1414,7 @@ class GalleryTheme extends GalleryPlugin {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
-		$thumbnail[$id] = $thumbnail[$id]->getMemberData();
+		$thumbnail[$id] = (array)$thumbnail[$id];
 	    }
 	    $childData[] = 'thumbnail';
 	}
@@ -1477,9 +1477,9 @@ class GalleryTheme extends GalleryPlugin {
 	    foreach ($navigator as $key => $id) {
 		$navigator[$key] = array('urlParams' => array('view' => 'core.ShowItem',
 							      'itemId' => $id),
-					 'item' => $entities[$id]->getMemberData());
+					 'item' => (array)$entities[$id]);
 		if (isset($thumbTable[$id])) {
-		    $navigator[$key]['thumbnail'] = $thumbTable[$id]->getMemberData();
+		    $navigator[$key]['thumbnail'] = (array)$thumbTable[$id];
 		}
 	    }
 	    $theme['navigator'] = $navigator;
@@ -1555,7 +1555,7 @@ class GalleryTheme extends GalleryPlugin {
 			    }
 			}
 
-			$tmp = $resize->getMemberData();
+			$tmp = (array)$resize;
 			$tmp['viewInline'] = 1;
 			$imageViews[] = $tmp;
 		    }
@@ -1573,10 +1573,10 @@ class GalleryTheme extends GalleryPlugin {
 
 		/* Show the preferred item, if it's there */
 		if (empty($preferred)) {
-		    $sourceImage = $item->getMemberData();
+		    $sourceImage = (array)$item;
 		    $sourceImage['viewInline'] = $item->canBeViewedInline();
 		} else {
-		    $sourceImage = $preferred[$itemId]->getMemberData();
+		    $sourceImage = (array)$preferred[$itemId];
 		    $sourceImage['viewInline'] = true;
 		}
 		$sourceImage['itemTypeName'] = $item->itemTypeName();
@@ -1594,7 +1594,7 @@ class GalleryTheme extends GalleryPlugin {
 		}
 
 		if (!empty($thumbnails)) {
-		    $tmp = $thumbnails[$itemId]->getMemberData();
+		    $tmp = (array)$thumbnails[$itemId];
 		    $tmp['viewInline'] = true;
 		    $imageViews[] = $tmp;
 		}

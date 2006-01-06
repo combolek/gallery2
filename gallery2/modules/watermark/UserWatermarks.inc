@@ -163,7 +163,7 @@ class UserWatermarksView extends GalleryView {
 		continue;
 	    }
 
-	    $watermarks[$id] = $watermark->getMemberData();
+	    $watermarks[$id] = (array)$watermark;
 	}
 
 	if ($form['formName'] != 'UserWatermarks') {

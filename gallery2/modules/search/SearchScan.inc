@@ -201,7 +201,7 @@ class SearchScanView extends GalleryView {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($itemList as $item) {
-		    $items[$item->getId()] = $item->getMemberData();
+		    $items[$item->getId()] = (array)$item;
 		}
 
 		/* Fetch thumbnails */
@@ -211,7 +211,7 @@ class SearchScanView extends GalleryView {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($thumbnailList as $thumbnail) {
-		    $thumbnails[$thumbnail->getParentId()] = $thumbnail->getMemberData();
+		    $thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
 		}
 	    }
 	} else {
@@ -246,7 +246,7 @@ class SearchScanView extends GalleryView {
 	    'thumbnails' => $thumbnails,
 	    'items' => $items,
 	    'slideshowAvailable' => $slideshowAvailable,
-	    'rootAlbum' => $rootAlbum->getMemberData()));
+	    'rootAlbum' => (array)$rootAlbum));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 	if ($ret) {

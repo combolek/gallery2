@@ -238,7 +238,7 @@ class SquareThumbToolkit extends GalleryToolkit {
 	    if ($width && $height) {
 		$operations = $derivative->getDerivativeOperations();
 		if (preg_match('/^(?:thumbnail)\|(\d+)$/', $operations, $matches)) {
-		    $targetSize = $matches[1];
+		    $targetSize = (int)$matches[1];
 		    if (!empty($targetSize)) {
 			if (!GalleryUtilities::isA($source, 'GalleryDerivativeImage')) {
 			    /*

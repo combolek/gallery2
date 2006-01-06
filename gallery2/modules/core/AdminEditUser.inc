@@ -236,7 +236,7 @@ class AdminEditUserView extends GalleryView {
 
 	$AdminEditUser = array();
 	$AdminEditUser['show'] = $show;
-	$AdminEditUser['user'] = $user->getMemberData();
+	$AdminEditUser['user'] = (array)$user;
 	if (isset($languageList)) {
 	    $AdminEditUser['languageList'] = $languageList;
 	}

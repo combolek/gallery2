@@ -101,8 +101,11 @@ class CreateThumbnailOptionTest extends ItemAddOptionTestCase {
 	$this->assert(!$this->_itemThumbnail[0]->getIsBroken(), 'Thumbnail is broken!');
 
 	/* Check if the derivative was saved by checking */
-	$this->assert(!$this->_itemThumbnail[0]->isModified(),
-		      'Thumbnail still modified, should be saved');
+	list ($ret, $isModified) = $this->_itemThumbnail[0]->isModified();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assert(!$isModified, 'Thumbnail still modified, should be saved');
     }
 
     function testDontCreateThumbnail() {

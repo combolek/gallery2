@@ -115,13 +115,13 @@ class MembersItemsView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$MembersItems['rootAlbum'] = $rootAlbum->getMemberData();
+	$MembersItems['rootAlbum'] = (array)$rootAlbum;
 
-	$MembersItems['user'] = $user->getMemberData();
+	$MembersItems['user'] = (array)$user;
 
 	$MembersItems['lastItems'] = array();
 	foreach ($lastItems as $item) {
-	    $MembersItems['lastItems'][] = $item->getMemberData();
+	    $MembersItems['lastItems'][] = (array)$item;
 	}
 
 	$template->setVariable('MembersItems', $MembersItems);

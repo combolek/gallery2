@@ -55,7 +55,7 @@ class CustomThumbnailOption extends ItemEditOption {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	if (isset($thumbnailImage)) {
-	    $thumbnailImage = $thumbnailImage->getMemberData();
+	    $thumbnailImage = (array)$thumbnailImage;
 	} else {
 	    /* Set the form's encoding type since we're uploading binary files */
 	    if ($template->hasVariable('ItemAdmin')) {

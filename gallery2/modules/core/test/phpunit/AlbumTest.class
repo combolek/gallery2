@@ -663,7 +663,7 @@ class AlbumTest extends GalleryTestCase {
 	/* Create an album with one group of settings */
 	list ($ret, $album) = $this->_createRandomAlbum(
 	    $this->_parentAlbum->getId(),
-	    array('theme' => 'a', 'orderby' => 'b', 'orderdirection' => 'c'));
+	    array('theme' => 'a', 'orderBy' => 'b', 'orderDirection' => 'c'));
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}

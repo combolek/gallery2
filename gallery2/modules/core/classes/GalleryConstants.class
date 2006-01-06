@@ -123,6 +123,13 @@ define('STORAGE_FLAG_NEWLY_CREATED', 0x00000001);
  */
 define('STORAGE_FLAG_DELETED', 0x00000002);
 
+/**
+ * Storage sizes
+ */
+define('STORAGE_SIZE_SMALL', 0x00000001);
+define('STORAGE_SIZE_MEDIUM', 0x00000002);
+define('STORAGE_SIZE_LARGE', 0x00000004);
+
 /*
  * ****************************************
  *           Item order constants

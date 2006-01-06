@@ -473,7 +473,7 @@ class ItemPermissionsView extends GalleryView {
 
 	/* Convert them into a hash map by entity id */
 	foreach ($userAndGroupEntities as $entity) {
-	    $userAndGroupEntityMap[$entity->getId()] = $entity->getMemberData();
+	    $userAndGroupEntityMap[$entity->getId()] = (array)$entity;
 	}
 
 	/* Figure out the admin group id */
@@ -542,7 +542,7 @@ class ItemPermissionsView extends GalleryView {
 	$can['applyToSubItems'] = $item->getCanContainChildren();
 
 	/* Render the HTML body */
-	$ItemPermissions['owner'] = $owner->getMemberData();
+	$ItemPermissions['owner'] = (array)$owner;
 	$ItemPermissions['can'] = $can;
 	$ItemPermissions['userPermissions'] = $userPermissions;
 	$ItemPermissions['groupPermissions'] = $groupPermissions;

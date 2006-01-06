@@ -284,7 +284,7 @@ class ItemCreateLinkView extends GalleryView {
 	    /* Build our peers table */
 	    $peers = array();
 	    foreach ($peerItems as $peerItem) {
-		$peers[$peerItem->getId()] = $peerItem->getMemberData();
+		$peers[$peerItem->getId()] = (array)$peerItem;
 		$peers[$peerItem->getId()]['selected'] =
 		    isset($form['selectedIds'][$peerItem->getId()]);
 
@@ -293,7 +293,7 @@ class ItemCreateLinkView extends GalleryView {
 		    $thumbnail = $thumbnails[$peerItem->getId()];
 		    list ($ret, $thumbnail) =
 			GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
-		    $peers[$peerItem->getId()]['thumbnail'] = $thumbnail->getMemberData();
+		    $peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
 		}
 	    }
 

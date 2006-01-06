@@ -48,13 +48,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryDerivative_core extends GalleryChildEntity {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryDerivative extends GalleryChildEntity {
 
     /**
      * What's the source of this derivative?  The source must be
@@ -67,10 +61,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var int $_derivativeSourceId
-     * @access private
+     * @var int $derivativeSourceId
+     * @access public
      */
-    var $_derivativeSourceId;
+    var $derivativeSourceId;
 
     /**
      * A sequence of operations used to derive this data from the original.
@@ -82,10 +76,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <member-size>LARGE</member-size>
      * @g2 </member>
      *
-     * @var int $_derivativeOperations
-     * @access private
+     * @var int $derivativeOperations
+     * @access public
      */
-    var $_derivativeOperations;
+    var $derivativeOperations;
 
     /**
      * The order of this derivative relative to others
@@ -96,8 +90,11 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
+     *
+     * @var int $derivativeOrder
+     * @access public
      */
-    var $_derivativeOrder;
+    var $derivativeOrder;
 
     /**
      * The size of the derived object
@@ -107,10 +104,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <member-type>INTEGER</member-type>
      * @g2 </member>
      *
-     * @var int $_derivativeSize
-     * @access private
+     * @var int $derivativeSize
+     * @access public
      */
-    var $_derivativeSize;
+    var $derivativeSize;
 
     /**
      * The type of this derivative (eg, DERIVATIVE_TYPE_IMAGE_THUMBNAIL)
@@ -121,8 +118,11 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <indexed/>
      * @g2   <required/>
      * @g2 </member>
+     *
+     * @var int $derivativeType
+     * @access public
      */
-    var $_derivativeType;
+    var $derivativeType;
 
     /**
      * The mime type of data file
@@ -134,10 +134,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var string $_mimeType
-     * @access private
+     * @var string $mimeType
+     * @access public
      */
-    var $_mimeType;
+    var $mimeType;
 
     /**
      * More operations that are applied at the very end of the derivative operations,
@@ -153,10 +153,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <member-size>LARGE</member-size>
      * @g2 </member>
      *
-     * @var int $_postFilterOperations
-     * @access private
+     * @var int $postFilterOperations
+     * @access public
      */
-    var $_postFilterOperations;
+    var $postFilterOperations;
 
     /**
      * Is the derivative broken?
@@ -169,16 +169,10 @@ class GalleryDerivative_core extends GalleryChildEntity {
      * @g2   <member-type>BOOLEAN</member-type>
      * @g2 </member>
      *
-     * @var int $_isBroken
-     * @access private
+     * @var int $isBroken
+     * @access public
      */
-    var $_isBroken;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $isBroken;
 
     /**
      * Data items that can be viewed inline (photos, movies, etc) should return
@@ -812,7 +806,76 @@ class GalleryDerivative_core extends GalleryChildEntity {
 	/* Default to the broken-image.gif */
 	return dirname(__FILE__) . '/../data/broken-image.gif';
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryDerivative.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryDerivative';
+    }
+
+    function getDerivativeSourceId() {
+	return $this->derivativeSourceId;
+    }
+
+    function setDerivativeSourceId($derivativeSourceId) {
+	$this->derivativeSourceId = $derivativeSourceId;
+    }
+
+    function getDerivativeOperations() {
+	return $this->derivativeOperations;
+    }
+
+    function setDerivativeOperations($derivativeOperations) {
+	$this->derivativeOperations = $derivativeOperations;
+    }
+
+    function getDerivativeOrder() {
+	return $this->derivativeOrder;
+    }
+
+    function setDerivativeOrder($derivativeOrder) {
+	$this->derivativeOrder = $derivativeOrder;
+    }
+
+    function getDerivativeSize() {
+	return $this->derivativeSize;
+    }
+
+    function setDerivativeSize($derivativeSize) {
+	$this->derivativeSize = $derivativeSize;
+    }
+
+    function getDerivativeType() {
+	return $this->derivativeType;
+    }
+
+    function setDerivativeType($derivativeType) {
+	$this->derivativeType = $derivativeType;
+    }
+
+    function getMimeType() {
+	return $this->mimeType;
+    }
+
+    function setMimeType($mimeType) {
+	$this->mimeType = $mimeType;
+    }
+
+    function getPostFilterOperations() {
+	return $this->postFilterOperations;
+    }
+
+    function setPostFilterOperations($postFilterOperations) {
+	$this->postFilterOperations = $postFilterOperations;
+    }
+
+    function getIsBroken() {
+	return $this->isBroken;
+    }
+
+    function setIsBroken($isBroken) {
+	$this->isBroken = $isBroken;
+    }
+}
 ?>

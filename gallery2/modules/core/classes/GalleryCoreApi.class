@@ -2806,7 +2806,7 @@ class GalleryCoreApi {
 		}
 		$pluginBaseDir = GalleryCoreApi::getPluginBaseDir($pluginType, $pluginId);
 	    }
-	    
+
 	    require_once($pluginBaseDir . $file);
 	    $loaded[$file] = 1;
 	}

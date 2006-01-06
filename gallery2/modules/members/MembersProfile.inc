@@ -74,13 +74,13 @@ class MembersProfileView extends GalleryView {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$MembersProfile['rootAlbum'] = $rootAlbum->getMemberData();
+	$MembersProfile['rootAlbum'] = (array)$rootAlbum;
 
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$MembersProfile['user'] = $user->getMemberData();
+	$MembersProfile['user'] = (array)$user;
 
 	list ($ret, $lastItems) =
 	   GalleryMembersHelper::fetchLastUserItems($user->getId(), 0, 5, ORDER_DESCENDING);
@@ -90,7 +90,7 @@ class MembersProfileView extends GalleryView {
 
 	$MembersProfile['lastItems'] = array();
 	foreach ($lastItems as $item) {
-	    $MembersProfile['lastItems'][] = $item->getMemberData();
+	    $MembersProfile['lastItems'][] = (array)$item;
 	}
 
 	list ($ret, $daysSinceCreation) = GalleryMembersHelper::daysSinceCreation($user->getId());

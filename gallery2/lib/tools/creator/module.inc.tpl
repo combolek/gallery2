@@ -59,7 +59,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
 		array('text' => $this->translate('{$moduleName}'), 'params' => $params);
 	{rdelim}
 
-	return array(GalleryStatus::success(), $links);
+	return array(null, $links);
     {rdelim}
 {rdelim}
 ?>

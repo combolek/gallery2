@@ -92,8 +92,12 @@ class GalleryEntityHelper_simple {
 	/* Move the new entities into the cache */
 	foreach ($missing as $entity) {
 	    $id = $entity->getId();
+	    list ($ret, $classFile) = $entity->getClassFile();
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
 	    GalleryDataCache::putToDisk(array('type' => 'entity', 'itemId' => $id),
-					$entity, array($entity->getClassFile()));
+					$entity, array($classFile));
 	    $cached[$id] = $entity;
 	}
 

@@ -51,7 +51,7 @@ class WatermarkOption extends ItemAddOption {
 	    if (!isset($currentId)) {
 		$currentId = $id;
 	    }
-	    $watermarks[$id] = $watermarks[$id]->getMemberData();
+	    $watermarks[$id] = (array)$watermarks[$id];
 	}
 
 	$WatermarkOption = array();
@@ -93,7 +93,7 @@ class WatermarkOption extends ItemAddOption {
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
-		$watermarkArray = 
+		$watermarkArray =
 		    array(DERIVATIVE_TYPE_IMAGE_THUMBNAIL => $watermark->getApplyToThumbnail(),
 			  DERIVATIVE_TYPE_IMAGE_RESIZE => $watermark->getApplyToResizes(),
 			  DERIVATIVE_TYPE_IMAGE_PREFERRED => $watermark->getApplyToPreferred());

@@ -155,7 +155,7 @@ class ClassicTheme extends GalleryTheme {
 		$theme['tree'] = $treeList;
 		$theme['treeItems'] = array();
 		foreach ($treeItems as $treeItem) {
-		    $theme['treeItems'][$treeItem->getId()] = $treeItem->getMemberData();
+		    $theme['treeItems'][$treeItem->getId()] = (array)$treeItem;
 		}
 	    }
 	}
@@ -265,7 +265,7 @@ class ClassicTheme extends GalleryTheme {
 		} else {
 		    $treeList[$branchId][] = array('id' => $id, 'depth' => $depth - 1);
 		}
-		$treeItems[$id] = $subAlbum->getMemberData();
+		$treeItems[$id] = (array)$subAlbum;
 		if (!isset($maxDepth) || $depth < $maxDepth) {
 		    $ret = $this->_buildTree($subAlbum, $treeList, $treeItems, $maxDepth, $userId,
 					     $depth + 1, $branchId);

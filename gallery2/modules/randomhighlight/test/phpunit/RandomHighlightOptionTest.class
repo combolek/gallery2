@@ -115,7 +115,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	
+
 	/* Clean all cached variables */
 	GalleryDataCache::reset();
 	GalleryUtilities::putRequestVariable('view', null);
@@ -129,7 +129,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	
+
 	list ($ret, $newThumb) = $this->_createDerivative(
 	    $newItem, $newItem->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
 	    'thumbnail|150', 'image/test', array('width' => 150, 'height' => 200));
@@ -145,7 +145,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($appropriate, 'appropriate');
-	$this->assertEquals(null, $this->_highlight->getWidth(), 'no width yet');
+	$this->assertEquals(0, $this->_highlight->getWidth(), 'no width yet');
 
 	$form['RandomHighlightOption']['isRandomHighlight'] = 1;
 	$result = $this->_handleRequestAfterEdit($form, $this->_album);
@@ -182,7 +182,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	 * Verify reselect of highlight if there are 2 or more candidates
 	 * (Do not reselect the same highlight if possible)
 	 */
-	
+
 	/* Make the album use randomhighlight */
 	$form['RandomHighlightOption']['isRandomHighlight'] = 1;
 	$result = $this->_handleRequestAfterEdit($form, $this->_album);
@@ -199,7 +199,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	
+
 	/* Call the onLoad handler a few times and it should always alternate */
 	for ($i = 0; $i < 4; $i++) {
 	    /* Clean all cached variables */
@@ -223,7 +223,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	    }
 	}
     }
-    
+
     function testHighlightPermission1() {
 	/* Verify onLoadHandler is set to RandomHighlightPrivate if we pick a non-public item */
 	global $gallery;
@@ -269,7 +269,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	
+
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_highlight->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -295,7 +295,7 @@ class RandomHighlightOptionTest extends ItemEditOptionTestCase {
 
 	/* Even in DownloadItem requests, it should change if the user can't see the highlight */
 	GalleryUtilities::putRequestVariable('view', 'core.DownloadItem');
-	
+
 	GalleryDataCache::reset();
 	list ($ret, $highlight) = $this->_highlight->refresh();
 	if ($ret) {

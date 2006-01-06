@@ -49,13 +49,7 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryUser_core extends GalleryEntity {
-
-    /*
-     * ****************************************
-     *                 Members
-     * ****************************************
-     */
+class GalleryUser extends GalleryEntity {
 
     /**
      * The User's username
@@ -68,10 +62,10 @@ class GalleryUser_core extends GalleryEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var string $_userName
-     * @access private
+     * @var string $userName
+     * @access public
      */
-    var $_userName;
+    var $userName;
 
     /**
      * The User's full name
@@ -82,10 +76,10 @@ class GalleryUser_core extends GalleryEntity {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
      *
-     * @var string $_fullName
-     * @access private
+     * @var string $fullName
+     * @access public
      */
-    var $_fullName;
+    var $fullName;
 
     /**
      * The User's password in a hashed form.
@@ -96,10 +90,10 @@ class GalleryUser_core extends GalleryEntity {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
      *
-     * @var string $_hashedPassword
-     * @access private
+     * @var string $hashedPassword
+     * @access public
      */
-    var $_hashedPassword;
+    var $hashedPassword;
 
     /**
      * The User's email address.
@@ -110,10 +104,10 @@ class GalleryUser_core extends GalleryEntity {
      * @g2   <member-size>LARGE</member-size>
      * @g2 </member>
      *
-     * @var string $_email
-     * @access private
+     * @var string $email
+     * @access public
      */
-    var $_email;
+    var $email;
 
     /**
      * The User's language preference
@@ -124,16 +118,10 @@ class GalleryUser_core extends GalleryEntity {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
      *
-     * @var string $_language
-     * @access private
+     * @var string $language
+     * @access public
      */
-    var $_language;
-
-    /*
-     * ****************************************
-     *                 Methods
-     * ****************************************
-     */
+    var $language;
 
     /**
      * Create a new instance of this user in the persistent store
@@ -346,7 +334,52 @@ class GalleryUser_core extends GalleryEntity {
 	}
 	return array('User', 'user');
     }
-}
 
-include(dirname(__FILE__) . '/interfaces/GalleryUser.inc');
+    /**
+     * @see GalleryEntity::getClassName()
+     */
+    function getClassName() {
+	return 'GalleryUser';
+    }
+
+    function getUserName() {
+	return $this->userName;
+    }
+
+    function setUserName($userName) {
+	$this->userName = $userName;
+    }
+
+    function getFullName() {
+	return $this->fullName;
+    }
+
+    function setFullName($fullName) {
+	$this->fullName = $fullName;
+    }
+
+    function getHashedPassword() {
+	return $this->hashedPassword;
+    }
+
+    function setHashedPassword($hashedPassword) {
+	$this->hashedPassword = $hashedPassword;
+    }
+
+    function getEmail() {
+	return $this->email;
+    }
+
+    function setEmail($email) {
+	$this->email = $email;
+    }
+
+    function getLanguage() {
+	return $this->language;
+    }
+
+    function setLanguage($language) {
+	$this->language = $language;
+    }
+}
 ?>

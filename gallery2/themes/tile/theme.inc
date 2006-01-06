@@ -135,8 +135,8 @@ class TileTheme extends GalleryTheme {
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    $template->setVariable('theme', array('item' => $item->getMemberData(),
-						  'image' => $image->getMemberData()));
+	    $template->setVariable('theme', array('item' => (array)$item,
+						  'image' => (array)$image));
 	    return array(null, 'render.tpl');
 	}
 
@@ -253,7 +253,7 @@ class TileTheme extends GalleryTheme {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
-		$children[$i]['thumbnail'] = $thumbnails[$childId]->getMemberData();
+		$children[$i]['thumbnail'] = (array)$thumbnails[$childId];
 	    }
 
 	    if (!GalleryUtilities::isA($child, 'GalleryDataItem') || !$child->canBeViewedInline()) {
@@ -294,7 +294,7 @@ class TileTheme extends GalleryTheme {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
-		$image = $image->getMemberData();
+		$image = (array)$image;
 		$children[$i]['image'] = $image;
 		$children[$i]['imageIndex'] = count($imageWidths);
 		if (GalleryUtilities::isExactlyA($child, 'GalleryPhotoItem') &&

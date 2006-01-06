@@ -117,7 +117,11 @@ class SetOriginationTimestampTask extends MaintenanceTask {
 			}
 			if (is_array($originationTimestamp) && !empty($originationTimestamp[0])) {
 			    $item->setOriginationTimestamp($originationTimestamp[0]);
-			    if ($item->isModified()) {
+			    list ($ret, $isModified) = $item->isModified();
+			    if ($ret) {
+				return array($ret->wrap(__FILE__, __LINE__), null, null);
+			    }
+			    if ($isModified) {
 				list ($ret, $lockId) =
 				    GalleryCoreApi::acquireWriteLock($item->getId());
 				if ($ret) {

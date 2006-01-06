@@ -74,7 +74,7 @@ class ShowAllCommentsView extends GalleryView {
 	    $itemIds[$comments[$i]->getParentId()] = 1;
 
 	    /* Extract the member data */
-	    $comments[$i] = $comments[$i]->getMemberData();
+	    $comments[$i] = (array)$comments[$i];
 	}
 
 	if (!empty($commenters)) {
@@ -85,7 +85,7 @@ class ShowAllCommentsView extends GalleryView {
 	    }
 
 	    foreach ($commentersList as $commenter) {
-		$commenters[$commenter->getId()] = $commenter->getMemberData();
+		$commenters[$commenter->getId()] = (array)$commenter;
 	    }
 	}
 
@@ -100,7 +100,7 @@ class ShowAllCommentsView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($itemList as $it) {
-		$items[$it->getId()] = $it->getMemberData();
+		$items[$it->getId()] = (array)$it;
 	    }
 	    list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 	    if ($ret) {
@@ -121,7 +121,7 @@ class ShowAllCommentsView extends GalleryView {
 	    if (!isset($itemData[$comment['parentId']])) {
 		$it = $items[$comment['parentId']];
 		if (isset($thumbnails[$comment['parentId']])) {
-		    $it['thumb'] = $thumbnails[$comment['parentId']]->getMemberData();
+		    $it['thumb'] = (array)$thumbnails[$comment['parentId']];
 		}
 		$itemData[$comment['parentId']] = $it;
 	    }
@@ -145,7 +145,7 @@ class ShowAllCommentsView extends GalleryView {
 	    'comments' => $comments,
 	    'commenters' => $commenters,
 	    'can' => $can,
-	    'item' => $item->getMemberData(),
+	    'item' => (array)$item,
 	    'itemData' => $itemData,
 	    'navigator' => $navigator));
 	$template->style('modules/comment/comment.css');

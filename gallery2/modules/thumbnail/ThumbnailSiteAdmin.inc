@@ -147,7 +147,7 @@ class ThumbnailSiteAdminView extends GalleryView {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($thumbs as $thumb) {
-		$data = $thumb->getMemberData();
+		$data = (array)$thumb;
 		$data['itemMimeTypesList'] = $thumb->getItemMimeTypesList();
 		$form['list'][] = $data;
 	    }

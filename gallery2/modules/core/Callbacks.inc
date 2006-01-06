@@ -131,16 +131,16 @@ class CoreCallbacks {
 		}
 		$j = 0;
 		foreach ($peerMap as $i => $id) {
-		    $peer = $peerItems[$j++]->getMemberData();
+		    $peer = (array)$peerItems[$j++];
 		    $peer['peerIndex'] = $i + 1;
 		    if (isset($thumbTable[$id])) {
-			$peer['thumbnail'] = $thumbTable[$id]->getMemberData();
+			$peer['thumbnail'] = (array)$thumbTable[$id];
 		    }
 		    $peers[] = $peer;
 		}
 		$block['core']['LoadPeers'] = array('peers' => $peers,
 		    'peerCount' => count($peerIds), 'thisPeerIndex' => $peerItemIndex + 1,
-		    'parent' => $parent->getMemberData());
+                    'parent' => (array)$parent);
 	    } else {
 		$block['core']['LoadPeers'] =
 		    array('peers' => array(), 'peerCount' => 0);

@@ -126,7 +126,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    $targetIds = array_keys($targetIdHash);
 
 	    /* Get our member info for this class */
-	    list ($ret, $memberInfo) = $this->_describeEntityMembers($className);
+	    list ($ret, $memberInfo) = $this->describeEntity($className);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -136,14 +136,16 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    /* Build up our query */
 	    $columns = $tables = $where = $types = $callbacks = array();
 	    $markers = GalleryUtilities::makeMarkers(count($targetIds));
-	    foreach ($memberInfo['members'] as $columnName => $columnInfo) {
-		list ($tableName, $unused) = $this->_gs->_translateTableName($columnInfo['class']);
-		$types[] = $columnInfo['type'];
-		/* Don't use ucfirst as it may be affected by current locale */
-		$callbacks[] = 'set' . strtr($columnName{0}, 'abcdefghijklmnopqrstuvwxyz',
-		    'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($columnName, 1);
-		$columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
-		$tables[$tableName] = 1;
+	    $target = $className;
+	    while ($target) {
+		foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
+		    list ($tableName, $unused) = $this->_gs->_translateTableName($target);
+		    $types[] = $columnInfo['type'];
+		    $callbacks[] = $columnName;
+		    $columns[$tableName . '.' . $this->_gs->_translateColumnName($columnName)] = 1;
+		    $tables[$tableName] = 1;
+		}
+		$target = $memberInfo[$target]['parent'];
 	    }
 	    $tables = array_keys($tables);
 	    $columns = array_keys($columns);
@@ -181,7 +183,13 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		    if (++$j % 20 == 0) {
 			$gallery->guaranteeTimeLimit(5);
 		    }
+
+		    if (!class_exists($className)) {
+			GalleryCoreApi::requireOnce(
+			    "modules/{$memberInfo[$className]['module']}/classes/$className.class");
+		    }
 		    $entity = new $className;
+
 		    if (empty($entity)) {
 			return array(GalleryCoreApi::error(ERROR_BAD_DATA_TYPE, __FILE__, __LINE__),
 				     null);
@@ -190,17 +198,21 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		    for ($i = 0; $i < count($callbacks); $i++) {
 			$value = $row[$i];
 
-			/* Convert the database representation to a timestamp */
 			if ($types[$i] & STORAGE_TYPE_TIMESTAMP) {
 			    $value = $this->_gs->_db->UnixTimeStamp($value);
+			} else if ($types[$i] & STORAGE_TYPE_INTEGER) {
+			    $value = (int)$value;
+			} else if ($types[$i] & STORAGE_TYPE_BOOLEAN) {
+			    $value = (int)!empty($value);
 			}
 
 			/* Store the value in the object */
-			$entity->$callbacks[$i]($value);
+			$entity->$callbacks[$i] = $value;
+			$entity->_persistentStatus['originalValue'][$callbacks[$i]] = $value;
 		    }
 
 		    $entity->clearModifiedFlags();
-		    $entities[$entity->getId()] = $entity;
+		    $entities[$entity->id] = $entity;
 		}
 
 		$recordSet->Close();
@@ -228,16 +240,11 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/*
-	 * Update the serial number, but remember the original one
-	 */
-	$originalSerialNumber = $entity->getSerialNumber();
-	$entity->setSerialNumber($originalSerialNumber + 1);
+	/* Update the serial number, but remember the original one */
+	$originalSerialNumber = $entity->serialNumber++;
 
-	/*
-	 * Get our member info for this class
-	 */
-	list ($ret, $memberInfo) = $this->_describeEntityMembers($entity->getEntityType());
+	/* Get our member info for this class */
+	list ($ret, $memberInfo) = $this->describeEntity($entity->entityType);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -249,47 +256,77 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	 */
 	$dataTable = array();
 	$id = array();
-	foreach ($memberInfo['members'] as $memberName => $memberData) {
-	    $type = $memberData['type'];
-	    $class = $memberData['class'];
-	    list ($tableName, $unused) = $this->_gs->_translateTableName($class);
+	$target = $entity->entityType;
 
-	    /* If the member is modified, record the new value in our table */
-	    if ($entity->getModifiedFlag($memberName) & MEMBER_MODIFIED) {
-		$getFunc = 'get' . $memberName;
-		$value = $entity->$getFunc();
+	while ($target) {
+	    foreach ($memberInfo[$target]['members'] as $memberName => $memberData) {
+		$type = $memberData['type'];
+		list ($tableName, $unused) = $this->_gs->_translateTableName($target);
 
-		/* Convert empty values to null */
-		if (!is_numeric($value) && empty($value)) {
-		    $value = null;
+		/* If the member is modified, record the new value in our table */
+		list ($ret, $isModified) = $entity->isModified($memberName);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
-		/* Convert timestamps to the database representation */
-		if ($type & STORAGE_TYPE_TIMESTAMP) {
-		    $value = $this->_gs->_db->DBTimeStamp($value);
+		if ($isModified) {
+		    $value = $entity->$memberName;
+
+		    /* Convert empty values to null */
+		    if (!is_numeric($value) && empty($value)) {
+			$value = null;
+		    }
+
+		    if ($type & STORAGE_TYPE_BOOLEAN) {
+			/* Convert booleans to 1 : 0 */
+			$entity->$memberName = $value = (int)!empty($value);
+		    } else if ($type & STORAGE_TYPE_TIMESTAMP) {
+			/* Convert timestamps to the database representation */
+			$entity->$memberName = $value = $this->_gs->_db->DBTimeStamp($value);
+		    } else if ($type & STORAGE_TYPE_INTEGER) {
+			$entity->$memberName = $value = (int)$value;
+		    } else if ($type & STORAGE_TYPE_STRING) {
+			if (isset($value)) {
+			    switch ($memberData['size']) {
+			    case STORAGE_SIZE_SMALL:
+				$size = 32;
+				break;
+
+			    case STORAGE_SIZE_MEDIUM:
+				$size = 128;
+				break;
+
+			    case STORAGE_SIZE_LARGE:
+				$size = 255;
+				break;
+			    }
+			    $entity->$memberName = $value =
+				GalleryUtilities::utf8Substring($value, 0, $size);
+			}
+		    }
+
+		    $columnName = $this->_gs->_translateColumnName($memberName);
+		    $dataTable[$tableName][$columnName] = $value;
+		} else {
+		    /*
+		     * If we haven't set up a table for this class, do so now.
+		     * Otherwise we don't have a complete list of tables that we
+		     * need to insert into in order for this class to be completely
+		     * serialized.
+		     */
+		    if (!isset($dataTable[$tableName])) {
+			$dataTable[$tableName] = array();
+		    }
 		}
 
-		$columnName = $this->_gs->_translateColumnName($memberName);
-		$dataTable[$tableName][$columnName] = $value;
-	    } else {
-		/*
-		 * If we haven't set up a table for this class, do so now.
-		 * Otherwise we don't have a complete list of tables that we
-		 * need to insert into in order for this class to be completely
-		 * serialized.
-		 */
-		if (!isset($dataTable[$tableName])) {
-		    $dataTable[$tableName] = array();
+		if ($type & STORAGE_TYPE_ID) {
+		    $value = $entity->$memberName;
+
+		    $id['column'] = $this->_gs->_translateColumnName($memberName);
+		    $id['value'] = $value;
 		}
 	    }
-
-	    if ($type & STORAGE_TYPE_ID) {
-		$getFunc = 'get' . $memberName;
-		$value = $entity->$getFunc();
-
-		$id['column'] = $this->_gs->_translateColumnName($memberName);
-		$id['value'] = $value;
-	    }
+	    $target = $memberInfo[$target]['parent'];
 	}
 
 	if ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
@@ -326,8 +363,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	     * that has the serial number in it first, as we use the serial
 	     * number to make sure that we're not hitting a concurrency issue.
 	     */
-	    $serialNumberClass = $memberInfo['members']['serialNumber']['class'];
-	    list ($serialNumberTable) = $this->_gs->_translateTableName($serialNumberClass);
+	    list ($serialNumberTable) = $this->_gs->_translateTableName('GalleryEntity');
 
 	    $queryList = array();
 	    foreach ($dataTable as $tableName => $columnChanges) {
@@ -411,7 +447,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	}
 
 	/* Get our persistent and member info for this class */
-	list ($ret, $memberInfo) = $this->_describeEntityMembers($entity->getEntityType());
+	list ($ret, $memberInfo) = $this->describeEntity($entity->entityType);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -419,9 +455,13 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	$idCol = $this->_gs->_translateColumnName('id');
 
 	$tables = array();
-	foreach ($memberInfo['members'] as $columnName => $columnInfo) {
-	    list ($tableName, $unused) = $this->_gs->_translateTableName($columnInfo['class']);
-	    $tables[$tableName] = 1;
+	$target = $entity->entityType;
+	while ($target) {
+	    foreach ($memberInfo[$target]['members'] as $columnName => $columnInfo) {
+		list ($tableName, $unused) = $this->_gs->_translateTableName($target);
+		$tables[$tableName] = 1;
+	    }
+	    $target = $memberInfo[$target]['parent'];
 	}
 
 	/*
@@ -430,7 +470,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	 */
 	foreach ($tables as $tableName => $junk) {
 	    $query = 'DELETE FROM ' . $tableName . ' WHERE ' . $idCol . '=?';
-	    $data = array($entity->getId());
+	    $data = array($entity->id);
 
 	    $this->_gs->_traceStart();
 	    $recordSet = $this->_gs->_db->Execute($query, $data);
@@ -455,8 +495,8 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$entity->setId($id);
-	$entity->setSerialNumber(0);
+	$entity->id = $id;
+	$entity->serialNumber = 0;
 	$entity->setPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
 	return null;
@@ -503,7 +543,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	 * we should refresh.  But either way that requires a database hit so we
 	 * might as well just retrieve the record every time
 	 */
-	list ($ret, list($freshEntity)) = $this->_gs->loadEntities(array($entity->getId()));
+	list ($ret, list($freshEntity)) = $this->_gs->loadEntities(array($entity->id));
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -1138,7 +1178,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	global $gallery;
 	$gallery->guaranteeTimeLimit(20);
 
-	$this->_clearMapMemberCache();
+	$this->_clearEntityAndMapCache();
 
 	$ret = $this->_dbInit(true);
 	if ($ret) {
@@ -1773,42 +1813,114 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
     }
 
     /**
-     * Describe all the members of a entity
+     * Describe the members, classes and classFile of an entity
      *
      * @param string a class name
      * @access protected
      * @return array object GalleryStatus a status code
-     *               member => info associative array
+     *               entity associative array
      */
-    function _describeEntityMembers($entityName) {
-	if (empty($this->_gs->_entityInfoCache[$entityName])) {
-	    if (class_exists($entityName)) {
-		$entity = new $entityName();
-	    } else {
-		list ($ret, $entity) =
-		    GalleryCoreApi::newFactoryInstance('GalleryEntity', $entityName);
+    function describeEntity($entityName, $tryAllModules=false) {
+	global $gallery;
+
+	/* Note: keep these cache keys in sync with _clearEntityAndMapCache() */
+	$cacheKey = "GalleryStorage::describeEntity()";
+	$cacheParams = array('type' => 'module',
+			     'itemId' => 'GalleryStorage_describeEntity',
+			     'id' => '_all');
+
+	/* We only cache the results for active modules */
+	if (!$tryAllModules) {
+	    if (!GalleryDataCache::containsKey($cacheKey)) {
+		$entityInfo = GalleryDataCache::getFromDisk($cacheParams);
+	    }  else {
+		$entityInfo = GalleryDataCache::get($cacheKey);
+	    }
+	}
+
+	if (!isset($entityInfo)) {
+	    list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    $entityInfo = array();
+	    foreach ($moduleStatus as $moduleId => $moduleInfo) {
+		if (!$tryAllModules && empty($moduleInfo['active'])) {
+		    continue;
+		}
+
+		/*
+		 * Don't use GalleryPlatform here because it can cause difficult-to-eliminate
+		 * issues in the testing code when we use mock platforms.  Once we have an
+		 * abstraction layer around GalleryCoreApi we can use the platform here.
+		 */
+		$moduleDir = GalleryCoreApi::getPluginBaseDir('module', $moduleId);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
+
+		$entitiesFile = "$moduleDir/modules/$moduleId/classes/Entities.inc";
+		if (file_exists($entitiesFile)) {
+		    include($entitiesFile);
+		}
 	    }
-	    if (!isset($entity)) {
-		return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
-						   $entityName), null);
+
+	    if (!$tryAllModules) {
+		GalleryDataCache::putToDisk($cacheParams, $entityInfo);
+		GalleryDataCache::put($cacheKey, $entityInfo);
 	    }
-	    $this->_gs->_entityInfoCache[$entityName] = $entity->getPersistentMemberInfo();
 	}
 
-	return array(null, $this->_gs->_entityInfoCache[$entityName]);
+	/* Fall back to all available modules */
+	if (!$tryAllModules && !isset($entityInfo[$entityName])) {
+	    list ($ret, $entityInfo) = $this->describeEntity($entityName, true);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	/*
+	 * Fall back on the parent class for any entities we don't recognize.  This is mainly so
+	 * that tests can create lightweight subclasses.  Because PHP4 doesn't have case sensitive
+	 * class names we have to do a linear time lookup.
+	 */
+	if (!isset($entityInfo[$entityName])) {
+	    $parentClass = get_parent_class($entityName);
+	    foreach (array_keys($entityInfo) as $candidate) {
+		if ($parentClass == strtolower($candidate)) {
+		    $entityInfo[$entityName] = array(
+			'members' => array(),
+			'parent' => $candidate,
+			'module' => 'unknown');
+		    break;
+		}
+	    }
+	}
+
+	if (!isset($entityInfo[$entityName])) {
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+					       "Unknown entity type: $entityName"), null);
+	}
+
+	return array(null, $entityInfo);
     }
 
     /**
-     * Clear out the map cache, which we should do any time that we add or remove a table.
+     * Clear out the entity and map caches, which we should do any time that we add or
+     * remove a table.
      */
-    function _clearMapMemberCache() {
+    function _clearEntityAndMapCache() {
 	/* Note: keep these cache keys in sync with _describeMapMembers() */
-	GalleryDataCache::remove("GalleryPermissionHelper::describeMapMembers()");
+	GalleryDataCache::remove("GalleryStorage::describeMapMembers()");
 	GalleryDataCache::removeFromDisk(array('type' => 'module',
 					       'itemId' => 'GalleryStorage__describeMapMembers',
+					       'id' => '_all'));
+
+	/* Note: keep these cache keys in sync with describeEntity() */
+	GalleryDataCache::remove("GalleryStorage::describeEntity()");
+	GalleryDataCache::removeFromDisk(array('type' => 'module',
+					       'itemId' => 'GalleryStorage_describeEntity',
 					       'id' => '_all'));
     }
 }
