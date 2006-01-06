@@ -389,10 +389,7 @@ class GalleryItem extends GalleryFileSystemEntity {
 	global $gallery;
 	$newItem = $this->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED);
 
-	list ($ret, $changedParent) = $this->isModified('parentId');
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
+	$changedParent = $this->isModified('parentId');
 	if ($changedParent) {
 	    $oldParentId = $this->getOriginalValue('parentId');
 	}

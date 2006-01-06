@@ -204,11 +204,7 @@ class EntityTest extends GalleryTestCase {
 	$newValue = (string)$oldValue;
 
 	$this->_entity->setModificationTimestamp($newValue);
-	list ($ret, $isModified) = $this->_entity->isModified();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert(!$isModified, 'is not modified');
+	$this->assert(!$this->_entity->isModified(), 'is not modified');
     }
 
     function testSetBackToOldValue() {
@@ -219,19 +215,10 @@ class EntityTest extends GalleryTestCase {
 
 	$oldValue = $this->_entity->getModificationTimestamp();
 	$this->_entity->setModificationTimestamp(10);
-	list ($ret, $isModified) = $this->_entity->isModified();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert($isModified, 'is modified');
-
+	$this->assert($this->_entity->isModified(), 'is modified');
 
 	$this->_entity->setModificationTimestamp($oldValue);
-	list ($ret, $isModified) = $this->_entity->isModified();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert(!$isModified, 'is not modified');
+	$this->assert(!$this->_entity->isModified(), 'is not modified');
     }
 
     function testSetSetSet() {
@@ -250,22 +237,25 @@ class EntityTest extends GalleryTestCase {
 	 * clear the modified flags, else the create() call will cause the id to be
 	 * different
 	 */
-	$entity->clearModifiedFlags();
-
-	list ($ret, $isModified) = $entity->isModified();
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert(!$isModified, 'not yet modified');
+	$entity->resetOriginalValues();
+	$this->assert(!$entity->isModified(), 'not yet modified');
 	$entity->setIsLinkable(true);
 	$entity->setIsLinkable(false);
 	$entity->setIsLinkable(true);
 
-	list ($ret, $isModified) = $entity->isModified();
+	$this->assert($entity->isModified(), 'is modified');
+    }
+
+    function testIsModifiedMember() {
+	$entity = new EntityTestEntity();
+	$ret = $entity->create();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assert($isModified, 'is modified');
+
+	$this->assert(!$entity->isModified('onLoadHandlers'));
+	$entity->setOnLoadHandlers('foo');
+	$this->assert($entity->isModified('onLoadHandlers'));
     }
 
     function testSaveWithoutEvent() {
@@ -303,8 +293,7 @@ class EntityTest extends GalleryTestCase {
 	    $this->_getRootId(), 'application/unknown', array('width' => 100, 'height' => 200),
 	    __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	    return array(null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$this->_markForCleanup($photo1);
 	$this->assertEquals(100, $photo1->getWidth());
@@ -314,16 +303,18 @@ class EntityTest extends GalleryTestCase {
 	    array('width' => 300, 'height' => 400, 'linkId' => $photo1->getId()),
 	    __FILE__, 'GalleryPhotoItem');
 	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	    return array(null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$this->_markForCleanup($photo2);
 
-	return array($photo1, $photo2);
+	return array(null, $photo1, $photo2);
     }
 
     function testLinkedMembers() {
-	list ($photo1, $photo2) = $this->_createLinkedPhotos();
+	list ($ret, $photo1, $photo2) = $this->_createLinkedPhotos();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	$this->assertEquals(300, $photo2->getWidth());
 
@@ -336,7 +327,11 @@ class EntityTest extends GalleryTestCase {
     }
 
     function testDetachLink() {
-	list ($photo1, $photo2) = $this->_createLinkedPhotos();
+	list ($ret, $photo1, $photo2) = $this->_createLinkedPhotos();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
 	list ($ret, $photo2) = GalleryCoreApi::loadEntitiesById($photo2->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
