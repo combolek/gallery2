@@ -131,7 +131,7 @@ class AlbumSelectModule extends GalleryModule {
 	} else if ($event->getEventName() == 'GalleryEntity::save') {
 	    $entity = $event->getEntity();
 	    if ($entity->getEntityType() == 'GalleryAlbumItem') {
-		if ($entity->isModified('orderBy') || $entity->isModified('orderDirection'))) {
+		if ($entity->isModified('orderBy') || $entity->isModified('orderDirection')) {
 		    list ($ret, $sort) = $this->getParameter('sort');
 		    if ($ret) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
@@ -139,7 +139,7 @@ class AlbumSelectModule extends GalleryModule {
 		    if ($sort == 'album') {
 			$invalidateCache = true;
 		    }
-		} else if ($entity->isModifiedFlag('title')) {
+		} else if ($entity->isModified('title')) {
 		    $invalidateCache = true;
 		}
 	    }
