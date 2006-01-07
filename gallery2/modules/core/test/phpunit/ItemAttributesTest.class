@@ -38,8 +38,6 @@ class ItemAttributesTest extends GalleryTestCase {
     }
 
     function setUp() {
-	global $gallery;
-
 	parent::setUp();
 
 	list ($ret, $this->_parentItem) = $this->_createRandomAlbum(
@@ -106,7 +104,8 @@ class ItemAttributesTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
+	list ($ret, $viewCount) =
+	    GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -133,7 +132,8 @@ class ItemAttributesTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
+	list ($ret, $viewCount) =
+	    GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -166,7 +166,8 @@ class ItemAttributesTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
+	list ($ret, $viewCount) =
+	    GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -202,7 +203,8 @@ class ItemAttributesTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
+	list ($ret, $viewCount) =
+	    GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -219,7 +221,8 @@ class ItemAttributesTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
+	list ($ret, $viewCount) =
+	    GalleryCoreApi::fetchItemViewCount($this->_childItems[0]->getId());
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -428,6 +431,39 @@ class ItemAttributesTest extends GalleryTestCase {
 	$this->assertEquals(array($this->_parentItem->getId() => 5,
 				  $album->getId() => 2),
 			    $counts);
+    }
+
+    function testFetchDescendentCountsSessionPermission() {
+	/* Session based permissions should not apply when calculating cached descendent count */
+	global $gallery;
+	$session =& $gallery->getSession();
+	$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+
+	$itemId = $this->_childItems[1]->getId();
+	$ret = GalleryCoreApi::removeItemPermissions($itemId);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = GalleryCoreApi::addEntityPermission($itemId, $itemId, 'core.all');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$session->put(GALLERY_PERMISSION_SESSION_KEY, array($itemId));
+
+	list ($ret, $counts) =
+	    GalleryCoreApi::fetchDescendentCounts(array($this->_parentItem->getId()));
+	if ($ret) {
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(array($this->_parentItem->getId() => 2), $counts);
+
+	if (isset($this->_saveSessionPerms)) {
+	    $session->put(GALLERY_PERMISSION_SESSION_KEY, $this->_saveSessionPerms);
+	} else {
+	    $session->remove(GALLERY_PERMISSION_SESSION_KEY);
+	}
+
     }
 
     function testFetchDescendentCountsDifferentUser() {

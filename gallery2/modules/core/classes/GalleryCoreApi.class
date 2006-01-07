@@ -442,13 +442,15 @@ class GalleryCoreApi {
      *
      * @param string the permission id (eg, 'core.view')
      * @param int the user id
+     * @param boolean (optional) false to ignore session based permissions
      * @return array object GalleryStatus a status code
      *               array int access list ids
      */
-    function fetchAccessListIds($permission, $userId) {
+    function fetchAccessListIds($permission, $userId, $sessionPermissions=true) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	return GalleryPermissionHelper_simple::fetchAccessListIds($permission, $userId);
+	return GalleryPermissionHelper_simple::fetchAccessListIds(
+		$permission, $userId, $sessionPermissions);
     }
 
     /**

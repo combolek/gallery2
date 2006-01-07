@@ -39,20 +39,22 @@ class GalleryPermissionHelper_simple {
      *
      * @param string the permission id (eg, 'core.view')
      * @param int the user id
+     * @param boolean (optional) false to ignore session based permissions
      * @return array object GalleryStatus a status code
      *               array int access list ids
      */
-    function fetchAccessListIds($permission, $userId) {
+    function fetchAccessListIds($permission, $userId, $sessionPermissions=true) {
 	global $gallery;
 
-	$cacheKey = "GalleryPermissionHelper::fetchAccessListIds($permission, $userId)";
+	$cacheKey = 'GalleryPermissionHelper::fetchAccessListIds(' .
+	    "$permission, $userId, $sessionPermissions)";
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $groupIds = array_keys($groupIds);
-	    if ($userId == $gallery->getActiveUserId()) {
+	    if ($sessionPermissions && $userId == $gallery->getActiveUserId()) {
 		/* Session based permissions */
 		$session =& $gallery->getSession();
 		$sessionEntityIds = $session->get(GALLERY_PERMISSION_SESSION_KEY);
