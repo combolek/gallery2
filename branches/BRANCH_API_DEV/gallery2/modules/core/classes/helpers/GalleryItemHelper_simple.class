@@ -245,7 +245,7 @@ class GalleryItemHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
