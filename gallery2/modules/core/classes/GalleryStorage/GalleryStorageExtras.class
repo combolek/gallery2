@@ -1634,7 +1634,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$statement = $this->_gs->getOptimizeStatement();
+	$statement = $this->_gs->_getOptimizeStatement();
 	if (!empty($statement)) {
 	    foreach (array_keys($tableVersions) as $tableName) {
 		$query = sprintf($statement, $this->_gs->_tablePrefix . $tableName);
