@@ -186,5 +186,4 @@ function getXml($filename) {
     }
     return $results;
 }
-
 ?>

@@ -4,7 +4,7 @@
 $entityInfo['{$entityName}'] = array(
     'members' => array(
 {foreach name=outer from=$entity.members key=memberName item=memberInfo}
-        '{$memberName}' => array({foreach name=inner from=$memberInfo key=key item=value}'{$key}' => {$value}{if !$smarty.foreach.inner.last}, {/if}{/foreach}){if !$smarty.foreach.outer.last},{/if}
+	'{$memberName}' => array({foreach name=inner from=$memberInfo key=key item=value}'{$key}' => {$value}{if !$smarty.foreach.inner.last}, {/if}{/foreach}){if !$smarty.foreach.outer.last},{/if}
 
 {/foreach}),
     'parent' => {if $entity.parent=='GalleryPersistent'}null{else}'{$entity.parent}'{/if},
@@ -12,5 +12,4 @@ $entityInfo['{$entityName}'] = array(
     'linked' => array({foreach name=linked from=$entity.linked item=value}'{$value}'{if !$smarty.foreach.linked.last},{/if}{/foreach}));
 {/foreach}
 ?>
-
 
