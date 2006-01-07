@@ -108,6 +108,7 @@ class PermissionTest extends GalleryTestCase {
 	} else {
 	    $session->remove(GALLERY_PERMISSION_SESSION_KEY);
 	}
+	parent::tearDown();
     }
 
     /**
