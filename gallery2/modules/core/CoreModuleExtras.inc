@@ -1370,6 +1370,8 @@ class CoreModuleExtras {
 
 	case '1.0.13':
 	    /* Add config parameter: 'baseUri'*/
+	case '1.0.14':
+	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
 
 	case 'end of upgrade path':
 	    /*
@@ -1588,6 +1590,8 @@ $gallery->setConfig(\'mode.maintenance\', false);
 $gallery->setConfig(\'baseUri\', \'\');';
 	    
 	    $configChanges[] = array('remove' => array(), 'add' => $add);
+
+	case '1.0.14':
 
 	case 'end of upgrade path':
 	    /*

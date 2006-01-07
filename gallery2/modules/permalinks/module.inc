@@ -42,11 +42,11 @@ class PermalinksModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setName($gallery->i18n('Permalinks'));
 	$this->setDescription(
 		$gallery->i18n('Create simpler permanent aliases to your items space'));
-	$this->setVersion('1.0.3'); /* Update upgrade() too */
+	$this->setVersion('1.0.4'); /* Update upgrade() too */
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(6, 7));
-	$this->setRequiredModuleApi(array(2, 4));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

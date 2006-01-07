@@ -201,6 +201,8 @@ class RewriteModuleExtras {
 
 	case '1.1.0':
 	    /* Major GalleryUrlGenerator change */
+	case '1.1.1':
+	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
 	    
 	case 'end of upgrade path':
 	    break;
