@@ -44,6 +44,9 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 	    unset($_REQUEST['module']);
 	    unset($_REQUEST['theme']);
 	}
+	if (isset($_REQUEST['module']) || isset($_REQUEST['theme'])) {
+	    $storage =& $gallery->getStorage();
+	}
 
 	if (isset($_REQUEST['module']) && is_array($_REQUEST['module'])) {
 	    $totalPlugins += ($totalModules = count($_REQUEST['module']));
@@ -82,6 +85,11 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		    continue;
 		}
 		$templateData['upgradedModule'][$moduleId] = $module->getName();
+		$ret = $storage->checkPoint();
+		if ($ret) {
+		    $templateData['errors'][] = _('Unable to commit database transaction');
+		    $templateData['stackTrace'] .= $ret->getAsHtml();
+		}
 	    }
 	}
 
@@ -116,11 +124,15 @@ class UpgradeOtherModulesStep extends UpgradeStep {
 		    continue;
 		}
 		$templateData['upgradedTheme'][$themeId] = $theme->getName();
+		$ret = $storage->checkPoint();
+		if ($ret) {
+		    $templateData['errors'][] = _('Unable to commit database transaction');
+		    $templateData['stackTrace'] .= $ret->getAsHtml();
+		}
 	    }
 	}
 
 	if (isset($_REQUEST['module']) || isset($_REQUEST['theme'])) {
-	    $storage =& $gallery->getStorage();
 	    $ret = $storage->commitTransaction();
 	    if ($ret) {
 		$templateData['errors'][] = _('Unable to commit database transaction');
