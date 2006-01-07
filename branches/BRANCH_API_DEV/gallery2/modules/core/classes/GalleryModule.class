@@ -81,34 +81,7 @@ class GalleryModule extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	/*
-	 * TODO for the next major version bump:
-	 *   + DONE: Remove GalleryModule::loadItemDetails()
-	 *   + DONE: Remove isRecommendedDuringInstall() since we now have
-	 *     4 different types of installs (installer default to all checked),
-	 *     and change autoConfigure to return true by default.
-	 *   + DONE: Remove DatabaseStorageExtras::_loadOldStyleSqlFiles
-	 *   + DONE: Fix DatabaseStorageExtras::parseSqlTemplate so that it no longer
-	 *     accepts database files of the old form (A|R)_Table_#_# but requires
-	 *     the new form (A|R)_Table_#.# instead
-	 *   + DONE: Flatten classes/GalleryStorage/DatabaseStorage/schema under
-	 *     GalleryStorage; we're no longer going to seriously attempt to do
-	 *     any other kind of storage besides DatabaseStorage.  Roll as much
-	 *     functionality as possible up into GalleryStorage.class
-	 *   + DONE: Uncomment new code in GallerySession::_shouldSaveSession that
-	 *     will require modules not to call translate() from contructors
-	 *   + SKIP: Allow getItemSummaries to return a file to include, instead of
-	 *     just HTML so that item summaries can be integrated into the master
-	 *     template. ==> getItemSummaries can just call $template->fetch
-	 *   - Rename save to _save in GalleryEntity child classes,
-	 *     GalleryEntity::save calls $this->_save then sends event (ensure event last)
-	 *   - Entity/Map class/interface refactor (may affect above item^)
-	 *   - Add value truncation for maps too (add/updateMapEntry)
-	 *   - Change Arguments to GalleryUrlGenerator::init to init($baseUri, $embedUri,
-	 *     $embedSessionString) since GalleryEmbed params will be changed too
-	 *     And add optional forceG2Base to various UrlGen methods
-	 */
-	return array(2, 4);
+	return array(3, 0);
     }
 
     /**

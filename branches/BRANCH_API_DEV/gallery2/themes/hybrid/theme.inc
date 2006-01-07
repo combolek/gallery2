@@ -44,8 +44,8 @@ class HybridTheme extends GalleryTheme {
 	$this->setName($gallery->i18n('Hybrid'));
 	$this->setDescription(
 	    $gallery->i18n('Combined album/image/slideshow dynamic view'));
-	$this->setVersion('1.0.2');
-	$this->setRequiredCoreApi(array(6, 0));
+	$this->setVersion('1.0.3');
+	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredThemeApi(array(2, 2));
 	$this->setStandardSettings(array(
 	    'rows' => 30, 'columns' => 2,

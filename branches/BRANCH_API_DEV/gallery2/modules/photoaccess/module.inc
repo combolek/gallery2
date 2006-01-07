@@ -38,11 +38,11 @@ class PhotoAccessModule extends GalleryModule {
 	$this->setId('photoaccess');
 	$this->setName($gallery->i18n('PhotoAccess'));
 	$this->setDescription($gallery->i18n('PhotoAccess Photo Printing Module'));
-	$this->setVersion('1.0.1');
+	$this->setVersion('1.0.2'); /* Update upgrade() too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(6, 10));
-	$this->setRequiredModuleApi(array(2, 3));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -90,6 +90,8 @@ class PhotoAccessModule extends GalleryModule {
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
+
+	case '1.0.1':
 
 	case 'end of upgrade path':
 	    break;

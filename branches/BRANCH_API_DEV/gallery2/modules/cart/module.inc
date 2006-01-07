@@ -38,11 +38,11 @@ class CartModule extends GalleryModule {
 	$this->setId('cart');
 	$this->setName($gallery->i18n('Cart'));
 	$this->setDescription($gallery->i18n('Shopping Cart Module'));
-	$this->setVersion('1.0.1'); /* Update upgrade() function below too */
+	$this->setVersion('1.0.2'); /* Update upgrade() function below too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(6, 0));
-	$this->setRequiredModuleApi(array(2, 0));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -122,6 +122,8 @@ class CartModule extends GalleryModule {
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
+
+	case '1.0.1':
 
 	case 'end of upgrade path':
 	    break;

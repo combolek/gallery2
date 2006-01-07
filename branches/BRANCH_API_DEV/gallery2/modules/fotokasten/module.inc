@@ -38,11 +38,11 @@ class FotokastenModule extends GalleryModule {
 	$this->setId('fotokasten');
 	$this->setName($gallery->i18n('Fotokasten'));
 	$this->setDescription($gallery->i18n('Fotokasten Photo Printing Module'));
-	$this->setVersion('1.0.0');
+	$this->setVersion('1.0.1');
 	$this->setGroup('commerce', $this->translate('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(6, 10));
-	$this->setRequiredModuleApi(array(2, 3));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**

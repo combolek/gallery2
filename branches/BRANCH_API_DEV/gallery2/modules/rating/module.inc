@@ -40,19 +40,11 @@ class RatingModule extends GalleryModule {
 	$this->setId('rating');
 	$this->setName($gallery->i18n('Rating'));
 	$this->setDescription($gallery->i18n('Item Rating Interface'));
-	$this->setVersion('1.0.0');
+	$this->setVersion('1.0.1'); /* Update upgrade() too */
 	$this->setCallbacks('getSiteAdminViews|getItemSummaries|registerEventListeners');
 	$this->setGroup('data', $gallery->i18n('Extra Data'));
-	$this->setRequiredCoreApi(array(6, 0));
-	$this->setRequiredModuleApi(array(2, 3));
-    }
-
-    /**
-     * @see GalleryModule::autoConfigure
-     */
-    function autoConfigure() {
-	/* We don't require any special configuration */
-	return array(null, true);
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -236,14 +228,11 @@ class RatingModule extends GalleryModule {
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-
 	    break;
 
+	case '1.0.0':
+
 	case 'end of upgrade path':
-	    /*
-	     * Leave this bogus case at the end of the legitimate case statements so that we
-	     * always properly terminate our upgrade path with a break.
-	     */
 	    break;
 
 	default:

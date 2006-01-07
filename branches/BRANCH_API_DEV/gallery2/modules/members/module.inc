@@ -38,11 +38,11 @@ class MembersModule extends GalleryModule {
 	$this->setId('members');
 	$this->setName($gallery->i18n('Members'));
 	$this->setDescription($gallery->i18n('Members List and Profiles'));
-	$this->setVersion('1.0.0');
+	$this->setVersion('1.0.1');
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(6, 0));
-	$this->setRequiredModuleApi(array(2, 0));
+	$this->setRequiredCoreApi(array(7, 0));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
