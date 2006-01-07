@@ -53,20 +53,12 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
      * @access private
      */
     var $_shortUrls = array();
-
-    /**
-     * Base url when creating short urls.
-     *
-     * @var array index 0 => baseUrl, 1 => baseQueryString
-     * @access private
-     */
-    var $_baseUrl;
-
+    
     /**
      * @see GalleryUrlGenerator::init
      */
-    function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
-	$ret = parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
+    function init($baseUri=null, $g2Uri=null, $embedSessionString=null) {
+	$ret = parent::init($baseUri, $g2Uri, $embedSessionString);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -113,39 +105,10 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
     }
 
     /**
-     * @see GalleryUrlGenerator::getNavigationReturnUrl
-     */
-    function getNavigationReturnUrl() {
-	$formUrl = GalleryUtilities::getRequestVariables('formUrl');
-	if (!empty($formUrl)) {
-	    /*
-	     * We don't really have an URL, because we are in a POST request.
-	     * This is the last known URL when the form was originally rendered:
-	     */
-	    return $formUrl;
-	}
-
-	/*
-	 * Lets strip out all unnecessary params and regenerate the url. Otherwise we
-	 * wont get a short URL if possible.
-	 */
-	$params = array();
-	$urlVariables = GalleryUtilities::getUrlVariablesFiltered(
-	    array('return', 'returnName', 'navId', 'fromNavId'));
-	foreach ($urlVariables as $key => $value) {
-	    $params[substr($key, strlen(GALLERY_FORM_VARIABLE_PREFIX))] = $value;
-	}
-	$url = $this->generateUrl($params);
-
-	return $url;
-    }
-
-    /**
      * @see GalleryUrlGenerator::generateUrl
      */
     function generateUrl($params=array(), $options=array()) {
-	global $gallery;
-	$index = null;
+	$index = null;	
 	if ($this->_error) {
 	    return parent::generateUrl($params, $options);
 	}
@@ -180,7 +143,11 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	    if (strpos($index, '|') !== false) {
 		unset($params['subView']);
 	    }
-	    $options['baseUrl'] = $this->_baseUrl[0] . $url . $this->_baseUrl[1];
+
+	    $forceDirect = ($trueParams['view'] == 'core.DownloadItem' ||
+			    !empty($options['forceDirect']));
+	    $options['baseUrl'] = $this->_getBaseUrl($forceDirect) . $url .
+		$this->_getBaseParamString($forceDirect);
 	}
 
 	return parent::generateUrl($params, $options);
@@ -247,6 +214,28 @@ class RewriteUrlGenerator extends GalleryUrlGenerator {
 	    return null;
 	}
 	return $entity;
+    }
+
+    /**
+     * Return the base URL for all generated short URLs
+     *
+     * @param boolean (optional) if true, ensure G2 base url is returned (different when embedded)
+     * @return string the base URL
+     * @access private
+     */
+    function _getBaseUrl($forceDirect=false) {
+	return $this->getCurrentUrlDir($forceDirect);
+    }
+
+    /**
+     * Return the base URL parameters for all generated short URLs, e.g. '?module=gallery'
+     *
+     * @param boolean (optional) if true, ensure G2 base url is returned (different when embedded)
+     * @return string the base URL parameters
+     * @access private
+     */
+    function _getBaseParamString($forceDirect=false) {
+	return '';
     }
 }
 ?>

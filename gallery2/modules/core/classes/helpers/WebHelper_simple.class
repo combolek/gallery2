@@ -231,14 +231,28 @@ class WebHelper_simple {
 	foreach ($extraHeaders as $headerKey => $headerValue) {
 	    $extraHeaderLines[] = "$headerKey: $headerValue";
 	}
-	$platform->fwrite($fd, sprintf("GET %s HTTP/1.0\r\n" .
-				       "Host: %s\r\n" .
-				       "%s" .
-				       "\r\n",
-				       $get,
-				       $components['host'],
-				       empty($extraHeaderLines) ? '' : join("\r\n", $extraHeaderLines) . "\r\n"));
-	$platform->fflush($fd);
+
+	$ok = $platform->fwrite($fd, sprintf("GET %s HTTP/1.0\r\n" .
+					     "Host: %s\r\n" .
+					     "%s" .
+					     "\r\n",
+					     $get,
+					     $components['host'],
+					     empty($extraHeaderLines) ? '' :
+					     join("\r\n", $extraHeaderLines) . "\r\n"));
+	if (!$ok) {
+	    /* Zero bytes written or false was returned */
+	    $gallery->debug("fwrite call failed in fetchWebPage($url)");
+	    if ($ok === false) {
+		$gallery->debug('return value was false');
+	    }
+	    return array(false, null, null, null, null);
+	}
+	$ok = $platform->fflush($fd);
+	if (!$ok) {
+	    $gallery->debug("fflush call failed in fetchWebPage($url)");
+	    return array(false, null, null, null, null);
+	}
 
 	/*
 	 * Read the response code. fgets stops after newlines.
@@ -246,7 +260,6 @@ class WebHelper_simple {
 	 */
 	$headers = array();
 	$response = trim($platform->fgets($fd, 4096));
-
 	/* Read the headers. */
 	while (!$platform->feof($fd)) {
 	    $line = trim($platform->fgets($fd, 4096));

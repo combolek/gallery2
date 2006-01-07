@@ -57,7 +57,7 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	}
 
 	$_SERVER['HTTP_HOST'] = 'example.com';
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
+	$_SERVER['REQUEST_URI'] = '/gallery2/main.php?foo=1&bar=2';
 	$_SERVER['SERVER_PORT'] = 80;
 	$_SERVER['QUERY_STRING'] = 'foo=1&bar=2';
 
@@ -65,6 +65,27 @@ class IsapiRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+    }
+
+    
+    /*
+     * It should generate a server-relative URL (and not a relative URL) if
+     * REQUEST_URI is gallery2/main.php?g2_view=core.ShowItem&g2_itemId=15 which was rewritten from
+     * gallery2/v/foobar/randomAlbum/ -> isapi_rewrite changes REQUEST_URI so we'd still assume that
+     * a relativ URL is alright. But it isn't, we should use server-relative URLs in this case.
+     */
+     function testGenerateUrlMustBeServerRelative() {
+	$env = array('REQUEST_URI' => '/gallery2/' . GALLERY_MAIN_PHP .
+		     '?g2_view=core.ShowItem&g2_itemId=17');
+	$params = $this->_getTestUrlParams();
+	/* Only test a single URL */
+	$params = $params[6];
+	$expectedUrl = '/gallery2/v' . $this->_testAlbumPath;
+
+	$ret = $this->_runGenerateUrlTest($env, $expectedUrl, $params);
+	if ($ret) {
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

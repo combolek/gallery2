@@ -232,6 +232,7 @@ function selectAdminUser() {
  */
 function generateUrl($uri, $print=true) {
     if (strncmp($uri, 'index.php', 9) && strncmp($uri, '../' . GALLERY_MAIN_PHP, 11)) {
+	/* upgrade/images/*, upgrade/styles/*, ... URLs */
 	global $gallery;
 	/* Add @ here in case we haven't yet upgraded config.php to include galleryBaseUrl */
 	$baseUrl = @$gallery->getConfig('galleryBaseUrl');

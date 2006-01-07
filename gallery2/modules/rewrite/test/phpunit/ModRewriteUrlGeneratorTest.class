@@ -67,5 +67,32 @@ class ModRewriteUrlGeneratorTest extends RewriteUrlGeneratorTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
+
+    function testGenerateUrlOverrideBaseUri() {
+	/* Override the expected URLs, not server-relative, but with relative ones */
+	$this->_expectedUrl[0] = 'index.php?page=photos&amp;g2_view=rand164.NonShort&amp;' .
+	    'g2_foo=bar';
+	$this->_expectedUrl[1] = sprintf('d/%d-%d/%s',
+				  $this->_testItem->getId(), $this->_testItem->getSerialNumber(),
+				  urlencode($this->_testItem->getPathComponent()));
+	$this->_expectedUrl[2] = 'http://href_website.com/foo';
+	$this->_expectedUrl[3] = 'index.php?page=photos&amp;g2_controller=core.ShowItem&amp;' .
+	    'g2_itemId=' . $this->_testItem->getId();
+	$this->_expectedUrl[4] = 'themes/foo/images/bar.jpg';
+	$this->_expectedUrl[5] = 'index.php?page=photos&amp;g2_view=core.ShowItem';
+	$this->_expectedUrl[6] = 'v' . $this->_testAlbumPath;
+	$this->_expectedUrl[7] = 'v' . $this->_testItemPath . '.html';
+	$this->_expectedUrl[8] = 'index.php?page=photos&amp;g2_view=core.ShowItem&amp;' .
+	    'g2_itemId=-5759';
+	$this->_expectedUrl[9] = 'index.php?page=photos&amp;g2_view=core.ShowItem&amp;' .
+	    'g2_itemId=' . $this->_derivative->getId();
+	$this->_expectedUrl[10] = ltrim($this->_testAlbumPath, '/') . 'test.html';
+	$this->_expectedUrl[11] = ltrim($this->_testItemPath, '/') . '/test.html';
+	$this->_expectedUrl[12] = 't' . rtrim($this->_testAlbumPath, '/') . '.test';
+	$this->_expectedUrl[13] = 't' . $this->_testItemPath . '.test';
+	$this->_expectedUrl[14] = 'phpunit/';
+
+	parent::testGenerateUrlOverrideBaseUri();
+    }
 }
 ?>

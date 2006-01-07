@@ -103,7 +103,9 @@ class RewriteHelper {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null, null, null);
 	}
 	$accessList = unserialize($accessList);
-	$accessList[] = $urlGenerator->getCurrentDomain();
+	$ourHostNames[$urlGenerator->getHostName()] = true;
+	$ourHostNames[$urlGenerator->getHostName(true)] = true;
+	$accessList = array_merge($accessList, array_keys($ourHostNames));
 
 	$regexRules = array();
 	$shortUrls = array();
@@ -160,7 +162,7 @@ class RewriteHelper {
 			}
 		    }
 
-		    /* Save the onLoad handeler for this rule */
+		    /* Save the onLoad handler for this rule */
 		    if (isset($rules[$ruleId]['onLoad'])) {
 			$shortUrls[$match]['onLoad'] = $rules[$ruleId]['onLoad'];
 		    }

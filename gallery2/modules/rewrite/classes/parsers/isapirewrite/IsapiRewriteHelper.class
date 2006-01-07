@@ -223,7 +223,7 @@ class IsapiRewriteHelper {
 	$Httpdini['host'] = preg_quote(GalleryUtilities::getServerVar('SERVER_NAME'));
 	$Httpdini['baseFile'] = GALLERY_MAIN_PHP;
 	if ($embedded) {
-	    $Httpdini['baseFile'] = $urlGenerator->_baseFile;
+	    $Httpdini['baseFile'] = $urlGenerator->_file[0];
 	    list ($ret, $Httpdini['rewriteBase']) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'isapirewrite.embeddedLocation');
 	    if ($ret) {

@@ -105,10 +105,12 @@ function GalleryInitFirstPass($params=array()) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
 	$urlGenerator = new GalleryUrlGenerator();
     }
+    /* Allow for overrides from GalleryEmbed ($param) or from config.php */
+    $configBaseUri = @$gallery->getConfig('baseUri');
     $ret = $urlGenerator->init(
-	isset($params['embedUri']) ? $params['embedUri'] : null,
-	isset($params['embedPath']) ? $params['embedPath'] : null,
-	isset($params['relativeG2Path']) ? $params['relativeG2Path'] : null,
+	isset($params['baseUri']) ? $params['baseUri'] :
+	                            (!empty($configBaseUri) ? $configBaseUri : null),
+	isset($params['g2Uri']) ? $params['g2Uri'] : null,
 	isset($params['embedSessionString']) ? $params['embedSessionString'] : null);
     if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);

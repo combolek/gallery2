@@ -291,6 +291,17 @@ function populateDataDirectory($dataBase) {
     return true;
 }
 
+/* Returns something like https://example.com */
+function getBaseUrl() {
+    /* Can't use GalleryUrlGenerator::makeUrl since it's an object method */
+    if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_SERVER'))) {
+	$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
+    }
+    $protocol = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
+    
+    return sprintf('%s://%s', $protocol, $hostName);
+}
+
 /*
  * We don't store the steps in the session in raw form because that
  * will break in environments where session.auto_start is on since

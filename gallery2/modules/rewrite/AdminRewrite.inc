@@ -291,7 +291,7 @@ class AdminRewriteView extends GalleryView {
 	    break;
 
 	case 'setup':
-	    $AdminRewrite['serverName'] = $urlGenerator->getCurrentDomain();
+	    $AdminRewrite['serverName'] = $urlGenerator->getHostName();
 
 	    if ($form['formName'] != 'AdminRewrite' &&
 		    $AdminRewrite['parserType'] == 'preGallery') {

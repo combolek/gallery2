@@ -52,7 +52,7 @@ class DownloadRegistryFileView extends GalleryView {
 
 	/* Get the domain name */
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$domain = $urlGenerator->getCurrentDomain();
+	$domain = $urlGenerator->getHostName();
 
 	/* Get the name of the gallery */
 	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
