@@ -45,10 +45,8 @@ class ModRewriteHelperTest extends GalleryTestCase {
 	global $gallery;
 	parent::setUp();
 
-	$_SERVER['HTTP_HOST'] = 'www.test.server';
-	$_SERVER['SERVER_PORT'] = 80;
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret = $urlGenerator->init('phpunit.php');
+	$ret = $urlGenerator->init('http://www.test.server/gallery2/main.php');
 	if ($ret) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -217,8 +215,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
     }
 
     function testCheckModRewrite() {
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit.php';
-
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'pass');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
@@ -248,7 +244,16 @@ class ModRewriteHelperTest extends GalleryTestCase {
     }
 
     function testCheckModRewriteUnableToTest() {
-	$_SERVER['REQUEST_URI'] = '/bogus/phpunit.php';
+	global $gallery;
+	/* Prepare the URL Generator */
+	$urlGenerator = new GalleryUrlGenerator();
+	$ret = $urlGenerator->init('http://www.test.server/bogus/main.php');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$gallery->setUrlGenerator($urlGenerator);
+
+	/* Execute the test */
 	GalleryUtilities::putRequestVariable('modRewriteTest', 'fail');
 	list ($ret, $status, $trueStatus) = ModRewriteHelper::checkModRewrite();
 	if ($ret) {
@@ -260,8 +265,6 @@ class ModRewriteHelperTest extends GalleryTestCase {
     }
 
     function testCheckModRewriteForced() {
-	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit.php';
-
 	$ret = GalleryCoreApi::setPluginParameter('module', 'rewrite', 'modrewrite.status',
 	    serialize(array('needOptions' => true, 'forced' => 1)));
 	if ($ret) {
@@ -467,5 +470,4 @@ class ModRewriteHelperMockPlatform extends GalleryPlatform {
 	return fclose($handle);
     }
 }
-
 ?>

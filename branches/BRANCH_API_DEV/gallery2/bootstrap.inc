@@ -39,4 +39,10 @@ if (!defined('GALLERY_CONFIG_DIR')) {
     define('GALLERY_CONFIG_DIR', dirname(__FILE__));
 }
 @include(GALLERY_CONFIG_DIR . '/config.php');
+
+/*
+ * Disable session.use_trans_sid to mitigate performance-penalty
+ * (do it before any output is started)
+ */
+@ini_set('session.use_trans_sid', 0);
 ?>

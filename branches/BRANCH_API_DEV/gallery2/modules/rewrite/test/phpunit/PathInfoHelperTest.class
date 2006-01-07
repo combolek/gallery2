@@ -57,9 +57,7 @@ class PathInfoHelperTest extends GalleryTestCase {
 	}
 
 	$this->_parser = new PathInfoParser();
-	$_SERVER['HTTP_HOST'] = 'www.test.server';
 	$_SERVER['REQUEST_URI'] = '/gallery2/phpunit_test.php?foo=1&bar=2';
-	$_SERVER['SERVER_PORT'] = 80;
 
 	/* Set up our mock platform */
 	$this->_platform = new PathInfoHelperMockPlatform();
@@ -120,7 +118,9 @@ class PathInfoHelperMockPlatform extends GalleryPlatform {
     var $_readBuffer = array();
 
     function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
-	if ($target == 'www.test.server') {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+	if ($target == $urlGenerator->getHostName()) {
 	    return 'phpunit';
 	}
 

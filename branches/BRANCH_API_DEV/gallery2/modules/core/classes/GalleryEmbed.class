@@ -47,16 +47,39 @@
  * @static
  */
 class GalleryEmbed {
+    
+    /**
+     * Return the major and minor version of the Embedding API.
+     *
+     * Make sure to specify the 'apiVersion' parameter in the GalleryEmbed::init call!
+     *
+     * @see GalleryCoreApi::getApiVersion, the same rules and notes apply to the Embedding API
+     * @return array major number, minor number
+     */
+    function getApiVersion() {
+	return array(1, 0);
+    }
 
+    /**
+     * Return whether the supplied Embedding API version is compatible or not
+     *
+     * @param array int major, int minor
+     * @return bool true if compatible
+     */
+    function isCompatibleWithEmbedApi($apiVersion) {
+	return GalleryUtilities::isCompatibleWithApi($apiVersion, GalleryEmbed::getApiVersion());
+    }
+    
     /**
      * Initialize Gallery; must be called before most GalleryEmbed methods can be used.
      * This method should only be called once during the lifetime of the request.
      *
      * @param array (optional--required before calling handleRequest) (
-     *   'embedUri' => URI to access G2 via CMS application (example: index.php?module=gallery2)
-     *   'embedPath' => url path to embedUri (example: '/', or '/cms/')
-     *   'relativeG2Path' => relative path from CMS (dir with embedUri) to G2 base dir
-     *   'loginRedirect' => URI for redirect to CMS login view (example: /cms/index.php)
+     *   'embedUri' => URI to access G2 via CMS application
+     *                 (example: /portal/index.php?module=gallery2)
+     *   'g2Uri'    =  URL path to G2
+     *                 (example: /gallery2/, see extended docs for special character '|')
+     *   'loginRedirect' => (optional) URI for redirect to CMS login view (example: /cms/index.php)
      *   'embedSessionString' => (optional) To support cookieless browsing, pass in key=value for
      *                CMS session key and session id value to be added as query parameter in urls
      *   'gallerySessionId' => (optional) To support cookieless browsing, pass in G2 session id
@@ -66,6 +89,7 @@ class GalleryEmbed {
      *   'activeLanguage' => (optional) language code in use for this session
      *   'fullInit' => (optional) call GalleryInitSecondPass
      *                            (only use when not calling handleRequest)
+     *   'apiVersion' => (optional) array int major, int minor (check if your integration is compatible)
      * )
      * @return object GalleryStatus a status object
      * @static
@@ -75,8 +99,19 @@ class GalleryEmbed {
 	static $firstCacheKey = 'GalleryEmbed::initFirstPass';
 	static $secondCacheKey = 'GalleryEmbed::initSecondPass';
 
+	if (isset($initParams['apiVersion'])) {
+	    if (!GalleryEmbed::isCompatibleWithEmbedApi($initParams['apiVersion'])) {
+		return GalleryCoreApi::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
+					     'Embedding API version is incompatible');
+	    }
+	}
+	
 	/* Only InitFirstPass if not already done so in a prior call */
 	if (!GalleryDataCache::containsKey($firstCacheKey)) {
+	    if (isset($initParams['embedUri'])) {
+		$initParams['baseUri'] = $initParams['embedUri'];
+		unset($initParams['embedUri']);
+	    }
 	    $ret = GalleryInitFirstPass($initParams);
 	    GalleryDataCache::put($firstCacheKey, true);
 	    if ($ret) {

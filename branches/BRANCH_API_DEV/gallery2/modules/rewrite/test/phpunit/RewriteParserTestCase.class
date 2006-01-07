@@ -58,8 +58,6 @@ class RewriteParserTestCase extends GalleryTestCase {
 	}
 
 	$this->_parser = new $rewriteParserName();
-	$_SERVER['HTTP_HOST'] = 'www.test.server';
-	$_SERVER['SERVER_PORT'] = 80;
 	GalleryUtilities::putRequestVariable('rewriteTest', 'pass');
 
 	/* Set up our mock platform */
@@ -378,7 +376,9 @@ class RewriteParserMockPlatform extends GalleryPlatform {
     }
 
     function fsockopen($target, $port, &$errno, &$errstr, $timeout) {
-	if ($target == 'www.test.server') {
+	global $gallery;
+	$urlGenerator =& $gallery->getUrlGenerator();
+	if ($target == $urlGenerator->getHostName()) {
 	    return 'phpunit';
 	}
 

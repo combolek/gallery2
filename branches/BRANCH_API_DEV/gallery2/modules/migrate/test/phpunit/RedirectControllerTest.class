@@ -92,7 +92,8 @@ class RedirectControllerTest extends GalleryControllerTestCase {
     function testRedirect() {
 	global $gallery;
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$href = $urlGenerator->generateUrl(array('href' => $_SERVER['PHP_SELF']));
+	$href = $urlGenerator->generateUrl(array('href' => $_SERVER['PHP_SELF']),
+					   array('forceFullUrl' => true));
 
 	/* Album */
 	GalleryUtilities::putRequestVariable('path', $this->_albumName);

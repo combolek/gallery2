@@ -199,6 +199,9 @@ class RewriteModuleExtras {
 		}
 	    }
 
+	case '1.1.0':
+	    /* Major GalleryUrlGenerator change */
+	    
 	case 'end of upgrade path':
 	    break;
 

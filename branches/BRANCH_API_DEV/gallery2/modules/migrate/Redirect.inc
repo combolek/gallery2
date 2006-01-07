@@ -46,6 +46,7 @@ class RedirectController extends GalleryController {
     * @see GalleryController::handleRequest()
     */
     function handleRequest($form) {
+	global $gallery;
 	GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 	$path = GalleryUtilities::getRequestVariables('path');
@@ -131,7 +132,8 @@ class RedirectController extends GalleryController {
 	     * If not, omit 'href' in redirect params which means we hope REQUEST_URI has been
 	     * rewritten to the correct path (that is the case on php 5.0.3 cgi at least).
 	     */
-	    $results['redirect']['href'] = GalleryUrlGenerator::makeUrl($scriptName);
+	    $urlGenerator =& $gallery->getUrlGenerator();
+	    $results['redirect']['href'] = $urlGenerator->makeUrl($scriptName);
 	}
 
 	list ($full, $page) = GalleryUtilities::getRequestVariablesNoPrefix('full', 'page');

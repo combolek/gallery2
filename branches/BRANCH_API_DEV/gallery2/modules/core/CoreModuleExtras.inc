@@ -1368,6 +1368,9 @@ class CoreModuleExtras {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
+	case '1.0.13':
+	    /* Add config parameter: 'baseUri'*/
+
 	case 'end of upgrade path':
 	    /*
 	     * Leave this bogus case at the end of the legitimate case statements so that we
@@ -1566,6 +1569,25 @@ $gallery->setConfig(\'mode.maintenance\', false);
 	case '1.0.9':
 	case '1.0.10':
 	case '1.0.11':
+	case '1.0.12':
+	case '1.0.13':
+	    /* Add config parameter: 'baseUri'*/
+	    $add[] =
+'
+/*
+ * This setting can be used to override Gallery\'s auto-detection of the domain-name, 
+ * protocol (http/https), URL path, and of the file & query string.
+ * Most users can leave this empty. If the server is misconfigured or for very special
+ * setups, this setting can be quite handy.
+ * Examples (the positions of the slashes (\'/\') are important):
+ *   override the path: $gallery->setConfig(\'baseUri\', \'/another/path/\');
+ *   override the host + path: $gallery->setConfig(\'baseUri\', \'example.com/gallery2/\');
+ *   override the protocol + host + path + file:
+ *           $gallery->setConfig(\'baseUri\', \'https://example.com:8080/gallery2/index.php\');
+ */
+$gallery->setConfig(\'baseUri\', \'\');';
+	    
+	    $configChanges[] = array('remove' => array(), 'add' => $add);
 
 	case 'end of upgrade path':
 	    /*

@@ -30,11 +30,14 @@
  * an absolute url to conform with HTTP/1.1
  * (Include bootstrap.inc in case config.php overrides GALLERY_MAIN_PHP)
  */
-require(dirname(__FILE__) . '/bootstrap.inc');
-require(dirname(__FILE__) . '/modules/core/classes/GalleryUrlGenerator.class');
+require_once(dirname(__FILE__) . '/bootstrap.inc');
+require_once(dirname(__FILE__) . '/modules/core/classes/GalleryUrlGenerator.class');
 
 /* The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.* */
 $path = preg_replace('|^(/(?:[^?#/]+/)*).*|', '$1', GalleryUrlGenerator::getCurrentRequestUri());
 
-header('Location: ' . GalleryUrlGenerator::makeUrl($path) . GALLERY_MAIN_PHP);
+$urlGenerator =& new GalleryUrlGenerator();
+$urlGenerator->init();
+
+header('Location: ' . $urlGenerator->makeUrl($path) . GALLERY_MAIN_PHP);
 ?>

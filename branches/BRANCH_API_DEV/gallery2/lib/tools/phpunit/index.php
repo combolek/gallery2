@@ -28,9 +28,16 @@ function PhpUnitGalleryMain(&$testSuite, $filter) {
 
     global $gallery;
 
-    /* Configure out url Generator for phpunit mode. */
+    /* Configure our url Generator, find the correct base URL */
     $urlGenerator = new GalleryUrlGenerator();
-    $ret = $urlGenerator->init('lib/tools/phpunit/');
+    $ret = $urlGenerator->init('index.php');
+    if ($ret) {
+	return $ret->wrap(__FILE__, __LINE__);
+    }
+    $urlDir = str_replace('lib/tools/phpunit/', '', $urlGenerator->getCurrentUrlDir());
+    $path = substr($urlDir, strlen($urlGenerator->makeUrl('/')) - 1);
+    $urlGenerator = new GalleryUrlGenerator();
+    $ret = $urlGenerator->init($path . GALLERY_MAIN_PHP);
     if ($ret) {
 	return $ret->wrap(__FILE__, __LINE__);
     }

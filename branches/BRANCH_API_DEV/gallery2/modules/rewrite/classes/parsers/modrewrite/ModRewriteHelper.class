@@ -256,7 +256,7 @@ class ModRewriteHelper {
 	$Htaccess['rewriteBase'] = $Htaccess['galleryDirectory'];
 	$Htaccess['baseFile'] = GALLERY_MAIN_PHP;
 	if ($embedded) {
-	    $Htaccess['baseFile'] = $urlGenerator->_baseFile;
+	    $Htaccess['baseFile'] = $urlGenerator->_file[0];
 	    list ($ret, $Htaccess['directory']) = GalleryCoreApi::getPluginParameter(
 		'module', 'rewrite', 'modrewrite.embeddedLocation');
 	    if ($ret) {

@@ -41,14 +41,12 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
     /**
      * @see GalleryUrlGenerator::init
      */
-    function init($baseFile=null, $embedPath=null, $relativeG2Path=null, $embedSessionString=null) {
-	$ret = parent::init($baseFile, $embedPath, $relativeG2Path, $embedSessionString);
+    function init($baseUri=null, $g2Uri=null, $embedSessionString=null) {
+	$ret = parent::init($baseUri, $g2Uri, $embedSessionString);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$pathComponents = parse_url($this->getCurrentUrlDir());
-	$this->_baseUrl = array($pathComponents['path'], '');
 	$ret = $this->_onLoad();
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
@@ -59,42 +57,43 @@ class ModRewriteUrlGenerator extends RewriteUrlGenerator {
 
     /**
      * @see GalleryUrlGenerator::getCurrentUrl
+     * REQUEST_URI doesn't get rewritten by mod_rewrite
      */
-    function getCurrentUrl() {
+    function getCurrentUrl($forceDirect=false) {
 	if ($this->_error) {
-	    return parent::getCurrentUrl();
+	    return parent::getCurrentUrl($forceDirect);
 	}
 
-	if (empty($this->_currentUrl)) {
-	    $location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
-	    list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
-		'modrewrite.' . $location);
-	    if ($ret || empty($path)) {
-		/*
-		 * We dont know where we're at. This could happen if rewrite was installed
-		 * in G2 standalone, and now is accessed as G2 embedded. Turn off short URLs
-		 * for the embedded mode and wait until the user has set it up corectly.
-		 */
-		$this->_error = true;
-		return parent::getCurrentUrl();
+	if (!isset($this->_currentUrl[$forceDirect])) {
+	    /* Let the provided path override the database stored value */
+	    if (!empty($this->_path[$forceDirect])) {
+		$path = $this->_path[$forceDirect];
+	    } else {
+		/* Get the configured value, if set */
+		$location = GalleryUtilities::isEmbedded() ? 'embeddedLocation' : 'galleryLocation';
+		list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
+									'modrewrite.' . $location);
+		if ($ret || empty($path)) {
+		    /*
+		     * We dont know where we're at. This could happen if rewrite was installed
+		     * in G2 standalone, and now is accessed as G2 embedded. Turn off short URLs
+		     * for the embedded mode and wait until the user has set it up corectly.
+		     */
+		    $this->_error = true;
+		    return parent::getCurrentUrl($forceDirect);
+		}
 	    }
-
-	    /* Let the provided embedPath override the database stored value */
-	    if (GalleryUtilities::isEmbedded() && !empty($this->_embedPath)) {
-		$path = $this->_embedPath;
-	    }
-
-	    $tmp = $path . $this->_baseFile;
+	    
+	    $tmp = $path . $this->_file[$forceDirect];
 	    $queryString = GalleryUtilities::getServerVar('QUERY_STRING');
 	    if (!empty($queryString)) {
 		$tmp .= '?' . GalleryUtilities::htmlEntityDecode($queryString);
 	    }
 
-	    $this->_currentUrl = $this->makeUrl($tmp);
+	    $this->_currentUrl[$forceDirect] = $this->makeUrl($tmp);
 	}
 
-	return $this->_currentUrl;
+	return $this->_currentUrl[$forceDirect];
     }
 }
-
 ?>
