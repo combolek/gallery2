@@ -268,7 +268,7 @@ class DatabaseSetupStep extends InstallStep {
 
 	    foreach (array('mysql'  => _('MySQL (all versions)'),
 			   'mysqlt' => _('MySQL with Transactions (v3.23.34a and newer)'),
-			   'postgres7' => _('PostgreSQL v7.x'),
+			   'postgres7' => _('PostgreSQL v7.x and newer'),
 			   'postgres' => _('PostgreSQL v6.x (not well tested)'),
 			   'oci8po' => _('Oracle (9i and newer)'),
 			   'db2' => _('(EXPERIMENTAL!) IBM DB2 (v8.2.2 and newer)'))
