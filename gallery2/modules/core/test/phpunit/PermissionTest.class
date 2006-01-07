@@ -95,6 +95,19 @@ class PermissionTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_user);
+
+	$session =& $gallery->getSession();
+	$this->_saveSessionPerms = $session->get(GALLERY_PERMISSION_SESSION_KEY);
+    }
+
+    function tearDown() {
+	global $gallery;
+	$session =& $gallery->getSession();
+	if (isset($this->_saveSessionPerms)) {
+	    $session->put(GALLERY_PERMISSION_SESSION_KEY, $this->_saveSessionPerms);
+	} else {
+	    $session->remove(GALLERY_PERMISSION_SESSION_KEY);
+	}
     }
 
     /**
