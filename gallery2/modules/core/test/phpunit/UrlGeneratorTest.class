@@ -611,6 +611,16 @@ class UrlGeneratorTest extends GalleryTestCase {
 			    'embedded, different path, forceDirect');
     }
 
+    function testGetCurrentUrlDirBaseFileNotFound() {
+	$_SERVER['REQUEST_URI'] = '/somedir/?filter=foo';
+	$urlGenerator = new GalleryUrlGenerator();
+	$ret = $urlGenerator->init('index.php');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('http://example.com/somedir/', $urlGenerator->getCurrentUrlDir());
+    }
+
     function testGetHostName() {
 	$_SERVER['HTTP_HOST'] = 'http_host';
 	if ($ret = $this->_initNewUrlGenerator()) {

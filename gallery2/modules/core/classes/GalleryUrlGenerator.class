@@ -442,6 +442,9 @@ class GalleryUrlGenerator {
 		    $url = substr($url, 0, strrpos($url, '/') + 1);
 		} else if (($i = strpos($url, $this->_file[0])) !== false) {
 		    $url = substr($url, 0, $i);
+		} else if (($i = strpos($url, '?')) !== false) {
+		    /* We couldn't find the file name, at least remove the query string */
+		    $url = substr($url, 0, $i);
 		}
 	    }
 	    $url .= substr($url, -1) != '/' ? '/' : '';
