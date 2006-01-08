@@ -2900,5 +2900,46 @@ class GalleryCoreApi {
 	}
 	return null;
     }
+
+    /**
+     * Describe all the members of a map
+     *
+     * @param string a class name
+     * @param boolean true if we should scan all modules, not just the active ones
+     * @return array GalleryStatus a status code,
+     *               array member name => member type
+     * @access protected
+     */
+    function describeMap($mapName, $tryAllModules=false) {
+	global $gallery;
+
+	$storage =& $gallery->getStorage();
+	list ($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $entityInfo);
+    }
+
+    /**
+     * Describe the members, modules and parent of an entity
+     *
+     * @param string a class name
+     * @param boolean true if we should scan all modules, not just the active ones
+     * @access protected
+     * @return array object GalleryStatus a status code
+     *               entity associative array
+     */
+    function describeEntity($entityName, $tryAllModules=false) {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+	list ($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $entityInfo);
+    }
 }
 ?>

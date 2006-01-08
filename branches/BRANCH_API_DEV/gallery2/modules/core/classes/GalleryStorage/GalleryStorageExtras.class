@@ -282,21 +282,8 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 			$entity->$memberName = $value = (int)$value;
 		    } else if ($type & STORAGE_TYPE_STRING) {
 			if (isset($value)) {
-			    switch ($memberData['size']) {
-			    case STORAGE_SIZE_SMALL:
-				$size = 32;
-				break;
-
-			    case STORAGE_SIZE_MEDIUM:
-				$size = 128;
-				break;
-
-			    case STORAGE_SIZE_LARGE:
-				$size = 255;
-				break;
-			    }
 			    $entity->$memberName = $value =
-				GalleryUtilities::utf8Substring($value, 0, $size);
+				$this->_gs->_truncateString($value, $memberData['size']);
 			}
 		    }
 
@@ -905,13 +892,13 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list ($ret, $mapInfo) = $this->_gs->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->_gs->describeMap($mapName);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($tableName) = $this->_gs->_translateTableName($mapName);
 	$data = $columns = array();
-	foreach ($mapInfo as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberData) {
  	    if (!array_key_exists($memberName, $entry)) {
  		return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
  					     'Missing parameter: ' . $memberName);
@@ -923,11 +910,13 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    $columns[] = $this->_gs->_translateColumnName($memberName);
 	    $value = $entry[$memberName];
 
-	    if ($memberType & STORAGE_TYPE_BIT) {
+	    if ($memberData['type'] & STORAGE_TYPE_BIT) {
 		$value = $this->_gs->convertIntToBits($value);
-	    } else {
-		if ($memberType & STORAGE_TYPE_TIMESTAMP) {
-		    $value = $this->_gs->_db->DBTimeStamp($value);
+	    } else if ($memberData['type'] & STORAGE_TYPE_TIMESTAMP) {
+		$value = $this->_gs->_db->DBTimeStamp($value);
+	    } else if ($memberData['type'] & STORAGE_TYPE_STRING) {
+		if (isset($value)) {
+		    $value = $this->_gs->_truncateString($value, $memberData['size']);
 		}
 	    }
 
@@ -963,7 +952,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
      */
     function _addMapEntries($mapInfo, $tableName, $entry) {
 	$columns = array();
-	foreach ($mapInfo as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberData) {
 	    $columns[$memberName] = $this->_gs->_translateColumnName($memberName);
 	}
 
@@ -971,13 +960,17 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	$rows = count($entry[$memberName]);
 	$data = array();
 	for ($ind = 0; $ind < $rows; $ind++) {
-	    foreach ($mapInfo as $memberName => $memberType) {
+	    foreach ($mapInfo as $memberName => $memberData) {
 		$value = $entry[$memberName][$ind];
 
-		if ($memberType & STORAGE_TYPE_BIT) {
+		if ($memberData['type'] & STORAGE_TYPE_BIT) {
 		    $value = $this->_gs->convertIntToBits($value);
-		} else if ($memberType & STORAGE_TYPE_TIMESTAMP) {
+		} else if ($memberData['type'] & STORAGE_TYPE_TIMESTAMP) {
 		    $value = $this->_gs->_db->DBTimeStamp($value);
+		} else if ($memberData['type'] & STORAGE_TYPE_STRING) {
+		    if (isset($value)) {
+			$value = $this->_gs->_truncateString($value, $memberData['size']);
+		    }
 		}
 		$data[] = $value;
 	    }
@@ -1008,14 +1001,14 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list ($ret, $mapInfo) = $this->_gs->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->_gs->describeMap($mapName);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($tableName, $unused) = $this->_gs->_translateTableName($mapName);
 	$data = $where = array();
 
-	foreach ($mapInfo as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberData) {
 	    if (array_key_exists($memberName, $match)) {
 		if (GalleryUtilities::isA($match[$memberName], 'GallerySqlFragment')) {
 		    $where[] = $this->_gs->_translateColumnName($memberName) . ' '
@@ -1027,7 +1020,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		    $qs = array();
 		    foreach ($match[$memberName] as $value) {
 			$qs[] = '?';
-			if ($memberType & STORAGE_TYPE_BIT) {
+			if ($memberData['type'] & STORAGE_TYPE_BIT) {
 			    $value = $this->_gs->convertIntToBits($value);
 			}
 			$data[] = $value;
@@ -1039,7 +1032,7 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
 		} else {
 		    $where[] = $this->_gs->_translateColumnName($memberName) . '=?';
 		    $value = $match[$memberName];
-		    if ($memberType & STORAGE_TYPE_BIT) {
+		    if ($memberData['type'] & STORAGE_TYPE_BIT) {
 			$value = $this->_gs->convertIntToBits($value);
 		    }
 		    $data[] = $value;
@@ -1808,9 +1801,10 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
     }
 
     /**
-     * Describe the members, classes and classFile of an entity
+     * Describe the members, modules and parent of an entity
      *
      * @param string a class name
+     * @param boolean true if we should scan all modules, not just the active ones
      * @access protected
      * @return array object GalleryStatus a status code
      *               entity associative array
@@ -1906,10 +1900,10 @@ class GalleryStorageExtras /* the other half of GalleryStorage */ {
      * remove a table.
      */
     function _clearEntityAndMapCache() {
-	/* Note: keep these cache keys in sync with _describeMapMembers() */
-	GalleryDataCache::remove("GalleryStorage::describeMapMembers()");
+	/* Note: keep these cache keys in sync with describeMap() */
+	GalleryDataCache::remove("GalleryStorage::describeMap()");
 	GalleryDataCache::removeFromDisk(array('type' => 'module',
-					       'itemId' => 'GalleryStorage__describeMapMembers',
+					       'itemId' => 'GalleryStorage_describeMap',
 					       'id' => '_all'));
 
 	/* Note: keep these cache keys in sync with describeEntity() */

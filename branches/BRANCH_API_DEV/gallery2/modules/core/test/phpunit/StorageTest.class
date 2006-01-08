@@ -106,16 +106,95 @@ class StorageTest extends GalleryTestCase {
 	 * We really should use a fake map, but it's hard to insert a fake map definition into
 	 * GalleryStorage at the moment.
 	 */
-	$storage->addMapEntry(
+	$ret = $storage->addMapEntry(
 	    'GalleryUserGroupMap',
 	    array('userId' => 0, 'groupId' => 1));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
 	$this->assertEquals(
 	    array(array(
 	        sprintf('INSERT INTO %sUserGroupMap (%suserId, %sgroupId) VALUES (?,?)',
 			$storage->_tablePrefix, $storage->_columnPrefix,
 			$storage->_columnPrefix),
 		array(0, 1))),
-	    $this->_results, 'addMap');
+	    $this->_results);
+    }
+
+    function testAddMapTruncate() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$ret = $storage->addMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => str_repeat('x', 200),
+		  'entityType' => 'test',
+		  'entityId' => 1));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(
+	    array(array(
+	        sprintf('INSERT INTO %1$sExternalIdMap (%2$sexternalId, %2$sentityType, ' .
+			'%2$sentityId) VALUES (?,?,?)',
+			$storage->_tablePrefix, $storage->_columnPrefix),
+		array(str_repeat('x', 128), 'test', 1))),
+	    $this->_results);
+    }
+
+    function testUpdateMapTruncate() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$ret = $storage->updateMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => str_repeat('y', 200)),
+	    array('externalId' => str_repeat('x', 200)));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(
+	    array(array(
+	        sprintf('UPDATE %1$sExternalIdMap SET %2$sexternalId=? WHERE %2$sexternalId=?',
+			$storage->_tablePrefix, $storage->_columnPrefix),
+		array(str_repeat('x', 128), str_repeat('y', 128)))),
+	    $this->_results);
+    }
+
+    function testUpdateMapTruncateMultipleMatches() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$ret = $storage->updateMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => array(str_repeat('y', 200), str_repeat('z', 200))),
+	    array('externalId' => str_repeat('x', 200)));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$this->assertEquals(
+	    array(array(
+	        sprintf('UPDATE %1$sExternalIdMap SET %2$sexternalId=? WHERE ' .
+			'%2$sexternalId IN (?,?)',
+			$storage->_tablePrefix, $storage->_columnPrefix),
+		array(str_repeat('x', 128), str_repeat('y', 128), str_repeat('z', 128)))),
+	    $this->_results);
     }
 
     function testAddMapArray() {
@@ -126,9 +205,12 @@ class StorageTest extends GalleryTestCase {
 	 * We really should use a fake map, but it's hard to insert a fake map definition into
 	 * GalleryStorage at the moment.
 	 */
-	$storage->addMapEntry(
+	$ret = $storage->addMapEntry(
 	    'GalleryUserGroupMap',
 	    array('userId' =>array(1, 2, 3), 'groupId' => array(4, 5, 6)));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 
 	list ($ret, $sql) = $storage->getFunctionSql(
 	    'MULTI_INSERT',
@@ -138,8 +220,37 @@ class StorageTest extends GalleryTestCase {
 
 	$this->assertEquals(
 	    array(array($sql, array(1, 4, 2, 5, 3, 6))),
-	    $this->_results,
-	    'addMap');
+	    $this->_results);
+    }
+
+    function testAddMapArrayTruncate() {
+	global $gallery;
+	$storage =& $gallery->getStorage();
+
+	/*
+	 * We really should use a fake map, but it's hard to insert a fake map definition into
+	 * GalleryStorage at the moment.
+	 */
+	$ret = $storage->addMapEntry(
+	    'ExternalIdMap',
+	    array('externalId' => array(str_repeat('x', 200), str_repeat('y', 200)),
+		  'entityType' => array('test1', 'test2'),
+		  'entityId' => array(1, 2)));
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $sql) = $storage->getFunctionSql(
+	    'MULTI_INSERT',
+	    array($storage->_tablePrefix . 'ExternalIdMap',
+		  array($storage->_columnPrefix . 'externalId',
+			$storage->_columnPrefix . 'entityType',
+			$storage->_columnPrefix . 'entityId'), 2));
+
+	$this->assertEquals(
+	    array(array($sql, array(str_repeat('x', 128), 'test1', 1,
+				    str_repeat('y', 128), 'test2', 2))),
+	    $this->_results);
     }
 
     function testSaveEntity() {

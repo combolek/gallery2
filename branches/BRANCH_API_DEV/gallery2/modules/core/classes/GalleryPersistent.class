@@ -97,9 +97,7 @@ class GalleryPersistent {
      * @return object GalleryStatus a status code
      */
     function resetOriginalValues($resetToNull=false) {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-	list ($ret, $data) = $storage->describeEntity($this->entityType);
+	list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	if ($ret) {
 	    return null;
 	}
@@ -165,9 +163,7 @@ class GalleryPersistent {
      *               string a path like modules/core/classes/GalleryUser.class
      */
     function getClassFile() {
-	global $gallery;
-	$storage =& $gallery->getStorage();
-	list ($ret, $data) = $storage->describeEntity($this->entityType);
+	list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}

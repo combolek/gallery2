@@ -431,8 +431,7 @@ class GalleryEntity extends GalleryPersistent {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    $storage =& $gallery->getStorage();
-	    list ($ret, $data) = $storage->describeEntity($this->entityType);
+	    list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -573,8 +572,6 @@ class GalleryEntity extends GalleryPersistent {
      * @return object GalleryStatus a status code
      */
     function detachLink() {
-	global $gallery;
-
 	if (!$this->isLinked()) {
 	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, 'Not a link!');
 	}
@@ -583,8 +580,7 @@ class GalleryEntity extends GalleryPersistent {
 	 * Copy over the linked data.  It should already be here since we do this in onLoad() but
 	 * this will guarantee it in case the values were changed before the detach happens.
 	 */
-	$storage =& $gallery->getStorage();
-	list ($ret, $data) = $storage->describeEntity($this->entityType);
+	list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
