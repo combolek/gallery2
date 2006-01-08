@@ -66,9 +66,18 @@ foreach ($root[0]['child'] as $map) {
     for ($j = 2; $j < count($map['child']); $j++) {
 	$child = $map['child'][$j];
 	if ($child['name'] == 'MEMBER') {
-	    $maps[$mapName][] = array(
+	    $member = array(
 		'name' => $child['child'][0]['content'],
 		'type' => 'STORAGE_TYPE_' . $child['child'][1]['content']);
+
+	    if (!empty($child['child'][2]['name']) &&
+		    $child['child'][2]['name'] == 'MEMBER-SIZE') {
+		$member['size'] = 'STORAGE_SIZE_' . $child['child'][2]['content'];
+	    } else {
+		$member['size'] = 'STORAGE_SIZE_MEDIUM';
+	    }
+
+	    $maps[$mapName][] = $member;
 	}
     }
 }

@@ -471,14 +471,14 @@ class GalleryStorage {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list ($ret, $mapInfo) = $this->_describeMapMembers($mapName);
+	list ($ret, $mapInfo) = $this->describeMap($mapName);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list ($tableName, $unused) = $this->_translateTableName($mapName);
 	$data = $set = $where = $wheredata = array();
 
-	foreach ($mapInfo as $memberName => $memberType) {
+	foreach ($mapInfo as $memberName => $memberData) {
 	    if (array_key_exists($memberName, $match)) {
 		if (GalleryUtilities::isA($match[$memberName], 'GallerySqlFragment')) {
 		    $where[] = $this->_translateColumnName($memberName) . ' ' .
@@ -490,8 +490,13 @@ class GalleryStorage {
 		    $qs = array();
 		    foreach ($match[$memberName] as $value) {
 			$qs[] = '?';
-			if ($memberType & STORAGE_TYPE_BIT) {
+			if ($memberData['type'] & STORAGE_TYPE_BIT) {
 			    $value = $this->convertIntToBits($value);
+			} else if ($memberData['type'] & STORAGE_TYPE_STRING) {
+			    if (isset($value)) {
+				$entity->$memberName = $value =
+				    $this->_truncateString($value, $memberData['size']);
+			    }
 			}
 			$wheredata[] = $value;
 		    }
@@ -502,8 +507,13 @@ class GalleryStorage {
 		} else {
 		    $where[] = $this->_translateColumnName($memberName) . '=?';
 		    $value = $match[$memberName];
-		    if ($memberType & STORAGE_TYPE_BIT) {
+		    if ($memberData['type'] & STORAGE_TYPE_BIT) {
 			$value = $this->convertIntToBits($value);
+		    } else if ($memberData['type'] & STORAGE_TYPE_STRING) {
+			if (isset($value)) {
+			    $entity->$memberName = $value =
+				$this->_truncateString($value, $memberData['size']);
+			}
 		    }
 		    $wheredata[] = $value;
 		}
@@ -519,8 +529,13 @@ class GalleryStorage {
 		} else {
 		    $set[] = $this->_translateColumnName($memberName) . '=?';
 		    $value = $change[$memberName];
-		    if ($memberType & STORAGE_TYPE_BIT) {
+		    if ($memberData['type'] & STORAGE_TYPE_BIT) {
 			$value = $this->convertIntToBits($value);
+		    } else if ($memberData['type'] & STORAGE_TYPE_STRING) {
+			if (isset($value)) {
+			    $entity->$memberName = $value =
+				$this->_truncateString($value, $memberData['size']);
+			}
 		    }
 		    $setdata[] = $value;
 		}
@@ -802,14 +817,15 @@ class GalleryStorage {
     }
 
     /**
-     * Describe the members, classes and classFile of an entity
+     * Describe the members, modules and parent of an entity
      *
      * @param string a class name
+     * @param boolean true if we should scan all modules, not just the active ones
      * @access protected
      * @return array object GalleryStatus a status code
      *               entity associative array
      */
-    function describeEntity($entityName) {
+    function describeEntity($entityName, $tryAllModules=false) {
 	$extras =& $this->_getExtras();
 	return $extras->describeEntity($entityName);
     }
@@ -945,15 +961,15 @@ class GalleryStorage {
      * @param boolean try all modules, not just active ones
      * @return array GalleryStatus a status code,
      *               array member name => member type
-     * @access protected
+     * @access public
      */
-    function _describeMapMembers($mapName, $tryAllModules=false) {
+    function describeMap($mapName, $tryAllModules=false) {
 	global $gallery;
 
 	/* Note: keep these cache keys in sync with _clearMapMemberCache() */
-	$cacheKey = "GalleryStorage::describeMapMembers()";
+	$cacheKey = "GalleryStorage::describeMap()";
 	$cacheParams = array('type' => 'module',
-			     'itemId' => 'GalleryStorage__describeMapMembers',
+			     'itemId' => 'GalleryStorage_describeMap',
 			     'id' => '_all');
 
 	/* We only cache the results for active modules */
@@ -1000,7 +1016,7 @@ class GalleryStorage {
 	}
 
 	if (!$tryAllModules && !isset($mapInfo[$mapName])) {
-	    list ($ret, $mapInfo[$mapName]) = $this->_describeMapMembers($mapName, true);
+	    list ($ret, $mapInfo[$mapName]) = $this->describeMap($mapName, true);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
@@ -1042,6 +1058,30 @@ class GalleryStorage {
 	    ob_end_clean();
 	    $gallery->debug($buf);
 	}
+    }
+
+    /**
+     * Perform a UT8-safe truncation of the string to a size
+     *
+     * @param string the value
+     * @param int the size (as a STORAGE_SIZE_XXX constant)
+     * @return the truncated string
+     */
+    function _truncateString($value, $size) {
+	switch ($size) {
+	case STORAGE_SIZE_SMALL:
+	    $size = 32;
+	    break;
+
+	case STORAGE_SIZE_MEDIUM:
+	    $size = 128;
+	    break;
+
+	case STORAGE_SIZE_LARGE:
+	    $size = 255;
+	    break;
+	}
+	return GalleryUtilities::utf8Substring($value, 0, $size);
     }
 }
 
