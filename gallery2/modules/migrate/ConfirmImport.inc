@@ -101,11 +101,7 @@ class ConfirmImportController extends GalleryController {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	if (!empty($moduleStatusList['comment']['active'])) {
-	    $importComments = true;
-	} else {
-	    $importComments = false;
-	}
+	$importComments = !empty($moduleStatusList['comment']['active']);
 
 	if (!empty($form['customFields'])) {
 	    list ($ret, $customFieldInterface) =
@@ -187,7 +183,7 @@ class ConfirmImportController extends GalleryController {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'migrate');
+	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'migrate');
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -206,7 +202,7 @@ class ConfirmImportController extends GalleryController {
 
 	/* Get list of userids in advance */
 	GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
-	list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
+	list ($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -244,8 +240,7 @@ class ConfirmImportController extends GalleryController {
 	    }
 
 	    /* Go ahead and create the user instance */
-	    list ($ret, $user) =
-		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
+	    list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -261,12 +256,8 @@ class ConfirmImportController extends GalleryController {
 	     * before this was simply building the framework.
 	     */
 	    $ret = $user->create($userName);
-	    /* Was there an error? */
 	    if ($ret) {
-		/*
-		 * ERROR_COLLISION is when you try to create something that
-		 * already exists.
-		 */
+		/* ERROR_COLLISION is when you try to create something that already exists */
 		if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -324,7 +315,6 @@ class ConfirmImportController extends GalleryController {
 
 	/*
 	 * Import Any Selected Albums
-	 *
 	 * First initialize the $form['sourceAlbums'] array to avoid php warnings
 	 */
 	if (!isset($form['sourceAlbums'])) {
@@ -377,10 +367,9 @@ class ConfirmImportController extends GalleryController {
 
 	/*
 	 * Go through the array of albums' metadata one album at a time.
-	 * We limit the number of passes through this list to n^2 times to
-	 * avoid an infinite loop.  This allows us to make sure that we add
-	 * parent albums first by taking albums out of the list as they are
-	 * handled.
+	 * We limit the number of passes through this list to n^2 times to avoid an infinite loop.
+	 * This allows us to make sure that we add parent albums first by taking albums out of the
+	 * list as they are handled.
 	 */
 	$i = $numberOfItemsImported = 0;
 	while ($albumfields && $i < pow(count($form['sourceAlbums']), 2) && !connection_aborted()) {
@@ -401,7 +390,7 @@ class ConfirmImportController extends GalleryController {
 		    if ($ret) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
-		    foreach($parentPhotos as $parentAlbumItem) {
+		    foreach ($parentPhotos as $parentAlbumItem) {
 			if (isset($parentAlbumItem->isAlbumName) &&
 				$parentAlbumItem->isAlbumName == $album['name']) {
 			    $isHiddenAlbum =
@@ -418,905 +407,870 @@ class ConfirmImportController extends GalleryController {
 		$albumfields[$album['name']] = $album;
 		$album = null;
 	    }
+	    if (!$targetAlbumID || !$album) {
+		continue;
+	    }
 
-	    if ($targetAlbumID && $album) {
-		/* We definitely need notices before each album */
-		$ret = $templateAdapter->updateProgressBar($importPhotosMessage,
+	    /* We definitely need notices before each album */
+	    $ret = $templateAdapter->updateProgressBar($importPhotosMessage,
 		    $album['name'], $numberOfItemsImported / $totalItemsToImport);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($targetAlbumID);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    list ($ret, $parentPath) = $parent->fetchPath();
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    $desiredname = $platform->legalizePathComponent($album['name']);
+	    $k = 0;
+	    $invalidName = true;
+	    while ($invalidName) {
+		list ($ret, $existingAlbumId) =
+		    GalleryCoreApi::fetchChildIdByPathComponent($targetAlbumID, $desiredname);
 		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-		list($ret, $parent) = GalleryCoreApi::loadEntitiesById($targetAlbumID);
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-		list($ret, $parentPath) = $parent->fetchPath();
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-
-		$desiredname = $platform->legalizePathComponent($album['name']);
-		$k = 0;
-		$invalidName = true;
-		while($invalidName) {
-		    list ($ret, $existingAlbumId) =
-			GalleryCoreApi::fetchChildIdByPathComponent($targetAlbumID, $desiredname);
-		    if ($ret) {
-			if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-			    return $ret->wrap(__FILE__, __LINE__);
-			} else {
-			    $invalidName = false;
-			}
-		    } else {
-			$desiredname = $album['name'] . '_' . $k++;
-		    }
-		}
-
-		if ($targetAlbumID) {
-		    /* Make sure we have permission to edit the target item */
-		    $ret = GalleryCoreApi::assertHasItemPermission($targetAlbumID,
-								   'core.addAlbumItem');
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-
-		    /* Try to load targeted parent */
-		    list ($ret, $targetAlbumObject) =
-			GalleryCoreApi::loadEntitiesById($targetAlbumID);
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-
-		    /* Get a lock on said parent */
-		    list ($ret, $importLockIds[]) =
-			GalleryCoreApi::acquireReadLock($targetAlbumObject->getId());
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-
-		    /* If everything is good so far, we create a new instance to be our new album */
-		    if (!empty($desiredname) && $platform->isLegalPathComponent($desiredname)) {
-			list ($ret, $newAlbumInstance) =
-			    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-			if (!isset($newAlbumInstance)) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
-			}
-			/* this is where the album is actually created */
-			$ret = $newAlbumInstance->create($targetAlbumID, $desiredname);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			if (isset($form['urlRedirect'])) {
-			    $ret = $this->createG1ToG2Mapping(
-				$newAlbumInstance->getId(), $album['name']);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			$newAlbumInstanceId = $newAlbumInstance->getId();
-			$sourceData = array('title' => null, 'summary' => null);
-			/* load up the album with metadata from the old album */
-			if (isset($album['title'])) {
-			    $sourceData['title'] =
-				$this->convertHtml($markupType, $album['title'], $sourceEncoding);
-			    $newAlbumInstance->setTitle($sourceData['title']);
-			}
-			if (isset($album['summary'])) {
-			    $newAlbumInstance->setDescription($this->convertHtml(
-				$markupType, $album['summary'], $sourceEncoding));
-			}
-			$newAlbumInstance->setKeywords('');
-			if (isset($album['description'])) {
-			    $sourceData['summary'] = $this->convertHtml(
-				$markupType, $album['description'], $sourceEncoding);
-			    $newAlbumInstance->setSummary($sourceData['summary']);
-			}
-			// $newAlbumInstance->settheme
-			if (isset($album['last_mod_time']) && $album['last_mod_time']) {
-			    if (isset($album['clicks_date']) && $album['clicks_date'] > 0 &&
-				$album['clicks_date']<$album['last_mod_time']){
-				$newAlbumInstance->setCreationTimestamp($album['clicks_date']);
-				$newAlbumInstance->setOriginationTimestamp($album['clicks_date']);
-			    } else {
-				$newAlbumInstance->setCreationTimestamp($album['last_mod_time']);
-				$newAlbumInstance->setOriginationTimestamp($album['last_mod_time']);
-			    }
-			}
-			if (isset($album['clicks_date']) && $album['clicks_date']>0) {
-			    $newAlbumInstance->setviewedSinceTimestamp($album['clicks_date']);
-			}
-
-			/* $newAlbumInstance->setorderBy */
-			/* $newAlbumInstance->setorderDirection */
-
-			/* Set album owner */
-			if (isset($album['owner'])) {
-			    $validUID = Gallery1DataParser::isValidUid($albumsPath,
-								       $album['owner']);
-			    if ($validUID) {
-				list($ret, $albumUserFields) =
-				    Gallery1DataParser::getUserFieldsByUid($albumsPath,
-									   $album['owner']);
-				if ($ret) {
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-				list($ret, $owner) =
-				    GalleryCoreApi::fetchUserByUsername(
-					GalleryCoreApi::convertToUtf8(
-					    $albumUserFields['username'], $sourceEncoding));
-				if ($ret) {
-				    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-					$owner = $gallery->getActiveUser();
-				    } else {
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				}
-				$newAlbumInstance->setOwnerId($owner->getId());
-			    }
-			}
-			/* Save the new album */
-			$ret = $newAlbumInstance->save();
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-			$numberOfItemsImported++;
-
-			$ret = $this->checkTruncation($newAlbumInstance, $sourceData);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			/* Create custom fields */
-			if (isset($customFieldInterface) && !empty($album['extra_fields'])) {
-			    /* Skip these metadata type fields: */
-			    $extraFields = array_diff($album['extra_fields'],
-				array('Upload Date', 'Capture Date', 'Dimensions', 'EXIF'),
-				$skipCustomItemFields);
-			    if (!empty($extraFields)) {
-				foreach ($extraFields as $i => $field) {
-				    $extraFields[$i] =
-					$this->convertHtml('html', $field, $sourceEncoding);
-				}
-				list ($ret) = $customFieldInterface->createCustomFields(
-						     $extraFields, $newAlbumInstance->getId());
-				if ($ret) {
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-			    }
-			}
-
-			$itemsCreated[] = $newAlbumInstance->getId();
-
-			/* Set order weight */
-			if (isset($albumPosition[$album['name']])) {
-			    $weight = $albumPosition[$album['name']];
-			} else {
-			    list ($ret, $weight) = GalleryCoreApi::fetchExtremeChildWeight(
-				$targetAlbumID, HIGHER_WEIGHT);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			    $weight += 1000;
-			}
-			$ret = GalleryCoreApi::setItemOrderWeight(
-			    $newAlbumInstance->getId(), $weight);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			/* album permissions */
-			$ret = GalleryCoreApi::removeItemPermissions($newAlbumInstance->getId());
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-			if ($adminUsersGroupId) {
-			    $ret = GalleryCoreApi::addGroupPermission($newAlbumInstance->getId(),
-								      $adminUsersGroupId,
-								      'core.all',
-								      false);
-			    if ($ret) {
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			/* Set album owner permissions */
-			$validUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
-			if ($validUID) {
-			    list($ret, $albumUserFields) = Gallery1DataParser::getUserFieldsByUid(
-				$albumsPath, $album['owner']);
-			    if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			    list($ret, $owner) = GalleryCoreApi::fetchUserByUsername(
-				GalleryCoreApi::convertToUtf8(
-				    $albumUserFields['username'], $sourceEncoding));
-			    if ($ret) {
-				if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
-				    $owner = $gallery->getActiveUser();
-				} else {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-			    }
-			    $ret = GalleryCoreApi::addUserPermission($newAlbumInstance->getId(),
-								     $owner->getId(),
-								     'core.all',
-								     true);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			if (isset($album['perms'])) {
-			    foreach ($album['perms'] as $tmpperm => $tmpusers) {
-				foreach ($permissionTranslation[$tmpperm] as $tmpTranslatedPerm) {
-				    if ($isHiddenAlbum && $tmpTranslatedPerm == 'core.view') {
-					/* Omit view permission for hidden albums */
-					continue;
-				    }
-				    foreach (array_keys($tmpusers) as $tmpuser) {
-					switch ($tmpuser) {
-					case 'Logged In':
-					    if ($allUsersGroupId) {
-						$ret = GalleryCoreApi::addGroupPermission(
-						    $newAlbumInstance->getId(),
-						    $allUsersGroupId,
-						    $tmpTranslatedPerm,
-						    false);
-						if ($ret) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-					    }
-					    break;
-					case 'everybody':
-					    if ($everybodyGroupId) {
-						$ret = GalleryCoreApi::addGroupPermission(
-						    $newAlbumInstance->getId(),
-						    $everybodyGroupId,
-						    $tmpTranslatedPerm,
-						    false);
-						if ($ret) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-					    }
-					    break;
-					case 'Nobody':
-					    break;
-					case 'admin':
-					    break;
-					default:
-					    $validPermUID = Gallery1DataParser::isValidUid(
-						$albumsPath, $tmpuser);
-					    if ($validPermUID) {
-						list($ret, $permsUserFields) =
-						    Gallery1DataParser::getUserFieldsByUid(
-							$albumsPath, $tmpuser);
-						if ($ret) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-						$permUsername = $permsUserFields['username'];
-						list($ret, $permUser) =
-						    GalleryCoreApi::fetchUserByUsername(
-							GalleryCoreApi::convertToUtf8(
-							    $permUsername, $sourceEncoding));
-						if ($ret &&
-							!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-						if ($permUser) {
-						    $ret = GalleryCoreApi::addUserPermission(
-							$newAlbumInstance->getId(),
-							$permUser->getId(),
-							$tmpTranslatedPerm,
-							false);
-						    if ($ret) {
-							GalleryCoreApi::releaseLocks($importLockIds);
-							return $ret->wrap(__FILE__, __LINE__);
-						    }
-						}
-					    }
-					}
-				    }
-				}
-			    }
-			}
-			if ($isHiddenAlbum && isset($hiddenInterface)) {
-			    $ret = $hiddenInterface->hideItem($newAlbumInstance);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			/* Click counts must be set after the item is first saved */
-			if (isset($album['clicks'])) {
-			    $ret = GalleryCoreApi::setItemViewCount(
-				$newAlbumInstanceId, $album['clicks']);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			/* Delete existing derivative preferences */
-			$ret =
-			    GalleryCoreApi::removeDerivativePreferencesForItem($newAlbumInstanceId);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			/* Add the thumbnail size back in */
-			if (isset($album['thumb_size'])) {
-			    $ret = GalleryCoreApi::addDerivativePreference(
-				0, $newAlbumInstanceId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
-				'thumbnail|' . $album['thumb_size']);
-			}
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			if (isset($album['resize_size']) && $album['resize_size'] > 0) {
-			    $ret = GalleryCoreApi::addDerivativePreference(
-				1, $newAlbumInstanceId, DERIVATIVE_TYPE_IMAGE_RESIZE,
-				'scale|' . $album['resize_size']);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			}
-
-			list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($newAlbumInstance);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-			list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-			list ($ret, $settings) = $theme->getSettings($newAlbumInstanceId);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			$ret = $theme->setParameter('rows', $album['rows'], $newAlbumInstanceId);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			$ret = $theme->setParameter('columns', $album['cols'], $newAlbumInstanceId);
-			if ($ret) {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-
-			if (isset($newAlbumInstanceId)) {
-			    $finishedAlbums[$album['name']] = $newAlbumInstanceId;
-			    $status['albumImportSuccess'][$album['name']] = $newAlbumInstanceId;
-			} else {
-			    GalleryCoreApi::releaseLocks($importLockIds);
-			    return $ret->wrap(__FILE__, __LINE__);
-			}
-		    }
-		    /*
-		     * we can let the parent album (and anything else that we might
-		     * have tied up) be edited by others now
-		     */
-		    $ret = GalleryCoreApi::releaseLocks($importLockIds);
-		    if ($ret) {
+		    if (!$ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    } else {
-			$importLockIds = array();
+			$invalidName = false;
 		    }
+		} else {
+		    $desiredname = $album['name'] . '_' . $k++;
+		}
+	    }
 
-		    unset($photos);
-		    list ($ret, $photos) =
-			Gallery1DataParser::getPhotos($albumsPath . $album['name']);
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-		    if (!isset($photos)) {
-			$photos = array();
-		    }
+	    /* Make sure we have permission to edit the target item */
+	    $ret = GalleryCoreApi::assertHasItemPermission($targetAlbumID, 'core.addAlbumItem');
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
-		    $albumHighlight[$newAlbumInstanceId] = false;
-		    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($newAlbumInstanceId);
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
+	    /* Try to load targeted parent */
+	    list ($ret, $targetAlbumObject) = GalleryCoreApi::loadEntitiesById($targetAlbumID);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
 
-		    list ($ret, $importLockIds[]) =
-			GalleryCoreApi::acquireReadLock($item->getId());
-		    if ($ret) {
-			return $ret->wrap(__FILE__, __LINE__);
-		    }
-		    list ($ret, $thumbnailTable) =
-			GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+	    /* Get a lock on said parent */
+	    list ($ret, $importLockIds[]) =
+		GalleryCoreApi::acquireReadLock($targetAlbumObject->getId());
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    /* If everything is good so far, we create a new instance to be our new album */
+	    if (!empty($desiredname) && $platform->isLegalPathComponent($desiredname)) {
+		list ($ret, $newAlbumInstance) =
+		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		if (!isset($newAlbumInstance)) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+		}
+		/* this is where the album is actually created */
+		$ret = $newAlbumInstance->create($targetAlbumID, $desiredname);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		if (isset($form['urlRedirect'])) {
+		    $ret = $this->createG1ToG2Mapping($newAlbumInstance->getId(), $album['name']);
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($importLockIds);
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
-		    $albumNeedsThumbnail = empty($thumbnailTable) ? true : false;
+		}
 
-		    foreach ($photos as $j => $importAlbumItem) {
-			$gallery->guaranteeTimeLimit(30);
-			if (isset($importAlbumItem->isAlbumName) && $importAlbumItem->isAlbumName) {
-			    if ($importAlbumItem->highlight == 1) {
-				$albumHighlight[$newAlbumInstanceId] =
-				    $importAlbumItem->isAlbumName;
-			    }
-			    list ($ret, $weight) = GalleryCoreApi::fetchExtremeChildWeight(
-				$newAlbumInstanceId, HIGHER_WEIGHT);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
+		$newAlbumInstanceId = $newAlbumInstance->getId();
+		$sourceData = array('title' => null, 'summary' => null);
+		/* load up the album with metadata from the old album */
+		if (isset($album['title'])) {
+		    $sourceData['title'] =
+			$this->convertHtml($markupType, $album['title'], $sourceEncoding);
+		    $newAlbumInstance->setTitle($sourceData['title']);
+		}
+		if (isset($album['summary'])) {
+		    $newAlbumInstance->setDescription($this->convertHtml(
+				$markupType, $album['summary'], $sourceEncoding));
+		}
+		$newAlbumInstance->setKeywords('');
+		if (isset($album['description'])) {
+		    $sourceData['summary'] = $this->convertHtml(
+			    $markupType, $album['description'], $sourceEncoding);
+		    $newAlbumInstance->setSummary($sourceData['summary']);
+		}
+		// $newAlbumInstance->settheme
+		if (isset($album['last_mod_time']) && $album['last_mod_time']) {
+		    if (isset($album['clicks_date']) && $album['clicks_date'] > 0 &&
+			    $album['clicks_date'] < $album['last_mod_time']){
+			$newAlbumInstance->setCreationTimestamp($album['clicks_date']);
+			$newAlbumInstance->setOriginationTimestamp($album['clicks_date']);
+		    } else {
+			$newAlbumInstance->setCreationTimestamp($album['last_mod_time']);
+			$newAlbumInstance->setOriginationTimestamp($album['last_mod_time']);
+		    }
+		}
+		if (isset($album['clicks_date']) && $album['clicks_date'] > 0) {
+		    $newAlbumInstance->setviewedSinceTimestamp($album['clicks_date']);
+		}
+
+		/* $newAlbumInstance->setorderBy */
+		/* $newAlbumInstance->setorderDirection */
+
+		/* Set album owner */
+		if (isset($album['owner'])) {
+		    $validUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+		    if ($validUID) {
+			list ($ret, $albumUserFields) =
+			    Gallery1DataParser::getUserFieldsByUid($albumsPath, $album['owner']);
+			if ($ret) {
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+			list ($ret, $owner) = GalleryCoreApi::fetchUserByUsername(
+				GalleryCoreApi::convertToUtf8(
+					$albumUserFields['username'], $sourceEncoding));
+			if ($ret) {
+			    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+				$owner = $gallery->getActiveUser();
+			    } else {
 				return $ret->wrap(__FILE__, __LINE__);
 			    }
-			    $albumPosition[$importAlbumItem->isAlbumName] = $weight + 100 + $j;
-			    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
-				$hiddenAlbums[$importAlbumItem->isAlbumName] = true;
-			    }
-			    $importAlbumItem = null;
+			}
+			$newAlbumInstance->setOwnerId($owner->getId());
+		    }
+		}
+		/* Save the new album */
+		$ret = $newAlbumInstance->save();
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		$numberOfItemsImported++;
+
+		$ret = $this->checkTruncation($newAlbumInstance, $sourceData);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		/* Create custom fields */
+		if (isset($customFieldInterface) && !empty($album['extra_fields'])) {
+		    /* Skip these metadata type fields: */
+		    $extraFields = array_diff($album['extra_fields'],
+			    array('Upload Date', 'Capture Date', 'Dimensions', 'EXIF'),
+			    $skipCustomItemFields);
+		    if (!empty($extraFields)) {
+			foreach ($extraFields as $i => $field) {
+			    $extraFields[$i] = $this->convertHtml('html', $field, $sourceEncoding);
+			}
+			list ($ret) = $customFieldInterface->createCustomFields(
+				$extraFields, $newAlbumInstance->getId());
+			if ($ret) {
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+		    }
+		}
+
+		$itemsCreated[] = $newAlbumInstance->getId();
+
+		/* Set order weight */
+		if (isset($albumPosition[$album['name']])) {
+		    $weight = $albumPosition[$album['name']];
+		} else {
+		    list ($ret, $weight) = GalleryCoreApi::fetchExtremeChildWeight(
+			    $targetAlbumID, HIGHER_WEIGHT);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		    $weight += 1000;
+		}
+		$ret = GalleryCoreApi::setItemOrderWeight($newAlbumInstance->getId(), $weight);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		/* album permissions */
+		$ret = GalleryCoreApi::removeItemPermissions($newAlbumInstance->getId());
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		if ($adminUsersGroupId) {
+		    $ret = GalleryCoreApi::addGroupPermission($newAlbumInstance->getId(),
+			    $adminUsersGroupId, 'core.all', false);
+		    if ($ret) {
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+
+		/* Set album owner permissions */
+		$validUID = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+		if ($validUID) {
+		    list ($ret, $albumUserFields) = Gallery1DataParser::getUserFieldsByUid(
+			    $albumsPath, $album['owner']);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		    list ($ret, $owner) = GalleryCoreApi::fetchUserByUsername(
+			    GalleryCoreApi::convertToUtf8(
+				$albumUserFields['username'], $sourceEncoding));
+		    if ($ret) {
+			if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
+			    $owner = $gallery->getActiveUser();
 			} else {
-			    $dir = $albumsPath . $album['name'] . $slash;
-			    $filename = $importAlbumItem->image->name . '.' .
-				$importAlbumItem->image->type;
-			    $filepath = $dir . $filename;
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+		    }
+		    $ret = GalleryCoreApi::addUserPermission($newAlbumInstance->getId(),
+			    $owner->getId(), 'core.all', true);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
 
-			    $ret = $templateAdapter->updateProgressBar(
-				$importPhotosMessage, $album['name'] . ' ' . $filename,
-				$numberOfItemsImported / $totalItemsToImport);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
+		if (isset($album['perms'])) {
+		    foreach ($album['perms'] as $tmpperm => $tmpusers) {
+			foreach ($permissionTranslation[$tmpperm] as $tmpTranslatedPerm) {
+			    if ($isHiddenAlbum && $tmpTranslatedPerm == 'core.view') {
+				/* Omit view permission for hidden albums */
+				continue;
 			    }
-
-			    list ($base, $extension) =
-				GalleryUtilities::getFileNameComponents($filename);
-			    list ($ret, $mimeType) =
-				GalleryCoreApi::convertExtensionToMime($extension);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-
-			    $convertedCaption = $this->convertHtml(
-				$markupType, $importAlbumItem->caption, $sourceEncoding);
-
-			    $data = array('title' => '', 'summary' => '', 'description' => '');
-			    foreach (array_keys($data) as $field) {
-				switch ($form['set'][$field]) {
-				case 'filename':
-				    $data[$field] = $base;
+			    foreach (array_keys($tmpusers) as $tmpuser) {
+				switch ($tmpuser) {
+				case 'Logged In':
+				    if ($allUsersGroupId) {
+					$ret = GalleryCoreApi::addGroupPermission(
+						$newAlbumInstance->getId(),
+						$allUsersGroupId,
+						$tmpTranslatedPerm,
+						false);
+					if ($ret) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+				    }
 				    break;
-				case 'caption':
-				    $data[$field] = $convertedCaption;
+				case 'everybody':
+				    if ($everybodyGroupId) {
+					$ret = GalleryCoreApi::addGroupPermission(
+						$newAlbumInstance->getId(),
+						$everybodyGroupId,
+						$tmpTranslatedPerm,
+						false);
+					if ($ret) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+				    }
 				    break;
-				case 'custom':
-				    $customField = $form['customfield'][$field];
-				    if (isset($importAlbumItem->extraFields[$customField])) {
-					$data[$field] = $this->convertHtml(
-					    $markupType, $importAlbumItem->extraFields[$customField],
-					    $sourceEncoding);
-				    } else if ($field == 'description' &&
-					       isset($form['set']['defaultDescription'])) {
-					$data[$field] = $data['summary'];
-				    }
-				}
-			    }
-
-			    list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
-				$filepath, $filename, $data['title'], $data['summary'],
-				$data['description'], $mimeType, $item->getId());
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-			    $itemsCreated[] = $newItem->getId();
-			    $numberOfItemsImported++;
-
-			    $ret = $this->checkTruncation($newItem, $data);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-
-			    if (isset($form['urlRedirect'])) {
-				$ret = $this->createG1ToG2Mapping(
-				    $newItem->getId(), $album['name'],
-				    $importAlbumItem->image->name);
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-			    }
-			    $itemLockIds = array();
-			    list ($ret, $itemLockIds[]) =
-				GalleryCoreApi::acquireWriteLock($newItem->getId());
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-
-			    $newItem->setKeywords(GalleryCoreApi::convertToUtf8(
-						      $importAlbumItem->keywords, $sourceEncoding));
-
-			    if (isset($importAlbumItem->uploadDate)){
-				$newItem->setCreationTimestamp($importAlbumItem->uploadDate);
-			    }
-			    if (isset($importAlbumItem->itemCaptureDate)){
-				/* Before 1.4.5-cvs-b106 this was an associative array */
-				if (is_array($importAlbumItem->itemCaptureDate)) {
-				    $newItem->setOriginationTimestamp(
-					mktime($importAlbumItem->itemCaptureDate['hours'],
-					       $importAlbumItem->itemCaptureDate['minutes'],
-					       $importAlbumItem->itemCaptureDate['seconds'],
-					       $importAlbumItem->itemCaptureDate['mon'],
-					       $importAlbumItem->itemCaptureDate['mday'],
-					       $importAlbumItem->itemCaptureDate['year']));
-				} else {
-				    $newItem->setOriginationTimestamp(
-					$importAlbumItem->itemCaptureDate);
-				}
-			    } else if (isset($importAlbumItem->uploadDate)){
-				$newItem->setOriginationTimestamp($importAlbumItem->uploadDate);
-			    }
-			    if (isset($album['clicks_date']) && $album['clicks_date']>0) {
-				$newItem->setviewedSinceTimestamp($album['clicks_date']);
-			    }
-			    if (isset($importAlbumItem->clicks) && $importAlbumItem->clicks > 0) {
-				$ret = GalleryCoreApi::setItemViewCount(
-				    $newItem->getId(), $importAlbumItem->clicks);
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-			    }
-			    if (isset($importAlbumItem->image->thumb_x) &&
-				isset($importAlbumItem->image->thumb_y) &&
-				isset($importAlbumItem->image->thumb_width) &&
-				isset($importAlbumItem->image->thumb_height) &&
-				$importAlbumItem->image->thumb_width > 0 &&
-				$importAlbumItem->image->thumb_height > 0){
-
-				/* Load the thumbnail */
-				$thumbnails = array();
-				list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
-				    array($newItem->getId()));
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-
-				if (!empty($thumbnails)) {
-				    $thumbnail = $thumbnails[$newItem->getId()];
-
-				    list ($ret, $lock) =
-					GalleryCoreApi::acquireWriteLock($thumbnail->getId());
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-
-				    list ($ret, $thumbnail) = $thumbnail->refresh();
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					GalleryCoreApi::releaseLocks($lock);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-
-				    $width = $importAlbumItem->image->raw_width;
-				    $height = $importAlbumItem->image->raw_height;
-				    $xPerc = GalleryUtilities::roundToString(
-					$importAlbumItem->image->thumb_x * 100 / $width, 3);
-				    $yPerc = GalleryUtilities::roundToString(
-					$importAlbumItem->image->thumb_y * 100 / $height, 3);
-				    $widthPerc = GalleryUtilities::roundToString(
-					$importAlbumItem->image->thumb_width * 100 / $width, 3);
-				    $heightPerc = GalleryUtilities::roundToString(
-					$importAlbumItem->image->thumb_height * 100 / $height, 3);
-				    list ($ret, $operations) =
-					GalleryCoreApi::mergeDerivativeOperations(
-					    $thumbnail->getDerivativeOperations(),
-					    sprintf('crop|%s,%s,%s,%s',
-						    $xPerc, $yPerc,
-						    $widthPerc, $heightPerc),
-					    true);
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					GalleryCoreApi::releaseLocks($lock);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				    $thumbnail->setDerivativeOperations($operations);
-
-				    $thumbnail->setWidth(0);
-				    $thumbnail->setHeight(0);
-
-				    $ret = $thumbnail->save();
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				    $ret = GalleryCoreApi::releaseLocks($lock);
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-
-				    /*
-				     * Changing the crop size causes our
-				     * derivative dimensions to change,
-				     * which affects all our dependent
-				     * derivatives also.
-				     */
-				    $ret = GalleryCoreApi::invalidateDerivativeDimensionsBySourceIds(
-					array($thumbnail->getId()));
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				}
-			    }
-
-			    $validItemUID = false;
-			    $itemUID = false;
-			    $defaultToAlbumUID = true;
-			    if (isset($importAlbumItem->owner)) {
-				if (!strcmp('everybody', $importAlbumItem->owner)
-				    || !strcmp('nobody', $importAlbumItem->owner)
-				    ) {
-				    $defaultToAlbumUID = false;
-				    $newItem->setownerId($guestUserId);
-				} else if (strcmp('logged-in', $importAlbumItem->owner)) {
-				    $validItemUID = Gallery1DataParser::isValidUid(
-					$albumsPath, $importAlbumItem->owner);
-				    if ($validItemUID) {
-					$defaultToAlbumUID = false;
-					$itemUID = $importAlbumItem->owner;
-				    }
-				}
-			    }
-			    if ($defaultToAlbumUID) {
-				$validItemUID =
-				    Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
-				if ($validItemUID) {
-				    $itemUID = $album['owner'];
-				}
-			    }
-			    if ($validItemUID && $itemUID) {
-				list($ret, $albumItemUserFields) =
-				    Gallery1DataParser::getUserFieldsByUid(
-					$albumsPath, $itemUID);
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-				list($ret, $itemOwner) = GalleryCoreApi::fetchUserByUsername(
-				    GalleryCoreApi::convertToUtf8(
-					$albumItemUserFields['username'], $sourceEncoding));
-				if ($ret &&
-					!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-				if ($itemOwner) {
-				    $newItem->setownerId($itemOwner->getId());
-				}
-			    }
-
-			    $ret = $newItem->save();
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks($importLockIds);
-				return $ret->wrap(__FILE__, __LINE__);
-			    }
-
-			    /* Set custom field values */
-			    if (isset($customFieldInterface) &&
-				    !empty($importAlbumItem->extraFields)) {
-				$extraFields = array();
-				foreach ($importAlbumItem->extraFields as $key => $value) {
-				    if (in_array($key, $skipCustomItemFields)) {
-					continue;
-				    }
-				    $key = $this->convertHtml('html', $key, $sourceEncoding);
-				    $extraFields[$key] = $this->convertHtml($markupType, $value,
-									    $sourceEncoding);
-				}
-				if (!empty($extraFields)) {
-				    $ret = $customFieldInterface->setCustomFieldValues(
-						  $newItem->getId(), $extraFields);
-				    if ($ret) {
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				}
-			    }
-
-			    if ($importComments && isset($importAlbumItem->comments) &&
-				count($importAlbumItem->comments) > 0) {
-				foreach ($importAlbumItem->comments as
-					 $importCommentId => $importComment) {
-				    if (strcmp($importComment->UID, 'everybody')) {
-					$validCommentUid = Gallery1DataParser::isValidUid(
-					    $albumsPath, $album['owner']);
-					if ($validCommentUid){
-					    list($ret, $commentG1User) =
-						Gallery1DataParser::getUserFieldsByUid(
-						    $albumsPath, $album['owner']);
+				case 'Nobody':
+				case 'admin':
+				    break;
+				default:
+				    $validPermUID = Gallery1DataParser::isValidUid(
+					    $albumsPath, $tmpuser);
+				    if ($validPermUID) {
+					list ($ret, $permsUserFields) =
+					    Gallery1DataParser::getUserFieldsByUid(
+						    $albumsPath, $tmpuser);
+					if ($ret) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+					$permUsername = $permsUserFields['username'];
+					list ($ret, $permUser) =
+					    GalleryCoreApi::fetchUserByUsername(
+						    GalleryCoreApi::convertToUtf8(
+							$permUsername, $sourceEncoding));
+					if ($ret &&
+						!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+					if ($permUser) {
+					    $ret = GalleryCoreApi::addUserPermission(
+						    $newAlbumInstance->getId(),
+						    $permUser->getId(),
+						    $tmpTranslatedPerm,
+						    false);
 					    if ($ret) {
 						GalleryCoreApi::releaseLocks($importLockIds);
 						return $ret->wrap(__FILE__, __LINE__);
 					    }
-					    list($ret, $commentG2User) =
-						GalleryCoreApi::fetchUserByUsername(
-						    GalleryCoreApi::convertToUtf8(
-							$commentG1User['username'],
-							$sourceEncoding));
-					    if ($ret) {
-						if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						} else {
-						    $commenterId = $guestUserId;
-						}
-					    } else {
-						$commenterId = $commentG2User->getId();
-					    }
-					}
-				    } else {
-					$commenterId = $guestUserId;
-				    }
-
-				    /* Add the comment */
-				    list ($ret, $comment) = GalleryCoreApi::newFactoryInstance(
-					'GalleryEntity', 'GalleryComment');
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-
-				    if (!isset($comment)) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return GalleryCoreApi::error(
-					    ERROR_MISSING_OBJECT, __FILE__, __LINE__);
-				    }
-
-				    $ret = $comment->create($newItem->getId());
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-
-				    $comment->setCommenterId($commenterId);
-				    $comment->setHost(empty($importComment->IPNumber) ?
-						      'unknown' :
-						      $importComment->IPNumber);
-				    if ($commenterId == $guestUserId) {
-					$comment->setSubject(
-					    GalleryCoreApi::convertToUtf8($importComment->name,
-									  $sourceEncoding));
-				    } else {
-					$comment->setSubject('');
-				    }
-				    $comment->setComment(
-					ConfirmImportController::convertHtml(
-					    $markupType, $importComment->commentText,
-					    $sourceEncoding));
-				    $comment->setDate($importComment->datePosted);
-
-				    $ret = $comment->save();
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				}
-			    }
-			    $ret = GalleryCoreApi::releaseLocks($itemLockIds);
-			    if ($ret) {
-				return $ret->wrap(__FILE__, __LINE__);
-			    } else {
-				$itemLockIds = array();
-			    }
-
-			    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
-				if (isset($hiddenInterface)) {
-				    $ret = $hiddenInterface->hideItem($newItem);
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				} else {
-				    /* remove view permission for hidden item */
-				    list ($ret, $itemPermissions) =
-					GalleryCoreApi::fetchAllPermissionsForItem($newItem->getId());
-				    if ($ret) {
-					GalleryCoreApi::releaseLocks($importLockIds);
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				    foreach ($itemPermissions as $itemPermission) {
-					if ($itemPermission['permission'] == 'core.view') {
-					    if (isset($itemPermission['userId'])
-						    && $itemPermission['userId']
-						    != $newItem->getOwnerId()) {
-						$ret = GalleryCoreApi::removeUserPermission(
-							$newItem->getId(), $itemPermission['userId'],
-							'core.view', false);
-						if ($ret) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-					    } else if (isset($itemPermission['groupId'])
-						    && $itemPermission['groupId']
-						    != $adminUsersGroupId) {
-						$ret = GalleryCoreApi::removeGroupPermission(
-							$newItem->getId(), $itemPermission['groupId'],
-							'core.view', false);
-						if ($ret) {
-						    GalleryCoreApi::releaseLocks($importLockIds);
-						    return $ret->wrap(__FILE__, __LINE__);
-						}
-					    }
 					}
 				    }
-				}
-			    }
-
-			    $status['addFromLocalServer'][] = array('fileName' => $filename,
-								    'id' => $newItem->getId());
-			    if (($albumNeedsThumbnail || $importAlbumItem->highlight == 1)) {
-				$toolkit = null;
-
-				list ($ret, $toolkit, $outputMimeType) =
-				    GalleryCoreApi::getToolkitByOperation(
-					$newItem->getMimeType(), 'thumbnail');
-				if ($ret) {
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-
-				if (isset($toolkit)) {
-				    list ($ret, $success) = GalleryCoreApi::setThumbnailFromItem(
-					$item->getId(), $newItem->getId());
-				    if ($ret) {
-					return $ret->wrap(__FILE__, __LINE__);
-				    }
-				    $albumNeedsThumbnail = false;
 				}
 			    }
 			}
 		    }
 		}
-		$ret = $templateAdapter->updateProgressBar($importPhotosMessage,
-		    $album['name'], $numberOfItemsImported / $totalItemsToImport);
+		if ($isHiddenAlbum && isset($hiddenInterface)) {
+		    $ret = $hiddenInterface->hideItem($newAlbumInstance);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+
+		/* Click counts must be set after the item is first saved */
+		if (isset($album['clicks'])) {
+		    $ret = GalleryCoreApi::setItemViewCount($newAlbumInstanceId, $album['clicks']);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+
+		/* Delete existing derivative preferences */
+		$ret = GalleryCoreApi::removeDerivativePreferencesForItem($newAlbumInstanceId);
 		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
-		$album = null;
-		/* $i keeps track of how many passes we make over the data */
-		$i++;
+
+		/* Add the thumbnail size back in */
+		if (isset($album['thumb_size'])) {
+		    $ret = GalleryCoreApi::addDerivativePreference(
+			    0, $newAlbumInstanceId, DERIVATIVE_TYPE_IMAGE_THUMBNAIL,
+			    'thumbnail|' . $album['thumb_size']);
+		}
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		if (isset($album['resize_size']) && $album['resize_size'] > 0) {
+		    $ret = GalleryCoreApi::addDerivativePreference(
+			    1, $newAlbumInstanceId, DERIVATIVE_TYPE_IMAGE_RESIZE,
+			    'scale|' . $album['resize_size']);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		}
+
+		list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($newAlbumInstance);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+		list ($ret, $settings) = $theme->getSettings($newAlbumInstanceId);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		$ret = $theme->setParameter('rows', $album['rows'], $newAlbumInstanceId);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		$ret = $theme->setParameter('columns', $album['cols'], $newAlbumInstanceId);
+		if ($ret) {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		if (isset($newAlbumInstanceId)) {
+		    $finishedAlbums[$album['name']] = $newAlbumInstanceId;
+		    $status['albumImportSuccess'][$album['name']] = $newAlbumInstanceId;
+		} else {
+		    GalleryCoreApi::releaseLocks($importLockIds);
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
 	    }
+	    /*
+	     * we can let the parent album (and anything else that we might
+	     * have tied up) be edited by others now
+	     */
+	    $ret = GalleryCoreApi::releaseLocks($importLockIds);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    } else {
+		$importLockIds = array();
+	    }
+
+	    unset($photos);
+	    list ($ret, $photos) = Gallery1DataParser::getPhotos($albumsPath . $album['name']);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    if (!isset($photos)) {
+		$photos = array();
+	    }
+
+	    $albumHighlight[$newAlbumInstanceId] = false;
+	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($newAlbumInstanceId);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    list ($ret, $importLockIds[]) = GalleryCoreApi::acquireReadLock($item->getId());
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    list ($ret, $thumbnailTable) =
+		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
+	    if ($ret) {
+		GalleryCoreApi::releaseLocks($importLockIds);
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    $albumNeedsThumbnail = empty($thumbnailTable);
+
+	    foreach ($photos as $j => $importAlbumItem) {
+		$gallery->guaranteeTimeLimit(30);
+		if (isset($importAlbumItem->isAlbumName) && $importAlbumItem->isAlbumName) {
+		    if ($importAlbumItem->highlight == 1) {
+			$albumHighlight[$newAlbumInstanceId] = $importAlbumItem->isAlbumName;
+		    }
+		    list ($ret, $weight) = GalleryCoreApi::fetchExtremeChildWeight(
+			    $newAlbumInstanceId, HIGHER_WEIGHT);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		    $albumPosition[$importAlbumItem->isAlbumName] = $weight + 100 + $j;
+		    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
+			$hiddenAlbums[$importAlbumItem->isAlbumName] = true;
+		    }
+		    $importAlbumItem = null;
+		} else {
+		    $dir = $albumsPath . $album['name'] . $slash;
+		    $filename = $importAlbumItem->image->name . '.' . $importAlbumItem->image->type;
+		    $filepath = $dir . $filename;
+
+		    $ret = $templateAdapter->updateProgressBar(
+			    $importPhotosMessage, $album['name'] . ' ' . $filename,
+			    $numberOfItemsImported / $totalItemsToImport);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+
+		    list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
+		    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+
+		    $convertedCaption = $this->convertHtml(
+			    $markupType, $importAlbumItem->caption, $sourceEncoding);
+
+		    $data = array('title' => '', 'summary' => '', 'description' => '');
+		    foreach (array_keys($data) as $field) {
+			switch ($form['set'][$field]) {
+			case 'filename':
+			    $data[$field] = $base;
+			    break;
+			case 'caption':
+			    $data[$field] = $convertedCaption;
+			    break;
+			case 'custom':
+			    $customField = $form['customfield'][$field];
+			    if (isset($importAlbumItem->extraFields[$customField])) {
+				$data[$field] = $this->convertHtml(
+					$markupType, $importAlbumItem->extraFields[$customField],
+					$sourceEncoding);
+			    } else if ($field == 'description' &&
+				    isset($form['set']['defaultDescription'])) {
+				$data[$field] = $data['summary'];
+			    }
+			}
+		    }
+
+		    list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
+			    $filepath, $filename, $data['title'], $data['summary'],
+			    $data['description'], $mimeType, $item->getId());
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+		    $itemsCreated[] = $newItem->getId();
+		    $numberOfItemsImported++;
+
+		    $ret = $this->checkTruncation($newItem, $data);
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+
+		    if (isset($form['urlRedirect'])) {
+			$ret = $this->createG1ToG2Mapping(
+				$newItem->getId(), $album['name'], $importAlbumItem->image->name);
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+		    }
+		    $itemLockIds = array();
+		    list ($ret, $itemLockIds[]) =
+			GalleryCoreApi::acquireWriteLock($newItem->getId());
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+
+		    $newItem->setKeywords(GalleryCoreApi::convertToUtf8(
+				$importAlbumItem->keywords, $sourceEncoding));
+
+		    if (isset($importAlbumItem->uploadDate)){
+			$newItem->setCreationTimestamp($importAlbumItem->uploadDate);
+		    }
+		    if (isset($importAlbumItem->itemCaptureDate)){
+			/* Before 1.4.5-cvs-b106 this was an associative array */
+			if (is_array($importAlbumItem->itemCaptureDate)) {
+			    $newItem->setOriginationTimestamp(
+				    mktime($importAlbumItem->itemCaptureDate['hours'],
+					$importAlbumItem->itemCaptureDate['minutes'],
+					$importAlbumItem->itemCaptureDate['seconds'],
+					$importAlbumItem->itemCaptureDate['mon'],
+					$importAlbumItem->itemCaptureDate['mday'],
+					$importAlbumItem->itemCaptureDate['year']));
+			} else {
+			    $newItem->setOriginationTimestamp($importAlbumItem->itemCaptureDate);
+			}
+		    } else if (isset($importAlbumItem->uploadDate)){
+			$newItem->setOriginationTimestamp($importAlbumItem->uploadDate);
+		    }
+		    if (isset($album['clicks_date']) && $album['clicks_date']>0) {
+			$newItem->setviewedSinceTimestamp($album['clicks_date']);
+		    }
+		    if (isset($importAlbumItem->clicks) && $importAlbumItem->clicks > 0) {
+			$ret = GalleryCoreApi::setItemViewCount(
+				$newItem->getId(), $importAlbumItem->clicks);
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+		    }
+		    if (isset($importAlbumItem->image->thumb_x) &&
+			    isset($importAlbumItem->image->thumb_y) &&
+			    isset($importAlbumItem->image->thumb_width) &&
+			    isset($importAlbumItem->image->thumb_height) &&
+			    $importAlbumItem->image->thumb_width > 0 &&
+			    $importAlbumItem->image->thumb_height > 0){
+
+			/* Load the thumbnail */
+			$thumbnails = array();
+			list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(
+				array($newItem->getId()));
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+
+			if (!empty($thumbnails)) {
+			    $thumbnail = $thumbnails[$newItem->getId()];
+
+			    list ($ret, $lock) =
+				GalleryCoreApi::acquireWriteLock($thumbnail->getId());
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+
+			    list ($ret, $thumbnail) = $thumbnail->refresh();
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				GalleryCoreApi::releaseLocks($lock);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+
+			    $width = $importAlbumItem->image->raw_width;
+			    $height = $importAlbumItem->image->raw_height;
+			    $xPerc = GalleryUtilities::roundToString(
+				    $importAlbumItem->image->thumb_x * 100 / $width, 3);
+			    $yPerc = GalleryUtilities::roundToString(
+				    $importAlbumItem->image->thumb_y * 100 / $height, 3);
+			    $widthPerc = GalleryUtilities::roundToString(
+				    $importAlbumItem->image->thumb_width * 100 / $width, 3);
+			    $heightPerc = GalleryUtilities::roundToString(
+				    $importAlbumItem->image->thumb_height * 100 / $height, 3);
+			    list ($ret, $operations) =
+				GalleryCoreApi::mergeDerivativeOperations(
+					$thumbnail->getDerivativeOperations(),
+					sprintf('crop|%s,%s,%s,%s',
+					    $xPerc, $yPerc,
+					    $widthPerc, $heightPerc),
+					true);
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				GalleryCoreApi::releaseLocks($lock);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			    $thumbnail->setDerivativeOperations($operations);
+
+			    $thumbnail->setWidth(0);
+			    $thumbnail->setHeight(0);
+
+			    $ret = $thumbnail->save();
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			    $ret = GalleryCoreApi::releaseLocks($lock);
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+
+			    /*
+			     * Changing the crop size causes our derivative dimensions to change,
+			     * which affects all our dependent derivatives also.
+			     */
+			    $ret = GalleryCoreApi::invalidateDerivativeDimensionsBySourceIds(
+				    array($thumbnail->getId()));
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			}
+		    }
+
+		    $validItemUID = $itemUID = false;
+		    $defaultToAlbumUID = true;
+		    if (isset($importAlbumItem->owner)) {
+			if (!strcmp('everybody', $importAlbumItem->owner)
+				|| !strcmp('nobody', $importAlbumItem->owner)) {
+			    $defaultToAlbumUID = false;
+			    $newItem->setownerId($guestUserId);
+			} else if (strcmp('logged-in', $importAlbumItem->owner)) {
+			    $validItemUID = Gallery1DataParser::isValidUid(
+				    $albumsPath, $importAlbumItem->owner);
+			    if ($validItemUID) {
+				$defaultToAlbumUID = false;
+				$itemUID = $importAlbumItem->owner;
+			    }
+			}
+		    }
+		    if ($defaultToAlbumUID) {
+			$validItemUID =
+			    Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
+			if ($validItemUID) {
+			    $itemUID = $album['owner'];
+			}
+		    }
+		    if ($validItemUID && $itemUID) {
+			list ($ret, $albumItemUserFields) =
+			    Gallery1DataParser::getUserFieldsByUid($albumsPath, $itemUID);
+			if ($ret) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+			list ($ret, $itemOwner) = GalleryCoreApi::fetchUserByUsername(
+				GalleryCoreApi::convertToUtf8(
+				    $albumItemUserFields['username'], $sourceEncoding));
+			if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+			    GalleryCoreApi::releaseLocks($importLockIds);
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+			if ($itemOwner) {
+			    $newItem->setOwnerId($itemOwner->getId());
+			}
+		    }
+
+		    $ret = $newItem->save();
+		    if ($ret) {
+			GalleryCoreApi::releaseLocks($importLockIds);
+			return $ret->wrap(__FILE__, __LINE__);
+		    }
+
+		    /* Set custom field values */
+		    if (isset($customFieldInterface) && !empty($importAlbumItem->extraFields)) {
+			$extraFields = array();
+			foreach ($importAlbumItem->extraFields as $key => $value) {
+			    if (in_array($key, $skipCustomItemFields)) {
+				continue;
+			    }
+			    $key = $this->convertHtml('html', $key, $sourceEncoding);
+			    $extraFields[$key] = $this->convertHtml($markupType, $value,
+				    $sourceEncoding);
+			}
+			if (!empty($extraFields)) {
+			    $ret = $customFieldInterface->setCustomFieldValues(
+				    $newItem->getId(), $extraFields);
+			    if ($ret) {
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			}
+		    }
+
+		    if ($importComments && isset($importAlbumItem->comments) &&
+			    count($importAlbumItem->comments) > 0) {
+			foreach ($importAlbumItem->comments as $importCommentId => $importComment) {
+			    if (strcmp($importComment->UID, 'everybody')) {
+				$validCommentUid = Gallery1DataParser::isValidUid(
+					$albumsPath, $album['owner']);
+				if ($validCommentUid){
+				    list ($ret, $commentG1User) =
+					Gallery1DataParser::getUserFieldsByUid(
+						$albumsPath, $album['owner']);
+				    if ($ret) {
+					GalleryCoreApi::releaseLocks($importLockIds);
+					return $ret->wrap(__FILE__, __LINE__);
+				    }
+				    list ($ret, $commentG2User) =
+					GalleryCoreApi::fetchUserByUsername(
+						GalleryCoreApi::convertToUtf8(
+						    $commentG1User['username'], $sourceEncoding));
+				    if ($ret) {
+					if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					} else {
+					    $commenterId = $guestUserId;
+					}
+				    } else {
+					$commenterId = $commentG2User->getId();
+				    }
+				}
+			    } else {
+				$commenterId = $guestUserId;
+			    }
+
+			    /* Add the comment */
+			    list ($ret, $comment) = GalleryCoreApi::newFactoryInstance(
+				    'GalleryEntity', 'GalleryComment');
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+
+			    if (!isset($comment)) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return GalleryCoreApi::error(
+					ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+			    }
+
+			    $ret = $comment->create($newItem->getId());
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+
+			    $comment->setCommenterId($commenterId);
+			    $comment->setHost(empty($importComment->IPNumber) ?
+				    'unknown' : $importComment->IPNumber);
+			    if ($commenterId == $guestUserId) {
+				$comment->setSubject(
+					GalleryCoreApi::convertToUtf8($importComment->name,
+					    $sourceEncoding));
+			    } else {
+				$comment->setSubject('');
+			    }
+			    $comment->setComment(
+				    ConfirmImportController::convertHtml(
+					$markupType, $importComment->commentText,
+					$sourceEncoding));
+			    $comment->setDate($importComment->datePosted);
+
+			    $ret = $comment->save();
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			}
+		    }
+		    $ret = GalleryCoreApi::releaseLocks($itemLockIds);
+		    if ($ret) {
+			return $ret->wrap(__FILE__, __LINE__);
+		    } else {
+			$itemLockIds = array();
+		    }
+
+		    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
+			if (isset($hiddenInterface)) {
+			    $ret = $hiddenInterface->hideItem($newItem);
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			} else {
+			    /* remove view permission for hidden item */
+			    list ($ret, $itemPermissions) =
+				GalleryCoreApi::fetchAllPermissionsForItem($newItem->getId());
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			    foreach ($itemPermissions as $itemPermission) {
+				if ($itemPermission['permission'] == 'core.view') {
+				    if (isset($itemPermission['userId'])
+					    && $itemPermission['userId']
+					    != $newItem->getOwnerId()) {
+					$ret = GalleryCoreApi::removeUserPermission(
+						$newItem->getId(), $itemPermission['userId'],
+						'core.view', false);
+					if ($ret) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+				    } else if (isset($itemPermission['groupId'])
+					    && $itemPermission['groupId'] != $adminUsersGroupId) {
+					$ret = GalleryCoreApi::removeGroupPermission(
+						$newItem->getId(), $itemPermission['groupId'],
+						'core.view', false);
+					if ($ret) {
+					    GalleryCoreApi::releaseLocks($importLockIds);
+					    return $ret->wrap(__FILE__, __LINE__);
+					}
+				    }
+				}
+			    }
+			}
+		    }
+
+		    $status['addFromLocalServer'][] = array('fileName' => $filename,
+			    'id' => $newItem->getId());
+		    if ($albumNeedsThumbnail || $importAlbumItem->highlight == 1) {
+			$toolkit = null;
+
+			list ($ret, $toolkit, $outputMimeType) =
+			    GalleryCoreApi::getToolkitByOperation(
+				    $newItem->getMimeType(), 'thumbnail');
+			if ($ret) {
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+
+			if (isset($toolkit)) {
+			    list ($ret, $success) = GalleryCoreApi::setThumbnailFromItem(
+				    $item->getId(), $newItem->getId());
+			    if ($ret) {
+				return $ret->wrap(__FILE__, __LINE__);
+			    }
+			    $albumNeedsThumbnail = false;
+			}
+		    }
+		}
+	    }
+	    $ret = $templateAdapter->updateProgressBar($importPhotosMessage,
+		    $album['name'], $numberOfItemsImported / $totalItemsToImport);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+	    $album = null;
+	    /* $i keeps track of how many passes we make over the data */
+	    $i++;
 	}
 
 	/* We just did a lot of permission wrangling; optimize our access lists */
@@ -1621,14 +1575,14 @@ class ConfirmImportView extends GalleryView {
 
 	    $validUid = Gallery1DataParser::isValidUid($albumsPath, $album['owner']);
 	    if ($validUid) {
-		list($ret, $testUser) = Gallery1DataParser::getUserFieldsByUid($albumsPath,
+		list ($ret, $testUser) = Gallery1DataParser::getUserFieldsByUid($albumsPath,
 									       $album['owner']);
 		if ($ret) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$albumOwnerUserName[$albumName] = $testUser['username'];
 		$albumOwnerUid[$albumName] = $album['owner'];
-		list($ret, $owner) = GalleryCoreApi::fetchUserByUsername(
+		list ($ret, $owner) = GalleryCoreApi::fetchUserByUsername(
 		    GalleryCoreApi::convertToUtf8($testUser['username'], $form['sourceEncoding']));
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
