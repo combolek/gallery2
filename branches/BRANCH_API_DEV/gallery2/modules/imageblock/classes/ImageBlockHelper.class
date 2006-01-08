@@ -600,15 +600,16 @@ class ImageBlockHelper /* extends GalleryEventListener */ {
 	     */
 	    $entity = $event->getEntity();
 
+	    
 	    /*
 	     * If the entity is a GalleryDataItem or GalleryAlbumItem and is
 	     * Newly Created or the parent has changed (item moved), continue
 	     * processing, otherwise break out.
 	     */
-	    if (!(($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED) ||
-		   $entity->isModified('parentId')) &&
-		    (GalleryUtilities::isA($entity, 'GalleryDataItem') ||
-		     GalleryUtilities::isA($entity, 'GalleryAlbumItem')))) {
+	    if (!((GalleryUtilities::isA($entity, 'GalleryDataItem') ||
+		       GalleryUtilities::isA($entity, 'GalleryAlbumItem')) &&
+		  ($entity->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED) ||
+		       $entity->isModified('parentId')))) {
 		break;
 	    }
 

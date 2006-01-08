@@ -404,6 +404,36 @@ class ImageBlockHandlerTest extends GalleryTestCase {
 	$this->_verifyDisabledFlagForItems(array($albumItem), false);
     }
 
+    /* The entity::save event handler should ignore non GalleryItem entities*/
+    function testImageBlockSaveEventHandlerShouldIgnoreNonGalleryItemEntities() {
+	/* Make sure the event handler is registered */
+	$listener = new ImageBlockHelper();
+	$this->_registerTestEventListener('GalleryEntity::save', $listener);
+
+	/* Just make sure the test runs without errors */
+	
+	/* Execute the test */
+	list ($ret, $user) = $this->_createRandomUser();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->_markForCleanup($user);
+
+	$user->setFullName('new name to trigger new save');
+	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $user->save();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = GalleryCoreApi::releaseLocks($lockId);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+    }
+
     /*
      * Move an item into a new album
      *
