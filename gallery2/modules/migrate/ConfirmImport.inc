@@ -126,6 +126,11 @@ class ConfirmImportController extends GalleryController {
 	    }
 	}
 
+	list ($ret, $hiddenInterface) = GalleryCoreApi::newFactoryInstance('HiddenInterface_1_0');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
+
 	/*
 	 * owner => core.all (which also gives comment.all)
 	 *
@@ -659,13 +664,13 @@ class ConfirmImportController extends GalleryController {
 			}
 
 			if (isset($album['perms'])) {
-			    foreach($album['perms'] as $tmpperm => $tmpusers) {
-				foreach($permissionTranslation[$tmpperm] as $tmpTranslatedPerm) {
+			    foreach ($album['perms'] as $tmpperm => $tmpusers) {
+				foreach ($permissionTranslation[$tmpperm] as $tmpTranslatedPerm) {
 				    if ($isHiddenAlbum && $tmpTranslatedPerm == 'core.view') {
 					/* Omit view permission for hidden albums */
 					continue;
 				    }
-				    foreach(array_keys($tmpusers) as $tmpuser) {
+				    foreach (array_keys($tmpusers) as $tmpuser) {
 					switch ($tmpuser) {
 					case 'Logged In':
 					    if ($allUsersGroupId) {
@@ -733,6 +738,13 @@ class ConfirmImportController extends GalleryController {
 					}
 				    }
 				}
+			    }
+			}
+			if ($isHiddenAlbum && isset($hiddenInterface)) {
+			    $ret = $hiddenInterface->hideItem($newAlbumInstance);
+			    if ($ret) {
+				GalleryCoreApi::releaseLocks($importLockIds);
+				return $ret->wrap(__FILE__, __LINE__);
 			    }
 			}
 
@@ -851,7 +863,7 @@ class ConfirmImportController extends GalleryController {
 		    }
 		    $albumNeedsThumbnail = empty($thumbnailTable) ? true : false;
 
-		    foreach($photos as $j => $importAlbumItem) {
+		    foreach ($photos as $j => $importAlbumItem) {
 			$gallery->guaranteeTimeLimit(30);
 			if (isset($importAlbumItem->isAlbumName) && $importAlbumItem->isAlbumName) {
 			    if ($importAlbumItem->highlight == 1) {
@@ -1122,41 +1134,6 @@ class ConfirmImportController extends GalleryController {
 				return $ret->wrap(__FILE__, __LINE__);
 			    }
 
-			    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
-				/* remove view permission for hidden item */
-				list ($ret, $itemPermissions) =
-				    GalleryCoreApi::fetchAllPermissionsForItem($newItem->getId());
-				if ($ret) {
-				    GalleryCoreApi::releaseLocks($importLockIds);
-				    return $ret->wrap(__FILE__, __LINE__);
-				}
-				foreach ($itemPermissions as $itemPermission) {
-				    if ($itemPermission['permission'] == 'core.view') {
-					if (isset($itemPermission['userId'])
-						&& $itemPermission['userId']
-						   != $newItem->getOwnerId()) {
-					    $ret = GalleryCoreApi::removeUserPermission(
-						$newItem->getId(), $itemPermission['userId'],
-						'core.view', false);
-					    if ($ret) {
-						GalleryCoreApi::releaseLocks($importLockIds);
-						return $ret->wrap(__FILE__, __LINE__);
-					    }
-					} else if (isset($itemPermission['groupId'])
-						&& $itemPermission['groupId']
-						   != $adminUsersGroupId) {
-					    $ret = GalleryCoreApi::removeGroupPermission(
-						$newItem->getId(), $itemPermission['groupId'],
-						'core.view', false);
-					    if ($ret) {
-						GalleryCoreApi::releaseLocks($importLockIds);
-						return $ret->wrap(__FILE__, __LINE__);
-					    }
-					}
-				    }
-				}
-			    }
-
 			    /* Set custom field values */
 			    if (isset($customFieldInterface) &&
 				    !empty($importAlbumItem->extraFields)) {
@@ -1179,7 +1156,7 @@ class ConfirmImportController extends GalleryController {
 			    }
 
 			    if ($importComments && isset($importAlbumItem->comments) &&
-				count($importAlbumItem->comments)>0) {
+				count($importAlbumItem->comments) > 0) {
 				foreach ($importAlbumItem->comments as
 					 $importCommentId => $importComment) {
 				    if (strcmp($importComment->UID, 'everybody')) {
@@ -1263,6 +1240,50 @@ class ConfirmImportController extends GalleryController {
 			    } else {
 				$itemLockIds = array();
 			    }
+
+			    if (isset($importAlbumItem->hidden) && $importAlbumItem->hidden) {
+				if (isset($hiddenInterface)) {
+				    $ret = $hiddenInterface->hideItem($newItem);
+				    if ($ret) {
+					GalleryCoreApi::releaseLocks($importLockIds);
+					return $ret->wrap(__FILE__, __LINE__);
+				    }
+				} else {
+				    /* remove view permission for hidden item */
+				    list ($ret, $itemPermissions) =
+					GalleryCoreApi::fetchAllPermissionsForItem($newItem->getId());
+				    if ($ret) {
+					GalleryCoreApi::releaseLocks($importLockIds);
+					return $ret->wrap(__FILE__, __LINE__);
+				    }
+				    foreach ($itemPermissions as $itemPermission) {
+					if ($itemPermission['permission'] == 'core.view') {
+					    if (isset($itemPermission['userId'])
+						    && $itemPermission['userId']
+						    != $newItem->getOwnerId()) {
+						$ret = GalleryCoreApi::removeUserPermission(
+							$newItem->getId(), $itemPermission['userId'],
+							'core.view', false);
+						if ($ret) {
+						    GalleryCoreApi::releaseLocks($importLockIds);
+						    return $ret->wrap(__FILE__, __LINE__);
+						}
+					    } else if (isset($itemPermission['groupId'])
+						    && $itemPermission['groupId']
+						    != $adminUsersGroupId) {
+						$ret = GalleryCoreApi::removeGroupPermission(
+							$newItem->getId(), $itemPermission['groupId'],
+							'core.view', false);
+						if ($ret) {
+						    GalleryCoreApi::releaseLocks($importLockIds);
+						    return $ret->wrap(__FILE__, __LINE__);
+						}
+					    }
+					}
+				    }
+				}
+			    }
+
 			    $status['addFromLocalServer'][] = array('fileName' => $filename,
 								    'id' => $newItem->getId());
 			    if (($albumNeedsThumbnail || $importAlbumItem->highlight == 1)) {
@@ -1629,6 +1650,10 @@ class ConfirmImportView extends GalleryView {
 	    }
 	    $i++;
 	}
+	list ($ret, $hiddenInterface) = GalleryCoreApi::newFactoryInstance('HiddenInterface_1_0');
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	$ConfirmImport = array();
 	$ConfirmImport['uids'] = $uids;
@@ -1642,6 +1667,7 @@ class ConfirmImportView extends GalleryView {
 	$ConfirmImport['albumOwnerUid'] = $albumOwnerUid;
 	$ConfirmImport['targetAlbum'] = (array)$targetAlbum;
 	$ConfirmImport['titles'] = $titles;
+	$ConfirmImport['canHide'] = isset($hiddenInterface);
 	$template->setVariable('controller', 'migrate.ConfirmImport');
 	$template->setVariable('ConfirmImport', $ConfirmImport);
 	return array(null,

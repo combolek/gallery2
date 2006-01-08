@@ -125,6 +125,7 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
+	$this->testHidden = !empty($moduleStatusList['hidden']['active']);
 	$this->testComments = !empty($moduleStatusList['comment']['active']);
 	/* Comment permissions might be registered in db even though module isn't active: */
 	list ($ret, $bits) = GalleryCoreApi::convertPermissionIdsToBits('comment.all');
@@ -786,6 +787,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				       'permission' => 'core.all');
 	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
 				       'permission' => 'core.all');
+	if ($this->testHidden) {
+	    $expectedPermissions[] = array('entityId' => $ids[3], 'permission' => 'core.view');
+	}
 
 	usort($expectedPermissions, array($this, '_sortByPermission'));
 	usort($permissions, array($this, '_sortByPermission'));
@@ -894,6 +898,9 @@ class ConfirmImportControllerTest extends GalleryControllerTestCase {
 				       'permission' => 'core.all');
 	$expectedPermissions[] = array('userId' => $this->_adminUser->getId(),
 				       'permission' => 'core.all');
+	if ($this->testHidden) {
+	    $expectedPermissions[] = array('entityId' => $testAlbumId, 'permission' => 'core.view');
+	}
 
 	list ($ret, $permissions) = GalleryCoreApi::fetchAllPermissionsForItem($testAlbumId, true);
 	if ($ret) {
