@@ -71,7 +71,7 @@ a:hover {
 }
 
 #header img {
-  margin-left: 14px;
+  margin: 0 0 5px 14px;
   float: left;
   clear: none;
 }
@@ -98,8 +98,16 @@ a:hover {
 }
 
 #navbar td, #helpbar td {
-  border-bottom: 1px solid #ecf2f8;
+  border-top: 1px solid #ecf2f8;
   padding: 8px 2px;
+}
+
+#navbar a {
+  color: #000;
+}
+
+#navbar a.current {
+  color: #ae0000;
 }
 
 #helpbar {
@@ -139,7 +147,8 @@ a:hover {
 
 #statusTable {
   width: 100%;
-  margin: 2px 0;
+  height: 20px;
+  margin: 0;
 }
 
 #footer {
@@ -160,8 +169,8 @@ a:hover {
 .error {
   font-weight: bold;
   color: #ae0000;
-  border: 2px solid #ae0000;
   padding: 5px 5px 5px 45px;
+  height: 50px;
   background: url('../../install/images/ico_error.gif') 5px 50% no-repeat;
 }
 
@@ -178,7 +187,6 @@ a:hover {
 }
 
 div.success {
-  border: 2px solid #00ae00;
   padding: 5px 5px 5px 45px;
   background: url('../../install/images/ico_success.gif') 5px 50% no-repeat;
 }
@@ -186,8 +194,6 @@ div.success {
 .go {
   font-weight: bold;
   font-size: 1.2em;
-  background-color: #eee;
-  border: 1px solid #ddd;
   margin: 8px 0 8px -4px;
   padding: 4px;
 }
@@ -257,8 +263,8 @@ input, select {
 .example {
   background-color: #eee;
   border: 1px solid #999;
-  margin: 15px 15px 0 15px;
-  padding: 5px;
+  margin: 15px 0;
+  padding: 10px;
 }
 
 .example pre {
@@ -287,11 +293,9 @@ input, select {
 }
 
 .systemChecks td.notice, div.warning {
-  border: 1px solid #999;
-  padding: 5px;
   line-height: 1.3em;
-  border: 2px solid #fd6704;
   padding: 5px 5px 5px 45px;
+  height: 50px;
   background: url('../../install/images/ico_warning.gif') 5px 5px no-repeat;
 }
 
@@ -350,8 +354,6 @@ label.radio {
     bottom: 2px;
     padding: 2px;
     font-weight: bold;
-    background-color: #f9f9f9;
-    border:1px solid #f0f0f0;
 }
 
 ol {
