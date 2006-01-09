@@ -115,8 +115,8 @@ class PhpVmTest extends GalleryTestCase {
 	global $gallery;
 	/* When this unit test is executed, we already sent some data to the user agent */
 	$phpVm = $gallery->getPhpVm();
-	$this->assert($phpVm->headers_sent(), 'headers are sent at this point, but the vm function ' .
-		      'does not think so');
+	$this->assert($phpVm->headers_sent(), 'headers are sent at this point, but the vm ' .
+		      'function does not think so');
 
 	/* The other case, $phpVm->headers_sent() == false, is covered by testHeader() */
     }
@@ -125,6 +125,14 @@ class PhpVmTest extends GalleryTestCase {
     function testGetMagicQuotesGpc() {
 	$this->assertEquals(get_magic_quotes_gpc(), $this->_phpVm->get_magic_quotes_gpc(),
 			    'The Vm function does not return the correct value');
+    }
+
+    function testTime() {
+	/*
+	 * There's an incredibly slim chance that this will fail.  If it does, we should improve
+	 * this test.
+	 */
+	$this->assertEquals(time(), $this->_phpVm->time());
     }
 }
 ?>
