@@ -142,7 +142,7 @@ class PhotoAccessHelper {
 		 */
 		$paSession = new GallerySession();
 		$paSession->initEmpty(true);
-		$paSession->put('core.id.activeUser', $gallery->getActiveUserId());
+		$paSession->setUserId($gallery->getActiveUserId());
 		/*
 		 * TODO: Would like to enforce a particular session timeout to ensure this
 		 * session lasts long enough for photoaccess to retrieve the images.  With

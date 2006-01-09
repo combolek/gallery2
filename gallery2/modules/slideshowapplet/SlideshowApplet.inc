@@ -77,10 +77,14 @@ class SlideshowAppletView extends GalleryView {
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
+	    list ($ret, $cookieDomain) = $session->getCookieDomain();
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
 	    $SlideshowApplet['NoProtocolError'] = 0;
 	    $SlideshowApplet['cookieName'] = $session->getKey();
 	    $SlideshowApplet['cookieValue'] = $session->getId();
-	    $SlideshowApplet['cookieDomain'] = $session->getCookieDomain();
+	    $SlideshowApplet['cookieDomain'] = $cookieDomain;
 	    $SlideshowApplet['cookiePath'] = $cookiePath;
 	    $SlideshowApplet['album'] = $item->getId();
 	    $SlideshowApplet['userAgent'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');

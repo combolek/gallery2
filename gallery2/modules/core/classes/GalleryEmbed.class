@@ -89,7 +89,8 @@ class GalleryEmbed {
      *   'activeLanguage' => (optional) language code in use for this session
      *   'fullInit' => (optional) call GalleryInitSecondPass
      *                            (only use when not calling handleRequest)
-     *   'apiVersion' => (optional) array int major, int minor (check if your integration is compatible)
+     *   'apiVersion' => (optional) array int major, int minor (check if your integration is
+     *                   compatible)
      * )
      * @return object GalleryStatus a status object
      * @static

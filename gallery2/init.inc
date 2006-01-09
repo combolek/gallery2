@@ -156,7 +156,7 @@ function GalleryInitSecondPass() {
      * not, make us the anonymous user.  If we don't have a session, this will
      * initiate one for us.
      */
-    $activeUserId = $session->get('core.id.activeUser');
+    $activeUserId = $session->getUserId();
     if (empty($activeUserId)) {
 	/* No active user -- be anonymous */
 	list ($ret, $activeUserId) =
@@ -186,6 +186,11 @@ function GalleryInitSecondPass() {
     }
 
     $gallery->setActiveUser($activeUser);
+
+    $ret = $session->start();
+    if ($ret) {
+	return $ret->wrap(__FILE__, __LINE__);
+    }
 
     return null;
 }

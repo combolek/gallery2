@@ -241,9 +241,9 @@ class Gallery {
 	/* It's possible for the session not to exist during bootstrap time */
 	$session =& $this->getSession();
 	if (isset($session)) {
-	    $activeUserId = $session->get('core.id.activeUser');
+	    $activeUserId = $session->getUserId();
 	    if ($activeUserId != $user->getId()) {
-		$session->put('core.id.activeUser', $user->getId());
+		$session->setUserId($user->getId());
 		$language = $user->getLanguage();
 		if (!empty($language)) {
 		    $session->put('core.language', $language);
@@ -265,7 +265,7 @@ class Gallery {
 	    return (int) $this->_activeUser->getId();
 	} else {
 	    $session =& $this->getSession();
-	    return (int) $session->get('core.id.activeUser');
+	    return (int) $session->getUserId();
 	}
     }
 

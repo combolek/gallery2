@@ -58,10 +58,14 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
+	    list ($ret, $cookieDomain) = $session->getCookieDomain();
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    }
 	    $ItemAddUploadApplet['NoProtocolError'] = 0;
 	    $ItemAddUploadApplet['cookieName'] = $session->getKey();
 	    $ItemAddUploadApplet['cookieValue'] = $session->getId();
-	    $ItemAddUploadApplet['cookieDomain'] = $session->getCookieDomain();
+	    $ItemAddUploadApplet['cookieDomain'] = $cookieDomain;
 	    $ItemAddUploadApplet['cookiePath'] = $cookiePath;
 	    $ItemAddUploadApplet['album'] = $item->getId();
 	    $ItemAddUploadApplet['userAgent'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
