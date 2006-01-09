@@ -51,16 +51,20 @@ class GalleryPlatform {
 	    $gallery->debug("copy($source, $dest)");
 	}
 
-	if (!isset($this->_umask)) {
-	    $this->_loadPermissionPreferences();
-	}
-	$umask = umask($this->_umask);
 	if (is_uploaded_file($source)) {
 	    $results = move_uploaded_file($source, $dest);
+	    if (!$results) {
+		return $results;
+	    }
+	    $results = $this->chmod($dest);
 	} else {
+	    if (!isset($this->_umask)) {
+		$this->_loadPermissionPreferences();
+	    }
+	    $umask = umask($this->_umask);
 	    $results = copy($source, $dest);
+	    umask($umask);
 	}
-	umask($umask);
 
 	return $results;
     }
