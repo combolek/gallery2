@@ -299,7 +299,8 @@ class GalleryEntity extends GalleryPersistent {
 
 	if ($this->isModified()) {
 	    /* Change the modification date */
-	    $this->setModificationTimestamp(time());
+	    $phpVm = $gallery->getPhpVm();
+	    $this->setModificationTimestamp($phpVm->time());
 
 	    if ($postEvent) {
 		$event = GalleryCoreApi::newEvent('GalleryEntity::save');

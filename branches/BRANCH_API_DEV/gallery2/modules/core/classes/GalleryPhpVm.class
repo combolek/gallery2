@@ -165,5 +165,14 @@ class GalleryPhpVm {
     function ini_set($varname, $newvalue) {
 	return ini_set($varname, $newvalue);
     }
+
+    /**
+     * Return current Unix timestamp
+     *
+     * @return int
+     */
+    function time() {
+	return time();
+    }
 }
 ?>
