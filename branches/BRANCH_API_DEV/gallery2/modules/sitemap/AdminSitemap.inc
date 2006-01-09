@@ -35,6 +35,13 @@ class AdminSitemapView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	$template->setVariable('AdminSitemap',
+		array('canRewrite' => !empty($moduleStatus['rewrite']['active'])));
+
 	return array(null,
 		     array('body' => 'modules/sitemap/templates/AdminSitemap.tpl'));
     }
