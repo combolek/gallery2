@@ -434,7 +434,7 @@ class GalleryTestCase extends TestCase {
 
 	list ($ret, $album) = GalleryCoreApi::createAlbum(
 	    $parentId, 'albumtest' . rand(),
-	    'This is my title', 'This is my summary',
+	    'I am Jack\'s title', 'This is my summary',
 	    'This is my description', null);
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
@@ -523,7 +523,7 @@ class GalleryTestCase extends TestCase {
 	}
 
 	/* Change some settings */
-	$item->setTitle('This is my title');
+	$item->setTitle('I am Jack\'s title');
 	$item->setSummary('This is a summary');
 	$item->setKeywords('These are some keywords');
 	$item->setDescription('This is a description');
