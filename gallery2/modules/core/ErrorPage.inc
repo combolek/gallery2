@@ -62,6 +62,9 @@ class ErrorPageView extends GalleryView {
 	if ($errorCode & ERROR_STORAGE_FAILURE) {
 	    $ErrorPage['code']['storageFailure'] = true;
 	}
+	if ($errorCode & ERROR_PLATFORM_FAILURE) {
+	    $ErrorPage['code']['platformFailure'] = true;
+	}
 
 	if ($ErrorPage['isAdmin']) {
 	    $ErrorPage['phpversion'] = phpversion();
