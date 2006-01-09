@@ -62,6 +62,11 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	$ret = $gallery->_session->start();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	/* Disable all plugins by default. */
 	$this->_controller->setPluginInstances(array());
@@ -340,6 +345,18 @@ class UserLoginControllerTestSession {
 
     function regenerateWasCalled() {
 	return $this->_regenerateWasCalled;
+    }
+
+    function getUserId() {
+	if (isset($this->_sessionData['core.id.activeUser'])) {
+	    return $this->_sessionData['core.id.activeUser'];
+	}
+
+	return null;
+    }
+
+    function setUserId($userId) {
+	$this->_sessionData['core.id.activeUser'] = $userId;
     }
 }
 ?>

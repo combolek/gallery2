@@ -49,6 +49,11 @@ class SessionTest extends GalleryTestCase {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	$ret = $gallery->_session->start();
+	if ($ret) {
+	    print $ret->getAsHtml();
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	/*
 	 * Backup things that we will overwrite during the test (original values also needed in the
@@ -219,7 +224,11 @@ class SessionTest extends GalleryTestCase {
 	    }
 
 	    $session = new GallerySession();
-	    $session->init();
+	    $ret = $session->init();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+     
 	    $this->assertEquals($expected, $session->isUsingCookies(),
 			  'first init, isUsingCookies returns the wrong value for type "' .
 			  $type . '"');
@@ -253,7 +262,14 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	$gallery->_session = null;
-	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 
 	$this->assert(!preg_match('#^\.\.#', $session->getSessionId()), 'Dangerous session-id!');
@@ -271,7 +287,14 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	$gallery->_session = null;
-	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 
 	$this->assertEquals($session->getSessionId(), $_COOKIE[SESSION_ID_PARAMETER]);
@@ -295,7 +318,14 @@ class SessionTest extends GalleryTestCase {
 	}
 
 	$gallery->_session = null;
-	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 
 	$this->assertEquals($sessionId, $session->getSessionId(),
@@ -321,6 +351,10 @@ class SessionTest extends GalleryTestCase {
 
 	$session = new GallerySession();
 	$ret = $session->init();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -460,7 +494,14 @@ class SessionTest extends GalleryTestCase {
 
 	/* Request #1, save some status information and remove it */
 	$gallery->_session = null;
-	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 	$statusId = $session->putStatus(array('i' => 'a'));
 	$this->assertEquals(array('i' => 'a'), $session->getStatus($statusId));
@@ -487,6 +528,10 @@ class SessionTest extends GalleryTestCase {
 	$gallery->_session = null;
 	clearstatcache();
 	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 
 	$this->assertEquals(array('j' => 'b'), $session->getStatus($otherStatusId));
@@ -516,7 +561,14 @@ class SessionTest extends GalleryTestCase {
 
 	/* Add some status data to the session and then try to save it */
 	$gallery->_session = null;
-	$gallery->initSession();
+	$ret = $gallery->initSession();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$session =& $gallery->getSession();
 	$statusId = $session->putStatus(array('i' => 'a'));
 	$this->assertEquals(array('i' => 'a'), $session->getStatus($statusId));
@@ -648,6 +700,10 @@ class SessionTest extends GalleryTestCase {
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
+	    $ret = $session->start();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
 	    $session->put('my-key', 'my-value');
 	    $ret = $session->save();
 	    if ($ret) {
@@ -659,6 +715,10 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $ret = $session->start();
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -677,6 +737,10 @@ class SessionTest extends GalleryTestCase {
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
+	    $ret = $session->start();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
 	    $this->assert($session->get('my-key'), 'verify ' . $type);
 	    $ret = $session->save();
 	    if ($ret) {
@@ -689,6 +753,10 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $ret = $session->start();
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -707,6 +775,10 @@ class SessionTest extends GalleryTestCase {
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
+	    $ret = $session->start();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
 	    $this->assertEquals(null, $session->get('my-key'), 'different ip ' . $type);
 	    $ret = $session->save();
 	    if ($ret) {
@@ -719,6 +791,10 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.2.3.4';
 	    $session = new GallerySession();
 	    $ret = $session->init();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $ret = $session->start();
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -741,6 +817,10 @@ class SessionTest extends GalleryTestCase {
 	    $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
 	    $session = new GallerySession();
 	    $ret = $session->init();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
+	    $ret = $session->start();
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -799,7 +879,11 @@ class SessionTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	
 	$this->assertEquals('google1234', $session->getSessionId());
     }
 
@@ -855,6 +939,10 @@ class SessionTest extends GalleryTestCase {
 	    if ($ret) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
+	    $ret = $session->start();
+	    if ($ret) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    }
 
 	    /*
 	     * And now check the headers (that would have been sent if we didn't use our fantastic
@@ -888,14 +976,19 @@ class SessionTest extends GalleryTestCase {
 		    if ($ret) {
 			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		    }
-		    $this->assertEquals(1, preg_match('{path=' . $expected . '(?:[,;].*)?$}i', $cookie),
+		    $this->assertEquals(1, preg_match('{path=' . $expected . '(?:[,;].*)?$}i',
+						      $cookie),
 					'Wrong cookie path in cookie: "' . $cookie . '"');
 		    /* Cookie domain should be the configured cookie domain or not set */
-		    $cookieDomain = $session->getCookieDomain();
+		    list ($ret, $cookieDomain) = $session->getCookieDomain();
+		    if ($ret) {
+			return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		    }
 		    if (!empty($cookieDomain)) {
 			/* escape dots in cookieDomain */
 			$cookieDomain = str_replace('.', '\\.', $cookieDomain);
-			$this->assert(preg_match('/domain=' . $cookieDomain . '(?:[,;].*)?$/i', $cookie),
+			$this->assert(preg_match('/domain=' . $cookieDomain . '(?:[,;].*)?$/i',
+						 $cookie),
 				      "Missing domain=$cookieDomain in cookie: '$cookie'");
 		    }
 		} else {
@@ -931,8 +1024,15 @@ class SessionTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals('bad', $session->getCookieDomain(),
-			    'configured cookie domain does not work');
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	list ($ret, $actualCookieDomain) = $session->getCookieDomain();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('bad', $actualCookieDomain, 'configured cookie domain does not work');
 
 	/* Now reset the cookie domain configuration parameter */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.domain', '');
@@ -953,15 +1053,16 @@ class SessionTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals('', $session->getCookieDomain(), 'default cookie domain does not work');
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	list ($ret, $actualCookieDomain) = $session->getCookieDomain();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->assertEquals('', $actualCookieDomain, 'default cookie domain does not work');
     }
-
-    /* Test configured cookie path vs. not configured cookie path */
-    /* function testSessionGetCookiePath() {
-	 * This is already tested in UrlGeneratorTest
-	 * We have a getCookiePath function in GallerySession to not have to deal with db errors
-	 * when we actually need the cookie path
-    } */
 
     /*
      * Check that we don't save sessions for core.DownloadItem, migrate.Redirect and CSS requests
@@ -1018,7 +1119,11 @@ class SessionTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	$ret = $session->init();
 	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Verify init didn't treat request as session hijack */

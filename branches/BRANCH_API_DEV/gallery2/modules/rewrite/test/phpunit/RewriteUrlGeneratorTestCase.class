@@ -334,6 +334,10 @@ class RewriteUrlGeneratorTestCase extends GalleryTestCase {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 	if (!empty($env['isNotUsingCookies'])) {
 	    $session->_isUsingCookies = false;
 	} else {

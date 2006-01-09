@@ -154,6 +154,10 @@ class MainTest extends GalleryTestCase {
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
+	$ret = $session->start();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
 	$sessionId = $session->getId();
 	$sessionKey = $session->getKey();
 	$this->assert(!empty($sessionId) && !empty($sessionKey),

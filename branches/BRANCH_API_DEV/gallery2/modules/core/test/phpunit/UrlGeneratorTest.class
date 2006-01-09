@@ -127,6 +127,11 @@ class UrlGeneratorTest extends GalleryTestCase {
 	if ($ret) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
+	$ret = $session->start();
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+	
 	$gallery->_session = $session;
 
 	$params['a'] = 123;
@@ -1176,7 +1181,7 @@ class UrlGeneratorTest extends GalleryTestCase {
 		$this->assertEquals($isEmbedded, GalleryDataCache::get($key),
 				    'Could not set isEmbedded');
 		foreach (array(true, false) as $cookiePathConfigured) {
-		    $this->_urlGenerator->_cookiePathConfigured = $cookiePathConfigured;
+		    $this->_urlGenerator->_isCookiePathConfigured = $cookiePathConfigured;
 		    /* Execute the test */
 		    $result = $this->_urlGenerator->embedForceSessionId($params);
 		    /* Some debug information */
@@ -1360,7 +1365,43 @@ class UrlGeneratorTest extends GalleryTestCase {
 	    $this->assertEquals($expected, $this->_urlGenerator->_parseUri($test['uri']),
 				"URI = '" . $test['uri'] . "'");
 	}
-     }
+    }
+
+    function testInitSetsIsCookiePathConfiguredIfEmbedded() {
+	foreach (array(true, false) as $embedded) {
+	    GalleryDataCache::put( 'G2_EMBED', $embedded, true);
+	    foreach (array(true, false) as $isSet) {
+		$value = $isSet ? '/' : '';
+		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', $value);
+		if ($ret) {
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		}
+		/* Check if the correct value was stored */
+		list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
+									     'cookie.path');
+		if ($ret) {
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		}
+		$this->assertEquals($value, $realValue,
+				    'could not set plugin parameter cookie.path');
+		
+		/* Execute the test */
+		$urlGenerator = new GalleryUrlGenerator();
+		$ret = $urlGenerator->init();
+		if ($ret) {
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+		}
+		/* Check what we want to verfiy */
+		$msg = $embedded ? 'embedded, ' : 'standalone, ';
+		$msg .= $isSet ? 'cookie path set' : 'cookie path not set';
+		if ($embedded) {
+		    $this->assertEquals($isSet, $urlGenerator->_isCookiePathConfigured, $msg);
+		} else {
+		    $this->assert(!isset($urlGenerator->_isCookiePathConfigured), $msg);
+		}
+	    }
+	}
+    }
 }
 
 class UrlGeneratorTestPlatform extends GalleryPlatform {
