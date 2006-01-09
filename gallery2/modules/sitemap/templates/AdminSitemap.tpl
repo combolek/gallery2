@@ -19,11 +19,16 @@
     {g->text text="To use the Google Sitemap, you must now go to the %s page and submit this url: %s" arg1=$googleLink arg2=$sitemapLink}
   </p>
 
-  {capture assign="link"}
-    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=rewrite.AdminRewrite"}">
+  {capture assign="link"}{strip}
+    {if $AdminSitemap.canRewrite}
+      {assign var=subView value="rewrite.AdminRewrite"}
+    {else}
+      {assign var=subView value="core.AdminModules"}
+    {/if}
+    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=`$subView`"}">
       {g->text text="URL Rewrite Module"}</a>
-  {/capture}
+  {/strip}{/capture}
   <p class="giDescription">
-    {g->text text="You can change the Sitemap url using the %s." arg1="`$link`"} </p>
+    {g->text text="You can change the Sitemap url using the %s." arg1=$link} </p>
   </p>
 </div>

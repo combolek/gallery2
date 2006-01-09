@@ -27,16 +27,14 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 class SitemapModule extends GalleryModule {
-    /**
-     * Constructs the PublishXpModule that is registered with Gallery.
-     */
+
     function SitemapModule() {
 	global $gallery;
 	$this->setId('sitemap');
 	$this->setName($gallery->i18n('Sitemap'));
 	$this->setDescription($gallery->i18n('Generate a Google Sitemap for your Gallery'));
 	$this->setVersion('0.0.1');
-	$this->setGroup('export', $gallery->i18n('Export Data'));
+	$this->setGroup('export', $gallery->i18n('Export'));
 	$this->setCallbacks('getSiteAdminViews');
 	$this->setRequiredCoreApi(array(7, 0));
 	$this->setRequiredModuleApi(array(3, 0));
