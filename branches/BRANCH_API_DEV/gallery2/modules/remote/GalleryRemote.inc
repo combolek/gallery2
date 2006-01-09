@@ -74,7 +74,7 @@ class GalleryRemoteController extends GalleryController {
 	global $gallery;
 
 	$start = array_sum(explode(" ",microtime()));
-	
+
 	$status = array();
 	$error = array();
 	$response = new GalleryRemoteProperties();
@@ -274,13 +274,13 @@ class GalleryRemoteController extends GalleryController {
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-    
+
 	    /* find and load the list of albums we can add albums to */
 	    list ($ret, $albumIds2) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    
+
 	    $albumIds = array_unique(array_merge($albumIds1, $albumIds2));
 	} else {
 	    /* find and load all albums that can be viewed */
@@ -302,7 +302,7 @@ class GalleryRemoteController extends GalleryController {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
+
 	if ($prune) {
 	    /* Recursively load parents */
 	    list ($ret, $albums, $albumIds) = $this->loadParentsToRoot($rootId, $albumIds, $albums, $albums);
@@ -355,32 +355,31 @@ class GalleryRemoteController extends GalleryController {
 
     function loadParentsToRoot($rootId, $albumIds, $albumsLoaded, $albumsToLoad) {
 	$parentIds = array();
-	
 	foreach ($albumsToLoad as $album) {
 	    $parentId = $album->getParentId();
-	    if ($parentId != null) {
-		if (!in_array($parentId, $albumIds)) {
-		    $parentIds[] = $parentId;
-		    $albumIds[] = $parentId;
-		}
+	    if ($parentId && !in_array($parentId, $albumIds)) {
+		$parentIds[] = $parentId;
+		$albumIds[] = $parentId;
 	    }
 	}
-	
-	if (empty($parentIds)) {
-	    /* we're done */
-	    return array(null, $albumsLoaded, $albumIds);
-	} else {
+
+	if (!empty($parentIds)) {
 	    /* load all the new parents at once */
 	    list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds);
 	    if ($ret) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
-	    
+
 	    $albumsLoaded = array_merge($albumsLoaded, $parents);
-	    
-	    /* and recurse */	    
-	    return $this->loadParentsToRoot($rootId, $albumIds, $albumsLoaded, $parents);
+
+	    /* and recurse */
+	    list ($ret, $albumsLoaded, $albumIds) =
+		$this->loadParentsToRoot($rootId, $albumIds, $albumsLoaded, $parents);
+	    if ($ret) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    }
 	}
+	return array(null, $albumsLoaded, $albumIds);
     }
 
     /**
@@ -853,7 +852,7 @@ class GalleryRemoteController extends GalleryController {
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	
+
 	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    /* if we have an album, get his thumbnail instead */
 	    list ($ret, $thumbs) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
@@ -870,12 +869,13 @@ class GalleryRemoteController extends GalleryController {
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-    
+
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 	    if ($ret) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    if (!isset($permissions['core.viewSource']) && !isset($permissions['core.viewResizes'])) {
+	    if (!isset($permissions['core.viewSource'])
+		    && !isset($permissions['core.viewResizes'])) {
 		$response->setProperty('status', $grStatusCodes['NO_VIEW_PERMISSION']);
 		$response->setProperty('status_text', 'You are not allowed to see this image.');
 	    }
@@ -884,7 +884,7 @@ class GalleryRemoteController extends GalleryController {
 	    $response->setProperty('image.raw_width', $item->getWidth());
 	    $response->setProperty('image.raw_height', $item->getHeight());
 	    $response->setProperty('image.raw_filesize', $item->getSize());
-   
+
 	    list ($ret, $extensions) =
 		GalleryCoreApi::convertMimeToExtensions($item->getMimeType());
 	    if ($ret) {
@@ -893,11 +893,11 @@ class GalleryRemoteController extends GalleryController {
 	    if (isset($extensions) && isset($extensions[0])) {
 		$response->setProperty('image.forceExtension', $extensions[0]);
 	    }
-    
+
 	    $response->setProperty('image.caption', $item->getTitle());
 	    $response->setProperty('image.title', $item->getPathComponent());
 	    $response->setProperty('image.hidden', 'no');
-    
+
 	    $thumb = null;
 	    $resizes = array();
 	    if (isset($derivatives[$item->getId()])) {
@@ -919,7 +919,7 @@ class GalleryRemoteController extends GalleryController {
 		arsort($resizes);
 		$resizes = array_keys($resizes);
 	    }
-	    
+
 	    if (!empty($resizes)) {
 		$der = $derivatives[$item->getId()][array_shift($resizes)];
 		$response->setProperty('image.resizedName', $der->getId());
