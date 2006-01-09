@@ -1539,7 +1539,8 @@ class ConfirmImportView extends GalleryView {
 	}
 	foreach ($form['sourceAlbums'] as $sourceAlbumName) {
 	    if (!in_array($sourceAlbumName, array_keys($albums))) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array($ret = GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
+			     null);
 	    }
 	    list ($ret, $albumfields[$sourceAlbumName]) =
 		Gallery1DataParser::loadAlbumFields($albumsPath . $sourceAlbumName);
