@@ -415,6 +415,10 @@ class GalleryPluginHelper_simple {
 				 null);
 		}
 
+		$frameworkParams = array('version', 'callbacks', 'requiredCoreApi');
+		$frameworkParams[] =
+		    ($pluginType == 'module') ? 'requiredModuleApi' : 'requiredThemeApi';
+
 		foreach ($pluginBaseDirs as $pluginBaseDir) {
 		    if ($dir = $platform->opendir($pluginBaseDir . $pluginsDir)) {
 			while ($pluginId = $platform->readdir($dir)) {
@@ -429,13 +433,6 @@ class GalleryPluginHelper_simple {
 			    if ($platform->file_exists($path)) {
 				$plugins[$pluginId]['available'] = 1;
 
-				$frameworkParams = array('version', 'callbacks', 'requiredCoreApi');
-				if ($pluginType == 'module') {
-				    $frameworkParams[] = 'requiredModuleApi';
-				} else {
-				    $frameworkParams[] = 'requiredThemeApi';
-				}
-
 				foreach ($frameworkParams as $paramName) {
 				    list ($ret, $plugins[$pluginId][$paramName]) =
 					GalleryPluginHelper_simple::getParameter(
@@ -446,16 +443,9 @@ class GalleryPluginHelper_simple {
 
 				    /* Separate out the major/minor version. */
 				    if (!strncmp($paramName, 'required', 8)) {
-					$tmp = split(',', $plugins[$pluginId][$paramName]);
-					// DEBUG: remove these lines below when we
-					// commit; make sure that we bump all module
-					// versions instead so that the module
-					// version reqs aren't empty
-					if (empty($tmp) || count($tmp) < 2) {
-					    $tmp = array(-1, -1);
-					}
-					$plugins[$pluginId][$paramName] =
-					    array((int)$tmp[0], (int)$tmp[1]);
+					$tmp = explode(',', $plugins[$pluginId][$paramName]);
+					$plugins[$pluginId][$paramName] = (count($tmp) < 2)
+					    ? array(-1, -1) : array((int)$tmp[0], (int)$tmp[1]);
 				    }
 				}
 			    }
@@ -480,10 +470,11 @@ class GalleryPluginHelper_simple {
 		    $plugins['core']['available'] = 1;
 		}
 
-		GalleryDataCache::putToDisk(array('type' => $pluginType,
-						  'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
-						  'id' => '_all'),
-					    $plugins);
+		GalleryDataCache::putToDisk(
+			array('type' => $pluginType,
+			      'itemId' => 'GalleryPluginHelper_fetchPluginStatus',
+			      'id' => '_all'),
+			$plugins);
 	    }
 	    GalleryDataCache::put($cacheKey, $plugins);
 	} else {
