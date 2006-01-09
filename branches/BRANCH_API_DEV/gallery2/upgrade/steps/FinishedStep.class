@@ -22,7 +22,7 @@
 
 class FinishedStep extends UpgradeStep {
     function stepName() {
-	return _('Finished');
+	return _('Finish Upgrade');
     }
 
     function loadTemplateData(&$templateData) {
