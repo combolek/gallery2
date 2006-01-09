@@ -36,8 +36,8 @@ class PhotoAccessModule extends GalleryModule {
 	global $gallery;
 
 	$this->setId('photoaccess');
-	$this->setName($gallery->i18n('PhotoAccess'));
-	$this->setDescription($gallery->i18n('PhotoAccess Photo Printing Module'));
+	$this->setName($gallery->i18n('PhotoWorks'));
+	$this->setDescription($gallery->i18n('PhotoWorks Photo Printing Module'));
 	$this->setVersion('1.0.2'); /* Update upgrade() too */
 	$this->setGroup('commerce', $gallery->i18n('Commerce'));
 	$this->setCallbacks('getItemLinks');
