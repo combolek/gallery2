@@ -1401,7 +1401,7 @@ class CoreModuleExtras {
 		}
 
 		$stepSize = min(100, intval($totalDerivatives / 10));
-		for ($i = 0; $i < sizeof($derivativeIds); $i++) {
+		for ($i = 0; $i < $totalDerivatives; $i++) {
 		    /* Delete the file if it exists */
 		    list ($first, $second) = GalleryDataCache::getCacheTuple($derivativeIds[$i]);
 		    $fastDownloadFilePath = sprintf('%derivative/%s/%s/%d-fast.inc',
@@ -1411,11 +1411,11 @@ class CoreModuleExtras {
 		    }
 
 		    /* Update the progress bar / prevent timouts */
-		    if ($i % $stepSize == 0 || $i == $totalDerivatives - 1) {
+		    if ($i % $stepSize == 0 || $i == ($totalDerivatives - 1)) {
 			$gallery->guaranteeTimeLimit(60);
 			$ret = $statusMonitor->renderStatusMessage(
 			    $module->translate('Deleting old fast-download cache'),
-			    '',  $i+1 / ($totalDerivatives - ($i+1)));
+			    '',  ($i+1) / $totalDerivatives);
 			if ($ret) {
 			    return $ret->wrap(__FILE__, __LINE__);
 			}
