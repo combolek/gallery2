@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-08 21:26+0100\n"
+"POT-Creation-Date: 2006-01-08 21:17+0100\n"
 "PO-Revision-Date: 2005-09-14 10:00+0100\n"
 "Last-Translator: Peter Liversten <skansberget AT telia DOT com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
@@ -521,7 +521,7 @@ msgstr[1] "Detta album innehåller %d objekt."
 msgid "This album has been viewed %s since %s."
 msgstr "Detta album har visats %s sedan %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -536,7 +536,7 @@ msgstr "0 gånger"
 msgid "reset counter"
 msgstr "Nollställ räknare"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Kommentarer finns tillgängliga för detta objekt."
 
@@ -641,115 +641,115 @@ msgstr "INGA FOTON!"
 msgid "Untitled"
 msgstr "Ingen titel"
 
-#: ../classes/Album.php:240 ../classes/Album.php:252
+#: ../classes/Album.php:239 ../classes/Album.php:251
 #: ../layout/commentboxtop.inc:18 ../lib/albumItem.php:71
 #: ../upgrade_album.php:84 ../upgrade_album.php:96
 msgid "Album"
 msgstr "Album"
 
-#: ../classes/Album.php:264 ../search.php:58 ../slideshow.php:193
+#: ../classes/Album.php:263 ../search.php:58 ../slideshow.php:193
 msgid "Gallery"
 msgstr "Gallery"
 
-#: ../classes/Album.php:305
+#: ../classes/Album.php:304
 msgid "Album up to date."
 msgstr "Album är uppdaterat."
 
-#: ../classes/Album.php:309
+#: ../classes/Album.php:308
 msgid "Upgrading album properties..."
 msgstr "Uppgraderar albumegenskaper..."
 
-#: ../classes/Album.php:454
+#: ../classes/Album.php:453
 #, php-format
 msgid "Renaming album from %s to %s..."
 msgstr "Döper om album från %s till %s..."
 
-#: ../classes/Album.php:538 ../classes/Album.php:553
+#: ../classes/Album.php:537 ../classes/Album.php:552
 msgid "done"
 msgstr "Klar"
 
-#: ../classes/Album.php:544
+#: ../classes/Album.php:543
 #, php-format
 msgid "Upgrading item %d of %d . . . "
 msgstr "Uppgraderar objekt %d av %d . . . "
 
-#: ../classes/Album.php:801
+#: ../classes/Album.php:802
 #, fuzzy
 msgid "Getting highlight"
 msgstr "Sätt som förgrundsbild"
 
-#: ../classes/Album.php:847
+#: ../classes/Album.php:848
 #, fuzzy
 msgid "Setting highlight"
 msgstr "Sätt som förgrundsbild"
 
-#: ../classes/Album.php:1038
+#: ../classes/Album.php:1040
 msgid "msg should be an array!"
 msgstr "meddelande bör vara en ordnad rad!"
 
-#: ../classes/Album.php:1047
+#: ../classes/Album.php:1049
 #, php-format
 msgid "Changes to Album: %s"
 msgstr "Ändringar på album: %s"
 
-#: ../classes/Album.php:1055
+#: ../classes/Album.php:1057
 #, php-format
 msgid "A change has been made to Album: %s by %s (IP %s).  The change is: %s"
 msgstr "En ändring har gjorts i album: %s av %s (IP %s).  Ändringen är: %s"
 
-#: ../classes/Album.php:1061
+#: ../classes/Album.php:1063
 msgid "If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first)."
 msgstr "Om du inte längre önskar att mottaga e-post om denna bild, följ länkarna ovan och försäkra att &quot;Skicka e-post till mig när andra ändringar har gjorts&quot; är avmarkerad (Du  behöver logga in först)."
 
-#: ../classes/Album.php:1068
+#: ../classes/Album.php:1070
 msgid "Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found"
 msgstr "Operationen genomfördes framgångsrikt.  E-postning är på men ingen e-post skickades eftersom ingen giltig e-postadress hittades"
 
-#: ../classes/Album.php:1142 ../classes/Album.php:1897
+#: ../classes/Album.php:1144 ../classes/Album.php:1897
 #, php-format
 msgid "Entering album %s, processing %d photos"
 msgstr "Öppnar album %s, bearbetar %d foton"
 
-#: ../classes/Album.php:1147
+#: ../classes/Album.php:1149
 #, php-format
 msgid "Processing element %d..."
 msgstr "Bearbeter objekt %d..."
 
-#: ../classes/Album.php:1160 ../classes/Album.php:1267
+#: ../classes/Album.php:1162 ../classes/Album.php:1269
 msgid "Doing the naming"
 msgstr "Namnsätter"
 
-#: ../classes/Album.php:1193
+#: ../classes/Album.php:1195
 msgid "Image Preprocessing"
 msgstr "Bild-förbearbetning"
 
-#: ../classes/Album.php:1198
+#: ../classes/Album.php:1200
 msgid "Resizing/compressing original image"
 msgstr "Storleksändrar/komprimerar originalbild"
 
-#: ../classes/Album.php:1202
+#: ../classes/Album.php:1204
 msgid "Cannot resize/compress this filetype"
 msgstr "Kan inte storleksändra/komprimera denna filtyp"
 
-#: ../classes/Album.php:1257
+#: ../classes/Album.php:1259
 #, php-format
 msgid "Resizing %s"
 msgstr "Storleksändrar %s"
 
-#: ../classes/Album.php:1324
+#: ../classes/Album.php:1326
 msgid "Photo auto-rotated/transformed"
 msgstr "Foto automatiskt roterat/omvandlat"
 
-#: ../classes/Album.php:1332
+#: ../classes/Album.php:1334
 msgid "Watermarking Image"
 msgstr "Vattenstämpla Bild"
 
-#: ../classes/Album.php:1490 ../classes/Album.php:1500
+#: ../classes/Album.php:1491 ../classes/Album.php:1501
 #, fuzzy
 msgid "No highlight!"
 msgstr "Ingen förgrundsbild"
 
-#: ../classes/Album.php:1695
+#: ../classes/Album.php:1696
 #, php-format
 msgid "Requested index [%d] out of bounds [%d]"
 msgstr "Begärt index [%d] på förbjudet område [%d]"
@@ -769,7 +769,7 @@ msgstr "Fel vid hämtning av EXIF-information.  Förväntad status 0, fick %s."
 msgid "#%d"
 msgstr "#%d"
 
-#: ../classes/Album.php:2778
+#: ../classes/Album.php:2777
 #, php-format
 msgid "Email problem: skipping %s (UID %s) because email address %s is not valid."
 msgstr "Problem med e-post: utesluter %s (UID %s) eftersom e-postadress %s inte är giltig."
@@ -4676,7 +4676,7 @@ msgstr "För att rösta på en bild klicka på %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Du MÅSTE klicka på %s för att din röst skall registreras."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Rösta"
 
@@ -4726,35 +4726,35 @@ msgid_plural "%d items"
 msgstr[0] "1 objekt"
 msgstr[1] "%d objekt"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Visad:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Visad:"
 msgstr[1] "Visad:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Hallå! Ladda upp några foton."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Detta album är tomt."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Skicka e-post till mig när någon av följande åtgärder görs på detta album:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Kommentarer är lämnade"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Andra ändringar är gjorda"
 

@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-08 21:26+0100\n"
+"POT-Creation-Date: 2006-01-08 21:17+0100\n"
 "PO-Revision-Date: 2004-04-27 17:41-0000\n"
 "Last-Translator: JASTMI.com <geral AT jastmi DOT com>\n"
 "Language-Team: PT Team <GalleryPT AT escritacomluz DOT com>;\n"
@@ -530,7 +530,7 @@ msgstr[1] "Este album contém %d items"
 msgid "This album has been viewed %s since %s."
 msgstr "Este album foi visto %s desde %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -545,7 +545,7 @@ msgstr "0 vezes"
 msgid "reset counter"
 msgstr "repor contador"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Comentários disponíveis para este item."
 
@@ -650,116 +650,116 @@ msgstr "SEM FOTOS!"
 msgid "Untitled"
 msgstr "Sem Título"
 
-#: ../classes/Album.php:240 ../classes/Album.php:252
+#: ../classes/Album.php:239 ../classes/Album.php:251
 #: ../layout/commentboxtop.inc:18 ../lib/albumItem.php:71
 #: ../upgrade_album.php:84 ../upgrade_album.php:96
 msgid "Album"
 msgstr "Album"
 
-#: ../classes/Album.php:264 ../search.php:58 ../slideshow.php:193
+#: ../classes/Album.php:263 ../search.php:58 ../slideshow.php:193
 msgid "Gallery"
 msgstr "Galeria"
 
-#: ../classes/Album.php:305
+#: ../classes/Album.php:304
 msgid "Album up to date."
 msgstr "Album actualizado."
 
-#: ../classes/Album.php:309
+#: ../classes/Album.php:308
 msgid "Upgrading album properties..."
 msgstr "A actualizar as propriedades do album..."
 
-#: ../classes/Album.php:454
+#: ../classes/Album.php:453
 #, php-format
 msgid "Renaming album from %s to %s..."
 msgstr "Renomeando album de %s para %s..."
 
-#: ../classes/Album.php:538 ../classes/Album.php:553
+#: ../classes/Album.php:537 ../classes/Album.php:552
 msgid "done"
 msgstr "concluído"
 
-#: ../classes/Album.php:544
+#: ../classes/Album.php:543
 #, php-format
 msgid "Upgrading item %d of %d . . . "
 msgstr "A actualizar item %d de %d . . ."
 
-#: ../classes/Album.php:801
+#: ../classes/Album.php:802
 #, fuzzy
 msgid "Getting highlight"
 msgstr "Sem foto destacada"
 
-#: ../classes/Album.php:847
+#: ../classes/Album.php:848
 #, fuzzy
 msgid "Setting highlight"
 msgstr "Sem foto destacada"
 
-#: ../classes/Album.php:1038
+#: ../classes/Album.php:1040
 msgid "msg should be an array!"
 msgstr "msg deveria ser um array!"
 
-#: ../classes/Album.php:1047
+#: ../classes/Album.php:1049
 #, fuzzy, php-format
 msgid "Changes to Album: %s"
 msgstr "Não foi possível escrever para %s."
 
-#: ../classes/Album.php:1055
+#: ../classes/Album.php:1057
 #, php-format
 msgid "A change has been made to Album: %s by %s (IP %s).  The change is: %s"
 msgstr ""
 
-#: ../classes/Album.php:1061
+#: ../classes/Album.php:1063
 msgid "If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first)."
 msgstr ""
 
-#: ../classes/Album.php:1068
+#: ../classes/Album.php:1070
 msgid "Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found"
 msgstr ""
 
-#: ../classes/Album.php:1142 ../classes/Album.php:1897
+#: ../classes/Album.php:1144 ../classes/Album.php:1897
 #, php-format
 msgid "Entering album %s, processing %d photos"
 msgstr ""
 
-#: ../classes/Album.php:1147
+#: ../classes/Album.php:1149
 #, fuzzy, php-format
 msgid "Processing element %d..."
 msgstr "A processar fotografia %d..."
 
-#: ../classes/Album.php:1160 ../classes/Album.php:1267
+#: ../classes/Album.php:1162 ../classes/Album.php:1269
 msgid "Doing the naming"
 msgstr ""
 
-#: ../classes/Album.php:1193
+#: ../classes/Album.php:1195
 #, fuzzy
 msgid "Image Preprocessing"
 msgstr "Processamento de Imagem e Visualiza&ccedil;&atilde;o"
 
-#: ../classes/Album.php:1198
+#: ../classes/Album.php:1200
 msgid "Resizing/compressing original image"
 msgstr "A redimensionar/comprimir imagem original"
 
-#: ../classes/Album.php:1202
+#: ../classes/Album.php:1204
 msgid "Cannot resize/compress this filetype"
 msgstr "Impossível redimensionar/comprimir este tipo de ficheiro"
 
-#: ../classes/Album.php:1257
+#: ../classes/Album.php:1259
 #, php-format
 msgid "Resizing %s"
 msgstr "A redimensionar %s"
 
-#: ../classes/Album.php:1324
+#: ../classes/Album.php:1326
 msgid "Photo auto-rotated/transformed"
 msgstr "Foto automáticamente rodada/transformada"
 
-#: ../classes/Album.php:1332
+#: ../classes/Album.php:1334
 msgid "Watermarking Image"
 msgstr "Aplicando Marca de Água"
 
-#: ../classes/Album.php:1490 ../classes/Album.php:1500
+#: ../classes/Album.php:1491 ../classes/Album.php:1501
 #, fuzzy
 msgid "No highlight!"
 msgstr "Sem foto destacada"
 
-#: ../classes/Album.php:1695
+#: ../classes/Album.php:1696
 #, php-format
 msgid "Requested index [%d] out of bounds [%d]"
 msgstr ""
@@ -779,7 +779,7 @@ msgstr ""
 msgid "#%d"
 msgstr "#%d"
 
-#: ../classes/Album.php:2778
+#: ../classes/Album.php:2777
 #, php-format
 msgid "Email problem: skipping %s (UID %s) because email address %s is not valid."
 msgstr "Erro no Email: ignorando %s (UID %s) porque o endereço %s não é válido"
@@ -4868,7 +4868,7 @@ msgstr "Clique em %s, se desejar votar na fotografia."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "DEVE clicar em %s para que o voto seja contabilizado."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Votar"
 
@@ -4919,35 +4919,35 @@ msgid_plural "%d items"
 msgstr[0] "1 item"
 msgstr[1] "%d items"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Visto:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Visto:"
 msgstr[1] "Visto:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Pode começar a adicionar fotos!"
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Este album está vazio."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "comentários forem adicionados"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "forem feitas alterações"
 
