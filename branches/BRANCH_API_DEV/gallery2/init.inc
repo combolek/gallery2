@@ -64,7 +64,12 @@ function GalleryInitFirstPass($params=array()) {
 	$gallery->setDebug($params['debug']);
     }
 
+    /* Sanitize the data path */
     $dataBase = $gallery->getConfig('data.gallery.base');
+    if ($dataBase{strlen($dataBase)-1} != $slash) {
+	$dataBase .= $slash;
+	$gallery->setConfig('data.gallery.base', $dataBase);
+    }
 
     /* Init for downloadable plugins */
     $gallery->setConfig('plugins.dirname', 'plugins');
