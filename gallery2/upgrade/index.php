@@ -92,6 +92,13 @@ if (!empty($storageConfig)) {
     GalleryDataCache::setFileCachingEnabled(false);
     GalleryDataCache::setMemoryCachingEnabled(false);
 
+    /* Sanitize the data path, older versions might have a path without a traling slash */
+    $dataBase = $gallery->getConfig('data.gallery.base');
+    if ($dataBase{strlen($dataBase)-1} != DIRECTORY_SEPARATOR) {
+	$dataBase .= DIRECTORY_SEPARATOR;
+	$gallery->setConfig('data.gallery.base', $dataBase);
+    }
+    
     $ret = GalleryInitFirstPass(array('debug' => 'buffered', 'noDatabase' => 1));
     if ($ret) {
 	print $ret->getAsHtml();

@@ -509,105 +509,10 @@ class GalleryDerivative extends GalleryChildEntity {
 	GalleryDataCache::putToDisk(
 	    array('type' => 'derivative-meta', 'itemId' => $this->getId()), $data);
 
-	$this->deleteFastDownloadFile();
-	$ret = $this->createFastDownloadFile();
+	GalleryCoreApi::deleteFastDownloadFileById($this->getId());
+	$ret = GalleryCoreApi::createFastDownloadFile($this);
 	if ($ret) {
 	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	return null;
-    }
-
-    /**
-     * Delete our fast download file.
-     */
-    function deleteFastDownloadFile() {
-	global $gallery;
-
-	$fastDownloadFilePath = GalleryDataCache::getCachePath(
-	    array('type' => 'fast-download', 'itemId' => $this->getId()));
-	$platform =& $gallery->getPlatform();
-	if ($platform->file_exists($fastDownloadFilePath)) {
-	    $platform->unlink($fastDownloadFilePath);
-	}
-    }
-
-    /**
-     * Create a small PHP file containing all the information we need to send
-     * this derivative to the browser.
-     *
-     * @param bool force this to run, even inside the unit test framework
-     *
-     * @return object GalleryStatus a status code
-     */
-    function createFastDownloadFile($runEvenInUnitTest=false) {
-	global $gallery;
-
-	/* Disable this for unit tests, for now */
-	if (!$runEvenInUnitTest && class_exists('GalleryTestCase')) {
-	    return null;
-	}
-
-	/* Make sure this derivative is publicly viewable */
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$hasPermission = false;
-	$requiredPermission = null;
-	switch ($this->getDerivativeType()) {
-	case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
-	    $requiredPermission = 'core.view';
-	    break;
-
-	case DERIVATIVE_TYPE_IMAGE_RESIZE:
-	    $requiredPermission = 'core.viewResizes';
-	    break;
-
-	case DERIVATIVE_TYPE_IMAGE_PREFERRED:
-	    $requiredPermission = 'core.viewSource';
-	    break;
-	}
-
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	if ($requiredPermission) {
-	    list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(
-		array($this->getParentId()), $anonymousUserId);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    $hasPermission = isset($permissions[$this->getParentId()][$requiredPermission]);
-	}
-
-	if ($hasPermission) {
-	    /* Write the fast download file */
-	    list ($ret, $pseudoFileName) = GalleryUtilities::getPseudoFileName($this);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	    $fullPath = GalleryDataCache::getCachePath(
-		array('type' => 'derivative', 'itemId' => $this->getId()));
-	    $relativePath = GalleryDataCache::getCachePath(
-		array('type' => 'derivative-relative', 'itemId' => $this->getId()));
-	    $platform =& $gallery->getPlatform();
-	    $stats = $platform->stat($fullPath);
-	    $contentLength = $stats[7];
-	    $lastModified = GalleryUtilities::getHttpDate($stats[9]);
-
-	    $fastDownloadFilePath = GalleryDataCache::getCachePath(
-		array('type' => 'fast-download', 'itemId' => $this->getId()));
-	    $buf = sprintf('<?php function GalleryFastDownload() { ' .
-			   'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
-			   '\'%s\', \'%s\', %d);} ?>',
-			   $relativePath, $pseudoFileName, $lastModified,
-			   $this->getMimeType(), $contentLength);
-	    $platform->atomicWrite($fastDownloadFilePath, $buf);
 	}
 
 	return null;
@@ -750,7 +655,7 @@ class GalleryDerivative extends GalleryChildEntity {
 	    $platform->unlink($path);
 	}
 
-	$this->deleteFastDownloadFile();
+	GalleryCoreApi::deleteFastDownloadFileById($this->getId());
 
 	return null;
     }

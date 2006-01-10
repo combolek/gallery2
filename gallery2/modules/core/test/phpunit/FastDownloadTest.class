@@ -85,7 +85,7 @@ class FastDownloadTest extends GalleryTestCase {
 	}
     }
 
-    function testCreateFastDownloadFile() {
+    function testCreateFastDownloadFileForDerivative() {
 	global $gallery;
 	$bytesWritten = '';
 	$platform = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
@@ -105,21 +105,64 @@ class FastDownloadTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = $this->_derivatives[0][0]->createFastDownloadFile(true);
+	$ret = GalleryCoreApi::createFastDownloadFile($this->_derivatives[0][0], true);
 	if ($ret) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$cachePath = GalleryDataCache::getCachePath(
 	    array('type' => 'derivative-relative', 'itemId' => $this->_derivatives[0][0]->getId()));
+	/* Use here another method to assemble the relative path to get a better test coverage */
+	$relativePath = 'cache' . $platform->getDirectorySeparator() . $cachePath;
 
 	$this->assertEquals(
 	    sprintf('<?php function GalleryFastDownload() { ' .
 		    'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
 		    '\'Thu, 01 Jan 1970 00:00:01 GMT\', \'%s\', 50);} ?>',
-		    $cachePath,
+		    $relativePath,
 		    $this->_item[0]->getPathComponent(),
 		    $this->_derivatives[0][0]->getMimeType()),
+	    $bytesWritten);
+    }
+
+    function testCreateFastDownloadFileForDataItem() {
+	global $gallery;
+	$bytesWritten = '';
+	$platform = new FastDownloadTestCreateFastDownloadPlatform($bytesWritten);
+	$platform->setStat(7, 50);	  /* content length */
+	$platform->setStat(9, 1);	  /* last mod date */
+	$gallery->setPlatform($platform);
+
+	list ($ret, $anonymousUserId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$ret = GalleryCoreApi::addUserPermission(
+	    $this->_item[0]->getId(), $anonymousUserId, 'core.viewSource', false);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	$ret = GalleryCoreApi::createFastDownloadFile($this->_item[0], true);
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	list ($ret, $path) = $this->_item[0]->fetchPath();
+	if ($ret) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$relativePath = str_replace($gallery->getConfig('data.gallery.base'), '', $path);
+	
+	$this->assertEquals(
+	    sprintf('<?php function GalleryFastDownload() { ' .
+		    'return $GLOBALS[\'gallery\']->fastDownload(\'%s\', \'%s\', ' .
+		    '\'Thu, 01 Jan 1970 00:00:01 GMT\', \'%s\', 50);} ?>',
+		    $relativePath,
+		    $this->_item[0]->getPathComponent(),
+		    $this->_item[0]->getMimeType()),
 	    $bytesWritten);
     }
 
@@ -255,17 +298,21 @@ class FastDownloadTest extends GalleryTestCase {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals(5, count($buf['unlink']), '5 files should be deleted');
+	$this->assertEquals(6, count($buf['unlink']), '5 files should be deleted');
 
+	$ids = array();
 	for ($i = 0; $i < 2; $i++) {
 	    for ($j = 0; $j < 2; $j++) {
-		$expected[] = GalleryDataCache::getCachePath(
-		    array('type' => 'fast-download',
-			  'itemId' => $this->_derivatives[$j][$i]->getId()));
+		$ids[] = $this->_derivatives[$j][$i]->getId();
 	    }
 	}
+	$ids[] = $this->_derivatives[0][2]->getId();
+	$ids[] = $this->_item[0]->getId();
+	foreach ($ids as $id) {
 	$expected[] = GalleryDataCache::getCachePath(
-	    array('type' => 'fast-download', 'itemId' => $this->_derivatives[0][2]->getId()));
+		    array('type' => 'fast-download',
+			  'itemId' => $id));
+	}
 
 	$this->assertEquals($expected, $buf['unlink'], 'wrongfully deleted files');
     }
@@ -313,6 +360,10 @@ class FastDownloadTestCreateFastDownloadPlatform {
     function realpath($path) {
 	return $path;
     }
+
+    function getDirectorySeparator() {
+	return DIRECTORY_SEPARATOR;
+    }
 }
 
 /**
@@ -335,6 +386,10 @@ class FastDownloadTestRemovePermissionPlatform {
     function unlink($path) {
 	$this->_buf['unlink'][] = $path;
 	return true;
+    }
+
+    function getDirectorySeparator() {
+	return DIRECTORY_SEPARATOR;
     }
 }
 ?>

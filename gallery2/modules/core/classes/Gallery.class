@@ -860,7 +860,7 @@ class Gallery {
     /**
      * Send a data file out to the browser as quickly as possible.
      *
-     * @param string the relative path to the file from the g2data/cache directory
+     * @param string the relative path to the file from the g2data/ directory
      * @param string the logical name of the file (used for the Content-Disposition header)
      * @param string the last modified date string (used for the Last-Modified header)
      * @param string the mime type (used for the Content-type header)
@@ -875,8 +875,9 @@ class Gallery {
 	}
 	/* Don't use GalleryPlatform here -- we're aiming for max speed */
 	/* TODO: benchmark what it would cost us to use GalleryPlatform */
-	$cacheBase = $this->getConfig('data.gallery.cache');
-	if ($fd = fopen($cacheBase . $relativePath, 'rb')) {
+	$base = $this->getConfig('data.gallery.base');
+	$path = $base . $relativePath;
+	if (file_exists($path) && $fd = fopen($path, 'rb')) {
 	    header('Content-Disposition: inline; filename="' . $filename . '"');
 	    header('Last-Modified: ' . $lastModified);
 	    header('Content-type: ' . $mimeType);

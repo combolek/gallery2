@@ -112,11 +112,8 @@ class DownloadItemView extends GalleryView {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Fast downloads only works for thumbs/resizes right now */
-	if (GalleryUtilities::isA($item, 'GalleryDerivative')) {
-	    $ret = $item->createFastDownloadFile();
+	$ret = GalleryCoreApi::createFastDownloadFile($item);
 	    /* Ignore failures since the file has already been sent */
-	}
 
 	return null;
     }

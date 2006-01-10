@@ -968,6 +968,7 @@ class GalleryItemHelper_medium /* extends GalleryEventListener */ {
 		$thumbnailIds = array();
 		$resizeIds = array();
 		$preferredIds = array();
+		$itemIds = array();
 		$targetDerivatives = array();
 
 		/* Convert from newBits format to removeBits, if necessary */
@@ -990,9 +991,13 @@ class GalleryItemHelper_medium /* extends GalleryEventListener */ {
 		    if (($removeBits & $bits[1]) == $bits[1]) {
 			$resizeIds[] = $itemId;
 		    }
-		    /* If core.viewSource was removed then delete the preferred fast download */
+		    /*
+		     * If core.viewSource was removed then delete the fast download for preferred
+		     * and the source
+		     */
 		    if (($removeBits & $bits[2]) == $bits[2]) {
 			$preferredIds[] = $itemId;
+			$itemIds[] = $itemId;
 		    }
 		}
 
@@ -1019,7 +1024,10 @@ class GalleryItemHelper_medium /* extends GalleryEventListener */ {
 		$targetDerivatives = array_merge($targetDerivatives, $preferreds);
 
 		foreach ($targetDerivatives as $derivative) {
-		    $derivative->deleteFastDownloadFile();
+		    GalleryCoreApi::deleteFastDownloadFileById($derivative->getId());
+		}
+		foreach ($itemIds as $id) {
+		    GalleryCoreApi::deleteFastDownloadFileById($id);
 		}
 	    }
 	}

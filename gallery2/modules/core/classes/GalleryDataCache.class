@@ -461,7 +461,7 @@ class GalleryDataCache {
 
 	case 'fast-download':
 	    list ($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-	    $cacheFile = sprintf('%sderivative/%s/%s/%d-fast.inc',
+	    $cacheFile = sprintf('%sentity/%s/%s/%d-fast.inc',
 				 $base, $first, $second, $pathInfo['itemId']);
 	    break;
 

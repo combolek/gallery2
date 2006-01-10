@@ -141,9 +141,9 @@ class DataCacheTest extends GalleryTestCase {
 	$cases['/data/cache/derivative/0/0/0-meta.inc'] =
 	    array('type' => 'derivative-meta', 'itemId' => '../EVIL');
 
-	$cases['/data/cache/derivative/1/2/123-fast.inc'] =
+	$cases['/data/cache/entity/1/2/123-fast.inc'] =
 	    array('type' => 'fast-download', 'itemId' => 123);
-	$cases['/data/cache/derivative/0/0/0-fast.inc'] =
+	$cases['/data/cache/entity/0/0/0-fast.inc'] =
 	    array('type' => 'fast-download', 'itemId' => '../EVIL');
 
 	$cases['/data/cache/module/foo/1/2/123.dat'] =
