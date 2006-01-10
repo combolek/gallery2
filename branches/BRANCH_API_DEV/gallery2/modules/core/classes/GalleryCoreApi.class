@@ -2941,5 +2941,30 @@ class GalleryCoreApi {
 
 	return array(null, $entityInfo);
     }
+
+    /**
+     * Delete the fast download file for a specific entity
+     *
+     * @param int id of a GalleryEntity
+     */
+    function deleteFastDownloadFileById($entityId) {
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryEntityHelper_medium.class');
+	return GalleryEntityHelper_medium::deleteFastDownloadFileById($entityId);
+    }
+
+    /**
+     * Create a small PHP file containing all the information we need to send
+     * a data item or derivative to the browser.
+     * Note that fast-downloads are only created for items with public permissions
+     *
+     * @param GalleryDataItem or GalleryDerivative object
+     * @param bool (optional) force this to run, even inside the unit test framework
+     *
+     * @return object GalleryStatus a status code
+     */
+    function createFastDownloadFile($entity, $runEvenInUnitTest=false) {
+	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryEntityHelper_medium.class');
+	return GalleryEntityHelper_medium::createFastDownloadFile($entity, $runEvenInUnitTest);
+    }
 }
 ?>

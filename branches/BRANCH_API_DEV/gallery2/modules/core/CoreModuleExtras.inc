@@ -819,7 +819,6 @@ class CoreModuleExtras {
 	     *    (We can't count on derivativeSize being correct, so check all derivatives)
 	     */
 	    $gallery->guaranteeTimeLimit(60);
-	    list ($ret, $results) =
 	    $query = 'SELECT [GalleryDerivative::id]
 		      FROM [GalleryDerivative]
 		      WHERE [GalleryDerivative::isBroken] IS NULL';
@@ -1372,6 +1371,57 @@ class CoreModuleExtras {
 	    /* Add config parameter: 'baseUri'*/
 	case '1.0.14':
 	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
+	case '1.0.15':
+	    /*
+	     * Add fast-download for GalleryDataItems too. Fast-download files are now in
+	     * cache/entity/. Delete the old files in cache/derivative/.
+	     */
+	    $gallery->guaranteeTimeLimit(60);
+	    $query = 'SELECT [GalleryDerivativeImage::id]
+		      FROM [GalleryDerivativeImage]';
+	    list ($ret, $searchResults) = $gallery->search($query);
+	    if ($ret) {
+		return $ret->wrap(__FILE__, __LINE__);
+	    }
+
+	    if ($searchResults->resultCount() > 0) {
+		$derivativeIds = array();
+		while ($result = $searchResults->nextResult()) {
+		    $derivativeIds[] = $result[0];
+		}
+		$totalDerivatives = count($derivativeIds);
+		$base = $gallery->getConfig('data.gallery.cache');
+		$gallery->guaranteeTimeLimit(60);
+
+		/* Show a progress bar */
+		$ret = $statusMonitor->renderStatusMessage(
+		    $module->translate('Deleting old fast-download cache'), '', 0);
+		if ($ret) {
+		    return $ret->wrap(__FILE__, __LINE__);
+		}
+
+		$stepSize = min(100, intval($totalDerivatives / 10));
+		for ($i = 0; $i < sizeof($derivativeIds); $i++) {
+		    /* Delete the file if it exists */
+		    list ($first, $second) = GalleryDataCache::getCacheTuple($derivativeIds[$i]);
+		    $fastDownloadFilePath = sprintf('%derivative/%s/%s/%d-fast.inc',
+			    $base, $first, $second, $derivativeIds[$i]);
+		    if ($platform->file_exists($fastDownloadFilePath)) {
+			$platform->unlink($fastDownloadFilePath);
+		    }
+
+		    /* Update the progress bar / prevent timouts */
+		    if ($i % $stepSize == 0 || $i == $totalDerivatives - 1) {
+			$gallery->guaranteeTimeLimit(60);
+			$ret = $statusMonitor->renderStatusMessage(
+			    $module->translate('Deleting old fast-download cache'),
+			    '',  $i+1 / ($totalDerivatives - ($i+1)));
+			if ($ret) {
+			    return $ret->wrap(__FILE__, __LINE__);
+			}
+		    }
+		}
+	    }
 
 	case 'end of upgrade path':
 	    /*
@@ -1492,7 +1542,7 @@ $gallery->setConfig(\'galleryBaseUrl\', \'\');
 
 	    $configChanges[] = array(
 		'remove' => array('{/\*[^/]*\*/\s*\$gallery->setConfig\(\'galleryId\',.*?;\s*}s'),
-		'add' => $add);
+		'add' => $add, 'edit' => array());
 
 	case '0.9.20':
 	case '0.9.21':
@@ -1518,14 +1568,14 @@ $gallery->setConfig(\'galleryBaseUrl\', \'\');
  */
 $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 ';
-	    $configChanges[] = array('remove' => array(), 'add' => $add);
+	    $configChanges[] = array('remove' => array(), 'add' => $add, 'edit' => array());
 
 	case '0.9.22':
 	case '0.9.23':
 	    /* Session cookie change, revert the last change and try something new */
 	    $configChanges[] = array(
 		'remove' => array('{/\*[^/]*\*/\s*\$gallery->setConfig\(\'cookieId\',.*?;\s*}s'),
-		'add' => array());
+		'add' => array(), 'edit' => array());
 
 	case '0.9.24':
 	case '0.9.25':
@@ -1549,7 +1599,7 @@ $gallery->setConfig(\'cookieId\', \'' . $cookieId . '\');
 	case '1.0.3':
 
 	case '1.0.4':
-	    $configChanges[] = array('remove' => array(), 'add' => array(
+	    $configChanges[] = array('remove' => array(), 'edit' => array(), 'add' => array(
 '
 /*
  * Maintenance mode.  You can disable access to the site for anyone but
@@ -1589,9 +1639,15 @@ $gallery->setConfig(\'mode.maintenance\', false);
  */
 $gallery->setConfig(\'baseUri\', \'\');';
 	    
-	    $configChanges[] = array('remove' => array(), 'add' => $add);
+	    $configChanges[] = array('remove' => array(), 'add' => $add, 'edit' => array());
 
 	case '1.0.14':
+	case '1.0.15':
+	    /* Normalize the config path 'data.gallery.base' (add a traling slash if necessary) */
+	    $edit['regexp'] = '{\$gallery->setConfig\(\'data\.gallery\.base\',.*?;}s';
+	    $edit['replacement'] = '$gallery->setConfig(\'data.gallery.base\', \'' .
+		$gallery->getConfig('data.gallery.base') . '\');';
+	    $configChanges[] = array('remove' => array(), 'add' => array(), 'edit' => array($edit));
 
 	case 'end of upgrade path':
 	    /*
@@ -1639,6 +1695,9 @@ $gallery->setConfig(\'baseUri\', \'\');';
 	foreach ($configChanges as $change) {
 	    foreach ($change['remove'] as $regexp) {
 		$configContents = preg_replace($regexp, '', $configContents);
+	    }
+	    foreach ($change['edit'] as $edit) {
+		$configContents = preg_replace($edit['regexp'], $edit['replacement'], $configContents);
 	    }
 	    foreach ($change['add'] as $content) {
 		$configContents = preg_replace('{\?>\s*\z}', $content . "\n?>\n", $configContents);

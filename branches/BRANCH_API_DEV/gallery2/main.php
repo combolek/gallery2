@@ -55,7 +55,7 @@ if (GalleryUtilities::isEmbedded()) {
 	 * reason we fail, we'll reset it in init.inc (but that's ok).
 	 */
 	$gallery->setConfig(
-	    'data.gallery.cache', $gallery->getConfig('data.gallery.base') . '/cache/');
+	    'data.gallery.cache', $gallery->getConfig('data.gallery.base') . 'cache/');
 
 	$path = GalleryDataCache::getCachePath(
 	    array('type' => 'fast-download', 'itemId' => $itemId));

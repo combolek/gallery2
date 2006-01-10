@@ -226,8 +226,6 @@ class GalleryDataItem extends GalleryItem {
     function delete() {
 	global $gallery;
 
-	/* TODO: Check for derivative relationships and expire as necessary. */
-
 	/* Delete myself */
 	$ret = parent::delete();
 	if ($ret) {
@@ -247,6 +245,9 @@ class GalleryDataItem extends GalleryItem {
 					    "Could not delete $path");
 	    }
 	}
+
+	/* Delete the fast-download cache if it exists */
+	GalleryCoreApi::deleteFastDownloadFileById($this->getId());
 
 	return null;
     }
