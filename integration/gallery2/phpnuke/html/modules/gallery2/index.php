@@ -153,7 +153,7 @@ else {
 if ($g2bodyHtml==null) {
     $config_sql = "SELECT * FROM ".$prefix."_g2config";
     $config_result = $db->sql_query($config_sql);
-    list($embedphpfile, $embedUri, $relativeG2Path, $loginRedirect, $activeUserId, $embedPath, $cookiepath, $showSidebar, $g2configurationDone, $embedVersion) = $db->sql_fetchrow($config_result);
+    list($embedUri, $g2Uri, $loginRedirect, $activeUserId, $cookiepath, $showSidebar, $g2configurationDone, $embedVersion) = $db->sql_fetchrow($config_result);
     
     if ($g2configurationDone == 0){
             include "header.php";
@@ -164,17 +164,17 @@ if ($g2bodyHtml==null) {
             return;
     }
 
-    require_once($embedphpfile._G2_EMBED_PHP_FILE);
+    require_once($g2Uri._G2_EMBED_PHP_FILE);
                 
     $g2currentlang = $phpnuke2G2Lang[$currentlang];
                 
-    $ret = GalleryEmbed::init(array('embedPath' => $embedPath, 'embedUri' => $embedUri,'relativeG2Path' => $relativeG2Path,'loginRedirect' => $loginRedirect,'activeUserId' => "$uid",'activeLanguage' =>$g2currentlang));
+    $ret = GalleryEmbed::init(array('embedUri' => $embedUri,'g2Uri' => '/'.$g2Uri,'loginRedirect' => $loginRedirect,'activeUserId' => "$uid",'activeLanguage' =>$g2currentlang));
 
-    if ($ret->isError()) {
+    if ($ret) {
         if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
             // check if there's no G2 user mapped to the activeUserId
             $ret = GalleryEmbed::isExternalIdMapped($uid, 'GalleryUser');
-            if ($ret->isError() && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+            if ($ret && ($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
                 // user not mapped, map create G2 user now
                 $query='SELECT user_id, name, username, user_password, user_email, user_lang,  user_regdate FROM '.$user_prefix."_users WHERE `user_id`='".$uid."'";
                 $result=$db->sql_query($query);
@@ -186,7 +186,7 @@ if ($g2bodyHtml==null) {
                 $args = array('fullname'=> $sqluserdata['username'], 'username'=> $sqluserdata['username'], 'hashedpassword'=> $sqluserdata['user_password'], 'hashmethod'=> 'md5' , 'email'=> $sqluserdata['user_email'] , 'language' => $phpnuke2G2Lang[$nukeuser_lang], 'creationtimestamp'=> strtotime($nukeuser_regdate));
     
                 $retcreate = GalleryEmbed::createUser($sqluserdata['user_id'], $args);
-                if (!$retcreate->isSuccess()) {
+                if ($retcreate) {
                     list($ret,$user) = GalleryCoreApi::fetchUserByUsername($sqluserdata['username']);
                     $g2userId = $user->getId();
                     if(!GalleryEmbed::addExternalIdMapEntry($sqluserdata['user_id'], $g2userId, "GalleryUser")) {
@@ -195,7 +195,7 @@ if ($g2bodyHtml==null) {
                 }
                                    
                 // Full G2 reinit with the new created user
-                $ret = GalleryEmbed :: init(array ('embedPath' => $embedPath, 'embedUri' => $embedUri, 'relativeG2Path' => $relativeG2Path,'loginRedirect' => $loginRedirect,'activeUserId' => "$uid", 'activeLanguage' => $g2currentlang, 'fullInit' => 'true'));
+                $ret = GalleryEmbed :: init(array ('embedUri' => $embedUri, 'g2Uri' => '/'.$g2Uri,'loginRedirect' => $loginRedirect,'activeUserId' => "$uid", 'activeLanguage' => $g2currentlang, 'fullInit' => 'true'));
             }
             else {
                 echo 'G2 did not return a success status. Here is the error message from G2: <br />'.$ret->getAsHtml();
@@ -273,7 +273,7 @@ if ($g2bodyHtml==null) {
             
     // Main G2 error message
 
-    if ($ret->isError()) {
+    if ($ret) {
         echo $ret->getAsHtml();
     }
     
