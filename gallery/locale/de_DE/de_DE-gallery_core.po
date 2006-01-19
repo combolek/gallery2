@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	German
 # @author	Jens Tkotz <jens AT peino DOT de>, 2003-2005
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2006-01-08 21:35+0100\n"
 "Last-Translator: Jens Tkotz <jens@peino.de>\n"
 "Language-Team: German <jens AT peino DOT de>\n"
@@ -516,7 +515,7 @@ msgstr[1] "Dieses Album enthält %d Elemente"
 msgid "This album has been viewed %s since %s."
 msgstr "Dieses Album wurde %s angeschaut seit dem %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -531,7 +530,7 @@ msgstr "noch nie"
 msgid "reset counter"
 msgstr "Klick-Z&auml;hler zur&uuml;cksetzen"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Es sind Kommentare vorhanden."
 
@@ -4647,7 +4646,7 @@ msgstr "Sie haben die M&ouml;glichkeit, die einzelnen Element zu bewerten. Um f&
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Damit ihr Stimme gewertet wird, klicken Sie anschließend bitte auf %s."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Abstimmen"
 
@@ -4697,35 +4696,35 @@ msgid_plural "%d items"
 msgstr[0] "Ein Element"
 msgstr[1] "%d Elemente"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, php-format
 msgid "Viewed: %s"
 msgstr "Betrachtet: %s"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Betrachtet: 1 Mal"
 msgstr[1] "Betrachtet: %d Mal"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "F&uuml;gen Sie Bilder/Filme hinzu!"
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Dieses Album ist leer."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Eine Email an mich schicken, wenn ein der folgenden Aktionen für dieses Album ausgeführt werden:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Kommentare abgegeben wurden"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Sonstige Ver&auml;nderungen gemacht wurden"
 

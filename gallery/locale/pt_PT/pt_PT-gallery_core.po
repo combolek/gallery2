@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Portual Portuguese
 # D@author	Delfim Machado <dbcm AT escritacomluz DOT com>, 2003-2004
@@ -29,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-04-27 17:41-0000\n"
 "Last-Translator: JASTMI.com <geral AT jastmi DOT com>\n"
 "Language-Team: PT Team <GalleryPT AT escritacomluz DOT com>;\n"
@@ -532,7 +531,7 @@ msgstr[1] "Este album contém %d items"
 msgid "This album has been viewed %s since %s."
 msgstr "Este album foi visto %s desde %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -547,7 +546,7 @@ msgstr "0 vezes"
 msgid "reset counter"
 msgstr "repor contador"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Comentários disponíveis para este item."
 
@@ -4889,7 +4888,7 @@ msgstr "Clique em %s, se desejar votar na fotografia."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "DEVE clicar em %s para que o voto seja contabilizado."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Votar"
 
@@ -4940,35 +4939,35 @@ msgid_plural "%d items"
 msgstr[0] "1 item"
 msgstr[1] "%d items"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Visto:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Visto:"
 msgstr[1] "Visto:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Pode começar a adicionar fotos!"
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Este album está vazio."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "comentários forem adicionados"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "forem feitas alterações"
 

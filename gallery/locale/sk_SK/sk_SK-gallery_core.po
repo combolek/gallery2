@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Sloveak
 # @author	Peter Vlaciky <doktor AT internode DOT net DOT au>, 2004
@@ -28,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-08-19 23:50+1000\n"
 "Last-Translator: Peter Vlaciky <doktor AT internode DOT net DOT au>\n"
 "Language-Team: SK <doktor AT internode DOT net DOT au>\n"
@@ -535,7 +534,7 @@ msgstr[2] "Tento album je prázdny."
 msgid "This album has been viewed %s since %s."
 msgstr "Tento album bol prehliadaný %s od %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, fuzzy, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -551,7 +550,7 @@ msgstr "0 krát"
 msgid "reset counter"
 msgstr "vynulova» poèítadlo"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Komentár je pridaný pre túto polo¾ku."
 
@@ -4973,7 +4972,7 @@ msgstr "Hlasova» za obrázok kliknutím na %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Aby bola voµba zaevidovaná, je potrebné kliknú» na %s."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Voli»"
 
@@ -5027,12 +5026,12 @@ msgstr[0] "polo¾ky"
 msgstr[1] "polo¾ky"
 msgstr[2] "polo¾ky"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Prehliadnuté:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
@@ -5040,23 +5039,23 @@ msgstr[0] "Prehliadnuté:"
 msgstr[1] "Prehliadnuté:"
 msgstr[2] "Prehliadnuté:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Hej! Pridaj nejaké fotky."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Tento album je prázdny."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Poznámky sú pridané"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Iné zmeny sú urobené"
 

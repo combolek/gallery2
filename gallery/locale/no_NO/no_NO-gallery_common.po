@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Norwegian
 # @author	Stian B. Barmen <stian AT barmen DOT nu>, 2002
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2005-03-22 14:15+0100\n"
 "Last-Translator: Håvard Mork <havarmor AT stud DOT ntnu DOT no>\n"
 "Language-Team: Sverre M. Vikan <sverre AT urven DOT net>\n"
@@ -514,125 +513,125 @@ msgstr "Melding:"
 msgid "Post comment"
 msgstr "siste kommentarer"
 
-#: ../lib/content.php:300
+#: ../lib/content.php:288
 #, fuzzy, php-format
 msgid "1 view"
 msgid_plural "%d views"
 msgstr[0] "1 gang"
 msgstr[1] "%d ganger"
 
-#: ../lib/content.php:325 ../lib/content.php:350
+#: ../lib/content.php:313 ../lib/content.php:338
 #, fuzzy
 msgid "Sub-albums:"
 msgstr "Underalbum"
 
-#: ../lib/content.php:433
+#: ../lib/content.php:421
 msgid "EXIF Data"
 msgstr "EXIF-data"
 
-#: ../lib/content.php:435
+#: ../lib/content.php:423
 msgid "Display of EXIF data enabled, but no data found."
 msgstr ""
 
-#: ../lib/content.php:591
+#: ../lib/content.php:579
 #, fuzzy
 msgid "Search:"
 msgstr "S&oslash;k"
 
-#: ../lib/content.php:631 ../lib/content.php:650
+#: ../lib/content.php:619 ../lib/content.php:638
 msgid "Not closing this window because debug mode is on"
 msgstr "Lukker ikke dette vinduet fordi debug-modus er p&aring;"
 
-#: ../lib/content.php:678
+#: ../lib/content.php:666
 #, fuzzy, php-format
 msgid "Problem including file %s"
 msgstr "Klarte ikke &aring; legge til %s:"
 
-#: ../lib/content.php:817
+#: ../lib/content.php:805
 msgid "Select Album"
 msgstr "Velg album"
 
-#: ../lib/content.php:823
+#: ../lib/content.php:811
 msgid "Move to top level"
 msgstr ""
 
-#: ../lib/content.php:841
+#: ../lib/content.php:829
 msgid "current location"
 msgstr "gjeldende plassering"
 
-#: ../lib/content.php:887
+#: ../lib/content.php:875
 #, fuzzy
 msgid "Current location"
 msgstr "gjeldende plassering"
 
-#: ../lib/content.php:890
+#: ../lib/content.php:878
 #, fuzzy
 msgid "This album itself"
 msgstr "Dette albumet er tomt."
 
-#: ../lib/content.php:914
+#: ../lib/content.php:902
 #, php-format
 msgid "Last comment %s."
 msgstr "Siste kommentar %s."
 
-#: ../lib/content.php:937 ../lib/content.php:940
+#: ../lib/content.php:925 ../lib/content.php:928
 msgid "No Skin"
 msgstr "Utseende ikke valgt"
 
-#: ../lib/content.php:942
+#: ../lib/content.php:930
 #, fuzzy
 msgid "The original look and feel."
 msgstr "<dt>%s</dt><dd>Det originale utseendet.</dd>"
 
-#: ../lib/content.php:987 ../lib/content.php:991
+#: ../lib/content.php:975 ../lib/content.php:979
 msgid "unknown"
 msgstr "ukjent"
 
-#: ../lib/content.php:995
+#: ../lib/content.php:983
 #, fuzzy, php-format
 msgid "Version: %s"
 msgstr "OK!  Versjon: %s"
 
-#: ../lib/content.php:997
+#: ../lib/content.php:985
 #, fuzzy, php-format
 msgid "Last Update: %s"
 msgstr "Siste oppdatering"
 
-#: ../lib/content.php:1015 ../lib/content.php:1021
+#: ../lib/content.php:1003 ../lib/content.php:1009
 msgid "None"
 msgstr "Ingen"
 
-#: ../lib/content.php:1016 ../lib/content.php:1022
+#: ../lib/content.php:1004 ../lib/content.php:1010
 msgid "Dots"
 msgstr "Prikker"
 
-#: ../lib/content.php:1017 ../lib/content.php:1023
+#: ../lib/content.php:1005 ../lib/content.php:1011
 msgid "Solid"
 msgstr "Heltrukket"
 
-#: ../lib/content.php:1021
+#: ../lib/content.php:1009
 msgid "No frames"
 msgstr "Ingen rammer"
 
-#: ../lib/content.php:1022
+#: ../lib/content.php:1010
 msgid "Just a simple dashed border around the thumb."
 msgstr "Bare en enkel stiplet kantlinje rundt miniatyrbildet."
 
-#: ../lib/content.php:1023
+#: ../lib/content.php:1011
 msgid "Just a simple solid border around the thumb."
 msgstr "Bare en enkel heltrukket kantlinje rundt miniatyrbildet."
 
-#: ../lib/content.php:1045
+#: ../lib/content.php:1033
 #, php-format
 msgid "Skipping %s."
 msgstr "Hopper over %s."
 
-#: ../lib/content.php:1051
+#: ../lib/content.php:1039
 #, php-format
 msgid "Can't open %s"
 msgstr "Klarte ikke &aring; finne %s!"
 
-#: ../lib/content.php:1126 ../lib/content.php:1146
+#: ../lib/content.php:1114 ../lib/content.php:1134
 msgid "Not valid yet"
 msgstr "Ikke gyldig enn&aring;"
 

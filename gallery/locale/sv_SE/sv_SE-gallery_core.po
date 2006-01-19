@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Swedish
 # @author	Christian Wallin <crille AT swipnet DOT se>, 2002-2003.
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2005-09-14 10:00+0100\n"
 "Last-Translator: Peter Liversten <skansberget AT telia DOT com>\n"
 "Language-Team: Swedish <gallery-devel@lists.sourceforge.net>\n"
@@ -523,7 +522,7 @@ msgstr[1] "Detta album innehåller %d objekt."
 msgid "This album has been viewed %s since %s."
 msgstr "Detta album har visats %s sedan %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -538,7 +537,7 @@ msgstr "0 gånger"
 msgid "reset counter"
 msgstr "Nollställ räknare"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Kommentarer finns tillgängliga för detta objekt."
 
@@ -4697,7 +4696,7 @@ msgstr "För att rösta på en bild klicka på %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Du MÅSTE klicka på %s för att din röst skall registreras."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Rösta"
 
@@ -4747,35 +4746,35 @@ msgid_plural "%d items"
 msgstr[0] "1 objekt"
 msgstr[1] "%d objekt"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Visad:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Visad:"
 msgstr[1] "Visad:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Hallå! Ladda upp några foton."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Detta album är tomt."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Skicka e-post till mig när någon av följande åtgärder görs på detta album:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Kommentarer är lämnade"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Andra ändringar är gjorda"
 

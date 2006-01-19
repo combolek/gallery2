@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Catalan
 # @author	Sergi <sergi34 AT lleida DOT org>
@@ -28,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-02-12 23:54-0000\n"
 "Last-Translator: Sergi <sergi34 AT lleida DOT org>\n"
 "Language-Team: catalan <sergi34 AT megacceso DOT com>\n"
@@ -542,7 +541,7 @@ msgstr[1] "Aquest àlbum conté %s"
 msgid "This album has been viewed %s since %s."
 msgstr "Aquest àlbum ha estat vist %s des de %s"
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, fuzzy, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -557,7 +556,7 @@ msgstr "0 cops"
 msgid "reset counter"
 msgstr "resetejar el comptador"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Comentaris disponibles per aquest element"
 
@@ -4929,7 +4928,7 @@ msgstr "Per votar per una imatge, clica a %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "HAS de clicar a %s perquè el vot es quedi registrat."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Votar"
 
@@ -4980,35 +4979,35 @@ msgid_plural "%d items"
 msgstr[0] "1 element"
 msgstr[1] "1 element"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Vist:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Vist:"
 msgstr[1] "Vist:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Ei! Afegeix imatges."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Aquest àlbum està buit."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "S'han afegit comentaris"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "S'han realitzat altres canvis"
 

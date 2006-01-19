@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Icelandic
 # @author	Gunnlaugur Þór Briem <gthb AT hi DOT is>, 2004
@@ -31,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2005-05-09 22:07+0100\n"
 "Last-Translator: Jon Arnar Gudmundsson <jonarnar AT jonarnar DOT com>\n"
 "Language-Team: Jon Arnar Gudmundsson <jonarnar AT jonarnar DOT com>\n"
@@ -515,125 +514,125 @@ msgstr "Skilaboð:"
 msgid "Post comment"
 msgstr " nýjustu athugasemdir"
 
-#: ../lib/content.php:300
+#: ../lib/content.php:288
 #, fuzzy, php-format
 msgid "1 view"
 msgid_plural "%d views"
 msgstr[0] "Einu sinni"
 msgstr[1] "%d sinnum"
 
-#: ../lib/content.php:325 ../lib/content.php:350
+#: ../lib/content.php:313 ../lib/content.php:338
 #, fuzzy
 msgid "Sub-albums:"
 msgstr "Undir-albúm"
 
-#: ../lib/content.php:433
+#: ../lib/content.php:421
 msgid "EXIF Data"
 msgstr "EXIF gögn"
 
-#: ../lib/content.php:435
+#: ../lib/content.php:423
 msgid "Display of EXIF data enabled, but no data found."
 msgstr ""
 
-#: ../lib/content.php:591
+#: ../lib/content.php:579
 #, fuzzy
 msgid "Search:"
 msgstr "Leita"
 
-#: ../lib/content.php:631 ../lib/content.php:650
+#: ../lib/content.php:619 ../lib/content.php:638
 msgid "Not closing this window because debug mode is on"
 msgstr "Þessi gluggi lokast ekki vegna þess að aflúsunarhamur (&quot;debug mode&quot;) er virkur"
 
-#: ../lib/content.php:678
+#: ../lib/content.php:666
 #, fuzzy, php-format
 msgid "Problem including file %s"
 msgstr "Tókst ekki að bæta við %s:"
 
-#: ../lib/content.php:817
+#: ../lib/content.php:805
 msgid "Select Album"
 msgstr "Velja albúm"
 
-#: ../lib/content.php:823
+#: ../lib/content.php:811
 msgid "Move to top level"
 msgstr ""
 
-#: ../lib/content.php:841
+#: ../lib/content.php:829
 msgid "current location"
 msgstr "núverandi staðsetning"
 
-#: ../lib/content.php:887
+#: ../lib/content.php:875
 #, fuzzy
 msgid "Current location"
 msgstr "núverandi staðsetning"
 
-#: ../lib/content.php:890
+#: ../lib/content.php:878
 #, fuzzy
 msgid "This album itself"
 msgstr "Þetta albúm er tómt."
 
-#: ../lib/content.php:914
+#: ../lib/content.php:902
 #, php-format
 msgid "Last comment %s."
 msgstr "Síðasta athugasemd %s."
 
-#: ../lib/content.php:937 ../lib/content.php:940
+#: ../lib/content.php:925 ../lib/content.php:928
 msgid "No Skin"
 msgstr "Engin stíll"
 
-#: ../lib/content.php:942
+#: ../lib/content.php:930
 #, fuzzy
 msgid "The original look and feel."
 msgstr "<dt>%s</dt><dd>Nota upprunalegan útlitspakka.</dd>"
 
-#: ../lib/content.php:987 ../lib/content.php:991
+#: ../lib/content.php:975 ../lib/content.php:979
 msgid "unknown"
 msgstr "óþekkt"
 
-#: ../lib/content.php:995
+#: ../lib/content.php:983
 #, fuzzy, php-format
 msgid "Version: %s"
 msgstr "Í lagi!  Útgáfa: %s"
 
-#: ../lib/content.php:997
+#: ../lib/content.php:985
 #, fuzzy, php-format
 msgid "Last Update: %s"
 msgstr "Síðast uppfært"
 
-#: ../lib/content.php:1015 ../lib/content.php:1021
+#: ../lib/content.php:1003 ../lib/content.php:1009
 msgid "None"
 msgstr "Engin"
 
-#: ../lib/content.php:1016 ../lib/content.php:1022
+#: ../lib/content.php:1004 ../lib/content.php:1010
 msgid "Dots"
 msgstr "Punktar"
 
-#: ../lib/content.php:1017 ../lib/content.php:1023
+#: ../lib/content.php:1005 ../lib/content.php:1011
 msgid "Solid"
 msgstr "Óbrotinn"
 
-#: ../lib/content.php:1021
+#: ../lib/content.php:1009
 msgid "No frames"
 msgstr "Án ramma"
 
-#: ../lib/content.php:1022
+#: ../lib/content.php:1010
 msgid "Just a simple dashed border around the thumb."
 msgstr "Einfaldur strikarammi utan um smámynd"
 
-#: ../lib/content.php:1023
+#: ../lib/content.php:1011
 msgid "Just a simple solid border around the thumb."
 msgstr "Einfaldur óbrotinn rammi utan um smámynd"
 
-#: ../lib/content.php:1045
+#: ../lib/content.php:1033
 #, php-format
 msgid "Skipping %s."
 msgstr "Sleppi %s."
 
-#: ../lib/content.php:1051
+#: ../lib/content.php:1039
 #, php-format
 msgid "Can't open %s"
 msgstr "Finn ekki %s"
 
-#: ../lib/content.php:1126 ../lib/content.php:1146
+#: ../lib/content.php:1114 ../lib/content.php:1134
 msgid "Not valid yet"
 msgstr "Ekki orðið gilt"
 

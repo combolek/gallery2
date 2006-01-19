@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Finnish
 # @author	Oli Salo <oasalo AT st DO jyu DO fi>, 2003-2005
@@ -29,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-04-07 09:49+0200\n"
 "Last-Translator: Olli Salo <osalo AT orssi DOT jyu DOT fi>\n"
 "Language-Team: Finnish <osalo AT orssi DOT jyu DOT fi>\n"
@@ -513,125 +512,125 @@ msgstr "Viesti:"
 msgid "Post comment"
 msgstr "viimeisimmät kommentit"
 
-#: ../lib/content.php:300
+#: ../lib/content.php:288
 #, fuzzy, php-format
 msgid "1 view"
 msgid_plural "%d views"
 msgstr[0] "1 kerran"
 msgstr[1] "%d kertaa"
 
-#: ../lib/content.php:325 ../lib/content.php:350
+#: ../lib/content.php:313 ../lib/content.php:338
 #, fuzzy
 msgid "Sub-albums:"
 msgstr "Alialbumit"
 
-#: ../lib/content.php:433
+#: ../lib/content.php:421
 msgid "EXIF Data"
 msgstr "EXIF-tiedot"
 
-#: ../lib/content.php:435
+#: ../lib/content.php:423
 msgid "Display of EXIF data enabled, but no data found."
 msgstr ""
 
-#: ../lib/content.php:591
+#: ../lib/content.php:579
 #, fuzzy
 msgid "Search:"
 msgstr "Etsi"
 
-#: ../lib/content.php:631 ../lib/content.php:650
+#: ../lib/content.php:619 ../lib/content.php:638
 msgid "Not closing this window because debug mode is on"
 msgstr "Ikkunaa ei suljeta koska debug-tila on p&auml;&auml;ll&auml;"
 
-#: ../lib/content.php:678
+#: ../lib/content.php:666
 #, fuzzy, php-format
 msgid "Problem including file %s"
 msgstr "Virhe lisättäessä %s:"
 
-#: ../lib/content.php:817
+#: ../lib/content.php:805
 msgid "Select Album"
 msgstr "Valitse albumi"
 
-#: ../lib/content.php:823
+#: ../lib/content.php:811
 msgid "Move to top level"
 msgstr ""
 
-#: ../lib/content.php:841
+#: ../lib/content.php:829
 msgid "current location"
 msgstr "nykyinen sijainti"
 
-#: ../lib/content.php:887
+#: ../lib/content.php:875
 #, fuzzy
 msgid "Current location"
 msgstr "nykyinen sijainti"
 
-#: ../lib/content.php:890
+#: ../lib/content.php:878
 #, fuzzy
 msgid "This album itself"
 msgstr "T&auml;m&auml; albumi on tyhj&auml;."
 
-#: ../lib/content.php:914
+#: ../lib/content.php:902
 #, php-format
 msgid "Last comment %s."
 msgstr "Viimeisin kommentti %s."
 
-#: ../lib/content.php:937 ../lib/content.php:940
+#: ../lib/content.php:925 ../lib/content.php:928
 msgid "No Skin"
 msgstr "Ei skiniä"
 
-#: ../lib/content.php:942
+#: ../lib/content.php:930
 #, fuzzy
 msgid "The original look and feel."
 msgstr "<dt>%s</dt><dd>Alkuperäinen ulkoasu.</dd>"
 
-#: ../lib/content.php:987 ../lib/content.php:991
+#: ../lib/content.php:975 ../lib/content.php:979
 msgid "unknown"
 msgstr "tuntematon"
 
-#: ../lib/content.php:995
+#: ../lib/content.php:983
 #, fuzzy, php-format
 msgid "Version: %s"
 msgstr "Ok!  Versio: %s"
 
-#: ../lib/content.php:997
+#: ../lib/content.php:985
 #, fuzzy, php-format
 msgid "Last Update: %s"
 msgstr "Viimeisin päivitys"
 
-#: ../lib/content.php:1015 ../lib/content.php:1021
+#: ../lib/content.php:1003 ../lib/content.php:1009
 msgid "None"
 msgstr "Ei yhtään"
 
-#: ../lib/content.php:1016 ../lib/content.php:1022
+#: ../lib/content.php:1004 ../lib/content.php:1010
 msgid "Dots"
 msgstr "Pisteitä"
 
-#: ../lib/content.php:1017 ../lib/content.php:1023
+#: ../lib/content.php:1005 ../lib/content.php:1011
 msgid "Solid"
 msgstr "Kiinteä"
 
-#: ../lib/content.php:1021
+#: ../lib/content.php:1009
 msgid "No frames"
 msgstr "Ei kehyksiä"
 
-#: ../lib/content.php:1022
+#: ../lib/content.php:1010
 msgid "Just a simple dashed border around the thumb."
 msgstr "Yksinkertainen katkoviiva esikatselukuvan ympärillä."
 
-#: ../lib/content.php:1023
+#: ../lib/content.php:1011
 msgid "Just a simple solid border around the thumb."
 msgstr "Vain yksinkertainen, kiinteä reunus esikatselukuvan ympärillä."
 
-#: ../lib/content.php:1045
+#: ../lib/content.php:1033
 #, php-format
 msgid "Skipping %s."
 msgstr "Ohitetaan %s."
 
-#: ../lib/content.php:1051
+#: ../lib/content.php:1039
 #, php-format
 msgid "Can't open %s"
 msgstr "En voi avata %s"
 
-#: ../lib/content.php:1126 ../lib/content.php:1146
+#: ../lib/content.php:1114 ../lib/content.php:1134
 msgid "Not valid yet"
 msgstr "Ei vielä käytössä"
 

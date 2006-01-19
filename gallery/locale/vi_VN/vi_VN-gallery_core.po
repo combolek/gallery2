@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Vietnamese
 # @author	A.L.T <leanh AT airland DOT kiev DOT ua>, 2003-2005
@@ -28,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2005-05-17 12:30+0300\n"
 "Last-Translator: A.L.T <leanh AT airland DOT kiev DOT ua>\n"
 "Language-Team: AIRLAND <admin AT airland DOT kiev DOT ua>\n"
@@ -521,7 +520,7 @@ msgstr[1] "Album này bao gồm %d mục/ảnh."
 msgid "This album has been viewed %s since %s."
 msgstr "Album này đã được xem %s kể từ %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -536,7 +535,7 @@ msgstr "0 lần"
 msgid "reset counter"
 msgstr "xóa bộ đếm"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Có thể ghi bình luận cho mục/ảnh này."
 
@@ -4733,7 +4732,7 @@ msgstr "Để bình chọn cho một ảnh, chọn vào %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Bạn phải nhấn vào %s để lựa chọn của bạn được ghi lại."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Bình chọn"
 
@@ -4783,35 +4782,35 @@ msgid_plural "%d items"
 msgstr[0] "1 mục/ảnh"
 msgstr[1] "%d mục/ảnh"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Đã xem:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Đã xem:"
 msgstr[1] "Đã xem:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Hãy thêm vài ảnh."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Album này không có gì"
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Gửi email cho tôi khi có những tác động được thực hiện trong album này:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Lời bình đã được thêm"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Những thay đổi khác đã được tạo"
 

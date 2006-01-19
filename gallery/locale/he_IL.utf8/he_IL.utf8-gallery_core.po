@@ -19,7 +19,6 @@
 # along with this program; if not, write to the Free Software
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 #
 #
 # Itsik Friedmann, 2003-2004
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-03-06 19:18+0200\n"
 "Last-Translator: Shai <gallery AT shaibn DOT com>\n"
 "Language-Team: HEBREW <imac2 AT walla DOT co DOT il>\n"
@@ -541,7 +540,7 @@ msgstr[1] "אלבום זה מכיל %s."
 msgid "This album has been viewed %s since %s."
 msgstr "אלבום זה נצפה %s מאז %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, fuzzy, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -556,7 +555,7 @@ msgstr "0 פעמים"
 msgid "reset counter"
 msgstr "אפס מונה"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "יש הערות לפריט זה."
 
@@ -4971,7 +4970,7 @@ msgstr ""
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr ""
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "הצבעה"
 
@@ -5022,36 +5021,36 @@ msgid_plural "%d items"
 msgstr[0] "פריט יחיד"
 msgstr[1] "פריט יחיד"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "נצפה :"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "נצפה :"
 msgstr[1] "נצפה :"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "היי! הוסף כמה תמונות"
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "אלבום זה ריק."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 #, fuzzy
 msgid "Comments are added"
 msgstr "הוסף הערה"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr ""
 

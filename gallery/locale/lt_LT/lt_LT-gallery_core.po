@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Lithuanian
 # @author	Rimvydas Zilinskas <aladdin AT antakalnis DOT lt>, 2003, 2004.
@@ -30,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-09-18 23:43+0200\n"
 "Last-Translator: Suktas <suktas_ AT users DOT sourceforge DOT net>\n"
 "Language-Team: Vilius Ðumskas <vilius AT lnk DOT lt>\n"
@@ -539,7 +538,7 @@ msgstr[2] "Ðiame albume yra %d elementø"
 msgid "This album has been viewed %s since %s."
 msgstr "Ðis albumas buvo perþiûrëtas %s nuo %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -555,7 +554,7 @@ msgstr "0 kartø"
 msgid "reset counter"
 msgstr "pradëti nuo nulio"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Yra komentarø."
 
@@ -4878,7 +4877,7 @@ msgstr "Norëdami balsuoti uþ nuotraukas paspauskite ant %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Norëdami kad jûsø balsas bûtø uþregistruotas PRIVALOTE paspausti ant %s."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Balsai"
 
@@ -4931,12 +4930,12 @@ msgstr[0] "1 elementas"
 msgstr[1] "%d elementai"
 msgstr[2] "%d elementø"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Þiûrëta:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
@@ -4944,23 +4943,23 @@ msgstr[0] "Þiûrëta:"
 msgstr[1] "Þiûrëta:"
 msgstr[2] "Þiûrëta:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Ei! Ádëkite keletà nuotraukø."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Ðis albumas yra tuðèias."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Atsiras naujø komentarø"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Atlikti kiti pakeitimai"
 

@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Finnish
 # @author	Oli Salo <oasalo AT st DO jyu DO fi>, 2003-2005
@@ -29,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2004-04-07 09:49+0200\n"
 "Last-Translator: Olli Salo <osalo AT orssi DOT jyu DOT fi>\n"
 "Language-Team: Finnish <osalo AT orssi DOT jyu DOT fi>\n"
@@ -522,7 +521,7 @@ msgstr[1] "T‰m‰ albumi sis‰lt‰‰ %d kohdetta."
 msgid "This album has been viewed %s since %s."
 msgstr "T&auml;t&auml; albumia on katsottu %s %s l&auml;htien."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -537,7 +536,7 @@ msgstr "0 kertaa"
 msgid "reset counter"
 msgstr "nollaa laskuri"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "T‰ll‰ kohteella on kommentteja."
 
@@ -4735,7 +4734,7 @@ msgstr "Klikkaa %s ‰‰nest‰‰ksesi kuvaa."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Sinun TƒYTYY klikata %s jos haluat ‰‰nesi tallennettavan."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "ƒ‰ni"
 
@@ -4785,35 +4784,35 @@ msgid_plural "%d items"
 msgstr[0] "1 kohde"
 msgstr[1] "%d kohdetta"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Katsottu:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Katsottu:"
 msgstr[1] "Katsottu:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Hei! Lis&auml;&auml; kuvia albumiisi."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "T&auml;m&auml; albumi on tyhj&auml;."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "L‰het‰ minulle postia, kun jokin seuraavista toiminnoista tapahtuu t‰ss‰ albumissa:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Kommentti on lis‰tty"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Muita muutoksia on tehty"
 

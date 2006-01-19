@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Icelandic
 # @author	Gunnlaugur Þór Briem <gthb AT hi DOT is>, 2004
@@ -31,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2005-05-09 22:07+0100\n"
 "Last-Translator: Jon Arnar Gudmundsson <jonarnar AT jonarnar DOT com>\n"
 "Language-Team: Jon Arnar Gudmundsson <jonarnar AT jonarnar DOT com>\n"
@@ -524,7 +523,7 @@ msgstr[1] "Þetta albúm inniheldur %d myndir."
 msgid "This album has been viewed %s since %s."
 msgstr "Albúmið hefur verið skoðað %s síðan %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -539,7 +538,7 @@ msgstr "0 sinnum"
 msgid "reset counter"
 msgstr "núllstilla teljara"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Athugasemdir eru til fyrir þessa mynd."
 
@@ -4738,7 +4737,7 @@ msgstr "Til að greiða atkvæði, smellið á %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Þú VERÐUR að smella á %s til þess að atkvæði þitt verði skráð."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Atkvæði"
 
@@ -4788,35 +4787,35 @@ msgid_plural "%d items"
 msgstr[0] "ein mynd"
 msgstr[1] "%d myndir"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Skoðað:"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "Skoðað:"
 msgstr[1] "Skoðað:"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Heyrðu! Settu inn nokkrar myndir."
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Þetta albúm er tómt."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Senda tölvupóst þegar ein af eftirfarandi aðgerðum eru framkvæmdar í þessu albúmi"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Athugasemdum er bætt við"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Aðrar breytingar eru gerðar"
 

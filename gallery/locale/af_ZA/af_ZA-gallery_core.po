@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Afrikaans
 # @author	Gerrit Hoekstra <gerrit AT hoekstra DOT co DOT uk>, 2003-2004
@@ -33,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-01-19 18:28+0100\n"
 "PO-Revision-Date: 2006-01-15 00:12+1200\n"
 "Last-Translator: Wouter Hanekom <wouter AT clear DOT net DOT nz>\n"
 "Language-Team: Afrikaans <gerrit AT hoekstra DOT co DOT uk>\n"
@@ -520,7 +519,7 @@ msgstr[1] "Hierdie album bevat %d items."
 msgid "This album has been viewed %s since %s."
 msgstr "Album is %s sedert %s besigtig."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:444 ../view_album.php:817
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -535,7 +534,7 @@ msgstr "nog nie besigtig nie"
 msgid "reset counter"
 msgstr "herstel tref-teller"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:495 ../view_album.php:916
 msgid "Comments available for this item."
 msgstr "Iemand het kommentaar op hierdie item gelewer."
 
@@ -4694,7 +4693,7 @@ msgstr "Om vir 'n foto te stem, kliek op %s."
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Jy MOET op %s kliek om jou stem te laat tel"
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:922
 msgid "Vote"
 msgstr "Stem"
 
@@ -4744,35 +4743,35 @@ msgid_plural "%d items"
 msgstr[0] "1 item"
 msgstr[1] "%d items"
 
-#: ../view_album.php:819
+#: ../view_album.php:817
 #, php-format
 msgid "Viewed: %s"
 msgstr "%s bekyk"
 
-#: ../view_album.php:846
+#: ../view_album.php:842
 #, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "1 keer bekyk"
 msgstr[1] "%d keer bekyk"
 
-#: ../view_album.php:904
+#: ../view_album.php:900
 msgid "Hey! Add some photos."
 msgstr "Haai! Plaas 'n paar kiekies in hierdie album!"
 
-#: ../view_album.php:906
+#: ../view_album.php:902
 msgid "This album is empty."
 msgstr "Hierdie album is leeg."
 
-#: ../view_album.php:951
+#: ../view_album.php:947
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "Stuur vir my 'n epos wanneer die volgende in die album plaasvind:"
 
-#: ../view_album.php:956
+#: ../view_album.php:952
 msgid "Comments are added"
 msgstr "Kommentaar gelewer is"
 
-#: ../view_album.php:959
+#: ../view_album.php:955
 msgid "Other changes are made"
 msgstr "Ander wysigings aangebring is"
 
