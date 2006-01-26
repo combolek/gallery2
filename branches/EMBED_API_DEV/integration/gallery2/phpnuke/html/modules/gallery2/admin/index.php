@@ -156,15 +156,10 @@ function SaveG2Config($var, $installed) {
 		$sql = "INSERT INTO ".$prefix."_g2config VALUES ('".$g2embedparams['embedUri']."', '".$g2embedparams['g2Uri']."', '".$g2embedparams['loginRedirect']."', ".$g2embedparams['activeUserId'].", '".$g2embedparams['cookiepath']."',0,0,'".$embedVersion."')";
 		$result = $db->sql_query($sql) or die(mysql_error());
 	}
-	echo "yay1";
 	require_once ($g2embedparams['g2Uri']._G2_EMBED_PHP_FILE);
-	echo "yay2";
 	init($var);
-	echo "yay3";
 	$cookiepath = $g2embedparams['cookiepath'];
-	echo "yay4";
 	$ret = GalleryCoreApi::setPluginParameter('module','core','cookie.path',$cookiepath);
-	echo "yay5";
 }
 
 /******************************************************************/
