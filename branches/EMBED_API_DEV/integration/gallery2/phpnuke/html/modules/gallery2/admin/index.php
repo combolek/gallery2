@@ -288,7 +288,7 @@ function DisplayMainPage() {
 	// Display integration settings
 	OpenTable();
     if($installed == 0) {
-        $embedUri = "modules.php?name=".$module_name;
+        $embedUri = "/modules.php?name=".$module_name;
         $g2Uri = "modules/".$module_name."/";
         $loginRedirect = 'modules.php?name=Your_Account';
         $activeUserId = 0;
