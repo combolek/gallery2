@@ -1,38 +1,3 @@
-2006-01-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b5
-
- * Change: Added icons for rotate and flip.
-
- * Change: Layout of rotate_photo.php.
-   Thanks to Volksport.
-
- * Change: Make black-random configurable in setup.
-
- * Change: Css changes to make Config-wizard a little smarter.
-
- * Change: Css files of skins can also now named .default.
-
-2006-01-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b4
-
- * Fix: adminOtherChangesEmail was not working.
-   Thanks to rbeuker from forums.
-
-2006-01-23 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b3
-
- * Fix: setup/session_test.php didnt work correct with register globals off.
-
-2006-01-22 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b2
-
- * Change: RFE #1193290
-   Renamed $gallery->app->comments_display_name to $gallery->app->name_display (config Version bump)
-   This is now used at most places. where a user is displayed.
-
- * Fix: Updated manifest.
-
-2006-01-22 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b1
-
- * Fix: "move" and "copy" an item was restricted to admins.
-	 Reverted to people who have permissions to edit an album.
-
 2006-01-19 Jens Tkotz <jens@peino.de> 1.5.2-RC3-cvs-b9
 
  * Change: "sanitize" fullname in new_password.php also.

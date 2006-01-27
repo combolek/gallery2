@@ -105,7 +105,7 @@ function drawCommentAddForm($commenter_name = '', $cols = 50) {
     global $gallery;
     if ($gallery->user->isLoggedIn() &&
       (empty($commenter_name) || $gallery->app->comments_anonymous == 'no')) {
-        $commenter_name = $gallery->user->printableName($gallery->app->name_display);
+        $commenter_name = $gallery->user->printableName($gallery->app->comments_display_name);
     }
 ?>
 
@@ -479,20 +479,24 @@ function includeTemplate($tplName, $skinname='') {
  * @author Jens Tkotz <jens@peino.de
  */
 function showOwner($owner) {
-    global $gallery;
     global $GALLERY_EMBEDDED_INSIDE_TYPE;
     global $_CONF;				/* Needed for GeekLog */
 
     switch ($GALLERY_EMBEDDED_INSIDE_TYPE) {
         case 'GeekLog':
-            $name = '<a href="'. $_CONF['site_url'] .'/users.php?mode=profile&uid='. $owner->uid .'">'. $owner->displayName() .'</a>';
+        return '<a href="'. $_CONF['site_url'] .'/users.php?mode=profile&uid='. $owner->uid .'">'. $owner->displayName() .'</a>';
         break;
 
         default:
-            $name = $owner->printableName($gallery->app->name_display);
+        $name = $owner->displayName();
+
+        if (!$owner->getEmail()) {
+            return $name;
+        } else {
+            return '<a href="mailto:' . $owner->getEmail() . '">' . $name . '</a>';
+        }
         break;
     }
-    return $name;
 }
 
 function getIconText($iconName = '', $altText = '', $overrideMode = '', $useBrackets = true) {
@@ -745,36 +749,31 @@ function getStyleSheetLink() {
  * @param	string	$skinname	Optional skinname, if omitted and not embedded, default skin is used.
  * @return	string
  */
-function _getStyleSheetLink($filename, $skinname = '') {
+function _getStyleSheetLink($filename, $skinname='') {
     global $gallery;
     global $GALLERY_EMBEDDED_INSIDE;
 
     $base = dirname(dirname(__FILE__));
 
-    if (!$skinname && 
-      isset($gallery->app) && 
-      isset($gallery->app->skinname) &&
-      !$GALLERY_EMBEDDED_INSIDE) {
+    if (!$skinname && isset($gallery->app) && isset($gallery->app->skinname) && !$GALLERY_EMBEDDED_INSIDE) {
         $skinname = $gallery->app->skinname;
     }
 
     $sheetname = "skins/$skinname/css/$filename.css";
+    $sheetpath = "$base/$sheetname";
+
     $sheetdefaultdomainname = 'css/'. $_SERVER['HTTP_HOST'] ."/$filename.css";
     $sheetdefaultname = "css/$filename.css";
-    $sheetdefaultpath = "$base/css/$filename.css";
-    
-    if (fs_file_exists($sheetname)) {
+    $sheetdefaultpath = "$base/$sheetdefaultname";
+
+    if (fs_file_exists($sheetpath) && !broken_link($sheetpath)) {
         $file = $sheetname;
-    }
-    elseif (fs_file_exists("${sheetname}.default")) {
-        $file = "${sheetname}.default";
-    }
-    elseif (fs_file_exists($sheetdefaultpath)) {
+    } elseif (fs_file_exists($sheetdefaultpath) && !broken_link($sheetdefaultpath)) {
         $file = $sheetdefaultname;
-    } elseif (fs_file_exists($sheetdefaultdomainname)) {
+    } elseif (fs_file_exists($sheetdefaultdomainname) && !broken_link($sheetdefaultdomainname)) {
         $file = $sheetdefaultdomainname;
     } else {
-        $file = "${sheetdefaultname}.default";
+        $file = $sheetdefaultname. '.default';
     }
 
     $url = getGalleryBaseUrl() ."/$file";
@@ -1009,48 +1008,20 @@ function available_skins($description_only = false) {
     }
 }
 
-function availableRandomBlockFrames() {
-    $html = gTranslate('config', sprintf("In Addition to the %s, you also use the following opportunities:", 
-        popup_link(gTranslate('config', "usual thumbs"), makeGalleryURL('setup/frame_test.php'), true)));
-
-    $html .=
-        "<dt><u>". gTranslate('common',"Album image frames") ."</u></dt><dd>". 
-            gTranslate('common',"Frame defined for images in the corresponding album") ."</dd>".
-        "<dt><u>". gTranslate('common',"Album thumb frames") ."</u></dt><dd>". 
-            gTranslate('common',"Frame defined for thumbs in the corresponding album") ."</dd>".
-        "<dt><u>". gTranslate('common',"Mainpage thumb frames") ."</u></dt><dd>". 
-            gTranslate('common',"Frame defined for thumbs on mainpage") . "</dd>";
-        
-   return $html;
-}
-
-function available_frames($description_only = false, $forRandomBlock = false) {
+function available_frames($description_only = false) {
     $GALLERY_BASE = dirname(dirname(__FILE__));
-    $opts = array();
-    
-    if ($forRandomBlock) {
-	   $opts = array(
-            'albumImageFrame' => '* '. gTranslate('common',"Album image frames") .' *',
-            'albumThumbFrame' => '* '. gTranslate('common',"Album thumb frames") .' *',
-            'mainThumbFrame' => '* '. gTranslate('common',"Mainpage thumb frames") .' *'
-        );
-    }
-    
-    $opts = array_merge($opts, array(
+
+    $opts = array(
         'none' => gTranslate('common', "None"),
         'dots' => gTranslate('common', "Dots"),
         'solid' => gTranslate('common', "Solid"),
-        )
-    );
+        );
         
-    $descriptions= "<dl>" .
-        "<dt>". popup_link(gTranslate('common', "None"), "frame_test.php?frame=none", true)  ."</dt><dd>". 
-            gTranslate('common', "No frames")."</dd>";
-        "<dt>". popup_link(gTranslate('common', "Dots"), "frame_test.php?frame=dots", true)  ."</dt><dd>". 
-            gTranslate('common', "Just a simple dashed border around the thumb.")."</dd>" .
-        "<dt>". popup_link(gTranslate('common', "Solid"), "frame_test.php?frame=solid", true) ."</dt><dd>".
-            gTranslate('common', "Just a simple solid border around the thumb.")."</dd>" ;
-
+    $descriptions="<dl>" .
+        "<dt>" . popup_link(gTranslate('common', "None"), "frame_test.php?frame=none", 1)  . "</dt><dd>". gTranslate('common', "No frames")."</dd>" .
+        "<dt>" . popup_link(gTranslate('common', "Dots"), "frame_test.php?frame=dots", 1)  . "</dt><dd>". gTranslate('common', "Just a simple dashed border around the thumb.")."</dd>" .
+        "<dt>" . popup_link(gTranslate('common', "Solid"), "frame_test.php?frame=solid", 1) . "</dt><dd>". gTranslate('common', "Just a simple solid border around the thumb.")."</dd>" ;
+        
     $dir = $GALLERY_BASE . '/html_wrap/frames';
     
     if (fs_is_dir($dir) && is_readable($dir) && $fd = fs_opendir($dir)) {

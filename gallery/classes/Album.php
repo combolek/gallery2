@@ -1041,8 +1041,8 @@ class Album {
                 return $success;
             }
 
-            $to = $this->getEmailMeList('other');
             if (!empty($to)) {
+                $to = $this->getEmailMeList('other');
                 $text = '';
                 $msg_str = call_user_func_array('sprintf', $msg);
                 $subject = sprintf(_("Changes to Album: %s"), $this->fields['name']);
@@ -1055,7 +1055,7 @@ class Album {
                 $text .= "\n  </head>\n<body>\n<p>";
                 $text .= sprintf(_("A change has been made to Album: %s by %s (IP %s).  The change is: %s"),
                   '<a href="'. makeAlbumHeaderUrl($this->fields['name']) .'">'. $this->fields['name'] .'</a>',
-                  $gallery->user->printableName($gallery->app->name_display),
+                $gallery->user->printableName($gallery->app->comments_display_name),
                   $_SERVER['REMOTE_ADDR'],
                 $msg_str);
 
