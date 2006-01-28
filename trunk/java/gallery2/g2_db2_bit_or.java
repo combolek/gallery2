@@ -16,6 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+/**
+ * @version $Revision$ $Date$
+ * @package Gallery
+ * @author Larry Menard
+ */
 
 /*
  * g2_db2_bit_or:
@@ -30,6 +35,10 @@
  *
  *    - "A Complete Guide to DB2 Universal Database" by Don Chamberlin
  *       (Morgan Kaufmann Publishers Inc, 1998, ISBN 1-55860-482-0)
+ *
+ * and of course, the DB2 UDB documentation and samples:
+ *
+ *    - http://publib.boulder.ibm.com/infocenter/db2luw/v8//index.jsp
  */
 
 import java.lang.*;          // for String class
@@ -49,28 +58,26 @@ public class g2_db2_bit_or extends UDF
         return;
     }
 
-    // Access the scratchpad and decode the previous
-    // intermediate result stored there
+    // variables to read from SCRATCHPAD area
     byte[] scratchpad = getScratchpad();
-    ByteArrayInputStream scratchIn =
+    ByteArrayInputStream byteArrayIn =
             new ByteArrayInputStream(scratchpad);
     DataInputStream dataIn =
-            new DataInputStream(scratchIn);
+            new DataInputStream(byteArrayIn);
+
+    // variables to write into SCRATCHPAD area
+    ByteArrayOutputStream byteArrayOut =
+            new ByteArrayOutputStream(32);
+    DataOutputStream dataOut =
+            new DataOutputStream(byteArrayOut);
 
     // Initialize variables
     // Byte buffer for the scratchpad copy of the value to be BIT_ORed
     byte[] workBuffer = new byte[32];
     int ctr = 0;
 
-    // Get the scratchpad into the work buffer
+    // Get the current scratchpad into the work buffer
     dataIn.read(workBuffer, 0, 32);
-
-    // Perform a binary encoding for new result, which is
-    // also stored on the scratchpad
-    ByteArrayOutputStream scratchOut =
-        new ByteArrayOutputStream();
-    DataOutputStream dataOut =
-        new DataOutputStream(scratchOut);
 
     // Convert the column value string to an array of bytes
     byte[] columnValueArray = new byte[32];
@@ -79,25 +86,27 @@ public class g2_db2_bit_or extends UDF
     // Walk the inVar byte array, test each char.
     for (ctr = 0; ctr <= 31; ctr++)
     {
-       // Check the current column value byte.
-       if (columnValueArray[ctr] == 49)          // If it's 1 (ASCII 49 = numeric 1),
+       if (workBuffer[ctr] != 49)
        {
-          workBuffer[ctr] = 49;                  // then set the corresponding scratchpad bit to 1,
-       }
-       else
-       {
-          workBuffer[ctr] = 48;                  // else set the corresponding scratchpad bit to 0.
+          // Check the current column value byte.
+          if (columnValueArray[ctr] == 49)          // If it's 1 (ASCII 49 = numeric 1),
+          {
+             workBuffer[ctr] = 49;                  // then set the corresponding scratchpad bit to 1,
+          }
+          else
+          {
+             workBuffer[ctr] = 48;                  // else set the corresponding scratchpad bit to 0.
+          }
        }
     }
 
-    // Write the updated scratchpad buffer to dataOut
+    // Write the updated buffer to dataOut
     dataOut.write(workBuffer, 0, 32);
 
     // Construct new scratchpad data and store it
-    byte[] newScratchpad = scratchOut.toByteArray();
-    for (ctr = 0; ctr < newScratchpad.length; ctr++)
+    for (ctr = 0; ctr < workBuffer.length; ctr++)
     {
-       scratchpad[ctr] = newScratchpad[ctr];
+       scratchpad[ctr] = workBuffer[ctr];
     }
     setScratchpad(scratchpad);
 
