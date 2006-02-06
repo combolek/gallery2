@@ -135,11 +135,11 @@ $javascriptSet = true;
     			);
     		}
     	}
-    	
+
     	$options[] = array(
-	    	'pure_text' => _("Move"),
-	    	'text' => getIconText('tab_duplicate.gif', _("Move"), $override, $withIcons),
-	    	'value' => showChoice2("move_photo.php", array("index" => $i, 'reorder' => 0))
+		'pure_text' => _("Move"),
+		'text' => getIconText('tab_duplicate.gif', _("Move"), $override, $withIcons),
+		'value' => showChoice2("move_photo.php", array("index" => $i, 'reorder' => 0))
     	);
     	
     	/* ----- Item is subalbum ----- */
@@ -172,7 +172,7 @@ $javascriptSet = true;
 		    		)
 	    		)
     		);
-    		
+
     		$options[] = array(
 	    		'pure_text' => _("Permissions"),
 	    		'text' => getIconText('decrypted.gif', _("Permissions"), $override, $withIcons),
@@ -197,9 +197,9 @@ $javascriptSet = true;
     	}
     	if (! $isAlbum) {
     	    $options[] = array(
-        	    'pure_text' => _("Copy"),
-        	    'text' => getIconText('editcopy.gif', _("Copy"), $override, $withIcons),
-        	    'value' => showChoice2("copy_photo.php", array("index" => $i))
+	    		'pure_text' => _("Copy"),
+	    		'text' => getIconText('editcopy.gif', _("Copy"), $override, $withIcons),
+	    		'value' => showChoice2("copy_photo.php", array("index" => $i))
     	    );
     	}
     }
@@ -222,13 +222,13 @@ $javascriptSet = true;
     }
 
     if (isset($isAdmin)) {
-        $options[] = array(
-            'pure_text' => _("Change Owner"),
-            'text' => getIconText('yast_kuser.gif', _("Change Owner"), $override, $withIcons),
-            'value' => showChoice2("photo_owner.php", array("id" => $id))
-        );
-    }
-    
+    		$options[] = array(
+	    		'pure_text' => _("Change Owner"),
+	    		'text' => getIconText('yast_kuser.gif', _("Change Owner"), $override, $withIcons),
+	    		'value' => showChoice2("photo_owner.php", array("id" => $id))
+    		);
+    	}
+
     if (isset($isOwner)) {
     	if ($gallery->album->isHidden($i)) {
     		$options[] = array(
@@ -276,7 +276,7 @@ $javascriptSet = true;
     		);
     	}
     }
-	
+
     if(!empty($options)) {
     	if(sizeof($options) > 1) {
     		array_sort_by_fields($options, 'pure_text', 'asc', false, true);

@@ -89,6 +89,7 @@ function stripslashes_deep($value) {
     return $value;
 }
 
+
 function getBlacklistFilename() {
     global $gallery;
     return sprintf("%s/blacklist.dat", $gallery->app->albumDir);
