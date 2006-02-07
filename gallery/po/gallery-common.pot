@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-28 00:33+0100\n"
+"POT-Creation-Date: 2006-01-22 00:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -498,148 +498,120 @@ msgstr ""
 msgid "Post comment"
 msgstr ""
 
-#: ../lib/content.php:300
+#: ../lib/content.php:288
 #, php-format
 msgid "1 view"
 msgid_plural "%d views"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/content.php:325 ../lib/content.php:350
+#: ../lib/content.php:313 ../lib/content.php:338
 msgid "Sub-albums:"
 msgstr ""
 
-#: ../lib/content.php:433
+#: ../lib/content.php:421
 msgid "EXIF Data"
 msgstr ""
 
-#: ../lib/content.php:435
+#: ../lib/content.php:423
 msgid "Display of EXIF data enabled, but no data found."
 msgstr ""
 
-#: ../lib/content.php:587
+#: ../lib/content.php:579
 msgid "Search:"
 msgstr ""
 
-#: ../lib/content.php:627 ../lib/content.php:646
+#: ../lib/content.php:619 ../lib/content.php:638
 msgid "Not closing this window because debug mode is on"
 msgstr ""
 
-#: ../lib/content.php:674
+#: ../lib/content.php:666
 #, php-format
 msgid "Problem including file %s"
 msgstr ""
 
-#: ../lib/content.php:818
+#: ../lib/content.php:805
 msgid "Select Album"
 msgstr ""
 
-#: ../lib/content.php:824
+#: ../lib/content.php:811
 msgid "Move to top level"
 msgstr ""
 
-#: ../lib/content.php:842
+#: ../lib/content.php:829
 msgid "current location"
 msgstr ""
 
-#: ../lib/content.php:888
+#: ../lib/content.php:875
 msgid "Current location"
 msgstr ""
 
-#: ../lib/content.php:891
+#: ../lib/content.php:878
 msgid "This album itself"
 msgstr ""
 
-#: ../lib/content.php:915
+#: ../lib/content.php:902
 #, php-format
 msgid "Last comment %s."
 msgstr ""
 
-#: ../lib/content.php:938 ../lib/content.php:941
+#: ../lib/content.php:925 ../lib/content.php:928
 msgid "No Skin"
 msgstr ""
 
-#: ../lib/content.php:943
+#: ../lib/content.php:930
 msgid "The original look and feel."
 msgstr ""
 
-#: ../lib/content.php:988 ../lib/content.php:992
+#: ../lib/content.php:975 ../lib/content.php:979
 msgid "unknown"
 msgstr ""
 
-#: ../lib/content.php:996
+#: ../lib/content.php:983
 #, php-format
 msgid "Version: %s"
 msgstr ""
 
-#: ../lib/content.php:998
+#: ../lib/content.php:985
 #, php-format
 msgid "Last Update: %s"
 msgstr ""
 
-#: ../lib/content.php:1014
-msgid "usual thumbs"
-msgstr ""
-
-#: ../lib/content.php:1017 ../lib/content.php:1033
-msgid "Album image frames"
-msgstr ""
-
-#: ../lib/content.php:1018
-msgid "Frame defined for images in the corresponding album"
-msgstr ""
-
-#: ../lib/content.php:1019 ../lib/content.php:1034
-msgid "Album thumb frames"
-msgstr ""
-
-#: ../lib/content.php:1020
-msgid "Frame defined for thumbs in the corresponding album"
-msgstr ""
-
-#: ../lib/content.php:1021 ../lib/content.php:1035
-msgid "Mainpage thumb frames"
-msgstr ""
-
-#: ../lib/content.php:1022
-msgid "Frame defined for thumbs on mainpage"
-msgstr ""
-
-#: ../lib/content.php:1040 ../lib/content.php:1047
+#: ../lib/content.php:1003 ../lib/content.php:1009
 msgid "None"
 msgstr ""
 
-#: ../lib/content.php:1041 ../lib/content.php:1049
+#: ../lib/content.php:1004 ../lib/content.php:1010
 msgid "Dots"
 msgstr ""
 
-#: ../lib/content.php:1042 ../lib/content.php:1051
+#: ../lib/content.php:1005 ../lib/content.php:1011
 msgid "Solid"
 msgstr ""
 
-#: ../lib/content.php:1048
+#: ../lib/content.php:1009
 msgid "No frames"
 msgstr ""
 
-#: ../lib/content.php:1050
+#: ../lib/content.php:1010
 msgid "Just a simple dashed border around the thumb."
 msgstr ""
 
-#: ../lib/content.php:1052
+#: ../lib/content.php:1011
 msgid "Just a simple solid border around the thumb."
 msgstr ""
 
-#: ../lib/content.php:1074
+#: ../lib/content.php:1033
 #, php-format
 msgid "Skipping %s."
 msgstr ""
 
-#: ../lib/content.php:1080
+#: ../lib/content.php:1039
 #, php-format
 msgid "Can't open %s"
 msgstr ""
 
-#: ../lib/content.php:1155 ../lib/content.php:1175
+#: ../lib/content.php:1114 ../lib/content.php:1134
 msgid "Not valid yet"
 msgstr ""
 

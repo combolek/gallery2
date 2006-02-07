@@ -958,7 +958,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
     /* Switch to the folder that content is going to be zipped */
     chdir($folderName);
     
-    $cmd = fs_import_filename($gallery->app->zip) ." -r $fullZipName *";
+			$cmd = fs_import_filename($gallery->app->zip) ." -r $fullZipName *";
     
     if (! exec_wrapper($cmd)) {
 	   echo gallery_error("Zipping failed");
@@ -968,7 +968,7 @@ function createZip($folderName = '', $zipName = '', $deleteSource = true) {
     }
     else {
        /* Go back */
-       chdir($currentDir);
+        chdir($currentDir);
 	   if($deleteSource) {
 	       rmdirRecursive($folderName);
 	   }
@@ -1831,8 +1831,8 @@ function createTempAlbum($albumItemNames = array(), $dir = '') {
 
     if(! fs_mkdir($dir)) {
         echo gallery_error(
-          sprintf(_("Gallery was unable to create a tempory subfolder in your tempfolder. Please check permissions of this dir: %s"),
-          $gallery->app->tmpDir));
+          sprintf(_("Gallery was unable to create a tempory subfolder in your tempdir. Please check permissions of this dir: %s"),
+        $gallery->app->tmpDir));
         return false;
     }
 

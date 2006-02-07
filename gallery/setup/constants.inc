@@ -37,16 +37,16 @@
 ?>
 </div>
 
-<div align="center" style="margin: 5px; margin-bottom: 10px">
+<p align="center">
 	<input type="submit" name="go_back" disabled="disabled" value="&lt;-- <?php echo _("Previous Step") ?>">
         <input type="button" name="go_backTab" disabled="disabled" value="&lt;- <?php echo _("Previous Tab") ?>" onClick="section_tabs.prevTab()">
         <input type="button" name="go_nextTab" disabled="disabled" value="<?php echo _("Next Tab") ?> -&gt;" onClick="section_tabs.nextTab()">
         <input type="submit" name="go_next" disabled="disabled" value="<?php echo _("Next Step") ?> --&gt;">
         <input type="submit" name="go_defaults" disabled="disabled" value="<?php echo _("Use Defaults") ?>">
-</div>
+</p>
 <?php
 
-makeSectionTabs($constants, 6);
+makeSectionTabs($constants);
 
 ?>
 <script type="text/javascript" language="Javascript">
@@ -62,7 +62,6 @@ function toggleGraphics(show) {
 }
 
 </script>
-<div style="height: 2px"></div>
 <?php
 $i = 0;
 foreach ($constants as $key => $val) {
@@ -181,10 +180,10 @@ foreach ($constants as $key => $val) {
 }
 ?>
 
-<div align="center">
+<p align="center">
 	<input type="submit" name="go_back" disabled="disabled" value="&lt;-- <?php echo _("Previous Step") ?>">
         <input type="button" name="go_backTab" disabled="disabled" value="&lt;- <?php echo _("Previous Tab") ?>" onClick="section_tabs.prevTab()">
         <input type="button" name="go_nextTab" disabled="disabled" value="<?php echo _("Next Tab") ?> -&gt;" onClick="section_tabs.nextTab()">
         <input type="submit" name="go_next" disabled="disabled" value="<?php echo _("Next Step") ?> --&gt;">
         <input type="submit" name="go_defaults" disabled="disabled" value="<?php echo _("Use Defaults") ?>">
-</div>
+</p>
