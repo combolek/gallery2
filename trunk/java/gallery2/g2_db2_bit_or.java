@@ -25,11 +25,14 @@
 /*
  * g2_db2_bit_or:
  *
- * A Java User-Defined Function (UDF) to implement BIT_OR functionality for DB2.
+ * A Java User-Defined Function (UDF) to implement BITwise OR functionality for DB2.
  *
  * Developed with much thanks to:
  *
- *    - http://www-128.ibm.com/developerworks/db2/library/techarticle/0309stolze/0309stolze.html
+ * Knut Stolze (IBM DB2 Development)
+ *
+ *   - http://www-128.ibm.com/developerworks/db2/library/techarticle/0309stolze/0309stolze.html
+ *   - http://www-128.ibm.com/developerworks/db2/library/techarticle/dm-0404stolze/index.html
  *
  * and
  *
@@ -38,84 +41,97 @@
  *
  * and of course, the DB2 UDB documentation and samples:
  *
- *    - http://publib.boulder.ibm.com/infocenter/db2luw/v8//index.jsp
+ *    - http://publib.boulder.ibm.com/infocenter/db2help/index.jsp
  */
 
 import java.lang.*;          // for String class
 import java.io.*;            // for ...Stream classes
 import COM.ibm.db2.app.*;    // UDF and associated classes
+import java.util.*;          // for HashMap classes
 
 public class g2_db2_bit_or extends UDF
 {
-  public void g2_db2_bit_or ( String inVar,
-                          Blob intermResult )
-  throws Exception
-  {
-    // Test for SQL NULLs in the input parameters and
-    // the structured value itself
-    if (isNull(1))
+    // Hash of current BITOR-ed values for each itemId
+    // (The class is instantiated anew for each occurence of the calling UDF
+    //  in a SQL statement.  Thus, we can safely reuse the object from one
+    //  call to the next as no other UDF-occurence could interfere.)
+    HashMap groupMap = null;
+
+
+    public void g2_db2_bit_or ( int itemId,
+	    String permission,
+	    Blob intermResult )
+	throws Exception
     {
-        return;
+	// Test for SQL NULLs in the input parameters and
+	// the structured value itself
+	if ( isNull(1) || isNull(2) )
+	{
+	    return;
+	}
+
+	// Byte array for the updateable copy of the permission value
+	byte[] workBuffer = new byte[32];
+
+	// HashMap keys need to be 'onject's, a plain old 'int' won't work
+	Integer iItemId = new Integer(itemId);
+
+	switch (getCallType())
+	{
+	  case SQLUDF_FIRST_CALL:
+	      groupMap = new HashMap();
+	      // No 'break;'... fall through to NORMAL call
+
+	  case SQLUDF_NORMAL_CALL:
+
+	      // If a current BITOR-ed value exists, copy it into the workBuffer array.
+	      if (groupMap.containsKey(iItemId) == true)
+	      {
+		  workBuffer = (byte[]) groupMap.get(iItemId);
+	      }
+	      // If no current BITOR-ed value exists, just copy the current column value.
+	      else
+	      {
+		  workBuffer = permission.getBytes();
+	      }
+
+	      // Convert the column value string into a byte array
+	      byte[] columnValueArray = new byte[32];
+	      columnValueArray = permission.getBytes();
+
+	      // Walk the permission byte array, test each char.
+	      for (int ctr = 0; ctr <= 31; ctr++)
+	      {
+		  if (workBuffer[ctr] != 49)
+		  {
+		      // Check the current column value byte.
+		      // If it's 1 (ASCII 49 = numeric 1),
+		      if (columnValueArray[ctr] == 49)
+		      {
+			  // then set the corresponding BITOR-ed bit to 1,
+			  workBuffer[ctr] = 49;
+		      }
+		      else
+		      {
+			  // else set the corresponding BITOR-ed bit to 0.
+			  workBuffer[ctr] = 48;
+		      }
+		  }
+	      }
+
+	      // Save the BITOR-ed intermediate result in the Hash Map;
+	      groupMap.put(iItemId, workBuffer);
+
+	      // Set output parameter to the intermediate result
+	      // (VARCHAR FOR BIT DATA is mapped to "Blob" class)
+	      intermResult = Lob.newBlob();
+	      OutputStream intermOut = intermResult.getOutputStream();
+	      intermOut.write(workBuffer);
+	      set(3, intermResult);
+
+	      break;
+
+	}
     }
-
-    // variables to read from SCRATCHPAD area
-    byte[] scratchpad = getScratchpad();
-    ByteArrayInputStream byteArrayIn =
-            new ByteArrayInputStream(scratchpad);
-    DataInputStream dataIn =
-            new DataInputStream(byteArrayIn);
-
-    // variables to write into SCRATCHPAD area
-    ByteArrayOutputStream byteArrayOut =
-            new ByteArrayOutputStream(32);
-    DataOutputStream dataOut =
-            new DataOutputStream(byteArrayOut);
-
-    // Initialize variables
-    // Byte buffer for the scratchpad copy of the value to be BIT_ORed
-    byte[] workBuffer = new byte[32];
-    int ctr = 0;
-
-    // Get the current scratchpad into the work buffer
-    dataIn.read(workBuffer, 0, 32);
-
-    // Convert the column value string to an array of bytes
-    byte[] columnValueArray = new byte[32];
-    columnValueArray = inVar.getBytes();
-
-    // Walk the inVar byte array, test each char.
-    for (ctr = 0; ctr <= 31; ctr++)
-    {
-       if (workBuffer[ctr] != 49)
-       {
-          // Check the current column value byte.
-          if (columnValueArray[ctr] == 49)          // If it's 1 (ASCII 49 = numeric 1),
-          {
-             workBuffer[ctr] = 49;                  // then set the corresponding scratchpad bit to 1,
-          }
-          else
-          {
-             workBuffer[ctr] = 48;                  // else set the corresponding scratchpad bit to 0.
-          }
-       }
-    }
-
-    // Write the updated buffer to dataOut
-    dataOut.write(workBuffer, 0, 32);
-
-    // Construct new scratchpad data and store it
-    for (ctr = 0; ctr < workBuffer.length; ctr++)
-    {
-       scratchpad[ctr] = workBuffer[ctr];
-    }
-    setScratchpad(scratchpad);
-
-    // Set output parameter for new intermediate result
-    // (VARCHAR FOR BIT DATA is mapped to "Blob" class)
-    intermResult = Lob.newBlob();
-    OutputStream intermOut = intermResult.getOutputStream();
-    intermOut.write(workBuffer);
-    set(2, intermResult);
-  }
 }
 
