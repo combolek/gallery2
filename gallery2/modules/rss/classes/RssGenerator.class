@@ -166,15 +166,13 @@ class RssGenerator {
      * @return string rss stream
      */
     function generate091() {
-	global $gallery;
-	
 	if (!isset($this->_properties['title']) ||
 	    !isset($this->_properties['link']) ||
 	    !isset($this->_properties['description']) ||
 	    !count($this->_items))
 	    return '';
 
-	$linefeed = $gallery->getPlatform()->getLineEnding();
+	$linefeed = "\n";
 
 	$data = '<?xml version="1.0"?>' . $linefeed .
 	    '<!DOCTYPE rss SYSTEM "http://my.netscape.com/publish/formats/rss-0.91.dtd">' .
@@ -220,9 +218,7 @@ class RssGenerator {
      * @return string rss stream
      */
     function generate200() {
-	global $gallery;
-	
-	$linefeed = $gallery->getPlatform()->getLineEnding();
+	$linefeed = "\n";
 
 	$data = '<rss version="2.0">'.$linefeed.'<channel>' . $linefeed .
 	    '<title>' . $this->_properties['title'] . '</title>' . $linefeed .
