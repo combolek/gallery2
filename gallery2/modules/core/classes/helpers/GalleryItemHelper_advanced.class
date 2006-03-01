@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,18 +44,20 @@ class GalleryItemHelper_advanced {
     function removeProperty($itemId, $key) {
 	global $gallery;
 	if (empty($itemId) || empty($key)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/* Remove this relationship from our groups table. */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryItemPropertiesMap',
+	/*
+	 * Remove this relationship from our groups table.
+	 */
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
+	$ret = GalleryItemPropertiesMap::removeMapEntry(
 	    array('itemId' => $itemId, 'key' => $key));
 
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -70,25 +72,26 @@ class GalleryItemHelper_advanced {
     function setProperty($itemId, $key, $value) {
 	global $gallery;
 	if (empty($itemId) || empty($key) || empty($value)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/* Remove this item/key from the map, and add the new one. */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryItemPropertiesMap',
+	/*
+	 * Remove this item/key from the map, and add the new one.
+	 */
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
+	$ret = GalleryItemPropertiesMap::removeMapEntry(
 	    array('itemId' => $itemId, 'key' => $key));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$ret = GalleryCoreApi::addMapEntry(
-	    'GalleryItemPropertiesMap',
+	$ret = GalleryItemPropertiesMap::addMapEntry(
 	    array('itemId' => $itemId, 'key' => $key, 'value' => $value));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -101,18 +104,20 @@ class GalleryItemHelper_advanced {
     function removeProperties($itemId) {
 	global $gallery;
 	if (empty($itemId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	/* Remove this relationship from our groups table. */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryItemPropertiesMap',
+	/*
+	 * Remove this relationship from our groups table.
+	 */
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryItemPropertiesMap.class');
+	$ret = GalleryItemPropertiesMap::removeMapEntry(
 	    array('itemId' => $itemId));
 
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -126,7 +131,7 @@ class GalleryItemHelper_advanced {
 	global $gallery;
 
 	if (empty($itemId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$query = '
@@ -138,8 +143,8 @@ class GalleryItemHelper_advanced {
           [GalleryItemPropertiesMap::itemId] = ?
         ';
 
-	list ($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
-	if ($ret) {
+	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -147,7 +152,7 @@ class GalleryItemHelper_advanced {
 	while ($result = $searchResults->nextResult()) {
 	    $data[] = $result[0];
 	}
-	return array(null, $data);
+	return array(GalleryStatus::success(), $data);
     }
 
     /**
@@ -163,7 +168,7 @@ class GalleryItemHelper_advanced {
 	global $gallery;
 
 	if (empty($itemId) || empty($key)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$query = '
@@ -178,8 +183,8 @@ class GalleryItemHelper_advanced {
         ';
 
 	list ($ret, $searchResults) =
-	    $gallery->search($query, array((int)$itemId, $key));
-	if ($ret) {
+	    $gallery->search($query, array($itemId, $key));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -190,7 +195,7 @@ class GalleryItemHelper_advanced {
 	$result = $searchResults->nextResult();
 	$result = $result[0];
 
-	return array(null, $result);
+	return array(GalleryStatus::success(), $result);
     }
 
     /**
@@ -205,7 +210,7 @@ class GalleryItemHelper_advanced {
 	global $gallery;
 
 	if (empty($itemId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$query = '
@@ -218,8 +223,8 @@ class GalleryItemHelper_advanced {
           [GalleryItemPropertiesMap::itemId] = ?
         ';
 
-	list ($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
-	if ($ret) {
+	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -227,7 +232,7 @@ class GalleryItemHelper_advanced {
 	while ($result = $searchResults->nextResult()) {
 	    $data[$result[0]] = $result[1];
 	}
-	return array(null, $data);
+	return array(GalleryStatus::success(), $data);
     }
 
 
@@ -246,9 +251,6 @@ class GalleryItemHelper_advanced {
     function fetchItemizedDescendentCounts($itemIds) {
 	global $gallery;
 
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
-	}
 	$storage =& $gallery->getStorage();
 	$itemIdMarkers = GalleryUtilities::makeMarkers($itemIds);
 
@@ -257,28 +259,18 @@ class GalleryItemHelper_advanced {
 	    array('[GalleryItemAttributesMap=1::parentSequence]',
 		  '[GalleryItemAttributesMap=1::itemId]',
 		  '\'%\''));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $aclIds) =
 	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($aclIds)) {
-	    return array(null, array());
-	}
-
-	list ($ret, $like) =
-	    $storage->getFunctionSql(
-		'LIKE',
-		array('[GalleryItemAttributesMap=2::parentSequence]',
-		      $concat)
-		);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
+	    return array(GalleryStatus::success(), array());
 	}
 
 	$accessListMarkers = GalleryUtilities::makeMarkers(count($aclIds));
@@ -299,19 +291,19 @@ class GalleryItemHelper_advanced {
         WHERE
           [GalleryItemAttributesMap=1::itemId] IN (%s)
           AND
-          %s
+          [GalleryItemAttributesMap=2::parentSequence] LIKE %s
           AND
           [GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
           AND
           [GalleryAccessSubscriberMap::accessListId] IN (%s)
         GROUP BY
           [GalleryItemAttributesMap=1::itemId]
-        ', $itemIdMarkers, $like, $accessListMarkers);
+        ', $itemIdMarkers, $concat, $accessListMarkers);
 
 	$data = array_merge($itemIds, $aclIds);
 
 	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -321,7 +313,7 @@ class GalleryItemHelper_advanced {
 					'GalleryDataItem' => $result[2]);
 	}
 
-	return array(null, $counts);
+	return array(GalleryStatus::success(), $counts);
     }
 
     /**
@@ -337,7 +329,7 @@ class GalleryItemHelper_advanced {
 	global $gallery;
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds(array($albumId));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -349,7 +341,7 @@ class GalleryItemHelper_advanced {
 
 	    list ($ret, $thumbnailSource) =
 		GalleryCoreApi::loadEntitiesById($thumbnail->getDerivativeSourceId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    /* Derivative source is missing.. pick a new one */
 		    $highlightHasLeftTheAlbum = true;
@@ -359,7 +351,7 @@ class GalleryItemHelper_advanced {
 	    } else {
 		list ($ret, $highlightItem) =
 		    GalleryCoreApi::loadEntitiesById($thumbnailSource->getParentId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -375,7 +367,7 @@ class GalleryItemHelper_advanced {
 	if (empty($thumbnails) || $highlightHasLeftTheAlbum) {
 	    $gallery->debug('Picking new thumbnail');
 	    list ($ret, $album) = GalleryCoreApi::loadEntitiesById($albumId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -385,7 +377,7 @@ class GalleryItemHelper_advanced {
 	    $gallery->debug_r($childIds);
 	    foreach ($childIds as $childId) {
 		list ($ret, $success) = GalleryCoreApi::setThumbnailFromItem($albumId, $childId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -401,12 +393,12 @@ class GalleryItemHelper_advanced {
 	if (!$success && $highlightHasLeftTheAlbum) {
 	    /* We couldn't find a new thumbnail, but the existing one isn't good anymore */
 	    $ret = GalleryCoreApi::deleteEntityById($thumbnail->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
-	return array(null, $success);
+	return array(GalleryStatus::success(), $success);
     }
 
     /**
@@ -427,38 +419,37 @@ class GalleryItemHelper_advanced {
 
 	/* Can't work without a name and a parentAlbum */
 	if (empty($parentAlbumId) || empty($name)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Make sure the parent album is indeed an album */
 	list ($ret, $parentAlbum) = GalleryCoreApi::loadEntitiesById($parentAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!GalleryUtilities::isA($parentAlbum, 'GalleryAlbumItem')) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* create the album object */
-	list ($ret, $album) =
-	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
-	if ($ret) {
+	list ($ret, $album) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($album)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	/* acquire lock to reference the parent in our new object */
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $album->create($parentAlbumId, $name);
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -471,7 +462,7 @@ class GalleryItemHelper_advanced {
 
 	/* Save it */
 	$ret = $album->save();
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
@@ -479,21 +470,21 @@ class GalleryItemHelper_advanced {
 	/* set order weight -- add to end of parent album */
 	list ($ret, $maxWeight) =
 	    GalleryCoreApi::fetchExtremeChildWeight($parentAlbumId, HIGHER_WEIGHT);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = GalleryCoreApi::setItemOrderWeight($album->getId(), $maxWeight + 1000);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Leggo of our locks */
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $album);
+	return array(GalleryStatus::success(), $album);
     }
 
     /**
@@ -508,44 +499,44 @@ class GalleryItemHelper_advanced {
 	global $gallery;
 
 	if (empty($oldUserId) || empty($newUserId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* First check if new User is a valid gallery user! */
 	list ($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($newUserId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($newUserId == $oldUserId) { /* Well, why not :) */
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	/* We need the user object later on anyway */
 	list ($ret, $oldOwner) = GalleryCoreApi::loadEntitiesById($oldUserId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Get all items by oldUser */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($oldUserId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (empty($itemIds)) {
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	/* got to remapOwnerId for some items */
 	/* acquire write lock for all items */
 	list ($ret, $lockIds) = GalleryCoreApi::acquireWriteLock($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	/* load all items */
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -553,14 +544,14 @@ class GalleryItemHelper_advanced {
 	/* Get all permissions newOwner has on the items directly or indirectly */
 	list ($ret, $newUserPermissions) =
 	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $newOwner->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	/* Get all permissions oldOwner has directly or indirectly on the item */
 	list ($ret, $oldUserPermissions) =
 	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $oldOwner->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::releaseLocks($lockIds);
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -592,7 +583,7 @@ class GalleryItemHelper_advanced {
 		 */
 		$ret = GalleryCoreApi::addUserPermission($item->getId(),
 					$newOwner->getId(), $newPermissions, false);
-		if ($ret) {
+		if ($ret->isError()) {
 	   	    GalleryCoreApi::releaseLocks($lockIds);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -600,7 +591,7 @@ class GalleryItemHelper_advanced {
 	    /* Update the ownerId of the item and save it (1 db query) */
 	    $item->setownerId($newOwner->getid());
 	    $ret = $item->save();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -608,11 +599,11 @@ class GalleryItemHelper_advanced {
 
 	/* Release all locks at once */
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -634,26 +625,26 @@ class GalleryItemHelper_advanced {
 
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 	if (empty($aclIds)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
 	$parentSequence = array();
 	if (isset($itemId)) {
 	    list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($itemId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    list ($ret, $itemId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.view');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$parentSequence[] = $itemId;
@@ -682,7 +673,7 @@ class GalleryItemHelper_advanced {
 	$data = $aclIds;
 
 	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -702,7 +693,7 @@ class GalleryItemHelper_advanced {
 	    $branch[$result[0]] = array();
 	}
 
-	return array(null, $tree);
+	return array(GalleryStatus::success(), $tree);
     }
 }
 ?>

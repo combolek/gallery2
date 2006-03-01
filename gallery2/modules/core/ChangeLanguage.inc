@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 /**
  * @version $Revision$ $Date$
- * @package GalleryCore
+ * @package Core
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -30,7 +30,7 @@
 /**
  * This controller handles changing the language in the current session
  *
- * @package GalleryCore
+ * @package Core
  * @subpackage UserInterface
  */
 class ChangeLanguageController extends GalleryController {
@@ -43,7 +43,7 @@ class ChangeLanguageController extends GalleryController {
 
 	$language = GalleryUtilities::getRequestVariables('language');
 	$ret = $gallery->setActiveLanguageCode($language);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -51,7 +51,7 @@ class ChangeLanguageController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 ?>

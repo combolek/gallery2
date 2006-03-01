@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -148,8 +148,6 @@ identify: Missing an image file name [No such file or directory].',
 		'test.tif' => 'test.tif 50x50 PseudoClass 256c 2729b TIFF 1s',
 		'test.eps' => 'test.eps[0] 43x18 PseudoClass 2c 3141b PS 1s
 test.eps[1] 43x18 PseudoClass 2c 3141b PS 1s',
-		'test.wmf' => 'identify: no delegate for this image format (WMF)',
-		'test.tga' => 'identify: no delegate for this image format (TGA)',
 		'testProfile.jpg' => 'testProfile.jpg 40x30 DirectClass 29kb JPEG 1s',
 		'-format' => array('cmyk.jpg' => 'Does4.xWork?'),
 	),
@@ -229,12 +227,6 @@ test.pdf[1] PDF 612x792 DirectClass 8-bit 2840kb 0.0u 0:01',
 		'test.tif' => 'test.tif TIFF 50x50 PseudoClass 256c 8-bit 2729b 0.0u 0:01',
 		'test.eps' => 'test.eps PS 43x18 DirectClass 8-bit 2388b 0.0u 0:01',
 		'test.psd' => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
-		'test.wmf' =>
-'identify: no delegate for this image format (test.wmf) [No such file or directory].
-identify: Missing an image file name.',
-		'test.tga' =>
-'identify: no delegate for this image format (test.tga) [No such file or directory].
-identify: Missing an image file name.',
 		'testProfile.jpg' =>
 		    'testProfile.jpg JPEG 40x30 DirectClass 8-bit 30585b 0.0u 0:01',
 		'-format' => array('cmyk.jpg' => "DirectClassCMYK\n",
@@ -265,8 +257,6 @@ $imEnvironment[] = array(
 		'application/pdf',
 		'application/postscript',
 		'application/photoshop',
-		'image/wmf',
-		'image/tga',
 		'image/jpeg-cmyk',
 		'image/tiff-cmyk',
 	),
@@ -340,8 +330,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 		'test.tif' => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
 		'test.eps' => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
 		'test.psd' => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
-		'test.wmf' => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
-		'test.tga' => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
 		'-format' => array('cmyk.jpg' => 'DirectClassCMYK',
 				   'rgb_file' => 'DirectClassRGB'),
@@ -371,8 +359,6 @@ $imEnvironment[] = array(
 		'application/pdf',
 		'application/postscript',
 		'application/photoshop',
-		'image/wmf',
-		'image/tga',
 		'image/jpeg-cmyk',
 		'image/tiff-cmyk',
 	),
@@ -452,8 +438,6 @@ test.pdf[1] PDF 612x792 612x792+0+0 PseudoClass 256c 947kb 0.030u 0:01',
 		'test.tif' => 'test.tif TIFF 50x50 PseudoClass 256c 3kb 0.000u 0:01',
 		'test.eps' => 'test.eps PS 43x18 43x18+0+0 PseudoClass 2c 170 0.000u 0:01',
 		'test.psd' => 'test.psd PSD 178x80+0+0 DirectClass 8-bit 127.1kb 0.000u 0:01',
-		'test.wmf' => 'test.wmf WMF 3x3 DirectClass 408 0.020u 0:01',
-		'test.tga' => 'test.tga TGA 3x3 DirectClass 54 0.020u 0:01',
 		'testProfile.jpg' => 'testProfile.jpg JPEG 40x30 DirectClass 30kb 0.010u 0:01',
 		'-format' => array('cmyk.jpg' => 'DirectClassCMYK',
 				   'rgb_file' => 'DirectClassRGB'),
@@ -538,8 +522,6 @@ test.pdf[1] PDF 612x792+0+0 PseudoClass 256c 8-bit 946.8k 0.030u 0:01',
 		'test.svg' => 'test.svg SVG 595x841+0+0 DirectClass 16-bit 7.8kb 0.008u 0:01',
 		'test.tif' => 'test.tif TIFF 50x50+0+0 PseudoClass 256c 8-bit 2.7k 0.000u 0:01',
 		'test.eps' => 'test.eps PS 43x18+0+0 PseudoClass 2c 8-bit 170.0 0.000u 0:01',
-		'test.wmf' => 'identify: No decode delegate for this image format (test.wmf).',
-		'test.tga' => 'identify: No decode delegate for this image format (test.tga).',
 		'testProfile.jpg' =>
 		    'testProfile.jpg JPEG 40x30+0+0 DirectClass 8-bit 29.9k 0.000u 0:01',
 		'-format' => array('cmyk.jpg' => 'DoesThisWork?'),

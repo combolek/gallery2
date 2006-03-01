@@ -6,5 +6,5 @@
  *}
 <div class="gbBlock">
   <h2> {g->text text="Error: 404 File Not Found"} </h2>
-  {$FileNotFound}
+  {$FileNotFound.path}
 </div>

@@ -23,13 +23,9 @@
   <h3> {g->text text="There are no comments for this item"} </h3>
 </div>
 {else}
-<div class="gbBlock">
 {foreach from=$ShowComments.comments item=comment}
-  <div class="one-comment gcBorder2">
   {include file="gallery:modules/comment/templates/Comment.tpl"
-	   comment=$comment item=$ShowComments.item can=$ShowComments.can
-	   user=$ShowComments.commenters[$comment.commenterId]}
-  </div>
+           user=$ShowComments.commenters[$comment.commenterId]
+           comment=$comment item=$ShowComments.item can=$ShowComments.can}
 {/foreach}
-</div>
 {/if}

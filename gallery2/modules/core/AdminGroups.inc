@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -39,18 +40,22 @@ class AdminGroupsController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results = $status = $error = array();
+	$results = array();
+	$status = array();
+	$error = array();
 
 	$group = null;
 	if (!empty($form['text']['groupName'])) {
 	    list ($ret, $group) =
 		GalleryCoreApi::fetchGroupByGroupName($form['text']['groupName']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -143,7 +148,7 @@ class AdminGroupsController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -159,8 +164,10 @@ class AdminGroupsView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -180,7 +187,7 @@ class AdminGroupsView extends GalleryView {
 	}
 
 	list ($ret, $totalGroupCount) = GalleryCoreApi::fetchGroupCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -189,9 +196,8 @@ class AdminGroupsView extends GalleryView {
 
 	/* If we have a filter, find out how many groups match it */
 	if (!empty($form['list']['filter'])) {
-	    list ($ret, $form['list']['count']) =
-		GalleryCoreApi::fetchGroupCount($form['list']['filter']);
-	    if ($ret) {
+	    list ($ret, $form['list']['count']) = GalleryCoreApi::fetchGroupCount($form['list']['filter']);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -211,25 +217,22 @@ class AdminGroupsView extends GalleryView {
 						(($form['list']['page'] - 1) *
 						 $form['list']['pageSize']),
 						$form['list']['filter']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $allUserGroupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
-	if ($ret) {
+	list ($ret, $allUserGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $everybodyGroupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
-	if ($ret) {
+	list ($ret, $everybodyGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	list ($ret, $adminGroupId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
+	list ($ret, $adminGroupId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -256,7 +259,8 @@ class AdminGroupsView extends GalleryView {
 
 	$template->setVariable('AdminGroups', $AdminGroups);
 	$template->setVariable('controller', 'core.AdminGroups');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/AdminGroups.tpl'));
     }
 }

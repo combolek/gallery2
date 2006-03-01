@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ class ExternalCSSController extends GalleryController {
      */
     function handleRequest($form) {
 	list ($ret, $imageframe) = GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($imageframe)) {
@@ -48,7 +48,7 @@ class ExternalCSSController extends GalleryController {
 		foreach (array('albumFrame', 'itemFrame') as $key) {
 		    list ($ret, $frame) =
 			GalleryCoreApi::getPluginParameter('module', 'imageblock', $key);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if (!empty($frame)) {
@@ -60,7 +60,7 @@ class ExternalCSSController extends GalleryController {
 		}
 	    }
 	}
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('delegate' => array('view' =>
 				empty($frames) ? 'imageblock.ExternalCSS' : 'imageframe.CSS'),
 			   'status' => array(), 'error' => array()));
@@ -74,21 +74,13 @@ class ExternalCSSController extends GalleryController {
 class ExternalCSSView extends GalleryView {
 
     /**
-     * @see GalleryView::isImmediate
+     * @see GalleryView::loadTemplate()
      */
-    function isImmediate() {
-	return true;
-    }
-
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
-	header('Content-type: text/html');
+    function loadTemplate(&$template, &$form) {
+	header('Content-type: text/css');
 	header('Expires: ' . GalleryUtilities::getHttpDate(time() + 2592000));
-	print '<style type="text/css"> img.giThumbnail { border-style: none; } </style>';
-	print "\n";
-	return null;
+	return array(GalleryStatus::success(),
+		     array('html' => 'modules/imageblock/templates/NoCSS.tpl'));
     }
 }
 ?>

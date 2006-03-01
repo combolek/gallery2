@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,8 +43,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$status = null;
@@ -83,8 +83,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 			$ret = GalleryCoreApi::adjustDependentDerivatives($preferred->getId(),
 									  $tmpOperation,
 									  true);
-			if ($ret) {
-			    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+			if ($ret->isError()) {
+			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 		    } else {
 			$remainingOperations[] = $tmpOperation;
@@ -92,12 +92,12 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($preferred->getId());
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		list ($ret, $preferred) = $preferred->refresh();
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		if ($remainingOperations) {
@@ -107,25 +107,25 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		}
 
 		$ret = $preferred->save();
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		if ($preferred->hasNoOperations()) {
 		    $ret = GalleryCoreApi::remapSourceIds(
 			$preferred->getId(), $preferred->getDerivativeSourceId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $ret = GalleryCoreApi::deleteEntityById($preferred->getId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 
@@ -143,8 +143,8 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		$isLinkedTo = false;
 	    } else {
 		list ($ret, $linkedIds) = GalleryCoreApi::fetchEntitiesLinkedTo($item->getId());
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$isLinked = false;
@@ -172,124 +172,124 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 		/* Get the path of the source */
 		list($ret, $sourcePath) = $item->fetchPath();
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* Get the appropriate toolkit */
 		list ($ret, $toolkit) =
 		    GalleryCoreApi::getToolkitByOperation($item->getMimeType(), $operation);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		if (!isset($toolkit)) {
 		    /* This should never happen */
-		    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
-				 null, null, null);
+		    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
+				 null, null);
 		}
 
 		/* Perform the operation */
 		list ($ret, $outputMimeType) = $toolkit->performOperation(
 		    $item->getMimeType(), $operation, $sourcePath, $sourcePath, $args);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$item->setMimeType($outputMimeType);
 
 		/* Get the item to rescan its data object */
 		$ret = $item->rescan();
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/* Let our change ripple down the derivative tree, if necessary */
 		$ret = GalleryCoreApi::adjustDependentDerivatives(
 		    $item->getId(), sprintf('%s|%s', $operation, join(',', $args)));
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		$gallery->debug('checking is modified');
 		/* Save the item, if it's modified */
 		if ($item->isModified()) {
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($item->getId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $item->setSerialNumber($form['serialNumber']);
 
 		    $ret = $item->save();
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lockId);
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 
 		$ret = GalleryCoreApi::expireDerivativeTreeBySourceIds(array($item->getId()));
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    } else {
 		/* If we have no preferred, then create one */
 		if (empty($preferred)) {
 		    list ($ret, $preferred) = GalleryCoreApi::newFactoryInstanceByHint(
 			'GalleryDerivative', $item->getEntityType());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    if (!isset($preferred)) {
-			return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT,
-							   __FILE__, __LINE__), null, null, null);
+			return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+				     null, null);
 		    }
 
 		    $ret = $preferred->create($item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $preferred->setDerivativeSourceId($item->getId());
 		    $preferred->setMimeType($item->getMimeType());
 
 		    $ret = GalleryCoreApi::remapSourceIds($item->getId(), $preferred->getId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		} else {
 		    /*
 		     * Otherwise, lock the preferred so that we can modify it
 		     */
 		    list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock($preferred->getId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $ret = $preferred->expireCache();
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 
 		$operationString = $operation . '|' . join(',', $args);
 		list ($ret, $operations) = GalleryCoreApi::mergeDerivativeOperations(
 		    $preferred->getDerivativeOperations(), $operationString);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 		$preferred->setDerivativeOperations($operations);
 
 		/* Let our change ripple down the derivative tree, if necessary */
 		$ret = GalleryCoreApi::adjustDependentDerivatives(
 		    $preferred->getId(), $operationString);
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		/*
@@ -299,26 +299,26 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 		if ($preferred->hasNoOperations()) {
 		    $ret = GalleryCoreApi::remapSourceIds(
 			$preferred->getId(), $preferred->getDerivativeSourceId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $ret = GalleryCoreApi::deleteEntityById($preferred->getId());
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		} else {
 		    $ret = $preferred->save();
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lockIds);
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 
 		if (!empty($lockIds)) {
 		    $ret = GalleryCoreApi::releaseLocks($lockIds);
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+		    if ($ret->isError()) {
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 	    }
@@ -335,7 +335,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	    }
 	}
 
-	return array(null, $error, $status, false);
+	return array(GalleryStatus::success(), $error, $status);
     }
 
     /**
@@ -348,7 +348,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 
 	list ($ret, $ItemEditRotateAndScalePhoto['isAdmin']) =
 	    GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -364,7 +364,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	    $ItemEditRotateAndScalePhoto['editPhoto']['isLinkedTo'] = false;
 	} else {
 	    list ($ret, $linkedIds) = GalleryCoreApi::fetchEntitiesLinkedTo($item->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -375,7 +375,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	/* Check to see if we have a preferred source */
 	list ($ret, $results) =
 	    GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -395,19 +395,19 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	/* Figure out what options we can provide */
 	list ($ret, $ItemEditRotateAndScalePhoto['editPhoto']['can']['rotate']) =
 	    $this->_checkForOperation('rotate', $sourceMimeTypes);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $ItemEditRotateAndScalePhoto['editPhoto']['can']['resize']) =
 	    $this->_checkForOperation('scale', $sourceMimeTypes);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$template->setVariable('ItemEditRotateAndScalePhoto', $ItemEditRotateAndScalePhoto);
 	$template->setVariable('controller', 'core.ItemEditRotateAndScalePhoto');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/core/templates/ItemEditRotateAndScalePhoto.tpl', 'modules_core');
     }
 
@@ -423,11 +423,11 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $module->translate('Modify Photo'));
+	return array(GalleryStatus::success(), $module->translate('Modify Photo'));
     }
 
     /**
@@ -441,7 +441,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
     function _checkForOperation($operation, $mimeTypes) {
 	foreach (array_unique($mimeTypes) as $mimeType) {
 	    list ($ret, $toolkit) = GalleryCoreApi::getToolkitByOperation($mimeType, $operation);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -450,7 +450,7 @@ class ItemEditRotateAndScalePhoto extends ItemEditPlugin {
 	    }
 	}
 
-	return array(null, isset($toolkit));
+	return array(GalleryStatus::success(), isset($toolkit));
     }
 }
 ?>

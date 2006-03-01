@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * @author Jerome Rannikko <jeromer@hotpop.com>
  */
 
-GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
 
 /**
  * This controller implements the Nokia Image Uploader API's 'Login' command.
@@ -45,7 +45,7 @@ class LoginController extends GalleryController {
 	$results['status'] = ImageUploadHelper::doLogin();
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -79,9 +79,7 @@ class LoginView extends GalleryView {
 	$reply[] = 'Version=' . NOKIAUPLOAD_PROTOCOLVERSION . "\r\n";
 
 	if ($status['success'] == NOKIAUPLOAD_ERR_NOERR) {
-	    $session =& $gallery->getSession();
-	    $reply[] = 'SId=' . GalleryUtilities::prefixFormVariable($session->getKey()) .
-		'=' . $session->getId() . "\r\n";
+	    $reply[] = 'SId=' . $status['sessionidparam'] . '=' . $status['sessionid'] . "\r\n";
 	    $reply[] = 'RSURL=' . $status['rsurl'] . "\r\n";
 
 	    /* Send RS Capabilities as well if we have them. */
@@ -92,7 +90,7 @@ class LoginView extends GalleryView {
 	    }
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$reply[] = "Login failed.\r\n";
 	    } else {
 		$reply[] = $module->translate('Login failed.') . "\r\n";
@@ -102,11 +100,10 @@ class LoginView extends GalleryView {
 	$reply = implode('', $reply);
 	$gallery->debug("Sending:\n$reply");
 
-	header("Content-type: text/plain; charset=UTF-8");
 	header('Content-Length: ' . strlen($reply));
 	print $reply;
 
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

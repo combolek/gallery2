@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,26 +31,16 @@ msgstr ""
 "X-Poedit-Country: MEXICO\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Siriux"
-msgstr ""
-
-msgid "Siriux.net Gallery theme"
-msgstr ""
-
-msgid "Width of page content in pixels"
-msgstr ""
-
-msgid "You must enter a number"
-msgstr ""
-
+#, fuzzy
 msgid "This album is empty."
-msgstr ""
+msgstr "Este &aacute;lbum contiene %d elementos."
 
 msgid "Add a photo!"
 msgstr ""
 
+#, fuzzy
 msgid "no thumbnail"
-msgstr "sin miniatura"
+msgstr "Sin miniatura"
 
 #, c-format
 msgid "%d Images"
@@ -59,7 +49,7 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
 msgstr "Descargar este %s"
 
@@ -76,3 +66,22 @@ msgstr ""
 
 msgid "Continue..."
 msgstr ""
+
+msgid "Siriux"
+msgstr ""
+
+msgid "Siriux.net Gallery theme"
+msgstr ""
+
+msgid "Width of page content in pixels"
+msgstr ""
+
+msgid "You must enter a number"
+msgstr ""
+
+#~ msgid "Album: %s"
+#~ msgstr "Album: %s"
+
+#, fuzzy
+#~ msgid "Standard Gallery2 look and feel"
+#~ msgstr "Look&Feel cl&aacute;sico de Gallery 2"

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package GalleryCore
+ * @package Core
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 class CoreCallbacks {
@@ -42,13 +42,13 @@ class CoreCallbacks {
 	    }
 
 	    list ($ret, $language) = $gallery->getActiveLanguageCode();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $block['core']['LanguageSelector'] =
 		array('list' => $languageList, 'language' => $language);
-	    return null;
+	    return GalleryStatus::success();
 
 	case 'ShouldShowEmergencyEditItemLink':
 	    $block['core']['ShouldShowEmergencyEditItemLink'] = false;
@@ -68,7 +68,7 @@ class CoreCallbacks {
 		    }
 		}
 	    }
-	    return null;
+	    return GalleryStatus::success();
 
 	case 'LoadPeers':
 	    $item = $params['item'];
@@ -76,18 +76,18 @@ class CoreCallbacks {
 	    if ($item['parentId'] > 0) {
 		list ($ret, $canViewParent) = GalleryCoreApi::hasItemPermission(
 		    $item['parentId'], 'core.view', $theme['actingUserId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	    if ($canViewParent) {
 		list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item['parentId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		list ($ret, $peerIds) =
 		    GalleryCoreApi::fetchChildItemIds($parent, null, null, $theme['actingUserId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		foreach ($peerIds as $i => $id) {
@@ -98,100 +98,56 @@ class CoreCallbacks {
 		}
 	    }
 	    if (isset($peerItemIndex)) {
-		$windowSize = isset($params['windowSize']) ? ($params['windowSize'] - 1) : 6;
-		$addEnds = isset($params['addEnds']) ? $params['addEnds'] : true;
+		$windowSize = isset($params['windowSize']) ? $params['windowSize'] : 6;
 		$peerLast = count($peerIds) - 1;
 		$peerNeighborStart = max($peerItemIndex - (int)($windowSize/2), 0);
-		$peerNeighborEnd = min($peerItemIndex + (int)(($windowSize+1)/2), $peerLast);
+		$peerNeighborEnd = min($peerItemIndex + (int)($windowSize/2), $peerLast);
 		/* If the window is pinned to one end, expand it to the entire windowSize */
 		if ($peerNeighborStart == 0) {
-		    $peerNeighborEnd = min($peerLast, $windowSize);
+		    $peerNeighborEnd = min($peerLast, $windowSize-1);
 		} else if ($peerNeighborEnd == $peerLast) {
 		    $peerNeighborStart = max($peerLast - $windowSize, 0);
 		}
-		if ($peerNeighborStart > 0 && $addEnds) {
+		if ($peerNeighborStart > 0) {
 		    $peerMap[0] = $peerIds[0];
 		}
 		for ($i = $peerNeighborStart; $i <= $peerNeighborEnd; $i++) {
 		    $peerMap[$i] = $peerIds[$i];
 		}
-		if ($peerNeighborEnd < $peerLast && $addEnds) {
+		if ($peerNeighborEnd < $peerLast) {
 		    $peerMap[$peerLast] = $peerIds[$peerLast];
 		}
 
 		list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerMap);
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
+                if ($ret->isError()) {
+                    return $ret->wrap(__FILE__, __LINE__);
+                }
 		if (!empty($params['loadThumbnails'])) {
 		    list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($peerMap);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 		$j = 0;
 		foreach ($peerMap as $i => $id) {
-		    $peer = (array)$peerItems[$j++];
+		    $peer = $peerItems[$j++]->getMemberData();
 		    $peer['peerIndex'] = $i + 1;
 		    if (isset($thumbTable[$id])) {
-			$peer['thumbnail'] = (array)$thumbTable[$id];
+			$peer['thumbnail'] = $thumbTable[$id]->getMemberData();
 		    }
 		    $peers[] = $peer;
 		}
 		$block['core']['LoadPeers'] = array('peers' => $peers,
 		    'peerCount' => count($peerIds), 'thisPeerIndex' => $peerItemIndex + 1,
-                    'parent' => (array)$parent);
+		    'parent' => $parent->getMemberData());
 	    } else {
 		$block['core']['LoadPeers'] =
 		    array('peers' => array(), 'peerCount' => 0);
 	    }
-	    return null;
-
-	case 'LoadValidationPlugins':
-	    if (!empty($params['level'])) {
-		$options['level'] = $params['level'];
-	    } else {
-		list ($ret, $options['level']) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-	    if ($options['level'] == 'MEDIUM' && !empty($params['key'])) {
-		$options['key'] = $params['key'];
-	    }
-	    if ($options['level'] == 'OFF') {
-		$allPluginIds = array();
-	    } else {
-		list ($ret, $allPluginIds) =
-		    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    }
-
-	    /* Let each plugin load its template data */
-	    $block['core']['ValidationPlugins'] = array();
-	    foreach (array_keys($allPluginIds) as $pluginId) {
-		list ($ret, $plugin) =
-		    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-
-		list ($ret, $data['file'], $data['l10Domain']) =
-		    $plugin->loadTemplate($smarty->_tpl_vars['form'], $options);
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-		if (isset($data['file'])) {
-		    $block['core']['ValidationPlugins'][] = $data;
-		}
-	    }
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

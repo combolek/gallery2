@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * Allows the user to log in to Gallery to begin the process of uploading
  * photos through Windows XP's publishing mechanism.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -35,7 +35,8 @@ class LoginController extends GalleryController {
      */
     function handleRequest($form) {
 	global $gallery;
-	$results = $error = array();
+	$results = array();
+	$error = array();
 	if (isset($form['action']['login'])) {
 	    if (empty($form['userName'])) {
 		$error[] = 'form[error][userName][missing]';
@@ -47,7 +48,7 @@ class LoginController extends GalleryController {
 
 	    if (empty($error)) {
 		list($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (isset($user) && $user->isCorrectPassword($form['password'])) {
@@ -56,7 +57,7 @@ class LoginController extends GalleryController {
 		    $event = GalleryCoreApi::newEvent('Gallery::Login');
 		    $event->setEntity($user);
 		    list ($ret, $ignoreTheRedirect) = GalleryCoreApi::postEvent($event);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -75,7 +76,7 @@ class LoginController extends GalleryController {
 	}
 	$results['status'] = array();
 	$results['error'] = $error;
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -85,8 +86,9 @@ class LoginController extends GalleryController {
  * Allows the user to log in to Gallery to begin the process of uploading
  * photos through Windows XP's publishing mechanism.
  *
+ * @version $Id$
  * @package PublishXp
- * @subpackage UserInterface
+ * @author Timothy Webb <tiwebb@cisco.com>
  */
 class LoginView extends GalleryView {
     /**
@@ -101,22 +103,20 @@ class LoginView extends GalleryView {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($gallery->getActiveUserId() != $anonymousUserId) {
 	    /* No need to log in */
-	    return array(null,
+	    return array(GalleryStatus::success(),
 			 array('redirect' => array('view' => 'publishxp.SelectAlbum')));
 	}
 
 	$template->setVariable('controller', 'publishxp.Login');
 	$template->head('modules/publishxp/templates/Head.tpl');
-
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/Login.tpl',
-			   'useFullScreen' => true));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/Login.tpl'));
     }
 }
 ?>

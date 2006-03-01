@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package Exif
@@ -27,7 +28,11 @@
  * @author Georg Rehfeld <rehfeld@georg-rehfeld.de>
  */
 
-GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+/**
+ * Required classes
+ */
+GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
 
 /**
  * This controller will handle the setting of Exif module options
@@ -41,15 +46,18 @@ class AdminExifController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$error = $status = array();
+	$error = array();
+	$status = array();
 	if (isset($form['action']['availableToSummary'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -62,8 +70,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -75,8 +83,8 @@ class AdminExifController extends GalleryController {
 	    }
 
 	} else if (isset($form['action']['availableToDetailed'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -89,8 +97,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -101,8 +109,8 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][available][missing]';
 	    }
 	} else if (isset($form['action']['removeFromSummary'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -117,8 +125,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $newProperties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $newProperties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -131,15 +139,15 @@ class AdminExifController extends GalleryController {
 
 	} else if (isset($form['action']['resetSummary'])) {
 	    $ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['restored']['summary'] = 1;
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'exif.AdminExif';
 	} else if (isset($form['action']['removeFromDetailed'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -154,8 +162,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_DETAILED, $newProperties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $newProperties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -167,15 +175,15 @@ class AdminExifController extends GalleryController {
 	    }
 	} else if (isset($form['action']['resetDetailed'])) {
 	    $ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['restored']['detailed'] = 1;
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'exif.AdminExif';
 	} else if (isset($form['action']['moveUpSummary'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -197,8 +205,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -209,8 +217,8 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][summary][missing]';
 	    }
 	} else if (isset($form['action']['moveDownSummary'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_SUMMARY);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -232,8 +240,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_SUMMARY, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_SUMMARY, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -244,8 +252,8 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][summary][missing]';
 	    }
 	} else if (isset($form['action']['moveUpDetailed'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -267,8 +275,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -279,8 +287,8 @@ class AdminExifController extends GalleryController {
 		$error[] = 'form[error][detailed][missing]';
 	    }
 	} else if (isset($form['action']['moveDownDetailed'])) {
-	    list ($ret, $properties) = ExifHelper::getProperties(EXIF_DETAILED);
-	    if ($ret) {
+	    list ($ret, $properties) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -302,8 +310,8 @@ class AdminExifController extends GalleryController {
 		    }
 		}
 
-		$ret = ExifHelper::setProperties(EXIF_DETAILED, $properties);
-		if ($ret) {
+		$ret = ExifPropertiesMap::setProperties(EXIF_DETAILED, $properties);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -318,7 +326,7 @@ class AdminExifController extends GalleryController {
 			 (isset($form['item']['description']) ? EXIF_ITEM_DESCRIPTION : 0) |
 			 (isset($form['item']['keywords']) ? IPTC_ITEM_KEYWORDS : 0);
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'exif', 'addOption', $addOption);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['saved'] = 1;
@@ -335,14 +343,14 @@ class AdminExifController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
 /**
  * This view will prompt for general Gallery settings
  *
- * @package Exif
+ * @package GalleryCore
  * @subpackage UserInterface
  */
 class AdminExifView extends GalleryView {
@@ -351,15 +359,17 @@ class AdminExifView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
+	global $gallery;
 
 	$mode = GalleryUtilities::getRequestVariables('mode');
 
+	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'exif');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -368,7 +378,7 @@ class AdminExifView extends GalleryView {
 	    $form['formName'] = 'AdminExif';
 
 	    list ($ret, $addOption) = $module->getParameter('addOption');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $form['item'] = array('summary' => $addOption & EXIF_ITEM_SUMMARY,
@@ -381,8 +391,8 @@ class AdminExifView extends GalleryView {
 
 	/* Prepare the summary list */
 	$summaryList = array();
-	list ($ret, $tmp) = ExifHelper::getProperties(EXIF_SUMMARY);
-	if ($ret) {
+	list ($ret, $tmp) = ExifPropertiesMap::getProperties(EXIF_SUMMARY);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($tmp as $property) {
@@ -391,8 +401,8 @@ class AdminExifView extends GalleryView {
 
 	/* Prepare the detailed list */
 	$detailedList = array();
-	list ($ret, $tmp) = ExifHelper::getProperties(EXIF_DETAILED);
-	if ($ret) {
+	list ($ret, $tmp) = ExifPropertiesMap::getProperties(EXIF_DETAILED);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($tmp as $property) {
@@ -419,7 +429,7 @@ class AdminExifView extends GalleryView {
 	$template->setVariable('controller', 'exif.AdminExif');
 	$template->setVariable('AdminExif', $AdminExif);
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/exif/templates/AdminExif.tpl'));
     }
 }

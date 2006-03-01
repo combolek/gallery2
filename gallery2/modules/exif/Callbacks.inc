@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Exif
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class ExifCallbacks {
     /**
      */
@@ -32,22 +27,22 @@ class ExifCallbacks {
 
 	switch ($callback) {
 	case 'LoadExifInfo':
-	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    /* We only work on JPEG/raw data items */
+	    /* We only work on JPEG data items */
 	    if (!GalleryUtilities::isA($item, 'GalleryDataItem') ||
-		!preg_match('{^image/(p?jpeg(-cmyk)?|x-dcraw)$}', $item->getMimeType())) {
-		return null;
+		!preg_match('{^image/p?jpeg(-cmyk)?$}', $item->getMimeType())) {
+		return GalleryStatus::success();
 	    }
 
 	    /* Feed the file to exifer */
 	    list($ret, $path) = $item->fetchPath();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -67,7 +62,7 @@ class ExifCallbacks {
 	    }
 
 	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (empty($exifData)) {
@@ -76,23 +71,23 @@ class ExifCallbacks {
 		} else {
 		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
 		}
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$mode = null;
 	    }
 	    if (empty($exifData)) {
-		return null;
+		return GalleryStatus::success();
 	    }
 
 	    $block =& $smarty->_tpl_vars['block'];
 	    $block['exif']['LoadExifInfo']['exifData'] = $exifData;
 	    $block['exif']['LoadExifInfo']['mode'] = $mode;
 
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

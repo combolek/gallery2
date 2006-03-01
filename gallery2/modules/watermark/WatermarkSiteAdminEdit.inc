@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
 
 /**
  * @package Watermark
@@ -39,10 +39,10 @@ class WatermarkSiteAdminEditController extends GalleryController {
     function handleRequest($form) {
 	list ($ret, $results) = WatermarkHelper::handleEditRequest($form,
 	    'core.SiteAdmin', 'watermark.WatermarkSiteAdmin', 'watermark.WatermarkSiteAdminEdit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -57,10 +57,10 @@ class WatermarkSiteAdminEditView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	$ret = WatermarkHelper::loadEditTemplate($template, $form, 'WatermarkSiteAdminEdit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/watermark/templates/WatermarkSiteAdminEdit.tpl'));
     }
 }

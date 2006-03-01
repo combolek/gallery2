@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ class ExternalView extends GalleryView {
      * @see GalleryView::loadTemplate()
      */
     function renderImmediate($status, $error) {
-	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 	global $gallery;
 	$SlideShow = array();
 	$startId = null;
@@ -74,7 +74,7 @@ class ExternalView extends GalleryView {
 	    }
 	}
 
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
 	if (isset($this->_template)) {
 	    $template =& $this->_template;
 	} else {
@@ -82,7 +82,7 @@ class ExternalView extends GalleryView {
 	}
 
 	$ret = ImageBlockHelper::loadImageBlocks($template, $params);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -91,32 +91,23 @@ class ExternalView extends GalleryView {
 
 	    list ($ret, $imageframe) =
 		GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (isset($imageframe)) {
 		$ret = $imageframe->init($template, $frameIds);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
 
 	if ($template->hasVariable('ImageBlockData')) {
-	    $ImageBlockData =& $template->getVariableByReference('ImageBlockData');
-	    $ImageBlockData['forceFullUrl'] = 1;
-
 	    $template->setVariable('l10Domain', 'modules_imageblock');
-
-	    if (!headers_sent()) {
-		header("Content-type: text/html; charset=UTF-8");
-	    }
-
 	    $template->display('gallery:modules/imageblock/templates/ImageBlock.tpl');
 	}
-
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

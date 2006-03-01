@@ -1,15 +1,10 @@
 # $Id$
 
-/* Slideshow.inc */
-gettext("Slideshow") /* also in: module.inc */
-gettext("Slideshow for %s")
-
-/* module.inc */
+gettext("Slideshow")
 gettext("Display")
 gettext("View Slideshow")
 gettext("Path to an item (eg, /album/image.jpg.html)")
-
-/* templates/Header.tpl */
+gettext("Slideshow for %s")
 gettext("Blend")
 gettext("Blinds")
 gettext("Checkerboard")
@@ -26,8 +21,6 @@ gettext("Snow")
 gettext("Spiral")
 gettext("Stretch")
 gettext("RANDOM")
-
-/* templates/Slideshow.tpl */
 gettext("This album has no photos to show in a slideshow.")
 gettext("Back to Album View")
 gettext("Date: %s")

@@ -33,12 +33,12 @@
 	{elseif ($setting.type == 'single-select')}
 	  <select name="{g->formVar var="form[key][$settingKey]"}"
 		  onchange="changeSetting('{$settingKey}')">
-	    {html_options options=$setting.choices selected=$form.key.$settingKey}
+	    {html_options options=$setting.choices selected=$setting.value}
 	  </select>
 	{elseif ($setting.type == 'checkbox')}
-	  <input type="checkbox" onclick="changeSetting('{$settingKey}')"
+	  <input type="checkbox" onchange="changeSetting('{$settingKey}')"
 		 name="{g->formVar var="form[key][$settingKey]"}"
-	   {if !empty($form.key.$settingKey)}checked="checked"{/if}/>
+	   {if !empty($setting.value)}checked="checked"{/if}/>
 	{elseif ($setting.type == 'block-list')}
 	    <table>
 	      <tr>
@@ -146,7 +146,7 @@
 	       name="{g->formVar var="form[useGlobal][$settingKey]"}"
 	 {if (!isset($ItemEditTheme.globalParams.$settingKey))}
 	   disabled="disabled"
-	 {elseif (!empty($form.useGlobal.$settingKey))}
+	 {elseif ($setting.value == $ItemEditTheme.globalParams.$settingKey)}
 	   checked="checked"
 	 {/if}/>
       </td>
@@ -161,11 +161,6 @@
     {/if}
   {/foreach}
   </table>
-  {g->changeInDescendents module="theme"
-   text="Use these settings in all subalbums that use %s theme" arg1=$ItemEditTheme.theme.name}
-  <blockquote><p>
-    {g->text text="Note: to set the same theme for all subalbums, check the appropriate box in <b>Album</b> tab"}
-  </p></blockquote>
 {elseif !isset($ItemEditTheme.customTemplate)}
   <b> {g->text text="There are no settings for this theme"} </b>
 {/if}
@@ -208,7 +203,7 @@
 	inputWidget.value = savedValues[key];
       }
     }
-    if (inputWidget.type != 'checkbox') inputWidget.onchange();
+    inputWidget.onchange();
   }
 
   function changeSetting(key) {

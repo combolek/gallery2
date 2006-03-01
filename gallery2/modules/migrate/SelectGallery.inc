@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@
 /**
  * Required classes
  */
-GalleryCoreApi::requireOnce('modules/migrate/classes/Gallery1DataParser.class');
-GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/Gallery1DataParser.class');
+GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 /**
  * @version $Revision$ $Date$
@@ -44,9 +44,9 @@ class SelectGalleryController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	/* Verify that active user is an admin */
+	// Verify that active user is an admin
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -57,7 +57,7 @@ class SelectGalleryController extends GalleryController {
 	    if (empty($form['albumsPath'])) {
 		$error[] = 'form[error][albumsPath][missing]';
 	    } else {
-		$platform =& $gallery->getPlatform();
+		$platform = $gallery->getPlatform();
 		$slash = $platform->getDirectorySeparator();
 		$tmp = trim($form['albumsPath']);
 		if ($tmp[strlen($tmp)-1] != $slash) {
@@ -89,8 +89,9 @@ class SelectGalleryController extends GalleryController {
 		$redirect['albumsPath'] = $form['albumsPath'];
 	    }
 	} else if (isset($form['action']['deleteMap'])) {
-	    $ret = GalleryCoreApi::removeAllMapEntries('G1MigrateMap');
-	    if ($ret) {
+	    GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
+	    $ret = G1MigrateMap::removeAllMapEntries();
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -108,7 +109,7 @@ class SelectGalleryController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -137,7 +138,7 @@ class SelectGalleryView extends GalleryView {
 	}
 
 	list ($ret, $operations) = GalleryCoreApi::getToolkitOperations('image/jpeg');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -150,7 +151,7 @@ class SelectGalleryView extends GalleryView {
 	}
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -161,7 +162,7 @@ class SelectGalleryView extends GalleryView {
 
 	$template->setVariable('controller', 'migrate.SelectGallery');
 	$template->setVariable('SelectGallery', $SelectGallery);
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/migrate/templates/SelectGallery.tpl'));
     }
 }

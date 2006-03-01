@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,17 +35,19 @@ class RemoteSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 	    foreach (array('showItemAdd') as $key) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'remote', $key,
 						(isset($form[$key]) && $form[$key]) ? 1 : 0);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -57,7 +59,7 @@ class RemoteSiteAdminController extends GalleryController {
 			 'status' => $status,
 			 'error' => $error);
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -71,18 +73,13 @@ class RemoteSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	if (!isset($form['showItemAdd'])) {
 	    $form['showItemAdd'] = false;
 	}
 	if ($form['formName'] != 'RemoteSiteAdmin') {
 	    $form['formName'] = 'RemoteSiteAdmin';
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($params as $key => $value) {
@@ -91,7 +88,7 @@ class RemoteSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'remote.RemoteSiteAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/remote/templates/RemoteSiteAdmin.tpl'));
     }
 }

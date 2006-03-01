@@ -12,12 +12,9 @@
 <div class="gbBlock">
   <h3> {g->text text="Comment Preview"} </h3>
 
-  <div class="one-comment gcBorder2">
-    <h3> {$form.subject|markup} </h3>
-    <p class="comment">
-      {$form.comment|markup}
-    </p>
-  </div>
+  <h4> {$form.subject|markup} </h4>
+
+  {$form.comment|markup}
 </div>
 {/if}
 
@@ -73,11 +70,6 @@
     </div>
     {/if}
   </div>
-
-  {* Include validation plugins *}
-  {foreach from=$AddComment.plugins item=plugin}
-     {include file="gallery:`$plugin.file`" l10Domain=$plugin.l10Domain}
-  {/foreach}
 
   <div class="gbBlock gcBackground1">
     <input type="submit" class="inputTypeSubmit"

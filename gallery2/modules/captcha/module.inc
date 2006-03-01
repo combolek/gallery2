@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,19 +31,19 @@
  *
  * @package Captcha
  */
+
 class CaptchaModule extends GalleryModule {
 
     function CaptchaModule() {
 	global $gallery;
 	$this->setId('captcha');
 	$this->setName($gallery->i18n('Captcha'));
-	$this->setDescription($gallery->i18n('Prevents abuse by deterring automated bots with ' .
-					     'input that requires visual comprehension'));
-	$this->setVersion('1.1.0'); /* Update upgrade() function below too */
-	$this->setGroup('gallery', $gallery->i18n('Gallery'));
+	$this->setDescription($gallery->i18n('Prevents abuse by deterring automated bots with input that requires visual comprehension'));
+	$this->setVersion('1.0.0'); /* Update upgrade() function below too */
+	$this->setGroup('gallery', $this->translate('Gallery'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 1));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -51,19 +51,20 @@ class CaptchaModule extends GalleryModule {
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryValidationPlugin', 'CaptchaValidationPlugin', 'CaptchaValidationPlugin',
-	    'modules/captcha/classes/CaptchaValidationPlugin.inc', 'captcha', null);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'MaintenanceTask', 'ResetFailureCountsTask', 'ResetFailureCountsTask',
-	    'modules/captcha/classes/ResetFailureCountsTask.class', 'captcha', null);
-	if ($ret) {
+	    'ValidationPlugin', 'CaptchaValidationPlugin', 'CaptchaValidationPlugin',
+	    'modules/captcha/CaptchaValidationPlugin.inc', 'captcha', null);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
+    }
+
+    /**
+     * @see GalleryModule::isRecommendedDuringInstall()
+     */
+    function isRecommendedDuringInstall() {
+	return false;
     }
 
     /**
@@ -73,11 +74,6 @@ class CaptchaModule extends GalleryModule {
 
 	switch ($currentVersion) {
 	case '':
-	    /* Set some reasonable defaults */
-	    $ret = $this->setParameter('failedAttemptThreshold', 3);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
 	    break;
 
 	case '0.9.0':
@@ -85,29 +81,26 @@ class CaptchaModule extends GalleryModule {
 	case '0.9.1':
 	    /* Updated GalleryCoreApi requirement to 5.3 to use Gallery::getPhpVm() */
 	case '0.9.2':
-	    /* Updated GalleryCoreApi requirement to 6.0 */
+	    /*
+	     * Updated GalleryCoreApi requirement to 6.0 because we removed
+	     * GalleryUrlGenerator::getCookiePath()
+	     */
 	case '0.9.3':
 	case '0.9.4':
 	    /* Upgraded GalleryModule requirement to 1.0 */
 	case '0.9.5':
 	    /* Upgraded GalleryModule requirement to 2.0 */
 	case '0.9.6':
-	case '1.0.0':
-	    /* Renamed ValidationPlugin to GalleryValidationPlugin */
-	case '1.0.1':
-	    /* GalleryCoreApi 7.0 and GalleryModule 3.0 */
-	case '1.0.2':
-	    /* Updated GalleryValidationPlugin API */
 
 	case 'end of upgrade path':
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -116,27 +109,49 @@ class CaptchaModule extends GalleryModule {
     function autoConfigure() {
 	/* We need to perform a test before activating */
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, !$needsConfiguration);
+	return array(GalleryStatus::success(), !$needsConfiguration);
     }
 
     /**
      * @see GalleryModule::needsConfiguration()
      */
     function needsConfiguration() {
-	GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/captcha/classes/CaptchaHelper.class');
 	$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
-	return array(null, count($gdReport['fail']) > 0);
+	if (count($gdReport['fail']) > 0) {
+	    return array(GalleryStatus::success(), true);
+	} else {
+	    return array(GalleryStatus::success(), false);
+	}
+    }
+
+    /**
+     * @see GalleryModule::activate()
+     */
+    function activate($postActivationEvent=true) {
+	/* Set some reasonable defaults */
+	$ret = $this->setParameter('failedAttemptThreshold', 3);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), false);
+	}
+
+	list ($ret, $redirect) = parent::activate($postActivationEvent);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $redirect);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Captcha'),
 				 'view' => 'captcha.CaptchaSiteAdmin')));
     }

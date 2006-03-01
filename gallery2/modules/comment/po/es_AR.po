@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,6 +44,25 @@ msgid "Comments"
 msgstr "Comentarios"
 
 #, fuzzy
+msgid "Comment Module"
+msgstr "Comentario: "
+
+#, fuzzy
+msgid "Search comments"
+msgstr "[comment] Agregar comentarios"
+
+msgid "Subject"
+msgstr ""
+
+#, fuzzy
+msgid "Comment"
+msgstr "Comentario:"
+
+#, fuzzy
+msgid "Commenter"
+msgstr "De:"
+
+#, fuzzy
 msgid "User commenting system"
 msgstr "Comentarios"
 
@@ -67,39 +86,12 @@ msgid "[comment] All access"
 msgstr "[comment] Acceso total"
 
 #, fuzzy
-msgid "View Latest Comments"
-msgstr "Comentarios"
-
-#, fuzzy
 msgid "View Comments"
 msgstr "Comentarios"
 
 #, fuzzy, c-format
 msgid "Comments: %d"
 msgstr "Comentario: "
-
-#, fuzzy
-msgid "Guest Comments"
-msgstr "Comentarios"
-
-#, fuzzy
-msgid "Comment Module"
-msgstr "Comentario: "
-
-#, fuzzy
-msgid "Search comments"
-msgstr "[comment] Agregar comentarios"
-
-msgid "Subject"
-msgstr ""
-
-#, fuzzy
-msgid "Comment"
-msgstr "Comentario:"
-
-#, fuzzy
-msgid "Commenter"
-msgstr "De:"
 
 #, fuzzy
 msgid "Comment Preview"
@@ -166,26 +158,6 @@ msgstr "[comment] Borrar comentarios"
 msgid "Comment modified successfully"
 msgstr ""
 
-#, fuzzy
-msgid "Comments Settings"
-msgstr "Comentarios"
-
-#, fuzzy
-msgid "Settings saved successfully"
-msgstr "[comment] Borrar comentarios"
-
-msgid "Show link for Latest Comments:"
-msgstr ""
-
-msgid "Number of comments on Latest Comments page:"
-msgstr ""
-
-msgid "Invalid value"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
 msgid "Delete this comment?"
 msgstr "Borrar este comentario?"
 
@@ -229,10 +201,6 @@ msgstr "Tiene que ingresar una fecha"
 #, fuzzy
 msgid "You must enter a comment"
 msgstr "Tiene que ingresar una fecha"
-
-#, fuzzy
-msgid "Latest Comments"
-msgstr "Comentarios"
 
 msgid "Comment changed successfully"
 msgstr ""

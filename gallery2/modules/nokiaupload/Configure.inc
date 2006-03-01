@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,11 +35,11 @@ class ConfigureController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
-	GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -58,7 +58,7 @@ class ConfigureController extends GalleryController {
 
 		/* Create group for the mobile users. */
 		list ($ret, $groupId) = ImageUploadHelper::createMobileUserGroup($form['group']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if ($ret->getErrorCode() & ERROR_COLLISION) {
 			$error[] = 'form[error][group][duplicate]';
 		    } else {
@@ -69,11 +69,11 @@ class ConfigureController extends GalleryController {
 		if (empty($error)) {
 		    list ($ret, $albumId) =
 			ImageUploadHelper::createUploadAlbum($form['album'], $form['parent']);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $ret = ImageUploadHelper::setAlbumPermissions($albumId, $groupId);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -92,7 +92,7 @@ class ConfigureController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -109,7 +109,7 @@ class ConfigureView extends GalleryView {
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -123,11 +123,11 @@ class ConfigureView extends GalleryView {
 
 	list ($ret, $albumIds) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$albumTree = GalleryUtilities::createAlbumTree($albums);
@@ -136,7 +136,7 @@ class ConfigureView extends GalleryView {
 	$template->setVariable('NokiaUploadConfigure', $Configure);
 	$template->setVariable('controller', 'nokiaupload.Configure');
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/nokiaupload/templates/Configure.tpl'));
     }
 }

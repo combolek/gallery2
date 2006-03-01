@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,11 +38,7 @@ class CreateConfigFileStep extends InstallStep {
 	$configFilePath = $configDir . '/config.php';
 	if (file_exists($configFilePath) && !is_writeable($configFilePath)) {
 	    /* The file exists but we can't write to it */
-	    $templateData['error'] = sprintf(
-		_('Unable to write to the <b>config.php</b> configuration file in your %s ' .
-			  'directory.  Please change its permissions.  If you\'re on' .
-			  'Unix you can do <i>chmod 666 config.php</i> to fix this.'),
-			'<tt>' . basename($configDir) . '</tt>');
+	    $templateData['error'] = sprintf(_('Unable to write to the <b>config.php</b> configuration file in your <tt>%s</tt> directory.  Please change its permissions.  If you\'re on Unix you can do <i>chmod 666 config.php</i> to fix this.'), basename($configDir));
 	    $this->setInError(true);
 	    $templateData['bodyFile'] = 'CreateConfigFileInstructions.html';
 	    $templateData['galleryDir'] = basename($configDir);
@@ -55,7 +51,7 @@ class CreateConfigFileStep extends InstallStep {
 	    if (!$freshInstall) {
 		/* We are reusing database tables, it's not a fresh install */
 		list ($versionStatus, $upgradeRecommended, $versions) = $this->_versionCheck();
-		if (!$versionStatus && file_exists($configFilePath)) {
+		if (!$versionStatus) {
 		    if ($upgradeRecommended) {
 			/*
 			 * Only write config.php, if it's empty. Else, the upgrader would
@@ -86,9 +82,7 @@ class CreateConfigFileStep extends InstallStep {
 			    $configDir);
 		    } else {
 			$templateData['error'] = sprintf(
-			    _('The config.php file exists but is not writeable.  If your server ' .
-			      'is Windows, you may have to disable file sharing for config.php ' .
-			      'and set its permissions manually.'),
+			    _('The config.php file exists but is not writeable.  If your server is Windows, you may have to disable file sharing for config.php and set its permissions manually.'),
 			    $configDir);
 		    }
 		}
@@ -121,8 +115,8 @@ class CreateConfigFileStep extends InstallStep {
 	global $galleryStub;
 	$baseDir = dirname(dirname(dirname(__FILE__)));
 	require_once($baseDir . '/modules/core/classes/GalleryUrlGenerator.class');
-	$baseUrl = getBaseUrl() . preg_replace('{install/' . INDEX_PHP . '\?.*}', '',
-					       GalleryUrlGenerator::getCurrentRequestUri());
+	$baseUrl = GalleryUrlGenerator::makeUrl(preg_replace('{install/' . INDEX_PHP . '\?.*}', '',
+						GalleryUrlGenerator::getCurrentRequestUri()));
 
 	$addslashes = array('\\' => '\\\\', "'" => "\\'");
 	$newStoreConfig = $galleryStub->getConfig('storage.config');

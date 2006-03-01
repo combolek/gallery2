@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * @author Jerome Rannikko <jeromer@hotpop.com>
  */
 
-GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
 
 /**
  * This controller implements the Nokia Image Uploader API's 'Retrieve Directory Listing' command.
@@ -45,7 +45,7 @@ class DirectoryListingController extends GalleryController {
 	$results['status'] = ImageUploadHelper::getDirectoryListing();
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -76,7 +76,7 @@ class DirectoryListingView extends GalleryView {
 	$gallery->debug_r($status);
 
 	if ($status['success'] == NOKIAUPLOAD_ERR_NOERR && !isset($status['albums'])) {
-	    $status['success'] = NOKIAUPLOAD_ERR_UNKNOWN;
+		$status['success'] = NOKIAUPLOAD_ERR_UNKNOWN;
 	}
 
 	$reply = array($status['success'] . "\r\n");
@@ -92,7 +92,7 @@ class DirectoryListingView extends GalleryView {
 	    }
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$reply[] = "Couldn't fetch directory list.\r\n";
 	    } else {
 		$reply[] = $module->translate("Couldn't fetch directory list.") . "\r\n";
@@ -102,11 +102,10 @@ class DirectoryListingView extends GalleryView {
 	$reply = implode('', $reply);
 	$gallery->debug("Sending:\n$reply");
 
-	header("Content-type: text/plain; charset=UTF-8");
 	header('Content-Length: ' . strlen($reply));
 	print $reply;
 
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

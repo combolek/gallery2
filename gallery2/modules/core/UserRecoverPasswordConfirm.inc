@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,8 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::requireOnce(
-    'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRecoverPasswordMap.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
 
 /**
  * This controller will handle the recovery of passwords that have
@@ -38,6 +38,26 @@ GalleryCoreApi::requireOnce(
  * @subpackage UserInterface
  */
 class UserRecoverPasswordConfirmController extends GalleryController {
+
+    /**
+     * ValidationPlugin instances to use when handling this request.  Only used by
+     * test code.
+     *
+     * @var array(pluginId => object ValidationPlugin) $_plugins
+     * @access private
+     */
+    var $_pluginInstances;
+
+    /**
+     * Tests can use this method to hardwire a specific set of plugin instances to use.
+     * This avoids situations where some of the option instances will do unpredictable
+     * things and derail the tests.
+     *
+     * @param array (pluginId => ValidationPlugin, ...)
+     */
+    function setPluginInstances($pluginInstances) {
+	$this->_pluginInstances = $pluginInstances;
+    }
 
     /**
      * @see GalleryController::handleRequest
@@ -67,7 +87,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 	    /* No errors?  Check the DB for the request and then update the user's password */
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		/*
@@ -78,7 +98,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 		 */
 		list ($ret, $requestExpires) = UserRecoverPasswordHelper_simple::getRequestExpires(
 		    $form['userName'], $form['authString']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -91,33 +111,32 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 			$error[] = 'form[error][request][tooOld]';
 		    } else if (!empty($user)) {
 			list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($user->getId());
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			list ($ret, $user) = $user->refresh();
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$user->changePassword($form['password1']);
 
 			$ret = $user->save();
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$ret = GalleryCoreApi::releaseLocks($lockId);
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
 			$status['passwordRecovered'] = 1;
 		    }
-		    $ret = GalleryCoreApi::removeMapEntry(
-			'GalleryRecoverPasswordMap',
-			array('userName' => $user->getUserName()));
-		    if ($ret) {
+		    $ret = GalleryRecoverPasswordMap::removeMapEntry(
+			    array('userName' => $user->getUserName()));
+		    if ($ret->isError()) {
 			return array($ret, null);
 		    }
 		} else {
@@ -141,7 +160,7 @@ class UserRecoverPasswordConfirmController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -172,19 +191,19 @@ class UserRecoverPasswordConfirmView extends GalleryView {
 
 	list ($ret, $requestExpires) = UserRecoverPasswordHelper_simple::getRequestExpires(
 	    $form['userName'], $form['authString']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($requestExpires)) {
-	    return array(null,
+	    return array(GalleryStatus::success(),
 			 array('redirect' => array('view' => 'core.UserAdmin',
 						   'subView' => 'core.UserRecoverPassword')));
 	} else {
 	    $UserRecoverPasswordConfirm = array();
 	    $template->setVariable('UserRecoverPasswordConfirm', $UserRecoverPasswordConfirm);
 	    $template->setVariable('controller', 'core.UserRecoverPasswordConfirm');
-	    return array(null,
+	    return array(GalleryStatus::success(),
 			 array('body' => 'modules/core/templates/UserRecoverPasswordConfirm.tpl'));
 	}
     }

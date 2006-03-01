@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryToolkit.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryToolkit.class');
 
 /**
  * A Ffmpeg version of GalleryToolkit
@@ -53,7 +53,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	switch($propertyName) {
 	case 'dimensions':
 	    list ($ret, $width, $height) = $this->_getMovieDimensions($mimeType, $sourceFilename);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__),
 			     null);
 	    }
@@ -61,9 +61,8 @@ class FfmpegToolkit extends GalleryToolkit {
 	    break;
 
 	case 'dimensions-and-duration':
-	    list ($ret, $width, $height, $duration) =
-		$this->_getMovieDimensions($mimeType, $sourceFilename);
-	    if ($ret) {
+	    list ($ret, $width, $height, $duration) = $this->_getMovieDimensions($mimeType, $sourceFilename);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__),
 			     null);
 	    }
@@ -71,12 +70,12 @@ class FfmpegToolkit extends GalleryToolkit {
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED,
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
 					      __FILE__, __LINE__),
 			 null);
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -85,32 +84,32 @@ class FfmpegToolkit extends GalleryToolkit {
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	$tmpDir = $gallery->getConfig('data.gallery.tmp');
 	$tmpFilename = $platform->tempnam($tmpDir, 'fmpg_');
 	if (empty($tmpFilename)) {
 	    /* This can happen if the $tmpDir path is bad */
-	    return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__), null, null);
+	    return array(GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__), null, null);
 	}
 
 	$outputMimeType = null;
 	switch($operationName) {
 	case 'convert-to-image/jpeg':
-	    $args = array('-f', 'mjpeg', '-t', '0.001', '-y', $tmpFilename);
+	    $args = array('-f', 'singlejpeg', '-t', '0.001', '-y', $tmpFilename);
 	    if (isset($context['ffmpeg.offset'])) {
 		array_unshift($args, '-ss', $context['ffmpeg.offset']);
 		unset($context['ffmpeg.offset']);
 	    }
 	    list ($ret, $results) = $this->_ffmpeg($sourceFilename, $args);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $success = $platform->rename($tmpFilename, $destFilename);
 	    @$platform->unlink($tmpFilename);
 	    if (!$success) {
-		return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 			    "Failed renaming $tmpFilename -> $destFilename"), null, null);
 	    }
 	    $outputMimeType = 'image/jpeg';
@@ -121,7 +120,7 @@ class FfmpegToolkit extends GalleryToolkit {
 	    $context['ffmpeg.offset'] = $parameters[0];
 	    if ($sourceFilename != $destFilename) {
 		if (!$platform->copy($sourceFilename, $destFilename)) {
-		    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 				"Failed copying $sourceFilename -> $destFilename"), null, null);
 		}
 	    }
@@ -129,11 +128,11 @@ class FfmpegToolkit extends GalleryToolkit {
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__,
 					      "$operationName $mimeType"), null, null);
 	}
 
-	return array(null, $outputMimeType, $context);
+	return array(GalleryStatus::success(), $outputMimeType, $context);
     }
 
     function _getMovieDimensions($mimeType, $sourceFilename) {
@@ -142,11 +141,10 @@ class FfmpegToolkit extends GalleryToolkit {
 	list ($ret, $results, $stderr) = $this->_ffmpeg($sourceFilename, array('-vstats'));
 
 	/*
-	 * Ffmpeg 0.4.6 demands an output file and we're not providing one, so we'll always
-	 * get a toolkit failure here.  :-/  Ignore it for now, but fail if we don't get
-	 * the output we want.
+	 * Ffmpeg 0.4.6 demands an output file and we're not providing one, so we'll always get a toolkit
+	 * failure here.  :-/  Ignore it for now, but fail if we don't get the output we want.
 	 */
-	if ($ret && !($ret->getErrorCode() & ERROR_TOOLKIT_FAILURE)) {
+	if ($ret->isError() && !($ret->getErrorCode() & ERROR_TOOLKIT_FAILURE)) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 
@@ -176,9 +174,9 @@ class FfmpegToolkit extends GalleryToolkit {
 	    }
 	}
 	if ($successfulRun) {
-	    return array(null, $width, $height, $duration);
+	    return array(GalleryStatus::success(), $width, $height, $duration);
 	} else {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__),
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__),
 			 null, null, null);
 	}
     }
@@ -192,12 +190,8 @@ class FfmpegToolkit extends GalleryToolkit {
      */
     function _ffmpeg($sourceFilename, $args) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
-
 	list ($ret, $ffmpegPath) = GalleryCoreApi::getPluginParameter('module', 'ffmpeg', 'path');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
+	$platform = $gallery->getPlatform();
 
 	/*
 	 * Get error output back, because ffmpeg 0.4.6 returns some useful info
@@ -208,11 +202,10 @@ class FfmpegToolkit extends GalleryToolkit {
 
 	if (!$success) {
 	    /* Return the output even if there's a failure */
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__),
-			 $results, $error);
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), $results, $error);
 	}
 
-	return array(null, $results, $error);
+	return array(GalleryStatus::success(), $results, $error);
     }
 }
 ?>

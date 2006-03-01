@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +40,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('watermark');
 	$this->setName($gallery->i18n('Watermark'));
 	$this->setDescription($gallery->i18n('Watermark your images'));
-	$this->setVersion('1.0.3'); /* Update upgrade() too */
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setVersion('1.0.0'); /* Update upgrade() too */
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews|getUserAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -53,7 +53,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
     function upgrade($currentVersion) {
 	global $gallery;
 
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$watermarkDir =
 	    $gallery->getConfig('data.gallery.plugins_data') . 'modules/watermark' . $slash;
@@ -67,17 +67,10 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    /* Initial install */
 	    list ($success) = GalleryUtilities::guaranteeDirExists($watermarkDir);
 	    if (!$success) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					    "Unable to create directory: $watermarkDir");
 	    }
 	    break;
-
-	case '0.3':
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->configureStore($this->getId(), array('WatermarkImage:1.0'));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
 
 	case '0.8.1':
 	case '0.8.2':
@@ -93,13 +86,13 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    $oldDir = $gallery->getConfig('data.gallery.base') . 'watermark' . $slash;
 	    if ($platform->is_dir($oldDir)) {
 		if (!$platform->rename($oldDir, $watermarkDir)) {
-		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to move $oldDir to $watermarkDir");
 		}
 	    } else {
 		list ($success) = GalleryUtilities::guaranteeDirExists($watermarkDir);
 		if (!$success) {
-		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+		    return GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 						"Unable to create $watermarkDir");
 		}
 	    }
@@ -118,7 +111,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    while (true) {
 		list ($ret, $searchResults) =
 		    $gallery->search($query, array(), array('limit' => array('count' => 50)));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -128,16 +121,16 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 		}
 
 		while ($result = $searchResults->nextResult()) {
-		    $ids[] = (int)$result[0];
+		    $ids[] = $result[0];
 		}
 
 		list ($ret, $lock) = GalleryCoreApi::acquireWriteLock($ids);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $derivatives) = GalleryCoreApi::loadEntitiesById($ids);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lock);
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
@@ -149,14 +142,14 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 				    $derivative->getPostFilterOperations()));
 
 		    $ret = $derivative->save();
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lock);
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lock);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
@@ -167,9 +160,6 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	case '0.9.5':
 	case '0.9.6':
 	case '0.9.7':
-	case '1.0.0':
-	case '1.0.1':
-	case '1.0.2':
 
 	case 'end of upgrade path':
 	    /*
@@ -179,41 +169,11 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
+	    return GalleryStatus::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
 					sprintf('Unknown module version %s', $currentVersion));
 	}
 
-	return null;
-    }
-
-    /**
-     * @see GalleryModule::uninstall()
-     */
-    function uninstall() {
-	global $gallery;
-	GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-
-	/* Delete all watermarks and remove uses of them */
-	$query = '
-	SELECT [WatermarkImage::id]
-	FROM [WatermarkImage]
-	';
-	list ($ret, $searchResults) = $gallery->search($query);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	while ($result = $searchResults->nextResult()) {
-	    list ($ret) = WatermarkHelper::deleteWatermarkImageById((int)$result[0], true);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	$ret = parent::uninstall();
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -223,25 +183,25 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryEntity', 'WatermarkImage', 'WatermarkImage',
 	    'modules/watermark/classes/WatermarkImage.class', 'watermark', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'ItemEditWatermark', 'ItemEditWatermark',
 	    'modules/watermark/ItemEditWatermark.inc', 'watermark', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddOption', 'WatermarkOption', 'WatermarkOption',
 	    'modules/watermark/WatermarkOption.inc', 'watermark', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -252,10 +212,25 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
+     * @see GalleryModule::isRecommendedDuringInstall
+     */
+    function isRecommendedDuringInstall() {
+	return false;
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure
+     */
+    function autoConfigure() {
+	/* We don't require any special configuration */
+	return array(GalleryStatus::success(), true);
+    }
+
+    /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Watermarks'),
 				 'view' => 'watermark.WatermarkSiteAdmin')));
     }
@@ -268,7 +243,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -278,7 +253,7 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 			     'view' => 'watermark.UserWatermarks');
 	}
 
-	return array(null, $views);
+	return array(GalleryStatus::success(), $views);
     }
 
     /**
@@ -291,23 +266,23 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	if ($event->getEventName() == 'GalleryEntity::delete') {
 	    $entity = $event->getEntity();
 	    if (GalleryUtilities::isA($entity, 'GalleryUser')) {
-		GalleryCoreApi::requireOnce(
+		GalleryCoreApi::relativeRequireOnce(
 		    'modules/watermark/classes/WatermarkHelper.class');
 		list ($ret, $watermarkIds) =
 		    WatermarkHelper::fetchWatermarkIdsByOwnerId($entity->getId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		foreach ($watermarkIds as $id) {
 		    list ($ret) = WatermarkHelper::deleteWatermarkImageById($id, true);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
 	}
-	return array(null, null);
+	return array(GalleryStatus::success(), null);
     }
 
     /**
@@ -317,17 +292,13 @@ class WatermarkModule extends GalleryModule /* and GalleryEventListener */ {
 	return array(
 	    array( 'comment' => $this->translate('Watermark hotlinked images'),
 		   'pattern' => '.',
-		   'parser' => 'preGallery',
 		   'restrict' => array('view' => 'core.DownloadItem',
 				       'itemId' => '([0-9]+)'),
 		   'queryString' => array('view' => 'watermark.DownloadItem',
 					  'itemId' => '%1'),
 		   'flags' => array(),
 		   'locked' => 1,
-		   'exemptReferer' => 1,
-		   'help' => $this->translate(
-		       'Apply watermark to images downloaded from outside your Gallery. Select ' .
-		       'which watermark to use in Watermark Site Admin.')
+		   'help' => $this->translate('Apply watermark to images downloaded from outside your Gallery. Select which watermark to use in Watermark Site Admin.')
 		 )
 	    );
     }

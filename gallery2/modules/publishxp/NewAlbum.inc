@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
  * is redirected back to the select album page after creating the album with
  * the newly created album automatically selected.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -37,8 +37,10 @@ class NewAlbumController extends GalleryController {
      */
     function handleRequest(&$form) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
-	$results = $error = $status = array();
+	$platform = $gallery->getPlatform();
+	$results = array();
+	$error = array();
+	$status = array();
 
 	if (isset($form['action']['newAlbum'])) {
 	    /* Now check the value of name and title */
@@ -54,14 +56,14 @@ class NewAlbumController extends GalleryController {
 		list($ret, $newAlbum) = GalleryCoreApi::createAlbum(
                     $form['parentId'], $form['pathComponent'], $form['title'],
 		    $form['summary'], $form['description'], null);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if (empty($error)) {
 		    /* Give the creator all permissions on the new album */
 		    $ret = GalleryCoreApi::addUserPermission(
 			$newAlbum->getId(), $newAlbum->getOwnerId(), 'core.all', false);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $redirect['view'] = 'publishxp.SelectAlbum';
@@ -77,7 +79,7 @@ class NewAlbumController extends GalleryController {
 	}
 	$results['status'] = $status;
 	$results['error'] = $error;
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -89,8 +91,9 @@ class NewAlbumController extends GalleryController {
  * is redirected back to the select album page after creating the album with
  * the newly created album automatically selected.
  *
+ * @version $Id$
  * @package PublishXp
- * @subpackage UserInterface
+ * @author Timothy Webb <tiwebb@cisco.com>
  */
 class NewAlbumView extends GalleryView {
     /**
@@ -102,7 +105,7 @@ class NewAlbumView extends GalleryView {
 	    $form['formName'] = 'NewAlbum';
 	    $parentId = GalleryUtilities::getRequestVariables('parentId');
 	    if (empty($parentId)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    $form['parentId'] = $parentId;
@@ -114,24 +117,24 @@ class NewAlbumView extends GalleryView {
 	}
 
 	$ret = GalleryCoreApi::assertHasItemPermission($form['parentId'], 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($form['parentId']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load the item's parents */
 	list($ret, $parents) = GalleryCoreApi::fetchParents($parent, 'core.view');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	for ($i = 0; $i < sizeof($parents); $i ++) {
-	    $parents[$i] = (array)$parents[$i];
+	    $parents[$i] = $parents[$i]->getMemberData();
 	}
-	$parents[] = (array)$parent;
+	$parents[] = $parent->getMemberData();
 
 	$NewAlbum = array();
 	$NewAlbum['parents'] = $parents;
@@ -139,10 +142,8 @@ class NewAlbumView extends GalleryView {
 	$template->setVariable('NewAlbum', $NewAlbum);
 	$template->setVariable('controller', 'publishxp.NewAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');
-
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/NewAlbum.tpl',
-			   'useFullScreen' => true));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/NewAlbum.tpl'));
     }
 }
 ?>

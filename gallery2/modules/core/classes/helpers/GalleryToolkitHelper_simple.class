@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,9 +53,7 @@ class GalleryToolkitHelper_simple {
 	global $gallery;
 
 	$cacheKey = "GalleryToolkitHelper::getToolkitByOperation($mimeType, $operationName)";
-	if (empty($mimeType) || empty($operationName)) {
-	    $toolkit = $outputMimeType = null;
-	} else if (!GalleryDataCache::containsKey($cacheKey)) {
+	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    $query = '
             SELECT
               [GalleryToolkitOperationMimeTypeMap::toolkitId],
@@ -64,8 +62,7 @@ class GalleryToolkitHelper_simple {
               [GalleryToolkitOperationMap],
               [GalleryToolkitOperationMimeTypeMap]
             WHERE
-              [GalleryToolkitOperationMap::name] = ' .
-		'[GalleryToolkitOperationMimeTypeMap::operationName]
+              [GalleryToolkitOperationMap::name] = [GalleryToolkitOperationMimeTypeMap::operationName]
               AND
               [GalleryToolkitOperationMimeTypeMap::mimeType] = ?
               AND
@@ -75,8 +72,8 @@ class GalleryToolkitHelper_simple {
             ';
 
 	    list ($ret, $searchResults) = 
-		$gallery->search($query, array((string)$mimeType, (string)$operationName));
-	    if ($ret) {
+		$gallery->search($query, array($mimeType, $operationName));
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
@@ -88,7 +85,7 @@ class GalleryToolkitHelper_simple {
 
 		list ($ret, $toolkit) =
 		    GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $toolkitId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
@@ -101,7 +98,7 @@ class GalleryToolkitHelper_simple {
 	    list ($toolkit, $outputMimeType) = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(null, $toolkit, $outputMimeType);
+	return array(GalleryStatus::success(), $toolkit, $outputMimeType);
     }
 
     /**
@@ -120,14 +117,14 @@ class GalleryToolkitHelper_simple {
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($ret, $toolkits) = 
 		GalleryToolkitHelper_simple::getToolkitsByProperty($mimeType, $propertyName);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $toolkit = $toolkits[0];
 	} else {
 	    $toolkit = GalleryDataCache::get($cacheKey);
 	}
-	return array(null, $toolkit);
+	return array(GalleryStatus::success(), $toolkit);
     }
 
     /**
@@ -144,9 +141,7 @@ class GalleryToolkitHelper_simple {
 	global $gallery;
 
 	$cacheKey = "GalleryToolkitHelper::getToolkitsByProperty($mimeType, $propertyName)";
-	if (empty($mimeType) || empty($propertyName)) {
-	    $toolkits = null;
-	} else if (!GalleryDataCache::containsKey($cacheKey)) {
+	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    $query = '
             SELECT
               [GalleryToolkitPropertyMimeTypeMap::toolkitId]
@@ -162,8 +157,8 @@ class GalleryToolkitHelper_simple {
             ';
 
 	    list ($ret, $searchResults) =
-		$gallery->search($query, array((string)$mimeType, (string)$propertyName));
-	    if ($ret) {
+		$gallery->search($query, array($mimeType, $propertyName));
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -171,7 +166,7 @@ class GalleryToolkitHelper_simple {
 	    while ($result = $searchResults->nextResult()) {
 		list ($ret, $toolkit) =
 		    GalleryCoreApi::newFactoryInstanceById('GalleryToolkit', $result[0]);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$toolkits[] = $toolkit;
@@ -181,7 +176,7 @@ class GalleryToolkitHelper_simple {
 	    $toolkits = GalleryDataCache::get($cacheKey);
 	}
 
-	return array(null, $toolkits);
+	return array(GalleryStatus::success(), $toolkits);
     }
 
     /**
@@ -205,18 +200,18 @@ class GalleryToolkitHelper_simple {
 		[GalleryToolkitOperationMimeTypeMap::priority] <= 40';
 
 	list ($ret, $results) = $gallery->search($query);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($result = $results->nextResult()) {
-	    $priority = (int)$result[0];
+	    $priority = $result[0];
 	}
 	if (empty($priority)) {
 	    $priority = 20;
 	}
 
-	return array(null, $priority);
+	return array(GalleryStatus::success(), $priority);
     }
 
     /**
@@ -238,8 +233,8 @@ class GalleryToolkitHelper_simple {
 	     WHERE 
 		[GalleryToolkitOperationMimeTypeMap::toolkitId] = ?';
 
-	list ($ret, $results) = $gallery->search($query, array((string)$toolkitId));
-	if ($ret) {
+	list ($ret, $results) = $gallery->search($query, array($toolkitId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -250,7 +245,7 @@ class GalleryToolkitHelper_simple {
 	    $priority = null;
 	}
 
-	return array(null, $priority);
+	return array(GalleryStatus::success(), $priority);
     }
 
 }

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@
 /**
  * Required classes
  */
-GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteProperties.class');
-GalleryCoreApi::requireOnce('modules/remote/classes/GalleryRemoteConstants.class');
+GalleryCoreApi::relativeRequireOnce('modules/remote/classes/GalleryRemoteProperties.class');
+GalleryCoreApi::relativeRequireOnce('modules/remote/classes/GalleryRemoteConstants.class');
 
 /**
  * This controller fields requests from Gallery Remote and perform any required changes
@@ -61,21 +61,13 @@ class GalleryRemoteController extends GalleryController {
     }
 
     /**
-     * @see GalleryController::isAllowedInEmbedOnly()
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
      * @see GalleryController::handleRequest()
      */
     function handleRequest($form) {
 	global $gallery;
 
-	$start = array_sum(explode(' ', microtime()));
-
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	$response = new GalleryRemoteProperties();
 	$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
 
@@ -83,28 +75,21 @@ class GalleryRemoteController extends GalleryController {
 	    switch ($form['cmd']) {
 	    case 'login':
 		$ret = $this->login($form, $response);
-		if ($ret) {
-		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
-		}
-		break;
-
-	    case 'fetch-albums':
-		$ret = $this->fetchAlbums(false, $form, $response);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
 		break;
 
 	    case 'fetch-albums-prune':
-		$ret = $this->fetchAlbums(true, $form, $response);
-		if ($ret) {
+		$ret = $this->fetchAlbums($form, $response);
+		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
 		break;
 
 	    case 'add-item':
 		$ret = $this->addDataItem($form, $response);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $response->setProperty('status', $grStatusCodes['UPLOAD_PHOTO_FAIL']);
 		    $response->setProperty('status_text',
 			sprintf("Upload failed: '%s'.", $ret->getErrorMessage()));
@@ -115,35 +100,21 @@ class GalleryRemoteController extends GalleryController {
 
 	    case 'new-album':
 		$ret = $this->newAlbum($form, $response);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
 		break;
 
 	    case 'fetch-album-images':
 		$ret = $this->fetchAlbumImages($form, $response);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
 		break;
 
 	    case 'album-properties':
 		$ret = $this->albumProperties($form, $response);
-		if ($ret) {
-		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
-		}
-		break;
-
-	    case 'increment-view-count':
-		$ret = $this->incrementViewCount($form, $response);
-		if ($ret) {
-		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
-		}
-		break;
-
-	    case 'image-properties':
-		$ret = $this->imageProperties($form, $response);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $status['controllerError'] = $ret->wrap(__FILE__, __LINE__);
 		}
 		break;
@@ -170,15 +141,12 @@ class GalleryRemoteController extends GalleryController {
 	    $response->setProperty('debug_user', 'error getting user');
 	}
 
-	$end = array_sum(explode(' ', microtime()));
-	$response->setProperty('debug_time', round($end - $start, 3).'s');
-
 	$status['controllerResponse'] = $response;
 
 	$results['delegate']['view'] = 'remote.GalleryRemote';
 	$results['status'] = $status;
 	$results['error'] = $error;
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -197,7 +165,7 @@ class GalleryRemoteController extends GalleryController {
 	/* If they don't provide a username, try the anonymous user */
 	if (!empty($form['uname'])) {
 	    list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['uname']);
-	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+	    if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -207,23 +175,14 @@ class GalleryRemoteController extends GalleryController {
 		$gallery->setActiveUser($user);
 		$response->setProperty('server_version',
 		    sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN']));
-
-		$response->setProperty('debug_core_version',
-		    implode(',', GalleryCoreApi::getApiVersion()));
-
-		list ($ret, $version) =
-		    GalleryCoreApi::getPluginParameter('module', 'remote', '_version');
-		/* don't fail on error */
-		$response->setProperty('debug_module_version', $version);
-
 		$response->setProperty('status', $grStatusCodes['SUCCESS']);
 		$response->setProperty('status_text', 'Login successful.');
-		return null;
+		return GalleryStatus::success();
 	    } else {
 		/* login unsuccessful */
 		$response->setProperty('status', $grStatusCodes['PASSWORD_WRONG']);
 		$response->setProperty('status_text', 'Password incorrect.');
-		return null;
+		return GalleryStatus::success();
 	    }
 	} else {
 	    if ($gallery->getActiveUser()) {
@@ -232,17 +191,17 @@ class GalleryRemoteController extends GalleryController {
 		    sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN']));
 		$response->setProperty('status', $grStatusCodes['LOGIN_MISSING']);
 		$response->setProperty('status_text', 'Login parameters not found.');
-		return null;
+		return GalleryStatus::success();
 	    } else {
 		/* They're logged in as the guest account */
 		list ($ret, $anonymousUserId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -253,7 +212,7 @@ class GalleryRemoteController extends GalleryController {
 		    sprintf('%d.%d', $grVersionCodes['MAJ'], $grVersionCodes['MIN']));
 		$response->setProperty('status', $grStatusCodes['SUCCESS']);
 		$response->setProperty('status_text', 'Login successful.');
-		return null;
+		return GalleryStatus::success();
 	    }
 	}
     }
@@ -261,119 +220,69 @@ class GalleryRemoteController extends GalleryController {
     /**
      * Load the album list into our response object
      *
-     * @param boolean prune albums where user can't upload to or create sub-albums
      * @param form array key value pairs from Gallery Remote
      * @param object GalleryRemoteProperties a reference to our response object
      * @return object GalleryStatus a status code
      */
-    function fetchAlbums($prune, $form, &$response) {
+    function fetchAlbums($form, &$response) {
 	global $gallery;
-
-	$start = array_sum(explode(' ', microtime()));
-	$fetchPermissions = empty($form['no_perms']);
 
 	$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
 
-	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	/* find and load the list of albums we can view */
+	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem');
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-
-	if ($prune) {
-	    /* find and load the list of albums we can add items to */
-	    list ($ret, $albumIds1) =
-		GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	    /* find and load the list of albums we can add albums to */
-	    list ($ret, $albumIds2) =
-		GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	    $albumIds = array_unique(array_merge($albumIds1, $albumIds2));
-	} else {
-	    /* find and load all albums that can be viewed */
-	    list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	$response->setProperty('debug_time_albumids',
-			       round(array_sum(explode(' ', microtime())) - $start, 3) . 's');
 
 	if (empty($albumIds)) {
 	    $response->setProperty('status', $grStatusCodes['SUCCESS']);
-	    $response->setProperty('album_count', 0);
 	    $response->setProperty('status_text', 'No viewable albums.');
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	/* Load all the entities */
-	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
-	if ($ret) {
+	/* Load the permissions for all those albums */
+	list ($ret, $permissionsTable) = GalleryCoreApi::fetchPermissionsForItems($albumIds);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	$response->setProperty('debug_time_entities',
-			       round(array_sum(explode(' ', microtime())) - $start, 3) . 's');
-
-	if ($prune) {
-	    /* Recursively load parents */
-	    list ($ret, $albums, $albumIds) =
-		$this->loadParentsToRoot($rootId, $albumIds, $albums, $albums);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
+	/* And load all the entities */
+	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
-
-	if ($fetchPermissions) {
-	    /* Load the permissions for all those albums */
-	    list ($ret, $permissionsTable) = GalleryCoreApi::fetchPermissionsForItems($albumIds);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	$response->setProperty('debug_time_permissions',
-			       round(array_sum(explode(' ', microtime())) - $start, 3) . 's');
 
 	/* Now add all the albums to the tree */
 	$i = 1;
 	foreach ($albums as $album) {
-	    /* Use id because path component is not unique */
+	    $perms = $permissionsTable[$album->getId()];
+
+	    /* Use id because path component is not unique (BM guessing at PLP's logic) */
 	    $response->setProperty('album.name.' . $i, $album->getId());
 	    $response->setProperty('album.title.' . $i, $album->getTitle());
 	    $response->setProperty('album.summary.' . $i, $album->getSummary());
 	    $response->setProperty('album.parent.' . $i, $album->getParentId());
-
-	    if ($fetchPermissions) {
-		$perms = $permissionsTable[$album->getId()];
-
-		$response->setProperty('album.perms.add.' . $i,
-				       isset($perms['core.addDataItem']) ? 'true' : 'false');
-		$response->setProperty('album.perms.write.' . $i,
-				       isset($perms['core.edit']) ? 'true' : 'false');
-		$response->setProperty('album.perms.del_alb.' . $i,
-				       isset($perms['core.delete']) ? 'true' : 'false');
-		$response->setProperty('album.perms.create_sub.' . $i,
-				       isset($perms['core.addAlbumItem']) ? 'true' : 'false');
-	    }
-
+	    $response->setProperty('album.perms.add.' . $i,
+				   isset($perms['core.addDataItem']) ? 'true' : 'false');
+	    $response->setProperty('album.perms.write.' . $i,
+				   isset($perms['core.edit']) ? 'true' : 'false');
+	    $response->setProperty('album.perms.del_alb.' . $i,
+				   isset($perms['core.delete']) ? 'true' : 'false');
+	    $response->setProperty('album.perms.create_sub.' . $i,
+				   isset($perms['core.addAlbumItem']) ? 'true' : 'false');
 	    $response->setProperty('album.info.extrafields.' . $i, "Summary,Description");
 
 	    $i++;
 	}
 
-	$response->setProperty('debug_time_generate',
-			       round(array_sum(explode(' ', microtime())) - $start, 3) . 's');
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret->isError()) {
+	    return $ret->wrap(__FILE__, __LINE__);
+	}
 
 	$perm = GalleryCoreApi::hasItemPermission($rootId, 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -382,36 +291,7 @@ class GalleryRemoteController extends GalleryController {
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Fetch-albums successful.');
 
-	return null;
-    }
-
-    function loadParentsToRoot($rootId, $albumIds, $albumsLoaded, $albumsToLoad) {
-	$parentIds = array();
-	foreach ($albumsToLoad as $album) {
-	    $parentId = $album->getParentId();
-	    if ($parentId && !in_array($parentId, $albumIds)) {
-		$parentIds[] = $parentId;
-		$albumIds[] = $parentId;
-	    }
-	}
-
-	if (!empty($parentIds)) {
-	    /* load all the new parents at once */
-	    list ($ret, $parents) = GalleryCoreApi::loadEntitiesById($parentIds);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-
-	    $albumsLoaded = array_merge($albumsLoaded, $parents);
-
-	    /* and recurse */
-	    list ($ret, $albumsLoaded, $albumIds) =
-		$this->loadParentsToRoot($rootId, $albumIds, $albumsLoaded, $parents);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-	}
-	return array(null, $albumsLoaded, $albumIds);
+	return GalleryStatus::success();
     }
 
     /**
@@ -430,7 +310,7 @@ class GalleryRemoteController extends GalleryController {
 
 	if (!empty($form['set_albumId'])) {
 	    list ($ret, $parentItem) = GalleryCoreApi::loadEntitiesById($form['set_albumId']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $parentId = $parentItem->getId();
@@ -438,31 +318,31 @@ class GalleryRemoteController extends GalleryController {
 	} else if (!empty($form['set_albumPath'])) {
 	    list ($ret, $parentId) =
 		GalleryCoreApi::fetchItemIdByPath(urldecode($form['set_albumName']));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else if (!empty($form['set_albumName'])) {
 	    /* todo: delete this G1/early G2 throwback */
 	    $parentId = $form['set_albumName'];
 	} else {
-	    return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
 	}
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($parentId, 'core.addDataItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($parentId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (empty($file['name'])) {
 	    $response->setProperty('status', $grStatusCodes['NO_FILENAME']);
 	    $response->setProperty('status_text', 'Filename not specified.');
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	/* Get the mime type from the upload info. */
@@ -479,7 +359,7 @@ class GalleryRemoteController extends GalleryController {
 	    empty($mimeExtensions)) {
 	    $extension = GalleryUtilities::getFileExtension($file['name']);
 	    list ($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -497,21 +377,21 @@ class GalleryRemoteController extends GalleryController {
 	list ($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 	    $file['tmp_name'], basename($itemName), $title,
 	    $summary, $description, $mimeType, $parentId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($this->_optionInstances)) {
 	    $optionInstances = $this->_optionInstances;
 	} else {
-	    GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
+	    GalleryCoreApi::relativeRequireOnce('modules/core/ItemAdd.inc');
 	    list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -520,7 +400,7 @@ class GalleryRemoteController extends GalleryController {
 	foreach ($optionInstances as $option) {
 	    list ($ret, $optionErrors, $optionWarnings) =
 		$option->handleRequestAfterAdd($form, array($newItem));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -534,9 +414,8 @@ class GalleryRemoteController extends GalleryController {
 
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Add photo successful.');
-	$response->setProperty('item_name', $newItem->getId());
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -555,7 +434,7 @@ class GalleryRemoteController extends GalleryController {
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -568,7 +447,7 @@ class GalleryRemoteController extends GalleryController {
 	list ($ret, $album) = GalleryCoreApi::createAlbum($itemId, $form['newAlbumName'],
 							  $form['newAlbumTitle'], null,
 							  $form['newAlbumDesc'], null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -578,7 +457,7 @@ class GalleryRemoteController extends GalleryController {
 						 $album->getOwnerId(),
 						 'core.all',
 						 false);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -586,7 +465,7 @@ class GalleryRemoteController extends GalleryController {
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'New-album successful.');
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -610,7 +489,7 @@ class GalleryRemoteController extends GalleryController {
 	    /* list the root album */
 	    list ($ret, $albumId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -618,7 +497,7 @@ class GalleryRemoteController extends GalleryController {
 	/* Get children of the album */
 	list ($ret, $ids) =
 	    GalleryCoreApi::fetchChildItemIdsWithPermission($albumId, 'core.view');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -628,23 +507,23 @@ class GalleryRemoteController extends GalleryController {
 	    $response->setProperty('status', $grStatusCodes['SUCCESS']);
 	    $response->setProperty(
 		'status_text', 'Fetch-album-images successful, but no items found.');
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Load the derivatives for all those items */
 	list ($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds($ids);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Precache item permissions */
 	$ret = GalleryCoreApi::studyPermissions($ids);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -652,7 +531,7 @@ class GalleryRemoteController extends GalleryController {
 	foreach ($items as $item) {
 	    if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
 		list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (isset($permissions['core.viewSource'])) {
@@ -710,7 +589,7 @@ class GalleryRemoteController extends GalleryController {
 
 		list ($ret, $extensions) =
 		    GalleryCoreApi::convertMimeToExtensions($item->getMimeType());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		if (isset($extensions) && isset($extensions[0])) {
@@ -738,7 +617,7 @@ class GalleryRemoteController extends GalleryController {
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Fetch-album-images successful.');
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -766,7 +645,7 @@ class GalleryRemoteController extends GalleryController {
 	    /* list the root album */
 	    list ($ret, $albumId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -775,7 +654,7 @@ class GalleryRemoteController extends GalleryController {
 
 	/* Find the derivative preferences for the album */
 	list ($ret, $derivatives) = GalleryCoreApi::fetchDerivativePreferencesForItem($albumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -795,7 +674,7 @@ class GalleryRemoteController extends GalleryController {
 
 	/* Is the sizelimit module active? */
 	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -803,7 +682,7 @@ class GalleryRemoteController extends GalleryController {
 	    /* If the sizelimit module is enabled, find the max size for the album */
 	    list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters(
 		'module', 'sizelimit', $albumId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -822,153 +701,7 @@ class GalleryRemoteController extends GalleryController {
 	$response->setProperty('status', $grStatusCodes['SUCCESS']);
 	$response->setProperty('status_text', 'Fetch-album-images successful.');
 
-	return null;
-    }
-
-    /**
-     * Increment view count
-     *
-     * @param form array key value pairs from Gallery Remote
-     * @param object GalleryRemoteProperties a reference to our response object
-     * @return object GalleryStatus a status code
-     */
-    function incrementViewCount($form, &$response) {
-	global $gallery;
-	$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
-
-	if (empty($form['itemId'])) {
-	    $response->setProperty('status', $grStatusCodes['MISSING_ARGUMENTS']);
-	    $response->setProperty('status_text', 'increment-view-count failed.');
-	    return null;
-	}
-
-	$itemId = $form['itemId'];
-
-	/* Increment the view count */
-	$ret = GalleryCoreApi::incrementItemViewCount($itemId);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$response->setProperty('status', $grStatusCodes['SUCCESS']);
-	$response->setProperty('status_text', 'increment-view-count successful.');
-
-	return null;
-    }
-
-    /**
-     * Image properties
-     *
-     * @param form array key value pairs from Gallery Remote
-     * @param object GalleryRemoteProperties a reference to our response object
-     * @return object GalleryStatus a status code
-     */
-    function imageProperties($form, &$response) {
-	global $gallery;
-
-	/*
-	 * GR now only supports 1-dimension size constraints. It used to support 2-d
-	 * but since G1 supported 1-d, I simplified GR a while ago, so now we have
-	 * to cheat a bit and select the largest of width and height to return to GR
-	 */
-
-	$grStatusCodes = GalleryRemoteConstants::getStatusCodes();
-
-	if (isset($form['id'])) {
-	    $id = $form['id'];
-	} else {
-	    /* todo: handle error */
-	}
-
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($id);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
-	    /* if we have an album, get his thumbnail instead */
-	    list ($ret, $thumbs) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	    $response->setProperty('image.thumbName', $thumbs[$id]->getId());
-	    $response->setProperty('image.thumb_width', $thumbs[$id]->getWidth());
-	    $response->setProperty('image.thumb_height', $thumbs[$id]->getHeight());
-	} else if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
-	    /* Load the derivatives for all those items */
-	    list ($ret, $derivatives) = GalleryCoreApi::fetchDerivativesByItemIds(array($id));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    if (!isset($permissions['core.viewSource'])
-		    && !isset($permissions['core.viewResizes'])) {
-		$response->setProperty('status', $grStatusCodes['NO_VIEW_PERMISSION']);
-		$response->setProperty('status_text', 'You are not allowed to see this image.');
-	    }
-
-	    $response->setProperty('image.name', $item->getId());
-	    $response->setProperty('image.raw_width', $item->getWidth());
-	    $response->setProperty('image.raw_height', $item->getHeight());
-	    $response->setProperty('image.raw_filesize', $item->getSize());
-
-	    list ($ret, $extensions) =
-		GalleryCoreApi::convertMimeToExtensions($item->getMimeType());
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    if (isset($extensions) && isset($extensions[0])) {
-		$response->setProperty('image.forceExtension', $extensions[0]);
-	    }
-
-	    $response->setProperty('image.caption', $item->getTitle());
-	    $response->setProperty('image.title', $item->getPathComponent());
-	    $response->setProperty('image.hidden', 'no');
-
-	    $thumb = null;
-	    $resizes = array();
-	    if (isset($derivatives[$item->getId()])) {
-		foreach ($derivatives[$item->getId()] as $index => $der) {
-		    if ($der->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_THUMBNAIL) {
-			$thumb = $der;
-		    } else if ($der->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_PREFERRED &&
-			       isset($permissions['core.viewSource'])) {
-			/* override the source image with the preferred version */
-			$response->setProperty('image.name', $der->getId());
-			$response->setProperty('image.raw_width', $der->getWidth());
-			$response->setProperty('image.raw_height', $der->getHeight());
-			$response->setProperty('image.raw_filesize', $der->getDerivativeSize());
-		    } else if ($der->getDerivativeType() == DERIVATIVE_TYPE_IMAGE_RESIZE &&
-			       isset($permissions['core.viewResizes'])) {
-			$resizes[$index] = $der->getWidth() * $der->getHeight();
-		    }
-		}
-		arsort($resizes);
-		$resizes = array_keys($resizes);
-	    }
-
-	    if (!empty($resizes)) {
-		$der = $derivatives[$item->getId()][array_shift($resizes)];
-		$response->setProperty('image.resizedName', $der->getId());
-		$response->setProperty('image.resized_width', $der->getWidth());
-		$response->setProperty('image.resized_height', $der->getHeight());
-	    }
-	    if (isset($thumb)) {
-		$response->setProperty('image.thumbName', $thumb->getId());
-		$response->setProperty('image.thumb_width', $thumb->getWidth());
-		$response->setProperty('image.thumb_height', $thumb->getHeight());
-	    }
-	}
-
-	$response->setProperty('status', $grStatusCodes['SUCCESS']);
-	$response->setProperty('status_text', 'image-properties successful.');
-
-	return null;
+	return GalleryStatus::success();
     }
 }
 
@@ -988,18 +721,11 @@ class GalleryRemoteView extends GalleryView {
     }
 
     /**
-     * @see GalleryView::isAllowedInEmbedOnly()
-     */
-    function isAllowedInEmbedOnly() {
-	return true;
-    }
-
-    /**
      * @see GalleryView::isImmediate()
      */
     function renderImmediate($status, $error) {
 	if (!headers_sent()) {
-	    header("Content-type: text/plain; charset=UTF-8");
+	    header("Content-type: text/plain");
 	}
 
 	if (isset($status['controllerError'])) {
@@ -1013,7 +739,7 @@ class GalleryRemoteView extends GalleryView {
 	if (isset($controllerError)) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	} else {
-	    return null;
+	    return GalleryStatus::success();
 	}
     }
 }

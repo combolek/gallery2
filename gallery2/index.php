@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,20 +30,11 @@
  * an absolute url to conform with HTTP/1.1
  * (Include bootstrap.inc in case config.php overrides GALLERY_MAIN_PHP)
  */
-require_once(dirname(__FILE__) . '/bootstrap.inc');
-require_once(dirname(__FILE__) . '/modules/core/classes/GalleryUrlGenerator.class');
+require(dirname(__FILE__) . '/bootstrap.inc');
+require(dirname(__FILE__) . '/modules/core/classes/GalleryUrlGenerator.class');
 
 /* The REQUEST_URI can either be /path/index.php or just /path/. Get rid of index.php.* */
-$path = GalleryUrlGenerator::getCurrentRequestUri();
-if (preg_match('|^(/(?:[^?#/]+/)*)(.*)|', $path, $matches)) {
-    $path = $matches[1] . GALLERY_MAIN_PHP;
-    if (!empty($matches[2]) && ($pos = strpos($matches[2], '?')) !== false) {
-	$path .= substr($matches[2], $pos);
-    }
-}
+$path = preg_replace('|^(/(?:[^?#/]+/)*).*|', '$1', GalleryUrlGenerator::getCurrentRequestUri());
 
-$urlGenerator =& new GalleryUrlGenerator();
-$urlGenerator->init();
-
-header('Location: ' . $urlGenerator->makeUrl($path));
+header('Location: ' . GalleryUrlGenerator::makeUrl($path) . GALLERY_MAIN_PHP);
 ?>

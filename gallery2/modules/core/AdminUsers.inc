@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -27,10 +28,12 @@
  */
 
 /**
- * This controller will send the user to the chosen subView in the AdminUsers View
+ * This controller will send the user to the chosen subView in the AdminUsers
+*  View
  *
  * @package GalleryCore
  * @subpackage UserInterface
+ *
  */
 class AdminUsersController extends GalleryController {
 
@@ -41,7 +44,7 @@ class AdminUsersController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -52,7 +55,7 @@ class AdminUsersController extends GalleryController {
 	if (!empty($form['text']['userName'])) {
 	    list ($ret, $user) =
 		GalleryCoreApi::fetchUserByUserName($form['text']['userName']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -97,7 +100,7 @@ class AdminUsersController extends GalleryController {
 		 */
 		list ($ret, $anonymousUserId) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -127,7 +130,7 @@ class AdminUsersController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -146,7 +149,7 @@ class AdminUsersView extends GalleryView {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -166,7 +169,7 @@ class AdminUsersView extends GalleryView {
 
 	/* Fetch the user count every time we reload */
 	list ($ret, $totalUserCount) = GalleryCoreApi::fetchUserCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -175,9 +178,8 @@ class AdminUsersView extends GalleryView {
 
 	/* If we have a filter, find out how many users match it */
 	if (!empty($form['list']['filter'])) {
-	    list ($ret, $form['list']['count']) =
-		GalleryCoreApi::fetchUserCount($form['list']['filter']);
-	    if ($ret) {
+	    list ($ret, $form['list']['count']) = GalleryCoreApi::fetchUserCount($form['list']['filter']);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -194,15 +196,15 @@ class AdminUsersView extends GalleryView {
 
 	list ($ret, $userNames) =
 	    GalleryCoreApi::fetchUserNames($form['list']['pageSize'],
-					   ($form['list']['page'] - 1) * $form['list']['pageSize'],
-					   $form['list']['filter']);
-	if ($ret) {
+					      ($form['list']['page'] - 1) * $form['list']['pageSize'],
+					      $form['list']['filter']);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -221,9 +223,11 @@ class AdminUsersView extends GalleryView {
 	$AdminUsers = array();
 	$AdminUsers['totalUserCount'] = $totalUserCount;
 
+	/* Render the HTML body */
 	$template->setVariable('AdminUsers', $AdminUsers);
 	$template->setVariable('controller', 'core.AdminUsers');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/AdminUsers.tpl'));
     }
 }

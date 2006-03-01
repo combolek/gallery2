@@ -92,13 +92,6 @@
   <input type="checkbox" id="SizeLimit_ApplyToDescendents"
 	 name="{g->formVar var="form[SizeLimitOption][applyToDescendents]"}"/>
   <label for="SizeLimit_ApplyToDescendents">
-    {g->text text="Check here to apply size limits to the pictures in this album and all subalbums"}
+    {g->text text="Check here to apply these size limits to the pictures in this album and all subalbums"}
   </label>
-  <blockquote><p>
-    {g->text text="Checking this option will rebuild pictures according to appropriate limits"}
-  </p></blockquote>
-  {g->changeInDescendents module="sizelimit" text="Use these size limits in all subalbums"}
-  <blockquote><p>
-    {g->text text="Checking this option will set same picture size limits in all subalbums"}
-  </p></blockquote>
 </div>

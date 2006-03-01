@@ -1,4 +1,4 @@
-    <div class="success"><h1><?php print _("Finished!") ?></h1></div>
+    <h1 class="success"><?php print _("Finished!") ?></h1>
 
     <p>
       <?php print _("Congratulations! Your Gallery 2 install is complete! See... that wasn't so hard, was it? Now it's time to upload some photos!") ?>
@@ -6,9 +6,9 @@
 
     <?php if (!$templateData['isMultisite']): ?>
     <div class="go">
-	  <div class="btn btn-continue"><span><span><span><span>
-	  <a href="../main.php"><?php print _('Go to my Gallery!') ?></a>
-	  </span></span></span></span></div>
+      <span class="goToNext">
+	<a href="../main.php"><?php print _('Go to my Gallery!') ?></a>
+      </span>
     </div>
     <?php else: ?>
     <p>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::requireOnce('modules/customfield/classes/CustomFieldHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/customfield/classes/CustomFieldHelper.class');
 
 /**
  * @package CustomField
@@ -39,12 +39,12 @@ class CustomFieldSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $status) = CustomFieldHelper::handleAdminAction($form);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -54,7 +54,7 @@ class CustomFieldSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -68,21 +68,16 @@ class CustomFieldSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	if ($form['formName'] != 'CustomFieldSiteAdmin') {
 	    $form['formName'] = 'CustomFieldSiteAdmin';
 
 	    $ret = CustomFieldHelper::loadAdminForm($form);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	$template->setVariable('controller', 'customfield.CustomFieldSiteAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/customfield/templates/CustomFieldSiteAdmin.tpl'));
     }
 }

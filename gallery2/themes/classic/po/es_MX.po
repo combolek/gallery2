@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,32 +31,16 @@ msgstr ""
 "X-Poedit-Country: MEXICO\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "Classic"
-msgstr ""
-
-msgid "Classic Gallery2 root album look and feel"
-msgstr "Look&amp;Feel cl&aacute;sico de Gallery 2"
-
-msgid "Show subalbum links"
-msgstr ""
-
-msgid "Depth of subalbums links (0=no limit)"
-msgstr ""
-
-msgid "Show subalbums by sort order of each album (affects performance)"
-msgstr ""
-
-msgid "You must enter a number"
-msgstr ""
-
+#, fuzzy
 msgid "This album is empty."
-msgstr ""
+msgstr "Este &aacute;lbum contiene %d elementos."
 
 msgid "Add a photo!"
 msgstr ""
 
+#, fuzzy
 msgid "no thumbnail"
-msgstr "sin miniatura"
+msgstr "Sin miniatura"
 
 #, c-format
 msgid "Album: %s"
@@ -68,7 +52,7 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Download %s"
 msgstr "Descargar este %s"
 
@@ -80,4 +64,23 @@ msgid "Download %s in original format"
 msgstr ""
 
 msgid "Continue..."
+msgstr ""
+
+msgid "Classic"
+msgstr ""
+
+#, fuzzy
+msgid "Classic Gallery2 root album look and feel"
+msgstr "Look&Feel cl&aacute;sico de Gallery 2"
+
+msgid "Show subalbum links"
+msgstr ""
+
+msgid "Depth of subalbums links (0=no limit)"
+msgstr ""
+
+msgid "Show subalbums by sort order of each album (affects performance)"
+msgstr ""
+
+msgid "You must enter a number"
 msgstr ""

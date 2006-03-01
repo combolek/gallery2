@@ -21,6 +21,7 @@
       <table>
 	{assign var="entityId" value=$ShowTree.entityId}
 	{foreach key=key item=value from=$ShowTree.entityTable.$entityId}
+	  {if strcmp($key, '_className')}
 	  <tr>
 	    <td>
 	      <i>{$key}</i>
@@ -28,11 +29,11 @@
 	      {$value}
 	    </td>
 	  </tr>
+	  {/if}
 	{/foreach}
       </table>
 
       {* Show my children *}
-      {if !empty($ShowTree.childIds)}
       <ul>
 	{foreach from=$ShowTree.childIds item=childId}
 	  <li>
@@ -41,7 +42,6 @@
 	  </li>
 	{/foreach}
       </ul>
-      {/if}
     {/if}
   </li>
 </ul>

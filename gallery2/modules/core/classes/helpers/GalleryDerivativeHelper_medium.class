@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,16 +45,16 @@ class GalleryDerivativeHelper_medium {
      */
     function fetchThumbnailsByItemIds($ids) {
 	if (!is_array($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (empty($ids)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 
 	list ($ret, $results) = GalleryDerivativeHelper_medium::_loadDerivatives(
 	    $ids, null, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -63,7 +63,7 @@ class GalleryDerivativeHelper_medium {
 	    $results[$id] = $value[0];
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -77,19 +77,19 @@ class GalleryDerivativeHelper_medium {
      */
     function fetchResizesByItemIds($ids) {
 	if (!is_array($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (empty($ids)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 
 	list ($ret, $results) = GalleryDerivativeHelper_medium::_loadDerivatives(
 	    $ids, null, DERIVATIVE_TYPE_IMAGE_RESIZE);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -102,16 +102,16 @@ class GalleryDerivativeHelper_medium {
      */
     function fetchPreferredsByItemIds($ids) {
 	if (!is_array($ids)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (empty($ids)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 	
 	list ($ret, $results) = GalleryDerivativeHelper_medium::_loadDerivatives(
 	    $ids, null, DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -120,7 +120,7 @@ class GalleryDerivativeHelper_medium {
 	    $results[$id] = $value[0];
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -140,7 +140,7 @@ class GalleryDerivativeHelper_medium {
 	if (empty($itemIds) && empty($sourceIds) ||
 	    empty($itemIds) && !is_array($sourceIds) ||
 	    empty($sourceIds) && !is_array($itemIds)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__),
 			 null);
 	}
 
@@ -173,9 +173,6 @@ class GalleryDerivativeHelper_medium {
               [GalleryDerivative::derivativeSourceId] IN (' . $idMarkers . ')
             ';
 	}
-	foreach ($data as $idx => $id) {
-	    $data[$idx] = (int)$id;
-	}
 
 	if (!empty($types)) {
 	    $typeMarkers = GalleryUtilities::makeMarkers(sizeof($types));
@@ -187,7 +184,7 @@ class GalleryDerivativeHelper_medium {
 	}
 
 	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -211,7 +208,7 @@ class GalleryDerivativeHelper_medium {
 
 	    /* Load all the derivative images */
 	    list ($ret, $derivativeEntities) = GalleryCoreApi::loadEntitiesById($derivativeIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -221,7 +218,7 @@ class GalleryDerivativeHelper_medium {
 	    }
 	}
 
-	return array(null, $derivativeTable);
+	return array(GalleryStatus::success(), $derivativeTable);
     }
 
 }

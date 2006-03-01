@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,19 +30,23 @@
  * @package Captcha
  * @subpackage UserInterface
  */
+
 class CaptchaConfigAdminController extends GalleryController {
     /**
      * @see GalleryController::handleRequest()
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results['status'] = $results['error'] = array();
+	$results['status'] = array();
+	$results['error'] = array();
 	$results['redirect'] = array('view' => 'core.SiteAdmin', 'subView' => 'core.AdminModules');
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -57,21 +61,20 @@ class CaptchaConfigAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
+	global $gallery;
 
 	if ($form['formName'] != 'CaptchaConfigAdmin') {
 	    $form['formName'] = 'CaptchaConfigAdmin';
 	}
 
-	GalleryCoreApi::requireOnce('modules/captcha/classes/CaptchaHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/captcha/classes/CaptchaHelper.class');
 	$gdReport = CaptchaHelper::testRequiredGdFunctions();
 
-	$template->setVariable('CaptchaConfigAdmin', array('gdReport' => $gdReport));
+	$CaptchaConfigAdmin = array();
+	$CaptchaConfigAdmin['gdReport'] = $gdReport;
+	$template->setVariable('CaptchaConfigAdmin', $CaptchaConfigAdmin);
 	$template->setVariable('controller', 'captcha.CaptchaConfigAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/captcha/templates/CaptchaConfigAdmin.tpl'));
     }
 }

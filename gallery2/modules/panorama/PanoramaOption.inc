@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,21 +42,21 @@ class PanoramaOption extends ItemEditOption {
     function isAppropriate($item, $thumbnail) {
 	if (!GalleryUtilities::isExactlyA($item, 'GalleryPhotoItem') &&
 		!GalleryUtilities::isExactlyA($item, 'PanoramaPhotoItem')) {
-	    return array(null, false);
+	    return array(GalleryStatus::success(), false);
 	}
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');
-	if ($ret || !$param['itemType']) {
-	    return array(null, false);
+	if ($ret->isError() || !$param['itemType']) {
+	    return array(GalleryStatus::success(), false);
 	}
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret) {
-	    return array(null, false);
+	if ($ret->isError()) {
+	    return array(GalleryStatus::success(), false);
 	}
 	$width = empty($preferred)
 	    ? $item->getWidth() : $preferred[$item->getId()]->getWidth();
 	$mimeType = empty($preferred)
 	    ? $item->getMimeType() : $preferred[$item->getId()]->getMimeType();
-	return array(null, $width > $param['width'] &&
+	return array(GalleryStatus::success(), $width > $param['width'] &&
 		     ($mimeType == 'image/jpeg' || $mimeType == 'image/gif'));
     }
 
@@ -65,13 +65,13 @@ class PanoramaOption extends ItemEditOption {
      */
     function loadTemplate(&$template, &$form, $item, $thumbnail) {
 	list ($ret, $preferred) = GalleryCoreApi::fetchPreferredsByItemIds(array($item->getId()));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$form['PanoramaOption']['isPanorama'] = empty($preferred)
 	    ? GalleryUtilities::isA($item, 'PanoramaPhotoItem')
 	    : GalleryUtilities::isA($preferred[$item->getId()], 'PanoramaDerivativeImage');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/panorama/templates/PanoramaOption.tpl',
 		     'modules_panorama');
     }
@@ -80,23 +80,23 @@ class PanoramaOption extends ItemEditOption {
      * @see ItemEditOption::handleRequestAfterEdit
      */
     function handleRequestAfterEdit($form, &$item, &$preferred) {
-	GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	$isPanorama = isset($form['PanoramaOption']['isPanorama']) &&
 	    $form['PanoramaOption']['isPanorama'];
 	$ret = PanoramaHelper::assignEntityType($item, $isPanorama);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($preferred) && GalleryUtilities::isA($preferred, 'GalleryDerivativeImage')) {
 	    $ret = PanoramaHelper::assignEntityType($preferred, $isPanorama);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
 
-	return array(null, array(), array());
+	return array(GalleryStatus::success(), array(), array());
     }
 }
 ?>

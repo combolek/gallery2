@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
  * A subclass of DataItem for containing Animations
@@ -47,7 +47,13 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryAnimationItem extends GalleryDataItem {
+class GalleryAnimationItem_core extends GalleryDataItem {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
 
     /**
      * The width of this animation.
@@ -58,10 +64,10 @@ class GalleryAnimationItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $width
-     * @access public
+     * @var int $_width
+     * @access private
      */
-    var $width;
+    var $_width;
 
     /**
      * The height of this animation.
@@ -72,10 +78,16 @@ class GalleryAnimationItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $height
-     * @access public
+     * @var int $_height
+     * @access private
      */
-    var $height;
+    var $_height;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
 
     /**
      * @see GalleryDataItem::canBeViewedInline()
@@ -103,20 +115,20 @@ class GalleryAnimationItem extends GalleryDataItem {
      */
     function create($parentId, $animationFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($animationFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($animationFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/* Create our data item */
 	$ret = parent::create($parentId, $animationFileName, $mimeType, $targetName, $symlink);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -129,16 +141,16 @@ class GalleryAnimationItem extends GalleryDataItem {
 
 	/* Detect our dimensions, if possible */
 	$ret = $this->rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    /* Cleanup our datafile on failure */
 	    list ($ret2, $path) = $this->fetchPath();
-	    if (!$ret2) {
+	    if ($ret2->isSuccess()) {
 		@$platform->unlink($path);
 	    }
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -148,24 +160,24 @@ class GalleryAnimationItem extends GalleryDataItem {
 	global $gallery;
 
 	$ret = parent::rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$mimeType = $this->getMimeType();
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $path);
-	    if ($ret) {
+	    if ($ret->isError()) {
 
 		/*
 		 * If we can't get the dimensions, it's probably a bad image.
@@ -179,7 +191,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 	    $this->setHeight($dimensions[1]);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -189,7 +201,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 	global $gallery;
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
+	    if (! $ret->isError()) {
 		return array($core->translate('Animation'), $core->translate('animation'));
 	    }
 	}
@@ -207,10 +219,9 @@ class GalleryAnimationItem extends GalleryDataItem {
 	switch($format) {
 	case 'HTML':
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => !empty($params['forceFullUrl'])));
+	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
+						    'itemId' => $this->getId(),
+						    'serialNumber' => $this->getSerialNumber()));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 	    switch($this->getMimeType()) {
@@ -223,12 +234,9 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'        width="%s"\');
 			document.write(\'        height="%s"\');
 			document.write(\'        autoplay="true"\');
-			document.write(\'        ' .
-			       'pluginspage="http://www.apple.com/quicktime/download/"\');
-			document.write(\'        codebase="http://download.macromedia.com' .
-			       '/pub/shockwave/cabs/flash/swflash.cab#version=5,0,30,0"\');
-			document.write(\'        ' .
-			       'classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">\');
+			document.write(\'        pluginspage="http://www.apple.com/quicktime/download/"\');
+			document.write(\'        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,30,0"\');
+			document.write(\'        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">\');
 			document.write(\'  <param name="movie" value="%s" />\');
 			document.write(\'  <param name="quality" value="high" />\');
 			document.write(\'  <param name="salign" value="TL" />\');
@@ -277,17 +285,12 @@ class GalleryAnimationItem extends GalleryDataItem {
 			document.write(\'        width="%s"\');
 			document.write(\'        height="%s"\');
 			document.write(\'        autoplay="true"\');
-			document.write(\'        ' .
-			       'pluginspage="http://www.apple.com/quicktime/download/"\');
-			document.write(\'        codebase="http://download.macromedia.com' .
-			       '/pub/shockwave/cabs/director/sw.cab#version=8,0,0,0"\');
-			document.write(\'        ' .
-			       'classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000">\');
+			document.write(\'        pluginspage="http://www.apple.com/quicktime/download/"\');
+			document.write(\'        codebase="http://download.macromedia.com/pub/shockwave/cabs/director/sw.cab#version=8,0,0,0"\');
+			document.write(\'        classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000">\');
 
 			document.write(\'  <param name="src" value="%s" />\');
-			document.write(\'  <param name="swRemote" value="swTarget=false ' .
-			       'swVolume=false swRestart=false swPausePlay=false ' .
-			       'swFastForward=false swContextMenu=true swSend=false" />\');
+			document.write(\'  <param name="swRemote" value="swTarget=false swVolume=false swRestart=false swPausePlay=false swFastForward=false swContextMenu=true swSend=false" />\');
 			document.write(\'  <param name="sw3" value="2" />\');
 			document.write(\'  <param name="swStretchStyle" value="none" />\');
 			document.write(\'  <param name="bgColor" value="#000000" />\');
@@ -329,28 +332,7 @@ class GalleryAnimationItem extends GalleryDataItem {
 	    return null;
 	}
     }
-
-    /**
-     * @see GalleryEntity::getClassName()
-     */
-    function getClassName() {
-	return 'GalleryAnimationItem';
-    }
-
-    function getWidth() {
-	return $this->width;
-    }
-
-    function setWidth($width) {
-	$this->width = $width;
-    }
-
-    function getHeight() {
-	return $this->height;
-    }
-
-    function setHeight($height) {
-	$this->height = $height;
-    }
 }
+
+include(dirname(__FILE__) . '/interfaces/GalleryAnimationItem.inc');
 ?>

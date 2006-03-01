@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
  * A subclass of DataItem for containing Photos
@@ -46,7 +46,13 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryPhotoItem extends GalleryDataItem {
+class GalleryPhotoItem_core extends GalleryDataItem {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
 
     /**
      * The width of this image.
@@ -57,10 +63,10 @@ class GalleryPhotoItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $width
-     * @access public
+     * @var int $_width
+     * @access private
      */
-    var $width;
+    var $_width;
 
     /**
      * The height of this image.
@@ -71,10 +77,16 @@ class GalleryPhotoItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $height
-     * @access public
+     * @var int $_height
+     * @access private
      */
-    var $height;
+    var $_height;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
 
     /**
      * @see GalleryDataItem::canBeViewedInline()
@@ -98,21 +110,21 @@ class GalleryPhotoItem extends GalleryDataItem {
      */
     function create($parentId, $imageFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($imageFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($imageFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__, $imageFileName);
+	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__, $imageFileName);
 	}
 
 	/* Create our data item */
 	$ret = parent::create($parentId, $imageFileName,
 			      $mimeType, $targetName, $symlink);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -125,16 +137,16 @@ class GalleryPhotoItem extends GalleryDataItem {
 
 	/* Detect our dimensions, if possible */
 	$ret = $this->rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    /* Cleanup our datafile on failure */
 	    list ($ret2, $path) = $this->fetchPath();
-	    if (!$ret2) {
+	    if ($ret2->isSuccess()) {
 		@$platform->unlink($path);
 	    }
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -142,24 +154,24 @@ class GalleryPhotoItem extends GalleryDataItem {
      */
     function rescan() {
 	$ret = parent::rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$mimeType = $this->getMimeType();
 
 	/* Check for CMYK colorspace and alter mime type if detected */
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'colorspace');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (isset($toolkit)) {
 	    list ($ret, $colorspace) = $toolkit->getProperty($mimeType, 'colorspace', $path);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE); /* See BAD_DATA_TYPE comment below */
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
@@ -170,13 +182,13 @@ class GalleryPhotoItem extends GalleryDataItem {
 	}
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $path);
-	    if ($ret) {
+	    if ($ret->isError()) {
 
 		/*
 		 * If we can't get the dimensions, it may be a bad image
@@ -190,7 +202,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	    $this->setHeight($dimensions[1]);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -199,7 +211,7 @@ class GalleryPhotoItem extends GalleryDataItem {
     function itemTypeName($localized = true) {
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
+	    if (! $ret->isError()) {
 		return array($core->translate('Photo'), $core->translate('photo'));
 	    }
 	}
@@ -215,10 +227,10 @@ class GalleryPhotoItem extends GalleryDataItem {
 	switch($format) {
 	case 'HTML':
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => !empty($params['forceFullUrl'])));
+	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
+						    'itemId' => $this->getId(),
+						    'serialNumber' => $this->getSerialNumber()));
+
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 
 	    /* Shrink our dimensions if necessary */
@@ -233,19 +245,14 @@ class GalleryPhotoItem extends GalleryDataItem {
 		$sizeStr = sprintf(' width="%s" height="%s"', $width, $height);
 	    }
 	    if (!isset($params['alt'])) {
-		$params['alt'] =
-		    $this->getTitle() ? GalleryUtilities::markup($this->getTitle(), 'strip')
-				      : $this->getPathComponent();
+		$params['alt'] = $this->getTitle() ? $this->getTitle() : $this->getPathComponent();
 	    }
 	    if (!isset($params['longdesc'])) {
-		$params['longdesc'] = preg_replace('/[\r\n]+/', ' ',
-		    GalleryUtilities::markup($this->getDescription(), 'strip'));
+		$params['longdesc'] = preg_replace('/[\r\n]+/', ' ', $this->getDescription());
 	    }
 
 	    $html = sprintf('<img src="%s"%s', $src, $sizeStr);
 	    unset($params['fallback']);
-	    unset($params['forceFullUrl']);
-	    unset($params['forceRawImage']);
 	    foreach ($params as $attr => $value) {
 		if (isset($value)) {
 		    $html .= " $attr=\"$value\"";
@@ -257,28 +264,7 @@ class GalleryPhotoItem extends GalleryDataItem {
 	    return null;
 	}
     }
-
-    /**
-     * @see GalleryEntity::getClassName()
-     */
-    function getClassName() {
-	return 'GalleryPhotoItem';
-    }
-
-    function getWidth() {
-	return $this->width;
-    }
-
-    function setWidth($width) {
-	$this->width = $width;
-    }
-
-    function getHeight() {
-	return $this->height;
-    }
-
-    function setHeight($height) {
-	$this->height = $height;
-    }
 }
+
+include(dirname(__FILE__) . '/interfaces/GalleryPhotoItem.inc');
 ?>

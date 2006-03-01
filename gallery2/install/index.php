@@ -13,7 +13,7 @@
  * $Id$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,6 @@
 
 require_once(dirname(__FILE__) . '/GalleryStub.class');
 require_once(dirname(__FILE__) . '/InstallStep.class');
-require_once(dirname(__FILE__) . '/StatusTemplate.class');
 require_once(dirname(dirname(__FILE__)) . '/modules/core/classes/GalleryUtilities.class');
 define('INDEX_PHP', basename(__FILE__));
 
@@ -74,10 +73,7 @@ foreach ($stepOrder as $stepName) {
     require("steps/$className.class");
 }
 
-if (@ini_get('session.save_handler') != 'files') {
-    @ini_set('session.save_handler','files');
-    session_start();
-} else if (!ini_get('session.auto_start')) {
+if (!ini_get('session.auto_start')) {
     session_start();
 }
 
@@ -98,7 +94,7 @@ if (empty($_SESSION['language'])) {
 if (function_exists('dgettext')) {
     $gallery = new GalleryStub();
     $translator = new GalleryTranslator();
-    $translator->init($_SESSION['language'], true);
+    $translator->init($_SESSION['language']);
     unset($gallery);
     bindtextdomain('gallery2_install', dirname(__FILE__) . '/locale');
     textdomain('gallery2_install');
@@ -169,10 +165,33 @@ if ($currentStep->processRequest()) {
     /* Round percentage to the nearest 5 */
     $templateData['errors'] = array();
     $currentStep->loadTemplateData($templateData);
+    $stepsComplete = max($stepNumber - ($currentStep->isComplete() ? 0 : 1), 0);
+    $templateData['percentComplete'] = (int)((100 * ($stepsComplete / (count($steps)-1))) / 5) * 5;
 
-    /* Render the output */
-    $template = new StatusTemplate();
-    $template->renderHeaderBodyAndFooter($templateData);
+    /* Fetch our page into a variable */
+    ob_start();
+    include(dirname(__FILE__) . '/templates/MainPage.html');
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    /* Add session ids if we don't have cookies */
+    $html = addSessionIdToUrls($html);
+    print $html;
+}
+
+/**
+ * Add the session id to our url, if necessary
+ */
+function addSessionIdToUrls($html) {
+    /*
+     * SID is empty if we have a session cookie.
+     * If session.use_trans_sid is on then it will add the session id.
+     */
+    $sid = SID;
+    if (!empty($sid) && !ini_get('session.use_trans_sid')) {
+	$html = preg_replace('/href="(.*\?.*)"/', 'href="$1&amp;' . $sid . '"', $html);
+    }
+    return $html;
 }
 
 function processAutoCompleteRequest() {
@@ -224,7 +243,11 @@ function populateDataDirectory($dataBase) {
     foreach (array('albums',
 		   'cache',
 		   'locks',
+		   'sessions',
 		   'tmp',
+		   'plugins',
+		   'plugins/modules',
+		   'plugins/themes',
 		   'plugins_data',
 		   'plugins_data/modules',
 		   'plugins_data/themes',
@@ -266,39 +289,6 @@ function populateDataDirectory($dataBase) {
     }
 
     return true;
-}
-
-/* Returns something like https://example.com */
-function getBaseUrl() {
-    /* Can't use GalleryUrlGenerator::makeUrl since it's an object method */
-    if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_SERVER'))) {
-	$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
-    }
-    $protocol = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
-    
-    return sprintf('%s://%s', $protocol, $hostName);
-}
-
-/**
- * Mini url generator for the installer
- */
-function generateUrl($uri, $print=true) {
-    if (!strncmp($uri, 'index.php', 9)) {
-	/*
-	 * Cookieless browsing: SID is empty if we have a session cookie.
-	 * If session.use_trans_sid is on then it will add the session id.
-	 */
-	$sid = SID;
-	if (!empty($sid) && !ini_get('session.use_trans_sid')) {
-	    $uri .= !strpos($uri, '?') ? '?' : '&amp;';
-	    $uri .= $sid;
-	}
-    }
-
-    if ($print) {
-	print $uri;
-    }
-    return $uri;
 }
 
 /*

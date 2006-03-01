@@ -2,7 +2,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -220,55 +220,31 @@ function autoCompleteAttach(id, url) {
 }
 
 function autoCompleteHandleEvent(id, event, url) {
-
     switch(event.keyCode) {
     case 38: // up key
-	if (autoCompleteIsVisible(id)) {
-	    autoCompleteMove(id, -1);
-	    return false;
-	}
+	autoCompleteMove(id, -1);
 	break;
 
     case 40: // down key
-	if (autoCompleteIsVisible(id)) {
-	    autoCompleteMove(id, 1);
-	    return false;
-	}
-	break;
-
-    case 39: // right-arrow
-	if (autoCompleteIsVisible(id)) {
-	    if (autoCompleteContexts[id]['timerId']) {
-		clearTimeout(autoCompleteContexts[id]['timerId']);
-	    }
-
-	    autoCompleteChoose(id);
-	    autoCompleteContexts[id]['timerId'] = setTimeout('autoCompleteTrigger("' + id + '")', 250);
-	    autoCompleteRender(id);
-	    return false;
-	}
+	autoCompleteMove(id, 1);
 	break;
 
     case 9: // tab
-	if (autoCompleteIsVisible(id)) {
-	    autoCompleteChoose(id);
-	    return false;
-	}
-	break;
-
-    case 13: // enter
 	if (autoCompleteIsVisible(id)) {
 	    autoCompleteChoose(id);
 	    return true;
 	}
 	break;
 
-    case 37: // left-arrow
-    case 27: // escape
+    case 13: // enter
 	if (autoCompleteIsVisible(id)) {
-	    autoCompleteHide(id);
+	    autoCompleteChoose(id);
 	    return false;
 	}
+	break;
+
+    case 27: // escape
+	autoCompleteHide(id);
 	break;
 
     default:

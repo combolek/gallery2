@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,10 @@
  * @author Ernesto Baschny <ernst@baschny.de>
  */
 
-GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+/**
+ * Required classes
+ */
+GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdToolkitHelper.class');
 
 /**
  * @package Gd
@@ -37,25 +40,28 @@ class AdminGdController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$error = $status = array();
+	$error = array();
+	$status = array();
 	if (isset($form['action']['save'])) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'gd',
 						      'jpegQuality', $form['jpegQuality']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    list ($ret, $isActive) = $module->isActive();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -83,7 +89,7 @@ class AdminGdController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -97,17 +103,14 @@ class AdminGdView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
+	global $gallery;
 
 	/* Load our default values if we didn't just come from this form. */
 	if ($form['formName'] != 'AdminGd') {
 	    foreach (array('path', 'jpegQuality') as $key) {
 		list ($ret, $form[$key]) =
 		    GalleryCoreApi::getPluginParameter('module', 'gd', $key);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -120,15 +123,15 @@ class AdminGdView extends GalleryView {
 	}
 
 	list ($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isGdBundled) = GdToolkitHelper::isBundled();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isGdVersionSupported) = GdToolkitHelper::isGdVersionSupported($gdVersion);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$minGdVersion = GdToolkitHelper::minGdVersion();
@@ -136,17 +139,17 @@ class AdminGdView extends GalleryView {
 	$mimeTypes = array();
 	if ($isGdVersionSupported) {
 	    list($ret, $mimeTypes) = GdToolkitHelper::discoverMimeTypes();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'gd');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $module->isActive();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -161,7 +164,8 @@ class AdminGdView extends GalleryView {
 
 	$template->setVariable('AdminGd', $AdminGd);
 	$template->setVariable('controller', 'gd.AdminGd');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/gd/templates/AdminGd.tpl'));
     }
 }

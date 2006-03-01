@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ class GalleryItemHelper_simple {
 	    $themeId = $item->getTheme();
 	} else {
 	    list ($ret, $parent) = GalleryCoreApi::loadEntitiesById($item->getParentId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -62,17 +62,17 @@ class GalleryItemHelper_simple {
 	if (empty($themeId)) {
 	    list ($ret, $themeId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	/* No default?  We're screwed */
 	if (empty($themeId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
-	return array(null, $themeId);
+	return array(GalleryStatus::success(), $themeId);
     }
 
     /**
@@ -90,7 +90,7 @@ class GalleryItemHelper_simple {
 	global $gallery;
 
 	if (empty($itemIds)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (!isset($userId)) {
@@ -108,12 +108,12 @@ class GalleryItemHelper_simple {
 	}
 
 	if (empty($missing)) {
-	    return array(null, $counts);
+	    return array(GalleryStatus::success(), $counts);
 	}
 	$parentIdMarkers = GalleryUtilities::makeMarkers(count($missing));
 
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($aclIds)) {
@@ -138,18 +138,17 @@ class GalleryItemHelper_simple {
 	    $data = array_merge($missing, $aclIds);
 
 	    list ($ret, $searchResults) = $gallery->search($query, $data);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    while ($result = $searchResults->nextResult()) {
 		$counts[$result[0]] = $result[1];
-		GalleryDataCache::put("GalleryItemHelper::fetchChildCounts($result[0])",
-				      $result[1]);
+		GalleryDataCache::put("GalleryItemHelper::fetchChildCounts($result[0])", $result[1]);
 	    }
 	}
 
-	return array(null, $counts);
+	return array(GalleryStatus::success(), $counts);
     }
 
     /**
@@ -168,9 +167,7 @@ class GalleryItemHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
-	}
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDescendentCountsMap.class');
 	$query = sprintf('
          SELECT
            [GalleryDescendentCountsMap::itemId], [GalleryDescendentCountsMap::descendentCount]
@@ -183,11 +180,11 @@ class GalleryItemHelper_simple {
         ', GalleryUtilities::makeMarkers(sizeof($itemIds)));
 
 	$data = array();
-	$data[] = (int)$userId;
+	$data[] = $userId;
 	array_splice($data, sizeof($data), 0, $itemIds);
 
 	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -207,16 +204,15 @@ class GalleryItemHelper_simple {
 	if (!empty($remaining)) {
 	    list ($ret, $results) =
 		GalleryItemHelper_simple::fetchUncachedDescendentCounts($remaining, $userId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Update the cache */
 	    foreach ($results as $itemId => $count) {
-		$ret = GalleryCoreApi::addMapEntry(
-		    'GalleryDescendentCountsMap',
+		$ret = GalleryDescendentCountsMap::addMapEntry(
 		    array('userId' => $userId, 'itemId' => $itemId, 'descendentCount' => $count));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -230,7 +226,7 @@ class GalleryItemHelper_simple {
 	    }
 	}
 
-	return array(null, $counts);
+	return array(GalleryStatus::success(), $counts);
     }
 
     /**
@@ -249,16 +245,13 @@ class GalleryItemHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
-	}
-	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId, false);
-	if ($ret) {
+	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (empty($aclIds)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
@@ -270,17 +263,7 @@ class GalleryItemHelper_simple {
 	    array('[GalleryItemAttributesMap=1::parentSequence]',
 		  '[GalleryItemAttributesMap=1::itemId]',
 		  '\'/%\''));
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	list ($ret, $like) =
-	    $storage->getFunctionSql(
-		'LIKE',
-		array('[GalleryItemAttributesMap=2::parentSequence]',
-		      $concat)
-		);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -295,18 +278,18 @@ class GalleryItemHelper_simple {
         WHERE
           [GalleryItemAttributesMap=1::itemId] IN (%s)
           AND
-          %s
+          [GalleryItemAttributesMap=2::parentSequence] LIKE %s
           AND
           [GalleryItemAttributesMap=2::itemId] = [GalleryAccessSubscriberMap::itemId]
           AND
           [GalleryAccessSubscriberMap::accessListId] IN (%s)
         GROUP BY
           [GalleryItemAttributesMap=1::itemId]
-        ', $itemMarkers, $like, $aclMarkers);
+        ', $itemMarkers, $concat, $aclMarkers);
 
 	$data = array_merge($itemIds, $aclIds);
 	list ($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -315,7 +298,7 @@ class GalleryItemHelper_simple {
 	    $counts[$result[0]] = $result[1];
 	}
 
-	return array(null, $counts);
+	return array(GalleryStatus::success(), $counts);
     }
 
     /**
@@ -332,7 +315,7 @@ class GalleryItemHelper_simple {
 	global $gallery;
 
 	if (empty($itemType)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$cacheKey = "GalleryItemHelper::fetchItemIdCount($itemType, $permission)";
@@ -341,7 +324,7 @@ class GalleryItemHelper_simple {
 	} else {
 	    list ($ret, $aclIds) =
 		GalleryCoreApi::fetchAccessListIds($permission, $gallery->getActiveUserId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (!empty($aclIds)) {
@@ -365,12 +348,12 @@ class GalleryItemHelper_simple {
 		$data = array_merge($data, $aclIds);
 
 		list ($ret, $searchResults) = $gallery->search($query, $data);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if ($searchResults->resultCount() != 1) {
-		    return array(GalleryCoreApi::error(
+		    return array(GalleryStatus::error(
 				     ERROR_STORAGE_FAILURE, __FILE__, __LINE__), null);
 		}
 
@@ -383,7 +366,7 @@ class GalleryItemHelper_simple {
 	    GalleryDataCache::put($cacheKey, $count);
 	}
 
-	return array(null, $count);
+	return array(GalleryStatus::success(), $count);
     }
 }
 ?>

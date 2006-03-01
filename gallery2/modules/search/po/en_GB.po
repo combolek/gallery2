@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,22 +29,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Gallery Search"
-msgstr ""
+msgstr "Gallery Search"
 
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
+#, fuzzy
 msgid "Search your Gallery"
-msgstr ""
+msgstr "Search the Gallery"
 
+#, fuzzy
 msgid "Gallery"
-msgstr ""
+msgstr "Gallery Search"
 
 msgid "Search the Gallery"
-msgstr ""
+msgstr "Search the Gallery"
 
 msgid "You must enter some text to search for!"
-msgstr ""
+msgstr "You must enter some text search text!"
 
 msgid "Check All"
 msgstr ""
@@ -55,33 +57,35 @@ msgstr ""
 msgid "Invert"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "Results %d - %d"
-msgstr ""
+msgstr "(Results %d - %d)"
 
 #, c-format
 msgid "Show all %d"
-msgstr ""
+msgstr "Show all %d"
 
 msgid "No thumbnail"
-msgstr ""
+msgstr "No thumbnail"
 
+#, fuzzy
 msgid "No results found for"
-msgstr ""
+msgstr "No results"
 
 msgid "View these results in a slideshow"
 msgstr ""
 
-#, c-format
+#, fuzzy, c-format
 msgid "%s Search Results for "
-msgstr ""
+msgstr "Search Results"
 
+#, fuzzy
 msgid "Search All Modules"
-msgstr ""
+msgstr "Search all modules"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Results %d - %d of %d, Page %d of %d"
-msgstr ""
+msgstr "(Results %d - %d of %d, Page %d of %d)"
 
 msgid "&laquo; Back"
 msgstr ""
@@ -89,14 +93,16 @@ msgstr ""
 msgid "Next &raquo;"
 msgstr ""
 
-msgid "Please enter a search term."
+msgid "Please enter keywords to search."
 msgstr ""
 
+#, fuzzy
 msgid "Advanced Search"
-msgstr ""
+msgstr "Gallery Search"
 
+#, fuzzy
 msgid "Search box"
-msgstr ""
+msgstr "Search"
 
 msgid "Show advanced link"
 msgstr ""

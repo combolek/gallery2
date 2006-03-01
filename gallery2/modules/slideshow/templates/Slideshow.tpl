@@ -14,7 +14,7 @@
 {else}
 
 {foreach from=$SlideShow.itemList key=i item=it}
-<div style="display:none">
+<div style="visibility:hidden;position:absolute">
   {foreach from=$it.sources key=j item=source}
     <a id="item_{$i}_{$j}"
      href="{g->url arg1="view=core.DownloadItem" arg2="itemId=`$source.id`"
@@ -82,14 +82,12 @@
   function slide_view_start() {
     if (bShowText) show_text();
     preload(move_index(1));
-    if (timer) { clearInterval(timer); clearTimeout(timer); } // Avoid extra timers in opera
     if (!bPause) timer = setTimeout('goto_next_photo()', iDelay);
   }
   function goto_next_photo() {
     index = move_index(1);
     if (bCanBlend) apply_filter();
-    document.images.slide.src =
-      document.getElementById('item_'+index+'_'+item_map[index][iSize]).href;
+    document.images.slide.src = document.getElementById('item_'+index+'_'+item_map[index][iSize]).href;
     linkStop.href = document.getElementById('href_'+index).href;
     if (bCanBlend) document.images.slide.filters[0].Play();
   }
@@ -97,7 +95,8 @@
     spanTitle.innerHTML = document.getElementById('title_'+index).innerHTML;
     spanSummary.innerHTML = document.getElementById('summary_'+index).innerHTML;
     spanDate.innerHTML = document.getElementById('date_'+index).innerHTML;
-    spanDescription.innerHTML = document.getElementById('description_'+index).innerHTML;
+    spanDescription.innerHTML =
+      document.getElementById('description_'+index).innerHTML;
   }
   function text_onoff() {
     bShowText = bShowText ? 0 : 1;
@@ -105,7 +104,7 @@
       spanTitle.innerHTML = spanSummary.innerHTML =
       spanDate.innerHTML = spanDescription.innerHTML = '';
     }
-    textBanner.style.display = bShowText ? 'block' : 'none';
+    textBanner.style.visibility = bShowText ? 'visible' : 'hidden';
     spanText.innerHTML = bShowText ? {/literal}'{g->text text="Hide More Info" forJavascript="1"}'
 				   : '{g->text text="Show More Info" forJavascript="1"}'; {literal}
   }
@@ -140,7 +139,8 @@
   }
   function tools_onoff() {
     bShowTools = bShowTools ? 0 : 1;
-    toolBar.style.display = bShowTools ? 'block' : 'none';
+    toolBar.style.visibility = bShowTools ? 'visible' : 'hidden';
+    toolBar.style.position = bShowTools ? 'static' : 'absolute';
     toolText.innerHTML = bShowTools ? {/literal}'{g->text text="[-]" forJavascript="1"}'
 				    : '{g->text text="[+]" forJavascript="1"}'; {literal}
   }
@@ -214,7 +214,7 @@
 	for (i = 0; i < filterNames.length; i++) {
 	  document.write('<option>'+filterNames[i]);
 	}
-	document.write('</select>');
+	document.write('<'+'/select>'); // in 2 pieces for valid HTML4.01
       }
       {/literal}
       // ]]>
@@ -225,11 +225,17 @@
     <img id="slide" alt="" src=""/>
   </div>
 
-  <div id="textBanner" class="gbBlock gcBackground1" style="display:none">
-    <div class="giTitle" id="title"></div>
-    <div class="giDescription" id="summary"></div>
-    <div class="giInfo summary" id="date"></div>
-    <div class="giInfo summary" id="description"></div>
+  <div id="textBanner" class="gbBlock gcBackground1" style="visibility:hidden">
+    <div class="giTitle"><span id="title"></span></div>
+    <div class="giDescription"><span id="summary"></span></div>
+    <div class="giInfo">
+      <span class="summary">
+	<span id="date"></span>
+      </span>
+      <span class="summary">
+	<span id="description"></span>
+      </span>
+    </div>
   </div>
 </div>
 

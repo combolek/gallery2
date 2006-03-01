@@ -32,14 +32,13 @@
     <param name="gr_album" value="{$SlideshowApplet.album}"/>
     <param name="gr_user_agent" value="{$SlideshowApplet.userAgent}"/>
     <param name="gr_gallery_version" value="{$SlideshowApplet.galleryVersion}"/>
-    <param name="gr_locale" value="{$SlideshowApplet.locale}"/>
     {foreach key=key item=value from=$SlideshowApplet.extra}
     <param name="{$key}" value="{$value}"/>
     {/foreach}
-    {foreach key=key item=value from=$SlideshowApplet.default}
+    {foreach key=key item=value from=$SlideshowApplet.defaults}
     <param name="GRDefault_{$key}" value="{$value}"/>
     {/foreach}
-    {foreach key=key item=value from=$SlideshowApplet.override}
+    {foreach key=key item=value from=$SlideshowApplet.overrides}
     <param name="GROverride_{$key}" value="{$value}"/>
     {/foreach}
 
@@ -62,19 +61,18 @@
           gr_album="{$SlideshowApplet.album}"
           gr_user_agent="{$SlideshowApplet.userAgent}"
           gr_gallery_version="{$SlideshowApplet.galleryVersion}"
-          gr_locale="{$SlideshowApplet.locale}"
           {foreach key=key item=value from=$SlideshowApplet.extra}
           {$key}="{$value}"
           {/foreach}
-          {foreach key=key item=value from=$SlideshowApplet.default}
+          {foreach key=key item=value from=$SlideshowApplet.defaults}
           GRDefault_{$key}="{$value}"
           {/foreach}
-          {foreach key=key item=value from=$SlideshowApplet.override}
+          {foreach key=key item=value from=$SlideshowApplet.overrides}
           GROverride_{$key}="{$value}"
           {/foreach}
       >
-          <noembed alt="{g->text text="Your browser doesn't support applets; you should use the standard slideshow."}">
-            {g->text text="Your browser doesn't support applets; you should use the standard slideshow."}
+          <noembed alt="{g->text text="Your browser doesn't support applets; you should use one of the other upload methods."}">
+            {g->text text="Your browser doesn't support applets; you should use one of the other upload methods."}
           </noembed>
       </embed>
     </comment>

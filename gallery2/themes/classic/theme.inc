@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,9 @@ class ClassicTheme extends GalleryTheme {
 	$this->setId('classic');
 	$this->setName($gallery->i18n('Classic'));
 	$this->setDescription($gallery->i18n('Classic Gallery2 root album look and feel'));
-	$this->setVersion('1.0.2');
-	$this->setRequiredThemeApi(array(2, 2));
-	$this->setRequiredCoreApi(array(7, 0));
+	$this->setVersion('1.0.0');
+	$this->setRequiredThemeApi(array(2, 1));
+	$this->setRequiredCoreApi(array(6, 6));
 	$this->setStandardSettings(
 	    array('rows' => 10, 'columns' => 1,
 		  'showImageOwner' => 0, 'showAlbumOwner' => 1,
@@ -63,20 +63,26 @@ class ClassicTheme extends GalleryTheme {
 		  'photoBlocks' => serialize(
 		      array(
 			  array('exif.ExifInfo', array()),
-			  array('comment.ViewComments', array()))),
-		  'showSubalbums' => 1, 'subalbumDepth' => 0, 'subalbumSort' => 0));
+			  array('comment.ViewComments', array())))));
     }
 
     /**
      * @see GalleryTheme::getSettings()
      */
     function getSettings($itemId=null) {
-	list ($ret, $settings, $params) = parent::getSettings($itemId);
-	if ($ret) {
+	list ($ret, $settings) = parent::getSettings($itemId);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $params) = $this->fetchParameters($itemId);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Add in our custom settings */
+	$params = array_merge(
+	    array('showSubalbums' => 1, 'subalbumDepth' => 0, 'subalbumSort' => 0), $params);
 	$settings[] = array('key' => 'showSubalbums',
 			    'name' => $this->translate('Show subalbum links'),
 			    'type' => 'checkbox',
@@ -92,7 +98,7 @@ class ClassicTheme extends GalleryTheme {
 			    'type' => 'checkbox',
 			    'value' => $params['subalbumSort']);
 
-	return array(null, $settings);
+	return array(GalleryStatus::success(), $settings);
     }
 
     /**
@@ -116,7 +122,7 @@ class ClassicTheme extends GalleryTheme {
 		  'systemLinks', 'itemLinks', 'itemSummaries', 'permissions',
 		  'thumbnails', 'pageNavigator', 'jumpRange'),
 	     $childIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -128,14 +134,14 @@ class ClassicTheme extends GalleryTheme {
 		$ret = $this->_buildTree($item, $theme['tree'], $theme['treeItems'],
 		    $params['subalbumDepth'] > 0 ? $params['subalbumDepth'] : null,
 		    $theme['actingUserId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
 		list ($ret, $tree) = GalleryCoreApi::fetchAlbumTree($item->getId(),
 		    $params['subalbumDepth'] > 0 ? $params['subalbumDepth'] + 1 : null,
 		    $theme['actingUserId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$treeIds = $treeList = $treeItems = array();
@@ -148,20 +154,20 @@ class ClassicTheme extends GalleryTheme {
 		}
 		if (!empty($treeIds)) {
 		    list ($ret, $treeItems) = GalleryCoreApi::loadEntitiesById($treeIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$theme['tree'] = $treeList;
 		$theme['treeItems'] = array();
 		foreach ($treeItems as $treeItem) {
-		    $theme['treeItems'][$treeItem->getId()] = (array)$treeItem;
+		    $theme['treeItems'][$treeItem->getId()] = $treeItem->getMemberData();
 		}
 	    }
 	}
 
 	/* Add our header and styles */
-	return array(null, 'theme.tpl');
+	return array(GalleryStatus::success(), 'theme.tpl');
     }
 
     /**
@@ -174,11 +180,11 @@ class ClassicTheme extends GalleryTheme {
 	    $dataTypes[] = 'navThumbnails';
 	}
 	$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, 'theme.tpl');
+	return array(GalleryStatus::success(), 'theme.tpl');
     }
 
     /**
@@ -187,11 +193,11 @@ class ClassicTheme extends GalleryTheme {
     function showModulePage(&$template, $item, $params, $templateFile) {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, 'theme.tpl');
+	return array(GalleryStatus::success(), 'theme.tpl');
     }
 
     /**
@@ -200,18 +206,18 @@ class ClassicTheme extends GalleryTheme {
     function showAdminPage(&$template, $item, $params, $templateFile) {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, 'theme.tpl');
+	return array(GalleryStatus::success(), 'theme.tpl');
     }
 
     /**
      * @see GalleryTheme::showErrorPage
      */
     function showErrorPage(&$template) {
-	return array(null, 'error.tpl');
+	return array(GalleryStatus::success(), 'error.tpl');
     }
 
     /**
@@ -220,11 +226,11 @@ class ClassicTheme extends GalleryTheme {
     function showProgressBarPage(&$template, $item, $params) {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, 'theme.tpl');
+	return array(GalleryStatus::success(), 'theme.tpl');
     }
 
     /**
@@ -250,12 +256,12 @@ class ClassicTheme extends GalleryTheme {
 			$depth=0, $branchId=0) {
 	list ($ret, $subAlbumIds) =
 	    GalleryCoreApi::fetchChildAlbumItemIds($album, null, null, $userId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!empty($subAlbumIds)) {
 	    list ($ret, $subAlbums) = GalleryCoreApi::loadEntitiesById($subAlbumIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    foreach ($subAlbums as $subAlbum) {
@@ -265,17 +271,17 @@ class ClassicTheme extends GalleryTheme {
 		} else {
 		    $treeList[$branchId][] = array('id' => $id, 'depth' => $depth - 1);
 		}
-		$treeItems[$id] = (array)$subAlbum;
+		$treeItems[$id] = $subAlbum->getMemberData();
 		if (!isset($maxDepth) || $depth < $maxDepth) {
 		    $ret = $this->_buildTree($subAlbum, $treeList, $treeItems, $maxDepth, $userId,
 					     $depth + 1, $branchId);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 	    }
 	}
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

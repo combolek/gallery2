@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -93,14 +93,7 @@ class GalleryRemoteProperties {
      */
     function setProperty($key, $value) {
 	if ($key != null) {
-		/* perform replace in stages to avoid uncertainty on what gets done first */
-	    $value = str_replace('\\', '\\\\', $value);
-	    $value = str_replace("\r\n", '\n', $value);
-	    $value = str_replace(array("\r", "\n", "\t"), array('\n', '\n', '\t'), $value);
-	    $key = str_replace(array('#', '!', '=', ':'), array('\\#', '\\!', '\\=', '\\:'), $key);
-	    $value = str_replace(array('#', '!', '=', ':'),
-				 array('\\#', '\\!', '\\=', '\\:'), $value);
-
+	    $value = preg_replace("/(\r\n|\n|\r)/", "\\n", $value);
 	    $this->_map[$key] = $value;
 	}
     }

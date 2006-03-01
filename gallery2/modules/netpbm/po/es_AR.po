@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,15 +28,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-msgid "NetPBM"
-msgstr "NetPBM"
-
-msgid "NetPBM Graphics Toolkit"
-msgstr ""
-
-msgid "Graphics Toolkits"
-msgstr ""
 
 msgid "Convert to a JPEG"
 msgstr ""
@@ -116,22 +107,34 @@ msgstr ""
 msgid "File does not exist"
 msgstr ""
 
+msgid "NetPBM"
+msgstr "NetPBM"
+
+msgid "NetPBM Graphics Toolkit"
+msgstr ""
+
+msgid "Graphics Toolkits"
+msgstr ""
+
 msgid "NetPBM Settings"
 msgstr "NetPBM Settings"
 
 msgid "Settings saved successfully"
 msgstr ""
 
+#, fuzzy
 msgid ""
-"NetPBM is a graphics toolkit that can be used to process images that you upload to Gallery.  "
-"You must install the NetPBM binaries on your server, then enter the path to them in the text "
-"box below.  If you're on a Unix machine, don't forget to make the binaries executable "
-"(<i>chmod 755 *</i> in the NetPBM directory should do it)"
+"NetPBM is a graphics toolkit that can be used to process images that you "
+"upload to Gallery.  You must install the NetPBM binaries on your server, "
+"then enter the path to them in the text box below.  If you're on a Unix "
+"machine, don't forget to make the binaries executable (<i>chmod 755 *</i> in "
+"the NetPBM directory should do it)"
 msgstr ""
-"NetPBM es un paquete gr&aacute;fico que puede utilizarse para procesar im&aacute;genes que "
-"sube a Gallery. Tiene que instalar los binarios del NetPBM en su ordenador, y luego ingresar "
-"el path a los mismos. Si est&aacute; en un ordenador Unix, recuerde hacer los binarios "
-"ejecutables (<i>chmod 755 *</i> en la carpeta del NetPBM tendria que ser suficiente"
+"NetPBM es un paquete gr&aacute;fico que puede utilizarse para procesar "
+"im&aacute;genes que sube a Gallery. Tiene que instalar los binarios del "
+"NetPBM en su ordenador , y luego ingresar el path a los mismos. Si "
+"est&aacute; en un ordenador Unix, recuerde hacer los binarios ejecutables "
+"(<i>chmod 755 *</i> en la carpeta del NetPBM tendria que ser suficiente"
 
 msgid "NetPBM Directory:"
 msgstr ""
@@ -140,21 +143,23 @@ msgid "You must enter a path to your NetPBM binaries"
 msgstr "Tiene que ingresar un path a los binarios del NetPBM"
 
 msgid ""
-"The path you entered doesn't contain valid NetPBM binaries. Use the 'test' button to check "
-"where the error is."
+"The path you entered doesn't contain valid NetPBM binaries. Use the 'test' "
+"button to check where the error is."
 msgstr ""
 
 msgid "The path you entered isn't a valid path."
 msgstr ""
 
+#, fuzzy
 msgid "JPEG Quality:"
-msgstr "Calidad JPEG:"
+msgstr "Calidad JPEG"
 
 msgid ""
-"NetPBM will lose embedded EXIF data if you modify the original image, unless you have the "
-"optional <b>jhead</b> binary installed on your server.  If you have jhead installed, enter "
-"the path below.  Without it, NetPBM will still perform all of its normal functions, but you "
-"should always use the <i>preserve original image</i> option when rotating and scaling images"
+"NetPBM will lose embedded EXIF data if you modify the original image, unless "
+"you have the optional <b>jhead</b> binary installed on your server.  If you "
+"have jhead installed, enter the path below.  Without it, NetPBM will still "
+"perform all of its normal functions, but you should always use the "
+"<i>preserve original image</i> option when rotating and scaling images"
 msgstr ""
 
 msgid "jhead Directory:"
@@ -195,8 +200,8 @@ msgid "Error messages:"
 msgstr "Mensajes de error:"
 
 msgid ""
-"Although your NetPBM installation is not completely functional, you can still use it for the "
-"mime types listed below."
+"Although your NetPBM installation is not completely functional, you can "
+"still use it for the mime types listed below."
 msgstr ""
 
 msgid "Supported MIME Types"
@@ -212,6 +217,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid ""
-"We gathered this debug output while testing your NetPBM binaries.  If you read through this "
-"carefully you may discover the reason why your NetPBM binaries failed the tests."
+"We gathered this debug output while testing your NetPBM binaries.  If you "
+"read through this carefully you may discover the reason why your NetPBM "
+"binaries failed the tests."
 msgstr ""

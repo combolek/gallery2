@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
  * the photos.  Subsequent requests from Windows include the photo data and text.
  * This page processes the data and applies the options to be used while uploading.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -36,7 +36,8 @@ class UploadedItemView extends GalleryView {
      * @see GalleryView::loadTemplate()
      */
     function loadTemplate(&$template, &$form) {
-	return array(null, array());
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/EmptyPage.tpl'));
     }
 }
 ?>

@@ -16,6 +16,7 @@
     padding: 0;
 }
 
+
 .gbBlock {
     padding: 0.7em;
     border-width: 0 0 1px 0;
@@ -300,11 +301,6 @@ body.gallery {
     background-image: none;
     white-space: nowrap;
 }
-
-#gsThumbMatrix {
-    width: 100%;
-}
-
 #gallery.IE div.gbBreadCrumb span {
     display: inline-block;   /* IE loses padding-left on wrapped inline nowrap element */
     padding-right: 4px;      /* IE has less space at right of each span */
@@ -648,14 +644,4 @@ td.bsw_BlockCommands {
 
 #gsFooter {
   padding-top: 4px;
-}
-
-/* ********************************************************************************
- * Rating module style fix for Matrix
- */
-.giRatingUI {
-    margin: 10px auto; /* Required to center default rating module star images */
-}
-#gsThumbMatrix .giRatingAverageContainer {
-    margin: auto;
 }

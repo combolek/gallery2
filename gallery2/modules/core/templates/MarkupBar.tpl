@@ -8,14 +8,14 @@
 {if !empty($firstMarkupBar)}
 <script type="text/javascript">{literal}
   // <![CDATA[
-  function openOrCloseTextElement(elementId, bbCodeElement, button) {
+  function openOrCloseTextElement(elementId, bbCodeElement, button, buttonLabel) {
     var element = document.getElementById(elementId);
     if (!button.g2ToggleMode) {
       element.value = element.value + '[' + bbCodeElement + ']';
-      button.value = '*' + button.value;
+      button.value = '*' + buttonLabel;
     } else {
       element.value = element.value + '[/' + bbCodeElement + ']';
-      button.value = button.value.substring(1);
+      button.value = buttonLabel;
     }
     element.focus();
     button.g2ToggleMode = !button.g2ToggleMode;
@@ -48,16 +48,14 @@
 {/if}
 
 <div class="gbMarkupBar">
-  <input type="button" class="inputTypeButton"
-  	 value="{g->text text="B <!-- Button label for Bold -->"}"
-	 onclick="openOrCloseTextElement('{$element}', 'b', this)"
+  <input type="button" class="inputTypeButton" value="{g->text text="B"}"
+	 onclick="openOrCloseTextElement('{$element}', 'b', this, '{g->text text="B"}')"
 	 style="font-weight: bold;"/>
-  <input type="button" class="inputTypeButton"
-  	 value="{g->text text="i <!-- Button label for italic -->"}"
-	 onclick="openOrCloseTextElement('{$element}', 'i', this)"
+  <input type="button" class="inputTypeButton" value="{g->text text="i"}"
+	 onclick="openOrCloseTextElement('{$element}', 'i', this, '{g->text text="i"}')"
 	 style="font-style: italic; padding-left: 1px; padding-right: 4px"/>
   <input type="button" class="inputTypeButton" value="{g->text text="list"}"
-	 onclick="openOrCloseTextElement('{$element}', 'list', this)"/>
+	 onclick="openOrCloseTextElement('{$element}', 'list', this, '{g->text text="list"}')"/>
   <input type="button" class="inputTypeButton" value="{g->text text="bullet"}"
 	 onclick="appendTextElement('{$element}', '*', this)"/>
   <input type="button" class="inputTypeButton" value="{g->text text="url"}"

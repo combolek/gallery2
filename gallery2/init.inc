@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,22 +38,26 @@ function GalleryInitFirstPass($params=array()) {
     assert_options(ASSERT_WARNING, 1);
     assert_options(ASSERT_BAIL, 1);
 
-    /* Load all the core Gallery classes */
+    /* Figure out the Gallery base directory here, from our filename. */
     $galleryBase = dirname(__FILE__) . '/';
-    require_once($galleryBase . 'modules/core/classes/GalleryCoreApi.class');
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryConstants.class', true);
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryUtilities.class', true);
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryCapabilities.class', true);
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryView.class', true);
-    GalleryCoreApi::requireOnce('modules/core/classes/GalleryModule.class', true);
+
+    /* Load all the core Gallery classes */
+    $classDir = dirname(__FILE__) . '/modules/core/classes/';
+    require_once($classDir . 'GalleryCoreApi.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryConstants.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryStatus.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUtilities.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryCapabilities.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryView.class');
+    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryModule.class');
 
     if (!strncasecmp(PHP_OS, 'win', 3)) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/GalleryPlatform/WinNtPlatform.class', true);
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 	$platform = new WinNtPlatform();
     } else {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/GalleryPlatform/UnixPlatform.class', true);
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/GalleryPlatform/UnixPlatform.class');
 	$platform = new UnixPlatform();
     }
 
@@ -71,118 +75,95 @@ function GalleryInitFirstPass($params=array()) {
 	$gallery->setConfig('data.gallery.base', $dataBase);
     }
 
-    /* Init for downloadable plugins */
-    $gallery->setConfig('plugins.dirname', 'plugins');
-    $gallery->setConfig('repository.url', 'http://gallery.menalto.com/repository/gallery2/');
-    $gallery->setConfig('repository.cache', sprintf('%splugins_data%smodules%score%srepository%s',
-	$dataBase, $slash, $slash, $slash, $slash));
-
     /* Set our various data paths */
     $gallery->setConfig('data.gallery.cache', $dataBase . 'cache' . $slash);
     $gallery->setConfig('data.gallery.albums', $dataBase . 'albums' . $slash);
     $gallery->setConfig('data.gallery.locks', $dataBase . 'locks'. $slash);
+    $gallery->setConfig('data.gallery.sessions', $dataBase . 'sessions' . $slash);
     $gallery->setConfig('data.gallery.tmp', $dataBase . 'tmp' . $slash);
     $gallery->setConfig('data.smarty.base', $dataBase . 'smarty' . $slash);
     $gallery->setConfig('data.smarty.templates_c',
 	$dataBase . 'smarty' . $slash . 'templates_c' . $slash);
-    $gallery->setConfig('data.gallery.plugins', $galleryBase . 'plugins' . $slash);
+    $gallery->setConfig('data.gallery.plugins', $dataBase . 'plugins' . $slash);
     $gallery->setConfig('data.gallery.plugins_data', $dataBase . 'plugins_data' . $slash);
+    $platform->_calculateUmaskAndFilePerms(); /* Init platform umask */
 
-    /* Configure our url generator */
+    /* Configure our url Generator */
     if (!isset($params['noDatabase'])) {
-	/*
-	 * Swallow error to prevent GalleryFactoryHelper_loadRegistry
-	 * cache from breaking upgrade to core 1.0.6.
-	 */
-	list ($ret, $urlGenerator) = @GalleryCoreApi::newFactoryInstance('GalleryUrlGenerator');
+	list ($ret, $urlGenerator) = GalleryCoreApi::newFactoryInstance('GalleryUrlGenerator');
 	/* Swallow ERROR_STORAGE_FAILURE, or automatic upgrading fails */
-	if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
+	if ($ret->isError() && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
     }
     if (!isset($urlGenerator)) {
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class', true);
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryUrlGenerator.class');
 	$urlGenerator = new GalleryUrlGenerator();
     }
-    /* Allow for overrides from GalleryEmbed ($param) or from config.php */
-    $configBaseUri = @$gallery->getConfig('baseUri');
-    $ret = $urlGenerator->init(
-	isset($params['baseUri']) ? $params['baseUri'] :
-	                            (!empty($configBaseUri) ? $configBaseUri : null),
-	isset($params['g2Uri']) ? $params['g2Uri'] : null,
+    $urlGenerator->init(
+	isset($params['embedUri']) ? $params['embedUri'] : null,
+	isset($params['embedPath']) ? $params['embedPath'] : null,
+	isset($params['relativeG2Path']) ? $params['relativeG2Path'] : null,
 	isset($params['embedSessionString']) ? $params['embedSessionString'] : null);
-    if ($ret) {
-	return $ret->wrap(__FILE__, __LINE__);
-    }
     $gallery->setUrlGenerator($urlGenerator);
 
     /* Initialize our session */
     if (!isset($params['noDatabase'])) {
 	if (isset($params['gallerySessionId'])) {
-	    GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class', true);
+	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GallerySession.class');
 	    GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
 	}
 	$ret = $gallery->initSession();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-    } else {
-	$gallery->initEmptySession();
     }
 
     /* Initialize our translator */
-    $language = GalleryUtilities::getRequestVariables('language');
-    if (isset($params['activeLanguage']) || !empty($language)) {
-	GalleryCoreApi::requireOnce('modules/core/classes/GalleryTranslator.class', true);
-	list ($language) = GalleryTranslator::getSupportedLanguageCode(
-	    empty($language) ? $params['activeLanguage'] : $language);
+    if (isset($params['activeLanguage'])) {
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTranslator.class');
+	list ($language) = GalleryTranslator::getSupportedLanguageCode($params['activeLanguage']);
 	$gallery->setActiveLanguageCode($language);
     }
     $ret = $gallery->initTranslator(isset($params['noDatabase']));
-    if ($ret) {
+    if ($ret->isError()) {
 	return $ret->wrap(__FILE__, __LINE__);
     }
 
-    return null;
+    return GalleryStatus::success();
 }
 
 function GalleryInitSecondPass() {
     global $gallery;
-    $session =& $gallery->getSession();
-    $urlGenerator =& $gallery->getUrlGenerator();
 
-    $ret = $urlGenerator->initNavigation();
-    if ($ret) {
-	return $ret->wrap(__FILE__, __LINE__);
-    }
-    
+    $session =& $gallery->getSession();
     /*
      * Set our active user id.  Check to see if we have one in our session.  If
      * not, make us the anonymous user.  If we don't have a session, this will
      * initiate one for us.
      */
-    $activeUserId = $session->getUserId();
+    $activeUserId = $session->get('core.id.activeUser');
     if (empty($activeUserId)) {
 	/* No active user -- be anonymous */
 	list ($ret, $activeUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
     }
 
     list ($ret, $activeUser) = GalleryCoreApi::loadEntitiesById($activeUserId);
-    if ($ret) {
+    if ($ret->isError()) {
 	if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 	    /* Missing user -- be anonymous */
 	    list ($ret, $activeUserId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $activeUser) = GalleryCoreApi::loadEntitiesById($activeUserId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
@@ -192,6 +173,6 @@ function GalleryInitSecondPass() {
 
     $gallery->setActiveUser($activeUser);
 
-    return null;
+    return GalleryStatus::success();
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,41 +32,11 @@ class UploadAppletModule extends GalleryModule {
 	$this->setId('uploadapplet');
 	$this->setName($gallery->i18n('Upload Applet'));
 	$this->setDescription($gallery->i18n('Easy to use upload applet for media'));
-	$this->setVersion('1.0.2');
-	$this->setGroup('import', $gallery->i18n('Import'));
-	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
-    }
-
-    /**
-     * @see GalleryPlugin::upgrade()
-     */
-    function upgrade($currentVersion) {
-	global $gallery;
-
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	if (!isset($params['uploaddefaultVariables'])) {
-	    $ret = $this->setParameter('uploaddefaultVariables', '');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	if (!isset($params['uploadoverrideVariables'])) {
-	    $ret = $this->setParameter('uploadoverrideVariables', 
-		    'toSysOut=true|htmlEscapeCaptions=true');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	return null;
+	$this->setVersion('1.0.0');
+	$this->setGroup('import', $this->translate('Import'));
+	$this->setCallbacks('');
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -76,20 +46,26 @@ class UploadAppletModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddPlugin', 'ItemAddUploadApplet', 'ItemAddUploadApplet',
 	    'modules/uploadapplet/ItemAddUploadApplet.inc', 'uploadapplet', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
-     * @see GalleryModule::getSiteAdminViews()
+     * @see GalleryModule::isRecommendedDuringInstall()
      */
-    function getSiteAdminViews() {
-	return array(null,
-		     array(array('name' => $this->translate('Upload Applet'),
-				 'view' => 'uploadapplet.UploadAppletSiteAdmin')));
+    function isRecommendedDuringInstall() {
+	return false;
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure()
+     */
+    function autoConfigure() {
+	/* We don't require any special configuration */
+	return array(GalleryStatus::success(), true);
     }
 }
 ?>

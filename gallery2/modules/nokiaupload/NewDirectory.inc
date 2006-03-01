@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * @author Jerome Rannikko <jeromer@hotpop.com>
  */
 
-GalleryCoreApi::requireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/nokiaupload/classes/ImageUploadHelper.class');
 
 /**
  * This controller implements the Nokia Image Uploader API's 'New Directory' command.
@@ -45,7 +45,7 @@ class NewDirectoryController extends GalleryController {
 	$results['status'] = ImageUploadHelper::createNewDirectory();
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -85,7 +85,7 @@ class NewDirectoryView extends GalleryView {
 	    $reply .= 'Did=' . $status['id'] . "\r\n";
 	} else {
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'nokiaupload');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$reply .= "Album creation failed.\r\n";
 	    } else {
 		$reply .= $module->translate('Album creation failed.') . "\r\n";
@@ -94,11 +94,10 @@ class NewDirectoryView extends GalleryView {
 
 	$gallery->debug("Sending:\n$reply");
 
-	header("Content-type: text/plain; charset=UTF-8");
 	header('Content-Length: '.strlen($reply));
 	print $reply;
 
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

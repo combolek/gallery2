@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	$session =& $gallery->getSession();
 	$this->_currentLanguage = $session->get('core.language');
 	list ($ret, $this->_user) = $this->_createUser();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -101,21 +101,20 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals('full name', $this->_user->getFullName());
-	$this->assertEquals('email@test.me', $this->_user->getEmail());
-	$this->assertEquals('language', $this->_user->getLanguage());
-	$this->assertEquals('language', $session->get('core.language'), 'Language');
+	$this->assertEquals($this->_user->getFullName(), 'full name');
+	$this->assertEquals($this->_user->getEmail(), 'email@test.me');
+	$this->assertEquals($this->_user->getLanguage(), 'language');
+    $this->assertEquals('language', $session->get('core.language'), 'Language');
     }
 
     function testEditRequiredOnly() {
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
 	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]',
-					     '  email_with-leading@space.test-o.com');
+	GalleryUtilities::putRequestVariable('form[email]', '  email_with-leading@space.test-o.com');
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
@@ -126,12 +125,12 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 
 	/* Load back the user object and make sure the data got saved */
 	list ($ret, $this->_user) = $this->_user->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->assertEquals('full name', $this->_user->getFullName());
-	$this->assertEquals('email_with-leading@space.test-o.com', $this->_user->getEmail());
+	$this->assertEquals($this->_user->getFullName(), 'full name');
+	$this->assertEquals($this->_user->getEmail(), 'email_with-leading@space.test-o.com');
     }
 
     function testEditMissingEmail() {
@@ -217,12 +216,12 @@ class UserPreferencesControllerTest extends GalleryControllerTestCase {
 	/* Make ourselves an admin */
 	list ($ret, $adminGroupId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::addUserToGroup($this->_user->getId(), $adminGroupId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

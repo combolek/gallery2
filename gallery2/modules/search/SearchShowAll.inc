@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 /**
  * Required classes
  */
-GalleryCoreApi::requireOnce('modules/search/classes/SearchUtilities.class');
+GalleryCoreApi::relativeRequireOnce('modules/search/classes/SearchUtilities.class');
 
 /**
  * @package Search
@@ -51,7 +51,7 @@ class SearchShowAllController extends GalleryController {
 
 	$results['status'] = array();
 	$results['error'] = array();
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -115,22 +115,22 @@ class SearchShowAllView extends GalleryView {
 		}
 
 		$moduleId = $form['moduleId'];
-		GalleryCoreApi::requireOnce(
+		GalleryCoreApi::relativeRequireOnce(
 		    'modules/search/classes/GallerySearchInterface_1_0.class');
 		list ($ret, $searchInstance) =
 		    GalleryCoreApi::newFactoryInstanceById('GallerySearchInterface_1_0',
 							   $form['moduleId']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($searchInstance)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		list ($ret, $moduleInfo) = $searchInstance->getSearchModuleInfo();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -140,7 +140,7 @@ class SearchShowAllView extends GalleryView {
 			    SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']),
 			    ($form['page']-1) * $pageSize,
 			    $pageSize);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -160,21 +160,21 @@ class SearchShowAllView extends GalleryView {
 		if (!empty($itemIds)) {
 		    /* Fetch items */
 		    list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($itemList as $item) {
-			$items[$item->getId()] = (array)$item;
+			$items[$item->getId()] = $item->getMemberData();
 		    }
 
 		    /* Fetch thumbnails */
 		    list ($ret, $thumbnailList) =
 			GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($thumbnailList as $thumbnail) {
-			$thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
+			$thumbnails[$thumbnail->getParentId()] = $thumbnail->getMemberData();
 		    }
 		}
 	    }
@@ -184,11 +184,11 @@ class SearchShowAllView extends GalleryView {
 
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -201,16 +201,15 @@ class SearchShowAllView extends GalleryView {
 	    'results' => $results,
 	    'thumbnails' => $thumbnails,
 	    'items' => $items,
-	    'rootAlbum' => (array)$rootAlbum));
+	    'rootAlbum' => $rootAlbum->getMemberData()));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$template->javascript('modules/search/HighlightResults.js');
 	$template->title($module->translate('Gallery Search'));
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/search/templates/SearchShowAll.tpl'));
     }
 }

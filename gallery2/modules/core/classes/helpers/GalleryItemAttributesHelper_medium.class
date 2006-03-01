@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,9 +41,6 @@ class GalleryItemAttributesHelper_medium {
     function fetchViewCounts($itemIds) {
 	global $gallery;
 
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
-	}
 	$query = sprintf('
         SELECT
           [GalleryItemAttributesMap::itemId], [GalleryItemAttributesMap::viewCount]
@@ -53,12 +50,12 @@ class GalleryItemAttributesHelper_medium {
           [GalleryItemAttributesMap::itemId] IN (%s)
         ', GalleryUtilities::makeMarkers($itemIds));
 	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($searchResults->resultCount() != sizeof($itemIds)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
 	$data = array();
@@ -66,7 +63,7 @@ class GalleryItemAttributesHelper_medium {
 	    $data[$result[0]] = (int)$result[1];
 	}
 
-	return array(null, $data);
+	return array(GalleryStatus::success(), $data);
     }
 
     /**
@@ -77,17 +74,16 @@ class GalleryItemAttributesHelper_medium {
      * @static
      */
     function fetchOrderWeight($itemId) {
-	list ($ret, $orderWeights) =
-	    GalleryItemAttributesHelper_medium::fetchOrderWeights(array($itemId));
-	if ($ret) {
+	list ($ret, $orderWeights) = GalleryItemAttributesHelper_medium::fetchOrderWeights(array($itemId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($orderWeights[$itemId])) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__), null);
 	}
 
-	return array(null, (int)$orderWeights[$itemId]);
+	return array(GalleryStatus::success(), (int)$orderWeights[$itemId]);
     }
 
     /**
@@ -101,20 +97,16 @@ class GalleryItemAttributesHelper_medium {
     function fetchOrderWeights($itemIds) {
 	global $gallery;
 
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
-	}
 	$query = '
         SELECT
           [GalleryItemAttributesMap::itemId], [GalleryItemAttributesMap::orderWeight]
         FROM
           [GalleryItemAttributesMap]
         WHERE
-          [GalleryItemAttributesMap::itemId] IN (' .
-	    GalleryUtilities::makeMarkers(sizeof($itemIds)) . ')
+          [GalleryItemAttributesMap::itemId] IN (' . GalleryUtilities::makeMarkers(sizeof($itemIds)) . ')
         ';
 	list ($ret, $searchResults) = $gallery->search($query, $itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -122,7 +114,7 @@ class GalleryItemAttributesHelper_medium {
 	while ($result = $searchResults->nextResult()) {
 	    $data[(int)$result[0]] = $result[1];
 	}
-	return array(null, $data);
+	return array(GalleryStatus::success(), $data);
     }
 
     /**
@@ -143,27 +135,20 @@ class GalleryItemAttributesHelper_medium {
         WHERE
           [GalleryItemAttributesMap::itemId] = ?
         ';
-	list ($ret, $searchResults) = $gallery->search($query, array((int)$itemId));
-	if ($ret) {
+	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($searchResults->resultCount() != 1) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__,
 					      "ParentSequence for $itemId"), null);
 	}
 
 	$result = $searchResults->nextResult();
-	/* DB2 doesn't trim when storing data in a varchar column */
-	$parentSequence = preg_split('/\//', trim($result[0]), -1, PREG_SPLIT_NO_EMPTY);
+	$parentSequence = preg_split('/\//', $result[0], -1, PREG_SPLIT_NO_EMPTY);
 
-	if (is_array($parentSequence)) {
-	    foreach ($parentSequence as $idx => $id) {
-		$parentSequence[$idx] = (int)$id;
-	    }
-	}
-
-	return array(null, $parentSequence);
+	return array(GalleryStatus::success(), $parentSequence);
     }
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ class ItemMoveController extends GalleryController {
 		/* Check if we can add albums or items here */
 		$newParentId = $form['destination'];
 		list ($ret, $permissions) = GalleryCoreApi::getPermissions($newParentId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -70,7 +70,7 @@ class ItemMoveController extends GalleryController {
 		/* Load destination parent ids: we don't want recursive moves */
 		list ($ret, $newParentAncestorIds) =
 		    GalleryCoreApi::fetchParentSequence($newParentId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$newParentAncestorIds[] = $newParentId;
@@ -83,11 +83,11 @@ class ItemMoveController extends GalleryController {
 
 		/* Load the source items */
 		list ($ret, $selectedItems) = GalleryCoreApi::loadEntitiesById($selectedIds);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$ret = GalleryCoreApi::studyPermissions($selectedIds);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -103,7 +103,7 @@ class ItemMoveController extends GalleryController {
 
 		    $oldParentIds[] = $selectedItem->getParentId();
 		    list ($ret, $permissions) = GalleryCoreApi::getPermissions($selectedId);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -130,7 +130,7 @@ class ItemMoveController extends GalleryController {
 		$lockIds = array();
 		list ($ret, $lockIds[]) =
 		    GalleryCoreApi::acquireReadLock(array($newParentId, $itemId));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -145,7 +145,7 @@ class ItemMoveController extends GalleryController {
 		    }
 		    /* Write lock all the items we're moving */
 		    list ($ret, $currentLockIds) = GalleryCoreApi::acquireWriteLock($currentIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lockIds);
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -153,43 +153,41 @@ class ItemMoveController extends GalleryController {
 		    /* If we have no problems, do the moves */
 		    foreach ($currentItems as $selectedItem) {
 			$ret = $selectedItem->move($newParentId);
-			if ($ret) {
+			if ($ret->isError()) {
 			    GalleryCoreApi::releaseLocks(array_merge($lockIds, $currentLockIds));
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$status['moved']['count']++;
-
+			
 			$ret = $selectedItem->save();
-			if ($ret) {
+			if ($ret->isError()) {
 			    GalleryCoreApi::releaseLocks(array_merge($lockIds, $currentLockIds));
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
-
+			
 			if (GalleryUtilities::isA($selectedItem, 'GalleryDataItem')) {
 			    /* Update for derivative preferences of new parent */
-			    $ret =
-				GalleryCoreApi::addExistingItemToAlbum($selectedItem, $newParentId);
-			    if ($ret) {
-				GalleryCoreApi::releaseLocks(
-				    array_merge($lockIds, $currentLockIds));
+			    $ret = GalleryCoreApi::addExistingItemToAlbum($selectedItem, $newParentId);
+			    if ($ret->isError()) {
+				GalleryCoreApi::releaseLocks(array_merge($lockIds, $currentLockIds));
 				return array($ret->wrap(__FILE__, __LINE__), null);
 			    }
 			}
 		    }
 		    $ret = GalleryCoreApi::releaseLocks($currentLockIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lockIds);
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} while (!empty($selectedItems));
-
+		
 		$ret = GalleryCoreApi::releaseLocks($lockIds);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($itemId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -202,7 +200,7 @@ class ItemMoveController extends GalleryController {
 	    $page = GalleryUtilities::getRequestVariables('page');
 	    list ($ret, $peerIds) =
 		GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -227,7 +225,7 @@ class ItemMoveController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -260,14 +258,14 @@ class ItemMoveView extends GalleryView {
 	}
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get all peers that we can delete */
 	list ($ret, $peerIds) =
 	    GalleryCoreApi::fetchChildItemIdsWithPermission($itemId, 'core.delete');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -315,37 +313,36 @@ class ItemMoveView extends GalleryView {
 
 	    /* Load all the peers */
 	    list ($ret, $peerItems) = GalleryCoreApi::loadEntitiesById($peerIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* get peer thumbnails */
 	    list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($peerIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Build our peers table */
 	    $peers = array();
 	    foreach ($peerItems as $peerItem) {
-		$peers[$peerItem->getId()] = (array)$peerItem;
+		$peers[$peerItem->getId()] = $peerItem->getMemberData();
 		if (GalleryUtilities::isA($peerItem, 'GalleryAlbumItem')) {
 		    $peerTypes['album'][$peerItem->getId()] = 1;
 		} else {
 		    $peerTypes['data'][$peerItem->getId()] = 1;
 		}
-		$peers[$peerItem->getId()]['selected'] =
-		    isset($form['selectedIds'][$peerItem->getId()]);
+		$peers[$peerItem->getId()]['selected'] = isset($form['selectedIds'][$peerItem->getId()]);
 
 		/* While we're at it, attach the thumbnails */
 		if (isset($thumbnails[$peerItem->getId()])) {
 		    $thumbnail = $thumbnails[$peerItem->getId()];
 		    list ($ret, $thumbnail) =
 			GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
-		    $peers[$peerItem->getId()]['thumbnail'] = (array)$thumbnail;
+		    $peers[$peerItem->getId()]['thumbnail'] = $thumbnail->getMemberData();
 		}
 	    }
 
@@ -353,29 +350,28 @@ class ItemMoveView extends GalleryView {
 	    if (!empty($peerTypes['album'])) {
 		list ($ret, $peerDescendentCounts) =
 		    GalleryCoreApi::fetchDescendentCounts(array_keys($peerTypes['album']));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
 	    /* Get all possible destinations (where user has write permission) */
-	    list ($ret, $rootId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
+	    list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get ids of all all albums where we can add new data items */
 	    list ($ret, $albumIds['addDataItem']) =
 		GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get ids of all all albums where we can add new album items */
 	    list ($ret, $albumIds['addAlbumItem']) =
 		GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -385,7 +381,7 @@ class ItemMoveView extends GalleryView {
 
 	    /* Load all the album entities */
 	    list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -410,7 +406,7 @@ class ItemMoveView extends GalleryView {
 	$template->setVariable('ItemMove', $ItemMove);
 	$template->setVariable('controller', 'core.ItemMove');
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/ItemMove.tpl'));
     }
 
@@ -419,11 +415,11 @@ class ItemMoveView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $core->translate('move item'));
+	return array(GalleryStatus::success(), $core->translate('move item'));
     }
 }
 ?>

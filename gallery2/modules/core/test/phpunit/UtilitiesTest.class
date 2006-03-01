@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,8 +47,8 @@ class UtilitiesTest extends GalleryTestCase {
 	    $_SERVER['HTTP_COOKIE'] : null;
 
 	$this->_mkdir = array();
-	$this->_savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new UtilitiesTestPlatform($this));
+	$this->_savePlatform = $gallery->getPlatform();
+	$gallery->_platform = new UtilitiesTestPlatform($this);
 
 	foreach (array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR') as $key) {
 	    unset($_SERVER[$key]);
@@ -126,20 +126,19 @@ class UtilitiesTest extends GalleryTestCase {
     function testGetFormVariables2() {
 	/* Test windows and unix style tmp names */
 	$_FILES[GalleryUtilities::prefixFormVariable('utilitiestest')] =
-		array('name' => array('test' => 'DSCF0001.JPG', 'DSCF0002.GIF', null, null),
-		      'type' => array('test' => 'image/pjpeg', 'image/gif', null, null),
-		      'tmp_name' => array('test' => 'c:\apache\tmp\php195.tmp', '/tmp/php195.tmp',
+		array('name' => array('1' => 'DSCF0001.JPG', 'DSCF0002.GIF', null, null),
+		      'type' => array('1' => 'image/pjpeg', 'image/gif', null, null),
+		      'tmp_name' => array('1' => 'c:\apache\tmp\php195.tmp', '/tmp/php195.tmp',
 					  null, null),
-		      'error' => array('test' => 0, 0, 4, 4),
-		      'size' => array('test' => 1779802, 102323, 0, 0));
+		      'error' => array('1' => 0, 0, 4, 4),
+		      'size' => array('1' => 1779802, 102323, 0, 0));
 
-	$this->assertEquals(array('name' => array('test' => 'DSCF0001.JPG', 'DSCF0002.GIF',
-						  null, null),
-				  'type' => array('test' => 'image/pjpeg', 'image/gif', null, null),
-				  'tmp_name' => array('test' => 'c:\apache\tmp\php195.tmp',
+	$this->assertEquals(array('name' => array('1' => 'DSCF0001.JPG', 'DSCF0002.GIF', null, null),
+				  'type' => array('1' => 'image/pjpeg', 'image/gif', null, null),
+				  'tmp_name' => array('1' => 'c:\apache\tmp\php195.tmp',
 						      '/tmp/php195.tmp', null, null),
-				  'error' => array('test' => 0, 0, 4, 4),
-				  'size' => array('test' => 1779802, 102323, 0, 0)),
+				  'error' => array('1' => 0, 0, 4, 4),
+				  'size' => array('1' => 1779802, 102323, 0, 0)),
 			    GalleryUtilities::getFormVariables('utilitiestest'));
     }
 
@@ -258,46 +257,32 @@ class UtilitiesTest extends GalleryTestCase {
 	$_SERVER['HTTP_HOST'] = 'example.com';
 	$_SERVER['SERVER_PORT'] = 80;
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret = $urlGenerator->init('phpunit_test.php');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
+	$urlGenerator->init('phpunit_test.php');
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$this->assertEquals(
-	    'modules/core/test/phpunit/UtilitiesTest.class',
-	    GalleryUtilities::convertPathToUrl($file), 'test');
-
-	$this->assertEquals(
 	    'http://example.com/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
-	    GalleryUtilities::convertPathToUrl($file, array('forceFullUrl' => true)),
-	    'test forceFullUrl');
+	    GalleryUtilities::convertPathToUrl($file), 'test');
 
 	/* Simulate embedded (request uri doesn't reference g2 install dir) */
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret = $urlGenerator->init('phpunit_test.php?test=on', '/gallery2/');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
+	$urlGenerator->init('phpunit_test.php?test=on', null, '../gallery2/');
 	$gallery->setUrlGenerator($urlGenerator);
 	$_SERVER['REQUEST_URI'] = '/testcms/phpunit_test.php?test=on&foo=bar';
 
 	$this->assertEquals(
-	    '/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
+	    'http://example.com/gallery2/modules/core/test/phpunit/UtilitiesTest.class',
 	    GalleryUtilities::convertPathToUrl($file), 'embed');
 
 	/* Simulate apache alias (/g2test -> this g2 dir, not under docroot) */
 	$_SERVER['DOCUMENT_ROOT'] = '/g2testroot';
 	$_SERVER['REQUEST_URI'] = '/g2test/phpunit_test.php?foo=bar';
 	$urlGenerator = new GalleryUrlGenerator();
-	$ret = $urlGenerator->init('phpunit_test.php');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
+	$urlGenerator->init('phpunit_test.php');
 	$gallery->setUrlGenerator($urlGenerator);
 
 	$this->assertEquals(
-	    'modules/core/test/phpunit/UtilitiesTest.class',
+	    'http://example.com/g2test/modules/core/test/phpunit/UtilitiesTest.class',
 	    GalleryUtilities::convertPathToUrl($file), 'alias');
     }
 
@@ -332,20 +317,9 @@ class UtilitiesTest extends GalleryTestCase {
     }
 
     function testIsExactlyA() {
-	$this->assert(GalleryUtilities::isExactlyA(new UtilitiesTest("x"),
-		      'UtilitiesTest'), 'exact');
-	$this->assert(!GalleryUtilities::isExactlyA(new UtilitiesTest("x"),
-		      'GalleryTestCase'), 'parent class');
-	$this->assert(!GalleryUtilities::isExactlyA(new UtilitiesTest("x"),
-		      'GalleryEntity'), 'other class');
-	/* Test a class name with I in it; as strcasecmp is affected by locale */
-	list ($ret, $album) =
-	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert(GalleryUtilities::isExactlyA($album, 'GalleryAlbumItem'), 'album');
-	$this->assert(!GalleryUtilities::isExactlyA($album, 'GalleryItem'), 'item');
+	$this->assert(GalleryUtilities::isExactlyA(new UtilitiesTest("x"), 'UtilitiesTest'));
+	$this->assert(!GalleryUtilities::isExactlyA(new UtilitiesTest("x"), 'GalleryTestCase'));
+	$this->assert(!GalleryUtilities::isExactlyA(new UtilitiesTest("x"), 'GalleryEntity'));
     }
 
     function testHasRequestVariable() {
@@ -540,7 +514,7 @@ class UtilitiesTest extends GalleryTestCase {
 	$this->assert(GalleryUtilities::isPathInList('/foo/bar',
 						     array('/link', '/bar')), 'symlink path');
 
-	$gallery->setPlatform(new UtilitiesTestWinPlatform());
+	$gallery->_platform = new UtilitiesTestWinPlatform();
 	$this->assert(GalleryUtilities::isPathInList('c:\foo\bar',
 						     array('d:\\', 'C:\Foo')), 'test 7');
     }
@@ -604,9 +578,6 @@ class UtilitiesTest extends GalleryTestCase {
 	for ($i = 0; $i < 7; $i++) {
 	    list ($ret, $albums[$i]) =
 		GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryAlbumItem');
-	    if ($ret) {
-		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	    }
 	    $albums[$i]->setId($i);
 	}
 
@@ -637,7 +608,7 @@ class UtilitiesTest extends GalleryTestCase {
 
     function testGetFile() {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	$_FILES[GalleryUtilities::prefixFormVariable('userfile')] =
 	    array('name' => 'testfile.txt',
@@ -745,7 +716,6 @@ class UtilitiesTest extends GalleryTestCase {
 	$data['google'][] = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
 	$data['google'][] = 'Googlebot/2.1 (+http://www.googlebot.com/bot.html)';
 	$data['google'][] = 'Mediapartners-Google/2.1 (+http://www.googlebot.com/bot.html)';
-	$data['google'][] = 'gsa-crawler (Enterprise; GID-01083; search-admin@example.com)';
 
 	$data['yahoo'][] = 'YahooSeeker/1.0 (compatible; Mozilla 4.0; MSIE 5.5; '
 	    . 'http://help.yahoo.com/help/us/shop/merchant/)';
@@ -1315,45 +1285,45 @@ class UtilitiesTest extends GalleryTestCase {
 
     function testGetPseudoFileName() {
 	global $gallery;
-	$gallery->setPlatform($this->_savePlatform);
+	$gallery->_platform = $this->_savePlatform;
 
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($album);
 
 	$ret = GalleryCoreApi::addMimeType('phpunit_movie', 'test/movie', false);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $item) = $this->_createRandomDataItem($album->getId(), 'test/movie',
 					   array('pathComponent' => 'testitem.phpunit_movie'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $clip) = $this->_createDerivative($item, $item->getId(),
 	    DERIVATIVE_TYPE_IMAGE_PREFERRED, 'movieclip|5,10', 'test/movie');
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addMimeType('phpunit_image', 'test/image', true);
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::removeMimeType(array('extension' => 'phpunit_movie'));
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $thumb) = $this->_createDerivative($item, $item->getId(),
 	    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'convert-to-test/image;thumbnail|150', 'test/image');
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::removeMimeType(
 			    array('extension' => array('phpunit_movie', 'phpunit_image')));
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $highlight) = $this->_createDerivative($album, $thumb->getId(),
 	    DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|200', 'test/image');
-	if ($ret) {
+	if ($ret->isError()) {
 	    GalleryCoreApi::removeMimeType(
 			    array('extension' => array('phpunit_movie', 'phpunit_image')));
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
@@ -1361,35 +1331,35 @@ class UtilitiesTest extends GalleryTestCase {
 
 	/* Item gives its own name */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($item);
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('testitem.phpunit_movie', $result);
 
 	/* Derivative with same mime type as parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($clip);
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('testitem.phpunit_movie', $result);
 
 	/* Derivative with different mime type from parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($thumb);
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('testitem.phpunit_image', $result);
 
 	/* Derivative with non-item parent */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($highlight);
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($album->getPathComponent() . '.phpunit_image', $result);
 
 	/* Entity that is not a FileSystemEntity or Derivative */
 	list ($ret, $result) = GalleryUtilities::getPseudoFileName($gallery->getActiveUser());
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('unknown', $result);
@@ -1397,59 +1367,9 @@ class UtilitiesTest extends GalleryTestCase {
 	/* Cleanup */
 	$ret = GalleryCoreApi::removeMimeType(
 			       array('extension' => array('phpunit_movie', 'phpunit_image')));
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-    }
-
-    function testHtmlSafe() {
-	$this->assertEquals('script src ', GalleryUtilities::htmlSafe(
-		'script src <script src="http://evil.com/bad.js">'));
-	$this->assertEquals('script type ', GalleryUtilities::htmlSafe(
-		'script type <script type="text/javascript">alert("bad");</script>'));
-	$this->assertEquals('applet ', GalleryUtilities::htmlSafe(
-		'applet <applet code="http://evil.com/bad.class"></applet>'));
-	$this->assertEquals('object ', GalleryUtilities::htmlSafe(
-		'object <object codetype="application/java" classid="java:bad.class"></object>'));
-	$this->assertEquals('embed ', GalleryUtilities::htmlSafe(
-		'embed <embed src="http://evil.com/bad.mov" width=400 height=300>'));
-	$this->assertEquals('base ', GalleryUtilities::htmlSafe(
-		'base <base href="http://evil.com/bad.html">'));
-	$this->assertEquals('title ', GalleryUtilities::htmlSafe(
-		'title <title>bad title</title>'));
-	$this->assertEquals('link ', GalleryUtilities::htmlSafe(
-		'link <link rel="Next" href="http://evil.com/bad.php">'));
-	$this->assertEquals('meta ', GalleryUtilities::htmlSafe(
-		'meta <meta http-equiv="refresh" content="2; url=http://evil.com/">'));
-	$this->assertEquals('style ', GalleryUtilities::htmlSafe(
-		'style <style type="test/css">body { color: red; }</style>'));
-	$this->assertEquals('<a href="test">12</a>8 <br />', GalleryUtilities::htmlSafe(
-		'<a href="test" onmouseover="alert(1)">12</a>8 <br />'));
-	$this->assertEquals('<a>12</a>b<br />', GalleryUtilities::htmlSafe(
-		'<a href="javascript:alert(1)">12</a>b<br/>'));
-
-	/* HTML_Safe does some normalizing of other tags */
-	$this->assertEquals('br<br />is<br />ok', GalleryUtilities::htmlSafe('br<br>is<br/>ok'));
-	$this->assertEquals('img <img src="a.png" />', GalleryUtilities::htmlSafe(
-		'img <img src="a.png">'));
-
-	/* Unclosed tags are closed, unmatched close is stripped */
-	$this->assertEquals('<tt><b>closed</b>  <i>open</i></tt>', GalleryUtilities::htmlSafe(
-		'<tt><b>closed</b> </td> <i>open'));
-    }
-
-    function testStrToLower() {
-	/* For tr_TR as locale, I translates to y with an accent when using PHP's strtolower */
-	$this->assertEquals(
-	    'abcdefghijklmnopqrstuvwxyz0123456789=)(/&%',
-	    GalleryUtilities::strToLower('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%'));
-    }
-
-    function testStrToUpper() {
-	/* For tr_TR as locale, i translates to Y with an accent when using PHP's strtoupper */
-	$this->assertEquals(
-	    'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789=)(/&%',
-	    GalleryUtilities::strToUpper('abcdefghijklmnopqrstuvwxyz0123456789=)(/&%'));
     }
 }
 
@@ -1550,7 +1470,7 @@ class UtilitiesTestPlatform {
     }
 }
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class UtilitiesTestWinPlatform extends WinNtPlatform {
     function realpath($file) {
 	/* These are used in testIsPathInList */

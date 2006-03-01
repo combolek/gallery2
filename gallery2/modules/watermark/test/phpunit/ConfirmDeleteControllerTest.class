@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkHelper.class');
-GalleryCoreApi::requireOnce('modules/watermark/classes/WatermarkImage.class');
+GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/watermark/classes/WatermarkImage.class');
 
 /**
  * ConfirmDelete controller tests
@@ -49,7 +49,7 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_user) = $this->_createUser();
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -61,28 +61,28 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 	/* Create a watermark (it'll be created as our active user) */
 	$watermark = new WatermarkImage();
 	$ret = $watermark->create(__FILE__, 'test/file', 'phpunit_' . rand() . '.gif');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = $watermark->save();
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addGroupPermission($watermark->getId(), $id, 'core.all');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $watermark->getId(), $this->_user->getId(), 'core.all');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -90,17 +90,17 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 
 	/* Create watermarked item */
 	list ($ret, $this->_item) = $this->_createRandomDataItem($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_item);
 	list ($ret, $this->_derivative) = $this->_createDerivative(
 	    $this->_item, $this->_item->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, '', 'test/file',
-	    array('postFilterOperations' =>
+	    array('postfilterOperations' =>
 		      'composite|plugins_data/modules/watermark/' .
 		      $watermark->getFileName() . ',...'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -146,15 +146,15 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	$ret = $this->_verifyMissing($this->_watermark->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $derivative) = $this->_derivative->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
+	$this->assertEquals(null, $derivative->getPostfilterOperations(), 'not watermarked');
     }
 
     function testAdminDelete() {
@@ -173,15 +173,15 @@ class ConfirmDeleteControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	$ret = $this->_verifyMissing($this->_watermark->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $derivative) = $this->_derivative->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals('', $derivative->getPostfilterOperations(), 'not watermarked');
+	$this->assertEquals(null, $derivative->getPostfilterOperations(), 'not watermarked');
     }
 }
 ?>

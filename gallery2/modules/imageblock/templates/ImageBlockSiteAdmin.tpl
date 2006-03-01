@@ -95,7 +95,7 @@
     {g->text text="Use a PHP block like the one shown below to include an image block in a PHP page outside of Gallery."}
   </p>
   <p class="giInfo">
-    &lt;?php @readfile('{g->url arg1="view=imageblock.External" arg2="blocks=randomImage" arg3="show=title" forceDirect=true forceSessionId=false forceFullUrl=true}'); ?&gt;
+    &lt;?php @readfile('{g->url arg1="view=imageblock.External" arg2="blocks=randomImage" arg3="show=title" forceDirect=true forceSessionId=false}'); ?&gt;
   </p>
   <table class="gbDataTable"><tr>
     <td> {$ImageBlockSiteAdmin.prefix}blocks</td>
@@ -108,7 +108,7 @@
     <td> {g->text text="Limit the item selection to the subtree of the gallery under the album with the given id; or the id of the item to display when used with specificItem block type"} </td>
   </tr><tr>
     <td> {$ImageBlockSiteAdmin.prefix}maxSize </td>
-    <td> {g->text text="Scale images to this maximum size. If maxSize exceeds the thumbnail dimensions, you must also specify g2_show=fullSize"} </td>
+    <td> {g->text text="Scale images to this maximum size"} </td>
   </tr><tr>
     <td> {$ImageBlockSiteAdmin.prefix}linkTarget </td>
     <td> {g->text text="Add a link target (for example, to open links in a new browser window)"} </td>
@@ -129,7 +129,7 @@
     {g->text text="Image frames require CSS to be displayed correctly. Include the following in the %s section to support image frames." arg1="&lt;head&gt;"}
   </p>
   <p class="giInfo">
-    {capture name="cssUrl"}{g->url arg1="controller=imageblock.ExternalCSS" arg2="frames=wood" forceDirect=true forceSessionId=false forceFullUrl=true}{/capture}
+    {capture name="cssUrl"}{g->url arg1="controller=imageblock.ExternalCSS" arg2="frames=wood" forceDirect=true forceSessionId=false}{/capture}
     &lt;link rel="stylesheet" href="{$smarty.capture.cssUrl|replace:"&":"&amp;"}"/&gt;
   </p>
   <p class="giDescription">

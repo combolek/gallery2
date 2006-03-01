@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class PlatformTest extends GalleryTestCase {
 	global $gallery;
 	parent::setUp();
 
-	$this->_platform =& $gallery->getPlatform();
+	$this->_platform = $gallery->getPlatform();
 	$this->_sourceFile = dirname(__FILE__) . '/../data/test1.gif';
 	$this->_destFile = $gallery->getConfig('data.gallery.tmp') . 'test.dat';
     }
@@ -121,6 +121,16 @@ class PlatformTest extends GalleryTestCase {
 	$this->assertEquals("/* --> Target Line <-- */", trim($lines[__LINE__-2]));
     }
 
+    function testFileGetContents() {
+	$contents = $this->_platform->file_get_contents(__FILE__);
+	$this->assert(is_string($contents), 'string');
+	$this->assert(strpos($contents, '--> Target Content <--') !== false, 'contents');
+
+	/* file_get_contents/fopen gets PHP ERROR so can't test we get false for bogus path */
+	/* $contents = $this->_platform->file_get_contents('/bogus/path'); */
+	/* $this->assertEquals(false, $contents, 'bogus path'); */
+    }
+
     function testFopen() {
 	$fd = $this->_platform->fopen($this->_sourceFile, 'r');
 	$this->assert($fd);
@@ -176,11 +186,11 @@ class PlatformTest extends GalleryTestCase {
 	$this->assert($this->_platform->mkdir($this->_destFile . '/1'));
 	$this->assert($this->_platform->mkdir($this->_destFile . '/1/2'));
 	$this->assert($this->_platform->mkdir($this->_destFile . '/1/2/3'));
-	$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
+	$this->assert($this->_platform->recursiveRmdir($this->_destFile));
     }
 
     function testMkdir() {
-	$this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
+	$this->assert($this->_platform->mkdir($this->_destFile));
 	$this->assert($this->_platform->recursiveRmdir($this->_destFile));
     }
 
@@ -223,47 +233,51 @@ class PlatformTest extends GalleryTestCase {
 	$this->assertEquals(false, $results[0]);
     }
 
-    function testPermissions() {
+    function testFilePermissions() {
+	global $gallery;
 	if (GalleryUtilities::isA($this->_platform, 'UnixPlatform')) {
 	    /*
 	     * Make sure files are written with correct permissions by
-	     * exec, copy, symlink, atomicWrite; test chmod
+	     * exec, copy, symlink, atomicWrite; test setFilePermissions
 	     */
-	    if ($this->_markPluginParametersForCleanup('module', 'core')) {
-		return;
+	    list ($ret, $param) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
+	    if ($ret->isError()) {
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '600');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
+	    $this->_platform->_calculateUmaskAndFilePerms();
+
 	    $this->_permissionTest(0600, 1, array('exec', 'copy', 'atomicWrite', 'symlink'));
 
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '664');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
+	    $this->_platform->_calculateUmaskAndFilePerms();
+
 	    $this->_permissionTest(0664, 2, array('copy', 'symlink', 'exec', 'atomicWrite'));
 
 	    $this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile), 'copy');
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', '612');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_permissionTest(0612, 3, array('chmod'));
+	    $this->_platform->_calculateUmaskAndFilePerms();
+	    $this->_permissionTest(0612, 3, array('setFilePermissions'));
 
-	    $this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
-	    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
-						      'permissions.directory', '751');
-	    if ($ret) {
+	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.file', $param);
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->_platform->resetPlatform();
-	    $this->_permissionTest(0751, 4, array('chmod'));
-
-	    $this->_platform->resetPlatform();
+	    $this->_platform->_calculateUmaskAndFilePerms();
 	}
     }
 
@@ -303,9 +317,9 @@ class PlatformTest extends GalleryTestCase {
 		$stat = $this->_platform->stat($this->_destFile);
 		break;
 
-	    case 'chmod':
-		$this->assert($this->_platform->chmod($this->_destFile), "chmod $testNumber");
-		$this->_platform->clearstatcache(); /* is_dir call in chmod() cached old perm */
+	    case 'setFilePermissions':
+		$this->assert($this->_platform->setFilePermissions($this->_destFile),
+			      "setFilePermissions $testNumber");
 		$stat = $this->_platform->stat($this->_destFile);
 	    }
 
@@ -320,58 +334,9 @@ class PlatformTest extends GalleryTestCase {
 		$this->assertEquals(decoct($expectedPermissions), decoct($stat[2] & 0777),
 				    "$test permissions $testNumber");
 	    }
-	    if ($testNumber == 4) {
-		$this->assert($this->_platform->rmdir($this->_destFile), "$test rmdir $testNumber");
-	    } else {
-		$this->assert($this->_platform->unlink($this->_destFile),
-			      "$test unlink $testNumber");
-	    }
+	    $this->assert($this->_platform->unlink($this->_destFile), "$test unlink $testNumber");
 	    $this->_platform->clearstatcache();
 	}
-    }
-
-    function testRecursiveFixDirPermissions() {
-	list ($ret, $param) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$this->assert($this->_platform->mkdir($this->_destFile), 'mkdir');
-	$this->assert($this->_platform->mkdir($this->_destFile . '/1'), 'mkdir/1');
-	$this->assert($this->_platform->copy($this->_sourceFile, $this->_destFile . '/1/2'), 'cp');
-	$this->assert($this->_platform->mkdir($this->_destFile . '/1/3'), 'mkdir/1/3');
-
-	$fileStat = $this->_platform->stat($this->_destFile . '/1/2');
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'permissions.directory', '734');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_platform->resetPlatform();
-
-	$this->assert($this->_platform->recursiveFixDirPermissions($this->_destFile), 'fix perms');
-	$this->_platform->clearstatcache();
-	if (GalleryUtilities::isA($this->_platform, 'WinNtPlatform')) {
-	    $expected = '777';
-	} else {
-	    $expected = '734';
-	}
-	$stat = $this->_platform->stat($this->_destFile);
-	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm1');
-	$stat = $this->_platform->stat($this->_destFile . '/1');
-	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm2');
-	$stat = $this->_platform->stat($this->_destFile . '/1/2');
-	$this->assertEquals(decoct($fileStat[2]), decoct($stat[2]), 'file should be unchanged');
-	$stat = $this->_platform->stat($this->_destFile . '/1/3');
-	$this->assertEquals($expected, decoct($stat[2] & 0777), 'perm4');
-
-	$this->assert($this->_platform->recursiveRmdir($this->_destFile), 'remove');
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core',
-						  'permissions.directory', $param);
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_platform->resetPlatform();
     }
 
     function testGetDirectorySeparator() {
@@ -381,13 +346,16 @@ class PlatformTest extends GalleryTestCase {
     }
 
     function testGetLineEnding() {
-	if (GalleryUtilities::isA($this->_platform, 'UnixPlatform')) {
+	global $gallery;
+	$platform = $gallery->getPlatform();
+
+	if (GalleryUtilities::isA($platform, 'UnixPlatform')) {
 	    $realLineEnding = "\n";
-	} else if (GalleryUtilities::isA($this->_platform, 'WinNtPlatform')) {
+	} else if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 	    $realLineEnding = "\r\n";
 	}
 
-	$this->assertEquals($realLineEnding, $this->_platform->getLineEnding(),
+	$this->assertEquals($platform->getLineEnding(), $realLineEnding,
 			    "Line Endings Don't Match");
     }
 
@@ -545,80 +513,93 @@ class PlatformTest extends GalleryTestCase {
      * Try opening a socket to the current web server
      */
     function testFsockopen() {
-	$fd = $this->_platform->fsockopen($_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'],
-					  $errno, $errstr, 30);
-	$this->assert($fd, 'File descriptor should not be null/false');
-	@$this->_platform->fclose($fd);
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$fd = $platform->fsockopen($_SERVER['SERVER_NAME'],
+				   $_SERVER['SERVER_PORT'],
+				   $errno, $errstr, 30);
+	$this->assert("File descriptor should not be null", isset($fd));
     }
 
     /**
-     * Try opening a socket to a bogus web server
+     * Try opening a socket to the current web server
      */
     function testFsockopenBadHost() {
+	global $gallery;
+	$platform = $gallery->getPlatform();
+
 	/* We know this is going to bomb so unset PHPunit's error handler */
 	restore_error_handler();
 
-	$fd = @$this->_platform->fsockopen('www.BOGUSBOGUSBOGUS.com', $_SERVER['SERVER_PORT'],
-					   $errno, $errstr, 30);
-	$this->assertEquals(false, $fd);
+	$fd = @$platform->fsockopen('www.BOGUSBOGUSBOGUS.com',
+				    $_SERVER['SERVER_PORT'],
+				    $errno, $errstr, 30);
+	$this->assert("File descriptor should be null", !isset($fd));
     }
 
     /**
      * Verify that we can write a few bytes to a file
      */
     function testOpenWriteAndClose() {
-	$fd = $this->_platform->fopen($this->_destFile, 'wb');
-	$this->assert($fd, 'File descriptor should not be null');
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$fd = $platform->fopen($this->_destFile, 'wb');
+	$this->assert("File descriptor should not be null", isset($fd));
 
 	$buf = 'this is a test';
-	$bytesWritten = $this->_platform->fwrite($fd, $buf, strlen($buf));
+	$bytesWritten = $platform->fwrite($fd, $buf, strlen($buf));
 	$this->assertEquals(strlen($buf), $bytesWritten);
 
-	$this->assert($this->_platform->fclose($fd), 'fclose');
-	$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
+	$closed = $platform->fclose($fd);
+	$this->assert($closed);
     }
 
     function testOpenAndReadTillEof() {
-	$fd = $this->_platform->fopen($this->_sourceFile, 'rb');
-	$this->assert($fd, 'File descriptor should not be null');
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$fd = $platform->fopen($this->_sourceFile, 'rb');
+	$this->assert("File descriptor should not be null", isset($fd));
 
 	$buf = '';
-	while (!$this->_platform->feof($fd)) {
-	    $buf .= $this->_platform->fread($fd, 512);
+	while (!$platform->feof($fd)) {
+	    $buf .= $platform->fread($fd, 512);
 	}
 
 	$this->assert(1083, strlen($buf));
-	$this->assert($this->_platform->fclose($fd));
+	$this->assert($platform->fclose($fd));
     }
 
     function testOpenMissingFile() {
+	global $gallery;
+	$platform = $gallery->getPlatform();
+
 	/* We know this is going to bomb so unset PHPunit's error handler */
 	restore_error_handler();
 
 	/* And suppress warnings when we call fopen */
-	$fd = @$this->_platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
+	$fd = @$platform->fopen(sprintf('%s_BOGUS_BOGUS', __FILE__), 'rb');
 	$this->assertEquals(false, $fd);
     }
 
     function testAtomicWrite() {
+	global $gallery;
+	$platform = $gallery->getPlatform();
+
 	/*
 	 * We should test if our operations are really concurrent-safe,
 	 * but we cannot do that without having multiple processes accessing
 	 * the same file, which is not possible in our test-framework (yet)
 	 */
 	$testData1 = "this is a test\nmultiline\ntest";
-	$this->assert($this->_platform->atomicWrite($this->_destFile, $testData1, 'wb'),
-		      'write 1 failed');
-	$output = implode('', $this->_platform->file($this->_destFile));
+	$this->assert($platform->atomicWrite($this->_destFile, $testData1, 'wb'), 'write 1 failed');
+	$output = join('', $platform->file($this->_destFile));
 	$this->assertEquals($testData1, $output);
 
 	/* Now write another text to the same file and see if its ok */
 	$testData2 = "this is a test\nmultiline\ntest\nmore\ntext";
-	$this->assert($this->_platform->atomicWrite($this->_destFile, $testData2, 'wb'),
-		      'write 2 failed');
-	$output = implode('', $this->_platform->file($this->_destFile));
+	$this->assert($platform->atomicWrite($this->_destFile, $testData2, 'wb'), 'write 2 failed');
+	$output = join('', $platform->file($this->_destFile));
 	$this->assertEquals($testData2, $output);
-	$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
     }
 
     function testSplitPath() {
@@ -654,26 +635,16 @@ class PlatformTest extends GalleryTestCase {
 
     function testStrftime() {
 	$this->assertEquals('2005 03', $this->_platform->strftime('%Y %m', 1110101111));
-	/* For windows we replace %e with %d and convert leading zeros to spaces */
-	$this->assertEquals( ' 6 11', $this->_platform->strftime('%e %S', 1110101111));
+	/* For windows we replace %e with %#d which doesn't have a leading space */
+	$this->assertEquals(
+	    GalleryUtilities::isA($this->_platform, 'WinNtPlatform') ? '6 11' : ' 6 11',
+	    $this->_platform->strftime('%e %S', 1110101111));
 
 	/* Verify UTF-8 text in format string is not mangled (only % tokens convert to UTF-8) */
 	$this->assertEquals("\xd0\x9d\xd0\xb5 2005 \xd0\xbd %\n03",
 	    $this->_platform->strftime("\xd0\x9d\xd0\xb5 %Y \xd0\xbd %%\n%m", 1110101111));
 
 	/* How to test that strftime output is converted to UTF-8? */
-    }
-
-    function testFileGetAndPutContents() {
-	$fileContents = $this->_platform->file_get_contents($this->_sourceFile);
-	$this->assert(is_string($fileContents), 'contents not a string');
-	$this->assert(false !== strpos($fileContents, 'GIF89'), 'invalid contents');
-	$this->assert(1083, strlen($fileContents));
-
-	$success = $this->_platform->file_put_contents($this->_destFile, $fileContents);
-	$this->assert($success, 'file_put_contents error');
-	$this->assertEquals(1083, $this->_platform->filesize($this->_destFile));
-	$this->assert($this->_platform->unlink($this->_destFile), 'unlink');
     }
 }
 
@@ -690,7 +661,7 @@ class PlatformTestPhpVm extends GalleryPhpVm {
     }
 }
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
 class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;
@@ -707,7 +678,7 @@ class PlatformTestOpenBaseDirUnixPlatform extends UnixPlatform {
     }
 }
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class PlatformTestOpenBaseDirWinNtPlatform extends WinNtPlatform {
     function setRealpathData($realpathData) {
 	$this->_realpathData = $realpathData;

@@ -17,11 +17,7 @@
   </p>
   {else}
     {g->text text="Upload a JPEG image to use as the thumbnail for this item."} <br/>
-    {if $CustomThumbnailOption.canResize}
-      {g->text text="Image does not need to be thumbnail size; it will be resized as needed."}
-    {else}
-      {g->text text="No toolkit available for resizing so uploaded image must be thumbnail sized."}
-    {/if}
+    {g->text text="Image does not need to be thumbnail size; it will be resized as needed."}
   </p>
 
   <input type="file" size="45" name="{g->formVar var="form[1]"}"/>

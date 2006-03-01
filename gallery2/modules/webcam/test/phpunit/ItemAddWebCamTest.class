@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,14 +43,14 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -59,31 +59,31 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	    $this->_album->getId(), 'image/test',
 	    array('onLoadHandlers' => '|WebCam|'),
 	    __FILE__, 'GalleryPhotoItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam',
 	    'imageUrl', 'http://test.com/test.jpg', $this->_item->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'webcam');
-	if ($ret) {
+	if ($ret->isError()) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'webcam', 'duration', '-100');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$this->_savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform($this->_platform = new ItemAddWebCamTestPlatform());
+	$this->_savePlatform = $gallery->getPlatform();
+	$gallery->setPlatform(new ItemAddWebCamTestPlatform());
     }
 
     function tearDown() {
@@ -93,7 +93,7 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	$gallery->setPlatform($this->_savePlatform);
 
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -121,21 +121,6 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 	$this->assertEquals('test.jpg', $results[1]['addedFiles'][0]['fileName'], 'fileName');
     }
 
-    function testAddWebCamAltHeader() {
-	$this->_platform->_contentType = 'Content-type';
-
-	GalleryUtilities::putRequestVariable('form[action][addWebCam]', 1);
-	GalleryUtilities::putRequestVariable('form[imageUrl]', 'http://test.com/testimage');
-
-	$results = $this->handleRequest($this->_album);
-	$this->assertEquals(array(), $results[0], 'should succeed');
-	$this->assertEquals(array('addedFiles'), array_keys($results[1]), 'addedFiles');
-	$this->assertEquals(1, count($results[1]['addedFiles']), '1 file');
-	$this->assertEquals(array('fileName', 'id', 'warnings'),
-			    array_keys($results[1]['addedFiles'][0]), 'key');
-	$this->assertEquals('testimage', $results[1]['addedFiles'][0]['fileName'], 'fileName');
-    }
-
     function testAddWebCamNotFound() {
 	GalleryUtilities::putRequestVariable('form[action][addWebCam]', 1);
 	GalleryUtilities::putRequestVariable('form[imageUrl]', 'http://test.com/404.jpg');
@@ -156,32 +141,7 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 
     function testRefresh() {
 	list ($ret, $refresh) = GalleryCoreApi::loadEntitiesById($this->_item->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	/* If refreshed successfully then our fake filesize should be set */
-	$this->assertEquals(7, $refresh->getSize());
-    }
-
-    function testRefreshFail() {
-	/* Register a dummy toolkit and property */
-	$ret = GalleryCoreApi::registerFactoryImplementation(
-	    'GalleryToolkit', 'ItemAddWebCamTestToolkit', 'ItemAddWebCamTestToolkit',
-	    'modules/webcam/test/phpunit/ItemAddWebCamTest.class', 'webcamTest', null);
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_markToolkitForCleanup('ItemAddWebCamTestToolkit');
-
-	$ret = GalleryCoreApi::registerToolkitProperty('ItemAddWebCamTestToolkit',
-	    array('image/test'), 'dimensions', 'int,int', 'Get the dimensions');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	/* Now we have a toolkit to get image/test dimensions, but it will fail */
-	list ($ret, $refresh) = GalleryCoreApi::loadEntitiesById($this->_item->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* If refreshed successfully then our fake filesize should be set */
@@ -192,14 +152,10 @@ class ItemAddWebCamTest extends ItemAddPluginTestCase {
 /**
  * Test platform
  *
- * @package WebCam
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class ItemAddWebCamTestPlatform {
-
-    function ItemAddWebCamTestPlatform() {
-	$this->_contentType = 'Content-Type';
-    }
 
     function tempnam($tmpDir, $base) {
 	return "/test/$base";
@@ -218,7 +174,6 @@ class ItemAddWebCamTestPlatform {
 	if ($handle == 'test-resource-1') {
 	    switch ($string) {
 	    case "GET /test.jpg HTTP/1.0\r\nHost: test.com\r\n\r\n":
-	    case "GET /testimage HTTP/1.0\r\nHost: test.com\r\n\r\n":
 		$status = 'HTTP/1.1 200 OK';
 		$mime = 'image/jpeg';
 		break;
@@ -242,7 +197,7 @@ class ItemAddWebCamTestPlatform {
 		$buffer[] = 'ETag: "122ae4-5-3fc199b0"';
 		$buffer[] = 'Server: Apache/1.3.28 (Unix)';
 		$buffer[] = 'Content-Length: 5';
-		$buffer[] = $this->_contentType . ': ' . $mime;
+		$buffer[] = "Content-Type: $mime";
 		$buffer[] = 'Last-Modified: Mon, 3 Nov 2004 05:40:00 GMT';
 		$buffer[] = 'Client-Date: Mon, 3 Nov 2004 05:40:03 GMT';
 		$buffer[] = 'Client-Peer: 209.237.226.157:80';
@@ -267,7 +222,6 @@ class ItemAddWebCamTestPlatform {
     function legalizePathComponent($component) {
 	switch ($component) {
 	case 'test.jpg':
-	case 'testimage':
 	case 'test.html':
 	    return $component;
 
@@ -281,15 +235,12 @@ class ItemAddWebCamTestPlatform {
 	if ($fromFile == '/test/webcam') {
 	    switch (basename($toFile)) {
 	    case 'test.jpg':
-	    case 'testimage':
 	    case 'test.html':
 		return true;
 	    }
 	    if (preg_match('{^test.*dat$}', basename($toFile))) {
 		return true;
 	    }
-	} else if ($toFile == '/test/webcam.bak' || $fromFile == '/test/webcam.bak') {
-	    return true;
 	}
 
 	print "unexpected copy($fromFile, $toFile)";
@@ -299,7 +250,6 @@ class ItemAddWebCamTestPlatform {
     function getimagesize($filename) {
 	switch (basename($filename)) {
 	case 'test.jpg':
-	case 'testimage':
 	    $result = array(100, 200);
 	    break;
 
@@ -315,7 +265,6 @@ class ItemAddWebCamTestPlatform {
     function filesize($filename) {
 	switch (basename($filename)) {
 	case 'test.jpg':
-	case 'testimage':
 	case 'test.html':
 	    return 5;
 	}
@@ -333,7 +282,8 @@ class ItemAddWebCamTestPlatform {
     }
 
     function file_exists($filename) {
-	if ($filename == '/test/webcam' || basename($filename) == 'ItemAddWebCamTest.class') {
+	switch($filename) {
+	case '/test/webcam':
 	    return 1;
 	}
 
@@ -343,7 +293,6 @@ class ItemAddWebCamTestPlatform {
     function unlink($filename) {
 	switch($filename) {
 	case '/test/webcam':
-	case '/test/webcam.bak':
 	    return 1;
 	}
 
@@ -445,6 +394,4 @@ class ItemAddWebCamTestPlatform {
 	return array(true, array(''), array());
     }
 }
-
-class ItemAddWebCamTestToolkit extends GalleryToolkit { }
 ?>

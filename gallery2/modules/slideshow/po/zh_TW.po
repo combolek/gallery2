@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,10 +33,6 @@ msgstr ""
 msgid "Slideshow"
 msgstr "幻燈片放映"
 
-#, c-format
-msgid "Slideshow for %s"
-msgstr "%s 的幻燈片放映"
-
 msgid "Display"
 msgstr "顯示"
 
@@ -45,6 +41,10 @@ msgstr "觀賞幻燈片"
 
 msgid "Path to an item (eg, /album/image.jpg.html)"
 msgstr "項目的路徑（如 /album/image.jpg.html）"
+
+#, c-format
+msgid "Slideshow for %s"
+msgstr "%s 的幻燈片放映"
 
 msgid "Blend"
 msgstr "混合"

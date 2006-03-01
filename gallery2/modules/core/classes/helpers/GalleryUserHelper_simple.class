@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,20 +47,27 @@ class GalleryUserHelper_simple {
     function assertHasItemPermission($itemId, $permission) {
 	global $gallery;
 
+	if (GalleryDataCache::hasPermission($itemId, $permission)) {
+	    return GalleryStatus::success();
+	}
+
+	/* Use the active user id */
+	$userId = $gallery->getActiveUserId();
+
 	list ($ret, $hasPermission) =
 	    GalleryUserHelper_simple::hasItemPermission($itemId, $permission);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$hasPermission) {
-	    return GalleryCoreApi::error(
+	    return GalleryStatus::error(
 		ERROR_PERMISSION_DENIED, __FILE__, __LINE__,
 		sprintf('user id: %s doesn\'t have permission: %s for item id: %s',
 			$gallery->getActiveUserId(), $permission, $itemId));
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -79,18 +86,16 @@ class GalleryUserHelper_simple {
 	    $userId = $gallery->getActiveUserId();
 	}
 
-	/* Only use the permission cache from the session data for the activeUser */
-	if ($userId == $gallery->getActiveUserId() &&
-	        GalleryDataCache::hasPermission($itemId, $permission)) {
-	    return array(null, true);
+	if (GalleryDataCache::hasPermission($itemId, $permission)) {
+	    return array(GalleryStatus::success(), true);
 	}
 
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds($permission, $userId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($aclIds)) {
-	    return array(null, false);
+	    return array(GalleryStatus::success(), false);
 	}
 	$aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
 
@@ -109,18 +114,18 @@ class GalleryUserHelper_simple {
 	  [GalleryAccessSubscriberMap::accessListId] IN (%s)
 	', $aclMarkers);
 
-	$data = array((int)$itemId);
+	$data = array($itemId);
 	$data = array_merge($data, $aclIds);
 
 	list($ret, $searchResults) =
 	    $gallery->search($query, $data, array('limit' => array('count' => 1)));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$hasPermission = ($searchResults->resultCount() > 0);
 
-	return array(null, $hasPermission);
+	return array(GalleryStatus::success(), $hasPermission);
     }
 }
 ?>

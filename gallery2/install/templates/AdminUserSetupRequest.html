@@ -1,18 +1,9 @@
     <h1><?php print _('Admin User Setup') ?></h1>
-    
-    <?php if (isset($templateData['error'])): ?>
-    <div class="error">
-      <h2>
-      <?php print _("Please correct the following errors") ?>
-      </h2>
-    </div>
-	<?php endif; ?>
-
     <p>
       <?php print _("Every Gallery will have at least one administrator user who has full access to view/modify everything. Please choose a username and password for your main administrator account. You can add additional users later.") ?>
     </p>
 
-    <form method="post" action="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber)) ?>">
+    <form method="post" action="">
       <table>
 	<?php if ($templateData['freshInstall']): ?>
 	<tr>
@@ -32,13 +23,6 @@
 	</tr>
 	<?php endif; ?>
 	<?php endif; ?>
-	<?php if (isset($templateData['error']['passwordA_missing'])): ?>
-	<tr>
-	  <td colspan="2" class="error">
-	    <?php print _('Please enter a password') ?>
-	  </td>
-	</tr>
-	<?php endif; ?>
 	<tr>
 	  <td class="label">
 	    <?php if ($templateData['freshInstall']): ?>
@@ -53,6 +37,13 @@
 	    <input type="hidden" name="action" value="create"/>
 	  </td>
 	</tr>
+	<?php if (isset($templateData['error']['passwordA_missing'])): ?>
+	<tr>
+	  <td colspan="2" class="error">
+	    <?php print _('Please enter a password') ?>
+	  </td>
+	</tr>
+	<?php endif; ?>
 	<tr>
 	  <td class="label">
 	    <?php print _('(type again)') ?>
@@ -110,7 +101,8 @@
     <?php endif; ?>
 
     <div class="go">
-	  <div class="btn btn-continue"><span><span><span><span>
-	<a href="javascript:document.forms[0].submit();"><?php print $templateData['freshInstall'] ? _('Create') : _('Save') ?></a>
-	  </span></span></span></span></div>
+      <span class="goToNext">
+	<a href="javascript:document.forms[0].submit();"><?php print
+	 $templateData['freshInstall'] ? _('Create') : _('Save') ?></a>
+      </span>
     </div>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,17 +19,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package AlbumSelect
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class AlbumSelectPreloads {
     function preload(&$template, $preload, $paramSet) {
 	static $loaded;
 
 	if (!empty($loaded[$preload])) {
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	$loaded[$preload] = 1;
@@ -37,14 +32,14 @@ class AlbumSelectPreloads {
 	case 'AlbumTree':
 	    $template->style('modules/albumselect/dtree.css');
 	    $template->javascript('modules/albumselect/dtree.js');
-	    return null;
+	    return GalleryStatus::success();
 
 	case 'AlbumSelect':
 	    /* Nothing to do */
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,38 +28,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "ImageMagick"
-msgstr "ImageMagick"
-
-msgid "ImageMagick / GraphicsMagick Graphics Toolkit"
-msgstr "ImageMagick / GraphicsMagick Graphics Toolkit"
-
-msgid "Graphics Toolkits"
-msgstr "Graphics Toolkits"
-
 msgid "Convert to"
-msgstr "Convert to"
+msgstr ""
 
 msgid "target width"
-msgstr "target width"
+msgstr ""
 
 msgid "(optional) target height, defaults to same as width"
-msgstr "(optional) target height, defaults to same as width"
+msgstr ""
 
 msgid "Scale the image to the target size, maintain aspect ratio"
-msgstr "Scale the image to the target size, maintain aspect ratio"
+msgstr ""
 
 msgid "target height"
-msgstr "target height"
+msgstr ""
 
 msgid "Resize the image to the target dimensions"
-msgstr "Resize the image to the target dimensions"
+msgstr ""
 
 msgid "rotation degrees"
-msgstr "rotation degrees"
+msgstr ""
 
 msgid "Rotate the image"
-msgstr "Rotate the image"
+msgstr ""
 
 msgid "left edge %"
 msgstr ""
@@ -74,7 +65,7 @@ msgid "height %"
 msgstr ""
 
 msgid "Crop the image"
-msgstr "Crop the image"
+msgstr ""
 
 msgid "overlay path"
 msgstr ""
@@ -119,64 +110,71 @@ msgid "Get the number of pages"
 msgstr ""
 
 msgid "Get the colorspace of the image"
-msgstr "Get the colourspace of the image"
+msgstr ""
 
 msgid "File does not exist"
-msgstr "File does not exist"
+msgstr ""
 
 msgid "Problem executing binary:"
-msgstr "Problem executing binary:"
+msgstr ""
 
 msgid "Binary output:"
-msgstr "Binary output:"
+msgstr ""
+
+msgid "ImageMagick"
+msgstr "ImageMagick"
+
+msgid "ImageMagick / GraphicsMagick Graphics Toolkit"
+msgstr ""
+
+msgid "Graphics Toolkits"
+msgstr ""
 
 msgid "ImageMagick Settings"
 msgstr "ImageMagick Settings"
 
 msgid "Settings saved successfully"
-msgstr "Settings saved successfully"
-
-msgid ""
-"ImageMagick is a graphics toolkit that can be used to process images that you upload to "
-"Gallery.  You must install the ImageMagick binaries on your server, then enter the path to "
-"them in the text box below.  If you're on a Unix machine, don't forget to make the binaries "
-"executable (<i>chmod 755 *</i> in the ImageMagick directory should do it)"
 msgstr ""
-"ImageMagick is a graphics toolkit that can be used to process images that you upload to "
-"Gallery.  You must install the ImageMagick binaries on your server, then enter the path to "
-"them in the text box below.  If you're on a Unix machine, don't forget to make the binaries "
-"executable (<i>chmod 755 *</i> in the ImageMagick directory should do it)"
+
+#, fuzzy
+msgid ""
+"ImageMagick is a graphics toolkit that can be used to process images that "
+"you upload to Gallery.  You must install the ImageMagick binaries on your "
+"server, then enter the path to them in the text box below.  If you're on a "
+"Unix machine, don't forget to make the binaries executable (<i>chmod 755 *</"
+"i> in the ImageMagick directory should do it)"
+msgstr ""
+"ImageMagick is a graphics toolkit that can be used to process images that "
+"you upload to Gallery.  You must install the ImageMagick binaries on your "
+"machine, then enter the path to them in the text box below.  If you're on a "
+"Unix machine, don't forget to make the binaries executable (<i>chmod 755 *</"
+"i> in the ImageMagick directory should do it)"
 
 msgid "Directory to ImageMagick/GraphicsMagick binaries:"
 msgstr ""
 
 msgid "You must enter a path to your ImageMagick binaries"
-msgstr ""
+msgstr "You must enter a path to your ImageMagick binaries"
 
+#, fuzzy
 msgid "The path you entered is not a valid directory or is not accessible."
-msgstr ""
+msgstr "The path you entered isn't a valid path."
 
 msgid ""
-"The path you entered doesn't contain valid ImageMagick binaries. Use the 'test' button to "
-"check where the error is."
+"The path you entered doesn't contain valid ImageMagick binaries. Use the "
+"'test' button to check where the error is."
 msgstr ""
+"The path you entered doesn't contain valid ImageMagick binaries. Use the "
+"'test' button to check where the error is."
 
 msgid "The path you entered isn't a valid path."
-msgstr ""
+msgstr "The path you entered isn't a valid path."
 
+#, fuzzy
 msgid "JPEG Quality:"
-msgstr "JPEG Quality:"
+msgstr "JPEG Quality"
 
-msgid ""
-"ImageMagick can detect non-webviewable color spaces like CMYK and create a webviewable copy "
-"of such images. Only activate this option if you actually add CMYK based JPEG or TIFF images "
-"since the color space detection slows down the add item process a little bit."
-msgstr ""
-"ImageMagick can detect non-webviewable colour spaces like CMYK and create a webviewable copy "
-"of such images. Only activate this option if you actually add CMYK based JPEG or TIFF images "
-"since the colour space detection slows down the add item process a little bit."
-
-msgid "CMYK Support:"
+msgid "CMYK JPEG Support:"
 msgstr ""
 
 msgid "Save Settings"
@@ -189,16 +187,16 @@ msgid "Cancel"
 msgstr "Cancel"
 
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 msgid "ImageMagick binary test results"
-msgstr ""
+msgstr "ImageMagick binary test results"
 
 msgid "Binary Name"
 msgstr "Binary Name"
 
 msgid "Pass/Fail"
-msgstr ""
+msgstr "Pass/Fail"
 
 msgid "Passed"
 msgstr "Passed"
@@ -207,19 +205,10 @@ msgid "Failed"
 msgstr "Failed"
 
 msgid "Error messages:"
-msgstr ""
+msgstr "Error messages:"
 
 msgid "Version"
-msgstr "Version"
-
-#, c-format
-msgid ""
-"Warning: This version of %s has a %sknown vulnerability%s that can be exploited to cause "
-"infinite loops. You may wish to upgrade."
 msgstr ""
-
-msgid "Use this version anyway"
-msgstr "Use this version anyway"
 
 msgid "Supported MIME Types"
 msgstr "Supported MIME Types"
@@ -234,9 +223,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid ""
-"We gathered this debug output while testing your ImageMagick binaries.  If you read through "
-"this carefully you may discover the reason why your ImageMagick binaries failed the tests."
+"We gathered this debug output while testing your ImageMagick binaries.  If "
+"you read through this carefully you may discover the reason why your "
+"ImageMagick binaries failed the tests."
 msgstr ""
-"We gathered this debug output while testing your ImageMagick binaries.  If you read through "
-"this carefully you may discover the reason why your ImageMagick binaries failed the tests."
-

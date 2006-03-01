@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,20 +51,16 @@ class GalleryPlatform {
 	    $gallery->debug("copy($source, $dest)");
 	}
 
+	if (!isset($this->_umask)) {
+	    $this->_calculateUmaskAndFilePerms();
+	}
+	$umask = umask($this->_umask);
 	if (is_uploaded_file($source)) {
 	    $results = move_uploaded_file($source, $dest);
-	    if (!$results) {
-		return $results;
-	    }
-	    $results = $this->chmod($dest);
 	} else {
-	    if (!isset($this->_umask)) {
-		$this->_loadPermissionPreferences();
-	    }
-	    $umask = umask($this->_umask);
 	    $results = copy($source, $dest);
-	    umask($umask);
 	}
+	umask($umask);
 
 	return $results;
     }
@@ -84,7 +80,7 @@ class GalleryPlatform {
 	}
 
 	if (!isset($this->_umask)) {
-	    $this->_loadPermissionPreferences();
+	    $this->_calculateUmaskAndFilePerms();
 	}
 	$umask = umask($this->_umask);
 	$results = symlink($source, $dest);
@@ -92,6 +88,8 @@ class GalleryPlatform {
 
 	return $results;
     }
+
+
 
     /**
      * Move an uploaded file to a new location and return the new location.
@@ -334,7 +332,7 @@ class GalleryPlatform {
     /**
      * Reads the entire contents of the specified file into a string.
      * file_get_contents PHP function is used if available.
-     *
+     * 
      * @param string file path
      * @return string file contents or boolean false on failure
      */
@@ -404,7 +402,7 @@ class GalleryPlatform {
 	$success = false;
 	if ($fd) {
 	    if (!isset($this->_filePerms)) {
-		$this->_loadPermissionPreferences();
+		$this->_calculateUmaskAndFilePerms();
 	    }
 	    chmod($tempFile, $this->_filePerms);
 	    $bytesWritten = fwrite($fd, $data);
@@ -577,7 +575,7 @@ class GalleryPlatform {
 	if ($dirname{strlen($dirname)-1} != $this->getDirectorySeparator()) {
 	    $dirname .= $this->getDirectorySeparator();
 	}
-
+	
 	if (!($fd = $this->opendir($dirname))) {
 	    return false;
 	}
@@ -692,11 +690,11 @@ class GalleryPlatform {
 	 * webserver doesn't execute it.
 	 */
 	list ($ret, $tmp) = GalleryCoreApi::convertExtensionToMime($extension);
-	if ($ret && $gallery->getDebug()) {
+	if ($ret->isError() && $gallery->getDebug()) {
 	    $gallery->debug('Error: convertExtensionToMime in ' .
 	    'GalleryPlatform::legalizePathComponent');
 	}
-	if (($ret || $tmp == 'application/unknown') && !empty($extension)) {
+	if (($ret->isError() || $tmp == 'application/unknown') && !empty($extension)) {
 	    $fileBase = $fileBase . '_' . $extension;
 	    $extension = null;
 	}
@@ -838,26 +836,6 @@ class GalleryPlatform {
 	} else {
 	    return fwrite($handle, $string);
 	}
-    }
-
-    /**
-     * Writes specified data to file.
-     * Uses PHP's file_put_contents() function if it is available.
-     *
-     * @param string data to write
-     * @param string output file path
-     * @return boolean true on success, false on failure
-     */
-    function file_put_contents($path, $data) {
-	if (function_exists('file_put_contents')) {
-	    return file_put_contents($path, $data);
-	}
-
-	if (false === ($file = fopen($path, 'w')) || false === fwrite($file, $data)) {
-	    return false;
-	}
-	fclose($file);
-	return true;
     }
 
     /**
@@ -1039,7 +1017,7 @@ class GalleryPlatform {
 
 	$config = array();
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if (!$ret) {
+	if ($ret->isSuccess()) {
 	    foreach ($params as $key => $value) {
 		if (strncmp($key, 'smtp.', 5) == 0) {
 		    $config[$key] = $value;
@@ -1048,12 +1026,12 @@ class GalleryPlatform {
 	}
 
 	if (!empty($config['smtp.host'])) {
-	    GalleryCoreApi::requireOnce('lib/smtp/smtp.php');
+	    GalleryCoreApi::relativeRequireOnce('lib/smtp/smtp.php');
 	    $ret = smtpmail($config, $to, $subject, $body, $headers);
-	    if ($ret && $gallery->getDebug()) {
+	    if ($ret->isError() && $gallery->getDebug()) {
 		$gallery->debug("smtpmail error: " . $ret->getAsText());
 	    }
-	    return !$ret;
+	    return $ret->isSuccess();
 	} else if (isset($headers)) {
 	    return mail($to, $subject, $body, $headers);
 	} else {
@@ -1129,67 +1107,33 @@ class GalleryPlatform {
     }
 
     /**
-     * Load preferences for file/dir permissions and calculate umask
-     * @access private
-     */
-    function _loadPermissionPreferences() {
-	$this->_filePerms = 0644;
-	list ($ret, $filePerms) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
-	if (!$ret && !empty($filePerms)) {
-	    $this->_filePerms = octdec($filePerms);
-	}
-	$this->_umask = 0777 - $this->_filePerms;
-	$this->_dirPerms = 0755;
-	list ($ret, $dirPerms) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
-	if (!$ret && !empty($dirPerms)) {
-	    $this->_dirPerms = octdec($dirPerms);
-	}
-    }
-
-    /**
-     * Set filesystem permissions; mode defaults to system preference for file/dir permissions.
-     * @param string path to file or directory
-     * @param int (optional) mode; defaults to system preference
+     * Set file permissions according to preferences
+     * @param string file path
      * @return boolean true on success
      */
-    function chmod($path, $mode=null) {
-	if (!isset($mode)) {
-	    if (!isset($this->_filePerms) || !isset($this->_dirPerms)) {
-		$this->_loadPermissionPreferences();
-	    }
-	    $mode = $this->is_dir($path) ? $this->_dirPerms : $this->_filePerms;
+    function setFilePermissions($file) {
+	if (!isset($this->_filePerms)) {
+	    $this->_calculateUmaskAndFilePerms();
 	}
-	return chmod($path, $mode);
+	return chmod($file, $this->_filePerms);
     }
 
     /**
-     * Fixes the directory permissions (as e.g. unzip creates them with file permissions
-     * because of the umask)
-     *
-     * @param string $path the directory which should be fixed
-     * @return boolean true if all went well, false if there was an error.
+     * Get umask preference
+     * @access private
      */
-    function recursiveFixDirPermissions($path) {
-	if (!$this->is_dir($path)) {
-	    return true;
-	} else if (!$this->chmod($path)) {
-	    return false;
-	}
-	$dir = $this->opendir($path);
-	if (!$dir) {
-	    return false;
-	}
-	$slash = $this->getDirectorySeparator();
-	while ($file = $this->readdir($dir)) {
-	    if ($file != '.' && $file != '..' &&
-		    !$this->recursiveFixDirPermissions($path . $slash . $file)) {
-		return false;
+    function _calculateUmaskAndFilePerms() {
+	if (!isset($this->_umask) || !isset($this->_filePerms)) {
+	    $this->_filePerms = 0644;
+	    list ($ret, $filePerms) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.file');
+	    if ($ret->isSuccess() && !empty($filePerms)) {
+		$this->_filePerms = octdec($filePerms);
 	    }
+	    $this->_umask = 0777 - $this->_filePerms;
 	}
-	$this->closedir($dir);
-	return true;
+
+	return $this->_umask;
     }
 
     /**
@@ -1225,7 +1169,6 @@ class GalleryPlatform {
     function resetPlatform() {
 	unset($this->_umask);
 	unset($this->_filePerms);
-	unset($this->_dirPerms);
     }
 }
 ?>

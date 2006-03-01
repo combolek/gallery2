@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * Also lets the user select a parent album and go to the new album page should the
  * user wish to first create a new album.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -68,7 +68,7 @@ class SelectAlbumController extends GalleryController {
 	} else {
 	    $results['delegate']['view'] = 'publishxp.SelectAlbum';
 	}
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -79,8 +79,9 @@ class SelectAlbumController extends GalleryController {
  * Also lets the user select a parent album and go to the new album page should the
  * user wish to first create a new album.
  *
+ * @version $Id$
  * @package PublishXp
- * @subpackage UserInterface
+ * @author Timothy Webb <tiwebb@cisco.com>
  */
 class SelectAlbumView extends GalleryView {
     /**
@@ -106,14 +107,14 @@ class SelectAlbumView extends GalleryView {
 	/* Get ids of all all albums where we can add new data items */
 	list ($ret, $albumIds['addDataItem']) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get ids of all all albums where we can add new album items */
 	list ($ret, $albumIds['addAlbumItem']) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -123,7 +124,7 @@ class SelectAlbumView extends GalleryView {
 
 	/* Load all the album entities */
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds['allIds']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -133,10 +134,8 @@ class SelectAlbumView extends GalleryView {
 	$template->setVariable('SelectAlbum', $SelectAlbum);
 	$template->setVariable('controller', 'publishxp.SelectAlbum');
 	$template->head('modules/publishxp/templates/Head.tpl');
-
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/SelectAlbum.tpl',
-			   'useFullScreen' => true));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/SelectAlbum.tpl'));
     }
 }
 ?>

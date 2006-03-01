@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Cart
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class CartCallbacks {
     /**
      */
@@ -33,9 +28,9 @@ class CartCallbacks {
 	switch($callback) {
 	case 'LoadCart':
 	    /* The cart contents' count */
-	    GalleryCoreApi::requireOnce('modules/cart/classes/CartHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/cart/classes/CartHelper.class');
 	    list ($ret, $cartItemIds) = CartHelper::fetchCartItemCounts();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -49,10 +44,10 @@ class CartCallbacks {
 	    $block['cart']['ShowCart']['unique'] = $unique;
 	    $block['cart']['ShowCart']['total'] = $total;
 
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

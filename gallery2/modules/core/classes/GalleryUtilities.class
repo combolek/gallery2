@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -172,7 +172,7 @@ class GalleryUtilities {
 	     */
 	    $postForm = $_FILES[$key];
 	    if (get_magic_quotes_gpc()) {
-		foreach ($postForm['tmp_name'] as $i => $unused) {
+		for ($i = 1; $i <= sizeof($postForm['tmp_name']); $i++) {
 		    $postForm['tmp_name'][$i] = addslashes($postForm['tmp_name'][$i]);
 		}
 	    }
@@ -460,13 +460,12 @@ class GalleryUtilities {
      *     http://example.com/gallery/themes/classic/styles/style.css
      *
      * @param string path to a file in the gallery directory tree
-     * @param array (optional) options to pass to UrlGenerator
      * @return string a url
      * @static
      */
-    function convertPathToUrl($path, $options=array()) {
+    function convertPathToUrl($path) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$dirbase = $platform->realpath(dirname(__FILE__) . '/../../..') . '/';
 
 	/*
@@ -482,7 +481,7 @@ class GalleryUtilities {
 
 	/* Prepend the G2 base URL */
 	$urlGenerator =& $gallery->getUrlGenerator();
-	return $urlGenerator->generateUrl(array('href' => $relativePath), $options);
+	return $urlGenerator->generateUrl(array('href' => $relativePath));
     }
 
     /**
@@ -589,8 +588,7 @@ class GalleryUtilities {
      * @static
      */
     function isExactlyA($instance, $className) {
-	return (($instanceClass = get_class($instance)) == $className || $instanceClass ==
-		strtr($className, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'));
+	return (!strcasecmp(get_class($instance), $className));
     }
 
     /**
@@ -918,40 +916,6 @@ class GalleryUtilities {
     }
 
     /**
-     * Apply markup to given text.
-     *
-     * @param string (optional) markup type, defaults from core markup parameter
-     * @return string resulting text
-     */
-    function markup($text, $markupType=null) {
-	GalleryCoreApi::requireOnce('lib/smarty_plugins/modifier.markup.php');
-	return smarty_modifier_markup($text, $markupType);
-    }
-
-    /**
-     * Strip out all potentially dangerous content within HTML.
-     *
-     * @param string html
-     * @param boolean (optional) true to decode entities, process, then recode
-     * @return string safe html
-     */
-    function htmlSafe($html, $decode=false) {
-	GalleryCoreApi::requireOnce('lib/pear/Safe.php');
-	static $parser;
-	if (!isset($parser)) {
-	    $parser =& new HTML_Safe();
-	}
-	if ($decode) {
-	    $html = GalleryUtilities::htmlEntityDecode($html);
-	}
-	$html = $parser->parse($html);
-	if ($decode) {
-	    GalleryUtilities::sanitizeInputValues($html, false);
-	}
-	return $html;
-    }
-
-    /**
      * Return a specified request variable from the GET or POST vars.
      *
      * @param string a single key
@@ -1003,7 +967,7 @@ class GalleryUtilities {
      */
     function isPathInList($path, $list) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$slash = $platform->getDirectorySeparator();
 	$path = $platform->realpath($path) . $slash;
 	$compare = GalleryUtilities::isA($platform, 'WinNtPlatform') ? 'strncasecmp' : 'strncmp';
@@ -1072,7 +1036,7 @@ class GalleryUtilities {
      */
     function guaranteeDirExists($dir) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	if ($platform->file_exists($dir)) {
 	    return array($platform->is_dir($dir), array());
 	}
@@ -1164,7 +1128,7 @@ class GalleryUtilities {
      */
     function _createDepthTree(&$map, $id, $depth=0) {
 	$data = array();
-	$data[] = array('depth' => $depth, 'data' => (array)$map[$id]['instance']);
+	$data[] = array('depth' => $depth, 'data' => $map[$id]['instance']->getMemberData());
 	if (isset($map[$id]['children'])) {
 	    foreach ($map[$id]['children'] as $childId) {
 		$data = array_merge($data,
@@ -1195,7 +1159,7 @@ class GalleryUtilities {
 	    $pseudoFileName = $entity->getPathComponent();
 	} else if (GalleryUtilities::isA($entity, 'GalleryDerivative')) {
 	    list ($ret, $parentEntity) = GalleryCoreApi::loadEntitiesById($entity->getParentId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -1205,7 +1169,7 @@ class GalleryUtilities {
 			$parentEntity->getMimeType() != $entity->getMimeType()) {
 		    list ($ret, $extensions) =
 			GalleryCoreApi::convertMimeToExtensions($entity->getMimeType());
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    if (!empty($extensions)) {
@@ -1221,7 +1185,7 @@ class GalleryUtilities {
 		}
 	    }
 	}
-	return array(null,
+	return array(GalleryStatus::success(),
 		     isset($pseudoFileName) ? $pseudoFileName : 'unknown');
     }
 
@@ -1318,37 +1282,6 @@ class GalleryUtilities {
     }
 
     /**
-     * Create a hashed password using md5 plus salt
-     *
-     * @param string plaintext password
-     * @param string (optional) salt or hash containing salt (randomly generated if omitted)
-     * @return string hashed password
-     */
-    function md5Salt($password, $salt='') {
-	if (empty($salt)) {
-	    for ($i = 0; $i < 4; $i++) {
-		$char = mt_rand(48, 109);
-		$char += ($char > 90) ? 13 : ($char > 57) ? 7 : 0;
-		$salt .= chr($char);
-	    }
-	} else {
-	    $salt = substr($salt, 0, 4);
-	}
-	return $salt . md5($salt . $password);
-    }
-
-    /**
-     * Verify given password is correct
-     *
-     * @param string password guess
-     * @param string hashed password
-     * @return boolean true if correct
-     */
-    function isCorrectPassword($guess, $hashedPassword) {
-	return (GalleryUtilities::md5Salt($guess, $hashedPassword) === $hashedPassword);
-    }
-
-    /**
      * Verify that the API provided is compatible with the API that we require.
      *
      * We're only compatible if the major numbers are the same, and the required
@@ -1428,7 +1361,7 @@ class GalleryUtilities {
 	    return null;
 	}
 	$userAgent = $_SERVER['HTTP_USER_AGENT'];
-	if (strstr($userAgent, 'Google') || strstr($userAgent, 'gsa-crawler')) {
+	if (strstr($userAgent, 'Google')) {
 	    return 'google';
 	} else if (strstr($userAgent, 'Yahoo')) {
 	    return 'yahoo';
@@ -1662,26 +1595,6 @@ class GalleryUtilities {
 	    $_COOKIE[$key] = $val;
 	    $fixedCookies[$key] = true;
 	}
-    }
-
-    /**
-     * ASCII version of PHP's strtolower()
-     * PHP's strtolower doesn't work in all locales as expected, e.g. in Turkish, we get
-     * non-ASCII characters for an ASCII input string
-     *
-     * @return string lower-case version of the string
-     */
-    function strToLower($string) {
-	return strtr($string, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
-    }
-
-    /**
-     * ASCII version of PHP's strtolower()
-     * 
-     * @return string upper-case version of the string
-     */
-    function strToUpper($string) {
-	return strtr($string, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     }
 }
 ?>

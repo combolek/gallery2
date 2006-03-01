@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,6 +76,7 @@ class GalleryFactoryHelper_simple {
 	static $registry;
 	$registry =& GalleryFactoryHelper_simple::_getSingleton();
 	if (empty($registry)) {
+	    $storage =& $gallery->getStorage();
 	    $cacheParams = array('type' => 'module',
 				 'itemId' => 'GalleryFactoryHelper_loadRegistry',
 				 'id' => '_all');
@@ -89,15 +90,14 @@ class GalleryFactoryHelper_simple {
                   [GalleryFactoryMap::className],
                   [GalleryFactoryMap::implId],
                   [GalleryFactoryMap::implPath],
-                  [GalleryFactoryMap::hints],
-                  [GalleryFactoryMap::implModuleId]
+                  [GalleryFactoryMap::hints]
                 FROM
                   [GalleryFactoryMap]
                 ORDER BY
                   [GalleryFactoryMap::orderWeight] ASC
                 ';
 		list ($ret, $searchResults) = $gallery->search($query);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
@@ -105,7 +105,6 @@ class GalleryFactoryHelper_simple {
 		while ($result = $searchResults->nextResult()) {
 		    $registry['implementations'][$result[0]][$result[1]] = $result[3];
 		    $registry['ids'][$result[0]][$result[2]] = $result[1];
-		    $registry['pluginIds'][$result[0]][$result[1]] = $result[5];
 
 		    $hints = unserialize($result[4]);
 		    if (isset($hints)) {
@@ -118,7 +117,7 @@ class GalleryFactoryHelper_simple {
 	    }
 	}
 
-	$ret = array(null, &$registry);
+	$ret = array(GalleryStatus::success(), &$registry);
 	return $ret;
     }
 
@@ -133,7 +132,7 @@ class GalleryFactoryHelper_simple {
      */
     function newInstanceByHint($classType, $hints) {
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!is_array($hints)) {
@@ -149,17 +148,17 @@ class GalleryFactoryHelper_simple {
 	    }
 	}
 	if (!isset($classNames)) {
-	    return array(null, null);
+	    return array(GalleryStatus::success(), null);
 	}
 
 	/* Right now we just use the first available hint */
 	$className = $classNames[0];
 	list ($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $instance);
+	return array(GalleryStatus::success(), $instance);
     }
 
     /**
@@ -175,7 +174,7 @@ class GalleryFactoryHelper_simple {
 	global $gallery;
 
 	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -184,7 +183,7 @@ class GalleryFactoryHelper_simple {
 		if ($gallery->getDebug()) {
 		    $gallery->debug("Unimplemented: $classType");
 		}
-		return array(null, null);
+		return array(GalleryStatus::success(), null);
 	    }
 	    $classNames = array_keys($registry['implementations'][$classType]);
 	    $className = $classNames[0];
@@ -194,31 +193,29 @@ class GalleryFactoryHelper_simple {
 	    if ($gallery->getDebug()) {
 		$gallery->debug("Unimplemented: $classType, $className");
 	    }
-	    return array(null, null);
+	    return array(GalleryStatus::success(), null);
 	}
 
 	if (!class_exists($className)) {
 	    $relativePath = $registry['implementations'][$classType][$className];
 
-	    $platform =& $gallery->getPlatform();
-	    if (!$platform->file_exists(
-		GalleryCoreApi::getPluginBaseDir(
-		'module', $registry['pluginIds'][$classType][$className]) . $relativePath)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
+	    $platform = $gallery->getPlatform();
+	    if (!$platform->file_exists(dirname(__FILE__) . '/../../../../' . $relativePath)) {
+		return array(GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 						  "Invalid path: $relativePath"),
 			     null);
 	    }
 
-	    GalleryCoreApi::requireOnce($relativePath);
+	    GalleryCoreApi::relativeRequireOnce($relativePath);
 
 	    if (!class_exists($className)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  "Missing class: $className"),
 			     null);
 	    }
 	}
 
-	return array(null, new $className);
+	return array(GalleryStatus::success(), new $className);
     }
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  */
+
+/**
+ * require necessary classes
+ */
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * This controller will handle an user logging in to Gallery
@@ -35,9 +41,10 @@
 class UserLoginController extends GalleryController {
 
     /**
-     * ValidationPlugin instances to use when handling this request.  Only used by test code.
+     * ValidationPlugin instances to use when handling this request.  Only used by
+     * test code.
      *
-     * @var array $_plugins (array of GalleryValidationPlugin)
+     * @var array (pluginId => object ValidationPlugin) $_plugins
      * @access private
      */
     var $_pluginInstances;
@@ -47,21 +54,14 @@ class UserLoginController extends GalleryController {
      * This avoids situations where some of the option instances will do unpredictable
      * things and derail the tests.
      *
-     * @param array of GalleryValidationPlugin
+     * @param array (pluginId => ValidationPlugin, ...)
      */
     function setPluginInstances($pluginInstances) {
 	$this->_pluginInstances = $pluginInstances;
     }
 
     /**
-     * @see GalleryController::isAllowedInMaintenance()
-     */
-    function isAllowedInMaintenance() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
 	global $gallery;
@@ -78,53 +78,34 @@ class UserLoginController extends GalleryController {
 	    }
 
 	    if (empty($error)) {
-		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
-		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-		$isCorrect = ($user != null && $user->isCorrectPassword(
-			    GalleryUtilities::htmlEntityDecode($form['password'])));
-
-		/* Prepare for validation */
-		$options = array('pass' => $isCorrect);
-		list ($ret, $options['level']) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-		if ($options['level'] == 'MEDIUM') {
-		    $options['key'] = 'core.UserLogin.' . $form['username'];
-		}
-		if ($options['level'] == 'OFF') {
-		    $pluginInstances = array();
-		} else if (isset($this->_pluginInstances)) {
+		if (isset($this->_pluginInstances)) {
 		    $pluginInstances = $this->_pluginInstances;
 		} else {
+		    /* Get all the login plugins */
 		    list ($ret, $pluginInstances) =
-			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-		    if ($ret) {
+			GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
 			list ($ret, $pluginInstances[$pluginId]) =
-			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
-								   $pluginId);
-			if ($ret) {
+			    GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
 
 		/* Let each plugin do its verification */
-		foreach ($pluginInstances as $plugin) {
-		    list ($ret, $pluginErrors, $continue) =
-			$plugin->performValidation($form, $options);
-		    if ($ret) {
+		foreach ($pluginInstances as $pluginId => $plugin) {
+		    list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $error = array_merge($error, $pluginErrors);
+
 		    if (!$continue) {
 			break;
 		    }
@@ -132,21 +113,23 @@ class UserLoginController extends GalleryController {
 	    }
 
 	    if (empty($error)) {
-		if ($isCorrect) {
+		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
+		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		if ($user != null && $user->isCorrectPassword($form['password'])) {
 		    $gallery->setActiveUser($user);
 
 		    $event = GalleryCoreApi::newEvent('Gallery::Login');
 		    $event->setEntity($user);
 		    list ($ret, $redirect) = GalleryCoreApi::postEvent($event);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $session =& $gallery->getSession();
-		    $ret = $session->regenerate();
-		    if ($ret) {
-			return array($ret->wrap(__FILE__, __LINE__), null);
-		    }
+		    $session->regenerate();
 
 		    /* Redirect if requested by event listener, otherwise return */
 		    if (!empty($redirect)) {
@@ -170,7 +153,7 @@ class UserLoginController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
 }
@@ -193,19 +176,41 @@ class UserLoginView extends GalleryView {
 	if ($form['formName'] != 'UserLogin') {
 	    $form['formName'] = 'UserLogin';
 	    $form['username'] = '';
-	    
-	    /*
-	     * When logging in we don't have a session yet, thus no navigation history / a place
-	     * to store the returnUrl. Thus store the returnUrl in the login form
-	     */
-	    $returnUrl = GalleryUtilities::getRequestVariables('return');
-	    if (!empty($returnUrl)) {
-		$form['returnUrl'] = $returnUrl;
+	}
+
+	$UserLogin = array();
+
+	/* Get all the login plugins */
+	list ($ret, $allPluginIds) =
+	    GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Let each plugin load its template data */
+	$UserLogin['plugins'] = array();
+	foreach (array_keys($allPluginIds) as $pluginId) {
+	    list ($ret, $plugin) =
+		GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    list ($ret, $data['file'], $data['l10Domain']) =
+		$plugin->loadTemplate($template, $form, 'MEDIUM');
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+
+	    if (isset($data['file'])) {
+		$UserLogin['plugins'][] = $data;
 	    }
 	}
 
+	$template->setVariable('UserLogin', $UserLogin);
 	$template->setVariable('controller', 'core.UserLogin');
-	return array(null, array('body' => 'modules/core/templates/UserLogin.tpl'));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/core/templates/UserLogin.tpl'));
     }
 }
 ?>

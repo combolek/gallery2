@@ -1,7 +1,7 @@
 # $Id$
 # 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
+# Copyright (C) 2000-2005 Bharat Mediratta
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,26 +29,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Gallery Debug"
-msgstr ""
+msgstr "Gallery Debug"
 
+#, fuzzy
 msgid "Debugging"
-msgstr ""
+msgstr "Debug"
 
 msgid "Debugging and Developer Tools"
 msgstr ""
 
+#, fuzzy
 msgid "Gallery"
-msgstr ""
+msgstr "Gallery Debug"
 
+#, fuzzy
 msgid "Show Debug Tree"
-msgstr ""
+msgstr "Debug Tree"
 
 msgid "Debug Tree"
-msgstr ""
+msgstr "Debug Tree"
 
-#, c-format
+#, fuzzy, c-format
 msgid "%d: (%s)"
-msgstr ""
+msgstr "(%s)"
 
 msgid "[browse]"
 msgstr ""

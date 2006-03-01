@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,19 +36,11 @@
 class RedirectController extends GalleryController {
 
     /**
-     * @see GalleryController::shouldSaveSession()
-     */
-    function shouldSaveSession() {
-	return false;
-    }
-
-    /**
     * @see GalleryController::handleRequest()
     */
     function handleRequest($form) {
+	GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
 	global $gallery;
-	$phpVm = $gallery->getPhpVm();
-	GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
 
 	$path = GalleryUtilities::getRequestVariables('path');
 	$path = preg_split('|/|', $path, -1, PREG_SPLIT_NO_EMPTY);
@@ -73,7 +65,7 @@ class RedirectController extends GalleryController {
 	    }
 
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0], $path[1]);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -81,19 +73,19 @@ class RedirectController extends GalleryController {
 		switch ($derivative) {
 		case DERIVATIVE_TYPE_IMAGE_PREFERRED:
 		    list ($ret, $data) = GalleryCoreApi::fetchPreferredsByItemIds(array($id));
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_RESIZE:
 		    list ($ret, $data) = GalleryCoreApi::fetchResizesByItemIds(array($id));
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
 		case DERIVATIVE_TYPE_IMAGE_THUMBNAIL:
 		    list ($ret, $data) = GalleryCoreApi::fetchThumbnailsByItemIds(array($id));
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    break;
@@ -108,18 +100,17 @@ class RedirectController extends GalleryController {
 	    }
 	} else {
 	    list ($ret, $id) = G1MigrateHelper::fetchMapping($path[0]);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	if (!isset($id)) {
-	    $phpVm->header('HTTP/1.0 404 Not Found');
+	    header('HTTP/1.0 404 Not Found');
 	    exit;
 	}
 
 	/* Redirect browser */
-	$phpVm->header('HTTP/1.0 301 Moved Permanently');
 	$results = array('redirect' => array('view' => $view, 'itemId' => $id),
 			 'status' => array(), 'error' => array());
 
@@ -128,15 +119,13 @@ class RedirectController extends GalleryController {
 	    /* PHP as CGI needs to use PHP_SELF; fallback to SCRIPT_NAME just in case */
 	    $scriptName = GalleryUtilities::getServerVar('SCRIPT_NAME');
 	}
-
 	if (strpos($scriptName, GALLERY_MAIN_PHP) !== false) {
 	    /*
 	     * $scriptName may not be the right path.. see http://bugs.php.net/bug.php?id=31843
 	     * If not, omit 'href' in redirect params which means we hope REQUEST_URI has been
 	     * rewritten to the correct path (that is the case on php 5.0.3 cgi at least).
 	     */
-	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $results['redirect']['href'] = $urlGenerator->makeUrl($scriptName);
+	    $results['redirect']['href'] = GalleryUrlGenerator::makeUrl($scriptName);
 	}
 
 	list ($full, $page) = GalleryUtilities::getRequestVariablesNoPrefix('full', 'page');
@@ -147,7 +136,7 @@ class RedirectController extends GalleryController {
 	    $results['redirect']['page'] = $page;
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -156,29 +145,19 @@ class RedirectController extends GalleryController {
  */
 class RedirectView extends GalleryView {
     /**
-     * @see GalleryView::isImmediate
+     * @see GalleryView::loadTemplate
      */
-    function isImmediate() {
-	return true;
-    }
+    function loadTemplate(&$template, &$form) {
+	global $gallery;
 
-    /**
-     * @see GalleryView::renderImmediate
-     */
-    function renderImmediate($status, $error) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	header('Content-type: text/plain');
-
-	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
-	$template = new GalleryTemplate(dirname(dirname(dirname(__FILE__))));
-	$template->setVariable('l10Domain', 'modules_migrate');
-	$template->display('gallery:modules/migrate/templates/Htaccess.tpl');
-
-	return null;
+	return array(GalleryStatus::success(),
+		     array('html' => 'modules/migrate/templates/Htaccess.tpl'));
     }
 }
 ?>

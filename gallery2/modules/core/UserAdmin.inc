@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 class UserAdminView extends GalleryView {
 
     /**
-     * @see GalleryView::loadTemplate()
+     * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
@@ -45,7 +45,7 @@ class UserAdminView extends GalleryView {
 
 	/* Load the module list */
 	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -59,7 +59,7 @@ class UserAdminView extends GalleryView {
 	    /* Get the selected module's admin view */
 	    if (in_array('getUserAdminViews', explode('|', $status['callbacks']))) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			continue;
 		    }
@@ -67,7 +67,7 @@ class UserAdminView extends GalleryView {
 		}
 
 		list ($ret, $moduleViews) = $module->getUserAdminViews($user);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -78,14 +78,14 @@ class UserAdminView extends GalleryView {
 	/* If we have a specific sub view, load it now */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if ($subViewName == 'core.UserAdmin') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	if (empty($subViewName) && !empty($subViewChoices)) {
 	    $subViewName = $subViewChoices[0]['view'];
 	}
 
 	list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -100,23 +100,23 @@ class UserAdminView extends GalleryView {
 	/* Get the links for navigating back to where we came from */
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Bring in the root album information for the breadcrumb */
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -125,21 +125,21 @@ class UserAdminView extends GalleryView {
 	$UserAdmin['subViewChoices'] = $subViewChoices;
 	$UserAdmin['subViewName'] = $subViewName;
 	$UserAdmin['isSiteAdmin'] = $isSiteAdmin;
-	$UserAdmin['rootAlbum'] = (array)$rootAlbum;
+	$UserAdmin['rootAlbum'] = $rootAlbum->getMemberData();
 
 	if (!empty($subViewName)) {
 	    list ($ret, $subView) = GalleryView::loadView($subViewName);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $results) = $subView->loadTemplate($template, $form);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($results['redirect'])) {
-		return array(null, $results);
+		return array(GalleryStatus::success(), $results);
 	    }
 
 	    $UserAdmin['viewBodyFile'] = $results['body'];
@@ -148,15 +148,8 @@ class UserAdminView extends GalleryView {
 
 	$template->setVariable('UserAdmin', $UserAdmin);
 	$template->title($module->translate('Gallery User Administration'));
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/UserAdmin.tpl'));
-    }
-
-    /**
-     * @see GalleryView::isAllowedInMaintenance()
-     */
-    function isAllowedInMaintenance() {
-	return (GalleryUtilities::getRequestVariables('subView') == 'core.UserLogin');
     }
 
     /**
@@ -171,23 +164,16 @@ class UserAdminView extends GalleryView {
 	    $subViewName = 'core.ItemEdit';
 	}
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $description) = $subView->getViewDescription();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $description);
-    }
-
-    /**
-     * @see GalleryView::getViewType()
-     */
-    function getViewType() {
-	return VIEW_TYPE_ADMIN;
+	return array(GalleryStatus::success(), $description);
     }
 }
 ?>

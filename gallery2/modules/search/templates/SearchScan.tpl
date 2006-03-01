@@ -4,7 +4,7 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-<form id="SearchScan" action="{g->url}" method="post">
+<form action="{g->url}" method="post">
   <div id="gsContent" class="gcBorder1">
     <div class="gbBlock gcBackground1">
       <h2> {g->text text="Search the Gallery"} </h2>
@@ -38,9 +38,6 @@
     <div class="gbBlock">
       <input type="text" size="50"
        name="{g->formVar var="form[searchCriteria]"}" value="{$form.searchCriteria}"/>
-      <script type="text/javascript">
-        document.getElementById('SearchScan')['{g->formVar var="form[searchCriteria]"}'].focus();
-      </script>
       <input type="submit" class="inputTypeSubmit"
        name="{g->formVar var="form[action][search]"}" value="{g->text text="Search"}"/>
 
@@ -94,7 +91,7 @@
 
 	{assign var="searchCriteria" value=$form.searchCriteria}
 	{if (sizeof($results.results) > 0)}
-	  <table><tr>
+	  <table id="gbThumbMatrix"><tr>
 	    {foreach from=$results.results item=result}
 	      {assign var=itemId value=$result.itemId}
 	      <td class="{if
@@ -112,8 +109,8 @@
 		  {foreach from=$result.fields item=field}
 		    {if isset($field.value)}
 		    <li>
-		      <span class="ResultKey">{$field.key}:</span>
-		      <span class="ResultData">{$field.value|default:"&nbsp;"|markup}</span>
+		      {$field.key}:
+		      {$field.value|default:"&nbsp;"|ireplace:$searchCriteria:"<span class=\"giSearchHighlight\">\\1</span>"|markup}
 		    </li>
 		    {/if}
 		  {/foreach}
@@ -121,9 +118,6 @@
 	      </td>
 	    {/foreach}
 	  </tr></table>
-	  <script type="text/javascript">
-	    search_HighlightResults('{$searchCriteria}');
-	  </script>
 	{else}
 	  <p class="giDescription">
 	    {g->text text="No results found for"} '{$form.searchCriteria}'

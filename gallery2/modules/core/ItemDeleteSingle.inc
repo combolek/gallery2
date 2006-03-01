@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,37 +47,35 @@ class ItemDeleteSingleController extends GalleryController {
 	$error = array();
 	if (isset($form['action']['delete'])) {
 	    /* Get the root album id, so we don't try to delete it */
-	    list ($ret, $rootId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
+	    list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* The view shouldn't let us get this far if we don't have delete permission */
 	    $ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.delete');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* The view shouldn't let us try to delete the root album, either */
 	    if ($itemId == $rootId) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  "Can't delete the root album"), null);
 	    }
 
 	    $ret = GalleryCoreApi::deleteEntityById($itemId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    list ($ret, $success) =
-		GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getParentId());
-	    if ($ret) {
+	    list ($ret, $success) = GalleryCoreApi::guaranteeAlbumHasThumbnail($item->getParentId());
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* What do we do if we weren't successful?  No thumbnail, I guess */
@@ -99,7 +97,7 @@ class ItemDeleteSingleController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -125,13 +123,13 @@ class ItemDeleteSingleView extends GalleryView {
 	}
 
 	list($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get child counts */
 	list ($ret, $childCountTable) = GalleryCoreApi::fetchDescendentCounts(array($itemId));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$childCount = isset($childCountTable[$itemId]) ? $childCountTable[$itemId] : 0;
@@ -143,7 +141,7 @@ class ItemDeleteSingleView extends GalleryView {
 	$template->setVariable('controller', 'core.ItemDeleteSingle');
 	$template->setVariable('ItemDeleteSingle', $ItemDeleteSingle);
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/ItemDeleteSingle.tpl'));
 
     }
@@ -153,19 +151,19 @@ class ItemDeleteSingleView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$itemTypeNames = $item->itemTypeName(true);
 
-	return array(null, $core->translate(array('text' => 'delete %s',
-						  'arg1' => $itemTypeNames[1])));
+	return array(GalleryStatus::success(), $core->translate(array('text' => 'delete %s',
+								      'arg1' => $itemTypeNames[1])));
     }
 }
 ?>

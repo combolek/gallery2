@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +19,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ImageBlock
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class ImageBlockCallbacks {
     /**
      */
     function callback($params, &$smarty, $callback, $userId=null) {
-	GalleryCoreApi::requireOnce('modules/imageblock/classes/ImageBlockHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/imageblock/classes/ImageBlockHelper.class');
 
 	switch($callback) {
 	case 'LoadImageBlock':
@@ -40,7 +35,7 @@ class ImageBlockCallbacks {
 		 */
 		list ($ret, $moduleParams) =
 		    GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -80,14 +75,14 @@ class ImageBlockCallbacks {
 	    }
 
 	    $ret = ImageBlockHelper::loadImageBlocks($template, $params);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

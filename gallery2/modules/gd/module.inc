@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +40,11 @@ class GdModule extends GalleryModule {
 	$this->setId('gd');
 	$this->setName($gallery->i18n('Gd'));
 	$this->setDescription($gallery->i18n('Gd Graphics Toolkit'));
-	$this->setVersion('1.0.1');
-	$this->setGroup('toolkits', $gallery->i18n('Graphics Toolkits'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('toolkits', $this->translate('Graphics Toolkits'));
 	$this->setCallbacks('getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -54,12 +54,12 @@ class GdModule extends GalleryModule {
 	if (!isset($currentVersion)) {
 	    /* Initial install */
 	    $ret = $this->setParameter('jpegQuality', '75');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -70,11 +70,11 @@ class GdModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'GdToolkit', 'Gd',
 	    'modules/gd/classes/GdToolkit.class', 'gd', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -82,23 +82,23 @@ class GdModule extends GalleryModule {
      */
     function activate($postActivationEvent=true) {
 	/* Load any classes we require */
-	GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdToolkitHelper.class');
 
 	/* Find out what operations and properties we have available to us */
 	list ($ret, $results) =
 	    GdToolkitHelper::getOperationsAndProperties();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('Gd');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $priority++;
@@ -112,7 +112,7 @@ class GdModule extends GalleryModule {
 							    $info['params'],
 							    $info['description'],
 							    $outputMimeType, $priority);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -123,17 +123,17 @@ class GdModule extends GalleryModule {
 							   $property,
 							   $info['type'],
 							   $info['description']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $redirect);
+	return array(GalleryStatus::success(), $redirect);
     }
 
     /**
@@ -146,16 +146,16 @@ class GdModule extends GalleryModule {
 	 * be after the deactivation is done.
 	 */
 	$ret = GalleryCoreApi::unregisterToolkit('Gd');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $redirect);
+	return array(GalleryStatus::success(), $redirect);
     }
 
     /**
@@ -164,28 +164,35 @@ class GdModule extends GalleryModule {
     function needsConfiguration() {
 	/* This module requires all fields to be filled out before it can be activated. */
 	list ($ret, $value) = $this->getParameter('jpegQuality');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($value)) {
-	    return array(null, true);
+	    return array(GalleryStatus::success(), true);
 	}
 
 	/*
 	 * It also will stay requiring configuration if we don't have a
 	 * GD version with which we can work with.
 	 */
-	GalleryCoreApi::requireOnce('modules/gd/classes/GdToolkitHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/gd/classes/GdToolkitHelper.class');
 
 	list($ret, $isSupported) = GdToolkitHelper::isGdVersionSupported();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$isSupported) {
-	    return array(null, true);
+	    return array(GalleryStatus::success(), true);
 	}
 
-	return array(null, false);
+	return array(GalleryStatus::success(), false);
+    }
+
+    /**
+     * @see GalleryModule::isRecommendedDuringInstall
+     */
+    function isRecommendedDuringInstall() {
+	return true;
     }
 
     /**
@@ -193,18 +200,22 @@ class GdModule extends GalleryModule {
      */
     function autoConfigure() {
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 
-	return array(null, !$needsConfiguration);
+	if (!$needsConfiguration) {
+	    return array(GalleryStatus::success(), true);
+	}
+
+	return array(GalleryStatus::success(), false);
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews
      */
     function getSiteAdminViews() {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Gd'),
 				 'view' => 'gd.AdminGd')));
     }

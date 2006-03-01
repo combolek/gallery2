@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>
  */
 
-GalleryCoreApi::requireOnce('modules/register/classes/GalleryPendingUserHelper.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::relativeRequireOnce('modules/register/classes/GalleryPendingUserHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * UserSelfRegistration controller tests
@@ -45,23 +45,16 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'register');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'emailadmins', '0');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'HIGH');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$this->_controller->setPluginInstances(array());
     }
 
     function testCancel() {
@@ -75,7 +68,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 
     function testRegisterWithAutomaticActivation() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -89,17 +82,16 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
+	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
 				      'subView' => 'register.SelfRegistrationSuccess'),
-		'status' => array(),
+		'status' => array('activatedUser' => $userName),
 		'error' => array()),
 	    $results,
 	    'Failed to register user with automatic activation');
 
 	/* the newly registered user is a real user by now */
 	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(GalleryUtilities::isA($user, 'GalleryUser'), true);
@@ -110,7 +102,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
     function testRegisterWithEMailActivation() {
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -123,36 +115,32 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password1]', 'password');
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+	$savePlatform = $gallery->getPlatform();
+	$gallery->_platform = new RegisterDummyPlatform($savePlatform, $this);
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true,
-				      'sentConfirmationEmail' => true),
-	  'status' => array(),
+	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
+	      'subView' => 'register.SelfRegistrationSuccess'),
+	  'status' => array('registeredUser' => $userName),
 	  'error' => array()),
 	    $results,
 	    'Failed to register user with email activation');
 
-	$gallery->setPlatform($savePlatform);
+	$gallery->_platform = $savePlatform;
 
 	/* make sure the pending user exists */
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret) {
+	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
     }
 
-    function testEntities() {
+    function testUsernameWithEntity() {
 	/* Make sure emails sent out don't include text like &amp; */
-	/* Also verify password with <&"> characters is not entitized before being hashed */
 	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'email');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -164,28 +152,25 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
 	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
 	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'pass&word>');
-	GalleryUtilities::putRequestVariable('form[password2]', 'pass&word>');
+	GalleryUtilities::putRequestVariable('form[password1]', 'password');
+	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
-	$savePlatform =& $gallery->getPlatform();
-	$gallery->setPlatform(new RegisterDummyPlatform($savePlatform, $this));
+	$savePlatform = $gallery->getPlatform();
+	$gallery->_platform = new RegisterDummyPlatform($savePlatform, $this);
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true,
-				      'sentConfirmationEmail' => true),
-				  'status' => array(),
-				  'error' => array()),
+	$this->assertEquals(array('redirect' => array('view' => 'core.UserAdmin',
+	      'subView' => 'register.SelfRegistrationSuccess'),
+	  'status' => array('registeredUser' => $entitizedName),
+	  'error' => array()),
 	    $results,
 	    'Failed to register user with email activation');
 
-	$gallery->setPlatform($savePlatform);
+	$gallery->_platform = $savePlatform;
 
 	/* make sure the pending user exists */
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
-	if ($ret) {
+	list($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($entitizedName);
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
@@ -194,15 +179,6 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	/* the confirm link should also use unentitized(but urlencoded) value; not verified here */
 	$this->assert(strpos($this->_emailBody, $userName) !== false,
 		      'Email body should have unentitized username: ' . $this->_emailBody);
-
-	list ($ret, $userEntity) =
-	    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
-	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assert(!empty($userEntity), 'factory error');
-	$userEntity->setHashedPassword($user->getHashedPassword());
-	$this->assert($userEntity->isCorrectPassword('pass&word>'), 'password check');
     }
 
     function testMissingInputs() {
@@ -264,51 +240,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$userName = 'user-selfreg' . rand();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'admin');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	/* Create one user */
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess',
-				      'pending' => true),
-		  'status' => array(),
-		  'error' => array()),
-	    $results,
-	    'Failed to create first pending user');
-
-	/* Create a second user with the same name */
-	/* fails because we have the existing pending user */
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('delegate' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.UserSelfRegistration'),
-		  'status' => array(),
-		  'error' => array('form[error][userName][exists]')),
-	    $results, 'Create duplicate');
-
-	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_markForCleanup($user);
-    }
-
-    function testCreateDuplicateUser() {
-	$userName = 'user-selfreg' . rand();
-
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -325,7 +257,50 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(
 	    array('redirect' => array('view' => 'core.UserAdmin',
 				      'subView' => 'register.SelfRegistrationSuccess'),
+		  'status' => array('registeredUserNoEmail' => $userName),
+		  'error' => array()),
+	    $results,
+	    'Failed to create first pending user');
+
+	/* Create a second user with the same name */
+	/* fails because we have the existing pending user */
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.UserAdmin',
+				      'subView' => 'register.UserSelfRegistration'),
 		  'status' => array(),
+		  'error' => array('form[error][userName][exists]')),
+	    $results, 'Create duplicate');
+
+	list ($ret, $user) = GalleryPendingUserHelper::fetchPendingUserByUserName($userName);
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+	$this->_markForCleanup($user);
+    }
+
+    function testCreateDuplicateUser() {
+	$userName = 'user-selfreg' . rand();
+
+	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
+	if ($ret->isError()) {
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	}
+
+	/* Create one user */
+	GalleryUtilities::putRequestVariable('form[action][create]', 1);
+	GalleryUtilities::putRequestVariable('form[userName]', $userName);
+	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
+	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
+	GalleryUtilities::putRequestVariable('form[language]', 'language');
+	GalleryUtilities::putRequestVariable('form[password1]', 'password');
+	GalleryUtilities::putRequestVariable('form[password2]', 'password');
+
+	$results = $this->handleRequest();
+	$this->assertEquals(
+	    array('redirect' => array('view' => 'core.UserAdmin',
+				      'subView' => 'register.SelfRegistrationSuccess'),
+		  'status' => array('activatedUser' => $userName),
 		  'error' => array()),
 	    $results,
 	    'Failed to create first user');
@@ -341,8 +316,8 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	    $results, 'Create duplicate');
 
 	/* find userid */
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
+	list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_markForCleanup($user);
@@ -363,22 +338,19 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 	$plugin1 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin1->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
+	$plugin1->setErrors(array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
 	$plugin1->setContinue(false);
 
 	$plugin2 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin2->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
+	$plugin2->setErrors(array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
 	$plugin2->setContinue(true);
 	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array(
-	    'delegate' => array('view' => 'core.UserAdmin',
-				'subView' => 'register.UserSelfRegistration'),
-	    'status' => array(),
-	    'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')),
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.UserAdmin', 'subView' => 'register.UserSelfRegistration'),
+		  'status' => array(),
+		  'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]')),
 	    $results);
     }
 
@@ -396,23 +368,20 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[password2]', 'password');
 
 	$plugin1 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin1->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
+	$plugin1->setErrors(array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
 	$plugin1->setContinue(true);
 
 	$plugin2 = new UserSelfRegistrationControllerTestPlugin();
-	$plugin2->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
+	$plugin2->setErrors(array('form[error][UserSelfRegistrationControllerTestPlugin2][anError]'));
 	$plugin2->setContinue(false);
 	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array(
-	    'delegate' => array('view' => 'core.UserAdmin',
-				'subView' => 'register.UserSelfRegistration'),
-	    'status' => array(),
-	    'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]',
-			     'form[error][UserSelfRegistrationControllerTestPlugin2][anError]')),
+	$this->assertEquals(
+	    array('delegate' => array('view' => 'core.UserAdmin', 'subView' => 'register.UserSelfRegistration'),
+		  'status' => array(),
+		  'error' => array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]',
+				   'form[error][UserSelfRegistrationControllerTestPlugin2][anError]')),
 	    $results);
     }
 
@@ -421,7 +390,7 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
      */
     function testPlugins3() {
 	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -444,53 +413,13 @@ class UserSelfRegistrationControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(
 	    array('redirect' => array('view' => 'core.UserAdmin',
 				      'subView' => 'register.SelfRegistrationSuccess'),
-		  'status' => array(),
+		  'status' => array('activatedUser' => $userName),
 		  'error' => array()),
 	    $results);
 
 	/* find userid */
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	$this->_markForCleanup($user);
-    }
-
-    function testPluginsOff() {
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'validation.level', 'OFF');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'register', 'confirmation', 'auto');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$userName = 'user-selfreg' . rand();
-	GalleryUtilities::putRequestVariable('form[action][create]', 1);
-	GalleryUtilities::putRequestVariable('form[userName]', $userName);
-	GalleryUtilities::putRequestVariable('form[fullName]', 'full name');
-	GalleryUtilities::putRequestVariable('form[email]', 'email@test.com');
-	GalleryUtilities::putRequestVariable('form[language]', 'language');
-	GalleryUtilities::putRequestVariable('form[password1]', 'password');
-	GalleryUtilities::putRequestVariable('form[password2]', 'password');
-
-	$plugin = new UserSelfRegistrationControllerTestPlugin();
-	$plugin->setErrors(
-	    array('form[error][UserSelfRegistrationControllerTestPlugin1][anError]'));
-	$plugin->setContinue(false);
-	$this->_controller->setPluginInstances(array($plugin));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(
-	    array('redirect' => array('view' => 'core.UserAdmin',
-				      'subView' => 'register.SelfRegistrationSuccess'),
-		  'status' => array(),
-		  'error' => array()),
-	    $results);
-
-	list ($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
-	if ($ret) {
+	list($ret, $user) = GalleryCoreApi::fetchUserByUserName($userName);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_markForCleanup($user);
@@ -558,7 +487,7 @@ class RegisterDummyPlatform {
 /**
  * Mock ValidationPlugin
  */
-class UserSelfRegistrationControllerTestPlugin extends GalleryValidationPlugin {
+class UserSelfRegistrationControllerTestPlugin extends ValidationPlugin {
     function setContinue($continue) {
 	$this->_continue = $continue;
     }
@@ -567,8 +496,9 @@ class UserSelfRegistrationControllerTestPlugin extends GalleryValidationPlugin {
 	$this->_errors = $errors;
     }
 
-    function performValidation(&$form, $options=array()) {
-	return array(null, $this->_errors, $this->_continue);
+    function performValidation(&$form) {
+	return array(GalleryStatus::success(), $this->_errors, $this->_continue);
     }
 }
+
 ?>

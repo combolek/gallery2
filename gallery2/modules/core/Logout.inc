@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,7 @@
 class LogoutController extends GalleryController {
 
     /**
-     * @see GalleryController::isAllowedInMaintenance()
-     */
-    function isAllowedInMaintenance() {
-	return true;
-    }
-
-    /**
-     * @see GalleryController::handleRequest()
+     * @see GalleryController::handleRequest
      */
     function handleRequest() {
 	global $gallery;
@@ -52,27 +45,15 @@ class LogoutController extends GalleryController {
 	$event = GalleryCoreApi::newEvent('Gallery::Logout');
 	$event->setEntity($gallery->getActiveUser());
 	list ($ret) = GalleryCoreApi::postEvent($event);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$session =& $gallery->getSession();
 	$ret = $session->reset();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	list ($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
-	$gallery->setActiveUser($guestUser);
 
 	/* Force return to core.ShowItem, as we don't know if the guest user
 	 * has necessary permissions for the return page
@@ -81,7 +62,7 @@ class LogoutController extends GalleryController {
 	$results['status'] = array();
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 ?>

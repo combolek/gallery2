@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/FlushTemplatesTask.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/FlushTemplatesTask.class');
 
 /**
  * Test the FlushTemplates maintenance task functionality
@@ -45,7 +45,7 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 
 	list ($ret, $dirPerms) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'permissions.directory');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -55,12 +55,12 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 	$task = new FlushTemplatesTask();
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -81,20 +81,18 @@ class FlushTemplatesTaskTest extends GalleryTestCase {
 	$task = new FlushTemplatesTask();
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $success, $details) = $task->run();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$expected = $module->translate(array('text' => 'Unable to delete directory: %s',
-					     'arg1' => '/templates_c'));
-	
 	$this->assert(!$success, 'should have failed');
-	$this->assertEquals(array($expected), $details);
+	$this->assertEquals(array($module->translate('Unable to delete directory: /templates_c')),
+			    $details);
 	$this->assertEquals(array('file_exists(/templates_c)',
 				  'recursiveRmdir(/templates_c)'),
 			    $mockPlatform->getCalls());
@@ -129,10 +127,6 @@ class FlushTemplatesTaskTestPlatform {
 
     function recursiveRmdir($dir) {
 	return $this->_addCall("recursiveRmdir($dir)");
-    }
-
-    function realpath($path) {
-	return $path;
     }
 }
 ?>

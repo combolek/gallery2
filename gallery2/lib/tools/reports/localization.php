@@ -3,7 +3,7 @@
  * $RCSfile
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ if (!empty($_REQUEST['type']) && $_REQUEST['type'] == 'detail') {
 }
 
 ini_set('magic_quotes_runtime', false);
-list ($reportData, $mostRecentPoDate) = parsePoFiles($poFiles);
+$reportData = parsePoFiles($poFiles);
 require(dirname(__FILE__) . '/localization/main_' . $type . '.inc');
 exit;
 
@@ -68,20 +68,20 @@ function parsePoFiles($poFiles) {
      * Parse each .po file for relevant statistics and gather it together into a
      * single data structure.
      */
-    $poData = $seenPlugins = $maxMessageCount = array();
-    $mostRecentPoDate = 0;
+    $poData = array();
+    $seenPlugins = array();
+    $maxMessageCount = array();
     foreach ($poFiles as $poFile) {
-	if (!preg_match("|((?:\w+/)+)po/(\w{2}(?:_\w{2})?)\.po|", $poFile, $matches)) {
+	if (! preg_match("|((?:\w+/)+)po/(\w{2}_\w{2})\.po|", $poFile, $matches)) {
 	    continue;
 	}
 	list ($plugin, $locale) = array($matches[1], $matches[2]);
 	$seenPlugins[$plugin] = 1;
-	$stat = stat($poFile);
-	if ($stat && $stat['mtime'] > $mostRecentPoDate) {
-	    $mostRecentPoDate = $stat['mtime'];
-	}
 
-	$fuzzy = $translated = $untranslated = $obsolete = 0;
+	$fuzzy = 0;
+	$translated = 0;
+	$untranslated = 0;
+	$obsolete = 0;
 	/*
 	 * Untranslated:
 	 *   msgid "foo"
@@ -120,7 +120,9 @@ function parsePoFiles($poFiles) {
 	 *
 	 */
 	$msgId = null;
-	$nextIsFuzzy = $lastLineWasEmptyMsgStr = $lastLineWasEmptyMsgId = 0;
+	$nextIsFuzzy = 0;
+	$lastLineWasEmptyMsgStr = 0;
+	$lastLineWasEmptyMsgId = 0;
 	foreach (file($poFile) as $line) {
 	    /*
 	     * Scan for:
@@ -276,11 +278,11 @@ function parsePoFiles($poFiles) {
     /* Sort locales by overall total */
     uasort($poData, 'sortByPercentDone');
 
-    return array($poData, $mostRecentPoDate);
+    return $poData;
 }
 
 /**
- * Comparison function to be called by uasort elsewhere. The given params are arrays expected to
+ * Comparision function to be called by uasort elsewhere. The given params are arrays expected to
  * have at least a key of 'percentDone' with a numeric value. Optionally the arrays may have
  * two more keys: 'missing' and 'name'. Main sort is by 'percentDone' DESC. But if one of the
  * given params has a key 'missing' and the other not, the entry with 'missing' is sorted last,
