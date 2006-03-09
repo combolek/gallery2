@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
-GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryCharsetHelper_simple.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/helpers/GalleryCharsetHelper_simple.class');
 
 /**
  * Test character set helper
@@ -321,24 +321,12 @@ class CharsetTest extends GalleryTestCase {
 	$gallery->_phpVm = $phpVm;
 	$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset());
 
-	/* Sometimes we just get French_France.1252 instead of LC_CTYPE=... */
-	GalleryDataCache::reset();
-	$phpVm->setReturn('setlocale', array(LC_ALL, '0'), 'German_Switzerland.1252');
-	$gallery->_phpVm = $phpVm;
-	$this->assertEquals('Windows-1252', GalleryCharsetHelper_simple::detectSystemCharset(),
-			    'short format');
-
 	GalleryDataCache::reset();
 	$phpVm->setReturn('setlocale', array(LC_ALL, '0'),
 			  'LC_CTYPE=Russian_Russia.1251;LC_NUMERIC=C;LC_TIME=C');
 	$gallery->_phpVm = $phpVm;
 	$this->assertEquals('CP1251', GalleryCharsetHelper_simple::detectSystemCharset());
-	
-	/* On windows boxes, we don't have the CODESET constant, so fake it */
-	if (!defined('CODESET')) {
-	    define('CODESET', 'CODESET');
-	}
-	
+
 	/*
 	 * Windows may return true for function_exists('nl_langinfo') and then print
 	 * a warning message when the function is called:
@@ -355,28 +343,6 @@ class CharsetTest extends GalleryTestCase {
 	GalleryDataCache::reset();
 	$this->assertEquals('xyz123', GalleryCharsetHelper_simple::detectSystemCharset());
 	GalleryCapabilities::set('systemCharset', null);
-    }
-
-    function testDetectSourceEncodingWithOpenBSDBug() {
-	/* nl_langinfo(CODESET) on OpenBSD 3.7 returns the wrong value (D_T_FMT value instead) */
-	global $gallery;
-
-	/* On windows boxes, we don't have the CODESET constant, so fake it */
-	if (!defined('CODESET')) {
-	    define('CODESET', 'CODESET');
-	}
-	if (!defined('D_T_FMT')) {
-	    define('D_T_FMT', 'D_T_FMT');
-	}
-
-	$phpVm = new CharsetTestPhpVm();
-	$phpVm->setFunctionExists('nl_langinfo', true);
-	$phpVm->setReturn('nl_langinfo', array(CODESET), '%a %b %d %H:%M:%S %Y');
-	$phpVm->setReturn('nl_langinfo', array(D_T_FMT), '%a %b %d %H:%M:%S %Y');
-	$phpVm->setReturn('setlocale', array(LC_ALL, '0'),
-			  'LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=C');
-	$gallery->_phpVm = $phpVm;
-	$this->assertEquals('UTF-8', GalleryCharsetHelper_simple::detectSystemCharset());
     }
 
     function testConvertToUtf8SystemCharset() {
@@ -452,37 +418,37 @@ class CharsetTestPhpVm {
     }
 
     function setReturn($function, $args, $return) {
-	$this->_returns[$function][implode(',', $args)] = $return;
+	$this->_returns[$function] = array($args, $return);
     }
 
     function iconv($arg1, $arg2, $arg3) {
-	if (isset($this->_returns['iconv']["$arg1,$arg2,$arg3"])) {
-	    return $this->_returns['iconv']["$arg1,$arg2,$arg3"];
+	if ($this->_returns['iconv'][0] == array($arg1, $arg2, $arg3)) {
+	    return $this->_returns['iconv'][1];
 	}
 	return false;
     }
 
     function mb_convert_encoding($arg1, $arg2, $arg3) {
-	if (isset($this->_returns['mb_convert_encoding']["$arg1,$arg2,$arg3"])) {
-	    return $this->_returns['mb_convert_encoding']["$arg1,$arg2,$arg3"];
+	if ($this->_returns['mb_convert_encoding'][0] == array($arg1, $arg2, $arg3)) {
+	    return $this->_returns['mb_convert_encoding'][1];
 	}
     }
 
     function recode_string($arg1, $arg2) {
-	if (isset($this->_returns['recode_string']["$arg1,$arg2"])) {
-	    return $this->_returns['recode_string']["$arg1,$arg2"];
+	if ($this->_returns['recode_string'][0] == array($arg1, $arg2)) {
+	    return $this->_returns['recode_string'][1];
 	}
     }
 
     function nl_langinfo($item) {
-	if (isset($this->_returns['nl_langinfo'][$item])) {
-	    return $this->_returns['nl_langinfo'][$item];
+	if ($this->_returns['nl_langinfo'][0] == array($item)) {
+	    return $this->_returns['nl_langinfo'][1];
 	}
     }
 
     function setlocale($category, $locale) {
-	if (isset($this->_returns['setlocale']["$category,$locale"])) {
-	    return $this->_returns['setlocale']["$category,$locale"];
+	if ($this->_returns['setlocale'][0] == array($category, $locale)) {
+	    return $this->_returns['setlocale'][1];
 	}
     }
 }

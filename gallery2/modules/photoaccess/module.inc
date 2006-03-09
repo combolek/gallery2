@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  */
 
 /**
- * Photo printing at photoworks.com
+ * Photo printing at photoaccess.com
  *
  * @package PhotoAccess
  */
@@ -36,73 +36,13 @@ class PhotoAccessModule extends GalleryModule {
 	global $gallery;
 
 	$this->setId('photoaccess');
-	$this->setName($gallery->i18n('PhotoWorks'));
-	$this->setDescription($gallery->i18n('PhotoWorks Photo Printing Module'));
-	$this->setVersion('1.0.3'); /* Update upgrade() too */
-	$this->setGroup('commerce', $gallery->i18n('Commerce'));
+	$this->setName($gallery->i18n('PhotoAccess'));
+	$this->setDescription($gallery->i18n('PhotoAccess Photo Printing Module'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('commerce', $this->translate('Commerce'));
 	$this->setCallbacks('getItemLinks');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
-    }
-
-    /**
-     * @see GalleryModule::upgrade()
-     */
-    function upgrade($currentVersion) {
-	global $gallery;
-	if (!isset($currentVersion)) {
-	    $currentVersion = '0';
-	} else if (version_compare($currentVersion, '1.0.0', '<')) {
-	    /* Instead of enumerating all previous versions... */
-	    $currentVersion = '1.0.0';
-	}
-	list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	switch ($currentVersion) {
-	case '0':
-	    /* Register our permission */
-	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'photoaccess.print',
-						      $gallery->i18n('[photoaccess] Print'));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    /* Give everybody print permission by default */
-	    $ret = GalleryCoreApi::addGroupPermission(
-		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
-		'photoaccess.print', true);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    break;
-
-	case '1.0.0':
-	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'photoaccess.print',
-						      $gallery->i18n('[photoaccess] Print'));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	    $ret = GalleryCoreApi::addGroupPermission(
-		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
-		'photoaccess.print', true);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-
-	case '1.0.1':
-	case '1.0.2':
-
-	case 'end of upgrade path':
-	    break;
-
-	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PLUGIN, __FILE__, __LINE__,
-					sprintf('Unknown module version %s', $currentVersion));
-	}
-
-	return null;
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -112,11 +52,26 @@ class PhotoAccessModule extends GalleryModule {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CartPluginInterface_1_0', 'PhotoAccessCartPlugin', 'photoaccess',
 	    'modules/photoaccess/classes/PhotoAccessCartPlugin.class', 'photoaccess', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
+    }
+
+    /**
+     * @see GalleryModule::isRecommendedDuringInstall
+     */
+    function isRecommendedDuringInstall() {
+	return false;
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure
+     */
+    function autoConfigure() {
+	/* We don't require any special configuration */
+	return array(GalleryStatus::success(), true);
     }
 
     /**
@@ -127,17 +82,19 @@ class PhotoAccessModule extends GalleryModule {
 
 	foreach ($items as $item) {
 	    $itemId = $item->getId();
-	    if (isset($wantsDetailedLinks[$itemId]) &&
-		    isset($permissions[$itemId]['photoaccess.print']) &&
-		    GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
-		$links[$itemId][] =
-		    array('text' => $this->translate('Print on PhotoWorks.com'),
-			  'params' => array('controller' => 'photoaccess.PrintPhoto',
-					    'itemId' => $itemId, 'returnUrl' => '%CURRENT_URL%'));
+	    if (isset($wantsDetailedLinks[$itemId])) {
+		if (GalleryUtilities::isA($item, 'GalleryPhotoItem')) {
+		    $params['controller'] = 'photoaccess.PrintPhoto';
+		    $params['itemId'] = $itemId;
+		    $params['returnUrl'] = '%CURRENT_URL%';
+		    $links[$item->getId()][] =
+			array('text' => $this->translate('Print on PhotoAccess.com'),
+			      'params' => $params);
+		}
 	    }
 	}
 
-	return array(null, $links);
+	return array(GalleryStatus::success(), $links);
     }
 }
 ?>

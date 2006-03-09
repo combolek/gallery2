@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,12 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 	global $gallery;
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'uploadapplet');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	list ($ret, $modules) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -55,48 +55,24 @@ class ItemAddUploadApplet extends ItemAddPlugin {
 	     */
 	    $ItemAddUploadApplet['g2BaseUrl'] = $urlGenerator->getCurrentUrlDir(true);
 	    list ($ret, $cookiePath) = $urlGenerator->getCookiePath(true);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-	    list ($ret, $cookieDomain) = $session->getCookieDomain();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ItemAddUploadApplet['NoProtocolError'] = 0;
 	    $ItemAddUploadApplet['cookieName'] = $session->getKey();
 	    $ItemAddUploadApplet['cookieValue'] = $session->getId();
-	    $ItemAddUploadApplet['cookieDomain'] = $cookieDomain;
+	    $ItemAddUploadApplet['cookieDomain'] = $session->getCookieDomain();
 	    $ItemAddUploadApplet['cookiePath'] = $cookiePath;
 	    $ItemAddUploadApplet['album'] = $item->getId();
+	    $ItemAddUploadApplet['defaults'] = array('htmlEscapeCaptions' => 'false');
+	    $ItemAddUploadApplet['overrides'] = array('toSysOut' => 'true');
 	    $ItemAddUploadApplet['userAgent'] = GalleryUtilities::getServerVar('HTTP_USER_AGENT');
 	    $ItemAddUploadApplet['galleryVersion'] = 2;
 	    $ItemAddUploadApplet['code'] = 'com.gallery.GalleryRemote.ItemAddUploadAppletMini';
-
-	    list ($ret, $locale) = $gallery->getActiveLanguageCode();
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-	    $ItemAddUploadApplet['locale'] = $locale;
-
-	    list ($ret, $params) =
-		GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
-	    }
-	    foreach (array('default', 'override') as $type) {
-		$ItemAddUploadApplet[$type] = array();
-		if (!empty($params['upload' . $type . 'Variables'])) {
-		    $variablesArray = explode('|', $params['upload' . $type . 'Variables']);
-		    foreach ($variablesArray as $variable) {
-			list ($name, $value) = explode('=', $variable);
-			$ItemAddUploadApplet[$type][$name] = $value;
-		    }
-		}
-	    }
 	}
 
 	$template->setVariable('ItemAddUploadApplet', $ItemAddUploadApplet);
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/uploadapplet/templates/ItemAddUploadApplet.tpl',
 		     'modules_uploadapplet');
     }
@@ -106,11 +82,11 @@ class ItemAddUploadApplet extends ItemAddPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'uploadapplet');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $module->translate('Upload Applet'));
+	return array(GalleryStatus::success(), $module->translate('Upload Applet'));
     }
 }
 ?>

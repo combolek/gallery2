@@ -17,9 +17,8 @@
  * This page is the main upgrade template. It shows a header, the navigation menu (overview over all upgrade
  * steps with links), the body of the current step by including the corresponding template, a "Continue to
  * step x" link, and an upgrade status bar.
- * In the UpgradeCoreModule / UpgradeOtherModule steps, it shows a active progress bar for the progress 
- * within the step. Once the step is finished, it shows the overall progress bar and the redo/continue links
- * again.
+ * In the UpgradeCoreModule / UpgradeOtherModule steps, it shows a progress bar instead of the navigation
+ * menu.
  * Note: The page is divided into two <table>s because Internet Explorer doesn't start rendering a table
  * before it receives the closing </table> tag. If the whole page was in a single <table>, IE would not
  * display the progress bar at all (because as soon as the progress bar reaches 100%, we hide it and display
@@ -27,10 +26,15 @@
  */
  ?>
 <?php if (isset($templateData['MainPage']['showStatusBlock'])): ?>
-  <table id="progressBarTable" class="boxTable" cellspacing="0">
-    <?php include(dirname(__FILE__) . '/Header.html'); ?>
+      <table id="progressBarTable" class="boxTable" cellspacing="0">
 	<tr>
-	  <td id="navbar">
+	  <td class="header" colspan="2">
+	    <img src="<?php generateUrl('images/g2Logo_upgrade_head.png') ?>" alt="Gallery Upgrader"/>
+	  </td>
+	</tr>
+
+	<tr>
+	  <td class="navbar">
 	    <?php include(dirname(__FILE__) . '/NavBar.html'); ?>
 	  </td>
 	  <td class="main">
@@ -40,15 +44,15 @@
 	      </p>
 
 	      <p>
-		<h4><span id="MainPageStatus_description">&nbsp;</span></h4>
+		<h4> <span id="MainPageStatus_description">&nbsp;</span> </h4>
 	      </p>
 
-	    <table id="statusTable" cellspacing="0">
+	      <table width="100%">
 		<tr>
-		  <td id="MainPageStatus_progressMade" class="progressMade">&nbsp;</td>
-		  <td id="MainPageStatus_progressToGo" class="progressToGo">&nbsp;</td>
+		  <td id="MainPageStatus_progressMade" class="progressMade" style="display: inline-block; width:0%">&nbsp;</td>
+		  <td id="MainPageStatus_progressToGo" class="progressToGo" style="display: inline-block; width:100%; border-left: none">&nbsp;</td>
 		</tr>
-	    </table>
+	      </table>
 	    </div>
 
 	    <script type="text/javascript">
@@ -87,40 +91,24 @@
 
 <?php if (isset($templateData['MainPage']['showBodyAndFooter'])): ?>
       <table id="regularTable" class="boxTable" cellspacing="0">
-        <?php include(dirname(__FILE__) . '/Header.html'); ?>
 	<tr>
-	  <td id="navbar">
+	  <td class="header" colspan="2">
+	    <img src="<?php generateUrl('images/g2Logo_upgrade_head.png') ?>" alt="Gallery Upgrader"/>
+	  </td>
+	</tr>
+
+	<tr>
+	  <td class="navbar">
 	    <?php include(dirname(__FILE__) . '/NavBar.html'); ?>
 	  </td>
 
 	  <td class="main">
-
-	    <table id="statusTable" cellspacing="0">
-	      <tr>
-		<?php if ($templateData['percentComplete'] != 0): ?>
-		<td class="progressMade"
-		    style="width:<?php print $templateData['percentComplete'] ?>%">&nbsp;</td>
-		<?php endif; ?>
-
-		<?php if ($templateData['percentComplete'] != 100): ?>
-		<td class="progressToGo"
-		    style="width:<?php print (100 - $templateData['percentComplete']) . '%' .
-		      (($templateData['percentComplete'] == 0) ? '' : ';border-left:none')
-		    ?>">&nbsp;</td>
-		<?php endif; ?>
-	      </tr>
-	    </table>
-      <p id="progressStatus"><?php printf(_('Upgrade %d%% complete'), $templateData['percentComplete']); ?></p>
-
 	    <?php if (!empty($templateData['errors'])): ?>
-        <div class="error">
-          <h2>
-          <?php foreach ($templateData['errors'] as $error): ?>
-          <?php print $error ?>
-          <?php if (count($templateData['errors']) > 2) print "<br/>\n" ?>
-          <?php endforeach; ?>
-          </h2>
-        </div>
+	    <h2 class="error">
+	      <?php foreach ($templateData['errors'] as $error): ?>
+	      <?php print $error ?> <br/>
+	      <?php endforeach; ?>
+	    </h2>
 	    <?php endif; ?>
 
 	    <?php if (!empty($templateData['warnings'])): ?>
@@ -136,21 +124,42 @@
 	    <?php if ($currentStep->isComplete() && !$currentStep->isLastStep()): ?>
 	    <div class="go">
 	      <?php if ($currentStep->isRedoable()): ?>
-	      <!--span class="goToNextL"-->
-	      <div class="btn btn-redo"><span><span><span><span>
+	      <span class="goToNextL">
 		<a href="<?php generateUrl('index.php?step=' . $stepNumber . '&amp;doOver=1') ?>">
 		  <?php print _('Redo this step'); ?>
 		</a>
-		  </span></span></span></span></div>
-	      <!--/span-->
+	      </span>
 	      <?php endif; ?>
 
 	      <?php $nextStep = $stepNumber + 1 ?>
-		<div class="btn btn-continue"><span><span><span><span>
-		  <a href="<?php generateUrl('index.php?step=' . $nextStep) ?>"><?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?></a>
-		</span></span></span></span></div>
-	      </div>
+	      <span class="goToNext">
+		<a href="<?php generateUrl('index.php?step=' . $nextStep) ?>">
+		  <?php printf(_('Continue to Step %d&raquo;'), $nextStep); ?>
+		</a>
+	      </span>
+	    </div>
 	    <?php endif; ?>
+	  </td>
+	</tr>
+	<tr>
+	  <td id="bottom" colspan="2">
+	    <h3><?php print _('Upgrade Status') ?></h3>
+	    <table id="statusTable" cellspacing="0">
+	      <tr>
+		<?php if ($templateData['percentComplete'] != 0): ?>
+		<td class="progressMade"
+		    style="width:<?php print $templateData['percentComplete'] ?>%"><h3>&nbsp;</h3></td>
+		<?php endif; ?>
+
+		<?php if ($templateData['percentComplete'] != 100): ?>
+		<td class="progressToGo"
+		    style="width:<?php print (100 - $templateData['percentComplete']) . '%' .
+		      (($templateData['percentComplete'] == 0) ? '' : ';border-left:none')
+		    ?>"><h3>&nbsp;</h3></td>
+		<?php endif; ?>
+	      </tr>
+	    </table>
+	    <?php printf(_('Upgrade %d%% complete'), $templateData['percentComplete']) ?>
 	  </td>
 	</tr>
       </table>

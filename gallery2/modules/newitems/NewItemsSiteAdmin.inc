@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,14 @@ class NewItemsSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 	    if (!isset($form['days']['new']) || !is_numeric($form['days']['new'])) {
 		$error[] = 'form[error][new]';
@@ -54,7 +56,7 @@ class NewItemsSiteAdminController extends GalleryController {
 		    $keys = explode('.', $key);
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'newitems', $key, $form[$keys[0]][$keys[1]]);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -63,19 +65,19 @@ class NewItemsSiteAdminController extends GalleryController {
 	} else if(isset($form['action']['reset'])) {
 	    list ($ret, $default) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (strpos($default, 'NewItems') !== false) {
 		$ret = GalleryCoreApi::setPluginParameter(
 				     'module', 'core', 'default.orderBy', 'orderWeight');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
-	    GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
 	    $ret = NewItemsHelper::resetNewItemSorts();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['reset'] = 1;
@@ -88,7 +90,7 @@ class NewItemsSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -102,19 +104,12 @@ class NewItemsSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	GalleryCoreApi::requireOnce('modules/newitems/classes/NewItemsHelper.class');
-
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
+	GalleryCoreApi::relativeRequireOnce('modules/newitems/classes/NewItemsHelper.class');
 	if ($form['formName'] != 'NewItemsSiteAdmin') {
 	    $form['formName'] = 'NewItemsSiteAdmin';
 	    foreach (array('days.new', 'days.updated') as $key) {
-		list ($ret, $value) =
-		    GalleryCoreApi::getPluginParameter('module', 'newitems', $key);
-		if ($ret) {
+		list ($ret, $value) = GalleryCoreApi::getPluginParameter('module', 'newitems', $key);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$key = explode('.', $key);
@@ -122,18 +117,17 @@ class NewItemsSiteAdminView extends GalleryView {
 	    }
 	}
 	list ($ret, $form['count']) = NewItemsHelper::fetchAlbumCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	list ($ret, $default) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
-	if ($ret) {
+	list ($ret, $default) = GalleryCoreApi::getPluginParameter('module', 'core', 'default.orderBy');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$form['isDefault'] = strpos($default, 'NewItems') !== false;
 
 	$template->setVariable('controller', 'newitems.NewItemsSiteAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/newitems/templates/NewItemsSiteAdmin.tpl'));
     }
 }

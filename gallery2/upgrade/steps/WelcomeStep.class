@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@ class WelcomeStep extends UpgradeStep {
     }
 
     function processRequest() {
-	if (isset($_POST['language'])) {
+	if (isset($_GET['language'])) {
 	    global $translator;
-	    $translator->init($_POST['language'], true);
-	    $_SESSION['language'] = $_POST['language'];
+	    $translator->init($_GET['language']);
+	    $_SESSION['language'] = $_GET['language'];
 	}
 	return true;
     }
@@ -42,7 +42,6 @@ class WelcomeStep extends UpgradeStep {
 	    return;
 	}
 
-	$templateData['mode.maintenance'] = @$gallery->getConfig('mode.maintenance');
 	$templateData['totalSteps'] = count($GLOBALS['steps'])-1;
 	$templateData['bodyFile'] = 'Welcome.html';
 	$this->setComplete(true);

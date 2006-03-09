@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,12 +46,12 @@ class ItemAddAlbumController extends GalleryController {
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -61,7 +61,7 @@ class ItemAddAlbumController extends GalleryController {
 	    /*
 	     * Validate the input data.
 	     */
-	    $platform =& $gallery->getPlatform();
+	    $platform = $gallery->getPlatform();
 
 	    if (empty($form['pathComponent'])) {
 		$error[] = 'form[error][pathComponent][missing]';
@@ -72,16 +72,19 @@ class ItemAddAlbumController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $instance) =
 		    GalleryCoreApi::createAlbum($itemId, $form['pathComponent'], $form['title'],
-		    				$form['summary'], $form['description'],
-						$form['keywords']);
-		if ($ret) {
-		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array($ret->wrap(__FILE__, __LINE__), null);
+		    				$form['summary'], $form['description'], $form['keywords']);
+		if ($ret->isError()) {
+		    if ($ret->getErrorCode() & ERROR_COLLISION) {
+			$error[] = 'form[error][pathComponent][collision]';
+		    } else {
+			GalleryCoreApi::releaseLocks($lockIds);
+			return array($ret->wrap(__FILE__, __LINE__), null);
+		    }
 		}
 
 		if (!isset($instance)) {
 		    GalleryCoreApi::releaseLocks($lockIds);
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 	    }
@@ -91,7 +94,7 @@ class ItemAddAlbumController extends GalleryController {
 							 $instance->getOwnerId(),
 							 'core.all',
 							 false);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lockIds);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -104,7 +107,7 @@ class ItemAddAlbumController extends GalleryController {
 
 		/* Prepare our status message */
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lockIds);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -114,7 +117,7 @@ class ItemAddAlbumController extends GalleryController {
 	}
 
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -128,7 +131,7 @@ class ItemAddAlbumController extends GalleryController {
 	$results['error'] = $error;
 
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -150,7 +153,7 @@ class ItemAddAlbumView extends GalleryView {
 
 	/* Make sure we have permission do edit this item */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.addAlbumItem');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -174,7 +177,7 @@ class ItemAddAlbumView extends GalleryView {
 	$template->setVariable('ItemAddAlbum', $ItemAddAlbum);
 	$template->setVariable('controller', 'core.ItemAddAlbum');
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/ItemAddAlbum.tpl'));
     }
 
@@ -183,11 +186,11 @@ class ItemAddAlbumView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $core->translate('add sub-album'));
+	return array(GalleryStatus::success(), $core->translate('add sub-album'));
     }
 }
 ?>

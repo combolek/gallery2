@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -26,7 +27,9 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::requireOnce(
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryRecoverPasswordMap.class');
+GalleryCoreApi::relativeRequireOnce(
     'modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class');
 
 /**
@@ -38,7 +41,8 @@ GalleryCoreApi::requireOnce(
  */
 class UserRecoverPasswordController extends GalleryController {
     /**
-     * ValidationPlugin instances to use when handling this request.  Only used by test code.
+     * ValidationPlugin instances to use when handling this request.  Only used by
+     * test code.
      *
      * @var array (pluginId => object ValidationPlugin) $_pluginInstances
      * @access private
@@ -50,7 +54,7 @@ class UserRecoverPasswordController extends GalleryController {
      * This avoids situations where some of the option instances will do unpredictable
      * things and derail the tests.
      *
-     * @param array of GalleryValidationPlugin
+     * @param array (pluginId => ValidationPlugin, ...)
      */
     function setPluginInstances($pluginInstances) {
 	$this->_pluginInstances = $pluginInstances;
@@ -62,7 +66,9 @@ class UserRecoverPasswordController extends GalleryController {
     function handleRequest($form) {
 	global $gallery;
 
-	$status = $error = $results = array();
+	$status = array();
+	$results = array();
+	$error = array();
 
 	$phpVm = $gallery->getPhpVm();
 	if (isset($form['action']['recover'])) {
@@ -77,29 +83,29 @@ class UserRecoverPasswordController extends GalleryController {
 		} else {
 		    /* Get all the validation plugins */
 		    list ($ret, $pluginInstances) =
-			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-		    if ($ret) {
+			GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
 			list ($ret, $pluginInstances[$pluginId]) =
-			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
-								   $pluginId);
-			if ($ret) {
+			    GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
 
 		/* Let each plugin do its verification */
-		foreach ($pluginInstances as $plugin) {
+		foreach ($pluginInstances as $pluginId => $plugin) {
 		    list ($ret, $pluginErrors, $continue) = $plugin->performValidation($form);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $error = array_merge($error, $pluginErrors);
+
 		    if (!$continue) {
 			break;
 		    }
@@ -113,7 +119,7 @@ class UserRecoverPasswordController extends GalleryController {
 	    $shouldSendEmail = false;
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['userName']);
-		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
+		if ($ret->isError() && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -135,7 +141,7 @@ class UserRecoverPasswordController extends GalleryController {
 		     */
 		    list ($ret, $lastRequest) = UserRecoverPasswordHelper_simple::getRequestExpires(
 			$user->getUserName(), null);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -144,9 +150,8 @@ class UserRecoverPasswordController extends GalleryController {
 		     * string.  We'll silently succeed to thwart phishing attempts.
 		     */
 		    if (!empty($lastRequest)) {
-			if (($lastRequest - (7 * 24 * 60 * 60) + (20 * 60)) < time()) {
-			    $ret = GalleryCoreApi::updateMapEntry(
-				'GalleryRecoverPasswordMap',
+			if (($lastRequest + (20 * 60)) < time()) {
+			    $ret = GalleryRecoverPasswordMap::updateMapEntry(
 				array('userName' => $user->getUserName()),
 				array('authString' => $authString,
 				      'requestExpires' => $requestExpires));
@@ -157,12 +162,11 @@ class UserRecoverPasswordController extends GalleryController {
 			 * Add the map entry before sending email to the user -
 			 * We don't want to send them mail if the data never gets into the DB
 			 */
-			$ret = GalleryCoreApi::addMapEntry(
-			    'GalleryRecoverPasswordMap',
+			$ret = GalleryRecoverPasswordMap::addMapEntry(
 			    array('userName' => $form['userName'],
 				  'authString' => $authString,
 				  'requestExpires' => $requestExpires));
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 			$shouldSendEmail = true;
@@ -171,16 +175,14 @@ class UserRecoverPasswordController extends GalleryController {
 		    if (empty($error) && $shouldSendEmail) {
 			/* Generate baseUrl and recoverUrl for the email template */
 			$generator =& $gallery->getUrlGenerator();
-			$baseUrl = $generator->generateUrl(array(),
-					array('forceFullUrl' => true, 'htmlEntities' => false,
-					      'forceSessionId' => false));
-			$recoverUrl = $generator->generateUrl(
-					array('view' => 'core.UserAdmin',
-					      'subView' => 'core.UserRecoverPasswordConfirm',
-					      'userName' => $user->getUserName(),
-					      'authString' => $authString),
-					array('forceFullUrl' => true, 'htmlEntities' => false,
-					      'forceSessionId' => false));
+			$baseUrl = str_replace('&amp;', '&', $generator->generateUrl());
+			$recoverUrl = str_replace(
+			    '&amp;', '&',
+			    $generator->generateUrl(
+				array('view' => 'core.UserAdmin',
+				      'subView' => 'core.UserRecoverPasswordConfirm',
+				      'userName' => $user->getUserName(),
+				      'authString' => $authString)));
 
 			/* email template data */
 			$tplData = array('name' => $user->getfullName(),
@@ -193,7 +195,7 @@ class UserRecoverPasswordController extends GalleryController {
 
 			/* Load core for translation */
 			list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 
@@ -202,7 +204,7 @@ class UserRecoverPasswordController extends GalleryController {
 			    'modules/core/templates/UserRecoverPasswordEmail.tpl',
 			    $tplData, '', $user->getEmail(),
 			    $module->translate('Password Recovery'));
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -234,7 +236,7 @@ class UserRecoverPasswordController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -266,8 +268,8 @@ class UserRecoverPasswordView extends GalleryView {
 
 	/* Get all the login plugins */
 	list ($ret, $allPluginIds) =
-	    GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
-	if ($ret) {
+	    GalleryCoreApi::getAllFactoryImplementationIds('ValidationPlugin');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -275,13 +277,14 @@ class UserRecoverPasswordView extends GalleryView {
 	$UserRecoverPassword['plugins'] = array();
 	foreach (array_keys($allPluginIds) as $pluginId) {
 	    list ($ret, $plugin) =
-		GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin', $pluginId);
-	    if ($ret) {
+		GalleryCoreApi::newFactoryInstanceById('ValidationPlugin', $pluginId);
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    list ($ret, $data['file'], $data['l10Domain']) = $plugin->loadTemplate($form);
-	    if ($ret) {
+	    list ($ret, $data['file'], $data['l10Domain']) =
+		$plugin->loadTemplate($template, $form, 'HIGH');
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -292,7 +295,7 @@ class UserRecoverPasswordView extends GalleryView {
 
 	$template->setVariable('UserRecoverPassword', $UserRecoverPassword);
 	$template->setVariable('controller', 'core.UserRecoverPassword');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/UserRecoverPassword.tpl'));
     }
 }

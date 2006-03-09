@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package MultiLang
@@ -38,8 +39,10 @@ class MultiLangSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -48,7 +51,7 @@ class MultiLangSiteAdminController extends GalleryController {
 	    $languages = isset($form['languages']) ? $form['languages'] : array();
 	    $ret = GalleryCoreApi::setPluginParameter(
 			  'module', 'multilang', 'languages', implode('|', $languages));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    /* TODO: if removed some language then optionally delete all data for that language? */
@@ -61,7 +64,7 @@ class MultiLangSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = array();
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -80,16 +83,11 @@ class MultiLangSiteAdminView extends GalleryView {
 	global $gallery;
 	$translator =& $gallery->getTranslator();
 
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	if ($form['formName'] != 'MultiLangSiteAdmin') {
 	    $form['formName'] = 'MultiLangSiteAdmin';
 	    list ($ret, $languages) =
 		GalleryCoreApi::getPluginParameter('module', 'multilang', 'languages');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $form['languages'] = empty($languages) ? array() : explode('|', $languages);
@@ -116,7 +114,7 @@ class MultiLangSiteAdminView extends GalleryView {
 	$template->setVariable('MultiLangSiteAdmin', array('availableList' => $languageList,
 							   'selectedList' => $selectedList));
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/multilang/templates/MultiLangSiteAdmin.tpl'));
     }
 }

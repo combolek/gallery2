@@ -1,25 +1,25 @@
 # $Id$
-#
+# 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
-#
+# Copyright (C) 2000-2005 Bharat Mediratta
+# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.0.9\n"
+"Project-Id-Version: Gallery: Comment 1.0\n"
 "POT-Creation-Date: 2003-03-10 12:59+0800\n"
 "PO-Revision-Date: 2003-03-10 12:59+0800\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -39,6 +39,21 @@ msgstr "顯示回應"
 
 msgid "Comments"
 msgstr "回應"
+
+msgid "Comment Module"
+msgstr "回應模組"
+
+msgid "Search comments"
+msgstr "搜尋回應"
+
+msgid "Subject"
+msgstr "主題"
+
+msgid "Comment"
+msgstr "回應"
+
+msgid "Commenter"
+msgstr "回應人："
 
 msgid "User commenting system"
 msgstr "使用者回應系統"
@@ -61,33 +76,12 @@ msgstr "[回應] 觀看回應"
 msgid "[comment] All access"
 msgstr "[回應] 完全存取"
 
-msgid "View Latest Comments"
-msgstr "觀看最新回應"
-
 msgid "View Comments"
 msgstr "觀看回應"
 
 #, c-format
 msgid "Comments: %d"
 msgstr "回應數：%d"
-
-msgid "Guest Comments"
-msgstr "訪客回應"
-
-msgid "Comment Module"
-msgstr "回應模組"
-
-msgid "Search comments"
-msgstr "搜尋回應"
-
-msgid "Subject"
-msgstr "主題"
-
-msgid "Comment"
-msgstr "回應"
-
-msgid "Commenter"
-msgstr "回應人："
 
 msgid "Comment Preview"
 msgstr "回應預視"
@@ -149,24 +143,6 @@ msgstr "回應刪除成功"
 msgid "Comment modified successfully"
 msgstr "回應修改成功"
 
-msgid "Comments Settings"
-msgstr "回應設定"
-
-msgid "Settings saved successfully"
-msgstr "設定儲存成功"
-
-msgid "Show link for Latest Comments:"
-msgstr "顯示最新回應的鏈接："
-
-msgid "Number of comments on Latest Comments page:"
-msgstr "最新回應頁面回應數："
-
-msgid "Invalid value"
-msgstr "不正確的數值"
-
-msgid "Reset"
-msgstr "重置"
-
 msgid "Delete this comment?"
 msgstr "要刪除這項回應嗎？"
 
@@ -205,9 +181,6 @@ msgstr "你必須輸入一個主題"
 
 msgid "You must enter a comment"
 msgstr "你必須輸入回應"
-
-msgid "Latest Comments"
-msgstr "最新回應"
 
 msgid "Comment changed successfully"
 msgstr "回應變更成功"
@@ -261,8 +234,3 @@ msgstr "100"
 msgid "999"
 msgstr "999"
 
-#~ msgid "Use Captcha for guest comments:"
-#~ msgstr "在訪客回應時使用 Captcha："
-
-#~ msgid "Activate Captcha module to enable this feature"
-#~ msgstr "啟用 Captcha 模組才能使用這個功能"

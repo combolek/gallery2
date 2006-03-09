@@ -7,13 +7,12 @@
     </STYLE>
   </head>
   <body>
-  <?php if (!isset($compactView)): ?>
     <script type="text/javascript" language="javascript">
       function setFilter(value) {
         document.forms[0].filter.value=value;
       }
-      function reRun() {
-        setFilter(failedTestFilter);
+      function reRun(value) {
+        setFilter(value);
         document.forms[0].submit();
       }
     </script>
@@ -109,11 +108,7 @@
 	<input type="hidden" name="<?php echo $sessionKey?>" value="<?php echo $sessionId ?>"/>
 	<?php endif; ?>
 
-	<input type="text" name="filter" size="60" value="<?php echo $displayFilter ?>"
-	       id="filter" style="margin-top: 0.3em; margin-bottom: 0.3em"/>
-	<?php if (!isset($_GET['filter'])): ?>
-	  <script type="text/javascript"> document.getElementById('filter').focus(); </script>
-	<?php endif; ?>
+	<input style="margin-top: 0.3em; margin-bottom: 0.3em" type="text" name="filter" size="60" value="<?php echo $displayFilter ?>" />
 
 	<br/>
         <span id="filter_examples_toggle"
@@ -121,7 +116,9 @@
           onclick="toggleFilterExamples()">
           Help/Examples
           <span id="filter_examples_toggle_indicator"
-            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
+            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">
+            +
+          </span>
         </span>
 
         <div id="help_and_examples" style="display: none">
@@ -131,7 +128,6 @@
           module/class/test name(s) encapsulated in parenthesis and separated with bars, this will
           exclude the matching tests. Use ":#-#" to restrict which matching tests are actually run.
           You can also specify multiple spans with ":#-#,#-#,#-#".
-	  Append ":1by1" to run tests one-per-request; automatic refresh stops when a test fails.
 
           <ul id="filter_examples_list">
             <li>
@@ -167,15 +163,14 @@
             <li>
               <a href="javascript:setFilter('comment:-3,4-')">comment:-3,4-</a>
             </li>
-            <li>
-              <a href="javascript:setFilter('core:1by1)">core:1by1</a>
-            </li>
           </ul>
         </div>
       </form>
     </div>
 
-    <h2>Modules</h2>
+    <h2>
+      Modules
+    </h2>
 
     <div class="section" style="width: 100%">
       <?php
@@ -187,8 +182,9 @@
       }
       ?>
       <?php printf("%d active, %d total", $activeCount, sizeof($moduleStatusList)); ?>
-      <span onclick="toggleModulesListing()" id="modules_listing_toggle_indicator"
-            style="padding-left: .3em; padding-right: 0.3em; border: solid #a6caf0; border-width: 1px; background: #eee">+</span>
+      <span onclick="toggleModulesListing()" id="modules_listing_toggle_indicator" style="border: solid #a6caf0; border-width: 1px; background: #eee">
+	+
+      </span>
       <br/>
       <table cellspacing="1" cellpadding="1" border="0"
         width="800" align="center" class="details"
@@ -214,41 +210,11 @@
         <?php endforeach; ?>
       </table>
     </div>
-  <?php endif; /* compactView */ ?>
 
-  <h2>Test Results</h2>
-
-  <table cellspacing="1" cellpadding="1" border="0" width="90%" align="CENTER" class="details">
-  <tr><th>#</th><th>Module</th><th>Class</th><th>Function</th><th>Success?</th><th>Time</th></tr>
-  <?php $i = 0;
-    foreach ($testSuite->fTests as $testClass):
-    foreach ($testClass->fTests as $test): $i++;
-    if (isset($testOneByOne) && $testOneByOne != $i) continue; ?>
-    <tr id="testRow<?php print $i ?>">
-    <td><?php print $i ?></td>
-    <td><?php print $test->getModuleId() ?></td>
-    <td><?php print $test->classname() ?></td>
-    <td><?php print $test->name() ?></td>
-    <td><a href="#fail<?php print $i ?>" style="display:none">FAIL</a>&nbsp;</td><td>&nbsp;</td>
-  </tr><?php endforeach; endforeach; ?>
-  </table>
-
-  <div id="testSummary" style="display:none">
-    <h2>Summary</h2>
-
-    <p><span id="testTime">&nbsp;</span> seconds elapsed</p>
-    <p><span id="testCount">&nbsp;</span> run</p>
-    <p><span id="testFailCount">&nbsp;</span> failed
-       with <span id="testErrorCount">&nbsp;</span></p>
-
-    <input type="button" onclick="reRun();" value="Re-run broken tests"
-     id="runBrokenButton" style="display:none"/>
-  </div>
-
-  <?php
-    $result = new GalleryTestResult();
+    <?php
+    $result = new PrettyTestResult();
     $testSuite->run($result, $range);
     $result->report();
-  ?>
+    ?>
   </body>
 </html>

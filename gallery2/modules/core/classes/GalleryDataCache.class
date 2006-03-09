@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -309,7 +309,7 @@ class GalleryDataCache {
 	}
 
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 	if ($platform->file_exists($cacheFile) &&
 		$buf = $platform->file_get_contents($cacheFile)) {
@@ -317,7 +317,7 @@ class GalleryDataCache {
 	    $marker = strcspn($buf, '|');
 	    foreach (explode(',', substr($buf, 0, $marker)) as $classFile) {
 		if ($classFile) {
-		    GalleryCoreApi::requireOnce($classFile);
+		    GalleryCoreApi::relativeRequireOnce($classFile);
 		}
 	    }
 	    $data = unserialize(substr($buf, $marker+1));
@@ -334,11 +334,11 @@ class GalleryDataCache {
      */
     function removeFromDisk($pathInfo) {
 	if (!GalleryDataCache::isFileCachingEnabled()) {
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	if ($pathInfo['type'] == 'entity' ||
 		$pathInfo['type'] == 'derivative-meta' ||
 		$pathInfo['type'] == 'module-data' ||
@@ -354,7 +354,7 @@ class GalleryDataCache {
 	} else {
 	    if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
 		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -383,7 +383,7 @@ class GalleryDataCache {
 
 	global $gallery;
 	$cacheFile = GalleryDataCache::getCachePath($pathInfo);
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	GalleryUtilities::guaranteeDirExists(dirname($cacheFile));
 
 	/* This will either succeed, or leave no trace of its attempt. */
@@ -461,7 +461,7 @@ class GalleryDataCache {
 
 	case 'fast-download':
 	    list ($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-	    $cacheFile = sprintf('%sentity/%s/%s/%d-fast.inc',
+	    $cacheFile = sprintf('%sderivative/%s/%s/%d-fast.inc',
 				 $base, $first, $second, $pathInfo['itemId']);
 	    break;
 
@@ -491,12 +491,9 @@ class GalleryDataCache {
 	    }
 	    if (isset($pathInfo['itemId'])) {
 		list ($first, $second) = GalleryDataCache::getCacheTuple($pathInfo['itemId']);
-
-		/* $itemId is overloaded here; sanitize it so that it only accepts [0-9A-Za-z_]+ */
-		$itemId = preg_replace('/[^0-9A-Za-z_]/', '_', $pathInfo['itemId']);
-		$cacheFile = sprintf('%s%s/%s/%s/%s/%s.dat',
+		$cacheFile = sprintf('%s%s/%s/%s/%s/%d.dat',
 				     $base, 'module', $pathInfo['module'],
-				     $first, $second, $itemId);
+				     $first, $second, $pathInfo['itemId']);
 	    } else {
 		$cacheFile = sprintf('%s%s/%s/', $base, 'module', $pathInfo['module']);
 	    }
@@ -539,7 +536,7 @@ class GalleryDataCache {
 
 	    array_unshift($permissions, array());
 	    /* Trim down the cache */
-	    $max = 6;
+	    $max = 10;
 	    if (sizeof($permissions) > $max) {
 		array_splice($permissions, -1, sizeof($permissions) - $max);
 	    }
@@ -547,21 +544,11 @@ class GalleryDataCache {
 	    $initialized = 1;
 	}
 
-	$cacheKey = 'GalleryDataCache::cachePermissions::newEntries';
-	if (GalleryDataCache::containsKey($cacheKey)) {
-	    $newEntries = GalleryDataCache::get($cacheKey);
-	} else {
-	    $newEntries = 0;
-	}
-
-	/* Make sure the session permission cache is not too large */
-	$maxEntries = 40;
 	/* Add our new data to the head of the list */
-	while (($id = array_shift($ids)) && $maxEntries > $newEntries++) {
+	foreach ($ids as $id) {
 	    $permissions[0][$permission][$id] = 1;
 	}
 
-	GalleryDataCache::put($cacheKey, $newEntries);
 	$session->put('permissionCache', $permissions);
     }
 
@@ -605,230 +592,6 @@ class GalleryDataCache {
 	if (isset($session)) {
 	    $session->remove('permissionCache');
 	}
-    }
-
-    /**
-     * Get page data from the cache.
-     *
-     * @param string the page type
-     * @param mixed data to use to generate the unique key for this cache entry
-     * @return array object GalleryStatus a status code
-     *               string the page data
-     */
-    function getPageData($type, $keyData) {
-	global $gallery;
-
-	list ($ret, $acceleration) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	$acceleration = unserialize($acceleration);
-
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	if ($gallery->getActiveUserId() == $anonymousUserId) {
-	    $expiration = $acceleration['guest']['expiration'];
-	} else {
-	    $expiration = $acceleration['user']['expiration'];
-	}
-	$phpVm = $gallery->getPhpVm();
-	$cutoff = $phpVm->time() - $expiration;
-
-	list ($ret, $aclIds) =
-	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	list ($ret, $extraKey) = GalleryDataCache::_getExtraPageCacheKey();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$key = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(",", $aclIds));
-	$userId = $gallery->getActiveUserId();
-
-	$storage =& $gallery->getStorage();
-	$query = '
-        SELECT
-          [GalleryCacheMap::value]
-        FROM
-          [GalleryCacheMap]
-        WHERE
-          [GalleryCacheMap::key] = ?
-          AND
-          [GalleryCacheMap::type] = ?
-          AND
-          [GalleryCacheMap::userId] = ?
-          AND
-          [GalleryCacheMap::timestamp] > ?
-        ';
-	list ($ret, $results) = $storage->search($query, array($key, $type, $userId, $cutoff));
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	if ($results->resultCount() > 0) {
-	    $result = $results->nextResult();
-	    $value = $result[0];
-	    if (function_exists('gzinflate')) {
-		$storage =& $gallery->getStorage();
-		$value = $storage->decodeBlob($value);
-		$value = gzinflate($value);
-	    }
-	} else {
-	    $value = null;
-	}
-
-	return array(null, $value);
-    }
-
-    /**
-     * Store page data from the cache.
-     *
-     * @param string the page type
-     * @param int the itemId of the item this page is rendering
-     * @param mixed data to use to generate the unique key for this cache entry
-     * @param string the page data
-     * @return object GalleryStatus a status code
-     */
-    function putPageData($type, $itemId, $keyData, $value) {
-	global $gallery;
-
-	$userId = $gallery->getActiveUserId();
-	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	list ($ret, $extraKey) = GalleryDataCache::_getExtraPageCacheKey();
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$key = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(",", $aclIds));
-
-	if (function_exists('gzdeflate')) {
-	    $value = gzdeflate($value);
-	    $storage =& $gallery->getStorage();
-	    $value = $storage->encodeBlob($value);
-	}
-
-	$phpVm = $gallery->getPhpVm();
-	$now = $phpVm->time();
-	$ret = GalleryCoreApi::updateMapEntry(
-	    'GalleryCacheMap',
-	    array('key' => $key, 'userId' => $userId, 'itemId' => $itemId, 'type' => $type),
-	    array('value' => $value, 'timestamp' => $now));
-
-	$storage =& $gallery->getStorage();
-	list ($ret, $affectedRows) = $storage->getAffectedRows();
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	if (!$affectedRows) {
-	    $ret = GalleryCoreApi::addMapEntry(
-		'GalleryCacheMap',
-		array('key' => $key, 'value' => $value, 'userId' => $userId,
-		      'itemId' => $itemId, 'type' => $type, 'timestamp' => $now));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	return null;
-    }
-
-    /**
-     * Remove all cached page data for the given item ids
-     *
-     * @param mixed one item id, or an array of item ids
-     * @return object GalleryStatus a status code
-     */
-    function removePageData($itemIds) {
-	$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array('itemId' => $itemIds));
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	return null;
-    }
-
-    /**
-     * Should we use the cache for this page or not?  Right now we cache a page if it's a GET
-     * request, the browser hasn't specified that it wants' uncached data, and the caching policy
-     * for the given user class is appropriate.
-     *
-     * @param mixed one item id, or an array of item ids
-     * @return object GalleryStatus a status code
-     */
-    function shouldCache($action, $type) {
-	global $gallery;
-
-	if (GalleryUtilities::getServerVar('REQUEST_METHOD') != 'GET') {
-	    return array(null, false);
-	}
-
-	$phpVm = $gallery->getPhpVm();
-	if ($action == 'read') {
-	    $noCache = (GalleryUtilities::getServerVar('HTTP_PRAGMA') == 'no-cache' ||
-			GalleryUtilities::getServerVar('HTTP_CACHE_CONTROL') == 'no-cache');
-	    if ($noCache) {
-		return array(null, false);
-	    }
-	}
-
-	/*
-	 * Don't cache guest preview pages since we want a realtime preview
-	 * and they are infrequently visited
-	 */
-	$session =& $gallery->getSession();
-	if ($session->get('theme.guestPreviewMode')) {
-	    return array(null, false);
-	}
-
-	list ($ret, $acceleration) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	$acceleration = unserialize($acceleration);
-	$userId = $gallery->getActiveUserId();
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	return array(
-	    null,
-	    (($userId == $anonymousUserId && $acceleration['guest']['type'] == $type) ||
-	     ($userId != $anonymousUserId && $acceleration['user']['type'] == $type)));
-    }
-
-    /**
-     * Returns session related page cache key, e.g. to make the page cache language sensitive
-     *
-     * @return array object GalleryStatus a status code
-     *               string extra cache key
-     */
-    function _getExtraPageCacheKey() {
-	global $gallery;
-	$session =& $gallery->getSession();
-
-	/* Add session specific flags & values to the cache key */
-	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	$extraKey = (int)($session->isUsingCookies()) . '-' . $languageCode;
-
-	return array(null, $extraKey);
     }
 }
 ?>

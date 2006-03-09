@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,11 +38,11 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('multilang');
 	$this->setName($gallery->i18n('MultiLanguage'));
 	$this->setDescription($gallery->i18n('Support item captions in multiple languages'));
-	$this->setVersion('1.0.3');
-	$this->setGroup('data', $gallery->i18n('Extra Data'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('data', $this->translate('Extra Data'));
 	$this->setCallbacks('getSiteAdminViews|registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -58,12 +58,12 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
     function upgrade($currentVersion) {
 	if (!isset($currentVersion)) {
 	    $ret = $this->setParameter('languages', '');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -73,25 +73,25 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditPlugin', 'MultiLangItemEdit', 'MultiLangItemEdit',
 	    'modules/multilang/MultiLangItemEdit.inc', 'multilang', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryOnLoadHandler', 'MultiLangModule', 'MultiLang',
 	    'modules/multilang/module.inc', 'multilang', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GallerySearchInterface_1_0', 'MultiLangSearch', 'MultiLang',
 	    'modules/multilang/classes/MultiLangSearch.class', 'multilang', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -102,15 +102,22 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
     }
 
     /**
+     * @see GalleryModule::isRecommendedDuringInstall()
+     */
+    function isRecommendedDuringInstall() {
+	return false;
+    }
+
+    /**
      * @see GalleryModule::autoConfigure()
      */
     function autoConfigure() {
 	/* This module requires gettext to be installed */
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, !$needsConfiguration);
+	return array(GalleryStatus::success(), !$needsConfiguration);
     }
 
     /**
@@ -120,7 +127,7 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	/* This module requires gettext to be installed */
 	global $gallery;
 	$translator =& $gallery->getTranslator();
-	return array(null, !$translator->canTranslate());
+	return array(GalleryStatus::success(), !$translator->canTranslate());
     }
 
     /**
@@ -134,7 +141,7 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('MultiLanguage'),
 				 'view' => 'multilang.MultiLangSiteAdmin')));
     }
@@ -152,13 +159,13 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
 	 */
 	list ($view, $controller) = GalleryUtilities::getRequestVariables('view', 'controller');
 	if ($view != 'core.ItemAdmin' && empty($controller) && !$duringUpgrade) {
-	    GalleryCoreApi::requireOnce('modules/multilang/classes/MultiLangHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangHelper.class');
 	    $ret = MultiLangHelper::onLoad($entity);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -168,13 +175,13 @@ class MultiLangModule extends GalleryModule /* and GalleryEventListener */ {
     function handleEvent($event) {
 	$entity = $event->getEntity();
 	if (GalleryUtilities::isA($entity, 'GalleryItem')) {
-	    $ret = GalleryCoreApi::removeMapEntry(
-		'MultiLangItemMap', array('itemId' => $entity->getId()));
-	    if ($ret) {
+	    GalleryCoreApi::relativeRequireOnce('modules/multilang/classes/MultiLangItemMap.class');
+	    $ret = MultiLangItemMap::removeMapEntry(array('itemId' => $entity->getId()));
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
-	return array(null, null);
+	return array(GalleryStatus::success(), null);
     }
 }
 ?>

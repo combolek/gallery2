@@ -1,11 +1,4 @@
-    <?php if (!empty($templateData['error']['password'])): ?>
-      <div class="error">
-        <h2><?php print $templateData['error']['password']; ?></h2>
-      </div>
-    <?php endif; ?>
-
     <h1><?php print _('Authenticate') ?></h1>
-
     <p>
       <?php print _("In order to proceed with the install, we have to verify that you are who you claim.  When you performed the install, you entered a password which went into your config.php.  Type that in now.  Refer to your config.php if you've forgotten what you entered."); ?>
     </p>
@@ -22,11 +15,21 @@
 	    <script type="text/javascript">document.forms[0]['password'].focus();</script>
 	  </td>
 	</tr>
+
+        <?php if (!empty($templateData['error']['password'])): ?>
+        <tr>
+          <td colspan="2" class="error">
+            <?php print $templateData['error']['password']; ?>
+          </td>
+        </tr>
+        <?php endif; ?>
       </table>
     </form>
 
     <div class="go">
-	  <div class="btn btn-continue"><span><span><span><span>
-	<a href="javascript:document.forms[0].submit()"><?php print _('Authenticate Me') ?></a>
-	  </span></span></span></span></div>
+      <span class="goToNext">
+	<a href="javascript:document.forms[0].submit()">
+	  <?php print _('Authenticate Me') ?>
+	</a>
+      </span>
     </div>

@@ -28,7 +28,7 @@
   </p>
 
   <?php if (!empty($templateData['groupedModules'])): ?>
-    <form method="post" action="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber)) ?>">
+    <form method="post" action="">
       <table class="modules">
 	<tr style="background-color: #ccc">
 	  <th>
@@ -44,8 +44,7 @@
 	    <?php print _("Description") ?>
 	  </th>
 	</tr>
-	<?php $installableCount = 0; 
-          foreach ($templateData['groupedModules'] as $group => $modules): ?>
+	<?php foreach ($templateData['groupedModules'] as $group => $modules): ?>
 	  <tr style="background-color: #fff">
 	    <td colspan="4"><h3><?php print $templateData['groupLabel'][$group] ?></h3></td>
 	  </tr>
@@ -55,11 +54,13 @@
 	  <?php $isInvalid = $templateData['moduleInvalid'][$id]; ?>
 	  <tr<?php if ($counter % 2 == 0) print ' style="background-color: #eee"' ?>>
 	    <td>
-	      <input type="checkbox" checked="checked"
-		id="module_<?php print $id ?>" name="module[<?php print $id ?>]"
+	      <input type="checkbox" id="module_<?php print $id ?>" name="module[<?php print $id ?>]"
+		<?php if ($module->isRecommendedDuringInstall() || $isInstalled): ?>
+		  checked="checked"
+		<?php endif; ?>
 		<?php if ($isInstalled || $isInvalid): ?>
 		  disabled="disabled"
-		<?php else: $installableCount++; endif; ?>
+		<?php endif; ?>
 	      />
 	    </td>
 	    <td>
@@ -92,7 +93,6 @@
 	  <td colspan="3">
 	    <?php print _("(un)check all") ?>
 	    <input type="hidden" name="step" value="<?php print $currentStep->getStepNumber() ?>"/>
-	    <input type="hidden" name="install" value="<?php print $installableCount ?>"/>
 	    <input type="hidden" name="activate" value="1"/>
 	  </td>
 	</tr>
@@ -103,12 +103,14 @@
     <?php if ($templateData['anyInstallable']): ?>
     <div class="go">
       <?php $nextStep = $stepNumber + 1 ?>
-	  <div class="btn btn-continue"><span><span><span><span>
-	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $nextStep)) ?>"><?php printf(_('Continue to Step %d Without Activating&raquo;'), $nextStep); ?></a>
-	  </span></span></span></span></div>
-	  <div class="btn btn-continue"><span><span><span><span>
-	  <a href="javascript:document.forms[0].submit();"><?php print _('Activate Selected Modules') ?></a>
-	  </span></span></span></span></div>
+      <span class="goToNextL">
+	<a href="<?php printf('%s?step=%s', INDEX_PHP, $nextStep) ?>">
+	  <?php printf(_('Continue to Step %d Without Activating&raquo;'), $nextStep); ?>
+	</a>
+      </span>
+      <span class="goToNext">
+	<a href="javascript:document.forms[0].submit();"><?php print _('Activate Selected Modules') ?></a>
+      </span>
     </div>
     <?php endif; ?>
   <?php endif; ?>

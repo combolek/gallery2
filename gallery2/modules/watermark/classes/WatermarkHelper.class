@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,11 +51,11 @@ class WatermarkHelper {
 
 	list ($ret, $aclIds) =
 	    GalleryCoreApi::fetchAccessListIds('core.viewSource', $gallery->getActiveUserId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($aclIds)) {
-	    return array(null, 0);
+	    return array(GalleryStatus::success(), 0);
 	}
 	$aclMarkers = GalleryUtilities::makeMarkers($aclIds);
 
@@ -86,23 +86,22 @@ class WatermarkHelper {
 	';
 
 	list ($ret, $searchResults) = $gallery->search(
-	    $query, $data, array('limit' => array('count' => (int)$count,
-						  'offset' => (int)$offset)));
-	if ($ret) {
+	    $query, $data, array('limit' => array('count' => $count, 'offset' => $offset)));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get all ids */
 	$ids = array();
 	while ($result = $searchResults->nextResult()) {
-	    $ids[] = (int)$result[0];
+	    $ids[] = $result[0];
 	}
 
 	/* Convert them to entities */
 	$watermarks = array();
 	if (!empty($ids)) {
 	    list ($ret, $entities) = GalleryCoreApi::loadEntitiesById($ids);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -112,7 +111,7 @@ class WatermarkHelper {
 	    }
 	}
 
-	return array(null, $watermarks);
+	return array(GalleryStatus::success(), $watermarks);
     }
 
     /**
@@ -135,17 +134,17 @@ class WatermarkHelper {
 	  [WatermarkImage::ownerId] = ?
 	';
 
-	list ($ret, $searchResults) = $gallery->search($query, array((int)$ownerId));
-	if ($ret) {
+	list ($ret, $searchResults) = $gallery->search($query, array($ownerId));
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ids = array();
 	while ($result = $searchResults->nextResult()) {
-	    $ids[] = (int)$result[0];
+	    $ids[] = $result[0];
 	}
 
-	return array(null, $ids);
+	return array(GalleryStatus::success(), $ids);
     }
 
     /**
@@ -172,16 +171,16 @@ class WatermarkHelper {
 
 	list ($ret, $searchResults) = $gallery->search($query,
 	    array('%composite|plugins_data/modules/watermark/' . $watermark->getFileName() . ',%'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ids = array();
 	while ($result = $searchResults->nextResult()) {
-	    $ids[] = (int)$result[0];
+	    $ids[] = $result[0];
 	}
 
-	return array(null, $ids);
+	return array(GalleryStatus::success(), $ids);
     }
 
     /**
@@ -197,36 +196,36 @@ class WatermarkHelper {
 	global $gallery;
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		/* Remap it as permission denied so that we avoid object id fishing */
-		return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
+		return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 			     null);
 	    } else {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (! (GalleryUtilities::isA($item, 'WatermarkImage') &&
 		($isAdmin || $item->getOwnerId() == $gallery->getActiveUserId()) )) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	/* Check if this watermark is used anywhere.. */
 	list ($ret, $watermarkedItemIds) = WatermarkHelper::fetchWatermarkedItemIds($item);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($watermarkedItemIds)) {
 	    if (!$forceDelete) {
-		return array(null, false);
+		return array(GalleryStatus::success(), false);
 	    }
 	    /* Remove watermark from those items.. */
 	    list ($ret, $watermarkedItems) = GalleryCoreApi::loadEntitiesById($watermarkedItemIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($watermarkedItems as $watermarkedItem) {
@@ -235,18 +234,18 @@ class WatermarkHelper {
 					array(DERIVATIVE_TYPE_IMAGE_PREFERRED => false,
 					      DERIVATIVE_TYPE_IMAGE_RESIZE => false,
 					      DERIVATIVE_TYPE_IMAGE_THUMBNAIL => false));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
 
 	$ret = GalleryCoreApi::deleteEntityById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, true);
+	return array(GalleryStatus::success(), true);
     }
 
     /**
@@ -263,7 +262,7 @@ class WatermarkHelper {
     function watermarkItem($watermark, $item, $xPercent, $yPercent, $whichDerivatives) {
 	list ($ret, $derivativeTable) =
 	    GalleryCoreApi::fetchDerivativesByItemIds(array($item->getId()));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -290,16 +289,16 @@ class WatermarkHelper {
 	if ($whichDerivatives[DERIVATIVE_TYPE_IMAGE_PREFERRED] && !$hasPreferred) {
 	    list ($ret, $preferred) = GalleryCoreApi::newFactoryInstanceByHint(
 		'GalleryDerivative', $item->getEntityType());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!isset($preferred)) {
-		return GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
+		return GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__);
 	    }
 
 	    $ret = $preferred->create($item->getId(), DERIVATIVE_TYPE_IMAGE_PREFERRED);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -307,12 +306,12 @@ class WatermarkHelper {
 	    $preferred->setMimeType($item->getMimeType());
 
 	    $ret = GalleryCoreApi::remapSourceIds($item->getId(), $preferred->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = $preferred->save();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -327,13 +326,13 @@ class WatermarkHelper {
 
 	if (!empty($derivatives)) {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array_merge($add, $remove));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    foreach ($derivatives as $derivative) {
 		list ($ret, $derivative) = $derivative->refresh();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
@@ -348,7 +347,7 @@ class WatermarkHelper {
 			number_format($yPercent, 3, '.', ''));
 		    list ($ret, $newPostFilters) = GalleryCoreApi::mergeDerivativeOperations(
 			$derivative->getPostFilterOperations(), $filter);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		} else if (in_array($derivative->getId(), $remove)) {
@@ -361,38 +360,38 @@ class WatermarkHelper {
 		    $preferred = $derivative;
 		}
 
-		$ret = $derivative->save();
-		if ($ret) {
+		$ret = $derivative->save(true);
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	if (isset($preferred)) {
 	    list ($ret, $preferred) = $preferred->refresh();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($preferred->hasNoOperations()) {
 		$ret = GalleryCoreApi::remapSourceIds(
 		    $preferred->getId(), $preferred->getDerivativeSourceId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = GalleryCoreApi::deleteEntityById($preferred->getId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -411,11 +410,11 @@ class WatermarkHelper {
 	$error = array();
 	$itemId = GalleryUtilities::getRequestVariables('watermarkId');
 	if (empty($itemId)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -429,7 +428,7 @@ class WatermarkHelper {
 
 	    if (empty($error)) {
 		list ($ret, $watermarks) = WatermarkHelper::fetchWatermarks();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($watermarks as $watermark) {
@@ -449,12 +448,12 @@ class WatermarkHelper {
 		$form['yPercentage'] = min(100, $form['yPercentage']);
 
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -466,12 +465,12 @@ class WatermarkHelper {
 		$item->setYPercentage(number_format($form['yPercentage'], 3, '.', ''));
 
 		$ret = $item->save();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -489,7 +488,7 @@ class WatermarkHelper {
 
 	$results['status'] = $status;
 	$results['error'] = $error;
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -504,12 +503,12 @@ class WatermarkHelper {
 	$itemId = GalleryUtilities::getRequestVariables('watermarkId');
 
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'core.edit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $watermark) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -524,9 +523,9 @@ class WatermarkHelper {
 	    $form['whichDerivative']['resizes'] = $watermark->getApplyToResizes() ? 1 : null;
 	}
 
-	$template->setVariable($formName, array('watermark' => (array)$watermark));
+	$template->setVariable($formName, array('watermark' => $watermark->getMemberData()));
 	$template->setVariable('controller', "watermark.$formName");
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

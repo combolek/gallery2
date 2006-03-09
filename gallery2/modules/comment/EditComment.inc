@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ class EditCommentController extends GalleryController {
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($itemId, 'comment.edit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -54,22 +54,21 @@ class EditCommentController extends GalleryController {
 	if (isset($form['action']['save'])) {
 	    /* Edit the comment */
 	    list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Make sure that the comment<->parent relationship is right */
 	    if ($comment->getParentId() != $itemId) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    /* Verify the input parameters */
 	    if (empty($form['commenterName'])) {
 		$error[] = 'form[error][commenterName][missing]';
 	    } else {
-		list ($ret, $commenter) =
-		    GalleryCoreApi::fetchUserByUsername($form['commenterName']);
-		if ($ret) {
+		list ($ret, $commenter) = GalleryCoreApi::fetchUserByUsername($form['commenterName']);
+		if ($ret->isError()) {
 		    $error[] = 'form[error][commenterName][invalid]';
 		}
 	    }
@@ -89,7 +88,7 @@ class EditCommentController extends GalleryController {
 		} else {
 		    $longDate = strtotime($form['date']);
 		}
-		if ($longDate == -1 || $longDate === false) {
+		if ($longDate == -1) {
 		    $error[] = 'form[error][date][invalid]';
 		}
 	    }
@@ -103,26 +102,14 @@ class EditCommentController extends GalleryController {
 	    }
 
 	    if (empty($error)) {
-		list ($ret, $markup) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-
 		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock(array($comment->getId()));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $comment) = $comment->refresh();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-
-		if ($markup == 'html') {
-		    /* Strip malicious content if html markup allowed */
-		    $form['subject'] = GalleryUtilities::htmlSafe($form['subject'], true);
-		    $form['comment'] = GalleryUtilities::htmlSafe($form['comment'], true);
 		}
 
 		$comment->setCommenterId($commenter->getId());
@@ -131,12 +118,12 @@ class EditCommentController extends GalleryController {
 		$comment->setComment($form['comment']);
 		$comment->setDate($longDate);
 		$ret = $comment->save();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::releaseLocks($lockId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -149,9 +136,8 @@ class EditCommentController extends GalleryController {
 	    if (empty($form['commenterName'])) {
 		$error[] = 'form[error][commenterName][missing]';
 	    } else {
-		list ($ret, $commenter) =
-		    GalleryCoreApi::fetchUserByUsername($form['commenterName']);
-		if ($ret) {
+		list ($ret, $commenter) = GalleryCoreApi::fetchUserByUsername($form['commenterName']);
+		if ($ret->isError()) {
 		    $error[] = 'form[error][commenterName][invalid]';
 		}
 	    }
@@ -171,7 +157,7 @@ class EditCommentController extends GalleryController {
 		} else {
 		    $longDate = strtotime($form['date']);
 		}
-		if ($longDate == -1 || $longDate === false) {
+		if ($longDate == -1) {
 		    $error[] = 'form[error][date][invalid]';
 		}
 	    }
@@ -202,7 +188,7 @@ class EditCommentController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -220,17 +206,17 @@ class EditCommentView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Make sure we have permission to edit a comment */
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'comment.edit');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -238,19 +224,19 @@ class EditCommentView extends GalleryView {
 
 	/* Load the specific comment */
 	list ($ret, $comment) = GalleryCoreApi::loadEntitiesById($commentId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Make sure the comment is associated with the item */
 	if ($comment->getParentId() != $item->getId()) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	/* Associate the commenter's info */
 	$commenterId = $comment->getCommenterId();
 	list ($ret, $commenter) = GalleryCoreApi::loadEntitiesById($commenterId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -265,13 +251,13 @@ class EditCommentView extends GalleryView {
 	    $form['date'] = $platform->strftime('%D %T', $comment->getDate());
 	}
 
-	$EditComment['comment'] = (array)$comment;
+	$EditComment['comment'] = $comment->getMemberData();
 	$EditComment['itemId'] = $item->getId();
 
 	$template->setVariable('EditComment', $EditComment);
 	$template->setVariable('controller', 'comment.EditComment');
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/comment/templates/EditComment.tpl'));
     }
 }

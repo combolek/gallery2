@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ class ItemAddConfirmationView extends GalleryView {
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -58,7 +58,7 @@ class ItemAddConfirmationView extends GalleryView {
 	    for ($i = 0; $i < $count; $i++) {
 		list ($ret, $entity) =
 		    GalleryCoreApi::loadEntitiesById($status['addedFiles'][$i]['id']);
-		if (!$ret) {
+		if ($ret->isSuccess()) {
 		    $status['addedFiles'][$i]['exists'] = true;
 		} else if ($ret->getErrorCode() & ERROR_MISSING_OBJECT) {
 		    $status['addedFiles'][$i]['exists'] = false;
@@ -77,7 +77,7 @@ class ItemAddConfirmationView extends GalleryView {
 
 	$template->setVariable('ItemAddConfirmation', $ItemAddConfirmation);
 	$template->setVariable('controller', '');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/ItemAddConfirmation.tpl'));
     }
 
@@ -86,11 +86,11 @@ class ItemAddConfirmationView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $core->translate('add items confirmation'));
+	return array(GalleryStatus::success(), $core->translate('add items confirmation'));
     }
 }
 ?>

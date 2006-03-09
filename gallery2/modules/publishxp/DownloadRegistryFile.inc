@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * The information in the registry file informs Windows that there is a web service
  * which supports uploading media.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -52,15 +52,15 @@ class DownloadRegistryFileView extends GalleryView {
 
 	/* Get the domain name */
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$domain = $urlGenerator->getHostName();
+	$domain = $urlGenerator->getCurrentDomain();
 
 	/* Get the name of the gallery */
 	list($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	list($ret, $root) = GalleryCoreApi::loadEntitiesById($rootId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$title = $root->getTitle();
@@ -70,7 +70,7 @@ class DownloadRegistryFileView extends GalleryView {
 	header("Content-Type: application/octet-stream");
 	header("Content-Disposition: filename=install_registry.reg");
 
-        GalleryCoreApi::requireOnce('modules/core/classes/GalleryTemplate.class');
+        GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryTemplate.class');
         $template = new GalleryTemplate(dirname(__FILE__) . '/../..');
 	$template->setVariable('l10Domain', 'modules_publishxp');
 
@@ -79,14 +79,14 @@ class DownloadRegistryFileView extends GalleryView {
 	$template->setVariable('DownloadRegistryFile', $DownloadRegistryFile);
 	list ($ret, $html) =
 	    $template->fetch('gallery:modules/publishxp/templates/DownloadRegistryFile.tpl');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Make sure we use Windows line endings */
 	print preg_replace("/(?<!\r)\n/", "\r\n", $html);
 
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

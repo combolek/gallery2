@@ -3,7 +3,7 @@
  * $RCSfile
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +35,7 @@ function smarty_modifier_markup($text) {
     static $cacheKey = 'smarty_modifier_markup';
 
     $stripTags = false;
-    $args = func_get_args();
-    array_shift($args);
+    array_shift($args = func_get_args());
     foreach ($args as $arg) {
 	if ($arg == 'strip') {
 	    $stripTags = true;
@@ -48,7 +47,7 @@ function smarty_modifier_markup($text) {
 	if (!GalleryDataCache::containsKey($cacheKey)) {
 	    list ($ret, $defaultMarkupType) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'misc.markup');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		/* This code is used by the UI -- we can't return an error. Choose something safe */
 		$defaultMarkupType = 'none';
 	    }
@@ -94,7 +93,7 @@ class GalleryBbcodeMarkupParser {
     var $_bbcode;
 
     function GalleryBbcodeMarkupParser() {
-	GalleryCoreApi::requireOnce('lib/bbcode/bbcode.class');
+	GalleryCoreApi::relativeRequireOnce('lib/bbcode/bbcode.class');
 
 	$this->_bbcode = new GalleryBbcode();
 
@@ -148,13 +147,13 @@ class GalleryBbcodeMarkupParser {
 	static $lastOpenSuccess;
 
 	if ($openClose == 'all') {
-	    if (preg_match('#^(https?|ftp|mailto):|^/#', $elementContents)) {
+	    if (preg_match('/^(http|ftp|mailto|https):/', $elementContents)) {
 		return sprintf('<a href="%s">%s</a>', $elementContents, $elementContents);
 	    } else {
-		return sprintf('[url]%s[/url]', $elementContents);
+		return sprintf('[url=%s]', $elementContents, $elementContents);
 	    }
 	} else if ($openClose == 'open') {
-	    if (preg_match('#^(https?|ftp|mailto):|^/#', $attrs['default'])) {
+	    if (preg_match('/^(http|ftp|mailto|https):/', $attrs['default'])) {
 		$lastOpenSuccess = true;
 		return sprintf('<a href="%s">', $attrs['default']);
 	    } else {
@@ -173,13 +172,12 @@ class GalleryBbcodeMarkupParser {
     }
 
     function image($tagName, $attrs, $elementContents, $funcParam, $openClose) {
-	if (!preg_match('#^(https?|ftp|mailto):|^/#', $elementContents)) {
+	if (!preg_match('/^(http|ftp|mailto|https):/', $elementContents)) {
 	    return sprintf('[img]%s[/img]', $elementContents);
 	}
 
 	if ($openClose == 'all') {
-	    /* Input should have entities already, so no htmlspecialchars here */
-	    return sprintf('<img src="%s" alt=""/>', $elementContents);
+	    return sprintf('<img src="%s" alt="">', htmlspecialchars($elementContents));
 	} else {
 	    return false;
 	}

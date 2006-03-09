@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,29 @@
  */
 
 /**
- * This view will show a registration confirmation for the user
+ * This controller will handle the success-confirmation for the selfregistration of an user
+ *
+ * @package SelfRegistration
+ * @subpackage UserInterface
+ *
+ */
+class SelfRegistrationSuccessController extends GalleryController {
+
+    /**
+     * @see GalleryController::handleRequest
+     */
+    function handleRequest($form) {
+	global $gallery;
+	$results = array();
+	$results['delegate']['view'] = 'core.UserAdmin';
+	$results['delegate']['subView'] = 'register.SelfRegistrationSuccess';
+
+	return array(GalleryStatus::success(), $results);
+    }
+}
+
+/**
+ * This view will show a confirmation for the user
  *
  * @package SelfRegistration
  * @subpackage UserInterface
@@ -39,14 +61,12 @@ class SelfRegistrationSuccessView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	list ($pending, $sentConfirmationEmail) =
-	    GalleryUtilities::getRequestVariables('pending', 'sentConfirmationEmail');
+	global $gallery;
 
-	$SelfRegistrationSuccess = array();
-	$SelfRegistrationSuccess['pending'] = $pending;
-	$SelfRegistrationSuccess['sentConfirmationEmail'] = $sentConfirmationEmail;
-	$template->setVariable('SelfRegistrationSuccess', $SelfRegistrationSuccess);
-	return array(null,
+	$selfregistration = array('email' => 'e@mail.de');
+	$template->setVariable('selfregistration', $selfregistration);
+	$template->setVariable('controller', 'register.SelfRegistrationSuccess');
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/register/templates/SelfRegistrationSuccess.tpl'));
     }
 }

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,15 +43,15 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	$status = null;
 	$error = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['action']['save'])) {
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb = array_shift($thumbnails);
 	    $operations = $thumb->getDerivativeOperations();
@@ -65,23 +65,23 @@ class ItemEditThumbPage extends ItemEditPlugin {
 		$operations = 'select-page|' . $form['page'] . ';' . $operations;
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb->setDerivativeOperations($operations);
 	    $ret = $thumb->save();
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $status = $module->translate('Changes saved successfully');
 	} /* else $form['action']['reset']) */
 
-	return array(null, $error, $status, false);
+	return array(GalleryStatus::success(), $error, $status);
     }
 
     /**
@@ -97,7 +97,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	    }
 	}
 	list ($ret, $count) = $this->_getPageCount($item);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$ItemEditThumbPage = array('pageList' => array());
@@ -106,7 +106,7 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	}
 	$template->setVariable('ItemEditThumbPage', $ItemEditThumbPage);
 	$template->setVariable('controller', 'thumbpage.ItemEditThumbPage');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/thumbpage/templates/Page.tpl', 'modules_thumbpage');
     }
 
@@ -117,11 +117,11 @@ class ItemEditThumbPage extends ItemEditPlugin {
 	if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
 	    list ($ret, $mimeTypes) =
 		GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'pageTypes');
-	    if (!$ret) {
+	    if ($ret->isSuccess()) {
 		$list = explode('|', $mimeTypes);
 		if (in_array($item->getMimeType(), $list)) {
 		    list ($ret, $count) = $this->_getPageCount($item);
-		    return (!$ret && $count > 1);
+		    return ($ret->isSuccess() && $count > 1);
 		}
 	    }
 	}
@@ -133,10 +133,10 @@ class ItemEditThumbPage extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $module->translate('Thumbnail'));
+	return array(GalleryStatus::success(), $module->translate('Thumbnail'));
     }
 
     /**
@@ -149,22 +149,22 @@ class ItemEditThumbPage extends ItemEditPlugin {
      */
     function _getPageCount(&$item) {
 	list ($ret, $path) = $item->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'page-count');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($toolkit)) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
 	}
 	list ($ret, $result) = $toolkit->getProperty($item->getMimeType(), 'page-count', $path);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $result[0]);
+	return array(GalleryStatus::success(), $result[0]);
     }
 }
 ?>

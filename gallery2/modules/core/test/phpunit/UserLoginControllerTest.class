@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,10 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryValidationPlugin.class');
+/**
+ * require necessary classes
+ */
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryValidationPlugin.class');
 
 /**
  * UserLogin controller tests
@@ -45,9 +48,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	/* Create a new user */
-	list ($ret, $this->_user) = $this->_createRandomUser(null, 'password');
-	if ($ret) {
-	    print $ret->getAsHtml();
+	list ($ret, $this->_user) = $this->_createRandomUser();
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -56,26 +58,9 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$this->_saveSession = $gallery->_session;
 	$gallery->_session = new GallerySession();
 	$ret = $gallery->_session->init();
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$ret = $gallery->_session->start();
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	list ($ret, $this->_validationLevel) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'validation.level', 'HIGH');
-	if ($ret) {
-	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Disable all plugins by default. */
@@ -88,13 +73,8 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
     function tearDown() {
 	global $gallery;
-	$gallery->_session = $this->_saveSession;
 
-	$ret = GalleryCoreApi::setPluginParameter(
-		'module', 'core', 'validation.level', $this->_validationLevel);
-	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
+	$gallery->_session = $this->_saveSession;
 
 	parent::tearDown();
     }
@@ -104,6 +84,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
 	GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
+	/* from _createRandomUser: */
 	GalleryUtilities::putRequestVariable('form[password]', 'password');
 
 	$results = $this->handleRequest();
@@ -113,29 +94,6 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$this->assertEquals(array(), $results['error'], 'error');
 
 	$this->assertEquals($this->_user->getId(), $gallery->getActiveUserId());
-	$this->assert($this->_mockSession->regenerateWasCalled(),
-		      '$session->regenerate() was not called');
-    }
-
-    function testEntityPassword() {
-	global $gallery;
-	list ($ret, $user) = $this->_createRandomUser(null, 'pass&word');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->_markForCleanup($user);
-
-	GalleryUtilities::putRequestVariable('form[action][login]', 1);
-	GalleryUtilities::putRequestVariable('form[username]', $user->getUserName());
-	GalleryUtilities::putRequestVariable('form[password]', 'pass&word');
-
-	$results = $this->handleRequest();
-	/* May get a redirect url (like from useralbum module) or return */
-	$this->assert(isset($results['return']) || isset($results['redirect']), 'result');
-	$this->assertEquals(array(), $results['status'], 'status');
-	$this->assertEquals(array(), $results['error'], 'error');
-
-	$this->assertEquals($user->getId(), $gallery->getActiveUserId());
 	$this->assert($this->_mockSession->regenerateWasCalled(),
 		      '$session->regenerate() was not called');
     }
@@ -205,7 +163,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
 	$plugin->setContinue(false);
 	$this->_controller->setPluginInstances(array($plugin));
-
+	
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('delegate' => array('view' => 'core.UserAdmin', 'subView' => 'core.UserLogin'),
@@ -232,7 +190,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$plugin2->setErrors(array('form[error][UserLoginControllerTestPlugin2][anError]'));
 	$plugin2->setContinue(false);
 	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
+	
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('delegate' => array('view' => 'core.UserAdmin', 'subView' => 'core.UserLogin'),
@@ -260,7 +218,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$plugin2->setErrors(array('form[error][UserLoginControllerTestPlugin2][anError]'));
 	$plugin2->setContinue(false);
 	$this->_controller->setPluginInstances(array($plugin1, $plugin2));
-
+	
 	$results = $this->handleRequest();
 	$this->assertEquals(
 	    array('delegate' => array('view' => 'core.UserAdmin', 'subView' => 'core.UserLogin'),
@@ -296,7 +254,7 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
      */
     function testPlugins5() {
 	global $gallery;
-
+	
 	GalleryUtilities::putRequestVariable('form[action][login]', 1);
 	GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
 	/* from _createRandomUser: */
@@ -317,50 +275,22 @@ class UserLoginControllerTest extends GalleryControllerTestCase {
 	$this->assert($this->_mockSession->regenerateWasCalled(),
 		      '$session->regenerate() was not called');
     }
-
-    function testPluginsOff() {
-	global $gallery;
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'validation.level', 'OFF');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	GalleryUtilities::putRequestVariable('form[action][login]', 1);
-	GalleryUtilities::putRequestVariable('form[username]', $this->_user->getUserName());
-	/* from _createRandomUser: */
-	GalleryUtilities::putRequestVariable('form[password]', 'password');
-
-	$plugin = new UserLoginControllerTestPlugin();
-	$plugin->setErrors(array('form[error][UserLoginControllerTestPlugin][anError]'));
-	$plugin->setContinue(false);
-	$this->_controller->setPluginInstances(array($plugin));
-
-	$results = $this->handleRequest();
-	/* May get a redirect url (like from useralbum module) or return */
-	$this->assert(isset($results['return']) || isset($results['redirect']), 'result');
-	$this->assertEquals(array(), $results['status'], 'status');
-	$this->assertEquals(array(), $results['error'], 'error');
-
-	$this->assertEquals($this->_user->getId(), $gallery->getActiveUserId());
-	$this->assert($this->_mockSession->regenerateWasCalled(),
-		      '$session->regenerate() was not called');
-    }
 }
 
 /**
  * Mock ValidationPlugin
  */
-class UserLoginControllerTestPlugin extends GalleryValidationPlugin {
+class UserLoginControllerTestPlugin extends ValidationPlugin {
     function setContinue($continue) {
 	$this->_continue = $continue;
     }
-
+    
     function setErrors($errors) {
 	$this->_errors = $errors;
     }
 
-    function performValidation(&$form, $options=array()) {
-	return array(null, $this->_errors, $this->_continue);
+    function performValidation(&$form) {
+	return array(GalleryStatus::success(), $this->_errors, $this->_continue);
     }
 }
 
@@ -388,18 +318,6 @@ class UserLoginControllerTestSession {
 
     function regenerateWasCalled() {
 	return $this->_regenerateWasCalled;
-    }
-
-    function getUserId() {
-	if (isset($this->_sessionData['core.id.activeUser'])) {
-	    return $this->_sessionData['core.id.activeUser'];
-	}
-
-	return null;
-    }
-
-    function setUserId($userId) {
-	$this->_sessionData['core.id.activeUser'] = $userId;
     }
 }
 ?>

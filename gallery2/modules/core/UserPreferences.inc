@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,11 +46,11 @@ class UserPreferencesController extends GalleryController {
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($userId == $anonymousUserId) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	$results = array();
@@ -76,20 +76,9 @@ class UserPreferencesController extends GalleryController {
 	    /* language is optional for everybody */
 
 	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-
-	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    
-	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-
 
 	    /* email is required for non-anonymous but optional for administrators */
 	    if (empty($form['email']) && !$isAdmin) {
@@ -101,24 +90,22 @@ class UserPreferencesController extends GalleryController {
 		}
 	    }
 
-	    if (!empty($form['currentPassword']) &&
-		    !$user->isCorrectPassword($form['currentPassword'])) {
-		$error[] = 'form[error][currentPassword][incorrect]';
-	    }
-	    
 	    /* Set a default if for some reason it doesn't get sent from the browser */
 	    $form['email'] = empty($form['email']) ? '' : $form['email'];
 
-	    /* Require a password to change the email address */
-	    if ($form['email'] != $user->getEmail()) {
-		if (empty($form['currentPassword'])) {
-		    $error[] = 'form[error][currentPassword][missing]';
-		}
-		}
-
 	    /* If all the right fields are in place then go ahead and modify the user. */
 	    if (empty($error)) {
-		$user->setFullname(trim($form['fullName']));
+		list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($userId);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		$user->setFullname($form['fullName']);
 		$user->setEmail($form['email']);
 
 		if (isset($form['language'])) {
@@ -129,7 +116,12 @@ class UserPreferencesController extends GalleryController {
 		}
 
 		$ret = $user->save();
-		if ($ret) {
+		if ($ret->isError()) {
+		    return array($ret->wrap(__FILE__, __LINE__), null);
+		}
+
+		$ret = GalleryCoreApi::releaseLocks($lockId);
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -137,11 +129,6 @@ class UserPreferencesController extends GalleryController {
 		$redirect['view'] = 'core.UserAdmin';
 		$redirect['subView'] = 'core.UserPreferences';
 		$status['saved'] = 1;
-	    }
-
-	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -155,7 +142,7 @@ class UserPreferencesController extends GalleryController {
 	$results['error'] = $error;
 
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -177,11 +164,11 @@ class UserPreferencesView extends GalleryView {
 	$userId = $gallery->getActiveUserId();
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($userId == $anonymousUserId) {
-	    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__), null);
 	}
 
 	$user = $gallery->getActiveUser();
@@ -197,7 +184,7 @@ class UserPreferencesView extends GalleryView {
 
 	/* Set up our language selection list */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -217,7 +204,7 @@ class UserPreferencesView extends GalleryView {
 	/* Render the HTML body */
 	$template->setVariable('UserPreferences', $UserPreferences);
 	$template->setVariable('controller', 'core.UserPreferences');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/UserPreferences.tpl'));
     }
 
@@ -226,11 +213,11 @@ class UserPreferencesView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $core->translate('your account'));
+	return array(GalleryStatus::success(), $core->translate('your account'));
     }
 }
 ?>

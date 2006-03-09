@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,13 +19,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
+ * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
  */
 
-GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
+GalleryCoreApi::relativeRequireOnce('modules/core/AdminMaintenance.inc');
 
 /**
  * This is a MaintenanceTask that will return system details
@@ -33,6 +35,7 @@ GalleryCoreApi::requireOnce('modules/core/AdminMaintenance.inc');
  *
  * @package GalleryCore
  * @subpackage Classes
+ *
  */
 class SystemInfoTask extends MaintenanceTask {
 
@@ -57,11 +60,7 @@ class SystemInfoTask extends MaintenanceTask {
 	$storage =& $gallery->getStorage();
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -71,27 +70,10 @@ class SystemInfoTask extends MaintenanceTask {
 	    : $core->translate('unknown');
 
 	list ($ret, $list) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryToolkit');
-	if (!$ret) {
+	if ($ret->isSuccess()) {
 	    $toolkitList = implode(', ', array_keys($list));
 	} else {
 	    $toolkitList = $core->translate('unknown');
-	}
-
-	if ($params['acceleration']) {
-	    $acceleration = unserialize($params['acceleration']);
-	    $acceleration = $acceleration['guest']['type']
-		. (isset($acceleration['guest']['expiration'])
-			? '/' . $acceleration['guest']['expiration'] : '') . ', '
-		. $acceleration['user']['type']
-		. (isset($acceleration['user']['expiration'])
-			? '/' . $acceleration['user']['expiration'] : '');
-	} else {
-	    $acceleration = $core->translate('unknown');
-	}
-
-	list ($ret, $locale) = $gallery->getActiveLanguageCode();
-	if ($ret) {
-	    $locale = $core->translate('unknown');
 	}
 
 	$info = array(
@@ -100,17 +82,13 @@ class SystemInfoTask extends MaintenanceTask {
 	    $core->translate('Webserver') . ' = ' .
 		GalleryUtilities::getServerVar('SERVER_SOFTWARE'),
 	    $core->translate('Database') . ' = ' .
-		$storage->getAdoDbType() . ' ' . @$storage->getVersion() .
-		', lock.system=' . $params['lock.system'],
+		$storage->_impl->getAdoDbType() . ' ' . @$storage->_impl->getVersion(),
 	    $core->translate('Toolkits') . ' = ' . $toolkitList,
-	    $core->translate('Acceleration') . ' = ' . $acceleration,
 	    $core->translate('Operating system') . ' = ' . php_uname(),
-	    $core->translate('Default theme') . ' = ' . $params['default.theme'],
-	    $core->translate('Locale') . ' = ' . $locale,
 	    $core->translate('Browser') . ' = ' . GalleryUtilities::getServerVar('HTTP_USER_AGENT')
 	);
 
-	return array(null, true, $info);
+	return array(GalleryStatus::success(), true, $info);
     }
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,45 +46,27 @@ class GalleryPermissionHelper_medium {
 	global $gallery;
 
 	if (!is_array($itemIds) || empty($itemIds)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
-	}
-	foreach ($itemIds as $idx => $id) {
-	    $itemIds[$idx] = (int)$id;
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	if (is_null($userId)) {
 	    $userId = $gallery->getActiveUserId(); /* default user id */
 	}
 
-	$itemIdMarkers = GalleryUtilities::makeMarkers(count($itemIds));
+	$itemIdMarkers = GalleryUtilities::makeMarkers(sizeof($itemIds));
 
 	list ($ret, $groupIds) = GalleryCoreApi::fetchGroupsForUser($userId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$groupIds = array_keys($groupIds);
-	if ($userId == $gallery->getActiveUserId()) {
-	    /* Session based permissions */
-	    $session =& $gallery->getSession();
-	    $sessionEntityIds = $session->get(GALLERY_PERMISSION_SESSION_KEY);
-	    if (!empty($sessionEntityIds)) {
-		$groupIds = array_merge($groupIds, $sessionEntityIds);
-	    }
-	}
-	$entityIdMarkers = GalleryUtilities::makeMarkers(count($groupIds) + 1);
 
-	$storage =& $gallery->getStorage();
-	list ($ret, $bitOr) = $storage->getFunctionSql(
-				'BIT_OR', array('[GalleryAccessMap::permission]',
-						'[GalleryAccessSubscriberMap::itemId]'));
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	
+	$groupIds = array_keys($groupIds);
+	$groupIdMarkers = GalleryUtilities::makeMarkers($groupIds);
+
 	$query = '
 	SELECT
 	    [GalleryAccessSubscriberMap::itemId],
-	    ' . $bitOr . '
+	    BIT_OR([GalleryAccessMap::permission])
 	FROM
 	    [GalleryAccessMap], [GalleryAccessSubscriberMap]
 	WHERE
@@ -92,17 +74,19 @@ class GalleryPermissionHelper_medium {
 	    AND
 	    [GalleryAccessSubscriberMap::accessListId] = [GalleryAccessMap::accessListId]
 	    AND
-	    [GalleryAccessMap::userOrGroupId] IN (' . $entityIdMarkers . ')
+	    ([GalleryAccessMap::userId] = ?
+	    OR
+	    [GalleryAccessMap::groupId] IN (' . $groupIdMarkers . '))
 	GROUP BY
 	    [GalleryAccessSubscriberMap::itemId]
 	';
 
 	$data = $itemIds;
-	$data[] = (int)$userId;
-	array_splice($data, count($data), 0, $groupIds);
+	$data[] = $userId;
+	array_splice($data, sizeof($data), 0, $groupIds);
 
 	list($ret, $searchResults) = $gallery->search($query, $data);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -115,7 +99,7 @@ class GalleryPermissionHelper_medium {
 	    $bits = $storage->convertBitsToInt($result[1]);
 	    if (!empty($bits)) {
 		list ($ret, $permissions) = GalleryCoreApi::convertPermissionBitsToIds($bits);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
@@ -126,14 +110,11 @@ class GalleryPermissionHelper_medium {
 		/* $result[0] = itemId */
 		/* $permission['id'] = the permission name for that bit */
 		$permTable[$result[0]][$permission['id']] = 1;
-		/* Only cache permissions in the session for the activeUser */
-		if ($userId == $gallery->getActiveUserId()) {
-		    GalleryDataCache::cachePermissions($result[0], $permission['id']);
-		}
+		GalleryDataCache::cachePermissions($result[0], $permission['id']);
 	    }
 	}
 
-	return array(null, $permTable);
+	return array(GalleryStatus::success(), $permTable);
     }
 
     /**
@@ -149,18 +130,18 @@ class GalleryPermissionHelper_medium {
 	global $gallery;
 
 	if (empty($permissionBits)) {
-	    return array(null, array());
+	    return array(GalleryStatus::success(), array());
 	}
 
 	$cacheKey = "GalleryPermissionHelper::convertBitsToIds($permissionBits, $compress)";
 	if (GalleryDataCache::containsKey($cacheKey)) {
 	    $results = GalleryDataCache::get($cacheKey);
 	} else {
-	    GalleryCoreApi::requireOnce(
+	    GalleryCoreApi::relativeRequireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
 
 	    list ($ret, $allPermissions) = GalleryPermissionHelper_simple::_fetchAllPermissions();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -233,7 +214,7 @@ class GalleryPermissionHelper_medium {
 	 * system.  That shouldn't happen if modules clean up after themselves
 	 * properly.
 	 */
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -246,9 +227,8 @@ class GalleryPermissionHelper_medium {
      */
     function studyPermissions($itemIds, $userId=null) {
 
-	list ($ret, $permissionsTable) =
-	    GalleryCoreApi::fetchPermissionsForItems($itemIds, $userId);
-	if ($ret) {
+	list ($ret, $permissionsTable) = GalleryCoreApi::fetchPermissionsForItems($itemIds, $userId);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -258,7 +238,7 @@ class GalleryPermissionHelper_medium {
 	    GalleryDataCache::put($cacheKey, $permissions);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -277,7 +257,7 @@ class GalleryPermissionHelper_medium {
 	} else {
 	    list ($ret, $permissionsTable) =
 		GalleryCoreApi::fetchPermissionsForItems(array($itemId), $userId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -289,7 +269,7 @@ class GalleryPermissionHelper_medium {
 	    GalleryDataCache::put($cacheKey, $permissions);
 	}
 
-	return array(null, $permissions);
+	return array(GalleryStatus::success(), $permissions);
     }
 }
 ?>

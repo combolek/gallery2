@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,25 +42,26 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'imagemagick');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	list ($ret, $this->_cmykSupport) =
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'cmykSupport');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$platform =& $gallery->getPlatform();
-	$gallery->setPlatform(new AdminImageMagickControllerTestPlatform($platform, $this));
-	$this->_ranIdentify = 0;
-	$this->_slash = $platform->getDirectorySeparator();
+	$gallery->setPlatform(
+	    new AdminImageMagickControllerTestPlatform($gallery->getPlatform(), $this));
+	$this->_ranIdentify = false;
     }
 
     function testSaveGoodPath() {
-	$slash = $this->_slash;
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
 	$path = $slash . 'validPath' . $slash;
 
 	/*
@@ -68,7 +69,7 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 	 * try to reactivate the module due to path change.
 	 */
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -87,11 +88,11 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 			    $results);
 
 	/* Verify the settings went in properly */
-	$this->assertEquals(array(null, $path),
+	$this->assertEquals(array(GalleryStatus::success(), $path),
 			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
-	$this->assertEquals(array(null, '12'),
+	$this->assertEquals(array(GalleryStatus::success(), '12'),
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
-	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
+	$this->assert($this->_ranIdentify, 'ran identify');
     }
 
     function testReset() {
@@ -117,7 +118,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveTestErrorPath() {
-	$slash = $this->_slash;
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -135,7 +138,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveBadPath() {
-	$slash = $this->_slash;
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -153,7 +158,9 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
     }
 
     function testSaveMissingPath() {
-	$slash = $this->_slash;
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$slash = $platform->getDirectorySeparator();
 
 	/* Use valid inputs */
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
@@ -169,61 +176,6 @@ class AdminImageMagickControllerTest extends GalleryControllerTestCase {
 				  'error' => array('form[error][path][missing]')),
 			    $results);
     }
-
-    function testSaveVulnerablePath() {
-	$slash = $this->_slash;
-
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', "${slash}vulnerablePath${slash}");
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '80');
-	GalleryUtilities::putRequestVariable('form[cmykSupport]', $this->_cmykSupport);
-
-	/* Perform the request and verify that we failed */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'imagemagick.AdminImageMagick'),
-				  'status' => array(),
-				  'error' => array('form[error][version][vulnerable]')),
-			    $results);
-    }
-
-    function testForceSaveGoodPath() {
-	$slash = $this->_slash;
-	$path = $slash . 'vulnerablePath' . $slash;
-
-	/*
-	 * Set the module param to this value before submitting form so we don't
-	 * try to reactivate the module due to path change.
-	 */
-	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'path', $path);
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	/* Use valid inputs */
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-	GalleryUtilities::putRequestVariable('form[path]', $path);
-	GalleryUtilities::putRequestVariable('form[jpegQuality]', '80');
-	GalleryUtilities::putRequestVariable('form[cmykSupport]', $this->_cmykSupport);
-	GalleryUtilities::putRequestVariable('form[forceSave]', 1);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'imagemagick.AdminImageMagick'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	/* Verify the settings went in properly */
-	$this->assertEquals(array(null, $path),
-			    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path'));
-	$this->assertEquals(array(null, '80'),
-	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'jpegQuality'));
-	$this->assertEquals(2, $this->_ranIdentify, 'ran identify');
-    }
-
 }
 
 /**
@@ -246,10 +198,6 @@ class AdminImageMagickControllerTestPlatform {
 	case "${slash}validPath${slash}":
 	case "${slash}validPath${slash}identify":
 	case "${slash}validPath${slash}convert":
-	case "${slash}vulnerablePath":
-	case "${slash}vulnerablePath${slash}":
-	case "${slash}vulnerablePath${slash}identify":
-	case "${slash}vulnerablePath${slash}convert":
 	case "${slash}validPathBadBinaries":
 	case "${slash}validPathBadBinaries${slash}":
 	    return true;
@@ -262,7 +210,6 @@ class AdminImageMagickControllerTestPlatform {
 	$slash = $this->getDirectorySeparator();
 	switch ($dir) {
 	case "${slash}validPath${slash}":
-	case "${slash}vulnerablePath${slash}":
 	case "${slash}validPathBadBinaries${slash}":
 	    return true;
 	}
@@ -294,23 +241,13 @@ class AdminImageMagickControllerTestPlatform {
 	$slash = $this->getDirectorySeparator();
 	switch ($args[0][0]) {
 	case "${slash}validPath${slash}identify":
-	    $this->_unitTest->_ranIdentify++;
-	    return array(1, empty($args[0][1])
-		? array("Version: ImageMagick 6.2.2.3")
-		: array("test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01"));
-
-	case "${slash}vulnerablePath${slash}identify":
-	    $this->_unitTest->_ranIdentify++;
-	    return array(1, empty($args[0][1])
-		? array("Version: ImageMagick 6.1.3")
-		: array("test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01"));
+	    $this->_unitTest->_ranIdentify = true;
+	    return array(1, array("test.gif GIF 50x50+0+0 PseudoClass 8c 8-bit 232.0 0.000u 0:01"));
 
 	case "${slash}validPath${slash}convert":
-	case "${slash}vulnerablePath${slash}convert":
 	    return array(1, array());
 
 	case "${slash}validPath${slash}composite":
-	case "${slash}vulnerablePath${slash}composite":
 	    return array(1, array());
 
 	default:

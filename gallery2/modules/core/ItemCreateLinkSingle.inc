@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,31 +57,30 @@ class ItemCreateLinkSingleController extends GalleryController {
 		$destinationId = $form['destination'];
 
 		/* Make sure we can write to the destination */
-		list ($ret, $permissions) =
-		    GalleryCoreApi::fetchPermissionsForItems(array($itemId, $destinationId));
-		if ($ret) {
+		list ($ret, $permissions) = GalleryCoreApi::fetchPermissionsForItems(array($itemId, $destinationId));
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($permissions[$destinationId]['core.addDataItem'])) {
-		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 				 null);
 		}
 
 		if (!isset($permissions[$itemId]['core.viewSource'])) {
-		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 				 null);
 		}
 
 		/* Load the item */
 		list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		/* Look out for monkey business */
 		if (!$item->getIsLinkable()) {
-		    return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 				 null);
 		}
 
@@ -90,20 +89,19 @@ class ItemCreateLinkSingleController extends GalleryController {
 		 * Lock everything up and start linkin'.  We need to read lock
 		 * the source ids, source hierarchy and destination hierarchy.
 		 */
-		list ($ret, $locks[]) =
-		    GalleryCoreApi::acquireReadLock(array($itemId, $destinationId));
-		if ($ret) {
+		list ($ret, $locks[]) = GalleryCoreApi::acquireReadLock(array($itemId, $destinationId));
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $locks[]) = GalleryCoreApi::acquireReadLockParents($itemId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($locks);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($ret, $locks[]) = GalleryCoreApi::acquireReadLockParents($destinationId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($locks);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -112,29 +110,26 @@ class ItemCreateLinkSingleController extends GalleryController {
 		$classType = get_class($item);
 		$linkedItem = new $classType;
 
-		/*
-		 * If we're linking to an item that's already a link,
-		 * then link to its source instead.
-		 */
+		/* If we're linking to an item that's already a link, then link to its source instead */
 		if ($item->isLinked()) {
 		    $linkedEntity = $item->getLinkedEntity();
 		    $ret = $linkedItem->createLink($linkedEntity, $destinationId);
 		} else {
 		    $ret = $linkedItem->createLink($item, $destinationId);
 		}
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($locks);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = $linkedItem->save();
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($locks);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$ret = GalleryCoreApi::addExistingItemToAlbum($linkedItem, $destinationId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($locks);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -143,7 +138,7 @@ class ItemCreateLinkSingleController extends GalleryController {
 
 		/* Release the locks */
 		$ret = GalleryCoreApi::releaseLocks($locks);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -163,7 +158,7 @@ class ItemCreateLinkSingleController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -183,27 +178,26 @@ class ItemCreateLinkSingleView extends GalleryView {
 	global $gallery;
 
 	$itemId = GalleryUtilities::getRequestVariables('itemId');
-	if ($form['formName'] != 'ItemCreateLinkSingle') {
-	    /* First time around, load the form with item data */
-	    $form['destination'] = '';
+        if ($form['formName'] != 'ItemCreateLinkSingle') {
+            /* First time around, load the form with item data */
+            $form['destination'] = '';
 	    $form['formName'] = 'ItemCreateLinkSingle';
-	}
+        }
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Find all the possible locations where this item can be linked. */
-	list ($ret, $albumIds) =
-	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
-	if ($ret) {
+	list ($ret, $albumIds) = GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addDataItem');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load all the album entities */
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -212,8 +206,8 @@ class ItemCreateLinkSingleView extends GalleryView {
 	$ItemCreateLinkSingle['itemTypeNames'] = $item->itemTypeName();
 
 	$template->setVariable('ItemCreateLinkSingle', $ItemCreateLinkSingle);
-	$template->setVariable('controller', 'core.ItemCreateLinkSingle');
-	return array(null,
+        $template->setVariable('controller', 'core.ItemCreateLinkSingle');
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/ItemCreateLinkSingle.tpl'));
     }
 
@@ -222,11 +216,11 @@ class ItemCreateLinkSingleView extends GalleryView {
      */
     function getViewDescription() {
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $core->translate('link an item'));
+	return array(GalleryStatus::success(), $core->translate('link an item'));
     }
 }
 ?>

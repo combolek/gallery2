@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testEditFromText() {
 	/* Normal */
 	list ($ret, $group) = $this->_createGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -90,8 +90,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	/* Invalid group name */
 	GalleryUtilities::putRequestVariable('form[action][editFromText]', 1);
-	GalleryUtilities::putRequestVariable('form[text][groupName]',
-					     'some-invalid-group-name-'.rand());
+	GalleryUtilities::putRequestVariable('form[text][groupName]', 'some-invalid-group-name-'.rand());
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
@@ -104,7 +103,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testDeleteFromText() {
 	/* Normal */
 	list ($ret, $group) = $this->_createGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -133,8 +132,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	/* Invalid group name */
 	GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
-	GalleryUtilities::putRequestVariable('form[text][groupName]',
-					     'some-invalid-group-name-'.rand());
+	GalleryUtilities::putRequestVariable('form[text][groupName]', 'some-invalid-group-name-'.rand());
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
@@ -147,12 +145,12 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testDeleteSiteAdminGroupFromText() {
 	global $gallery;
 	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.adminGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -170,12 +168,12 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testDeleteAllUsersGroupFromText() {
 	global $gallery;
 	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -193,12 +191,12 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testEditAllUsersGroupUsersFromText() {
 	global $gallery;
 	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.allUserGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -215,14 +213,13 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
     function testDeleteEverybodyGroupFromText() {
 	global $gallery;
-	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core',
-							      'id.everybodyGroup');
-	if ($ret) {
+	list ($ret, $id) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.everybodyGroup');
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($id);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -240,7 +237,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
     function testEditUsersFromText() {
 	/* Normal */
 	list ($ret, $group) = $this->_createGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -269,8 +266,7 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 
 	/* Invalid group name */
 	GalleryUtilities::putRequestVariable('form[action][addRemoveUsersFromText]', 1);
-	GalleryUtilities::putRequestVariable('form[text][groupName]',
-					     'some-invalid-group-name-'.rand());
+	GalleryUtilities::putRequestVariable('form[text][groupName]', 'some-invalid-group-name-'.rand());
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array('view' => 'core.SiteAdmin',
@@ -284,30 +280,30 @@ class AdminGroupsControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($group)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+	    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			 null);
 	}
 
 	$ret = $group->create('testgroup-'.rand());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $group->save();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $group);
+	return array(GalleryStatus::success(), $group);
     }
 
     function _deleteGroup($group) {
 	global $gallery;
 	$ret = GalleryCoreApi::deleteEntityById($group->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

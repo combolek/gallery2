@@ -7,14 +7,12 @@
 <div id="gsContent" class="gcBorder1" style="border-width: 1px 0 0 1px">
   <div class="gbBlock gcBackground1">
     <h2>
-      {if isset($ErrorPage.code.obsoleteData)}
+      {if isset($ErrorPage.obsoleteData)}
 	{g->text text="Edit Conflict!"}
-      {elseif isset($ErrorPage.code.securityViolation)}
+      {elseif isset($ErrorPage.securityViolation)}
 	{g->text text="Security Violation"}
-      {elseif isset($ErrorPage.code.storageFailure)}
+      {elseif isset($ErrorPage.storageFailure)}
 	{g->text text="Database Error"}
-      {elseif isset($ErrorPage.code.platformFailure)}
-	{g->text text="Platform Error"}
       {else}
 	{g->text text="Error"}
       {/if}
@@ -22,7 +20,7 @@
   </div>
 
   <div class="gbBlock">
-    {if isset($ErrorPage.code.obsoleteData)}
+    {if isset($ErrorPage.obsoleteData)}
       <p class="giDescription">
 	{g->text text="Your change cannot be completed because somebody else has made a conflicting change to the same item.  Use the back button in your browser to go back to the page you were on, then <b>reload that page</b> and try your change again."}
       </p>
@@ -32,23 +30,16 @@
       <p class="giDescription" style="margin-top: 0.5em">
 	{g->text text="Alternatively, you can return to the main Gallery page and resume browsing."}
       </p>
-    {elseif isset($ErrorPage.code.securityViolation)}
+    {elseif isset($ErrorPage.securityViolation)}
       <p class="giDescription">
 	{g->text text="The action you attempted is not permitted."}
       </p>
-    {elseif isset($ErrorPage.code.storageFailure)}
+    {elseif isset($ErrorPage.storageFailure)}
       <p class="giDescription">
 	{g->text text="An error has occurred while interacting with the database."}
       </p>
       {if $ErrorPage.isAdmin && !isset($ErrorPage.debug)}
 	{g->text text="The exact nature of database errors is not captured unless Gallery debug mode is enabled in config.php.  Before seeking support for this error please enable buffered debug output and retry the operation.  Look near the bottom of the lengthy debug output to find error details."}
-      {/if}
-    {elseif isset($ErrorPage.code.platformFailure)}
-      <p class="giDescription">
-	{g->text text="An error has occurred while interacting with the platform."}
-      </p>
-      {if $ErrorPage.isAdmin && !isset($ErrorPage.debug)}
-	{g->text text="The exact nature of the platform error is unknown. A common cause are insufficient file system permissions. This can happen if you or your webhost changed something in the file system, e.g. by restoring data from a backup."}
       {/if}
     {else}
       <p class="giDescription">
@@ -61,7 +52,6 @@
     </p>
   </div>
 
-  {if !empty($ErrorPage.stackTrace)}
   <div class="gbBlock">
     <h3>
       {g->text text="Error Detail"}
@@ -74,7 +64,6 @@
       {$ErrorPage.stackTrace}
     </div>
   </div>
-  {/if}
 
   {if $ErrorPage.isAdmin}
   <div class="gbBlock">

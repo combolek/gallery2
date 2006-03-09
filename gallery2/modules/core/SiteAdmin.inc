@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,25 +44,25 @@ class SiteAdminView extends GalleryView {
 
 	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Bring in the root album information for the breadcrumb */
 	list ($ret, $rootAlbumId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$rootAlbumData = (array)$rootAlbum;
+	$rootAlbumData = $rootAlbum->getMemberData();
 
 	/* Load the module list */
 	list ($ret, $moduleStatus) = GalleryCoreApi::fetchPluginStatus('module');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -78,7 +78,7 @@ class SiteAdminView extends GalleryView {
 	    /* Get the selected module's admin view */
 	    if (in_array('getSiteAdminViews', explode('|', $status['callbacks']))) {
 		list($ret, $module) = GalleryCoreApi::loadPlugin('module', $moduleId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			continue;
 		    }
@@ -86,11 +86,14 @@ class SiteAdminView extends GalleryView {
 		}
 
 		list ($ret, $moduleViews) = $module->getSiteAdminViews();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$group = $module->getGroup();
+		if (empty($group)) {
+		    $group = array('group' => 'other');
+		}
 		foreach (array_keys($moduleViews) as $i) {
 		    $moduleViews[$i] = array_merge($group, $moduleViews[$i]);
 		}
@@ -99,7 +102,7 @@ class SiteAdminView extends GalleryView {
 	    }
 	}
 
-	/* Sort and group */
+	// Sort and group..
 	$subViewGroups = $groupLabels = array();
 	foreach ($subViewChoices as $adminView) {
 	    $group = $adminView['group'];
@@ -115,7 +118,7 @@ class SiteAdminView extends GalleryView {
 	    }
 	}
 
-	/* Set labels */
+	// Set labels..
 	foreach (array_keys($subViewGroups) as $group) {
 	    $data =& $subViewGroups[$group];
 	    usort($data, array($this, 'nameSort'));
@@ -136,19 +139,19 @@ class SiteAdminView extends GalleryView {
 	/* If we have a specific sub view, render it now */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if ($subViewName == 'core.SiteAdmin') {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	if (empty($subViewName)) {
 	    $subViewName = 'core.AdminCore';
 	}
 
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $results) = $subView->loadTemplate($template, $form);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -162,12 +165,12 @@ class SiteAdminView extends GalleryView {
 	/* Get the links for navigating back to where we came from */
 	$urlGenerator =& $gallery->getUrlGenerator();
 	list ($ret, $navigationLinks) = $urlGenerator->getNavigationLinks();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -181,7 +184,7 @@ class SiteAdminView extends GalleryView {
 
 	$template->setVariable('SiteAdmin', $SiteAdmin);
 	$template->title($module->translate('Gallery Site Administration'));
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/SiteAdmin.tpl'));
     }
 
@@ -189,40 +192,35 @@ class SiteAdminView extends GalleryView {
      * @see GalleryView::getViewDescription()
      */
     function getViewDescription() {
+	global $gallery;
+
 	/* Get the description from the current subView */
 	$subViewName = GalleryUtilities::getRequestVariables('subView');
 	if (empty($subViewName)) {
 	    $subViewName = 'core.AdminCore';
 	}
 	list ($ret, $subView) = GalleryView::loadView($subViewName);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $description) = $subView->getViewDescription();
 	if (!empty($description)) {
-	    return array(null, $description);
+	    return array(GalleryStatus::success(), $description);
 	}
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fallback if subView doesn't have a name */
-	return array(null, $core->translate('site admin'));
-    }
-
-    /**
-     * @see GalleryView::getViewType()
-     */
-    function getViewType() {
-	return VIEW_TYPE_ADMIN;
+	return array(GalleryStatus::success(), $core->translate('site admin'));
     }
 
     function groupSort($a, $b) {
 	static $groupOrder;
 	if (!isset($groupOrder)) {
-	    /* gallery first, toolkits second, other last */
+	    // gallery first, toolkits second, other last
 	    $groupOrder = array('gallery' => 1, 'toolkits' => 2, '' => 3, 'other' => 4);
 	}
 	$ag = $a[0]['group'];

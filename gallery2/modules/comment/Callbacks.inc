@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Comment
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class CommentCallbacks {
 
     /**
@@ -34,32 +29,32 @@ class CommentCallbacks {
 	case 'LoadComments':
 	    $itemId = $params['itemId'];
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $permissions) =
 		GalleryCoreApi::fetchPermissionsForItems(array($itemId), $userId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if (!isset($permissions[$itemId]['comment.view'])) {
-		return null;
+		return GalleryStatus::success();
 	    }
 
 	    $viewMax = $params['show'];
 
-	    GalleryCoreApi::requireOnce('modules/comment/classes/GalleryCommentHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/comment/classes/GalleryCommentHelper.class');
 	    list ($ret, $comments) =
 		GalleryCommentHelper::fetchComments($item->getId(), $viewMax, ORDER_DESCENDING);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    list ($ret, $counts) =
 		GalleryCommentHelper::fetchCommentCounts(array($item->getId()));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -72,27 +67,27 @@ class CommentCallbacks {
 		    $commenters[$comments[$i]->getCommenterId()] = 1;
 
 		    /* Extract the member data */
-		    $comments[$i] = (array)$comments[$i];
+		    $comments[$i] = $comments[$i]->getMemberData();
 		}
 
 		/* Load all the commenters */
 		if (sizeof($commenters) > 0) {
 		    list ($ret, $commentersList) =
 			GalleryCoreApi::loadEntitiesById(array_keys($commenters));
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		}
 
 		foreach ($commentersList as $commenter) {
-		    $commenters[$commenter->getId()] = (array)$commenter;
+		    $commenters[$commenter->getId()] = $commenter->getMemberData();
 		}
 	    } else {
 		$totalComments = 0;
 	    }
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
@@ -107,16 +102,16 @@ class CommentCallbacks {
 	    $LoadComments['comments'] = $comments;
 	    $LoadComments['commenters'] = $commenters;
 	    $LoadComments['can'] = $can;
-	    $LoadComments['item'] = (array)$item;
+	    $LoadComments['item'] = $item->getMemberData();
 	    $LoadComments['totalComments'] = $totalComments;
 
 	    $block =& $smarty->_tpl_vars['block'];
 	    $block['comment']['LoadComments'] = $LoadComments;
 
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

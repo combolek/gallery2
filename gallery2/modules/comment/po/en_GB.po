@@ -1,24 +1,24 @@
 # $Id$
-#
+# 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
-#
+# Copyright (C) 2000-2005 Bharat Mediratta
+# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.0.9\n"
+"Project-Id-Version: Gallery: Comment 1.0\n"
 "POT-Creation-Date: 2003-06-25 11:44+0100\n"
 "PO-Revision-Date: 2003-06-25 15:57+0100\n"
 "Last-Translator: Joan McGalliard <gallery@joanhenge.plus.com>\n"
@@ -28,69 +28,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#, fuzzy
 msgid "Add Comment"
-msgstr ""
+msgstr "Add a comment"
 
 msgid "add comment"
-msgstr ""
+msgstr "add comment"
 
+#, fuzzy
 msgid "show comments"
-msgstr ""
+msgstr "Comments"
 
 msgid "Comments"
+msgstr "Comments"
+
+#, fuzzy
+msgid "Comment Module"
+msgstr "Comment: "
+
+#, fuzzy
+msgid "Search comments"
+msgstr "[comment] Search comments"
+
+msgid "Subject"
 msgstr ""
 
+#, fuzzy
+msgid "Comment"
+msgstr "Comment:"
+
+#, fuzzy
+msgid "Commenter"
+msgstr "Commenter:"
+
+#, fuzzy
 msgid "User commenting system"
-msgstr ""
+msgstr "Comments"
 
 msgid "Extra Data"
 msgstr ""
 
 msgid "[comment] Add comments"
-msgstr ""
+msgstr "[comment] Add comments"
 
 msgid "[comment] Edit comments"
-msgstr ""
+msgstr "[comment] Edit comments"
 
 msgid "[comment] Delete comments"
-msgstr ""
+msgstr "[comment] Delete comments"
 
 msgid "[comment] View comments"
-msgstr ""
+msgstr "[comment] View comments"
 
 msgid "[comment] All access"
-msgstr ""
+msgstr "[comment] All access"
 
-msgid "View Latest Comments"
-msgstr ""
-
+#, fuzzy
 msgid "View Comments"
-msgstr ""
+msgstr "Comments"
 
-#, c-format
+#, fuzzy, c-format
 msgid "Comments: %d"
-msgstr ""
+msgstr "Comment: "
 
-msgid "Guest Comments"
-msgstr ""
-
-msgid "Comment Module"
-msgstr ""
-
-msgid "Search comments"
-msgstr ""
-
-msgid "Subject"
-msgstr ""
-
-msgid "Comment"
-msgstr ""
-
-msgid "Commenter"
-msgstr ""
-
+#, fuzzy
 msgid "Comment Preview"
-msgstr ""
+msgstr "Comment: "
 
 msgid "Posted by"
 msgstr ""
@@ -102,26 +105,29 @@ msgstr ""
 msgid "(required)"
 msgstr ""
 
+#, fuzzy
 msgid "You must enter a subject!"
-msgstr ""
+msgstr "You must enter a date"
 
+#, fuzzy
 msgid "You must enter a comment!"
-msgstr ""
+msgstr "You must enter a date"
 
+#, fuzzy
 msgid "Preview"
-msgstr ""
+msgstr "Comment: "
 
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 msgid "edit"
-msgstr ""
+msgstr "edit"
 
 msgid "delete"
-msgstr ""
+msgstr "delete"
 
 msgid "show full"
 msgstr ""
@@ -143,90 +149,77 @@ msgstr ""
 msgid "Comment added successfully"
 msgstr ""
 
+#, fuzzy
 msgid "Comment deleted successfully"
-msgstr ""
+msgstr "[comment] Delete comments"
 
 msgid "Comment modified successfully"
 msgstr ""
 
-msgid "Comments Settings"
-msgstr ""
-
-msgid "Settings saved successfully"
-msgstr ""
-
-msgid "Show link for Latest Comments:"
-msgstr ""
-
-msgid "Number of comments on Latest Comments page:"
-msgstr ""
-
-msgid "Invalid value"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
 msgid "Delete this comment?"
-msgstr ""
+msgstr "Delete this comment?"
 
 msgid "Are you sure?"
 msgstr ""
 
+#, fuzzy
 msgid "Delete this comment?  There is no undo!"
-msgstr ""
+msgstr "Delete this comment?"
 
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 msgid "Edit comment"
-msgstr ""
+msgstr "Edit comment"
 
 msgid "You must enter a username."
-msgstr ""
+msgstr "You must enter a username."
 
 msgid "The username you entered is invalid."
-msgstr ""
+msgstr "The username you entered is invalid."
 
+#, fuzzy
 msgid "Host"
-msgstr ""
+msgstr "Host: "
 
+#, fuzzy
 msgid "Date"
-msgstr ""
+msgstr "Date:"
 
 msgid "The date you entered is invalid."
-msgstr ""
+msgstr "The date you entered is invalid."
 
 msgid "You must enter a date"
-msgstr ""
+msgstr "You must enter a date"
 
+#, fuzzy
 msgid "You must enter a subject"
-msgstr ""
+msgstr "You must enter a date"
 
+#, fuzzy
 msgid "You must enter a comment"
-msgstr ""
-
-msgid "Latest Comments"
-msgstr ""
+msgstr "You must enter a date"
 
 msgid "Comment changed successfully"
 msgstr ""
 
 msgid "There are no comments for this item"
-msgstr ""
+msgstr "There are no comments for this item"
 
 msgid "Recent comments"
-msgstr ""
+msgstr "Recent comments"
 
 #, c-format
 msgid "(view all %d comments)"
-msgstr ""
+msgstr "(view all %d comments)"
 
+#, fuzzy
 msgid "Show comments"
-msgstr ""
+msgstr "Comments"
 
+#, fuzzy
 msgid "Number of comments"
-msgstr ""
+msgstr "[comment] Search comments"
 
 msgid "1"
 msgstr ""
@@ -260,3 +253,6 @@ msgstr ""
 
 msgid "999"
 msgstr ""
+
+#~ msgid "[comment] Search comments"
+#~ msgstr "[comment] Search comments"

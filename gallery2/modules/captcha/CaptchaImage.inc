@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package Captcha
@@ -28,7 +29,7 @@
  */
 
 /**
- * Display the current captcha image for this session
+ * Display the given captcha image
  *
  * @package Captcha
  * @subpackage UserInterface
@@ -47,11 +48,12 @@ class CaptchaImageView extends GalleryView {
      */
     function renderImmediate($status, $error) {
 	global $gallery;
-	$session =& $gallery->getSession();
-	$code = $session->get('captcha.key');
 
 	header('Content-type: image/jpeg');
 	header('Pragma: No-cache');
+
+	$session =& $gallery->getSession();
+	$code = $session->get('captcha.key');
 
 	$image = @ImageCreateFromJPEG(dirname(__FILE__) . '/data/code_bg.jpg');
 	$textColor = ImageColorAllocate($image, 80, 80, 80);
@@ -60,7 +62,7 @@ class CaptchaImageView extends GalleryView {
 	ImageJPEG($image, '', 75);
 	ImageDestroy($image);
 
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

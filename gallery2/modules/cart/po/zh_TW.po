@@ -1,25 +1,25 @@
 # $Id$
-#
+# 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
-#
+# Copyright (C) 2000-2005 Bharat Mediratta
+# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Cart 1.0.3\n"
+"Project-Id-Version: Gallery: Cart 1.0\n"
 "POT-Creation-Date: 2005-08-09 23:39-0400\n"
 "PO-Revision-Date: 2005-08-09 23:39-0400\n"
 "Last-Translator: Stephen Chu <stephen@ju-ju.com>\n"
@@ -44,14 +44,11 @@ msgstr "購物車模組"
 msgid "Commerce"
 msgstr "商業"
 
-msgid "[cart] Add to cart"
-msgstr "[購物車] 加入購物車"
-
 msgid "Add Album To Cart"
 msgstr "把相簿加入購物車"
 
 msgid "Add Photo To Cart"
-msgstr "把照片加入購物車"
+msgstr "把相片加入購物車"
 
 #, c-format
 msgid "Add %s To Cart"
@@ -78,8 +75,11 @@ msgstr "購物車更新成功"
 msgid "Your cart is empty."
 msgstr "你的購物車是空的。"
 
-msgid "To add items, browse the gallery and select 'Add to cart' from the item's action menu."
-msgstr "如果要將項目加入購物車，請瀏覽 Gallery，然後在項目操作選單中選擇「加入購物車」。"
+msgid ""
+"To add items, browse the gallery and select 'Add to cart' from the item's "
+"action menu."
+msgstr ""
+"如果要將項目加入購物車，請瀏覽 Gallery，然後在項目操作選單中選擇「加入購物車」。"
 
 msgid "Quantity"
 msgstr "數量"
@@ -115,3 +115,4 @@ msgstr "查看購物車"
 
 msgid "Shopping Cart Info"
 msgstr "購物車資訊"
+

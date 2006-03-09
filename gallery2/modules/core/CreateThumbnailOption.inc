@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
  * This ItemAddOption allows the user to choose to create thumbnails
  * when the image is uploaded.
  *
- * @package GalleryCore
+ * @package Core
  * @subpackage UserInterface
  */
 class CreateThumbnailOption extends ItemAddOption {
@@ -39,7 +39,7 @@ class CreateThumbnailOption extends ItemAddOption {
      * @see ItemAddOption::loadTemplate
      */
     function loadTemplate(&$template, &$form, $item) {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/core/templates/CreateThumbnailOption.tpl',
 		     'modules_core');
     }
@@ -48,7 +48,7 @@ class CreateThumbnailOption extends ItemAddOption {
      * @see ItemAddOption::isAppropriate
      */
     function isAppropriate() {
-	return array(null, true);
+	return array(GalleryStatus::success(), true);
     }
 
     /**
@@ -61,11 +61,11 @@ class CreateThumbnailOption extends ItemAddOption {
 	    $warnings[] = array();
 	}
 	if (empty($form['CreateThumbnailOption']['createThumbnail'])) {
-	    return array(null, $errors, $warnings);
+	    return array(GalleryStatus::success(), $errors, $warnings);
 	}
 
 	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -73,14 +73,13 @@ class CreateThumbnailOption extends ItemAddOption {
 	    $itemId = $item->getId();
 	    if (!empty($thumbTable[$itemId])) {
 		$thumbnail = $thumbTable[$item->getId()];
-		list ($ret) =
-		    GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
-		if ($ret) {
+		list ($ret) = GalleryCoreApi::rebuildDerivativeCacheIfNotCurrent($thumbnail->getId());
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    }
 	}
-	return array(null, $errors, $warnings);
+	return array(GalleryStatus::success(), $errors, $warnings);
     }
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,58 +38,46 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     }
 
     function setUp() {
-	global $gallery;
-
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$this->_valueMap = array(
-	    'permissions.directory' => 'x1',
-	    'permissions.file' => 'x2',
-	    'exec.beNice' => 'x2.5',
-	    'exec.expectedStatus' => 'x3',
-	    'default.orderBy' => 'x4',
-	    'default.orderDirection' => 'x5',
-	    'default.theme' => 'x7',
-	    'default.language' => 'x8',
-	    'session.lifetime' => 'x9',
-	    'session.inactivityTimeout' => 'x10',
-	    'misc.markup' => 'x11',
-	    'cookie.path' => '/sub/',
-	    'cookie.domain' => '.example.com',
-	    'lock.system' => 'x13',
-	    'smtp.host' => 'smtp.example.com',
-	    'smtp.username' => 'x14',
-	    'smtp.password' => 'x15',
-	    'smtp.from' => 'gallery@example.com',
-	    'format.date' => 'x16',
-	    'format.time' => 'x17',
-	    'format.datetime' => 'x18',
-	    'language.useBrowserPref' => '1');
-
-	/* The AdminCore controller uses the url generator to check the cookie path */
-	$gallery->setUrlGenerator(new AdminCoreControllerTestUrlGenerator());
-    }
-
-    function _setFormFromValues($valueMap) {
-	/* Change the defaults to something meaningless */
-	foreach ($valueMap as $key => $value) {
-	    list ($outer, $inner) = explode('.', $key);
-	    GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
 	}
     }
 
     function testChangeValues() {
 	global $gallery;
+	/* The AdminCore controller uses the url generator to check the cookie path */
+	$gallery->setUrlGenerator(new AdminCoreControllerTestUrlGenrator());
 
-	$valueMap = $this->_valueMap;
+	$valueMap = array('permissions.directory' => 'x1',
+			  'permissions.file' => 'x2',
+			  'exec.expectedStatus' => 'x3',
+			  'default.orderBy' => 'x4',
+			  'default.orderDirection' => 'x5',
+			  'default.theme' => 'x7',
+			  'default.language' => 'x8',
+			  'session.lifetime' => 'x9',
+			  'session.inactivityTimeout' => 'x10',
+			  'misc.markup' => 'x11',
+			  'cookie.path' => '/sub/',
+			  'cookie.domain' => '.example.com',
+			  'lock.system' => 'x13',
+			  'smtp.host' => 'smtp.example.com',
+			  'smtp.username' => 'x14',
+			  'smtp.password' => 'x15',
+			  'smtp.from' => 'gallery@example.com',
+			  'format.date' => 'x16',
+			  'format.time' => 'x17',
+			  'format.datetime' => 'x18');
 
-	$this->_setFormFromValues($valueMap);
+	/* Change the defaults to something meaningless */
+	foreach ($valueMap as $key => $value) {
+	    list ($outer, $inner) = explode('.', $key);
+	    GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
+	}
 	GalleryUtilities::putRequestVariable('form[action][save]', 1);
 
 	/* Perform the request and verify that we succeeded */
@@ -100,10 +88,12 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
+	GalleryDataCache::reset();
+
 	$valueMap['smtp.password'] = base64_encode($valueMap['smtp.password']);
 	foreach ($valueMap as $key => $expectedValue) {
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core', $key);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -111,79 +101,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	}
     }
 
-    function testChangeEmailPasswordWithStars() {
-	global $gallery;
-
-	$valueMap = $this->_valueMap;
-
-	/* Set the password to a 3-letter value (it should be b64 encoded, but this is a dummy) */
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.password', 'abc');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$valueMap['smtp.password'] = '***';
-	$this->_setFormFromValues($valueMap);
-
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminCore'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-
-	list ($ret, $storedPass) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'smtp.password');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$this->assertEquals('abc', $storedPass,
-			    "matching number of stars shouldn't change the password");
-    }
-
-    function testChangeEmailPasswordWithWrongNumberOfStars() {
-	global $gallery;
-
-	$valueMap = $this->_valueMap;
-
-	/* Set the password to a 3-letter value (it should be b64 encoded, but this is a dummy) */
-	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.password', 'abc');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	/* But oops, the user entered 4 stars */
-	$valueMap['smtp.password'] = '****';
-	$this->_setFormFromValues($valueMap);
-
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	/* Perform the request and verify that we succeeded */
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
-						      'subView' => 'core.AdminCore'),
-				  'status' => array('saved' => 1),
-				  'error' => array()),
-			    $results);
-
-	list ($ret, $storedPass) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'smtp.password');
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-
-	$this->assertEquals('abc', $storedPass,
-			    "mismatched number of stars shouldn't change the password");
-    }
-
     /* Test that we don't accept just any cookie path */
     function testChangeCookiePath() {
 	global $gallery;
+	/* The AdminCore controller uses the url generator to check the cookie path */
+	$gallery->setUrlGenerator(new AdminCoreControllerTestUrlGenrator());
 	/* AdminCore expects all the form vars, even if we test here only the cookie path */
 	$valueMap = array('permissions.directory' => 'IGNORED',
 			  'permissions.file' => 'IGNORED',
@@ -192,7 +114,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.orderDirection' => 'IGNORED',
 			  'default.theme' => 'IGNORED',
 			  'default.language' => 'IGNORED',
-			  'language.useBrowserPref' => 'IGNORED',
 			  'session.lifetime' => 'IGNORED',
 			  'session.inactivityTimeout' => 'IGNORED',
 			  'misc.markup' => 'IGNORED',
@@ -213,7 +134,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	foreach ($tests as $testCase) {
 	    /* Set the cookie path manually to a known value to check later if it was changed */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.path', '/bad/');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -223,8 +144,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Just add the other form vars to the request such that it accepts the save request */
 	    foreach ($valueMap as $key => $value) {
 		list ($outer, $inner) = explode('.', $key);
-		GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']',
-						     $value);
+		GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
 	    }
 
 	    /* Perform the request and verify that we succeeded */
@@ -244,7 +164,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Check if the correct value was stored */
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 									 'cookie.path');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $expPath = $testCase['saved'] ? $testCase['ep'] : '/bad/';
@@ -256,6 +176,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     /* Test that we don't accept just any cookie domain */
     function testChangeCookieDomain() {
 	global $gallery;
+	/* The AdminCore controller uses the url generator to check the cookie domain */
+	$gallery->setUrlGenerator(new AdminCoreControllerTestUrlGenrator());
 	/* AdminCore expects all the form vars, even if we test here only the cookie path */
 	$valueMap = array('permissions.directory' => 'IGNORED',
 			  'permissions.file' => 'IGNORED',
@@ -264,7 +186,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.orderDirection' => 'IGNORED',
 			  'default.theme' => 'IGNORED',
 			  'default.language' => 'IGNORED',
-			  'language.useBrowserPref' => 'IGNORED',
 			  'session.lifetime' => 'IGNORED',
 			  'session.inactivityTimeout' => 'IGNORED',
 			  'misc.markup' => 'IGNORED',
@@ -285,7 +206,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	foreach ($tests as $testCase) {
 	    /* Set the cookie domain manually to a known value to check later if it was changed */
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'core', 'cookie.domain', 'bad');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -296,8 +217,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Just add the other form vars to the request such that it accepts the save request */
 	    foreach ($valueMap as $key => $value) {
 		list ($outer, $inner) = explode('.', $key);
-		GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']',
-						     $value);
+		GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
 	    }
 
 	    /* Perform the request and verify that we succeeded */
@@ -317,7 +237,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    /* Check if the correct value was stored */
 	    list ($ret, $realValue) = GalleryCoreApi::getPluginParameter('module', 'core',
 									 'cookie.domain');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $expPath = $testCase['saved'] ? $testCase['ep'] : 'bad';
@@ -343,7 +263,6 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	/* Add should save other settings on the page too */
 	$valueMap = array('permissions.directory' => 'x1',
 			  'permissions.file' => 'x2',
-			  'exec.beNice' => 'x2.5',
 			  'exec.expectedStatus' => 'x3',
 			  'default.orderBy' => 'x4',
 			  'default.orderDirection' => 'x5',
@@ -351,8 +270,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 			  'default.language' => 'x8',
 			  'session.lifetime' => 'x9',
 			  'session.inactivityTimeout' => 'x10',
-			  'misc.markup' => 'x11',
-			  'language.useBrowserPref' => '0');
+			  'misc.markup' => 'x11');
 	foreach ($valueMap as $key => $value) {
 	    list ($outer, $inner) = explode('.', $key);
 	    GalleryUtilities::putRequestVariable('form[' . $outer . '][' . $inner . ']', $value);
@@ -362,19 +280,19 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][addUploadLocalServerDir]', 1);
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.2', 'b');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.3');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.4');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -389,7 +307,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(dirname(__FILE__), $param['uploadLocalServer.dir.3'], 'new dir');
@@ -433,6 +351,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
     function testAddUploadLocalServerDirBogus() {
 	global $gallery;
+
+	/* On windows boxes, we don't have the CODESET constant, so fake it */
+	if (!defined('CODESET')) {
+	    define('CODESET', 'CODESET');
+	}
 
 	$gallery->_phpVm = new AdminCoreControllerTestPhpVm('');
 
@@ -532,15 +455,15 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     function testAddUploadLocalServerDirRelativePath() {
 	/* Relative path should be converted to absolute (with realpath) */
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$saveDir = $platform->getcwd();
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.2');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -560,7 +483,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	$platform->chdir($saveDir);
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
@@ -593,8 +516,10 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     function testAddUploadLocalServerDirWithUmlaut() {
 	global $gallery;
 
-	/* Fake a specific charset to isolate this test */
-	GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
+	/* On windows boxes, we don't have the CODESET constant, so fake it */
+	if (!defined('CODESET')) {
+	    define('CODESET', 'CODESET');
+	}
 
 	$gallery->_phpVm = new AdminCoreControllerTestPhpVm('');
 	$platform = new UnitTestPlatform();
@@ -625,11 +550,11 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.2');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -654,7 +579,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	    $results);
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
@@ -666,23 +591,23 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryUtilities::putRequestVariable('form[action][removeUploadLocalServerDir]', 1);
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1', 'a');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.2', 'x');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.3', 'b');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.4', 'c');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.5');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -697,7 +622,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 	GalleryDataCache::reset();
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('a', $param['uploadLocalServer.dir.1']);
@@ -746,7 +671,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
     function testEmailTestSuccess() {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 	    $gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(true));
 	} else {
@@ -766,7 +691,7 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
 
     function testEmailTestFailure() {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	if (GalleryUtilities::isA($platform, 'WinNtPlatform')) {
 	    $gallery->setPlatform(new AdminCoreControllerTestWinNtPlatform(false));
 	} else {
@@ -791,8 +716,8 @@ class AdminCoreControllerTest extends GalleryControllerTestCase {
     }
 }
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/UnixPlatform.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlatform/WinNtPlatform.class');
 class AdminCoreControllerTestUnixPlatform extends UnixPlatform {
     function AdminCoreControllerTestUnixPlatform($succeed) {
 	$this->_succeed = $succeed;
@@ -813,7 +738,7 @@ class AdminCoreControllerTestWinNtPlatform extends WinNtPlatform {
 }
 
 /* Small mock url generator for the cookie path test */
-class AdminCoreControllerTestUrlGenerator {
+class AdminCoreControllerTestUrlGenrator {
     function getCurrentUrlDir($forceG2Base=false) {
 	if ($forceG2Base) {
 	    return 'http://www.example.com/sub/gallery2/';
@@ -847,6 +772,14 @@ class AdminCoreControllerTestPhpVm extends GalleryPhpVm {
 	    return true;
 	default:
 	    return function_exists($functionName);
+	}
+    }
+
+    function nl_langinfo($item) {
+	if ($item == CODESET) {
+	    return 'ISO-8859-1';
+	} else {
+	    return '';
 	}
     }
 

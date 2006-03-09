@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,8 +82,7 @@ class AdminModulesControllerTest extends GalleryControllerTestCase {
 				  'error' => array()),
 			    $results);
 
-	$this->assert($this->_testModule->wasCalled('installOrUpgrade'),
-		      'installOrUpgrade not called');
+	$this->assert($this->_testModule->wasCalled('installOrUpgrade'), 'installOrUpgrade not called');
     }
 
     /**
@@ -126,8 +125,7 @@ class AdminModulesControllerTest extends GalleryControllerTestCase {
 	$results = $this->handleRequest();
 	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
 						      'subView' => 'core.AdminModules'),
-				  'status' =>
-				  array('deactivated' => 'AdminModules Controller Test'),
+				  'status' => array('deactivated' => 'AdminModules Controller Test'),
 				  'error' => array()),
 			    $results);
 	$this->assert($this->_testModule->wasCalled('deactivate'), 'deactivate not called');
@@ -155,12 +153,10 @@ class AdminModulesControllerTest extends GalleryControllerTestCase {
 	$this->_testModule->_isActive = true;
 
 	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' =>
-				  array('view' => 'core.SiteAdmin',
-					'subView' => 'core.AdminModulesVerifyUninstall',
-					'moduleId' => 'AdminModulesControllerTest'),
-				  'status' =>
-				  array('uninstalled' => 'AdminModules Controller Test'),
+	$this->assertEquals(array('redirect' => array('view' => 'core.SiteAdmin',
+						      'subView' => 'core.AdminModulesVerifyUninstall',
+						      'moduleId' => 'AdminModulesControllerTest'),
+				  'status' => array('uninstalled' => 'AdminModules Controller Test'),
 				  'error' => array()),
 			    $results);
     }
@@ -193,27 +189,27 @@ class AdminModulesControllerTestModule {
 
     function init() {
 	$this->_setCalled('init');
-	return null;
+	return GalleryStatus::success();
     }
 
     function installOrUpgrade() {
 	$this->_setCalled('installOrUpgrade');
-	return null;
+	return GalleryStatus::success();
     }
 
     function autoConfigure() {
 	$this->_setCalled('autoConfigure');
-	return array(null, true);
+	return array(GalleryStatus::success(), true);
     }
 
     function activate() {
 	$this->_setCalled('activate');
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     function deactivate() {
 	$this->_setCalled('deactivate');
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     function _setCalled($function) {
@@ -233,12 +229,12 @@ class AdminModulesControllerTestModule {
 
     function isActive() {
 	$singleton = &$this->getSingleton();
-	return array(null, $singleton->_isActive);
+	return array(GalleryStatus::success(), $singleton->_isActive);
     }
 
     function needsConfiguration() {
 	$singleton = &$this->getSingleton();
-	return array(null, $singleton->_needsConfiguration);
+	return array(GalleryStatus::success(), $singleton->_needsConfiguration);
     }
 
     function translate($string) {

@@ -13,7 +13,7 @@
  * $Id$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,6 @@
 
 require_once(dirname(__FILE__) . '/GalleryStub.class');
 require_once(dirname(__FILE__) . '/InstallStep.class');
-require_once(dirname(__FILE__) . '/StatusTemplate.class');
 require_once(dirname(dirname(__FILE__)) . '/modules/core/classes/GalleryUtilities.class');
 define('INDEX_PHP', basename(__FILE__));
 
@@ -56,6 +55,7 @@ if (!function_exists('_')) {
 }
 
 /* Our install steps, in order */
+$stepOrder = array();
 $stepOrder[] = 'Welcome';
 $stepOrder[] = 'Authenticate';
 $stepOrder[] = 'SystemChecks';
@@ -74,48 +74,14 @@ foreach ($stepOrder as $stepName) {
     require("steps/$className.class");
 }
 
-/* Prevent session fixation attack by only accepting sessionIds of existing sessions */
-$sessionName = session_name();
-$sessionId = GalleryUtilities::getRequestVariablesNoPrefix($sessionName);
-if (empty($sessionId)) {
-    $sessionId = !empty($_COOKIE[$sessionName]) ? $_COOKIE[$sessionName] : '';
-}
-/* Remember whether cookies are supported */
-areCookiesSupported();
-/* Sanitize the sessionId */
-if (!empty($sessionId)) {
-    if (function_exists('preg_replace')) {
-	$sessionId = preg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
-    } else {
-	$sessionId = ereg_replace('/[^a-zA-Z0-9]/', '', $sessionId);
-    }
-    /* Make sure we don't use invalid data at a later point */
-    foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
-	unset($superGlobal[$sessionName]);
-    }
-    /*
-     * md5 has a 128 bit (32 * 4bit) string, but we want to allow for other possible
-     * hash functions too which possibly have hash strings of only 10 characters
-     */
-    if (strlen($sessionId) >= 10) {
-	session_id($sessionId);
-    }
-}
-
-if (@ini_get('session.save_handler') != 'files') {
-    @ini_set('session.save_handler','files');
+if (!ini_get('session.auto_start')) {
     session_start();
-} else if (!ini_get('session.auto_start')) {
-    session_start();
-} /* In case of session.auto_start we can't prevent showing errors for invalid sessionIds */
+}
 
 if (!isset($_SESSION['install_path'])) {
-    /* Empty session -> either new or a session fixation attack. Better regenerate */
-    regenerateSession();
     $_SESSION['install_path'] = __FILE__;
 } else if ($_SESSION['install_path'] != __FILE__) {
     /* Security error!  This session is not valid for this copy of the installer. Start over. */
-    regenerateSession();
     session_unset();
     $_SESSION['install_path'] = __FILE__;
 }
@@ -129,16 +95,12 @@ if (empty($_SESSION['language'])) {
 if (function_exists('dgettext')) {
     $gallery = new GalleryStub();
     $translator = new GalleryTranslator();
-    $translator->init($_SESSION['language'], true);
+    $translator->init($_SESSION['language']);
     unset($gallery);
     bindtextdomain('gallery2_install', dirname(__FILE__) . '/locale');
     textdomain('gallery2_install');
     if (function_exists('bind_textdomain_codeset')) {
 	bind_textdomain_codeset('gallery2_install', 'UTF-8');
-    }
-    /* Set the appropriate charset in our HTTP header */
-    if (!headers_sent()) {
-	header('Content-Type: text/html; charset=UTF-8');
     }
 }
 
@@ -204,10 +166,33 @@ if ($currentStep->processRequest()) {
     /* Round percentage to the nearest 5 */
     $templateData['errors'] = array();
     $currentStep->loadTemplateData($templateData);
+    $stepsComplete = max($stepNumber - ($currentStep->isComplete() ? 0 : 1), 0);
+    $templateData['percentComplete'] = (int)((100 * ($stepsComplete / (count($steps)-1))) / 5) * 5;
 
-    /* Render the output */
-    $template = new StatusTemplate();
-    $template->renderHeaderBodyAndFooter($templateData);
+    /* Fetch our page into a variable */
+    ob_start();
+    include(dirname(__FILE__) . '/templates/MainPage.html');
+    $html = ob_get_contents();
+    ob_end_clean();
+
+    /* Add session ids if we don't have cookies */
+    $html = addSessionIdToUrls($html);
+    print $html;
+}
+
+/**
+ * Add the session id to our url, if necessary
+ */
+function addSessionIdToUrls($html) {
+    /*
+     * SID is empty if we have a session cookie.
+     * If session.use_trans_sid is on then it will add the session id.
+     */
+    $sid = SID;
+    if (!empty($sid) && !ini_get('session.use_trans_sid')) {
+	$html = preg_replace('/href="(.*\?.*)"/', 'href="$1&amp;' . $sid . '"', $html);
+    }
+    return $html;
 }
 
 function processAutoCompleteRequest() {
@@ -254,12 +239,16 @@ function populateDataDirectory($dataBase) {
     if ($dataBase{strlen($dataBase)-1} != DIRECTORY_SEPARATOR) {
 	$dataBase .= DIRECTORY_SEPARATOR;
     }
-
+    
     /* Create the sub directories, if necessary */
     foreach (array('albums',
 		   'cache',
 		   'locks',
+		   'sessions',
 		   'tmp',
+		   'plugins',
+		   'plugins/modules',
+		   'plugins/themes',
 		   'plugins_data',
 		   'plugins_data/modules',
 		   'plugins_data/themes',
@@ -301,83 +290,6 @@ function populateDataDirectory($dataBase) {
     }
 
     return true;
-}
-
-/* Returns something like https://example.com */
-function getBaseUrl() {
-    /* Can't use GalleryUrlGenerator::makeUrl since it's an object method */
-    if (!($hostName = GalleryUtilities::getServerVar('HTTP_X_FORWARDED_SERVER'))) {
-	$hostName = GalleryUtilities::getServerVar('HTTP_HOST');
-    }
-    $protocol = (GalleryUtilities::getServerVar('HTTPS') == 'on') ? 'https' : 'http';
-
-    return sprintf('%s://%s', $protocol, $hostName);
-}
-
-/**
- * Mini url generator for the installer
- */
-function generateUrl($uri, $print=true) {
-    if (!strncmp($uri, 'index.php', 9)) {
-	/* Cookieless browsing: If session.use_trans_sid is on then it will add the session id. */
-	if (!areCookiesSupported() && !ini_get('session.use_trans_sid')) {
-	    /*
-	     * Don't use SID since it's a constant and we change (regenerate) the session id
-	     * in the request
-	     */
-	    $sid = session_name() . '=' . session_id();
-	    $uri .= !strpos($uri, '?') ? '?' : '&amp;';
-	    $uri .= $sid;
-	}
-    }
-
-    if ($print) {
-	print $uri;
-    }
-    return $uri;
-}
-
-/**
- * Regenerate the session id to prevent session fixation attacks
- * Must be called before starting to output any data since it tries to send a cookie
- */
-function regenerateSession() {
-    /* 1. Generate a new session id */
-    $newSessionId = md5(uniqid(substr(rand() . serialize($_REQUEST), 0, 114)));
-    $sessionData = array();
-    if (!empty($_SESSION) && is_array($_SESSION)) {
-	foreach ($_SESSION as $key => $value) {
-	    $sessionData[$key] = $value;
-	}
-    }
-    /* 2. Delete the old session */
-    session_unset();
-    session_destroy();
-    /* Create the new session with the old data, send cookie */
-    session_id($newSessionId);
-    $sessionName = session_name();
-    /* Make sure we don't use invalid data at a later point */
-    foreach (array($_GET, $_POST, $_REQUEST, $_COOKIE) as $superGlobal) {
-	unset($superGlobal[$sessionName]);
-    }
-    session_start();
-    foreach ($sessionData as $key => $value) {
-	$_SESSION[$key] = $value;
-    }
-}
-
-/**
- * Are cookies supported by the current user-agent?
- */
-function areCookiesSupported() {
-    static $areCookiesSupported;
-
-    /* Remember the state since we might unset $_COOKIE */
-    if (!isset($areCookiesSupported)) {
-	$areCookiesSupported = !empty($_COOKIE[session_name()]);
-    }
-
-    return $areCookiesSupported;
 }
 
 /*

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ class GalleryToolkit {
      *	       mixed the value of the property
      */
     function getProperty($mimeType, $propertyName, $sourceFilename) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED,
+	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED,
 					  __FILE__, __LINE__),
 		     null);
     }
@@ -86,7 +86,7 @@ class GalleryToolkit {
      */
     function performOperation($mimeType, $operationName, $sourceFilename,
 			      $destFilename, $parameters, $context=array()) {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null, null);
+	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null, null);
     }
 
     /**
@@ -213,13 +213,14 @@ class GalleryToolkit {
 	case 'resize':
 	case 'scale':
 	case 'thumbnail':
+	case 'composite':
 	    /* For like operations, the second operation takes precedence */
 	    return array(true, $operation2, $args2);
 	    break;
 
 	case 'rotate':
 	    /* Rotation is additive */
-	    $rotation = (360 + $args1[0] + $args2[0]) % 360;
+	    $rotation = ($args1[0] + $args2[0]) % 360;
 
 	    /* 0 rotation means the operation goes away */
 	    if ($rotation == 0) {

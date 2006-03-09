@@ -40,8 +40,8 @@
   {/if}
 
   {if !empty($showSummaries)}
-  {foreach from=$item.itemSummaries key=name item=summary}
-  <span class="summary-{$name} summary">
+  {foreach from=$item.itemSummaries item=summary}
+  <span class="summary">
     {$summary}
   </span>
   {/foreach}

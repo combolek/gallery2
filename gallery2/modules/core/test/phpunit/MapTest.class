@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,63 +39,65 @@ class MapTest extends GalleryTestCase {
     }
 
     function testAddNull() {
-	/* Ensure addMapEntry() method will accept null input values.. */
+	// Ensure addMapEntry() method will accept null input values..
 
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/GalleryToolkitOperationMap.class');
 	$name = 'test-' . rand();
-	$ret = GalleryCoreApi::addMapEntry(
-	    'GalleryToolkitOperationMap',
+
+	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test'));
 	$this->assert($ret->getErrorCode() & ERROR_BAD_PARAMETER, 'expect error for missing key');
-	if ($ret && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
+	if ($ret->isError() && !($ret->getErrorCode() & ERROR_BAD_PARAMETER)) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::addMapEntry(
-	    'GalleryToolkitOperationMap',
+	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => null));
-	$this->assert(!$ret, 'should succeed with null value');
-	if ($ret) {
+	$this->assert($ret->isSuccess(), 'should succeed with null value');
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
-	if ($ret) {
+	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function testUpdateNull() {
-	/* Ensure updateMapEntry() method will accept null input values.. */
+	// Ensure updateMapEntry() method will accept null input values..
+
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/GalleryToolkitOperationMap.class');
 	$name = 'test-' . rand();
-	$ret = GalleryCoreApi::addMapEntry(
-	    'GalleryToolkitOperationMap',
+
+	$ret = GalleryToolkitOperationMap::addMapEntry(
 	    array('name' => $name, 'parametersCrc' => 'test', 'outputMimeType' => 'test',
 		  'description' => 'test'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::updateMapEntry(
-	    'GalleryToolkitOperationMap',
+	$ret = GalleryToolkitOperationMap::updateMapEntry(
 	    array('name' => $name, 'outputMimeType' => 'test'),
 	    array('description' => null));
-	$this->assert(!$ret, 'should succeed setting null value');
-	if ($ret) {
+	$this->assert($ret->isSuccess(), 'should succeed setting null value');
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::updateMapEntry(
-	    'GalleryToolkitOperationMap',
+	$ret = GalleryToolkitOperationMap::updateMapEntry(
 	    array('name' => $name, 'description' => null),
 	    array('parametersCrc' => 'changed'));
-	$this->assert(!$ret, 'should succeed matching null value');
-	if ($ret) {
+	$this->assert($ret->isSuccess(), 'should succeed matching null value');
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::removeMapEntry('GalleryToolkitOperationMap', array('name' => $name));
-	if ($ret) {
+	$ret = GalleryToolkitOperationMap::removeMapEntry(array('name' => $name));
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }

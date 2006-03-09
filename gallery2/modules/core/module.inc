@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,30 +37,30 @@ class CoreModule extends GalleryModule {
 
 	$this->setId('core');
 	$this->setName($gallery->i18n('Core'));
-	$this->setGalleryVersion('2.1-rc-2');
+	$this->setGalleryVersion('2.0.4');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.0.33');
+	$this->setVersion('1.0.0.4');
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
-	$this->setGroup('gallery', $gallery->i18n('Gallery'));
+	$this->setGroup('gallery', $this->translate('Gallery'));
 	$this->setCallbacks('registerEventListeners|' .
 			    'getItemLinks|getSystemLinks|' .
 			    'getSiteAdminViews|getUserAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 2));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 7));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
      * @see GalleryModule::registerEventListeners();
      */
     function registerEventListeners() {
-	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryItemHelper_medium.class');
-	$handler = new GalleryItemHelper_medium();
-	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange', $handler);
-	GalleryCoreApi::registerEventListener('Gallery::RemovePermission', $handler);
-	GalleryCoreApi::registerEventListener('GalleryEntity::save', $handler);
-	GalleryCoreApi::registerEventListener('GalleryEntity::delete', $handler);
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/core/classes/helpers/GalleryItemHelper_medium.class');
+	GalleryCoreApi::registerEventListener('Gallery::ViewableTreeChange',
+					      new GalleryItemHelper_medium());
+	GalleryCoreApi::registerEventListener('Gallery::RemovePermission',
+					      new GalleryItemHelper_medium());
     }
 
     /**
@@ -68,7 +68,7 @@ class CoreModule extends GalleryModule {
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -85,13 +85,14 @@ class CoreModule extends GalleryModule {
 	 * user.
 	 */
 	list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fetch thumbnail ids */
-	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	if ($ret) {
+	list ($ret, $thumbTable) =
+	    GalleryCoreApi::fetchThumbnailsByItemIds($itemIds, DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -103,7 +104,7 @@ class CoreModule extends GalleryModule {
 
 	    /* Permissions for its parent */
 	    list ($ret, $parentPermissions) = GalleryCoreApi::getPermissions($item->getParentId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -137,13 +138,13 @@ class CoreModule extends GalleryModule {
 		    if ($isAlbum) {
 			list ($ret, $count) = GalleryCoreApi::fetchItemIdCount(
 			    'GalleryAlbumItem', 'core.addAlbumItem');
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else {
 			list ($ret, $count) = GalleryCoreApi::fetchItemIdCount(
 			    'GalleryAlbumItem', 'core.addDataItem');
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
@@ -226,7 +227,7 @@ class CoreModule extends GalleryModule {
 	    }
 
 	    if (!$isRoot && isset($thumbTable[$itemId]) &&
-		    isset($parentPermissions['core.edit'])) {
+		    isset($permissions[$itemId]['core.edit'])) {
 		$links[$itemId][] =
 		    array('text' => $this->_translate('Make Highlight'),
 			  'params' => array('view' => 'core.ItemAdmin',
@@ -247,7 +248,7 @@ class CoreModule extends GalleryModule {
 	    }
 	}
 
-	return array(null, $links);
+	return array(GalleryStatus::success(), $links);
     }
 
     /**
@@ -257,13 +258,13 @@ class CoreModule extends GalleryModule {
 	global $gallery;
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$links = array();
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -290,7 +291,7 @@ class CoreModule extends GalleryModule {
 	    }
 	}
 
-	return array(null, $links);
+	return array(GalleryStatus::success(), $links);
     }
 
     /**
@@ -301,9 +302,6 @@ class CoreModule extends GalleryModule {
 			    'view' => 'core.AdminCore'),
 		      array('name' => $this->translate('Modules'),
 			    'view' => 'core.AdminModules'),
-		      /* TODO: Add back Repository link when downloadable plugins is ready:
-		      array('name' => $this->translate('Repository'),
-			    'view' => 'core.AdminRepository'), */
 		      array('name' => $this->translate('Themes'),
 			    'view' => 'core.AdminThemes',
 			    'group' => 'display',
@@ -314,11 +312,9 @@ class CoreModule extends GalleryModule {
 			    'view' => 'core.AdminGroups'),
 		      array('name' => $this->translate('Maintenance'),
 			    'view' => 'core.AdminMaintenance'),
-		      array('name' => $this->translate('Performance'),
-			    'view' => 'core.AdminPerformance'),
 		      );
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($list)) {
@@ -327,7 +323,7 @@ class CoreModule extends GalleryModule {
 			    'group' => 'toolkits',
 			    'groupLabel' => $this->translate('Graphics Toolkits'));
 	}
-	return array(null, $data);
+	return array(GalleryStatus::success(), $data);
     }
 
     /**
@@ -338,7 +334,7 @@ class CoreModule extends GalleryModule {
 
 	if (GalleryCapabilities::can('login')) {
 	    list ($ret, $anonymousUserId) = $this->getParameter('id.anonymousUser');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -353,7 +349,7 @@ class CoreModule extends GalleryModule {
 	    }
 	}
 
-	return array(null, $views);
+	return array(GalleryStatus::success(), $views);
     }
 
     /**
@@ -362,14 +358,14 @@ class CoreModule extends GalleryModule {
     function getItemAdminViews($item) {
 	$views = array();
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$isAlbum = $item->getCanContainChildren();
 	if ($isAlbum) {
 	    list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
@@ -379,32 +375,31 @@ class CoreModule extends GalleryModule {
 
 	/* Fetch thumbnail ids */
 	list ($ret, $thumbTable) =
-	    GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	if ($ret) {
+	    GalleryCoreApi::fetchDerivativesBySourceIds(array($item->getId()),
+							DERIVATIVE_TYPE_IMAGE_THUMBNAIL);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$hasThumb = !empty($thumbTable[$item->getId()]);
 
 	$parentId = $item->getParentId();
 	list ($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
 	if (isset($permissions['core.edit'])) {
-	    if ($isAlbum && $childCount > 1) {
-		$views[] = array('name' => $this->_translate('Reorder Items'),
-				 'view' => 'core.ItemReorder');
-	    }
-	    if ($isAlbum && $childCount > 0) {
-		$views[] = array('name' => $this->_translate('Edit Captions'),
-				 'view' => 'core.ItemEditCaptions');
+	    if ($isAlbum) {
+		if ($childCount > 1) {
+		    $views[] = array('name' => $this->_translate('Reorder Items'),
+				     'view' => 'core.ItemReorder');
+		}
 	    }
 
 	    /* Edit view for all item types */
@@ -412,15 +407,12 @@ class CoreModule extends GalleryModule {
 				  array('text' => 'Edit %s', 'arg1' => $itemTypeNames[0]),
 				  $itemTypeNames[2]),
 			     'view' => 'core.ItemEdit');
-	    $views[] = array('name' => isset($permissions['core.changePermissions'])
-				 ? $this->_translate('Edit Permissions')
-				 : $this->_translate('View Permissions'),
-			     'view' => 'core.ItemPermissions');
-	}
 
-	if (!empty($parentId) && $hasThumb && isset($parentPermissions['core.edit'])) {
-	    $views[] = array('name' => $this->_translate('Make Highlight'),
-			     'view' => 'core.ItemMakeHighlight');
+	    if (!empty($parentId) && $hasThumb && $parentId != $rootId
+		    && isset($parentPermissions['core.edit'])) {
+		$views[] = array('name' => $this->_translate('Make Highlight'),
+				 'view' => 'core.ItemMakeHighlight');
+	    }
 	}
 
 	if (isset($permissions['core.viewSource']) && GalleryCapabilities::can('link')) {
@@ -428,13 +420,13 @@ class CoreModule extends GalleryModule {
 		if ($isAlbum) {
 		    list ($ret, $count) =
 			GalleryCoreApi::fetchItemIdCount('GalleryAlbumItem', 'core.addAlbumItem');
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    list ($ret, $count) =
 			GalleryCoreApi::fetchItemIdCount('GalleryAlbumItem', 'core.addDataItem');
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
@@ -463,17 +455,28 @@ class CoreModule extends GalleryModule {
 	    }
 	}
 
-	if (isset($permissions['core.addDataItem']) && $isAlbum) {
-	    $views[] = array('name' => $this->_translate('Add Items'),
-			     'view' => 'core.ItemAdd');
+	if (isset($permissions['core.edit'])) {
+	    $views[] = array('name' => isset($permissions['core.changePermissions'])
+				 ? $this->_translate('Edit Permissions')
+				 : $this->_translate('View Permissions'),
+			     'view' => 'core.ItemPermissions');
 	}
 
-	if (isset($permissions['core.addAlbumItem']) && $isAlbum) {
-	    $views[] = array('name' => $this->_translate('Add Album'),
-			     'view' => 'core.ItemAddAlbum');
+	if (isset($permissions['core.addDataItem'])) {
+	    if ($item->getCanContainChildren()) {
+		$views[] = array('name' => $this->_translate('Add Items'),
+				 'view' => 'core.ItemAdd');
+	    }
 	}
 
-	return array(null, $views);
+	if (isset($permissions['core.addAlbumItem'])) {
+	    if ($item->getCanContainChildren()) {
+		$views[] = array('name' => $this->_translate('Add Album'),
+				 'view' => 'core.ItemAddAlbum');
+	    }
+	}
+
+	return array(GalleryStatus::success(), $views);
     }
 
     /**
@@ -483,12 +486,12 @@ class CoreModule extends GalleryModule {
      * make sense to load it every single time.
      */
     function upgrade($currentVersion, $statusMonitor) {
-	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
+	GalleryCoreApi::relativeRequireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -519,7 +522,7 @@ class CoreModule extends GalleryModule {
 	static $versions;
 
 	if (!isset($versions)) {
-	    $platform =& $gallery->getPlatform();
+	    $platform = $gallery->getPlatform();
 	    $versionFile = $gallery->getConfig('data.gallery.base') . 'versions.dat';
 
 	    $moduleVersion = null;
@@ -540,12 +543,12 @@ class CoreModule extends GalleryModule {
      * @see GalleryModule::performFactoryRegistrations()
      */
     function performFactoryRegistrations() {
-	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
+	GalleryCoreApi::relativeRequireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::performFactoryRegistrations($this);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return null;
+	return GalleryStatus::success();
     }
 }
 ?>

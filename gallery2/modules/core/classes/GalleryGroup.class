@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryEntity.class');
 
 /**
  * Representation of a group of users
@@ -47,7 +47,13 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryEntity.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryGroup extends GalleryEntity {
+class GalleryGroup_core extends GalleryEntity {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
 
     /**
      * The group type
@@ -58,10 +64,10 @@ class GalleryGroup extends GalleryEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var int $groupType
-     * @access public
+     * @var int $_groupType
+     * @access private
      */
-    var $groupType;
+    var $_groupType;
 
     /**
      * The group name
@@ -73,10 +79,16 @@ class GalleryGroup extends GalleryEntity {
      * @g2   <unique/>
      * @g2 </member>
      *
-     * @var string $groupName
-     * @access public
+     * @var string $_groupName
+     * @access private
      */
-    var $groupName;
+    var $_groupName;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
 
     /**
      * Create a new instance of this GalleryGroup in the persistent store
@@ -100,24 +112,24 @@ class GalleryGroup extends GalleryEntity {
 	list($ret, $results) =
 	    $gallery->search($query, array($groupName),
 			     array('limit' => array('count' => 1)));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$result = $results->nextResult();
 	if ($result[0] > 0) {
-	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	$ret = parent::create();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setGroupName($groupName);
 	$this->setGroupType($groupType);
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -129,30 +141,24 @@ class GalleryGroup extends GalleryEntity {
      * @return object GalleryStatus a status code
      */
     function delete() {
-	/* Don't allow to delete the special groups (admin, registered, everybody) */
-	if ($this->getGroupType() != GROUP_NORMAL) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					 'Special groups cannot be deleted!');
-	}
-	
 	$ret = GalleryCoreApi::removeAllUsersFromGroup($this->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete all permissions from the permissions map table */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'GalleryAccessMap', array('userOrGroupId' => $this->getId()));
-	if ($ret) {
+	GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryAccessMap.class');
+	$ret = GalleryAccessMap::removeMapEntry(array('groupId' => $this->getId()));
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = parent::delete();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -161,34 +167,13 @@ class GalleryGroup extends GalleryEntity {
     function itemTypeName($localized = true) {
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
+	    if (! $ret->isError()) {
 		return array($core->translate('Group'), $core->translate('group'));
 	    }
 	}
 	return array('Group', 'group');
     }
-
-    /**
-     * @see GalleryEntity::getClassName()
-     */
-    function getClassName() {
-	return 'GalleryGroup';
-    }
-
-    function getGroupType() {
-	return $this->groupType;
-    }
-
-    function setGroupType($groupType) {
-	$this->groupType = $groupType;
-    }
-
-    function getGroupName() {
-	return $this->groupName;
-    }
-
-    function setGroupName($groupName) {
-	$this->groupName = $groupName;
-    }
 }
+
+include(dirname(__FILE__) . '/interfaces/GalleryGroup.inc');
 ?>

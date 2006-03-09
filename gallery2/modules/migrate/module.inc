@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,11 +39,11 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('migrate');
 	$this->setName($gallery->i18n('Migration'));
 	$this->setDescription($gallery->i18n('Migrate your Gallery 1 albums to Gallery 2'));
-	$this->setVersion('1.0.3');
-	$this->setGroup('import', $gallery->i18n('Import'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('import', $this->translate('Import'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -59,13 +59,28 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
     function handleEvent($event) {
 	$item = $event->getEntity();
 	if (GalleryUtilities::isA($item, 'GalleryItem')) {
-	    $ret = GalleryCoreApi::removeMapEntry('G1MigrateMap',
-						  array('itemId' => $item->getId()));
-	    if ($ret) {
+	    GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
+	    $ret = G1MigrateMap::removeMapEntry(array('itemId' => $item->_id));
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
-	return array(null, null);
+	return array(GalleryStatus::success(), null);
+    }
+
+    /**
+     * @see GalleryModule::isRecommendedDuringInstall
+     */
+    function isRecommendedDuringInstall() {
+	return true;
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure
+     */
+    function autoConfigure() {
+	/* We don't require any special configuration */
+	return array(GalleryStatus::success(), true);
     }
 
     /**
@@ -73,7 +88,7 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
      */
     function getSiteAdminViews() {
 	global $gallery;
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Gallery 1'),
 				 'view' => 'migrate.SelectGallery')));
     }
@@ -89,16 +104,11 @@ class MigrateModule extends GalleryModule /* and GalleryEventListener */ {
 	return array(
 	    array('comment' => $this->translate('G1-&gt;G2 Mapping'),
 		  'pattern' => '%path%',
-		  'parser' => 'preGallery',
 		  'keywords' => array('path' => array('pattern' => '([^?]+)',
 						      'help' => $this->translate('G1 path'))),
 		  'queryString' => array('controller' => 'migrate.Redirect'),
 		  'locked' => 1,
-		  'help' =>$this->translate(
-		      array('text' => 'G1 URL redirect. Use only if G2 is installed where G1 used' .
-			    ' to be and you have run a G1 import with the URL redirect option ' .
-			    'selected. Otherwise follow instructions in %sMigrate Site Admin%s.',
-			    'arg1' => '<a href="' . $url . '">', 'arg2' => '</a>'))
+		  'help' => $this->translate(array('text' => 'G1 URL redirect. Use only if G2 is installed where G1 used to be and you have run a G1 import with the URL redirect option selected. Otherwise follow instructions in %sMigrate Site Admin%s.', 'arg1' => '<a href="' . $url . '">', 'arg2' => '</a>'))
 	    )
 	);
     }

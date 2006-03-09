@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,14 +21,14 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Dcraw
+ * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
  * AdminDcraw controller tests
- * @package Dcraw
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class AdminDcrawControllerTest extends GalleryControllerTestCase {
@@ -43,7 +43,7 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'dcraw');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -55,15 +55,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
     function tearDown() {
 	$this->assert($this->_platform->isComplete(), $this->_platform->getRemaining());
 	parent::tearDown();
-    }
-
-    function _getParam($param) {
-	list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'dcraw', $param);
-	if ($ret) {
-	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	    return 'FAILED';
-	}
-	return $path;
     }
 
     function testSaveV562() {
@@ -84,9 +75,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 				  'error' => array(),
 				  'status' => array('saved' => 1)),
 			    $results);
-
-	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
-	$this->assertEquals('5.62', $this->_getParam('version'));
     }
 
     function testSaveV6() {
@@ -107,9 +95,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 				  'error' => array(),
 				  'status' => array('saved' => 1)),
 			    $results);
-
-	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
-	$this->assertEquals('6.35', $this->_getParam('version'));
     }
 
     function testSaveV7() {
@@ -130,32 +115,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 				  'error' => array(),
 				  'status' => array('saved' => 1)),
 			    $results);
-
-	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
-	$this->assertEquals('7.17', $this->_getParam('version'));
-    }
-
-    function testSaveV773() {
-	GalleryUtilities::putRequestVariable('form[path]', '/path/to/dcraw');
-	GalleryUtilities::putRequestVariable('form[action][save]', 1);
-
-	$this->_platform->setReply('isRestrictedByOpenBaseDir', array('/path/to/dcraw'), 0);
-	$this->_platform->setReply('is_file', array('/path/to/dcraw'), 1);
-	$this->_platform->setReply(
-	    'exec',
-	    array(array(array('/path/to/dcraw'))),
-	    array(1, array(), array('Raw Photo Decoder "dcraw" v7.73')));
-
-	$results = $this->handleRequest();
-	$this->assertEquals(array('redirect' => array(
-				      'view' => 'core.SiteAdmin',
-				      'subView' => 'dcraw.AdminDcraw'),
-				  'error' => array(),
-				  'status' => array('saved' => 1)),
-			    $results);
-
-	$this->assertEquals('/path/to/dcraw', $this->_getParam('path'));
-	$this->assertEquals('7.73', $this->_getParam('version'));
     }
 
     function testSaveMissingPath() {
@@ -196,10 +155,6 @@ class AdminDcrawControllerTest extends GalleryControllerTestCase {
 	    'exec',
 	    array(array(array('/path/to/dcraw'))),
 	    array(1, array(), array('Wrong version of dcraw')));
-	$this->_platform->setReply('realpath',
-	    array(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'core' . 
-			DIRECTORY_SEPARATOR . 'classes/../../..'),
-	    realpath(dirname(dirname(dirname(dirname(dirname(__FILE__)))))), true /*optional*/);
 
 	$results = $this->handleRequest();
 	$this->assertEquals(array('delegate' => array(

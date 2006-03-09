@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package Members
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class MembersCallbacks {
     /**
      */
@@ -35,24 +30,24 @@ class MembersCallbacks {
 	switch($callback) {
 	case 'LoadMembers':
 	    /* The "Members List" link */
-	    GalleryCoreApi::requireOnce(
+	    GalleryCoreApi::relativeRequireOnce(
 		'modules/members/classes/GalleryMembersHelper.class');
 	    list ($ret, $block['members']['LoadMembers']['canViewList']) =
 		GalleryMembersHelper::canViewMembersModule($gallery->getActiveUserId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* The members count */
 	    list ($ret, $block['members']['LoadMembers']['count']) =
 		GalleryMembersHelper::getMembersCount();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
-	    return null;
+	    return GalleryStatus::success();
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

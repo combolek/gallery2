@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@
 /**
  * Required classes
  */
-GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
-GalleryCoreApi::requireOnce('modules/imagemagick/classes/ImageMagickToolkit.class');
+GalleryCoreApi::relativeRequireOnce('modules/imagemagick/classes/ImageMagickToolkitHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/imagemagick/classes/ImageMagickToolkit.class');
 
 /**
  * Test ImageMagickToolkit functionality
@@ -66,13 +66,19 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	$this->_environments = $imEnvironment;
     }
 
+    /**
+     *
+     */
     function setUp() {
 	global $gallery;
 
 	parent::setUp();
 
+	$gallery->_platform =& new ImageMagickToolkitTestPlatform($gallery->getPlatform(),
+								  $this->_files);
+
 	$ret = $this->_markPluginParametersForCleanup('module', 'imagemagick');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
@@ -80,15 +86,11 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	/* Reset to the defaults -- tearDown will undo this */
 	foreach (array('jpegQuality' => 75) as $key => $value) {
 	    $ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', $key, $value);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
-
-	$this->_platform = new ImageMagickToolkitTestPlatform($gallery->getPlatform(),
-							      $this->_files);
-	$gallery->setPlatform($this->_platform);
 
 	/* Get a toolkit to work with */
 	$this->_toolkit =& new ImageMagickToolkit();
@@ -101,20 +103,22 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * @access private
      */
     function _setEnvironment($environment) {
+	global $gallery;
+
 	$environment['path'] = '/' . $environment['name'] . $environment['version'] . '/';
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick',
 						  'path', $environment['path']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_currentEnvironment = $environment;
-	$this->_platform->setEnvironment($environment);
+	$gallery->_platform->setEnvironment($environment);
 
 	$ret = ImageMagickToolkitHelper::savePlatformParameters();
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -144,7 +148,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	list ($ret, $outputMimeType) =
 	    $this->_toolkit->performOperation($mimeType, $operation,
 					      $src, $dst, $params);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$expected = $this->_currentEnvironment['operations'][$operation];
@@ -186,7 +190,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	$this->assertEquals($expected, $this->_files[$dst]['operation'],
 	    $this->_currentEnvironment['path'] . " $operation " . implode(' ', $params));
 
-	return null;
+	return GalleryStatus::success();
     }
 
     function testPerformOperations() {
@@ -198,7 +202,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					 'test[1000x1000].gif', 'output.gif',
 					 array(100),
 					 array('width' => 100, 'height' => 100));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -206,21 +210,21 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					 'test[1000x1000].jpg', 'output.jpg',
 					 array(100),
 					 array('width' => 100, 'height' => 100));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $this->_testOperation('image/tiff', 'rotate',
 					 'test.tiff', 'output.tiff',
 					 array(90), array('angle' => 90));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $this->_testOperation('image/bmp', 'rotate',
 					 'test.bmp', 'output.bmp',
 					 array(180), array('angle' => 180));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -229,21 +233,21 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					 array('24.667', '23.5', '51.375', '52'),
 					 array('width' => '329', 'height' => '250',
 					       'x' => '158', 'y' => '113'));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $this->_testOperation('image/gif', 'convert-to-image/png',
 					 'test.gif', 'output.png',
 					 array(), array());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $this->_testOperation('application/pdf', 'select-page',
 					 'test.pdf', 'output.pdf',
 					 array('2'), array());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -262,7 +266,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					       'height' => '50',
 					       'x' => '45',
 					       'y' => '0'));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -280,18 +284,18 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 					       'height' => '50',
 					       'x' => '0',
 					       'y' => '0'));
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    /* Test compress */
 	    $this->_files['compressMe.jpg']['size'] = 250 << 10;
-	    $this->_platform->_counter = 2;
+	    $gallery->_platform->_counter = 2;
 	    $ret = $this->_testOperation('image/jpeg', 'compress',
 					 'compressMe.jpg', 'compressed.jpg',
 					 array(150),
 					 array(), 58);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -299,7 +303,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$ret = $this->_testOperation('image/jpeg-cmyk', 'convert-to-image/jpeg',
 					     'cmyk.jpg', 'rgb.jpg',
 					     array(), array());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
@@ -316,8 +320,9 @@ class ImageMagickToolkitTest extends GalleryTestCase {
     }
 
     function testPngQuality() {
+	global $gallery;
 	$ret = GalleryCoreApi::setPluginParameter('module', 'imagemagick', 'jpegQuality', 94);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -333,7 +338,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	    $ret = $this->_testOperation('image/png', 'rotate',
 					 'qualityTestIn.png', 'qualityTestOut.png',
 					 array(90), array('angle' => 90), 95);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
@@ -346,7 +351,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * serves as a good test for our sequences.
      */
     function testOperationSequence() {
-	$this->_platform->_copyOk = true;
+	global $gallery;
+	$gallery->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -356,7 +362,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_toolkit->performOperation('image/png', 'thumbnail',
 						  'test[640x480].png', 'outputTmp.png',
 						  array('150'), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -377,7 +383,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						  'outputTmp.png', 'output.png',
 						  array('24.667', '23.5', '51.375', '52'),
 						  $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -403,7 +409,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * single operation.
      */
     function testOperationSequenceCropAndGeometrySeparate() {
-	$this->_platform->_copyOk = true;
+	global $gallery;
+	$gallery->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -414,7 +421,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						  'test[640x480].png', 'output1.png',
 						  array('24.667', '23.5', '51.375', '52'),
 						  $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -422,8 +429,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		array_merge(
 		    array('-quality', 75, '-crop', '329x250+158+113'),
 		    array('test[640x480].png', 'output1.png')),
-		$this->_files['output1.png']['operation']['convert'], 'output ' .
-		$this->_envName());
+		$this->_files['output1.png']['operation']['convert'], 'output ' . $this->_envName());
 	    $this->assertEquals(array('next.toolkit' => $this->_toolkit,
 				      'next.operation' => 'thumbnail',
 				      'width' => 329, 'height' => 250),
@@ -436,7 +442,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_toolkit->performOperation('image/png', 'thumbnail',
 						  'output1.png', 'output.png',
 						  array('150'), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -460,7 +466,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
      * for subsequent operations..
      */
     function testOperationSequenceSizeChange() {
-	$this->_platform->_copyOk = true;
+	global $gallery;
+	$gallery->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -472,7 +479,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 						  'test.png', 'output.png',
 						  array('320', '240'),
 						  $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -492,7 +499,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_toolkit->performOperation('image/png', 'rotate',
 						  'output.png', 'output.png',
 						  array('90'), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -510,7 +517,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_toolkit->performOperation('image/png', 'thumbnail',
 						  'output.png', 'output.png',
 						  array('150'), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -532,7 +539,8 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
     /* Ensure queued operations handle change of mime type correctly */
     function testOperationSequenceMimeChange() {
-	$this->_platform->_copyOk = true;
+	global $gallery;
+	$gallery->_platform->_copyOk = true;
 
 	foreach ($this->_environments as $environment) {
 	    $this->_setEnvironment($environment);
@@ -541,7 +549,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	    list ($ret, $outputMimeType, $context) =
 		$this->_toolkit->performOperation('application/pdf', 'convert-to-image/jpeg',
 						  'test.pdf', 'TEMPFILE', array(), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -559,7 +567,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 		$this->_toolkit->performOperation('image/jpeg', 'thumbnail',
 						  'TEMPFILE', 'output.jpg',
 						  array('150'), $context);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -583,14 +591,14 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $results) =
 		$this->_toolkit->getProperty('image/gif', 'dimensions', 'test[10x20].gif');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(array(10, 20), $results, 'dimensions ' . $this->_envName());
 
 	    list ($ret, $results) =
 		$this->_toolkit->getProperty('application/pdf', 'page-count', 'test.pdf');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(array(2), $results, 'page-count ' . $this->_envName());
@@ -598,7 +606,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	    if (in_array('image/jpeg-cmyk', $environment['mimeTypes'])) {
 		list ($ret, $results) =
 		    $this->_toolkit->getProperty('image/jpeg', 'colorspace', 'cmyk.jpg');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 		$this->assertEquals(array('CMYK'), $results, 'colorspace ' . $this->_envName());
@@ -689,7 +697,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $results) =
 		ImageMagickToolkitHelper::discoverMimeTypes($this->_currentEnvironment['path']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals($environment['mimeTypes'], $results);
@@ -701,7 +709,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 	    $this->_setEnvironment($environment);
 
 	    list ($ret, $results) = ImageMagickToolkitHelper::getOperationsAndProperties();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -866,7 +874,7 @@ class ImageMagickToolkitTest extends GalleryTestCase {
 
 	    list ($ret, $results) =
 		ImageMagickToolkitHelper::testBinaries($this->_currentEnvironment['path']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -909,7 +917,7 @@ class ImageMagickToolkitTestPlatform {
     function exec($cmd) {
 	list ($ret, $imageMagickPath) =
 	    GalleryCoreApi::getPluginParameter('module', 'imagemagick', 'path');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -1153,10 +1161,6 @@ class ImageMagickToolkitTestPlatform {
 
     function getcwd() {
 	return '/tmp';
-    }
-
-    function chmod($path, $mode=null) {
-	return true;
     }
 }
 ?>

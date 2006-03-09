@@ -4,8 +4,7 @@
  * may overwrite it.  Instead, copy it into a new directory called "local" and edit that
  * version.  Gallery will look for that file first and use it if it exists.
  *}
-{capture name="baseUrl"}{g->url arg1="controlle=migrate.Redirect"
-				forceSessionId=false forceFullUrl=true}{/capture}
+{capture name="baseUrl"}{g->url arg1="controlle=migrate.Redirect" forceSessionId=false}{/capture}
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{ldelim}REQUEST_FILENAME{rdelim} !-f

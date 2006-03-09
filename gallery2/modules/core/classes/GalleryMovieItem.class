@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryDataItem.class');
 
 /**
  * A subclass of DataItem for containing Movies
@@ -47,7 +47,13 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryDataItem.class');
  * @package GalleryCore
  * @subpackage Classes
  */
-class GalleryMovieItem extends GalleryDataItem {
+class GalleryMovieItem_core extends GalleryDataItem {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
 
     /**
      * The width of this movie.
@@ -58,10 +64,10 @@ class GalleryMovieItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $width
-     * @access public
+     * @var int $_width
+     * @access private
      */
-    var $width;
+    var $_width;
 
     /**
      * The height of this movie.
@@ -72,10 +78,10 @@ class GalleryMovieItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $height
-     * @access public
+     * @var int $_height
+     * @access private
      */
-    var $height;
+    var $_height;
 
     /**
      * The duration of the movie in seconds
@@ -86,10 +92,16 @@ class GalleryMovieItem extends GalleryDataItem {
      * @g2   <linked/>
      * @g2 </member>
      *
-     * @var int $duration
-     * @access public
+     * @var int $_width
+     * @access private
      */
-    var $duration;
+    var $_duration;
+
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
+     */
 
     /**
      * @see GalleryDataItem::canBeViewedInline()
@@ -120,20 +132,20 @@ class GalleryMovieItem extends GalleryDataItem {
      */
     function create($parentId, $videoFileName, $mimeType, $targetName=null, $symlink=false) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 
 	/* Validate the input filename */
 	if (empty($videoFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->file_exists($videoFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/* Create our data item */
 	$ret = parent::create($parentId, $videoFileName, $mimeType, $targetName, $symlink);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -147,16 +159,16 @@ class GalleryMovieItem extends GalleryDataItem {
 
 	/* Detect our dimensions, if possible */
 	$ret = $this->rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    /* Cleanup our datafile on failure */
 	    list ($ret2, $path) = $this->fetchPath();
-	    if (!$ret2) {
+	    if ($ret2->isSuccess()) {
 		@$platform->unlink($path);
 	    }
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -166,26 +178,26 @@ class GalleryMovieItem extends GalleryDataItem {
 	global $gallery;
 
 	$ret = parent::rescan();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $path) = $this->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$mimeType = $this->getMimeType();
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions-and-duration');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) =
 		$toolkit->getProperty($mimeType, 'dimensions-and-duration', $path);
-	    if ($ret) {
+	    if ($ret->isError()) {
 
 		/*
 		 * If we can't get the dimensions, it's probably a bad movie.
@@ -200,7 +212,7 @@ class GalleryMovieItem extends GalleryDataItem {
 	    $this->setDuration(round($dimensions[2]));
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -210,7 +222,7 @@ class GalleryMovieItem extends GalleryDataItem {
 	global $gallery;
 	if ($localized) {
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (! $ret) {
+	    if (! $ret->isError()) {
 		return array($core->translate('Movie'), $core->translate('movie'));
 	    }
 	}
@@ -228,10 +240,9 @@ class GalleryMovieItem extends GalleryDataItem {
 	switch($format) {
 	case 'HTML':
 	    $urlGenerator =& $gallery->getUrlGenerator();
-	    $src = $urlGenerator->generateUrl(
-		array('view' => 'core.DownloadItem', 'itemId' => $this->getId(),
-		      'serialNumber' => $this->getSerialNumber()),
-		array('forceFullUrl' => true, 'forceSessionId' => true));
+	    $src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
+						    'itemId' => $this->getId(),
+						    'serialNumber' => $this->getSerialNumber()));
 
 	    list ($width, $height) = array($this->getWidth(), $this->getHeight());
 	    switch($this->getMimeType()) {
@@ -291,36 +302,7 @@ class GalleryMovieItem extends GalleryDataItem {
 	    return null;
 	}
     }
-
-    /**
-     * @see GalleryEntity::getClassName()
-     */
-    function getClassName() {
-	return 'GalleryMovieItem';
-    }
-
-    function getWidth() {
-	return $this->width;
-    }
-
-    function setWidth($width) {
-	$this->width = $width;
-    }
-
-    function getHeight() {
-	return $this->height;
-    }
-
-    function setHeight($height) {
-	$this->height = $height;
-    }
-
-    function getDuration() {
-	return $this->duration;
-    }
-
-    function setDuration($duration) {
-	$this->duration = $duration;
-    }
 }
+
+include(dirname(__FILE__) . '/interfaces/GalleryMovieItem.inc');
 ?>

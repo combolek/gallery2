@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -128,15 +128,16 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	$ret = ExifHelper::setProperties($viewMode, $properties);
-	if ($ret) {
+	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
+	$ret = ExifPropertiesMap::setProperties($viewMode, $properties);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -148,8 +149,9 @@ class ExifHelper {
      * @static
      */
     function addDefaultIptcProperties($viewMode) {
-	list($ret, $properties) = ExifHelper::getProperties($viewMode);
-	if ($ret) {
+	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
+	list($ret, $properties) = ExifPropertiesMap::getProperties($viewMode);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -166,15 +168,15 @@ class ExifHelper {
 	    break;
 
 	default:
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	    return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
-	$ret = ExifHelper::setProperties($viewMode, $properties);
-	if ($ret) {
+	$ret = ExifPropertiesMap::setProperties($viewMode, $properties);
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -186,9 +188,9 @@ class ExifHelper {
      */
     function _fetchRawExifData($path, &$rawExifData) {
 	global $gallery;
-	GalleryCoreApi::requireOnce('modules/exif/lib/exifer/exif.inc');
+	GalleryCoreApi::relativeRequireOnce('modules/exif/lib/exifer/exif.inc');
 
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
 	    $rawExifData = null;
 	    return;
@@ -218,14 +220,14 @@ class ExifHelper {
      */
     function getIptcObject($path) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
 
+	$platform = $gallery->getPlatform();
 	if (!$platform->file_exists($path)) {
-	    return array(GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__,
 					      "Missing $path"),
 			 null);
 	}
-	GalleryCoreApi::requireOnce('modules/exif/lib/JPEG/JPEG.inc');
+	GalleryCoreApi::relativeRequireOnce('modules/exif/lib/JPEG/JPEG.inc');
 	$result = new JPEG($path);
 	if ($gallery->getDebug()) {
 	    /* Capture old-school print_r() to support older PHP */
@@ -235,7 +237,7 @@ class ExifHelper {
 	    ob_end_clean();
 	    $gallery->debug(str_replace("\0", '', $buf));
 	}
-	return array(null, $result);
+	return array(GalleryStatus::success(), $result);
     }
 
     /**
@@ -253,15 +255,16 @@ class ExifHelper {
 	$rawExifData = array();
 	ExifHelper::_fetchRawExifData($path, $rawExifData);
 	list ($ret, $iptcObj) = ExifHelper::getIptcObject($path);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$exifKeys = ExifHelper::getExifKeys();
 
 	$results = array();
-	list ($ret, $properties) = ExifHelper::getProperties($viewMode);
-	if ($ret) {
+	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifPropertiesMap.class');
+	list ($ret, $properties) = ExifPropertiesMap::getProperties($viewMode);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	foreach ($properties as $property) {
@@ -281,7 +284,7 @@ class ExifHelper {
 	    }
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 
     /**
@@ -338,27 +341,9 @@ class ExifHelper {
 			$time -= $offset;
 		    }
 		}
-		list ($ret, $format) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'format.datetime');
-		if ($ret || empty($format)) {
-		    $format = '$x $X';
-		}
-		$platform =& $gallery->getPlatform();
-		$value = $platform->strftime($format, $time);
+		$platform = $gallery->getPlatform();
+		$value = $platform->strftime('%x %X', $time);
 	    }
-	    break;
-
-	case 'ExposureBiasValue':
-	case 'FocalLength':
-	case 'FocalPlaneXResolution':
-	case 'FocalPlaneYResolution':
-	    /*
-	     * Round to two decimal places, sprintf must be feeded with non-localized floating
-	     * numbers (dot as decimal separator). sprintf('%.2f', '21.3725') returns a localized
-	     * decimal separator, but it does not accept '21,3725' as argument. Weird, but it's
-	     * like that.
-	     */
-	    $value = preg_replace('/(\d*)[\.,](\d{3,})/e', 'sprintf(\'%.2f\', $1.$2)', $value);
 	    break;
 	}
 
@@ -480,71 +465,6 @@ class ExifHelper {
 	}
 	$result = GalleryCoreApi::convertToUtf8($result, $sourceEncoding);
 	return $result;
-    }
-
-    /**
-     * Return the target properties for the given view mode
-     *
-     * @param int the view mode (EXIF_SUMMARY, etc)
-     * @return array object GalleryStatus a status code
-     *               array logical exif property names
-     * @static
-     */
-    function getProperties($viewMode) {
-	global $gallery;
-
-	$query = '
-        SELECT
-          [ExifPropertiesMap::property], [ExifPropertiesMap::viewMode], ' .
-	    '[ExifPropertiesMap::sequence]
-        FROM
-          [ExifPropertiesMap]
-        WHERE
-          [ExifPropertiesMap::viewMode] = ?
-        ORDER BY
-          [ExifPropertiesMap::sequence] ASC';
-	list ($ret, $searchResults) = $gallery->search($query, array((int)$viewMode));
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$data = array();
-	while ($result = $searchResults->nextResult()) {
-	    $data[] = $result[0];
-	}
-
-	return array(null, $data);
-    }
-
-    /**
-     * Set the target properties for the given view mode
-     *
-     * @param int the view mode (EXIF_SUMMARY, etc)
-     * @param array logical property key/value pairs
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function setProperties($viewMode, $properties) {
-
-	/* Remove all old map entries */
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'ExifPropertiesMap', array('viewMode' => $viewMode));
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	for ($i = 0; $i < sizeof($properties); $i++) {
-	    $ret = GalleryCoreApi::addMapEntry(
-		'ExifPropertiesMap',
-		array('property' => $properties[$i],
-		      'viewMode' => $viewMode,
-		      'sequence' => $i));
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	return null;
     }
 
     /**
@@ -907,70 +827,6 @@ class ExifHelper {
 	    array($gallery->i18n('Exif Image Height'), 'SubIFD.ExifImageHeight');
 	$data['ExifImageWidth'] =
 	    array($gallery->i18n('Exif Image Width'), 'SubIFD.ExifImageWidth');
-
-	/* EXIF GPS fields, see exifer/makers/gps.inc */
-	$data['GPS/Version'] =
-	    array($gallery->i18n('GPS: Version'), 'GPS.Version');
-	$data['GPS/LatitudeReference'] =
-	    array($gallery->i18n('GPS: Latitude Reference'), 'GPS.Latitude Reference');
-	$data['GPS/Latitude'] =
-	    array($gallery->i18n('GPS: Latitude'), 'GPS.Latitude');
-	$data['GPS/LongitudeReference'] =
-	    array($gallery->i18n('GPS: Longitude Reference'), 'GPS.Longitude Reference');
-	$data['GPS/Longitude'] =
-	    array($gallery->i18n('GPS: Longitude'), 'GPS.Longitude');
-	$data['GPS/AltitudeReference'] =
-	    array($gallery->i18n('GPS: Altitude Reference'), 'GPS.Altitude Reference');
-	$data['GPS/Altitude'] =
-	    array($gallery->i18n('GPS: Altitude'), 'GPS.Altitude');
-	$data['GPS/Time'] =
-	    array($gallery->i18n('GPS: Time'), 'GPS.Time');
-	$data['GPS/Satellite'] =
-	    array($gallery->i18n('GPS: Satellite'), 'GPS.Satellite');
-	$data['GPS/ReceiveStatus'] =
-	    array($gallery->i18n('GPS: Receive Status'), 'GPS.ReceiveStatus');
-	$data['GPS/MeasurementMode'] =
-	    array($gallery->i18n('GPS: Measurement Mode'), 'GPS.MeasurementMode');
-	$data['GPS/MeasurementPrecision'] =
-	    array($gallery->i18n('GPS: Measurement Precision'), 'GPS.MeasurementPrecision');
-	$data['GPS/SpeedUnit'] =
-	    array($gallery->i18n('GPS: Speed Unit'), 'GPS.SpeedUnit');
-	$data['GPS/ReceiverSpeed'] =
-	    array($gallery->i18n('GPS: Receiver Speed'), 'GPS.ReceiverSpeed');
-	$data['GPS/MovementDirectionRef'] =
-	    array($gallery->i18n('GPS: Movement Direction Reference'), 'GPS.MovementDirectionRef');
-	$data['GPS/MovementDirection'] =
-	    array($gallery->i18n('GPS: Movement Direction'), 'GPS.MovementDirection');
-	$data['GPS/ImageDirectionRef'] =
-	    array($gallery->i18n('GPS: Image Direction Reference'), 'GPS.ImageDirectionRef');
-	$data['GPS/ImageDirection'] =
-	    array($gallery->i18n('GPS: Movement Image Direction'), 'GPS.ImageDirection');
-	$data['GPS/GeodeticSurveyData'] =
-	    array($gallery->i18n('GPS: Geodetic Survey Data'), 'GPS.GeodeticSurveyData');
-	$data['GPS/DestLatitudeRef'] =
-	    array($gallery->i18n('GPS: Destination Latitude Reference'), 'GPS.DestLatitudeRef');
-	$data['GPS/DestinationLatitude'] =
-	    array($gallery->i18n('GPS: Destination Latitude'), 'GPS.DestinationLatitude');
-	$data['GPS/DestLongitudeRef'] =
-	    array($gallery->i18n('GPS: Destination Longitude Reference'), 'GPS.DestLongitudeRef');
-	$data['GPS/DestinationLongitude'] =
-	    array($gallery->i18n('GPS: Destination Longitude'), 'GPS.DestinationLongitude');
-	$data['GPS/DestBearingRef'] =
-	    array($gallery->i18n('GPS: Destination Bearing Reference'), 'GPS.DestBearingRef');
-	$data['GPS/DestinationBearing'] =
-	    array($gallery->i18n('GPS: Destination Bearing'), 'GPS.DestinationBearing');
-	$data['GPS/DestDistanceRef'] =
-	    array($gallery->i18n('GPS: Destination Distance Reference'), 'GPS.DestDistanceRef');
-	$data['GPS/DestinationDistance'] =
-	    array($gallery->i18n('GPS: Destination Distance'), 'GPS.DestinationDistance');
-	$data['GPS/ProcessingMethod'] =
-	    array($gallery->i18n('GPS: Processing Method'), 'GPS.ProcessingMethod');
-	$data['GPS/AreaInformation'] =
-	    array($gallery->i18n('GPS: Area Information'), 'GPS.AreaInformation');
-	$data['GPS/Datestamp'] =
-	    array($gallery->i18n('GPS: Datestamp'), 'GPS.Datestamp');
-	$data['GPS/DifferentialCorrection'] =
-	    array($gallery->i18n('GPS: Differential Correction'), 'GPS.DifferentialCorrection');
 
 	/* IPTC fields, see http://www.iptc.org/IIM/, if you have time to waste. */
 	$data['IPTC/SupplementalCategories'] =

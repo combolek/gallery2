@@ -1,14 +1,14 @@
     <h1><?php print _('Database Setup') ?></h1>
 
-    <p><?php print _('Please select your database type and enter your database authentication information.  The installer will not create the database for you, so you must create one yourself and enter the database name here.  If you are installing Gallery into a database that already has tables in it, the table and column prefixes will keep Gallery data from conflicting with what you already have.') ?> </p>
+    <p> <?php print _('Please select your database type and enter your database authentication information.  The installer will not create the database for you, so you must create one yourself and enter the database name here.  If you are installing Gallery into a database that already has tables in it, the table and column prefixes will keep Gallery data from conflicting with what you already have.') ?> </p>
 
     <?php if (isset($templateData['isMultisite']) && $templateData['isMultisite']): ?>
-    <div class="warning">
+    <p class="warning">
       <?php print _("This is a multisite installation. Remember that each multisite requires its own database tables. Either choose a different database or a different table prefix for each multisite!"); ?>
-    </div>
+    </p>
     <?php endif; ?>
 
-    <form method="post" action="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $stepNumber)) ?>">
+    <form method="post" action="">
       <table>
 	<tr>
 	  <td class="label">
@@ -29,10 +29,8 @@
 	</tr>
 	<?php if (!empty($templateData['error']['phpDbMissing'])): ?>
 	<tr>
-	  <td colspan="2">
-	    <div class="error">
-	      <?php print $templateData['error']['phpDbMissing'] ?>
-	    </div>
+	  <td colspan="2" class="error">
+	    <?php print $templateData['error']['phpDbMissing'] ?>
 	  </td>
 	</tr>
 	<?php endif; ?>
@@ -58,7 +56,7 @@
 	  <td class="label"><?php print _('DB Password:') ?></td>
 	  <td>
 	    <input name="password" type="password" size="30"
-	      value="<?php print $templateData['password'] ?>" />
+	      value="<?php print $templateData['config']['password'] ?>" />
 	  </td>
 	</tr>
 	<tr>
@@ -77,10 +75,8 @@
 	</tr>
 	<?php if (!empty($templateData['error']['tablePrefix'])): ?>
 	<tr>
-	  <td colspan="2">
-	    <div  class="error">
-	      <?php print $templateData['error']['tablePrefix'] ?>
-	    </div>
+	  <td colspan="2" class="error">
+	    <?php print $templateData['error']['tablePrefix'] ?>
 	  </td>
 	</tr>
 	<?php endif; ?>
@@ -93,10 +89,8 @@
 	</tr>
 	<?php if (!empty($templateData['error']['columnPrefix'])): ?>
 	<tr>
-	  <td colspan="2">
-	    <div class="error">
-	      <?php print $templateData['error']['columnPrefix'] ?>
-	    </div>
+	  <td colspan="2" class="error">
+	    <?php print $templateData['error']['columnPrefix'] ?>
 	  </td>
 	</tr>
 	<?php endif; ?>
@@ -104,11 +98,9 @@
     </form>
 
     <?php if (!empty($templateData['errors'])): ?>
-    <div class="error">
-      <h2>
-        <?php print _('We received the following database related errors:') ?>
-      </h2>
-    </div>
+    <h2 class="error">
+      <?php print _('We received the following database related errors:') ?>
+    </h2>
     <div class="debug">
       <?php print $templateData['databaseErrors'] ?>
     </div>
@@ -122,17 +114,17 @@
 
     <div class="go">
       <?php if (isset($templateData['showConfirmCleanInstall'])): ?>
-	  <div class="btn btn-warn"><span><span><span><span>
+      <span class="goToNextL">
 	<a href="javascript:document.forms[0].confirmCleanInstall.value='true'; document.forms[0].submit()"><?php print _('Erase Data For A Clean Install') ?></a>
-	  </span></span></span></span></div>
+      </span>
       <?php endif; ?>
-	  <div class="btn btn-continue"><span><span><span><span>
+      <span class="goToNext<?php if (isset($templateData['showConfirmReuseTables'])) print 'L' ?>">
 	<a href="javascript:document.forms[0].submit()"><?php print _('Save') ?></a>
-	  </span></span></span></span></div>
+      </span>
       <?php if (isset($templateData['showConfirmReuseTables'])): ?>
-	  <div class="btn btn-continue"><span><span><span><span>
+      <span class="goToNext">
 	<a href="javascript:document.forms[0].confirmReuseTables.value='true'; document.forms[0].submit()"><?php print _('Reuse Existing Tables') ?></a>
-	  </span></span></span></span></div>
+      </span>
       <?php endif; ?>
     </div>
 

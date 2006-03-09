@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,8 @@
  * @author Jay Rossiter <cryptographite@users.sf.net>
  */
 
-GalleryCoreApi::requireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateHelper.class');
+GalleryCoreApi::relativeRequireOnce('modules/migrate/classes/G1MigrateMap.class');
 
 /**
  * ConfirmImport controller tests
@@ -46,7 +47,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_temporaryAlbum) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -56,7 +57,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	$this->_temporaryAlbumId = $this->_temporaryAlbum->getId();
 
 	list ($ret, $this->_mapCount) = G1MigrateHelper::fetchMapCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -65,7 +66,7 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
 	global $gallery;
 
 	list ($ret, $mapCount) = G1MigrateHelper::fetchMapCount();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals($this->_mapCount, $mapCount, 'Test altered number of map entries!');
@@ -76,80 +77,70 @@ class MigrateEventHandlerTest extends GalleryControllerTestCase {
     function testMigrateDeleteEventHandler() {
 	// Create random album
 	list ($ret, $g1MapHandlerAlbum) = $this->_createRandomAlbum($this->_temporaryAlbumId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	// Add map entry for $g1MapHandlerAlbum
-	$ret = GalleryCoreApi::addMapEntry(
-	    'G1MigrateMap',
-	    array('itemId' => $g1MapHandlerAlbum->getId(),
-		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
-		  'g1item' => NULL));
-	if ($ret) {
+	$ret = G1MigrateMap::addMapEntry(array('itemId' => $g1MapHandlerAlbum->getId(),
+					'g1album' => $g1MapHandlerAlbum->getPathComponent(),
+					'g1item' => NULL));
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	// Create random data item
 	list ($ret, $g1MapHandlerItem) = $this->_createRandomDataItem($g1MapHandlerAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	// Add map entry for $g1MapHandlerItem
-	$ret = GalleryCoreApi::addMapEntry(
-	    'G1MigrateMap',
-	    array('itemId' => $g1MapHandlerItem->getId(),
-		  'g1album' => $g1MapHandlerAlbum->getPathComponent(),
-		  'g1item' => $g1MapHandlerItem->getPathComponent()));
-	if ($ret) {
+	$ret = G1MigrateMap::addMapEntry(array('itemId' => $g1MapHandlerItem->getId(),
+					'g1album' => $g1MapHandlerAlbum->getPathComponent(),
+					'g1item' => $g1MapHandlerItem->getPathComponent()));
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	// Verify album mapping
-	list ($ret, $mapping) =
-	    G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
-	if ($ret) {
+	list ($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($g1MapHandlerAlbum->getId(),
-			    $mapping, 'G1MigrateMap does not match Album Id');
+	$this->assertEquals($g1MapHandlerAlbum->getId(), $mapping, 'G1MigrateMap does not match Album Id');
 
 	// Verify item mapping
-	list ($ret, $mapping) = G1MigrateHelper::fetchMapping(
-	    $g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
-	if ($ret) {
+	list ($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$this->assertEquals($g1MapHandlerItem->getId(), $mapping,
-			    'G1MigrateMap does not match Item Id');
+	$this->assertEquals($g1MapHandlerItem->getId(), $mapping, 'G1MigrateMap does not match Item Id');
 
 	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 	$event->setEntity($g1MapHandlerItem);
 	list ($ret) = MigrateModule::handleEvent($event);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$event = GalleryCoreApi::newEvent('GalleryEntity::delete');
 	$event->setEntity($g1MapHandlerAlbum);
 	list ($ret) = MigrateModule::handleEvent($event);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	// Verify album mapping deleted
-	list ($ret, $mapping) =
-	    G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
-	if ($ret) {
+	list ($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent());
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(NULL, $mapping, 'G1MigrateMap does not match Album Id');
 
 	// Verify item mapping
-	list ($ret, $mapping) = G1MigrateHelper::fetchMapping(
-	    $g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
-	if ($ret) {
+	list ($ret, $mapping) = G1MigrateHelper::fetchMapping($g1MapHandlerAlbum->getPathComponent(), $g1MapHandlerItem->getPathComponent());
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(NULL, $mapping, 'G1MigrateMap does not match Item Id');

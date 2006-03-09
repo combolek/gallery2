@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Remote
+ * @package GalleryCore
  * @subpackage UserInterface
  * @author Bharat Mediratta <bharat@menalto.com>
  */
@@ -29,7 +29,7 @@
 /**
  * This ItemAdd plugin adds items uploaded from the web browser.
  *
- * @package Remote
+ * @package GalleryCore
  * @subpackage UserInterface
  */
 class ItemAddGalleryRemote extends ItemAddPlugin {
@@ -45,7 +45,7 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
 	$ItemAddGalleryRemote = array();
 	$template->setVariable('ItemAddGalleryRemote', $ItemAddGalleryRemote);
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/remote/templates/ItemAddGalleryRemote.tpl',
 		     'modules_remote');
     }
@@ -55,24 +55,23 @@ class ItemAddGalleryRemote extends ItemAddPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'remote');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $module->translate('Gallery Remote'));
+	return array(GalleryStatus::success(), $module->translate('Gallery Remote'));
     }
 
     /**
      * @see ItemAddPlugin::isAppropriate
      */
     function isAppropriate() {
-	list ($ret, $showItemAdd) =
-	    GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
-	if ($ret) {
+	list ($ret, $showItemAdd) = GalleryCoreApi::getPluginParameter('module', 'remote', 'showItemAdd');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $showItemAdd);
+	return array(GalleryStatus::success(), $showItemAdd);
     }
 }
 ?>

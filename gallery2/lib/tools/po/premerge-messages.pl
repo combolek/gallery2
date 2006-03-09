@@ -7,26 +7,19 @@
 #
 use strict;
 
-my $start = '^"Project-Id-Version';
-my $end = '^\s*$';
-if ($ARGV[0] == '-2') {
-  shift; # Keep portion of xx.po header in newly created xx_YY.po
-  $start = '^"POT-Creation-Date';
-  $end = '^"MIME-Version';
-}
 my $def_po = shift;
 my $ref_pot = shift;
 
 my @header;
 my $saving = 0;
-open(FD, "<$def_po") or exit;
+open(FD, "<$def_po") || die;
 while (<FD>) {
   chomp;
-  if (/$start/) {
+  if (/^\"Project-Id-Version/) {
     $saving = 1;
   }
 
-  if (/$end/) {
+  if (/^\s*$/) {
     $saving = 0;
   }
 
@@ -40,12 +33,12 @@ my @lines;
 my $replacing = 0;
 open(FD, "<$ref_pot") || die;
 while (<FD>) {
-  if (/$start/) {
+  if (/^\"Project-Id-Version/) {
     push(@lines, @header);
     $replacing = 1;
   }
 
-  if (/$end/) {
+  if (/^\s*$/) {
     $replacing = 0;
   }
 

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
  */
 
 /**
- * This is a helper class for interacting with PhotoWorks.com
+ * This is a helper class for interacting with PhotoAccess.com
  *
  * @package PhotoAccess
  * @subpackage Classes
@@ -36,62 +36,52 @@
 class PhotoAccessHelper {
 
     /**
-     * Print the items on photoworks.com and provide them with the given return url
+     * Print the items on photoaccess.com and provide them with the given return url
      *
      * @return array object GalleryStatus a status code
-     *               string the url to the photoworks.com cart
+     *               string the url to the photoaccess.com cart
      * @static
      */
     function printPhotos($cartItemIds, $returnUrl) {
 	global $gallery;
-	$urlGenerator =& $gallery->getUrlGenerator();
 	$itemIds = array_keys($cartItemIds);
 
 	/* Load the necessary item data */
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $thumbnails) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $resizes) = GalleryCoreApi::fetchResizesByItemIds($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $preferreds) = GalleryCoreApi::fetchPreferredsByItemIds($itemIds);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = GalleryCoreApi::studyPermissions($itemIds);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	/* We want to know which are viewable to guests */
-	list ($ret, $anonymousUserId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-	$ret = GalleryCoreApi::studyPermissions($itemIds, $anonymousUserId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$session =& $gallery->getSession();
 	$cartUrlFragment = $session->get('photoaccess.cartUrlFragment');
 
-	/* If we don't have a cart url that means we don't have a photoaccess session yet */
-	$photoAccessServer = 'www.photoworks.com';
+	/* If we don't have a cart url, that means we don't have a session so start with a new url */
+	$photoAccessServer = 'www.photoaccess.com';
 	if (empty($cartUrlFragment)) {
-	    $cartUrlFragment = '/sbo/anonCartXML.jsp';
+	    $cartUrlFragment = '/buy/anonCartXML.jsp';
 	}
+
+	$urlGenerator =& $gallery->getUrlGenerator();
 
 	/* Assemble all our data */
 	$entries = array();
@@ -100,22 +90,12 @@ class PhotoAccessHelper {
 	    $entry = array();
 
 	    list ($ret, $permissions) = GalleryCoreApi::getPermissions($itemId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    list ($ret, $publicPermissions) =
-		GalleryCoreApi::getPermissions($itemId, $anonymousUserId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
-	    if (!isset($permissions['photoaccess.print'])) {
-		/* Skip any cart items for which we don't have print permission */
-		continue;
-	    }
 	    if (isset($permissions['core.viewSource'])) {
 		$source = isset($preferreds[$itemId]) ? $preferreds[$itemId] : $item;
-		$needSession = !isset($publicPermissions['core.viewSource']);
 	    } else if (isset($permissions['core.viewResizes']) && !empty($resizes[$itemId])) {
 		$maxSize = null;
 		foreach ($resizes[$itemId] as $resize) {
@@ -125,55 +105,22 @@ class PhotoAccessHelper {
 			$maxSize = $size;
 		    }
 		}
-		$needSession = !isset($publicPermissions['core.viewResizes']);
 	    } else if (isset($thumbnails[$itemId])) {
 		$source = $thumbnails[$itemId];
-		$needSession = !isset($publicPermissions['core.view']);
 	    } else {
 		continue;
 	    }
 
-	    if ($needSession && !isset($paSession)) {
-		/*
-		 * Get G2 session for photoaccess to access non-public images.
-		 * We can't use this session because hijack protection will prevent access
-		 * plus the current user could logout before photoaccess retrieves the images.
-		 * Create a new session with the rights of current user for photoaccess to use.
-		 */
-		$paSession = new GallerySession();
-		$ret = $paSession->initEmpty(true, $gallery->getActiveUserId());
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-		/*
-		 * TODO: Would like to enforce a particular session timeout to ensure this
-		 * session lasts long enough for photoaccess to retrieve the images.  With
-		 * current file based sessions this would require modifying ctime of files
-		 * which we can't do.  Maybe if sessions move to the database we'll be able
-		 * to guarantee session lifetime.
-		 * When we can do this, maybe also store the sessionid in this session so we
-		 * can reuse it for multiple print requests (and just bump timeout each time).
-		 */
-		$ret = $paSession->save();
-		if ($ret) {
-		    return array($ret->wrap(__FILE__, __LINE__), null);
-		}
-	    }
-	    $sessionParam =
-		$needSession ? array($paSession->getKey() => $paSession->getId()) : array();
-
 	    $entry['id'] = $source->getId();
 	    $entry['imageUrl'] = $urlGenerator->generateUrl(
-		array_merge(array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
-			    $sessionParam),
-		array('forceSessionId' => false, 'forceFullUrl' => true));
+		array('view' => 'core.DownloadItem', 'itemId' => $source->getId()),
+		true);
 
 	    if (isset($thumbnails[$itemId])) {
 		$entry['thumbUrl'] = $urlGenerator->generateUrl(
-		    array_merge(array('view' => 'core.DownloadItem',
-				      'itemId' => $thumbnails[$itemId]->getId()),
-				$sessionParam),
-		    array('forceSessionId' => false, 'forceFullUrl' => true));
+		    array('view' => 'core.DownloadItem',
+			  'itemId' => $thumbnails[$itemId]->getId()),
+		    true);
 	    } else {
 		$entry['thumbUrl'] = '';
 	    }
@@ -188,7 +135,7 @@ class PhotoAccessHelper {
 	 *
 	 * <add-cart-request cobrand="CB_GP"
 	 *                   pricelist="1"
-	 *                   entry-page="/sbo/anonCart.jsp"
+	 *                   entry-page="/buy/anonCart.jsp"
 	 *                   return-url="http://localhost/anon/test.html">
 	 *     <image id="1" url="http://localhost/anon/John.jpg"
 	 *                   thumb-url="http://localhost/anon/John_BigThumb.jpg"
@@ -202,11 +149,11 @@ class PhotoAccessHelper {
 	 */
 	$lines = array();
 	$lines[] = sprintf('<add-cart-request cobrand="CB_GP" pricelist="1" ' .
-			   'entry-page="/sbo/anonCart.jsp" return-url="%s">', $returnUrl);
+			   'entry-page="/buy/anonCart.jsp" return-url="%s">', $returnUrl);
 	for ($i = 0; $i < sizeof($entries); $i++) {
 	    $lines[] = sprintf('<image id="%d" url="%s" thumb-url="%s" height="%d" width="%d"/>',
                 $entries[$i]['id'], $entries[$i]['imageUrl'], $entries[$i]['thumbUrl'],
-			       $entries[$i]['imageHeight'], $entries[$i]['imageWidth']);
+                $entries[$i]['imageWidth'], $entries[$i]['imageHeight']);
 	}
 	$lines[] = '</add-cart-request>';
 
@@ -231,8 +178,8 @@ class PhotoAccessHelper {
 	 * or:
 	 *
 	 * <add-cart-response
-	 *   request-url="/sbo/anonCartXML.jsp;jsessionid=XXXXXXXX?cb=CB_GP&#38;svr=clay"
-	 *   redirect-url="/sbo/anonCart.jsp;jsessionid=XXXXXXXX?cb=CB_GP&#38;svr=clay"/>
+	 *   request-url="/buy/anonCartXML.jsp;jsessionid=XXXXXXXX?cb=CB_GP&#38;svr=clay"
+	 *   redirect-url="/buy/anonCart.jsp;jsessionid=XXXXXXXX?cb=CB_GP&#38;svr=clay"/>
 	 */
 	if ($gallery->getDebug()) {
 	    $gallery->debug('Response Data');
@@ -248,7 +195,7 @@ class PhotoAccessHelper {
 		$urlGenerator->generateUrl(array('view' => 'photoaccess.FulfillmentError'));
 	}
 
-	return array(null, $redirectUrl);
+	return array(GalleryStatus::success(), $redirectUrl);
     }
 }
 ?>

@@ -1,132 +1,99 @@
 # File crc32 crc32(crlf) size size(crlf)  or  R File
 LICENSE	3778559985	3184057198	18011	18351
-README.html	4211782530	1218302668	72398	74518
-bootstrap.inc	612002498	124969522	1966	2016
-embed.php	416275236	2849018529	2487	2549
+README.html	2735161344	1736632391	68071	70021
+bootstrap.inc	3282863810	2329700379	1786	1828
+docs/DEVELOPER_GUIDELINES	1686673481	4170020250	2558	2615
+docs/EMBEDDING	2949374225	2836936300	7547	7689
+embed.php	2945000214	1517081112	1493	1529
 images/g2Logo.gif	1196739865	1196739865	6395	6395
 images/gallery.gif	2220981207	2220981207	1180	1180
 images/galleryLogo_sm.gif	1166401692	1166401692	3488	3488
 images/galleryLogo_sm.png	1945861746	1945861746	10222	10222
 images/xhtml10.png	1165418597	1165418597	321	321
-index.php	442072329	1737278171	1940	1991
-init.inc	2726326320	3835051766	7316	7513
-install/GalleryStub.class	1777183946	73876131	1224	1262
-install/InstallStep.class	3099617679	3422761660	2415	2524
-install/StatusTemplate.class	2320145545	2989525975	3330	3433
-install/config.php-template	1496501369	1595470988	7424	7599
+index.php	2543511426	1242933120	1606	1646
+init.inc	889559049	3397993137	6839	7017
+install/GalleryStub.class	2293725073	3959443030	1224	1262
+install/InstallStep.class	2505834344	3674563465	2415	2524
+install/config.php-template	3033210608	721129143	6035	6183
 install/images/background.png	2766840926	2766840926	23329	23329
-install/images/btnBGbl.gif	162020977	162020977	172	172
-install/images/btnBGgrn.gif	921048166	921048166	173	173
-install/images/btnBGor.gif	3886118901	3886118901	173	173
-install/images/btnBLbl.gif	929171289	929171289	172	172
-install/images/btnBLgrn.gif	676576556	676576556	171	171
-install/images/btnBLor.gif	3122183424	3122183424	172	172
-install/images/btnBRbl.gif	3553759478	3553759478	172	172
-install/images/btnBRgrn.gif	1593520250	1593520250	172	172
-install/images/btnBRor.gif	2239040372	2239040372	172	172
-install/images/btnTLbl.gif	752510677	752510677	171	171
-install/images/btnTLgrn.gif	1620552182	1620552182	171	171
-install/images/btnTLor.gif	1764133389	1764133389	171	171
-install/images/btnTRbl.gif	3306389985	3306389985	169	169
-install/images/btnTRgrn.gif	1466176462	1466176462	169	169
-install/images/btnTRor.gif	3506895090	3506895090	170	170
-install/images/g2Logo_install_head.png	2360733490	2360733490	13674	13674
-install/images/ico_error.gif	3087634832	3087634832	1608	1608
-install/images/ico_success.gif	1603034537	1603034537	1629	1629
-install/images/ico_warning.gif	3081259453	3081259453	1589	1589
-install/index.php	4268635632	201693200	11709	12097
-install/locale/bg/LC_MESSAGES/gallery2_install.mo	2112787314	2112787314	30178	30178
-install/locale/cs/LC_MESSAGES/gallery2_install.mo	2438416869	2438416869	48143	48143
-install/locale/de/LC_MESSAGES/gallery2_install.mo	250244443	250244443	51911	51911
-install/locale/en_GB/LC_MESSAGES/gallery2_install.mo	1715122067	1715122067	1001	1001
-install/locale/eu/LC_MESSAGES/gallery2_install.mo	801281101	801281101	48254	48254
-install/locale/fr/LC_MESSAGES/gallery2_install.mo	1929782343	1929782343	52759	52759
-install/locale/it/LC_MESSAGES/gallery2_install.mo	1727712773	1727712773	46918	46918
-install/locale/ja/LC_MESSAGES/gallery2_install.mo	1128042967	1128042967	46524	46524
-install/locale/lt/LC_MESSAGES/gallery2_install.mo	202718987	202718987	48171	48171
-install/locale/nl/LC_MESSAGES/gallery2_install.mo	251407058	251407058	49029	49029
-install/locale/pl/LC_MESSAGES/gallery2_install.mo	1170833260	1170833260	509	509
-install/locale/ru/LC_MESSAGES/gallery2_install.mo	129561104	129561104	68755	68755
-install/locale/sr/LC_MESSAGES/gallery2_install.mo	1340812651	1340812651	44733	44733
-install/locale/sv/LC_MESSAGES/gallery2_install.mo	3967862326	3967862326	47041	47041
-install/locale/tr/LC_MESSAGES/gallery2_install.mo	878242213	878242213	22226	22226
-install/locale/vi/LC_MESSAGES/gallery2_install.mo	2474308034	2474308034	49717	49717
-install/locale/zh_TW/LC_MESSAGES/gallery2_install.mo	3775903247	3775903247	45690	45690
+install/images/g2Logo_install_head.png	3946127092	3946127092	13743	13743
+install/index.php	240560992	4037229560	8776	9080
+install/locale/bg_BG/LC_MESSAGES/gallery2_install.mo	3778975357	3778975357	34018	34018
+install/locale/cs_CZ/LC_MESSAGES/gallery2_install.mo	190642582	190642582	46972	46972
+install/locale/de_DE/LC_MESSAGES/gallery2_install.mo	3387898369	3387898369	50922	50922
+install/locale/fr_FR/LC_MESSAGES/gallery2_install.mo	111927362	111927362	51644	51644
+install/locale/it_IT/LC_MESSAGES/gallery2_install.mo	938967306	938967306	49005	49005
+install/locale/ja_JP/LC_MESSAGES/gallery2_install.mo	3321462350	3321462350	10043	10043
+install/locale/nl_NL/LC_MESSAGES/gallery2_install.mo	1650491387	1650491387	47510	47510
+install/locale/sr_YU/LC_MESSAGES/gallery2_install.mo	1533763181	1533763181	48551	48551
+install/locale/tr_TR/LC_MESSAGES/gallery2_install.mo	4205732441	4205732441	21252	21252
+install/locale/vi_VN/LC_MESSAGES/gallery2_install.mo	2010822322	2010822322	54093	54093
+install/locale/zh_TW/LC_MESSAGES/gallery2_install.mo	3412285966	3412285966	44843	44843
 install/po/GNUmakefile	131239173	1173653828	126	132
-install/po/bg.po	617840761	3468218207	47423	48705
-install/po/cs.po	1769233022	3198872724	53635	54964
-install/po/de.po	1697031424	1316579040	58136	59532
-install/po/en_GB.po	2083553324	1698907327	52574	53907
-install/po/eu.po	2223456826	1094723649	53840	55191
-install/po/fr.po	842452717	2040122118	58574	59955
-install/po/it.po	3627616963	1714900867	55515	56897
-install/po/ja.po	486193810	1559355727	62340	63703
-install/po/lt.po	2037825451	2003089781	54288	55624
-install/po/nl.po	56900272	2201055510	54819	56177
-install/po/pl.po	2920548314	1324915715	28914	29994
-install/po/ru.po	432944054	2005970549	76862	78251
-install/po/sr.po	1203816282	3397919503	54293	55651
-install/po/strings.raw	2850145337	1653569396	26743	27085
-install/po/sv.po	3640523219	660126910	53599	54939
-install/po/tr.po	3339040899	1311438855	39085	40250
-install/po/vi.po	2573887892	2558611576	59886	61229
-install/po/zh_TW.po	672954730	747313750	51051	52304
-install/steps/AdminUserSetupStep.class	1374942772	3836562523	4273	4393
-install/steps/AuthenticateStep.class	2340074944	2684722738	3356	3463
-install/steps/CreateConfigFileStep.class	2692713329	4192764014	8055	8268
-install/steps/DatabaseSetupStep.class	923661396	2519974634	24035	24729
-install/steps/FinishedStep.class	1203079481	2286435677	1277	1314
-install/steps/InstallCoreModuleStep.class	3140207937	1478268403	9425	9668
-install/steps/InstallOtherModulesStep.class	287986794	3432294377	9700	9999
-install/steps/MultisiteStep.class	3224342462	528833667	6142	6314
-install/steps/SecureStep.class	1003575014	2190759275	2229	2289
-install/steps/StorageSetupStep.class	2485669188	1088214438	2806	2903
-install/steps/SystemChecksStep.class	1419660991	591996969	17235	17706
-install/steps/WelcomeStep.class	2276693853	1424831195	1465	1513
-install/styles/style.css	3342340958	3181552316	9186	9601
-install/templates/AdminUserSetupRequest.html	2665936849	1397545983	3653	3769
-install/templates/AdminUserSetupSuccess.html	4206166754	147542172	100	105
-install/templates/AuthenticateRequest.html	500598403	1259096118	1420	1443
-install/templates/AuthenticateSuccessful.html	1331499763	934077975	89	94
-install/templates/CleanInstallRequest.html	366032670	2688710446	1065	1089
-install/templates/CreateConfigFileFailed.html	104200828	156890698	478	495
-install/templates/CreateConfigFileInstructions.html	3620741697	1865660762	1383	1406
-install/templates/CreateConfigFileSuccess.html	1391408172	829188516	407	416
-install/templates/DatabaseSetupRequest.html	3965939744	1175895565	4812	4950
-install/templates/DatabaseSetupSuccess.html	920547944	825436087	90	95
-install/templates/Finished.html	3485087966	253751	740	757
-install/templates/Header.html	26338478	4088582083	660	683
-install/templates/InstallCoreModule.html	3406637923	1800050101	574	586
-install/templates/InstallCoreModuleError.html	2589349954	1077866568	1546	1574
-install/templates/InstallCoreModuleSuccess.html	1962461428	3347005861	434	443
-install/templates/InstallOtherModulesRequest.html	241814384	1069551249	4548	4662
-install/templates/InstallOtherModulesSuccess.html	2054838603	2083029200	1921	1966
-install/templates/MainPage.html	3184187006	937988509	6856	7019
+install/po/bg_BG.po	3828598914	3331212276	42797	43615
+install/po/cs_CZ.po	945902073	857497755	50011	51324
+install/po/de_DE.po	2303554622	1559105619	53639	55017
+install/po/fr_FR.po	1996710657	3473497421	53958	55326
+install/po/it_IT.po	2689477661	1574578990	50686	51509
+install/po/ja_JP.po	515719894	3905764166	32797	33853
+install/po/nl_NL.po	3646883327	1198358084	50573	51912
+install/po/sr_YU.po	2408320060	3808694649	49957	51012
+install/po/strings.raw	1368199359	2058910384	23099	23342
+install/po/tr_TR.po	2079754811	1382768391	35861	36670
+install/po/vi_VN.po	1935606658	1404553522	56234	57545
+install/po/zh_TW.po	3002931963	3140121840	46663	47870
+install/steps/AdminUserSetupStep.class	3087732259	1670000716	4055	4172
+install/steps/AuthenticateStep.class	698706208	643385129	3253	3358
+install/steps/CreateConfigFileStep.class	1204411494	1703522182	7968	8175
+install/steps/DatabaseSetupStep.class	1796937206	3410661263	22511	23130
+install/steps/FinishedStep.class	3820441645	1593505205	1266	1303
+install/steps/InstallCoreModuleStep.class	2056649915	3018064839	8838	9063
+install/steps/InstallOtherModulesStep.class	3659812977	2689573970	6230	6414
+install/steps/MultisiteStep.class	1087505177	3141230429	5575	5734
+install/steps/SecureStep.class	4204962592	2975120658	2105	2163
+install/steps/StorageSetupStep.class	275908262	1601949671	2657	2750
+install/steps/SystemChecksStep.class	2908095825	3073583563	11982	12291
+install/steps/WelcomeStep.class	3049046186	4119715779	1456	1504
+install/styles/style.css	4199101275	2470818439	5576	5915
+install/templates/AdminUserSetupRequest.html	1214780708	34821410	3344	3452
+install/templates/AdminUserSetupSuccess.html	644455683	2258371170	99	102
+install/templates/AuthenticateRequest.html	2769269784	4156153206	1332	1356
+install/templates/AuthenticateSuccessful.html	1366245043	667889745	88	91
+install/templates/CleanInstallRequest.html	902083867	1846236889	923	949
+install/templates/CreateConfigFileFailed.html	1314277462	1411016816	389	406
+install/templates/CreateConfigFileInstructions.html	4281534317	3482712874	1251	1272
+install/templates/CreateConfigFileSuccess.html	11555970	665652835	409	415
+install/templates/DatabaseSetupRequest.html	2785494807	3268794390	4568	4698
+install/templates/DatabaseSetupSuccess.html	1227430147	2793845913	91	94
+install/templates/Finished.html	1527095936	3421003182	675	692
+install/templates/InstallCoreModule.html	808273286	3214542436	560	570
+install/templates/InstallCoreModuleError.html	3822335836	186749089	1592	1618
+install/templates/InstallCoreModuleSuccess.html	3533069611	767193142	397	402
+install/templates/InstallOtherModulesRequest.html	1090559242	2842000584	4312	4428
+install/templates/InstallOtherModulesSuccess.html	231198070	2332916567	1568	1610
+install/templates/MainPage.html	191354215	918651958	4091	4210
 install/templates/ManifestSystemCheck.html	3337248559	2954323363	3375	3437
-install/templates/Multisite.html	2993730431	1274783118	4935	5034
-install/templates/MultisiteSuccess.html	3637549020	2095741799	206	216
-install/templates/NavBar.html	1952304065	963513540	1258	1297
-install/templates/Secure.html	3445463778	2382597693	2711	2763
-install/templates/StorageSetupRequest.html	1007782502	3473838913	6042	6163
-install/templates/StorageSetupSuccess.html	1056692906	3881909576	97	102
+install/templates/Multisite.html	2220147074	2963421280	4593	4680
+install/templates/MultisiteSuccess.html	3970797367	1580001307	193	201
+install/templates/Secure.html	1515592956	2705275122	2021	2063
+install/templates/StorageSetupRequest.html	3368758240	2780320626	6381	6503
+install/templates/StorageSetupSuccess.html	1369421874	3068035223	84	87
 install/templates/SystemChecks.html	3858186548	1672036693	1111	1150
-install/templates/VersionCheckFailed.html	2392876071	2711850686	1824	1885
-install/templates/Welcome.html	323427562	1324202276	1733	1765
+install/templates/VersionCheckFailed.html	1504259085	3904774529	1722	1779
+install/templates/Welcome.html	3771891509	4124095411	1609	1643
 lib/adodb/adodb-error.inc.php	77532951	4040964880	8544	8802
 lib/adodb/adodb-iterator.inc.php	3659028501	2126144351	1598	1682
 lib/adodb/adodb-lib.inc.php	961328343	984121911	31147	32150
 lib/adodb/adodb-perf.inc.php	1402422590	2299237798	30669	31722
 lib/adodb/adodb-php4.inc.php	1669925684	2721487400	322	338
 lib/adodb/adodb-time.inc.php	1928003692	589135776	38309	39596
-lib/adodb/adodb.inc.php	1397080260	1532612831	110446	114322
-lib/adodb/drivers/adodb-db2.inc.php	2454533083	2779510788	18230	18938
+lib/adodb/adodb.inc.php	564751406	846616384	110444	114320
 lib/adodb/drivers/adodb-mysql.inc.php	736436489	2484851888	20197	20962
 lib/adodb/drivers/adodb-mysqli.inc.php	3810395695	2029575170	22892	23797
 lib/adodb/drivers/adodb-mysqlt.inc.php	3238524927	1073388507	3155	3291
 lib/adodb/drivers/adodb-oci8.inc.php	252984552	295727008	42362	43839
 lib/adodb/drivers/adodb-oci805.inc.php	2168296824	3575527679	1581	1640
 lib/adodb/drivers/adodb-oci8po.inc.php	3651933450	2214443315	5503	5720
-lib/adodb/drivers/adodb-odbc.inc.php	199758350	395992292	19509	20246
 lib/adodb/drivers/adodb-oracle.inc.php	4014458939	1041881342	8987	9307
 lib/adodb/drivers/adodb-postgres.inc.php	3948024068	3653464705	521	535
 lib/adodb/drivers/adodb-postgres64.inc.php	238435762	2975266248	30508	31525
@@ -141,12 +108,10 @@ lib/adodb/readme.txt	3642036082	427593884	1671	1733
 lib/adodb/tohtml.inc.php	1880888250	1302270575	5527	5722
 lib/bbcode/README	1827601533	334588623	631	646
 lib/bbcode/bbcode.class	3568792804	380747630	18202	18787
-lib/javascript/AutoComplete.js	1742369564	862705274	9164	9456
-lib/javascript/BlockSelectWidget.js	1243752342	3594305303	19574	20190
-lib/javascript/BlockToggle.js	3317932221	222322817	1380	1415
-lib/javascript/XmlHttp.js	1952168086	3889258923	1754	1809
-lib/pear/HTMLSax3.php	3913894665	24504344	42833	44171
-lib/pear/Safe.php	2774090203	3040170256	17999	18667
+lib/javascript/AutoComplete.js	1531033816	3660729897	8599	8867
+lib/javascript/BlockSelectWidget.js	3683943412	1650253132	19574	20190
+lib/javascript/BlockToggle.js	3121215534	71592756	1380	1415
+lib/javascript/XmlHttp.js	1395091271	3407817180	1754	1809
 lib/smarty/COPYING.lib	2819441257	4217144802	24389	24847
 lib/smarty/Config_File.class.php	280373870	1894563025	12717	13106
 lib/smarty/README	2466752195	1693895370	3186	3266
@@ -220,1114 +185,147 @@ lib/smarty/plugins/modifier.wordwrap.php	1792394084	1768332614	565	593
 lib/smarty/plugins/outputfilter.trimwhitespace.php	2003755543	1480698520	2649	2724
 lib/smarty/plugins/shared.escape_special_chars.php	112759707	1344107215	726	756
 lib/smarty/plugins/shared.make_timestamp.php	2315225765	1449554211	1119	1164
-lib/smarty_plugins/modifier.entitytruncate.php	562427464	4129288720	2963	3040
-lib/smarty_plugins/modifier.ireplace.php	3180427379	3892883559	1439	1477
-lib/smarty_plugins/modifier.markup.php	379482413	4058248073	6247	6447
-lib/smarty_plugins/modifier.print_r.php	446853044	1466621661	1239	1275
-lib/smarty_plugins/modifier.repeat.php	3341375489	871250771	1192	1226
-lib/smarty_plugins/modifier.split.php	2571367552	3843227037	1310	1345
-lib/smarty_plugins/modifier.utf8.php	1482781641	1234639668	1226	1261
-lib/smtp/smtp.php	452454365	1118372581	5766	5945
-lib/support/cache.php	497587356	1658737476	4409	4566
-lib/support/gd.php	443675872	1526100726	7242	7487
-lib/support/index.php	912046756	3490298808	1313	1355
-lib/support/phpinfo.php	3303129836	2657748157	139	145
-lib/support/security.inc	3920275185	3469942833	4922	5100
+lib/smarty_plugins/modifier.entitytruncate.php	31515365	3299034963	2963	3040
+lib/smarty_plugins/modifier.ireplace.php	161288474	1449308531	1437	1475
+lib/smarty_plugins/modifier.markup.php	3111656753	287204917	6213	6411
+lib/smarty_plugins/modifier.print_r.php	4165893472	2908367814	1239	1275
+lib/smarty_plugins/modifier.repeat.php	2104292155	1919582484	1192	1226
+lib/smarty_plugins/modifier.split.php	3403085289	4070190151	1310	1345
+lib/smarty_plugins/modifier.utf8.php	3475215478	2812433108	1226	1261
+lib/smtp/smtp.php	525145079	1237039236	5928	6107
+lib/support/cache.php	3297836793	2272825774	3583	3713
+lib/support/gd.php	1070120424	1901386977	7875	8120
+lib/support/index.php	3204682359	3867551442	916	948
+lib/support/phpinfo.php	3402601152	388640268	154	164
+lib/support/security.inc	4123560894	1740855429	4937	5111
 lib/support/support.css	887804749	2618199775	793	849
+lib/tools/CRC32.jar	1123941207	1123941207	1236	1236
+lib/tools/GNUmakefile.inc	5924293	2734151353	608	619
 lib/tools/bin/.htaccess	421983041	3149581760	31	33
-lib/tools/bin/GNUmakefile.GalleryStorage	59425111	3439998927	988	1025
-lib/tools/bin/GNUmakefile.classes	875481188	1455723513	803	828
-lib/tools/bin/XmlParser.inc	661699572	1600732879	2432	2512
-lib/tools/bin/dbxml.tpl	1189412270	2590422693	1356	1410
-lib/tools/bin/entities.tpl	1926639038	871525141	781	796
-lib/tools/bin/extractClassXml.pl	1987079674	2958783943	1422	1484
-lib/tools/bin/generate-dbxml.php	2687442788	1604205370	8651	8963
-lib/tools/bin/generate-entities.php	1312129431	3593053773	5702	5908
-lib/tools/bin/generate-maps.php	1521969844	3546340130	3180	3293
-lib/tools/bin/generate-sql.php	4026343751	487515488	37519	38733
+lib/tools/bin/codex-download.tpl	2076781053	2454417630	2365	2447
+lib/tools/bin/extractClassXml.pl	431007447	3929168958	1259	1317
+lib/tools/bin/filterManifests.pl	4219568822	1455485770	1427	1500
 lib/tools/bin/getIllegalFunctions.pl	2694286659	3868382365	1197	1248
-lib/tools/bin/makeManifest.pl	2850213674	1459854603	4293	4479
-lib/tools/bin/maps.tpl	630391018	1965981581	481	487
-lib/tools/bin/rebuild-modules.pl	2721262392	211589498	465	481
-lib/tools/creator/GNUmakefile.tpl	4034380534	480088214	159	166
-lib/tools/creator/MyPage.inc.tpl	1328262831	695735545	3138	3246
-lib/tools/creator/MyPage.tpl.tpl	4104452985	3636842738	1427	1467
-lib/tools/creator/MyPageHelper.class.tpl	946113430	2842371581	2017	2090
-lib/tools/creator/create-module.php	753517275	1850083787	5222	5407
-lib/tools/creator/map.tpl	1080745876	25718043	515	536
-lib/tools/creator/module.inc.tpl	1789825528	4095728007	2019	2084
-lib/tools/dtd/DatabaseChangeDefinition2.0.dtd	1504463714	2133524373	1010	1035
-lib/tools/dtd/DatabaseRemoveDefinition2.0.dtd	326094190	4082287261	203	210
-lib/tools/dtd/DatabaseTableDefinition2.0.dtd	118093666	1731261693	652	669
-lib/tools/dtd/GalleryClass2.1.dtd	3901647794	1873521681	991	1017
-lib/tools/dtd/MapsDefinition2.0.dtd	4110984890	3658939786	828	849
-lib/tools/phpunit/CodeAuditTestCase.class	3732017498	216611198	4663	4833
-lib/tools/phpunit/GalleryControllerTestCase.class	2015403514	103993764	2823	2910
-lib/tools/phpunit/GalleryTestCase.class	3826271490	4001092241	24764	25676
-lib/tools/phpunit/ItemAddOptionTestCase.class	1816884479	3680725495	3215	3313
-lib/tools/phpunit/ItemAddPluginTestCase.class	3970204793	2412076827	3521	3628
-lib/tools/phpunit/ItemEditOptionTestCase.class	4181372513	3980667884	4373	4525
-lib/tools/phpunit/ItemEditPluginTestCase.class	1448389286	159875520	3422	3529
-lib/tools/phpunit/MockTemplateAdapter.class	4045739188	4036523352	1922	1990
-lib/tools/phpunit/UnitTestPlatform.class	3485904861	914670010	10608	10967
-lib/tools/phpunit/index.php	930996033	3963470511	11341	11698
-lib/tools/phpunit/index.tpl	3768006181	805680868	9784	10038
-lib/tools/phpunit/phpunit.inc	832799066	1192226931	22579	23343
-lib/tools/phpunit/stylesheet.css	1952326772	1179756497	1513	1634
+lib/tools/bin/makeManifest.pl	3913839410	3897275588	4138	4317
+lib/tools/bin/rebuild-modules.sh	1993824418	2568514311	398	415
+lib/tools/bin/update-codex-download-page.php	2643023147	2052393309	6789	7020
+lib/tools/dtd/DatabaseChangeDefinition2.0.dtd	1314505832	2724145460	797	817
+lib/tools/dtd/DatabaseRemoveDefinition2.0.dtd	1675466626	3810010920	129	134
+lib/tools/dtd/DatabaseTableDefinition2.0.dtd	3813059960	1521873026	610	626
+lib/tools/dtd/GalleryClass2.0.dtd	2814331582	2131603877	969	994
+lib/tools/phpunit/CodeAuditTestCase.class	3589071972	4174214092	4483	4650
+lib/tools/phpunit/GalleryControllerTestCase.class	1989273923	2391451996	2853	2940
+lib/tools/phpunit/GalleryTestCase.class	3594304091	562760905	23018	23856
+lib/tools/phpunit/ItemAddOptionTestCase.class	632355561	523517158	3248	3346
+lib/tools/phpunit/ItemAddPluginTestCase.class	4071311202	1680947289	3554	3661
+lib/tools/phpunit/ItemEditOptionTestCase.class	3921037208	3857094100	4536	4688
+lib/tools/phpunit/ItemEditPluginTestCase.class	4176956092	2433813660	3431	3537
+lib/tools/phpunit/MockTemplateAdapter.class	2108389071	284645965	1973	2041
+lib/tools/phpunit/UnitTestPlatform.class	1928931572	2627591462	9852	10189
+lib/tools/phpunit/index.php	3237443525	358440152	6736	6960
+lib/tools/phpunit/index.tpl	3232203125	1223037588	8162	8382
+lib/tools/phpunit/phpunit.inc	21831659	3521135413	22321	23077
+lib/tools/phpunit/stylesheet.css	117823117	1901599595	1433	1546
 lib/tools/po/.htaccess	3087127056	3127319940	47	50
-lib/tools/po/GNUmakefile.inc	4112963813	4225165834	3633	3749
-lib/tools/po/extract.php	1340025780	3223138563	7816	8066
-lib/tools/po/header.pl	3222888357	2704325639	986	1012
-lib/tools/po/header.txt	1923518662	3153667514	867	885
-lib/tools/po/premerge-messages.pl	3726868671	3199359966	912	970
+lib/tools/po/GNUmakefile.inc	979447572	2908872185	3005	3102
+lib/tools/po/extract.php	359240904	186429390	6093	6293
+lib/tools/po/extract.pl	1443901810	512073861	4087	4234
+lib/tools/po/header.txt	1539249356	1573385557	839	857
+lib/tools/po/premerge-messages.pl	2083006969	3258359981	735	786
 lib/tools/po/shtool	2882826200	4174946454	23738	24454
-lib/tools/po/trim-po.php	3124348264	1816572257	2181	2254
-lib/tools/po/update-all-translations.pl	127837999	3103916094	3780	3938
-lib/tools/reports/localization.php	2174868934	2580305320	8694	9041
-lib/tools/reports/localization/main_detail.inc	144512146	37632343	1866	1914
-lib/tools/reports/localization/main_summary.inc	1137854390	2754966556	2052	2110
-lib/tools/reports/localization/plugin_rowdata.inc	2749549635	2198865875	1014	1043
+lib/tools/po/update-all-translations.pl	1844073117	3353578467	2392	2499
+lib/tools/reports/localization.php	4103761103	1356822711	8538	8887
+lib/tools/reports/localization/main_detail.inc	1636060856	2342370431	1775	1821
+lib/tools/reports/localization/main_summary.inc	2283838678	1340429384	1968	2024
+lib/tools/reports/localization/plugin_rowdata.inc	2453289316	3681605192	1012	1041
 lib/tools/reports/localization/row_header_detail.inc	1624705811	2384764330	365	397
 lib/tools/reports/localization/row_header_summary.inc	4061216132	3874970834	295	321
-lib/tools/reports/localization/style.css	3212714870	1398464441	1524	1582
-lib/tools/repository/IndexGenerator.inc	2179340955	1798122181	2428	2503
-lib/tools/repository/MainPage.inc	3595626950	3866564652	2399	2467
-lib/tools/repository/PackagePlugin.inc	1048667894	3972286936	6352	6556
-lib/tools/repository/RepositoryManager.inc	2479084039	1785329520	3818	3931
-lib/tools/repository/classes/RepositoryControllerAndView.class	3811172240	1788485857	2973	3064
-lib/tools/repository/classes/RepositoryDescriptor.class	768216169	3357846746	11476	11860
-lib/tools/repository/classes/RepositoryIndex.class	1621822664	2542053415	8092	8335
-lib/tools/repository/classes/RepositoryObject.class	2403234181	2396616345	6293	6515
-lib/tools/repository/classes/RepositoryPackage.class	4203749229	193122113	6136	6324
-lib/tools/repository/index.php	3477279753	2665472946	3760	3878
-lib/tools/repository/templates/IndexGenerationResults.tpl	4132425897	715345008	681	697
-lib/tools/repository/templates/MainPage.tpl	1540153781	1531252840	1550	1598
-lib/tools/repository/templates/PackagePlugin.tpl	1879753614	582251776	1717	1773
-lib/tools/repository/templates/PackageRemovalResults.tpl	815319763	489242935	951	989
-lib/tools/repository/templates/PackageResults.tpl	696383687	3680087762	1277	1323
-lib/tools/repository/templates/RepositoryManager.tpl	3568789808	2085963362	1640	1699
-lib/tools/repository/templates/package.tpl	691805757	1183866616	570	592
-lib/tools/repository/templates/stylesheet.css	3092442100	1343845795	1512	1631
-lib/tools/repository/test/data/SampleDescriptors.inc	3720177841	654249606	9630	9895
-lib/tools/repository/test/data/SampleIndex.inc	2540359321	3060410067	2492	2562
-lib/tools/repository/test/data/testShowViewTemplate.tpl	3021762416	3854479862	8	9
-lib/tools/repository/test/phpunit/RepositoryControllerAndViewTest.class	539026214	730271823	1844	1900
-lib/tools/repository/test/phpunit/RepositoryDescriptorTest.class	3189797430	3154398512	13149	13592
-lib/tools/repository/test/phpunit/RepositoryObjectTest.class	3777778579	369153762	4080	4196
-lib/tools/repository/test/phpunit/RepositoryPackageTest.class	3462839664	1518274287	8754	9009
-lib/tools/repository/test/phpunit/RepositoryTestTemplate.class	996218485	2927974365	2019	2088
-lib/tools/repository/test/phpunit/RepositoryToolsIndexTest.class	3200768206	98675159	5160	5319
+lib/tools/reports/localization/style.css	4249298283	2086969677	1524	1582
 lib/tools/stubs/.htaccess	3087127056	3127319940	47	50
 lib/tools/stubs/README	1151385191	4022774953	302	308
-lib/tools/stubs/Smarty_stub.class	2787424404	3329876977	1076	1110
-lib/tools/stubs/TestCase_stub.class	2471758023	1604889499	1081	1115
+lib/tools/stubs/Smarty_stub.class	1114256755	376228750	1076	1110
+lib/tools/stubs/TestCase_stub.class	1451617228	3665428432	1081	1115
 lib/tools/uml/GNUmakefile	3017185505	848639846	105	113
-lib/tools/uml/JavaClasses.xsl	742229467	3652984814	2212	2265
+lib/tools/uml/JavaClasses.xsl	1301723047	3945700576	2212	2265
 lib/tools/uml/make-java-classes.pl	3765624927	2605669075	2734	2840
 lib/wz_dragdrop/transparentpixel.gif	140141401	140141401	43	43
 lib/wz_dragdrop/wz_dragdrop.js	3756427581	4136821188	38687	40134
-main.php	1526320793	1382323719	20663	21279
-upgrade/GalleryStub.class	3923355715	3092239159	1200	1238
-upgrade/StatusTemplate.class	894767277	1793118899	3322	3425
-upgrade/UpgradeStep.class	1279486868	3692805316	2415	2524
+main.php	2399265406	3504371123	14750	15196
+upgrade/GalleryStub.class	3606521607	1233262600	1200	1238
+upgrade/StatusTemplate.class	2600326803	1298051873	3342	3445
+upgrade/UpgradeStep.class	1641610611	3407736305	2415	2524
 upgrade/images/background.png	2766840926	2766840926	23329	23329
-upgrade/images/btnBGbl.gif	162020977	162020977	172	172
-upgrade/images/btnBGgrn.gif	921048166	921048166	173	173
-upgrade/images/btnBGor.gif	3886118901	3886118901	173	173
-upgrade/images/btnBLbl.gif	929171289	929171289	172	172
-upgrade/images/btnBLgrn.gif	676576556	676576556	171	171
-upgrade/images/btnBLor.gif	3122183424	3122183424	172	172
-upgrade/images/btnBRbl.gif	3553759478	3553759478	172	172
-upgrade/images/btnBRgrn.gif	1593520250	1593520250	172	172
-upgrade/images/btnBRor.gif	2239040372	2239040372	172	172
-upgrade/images/btnTLbl.gif	752510677	752510677	171	171
-upgrade/images/btnTLgrn.gif	1620552182	1620552182	171	171
-upgrade/images/btnTLor.gif	1764133389	1764133389	171	171
-upgrade/images/btnTRbl.gif	3306389985	3306389985	169	169
-upgrade/images/btnTRgrn.gif	1466176462	1466176462	169	169
-upgrade/images/btnTRor.gif	3506895090	3506895090	170	170
-upgrade/images/g2Logo_upgrade_head.png	2325312367	2325312367	16522	16522
-upgrade/images/ico_error.gif	3087634832	3087634832	1608	1608
-upgrade/images/ico_success.gif	1603034537	1603034537	1629	1629
-upgrade/images/ico_warning.gif	3081259453	3081259453	1589	1589
-upgrade/index.php	1784891709	2198845368	10602	10942
-upgrade/locale/bg/LC_MESSAGES/gallery2_upgrade.mo	3821634591	3821634591	13746	13746
-upgrade/locale/cs/LC_MESSAGES/gallery2_upgrade.mo	3524382294	3524382294	24682	24682
-upgrade/locale/de/LC_MESSAGES/gallery2_upgrade.mo	3323806594	3323806594	25981	25981
-upgrade/locale/eu/LC_MESSAGES/gallery2_upgrade.mo	1556207193	1556207193	24507	24507
-upgrade/locale/fr/LC_MESSAGES/gallery2_upgrade.mo	2139406547	2139406547	28537	28537
-upgrade/locale/it/LC_MESSAGES/gallery2_upgrade.mo	4236405618	4236405618	22253	22253
-upgrade/locale/ja/LC_MESSAGES/gallery2_upgrade.mo	1690660397	1690660397	23090	23090
-upgrade/locale/nl/LC_MESSAGES/gallery2_upgrade.mo	1487169425	1487169425	23782	23782
-upgrade/locale/pl/LC_MESSAGES/gallery2_upgrade.mo	1741796245	1741796245	508	508
-upgrade/locale/ru/LC_MESSAGES/gallery2_upgrade.mo	1924261623	1924261623	32713	32713
-upgrade/locale/sr/LC_MESSAGES/gallery2_upgrade.mo	726682961	726682961	20718	20718
-upgrade/locale/sv/LC_MESSAGES/gallery2_upgrade.mo	3413112405	3413112405	22755	22755
-upgrade/locale/tr/LC_MESSAGES/gallery2_upgrade.mo	2123729205	2123729205	23207	23207
-upgrade/locale/vi/LC_MESSAGES/gallery2_upgrade.mo	2172650368	2172650368	22914	22914
-upgrade/locale/zh_TW/LC_MESSAGES/gallery2_upgrade.mo	2841943253	2841943253	24645	24645
+upgrade/images/g2Logo_upgrade_head.png	1726989153	1726989153	16605	16605
+upgrade/index.php	4000530580	2201736078	7223	7466
+upgrade/locale/bg_BG/LC_MESSAGES/gallery2_upgrade.mo	1161926918	1161926918	14717	14717
+upgrade/locale/cs_CZ/LC_MESSAGES/gallery2_upgrade.mo	389313267	389313267	21105	21105
+upgrade/locale/de_DE/LC_MESSAGES/gallery2_upgrade.mo	2438012454	2438012454	22754	22754
+upgrade/locale/fr_FR/LC_MESSAGES/gallery2_upgrade.mo	1061002753	1061002753	22561	22561
+upgrade/locale/it_IT/LC_MESSAGES/gallery2_upgrade.mo	505008495	505008495	21758	21758
+upgrade/locale/nl_NL/LC_MESSAGES/gallery2_upgrade.mo	1891264761	1891264761	20733	20733
+upgrade/locale/sr_YU/LC_MESSAGES/gallery2_upgrade.mo	3712968139	3712968139	21669	21669
+upgrade/locale/tr_TR/LC_MESSAGES/gallery2_upgrade.mo	1705666800	1705666800	21326	21326
+upgrade/locale/vi_VN/LC_MESSAGES/gallery2_upgrade.mo	904944101	904944101	24023	24023
+upgrade/locale/zh_TW/LC_MESSAGES/gallery2_upgrade.mo	300254964	300254964	20089	20089
 upgrade/po/GNUmakefile	3981272167	3303981136	126	132
-upgrade/po/bg.po	2728126616	1657227695	23631	24348
-upgrade/po/cs.po	1050495195	3967260247	27199	27941
-upgrade/po/de.po	561718083	1144681414	29148	29918
-upgrade/po/eu.po	2087416767	411133109	27261	28016
-upgrade/po/fr.po	2176203840	3804083111	30470	31242
-upgrade/po/it.po	1582011527	1093046174	27278	28033
-upgrade/po/ja.po	1759173900	1949092258	29900	30640
-upgrade/po/nl.po	2020508543	3682370576	27186	27932
-upgrade/po/pl.po	1100428393	401211556	15933	16566
-upgrade/po/ru.po	380320852	2109649547	36983	37749
-upgrade/po/sr.po	1409946829	3218369254	26573	27324
-upgrade/po/strings.raw	2809075987	1340353798	14350	14554
-upgrade/po/sv.po	2224889196	1641541105	26751	27495
-upgrade/po/tr.po	1614181194	670572211	27453	28205
-upgrade/po/vi.po	2755020909	2614582173	28980	29718
-upgrade/po/zh_TW.po	1082349713	3096814989	26285	26992
-upgrade/steps/AuthenticateStep.class	1275820792	2971705803	1735	1788
-upgrade/steps/CleanCacheStep.class	2445561931	4063300612	2436	2509
-upgrade/steps/FinishedStep.class	2217582252	975587033	1110	1143
-upgrade/steps/RedirectToInstallerStep.class	105815145	1148586518	1715	1767
-upgrade/steps/SystemChecksStep.class	336373686	2671185295	19360	19900
-upgrade/steps/UpgradeCoreModuleStep.class	374178368	3805615257	7158	7371
-upgrade/steps/UpgradeOtherModulesStep.class	1150987785	243934851	11004	11334
-upgrade/steps/WelcomeStep.class	4189863560	1197905828	1654	1705
-upgrade/styles/style.css	313922371	1958481033	8335	8700
-upgrade/templates/AuthenticateRequest.html	4038237541	1632306365	1157	1189
-upgrade/templates/AuthenticateSuccessful.html	2066199327	580023278	101	106
-upgrade/templates/CleanCache.html	40213118	491558812	1474	1505
-upgrade/templates/Finished.html	3352690101	4008685855	507	520
-upgrade/templates/Header.html	445714115	3021541490	658	681
+upgrade/po/bg_BG.po	4063019493	3310073837	20193	20833
+upgrade/po/cs_CZ.po	3246169180	2083346246	22569	23237
+upgrade/po/de_DE.po	2525217301	1740330860	24554	25252
+upgrade/po/fr_FR.po	280448919	11900866	24383	25072
+upgrade/po/it_IT.po	3674662982	2855671750	22603	23067
+upgrade/po/nl_NL.po	1166015613	3299060011	22460	23119
+upgrade/po/sr_YU.po	2783424091	263555136	22758	23320
+upgrade/po/strings.raw	777504856	3550299908	10185	10321
+upgrade/po/tr_TR.po	4137904356	2577491053	23415	24095
+upgrade/po/vi_VN.po	203780633	3770442106	25392	26059
+upgrade/po/zh_TW.po	589719861	1763446634	21342	21970
+upgrade/steps/AuthenticateStep.class	1269307441	2567033521	1632	1683
+upgrade/steps/CleanCacheStep.class	225689788	3395058942	2011	2071
+upgrade/steps/FinishedStep.class	2574894546	3001014078	1104	1137
+upgrade/steps/RedirectToInstallerStep.class	1574128534	1508568110	1850	1903
+upgrade/steps/SystemChecksStep.class	1461730253	2900916452	14261	14644
+upgrade/steps/UpgradeCoreModuleStep.class	1595840896	986668643	4214	4340
+upgrade/steps/UpgradeOtherModulesStep.class	1946740662	144841871	10338	10645
+upgrade/steps/WelcomeStep.class	2841983831	2798097462	1566	1616
+upgrade/styles/style.css	3978868772	657177850	5212	5530
+upgrade/templates/AuthenticateRequest.html	2884653351	2708367910	1158	1193
+upgrade/templates/AuthenticateSuccessful.html	1366245043	667889745	88	91
+upgrade/templates/CleanCache.html	3728346795	3434616421	1397	1428
+upgrade/templates/Finished.html	95432407	2758258658	424	435
 upgrade/templates/InvalidConfig.html	1476367480	3003024647	356	362
-upgrade/templates/MainPage.html	1999211528	13106538	6301	6465
-upgrade/templates/ManifestCleanupScript.html	3796652713	356607291	397	411
-upgrade/templates/ManifestSystemCheck.html	4137973305	2653794565	3666	3730
-upgrade/templates/NavBar.html	3813728563	2324884567	1223	1263
+upgrade/templates/MainPage.html	1816989933	3309050285	6299	6472
+upgrade/templates/ManifestSystemCheck.html	3207442318	3623406071	3379	3441
+upgrade/templates/NavBar.html	1524000055	3044579507	1567	1621
 upgrade/templates/RedirectToInstaller.html	4115505707	2358693729	934	954
 upgrade/templates/SystemChecks.html	3858186548	1672036693	1111	1150
 upgrade/templates/UpgradeCoreModuleError.html	3625831103	3860079866	739	763
-upgrade/templates/UpgradeCoreModuleRequest.html	873149912	708187094	5010	5133
-upgrade/templates/UpgradeCoreModuleSuccess.html	1256636731	4080293428	682	700
+upgrade/templates/UpgradeCoreModuleRequest.html	2067488786	3222743256	3243	3337
+upgrade/templates/UpgradeCoreModuleSuccess.html	3671620249	3889241632	627	645
 upgrade/templates/UpgradeCoreModuleUpToDate.html	2320865409	2029739622	354	372
-upgrade/templates/UpgradeOtherModulesRequest.html	1018034427	2891530433	5410	5563
-upgrade/templates/UpgradeOtherModulesSuccess.html	2044152369	1768172150	1983	2040
-upgrade/templates/Welcome.html	3749003252	2684446060	1636	1666
-R	docs/DEVELOPER_GUIDELINES
-R	docs/EMBEDDING
+upgrade/templates/UpgradeOtherModulesRequest.html	2427467162	1023287620	5260	5415
+upgrade/templates/UpgradeOtherModulesSuccess.html	2310762944	3622513646	1865	1926
+upgrade/templates/Welcome.html	3714310975	1253011379	1213	1238
 R	docs/LOCALIZING
-R	docs/TODO.baschny
-R	docs/TODO.bharat
-R	docs
 R	init.php
-R	install/locale/bg_BG/LC_MESSAGES/gallery2_install.mo
-R	install/locale/bg_BG/LC_MESSAGES
-R	install/locale/bg_BG
-R	install/locale/cs_CZ/LC_MESSAGES/gallery2_install.mo
-R	install/locale/cs_CZ/LC_MESSAGES
-R	install/locale/cs_CZ
-R	install/locale/de_DE/LC_MESSAGES/gallery2_install.mo
-R	install/locale/de_DE/LC_MESSAGES
-R	install/locale/de_DE
-R	install/locale/eu_ES/LC_MESSAGES/gallery2_install.mo
-R	install/locale/eu_ES/LC_MESSAGES
-R	install/locale/eu_ES
-R	install/locale/fr_FR/LC_MESSAGES/gallery2_install.mo
-R	install/locale/fr_FR/LC_MESSAGES
-R	install/locale/fr_FR
-R	install/locale/it_IT/LC_MESSAGES/gallery2_install.mo
-R	install/locale/it_IT/LC_MESSAGES
-R	install/locale/it_IT
-R	install/locale/ja_JP/LC_MESSAGES/gallery2_install.mo
-R	install/locale/ja_JP/LC_MESSAGES
-R	install/locale/ja_JP
-R	install/locale/nl_NL/LC_MESSAGES/gallery2_install.mo
-R	install/locale/nl_NL/LC_MESSAGES
-R	install/locale/nl_NL
-R	install/locale/sr_YU/LC_MESSAGES/gallery2_install.mo
-R	install/locale/sr_YU/LC_MESSAGES
-R	install/locale/sr_YU
-R	install/locale/tr_TR/LC_MESSAGES/gallery2_install.mo
-R	install/locale/tr_TR/LC_MESSAGES
-R	install/locale/tr_TR
-R	install/locale/vi_VN/LC_MESSAGES/gallery2_install.mo
-R	install/locale/vi_VN/LC_MESSAGES
-R	install/locale/vi_VN
 R	install/multiconfig.php-template
-R	install/po/bg_BG.po
-R	install/po/cs_CZ.po
-R	install/po/de_DE.po
-R	install/po/eu_ES.po
-R	install/po/fr_FR.po
-R	install/po/it_IT.po
-R	install/po/ja_JP.po
-R	install/po/nl_NL.po
-R	install/po/sr_YU.po
-R	install/po/tr_TR.po
-R	install/po/vi_VN.po
 R	install/templates/WelcomeMultiSite.html
-R	layouts/classic/MANIFEST
-R	layouts/classic/debug/viewableFiles.txt
-R	layouts/classic/debug
-R	layouts/classic/images/nav_dot.gif
-R	layouts/classic/images/nav_dot_left.gif
-R	layouts/classic/images/nav_dot_right.gif
-R	layouts/classic/images/nav_first.gif
-R	layouts/classic/images/nav_home.gif
-R	layouts/classic/images/nav_last.gif
-R	layouts/classic/images/nav_next.gif
-R	layouts/classic/images/nav_page.gif
-R	layouts/classic/images/nav_prev.gif
-R	layouts/classic/images
-R	layouts/classic/layout.css
-R	layouts/classic/layout.css.php
-R	layouts/classic/layout.inc
-R	layouts/classic/locale/cs_CZ/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/cs_CZ/LC_MESSAGES
-R	layouts/classic/locale/cs_CZ
-R	layouts/classic/locale/da_DK/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/da_DK/LC_MESSAGES
-R	layouts/classic/locale/da_DK
-R	layouts/classic/locale/de_DE/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/de_DE/LC_MESSAGES
-R	layouts/classic/locale/de_DE
-R	layouts/classic/locale/el_GR/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/el_GR/LC_MESSAGES
-R	layouts/classic/locale/el_GR
-R	layouts/classic/locale/en_GB/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/en_GB/LC_MESSAGES
-R	layouts/classic/locale/en_GB
-R	layouts/classic/locale/es_AR/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/es_AR/LC_MESSAGES
-R	layouts/classic/locale/es_AR
-R	layouts/classic/locale/es_ES/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/es_ES/LC_MESSAGES
-R	layouts/classic/locale/es_ES
-R	layouts/classic/locale/fi_FI/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/fi_FI/LC_MESSAGES
-R	layouts/classic/locale/fi_FI
-R	layouts/classic/locale/fr_FR/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/fr_FR/LC_MESSAGES
-R	layouts/classic/locale/fr_FR
-R	layouts/classic/locale/ga_IE/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/ga_IE/LC_MESSAGES
-R	layouts/classic/locale/ga_IE
-R	layouts/classic/locale/is_IS/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/is_IS/LC_MESSAGES
-R	layouts/classic/locale/is_IS
-R	layouts/classic/locale/it_IT/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/it_IT/LC_MESSAGES
-R	layouts/classic/locale/it_IT
-R	layouts/classic/locale/ja_JP/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/ja_JP/LC_MESSAGES
-R	layouts/classic/locale/ja_JP
-R	layouts/classic/locale/nl_NL/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/nl_NL/LC_MESSAGES
-R	layouts/classic/locale/nl_NL
-R	layouts/classic/locale/no_NO/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/no_NO/LC_MESSAGES
-R	layouts/classic/locale/no_NO
-R	layouts/classic/locale/pl_PL/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/pl_PL/LC_MESSAGES
-R	layouts/classic/locale/pl_PL
-R	layouts/classic/locale/pt_BR/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/pt_BR/LC_MESSAGES
-R	layouts/classic/locale/pt_BR
-R	layouts/classic/locale/sv_SE/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/sv_SE/LC_MESSAGES
-R	layouts/classic/locale/sv_SE
-R	layouts/classic/locale/tr_TR/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/tr_TR/LC_MESSAGES
-R	layouts/classic/locale/tr_TR
-R	layouts/classic/locale/vi_VN/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/vi_VN/LC_MESSAGES
-R	layouts/classic/locale/vi_VN
-R	layouts/classic/locale/zh_CN/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/zh_CN/LC_MESSAGES
-R	layouts/classic/locale/zh_CN
-R	layouts/classic/locale/zh_TW/LC_MESSAGES/layouts_classic.mo
-R	layouts/classic/locale/zh_TW/LC_MESSAGES
-R	layouts/classic/locale/zh_TW
-R	layouts/classic/locale
-R	layouts/classic/po/GNUmakefile
-R	layouts/classic/po/cs_CZ.po
-R	layouts/classic/po/da_DK.po
-R	layouts/classic/po/de_DE.po
-R	layouts/classic/po/el_GR.po
-R	layouts/classic/po/en_GB.po
-R	layouts/classic/po/es_AR.po
-R	layouts/classic/po/es_ES.po
-R	layouts/classic/po/fi_FI.po
-R	layouts/classic/po/fr_FR.po
-R	layouts/classic/po/ga_IE.po
-R	layouts/classic/po/is_IS.po
-R	layouts/classic/po/it_IT.po
-R	layouts/classic/po/ja_JP.po
-R	layouts/classic/po/nl_NL.po
-R	layouts/classic/po/no_NO.po
-R	layouts/classic/po/pl_PL.po
-R	layouts/classic/po/pt_BR.po
-R	layouts/classic/po/strings.raw
-R	layouts/classic/po/sv_SE.po
-R	layouts/classic/po/tr_TR.po
-R	layouts/classic/po/vi_VN.po
-R	layouts/classic/po/zh_CN.po
-R	layouts/classic/po/zh_TW.po
-R	layouts/classic/po
-R	layouts/classic/templates/albumBody.tpl
-R	layouts/classic/templates/albumThumbnail.tpl
-R	layouts/classic/templates/head.tpl
-R	layouts/classic/templates/itemNavigator.tpl
-R	layouts/classic/templates/pageNavigator.tpl
-R	layouts/classic/templates/parents.tpl
-R	layouts/classic/templates/pathbar.tpl
-R	layouts/classic/templates/singleBody.tpl
-R	layouts/classic/templates/singleThumbnail.tpl
-R	layouts/classic/templates
 R	layouts/classic
-R	layouts/hybrid/MANIFEST
-R	layouts/hybrid/debug/viewableFiles.txt
-R	layouts/hybrid/debug
-R	layouts/hybrid/hybrid.js
-R	layouts/hybrid/images/alb.png
-R	layouts/hybrid/images/down.png
-R	layouts/hybrid/images/fit.png
-R	layouts/hybrid/images/full.png
-R	layouts/hybrid/images/fwd.png
-R	layouts/hybrid/images/info.png
-R	layouts/hybrid/images/left.png
-R	layouts/hybrid/images/menu.png
-R	layouts/hybrid/images/next-off.png
-R	layouts/hybrid/images/next.png
-R	layouts/hybrid/images/poz.png
-R	layouts/hybrid/images/prev-off.png
-R	layouts/hybrid/images/prev.png
-R	layouts/hybrid/images/rand.png
-R	layouts/hybrid/images/rev.png
-R	layouts/hybrid/images/right.png
-R	layouts/hybrid/images/up.png
-R	layouts/hybrid/images
-R	layouts/hybrid/layout.css
-R	layouts/hybrid/layout.inc
-R	layouts/hybrid/locale/cs_CZ/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/cs_CZ/LC_MESSAGES
-R	layouts/hybrid/locale/cs_CZ
-R	layouts/hybrid/locale/de_DE/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/de_DE/LC_MESSAGES
-R	layouts/hybrid/locale/de_DE
-R	layouts/hybrid/locale/fr_FR/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/fr_FR/LC_MESSAGES
-R	layouts/hybrid/locale/fr_FR
-R	layouts/hybrid/locale/is_IS/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/is_IS/LC_MESSAGES
-R	layouts/hybrid/locale/is_IS
-R	layouts/hybrid/locale/it_IT/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/it_IT/LC_MESSAGES
-R	layouts/hybrid/locale/it_IT
-R	layouts/hybrid/locale/nl_NL/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/nl_NL/LC_MESSAGES
-R	layouts/hybrid/locale/nl_NL
-R	layouts/hybrid/locale/no_NO/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/no_NO/LC_MESSAGES
-R	layouts/hybrid/locale/no_NO
-R	layouts/hybrid/locale/sv_SE/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/sv_SE/LC_MESSAGES
-R	layouts/hybrid/locale/sv_SE
-R	layouts/hybrid/locale/tr_TR/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/tr_TR/LC_MESSAGES
-R	layouts/hybrid/locale/tr_TR
-R	layouts/hybrid/locale/vi_VN/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/vi_VN/LC_MESSAGES
-R	layouts/hybrid/locale/vi_VN
-R	layouts/hybrid/locale/zh_CN/LC_MESSAGES/layouts_hybrid.mo
-R	layouts/hybrid/locale/zh_CN/LC_MESSAGES
-R	layouts/hybrid/locale/zh_CN
-R	layouts/hybrid/locale
-R	layouts/hybrid/po/GNUmakefile
-R	layouts/hybrid/po/cs_CZ.po
-R	layouts/hybrid/po/de_DE.po
-R	layouts/hybrid/po/fr_FR.po
-R	layouts/hybrid/po/is_IS.po
-R	layouts/hybrid/po/it_IT.po
-R	layouts/hybrid/po/nl_NL.po
-R	layouts/hybrid/po/no_NO.po
-R	layouts/hybrid/po/strings.raw
-R	layouts/hybrid/po/sv_SE.po
-R	layouts/hybrid/po/tr_TR.po
-R	layouts/hybrid/po/vi_VN.po
-R	layouts/hybrid/po/zh_CN.po
-R	layouts/hybrid/po
-R	layouts/hybrid/templates/detail.tpl
-R	layouts/hybrid/templates/header.tpl
-R	layouts/hybrid/templates/hybrid.css
-R	layouts/hybrid/templates/hybrid.js
-R	layouts/hybrid/templates/hybrid.tpl
-R	layouts/hybrid/templates/render.tpl
-R	layouts/hybrid/templates
 R	layouts/hybrid
-R	layouts/matrix/MANIFEST
-R	layouts/matrix/debug/viewableFiles.txt
-R	layouts/matrix/debug
-R	layouts/matrix/layout.css
-R	layouts/matrix/layout.css.php
-R	layouts/matrix/layout.inc
-R	layouts/matrix/locale/cs_CZ/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/cs_CZ/LC_MESSAGES
-R	layouts/matrix/locale/cs_CZ
-R	layouts/matrix/locale/da_DK/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/da_DK/LC_MESSAGES
-R	layouts/matrix/locale/da_DK
-R	layouts/matrix/locale/de_DE/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/de_DE/LC_MESSAGES
-R	layouts/matrix/locale/de_DE
-R	layouts/matrix/locale/el_GR/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/el_GR/LC_MESSAGES
-R	layouts/matrix/locale/el_GR
-R	layouts/matrix/locale/en_GB/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/en_GB/LC_MESSAGES
-R	layouts/matrix/locale/en_GB
-R	layouts/matrix/locale/es_AR/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/es_AR/LC_MESSAGES
-R	layouts/matrix/locale/es_AR
-R	layouts/matrix/locale/es_MX/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/es_MX/LC_MESSAGES
-R	layouts/matrix/locale/es_MX
-R	layouts/matrix/locale/fi_FI/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/fi_FI/LC_MESSAGES
-R	layouts/matrix/locale/fi_FI
-R	layouts/matrix/locale/fr_FR/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/fr_FR/LC_MESSAGES
-R	layouts/matrix/locale/fr_FR
-R	layouts/matrix/locale/ga_IE/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/ga_IE/LC_MESSAGES
-R	layouts/matrix/locale/ga_IE
-R	layouts/matrix/locale/he_IL/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/he_IL/LC_MESSAGES
-R	layouts/matrix/locale/he_IL
-R	layouts/matrix/locale/hu_HU/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/hu_HU/LC_MESSAGES
-R	layouts/matrix/locale/hu_HU
-R	layouts/matrix/locale/is_IS/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/is_IS/LC_MESSAGES
-R	layouts/matrix/locale/is_IS
-R	layouts/matrix/locale/it_IT/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/it_IT/LC_MESSAGES
-R	layouts/matrix/locale/it_IT
-R	layouts/matrix/locale/ja_JP/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/ja_JP/LC_MESSAGES
-R	layouts/matrix/locale/ja_JP
-R	layouts/matrix/locale/nl_NL/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/nl_NL/LC_MESSAGES
-R	layouts/matrix/locale/nl_NL
-R	layouts/matrix/locale/no_NO/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/no_NO/LC_MESSAGES
-R	layouts/matrix/locale/no_NO
-R	layouts/matrix/locale/pl_PL/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/pl_PL/LC_MESSAGES
-R	layouts/matrix/locale/pl_PL
-R	layouts/matrix/locale/pt_BR/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/pt_BR/LC_MESSAGES
-R	layouts/matrix/locale/pt_BR
-R	layouts/matrix/locale/pt_PT/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/pt_PT/LC_MESSAGES
-R	layouts/matrix/locale/pt_PT
-R	layouts/matrix/locale/ru_RU/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/ru_RU/LC_MESSAGES
-R	layouts/matrix/locale/ru_RU
-R	layouts/matrix/locale/sv_SE/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/sv_SE/LC_MESSAGES
-R	layouts/matrix/locale/sv_SE
-R	layouts/matrix/locale/tr_TR/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/tr_TR/LC_MESSAGES
-R	layouts/matrix/locale/tr_TR
-R	layouts/matrix/locale/vi_VN/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/vi_VN/LC_MESSAGES
-R	layouts/matrix/locale/vi_VN
-R	layouts/matrix/locale/zh_CN/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/zh_CN/LC_MESSAGES
-R	layouts/matrix/locale/zh_CN
-R	layouts/matrix/locale/zh_TW/LC_MESSAGES/layouts_matrix.mo
-R	layouts/matrix/locale/zh_TW/LC_MESSAGES
-R	layouts/matrix/locale/zh_TW
-R	layouts/matrix/locale
-R	layouts/matrix/po/GNUmakefile
-R	layouts/matrix/po/cs_CZ.po
-R	layouts/matrix/po/da_DK.po
-R	layouts/matrix/po/de_DE.po
-R	layouts/matrix/po/el_GR.po
-R	layouts/matrix/po/en_GB.po
-R	layouts/matrix/po/es_AR.po
-R	layouts/matrix/po/es_MX.po
-R	layouts/matrix/po/fi_FI.po
-R	layouts/matrix/po/fr_FR.po
-R	layouts/matrix/po/ga_IE.po
-R	layouts/matrix/po/he_IL.po
-R	layouts/matrix/po/hu_HU.po
-R	layouts/matrix/po/is_IS.po
-R	layouts/matrix/po/it_IT.po
-R	layouts/matrix/po/ja_JP.po
-R	layouts/matrix/po/nl_NL.po
-R	layouts/matrix/po/no_NO.po
-R	layouts/matrix/po/pl_PL.po
-R	layouts/matrix/po/pt_BR.po
-R	layouts/matrix/po/pt_PT.po
-R	layouts/matrix/po/ru_RU.po
-R	layouts/matrix/po/strings.raw
-R	layouts/matrix/po/sv_SE.po
-R	layouts/matrix/po/tr_TR.po
-R	layouts/matrix/po/vi_VN.po
-R	layouts/matrix/po/zh_CN.po
-R	layouts/matrix/po/zh_TW.po
-R	layouts/matrix/po
-R	layouts/matrix/templates/albumBody.tpl
-R	layouts/matrix/templates/albumThumbnail.tpl
-R	layouts/matrix/templates/banner.tpl
-R	layouts/matrix/templates/guestPreviewModeSwitch.tpl
-R	layouts/matrix/templates/head.tpl
-R	layouts/matrix/templates/itemNavigator.tpl
-R	layouts/matrix/templates/pageNavigator.tpl
-R	layouts/matrix/templates/parents.tpl
-R	layouts/matrix/templates/pathbar.tpl
-R	layouts/matrix/templates/sidebar.tpl
-R	layouts/matrix/templates/singleBody.tpl
-R	layouts/matrix/templates/singleThumbnail.tpl
-R	layouts/matrix/templates
 R	layouts/matrix
-R	layouts/siriux/MANIFEST
-R	layouts/siriux/layout.css
-R	layouts/siriux/layout.inc
-R	layouts/siriux/locale/cs_CZ/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/cs_CZ/LC_MESSAGES
-R	layouts/siriux/locale/cs_CZ
-R	layouts/siriux/locale/de_DE/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/de_DE/LC_MESSAGES
-R	layouts/siriux/locale/de_DE
-R	layouts/siriux/locale/fr_FR/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/fr_FR/LC_MESSAGES
-R	layouts/siriux/locale/fr_FR
-R	layouts/siriux/locale/it_IT/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/it_IT/LC_MESSAGES
-R	layouts/siriux/locale/it_IT
-R	layouts/siriux/locale/nl_NL/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/nl_NL/LC_MESSAGES
-R	layouts/siriux/locale/nl_NL
-R	layouts/siriux/locale/sv_SE/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/sv_SE/LC_MESSAGES
-R	layouts/siriux/locale/sv_SE
-R	layouts/siriux/locale/tr_TR/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/tr_TR/LC_MESSAGES
-R	layouts/siriux/locale/tr_TR
-R	layouts/siriux/locale/vi_VN/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/vi_VN/LC_MESSAGES
-R	layouts/siriux/locale/vi_VN
-R	layouts/siriux/locale/zh_CN/LC_MESSAGES/layouts_siriux.mo
-R	layouts/siriux/locale/zh_CN/LC_MESSAGES
-R	layouts/siriux/locale/zh_CN
-R	layouts/siriux/locale
-R	layouts/siriux/po/GNUmakefile
-R	layouts/siriux/po/cs_CZ.po
-R	layouts/siriux/po/de_DE.po
-R	layouts/siriux/po/fr_FR.po
-R	layouts/siriux/po/it_IT.po
-R	layouts/siriux/po/nl_NL.po
-R	layouts/siriux/po/strings.raw
-R	layouts/siriux/po/sv_SE.po
-R	layouts/siriux/po/tr_TR.po
-R	layouts/siriux/po/vi_VN.po
-R	layouts/siriux/po/zh_CN.po
-R	layouts/siriux/po
-R	layouts/siriux/templates/albumBody.tpl
-R	layouts/siriux/templates/guestPreviewModeSwitch.tpl
-R	layouts/siriux/templates/head.tpl
-R	layouts/siriux/templates/itemLinks.tpl
-R	layouts/siriux/templates/itemNavigator.tpl
-R	layouts/siriux/templates/pathbar.tpl
-R	layouts/siriux/templates/singleBody.tpl
-R	layouts/siriux/templates/systemLinks.tpl
-R	layouts/siriux/templates
 R	layouts/siriux
-R	layouts/slider/MANIFEST
-R	layouts/slider/debug/viewableFiles.txt
-R	layouts/slider/debug
-R	layouts/slider/images/fit.png
-R	layouts/slider/images/full.png
-R	layouts/slider/images/fwd.png
-R	layouts/slider/images/next-off.png
-R	layouts/slider/images/next.png
-R	layouts/slider/images/poz.png
-R	layouts/slider/images/prev-off.png
-R	layouts/slider/images/prev.png
-R	layouts/slider/images/rand.png
-R	layouts/slider/images/rev.png
-R	layouts/slider/images/tool.png
-R	layouts/slider/images
-R	layouts/slider/layout.css
-R	layouts/slider/layout.inc
-R	layouts/slider/locale/cs_CZ/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/cs_CZ/LC_MESSAGES
-R	layouts/slider/locale/cs_CZ
-R	layouts/slider/locale/de_DE/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/de_DE/LC_MESSAGES
-R	layouts/slider/locale/de_DE
-R	layouts/slider/locale/fr_FR/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/fr_FR/LC_MESSAGES
-R	layouts/slider/locale/fr_FR
-R	layouts/slider/locale/is_IS/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/is_IS/LC_MESSAGES
-R	layouts/slider/locale/is_IS
-R	layouts/slider/locale/it_IT/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/it_IT/LC_MESSAGES
-R	layouts/slider/locale/it_IT
-R	layouts/slider/locale/nl_NL/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/nl_NL/LC_MESSAGES
-R	layouts/slider/locale/nl_NL
-R	layouts/slider/locale/no_NO/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/no_NO/LC_MESSAGES
-R	layouts/slider/locale/no_NO
-R	layouts/slider/locale/ru_RU/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/ru_RU/LC_MESSAGES
-R	layouts/slider/locale/ru_RU
-R	layouts/slider/locale/sv_SE/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/sv_SE/LC_MESSAGES
-R	layouts/slider/locale/sv_SE
-R	layouts/slider/locale/tr_TR/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/tr_TR/LC_MESSAGES
-R	layouts/slider/locale/tr_TR
-R	layouts/slider/locale/vi_VN/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/vi_VN/LC_MESSAGES
-R	layouts/slider/locale/vi_VN
-R	layouts/slider/locale/zh_CN/LC_MESSAGES/layouts_slider.mo
-R	layouts/slider/locale/zh_CN/LC_MESSAGES
-R	layouts/slider/locale/zh_CN
-R	layouts/slider/locale
-R	layouts/slider/po/GNUmakefile
-R	layouts/slider/po/cs_CZ.po
-R	layouts/slider/po/de_DE.po
-R	layouts/slider/po/fr_FR.po
-R	layouts/slider/po/is_IS.po
-R	layouts/slider/po/it_IT.po
-R	layouts/slider/po/nl_NL.po
-R	layouts/slider/po/no_NO.po
-R	layouts/slider/po/ru_RU.po
-R	layouts/slider/po/strings.raw
-R	layouts/slider/po/sv_SE.po
-R	layouts/slider/po/tr_TR.po
-R	layouts/slider/po/vi_VN.po
-R	layouts/slider/po/zh_CN.po
-R	layouts/slider/po
-R	layouts/slider/slider.js
-R	layouts/slider/templates/header.tpl
-R	layouts/slider/templates/render.tpl
-R	layouts/slider/templates/sidebar.tpl
-R	layouts/slider/templates/slider.css
-R	layouts/slider/templates/slider.js
-R	layouts/slider/templates/slider.tpl
-R	layouts/slider/templates
 R	layouts/slider
-R	layouts/tile/MANIFEST
-R	layouts/tile/debug/viewableFiles.txt
-R	layouts/tile/debug
-R	layouts/tile/layout.css
-R	layouts/tile/layout.inc
-R	layouts/tile/locale/cs_CZ/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/cs_CZ/LC_MESSAGES
-R	layouts/tile/locale/cs_CZ
-R	layouts/tile/locale/de_DE/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/de_DE/LC_MESSAGES
-R	layouts/tile/locale/de_DE
-R	layouts/tile/locale/fr_FR/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/fr_FR/LC_MESSAGES
-R	layouts/tile/locale/fr_FR
-R	layouts/tile/locale/is_IS/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/is_IS/LC_MESSAGES
-R	layouts/tile/locale/is_IS
-R	layouts/tile/locale/it_IT/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/it_IT/LC_MESSAGES
-R	layouts/tile/locale/it_IT
-R	layouts/tile/locale/nl_NL/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/nl_NL/LC_MESSAGES
-R	layouts/tile/locale/nl_NL
-R	layouts/tile/locale/no_NO/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/no_NO/LC_MESSAGES
-R	layouts/tile/locale/no_NO
-R	layouts/tile/locale/ru_RU/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/ru_RU/LC_MESSAGES
-R	layouts/tile/locale/ru_RU
-R	layouts/tile/locale/sv_SE/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/sv_SE/LC_MESSAGES
-R	layouts/tile/locale/sv_SE
-R	layouts/tile/locale/tr_TR/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/tr_TR/LC_MESSAGES
-R	layouts/tile/locale/tr_TR
-R	layouts/tile/locale/vi_VN/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/vi_VN/LC_MESSAGES
-R	layouts/tile/locale/vi_VN
-R	layouts/tile/locale/zh_CN/LC_MESSAGES/layouts_tile.mo
-R	layouts/tile/locale/zh_CN/LC_MESSAGES
-R	layouts/tile/locale/zh_CN
-R	layouts/tile/locale
-R	layouts/tile/po/GNUmakefile
-R	layouts/tile/po/cs_CZ.po
-R	layouts/tile/po/de_DE.po
-R	layouts/tile/po/fr_FR.po
-R	layouts/tile/po/is_IS.po
-R	layouts/tile/po/it_IT.po
-R	layouts/tile/po/messages.po
-R	layouts/tile/po/nl_NL.po
-R	layouts/tile/po/no_NO.po
-R	layouts/tile/po/ru_RU.po
-R	layouts/tile/po/strings.raw
-R	layouts/tile/po/sv_SE.po
-R	layouts/tile/po/tr_TR.po
-R	layouts/tile/po/vi_VN.po
-R	layouts/tile/po/zh_CN.po
-R	layouts/tile/po
-R	layouts/tile/templates/edit.tpl
-R	layouts/tile/templates/guestPreviewModeSwitch.tpl
-R	layouts/tile/templates/header.tpl
-R	layouts/tile/templates/render.tpl
-R	layouts/tile/templates/sidebar.tpl
-R	layouts/tile/templates/tile.css
-R	layouts/tile/templates/tile.js
-R	layouts/tile/templates/tile.tpl
-R	layouts/tile/templates
-R	layouts/tile/tile.js
 R	layouts/tile
-R	layouts
-R	lib/IE7/README.txt
-R	lib/IE7/_private/ie7-logo.gif
-R	lib/IE7/_private/ie7-page.css
-R	lib/IE7/_private/ie7-server.css
-R	lib/IE7/_private/ie7-server.htc
-R	lib/IE7/_private/test.png
-R	lib/IE7/_private
-R	lib/IE7/blank.gif
-R	lib/IE7/compatibility/Pure CSS Menus (nearly).html
-R	lib/IE7/compatibility/Pure CSS Menus.html
-R	lib/IE7/compatibility/abbr.html
-R	lib/IE7/compatibility/active.css
-R	lib/IE7/compatibility/active.html
-R	lib/IE7/compatibility/active.xml
-R	lib/IE7/compatibility/adjacent.css
-R	lib/IE7/compatibility/adjacent.html
-R	lib/IE7/compatibility/adjacent.xml
-R	lib/IE7/compatibility/after.html
-R	lib/IE7/compatibility/attr-begin.html
-R	lib/IE7/compatibility/attr-contains.html
-R	lib/IE7/compatibility/attr-dash-list.css
-R	lib/IE7/compatibility/attr-dash-list.html
-R	lib/IE7/compatibility/attr-dash-list.xml
-R	lib/IE7/compatibility/attr-end.html
-R	lib/IE7/compatibility/attr-list.css
-R	lib/IE7/compatibility/attr-list.html
-R	lib/IE7/compatibility/attr-list.xml
-R	lib/IE7/compatibility/attr-value.css
-R	lib/IE7/compatibility/attr-value.html
-R	lib/IE7/compatibility/attr-value.xml
-R	lib/IE7/compatibility/attr.css
-R	lib/IE7/compatibility/attr.html
-R	lib/IE7/compatibility/attr.xml
-R	lib/IE7/compatibility/background-fixed.html
-R	lib/IE7/compatibility/before.html
-R	lib/IE7/compatibility/blue.css
-R	lib/IE7/compatibility/bluething.jpg
-R	lib/IE7/compatibility/bluething_fade.jpg
-R	lib/IE7/compatibility/bottom-left.gif
-R	lib/IE7/compatibility/bottom-right.gif
-R	lib/IE7/compatibility/box-sizing.html
-R	lib/IE7/compatibility/button.html
-R	lib/IE7/compatibility/child.css
-R	lib/IE7/compatibility/child.html
-R	lib/IE7/compatibility/child.xml
-R	lib/IE7/compatibility/comment-bug.htm
-R	lib/IE7/compatibility/complexspiral/bigben-bg.css
-R	lib/IE7/compatibility/complexspiral/demo.html
-R	lib/IE7/compatibility/complexspiral/demo2.html
-R	lib/IE7/compatibility/complexspiral/flower-bg.css
-R	lib/IE7/compatibility/complexspiral/glassy-bg.jpg
-R	lib/IE7/compatibility/complexspiral/glassy-gray.jpg
-R	lib/IE7/compatibility/complexspiral/glassy-ripple.jpg
-R	lib/IE7/compatibility/complexspiral/glassy-tan.jpg
-R	lib/IE7/compatibility/complexspiral/glassy.html
-R	lib/IE7/compatibility/complexspiral/halfscr-black.gif
-R	lib/IE7/compatibility/complexspiral/halfscr-blue.gif
-R	lib/IE7/compatibility/complexspiral/halfscr-white.gif
-R	lib/IE7/compatibility/complexspiral/lightning-bg.css
-R	lib/IE7/compatibility/complexspiral/shell-bg.css
-R	lib/IE7/compatibility/complexspiral/shell-bg.jpg
-R	lib/IE7/compatibility/complexspiral/shell-blue.jpg
-R	lib/IE7/compatibility/complexspiral/shell-fade.jpg
-R	lib/IE7/compatibility/complexspiral/shell-wash.jpg
-R	lib/IE7/compatibility/complexspiral/shell2-bg.css
-R	lib/IE7/compatibility/complexspiral/shuttle-bg.css
-R	lib/IE7/compatibility/complexspiral
-R	lib/IE7/compatibility/content.html
-R	lib/IE7/compatibility/empty.css
-R	lib/IE7/compatibility/empty.html
-R	lib/IE7/compatibility/empty.xml
-R	lib/IE7/compatibility/first-child.css
-R	lib/IE7/compatibility/first-child.html
-R	lib/IE7/compatibility/first-child.xml
-R	lib/IE7/compatibility/fixed.html
-R	lib/IE7/compatibility/float.html
-R	lib/IE7/compatibility/focus.css
-R	lib/IE7/compatibility/focus.html
-R	lib/IE7/compatibility/focus.xml
-R	lib/IE7/compatibility/form.html
-R	lib/IE7/compatibility/green.css
-R	lib/IE7/compatibility/horizontal-gauge.gif
-R	lib/IE7/compatibility/hover.css
-R	lib/IE7/compatibility/hover.html
-R	lib/IE7/compatibility/hover.xml
-R	lib/IE7/compatibility/ie7-demo.js
-R	lib/IE7/compatibility/imports.css
-R	lib/IE7/compatibility/imports.html
-R	lib/IE7/compatibility/indirect.css
-R	lib/IE7/compatibility/indirect.html
-R	lib/IE7/compatibility/indirect.xml
-R	lib/IE7/compatibility/label.html
-R	lib/IE7/compatibility/lang.html
-R	lib/IE7/compatibility/last-child.css
-R	lib/IE7/compatibility/last-child.html
-R	lib/IE7/compatibility/last-child.xml
-R	lib/IE7/compatibility/left-right.html
-R	lib/IE7/compatibility/max-width.html
-R	lib/IE7/compatibility/min-height.html
-R	lib/IE7/compatibility/min-width.html
-R	lib/IE7/compatibility/multiple-classes-bug.html
-R	lib/IE7/compatibility/multiple-classes.css
-R	lib/IE7/compatibility/multiple-classes.html
-R	lib/IE7/compatibility/multiple-classes.xml
-R	lib/IE7/compatibility/multiple-pseudo-classes.html
-R	lib/IE7/compatibility/nth-child.html
-R	lib/IE7/compatibility/nth-last-child.html
-R	lib/IE7/compatibility/only-child.html
-R	lib/IE7/compatibility/png-background.html
-R	lib/IE7/compatibility/png.css
-R	lib/IE7/compatibility/png.html
-R	lib/IE7/compatibility/png.xml
-R	lib/IE7/compatibility/purple_stucco.jpg
-R	lib/IE7/compatibility/red.css
-R	lib/IE7/compatibility/root.css
-R	lib/IE7/compatibility/root.html
-R	lib/IE7/compatibility/root.xml
-R	lib/IE7/compatibility/suite.html
-R	lib/IE7/compatibility/super-dynamic.html
-R	lib/IE7/compatibility/super.css
-R	lib/IE7/compatibility/super.xml
-R	lib/IE7/compatibility/test.css
-R	lib/IE7/compatibility/top-bottom.html
-R	lib/IE7/compatibility/top-left.gif
-R	lib/IE7/compatibility/top-right.gif
-R	lib/IE7/compatibility/tukan-trans.png
-R	lib/IE7/compatibility/unscrollable.html
-R	lib/IE7/compatibility/vertical-gauge.gif
-R	lib/IE7/compatibility
-R	lib/IE7/configure.html
-R	lib/IE7/g2-test.php
-R	lib/IE7/ie7-box-model.js
-R	lib/IE7/ie7-content.htm
-R	lib/IE7/ie7-core.js
-R	lib/IE7/ie7-css-strict.js
-R	lib/IE7/ie7-css2.js
-R	lib/IE7/ie7-css3.js
-R	lib/IE7/ie7-debug.css
-R	lib/IE7/ie7-debug.htc
-R	lib/IE7/ie7-fixed.js
-R	lib/IE7/ie7-html.css
-R	lib/IE7/ie7-html.htc
-R	lib/IE7/ie7-html4.js
-R	lib/IE7/ie7-ie5.css
-R	lib/IE7/ie7-ie5.js
-R	lib/IE7/ie7-lite-p.js
-R	lib/IE7/ie7-lite.js
-R	lib/IE7/ie7-logo.gif
-R	lib/IE7/ie7-png.js
-R	lib/IE7/ie7-server.css
-R	lib/IE7/ie7-standard-p.js
-R	lib/IE7/ie7-standard.js
-R	lib/IE7/ie7-xml.css
-R	lib/IE7/ie7-xml.htc
-R	lib/IE7/ie7.gif
-R	lib/IE7/index.html
-R	lib/IE7/install.html
-R	lib/IE7/license
-R	lib/IE7/modules/ie7-box-model.js
-R	lib/IE7/modules/ie7-core.js
-R	lib/IE7/modules/ie7-css-strict.js
-R	lib/IE7/modules/ie7-css.js
-R	lib/IE7/modules/ie7-debug.js
-R	lib/IE7/modules/ie7-fixed.js
-R	lib/IE7/modules/ie7-html.js
-R	lib/IE7/modules/ie7-png.js
-R	lib/IE7/modules/ie7-xml.js
-R	lib/IE7/modules
-R	lib/IE7/samples/ie7-config.htc
-R	lib/IE7/samples/ie7-config.xml
-R	lib/IE7/samples
-R	lib/IE7/src/ie7-box-model.js
-R	lib/IE7/src/ie7-content.htm
-R	lib/IE7/src/ie7-core.js
-R	lib/IE7/src/ie7-css-strict.js
-R	lib/IE7/src/ie7-css.js
-R	lib/IE7/src/ie7-css2.js
-R	lib/IE7/src/ie7-css3.js
-R	lib/IE7/src/ie7-debug.js
-R	lib/IE7/src/ie7-fixed.js
-R	lib/IE7/src/ie7-html.js
-R	lib/IE7/src/ie7-html4.js
-R	lib/IE7/src/ie7-ie5.js
-R	lib/IE7/src/ie7-lite.js
-R	lib/IE7/src/ie7-png.js
-R	lib/IE7/src/ie7-standard.js
-R	lib/IE7/src
-R	lib/IE7/test-trans.png
-R	lib/IE7/test.html
-R	lib/IE7/usage.html
 R	lib/IE7
-R	lib/java/GRApplet.tpl
-R	lib/java/GalleryRemoteApplet.jar
-R	lib/java/GalleryRemoteAppletMini.jar
-R	lib/java/GalleryRemoteHTTPClient.jar
-R	lib/java/applet_img.jar
 R	lib/java
-R	lib/smarty/core/core.assemble_auto_filename.php
-R	lib/smarty/core/core.assemble_plugin_filepath.php
-R	lib/smarty/core/core.assign_smarty_interface.php
-R	lib/smarty/core/core.create_dir_structure.php
-R	lib/smarty/core/core.display_debug_console.php
-R	lib/smarty/core/core.fetch_resource_info.php
-R	lib/smarty/core/core.get_include_path.php
-R	lib/smarty/core/core.get_microtime.php
-R	lib/smarty/core/core.get_php_resource.php
-R	lib/smarty/core/core.is_secure.php
-R	lib/smarty/core/core.is_trusted.php
-R	lib/smarty/core/core.load_plugins.php
-R	lib/smarty/core/core.load_resource_plugin.php
-R	lib/smarty/core/core.parse_resource_name.php
-R	lib/smarty/core/core.process_cached_inserts.php
-R	lib/smarty/core/core.process_compiled_include.php
-R	lib/smarty/core/core.read_cache_file.php
-R	lib/smarty/core/core.rm_auto.php
-R	lib/smarty/core/core.rmdir.php
-R	lib/smarty/core/core.run_insert_handler.php
-R	lib/smarty/core/core.smarty_include.php
-R	lib/smarty/core/core.smarty_include_php.php
-R	lib/smarty/core/core.write_cache_file.php
-R	lib/smarty/core/core.write_cache_paths_file.php
-R	lib/smarty/core/core.write_compiled_include.php
-R	lib/smarty/core/core.write_compiled_resource.php
-R	lib/smarty/core/core.write_file.php
 R	lib/smarty/core
 R	lib/smarty_plugins/function.adminlinkid.php
 R	lib/smarty_plugins/function.safecssname.php
-R	lib/tools/CRC32.jar
-R	lib/tools/GNUmakefile.inc
-R	lib/tools/bin/codex-download.tpl
-R	lib/tools/bin/filterManifests.pl
-R	lib/tools/bin/generate-interfaces.php
-R	lib/tools/bin/interface.tpl
-R	lib/tools/bin/rebuild-modules.sh
-R	lib/tools/bin/update-codex-download-page.php
-R	lib/tools/dtd/GalleryClass2.0.dtd
-R	lib/tools/gd/index.php
-R	lib/tools/gd/stylesheet.css
 R	lib/tools/gd
-R	lib/tools/messages/messageFooter.inc
-R	lib/tools/messages/messageHeader.inc
-R	lib/tools/messages/missingConfig.inc
-R	lib/tools/messages/missingPassword.inc
-R	lib/tools/messages/passwordForm.inc
 R	lib/tools/messages
 R	lib/tools/phpinfo.php
-R	lib/tools/po/extract.pl
 R	lib/tools/security.inc
-R	lib/tools/test/TestCase/DeactivateModule.class
-R	lib/tools/test/TestCase/InstallModule.class
-R	lib/tools/test/TestCase
-R	lib/tools/test/TestCase.class
-R	lib/tools/test/TestCase/ActivateModule.class
-R	lib/tools/test/index.php
-R	lib/tools/test/templates/index.tpl
-R	lib/tools/test/templates
 R	lib/tools/test
-R	templates/debug.tpl
-R	templates/embedBody.tpl
-R	templates/embedHead.tpl
-R	templates/error.tpl
-R	templates/errorBody.tpl
-R	templates/errorHead.tpl
-R	templates/global.tpl
-R	templates/layout.css
-R	templates/layout.css.php
-R	templates/layoutNew.css
-R	templates/profile.tpl
-R	templates/redirect.tpl
-R	templates/sidebar.tpl
-R	templates/standalone.tpl
 R	templates
-R	themes/mblue/MANIFEST
-R	themes/mblue/theme.css
 R	themes/mblue
-R	themes/veloria/MANIFEST
-R	themes/veloria/images/banner.gif
-R	themes/veloria/images/pixel.gif
-R	themes/veloria/images/tab-left-act.gif
-R	themes/veloria/images/tab-left-inact.gif
-R	themes/veloria/images/tab-left-on.gif
-R	themes/veloria/images/tab-left.gif
-R	themes/veloria/images/tab-mid-act.gif
-R	themes/veloria/images/tab-mid-inact.gif
-R	themes/veloria/images/tab-no-tab.gif
-R	themes/veloria/images/tab-right-act.gif
-R	themes/veloria/images/tab-right-inact.gif
-R	themes/veloria/images/tab-right-on.gif
-R	themes/veloria/images/tab-right.gif
-R	themes/veloria/images/tab-tween-act-inact.gif
-R	themes/veloria/images/tab-tween-inact-act.gif
-R	themes/veloria/images/tab-tween-inact-inact.gif
-R	themes/veloria/images
-R	themes/veloria/styles/theme.css
-R	themes/veloria/styles
-R	themes/veloria/theme.css
-R	themes/veloria/theme.inc
 R	themes/veloria
 R	upgrade/images/g2Logo_install_head.png
-R	upgrade/locale/bg_BG/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/bg_BG/LC_MESSAGES
-R	upgrade/locale/bg_BG
-R	upgrade/locale/cs_CZ/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/cs_CZ/LC_MESSAGES
-R	upgrade/locale/cs_CZ
-R	upgrade/locale/de_DE/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/de_DE/LC_MESSAGES
-R	upgrade/locale/de_DE
-R	upgrade/locale/eu_ES/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/eu_ES/LC_MESSAGES
-R	upgrade/locale/eu_ES
-R	upgrade/locale/fr_FR/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/fr_FR/LC_MESSAGES
-R	upgrade/locale/fr_FR
-R	upgrade/locale/it_IT/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/it_IT/LC_MESSAGES
-R	upgrade/locale/it_IT
-R	upgrade/locale/nl_NL/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/nl_NL/LC_MESSAGES
-R	upgrade/locale/nl_NL
-R	upgrade/locale/sr_YU/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/sr_YU/LC_MESSAGES
-R	upgrade/locale/sr_YU
-R	upgrade/locale/tr_TR/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/tr_TR/LC_MESSAGES
-R	upgrade/locale/tr_TR
-R	upgrade/locale/vi_VN/LC_MESSAGES/gallery2_upgrade.mo
-R	upgrade/locale/vi_VN/LC_MESSAGES
-R	upgrade/locale/vi_VN
-R	upgrade/po/bg_BG.po
-R	upgrade/po/cs_CZ.po
-R	upgrade/po/de_DE.po
-R	upgrade/po/eu_ES.po
-R	upgrade/po/fr_FR.po
-R	upgrade/po/it_IT.po
-R	upgrade/po/nl_NL.po
-R	upgrade/po/sr_YU.po
-R	upgrade/po/tr_TR.po
-R	upgrade/po/vi_VN.po

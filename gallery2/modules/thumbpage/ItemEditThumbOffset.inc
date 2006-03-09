@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,14 +43,14 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	$status = null;
 	$error = array();
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['action']['save'])) {
 	    list ($ret, $duration) = $this->_getDuration($item);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if ($form['offset'] > $duration || $form['offset'] < 0) {
 		$error[] = 'form[error][offset][invalid]';
@@ -60,8 +60,8 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	if (isset($form['action']['save']) && empty($error)) {
 	    list ($ret, $thumbnails) =
 		GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb = array_shift($thumbnails);
 	    $operations = $thumb->getDerivativeOperations();
@@ -75,23 +75,23 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 		$operations = 'select-offset|' . $form['offset'] . ';' . $operations;
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($thumb->getId());
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $thumb->setDerivativeOperations($operations);
 	    $ret = $thumb->save();
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null, null);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    $status = $module->translate('Changes saved successfully');
 	} /* else $form['action']['reset']) */
 
-	return array(null, $error, $status, false);
+	return array(GalleryStatus::success(), $error, $status);
     }
 
     /**
@@ -107,12 +107,12 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	    }
 	}
 	list ($ret, $duration) = $this->_getDuration($item);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 	$form['duration'] = sprintf('%.3f', $duration);
 	$template->setVariable('controller', 'thumbpage.ItemEditThumbOffset');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/thumbpage/templates/Offset.tpl', 'modules_thumbpage');
     }
 
@@ -123,7 +123,7 @@ class ItemEditThumbOffset extends ItemEditPlugin {
 	if (GalleryUtilities::isA($item, 'GalleryDataItem') && isset($thumbnail)) {
 	    list ($ret, $mimeTypes) =
 		GalleryCoreApi::getPluginParameter('module', 'thumbpage', 'movieTypes');
-	    if (!$ret) {
+	    if ($ret->isSuccess()) {
 		$list = explode('|', $mimeTypes);
 		return in_array($item->getMimeType(), $list);
 	    }
@@ -136,10 +136,10 @@ class ItemEditThumbOffset extends ItemEditPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'thumbpage');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $module->translate('Thumbnail'));
+	return array(GalleryStatus::success(), $module->translate('Thumbnail'));
     }
 
     /**
@@ -152,23 +152,23 @@ class ItemEditThumbOffset extends ItemEditPlugin {
      */
     function _getDuration(&$item) {
 	list ($ret, $path) = $item->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $toolkit) =
 	    GalleryCoreApi::getToolkitByProperty($item->getMimeType(), 'dimensions-and-duration');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!isset($toolkit)) {
-	    return array(GalleryCoreApi::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_TOOLKIT_FAILURE, __FILE__, __LINE__), null);
 	}
 	list ($ret, $result) = $toolkit->getProperty(
 	    $item->getMimeType(), 'dimensions-and-duration', $path);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $result[2]);
+	return array(GalleryStatus::success(), $result[2]);
     }
 }
 ?>

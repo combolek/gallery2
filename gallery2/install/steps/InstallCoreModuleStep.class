@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,15 +25,11 @@ class InstallCoreModuleStep extends InstallStep {
 	return _('Install Gallery Core');
     }
 
-    function processRequest() {
+    function loadTemplateData(&$templateData) {
 	global $galleryStub;
 	define('GALLERY_CONFIG_DIR', $_SESSION['configPath']);
 	require(dirname(__FILE__) . '/../../bootstrap.inc');
 	require(dirname(__FILE__) . '/../../init.inc');
-
-	$template = new StatusTemplate();
-	$template->renderHeader(true);
-	$template->renderStatusMessage(_('Installing the core module'), null, 0);
 
 	/* We want to log all debug output in our install log */
 	global $gallery;
@@ -44,12 +40,11 @@ class InstallCoreModuleStep extends InstallStep {
 	$gallery->setDebugLogFile($installLogPath);
 	$templateData['installLogPath'] = $installLogPath;
 	$this->_createDebugLogHeader();
-	$gallery->guaranteeTimeLimit(120);
 
 	$gallery->debug('Init first pass');
-	$ret = GalleryInitFirstPass(array('noDatabase' => true,
-					  'activeLanguage' => $_SESSION['language']));
-	if ($ret) {
+	$ret = GalleryInitFirstPass(array('debug' => 'logged',
+					  'noDatabase' => 1));
+	if ($ret->isError()) {
 	    $gallery->debug(sprintf('Error: Unable to initialize our Gallery data, this is the ' .
 				    'error stack trace: %s', $ret->getAsText()));
 	    $templateData['errors'][] = _('Unable to initialize our Gallery data');
@@ -61,11 +56,16 @@ class InstallCoreModuleStep extends InstallStep {
 	/* We want to avoid using the cache */
 	GalleryDataCache::setFileCachingEnabled(false);
 
+	/* Gallery init selects language from browser; reset to language currently in use */
+	$gallery->debug('Initialize translator');
+	$translator =& $gallery->getTranslator();
+	$translator->init($_SESSION['language']);
+
 	/*
 	 * Delete anything in the cache, which can be left around if we're
 	 * installing on top of an older install.
 	 */
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$gallery->debug('Clear the cache directory');
 	$cacheDirs = array('entity', 'theme', 'module', 'derivative');
 	foreach ($cacheDirs as $dir) {
@@ -77,9 +77,6 @@ class InstallCoreModuleStep extends InstallStep {
 	    }
 	}
 
-	$template->renderStatusMessage(_('Installing the core module'), null, 0.05);
-	$gallery->guaranteeTimeLimit(180);
-
 	if (empty($templateData['errors'])) {
 	    $gallery->debug('Check if the persistent storage is installed');
 	    /*
@@ -90,7 +87,7 @@ class InstallCoreModuleStep extends InstallStep {
 	     */
 	    $storage =& $gallery->getStorage();
 	    list ($ret, $isInstalled) = $storage->isInstalled();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$gallery->debug(sprintf('Error: Unable to communicate with the database, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		$templateData['errors'][] = _('Unable to communicate with the database');
@@ -102,16 +99,13 @@ class InstallCoreModuleStep extends InstallStep {
 	    $gallery->debug('Load core module');
 	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core', true);
 	    $this->resetL10Domain();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		$gallery->debug(sprintf('Error: Unable to load the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		$templateData['errors'][] = _('Unable to load the core module');
 		$templateData['stackTrace'] = $ret->getAsHtml();
 	    }
 	}
-
-	$template->renderStatusMessage(_('Installing the core module'), null, 0.1);
-	$gallery->guaranteeTimeLimit(180);
 
 	$freshInstall = $galleryStub->getConfig('freshInstall');
 	if ($freshInstall) {
@@ -128,8 +122,8 @@ class InstallCoreModuleStep extends InstallStep {
 	if (empty($templateData['errors'])) {
 	    if (!$isInstalled) {
 		$gallery->debug('Install core module now!');
-		$ret = $core->installOrUpgrade(true, $template);
-		if ($ret) {
+		$ret = $core->installOrUpgrade(true);
+		if ($ret->isError()) {
 		    $this->resetL10Domain();
 		    $gallery->debug(sprintf('Error: Unable to install the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
@@ -139,13 +133,10 @@ class InstallCoreModuleStep extends InstallStep {
 		    $gallery->debug('Core module installed successfully');
 		}
 
-	    	$template->renderStatusMessage(_('Installing the core module'), '', 0.8);
-		$gallery->guaranteeTimeLimit(180);
-
 		$gallery->debug('Activate core module');
-		list ($ret, $ignored) = $core->activate(false);
+		list ($ret, $ignored) = $core->activate();
 		$this->resetL10Domain();
-		if ($ret) {
+		if ($ret->isError()) {
 		    $gallery->debug(sprintf('Error: Unable to activate the core module, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		    $templateData['errors'][] = _('Unable to activate the core module');
@@ -154,12 +145,9 @@ class InstallCoreModuleStep extends InstallStep {
 		    $gallery->debug('Core module activated successfully');
 		}
 
-		$template->renderStatusMessage(_('Installing the core module'), '', 0.9);
-		$gallery->guaranteeTimeLimit(180);
-
 		$gallery->debug('Commit transaction');
 		$ret = $storage->commitTransaction();
-		if ($ret) {
+		if ($ret->isError()) {
 		    $gallery->debug(sprintf('Error: Unable to commit database transaction, this ' .
 					'is the error stack trace; %s', $ret->getAsText()));
 		    $templateData['errors'][] = _('Unable to commit database transaction');
@@ -185,10 +173,6 @@ class InstallCoreModuleStep extends InstallStep {
 	    }
 	}
 
-	$this->resetL10Domain();
-	$template->renderStatusMessage(_('Installing the core module'), '', 1.0);
-	$gallery->guaranteeTimeLimit(120);
-
 	$gallery->debug('Finish install core module step');
 	if (empty($templateData['errors'])) {
 	    $gallery->debug('Install core module step completed successfully');
@@ -198,8 +182,6 @@ class InstallCoreModuleStep extends InstallStep {
 	    $gallery->debug('Error: Failure during install core module step');
 	    $templateData['bodyFile'] = 'InstallCoreModuleError.html';
 	}
-	$template->hideStatusBlock();
-	$template->renderBodyAndFooter($templateData);
     }
 
     /* Adds a header to the debug log */
@@ -233,7 +215,7 @@ System and Gallery information:
     PHP disable_functions:\t" . ini_get('disable_functions') . "
     PHP zend.ze1_compatibility_mode:\t" . ini_get('zend.ze1_compatibility_mode') . "
     Webserver:\t" . GalleryUtilities::getServerVar('SERVER_SOFTWARE') . "
-    Database:\t" . $storage->getAdoDbType() . " " . @$storage->getVersion() . "
+    Database:\t" . $storage->_impl->getAdoDbType() . " " . @$storage->_impl->getVersion() . "
     Operating system:\t" . php_uname() . "
     Browser:\t " . GalleryUtilities::getServerVar('HTTP_USER_AGENT') . "
 --------------------------------------------------------\n\n

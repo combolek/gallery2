@@ -1,17 +1,17 @@
     <h1>Create Config File</h1>
 
-    <div class="error">
-      <h2>
+    <p class="error">
       <?php print $templateData['error'] ?>
-      </h2>
-    </div>
+    </p>
 
     <p>
       <?php print _('Please fix this error and try again.') ?>
     </p>
 
     <div class="go">
-	  <div class="btn btn-continue"><span><span><span><span>
-	  <a href="<?php generateUrl(sprintf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber())) ?>"><?php print _('Try Again') ?></a>
-	  </span></span></span></span></div>
+      <span class="goToNext">
+	<a href="<?php printf('%s?step=%s', INDEX_PHP, $currentStep->getStepNumber()) ?>">
+	  <?php print _('Try Again') ?>
+	</a>
+      </span>
     </div>

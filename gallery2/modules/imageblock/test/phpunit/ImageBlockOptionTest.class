@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 /**
  * Load required classes
  */
-GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
+GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
 
 /**
  * ImageBlockOption tests
@@ -48,18 +48,20 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
     function setUp() {
 	global $gallery;
 	parent::setUp();
+	GalleryCoreApi::relativeRequireOnce(
+	    'modules/imageblock/classes/ImageBlockDisabledMap.class');
 
-	list ($ret, $this->_topAlbum, $this->_topItems) =
+	list ($ret, $this->_topAlbum, $this->_topItems) = 
 		$this->_createSubAlbumWithItems($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_topAlbum);
 
-	list ($ret, $this->_subAlbum, $this->_subItems) =
+	list ($ret, $this->_subAlbum, $this->_subItems) = 
 		$this->_createSubAlbumWithItems($this->_topAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
@@ -69,24 +71,21 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
      */
     function tearDown() {
 	foreach (array_merge($this->_topItems, $this->_subItems) as $item) {
-	    $ret = GalleryCoreApi::removeMapEntry(
-		'ImageBlockDisabledMap', array('itemId' => $item->getId()));
-	    if ($ret) {
+	    $ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $item->getId()));
+	    if ($ret->isError()) {
 		print $ret->getAsHtml();
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'ImageBlockDisabledMap', array('itemId' => $this->_topAlbum->getId()));
-	if ($ret) {
+	$ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $this->_topAlbum->getId()));
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$ret = GalleryCoreApi::removeMapEntry(
-	    'ImageBlockDisabledMap', array('itemId' => $this->_subAlbum->getId()));
-	if ($ret) {
+	$ret = ImageBlockDisabledMap::removeMapEntry(array('itemId' => $this->_subAlbum->getId()));
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -97,18 +96,18 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
     function _createSubAlbumWithItems($parentId) {
 	/* Create a new album and image, set thumbnail and highlight */
 	list ($ret, $album) = $this->_createRandomAlbum($parentId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	$items = array();
 	for ($i = 0; $i < 5; $i++) {
 	    list($ret, $items[$i]) = $this->_createRandomDataItem($album->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	}
-	return array(null, $album, $items);
+	return array(GalleryStatus::success(), $album, $items);
     }
 
     function testImageBlockOption() {
@@ -120,13 +119,13 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(array(), array()), $result);
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($disabledFlag, 'Album not set disabled');
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$disabledFlag, 'SubAlbum set disabled 1');
@@ -141,13 +140,13 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(array(), array()), $result);
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$disabledFlag, 'Album set disabled');
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$disabledFlag, 'SubAlbum set disabled 2');
@@ -164,13 +163,13 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(array(), array()), $result);
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($disabledFlag, 'Album not set disabled');
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($disabledFlag, 'SubAlbum not set disabled');
@@ -185,13 +184,13 @@ class ImageBlockOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(array(), array()), $result);
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_topAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$disabledFlag, 'Album still disabled');
 
 	list($ret, $disabledFlag) = ImageBlockHelper::getDisabledFlag($this->_subAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(!$disabledFlag, 'SubAlbum still disabled');

@@ -41,12 +41,7 @@
       </li>
       <li>
 	<a id="lnk_link" href="" onclick="album_itemlinksonoff();this.blur();return false">
-	  {g->text text="Show Item Links"}
-	</a>
-      </li>
-      <li>
-	<a href="javascript:alert(keyboard_help)">
-	  {g->text text="Keyboard Controls"}
+	  {g->text text="Hide Item Links"}
 	</a>
       </li>
       {if $user.isRegisteredUser}
@@ -92,7 +87,7 @@
     {g->block type=$block.0 params=$block.1 class="gbBlock"}
   {/foreach}
 
-  {* Our emergency edit link, if the user removes all blocks containing edit links *}
+  {* Our emergency edit link, if the user all blocks containing edit links *}
   {g->block type="core.EmergencyEditItemLink" class="gbBlock"
 	    checkSidebarBlocks=true checkAlbumBlocks=true}
 </div>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package Quotas
@@ -39,15 +40,19 @@ class AdminDeleteGroupQuotaController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results = $status = $error = array();
+	$results = array();
+	$status = array();
+	$error = array();
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($form['action']['cancel'])) {
@@ -58,18 +63,18 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 
 	} else if (isset($form['action']['delete'])) {
 
-	    GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/QuotasMap.class');
+	    GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 
 	    list ($ret, $quotaExists, $groupQuota) =
 	        GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($quotaExists) {
-		$ret = GalleryCoreApi::removeMapEntry(
-		    'QuotasMap', array('userOrGroupId' => $group->getId()));
-                if ($ret) {
+		$ret = QuotasMap::removeMapEntry(array('userOrGroupId' => $group->getId()));
+                if ($ret->isError()) {
                     return array($ret->wrap(__FILE__, __LINE__), null);
                 }
 
@@ -89,7 +94,7 @@ class AdminDeleteGroupQuotaController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -105,20 +110,22 @@ class AdminDeleteGroupQuotaView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	GalleryCoreApi::requireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/quotas/classes/GalleryQuotasHelper.class');
 	$groupId = GalleryUtilities::getRequestVariables('groupId');
 	list ($ret, $group) = GalleryCoreApi::loadEntitiesById($groupId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $quotaExists, $groupQuota) =
 	    GalleryQuotasHelper::fetchGroupQuota($group->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -131,14 +138,16 @@ class AdminDeleteGroupQuotaView extends GalleryView {
 	$AdminDeleteGroupQuota = array();
 	list ($ret, $AdminDeleteGroupQuota['quotaSize'], $AdminDeleteGroupQuota['quotaUnit']) =
 	    GalleryQuotasHelper::humanReadableFromKilobytes($groupQuota['quota']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	$AdminDeleteGroupQuota['group'] = (array)$group;
+	$AdminDeleteGroupQuota['group'] = $group->getMemberData();
 
+	/* Render the HTML body */
 	$template->setVariable('AdminDeleteGroupQuota', $AdminDeleteGroupQuota);
 	$template->setVariable('controller', 'quotas.AdminDeleteGroupQuota');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/quotas/templates/AdminDeleteGroupQuota.tpl'));
     }
 }

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/**
- * @version $Revision$ $Date$
- * @package ImageBlock
- * @author Bharat Mediratta <bharat@menalto.com>
- */
 class ImageBlockPreloads {
     function preload(&$template, $preload, $paramSet) {
 	global $gallery;
@@ -32,7 +27,7 @@ class ImageBlockPreloads {
 	case 'ImageBlock':
 	    list ($ret, $moduleParams) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $frameIds = array();
@@ -50,13 +45,13 @@ class ImageBlockPreloads {
 		$frameIds = array_keys($frameIds);
 		list ($ret, $imageframe) =
 		    GalleryCoreApi::newFactoryInstance('ImageFrameInterface_1_1');
-		if ($ret) {
+		if ($ret->isError()) {
 		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		if (isset($imageframe)) {
 		    $ret = $imageframe->init($template, $frameIds);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			if ($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH) {
 			    /* It's there, but unusable so ignore it. */
 			} else {
@@ -66,11 +61,11 @@ class ImageBlockPreloads {
 		}
 	    }
 
-	    return null;
+	    return GalleryStatus::success();
 	}
 
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
+	return GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

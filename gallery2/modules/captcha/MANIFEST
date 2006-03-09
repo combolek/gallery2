@@ -1,106 +1,39 @@
 # File crc32 crc32(crlf) size size(crlf)  or  R File
-modules/captcha/CaptchaConfigAdmin.inc	3136495681	2529043173	2517	2595
-modules/captcha/CaptchaImage.inc	3409332859	1981046312	1933	1999
-modules/captcha/CaptchaSiteAdmin.inc	2899510922	4097151394	7449	7682
-modules/captcha/classes/CaptchaHelper.class	967837200	1512120808	1894	1953
-modules/captcha/classes/CaptchaValidationPlugin.inc	374216554	2751610768	5676	5856
-modules/captcha/classes/ResetFailureCountsTask.class	1853576084	2204442870	2461	2540
+modules/captcha/CaptchaConfigAdmin.inc	3870020608	3968168216	2561	2642
+modules/captcha/CaptchaImage.inc	3281497854	2443820570	1936	2004
+modules/captcha/CaptchaSiteAdmin.inc	407371427	2364624027	3871	3990
+modules/captcha/CaptchaValidationPlugin.inc	3328915272	1458236278	4003	4137
+modules/captcha/classes/CaptchaHelper.class	3300414464	1782143541	1894	1953
 modules/captcha/data/code_bg.jpg	1530281949	1530281949	6429	6429
-modules/captcha/locale/bg/LC_MESSAGES/modules_captcha.mo	2048793045	2048793045	3437	3437
-modules/captcha/locale/cs/LC_MESSAGES/modules_captcha.mo	759990486	759990486	4645	4645
-modules/captcha/locale/da/LC_MESSAGES/modules_captcha.mo	3085890186	3085890186	2621	2621
-modules/captcha/locale/de/LC_MESSAGES/modules_captcha.mo	781689494	781689494	4948	4948
-modules/captcha/locale/es/LC_MESSAGES/modules_captcha.mo	2455541974	2455541974	2776	2776
-modules/captcha/locale/eu/LC_MESSAGES/modules_captcha.mo	946245133	946245133	4595	4595
-modules/captcha/locale/fr/LC_MESSAGES/modules_captcha.mo	2410690045	2410690045	4849	4849
-modules/captcha/locale/it/LC_MESSAGES/modules_captcha.mo	3113114387	3113114387	2723	2723
-modules/captcha/locale/ja/LC_MESSAGES/modules_captcha.mo	4048787301	4048787301	1520	1520
-modules/captcha/locale/nl/LC_MESSAGES/modules_captcha.mo	2517805206	2517805206	4536	4536
-modules/captcha/locale/no/LC_MESSAGES/modules_captcha.mo	2466794988	2466794988	4635	4635
-modules/captcha/locale/pl/LC_MESSAGES/modules_captcha.mo	1826198392	1826198392	4703	4703
-modules/captcha/locale/ru/LC_MESSAGES/modules_captcha.mo	950933056	950933056	6893	6893
-modules/captcha/locale/sr/LC_MESSAGES/modules_captcha.mo	1904374395	1904374395	2563	2563
-modules/captcha/locale/sv/LC_MESSAGES/modules_captcha.mo	2363786344	2363786344	2691	2691
-modules/captcha/locale/tr/LC_MESSAGES/modules_captcha.mo	1382697580	1382697580	1709	1709
-modules/captcha/locale/vi/LC_MESSAGES/modules_captcha.mo	2380218149	2380218149	2532	2532
-modules/captcha/locale/zh_TW/LC_MESSAGES/modules_captcha.mo	1484948839	1484948839	4197	4197
-modules/captcha/module.inc	1791487794	1375068676	4575	4727
+modules/captcha/locale/bg_BG/LC_MESSAGES/modules_captcha.mo	366015158	366015158	4621	4621
+modules/captcha/locale/cs_CZ/LC_MESSAGES/modules_captcha.mo	2390244177	2390244177	3423	3423
+modules/captcha/locale/da_DK/LC_MESSAGES/modules_captcha.mo	792649467	792649467	3216	3216
+modules/captcha/locale/de_DE/LC_MESSAGES/modules_captcha.mo	1163296580	1163296580	3655	3655
+modules/captcha/locale/fr_FR/LC_MESSAGES/modules_captcha.mo	4069492515	4069492515	3746	3746
+modules/captcha/locale/it_IT/LC_MESSAGES/modules_captcha.mo	3402300593	3402300593	3547	3547
+modules/captcha/locale/nl_NL/LC_MESSAGES/modules_captcha.mo	2608920782	2608920782	3476	3476
+modules/captcha/locale/ru_RU/LC_MESSAGES/modules_captcha.mo	401282418	401282418	4352	4352
+modules/captcha/locale/sr_YU/LC_MESSAGES/modules_captcha.mo	2825197477	2825197477	3338	3338
+modules/captcha/locale/tr_TR/LC_MESSAGES/modules_captcha.mo	3320829005	3320829005	1501	1501
+modules/captcha/locale/vi_VN/LC_MESSAGES/modules_captcha.mo	1641780953	1641780953	3365	3365
+modules/captcha/locale/zh_TW/LC_MESSAGES/modules_captcha.mo	2985223098	2985223098	3208	3208
+modules/captcha/module.inc	1406545844	3906338444	4810	4976
 modules/captcha/po/GNUmakefile	1866879166	2808215985	98	103
-modules/captcha/po/bg.po	418700578	3364006728	6606	6780
-modules/captcha/po/cs.po	3964281920	2902174333	5972	6144
-modules/captcha/po/da.po	3309440797	4202230965	5352	5529
-modules/captcha/po/de.po	2394375235	3307597879	5964	6109
-modules/captcha/po/es.po	228964078	826021392	5527	5702
-modules/captcha/po/eu.po	3152725321	2974352237	5870	6036
-modules/captcha/po/fr.po	1954114221	3435216265	5775	5935
-modules/captcha/po/it.po	2028118735	1714150352	5324	5498
-modules/captcha/po/ja.po	846355233	3462852849	4297	4450
-modules/captcha/po/nl.po	2862668428	3319229910	5543	5676
-modules/captcha/po/no.po	959706765	1144877067	5586	5719
-modules/captcha/po/pl.po	2507927929	1082258470	5493	5624
-modules/captcha/po/ru.po	920002002	2795639160	8428	8575
-modules/captcha/po/sr.po	3053357451	4227428647	5090	5256
-modules/captcha/po/strings.raw	1894200965	3906584124	2284	2328
-modules/captcha/po/sv.po	1311898242	2117225680	5302	5472
-modules/captcha/po/tr.po	1812297016	827782015	4320	4461
-modules/captcha/po/vi.po	1656628702	3610056285	5224	5391
-modules/captcha/po/zh_TW.po	2562937922	1650978808	5089	5237
-modules/captcha/templates/CaptchaConfigAdmin.tpl	3717961647	1709670036	1879	1948
-modules/captcha/templates/CaptchaSiteAdmin.tpl	4209111589	2664565566	3518	3610
+modules/captcha/po/bg_BG.po	519209211	846320501	5705	5843
+modules/captcha/po/cs_CZ.po	1380698949	2152310645	4287	4421
+modules/captcha/po/da_DK.po	2734908081	3428358720	4297	4434
+modules/captcha/po/de_DE.po	1789460541	1135401849	4673	4813
+modules/captcha/po/fr_FR.po	3673080652	755332005	4622	4760
+modules/captcha/po/it_IT.po	1063240071	2561035132	4340	4451
+modules/captcha/po/nl_NL.po	588911223	3073653668	4427	4563
+modules/captcha/po/ru_RU.po	4125802667	2988342306	5399	5537
+modules/captcha/po/sr_YU.po	4188674015	4270736897	4195	4329
+modules/captcha/po/strings.raw	702122782	3086495529	1542	1570
+modules/captcha/po/tr_TR.po	1190096112	1972122760	3504	3630
+modules/captcha/po/vi_VN.po	171644853	599463574	4323	4454
+modules/captcha/po/zh_TW.po	330653906	432218105	4046	4172
+modules/captcha/templates/CaptchaConfigAdmin.tpl	2755357724	922377214	1881	1952
+modules/captcha/templates/CaptchaSiteAdmin.tpl	1707062553	930633234	1927	1977
 modules/captcha/templates/CaptchaValidationPlugin.tpl	941120621	3950714675	945	972
-modules/captcha/test/phpunit/CaptchaHelperTest.class	3934622885	2530434649	3823	3941
-modules/captcha/test/phpunit/CaptchaSiteAdminControllerTest.class	84601666	2143772111	7254	7471
-modules/captcha/test/phpunit/CaptchaValidationPluginTest.class	1752570166	3070319213	8505	8742
-R	modules/captcha/CaptchaValidationPlugin.inc
-R	modules/captcha/locale/bg_BG/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/bg_BG/LC_MESSAGES
-R	modules/captcha/locale/bg_BG
-R	modules/captcha/locale/cs_CZ/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/cs_CZ/LC_MESSAGES
-R	modules/captcha/locale/cs_CZ
-R	modules/captcha/locale/da_DK/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/da_DK/LC_MESSAGES
-R	modules/captcha/locale/da_DK
-R	modules/captcha/locale/de_DE/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/de_DE/LC_MESSAGES
-R	modules/captcha/locale/de_DE
-R	modules/captcha/locale/eu_ES/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/eu_ES/LC_MESSAGES
-R	modules/captcha/locale/eu_ES
-R	modules/captcha/locale/fr_FR/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/fr_FR/LC_MESSAGES
-R	modules/captcha/locale/fr_FR
-R	modules/captcha/locale/it_IT/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/it_IT/LC_MESSAGES
-R	modules/captcha/locale/it_IT
-R	modules/captcha/locale/ja_JP/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/ja_JP/LC_MESSAGES
-R	modules/captcha/locale/ja_JP
-R	modules/captcha/locale/nl_NL/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/nl_NL/LC_MESSAGES
-R	modules/captcha/locale/nl_NL
-R	modules/captcha/locale/ru_RU/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/ru_RU/LC_MESSAGES
-R	modules/captcha/locale/ru_RU
-R	modules/captcha/locale/sr_YU/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/sr_YU/LC_MESSAGES
-R	modules/captcha/locale/sr_YU
-R	modules/captcha/locale/tr_TR/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/tr_TR/LC_MESSAGES
-R	modules/captcha/locale/tr_TR
-R	modules/captcha/locale/vi_VN/LC_MESSAGES/modules_captcha.mo
-R	modules/captcha/locale/vi_VN/LC_MESSAGES
-R	modules/captcha/locale/vi_VN
-R	modules/captcha/po/bg_BG.po
-R	modules/captcha/po/cs_CZ.po
-R	modules/captcha/po/da_DK.po
-R	modules/captcha/po/de_DE.po
-R	modules/captcha/po/eu_ES.po
-R	modules/captcha/po/fr_FR.po
-R	modules/captcha/po/it_IT.po
-R	modules/captcha/po/ja_JP.po
-R	modules/captcha/po/nl_NL.po
-R	modules/captcha/po/ru_RU.po
-R	modules/captcha/po/sr_YU.po
-R	modules/captcha/po/tr_TR.po
-R	modules/captcha/po/vi_VN.po
+modules/captcha/test/phpunit/CaptchaHelperTest.class	3842174734	4287043736	3832	3951
+modules/captcha/test/phpunit/CaptchaSiteAdminControllerTest.class	712675407	2743323128	4935	5087

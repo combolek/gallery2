@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package GalleryCore
@@ -62,11 +63,13 @@ class AdminDeleteUserController extends GalleryController {
 	global $gallery;
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results = $status = $error = array();
+	$results = array();
+	$status = array();
+	$error = array();
 	$userId = GalleryUtilities::getRequestVariables('userId');
 
 	if (isset($form['action']['cancel'])) {
@@ -80,7 +83,7 @@ class AdminDeleteUserController extends GalleryController {
 	    /* Get the anonymous user for checks */
 	    list ($ret, $anonymousUserId) =
 			GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	    if ($ret) {
+	    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -90,7 +93,7 @@ class AdminDeleteUserController extends GalleryController {
 	    if (isset($form['text']['newOwner']) && $form['text']['newOwner'] != null) {
 		list ($ret, $newOwner) =
 		    GalleryCoreApi::fetchUserByUserName($form['text']['newOwner']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if (!($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    } else { /* the user was spelled incorrectly, return an error page */
@@ -105,20 +108,20 @@ class AdminDeleteUserController extends GalleryController {
 	    } else { /* new owner field is empty, set the default new owner: 'admin' */
 		$activeUserId = $gallery->getActiveUserId(); /* activeUser = site admin */
 		list ($ret, $newOwner) = GalleryCoreApi::loadEntitiesById($activeUserId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 	   	}
 	    }
 
 	    /* Verify the user exists */
 	    list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get all items by the User */
 	    list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
@@ -145,14 +148,14 @@ class AdminDeleteUserController extends GalleryController {
 		     * don't delete albums that still contain items
 		     */
 		    $ret = GalleryCoreApi::deleteUserItems($user->getId());
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
 		/* Assign a new owner for the (remaining) items */
 		$ret = GalleryCoreApi::remapOwnerId($user->getId(), $newOwner->getId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -160,7 +163,7 @@ class AdminDeleteUserController extends GalleryController {
 
 		/* Delete the user */
 		$ret = GalleryCoreApi::deleteEntityById($user->getId());
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -180,12 +183,12 @@ class AdminDeleteUserController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
 /**
- * This view will prompt for confirmation to delete a user
+ * This view will prompt for confirmation ot delete an user
  *
  * @package GalleryCore
  * @subpackage UserInterface
@@ -197,13 +200,13 @@ class AdminDeleteUserView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$userId = GalleryUtilities::getRequestVariables('userId');
 	list ($ret, $user) = GalleryCoreApi::loadEntitiesById($userId);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
@@ -214,17 +217,19 @@ class AdminDeleteUserView extends GalleryView {
 	}
 
 	$AdminDeleteUser = array();
-	$AdminDeleteUser['user'] = (array)$user;
+	$AdminDeleteUser['user'] = $user->getMemberData();
 	/* Get all items / the item count of the oldUser */
 	list ($ret, $itemIds) = GalleryCoreApi::fetchAllItemIdsByOwnerId($user->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$AdminDeleteUser['numberOfItems'] = count($itemIds);
 
+	/* Render the HTML body */
 	$template->setVariable('AdminDeleteUser', $AdminDeleteUser);
 	$template->setVariable('controller', 'core.AdminDeleteUser');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/AdminDeleteUser.tpl'));
     }
 }

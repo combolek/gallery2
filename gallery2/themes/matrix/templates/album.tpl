@@ -58,7 +58,7 @@
 
         {assign var="childrenInColumnCount" value=0}
         <div class="gbBlock">
-          <table id="gsThumbMatrix">
+          <table id="gsThumbMatrix" width="100%">
             <tr valign="top">
               {foreach from=$theme.children item=child}
 
@@ -69,46 +69,45 @@
               {assign var="childrenInColumnCount" value=0}
               {/if}
 
-	      {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
-	      <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}"
-		  style="width: {$theme.columnWidthPct}%">
-		{if ($child.canContainChildren || $child.entityType == 'GalleryLinkItem')}
-		{assign var=frameType value="albumFrame"}
-		{else}
-		{assign var=frameType value="itemFrame"}
-		{/if}
-		<div>
-		  {if isset($theme.params.$frameType) && isset($child.thumbnail)}
-		    {g->container type="imageframe.ImageFrame" frame=$theme.params.$frameType
-				  width=$child.thumbnail.width height=$child.thumbnail.height}
+              {assign var=childrenInColumnCount value="`$childrenInColumnCount+1`"}
+              <td class="{if $child.canContainChildren}giAlbumCell gcBackground1{else}giItemCell{/if}"
+                  style="width: {$theme.columnWidthPct}%">
+                {if $child.canContainChildren}
+                {assign var=frameType value="albumFrame"}
+                {else}
+                {assign var=frameType value="itemFrame"}
+                {/if}
+                <div>
+                  {if isset($theme.params.$frameType) && isset($child.thumbnail)}
+		    {g->container type="imageframe.ImageFrame" frame=$theme.params.$frameType}
 		      <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}">
 			{g->image id="%ID%" item=$child image=$child.thumbnail
 			 class="%CLASS% giThumbnail"}
 		      </a>
 		    {/g->container}
-		  {elseif isset($child.thumbnail)}
+                  {elseif isset($child.thumbnail)}
 		    <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}">
 		      {g->image item=$child image=$child.thumbnail class="giThumbnail"}
 		    </a>
-		  {else}
+                  {else}
 		    <a href="{g->url arg1="view=core.ShowItem" arg2="itemId=`$child.id`"}"
-		       class="giMissingThumbnail">
+                       class="giMissingThumbnail">
 		      {g->text text="no thumbnail"}
 		    </a>
-		  {/if}
-		</div>
+                  {/if}
+                </div>
 
-		{g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
+                {g->block type="core.ItemLinks" item=$child links=$child.itemLinks}
 
-		{if !empty($child.title)}
-		<p class="giTitle">
-		  {if $child.canContainChildren}
-		  {g->text text="Album: %s" arg1=$child.title|markup}
-		  {else}
-		  {$child.title|markup}
-		  {/if}
-		</p>
-		{/if}
+                {if !empty($child.title)}
+                <p class="giTitle">
+                  {if $child.canContainChildren}
+                  {g->text text="Album: %s" arg1=$child.title|markup}
+                  {else}
+                  {$child.title|markup}
+                  {/if}
+                </p>
+                {/if}
 
                 {if !empty($child.summary)}
                 <p class="giDescription">
@@ -116,8 +115,8 @@
                 </p>
                 {/if}
 
-                {if ($child.canContainChildren && $theme.params.showAlbumOwner) ||
-                    (!$child.canContainChildren && $theme.params.showImageOwner)}
+                {if ($theme.item.canContainChildren && $theme.params.showAlbumOwner) ||
+                    (!$theme.item.canContainChildren && $theme.params.showImageOwner)}
                 {assign var="showOwner" value=true}
                 {else}
                 {assign var="showOwner" value=false}

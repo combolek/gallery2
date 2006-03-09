@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,8 @@
  * @package GalleryCore
  * @subpackage Classes
  */
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryMimeTypeMap.class');
+
 class GalleryMimeTypeHelper_simple {
 
     /**
@@ -43,12 +45,12 @@ class GalleryMimeTypeHelper_simple {
      */
     function convertExtensionToMime($extension) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$extension = strtolower($extension);
-	return array(null,
+	return array(GalleryStatus::success(),
 		     isset($mimeData['by-extension'][$extension])
 			 ? $mimeData['by-extension'][$extension] : 'application/unknown');
     }
@@ -63,12 +65,12 @@ class GalleryMimeTypeHelper_simple {
      */
     function convertMimeToExtensions($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$mimeType = strtolower($mimeType);
-	return array(null,
+	return array(GalleryStatus::success(),
 		     isset($mimeData['by-mimetype'][$mimeType])
 			 ? $mimeData['by-mimetype'][$mimeType]['exts'] : array());
     }
@@ -86,10 +88,10 @@ class GalleryMimeTypeHelper_simple {
     function getMimeType($filename) {
 	list ($base, $extension) = GalleryUtilities::getFileNameComponents($filename);
 	list ($ret, $mimeType) = GalleryMimeTypeHelper_simple::convertExtensionToMime($extension);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $mimeType);
+	return array(GalleryStatus::success(), $mimeType);
     }
 
     /**
@@ -101,11 +103,11 @@ class GalleryMimeTypeHelper_simple {
      */
     function isViewableMimeType($mimeType) {
 	list ($ret, $mimeData) = GalleryMimeTypeHelper_simple::_getMimeData();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null,
+	return array(GalleryStatus::success(),
 		     isset($mimeData['by-mimetype'][$mimeType])
 			 ? $mimeData['by-mimetype'][$mimeType]['viewable'] : false);
     }
@@ -130,11 +132,6 @@ class GalleryMimeTypeHelper_simple {
 		$mimeData = $cached;
 	    } else {
 		global $gallery;
-		/*
-		 * TODO: add a column to define "primary" extension for mime type -> extension
-		 * conversions.. for now I set desc order by extension so image/jpeg will
-		 * map to jpg instead of jpe (quick fix for most common case).
-		 */
 		$query = '
 		SELECT
 		    [GalleryMimeTypeMap::extension],
@@ -142,11 +139,9 @@ class GalleryMimeTypeHelper_simple {
 		    [GalleryMimeTypeMap::viewable]
 		FROM
 		    [GalleryMimeTypeMap]
-		ORDER BY
-		    [GalleryMimeTypeMap::extension] DESC
 		';
 		list ($ret, $searchResults) = $gallery->search($query);
-		if ($ret) {
+		if ($ret->isError()) {
 		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
@@ -165,7 +160,7 @@ class GalleryMimeTypeHelper_simple {
 		GalleryDataCache::putToDisk($cacheParams, $mimeData);
 	    }
 	}
-	$ret = array(null, &$mimeData);
+	$ret = array(GalleryStatus::success(), &$mimeData);
 	return $ret;
     }
 

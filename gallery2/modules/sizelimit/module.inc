@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 /**
  * @version $Revision$ $Date$
  * @package SizeLimit
@@ -28,7 +29,7 @@
 /**
  * This module sets size limit for the picture
  *
- * @package SizeLimit
+ * @package
  */
 class SizeLimitModule extends GalleryModule {
 
@@ -38,11 +39,11 @@ class SizeLimitModule extends GalleryModule {
 	$this->setId('sizelimit');
 	$this->setName($gallery->i18n('Size Limit'));
 	$this->setDescription($gallery->i18n('Define picture size limit'));
-	$this->setVersion('1.0.2');
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('registerEventListeners');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
@@ -54,24 +55,39 @@ class SizeLimitModule extends GalleryModule {
     }
 
     /**
+     * @see GalleryModule::isRecommendedDuringInstall
+     */
+    function isRecommendedDuringInstall() {
+	return false;
+    }
+
+    /**
+     * @see GalleryModule::autoConfigure
+     */
+    function autoConfigure() {
+	/* We don't require any special configuration */
+	return array(GalleryStatus::success(), true);
+    }
+
+    /**
      * @see GalleryModule::performFactoryRegistrations()
      */
     function performFactoryRegistrations() {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'SizeLimitOption', 'SizeLimitOption',
 	    'modules/sizelimit/SizeLimitOption.inc', 'sizelimit', array('ItemEditAlbum'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddOption', 'SetSizeOption', 'SetSizeOption',
 	    'modules/sizelimit/SetSizeOption.inc', 'sizelimit', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -86,22 +102,22 @@ class SizeLimitModule extends GalleryModule {
 	    $album = $event->getEntity();
 	    if (GalleryUtilities::isA($album, 'GalleryAlbumItem') &&
 		    $album->testPersistentFlag(STORAGE_FLAG_NEWLY_CREATED)) {
-		$parentId = (int)$album->getParentId();
+		$parentId = $album->getParentId();
 		list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 		    'module', 'sizelimit', $parentId);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($params as $param => $value) {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'sizelimit',
 			$param, $value, $album->getId());
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
 	}
-	return array(null, null);
+	return array(GalleryStatus::success(), null);
     }
 }
 ?>

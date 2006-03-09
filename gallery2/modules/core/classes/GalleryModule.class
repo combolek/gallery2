@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryPlugin.class', true);
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryPlugin.class');
 
 /**
  * Module meta-info container
@@ -41,7 +41,7 @@ class GalleryModule extends GalleryPlugin {
      * The module group (optional)
      * Used to better organize site admin pages
      *
-     * @var array('group'=>group, 'groupLabel'=>label) _group
+     * @var array('group'=>group, 'groupLabel'=>localized label) _group
      * @access private
      */
     var $_group;
@@ -81,7 +81,8 @@ class GalleryModule extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(3, 0);
+	/* TODO: Remove loadItemDetails on next major version bump */
+	return array(2, 0);
     }
 
     /**
@@ -115,7 +116,7 @@ class GalleryModule extends GalleryPlugin {
 	}
 
 	if (!GalleryCoreApi::isPluginCompatibleWithApis($this)) {
-	    return GalleryCoreApi::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
+	    return GalleryStatus::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
 		sprintf('incompatible %s %s', $this->getPluginType(), $this->getId()));
 	}
 
@@ -130,7 +131,7 @@ class GalleryModule extends GalleryPlugin {
 	    $installedVersion = null;
 	} else {
 	    list ($ret, $installedVersion) = $this->getParameter('_version');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
@@ -142,7 +143,7 @@ class GalleryModule extends GalleryPlugin {
 	    /* The store requires configuration. */
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug(sprintf('Error: Failed to configure the persistent store, ' .
 					    'this is the error stack trace: %s',
@@ -155,7 +156,7 @@ class GalleryModule extends GalleryPlugin {
 		$gallery->debug(sprintf('Upgrade (or install) %s module', $this->getId()));
 	    }
 	    $ret = $this->upgrade($installedVersion, $statusMonitor);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug(sprintf('Error: Failed to upgrade the %s module, this ' .
 					    'is the error stack trace: %s', $this->getId(),
@@ -168,7 +169,7 @@ class GalleryModule extends GalleryPlugin {
 		$gallery->debug(sprintf('ConfigureStoreCleanup for %s module', $this->getId()));
 	    }
 	    $ret = $storage->configureStoreCleanup($this->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug(sprintf('Error: Failed to clean up the persistent store, ' .
 					   'this is the error stack trace: %s',
@@ -187,7 +188,7 @@ class GalleryModule extends GalleryPlugin {
 		$gallery->debug(sprintf('Reactivate %s module', $this->getId()));
 	    }
 	    list ($ret, $redirect) = $this->reactivate();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		if ($gallery->getDebug()) {
 		    $gallery->debug(sprintf('Error: Failed to reactivate the module, this' .
 					    ' is the error stack trace: %s', $ret->getAsText()));
@@ -205,7 +206,7 @@ class GalleryModule extends GalleryPlugin {
 			  '_requiredModuleApi' => join(',', $this->getRequiredModuleApi()));
 	    foreach ($data as $key => $value) {
 		$ret = $this->setParameter($key, $value);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if ($gallery->getDebug()) {
 			$gallery->debug(sprintf('Error: Failed to update the module parameter %s' .
 						', this is the error stack trace: %s', $key,
@@ -221,7 +222,7 @@ class GalleryModule extends GalleryPlugin {
 				    $this->getId()));
 	}
 
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -234,66 +235,36 @@ class GalleryModule extends GalleryPlugin {
 
 	/* Find and remove all module permissions */
 	$ret = GalleryCoreApi::unregisterModulePermissions($this->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove onLoadHandlers */
 	$ret = GalleryCoreApi::removeOnLoadHandlers($this->getOnLoadHandlerIds());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	/* Delete entities for types registered by this module */
-	$ret = $this->_deleteModuleEntities();
-	if ($ret) {
+	/* Remove factory implementations */
+	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove all tables */
 	$storage =& $gallery->getStorage();
 	$ret = $storage->unconfigureStore($this->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove this plugin */
 	$ret = parent::uninstall();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
-	return null;
-    }
-
-    /**
-     * Delete all entities with a type registered by this module.
-     * @return object GalleryStatus a status code
-     * @access private
-     */
-    function _deleteModuleEntities() {
-	global $gallery;
-	$types = $this->getModuleEntityTypes();
-	if (empty($types)) {
-	    return null;
-	}
-
-	$query = '
-	SELECT [GalleryEntity::id]
-	  FROM [GalleryEntity]
-	 WHERE [GalleryEntity::entityType] IN (' . GalleryUtilities::makeMarkers($types) . ')
-	';
-	list ($ret, $searchResults) = $gallery->search($query, $types);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-	while ($result = $searchResults->nextResult()) {
-	    $ret = GalleryCoreApi::deleteEntityById($result[0]);
-	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -301,21 +272,21 @@ class GalleryModule extends GalleryPlugin {
      */
     function deactivate($postDeactivationEvent=true) {
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
-	    return array(null, $redirect);
+	    return array(GalleryStatus::success(), $redirect);
 	}
 
 	/* Unregister all factory implementations */
 	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -326,35 +297,35 @@ class GalleryModule extends GalleryPlugin {
      */
     function activate($postActivationEvent=true) {
 	if (!GalleryCoreApi::isPluginCompatibleWithApis($this)) {
-	    return array(GalleryCoreApi::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_PLUGIN_VERSION_MISMATCH, __FILE__, __LINE__,
 		sprintf('incompatible %s %s', $this->getPluginType(), $this->getId())), null);
 	}
 
 	/* Make sure that we don't need configuration before we allow activation. */
 	list ($ret, $needs) = $this->needsConfiguration();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($needs) {
-	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
+	    return array(GalleryStatus::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
 			 null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
-	    return array(null, $redirect);
+	    return array(GalleryStatus::success(), $redirect);
 	}
 
 	$ret = $this->performFactoryRegistrations();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -364,7 +335,20 @@ class GalleryModule extends GalleryPlugin {
      *               boolean
      */
     function needsConfiguration() {
-	return array(null, false);
+	return array(GalleryStatus::success(), false);
+    }
+
+    /**
+     * Is this module recommended to be installed/activated during the installer?
+     *
+     * Default is false which is a security measure. Only recommend modules
+     * that by default do not expose any sensitive data. For example, the
+     * debug module shouldn't be recommended because it can show filesystem
+     * paths. Also don't recommend installing modules that might change some
+     * default gallery behaviour (e.g. the squarethumbs module)
+     */
+    function isRecommendedDuringInstall() {
+	return false;
     }
 
     /**
@@ -378,8 +362,8 @@ class GalleryModule extends GalleryPlugin {
      *               boolean
      */
     function autoConfigure() {
-	/* By default we dont't need any configuration */
-	return array(null, true);
+	/* By default we can't auto configure */
+	return array(GalleryStatus::success(), false);
     }
 
     /**
@@ -390,10 +374,10 @@ class GalleryModule extends GalleryPlugin {
      *
      * @return array object GalleryStatus a status code
      *               array( array('name' => name, 'view' => view,
-     *                 [optional: 'group' => group, 'groupLabel' => localized label]), ...)
+     *                 [optional: 'group' => group, 'groupLabel' => label]), ...)
      */
     function getSiteAdminViews() {
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -408,7 +392,7 @@ class GalleryModule extends GalleryPlugin {
      *               array( array('name' => name, 'view' => view), ...)
      */
     function getItemAdminViews($item) {
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -422,7 +406,7 @@ class GalleryModule extends GalleryPlugin {
      *               array( array('name' => name, 'view' => view), ...)
      */
     function getUserAdminViews($user) {
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -449,7 +433,7 @@ class GalleryModule extends GalleryPlugin {
      *                     ...)
      */
     function getSystemLinks() {
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -466,7 +450,7 @@ class GalleryModule extends GalleryPlugin {
      *                                     ...))
      */
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {
-	return array(null, array());
+	return array(GalleryStatus::success(), array());
     }
 
     /**
@@ -474,12 +458,27 @@ class GalleryModule extends GalleryPlugin {
      *
      * @param array object GalleryItem
      * @param array id => array(permission => 1, ...) of item permissions
-     * @param object GalleryTemplate the master template instance
      * @return array object GalleryStatus a status code
-     *               array (id => string HTML content, ..)
+     *               string HTML content
      */
-    function getItemSummaries($items, $permissions, &$template) {
-	return array(null, array());
+    function getItemSummaries($items, $permissions) {
+	return array(GalleryStatus::success(), array());
+    }
+
+    /**
+     * TODO: remove this obsolete api.
+     * Return module-specific details content about the item. This is localized
+     * content specific to a given item.  You can use this to return in-depth
+     * item content.  In theory it should be more detailed than the item summaries.
+     *
+     * @param object GalleryTemplate a template
+     * @param object GalleryItem
+     * @param array of item permissions
+     * @return array object GalleryStatus a status code
+     *               string path to template file to include
+     */
+    function loadItemDetails(&$template, $item, $permissions) {
+	return array(GalleryStatus::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__), null);
     }
 
     /**
@@ -490,7 +489,7 @@ class GalleryModule extends GalleryPlugin {
      * @return object GalleryStatus a status code
      */
     function performFactoryRegistrations() {
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -500,16 +499,6 @@ class GalleryModule extends GalleryPlugin {
      * @return array of factory impl ids
      */
     function getOnLoadHandlerIds() {
-	return array();
-    }
-
-    /**
-     * Get names of all GalleryEntity types this module may register.
-     * Entities of these types will be deleted upon module uninstall.
-     *
-     * @return array of class names
-     */
-    function getModuleEntityTypes() {
 	return array();
     }
 
@@ -541,16 +530,7 @@ class GalleryModule extends GalleryPlugin {
     }
 
     function getGroup() {
-	if (empty($this->_group)) {
-	    $groupLabel = 'Other';
-	    list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if (!$ret) {
-		$groupLabel = $core->translate('Other');
-	    }
-	    return array('group' => 'other', 'groupLabel' => $groupLabel);
-	}
-	return array('group' => $this->_group['group'],
-		     'groupLabel' => $this->translate($this->_group['groupLabel']));
+	return $this->_group;
     }
 
     function getCallbacks() {

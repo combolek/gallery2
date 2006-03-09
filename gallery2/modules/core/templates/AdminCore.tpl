@@ -39,7 +39,7 @@
   <h3> {g->text text="Language Settings"} </h3>
 
   <p class="giDescription">
-    {g->text text="Select language defaults for Gallery. Individual users can override this setting in their personal preferences or via the language selector block if available. Gallery will try to automatically detect the language preference of each user if the browser preference check is enabled."}
+    {g->text text="Select language defaults for Gallery. Individual users can override this setting in their personal preferences or via the language selector block if available."}
   </p>
 
   {if isset($AdminCore.can.translate)}
@@ -50,13 +50,6 @@
       <select name="{g->formVar var="form[default][language]"}">
 	{html_options options=$AdminCore.languageList selected=$form.default.language}
       </select>
-    </td>
-  </tr><tr>
-    <td>
-      {g->text text="Check Browser Preference"}
-    </td><td>
-      <input type="checkbox"{if $form.language.useBrowserPref} checked="checked"{/if}
-	     name="{g->formVar var="form[language][useBrowserPref]"}"/>
     </td>
   </tr></table>
   {else}
@@ -171,7 +164,7 @@
        value="{$form.uploadLocalServer.newDir}"/>
       {g->autoComplete element="newDir"}
 	{g->url arg1="view=core.SimpleCallback" arg2="command=lookupDirectories"
-		arg3="prefix=__VALUE__" htmlEntities=false}
+	 arg3="prefix=__VALUE__" forJavascript="true"}
       {/g->autoComplete}
     </td><td>
       <input type="submit" class="inputTypeSubmit"
@@ -376,26 +369,6 @@
     </td>
   </tr></table>
 </div>
-
-{if isset($AdminCore.can.tweakSystemProcesses)}
-<div class="gbBlock">
-  <h3> {g->text text="Helper Processes"} </h3>
-  <p class="giDescription">
-    {g->text text="Some Gallery modules will use programs on your server to do image processing, archiving and other operations.  These programs can be very computationally intensive and can impact the overall performance of a shared web server.  You can make these programs run at a lower priority so that they play nice.  If you're in a shared hosting environment and your web host is complaining, try setting your priority low."}
-  </p>
-
-  <table class="gbDataTable">
-    <tr>
-      <td> {g->text text="Priority"} </td>
-      <td>
-	<select name="{g->formVar var="form[exec][beNice]"}">
-	  {html_options options=$AdminCore.beNiceList selected=$form.exec.beNice}
-	</select>
-      </td>
-    </tr>
-  </table>
-</div>
-{/if}
 
 <div class="gbBlock gcBackground1">
   <input type="submit" class="inputTypeSubmit"

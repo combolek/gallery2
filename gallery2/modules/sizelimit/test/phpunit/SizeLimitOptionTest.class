@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@
  * @author Felix Rabinovich <felix@rabinovich.org>
  */
 
+GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemEditOptionTestCase.class');
+
 /**
  * SizeLimitOption tests
  * @package SizeLimit
@@ -46,7 +48,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$gallery->setPlatform(new SizeLimitOptionTestPlatform($gallery->getPlatform()));
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -55,7 +57,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 
     function testAppropriate() {
 	list ($ret, $appropriate) = $this->_option->isAppropriate($this->_album, null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert($appropriate, 'appropriate');
@@ -69,7 +71,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(empty($params), 'Params not empty:');
@@ -85,7 +87,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('height' => 1024, 'width' => 1024, 'keepOriginal' => 0), $params);
@@ -102,7 +104,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('height' => 768, 'width' => 768, 'keepOriginal' => 1), $params);
@@ -118,7 +120,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('keepOriginal' => '0',
@@ -134,7 +136,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
@@ -149,7 +151,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(empty($params));
@@ -165,7 +167,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(), $warning);
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assert(empty($params));
@@ -175,10 +177,10 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	global $gallery;
 
 	$ret = $this->_registerToolkit();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
 	$form['SizeLimitOption']['sizeChoice'] = 'explicit';
 	$form['SizeLimitOption']['filesize'] = 2000;
@@ -187,47 +189,17 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$this->assertEquals(array(array(), array()), $results, 'Results');
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
 	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
 
 	$platform->clearstatcache();
 	list ($ret, $this->_item) = $this->_item->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals(1000, $this->_item->getSize(), 'Size');
-    }
-
-    function testChangeInDescendents() {
-	$form['SizeLimitOption']['dimensionChoice'] = 'unlimited';
-	$form['SizeLimitOption']['sizeChoice'] = 'explicit';
-	$form['SizeLimitOption']['filesize'] = 2000;
-	$form['changeInDescendents']['sizelimit'] = 1;
-        
-	list ($ret, $this->_childAlbum) = $this->_createRandomAlbum($this->_album->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-        
-	list ($error, $warning) = $this->_handleRequestAfterEdit($form, $this->_album);
-	$this->assertEquals(array(), $error);
-	$this->assertEquals(array(), $warning);
-        
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
-	    'module', 'sizelimit', $this->_album->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
-        
-	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters(
-	    'module', 'sizelimit', $this->_childAlbum->getId());
-	if ($ret) {
-	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
-	}
-	$this->assertEquals(array('keepOriginal' => 0, 'size' => 2000), $params);
     }
 
     /**
@@ -237,10 +209,10 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'SizeLimitOptionTestToolkit', 'SizeLimitOptionTestToolkit',
 	    'modules/sizelimit/test/phpunit/SizeLimitOptionTest.class', 'sizelimitTest', null);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$this->_markToolkitForCleanup('SizeLimitOptionTestToolkit');
@@ -249,7 +221,7 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	$ret = GalleryCoreApi::registerToolkitOperation('SizeLimitOptionTestToolkit',
 	    array('image/known'), 'compress',
 	    array(array('type' => 'int', 'description' => 'size')), 'desc');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -258,14 +230,14 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	    array('image/known'), 'scale',
 	    array(array('type' => 'int', 'description' => 'width'),
 	    array('type' => 'int', 'description' => 'height')), 'desc');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* we will return dimensions to whoever asks */
 	$ret = GalleryCoreApi::registerToolkitProperty('SizeLimitOptionTestToolkit',
 	    array('image/known'), 'dimensions', 'int,int', 'desc');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
@@ -273,10 +245,10 @@ class SizeLimitOptionTest extends ItemEditOptionTestCase {
 	    $this->_createRandomDataItem($this->_album->getId(), 'image/known',
 					 array('summary' => 'original summary 0',
 					 'description' => 'original description 0'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
-	return (null);
+	return (GalleryStatus::success());
     }
 }
 
@@ -305,8 +277,7 @@ class SizeLimitOptionTestPlatform extends GalleryPlatform {
     function getimagesize($file) {
 	$imagesize = GalleryUtilities::getRequestVariables('imagesize_' . basename($file));
 	if ($imagesize) {
-	    /* doing it this way keeps CodeAudit happy */
-  	    return array($imagesize[0], $imagesize[1]);
+  	    return array($imagesize[0], $imagesize[1]); /* doing it this way keeps CodeAudit happy */
 	}
 	return array(1728, 2304);
     }
@@ -358,8 +329,7 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__),
-			 null, null);
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null, null);
 	}
 
 	$operations = array();
@@ -370,7 +340,7 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 	$operations[] = $operationName;
 	GalleryUtilities::putRequestVariable('operation', $operations);
 
-	return array(null, $mimeType, $context);
+	return array(GalleryStatus::success(), $mimeType, $context);
     }
 
     /**
@@ -382,15 +352,15 @@ class SizeLimitOptionTestToolkit extends GalleryToolkit {
 	/* Our 'mime type' has to support dimensions */
 	switch($propertyName) {
 	case 'dimensions':
-	    $platform =& $gallery->getPlatform();
+	    $platform = $gallery->getPlatform();
 	    $results = $platform->getimagesize($file);
 	    break;
 
 	default:
-	    return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
 	}
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 ?>

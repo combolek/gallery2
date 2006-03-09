@@ -12,8 +12,7 @@
 
 {if !empty($theme.imageViews)}
   {capture name="fallback"}
-    <a href="{g->url arg1="view=core.DownloadItem" arg2="itemId=`$theme.item.id`"
-		     forceFullUrl=true forceSessionId=true}">
+    <a href="{g->url arg1="view=core.DownloadItem" arg2="itemId=`$theme.item.id`"}">
       {g->text text="Download %s" arg1=$theme.sourceImage.itemTypeName.1}
     </a>
   {/capture}
@@ -56,7 +55,7 @@
 <hr/>
 
 {* Description *}
-{if !empty($theme.item.description) && ($theme.item.description != $theme.item.title)}
+{if ($theme.item.description != $theme.item.title)}
   <p>{$theme.item.description|markup}</p>
 {/if}
 
@@ -64,7 +63,7 @@
 {if !empty($theme.sourceImage) &&
     (count($theme.imageViews) > 1 || $theme.sourceImage.mimeType != $theme.item.mimeType)}
  <p>
-  <a href="{g->url arg1="view=core.DownloadItem" arg2="itemId=`$theme.item.id`"}">
+  <a href="{g->url arg1="view=core:DownloadItem" arg2="itemId=`$theme.item.id`"}">
     {if $theme.sourceImage.mimeType != $theme.item.mimeType}
       {g->text text="Download %s in original format" arg1=$theme.sourceImage.itemTypeName.1}
     {else}

@@ -8,11 +8,9 @@ my $DTD;
 my $OUTFILE;
 my $STUB_OK = 0;
 my $QUIET = 0;
-my $OUT_DIR;
 
 GetOptions("dtd:s" => \$DTD,
 	   "out:s" => \$OUTFILE,
-	   "out-dir:s" => \$OUT_DIR,
 	   "stub-ok+" => \$STUB_OK,
 	   "quiet!" => \$QUIET);
 
@@ -20,7 +18,7 @@ foreach my $file (@ARGV) {
   my $tagCount = 0;
   my $base = basename($file);
   $base =~ s/\..*?$//;
-  my $xml = $OUTFILE || "$OUT_DIR/$base.xml";
+  my $xml = $OUTFILE || "$base.xml";
   my $schemaName = undef;
 
   open(IFD, "<$file") || die;
@@ -32,8 +30,6 @@ foreach my $file (@ARGV) {
       $tagCount++;
       print OFD $_;
 
-      # NOTE!  Keep this in sync with the similar block in generate-entities.php
-      # and generate-maps.php
       if (m|<class-name>(.*)</class-name>|) {
 	($schemaName = $1) =~ s/^Gallery//;
 	# Shorten some table names to fit Oracle's 30 char name limit..

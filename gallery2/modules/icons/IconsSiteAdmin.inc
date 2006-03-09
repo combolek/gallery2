@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,19 +35,21 @@ class IconsSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 	    if (!isset($form['iconpack'])) {
 		$error[] = 'form[error][iconpack][missing]';
 	    } else {
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'icons', 'iconpack', $form['iconpack']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['saved'] = 1;
@@ -61,7 +63,7 @@ class IconsSiteAdminController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -75,34 +77,29 @@ class IconsSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	if ($form['formName'] != 'IconsSiteAdmin') {
 	    $form['formName'] = 'IconsSiteAdmin';
 	    list ($ret, $form['iconpack']) =
 		GalleryCoreApi::getPluginParameter('module', 'icons', 'iconpack');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $icons) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (isset($icons)) {
 	    list ($ret, $list) = $icons->getIconPacks();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $template->setVariable('IconsSiteAdmin', array('iconpacks' => $list));
 	}
 
 	$template->setVariable('controller', 'icons.IconsSiteAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/icons/templates/IconsSiteAdmin.tpl'));
     }
 }

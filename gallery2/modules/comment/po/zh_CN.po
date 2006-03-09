@@ -1,25 +1,25 @@
 # $Id$
-#
+# 
 # Gallery - a web based photo album viewer and editor
-# Copyright (C) 2000-2006 Bharat Mediratta
-#
+# Copyright (C) 2000-2005 Bharat Mediratta
+# 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or (at
 # your option) any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery: Comments 1.0.9\n"
+"Project-Id-Version: Gallery: Comment 1.0\n"
 "POT-Creation-Date: 2005-03-28 14:00+0800\n"
 "PO-Revision-Date: 2005-03-31 14:00+0800\n"
 "Last-Translator: Wayne Zhang <waynez777@hotmail.com>\n"
@@ -40,6 +40,21 @@ msgstr "显示评论"
 
 msgid "Comments"
 msgstr "评论"
+
+msgid "Comment Module"
+msgstr "评论模块"
+
+msgid "Search comments"
+msgstr "搜索评论"
+
+msgid "Subject"
+msgstr "主题"
+
+msgid "Comment"
+msgstr "评论"
+
+msgid "Commenter"
+msgstr "评论者"
 
 msgid "User commenting system"
 msgstr "用户评论系统"
@@ -62,35 +77,12 @@ msgstr "[评论] 查看评论"
 msgid "[comment] All access"
 msgstr "[评论] 完全存取权限"
 
-#, fuzzy
-msgid "View Latest Comments"
-msgstr "查看评论"
-
 msgid "View Comments"
 msgstr "查看评论"
 
 #, c-format
 msgid "Comments: %d"
 msgstr "评论: %d"
-
-#, fuzzy
-msgid "Guest Comments"
-msgstr "查看评论"
-
-msgid "Comment Module"
-msgstr "评论模块"
-
-msgid "Search comments"
-msgstr "搜索评论"
-
-msgid "Subject"
-msgstr "主题"
-
-msgid "Comment"
-msgstr "评论"
-
-msgid "Commenter"
-msgstr "评论者"
 
 msgid "Comment Preview"
 msgstr "评论预览"
@@ -153,26 +145,6 @@ msgstr "评论删除成功"
 msgid "Comment modified successfully"
 msgstr "评论修改成功"
 
-#, fuzzy
-msgid "Comments Settings"
-msgstr "评论"
-
-#, fuzzy
-msgid "Settings saved successfully"
-msgstr "评论添加成功"
-
-msgid "Show link for Latest Comments:"
-msgstr ""
-
-msgid "Number of comments on Latest Comments page:"
-msgstr ""
-
-msgid "Invalid value"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
 msgid "Delete this comment?"
 msgstr "删除此评论？"
 
@@ -211,10 +183,6 @@ msgstr "您必须输入一个主题"
 
 msgid "You must enter a comment"
 msgstr "您必须输入一条评论"
-
-#, fuzzy
-msgid "Latest Comments"
-msgstr "查看评论"
 
 msgid "Comment changed successfully"
 msgstr "评论更改成功"

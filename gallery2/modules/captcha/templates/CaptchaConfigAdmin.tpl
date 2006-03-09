@@ -67,3 +67,5 @@
   <input type="submit" class="inputTypeSubmit"
    name="{g->formVar var="form[action][continue]"}" value="{g->text text="Continue"}"/>
 </div>
+
+

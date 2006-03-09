@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 /**
  * Load the parent class
  */
-GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
+GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryChildEntity.class');
 
 /**
  * A GalleryEntity for comments.
@@ -39,14 +39,20 @@ GalleryCoreApi::requireOnce('modules/core/classes/GalleryChildEntity.class');
  * @g2 <parent-class-name>GalleryChildEntity</parent-class-name>
  * @g2 <schema>
  * @g2   <schema-major>1</schema-major>
- * @g2   <schema-minor>1</schema-minor>
+ * @g2   <schema-minor>0</schema-minor>
  * @g2 </schema>
  * @g2 <requires-id/>
  *
  * @package Comment
  * @subpackage Classes
  */
-class GalleryComment extends GalleryChildEntity {
+class GalleryComment_core extends GalleryChildEntity {
+
+    /*
+     * ****************************************
+     *                 Members
+     * ****************************************
+     */
 
     /**
      * Id of the commenter
@@ -58,10 +64,10 @@ class GalleryComment extends GalleryChildEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var int $commenterId
-     * @access public
+     * @var $_commenterId
+     * @access private
      */
-    var $commenterId;
+    var $_commenterId;
 
     /**
      * Commenter's host name or address
@@ -73,10 +79,10 @@ class GalleryComment extends GalleryChildEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var string $host
-     * @access public
+     * @var $_host
+     * @access private
      */
-    var $host;
+    var $_host;
 
     /**
      * Subject of the comment
@@ -87,10 +93,10 @@ class GalleryComment extends GalleryChildEntity {
      * @g2   <member-size>MEDIUM</member-size>
      * @g2 </member>
      *
-     * @var string $subject
-     * @access public
+     * @var $_subject
+     * @access private
      */
-    var $subject;
+    var $_subject;
 
     /**
      * Text of the comment
@@ -100,10 +106,10 @@ class GalleryComment extends GalleryChildEntity {
      * @g2   <member-type>TEXT</member-type>
      * @g2 </member>
      *
-     * @var string $comment
-     * @access public
+     * @var $_comment
+     * @access private
      */
-    var $comment;
+    var $_comment;
 
     /**
      * Date of the comment
@@ -115,72 +121,18 @@ class GalleryComment extends GalleryChildEntity {
      * @g2   <required/>
      * @g2 </member>
      *
-     * @var int $date
-     * @access public
+     * @var $_date
+     * @access private
      */
-    var $date;
+    var $_date;
 
-    /**
-     * @see GalleryEntity::getClassName()
+    /*
+     * ****************************************
+     *                 Methods
+     * ****************************************
      */
-    function getClassName() {
-	return 'GalleryComment';
-    }
 
-    /**
-     * @see GalleryEntity::create()
-     */
-    function create($parentId) {
-	$ret = parent::create($parentId);
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	$this->setCommenterId(null);
-	$this->setHost(null);
-	$this->setSubject(null);
-	$this->setComment(null);
-	$this->setDate(null);
-    }
-
-    function getCommenterId() {
-	return $this->commenterId;
-    }
-
-    function setCommenterId($commenterId) {
-	$this->commenterId = $commenterId;
-    }
-
-    function getHost() {
-	return $this->host;
-    }
-
-    function setHost($host) {
-	$this->host = $host;
-    }
-
-    function getSubject() {
-	return $this->subject;
-    }
-
-    function setSubject($subject) {
-	$this->subject = $subject;
-    }
-
-    function getComment() {
-	return $this->comment;
-    }
-
-    function setComment($comment) {
-	$this->comment = $comment;
-    }
-
-    function getDate() {
-	return $this->date;
-    }
-
-    function setDate($date) {
-	$this->date = $date;
-    }
 }
+
+include(dirname(__FILE__) . '/interfaces/GalleryComment.inc');
 ?>

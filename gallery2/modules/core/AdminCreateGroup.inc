@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,12 +40,16 @@ class AdminCreateGroupController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$results = $status = $error = array();
+	$results = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['cancel'])) {
 
 	    /* Go back to the AdminGroups view */
@@ -58,19 +62,18 @@ class AdminCreateGroupController extends GalleryController {
 	     * create the group.
 	     */
 	    if (!empty($form['groupName'])) {
-		list ($ret, $group) =
-		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
-		if ($ret) {
+		list ($ret, $group) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryGroup');
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($group)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
+		    return array(GalleryStatus::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $group->create($form['groupName']);
-		if ($ret) {
+		if ($ret->isError()) {
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
@@ -79,7 +82,7 @@ class AdminCreateGroupController extends GalleryController {
 		    $error[] = 'form[error][groupName][exists]';
 		} else {
 		    $ret = $group->save();
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
@@ -103,7 +106,7 @@ class AdminCreateGroupController extends GalleryController {
 	$results['status'] = $status;
 	$results['error'] = $error;
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -119,19 +122,25 @@ class AdminCreateGroupView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
+	global $gallery;
+
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
+
 	if ($form['formName'] != 'AdminCreateGroup') {
+	    // Set the form defaults
 	    $form['groupName'] = '';
 	    $form['formName'] = 'AdminCreateGroup';
 	}
 
-	$template->setVariable('AdminCreateGroup', array());
+	$AdminCreateGroup = array();
+	$template->setVariable('AdminCreateGroup', $AdminCreateGroup);
 	$template->setVariable('controller', 'core.AdminCreateGroup');
-	return array(null,
+
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/core/templates/AdminCreateGroup.tpl'));
     }
 }

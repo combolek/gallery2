@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ class GalleryView {
      * @return object GalleryStatus a status code
      */
     function renderImmediate($status, $error) {
-	return null;
+	return GalleryStatus::success();
     }
 
     /**
@@ -93,46 +93,10 @@ class GalleryView {
      * @param object GalleryTemplate the template instance
      * @param array the form values
      * @return array object GalleryStatus a status code
-     *               array ('body' => string template or 'redirect' => array)
+     *               array ('body'/'html' => string template or 'redirect' => array)
      */
     function loadTemplate(&$template, &$form) {
-	return array(null, null);
-    }
-
-    /**
-     * Does this view allow access to non-admins when site is in maintenance mode?
-     *
-     * @return boolean true if access always allowed
-     */
-    function isAllowedInMaintenance() {
-	return false;
-    }
-
-    /**
-     * Does this view allow direct access even in embed-only mode?
-     *
-     * @return boolean true if access always allowed
-     */
-    function isAllowedInEmbedOnly() {
-	return false;
-    }
-
-    /**
-     * Should session be saved and session cookie sent when this view is accessed?
-     *
-     * @return boolean true to enable session
-     */
-    function shouldSaveSession() {
-	return true;
-    }
-
-    /**
-     * Type of view.
-     *
-     * @return view type contant
-     */
-    function getViewType() {
-	return VIEW_TYPE_MODULE;
+	return array(GalleryStatus::success(), null);
     }
 
     /**
@@ -157,40 +121,40 @@ class GalleryView {
 	    $module = $regs[1];
 	    $class = $regs[2];
 	} else {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 					      "$viewName can't be parsed"), null);
 	}
 
 	/* If the module is not active, only let site admins see the config view */
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin('module', $module);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $isActive) = $plugin->isActive();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!$isActive) {
 	    if ($viewName == $plugin->getConfigurationView()) {
 		$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    } else {
-		return array(GalleryCoreApi::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
+		return array(GalleryStatus::error(ERROR_PERMISSION_DENIED, __FILE__, __LINE__),
 			     null);
 	    }
 	}
 
 	$viewClassName = $class . 'View';
 	if (!class_exists($viewClassName)) {
-	    $moduleBaseDir = GalleryCoreApi::getPluginBaseDir('module', $module);
+	    $moduleBaseDir = dirname(__FILE__) . '/../../../';
 	    $moduleDir = 'modules/' . $module . '/';
 	    $fileName = $moduleDir . $class . '.inc';
 
-	    $platform =& $gallery->getPlatform();
+	    $platform = $gallery->getPlatform();
 	    if (!$platform->file_exists($moduleBaseDir . $fileName)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 						  $moduleBaseDir . $fileName), null);
 	    }
 
@@ -198,25 +162,25 @@ class GalleryView {
 	     * We bundle view and controller classes together, so we need the controller
 	     * superclass to load the view
 	     */
-	    GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-	    GalleryCoreApi::requireOnce($fileName);
+	    GalleryCoreApi::relativeRequireOnce('modules/core/classes/GalleryController.class');
+	    GalleryCoreApi::relativeRequireOnce($fileName);
 
 	    if (!class_exists($viewClassName)) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 			     "Class $viewClassName not defined in $viewName"), null);
 	    }
 	}
 
 	$view = new $viewClassName();
 	if (!GalleryUtilities::isA($view, 'GalleryView')) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
 			 "Class $viewClassName is not a subclass of GalleryView"), null);
 	}
 
 	/* Tell the view what module its in */
 	$view->init($module);
 
-	return array(null, $view);
+	return array(GalleryStatus::success(), $view);
     }
 
     /**
@@ -225,7 +189,7 @@ class GalleryView {
      * then call the view's loadTemplate() method and pass in the given template.
      *
      * @return array object GalleryStatus a status code
-     *               array ('body' => string template or 'redirect' => array)
+     *               array ('body'/'html' => string template or 'redirect' => array)
      *               object GalleryTheme the current theme
      */
     function doLoadTemplate(&$template) {
@@ -251,34 +215,15 @@ class GalleryView {
 	$template->setVariable('status', $status);
 
 	/* -------------------------------------------------- */
-	/* Standard user info available for every view */
-	$user = $gallery->getActiveUser();
-	$user = (array)$user;
-	list ($ret, $guestId) =
-	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-
-	$user['isGuest'] = ($user['id'] == $guestId);
-	$user['isRegisteredUser'] = !$user['isGuest'];
-	list ($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
-	if ($ret) {
-	    $user['isAdmin'] = false;
-	}
-	$template->setVariable('user', $user);
-
-	/* -------------------------------------------------- */
 	/* Load up the theme. */
-	list ($ret, $item, $wasSpecified) = $this->_getItem();
-	if ($ret) {
+	list ($ret, $item) = $this->_getItem();
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	list ($ret, $theme) = $this->loadThemeForItem($wasSpecified ? $item : null);
-	if ($ret) {
-	    /* Ignore errors here so fallback theme can be used */
-	    $gallery->debug_r($ret);
+	list ($ret, $theme) = GalleryView::loadThemeForItem($item);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (!isset($theme)) {
@@ -286,15 +231,20 @@ class GalleryView {
 	     * Need to be able to show error page, login and site admin even if we have
 	     * no theme!  (In case our default theme is incompatible with current APIs)
 	     */
-	    if ($this->getViewType() == VIEW_TYPE_ADMIN) {
+	    switch (strtolower(get_class($this))) {
+	    case 'showitemerrorview':
+	    case 'useradminview':
+	    case 'siteadminview':
 		$theme = new GalleryTheme();
 		$theme->setId('fallbackTheme');
-	    } else {
-		$redirect = array('view' => 'core.ShowItemError', 'problem' => 'missingTheme');
-		if ($wasSpecified) {
-		    $redirect['itemId'] = $item->getId();
-		}
-		return array(null, array('redirect' => $redirect), null);
+		break;
+
+	    default:
+		return array(GalleryStatus::success(),
+			     array('redirect' => array('view' => 'core.ShowItemError',
+						       'problem' => 'missingTheme',
+						       'itemId' => $item->getId())),
+			     null);
 	    }
 	}
 
@@ -304,8 +254,8 @@ class GalleryView {
 	} else {
 	    $targetId = $item->getId();
 	}
-	list ($ret, $params) = $theme->fetchParameters($wasSpecified ? $targetId : null);
-	if ($ret) {
+	list ($ret, $params) = $theme->fetchParameters($targetId);
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -313,21 +263,43 @@ class GalleryView {
 	$templateAdapter->setTheme($theme);
 
 	/* -------------------------------------------------- */
-	/* Let the view and theme load up template data */
-	list ($ret, $results) = $this->loadTemplate($template, $form);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
-	}
-	if (isset($results['redirect']) || isset($results['redirectUrl'])) {
-	    return array(null, $results, $theme);
-	}
-
-	list ($ret, $results) = $theme->loadTemplate($this, $template, $item, $params, $results);
-	if ($ret) {
+	/* Standard user info available for every view */
+	$user = $gallery->getActiveUser();
+	$user = $user->getMemberData();
+	list ($ret, $guestId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
-	return array(null, $results, $theme);
+	$user['isGuest'] = ($user['id'] == $guestId);
+	$user['isRegisteredUser'] = !$user['isGuest'];
+	list ($ret, $user['isAdmin']) = GalleryCoreApi::isUserInSiteAdminGroup();
+	if ($ret->isError()) {
+	    $user['isAdmin'] = false;
+	}
+	$template->setVariable('user', $user);
+
+	/* -------------------------------------------------- */
+	/* Delegate to the theme to draw this view */
+	list ($ret, $results) = $theme->loadTemplate($this, $template, $item, $params);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+
+	/* -------------------------------------------------- */
+	/* Check for icon pack */
+	list ($ret, $iconPack) = GalleryCoreApi::newFactoryInstance('IconsInterface_1_0');
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	}
+	if (isset($iconPack)) {
+	    $ret = $iconPack->init($template);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
+	    }
+	}
+	return array(GalleryStatus::success(), $results, $theme);
     }
 
     /**
@@ -340,7 +312,7 @@ class GalleryView {
      *               string localized description
      */
     function getViewDescription() {
-	return array(GalleryCoreApi::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
+	return array(GalleryStatus::error(ERROR_UNIMPLEMENTED, __FILE__, __LINE__), null);
     }
 
     /**
@@ -357,48 +329,62 @@ class GalleryView {
      *
      * @return array object GalleryStatus a status code
      *               object GalleryItem an item
-     *               boolean true if item was specified, false if default was used
      */
     function _getItem() {
 	global $gallery;
-	$itemId = (int)GalleryUtilities::getRequestVariables('itemId');
-	$wasSpecified = true;
+	list ($itemId, $path) = GalleryUtilities::getRequestVariables('itemId', 'path');
+	$itemId = (int)$itemId;
 
-	/* If we don't have an itemId, default to the root album */
-	if (empty($itemId)) {
-	    $wasSpecified = false;
-	    list ($ret, $itemId) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null, null);
+	/* Check for path param if no itemId given */
+	if (empty($itemId) && !empty($path)) {
+	    if (substr($path, -5) == '.html') {
+		$path = substr($path, 0, -5);
+	    }
+
+	    list ($ret, $itemId) = GalleryCoreApi::fetchItemIdByPath($path);
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    GalleryUtilities::putRequestVariable('itemId', $itemId);
 	}
 
-	/* Load the item */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null, null);
+	/* If we still don't have an itemId, default to the root album */
+	if (empty($itemId)) {
+	    list ($ret, $itemId) =
+		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
 	}
 
-	return array(null, $item, $wasSpecified);
+	/* Load the item */
+	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
+	if ($ret->isError()) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(GalleryStatus::success(), $item);
     }
 
     /**
      * Get the theme for this item by finding the theme id for the nearest album.
      *
-     * @param GalleryItem (optional) item (omit or pass null to load default theme)
      * @return array object GalleryStatus a status code
      *               object GalleryTheme a theme instance
      */
     function loadThemeForItem($item=null) {
 	if (!isset($item)) {
-	    $nearestAlbum = null;
-	} else if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
+	    list ($ret, $item) = GalleryView::_getItem();
+	    if ($ret->isError()) {
+		return array($ret->wrap(__FILE__, __LINE__), null);
+	    }
+	}
+
+	if (GalleryUtilities::isA($item, 'GalleryAlbumItem')) {
 	    $nearestAlbum = $item;
 	} else {
 	    list ($ret, $nearestAlbum) = GalleryCoreApi::loadEntitiesById($item->getParentId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -406,26 +392,25 @@ class GalleryView {
 	/* Load the theme, fallback to the default theme if none is specified. */
 	if (isset($nearestAlbum)) {
 	    list ($ret, $themeId) = GalleryCoreApi::fetchThemeId($nearestAlbum);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else {
 	    list ($ret, $themeId) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	$validTheme = false;
-	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId, false, true);
-	if ($ret) {
+	list ($ret, $theme) = GalleryCoreApi::loadPlugin('theme', $themeId);
+	if ($ret->isError() && !($ret->getErrorCode() & ERROR_PLUGIN_VERSION_MISMATCH)) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-
 	if (isset($theme)) {
 	    list ($ret, $validTheme) = $theme->isActive();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
@@ -434,7 +419,7 @@ class GalleryView {
 	    $theme = null;
 	}
 
-	return array(null, $theme);
+	return array(GalleryStatus::success(), $theme);
     }
 }
 ?>

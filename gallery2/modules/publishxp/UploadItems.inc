@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
  * the photos.  Subsequent requests from Windows include the photo data and text.
  * This page processes the data and applies the options to be used while uploading.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
@@ -65,20 +65,20 @@ class UploadItemsController extends GalleryController {
 	if (isset($form['action']['uploadItem'])) {
 	    /* Check the user has permissions in this album */
 	    $ret = GalleryCoreApi::assertHasItemPermission($form['albumId'], 'core.addDataItem');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    /* Get the file passed in this submission */
 	    $file = GalleryUtilities::getFile('userFile', false);
 	    list($ret, $lockIds[]) = GalleryCoreApi::acquireReadLock($form['albumId']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($file['name'])) {
 		GalleryCoreApi::releaseLocks($lockIds);
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 
 	    /*
@@ -89,7 +89,7 @@ class UploadItemsController extends GalleryController {
 	    $mimeType = $file['type'];
 	    if (!empty($mimeType)) {
 		list ($ret, $exts) = GalleryCoreApi::convertMimeToExtensions($mimeType);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lockIds);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -101,7 +101,7 @@ class UploadItemsController extends GalleryController {
 		    empty($exts)) {
 		$extension = GalleryUtilities::getFileExtension($file['name']);
 		list($ret, $mimeType) = GalleryCoreApi::convertExtensionToMime($extension);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lockIds);
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
@@ -118,36 +118,30 @@ class UploadItemsController extends GalleryController {
 	    list($ret, $newItem) = GalleryCoreApi::addItemToAlbum(
 		$file['tmp_name'], basename($file['name']), $title, $caption, $description,
 		$mimeType, $form['albumId']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		GalleryCoreApi::releaseLocks($lockIds);
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($this->_optionInstances)) {
 		$optionInstances = $this->_optionInstances;
 	    } else {
-		GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
+		GalleryCoreApi::relativeRequireOnce('modules/core/ItemAdd.inc');
 		list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
 	    /* Allow ItemAddOptions to process added item(s) */
-	    $session =& $gallery->getSession();
-	    if ($session->exists('publishxp.extraOptionsForm')) {
-		$extraOptionsForm = unserialize($session->get('publishxp.extraOptionsForm'));
-	    } else {
-		$extraOptionsForm = array();
-	    }
 	    foreach ($optionInstances as $option) {
 		list ($ret, $optionErrors, $optionWarnings) =
-		    $option->handleRequestAfterAdd($extraOptionsForm, array($newItem));
-		if ($ret) {
+		    $option->handleRequestAfterAdd($form, array($newItem));
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
@@ -169,7 +163,7 @@ class UploadItemsController extends GalleryController {
 	}
 	$results['status'] = $status;
 	$results['error'] = $error;
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -181,8 +175,9 @@ class UploadItemsController extends GalleryController {
  * the photos.  Subsequent requests from Windows include the photo data and text.
  * This page processes the data and applies the options to be used while uploading.
  *
+ * @version $Id$
  * @package PublishXp
- * @subpackage UserInterface
+ * @author Timothy Webb <tiwebb@cisco.com>
  */
 class UploadItemsView extends GalleryView {
     /**
@@ -215,10 +210,8 @@ class UploadItemsView extends GalleryView {
 
 	$template->setVariable('UploadItems', $UploadItems);
 	$template->head('modules/publishxp/templates/Head.tpl');
-
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/UploadItems.tpl',
-			   'useFullScreen' => true));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/UploadItems.tpl'));
     }
 }
 ?>

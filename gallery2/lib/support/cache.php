@@ -1,29 +1,29 @@
 <?php
-if (!defined('G2_SUPPORT')) return;
+require_once(dirname(__FILE__) . '/security.inc');
 
-function getCaches() {
+$gallery = new GalleryStub();
+include(dirname(__FILE__) . '/../../config.php');
+
+function getCacheDirs() {
+    global $gallery;
     $dirs = array(
-	'cached pages' => array(true, 'clearPageCache', array(), 'Cached HTML pages'),
-	'entity' => array(true, 'clearG2dataDir', array('cache/entity'), 'Albums and photo data'),
-	'module' => array(true, 'clearG2dataDir', array('cache/module'), 'Module settings'),
-	'theme' => array(true, 'clearG2dataDir', array('cache/theme'), 'Theme settings'),
-	'template' => array(true, 'clearG2dataDir', array('smarty/templates_c'), 'Smarty templates'),
-	'tmp' => array(true, 'clearG2dataDir', array('tmp'), 'Temporary directory'),
-	'derivative' => array(
-	    false, 'clearG2dataDir', array('cache/derivative'),
-	    'Thumbnails and resizes <span class="subtext">(expensive to rebuild)</span>')
+	'cache/derivative',
+	'cache/entity',
+	'cache/module',
+	'cache/theme',
+	'smarty/templates_c'
 	);
     return $dirs;
 }
 
-function recursiveRmdir($dirname, &$status) {
-    $count = 0;
+function recursiveRmdir($dirname) {
+    $results = array();
     if (!file_exists($dirname)) {
-	return $count;
+	return $results;
     }
 
     if (!($fd = opendir($dirname))) {
-	return $count;
+	return $results;
     }
 
     while (($filename = readdir($fd)) !== false) {
@@ -33,124 +33,97 @@ function recursiveRmdir($dirname, &$status) {
 	$path = "$dirname/$filename";
 
 	if (is_dir($path)) {
-	    $count += recursiveRmdir($path, $status);
+	    $results = array_merge($results, recursiveRmdir($path));
 	} else {
 	    if (!@unlink($path)) {
 		if (!@is_writeable($path)) {
-		    $status[] = array("error", "Permission denied removing file $path");
+		    $results[] = array("error", "Permission denied removing file $path");
 		} else {
-		    $status[] = array("error", "Unable to remove file $path");
+		    $results[] = array("error", "Unable to remove file $path");
 		}
-	    } else {
-		$count++;
 	    }
 	}
     }
     closedir($fd);
 
     if (!@rmdir($dirname)) {
-	$status[] = array("error", "Unable to remove directory $dirname");
-    } else {
-	$count++;
+	$results[] = array("error", "Unable to remove directory $dirname");
     }
 
-    return $count;
-}
-
-function clearPageCache() {
-    require_once(dirname(__FILE__) . '/../../embed.php');
-    GalleryEmbed::init();
-
-    $ret1 = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
-    $ret2 = GalleryEmbed::done();
-    if ($ret1 || $ret2) {
-	$status[] = array('error', 'Error deleting page cache!');
-    } else {
-	$status[] = array('info', 'Successfully deleted page cache');
-    }
-
-    return $status;
-}
-
-function clearG2DataDir($dir) {
-    global $gallery;
-    $path = $gallery->getConfig('data.gallery.base') . $dir;
-    $status[] = array('info', "Deleting dir: $path");
-    $count = recursiveRmdir($path, $status);
-
-    /* Commented this out because it's a little noisy */
-    /*
-     * $status[] = array('info', "Removed $count files and directories");
-     */
-
-    if (mkdir($path)) {
-	$status[] = array('info', "Recreating dir: $path");
-    } else {
-	$status[] = array('error', "Unable to recreate dir: $path");
-    }
-    return $status;
+    return $results;
 }
 
 $status = array();
 if (isset($_REQUEST['clear'])) {
-    if (isset($_REQUEST['target'])) {
-	$caches = getCaches();
-	foreach ($_REQUEST['target'] as $key => $ignored) {
+    if (isset($_REQUEST['dirs'])) {
+	$legalDirs = getCacheDirs();
+	foreach ($_REQUEST['dirs'] as $dir => $ignored) {
 	    /* Make sure the dir is legit */
-	    if (!array_key_exists($key, $caches)) {
-		$status[] = array("error", "Ignoring illegal cache: $key");
+	    if (!in_array($dir, $legalDirs)) {
+		$status[] = array("error", "Ignoring illegal dir: $dir");
 		continue;
 	    }
 
-	    $func = $caches[$key][1];
-	    $args = $caches[$key][2];
-	    $status = array_merge($status, call_user_func_array($func, $args));
+	    $path = $gallery->getConfig('data.gallery.base') . '/' . $dir;
+	    $status[] = array("info", "Deleting dir: $path");
+	    $status = array_merge($status, recursiveRmdir($path));
+
+	    if (mkdir($path)) {
+		$status[] = array("info", "Recreating dir: $path");
+	    } else {
+		$status[] = array("error", "Unable to recreate dir: $path");
+	    }
 	}
     }
 }
 ?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <title>Cache Maintenance</title>
-    <link rel="stylesheet" type="text/css" href="<?php print $baseUrl ?>support.css"/>
+    <link rel="stylesheet" type="text/css" href="support.css"/>
   </head>
 
   <body>
       <H1> Cache Maintenance </H1>
       <a href="index.php"> Back to Support Page </a>
       <h2>
-	Gallery caches data on disk to increase performance.
-	Sometimes these caches get out of date and need to be deleted.
-	Anything in the cache can be deleted safely, because Gallery
-	will recreate anything that it needs.  However, some things
-	are more expensive to recreate than others so you might not
-	want to delete everything.  If you're in doubt, accept the
-	defaults below.
+        Gallery caches data on disk to increase performance.
+        Sometimes these caches get out of date and need to be deleted.
+        Anything in the cache can be deleted safely, because Gallery
+        will recreate anything that it needs.  However, some things
+        are more expensive to recreate than others so you might not
+        want to delete everything.  If you're in doubt, accept the
+        defaults below.
       </h2>
 
       <?php if (!empty($status)): ?>
       <div class="status">
-	<?php foreach ($status as $line): ?>
-	<span class="line_<?php print $line[0]?>">
-	  <?php print $line[1] ?>
-	</span>
-	<?php endforeach; ?>
+        <?php foreach ($status as $line): ?>
+        <span class="line_<?php print $line[0]?>">
+          <?php print $line[1] ?>
+        </span>
+        <?php endforeach; ?>
       </div>
       <?php endif; ?>
 
-      <form method="POST">
-	<?php $caches = getCaches(); ?>
-	<div class="box">
-	  <?php foreach ($caches as $key => $info): ?>
-	  <div>
-	    <input type="checkbox" name="target[<?php print $key ?>]"
-		   <?php if ($info[0]): ?> checked="checked" <?php endif; ?> />
-	    <?php print $info[3] ?>
-	  </div>
-	  <?php endforeach; ?>
-	  <div>
-	    <input type="submit" name="clear" value="Clear Cache"/>
-	  </div>
+      <form>
+        <?php $dirs = getCacheDirs(); ?>
+        <div class="box">
+          <?php foreach ($dirs as $dir): ?>
+          <div>
+            <input type="checkbox" name="dirs[<?php print $dir ?>]"
+                   <?php if (basename($dir) != 'derivative'): ?> checked="checked" <?php endif; ?> />
+            g2data/cache/<?php print $dir?>
+            <?php if (basename($dir) == 'derivative'): ?>
+              <span class="subtext"> (Contains thumbnails and resizes; expensive to rebuild) </span>
+            <?php endif; ?>
+          </div>
+          <?php endforeach; ?>
+          <div>
+            <input type="submit" name="clear" value="Clear Cache"/>
+          </div>
         </div>
       </form>
   </body>

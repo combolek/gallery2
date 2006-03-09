@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,47 +36,45 @@ class PanoramaView extends GalleryView {
      */
     function loadTemplate(&$template, &$form) {
 	global $gallery;
-	GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
+	GalleryCoreApi::relativeRequireOnce('modules/panorama/classes/PanoramaHelper.class');
 
 	list ($ret, $item) = $this->_getItem();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $image) = PanoramaHelper::fetchViewableImages(array($item));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (empty($image)) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+	    return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 	$image = $image[$item->getId()];
 
 	list ($ret, $viewWidth) = GalleryCoreApi::getPluginParameter('module', 'panorama', 'width');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$urlGenerator =& $gallery->getUrlGenerator();
-	$src = $urlGenerator->generateUrl(
-	    array('view' => 'core.DownloadItem', 'itemId' => $image->getId(),
-		  'serialNumber' => $image->getSerialNumber()),
-	    array('forceSessionId' => true, 'forceFullUrl' => true));
+	$src = $urlGenerator->generateUrl(array('view' => 'core.DownloadItem',
+						'itemId' => $image->getId(),
+						'serialNumber' => $image->getSerialNumber()), true);
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'panorama');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$Panorama['item'] = (array)$item;
-	$Panorama['image'] = (array)$image;
+	$Panorama['item'] = $item->getMemberData();
+	$Panorama['image'] = $image->getMemberData();
 	$Panorama['imageUrl'] = $src;
 	$Panorama['width'] = $viewWidth;
-	$Panorama['moduleUrl'] =
-	    GalleryUtilities::convertPathToUrl(dirname(__FILE__), array('forceFullUrl' => true));
+	$Panorama['moduleUrl'] = GalleryUtilities::convertPathToUrl(dirname(__FILE__));
 
 	$template->setVariable('Panorama', $Panorama);
 	$template->title($module->translate('Panorama'));
-	return array(null,
+	return array(GalleryStatus::success(),
 	    array('body' => 'modules/panorama/templates/Panorama.tpl'));
     }
 }

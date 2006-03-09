@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package SlideshowApplet
+ * @package uploadapplet
  * @author Pierre-Luc Paour <paour@users.sourceforge.net>
  */
 
@@ -32,60 +32,25 @@ class SlideshowAppletModule extends GalleryModule {
 	$this->setId('slideshowapplet');
 	$this->setName($gallery->i18n('Slideshow Applet'));
 	$this->setDescription($gallery->i18n('Fullscreen slideshow using a Java applet'));
-	$this->setVersion('1.0.3');
-	$this->setGroup('display', $gallery->i18n('Display'));
+	$this->setVersion('1.0.0');
+	$this->setGroup('display', $this->translate('Display'));
 	$this->setCallbacks('getItemLinks|getSiteAdminViews');
-	$this->setRequiredCoreApi(array(7, 0));
-	$this->setRequiredModuleApi(array(3, 0));
+	$this->setRequiredCoreApi(array(6, 0));
+	$this->setRequiredModuleApi(array(2, 0));
     }
 
     /**
-     * @see GalleryPlugin::upgrade()
+     * @see GalleryModule::isRecommendedDuringInstall()
      */
-    function upgrade($currentVersion) {
-	global $gallery;
+    function isRecommendedDuringInstall() {
+	return false;
+    }
 
-	list ($ret, $params) =
-	    GalleryCoreApi::fetchAllPluginParameters('module', 'slideshowapplet');
-	if ($ret) {
-	    return $ret->wrap(__FILE__, __LINE__);
-	}
-
-	if (!isset($params['slideshowdefaultVariables'])) {
-	    /* upgrade or install */
-	    if (isset($params['slideshowRecursive']) && isset($params['slideshowMaxPictures'])) {
-		/* definitely upgrade */
-		$newDefault = 'slideshowRecursive=' . $params['slideshowRecursive'] .
-			      '|slideshowMaxPictures=' . $params['slideshowMaxPictures'];
-
-		/* remove the old parameters */
-		$ret = $this->removeParameter('slideshowRecursive');
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-
-		$ret = $this->removeParameter('slideshowMaxPictures');
-		if ($ret) {
-		    return $ret->wrap(__FILE__, __LINE__);
-		}
-	    } else {
-		/* install */
-		$newDefault = 'slideshowRecursive=false|slideshowMaxPictures=0';
-	    }
-	    $ret = $this->setParameter('slideshowdefaultVariables', $newDefault);
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	if (!isset($params['slideshowoverrideVariables'])) {
-	    $ret = $this->setParameter('slideshowoverrideVariables', 'toSysOut=true');
-	    if ($ret) {
-		return $ret->wrap(__FILE__, __LINE__);
-	    }
-	}
-
-	return null;
+    /**
+     * @see GalleryModule::autoConfigure()
+     */
+    function autoConfigure() {
+	return array(GalleryStatus::success(), true);
     }
 
     /**
@@ -99,39 +64,37 @@ class SlideshowAppletModule extends GalleryModule {
 		$links[$itemId][] =
 		    array('text' => $this->translate('View Slideshow (Fullscreen)'),
 			  'params' => array(
-			  'view' => 'slideshowapplet.SlideshowApplet',
-			  'itemId' => $itemId));
+			      'view' => 'slideshowapplet.SlideshowApplet',
+			      'itemId' => $itemId));
 	    }
 	}
-	return array(null, $links);
+	return array(GalleryStatus::success(), $links);
     }
 
     /**
      * @see GalleryModule::getRewriteRules
      */
     function getRewriteRules() {
-	$rules = array();
+        $rules = array();
 
-	$rule = array();
-	$rule['comment'] = $this->translate('View Slideshow (Fullscreen)');
-	$rule['match'] = array('view' => 'slideshowapplet.SlideshowApplet');
-	$rule['onLoad'] = array('rewrite', 'RewriteSimpleHelper', 'loadItemIdFromPath');
-	$rule['pattern'] = 'v/%path%/slideshowapplet.html';
-	$rule['keywords'] = array(
-	    'path' => array(
-		'pattern' => '([^?]+)',
-		'function' => array('rewrite', 'RewriteSimpleHelper', 'parsePath'),
-		'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
-	$rules[] = $rule;
+        $rule = array();
+        $rule['comment'] = $this->translate('View Slideshow (Fullscreen)');
+        $rule['match'] = array('view' => 'slideshowapplet.SlideshowApplet');
+        $rule['pattern'] = 'v/%path%/slideshowapplet.html';
+        $rule['keywords'] = array(
+            'path' => array(
+                'pattern' => '([^?]+)',
+                'help' => $this->translate('Path to an item (eg, /album/image.jpg.html)')));
+        $rules[] = $rule;
 
-	return $rules;
+        return $rules;
     }
 
     /**
      * @see GalleryModule::getSiteAdminViews()
      */
     function getSiteAdminViews() {
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array(array('name' => $this->translate('Slideshow Applet'),
 				 'view' => 'slideshowapplet.SlideshowAppletSiteAdmin')));
     }

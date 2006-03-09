@@ -60,15 +60,3 @@
   <input type="submit" class="inputTypeSubmit"
    name="{g->formVar var="form[action][cancel]"}" value="{g->text text="Cancel"}"/>
 </div>
-
-<div class="gbBlock">
-  <br/>
-  <p class="giDescription giWarning">
-    {g->text text="Warning: Adding any of the following mime types could leave you open to %sCross Site Scripting%s security vulnerabilities." arg1="<a href=\"http://www.google.com/search?q=cross%20site%20scripting\">" arg2="</a>"}
-  </p>
-  <ul class="giWarning">
-    <li>text/html</li>
-    <li>application/xhtml+xml</li>
-    <li>text/xml</li>
-  </ul>
-</div>

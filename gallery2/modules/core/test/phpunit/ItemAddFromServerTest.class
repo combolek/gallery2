@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,13 +44,13 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 	list ($ret, $this->_rootAlbum) =
 	    $this->_createRandomAlbum($this->_getRootId(), array('orderBy' => 'orderWeight'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_rootAlbum);
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_rootAlbum->getId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -60,35 +60,35 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    new ItemAddFromServerTestPlatform($gallery->getPlatform(), false);
 
 	$ret = $this->_markPluginParametersForCleanup('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.1',
 						  dirname(dirname(__FILE__)));
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'uploadLocalServer.dir.2',
 						  $gallery->getConfig('data.gallery.base'));
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::removePluginParameter('module', 'core', 'uploadLocalServer.dir.3');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
-	$gallery->setPlatform($this->_symlinkAllowedPlatform);
+	$gallery->_platform = $this->_symlinkAllowedPlatform;
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
-	if ($ret) {
+	if ($ret->isError()) {
 	   return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -161,15 +161,15 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
      * TODO: virtualize the whole test and add test where the dir to add  has an umlaut in the name
      * function testAddChildrenFromLocalServerRecursiveOnlySubSubAlbum() {
      *     // Goal: test the case when the localServerDirectories has umlauts
-     *     return $this->_testAddChildrenFromLocalServer(false, true, false, false, false, true,
-     *                                                   true, true);
+     *     return $this->_testAddChildrenFromLocalServer(false, true, false, false, false, true, true,
+     *					      true);
      * }
      *
      * TODO: virtualize the whole test and add test where localServerPath has an umlaut in the name
      * function testAddChildrenFromLocalServerRecursiveOnlySubSubAlbumChildren() {
      *     // Goal: test the case when the localServerPath has umlauts
-     *	   return $this->_testAddChildrenFromLocalServer(false, true, false, false, false,
-     *                                                   true, true, true, true);
+     *	   return $this->_testAddChildrenFromLocalServer(false, true, false, false, false, true, true,
+     *				      true, true);
      * }
     */
 
@@ -208,9 +208,9 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 		'return strcmp($b[\'fileName\'], $a[\'fileName\']);');
 
 	if ($symlinkSupported) {
-	    $gallery->setPlatform($this->_symlinkAllowedPlatform);
+	    $gallery->_platform = $this->_symlinkAllowedPlatform;
 	} else {
-	    $gallery->setPlatform($this->_symlinkDisallowedPlatform);
+	    $gallery->_platform = $this->_symlinkDisallowedPlatform;
 	}
 
 	/* Use valid inputs */
@@ -225,7 +225,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	    GalleryUtilities::putRequestVariable('form[set][description]', 1);
 	}
 
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data';
 	$fileKeys = array();
@@ -281,7 +281,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	     * we're setting the mock platform back to the one that
 	     * supports symlink for consistency.
 	     */
-	    $gallery->setPlatform($this->_symlinkAllowedPlatform);
+	    $gallery->_platform = $this->_symlinkAllowedPlatform;
 	    return;
 	}
 	$this->assertEquals(array(), $results[0]);
@@ -299,19 +299,19 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 
 	/* Verify item attributes (like order weight) */
 	list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($this->_rootAlbum);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	if ($addDirectories) {
 	    $this->assertEquals(1, count($ids), 'top child count');
 	    list ($ret, $subalbum) = GalleryCoreApi::loadEntitiesById($ids[0]);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals('galleryalbumitem', strtolower(get_class($subalbum)), 'subalbum');
 	    $this->assertEquals('localUploadDir', $subalbum->getPathComponent(), 'subalbum path');
 	    list ($ret, $ids) = GalleryCoreApi::fetchChildItemIds($subalbum);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
@@ -319,7 +319,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	$this->assertEquals(count($files), count($ids), 'child count' . $addDirectoriesString);
 	
 	list ($ret, $items) = GalleryCoreApi::loadEntitiesById($ids);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -335,20 +335,20 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	foreach ($escapedBasenames as $base) {
 	    $item =& $items[$results[1]['addedFiles'][$i]['id']];
 	    $expectedName = GalleryCoreApi::convertToUtf8($base);
-	    $this->assertEquals($setTitle ? $expectedName : '', $item->getTitle(), 'title');
-	    $this->assertEquals($setSummary ? $expectedName : '', $item->getSummary(),
+	    $this->assertEquals($setTitle ? $expectedName : null, $item->getTitle(), 'title');
+	    $this->assertEquals($setSummary ? $expectedName : null, $item->getSummary(),
 				'summary');
-	    $this->assertEquals($setDescription ? $expectedName : '', $item->getDescription(),
+	    $this->assertEquals($setDescription ? $expectedName : null, $item->getDescription(),
 				'description');
 
 	    list ($ret, $viewCount) = GalleryCoreApi::fetchItemViewCount($item->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(0, $viewCount);
 
 	    list ($ret, $orderWeight) = GalleryCoreApi::fetchItemOrderWeight($item->getId());
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assert(!isset($seenWeights[$item->getParentId()][$orderWeight]),
@@ -364,7 +364,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
      */
     function testAddFromServerFilenameToFields() {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data';
 
@@ -382,13 +382,13 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	$this->assertEquals(1, count($results[1]['addedFiles']));
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($results[1]['addedFiles'][0]['id']);
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->assertEquals('December - _#952_.jpg', $item->getPathComponent(), 'pathComponent');
 	$this->assertEquals('December - &lt;#952&gt;', $item->getTitle(), 'title');
 	$this->assertEquals('December - &lt;#952&gt;', $item->getSummary(), 'summary');
-	$this->assertEquals('', $item->getDescription(), 'description');
+	$this->assertEquals(null, $item->getDescription(), 'description');
     }
 
     /**
@@ -398,7 +398,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
 	global $gallery;
 
 	list ($ret, $path) = $this->_rootAlbum->fetchPath();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -415,7 +415,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function testAddFromServerMalformedInput() {
 	/* Test that manually constructed input can't get outside our approved dirs */
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep;
 
@@ -432,7 +432,7 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
     function testAddFromServerEntityDir() {
 	/* Test that characters in dirname that get entitized still work ok */
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$dirSep = $platform->getDirectorySeparator();
 	$baseDir = dirname(dirname(__FILE__)) . $dirSep . 'data' . $dirSep;
 
@@ -460,8 +460,11 @@ class ItemAddFromServerTest extends ItemAddPluginTestCase {
  */
 class ItemAddFromServerTestPlatform extends GalleryPlatform {
     function ItemAddFromServerTestPlatform($delegate, $symlinkSupported) {
+	global $gallery;
+	$platform = $gallery->getPlatform();
+	$dirSep = $this->_dirSep = $platform->getDirectorySeparator();
+
 	$this->_delegate = $delegate;
-	$dirSep = $this->_dirSep = $delegate->getDirectorySeparator();
 	$this->_symlinkSupported = $symlinkSupported;
 	$this->_baseDir = dirname(dirname(__FILE__)) . "{$dirSep}data{$dirSep}";
 	$this->_baseDirRecursive = dirname(dirname(__FILE__)) .

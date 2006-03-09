@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,18 +43,13 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 	$status = array();
 	$error = array();
-	
+
 	if (isset($form['action']['findFilesFromWebPage'])) {
 	    /* Delegate back to the same view */
 	} else if (isset($form['action']['addFromWebPage']) && empty($form['webPageUrls'])) {
 	    GalleryUtilities::putRequestVariable('form[error][webPage][nothingSelected]', 1);
 	} else if (isset($form['action']['addFromWebPage'])) {
-	    $platform =& $gallery->getPlatform();
-	    /* Pass referer checking */
-	    if (!empty($form['webPage'])) {
-		$extraHeaders =
-		    array('Referer' => str_replace('&amp;', '&', $form['webPage']));
-	    }
+	    $platform = $gallery->getPlatform();
 	    foreach (array_keys($form['webPageUrls']) as $url) {
 		/* Copy the file locally */
 		$tmpDir = $gallery->getConfig('data.gallery.tmp');
@@ -62,15 +57,13 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 		$successfullyCopied = false;
 		$url = GalleryUtilities::htmlEntityDecode($url);
-		if (empty($extraHeaders)) {
-		    $extraHeaders = array('Referer' => str_replace('&amp;', '&', $url));
-		}
 		list ($successfullyCopied, $response, $headers) =
-		    GalleryCoreApi::fetchWebFile($url, $tmpFile, $extraHeaders);
-		if ($successfullyCopied) {
+		    GalleryCoreApi::fetchWebFile($url, $tmpFile);
+
+		if ($successfullyCopied && strpos($response, '404 Not Found') === false) {
 		    /* Add it */
 		    list ($ret, $mimeType, $fileName) = $this->_getMimeType($url, $headers, true);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -88,7 +81,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 									   $description,
 									   $mimeType,
 									   $item->getId());
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
@@ -100,7 +93,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	    }
 	}
 
-	return array(null, $error, $status);
+	return array(GalleryStatus::success(), $error, $status);
     }
 
     /**
@@ -127,15 +120,15 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		}
 	    }
 	    if (empty($form['error'])) {
-		list ($successful, $buffer, $response, $headers, $actualUrl) =
+		list ($buffer, $response, $headers, $actualUrl) =
 		    GalleryCoreApi::fetchWebPage($form['webPage']);
-		if (empty($buffer) || !$successful) {
+		if (empty($buffer) || strpos($response, '404 Not Found') !== false) {
 		    $form['error']['webPage']['unavailable'] = 1;
 		}
 	    }
 	    if (empty($form['error'])) {
 		if (isset($actualUrl) && $actualUrl != $form['webPage']) {
-		    $form['webPage'] = str_replace('&', '&amp;', $actualUrl);
+		    $form['webPage'] = $actualUrl;
 		    $baseUrlComponents = parse_url($form['webPage']);
 		}
 
@@ -153,7 +146,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		     * to add this url, rather than parsing the contents.
 		     */
 		    list ($ret, $typeName) = $this->_getTypeName($form['webPage'], null, $headers);
-		    if ($ret) {
+		    if ($ret->isError()) {
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    if (!empty($typeName)) {
@@ -165,11 +158,9 @@ class ItemAddFromWeb extends ItemAddPlugin {
 		     * Parse the buffer.  We match:
 		     *  href="foo bar"    href='foo bar'   href=foo
 		     *  src="foo bar"     src='foo bar'    src=foo
-		     *  value="http:foo"  value='http:foo' value=http:foo (or https)
 		     */
-		    preg_match_all('/(src|href|value(?=\s*=\s*[\'"]?https?:))\s*=\s*'
-			    . '(?:\"(.*?)\"|\'(.*?)\'|([^\'\"\> ]*))/i',
-			    $buffer, $matches);
+		    preg_match_all('/(src|href)\s*=\s*(?:\"(.*?)\"|\'(.*?)\'|([^\'\"\> ]*))/i',
+				   $buffer, $matches);
 
 		    $seenBefore = array();
 		    for ($i = 0; $i < count($matches[1]); $i++) {
@@ -230,7 +221,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 			}
 
 			list ($ret, $typeName) = $this->_getTypeName($url, $matches[1][$i]);
-			if ($ret) {
+			if ($ret->isError()) {
 			    return array($ret->wrap(__FILE__, __LINE__), null, null);
 			}
 
@@ -261,7 +252,7 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	$ItemAddFromWeb['recentUrls'] = array_keys($recentUrls);
 
 	$template->setVariable('ItemAddFromWeb', $ItemAddFromWeb);
-	return array(null,
+	return array(GalleryStatus::success(),
 		     'modules/core/templates/ItemAddFromWeb.tpl',
 		     'modules_core');
     }
@@ -298,11 +289,11 @@ class ItemAddFromWeb extends ItemAddPlugin {
 
 	if (!empty($urlComponents['path'])) {
 	    list ($ret, $mimeType) = GalleryCoreApi::getMimeType($urlComponents['path']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!empty($mimeType) && $mimeType != 'application/unknown') {
-		return array(null, $mimeType, $fileName);
+		return array(GalleryStatus::success(), $mimeType, $fileName);
 	    }
 	}
 
@@ -312,30 +303,30 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	     * Google's image search feature, put the file name at the end of the query string.
 	     */
 	    list ($ret, $mimeType) = GalleryCoreApi::getMimeType($urlComponents['query']);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!empty($mimeType) && $mimeType != 'application/unknown') {
-		return array(null, $mimeType, $fileName);
+		return array(GalleryStatus::success(), $mimeType, $fileName);
 	    }
 	}
 
 	if (!empty($headers['Content-Disposition'])
 		&& preg_match('/filename="(.*?)"/', $headers['Content-Disposition'], $match)) {
 	    list ($ret, $mimeType) = GalleryCoreApi::getMimeType($match[1]);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	    if (!empty($mimeType) && $mimeType != 'application/unknown') {
-		return array(null, $mimeType, $fileName);
+		return array(GalleryStatus::success(), $mimeType, $fileName);
 	    }
 	}
 
 	if (!empty($headers['Content-Type'])) {
-	    return array(null, $headers['Content-Type'], $fileName);
+	    return array(GalleryStatus::success(), $headers['Content-Type'], $fileName);
 	}
 
-	return array(null, null, $fileName);
+	return array(GalleryStatus::success(), null, $fileName);
     }
 
     /**
@@ -352,29 +343,29 @@ class ItemAddFromWeb extends ItemAddPlugin {
 	if (isset($htmlAttribute) && strtolower($htmlAttribute) == 'src') {
 	    /* For <img> src attribute just assume "Photo" and don't examine mime type */
 	    list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
-	    return array(null, $module->translate('Photo'));
+	    return array(GalleryStatus::success(), $module->translate('Photo'));
 	} else {
 	    list ($ret, $mimeType) = $this->_getMimeType($url, $headers);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (empty($mimeType)) {
-		return array(null, null);
+		return array(GalleryStatus::success(), null);
 	    }
 
 	    static $mimeTypeNameMap = array();
 	    if (!isset($mimeTypeNameMap[$mimeType])) {
 		list ($ret, $mimeTypeItem) = GalleryCoreApi::newItemByMimeType($mimeType);
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$mimeTypeItem->setMimeType($mimeType);
 		$mimeTypeNameMap[$mimeType] = $mimeTypeItem->itemTypeName();
 	    }
-	    return array(null, $mimeTypeNameMap[$mimeType][0]);
+	    return array(GalleryStatus::success(), $mimeTypeNameMap[$mimeType][0]);
 	}
     }
 
@@ -383,11 +374,11 @@ class ItemAddFromWeb extends ItemAddPlugin {
      */
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	return array(null, $module->translate('From Web Page'));
+	return array(GalleryStatus::success(), $module->translate('From Web Page'));
     }
 }
 ?>

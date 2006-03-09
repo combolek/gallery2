@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ class CleanCacheStep extends UpgradeStep {
 
     function loadTemplateData(&$templateData) {
 	global $gallery;
-	$platform =& $gallery->getPlatform();
+	$platform = $gallery->getPlatform();
 	$cacheBaseDir = $gallery->getConfig('data.gallery.cache');
 
 	/* Keep the obsolete layout dir in the list for a while */
@@ -41,19 +41,6 @@ class CleanCacheStep extends UpgradeStep {
 		    $templateData['unclean'][] = $dir;
 		}
 	    }
-	}
-
-	$ret = GalleryCoreApi::removeAllMapEntries('GalleryCacheMap');
-	if ($ret) {
-	    $templateData['errors'][] = _('Unable to clear the page cache');
-	    $templateData['stackTrace'] .= $ret->getAsHtml();
-	}
-
-	$storage =& $gallery->getStorage();
-	$ret = $storage->checkPoint();
-	if ($ret) {
-	    $templateData['errors'][] = _('Unable to commit database transaction');
-	    $templateData['stackTrace'] .= $ret->getAsHtml();
 	}
 
 	/*

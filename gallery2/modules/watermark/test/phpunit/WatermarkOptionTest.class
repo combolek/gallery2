@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,16 +21,16 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Watermark
+ * @package GalleryCore
  * @subpackage PHPUnit
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
-GalleryCoreApi::requireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
+GalleryCoreApi::relativeRequireOnce('lib/tools/phpunit/ItemAddOptionTestCase.class');
 
 /**
  * WatermarkOption tests
- * @package Watermark
+ * @package GalleryCore
  * @subpackage PHPUnit
  */
 class WatermarkOptionTest extends ItemAddOptionTestCase {
@@ -44,7 +44,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	parent::setUp();
 
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -52,7 +52,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	$this->_images = array();
 	list ($ret, $this->_images[0]) =
 	    $this->_createRandomDataItem($this->_album->getId(), 'image/test');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -60,20 +60,20 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	list ($ret, $this->_thumbnails[0]) =
 	    $this->_createDerivative($this->_images[0], $this->_images[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'crop|10,10,30,40;scale|200');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_resizes = array();
 	list ($ret, $this->_resizes[0]) =
 	    $this->_createDerivative($this->_images[0], $this->_images[0]->getId(),
 				     DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_items = array();
 	list ($ret, $this->_items[0]) = $this->_createRandomDataItem($this->_album->getId(), 
 								 'test/file');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -83,17 +83,16 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    			     $this->_items[0]->getId(),
 			  	     DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 
 			  	     'convert-to-image/jpeg;thumbnail|150');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Create a watermark */
 	$this->_watermark = new WatermarkImage();
-	$ret = $this->_watermark->create(GalleryCoreApi::getPluginBaseDir('module', 'core')
-					 . 'modules/core/test/data/test1.gif',
+	$ret = $this->_watermark->create(dirname(__FILE__) . '/../../../core/test/data/test1.gif',
 					 'image/gif',
 					 'phpunit_' . rand() . '.gif');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus(__FILE__, __LINE__);
 	}
 
@@ -103,7 +102,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	$this->_watermark->setXPercentage('1.2');
 	$this->_watermark->setYPercentage('2.3');
 	$ret = $this->_watermark->save();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus(__FILE__, __LINE__);
 	}
 	$this->_markForCleanup($this->_watermark);
@@ -123,7 +122,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 	foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
 	    list ($ret, $derivative) = $derivative->refresh();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -136,7 +135,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
         for ($j = 1; $j < $totalTestItems; $j++) {
 	    list ($ret, $this->_images[$j]) =
 	    	$this->_createRandomDataItem($this->_album->getId(), 'image/test');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	print $ret->getAsHtml();
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }	
@@ -145,18 +144,18 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    				 $this->_images[$j]->getId(),
 				     	 DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 
 				     	 'crop|10,10,30,40;scale|200');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }	
 	    list ($ret, $this->_resizes[$j]) =
 	    	$this->_createDerivative($this->_images[$j], $this->_images[$j]->getId(),
 				     	 DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(), 
 								  	 'test/file');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	print $ret->getAsHtml();
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -165,7 +164,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    				 $this->_items[$j]->getId(),
 			  		 DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 
 			  		 'convert-to-image/jpeg;thumbnail|150');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    
@@ -183,7 +182,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	for ($j = 0; $j < $totalTestItems; $j++) {
 	    foreach (array($this->_thumbnails[$j], $this->_resizes[$j]) as $derivative) {
 	    	list ($ret, $derivative) = $derivative->refresh();
-	    	if ($ret) {
+	    	if ($ret->isError()) {
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    	}
 	    	$this->assertEquals($expected, $derivative->getPostFilterOperations());
@@ -198,7 +197,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 
 	foreach (array($this->_thumbnails[0], $this->_resizes[0]) as $derivative) {
 	    list ($ret, $derivative) = $derivative->refresh();
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
@@ -212,7 +211,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
         for ($j = 1; $j < $totalTestItems; $j++) {
 	    list ($ret, $this->_images[$j]) =
 	    	$this->_createRandomDataItem($this->_album->getId(), 'image/test');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	print $ret->getAsHtml();
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }	
@@ -221,13 +220,13 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    				 $this->_images[$j]->getId(),
 				     	 DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 
 				     	 'crop|10,10,30,40;scale|200');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }	
 	    list ($ret, $this->_resizes[$j]) =
 	    	$this->_createDerivative($this->_images[$j], $this->_images[$j]->getId(),
 				     	 DERIVATIVE_TYPE_IMAGE_RESIZE, 'rotate|90');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    
@@ -241,7 +240,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	for ($j = 0; $j < $totalTestItems; $j++) {
 	    foreach (array($this->_thumbnails[$j], $this->_resizes[$j]) as $derivative) {
 	    	list ($ret, $derivative) = $derivative->refresh();
-	    	if ($ret) {
+	    	if ($ret->isError()) {
 		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    	}
 	    	$this->assertEquals(null, $derivative->getPostFilterOperations());
@@ -256,7 +255,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	$this->assertEquals(array($this->_noErrors, $this->_noWarnings), $result);
 
 	list ($ret, $derivative) = $this->_itemThumbnails[0]->refresh();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -269,7 +268,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
         for ($j = 1; $j < $totalTestItems; $j++) {
 	    list ($ret, $this->_items[$j]) = $this->_createRandomDataItem($this->_album->getId(), 
 								  	 'test/file');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	print $ret->getAsHtml();
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
@@ -278,7 +277,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	    				 $this->_items[$j]->getId(),
 			  		 DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 
 			  		 'convert-to-image/jpeg;thumbnail|150');
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    
@@ -290,7 +289,7 @@ class WatermarkOptionTest extends ItemAddOptionTestCase {
 	
 	for ($j = 0; $j < $totalTestItems; $j++) {
 	    list ($ret, $derivative) = $this->_itemThumbnails[$j]->refresh();
-	    if ($ret) {
+	    if ($ret->isError()) {
 	    	return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $this->assertEquals(null, $derivative->getPostFilterOperations());

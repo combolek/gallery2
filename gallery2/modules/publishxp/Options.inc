@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,16 +26,15 @@
  * within Gallery.  The two options supported are for whether the file extension
  * should be used in the title and if the captions should be set automatically.
  *
- * @version $Revision$ $Date$
+ * @version $Id$
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */
 class OptionsController extends GalleryController {
     /**
-     * @see GalleryController::handleRequest
+     * @see GalleryControler::handleRequest
      */
     function handleRequest($form) {
-	global $gallery;
 	$results = array();
 	if (isset($form['action']['setOptions'])) {
 	    /* No form processing/validation required so just continue the next page */
@@ -43,20 +42,12 @@ class OptionsController extends GalleryController {
 	    $results['redirect']['stripExtensions'] = isset($form['stripExtensions']);
 	    $results['redirect']['setCaptions'] = isset($form['setCaptions']);
 	    $results['redirect']['albumId'] = $form['albumId'];
-
-	    /*
-	     * Any options set by ItemAddOptions also need to get passed forward but
-	     * we don't know what or how complex they are, so let's take the easy route of storing
-	     * the form in the session for later.
-	     */
-	    $session =& $gallery->getSession();
-	    $session->put('publishxp.extraOptionsForm', serialize($form));
 	} else {
 	    $results['delegate']['view'] = 'publishxp.Options';
 	}
 	$results['status'] = array();
 	$results['error'] = array();
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -67,8 +58,9 @@ class OptionsController extends GalleryController {
  * within Gallery.  The two options supported are for whether the file extension
  * should be used in the title and if the captions should be set automatically.
  *
+ * @version $Id$
  * @package PublishXp
- * @subpackage UserInterface
+ * @author Timothy Webb <tiwebb@cisco.com>
  */
 class OptionsView extends GalleryView {
     /**
@@ -88,45 +80,13 @@ class OptionsView extends GalleryView {
 	    }
 
 	    if (empty($form['albumId'])) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
+		return array(GalleryStatus::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	    }
 	}
 
-	/* Get all the add options */
-	GalleryCoreApi::requireOnce('modules/core/ItemAdd.inc');
-	if (isset($this->_optionInstances)) {
-	    $optionInstances = $this->_optionInstances;
-	} else {
-	    list ($ret, $optionInstances) = ItemAddOption::getAllAddOptions();
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	}
-
-	/* Now let all options load their template data */
-	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['albumId']);
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
-	$Options['options'] = array();
-	foreach ($optionInstances as $option) {
-	    list ($ret, $entry['file'], $entry['l10Domain']) =
-		$option->loadTemplate($template, $form, $item);
-	    if ($ret) {
-		return array($ret->wrap(__FILE__, __LINE__), null);
-	    }
-	    if (!empty($entry['file'])) {
-		$Options['options'][] = $entry;
-	    }
-	}
-
-	$template->setVariable('Options', $Options);
 	$template->head('modules/publishxp/templates/Head.tpl');
-
-	return array(null,
-		     array('body' => 'modules/publishxp/templates/Options.tpl',
-			   'useFullScreen' => true));
+	return array(GalleryStatus::success(),
+		     array('body' => 'modules/publishxp/templates/Options.tpl'));
     }
 }
 ?>

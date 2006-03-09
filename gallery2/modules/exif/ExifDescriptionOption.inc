@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,10 +42,10 @@ class ExifDescriptionOption extends ItemAddOption {
      */
     function isAppropriate() {
 	list ($ret, $addOption) = GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	return array(null, $addOption > 0);
+	return array(GalleryStatus::success(), $addOption > 0);
     }
 
     /**
@@ -54,12 +54,12 @@ class ExifDescriptionOption extends ItemAddOption {
     function handleRequestAfterAdd($form, $items) {
 	$errors = array();
 	$warnings = array();
-	GalleryCoreApi::requireOnce('modules/exif/classes/ExifExtractor.class');
-	GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
-
+	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifExtractor.class');
+	GalleryCoreApi::relativeRequireOnce('modules/exif/classes/ExifHelper.class');
+	
 	list ($ret, $addOption) =
 	    GalleryCoreApi::getPluginParameter('module', 'exif', 'addOption');
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
@@ -77,30 +77,31 @@ class ExifDescriptionOption extends ItemAddOption {
 		$itemIds[] = $item->getId();
 	    }
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemIds);
-	    if ($ret) {
+	    if ($ret->isError()) {
+		GalleryCoreApi::releaseLocks($lockId);
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 
 	    for ($i = 0; $i < count($currentItems); $i++) {
 		$warnings[] = array();
 		$itemId = $currentItems[$i]->getId();
-
+		
 		list ($ret, $exifData) =
 		    ExifExtractor::getMetaData(
 			array($itemId),
-			array('IPTC/Caption',
+			array('IPTC/Caption', 
 			      'ImageDescription',
-			      'UserComment',
-			      'IPTC/Keywords',
+			      'UserComment', 
+			      'IPTC/Keywords', 
 			      )
 			);
-		if ($ret) {
+		if ($ret->isError()) {
 		    GalleryCoreApi::releaseLocks($lockId);
 		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
-
+		
 		$mustSave = false;
-
+		
 		/* TODO(xlerb) reconsider, if ExifHelper should be changed to do the preferences. */
 		$itemDescription = '';
 		if (!empty($exifData[$itemId]['IPTC/Caption']['value'])) {
@@ -112,7 +113,7 @@ class ExifDescriptionOption extends ItemAddOption {
 		elseif (!empty($exifData[$itemId]['UserComment']['value'])) {
 		    $itemDescription = $exifData[$itemId]['UserComment']['value'];
 		}
-
+		
 		if (!empty($itemDescription)) {
 		    if ($addOption & EXIF_ITEM_SUMMARY) {
 			$currentItems[$i]->setSummary($itemDescription);
@@ -123,7 +124,7 @@ class ExifDescriptionOption extends ItemAddOption {
 			$mustSave = true;
 		    }
 		}
-
+		
 		if (!empty($exifData[$itemId]['IPTC/Keywords']['value'])) {
 		    $iptcKeywords = $exifData[$itemId]['IPTC/Keywords']['value'];
 		    if ($addOption & IPTC_ITEM_KEYWORDS) {
@@ -131,23 +132,23 @@ class ExifDescriptionOption extends ItemAddOption {
 			$mustSave = true;
 		    }
 		}
-
+		
 		if ($mustSave) {
 		    $ret = $currentItems[$i]->save();
-		    if ($ret) {
+		    if ($ret->isError()) {
 			GalleryCoreApi::releaseLocks($lockId);
 			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		}
 	    }
-
+	    
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} while (!empty($itemsInBatches));
-
-	return array(null, $errors, $warnings);
+	
+	return array(GalleryStatus::success(), $errors, $warnings);
     }
 }
 ?>

@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,19 +35,21 @@ class AlbumSelectSiteAdminController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+	/* Make sure we have adequate permissions */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	$status = $error = array();
+	$status = array();
+	$error = array();
 	if (isset($form['action']['save'])) {
 	    foreach (array('sort', 'treeLines', 'treeIcons', 'treeCookies',
 			   'treeExpandCollapse', 'treeCloseSameLevel') as $key) {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'albumselect', $key,
 			      ($key == 'sort') ? $form['sort']
 					       : ((isset($form[$key]) && $form[$key]) ? 1 : 0));
-		if ($ret) {
+		if ($ret->isError()) {
 		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
@@ -63,7 +65,7 @@ class AlbumSelectSiteAdminController extends GalleryController {
 			 'status' => $status,
 			 'error' => $error);
 
-	return array(null, $results);
+	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -77,11 +79,6 @@ class AlbumSelectSiteAdminView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-	if ($ret) {
-	    return array($ret->wrap(__FILE__, __LINE__), null);
-	}
-
 	foreach (array('sort', 'treeLines', 'treeIcons', 'treeCookies',
 		       'treeExpandCollapse', 'treeCloseSameLevel') as $key) {
 	    if (!isset($form[$key])) {
@@ -92,7 +89,7 @@ class AlbumSelectSiteAdminView extends GalleryView {
 	    $form['formName'] = 'AlbumSelectSiteAdmin';
 	    list ($ret, $params) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'albumselect');
-	    if ($ret) {
+	    if ($ret->isError()) {
 		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($params as $key => $value) {
@@ -101,7 +98,7 @@ class AlbumSelectSiteAdminView extends GalleryView {
 	}
 
 	$template->setVariable('controller', 'albumselect.AlbumSelectSiteAdmin');
-	return array(null,
+	return array(GalleryStatus::success(),
 		     array('body' => 'modules/albumselect/templates/AlbumSelectSiteAdmin.tpl'));
     }
 }

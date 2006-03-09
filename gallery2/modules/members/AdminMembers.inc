@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,12 +35,15 @@ class AdminMembersController extends GalleryController {
      * @see GalleryController::handleRequest
      */
     function handleRequest($form) {
+    	global $gallery;
+
     	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-    	if ($ret) {
+    	if ($ret->isError()) {
     	    return array($ret->wrap(__FILE__, __LINE__), null);
     	}
 
-    	$error = $status = array();
+    	$error = array();
+    	$status = array();
     	if (isset($form['action']['save'])) {
     	    foreach (array('canViewMembersModule', 'canViewEmailAddress') as $key) {
     	        if (isset($form[$key])) {
@@ -48,7 +51,7 @@ class AdminMembersController extends GalleryController {
     		                                              'members',
     		                                              $key,
     		                                              trim($form[$key]));
-    		    if ($ret) {
+    		    if ($ret->isError()) {
     		        return array($ret->wrap(__FILE__, __LINE__), null);
     		    }
     		}
@@ -67,7 +70,7 @@ class AdminMembersController extends GalleryController {
     	$results['status'] = $status;
     	$results['error'] = $error;
 
-    	return array(null, $results);
+    	return array(GalleryStatus::success(), $results);
     }
 }
 
@@ -81,13 +84,10 @@ class AdminMembersView extends GalleryView {
      * @see GalleryView::loadTemplate
      */
     function loadTemplate(&$template, &$form) {
-    	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
-    	if ($ret) {
-    	    return array($ret->wrap(__FILE__, __LINE__), null);
-    	}
+    	global $gallery;
 
     	list($ret, $module) = GalleryCoreApi::loadPlugin('module', 'members');
-    	if ($ret) {
+    	if ($ret->isError()) {
     	    return array($ret->wrap(__FILE__, __LINE__), null);
         }
 
@@ -96,7 +96,7 @@ class AdminMembersView extends GalleryView {
     	    foreach (array('canViewMembersModule', 'canViewEmailAddress') as $key) {
     	        list ($ret, $form[$key]) =
     	            GalleryCoreApi::getPluginParameter('module', 'members', $key);
-    	        if ($ret) {
+    	        if ($ret->isError()) {
     	            return array($ret->wrap(__FILE__, __LINE__), null);
     	        }
     	    }
@@ -108,7 +108,7 @@ class AdminMembersView extends GalleryView {
     	               'id.allUserGroup') as $key) {
     	    list ($ret, $groupIds[]) =
                 GalleryCoreApi::getPluginParameter('module', 'core', $key);
-            if ($ret) {
+            if ($ret->isError()) {
                 return array($ret->wrap(__FILE__, __LINE__), null);
             }
     	}
@@ -118,11 +118,11 @@ class AdminMembersView extends GalleryView {
     	                                $groupIds[1] => $module->translate($viewTerms[1]),
     	                                $groupIds[2] => $module->translate($viewTerms[2]));
     	$members['emailViews'] = array(true => $module->translate('Show Email Addresses'),
-				       false => $module->translate("Don't Show Email Addresses"));
+    	                               false => $module->translate("Don't Show Email Addresses"));
 	$template->setVariable('Members', $members);
     	$template->setVariable('controller', 'members.AdminMembers');
 
-    	return array(null,
+    	return array(GalleryStatus::success(),
     		     array('body' => 'modules/members/templates/AdminMembers.tpl'));
     }
 }

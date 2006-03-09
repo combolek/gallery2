@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2005 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 
 	$this->_tag = 'SmplCb-' . rand(0, 999999);
 	list ($ret, $this->_view) = GalleryView::loadView('core.SimpleCallback');
-	if ($ret) {
+	if ($ret->isError()) {
 	    print $ret->getAsHtml();
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
@@ -54,7 +54,7 @@ class SimpleCallbackTest extends GalleryTestCase {
     function _createUser() {
 	list ($ret, $user) =
 	    $this->_createRandomUser($this->_tag . '-' . count($this->_userNames));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
@@ -65,7 +65,7 @@ class SimpleCallbackTest extends GalleryTestCase {
     function _createGroup() {
 	list ($ret, $group) =
 	    $this->_createRandomGroup($this->_tag . '-' . count($this->_groupNames));
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($group);
@@ -77,7 +77,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	$ret = $this->_view->renderImmediate(array(), array());
 	$results = ob_get_contents();
 	ob_end_clean();
-	if ($ret) {
+	if ($ret->isError()) {
 	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
@@ -201,7 +201,7 @@ class SimpleCallbackTest extends GalleryTestCase {
     function testLookupDirectoriesWithUmlauts() {
 	/* Filesystem doesn't accept / return UTF-8 characters */
 	global $gallery;
-	$gallery->_phpVm = new SimpleCallbackTestPhpVm();
+	$gallery->_phpVm =  new SimpleCallbackTestPhpVm();
 	$platform = new UnitTestPlatform();
 	$platform->setReply('file_exists', array('/phpäunit'), true);
 	$platform->setReply('is_dir', array('/phpäunit'), true);
@@ -213,16 +213,13 @@ class SimpleCallbackTest extends GalleryTestCase {
 	$platform->setReply('closedir', array('dh'), true);
 	$gallery->setPlatform($platform);
 
-	/* Fake a specific charset to isolate this test */
-	GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
-
 	/* German umlaut 'ä' in ISO-8859-1 */
 	$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 	$prefix = '/php' . $umlautUtf8 . 'unit';
 	GalleryUtilities::putRequestVariable('command', 'lookupDirectories');
 	GalleryUtilities::putRequestVariable('prefix', $prefix);
 	$results = $this->_runCallback();
-
+	
 	$this->assertEquals($prefix . '/t' . $umlautUtf8 . 'st', $results, 'results');
 	$this->assert($platform->isComplete(), $platform->getRemaining());
     }
@@ -304,9 +301,6 @@ class SimpleCallbackTest extends GalleryTestCase {
 	$platform->setReply('closedir', array('dh'), true);
 	$gallery->setPlatform($platform);
 
-	/* Fake a specific charset to isolate this test */
-	GalleryDataCache::put('GalleryCharsetHelper_simple::detectSystemCharset', 'ISO-8859-1');
-
 	/* German umlaut 'ä' in ISO-8859-1 */
 	$umlautUtf8 = GalleryCoreApi::convertToUtf8(chr(228), 'ISO-8859-1');
 	$prefix = '/php' . $umlautUtf8 . 'unit';
@@ -318,7 +312,7 @@ class SimpleCallbackTest extends GalleryTestCase {
 	$this->assertEquals("$prefix/dir\n$prefix/t" . $umlautUtf8 . "st", $results, 'results');
 	$this->assert($platform->isComplete(), $platform->getRemaining());
     }
-
+    
     function testLookupFilesAsNonSiteAdmin() {
 	global $gallery;
 
@@ -359,6 +353,18 @@ class SimpleCallbackTestPhpVm {
 	default:
 	    return function_exists($functionName);
 	}
+    }
+
+    function nl_langinfo($item) {
+	if ($item == CODESET) {
+	    return 'ISO-8859-1';
+	} else {
+	    return '';
+	}
+    }
+
+    function setlocale($category, $locale) {
+	return '';
     }
 }
 ?>
