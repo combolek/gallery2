@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: Gallery: RSS 1.0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-05 21:55+0100\n"
-"PO-Revision-Date: 2006-03-10 00:50+0000\n"
+"PO-Revision-Date: 2006-03-05 22:42+0000\n"
 "Last-Translator: Frederik Kunz <frederik.kunz@web.de>\n"
 "Language-Team: German <gallery-devel@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -32,22 +32,23 @@ msgstr ""
 "X-Generator: KBabel 1.10.1\n"
 
 msgid "This feed no longer exists!"
-msgstr "Dieser Feed existiert nicht mehr!"
+msgstr ""
 
 msgid "Feeds of that type are not allowed!"
-msgstr "Feeds dieses Typs sind nicht erlaubt!"
+msgstr ""
 
 msgid "Not permitted to view this item"
-msgstr "Keine Erlaubnis, dieses Element zu betrachten"
+msgstr ""
 
 msgid "Incorrect feed type!"
-msgstr "Fehlerhafter Feed-Typ!"
+msgstr ""
 
 msgid "Comments module is not active or comment feeds are not allowed!"
-msgstr "Kommentar-Modul ist inaktiv oder Kommentar-Feeds sind nicht erlaubt!"
+msgstr ""
 
+#, fuzzy
 msgid "Not permitted to view comments for this item"
-msgstr "Das Betrachten von Kommentaren für dieses Element ist nicht erlaubt"
+msgstr "Kommentare zu einem Element"
 
 msgid "RSS"
 msgstr "RSS"
@@ -55,14 +56,17 @@ msgstr "RSS"
 msgid "Export"
 msgstr "Exportieren"
 
+#, fuzzy
 msgid "RSS Feed for this Album"
-msgstr "RSS-Feeds für dieses Album"
+msgstr "RSS-Feeds für dieses Element"
 
+#, fuzzy
 msgid "RSS Feed for this Photo"
-msgstr "RSS-Feeds für dieses Photo"
+msgstr "RSS-Feeds für dieses Element"
 
+#, fuzzy
 msgid "RSS Feed for this Movie"
-msgstr "RSS-Feeds für diesen Film"
+msgstr "RSS-Feeds für dieses Element"
 
 msgid "Configure RSS Feeds"
 msgstr "RSS-Feeds konfigurieren"
@@ -82,9 +86,9 @@ msgstr "Der Name des konfigurierten RSS-Feeds"
 msgid "Short URL for Configurable RSS Feeds"
 msgstr "Kurze URL für benutzerdefinierte RSS-Feeds"
 
-#, c-format
+#, fuzzy, c-format
 msgid "RSS Feed for this %s"
-msgstr "RSS-Feeds für dieses %s"
+msgstr "RSS-Feeds für dieses Element"
 
 msgid "Items in an album"
 msgstr "Elemente in einem Album"
@@ -160,7 +164,8 @@ msgstr "Typ des Feeds"
 msgid "Items in this album"
 msgstr "Elemente in diesem Album"
 
-msgid "Feeds of this type are disallowed by the administrator. Users won't be able to view them."
+msgid ""
+"Feeds of this type are disallowed by the administrator. Users won't be able to view them."
 msgstr ""
 "Feeds dieses Typs wurden vom Administrator verboten. Die Benutzer werden die Elemente dieses "
 "Feeds nicht sehen können."
@@ -175,7 +180,8 @@ msgid "Limit the number of items per album"
 msgstr "Beschränken Sie die Anzahl der Elemente pro Album"
 
 msgid "Invalid limit (must be a positive number, 0 to disable the limit)"
-msgstr "Ungültige Maximalanzahl (muss eine positive Zahl sein, 0 um die Beschränkung auszuschalten)"
+msgstr ""
+"Ungültige Maximalanzahl (muss eine positive Zahl sein, 0 um die Beschränkung auszuschalten)"
 
 msgid "(enter 0 to disable the limit)"
 msgstr "(geben Sie 0 ein, um die Beschränkung auszuschalten)"
@@ -254,7 +260,8 @@ msgid "Include image tag"
 msgstr "Bild-Tag einfügen"
 
 msgid "This adds a main image to the feed, corresponding to the thumbnail for this item"
-msgstr "Dies fügt ein Hauptbild zum Feed hinzu welches dem Vorschaubild dieses Elements entspricht"
+msgstr ""
+"Dies fügt ein Hauptbild zum Feed hinzu welches dem Vorschaubild dieses Elements entspricht"
 
 msgid "Invalid value"
 msgstr "Ungültiger Wert"
@@ -265,14 +272,16 @@ msgstr "Anlagen verwenden"
 msgid "Include enclosure tags"
 msgstr "Anlage-Tags einfügen"
 
-msgid "This adds an enclosure to each image in the feed, that contains the full resolution image"
+msgid ""
+"This adds an enclosure to each image in the feed, that contains the full resolution image"
 msgstr "Dies fügt eine Anlage zu jedem Bild hinzu, welche das Bild in voller Auflösung enthält"
 
 msgid "Cloud tag (RSS 2.0)"
 msgstr "Cloud-Tag (RSS 2.0)"
 
 msgid "If you want to use the cloud tag, you can set up its properties here"
-msgstr "Wenn Sie das Cloud-Tag verwenden möchte, können Sie seine Eigenschaften hier einrichten"
+msgstr ""
+"Wenn Sie das Cloud-Tag verwenden möchte, können Sie seine Eigenschaften hier einrichten"
 
 msgid "Example: "
 msgstr "Beispiel:"
@@ -388,7 +397,8 @@ msgstr ""
 "Wenn Sie dies aktivieren, können die Nutzer für jedes Album oder Photo, das sie betrachten "
 "können einen Feed abonnieren."
 
-msgid "To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
+msgid ""
+"To edit the settings for Simple Feeds, use the corresponding tab at the top of the screen."
 msgstr ""
 "Um die Einstellungen für einfache Feeds zu bearbeiten, verwenden Sie die entsprechenden "
 "Registerreiter im Bild oben."
@@ -487,8 +497,9 @@ msgstr "Kommentare zum Album"
 msgid "For items"
 msgstr "Zu Elementen"
 
+#, fuzzy
 msgid "Comments for items (always selected)"
-msgstr "Kommentare zu Elementen (immer ausgewählt)"
+msgstr "Kommentare zu Elementen"
 
 msgid "List all RSS Feeds"
 msgstr "Zeige eine Liste aller RSS-Feeds"
@@ -510,4 +521,3 @@ msgstr "10"
 
 msgid "all"
 msgstr "alle"
-
