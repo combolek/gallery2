@@ -76,12 +76,12 @@ if ($wmDir = opendir($gallery->app->watermarkDir)) {
             }
         }
         if ($matches_ext) {
-	     if(!empty($wmName) && $wmName == $wmFile) {
-                 $options[] = array('value' => $wmFile, 'text' => $wmFile, 'selected' => true);
-	     }
-	     else {	
-                 $options[] = array('value' => $wmFile, 'text' => $wmFile);
-	     }
+        	if(!empty($wmName) && $wmName == $wmFile) {
+        		$options[] = array('value' => $wmFile, 'text' => $wmFile, 'selected' => true);
+        	}
+        	else {
+        		$options[] = array('value' => $wmFile, 'text' => $wmFile);
+        	}
         }
     }
     closedir($wmDir);
@@ -167,7 +167,6 @@ if ($wmDir = opendir($gallery->app->watermarkDir)) {
     }
     print ">" . _("Watermark subalbums") . "<br><br>";
 }
-
 echo _("Apply watermark to") ?> <select name="wmSelect">
   <option value="0"<?php if ($wmSelect <  1) echo " selected"; ?>><?php echo _("All photos");?></option>
   <option value="1"<?php if ($wmSelect == 1) echo " selected"; ?>><?php echo _("Only sized photos");?></option>

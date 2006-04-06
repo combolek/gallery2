@@ -19,18 +19,22 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Traditional Chinese
 # @author	Jian-Zhou Huang <qq AT turtle DOT ee DOT ncku DOT edu DOT tw>, 2003-2004
+# @author	TingYi <s871060 AT ym AT edu AT tw>, 2004
+# @author	Foxfair Hu <foxfair AT cc DOT nsysu DOT edu DOT tw>, 2003-2004
+# @author	Chia-Ming Lee <chip AT turtle DOT ee DOT ncku DOT edu DOT tw>, 2003-2004
+# @author	Kenneth Cheung, 2004
+# @author	Finjon Kiang http://twpug.net , 2005
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Gallery 1.5.2-cvs\n"
+"Project-Id-Version: Gallery 1.5.2-RC2\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
-"PO-Revision-Date: 2005-05-17 20:20+0800\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2006-04-05 00:19+0200\n"
+"PO-Revision-Date: 2005-12-29 13:14+0800\n"
+"Last-Translator: Finjon Kiang <kiange AT gmail DOT com>\n"
 "Language-Team: Traditional Chinese <gallery-translations AT lists DOT sourceforge DOT net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +50,7 @@ msgstr ""
 #: ../move_photo.php:32 ../multi_create_user.php:34 ../photo_owner.php:34
 #: ../poll_properties.php:34 ../poll_results.php:37 ../rearrange.php:28
 #: ../rename_album.php:31 ../reset_votes.php:37 ../resize_photo.php:34
-#: ../rotate_photo.php:31 ../save_photos.php:38 ../upgrade_album.php:57
+#: ../rotate_photo.php:33 ../save_photos.php:38 ../upgrade_album.php:57
 #: ../user_preferences.php:31 ../watermark_album.php:43
 msgid "You are not allowed to perform this action!"
 msgstr "您未被允許進行此動作. "
@@ -73,9 +77,9 @@ msgid "Enter your comment for this picture in the text box below."
 msgstr "請在下面的框框中輸入您的評論. "
 
 #: ../add_comment.php:98 ../copy_photo.php:214 ../delete_album.php:72
-#: ../delete_photo.php:145 ../delete_user.php:85 ../download.php:74
-#: ../ecard_form.php:263 ../edit_caption.php:184 ../edit_field.php:67
-#: ../edit_watermark.php:130 ../includes/add_photos/add_form.inc:90
+#: ../delete_photo.php:145 ../delete_user.php:85 ../download.php:84
+#: ../ecard_form.php:263 ../edit_caption.php:184 ../edit_watermark.php:121
+#: ../includes/add_photos/add_form.inc:90
 #: ../includes/add_photos/add_url.inc:55 ../login.php:96 ../move_album.php:117
 #: ../move_album.php:134 ../move_photo.php:264 ../move_photo.php:352
 #: ../new_password.php:138 ../register.php:142 ../rename_album.php:131
@@ -94,7 +98,7 @@ msgstr "Applet"
 
 #: ../add_photos.php:73
 msgid "Applet (big)"
-msgstr "Applet (完整)"
+msgstr "Applet (大)"
 
 #: ../add_photos.php:77
 msgid "Form"
@@ -102,9 +106,9 @@ msgstr "表格"
 
 #: ../add_photos.php:78
 msgid "URL"
-msgstr "URL"
+msgstr "網址"
 
-#: ../add_photos.php:79 ../layout/watermarkform.inc:135
+#: ../add_photos.php:79 ../layout/watermarkform.inc:141
 msgid "Other"
 msgstr "其他"
 
@@ -224,8 +228,8 @@ msgid "Sort"
 msgstr "排序"
 
 #: ../administer_startpage.php:99 ../administer_startpage.php:109
-#: ../download.php:81 ../help/imagemap.php:88 ../user_preferences.php:145
-#: ../view_photo_properties.php:137
+#: ../download.php:91 ../edit_field.php:66 ../help/imagemap.php:88
+#: ../user_preferences.php:145 ../view_photo_properties.php:137
 msgid "Close Window"
 msgstr "關閉視窗"
 
@@ -287,8 +291,8 @@ msgstr "擁有者："
 msgid "Apply permissions to all sub-albums"
 msgstr "套用權限到所有子相簿"
 
-#: ../album_permissions.php:159 ../edit_caption.php:183 ../edit_field.php:57
-#: ../edit_field.php:66 ../edit_watermark.php:128 ../modify_user.php:163
+#: ../album_permissions.php:159 ../edit_caption.php:183 ../edit_field.php:55
+#: ../edit_field.php:65 ../edit_watermark.php:119 ../modify_user.php:163
 #: ../new_password.php:137 ../photo_owner.php:103 ../user_preferences.php:144
 #: ../watermark_album.php:148
 msgid "Save"
@@ -300,243 +304,243 @@ msgstr "儲存"
 msgid "Done"
 msgstr "完成"
 
-#: ../albums.php:111 ../view_album.php:130
+#: ../albums.php:110 ../view_album.php:130
 #, php-format
 msgid "%s RSS"
 msgstr "%s RSS"
 
-#: ../albums.php:146
+#: ../albums.php:148
 #, php-format
 msgid "1 album"
 msgid_plural "%d albums"
 msgstr[0] "1 個相簿"
 msgstr[1] "%d 個相簿"
 
-#: ../albums.php:146
+#: ../albums.php:148
 msgid "no albums"
 msgstr "尚無相簿"
 
-#: ../albums.php:148
+#: ../albums.php:150
 #, php-format
 msgid "1 top-level album"
 msgid_plural "%d top-level albums"
 msgstr[0] "1 個頂層相簿"
 msgstr[1] "%d 個頂層相簿"
 
-#: ../albums.php:148
+#: ../albums.php:150
 msgid "No top-level albums"
 msgstr "尚無頂層相簿"
 
-#: ../albums.php:151
+#: ../albums.php:153
 #, php-format
 msgid "%d total"
 msgstr "全部有 %d 個相簿"
 
-#: ../albums.php:152 ../view_album.php:212
+#: ../albums.php:154 ../view_album.php:215
 #, php-format
 msgid "1 image"
 msgid_plural "%d images"
 msgstr[0] "1 份檔案"
 msgstr[1] "%d 份檔案"
 
-#: ../albums.php:152 ../view_album.php:212
+#: ../albums.php:154 ../view_album.php:215
 msgid "no images"
 msgstr "沒有檔案"
 
-#: ../albums.php:153 ../view_album.php:213
+#: ../albums.php:155 ../view_album.php:216
 #, php-format
 msgid "1 page"
 msgid_plural "%d pages"
 msgstr[0] "1 頁"
 msgstr[1] "%d 頁"
 
-#: ../albums.php:153
+#: ../albums.php:155
 msgid "no pages"
 msgstr "0 頁"
 
-#: ../albums.php:156
+#: ../albums.php:158
 #, php-format
 msgid "%s (%s), %s on %s"
 msgstr "%s (%s), %s 總共 %s"
 
-#: ../albums.php:159
+#: ../albums.php:161
 #, php-format
 msgid "%s (%s), %s"
 msgstr "%s (%s), %s"
 
-#: ../albums.php:161
+#: ../albums.php:163
 #, php-format
 msgid "%s, %s on %s"
 msgstr "%s, %s 總共 %s"
 
-#: ../albums.php:163
+#: ../albums.php:165
 #, php-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
-#: ../albums.php:178
+#: ../albums.php:180
 #, php-format
 msgid "Welcome, %s"
 msgstr "歡迎光臨, %s"
 
-#: ../albums.php:182 ../view_album.php:402
+#: ../albums.php:184 ../view_album.php:405
 msgid "slideshow"
 msgstr "幻燈片輪播"
 
-#: ../albums.php:187
+#: ../albums.php:189
 msgid "new album"
 msgstr "新增相簿"
 
-#: ../albums.php:194
+#: ../albums.php:196
 #, fuzzy
 msgid "Administer startpage"
 msgstr "Administrator"
 
-#: ../albums.php:198
+#: ../albums.php:200
 msgid "admin page"
 msgstr "管理者功能"
 
-#: ../albums.php:203
+#: ../albums.php:205
 msgid "documentation"
 msgstr "說明文件"
 
-#: ../albums.php:209
+#: ../albums.php:211
 msgid "preferences"
 msgstr "個人設定"
 
-#: ../albums.php:214 ../imagemap.php:139 ../view_album.php:420
+#: ../albums.php:216 ../imagemap.php:139 ../view_album.php:423
 #: ../view_photo.php:519
 msgid "logout"
 msgstr "登出"
 
-#: ../albums.php:219 ../imagemap.php:144 ../view_album.php:425
+#: ../albums.php:221 ../imagemap.php:144 ../view_album.php:428
 #: ../view_photo.php:524
 msgid "login"
 msgstr "登入"
 
-#: ../albums.php:223
+#: ../albums.php:225
 msgid "register"
 msgstr "註冊"
 
-#: ../albums.php:249
+#: ../albums.php:251
 msgid "Attention Gallery Administrator!"
 msgstr "管理者請注意！"
 
-#: ../albums.php:252
+#: ../albums.php:254
 #, php-format
 msgid "%s has detected the following %d invalid album(s) in your albums directory<br>(%s):"
 msgstr "%s 發現以下 %d 無效的相簿在您的 (%s) 相簿中"
 
-#: ../albums.php:258
+#: ../albums.php:260
 msgid "Please move it/them out of the albums directory."
 msgstr "這些都不是有效的相簿, 請儘速移除. "
 
-#: ../albums.php:262
+#: ../albums.php:264
 #, php-format
 msgid "%s has detected that %d of your albums are out of date."
 msgstr "%s 發現您的 %d 個相簿已經過期。"
 
-#: ../albums.php:266
+#: ../albums.php:268
 #, php-format
 msgid "Please %s."
 msgstr "請您 %s "
 
-#: ../albums.php:266
+#: ../albums.php:268
 msgid "upgrade those albums"
 msgstr "更新所有的相簿"
 
-#: ../albums.php:273
+#: ../albums.php:275
 msgid "Attention!"
 msgstr "注意！"
 
-#: ../albums.php:275
+#: ../albums.php:277
 #, fuzzy, php-format
 msgid "The album or photo that you were attempting to view either does not exist, or requires user privileges that you do not possess. %s"
 msgstr "您所瀏覽的相簿或檔案不是存在就是您沒有權限瀏覽. %s"
 
-#: ../albums.php:275
+#: ../albums.php:277
 #, php-format
 msgid "%s and try again."
 msgstr "%s 後再試一次"
 
-#: ../albums.php:276
+#: ../albums.php:278
 msgid "Log in"
 msgstr "登入"
 
-#: ../albums.php:290
+#: ../albums.php:292
 #, php-format
 msgid "The requested album with index %s is not valid"
-msgstr ""
+msgstr "嘗試連線的相簿索引值 %s 有誤"
 
-#: ../albums.php:331 ../view_album.php:676
+#: ../albums.php:333 ../view_album.php:679
 msgid "Highlight for Album:"
 msgstr "封面相片："
 
-#: ../albums.php:351 ../view_album.php:782
+#: ../albums.php:353 ../view_album.php:785
 #, fuzzy
 msgid "Download entire album as archive"
 msgstr "沒有指定相簿"
 
-#: ../albums.php:386
+#: ../albums.php:388
 #, fuzzy, php-format
 msgid "Owner: %s"
 msgstr "擁有者："
 
-#: ../albums.php:394
+#: ../albums.php:396
 msgid "url:"
 msgstr "Url："
 
-#: ../albums.php:405
+#: ../albums.php:407
 msgid "Hey!"
 msgstr "嘿！"
 
-#: ../albums.php:406
+#: ../albums.php:408
 #, php-format
 msgid "%s so that the URL is not so generic!"
 msgstr "%s 該相簿，換個特別一點的名稱吧！"
 
-#: ../albums.php:407
+#: ../albums.php:409
 msgid "Rename this album"
 msgstr "更改相簿目錄名"
 
-#: ../albums.php:422
+#: ../albums.php:424
 #, fuzzy, php-format
 msgid "Created on %s, last changed on %s."
 msgstr "上次更新：%s ."
 
-#: ../albums.php:425
+#: ../albums.php:427
 #, php-format
 msgid "Last changed on %s."
 msgstr "上次更新：%s ."
 
-#: ../albums.php:434
+#: ../albums.php:436
 #, php-format
 msgid "This album contains 1 item."
 msgid_plural "This album contains %d items."
 msgstr[0] "1 個檔案在這個相簿裡面. "
 msgstr[1] "%d 個檔案在這個相簿裡面. "
 
-#: ../albums.php:443
+#: ../albums.php:445
 #, php-format
 msgid "This album has been viewed %s since %s."
 msgstr "點閱：%s（從 %s 開始計算）"
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:446 ../view_album.php:820
 #, php-format
 msgid "1 time"
 msgid_plural "%d times"
 msgstr[0] "1 次"
 msgstr[1] "%d 次"
 
-#: ../albums.php:444
+#: ../albums.php:446
 msgid "0 times"
 msgstr "0 次"
 
-#: ../albums.php:450
+#: ../albums.php:452
 msgid "reset counter"
 msgstr "計數器歸零"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:497 ../view_album.php:919
 msgid "Comments available for this item."
 msgstr "代表有評論喔。"
 
@@ -605,7 +609,7 @@ msgid "(click to enlarge)"
 msgstr "(點這裡放大)"
 
 #: ../captionator.php:262 ../layout/commentboxtop.inc:20
-#: ../layout/commentboxtop.inc:45 ../view_album.php:770
+#: ../layout/commentboxtop.inc:45 ../view_album.php:773
 msgid "hidden"
 msgstr "隱藏"
 
@@ -695,15 +699,15 @@ msgstr "無法寫入 %s. "
 #: ../classes/Album.php:1056
 #, php-format
 msgid "A change has been made to Album: %s by %s (IP %s).  The change is: %s"
-msgstr ""
+msgstr "相簿有了異動： %s 於 %s (IP %s)，異動為： %s"
 
 #: ../classes/Album.php:1062
 msgid "If you no longer wish to receive emails about this image, follow the links above and ensure that 'Email me when other changes are made' is unchecked (You'll need to login first)."
-msgstr ""
+msgstr "如果您不希望再收到關於這個圖片的訊息，透過上方的連結來確認是否取消勾選 '有任何異動時通知我' 這個項目（需要先登入）。"
 
 #: ../classes/Album.php:1069
 msgid "Operation was done successfully. Emailing is on, but no email was sent as no valid email address was found"
-msgstr ""
+msgstr "操作成功，通知功能啟用中，但是信箱有誤"
 
 #: ../classes/Album.php:1143 ../classes/Album.php:1898
 #, php-format
@@ -745,9 +749,8 @@ msgid "Watermarking Image"
 msgstr "浮水印圖案"
 
 #: ../classes/Album.php:1491 ../classes/Album.php:1501
-#, fuzzy
 msgid "No highlight!"
-msgstr "沒有封面相片"
+msgstr "沒有封面相片!"
 
 #: ../classes/Album.php:1696
 #, php-format
@@ -762,7 +765,7 @@ msgstr "處理第 %d 份檔案..."
 #: ../classes/Album.php:2079
 #, php-format
 msgid "Error getting EXIF data. Expected Status 0, got %s."
-msgstr ""
+msgstr "取得 EXIF 資料時發生錯誤，狀態為 %s 。"
 
 #: ../classes/Album.php:2615
 #, php-format
@@ -918,7 +921,7 @@ msgstr "關閉視窗"
 
 #: ../copy_photo.php:141
 msgid "Please select the album where you want to copy the photo(s) to."
-msgstr ""
+msgstr "請選擇希望複製照片的目的地。"
 
 #: ../copy_photo.php:150
 msgid "Copy a range of photos to a new album:"
@@ -959,7 +962,7 @@ msgstr "拷貝到該相簿！"
 
 #: ../copy_photo.php:218 ../delete_photo.php:150 ../edit_thumb.php:131
 #: ../move_album.php:140 ../move_photo.php:358 ../resize_photo.php:147
-#: ../rotate_photo.php:95 ../view_photo_properties.php:130
+#: ../rotate_photo.php:130 ../view_photo_properties.php:130
 msgid "no album / index specified"
 msgstr "沒有指定相簿 / 索引"
 
@@ -993,14 +996,13 @@ msgid "Email sent to %s."
 msgstr "信件已寄出至 %s。"
 
 #: ../create_user.php:112
-#, fuzzy
 msgid "Create another user"
-msgstr "在這裡建立新的使用者。"
+msgstr "建立另一個使用者。"
 
 #: ../create_user.php:113 ../create_user.php:165 ../modify_user.php:164
 #: ../multi_create_user.php:148 ../multi_create_user.php:199
 msgid "Back to usermanagement"
-msgstr ""
+msgstr "回到使用者管理"
 
 #: ../create_user.php:149
 msgid "Create a new user here."
@@ -1023,8 +1025,8 @@ msgstr "您確定要刪除該相簿？"
 
 #: ../delete_album.php:71 ../delete_photo.php:144 ../delete_user.php:80
 #: ../js/multifile.js.php:106 ../layout/commentbox.inc:15
-#: ../lib/albumItem.php:254 ../lib/albumItem.php:255 ../lib/albumItem.php:261
-#: ../lib/albumItem.php:262 ../manage_users.php:98
+#: ../lib/albumItem.php:251 ../lib/albumItem.php:252 ../lib/albumItem.php:258
+#: ../lib/albumItem.php:259 ../manage_users.php:98
 #: ../tools/despam-comments.php:206 ../tools/despam-comments.php:345
 msgid "Delete"
 msgstr "刪除"
@@ -1071,11 +1073,10 @@ msgstr[0] "即使使用者重新建立了，權限還是無法恢復。"
 msgstr[1] "即使使用者重新建立了，權限還是無法恢復。"
 
 #: ../delete_user.php:74
-#, fuzzy
 msgid "Do you really want to delete user:"
 msgid_plural "Do you really want to delete these users:"
 msgstr[0] "您確定要刪除使用者 "
-msgstr[1] "您確定要刪除使用者 "
+msgstr[1] "您確定要刪除這些使用者 "
 
 #: ../do_command.php:43
 msgid "Attempted security breach."
@@ -1121,166 +1122,165 @@ msgstr "重新建立 %d 份縮圖..."
 msgid "Rebuilding 1 thumbnail..."
 msgstr "重新建立 1 份縮圖..."
 
-#: ../download.php:44 ../download.php:48
+#: ../download.php:40
+msgid "Zipdownload would work, but is disabled when debugging."
+msgstr ""
+
+#: ../download.php:54 ../download.php:58
 #, fuzzy
 msgid "Download album as archive"
 msgstr "沒有指定相簿"
 
-#: ../download.php:59
+#: ../download.php:69
 #, fuzzy, php-format
 msgid "This album contains just one item in total."
 msgid_plural "This album contains %d items in total."
 msgstr[0] "1 個檔案在這個相簿裡面. "
 msgstr[1] "%d 個檔案在這個相簿裡面. "
 
-#: ../download.php:60
+#: ../download.php:70
 #, fuzzy, php-format
 msgid "One subalbum"
 msgid_plural "%d subalbums"
 msgstr[0] "1 個子相簿"
 msgstr[1] "%d 個子相簿"
 
-#: ../download.php:60
+#: ../download.php:70
 #, fuzzy
 msgid "No subalbums"
 msgstr "尚無相簿"
 
-#: ../download.php:61
+#: ../download.php:71
 #, fuzzy, php-format
 msgid "one photo/movie"
 msgid_plural "%d photos/movies"
 msgstr[0] "1 個評比"
 msgstr[1] "%d 個評比"
 
-#: ../download.php:61
+#: ../download.php:71
 msgid "no photo/movie"
 msgstr ""
 
-#: ../download.php:63
+#: ../download.php:73
 #, fuzzy, php-format
 msgid "%s and %s."
 msgstr "沒有設定 %s."
 
-#: ../download.php:66
+#: ../download.php:76
 #, php-format
 msgid "Approximitaly size of zipfile: %s"
 msgstr ""
 
-#: ../download.php:70
+#: ../download.php:80
 #, fuzzy
 msgid "Full Version"
 msgstr "版本"
 
-#: ../download.php:71
+#: ../download.php:81
 #, fuzzy
 msgid "Resized Version"
 msgstr "重新調整的影像尺寸"
 
-#: ../download.php:73
+#: ../download.php:83
 msgid "Download"
 msgstr ""
 
-#: ../download.php:79
+#: ../download.php:89
 msgid "This album album is not empty, but contains no photo or movie! Download would'nt make sense."
 msgstr ""
 
 #: ../ecard_form.php:45
 msgid "Error processing e-card. Please try later."
-msgstr ""
+msgstr "處理賀卡時發生錯誤，請稍後重試。"
 
 #: ../ecard_form.php:46
 msgid "Some input fields are not correctly filled out. Please fill out."
-msgstr ""
+msgstr "部份欄位沒有填寫，請先填入資料。"
 
 #: ../ecard_form.php:47
 msgid "You have an e-card as attachment. Click to see."
-msgstr ""
+msgstr "您收到了一個電子賀卡，點選連結來瀏覽。"
 
 #: ../ecard_form.php:85 ../ecard_form.php:170
 msgid "Send this photo as eCard"
-msgstr ""
+msgstr "將這張圖片當作賀卡寄送"
 
 #: ../ecard_form.php:110
 msgid "Error: to send an eCard you need to fill out all fields."
-msgstr ""
+msgstr "錯誤：寄送賀卡需要填寫所有欄位。"
 
 #: ../ecard_form.php:111
 msgid "Please fill this fields:"
-msgstr ""
+msgstr "請填寫這些欄位："
 
 #: ../ecard_form.php:115
-#, fuzzy
 msgid "- Your Name"
-msgstr "訊息"
+msgstr "- 您的名稱"
 
 #: ../ecard_form.php:121
-#, fuzzy
 msgid "- Your Email"
-msgstr "訊息"
+msgstr "- 您的信箱"
 
 #: ../ecard_form.php:126
 msgid "- Recipient's Name"
-msgstr ""
+msgstr "- 收件人名稱"
 
 #: ../ecard_form.php:132
 msgid "- Recipient's Email"
-msgstr ""
+msgstr "- 收件人信箱"
 
 #: ../ecard_form.php:137
-#, fuzzy
 msgid "- Your Message"
-msgstr "訊息"
+msgstr "- 您的訊息"
 
 #: ../ecard_form.php:141
 msgid "Please fill all fields next click >Send<."
-msgstr ""
+msgstr "請填入所有欄位後點選 >寄送<。"
 
 #: ../ecard_form.php:154
 #, php-format
 msgid "You have entered more than %d characters"
-msgstr ""
+msgstr "您輸入的文字數量超過 %d 字元"
 
 #: ../ecard_form.php:192
 msgid "Your info"
-msgstr ""
+msgstr "您的資訊"
 
 #: ../ecard_form.php:194
 msgid "Recipient's info"
-msgstr ""
+msgstr "收件人資訊"
 
 #: ../ecard_form.php:197 ../ecard_form.php:208
 msgid "Name"
 msgstr "名稱"
 
 #: ../ecard_form.php:212 ../ecard_form.php:215
-#, fuzzy
 msgid "E-Mail"
-msgstr "傳送電子信件"
+msgstr "信箱"
 
 #: ../ecard_form.php:221
 msgid "Choose a Stamp"
-msgstr ""
+msgstr "選擇郵票"
 
 #: ../ecard_form.php:226
 #, php-format
 msgid "Stamp #%d"
-msgstr ""
+msgstr "郵票 #%d"
 
 #: ../ecard_form.php:236
 msgid "Subject:"
-msgstr ""
+msgstr "主旨："
 
 #: ../ecard_form.php:237
 #, php-format
 msgid "%s sent you an E-C@rd"
-msgstr ""
+msgstr "%s 寄送給您一張電子賀卡"
 
 #: ../ecard_form.php:241
-#, fuzzy
 msgid "Your Message:"
-msgstr "訊息"
+msgstr "訊息："
 
-#: ../ecard_form.php:260 ../edit_watermark.php:129 ../watermark_album.php:151
+#: ../ecard_form.php:260 ../edit_watermark.php:120 ../watermark_album.php:151
 msgid "Preview"
 msgstr "預覽"
 
@@ -1289,24 +1289,22 @@ msgid "Reset"
 msgstr "重設"
 
 #: ../ecard_form.php:264
-#, fuzzy
 msgid "Send eCard"
-msgstr "以信件通知我密碼"
+msgstr "寄送電子賀卡"
 
 #: ../ecard_form.php:272
 #, php-format
 msgid "Your E-C@rd with the picture below has been sent to %s &lt;%s&gt;."
-msgstr ""
+msgstr "您的電子賀卡已經寄出到 %s &lt;%s&gt;."
 
 #: ../ecard_form.php:276
-#, fuzzy
 msgid "Close this window"
 msgstr "關閉視窗"
 
 #: ../edit_appearance.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Problem with input of field '%s'. %s"
-msgstr "%s 的信件位址有問題"
+msgstr "'%s' 欄位有問題。%s"
 
 #: ../edit_appearance.php:119
 #, fuzzy, php-format
@@ -1332,9 +1330,9 @@ msgid "Alt Text / onMouseOver"
 msgstr "Alt Text / onMouseOver"
 
 #: ../edit_appearance.php:216
-#, fuzzy, php-format
+#, php-format
 msgid "Field %s:"
-msgstr "欄位"
+msgstr "欄位 %s："
 
 #: ../edit_appearance.php:231 ../edit_appearance.php:237
 msgid "Album Properties"
@@ -1355,14 +1353,13 @@ msgid "Undo"
 msgstr "重來"
 
 #: ../edit_appearance.php:301 ../extra_fields.php:174
-#: ../poll_properties.php:142 ../rotate_photo.php:87
+#: ../poll_properties.php:142 ../rotate_photo.php:124
 msgid "Close"
 msgstr "關閉"
 
 #: ../edit_caption.php:68
-#, fuzzy
 msgid "Year must be between 1969 and 2070"
-msgstr "年份必須在 1000 與 3000 之間"
+msgstr "年份必須在 1969 與 2070 之間"
 
 #: ../edit_caption.php:73 ../lib/albumItem.php:104 ../lib/albumItem.php:105
 msgid "Edit Text"
@@ -1404,12 +1401,12 @@ msgstr "分"
 msgid "Seconds"
 msgstr "秒"
 
-#: ../edit_field.php:49 ../edit_field.php:53
+#: ../edit_field.php:46 ../edit_field.php:51
 #, php-format
 msgid "Edit %s"
 msgstr "修改 %s"
 
-#: ../edit_field.php:56
+#: ../edit_field.php:54
 #, php-format
 msgid "Edit the %s and click %s when you're done"
 msgstr "當您改好 %s 之後請按 %s 鈕"
@@ -1434,13 +1431,13 @@ msgstr "請選浮水印"
 msgid "Please select an alignment."
 msgstr "請選擇排列方式。"
 
-#: ../edit_watermark.php:93 ../edit_watermark.php:97
+#: ../edit_watermark.php:89
 msgid "Edit Watermark"
 msgstr "編輯浮水印"
 
-#: ../edit_watermark.php:116
+#: ../edit_watermark.php:107
 msgid "Your image is a gif. Watermarking on animated gifs is currently not supported and will 'deface & unanimate' your picture."
-msgstr ""
+msgstr "您的圖片格式為 gif ，目前不支援動態 gif 圖檔的浮水印功能，這將會造成圖片被置換以及終止圖片的動畫。"
 
 #: ../extra_fields.php:77 ../extra_fields.php:81
 msgid "Configure Custom Fields"
@@ -1848,7 +1845,7 @@ msgstr ""
 msgid "Supported file types: %s"
 msgstr "支援的檔案格式"
 
-#: ../includes/add_photos/add_form.inc:38 ../view_album.php:562
+#: ../includes/add_photos/add_form.inc:38 ../view_album.php:565
 msgid " or "
 msgstr "或者"
 
@@ -1961,7 +1958,7 @@ msgstr ""
 #: ../includes/errors/configure_help.php:2
 #, php-format
 msgid "If you experience problems, you can find help on the %sGallery Help Page%s."
-msgstr "如果您碰到任何問題, 應該先在 %sGallery Help Page%s 上尋找答案. "
+msgstr "如果您發現任何問題，可以先參考 %sGallery Help Page%s 的說明。"
 
 #: ../includes/errors/reconfigure.php:9 ../includes/errors/reconfigure.php:15
 msgid "Gallery needs Reconfiguration"
@@ -1969,12 +1966,12 @@ msgstr "Gallery 需要重新設定"
 
 #: ../includes/errors/reconfigure.php:18
 msgid "Your Gallery settings were configured with an older version of Gallery, and are out of date. Please re-run the Configuration Wizard!"
-msgstr "您的設定檔是由舊的 Gallery 設定精靈所建立. 這已經過期了, 請重新執行設定精靈! "
+msgstr "您的 Gallery 版本較舊，請重新執行設定精靈！"
 
 #: ../includes/errors/reconfigure.php:23
 #, php-format
 msgid "Launch the %sConfiguration Wizard%s."
-msgstr "執行 %s設定精靈%s"
+msgstr "執行 %s設定精靈%s。"
 
 #: ../includes/errors/unconfigured.php:9
 msgid "Gallery Configuration Error"
@@ -1982,11 +1979,11 @@ msgstr "Gallery 設定錯誤"
 
 #: ../includes/errors/unconfigured.php:15
 msgid "Gallery has not been configured!"
-msgstr "Gallery 還沒有設定完成! "
+msgstr "Gallery 尚未設定！"
 
 #: ../includes/errors/unconfigured.php:19
 msgid "Gallery must be configured before you can use it."
-msgstr "您必須修正這些錯誤才能進行下一步. "
+msgstr "Gallery 在使用前必須先完成設定。"
 
 #: ../includes/errors/unconfigured.php:24
 msgid "1."
@@ -1994,7 +1991,7 @@ msgstr "1."
 
 #: ../includes/errors/unconfigured.php:25
 msgid "Create an empty file .htaccess and an empty file config.php"
-msgstr "建立新檔案file.hta和config.php"
+msgstr "建立一個空的 .htaccess 與 config.php 檔案"
 
 #: ../includes/errors/unconfigured.php:28
 msgid "2."
@@ -2002,16 +1999,16 @@ msgstr "2."
 
 #: ../includes/errors/unconfigured.php:29
 msgid "Create an albums folder for your pictures and movies."
-msgstr "為您的相片和影片建立相簿資料夾"
+msgstr "建立圖片與影片的相簿資料夾。"
 
 #: ../includes/errors/unconfigured.php:32
 msgid "Make sure that both files and the folder are read and writeable for your webserver !"
-msgstr "請確定您的網路伺服器可以讀取和寫入檔案和檔案夾"
+msgstr "請確認網頁伺服器可以讀取與寫入檔案與資料夾！"
 
 #: ../includes/errors/unconfigured.php:38
 #, php-format
 msgid "Then start the %sConfiguration Wizard%s."
-msgstr "然後執行 %s設定精靈%s. "
+msgstr "接著執行 %s設定精靈%s"
 
 #: ../includes/slideshow/applet.inc:28 ../includes/slideshow/high.inc:71
 #, php-format
@@ -2294,17 +2291,15 @@ msgstr "列出照片的最大數量, -1 為全部"
 
 #: ../includes/stats/stats.inc.php:135
 msgid "Use Grid Layout"
-msgstr ""
+msgstr "使用格狀配置"
 
 #: ../includes/stats/stats.inc.php:138
-#, fuzzy
 msgid "Controls the number of rows to display in grid mode"
-msgstr "一頁中最多數量的照片"
+msgstr "控制格狀模式要顯示的列數"
 
 #: ../includes/stats/stats.inc.php:141
-#, fuzzy
 msgid "Controls the number of columns to display in grid mode"
-msgstr "一頁中最多數量的照片"
+msgstr "控制格狀模式要顯示的欄數"
 
 #: ../includes/stats/stats.inc.php:143
 msgid "Above the comments"
@@ -2371,7 +2366,7 @@ msgstr "權限設定"
 msgid "properties"
 msgstr "相簿屬性"
 
-#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:412
+#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:415
 msgid "view&nbsp;comments"
 msgstr "檢視&nbsp;評論"
 
@@ -2384,15 +2379,15 @@ msgid "Logged in as:"
 msgstr "已登入為："
 
 #: ../layout/commentbox.inc:12
-#, fuzzy, php-format
+#, php-format
 msgid "From: %s"
-msgstr "來自："
+msgstr "來自： %s"
 
-#: ../layout/commentboxbottom.inc:11 ../stats.php:969
+#: ../layout/commentboxbottom.inc:12 ../stats.php:969
 msgid "add comment"
 msgstr "新增評論"
 
-#: ../layout/commentboxbottom.inc:14
+#: ../layout/commentboxbottom.inc:16
 msgid "Delete marked comments"
 msgstr "刪除已標記評論"
 
@@ -2404,11 +2399,11 @@ msgstr "觀看這個相簿的所有評論"
 msgid "Album contains no comments"
 msgstr "本相簿沒有評論"
 
-#: ../layout/commentdraw.inc:23 ../lib/albumItem.php:327
+#: ../layout/commentdraw.inc:23 ../lib/albumItem.php:324
 msgid "From:"
 msgstr "來自："
 
-#: ../layout/commentdraw.inc:48 ../lib/albumItem.php:301
+#: ../layout/commentdraw.inc:48 ../lib/albumItem.php:298
 msgid "delete comment"
 msgstr "刪除評論"
 
@@ -2431,7 +2426,7 @@ msgstr "最後一頁"
 #: ../layout/navigator.inc:79 ../layout/navigator.inc:105
 #, php-format
 msgid "Jump to page %d"
-msgstr ""
+msgstr "跳到第 %d 頁"
 
 #: ../layout/navphoto.inc:24
 msgid "First Photo"
@@ -2454,96 +2449,93 @@ msgstr "最後一張圖"
 msgid "%d of %d"
 msgstr "%2$d 之 %1$d"
 
-#: ../layout/watermarkform.inc:84
-#, fuzzy
+#: ../layout/watermarkform.inc:90
 msgid "Watermark:"
-msgstr "浮水印"
-
-#: ../layout/watermarkform.inc:88
-#, fuzzy
-msgid "* No Watermark *"
-msgstr "浮水印"
+msgstr "浮水印:"
 
 #: ../layout/watermarkform.inc:94
+msgid "* No Watermark *"
+msgstr "* 沒有浮水印 *"
+
+#: ../layout/watermarkform.inc:100
 #, php-format
 msgid "No files matching %s found in %s"
 msgstr "在%2$s 未找到%1$s "
 
-#: ../layout/watermarkform.inc:100
+#: ../layout/watermarkform.inc:106
 #, php-format
 msgid "Could not open directory %s"
 msgstr "無法開啟目錄：%s"
 
-#: ../layout/watermarkform.inc:105
-#, fuzzy
+#: ../layout/watermarkform.inc:111
 msgid "Alignment:"
-msgstr "排列"
+msgstr "排列:"
 
-#: ../layout/watermarkform.inc:110
+#: ../layout/watermarkform.inc:116
 msgid "Upper&nbsp;Left"
 msgstr "左&nbsp;上"
 
-#: ../layout/watermarkform.inc:112
+#: ../layout/watermarkform.inc:118
 msgid "Top"
 msgstr "頂"
 
-#: ../layout/watermarkform.inc:114
+#: ../layout/watermarkform.inc:120
 msgid "Upper&nbsp;Right"
 msgstr "右&nbsp;上"
 
-#: ../layout/watermarkform.inc:118
+#: ../layout/watermarkform.inc:124
 msgid "Left"
 msgstr "左"
 
-#: ../layout/watermarkform.inc:120
+#: ../layout/watermarkform.inc:126
 msgid "Center"
 msgstr "中"
 
-#: ../layout/watermarkform.inc:122
+#: ../layout/watermarkform.inc:128
 msgid "Right"
 msgstr "右"
 
-#: ../layout/watermarkform.inc:126
+#: ../layout/watermarkform.inc:132
 msgid "Lower&nbsp;Left"
 msgstr "左&nbsp;下"
 
-#: ../layout/watermarkform.inc:128
+#: ../layout/watermarkform.inc:134
 msgid "Bottom"
 msgstr "底"
 
-#: ../layout/watermarkform.inc:130
+#: ../layout/watermarkform.inc:136
 msgid "Lower&nbsp;Right"
 msgstr "右&nbsp;下"
 
-#: ../layout/watermarkform.inc:144
+#: ../layout/watermarkform.inc:150
 msgid "Preview Size"
 msgstr "預覽尺寸"
 
-#: ../layout/watermarkform.inc:147
+#: ../layout/watermarkform.inc:153
 msgid "Resized"
 msgstr "一般"
 
-#: ../layout/watermarkform.inc:150
+#: ../layout/watermarkform.inc:156
 msgid "Full"
 msgstr "原始"
 
-#: ../layout/watermarkform.inc:162
+#: ../layout/watermarkform.inc:168
 msgid "Watermark subalbums"
 msgstr "子相簿加浮水印"
 
-#: ../layout/watermarkform.inc:164
+#: ../layout/watermarkform.inc:170
 msgid "Apply watermark to"
 msgstr "相簿加入浮水印"
 
-#: ../layout/watermarkform.inc:165
+#: ../layout/watermarkform.inc:171
 msgid "All photos"
 msgstr "所有相片"
 
-#: ../layout/watermarkform.inc:166
+#: ../layout/watermarkform.inc:172
 msgid "Only sized photos"
 msgstr "只有一般相片"
 
-#: ../layout/watermarkform.inc:167
+#: ../layout/watermarkform.inc:173
 msgid "Only full photos"
 msgstr "只有原始相片"
 
@@ -2579,77 +2571,77 @@ msgstr "浮水印"
 msgid "ImageMap"
 msgstr "檢視影像"
 
-#: ../lib/albumItem.php:142 ../lib/albumItem.php:143
-msgid "Edit Title"
-msgstr "修改標題"
-
-#: ../lib/albumItem.php:147 ../lib/albumItem.php:148
-msgid "Edit Description"
-msgstr "修改描述"
-
-#: ../lib/albumItem.php:153 ../lib/albumItem.php:154 ../rename_album.php:39
-#: ../rename_album.php:43
-msgid "Rename Album"
-msgstr "更改相簿名"
-
-#: ../lib/albumItem.php:159 ../lib/albumItem.php:160
-msgid "Reset Counter"
-msgstr "計數器歸零"
-
-#: ../lib/albumItem.php:171 ../lib/albumItem.php:172 ../view_album.php:313
-msgid "Permissions"
-msgstr "權限"
-
-#: ../lib/albumItem.php:179 ../lib/albumItem.php:180
-#: ../watermark_album.php:114 ../watermark_album.php:118
-msgid "Watermark Album"
-msgstr "相簿加入浮水印"
-
-#: ../lib/albumItem.php:186 ../lib/albumItem.php:187
-msgid "View Comments"
-msgstr "檢視評論"
-
-#: ../lib/albumItem.php:196 ../lib/albumItem.php:213 ../lib/albumItem.php:214
+#: ../lib/albumItem.php:140 ../lib/albumItem.php:141
 #, fuzzy
 msgid "Move"
 msgstr "影片"
 
-#: ../lib/albumItem.php:197
-#, fuzzy
-msgid "Reorder"
-msgstr "重排%s"
+#: ../lib/albumItem.php:148 ../lib/albumItem.php:149
+msgid "Edit Title"
+msgstr "修改標題"
 
-#: ../lib/albumItem.php:204 ../lib/albumItem.php:205
-#, fuzzy
-msgid "Set as highlight"
-msgstr "封面相片"
+#: ../lib/albumItem.php:153 ../lib/albumItem.php:154
+msgid "Edit Description"
+msgstr "修改描述"
 
-#: ../lib/albumItem.php:220 ../lib/albumItem.php:221
+#: ../lib/albumItem.php:159 ../lib/albumItem.php:160 ../rename_album.php:39
+#: ../rename_album.php:43
+msgid "Rename Album"
+msgstr "更改相簿名"
+
+#: ../lib/albumItem.php:165 ../lib/albumItem.php:166
+msgid "Reset Counter"
+msgstr "計數器歸零"
+
+#: ../lib/albumItem.php:177 ../lib/albumItem.php:178 ../view_album.php:316
+msgid "Permissions"
+msgstr "權限"
+
+#: ../lib/albumItem.php:185 ../lib/albumItem.php:186
+#: ../watermark_album.php:114 ../watermark_album.php:118
+msgid "Watermark Album"
+msgstr "相簿加入浮水印"
+
+#: ../lib/albumItem.php:192 ../lib/albumItem.php:193
+msgid "View Comments"
+msgstr "檢視評論"
+
+#: ../lib/albumItem.php:200 ../lib/albumItem.php:201
 #, fuzzy
 msgid "Copy"
 msgstr "拷貝%s"
 
-#: ../lib/albumItem.php:226 ../lib/albumItem.php:227 ../photo_owner.php:78
-#: ../photo_owner.php:82
-msgid "Change Owner"
-msgstr "更改擁有者"
-
-#: ../lib/albumItem.php:236 ../lib/albumItem.php:237
+#: ../lib/albumItem.php:208 ../lib/albumItem.php:209
 #, fuzzy
 msgid "Show"
 msgstr "雪"
 
-#: ../lib/albumItem.php:242 ../lib/albumItem.php:243
+#: ../lib/albumItem.php:214 ../lib/albumItem.php:215
 #, fuzzy
 msgid "Hide"
 msgstr "隱藏"
 
-#: ../lib/albumItem.php:274 ../lib/albumItem.php:275
+#: ../lib/albumItem.php:223 ../lib/albumItem.php:224
+#, fuzzy
+msgid "Reorder"
+msgstr "重排%s"
+
+#: ../lib/albumItem.php:231 ../lib/albumItem.php:232
+#, fuzzy
+msgid "Set as highlight"
+msgstr "封面相片"
+
+#: ../lib/albumItem.php:240 ../lib/albumItem.php:241 ../photo_owner.php:78
+#: ../photo_owner.php:82
+msgid "Change Owner"
+msgstr "更改擁有者"
+
+#: ../lib/albumItem.php:271 ../lib/albumItem.php:272
 #, fuzzy
 msgid "Photo properties"
 msgstr "檔案屬性"
 
-#: ../lib/albumItem.php:287 ../lib/albumItem.php:288
+#: ../lib/albumItem.php:284 ../lib/albumItem.php:285
 #, php-format
 msgid "%s actions"
 msgstr "%s指令"
@@ -2660,7 +2652,7 @@ msgstr "登入成功"
 
 #: ../login.php:55
 msgid "Invalid username or password"
-msgstr "使用者或密碼無效"
+msgstr "不正確的帳號或密碼"
 
 #: ../login.php:60
 msgid "Please enter username and password."
@@ -2677,7 +2669,7 @@ msgstr "登入之後才可以有更多權限檢視、建立、修改以及刪除
 
 #: ../login.php:89
 msgid "Password"
-msgstr "管理者密碼"
+msgstr "密碼"
 
 #: ../login.php:95
 msgid "Login"
@@ -2763,9 +2755,8 @@ msgid "To select multiple users (only recognized for deletion), hold down the Co
 msgstr "需要選取多位使用者（只有刪除時有用），壓住 Control(PC) 或 Command(Mac) 然後點選"
 
 #: ../manage_users.php:92
-#, fuzzy
 msgid "Create new user"
-msgstr "在這裡建立新的使用者。"
+msgstr "建立新的使用者"
 
 #: ../manage_users.php:94
 msgid "Bulk Create"
@@ -2781,9 +2772,8 @@ msgid "User information succesfully updated."
 msgstr "成功更新使用者資料。"
 
 #: ../modify_user.php:93
-#, fuzzy
 msgid "User information was not succesfully updated !!"
-msgstr "成功更新使用者資料。"
+msgstr "更新使用者資料失敗！"
 
 #: ../modify_user.php:104
 msgid "Invalid user"
@@ -2808,7 +2798,7 @@ msgstr "選擇這個相簿的新存放位置"
 
 #: ../move_album.php:95
 msgid "Your Album will be moved to the position you choose below."
-msgstr ""
+msgstr "您的相簿將會移到下面選擇的位置。"
 
 #: ../move_album.php:116 ../move_photo.php:263
 msgid "Move it!"
@@ -2913,18 +2903,18 @@ msgid "Upload went fine, but the file is not readable, please make sure %s is ac
 msgstr "上傳完成後檔案卻無法讀取，請先確定您的伺服器可存取 %s （也一併檢查 openbasedir 是否有限制）"
 
 #: ../multi_create_user.php:101
-#, fuzzy, php-format
+#, php-format
 msgid "Adding %s (%s) with email: %s"
-msgstr "正在加入 %s"
+msgstr "新增 %s (%s) 於信箱： %s"
 
 #: ../multi_create_user.php:102 ../multi_create_user.php:106
 msgid "No fullname given"
-msgstr ""
+msgstr "沒有輸入全名"
 
 #: ../multi_create_user.php:105
-#, fuzzy, php-format
+#, php-format
 msgid "Adding %s (%s)"
-msgstr "正在加入 %s"
+msgstr "正在加入 %s (%s)"
 
 #: ../multi_create_user.php:113
 #, php-format
@@ -2966,28 +2956,27 @@ msgstr "註解："
 
 #: ../multi_create_user.php:207
 msgid "The members file should be one user per line, and the fields should be space separated."
-msgstr ""
+msgstr "會員檔案每行只有一個使用者的資料，欄位必須以空白分隔。"
 
 #: ../multi_create_user.php:208
 msgid "Each line must be in one of this formats:"
-msgstr ""
+msgstr "每一行必須包含在下面格式之一："
 
 #: ../multi_create_user.php:210
 msgid "<i>username emailaddress fullname</i>"
-msgstr ""
+msgstr "<i>帳號 信箱 全名</i>"
 
 #: ../multi_create_user.php:211
 msgid "<i>username fullname</i>"
-msgstr ""
+msgstr "<i>帳號 全名</i>"
 
 #: ../multi_create_user.php:212
-#, fuzzy
 msgid "<i>username emailaddress</i>"
-msgstr "寄信人的電子信箱地址"
+msgstr "<i>帳號 信箱</i>"
 
 #: ../multi_create_user.php:214
 msgid "Only username is required. Everything after the email address is the full name, so there can be spaces in it."
-msgstr ""
+msgstr "只有帳號是必填的，在信箱之後是全名，因此全名中可以包含空白。"
 
 #: ../multi_create_user.php:218
 msgid "The strings !!USERNAME!!, !!FULLNAME!! and !!PASSWORD!! will be substituted in the email with the values from the membership file.  An individual email will be sent to each member with a valid email address in the members file (if &quot;send emails&quot; checkbox is ticked)."
@@ -3075,11 +3064,11 @@ msgstr "誰可進行評比"
 msgid "Orientation of vote choices"
 msgstr "評比選項的方向"
 
-#: ../poll_properties.php:108 ../rotate_photo.php:82
+#: ../poll_properties.php:108 ../rotate_photo.php:96
 msgid "Horizontal"
 msgstr "水平"
 
-#: ../poll_properties.php:108 ../rotate_photo.php:85
+#: ../poll_properties.php:108 ../rotate_photo.php:102
 msgid "Vertical"
 msgstr "垂直"
 
@@ -3112,7 +3101,7 @@ msgstr "返回 %s"
 msgid "Results Breakdown"
 msgstr "結果分析"
 
-#: ../poll_results.php:148 ../view_album.php:501 ../view_album.php:786
+#: ../poll_results.php:148 ../view_album.php:504 ../view_album.php:789
 #, php-format
 msgid "Album: %s"
 msgstr "相簿：%s"
@@ -3304,21 +3293,21 @@ msgid "Return to Add Photos"
 msgstr "返回新增檔案頁"
 
 #: ../rearrange.php:48 ../rearrange.php:101
-#, fuzzy, php-format
+#, php-format
 msgid "Rearrange Album: %s"
-msgstr "Recursing album: %s"
+msgstr "重新安排相簿： %s"
 
 #: ../rearrange.php:104
 msgid "Here you can rearrange your pictures easily. Just click on the item you want to reorder. Then click on the item at which position you want it to be."
-msgstr ""
+msgstr "您可以在這裡重新安排圖片，只要點選希望重新排序的項目，接著點選希望出現的位置即可。"
 
 #: ../rearrange.php:107
 msgid "Meaning of the borderstyle"
-msgstr ""
+msgstr "框線風格的意義"
 
 #: ../rearrange.php:111
 msgid "Picture"
-msgstr ""
+msgstr "圖片"
 
 #: ../rearrange.php:113
 #, fuzzy
@@ -3326,13 +3315,12 @@ msgid "Subalbum"
 msgstr "子相簿"
 
 #: ../rearrange.php:114
-#, fuzzy
 msgid "Selected"
-msgstr "刪除"
+msgstr "選擇的"
 
 #: ../rearrange.php:115
 msgid "Visible"
-msgstr ""
+msgstr "顯示"
 
 #: ../rearrange.php:116
 #, fuzzy
@@ -3352,7 +3340,7 @@ msgstr "取消"
 #: ../rearrange.php:146
 #, php-format
 msgid "******* Page %s *******"
-msgstr ""
+msgstr "******* 第 %s 頁 *******"
 
 #: ../register.php:37 ../register.php:41
 #, fuzzy, php-format
@@ -3495,39 +3483,45 @@ msgstr "(只使用原始的圖片)"
 msgid "Change Size"
 msgstr "更改大小"
 
-#: ../rotate_photo.php:40 ../rotate_photo.php:46
+#: ../rotate_photo.php:42 ../rotate_photo.php:49
 msgid "Rotate/Flip Photo"
 msgstr "旋轉/翻轉 相片"
 
-#: ../rotate_photo.php:51
+#: ../rotate_photo.php:54
 msgid "Rotating/Flipping photo."
 msgstr "旋轉/翻轉 相片中"
 
-#: ../rotate_photo.php:53 ../watermark_album.php:65
+#: ../rotate_photo.php:56 ../watermark_album.php:65
 msgid "(this may take a while)"
 msgstr "(這需要花一點時間)"
 
-#: ../rotate_photo.php:62
+#: ../rotate_photo.php:65
 msgid "Manipulate again?"
 msgstr "再調整一次？"
 
-#: ../rotate_photo.php:64
+#: ../rotate_photo.php:67
 msgid "How do you want to manipulate this photo?"
 msgstr "您打算如何處理這張圖片呢？"
 
-#: ../rotate_photo.php:70
+#: ../rotate_photo.php:77
+#, fuzzy
+msgid "Clockwise 90&deg;"
+msgstr "順時針轉"
+
+#: ../rotate_photo.php:83
+msgid "180&deg;"
+msgstr ""
+
+#: ../rotate_photo.php:89
+#, fuzzy
+msgid "Counter-Clockwise 90&deg;"
+msgstr "逆時針轉"
+
+#: ../rotate_photo.php:110
 msgid "Rotate"
 msgstr "旋轉"
 
-#: ../rotate_photo.php:73
-msgid "Counter-Clockwise"
-msgstr "逆時針轉"
-
-#: ../rotate_photo.php:79
-msgid "Clockwise"
-msgstr "順時針轉"
-
-#: ../rotate_photo.php:80
+#: ../rotate_photo.php:114
 msgid "Flip"
 msgstr "翻轉"
 
@@ -3578,7 +3572,7 @@ msgstr "檔案上傳失敗！"
 
 #: ../save_photos.php:381
 msgid "Select the items you want to upload. To select multiple hold 'ctrl' (PC) or 'Command' (Mac)"
-msgstr ""
+msgstr "選擇希望上傳的項目，要選擇多個項目請壓住 'ctrl'（一般電腦）或 'Command'（蘋果電腦）"
 
 #: ../save_photos.php:405
 #, php-format
@@ -3662,9 +3656,8 @@ msgid "Delay"
 msgstr "延遲"
 
 #: ../slideshow.php:94
-#, fuzzy
 msgid "Loop:"
-msgstr "循環"
+msgstr "循環："
 
 #: ../slideshow.php:101
 msgid "Fullscreen applet"
@@ -3848,7 +3841,7 @@ msgstr "Time now = %s ; Cache time = %s"
 
 #: ../stats.php:343
 msgid "Logged In - Disabling Cache"
-msgstr ""
+msgstr "已登入 - 快取停用"
 
 #: ../stats.php:349
 msgid "Using cache"
@@ -3863,9 +3856,8 @@ msgid "Cache to be rebuilt"
 msgstr "Cache to be rebuilt"
 
 #: ../stats.php:350
-#, fuzzy
 msgid "Cache will not rebuild."
-msgstr "Cache to be rebuilt"
+msgstr "快取不會重建。"
 
 #: ../stats.php:373
 msgid "Version out of date."
@@ -3990,14 +3982,14 @@ msgid "add vote"
 msgstr "新增評比"
 
 #: ../stats.php:1076
-#, fuzzy, php-format
+#, php-format
 msgid "From album: %s"
-msgstr "從相簿"
+msgstr "從相簿： %s"
 
 #: ../stats.php:1081
-#, fuzzy, php-format
+#, php-format
 msgid "Owned by: %s"
-msgstr "擁有著："
+msgstr "擁有著： %s"
 
 #: ../stats.php:1113
 msgid "Capture Date:"
@@ -4403,417 +4395,435 @@ msgstr "如果您想更改密碼, 您必須輸入舊的密碼並且輸入兩次�
 msgid "You can change your username to any combination of letters and digits."
 msgstr "您可以更改帳號, 帳號必須是由數字與英文所組成. "
 
-#: ../util.php:154
-#, fuzzy, php-format
+#: ../util.php:156
+#, php-format
 msgid "Executing: %s"
-msgstr "執行:"
+msgstr "執行： %s"
 
-#: ../util.php:161
+#: ../util.php:163
 msgid "Results:"
 msgstr "結果："
 
-#: ../util.php:165
+#: ../util.php:167
 msgid "none"
 msgstr "不提供"
 
-#: ../util.php:170
+#: ../util.php:172
 msgid "Debug messages:"
 msgstr "錯誤訊息："
 
-#: ../util.php:181
+#: ../util.php:183
 #, php-format
 msgid "Status: %s (expected %s)"
 msgstr "狀態: %s (應為 %s)"
 
-#: ../util.php:206
+#: ../util.php:208
 #, php-format
 msgid "Getting Dimension of file: %s"
 msgstr "取得檔案尺寸: %s"
 
-#: ../util.php:209
+#: ../util.php:211
 msgid "The file does not exist ?!"
 msgstr "檔案 %s 並不存在. "
 
-#: ../util.php:216
+#: ../util.php:218
 #, php-format
 msgid "Dimensions: x: %d y: %d"
 msgstr ""
 
-#: ../util.php:221
+#: ../util.php:223
 #, fuzzy, php-format
 msgid "PHP's %s function is unable to determine dimensions."
 msgstr "PHP 的 %s 無法決定尺寸. "
 
-#: ../util.php:235
+#: ../util.php:237
 msgid "You have no graphics package configured for use!"
 msgstr "您沒有設定可使用的圖形套件程式! "
 
-#: ../util.php:258
+#: ../util.php:260
 msgid "Unable to determine image dimensions!"
 msgstr "無法決定影像的尺寸. "
 
-#: ../util.php:432
+#: ../util.php:434
 #, php-format
 msgid "Can't write to %s."
 msgstr "無法寫入 %s. "
 
-#: ../util.php:439
+#: ../util.php:441
 #, php-format
 msgid "Can't read %s."
 msgstr "無法讀取 %s. "
 
-#: ../util.php:661
+#: ../util.php:663
 #, php-format
 msgid "Item Capture Date : %s"
 msgstr "建立日期：%s"
 
-#: ../util.php:706
+#: ../util.php:708
 #, fuzzy, php-format
 msgid "Could not open lock file (%s) for writing!"
 msgstr "無法開啟這個鎖定檔 (%s)! "
 
-#: ../util.php:711
+#: ../util.php:713
 #, php-format
 msgid "Could not acquire lock (%s)!"
 msgstr "無法要求鎖定 (%s)! "
 
-#: ../util.php:794
+#: ../util.php:796
 #, fuzzy, php-format
 msgid "extension of file %s is %s"
 msgstr "取得檔案尺寸: %s"
 
-#: ../util.php:903
+#: ../util.php:905
 #, fuzzy, php-format
 msgid "Extracting: %s with %s"
-msgstr "執行:"
+msgstr "執行： %s"
 
-#: ../util.php:921
+#: ../util.php:923
 #, php-format
 msgid "%s with extension %s is not an supported archive."
 msgstr ""
 
-#: ../util.php:935
+#: ../util.php:938
 msgid "No Support for creating Zips"
 msgstr ""
 
-#: ../util.php:938
+#: ../util.php:941
 #, php-format
 msgid "Creating Zipfile with %s"
 msgstr ""
 
-#: ../util.php:952 ../util.php:1833
+#: ../util.php:955
 #, php-format
 msgid "Your tempfolder is not writeable! Please check permissions of this dir: %s"
 msgstr ""
 
-#: ../util.php:988
+#: ../util.php:987
 #, fuzzy, php-format
 msgid "Processing file: %s"
-msgstr "處理影像中"
+msgstr "處理第 %d 份檔案..."
 
-#: ../util.php:991
+#: ../util.php:990
 #, fuzzy, php-format
 msgid "Processing file '%s' as archive"
 msgstr "處理本地端目錄 %s"
 
-#: ../util.php:994
+#: ../util.php:993
 #, php-format
 msgid "Skipping %s (%s support not enabled)"
 msgstr "略過 %s (尚未開啟 %s 的支援)"
 
-#: ../util.php:1003
+#: ../util.php:1002
 msgid "Getting archive content Filenames"
 msgstr ""
 
-#: ../util.php:1021
+#: ../util.php:1020
 msgid "No Metadata"
 msgstr ""
 
-#: ../util.php:1025
-#, fuzzy
+#: ../util.php:1024
 msgid "Processing files in archive"
-msgstr "處理影像中"
+msgstr ""
 
-#: ../util.php:1031
+#: ../util.php:1030
 #, fuzzy, php-format
 msgid "%d. %s"
 msgstr "%s, %s"
 
-#: ../util.php:1034
+#: ../util.php:1033
 #, fuzzy, php-format
 msgid "Could not extract %s"
 msgstr "無法開啟目錄：%s"
 
-#: ../util.php:1154
+#: ../util.php:1153
 #, php-format
 msgid "Adding %s"
 msgstr "正在加入 %s"
 
-#: ../util.php:1174
+#: ../util.php:1173
 #, php-format
 msgid "Need help?  Look in the  %s%s FAQ%s"
 msgstr "需要幫忙嗎? 請看 %s%s FAQ%s"
 
-#: ../util.php:1179
+#: ../util.php:1178
 #, php-format
 msgid "Skipping %s (can't handle %s format)"
 msgstr "略過 %s (無法處理 %s 格式)"
 
-#: ../util.php:1292
+#: ../util.php:1291
 #, php-format
 msgid "Cannot open logfile: %s"
 msgstr "無法開啟記錄檔檔：%s"
 
-#: ../util.php:1460
+#: ../util.php:1459
 #, php-format
 msgid "Parsing for csv data in file: %s"
 msgstr ""
 
-#: ../util.php:1476
+#: ../util.php:1475
 #, fuzzy
 msgid "csv result:"
 msgstr "評比結果："
 
-#: ../util.php:1645
+#: ../util.php:1649
 #, fuzzy, php-format
 msgid "MIMEtype of file %s is %s"
 msgstr "取得檔案尺寸: %s"
 
-#: ../util.php:1735
+#: ../util.php:1739
 #, php-format
 msgid "%s sent you an E-C@rd."
 msgstr ""
 
-#: ../view_album.php:211
+#: ../util.php:1837
+#, php-format
+msgid "Gallery was unable to create a tempory subfolder in your tempdir. Please check permissions of this dir: %s"
+msgstr ""
+
+#: ../util.php:1876
+#, php-format
+msgid "'%s' seems not to be a valid file. Download aborted."
+msgstr ""
+
+#: ../util.php:1884
+#, php-format
+msgid "The file '%s' seems not inside Gallery tempdir %s, download aborted."
+msgstr ""
+
+#: ../util.php:1889
+msgid "We are trying to download the tempdir itself ?! Download aborted."
+msgstr ""
+
+#: ../view_album.php:214
 #, php-format
 msgid "1 sub-album"
 msgid_plural "%d sub-albums"
 msgstr[0] "1 個子相簿"
 msgstr[1] "%d 個子相簿"
 
-#: ../view_album.php:211
+#: ../view_album.php:214
 msgid "No albums"
 msgstr "尚無相簿"
 
-#: ../view_album.php:213
+#: ../view_album.php:216
 msgid "0 pages"
 msgstr "0 頁"
 
-#: ../view_album.php:216
+#: ../view_album.php:219
 #, php-format
 msgid "%s and %s in this album on %s"
 msgstr "%s, %s 在此相簿中, 共 %s"
 
-#: ../view_album.php:219
+#: ../view_album.php:222
 #, php-format
 msgid "%s and %s in this album"
 msgstr "%s, %s 在此相簿中"
 
-#: ../view_album.php:222
+#: ../view_album.php:225
 #, php-format
 msgid "%s in this album on %s"
 msgstr "%s 在此相簿中, 共 %s"
 
-#: ../view_album.php:225
+#: ../view_album.php:228
 #, php-format
 msgid "%s in this album"
 msgstr "%s 在此相簿中"
 
-#: ../view_album.php:232
+#: ../view_album.php:235
 #, php-format
 msgid "%s are hidden"
 msgstr "%s 份隱藏"
 
-#: ../view_album.php:234
+#: ../view_album.php:237
 #, php-format
 msgid "%s is hidden"
 msgstr "%s 份隱藏"
 
-#: ../view_album.php:244
+#: ../view_album.php:247
 #, fuzzy
 msgid "Add photos"
 msgstr "增加多張相片"
 
-#: ../view_album.php:250
+#: ../view_album.php:253
 #, fuzzy
 msgid "Delete this album"
 msgstr "更改相簿目錄名"
 
-#: ../view_album.php:255
+#: ../view_album.php:258
 #, fuzzy
 msgid "Delete this (sub)album"
 msgstr "更改相簿目錄名"
 
-#: ../view_album.php:264
+#: ../view_album.php:267
 #, fuzzy
 msgid "Rename album"
 msgstr "更改名稱"
 
-#: ../view_album.php:271
+#: ../view_album.php:274
 #, fuzzy
 msgid "New nested album"
 msgstr "新增相簿"
 
-#: ../view_album.php:277
+#: ../view_album.php:280
 #, fuzzy
 msgid "Edit captions"
 msgstr "修改說明"
 
-#: ../view_album.php:283
+#: ../view_album.php:286
 #, fuzzy
 msgid "Sort items"
 msgstr "檔案排序"
 
-#: ../view_album.php:289
+#: ../view_album.php:292
 #, fuzzy
 msgid "Resize all"
 msgstr "修改全部檔案的大小"
 
-#: ../view_album.php:295
+#: ../view_album.php:298
 #, fuzzy
 msgid "Rebuild thumbs"
 msgstr "重建縮圖"
 
-#: ../view_album.php:301
+#: ../view_album.php:304
 #, fuzzy
 msgid "Properties"
 msgstr "相簿屬性"
 
-#: ../view_album.php:307
+#: ../view_album.php:310
 #, fuzzy
 msgid "Rearrange items"
 msgstr "Recursing album: %s"
 
-#: ../view_album.php:319
+#: ../view_album.php:322
 #, fuzzy
 msgid "Poll results"
 msgstr "評比結果："
 
-#: ../view_album.php:325
+#: ../view_album.php:328
 #, fuzzy
 msgid "Poll reset"
 msgstr "評比歸零"
 
-#: ../view_album.php:331
+#: ../view_album.php:334
 #, fuzzy
 msgid "View comments"
 msgstr "檢視評論"
 
-#: ../view_album.php:337
+#: ../view_album.php:340
 #, fuzzy
 msgid "Watermark album"
 msgstr "相簿加入浮水印"
 
-#: ../view_album.php:395
+#: ../view_album.php:398
 #, fuzzy
 msgid "Album Actions"
 msgstr "相簿指令"
 
-#: ../view_album.php:485
+#: ../view_album.php:488
 msgid "You have no votes recorded for this poll."
 msgstr "在您尚未在本次評比中留下記錄. "
 
-#: ../view_album.php:489
+#: ../view_album.php:492
 msgid "Your current choices are"
 msgstr "您目前的選擇是"
 
-#: ../view_album.php:526
+#: ../view_album.php:529
 msgid "See full poll results"
 msgstr "觀看完整評比結果"
 
-#: ../view_album.php:560
+#: ../view_album.php:563
 msgid ", "
 msgstr ", "
 
-#: ../view_album.php:566
+#: ../view_album.php:569
 #, php-format
 msgid "To vote for an image, click on %s."
 msgstr "要對影像進行評比, 請點選 %s. "
 
-#: ../view_album.php:567
+#: ../view_album.php:570
 #, php-format
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "您必須點選 %s 才能將您的評比送出。"
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:571 ../view_album.php:587 ../view_album.php:925
 msgid "Vote"
 msgstr "評比"
 
-#: ../view_album.php:572
+#: ../view_album.php:575
 #, php-format
 msgid "You have a total of %s and can change them if you wish."
 msgstr "您總共有 %s 而且隨時可以更改您的選擇。"
 
-#: ../view_album.php:573
+#: ../view_album.php:576
 #, php-format
 msgid "1 vote"
 msgid_plural "%d votes"
 msgstr[0] "1 票"
 msgstr[1] "%d 票"
 
-#: ../view_album.php:576
+#: ../view_album.php:579
 msgid "You can change your choices if you wish."
 msgstr "您可以更改您的選擇。"
 
-#: ../view_album.php:727 ../view_album.php:728
+#: ../view_album.php:730 ../view_album.php:731
 #, php-format
 msgid "%dkB"
 msgstr "%dkB"
 
-#: ../view_album.php:775
+#: ../view_album.php:778
 msgid "highlight"
 msgstr "封面相片"
 
-#: ../view_album.php:790
+#: ../view_album.php:793
 msgid "No description"
 msgstr "無描述"
 
-#: ../view_album.php:798
+#: ../view_album.php:801
 #, fuzzy, php-format
 msgid "Last change: %s"
 msgstr "上次更新：%s ."
 
-#: ../view_album.php:801
+#: ../view_album.php:804
 #, fuzzy, php-format
 msgid "Contains: %s"
 msgstr "內容： "
 
-#: ../view_album.php:801
+#: ../view_album.php:804
 #, php-format
 msgid "1 item"
 msgid_plural "%d items"
 msgstr[0] "1 份檔案"
 msgstr[1] "%d 份檔案"
 
-#: ../view_album.php:819
+#: ../view_album.php:820
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "點閱： "
 
-#: ../view_album.php:846
+#: ../view_album.php:845
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
 msgstr[0] "點閱： "
 msgstr[1] "點閱： "
 
-#: ../view_album.php:904
+#: ../view_album.php:903
 msgid "Hey! Add some photos."
 msgstr "嘿! 加些檔案吧. "
 
-#: ../view_album.php:906
+#: ../view_album.php:905
 msgid "This album is empty."
 msgstr "這是一個空相簿. "
 
-#: ../view_album.php:951
+#: ../view_album.php:950
 msgid "Email me when one of the following actions are done to this album:"
 msgstr "這個相簿有下列改變時Email提醒我："
 
-#: ../view_album.php:956
+#: ../view_album.php:955
 msgid "Comments are added"
 msgstr "評論加入時"
 
-#: ../view_album.php:959
+#: ../view_album.php:958
 msgid "Other changes are made"
 msgstr "其他的更動"
 
@@ -4852,9 +4862,8 @@ msgid "process this photo with %s"
 msgstr "在 %s 上列印"
 
 #: ../view_photo.php:480
-#, fuzzy
 msgid "View Images:"
-msgstr "刪除檔案"
+msgstr "檢視圖片："
 
 #: ../view_photo.php:481
 msgid "normal"
@@ -4865,9 +4874,8 @@ msgid "full"
 msgstr "原始"
 
 #: ../view_photo.php:500
-#, fuzzy
 msgid "Send Photo as eCard"
-msgstr "以信件通知我密碼"
+msgstr "將這張圖片當作電子賀卡寄出"
 
 #: ../view_photo.php:720
 msgid "Email me when comments are added"
@@ -4895,2715 +4903,4 @@ msgstr "沒有浮水印"
 
 #: ../watermark_album.php:137
 msgid "Keep in mind that watermarking on animated gifs is currently not supported and will 'deface & unanimate' your pictures."
-msgstr ""
-
-#~ msgid "Illegal username %s: must at least 2 characters"
-#~ msgstr "帳號名稱 %s 不合法：至少要有 2 個字元"
-
-#~ msgid "Adding Photo to the photo list"
-#~ msgstr "新增照片於相片名單"
-
-#~ msgid "Show the add vote link"
-#~ msgstr "顯示新增評比連結"
-
-#, fuzzy
-#~ msgid "Move Album!"
-#~ msgstr "搬移相簿"
-
-#~ msgid "Please retype your password here"
-#~ msgstr "請再輸入一次您的密碼"
-
-#~ msgid "Value"
-#~ msgstr "參數"
-
-#, fuzzy
-#~ msgid "No content"
-#~ msgstr "RSS Content"
-
-#~ msgid "Missing value"
-#~ msgstr "Missing value"
-
-#, fuzzy
-#~ msgid "<b>exec()</b> is enabled on this server."
-#~ msgstr "<b>exec()</b> 在伺服器未被關閉"
-
-#~ msgid "I can read your <b>.htaccess</b> file."
-#~ msgstr "可以讀取您的 .htaccess 檔案"
-
-#~ msgid "PHP v%s is OK."
-#~ msgstr "PHP v%s OK"
-
-#~ msgid "<b>mod_rewrite</b> is enabled."
-#~ msgstr "<b>mod_rewrite</b> 開啟"
-
-#~ msgid "Can't find <i>jhead</i>"
-#~ msgstr "無法找到<i>jhead</i>"
-
-#~ msgid "<b>jhead</b> binary located."
-#~ msgstr "找到 jhead 可執行檔"
-
-#~ msgid "Without pnmcomp and pamcomp gallery will not be able to watermark images, unless you use ImageMagick and have the composite binary installed."
-#~ msgstr "沒有 pnmcomp 和 pamcomp, Gallery無法製作浮水印影像, 除非您使用 Image Magick 和安裝可執行檔"
-
-#~ msgid "NetPBM not being used in this installation."
-#~ msgstr "安裝過程中沒有使用 NetPBM"
-
-#~ msgid "Cannot verify this path (it's not in your open_basedir list)."
-#~ msgstr "無法檢查該路徑 (不在您的 open_basedir 列表中)"
-
-#~ msgid "Missing optional binary %s. %s"
-#~ msgstr "遺失%s. %s"
-
-#~ msgid "Can't find %s!"
-#~ msgstr "找不到 %s! "
-
-#~ msgid "%s is not executable!"
-#~ msgstr "%s 不能執行! "
-
-#~ msgid "%d of %d NetPBM binaries located."
-#~ msgstr "需要 %2$d 個 NetPBM 可執行檔 找到 %1$d 個"
-
-#~ msgid "Without composite gallery will not be able to watermark images, except you use NetPBM and have the pnmcomp binary installed."
-#~ msgstr "沒有合成, Gallery 無法製作浮水印影像,除非您使用 NetPBM 和安裝 pnmcomp "
-
-#~ msgid "ImageMagick not being used in this installation."
-#~ msgstr "安裝過程中沒有使用 ImageMagick"
-
-#~ msgid "%d of %d ImageMagick binaries located."
-#~ msgstr "需要 %2$d 個 ImageMagick 可執行檔 找到 %1$d 個"
-
-#~ msgid "Can't find <i>jpegtran</i>!"
-#~ msgstr "無法找到 <i>jpegtran</i>!"
-
-#~ msgid "<b>jpegtran</b> binary located."
-#~ msgstr "找到 jpegtran"
-
-#~ msgid "PHP has <b>GNU gettext</b> support."
-#~ msgstr "PHP 已支援 <b>GNU gettext</b>"
-
-#~ msgid "PHP does not have <b>GNU gettext</b> support."
-#~ msgstr "PHP 未支援 <b>GNU gettext</b>"
-
-#~ msgid "No languages found."
-#~ msgstr "沒有找到任何語言. "
-
-#~ msgid "It seems you didn't download any additional languages. This is not a problem! Gallery will appear just in English. Note: If this is not true, check that all files in locale folder are readable for the webserver, or contact the Gallery Team."
-#~ msgstr "您並未下載任何額外的語言.這不是問題! Gallery會以英文顯示.注意: 如果不是如此,確認網路伺服器可以讀取所有資料夾的檔案或者請和Gallery團隊聯繫"
-
-#~ msgid "%d languages are available.  If you are missing a language please visit the %sGallery download page%s."
-#~ msgstr "有 %d 種語言存在, 如果您想要使用其他語言, 請在 %s 下載 %s. "
-
-#~ msgid "You can check for more recent versions by visiting %s."
-#~ msgstr "您可以點選 %s 察看是否有更新的版本. "
-
-#~ msgid "This version of %s was released on %s."
-#~ msgstr "這個版本的 %s 由第 %s 版釋出. "
-
-#~ msgid "This is a development build of %s that was released on %s."
-#~ msgstr "這是一個 %s 的發展版本, 由第 %s 版釋出. "
-
-#~ msgid "Please check regularly for updates."
-#~ msgstr "請定期檢查是否有更新檔. "
-
-#~ msgid "All gallery locales are available on this host."
-#~ msgstr "本伺服器支援所有的語系"
-
-#~ msgid "There are %d locales that Gallery was unable to locate. You may need to select manually date formats. "
-#~ msgstr "Gallery有 %d 個語系無法確定,您可能要手動選擇日期格式"
-
-#~ msgid "Dates in %d languages may not be formatted properly, because the corresponding locales are missing. You may need to select manually the date formats for these."
-#~ msgstr "將有 %d 種語言的日期無法以正確格式顯示，因為所使用的語系不存在，但您仍可另外選擇新語系"
-
-#~ msgid "We were unable to detect any locales.  However, your PHP installation is configured with the %s restriction so this may be interfering with the way that we detect locales.  Unfortunately this means the date format will not change for different languages.  However, it is OK to continue."
-#~ msgstr "無法偵測到任何的語系支援, 無法主動偵測語系的原因是您的伺服器有設定 %s 的限制條件. 很不幸地您的日期格式將不會隨著語系設定而有所改變, 不過您還是可以繼續下一步. "
-
-#~ msgid "We were unable to detect any system locales. Multi-language functions will be disabled. Please install the corresponding locales or ask your administrator to do this. This problem is known on %s systems. In this case please have a look at this %sDebian locale HowTo%s."
-#~ msgstr "無法偵測到任何系統語系設定. 多國語系的功能將停用. 請安裝相關的語系設定或者洽詢您的網站提供者. 這是一個在 %s 系統的已知問題, 請參閱 %sDebian locale HowTo%s"
-
-#~ msgid "Only the default locale for this machine is available, so date format will not change for different languages."
-#~ msgstr "在這台機器上只有預設的語系存在, 所以日期格式將不會隨著語言的不同而有所改變. "
-
-#~ msgid "Advanced"
-#~ msgstr "進階"
-
-#~ msgid "<b>System</b> locale selection required"
-#~ msgstr "請選擇語系"
-
-#~ msgid "There is more than one suitable <b>system</b> locale installed on your machine for the following languages.  Please chose the one you think is most suitable."
-#~ msgstr "您的機器上有一個以上的語系可以選擇, 請設定一個您認為最適合的. "
-
-#~ msgid "This is <b>only</b> for date & time format. You only need to edit the languages you enabled above"
-#~ msgstr "本項僅供<b>日期與時間</b>格式設定. 您只需要修改上面的語言選項即可"
-
-#~ msgid "System locale"
-#~ msgstr "系統語系"
-
-#~ msgid "<b>System</b> locale problems"
-#~ msgstr "語系問題"
-
-#~ msgid "There are no apparently suitable <b>system</b> locales installed on your machine for the following languages.  Please choose the one you think is most suitable."
-#~ msgstr "在您的機器上沒有適合下列語言的語系, 請設定一個您認為最適合的"
-
-#~ msgid "<b>safe_mode</b> is off."
-#~ msgstr "<b>safe mode</b> 關閉"
-
-#~ msgid "<b>magic_quotes</b> are off."
-#~ msgstr "<b>magic quotes</b> 關閉"
-
-#~ msgid "In %s, missing %s in row %d with %s %s."
-#~ msgstr "在 %s 中, 找不到 %s 在第 %d 列與 %s %s. "
-
-#~ msgid "Vote words and values"
-#~ msgstr "選項名稱與數值"
-
-#~ msgid "In %s, blank in row %d."
-#~ msgstr "在 %s 中, 第 %d 列為空白. "
-
-#~ msgid "In %s, for name %s (row %d) value %s should be a positive whole number"
-#~ msgstr "在 %s 中, %s (第 %d 列) %s 應為正整數"
-
-#~ msgid "<b>register_globals</b> is off."
-#~ msgstr "<b>register_globals</b> 關閉"
-
-#~ msgid "Your passwords do not match!"
-#~ msgstr "您的管理者密碼不符合"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Valid admin email address given."
-#~ msgstr "已指定正確的管理者電子信件地址. "
-
-#~ msgid "You must specify valid admin email addresses"
-#~ msgstr "您一定要輸入正確的管理者電子信件位址"
-
-#~ msgid "%s is not a valid email address."
-#~ msgstr "%s 並非正確的管理者電子信件地址. "
-
-#~ msgid "Valid sender email address given."
-#~ msgstr "已指定正確的送信者電子信件地址. "
-
-#~ msgid "You must specify a valid sender email address"
-#~ msgstr "您一定要輸入正確的送信者信件地址"
-
-#~ msgid "You must include %s in your welcome email"
-#~ msgstr "您必須將 %s 放入歡迎信件中"
-
-#~ msgid "You must include %s or %s in your welcome email"
-#~ msgstr "您必須將 %s 或是 %s 放入歡迎信件中"
-
-#~ msgid "The following files are out of date, corrupted or missing:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s."
-#~ msgstr "下列檔案已過期損毀或遺失:<br>&nbsp;&nbsp;&nbsp;&nbsp;%s"
-
-#~ msgid "This should be fixed before proceeding"
-#~ msgstr "這需要先被修復"
-
-#~ msgid "Look at %sCheck Versions%s for more details."
-#~ msgstr "點選這裡 %s查看Version%s 進階資訊"
-
-#~ msgid "%d files are more recent than expected.  This is OK if you are using pre-release, beta, CVS or modified code."
-#~ msgstr "%d檔案比預期更新.如果您是使用pre-release, bate, CVS或者修改過的編碼,這是可以的 "
-
-#~ msgid "All tested files up-to-date."
-#~ msgstr "所有測試的檔案都是最新的"
-
-#~ msgid "All %d tested files up-to-date."
-#~ msgstr "所有%d測試的檔案都是最新的"
-
-#~ msgid "this is new in version %s"
-#~ msgstr "這是版本 %s 的新功能"
-
-#~ msgid "Return to %s."
-#~ msgstr "返回 %s. "
-
-#~ msgid "Configuration Wizard"
-#~ msgstr "設定精靈"
-
-#~ msgid "You must enter a password for the %s account."
-#~ msgstr "給%s帳號一個密碼"
-
-#~ msgid "It seems you've already configured Gallery, because there is one admin account, but its not called %s."
-#~ msgstr "您已編輯Gallery因為已經有一個管理者的帳號但並不是%s."
-
-#~ msgid "It seems you've already configured Gallery, because there are %d admin accounts, but no user called %s."
-#~ msgstr "您已編輯Gallery因為已經有 %d 個管理者帳號但並不是%s."
-
-#~ msgid "You don't have to enter a password.  But if you do, Gallery will create an administrator account called %s with that password."
-#~ msgstr "您不需要輸入密碼.但如果您輸入密碼,Gallery會用這密碼建立一個管理者的帳號%s "
-
-#~ msgid "It seems you've already configured Gallery, because the %s user exists.  You don't have to enter a password.  But if you do, Gallery will change the password for the %s user."
-#~ msgstr "您已編輯Gallery因為%s使用者已存在.您不需要輸入密碼.但您如果輸入密碼,Gallery會更改使用者%s的密碼"
-
-#~ msgid "Admin password"
-#~ msgstr "管理者密碼"
-
-#~ msgid "Full name that you can click on to send email (mailto:)"
-#~ msgstr "寄email時的全名"
-
-#~ msgid "Username that you can click on to send email (mailto:)"
-#~ msgstr "寄email時的使用者姓名"
-
-#~ msgid "email address"
-#~ msgstr "您的電子信箱地址："
-
-#~ msgid "File missing or unreadable.  Please install then re-run this test."
-#~ msgstr "檔案遺失或無法讀取.請重新安裝並重新執行此測試"
-
-#~ msgid "Please ensure that %s is the latest version."
-#~ msgstr "請確定%s是最新的版本"
-
-#~ msgid "Testing status of %d files."
-#~ msgstr "%d 檔案測試狀態"
-
-#~ msgid "Cannot read file %s."
-#~ msgstr "無法讀取檔案%s"
-
-#~ msgid "File missing or unreadable."
-#~ msgstr "檔案遺失或無法讀取"
-
-#~ msgid "Version information not found in %s.  File must be old version or corrupted."
-#~ msgstr "無法找到%s的版本訊息.檔案為舊版本或已損毀"
-
-#~ msgid "Missing version"
-#~ msgstr "Missing version"
-
-#~ msgid "Problem with %s.  Expected version %s (or greater) but found %s."
-#~ msgstr "%s有問題.預期%s版本或以上,但卻找到%s"
-
-#~ msgid "Expected version %s (or greater) but found %s."
-#~ msgstr "預期%s版本或以上,但卻找到%s"
-
-#~ msgid "%s OK.  Actual version (%s) more recent than expected version (%s)"
-#~ msgstr "%s Ok. 實際版本(%s)比預期的版本(%s)還新"
-
-#~ msgid "Expected version %s but found %s."
-#~ msgstr "預期%s版本,但卻找到%s"
-
-#~ msgid "%s OK"
-#~ msgstr "%s OK"
-
-#~ msgid "Found expected version %s."
-#~ msgstr "找到預期的版本%s"
-
-#~ msgid "This email will be sent when new accounts are created."
-#~ msgstr "本封信件在帳號建立後自動寄出. "
-
-#, fuzzy
-#~ msgid "Leaving this field empty sets Gallery to use the default message (see below) which can be translated, or use your own welcome message."
-#~ msgstr "此處空白時，代表拷貝預設值到其他語言選項中. 預設訊息是："
-
-#, fuzzy
-#~ msgid "The following placeholder can be used:"
-#~ msgstr "下面檔案是最新的"
-
-#~ msgid "File %s does not exist."
-#~ msgstr "檔案 %s 並不存在. "
-
-#~ msgid "Expected status: %s, but actually received status %s."
-#~ msgstr "我們希望收到的狀態是：%s, 但傳回來的狀態是 %s. "
-
-#~ msgid "can't detect version on Windows"
-#~ msgstr "無法偵測 Windows 的版本"
-
-#~ msgid "OK!  Version: %s"
-#~ msgstr "OK!  版本：%s"
-
-#~ msgid "Gallery Configuration Wizard: Step %d"
-#~ msgstr "Gallery設定精靈:步驟 %d"
-
-#~ msgid "This is the Gallery system check page."
-#~ msgstr "這是 Gallery 系統檢查網頁. "
-
-#~ msgid "This page will validate your installation to make sure that you have all the necessary components and permissions on this system and that everything is configured reasonably."
-#~ msgstr "在這裡我們將檢查您的安裝是否正確, 以便確保所有元件以及權限都已經正確的設定完成"
-
-#~ msgid "Gallery Help Page"
-#~ msgstr "Gallery Help Page"
-
-#~ msgid "Having problems?  Try the %s, %s and %s."
-#~ msgstr "有任何疑問嗎? 請看 %s、%s 以及 %s. "
-
-#~ msgid "Having problems?  Try the %s and %s."
-#~ msgstr "有任何疑問嗎? 請看 %s 以及 %s. "
-
-#~ msgid "Success"
-#~ msgstr "沒問題"
-
-#, fuzzy
-#~ msgid "Warning, but optional"
-#~ msgstr "這是非必要選項"
-
-#, fuzzy
-#~ msgid "Serious warning, but optional"
-#~ msgstr "嚴重警告"
-
-#, fuzzy
-#~ msgid "Serious warning, no go !"
-#~ msgstr "嚴重警告"
-
-#~ msgid "Failure"
-#~ msgstr "失敗"
-
-#~ msgid "There are errors in your configuration that will prevent Gallery from functioning properly."
-#~ msgstr "您的設定錯誤, Gallery 將無法正常執行"
-
-#~ msgid "You must fix them before you can continue."
-#~ msgstr "您必須修正這些錯誤才能進行下一步. "
-
-#~ msgid "Your installation has <b>serious warnings</b>!<br>Continue at your own risk..."
-#~ msgstr "您的安裝程序有 <b>嚴重警告</b>! <br>略過警告繼續的話，會有不可預期的風險..."
-
-#~ msgid "Your installation has warnings, but this is usually OK.  Keep going!"
-#~ msgstr "您的安裝程序有警告, 通常可以略過沒有關係. 繼續下一步吧! "
-
-#~ msgid "Your installation passed with flying colors!  Go go go!"
-#~ msgstr "您的安裝程序沒有問題囉, 請繼續下一步吧! "
-
-#~ msgid "Next Step"
-#~ msgstr "下一步"
-
-#~ msgid "Gallery ImageMagick Check"
-#~ msgstr "Gallery ImageMagick Check"
-
-#~ msgid "Check %s"
-#~ msgstr "檢查 %s"
-
-#~ msgid "This script is designed to examine your %s installation to see if it is ok to be used by Gallery."
-#~ msgstr "這個 script 是用來檢查您的 %s 安裝程序是否完成, 以便在 Gallery 裡面正常執行. "
-
-#~ msgid "You should run this script <b>after</b> you have run the config wizard, if you have had problems with your %s installation that the wizard did not detect."
-#~ msgstr "如果您在安裝 %s 時發生問題而程式沒有檢查出來, 請在執行設定精靈 <b>之後</b> 執行這個 script. "
-
-#~ msgid "Loading configuration files.  If you see an error here, it is probably because you have not successfully run the config wizard."
-#~ msgstr "載入設定檔中. 如果有錯誤訊息產生, 有可能是您的設定精靈設定失敗. "
-
-#~ msgid "It seems that you did not configure your GALLERY. Please run and finish the configuration wizard."
-#~ msgstr "您的 Gallery 尚未設定完成, 請繼續執行設定精靈. "
-
-#~ msgid "Let us see if we can figure out what operating system you are using."
-#~ msgstr "讓我們看看您的作業系統為何. "
-
-#~ msgid "This is what your system reports"
-#~ msgstr "這是您的系統產生的報告"
-
-#~ msgid "This is the type of system on which PHP was compiled"
-#~ msgstr "這是系統編譯的 PHP 系統版本"
-
-#~ msgid "Make sure that the values above make sense to you."
-#~ msgstr "請確定上面的數值對您而言是有意義的. "
-
-#~ msgid "Look for keywords like %s, %s, %s etc. in the output above."
-#~ msgstr "尋找上列關鍵字如 %s, %s, %s 等. "
-
-#~ msgid "If both the attempts above failed, you should ask your ISP what operating system you are using."
-#~ msgstr "如果上面的方式都無法成功, 請向您的網站服務提供者詢問所使用的作業系統為何. "
-
-#~ msgid "You can check via %s, they can often tell you."
-#~ msgstr "您可以透過 %s 來檢查, 他們通常會回答你. "
-
-#~ msgid "You told the config wizard that your %s binaries live here:"
-#~ msgstr "您告訴設定精靈您的 %s 可執行檔在這裡："
-
-#~ msgid "If that is not right (or if it is blank), re-run the configuration wizard and enter a location for %s."
-#~ msgstr "如果上述資訊不正確 (或者是空白), 請重新執行設定精靈並輸入 %s 的位置. "
-
-#~ msgid "<b>Note:</b> Your %s directory (%s) is not in your open_basedir list %s"
-#~ msgstr "<b>注意：</b> 您的 %s 目錄 (%s) 並不在 open_basedir 列表中 %s"
-
-#~ msgid "The open_basedir list is specified in php.ini."
-#~ msgstr "open_basedir 列表是在 php.ini 中設定"
-
-#~ msgid "The result is, that we can't perform all of our basic checks on the files to make sure that they exist and they're executable."
-#~ msgstr "所以我們無法進行所有的基本測試來確認檔案是否存在而且可以執行. "
-
-#~ msgid "We are going to test each %s binary individually."
-#~ msgstr "我們準備逐一測試每一個 %s 可執行檔"
-
-#~ msgid "Checking:"
-#~ msgstr "檢查中"
-
-#~ msgid "If you see an error above complaining about reading or writing to %s then this is likely a permission/configuration issue on your system.  If it mentions %s then it's because your system is configured with %s enabled."
-#~ msgstr "如果出現任何有關讀寫 %s 的錯誤, 那有可能是您系統權限/設定的問題. 如果錯誤訊息中提到 %s, 那是因為您的系統設定 %s 功能開啟了. "
-
-#~ msgid "You should talk to your system administrator about this, or see the %sGallery Help Page%s."
-#~ msgstr "您應該向系統管理員回報上述錯誤, 或者參考 %sGallery Help Page%s. "
-
-#~ msgid "For other errors, please refer to the list of possible responses in %s to get more information."
-#~ msgstr "其他的錯誤狀況, 請參考 %s 裡面所有可能回應訊息的列表以獲得更多資訊. "
-
-#~ msgid "Check Mail"
-#~ msgstr "檢查信件"
-
-#~ msgid "Test email from %s"
-#~ msgstr "由 %s 產生的測試信. "
-
-#~ msgid "This email was automatically generated."
-#~ msgstr "信件已自動產生完畢. "
-
-#~ msgid "If you recevied this in error, then please disregard, as you should not receive any similar emails."
-#~ msgstr "假使您不知道為何收到本信件，請勿理會本封或爾後之類似信件. "
-
-#~ msgid "If you were expecting email from the %s installation at %s, then Congratulations!  Email is working and you can enable the %s email functions."
-#~ msgstr "假使這是您由 %s 軟體安裝於此連結: %s 所發出的電子信件，那麼恭喜您！電子信箱設定正常，您可以啟動 %s 電子信箱功能。"
-
-#~ msgid "SUCCESS!"
-#~ msgstr "成功"
-
-#~ msgid "Test email sent to <b>%s</b>, and should arrive in a few minutes.  If you don't receive it please confirm the email address used was correct.  If you cannot receive the email, then it must be disabled for this server, and %s email functions cannot be used until that is rectified"
-#~ msgstr "測試信已送往 <b>%s</b>，應於數分鐘後收到，假使您尚未收到，請再次確認信箱地址設定正常。若無法收到測試信，那一定是本伺服器不提供此功能，所以 %s 電子信箱功能在伺服器啟動此功能前前將無法使用。"
-
-#~ msgid "You must use a valid email address"
-#~ msgstr "您一定要輸入有效的電子信箱地址"
-
-#~ msgid "Try again?"
-#~ msgstr "再試一次?"
-
-#~ msgid "This enables you to confirm that email is working correctly on your system.  Submit your email address below, and an email will be sent to you. If you receive it, then you know that mail is working on your system"
-#~ msgstr "啟動本功能以便確認系統的電子信件功能是否正常。在下面輸入您的電子信件地址，然後會自動發出一封測試信，假使您收到信了，就代表您的系統上電子信件功能是正常的。"
-
-#~ msgid "Warning"
-#~ msgstr "警告"
-
-#~ msgid "Your email address:"
-#~ msgstr "您的電子信箱地址："
-
-#~ msgid "Send Email"
-#~ msgstr "傳送電子信件"
-
-#~ msgid "Gallery NetPBM Check"
-#~ msgstr "Gallery NetPBM Check"
-
-#~ msgid "%sClick here%s to hide the details"
-#~ msgstr "%s點選這裡%s 隱藏進階資訊"
-
-#~ msgid "If you see errors, you should %sclick here%s to see more details"
-#~ msgstr "如果您看到錯誤產生, 請 %s點這裡%s 得到更多資訊"
-
-#~ msgid "Check Versions"
-#~ msgstr "檢查版本"
-
-#~ msgid "This page gives you information about the version of each necessary %s file. "
-#~ msgstr "這一份網頁提供了每個必要%s檔案版本的資訊."
-
-#~ msgid "If you see any error(s), we highly suggest to get the actual version of that file(s)."
-#~ msgstr "如果出現任何錯誤,建議您取得檔案的實際版本"
-
-#~ msgid "One file is missing, corrupt or older than expected."
-#~ msgid_plural "%d files are missing, corrupt or older than expected."
-#~ msgstr[0] "1 個檔案遺失,損毀或比預期老舊"
-#~ msgstr[1] "%d 個檔案遺失,損毀或比預期老舊"
-
-#~ msgid "All files okay."
-#~ msgstr "所有檔案ok"
-
-#~ msgid "There are problems with the following files.  Please correct them before configuring %s."
-#~ msgstr "下列檔案出現問題,請在編輯%s前修正"
-
-#~ msgid "One file is more recent than expected."
-#~ msgid_plural "%d files are more recent than expected."
-#~ msgstr[0] "1 個檔案比預期新"
-#~ msgstr[1] "%d 個檔案比預期新"
-
-#~ msgid "The following files are more up-to-date than expected for this version of %s.  If you are using pre-release code, this is OK."
-#~ msgstr "下列檔案比預期的%s版本還新,如果您使用pre-release code是可以的"
-
-#~ msgid "One file is up-to-date."
-#~ msgid_plural "%d files are up-to-date."
-#~ msgstr[0] "1 個最新檔案"
-#~ msgstr[1] "%d 個最新檔案"
-
-#~ msgid "All files are up-to-date."
-#~ msgstr "沒有最新版本"
-
-#~ msgid "The following files are up-to-date."
-#~ msgstr "下面檔案是最新的"
-
-#~ msgid "unknown"
-#~ msgstr "未知"
-
-#~ msgid "Gallery prefers NetPBM version 9.9 and up.  You can install just the binaries Gallery needs from the %sGallery Download Page%s. Or, you can compile and install the entire NetPBM package from the %sNetPBM website%s."
-#~ msgstr "Gallery 建議使用 NetPBM 9.9 或者更新的版本. 您可以從 %sGallery Download Page%s 上下載 Gallery 必須的可執行檔, 或者從 %sNetPBM website %s 下載原始檔自行編譯安裝. "
-
-#~ msgid "Note:"
-#~ msgstr "注意："
-
-#~ msgid "You can install the binaries from the Gallery site even if you don't have root access on your box!  If you can't get it working, try leaving the NetPBM path blank and using ImageMagick instead."
-#~ msgstr "即使您沒有系統的 root 權限, 您也可以從 Gallery 的網站下載可執行檔並安裝它. 如果這樣還不行, 請把 NetPBM 的路徑空白並改用 ImageMagick 試試看. "
-
-#~ msgid "I've found part of NetPBM, but some critical components are missing (see below).  Perhaps your version of NetPBM is out of date."
-#~ msgstr "我們找到部分的 NetPBM 程式, 但有些重要的元件消失了(詳見下方說明)。您是否使用一個老舊的 NetPBM 版本呢? "
-
-#~ msgid "Gallery prefers ImageMagick version 5.4.8 and up.  You can compile and install the entire ImageMagick package from the %sImageMagick website%s."
-#~ msgstr "Gallery 建議使用 ImageMagick 5.4.8 或者更新的版本. 您可以從 %sImageMagicwe bsite%s 取得 ImageMagick 的原始檔來編譯安裝. "
-
-#~ msgid "The site also has binaries available for assorted operating systems.  If you can't get it working, try leaving the ImageMagick path blank and using NetPBM instead."
-#~ msgstr "它也有各種平台的可執行檔, 如果這樣還不行, 請把 ImageMagick 的路徑空白並改用 NetPBM 試試看. "
-
-#, fuzzy
-#~ msgid "I've found part of ImageMagick , but some critical components are missing (see below)."
-#~ msgstr "我們找到部分的 NetPBM 程式, 但有些重要的元件消失了(詳見下方說明)。您是否使用一個老舊的 NetPBM 版本呢? "
-
-#~ msgid "Your PHP installation is configured with the %s restriction.   This may make it difficult for Gallery to detect and verify your binaries, even if you've already successfully used the Config. Wizard in the past.  Don't worry too much if this page gives warnings; your settings will still be saved properly."
-#~ msgstr "您的PHP安裝設定受到 %s 的限制, 即使您已執行過設定精靈, 仍會導致 Gallery 檢測您的可執行檔時有某種程度的困難. 您可以不用太過於擔心這個警告, 您的設定還是會完整的儲存. "
-
-#, fuzzy
-#~ msgid "Gallery version"
-#~ msgstr "Gallery Session 測試"
-
-#~ msgid "Check to see how old %s version %s is."
-#~ msgstr "檢查版本 %s 的 %s. "
-
-#, fuzzy
-#~ msgid "PHP version"
-#~ msgstr "檢查版本"
-
-#, fuzzy
-#~ msgid "Check to see if you are running a supported Version of PHP."
-#~ msgstr "檢查您是否正執行 PHP 4.1.0 或更新版本."
-
-#~ msgid "You're running PHP version %s.  You need to upgrade to PHP %s."
-#~ msgstr "您執行的版本是 %s. 請升級至 PHP %s."
-
-#~ msgid "You're running PHP version %s which has known bugs that cause Gallery to fail."
-#~ msgstr "您所使用的版本 %s 有已知的臭蟲導致 Gallery 無法正常執行. "
-
-#~ msgid "It seems your PHP has a problem with __FILE__, please upgrade to a recent Version"
-#~ msgstr "您的  PHP 似乎對__FILE__有問題,請更新至最新版本 "
-
-#, fuzzy
-#~ msgid "Register globals"
-#~ msgstr "取消檢查 register_globals "
-
-#~ msgid "Gallery highly recommends that the PHP option 'register_globals' be turned off, for security purposes.  Some software, notably the 'Geeklog' CMS, requires that 'register_globals' be enabled."
-#~ msgstr "由於安全的理由 Gallery 極度建議 關閉 PHP 選項中的 'register_globals' ，但某些軟體如 'Geeklog' CMS 中 'register_globals' 就必需開啟. "
-
-#~ msgid "The PHP option 'register_globals' is enabled on your server. Gallery highly recommends that you disable 'register_globals' unless it is required by software on your site.  Gallery does not officially support 'register_globals' being enabled, and will attempt to disable it internally."
-#~ msgstr "在您機器中 PHP 選項 'register_globals' 是開啟的，Gallery 極度建議取消 'register_globals' 的功能，除非在您的機器中其他軟體有需要。Gallery 在'register_globals' 開啟時將不會正式支援，並且會試著在內部關閉. "
-
-#~ msgid "Check to see if PHP is running in <b>safe_mode</b>.  Safe Mode is a PHP security feature commonly used in shared environments.  Gallery cannot run when Safe Mode is enabled because it imposes too many restrictions."
-#~ msgstr "檢查 PHP 是否在 <b>安全模式</b>. 安全模式是 PHP 在共用環境下的一種安全功能. 因為限制太多的緣故, 所以 Gallery 將無法在安全模式下執行. "
-
-#~ msgid "<b>safe_mode</b> is enabled on this server.  You must disable it before you can use Gallery.  Refer to the FAQ, the forums, and the help page on the %sGallery website%s and the %sPHP website%s for assistance."
-#~ msgstr "Server 上已經開啟 <b>安全模式</b>, 在您使用 Gallery 之前必須關掉. 請參考在 %sGallery 網站%s 的 FAQ, 討論區還有 Help 網頁, 以及 %sPHP 網站%s 得到進一步的資訊. "
-
-#~ msgid "In some rare circumstances, Gallery thinks that Safe Mode is on, when it's really off.  You can see for yourself by looking in the <i>Local</i> column of the <i>safe_mode</i> row in the %sPHP Info%s page.  If it says 'Off' or '0' or 'undefined' then it's possible that Gallery made a mistake and you can continue.  If not, then you must resolve this problem before you can use Gallery."
-#~ msgstr "在某些罕見的狀況下, Gallery 會認為 <b>安全模式</b> 是開啟的, 但實際上已經關掉. 您可以看看 %sPHP Info%s 網頁上 <i>Local</i> 欄位的 safe_mode, 如果它顯示 'Off' 或者 '0' 或者是 'undefined', 那就是 Gallery 誤判, 您可以繼續下一步沒關係. 如果不是的話, 您必須在使用 Gallery 之前解決這個問題. "
-
-#~ msgid "The <b>exec()</b> function is what Gallery uses to launch programs such as NetPBM, ImageMagick, and jhead.  If <b>exec()</b> is disabled on your server then Gallery will not be able operate."
-#~ msgstr " <b>exec()</b> 的功能是 Gallery 用來啟動像NetPBM,ImageMAgick和jhead的程式, 如果 <b>exec()</b> 在您的伺服器被關掉,Gallery將無法運作. "
-
-#~ msgid "The <b>exec()</b> function is disabled on your server.  Gallery will not function with this PHP configuration."
-#~ msgstr "<b>exec()</b> 功能在您的伺服器被關閉. Gallery 無法在這個 PHP 設定下運作"
-
-#~ msgid "Allow the Gallery <b>.htaccess</b> file to set application specific configuration options for the Gallery application.  This is controlled by the webserver owner so it's not always possible for you to change it.  The main drawbacks to not having this are that you may not be able to upload files > 2MB (e.g. big ZIP files or movies)."
-#~ msgstr "允許 Gallery 在 <b>.htaccess</b> 裡面加入特殊的設定值. 這是由網站管理員所控制, 所以您不一定可以更改這個設定. 如果沒有開啟這個功能, 您將無法上傳大於 2MB 的檔案 (比如很大的 ZIP 檔案) 而且也無法使用 mod_rewrite (見下面詳述)"
-
-#~ msgid "Apache is not obeying the 'php_value' lines in your <b>.htaccess</b> file. Try entering the following into your web server's <b>httpd.conf</b> file:"
-#~ msgstr "Apache 無法遵從您的 <b>.htaccess</b> 檔案. 請試著將下面的設定輸入您的網頁伺服器的 <b>httpd.conf</b> 設定檔："
-
-#~ msgid "If you are running PHP in CGI mode, this message is unavoidable."
-#~ msgstr "如果您的 PHP 在執行 CGI 模式, 將會無法避免出現此訊息. "
-
-#, fuzzy
-#~ msgid "PHPs magic quotes off"
-#~ msgstr "<b>magic quotes</b> 關閉"
-
-#~ msgid "Check to see if %smagic quotes%s are enabled on your PHP server.  If they're on, you may notice strange behavior if you put ' (single-quote), &quot; (double quote) or &#92; (backslash) characters in titles or captions in Gallery."
-#~ msgstr "檢查 %smagic quotes%s 是否在您的PHP伺服器開啟. 如果有, 當您在標題與說明中寫入 ' (單引號), &quot; (雙引號) or &#92; (反斜線) 時會產生奇怪的網頁. "
-
-#~ msgid "Magic quotes are on.  Your webserver administrator can turn them off by putting %s in your <b>php.ini</b> file."
-#~ msgstr "Magic quotes 開啟. 您的網頁管理者可以藉由在 <b>php.ini</b> 中加入 %s 將他關掉. "
-
-#~ msgid "Check to see if your webserver is compiled with <b>mod_rewrite</b>.  This Apache module allows Gallery to use shorter URLs that are easier to read and look nicer when you mail them to your web-challenged relatives.  It's not an essential feature."
-#~ msgstr "檢查您的網頁伺服器是否在編譯時加入 <b>mod_rewrite</b>. Mod_rewrite 允許 Gallery 使用較短的 URL 以方便閱讀也較美觀, 這不是個必要的功能. "
-
-#~ msgid "Either <b>mod_rewrite</b> is not installed or your <b>.htaccess</b> file is not enabled (see above).  Either way, we'll have to use longer URLs in the Gallery.  If you want to turn it on, first make sure that your <b>.htaccess</b> file is being obeyed. If it still doesn't work, you may need to reconfigure and rebuild Apache with this flag: "
-#~ msgstr "不是您的 <b>mod_rewrite</b> 沒安裝就是您的 <b>.htaccess</b> 沒有開啟. 不管是哪一種情形, 目前 Gallery 只能使用較長的 URL. 如果您想要改善這個狀況, 請確定您的 <b>.htaccess</b> 能正常運作, 如果您還無法正常使用該功能, 請用以下的參數重新設定編譯 Apache："
-
-#~ msgid "Check to see if NetPBM is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either NetPBM <b>or</b> ImageMagick installed."
-#~ msgstr "檢查 NetPBM 是否安裝, 這可以讓您的 Gallery 修改圖片 (旋轉、重新調整大小、建立縮圖等等). 您需要安裝 ImageMagick <b>或者是</b> NetPBM. "
-
-#~ msgid "I can't find NetPBM.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to NetPBM by hand on the following page.  If it's not installed, you have two choices: "
-#~ msgstr "找不到 NetPBM. 如果您已經安裝而網頁伺服器找不到, &#8212;您可以在下一頁指定 NetPBM 所在路徑. 如果您尚未安裝, 您有兩種選擇："
-
-#~ msgid "If NetPBM is installed and Gallery isn't finding it automatically that's OK&#8212;you can specify the path to NetPBM by hand on the following page."
-#~ msgstr "如果已安裝 NetPBM 而 Gallery 無法找到它在那邊, 請在下一頁設定 NetPBM 所在路徑即可. "
-
-#, fuzzy
-#~ msgid "ImageMagick installed"
-#~ msgstr "需要 %2$d 個 ImageMagick 可執行檔 找到 %1$d 個"
-
-#~ msgid "Check to see if ImageMagick is installed so that Gallery can manipulate images (rotate, resize, make thumbnails, etc.).  You only need to have either ImageMagick <b>or</b> NetPBM installed."
-#~ msgstr "檢查 ImageMagick 是否安裝, 這可以讓您的 Gallery 修改圖片 (旋轉、重新調整大小、建立縮圖等等). 您需要安裝 ImageMagick <b>或者是</b> NetPBM"
-
-#~ msgid "I can't find ImageMagick.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path to ImageMagick by hand on the following page.  If it's not installed, you must install it.  "
-#~ msgstr "找不到 ImageMagick. 如果您已經安裝而網頁伺服器找不到, &#8212;您可以在下一頁指定 ImageMagick 所在路徑. 如果您尚未安裝, 請安裝吧! "
-
-#, fuzzy
-#~ msgid "If ImageMagick is installed and Gallery isn't finding it automatically that's OK&#8212;you can specify the path to ImageMagick by hand on the following page."
-#~ msgstr "如果已安裝 NetPBM 而 Gallery 無法找到它在那邊, 請在下一頁設定 NetPBM 所在路徑即可. "
-
-#~ msgid "Check to see if <b>jhead</b> is installed so that Gallery can examine EXIF headers embedded in images created with most digital cameras."
-#~ msgstr "檢查是否安裝<b> jhead</b>, 如此一來 Gallery 可以檢視大部分由數位相機寫在影像裡面的 EXIF 檔頭資訊. "
-
-#~ msgid "I can't find <b>jhead</b>.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path by hand on the following page.  If it's not installed, you can install it yourself. Jhead is a public domain EXIF parser.  Source, linux binaries, and windows binaries can be found at the %sjhead homepage%s."
-#~ msgstr "找不到 jhead. 如果您已經安裝而網頁伺服器找不到, 您可以在下一頁指定 jhead 所在路徑. 如果您尚未安裝, 請趕快裝吧! jhead 是一個不受專利權限制的 EXIF 解析器, 您可以在 %sjhead 網站%s 上找到原始碼, linux 以及 windows 的可執行檔. "
-
-#~ msgid "Check to see if <b>jpegtran</b> is installed so that Gallery can perform lossless rotations on JPEG images."
-#~ msgstr "檢查<b> jpegtran</b> 是否安裝, 如此一來 Gallery 可以提供較好的旋轉 (只能用在 JPEG 影像檔)"
-
-#~ msgid "I can't find <b>jpegtran</b>.  If it's installed and not in the path of the webserver user that's OK&#8212;you can specify the path by hand on the following page.  If it's not installed, you can install it yourself.  Jpegtran is a free tool distributed by the Independent JPEG Group as part of <i>libjpeg</i>.  Source may be found at the %sIJG homepage%s.  Binaries may be found at the %sJPEG Club website%s or in the <i>libjpeg</i> package of Linux distributions."
-#~ msgstr "找不到 <b>jpegtran</b> 如果您已經安裝而網頁伺服器找不到, 您可以在下一頁指定 jpegtran 所在路徑. 如果您尚未安裝, 請趕快裝吧! jpegtran 是一個可自由散佈的程式，屬於 Independent JPEG Group 所維護的 libjpeg 中一部份，原始檔放在 %sIJG 網站%s 中, 您也可在 %sthe JPEG club 網站%s 或者 libjpeg package 的 Linux distribution 中找到可執行檔. "
-
-#~ msgid "Check to see if PHP is compiled with <b>GNU gettext</b> support for fast translations."
-#~ msgstr "檢查 PHP 是否有支援<b>GNU gettext</b> 以獲得較快的翻譯. "
-
-#~ msgid "Your PHP does not have <b>GNU gettext</b> support installed.  To include it, you'll need to recompile PHP (see the %sPHP docs%s for more information). Multi-language support is still available in Gallery without <b>gettext</b>, but the pages may take slightly longer to load."
-#~ msgstr "您的 PHP 並未支援<b>GNU gettext</b> 如果要使您的 PHP 支援它, 請重新編譯, 您可在 %sPHP docs%s 得到更多資訊. 不過即使您的 Gallery 沒有 <b>gettext</b> 還是有多國語系的功能, 只是載入時間會稍微久一點. "
-
-#~ msgid "Check to see what languages are available."
-#~ msgstr "檢查有哪些語言可以使用"
-
-#, fuzzy
-#~ msgid "missing locales"
-#~ msgstr "Missing value"
-
-#~ msgid "Testing to see which <b>system</b> locales (if any) are absent."
-#~ msgstr "測試看看有哪些,<b>語系</b>不存在"
-
-#, fuzzy
-#~ msgid "These locales are required to use multilanguage capabilities of Gallery when your PHP has gettext support. They are also needed to format dates and times according to the selected language."
-#~ msgstr "這些語系需要您的 PHP 有支援 gettext, Gallery 才有多國語言的功能. 在顯示日期和時間時也必需依照語系的格式. "
-
-#~ msgid "Checking to see if you have the latest versions of all Gallery files."
-#~ msgstr "檢查您所有 Gallery 檔案是否最新"
-
-#~ msgid "General settings"
-#~ msgstr "一般設定"
-
-#~ msgid "Gallery Title"
-#~ msgstr "Gallery 標題"
-
-#~ msgid "The name of your Gallery.  E.g. <i>My Cool Photos</i>"
-#~ msgstr "您的 Gallery 名稱, 比如 <i>我的酷炫相片</i>"
-
-#~ msgid "Use Icons ?"
-#~ msgstr "使用圖示？"
-
-#~ msgid "You can choose wether you want to use Gallery icons, text only, or both. When you choose icons only, then there will be an onMousoverText."
-#~ msgstr "您可以選擇使用 Gallery 圖示，或者只有文字也可以兩著皆有。當您只使用圖示時將會有 onMousoverText. "
-
-#~ msgid "Icons and text"
-#~ msgstr "圖示和文字"
-
-#~ msgid "Text only"
-#~ msgstr "只有文字"
-
-#~ msgid "Icons only"
-#~ msgstr "只有圖示"
-
-#~ msgid "Skin Name"
-#~ msgstr "面板樣式"
-
-#~ msgid "Select a skin to use for Gallery. You now have a wide choice of &quot;skins&quot; that affect the look of every page of your Gallery.  You can have fun experimenting with the available skins. Choose &quot;None&quot; to use the look from v1.4."
-#~ msgstr "請選擇 Gallery 面板, 您的&quot;面板&quot;有多種選擇, 這會影響 Gallery 的每一頁. 您可嘗試所有可能的面板. 選擇&quot;No Skin&quot;將會使用 v1.4 時的面板"
-
-#~ msgid "Here you can get a more Gallery Skins by Drazan"
-#~ msgstr "您可以在這裡取得由  Drazan 提供更多的 Gallery 面板"
-
-#~ msgid "Default upload method"
-#~ msgstr "預設上傳模式"
-
-#~ msgid "Which method of uploading photos should be defaulted to for users who don't specify?"
-#~ msgstr "該預設何種方式讓未指定的使用者上傳照片?"
-
-#~ msgid "Form-based Upload"
-#~ msgstr "Form-based Upload"
-
-#~ msgid "Mini-Applet"
-#~ msgstr "簡易功能(Applet)"
-
-#~ msgid "Full-Applet"
-#~ msgstr "完備功能(Applet)"
-
-#~ msgid "Locations and URLs"
-#~ msgstr "位置與 URL"
-
-#~ msgid "REQUIRED"
-#~ msgstr "必要選項"
-
-#~ msgid "The full path on physical disk to the directory where your photos will be stored.  This directory should start off empty&#8212;Gallery will fill it.  Note that this directory needs to have write access by the user who is running the web server (in your case this user is %s)."
-#~ msgstr "在磁碟中儲存相片目錄的完整路徑. 這個目錄一開始應該是空的, &#8212;Gallery 將會持續存入檔案。請注意網路伺服器執行程式的使用者需擁有寫入此目錄的權限 (您的使用者是 %s)"
-
-#~ msgid "Temporary directory"
-#~ msgstr "暫存目錄"
-
-#~ msgid "The filesystem path to a temporary directory.  E.g. %s or %s.  Note that if you have <b>open_basedir</b> configured on your system, then this temporary directory must be inside the <b>open_basedir</b> path!  In that case you may need to create the directory yourself and make sure that it's writable by the webserver process."
-#~ msgstr "用來儲存暫存檔案的目錄路徑, 比如 %s 或 %s. 注意如果您的系統有設定 open_basedir 列表, 那麼暫存目錄必須在 open_basedir 的路徑裡面! 您或許需要手動建立一個暫存目錄，並且設定為允許網路伺服器的程式能寫入. "
-
-#~ msgid "The full URL to the Gallery web application. (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."
-#~ msgstr "連接到 Gallery 網站的完整URL位置（例如：%s ），雖然相對的 URLs 位置 Gallery 仍能正常執行, 但是有些功能 像:列印的功能 將無法正確執行. "
-
-#~ msgid "Albums URL"
-#~ msgstr "相簿 URL"
-
-#~ msgid "The full URL to your album directory on your web server.  (e.g. %s) Gallery can operate with relative URLs, however some features, such as printing, may not function correctly."
-#~ msgstr "連接到您相簿目錄  網站的完整URL位置（例如：%s ），雖然相對的 URLs 位置 Gallery 仍能正常執行, 但是有些功能 像:列印的功能 將無法正確執行."
-
-#~ msgid "Thumbnail image"
-#~ msgstr "影片縮圖"
-
-#~ msgid "The filesystem path to the thumbnail image to show for movies. E.g. %s"
-#~ msgstr "影片的縮圖所在路徑, 如 %s"
-
-#~ msgid "Mirror sites"
-#~ msgstr "備份網站"
-
-#~ msgid "A list of URLs that contain mirrors of your albums directory.  Specify one URL per line with the ones that are more reliable towards the top.  E.g. %s"
-#~ msgstr "包含相簿目錄的備份網站列表, 在每一行中輸入一個 URL, 通常越上面的越穩定越好. 比如 %s"
-
-#~ msgid "Toolkits / image processing"
-#~ msgstr "工具 / 影像處理"
-
-#~ msgid "Graphics suite to use"
-#~ msgstr "使用哪一種圖形套件? "
-
-#~ msgid "This setting tells Gallery which set of graphics tools you prefer it to use.  If Gallery says both are okay (on the first page) then this is simply user preference.  Otherwise go with the one that Gallery was able to find without error."
-#~ msgstr "這個設定告訴 Gallery 您希望使用的圖形工具為何, 如果 Gallery 在第一頁回報兩個工具程式都可使用, 那麼隨便設定一個即可. 否則請選擇一個 Gallery 認為沒有問題的設定. "
-
-#~ msgid "Path to NetPBM"
-#~ msgstr "NetPBM 的路徑"
-
-#~ msgid "The path to the directory containing NetPBM on your system.  If you downloaded NetPBM from the Gallery download page, don't forget to make the files executable.  E.g. %s or %s or %s"
-#~ msgstr "系統中儲存 NetPBM 程式的目錄, 如果您從 Gallery 網站上下載 NetPBM, 別忘了設定執行權限喔. 比如 %s、%s 或者是 %s"
-
-#~ msgid "This path is only required if you choosed %s above. Otherwise you can leave it like it is, or empty."
-#~ msgstr "這個路徑只有當您選擇 %s 才有必要，否則保留原來的狀況或留白即可。"
-
-#~ msgid "I can't find NetPBM at the location you provided."
-#~ msgstr "在您提供的目錄中找不到 NetPBM. "
-
-#~ msgid "PNM to JPEG converter"
-#~ msgstr "PNM to JPEG 轉換程式"
-
-#~ msgid "This value is only relevant if you use NetPBM.  NetPBM uses a tool to encode its internal image format into JPEG.  This tool is called either <i>ppmtojpeg</i> or <i>pnmtojpeg</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."
-#~ msgstr "只有當您使用 NetPBM 時才需要設定此項, NetPBM 利用兩種工具程式將內部影像格式轉成 JPEG, 依據您安裝的 NetPBM 版本不同可能為 <i>ppmtojpeg</i> 或 <i>pnmtojpeg</i>. 請檢查您的 NetPBM 目錄並指定其中一種工具程式, 如果您不確定也沒關係, 我們會幫您進行檢查. "
-
-#~ msgid "PNM Composite (Overlay)"
-#~ msgstr "PNM 合成 (Overlay)"
-
-#~ msgid "This value is only relevant if you use NetPBM.  NetPBM uses a tool to overlay one image over another.  This tool is called either <i>pnmcomp</i> or <i>pamcomp</i> depending on the version of NetPBM that you have installed.  Check your NetPBM directory to see which one you have installed and specify it here.  If you aren't sure, just take a guess and we'll try to verify it for you."
-#~ msgstr "只有當您使用 NetPBM 時才需要設定此項, NetPBM 利用工具程式將影像覆蓋到另一個影像, 依據您安裝的 NetPBM 版本不同可能為 <i>pnmcomp</i> 或 <i>pamcomp</i>. 請檢查您的 NetPBM 目錄並指定其中一種工具程式, 如果您不確定也沒關係, 我們會幫您進行檢查. "
-
-#~ msgid "Path to ImageMagick"
-#~ msgstr "ImageMagick 的路徑"
-
-#~ msgid "The path to the directory containing ImageMagick on your system."
-#~ msgstr "系統中 ImageMagick 程式的目錄路徑"
-
-#~ msgid "I can't find ImageMagick at the location you provided."
-#~ msgstr "在您指定的路徑位置找不到 ImageMagick 程式. "
-
-#~ msgid "Auto-rotate images"
-#~ msgstr "自動旋轉影像"
-
-#~ msgid "Selecting this option has Gallery automatically attempt to rotate images on upload, based on the orientation information that is stored in JPEG EXIF data by some newer digital cameras."
-#~ msgstr "開啟這個選項後 Gallery 在上傳相片時會透過相片檔的 JPEG EXIF 資料自動決定是否要旋轉影像. "
-
-#~ msgid "Requires Jhead EXIF parser v.1.9 or greater (See optional tools)."
-#~ msgstr "需要 Jhead EXIF 解析器 v.1.9 或更新 (請看選擇性工具)"
-
-#~ msgid "JPEG Quality"
-#~ msgstr "JPEG 畫質"
-
-#~ msgid "The JPEG file format trades off size versus quality.  Gallery can control the quality of the JPEGs that it produces when you resize, rotate or make thumbnails from JPEG images.  Higher quality images are larger in size than lower quality images.  However, in many cases there's a point at which raising the quality increases the size of the files without noticeably affecting the appearance of the image.  Setting this value to &quot;100&quot; is not recommended. If you notice that your thumbnails and resized images are larger than the originals and you don't like this, you can try lowering this value.  <b>Note</b> that changing this value will only affect images changed in the <i>future</i>."
-#~ msgstr "JPEG 格式的檔案大小與畫質交換控制。當您對檔案進行調整尺寸、旋轉、跟製作縮圖時，Gallery 可以控制 JPEG 畫質，高畫質將會比中低畫質佔用較大的檔案大小(file size)，然而許多狀況下一昧提升畫質只是佔用更多的檔案大小，而無法真正改善顯示出來的畫質效果，如果您注意到您的圖檔經過縮圖或調整尺寸後檔案大小卻比原始檔案來得大，而您不喜歡這種情況，您可以試著修改這個值。<b>注意</b> 修改這個值只會對 <i>新檔</i> 產生影響。"
-
-#~ msgid "Embedded Gallery"
-#~ msgstr "嵌入型 Gallery"
-
-#~ msgid "Gallery automatically detects when it is embedded within one of the supported CMS environments, however there may be some environments which have special options which need to be set.  Any options which are not automatically detected will need to be specified on this screen."
-#~ msgstr "Gallery 將會自動偵測是否嵌入於支援的 中央管理系統(CMS) 環境之中, 然而或許在某些環境中必需設定特定指令, 在這裡任何額外的設定都將不會被自動偵測，必需由您在此自行指定。"
-
-#~ msgid "If your ISP or CMS requires register_globals to be enabled, you may be required to enable the 'Disable register_globals check' option under the Technical tab."
-#~ msgstr "如果您的 ISP 或 CMS 需要開啟 register_globals , 您必須在 技術性選項 裡開啟 '取消檢查 register_globals' "
-
-#~ msgid "GeekLog Dir"
-#~ msgstr "GeekLog 目錄"
-
-#~ msgid "If you use Geeklog, please enter the location of the GeekLog public_html directory. i.e. '/path/to/geeklog/public_html'"
-#~ msgstr "如果您使用 Geeklog ,請您輸入 GeekLog public_html 目錄的位置. 例如 '/path/to/geeklog/public_html'"
-
-#~ msgid "Main Gallery page"
-#~ msgstr "Gallery 主頁"
-
-#~ msgid "Show the album tree ?"
-#~ msgstr "顯示相簿樹狀結構？"
-
-#~ msgid "If you turn this option on, you'll see a list of sub-albums when you're browsing the top level of your Gallery.  This will make navigating to a specific sub album much easier. You can choose whether or not you want to limit the depth of the tree to avoid severely cluttering the appearance of the top Gallery page."
-#~ msgstr "如果您開啟了這個選項, 您將在 Gallery 頂層看到所有子相簿及其目錄. 如此要瀏覽子目錄會比較方便 (雖然這樣會讓 Gallery 的網頁看起來很亂), 您也可以限制顯示的層數來避免凌亂. "
-
-#~ msgid "No tree"
-#~ msgstr "不使用樹狀"
-
-#~ msgid "%d sublevel"
-#~ msgstr "%d 層"
-
-#~ msgid "%d sublevels"
-#~ msgstr "%d 層"
-
-#~ msgid "Complete Tree"
-#~ msgstr "完整樹狀"
-
-#~ msgid "Highlight size"
-#~ msgstr "封面相片大小"
-
-#~ msgid "The target size (in pixels) of thumbnails shown in the Gallery page (highlight images)."
-#~ msgstr "在 Gallery 網頁中封面影像的縮圖尺寸(thumbnail size) (單位：像素)"
-
-#, fuzzy
-#~ msgid "Highlight Ratio"
-#~ msgstr "封面相片大小"
-
-#, fuzzy
-#~ msgid "Square highlight"
-#~ msgstr "相簿封面"
-
-#~ msgid "Show Owner"
-#~ msgstr "顯示擁有者"
-
-#~ msgid "Show album owner's name next to each album?"
-#~ msgstr "要在 Gallery 的首頁顯示每個相簿的擁有者嗎? "
-
-#~ msgid "Albums per page"
-#~ msgstr "相簿數量"
-
-#~ msgid "How many albums should be displayed per Gallery page?"
-#~ msgstr "每一頁要顯示多少相簿? "
-
-#~ msgid "Search Engine"
-#~ msgstr "搜尋引擎"
-
-#~ msgid "Display search engine on main Gallery page?"
-#~ msgstr "在 Gallery 的首頁顯示搜尋引擎嗎? "
-
-#~ msgid "Accurate Photo Count"
-#~ msgstr "精準的相片計數器"
-
-#~ msgid "Display the album and photo count on the Gallery root page using an accurate, but incredibly slow, counting method.  This was added at the request of many users, however it is not recommended for Galleries where you will have large numbers of albums and photos.  Some examples have been shown to cause the index page to load in as long as 30 seconds with this option enabled."
-#~ msgstr "在 Gallery 頂層中顯示精準的相簿及相片計數器，但是使用的方法將會特別的慢。許多使用者要求新增這項功能但是當您的 Gallery 擁有大量的相簿和相片時不建議使用。經過實驗在這個選項開啟時有可能導致首頁開啟時間需要將近 30 秒. "
-
-#~ msgid "Frame around albums"
-#~ msgstr "相簿框"
-
-#~ msgid "On the main page, the image representing each album has a frame around it.  The following styles are available:"
-#~ msgstr "在主頁,每個相簿的影像都有一個相框圍繞.你可選擇下列風格: "
-
-#~ msgid "The filesystem path to the <b>%s</b> binary.  E.g. %s or %s. This is optional so if you don't have it, don't worry about it too much."
-#~ msgstr "<b>%s</b> 執行檔 比如 %s 或 %s 所在的路徑, 這是非必要選項, 所以即使您沒有也沒關係. "
-
-#~ msgid "The filesystem path to the <b>%s</b> EXIF parser.  E.g. %s or %s. This is optional so if you don't have it, don't worry about it too much."
-#~ msgstr "<b>%s</b> EXIF解析器 比如 %s 或 %s 所在的路徑, 這是非必要選項, 所以即使您沒有也沒關係."
-
-#~ msgid "The filesystem path to the <b>jpegtran</b> utility.  E.g. %s or %s.  This is optional so if you don't have it, don't worry about it too much."
-#~ msgstr "<b>jpegtran</b> 執行檔所在的路徑, 這是非必要選項, 所以即使您沒有也沒關係. 比如 %s 或 %s"
-
-#~ msgid "Languages and locales"
-#~ msgstr "語言與地區"
-
-#~ msgid "Default language"
-#~ msgstr "預設的語言選項"
-
-#~ msgid "This is the language you will see as %s, and what users will see if no other preference is set."
-#~ msgstr "這是當你使用 %s 時會用到的語言, 或者是當使用者沒有自訂語言時直接使用它. "
-
-#~ msgid "Multi language mode"
-#~ msgstr "多國語系模式"
-
-#~ msgid "Gallery has three multi language modes.  These affect the language that a user will see when visiting the site."
-#~ msgstr "Gallery 有三種語系模式, 這會影響使用者觀看網站時所顯示的語言. "
-
-#~ msgid "Gallery is only displayed in one language"
-#~ msgstr "Gallery 只顯示某一種語言"
-
-#~ msgid "Gallery is displayed in the language the browser sends"
-#~ msgstr "Gallery 顯示瀏覽器送出的語言"
-
-#~ msgid "The User can choose the language via pulldown menu or national flags."
-#~ msgstr "使用者可以由下拉式選單以及國旗選擇自己想用的語言. "
-
-#~ msgid "Available languages"
-#~ msgstr "可使用的語言種類有"
-
-#~ msgid "These languages will be available as user choices in a pulldown menu or national flags, if you have choosen language Mode 3, and will be available to registered users as their default language in Mode 2 or 3."
-#~ msgstr "若選擇模式三，這些語言會以下拉式選單或國旗圖樣呈現讓一般使用者自訂，而模式二或三中已註冊使用者亦可以由此選擇預設的語言。"
-
-#~ msgid "Show flags?"
-#~ msgstr "顯示國旗?"
-
-#~ msgid "In Mode 3 you can choose to display national flags instead of a small pulldown menu for the available languages."
-#~ msgstr "您可以選擇在第三種模式中顯示國旗圖樣代替下拉式選單來設定可使用的語言. "
-
-#~ msgid "Format for date strings."
-#~ msgstr "顯示日期字串的格式"
-
-#~ msgid "This format string will be used to display %s in %s.  It is recommended to use %s which will change format depending on language choice.  However, if you wish to change this string, please look at the %sPHP documentation%s."
-#~ msgstr "這個字串格式將在 %2$s 中用來 %1$s . 建議使用 %3$s, 這樣子格式將會自動隨著所選語言而改變.  如果您想要更改這些字串, 請看 %4$sPHP docs%5$s."
-
-#~ msgid "date without time"
-#~ msgstr "只顯示日期"
-
-#~ msgid "http://www.php.net/manual/en/function.strftime.php"
-#~ msgstr "http://www.php.net/manual/en/function.strftime.php"
-
-#~ msgid "For example, %s will display date like this: %s."
-#~ msgstr "舉例來說, %s 會這樣顯示日期: %s."
-
-#~ msgid "Format for date/time strings."
-#~ msgstr "顯示日期/時間字串的格式. "
-
-#~ msgid "date with time"
-#~ msgstr "顯示日期與時間"
-
-#~ msgid "For example, %s will display date and time like this: %s."
-#~ msgstr "舉例來說, %s 會這樣顯示日期與時間: %s."
-
-#~ msgid "Email and Registration"
-#~ msgstr "電子信箱與註冊手續"
-
-#~ msgid "If you are having problems with email, please run the %s diagnostic."
-#~ msgstr "假使您碰到電子信箱有關的問題，請執行 %s 測試. "
-
-#~ msgid "Check Email"
-#~ msgstr "檢查電子信箱"
-
-#~ msgid "Enable email"
-#~ msgstr "啟動電子信件功能"
-
-#~ msgid "Turns email on for the whole gallery.  If you set this to %s then none of the rest of this section will apply."
-#~ msgstr "啟動整個 Gallery 系統的電子信件功能，假使您設定為 %s 那麼此處與相關功能將不會生效. "
-
-#~ msgid "If you enable these settings you give your users the opportunity to let Gallery send them their lost password via email."
-#~ msgstr "如果您啟動這個設定, 您的使用者遺失密碼時您可以讓 Gallery 透過 email 將密碼寄給他們"
-
-#~ msgid "You need to enable this setting if you want to enable Self Registration."
-#~ msgstr "如果您要使用自行註冊您必須開啟這個設定"
-
-#~ msgid "Admin email address"
-#~ msgstr "管理員的電子信箱"
-
-#~ msgid "Set this value to a valid working email address to receive email notices upon certain user actions and also so that users know whom to reach in case of problems. You may specify more than one address by separating them with commas."
-#~ msgstr "設定一個有效的電子信箱地址，當發生某些使用狀況時管理員會收到通知信件，使用者也可以知道發生問題後該通知誰。您可以用逗號分隔以定義數個使用者. "
-
-#~ msgid "Set this value to a valid working email address.  Emails that are automatically sent by Gallery will use this as a return address.  You should monitor this email address for bounce messages and replies from recipients."
-#~ msgstr "設定一個有效的電子信箱地址，Gallery 將使用這個設定值做為回信地址，您可以監控信件的不正常退信或收信人的回覆. "
-
-#~ msgid "Email subject prefix"
-#~ msgstr "Email標題"
-
-#~ msgid "All Gallery emails will have this as the first part of their subject."
-#~ msgstr "所有 Gallery emails 都必須有這個部分作為標題"
-
-#~ msgid "Welcome email message text"
-#~ msgstr "歡迎信件的文字範本"
-
-#~ msgid "Allow visitors to self register."
-#~ msgstr "允許使用者申請自動註冊. "
-
-#~ msgid "Enabling this will allow visitors to your site to create their own login accounts."
-#~ msgstr "啟動本選項將允許訪客建立屬於自己的登入帳號. "
-
-#~ msgid "This option requires the Email feature to be enabled."
-#~ msgstr "這個選項必須先啟動Email"
-
-#~ msgid "Self registered users can create albums."
-#~ msgstr "自動註冊的使用者可以建立相簿. "
-
-#~ msgid "Enabling this will allow self registered users to create their own albums as soon as they register.  Not having this enabled means you will have to give them permission manually before they can create or alter any contents of the Gallery.  This setting is ignored if self-registration is disabled."
-#~ msgstr "啟動本選項將允許自動註冊的使用者在完成註冊手續後，建立屬於自己的相簿。若不啟動則代表管理者需要在建立使用者帳號後，手動設定相關權限讓他們使用 Gallery. 當自動註冊的選項關閉時，本功能會自動失效。"
-
-#~ msgid "Enable bulk account creation"
-#~ msgstr "批次建立帳號"
-
-#~ msgid "This option allows you to create many new user accounts at one time by creating a file of new users."
-#~ msgstr "本選項允許管理者先建立一個新使用者的列表檔案，用這個檔一次建立許多使用者帳號。"
-
-#, fuzzy
-#~ msgid "This allows the &quot;admin&quot; account to get email whenever a comment is added to any album"
-#~ msgstr "當任何評論增加到任何相簿時,&quot;admin&quot 帳號可以隨時收到email"
-
-#~ msgid "Admin comment email"
-#~ msgstr "管理者的評論email"
-
-#, fuzzy
-#~ msgid "This allows the &quot;admin&quot; account to get email whenever a change is made to any album"
-#~ msgstr "當相簿有任何更改時,&quot;admin&quot 帳號可以隨時收到email"
-
-#~ msgid "Admin Other Changes email"
-#~ msgstr "管理者的其他改變email"
-
-#~ msgid "Admin notification of email activity"
-#~ msgstr "有關 email 發送的管理者通知信"
-
-#~ msgid "You can keep a record of every email that is sent by Gallery."
-#~ msgstr "由 Gallery 發出信件您可以同時保留一份備份"
-
-#~ msgid "Send summary email"
-#~ msgstr "寄出統計信件"
-
-#~ msgid "Log to a file"
-#~ msgstr "記錄到一個檔案"
-
-#~ msgid "Send duplicate email"
-#~ msgstr "寄出重複信件"
-
-#~ msgid "Use non-local SMTP server."
-#~ msgstr "使用其他的 SMTP 伺服器"
-
-#~ msgid "Use a smtp server running on a different machine (ie: Your ISPs mail server) to process outgoing gallery email."
-#~ msgstr "使用其他正在運行的機器(例如：您 ISPs 提供的郵件伺服器)來進行 Gallery 外送的郵件"
-
-#~ msgid "SMTP Server"
-#~ msgstr "SMTP伺服器"
-
-#~ msgid "The name or IP address of the SMTP Server you want to use."
-#~ msgstr "您想使用的 SMTP 伺服器 名稱或是 IP 位置. "
-
-#~ msgid "Sender hostname"
-#~ msgstr "寄送主機名稱"
-
-#~ msgid "The full hostname of the server you are sending the mail from (The Server where your Gallery is installed on). If your Server is behind a NAT, this would be the DNS name of your router."
-#~ msgstr "完整的寄送主機名稱是您寄送信件的伺服器(通常是您安裝 Gallery 的機器).如果您的主機是位於NAT之後，這個將會是您路由器主機的 DNS 名稱. "
-
-#~ msgid "SMTP Port"
-#~ msgstr "SMTP Port"
-
-#~ msgid "The port on the SMTP server you are connecting to."
-#~ msgstr "您 SMTP 主機所使用的 port . "
-
-#~ msgid "SMTP account name"
-#~ msgstr "SMTP 帳號名稱"
-
-#~ msgid "If your provide requires a username for outgoing email, use it here, otherwise leave blank."
-#~ msgstr "如果您寄送郵件需要輸入許用者，在這裡輸入，不然就無須輸入. "
-
-#~ msgid "SMTP password"
-#~ msgstr "SMTP 密碼"
-
-#~ msgid "Password for sending email through smtp server. NOTE: This password is stored in cleartext in config.php. Make sure that permissions are set to keep others from getting at it!"
-#~ msgstr "透過smtp伺服器寄送email所需的密碼. 注意：這個密碼將會用一般文字記錄在 config.php ，請先確定權限以免被盜用。"
-
-#~ msgid "Gallery wide slideshow"
-#~ msgstr "整頁的 Gallery 幻燈片輪播"
-
-#~ msgid "Adds a slide show link on the main page of the gallery.   Note for large galleries this may run very slowly and use a lot of system resources."
-#~ msgstr "在 Gallery 的首頁顯示幻燈片輪播的連結. 注意較大規模的 Gallery 將會執行的很慢而且消耗不少系統資源. "
-
-#~ msgid "These settings do not apply to the low tech slideshow."
-#~ msgstr "這個設定不適用在 low tech 幻燈片輪播"
-
-#~ msgid "Slideshow preferences"
-#~ msgstr "幻燈片輪播設定"
-
-#~ msgid "Off"
-#~ msgstr "關閉"
-
-#~ msgid "No slideshow link will appear."
-#~ msgstr "不顯示幻燈片輪播連結. "
-
-#~ msgid "Ordered"
-#~ msgstr "依序"
-
-#~ msgid "Images will display in the same order as they appear in the Gallery."
-#~ msgstr "影像將會以 Gallery 中放置的順序顯示. "
-
-#~ msgid "Random"
-#~ msgstr "隨機"
-
-#~ msgid "Images will appear in a random order."
-#~ msgstr "影像將會隨機顯示. "
-
-#~ msgid "Slideshow length"
-#~ msgstr "幻燈片輪播長度"
-
-#~ msgid "Number of images to display in slideshow.  Set to 0 or blank to display all images.  Set to a number if slideshow is random and you want to display only a selection of the images."
-#~ msgstr "要在幻燈片輪播中顯示的影像數量. 設定為 0 或者是空白以顯示所有的影像. "
-
-#~ msgid "Allow slideshow to loop"
-#~ msgstr "讓幻燈片輪播重複"
-
-#~ msgid "This option will allow visitors to have your slideshows repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
-#~ msgstr "這個選項可以讓所有訪客重複觀賞幻燈片輪播直到他們將視窗關閉或移至其他網頁, 如果您要節省頻寬請設 %s "
-
-#~ msgid "Slideshow Mode"
-#~ msgstr "幻燈片輪播形式"
-
-#~ msgid "This allows you to set the default mode for the slideshow.  &quot;Java Applet&quot; requires that the user has the Java Runtime Environment installed in their browser, but allows for fullscreen viewing. &quot;JavaScript&quot; is supported by all modern browsers without extra plugins, but is more limited than the Java Applet."
-#~ msgstr "這讓您設定幻燈片輪播的形式.使用者必須先安裝Java Runtime Environment在瀏覽器才能使用&quot;Java Applet&quot;,但可全螢幕觀看; &quot;JavaScript&quot;可被所有瀏覽器支持不需外掛程式,但比 Java Applet 受限"
-
-#~ msgid "Java Applet"
-#~ msgstr "Java Applet"
-
-#~ msgid "JavaScript"
-#~ msgstr "JavaScript"
-
-#~ msgid "Comments"
-#~ msgstr "評論"
-
-#~ msgid "Enable commenting"
-#~ msgstr "啟動評論功能"
-
-#~ msgid "This option will enable or disable the possibility for your users to make comment.  If you set this to &quot;no&quot; all comment functionality is disabled."
-#~ msgstr "這個選項讓您啟動或關閉使用者留言.如果您設&quot;否&quot;.所有評論將被關閉"
-
-#~ msgid "Indicate if there are comments available"
-#~ msgstr "如果有評論將標示出來"
-
-#~ msgid "No indication that an item has comments."
-#~ msgstr "即使檔案有評論也不會標示. "
-
-#~ msgid "Photos"
-#~ msgstr "照片"
-
-#~ msgid "Images that have comments will be marked."
-#~ msgstr "照片如果有評論時會有記號標示. "
-
-#~ msgid "Albums and sub-albums that have comments will be marked."
-#~ msgstr "相簿與子相簿如果有評論時會有記號標示. "
-
-#~ msgid "Both"
-#~ msgstr "兩者"
-
-#~ msgid "Images and albums that have comments will be marked."
-#~ msgstr "照片或相簿如果有評論時會有記號標示. "
-
-#~ msgid "Display date of last comment?"
-#~ msgstr "顯示上次評論的日期? "
-
-#~ msgid "If an item has comments, display date of last comment, rather than a %s."
-#~ msgstr "如果有評論, 會顯示評論日期而非 %s. "
-
-#~ msgid "Anonymous comments from known users?"
-#~ msgstr "從已知使用者的匿名評論?"
-
-#~ msgid "When logged in, comments will automatically use format described below, unless this is set to %s."
-#~ msgstr "登入時,評論會自動使用下列模式,除非設定 至%s"
-
-#~ msgid "Format for commenter names"
-#~ msgstr "顯示評論者姓名的格式"
-
-#~ msgid "Commenter names of logged in users can be displayed in a variety of different ways"
-#~ msgstr "已登入的評論者姓名可以用不同的方式呈現"
-
-#, fuzzy
-#~ msgid "Add comments inside the photo page"
-#~ msgstr "加入評論至相片內頁"
-
-#~ msgid "Do you want to have the possibility to add comments inside the view photo page, or do you prefer a link to a popup"
-#~ msgstr "您希望評論直接加入至相片頁中或是您希望另外連接至新的視窗"
-
-#~ msgid "Popup"
-#~ msgstr "新視窗"
-
-#~ msgid "Inside"
-#~ msgstr "相片頁"
-
-#, fuzzy
-#~ msgid "Maximum length of comments"
-#~ msgstr "評論的長度限制"
-
-#~ msgid "Enter a suitable value for the maximum length of comments to prevent abuse. Gallery limits comments to no more than 1000 characters.  This value will be used if less than 1000."
-#~ msgstr "請輸入評論的長度限制以防被濫用.Gallery限制評論在1000字以下."
-
-#, fuzzy
-#~ msgid "Can every permitted user see a comments overview"
-#~ msgstr "所有人都能看到評論總覽嗎?"
-
-#, fuzzy
-#~ msgid "Do you want to allow every user who is allowed to view comments (set in permission) to see a complete overview of all comments of an Album? Set this to &quot;no&quot; if only admin and owners can use this feature."
-#~ msgstr "您希望所有的人都能看到相片的評論總覽嗎?如果希望只有管理者和擁有者可以使用這項功能,請設定&quot;否&quot;"
-
-#~ msgid "Watermarking"
-#~ msgstr "浮水印"
-
-#~ msgid "Choose wether you want to enable or disable watermarking. And set the defaults"
-#~ msgstr "選擇您是否想開啟浮水印的功能,並設定預設的類型. "
-
-#~ msgid "Watermarking is not possible in this installation !"
-#~ msgstr "這次安裝過程將不使用 浮水印 "
-
-#~ msgid "Watermark directory"
-#~ msgstr "浮水印暫存目錄"
-
-#~ msgid "The full path on physical disk to the directory where your watermark images will be stored.  This directory may contain .png, .tif, and .gif images used to overlay visible watermarks on photos. These formats are supported because they may contain transparency or alpha channels.  <b>Leaving this blank will disable watermarking support.</b> Note that this directory needs to have read access by the user who is running the web server (in your case this user is %s)."
-#~ msgstr "在磁碟中儲存浮水印圖片的完整路徑. 這個目錄裡需為 .png, .tif, 和 .gif 的影像格式能夠加上浮水印在照片上. 這些格式能支援是因為擁有 transparency or alpha channels. <b>空白不填浮水印功能將會取消.</b> 請注意網路伺服器執行程式的使用者需擁有寫入此目錄的權限 (您的使用者是 %s). "
-
-#~ msgid "Which Imagetype is watermarked"
-#~ msgstr "哪一類型的影像需要浮水印？"
-
-#~ msgid "Here you can choose which of the images should be watermarked per default."
-#~ msgstr "在這裡您可以選哪種影像需要浮水印"
-
-#~ msgid "Watermark both resized and full images"
-#~ msgstr "兩者皆上浮水印"
-
-#~ msgid "Watermark resized image only"
-#~ msgstr "只有一般圖片有浮水印"
-
-#~ msgid "Watermark full sized image only"
-#~ msgstr "只有完整圖片有浮水印"
-
-#~ msgid "Statistics"
-#~ msgstr "統計"
-
-#~ msgid "Caching improves performance for a large gallery at the cost of potentially displaying photos that are out of order or with out of date rating information."
-#~ msgstr "快取將會改善在大型 Gallery 的效能，但有可能會在顯示相片的日期和得分上出問題. "
-
-#~ msgid "There's a different cache for each stats type supported with the exception of random."
-#~ msgstr "下列的快取支援各種統計除了隨機. "
-
-#~ msgid "The caches can be refreshed by reloading the stats page and specifying the url variable 'refreshcache'."
-#~ msgstr "重新整理統計頁面快取將能夠更新並在URL變數中列出可更新"
-
-#~ msgid "Caches will also refresh themselves after they have expired."
-#~ msgstr "到期的快取也會自行更新"
-
-#~ msgid "The expire time in seconds is specified for each cache below."
-#~ msgstr "有效期限在下方設定,單位為 秒 ."
-
-#~ msgid "If the expire time is set to -1 then the cache will not auto refresh."
-#~ msgstr "如果有效期限設定為 -1 快取將不會自動更新"
-
-#~ msgid "Available Stats for 'normal' users"
-#~ msgstr "一般使用者能用的統計"
-
-#~ msgid "Gallery can give a lot of statistics for admins, however you can enable some of them to normal users."
-#~ msgstr "Gallery能夠供給管理著許多統計功能，不過您也可以開放一些給一般使用者. "
-
-#~ msgid "For every selected item Gallery will create a link on the mainpage. The stats are based on the defaults defined in %s."
-#~ msgstr "在主頁中 Gallery 會建立所選擇物件的連結. 這些統計定義在 %s."
-
-#~ msgid "View cache"
-#~ msgstr "點閱快取"
-
-#~ msgid "View cache expiration"
-#~ msgstr "瀏覽快取有效期"
-
-#~ msgid "Comment cache"
-#~ msgstr "評論快取"
-
-#~ msgid "Comment cache expiration"
-#~ msgstr "評論快取有效期"
-
-#~ msgid "Date cache"
-#~ msgstr "日期快取"
-
-#~ msgid "Date cache expiration"
-#~ msgstr "日期快取有效期"
-
-#~ msgid "Vote cache"
-#~ msgstr "評比快取"
-
-#~ msgid "Vote cache expiration"
-#~ msgstr "評比快取有效期"
-
-#~ msgid "Rating cache"
-#~ msgstr "得分快取"
-
-#~ msgid "Rating cache expiration"
-#~ msgstr "得分快取有效期"
-
-#~ msgid "Capturedate cache"
-#~ msgstr "說明快取"
-
-#~ msgid "Capturedate cache expiration"
-#~ msgstr "說明快取有效期"
-
-#~ msgid "Technical"
-#~ msgstr "技術性選項"
-
-#~ msgid "The settings in this section are intended for advanced users only."
-#~ msgstr "這一區的設定僅適合進階的使用者"
-
-#~ msgid "Be aware that settings changed on this tab may have severe performance or security consequences and do so at your own risk."
-#~ msgstr "要小心在本頁的設定有可能會導致某些效能或安全性的後果，更改後自行負擔其風險."
-
-#, fuzzy
-#~ msgid "Turn debug on so that you can diagnose problems?"
-#~ msgstr "是否打開除錯模式以便發生問題時檢查除錯訊息? "
-
-#~ msgid "Note: Dont leave this option on in production systems! Else you might show users more information about your Gallery and system than you want!"
-#~ msgstr "警告:不要使用這個選項.除非您想讓使用者看到更多關於您Gallery和系統的資訊"
-
-#, fuzzy
-#~ msgid "Paranoid"
-#~ msgstr "拍立得"
-
-#~ msgid "Disable register_globals check"
-#~ msgstr "取消檢查 register_globals "
-
-#~ msgid "<b>Be aware that changing this setting potentially decreases the security of your Gallery, and we may or may not support you if you encounter issues that don't occur when this is turned off.</b><br><br>Enabling this causes %s to ignore register_globals being turned on.  %s normally tries to unset all variables created by register_globals to help enforce security.  If a script that you run requires register_globals to be on, and will not cooperate with %s, set this to &quot;yes&quot;."
-#~ msgstr "<b>注意：這個設定將有可能會降低您 Gallery 的安全性，當您關閉這個選項時我們將有可能不會提供您因此而發生的問題</b><br><br>開啟這個選項 %s 將會忽略 register_globals 的開啟. %s 會試著清除用 register_globals 的變數來增加安全性. 如果您有需求 register_globals 要設定成開啟但這將和 %s 不合，所以設定這個選項為 &quot;是&quot;. "
-
-#~ msgid "Time Limit"
-#~ msgstr "時間上限"
-
-#~ msgid "The maximum amount of time in seconds any single operation should take.  If you find that you are getting the <b>Maximum execution time exceeded</b> error message, you can try making this a larger number.  Be warned that if you make this too large you <i>might</i> have a process that is stuck for a very long time without doing anything.  The default value is 30 which is pretty reasonable."
-#~ msgstr "每一個動作所能使用的最多時間 (秒). 如果您有 <b>Maximum execution time exceeded</b> 的問題, 請將數字設大一點. 請注意如果您設太大<i>有可能</i>會導致 process 卡太久, 預設 30 秒是理想值. "
-
-#, fuzzy
-#~ msgid "ImageMagick high quality"
-#~ msgstr "需要 %2$d 個 ImageMagick 可執行檔 找到 %1$d 個"
-
-#~ msgid "Random Block Cache Time"
-#~ msgstr "Random Block Cache Time"
-
-#~ msgid "This is the amount of time that the Random Block will cache data about your photos and albums, speeding up requests for random photos.  The more often that your albums are modified, the lower you should set this value to ensure that new photos are chosen quickly, and to prevent attempts to retrieve photos which may have been deleted. The cache is automatically regenerated when a user views the random block after the time limit has expired."
-#~ msgstr "這是 Random Block 會暫存您的相片和相簿的時間, 隨機瀏覽相片時可以加快速度. 您的相簿越常更新設的值應該越低, 讓新的相片能更快被選到也避免選到已被刪除的相片. 這個快取將會在 random block 有效期限過了之後自動產生. "
-
-#~ msgid "24 Hours"
-#~ msgstr "24小時"
-
-#~ msgid "12 Hours"
-#~ msgstr "12小時"
-
-#~ msgid "6 Hours"
-#~ msgstr "6小時"
-
-#~ msgid "1 Hour"
-#~ msgstr "1小時"
-
-#~ msgid "30 Minutes"
-#~ msgstr "30分鐘"
-
-#~ msgid "Random Block Retrieval Attempts"
-#~ msgstr "Random Block Retrieval Attempts"
-
-#~ msgid "This variable controls the number of times that the random block will attempt to retrieve an image from Gallery.  The larger the value, the less likely a 'No Photo Chosen' will be returned, but it increases the time it takes for the Random Block to load."
-#~ msgstr "這個數值控制 random block 對 Gallery 中影像重試的次數. 數值越大越不容易出現 'No Photo Chosen' ,但是會增加 random block 的讀取時間. "
-
-#~ msgid "Cache EXIF data"
-#~ msgstr "記憶 EXIF 資料"
-
-#~ msgid "The EXIF data extracted from JPEG files can be cached after it is read the first time.  The tradeoff is that if you cache this data it's possible for your album data files to get quite large which may slow down viewing your albums.  But, if you don't cache this data then it needs to be retrieved every time any user looks at the properties of a photo which can also be slow."
-#~ msgstr "當第一次由 JPEG 檔案讀取 EXIF 資訊時將資料丟入 cache 中. 邊際效應是若您啟動此選項，相簿的資料檔變大有可能進而拖慢瀏覽速度，但若不記憶 EXIF 資訊，則每次瀏覽時就需要點選相片屬性才能接收這個資訊，這樣做其實也會拖慢瀏覽速度。"
-
-#~ msgid "Developer Mode"
-#~ msgstr "開發者模式"
-
-#~ msgid "Turn on developer mode to see all PHP warnings and notices.  Enabling this is not recommended for users that aren't familiar with PHP."
-#~ msgstr "開啟開發者模式看所有PHP的警告. 對PHP不熟悉的使用者不建議開啟此功能. "
-
-#~ msgid "Use Syslog"
-#~ msgstr "使用 Syslog "
-
-#~ msgid "Report user login, logout, and serious errors via syslog (UNIX) or System Event Manager (Windows)"
-#~ msgstr "透過syslog(UNIX)或System Event MAnager(Windows)報告使用者登入登出和錯誤"
-
-#~ msgid "Use %s"
-#~ msgstr "使用 %s "
-
-#~ msgid "Gallery uses a locking system called flock() for added protection against data corruption.  This is not supported on all platforms.  If you're seeing errors like <i>Could not acquire lock</i> then set this value to <i>no</i>."
-#~ msgstr "Gallery 使用 flock() 作為 locking system 以保護資料的正確性. 通常不是所有的平台都有支援, 如果您發現有錯誤情形比如 <i>無法要求鎖定</i> 那麼您應該將設定改為 <i>否</i>"
-
-#~ msgid "Status code"
-#~ msgstr "狀態碼"
-
-#~ msgid "The status code Gallery expects to see after a successful <i>exec()</i> call.  Gallery will try to figure this out on its own so you probably won't need to change this value unless you have problems."
-#~ msgstr "當 exec() 呼叫成功傳回時 Gallery 的預期狀態碼. Gallery 會自行設定所以除非您碰到問題, 否則通常不需更改. "
-
-#~ msgid "Session variable"
-#~ msgstr "Session 變數"
-
-#~ msgid "This is the session variable used to contain all Gallery session information.  Change this if there is a conflict between Gallery and another PHP app on your website."
-#~ msgstr "用來包含 Gallery session 資訊的 session 變數名稱, 如果有跟其他 PHP 應用程式起衝突再做更改. "
-
-#~ msgid "RSS Publisher"
-#~ msgstr "RSS出版者"
-
-#~ msgid "Options for the Gallery RSS Publisher"
-#~ msgstr "Gallery RSS出版者選項"
-
-#~ msgid "Enable RSS Generator"
-#~ msgstr "啟動RSS Generator"
-
-#~ msgid "Enable or Disable the Gallery RSS Generator"
-#~ msgstr "開啟或關閉Gallery RSS Generator"
-
-#~ msgid "RSS Content"
-#~ msgstr "RSS Content"
-
-#~ msgid "Specifies which information is to be included in your RSS feed."
-#~ msgstr "指定您的RSS要包含哪些資料"
-
-#~ msgid "Basic information only"
-#~ msgstr "只有基本資料"
-
-#~ msgid "Album highlight"
-#~ msgstr "相簿封面"
-
-#~ msgid "All image thumbnails"
-#~ msgstr "縮小所有影像"
-
-#~ msgid "All image thumbnails and captions"
-#~ msgstr "縮小所有影像和說明"
-
-#~ msgid "RSS Highlight"
-#~ msgstr "RSS 封面"
-
-#~ msgid "Specify which album will be displayed as the icon for all feed entries: An empty field means that there will be no default highlight.  '*' uses the most recently update album's highlight.  Specifying an album name will use that album's highlight image."
-#~ msgstr "指定呈現的相簿作為入口影像.若無指定則無封面相簿,'*'使用最新相簿封面. 指定一相簿名稱則會使用該相簿的封面"
-
-#~ msgid "Maximum Albums Returned"
-#~ msgstr "相簿數上限"
-
-#~ msgid "This value is the maximum number of albums that the RSS feed will display to the user. Only the most recently modified albums are chosen for this value."
-#~ msgstr "這是在RSS會展示給使用者的最大相簿數.只有最近更新的相簿會呈現"
-
-#~ msgid "Visible Albums Only"
-#~ msgstr "只有可觀賞相簿"
-
-#~ msgid "Specifies whether hidden albums should be included in the RSS feed.  This is not advised unless you are the only Gallery user.  Other users could become very upset if their hidden images become displayed to the public."
-#~ msgstr "指定RSS是否包括隱藏的相簿.這並不被建議除非您是Gallery唯一的使用者.如果公開隱藏的相簿其他使用者會非常不悅"
-
-#~ msgid "Display Visible Albums Only"
-#~ msgstr "只呈現可觀賞相簿"
-
-#~ msgid "Display Hidden Albums"
-#~ msgstr "要顯示隱藏的相簿嗎? "
-
-#~ msgid "Use dc:date"
-#~ msgstr "只用dc:date"
-
-#~ msgid "(Advanced) If users complain about their RSS readers being unable to process the RSS Feed, try enabling this option.  Including dc:date is not RSS 2.0 compliant, but some feed readers require it anyway. Turning this on will cause your feed to not validate as RSS 2.0."
-#~ msgstr "(進階)如果使用者抱怨無法使用RSS,試著開啟此項目.RSS 2.0並不包含dc:date, 但一些使用者還是需要它,開啟它可以使您不需要RSS 2.0"
-
-#~ msgid "Use Big Photo"
-#~ msgstr "用大照片"
-
-#~ msgid "(Advanced) If users complain about their RSS readers corrupting the channel thumbnail, you can turn this feature on.  Turning this on will cause your feed to not validate as valid RSS 2.0."
-#~ msgstr "(進階)如果使用者抱怨RSS破壞thumbnail, 您可開啟此選項.開啟它可以使您不需要RSS 2.0"
-
-#~ msgid "Use Photo Tag"
-#~ msgstr "用相片標籤"
-
-#~ msgid "(Advanced) Turning this off will cause two RSS extensions which allow for images representing items to be removed from the feed.  Leaving this enabled should cause no problems - disabling it is a personal preference."
-#~ msgstr "(進階)關閉此項目可以有兩個RSS的延伸,可以使影像項目被移除.開啟此項目不會造成任何問題,關閉此項目是個人偏好"
-
-#~ msgid "Default Columns"
-#~ msgstr "預設行數(直行)"
-
-#~ msgid "The default number of columns in an album."
-#~ msgstr "設定相簿中一頁有幾行"
-
-#~ msgid "Default Rows"
-#~ msgstr "預設列數(橫列)"
-
-#~ msgid "The default number of rows in an album."
-#~ msgstr "設定相簿中一頁有幾列"
-
-#~ msgid "Appearance"
-#~ msgstr "外觀"
-
-#~ msgid "Border color"
-#~ msgstr "邊框顏色"
-
-#~ msgid "Default color of (image) borders. You can learn about %scolors%s here."
-#~ msgstr "影像邊框的預設顏色, 請由%s顏色%s取得更多資訊. "
-
-#~ msgid "Border width"
-#~ msgstr "邊框寬度"
-
-#~ msgid "Default width of (image) borders."
-#~ msgstr "預設影像邊框寬度"
-
-#~ msgid "Default Font"
-#~ msgstr "預設字形"
-
-#~ msgid "Default font face.  E.g. <i>arial</i> or <i>trebuchet</i>"
-#~ msgstr "預設的字型, 比如 <i>arial</i> 或 <i>trebuchet</i>"
-
-#~ msgid "Image Processing and Display"
-#~ msgstr "影像處理與顯示"
-
-#~ msgid "Thumbnail size"
-#~ msgstr "縮圖大小"
-
-#~ msgid "The default target size (in pixels) of album thumbnails."
-#~ msgstr "預設的縮圖尺寸 (單位：像素)"
-
-#, fuzzy
-#~ msgid "Thumbnail Ratio"
-#~ msgstr "縮圖大小"
-
-#~ msgid "When large images are added to an album, an intermediate version will automatically be generated at this size."
-#~ msgstr "如果放到相簿的影像尺寸太大時, 會自動產生一份這個尺寸的過渡版本. "
-
-#~ msgid "off"
-#~ msgstr "關閉"
-
-#~ msgid "Resized JPEG/PNG images file size"
-#~ msgstr "重新調整的影像檔案大小"
-
-#~ msgid "The default target size (in kilobytes) of resized JPEG/PNG images.  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections.  Set to 0 for no target size."
-#~ msgstr "預設重新調整的 JPEG/PNG 影像檔案大小(單位：KB). 設定之後也許會拖慢檔案上傳的完成速度, 不過在瀏覽圖片時會比較快速. 設定為 0 代表沒有限制. "
-
-#~ msgid "Maximum image size"
-#~ msgstr "影像尺寸上限"
-
-#~ msgid "You can optionally limit the dimensions your images on upload to Gallery."
-#~ msgstr "您可選擇限制上傳到Gallery影像的大小"
-
-#~ msgid "Warning:"
-#~ msgstr "警告:"
-
-#~ msgid "Enabling this feature will leave you <b>without a full size original</b> image in your Gallery, but allows you to save limited hard drive space. Gallery will attempt to preserve JPEG comments and EXIF data for the shrunken image, but this will require either <b>ImageMagick</b> or the optional <b>jhead</b> programs (see Step 2)."
-#~ msgstr "開啟這個功能可以使您在Gallery不用相片原來的大小,但可以使您節省硬碟空間.Gallery會試著保存JPEG設定和EXIF縮小的資料,但這必須要<b>Image Magick</b>或選擇性<b>jhead</b> programs (請看步驟2)"
-
-#~ msgid "%d (%d MPix)"
-#~ msgstr "%d (%d 百萬像素)"
-
-#~ msgid "Maximum JPEG/PNG image file size"
-#~ msgstr "影像檔案上限"
-
-#~ msgid "You can optionally limit the filesize of your JPEG/PNG images on upload to Gallery."
-#~ msgstr "您可選擇限制上傳到Gallery JPEG/PNG 檔案的大小"
-
-#~ msgid "Enabling this feature will leave you <b>without an original quality image</b> in your Gallery. Set the default target filesize (in kilobytes).  Including a value may slow down file uploads, but will speed up page viewing time especially for people with dialup connections. Set to 0 if you don't want to restrict filesize."
-#~ msgstr "預設重新調整的 JPEG 影像檔案大小(單位：KB). 設定之後也許會拖慢檔案上傳的完成速度, 不過在瀏覽圖片時會比較快速. 設定為 0 代表沒有限制. "
-
-#~ msgid "Preserve Names"
-#~ msgstr "保留名稱"
-
-#~ msgid "When uploading images to Gallery, should we preserve the original names?  If you select <i>no</i>, Gallery will assign a new name for each photo or movie that gets uploaded."
-#~ msgstr "上傳檔案時是否要保留檔案名稱? 如果您選擇 <i>否</i>, Gallery 將會為每一個上傳的相片或影像指定新的名稱. "
-
-#~ msgid "Add to beginning"
-#~ msgstr "新增檔案放在最前面"
-
-#~ msgid "New images added to beginning rather than end of albums."
-#~ msgstr "新加入的檔案會放在最前面而不是最後面"
-
-#~ msgid "Fit-to-window"
-#~ msgstr "符合目前視窗大小"
-
-#~ msgid "When viewing photos which don't have an intermediate version, Gallery can automatically resize the image to fit the viewer's browser window (using JavaScript).  This may not work in embedded environments such as Nuke."
-#~ msgstr "瀏覽相片的時候不使用過渡版本, Gallery 會自動重新調整大小適合瀏覽者的視窗 (利用 JavaScript). 這個功能可能在 Nuke 等嵌入環境下無法使用. "
-
-#~ msgid "Visitor size prefs"
-#~ msgstr "訪客瀏覽設定"
-
-#~ msgid "Offer visitors the choice of always viewing the full sized version of an image instead of the intermediate size.  This setting only lasts for the visitor's session."
-#~ msgstr "允許訪客能夠一直瀏覽到完整相片而非過渡版本. 這個功能只有在訪客的該 session 中有用. "
-
-#~ msgid "Printing Services"
-#~ msgstr "列印服務"
-
-#~ msgid "Allow visitors to print photos directly from the album.  Fotoserve is based in the United Kindom and Fotokasten is a print service based in Germany so they are good for the European market. EZ Prints, PhotoWorks and Shutterfly are based in the United States. mPUSH is a service that allows you to send photos to cellular phones worldwide. All services will give a small donation to the Gallery project for every print you make. Using these services is a great way for you to help support this free software."
-#~ msgstr "允許訪客由相簿內上列印相片. Fotoserver 為英國,Fotokasten 為德國 所以兩者很適合在歐洲地區使用, EZ Prints、 PhotoWorks 和 Shutterfly為美國。mPUSH能夠讓您的相片傳送到全球的手機中。所有的服務都將捐獻一小部分給 Gallery 計畫. 這是您贊助本自由軟體的最好途徑. "
-
-#~ msgid "Account for the mPUSH service"
-#~ msgstr "mPUSH 服務的帳號"
-
-#~ msgid "If you want to use mPUSH cellular photo service you can either use your own account, or leave this to 'gallery'. Visit this link to %screate your own account%s."
-#~ msgstr "如果您想要使用 mPUSH 的服務您可以使用自己的帳號，或者填上'gallery'. 瀏覽連結來 %s建立自己的帳號%s"
-
-#~ msgid "Gallery Link"
-#~ msgstr "Gallery 連結"
-
-#~ msgid "Display a link navigation from your album to the top level Gallery link within the album?  If you turn this feature off, the user will not be able to navigate out of the album.  This is only useful when you want to embed an album within a website and not allow users to (easily) view the other albums in the gallery."
-#~ msgstr "要在 Gallery 的頂層目錄顯示相簿的連結嗎? 如果沒有開啟這個功能, 使用者將無法在您的網站上自由瀏覽相簿. 這個功能只有當你想要把相簿嵌入網站中, 卻又不想讓別人輕易瀏覽 Gallery 裡的其他相簿時才要開啟. "
-
-#~ msgid "Default Album Permissions"
-#~ msgstr "預設相簿權限"
-
-#~ msgid "Defines the default set of permissions for an album.  Specifically, who can see the album, and view its photos."
-#~ msgstr "設定相簿權限,誰可看此相簿和相片"
-
-#~ msgid "Logged-In Users"
-#~ msgstr "登入的使用者"
-
-#~ msgid "Data displayed"
-#~ msgstr "數據顯示"
-
-#~ msgid "Click counts"
-#~ msgstr "點閱數"
-
-#~ msgid "Display click counts within Albums?"
-#~ msgstr "要顯示相片的點閱數嗎? "
-
-#~ msgid "Custom Fields"
-#~ msgstr "自訂欄位"
-
-#~ msgid "Custom fields that are available to describe each image.  They should be separated by commas.  E.g. <i>Description, Location, Film Type</i>"
-#~ msgstr "自訂欄位可以增加相片的可讀性, 您可以用逗號分隔您自訂的欄位. 比如 <i>Description, Location, Film Type</i>"
-
-#~ msgid "Display clickable image dimensions"
-#~ msgstr "呈現可點入影像的大小"
-
-#~ msgid "Display clickable image dimensions beneath the thumbnails.  Will show dimensions for resized images (if any) first, then for the full image, depending on album settings user permissions.  You may click on these instead of the thumbnail to either image."
-#~ msgstr "在thumbnails下呈現可點入影像的大小.重新調整大小的影像會優先顯現,然後全影像.這取決於使用者的權限.若不用thumbnail處理這些影像.您可點此來取代thumbnail"
-
-#~ msgid "Item Owner"
-#~ msgstr "檔案所有者"
-
-#~ msgid "Photo owner modification"
-#~ msgstr "相片擁有者可以修改檔案"
-
-#~ msgid "Allow photo owners to edit and rotate/flip their own photos?"
-#~ msgstr "允許相片的擁有者修改、旋轉、翻轉他的相片? "
-
-#~ msgid "Photo owner deletion"
-#~ msgstr "相片擁有者可以刪除檔案"
-
-#~ msgid "Allow photo owners to delete their own photos?"
-#~ msgstr "允許相片的擁有者刪除自己的相片? "
-
-#~ msgid "Photo owner display"
-#~ msgstr "顯示相片擁有者"
-
-#~ msgid "Display the name of photo owners with the caption?"
-#~ msgstr "在說明中顯示相片的擁有者? "
-
-#~ msgid "Polling configuration"
-#~ msgstr "評比系統設定"
-
-#~ msgid "It allows your visitors to vote for or rate the contents of an album.  You set defaults for polling here, which will apply to new albums, and to all existing albums when you first upgrade to version %s."
-#~ msgstr "訪客可以對相簿的內容進行投票或者評分. 在此您將設定評比系統的預設值, 它會應用在新增的相簿之中, 同時也會在您第一次更新到版本 %s 時套用在已經存在的相簿裡面. "
-
-#~ msgid "In each album, voting can be switched off, restricted to logged in users or open to all visitors."
-#~ msgstr "在每個相簿裡面, 評比系統可以關閉, 限制給登入的使用者或者是開放給所有訪客使用. "
-
-#~ msgid "There are two sorts of polls: %s, which allows voters to chose their favourites as first, second, third etc., and %s, which allows voters to rate any or all of the images without restriction.  %s is like a film review where all the images can get (for example) 5 points, while %s is useful in scoring competitions."
-#~ msgstr "目前有兩種評比的方式: %s 允許訪客選擇他們最喜愛, 第二, 第三喜愛的影像; %s 允許訪客對影像進行評分. %s 比較像是影像評論, 相片可以獲得 (比如說) 5 分, 而 %s 在分數競賽中比較有用. "
-
-#~ msgid "Voter class"
-#~ msgstr "評比者等級"
-
-#~ msgid "Voting is available to:"
-#~ msgstr "可以使用評比系統的: "
-
-#~ msgid "Voting is off."
-#~ msgstr "關閉評比系統. "
-
-#~ msgid "Anyone can vote.  Votes are recorded against session ID."
-#~ msgstr "任何人皆可使用評比系統. 評比將根據 session id 紀錄. "
-
-#~ msgid "Registered users can vote.  Votes are recorded against User ID, and voters can come back and change their choices."
-#~ msgstr "已註冊的使用者可以使用評比系統. 評比將根據 UserID 紀錄, 而評比者可以回來更改他們的選擇. "
-
-#~ msgid "Poll type"
-#~ msgstr "評比類型"
-
-#~ msgid "Gallery offers two sorts of polls for voting for images.  See above for a more detailed explanation."
-#~ msgstr "Gallery 提供兩種影像評比的方式. 請詳見上面的解釋. "
-
-#~ msgid "Users have a set of votes which they can allocate to the images."
-#~ msgstr "使用者有一組選票分配給影像. "
-
-#~ msgid "Enables users to give all images points without restriction."
-#~ msgstr "讓使用者可以自由的對所有影像進行給分. "
-
-#~ msgid "Number of choices"
-#~ msgstr "選項數量"
-
-#~ msgid "Number of choices that will be available to voters as radio buttons or in a pulldown menu."
-#~ msgstr "給評比者在按鈕或下拉式選單中使用的選項數量"
-
-#~ msgid "This is displayed above the voting options under each image."
-#~ msgstr "將會在每個影像中的評比選項上面顯示. "
-
-#~ msgid "Vote for this image"
-#~ msgstr "對影像進行評比"
-
-#~ msgid "Show vote results"
-#~ msgstr "顯示評比結果"
-
-#~ msgid "Display a summary and graph on the album page of images that have received the highest votes, and provide a link to the full results.  If this option is %s, results of voting will only be available to admins and album owners."
-#~ msgstr "在得分最高的影像所在頁面顯示摘要以及圖示, 並且提供連結到完整的結果. 如果這個選項是 %s, 評比的結果將只有給管理者及相簿所有者能觀看. "
-
-#~ msgid "Number of results displayed"
-#~ msgstr "結果顯示的數量"
-
-#~ msgid "If %s is %s, display a graph showing this many top results.  (Full results will be available on a linked page.)"
-#~ msgstr "如果 %s 為 %s, 顯示最多此數目的圖表. (完整結果將另存在一個連結頁面)"
-
-#~ msgid "Orientation of vote choices?"
-#~ msgstr "評比選項的方向? "
-
-#~ msgid "Rank poll choices can be displayed beside each other (horizontally) or underneath each other (vertically).  Has no effect on critique voting which is a pulldown menu."
-#~ msgstr "評比排行顯示在每一個旁邊 (水平的) 或者是 每一個下面 (垂直的).  在評論中使用下拉式選單所以沒有影響. "
-
-#~ msgid "This allows you to configure the actual text that will be displayed for each voting option, plus the number of points that option is worth."
-#~ msgstr "允許您設定每個評比選項的實際顯示文字, 以及每個選項所代表的分數. "
-
-#~ msgid "Excellent"
-#~ msgstr "完美"
-
-#~ msgid "Very Good"
-#~ msgstr "非常好"
-
-#~ msgid "Good"
-#~ msgstr "好"
-
-#~ msgid "Average"
-#~ msgstr "普通"
-
-#~ msgid "Poor"
-#~ msgstr "ㄟ, 有點遜"
-
-#~ msgid "Album Slideshow"
-#~ msgstr "相簿幻燈片輪播"
-
-#~ msgid "Slideshow Type"
-#~ msgstr "幻燈片輪播形式"
-
-#~ msgid "Recursive slideshow"
-#~ msgstr "遞迴幻燈片輪播"
-
-#~ msgid "Set to %s if you want to include images in sub albums as part of the slideshow."
-#~ msgstr "設定為 %s 如果您想要將子相簿裡的影像包含在幻燈片輪播裡面. "
-
-#~ msgid "This option will allow visitors to have your slideshow repeat until they close the window or go to another page.  Set it to %s if you want to save bandwidth."
-#~ msgstr "這個選項可以使訪客觀看幻燈片輪播直到他們關閉視窗或移至另一頁.如果您想節省頻寬請設定 %s"
-
-#, fuzzy
-#~ msgid "both"
-#~ msgstr "兩者"
-
-#, fuzzy
-#~ msgid "Fixed"
-#~ msgstr "失敗! "
-
-#, fuzzy
-#~ msgid "Number of Next Microthumbs"
-#~ msgstr "選項數量"
-
-#~ msgid "Frames"
-#~ msgstr "相框"
-
-#~ msgid "Each image (thumbnails, resized and full sized) in %s can have a frame.  The following styles available:"
-#~ msgstr "所有%s的影像可以有框.有下列風格可選"
-
-#~ msgid "Subalbum frames"
-#~ msgstr "子相簿框"
-
-#~ msgid "This frame will appear around the thumbnail image representing a subalbum."
-#~ msgstr "這個相框會在子相簿旁"
-
-#~ msgid "Frame around thumbs"
-#~ msgstr "縮圖相框"
-
-#~ msgid "This frame will appear around the thumbnail image representing a photo or movie."
-#~ msgstr "這個相框會在縮圖或影片旁"
-
-#~ msgid "Frame around images"
-#~ msgstr "影像加框"
-
-#~ msgid "This frame will appear around fulled sized and resized photos."
-#~ msgstr "這個相框會在原圖和縮圖旁"
-
-#~ msgid "You must create an empty file named %s and chmod it 777 before proceeding.  See the %s for more details."
-#~ msgstr "在您繼續之前必須建立一份空檔案 %s 並且 chmod 為 777, 詳見 %s. "
-
-#~ msgid "File %s is optional, however some %s features will be disabled unless you create an empty file named %s and chmod it to 777 before proceeding.  See the %s for more details."
-#~ msgstr "檔案 %s 是非必備的然而某些功能 %s 將會失效,除非在您繼續之前建立一份空檔案 %s 並且 chmod 為 777, 詳見 %s. "
-
-#~ msgid "File %s is not writable by the webserver - chmod it 777 before proceeding.  See %s for more details."
-#~ msgstr "檔案 %s 在您網站伺服器無法寫入, 在您繼續之前 chmod 檔案為 777, 詳見 %s. "
-
-#~ msgid "missing"
-#~ msgstr "缺少"
-
-#~ msgid "it's optional"
-#~ msgstr "這是非必要選項"
-
-#~ msgid "optional"
-#~ msgstr "選擇性選項"
-
-#~ msgid "%s: <b>%s</b> must be an absolute URL!"
-#~ msgstr "%s: <b>%s</b> 必須為絕對的 URL! "
-
-#~ msgid "%s: <b>%s</b> must be a valid file (not a directory)!"
-#~ msgstr "%s: <b>%s</b> 必須是合法的檔案 (而非目錄)! "
-
-#~ msgid "%s: <b>&quot;%s&quot;</b> must be a positive number"
-#~ msgstr "%s: <b>&quot;%s&quot;</b> 必須為正數"
-
-#~ msgid "%s: <b>&quot;%s&quot;</b> must be a number"
-#~ msgstr "%s: <b>&quot;%s&quot;</b> 必須為數字"
-
-#~ msgid "%s: <b>%s</b> must not be zero"
-#~ msgstr "%s: <b>%s</b> 不得為零"
-
-#~ msgid "%s: <b>%s</b> must be an executable file!"
-#~ msgstr "%s: <b>%s</b> 必須是可執行檔! "
-
-#~ msgid "Directory %s does not exist.  Please create it."
-#~ msgstr "目錄 %s 並不存在, 請建立. "
-
-#~ msgid "%s exists but is not a directory.  Please fix this."
-#~ msgstr "%s 已經存在但並非目錄, 請修正. "
-
-#~ msgid "%s: %s exists, but is not writeable by the webserver user.  Try: %s or if that doesn't work: %s.  Also make sure that if you have an %s restriction then this tmp directory should be under the %s path"
-#~ msgstr "%s: %s 存在, 但網頁伺服器無法寫入. 請試試看：%s 如果不行請用 %s. 並確定如果您的伺服器有 %s 的限制, 請確定您的暫存目錄在 %s 路徑之下"
-
-#~ msgid "%s: <b>%s</b> must be an enabled for this feature to function!"
-#~ msgstr "%s: <b>%s</b> 必須開啟才能執行! "
-
-#~ msgid "Could not find %s.  Check your NetPBM directory to see which PNG->JPEG converter you have (or just try using %s instead).  Please check your configuration (or use ImageMagick)."
-#~ msgstr "找不到 %s. 請檢查您的 NetPBM 目錄看看您所使用的 PNG->JPEG 轉換程式是哪一個 (或者用 %s 取代). 請檢查您的設定 (或者使用 ImageMagick)"
-
-#~ msgid "Could not find %s.  Check your NetPBM directory to see which PNM Composite/Overlay executable you have (or just try using %s instead).  Please check your configuration (or use ImageMagick)."
-#~ msgstr "找不到 %s. 請檢查您的 NetPBM 目錄看看您所使用的 PNM Composite/Overlay 執行程式是哪一個 (或者用 %s 取代). 請檢查您的設定 (或者使用 ImageMagick)"
-
-#~ msgid "You must specify a path for %s or %s for Gallery to function!!"
-#~ msgstr "您必須指定 %s 或 %s 的路徑讓 Gallery 運作!! "
-
-#~ msgid "%s is not properly configured for use as a graphics package.  Make sure you entered a path to the %s binaries in step 2."
-#~ msgstr "%s 圖形套件沒有正確的設定好, 請在第二步檢查您的 %s 可執行檔目錄"
-
-#~ msgid "Your server has the PHP open_basedir restriction set, and certain of your paths are not in the list of restricted paths"
-#~ msgstr "您的伺服器有 PHP open_basedir 的限制, 而您的某個路徑設定並不再限制路徑列表之中"
-
-#~ msgid "This doesn't mean that they won't work, however it does mean that we can't verify that the paths are correct.  If you are unable to upload photos correctly, please refer to the FAQ and to the %sdiagnostics%s to resolve your problems."
-#~ msgstr "這並不表示它將無法正常運作, 而是我們無法正確的檢查路徑. 如果您無法正確的上傳檔案, 請見 FAQ 以及 %s檢測%s 來解決這個問題. "
-
-#~ msgid "Confirm that the settings you entered came through correctly.  If you find this page confusing, you can safely ignore it."
-#~ msgstr "確認您之前的設定沒有問題, 假使您對這個頁面上的設定有疑惑，您可以略過沒關係。"
-
-#~ msgid "Confirm that the settings you entered came through correctly.  There are errors highlighted below in red which need to be fixed before you can save your settings."
-#~ msgstr "確認您之前的設定沒有問題, 發現有些設定列下方出現紅色的訊息時請先修正這些設定, 再儲存您的設定。"
-
-#~ msgid "Edit Config"
-#~ msgstr "修改設定"
-
-#~ msgid "Save Config"
-#~ msgstr "儲存設定"
-
-#~ msgid "Refresh"
-#~ msgstr "更新"
-
-#~ msgid "One error."
-#~ msgid_plural "%d errors."
-#~ msgstr[0] "1 個錯誤"
-#~ msgstr[1] "%d 個錯誤"
-
-#~ msgid "No errors."
-#~ msgstr "沒有錯誤"
-
-#~ msgid "See Details below."
-#~ msgstr "細節如下. "
-
-#~ msgid "There are errors in your configuration."
-#~ msgstr "在您的設定裡有錯誤. "
-
-#~ msgid "Please go back and fix them!"
-#~ msgstr "請回到上一步修正這些問題! "
-
-#~ msgid "In this step you'll customize various settings for Gallery.  If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  Even so, you'll probably have to make at least some minor changes.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much."
-#~ msgstr "在這個步驟中您可以自訂 Gallery 的許多設定, 如果這是您第一次設定 Gallery, 您會注意到我們已經盡量試著幫您選擇最合適的值. 儘管如此, 您也許需要調整一些小細節. 如果您已經設定過 Gallery, 您可以發現這一頁已經包含您之前的設定值, 因此您可以不用作太多更動. "
-
-#~ msgid "Switch through the corresponding tab and fill the values you need. Some, but not all values are required. If you have finished this step use the button to go to the next Step."
-#~ msgstr "由相對應鍵切換填入您需要的數值.並非所有的數值都是必要的.如果您完成這個步驟,請用按鈕繼續下一個步驟"
-
-#~ msgid "Previous Step"
-#~ msgstr "上一步"
-
-#~ msgid "Previous Tab"
-#~ msgstr "前一頁"
-
-#~ msgid "Next Tab"
-#~ msgstr "下一頁"
-
-#~ msgid "Use Defaults"
-#~ msgstr "使用預設"
-
-#~ msgid "Here you can customize the default values for <b>new albums</b> that you create. These settings have no effect on existing albums!"
-#~ msgstr "您可在此設定您所建立的<b>新相簿</b>.這些設定不會影響已存在的相簿"
-
-#~ msgid "Note that these are <b>not master switches</b>. This means you can change those settings for each separately."
-#~ msgstr "注意這些不是<b>master swiches</b>.這表示您可分開改變這些設定"
-
-#~ msgid "If this is the first time you've customized Gallery, you'll notice that we've tried to pick reasonable defaults for you.  If you've already configured Gallery before, then you'll notice that this page already has your current settings loaded, so you probably won't need to do much."
-#~ msgstr "如果這是您第一次設定 Gallery, 您會注意到我們已經盡量試著幫您選擇最合適的值.儘管如此, 您也許需要調整一些小細節. 如果您已經設定過 Gallery, 您可以發現這一頁已經包含您之前的設定值, 因此您可以不用作太多更動. "
-
-#~ msgid "Note to users upgrading from a previous version: settings new since your old version will be applied to all existing albums. If you wish to change these later, they must be changed one by one in each album. Please choose these default values carefully."
-#~ msgstr "注意使用者從舊版本升級,有新設定但您已存在的相簿是使用舊的版本. 如果您希望之後再變更,就要一個一個相簿改變.請小心選擇"
-
-#~ msgid "Gallery Diagnostics"
-#~ msgstr "Gallery 檢測"
-
-#~ msgid "This page is designed to provide some diagnostics about your server to help you find issues that may prevent Gallery from functioning properly."
-#~ msgstr "這個網頁是提供一些檢測,來幫助確認您的伺服器是否能正常使用 Gallery. "
-
-#~ msgid "The config wizard tries all kinds of diagnostics to try to find and work around any issues that it finds on your system, but there may be other problems that we have not thought of."
-#~ msgstr "設定精靈會用各種方式找出可能的方法讓您的系統運作, 但有些時候我們不一定能將問題全部檢查出來. "
-
-#~ msgid "You can use these tools to find out more about your setup"
-#~ msgstr "您可以使用下列工具來幫忙檢測您的系統"
-
-#~ msgid "Tool"
-#~ msgstr "工具"
-
-#~ msgid "PHP Info"
-#~ msgstr "PHP 資訊"
-
-#~ msgid "This page provides information about your PHP installation."
-#~ msgstr "這一份網頁提供了您的 PHP 安裝資訊. "
-
-#~ msgid "It's a good place to look to examine all the various PHP configuration settings, and to find out on what kind of system you're running (sometimes it's difficult to tell when you're on an ISP's machine)"
-#~ msgstr "這是個檢查所有 PHP 設定的好方法, 並且可以找出您是用哪一種作業環境 (當您使用 ISP 所提供的伺服器時並不一定知道該環境是何種作業平台)"
-
-#~ msgid "Check"
-#~ msgstr "檢查"
-
-#~ msgid "This page provides information about your NetPBM binaries."
-#~ msgstr "這一份網頁提供了您的 NetPBM 執行檔資訊. "
-
-#~ msgid "You can only use this page after you have successfully completed the configuration wizard (as it expects that you've already located and configured Gallery with the right path to NetPBM)."
-#~ msgstr "您可以在完成設定精靈之後再來使用這一份網頁. (因為需要 NetPBM 的相關設定才可以進行檢查)"
-
-#~ msgid "This page provides information about your ImageMagick binaries."
-#~ msgstr "這一份網頁提供了您的 ImageMagick 執行檔資訊. "
-
-#~ msgid "You can only use this page after you have successfully complete the configuration wizard (as it expects that you've already located and configured Gallery with the right path to ImageMagick)."
-#~ msgstr "您可以在完成設定精靈之後再來使用這一份網頁. (因為需要 ImageMagick 的相關設定才可以進行檢查)"
-
-#~ msgid "Check Sessions"
-#~ msgstr "檢查 Sessions"
-
-#~ msgid "This page runs a very simple test on your PHP session configuration."
-#~ msgstr "這一份網頁執行一些簡單的 PHP session 功能測試. "
-
-#~ msgid "Gallery requires that your PHP installation is configured with proper session support."
-#~ msgstr "Gallery 需要您的 PHP 有正確的 session 支援. "
-
-#~ msgid "This page will simply send a test email."
-#~ msgstr "這一頁只會送一封測試信. "
-
-#~ msgid "This allows you to see if you can use the email functions in %s."
-#~ msgstr "這會讓您得知是否您可以使用 %s 的電子信件功能. "
-
-#~ msgid "Check versions"
-#~ msgstr "檢查版本"
-
-#~ msgid "This page is for %s upgrades that have problems."
-#~ msgstr "這頁是%s升級的問題"
-
-#~ msgid "This allows you to check you have the correct version of all your %s files."
-#~ msgstr "這會讓您得知是否您的檔案 %s 使用正確的版本. "
-
-#~ msgid "Gallery Configuration"
-#~ msgstr "Gallery 設定"
-
-#~ msgid "None"
-#~ msgstr "無"
-
-#~ msgid "No frames"
-#~ msgstr "無框"
-
-#~ msgid "Dots"
-#~ msgstr "點"
-
-#~ msgid "Just a simple dashed border around the thumb."
-#~ msgstr "在縮圖邊緣簡單的虛線"
-
-#~ msgid "Solid"
-#~ msgstr "實線"
-
-#~ msgid "Just a simple solid border around the thumb."
-#~ msgstr "在縮圖邊緣簡單的實線"
-
-#~ msgid "Skipping %s."
-#~ msgstr "略過 %s"
-
-#~ msgid "Can't open %s"
-#~ msgstr "找不到 %s! "
-
-#~ msgid "User is not an admin - access denied"
-#~ msgstr "使用者並不是管理者.無法進入"
-
-#~ msgid "Reset %s Password"
-#~ msgstr "重設%s密碼"
-
-#~ msgid "To continue the password reset process, you must edit the file &quot;%s&quot;, remove any data currently inside it, and add the text &quot;%s&quot;.  Once you have done that, press the refresh button below.  If you know your current admin password, please remove the &quot;%s&quot; file from the server."
-#~ msgstr "為了重設密碼,您必須編輯檔案&quot;%s&quot;, 移除目前所有的檔案並加入&quot;%s&quot;. 完成後,按下下面更新鍵.如果您知道目前管理者密碼,請從伺服器移除&quot;%s&quot; 檔案"
-
-#~ msgid "%s configuration"
-#~ msgstr "%s 設定"
-
-#~ msgid "You must log in as an administrator to edit this server's configuration."
-#~ msgstr "您必須以管理者登入才能編輯伺服器的設定"
-
-#~ msgid "If you have forgotten the password to your admin account, you can reset it by creating a blank file named '%s' in your %s directory and then refreshing and following the instructions on this page."
-#~ msgstr "如果您遺忘您的 管理者帳號 如要重置您可以在您的目錄中 %2$s 建立一個空白檔案 '%1$s' 然後 重新整理並跟著本頁的步驟."
-
-#~ msgid "Gallery Session Test"
-#~ msgstr "Gallery Session 測試"
-
-#~ msgid "Session Test"
-#~ msgstr "Session 測試"
-
-#~ msgid "If sessions are configured properly in your PHP installation, then you should see a session id below."
-#~ msgstr "如果您 PHP 的 session 有正確設定, 您會在下面看到 session id. "
-
-#~ msgid "The &quot;page views&quot; number should increase every time you reload the page."
-#~ msgstr "當您重新載入這個網頁時 &quot;網頁瀏覽次數&quot; 應該會增加. "
-
-#~ msgid "Clicking %s should reset the page view number back to 1."
-#~ msgstr "點選 %s 會重新設定瀏覽次數為 1. "
-
-#~ msgid "If this <b>does not</b> work, then you most likely have a configuration issue with your PHP installation."
-#~ msgstr "如果這 <b>無法</b> 正常運作, 那您的 PHP 安裝有設定上的問題. "
-
-#~ msgid "Gallery will not work properly until PHP's session management is configured properly."
-#~ msgstr "如果 PHP 的 session 管理沒有設定好, 那麼 Gallery 將無法正常運作. "
-
-#~ msgid "Your session id is"
-#~ msgstr "您的 session id 是"
-
-#~ msgid "Page views in this session"
-#~ msgstr "在 session 中的網頁瀏覽次數"
-
-#~ msgid "Server IP address"
-#~ msgstr "伺服器 IP 位置"
-
-#~ msgid "Start over"
-#~ msgstr "重來一次"
-
-#~ msgid "The password for user %s was changed."
-#~ msgstr "使用者%s的密碼已更改"
-
-#~ msgid "An account called %s has been created for you with the password you specified."
-#~ msgstr "已為您建立 %s 帳號, 並使用您指定的密碼. "
-
-#~ msgid "Success!"
-#~ msgstr "成功! "
-
-#~ msgid "Your configuration has been successfully saved!"
-#~ msgstr "您的設定檔案已經成功儲存了! "
-
-#~ msgid "We highly suggest that you run 'secure.sh', or chmod your .htaccess and config.php to 644 for increased security."
-#~ msgstr "為了提高安全性,我們強烈建議您將.htacces和config.php改變至644"
-
-#~ msgid "Note"
-#~ msgstr "注意"
-
-#~ msgid "You must remove the '%s' file from the setup directory to make your Gallery configuration secure"
-#~ msgstr "若要確定您的Gallery設定安全.您必須從設定目錄移除%s檔案"
-
-#~ msgid "You can reconfigure Gallery at any time by re-running this configuration wizard."
-#~ msgstr "您可以在任何時候藉由這個設定精靈重新設定 Gallery. "
-
-#~ msgid "It will save your data so you won't have to enter it all again!"
-#~ msgstr "它會讀取您先前的設定, 這樣子您就不用重新輸入一遍了! "
-
-#~ msgid "Please subscribe to the %s mailing list. This is a very low volume mailing list that will keep you abreast of important changes in %s.  This is where we announce new versions, important bug fixes and any security issues and their resolution."
-#~ msgstr "請訂閱%s郵件.這是很小的郵件可通知您%s重要的更改.我們利用郵件公告新版本.重要bug修復和任何安全性問題與解決方式"
-
-#~ msgid "Unable to write to %s."
-#~ msgstr "無法寫入 %s. "
-
-#~ msgid "You are missing either %s or %s."
-#~ msgstr "您不是沒有 %s 就是沒有 %s. "
-
-#~ msgid "Review Settings"
-#~ msgstr "重新瀏覽設定"
-
-#~ msgid "EXIF Data"
-#~ msgstr "詳細的 EXIF 資料"
-
-#~ msgid "%sClick here%s to see more details"
-#~ msgstr "%s點選這裡%s 以獲得進階資訊"
-
-#~ msgid "Your version of PHP handles this issue properly."
-#~ msgstr "您目前PHP的版本可以處理此問題"
-
-#~ msgid "Failed"
-#~ msgstr "失敗! "
-
-#~ msgid "Since Gallery 1.4.5 Gallery needs at least PHP 4.1.0, this is due to that some versions of PHP have bugs that cause Gallery to fail and that older Version does not have required functionality."
-#~ msgstr "從 Gallery 1.4.5 開始 PHP 至少需 4.1.0, 這是因為某些版本的 PHP 有臭蟲會導致 Gallery 出錯或是舊版本中沒有提供必需的功能. "
-
-#~ msgid "We are using predefined variables which some older version of PHP have problems with."
-#~ msgstr "我們使用事先預定的參數,有些舊版的 PHP 可能會產生問題"
-
-#~ msgid "yes"
-#~ msgstr "是"
-
-#~ msgid "no"
-#~ msgstr "否"
-
-#~ msgid "%s, %s and %s will be replaced by the fullname, user name and password of the newly created user."
-#~ msgstr "%s, %s, 和 %s 將由新建立使用者的全名，使用者名稱和密碼. "
-
-#~ msgid "%s will be replaced by a link the new user can click on to create a new password"
-#~ msgstr "%s將透過連結被取代.使用者可以建立新的密碼 "
-
-#~ msgid "mPUSH is a photo service that adds the ability to send thumbnail images to your, or a friend's, cellphone for a small fee."
-#~ msgstr "mPUSH的相片服務藉由收取少許的費用來將您的縮圖檔案傳送給您或您朋友的手機"
-
-#~ msgid "Admin"
-#~ msgstr "管理者"
-
-#~ msgid "on"
-#~ msgstr "總共"
-
-#, fuzzy
-#~ msgid "Album: "
-#~ msgstr "相簿：%s"
-
-#~ msgid "Admin help"
-#~ msgstr "管理幫助"
-
-#~ msgid "To install or upgrade the Gallery Remote Applets, please refer to "
-#~ msgstr "要安裝或更新Gallery遠端伺服器請參考"
-
-#~ msgid "the documentation page"
-#~ msgstr "說明文件"
-
-#~ msgid " on the Gallery web site."
-#~ msgstr "在 Gallery 官方網站"
-
-#~ msgid "1. Select the number of files you want to upload:"
-#~ msgstr "1. 選擇您想要上傳的檔案數量："
-
-#~ msgid "Optional:"
-#~ msgstr "其他方法："
-
-#~ msgid "Select the number of meta data files you want to upload:"
-#~ msgstr "選擇您想要上傳的 meta data 檔案數量："
-
-#~ msgid "File"
-#~ msgstr "檔案"
-
-#~ msgid "3. Use the Browse button to find the meta data files on your computer"
-#~ msgstr "3. 使用 <b>瀏覽</b> 按鈕選擇要上傳 meta-data 檔案的位置"
-
-#~ msgid "Album Summary"
-#~ msgstr "相簿摘要"
-
-#~ msgid "Album Title"
-#~ msgstr "相簿標題"
-
-#, fuzzy
-#~ msgid "Background Image (URL)"
-#~ msgstr "背景影像"
-
-#~ msgid "Font"
-#~ msgstr "字型"
-
-#~ msgid "Rows"
-#~ msgstr "列數(橫)"
-
-#~ msgid "Columns"
-#~ msgstr "行數(直)"
-
-#~ msgid "Borders"
-#~ msgstr "邊框"
-
-#, fuzzy
-#~ msgid "Colors"
-#~ msgstr "關閉"
-
-#~ msgid "Background Color"
-#~ msgstr "背景顏色"
-
-#~ msgid "Text Color"
-#~ msgstr "文字顏色"
-
-#~ msgid "Link Color"
-#~ msgstr "連結顏色"
-
-#, fuzzy
-#~ msgid "Border Color"
-#~ msgstr "邊框顏色"
-
-#~ msgid "Album Frame"
-#~ msgstr "相簿外框"
-
-#~ msgid "Thumb Frame"
-#~ msgstr "縮圖外框"
-
-#~ msgid "Image Frame"
-#~ msgstr "相片外框"
-
-#, fuzzy
-#~ msgid "Slideshow"
-#~ msgstr "幻燈片輪播"
-
-#~ msgid "Include sub-albums in slideshow"
-#~ msgstr "幻燈片輪播包括子相簿"
-
-#~ msgid "Slideshow Length"
-#~ msgstr "幻燈片輪播長度"
-
-#, fuzzy
-#~ msgid "Sizes"
-#~ msgstr "選擇服務"
-
-#~ msgid "Maximum dimensions of intermediate sized images"
-#~ msgstr "中間檔案的最大尺寸"
-
-#~ msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
-#~ msgstr "中間檔案大小上限 Kbytes (0 或者空白代表沒有限制)"
-
-#~ msgid "Maximum dimensions of full sized images"
-#~ msgstr "原始相片的最大尺寸"
-
-#~ msgid "Maximum file size of full sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
-#~ msgstr "原始檔案大小上限 kilobytes (0 或者空白代表沒有限制)"
-
-#, fuzzy
-#~ msgid "Display"
-#~ msgstr "播放"
-
-#~ msgid "Display click counter for this album?"
-#~ msgstr "在這個相簿顯示點閱數？"
-
-#~ msgid "Display owners name with caption"
-#~ msgstr "在說明中顯示擁有者名稱"
-
-#~ msgid "Display EXIF data?"
-#~ msgstr "顯示 EXIF 資料？"
-
-#, fuzzy
-#~ msgid "Services"
-#~ msgstr "選擇服務"
-
-#~ msgid "Which photo printing services<br>do you want to let visitors use?"
-#~ msgstr "您想要讓訪客使用何種網路列印服務呢?"
-
-#, fuzzy
-#~ msgid "Who can vote?"
-#~ msgstr "誰可進行評比"
-
-#, fuzzy
-#~ msgid "Voting Options"
-#~ msgstr "管理選項"
-
-#~ msgid "Add new items at beginning of album"
-#~ msgstr "將新加入的檔案放在相簿的開頭"
-
-#~ msgid "Show <i>Return to</i> link"
-#~ msgstr "顯示 <i>返回</i> 的連結"
-
-#~ msgid "Offer visitors ability to specify<br>preference for full-size or resized images"
-#~ msgstr "提供訪客設定要看<br>完整或是調整過尺寸的影像"
-
-#~ msgid "Auto fit-to-window for<br>images without a resized copy"
-#~ msgstr "影像自動符合目前視窗大小<br>但不另外建立一份調整過的影像"
-
-#~ msgid "Allow item owners to modify their images"
-#~ msgstr "允許檔案擁有者修改檔案"
-
-#~ msgid "Allow item owners to delete their images"
-#~ msgstr "允許檔案擁有者刪除檔案"
-
-#, fuzzy
-#~ msgid "Number of previous thumbs"
-#~ msgstr "評比選項數量"
-
-#, fuzzy
-#~ msgid "Number of next thumbs"
-#~ msgstr "評比選項數量"
-
-#~ msgid "Check All"
-#~ msgstr "全選取"
-
-#~ msgid "Clear All"
-#~ msgstr "全取消"
-
-#~ msgid "Invert Selection"
-#~ msgstr "反向選擇"
-
-#~ msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
-#~ msgstr "注意: 這是一封由 %s 網站自動發送的電子信件，如果您不知道為何收到本信件，可以直接忽略它. "
-
-#~ msgid "Report abuse to %s"
-#~ msgstr "回報錯誤狀況給 %s"
-
-#~ msgid "Email not sent as it is disabled for this gallery"
-#~ msgstr "電子信件無法傳送，因為 Gallery 取消此功能"
-
-#~ msgid "Email not sent to %s as it is not a valid address"
-#~ msgstr "電子信件無法傳送到 %s，因為地址不正確"
-
-#, fuzzy
-#~ msgid "Email not sent as no reciepient address provided"
-#~ msgstr "電子信件無法傳送，因為沒有提供地址"
-
-#~ msgid "Sender address %s is invalid, using %s."
-#~ msgstr "寄信人地址 %s 不合法, 使用 %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hi !!FULLNAME!!,\n"
-#~ "\n"
-#~ "Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
-#~ "\n"
-#~ "!!NEWPASSWORDLINK!!\n"
-#~ "\n"
-#~ "Gallery @ %s Administrator."
-#~ msgstr ""
-#~ "Hi !!FULLNAME!!,  \n"
-#~ "\n"
-#~ "恭喜您.  您剛訂閱 %s 在 %s.  您的帳號是 !!USERNAME!!. 請儘速拜訪相簿與點擊以下鏈結以建立密碼:\n"
-#~ "\n"
-#~ "!!NEWPASSWORDLINK!!\n"
-#~ "\n"
-#~ "Gallery @ %s 管理員。"
-
-#~ msgid "gallery title"
-#~ msgstr "Gallery 標題"
-
-#~ msgid "gallery URL"
-#~ msgstr "Gallery 連結"
-
-#, fuzzy
-#~ msgid "Admin email(s)"
-#~ msgstr "管理幫助"
-
-#, fuzzy
-#~ msgid "Fullname"
-#~ msgstr "全名"
-
-#, fuzzy
-#~ msgid "New comment for %s"
-#~ msgstr "檢視評論"
-
-#, fuzzy
-#~ msgid "Item"
-#~ msgstr " 份檔案"
-
-#, fuzzy
-#~ msgid "***End comment ***"
-#~ msgstr "尋找評論廣告"
-
-#, fuzzy
-#~ msgid "New comment for %s."
-#~ msgstr "檢視評論"
-
-#~ msgid "FAILED"
-#~ msgstr "失敗"
-
-#~ msgid "Email activity"
-#~ msgstr "Email activity"
-
-#~ msgid "Total points in brackets"
-#~ msgstr "總分是"
-
-#~ msgid "Average points in brackets"
-#~ msgstr "平均分是"
-
-#~ msgid "1 voter"
-#~ msgid_plural "%d voters"
-#~ msgstr[0] "1 位評比者"
-#~ msgstr[1] "%d 位評比者"
-
-#~ msgid "Result from one voter"
-#~ msgid_plural "Result of %d voters"
-#~ msgstr[0] "由 1 位評比者產生的結果. "
-#~ msgstr[1] "由 %d 位評比者產生的結果. "
-
-#~ msgid "%s: %s points; "
-#~ msgstr "%s: %s 分; "
-
-#~ msgid "Key - %s"
-#~ msgstr "評比者 - %s"
-
-#~ msgid "No votes"
-#~ msgstr "尚未有評比"
-
-#~ msgid "Number %d overall."
-#~ msgstr "第 %d 名。"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s： %s"
-
-#~ msgid "Upload Date"
-#~ msgstr "上傳日期"
-
-#~ msgid "Additional EXIF Data"
-#~ msgstr "詳細的 EXIF 資料"
-
-#~ msgid "description"
-#~ msgstr "描述"
-
-#~ msgid "Error:"
-#~ msgstr "錯誤："
-
-#~ msgid "Generated by %s v%s"
-#~ msgstr "Generated by %s v%s"
-
-#~ msgid "Powered by %s v%s"
-#~ msgstr "Powered by %s v%s"
-
-#~ msgid "Move the album to a new album:"
-#~ msgstr "移動到其他相簿中："
-
-#~ msgid "Views:"
-#~ msgstr "點閱："
-
-#~ msgid "Call to %s failed in %s for file %s!"
-#~ msgstr "呼叫 %s 無法在 %s 中使用檔案 %s."
-
-#~ msgid "File %s type %d."
-#~ msgstr "檔案 %s 類型為 %d. "
-
-#~ msgid "Unknown file type: %s"
-#~ msgstr "未知的檔案格式：%s"
-
-#~ msgid "Unable to preserve EXIF data (jhead not installed)"
-#~ msgstr "無法保留EXIF資料 (沒有安裝jhead)"
-
-#~ msgid "Changed: "
-#~ msgstr "更動日期： "
-
-#~ msgid "Resizing Image: %s"
-#~ msgstr "重設影像大小: %s"
-
-#~ msgid "No resizing required"
-#~ msgstr "不需要重設大小"
-
-#~ msgid "target file size %d kbytes"
-#~ msgstr "目標檔案大小 %d kbytes"
-
-#~ msgid "-> file size %d kbytes"
-#~ msgstr "-> 檔案大小 %d kbytes"
-
-#~ msgid "trying quality %d%%"
-#~ msgstr "嘗試品質 %d%%"
-
-#~ msgid "Done."
-#~ msgstr "完成. "
-
-#~ msgid "No watermark name specified!"
-#~ msgstr "沒有指定浮水印! "
-
-#~ msgid "add photos"
-#~ msgstr "加入多個檔案"
-
-#~ msgid "poll results"
-#~ msgstr "評比結果"
-
-#~ msgid "view comments"
-#~ msgstr "檢視評論"
-
-#~ msgid "watermark album"
-#~ msgstr "相簿加入浮水印"
-
-#~ msgid "title"
-#~ msgstr "標題"
-
-#~ msgid "Empty"
-#~ msgstr "空的"
-
-#~ msgid "edit %s"
-#~ msgstr "修改 %s"
-
-#~ msgid "No Caption"
-#~ msgstr "沒有說明"
-
-#~ msgid "edit"
-#~ msgstr "修改"
-
-#~ msgid "Add your comment"
-#~ msgstr "新增評論"
-
-#~ msgid "Commenter:"
-#~ msgstr "評論者"
-
-#~ msgid "Message:"
-#~ msgstr "訊息"
-
-#~ msgid "Post"
-#~ msgstr "送出"
-
-#~ msgid "Not closing this window because debug mode is on"
-#~ msgstr "由於除錯模式開啟所以無法關閉視窗"
-
-#, fuzzy
-#~ msgid "Problem including file %s"
-#~ msgstr "增加 %s 時有問題："
-
-#~ msgid "Select Album"
-#~ msgstr "選擇相簿"
-
-#~ msgid "Top Level"
-#~ msgstr "頂層"
-
-#~ msgid "current location"
-#~ msgstr "目前位置"
-
-#~ msgid "self"
-#~ msgstr "自己"
-
-#~ msgid "1 hit"
-#~ msgid_plural "%d hits"
-#~ msgstr[0] "1 次"
-#~ msgstr[1] "%d 次"
-
-#~ msgid "Sub-albums"
-#~ msgstr "子相簿"
-
-#~ msgid "Last comment %s."
-#~ msgstr "上次評論 %s. "
-
-#~ msgid "No Skin"
-#~ msgstr "No Skin"
-
-#~ msgid "<dt>%s</dt><dd>The original look and feel.</dd>"
-#~ msgstr "<dt>%s</dt><dd>原始的佈景主題.</dd>"
-
-#~ msgid "Last Update"
-#~ msgstr "最後更新"
-
-#~ msgid "Not valid yet"
-#~ msgstr "使用者名稱不合法"
-
-#, fuzzy
-#~ msgid "Search:"
-#~ msgstr "搜尋"
-
-#~ msgid "No email sent as no valid email addresses were found"
-#~ msgstr "無效的電子信箱位址，所有沒有發送郵件。"
-
-#~ msgid "Skipping invalid email address %s"
-#~ msgstr "忽略無效的電子信箱位址 %s"
-
-#~ msgid "Watermarking photo."
-#~ msgstr "相片加上浮水印"
-
-#~ msgid "this may take a while"
-#~ msgstr "(這需要花一點時間)"
-
-#~ msgid "Search Again"
-#~ msgstr "再找一遍"
-
-#~ msgid "Go"
-#~ msgstr "開始尋找"
-
-#, fuzzy
-#~ msgid "Diashow"
-#~ msgstr "幻燈片輪播"
-
-#~ msgid "adding %s"
-#~ msgstr "正在加入 %s"
-
-#~ msgid "The members file should be one user per line, and the fields should be space separated.  Each line is of the form:<br> <i>username emailaddress fullname</i>.<br>  Only username is required. Everything after the email address is the full name, so there can be spaces in it.<p>"
-#~ msgstr "使用者檔案的格式需為每位使用者一行，欄位以空白字元作區隔。每行的格式如下：<br> <i>使用者名稱 電子郵件地址 全名</i><br>。其中只有使用者名稱是必須具備的，從電子信箱之後的下一個欄位開始，所有字元都視為全名的一部份，所以這裡允許使用空白字元。<p>"
-
-#~ msgid "not shown"
-#~ msgstr "不顯示"
-
-#~ msgid "Email sent"
-#~ msgstr "信件已寄出"
-
-#~ msgid "Email not sent"
-#~ msgstr "信件沒有寄出"
-
-#, fuzzy
-#~ msgid "Edit Text1"
-#~ msgstr "修改文字"
-
-#~ msgid "Delete %s"
-#~ msgstr "刪除%s"
-
-#, fuzzy
-#~ msgid "Edit Text2"
-#~ msgstr "修改文字"
-
-#, fuzzy
-#~ msgid "Edit Thumbnail2"
-#~ msgstr "修改縮圖"
-
-#, fuzzy
-#~ msgid "Rotate/Flip %s2"
-#~ msgstr "旋轉%s"
-
-#, fuzzy
-#~ msgid "Resize photo"
-#~ msgstr "調整相片大小"
-
-#~ msgid "Highlight %s"
-#~ msgstr "%s做為封面"
-
-#~ msgid "Move %s"
-#~ msgstr "移動%s"
-
-#~ msgid "Show %s"
-#~ msgstr "顯示%s"
-
-#~ msgid "Hide %s"
-#~ msgstr "隱藏%s"
-
-#~ msgid "resize photo"
-#~ msgstr "修改大小"
-
-#~ msgid "Wizard"
-#~ msgstr "精靈"
-
-#~ msgid "Error %s getting EXIF data"
-#~ msgstr "讀取EXIF資料發生錯誤 %s"
-
-#~ msgid "poll properties"
-#~ msgstr "評比屬性"
-
-#~ msgid "Show images with the highest ratings first"
-#~ msgstr "顯示影像擁有最高得分的在前"
-
-#~ msgid "highest ratings"
-#~ msgstr "最高得分"
-
-#~ msgid "Getting Ratings"
-#~ msgstr "Getting Ratings"
-
-#~ msgid "Highlight for Album: "
-#~ msgstr "封面相片："
-
-#~ msgid "admin options"
-#~ msgstr "管理選項"
-
-#~ msgid "IN UTIL ITEMCAPTUREDATE = %s"
-#~ msgstr "IN UTIL ITEMCAPTUREDATE = %s"
-
-#~ msgid "Email me when:"
-#~ msgstr "寄信給我,當:"
-
-#~ msgid "Use filename as caption if no caption is specified."
-#~ msgstr "如果沒有特別指定, 則使用檔名為說明. "
-
-#~ msgid "Correct Them!"
-#~ msgstr "更改"
-
-#~ msgid "You are no allowed to perform this action !"
-#~ msgstr "您未被允許執行此動作. "
-
-#~ msgid "Do you really want to delete this Album?"
-#~ msgstr "您確定要刪除這個相簿嗎？"
-
-#~ msgid "Leave blank if no caption is specified."
-#~ msgstr "如果沒有特別指定, 則空白. "
-
-#~ msgid "Use file creation date stamp as caption if no caption is specified."
-#~ msgstr "如果沒有特別指定, 則使用檔名為說明. "
-
-#~ msgid "Set photo captions with original filenames."
-#~ msgstr "沒有說明時，使用檔名為說明文字。"
-
-#~ msgid "You must specify a username"
-#~ msgstr "您一定要輸入帳號"
-
-#~ msgid "You must specify a password"
-#~ msgstr "您一定要輸入密碼"
-
-#~ msgid "There was an unknown failure in the %s call!"
-#~ msgstr "%s 呼叫產生不明原因的失敗! "
-
-#~ msgid "with donation"
-#~ msgstr "有贊助版本"
-
-#~ msgid "without donation"
-#~ msgstr "無贊助版本"
+msgstr "浮水印功能無法支援 gif 動畫圖檔，這將會置換圖片內容以及終止動畫效果。"

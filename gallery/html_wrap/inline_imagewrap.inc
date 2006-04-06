@@ -38,16 +38,12 @@ switch ($frame) {
     break;
     case "dots":
 ?>
-  <div style="width: <?php echo $imageWidth; ?>; border:<?php echo "${borderWidth}px dashed $borderColor"; ?>">
-        <?php echo $href_tag ?>
-  </div>
+   <div style="<?php echo "width:${imageWidth}px; border:${borderWidth}px dashed $borderColor;" ?>"><?php echo $href_tag ?></div>
 <?php
     break;
     case "solid":
 ?>
-  <div style="width: <?php echo $imageWidth; ?>; border:<?php echo "${borderWidth}px solid $borderColor"; ?>">
-        <?php echo $href_tag ?>
-  </div>
+  <div style="<?php echo "width:${imageWidth}px; border: ${borderWidth}px solid $borderColor;" ?>"><?php echo $href_tag ?></div>
 <?php
     break;
     default: // use frames directory or fallback to none

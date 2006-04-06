@@ -19,7 +19,6 @@
 #
 #
 # @version      1.5.2
-# @version      1.5.3-cvs
 # @package	Languagepack
 # @subpackage	Sloveak
 # @author	Peter Vlaciky <doktor AT internode DOT net DOT au>, 2004
@@ -28,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gallery 1.5.2-cvs\n"
 "Report-Msgid-Bugs-To: gallery-translations@lists.sourceforge.net\n"
-"POT-Creation-Date: 2006-01-19 19:07+0100\n"
+"POT-Creation-Date: 2006-04-05 00:19+0200\n"
 "PO-Revision-Date: 2004-08-19 23:50+1000\n"
 "Last-Translator: Peter Vlaciky <doktor AT internode DOT net DOT au>\n"
 "Language-Team: SK <doktor AT internode DOT net DOT au>\n"
@@ -46,7 +45,7 @@ msgstr ""
 #: ../move_photo.php:32 ../multi_create_user.php:34 ../photo_owner.php:34
 #: ../poll_properties.php:34 ../poll_results.php:37 ../rearrange.php:28
 #: ../rename_album.php:31 ../reset_votes.php:37 ../resize_photo.php:34
-#: ../rotate_photo.php:31 ../save_photos.php:38 ../upgrade_album.php:57
+#: ../rotate_photo.php:33 ../save_photos.php:38 ../upgrade_album.php:57
 #: ../user_preferences.php:31 ../watermark_album.php:43
 #, fuzzy
 msgid "You are not allowed to perform this action!"
@@ -74,9 +73,9 @@ msgid "Enter your comment for this picture in the text box below."
 msgstr "Pridajte Vá¹ komentár k tomuto obrázku v textovom rámiku dolu."
 
 #: ../add_comment.php:98 ../copy_photo.php:214 ../delete_album.php:72
-#: ../delete_photo.php:145 ../delete_user.php:85 ../download.php:74
-#: ../ecard_form.php:263 ../edit_caption.php:184 ../edit_field.php:67
-#: ../edit_watermark.php:130 ../includes/add_photos/add_form.inc:90
+#: ../delete_photo.php:145 ../delete_user.php:85 ../download.php:84
+#: ../ecard_form.php:263 ../edit_caption.php:184 ../edit_watermark.php:121
+#: ../includes/add_photos/add_form.inc:90
 #: ../includes/add_photos/add_url.inc:55 ../login.php:96 ../move_album.php:117
 #: ../move_album.php:134 ../move_photo.php:264 ../move_photo.php:352
 #: ../new_password.php:138 ../register.php:142 ../rename_album.php:131
@@ -105,7 +104,7 @@ msgstr "Formulár"
 msgid "URL"
 msgstr "URL"
 
-#: ../add_photos.php:79 ../layout/watermarkform.inc:135
+#: ../add_photos.php:79 ../layout/watermarkform.inc:141
 msgid "Other"
 msgstr "Iné"
 
@@ -231,8 +230,8 @@ msgid "Sort"
 msgstr "Triedi»"
 
 #: ../administer_startpage.php:99 ../administer_startpage.php:109
-#: ../download.php:81 ../help/imagemap.php:88 ../user_preferences.php:145
-#: ../view_photo_properties.php:137
+#: ../download.php:91 ../edit_field.php:66 ../help/imagemap.php:88
+#: ../user_preferences.php:145 ../view_photo_properties.php:137
 msgid "Close Window"
 msgstr "Zatvori» Okno"
 
@@ -294,8 +293,8 @@ msgstr "Vlastník:"
 msgid "Apply permissions to all sub-albums"
 msgstr ""
 
-#: ../album_permissions.php:159 ../edit_caption.php:183 ../edit_field.php:57
-#: ../edit_field.php:66 ../edit_watermark.php:128 ../modify_user.php:163
+#: ../album_permissions.php:159 ../edit_caption.php:183 ../edit_field.php:55
+#: ../edit_field.php:65 ../edit_watermark.php:119 ../modify_user.php:163
 #: ../new_password.php:137 ../photo_owner.php:103 ../user_preferences.php:144
 #: ../watermark_album.php:148
 msgid "Save"
@@ -307,12 +306,12 @@ msgstr "Uchova»"
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../albums.php:111 ../view_album.php:130
+#: ../albums.php:110 ../view_album.php:130
 #, php-format
 msgid "%s RSS"
 msgstr ""
 
-#: ../albums.php:146
+#: ../albums.php:148
 #, fuzzy, php-format
 msgid "1 album"
 msgid_plural "%d albums"
@@ -320,11 +319,11 @@ msgstr[0] "¾iadne albumy"
 msgstr[1] "¾iadne albumy"
 msgstr[2] "¾iadne albumy"
 
-#: ../albums.php:146
+#: ../albums.php:148
 msgid "no albums"
 msgstr "¾iadne albumy"
 
-#: ../albums.php:148
+#: ../albums.php:150
 #, fuzzy, php-format
 msgid "1 top-level album"
 msgid_plural "%d top-level albums"
@@ -332,16 +331,16 @@ msgstr[0] "®iadne albumy v najvy¹¹ej úrovni"
 msgstr[1] "®iadne albumy v najvy¹¹ej úrovni"
 msgstr[2] "®iadne albumy v najvy¹¹ej úrovni"
 
-#: ../albums.php:148
+#: ../albums.php:150
 msgid "No top-level albums"
 msgstr "®iadne albumy v najvy¹¹ej úrovni"
 
-#: ../albums.php:151
+#: ../albums.php:153
 #, php-format
 msgid "%d total"
 msgstr "%d celkom"
 
-#: ../albums.php:152 ../view_album.php:212
+#: ../albums.php:154 ../view_album.php:215
 #, fuzzy, php-format
 msgid "1 image"
 msgid_plural "%d images"
@@ -349,11 +348,11 @@ msgstr[0] "¾iadne obrázky"
 msgstr[1] "¾iadne obrázky"
 msgstr[2] "¾iadne obrázky"
 
-#: ../albums.php:152 ../view_album.php:212
+#: ../albums.php:154 ../view_album.php:215
 msgid "no images"
 msgstr "¾iadne obrázky"
 
-#: ../albums.php:153 ../view_album.php:213
+#: ../albums.php:155 ../view_album.php:216
 #, fuzzy, php-format
 msgid "1 page"
 msgid_plural "%d pages"
@@ -361,168 +360,168 @@ msgstr[0] "0 stránok"
 msgstr[1] "0 stránok"
 msgstr[2] "0 stránok"
 
-#: ../albums.php:153
+#: ../albums.php:155
 msgid "no pages"
 msgstr "¾iadne stránky"
 
-#: ../albums.php:156
+#: ../albums.php:158
 #, php-format
 msgid "%s (%s), %s on %s"
 msgstr "%s (%s), %s on %s"
 
-#: ../albums.php:159
+#: ../albums.php:161
 #, php-format
 msgid "%s (%s), %s"
 msgstr "%s (%s), %s"
 
-#: ../albums.php:161
+#: ../albums.php:163
 #, php-format
 msgid "%s, %s on %s"
 msgstr "%s, %s on %s"
 
-#: ../albums.php:163
+#: ../albums.php:165
 #, php-format
 msgid "%s, %s"
 msgstr "%s, %s"
 
-#: ../albums.php:178
+#: ../albums.php:180
 #, php-format
 msgid "Welcome, %s"
 msgstr "Vitajte, %s"
 
-#: ../albums.php:182 ../view_album.php:402
+#: ../albums.php:184 ../view_album.php:405
 msgid "slideshow"
 msgstr "predvádzanie diapozitívov"
 
-#: ../albums.php:187
+#: ../albums.php:189
 msgid "new album"
 msgstr "nový album"
 
-#: ../albums.php:194
+#: ../albums.php:196
 msgid "Administer startpage"
 msgstr ""
 
-#: ../albums.php:198
+#: ../albums.php:200
 #, fuzzy
 msgid "admin page"
 msgstr "¾iadne stránky"
 
-#: ../albums.php:203
+#: ../albums.php:205
 msgid "documentation"
 msgstr "dokumentácia"
 
-#: ../albums.php:209
+#: ../albums.php:211
 msgid "preferences"
 msgstr "nastavenia"
 
-#: ../albums.php:214 ../imagemap.php:139 ../view_album.php:420
+#: ../albums.php:216 ../imagemap.php:139 ../view_album.php:423
 #: ../view_photo.php:519
 msgid "logout"
 msgstr "odhlási»"
 
-#: ../albums.php:219 ../imagemap.php:144 ../view_album.php:425
+#: ../albums.php:221 ../imagemap.php:144 ../view_album.php:428
 #: ../view_photo.php:524
 msgid "login"
 msgstr "prihlási»"
 
-#: ../albums.php:223
+#: ../albums.php:225
 msgid "register"
 msgstr "zaregistrova»"
 
-#: ../albums.php:249
+#: ../albums.php:251
 msgid "Attention Gallery Administrator!"
 msgstr "Pozor Gallery Administrátor!"
 
-#: ../albums.php:252
+#: ../albums.php:254
 #, php-format
 msgid "%s has detected the following %d invalid album(s) in your albums directory<br>(%s):"
 msgstr "%s zistil nasledujúce %d nesprávne albumy vo Va¹om albumovom súbore<br>(%s):"
 
-#: ../albums.php:258
+#: ../albums.php:260
 msgid "Please move it/them out of the albums directory."
 msgstr "Prosím presuòte to/ich von z albumového súboru."
 
-#: ../albums.php:262
+#: ../albums.php:264
 #, php-format
 msgid "%s has detected that %d of your albums are out of date."
 msgstr "%s zistil ¾e %d albumov je neaktuálnych."
 
-#: ../albums.php:266
+#: ../albums.php:268
 #, php-format
 msgid "Please %s."
 msgstr "Prosím %s."
 
-#: ../albums.php:266
+#: ../albums.php:268
 msgid "upgrade those albums"
 msgstr "aktualizova» tie albumy"
 
-#: ../albums.php:273
+#: ../albums.php:275
 #, fuzzy
 msgid "Attention!"
 msgstr "dokumentácia"
 
-#: ../albums.php:275
+#: ../albums.php:277
 #, php-format
 msgid "The album or photo that you were attempting to view either does not exist, or requires user privileges that you do not possess. %s"
 msgstr ""
 
-#: ../albums.php:275
+#: ../albums.php:277
 #, php-format
 msgid "%s and try again."
 msgstr ""
 
-#: ../albums.php:276
+#: ../albums.php:278
 #, fuzzy
 msgid "Log in"
 msgstr "Prihlásenie"
 
-#: ../albums.php:290
+#: ../albums.php:292
 #, php-format
 msgid "The requested album with index %s is not valid"
 msgstr ""
 
-#: ../albums.php:331 ../view_album.php:676
+#: ../albums.php:333 ../view_album.php:679
 msgid "Highlight for Album:"
 msgstr "Zvýraznenie Albumu:"
 
-#: ../albums.php:351 ../view_album.php:782
+#: ../albums.php:353 ../view_album.php:785
 #, fuzzy
 msgid "Download entire album as archive"
 msgstr "¾iadny album nebol zvolený"
 
-#: ../albums.php:386
+#: ../albums.php:388
 #, fuzzy, php-format
 msgid "Owner: %s"
 msgstr "Vlastník:"
 
-#: ../albums.php:394
+#: ../albums.php:396
 msgid "url:"
 msgstr "url:"
 
-#: ../albums.php:405
+#: ../albums.php:407
 msgid "Hey!"
 msgstr "Hej,"
 
-#: ../albums.php:406
+#: ../albums.php:408
 #, php-format
 msgid "%s so that the URL is not so generic!"
 msgstr "%s nech to URL nieje také v¹eobecné!"
 
-#: ../albums.php:407
+#: ../albums.php:409
 msgid "Rename this album"
 msgstr "Premenova» tento album"
 
-#: ../albums.php:422
+#: ../albums.php:424
 #, fuzzy, php-format
 msgid "Created on %s, last changed on %s."
 msgstr "Posledne zmenené %s."
 
-#: ../albums.php:425
+#: ../albums.php:427
 #, php-format
 msgid "Last changed on %s."
 msgstr "Posledne zmenené %s."
 
-#: ../albums.php:434
+#: ../albums.php:436
 #, fuzzy, php-format
 msgid "This album contains 1 item."
 msgid_plural "This album contains %d items."
@@ -530,12 +529,12 @@ msgstr[0] "Tento album je prázdny."
 msgstr[1] "Tento album je prázdny."
 msgstr[2] "Tento album je prázdny."
 
-#: ../albums.php:443
+#: ../albums.php:445
 #, php-format
 msgid "This album has been viewed %s since %s."
 msgstr "Tento album bol prehliadaný %s od %s."
 
-#: ../albums.php:444 ../view_album.php:819
+#: ../albums.php:446 ../view_album.php:820
 #, fuzzy, php-format
 msgid "1 time"
 msgid_plural "%d times"
@@ -543,15 +542,15 @@ msgstr[0] "0 krát"
 msgstr[1] "0 krát"
 msgstr[2] "0 krát"
 
-#: ../albums.php:444
+#: ../albums.php:446
 msgid "0 times"
 msgstr "0 krát"
 
-#: ../albums.php:450
+#: ../albums.php:452
 msgid "reset counter"
 msgstr "vynulova» poèítadlo"
 
-#: ../albums.php:495 ../view_album.php:920
+#: ../albums.php:497 ../view_album.php:919
 msgid "Comments available for this item."
 msgstr "Komentár je pridaný pre túto polo¾ku."
 
@@ -621,7 +620,7 @@ msgid "(click to enlarge)"
 msgstr ""
 
 #: ../captionator.php:262 ../layout/commentboxtop.inc:20
-#: ../layout/commentboxtop.inc:45 ../view_album.php:770
+#: ../layout/commentboxtop.inc:45 ../view_album.php:773
 msgid "hidden"
 msgstr "ukrytý"
 
@@ -988,7 +987,7 @@ msgstr "Skopírova» do Albumu!"
 
 #: ../copy_photo.php:218 ../delete_photo.php:150 ../edit_thumb.php:131
 #: ../move_album.php:140 ../move_photo.php:358 ../resize_photo.php:147
-#: ../rotate_photo.php:95 ../view_photo_properties.php:130
+#: ../rotate_photo.php:130 ../view_photo_properties.php:130
 msgid "no album / index specified"
 msgstr "¾iaden album / index nebol zadaný"
 
@@ -1053,8 +1052,8 @@ msgstr "Naozaj chcete zmaza» tento album?"
 
 #: ../delete_album.php:71 ../delete_photo.php:144 ../delete_user.php:80
 #: ../js/multifile.js.php:106 ../layout/commentbox.inc:15
-#: ../lib/albumItem.php:254 ../lib/albumItem.php:255 ../lib/albumItem.php:261
-#: ../lib/albumItem.php:262 ../manage_users.php:98
+#: ../lib/albumItem.php:251 ../lib/albumItem.php:252 ../lib/albumItem.php:258
+#: ../lib/albumItem.php:259 ../manage_users.php:98
 #: ../tools/despam-comments.php:206 ../tools/despam-comments.php:345
 msgid "Delete"
 msgstr "Zmaza»"
@@ -1168,12 +1167,16 @@ msgstr "Obnovujem %d zmen¹eniny..."
 msgid "Rebuilding 1 thumbnail..."
 msgstr "Obnovujem 1 zmen¹eninu..."
 
-#: ../download.php:44 ../download.php:48
+#: ../download.php:40
+msgid "Zipdownload would work, but is disabled when debugging."
+msgstr ""
+
+#: ../download.php:54 ../download.php:58
 #, fuzzy
 msgid "Download album as archive"
 msgstr "¾iadny album nebol zvolený"
 
-#: ../download.php:59
+#: ../download.php:69
 #, fuzzy, php-format
 msgid "This album contains just one item in total."
 msgid_plural "This album contains %d items in total."
@@ -1181,7 +1184,7 @@ msgstr[0] "Tento album je prázdny."
 msgstr[1] "Tento album je prázdny."
 msgstr[2] "Tento album je prázdny."
 
-#: ../download.php:60
+#: ../download.php:70
 #, fuzzy, php-format
 msgid "One subalbum"
 msgid_plural "%d subalbums"
@@ -1189,12 +1192,12 @@ msgstr[0] "Pod albumy"
 msgstr[1] "Pod albumy"
 msgstr[2] "Pod albumy"
 
-#: ../download.php:60
+#: ../download.php:70
 #, fuzzy
 msgid "No subalbums"
 msgstr "®iadne albumy"
 
-#: ../download.php:61
+#: ../download.php:71
 #, fuzzy, php-format
 msgid "one photo/movie"
 msgid_plural "%d photos/movies"
@@ -1202,35 +1205,35 @@ msgstr[0] "®iadne hlasy"
 msgstr[1] "®iadne hlasy"
 msgstr[2] "®iadne hlasy"
 
-#: ../download.php:61
+#: ../download.php:71
 msgid "no photo/movie"
 msgstr ""
 
-#: ../download.php:63
+#: ../download.php:73
 #, fuzzy, php-format
 msgid "%s and %s."
 msgstr "%s, %s on %s"
 
-#: ../download.php:66
+#: ../download.php:76
 #, php-format
 msgid "Approximitaly size of zipfile: %s"
 msgstr ""
 
-#: ../download.php:70
+#: ../download.php:80
 #, fuzzy
 msgid "Full Version"
 msgstr "Oprávnenia"
 
-#: ../download.php:71
+#: ../download.php:81
 #, fuzzy
 msgid "Resized Version"
 msgstr "Zmenená Veµkos»"
 
-#: ../download.php:73
+#: ../download.php:83
 msgid "Download"
 msgstr ""
 
-#: ../download.php:79
+#: ../download.php:89
 msgid "This album album is not empty, but contains no photo or movie! Download would'nt make sense."
 msgstr ""
 
@@ -1330,7 +1333,7 @@ msgstr ""
 msgid "Your Message:"
 msgstr "Odkaz:"
 
-#: ../ecard_form.php:260 ../edit_watermark.php:129 ../watermark_album.php:151
+#: ../ecard_form.php:260 ../edit_watermark.php:120 ../watermark_album.php:151
 msgid "Preview"
 msgstr "Prehliadka"
 
@@ -1408,7 +1411,7 @@ msgid "Undo"
 msgstr "Zru¹i»"
 
 #: ../edit_appearance.php:301 ../extra_fields.php:174
-#: ../poll_properties.php:142 ../rotate_photo.php:87
+#: ../poll_properties.php:142 ../rotate_photo.php:124
 msgid "Close"
 msgstr "Zavrie»"
 
@@ -1458,12 +1461,12 @@ msgstr "Minúty"
 msgid "Seconds"
 msgstr "Sekundy"
 
-#: ../edit_field.php:49 ../edit_field.php:53
+#: ../edit_field.php:46 ../edit_field.php:51
 #, php-format
 msgid "Edit %s"
 msgstr "Meni» %s"
 
-#: ../edit_field.php:56
+#: ../edit_field.php:54
 #, php-format
 msgid "Edit the %s and click %s when you're done"
 msgstr "Zmeòte %s a kliknite %s"
@@ -1488,11 +1491,11 @@ msgstr "Prosím zvoµte vodotlaè."
 msgid "Please select an alignment."
 msgstr "Prosím zvoµte zoradenie."
 
-#: ../edit_watermark.php:93 ../edit_watermark.php:97
+#: ../edit_watermark.php:89
 msgid "Edit Watermark"
 msgstr "Meni» Vodotlaè"
 
-#: ../edit_watermark.php:116
+#: ../edit_watermark.php:107
 msgid "Your image is a gif. Watermarking on animated gifs is currently not supported and will 'deface & unanimate' your picture."
 msgstr ""
 
@@ -1905,7 +1908,7 @@ msgstr ""
 msgid "Supported file types: %s"
 msgstr "Podporované typy súborov"
 
-#: ../includes/add_photos/add_form.inc:38 ../view_album.php:562
+#: ../includes/add_photos/add_form.inc:38 ../view_album.php:565
 msgid " or "
 msgstr " alebo "
 
@@ -2473,7 +2476,7 @@ msgstr "oprávnenia"
 msgid "properties"
 msgstr "vlastnosti"
 
-#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:412
+#: ../layout/adminAlbumCommands.inc:35 ../view_album.php:415
 msgid "view&nbsp;comments"
 msgstr "prezrie»&nbsp;poznámky"
 
@@ -2490,11 +2493,11 @@ msgstr "Prihlásený ako:"
 msgid "From: %s"
 msgstr "Od:"
 
-#: ../layout/commentboxbottom.inc:11 ../stats.php:969
+#: ../layout/commentboxbottom.inc:12 ../stats.php:969
 msgid "add comment"
 msgstr "prida» poznámku"
 
-#: ../layout/commentboxbottom.inc:14
+#: ../layout/commentboxbottom.inc:16
 #, fuzzy
 msgid "Delete marked comments"
 msgstr "zmaza» poznámku"
@@ -2508,11 +2511,11 @@ msgstr "prezrie» poznámky k tomuto vlo¾enému albumu"
 msgid "Album contains no comments"
 msgstr "Album neobsahuje ¾iadne poznámky"
 
-#: ../layout/commentdraw.inc:23 ../lib/albumItem.php:327
+#: ../layout/commentdraw.inc:23 ../lib/albumItem.php:324
 msgid "From:"
 msgstr "Od:"
 
-#: ../layout/commentdraw.inc:48 ../lib/albumItem.php:301
+#: ../layout/commentdraw.inc:48 ../lib/albumItem.php:298
 msgid "delete comment"
 msgstr "zmaza» poznámku"
 
@@ -2559,103 +2562,103 @@ msgid "%d of %d"
 msgstr "%d z %d"
 
 # watermark
-#: ../layout/watermarkform.inc:84
+#: ../layout/watermarkform.inc:90
 #, fuzzy
 msgid "Watermark:"
 msgstr "Vodotlaè"
 
 # watermark
-#: ../layout/watermarkform.inc:88
+#: ../layout/watermarkform.inc:94
 #, fuzzy
 msgid "* No Watermark *"
 msgstr "Vodotlaè"
 
-#: ../layout/watermarkform.inc:94
+#: ../layout/watermarkform.inc:100
 #, php-format
 msgid "No files matching %s found in %s"
 msgstr "®iadne archívy zodpovedajúce %s nájdené v %s"
 
-#: ../layout/watermarkform.inc:100
+#: ../layout/watermarkform.inc:106
 #, php-format
 msgid "Could not open directory %s"
 msgstr "Nebolo mo¾né otvori» adresár: %s"
 
 # alignment
-#: ../layout/watermarkform.inc:105
+#: ../layout/watermarkform.inc:111
 #, fuzzy
 msgid "Alignment:"
 msgstr "Zoradenie"
 
-#: ../layout/watermarkform.inc:110
+#: ../layout/watermarkform.inc:116
 msgid "Upper&nbsp;Left"
 msgstr "Hore&nbsp;Vµavo"
 
-#: ../layout/watermarkform.inc:112
+#: ../layout/watermarkform.inc:118
 msgid "Top"
 msgstr "Hore"
 
-#: ../layout/watermarkform.inc:114
+#: ../layout/watermarkform.inc:120
 msgid "Upper&nbsp;Right"
 msgstr "Hore&nbsp;Vpravo"
 
-#: ../layout/watermarkform.inc:118
+#: ../layout/watermarkform.inc:124
 msgid "Left"
 msgstr "Vµavo"
 
-#: ../layout/watermarkform.inc:120
+#: ../layout/watermarkform.inc:126
 msgid "Center"
 msgstr "Stred"
 
-#: ../layout/watermarkform.inc:122
+#: ../layout/watermarkform.inc:128
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../layout/watermarkform.inc:126
+#: ../layout/watermarkform.inc:132
 msgid "Lower&nbsp;Left"
 msgstr "Dole&nbsp;Vµavo"
 
-#: ../layout/watermarkform.inc:128
+#: ../layout/watermarkform.inc:134
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../layout/watermarkform.inc:130
+#: ../layout/watermarkform.inc:136
 msgid "Lower&nbsp;Right"
 msgstr "Dole&nbsp;Vpravo"
 
-#: ../layout/watermarkform.inc:144
+#: ../layout/watermarkform.inc:150
 msgid "Preview Size"
 msgstr "Veµkos» Zobrazenia"
 
-#: ../layout/watermarkform.inc:147
+#: ../layout/watermarkform.inc:153
 msgid "Resized"
 msgstr "Zmenená Veµkos»"
 
-#: ../layout/watermarkform.inc:150
+#: ../layout/watermarkform.inc:156
 msgid "Full"
 msgstr "Plná"
 
-#: ../layout/watermarkform.inc:162
+#: ../layout/watermarkform.inc:168
 msgid "Watermark subalbums"
 msgstr "Prida» vodotlaè do pod allbumov"
 
-#: ../layout/watermarkform.inc:164
+#: ../layout/watermarkform.inc:170
 #, fuzzy
 msgid "Apply watermark to"
 msgstr "prida» vodotlaè do albumu"
 
-#: ../layout/watermarkform.inc:165
+#: ../layout/watermarkform.inc:171
 #, fuzzy
 msgid "All photos"
 msgstr "prida» fotky"
 
 # resize
-#: ../layout/watermarkform.inc:166
+#: ../layout/watermarkform.inc:172
 #, fuzzy
 msgid "Only sized photos"
 msgstr "zmeni» veµkos» fotky"
 
 # resize
-#: ../layout/watermarkform.inc:167
+#: ../layout/watermarkform.inc:173
 #, fuzzy
 msgid "Only full photos"
 msgstr "zmeni» veµkos» fotky"
@@ -2696,78 +2699,78 @@ msgstr "Vodotlaè"
 msgid "ImageMap"
 msgstr "Prehliada» Obrázky"
 
-#: ../lib/albumItem.php:142 ../lib/albumItem.php:143
-msgid "Edit Title"
-msgstr "Zmeni» Titulok"
-
-#: ../lib/albumItem.php:147 ../lib/albumItem.php:148
-msgid "Edit Description"
-msgstr "Meni» popis"
-
-#: ../lib/albumItem.php:153 ../lib/albumItem.php:154 ../rename_album.php:39
-#: ../rename_album.php:43
-msgid "Rename Album"
-msgstr "Premenova» Album"
-
-#: ../lib/albumItem.php:159 ../lib/albumItem.php:160
-msgid "Reset Counter"
-msgstr "Vynulova» poèítadlo"
-
-#: ../lib/albumItem.php:171 ../lib/albumItem.php:172 ../view_album.php:313
-msgid "Permissions"
-msgstr "Oprávnenia"
-
-#: ../lib/albumItem.php:179 ../lib/albumItem.php:180
-#: ../watermark_album.php:114 ../watermark_album.php:118
-msgid "Watermark Album"
-msgstr "Prida» Vodotlaè do Albumu"
-
-#: ../lib/albumItem.php:186 ../lib/albumItem.php:187
-msgid "View Comments"
-msgstr "Prehliadnu» Poznámky"
-
-#: ../lib/albumItem.php:196 ../lib/albumItem.php:213 ../lib/albumItem.php:214
+#: ../lib/albumItem.php:140 ../lib/albumItem.php:141
 #, fuzzy
 msgid "Move"
 msgstr "Film"
 
-# reorder
-#: ../lib/albumItem.php:197
-#, fuzzy
-msgid "Reorder"
-msgstr "Preskupi» %s"
+#: ../lib/albumItem.php:148 ../lib/albumItem.php:149
+msgid "Edit Title"
+msgstr "Zmeni» Titulok"
 
-#: ../lib/albumItem.php:204 ../lib/albumItem.php:205
-#, fuzzy
-msgid "Set as highlight"
-msgstr "®iadne zvýraznenie"
+#: ../lib/albumItem.php:153 ../lib/albumItem.php:154
+msgid "Edit Description"
+msgstr "Meni» popis"
 
-#: ../lib/albumItem.php:220 ../lib/albumItem.php:221
+#: ../lib/albumItem.php:159 ../lib/albumItem.php:160 ../rename_album.php:39
+#: ../rename_album.php:43
+msgid "Rename Album"
+msgstr "Premenova» Album"
+
+#: ../lib/albumItem.php:165 ../lib/albumItem.php:166
+msgid "Reset Counter"
+msgstr "Vynulova» poèítadlo"
+
+#: ../lib/albumItem.php:177 ../lib/albumItem.php:178 ../view_album.php:316
+msgid "Permissions"
+msgstr "Oprávnenia"
+
+#: ../lib/albumItem.php:185 ../lib/albumItem.php:186
+#: ../watermark_album.php:114 ../watermark_album.php:118
+msgid "Watermark Album"
+msgstr "Prida» Vodotlaè do Albumu"
+
+#: ../lib/albumItem.php:192 ../lib/albumItem.php:193
+msgid "View Comments"
+msgstr "Prehliadnu» Poznámky"
+
+#: ../lib/albumItem.php:200 ../lib/albumItem.php:201
 #, fuzzy
 msgid "Copy"
 msgstr "Skopírova» %s"
 
-#: ../lib/albumItem.php:226 ../lib/albumItem.php:227 ../photo_owner.php:78
-#: ../photo_owner.php:82
-msgid "Change Owner"
-msgstr "Zmeni» Majiteµa"
-
-#: ../lib/albumItem.php:236 ../lib/albumItem.php:237
+#: ../lib/albumItem.php:208 ../lib/albumItem.php:209
 #, fuzzy
 msgid "Show"
 msgstr "Snow"
 
-#: ../lib/albumItem.php:242 ../lib/albumItem.php:243
+#: ../lib/albumItem.php:214 ../lib/albumItem.php:215
 #, fuzzy
 msgid "Hide"
 msgstr "ukrytý"
 
-#: ../lib/albumItem.php:274 ../lib/albumItem.php:275
+# reorder
+#: ../lib/albumItem.php:223 ../lib/albumItem.php:224
+#, fuzzy
+msgid "Reorder"
+msgstr "Preskupi» %s"
+
+#: ../lib/albumItem.php:231 ../lib/albumItem.php:232
+#, fuzzy
+msgid "Set as highlight"
+msgstr "®iadne zvýraznenie"
+
+#: ../lib/albumItem.php:240 ../lib/albumItem.php:241 ../photo_owner.php:78
+#: ../photo_owner.php:82
+msgid "Change Owner"
+msgstr "Zmeni» Majiteµa"
+
+#: ../lib/albumItem.php:271 ../lib/albumItem.php:272
 #, fuzzy
 msgid "Photo properties"
 msgstr "vlastnosti fotky"
 
-#: ../lib/albumItem.php:287 ../lib/albumItem.php:288
+#: ../lib/albumItem.php:284 ../lib/albumItem.php:285
 #, fuzzy, php-format
 msgid "%s actions"
 msgstr "dokumentácia"
@@ -3199,11 +3202,11 @@ msgstr "Kto mô¾e voli»"
 msgid "Orientation of vote choices"
 msgstr "Orientácia volebných mo¾ností"
 
-#: ../poll_properties.php:108 ../rotate_photo.php:82
+#: ../poll_properties.php:108 ../rotate_photo.php:96
 msgid "Horizontal"
 msgstr "Horizontálne"
 
-#: ../poll_properties.php:108 ../rotate_photo.php:85
+#: ../poll_properties.php:108 ../rotate_photo.php:102
 msgid "Vertical"
 msgstr "Vertikálne"
 
@@ -3239,7 +3242,7 @@ msgstr "Návrat do %s"
 msgid "Results Breakdown"
 msgstr "Rozpis Výsledkov"
 
-#: ../poll_results.php:148 ../view_album.php:501 ../view_album.php:786
+#: ../poll_results.php:148 ../view_album.php:504 ../view_album.php:789
 #, php-format
 msgid "Album: %s"
 msgstr "Album: %s"
@@ -3628,40 +3631,46 @@ msgstr "(Pou¾i» iba originálne obrázky)"
 msgid "Change Size"
 msgstr "Zmeni» Veµkos»"
 
-#: ../rotate_photo.php:40 ../rotate_photo.php:46
+#: ../rotate_photo.php:42 ../rotate_photo.php:49
 msgid "Rotate/Flip Photo"
 msgstr "Otoèi»/Prehodi» Fotku"
 
-#: ../rotate_photo.php:51
+#: ../rotate_photo.php:54
 msgid "Rotating/Flipping photo."
 msgstr "Otáèam/Prehadzujem Fotku"
 
-#: ../rotate_photo.php:53 ../watermark_album.php:65
+#: ../rotate_photo.php:56 ../watermark_album.php:65
 msgid "(this may take a while)"
 msgstr "(toto mô¾e trva» dlh¹ie)"
 
-#: ../rotate_photo.php:62
+#: ../rotate_photo.php:65
 msgid "Manipulate again?"
 msgstr "Znova manipulova»?"
 
-#: ../rotate_photo.php:64
+#: ../rotate_photo.php:67
 msgid "How do you want to manipulate this photo?"
 msgstr "Ako chcete manipulova» túto fotku?"
 
-#: ../rotate_photo.php:70
+#: ../rotate_photo.php:77
+#, fuzzy
+msgid "Clockwise 90&deg;"
+msgstr "V smere hodinových ruèièiek"
+
+#: ../rotate_photo.php:83
+msgid "180&deg;"
+msgstr ""
+
+#: ../rotate_photo.php:89
+#, fuzzy
+msgid "Counter-Clockwise 90&deg;"
+msgstr "Oproti smeru hodinových ruèièiek"
+
+#: ../rotate_photo.php:110
 msgid "Rotate"
 msgstr "Otoèi»"
 
-#: ../rotate_photo.php:73
-msgid "Counter-Clockwise"
-msgstr "Oproti smeru hodinových ruèièiek"
-
-#: ../rotate_photo.php:79
-msgid "Clockwise"
-msgstr "V smere hodinových ruèièiek"
-
 # flip
-#: ../rotate_photo.php:80
+#: ../rotate_photo.php:114
 msgid "Flip"
 msgstr "Prevráti»"
 
@@ -4634,192 +4643,211 @@ msgstr "Ak chcete zmani» va¹e heslo, musíte zada» Va¹e staré heslo a potom zada»
 msgid "You can change your username to any combination of letters and digits."
 msgstr "Mô¾ete zmeni» Va¹e u¾ívateµské meno na akúkoµvek kombináciu písmen a èíslic."
 
-#: ../util.php:154
+#: ../util.php:156
 #, fuzzy, php-format
 msgid "Executing: %s"
 msgstr "Vykonáva:"
 
-#: ../util.php:161
+#: ../util.php:163
 msgid "Results:"
 msgstr "Výsledky:"
 
-#: ../util.php:165
+#: ../util.php:167
 msgid "none"
 msgstr "¾iadny"
 
-#: ../util.php:170
+#: ../util.php:172
 msgid "Debug messages:"
 msgstr "Odlaïovací odkaz:"
 
-#: ../util.php:181
+#: ../util.php:183
 #, php-format
 msgid "Status: %s (expected %s)"
 msgstr "Stav: %s (oèakávaný %s)"
 
-#: ../util.php:206
+#: ../util.php:208
 #, php-format
 msgid "Getting Dimension of file: %s"
 msgstr ""
 
-#: ../util.php:209
+#: ../util.php:211
 #, fuzzy
 msgid "The file does not exist ?!"
 msgstr "Archív %s neexistuje ?!"
 
-#: ../util.php:216
+#: ../util.php:218
 #, php-format
 msgid "Dimensions: x: %d y: %d"
 msgstr ""
 
-#: ../util.php:221
+#: ../util.php:223
 #, fuzzy, php-format
 msgid "PHP's %s function is unable to determine dimensions."
 msgstr "PHP %s nebolo schopné zisti» rozmery."
 
-#: ../util.php:235
+#: ../util.php:237
 msgid "You have no graphics package configured for use!"
 msgstr "Nemáte ¾iadny grafický programový balík nastavený na pou¾itie!"
 
-#: ../util.php:258
+#: ../util.php:260
 #, fuzzy
 msgid "Unable to determine image dimensions!"
 msgstr "PHP %s nebolo schopné zisti» rozmery."
 
-#: ../util.php:432
+#: ../util.php:434
 #, php-format
 msgid "Can't write to %s."
 msgstr "Nemô¾e zapisova» do %s."
 
-#: ../util.php:439
+#: ../util.php:441
 #, php-format
 msgid "Can't read %s."
 msgstr "Nebolo mo¾né naèíta» %s."
 
-#: ../util.php:661
+#: ../util.php:663
 #, fuzzy, php-format
 msgid "Item Capture Date : %s"
 msgstr "Dátum záznamu"
 
-#: ../util.php:706
+#: ../util.php:708
 #, fuzzy, php-format
 msgid "Could not open lock file (%s) for writing!"
 msgstr "Nebolo mo¾né otvori» lock file (%s)!"
 
-#: ../util.php:711
+#: ../util.php:713
 #, php-format
 msgid "Could not acquire lock (%s)!"
 msgstr "Nebolo mo¾né získa» lock file (%s)!"
 
-#: ../util.php:794
+#: ../util.php:796
 #, php-format
 msgid "extension of file %s is %s"
 msgstr ""
 
-#: ../util.php:903
+#: ../util.php:905
 #, fuzzy, php-format
 msgid "Extracting: %s with %s"
 msgstr "Vykonáva:"
 
-#: ../util.php:921
+#: ../util.php:923
 #, php-format
 msgid "%s with extension %s is not an supported archive."
 msgstr ""
 
-#: ../util.php:935
+#: ../util.php:938
 msgid "No Support for creating Zips"
 msgstr ""
 
-#: ../util.php:938
+#: ../util.php:941
 #, php-format
 msgid "Creating Zipfile with %s"
 msgstr ""
 
-#: ../util.php:952 ../util.php:1833
+#: ../util.php:955
 #, php-format
 msgid "Your tempfolder is not writeable! Please check permissions of this dir: %s"
 msgstr ""
 
 # processing
-#: ../util.php:988
+#: ../util.php:987
 #, fuzzy, php-format
 msgid "Processing file: %s"
 msgstr "Spracúvam obrázok"
 
-#: ../util.php:991
+#: ../util.php:990
 #, fuzzy, php-format
 msgid "Processing file '%s' as archive"
 msgstr "Spracúvam %s ako lokálny súbor."
 
-#: ../util.php:994
+#: ../util.php:993
 #, fuzzy, php-format
 msgid "Skipping %s (%s support not enabled)"
 msgstr "Vynechávam %s (podpora ZIP nieje aktivovaná)"
 
-#: ../util.php:1003
+#: ../util.php:1002
 msgid "Getting archive content Filenames"
 msgstr ""
 
-#: ../util.php:1021
+#: ../util.php:1020
 msgid "No Metadata"
 msgstr ""
 
 # processing
-#: ../util.php:1025
+#: ../util.php:1024
 #, fuzzy
 msgid "Processing files in archive"
 msgstr "Spracúvam obrázok"
 
-#: ../util.php:1031
+#: ../util.php:1030
 #, fuzzy, php-format
 msgid "%d. %s"
 msgstr "%s, %s"
 
-#: ../util.php:1034
+#: ../util.php:1033
 #, fuzzy, php-format
 msgid "Could not extract %s"
 msgstr "Nebolo mo¾né otvori» adresár: %s"
 
-#: ../util.php:1154
+#: ../util.php:1153
 #, php-format
 msgid "Adding %s"
 msgstr "Pridávam %s"
 
-#: ../util.php:1174
+#: ../util.php:1173
 #, php-format
 msgid "Need help?  Look in the  %s%s FAQ%s"
 msgstr "Potrebujete pomoc?  Pozrite si %s%sFAQ%s"
 
-#: ../util.php:1179
+#: ../util.php:1178
 #, php-format
 msgid "Skipping %s (can't handle %s format)"
 msgstr "Vynechávam %s (neschopný spracova» %s formát)"
 
-#: ../util.php:1292
+#: ../util.php:1291
 #, php-format
 msgid "Cannot open logfile: %s"
 msgstr "Nebolo mo¾né otvori» záznamový súbor: %s"
 
-#: ../util.php:1460
+#: ../util.php:1459
 #, php-format
 msgid "Parsing for csv data in file: %s"
 msgstr ""
 
-#: ../util.php:1476
+#: ../util.php:1475
 #, fuzzy
 msgid "csv result:"
 msgstr "Výsledky hlasovania:"
 
-#: ../util.php:1645
+#: ../util.php:1649
 #, php-format
 msgid "MIMEtype of file %s is %s"
 msgstr ""
 
-#: ../util.php:1735
+#: ../util.php:1739
 #, php-format
 msgid "%s sent you an E-C@rd."
 msgstr ""
 
-#: ../view_album.php:211
+#: ../util.php:1837
+#, php-format
+msgid "Gallery was unable to create a tempory subfolder in your tempdir. Please check permissions of this dir: %s"
+msgstr ""
+
+#: ../util.php:1876
+#, php-format
+msgid "'%s' seems not to be a valid file. Download aborted."
+msgstr ""
+
+#: ../util.php:1884
+#, php-format
+msgid "The file '%s' seems not inside Gallery tempdir %s, download aborted."
+msgstr ""
+
+#: ../util.php:1889
+msgid "We are trying to download the tempdir itself ?! Download aborted."
+msgstr ""
+
+#: ../view_album.php:214
 #, fuzzy, php-format
 msgid "1 sub-album"
 msgid_plural "%d sub-albums"
@@ -4827,162 +4855,162 @@ msgstr[0] "Pod albumy"
 msgstr[1] "Pod albumy"
 msgstr[2] "Pod albumy"
 
-#: ../view_album.php:211
+#: ../view_album.php:214
 msgid "No albums"
 msgstr "®iadne albumy"
 
-#: ../view_album.php:213
+#: ../view_album.php:216
 msgid "0 pages"
 msgstr "0 stránok"
 
-#: ../view_album.php:216
+#: ../view_album.php:219
 #, php-format
 msgid "%s and %s in this album on %s"
 msgstr "%s a %s v tomto albume %s"
 
-#: ../view_album.php:219
+#: ../view_album.php:222
 #, php-format
 msgid "%s and %s in this album"
 msgstr "%s a %s v tomto albume"
 
-#: ../view_album.php:222
+#: ../view_album.php:225
 #, php-format
 msgid "%s in this album on %s"
 msgstr "%s v tomto albume %s"
 
-#: ../view_album.php:225
+#: ../view_album.php:228
 #, php-format
 msgid "%s in this album"
 msgstr "%s v tomto albume"
 
-#: ../view_album.php:232
+#: ../view_album.php:235
 #, php-format
 msgid "%s are hidden"
 msgstr "%s sú ukryté"
 
-#: ../view_album.php:234
+#: ../view_album.php:237
 #, php-format
 msgid "%s is hidden"
 msgstr "%s je ukrytý"
 
-#: ../view_album.php:244
+#: ../view_album.php:247
 #, fuzzy
 msgid "Add photos"
 msgstr "Pridaj fotky"
 
-#: ../view_album.php:250
+#: ../view_album.php:253
 #, fuzzy
 msgid "Delete this album"
 msgstr "Premenova» tento album"
 
-#: ../view_album.php:255
+#: ../view_album.php:258
 #, fuzzy
 msgid "Delete this (sub)album"
 msgstr "Premenova» tento album"
 
-#: ../view_album.php:264
+#: ../view_album.php:267
 #, fuzzy
 msgid "Rename album"
 msgstr "premenova» album"
 
-#: ../view_album.php:271
+#: ../view_album.php:274
 #, fuzzy
 msgid "New nested album"
 msgstr "nový vlo¾ený album"
 
-#: ../view_album.php:277
+#: ../view_album.php:280
 #, fuzzy
 msgid "Edit captions"
 msgstr "meni» titulok"
 
 # sort
-#: ../view_album.php:283
+#: ../view_album.php:286
 #, fuzzy
 msgid "Sort items"
 msgstr "utriedi» polo¾ky"
 
-#: ../view_album.php:289
+#: ../view_album.php:292
 #, fuzzy
 msgid "Resize all"
 msgstr "zmeni» veµkos» v¹etkého"
 
-#: ../view_album.php:295
+#: ../view_album.php:298
 #, fuzzy
 msgid "Rebuild thumbs"
 msgstr "obnovi» zmen¹eniny"
 
-#: ../view_album.php:301
+#: ../view_album.php:304
 #, fuzzy
 msgid "Properties"
 msgstr "vlastnosti"
 
-#: ../view_album.php:307
+#: ../view_album.php:310
 #, fuzzy
 msgid "Rearrange items"
 msgstr "Mením veµkos» %s"
 
-#: ../view_album.php:319
+#: ../view_album.php:322
 #, fuzzy
 msgid "Poll results"
 msgstr "Výsledky hlasovania:"
 
 # reset
-#: ../view_album.php:325
+#: ../view_album.php:328
 #, fuzzy
 msgid "Poll reset"
 msgstr "resetova» hlasovanie"
 
-#: ../view_album.php:331
+#: ../view_album.php:334
 #, fuzzy
 msgid "View comments"
 msgstr "Prehliadnu» Poznámky"
 
-#: ../view_album.php:337
+#: ../view_album.php:340
 #, fuzzy
 msgid "Watermark album"
 msgstr "Prida» Vodotlaè do Albumu"
 
-#: ../view_album.php:395
+#: ../view_album.php:398
 #, fuzzy
 msgid "Album Actions"
 msgstr "Hlavièka Albumu"
 
-#: ../view_album.php:485
+#: ../view_album.php:488
 msgid "You have no votes recorded for this poll."
 msgstr "Nemáte ¾iadne hlasy evidované v tomto hlasovaní."
 
-#: ../view_album.php:489
+#: ../view_album.php:492
 msgid "Your current choices are"
 msgstr "Va¹e aktuálne voµby sú"
 
-#: ../view_album.php:526
+#: ../view_album.php:529
 msgid "See full poll results"
 msgstr "Prezrite si kompletné výsledky hlasovania"
 
-#: ../view_album.php:560
+#: ../view_album.php:563
 msgid ", "
 msgstr ","
 
-#: ../view_album.php:566
+#: ../view_album.php:569
 #, php-format
 msgid "To vote for an image, click on %s."
 msgstr "Hlasova» za obrázok kliknutím na %s."
 
-#: ../view_album.php:567
+#: ../view_album.php:570
 #, php-format
 msgid "You MUST click on %s for your vote to be recorded."
 msgstr "Aby bola voµba zaevidovaná, je potrebné kliknú» na %s."
 
-#: ../view_album.php:568 ../view_album.php:584 ../view_album.php:926
+#: ../view_album.php:571 ../view_album.php:587 ../view_album.php:925
 msgid "Vote"
 msgstr "Voli»"
 
-#: ../view_album.php:572
+#: ../view_album.php:575
 #, php-format
 msgid "You have a total of %s and can change them if you wish."
 msgstr "Máte celkovo %s a mô¾ete ich zmeni» ak si to ¾eláte."
 
-#: ../view_album.php:573
+#: ../view_album.php:576
 #, fuzzy, php-format
 msgid "1 vote"
 msgid_plural "%d votes"
@@ -4991,35 +5019,35 @@ msgstr[1] "®iadne hlasy"
 msgstr[2] "®iadne hlasy"
 
 # vote
-#: ../view_album.php:576
+#: ../view_album.php:579
 msgid "You can change your choices if you wish."
 msgstr "Ak si ¾eláte, mô¾ete zmeni» svoje voµby."
 
-#: ../view_album.php:727 ../view_album.php:728
+#: ../view_album.php:730 ../view_album.php:731
 #, php-format
 msgid "%dkB"
 msgstr "%dkB"
 
-#: ../view_album.php:775
+#: ../view_album.php:778
 #, fuzzy
 msgid "highlight"
 msgstr "®iadne zvýraznenie"
 
-#: ../view_album.php:790
+#: ../view_album.php:793
 msgid "No description"
 msgstr "®iadny popis"
 
-#: ../view_album.php:798
+#: ../view_album.php:801
 #, fuzzy, php-format
 msgid "Last change: %s"
 msgstr "Posledne zmenené %s."
 
-#: ../view_album.php:801
+#: ../view_album.php:804
 #, fuzzy, php-format
 msgid "Contains: %s"
 msgstr "Obsahuje:"
 
-#: ../view_album.php:801
+#: ../view_album.php:804
 #, fuzzy, php-format
 msgid "1 item"
 msgid_plural "%d items"
@@ -5027,12 +5055,12 @@ msgstr[0] "polo¾ky"
 msgstr[1] "polo¾ky"
 msgstr[2] "polo¾ky"
 
-#: ../view_album.php:819
+#: ../view_album.php:820
 #, fuzzy, php-format
 msgid "Viewed: %s"
 msgstr "Prehliadnuté:"
 
-#: ../view_album.php:846
+#: ../view_album.php:845
 #, fuzzy, php-format
 msgid "Viewed: 1 time."
 msgid_plural "Viewed: %d times."
@@ -5040,23 +5068,23 @@ msgstr[0] "Prehliadnuté:"
 msgstr[1] "Prehliadnuté:"
 msgstr[2] "Prehliadnuté:"
 
-#: ../view_album.php:904
+#: ../view_album.php:903
 msgid "Hey! Add some photos."
 msgstr "Hej! Pridaj nejaké fotky."
 
-#: ../view_album.php:906
+#: ../view_album.php:905
 msgid "This album is empty."
 msgstr "Tento album je prázdny."
 
-#: ../view_album.php:951
+#: ../view_album.php:950
 msgid "Email me when one of the following actions are done to this album:"
 msgstr ""
 
-#: ../view_album.php:956
+#: ../view_album.php:955
 msgid "Comments are added"
 msgstr "Poznámky sú pridané"
 
-#: ../view_album.php:959
+#: ../view_album.php:958
 msgid "Other changes are made"
 msgstr "Iné zmeny sú urobené"
 
@@ -5145,1163 +5173,3 @@ msgstr "®iadne polo¾ky na aplikovanie vodotlaèe."
 #: ../watermark_album.php:137
 msgid "Keep in mind that watermarking on animated gifs is currently not supported and will 'deface & unanimate' your pictures."
 msgstr ""
-
-#~ msgid "Illegal username %s: must at least 2 characters"
-#~ msgstr "Nesprávny u¾ívateµ %s: musí by» najmenej 2 znaky"
-
-#, fuzzy
-#~ msgid "Show the add vote link"
-#~ msgstr "prida» poznámku"
-
-#, fuzzy
-#~ msgid "Move Album!"
-#~ msgstr "Presunú» Album"
-
-#~ msgid "Value"
-#~ msgstr "Hodnota"
-
-#~ msgid "PHP v%s is OK."
-#~ msgstr "PHP v%s je OK."
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Valid admin email address given."
-#~ msgstr "Platná admin emailová adresa bola zadaná."
-
-#~ msgid "All tested files up-to-date."
-#~ msgstr "V¹etky testované archívy sú aktualizované."
-
-#~ msgid "Return to %s."
-#~ msgstr "Návrat do %s"
-
-#~ msgid "Configuration Wizard"
-#~ msgstr "Nastavovací Nápomocník"
-
-#~ msgid "Admin password"
-#~ msgstr "Admin heslo"
-
-#~ msgid "email address"
-#~ msgstr "emailová adresa"
-
-#~ msgid "Cannot read file %s."
-#~ msgstr "Nebolo mo¾né èíta» archív %s."
-
-#~ msgid "Missing version"
-#~ msgstr "Chýba verzia"
-
-#~ msgid "%s OK"
-#~ msgstr "%s OK"
-
-#, fuzzy
-#~ msgid "The following placeholder can be used:"
-#~ msgstr "Nasledujúce archívy sú aktualizované."
-
-#~ msgid "File %s does not exist."
-#~ msgstr "Archív %s neexistuje."
-
-#~ msgid "OK!  Version: %s"
-#~ msgstr "OK! Verzia: %s"
-
-#~ msgid "Gallery Help Page"
-#~ msgstr "Gallery Pomocná Stránka"
-
-#~ msgid "Success"
-#~ msgstr "Úspech"
-
-#, fuzzy
-#~ msgid "Warning, but optional"
-#~ msgstr "je to voliteµné"
-
-#, fuzzy
-#~ msgid "Serious warning, but optional"
-#~ msgstr "Vá¾ne Upozornenie"
-
-#, fuzzy
-#~ msgid "Serious warning, no go !"
-#~ msgstr "Vá¾ne Upozornenie"
-
-#~ msgid "Next Step"
-#~ msgstr "Nasledujúci Krok"
-
-#~ msgid "Gallery ImageMagick Check"
-#~ msgstr "Gallery ImageMagick Kontrola"
-
-#~ msgid "Check %s"
-#~ msgstr "Skontrolova» %s"
-
-#~ msgid "Checking:"
-#~ msgstr "Kontrolujem:"
-
-#~ msgid "Check Mail"
-#~ msgstr "Skontrolova» Po¹tu"
-
-#~ msgid "You must use a valid email address"
-#~ msgstr "Musíte pou¾i» platnú emailovú adresu"
-
-#~ msgid "Try again?"
-#~ msgstr "Skúsi» znova?"
-
-#~ msgid "Warning"
-#~ msgstr "Upozornenie"
-
-#~ msgid "Send Email"
-#~ msgstr "Odosla» Email"
-
-#~ msgid "Gallery NetPBM Check"
-#~ msgstr "Gallery NetPBM Kontrola"
-
-#~ msgid "Check Versions"
-#~ msgstr "Skontrolova» Verzie"
-
-#~ msgid "All files okay."
-#~ msgstr "V¹etky archívy vporiadku."
-
-#, fuzzy
-#~ msgid "One file is up-to-date."
-#~ msgid_plural "%d files are up-to-date."
-#~ msgstr[0] "®iadne archívy niesú aktualizované. "
-#~ msgstr[1] "®iadne archívy niesú aktualizované. "
-#~ msgstr[2] "®iadne archívy niesú aktualizované. "
-
-#, fuzzy
-#~ msgid "All files are up-to-date."
-#~ msgstr "®iadne archívy niesú aktualizované. "
-
-#~ msgid "The following files are up-to-date."
-#~ msgstr "Nasledujúce archívy sú aktualizované."
-
-#~ msgid "unknown"
-#~ msgstr "neznámy"
-
-#, fuzzy
-#~ msgid "Gallery version"
-#~ msgstr "Gallery Test Spojenia"
-
-#, fuzzy
-#~ msgid "PHP version"
-#~ msgstr "Skontrolova» verziu"
-
-#~ msgid "Gallery Title"
-#~ msgstr "Gallery Titul"
-
-#~ msgid "Skin Name"
-#~ msgstr "Názov Plá¹»a"
-
-#~ msgid "Default upload method"
-#~ msgstr "Predvolená metóda odsunu"
-
-#~ msgid "Form-based Upload"
-#~ msgstr "Formou prevedený Odsun"
-
-#~ msgid "Mini-Applet"
-#~ msgstr "Mini-Applet"
-
-#~ msgid "Full-Applet"
-#~ msgstr "Celý-Applet"
-
-#~ msgid "Locations and URLs"
-#~ msgstr "Miesta a URL"
-
-#~ msgid "REQUIRED"
-#~ msgstr "POTREBNÉ"
-
-#~ msgid "Temporary directory"
-#~ msgstr "Doèasný súbor"
-
-#~ msgid "Albums URL"
-#~ msgstr "URL Albumov"
-
-#~ msgid "Thumbnail image"
-#~ msgstr "Vytori» zmen¹eninu z obrázka"
-
-#~ msgid "JPEG Quality"
-#~ msgstr "JPEG Kvalita"
-
-#~ msgid "Embedded Gallery"
-#~ msgstr "Vsadená Gallery"
-
-#~ msgid "GeekLog Dir"
-#~ msgstr "GeekLog Dir"
-
-#~ msgid "Main Gallery page"
-#~ msgstr "Hlavná stránka Gallery"
-
-#, fuzzy
-#~ msgid "No tree"
-#~ msgstr "®iadne okraje"
-
-#~ msgid "Highlight size"
-#~ msgstr "Zvýrazni» veµkos»"
-
-#, fuzzy
-#~ msgid "Highlight Ratio"
-#~ msgstr "Zvýrazni» veµkos»"
-
-#, fuzzy
-#~ msgid "Square highlight"
-#~ msgstr "Albumové zvýraznenie"
-
-#~ msgid "Show Owner"
-#~ msgstr "Zobrazi» Majiteµa"
-
-#~ msgid "Albums per page"
-#~ msgstr "Albumov na stránke"
-
-#~ msgid "Search Engine"
-#~ msgstr "Vyhµadávaè"
-
-#~ msgid "Frame around albums"
-#~ msgstr "Okraje okolo albumov"
-
-#~ msgid "Multi language mode"
-#~ msgstr "Viacjazyèný re¾im"
-
-#~ msgid "Show flags?"
-#~ msgstr "Zobrazi» vlajky?"
-
-#~ msgid "date without time"
-#~ msgstr "dátum bez èasu"
-
-#~ msgid "date with time"
-#~ msgstr "dátum s èasom"
-
-#~ msgid "Email and Registration"
-#~ msgstr "Email a Registrácia"
-
-#~ msgid "Check Email"
-#~ msgstr "Skontrolova» Email"
-
-#~ msgid "Enable email"
-#~ msgstr "Umo¾ni» email"
-
-#~ msgid "Self registered users can create albums."
-#~ msgstr "U¾ívatelia ktorí sa sami zaregistrovali mô¾u vytvára» albumy."
-
-#~ msgid "Log to a file"
-#~ msgstr "Zaznamena» do archívu"
-
-#, fuzzy
-#~ msgid "SMTP password"
-#~ msgstr "Heslo"
-
-#~ msgid "Gallery wide slideshow"
-#~ msgstr "Predvádzanie celej Gallery"
-
-#~ msgid "Slideshow preferences"
-#~ msgstr "Voµby Predvádzania"
-
-#~ msgid "Off"
-#~ msgstr "Vypnuté"
-
-#~ msgid "Ordered"
-#~ msgstr "Zoradené"
-
-#~ msgid "Random"
-#~ msgstr "Náhodne"
-
-#~ msgid "Slideshow length"
-#~ msgstr "Då¾ka Predvádzania"
-
-#~ msgid "Allow slideshow to loop"
-#~ msgstr "Povoli» cyklovanie prehliadania"
-
-#~ msgid "Slideshow Mode"
-#~ msgstr "Predvádzateµský Re¾im"
-
-#~ msgid "Java Applet"
-#~ msgstr "Java Applet"
-
-#~ msgid "Comments"
-#~ msgstr "Poznámky"
-
-#~ msgid "Photos"
-#~ msgstr "Fotky"
-
-#, fuzzy
-#~ msgid "Maximum length of comments"
-#~ msgstr "Maximálna då¾ka Poznámok"
-
-#, fuzzy
-#~ msgid "Watermarking"
-#~ msgstr "Prida» vodotlaè celému súboru"
-
-#~ msgid "Watermark directory"
-#~ msgstr "Prida» vodotlaè celému súboru"
-
-#, fuzzy
-#~ msgid "Watermark both resized and full images"
-#~ msgstr "Prida» vodotlaè celému súboru"
-
-#, fuzzy
-#~ msgid "Watermark resized image only"
-#~ msgstr "Prida» vodotlaè celému súboru"
-
-#, fuzzy
-#~ msgid "Watermark full sized image only"
-#~ msgstr "Prida» vodotlaè celému súboru"
-
-#, fuzzy
-#~ msgid "Comment cache"
-#~ msgstr "Poznámky"
-
-#, fuzzy
-#~ msgid "Paranoid"
-#~ msgstr "Polaroid"
-
-#~ msgid "6 Hours"
-#~ msgstr "6 Hodín"
-
-#~ msgid "Cache EXIF data"
-#~ msgstr "Cache EXIF dáta"
-
-#~ msgid "Developer Mode"
-#~ msgstr "Vyvýjateµský Re¾im"
-
-#~ msgid "Use Syslog"
-#~ msgstr "Pou¾i» syslog"
-
-#~ msgid "Status code"
-#~ msgstr "Kód stavu"
-
-#~ msgid "Album highlight"
-#~ msgstr "Albumové zvýraznenie"
-
-#~ msgid "All image thumbnails"
-#~ msgstr "Zmen¹eniny v¹etkých obrázkov"
-
-#~ msgid "RSS Highlight"
-#~ msgstr "RSS Zvýraznenie"
-
-#~ msgid "Maximum Albums Returned"
-#~ msgstr "Maximum Navrátených Albumov"
-
-#~ msgid "Visible Albums Only"
-#~ msgstr "Len Neukryté Albumy"
-
-#~ msgid "Display Hidden Albums"
-#~ msgstr "Zobrazi» ukryté Albumy"
-
-#~ msgid "Use dc:date"
-#~ msgstr "Pou¾i» dc:date"
-
-#~ msgid "Use Big Photo"
-#~ msgstr "Pou¾i» Veµkú Fotku"
-
-#~ msgid "Use Photo Tag"
-#~ msgstr "Pou¾i» ©títok Fotky"
-
-#~ msgid "Appearance"
-#~ msgstr "Vzhµad"
-
-#~ msgid "Border color"
-#~ msgstr "Farba okraja"
-
-#~ msgid "Border width"
-#~ msgstr "©írka okraja"
-
-#~ msgid "Thumbnail size"
-#~ msgstr "Veµkos» zmen¹eniny"
-
-#, fuzzy
-#~ msgid "Thumbnail Ratio"
-#~ msgstr "Veµkos» zmen¹eniny"
-
-#~ msgid "off"
-#~ msgstr "vypnuté"
-
-#, fuzzy
-#~ msgid "Warning:"
-#~ msgstr "Upozornenie"
-
-#~ msgid "%d (%d MPix)"
-#~ msgstr "%d (%d MPix)"
-
-#~ msgid "Preserve Names"
-#~ msgstr "Zachova» Názvy"
-
-#~ msgid "Add to beginning"
-#~ msgstr "Návrat na zaèiatok"
-
-#~ msgid "Fit-to-window"
-#~ msgstr "Zmesti» do okna"
-
-#~ msgid "Gallery Link"
-#~ msgstr "Gallery Linka"
-
-#~ msgid "Logged-In Users"
-#~ msgstr "Prihlásený U¾ívatelia"
-
-#~ msgid "Data displayed"
-#~ msgstr "Zobrazené hodnoty"
-
-#~ msgid "Click counts"
-#~ msgstr "Poèet kliknutí"
-
-#~ msgid "Custom Fields"
-#~ msgstr "Prispôsobené Polia"
-
-#~ msgid "Display clickable image dimensions"
-#~ msgstr "Zobrazi» rozmery kliknuteµného obrázku"
-
-#~ msgid "Item Owner"
-#~ msgstr "Majiteµ Polo¾ky"
-
-#~ msgid "Photo owner modification"
-#~ msgstr "Menenie majiteµa fotky"
-
-#~ msgid "Photo owner deletion"
-#~ msgstr "Zmazanie majiteµa fotky"
-
-#~ msgid "Photo owner display"
-#~ msgstr "Zobrazenie majiteµa fotky"
-
-#~ msgid "Polling configuration"
-#~ msgstr "Nastavenie volieb"
-
-#~ msgid "Voting is available to:"
-#~ msgstr "Hlasovanie je umo¾nené tomuto:"
-
-#~ msgid "Voting is off."
-#~ msgstr "Hlasovanie je vypnuté"
-
-#~ msgid "Poll type"
-#~ msgstr "Typ volieb"
-
-#~ msgid "Show vote results"
-#~ msgstr "Zobrazi» výsledky volieb"
-
-#~ msgid "Number of results displayed"
-#~ msgstr "Poèet zobrazených výsledkov"
-
-#~ msgid "Orientation of vote choices?"
-#~ msgstr "Orientácia volebných mo¾ností?"
-
-#~ msgid "Excellent"
-#~ msgstr "Výborné"
-
-#~ msgid "Very Good"
-#~ msgstr "Veµmi Dobré"
-
-#~ msgid "Good"
-#~ msgstr "Dobré"
-
-#~ msgid "Average"
-#~ msgstr "Priemerné"
-
-#~ msgid "Poor"
-#~ msgstr "Biedne"
-
-#~ msgid "Album Slideshow"
-#~ msgstr "Predvádzanie Albumu"
-
-#~ msgid "Slideshow Type"
-#~ msgstr "Typ Predvádzania"
-
-#~ msgid "Recursive slideshow"
-#~ msgstr "Rekurzívne predvádzanie"
-
-#, fuzzy
-#~ msgid "Fixed"
-#~ msgstr "Zlyhal"
-
-#~ msgid "Frames"
-#~ msgstr "Okraje"
-
-#~ msgid "Subalbum frames"
-#~ msgstr "Pod albumové okraje"
-
-#~ msgid "missing"
-#~ msgstr "chýba"
-
-#~ msgid "it's optional"
-#~ msgstr "je to voliteµné"
-
-#~ msgid "optional"
-#~ msgstr "voliteµné"
-
-#~ msgid "Edit Config"
-#~ msgstr "Zmeni» Nastavenie"
-
-#~ msgid "Save Config"
-#~ msgstr "Uchova» Nastavenie"
-
-#, fuzzy
-#~ msgid "One error."
-#~ msgid_plural "%d errors."
-#~ msgstr[0] "®iadne chyby."
-#~ msgstr[1] "®iadne chyby."
-#~ msgstr[2] "®iadne chyby."
-
-#~ msgid "No errors."
-#~ msgstr "®iadne chyby."
-
-#~ msgid "See Details below."
-#~ msgstr "Prezrite si Detaily naspodku."
-
-#~ msgid "Previous Step"
-#~ msgstr "Predchádzajúci Krok"
-
-#~ msgid "Previous Tab"
-#~ msgstr "Predchádzajúci Tab"
-
-#~ msgid "Next Tab"
-#~ msgstr "Nasledujúci Tab"
-
-#~ msgid "Use Defaults"
-#~ msgstr "Pou¾i» Predvoµby"
-
-#~ msgid "Gallery Diagnostics"
-#~ msgstr "Gallery Diagnostika"
-
-#~ msgid "Tool"
-#~ msgstr "Nástroj"
-
-#~ msgid "PHP Info"
-#~ msgstr "PHP Info"
-
-#~ msgid "Check"
-#~ msgstr "Skontrolova»"
-
-#~ msgid "Check Sessions"
-#~ msgstr "Skontrolova» Spojenia"
-
-#~ msgid "Check versions"
-#~ msgstr "Skontrolova» verziu"
-
-#~ msgid "Gallery Configuration"
-#~ msgstr "Gallery Nastavenie"
-
-#~ msgid "None"
-#~ msgstr "®iadne"
-
-#~ msgid "No frames"
-#~ msgstr "®iadne okraje"
-
-#~ msgid "Dots"
-#~ msgstr "Bodky"
-
-#~ msgid "Just a simple dashed border around the thumb."
-#~ msgstr "Iba jednoduchý èiarkovaný okraj okolo zman¹eniny."
-
-#~ msgid "Solid"
-#~ msgstr "Plné"
-
-#~ msgid "Just a simple solid border around the thumb."
-#~ msgstr "Iba jednoduchý celý okraj okolo zman¹eniny."
-
-#~ msgid "Skipping %s."
-#~ msgstr "Vynechávam %s."
-
-#~ msgid "Can't open %s"
-#~ msgstr "Nebolo mo¾né otvori» %s."
-
-#~ msgid "Reset %s Password"
-#~ msgstr "Vynulova» %s Heslo"
-
-#~ msgid "%s configuration"
-#~ msgstr "%s nastavenie"
-
-#~ msgid "Gallery Session Test"
-#~ msgstr "Gallery Test Spojenia"
-
-#~ msgid "Server IP address"
-#~ msgstr "IP adresa servera"
-
-#~ msgid "Unable to write to %s."
-#~ msgstr "Nemô¾e zapisova» do %s."
-
-# additional
-#~ msgid "EXIF Data"
-#~ msgstr "EXIF Dáta"
-
-#~ msgid "Failed"
-#~ msgstr "Zlyhal"
-
-#~ msgid "yes"
-#~ msgstr "áno"
-
-#~ msgid "no"
-#~ msgstr "nie"
-
-#~ msgid "Embed Gallery"
-#~ msgstr "Vsadi» Gallery"
-
-#~ msgid "Standalone Gallery"
-#~ msgstr "Samostatne stojaca Gallery"
-
-#~ msgid "Admin"
-#~ msgstr "Admin"
-
-#~ msgid "on"
-#~ msgstr "na"
-
-#, fuzzy
-#~ msgid "Album: "
-#~ msgstr "Album: %s"
-
-#~ msgid "Admin help"
-#~ msgstr "Admin pomoc"
-
-#~ msgid "To install or upgrade the Gallery Remote Applets, please refer to "
-#~ msgstr "Pre in¹taláciu alebo aktualizáciu Gallery Diaµkových Apletov, prosím pozrite"
-
-#~ msgid "the documentation page"
-#~ msgstr "stránka dokumentácii"
-
-#~ msgid " on the Gallery web site."
-#~ msgstr " na stránkach Gallery"
-
-#~ msgid "1. Select the number of files you want to upload:"
-#~ msgstr "1. Zvoµte poèet archívov ktoré chcete odosla»:"
-
-#~ msgid "Select the number of meta data files you want to upload:"
-#~ msgstr "Zvoµte poèet meta dátových archívov ktoré chcete ososla»:"
-
-#~ msgid "File"
-#~ msgstr "Súbor"
-
-#~ msgid "3. Use the Browse button to find the meta data files on your computer"
-#~ msgstr "2. Pou¾ite Browse gombík na nájdenie meta dátových archívov vo Va¹om poèítaèi"
-
-# summary
-#~ msgid "Album Summary"
-#~ msgstr "Prehµad Albumu"
-
-# title
-#~ msgid "Album Title"
-#~ msgstr "Titul Albumu"
-
-#, fuzzy
-#~ msgid "Background Image (URL)"
-#~ msgstr "Obrázok v Pozadí"
-
-# font
-#~ msgid "Font"
-#~ msgstr "Typ Písma"
-
-#~ msgid "Rows"
-#~ msgstr "Riadkov"
-
-#~ msgid "Columns"
-#~ msgstr "Ståpcov"
-
-# borders
-#~ msgid "Borders"
-#~ msgstr "Okraje"
-
-#, fuzzy
-#~ msgid "Colors"
-#~ msgstr "Zavrie»"
-
-#~ msgid "Background Color"
-#~ msgstr "Farba Pozadia"
-
-#~ msgid "Text Color"
-#~ msgstr "Farba Textu"
-
-#~ msgid "Link Color"
-#~ msgstr "Farba Liniek"
-
-# border
-#, fuzzy
-#~ msgid "Border Color"
-#~ msgstr "Farba okraja"
-
-#~ msgid "Album Frame"
-#~ msgstr "Okraj Albumu"
-
-#~ msgid "Thumb Frame"
-#~ msgstr "Okraj Zmen¹eniny"
-
-#~ msgid "Image Frame"
-#~ msgstr "Okraj Obrázku"
-
-#, fuzzy
-#~ msgid "Slideshow"
-#~ msgstr "predvádzanie diapozitívov"
-
-# subalbum
-#~ msgid "Include sub-albums in slideshow"
-#~ msgstr "Zahrnú» vlo¾ené albumy v predvádzaní"
-
-#~ msgid "Slideshow Length"
-#~ msgstr "Då¾ka Predvádzania"
-
-#, fuzzy
-#~ msgid "Sizes"
-#~ msgstr "Zvoli» slu¾bu"
-
-# intermediate
-#~ msgid "Maximum dimensions of intermediate sized images"
-#~ msgstr "Maximálne rozmery obrázkov v strednej veµkosti"
-
-# intermediate, restriction
-#~ msgid "Maximum file size of intermediate sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
-#~ msgstr "Maximálna veµkos» súboru strednorozmerných JPEG/PNG obrázkov v kilobytoch (0 alebo prázdne ak veµkos» nemá by» obmedzená)"
-
-#~ msgid "Maximum dimensions of full sized images"
-#~ msgstr "Maximálne rozmery obrázkov v plnej veµkosti"
-
-#~ msgid "Maximum file size of full sized JPEG/PNG images in kilobytes (0 or blank for no size restriction)"
-#~ msgstr "Maximálna veµkos» súboru celorozmerných JPEG/PNG obrázkov v kilobytoch (0 alebo prázdne ak veµkos» nemá by» obmedzená)"
-
-#, fuzzy
-#~ msgid "Display"
-#~ msgstr "spus»"
-
-#~ msgid "Display click counter for this album?"
-#~ msgstr "Zobrazi» poèítadlo kliknutí pre tento album?"
-
-#~ msgid "Display owners name with caption"
-#~ msgstr "Zobrazi» meno vlastníka s hlavièkou"
-
-#~ msgid "Display EXIF data?"
-#~ msgstr "Zobrazi» EXIF dáta?"
-
-#, fuzzy
-#~ msgid "Services"
-#~ msgstr "Zvoli» slu¾bu"
-
-#~ msgid "Which photo printing services<br>do you want to let visitors use?"
-#~ msgstr "Ktorý foto tlaèiarenský servis<br>chcete ponúknu» náv¹tevníkom?"
-
-#, fuzzy
-#~ msgid "Who can vote?"
-#~ msgstr "Kto mô¾e voli»"
-
-#, fuzzy
-#~ msgid "Voting Options"
-#~ msgstr "administrátorské mo¾nosti"
-
-#~ msgid "Add new items at beginning of album"
-#~ msgstr "Prida» nové polo¾ky na zaèiatku albumu"
-
-#~ msgid "Show <i>Return to</i> link"
-#~ msgstr "Zobraz <i>Návrat na</i> linku"
-
-# offer, preferences 
-#~ msgid "Offer visitors ability to specify<br>preference for full-size or resized images"
-#~ msgstr "Umo¾ni» náv¹tevníkom mo¾nos» zada»<br>preferencie pre plnorozmerné obrázky alebo obrázky so zmenenou veµkos»ou "
-
-# auto fit to window, resized copy
-#~ msgid "Auto fit-to-window for<br>images without a resized copy"
-#~ msgstr "Automaticky prispôsobi» do okna pre<br>obrázky bez prispôsobenej kópie"
-
-#~ msgid "Allow item owners to modify their images"
-#~ msgstr "Umo¾ni» vlastníkom polo¾ky meni» ich obrázky"
-
-#~ msgid "Allow item owners to delete their images"
-#~ msgstr "Umo¾ni» vlastníkom polo¾ky maza» ich obrázky"
-
-#, fuzzy
-#~ msgid "Number of previous thumbs"
-#~ msgstr "Poèet hlasovacích mo¾ností"
-
-#, fuzzy
-#~ msgid "Number of next thumbs"
-#~ msgstr "Poèet hlasovacích mo¾ností"
-
-#~ msgid "Check All"
-#~ msgstr "Zvoli» v¹etko"
-
-#~ msgid "Clear All"
-#~ msgstr "Vymaza» v¹etko"
-
-# invert
-#~ msgid "Invert Selection"
-#~ msgstr "Prevráti» Voµbu"
-
-#~ msgid "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
-#~ msgstr "Note: This is an automatically generated email message sent from the %s website.  If you have received this in error, please ignore this message."
-
-#~ msgid "Report abuse to %s"
-#~ msgstr "Oznámte zneu¾ívanie na %s"
-
-#~ msgid "Email not sent as it is disabled for this gallery"
-#~ msgstr "Email nebol odoslaný nakoµko bol zablokovaný pre túto gallery"
-
-#~ msgid "Email not sent to %s as it is not a valid address"
-#~ msgstr "Email nebol odoslaný do %s nakoµko to nieje platná adresa"
-
-#, fuzzy
-#~ msgid "Email not sent as no reciepient address provided"
-#~ msgstr "Email nebol odoslaný nakoµko adresa nebola zadaná"
-
-#~ msgid "Sender address %s is invalid, using %s."
-#~ msgstr "Odosielateµova adresa %s nieje platná, pou¾itá bude %s."
-
-#, fuzzy
-#~ msgid ""
-#~ "Hi !!FULLNAME!!,\n"
-#~ "\n"
-#~ "Congratulations.  You have just been subscribed to %s at %s.  Your account name is !!USERNAME!!.  Please visit the gallery soon, and create a password by clicking this link:\n"
-#~ "\n"
-#~ "!!NEWPASSWORDLINK!!\n"
-#~ "\n"
-#~ "Gallery @ %s Administrator."
-#~ msgstr ""
-#~ "Ahoj !!FULLNAME!!,  \n"
-#~ "\n"
-#~ "Gratulácia.  Práve ste boli prihlásený do %s v %s.  Vá¹ u¾ívateµ je !!USERNAME!!.  Prosím nav¹tívte gallery èo najskôr a vytvorte si heslo kliknutím tejto linky:\n"
-#~ "\n"
-#~ "!!NEWPASSWORDLINK!!\n"
-#~ "\n"
-#~ "Gallery @ %s Administrator."
-
-#~ msgid "gallery title"
-#~ msgstr "gallery titul"
-
-#~ msgid "gallery URL"
-#~ msgstr "gallery URL"
-
-#, fuzzy
-#~ msgid "Admin email(s)"
-#~ msgstr "Admin pomoc"
-
-#, fuzzy
-#~ msgid "Fullname"
-#~ msgstr "Plné Meno"
-
-#, fuzzy
-#~ msgid "New comment for %s"
-#~ msgstr "prehliadnu» si poznámky"
-
-#, fuzzy
-#~ msgid "Item"
-#~ msgstr "polo¾ky"
-
-#, fuzzy
-#~ msgid "***End comment ***"
-#~ msgstr "prehliadnu» si poznámky"
-
-#, fuzzy
-#~ msgid "New comment for %s."
-#~ msgstr "prehliadnu» si poznámky"
-
-# failed
-#~ msgid "FAILED"
-#~ msgstr "NEÚSPE©NÝ"
-
-#~ msgid "Email activity"
-#~ msgstr "Emailová èinnos»"
-
-#~ msgid "Total points in brackets"
-#~ msgstr "Celkový poèet bodov v zátvorke"
-
-#~ msgid "Average points in brackets"
-#~ msgstr "Priemerný poèet bodov v zátvorke"
-
-#, fuzzy
-#~ msgid "1 voter"
-#~ msgid_plural "%d voters"
-#~ msgstr[0] "®iadne hlasy"
-#~ msgstr[1] "®iadne hlasy"
-#~ msgstr[2] "®iadne hlasy"
-
-#~ msgid "%s: %s points; "
-#~ msgstr "%s: %s bodov;"
-
-#~ msgid "Key - %s"
-#~ msgstr "Kµúè - %s"
-
-#~ msgid "No votes"
-#~ msgstr "®iadne hlasy"
-
-#~ msgid "Number %d overall."
-#~ msgstr "Èíslo %d celkove."
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-# upload
-#~ msgid "Upload Date"
-#~ msgstr "Dátum Odoslania"
-
-# additional
-#~ msgid "Additional EXIF Data"
-#~ msgstr "Dodatoèné EXIF Dáta"
-
-#, fuzzy
-#~ msgid "description"
-#~ msgstr "Popis"
-
-#~ msgid "Error:"
-#~ msgstr "Chyba:"
-
-#~ msgid "Generated by %s v%s"
-#~ msgstr "Generované %s verzia %s"
-
-#~ msgid "Powered by %s v%s"
-#~ msgstr "Poháòané %s verzia %s"
-
-#~ msgid "Move the album to a new album:"
-#~ msgstr "Presunú» album do nového albumu:"
-
-#, fuzzy
-#~ msgid "Views:"
-#~ msgstr "Prehliadnuté:"
-
-#~ msgid "Call to %s failed in %s for file %s!"
-#~ msgstr "Vyvolanie %s zlyhalo v %s pre archív %s!"
-
-#~ msgid "File %s type %d."
-#~ msgstr "Archív %s typ %d."
-
-#~ msgid "Unknown file type: %s"
-#~ msgstr "Neznámy formát archívu: %s"
-
-#~ msgid "Unable to preserve EXIF data (jhead not installed)"
-#~ msgstr "Neschopný zachova» EXIF dáta (jhead nieje in¹talovaný)"
-
-#~ msgid "Changed: "
-#~ msgstr "Zmenené:"
-
-#, fuzzy
-#~ msgid "Resizing Image: %s"
-#~ msgstr "Mením veµkos» %s"
-
-#~ msgid "No resizing required"
-#~ msgstr "Zmena veµkosti nieje potrebná"
-
-#~ msgid "target file size %d kbytes"
-#~ msgstr "cieµová veµkos» archívu %d kbytov"
-
-#~ msgid "-> file size %d kbytes"
-#~ msgstr "-> veµkos» súboru %d kbytov"
-
-#~ msgid "trying quality %d%%"
-#~ msgstr "skú¹am kvalitu %d%%"
-
-#~ msgid "Done."
-#~ msgstr "Hotovo."
-
-#~ msgid "No watermark name specified!"
-#~ msgstr "Nebolo zadané meno vodotlaèe!"
-
-#~ msgid "add photos"
-#~ msgstr "prida» fotky"
-
-#~ msgid "poll results"
-#~ msgstr "výsledky hlasovania"
-
-#~ msgid "view comments"
-#~ msgstr "prehliadnu» si poznámky"
-
-#~ msgid "watermark album"
-#~ msgstr "prida» vodotlaè do albumu"
-
-#~ msgid "title"
-#~ msgstr "titul"
-
-#~ msgid "Empty"
-#~ msgstr "Prázdny"
-
-#~ msgid "edit %s"
-#~ msgstr "meni» %s"
-
-#~ msgid "No Caption"
-#~ msgstr "®iadna Hlavièka"
-
-#~ msgid "edit"
-#~ msgstr "meni»"
-
-#~ msgid "Add your comment"
-#~ msgstr "Prida» Va¹u poznámku"
-
-#~ msgid "Commenter:"
-#~ msgstr "Komentátor:"
-
-#~ msgid "Message:"
-#~ msgstr "Odkaz:"
-
-#~ msgid "Post"
-#~ msgstr "Odosla»"
-
-#~ msgid "Not closing this window because debug mode is on"
-#~ msgstr "Nezatvori» toto okno preto¾e debug re¾im je zapnutý"
-
-#, fuzzy
-#~ msgid "Problem including file %s"
-#~ msgstr "Problém s pridávaním %s:"
-
-#~ msgid "Select Album"
-#~ msgstr "Zvoµte Album"
-
-#~ msgid "Top Level"
-#~ msgstr "Najvy¹¹ia Úroveò"
-
-#~ msgid "current location"
-#~ msgstr "súèasné miesto"
-
-#~ msgid "self"
-#~ msgstr "samostatne"
-
-#, fuzzy
-#~ msgid "1 hit"
-#~ msgid_plural "%d hits"
-#~ msgstr[0] "polo¾ky"
-#~ msgstr[1] "polo¾ky"
-#~ msgstr[2] "polo¾ky"
-
-#~ msgid "Sub-albums"
-#~ msgstr "Pod albumy"
-
-#~ msgid "Last comment %s."
-#~ msgstr "Posledný komentár %s."
-
-#, fuzzy
-#~ msgid "No Skin"
-#~ msgstr "Prihlásenie"
-
-#, fuzzy
-#~ msgid "<dt>%s</dt><dd>The original look and feel.</dd>"
-#~ msgstr "<dt>®iadne</dt><dd> Pôvodný výzor a dojem.</dd>"
-
-#, fuzzy
-#~ msgid "Last Update"
-#~ msgstr "Posledná Stránka"
-
-#~ msgid "Not valid yet"
-#~ msgstr "Zatiaµ neplatné"
-
-#, fuzzy
-#~ msgid "Search:"
-#~ msgstr "Vyhµadávanie"
-
-#~ msgid "No email sent as no valid email addresses were found"
-#~ msgstr "Email nebol odoslaný preto¾e nebola nájdená ¾iadna emailová adresa"
-
-#~ msgid "Skipping invalid email address %s"
-#~ msgstr "Vynechávam neplatnú emailovú adresu %s"
-
-#~ msgid "Watermarking photo."
-#~ msgstr "Pridávam vodotlaè na fotku."
-
-#~ msgid "this may take a while"
-#~ msgstr "toto mô¾e trva» dlh¹ie"
-
-#~ msgid "Search Again"
-#~ msgstr "Nové Vyhµadávanie"
-
-# go
-#~ msgid "Go"
-#~ msgstr "Pokraèova»"
-
-#, fuzzy
-#~ msgid "Diashow"
-#~ msgstr "predvádzanie diapozitívov"
-
-#~ msgid "adding %s"
-#~ msgstr "pridávam %s"
-
-#~ msgid "The members file should be one user per line, and the fields should be space separated.  Each line is of the form:<br> <i>username emailaddress fullname</i>.<br>  Only username is required. Everything after the email address is the full name, so there can be spaces in it.<p>"
-#~ msgstr "Èlenský archív by mal ma» jedného u¾ívateµa na ka¾dom riadku a polia by mali by» oddelené medzerou. Ka¾dý riadok má tvar:<br> <i>u¾ívateµ emailováadresa celé meno</i>.<br>  Len u¾ívateµ je povinné pole. V¹etko za emailovou adresou je celé meno, tak¾e mô¾e obsahova» medzery.<p>"
-
-#~ msgid "not shown"
-#~ msgstr "nezobrazený"
-
-#~ msgid "Email sent"
-#~ msgstr "Email odoslaný"
-
-#~ msgid "Email not sent"
-#~ msgstr "Email nebol odoslaný"
-
-#, fuzzy
-#~ msgid "Edit Text1"
-#~ msgstr "Meni» Text"
-
-#~ msgid "Delete %s"
-#~ msgstr "Zmaza» %s"
-
-#, fuzzy
-#~ msgid "Edit Text2"
-#~ msgstr "Meni» Text"
-
-# thumbnail
-#, fuzzy
-#~ msgid "Edit Thumbnail2"
-#~ msgstr "Meni» Zmen¹eninu"
-
-# flip
-#, fuzzy
-#~ msgid "Rotate/Flip %s2"
-#~ msgstr "Otoèi»/Prehodi» %s"
-
-#, fuzzy
-#~ msgid "Resize photo"
-#~ msgstr "Zmeni» veµkos» Fotky"
-
-#~ msgid "Highlight %s"
-#~ msgstr "Zvýrazni» %s"
-
-#~ msgid "Move %s"
-#~ msgstr "Presunú» %s"
-
-#~ msgid "Show %s"
-#~ msgstr "Zobrazi» %s"
-
-#~ msgid "Hide %s"
-#~ msgstr "Ukry» %s"
-
-# resize
-#~ msgid "resize photo"
-#~ msgstr "zmeni» veµkos» fotky"
-
-#~ msgid "Error %s getting EXIF data"
-#~ msgstr "Chyba %s pri získavaní EXIF dát"
-
-#~ msgid "poll properties"
-#~ msgstr "vlastnosti hlasovania"
-
-# matching
-#, fuzzy
-#~ msgid "Getting Ratings"
-#~ msgstr "Zodpovedajúce Poznámky"
-
-#, fuzzy
-#~ msgid "Highlight for Album: "
-#~ msgstr "Zvýraznenie Albumu:"
-
-#~ msgid "admin options"
-#~ msgstr "administrátorské mo¾nosti"
-
-# delay
-#~ msgid "Delay:"
-#~ msgstr "Spomalenie:"
-
-#~ msgid "IN UTIL ITEMCAPTUREDATE = %s"
-#~ msgstr "IN UTIL ITEMCAPTUREDATE = %s"
-
-#~ msgid "Email me when:"
-#~ msgstr "Posla» mi email keï:"
-
-#~ msgid "Use filename as caption if no caption is specified."
-#~ msgstr "Zadajte meno súboru ako hlavièku ak hlavièka nieje zadaná."
-
-#~ msgid "Correct Them!"
-#~ msgstr "Opravte Ich!"
-
-#~ msgid "You are no allowed to perform this action !"
-#~ msgstr "Nemáte povolenie vykona» túto operáciu !"
-
-#~ msgid "Do you really want to delete this Album?"
-#~ msgstr "Naozaj chcete zmaza» tento Album?"
-
-#~ msgid "Leave blank if no caption is specified."
-#~ msgstr "Nechajte voµné ak hlavièka nieje zadaná."
-
-#~ msgid "Use file creation date stamp as caption if no caption is specified."
-#~ msgstr "Zadajte dátum vytvorenia súboru ako hlavièku ak hlavièka nieje zadaná."
-
-#~ msgid "Set photo captions with original filenames."
-#~ msgstr "Nastavi» titulky fotiek na pôvodný názov archívu."
-
-#~ msgid "You must specify a username"
-#~ msgstr "Musíte zvoli» u¾ívateµa"
-
-#~ msgid "You must specify a password"
-#~ msgstr "Musíte zvoli» heslo"
-
-#~ msgid "There was an unknown failure in the %s call!"
-#~ msgstr "Nastalo neznáme zlyhavie v %s volaní!"

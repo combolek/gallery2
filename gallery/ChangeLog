@@ -1,72 +1,142 @@
-2006-03-01 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b11
+2006-04-06 Chris Kelly <ckdake@ckdake.com> 1.5.3
 
- * Fix: Order of file upload fields was "wrong" in Firefox. 
-	Lets say different then in IE and Opera where the error occured.
+ * Release: 1.5.3
 
-2006-02-07 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b10
+2006-04-06 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b23
 
- * FIX: If zipdownload is enabled and zipping failed,
-	gallery regardless tried to delete the parentfolder of the non existing file.
-	This deletes A LOT MORE then we want.
+ * Change: Allow HTML again also in comments and user captions for images.
 
-2006-02-06 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b9
+2006-04-06 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b22
 
- * SECURITY-FIX:
-   If you trick an admin or a ser who has owner privs in a gallery into
-   clicking on prepared link and it will cause them to insert a bad file path
-   into their album data which could then cause a local file execution bug.
+ * Fix: ImageMap was opened was popup when no icons are used.
 
-   The Team would like to thank
-   Tom Saville (seregon@bughunter.net) and his team from http://digitalarmaments.com
+ * Change: Removed obsolete function showChoice()
 
-2006-02-02 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b8
+2006-04-05 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b21
+
+ * Fix: Frame around movies in photo view was broken.
+
+2006-04-04 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b20
+
+ * Fix: Use gTranslate instead of _( in albums.php, view_album.php and view_photo.php
+
+2006-04-04 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b19
 
  * Change: Make select boxes in watermark form to stay at the value selected before a preview.
    Thanks to ejolley from forum.
+   Change done as 1.5.3-cvs-b8 in HEAD
 
-2006-01-31 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b7
-
- * Fix: Typo in lib/imageManipulation (netPPM instead netPBM).
-	This causes watermarking to fail when watermark is a gif.
-
-2006-01-29 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b6
-
- * Change: Just some code rearrange in albums.php
-
-2006-01-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b5
 
  * Change: Added icons for rotate and flip.
 
  * Change: Layout of rotate_photo.php.
    Thanks to Volksport.
+   Change done as 1.5.3-cvs-b5 in HEAD
 
- * Change: Make black-random configurable in setup.
+ * Fix: Language Mode 2 (Browserlanguage) was broken.
+   
+2006-03-28 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b18
 
- * Change: Css changes to make Config-wizard a little smarter.
+ * SECURITY FIX *
 
- * Change: Css files of skins can also now named .default.
+  It was possible to use/"inject" Javascript inside various places to abuse this as a XSS Exploit.
 
-2006-01-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b4
+  Now every userinput got from $_REQUEST is sanitized.
+  We use the PEAR packages HTML_Safe and XML_HTMLSax3 to do this.
+  Nice benefit is that HTML is now again possible in captions, titles, etc.
 
- * Fix: adminOtherChangesEmail was not working.
-   Thanks to rbeuker from forums.
+  The Team would like to thank Aditya Mooley for catching and reporting this.
+  And giving us the time to fix it before going to public.
 
-2006-01-23 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b3
+  Aditya Mooley is member of the Coppermine-Gallery Development team.
+  So have a look at http://coppermine.sf.net, the page of our friendly competittion application.
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b17
+
+ * Fix: In some dropdown boxes the wrong items is selected.
+	Appears e.g. in slideshow in IE where "blend" should be selected, but acutally
+	"RANDOM" is.
+
+	Thanks to Yuan from forums.
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b16
+
+ * Fix: When Gallery runs in joomla the complete framework is loaded into the
+	progressbar when uploading pictures.
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b15
+
+ * Fix: Even if owner modification is set to "no" then owner are allowed to hide there pictures.
+	Especially odd when owner is "everybody".
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b14
+
+ * Fix: When uploading files via the FORM method, the order was reverted in IE and Opera.
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b13
+
+ * Fix: When border is set to "solid" or "dots" then an unnice space appeared around thumbs.
+
+2006-03-27 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b12
+
+ * Fix: When you have "Can every permitted user see a comments overview" set to 'yes' 
+        and then the permitted user goes to the overview he/she will get a "add comment" Button.
+	Regardless wether the user is allowed to add comments, or not.
+
+	This Fix makes the button only appear when user is allowed to add comments.
+
+	Thanks to Yuan from forums.
+
+2006-02-06 Chris Kelly <ckdake@ckdake.com> 1.5.2-pl2
+
+* Release: 1.5.2-pl2
+
+2006-02-07 Jens Tkotz <jens@peino.de> 1.5.2-pl2-cvs-b1
+
+ * FIX: If zipdownload is enabled and zipping failed,
+        gallery regardless tried to delete the parentfolder of the non existing file.
+        This deletes A LOT MORE then we want.
+
+2006-02-06 Chris Kelly <ckdake@ckdake.com> 1.5.2-pl1
+
+  * Release: 1.5.2-pl1
+
+2006-02-06 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b6
+
+ * SECURITY-FIX:
+   If you trick an admin or a ser who has owner privs in a gallery into
+   clicking on prepared link and it will cause them to insert a bad file path
+   into their album data which could then cause a local file execution bug.
+   
+   The Team would like to thank 
+   Tom Saville (seregon@bughunter.net) and his team from http://digitalarmaments.com
+
+2006-02-02 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b5
+
+* Fix: Typo in lib/imageManipulation (netPPM instead netPBM).
+       This causes watermarking to fail when watermark is a gif.
+
+2006-02-02 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b4
+
+* Fix: adminOtherChangesEmail was not working.
+  Thanks to rbeuker from forums.
+
+2006-02-02 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b3
 
  * Fix: setup/session_test.php didnt work correct with register globals off.
 
-2006-01-22 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b2
+2006-02-02 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b2
 
- * Change: RFE #1193290
-   Renamed $gallery->app->comments_display_name to $gallery->app->name_display (config Version bump)
-   This is now used at most places. where a user is displayed.
+* Fix: "move" and "copy" an item was restricted to admins.
+       Reverted to people who have permissions to edit an album.
 
- * Fix: Updated manifest.
+2006-02-02 Jens Tkotz <jens@peino.de> 1.5.2-pl1-cvs-b1
 
-2006-01-22 Jens Tkotz <jens@peino.de> 1.5.3-cvs-b1
+ * Fix: Pierres Fix from 1.5.2-RC3-cvs-b7 was only in HEAD.
 
- * Fix: "move" and "copy" an item was restricted to admins.
-	 Reverted to people who have permissions to edit an album.
+2006-01-19 Chris Kelly <ckdake@ckdake.com> 1.5.2
+
+ * Release: 1.5.2 Final
 
 2006-01-19 Jens Tkotz <jens@peino.de> 1.5.2-RC3-cvs-b9
 

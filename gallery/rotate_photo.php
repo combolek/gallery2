@@ -43,21 +43,10 @@ doctype();
   <?php common_header(); ?>
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
   <META HTTP-EQUIV="expires" CONTENT="0"> 
-  <style type="text/css">
-	#actionTable a {
-	   display: block;
-	   font-size: 10px;
-	   white-space: nowrap;
-	   text-align:center;
-	}
-
-	#actionTable td {
-	    padding-right: 8px; padding-left:8px;
-	}
-  </style>
 </head>
+<body dir="<?php echo $gallery->direction ?>" class="g-popup">
 <body dir="<?php echo $gallery->direction ?>" class="popupbody">
-<div class="popuphead"><?php echo _("Rotate/Flip Photo") ?></div>
+  <div class="popuphead"><?php echo _("Rotate/Flip Photo") ?></div>
 <div class="popup" align="center">
 <?php
 if ($gallery->session->albumName && isset($index)) {
@@ -82,22 +71,22 @@ if ($gallery->session->albumName && isset($index)) {
 
     $args = array("albumName" => $gallery->album->fields["name"], "index" => $index, 'type' => 'popup');
 
-    $args["rotate"] = "90";
+    $args["rotate"] = "-90";
     $rotateElements[] = galleryLink(
       makeGalleryUrl("rotate_photo.php", $args),
-      getIconText('imageedit/rotate-90.gif', _("Clockwise 90&deg"))
+      getIconText('imageedit/rotate-90.gif', _("Clockwise 90&deg;"))
     );
 
     $args["rotate"] = "180";
     $rotateElements[] = galleryLink(
       makeGalleryUrl("rotate_photo.php", $args),
-      getIconText('imageedit/rotate-180.gif', _("180&deg"))
+      getIconText('imageedit/rotate-180.gif', _("180&deg;"))
     );
 
-    $args["rotate"] = "-90";
+    $args["rotate"] = "90";
     $rotateElements[] = galleryLink(
       makeGalleryUrl("rotate_photo.php", $args),
-      getIconText('imageedit/rotate-270.gif', _("Counter-Clockwise 90&deg"))
+      getIconText('imageedit/rotate-270.gif', _("Counter-Clockwise 90&deg;"))
     );
 
 
@@ -115,7 +104,7 @@ if ($gallery->session->albumName && isset($index)) {
 
     $actionTable = new galleryTable();
     $actionTable->setColumnCount(5);
-    $actionTable->setAttrs(array('id' => 'actionTable'));
+    $actionTable->setAttrs(array('class' => 'g-iconmenu'));
 
     $actionTable->addElement(array(
         'content' => "<b>". _("Rotate") ."</b>", 
@@ -132,7 +121,7 @@ if ($gallery->session->albumName && isset($index)) {
     echo $actionTable->render();
 ?>
 <br>
-<input type="button" onClick="javascript:void(parent.close())" value="<?php echo _("Close") ?>">
+<input type="button" onClick="javascript:void(parent.close())" value="<?php echo _("Close") ?>" class="g-button">
 
 <p>
 <?php 

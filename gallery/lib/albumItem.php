@@ -27,10 +27,11 @@
 
 /**
  * This function shows all possible actions for an album item.
- * @param	integer $i	index number of the item
- * @return 	array		Array of all possible album item for the current user.
+ * @param	integer $i		index number of the item
+ * @param	boolean	$withIcons	Wether icons should be used, or not.
+ * @return 	array			Array of all possible album item for the current user.
  */
-function getItemActions($i, $withIcons = false, $popupsOnly = false) {
+function getItemActions($i, $withIcons = false) {
 	global $gallery;
 	global $nextId;
 
@@ -127,19 +128,19 @@ $javascriptSet = true;
 	    			'value' =>  showChoice2('edit_watermark.php', array('index' => $i))
     			);
     		}
-    		if(!$popupsOnly) {
-    			$options[] = array(
+    		$options[] = array(
 	    			'pure_text' => _("ImageMap"),
 	    			'text' => getIconText('behavior-capplet.gif', _("ImageMap"), $override, $withIcons),
-	    			'value' => showChoice2('imagemap.php', array('index' => $i), false)
+	    			'value' => showChoice2('imagemap.php', array('index' => $i), false),
+				'attrs' => array('class' => 'url')
+				
     			);
-    		}
     	}
-    	
+
     	$options[] = array(
-	    	'pure_text' => _("Move"),
-	    	'text' => getIconText('tab_duplicate.gif', _("Move"), $override, $withIcons),
-	    	'value' => showChoice2("move_photo.php", array("index" => $i, 'reorder' => 0))
+		'pure_text' => _("Move"),
+		'text' => getIconText('tab_duplicate.gif', _("Move"), $override, $withIcons),
+		'value' => showChoice2("move_photo.php", array("index" => $i, 'reorder' => 0))
     	);
     	
     	/* ----- Item is subalbum ----- */
@@ -172,7 +173,7 @@ $javascriptSet = true;
 		    		)
 	    		)
     		);
-    		
+
     		$options[] = array(
 	    		'pure_text' => _("Permissions"),
 	    		'text' => getIconText('decrypted.gif', _("Permissions"), $override, $withIcons),
@@ -197,10 +198,24 @@ $javascriptSet = true;
     	}
     	if (! $isAlbum) {
     	    $options[] = array(
-        	    'pure_text' => _("Copy"),
-        	    'text' => getIconText('editcopy.gif', _("Copy"), $override, $withIcons),
-        	    'value' => showChoice2("copy_photo.php", array("index" => $i))
+	    		'pure_text' => _("Copy"),
+	    		'text' => getIconText('editcopy.gif', _("Copy"), $override, $withIcons),
+	    		'value' => showChoice2("copy_photo.php", array("index" => $i))
     	    );
+    	}
+
+    	if ($gallery->album->isHidden($i)) {
+    		$options[] = array(
+	    		'pure_text' => _("Show"),
+	    		'text' => getIconText('idea.gif', _("Show"), $override, $withIcons),
+	    		'value' => showChoice2("do_command.php", array("cmd" => "show", "index" => $i))
+    		);
+    	} else {
+    		$options[] = array(
+	    		'pure_text' => _("Hide"),
+	    		'text' => getIconText('no_idea.gif', _("Hide"), $override, $withIcons),
+	    		'value' => showChoice2("do_command.php", array("cmd" => "hide", "index" => $i))
+    		);
     	}
     }
 
@@ -222,28 +237,12 @@ $javascriptSet = true;
     }
 
     if (isset($isAdmin)) {
-        $options[] = array(
-            'pure_text' => _("Change Owner"),
-            'text' => getIconText('yast_kuser.gif', _("Change Owner"), $override, $withIcons),
-            'value' => showChoice2("photo_owner.php", array("id" => $id))
-        );
-    }
-    
-    if (isset($isOwner)) {
-    	if ($gallery->album->isHidden($i)) {
     		$options[] = array(
-	    		'pure_text' => _("Show"),
-	    		'text' => getIconText('idea.gif', _("Show"), $override, $withIcons),
-	    		'value' => showChoice2("do_command.php", array("cmd" => "show", "index" => $i))
-    		);
-    	} else {
-    		$options[] = array(
-	    		'pure_text' => _("Hide"),
-	    		'text' => getIconText('no_idea.gif', _("Hide"), $override, $withIcons),
-	    		'value' => showChoice2("do_command.php", array("cmd" => "hide", "index" => $i))
+	    		'pure_text' => _("Change Owner"),
+	    		'text' => getIconText('yast_kuser.gif', _("Change Owner"), $override, $withIcons),
+	    		'value' => showChoice2("photo_owner.php", array("id" => $id))
     		);
     	}
-    }
 
     if ($gallery->user->canDeleteFromAlbum($gallery->album) ||
       ($gallery->album->getItemOwnerDelete() && isset($isOwner))) {
@@ -276,7 +275,7 @@ $javascriptSet = true;
     		);
     	}
     }
-	
+
     if(!empty($options)) {
     	if(sizeof($options) > 1) {
     		array_sort_by_fields($options, 'pure_text', 'asc', false, true);

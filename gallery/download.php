@@ -31,10 +31,10 @@ if (!empty($doit)) {
     $albumItemNames = $gallery->album->getAlbumItemNames($gallery->user, $full, false, true);
     $albumcopyName = createTempAlbum($albumItemNames);
     if($albumcopyName) {
-        $zipfileName = createZip($albumcopyName, $gallery->album->fields['name']);
+    $zipfileName = createZip($albumcopyName, $gallery->album->fields['name']);
         if($zipfileName) {
             if(!isDebugging()) {
-                downloadFile($zipfileName);
+    downloadFile($zipfileName);
             }
             else {
                 echo gallery_error('<br>'. _("Zipdownload would work, but is disabled when debugging."));
