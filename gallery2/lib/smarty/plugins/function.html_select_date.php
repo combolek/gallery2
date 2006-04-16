@@ -27,8 +27,7 @@
  * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
  *      (Smarty online manual)
  * @version 1.3.2
- * @author Andrei Zmievski
- * @author Monte Ohrt <monte at ohrt dot com>
+ * @author   Andrei Zmievski
  * @param array
  * @param Smarty
  * @return string

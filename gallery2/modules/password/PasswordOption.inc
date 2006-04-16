@@ -42,7 +42,7 @@ class PasswordOption extends ItemEditOption {
 	list ($ret, $canChange) =
 	    GalleryCoreApi::hasItemPermission($item->getId(), 'core.changePermissions');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $canChange);
     }
@@ -64,24 +64,23 @@ class PasswordOption extends ItemEditOption {
 
 	$ret = GalleryCoreApi::assertHasItemPermission($item->getId(), 'core.changePermissions');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if (isset($form['PasswordOption']['remove']) && $form['PasswordOption']['remove']) {
 	    GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
 	    $ret = PasswordHelper::removePassword($item);
 	    if ($ret) {
-		return array($ret, null, null);
+		return array($ret->wrap(__FILE__, __LINE__), null, null);
 	    }
 	} else if (!empty($form['PasswordOption']['password1'])
 		|| !empty($form['PasswordOption']['password2'])) {
 	    if ($form['PasswordOption']['password1'] == $form['PasswordOption']['password2']) {
-		GalleryUtilities::unsanitizeInputValues($form['PasswordOption']['password1'],
-							false);
 		GalleryCoreApi::requireOnce('modules/password/classes/PasswordHelper.class');
-		$ret = PasswordHelper::setPassword($item, $form['PasswordOption']['password1']);
+		$ret = PasswordHelper::setPassword($item,
+			GalleryUtilities::htmlEntityDecode($form['PasswordOption']['password1']));
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 	    } else {
 		/* Throw an error because both passwords do not match */

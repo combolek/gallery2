@@ -57,7 +57,7 @@ class CustomFieldModule extends GalleryModule {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('CustomFieldMap:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -91,7 +91,7 @@ class CustomFieldModule extends GalleryModule {
 
 	list ($ret, $data) = CustomFieldHelper::fetchFieldValues($items, 'summary');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($data as $itemId => $fields) {
@@ -115,7 +115,7 @@ class CustomFieldModule extends GalleryModule {
 	    'ItemEditPlugin', 'CustomFieldItemEdit', 'CustomFieldItemEdit',
 	    'modules/customfield/CustomFieldItemEdit.inc', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Register interface implementation */
@@ -123,7 +123,7 @@ class CustomFieldModule extends GalleryModule {
 	    'CustomFieldInterface_1_0', 'CustomFieldHelper', 'CustomField',
 	    'modules/customfield/classes/CustomFieldHelper.class', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Register search implementation */
@@ -131,7 +131,7 @@ class CustomFieldModule extends GalleryModule {
 	    'GallerySearchInterface_1_0', 'CustomFieldSearch', 'CustomField',
 	    'modules/customfield/classes/CustomFieldSearch.class', 'customfield', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

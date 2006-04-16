@@ -1,7 +1,7 @@
 <?php
 /*
 
-  version V4.80 8 Mar 2006 (c) 2000-2006 John Lim. All rights reserved.
+  version V4.65 22 July 2005 (c) 2000-2005 John Lim. All rights reserved.
 
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
@@ -195,7 +195,7 @@ NATSOFT.DOMAIN =
 				   	$argHostname=$argHostinfo[0];
 					$argHostport=$argHostinfo[1];
 			 	} else {
-					$argHostport = empty($this->port)?  "1521" : $this->port;
+					$argHostport="1521";
 	   			}
 				
 				if ($this->connectSID) {
@@ -298,7 +298,7 @@ NATSOFT.DOMAIN =
 		if ($mask) {
 			$save = $this->metaTablesSQL;
 			$mask = $this->qstr(strtoupper($mask));
-			$this->metaTablesSQL .= " AND upper(table_name) like $mask";
+			$this->metaTablesSQL .= " AND table_name like $mask";
 		}
 		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
 		
@@ -504,10 +504,6 @@ NATSOFT.DOMAIN =
 				$s .= 'DAY';
 				break;
 				
-			 case 'W':
-				$s .= 'WW';
-				break;
-				
 			default:
 			// handle escape characters...
 				if ($ch == '\\') {
@@ -674,7 +670,7 @@ NATSOFT.DOMAIN =
 		if ($this->session_sharing_force_blob) $this->Execute('ALTER SESSION SET CURSOR_SHARING=EXACT');
 		$commit = $this->autoCommit;
 		if ($commit) $this->BeginTrans();
-		$rs = $this->_Execute($sql,$arr);
+		$rs = $this->Execute($sql,$arr);
 		if ($rez = !empty($rs)) $desc->save($val);
 		$desc->free();
 		if ($commit) $this->CommitTrans();
@@ -797,7 +793,6 @@ NATSOFT.DOMAIN =
 	
 		if (is_array($stmt) && sizeof($stmt) >= 5) {
 			$hasref = true;
-			$ignoreCur = false;
 			$this->Parameter($stmt, $ignoreCur, $cursorName, false, -1, OCI_B_CURSOR);
 			if ($params) {
 				foreach($params as $k => $v) {
@@ -808,10 +803,8 @@ NATSOFT.DOMAIN =
 			$hasref = false;
 			
 		$rs =& $this->Execute($stmt);
-		if ($rs) {
-			if ($rs->databaseType == 'array') OCIFreeCursor($stmt[4]);
-			else if ($hasref) $rs->_refcursor = $stmt[4];
-		}
+		if ($rs->databaseType == 'array') OCIFreeCursor($stmt[4]);
+		else if ($hasref) $rs->_refcursor = $stmt[4];
 		return $rs;
 	}
 	
@@ -1163,7 +1156,7 @@ SELECT /*+ RULE */ distinct b.column_name
 	 */
 	function qstr($s,$magic_quotes=false)
 	{	
-		//$nofixquotes=false;
+	$nofixquotes=false;
 	
 		if ($this->noNullStrings && strlen($s)==0)$s = ' ';
 		if (!$magic_quotes) {	
@@ -1336,7 +1329,7 @@ class ADORecordset_oci8 extends ADORecordSet {
 				if (ADODB_ASSOC_CASE != 2 || $this->databaseType != 'oci8') break;
 				
 				$ncols = @OCIfetchstatement($this->_queryID, $assoc, 0, $nRows, OCI_FETCHSTATEMENT_BY_ROW);
-				$results =& array_merge(array($this->fields),$assoc);
+				$results = array_merge(array($this->fields),$assoc);
 				return $results;
 			
 			default:

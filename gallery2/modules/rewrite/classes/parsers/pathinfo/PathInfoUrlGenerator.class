@@ -3,7 +3,7 @@
  * $RCSfile$
  *
  * Gallery - a web based photo album viewer and editor
- * Copyright (C) 2000-2006 Bharat Mediratta
+ * Copyright (C) 2000-2004 Bharat Mediratta
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
- * @package Rewrite
+ * @package PathInfo
  * @version $Revision$ $Date$
  * @author Douglas Cau <douglas@cau.se>
  **/
@@ -55,15 +55,15 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
      * @var array (0 => string file, 1 => string forceDirect file)
      * @access private
      */
-    var $_piFile;
-
+    var $_piFile;    
+    
     /**
      * @see GalleryUrlGenerator::init
      */
     function init($baseUri=null, $g2Uri=null, $embedSessionString=null) {
 	$ret = parent::init($baseUri, $g2Uri, $embedSessionString);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach (array(0, 1) as $fD) {
@@ -74,12 +74,12 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	    if ($fD && !GalleryUtilities::isEmbedded() && empty($this->_piFile[$fD])) {
 		$this->_piFile[$fD] = $this->_file[0];
 	    }
-
+	    
 	    /* Default to index.php, mostly only relevant for embedded G2 */
 	    if ($fD && substr($this->_piFile[$fD], 0, 1) == '?') {
 		$this->_pifile[$fD] = 'index.php' . $this->_piFile[$fD];
 	    }
-
+	    
 	    /* Split the query params off (we add them later again, at generateUrl time) */
 	    if (strpos($this->_piFile[$fD], '?') !== false) {
 		list ($this->_piFile[$fD], $this->_baseParamString[$fD]) =
@@ -91,7 +91,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	list($ret, $parser) = GalleryCoreApi::getPluginParameter('module', 'rewrite',
 	    'pathinfo.parser');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$parser = unserialize($parser);
 
@@ -127,7 +127,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 
 	$ret = $this->_onLoad();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -140,7 +140,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	if ($this->_error) {
 	    return parent::generateUrl($params, $options);
 	}
-
+	
 	/*
 	 * Since the baseFile (e.g. main.php) is in the REQUEST_URI, e.g.
 	 *     http://example.com/gallery2/main.php/albumA/itemB.jpg.htm
@@ -148,7 +148,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 	 * should generate server-relative URLs. Thus enforce server-relative URLs.
 	 */
 	$options['forceServerRelativeUrl'] = true;
-	return parent::generateUrl($params, $options);
+	return parent::generateUrl($params, $options); 
     }
 
     /**
@@ -170,7 +170,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
     function _getBaseParamString($forceDirect=false) {
 	return $this->_baseParamString[$forceDirect];
     }
-
+    
     /**
      * Return the base directory of all generated URLs.  Eg, if the url is:
      *   http://example.com/gallery2/main.php/Travels/Somewhere/IMG001.jpg.htm
@@ -184,7 +184,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
      */
     function getCurrentUrlDir($forceDirect=false) {
 	if (!isset($this->_currentUrlBaseDir[$forceDirect])) {
-
+	    
 	    if (!empty($this->_path[$forceDirect])) {
 		/*
 		 * An override for the path was defined (most likely an embedded G2 request)
@@ -196,7 +196,7 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 		 * Auto-detect the path in the current URL
 		 */
 		$url = $this->getCurrentUrl($forceDirect);
-
+		
 		/*
 		 * Remove the base file and any query string or path info after it:
 		 *    http://example.com/gallery2/main.php/core.ShowView/foo=bar/...
@@ -214,10 +214,10 @@ class PathInfoUrlGenerator extends RewriteUrlGenerator {
 		}
 	    }
 	    $url .= substr($url, -1) != '/' ? '/' : '';
-
+	    
 	    $this->_currentUrlBaseDir[$forceDirect] = $url;
 	}
-
+	
 	return $this->_currentUrlBaseDir[$forceDirect];
     }
 }

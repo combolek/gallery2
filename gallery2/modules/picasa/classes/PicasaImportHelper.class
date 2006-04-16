@@ -17,11 +17,12 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 /**
  * @version $Revision: 1.4 $ $Date: 2005/10/11 01:42:29 $
- * @package Picasa
+ * @package picasa
  * @author Waldemar Schlackow <gallery@schlackow.de>
  */
 
@@ -31,6 +32,7 @@
  * @package Picasa
  * @subpackage PicasaImportHelper
  */
+
 class PicasaImportHelper {
     /**
      * Convert html according to given markup type

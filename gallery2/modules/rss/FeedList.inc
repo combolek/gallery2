@@ -17,11 +17,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
  * @version $Revision$ $Date$
- * @package Rss
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -32,7 +32,7 @@ GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 /**
  * This view will show a list of feeds.
  *
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class FeedListView extends GalleryView {
@@ -44,7 +44,7 @@ class FeedListView extends GalleryView {
 
 	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$FeedList['feeds'] = $feeds;

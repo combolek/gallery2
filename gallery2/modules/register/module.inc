@@ -51,7 +51,7 @@ class RegisterModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'register');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach (array('confirmation' => 'admin', 'emailadmins' => 1,
@@ -63,7 +63,7 @@ class RegisterModule extends GalleryModule {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -79,14 +79,14 @@ class RegisterModule extends GalleryModule {
 	    'GalleryEntity', 'GalleryPendingUser', 'GalleryPendingUser',
 	    'modules/register/classes/GalleryPendingUser.class', 'register', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'CaptchaAdminOption', 'RegisterCaptchaAdminOption', 'RegisterCaptchaAdminOption',
 	    'modules/register/classes/RegisterCaptchaAdminOption.class', 'register', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -109,7 +109,7 @@ class RegisterModule extends GalleryModule {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Only anonymous users will see the register link */
@@ -134,7 +134,7 @@ class RegisterModule extends GalleryModule {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Only anonymous users will see the register link */

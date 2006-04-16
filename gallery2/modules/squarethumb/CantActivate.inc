@@ -30,7 +30,7 @@
 /**
  * A view to display whenever there's some kind of attempted security breach.
  *
- * @package SquareThumb
+ * @package Squarethumb
  * @subpackage UserInterface
  */
 class CantActivateView extends GalleryView {

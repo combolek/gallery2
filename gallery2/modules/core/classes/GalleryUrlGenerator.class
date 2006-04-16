@@ -173,8 +173,7 @@ class GalleryUrlGenerator {
 	    }
 	}
 
-	GalleryUtilities::unsanitizeInputValues($path, false);
-	return $path;
+	return GalleryUtilities::htmlEntityDecode($path);
     }
 
     /**
@@ -320,7 +319,7 @@ class GalleryUrlGenerator {
 	    list ($ret, $path) =
 		GalleryCoreApi::getPluginParameter('module', 'core', 'cookie.path');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (!empty($path)) {
 		$this->_isCookiePathConfigured = true;
@@ -760,7 +759,7 @@ class GalleryUrlGenerator {
 	    list ($ret, $path) = GalleryCoreApi::getPluginParameter('module', 'core',
 								    'cookie.path');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    if (empty($path)) {
 		if (!empty($this->_path[$forceDirect])) {
@@ -821,7 +820,7 @@ class GalleryUrlGenerator {
 		    strpos($normReturnUrl, '/../') !== false) {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$message = sprintf(
 		    $module->translate('Invalid return URL! The requested URL %s tried to ' .
@@ -923,7 +922,7 @@ class GalleryUrlGenerator {
 
 	list ($ret, $core) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$session =& $gallery->getSession();

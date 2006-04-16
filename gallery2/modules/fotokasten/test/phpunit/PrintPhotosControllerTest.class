@@ -50,20 +50,20 @@ class PrintPhotosControllerTest extends GalleryControllerTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
 	$ret = GalleryCoreApi::removeItemPermissions($this->_album->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_album->getId(), $gallery->getActiveUserId(), 'core.all');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	for ($i = 0; $i < 3; $i++) {
@@ -75,7 +75,7 @@ class PrintPhotosControllerTest extends GalleryControllerTestCase {
 					     'GalleryPhotoItem');
 	    if ($ret) {
 		print $ret->getAsHtml();
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	}
 
@@ -84,20 +84,20 @@ class PrintPhotosControllerTest extends GalleryControllerTestCase {
 	    $this->_items[1]->getId(), $gallery->getActiveUserId(), 'fotokasten.print');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	/* Public view permission on one */
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$ret = GalleryCoreApi::addUserPermission(
 	    $this->_items[2]->getId(), $anonymousUserId, 'core.viewAll');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Clear any existing fotokasten session */

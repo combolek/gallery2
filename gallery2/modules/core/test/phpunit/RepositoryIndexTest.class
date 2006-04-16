@@ -1,7 +1,5 @@
 <?php
 /*
- * $RCSfile$
- *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
  * @version $Revision$ $Date$
@@ -137,7 +135,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	global $gallery;
 	list ($ret, $saveLanguage) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$testcases = array(
@@ -163,7 +161,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 	    if (!is_array($case)) {
 		$ret = $gallery->setActiveLanguageCode($case);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 		continue;
 	    }
@@ -178,7 +176,7 @@ class RepositoryIndexTest extends GalleryTestCase {
 
 	$ret = $gallery->setActiveLanguageCode($saveLanguage);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 

@@ -105,7 +105,14 @@ function extractStrings($filename) {
     $strings["\n/* $filename */"] = array();
     $startSize = count($strings);
     $localStrings = array();
-    $data = file_get_contents($filename);
+    if (function_exists('file_get_contents')) {
+	$data = file_get_contents($filename);
+    } else {
+	$fd = fopen($filename, 'r');
+	$fileSize = filesize($filename);
+	$data = $fileSize == 0 ? '' : fread($fd, $fileSize);
+	fclose($fd);
+    }
 
     /*
      * grab phrases for translate( or i18n( or _( calls; capture string parameter enclosed

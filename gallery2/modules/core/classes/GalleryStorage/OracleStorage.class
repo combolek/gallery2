@@ -81,8 +81,8 @@ class OracleStorage extends GalleryStorage {
     function _setConnectionSettings(&$db) {
 	/* May cause "ORA-12705: Cannot access NLS data files or invalid environment specified" */
 	/* @putenv("NLS_LANG=UTF8"); */
-
-	return null;
+    	
+    	return null;
     }
 
     /**
@@ -101,7 +101,7 @@ class OracleStorage extends GalleryStorage {
 	case 'BIT_OR':
 	    $sql = 'BIT_OR(' . $args[0] . ')';
             break;
-
+	    
 	case 'AS':
 	    $sql = '';
 	    break;
@@ -135,13 +135,16 @@ class OracleStorage extends GalleryStorage {
 	    break;
 
 	case 'MULTI_INSERT':
-	    /*
+	    /* 
 	     * 0 - table name
 	     * 1 - array of column names
 	     * 2 - number of rows
 	     */
 	    $markers = GalleryUtilities::makeMarkers(sizeof($args[1]));
-	    $rowList = array_fill(0, $args[2], 'SELECT ' . $markers . ' FROM DUAL');
+	    $rowList = array(); //php4.2: array-fill(1, $args[2], 'SELECT '.$markers.' FROM DUAL');
+	    for ($i = 0; $i < $args[2]; $i++) {
+		$rowList[] = 'SELECT ' . $markers . ' FROM DUAL';
+	    }
 	    $sql = 'INSERT INTO ' . $args[0] . ' (';
 	    $sql .= implode(', ', $args[1]);
 	    $sql .= ') ' . implode(' UNION ALL ', $rowList);
@@ -165,7 +168,7 @@ class OracleStorage extends GalleryStorage {
     function cleanStore() {
 	$ret = parent::cleanStore();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -174,7 +177,7 @@ class OracleStorage extends GalleryStorage {
 	 */
 	list ($ret, $tmpDb) = $this->_getConnection(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->_traceStart();
@@ -184,7 +187,7 @@ class OracleStorage extends GalleryStorage {
 	$this->_traceStop();
 
 	if (empty($recordSet1) || empty($recordSet2)) {
-	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE);
+	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__);
 	}
 
 	return null;
@@ -210,7 +213,7 @@ class OracleStorage extends GalleryStorage {
 
 	$ret = parent::configureStore($moduleId, $upgradeInfo);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

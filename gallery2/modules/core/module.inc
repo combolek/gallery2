@@ -37,18 +37,18 @@ class CoreModule extends GalleryModule {
 
 	$this->setId('core');
 	$this->setName($gallery->i18n('Core'));
-	$this->setGalleryVersion('2.2-cvs');
+	$this->setGalleryVersion('2.1.1');
 
 	/* Don't forget to update CoreModuleExtras::upgrade and _prepareConfigUpgrade too! */
-	$this->setVersion('1.1.2');
+	$this->setVersion('1.1.0.1');
 
 	$this->setDescription($gallery->i18n('Gallery 2 Core Module'));
 	$this->setGroup('gallery', $gallery->i18n('Gallery'));
 	$this->setCallbacks('registerEventListeners|' .
 			    'getItemLinks|getSystemLinks|' .
 			    'getSiteAdminViews|getUserAdminViews|getItemAdminViews');
-	$this->setRequiredCoreApi(array(7, 5));
-	$this->setRequiredModuleApi(array(3, 1));
+	$this->setRequiredCoreApi(array(7, 2));
+	$this->setRequiredModuleApi(array(3, 0));
     }
 
     /**
@@ -66,10 +66,10 @@ class CoreModule extends GalleryModule {
     /**
      * @see GalleryModule::getItemLinks
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fetch child counts */
@@ -86,13 +86,13 @@ class CoreModule extends GalleryModule {
 	 */
 	list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Fetch thumbnail ids */
 	list ($ret, $thumbTable) = GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$links = array();
@@ -102,10 +102,9 @@ class CoreModule extends GalleryModule {
 	    $isAlbum = $item->getCanContainChildren();
 
 	    /* Permissions for its parent */
-	    list ($ret, $parentPermissions) =
-		GalleryCoreApi::getPermissions($item->getParentId(), $userId);
+	    list ($ret, $parentPermissions) = GalleryCoreApi::getPermissions($item->getParentId());
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (isset($wantsDetailedLinks[$itemId]) && $isAlbum &&
@@ -137,15 +136,15 @@ class CoreModule extends GalleryModule {
 		if ($item->getIsLinkable()) {
 		    if ($isAlbum) {
 			list ($ret, $count) = GalleryCoreApi::fetchItemIdCount(
-			    'GalleryAlbumItem', 'core.addAlbumItem', $userId);
+			    'GalleryAlbumItem', 'core.addAlbumItem');
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    } else {
 			list ($ret, $count) = GalleryCoreApi::fetchItemIdCount(
-			    'GalleryAlbumItem', 'core.addDataItem', $userId);
+			    'GalleryAlbumItem', 'core.addDataItem');
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 
@@ -259,13 +258,13 @@ class CoreModule extends GalleryModule {
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$links = array();
 	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($isAdmin) {
@@ -320,7 +319,7 @@ class CoreModule extends GalleryModule {
 		      );
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if (!empty($list)) {
 	    $data[] = array('name' => $this->translate('Toolkit Priority'),
@@ -340,7 +339,7 @@ class CoreModule extends GalleryModule {
 	if (GalleryCapabilities::can('login')) {
 	    list ($ret, $anonymousUserId) = $this->getParameter('id.anonymousUser');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if ($user->getId() != $anonymousUserId) {
@@ -364,14 +363,14 @@ class CoreModule extends GalleryModule {
 	$views = array();
 	list ($ret, $permissions) = GalleryCoreApi::getPermissions($item->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$isAlbum = $item->getCanContainChildren();
 	if ($isAlbum) {
 	    list ($ret, $childCounts) = GalleryCoreApi::fetchChildCounts(array($item->getId()));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $childCount = empty($childCounts[$item->getId()]) ? 0 : $childCounts[$item->getId()];
 	} else {
@@ -382,19 +381,19 @@ class CoreModule extends GalleryModule {
 	list ($ret, $thumbTable) =
 	    GalleryCoreApi::fetchThumbnailsByItemIds(array($item->getId()));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$hasThumb = !empty($thumbTable[$item->getId()]);
 
 	$parentId = $item->getParentId();
 	list ($ret, $parentPermissions) = GalleryCoreApi::getPermissions($parentId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$itemTypeNames = array_merge($item->itemTypeName(), $item->itemTypeName(false));
@@ -430,13 +429,13 @@ class CoreModule extends GalleryModule {
 		    list ($ret, $count) =
 			GalleryCoreApi::fetchItemIdCount('GalleryAlbumItem', 'core.addAlbumItem');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		} else {
 		    list ($ret, $count) =
 			GalleryCoreApi::fetchItemIdCount('GalleryAlbumItem', 'core.addDataItem');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 
@@ -487,7 +486,7 @@ class CoreModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::upgrade($this, $currentVersion, $statusMonitor);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -544,7 +543,7 @@ class CoreModule extends GalleryModule {
 	GalleryCoreApi::requireOnce('modules/core/CoreModuleExtras.inc');
 	$ret = CoreModuleExtras::performFactoryRegistrations($this);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }

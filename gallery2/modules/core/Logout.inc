@@ -53,23 +53,23 @@ class LogoutController extends GalleryController {
 	$event->setEntity($gallery->getActiveUser());
 	list ($ret) = GalleryCoreApi::postEvent($event);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$session =& $gallery->getSession();
 	$ret = $session->reset();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $guestUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	
 	$gallery->setActiveUser($guestUser);

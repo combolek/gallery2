@@ -1,7 +1,5 @@
 <?php
 /*
- * $RCSfile$
- *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id$
  */
 
  /**
@@ -30,12 +30,12 @@ require_once('../../../init.inc');
 function RepositoryToolsMain() {
     $ret = GalleryInitFirstPass();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     $ret = GalleryInitSecondPass();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     global $gallery;
@@ -65,7 +65,7 @@ function RepositoryToolsMain() {
     $urlGenerator = new GalleryUrlGenerator();
     $ret = $urlGenerator->init('lib/tools/repository');
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
     $gallery->setUrlGenerator($urlGenerator);
 
@@ -95,7 +95,7 @@ function RepositoryToolsMain() {
 
     $ret = $controller->$methodName();
     if ($ret) {
-	return $ret;
+	return $ret->wrap(__FILE__, __LINE__);
     }
 
     return null;
@@ -103,7 +103,7 @@ function RepositoryToolsMain() {
 
 $ret = RepositoryToolsMain();
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     print $gallery->getDebugBuffer();
     return;
@@ -111,7 +111,7 @@ if ($ret) {
 
 list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 if ($ret) {
-    $ret = $ret;
+    $ret = $ret->wrap(__FILE__, __LINE__);
     print $ret->getAsHtml();
     return;
 }

@@ -21,14 +21,14 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package FloatrixTheme
+ * @package Gallery
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
 /**
  * This implements the standard gallery theme
  *
- * @package FloatrixTheme
+ * @package GalleryTheme
  * @subpackage Theme
  */
 class FloatrixTheme extends GalleryTheme {
@@ -88,11 +88,11 @@ class FloatrixTheme extends GalleryTheme {
 	      'thumbnails', 'pageNavigator', 'jumpRange'),
 	     $childIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $this->preloadBlock($template, 'search.SearchBlock');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$this->_splitItemLinks($template);
@@ -110,11 +110,11 @@ class FloatrixTheme extends GalleryTheme {
 	}
 	$ret = $this->loadCommonTemplateData($template, $item, $params, $dataTypes);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $this->preloadBlock($template, 'search.SearchBlock');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$this->_splitItemLinks($template);
@@ -149,7 +149,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -162,7 +162,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');
@@ -182,7 +182,7 @@ class FloatrixTheme extends GalleryTheme {
 	$ret = $this->loadCommonTemplateData(
 	    $template, $item, $params, array('parents', 'systemLinks'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, 'theme.tpl');

@@ -37,7 +37,7 @@ class RemoteSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -46,7 +46,7 @@ class RemoteSiteAdminController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'remote', $key,
 						(isset($form[$key]) && $form[$key]) ? 1 : 0);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $status['saved'] = 1;
@@ -73,7 +73,7 @@ class RemoteSiteAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($form['showItemAdd'])) {
@@ -83,7 +83,7 @@ class RemoteSiteAdminView extends GalleryView {
 	    $form['formName'] = 'RemoteSiteAdmin';
 	    list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'remote');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($params as $key => $value) {
 		$form[$key] = $value;

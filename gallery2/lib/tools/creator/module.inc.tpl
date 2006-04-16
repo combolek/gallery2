@@ -53,7 +53,7 @@ class {$ucModuleId}Module extends GalleryModule {ldelim}
     function getItemLinks($items, $wantsDetailedLinks, $permissions) {ldelim}
 	$links = array();
 	foreach ($items as $item) {ldelim}
-	    $params['view'] = '{$moduleId}.{$viewName}';
+	    $params['view'] = '{$moduleId}.MyPage';
 	    $params['itemId'] = $item->getId();
 	    $links[$item->getId()][] =
 		array('text' => $this->translate('{$moduleName}'), 'params' => $params);

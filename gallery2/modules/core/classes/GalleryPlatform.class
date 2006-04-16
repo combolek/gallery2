@@ -333,12 +333,22 @@ class GalleryPlatform {
 
     /**
      * Reads the entire contents of the specified file into a string.
+     * file_get_contents PHP function is used if available.
      *
      * @param string file path
      * @return string file contents or boolean false on failure
      */
     function file_get_contents($path) {
-	return file_get_contents($path);
+	if (function_exists('file_get_contents')) {
+	    return file_get_contents($path);
+	}
+	if (!($fd = $this->fopen($path, 'rb'))) {
+	    return false;
+	}
+	$fileSize = $this->filesize($path);
+	$contents = $fileSize == 0 ? '' : $this->fread($fd, $fileSize);
+	$this->fclose($fd);
+	return $contents;
     }
 
     /**
@@ -706,8 +716,8 @@ class GalleryPlatform {
      * @param array(array('cmd', 'arg'), ...)
      * @param whether or not we should return error output
      * @return array(bool TRUE if the command succeeded, FALSE otherwise,
-     *               array standard output from the command
-     *               array error output from the command)
+     *               string standard output from the command
+     *               string error output from the command)
      * @access public
      */
     function exec($cmdArray) {
@@ -834,8 +844,8 @@ class GalleryPlatform {
      * Writes specified data to file.
      * Uses PHP's file_put_contents() function if it is available.
      *
-     * @param string output file path
      * @param string data to write
+     * @param string output file path
      * @return boolean true on success, false on failure
      */
     function file_put_contents($path, $data) {

@@ -86,7 +86,7 @@ class GalleryNoMarkupParser {
 
 class GalleryHtmlMarkupParser {
     function parse($text) {
-	return html_entity_decode($text);
+	return GalleryUtilities::htmlEntityDecode($text);
     }
 }
 

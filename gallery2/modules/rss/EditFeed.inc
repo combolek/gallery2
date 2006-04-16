@@ -17,11 +17,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 /**
  * @version $Revision$ $Date$
- * @package Rss
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>,
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -31,7 +31,7 @@ GalleryCoreApi::requireOnce('modules/rss/classes/RssMapHelper.class');
 GalleryCoreApi::requireOnce('modules/rss/classes/RssHelper.class');
 
 /**
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class EditFeedController extends GalleryController {
@@ -46,16 +46,15 @@ class EditFeedController extends GalleryController {
 
 	list ($ret, $item) = GalleryCoreApi::loadEntitiesById($form['itemId']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	list ($ret) =
-	    RssMapHelper::canConfigureFeed($item, $param, $gallery->getActiveUserId(), true);
+	list ($ret) = RssMapHelper::canConfigureFeed($item, $param, true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Check which button was pressed */
@@ -142,7 +141,7 @@ class EditFeedController extends GalleryController {
 		if ($ret) {
 		    /* If we got anything other than a ERROR_COLLISION, exit */
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /*
@@ -168,7 +167,7 @@ class EditFeedController extends GalleryController {
 	     */
 	    $ret = RssMapHelper::deleteFeed($form['action']['delete']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $mode = 'list';
@@ -195,7 +194,7 @@ class EditFeedController extends GalleryController {
 /**
  * This view will show a form to generate an URL to an RSS feed.
  *
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class EditFeedView extends GalleryView {
@@ -208,7 +207,7 @@ class EditFeedView extends GalleryView {
 	/* Load the item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/*
@@ -217,12 +216,11 @@ class EditFeedView extends GalleryView {
 	 */
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
-	list ($ret) =
-	    RssMapHelper::canConfigureFeed($item, $param, $gallery->getActiveUserId(), true);
+	list ($ret) = RssMapHelper::canConfigureFeed($item, $param, true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$EditFeed = array();
@@ -231,7 +229,7 @@ class EditFeedView extends GalleryView {
 	/* Fetch all feed definitions */
 	list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($EditFeed['itemId']);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$EditFeed['mode'] = GalleryUtilities::getRequestVariables('mode');
@@ -301,7 +299,7 @@ class EditFeedView extends GalleryView {
 		/* no error: load parameters from DB using the 'feedName' */
 		list ($ret, $feed) = RssMapHelper::fetchFeed($form['feedName']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		$EditFeed = array_merge($EditFeed, $feed);
@@ -328,12 +326,12 @@ class EditFeedView extends GalleryView {
 	     */
 	    list ($ret, $feeds) = RssMapHelper::fetchFeedsForItem($EditFeed['itemId']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    list ($ret, $EditFeed['types']) = RssHelper::getFeedTypeTranslation();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    $EditFeed['feeds'] = $feeds;

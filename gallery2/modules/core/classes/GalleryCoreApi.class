@@ -53,15 +53,10 @@ class GalleryCoreApi {
      *
      * @return array major number, minor number
      *
-     * TODO: for next major version bump:
-     * - remove GallerySession::getSessionId
-     * - remove GalleryPlatform::recursiveFixDirPermissions
-     * - remove GalleryUtilities::htmlEntityDecode
-     * - remove GalleryStatus::wrap
-     * - change GalleryCoreApi::error to only take error code and error message
+     * TODO: remove GalleryPlatform::recursiveFixDirPermissions on next major version bump
      */
     function getApiVersion() {
-	return array(7, 6);
+	return array(7, 3);
     }
 
     /**
@@ -1531,14 +1526,13 @@ class GalleryCoreApi {
      *
      * @access public
      * @param string an item type (eg, 'GalleryAlbumItem')
-     * @param int an optional user id (default is the current user)
      * @return array object GalleryStatus a status code
      *               int a count
      * @static
      */
-    function fetchItemIdCount($itemType, $permission='core.view', $userId=null) {
+    function fetchItemIdCount($itemType, $permission='core.view') {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/GalleryItemHelper_simple.class');
-	return GalleryItemHelper_simple::fetchItemIdCount($itemType, $permission, $userId);
+	return GalleryItemHelper_simple::fetchItemIdCount($itemType, $permission);
     }
 
     /**
@@ -1760,15 +1754,14 @@ class GalleryCoreApi {
     /**
      * Is the active user in the admin group?
      *
-     * @param int an optional user id (default is the current user)
      * @return array object GalleryStatus a status code
      *               bool true if yes
      * @static
      */
-    function isUserInSiteAdminGroup($userId=null) {
+    function isUserInSiteAdminGroup() {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryUserGroupHelper_simple.class');
-	return GalleryUserGroupHelper_simple::isUserInSiteAdminGroup($userId);
+	return GalleryUserGroupHelper_simple::isUserInSiteAdminGroup();
     }
 
     /**
@@ -1992,20 +1985,6 @@ class GalleryCoreApi {
 	    'modules/core/classes/helpers/GalleryToolkitHelper_medium.class');
 	return GalleryToolkitHelper_medium::unregisterOperation($toolkitId, $operationName,
 								$mimeTypes);
-    }
-
-    /**
-     * Unregister all operations and properties provided by toolkits implemented
-     * by the given module.
-     *
-     * @param string the id of the module
-     * @return object GalleryStatus a status code
-     * @static
-     */
-    function unregisterToolkitsByModuleId($moduleId) {
-	GalleryCoreApi::requireOnce(
-	    'modules/core/classes/helpers/GalleryToolkitHelper_medium.class');
-	return GalleryToolkitHelper_medium::unregisterToolkitsByModuleId($moduleId);
     }
 
     /**
@@ -2868,19 +2847,18 @@ class GalleryCoreApi {
     }
 
     /**
-     * Return an error status.
-     *
-     * Starting in GalleryCoreApi 7.4 we ignore the filename and line number.  You still need to
-     * provide them if you want to provide an error message.  Next major API bump we'll remove the
-     * fileName and lineNumber arguments.
+     * Return an error status
      *
      * @return object GalleryStatus an error status
      * @static
      */
-    function error($errorCode, $fileName='ignored', $lineNumber='ignored', $errorMessage=null) {
+    function error($errorCode, $fileName, $lineNumber, $errorMessage=null) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryStatus.class');
-	$status = new GalleryStatus(GALLERY_ERROR | $errorCode, $errorMessage);
-	$status->setStackTrace(debug_backtrace());
+	$status =
+	    new GalleryStatus(GALLERY_ERROR | $errorCode, $fileName, $lineNumber, $errorMessage);
+	if (function_exists('debug_backtrace')) {
+	    $status->setStackTrace(debug_backtrace());
+	}
 	return $status;
     }
 
@@ -2896,13 +2874,13 @@ class GalleryCoreApi {
 	global $gallery;
 
 	if (sizeof($match) == 0 || sizeof($change) == 0) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->updateMapEntry($mapName, $match, $change);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -2919,13 +2897,13 @@ class GalleryCoreApi {
 	global $gallery;
 
 	if (sizeof($data) == 0) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeMapEntry($mapName, $data);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -2944,7 +2922,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->addMapEntry($mapName, $data);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -2961,7 +2939,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	$ret = $storage->removeAllMapEntries($mapName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -2981,7 +2959,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	list ($ret, $entityInfo) = $storage->describeMap($mapName, $tryAllModules);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $entityInfo);
@@ -3001,7 +2979,7 @@ class GalleryCoreApi {
 	$storage =& $gallery->getStorage();
 	list ($ret, $entityInfo) = $storage->describeEntity($entityName, $tryAllModules);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $entityInfo);
@@ -3032,61 +3010,6 @@ class GalleryCoreApi {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_medium.class');
 	return GalleryEntityHelper_medium::createFastDownloadFile($entity, $runEvenInUnitTest);
-    }
-
-    /**
-     * Get id of the album to display by default.
-     *
-     * @return array object GalleryStatus a status code
-     *               int album id
-     */
-    function getDefaultAlbumId() {
-	$id = GalleryCapabilities::get('defaultAlbumId');
-	if (empty($id)) {
-	    list ($ret, $id) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $id);
-    }
-
-    /**
-     * Get id of the guest user.
-     *
-     * @return array object GalleryStatus a status code
-     *               int user id
-     */
-    function getAnonymousUserId() {
-	$id = GalleryCapabilities::get('anonymousUserId');
-	if (empty($id)) {
-	    list ($ret, $id) =
-		GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
-	    if ($ret) {
-		return array($ret, null);
-	    }
-	}
-	return array(null, $id);
-    }
-
-    /**
-     * Is the user a guest?
-     *
-     * @param int id of user (default is current user)
-     * @return array object GalleryStatus a status code
-     *               boolean true if anonymous
-     */
-    function isAnonymousUser($userId=null) {
-	if (empty($userId)) {
-	    global $gallery;
-	    $userId = $gallery->getActiveUserId();
-	}
-	list ($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
-	if ($ret) {
-	    return array($ret, null);
-	}
-	return array(null, $userId == $anonymousId);
     }
 }
 ?>

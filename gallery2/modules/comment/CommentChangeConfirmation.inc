@@ -45,7 +45,7 @@ class CommentChangeConfirmationView extends GalleryView {
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CommentChangeConfirmation') {

@@ -37,7 +37,7 @@ class ImageBlockModule extends GalleryModule {
 	$this->setId('imageblock');
 	$this->setName($gallery->i18n('Image Block'));
 	$this->setDescription($gallery->i18n('Random, Most Recent or Most Viewed Photo or Album'));
-	$this->setVersion('1.0.7');
+	$this->setVersion('1.0.8');
 	$this->setGroup('blocks', $gallery->i18n('Blocks'));
 	$this->setCallbacks('registerEventListeners|getSiteAdminViews');
 	$this->setRequiredCoreApi(array(7, 0));
@@ -65,20 +65,20 @@ class ImageBlockModule extends GalleryModule {
 	    $storage =& $gallery->getStorage();
 	    $ret = $storage->configureStore($this->getId(), array('ImageBlockCacheMap:1.0'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'imageblock');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('show' => 'heading|title|date|views', 'albumFrame' => '', 'itemFrame' => '')
 		as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -87,7 +87,7 @@ class ImageBlockModule extends GalleryModule {
 	if (isset($params['blocks'])) {
 	    $ret = GalleryCoreApi::removePluginParameter('module', 'imageblock', 'blocks');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -102,7 +102,7 @@ class ImageBlockModule extends GalleryModule {
 	   'ItemEditOption', 'ImageBlockOption', 'ImageBlockOption',
 	   'modules/imageblock/ImageBlockOption.inc', 'imageblock', array('ItemEditAlbum'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

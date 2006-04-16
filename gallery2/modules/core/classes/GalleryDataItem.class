@@ -109,12 +109,12 @@ class GalleryDataItem extends GalleryItem {
 
 	/* Validate the input file */
 	if (empty($inputFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	if (!$platform->is_uploaded_file($inputFileName)
 		&& !$platform->file_exists($inputFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/*
@@ -122,7 +122,7 @@ class GalleryDataItem extends GalleryItem {
 	 * not going to be moved around while we're adding stuff to it.
 	 */
 	if (!GalleryCoreApi::isReadLocked($parentId)) {
-	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED);
+	    return GalleryCoreApi::error(ERROR_LOCK_REQUIRED, __FILE__, __LINE__);
 	}
 
 	/* Set the mime type before we call the parent so that it can use this info if necessary */
@@ -131,18 +131,18 @@ class GalleryDataItem extends GalleryItem {
 	$baseName = !empty($targetName) ? $targetName : basename($inputFileName);
 	$ret = parent::create($parentId, $baseName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Figure out the new location for this file */
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list($ret, $parentPath) = $parent->fetchContainerPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -159,15 +159,15 @@ class GalleryDataItem extends GalleryItem {
 	 */
 	if ($symlink) {
 	    if (!$platform->isSymlinkSupported()) {
-		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION);
+		return GalleryCoreApi::error(ERROR_UNSUPPORTED_OPERATION, __FILE__, __LINE__);
 	    }
 	    if (!$platform->symlink($inputFileName, $newFileName)) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	    }
 	} else {
 	    /* Copy the file to its new location */
 	    if (!$platform->copy($inputFileName, $newFileName)) {
-		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+		return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	    }
 	}
 
@@ -188,30 +188,30 @@ class GalleryDataItem extends GalleryItem {
 
 	$ret = parent::detachLink();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$platform =& $gallery->getPlatform();
 	list ($ret, $sourcePath) = $linkedEntity->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $parent) = $this->fetchParent();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $newPathBase) = $parent->fetchContainerPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* This path should already be legal, unless we screwed up elsewhere */
 	$newPath = $newPathBase . $this->getPathComponent();
 
 	if (!$platform->copy($sourcePath, $newPath)) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	}
 
 	return null;
@@ -229,14 +229,14 @@ class GalleryDataItem extends GalleryItem {
 	/* Delete myself */
 	$ret = parent::delete();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete our source file, if we're not a link */
 	if (!$this->isLinked()) {
 	    list($ret, $path) = $this->fetchPath();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $platform =& $gallery->getPlatform();
@@ -263,7 +263,7 @@ class GalleryDataItem extends GalleryItem {
 
 	list($ret, $path) = $this->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setSize($platform->filesize($path));
@@ -290,7 +290,7 @@ class GalleryDataItem extends GalleryItem {
 	 */
 	list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->getParentId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$platform =& $gallery->getPlatform();
@@ -301,7 +301,7 @@ class GalleryDataItem extends GalleryItem {
 	 */
 	list($ret, $currentPath) = $this->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -313,7 +313,7 @@ class GalleryDataItem extends GalleryItem {
 	$ret = parent::rename($newName);
 
 	if ($ret) {
-	    $error = $ret;
+	    $error = $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Only rename the filesystem entity if we're not a link */
@@ -330,13 +330,13 @@ class GalleryDataItem extends GalleryItem {
 
 		/* Check to see if the desired path exists. */
 		if ($platform->file_exists($newPath)) {
-		    $error = GalleryCoreApi::error(ERROR_COLLISION);
+		    $error = GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 		}
 	    }
 
 	    if (!isset($error)) {
 		if (!$platform->rename($currentPath, $newPath)) {
-		    $error = GalleryCoreApi::error(ERROR_BAD_PATH);
+		    $error = GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 		}
 	    }
 	}
@@ -344,7 +344,7 @@ class GalleryDataItem extends GalleryItem {
 	/* Release locks */
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($error)) {
@@ -364,25 +364,25 @@ class GalleryDataItem extends GalleryItem {
 	/* Get the current parent sequence */
 	list ($ret, $parentSequence) = GalleryCoreApi::fetchParentSequence($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = parent::move($newParentId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Set the new parent sequence */
 	list ($ret, $newParentSequence) = GalleryCoreApi::fetchParentSequence($this->getParentId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$newParentSequence[] = $this->getParentId();
 
 	/* Set my parent sequence accordingly */
 	$ret = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -412,7 +412,7 @@ class GalleryDataItem extends GalleryItem {
 
 	list($ret, $containerPath) = $target->fetchContainerPath();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $containerPath . $target->getPathComponent());

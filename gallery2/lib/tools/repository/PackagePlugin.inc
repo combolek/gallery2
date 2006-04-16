@@ -1,7 +1,5 @@
 <?php
 /*
- * $RCSfile$
- *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id$
  */
 
 GalleryCoreApi::requireOnce('lib/tools/repository/classes/RepositoryObject.class');
@@ -45,12 +45,12 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	list ($ret, $plugins) = $this->getAvailablePluginList(array(
 	    'package' => array('controller' => 'PackagePlugin', 'action' => 'packagePlugin')));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $this->showView('PackagePlugin', array('plugins' => $plugins));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -73,12 +73,12 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 
 	list ($ret, $pluginInfo) = $this->doPackagePlugin($pluginType, $pluginId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = $this->showView('PackageResults', array('results' => array($pluginInfo)));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -100,14 +100,14 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 
 	list ($ret, $plugins) = $this->getAvailablePluginList(array());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	foreach ($plugins as $pluginId => $plugin) {
 	    if (preg_match($filter, $pluginId)) {
 		list ($ret, $pluginInfo) = $this->doPackagePlugin($plugin['type'], $pluginId);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$packagedPluginList[] = $pluginInfo;
 	    }
@@ -127,7 +127,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 
 	list ($ret, $plugin) = GalleryCoreApi::loadPlugin($pluginType, $pluginId);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$outputDir .= sprintf('%ss', $pluginType);
@@ -135,28 +135,28 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	$descriptor = new RepositoryDescriptor();
 	$ret = $descriptor->init($outputDir);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $descriptor->generate($plugin);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ret = $descriptor->writeToDisk();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$package = new RepositoryPackage();
 	$ret = $package->init($descriptor, $descriptor->getOutputDir());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $packagesWritten) = $package->writeAllPackagesToDisk();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$pluginInfo = array('pluginId' => $descriptor->getPluginId(),
@@ -182,7 +182,7 @@ class PackagePluginControllerAndView extends RepositoryControllerAndView {
 	foreach ($pluginTypes as $pluginType) {
 	    list ($ret, $plugins) = GalleryCoreApi::fetchPluginStatus($pluginType, true);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($plugins as $pluginId => $plugin) {

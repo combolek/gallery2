@@ -53,7 +53,7 @@ class SearchScanController extends GalleryController {
 	    list ($ret, $slideshow) =
 		GalleryCoreApi::newFactoryInstance('SlideshowInterface_1_0');
 	    if ($ret || !isset($slideshow)) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    GalleryCoreApi::requireOnce(
@@ -61,14 +61,14 @@ class SearchScanController extends GalleryController {
 	    list ($ret, $ids) =
 		GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    foreach ($ids as $id => $className) {
 		list ($ret, $searchInstances[$id]) =
 		    GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	    $itemIds = array();
@@ -78,7 +78,7 @@ class SearchScanController extends GalleryController {
 			$instance->search($form['options'][$id],
 			    SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    foreach ($resultSet['results'] as $result) {
 			if (isset($result['itemId'])) {
@@ -91,7 +91,7 @@ class SearchScanController extends GalleryController {
 
 	    list ($ret, $results['delegate']) = $slideshow->getLinkData($itemIds);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	} else if (isset($form['action']['showAll'])) {
 	    $results['delegate']['view'] = 'search.SearchShowAll';
@@ -126,14 +126,14 @@ class SearchScanView extends GalleryView {
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('GallerySearchInterface_1_0');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach ($ids as $id => $className) {
 	    list ($ret, $searchInstances[$id]) =
 		GalleryCoreApi::newFactoryInstance('GallerySearchInterface_1_0', $className);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -141,7 +141,7 @@ class SearchScanView extends GalleryView {
 	foreach ($searchInstances as $id => $instance) {
 	    list ($ret, $modules[$id]) = $instance->getSearchModuleInfo();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -175,7 +175,7 @@ class SearchScanView extends GalleryView {
 				SearchUtilities::sanitizeSearchCriteria($form['searchCriteria']),
 				0, $scanSize);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
@@ -198,7 +198,7 @@ class SearchScanView extends GalleryView {
 		/* Fetch items */
 		list ($ret, $itemList) = GalleryCoreApi::loadEntitiesById($itemIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($itemList as $item) {
 		    $items[$item->getId()] = (array)$item;
@@ -208,7 +208,7 @@ class SearchScanView extends GalleryView {
 		list ($ret, $thumbnailList) =
 		    GalleryCoreApi::fetchThumbnailsByItemIds($itemIds);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		foreach ($thumbnailList as $thumbnail) {
 		    $thumbnails[$thumbnail->getParentId()] = (array)$thumbnail;
@@ -224,9 +224,19 @@ class SearchScanView extends GalleryView {
 	list ($ret, $ids) =
 	    GalleryCoreApi::getAllFactoryImplementationIds('SlideshowInterface_1_0');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$slideshowAvailable = !empty($ids);
+
+	list ($ret, $rootAlbumId) =
+	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+	list ($ret, $rootAlbum) = GalleryCoreApi::loadEntitiesById($rootAlbumId);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
 
 	/* Render the HTML body */
 	$template->setVariable('SearchScan', array(
@@ -235,11 +245,12 @@ class SearchScanView extends GalleryView {
 	    'searchResults' => $searchResults,
 	    'thumbnails' => $thumbnails,
 	    'items' => $items,
-	    'slideshowAvailable' => $slideshowAvailable));
+	    'slideshowAvailable' => $slideshowAvailable,
+	    'rootAlbum' => (array)$rootAlbum));
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'search');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->javascript('modules/search/HighlightResults.js');

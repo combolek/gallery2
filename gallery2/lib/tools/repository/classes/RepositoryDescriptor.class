@@ -1,7 +1,5 @@
 <?php
 /*
- * $RCSfile$
- *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id$
  */
 
 /**
@@ -78,7 +78,7 @@ class RepositoryDescriptor extends RepositoryObject {
 	/* Set output path. */
 	$ret = $this->setOutputDir($outputDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -131,7 +131,7 @@ class RepositoryDescriptor extends RepositoryObject {
 			sprintf('%ss_%s', $pluginType, $this->_pluginId),
 			array('text' => $originalString));
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 		    $descriptions[$languageCode][$stringId] = $translatedString;
 		}
@@ -146,14 +146,14 @@ class RepositoryDescriptor extends RepositoryObject {
 	    sprintf('%s%ss/%s', $pluginBaseDir, $pluginType, $this->_pluginId)) . '/';
 	$ret = $this->getFileMetaData($this->_pluginDir, $this->_data, $this->_pluginDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Get build timestamp. */
 	list ($ret, $this->_data['header']['buildTimestamp']) =
 	    $this->calculateBuildTimestamp($this->getPluginDir());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Create available languages meta data. */
@@ -165,12 +165,12 @@ class RepositoryDescriptor extends RepositoryObject {
 		list ($ret, $tag) =
 		    $this->_utilities->getFirstBytesFromFile($this->_pluginDir . $fileName, 128);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$stringsRevision = $this->_data['header']['stringsRevision'];
@@ -212,7 +212,7 @@ class RepositoryDescriptor extends RepositoryObject {
 		    $ret = $this->getFileMetaData(
 			$platform->realpath($path) . '/' . $file, $data, $pluginDir);
 		    if ($ret) {
-			return $ret;
+			return $ret->wrap(__FILE__, __LINE__);
 		    }
 
 		}
@@ -233,12 +233,12 @@ class RepositoryDescriptor extends RepositoryObject {
 		/* Get strings.raw revision. */
 		list ($ret, $tag) = $this->_utilities->getFirstBytesFromFile($path, 128);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list ($ret, $revision) = $this->_utilities->extractRevision($tag);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$data['header']['stringsRevision'] = $revision;
 	    }
@@ -351,7 +351,7 @@ class RepositoryDescriptor extends RepositoryObject {
 
 	list ($ret, $buildTimestamp) = $this->_utilities->extractTimestamp($cvsOutput);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $buildTimestamp);

@@ -80,17 +80,17 @@ class UserLoginController extends GalleryController {
 	    if (empty($error)) {
 		list ($ret, $user) = GalleryCoreApi::fetchUserByUsername($form['username']);
 		if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
-		GalleryUtilities::unsanitizeInputValues($form['password'], false);
-		$isCorrect = (isset($user) && $user->isCorrectPassword($form['password']));
+		$isCorrect = ($user != null && $user->isCorrectPassword(
+			    GalleryUtilities::htmlEntityDecode($form['password'])));
 
 		/* Prepare for validation */
 		$options = array('pass' => $isCorrect);
 		list ($ret, $options['level']) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'validation.level');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		if ($options['level'] == 'MEDIUM') {
 		    $options['key'] = 'core.UserLogin.' . $form['username'];
@@ -103,7 +103,7 @@ class UserLoginController extends GalleryController {
 		    list ($ret, $pluginInstances) =
 			GalleryCoreApi::getAllFactoryImplementationIds('GalleryValidationPlugin');
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    foreach (array_keys($pluginInstances) as $pluginId) {
@@ -111,7 +111,7 @@ class UserLoginController extends GalleryController {
 			    GalleryCoreApi::newFactoryInstanceById('GalleryValidationPlugin',
 								   $pluginId);
 			if ($ret) {
-			    return array($ret, null);
+			    return array($ret->wrap(__FILE__, __LINE__), null);
 			}
 		    }
 		}
@@ -121,7 +121,7 @@ class UserLoginController extends GalleryController {
 		    list ($ret, $pluginErrors, $continue) =
 			$plugin->performValidation($form, $options);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $error = array_merge($error, $pluginErrors);
@@ -139,13 +139,13 @@ class UserLoginController extends GalleryController {
 		    $event->setEntity($user);
 		    list ($ret, $redirect) = GalleryCoreApi::postEvent($event);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    $session =& $gallery->getSession();
 		    $ret = $session->regenerate();
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /* Redirect if requested by event listener, otherwise return */

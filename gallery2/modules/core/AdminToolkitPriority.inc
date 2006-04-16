@@ -41,14 +41,14 @@ class AdminToolkitPriorityController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = array();
 	if (isset($form['action']['save'])) {
 	    list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($form['priority'] as $priority => $toolkit) {
 		if ($priority != $list[$toolkit]) {
@@ -56,7 +56,7 @@ class AdminToolkitPriorityController extends GalleryController {
 			'GalleryToolkitOperationMimeTypeMap',
 			array('toolkitId' => $toolkit), array('priority' => $priority));
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -88,7 +88,7 @@ class AdminToolkitPriorityView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminToolkitPriority') {
@@ -97,7 +97,7 @@ class AdminToolkitPriorityView extends GalleryView {
 
 	list ($ret, $list) = GalleryCoreApi::getRedundantToolkitPriorities();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	asort($list);
 

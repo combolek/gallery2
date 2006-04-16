@@ -46,8 +46,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 	    $platform =& $gallery->getPlatform();
 	    $tmpDir = $gallery->getConfig('data.gallery.tmp');
 	    $tmpFile = $platform->tempnam($tmpDir, 'webcam');
-	    $url = $form['imageUrl'];
-	    GalleryUtilities::unsanitizeInputValues($url, false);
+	    $url = GalleryUtilities::htmlEntityDecode($form['imageUrl']);
 
 	    list ($successfullyCopied, $response, $headers) =
 		GalleryCoreApi::fetchWebFile($url, $tmpFile);
@@ -72,29 +71,29 @@ class ItemAddWebCam extends ItemAddPlugin {
 		    $tmpFile, basename($url), basename($url), '', '', $mimeType, $item->getId());
 		@$platform->unlink($tmpFile);
 		if ($ret) {
-		    return array($ret, null, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null, null);
 		}
 
 		if (GalleryUtilities::isA($newItem, 'GalleryPhotoItem')) {
 		    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($newItem->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $newItem->addOnLoadHandler('WebCam');
 		    $ret = $newItem->save();
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'webcam',
 							      'imageUrl', $url, $newItem->getId());
 		    if ($ret) {
 			GalleryCoreApi::releaseLocks($lockId);
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 		    $ret = GalleryCoreApi::releaseLocks($lockId);
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $status['addedFiles'][] = array('fileName' => basename($form['imageUrl']),
@@ -103,7 +102,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 		} else {
 		    $ret = GalleryCoreApi::deleteEntityById($newItem->getId());
 		    if ($ret) {
-			return array($ret, null, null);
+			return array($ret->wrap(__FILE__, __LINE__), null, null);
 		    }
 
 		    $error[] = 'form[error][imageUrl][notImage]';
@@ -124,7 +123,7 @@ class ItemAddWebCam extends ItemAddPlugin {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'webcam');
 	if ($ret) {
-	    return array($ret, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null);
 	}
 
 	if ($form['formName'] != 'ItemAddWebCam') {
@@ -153,7 +152,7 @@ class ItemAddWebCam extends ItemAddPlugin {
     function getTitle() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'webcam');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $module->translate('WebCam/Live Image'));

@@ -355,7 +355,7 @@ class GalleryDataCache {
 	    if ($pathInfo['type'] == 'module' || $pathInfo['type'] == 'theme') {
 		list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($pathInfo['type']);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		foreach (array_keys($pluginStatus) as $pluginId) {
@@ -621,14 +621,14 @@ class GalleryDataCache {
 	list ($ret, $acceleration) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$acceleration = unserialize($acceleration);
 
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($gallery->getActiveUserId() == $anonymousUserId) {
@@ -642,12 +642,12 @@ class GalleryDataCache {
 	list ($ret, $aclIds) =
 	    GalleryCoreApi::fetchAccessListIds('core.view', $gallery->getActiveUserId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $extraKey) = GalleryDataCache::_getExtraPageCacheKey();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$key = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(",", $aclIds));
@@ -670,7 +670,7 @@ class GalleryDataCache {
         ';
 	list ($ret, $results) = $storage->search($query, array($key, $type, $userId, $cutoff));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($results->resultCount() > 0) {
@@ -703,12 +703,12 @@ class GalleryDataCache {
 	$userId = $gallery->getActiveUserId();
 	list ($ret, $aclIds) = GalleryCoreApi::fetchAccessListIds('core.view', $userId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $extraKey) = GalleryDataCache::_getExtraPageCacheKey();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$key = md5(serialize($keyData) . '|' . $extraKey . '|' . implode(",", $aclIds));
@@ -729,7 +729,7 @@ class GalleryDataCache {
 	$storage =& $gallery->getStorage();
 	list ($ret, $affectedRows) = $storage->getAffectedRows();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!$affectedRows) {
@@ -738,7 +738,7 @@ class GalleryDataCache {
 		array('key' => $key, 'value' => $value, 'userId' => $userId,
 		      'itemId' => $itemId, 'type' => $type, 'timestamp' => $now));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -754,7 +754,7 @@ class GalleryDataCache {
     function removePageData($itemIds) {
 	$ret = GalleryCoreApi::removeMapEntry('GalleryCacheMap', array('itemId' => $itemIds));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	return null;
     }
@@ -795,14 +795,14 @@ class GalleryDataCache {
 	list ($ret, $acceleration) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'acceleration');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$acceleration = unserialize($acceleration);
 	$userId = $gallery->getActiveUserId();
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(
@@ -824,7 +824,7 @@ class GalleryDataCache {
 	/* Add session specific flags & values to the cache key */
 	list ($ret, $languageCode) = $gallery->getActiveLanguageCode();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$extraKey = (int)($session->isUsingCookies()) . '-' . $languageCode;
 

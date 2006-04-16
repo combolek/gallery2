@@ -43,12 +43,12 @@ class AdminCoreController extends GalleryController {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -123,8 +123,7 @@ class AdminCoreController extends GalleryController {
 	}
 
 	if (isset($form['action']['addUploadLocalServerDir'])) {
-	    $path = $form['uploadLocalServer']['newDir'];
-	    GalleryUtilities::unsanitizeInputValues($path, false);
+	    $path = GalleryUtilities::htmlEntityDecode($form['uploadLocalServer']['newDir']);
 	    /* $path is UTF-8, $realPath is in the system charset for filesystem interactions */
 	    $realPath = GalleryCoreApi::convertFromUtf8($path);
 	    if (empty($path)) {
@@ -156,7 +155,7 @@ class AdminCoreController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'core', 'uploadLocalServer.dir.' . $i, $path);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		    $status['addedDir'] = 1;
 		}
@@ -168,13 +167,13 @@ class AdminCoreController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter('module', 'core',
 			'uploadLocalServer.dir.' . ($i - 1), $param['uploadLocalServer.dir.' . $i]);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$ret = GalleryCoreApi::removePluginParameter('module', 'core',
 							     'uploadLocalServer.dir.' . ($i - 1));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['removedDir'] = 1;
 		$redirect['view'] = 'core.SiteAdmin';
@@ -189,7 +188,7 @@ class AdminCoreController extends GalleryController {
 	    } else {
 		list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
@@ -221,7 +220,7 @@ class AdminCoreController extends GalleryController {
 		    $ret = GalleryCoreApi::setPluginParameter(
 			'module', 'core', $key, $form[$outer][$inner]);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 	    }
@@ -230,7 +229,7 @@ class AdminCoreController extends GalleryController {
 		$ret = GalleryCoreApi::setPluginParameter('module', 'core', 'smtp.password',
 							  base64_encode($form['smtp']['password']));
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 
@@ -286,7 +285,7 @@ class AdminCoreView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminCore') {
@@ -314,7 +313,7 @@ class AdminCoreView extends GalleryView {
 		list ($ret, $value) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', $key);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		list ($outer, $inner) = explode('.', $key);
@@ -330,13 +329,13 @@ class AdminCoreView extends GalleryView {
 
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Get the list of legal local server dirs */
 	list ($ret, $param) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$localServerDirList = array();
 	for ($i = 1; !empty($param['uploadLocalServer.dir.' . $i]); $i++) {
@@ -414,6 +413,11 @@ class AdminCoreView extends GalleryView {
 
 	$lockSystemList = array('database' => $module->translate('Database'),
 				'flock' => $module->translate('File'));
+
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
 
 	$AdminCore['can'] = $can;
 	$AdminCore['localServerDirList'] = $localServerDirList;

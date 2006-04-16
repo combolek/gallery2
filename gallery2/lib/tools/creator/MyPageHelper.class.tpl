@@ -34,7 +34,7 @@
  * @subpackage UserInterface
  *
  */
-class {$viewName}Helper {ldelim}
+class MyPageHelper {ldelim}
 
     /**
      * Load a text value out of the database for a given item id.
@@ -57,7 +57,7 @@ class {$viewName}Helper {ldelim}
 
 	list ($ret, $searchResults) = $gallery->search($query, array($itemId));
 	if ($ret) {ldelim}
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
         if ($searchResults->resultCount() != 0) {ldelim}

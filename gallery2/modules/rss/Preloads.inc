@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Rss
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -37,7 +37,7 @@ class RssPreloads {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

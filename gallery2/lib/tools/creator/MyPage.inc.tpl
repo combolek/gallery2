@@ -34,7 +34,7 @@
  * @subpackage UserInterface
  *
  */
-class {$viewName}Controller extends GalleryController {ldelim}
+class MyPageController extends GalleryController {ldelim}
     /**
      * @see GalleryController::handleRequest()
      */
@@ -49,18 +49,18 @@ class {$viewName}Controller extends GalleryController {ldelim}
 	if (isset($form['action']['save'])) {ldelim}
 	    $ret = GalleryCoreApi::removeMapEntry('{$mapName}', array('itemId' => $itemId));
 	    if ($ret) {ldelim}
-	        return array($ret, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}
 
 	    $ret = GalleryCoreApi::addMapEntry(
                 '{$mapName}',
                 array('itemId' => $itemId, 'itemValue' => $form['value']));
 	    if ($ret) {ldelim}
-	        return array($ret, null);
+	        return array($ret->wrap(__FILE__, __LINE__), null);
 	    {rdelim}
 
 	    /* Send the user to a confirmation page, for now */
-	    $redirect['view'] = '{$moduleId}.{$viewName}';
+	    $redirect['view'] = '{$moduleId}.MyPage';
 	    $redirect['itemId'] = (int)$itemId;
 	    $status['added'] = 1;
 	{rdelim}
@@ -80,7 +80,7 @@ class {$viewName}Controller extends GalleryController {ldelim}
  * @subpackage UserInterface
  *
  */
-class {$viewName}View extends GalleryView {ldelim}
+class MyPageView extends GalleryView {ldelim}
 
     /**
      * @see GalleryView::loadTemplate
@@ -89,20 +89,20 @@ class {$viewName}View extends GalleryView {ldelim}
 	/* Load our item */
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {ldelim}
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
-	${$viewName} = array();
-	${$viewName}['item'] = (array)$item;
-	GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/{$viewName}Helper.class');
-	list ($ret, ${$viewName}['value']) = {$viewName}Helper::getItemValue($item->getId());
+	$MyPage = array();
+	$MyPage['item'] = (array)$item;
+	GalleryCoreApi::requireOnce('modules/{$moduleId}/classes/MyPageHelper.class');
+	list ($ret, $MyPage['value']) = MyPageHelper::getItemValue($item->getId());
 	if ($ret) {ldelim}
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	{rdelim}
 
-	$template->setVariable('{$viewName}', ${$viewName});
+	$template->setVariable('MyPage', $MyPage);
 
-	return array(null, array('body' => 'modules/{$moduleId}/templates/{$viewName}.tpl'));
+	return array(null, array('body' => 'modules/{$moduleId}/templates/MyPage.tpl'));
     {rdelim}
 {rdelim}
 ?>

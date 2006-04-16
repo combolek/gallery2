@@ -42,7 +42,7 @@ class AdminCreateUserController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results = $status = $error = array();
@@ -57,38 +57,39 @@ class AdminCreateUserController extends GalleryController {
 	     * If all the right fields are in place then go ahead and
 	     * create the user.
 	     */
-	    if (!empty($form['userName']) && !empty($form['email'])
-		    && !empty($form['password1']) && $form['password1'] == $form['password2']) {
+	    if (!empty($form['userName']) &&
+	        !empty($form['email']) &&
+	        !empty($form['password1']) &&
+	        $form['password1'] == $form['password2']) {
 
 		list ($ret, $user) =
 		    GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 
 		if (!isset($user)) {
-		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+		    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 				 null);
 		}
 
 		$ret = $user->create($form['userName']);
 		if ($ret) {
 		    if (!($ret->getErrorCode() & ERROR_COLLISION)) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
-		    /* Set our error status and fall back to the view */
+		    // Set our error status and fall back to the view.
 		    $error[] = 'form[error][userName][exists]';
 		} else {
 		    $user->setEmail($form['email']);
 		    $user->setFullName($form['fullName']);
 		    $user->setLanguage($form['language']);
-		    GalleryUtilities::unsanitizeInputValues($form['password1'], false);
-		    $user->changePassword($form['password1']);
+		    $user->changePassword(GalleryUtilities::htmlEntityDecode($form['password1']));
 
 		    $ret = $user->save();
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 
 		    /* Request a redirect to the confirmation screen */
@@ -103,8 +104,9 @@ class AdminCreateUserController extends GalleryController {
 		    }
 		}
 
-		if (!empty($form['password1']) && !empty($form['password2'])
-			&& $form['password1'] != $form['password2']) {
+		if (!empty($form['password1']) &&
+		        !empty($form['password2']) &&
+		        $form['password1'] != $form['password2']) {
 		    $error[] = 'form[error][password2][mismatch]';
 		}
 	    }
@@ -139,7 +141,7 @@ class AdminCreateUserView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'AdminCreateUser') {
@@ -154,7 +156,7 @@ class AdminCreateUserView extends GalleryView {
 	/* Set up our language selection list */
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'core');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$languageList = array();
 	$languageList[''] = $module->translate('<none>');

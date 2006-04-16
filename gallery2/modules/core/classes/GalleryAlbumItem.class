@@ -104,13 +104,13 @@ class GalleryAlbumItem extends GalleryItem {
 	global $gallery;
 
 	if (empty($albumName) || empty($parentId)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 
 	/* Let our superclass take care of creation in the persistent store */
 	$ret = parent::create($parentId, $albumName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$albumName = $this->getPathComponent();
@@ -120,50 +120,31 @@ class GalleryAlbumItem extends GalleryItem {
 
 	list($ret, $parent) = GalleryCoreApi::loadEntitiesById($parentId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list($ret, $parentPath) = $parent->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Copy over derivative preferences from the parent */
 	$ret = GalleryCoreApi::copyDerivativePreferences($parentId, $this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $useDefaults) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'default.newAlbumsUseDefaults');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($useDefaults != 'true') {
 	    /* Use parent's settings */
-	    $this->setTheme($theme = $parent->getTheme());
+	    $this->setTheme($parent->getTheme());
 	    $this->setOrderBy($parent->getOrderBy());
 	    $this->setOrderDirection($parent->getOrderDirection());
-	    if (empty($theme)) {
-		list ($ret, $theme) =
-		    GalleryCoreApi::getPluginParameter('module', 'core', 'default.theme');
-		if ($ret) {
-		    return $ret;
-		}
-	    }
-	    list ($ret, $themeParams) =
-		GalleryCoreApi::fetchAllPluginParameters('theme', $theme, $parent->getId());
-	    if ($ret) {
-		return $ret;
-	    }
-	    foreach ($themeParams as $key => $value) {
-		$ret = GalleryCoreApi::setPluginParameter('theme', $theme,
-							  $key, $value, $this->getId());
-		if ($ret) {
-		    return $ret;
-		}
-	    }
 	} else {
 	    $this->setTheme(null);
 	    $this->setOrderBy(null);
@@ -172,7 +153,7 @@ class GalleryAlbumItem extends GalleryItem {
 
 	$ret = $this->_createDir($parentPath . $albumName);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -189,17 +170,17 @@ class GalleryAlbumItem extends GalleryItem {
 	/* See if we already have a root */
 	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!empty($rootId)) {
-	    return GalleryCoreApi::error(ERROR_COLLISION);
+	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	}
 
 	/* Let our superclass take care of creation in the persistent store */
 	$ret = parent::createRoot();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Root album can contain children */
@@ -210,13 +191,13 @@ class GalleryAlbumItem extends GalleryItem {
 	$ret = GalleryCoreApi::addDerivativePreference(
 	    0, $this->getId(), DERIVATIVE_TYPE_IMAGE_THUMBNAIL, 'thumbnail|150');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::addDerivativePreference(
 	    0, $this->getId(), DERIVATIVE_TYPE_IMAGE_RESIZE, 'scale|640');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Use site default theme and sort order */
@@ -239,7 +220,7 @@ class GalleryAlbumItem extends GalleryItem {
 	list($ret, $perm) = GalleryCoreApi::getPluginParameter(
 	    'module', 'core', 'permissions.directory');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($platform->file_exists($albumDir)) {
@@ -280,19 +261,19 @@ class GalleryAlbumItem extends GalleryItem {
 	/* Delete myself from the store */
 	$ret = parent::delete();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete derivative preferences */
 	$ret = GalleryCoreApi::removeDerivativePreferencesForItem($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Get my path */
 	list($ret, $path) = $this->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove my directory and everything in it */
@@ -300,7 +281,7 @@ class GalleryAlbumItem extends GalleryItem {
 
 	if ($platform->file_exists($path)) {
 	    if (!$platform->recursiveRmdir($path)) {
-		return GalleryCoreApi::error(ERROR_BAD_PATH);
+		return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	    }
 	}
 
@@ -330,7 +311,7 @@ class GalleryAlbumItem extends GalleryItem {
 	} else {
 	    list ($ret, $lockId) = GalleryCoreApi::acquireReadLock($this->getParentId());
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -341,7 +322,7 @@ class GalleryAlbumItem extends GalleryItem {
 	 */
 	list($ret, $currentPath) = $this->fetchPath();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/*
@@ -352,7 +333,7 @@ class GalleryAlbumItem extends GalleryItem {
 	$error = null;
 	$ret = parent::rename($newName);
 	if ($ret) {
-	    $error = $ret;
+	    $error = $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* The parent class may have changed/sanitized the pathComponent, so get it again */
@@ -362,20 +343,20 @@ class GalleryAlbumItem extends GalleryItem {
 	    /* Check to see if the desired path exists. */
 	    $newPath = dirname($currentPath) . '/' . $newName;
 	    if ($platform->file_exists($newPath)) {
-		$error = GalleryCoreApi::error(ERROR_COLLISION);
+		$error = GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__);
 	    }
 	}
 
 	if (!isset($error)) {
 	    if (!$platform->rename($currentPath, $newPath)) {
-		$error = GalleryCoreApi::error(ERROR_BAD_PATH);
+		$error = GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	    }
 	}
 
 	/* Release locks */
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($error)) {
@@ -395,7 +376,7 @@ class GalleryAlbumItem extends GalleryItem {
 	/* Get the current parent sequence */
 	list ($ret, $oldParentSequence) = GalleryCoreApi::fetchParentSequence($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$oldChildParentSequence = array_merge($oldParentSequence, array($this->getId()));
 
@@ -405,13 +386,13 @@ class GalleryAlbumItem extends GalleryItem {
 	 */
 	$ret = parent::move($newParentId);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Figure out the new one */
 	list ($ret, $newParentSequence) = GalleryCoreApi::fetchParentSequence($this->getParentId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	$newParentSequence[] = $this->getParentId();
 	$newChildParentSequence = array_merge($newParentSequence, array($this->getId()));
@@ -419,14 +400,14 @@ class GalleryAlbumItem extends GalleryItem {
 	/* Convert my parent sequence */
 	$ret = GalleryCoreApi::setParentSequence($this->getId(), $newParentSequence);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Convert my children's parent sequences */
 	$ret = GalleryCoreApi::updateParentSequence(
 	    $oldChildParentSequence, $newChildParentSequence);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package UploadApplet
+ * @package uploadapplet
  * @author Pierre-Luc Paour <paour@users.sourceforge.net>
  */
 
@@ -48,21 +48,21 @@ class UploadAppletModule extends GalleryModule {
 	list ($ret, $params) =
 	    GalleryCoreApi::fetchAllPluginParameters('module', 'uploadapplet');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (!isset($params['uploaddefaultVariables'])) {
 	    $ret = $this->setParameter('uploaddefaultVariables', '');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
 	if (!isset($params['uploadoverrideVariables'])) {
-	    $ret = $this->setParameter('uploadoverrideVariables',
+	    $ret = $this->setParameter('uploadoverrideVariables', 
 		    'toSysOut=true|htmlEscapeCaptions=true');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -77,7 +77,7 @@ class UploadAppletModule extends GalleryModule {
 	    'ItemAddPlugin', 'ItemAddUploadApplet', 'ItemAddUploadApplet',
 	    'modules/uploadapplet/ItemAddUploadApplet.inc', 'uploadapplet', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

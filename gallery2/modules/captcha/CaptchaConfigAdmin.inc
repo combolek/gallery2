@@ -37,7 +37,7 @@ class CaptchaConfigAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$results['status'] = $results['error'] = array();
@@ -59,7 +59,7 @@ class CaptchaConfigAdminView extends GalleryView {
     function loadTemplate(&$template, &$form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if ($form['formName'] != 'CaptchaConfigAdmin') {

@@ -59,18 +59,18 @@ class ExifModule extends GalleryModule {
 	    GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 	    $ret = ExifHelper::setDefaultProperties(EXIF_SUMMARY);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    $ret = ExifHelper::setDefaultProperties(EXIF_DETAILED);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Import IPTC keywords into item keywords, see comment below for reason. */
 	    $ret = $this->setParameter('addOption', IPTC_ITEM_KEYWORDS);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	} else {
 	    switch ($currentVersion) {
@@ -78,7 +78,7 @@ class ExifModule extends GalleryModule {
 	    case '0.8.3':
 		$ret = $this->setParameter('addOption', '0');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 	    case '0.8.4':
@@ -98,21 +98,21 @@ class ExifModule extends GalleryModule {
 		GalleryCoreApi::requireOnce('modules/exif/classes/ExifHelper.class');
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_SUMMARY);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		$ret = ExifHelper::addDefaultIptcProperties(EXIF_DETAILED);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 		list($ret, $addOption) = $this->getParameter('addOption');
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$ret = $this->setParameter('addOption', $addOption | IPTC_ITEM_KEYWORDS);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 
 	    case '0.9.2':
@@ -155,21 +155,21 @@ class ExifModule extends GalleryModule {
 	    'ExifInterface_1_0', 'ExifExtractor', 'Exif',
 	    'modules/exif/classes/ExifExtractor.class', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'GalleryToolkit', 'ExifToolkit', 'Exif',
 	    'modules/exif/classes/ExifToolkit.class', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation('ItemAddOption',
 	    'ExifDescriptionOption', 'ExifDescriptionOption',
 	    'modules/exif/ExifDescriptionOption.inc', 'exif', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -188,12 +188,12 @@ class ExifModule extends GalleryModule {
 		'int',
 		$gallery->i18n('Get the origination timestamp'));
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);

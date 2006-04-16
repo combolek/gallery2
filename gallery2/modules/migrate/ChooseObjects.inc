@@ -45,7 +45,7 @@ class ChooseObjectsController extends GalleryController {
 	/* Verify that active user is an admin */
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -176,20 +176,20 @@ class ChooseObjectsView extends GalleryView {
 
 	$albumsPath = GalleryUtilities::getRequestVariables('albumsPath');
 	if ($albumsPath == null) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 	}
 
 	$existingUsers = array();
 	$newUsers = array();
 	list($ret, $allUsers) = Gallery1DataParser::getUserUids($albumsPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach($allUsers as $uid => $userName) {
 	    list($ret, $testUser) = GalleryCoreApi::fetchUserByUsername($userName);
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return array($ret, 'Your userdb.dat includes '
+		return array($ret->wrap(__FILE__, __LINE__), 'Your userdb.dat includes '
 			     . $userName . ' but doesn\'t include the associated file: ' . $uid);
 	    }
 
@@ -223,20 +223,26 @@ class ChooseObjectsView extends GalleryView {
 	}
 	list ($ret, $g1AlbumTree) = $this->_createG1AlbumTree($albumsPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
-	/* Get ids of all albums where we can add new album items */
+	/* Get all possible destinations (where user has write permission) */
+	list ($ret, $rootId) = GalleryCoreApi::getPluginParameter('module', 'core', 'id.rootAlbum');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	/* Get ids of all all albums where we can add new album items */
 	list ($ret, $albumIds) =
 	    GalleryCoreApi::fetchAllItemIds('GalleryAlbumItem', 'core.addAlbumItem');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	/* Load all the album entities */
 	list ($ret, $albums) = GalleryCoreApi::loadEntitiesById($albumIds);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$g2AlbumTree = GalleryUtilities::createAlbumTree($albums);
 
@@ -244,7 +250,7 @@ class ChooseObjectsView extends GalleryView {
 	list ($ret, $customFieldInterface) =
 	    GalleryCoreApi::newFactoryInstance('CustomFieldInterface_1_0');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$ChooseObjects['albumsPath'] = $albumsPath;
@@ -270,12 +276,12 @@ class ChooseObjectsView extends GalleryView {
 
 	list($ret, $albumList) = Gallery1DataParser::getAlbumList($albumsPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list($ret, $hierarchy) = Gallery1DataParser::getAlbumHierarchy($albumsPath);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$tree = array();

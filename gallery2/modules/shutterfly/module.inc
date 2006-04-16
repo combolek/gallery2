@@ -58,7 +58,7 @@ class ShutterflyModule extends GalleryModule {
 	}
 	list ($ret, $coreParams) = GalleryCoreApi::fetchAllPluginParameters('module', 'core');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	switch ($currentVersion) {
@@ -67,14 +67,14 @@ class ShutterflyModule extends GalleryModule {
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'shutterfly.print',
 						      $gallery->i18n('[shutterfly] Print'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    /* Give everybody print permission by default */
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    break;
 
@@ -82,13 +82,13 @@ class ShutterflyModule extends GalleryModule {
 	    $ret = GalleryCoreApi::registerPermission($this->getId(), 'shutterfly.print',
 						      $gallery->i18n('[shutterfly] Print'));
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::addGroupPermission(
 		$coreParams['id.rootAlbum'], $coreParams['id.everybodyGroup'],
 		'shutterfly.print', true);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	case '1.0.1':
@@ -114,7 +114,7 @@ class ShutterflyModule extends GalleryModule {
 	    'CartPluginInterface_1_0', 'ShutterflyCartPlugin', 'shutterfly',
 	    'modules/shutterfly/classes/ShutterflyCartPlugin.class', 'shutterfly', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

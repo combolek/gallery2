@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package Rss
+ * @package RSS
  * @author Jonatan Heyman <http://heyman.info>
  * @author Pierre-Luc Paour
  * @author Daniel Grund <http://www.photogrund.nl>
@@ -35,7 +35,7 @@ GalleryCoreApi::requireOnce('modules/rss/Render.inc');
 /**
  * Render the Simple Feed
  *
- * @package Rss
+ * @package RSS
  * @subpackage UserInterface
  */
 class SimpleRenderView extends RenderView {
@@ -48,7 +48,7 @@ class SimpleRenderView extends RenderView {
 	/* get all parameters */
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'rss');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if ($params['allowSimpleFeed'] != 1) {
@@ -58,7 +58,7 @@ class SimpleRenderView extends RenderView {
 
 	list ($ret, $item) = $this->_getItem();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$params['itemId'] = $item->getId();
@@ -88,7 +88,7 @@ class SimpleRenderView extends RenderView {
 
 	$ret = $this->continueRender($params);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

@@ -21,7 +21,7 @@
  */
 /**
  * @version $Revision$ $Date$
- * @package SelfRegistration
+ * @package Register
  * @subpackage Classes
  * @author Alan Harder <alan.harder@sun.com>
  */
@@ -29,7 +29,7 @@
 /**
  * Captcha configuration for register module.
  *
- * @package SelfRegistration
+ * @package Register
  * @subpackage Classes
  */
 class RegisterCaptchaAdminOption extends CaptchaAdminOption {
@@ -39,7 +39,7 @@ class RegisterCaptchaAdminOption extends CaptchaAdminOption {
     function getOptionData() {
 	list ($ret, $module) = GalleryCoreApi::loadPlugin('module', 'register');
 	if ($ret) {
-	    return array($ret, null, null, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null, null, null);
 	}
 	/* Note: we use validation.level for all plugins, but config is via captcha module */
 	return array(null, $module->translate('Registration'),

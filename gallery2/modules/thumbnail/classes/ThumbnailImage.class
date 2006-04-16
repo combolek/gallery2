@@ -163,10 +163,10 @@ class ThumbnailImage extends GalleryChildEntity {
 
 	/* Validate the input file */
 	if (empty($inputFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	    return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
 	}
 	if (!$platform->file_exists($inputFileName)) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	/* Uniquify name */
@@ -175,7 +175,7 @@ class ThumbnailImage extends GalleryChildEntity {
 	}
 	list ($ret, $list) = ThumbnailHelper::fetchThumbnails(true);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while (in_array($targetName, $list)) {
 	    $targetName = "_$targetName";
@@ -184,7 +184,7 @@ class ThumbnailImage extends GalleryChildEntity {
 	/* No parent by default; create a root ChildEntity */
 	$ret = parent::createRoot();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$this->setFileName($targetName);
@@ -196,25 +196,25 @@ class ThumbnailImage extends GalleryChildEntity {
 	$dir = $this->getThumbnailDir();
 	list ($success) = GalleryUtilities::guaranteeDirExists($dir);
 	if (!$success) {
-	    return GalleryCoreApi::error(ERROR_BAD_PATH);
+	    return GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__);
 	}
 
 	$newFileName = $this->getThumbnailDir() . $targetName;
 	if (!$platform->copy($inputFileName, $newFileName)) {
-	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
+	    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE, __FILE__, __LINE__);
 	}
 	$this->setSize($platform->filesize($newFileName));
 
 	list ($ret, $toolkit) = GalleryCoreApi::getToolkitByProperty($mimeType, 'dimensions');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	if (isset($toolkit)) {
 	    list ($ret, $dimensions) = $toolkit->getProperty($mimeType, 'dimensions', $newFileName);
 	    if ($ret) {
 		$ret->addErrorCode(ERROR_BAD_DATA_TYPE);
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $this->setWidth($dimensions[0]);
 	    $this->setHeight($dimensions[1]);
@@ -235,7 +235,7 @@ class ThumbnailImage extends GalleryChildEntity {
 	/* Delete myself */
 	$ret = parent::delete();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete our source file */

@@ -61,7 +61,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $user) = $this->_createUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -104,7 +104,7 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 	/* Normal */
 	list ($ret, $user) = $this->_createUser();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($user);
 
@@ -149,12 +149,12 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $anonymousUser) = GalleryCoreApi::loadEntitiesById($anonymousUserId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	GalleryUtilities::putRequestVariable('form[action][deleteFromText]', 1);
@@ -189,21 +189,21 @@ class AdminUsersControllerTest extends GalleryControllerTestCase {
 
 	list ($ret, $user) = GalleryCoreApi::newFactoryInstance('GalleryEntity', 'GalleryUser');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!isset($user)) {
-	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT),
+	    return array(GalleryCoreApi::error(ERROR_MISSING_OBJECT, __FILE__, __LINE__),
 			 null);
 	}
 
 	$ret = $user->create('testuser-'.rand());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	$ret = $user->save();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	return array(null, $user);
     }

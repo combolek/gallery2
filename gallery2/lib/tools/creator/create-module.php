@@ -89,8 +89,8 @@ $smarty->assign('ucModuleId', $ucModuleId);
 $smarty->assign('moduleName', $moduleName);
 $smarty->assign('author', $author);
 $smarty->assign('authorFullName', $authorFullName);
-$smarty->assign('viewName', $ucModuleId);
-$smarty->assign('mapName', $ucModuleId . "Map");
+$smarty->assign('viewName', 'MyPage');
+$smarty->assign('mapName', "${ucModuleId}Map");
 
 /*
  * Start building things!
@@ -110,12 +110,12 @@ fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/module.inc.tpl'));
 fclose($fd);
 
 /* Create our sample view and template */
-$fd = safe_fopen("$modulePath/$ucModuleId.inc");
+$fd = safe_fopen("$modulePath/MyPage.inc");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPage.inc.tpl'));
 fclose($fd);
 
 mkdir("$modulePath/templates");
-$fd = safe_fopen("$modulePath/templates/$ucModuleId.tpl");
+$fd = safe_fopen("$modulePath/templates/MyPage.tpl");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPage.tpl.tpl'));
 fclose($fd);
 
@@ -139,7 +139,7 @@ $fd = safe_fopen("$modulePath/classes/Maps.xml");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/map.tpl'));
 fclose($fd);
 
-$fd = safe_fopen($modulePath . '/classes/' . $ucModuleId . 'Helper.class');
+$fd = safe_fopen("$modulePath/classes/MyPageHelper.class");
 fwrite($fd, $smarty->fetch(dirname(__FILE__) . '/MyPageHelper.class.tpl'));
 fclose($fd);
 

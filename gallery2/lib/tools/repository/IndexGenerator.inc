@@ -1,7 +1,5 @@
 <?php
 /*
- * $RCSfile$
- *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
  *
@@ -17,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * $Id$
  */
 
 GalleryCoreApi::requireOnce('modules/core/classes/GalleryRepositoryUtilities.class');
@@ -50,12 +50,12 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 
 	$ret = $index->init($repositoryDir);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	list ($ret, $pluginCounts) = $index->generate();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$viewData = array('moduleCount' => $pluginCounts['modules'],
@@ -66,7 +66,7 @@ class IndexGeneratorControllerAndView extends RepositoryControllerAndView {
 
 	$ret = $this->showView('IndexGenerationResults', $viewData);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;

@@ -222,7 +222,7 @@ class Gallery {
 	$storage =& $this->getStorage();
 	list ($ret, $results) = $storage->search($query, $data, $options);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $results);
@@ -314,7 +314,7 @@ class Gallery {
 	    $this->_session = new GallerySession();
 	    $ret = $this->_session->init();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -376,7 +376,7 @@ class Gallery {
 		list ($ret, $which) =
 		    GalleryCoreApi::getPluginParameter('module', 'core', 'lock.system');
 		if ($ret) {
-		    $ret = array($ret, null);
+		    $ret = array($ret->wrap(__FILE__, __LINE__), null);
 		    return $ret;
 		}
 	    } else {
@@ -399,7 +399,7 @@ class Gallery {
 		break;
 
 	    default:
-		$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER), null);
+		$ret = array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__), null);
 		return $ret;
 	    }
 	}
@@ -447,7 +447,6 @@ class Gallery {
 	    switch ($config['type']) {
 	    case 'mysql':
 	    case 'mysqlt':
-	    case 'mysqli':
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/MySqlStorage.class', true);
 		$this->_storage = new MySqlStorage($config);
@@ -473,12 +472,6 @@ class Gallery {
 		GalleryCoreApi::requireOnce(
 			'modules/core/classes/GalleryStorage/OracleStorage.class', true);
 		$this->_storage = new OracleStorage($config);
-		break;
-
-	    case 'mssql':
-		GalleryCoreApi::requireOnce(
-			'modules/core/classes/GalleryStorage/MSSqlStorage.class', true);
-		$this->_storage = new MSSqlStorage($config);
 		break;
 
 	    default:
@@ -562,18 +555,18 @@ class Gallery {
 	    /* Do we already have an activeLanguage for this session? */
 	    list ($ret, $language) = $this->getActiveLanguageCode();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 
 	    }
 
 	    $this->_translator = new GalleryTranslator();
 	    list ($ret, $languageCode) = $this->_translator->init($language, $dontUseDatabase);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = $this->setActiveLanguageCode($languageCode);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -801,7 +794,15 @@ class Gallery {
      */
     function debug_r($object, $escapeHtmlEntities=false) {
 	if (!empty($this->_debug)) {
-	    $buf = print_r($object, true);
+	    if (version_compare(phpversion(), '4.3.0', '>=')) {
+		$buf = print_r($object, true);
+	    } else {
+		ob_start();
+		print_r($object);
+		$buf = ob_get_contents();
+		ob_end_clean();
+	    }
+
 	    if ($escapeHtmlEntities) {
 		$buf = htmlentities($buf);
 	    }

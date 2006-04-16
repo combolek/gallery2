@@ -54,7 +54,7 @@ class SimpleCallbackView extends GalleryView {
 	list ($ret, $anonymousUserId) =
 	    GalleryCoreApi::getPluginParameter('module', 'core', 'id.anonymousUser');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	if (!headers_sent()) {
 	    header("Content-type: text/plain; charset=UTF-8");
@@ -82,8 +82,8 @@ class SimpleCallbackView extends GalleryView {
 	case 'lookupDirectories':
 	    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if (!$ret && $isSiteAdmin) {
-		GalleryUtilities::unsanitizeInputValues($prefix, false);
-		$dirs = implode("\n", $this->_getAllImmediateSubdirs($prefix));
+		$dirs = implode("\n",
+		    $this->_getAllImmediateSubdirs(GalleryUtilities::htmlEntityDecode($prefix)));
 		GalleryUtilities::sanitizeInputValues($dirs, false);
 		print $dirs;
 	    }
@@ -92,8 +92,8 @@ class SimpleCallbackView extends GalleryView {
 	case 'lookupFiles':
 	    list ($ret, $isSiteAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
 	    if (!$ret && $isSiteAdmin) {
-		GalleryUtilities::unsanitizeInputValues($prefix, false);
-		$files = implode("\n", $this->_getAllFiles($prefix));
+		$files = implode("\n",
+		    $this->_getAllFiles(GalleryUtilities::htmlEntityDecode($prefix)));
 		GalleryUtilities::sanitizeInputValues($files, false);
 		print $files;
 	    }

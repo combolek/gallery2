@@ -81,7 +81,7 @@ class GalleryModule extends GalleryPlugin {
      * @return array major number, minor number
      */
     function getApiVersion() {
-	return array(3, 1);
+	return array(3, 0);
     }
 
     /**
@@ -131,7 +131,7 @@ class GalleryModule extends GalleryPlugin {
 	} else {
 	    list ($ret, $installedVersion) = $this->getParameter('_version');
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 
@@ -148,7 +148,7 @@ class GalleryModule extends GalleryPlugin {
 					    'this is the error stack trace: %s',
 					    $ret->getAsText()));
 		}
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($gallery->getDebug()) {
@@ -161,7 +161,7 @@ class GalleryModule extends GalleryPlugin {
 					    'is the error stack trace: %s', $this->getId(),
 					    $ret->getAsText()));
 		}
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($gallery->getDebug()) {
@@ -174,7 +174,7 @@ class GalleryModule extends GalleryPlugin {
 					   'this is the error stack trace: %s',
 					    $ret->getAsText()));
 		}
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /*
@@ -192,7 +192,7 @@ class GalleryModule extends GalleryPlugin {
 		    $gallery->debug(sprintf('Error: Failed to reactivate the module, this' .
 					    ' is the error stack trace: %s', $ret->getAsText()));
 		}
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    if ($gallery->getDebug()) {
@@ -211,7 +211,7 @@ class GalleryModule extends GalleryPlugin {
 						', this is the error stack trace: %s', $key,
 						$ret->getAsText()));
 		    }
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -235,32 +235,32 @@ class GalleryModule extends GalleryPlugin {
 	/* Find and remove all module permissions */
 	$ret = GalleryCoreApi::unregisterModulePermissions($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove onLoadHandlers */
 	$ret = GalleryCoreApi::removeOnLoadHandlers($this->getOnLoadHandlerIds());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Delete entities for types registered by this module */
 	$ret = $this->_deleteModuleEntities();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove all tables */
 	$storage =& $gallery->getStorage();
 	$ret = $storage->unconfigureStore($this->getId());
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	/* Remove this plugin */
 	$ret = parent::uninstall();
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -285,12 +285,12 @@ class GalleryModule extends GalleryPlugin {
 	';
 	list ($ret, $searchResults) = $gallery->search($query, $types);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	while ($result = $searchResults->nextResult()) {
 	    $ret = GalleryCoreApi::deleteEntityById($result[0]);
 	    if ($ret && !($ret->getErrorCode() & ERROR_MISSING_OBJECT)) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	return null;
@@ -302,21 +302,17 @@ class GalleryModule extends GalleryPlugin {
     function deactivate($postDeactivationEvent=true) {
 	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
 	    return array(null, $redirect);
 	}
 
-	$ret = GalleryCoreApi::unregisterToolkitsByModuleId($this->getId());
-	if ($ret) {
-	    return array($ret, null);
-	}
-
+	/* Unregister all factory implementations */
 	$ret = GalleryCoreApi::unregisterFactoryImplementationsByModuleId($this->getId());
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, array());
@@ -325,7 +321,7 @@ class GalleryModule extends GalleryPlugin {
     /**
      * @see GalleryPlugin::activate()
      *
-     * Note: if you add something here, consider adding the same functionality
+     * Note: if you add something here, consider adding  the same functionality
      * to installOrUpgrade (see the TODO there).
      */
     function activate($postActivationEvent=true) {
@@ -337,16 +333,16 @@ class GalleryModule extends GalleryPlugin {
 	/* Make sure that we don't need configuration before we allow activation. */
 	list ($ret, $needs) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 	if ($needs) {
-	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED),
+	    return array(GalleryCoreApi::error(ERROR_CONFIGURATION_REQUIRED, __FILE__, __LINE__),
 			 null);
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!empty($redirect)) {
@@ -355,7 +351,7 @@ class GalleryModule extends GalleryPlugin {
 
 	$ret = $this->performFactoryRegistrations();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, array());
@@ -464,13 +460,12 @@ class GalleryModule extends GalleryPlugin {
      * @param array object GalleryItem
      * @param array (id => 1, id => 1) we want detailed links for these ids
      * @param array id => array(permission => 1, ...) of item permissions
-     * @param int id of user viewing links
      * @return array object GalleryStatus a status code
      *               array(itemId => array(array('text' => 'localized text',
      *                                           'params' => array(key => value, key => value))
      *                                     ...))
      */
-    function getItemLinks($items, $wantsDetailedLinks, $permissions, $userId) {
+    function getItemLinks($items, $wantsDetailedLinks, $permissions) {
 	return array(null, array());
     }
 

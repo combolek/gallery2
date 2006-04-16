@@ -45,7 +45,7 @@ class DataItemTest extends GalleryTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->_markForCleanup($this->_album);
@@ -60,12 +60,12 @@ class DataItemTest extends GalleryTestCase {
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $basePath) = $this->_album->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$platform =& $gallery->getPlatform();
@@ -77,12 +77,12 @@ class DataItemTest extends GalleryTestCase {
 				       'text/plain',
 				       'valid_path.txt');
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    $ret = $entity[$i]->save();
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 
 	    if ($i > 0) {
@@ -92,7 +92,7 @@ class DataItemTest extends GalleryTestCase {
 
 		list ($ret, $entityPath) = $entity[$i]->fetchPath();
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 
 		$this->assertEquals($basePath . $expectedPathComponent, $entityPath,
@@ -105,7 +105,7 @@ class DataItemTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -114,55 +114,55 @@ class DataItemTest extends GalleryTestCase {
 
 	list ($ret, $subAlbum) = $this->_createRandomAlbum($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $lockIds[]) =
 	    GalleryCoreApi::acquireReadLock(array($this->_album->getId(), $subAlbum->getId()));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$orig = new GalleryDataItem();
 	$ret = $orig->create($this->_album->getId(), __FILE__, 'text/plain', 'valid_path.txt');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $orig->save();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$new = new GalleryDataItem();
 	$ret = $new->create($subAlbum->getId(), __FILE__, 'text/plain', 'valid_path.txt');
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $new->save();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $lockIds[]) = GalleryCoreApi::acquireWriteLock(array($new->getId()));
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$ret = $new->move($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $basePath) = $this->_album->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $newPath) = $new->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assertEquals($basePath . 'valid_path_001.txt', $newPath, 'full path mismatch');
@@ -173,7 +173,7 @@ class DataItemTest extends GalleryTestCase {
 
 	$ret = GalleryCoreApi::releaseLocks($lockIds);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -186,12 +186,12 @@ class DataItemTest extends GalleryTestCase {
 
 	list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($this->_album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $basePath) = $this->_album->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$platform =& $gallery->getPlatform();
@@ -206,30 +206,30 @@ class DataItemTest extends GalleryTestCase {
 	    /* On not supported platforms, this should return an ERROR_UNSUPPORTED_OPERATION */
 	    if ($canSymlink || (!$canSymlink &&
 				!($ret->getErrorCode() & ERROR_UNSUPPORTED_OPERATION))) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $this->failWithStatus($ret);
+		return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	    }
 	    return;
 	}
 
 	$ret = $entity->save();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	list ($ret, $entityPath) = $entity->fetchPath();
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	$this->assert(is_link($entityPath));
 
 	$ret = GalleryCoreApi::releaseLocks($lockId);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 }

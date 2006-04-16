@@ -154,13 +154,14 @@ sub parseCvs {
       my $target = "$activeDir/$1";
       if (-d $target) {
 	&parseCvs($target, $entries);
-      } elsif (-f $target) {
+      } if (-f $target) {
 	die "$target not a dir" if (! -d $target);
       } else {
 	# CVS doesn't always get rid of D/ entries when the dir is
 	# pruned.  Ignore.
       }
     } elsif (m|/([^/]*)/([^/]*)/|) {
+      next if m{/MANIFEST$};
       my $target;
       if ($2 =~ '^-') {
 	# Deleted file

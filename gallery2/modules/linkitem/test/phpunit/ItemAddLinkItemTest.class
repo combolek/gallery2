@@ -43,21 +43,21 @@ class ItemAddLinkItemTest extends ItemAddPluginTestCase {
 	list ($ret, $this->_album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 	$this->_markForCleanup($this->_album);
 
 	list ($ret, $this->_lockId) = GalleryCoreApi::acquireReadLock($this->_album->getId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
     function tearDown() {
 	$ret = GalleryCoreApi::releaseLocks($this->_lockId);
 	if ($ret) {
-	    $this->failWithStatus($ret);
+	    $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	parent::tearDown();

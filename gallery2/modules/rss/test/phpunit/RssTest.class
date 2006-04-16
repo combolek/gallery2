@@ -52,7 +52,7 @@ class RssTest extends GalleryTestCase {
 	$ret = $this->_markPluginParametersForCleanup('module', 'rss');
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
     }
 
@@ -63,7 +63,7 @@ class RssTest extends GalleryTestCase {
 	    foreach ($this->_feedsToDelete as $name) {
 		$ret = RssMapHelper::deleteFeed($name);
 		if ($ret) {
-		    return $this->failWithStatus($ret);
+		    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 		}
 	    }
 	}
@@ -77,7 +77,7 @@ class RssTest extends GalleryTestCase {
 	list ($ret, $album) = $this->_createRandomAlbum($this->_getRootId());
 	if ($ret) {
 	    print $ret->getAsHtml();
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* create a test feed */
@@ -85,13 +85,13 @@ class RssTest extends GalleryTestCase {
 	$params = array('itemId' => $album->getId());
 	$ret = RssMapHelper::createFeed($name, $params);
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* Delete album: deletes sub-item and aliases */
 	$ret = GalleryCoreApi::deleteEntityById($album->getId());
 	if ($ret) {
-	    return $this->failWithStatus($ret);
+	    return $this->failWithStatus($ret->wrap(__FILE__, __LINE__));
 	}
 
 	/* check that the feed has been deleted */

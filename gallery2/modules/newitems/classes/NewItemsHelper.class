@@ -47,7 +47,7 @@ class NewItemsHelper {
 
 	list ($ret, $results) = $gallery->search($query);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$count = 0;
@@ -70,7 +70,7 @@ class NewItemsHelper {
 
 	list ($ret, $results) = $gallery->search($query);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	for ($i = 0; $result = $results->nextResult();) {
@@ -80,21 +80,21 @@ class NewItemsHelper {
 	    $itemId = (int)$result[0];
 	    list ($ret, $lockId) = GalleryCoreApi::acquireWriteLock($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($itemId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $item->setOrderBy('');
 	    $item->setOrderDirection('');
 	    $ret = $item->save();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    $ret = GalleryCoreApi::releaseLocks($lockId);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	}
 	return null;

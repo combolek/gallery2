@@ -36,7 +36,7 @@ class ExifCallbacks {
 
 	    list ($ret, $item) = GalleryCoreApi::loadEntitiesById($params['itemId']);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* We only work on JPEG/raw data items */
@@ -48,7 +48,7 @@ class ExifCallbacks {
 	    /* Feed the file to exifer */
 	    list($ret, $path) = $item->fetchPath();
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 
 	    /* Figure out which version we're looking at */
@@ -68,7 +68,7 @@ class ExifCallbacks {
 
 	    list ($ret, $exifData) = ExifHelper::getExifData($path, $filter);
 	    if ($ret) {
-		return $ret;
+		return $ret->wrap(__FILE__, __LINE__);
 	    }
 	    if (empty($exifData)) {
 		if ($filter == EXIF_SUMMARY) {
@@ -77,7 +77,7 @@ class ExifCallbacks {
 		    list ($ret, $exifData) = ExifHelper::getExifData($path, EXIF_SUMMARY);
 		}
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 		$mode = null;
 	    }
@@ -92,7 +92,7 @@ class ExifCallbacks {
 	    return null;
 	}
 
-	return GalleryCoreApi::error(ERROR_BAD_PARAMETER);
+	return GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__);
     }
 }
 ?>

@@ -53,14 +53,14 @@ class NetPbmModule extends GalleryModule {
     function upgrade($currentVersion) {
 	list ($ret, $params) = GalleryCoreApi::fetchAllPluginParameters('module', 'netpbm');
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 	foreach (array('path' => '', 'jpegQuality' => '75', 'pnmtojpeg' => 'pnmtojpeg',
 		       'bmptopnm' => 'bmptopnm', 'pnmcomp' => 'pnmcomp') as $key => $value) {
 	    if (!isset($params[$key])) {
 		$ret = $this->setParameter($key, $value);
 		if ($ret) {
-		    return $ret;
+		    return $ret->wrap(__FILE__, __LINE__);
 		}
 	    }
 	}
@@ -77,7 +77,7 @@ class NetPbmModule extends GalleryModule {
 	    'GalleryToolkit', 'NetPbmToolkit', 'NetPBM',
 	    'modules/netpbm/classes/NetPbmToolkit.class', 'netpbm', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -91,7 +91,7 @@ class NetPbmModule extends GalleryModule {
 
 	list ($ret, $needsConfiguration) = $this->needsConfiguration();
 	if ($ret) {
-	    return array($ret, false);
+	    return array($ret->wrap(__FILE__, __LINE__), false);
 	}
 	if (!$needsConfiguration) {
 	    return array(null, true);
@@ -161,18 +161,18 @@ class NetPbmModule extends GalleryModule {
 
 	    list ($ret, $testResults, $mimeTypes) = NetPbmToolkitHelper::testBinaries($path);
 	    if ($ret) {
-		return array($ret, false);
+		return array($ret->wrap(__FILE__, __LINE__), false);
 	    }
 
 	    /* Take the first path found with at least jpeg support */
 	    if (in_array('image/jpeg', $mimeTypes)) {
 		$ret = $this->setParameter('path', $path);
 		if ($ret) {
-		    return array($ret, false);
+		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 		$ret = NetPbmToolkitHelper::saveParameters($testResults);
 		if ($ret) {
-		    return array($ret, false);
+		    return array($ret->wrap(__FILE__, __LINE__), false);
 		}
 		$success = true;
 		break;
@@ -185,13 +185,13 @@ class NetPbmModule extends GalleryModule {
 	    }
 	    list ($ret, $testResults) = NetPbmToolkitHelper::testJhead($path);
 	    if ($ret) {
-		return array($ret, false);
+		return array($ret->wrap(__FILE__, __LINE__), false);
 	    }
 	    foreach ($testResults as $testResult) {
 		if ($testResult['success'] && ($testResult['name'] == 'jhead')) {
 		    $ret = $this->setParameter('jheadPath', $path);
 		    if ($ret) {
-			return array($ret, false);
+			return array($ret->wrap(__FILE__, __LINE__), false);
 		    }
 		    break 2;
 		}
@@ -211,18 +211,18 @@ class NetPbmModule extends GalleryModule {
 	/* Find out what operations and properties we have available to us */
 	list ($ret, $results) = NetPbmToolkitHelper::getOperationsAndProperties(true);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	list ($ret, $priority) = GalleryCoreApi::getToolkitPriorityById('NetPBM');
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	if (!$priority) {
 	    list ($ret, $priority) = GalleryCoreApi::getMaximumManagedToolkitPriority();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $priority++;
 	}
@@ -236,7 +236,7 @@ class NetPbmModule extends GalleryModule {
 							   $info['description'],
 							   $outputMimeType, $priority);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
@@ -247,13 +247,35 @@ class NetPbmModule extends GalleryModule {
 							  $info['type'],
 							  $info['description']);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	}
 
 	list ($ret, $redirect) = parent::activate($postActivationEvent);
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	return array(null, $redirect);
+    }
+
+    /**
+     * @see GalleryModule::deactivate()
+     */
+    function deactivate($postDeactivationEvent=true) {
+	/*
+	 * Unregister all of our properties and operations.  Do this before the parent deactivates
+	 * so that any event handlers triggered by the deactivation will see the world as it will
+	 * be after the deactivation is done.
+	 */
+	$ret = GalleryCoreApi::unregisterToolkit('NetPBM');
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
+	}
+
+	list ($ret, $redirect) = parent::deactivate($postDeactivationEvent);
+	if ($ret) {
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	return array(null, $redirect);
@@ -267,7 +289,7 @@ class NetPbmModule extends GalleryModule {
 	foreach (array('path', 'jpegQuality', 'pnmtojpeg', 'bmptopnm', 'pnmcomp') as $key) {
 	    list ($ret, $value) = $this->getParameter($key);
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 
 	    if (empty($value)) {

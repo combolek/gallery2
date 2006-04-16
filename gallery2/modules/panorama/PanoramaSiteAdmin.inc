@@ -37,7 +37,7 @@ class PanoramaSiteAdminController extends GalleryController {
     function handleRequest($form) {
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$status = $error = array();
@@ -50,13 +50,13 @@ class PanoramaSiteAdminController extends GalleryController {
 			'module', 'panorama', $key,
 			(isset($form[$key]) && $form[$key]) ? 1 : 0);
 		    if ($ret) {
-			return array($ret, null);
+			return array($ret->wrap(__FILE__, __LINE__), null);
 		    }
 		}
 		$ret = GalleryCoreApi::setPluginParameter(
 		    'module', 'panorama', 'width', (int)$form['width']);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 		$status['saved'] = 1;
 	    }
@@ -64,7 +64,7 @@ class PanoramaSiteAdminController extends GalleryController {
 	    GalleryCoreApi::requireOnce('modules/panorama/classes/PanoramaHelper.class');
 	    $ret = PanoramaHelper::resetPanoramaItems();
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    $status['reset'] = 1;
 	}
@@ -94,7 +94,7 @@ class PanoramaSiteAdminView extends GalleryView {
 
 	$ret = GalleryCoreApi::assertUserIsSiteAdministrator();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	foreach (array('itemType', 'itemLink') as $key) {
@@ -107,7 +107,7 @@ class PanoramaSiteAdminView extends GalleryView {
 	    list ($ret, $param) =
 		GalleryCoreApi::fetchAllPluginParameters('module', 'panorama');
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    foreach ($param as $key => $value) {
 		$form[$key] = $value;
@@ -115,7 +115,7 @@ class PanoramaSiteAdminView extends GalleryView {
 	}
 	list ($ret, $form['count']) = PanoramaHelper::fetchItemCount();
 	if ($ret) {
-	    return array($ret, null);
+	    return array($ret->wrap(__FILE__, __LINE__), null);
 	}
 
 	$template->setVariable('controller', 'panorama.PanoramaSiteAdmin');

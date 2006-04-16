@@ -32,7 +32,7 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	$this->setId('linkitem');
 	$this->setName($gallery->i18n('Link Items'));
 	$this->setDescription($gallery->i18n('Create links to other albums or external urls'));
-	$this->setVersion('1.0.5');
+	$this->setVersion('1.0.4');
 	$this->setGroup('display', $gallery->i18n('Display'));
 	$this->setCallbacks('registerEventListeners');
 	$this->setRequiredCoreApi(array(7, 0));
@@ -61,14 +61,6 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 					"Unable to copy arrow.png to $imageDir");
 	}
 
-	if (!empty($currentVersion) && version_compare($currentVersion, '1.0.4', '<=')) {
-	    $storage =& $gallery->getStorage();
-	    $ret = $storage->configureStore($this->getId(), array('GalleryLinkItem:1.0'));
-	    if ($ret) {
-		return $ret;
-	    }
-	}
-
 	return null;
     }
 
@@ -80,21 +72,21 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	    'GalleryEntity', 'GalleryLinkItem', 'GalleryLinkItem',
 	    'modules/linkitem/classes/GalleryLinkItem.class', 'linkitem', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemAddPlugin', 'ItemAddLinkItem', 'ItemAddLinkItem',
 	    'modules/linkitem/ItemAddLinkItem.inc', 'linkitem', null);
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	$ret = GalleryCoreApi::registerFactoryImplementation(
 	    'ItemEditOption', 'LinkItemOption', 'LinkItemOption',
 	    'modules/linkitem/LinkItemOption.inc', 'linkitem', array('ItemEditItem'));
 	if ($ret) {
-	    return $ret;
+	    return $ret->wrap(__FILE__, __LINE__);
 	}
 
 	return null;
@@ -132,12 +124,12 @@ class LinkItemModule extends GalleryModule /* and GalleryEventListener */ {
 	    ';
 	    list ($ret, $searchResults) = $gallery->search($query, array((string)$entity->getId()));
 	    if ($ret) {
-		return array($ret, null);
+		return array($ret->wrap(__FILE__, __LINE__), null);
 	    }
 	    while ($result = $searchResults->nextResult()) {
 		$ret = GalleryCoreApi::deleteEntityById($result[0]);
 		if ($ret) {
-		    return array($ret, null);
+		    return array($ret->wrap(__FILE__, __LINE__), null);
 		}
 	    }
 	}
