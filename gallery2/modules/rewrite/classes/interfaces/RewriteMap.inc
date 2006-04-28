@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: RewriteMap.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -22,7 +22,7 @@
 /**
  * @package Rewrite
  * @subpackage ClassInterfaces
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2005/08/23 03:49:53 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 

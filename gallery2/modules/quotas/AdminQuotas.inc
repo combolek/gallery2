@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: AdminQuotas.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.6 $ $Date: 2005/08/23 03:49:49 $
  * @package Quotas
  * @subpackage UserInterface
  * @author Robert Balousek <volksport@users.sf.net>

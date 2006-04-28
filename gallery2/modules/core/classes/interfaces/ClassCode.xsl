@@ -6,7 +6,7 @@
   
   <xsl:template match="class">&lt;?php
 /*
- * $RCSfile$
+ * $RCSfile: ClassCode.xsl,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -28,7 +28,7 @@
 /**
  * @package @@package@@
  * @subpackage ClassInterfaces
- * @version $Revision$ $Date$
+ * @version $Revision: 1.30 $ $Date: 2005/08/23 03:49:04 $
  * @author Bharat Mediratta &lt;bharat@menalto.com&gt;
  */
 

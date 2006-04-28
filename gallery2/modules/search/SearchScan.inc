@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: SearchScan.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.28 $ $Date: 2005/08/23 03:49:53 $
  * @package Search
  * @author Bharat Mediratta <bharat@menalto.com>
  */

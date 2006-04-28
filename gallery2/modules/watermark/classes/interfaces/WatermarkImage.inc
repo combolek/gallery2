@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: WatermarkImage.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -22,7 +22,7 @@
 /**
  * @package Watermark
  * @subpackage ClassInterfaces
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2005/08/23 03:49:57 $
  * @author Bharat Mediratta <bharat@menalto.com>
  */
 
