@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: Login.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -25,7 +25,7 @@
  * Allows the user to log in to Gallery to begin the process of uploading
  * photos through Windows XP's publishing mechanism.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.7 $ $Date: 2006/01/13 15:39:38 $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */

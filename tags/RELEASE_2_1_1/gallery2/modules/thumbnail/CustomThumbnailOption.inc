@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: CustomThumbnailOption.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.13 $ $Date: 2006/02/06 20:41:20 $
  * @package Thumbnail
  * @subpackage UserInterface
  * @author Alan Harder <alan.harder@sun.com>

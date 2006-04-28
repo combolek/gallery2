@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: CaptchaValidationPlugin.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.3 $ $Date: 2006/01/30 22:52:14 $
  * @package Captcha
  * @author Stefan Ioachim <stefanioachim@gmail.com>
  * @author Bharat Mediratta <bharat@menalto.com>

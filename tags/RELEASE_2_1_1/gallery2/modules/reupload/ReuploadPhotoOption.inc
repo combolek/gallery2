@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: ReuploadPhotoOption.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.1 $ $Date: 2006/01/27 04:36:04 $
  * @package Reupload
  * @author Piotr P. Karwasz <piotr.karwasz@ens.fr>
  */

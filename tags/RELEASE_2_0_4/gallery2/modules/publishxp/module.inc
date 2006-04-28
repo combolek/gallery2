@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: module.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -27,7 +27,7 @@
  * has to download a registry file and install it.  Once installed, the user can use
  * the Publish option.
  *
- * @version $Id$
+ * @version $Id: module.inc,v 1.12 2005/09/10 20:28:14 mindless Exp $
  * @package PublishXp
  * @author Timothy Webb <tiwebb@cisco.com>
  */

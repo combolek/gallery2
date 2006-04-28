@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: gd.php,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2005 Bharat Mediratta
@@ -26,7 +26,7 @@
  * by the phpunit tests to test the GdToolkit functionality in different PHP
  * environments in a single installation.
  *
- * @version $Revision$ $Date$
+ * @version $Revision: 1.2 $ $Date: 2005/08/23 03:48:56 $
  * @package Gd
  * @subpackage PHPUnit
  *

@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: module.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 /**
  * @package ArchiveUpload
- * @version $Revision$ $Date$
+ * @version $Revision: 1.18.2.1 $ $Date: 2006/04/05 00:19:52 $
  * @author Alan Harder <alan.harder@sun.com>
  */
 
