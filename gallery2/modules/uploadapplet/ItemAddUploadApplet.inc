@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: ItemAddUploadApplet.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.21 $ $Date: 2006/02/27 00:25:57 $
  * @package uploadapplet
  * @author Pierre-Luc Paour <gallery@paour.com>
  */

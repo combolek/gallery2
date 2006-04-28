@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: Redirect.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.20 $ $Date: 2006/03/18 03:24:48 $
  * @package Migrate
  * @subpackage Redirect
  * @author Joseph Elwell <jelwell@yahoo.com>

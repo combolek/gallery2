@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: SelfRegistrationSuccess.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006/02/05 10:44:36 $
  * @package SelfRegistration
  * @subpackage UserInterface
  * @author Sebastian Eichner <mailsp@sebastian-eichner.de>

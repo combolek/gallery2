@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: CustomFieldSiteAdmin.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.11 $ $Date: 2006/01/17 01:52:01 $
  * @package CustomField
  * @author Alan Harder <alan.harder@sun.com>
  */

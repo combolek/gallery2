@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: ConfirmImport.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.134 $ $Date: 2006/01/10 04:40:41 $
  * @package Migrate
  * @subpackage UserInterface
  * @author Jesse Mullan <jmullan@visi.com>

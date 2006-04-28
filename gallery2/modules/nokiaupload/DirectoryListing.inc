@@ -1,6 +1,6 @@
 <?php
 /*
- * $RCSfile$
+ * $RCSfile: DirectoryListing.inc,v $
  *
  * Gallery - a web based photo album viewer and editor
  * Copyright (C) 2000-2006 Bharat Mediratta
@@ -21,7 +21,7 @@
  */
 
 /**
- * @version $Revision$ $Date$
+ * @version $Revision: 1.10 $ $Date: 2006/02/23 09:41:10 $
  * @package NokiaUpload
  * @author Jerome Rannikko <jeromer@hotpop.com>
  */
