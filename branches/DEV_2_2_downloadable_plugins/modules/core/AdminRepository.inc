@@ -72,8 +72,7 @@ class AdminRepositoryController extends GalleryController {
 
 	$mode = GalleryUtilities::getRequestVariables('mode');
 	switch($mode) {
-	case 'browseModules':
-	case 'browseThemes':
+	case 'browse':
 	    $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'core.AdminRepository';
 	    $redirect['mode'] = $mode;
@@ -81,8 +80,9 @@ class AdminRepositoryController extends GalleryController {
 
 	case 'download':
 	    if (!isset($form['pluginType']) || !isset($form['pluginId'])) {
-		return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					     "Plugin type or ID not set [$pluginType] [$pluginId]"),
+		return array(GalleryCoreApi::error(
+				 ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+				 "Plugin type or ID not set [$pluginType] [$pluginId]"),
 			     null);
 	    }
 	    $pluginType = $form['pluginType'];
@@ -93,7 +93,7 @@ class AdminRepositoryController extends GalleryController {
 						  "Invalid plugin type [$pluginType]"),
 			     null);
 	    }
-	    $returnTab = sprintf('browse%ss', ucfirst($form['pluginType']));
+	    $returnTab = 'browse';
 
 	    /* Handle cancel action. */
 	    if (isset($form['action']['cancel'])) {
@@ -123,10 +123,6 @@ class AdminRepositoryController extends GalleryController {
 		}
 	    }
 
-	    if (isset($form['downloadTest'])) {
-		$packages['test'] = 1;
-	    }
-
 	    /* Show error message if no packages have been selected for download. */
 	    if (empty($packages)) {
 		$delegate['view'] = 'core.SiteAdmin';
@@ -154,6 +150,13 @@ class AdminRepositoryController extends GalleryController {
 		} else {
 		    $status['indexUpdated'] = 1;
 		}
+
+		/* Scan all plugins. */
+		$ret = $this->_scanPlugins();
+		if ($ret) {
+		    $status['error'] = $ret->getErrorMessage();
+		}
+
 	    } else if (isset($form['action']['upgradeAll'])) {
 		/* Get list of upgradeable packages. */
 		list ($ret, $packages) = $repository->getAllUpgradeablePackages();
@@ -196,6 +199,90 @@ class AdminRepositoryController extends GalleryController {
 	return array(null, $results);
     }
 
+    function _scanPlugins() {
+	global $gallery;
+
+	/* Start from a clean slate.  Inefficient, but very convenient. */
+	$ret = GalleryCoreApi::removeAllMapEntries('GalleryPluginPackageMap');
+	if ($ret) {
+	    return $ret;
+	}
+
+	$platform =& $gallery->getPlatform();
+	$util = new GalleryRepositoryUtilities();
+	foreach (array('module', 'theme') as $type) {
+	    list ($ret, $pluginStatus) = GalleryCoreApi::fetchPluginStatus($type, true);
+	    if ($ret) {
+		return $ret;
+	    }
+
+	    foreach ($pluginStatus as $pluginId => $status) {
+		list($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
+		if ($ret) {
+		    return $ret;
+		}
+
+		$pluginDir = sprintf(
+		    '%s/%ss/%s', dirname(dirname(dirname(__FILE__))), $type, $pluginId);
+		list ($ret, $tag) = $util->getFirstBytesFromFile("$pluginDir/MANIFEST", 128);
+		if ($ret) {
+		    return $ret;
+		}
+
+		list ($ret, $revision) = $util->extractRevision($tag);
+		if ($ret) {
+		    return $ret;
+		}
+
+		$ret = GalleryCoreApi::addMapEntry(
+		    'GalleryPluginPackageMap',
+		    array('pluginType' => $type,
+			  'pluginId' => $pluginId,
+			  'packageName' => 'base',
+			  'packageVersion' => $plugin->getVersion(),
+			  'packageBuild' => $revision));
+		if ($ret) {
+		    return $ret;
+		}
+
+		list ($ret, $tag) = $util->getFirstBytesFromFile("$pluginDir/po/strings.raw", 128);
+		if ($ret) {
+		    return $ret;
+		}
+		list ($ret, $stringsRevision) = $util->extractRevision($tag);
+		if ($ret) {
+		    return $ret;
+		}
+
+		$poFiles = $platform->glob("$pluginDir/po/*.po");
+		if ($poFiles) {
+		    foreach ($poFiles as $file) {
+			list ($ret, $tag) = $util->getFirstBytesFromFile($file, 128);
+			if ($ret) {
+			    return $ret;
+			}
+
+			list ($ret, $revision) = $util->extractRevision($tag);
+			if ($ret) {
+			    return $ret;
+			}
+			$ret = GalleryCoreApi::addMapEntry(
+			    'GalleryPluginPackageMap',
+			    array('pluginType' => $type,
+				  'pluginId' => $pluginId,
+				  'packageName' => (
+				      'lang-' . GalleryUtilities::getFileBase(basename($file))),
+				  'packageVersion' => $stringsRevision,
+				  'packageBuild' => $revision));
+			if ($ret) {
+			    return $ret;
+			}
+		    }
+		}
+	    }
+	}
+    }
+
     /**
      * Download specified packages to the local repository cache and perform installation.
      *
@@ -203,7 +290,7 @@ class AdminRepositoryController extends GalleryController {
      * the exact tasks that were performed and any errors that were encountered.
      *
      * @param array packages
-     * @param string 'commonTasks', 'browseThemes' or 'browseModules'
+     * @param string 'commonTasks' or 'browse'
      */
     function performDownloadAndInstallation($pluginData, $returnTab) {
 	global $gallery;
@@ -233,13 +320,6 @@ class AdminRepositoryController extends GalleryController {
 	    foreach ($plugins as $pluginId => $pluginDownloadData) {
 		$packageUrls = $pluginDownloadData['files'];
 		$pluginName = $pluginDownloadData['name'];
-
-		/* Update plugin index file if this is when the base files have been downloaded. */
-		$ret = $repository->updatePluginIndexFile($pluginType, $pluginId);
-		if ($ret) {
-		    $templateAdapter->errorProgressBar($ret);
-		    return $ret;
-		}
 
 		/* Set up progress bar variables. */
 		$currentUrlIndex = 1;
@@ -277,17 +357,15 @@ class AdminRepositoryController extends GalleryController {
 			}
 
 			/* Check the unpacked files' integrity. */
-			$ret = $repository->verifyPackageIntegrity(
-			    $packageName, $descriptor);
+			$ret = $repository->verifyPackageIntegrity($packageName, $descriptor);
 			if ($ret) {
 			    $templateAdapter->errorProgressBar($ret);
 			    return $ret;
 			}
 
 			/* Update plugin package map. */
-			list ($ret, $version, $build) =
-			    $repository->getPackageVersionAndBuild($pluginType, $pluginId,
-								   $packageName);
+			list ($ret, $version, $build) = $repository->getPackageVersionAndBuild(
+			    $pluginType, $pluginId, $packageName);
 			if ($ret) {
 			    $templateAdapter->errorProgressBar($ret);
 			    return $ret;
@@ -373,8 +451,6 @@ class AdminRepositoryView extends GalleryView {
 
 		$redirect['view'] = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepositorySetup';
-		$template->setVariable('pluginsDirectoryName',
-		    $gallery->getConfig('plugins.dirname'));
 		$template->setVariable('galleryBaseDirectory',
 		    $platform->realpath(dirname(__FILE__) . '/../..'));
 		$template->setVariable('errorMessage', $errorMessage);
@@ -384,10 +460,9 @@ class AdminRepositoryView extends GalleryView {
 	    }
 	}
 
-	if ($mode == 'browseThemes' || $mode == 'browseModules') {
+	if ($mode == 'browse') {
 	    /* Repository browse mode. */
 	    $AdminRepository['mode'] = $mode;
-	    $pluginType = $mode == 'browseThemes' ? 'theme' : 'module';
 
 	    /* Check if incompatible plugins should be shown. */
 	    $coreApis = array();
@@ -407,12 +482,18 @@ class AdminRepositoryView extends GalleryView {
 	    }
 
 	    if ($localIndexExists) {
-		/* Get list of plugins to show in the repository browser. */
-		list ($ret, $browseData) =
-		    $repository->getRepositoryPluginList($pluginType, $showIncompatible, $coreApis);
-		if ($ret) {
-		    return array($ret, null);
+		foreach (array('module', 'theme') as $pluginType) {
+		    /* Get list of plugins to show in the repository browser. */
+		    list ($ret, $browseData[$pluginType]) = $repository->getRepositoryPluginList(
+			$pluginType, $showIncompatible, $coreApis);
+		    if ($ret) {
+			return array($ret, null);
+		    }
 		}
+
+		/* TODO: merge these group-wise instead of just appending themes to groups */
+		$browseData = array_merge($browseData['module'], $browseData['theme']);
+
 		$template->setVariable('browseData', $browseData);
 	    }
 	} else if ($mode == 'download') {
@@ -442,6 +523,7 @@ class AdminRepositoryView extends GalleryView {
 	    if ($ret) {
 		return array($ret, null);
 	    }
+
 	    $template->setVariable('pluginName', $pluginName);
 	    $template->setVariable('upgradeData', $upgradeData);
 	    $template->setVariable('actionText', $actionText);

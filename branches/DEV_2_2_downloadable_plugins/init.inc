@@ -70,7 +70,6 @@ function GalleryInitFirstPass($params=array()) {
     }
 
     /* Init for downloadable plugins */
-    $gallery->setConfig('plugins.dirname', 'plugins');
     $gallery->setConfig('repository.url', 'http://gallery.menalto.com/repository/gallery2/');
     $gallery->setConfig('repository.cache', sprintf('%splugins_data%smodules%score%srepository%s',
 	$dataBase, $slash, $slash, $slash, $slash));
@@ -153,7 +152,7 @@ function GalleryInitSecondPass() {
     if ($ret) {
 	return $ret;
     }
-    
+
     /*
      * Set our active user id.  Check to see if we have one in our session.  If
      * not, make us the anonymous user.  If we don't have a session, this will

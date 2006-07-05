@@ -37,35 +37,20 @@
     </span></span>
   {/if}
 
-  {if ($AdminRepository.mode == 'browseModules')}
+  {if ($AdminRepository.mode == 'browse')}
     <span class="giSelected o"><span>
-      {g->text text="Modules"}
+      {g->text text="Plugins"}
     </span></span>
   {else}
     <span class="o"><span>
       <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=browseModules"}">{g->text text="Modules"}</a>
-    </span></span>
-  {/if}
-
-  {if ($AdminRepository.mode == 'browseThemes')}
-    <span class="giSelected o"><span>
-      {g->text text="Themes"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=browseThemes"}">{g->text text="Themes"}</a>
+		       arg3="mode=browse"}">{g->text text="Plugins"}</a>
     </span></span>
   {/if}
 </div>
 
 {if ($AdminRepository.mode == 'commonTasks')}
 <div class="gbBlock">
-  <h3>{g->text text="Warning: Experimental feature!"}</h3>
-  <p class="giDescription">
-    {g->text text="The repository features are currently experimental, and no actual repository has been set up yet, so none of these features will work at this time."}
-  </p>
   <h3>{g->text text="Update Index"}</h3>
   <p class="giDescription">
     {g->text text="The Gallery repository contains the latest modules and themes extensively tested by the Gallery team. The repository index contains information about available plugins, such as the latest versions, available languages and compatibility. The index must be synchronized periodically with the Gallery server so you are informed about any available updates. No personal information is sent to the Gallery server during updating. On slower connections the process might take a minute or two."}
@@ -117,12 +102,12 @@
 </div>
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
 </div>
   {/if}
 {/if}
 
-{if ($AdminRepository.mode == 'browseThemes' || $AdminRepository.mode == 'browseModules')}
+{if ($AdminRepository.mode == 'browse')}
 <div class="gbBlock">
   {if !isset($browseData)}
   <p class="giDescription">

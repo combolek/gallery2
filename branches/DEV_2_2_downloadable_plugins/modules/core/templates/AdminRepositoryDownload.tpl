@@ -32,14 +32,11 @@
   </p>
   <p>
     <input type="checkbox" name="{g->formVar var="form[upgradeBaseFiles]"}" />{g->text text="Upgrade base files"}
-    {if isset($upgradeData.upgradeablePackages.test)}
-    <input type="hidden" name="{g->formVar var="form[downloadTest]"}" value="true" />
-    {/if}
   </p>
 </div>
 {/if}
 
-{if !$upgradeData.isBaseDownloadable && !$upgradeData.isBaseUpgradeable}
+{if empty($upgradeData.isBaseDownloadable) && empty($upgradeData.isBaseUpgradeable)}
 <div class="gbBlock">
   <h3>{g->text text="Base Files Up-To-Date"}</h3>
   <p class="giDescription">
@@ -55,7 +52,7 @@
     {g->text text="Below is a list of translations that have been updated since they were last downloaded. Select the ones you want to download."}
   </p>
   <p>
-    {capture name="formVariableName"}{g->formVar var="form[upgradeLanguages]"}{/capture} 
+    {capture name="formVariableName"}{g->formVar var="form[upgradeLanguages]"}{/capture}
     {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
       values=$upgradeData.upgradeableLanguages.codes
       output=$upgradeData.upgradeableLanguages.names}
@@ -70,22 +67,10 @@
     {g->text text="Below is a list of languages this plugin has been translated to. Select the ones you want included in addition to the ones already downloaded."}
   </p>
   <p>
-    {capture name="formVariableName"}{g->formVar var="form[downloadLanguages]"}{/capture} 
+    {capture name="formVariableName"}{g->formVar var="form[downloadLanguages]"}{/capture}
     {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
       values=$upgradeData.downloadableLanguages.codes
       output=$upgradeData.downloadableLanguages.names}
-  </p>
-</div>
-{/if}
-
-{if isset($upgradeData.downloadablePackages.test)}
-<div class="gbBlock">
-  <h3>{g->text text="Unit Tests"}</h3>
-  <p class="giDescription">
-    {g->text text="This plugin has unit tests available for download, which are useful for Gallery developers. All of the module's features are available without the tests."}
-  </p>
-  <p>
-    <input type="checkbox" name="{g->formVar var="form[downloadTest]"}" value="true" />{g->text text="Download unit tests"}
   </p>
 </div>
 {/if}
