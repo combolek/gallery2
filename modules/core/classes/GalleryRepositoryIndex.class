@@ -249,13 +249,12 @@ class GalleryRepositoryIndex {
 	    $revision = $this->_index[$pluginType . 's'][$pluginId]['header']['stringsRevision'];
 	}
 
-	if (!isset($this->_index[$pluginType . 's'][$pluginId]['languages'][$revision])) {
-	    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__, sprintf(
-					      'Revision not found in index [%s] [%s] [%s]',
-					      $pluginType, $pluginId, $revision)),
-			 null);
+	if (isset($this->_index[$pluginType . 's'][$pluginId]['languages'][$revision])) {
+	    $languages = $this->_index[$pluginType . 's'][$pluginId]['languages'][$revision];
+	} else {
+	    $languages = array();
 	}
-	$languages = $this->_index[$pluginType . 's'][$pluginId]['languages'][$revision];
+
 	return array(null, $languages);
     }
 
@@ -350,7 +349,7 @@ class GalleryRepositoryIndex {
 	    return array($ret, null);
 	}
 
-	if (preg_match('/^lang-(.._..)$/', $package)) {
+	if (preg_match('/^lang-(.*)$/', $package)) {
 	    $packageUrl = sprintf(
 		'%ss/%s-%s-%s-%s.package', $pluginType, $pluginId, $package, $version, $build);
 	} else {
@@ -385,7 +384,7 @@ class GalleryRepositoryIndex {
 	    return array($ret, null, null);
 	}
 
-	if (preg_match('/^lang-(.._..)$/', $package, $languageCode)) {
+	if (preg_match('/^lang-(.*)$/', $package, $languageCode)) {
 	    list ($ret, $isAvailable) =
 		$this->_utilities->isPluginAvailable($pluginType, $pluginId);
 	    if ($ret) {

@@ -147,19 +147,12 @@ class GalleryRepository {
 	    if ($ret) {
 		return array($ret, null);
 	    }
+
 	    if ($relation == 'older') {
 		$upgradeInfo['isBaseUpgradeable'] = 1;
 	    }
 	} else {
 	    $upgradeInfo['isBaseDownloadable'] = 1;
-	}
-
-	/* Create upgrade info for test package. */
-	if ($pluginType == 'module' && isset($installedPackages['test']) && $relation == 'older') {
-	    $upgradeInfo['upgradeablePackages']['test'] = 1;
-	}
-	if ($pluginType == 'module' && !isset($installedPackages['test'])) {
-	    $upgradeInfo['downloadablePackages']['test'] = 1;
 	}
 
 	/* Check if any languages have been updated. */
@@ -210,7 +203,7 @@ class GalleryRepository {
      * @return array object GalleryStatus a status code
      *		     array plugin list
      */
-    function getRepositoryPluginList($pluginType, $showAllPlugins = false, $coreApis = null) {
+    function getRepositoryPluginList($pluginType, $showAllPlugins=false, $coreApis=null) {
 	global $gallery;
 
 	list ($ret, $repositoryPluginList) =
@@ -241,7 +234,8 @@ class GalleryRepository {
 		 * '3 languages updated' or 'base data upgrade available'.
 		 */
 		list ($ret, $upgradeInfo) =
-		$this->getPluginUpgradeInfo($pluginType, $pluginId);
+		    $this->getPluginUpgradeInfo($pluginType, $pluginId);
+
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -437,26 +431,10 @@ class GalleryRepository {
     function createPluginsDirectory() {
 	global $gallery;
 
-	/* Check if plugins directory exists. */
-	$platform =& $gallery->getPlatform();
-	$pluginsDirectory = $platform->realpath(
-	    dirname(__FILE__) . '/../../../' . $gallery->getConfig('plugins.dirname'));
-	if (!@$platform->is_dir($pluginsDirectory)) {
-	    return array(false, $gallery->i18n('Plugins directory does not exist.'));
-	}
-
-	/* Create modules and themes directories if they don't exist. */
-	foreach (array('modules', 'themes') as $pluginType) {
-	    $pluginDirectory = sprintf('%s/%s', $pluginsDirectory, $pluginType);
-
-	    if (!@$platform->is_dir($pluginDirectory) && !@$platform->mkdir($pluginDirectory)) {
-		return array(false, $gallery->i18n('Couldn\'t create plugins subdirectory. '
-			     . 'Make sure the webserver has write permissions in it.'));
-	    }
-	}
-
 	/* Create repository cache directory if it doesn't exist. */
 	$repositoryCachePath = $gallery->getConfig('repository.cache');
+	$platform =& $gallery->getPlatform();
+
 	if (!@$platform->file_exists($repositoryCachePath)) {
 	    while (!$platform->is_dir($repositoryCachePath)) {
 		$parentDir = dirname($repositoryCachePath);
@@ -525,42 +503,6 @@ class GalleryRepository {
     }
 
     /**
-     * Makes sure that the specified plugin ID is present in the plugin index file.
-     *
-     * The plugin index files contain IDs of plugins that are in the gallery2/plugins directory.
-     * Their paths are gallery2/plugins/index.module and gallery2/plugins/index.theme.
-     *
-     * @param string 'module' or 'theme'
-     * @param string plugin ID
-     * @return object GalleryStatus a status code
-     */
-    function updatePluginIndexFile($pluginType, $pluginId) {
-	global $gallery;
-
-	$pluginIndexPath = sprintf(
-	    '%sindex.%ss', $gallery->getConfig('data.gallery.plugins'), $pluginType);
-
-	$platform =& $gallery->getPlatform();
-	if ($platform->file_exists($pluginIndexPath)) {
-	    if (false === ($indexContents = $platform->file_get_contents($pluginIndexPath))) {
-		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
-					   'Error reading plugin index [%s]', $pluginIndexPath));
-	    }
-	} else {
-	    $indexContents = '';
-	}
-	if (false === strpos($indexContents, "$pluginId\n")) {
-	    $indexContents .= "$pluginId\n";
-	    if (false === $platform->file_put_contents($pluginIndexPath, $indexContents)) {
-		return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__, sprintf(
-					    'Write error [%s]', $pluginIndexPath));
-	    }
-	}
-
-	return null;
-    }
-
-    /**
      * Downloads a file from the repository.
      *
      * If the file is a package, it will be put in the local cache and unpacked in the plugins/
@@ -586,8 +528,8 @@ class GalleryRepository {
 	}
 
 	/* Make sure output directory exists. */
-	$pluginOutputDir = sprintf('%s%ss/%s/',
-	    $gallery->getConfig('data.gallery.plugins'), $pluginType, $pluginId);
+	$pluginOutputDir = sprintf(
+	    '%s/%ss/%s/', dirname(dirname(dirname(dirname(__FILE__)))), $pluginType, $pluginId);
 	if (!$platform->file_exists($pluginOutputDir)
 		&& !$platform->mkdir($pluginOutputDir)) {
 	    $ret = GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
@@ -631,8 +573,8 @@ class GalleryRepository {
 
 	$pluginType = $descriptor['pluginType'];
 	$pluginId = $descriptor['pluginId'];
-	$pluginOutputDir = sprintf('%s%ss/%s/',
-	    $gallery->getConfig('data.gallery.plugins'), $pluginType, $pluginId);
+	$pluginOutputDir = sprintf(
+	    '%s/%ss/%s/', dirname(dirname(dirname(dirname(__FILE__)))), $pluginType, $pluginId);
 
 	$platform =& $gallery->getPlatform();
 	foreach ($descriptor['contents']['files'] as $filePath => $metaData) {
