@@ -180,7 +180,7 @@ class RepositoryIndex extends RepositoryObject {
 
 	/* Write index to disk. */
 	$this->_template->setVariable('contents', $serializedIndex);
-	$ret = $this->writeToDisk(true);
+	$ret = $this->writeToDisk(true, true);
 	if ($ret) {
 	    return array($ret, null);
 	}
