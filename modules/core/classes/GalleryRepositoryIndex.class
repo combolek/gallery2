@@ -69,8 +69,16 @@ class GalleryRepositoryIndex {
      */
     function update() {
 	global $gallery;
+
 	$indexUrl = $gallery->getConfig('repository.url') . 'index';
 	$indexHashUrl = $indexUrl . '.hash';
+
+	$phpVm =& $gallery->getPhpVm();
+	$needsInflation = false;
+	if ($phpVm->function_exists('gzinflate')) {
+	    $indexUrl .= '.gz';
+	    $needsInflation = true;
+	}
 
 	/* Download index from the Gallery server and verify its integrity. */
 	list ($wasDownloaded, $indexContents) = $this->_utilities->downloadFile($indexUrl);
@@ -78,6 +86,10 @@ class GalleryRepositoryIndex {
 	    $errorMessage = $gallery->i18n('Error downloading index from \'%s\'.');
 	    return GalleryCoreApi::error(ERROR_STORAGE_FAILURE, __FILE__, __LINE__,
 					sprintf($errorMessage, $indexUrl));
+	}
+
+	if ($needsInflation) {
+	    $indexContents = gzinflate($indexContents);
 	}
 
 	list ($wasDownloaded, $indexHash) = $this->_utilities->downloadFile($indexHashUrl);
