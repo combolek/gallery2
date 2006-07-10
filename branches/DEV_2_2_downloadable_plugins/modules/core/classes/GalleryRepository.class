@@ -166,6 +166,10 @@ class GalleryRepository {
 	    list ($ret, $languageDescription) =
 		$this->_utilities->getLanguageDescription($language);
 	    if ($ret) {
+		if ($ret->getErrorCode() & ERROR_BAD_PARAMETER) {
+		    /* Unsupported language .. ignore it. */
+		    continue;
+		}
 		return array($ret, null);
 	    }
 
