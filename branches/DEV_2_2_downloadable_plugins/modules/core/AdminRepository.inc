@@ -199,6 +199,12 @@ class AdminRepositoryController extends GalleryController {
 	return array(null, $results);
     }
 
+    /**
+     * Scan all installed plugins and update GalleryPluginPackageMap with a complete
+     * listing of everything that's installed.
+     *
+     * @return object GalleryStatus a status code
+     */
     function _scanPlugins() {
 	global $gallery;
 
