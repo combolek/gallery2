@@ -195,9 +195,9 @@
 	<td>
 	  {if !empty($plugin.action) && $plugin.isCompatible}
 	    {strip}
-		<a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository" arg3="mode=download" arg4="pluginType=`$plugin.type`" arg5="pluginId=`$pluginId`"}">
-		  {$plugin.action}
-		</a>
+	      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepositoryDownload" arg3="pluginType=`$plugin.type`" arg4="pluginId=`$pluginId`"}">
+		{$plugin.action}
+	      </a>
 	    {/strip}
 	  {else}
 	    &nbsp;

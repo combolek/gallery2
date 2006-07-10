@@ -5,7 +5,7 @@
  * version.  Gallery will look for that file first and use it if it exists.
  *}
 <div class="gbBlock gcBackground1">
-  <h2> {$actionText} {$pluginName} </h2>
+  <h2> {g->text text="Download %s" arg1=$AdminRepositoryDownload.pluginName} </h2>
 </div>
 
 {if isset($form.packages.empty)}
@@ -14,7 +14,7 @@
 </div>
 {/if}
 
-{if isset($upgradeData.isBaseDownloadable)}
+{if isset($AdminRepositoryDownload.upgradeData.isBaseDownloadable)}
 <div class="gbBlock">
   <h3>{g->text text="Base Files"}</h3>
   <p class="giDescription">
@@ -24,7 +24,7 @@
 </div>
 {/if}
 
-{if isset($upgradeData.isBaseUpgradeable)}
+{if isset($AdminRepositoryDownload.upgradeData.isBaseUpgradeable)}
 <div class="gbBlock">
   <h3>{g->text text="Upgrade Base Files"}</h3>
   <p class="giDescription">
@@ -36,7 +36,7 @@
 </div>
 {/if}
 
-{if empty($upgradeData.isBaseDownloadable) && empty($upgradeData.isBaseUpgradeable)}
+{if empty($AdminRepositoryDownload.upgradeData.isBaseDownloadable) && empty($AdminRepositoryDownload.upgradeData.isBaseUpgradeable)}
 <div class="gbBlock">
   <h3>{g->text text="Base Files Up-To-Date"}</h3>
   <p class="giDescription">
@@ -45,7 +45,7 @@
 </div>
 {/if}
 
-{if isset($upgradeData.upgradeableLanguages)}
+{if isset($AdminRepositoryDownload.upgradeData.upgradeableLanguages)}
 <div class="gbBlock">
   <h3>{g->text text="Updated Translations"}</h3>
   <p class="giDescription">
@@ -54,13 +54,13 @@
   <p>
     {capture name="formVariableName"}{g->formVar var="form[upgradeLanguages]"}{/capture}
     {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
-      values=$upgradeData.upgradeableLanguages.codes
-      output=$upgradeData.upgradeableLanguages.names}
+      values=$AdminRepositoryDownload.upgradeData.upgradeableLanguages.codes
+      output=$AdminRepositoryDownload.upgradeData.upgradeableLanguages.names}
   </p>
 </div>
 {/if}
 
-{if isset($upgradeData.downloadableLanguages)}
+{if isset($AdminRepositoryDownload.upgradeData.downloadableLanguages)}
 <div class="gbBlock">
   <h3>{g->text text="Additional Languages"}</h3>
   <p class="giDescription">
@@ -69,16 +69,15 @@
   <p>
     {capture name="formVariableName"}{g->formVar var="form[downloadLanguages]"}{/capture}
     {html_checkboxes name="`$smarty.capture.formVariableName`" separator="<br />"
-      values=$upgradeData.downloadableLanguages.codes
-      output=$upgradeData.downloadableLanguages.names}
+      values=$AdminRepositoryDownload.upgradeData.downloadableLanguages.codes
+      output=$AdminRepositoryDownload.upgradeData.downloadableLanguages.names}
   </p>
 </div>
 {/if}
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" name="{g->formVar var="form[action][download]"}" value="{$actionText}"/>
+  <input type="submit" name="{g->formVar var="form[action][download]"}" value="{g->text text="Download"}"/>
   <input type="submit" name="{g->formVar var="form[action][cancel]"}" value="{g->text text="Cancel"}"/>
-  <input type="hidden" name="{g->formVar var="form[pluginType]"}" value="{$pluginType}" />
-  <input type="hidden" name="{g->formVar var="form[pluginId]"}" value="{$pluginId}" />
-  <input type="hidden" name="{g->formVar var="mode"}" value="download" />
+  <input type="hidden" name="{g->formVar var="form[pluginType]"}" value="{$AdminRepositoryDownload.pluginType}" />
+  <input type="hidden" name="{g->formVar var="form[pluginId]"}" value="{$AdminRepositoryDownload.pluginId}" />
 </div>
