@@ -257,13 +257,13 @@ class RepositoryDescriptor extends RepositoryObject {
     function getPackageNames($path) {
 	$packages = array();
 
-	if (preg_match('/^test/', $path)) {
+	if (preg_match('#^test/#', $path)) {
 	    /* Ignore test data */
 	/* Match contents of locale and po directories except GNUmakefile and strings.raw */
-	} else if (preg_match('/^(locale\/|po\/)[^G]/U', $path) && $path != 'po/strings.raw') {
-	    if (preg_match('/locale\/(.*?)\//U', $path, $localeId)) {
+	} else if (preg_match('#^(locale/|po/)[^G]#', $path) && $path != 'po/strings.raw') {
+	    if (preg_match('#locale/([^/]*)#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
-	    } else if (preg_match('/po\/(.*?)\.po/U', $path, $localeId)) {
+	    } else if (preg_match('#po/(.*?)\.po#', $path, $localeId)) {
 		$packages[] = 'lang-' . $localeId[1];
 	    }
 	} else {
