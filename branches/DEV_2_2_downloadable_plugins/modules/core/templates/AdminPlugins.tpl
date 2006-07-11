@@ -206,6 +206,18 @@
   <h2> {g->text text="Gallery Plugins"} </h2>
 </div>
 
+<div class="gbTabBar">
+  <span class="giSelected o"><span>
+    {g->text text="Plugins"}
+  </span></span>
+
+  <span class="o"><span>
+    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"}">
+      {g->text text="Get More Plugins"}
+    </a>
+  </span></span>
+</div>
+
 <div class="gbBlock">
   <p class="giDescription">
     {g->text text="Gallery features come as separate plugins.  You can download and install plugins to add more features to your Gallery, or you can disable features if you don't want to use them.  In order to use a feature, you must install, configure (if necessary) and activate it.  If you don't wish to use a feature, you can deactivate it."}

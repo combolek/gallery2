@@ -304,8 +304,6 @@ class CoreModule extends GalleryModule {
 			    'view' => 'core.AdminCore'),
 		      array('name' => $this->translate('Plugins'),
 			    'view' => 'core.AdminPlugins'),
-		      array('name' => $this->translate('Repository'),
-			    'view' => 'core.AdminRepository'),
 		      array('name' => $this->translate('Users'),
 			    'view' => 'core.AdminUsers'),
 		      array('name' => $this->translate('Groups'),

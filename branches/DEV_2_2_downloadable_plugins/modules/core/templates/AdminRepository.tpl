@@ -25,25 +25,35 @@
 </h2></div>
 {/if}
 
+<div class="gbTabBar">
+  <span class="o"><span>
+    <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminPlugins"}">
+      {g->text text="Plugins"}
+    </a>
+  </span></span>
+
+  <span class="giSelected o"><span>
+    {g->text text="Get More Plugins"}
+  </span></span>
+</div>
+
 <div class="gbBlock">
-  <h3>{g->text text="Update Index"}</h3>
+  <h3>{g->text text="Get More Plugins"}</h3>
   <p class="giDescription">
-    {g->text text="The Gallery repository contains the latest modules and themes extensively tested by the Gallery team. The repository index contains information about available plugins, such as the latest versions, available languages and compatibility. The index must be synchronized periodically with the Gallery server so you are informed about any available updates. No personal information is sent to the Gallery server during updating. On slower connections the process might take a minute or two."}
+    {g->text text="The Gallery Plugin Repository contains the latest modules and themes provided by the Gallery team.  You can download and install new plugins to try them out, then delete them if you don't like them.  You must periodically download a new plugin list from the Gallery server to find out about any available updates. No personal information is sent to the Gallery server at any time. On slower connections the process might take a minute or two."}
   </p>
 </div>
 
 <div class="gbBlock gcBackground1">
-  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{g->text text="Update"}"/>
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{if isset($indexMetaData)}{g->text text="Update Plugin List"}{else}{g->text text="Download Plugin List"}{/if}"/>
   {if isset($indexMetaData)}
   {capture assign="updateDate"}{g->date style="datetime" timestamp=$indexMetaData.timestamp}{/capture}
-  {g->text text="As of the last update on %s, the repository contains %s modules and %s themes." arg1=$updateDate arg2=$indexMetaData.moduleCount arg3=$indexMetaData.themeCount}
-  {else}
-  {g->text text="The index has never been updated. Click the Update button to see what is available."}
+  {g->text text="(last updated: %s)" arg1=$updateDate}
   {/if}
 </div>
 
-  {if isset($indexMetaData)}
-    {if $coreUpgradeAvailable}
+{if isset($indexMetaData)}
+  {if $coreUpgradeAvailable}
 <div class="gbBlock">
   <h3>{g->text text="Upgrade Gallery"}</h3>
   <p class="giDescription">
@@ -57,30 +67,12 @@
     </ol>
   </p>
 </div>
-    {else}
-<div class="gbBlock">
-  <h3>{g->text text="Gallery Up-To-Date"}</h3>
-  <p class="giDescription">
-    {g->text text="Gallery cannot be upgraded through this interface. When a new version becomes available, upgrade instructions will be presented here."}
-</div>
-    {/if}
-
-<div class="gbBlock">
-  <h3>{g->text text="Upgrade All Plugins"}</h3>
-  <p class="giDescription">
-    {g->text text="Gallery can automatically upgrade your themes and modules to the latest available versions. No new plugins will be downloaded."}
-  </p>
-</div>
-
-<div class="gbBlock gcBackground1">
-  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
-</div>
   {/if}
+{/if}
 
 <div class="gbBlock">
   {if isset($browseData)}
   <p class="giDescription">
-    {g->text text="The following plugins are available. Click on the action beside the plugin you're interested in to see what's available in the repository."}
     {if $coreUpgradeAvailable}
       {if $showIncompatible}
         {g->text text="Incompatible plugins are marked with an exclamation icon."}
@@ -173,3 +165,16 @@
   </table>
   {/if}
 </div>
+
+{if isset($indexMetaData)}
+<div class="gbBlock">
+  <h3>{g->text text="Upgrade All Plugins"}</h3>
+  <p class="giDescription">
+    {g->text text="Gallery can automatically upgrade your themes and modules to the latest available versions. No new plugins will be downloaded."}
+  </p>
+</div>
+
+<div class="gbBlock gcBackground1">
+  <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
+</div>
+{/if}
