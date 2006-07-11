@@ -25,50 +25,21 @@
 </h2></div>
 {/if}
 
-<div class="gbTabBar">
-  {if ($AdminRepository.mode == 'commonTasks')}
-    <span class="giSelected o"><span>
-	{g->text text="Common Tasks"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=commonTasks"}">{g->text text="Common Tasks"}</a>
-    </span></span>
-  {/if}
-
-  {if ($AdminRepository.mode == 'browse')}
-    <span class="giSelected o"><span>
-      {g->text text="Plugins"}
-    </span></span>
-  {else}
-    <span class="o"><span>
-      <a href="{g->url arg1="view=core.SiteAdmin" arg2="subView=core.AdminRepository"
-		       arg3="mode=browse"}">{g->text text="Plugins"}</a>
-    </span></span>
-  {/if}
-</div>
-
-{if ($AdminRepository.mode == 'commonTasks')}
 <div class="gbBlock">
   <h3>{g->text text="Update Index"}</h3>
   <p class="giDescription">
     {g->text text="The Gallery repository contains the latest modules and themes extensively tested by the Gallery team. The repository index contains information about available plugins, such as the latest versions, available languages and compatibility. The index must be synchronized periodically with the Gallery server so you are informed about any available updates. No personal information is sent to the Gallery server during updating. On slower connections the process might take a minute or two."}
   </p>
-  {if isset($indexMetaData)}
-  <p class="giDescription">
-    {capture assign="updateDate"}{g->date style="datetime" timestamp=$indexMetaData.timestamp}{/capture}
-    {g->text text="As of the last update on %s, the repository contains %s modules and %s themes. Its contents can be viewed on the Modules and Themes tabs." arg1=$updateDate arg2=$indexMetaData.moduleCount arg3=$indexMetaData.themeCount}
-  </p>
-  {else}
-  <p class="giDescription">
-    {g->text text="The index has never been updated. Click on the Update button to see what updates are available."}
-  </p>
-  {/if}
 </div>
 
 <div class="gbBlock gcBackground1">
   <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][update]"}" value="{g->text text="Update"}"/>
+  {if isset($indexMetaData)}
+  {capture assign="updateDate"}{g->date style="datetime" timestamp=$indexMetaData.timestamp}{/capture}
+  {g->text text="As of the last update on %s, the repository contains %s modules and %s themes." arg1=$updateDate arg2=$indexMetaData.moduleCount arg3=$indexMetaData.themeCount}
+  {else}
+  {g->text text="The index has never been updated. Click the Update button to see what is available."}
+  {/if}
 </div>
 
   {if isset($indexMetaData)}
@@ -105,15 +76,9 @@
   <input type="submit" class="inputTypeSubmit" name="{g->formVar var="form[action][upgradeAll]"}" value="{g->text text="Upgrade All"}"/>
 </div>
   {/if}
-{/if}
 
-{if ($AdminRepository.mode == 'browse')}
 <div class="gbBlock">
-  {if !isset($browseData)}
-  <p class="giDescription">
-    {g->text text="Once the repository index has been downloaded, a list of available plugins will be presented. It can be downloaded by clicking on the Update button on the Common Tasks tab."}
-  </p>
-  {else}
+  {if isset($browseData)}
   <p class="giDescription">
     {g->text text="The following plugins are available. Click on the action beside the plugin you're interested in to see what's available in the repository."}
     {if $coreUpgradeAvailable}
@@ -121,9 +86,9 @@
         {g->text text="Incompatible plugins are marked with an exclamation icon."}
       {else}
 	{capture name="listLink"}<a href="{g->url arg1="view=core.SiteAdmin"
-	  arg2="subView=core.AdminRepository" arg3="mode=`$AdminRepository.mode`"
-	  arg4="coreApi=`$latestCoreApiVersion`" arg5="themeApi=`$latestThemeApiVersion`"
-	  arg6="moduleApi=`$latestModuleApiVersion`" arg7="showIncompatible=true"}">{/capture}
+	  arg2="subView=core.AdminRepository"
+	  arg3="coreApi=`$latestCoreApiVersion`" arg4="themeApi=`$latestThemeApiVersion`"
+	  arg5="moduleApi=`$latestModuleApiVersion`" arg6="showIncompatible=true"}">{/capture}
 	{g->text text="A new core module version is available. There may be plugins that are incompatible with the installed core module, which are not shown here. You can view a %scomplete list%s of plugins, including incompatible ones, which are marked with a red icon." arg1=$smarty.capture.listLink arg2="</a>"}
       {/if}
     {/if}
@@ -208,4 +173,3 @@
   </table>
   {/if}
 </div>
-{/if}
