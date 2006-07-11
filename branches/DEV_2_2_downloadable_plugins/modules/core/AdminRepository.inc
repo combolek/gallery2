@@ -70,54 +70,41 @@ class AdminRepositoryController extends GalleryController {
 
 	$status = $error = array();
 
-	$mode = GalleryUtilities::getRequestVariables('mode');
-	switch($mode) {
-	case 'browse':
-	    $redirect['view'] = 'core.SiteAdmin';
-	    $redirect['subView'] = 'core.AdminRepository';
-	    $redirect['mode'] = $mode;
-	    break;
-
-	default:
-	    if (isset($form['action']['update'])) {
-		/* Try to update the index. */
-		$ret = $repository->downloadIndex();
-		if ($ret) {
-		    $status['error'] = $ret->getErrorMessage();
-		} else {
-		    $status['indexUpdated'] = 1;
-		}
-
-		/* Scan all plugins. */
-		$ret = $this->_scanPlugins();
-		if ($ret) {
-		    $status['error'] = $ret->getErrorMessage();
-		}
-
-	    } else if (isset($form['action']['upgradeAll'])) {
-		/* Get list of upgradeable packages. */
-		list ($ret, $packages) = $repository->getAllUpgradeablePackages();
-		if ($ret) {
-		    return array($ret, null);
-		}
-
-		if (empty($packages)) {
-		    $status['noUpgradeAvailable'] = 1;
-		} else {
-		    /* Start upgrade process and show progress bar. */
-		    $templateAdapter =& $gallery->getTemplateAdapter();
-		    $templateAdapter->registerTrailerCallback(
-			array($this, 'performDownloadAndInstallation'),
-			array($packages, 'commonTasks'));
-		    $delegate['view'] = 'core.ProgressBar';
-		    break;
-		}
+	if (isset($form['action']['update'])) {
+	    /* Try to update the index. */
+	    $ret = $repository->downloadIndex();
+	    if ($ret) {
+		$status['error'] = $ret->getErrorMessage();
+	    } else {
+		$status['indexUpdated'] = 1;
 	    }
-	    /* Show common tasks tab. */
-	    $redirect['view'] = 'core.SiteAdmin';
+
+	    /* Scan all plugins. */
+	    $ret = $this->_scanPlugins();
+	    if ($ret) {
+		$status['error'] = $ret->getErrorMessage();
+	    }
+
+            $redirect['view'] = 'core.SiteAdmin';
 	    $redirect['subView'] = 'core.AdminRepository';
-	    $redirect['mode'] = 'commonTasks';
-	    break;
+	} else if (isset($form['action']['upgradeAll'])) {
+	    /* Get list of upgradeable packages. */
+	    list ($ret, $packages) = $repository->getAllUpgradeablePackages();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+
+	    if (empty($packages)) {
+		$status['noUpgradeAvailable'] = 1;
+	    } else {
+		/* Start upgrade process and show progress bar. */
+		$templateAdapter =& $gallery->getTemplateAdapter();
+		$templateAdapter->registerTrailerCallback(
+		    array($this, 'performDownloadAndInstallation'),
+		    array($packages, 'commonTasks'));
+		$delegate['view'] = 'core.ProgressBar';
+		break;
+	    }
 	}
 
 	if (!empty($redirect)) {
@@ -141,6 +128,7 @@ class AdminRepositoryController extends GalleryController {
      * listing of everything that's installed.
      *
      * @return object GalleryStatus a status code
+     * @access private
      */
     function _scanPlugins() {
 	global $gallery;
@@ -268,8 +256,6 @@ class AdminRepositoryView extends GalleryView {
 	    return array($ret, null);
 	}
 
-	$mode = GalleryUtilities::getRequestVariables('mode');
-
 	$localIndexExists = $repository->localIndexExists();
 	if (!$localIndexExists) {
 	    /* Make sure the plugins directory is properly set up. */
@@ -288,57 +274,46 @@ class AdminRepositoryView extends GalleryView {
 	    }
 	}
 
-	if ($mode == 'browse') {
-	    /* Repository browse mode. */
-	    $AdminRepository['mode'] = $mode;
-
-	    /* Check if incompatible plugins should be shown. */
-	    $coreApis = array();
-	    $showIncompatible = GalleryUtilities::getRequestVariables('showIncompatible');
-	    if ($showIncompatible == 'true') {
-		list ($coreApiVersion, $themeApiVersion, $moduleApiVersion) =
-		    GalleryUtilities::getRequestVariables('coreApi', 'themeApi', 'moduleApi');
-		if (empty($coreApiVersion) || empty($themeApiVersion) || empty($moduleApiVersion)) {
-		    return array(GalleryCoreApi::error(ERROR_BAD_PARAMETER, __FILE__, __LINE__,
-					"[$coreApiVersion] [$themeApiVersion] [$moduleApiVersion]"),
-				 null);
-		}
-		$coreApis['core'] = explode('.', $coreApiVersion);
-		$coreApis['module'] = explode('.', $moduleApiVersion);
-		$coreApis['theme'] = explode('.', $themeApiVersion);
-		$template->setVariable('showIncompatible', 1);
+	/* Check if incompatible plugins should be shown. */
+	$coreApis = array();
+	$showIncompatible = GalleryUtilities::getRequestVariables('showIncompatible');
+	if ($showIncompatible == 'true') {
+	    list ($coreApiVersion, $themeApiVersion, $moduleApiVersion) =
+		GalleryUtilities::getRequestVariables('coreApi', 'themeApi', 'moduleApi');
+	    if (empty($coreApiVersion) || empty($themeApiVersion) || empty($moduleApiVersion)) {
+		return array(GalleryCoreApi::error(
+				 ERROR_BAD_PARAMETER, __FILE__, __LINE__,
+				 "[$coreApiVersion] [$themeApiVersion] [$moduleApiVersion]"),
+			     null);
 	    }
-
-	    if ($localIndexExists) {
-		foreach (array('module', 'theme') as $pluginType) {
-		    /* Get list of plugins to show in the repository browser. */
-		    list ($ret, $browseData[$pluginType]) = $repository->getRepositoryPluginList(
-			$pluginType, $showIncompatible, $coreApis);
-		    if ($ret) {
-			return array($ret, null);
-		    }
-		}
-
-		/* TODO: merge these group-wise instead of just appending themes to groups */
-		$browseData = array_merge($browseData['module'], $browseData['theme']);
-
-		$template->setVariable('browseData', $browseData);
-	    }
-	} else {
-	    /* Common tasks mode. */
-	    $AdminRepository['mode'] = 'commonTasks';
-
-	    if ($localIndexExists) {
-		/* Get local index meta data. */
-		list ($ret, $indexMetaData) = $repository->getIndexMetaData();
-		if ($ret) {
-		    return array($ret, null);
-		}
-		$template->setVariable('indexMetaData', $indexMetaData);
-	    }
+	    $coreApis['core'] = explode('.', $coreApiVersion);
+	    $coreApis['module'] = explode('.', $moduleApiVersion);
+	    $coreApis['theme'] = explode('.', $themeApiVersion);
+	    $template->setVariable('showIncompatible', 1);
 	}
 
 	if ($localIndexExists) {
+	    foreach (array('module', 'theme') as $pluginType) {
+		/* Get list of plugins to show in the repository browser. */
+		list ($ret, $browseData[$pluginType]) = $repository->getRepositoryPluginList(
+		    $pluginType, $showIncompatible, $coreApis);
+		if ($ret) {
+		    return array($ret, null);
+		}
+	    }
+
+	    /* TODO: merge these group-wise instead of just appending themes to groups */
+	    $browseData = array_merge($browseData['module'], $browseData['theme']);
+
+	    $template->setVariable('browseData', $browseData);
+
+	    /* Get local index meta data. */
+	    list ($ret, $indexMetaData) = $repository->getIndexMetaData();
+	    if ($ret) {
+		return array($ret, null);
+	    }
+	    $template->setVariable('indexMetaData', $indexMetaData);
+
 	    /* Get core upgrade info. */
 	    list ($ret, $isCoreUpgradeAvailable, $apiVersions) =
 		$repository->isCoreUpgradeAvailable();
@@ -354,7 +329,6 @@ class AdminRepositoryView extends GalleryView {
 	}
 
 	/* Render the HTML body */
-	$template->setVariable('AdminRepository', $AdminRepository);
 	$template->setVariable('controller', 'core.AdminRepository');
 
 	return array(null,
