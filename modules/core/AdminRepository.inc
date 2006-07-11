@@ -256,6 +256,7 @@ class AdminRepositoryView extends GalleryView {
 	    return array($ret, null);
 	}
 
+	$AdminRepository = array();
 	$localIndexExists = $repository->localIndexExists();
 	if (!$localIndexExists) {
 	    /* Make sure the plugins directory is properly set up. */
@@ -265,8 +266,8 @@ class AdminRepositoryView extends GalleryView {
 
 		$redirect['view'] = 'core.SiteAdmin';
 		$redirect['subView'] = 'core.AdminRepositorySetup';
-		$template->setVariable('galleryBaseDirectory',
-		    $platform->realpath(dirname(__FILE__) . '/../..'));
+		$AdminRepository['galleryBaseDirectory'] =
+		    $platform->realpath(dirname(__FILE__) . '/../..');
 		$template->setVariable('errorMessage', $errorMessage);
 
 		return array(null,
@@ -329,6 +330,7 @@ class AdminRepositoryView extends GalleryView {
 	}
 
 	/* Render the HTML body */
+	$template->setVariable('AdminRepository', $AdminRepository);
 	$template->setVariable('controller', 'core.AdminRepository');
 
 	return array(null,
