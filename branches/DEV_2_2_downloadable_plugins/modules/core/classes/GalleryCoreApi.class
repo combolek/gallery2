@@ -58,6 +58,7 @@ class GalleryCoreApi {
      * - remove GalleryStatus::wrap
      * - change GalleryCoreApi::error to only take error code and error message
      * - remove GalleryCapabilities (major bump of embed api too?)
+     * - remove 'link' entry in Gallery.class constructor
      * - remove GalleryCoreApi::getPluginBaseDirs();
      * - remove GalleryCoreApi::getPluginBaseDir();
      * - remove GalleryCoreApi::isPluginInDefaultLocation();
@@ -1571,7 +1572,7 @@ class GalleryCoreApi {
      * bit set.  This allows us to cascade permission updates.
      *
      * @access public
-     * @param array item ids
+     * @param int item id
      * @param string permission id
      * @return array object GalleryStatus a status code
      *               array a list of ids

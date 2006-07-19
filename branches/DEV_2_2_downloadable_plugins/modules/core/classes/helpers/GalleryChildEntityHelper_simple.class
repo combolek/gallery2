@@ -38,7 +38,7 @@ class GalleryChildEntityHelper_simple {
      * where we (the active user) has the 'core.changePermissions' permission
      * bit set.  This allows us to cascade permission updates.
      *
-     * @param array item ids
+     * @param int item id
      * @param int permission id
      * @return array object GalleryStatus a status code
      *               array integer ids
@@ -112,7 +112,7 @@ class GalleryChildEntityHelper_simple {
      */
     function fetchChildItemIds($item, $offset=null, $count=null, $userId=null) {
 	list ($ret, $ids) = GalleryChildEntityHelper_simple::_fetchChildItemIds(
-	    $item, $offset, $count, 'GalleryItem', null, false, $userId);
+	    $item, $offset, $count, 'GalleryItem', 'core.view', false, $userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -135,7 +135,7 @@ class GalleryChildEntityHelper_simple {
      */
     function fetchChildDataItemIds($item, $offset=null, $count=null, $userId=null) {
 	list ($ret, $ids) = GalleryChildEntityHelper_simple::_fetchChildItemIds(
-	    $item, $offset, $count, 'GalleryDataItem', null, false, $userId);
+	    $item, $offset, $count, 'GalleryDataItem', 'core.view', false, $userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -158,7 +158,7 @@ class GalleryChildEntityHelper_simple {
      */
     function fetchChildAlbumItemIds($item, $offset=null, $count=null, $userId=null) {
 	list ($ret, $ids) = GalleryChildEntityHelper_simple::_fetchChildItemIds(
-	    $item, $offset, $count, 'GalleryAlbumItem', null, false, $userId);
+	    $item, $offset, $count, 'GalleryAlbumItem', 'core.view', false, $userId);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -206,9 +206,6 @@ class GalleryChildEntityHelper_simple {
 				$requiredPermission, $linkableOnly, $userId) {
 	global $gallery;
 	$storage =& $gallery->getStorage();
-	if (!isset($requiredPermission)) {
-	    $requiredPermission = 'core.view';
-	}
 	if (!isset($userId)) {
 	    $userId = $gallery->getActiveUserId();
 	}
@@ -218,7 +215,8 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	/* List of classes that we will need */
-	$classes = array('[GalleryChildEntity]', "[$class]");
+	$classes = array('[GalleryChildEntity]' => '[GalleryChildEntity]',
+			 "[$class]" => "[$class]");
 
 	if ($requiredPermission) {
 	    list ($ret, $aclIds) =
@@ -227,7 +225,7 @@ class GalleryChildEntityHelper_simple {
 		return array($ret, null);
 	    }
 	    $aclMarkers = GalleryUtilities::makeMarkers(count($aclIds));
-	    $classes[] = '[GalleryAccessSubscriberMap]';
+	    $classes['[GalleryAccessSubscriberMap]'] = '[GalleryAccessSubscriberMap]';
 
 	    if (empty($aclIds)) {
 		return array(null, array());
@@ -235,7 +233,7 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	if ($linkableOnly) {
-	    $classes[] = '[GalleryEntity]';
+	    $classes['[GalleryEntity]'] = '[GalleryEntity]';
 	}
 
 	list ($ret, $orderBy, $orderColumn, $extraWhere, $extraJoin) =
@@ -254,7 +252,11 @@ class GalleryChildEntityHelper_simple {
 	    if ($ret) {
 		return array($ret, null);
 	    }
-	    $classes = array_unique(array_merge($classes, $orderClasses));
+	    foreach ($orderClasses as $c) {
+		if (!isset($classes[$c])) {
+		    $classes[$c] = $c;
+		}
+	    }
 	}
 
 	if (!empty($orderBy)) {
@@ -266,21 +268,17 @@ class GalleryChildEntityHelper_simple {
 	    $orderClause = $selectExtra = '';
 	}
 
-
 	if (!empty($extraJoin)) {
-	    /*
-	     * $extraJoin can contain classes also.  If it does, we should
-	     * remove them from $classes so that they're not in the FROM
-	     * clause twice.
-	     */
-	    $classes = array_flip($classes);
-	    foreach ($classes as $key => $unused) {
-		if (strstr($extraJoin, $key) !== false) {
-		    unset($classes[$key]);
+	    /* Merge joins into classes array */
+	    foreach (explode(',', $extraJoin) as $join) {
+		if (preg_match('{^\s*(\[.*?\])\s*(.*?)\s*$}', $join, $match)) {
+		    if (!isset($classes[$match[1]])) {
+			$classes[$match[1]] = $join;
+		    } else if (!empty($match[2])) {
+			$classes[$match[1]] .= ' ' . $match[2];
+		    }
 		}
 	    }
-	    $classes = array_flip($classes);
-	    $classes[] = $extraJoin;
 	}
 
 	/* Prepare the query */
@@ -288,7 +286,7 @@ class GalleryChildEntityHelper_simple {
 	SELECT
 	  [GalleryChildEntity::id] ' . $selectExtra . '
 	FROM
-	  ' . join(', ', $classes) . '
+	  ' . implode(', ', $classes) . '
 	WHERE
 	  [GalleryChildEntity::parentId] = ?
 	  AND
@@ -420,7 +418,7 @@ class GalleryChildEntityHelper_simple {
 	if ($ret) {
 	    return array($ret, null);
 	}
-	$sequence = join('/', $sequence);
+	$sequence = implode('/', $sequence);
 	if (!empty($sequence)) {
 	    $sequence .= '/';
 	}
@@ -650,12 +648,12 @@ class GalleryChildEntityHelper_simple {
 
 	    case 'albumsFirst':
 		list ($ret, $case) = $storage->getFunctionSql('CASE',
-		    array('[GalleryAlbumItem::id] IS NULL', '1', '0'));
+		    array('[GalleryAlbumItem=1::id] IS NULL', '1', '0'));
 		if ($ret) {
 		    return array($ret, null, null, null, null);
 		}
-		$join[] = '[GalleryChildEntity] LEFT JOIN [GalleryAlbumItem] ON ' .
-		    '[GalleryChildEntity::id] = [GalleryAlbumItem::id]';
+		$join[] = '[GalleryChildEntity] LEFT JOIN [GalleryAlbumItem=1] ON ' .
+		    '[GalleryChildEntity::id] = [GalleryAlbumItem=1::id]';
 		$select[] = $case;
 		$order[] = 2 + count($order);
 		break;
@@ -690,7 +688,7 @@ class GalleryChildEntityHelper_simple {
 			return GalleryChildEntityHelper_simple::_getOrderInfo(
 			    'orderWeight', ORDER_ASCENDING);
 		    } else {
-			return GalleryChildEntityHelper_simple::_getOrderInfo();
+			return GalleryChildEntityHelper_simple::_getOrderInfo(null, null);
 		    }
 		}
 	    }
@@ -702,7 +700,7 @@ class GalleryChildEntityHelper_simple {
 	}
 
 	return array(null, implode(', ', $order),
-		     implode(', ', $select), implode(' AND ', $condition), implode(' ', $join));
+		     implode(', ', $select), implode(' AND ', $condition), implode(', ', $join));
     }
 }
 ?>
