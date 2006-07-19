@@ -1,0 +1,214 @@
+# $Revision$
+# File crc32 crc32(crlf) size size(crlf)  or  R File
+modules/rewrite/AdminRewrite.inc	3797870583	3326306808	10081	10427
+modules/rewrite/DownloadItem.inc	3163330552	1451255350	3138	3246
+modules/rewrite/FileNotFound.inc	2569880870	1081746173	1945	2008
+modules/rewrite/RewriteModuleExtras.inc	297931885	92212653	8860	9202
+modules/rewrite/SetupRewrite.inc	1963249224	3491637329	5787	5980
+modules/rewrite/classes/GNUmakefile	1995366819	843025639	51	52
+modules/rewrite/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
+modules/rewrite/classes/GalleryStorage/schema.tpl	1135532778	1743347733	717	747
+modules/rewrite/classes/GalleryStorage/xml-src/R_RewriteMap_1.0.xml	2901457058	3530522214	280	291
+modules/rewrite/classes/RewriteApi.class	825684437	3258021007	4576	4751
+modules/rewrite/classes/RewriteCheckConflictTask.class	4139406158	514971028	4207	4343
+modules/rewrite/classes/RewriteHelper.class	3931406847	3393306739	10429	10742
+modules/rewrite/classes/RewriteParser.class	3760864316	2063436394	8069	8327
+modules/rewrite/classes/RewriteSimpleHelper.class	4058972253	1836420628	5100	5273
+modules/rewrite/classes/RewriteUrlGenerator.class	4132412241	2348872940	6979	7219
+modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteHelper.class	3928184154	513752660	14883	15391
+modules/rewrite/classes/parsers/isapirewrite/IsapiRewriteUrlGenerator.class	1814112783	2245128786	3360	3465
+modules/rewrite/classes/parsers/isapirewrite/parser.inc	1656018959	794358852	8015	8294
+modules/rewrite/classes/parsers/modrewrite/ModRewriteHelper.class	1489755494	1345319143	20970	21644
+modules/rewrite/classes/parsers/modrewrite/ModRewriteUrlGenerator.class	925771070	4040604486	2967	3065
+modules/rewrite/classes/parsers/modrewrite/parser.inc	1394750356	2331238391	8305	8579
+modules/rewrite/classes/parsers/pathinfo/PathInfoHelper.class	3422177668	3374082516	5236	5409
+modules/rewrite/classes/parsers/pathinfo/PathInfoUrlGenerator.class	1812356886	3733087060	7413	7646
+modules/rewrite/classes/parsers/pathinfo/parser.inc	648611882	3254343672	3023	3124
+modules/rewrite/data/isapi_rewrite/Rewrite.txt	3441905064	3441905064	21	21
+modules/rewrite/data/isapi_rewrite/Works.txt	2699422569	2699422569	18	18
+modules/rewrite/data/mod_rewrite/custom/.htaccess	686534986	1514802483	285	293
+modules/rewrite/data/mod_rewrite/custom/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite/custom/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/mod_rewrite/gallery/.htaccess	3845462014	2824404439	183	188
+modules/rewrite/data/mod_rewrite/gallery/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite/gallery/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/mod_rewrite/gallery2/.htaccess	1868455283	2908246444	186	192
+modules/rewrite/data/mod_rewrite/gallery2/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite/gallery2/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/mod_rewrite_no_options/custom/.htaccess	2187990769	3344313064	272	279
+modules/rewrite/data/mod_rewrite_no_options/custom/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite_no_options/custom/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/mod_rewrite_no_options/gallery/.htaccess	2916859382	1655924244	170	174
+modules/rewrite/data/mod_rewrite_no_options/gallery/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite_no_options/gallery/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/mod_rewrite_no_options/gallery2/.htaccess	3024768581	2610508873	172	176
+modules/rewrite/data/mod_rewrite_no_options/gallery2/Rewrite.txt	2916074531	2916074531	15	15
+modules/rewrite/data/mod_rewrite_no_options/gallery2/Works.txt	28724129	3695621473	13	14
+modules/rewrite/data/path_info/index.php	4293469952	2558831224	1179	1213
+modules/rewrite/locale/af/LC_MESSAGES/modules_rewrite.mo	3035850733	3035850733	6471	6471
+modules/rewrite/locale/cs/LC_MESSAGES/modules_rewrite.mo	2897977122	2897977122	15215	15215
+modules/rewrite/locale/da/LC_MESSAGES/modules_rewrite.mo	1250239865	1250239865	12366	12366
+modules/rewrite/locale/de/LC_MESSAGES/modules_rewrite.mo	1650645921	1650645921	16027	16027
+modules/rewrite/locale/eu/LC_MESSAGES/modules_rewrite.mo	1555502854	1555502854	15265	15265
+modules/rewrite/locale/fr/LC_MESSAGES/modules_rewrite.mo	3723279018	3723279018	15869	15869
+modules/rewrite/locale/it/LC_MESSAGES/modules_rewrite.mo	2841140631	2841140631	15244	15244
+modules/rewrite/locale/ja/LC_MESSAGES/modules_rewrite.mo	4075183346	4075183346	4667	4667
+modules/rewrite/locale/nl/LC_MESSAGES/modules_rewrite.mo	3870025270	3870025270	14790	14790
+modules/rewrite/locale/no/LC_MESSAGES/modules_rewrite.mo	3573638957	3573638957	14821	14821
+modules/rewrite/locale/pl/LC_MESSAGES/modules_rewrite.mo	3344650742	3344650742	15591	15591
+modules/rewrite/locale/pt_BR/LC_MESSAGES/modules_rewrite.mo	2220395475	2220395475	6520	6520
+modules/rewrite/locale/ru/LC_MESSAGES/modules_rewrite.mo	3431575536	3431575536	20776	20776
+modules/rewrite/locale/sr/LC_MESSAGES/modules_rewrite.mo	504234108	504234108	6688	6688
+modules/rewrite/locale/sv/LC_MESSAGES/modules_rewrite.mo	2376148815	2376148815	15324	15324
+modules/rewrite/locale/tr/LC_MESSAGES/modules_rewrite.mo	669088769	669088769	3764	3764
+modules/rewrite/locale/zh_CN/LC_MESSAGES/modules_rewrite.mo	2520562821	2520562821	14243	14243
+modules/rewrite/locale/zh_TW/LC_MESSAGES/modules_rewrite.mo	125395184	125395184	14243	14243
+modules/rewrite/module.inc	2255451555	594159811	10525	10861
+modules/rewrite/po/GNUmakefile	1866879166	2808215985	98	103
+modules/rewrite/po/af.po	3355510806	3356902858	18172	18789
+modules/rewrite/po/cs.po	865774224	2908700862	20848	21449
+modules/rewrite/po/da.po	1431269228	3620186396	14554	14992
+modules/rewrite/po/de.po	3453760158	3627533337	17002	17513
+modules/rewrite/po/eu.po	35717092	383995182	16224	16733
+modules/rewrite/po/fr.po	892530019	2427368714	16744	17241
+modules/rewrite/po/it.po	1870128384	3145908671	16455	16965
+modules/rewrite/po/ja.po	417480059	2953428448	14341	14865
+modules/rewrite/po/nl.po	1105670076	2769944092	15880	16316
+modules/rewrite/po/no.po	461301078	1678315380	15629	16065
+modules/rewrite/po/pl.po	2724339993	2562719153	16282	16716
+modules/rewrite/po/pt_BR.po	4082145492	1774171029	18338	18954
+modules/rewrite/po/ru.po	3701195268	2249945552	28615	29156
+modules/rewrite/po/sr.po	1575720463	1195110315	18510	19125
+modules/rewrite/po/strings.raw	50944563	1937704637	9074	9241
+modules/rewrite/po/sv.po	1423069694	3988777036	16626	17147
+modules/rewrite/po/tr.po	279602760	447150393	11294	11744
+modules/rewrite/po/zh_CN.po	969092930	1196886378	15040	15516
+modules/rewrite/po/zh_TW.po	1460880658	2114809218	15270	15754
+modules/rewrite/templates/AdminRewrite.tpl	3008979509	2373518217	9474	9752
+modules/rewrite/templates/DownloadItem.tpl	2714263665	369478840	626	642
+modules/rewrite/templates/FileNotFound.tpl	2634276936	2907029895	382	392
+modules/rewrite/templates/Htaccess.tpl	1763642081	4054209430	1836	1886
+modules/rewrite/templates/Httpdini.tpl	1751367079	3321708000	2123	2169
+modules/rewrite/templates/IsapiRewriteAdminParser.tpl	3181803079	1603286809	1458	1506
+modules/rewrite/templates/IsapiRewriteTestResults.tpl	3303619141	2392461481	3660	3767
+modules/rewrite/templates/ModRewriteAdminParser.tpl	276549165	851986033	1157	1184
+modules/rewrite/templates/ModRewriteTestResults.tpl	563938833	2359992040	7999	8213
+modules/rewrite/templates/PathInfoTestResults.tpl	2881863412	2498385341	1979	2041
+modules/rewrite/templates/SetupRewrite.tpl	3415734129	2381041597	3978	4081
+modules/rewrite/test/phpunit/AdminRewriteControllerTest.class	4068093906	1676640027	20713	21359
+modules/rewrite/test/phpunit/IsapiRewriteHelperTest.class	480975639	3258596805	10182	10548
+modules/rewrite/test/phpunit/IsapiRewriteParserTest.class	4117664504	3233027054	13253	13696
+modules/rewrite/test/phpunit/IsapiRewriteUrlGeneratorTest.class	632677377	1538232480	3058	3148
+modules/rewrite/test/phpunit/ModRewriteHelperTest.class	262760359	3699468299	13776	14247
+modules/rewrite/test/phpunit/ModRewriteParserTest.class	1625759556	40907444	15794	16301
+modules/rewrite/test/phpunit/ModRewriteUrlGeneratorTest.class	3359634951	13937925	3590	3685
+modules/rewrite/test/phpunit/PathInfoHelperTest.class	606881482	1082286988	6052	6265
+modules/rewrite/test/phpunit/PathInfoParserTest.class	1307188229	1295957202	3074	3177
+modules/rewrite/test/phpunit/PathInfoUrlGeneratorTest.class	1231007380	1865977654	26676	27221
+modules/rewrite/test/phpunit/RewriteApiTest.class	3743023838	1388390716	5531	5721
+modules/rewrite/test/phpunit/RewriteHelperTest.class	3080144211	135940859	14914	15358
+modules/rewrite/test/phpunit/RewriteModuleTest.class	4133260390	973862180	12533	12970
+modules/rewrite/test/phpunit/RewriteParserTestCase.class	629475273	1869893075	14528	15053
+modules/rewrite/test/phpunit/RewriteSimpleHelperTest.class	3521574182	1604759037	6168	6361
+modules/rewrite/test/phpunit/RewriteUrlGeneratorTest.class	916422016	4108064348	3527	3640
+modules/rewrite/test/phpunit/RewriteUrlGeneratorTestCase.class	3770475043	2728544461	38845	39764
+modules/rewrite/test/phpunit/SetupRewriteControllerTest.class	347665325	3587994195	8316	8583
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/RewriteMap.sql
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/RewriteMap.sql
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/RewriteMap.sql
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/platform
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/schema.tpl
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/xml-src/GNUmakefile
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema/xml-src
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage/schema
+R	modules/rewrite/classes/GalleryStorage/DatabaseStorage
+R	modules/rewrite/classes/RewriteMap.class
+R	modules/rewrite/classes/interfaces/GNUmakefile
+R	modules/rewrite/classes/interfaces/RewriteMap.inc
+R	modules/rewrite/classes/interfaces
+R	modules/rewrite/locale/cs_CZ/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/cs_CZ/LC_MESSAGES
+R	modules/rewrite/locale/cs_CZ
+R	modules/rewrite/locale/da_DK/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/da_DK/LC_MESSAGES
+R	modules/rewrite/locale/da_DK
+R	modules/rewrite/locale/de_DE/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/de_DE/LC_MESSAGES
+R	modules/rewrite/locale/de_DE
+R	modules/rewrite/locale/fr_FR/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/fr_FR/LC_MESSAGES
+R	modules/rewrite/locale/fr_FR
+R	modules/rewrite/locale/it_IT/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/it_IT/LC_MESSAGES
+R	modules/rewrite/locale/it_IT
+R	modules/rewrite/locale/ja_JP/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/ja_JP/LC_MESSAGES
+R	modules/rewrite/locale/ja_JP
+R	modules/rewrite/locale/nl_NL/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/nl_NL/LC_MESSAGES
+R	modules/rewrite/locale/nl_NL
+R	modules/rewrite/locale/ru_RU/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/ru_RU/LC_MESSAGES
+R	modules/rewrite/locale/ru_RU
+R	modules/rewrite/locale/sr_YU/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/sr_YU/LC_MESSAGES
+R	modules/rewrite/locale/sr_YU
+R	modules/rewrite/locale/sv_SE/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/sv_SE/LC_MESSAGES
+R	modules/rewrite/locale/sv_SE
+R	modules/rewrite/locale/tr_TR/LC_MESSAGES/modules_rewrite.mo
+R	modules/rewrite/locale/tr_TR/LC_MESSAGES
+R	modules/rewrite/locale/tr_TR
+R	modules/rewrite/po/cs_CZ.po
+R	modules/rewrite/po/da_DK.po
+R	modules/rewrite/po/de_DE.po
+R	modules/rewrite/po/fr_FR.po
+R	modules/rewrite/po/it_IT.po
+R	modules/rewrite/po/ja_JP.po
+R	modules/rewrite/po/nl_NL.po
+R	modules/rewrite/po/ru_RU.po
+R	modules/rewrite/po/sr_YU.po
+R	modules/rewrite/po/sv_SE.po
+R	modules/rewrite/po/tr_TR.po
+R	modules/rewrite/templates/Troubleshooting.tpl
+R	modules/rewrite/test/mod_rewrite/custom/.htaccess
+R	modules/rewrite/test/mod_rewrite/custom/Rewrite.php
+R	modules/rewrite/test/mod_rewrite/custom/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite/custom/Works.php
+R	modules/rewrite/test/mod_rewrite/custom/Works.txt
+R	modules/rewrite/test/mod_rewrite/custom
+R	modules/rewrite/test/mod_rewrite/gallery/.htaccess
+R	modules/rewrite/test/mod_rewrite/gallery/Rewrite.php
+R	modules/rewrite/test/mod_rewrite/gallery/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite/gallery/Works.php
+R	modules/rewrite/test/mod_rewrite/gallery/Works.txt
+R	modules/rewrite/test/mod_rewrite/gallery
+R	modules/rewrite/test/mod_rewrite/gallery2/.htaccess
+R	modules/rewrite/test/mod_rewrite/gallery2/Rewrite.php
+R	modules/rewrite/test/mod_rewrite/gallery2/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite/gallery2/Works.php
+R	modules/rewrite/test/mod_rewrite/gallery2/Works.txt
+R	modules/rewrite/test/mod_rewrite/gallery2
+R	modules/rewrite/test/mod_rewrite
+R	modules/rewrite/test/mod_rewrite_no_options/custom/.htaccess
+R	modules/rewrite/test/mod_rewrite_no_options/custom/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite_no_options/custom/Works.txt
+R	modules/rewrite/test/mod_rewrite_no_options/custom
+R	modules/rewrite/test/mod_rewrite_no_options/gallery/.htaccess
+R	modules/rewrite/test/mod_rewrite_no_options/gallery/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite_no_options/gallery/Works.txt
+R	modules/rewrite/test/mod_rewrite_no_options/gallery
+R	modules/rewrite/test/mod_rewrite_no_options/gallery2/.htaccess
+R	modules/rewrite/test/mod_rewrite_no_options/gallery2/Rewrite.txt
+R	modules/rewrite/test/mod_rewrite_no_options/gallery2/Works.txt
+R	modules/rewrite/test/mod_rewrite_no_options/gallery2
+R	modules/rewrite/test/mod_rewrite_no_options
+R	modules/rewrite/test/phpunit/RewriteMapTest.class

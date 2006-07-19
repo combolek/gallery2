@@ -1,0 +1,1012 @@
+# $Revision$
+# File crc32 crc32(crlf) size size(crlf)  or  R File
+modules/core/AdminCore.inc	3677515301	2699703489	10783	11139
+modules/core/AdminCreateGroup.inc	3862536296	153536101	3798	3934
+modules/core/AdminCreateUser.inc	2539897365	2272056970	5175	5354
+modules/core/AdminDeleteGroup.inc	3226636463	1784318339	3652	3779
+modules/core/AdminDeleteUser.inc	429603746	2504116870	7793	8021
+modules/core/AdminEditGroup.inc	422363494	2118442630	4603	4766
+modules/core/AdminEditGroupUsers.inc	2610262906	984862640	7842	8104
+modules/core/AdminEditUser.inc	3145888246	1746145457	7109	7356
+modules/core/AdminGroups.inc	319632709	207385923	7938	8199
+modules/core/AdminMaintenance.inc	3587530196	1408322270	6185	6400
+modules/core/AdminModulesVerifyUninstall.inc	3345471223	4038389079	3869	4000
+modules/core/AdminPerformance.inc	1149458021	4213091042	5819	6017
+modules/core/AdminPlugins.inc	2303668231	3572247505	5621	5790
+modules/core/AdminRepository.inc	3166922066	3190317122	15119	15610
+modules/core/AdminThemes.inc	3742094095	165614728	15064	15561
+modules/core/AdminToolkitPriority.inc	3070993138	359494437	3428	3543
+modules/core/AdminUsers.inc	1528235542	4068599305	6623	6851
+modules/core/Callbacks.inc	3537596465	3473489994	6172	6367
+modules/core/ChangeLanguage.inc	1619583524	3144070289	1635	1690
+modules/core/CoreModuleExtras.inc	2876948803	2717323928	88152	90982
+modules/core/CreateThumbnailOption.inc	3738908498	1105429808	2423	2506
+modules/core/DownloadItem.inc	699303209	1285967916	5090	5273
+modules/core/ErrorPage.inc	211433115	3441818060	6377	6590
+modules/core/ItemAdd.inc	2362740862	1973358395	18354	18964
+modules/core/ItemAddAlbum.inc	2355318335	3640899939	5167	5358
+modules/core/ItemAddConfirmation.inc	99176226	1968577122	2896	2991
+modules/core/ItemAddFromBrowser.inc	3486403030	875207608	8141	8390
+modules/core/ItemAdmin.inc	597493876	652223563	6517	6745
+modules/core/ItemDelete.inc	710128864	1400496344	8802	9095
+modules/core/ItemDeleteConfirmation.inc	2708228627	1005591092	1734	1792
+modules/core/ItemDeleteSingle.inc	2054730590	1199806629	4810	4979
+modules/core/ItemEdit.inc	3286495254	3809207388	15585	16109
+modules/core/ItemEditAlbum.inc	525779034	3756239219	22490	23243
+modules/core/ItemEditAnimation.inc	1314898044	2687351989	3813	3951
+modules/core/ItemEditCaptions.inc	985400385	968920750	7611	7866
+modules/core/ItemEditItem.inc	383100555	695780269	12795	13192
+modules/core/ItemEditMovie.inc	2892506417	3194945510	3809	3949
+modules/core/ItemEditPhoto.inc	2344190765	2901276627	7704	7970
+modules/core/ItemEditPhotoThumbnail.inc	3999408665	275910919	13662	14061
+modules/core/ItemEditRotateAndScalePhoto.inc	1895292317	3346158129	8613	8891
+modules/core/ItemEditTheme.inc	438657444	3161889302	7972	8235
+modules/core/ItemMakeHighlight.inc	3636775355	3933911252	3730	3860
+modules/core/ItemMove.inc	745794948	2116724176	12979	13395
+modules/core/ItemMoveSingle.inc	3751495489	3276507344	8173	8465
+modules/core/ItemPermissions.inc	3174079908	1873665480	17478	18055
+modules/core/ItemReorder.inc	3837984364	109520404	7268	7534
+modules/core/Logout.inc	4164342614	2181809700	2333	2417
+modules/core/MaintenanceMode.inc	3499849854	887776201	1856	1916
+modules/core/PluginCallback.inc	2944007067	2566051001	10009	10400
+modules/core/ProgressBar.inc	1394847808	2791821934	1368	1411
+modules/core/ShowItem.inc	2182889771	2737972449	4017	4157
+modules/core/ShowItemError.inc	35772627	1999834892	2869	2976
+modules/core/SimpleCallback.inc	1852647424	1360097004	5001	5181
+modules/core/SiteAdmin.inc	3188416673	2522492932	8829	9124
+modules/core/UserAdmin.inc	558584827	2124414641	5106	5285
+modules/core/UserChangePassword.inc	2488120781	2647213814	4701	4873
+modules/core/UserLogin.inc	477012310	2382958873	5884	6093
+modules/core/UserPreferences.inc	284888228	655182960	6625	6853
+modules/core/UserRecoverPassword.inc	2649067737	718156745	9173	9470
+modules/core/UserRecoverPasswordAdmin.inc	4244576514	3829596577	6233	6446
+modules/core/UserRecoverPasswordConfirm.inc	1287754422	1199576228	5718	5908
+modules/core/UserRecoverPasswordDownload.inc	3576928743	4226087443	1978	2045
+modules/core/classes/BuildDerivativesTask.class	2301448432	2407646515	4096	4237
+modules/core/classes/CoreCaptchaAdminOption.class	315739464	495373617	1649	1697
+modules/core/classes/DatabaseLockSystem.class	3276859153	711558393	3526	3668
+modules/core/classes/DeleteSessionsTask.class	2185395051	907392859	4191	4335
+modules/core/classes/Entities.inc	19452516	2097668552	5911	6046
+modules/core/classes/FlockLockSystem.class	1619485074	1419985788	6417	6634
+modules/core/classes/FlushDatabaseCacheTask.class	3236167276	3611141572	2699	2787
+modules/core/classes/FlushTemplatesTask.class	3623978148	161034491	2564	2648
+modules/core/classes/GNUmakefile	1995366819	843025639	51	52
+modules/core/classes/Gallery.class	1284819157	3655234811	26847	27830
+modules/core/classes/GalleryAlbumItem.class	267742151	2478626465	11729	12207
+modules/core/classes/GalleryAnimationItem.class	4089774581	2808557924	10165	10519
+modules/core/classes/GalleryAuthPlugin.class	3417232956	1798449988	1678	1729
+modules/core/classes/GalleryCapabilities.class	3085032789	124391432	2207	2286
+modules/core/classes/GalleryChildEntity.class	2633248359	346111558	4147	4327
+modules/core/classes/GalleryConstants.class	2506213887	509038178	7834	8213
+modules/core/classes/GalleryController.class	847098076	3324277295	7661	7865
+modules/core/classes/GalleryCoreApi.class	1844149804	1038315803	116110	119249
+modules/core/classes/GalleryCoreSearch.class	2053651870	1538575475	6612	6819
+modules/core/classes/GalleryDataCache.class	332723237	240704344	22658	23480
+modules/core/classes/GalleryDataItem.class	503873762	2851830176	12085	12559
+modules/core/classes/GalleryDerivative.class	1126846095	1704617569	22478	23272
+modules/core/classes/GalleryDerivativeImage.class	3138482894	1565770746	7122	7392
+modules/core/classes/GalleryEmbed.class	4176530000	3043007022	29407	30353
+modules/core/classes/GalleryEntity.class	1398621485	2177190085	19047	19731
+modules/core/classes/GalleryEvent.class	3358483527	368989024	2910	3045
+modules/core/classes/GalleryEventListener.class	75828399	601387451	1439	1484
+modules/core/classes/GalleryFileSystemEntity.class	429133095	4291832357	11461	11880
+modules/core/classes/GalleryGroup.class	55182302	2736117821	4732	4924
+modules/core/classes/GalleryItem.class	870761215	2778454583	13812	14358
+modules/core/classes/GalleryLockSystem.class	4099057291	2669203692	10151	10518
+modules/core/classes/GalleryModule.class	1436320601	1139253534	19835	20449
+modules/core/classes/GalleryMovieItem.class	530981980	3415044469	8623	8954
+modules/core/classes/GalleryPersistent.class	4177474180	1482102972	4880	5052
+modules/core/classes/GalleryPhotoItem.class	2686809754	3126851114	7479	7764
+modules/core/classes/GalleryPhpVm.class	416208080	1810471577	5956	6182
+modules/core/classes/GalleryPlatform.class	1968972996	1140577481	35048	36352
+modules/core/classes/GalleryPlatform/UnixPlatform.class	2173237247	2918909011	4553	4732
+modules/core/classes/GalleryPlatform/WinNtPlatform.class	490207023	2415770648	5581	5795
+modules/core/classes/GalleryPlugin.class	2121539171	1324550880	17301	17884
+modules/core/classes/GalleryRenderer.class	3001433785	1639652285	2357	2422
+modules/core/classes/GalleryRepository.class	1804348328	1288039101	23172	23884
+modules/core/classes/GalleryRepositoryIndex.class	43415497	2317930658	15268	15759
+modules/core/classes/GalleryRepositoryUtilities.class	1191449369	705099429	14417	14846
+modules/core/classes/GallerySession.class	428170471	3895860187	47062	48560
+modules/core/classes/GallerySmarty.class	1105568729	2729167843	3204	3317
+modules/core/classes/GallerySortInterface_1_1.class	3994095942	3192561663	4623	4752
+modules/core/classes/GalleryStatus.class	112403458	2372517400	7053	7315
+modules/core/classes/GalleryStorage.class	1871539526	3453654603	38043	39410
+modules/core/classes/GalleryStorage/Db2CreateUdfs.sql	4053757771	1342803176	10487	10729
+modules/core/classes/GalleryStorage/Db2Storage.class	2178172541	2056196459	8481	8784
+modules/core/classes/GalleryStorage/GNUmakefile	1465776782	2009162633	61	62
+modules/core/classes/GalleryStorage/GallerySqlFragment.class	1894754956	1463146868	2134	2214
+modules/core/classes/GalleryStorage/GalleryStorageExtras.class	1089698907	2891457533	58001	59978
+modules/core/classes/GalleryStorage/MSSqlStorage.class	2705220802	2933581293	4453	4623
+modules/core/classes/GalleryStorage/MySqlStorage.class	2937087289	318305992	6088	6324
+modules/core/classes/GalleryStorage/OracleCreateBitOr.sql	2845920750	4263422247	1649	1695
+modules/core/classes/GalleryStorage/OracleStorage.class	1836133790	1295217105	5929	6158
+modules/core/classes/GalleryStorage/PostgreSqlStorage.class	4238145676	1362721520	6229	6487
+modules/core/classes/GalleryStorage/g2_db2.jar	1747928977	1747928977	973	973
+modules/core/classes/GalleryStorage/schema.tpl	1981909805	1567088244	150018	154537
+modules/core/classes/GalleryStorage/xml-src/A_GalleryAccessMap_1.0.xml	3659530052	394683713	736	766
+modules/core/classes/GalleryStorage/xml-src/A_GalleryAccessMap_1.1.xml	1447402358	1144842379	746	778
+modules/core/classes/GalleryStorage/xml-src/A_GalleryAccessMap_1.2.xml	1108010595	3504958071	476	496
+modules/core/classes/GalleryStorage/xml-src/A_GalleryAlbumItem_1.0.xml	1956706663	836858804	450	469
+modules/core/classes/GalleryStorage/xml-src/A_GalleryDerivative_1.0.xml	318432315	3970947518	516	537
+modules/core/classes/GalleryStorage/xml-src/A_GalleryEntity_1.0.xml	2732011149	1420753157	557	579
+modules/core/classes/GalleryStorage/xml-src/A_GalleryEntity_1.1.xml	2474147373	120988729	467	487
+modules/core/classes/GalleryStorage/xml-src/A_GalleryGroup_1.0.xml	2011848054	1054593633	555	577
+modules/core/classes/GalleryStorage/xml-src/A_GalleryItem_1.0.xml	2679906988	1670105703	522	543
+modules/core/classes/GalleryStorage/xml-src/A_GalleryItem_1.1.xml	234078821	1974949902	549	571
+modules/core/classes/GalleryStorage/xml-src/A_GalleryPluginMap_1.0.xml	969427553	577009186	743	772
+modules/core/classes/GalleryStorage/xml-src/A_GalleryPluginParameterMap_1.0.xml	3384882950	547438647	752	781
+modules/core/classes/GalleryStorage/xml-src/A_GalleryPluginParameterMap_1.1.xml	3440068311	3792400272	397	412
+modules/core/classes/GalleryStorage/xml-src/A_GalleryPluginParameterMap_1.2.xml	1563827194	3633534878	604	627
+modules/core/classes/GalleryStorage/xml-src/A_GalleryUser_1.0.xml	3561312794	2915551385	549	571
+modules/core/classes/GalleryStorage/xml-src/Lock.xml	4149272517	399322752	1007	1045
+modules/core/classes/GalleryStorage/xml-src/R_GalleryCache_1.0.xml	2218626156	22862096	275	286
+modules/core/classes/GalleryStorage/xml-src/R_GalleryItemPropertiesMap_1.0.xml	1678269710	639783741	287	298
+modules/core/classes/GalleryStorage/xml-src/R_GalleryPermissionMap_1.0.xml	3065744889	314676150	283	294
+modules/core/classes/GalleryStorage/xml-src/Schema.xml	2301277260	4198023138	801	832
+modules/core/classes/GalleryStorage/xml-src/T_InstallerTest_1.xml	1633947393	2510465397	796	827
+modules/core/classes/GalleryStorage/xml-src/T_InstallerTest_2.xml	1561374263	4202596476	632	658
+modules/core/classes/GalleryStorage/xml-src/T_InstallerTest_3.xml	508896771	814400991	473	492
+modules/core/classes/GalleryStorage/xml-src/T_InstallerTest_4.xml	3727832861	3705143938	276	287
+modules/core/classes/GalleryTemplate.class	3317478949	2719720149	12656	13088
+modules/core/classes/GalleryTemplateAdapter.class	1213573474	579104055	30758	31730
+modules/core/classes/GalleryTheme.class	1023096491	223322014	60430	62344
+modules/core/classes/GalleryToolkit.class	1586474384	1188858298	9452	9724
+modules/core/classes/GalleryTranslator.class	3673152446	3196480510	17643	18206
+modules/core/classes/GalleryUnknownItem.class	2040330740	596799030	3759	3875
+modules/core/classes/GalleryUrlGenerator.class	4288238471	652864369	34922	35898
+modules/core/classes/GalleryUser.class	1178003503	3909000791	9987	10374
+modules/core/classes/GalleryUtilities.class	580847041	2753720358	51373	53051
+modules/core/classes/GalleryValidationPlugin.class	1183184987	2179866846	2605	2673
+modules/core/classes/GalleryView.class	3702327509	56019594	13170	13609
+modules/core/classes/Maps.inc	2987869947	117194758	8767	8792
+modules/core/classes/Maps.xml	3925633210	512631202	18453	19143
+modules/core/classes/OptimizeDatabaseTask.class	1630551619	2857254448	2294	2371
+modules/core/classes/ResetViewCountsTask.class	3897739904	998312012	2699	2794
+modules/core/classes/SessionAuthPlugin.class	2138175012	6785080	1689	1747
+modules/core/classes/SetOriginationTimestampTask.class	3641965577	1657282343	4821	4986
+modules/core/classes/SystemInfoTask.class	1155283813	3212003905	4060	4177
+modules/core/classes/helpers/GalleryCharsetHelper_medium.class	999350446	873819896	47715	48433
+modules/core/classes/helpers/GalleryCharsetHelper_simple.class	3135340571	1958259314	7714	7942
+modules/core/classes/helpers/GalleryChildEntityHelper_simple.class	2169759377	336909535	22045	22751
+modules/core/classes/helpers/GalleryDerivativeHelper_advanced.class	2167796324	1386820382	27612	28606
+modules/core/classes/helpers/GalleryDerivativeHelper_medium.class	3986638639	3398478753	2947	3044
+modules/core/classes/helpers/GalleryDerivativeHelper_simple.class	3762547509	248558874	6351	6557
+modules/core/classes/helpers/GalleryEntityHelper_medium.class	4157729006	224991327	10017	10378
+modules/core/classes/helpers/GalleryEntityHelper_simple.class	1026732129	419288149	4344	4495
+modules/core/classes/helpers/GalleryEventHelper_simple.class	2075833207	1913397442	4138	4280
+modules/core/classes/helpers/GalleryFactoryHelper_medium.class	3126341825	17742179	5203	5374
+modules/core/classes/helpers/GalleryFactoryHelper_simple.class	1764778335	2405433288	7325	7575
+modules/core/classes/helpers/GalleryFileSystemEntityHelper_medium.class	3763074480	2589174623	4534	4685
+modules/core/classes/helpers/GalleryFileSystemEntityHelper_simple.class	575541327	1879248956	3649	3780
+modules/core/classes/helpers/GalleryGroupHelper_simple.class	2282340914	699459125	4398	4570
+modules/core/classes/helpers/GalleryItemAttributesHelper_advanced.class	1515209367	2968540633	8502	8812
+modules/core/classes/helpers/GalleryItemAttributesHelper_medium.class	2615050259	958364890	2650	2738
+modules/core/classes/helpers/GalleryItemAttributesHelper_simple.class	138228281	1361308797	6067	6271
+modules/core/classes/helpers/GalleryItemHelper_advanced.class	3166879137	244107460	22775	23620
+modules/core/classes/helpers/GalleryItemHelper_medium.class	1460148186	2949437757	31633	32691
+modules/core/classes/helpers/GalleryItemHelper_simple.class	561496997	2368194810	10898	11284
+modules/core/classes/helpers/GalleryLockHelper_simple.class	2113550104	2650813270	6648	6916
+modules/core/classes/helpers/GalleryMimeTypeHelper_advanced.class	801832725	188590978	9509	9803
+modules/core/classes/helpers/GalleryMimeTypeHelper_simple.class	2876156186	16286218	6097	6291
+modules/core/classes/helpers/GalleryPermissionHelper_advanced.class	2025867412	536084474	38416	39719
+modules/core/classes/helpers/GalleryPermissionHelper_simple.class	1550275230	4021942393	14938	15425
+modules/core/classes/helpers/GalleryPluginHelper_medium.class	1471499686	734302645	13804	14282
+modules/core/classes/helpers/GalleryPluginHelper_simple.class	1241617201	3505444898	20515	21152
+modules/core/classes/helpers/GalleryToolkitHelper_medium.class	3050555784	167638945	23389	24151
+modules/core/classes/helpers/GalleryToolkitHelper_simple.class	1403590736	2890102580	7702	7957
+modules/core/classes/helpers/GalleryUserGroupHelper_medium.class	3956470414	2335745896	6621	6861
+modules/core/classes/helpers/GalleryUserGroupHelper_simple.class	349452637	4132145413	4400	4558
+modules/core/classes/helpers/GalleryUserHelper_medium.class	4251804065	739594077	9459	9812
+modules/core/classes/helpers/GalleryUserHelper_simple.class	498621911	40775087	3673	3797
+modules/core/classes/helpers/MailHelper_simple.class	2886116714	3429181858	3539	3651
+modules/core/classes/helpers/MaintenanceHelper_simple.class	19194660	2515431532	3914	4053
+modules/core/classes/helpers/UserRecoverPasswordHelper_simple.class	3547787317	4031398483	3005	3116
+modules/core/classes/helpers/WebHelper_simple.class	810732910	887291306	13563	14013
+modules/core/data/broken-image.gif	888290220	888290220	1589	1589
+modules/core/data/donate.png	3710449820	3710449820	299	299
+modules/core/data/module-active.gif	2313640867	2313640867	108	108
+modules/core/data/module-inactive.gif	427960404	427960404	107	107
+modules/core/data/module-incompatible.gif	2833300153	2833300153	104	104
+modules/core/data/module-install.gif	2583550065	2583550065	112	112
+modules/core/data/module-upgrade.gif	286245876	286245876	532	532
+modules/core/data/selectline_h.gif	1447662674	1447662674	161	161
+modules/core/data/selectline_v.gif	3539785191	3539785191	161	161
+modules/core/locale/af/LC_MESSAGES/modules_core.mo	2304989533	2304989533	84258	84258
+modules/core/locale/ar/LC_MESSAGES/modules_core.mo	244994364	244994364	82581	82581
+modules/core/locale/bg/LC_MESSAGES/modules_core.mo	533536245	533536245	29760	29760
+modules/core/locale/ca/LC_MESSAGES/modules_core.mo	912856659	912856659	83257	83257
+modules/core/locale/cs/LC_MESSAGES/modules_core.mo	1694248422	1694248422	105874	105874
+modules/core/locale/da/LC_MESSAGES/modules_core.mo	327330058	327330058	95802	95802
+modules/core/locale/de/LC_MESSAGES/modules_core.mo	3406815574	3406815574	111160	111160
+modules/core/locale/el/LC_MESSAGES/modules_core.mo	1868950731	1868950731	3382	3382
+modules/core/locale/en_GB/LC_MESSAGES/modules_core.mo	866762231	866762231	586	586
+modules/core/locale/es/LC_MESSAGES/modules_core.mo	2725110284	2725110284	87834	87834
+modules/core/locale/es_AR/LC_MESSAGES/modules_core.mo	2706233113	2706233113	11905	11905
+modules/core/locale/es_MX/LC_MESSAGES/modules_core.mo	2032809311	2032809311	33789	33789
+modules/core/locale/eu/LC_MESSAGES/modules_core.mo	2980142713	2980142713	98929	98929
+modules/core/locale/fi/LC_MESSAGES/modules_core.mo	2619786986	2619786986	80882	80882
+modules/core/locale/fr/LC_MESSAGES/modules_core.mo	2700236692	2700236692	110203	110203
+modules/core/locale/ga/LC_MESSAGES/modules_core.mo	993913214	993913214	24091	24091
+modules/core/locale/he/LC_MESSAGES/modules_core.mo	2346166356	2346166356	56604	56604
+modules/core/locale/hu/LC_MESSAGES/modules_core.mo	3166280870	3166280870	73884	73884
+modules/core/locale/is/LC_MESSAGES/modules_core.mo	2658841278	2658841278	568	568
+modules/core/locale/it/LC_MESSAGES/modules_core.mo	2003800666	2003800666	102469	102469
+modules/core/locale/ja/LC_MESSAGES/modules_core.mo	3368615303	3368615303	110609	110609
+modules/core/locale/lt/LC_MESSAGES/modules_core.mo	835577956	835577956	104893	104893
+modules/core/locale/nl/LC_MESSAGES/modules_core.mo	2199891829	2199891829	105288	105288
+modules/core/locale/no/LC_MESSAGES/modules_core.mo	152849520	152849520	104979	104979
+modules/core/locale/pl/LC_MESSAGES/modules_core.mo	920846390	920846390	103076	103076
+modules/core/locale/pt/LC_MESSAGES/modules_core.mo	4119181824	4119181824	23960	23960
+modules/core/locale/pt_BR/LC_MESSAGES/modules_core.mo	4149885496	4149885496	84803	84803
+modules/core/locale/ro/LC_MESSAGES/modules_core.mo	3209620877	3209620877	90090	90090
+modules/core/locale/ru/LC_MESSAGES/modules_core.mo	438905998	438905998	150156	150156
+modules/core/locale/sl/LC_MESSAGES/modules_core.mo	1107817465	1107817465	7494	7494
+modules/core/locale/sr/LC_MESSAGES/modules_core.mo	3187299144	3187299144	84359	84359
+modules/core/locale/sv/LC_MESSAGES/modules_core.mo	2985031275	2985031275	99630	99630
+modules/core/locale/tr/LC_MESSAGES/modules_core.mo	2913483013	2913483013	39692	39692
+modules/core/locale/vi/LC_MESSAGES/modules_core.mo	616949295	616949295	94126	94126
+modules/core/locale/zh_CN/LC_MESSAGES/modules_core.mo	228543503	228543503	95811	95811
+modules/core/locale/zh_TW/LC_MESSAGES/modules_core.mo	1518742016	1518742016	93535	93535
+modules/core/module.inc	1235556553	716043488	16754	17282
+modules/core/po/GNUmakefile	1866879166	2808215985	98	103
+modules/core/po/af.po	861882226	3223685674	95620	99136
+modules/core/po/ar.po	1587688565	4256783868	101820	105226
+modules/core/po/bg.po	1801482416	3783268394	72692	75989
+modules/core/po/ca.po	701213292	2541207669	105011	108700
+modules/core/po/cs.po	360946516	1578191652	104376	107905
+modules/core/po/da.po	1091496120	2210340990	98403	101888
+modules/core/po/de.po	3055221833	2572456533	110194	113807
+modules/core/po/el.po	3552942178	3113934788	77057	80528
+modules/core/po/en_GB.po	3978244124	2752134112	60896	64082
+modules/core/po/es.po	2659429968	760448088	99120	102648
+modules/core/po/es_AR.po	2821283226	2898696277	75429	78954
+modules/core/po/es_MX.po	2928650242	3213852200	90338	94058
+modules/core/po/eu.po	3843481456	3176936124	111169	114930
+modules/core/po/fi.po	3434262321	130945495	94384	97875
+modules/core/po/fr.po	3731273661	774453175	109901	113458
+modules/core/po/ga.po	4041361023	94986085	81050	84599
+modules/core/po/he.po	18945089	3812632342	92652	96062
+modules/core/po/hu.po	4059313705	2295376130	90881	94318
+modules/core/po/is.po	1481696379	1730693137	59885	63063
+modules/core/po/it.po	2554624971	3365741964	105880	109413
+modules/core/po/ja.po	1834665072	627917015	130477	134358
+modules/core/po/lt.po	1678202671	192423792	104201	107726
+modules/core/po/nl.po	1230062341	1134660251	104608	108157
+modules/core/po/no.po	2606229499	340209168	100806	104267
+modules/core/po/pl.po	4233780491	700499639	103007	106531
+modules/core/po/pt.po	1931179418	770398333	78583	82073
+modules/core/po/pt_BR.po	902430834	1473158570	96625	100129
+modules/core/po/ro.po	3198014495	2767895156	108377	112084
+modules/core/po/ru.po	2418228699	3632553239	148548	152180
+modules/core/po/sl.po	1317958345	2890074139	62082	65276
+modules/core/po/sr.po	289764394	666255901	95314	98796
+modules/core/po/strings.raw	2372110791	2116876288	65196	66369
+modules/core/po/sv.po	2092413134	3867746266	103153	106639
+modules/core/po/tr.po	620291075	1387590238	76709	79996
+modules/core/po/vi.po	4182716318	1799204358	105172	108666
+modules/core/po/zh_CN.po	469952417	3120206171	93831	97195
+modules/core/po/zh_TW.po	2747936150	2206127554	95143	98445
+modules/core/templates/AdminCore.tpl	2186464565	2379023349	13620	13955
+modules/core/templates/AdminCreateGroup.tpl	566930553	2018529404	1343	1382
+modules/core/templates/AdminCreateUser.tpl	1237036748	1304493147	3072	3180
+modules/core/templates/AdminDeleteGroup.tpl	1081227305	1432619943	1087	1115
+modules/core/templates/AdminDeleteUser.tpl	3082658749	696686535	3249	3336
+modules/core/templates/AdminEditGroup.tpl	174718646	571049629	1573	1616
+modules/core/templates/AdminEditGroupUsers.tpl	1943491119	3931404335	5691	5855
+modules/core/templates/AdminEditUser.tpl	2848892730	3422529386	3260	3366
+modules/core/templates/AdminGroups.tpl	3060339137	4161476364	5548	5704
+modules/core/templates/AdminMaintenance.tpl	3484859554	1478641533	2922	3009
+modules/core/templates/AdminModulesVerifyUninstall.tpl	931162427	496751568	1175	1203
+modules/core/templates/AdminPerformance.tpl	2008848320	2136400148	5207	5342
+modules/core/templates/AdminPlugins.tpl	207253293	3974469840	14330	14672
+modules/core/templates/AdminRepository.tpl	2630057599	1281669082	8710	8936
+modules/core/templates/AdminRepositoryDownload.tpl	2878102469	3287461261	3801	3899
+modules/core/templates/AdminRepositorySetup.tpl	695605094	1953645877	1262	1292
+modules/core/templates/AdminThemes.tpl	633944432	1058270988	10245	10542
+modules/core/templates/AdminToolkitPriority.tpl	2834837910	2500395293	2364	2432
+modules/core/templates/AdminUsers.tpl	709894104	525552245	5130	5278
+modules/core/templates/AutoComplete.tpl	1832137937	1339306211	1145	1169
+modules/core/templates/CreateThumbnailOption.tpl	909061593	2739105434	943	962
+modules/core/templates/DefaultButton.tpl	793193403	1726200774	1374	1398
+modules/core/templates/Dimensions.tpl	4233446345	1605409076	1353	1388
+modules/core/templates/EmailTest.tpl	1223251544	1316309802	331	338
+modules/core/templates/ErrorPage.tpl	2637865452	49911277	4754	4904
+modules/core/templates/FallbackTheme.tpl	3410495165	383222202	527	542
+modules/core/templates/ItemAdd.tpl	2619357768	1033541452	1455	1495
+modules/core/templates/ItemAddAlbum.tpl	1921139594	469858623	3168	3267
+modules/core/templates/ItemAddConfirmation.tpl	1792521194	551825050	1442	1490
+modules/core/templates/ItemAddFromBrowser.tpl	3795361640	3247838079	3995	4092
+modules/core/templates/ItemAdmin.tpl	999931250	619978155	1861	1915
+modules/core/templates/ItemDelete.tpl	3439283828	1276150590	4859	4994
+modules/core/templates/ItemDeleteConfirmation.tpl	892649898	1011130331	473	486
+modules/core/templates/ItemDeleteSingle.tpl	140129004	238176975	1017	1046
+modules/core/templates/ItemEdit.tpl	446890474	4062683008	1615	1670
+modules/core/templates/ItemEditAlbum.tpl	2242909089	3904463941	5121	5260
+modules/core/templates/ItemEditAnimation.tpl	3561355940	332001865	1767	1814
+modules/core/templates/ItemEditCaptions.tpl	2100777844	2092425528	4710	4839
+modules/core/templates/ItemEditItem.tpl	2193792878	690424979	7348	7565
+modules/core/templates/ItemEditMovie.tpl	3265265129	3322024961	1724	1769
+modules/core/templates/ItemEditPhoto.tpl	765587820	1578286504	2170	2228
+modules/core/templates/ItemEditPhotoThumbnail.css	2517483465	817094381	1175	1253
+modules/core/templates/ItemEditPhotoThumbnail.tpl	1404505143	783915057	4686	4798
+modules/core/templates/ItemEditRotateAndScalePhoto.tpl	1877669396	3931330802	4722	4839
+modules/core/templates/ItemEditTheme.tpl	112256640	1944286294	8335	8574
+modules/core/templates/ItemMakeHighlight.tpl	3452512754	751841031	1190	1222
+modules/core/templates/ItemMove.tpl	1659083062	3379833352	9725	9977
+modules/core/templates/ItemMoveSingle.tpl	2926059875	1457469440	1681	1731
+modules/core/templates/ItemPermissions.tpl	754747848	1237479055	9479	9745
+modules/core/templates/ItemReorder.tpl	1213606357	3629268575	2108	2168
+modules/core/templates/LateRedirect.tpl	678789490	1225475787	378	387
+modules/core/templates/MaintenanceMode.tpl	1445087478	4255963129	679	699
+modules/core/templates/MarkupBar.tpl	420634385	907489580	2890	2958
+modules/core/templates/ShowItem.tpl	4118073668	2276121935	280	287
+modules/core/templates/ShowItemError.tpl	2934865915	978141890	3005	3057
+modules/core/templates/SidebarBlock.tpl	2681283733	4172402627	505	516
+modules/core/templates/SiteAdmin.tpl	2202325978	3731442347	1633	1684
+modules/core/templates/UserAdmin.tpl	3456599599	4117944598	1538	1584
+modules/core/templates/UserChangePassword.tpl	3112024648	261345730	2487	2576
+modules/core/templates/UserLogin.tpl	3444800678	1025703555	2679	2754
+modules/core/templates/UserPreferences.tpl	2941724183	1250922813	2772	2868
+modules/core/templates/UserRecoverPassword.tpl	369991003	368775929	2665	2721
+modules/core/templates/UserRecoverPasswordAdmin.tpl	1133638419	359648877	4915	5041
+modules/core/templates/UserRecoverPasswordConfirm.tpl	2332655098	2947429821	2668	2750
+modules/core/templates/UserRecoverPasswordEmail.tpl	3885855535	2395375257	763	781
+modules/core/templates/blocks/BreadCrumb.tpl	236007178	2875121884	1692	1729
+modules/core/templates/blocks/EmergencyEditItemLink.tpl	2398620738	1090669848	869	888
+modules/core/templates/blocks/GuestPreview.tpl	2093325997	1333358636	858	876
+modules/core/templates/blocks/ItemInfo.tpl	40913789	1646080798	1474	1523
+modules/core/templates/blocks/ItemLinks.tpl	4083019513	2210450803	1800	1834
+modules/core/templates/blocks/LanguageSelector.tpl	2673437463	552928523	917	939
+modules/core/templates/blocks/LoginBlock.tpl	3219402172	2716668688	1567	1601
+modules/core/templates/blocks/NavigationLinks.tpl	996853069	3517311236	552	572
+modules/core/templates/blocks/Navigator.tpl	2795187975	3500827250	3044	3129
+modules/core/templates/blocks/Pager.tpl	162081749	2186293478	918	948
+modules/core/templates/blocks/PeerList.tpl	2728069922	3886235338	1269	1302
+modules/core/templates/blocks/PhotoSizes.tpl	2066736466	2113440878	1812	1863
+modules/core/templates/blocks/SystemLink.tpl	2781535503	577407101	464	476
+modules/core/templates/blocks/SystemLinks.tpl	2524238508	3649012572	1267	1304
+modules/core/templates/blocks/blocks.inc	3504865617	701317870	514	533
+modules/core/test/data/DataCacheTest_1.class	3924075277	63834186	40	41
+modules/core/test/data/DataCacheTest_2.class	3496583112	3908678473	40	41
+modules/core/test/data/MailHelperTest.tpl	2261738495	2671199193	356	364
+modules/core/test/data/RepositoryTest.package	398291027	398291027	284	284
+modules/core/test/data/director.dcr	1282249980	1282249980	56410	56410
+modules/core/test/data/flash.swf	1822579798	1822579798	66468	66468
+modules/core/test/data/test1.gif	1305344521	1305344521	1083	1083
+modules/core/test/data/test1.jpg	1964933131	1964933131	1966	1966
+modules/core/test/data/test2.gif	2424198006	2424198006	15068	15068
+modules/core/test/data/test4.gif	3593619326	3593619326	26020	26020
+modules/core/test/data/test[3].gif	795576511	795576511	2959	2959
+modules/core/test/phpunit/AdminCoreControllerTest.class	1630851244	750080603	16206	16648
+modules/core/test/phpunit/AdminCreateGroupControllerTest.class	1444169712	3682688749	3735	3852
+modules/core/test/phpunit/AdminCreateUserControllerTest.class	1632537764	2845733811	6519	6693
+modules/core/test/phpunit/AdminDeleteGroupControllerTest.class	3289110713	687882218	5501	5680
+modules/core/test/phpunit/AdminDeleteUserControllerTest.class	3718518247	1502119757	18087	18666
+modules/core/test/phpunit/AdminEditGroupControllerTest.class	460217142	3540101988	4414	4561
+modules/core/test/phpunit/AdminEditGroupUsersControllerTest.class	2614306564	1352879156	7879	8112
+modules/core/test/phpunit/AdminEditUserControllerTest.class	4069786978	1411139294	9334	9560
+modules/core/test/phpunit/AdminGroupsControllerTest.class	3307415587	2510806669	10373	10686
+modules/core/test/phpunit/AdminMaintenanceControllerTest.class	3770398413	1675305953	11602	11960
+modules/core/test/phpunit/AdminModulesVerifyUninstallControllerTest.class	2904035772	949545868	5459	5637
+modules/core/test/phpunit/AdminPerformanceControllerTest.class	1029761533	128921671	4373	4502
+modules/core/test/phpunit/AdminRepositoryControllerTest.class	662460656	4009902642	13644	14035
+modules/core/test/phpunit/AdminThemesControllerTest.class	540455619	3835858073	9191	9524
+modules/core/test/phpunit/AdminToolkitPriorityControllerTest.class	3956947885	2076393631	3398	3507
+modules/core/test/phpunit/AdminUsersControllerTest.class	566910953	1291469015	6793	7002
+modules/core/test/phpunit/AlbumTest.class	3445624457	1090659271	29201	30223
+modules/core/test/phpunit/CallbacksTest.class	3444672353	86632370	9758	10038
+modules/core/test/phpunit/CharsetTest.class	3465183890	2483440918	18235	18740
+modules/core/test/phpunit/ChildTest.class	424637002	4079546802	14702	15176
+modules/core/test/phpunit/CodeAuditTest.class	3782631525	4139818735	14228	14670
+modules/core/test/phpunit/ControllerTest.class	2998359204	827099131	3003	3106
+modules/core/test/phpunit/CoreModuleTest.class	3273253917	3820725629	5812	6011
+modules/core/test/phpunit/CoreSearchTest.class	3223191272	3963218437	13870	14326
+modules/core/test/phpunit/CreateThumbnailOptionTest.class	3808507913	1981993508	6834	7037
+modules/core/test/phpunit/DataCacheTest.class	619471593	1228073813	22222	22918
+modules/core/test/phpunit/DataItemTest.class	1629116600	2264985692	6139	6374
+modules/core/test/phpunit/DatabaseStorageTest.class	1541078929	760016361	3925	4064
+modules/core/test/phpunit/DerivativeTest.class	1595948162	3601482573	33845	34870
+modules/core/test/phpunit/EmbedTest.class	2043782608	3214298990	16545	16961
+modules/core/test/phpunit/EntityTest.class	4138206782	3468332088	14714	15198
+modules/core/test/phpunit/EventTest.class	499276636	3097401393	4024	4163
+modules/core/test/phpunit/FactoryTest.class	3653222742	2715867057	8496	8796
+modules/core/test/phpunit/FastDownloadTest.class	105780662	1906423163	11635	12043
+modules/core/test/phpunit/FileSystemTest.class	878497763	1963788836	12046	12445
+modules/core/test/phpunit/FlushDatabaseCacheTaskTest.class	4167941033	2202155870	4486	4636
+modules/core/test/phpunit/FlushTemplatesTaskTest.class	2544341778	1341756287	4045	4181
+modules/core/test/phpunit/IndexDotPhpTest.class	2143915560	3797809193	2974	3055
+modules/core/test/phpunit/ItemAddAlbumControllerTest.class	102453683	562454749	8344	8561
+modules/core/test/phpunit/ItemAddControllerTest.class	2537077462	2626638128	11378	11722
+modules/core/test/phpunit/ItemAddFromBrowserTest.class	336250657	3742407047	13938	14290
+modules/core/test/phpunit/ItemAttributesTest.class	3951231468	57671092	22258	23025
+modules/core/test/phpunit/ItemDeleteControllerTest.class	919628493	181753250	8690	8971
+modules/core/test/phpunit/ItemDeleteSingleControllerTest.class	1157360930	1850944389	4330	4470
+modules/core/test/phpunit/ItemEditAlbumPluginTest.class	2903236187	3901539573	26798	27505
+modules/core/test/phpunit/ItemEditAnimationPluginTest.class	1131288216	2900252916	4373	4503
+modules/core/test/phpunit/ItemEditCaptionsControllerTest.class	1953678986	3471133591	10939	11227
+modules/core/test/phpunit/ItemEditControllerTest.class	451881044	4252745064	6620	6822
+modules/core/test/phpunit/ItemEditItemPluginTest.class	4096619663	3195123418	25375	26040
+modules/core/test/phpunit/ItemEditMoviePluginTest.class	3265805268	4945425	8093	8387
+modules/core/test/phpunit/ItemEditPhotoPluginTest.class	464704803	3044896526	12780	13143
+modules/core/test/phpunit/ItemEditPhotoThumbnailPluginTest.class	860430017	1918767353	10781	11108
+modules/core/test/phpunit/ItemEditRotateAndScalePhotoPluginTest.class	3410551957	2669887550	23542	24195
+modules/core/test/phpunit/ItemEditThemePluginTest.class	859743810	5516380	11225	11626
+modules/core/test/phpunit/ItemMakeHighlightControllerTest.class	633359639	3943555221	5028	5180
+modules/core/test/phpunit/ItemMoveControllerTest.class	370568730	235967349	19839	20432
+modules/core/test/phpunit/ItemMoveSingleControllerTest.class	3848775857	684592846	14728	15132
+modules/core/test/phpunit/ItemOrderTest.class	2422341864	147786960	5106	5285
+modules/core/test/phpunit/ItemPermissionsControllerTest.class	3044093368	1914215146	30582	31408
+modules/core/test/phpunit/ItemReorderControllerTest.class	2067445805	3202839801	11292	11608
+modules/core/test/phpunit/ItemTest.class	2996611484	1093401584	58054	59875
+modules/core/test/phpunit/LanguageTest.class	4209242502	106703799	3133	3240
+modules/core/test/phpunit/LocalizationAuditTest.class	2326983463	6788251	4205	4336
+modules/core/test/phpunit/LockTest.class	4005362477	1050298662	19986	20612
+modules/core/test/phpunit/LogoutControllerTest.class	4162875783	2281004667	3149	3268
+modules/core/test/phpunit/MailHelperTest.class	3306708782	914458556	7624	7883
+modules/core/test/phpunit/MainTest.class	3559657993	2294592129	10554	10849
+modules/core/test/phpunit/MaintenanceHelperTest.class	598543284	2311759557	3996	4117
+modules/core/test/phpunit/MapTest.class	3537906999	2412084217	3274	3375
+modules/core/test/phpunit/MarkupTest.class	1715183268	3873274	9018	9273
+modules/core/test/phpunit/MimeTest.class	3036151072	732485704	3938	4077
+modules/core/test/phpunit/ModuleTest.class	3400231042	2087852374	15964	16551
+modules/core/test/phpunit/OptimizeDatabaseTaskTest.class	491999779	2022734376	2350	2434
+modules/core/test/phpunit/PermissionSetTest.class	1187098107	1291688893	7743	8002
+modules/core/test/phpunit/PermissionTest.class	2897631402	3345662667	39948	41098
+modules/core/test/phpunit/PhotoTest.class	646179545	4230932437	5182	5377
+modules/core/test/phpunit/Php43CompatibilityTest.class	2989374588	1037880733	3626	3734
+modules/core/test/phpunit/Php43IllegalFunctions.inc	3981351497	877350695	89297	90464
+modules/core/test/phpunit/PhpDocAuditTest.class	4098793111	1900445131	2857	2956
+modules/core/test/phpunit/PhpVmTest.class	1115783419	2108035625	5454	5610
+modules/core/test/phpunit/PlatformTest.class	292545430	3191486905	32233	33069
+modules/core/test/phpunit/PluginCallbackTest.class	3759953520	2621310724	18847	19359
+modules/core/test/phpunit/PluginParameterTest.class	3574144315	2122622553	8838	9136
+modules/core/test/phpunit/PluginTest.class	3399522754	658349164	6016	6194
+modules/core/test/phpunit/RepositoryIndexTest.class	2261835991	4090855962	14876	15350
+modules/core/test/phpunit/RepositoryTest.class	2872195796	1732853035	30827	31619
+modules/core/test/phpunit/RepositoryTestStorage.class	2995305253	1815684260	3246	3366
+modules/core/test/phpunit/RepositoryUtilitiesTest.class	2808075785	1068068767	14871	15271
+modules/core/test/phpunit/SessionAuthPluginTest.class	288805422	81531165	2780	2882
+modules/core/test/phpunit/SessionTest.class	1008796172	3886646488	103005	105934
+modules/core/test/phpunit/ShowItemControllerTest.class	1453378142	2833450669	2960	3062
+modules/core/test/phpunit/ShowItemTest.class	779025554	3670205915	8383	8643
+modules/core/test/phpunit/SimpleCallbackTest.class	1581650442	3998906633	12850	13224
+modules/core/test/phpunit/StatusTest.class	1266192108	3229408464	1760	1813
+modules/core/test/phpunit/StorageTest.class	1279118566	3345261911	21653	22313
+modules/core/test/phpunit/TemplateAdapterTest.class	2141382676	108083059	7216	7435
+modules/core/test/phpunit/TemplateAuditTest.class	3787628058	3701713222	4288	4419
+modules/core/test/phpunit/TemplateTest.class	4112245927	1500866136	4906	5038
+modules/core/test/phpunit/ThemeTest.class	1452892367	1421891607	10988	11369
+modules/core/test/phpunit/ToolkitTest.class	3733837931	628084950	22727	23434
+modules/core/test/phpunit/TranslatorTest.class	412343212	3092409850	11768	12162
+modules/core/test/phpunit/TruncateTest.class	1105544881	39773310	6472	6644
+modules/core/test/phpunit/UrlGeneratorTest.class	89358659	3321565100	59645	61194
+modules/core/test/phpunit/UserAndGroupTest.class	463877105	3915900245	43323	44802
+modules/core/test/phpunit/UserChangePasswordControllerTest.class	434356230	1085812767	7179	7376
+modules/core/test/phpunit/UserLoginControllerTest.class	21319464	39218081	13777	14169
+modules/core/test/phpunit/UserPreferencesControllerTest.class	388344174	994821791	13597	13958
+modules/core/test/phpunit/UserRecoverPasswordAdminControllerTest.class	2285784153	3114110040	11583	11927
+modules/core/test/phpunit/UserRecoverPasswordConfirmControllerTest.class	2285729219	758621060	7140	7367
+modules/core/test/phpunit/UserRecoverPasswordControllerTest.class	1259724376	945298252	18135	18715
+modules/core/test/phpunit/UtilitiesTest.class	3925455675	995897349	60913	62509
+modules/core/test/phpunit/ViewTest.class	3827418822	2165131867	4246	4389
+modules/core/test/phpunit/WebTest.class	2459841269	3367040148	25483	26185
+R	modules/core/AdminLayouts.inc
+R	modules/core/AdminModules.inc
+R	modules/core/ItemAddFromServer.inc
+R	modules/core/ItemAddFromWeb.inc
+R	modules/core/ItemCreateLink.inc
+R	modules/core/ItemCreateLinkSingle.inc
+R	modules/core/ItemEditLayout.inc
+R	modules/core/ItemEditPhotoSizes.inc
+R	modules/core/ModuleCallback.inc
+R	modules/core/Navigation.inc
+R	modules/core/ObsoleteDataError.inc
+R	modules/core/OptimizeDatabaseTask.inc
+R	modules/core/SecurityViolation.inc
+R	modules/core/classes/ExternalIdMap.class
+R	modules/core/classes/GalleryAccessMap.class
+R	modules/core/classes/GalleryAccessSubscriberMap.class
+R	modules/core/classes/GalleryDerivativePreferencesMap.class
+R	modules/core/classes/GalleryDescendentCountsMap.class
+R	modules/core/classes/GalleryFactoryMap.class
+R	modules/core/classes/GalleryImmediateStatusView.class
+R	modules/core/classes/GalleryItemAttributesMap.class
+R	modules/core/classes/GalleryItemPropertiesMap.class
+R	modules/core/classes/GalleryLayout.class
+R	modules/core/classes/GalleryMaintenanceMap.class
+R	modules/core/classes/GalleryMimeTypeMap.class
+R	modules/core/classes/GalleryPermissionMap.class
+R	modules/core/classes/GalleryPermissionSetMap.class
+R	modules/core/classes/GalleryPluginMap.class
+R	modules/core/classes/GalleryPluginPackageMap.class
+R	modules/core/classes/GalleryPluginParameterMap.class
+R	modules/core/classes/GalleryRecoverPasswordMap.class
+R	modules/core/classes/GallerySearchResults.class
+R	modules/core/classes/GallerySortInterface_1.0.class
+R	modules/core/classes/GalleryStorage/DatabaseSearchResults.class
+R	modules/core/classes/GalleryStorage/DatabaseSqlFragment.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage/CreateBitOr.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/CreateDb2Udfs.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/Db2DatabaseStorage.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage/ErrorHandler.inc
+R	modules/core/classes/GalleryStorage/DatabaseStorage/MySqlDatabaseStorage.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage/OracleDatabaseStorage.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage/PostgreSqlDatabaseStorage.class
+R	modules/core/classes/GalleryStorage/DatabaseStorage/g2_db2.jar
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/GNUmakefile.inc
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryAlbumItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryDerivative_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryDerivative_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryEntity_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryGroup_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryPluginMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryPluginParameterMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryPluginParameterMap_1.1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/A_GalleryPluginParameterMap_1.2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/ExternalIdMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryAccessMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryAccessSubscriberMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryAlbumItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryAnimationItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryChildEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryDataItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryDerivative.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryDerivativeImage.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryDerivativePreferencesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryDescendentCountsMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryFactoryMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryFileSystemEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryGroup.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryItemAttributesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryItemPropertiesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryMaintenanceMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryModuleMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryModuleParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryMovieItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryPermissionMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryPermissionSetMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryPhotoItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryPluginMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryPluginParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryRecoverPasswordMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GallerySession.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryToolkitOperationMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryToolkitOperationMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryToolkitOperationParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryToolkitPropertyMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryToolkitPropertyMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryUnknownItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryUser.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryUserGroupMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/GalleryViewCountMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/InstallerTest_sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/Lock.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/MySQL.xsl
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/R_GalleryItemPropertiesMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/R_GalleryItemPropertiesMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/R_GalleryPermissionMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/R_GalleryPermissionMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/Schema.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/T_InstallerTest_1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/T_InstallerTest_2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/T_InstallerTest_3.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql/T_InstallerTest_4.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/mysql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryAlbumItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryDerivative_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryDerivative_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryEntity_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryGroup_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryPluginMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryPluginParameterMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryPluginParameterMap_1.1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/A_GalleryPluginParameterMap_1.2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/CreateBitOr.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/CreateBitOr_sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/ExternalIdMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryAccessMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryAccessSubscriberMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryAlbumItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryAnimationItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryChildEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryDataItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryDerivative.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryDerivativeImage.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryDerivativePreferencesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryDescendentCountsMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryFactoryMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryFileSystemEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryGroup.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryItemAttributesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryItemPropertiesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryMaintenanceMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryMovieItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryPermissionMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryPermissionSetMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryPhotoItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryPluginMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryPluginParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryRecoverPasswordMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryToolkitOperationMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryToolkitOperationMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryToolkitOperationParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryToolkitPropertyMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryToolkitPropertyMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryUnknownItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryUser.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/GalleryUserGroupMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/InitRandom.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/InstallerTest_sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/Lock.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/Oracle.xsl
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/R_GalleryItemPropertiesMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/R_GalleryItemPropertiesMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/R_GalleryPermissionMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/R_GalleryPermissionMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/Schema.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/T_InstallerTest_1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/T_InstallerTest_2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/T_InstallerTest_3.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle/T_InstallerTest_4.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/oracle
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryAlbumItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryDerivative_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryDerivative_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryEntity_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryGroup_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryItem_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryPluginMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryPluginParameterMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryPluginParameterMap_1.1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/A_GalleryPluginParameterMap_1.2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/CreateBitOr.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/ExternalIdMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryAccessMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryAccessSubscriberMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryAlbumItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryAnimationItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryChildEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryDataItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryDerivative.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryDerivativeImage.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryDerivativePreferencesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryDescendentCountsMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryFactoryMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryFileSystemEntity.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryGroup.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryItemAttributesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryItemPropertiesMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryMaintenanceMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryModuleMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryModuleParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryMovieItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryPermissionMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryPermissionSetMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryPhotoItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryPluginMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryPluginParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryRecoverPasswordMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GallerySession.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryToolkitOperationMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryToolkitOperationMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryToolkitOperationParameterMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryToolkitPropertyMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryToolkitPropertyMimeTypeMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryUnknownItem.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryUser.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryUserGroupMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/GalleryViewCountMap.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/InstallerTest_sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/Lock.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/PostgreSQL.xsl
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/R_GalleryItemPropertiesMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/R_GalleryItemPropertiesMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/R_GalleryPermissionMap_1.0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/R_GalleryPermissionMap_1_0.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/Schema.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/T_InstallerTest_1.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/T_InstallerTest_2.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/T_InstallerTest_3.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres/T_InstallerTest_4.sql
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform/postgres
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/platform
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/schema.tpl
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-out/InstallerTest.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-out
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryAccessMap_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryAccessMap_1.1.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryAlbumItem_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryDerivative_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryDerivative_1_0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryEntity_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryGroup_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryItem_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryPluginMap_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryPluginParameterMap_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryPluginParameterMap_1.1.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryPluginParameterMap_1.2.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/A_GalleryUser_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/DbXml.xsl
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/GNUmakefile
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/Lock.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/R_GalleryItemPropertiesMap_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/R_GalleryItemPropertiesMap_1_0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/R_GalleryPermissionMap_1.0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/R_GalleryPermissionMap_1_0.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/Schema.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/T_InstallerTest_1.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/T_InstallerTest_2.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/T_InstallerTest_3.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src/T_InstallerTest_4.xml
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema/xml-src
+R	modules/core/classes/GalleryStorage/DatabaseStorage/schema
+R	modules/core/classes/GalleryStorage/DatabaseStorage
+R	modules/core/classes/GalleryStorage/DatabaseStorageExtras.class
+R	modules/core/classes/GalleryToolkitOperationMap.class
+R	modules/core/classes/GalleryToolkitOperationMimeTypeMap.class
+R	modules/core/classes/GalleryToolkitOperationParameterMap.class
+R	modules/core/classes/GalleryToolkitPropertyMap.class
+R	modules/core/classes/GalleryToolkitPropertyMimeTypeMap.class
+R	modules/core/classes/GalleryUserGroupMap.class
+R	modules/core/classes/helpers/GalleryLockHelper_medium.class
+R	modules/core/classes/helpers/GalleryPermissionHelper_medium.class
+R	modules/core/classes/helpers/MimeHelper_simple.class
+R	modules/core/classes/interfaces/ClassCode.xsl
+R	modules/core/classes/interfaces/ExternalIdMap.inc
+R	modules/core/classes/interfaces/GNUmakefile
+R	modules/core/classes/interfaces/GalleryAccessMap.inc
+R	modules/core/classes/interfaces/GalleryAccessSubscriberMap.inc
+R	modules/core/classes/interfaces/GalleryAlbumItem.inc
+R	modules/core/classes/interfaces/GalleryAnimationItem.inc
+R	modules/core/classes/interfaces/GalleryChildEntity.inc
+R	modules/core/classes/interfaces/GalleryDataItem.inc
+R	modules/core/classes/interfaces/GalleryDerivative.inc
+R	modules/core/classes/interfaces/GalleryDerivativeImage.inc
+R	modules/core/classes/interfaces/GalleryDerivativePreferencesMap.inc
+R	modules/core/classes/interfaces/GalleryDescendentCountsMap.inc
+R	modules/core/classes/interfaces/GalleryEntity.inc
+R	modules/core/classes/interfaces/GalleryFactoryMap.inc
+R	modules/core/classes/interfaces/GalleryFileSystemEntity.inc
+R	modules/core/classes/interfaces/GalleryGroup.inc
+R	modules/core/classes/interfaces/GalleryItem.inc
+R	modules/core/classes/interfaces/GalleryItemAttributesMap.inc
+R	modules/core/classes/interfaces/GalleryItemPropertiesMap.inc
+R	modules/core/classes/interfaces/GalleryMaintenanceMap.inc
+R	modules/core/classes/interfaces/GalleryMimeTypeMap.inc
+R	modules/core/classes/interfaces/GalleryModuleMap.inc
+R	modules/core/classes/interfaces/GalleryModuleParameterMap.inc
+R	modules/core/classes/interfaces/GalleryMovieItem.inc
+R	modules/core/classes/interfaces/GalleryPermissionMap.inc
+R	modules/core/classes/interfaces/GalleryPermissionSetMap.inc
+R	modules/core/classes/interfaces/GalleryPhotoItem.inc
+R	modules/core/classes/interfaces/GalleryPluginMap.inc
+R	modules/core/classes/interfaces/GalleryPluginPackageMap.inc
+R	modules/core/classes/interfaces/GalleryPluginParameterMap.inc
+R	modules/core/classes/interfaces/GalleryRecoverPasswordMap.inc
+R	modules/core/classes/interfaces/GallerySession.inc
+R	modules/core/classes/interfaces/GalleryToolkitOperationMap.inc
+R	modules/core/classes/interfaces/GalleryToolkitOperationMimeTypeMap.inc
+R	modules/core/classes/interfaces/GalleryToolkitOperationParameterMap.inc
+R	modules/core/classes/interfaces/GalleryToolkitPropertyMap.inc
+R	modules/core/classes/interfaces/GalleryToolkitPropertyMimeTypeMap.inc
+R	modules/core/classes/interfaces/GalleryUnknownItem.inc
+R	modules/core/classes/interfaces/GalleryUser.inc
+R	modules/core/classes/interfaces/GalleryUserGroupMap.inc
+R	modules/core/classes/interfaces/GalleryViewCountMap.inc
+R	modules/core/classes/interfaces
+R	modules/core/data/g2-unpossible.mp3
+R	modules/core/data/g2-unpossible.png
+R	modules/core/data/g21-blackjack.html
+R	modules/core/data/g21-blackjack.png
+R	modules/core/data/g21-blackjack.swf
+R	modules/core/data/g21-rc1-hitme.mov
+R	modules/core/data/g2b3-bingo.png
+R	modules/core/data/g2b3-bingo.wav
+R	modules/core/data/g2b4-flippin-sweet-full.jpg
+R	modules/core/data/g2b4-flippin-sweet-full.png
+R	modules/core/data/g2b4-flippin-sweet-logo.png
+R	modules/core/data/g2b4-flippin-sweet.html
+R	modules/core/data/g2rc1-+5-insightful.png
+R	modules/core/data/g2rc2-kthxbye.mp3
+R	modules/core/data/g2rc2-kthxbye.png
+R	modules/core/locale/ar_SA/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/ar_SA/LC_MESSAGES
+R	modules/core/locale/ar_SA
+R	modules/core/locale/bg_BG/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/bg_BG/LC_MESSAGES
+R	modules/core/locale/bg_BG
+R	modules/core/locale/cs_CZ/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/cs_CZ/LC_MESSAGES
+R	modules/core/locale/cs_CZ
+R	modules/core/locale/da_DK/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/da_DK/LC_MESSAGES
+R	modules/core/locale/da_DK
+R	modules/core/locale/de_DE/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/de_DE/LC_MESSAGES
+R	modules/core/locale/de_DE
+R	modules/core/locale/el_GR/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/el_GR/LC_MESSAGES
+R	modules/core/locale/el_GR
+R	modules/core/locale/es_ES/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/es_ES/LC_MESSAGES
+R	modules/core/locale/es_ES
+R	modules/core/locale/eu_ES/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/eu_ES/LC_MESSAGES
+R	modules/core/locale/eu_ES
+R	modules/core/locale/fi_FI/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/fi_FI/LC_MESSAGES
+R	modules/core/locale/fi_FI
+R	modules/core/locale/fr_FR/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/fr_FR/LC_MESSAGES
+R	modules/core/locale/fr_FR
+R	modules/core/locale/ga_IE/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/ga_IE/LC_MESSAGES
+R	modules/core/locale/ga_IE
+R	modules/core/locale/he_IL/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/he_IL/LC_MESSAGES
+R	modules/core/locale/he_IL
+R	modules/core/locale/hu_HU/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/hu_HU/LC_MESSAGES
+R	modules/core/locale/hu_HU
+R	modules/core/locale/is_IS/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/is_IS/LC_MESSAGES
+R	modules/core/locale/is_IS
+R	modules/core/locale/it_IT/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/it_IT/LC_MESSAGES
+R	modules/core/locale/it_IT
+R	modules/core/locale/ja_JP/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/ja_JP/LC_MESSAGES
+R	modules/core/locale/ja_JP
+R	modules/core/locale/nl_NL/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/nl_NL/LC_MESSAGES
+R	modules/core/locale/nl_NL
+R	modules/core/locale/no_NO/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/no_NO/LC_MESSAGES
+R	modules/core/locale/no_NO
+R	modules/core/locale/pl_PL/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/pl_PL/LC_MESSAGES
+R	modules/core/locale/pl_PL
+R	modules/core/locale/pt_PT/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/pt_PT/LC_MESSAGES
+R	modules/core/locale/pt_PT
+R	modules/core/locale/ru_RU/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/ru_RU/LC_MESSAGES
+R	modules/core/locale/ru_RU
+R	modules/core/locale/sr_YU/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/sr_YU/LC_MESSAGES
+R	modules/core/locale/sr_YU
+R	modules/core/locale/sv_SE/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/sv_SE/LC_MESSAGES
+R	modules/core/locale/sv_SE
+R	modules/core/locale/tr_TR/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/tr_TR/LC_MESSAGES
+R	modules/core/locale/tr_TR
+R	modules/core/locale/vi_VN/LC_MESSAGES/modules_core.mo
+R	modules/core/locale/vi_VN/LC_MESSAGES
+R	modules/core/locale/vi_VN
+R	modules/core/plugins/ImageCrop.jar
+R	modules/core/plugins
+R	modules/core/po/ar_SA.po
+R	modules/core/po/bg_BG.po
+R	modules/core/po/cs_CZ.po
+R	modules/core/po/da_DK.po
+R	modules/core/po/de_DE.po
+R	modules/core/po/el_GR.po
+R	modules/core/po/es_ES.po
+R	modules/core/po/eu_ES.po
+R	modules/core/po/fi_FI.po
+R	modules/core/po/fr_FR.po
+R	modules/core/po/ga_IE.po
+R	modules/core/po/he_IL.po
+R	modules/core/po/hu_HU.po
+R	modules/core/po/is_IS.po
+R	modules/core/po/it_IT.po
+R	modules/core/po/ja_JP.po
+R	modules/core/po/nl_NL.po
+R	modules/core/po/no_NO.po
+R	modules/core/po/pl_PL.po
+R	modules/core/po/pt_PT.po
+R	modules/core/po/ru_RU.po
+R	modules/core/po/sr_YU.po
+R	modules/core/po/sv_SE.po
+R	modules/core/po/tr_TR.po
+R	modules/core/po/vi_VN.po
+R	modules/core/templates/AdminLayouts.tpl
+R	modules/core/templates/AdminModules.tpl
+R	modules/core/templates/ImmediateStatus.tpl
+R	modules/core/templates/ImmediateStatusMessage.tpl
+R	modules/core/templates/ItemAddFromServer.tpl
+R	modules/core/templates/ItemAddFromWeb.tpl
+R	modules/core/templates/ItemCreateLink.tpl
+R	modules/core/templates/ItemCreateLinkSingle.tpl
+R	modules/core/templates/ItemEditLayout.tpl
+R	modules/core/templates/ItemEditPhotoSizes.tpl
+R	modules/core/templates/LanguageSelector.tpl
+R	modules/core/templates/LoginSystemContent.tpl
+R	modules/core/templates/NavigationSidebar.tpl
+R	modules/core/templates/ObsoleteDataError.tpl
+R	modules/core/templates/ObsoleteDataErrorHead.tpl
+R	modules/core/templates/SecurityViolation.tpl
+R	modules/core/templates/SecurityViolationHead.tpl
+R	modules/core/templates/ShowItemHead.tpl
+R	modules/core/templates/SiteAdminHead.tpl
+R	modules/core/templates/SplitMarker.tpl
+R	modules/core/templates/StatusMessage.tpl
+R	modules/core/templates/UserAdminHead.tpl
+R	modules/core/templates/UserPreferencesHead.tpl
+R	modules/core/test/TestCase/CleanStore.class
+R	modules/core/test/TestCase/ConfigureStore.class
+R	modules/core/test/TestCase/Constructor.class
+R	modules/core/test/TestCase/CreateAdminUser.class
+R	modules/core/test/TestCase/CreateAlbum.class
+R	modules/core/test/TestCase/CreateAllAdminsGroup.class
+R	modules/core/test/TestCase/CreateAllUsersGroup.class
+R	modules/core/test/TestCase/CreateAndDeleteAlbumItem.class
+R	modules/core/test/TestCase/CreateAndDeleteUser.class
+R	modules/core/test/TestCase/CreateAnonymousUser.class
+R	modules/core/test/TestCase/CreateGroupAndUsers.class
+R	modules/core/test/TestCase/CreateModifyAndDeleteUser.class
+R	modules/core/test/TestCase/CreateNestedAlbumItem.class
+R	modules/core/test/TestCase/CreatePhotoItem.class
+R	modules/core/test/TestCase/CreateRandomGroup.class
+R	modules/core/test/TestCase/CreateRandomTree.class
+R	modules/core/test/TestCase/CreateRandomUser.class
+R	modules/core/test/TestCase/CreateRootAlbumItem.class
+R	modules/core/test/TestCase/CreateStore.class
+R	modules/core/test/TestCase/DeleteAllItems.class
+R	modules/core/test/TestCase/DeleteRandomAlbum.class
+R	modules/core/test/TestCase/EmptyGallery.class
+R	modules/core/test/TestCase/FlushCache.class
+R	modules/core/test/TestCase/FlushTemplates.class
+R	modules/core/test/TestCase/GetChildren.class
+R	modules/core/test/TestCase/InitializeGallery.class
+R	modules/core/test/TestCase/LoadAlbumItem.class
+R	modules/core/test/TestCase/PerformanceTestData.class
+R	modules/core/test/TestCase/ReInitializeGallery.class
+R	modules/core/test/TestCase/RemoveStore.class
+R	modules/core/test/TestCase/ResetGallery.class
+R	modules/core/test/TestCase
+R	modules/core/test/data/localUploadDir/subädir
+R	modules/core/test/data/localUploadDir/test1.gif
+R	modules/core/test/data/localUploadDir/test1.jpg
+R	modules/core/test/data/localUploadDir/test2.gif
+R	modules/core/test/data/localUploadDir/test3.gif
+R	modules/core/test/data/localUploadDir/test4.gif
+R	modules/core/test/data/localUploadDir/test[3].gif
+R	modules/core/test/data/localUploadDir
+R	modules/core/test/data/test3.gif
+R	modules/core/test/data/täst1.png
+R	modules/core/test/phpunit/AdminLayoutsControllerTest.class
+R	modules/core/test/phpunit/AdminLinkIdTest.class
+R	modules/core/test/phpunit/AdminModulesControllerTest.class
+R	modules/core/test/phpunit/ItemAddFromServerTest.class
+R	modules/core/test/phpunit/ItemAddFromWebTest.class
+R	modules/core/test/phpunit/ItemCreateLinkControllerTest.class
+R	modules/core/test/phpunit/ItemCreateLinkSingleControllerTest.class
+R	modules/core/test/phpunit/ItemEditLayoutPluginTest.class
+R	modules/core/test/phpunit/ItemEditPhotoSizesPluginTest.class
+R	modules/core/test/phpunit/ItemPropertiesTest.class
+R	modules/core/test/phpunit/LayoutTest.class
+R	modules/core/test/phpunit/ModuleCallbackTest.class
+R	modules/core/test/phpunit/Php41CompatibilityTest.class
+R	modules/core/test/phpunit/Php41IllegalFunctions.inc
+R	modules/core/test/phpunit/SafeCssNameTest.class
+R	modules/core/test/phpunit/TemplateAudit.class
+R	modules/core/test/phpunit/UserPreferencesControllerTest2.class
